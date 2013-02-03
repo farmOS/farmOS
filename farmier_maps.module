@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Farmier Maps feature.
+ */
+
+include_once 'farmier_maps.features.inc';

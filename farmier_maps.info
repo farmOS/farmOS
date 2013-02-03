@@ -1,0 +1,14 @@
+name = Farmier Maps
+description = Provides features for displaying and working with maps.
+core = 7.x
+package = Farmier
+dependencies[] = ctools
+dependencies[] = openlayers
+dependencies[] = strongarm
+features[ctools][] = openlayers:openlayers_maps:1
+features[ctools][] = strongarm:strongarm:1
+features[features_api][] = api:1
+features[openlayers_maps][] = farmier
+features[variable][] = openlayers_default_map
+features[variable][] = openlayers_source
+features[variable][] = openlayers_ui_preview_map
