@@ -52,8 +52,7 @@ function farmier_maps_openlayers_maps() {
       'openlayers_behavior_zoomtolayer' => array(
         'zoomtolayer' => array(
           'geofield_formatter' => 'geofield_formatter',
-          'google_satellite' => 0,
-          'osm_mapnik' => 0,
+          'mapquest_osm' => 0,
         ),
         'point_zoom_level' => '16',
         'zoomtolayer_scale' => '1',
@@ -84,8 +83,8 @@ function farmier_maps_openlayers_maps() {
       'geofield_formatter' => 'geofield_formatter',
       'openlayers_geojson_picture_this' => 0,
     ),
-    'projection' => '900913',
-    'displayProjection' => '4326',
+    'projection' => 'EPSG:3857',
+    'displayProjection' => 'EPSG:4326',
     'styles' => array(
       'default' => 'default',
       'select' => 'default_select',
