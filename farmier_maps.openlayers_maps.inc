@@ -19,8 +19,8 @@ function farmier_maps_openlayers_maps() {
   $openlayers_maps->data = array(
     'width' => 'auto',
     'height' => '400px',
-    'image_path' => 'sites/all/modules/openlayers/themes/default_dark/img/',
-    'css_path' => 'sites/all/modules/openlayers/themes/default_dark/style.css',
+    'image_path' => 'profiles/farm/modules/contrib/openlayers/themes/default_dark/img/',
+    'css_path' => 'profiles/farm/modules/contrib/openlayers/themes/default_dark/style.css',
     'proxy_host' => '',
     'hide_empty_map' => array(),
     'center' => array(
