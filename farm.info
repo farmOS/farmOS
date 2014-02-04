@@ -1,0 +1,24 @@
+name = Farm
+description = A profile for farmers.
+core = 7.x
+
+; -----------------------------------------------------------------------------
+; Dependencies
+; -----------------------------------------------------------------------------
+
+; Core
+dependencies[] = block
+dependencies[] = field
+dependencies[] = field_sql_storage
+dependencies[] = field_ui
+dependencies[] = filter
+dependencies[] = menu
+dependencies[] = node
+dependencies[] = path
+dependencies[] = rdf
+dependencies[] = shortcut
+dependencies[] = system
+dependencies[] = taxonomy
+dependencies[] = user
+dependencies[] = dblog
+
