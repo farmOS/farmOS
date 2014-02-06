@@ -1,0 +1,2068 @@
+<?php
+/**
+ * @file
+ * farm_log_sales.features.field.inc
+ */
+
+/**
+ * Implements hook_field_default_fields().
+ */
+function farm_log_sales_field_default_fields() {
+  $fields = array();
+
+  // Exported field: 'log-farm_loss-field_farm_areas'.
+  $fields['log-farm_loss-field_farm_areas'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_areas',
+      'foreign keys' => array(
+        'tid' => array(
+          'columns' => array(
+            'tid' => 'tid',
+          ),
+          'table' => 'taxonomy_term_data',
+        ),
+      ),
+      'indexes' => array(
+        'tid' => array(
+          0 => 'tid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'taxonomy',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => array(
+            'vocabulary' => 'farm_areas',
+            'parent' => '0',
+          ),
+        ),
+      ),
+      'translatable' => '0',
+      'type' => 'taxonomy_term_reference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_loss',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '4',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_areas',
+      'label' => 'Areas',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'taxonomy',
+        'settings' => array(
+          'autocomplete_path' => 'taxonomy/autocomplete',
+          'size' => 60,
+        ),
+        'type' => 'taxonomy_autocomplete',
+        'weight' => '4',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_loss-field_farm_crops'.
+  $fields['log-farm_loss-field_farm_crops'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_crops',
+      'foreign keys' => array(
+        'tid' => array(
+          'columns' => array(
+            'tid' => 'tid',
+          ),
+          'table' => 'taxonomy_term_data',
+        ),
+      ),
+      'indexes' => array(
+        'tid' => array(
+          0 => 'tid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'taxonomy',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => array(
+            'vocabulary' => 'farm_crops',
+            'parent' => '0',
+          ),
+        ),
+      ),
+      'translatable' => '0',
+      'type' => 'taxonomy_term_reference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_loss',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '3',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_crops',
+      'label' => 'Crops',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'taxonomy',
+        'settings' => array(
+          'autocomplete_path' => 'taxonomy/autocomplete',
+          'size' => 60,
+        ),
+        'type' => 'taxonomy_autocomplete',
+        'weight' => '3',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_loss-field_farm_images'.
+  $fields['log-farm_loss-field_farm_images'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_images',
+      'foreign keys' => array(
+        'fid' => array(
+          'columns' => array(
+            'fid' => 'fid',
+          ),
+          'table' => 'file_managed',
+        ),
+      ),
+      'indexes' => array(
+        'fid' => array(
+          0 => 'fid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'image',
+      'settings' => array(
+        'default_image' => 0,
+        'uri_scheme' => 'public',
+      ),
+      'translatable' => '0',
+      'type' => 'image',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_loss',
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'hidden',
+          'module' => 'image',
+          'settings' => array(
+            'image_link' => '',
+            'image_style' => 'large',
+          ),
+          'type' => 'image',
+          'weight' => '6',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_images',
+      'label' => 'Images',
+      'required' => 0,
+      'settings' => array(
+        'alt_field' => 0,
+        'default_image' => 0,
+        'file_directory' => '',
+        'file_extensions' => 'png gif jpg jpeg',
+        'max_filesize' => '',
+        'max_resolution' => '',
+        'min_resolution' => '',
+        'title_field' => 0,
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'image',
+        'settings' => array(
+          'preview_image_style' => 'thumbnail',
+          'progress_indicator' => 'throbber',
+        ),
+        'type' => 'image_image',
+        'weight' => '6',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_loss-field_farm_issues'.
+  $fields['log-farm_loss-field_farm_issues'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_issues',
+      'foreign keys' => array(
+        'log' => array(
+          'columns' => array(
+            'target_id' => 'lid',
+          ),
+          'table' => 'log',
+        ),
+      ),
+      'indexes' => array(
+        'target_id' => array(
+          0 => 'target_id',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'entityreference',
+      'settings' => array(
+        'handler' => 'base',
+        'handler_settings' => array(
+          'behaviors' => array(
+            'views-select-list' => array(
+              'status' => 0,
+            ),
+          ),
+          'sort' => array(
+            'direction' => 'DESC',
+            'property' => 'timestamp',
+            'type' => 'property',
+          ),
+          'target_bundles' => array(
+            'farm_issue' => 'farm_issue',
+          ),
+        ),
+        'target_type' => 'log',
+      ),
+      'translatable' => '0',
+      'type' => 'entityreference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_loss',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'Optionally, select other issues that are related to this loss. This helps to connect data.',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => 1,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '7',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_issues',
+      'label' => 'Related Issues',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_select',
+        'weight' => '7',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_loss-field_farm_losses'.
+  $fields['log-farm_loss-field_farm_losses'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_losses',
+      'foreign keys' => array(
+        'log' => array(
+          'columns' => array(
+            'target_id' => 'lid',
+          ),
+          'table' => 'log',
+        ),
+      ),
+      'indexes' => array(
+        'target_id' => array(
+          0 => 'target_id',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'entityreference',
+      'settings' => array(
+        'handler' => 'base',
+        'handler_settings' => array(
+          'behaviors' => array(
+            'views-select-list' => array(
+              'status' => 0,
+            ),
+          ),
+          'sort' => array(
+            'direction' => 'DESC',
+            'property' => 'timestamp',
+            'type' => 'property',
+          ),
+          'target_bundles' => array(
+            'farm_loss' => 'farm_loss',
+          ),
+        ),
+        'target_type' => 'log',
+      ),
+      'translatable' => '0',
+      'type' => 'entityreference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_loss',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'Optionally, select other losses that are related to this one. This helps to connect data.',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => 1,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '9',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_losses',
+      'label' => 'Related Losses',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_select',
+        'weight' => '9',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_loss-field_farm_notes'.
+  $fields['log-farm_loss-field_farm_notes'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_notes',
+      'foreign keys' => array(
+        'format' => array(
+          'columns' => array(
+            'format' => 'format',
+          ),
+          'table' => 'filter_format',
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'text',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'text_long',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_loss',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '5',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_notes',
+      'label' => 'Notes',
+      'required' => 0,
+      'settings' => array(
+        'text_processing' => '0',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'text',
+        'settings' => array(
+          'rows' => '5',
+        ),
+        'type' => 'text_textarea',
+        'weight' => '5',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_loss-field_farm_plantings'.
+  $fields['log-farm_loss-field_farm_plantings'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_plantings',
+      'foreign keys' => array(
+        'log' => array(
+          'columns' => array(
+            'target_id' => 'lid',
+          ),
+          'table' => 'log',
+        ),
+      ),
+      'indexes' => array(
+        'target_id' => array(
+          0 => 'target_id',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'entityreference',
+      'settings' => array(
+        'handler' => 'base',
+        'handler_settings' => array(
+          'behaviors' => array(
+            'views-select-list' => array(
+              'status' => 0,
+            ),
+          ),
+          'sort' => array(
+            'direction' => 'DESC',
+            'property' => 'timestamp',
+            'type' => 'property',
+          ),
+          'target_bundles' => array(
+            'farm_planting' => 'farm_planting',
+          ),
+        ),
+        'target_type' => 'log',
+      ),
+      'translatable' => '0',
+      'type' => 'entityreference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_loss',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'Optionally, select plantings that are related to this loss. This helps to connect data.',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => 1,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '8',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_plantings',
+      'label' => 'Related Plantings',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_select',
+        'weight' => '8',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_loss-field_farm_quantity_units'.
+  $fields['log-farm_loss-field_farm_quantity_units'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_quantity_units',
+      'foreign keys' => array(
+        'tid' => array(
+          'columns' => array(
+            'tid' => 'tid',
+          ),
+          'table' => 'taxonomy_term_data',
+        ),
+      ),
+      'indexes' => array(
+        'tid' => array(
+          0 => 'tid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'taxonomy',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => array(
+            'vocabulary' => 'farm_quantity_units',
+            'parent' => '0',
+          ),
+        ),
+      ),
+      'translatable' => '0',
+      'type' => 'taxonomy_term_reference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_loss',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'Row feet? Bushels? Chickens?',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '2',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_quantity_units',
+      'label' => 'Units',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'taxonomy',
+        'settings' => array(
+          'autocomplete_path' => 'taxonomy/autocomplete',
+          'size' => 60,
+        ),
+        'type' => 'taxonomy_autocomplete',
+        'weight' => '2',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_loss-field_farm_quantity_value'.
+  $fields['log-farm_loss-field_farm_quantity_value'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_quantity_value',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'locked' => '0',
+      'module' => 'fraction',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'fraction',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_loss',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'How much?',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'fraction',
+          'settings' => array(
+            'precision' => '3',
+          ),
+          'type' => 'fraction_decimal',
+          'weight' => '1',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_quantity_value',
+      'label' => 'Quantity',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'fraction',
+        'settings' => array(
+          'precision' => '3',
+        ),
+        'type' => 'fraction_decimal',
+        'weight' => '1',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_loss-field_farm_value'.
+  $fields['log-farm_loss-field_farm_value'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_value',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'locked' => '0',
+      'module' => 'fraction',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'fraction',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_loss',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'What was the monetary value of the loss?',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'fraction',
+          'settings' => array(
+            'precision' => 2,
+          ),
+          'type' => 'fraction_decimal',
+          'weight' => '0',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_value',
+      'label' => 'Value',
+      'required' => 1,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'fraction',
+        'settings' => array(
+          'precision' => '2',
+        ),
+        'type' => 'fraction_decimal',
+        'weight' => '0',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_purchase-field_farm_areas'.
+  $fields['log-farm_purchase-field_farm_areas'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_areas',
+      'foreign keys' => array(
+        'tid' => array(
+          'columns' => array(
+            'tid' => 'tid',
+          ),
+          'table' => 'taxonomy_term_data',
+        ),
+      ),
+      'indexes' => array(
+        'tid' => array(
+          0 => 'tid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'taxonomy',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => array(
+            'vocabulary' => 'farm_areas',
+            'parent' => '0',
+          ),
+        ),
+      ),
+      'translatable' => '0',
+      'type' => 'taxonomy_term_reference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_purchase',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '4',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_areas',
+      'label' => 'Areas',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'taxonomy',
+        'settings' => array(
+          'autocomplete_path' => 'taxonomy/autocomplete',
+          'size' => 60,
+        ),
+        'type' => 'taxonomy_autocomplete',
+        'weight' => '4',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_purchase-field_farm_crops'.
+  $fields['log-farm_purchase-field_farm_crops'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_crops',
+      'foreign keys' => array(
+        'tid' => array(
+          'columns' => array(
+            'tid' => 'tid',
+          ),
+          'table' => 'taxonomy_term_data',
+        ),
+      ),
+      'indexes' => array(
+        'tid' => array(
+          0 => 'tid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'taxonomy',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => array(
+            'vocabulary' => 'farm_crops',
+            'parent' => '0',
+          ),
+        ),
+      ),
+      'translatable' => '0',
+      'type' => 'taxonomy_term_reference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_purchase',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '3',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_crops',
+      'label' => 'Crops',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'taxonomy',
+        'settings' => array(
+          'autocomplete_path' => 'taxonomy/autocomplete',
+          'size' => 60,
+        ),
+        'type' => 'taxonomy_autocomplete',
+        'weight' => '3',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_purchase-field_farm_images'.
+  $fields['log-farm_purchase-field_farm_images'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_images',
+      'foreign keys' => array(
+        'fid' => array(
+          'columns' => array(
+            'fid' => 'fid',
+          ),
+          'table' => 'file_managed',
+        ),
+      ),
+      'indexes' => array(
+        'fid' => array(
+          0 => 'fid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'image',
+      'settings' => array(
+        'default_image' => 0,
+        'uri_scheme' => 'public',
+      ),
+      'translatable' => '0',
+      'type' => 'image',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_purchase',
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'hidden',
+          'module' => 'image',
+          'settings' => array(
+            'image_link' => '',
+            'image_style' => 'large',
+          ),
+          'type' => 'image',
+          'weight' => '6',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_images',
+      'label' => 'Images',
+      'required' => 0,
+      'settings' => array(
+        'alt_field' => 0,
+        'default_image' => 0,
+        'file_directory' => '',
+        'file_extensions' => 'png gif jpg jpeg',
+        'max_filesize' => '',
+        'max_resolution' => '',
+        'min_resolution' => '',
+        'title_field' => 0,
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'image',
+        'settings' => array(
+          'preview_image_style' => 'thumbnail',
+          'progress_indicator' => 'throbber',
+        ),
+        'type' => 'image_image',
+        'weight' => '6',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_purchase-field_farm_issues'.
+  $fields['log-farm_purchase-field_farm_issues'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_issues',
+      'foreign keys' => array(
+        'log' => array(
+          'columns' => array(
+            'target_id' => 'lid',
+          ),
+          'table' => 'log',
+        ),
+      ),
+      'indexes' => array(
+        'target_id' => array(
+          0 => 'target_id',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'entityreference',
+      'settings' => array(
+        'handler' => 'base',
+        'handler_settings' => array(
+          'behaviors' => array(
+            'views-select-list' => array(
+              'status' => 0,
+            ),
+          ),
+          'sort' => array(
+            'direction' => 'DESC',
+            'property' => 'timestamp',
+            'type' => 'property',
+          ),
+          'target_bundles' => array(
+            'farm_issue' => 'farm_issue',
+          ),
+        ),
+        'target_type' => 'log',
+      ),
+      'translatable' => '0',
+      'type' => 'entityreference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_purchase',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'Optionally, select issues that are related to this purchase. This helps to connect data.',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => 1,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '7',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_issues',
+      'label' => 'Related Issues',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_select',
+        'weight' => '7',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_purchase-field_farm_notes'.
+  $fields['log-farm_purchase-field_farm_notes'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_notes',
+      'foreign keys' => array(
+        'format' => array(
+          'columns' => array(
+            'format' => 'format',
+          ),
+          'table' => 'filter_format',
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'text',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'text_long',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_purchase',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '5',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_notes',
+      'label' => 'Notes',
+      'required' => 0,
+      'settings' => array(
+        'text_processing' => '0',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'text',
+        'settings' => array(
+          'rows' => '5',
+        ),
+        'type' => 'text_textarea',
+        'weight' => '5',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_purchase-field_farm_plantings'.
+  $fields['log-farm_purchase-field_farm_plantings'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_plantings',
+      'foreign keys' => array(
+        'log' => array(
+          'columns' => array(
+            'target_id' => 'lid',
+          ),
+          'table' => 'log',
+        ),
+      ),
+      'indexes' => array(
+        'target_id' => array(
+          0 => 'target_id',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'entityreference',
+      'settings' => array(
+        'handler' => 'base',
+        'handler_settings' => array(
+          'behaviors' => array(
+            'views-select-list' => array(
+              'status' => 0,
+            ),
+          ),
+          'sort' => array(
+            'direction' => 'DESC',
+            'property' => 'timestamp',
+            'type' => 'property',
+          ),
+          'target_bundles' => array(
+            'farm_planting' => 'farm_planting',
+          ),
+        ),
+        'target_type' => 'log',
+      ),
+      'translatable' => '0',
+      'type' => 'entityreference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_purchase',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'Optionally, select plantings that are related to this purchase. This helps to connect data.',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => 1,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '8',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_plantings',
+      'label' => 'Related Plantings',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_select',
+        'weight' => '8',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_purchase-field_farm_purchases'.
+  $fields['log-farm_purchase-field_farm_purchases'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_purchases',
+      'foreign keys' => array(
+        'log' => array(
+          'columns' => array(
+            'target_id' => 'lid',
+          ),
+          'table' => 'log',
+        ),
+      ),
+      'indexes' => array(
+        'target_id' => array(
+          0 => 'target_id',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'entityreference',
+      'settings' => array(
+        'handler' => 'base',
+        'handler_settings' => array(
+          'behaviors' => array(
+            'views-select-list' => array(
+              'status' => 0,
+            ),
+          ),
+          'sort' => array(
+            'direction' => 'ASC',
+            'property' => 'timestamp',
+            'type' => 'property',
+          ),
+          'target_bundles' => array(
+            'farm_purchase' => 'farm_purchase',
+          ),
+        ),
+        'target_type' => 'log',
+      ),
+      'translatable' => '0',
+      'type' => 'entityreference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_purchase',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'Optionally, select other purchases that are related to this one. This helps to connect data.',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => 1,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '9',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_purchases',
+      'label' => 'Related Purchases',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_select',
+        'weight' => '9',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_purchase-field_farm_quantity_units'.
+  $fields['log-farm_purchase-field_farm_quantity_units'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_quantity_units',
+      'foreign keys' => array(
+        'tid' => array(
+          'columns' => array(
+            'tid' => 'tid',
+          ),
+          'table' => 'taxonomy_term_data',
+        ),
+      ),
+      'indexes' => array(
+        'tid' => array(
+          0 => 'tid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'taxonomy',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => array(
+            'vocabulary' => 'farm_quantity_units',
+            'parent' => '0',
+          ),
+        ),
+      ),
+      'translatable' => '0',
+      'type' => 'taxonomy_term_reference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_purchase',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'Packets? Feet? Pounds?',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '2',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_quantity_units',
+      'label' => 'Units',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'taxonomy',
+        'settings' => array(
+          'autocomplete_path' => 'taxonomy/autocomplete',
+          'size' => 60,
+        ),
+        'type' => 'taxonomy_autocomplete',
+        'weight' => '2',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_purchase-field_farm_quantity_value'.
+  $fields['log-farm_purchase-field_farm_quantity_value'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_quantity_value',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'locked' => '0',
+      'module' => 'fraction',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'fraction',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_purchase',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'How much?',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'fraction',
+          'settings' => array(
+            'precision' => '3',
+          ),
+          'type' => 'fraction_decimal',
+          'weight' => '1',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_quantity_value',
+      'label' => 'Quantity',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'fraction',
+        'settings' => array(
+          'precision' => '3',
+        ),
+        'type' => 'fraction_decimal',
+        'weight' => '1',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_purchase-field_farm_value'.
+  $fields['log-farm_purchase-field_farm_value'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_value',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'locked' => '0',
+      'module' => 'fraction',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'fraction',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_purchase',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'What was the monetary value of the loss?',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'fraction',
+          'settings' => array(
+            'precision' => 2,
+          ),
+          'type' => 'fraction_decimal',
+          'weight' => '0',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_value',
+      'label' => 'Value',
+      'required' => 1,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'fraction',
+        'settings' => array(
+          'precision' => '2',
+        ),
+        'type' => 'fraction_decimal',
+        'weight' => '0',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_sale-field_farm_areas'.
+  $fields['log-farm_sale-field_farm_areas'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_areas',
+      'foreign keys' => array(
+        'tid' => array(
+          'columns' => array(
+            'tid' => 'tid',
+          ),
+          'table' => 'taxonomy_term_data',
+        ),
+      ),
+      'indexes' => array(
+        'tid' => array(
+          0 => 'tid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'taxonomy',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => array(
+            'vocabulary' => 'farm_areas',
+            'parent' => '0',
+          ),
+        ),
+      ),
+      'translatable' => '0',
+      'type' => 'taxonomy_term_reference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_sale',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '4',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_areas',
+      'label' => 'Areas',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'taxonomy',
+        'settings' => array(
+          'autocomplete_path' => 'taxonomy/autocomplete',
+          'size' => 60,
+        ),
+        'type' => 'taxonomy_autocomplete',
+        'weight' => '4',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_sale-field_farm_crops'.
+  $fields['log-farm_sale-field_farm_crops'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_crops',
+      'foreign keys' => array(
+        'tid' => array(
+          'columns' => array(
+            'tid' => 'tid',
+          ),
+          'table' => 'taxonomy_term_data',
+        ),
+      ),
+      'indexes' => array(
+        'tid' => array(
+          0 => 'tid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'taxonomy',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => array(
+            'vocabulary' => 'farm_crops',
+            'parent' => '0',
+          ),
+        ),
+      ),
+      'translatable' => '0',
+      'type' => 'taxonomy_term_reference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_sale',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '3',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_crops',
+      'label' => 'Crops',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'taxonomy',
+        'settings' => array(
+          'autocomplete_path' => 'taxonomy/autocomplete',
+          'size' => 60,
+        ),
+        'type' => 'taxonomy_autocomplete',
+        'weight' => '3',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_sale-field_farm_images'.
+  $fields['log-farm_sale-field_farm_images'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_images',
+      'foreign keys' => array(
+        'fid' => array(
+          'columns' => array(
+            'fid' => 'fid',
+          ),
+          'table' => 'file_managed',
+        ),
+      ),
+      'indexes' => array(
+        'fid' => array(
+          0 => 'fid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'image',
+      'settings' => array(
+        'default_image' => 0,
+        'uri_scheme' => 'public',
+      ),
+      'translatable' => '0',
+      'type' => 'image',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_sale',
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'hidden',
+          'module' => 'image',
+          'settings' => array(
+            'image_link' => '',
+            'image_style' => 'large',
+          ),
+          'type' => 'image',
+          'weight' => '6',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_images',
+      'label' => 'Images',
+      'required' => 0,
+      'settings' => array(
+        'alt_field' => 0,
+        'default_image' => 0,
+        'file_directory' => '',
+        'file_extensions' => 'png gif jpg jpeg',
+        'max_filesize' => '',
+        'max_resolution' => '',
+        'min_resolution' => '',
+        'title_field' => 0,
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'image',
+        'settings' => array(
+          'preview_image_style' => 'thumbnail',
+          'progress_indicator' => 'throbber',
+        ),
+        'type' => 'image_image',
+        'weight' => '6',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_sale-field_farm_issues'.
+  $fields['log-farm_sale-field_farm_issues'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_issues',
+      'foreign keys' => array(
+        'log' => array(
+          'columns' => array(
+            'target_id' => 'lid',
+          ),
+          'table' => 'log',
+        ),
+      ),
+      'indexes' => array(
+        'target_id' => array(
+          0 => 'target_id',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'entityreference',
+      'settings' => array(
+        'handler' => 'base',
+        'handler_settings' => array(
+          'behaviors' => array(
+            'views-select-list' => array(
+              'status' => 0,
+            ),
+          ),
+          'sort' => array(
+            'direction' => 'DESC',
+            'property' => 'timestamp',
+            'type' => 'property',
+          ),
+          'target_bundles' => array(
+            'farm_issue' => 'farm_issue',
+          ),
+        ),
+        'target_type' => 'log',
+      ),
+      'translatable' => '0',
+      'type' => 'entityreference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_sale',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'Optionally, select issues that are related to this sale. This helps to connect data.',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => 1,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '7',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_issues',
+      'label' => 'Related Issues',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_select',
+        'weight' => '7',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_sale-field_farm_notes'.
+  $fields['log-farm_sale-field_farm_notes'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_notes',
+      'foreign keys' => array(
+        'format' => array(
+          'columns' => array(
+            'format' => 'format',
+          ),
+          'table' => 'filter_format',
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'text',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'text_long',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_sale',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '5',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_notes',
+      'label' => 'Notes',
+      'required' => 0,
+      'settings' => array(
+        'text_processing' => '0',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'text',
+        'settings' => array(
+          'rows' => '5',
+        ),
+        'type' => 'text_textarea',
+        'weight' => '5',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_sale-field_farm_plantings'.
+  $fields['log-farm_sale-field_farm_plantings'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_plantings',
+      'foreign keys' => array(
+        'log' => array(
+          'columns' => array(
+            'target_id' => 'lid',
+          ),
+          'table' => 'log',
+        ),
+      ),
+      'indexes' => array(
+        'target_id' => array(
+          0 => 'target_id',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'entityreference',
+      'settings' => array(
+        'handler' => 'base',
+        'handler_settings' => array(
+          'behaviors' => array(
+            'views-select-list' => array(
+              'status' => 0,
+            ),
+          ),
+          'sort' => array(
+            'direction' => 'DESC',
+            'property' => 'timestamp',
+            'type' => 'property',
+          ),
+          'target_bundles' => array(
+            'farm_planting' => 'farm_planting',
+          ),
+        ),
+        'target_type' => 'log',
+      ),
+      'translatable' => '0',
+      'type' => 'entityreference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_sale',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'Optionally, select plantings that are related to this sale. This helps to connect data.',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => 1,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '8',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_plantings',
+      'label' => 'Related Plantings',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_select',
+        'weight' => '8',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_sale-field_farm_quantity_units'.
+  $fields['log-farm_sale-field_farm_quantity_units'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_quantity_units',
+      'foreign keys' => array(
+        'tid' => array(
+          'columns' => array(
+            'tid' => 'tid',
+          ),
+          'table' => 'taxonomy_term_data',
+        ),
+      ),
+      'indexes' => array(
+        'tid' => array(
+          0 => 'tid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'taxonomy',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => array(
+            'vocabulary' => 'farm_quantity_units',
+            'parent' => '0',
+          ),
+        ),
+      ),
+      'translatable' => '0',
+      'type' => 'taxonomy_term_reference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_sale',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'Cases? Pounds? Bunches?',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '2',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_quantity_units',
+      'label' => 'Units',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'taxonomy',
+        'settings' => array(
+          'autocomplete_path' => 'taxonomy/autocomplete',
+          'size' => 60,
+        ),
+        'type' => 'taxonomy_autocomplete',
+        'weight' => '2',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_sale-field_farm_quantity_value'.
+  $fields['log-farm_sale-field_farm_quantity_value'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_quantity_value',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'locked' => '0',
+      'module' => 'fraction',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'fraction',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_sale',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'How much?',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'fraction',
+          'settings' => array(
+            'precision' => '3',
+          ),
+          'type' => 'fraction_decimal',
+          'weight' => '1',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_quantity_value',
+      'label' => 'Quantity',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'fraction',
+        'settings' => array(
+          'precision' => '3',
+        ),
+        'type' => 'fraction_decimal',
+        'weight' => '1',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_sale-field_farm_sales'.
+  $fields['log-farm_sale-field_farm_sales'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_sales',
+      'foreign keys' => array(
+        'log' => array(
+          'columns' => array(
+            'target_id' => 'lid',
+          ),
+          'table' => 'log',
+        ),
+      ),
+      'indexes' => array(
+        'target_id' => array(
+          0 => 'target_id',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'entityreference',
+      'settings' => array(
+        'handler' => 'base',
+        'handler_settings' => array(
+          'behaviors' => array(
+            'views-select-list' => array(
+              'status' => 0,
+            ),
+          ),
+          'sort' => array(
+            'direction' => 'ASC',
+            'property' => 'timestamp',
+            'type' => 'property',
+          ),
+          'target_bundles' => array(
+            'farm_sales' => 'farm_sales',
+          ),
+        ),
+        'target_type' => 'log',
+      ),
+      'translatable' => '0',
+      'type' => 'entityreference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_sale',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'Optionally, select other sales that are related to this one. This helps to connect data.',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => 1,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '9',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_sales',
+      'label' => 'Related Sales',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_select',
+        'weight' => '9',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_sale-field_farm_value'.
+  $fields['log-farm_sale-field_farm_value'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_value',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'locked' => '0',
+      'module' => 'fraction',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'fraction',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_sale',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'fraction',
+          'settings' => array(
+            'precision' => 2,
+          ),
+          'type' => 'fraction_decimal',
+          'weight' => '0',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_value',
+      'label' => 'Value',
+      'required' => 1,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'fraction',
+        'settings' => array(
+          'precision' => '2',
+        ),
+        'type' => 'fraction_decimal',
+        'weight' => '0',
+      ),
+    ),
+  );
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Areas');
+  t('Cases? Pounds? Bunches?');
+  t('Crops');
+  t('How much?');
+  t('Images');
+  t('Notes');
+  t('Optionally, select issues that are related to this purchase. This helps to connect data.');
+  t('Optionally, select issues that are related to this sale. This helps to connect data.');
+  t('Optionally, select other issues that are related to this loss. This helps to connect data.');
+  t('Optionally, select other losses that are related to this one. This helps to connect data.');
+  t('Optionally, select other purchases that are related to this one. This helps to connect data.');
+  t('Optionally, select other sales that are related to this one. This helps to connect data.');
+  t('Optionally, select plantings that are related to this loss. This helps to connect data.');
+  t('Optionally, select plantings that are related to this purchase. This helps to connect data.');
+  t('Optionally, select plantings that are related to this sale. This helps to connect data.');
+  t('Packets? Feet? Pounds?');
+  t('Quantity');
+  t('Related Issues');
+  t('Related Losses');
+  t('Related Plantings');
+  t('Related Purchases');
+  t('Related Sales');
+  t('Row feet? Bushels? Chickens?');
+  t('Units');
+  t('Value');
+  t('What was the monetary value of the loss?');
+
+  return $fields;
+}
