@@ -5,6 +5,13 @@
  */
 
 /**
+ * Implements hook_views_api().
+ */
+function farm_log_sales_views_api() {
+  return array("version" => "3.0");
+}
+
+/**
  * Implements hook_default_log_type().
  */
 function farm_log_sales_default_log_type() {

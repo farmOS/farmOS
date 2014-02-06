@@ -306,20 +306,17 @@ function farm_log_field_default_fields() {
       'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
-        'handler' => 'base',
+        'handler' => 'views',
         'handler_settings' => array(
           'behaviors' => array(
             'views-select-list' => array(
               'status' => 0,
             ),
           ),
-          'sort' => array(
-            'direction' => 'DESC',
-            'property' => 'timestamp',
-            'type' => 'property',
-          ),
-          'target_bundles' => array(
-            'farm_issue' => 'farm_issue',
+          'view' => array(
+            'args' => array(),
+            'display_name' => 'entityreference_1',
+            'view_name' => 'farm_log_issues',
           ),
         ),
         'target_type' => 'log',

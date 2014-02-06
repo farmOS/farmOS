@@ -244,20 +244,17 @@ function farm_log_sales_field_default_fields() {
       'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
-        'handler' => 'base',
+        'handler' => 'views',
         'handler_settings' => array(
           'behaviors' => array(
             'views-select-list' => array(
               'status' => 0,
             ),
           ),
-          'sort' => array(
-            'direction' => 'DESC',
-            'property' => 'timestamp',
-            'type' => 'property',
-          ),
-          'target_bundles' => array(
-            'farm_issue' => 'farm_issue',
+          'view' => array(
+            'args' => array(),
+            'display_name' => 'entityreference_1',
+            'view_name' => 'farm_log_issues',
           ),
         ),
         'target_type' => 'log',
@@ -322,20 +319,17 @@ function farm_log_sales_field_default_fields() {
       'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
-        'handler' => 'base',
+        'handler' => 'views',
         'handler_settings' => array(
           'behaviors' => array(
             'views-select-list' => array(
               'status' => 0,
             ),
           ),
-          'sort' => array(
-            'direction' => 'DESC',
-            'property' => 'timestamp',
-            'type' => 'property',
-          ),
-          'target_bundles' => array(
-            'farm_loss' => 'farm_loss',
+          'view' => array(
+            'args' => array(),
+            'display_name' => 'entityreference_1',
+            'view_name' => 'farm_log_loss',
           ),
         ),
         'target_type' => 'log',
@@ -461,20 +455,17 @@ function farm_log_sales_field_default_fields() {
       'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
-        'handler' => 'base',
+        'handler' => 'views',
         'handler_settings' => array(
           'behaviors' => array(
             'views-select-list' => array(
               'status' => 0,
             ),
           ),
-          'sort' => array(
-            'direction' => 'DESC',
-            'property' => 'timestamp',
-            'type' => 'property',
-          ),
-          'target_bundles' => array(
-            'farm_planting' => 'farm_planting',
+          'view' => array(
+            'args' => array(),
+            'display_name' => 'entityreference_1',
+            'view_name' => 'farm_log_planting',
           ),
         ),
         'target_type' => 'log',
@@ -919,20 +910,17 @@ function farm_log_sales_field_default_fields() {
       'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
-        'handler' => 'base',
+        'handler' => 'views',
         'handler_settings' => array(
           'behaviors' => array(
             'views-select-list' => array(
               'status' => 0,
             ),
           ),
-          'sort' => array(
-            'direction' => 'DESC',
-            'property' => 'timestamp',
-            'type' => 'property',
-          ),
-          'target_bundles' => array(
-            'farm_issue' => 'farm_issue',
+          'view' => array(
+            'args' => array(),
+            'display_name' => 'entityreference_1',
+            'view_name' => 'farm_log_issues',
           ),
         ),
         'target_type' => 'log',
@@ -1058,20 +1046,17 @@ function farm_log_sales_field_default_fields() {
       'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
-        'handler' => 'base',
+        'handler' => 'views',
         'handler_settings' => array(
           'behaviors' => array(
             'views-select-list' => array(
               'status' => 0,
             ),
           ),
-          'sort' => array(
-            'direction' => 'DESC',
-            'property' => 'timestamp',
-            'type' => 'property',
-          ),
-          'target_bundles' => array(
-            'farm_planting' => 'farm_planting',
+          'view' => array(
+            'args' => array(),
+            'display_name' => 'entityreference_1',
+            'view_name' => 'farm_log_planting',
           ),
         ),
         'target_type' => 'log',
@@ -1136,20 +1121,17 @@ function farm_log_sales_field_default_fields() {
       'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
-        'handler' => 'base',
+        'handler' => 'views',
         'handler_settings' => array(
           'behaviors' => array(
             'views-select-list' => array(
               'status' => 0,
             ),
           ),
-          'sort' => array(
-            'direction' => 'ASC',
-            'property' => 'timestamp',
-            'type' => 'property',
-          ),
-          'target_bundles' => array(
-            'farm_purchase' => 'farm_purchase',
+          'view' => array(
+            'args' => array(),
+            'display_name' => 'entityreference_1',
+            'view_name' => 'farm_log_purchase',
           ),
         ),
         'target_type' => 'log',
@@ -1594,20 +1576,17 @@ function farm_log_sales_field_default_fields() {
       'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
-        'handler' => 'base',
+        'handler' => 'views',
         'handler_settings' => array(
           'behaviors' => array(
             'views-select-list' => array(
               'status' => 0,
             ),
           ),
-          'sort' => array(
-            'direction' => 'DESC',
-            'property' => 'timestamp',
-            'type' => 'property',
-          ),
-          'target_bundles' => array(
-            'farm_issue' => 'farm_issue',
+          'view' => array(
+            'args' => array(),
+            'display_name' => 'entityreference_1',
+            'view_name' => 'farm_log_issues',
           ),
         ),
         'target_type' => 'log',
@@ -1733,20 +1712,17 @@ function farm_log_sales_field_default_fields() {
       'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
-        'handler' => 'base',
+        'handler' => 'views',
         'handler_settings' => array(
           'behaviors' => array(
             'views-select-list' => array(
               'status' => 0,
             ),
           ),
-          'sort' => array(
-            'direction' => 'DESC',
-            'property' => 'timestamp',
-            'type' => 'property',
-          ),
-          'target_bundles' => array(
-            'farm_planting' => 'farm_planting',
+          'view' => array(
+            'args' => array(),
+            'display_name' => 'entityreference_1',
+            'view_name' => 'farm_log_planting',
           ),
         ),
         'target_type' => 'log',
@@ -1930,20 +1906,17 @@ function farm_log_sales_field_default_fields() {
       'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
-        'handler' => 'base',
+        'handler' => 'views',
         'handler_settings' => array(
           'behaviors' => array(
             'views-select-list' => array(
               'status' => 0,
             ),
           ),
-          'sort' => array(
-            'direction' => 'ASC',
-            'property' => 'timestamp',
-            'type' => 'property',
-          ),
-          'target_bundles' => array(
-            'farm_sales' => 'farm_sales',
+          'view' => array(
+            'args' => array(),
+            'display_name' => 'entityreference_1',
+            'view_name' => 'farm_log_sale',
           ),
         ),
         'target_type' => 'log',
