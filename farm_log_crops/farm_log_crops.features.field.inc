@@ -60,7 +60,7 @@ function farm_log_crops_field_default_fields() {
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_areas',
-      'label' => 'Areas',
+      'label' => 'Fields/Beds',
       'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
@@ -674,7 +674,7 @@ function farm_log_crops_field_default_fields() {
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_areas',
-      'label' => 'Areas',
+      'label' => 'Fields/Beds',
       'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
@@ -1298,7 +1298,7 @@ function farm_log_crops_field_default_fields() {
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_areas',
-      'label' => 'Areas',
+      'label' => 'Fields/Beds',
       'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
@@ -2001,11 +2001,11 @@ function farm_log_crops_field_default_fields() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Areas');
   t('Bushels? Pounds? Dozens?');
   t('Containers');
   t('Crops');
   t('Fertilizer');
+  t('Fields/Beds');
   t('Gallons? Pounds? Handfuls?');
   t('How much?');
   t('Images');
