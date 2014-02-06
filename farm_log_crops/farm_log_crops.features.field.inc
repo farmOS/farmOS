@@ -272,7 +272,7 @@ function farm_log_crops_field_default_fields() {
             'link' => 1,
           ),
           'type' => 'entityreference_label',
-          'weight' => '8',
+          'weight' => '9',
         ),
       ),
       'entity_type' => 'log',
@@ -287,7 +287,7 @@ function farm_log_crops_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '8',
+        'weight' => '9',
       ),
     ),
   );
@@ -362,6 +362,81 @@ function farm_log_crops_field_default_fields() {
         ),
         'type' => 'image_image',
         'weight' => '6',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_fertilize-field_farm_issues'.
+  $fields['log-farm_fertilize-field_farm_issues'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_issues',
+      'foreign keys' => array(
+        'log' => array(
+          'columns' => array(
+            'target_id' => 'lid',
+          ),
+          'table' => 'log',
+        ),
+      ),
+      'indexes' => array(
+        'target_id' => array(
+          0 => 'target_id',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'entityreference',
+      'settings' => array(
+        'handler' => 'views',
+        'handler_settings' => array(
+          'behaviors' => array(
+            'views-select-list' => array(
+              'status' => 0,
+            ),
+          ),
+          'view' => array(
+            'args' => array(),
+            'display_name' => 'entityreference_1',
+            'view_name' => 'farm_log_issues',
+          ),
+        ),
+        'target_type' => 'log',
+      ),
+      'translatable' => '0',
+      'type' => 'entityreference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_fertilize',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'Optionally, select issues that are related to this fertilizing. This helps to connect data.',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => 1,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '7',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_issues',
+      'label' => 'Related Issues',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_select',
+        'weight' => '7',
       ),
     ),
   );
@@ -485,7 +560,7 @@ function farm_log_crops_field_default_fields() {
             'link' => 1,
           ),
           'type' => 'entityreference_label',
-          'weight' => '7',
+          'weight' => '8',
         ),
       ),
       'entity_type' => 'log',
@@ -500,7 +575,7 @@ function farm_log_crops_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '7',
+        'weight' => '8',
       ),
     ),
   );
@@ -1526,6 +1601,81 @@ function farm_log_crops_field_default_fields() {
     ),
   );
 
+  // Exported field: 'log-farm_planting-field_farm_issues'.
+  $fields['log-farm_planting-field_farm_issues'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_issues',
+      'foreign keys' => array(
+        'log' => array(
+          'columns' => array(
+            'target_id' => 'lid',
+          ),
+          'table' => 'log',
+        ),
+      ),
+      'indexes' => array(
+        'target_id' => array(
+          0 => 'target_id',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'entityreference',
+      'settings' => array(
+        'handler' => 'views',
+        'handler_settings' => array(
+          'behaviors' => array(
+            'views-select-list' => array(
+              'status' => 0,
+            ),
+          ),
+          'view' => array(
+            'args' => array(),
+            'display_name' => 'entityreference_1',
+            'view_name' => 'farm_log_issues',
+          ),
+        ),
+        'target_type' => 'log',
+      ),
+      'translatable' => '0',
+      'type' => 'entityreference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_planting',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'Optionally, select issues that are related to this planting. This helps to connect data.',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => 1,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '10',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_issues',
+      'label' => 'Related Issues',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_select',
+        'weight' => '10',
+      ),
+    ),
+  );
+
   // Exported field: 'log-farm_planting-field_farm_notes'.
   $fields['log-farm_planting-field_farm_notes'] = array(
     'field_config' => array(
@@ -1706,7 +1856,7 @@ function farm_log_crops_field_default_fields() {
             'link' => 1,
           ),
           'type' => 'entityreference_label',
-          'weight' => '10',
+          'weight' => '11',
         ),
       ),
       'entity_type' => 'log',
@@ -1721,7 +1871,7 @@ function farm_log_crops_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '10',
+        'weight' => '11',
       ),
     ),
   );
@@ -2010,7 +2160,9 @@ function farm_log_crops_field_default_fields() {
   t('How much?');
   t('Images');
   t('Notes');
+  t('Optionally, select issues that are related to this fertilizing. This helps to connect data.');
   t('Optionally, select issues that are related to this harvest. This helps to connect data.');
+  t('Optionally, select issues that are related to this planting. This helps to connect data.');
   t('Optionally, select other harvests that are related to this one. This helps to connect data.');
   t('Optionally, select other logged fertilizings that are related to this one. This helps to connect data.');
   t('Optionally, select plantings that are related to this fertilization. This helps to connect data.');
