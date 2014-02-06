@@ -1329,7 +1329,7 @@ function farm_log_sales_field_default_fields() {
       'bundle' => 'farm_purchase',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'What was the monetary value of the loss?',
+      'description' => 'How much money was spent on the purchase?',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -1355,7 +1355,7 @@ function farm_log_sales_field_default_fields() {
           'precision' => '2',
         ),
         'type' => 'fraction_decimal',
-        'weight' => '0',
+        'weight' => 0,
       ),
     ),
   );
@@ -2004,7 +2004,7 @@ function farm_log_sales_field_default_fields() {
       'bundle' => 'farm_sale',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '',
+      'description' => 'How much money was earned from the sale?',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -2030,7 +2030,7 @@ function farm_log_sales_field_default_fields() {
           'precision' => '2',
         ),
         'type' => 'fraction_decimal',
-        'weight' => '0',
+        'weight' => 0,
       ),
     ),
   );
@@ -2040,6 +2040,8 @@ function farm_log_sales_field_default_fields() {
   t('Cases? Pounds? Bunches?');
   t('Crops');
   t('Fields/Beds');
+  t('How much money was earned from the sale?');
+  t('How much money was spent on the purchase?');
   t('How much?');
   t('Images');
   t('Notes');

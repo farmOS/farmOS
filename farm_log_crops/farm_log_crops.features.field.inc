@@ -1847,7 +1847,7 @@ function farm_log_crops_field_default_fields() {
       'bundle' => 'farm_planting',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'Select other plantings that are related to this one. This helps to connect data.',
+      'description' => 'Optionally, select other plantings that are related to this one. This helps to connect data.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -2089,15 +2089,15 @@ function farm_log_crops_field_default_fields() {
         'cache_enabled' => 0,
         'granularity' => array(
           'day' => 'day',
-          'hour' => 'hour',
+          'hour' => 0,
           'minute' => 0,
           'month' => 'month',
           'second' => 0,
           'year' => 'year',
         ),
-        'timezone_db' => 'UTC',
+        'timezone_db' => '',
         'todate' => '',
-        'tz_handling' => 'site',
+        'tz_handling' => 'none',
       ),
       'translatable' => '0',
       'type' => 'datestamp',
@@ -2165,6 +2165,7 @@ function farm_log_crops_field_default_fields() {
   t('Optionally, select issues that are related to this planting. This helps to connect data.');
   t('Optionally, select other harvests that are related to this one. This helps to connect data.');
   t('Optionally, select other logged fertilizings that are related to this one. This helps to connect data.');
+  t('Optionally, select other plantings that are related to this one. This helps to connect data.');
   t('Optionally, select plantings that are related to this fertilization. This helps to connect data.');
   t('Optionally, select plantings that are related to this harvest. This helps to connect data.');
   t('Planting type');
@@ -2175,7 +2176,6 @@ function farm_log_crops_field_default_fields() {
   t('Related Plantings');
   t('Row feet? Acres? 4" pots?');
   t('Seeding date');
-  t('Select other plantings that are related to this one. This helps to connect data.');
   t('Transplanting date');
   t('Units');
   t('When was this planting direct seeded, if ever?');
