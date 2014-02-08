@@ -110,6 +110,7 @@ function farm_log_crops_views_default_views() {
     'field_farm_quantity_units' => 'field_farm_quantity_units',
     'field_farm_crops' => 'field_farm_crops',
     'field_farm_areas' => 'field_farm_areas',
+    'field_farm_hours' => 'field_farm_hours',
     'field_farm_issues' => 'field_farm_issues',
     'field_farm_plantings' => 'field_farm_plantings',
     'field_farm_fertilizings' => 'field_farm_fertilizings',
@@ -163,6 +164,13 @@ function farm_log_crops_views_default_views() {
       'empty_column' => 0,
     ),
     'field_farm_areas' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_hours' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -248,6 +256,15 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['fields']['field_farm_areas']['table'] = 'field_data_field_farm_areas';
   $handler->display->display_options['fields']['field_farm_areas']['field'] = 'field_farm_areas';
   $handler->display->display_options['fields']['field_farm_areas']['delta_offset'] = '0';
+  /* Field: Log: Total work hours */
+  $handler->display->display_options['fields']['field_farm_hours']['id'] = 'field_farm_hours';
+  $handler->display->display_options['fields']['field_farm_hours']['table'] = 'field_data_field_farm_hours';
+  $handler->display->display_options['fields']['field_farm_hours']['field'] = 'field_farm_hours';
+  $handler->display->display_options['fields']['field_farm_hours']['label'] = 'Hours';
+  $handler->display->display_options['fields']['field_farm_hours']['type'] = 'fraction_decimal';
+  $handler->display->display_options['fields']['field_farm_hours']['settings'] = array(
+    'precision' => '2',
+  );
   /* Field: Log: Related Issues */
   $handler->display->display_options['fields']['field_farm_issues']['id'] = 'field_farm_issues';
   $handler->display->display_options['fields']['field_farm_issues']['table'] = 'field_data_field_farm_issues';
@@ -499,6 +516,7 @@ function farm_log_crops_views_default_views() {
     'field_farm_quantity_value' => 'field_farm_quantity_value',
     'field_farm_quantity_units' => 'field_farm_quantity_units',
     'field_farm_areas' => 'field_farm_areas',
+    'field_farm_hours' => 'field_farm_hours',
     'field_farm_issues' => 'field_farm_issues',
     'field_farm_plantings' => 'field_farm_plantings',
     'field_farm_harvests' => 'field_farm_harvests',
@@ -533,20 +551,27 @@ function farm_log_crops_views_default_views() {
       'empty_column' => 0,
     ),
     'field_farm_quantity_value' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'field_farm_quantity_units' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'field_farm_areas' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_hours' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -627,6 +652,15 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['fields']['field_farm_areas']['table'] = 'field_data_field_farm_areas';
   $handler->display->display_options['fields']['field_farm_areas']['field'] = 'field_farm_areas';
   $handler->display->display_options['fields']['field_farm_areas']['delta_offset'] = '0';
+  /* Field: Log: Total work hours */
+  $handler->display->display_options['fields']['field_farm_hours']['id'] = 'field_farm_hours';
+  $handler->display->display_options['fields']['field_farm_hours']['table'] = 'field_data_field_farm_hours';
+  $handler->display->display_options['fields']['field_farm_hours']['field'] = 'field_farm_hours';
+  $handler->display->display_options['fields']['field_farm_hours']['label'] = 'Hours';
+  $handler->display->display_options['fields']['field_farm_hours']['type'] = 'fraction_decimal';
+  $handler->display->display_options['fields']['field_farm_hours']['settings'] = array(
+    'precision' => '2',
+  );
   /* Field: Log: Related Issues */
   $handler->display->display_options['fields']['field_farm_issues']['id'] = 'field_farm_issues';
   $handler->display->display_options['fields']['field_farm_issues']['table'] = 'field_data_field_farm_issues';
@@ -859,14 +893,15 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
     'lid' => 'lid',
+    'field_farm_seeding_date' => 'field_farm_seeding_date',
+    'field_farm_transplant_date' => 'field_farm_transplant_date',
     'name' => 'name',
     'field_farm_crops' => 'field_farm_crops',
     'field_farm_quantity_value' => 'field_farm_quantity_value',
     'field_farm_quantity_units' => 'field_farm_quantity_units',
     'field_farm_containers' => 'field_farm_containers',
     'field_farm_areas' => 'field_farm_areas',
-    'field_farm_seeding_date' => 'field_farm_seeding_date',
-    'field_farm_transplant_date' => 'field_farm_transplant_date',
+    'field_farm_hours' => 'field_farm_hours',
     'field_farm_issues' => 'field_farm_issues',
     'field_farm_plantings' => 'field_farm_plantings',
     'nothing' => 'nothing',
@@ -876,6 +911,20 @@ function farm_log_crops_views_default_views() {
     'lid' => array(
       'sortable' => 1,
       'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_seeding_date' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'desc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_transplant_date' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'desc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -916,16 +965,9 @@ function farm_log_crops_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
-    'field_farm_seeding_date' => array(
+    'field_farm_hours' => array(
       'sortable' => 1,
-      'default_sort_order' => 'desc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_farm_transplant_date' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'desc',
+      'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -1017,6 +1059,15 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['fields']['field_farm_areas']['table'] = 'field_data_field_farm_areas';
   $handler->display->display_options['fields']['field_farm_areas']['field'] = 'field_farm_areas';
   $handler->display->display_options['fields']['field_farm_areas']['delta_offset'] = '0';
+  /* Field: Log: Total work hours */
+  $handler->display->display_options['fields']['field_farm_hours']['id'] = 'field_farm_hours';
+  $handler->display->display_options['fields']['field_farm_hours']['table'] = 'field_data_field_farm_hours';
+  $handler->display->display_options['fields']['field_farm_hours']['field'] = 'field_farm_hours';
+  $handler->display->display_options['fields']['field_farm_hours']['label'] = 'Hours';
+  $handler->display->display_options['fields']['field_farm_hours']['type'] = 'fraction_decimal';
+  $handler->display->display_options['fields']['field_farm_hours']['settings'] = array(
+    'precision' => '2',
+  );
   /* Field: Log: Related Issues */
   $handler->display->display_options['fields']['field_farm_issues']['id'] = 'field_farm_issues';
   $handler->display->display_options['fields']['field_farm_issues']['table'] = 'field_data_field_farm_issues';

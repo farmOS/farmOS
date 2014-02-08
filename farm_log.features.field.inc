@@ -223,6 +223,57 @@ function farm_log_field_default_fields() {
     ),
   );
 
+  // Exported field: 'log-farm_issue-field_farm_hours'.
+  $fields['log-farm_issue-field_farm_hours'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_hours',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'locked' => '0',
+      'module' => 'fraction',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'fraction',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_issue',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'Record how many total hours this task took. If multiple people worked on it, multiply the time spent by the number of workers. Example: if two people worked together for 45 minutes (0.75 hours), the total time would be 1.5 hours (0.75 x 2).',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'fraction',
+          'settings' => array(
+            'precision' => 2,
+          ),
+          'type' => 'fraction_decimal',
+          'weight' => '6',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_hours',
+      'label' => 'Total work hours',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'fraction',
+        'settings' => array(
+          'precision' => '2',
+        ),
+        'type' => 'fraction_decimal',
+        'weight' => '6',
+      ),
+    ),
+  );
+
   // Exported field: 'log-farm_issue-field_farm_images'.
   $fields['log-farm_issue-field_farm_images'] = array(
     'field_config' => array(
@@ -266,7 +317,7 @@ function farm_log_field_default_fields() {
             'image_style' => 'large',
           ),
           'type' => 'image',
-          'weight' => '6',
+          'weight' => '8',
         ),
       ),
       'entity_type' => 'log',
@@ -292,7 +343,7 @@ function farm_log_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'image_image',
-        'weight' => '6',
+        'weight' => '8',
       ),
     ),
   );
@@ -414,7 +465,7 @@ function farm_log_field_default_fields() {
             'link' => 1,
           ),
           'type' => 'entityreference_label',
-          'weight' => '7',
+          'weight' => '9',
         ),
       ),
       'entity_type' => 'log',
@@ -429,7 +480,7 @@ function farm_log_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '7',
+        'weight' => '9',
       ),
     ),
   );
@@ -472,7 +523,7 @@ function farm_log_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '5',
+          'weight' => '7',
         ),
       ),
       'entity_type' => 'log',
@@ -490,7 +541,7 @@ function farm_log_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '5',
+        'weight' => '7',
       ),
     ),
   );
@@ -573,8 +624,10 @@ function farm_log_field_default_fields() {
   t('List any threats involved with this issue. This helps to categorize data. Separate each threat with a comma. As you type, you will have the option of selecting from threats that you\'ve entered in the past.');
   t('Notes');
   t('Optionally, select other issues that are related to this one. This helps to connect data.');
+  t('Record how many total hours this task took. If multiple people worked on it, multiply the time spent by the number of workers. Example: if two people worked together for 45 minutes (0.75 hours), the total time would be 1.5 hours (0.75 x 2).');
   t('Related Issues');
   t('Threats');
+  t('Total work hours');
 
   return $fields;
 }
