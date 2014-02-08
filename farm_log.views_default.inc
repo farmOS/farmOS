@@ -81,13 +81,11 @@ function farm_log_views_default_views() {
   $handler->display->display_options['fields']['name']['field'] = 'name';
   $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['name']['alter']['path'] = 'log/[lid]';
-  /* Sort criterion: Log: Timestamp */
-  $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
-  $handler->display->display_options['sorts']['timestamp']['table'] = 'log';
-  $handler->display->display_options['sorts']['timestamp']['field'] = 'timestamp';
-  $handler->display->display_options['sorts']['timestamp']['order'] = 'DESC';
-  $handler->display->display_options['sorts']['timestamp']['expose']['label'] = 'Timestamp';
-  $handler->display->display_options['sorts']['timestamp']['granularity'] = 'minute';
+  /* Sort criterion: Log: Date (field_date) */
+  $handler->display->display_options['sorts']['field_date_value']['id'] = 'field_date_value';
+  $handler->display->display_options['sorts']['field_date_value']['table'] = 'field_data_field_date';
+  $handler->display->display_options['sorts']['field_date_value']['field'] = 'field_date_value';
+  $handler->display->display_options['sorts']['field_date_value']['order'] = 'DESC';
   /* Filter criterion: Log: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'log';
@@ -104,11 +102,13 @@ function farm_log_views_default_views() {
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
     'lid' => 'lid',
-    'timestamp' => 'timestamp',
+    'field_date' => 'field_date',
     'name' => 'name',
     'field_farm_crops' => 'field_farm_crops',
     'field_farm_areas' => 'field_farm_areas',
+    'field_farm_threats' => 'field_farm_threats',
     'field_farm_issues' => 'field_farm_issues',
+    'field_farm_issue_severity' => 'field_farm_issue_severity',
     'nothing' => 'nothing',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
@@ -120,7 +120,7 @@ function farm_log_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
-    'timestamp' => array(
+    'field_date' => array(
       'sortable' => 1,
       'default_sort_order' => 'desc',
       'align' => '',
@@ -144,7 +144,19 @@ function farm_log_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
+    'field_farm_threats' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
     'field_farm_issues' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_issue_severity' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -171,11 +183,18 @@ function farm_log_views_default_views() {
   $handler->display->display_options['fields']['lid']['table'] = 'log';
   $handler->display->display_options['fields']['lid']['field'] = 'lid';
   $handler->display->display_options['fields']['lid']['exclude'] = TRUE;
-  /* Field: Log: Timestamp */
-  $handler->display->display_options['fields']['timestamp']['id'] = 'timestamp';
-  $handler->display->display_options['fields']['timestamp']['table'] = 'log';
-  $handler->display->display_options['fields']['timestamp']['field'] = 'timestamp';
-  $handler->display->display_options['fields']['timestamp']['date_format'] = 'short';
+  /* Field: Log: Date */
+  $handler->display->display_options['fields']['field_date']['id'] = 'field_date';
+  $handler->display->display_options['fields']['field_date']['table'] = 'field_data_field_date';
+  $handler->display->display_options['fields']['field_date']['field'] = 'field_date';
+  $handler->display->display_options['fields']['field_date']['label'] = 'Issue Date';
+  $handler->display->display_options['fields']['field_date']['settings'] = array(
+    'format_type' => 'short',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+  );
   /* Field: Log: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
   $handler->display->display_options['fields']['name']['table'] = 'log';
@@ -226,6 +245,22 @@ function farm_log_views_default_views() {
     'farm_issue' => 'farm_issue',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
+  /* Filter criterion: Log: Date (field_date) */
+  $handler->display->display_options['filters']['field_date_value']['id'] = 'field_date_value';
+  $handler->display->display_options['filters']['field_date_value']['table'] = 'field_data_field_date';
+  $handler->display->display_options['filters']['field_date_value']['field'] = 'field_date_value';
+  $handler->display->display_options['filters']['field_date_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_date_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_date_value']['expose']['operator_id'] = 'field_date_value_op';
+  $handler->display->display_options['filters']['field_date_value']['expose']['label'] = 'Issue Date';
+  $handler->display->display_options['filters']['field_date_value']['expose']['use_operator'] = TRUE;
+  $handler->display->display_options['filters']['field_date_value']['expose']['operator'] = 'field_date_value_op';
+  $handler->display->display_options['filters']['field_date_value']['expose']['identifier'] = 'field_date_value';
+  $handler->display->display_options['filters']['field_date_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+  );
+  $handler->display->display_options['filters']['field_date_value']['form_type'] = 'date_popup';
   /* Filter criterion: Log: Name */
   $handler->display->display_options['filters']['name']['id'] = 'name';
   $handler->display->display_options['filters']['name']['table'] = 'log';
@@ -242,18 +277,18 @@ function farm_log_views_default_views() {
     2 => '2',
     1 => 0,
   );
-  /* Filter criterion: Log: Timestamp */
-  $handler->display->display_options['filters']['timestamp']['id'] = 'timestamp';
-  $handler->display->display_options['filters']['timestamp']['table'] = 'log';
-  $handler->display->display_options['filters']['timestamp']['field'] = 'timestamp';
-  $handler->display->display_options['filters']['timestamp']['group'] = 1;
-  $handler->display->display_options['filters']['timestamp']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['timestamp']['expose']['operator_id'] = 'timestamp_op';
-  $handler->display->display_options['filters']['timestamp']['expose']['label'] = 'Timestamp';
-  $handler->display->display_options['filters']['timestamp']['expose']['use_operator'] = TRUE;
-  $handler->display->display_options['filters']['timestamp']['expose']['operator'] = 'timestamp_op';
-  $handler->display->display_options['filters']['timestamp']['expose']['identifier'] = 'timestamp';
-  $handler->display->display_options['filters']['timestamp']['expose']['remember_roles'] = array(
+  /* Filter criterion: Log: Issue severity (field_farm_issue_severity) */
+  $handler->display->display_options['filters']['field_farm_issue_severity_value']['id'] = 'field_farm_issue_severity_value';
+  $handler->display->display_options['filters']['field_farm_issue_severity_value']['table'] = 'field_data_field_farm_issue_severity';
+  $handler->display->display_options['filters']['field_farm_issue_severity_value']['field'] = 'field_farm_issue_severity_value';
+  $handler->display->display_options['filters']['field_farm_issue_severity_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_farm_issue_severity_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_issue_severity_value']['expose']['operator_id'] = 'field_farm_issue_severity_value_op';
+  $handler->display->display_options['filters']['field_farm_issue_severity_value']['expose']['label'] = 'Severity';
+  $handler->display->display_options['filters']['field_farm_issue_severity_value']['expose']['operator'] = 'field_farm_issue_severity_value_op';
+  $handler->display->display_options['filters']['field_farm_issue_severity_value']['expose']['identifier'] = 'field_farm_issue_severity_value';
+  $handler->display->display_options['filters']['field_farm_issue_severity_value']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_issue_severity_value']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
   );
@@ -308,21 +343,6 @@ function farm_log_views_default_views() {
     1 => 0,
   );
   $handler->display->display_options['filters']['field_farm_threats_tid']['vocabulary'] = 'farm_threats';
-  /* Filter criterion: Log: Issue severity (field_farm_issue_severity) */
-  $handler->display->display_options['filters']['field_farm_issue_severity_value']['id'] = 'field_farm_issue_severity_value';
-  $handler->display->display_options['filters']['field_farm_issue_severity_value']['table'] = 'field_data_field_farm_issue_severity';
-  $handler->display->display_options['filters']['field_farm_issue_severity_value']['field'] = 'field_farm_issue_severity_value';
-  $handler->display->display_options['filters']['field_farm_issue_severity_value']['group'] = 1;
-  $handler->display->display_options['filters']['field_farm_issue_severity_value']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_farm_issue_severity_value']['expose']['operator_id'] = 'field_farm_issue_severity_value_op';
-  $handler->display->display_options['filters']['field_farm_issue_severity_value']['expose']['label'] = 'Severity';
-  $handler->display->display_options['filters']['field_farm_issue_severity_value']['expose']['operator'] = 'field_farm_issue_severity_value_op';
-  $handler->display->display_options['filters']['field_farm_issue_severity_value']['expose']['identifier'] = 'field_farm_issue_severity_value';
-  $handler->display->display_options['filters']['field_farm_issue_severity_value']['expose']['multiple'] = TRUE;
-  $handler->display->display_options['filters']['field_farm_issue_severity_value']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-  );
   $handler->display->display_options['path'] = 'logs/issue';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Issues';
