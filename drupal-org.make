@@ -17,6 +17,9 @@ projects[entityreference][version] = "1.0"
 projects[features][subdir] = "contrib"
 projects[features][version] = "1.0"
 
+projects[fraction][subdir] = "contrib"
+projects[fraction][version] = "1.1"
+
 projects[log][subdir] = "contrib"
 projects[log][version] = "1.x"
 
