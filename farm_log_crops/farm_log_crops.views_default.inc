@@ -1017,6 +1017,11 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['fields']['field_farm_crops']['table'] = 'field_data_field_farm_crops';
   $handler->display->display_options['fields']['field_farm_crops']['field'] = 'field_farm_crops';
   $handler->display->display_options['fields']['field_farm_crops']['delta_offset'] = '0';
+  /* Field: Field: Fields/Beds */
+  $handler->display->display_options['fields']['field_farm_areas']['id'] = 'field_farm_areas';
+  $handler->display->display_options['fields']['field_farm_areas']['table'] = 'field_data_field_farm_areas';
+  $handler->display->display_options['fields']['field_farm_areas']['field'] = 'field_farm_areas';
+  $handler->display->display_options['fields']['field_farm_areas']['delta_offset'] = '0';
   /* Field: Log: Quantity */
   $handler->display->display_options['fields']['field_farm_quantity_value']['id'] = 'field_farm_quantity_value';
   $handler->display->display_options['fields']['field_farm_quantity_value']['table'] = 'field_data_field_farm_quantity_value';
@@ -1035,11 +1040,6 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['fields']['field_farm_containers']['table'] = 'field_data_field_farm_containers';
   $handler->display->display_options['fields']['field_farm_containers']['field'] = 'field_farm_containers';
   $handler->display->display_options['fields']['field_farm_containers']['delta_offset'] = '0';
-  /* Field: Field: Fields/Beds */
-  $handler->display->display_options['fields']['field_farm_areas']['id'] = 'field_farm_areas';
-  $handler->display->display_options['fields']['field_farm_areas']['table'] = 'field_data_field_farm_areas';
-  $handler->display->display_options['fields']['field_farm_areas']['field'] = 'field_farm_areas';
-  $handler->display->display_options['fields']['field_farm_areas']['delta_offset'] = '0';
   /* Field: Log: Total work hours */
   $handler->display->display_options['fields']['field_farm_hours']['id'] = 'field_farm_hours';
   $handler->display->display_options['fields']['field_farm_hours']['table'] = 'field_data_field_farm_hours';
