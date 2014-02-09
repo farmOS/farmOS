@@ -243,11 +243,11 @@ function farm_log_views_default_views() {
     'link' => 1,
   );
   $handler->display->display_options['fields']['field_farm_issues']['delta_offset'] = '0';
-  /* Field: Log: Issue severity */
-  $handler->display->display_options['fields']['field_farm_issue_severity']['id'] = 'field_farm_issue_severity';
-  $handler->display->display_options['fields']['field_farm_issue_severity']['table'] = 'field_data_field_farm_issue_severity';
-  $handler->display->display_options['fields']['field_farm_issue_severity']['field'] = 'field_farm_issue_severity';
-  $handler->display->display_options['fields']['field_farm_issue_severity']['label'] = 'Severity';
+  /* Field: Log: Priority */
+  $handler->display->display_options['fields']['field_farm_priority']['id'] = 'field_farm_priority';
+  $handler->display->display_options['fields']['field_farm_priority']['table'] = 'field_data_field_farm_priority';
+  $handler->display->display_options['fields']['field_farm_priority']['field'] = 'field_farm_priority';
+  $handler->display->display_options['fields']['field_farm_priority']['type'] = 'taxonomy_term_reference_plain';
   /* Field: Global: Custom text */
   $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
@@ -293,21 +293,6 @@ function farm_log_views_default_views() {
   $handler->display->display_options['filters']['name']['expose']['operator'] = 'name_op';
   $handler->display->display_options['filters']['name']['expose']['identifier'] = 'name';
   $handler->display->display_options['filters']['name']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-  );
-  /* Filter criterion: Log: Issue severity (field_farm_issue_severity) */
-  $handler->display->display_options['filters']['field_farm_issue_severity_value']['id'] = 'field_farm_issue_severity_value';
-  $handler->display->display_options['filters']['field_farm_issue_severity_value']['table'] = 'field_data_field_farm_issue_severity';
-  $handler->display->display_options['filters']['field_farm_issue_severity_value']['field'] = 'field_farm_issue_severity_value';
-  $handler->display->display_options['filters']['field_farm_issue_severity_value']['group'] = 1;
-  $handler->display->display_options['filters']['field_farm_issue_severity_value']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_farm_issue_severity_value']['expose']['operator_id'] = 'field_farm_issue_severity_value_op';
-  $handler->display->display_options['filters']['field_farm_issue_severity_value']['expose']['label'] = 'Severity';
-  $handler->display->display_options['filters']['field_farm_issue_severity_value']['expose']['operator'] = 'field_farm_issue_severity_value_op';
-  $handler->display->display_options['filters']['field_farm_issue_severity_value']['expose']['identifier'] = 'field_farm_issue_severity_value';
-  $handler->display->display_options['filters']['field_farm_issue_severity_value']['expose']['multiple'] = TRUE;
-  $handler->display->display_options['filters']['field_farm_issue_severity_value']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
   );
@@ -362,6 +347,21 @@ function farm_log_views_default_views() {
     1 => 0,
   );
   $handler->display->display_options['filters']['field_farm_threats_tid']['vocabulary'] = 'farm_threats';
+  /* Filter criterion: Log: Priority (field_farm_priority) */
+  $handler->display->display_options['filters']['field_farm_priority_tid']['id'] = 'field_farm_priority_tid';
+  $handler->display->display_options['filters']['field_farm_priority_tid']['table'] = 'field_data_field_farm_priority';
+  $handler->display->display_options['filters']['field_farm_priority_tid']['field'] = 'field_farm_priority_tid';
+  $handler->display->display_options['filters']['field_farm_priority_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_priority_tid']['expose']['operator_id'] = 'field_farm_priority_tid_op';
+  $handler->display->display_options['filters']['field_farm_priority_tid']['expose']['label'] = 'Priority';
+  $handler->display->display_options['filters']['field_farm_priority_tid']['expose']['operator'] = 'field_farm_priority_tid_op';
+  $handler->display->display_options['filters']['field_farm_priority_tid']['expose']['identifier'] = 'field_farm_priority_tid';
+  $handler->display->display_options['filters']['field_farm_priority_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+  );
+  $handler->display->display_options['filters']['field_farm_priority_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_farm_priority_tid']['vocabulary'] = 'farm_priority';
   $handler->display->display_options['path'] = 'logs/issue';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Issues';

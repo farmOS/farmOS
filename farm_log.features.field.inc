@@ -132,7 +132,7 @@ function farm_log_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '3',
+          'weight' => '2',
         ),
       ),
       'entity_type' => 'log',
@@ -150,7 +150,7 @@ function farm_log_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '3',
+        'weight' => '4',
       ),
     ),
   );
@@ -200,7 +200,7 @@ function farm_log_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '2',
+          'weight' => '1',
         ),
       ),
       'entity_type' => 'log',
@@ -218,7 +218,7 @@ function farm_log_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '2',
+        'weight' => '3',
       ),
     ),
   );
@@ -253,7 +253,7 @@ function farm_log_field_default_fields() {
             'precision' => '2',
           ),
           'type' => 'fraction_decimal',
-          'weight' => '6',
+          'weight' => '5',
         ),
       ),
       'entity_type' => 'log',
@@ -270,7 +270,7 @@ function farm_log_field_default_fields() {
           'precision' => '2',
         ),
         'type' => 'fraction_decimal',
-        'weight' => '6',
+        'weight' => '5',
       ),
     ),
   );
@@ -318,7 +318,7 @@ function farm_log_field_default_fields() {
             'image_style' => 'large',
           ),
           'type' => 'image',
-          'weight' => '8',
+          'weight' => '7',
         ),
       ),
       'entity_type' => 'log',
@@ -344,69 +344,7 @@ function farm_log_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'image_image',
-        'weight' => '8',
-      ),
-    ),
-  );
-
-  // Exported field: 'log-farm_issue-field_farm_issue_severity'.
-  $fields['log-farm_issue-field_farm_issue_severity'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_issue_severity',
-      'foreign keys' => array(),
-      'indexes' => array(
-        'value' => array(
-          0 => 'value',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'list',
-      'settings' => array(
-        'allowed_values' => array(
-          'low priority' => 'low priority',
-          'important' => 'important',
-          'urgent' => 'urgent',
-        ),
-        'allowed_values_function' => '',
-      ),
-      'translatable' => '0',
-      'type' => 'list_text',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_issue',
-      'default_value' => array(
-        0 => array(
-          'value' => 'important',
-        ),
-      ),
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'list',
-          'settings' => array(),
-          'type' => 'list_default',
-          'weight' => '1',
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_issue_severity',
-      'label' => 'Issue severity',
-      'required' => 1,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'options',
-        'settings' => array(),
-        'type' => 'options_select',
-        'weight' => '1',
+        'weight' => '4',
       ),
     ),
   );
@@ -466,7 +404,7 @@ function farm_log_field_default_fields() {
             'link' => 1,
           ),
           'type' => 'entityreference_label',
-          'weight' => '9',
+          'weight' => '8',
         ),
       ),
       'entity_type' => 'log',
@@ -481,7 +419,7 @@ function farm_log_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '9',
+        'weight' => '8',
       ),
     ),
   );
@@ -524,7 +462,7 @@ function farm_log_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '7',
+          'weight' => '6',
         ),
       ),
       'entity_type' => 'log',
@@ -542,7 +480,72 @@ function farm_log_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '7',
+        'weight' => '6',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_issue-field_farm_priority'.
+  $fields['log-farm_issue-field_farm_priority'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_priority',
+      'foreign keys' => array(
+        'tid' => array(
+          'columns' => array(
+            'tid' => 'tid',
+          ),
+          'table' => 'taxonomy_term_data',
+        ),
+      ),
+      'indexes' => array(
+        'tid' => array(
+          0 => 'tid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'taxonomy',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => array(
+            'vocabulary' => 'farm_priority',
+            'parent' => '0',
+          ),
+        ),
+      ),
+      'translatable' => '0',
+      'type' => 'taxonomy_term_reference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_issue',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_plain',
+          'weight' => '3',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_priority',
+      'label' => 'Priority',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_select',
+        'weight' => '5',
       ),
     ),
   );
@@ -610,7 +613,7 @@ function farm_log_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '4',
+        'weight' => '7',
       ),
     ),
   );
@@ -621,10 +624,10 @@ function farm_log_field_default_fields() {
   t('Fields/Beds');
   t('Images');
   t('Issue Date');
-  t('Issue severity');
   t('List any threats involved with this issue. This helps to categorize data. Separate each threat with a comma. As you type, you will have the option of selecting from threats that you\'ve entered in the past.');
   t('Notes');
   t('Optionally, select other issues that are related to this one. This helps to connect data.');
+  t('Priority');
   t('Record how many total hours this task took. If multiple people worked on it, multiply the time spent by the number of workers. Example: if two people worked together for 45 minutes (0.75 hours), the total time would be 1.5 hours (0.75 x 2).');
   t('Related Issues');
   t('Threats');
