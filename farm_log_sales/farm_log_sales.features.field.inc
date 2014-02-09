@@ -150,7 +150,7 @@ function farm_log_sales_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '5',
+        'weight' => '6',
       ),
     ),
   );
@@ -218,7 +218,7 @@ function farm_log_sales_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '4',
+        'weight' => '5',
       ),
     ),
   );
@@ -292,7 +292,7 @@ function farm_log_sales_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'image_image',
-        'weight' => '7',
+        'weight' => '8',
       ),
     ),
   );
@@ -367,7 +367,7 @@ function farm_log_sales_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '8',
+        'weight' => '9',
       ),
     ),
   );
@@ -442,7 +442,7 @@ function farm_log_sales_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '10',
+        'weight' => '11',
       ),
     ),
   );
@@ -503,7 +503,7 @@ function farm_log_sales_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '6',
+        'weight' => '5',
       ),
     ),
   );
@@ -578,7 +578,7 @@ function farm_log_sales_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '9',
+        'weight' => '10',
       ),
     ),
   );
@@ -646,7 +646,7 @@ function farm_log_sales_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '3',
+        'weight' => '4',
       ),
     ),
   );
@@ -698,7 +698,7 @@ function farm_log_sales_field_default_fields() {
           'precision' => '3',
         ),
         'type' => 'fraction_decimal',
-        'weight' => '2',
+        'weight' => '3',
       ),
     ),
   );
@@ -750,7 +750,7 @@ function farm_log_sales_field_default_fields() {
           'precision' => '2',
         ),
         'type' => 'fraction_decimal',
-        'weight' => '1',
+        'weight' => '2',
       ),
     ),
   );
@@ -895,7 +895,7 @@ function farm_log_sales_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '5',
+        'weight' => '4',
       ),
     ),
   );
@@ -963,7 +963,7 @@ function farm_log_sales_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '4',
+        'weight' => '3',
       ),
     ),
   );
@@ -1037,7 +1037,7 @@ function farm_log_sales_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'image_image',
-        'weight' => '7',
+        'weight' => '8',
       ),
     ),
   );
@@ -1112,7 +1112,7 @@ function farm_log_sales_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '8',
+        'weight' => '9',
       ),
     ),
   );
@@ -1173,7 +1173,7 @@ function farm_log_sales_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '6',
+        'weight' => '5',
       ),
     ),
   );
@@ -1248,7 +1248,7 @@ function farm_log_sales_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '9',
+        'weight' => '10',
       ),
     ),
   );
@@ -1323,7 +1323,7 @@ function farm_log_sales_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '10',
+        'weight' => '11',
       ),
     ),
   );
@@ -1391,7 +1391,7 @@ function farm_log_sales_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '3',
+        'weight' => '4',
       ),
     ),
   );
@@ -1443,7 +1443,7 @@ function farm_log_sales_field_default_fields() {
           'precision' => '3',
         ),
         'type' => 'fraction_decimal',
-        'weight' => '2',
+        'weight' => '3',
       ),
     ),
   );
@@ -1495,7 +1495,7 @@ function farm_log_sales_field_default_fields() {
           'precision' => '2',
         ),
         'type' => 'fraction_decimal',
-        'weight' => '1',
+        'weight' => '2',
       ),
     ),
   );
@@ -1640,7 +1640,7 @@ function farm_log_sales_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '5',
+        'weight' => '7',
       ),
     ),
   );
@@ -1708,7 +1708,7 @@ function farm_log_sales_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '4',
+        'weight' => '6',
       ),
     ),
   );
@@ -1782,7 +1782,7 @@ function farm_log_sales_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'image_image',
-        'weight' => '7',
+        'weight' => '8',
       ),
     ),
   );
@@ -1857,7 +1857,7 @@ function farm_log_sales_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '8',
+        'weight' => '9',
       ),
     ),
   );
@@ -1918,7 +1918,7 @@ function farm_log_sales_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '6',
+        'weight' => '5',
       ),
     ),
   );
@@ -1993,7 +1993,7 @@ function farm_log_sales_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '9',
+        'weight' => '10',
       ),
     ),
   );
@@ -2061,7 +2061,7 @@ function farm_log_sales_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '3',
+        'weight' => '4',
       ),
     ),
   );
@@ -2113,7 +2113,7 @@ function farm_log_sales_field_default_fields() {
           'precision' => '3',
         ),
         'type' => 'fraction_decimal',
-        'weight' => '2',
+        'weight' => '3',
       ),
     ),
   );
@@ -2188,7 +2188,7 @@ function farm_log_sales_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '10',
+        'weight' => '11',
       ),
     ),
   );
@@ -2240,7 +2240,7 @@ function farm_log_sales_field_default_fields() {
           'precision' => '2',
         ),
         'type' => 'fraction_decimal',
-        'weight' => '1',
+        'weight' => '2',
       ),
     ),
   );
