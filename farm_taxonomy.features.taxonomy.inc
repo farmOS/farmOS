@@ -29,7 +29,7 @@ function farm_taxonomy_taxonomy_default_vocabularies() {
       'name' => 'Crops',
       'machine_name' => 'farm_crops',
       'description' => 'A taxonomy of crop types and varieties.',
-      'hierarchy' => '0',
+      'hierarchy' => '1',
       'module' => 'taxonomy',
       'weight' => '0',
     ),
