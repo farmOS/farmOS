@@ -2061,8 +2061,9 @@ function farm_log_crops_field_default_fields() {
       'module' => 'list',
       'settings' => array(
         'allowed_values' => array(
-          'direct seeding' => 'direct seeding',
-          'transplanting' => 'transplanting',
+          'direct seeding' => 'Direct seeding',
+          'transplant seeding' => 'Transplant seeding',
+          'transplanting' => 'Transplanting',
         ),
         'allowed_values_function' => '',
       ),
@@ -2077,7 +2078,7 @@ function farm_log_crops_field_default_fields() {
         ),
       ),
       'deleted' => '0',
-      'description' => '',
+      'description' => 'Select the type of planting that this is: direct seeding (seeding directly into the field/bed), transplant seeding (seeding of transplant "starts" for planting later), or transplanting (planting into the field/bed).',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -2217,7 +2218,7 @@ function farm_log_crops_field_default_fields() {
       'bundle' => 'farm_planting',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'Row feet? Acres? 4" pots?',
+      'description' => 'Describe the unit of measurement for the quantity above. For example: seeds, trays, flats, row feet, etc.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -2267,7 +2268,7 @@ function farm_log_crops_field_default_fields() {
       'bundle' => 'farm_planting',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'How much?',
+      'description' => 'How much was seeded/planted? If this is a seeding, enter the number of seeds, packets, etc. If it\'s a transplanting, enter the number of plants, trays, etc. Describe the units below.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -2303,11 +2304,13 @@ function farm_log_crops_field_default_fields() {
   // Included for use with string extractors like potx.
   t('Bushels? Pounds? Dozens?');
   t('Crops');
+  t('Describe the unit of measurement for the quantity above. For example: seeds, trays, flats, row feet, etc.');
   t('Fertilizer');
   t('Fertilizing Date');
   t('Fields/Beds');
   t('Gallons? Pounds? Handfuls?');
   t('Harvest Date');
+  t('How much was seeded/planted? If this is a seeding, enter the number of seeds, packets, etc. If it\'s a transplanting, enter the number of plants, trays, etc. Describe the units below.');
   t('How much?');
   t('Images');
   t('Notes');
@@ -2327,7 +2330,7 @@ function farm_log_crops_field_default_fields() {
   t('Related Harvests');
   t('Related Issues');
   t('Related Plantings');
-  t('Row feet? Acres? 4" pots?');
+  t('Select the type of planting that this is: direct seeding (seeding directly into the field/bed), transplant seeding (seeding of transplant "starts" for planting later), or transplanting (planting into the field/bed).');
   t('Total work hours');
   t('Units');
 
