@@ -41,6 +41,14 @@ function farm_taxonomy_taxonomy_default_vocabularies() {
       'module' => 'taxonomy',
       'weight' => '0',
     ),
+    'farm_priority' => array(
+      'name' => 'Priority Levels',
+      'machine_name' => 'farm_priority',
+      'description' => 'Levels of priority used to describe tasks.',
+      'hierarchy' => '0',
+      'module' => 'taxonomy',
+      'weight' => '0',
+    ),
     'farm_quantity_units' => array(
       'name' => 'Quantity Units',
       'machine_name' => 'farm_quantity_units',
