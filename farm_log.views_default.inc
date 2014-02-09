@@ -232,6 +232,7 @@ function farm_log_views_default_views() {
   $handler->display->display_options['fields']['field_farm_hours']['type'] = 'fraction_decimal';
   $handler->display->display_options['fields']['field_farm_hours']['settings'] = array(
     'precision' => '2',
+    'auto_precision' => 1,
   );
   /* Field: Log: Related Issues */
   $handler->display->display_options['fields']['field_farm_issues']['id'] = 'field_farm_issues';

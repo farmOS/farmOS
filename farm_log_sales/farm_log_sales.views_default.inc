@@ -229,6 +229,7 @@ function farm_log_sales_views_default_views() {
   $handler->display->display_options['fields']['field_farm_value']['type'] = 'fraction_decimal';
   $handler->display->display_options['fields']['field_farm_value']['settings'] = array(
     'precision' => '2',
+    'auto_precision' => 1,
   );
   /* Field: Log: Quantity */
   $handler->display->display_options['fields']['field_farm_quantity_value']['id'] = 'field_farm_quantity_value';
@@ -237,6 +238,7 @@ function farm_log_sales_views_default_views() {
   $handler->display->display_options['fields']['field_farm_quantity_value']['type'] = 'fraction_decimal';
   $handler->display->display_options['fields']['field_farm_quantity_value']['settings'] = array(
     'precision' => '3',
+    'auto_precision' => 1,
   );
   /* Field: Log: Units */
   $handler->display->display_options['fields']['field_farm_quantity_units']['id'] = 'field_farm_quantity_units';
@@ -606,6 +608,7 @@ function farm_log_sales_views_default_views() {
   $handler->display->display_options['fields']['field_farm_value']['type'] = 'fraction_decimal';
   $handler->display->display_options['fields']['field_farm_value']['settings'] = array(
     'precision' => '2',
+    'auto_precision' => 1,
   );
   /* Field: Log: Quantity */
   $handler->display->display_options['fields']['field_farm_quantity_value']['id'] = 'field_farm_quantity_value';
@@ -614,6 +617,7 @@ function farm_log_sales_views_default_views() {
   $handler->display->display_options['fields']['field_farm_quantity_value']['type'] = 'fraction_decimal';
   $handler->display->display_options['fields']['field_farm_quantity_value']['settings'] = array(
     'precision' => '3',
+    'auto_precision' => 1,
   );
   /* Field: Log: Units */
   $handler->display->display_options['fields']['field_farm_quantity_units']['id'] = 'field_farm_quantity_units';
@@ -983,6 +987,7 @@ function farm_log_sales_views_default_views() {
   $handler->display->display_options['fields']['field_farm_value']['type'] = 'fraction_decimal';
   $handler->display->display_options['fields']['field_farm_value']['settings'] = array(
     'precision' => '2',
+    'auto_precision' => 1,
   );
   /* Field: Log: Quantity */
   $handler->display->display_options['fields']['field_farm_quantity_value']['id'] = 'field_farm_quantity_value';
@@ -991,6 +996,7 @@ function farm_log_sales_views_default_views() {
   $handler->display->display_options['fields']['field_farm_quantity_value']['type'] = 'fraction_decimal';
   $handler->display->display_options['fields']['field_farm_quantity_value']['settings'] = array(
     'precision' => '3',
+    'auto_precision' => 1,
   );
   /* Field: Log: Units */
   $handler->display->display_options['fields']['field_farm_quantity_units']['id'] = 'field_farm_quantity_units';

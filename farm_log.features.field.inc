@@ -249,7 +249,8 @@ function farm_log_field_default_fields() {
           'label' => 'inline',
           'module' => 'fraction',
           'settings' => array(
-            'precision' => 2,
+            'auto_precision' => 1,
+            'precision' => '2',
           ),
           'type' => 'fraction_decimal',
           'weight' => '6',

@@ -241,6 +241,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['fields']['field_farm_quantity_value']['type'] = 'fraction_decimal';
   $handler->display->display_options['fields']['field_farm_quantity_value']['settings'] = array(
     'precision' => '3',
+    'auto_precision' => 1,
   );
   /* Field: Log: Units */
   $handler->display->display_options['fields']['field_farm_quantity_units']['id'] = 'field_farm_quantity_units';
@@ -264,6 +265,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['fields']['field_farm_hours']['type'] = 'fraction_decimal';
   $handler->display->display_options['fields']['field_farm_hours']['settings'] = array(
     'precision' => '2',
+    'auto_precision' => 1,
   );
   /* Field: Log: Related Issues */
   $handler->display->display_options['fields']['field_farm_issues']['id'] = 'field_farm_issues';
@@ -642,6 +644,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['fields']['field_farm_quantity_value']['type'] = 'fraction_decimal';
   $handler->display->display_options['fields']['field_farm_quantity_value']['settings'] = array(
     'precision' => '3',
+    'auto_precision' => 1,
   );
   /* Field: Log: Units */
   $handler->display->display_options['fields']['field_farm_quantity_units']['id'] = 'field_farm_quantity_units';
@@ -660,6 +663,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['fields']['field_farm_hours']['type'] = 'fraction_decimal';
   $handler->display->display_options['fields']['field_farm_hours']['settings'] = array(
     'precision' => '2',
+    'auto_precision' => 1,
   );
   /* Field: Log: Related Issues */
   $handler->display->display_options['fields']['field_farm_issues']['id'] = 'field_farm_issues';
@@ -1044,6 +1048,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['fields']['field_farm_quantity_value']['type'] = 'fraction_decimal';
   $handler->display->display_options['fields']['field_farm_quantity_value']['settings'] = array(
     'precision' => '3',
+    'auto_precision' => 1,
   );
   /* Field: Log: Units */
   $handler->display->display_options['fields']['field_farm_quantity_units']['id'] = 'field_farm_quantity_units';
@@ -1067,6 +1072,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['fields']['field_farm_hours']['type'] = 'fraction_decimal';
   $handler->display->display_options['fields']['field_farm_hours']['settings'] = array(
     'precision' => '2',
+    'auto_precision' => 1,
   );
   /* Field: Log: Related Issues */
   $handler->display->display_options['fields']['field_farm_issues']['id'] = 'field_farm_issues';

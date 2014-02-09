@@ -677,6 +677,7 @@ function farm_log_sales_field_default_fields() {
           'label' => 'inline',
           'module' => 'fraction',
           'settings' => array(
+            'auto_precision' => 1,
             'precision' => '3',
           ),
           'type' => 'fraction_decimal',
@@ -728,7 +729,8 @@ function farm_log_sales_field_default_fields() {
           'label' => 'inline',
           'module' => 'fraction',
           'settings' => array(
-            'precision' => 2,
+            'auto_precision' => 1,
+            'precision' => '2',
           ),
           'type' => 'fraction_decimal',
           'weight' => '1',
@@ -1420,6 +1422,7 @@ function farm_log_sales_field_default_fields() {
           'label' => 'inline',
           'module' => 'fraction',
           'settings' => array(
+            'auto_precision' => 1,
             'precision' => '3',
           ),
           'type' => 'fraction_decimal',
@@ -1471,7 +1474,8 @@ function farm_log_sales_field_default_fields() {
           'label' => 'inline',
           'module' => 'fraction',
           'settings' => array(
-            'precision' => 2,
+            'auto_precision' => 1,
+            'precision' => '2',
           ),
           'type' => 'fraction_decimal',
           'weight' => '1',
@@ -2088,6 +2092,7 @@ function farm_log_sales_field_default_fields() {
           'label' => 'inline',
           'module' => 'fraction',
           'settings' => array(
+            'auto_precision' => 1,
             'precision' => '3',
           ),
           'type' => 'fraction_decimal',
@@ -2214,7 +2219,8 @@ function farm_log_sales_field_default_fields() {
           'label' => 'inline',
           'module' => 'fraction',
           'settings' => array(
-            'precision' => 2,
+            'auto_precision' => 1,
+            'precision' => '2',
           ),
           'type' => 'fraction_decimal',
           'weight' => '1',
