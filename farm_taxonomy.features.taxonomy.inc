@@ -17,14 +17,6 @@ function farm_taxonomy_taxonomy_default_vocabularies() {
       'module' => 'taxonomy',
       'weight' => '0',
     ),
-    'farm_containers' => array(
-      'name' => 'Planting Containers',
-      'machine_name' => 'farm_containers',
-      'description' => 'Various types of containers used for planting into.',
-      'hierarchy' => '0',
-      'module' => 'taxonomy',
-      'weight' => '0',
-    ),
     'farm_crops' => array(
       'name' => 'Crops',
       'machine_name' => 'farm_crops',

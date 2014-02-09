@@ -16,7 +16,6 @@ features[field][] = taxonomy_term-farm_crops-field_farm_crop_family
 features[field][] = taxonomy_term-farm_crops-field_farm_images
 features[field][] = taxonomy_term-farm_crops-field_farm_maturity_days
 features[taxonomy][] = farm_areas
-features[taxonomy][] = farm_containers
 features[taxonomy][] = farm_crops
 features[taxonomy][] = farm_fertilizers
 features[taxonomy][] = farm_priority
