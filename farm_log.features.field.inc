@@ -61,7 +61,7 @@ function farm_log_field_default_fields() {
       ),
       'entity_type' => 'log',
       'field_name' => 'field_date',
-      'label' => 'Issue Date',
+      'label' => 'Date',
       'required' => 0,
       'settings' => array(
         'default_value' => 'now',
@@ -621,9 +621,9 @@ function farm_log_field_default_fields() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Crops');
+  t('Date');
   t('Fields/Beds');
   t('Images');
-  t('Issue Date');
   t('List any threats involved with this issue. This helps to categorize data. Separate each threat with a comma. As you type, you will have the option of selecting from threats that you\'ve entered in the past.');
   t('Notes');
   t('Optionally, select other issues that are related to this one. This helps to connect data.');
