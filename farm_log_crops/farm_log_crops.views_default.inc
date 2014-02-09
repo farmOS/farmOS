@@ -1035,11 +1035,6 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['fields']['field_farm_quantity_units']['id'] = 'field_farm_quantity_units';
   $handler->display->display_options['fields']['field_farm_quantity_units']['table'] = 'field_data_field_farm_quantity_units';
   $handler->display->display_options['fields']['field_farm_quantity_units']['field'] = 'field_farm_quantity_units';
-  /* Field: Log: Containers */
-  $handler->display->display_options['fields']['field_farm_containers']['id'] = 'field_farm_containers';
-  $handler->display->display_options['fields']['field_farm_containers']['table'] = 'field_data_field_farm_containers';
-  $handler->display->display_options['fields']['field_farm_containers']['field'] = 'field_farm_containers';
-  $handler->display->display_options['fields']['field_farm_containers']['delta_offset'] = '0';
   /* Field: Log: Total work hours */
   $handler->display->display_options['fields']['field_farm_hours']['id'] = 'field_farm_hours';
   $handler->display->display_options['fields']['field_farm_hours']['table'] = 'field_data_field_farm_hours';

@@ -150,7 +150,7 @@ function farm_log_crops_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '5',
+        'weight' => '6',
       ),
     ),
   );
@@ -218,7 +218,7 @@ function farm_log_crops_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '4',
+        'weight' => '5',
       ),
     ),
   );
@@ -286,7 +286,7 @@ function farm_log_crops_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '1',
+        'weight' => '3',
       ),
     ),
   );
@@ -361,7 +361,7 @@ function farm_log_crops_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '11',
+        'weight' => '10',
       ),
     ),
   );
@@ -413,7 +413,7 @@ function farm_log_crops_field_default_fields() {
           'precision' => '2',
         ),
         'type' => 'fraction_decimal',
-        'weight' => '7',
+        'weight' => '9',
       ),
     ),
   );
@@ -562,7 +562,7 @@ function farm_log_crops_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '9',
+        'weight' => '8',
       ),
     ),
   );
@@ -698,7 +698,7 @@ function farm_log_crops_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '10',
+        'weight' => '9',
       ),
     ),
   );
@@ -766,7 +766,7 @@ function farm_log_crops_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '3',
+        'weight' => '5',
       ),
     ),
   );
@@ -818,7 +818,7 @@ function farm_log_crops_field_default_fields() {
           'precision' => '2',
         ),
         'type' => 'fraction_decimal',
-        'weight' => '2',
+        'weight' => '4',
       ),
     ),
   );
@@ -963,7 +963,7 @@ function farm_log_crops_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '4',
+        'weight' => '3',
       ),
     ),
   );
@@ -1031,7 +1031,7 @@ function farm_log_crops_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '1',
+        'weight' => '2',
       ),
     ),
   );
@@ -1106,7 +1106,7 @@ function farm_log_crops_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '10',
+        'weight' => '9',
       ),
     ),
   );
@@ -1158,7 +1158,7 @@ function farm_log_crops_field_default_fields() {
           'precision' => '2',
         ),
         'type' => 'fraction_decimal',
-        'weight' => '5',
+        'weight' => '8',
       ),
     ),
   );
@@ -1307,7 +1307,7 @@ function farm_log_crops_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '8',
+        'weight' => '7',
       ),
     ),
   );
@@ -1368,7 +1368,7 @@ function farm_log_crops_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '6',
+        'weight' => '5',
       ),
     ),
   );
@@ -1443,7 +1443,7 @@ function farm_log_crops_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '9',
+        'weight' => '8',
       ),
     ),
   );
@@ -1511,7 +1511,7 @@ function farm_log_crops_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '3',
+        'weight' => '4',
       ),
     ),
   );
@@ -1563,7 +1563,7 @@ function farm_log_crops_field_default_fields() {
           'precision' => '2',
         ),
         'type' => 'fraction_decimal',
-        'weight' => '2',
+        'weight' => '3',
       ),
     ),
   );
@@ -1708,74 +1708,6 @@ function farm_log_crops_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '6',
-      ),
-    ),
-  );
-
-  // Exported field: 'log-farm_planting-field_farm_containers'.
-  $fields['log-farm_planting-field_farm_containers'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_containers',
-      'foreign keys' => array(
-        'tid' => array(
-          'columns' => array(
-            'tid' => 'tid',
-          ),
-          'table' => 'taxonomy_term_data',
-        ),
-      ),
-      'indexes' => array(
-        'tid' => array(
-          0 => 'tid',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'taxonomy',
-      'settings' => array(
-        'allowed_values' => array(
-          0 => array(
-            'vocabulary' => 'farm_containers',
-            'parent' => '0',
-          ),
-        ),
-      ),
-      'translatable' => '0',
-      'type' => 'taxonomy_term_reference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_planting',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => '5',
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_containers',
-      'label' => 'Containers',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 0,
-        'module' => 'taxonomy',
-        'settings' => array(
-          'autocomplete_path' => 'taxonomy/autocomplete',
-          'size' => 60,
-        ),
-        'type' => 'taxonomy_autocomplete',
         'weight' => '5',
       ),
     ),
@@ -1844,7 +1776,7 @@ function farm_log_crops_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '2',
+        'weight' => '4',
       ),
     ),
   );
@@ -1896,7 +1828,7 @@ function farm_log_crops_field_default_fields() {
           'precision' => '2',
         ),
         'type' => 'fraction_decimal',
-        'weight' => '7',
+        'weight' => '12',
       ),
     ),
   );
@@ -2106,7 +2038,7 @@ function farm_log_crops_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '8',
+        'weight' => '7',
       ),
     ),
   );
@@ -2167,7 +2099,7 @@ function farm_log_crops_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '1',
+        'weight' => '3',
       ),
     ),
   );
@@ -2310,7 +2242,7 @@ function farm_log_crops_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '4',
+        'weight' => '5',
       ),
     ),
   );
@@ -2362,7 +2294,7 @@ function farm_log_crops_field_default_fields() {
           'precision' => '3',
         ),
         'type' => 'fraction_decimal',
-        'weight' => '3',
+        'weight' => '4',
       ),
     ),
   );
@@ -2370,7 +2302,6 @@ function farm_log_crops_field_default_fields() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Bushels? Pounds? Dozens?');
-  t('Containers');
   t('Crops');
   t('Fertilizer');
   t('Fertilizing Date');

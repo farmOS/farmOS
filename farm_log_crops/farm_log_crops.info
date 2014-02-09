@@ -44,7 +44,6 @@ features[field][] = log-farm_harvest-field_farm_quantity_units
 features[field][] = log-farm_harvest-field_farm_quantity_value
 features[field][] = log-farm_planting-field_date
 features[field][] = log-farm_planting-field_farm_areas
-features[field][] = log-farm_planting-field_farm_containers
 features[field][] = log-farm_planting-field_farm_crops
 features[field][] = log-farm_planting-field_farm_hours
 features[field][] = log-farm_planting-field_farm_images
