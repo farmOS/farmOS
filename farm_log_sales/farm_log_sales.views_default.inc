@@ -361,10 +361,10 @@ function farm_log_sales_views_default_views() {
     1 => 0,
   );
   $handler->display->display_options['filters']['field_farm_areas_tid']['vocabulary'] = 'farm_areas';
-  $handler->display->display_options['path'] = 'logs/loss';
+  $handler->display->display_options['path'] = 'logs/money/losses';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Losses';
-  $handler->display->display_options['menu']['weight'] = '22';
+  $handler->display->display_options['menu']['weight'] = '20';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
   $handler->display->display_options['tab_options']['type'] = 'normal';
@@ -740,10 +740,10 @@ function farm_log_sales_views_default_views() {
     1 => 0,
   );
   $handler->display->display_options['filters']['field_farm_areas_tid']['vocabulary'] = 'farm_areas';
-  $handler->display->display_options['path'] = 'logs/purchase';
+  $handler->display->display_options['path'] = 'logs/money/purchases';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Purchases';
-  $handler->display->display_options['menu']['weight'] = '21';
+  $handler->display->display_options['menu']['weight'] = '10';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
   $handler->display->display_options['tab_options']['type'] = 'normal';
@@ -1119,15 +1119,15 @@ function farm_log_sales_views_default_views() {
     1 => 0,
   );
   $handler->display->display_options['filters']['field_farm_areas_tid']['vocabulary'] = 'farm_areas';
-  $handler->display->display_options['path'] = 'logs/sales';
-  $handler->display->display_options['menu']['type'] = 'tab';
+  $handler->display->display_options['path'] = 'logs/money/sales';
+  $handler->display->display_options['menu']['type'] = 'default tab';
   $handler->display->display_options['menu']['title'] = 'Sales';
-  $handler->display->display_options['menu']['weight'] = '20';
+  $handler->display->display_options['menu']['weight'] = '';
   $handler->display->display_options['menu']['name'] = 'management';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
-  $handler->display->display_options['tab_options']['type'] = 'normal';
-  $handler->display->display_options['tab_options']['title'] = 'Logs';
+  $handler->display->display_options['tab_options']['type'] = 'tab';
+  $handler->display->display_options['tab_options']['title'] = 'Money';
   $handler->display->display_options['tab_options']['weight'] = '0';
 
   /* Display: Entity Reference */
