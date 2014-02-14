@@ -6,16 +6,16 @@ core = 7.x
 ; -----------------------------------------------------------------------------
 
 projects[ctools][subdir] = "contrib"
-projects[ctools][version] = "1.3"
+projects[ctools][version] = "1.4"
 
 projects[date][subdir] = "contrib"
 projects[date][version] = "2.7"
 
 projects[entity][subdir] = "contrib"
-projects[entity][version] = "1.1"
+projects[entity][version] = "1.3"
 
 projects[entityreference][subdir] = "contrib"
-projects[entityreference][version] = "1.0"
+projects[entityreference][version] = "1.1"
 
 projects[features][subdir] = "contrib"
 projects[features][version] = "1.0"
