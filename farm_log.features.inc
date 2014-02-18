@@ -26,6 +26,11 @@ function farm_log_views_api() {
  */
 function farm_log_default_log_type() {
   $items = array();
-  $items['farm_issue'] = entity_import('log_type', '{ "type" : "farm_issue", "label" : "Issue", "weight" : 0 }');
+  $items['farm_issue'] = entity_import('log_type', '{
+    "type" : "farm_issue",
+    "label" : "Issue",
+    "weight" : 0,
+    "rdf_mapping" : []
+  }');
   return $items;
 }
