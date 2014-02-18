@@ -26,3 +26,8 @@ dependencies[] = toolbar
 dependencies[] = user
 dependencies[] = dblog
 
+; Farm
+dependencies[] = farm_log
+dependencies[] = farm_log_crops
+dependencies[] = farm_log_sales
+dependencies[] = farm_taxonomy
