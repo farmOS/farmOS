@@ -26,8 +26,23 @@ projects[field_group][version] = "1.3"
 projects[fraction][subdir] = "contrib"
 projects[fraction][version] = "1.1"
 
+projects[geocoder][subdir] = "contrib"
+projects[geocoder][version] = "1.2"
+
+projects[geofield][subdir] = "contrib"
+projects[geofield][version] = "2.1"
+
+projects[geophp][subdir] = "contrib"
+projects[geophp][version] = "1.7"
+
 projects[log][subdir] = "contrib"
 projects[log][version] = "1.x"
+
+projects[openlayers][subdir] = "contrib"
+projects[openlayers][version] = "2.0-beta7"
+
+projects[proj4js][subdir] = "contrib"
+projects[proj4js][version] = "1.2"
 
 projects[views][subdir] = "contrib"
 projects[views][version] = "3.7"
