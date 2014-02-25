@@ -1,5 +1,5 @@
-description = Provides features for displaying and working with maps.
 name = Farm Map
+description = Provides OpenLayers configuration for a farm map type.
 core = 7.x
 package = Farm Features
 dependencies[] = ctools
