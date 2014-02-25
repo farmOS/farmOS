@@ -35,6 +35,9 @@ projects[geofield][version] = "2.1"
 projects[geophp][subdir] = "contrib"
 projects[geophp][version] = "1.7"
 
+projects[libraries][subdir] = "contrib"
+projects[libraries][version] = "2.2"
+
 projects[log][subdir] = "contrib"
 projects[log][version] = "1.x"
 
