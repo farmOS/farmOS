@@ -14,5 +14,5 @@ projects[drupal][version] = 7.26
 
 projects[farm][type] = profile
 projects[farm][download][type] = git
-projects[farm][download][url] = http://github.com/mstenta/farm.git
+projects[farm][download][url] = http://github.com/farmier/farm.git
 projects[farm][download][branch] = 7.x-1.x
