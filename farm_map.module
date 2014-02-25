@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Code for the Farmier Maps feature.
+ * Code for the Farm Maps feature.
  */
 
-include_once 'farmier_maps.features.inc';
+include_once 'farm_map.features.inc';

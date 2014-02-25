@@ -1,21 +1,21 @@
 <?php
 /**
  * @file
- * farmier_maps.openlayers_maps.inc
+ * farm_map.openlayers_maps.inc
  */
 
 /**
  * Implements hook_openlayers_maps().
  */
-function farmier_maps_openlayers_maps() {
+function farm_map_openlayers_maps() {
   $export = array();
 
   $openlayers_maps = new stdClass();
   $openlayers_maps->disabled = FALSE; /* Edit this to true to make a default openlayers_maps disabled initially */
   $openlayers_maps->api_version = 1;
-  $openlayers_maps->name = 'farmier';
-  $openlayers_maps->title = 'Farmier Map';
-  $openlayers_maps->description = 'Maps used in Farmier applications.';
+  $openlayers_maps->name = 'farm_map';
+  $openlayers_maps->title = 'Farm Map';
+  $openlayers_maps->description = 'Maps used in farm applications.';
   $openlayers_maps->data = array(
     'width' => 'auto',
     'height' => '400px',
@@ -91,7 +91,7 @@ function farmier_maps_openlayers_maps() {
       'temporary' => 'default',
     ),
   );
-  $export['farmier'] = $openlayers_maps;
+  $export['farm_map'] = $openlayers_maps;
 
   return $export;
 }

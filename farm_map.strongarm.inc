@@ -1,20 +1,20 @@
 <?php
 /**
  * @file
- * farmier_maps.strongarm.inc
+ * farm_map.strongarm.inc
  */
 
 /**
  * Implements hook_strongarm().
  */
-function farmier_maps_strongarm() {
+function farm_map_strongarm() {
   $export = array();
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'openlayers_default_map';
-  $strongarm->value = 'farmier';
+  $strongarm->value = 'farm_map';
   $export['openlayers_default_map'] = $strongarm;
 
   $strongarm = new stdClass();
