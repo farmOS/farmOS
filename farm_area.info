@@ -21,6 +21,7 @@ features[ctools][] = views:views_default:3.0
 features[features_api][] = api:1
 features[field][] = taxonomy_term-farm_areas-field_farm_area_type
 features[field][] = taxonomy_term-farm_areas-field_farm_areas
+features[field][] = taxonomy_term-farm_areas-field_farm_files
 features[field][] = taxonomy_term-farm_areas-field_farm_geofield
 features[field][] = taxonomy_term-farm_areas-field_farm_images
 features[field_group][] = group_farm_details|taxonomy_term|farm_areas|form

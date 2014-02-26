@@ -47,7 +47,7 @@ function farm_area_field_default_fields() {
           'module' => 'list',
           'settings' => array(),
           'type' => 'list_default',
-          'weight' => 4,
+          'weight' => '4',
         ),
       ),
       'entity_type' => 'taxonomy_term',
@@ -131,6 +131,73 @@ function farm_area_field_default_fields() {
         ),
         'type' => 'taxonomy_autocomplete',
         'weight' => '4',
+      ),
+    ),
+  );
+
+  // Exported field: 'taxonomy_term-farm_areas-field_farm_files'.
+  $fields['taxonomy_term-farm_areas-field_farm_files'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_files',
+      'foreign keys' => array(
+        'fid' => array(
+          'columns' => array(
+            'fid' => 'fid',
+          ),
+          'table' => 'file_managed',
+        ),
+      ),
+      'indexes' => array(
+        'fid' => array(
+          0 => 'fid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'file',
+      'settings' => array(
+        'display_default' => 0,
+        'display_field' => 0,
+        'uri_scheme' => 'public',
+      ),
+      'translatable' => '0',
+      'type' => 'file',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_areas',
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'file',
+          'settings' => array(),
+          'type' => 'file_table',
+          'weight' => '5',
+        ),
+      ),
+      'entity_type' => 'taxonomy_term',
+      'field_name' => 'field_farm_files',
+      'label' => 'Files',
+      'required' => 0,
+      'settings' => array(
+        'description_field' => 1,
+        'file_directory' => '',
+        'file_extensions' => 'csv doc docx odt odp ods pdf ppt pptx txt xls xlsx',
+        'max_filesize' => '',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'file',
+        'settings' => array(
+          'progress_indicator' => 'throbber',
+        ),
+        'type' => 'file_generic',
+        'weight' => '5',
       ),
     ),
   );
@@ -326,6 +393,7 @@ function farm_area_field_default_fields() {
   // Included for use with string extractors like potx.
   t('Adjacent areas');
   t('Area type');
+  t('Files');
   t('Images');
   t('Is this area inside (greenhouse, barn, etc), or outside (field, pasture, etc)');
   t('Location');
