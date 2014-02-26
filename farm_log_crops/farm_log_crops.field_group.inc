@@ -23,8 +23,8 @@ function farm_log_crops_field_group_info() {
     'label' => 'Crops + Fields',
     'weight' => '1',
     'children' => array(
-      0 => 'field_farm_crops',
-      1 => 'field_farm_areas',
+      0 => 'field_farm_areas',
+      1 => 'field_farm_crops',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -52,8 +52,8 @@ function farm_log_crops_field_group_info() {
     'label' => 'Crops + Fields',
     'weight' => '1',
     'children' => array(
-      0 => 'field_farm_crops',
-      1 => 'field_farm_areas',
+      0 => 'field_farm_areas',
+      1 => 'field_farm_crops',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -81,8 +81,8 @@ function farm_log_crops_field_group_info() {
     'label' => 'Crops + Fields',
     'weight' => '1',
     'children' => array(
-      0 => 'field_farm_crops',
-      1 => 'field_farm_areas',
+      0 => 'field_farm_areas',
+      1 => 'field_farm_crops',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -111,8 +111,8 @@ function farm_log_crops_field_group_info() {
     'weight' => '2',
     'children' => array(
       0 => 'field_farm_notes',
-      1 => 'field_farm_quantity_value',
-      2 => 'field_farm_quantity_units',
+      1 => 'field_farm_quantity_units',
+      2 => 'field_farm_quantity_value',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -141,9 +141,9 @@ function farm_log_crops_field_group_info() {
     'weight' => '2',
     'children' => array(
       0 => 'field_farm_inputs',
-      1 => 'field_farm_quantity_value',
+      1 => 'field_farm_notes',
       2 => 'field_farm_quantity_units',
-      3 => 'field_farm_notes',
+      3 => 'field_farm_quantity_value',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -173,8 +173,8 @@ function farm_log_crops_field_group_info() {
     'children' => array(
       0 => 'field_farm_notes',
       1 => 'field_farm_planting_type',
-      2 => 'field_farm_quantity_value',
-      3 => 'field_farm_quantity_units',
+      2 => 'field_farm_quantity_units',
+      3 => 'field_farm_quantity_value',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -203,6 +203,7 @@ function farm_log_crops_field_group_info() {
     'weight' => '6',
     'children' => array(
       0 => 'field_farm_images',
+      1 => 'field_farm_files',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -231,6 +232,7 @@ function farm_log_crops_field_group_info() {
     'weight' => '3',
     'children' => array(
       0 => 'field_farm_images',
+      1 => 'field_farm_files',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -259,6 +261,7 @@ function farm_log_crops_field_group_info() {
     'weight' => '10',
     'children' => array(
       0 => 'field_farm_images',
+      1 => 'field_farm_files',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -287,8 +290,8 @@ function farm_log_crops_field_group_info() {
     'weight' => '7',
     'children' => array(
       0 => 'field_farm_harvests',
-      1 => 'field_farm_plantings',
-      2 => 'field_farm_issues',
+      1 => 'field_farm_issues',
+      2 => 'field_farm_plantings',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -316,9 +319,9 @@ function farm_log_crops_field_group_info() {
     'label' => 'Related Logs',
     'weight' => '4',
     'children' => array(
-      0 => 'field_farm_issues',
-      1 => 'field_farm_plantings',
-      2 => 'field_farm_input_logs',
+      0 => 'field_farm_input_logs',
+      1 => 'field_farm_issues',
+      2 => 'field_farm_plantings',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -345,8 +348,8 @@ function farm_log_crops_field_group_info() {
     'label' => 'Related Logs',
     'weight' => '11',
     'children' => array(
-      0 => 'field_farm_plantings',
-      1 => 'field_farm_issues',
+      0 => 'field_farm_issues',
+      1 => 'field_farm_plantings',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

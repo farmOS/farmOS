@@ -223,6 +223,73 @@ function farm_log_crops_field_default_fields() {
     ),
   );
 
+  // Exported field: 'log-farm_harvest-field_farm_files'.
+  $fields['log-farm_harvest-field_farm_files'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_files',
+      'foreign keys' => array(
+        'fid' => array(
+          'columns' => array(
+            'fid' => 'fid',
+          ),
+          'table' => 'file_managed',
+        ),
+      ),
+      'indexes' => array(
+        'fid' => array(
+          0 => 'fid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'file',
+      'settings' => array(
+        'display_default' => 0,
+        'display_field' => 0,
+        'uri_scheme' => 'public',
+      ),
+      'translatable' => '0',
+      'type' => 'file',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_harvest',
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'file',
+          'settings' => array(),
+          'type' => 'file_table',
+          'weight' => '8',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_files',
+      'label' => 'Files',
+      'required' => 0,
+      'settings' => array(
+        'description_field' => 1,
+        'file_directory' => '',
+        'file_extensions' => 'csv doc docx odt odp ods pdf ppt pptx txt xls xlsx',
+        'max_filesize' => '',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'file',
+        'settings' => array(
+          'progress_indicator' => 'throbber',
+        ),
+        'type' => 'file_generic',
+        'weight' => '8',
+      ),
+    ),
+  );
+
   // Exported field: 'log-farm_harvest-field_farm_harvests'.
   $fields['log-farm_harvest-field_farm_harvests'] = array(
     'field_config' => array(
@@ -964,6 +1031,73 @@ function farm_log_crops_field_default_fields() {
         ),
         'type' => 'taxonomy_autocomplete',
         'weight' => '4',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_input-field_farm_files'.
+  $fields['log-farm_input-field_farm_files'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_files',
+      'foreign keys' => array(
+        'fid' => array(
+          'columns' => array(
+            'fid' => 'fid',
+          ),
+          'table' => 'file_managed',
+        ),
+      ),
+      'indexes' => array(
+        'fid' => array(
+          0 => 'fid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'file',
+      'settings' => array(
+        'display_default' => 0,
+        'display_field' => 0,
+        'uri_scheme' => 'public',
+      ),
+      'translatable' => '0',
+      'type' => 'file',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_input',
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'file',
+          'settings' => array(),
+          'type' => 'file_table',
+          'weight' => '9',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_files',
+      'label' => 'Files',
+      'required' => 0,
+      'settings' => array(
+        'description_field' => 0,
+        'file_directory' => '',
+        'file_extensions' => 'csv doc docx odt odp ods pdf ppt pptx txt xls xlsx',
+        'max_filesize' => '',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'file',
+        'settings' => array(
+          'progress_indicator' => 'throbber',
+        ),
+        'type' => 'file_generic',
+        'weight' => '8',
       ),
     ),
   );
@@ -1781,6 +1915,73 @@ function farm_log_crops_field_default_fields() {
     ),
   );
 
+  // Exported field: 'log-farm_planting-field_farm_files'.
+  $fields['log-farm_planting-field_farm_files'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_files',
+      'foreign keys' => array(
+        'fid' => array(
+          'columns' => array(
+            'fid' => 'fid',
+          ),
+          'table' => 'file_managed',
+        ),
+      ),
+      'indexes' => array(
+        'fid' => array(
+          0 => 'fid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'file',
+      'settings' => array(
+        'display_default' => 0,
+        'display_field' => 0,
+        'uri_scheme' => 'public',
+      ),
+      'translatable' => '0',
+      'type' => 'file',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_planting',
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'file',
+          'settings' => array(),
+          'type' => 'file_table',
+          'weight' => '9',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_files',
+      'label' => 'Files',
+      'required' => 0,
+      'settings' => array(
+        'description_field' => 1,
+        'file_directory' => '',
+        'file_extensions' => 'csv doc docx odt odp ods pdf ppt pptx txt xls xlsx',
+        'max_filesize' => '',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'file',
+        'settings' => array(
+          'progress_indicator' => 'throbber',
+        ),
+        'type' => 'file_generic',
+        'weight' => '10',
+      ),
+    ),
+  );
+
   // Exported field: 'log-farm_planting-field_farm_hours'.
   $fields['log-farm_planting-field_farm_hours'] = array(
     'field_config' => array(
@@ -2307,6 +2508,7 @@ function farm_log_crops_field_default_fields() {
   t('Date');
   t('Describe the unit of measurement for the quantity above. For example: seeds, trays, flats, row feet, etc.');
   t('Fields/Beds');
+  t('Files');
   t('Gallons? Pounds? Handfuls?');
   t('Harvest Date');
   t('How much was seeded/planted? If this is a seeding, enter the number of seeds, packets, etc. If it\'s a transplanting, enter the number of plants, trays, etc. Describe the units below.');

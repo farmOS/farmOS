@@ -23,8 +23,8 @@ function farm_log_field_group_info() {
     'label' => 'Crops + Fields',
     'weight' => '2',
     'children' => array(
-      0 => 'field_farm_crops',
-      1 => 'field_farm_areas',
+      0 => 'field_farm_areas',
+      1 => 'field_farm_crops',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -53,8 +53,8 @@ function farm_log_field_group_info() {
     'weight' => '1',
     'children' => array(
       0 => 'field_farm_notes',
-      1 => 'field_farm_threats',
-      2 => 'field_farm_priority',
+      1 => 'field_farm_priority',
+      2 => 'field_farm_threats',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -83,6 +83,7 @@ function farm_log_field_group_info() {
     'weight' => '3',
     'children' => array(
       0 => 'field_farm_images',
+      1 => 'field_farm_files',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

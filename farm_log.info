@@ -25,6 +25,7 @@ features[features_api][] = api:1
 features[field][] = log-farm_issue-field_date
 features[field][] = log-farm_issue-field_farm_areas
 features[field][] = log-farm_issue-field_farm_crops
+features[field][] = log-farm_issue-field_farm_files
 features[field][] = log-farm_issue-field_farm_hours
 features[field][] = log-farm_issue-field_farm_images
 features[field][] = log-farm_issue-field_farm_issues

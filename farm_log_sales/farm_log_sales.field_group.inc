@@ -23,8 +23,8 @@ function farm_log_sales_field_group_info() {
     'label' => 'Crops + Fields',
     'weight' => '6',
     'children' => array(
-      0 => 'field_farm_crops',
-      1 => 'field_farm_areas',
+      0 => 'field_farm_areas',
+      1 => 'field_farm_crops',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -52,8 +52,8 @@ function farm_log_sales_field_group_info() {
     'label' => 'Crops + Fields',
     'weight' => '2',
     'children' => array(
-      0 => 'field_farm_crops',
-      1 => 'field_farm_areas',
+      0 => 'field_farm_areas',
+      1 => 'field_farm_crops',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -81,8 +81,8 @@ function farm_log_sales_field_group_info() {
     'label' => 'Crops + Fields',
     'weight' => '2',
     'children' => array(
-      0 => 'field_farm_crops',
-      1 => 'field_farm_areas',
+      0 => 'field_farm_areas',
+      1 => 'field_farm_crops',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -110,10 +110,10 @@ function farm_log_sales_field_group_info() {
     'label' => 'Loss Details',
     'weight' => '1',
     'children' => array(
-      0 => 'field_farm_value',
-      1 => 'field_farm_quantity_value',
-      2 => 'field_farm_quantity_units',
-      3 => 'field_farm_notes',
+      0 => 'field_farm_notes',
+      1 => 'field_farm_quantity_units',
+      2 => 'field_farm_quantity_value',
+      3 => 'field_farm_value',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -141,10 +141,10 @@ function farm_log_sales_field_group_info() {
     'label' => 'Purchase Details',
     'weight' => '1',
     'children' => array(
-      0 => 'field_farm_quantity_value',
-      1 => 'field_farm_value',
-      2 => 'field_farm_quantity_units',
-      3 => 'field_farm_notes',
+      0 => 'field_farm_notes',
+      1 => 'field_farm_quantity_units',
+      2 => 'field_farm_quantity_value',
+      3 => 'field_farm_value',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -172,10 +172,10 @@ function farm_log_sales_field_group_info() {
     'label' => 'Sale Details',
     'weight' => '1',
     'children' => array(
-      0 => 'field_farm_value',
-      1 => 'field_farm_quantity_value',
-      2 => 'field_farm_quantity_units',
-      3 => 'field_farm_notes',
+      0 => 'field_farm_notes',
+      1 => 'field_farm_quantity_units',
+      2 => 'field_farm_quantity_value',
+      3 => 'field_farm_value',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -204,6 +204,7 @@ function farm_log_sales_field_group_info() {
     'weight' => '7',
     'children' => array(
       0 => 'field_farm_images',
+      1 => 'field_farm_files',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -232,6 +233,7 @@ function farm_log_sales_field_group_info() {
     'weight' => '6',
     'children' => array(
       0 => 'field_farm_images',
+      1 => 'field_farm_files',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -260,6 +262,7 @@ function farm_log_sales_field_group_info() {
     'weight' => '3',
     'children' => array(
       0 => 'field_farm_images',
+      1 => 'field_farm_files',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -287,8 +290,8 @@ function farm_log_sales_field_group_info() {
     'label' => 'Related Logs',
     'weight' => '8',
     'children' => array(
-      0 => 'field_farm_losses',
-      1 => 'field_farm_issues',
+      0 => 'field_farm_issues',
+      1 => 'field_farm_losses',
       2 => 'field_farm_plantings',
     ),
     'format_type' => 'fieldset',
@@ -318,8 +321,8 @@ function farm_log_sales_field_group_info() {
     'weight' => '7',
     'children' => array(
       0 => 'field_farm_issues',
-      1 => 'field_farm_purchases',
-      2 => 'field_farm_plantings',
+      1 => 'field_farm_plantings',
+      2 => 'field_farm_purchases',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -347,9 +350,9 @@ function farm_log_sales_field_group_info() {
     'label' => 'Related Logs',
     'weight' => '4',
     'children' => array(
-      0 => 'field_farm_sales',
+      0 => 'field_farm_issues',
       1 => 'field_farm_plantings',
-      2 => 'field_farm_issues',
+      2 => 'field_farm_sales',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
