@@ -10,6 +10,63 @@
 function farm_area_field_default_fields() {
   $fields = array();
 
+  // Exported field: 'taxonomy_term-farm_areas-field_farm_area_type'.
+  $fields['taxonomy_term-farm_areas-field_farm_area_type'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_area_type',
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'list',
+      'settings' => array(
+        'allowed_values' => array(
+          'Inside' => 'Inside',
+          'Outside' => 'Outside',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'translatable' => '0',
+      'type' => 'list_text',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_areas',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'Is this area inside (greenhouse, barn, etc), or outside (field, pasture, etc)',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'list',
+          'settings' => array(),
+          'type' => 'list_default',
+          'weight' => 4,
+        ),
+      ),
+      'entity_type' => 'taxonomy_term',
+      'field_name' => 'field_farm_area_type',
+      'label' => 'Area type',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_select',
+        'weight' => '3',
+      ),
+    ),
+  );
+
   // Exported field: 'taxonomy_term-farm_areas-field_farm_areas'.
   $fields['taxonomy_term-farm_areas-field_farm_areas'] = array(
     'field_config' => array(
@@ -73,7 +130,7 @@ function farm_area_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '3',
+        'weight' => '4',
       ),
     ),
   );
@@ -266,10 +323,12 @@ function farm_area_field_default_fields() {
   );
 
   // Translatables
-  // Included for use with string extractors like potx.\
+  // Included for use with string extractors like potx.
   t('Adjacent areas');
-  t('Location');
+  t('Area type');
   t('Images');
+  t('Is this area inside (greenhouse, barn, etc), or outside (field, pasture, etc)');
+  t('Location');
 
   return $fields;
 }
