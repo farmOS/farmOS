@@ -20,4 +20,5 @@ features[taxonomy][] = farm_crops
 features[taxonomy][] = farm_inputs
 features[taxonomy][] = farm_priority
 features[taxonomy][] = farm_quantity_units
+features[taxonomy][] = farm_season
 features[taxonomy][] = farm_threats
