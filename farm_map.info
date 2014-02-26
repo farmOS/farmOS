@@ -13,6 +13,5 @@ features[openlayers_maps][] = farm_map
 features[openlayers_styles][] = farm_blue
 features[openlayers_styles][] = farm_green
 features[openlayers_styles][] = farm_orange
-features[variable][] = openlayers_default_map
 features[variable][] = openlayers_source_type
 features[variable][] = openlayers_ui_preview_map

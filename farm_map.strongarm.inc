@@ -13,13 +13,6 @@ function farm_map_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'openlayers_default_map';
-  $strongarm->value = 'farm_map';
-  $export['openlayers_default_map'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'openlayers_source_type';
   $strongarm->value = 'external';
   $export['openlayers_source_type'] = $strongarm;
