@@ -73,7 +73,7 @@ function farm_taxonomy_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '2',
+        'weight' => '3',
       ),
     ),
   );
@@ -136,7 +136,7 @@ function farm_taxonomy_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'text_textfield',
-        'weight' => '1',
+        'weight' => '2',
       ),
     ),
   );
@@ -210,7 +210,7 @@ function farm_taxonomy_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'image_image',
-        'weight' => '5',
+        'weight' => '3',
       ),
     ),
   );
@@ -266,7 +266,7 @@ function farm_taxonomy_field_default_fields() {
         'module' => 'number',
         'settings' => array(),
         'type' => 'number',
-        'weight' => '3',
+        'weight' => '2',
       ),
     ),
   );
