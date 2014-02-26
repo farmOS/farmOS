@@ -23,6 +23,9 @@ projects[features][version] = "1.0"
 projects[field_group][subdir] = "contrib"
 projects[field_group][version] = "1.3"
 
+projects[filefield_paths][subdir] = "contrib"
+projects[filefield_paths][version] = "1.0-beta4"
+
 projects[fraction][subdir] = "contrib"
 projects[fraction][version] = "1.1"
 
@@ -44,11 +47,17 @@ projects[log][version] = "1.x"
 projects[openlayers][subdir] = "contrib"
 projects[openlayers][version] = "2.0-beta7"
 
+projects[pathauto][subdir] = "contrib"
+projects[pathauto][version] = "1.2"
+
 projects[proj4js][subdir] = "contrib"
 projects[proj4js][version] = "1.2"
 
 projects[strongarm][subdir] = "contrib"
 projects[strongarm][version] = "2.0"
+
+projects[token][subdir] = "contrib"
+projects[token][version] = "1.5"
 
 projects[views][subdir] = "contrib"
 projects[views][version] = "3.7"
