@@ -27,6 +27,7 @@ dependencies[] = user
 dependencies[] = dblog
 
 ; Farm
+dependencies[] = farm_area
 dependencies[] = farm_log
 dependencies[] = farm_log_crops
 dependencies[] = farm_log_sales
