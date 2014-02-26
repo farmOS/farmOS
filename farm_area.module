@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Farm Area feature.
+ */
+
+include_once 'farm_area.features.inc';
