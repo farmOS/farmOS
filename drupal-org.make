@@ -47,6 +47,9 @@ projects[openlayers][version] = "2.0-beta7"
 projects[proj4js][subdir] = "contrib"
 projects[proj4js][version] = "1.2"
 
+projects[strongarm][subdir] = "contrib"
+projects[strongarm][version] = "2.0"
+
 projects[views][subdir] = "contrib"
 projects[views][version] = "3.7"
 
