@@ -1,5 +1,7 @@
 <?php
 /**
  * @file
- * Drupal needs this blank file.
+ * Code for the Farm Taxonomy feature.
  */
+
+include_once 'farm_taxonomy.features.inc';
