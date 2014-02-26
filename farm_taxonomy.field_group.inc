@@ -82,6 +82,7 @@ function farm_taxonomy_field_group_info() {
     'weight' => '3',
     'children' => array(
       0 => 'field_farm_images',
+      1 => 'field_farm_files',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
