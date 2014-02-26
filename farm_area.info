@@ -7,6 +7,7 @@ dependencies[] = farm_map
 dependencies[] = features
 dependencies[] = geofield
 dependencies[] = openlayers
+dependencies[] = openlayers_views
 dependencies[] = taxonomy
 dependencies[] = views
 features[ctools][] = openlayers:openlayers_maps:1
