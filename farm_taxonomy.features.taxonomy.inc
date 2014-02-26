@@ -10,7 +10,7 @@
 function farm_taxonomy_taxonomy_default_vocabularies() {
   return array(
     'farm_areas' => array(
-      'name' => 'Fields+Beds',
+      'name' => 'Fields/Beds',
       'machine_name' => 'farm_areas',
       'description' => 'Distinct fields or beds that crops are planted into.',
       'hierarchy' => '0',
