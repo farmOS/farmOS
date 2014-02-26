@@ -26,15 +26,15 @@ function farm_log_crops_views_api() {
  */
 function farm_log_crops_default_log_type() {
   $items = array();
-  $items['farm_fertilize'] = entity_import('log_type', '{
-    "type" : "farm_fertilize",
-    "label" : "Fertilizing",
-    "weight" : 0,
-    "rdf_mapping" : []
-  }');
   $items['farm_harvest'] = entity_import('log_type', '{
     "type" : "farm_harvest",
     "label" : "Harvest",
+    "weight" : 0,
+    "rdf_mapping" : []
+  }');
+  $items['farm_input'] = entity_import('log_type', '{
+    "type" : "farm_input",
+    "label" : "Input",
     "weight" : 0,
     "rdf_mapping" : []
   }');
