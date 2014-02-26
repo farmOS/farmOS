@@ -55,10 +55,10 @@ function farm_taxonomy_taxonomy_default_vocabularies() {
         ),
       ),
     ),
-    'farm_fertilizers' => array(
-      'name' => 'Fertilizers',
-      'machine_name' => 'farm_fertilizers',
-      'description' => 'Fertilizers that are used to nourish crops, fields, beds, etc.',
+    'farm_inputs' => array(
+      'name' => 'Inputs',
+      'machine_name' => 'farm_inputs',
+      'description' => 'Inputs that are used on crops, fields, beds, etc.',
       'hierarchy' => '0',
       'module' => 'taxonomy',
       'weight' => '0',
