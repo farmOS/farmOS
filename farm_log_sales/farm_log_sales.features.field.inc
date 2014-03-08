@@ -123,7 +123,7 @@ function farm_log_sales_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'farm_loss',
-      'default_value' => NULL,
+      'default_value' => array(),
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -144,12 +144,13 @@ function farm_log_sales_field_default_fields() {
       ),
       'widget' => array(
         'active' => 0,
-        'module' => 'taxonomy',
+        'module' => 'autocomplete_deluxe',
         'settings' => array(
+          'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
           'autocomplete_path' => 'taxonomy/autocomplete',
           'size' => 60,
         ),
-        'type' => 'taxonomy_autocomplete',
+        'type' => 'autocomplete_deluxe_taxonomy',
         'weight' => '6',
       ),
     ),
@@ -191,7 +192,7 @@ function farm_log_sales_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'farm_loss',
-      'default_value' => NULL,
+      'default_value' => array(),
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -212,12 +213,13 @@ function farm_log_sales_field_default_fields() {
       ),
       'widget' => array(
         'active' => 0,
-        'module' => 'taxonomy',
+        'module' => 'autocomplete_deluxe',
         'settings' => array(
+          'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
           'autocomplete_path' => 'taxonomy/autocomplete',
           'size' => 60,
         ),
-        'type' => 'taxonomy_autocomplete',
+        'type' => 'autocomplete_deluxe_taxonomy',
         'weight' => '5',
       ),
     ),
@@ -686,7 +688,7 @@ function farm_log_sales_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'farm_loss',
-      'default_value' => NULL,
+      'default_value' => array(),
       'deleted' => '0',
       'description' => 'Row feet? Bushels? Chickens?',
       'display' => array(
@@ -707,12 +709,13 @@ function farm_log_sales_field_default_fields() {
       ),
       'widget' => array(
         'active' => 0,
-        'module' => 'taxonomy',
+        'module' => 'autocomplete_deluxe',
         'settings' => array(
+          'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
           'autocomplete_path' => 'taxonomy/autocomplete',
           'size' => 60,
         ),
-        'type' => 'taxonomy_autocomplete',
+        'type' => 'autocomplete_deluxe_taxonomy',
         'weight' => '4',
       ),
     ),
@@ -935,7 +938,7 @@ function farm_log_sales_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'farm_purchase',
-      'default_value' => NULL,
+      'default_value' => array(),
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -956,12 +959,13 @@ function farm_log_sales_field_default_fields() {
       ),
       'widget' => array(
         'active' => 0,
-        'module' => 'taxonomy',
+        'module' => 'autocomplete_deluxe',
         'settings' => array(
+          'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
           'autocomplete_path' => 'taxonomy/autocomplete',
           'size' => 60,
         ),
-        'type' => 'taxonomy_autocomplete',
+        'type' => 'autocomplete_deluxe_taxonomy',
         'weight' => '4',
       ),
     ),
@@ -1003,7 +1007,7 @@ function farm_log_sales_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'farm_purchase',
-      'default_value' => NULL,
+      'default_value' => array(),
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -1024,12 +1028,13 @@ function farm_log_sales_field_default_fields() {
       ),
       'widget' => array(
         'active' => 0,
-        'module' => 'taxonomy',
+        'module' => 'autocomplete_deluxe',
         'settings' => array(
+          'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
           'autocomplete_path' => 'taxonomy/autocomplete',
           'size' => 60,
         ),
-        'type' => 'taxonomy_autocomplete',
+        'type' => 'autocomplete_deluxe_taxonomy',
         'weight' => '3',
       ),
     ),
@@ -1498,7 +1503,7 @@ function farm_log_sales_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'farm_purchase',
-      'default_value' => NULL,
+      'default_value' => array(),
       'deleted' => '0',
       'description' => 'Packets? Feet? Pounds?',
       'display' => array(
@@ -1519,12 +1524,13 @@ function farm_log_sales_field_default_fields() {
       ),
       'widget' => array(
         'active' => 0,
-        'module' => 'taxonomy',
+        'module' => 'autocomplete_deluxe',
         'settings' => array(
+          'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
           'autocomplete_path' => 'taxonomy/autocomplete',
           'size' => 60,
         ),
-        'type' => 'taxonomy_autocomplete',
+        'type' => 'autocomplete_deluxe_taxonomy',
         'weight' => '4',
       ),
     ),
@@ -1768,12 +1774,13 @@ function farm_log_sales_field_default_fields() {
       ),
       'widget' => array(
         'active' => 0,
-        'module' => 'taxonomy',
+        'module' => 'autocomplete_deluxe',
         'settings' => array(
+          'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
           'autocomplete_path' => 'taxonomy/autocomplete',
           'size' => 60,
         ),
-        'type' => 'taxonomy_autocomplete',
+        'type' => 'autocomplete_deluxe_taxonomy',
         'weight' => '7',
       ),
     ),
@@ -1815,7 +1822,7 @@ function farm_log_sales_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'farm_sale',
-      'default_value' => NULL,
+      'default_value' => array(),
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -1836,12 +1843,13 @@ function farm_log_sales_field_default_fields() {
       ),
       'widget' => array(
         'active' => 1,
-        'module' => 'taxonomy',
+        'module' => 'autocomplete_deluxe',
         'settings' => array(
+          'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
           'autocomplete_path' => 'taxonomy/autocomplete',
           'size' => 60,
         ),
-        'type' => 'taxonomy_autocomplete',
+        'type' => 'autocomplete_deluxe_taxonomy',
         'weight' => '6',
       ),
     ),
@@ -2092,7 +2100,7 @@ function farm_log_sales_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'farm_sale',
-      'default_value' => NULL,
+      'default_value' => array(),
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -2235,7 +2243,7 @@ function farm_log_sales_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'farm_sale',
-      'default_value' => NULL,
+      'default_value' => array(),
       'deleted' => '0',
       'description' => 'Cases? Pounds? Bunches?',
       'display' => array(
@@ -2256,12 +2264,13 @@ function farm_log_sales_field_default_fields() {
       ),
       'widget' => array(
         'active' => 0,
-        'module' => 'taxonomy',
+        'module' => 'autocomplete_deluxe',
         'settings' => array(
+          'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
           'autocomplete_path' => 'taxonomy/autocomplete',
           'size' => 60,
         ),
-        'type' => 'taxonomy_autocomplete',
+        'type' => 'autocomplete_deluxe_taxonomy',
         'weight' => '4',
       ),
     ),

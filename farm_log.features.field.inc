@@ -123,7 +123,7 @@ function farm_log_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'farm_issue',
-      'default_value' => NULL,
+      'default_value' => array(),
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -144,12 +144,13 @@ function farm_log_field_default_fields() {
       ),
       'widget' => array(
         'active' => 0,
-        'module' => 'taxonomy',
+        'module' => 'autocomplete_deluxe',
         'settings' => array(
+          'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
           'autocomplete_path' => 'taxonomy/autocomplete',
           'size' => 60,
         ),
-        'type' => 'taxonomy_autocomplete',
+        'type' => 'autocomplete_deluxe_taxonomy',
         'weight' => '4',
       ),
     ),
@@ -191,7 +192,7 @@ function farm_log_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'farm_issue',
-      'default_value' => NULL,
+      'default_value' => array(),
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -212,12 +213,13 @@ function farm_log_field_default_fields() {
       ),
       'widget' => array(
         'active' => 1,
-        'module' => 'taxonomy',
+        'module' => 'autocomplete_deluxe',
         'settings' => array(
+          'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
           'autocomplete_path' => 'taxonomy/autocomplete',
           'size' => 60,
         ),
-        'type' => 'taxonomy_autocomplete',
+        'type' => 'autocomplete_deluxe_taxonomy',
         'weight' => '3',
       ),
     ),
@@ -653,7 +655,7 @@ function farm_log_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'farm_issue',
-      'default_value' => NULL,
+      'default_value' => array(),
       'deleted' => '0',
       'description' => 'List any threats involved with this issue. This helps to categorize data. Separate each threat with a comma. As you type, you will have the option of selecting from threats that you\'ve entered in the past.',
       'display' => array(
@@ -674,12 +676,13 @@ function farm_log_field_default_fields() {
       ),
       'widget' => array(
         'active' => 0,
-        'module' => 'taxonomy',
+        'module' => 'autocomplete_deluxe',
         'settings' => array(
+          'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
           'autocomplete_path' => 'taxonomy/autocomplete',
           'size' => 60,
         ),
-        'type' => 'taxonomy_autocomplete',
+        'type' => 'autocomplete_deluxe_taxonomy',
         'weight' => '7',
       ),
     ),
