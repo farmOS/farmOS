@@ -79,5 +79,12 @@ function farm_log_crops_strongarm() {
   );
   $export['field_bundle_settings_log__farm_planting'] = $strongarm;
 
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_taxonomy_term_farm_input_types_pattern';
+  $strongarm->value = 'farm/input-type/[term:name]';
+  $export['pathauto_taxonomy_term_farm_input_types_pattern'] = $strongarm;
+
   return $export;
 }

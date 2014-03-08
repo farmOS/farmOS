@@ -80,6 +80,7 @@ features[taxonomy][] = farm_input_types
 features[variable][] = field_bundle_settings_log__farm_harvest
 features[variable][] = field_bundle_settings_log__farm_input
 features[variable][] = field_bundle_settings_log__farm_planting
+features[variable][] = pathauto_taxonomy_term_farm_input_types_pattern
 features[views_view][] = farm_log_harvest
 features[views_view][] = farm_log_input
 features[views_view][] = farm_log_planting
