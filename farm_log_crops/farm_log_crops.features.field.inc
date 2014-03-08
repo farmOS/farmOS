@@ -868,7 +868,7 @@ function farm_log_crops_field_default_fields() {
             'multiple_to' => '',
           ),
           'type' => 'date_default',
-          'weight' => '0',
+          'weight' => '1',
         ),
       ),
       'entity_type' => 'log',
@@ -894,7 +894,7 @@ function farm_log_crops_field_default_fields() {
           'year_range' => '-3:+3',
         ),
         'type' => 'date_popup',
-        'weight' => '0',
+        'weight' => '1',
       ),
     ),
   );
@@ -944,7 +944,7 @@ function farm_log_crops_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '5',
+          'weight' => '6',
         ),
       ),
       'entity_type' => 'log',
@@ -1012,7 +1012,7 @@ function farm_log_crops_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '4',
+          'weight' => '5',
         ),
       ),
       'entity_type' => 'log',
@@ -1076,7 +1076,7 @@ function farm_log_crops_field_default_fields() {
           'module' => 'file',
           'settings' => array(),
           'type' => 'file_table',
-          'weight' => '9',
+          'weight' => '10',
         ),
       ),
       'entity_type' => 'log',
@@ -1132,7 +1132,7 @@ function farm_log_crops_field_default_fields() {
             'precision' => 2,
           ),
           'type' => 'fraction_decimal',
-          'weight' => '6',
+          'weight' => '7',
         ),
       ),
       'entity_type' => 'log',
@@ -1149,7 +1149,7 @@ function farm_log_crops_field_default_fields() {
           'precision' => '2',
         ),
         'type' => 'fraction_decimal',
-        'weight' => '5',
+        'weight' => '6',
       ),
     ),
   );
@@ -1197,7 +1197,7 @@ function farm_log_crops_field_default_fields() {
             'image_style' => 'large',
           ),
           'type' => 'image',
-          'weight' => '8',
+          'weight' => '9',
         ),
       ),
       'entity_type' => 'log',
@@ -1283,7 +1283,7 @@ function farm_log_crops_field_default_fields() {
             'link' => 1,
           ),
           'type' => 'entityreference_label',
-          'weight' => '11',
+          'weight' => '13',
         ),
       ),
       'entity_type' => 'log',
@@ -1298,7 +1298,75 @@ function farm_log_crops_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '10',
+        'weight' => '11',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_input-field_farm_input_type'.
+  $fields['log-farm_input-field_farm_input_type'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_input_type',
+      'field_permissions' => array(
+        'type' => '0',
+      ),
+      'foreign keys' => array(
+        'tid' => array(
+          'columns' => array(
+            'tid' => 'tid',
+          ),
+          'table' => 'taxonomy_term_data',
+        ),
+      ),
+      'indexes' => array(
+        'tid' => array(
+          0 => 'tid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'taxonomy',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => array(
+            'vocabulary' => 'farm_input_types',
+            'parent' => '0',
+          ),
+        ),
+      ),
+      'translatable' => '0',
+      'type' => 'taxonomy_term_reference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_input',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'What type of input is this? You can edit the input types in the <a href="/admin/structure/taxonomy/farm_input_types">input types vocabulary</a>.',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '0',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_input_type',
+      'label' => 'Input Type',
+      'required' => 1,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_select',
+        'weight' => '0',
       ),
     ),
   );
@@ -1348,7 +1416,7 @@ function farm_log_crops_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '1',
+          'weight' => '2',
         ),
       ),
       'entity_type' => 'log',
@@ -1426,7 +1494,7 @@ function farm_log_crops_field_default_fields() {
             'link' => 1,
           ),
           'type' => 'entityreference_label',
-          'weight' => '9',
+          'weight' => '11',
         ),
       ),
       'entity_type' => 'log',
@@ -1484,7 +1552,7 @@ function farm_log_crops_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '7',
+          'weight' => '8',
         ),
       ),
       'entity_type' => 'log',
@@ -1502,7 +1570,7 @@ function farm_log_crops_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '6',
+        'weight' => '7',
       ),
     ),
   );
@@ -1562,7 +1630,7 @@ function farm_log_crops_field_default_fields() {
             'link' => 1,
           ),
           'type' => 'entityreference_label',
-          'weight' => '10',
+          'weight' => '12',
         ),
       ),
       'entity_type' => 'log',
@@ -1577,7 +1645,7 @@ function farm_log_crops_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '9',
+        'weight' => '10',
       ),
     ),
   );
@@ -1627,7 +1695,7 @@ function farm_log_crops_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '3',
+          'weight' => '4',
         ),
       ),
       'entity_type' => 'log',
@@ -1645,7 +1713,7 @@ function farm_log_crops_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '5',
+        'weight' => '6',
       ),
     ),
   );
@@ -1680,7 +1748,7 @@ function farm_log_crops_field_default_fields() {
             'precision' => '3',
           ),
           'type' => 'fraction_decimal',
-          'weight' => '2',
+          'weight' => '3',
         ),
       ),
       'entity_type' => 'log',
@@ -1697,7 +1765,7 @@ function farm_log_crops_field_default_fields() {
           'precision' => '2',
         ),
         'type' => 'fraction_decimal',
-        'weight' => '4',
+        'weight' => '5',
       ),
     ),
   );
@@ -2514,6 +2582,7 @@ function farm_log_crops_field_default_fields() {
   t('How much was seeded/planted? If this is a seeding, enter the number of seeds, packets, etc. If it\'s a transplanting, enter the number of plants, trays, etc. Describe the units below.');
   t('How much?');
   t('Images');
+  t('Input Type');
   t('Inputs');
   t('Notes');
   t('Optionally, select issues that are related to this harvest. This helps to connect data.');
@@ -2535,6 +2604,7 @@ function farm_log_crops_field_default_fields() {
   t('Select the type of planting that this is: direct seeding (seeding directly into the field/bed), transplant seeding (seeding of transplant "starts" for planting later), or transplanting (planting into the field/bed).');
   t('Total work hours');
   t('Units');
+  t('What type of input is this? You can edit the input types in the <a href="/admin/structure/taxonomy/farm_input_types">input types vocabulary</a>.');
 
   return $fields;
 }
