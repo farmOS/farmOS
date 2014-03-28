@@ -392,4 +392,3 @@ function farm_log_views_default_views() {
 
   return $export;
 }
-

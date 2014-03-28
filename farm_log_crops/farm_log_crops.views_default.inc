@@ -363,7 +363,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['path'] = 'logs/crops/cultivations';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Cultivations';
-  $handler->display->display_options['menu']['weight'] = '';
+  $handler->display->display_options['menu']['weight'] = '20';
   $handler->display->display_options['menu']['name'] = 'management';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
@@ -744,7 +744,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['path'] = 'logs/crops/harvests';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Harvests';
-  $handler->display->display_options['menu']['weight'] = '20';
+  $handler->display->display_options['menu']['weight'] = '30';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
   $handler->display->display_options['tab_options']['type'] = 'normal';
