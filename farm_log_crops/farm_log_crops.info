@@ -1,7 +1,7 @@
 name = Farm Log Crops
 description = Log types and fields for farm crops.
 core = 7.x
-package = Farm Features
+package = Farm Log
 dependencies[] = autocomplete_deluxe
 dependencies[] = date
 dependencies[] = date_popup
