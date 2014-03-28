@@ -21,7 +21,7 @@ function farm_log_crops_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Crops + Fields',
-    'weight' => '1',
+    'weight' => '2',
     'children' => array(
       0 => 'field_farm_areas',
       1 => 'field_farm_crops',
@@ -50,7 +50,7 @@ function farm_log_crops_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Crops + Fields',
-    'weight' => '2',
+    'weight' => '3',
     'children' => array(
       0 => 'field_farm_areas',
       1 => 'field_farm_crops',
@@ -79,7 +79,7 @@ function farm_log_crops_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Crops + Fields',
-    'weight' => '1',
+    'weight' => '2',
     'children' => array(
       0 => 'field_farm_areas',
       1 => 'field_farm_crops',
@@ -108,7 +108,7 @@ function farm_log_crops_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Harvest Details',
-    'weight' => '2',
+    'weight' => '3',
     'children' => array(
       0 => 'field_farm_notes',
       1 => 'field_farm_quantity_units',
@@ -138,7 +138,7 @@ function farm_log_crops_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Input Details',
-    'weight' => '3',
+    'weight' => '4',
     'children' => array(
       0 => 'field_farm_inputs',
       1 => 'field_farm_notes',
@@ -169,12 +169,11 @@ function farm_log_crops_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Planting Details',
-    'weight' => '2',
+    'weight' => '3',
     'children' => array(
       0 => 'field_farm_notes',
-      1 => 'field_farm_planting_type',
-      2 => 'field_farm_quantity_units',
-      3 => 'field_farm_quantity_value',
+      1 => 'field_farm_quantity_units',
+      2 => 'field_farm_quantity_value',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -200,10 +199,10 @@ function farm_log_crops_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Attach Files',
-    'weight' => '6',
+    'weight' => '4',
     'children' => array(
-      0 => 'field_farm_images',
-      1 => 'field_farm_files',
+      0 => 'field_farm_files',
+      1 => 'field_farm_images',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -229,10 +228,10 @@ function farm_log_crops_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Attach Files',
-    'weight' => '4',
+    'weight' => '5',
     'children' => array(
-      0 => 'field_farm_images',
-      1 => 'field_farm_files',
+      0 => 'field_farm_files',
+      1 => 'field_farm_images',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -258,10 +257,10 @@ function farm_log_crops_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Attach Files',
-    'weight' => '10',
+    'weight' => '4',
     'children' => array(
-      0 => 'field_farm_images',
-      1 => 'field_farm_files',
+      0 => 'field_farm_files',
+      1 => 'field_farm_images',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -287,7 +286,7 @@ function farm_log_crops_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Related Logs',
-    'weight' => '7',
+    'weight' => '5',
     'children' => array(
       0 => 'field_farm_harvests',
       1 => 'field_farm_issues',
@@ -317,7 +316,7 @@ function farm_log_crops_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Related Logs',
-    'weight' => '5',
+    'weight' => '6',
     'children' => array(
       0 => 'field_farm_input_logs',
       1 => 'field_farm_issues',
@@ -346,7 +345,7 @@ function farm_log_crops_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Related Logs',
-    'weight' => '11',
+    'weight' => '5',
     'children' => array(
       0 => 'field_farm_issues',
       1 => 'field_farm_plantings',

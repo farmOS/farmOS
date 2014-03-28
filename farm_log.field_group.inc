@@ -21,7 +21,7 @@ function farm_log_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Crops + Fields',
-    'weight' => '2',
+    'weight' => '3',
     'children' => array(
       0 => 'field_farm_areas',
       1 => 'field_farm_crops',
@@ -50,7 +50,7 @@ function farm_log_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Issue Details',
-    'weight' => '1',
+    'weight' => '2',
     'children' => array(
       0 => 'field_farm_notes',
       1 => 'field_farm_priority',
@@ -80,10 +80,10 @@ function farm_log_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Attach files',
-    'weight' => '3',
+    'weight' => '4',
     'children' => array(
-      0 => 'field_farm_images',
-      1 => 'field_farm_files',
+      0 => 'field_farm_files',
+      1 => 'field_farm_images',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -109,7 +109,7 @@ function farm_log_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Related Logs',
-    'weight' => '4',
+    'weight' => '5',
     'children' => array(
       0 => 'field_farm_issues',
     ),

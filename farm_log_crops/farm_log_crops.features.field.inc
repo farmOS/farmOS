@@ -10,83 +10,6 @@
 function farm_log_crops_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'log-farm_harvest-field_date'.
-  $fields['log-farm_harvest-field_date'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_date',
-      'foreign keys' => array(),
-      'indexes' => array(),
-      'locked' => '0',
-      'module' => 'date',
-      'settings' => array(
-        'cache_count' => '4',
-        'cache_enabled' => 0,
-        'granularity' => array(
-          'day' => 'day',
-          'hour' => 0,
-          'minute' => 0,
-          'month' => 'month',
-          'second' => 0,
-          'year' => 'year',
-        ),
-        'timezone_db' => '',
-        'todate' => '',
-        'tz_handling' => 'none',
-      ),
-      'translatable' => '0',
-      'type' => 'datestamp',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_harvest',
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'date',
-          'settings' => array(
-            'format_type' => 'long',
-            'fromto' => 'both',
-            'multiple_from' => '',
-            'multiple_number' => '',
-            'multiple_to' => '',
-          ),
-          'type' => 'date_default',
-          'weight' => '0',
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_date',
-      'label' => 'Harvest Date',
-      'required' => 0,
-      'settings' => array(
-        'default_value' => 'now',
-        'default_value2' => 'same',
-        'default_value_code' => '',
-        'default_value_code2' => '',
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'date',
-        'settings' => array(
-          'increment' => '15',
-          'input_format' => 'm/d/Y - H:i:s',
-          'input_format_custom' => '',
-          'label_position' => 'above',
-          'text_parts' => array(),
-          'year_range' => '-3:+3',
-        ),
-        'type' => 'date_popup',
-        'weight' => '0',
-      ),
-    ),
-  );
-
   // Exported field: 'log-farm_harvest-field_farm_areas'.
   $fields['log-farm_harvest-field_farm_areas'] = array(
     'field_config' => array(
@@ -151,7 +74,7 @@ function farm_log_crops_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'autocomplete_deluxe_taxonomy',
-        'weight' => '3',
+        'weight' => '10',
       ),
     ),
   );
@@ -220,7 +143,87 @@ function farm_log_crops_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'autocomplete_deluxe_taxonomy',
-        'weight' => '2',
+        'weight' => '9',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_harvest-field_farm_date'.
+  $fields['log-farm_harvest-field_farm_date'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_date',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'locked' => '0',
+      'module' => 'date',
+      'settings' => array(
+        'cache_count' => '4',
+        'cache_enabled' => 0,
+        'granularity' => array(
+          'day' => 'day',
+          'hour' => 0,
+          'minute' => 0,
+          'month' => 'month',
+          'second' => 0,
+          'year' => 'year',
+        ),
+        'repeat' => '0',
+        'timezone_db' => '',
+        'todate' => '',
+        'tz_handling' => 'none',
+      ),
+      'translatable' => '0',
+      'type' => 'datestamp',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_harvest',
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'date',
+          'settings' => array(
+            'format_type' => 'long',
+            'fromto' => 'both',
+            'multiple_from' => '',
+            'multiple_number' => '',
+            'multiple_to' => '',
+            'show_repeat_rule' => 'show',
+          ),
+          'type' => 'date_default',
+          'weight' => '0',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_date',
+      'label' => 'Harvest Date',
+      'required' => 0,
+      'settings' => array(
+        'default_value' => 'now',
+        'default_value2' => 'same',
+        'default_value_code' => '',
+        'default_value_code2' => '',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'date',
+        'settings' => array(
+          'increment' => '15',
+          'input_format' => 'M j Y - g:i:sa',
+          'input_format_custom' => '',
+          'label_position' => 'above',
+          'repeat_collapsed' => 0,
+          'text_parts' => array(),
+          'year_range' => '-3:+3',
+        ),
+        'type' => 'date_popup',
+        'weight' => '1',
       ),
     ),
   );
@@ -287,7 +290,7 @@ function farm_log_crops_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'file_generic',
-        'weight' => '8',
+        'weight' => '9',
       ),
     ),
   );
@@ -347,7 +350,7 @@ function farm_log_crops_field_default_fields() {
             'link' => 1,
           ),
           'type' => 'entityreference_label',
-          'weight' => '10',
+          'weight' => '11',
         ),
       ),
       'entity_type' => 'log',
@@ -393,7 +396,6 @@ function farm_log_crops_field_default_fields() {
           'label' => 'inline',
           'module' => 'fraction',
           'settings' => array(
-            'auto_precision' => 1,
             'precision' => '2',
           ),
           'type' => 'fraction_decimal',
@@ -414,7 +416,7 @@ function farm_log_crops_field_default_fields() {
           'precision' => '2',
         ),
         'type' => 'fraction_decimal',
-        'weight' => '8',
+        'weight' => '6',
       ),
     ),
   );
@@ -548,7 +550,7 @@ function farm_log_crops_field_default_fields() {
             'link' => 1,
           ),
           'type' => 'entityreference_label',
-          'weight' => '8',
+          'weight' => '9',
         ),
       ),
       'entity_type' => 'log',
@@ -684,7 +686,7 @@ function farm_log_crops_field_default_fields() {
             'link' => 1,
           ),
           'type' => 'entityreference_label',
-          'weight' => '9',
+          'weight' => '10',
         ),
       ),
       'entity_type' => 'log',
@@ -799,7 +801,6 @@ function farm_log_crops_field_default_fields() {
           'label' => 'inline',
           'module' => 'fraction',
           'settings' => array(
-            'auto_precision' => 1,
             'precision' => '3',
           ),
           'type' => 'fraction_decimal',
@@ -821,83 +822,6 @@ function farm_log_crops_field_default_fields() {
         ),
         'type' => 'fraction_decimal',
         'weight' => '3',
-      ),
-    ),
-  );
-
-  // Exported field: 'log-farm_input-field_date'.
-  $fields['log-farm_input-field_date'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_date',
-      'foreign keys' => array(),
-      'indexes' => array(),
-      'locked' => '0',
-      'module' => 'date',
-      'settings' => array(
-        'cache_count' => '4',
-        'cache_enabled' => 0,
-        'granularity' => array(
-          'day' => 'day',
-          'hour' => 0,
-          'minute' => 0,
-          'month' => 'month',
-          'second' => 0,
-          'year' => 'year',
-        ),
-        'timezone_db' => '',
-        'todate' => '',
-        'tz_handling' => 'none',
-      ),
-      'translatable' => '0',
-      'type' => 'datestamp',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_input',
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'date',
-          'settings' => array(
-            'format_type' => 'long',
-            'fromto' => 'both',
-            'multiple_from' => '',
-            'multiple_number' => '',
-            'multiple_to' => '',
-          ),
-          'type' => 'date_default',
-          'weight' => '1',
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_date',
-      'label' => 'Date',
-      'required' => 0,
-      'settings' => array(
-        'default_value' => 'now',
-        'default_value2' => 'same',
-        'default_value_code' => '',
-        'default_value_code2' => '',
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'date',
-        'settings' => array(
-          'increment' => '15',
-          'input_format' => 'M j Y - g:i:sa',
-          'input_format_custom' => '',
-          'label_position' => 'above',
-          'text_parts' => array(),
-          'year_range' => '-3:+3',
-        ),
-        'type' => 'date_popup',
-        'weight' => '1',
       ),
     ),
   );
@@ -1040,6 +964,86 @@ function farm_log_crops_field_default_fields() {
     ),
   );
 
+  // Exported field: 'log-farm_input-field_farm_date'.
+  $fields['log-farm_input-field_farm_date'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_date',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'locked' => '0',
+      'module' => 'date',
+      'settings' => array(
+        'cache_count' => '4',
+        'cache_enabled' => 0,
+        'granularity' => array(
+          'day' => 'day',
+          'hour' => 0,
+          'minute' => 0,
+          'month' => 'month',
+          'second' => 0,
+          'year' => 'year',
+        ),
+        'repeat' => '0',
+        'timezone_db' => '',
+        'todate' => '',
+        'tz_handling' => 'none',
+      ),
+      'translatable' => '0',
+      'type' => 'datestamp',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_input',
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'date',
+          'settings' => array(
+            'format_type' => 'long',
+            'fromto' => 'both',
+            'multiple_from' => '',
+            'multiple_number' => '',
+            'multiple_to' => '',
+            'show_repeat_rule' => 'show',
+          ),
+          'type' => 'date_default',
+          'weight' => '1',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_date',
+      'label' => 'Date',
+      'required' => 0,
+      'settings' => array(
+        'default_value' => 'now',
+        'default_value2' => 'same',
+        'default_value_code' => '',
+        'default_value_code2' => '',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'date',
+        'settings' => array(
+          'increment' => '15',
+          'input_format' => 'M j Y - g:i:sa',
+          'input_format_custom' => '',
+          'label_position' => 'above',
+          'repeat_collapsed' => 0,
+          'text_parts' => array(),
+          'year_range' => '-3:+3',
+        ),
+        'type' => 'date_popup',
+        'weight' => '2',
+      ),
+    ),
+  );
+
   // Exported field: 'log-farm_input-field_farm_files'.
   $fields['log-farm_input-field_farm_files'] = array(
     'field_config' => array(
@@ -1133,7 +1137,6 @@ function farm_log_crops_field_default_fields() {
           'label' => 'inline',
           'module' => 'fraction',
           'settings' => array(
-            'auto_precision' => 1,
             'precision' => 2,
           ),
           'type' => 'fraction_decimal',
@@ -1154,7 +1157,7 @@ function farm_log_crops_field_default_fields() {
           'precision' => '2',
         ),
         'type' => 'fraction_decimal',
-        'weight' => '6',
+        'weight' => '7',
       ),
     ),
   );
@@ -1316,9 +1319,6 @@ function farm_log_crops_field_default_fields() {
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_farm_input_type',
-      'field_permissions' => array(
-        'type' => '0',
-      ),
       'foreign keys' => array(
         'tid' => array(
           'columns' => array(
@@ -1753,7 +1753,6 @@ function farm_log_crops_field_default_fields() {
           'label' => 'inline',
           'module' => 'fraction',
           'settings' => array(
-            'auto_precision' => 1,
             'precision' => '3',
           ),
           'type' => 'fraction_decimal',
@@ -1775,83 +1774,6 @@ function farm_log_crops_field_default_fields() {
         ),
         'type' => 'fraction_decimal',
         'weight' => '5',
-      ),
-    ),
-  );
-
-  // Exported field: 'log-farm_planting-field_date'.
-  $fields['log-farm_planting-field_date'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_date',
-      'foreign keys' => array(),
-      'indexes' => array(),
-      'locked' => '0',
-      'module' => 'date',
-      'settings' => array(
-        'cache_count' => '4',
-        'cache_enabled' => 0,
-        'granularity' => array(
-          'day' => 'day',
-          'hour' => 0,
-          'minute' => 0,
-          'month' => 'month',
-          'second' => 0,
-          'year' => 'year',
-        ),
-        'timezone_db' => '',
-        'todate' => '',
-        'tz_handling' => 'none',
-      ),
-      'translatable' => '0',
-      'type' => 'datestamp',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_planting',
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'date',
-          'settings' => array(
-            'format_type' => 'long',
-            'fromto' => 'both',
-            'multiple_from' => '',
-            'multiple_number' => '',
-            'multiple_to' => '',
-          ),
-          'type' => 'date_default',
-          'weight' => '0',
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_date',
-      'label' => 'Planting Date',
-      'required' => 0,
-      'settings' => array(
-        'default_value' => 'now',
-        'default_value2' => 'same',
-        'default_value_code' => '',
-        'default_value_code2' => '',
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'date',
-        'settings' => array(
-          'increment' => '15',
-          'input_format' => 'm/d/Y - H:i:s',
-          'input_format_custom' => '',
-          'label_position' => 'above',
-          'text_parts' => array(),
-          'year_range' => '-3:+3',
-        ),
-        'type' => 'date_popup',
-        'weight' => '0',
       ),
     ),
   );
@@ -1901,7 +1823,7 @@ function farm_log_crops_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '6',
+          'weight' => '5',
         ),
       ),
       'entity_type' => 'log',
@@ -1994,6 +1916,86 @@ function farm_log_crops_field_default_fields() {
     ),
   );
 
+  // Exported field: 'log-farm_planting-field_farm_date'.
+  $fields['log-farm_planting-field_farm_date'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_date',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'locked' => '0',
+      'module' => 'date',
+      'settings' => array(
+        'cache_count' => '4',
+        'cache_enabled' => 0,
+        'granularity' => array(
+          'day' => 'day',
+          'hour' => 0,
+          'minute' => 0,
+          'month' => 'month',
+          'second' => 0,
+          'year' => 'year',
+        ),
+        'repeat' => '0',
+        'timezone_db' => '',
+        'todate' => '',
+        'tz_handling' => 'none',
+      ),
+      'translatable' => '0',
+      'type' => 'datestamp',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_planting',
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'date',
+          'settings' => array(
+            'format_type' => 'long',
+            'fromto' => 'both',
+            'multiple_from' => '',
+            'multiple_number' => '',
+            'multiple_to' => '',
+            'show_repeat_rule' => 'show',
+          ),
+          'type' => 'date_default',
+          'weight' => '1',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_date',
+      'label' => 'Planting Date',
+      'required' => 0,
+      'settings' => array(
+        'default_value' => 'now',
+        'default_value2' => 'same',
+        'default_value_code' => '',
+        'default_value_code2' => '',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'date',
+        'settings' => array(
+          'increment' => '15',
+          'input_format' => 'M j Y - g:i:sa',
+          'input_format_custom' => '',
+          'label_position' => 'above',
+          'repeat_collapsed' => 0,
+          'text_parts' => array(),
+          'year_range' => '-3:+3',
+        ),
+        'type' => 'date_popup',
+        'weight' => '1',
+      ),
+    ),
+  );
+
   // Exported field: 'log-farm_planting-field_farm_files'.
   $fields['log-farm_planting-field_farm_files'] = array(
     'field_config' => array(
@@ -2056,7 +2058,7 @@ function farm_log_crops_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'file_generic',
-        'weight' => '10',
+        'weight' => '34',
       ),
     ),
   );
@@ -2087,11 +2089,10 @@ function farm_log_crops_field_default_fields() {
           'label' => 'inline',
           'module' => 'fraction',
           'settings' => array(
-            'auto_precision' => 1,
             'precision' => '2',
           ),
           'type' => 'fraction_decimal',
-          'weight' => '7',
+          'weight' => '6',
         ),
       ),
       'entity_type' => 'log',
@@ -2108,7 +2109,7 @@ function farm_log_crops_field_default_fields() {
           'precision' => '2',
         ),
         'type' => 'fraction_decimal',
-        'weight' => '12',
+        'weight' => '6',
       ),
     ),
   );
@@ -2156,7 +2157,7 @@ function farm_log_crops_field_default_fields() {
             'image_style' => 'large',
           ),
           'type' => 'image',
-          'weight' => '9',
+          'weight' => '8',
         ),
       ),
       'entity_type' => 'log',
@@ -2182,7 +2183,7 @@ function farm_log_crops_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'image_image',
-        'weight' => '9',
+        'weight' => '33',
       ),
     ),
   );
@@ -2300,7 +2301,7 @@ function farm_log_crops_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '8',
+          'weight' => '7',
         ),
       ),
       'entity_type' => 'log',
@@ -2365,7 +2366,7 @@ function farm_log_crops_field_default_fields() {
           'module' => 'list',
           'settings' => array(),
           'type' => 'list_default',
-          'weight' => '1',
+          'weight' => '0',
         ),
       ),
       'entity_type' => 'log',
@@ -2380,7 +2381,7 @@ function farm_log_crops_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '3',
+        'weight' => '0',
       ),
     ),
   );
@@ -2555,7 +2556,6 @@ function farm_log_crops_field_default_fields() {
           'label' => 'inline',
           'module' => 'fraction',
           'settings' => array(
-            'auto_precision' => 1,
             'precision' => '3',
           ),
           'type' => 'fraction_decimal',

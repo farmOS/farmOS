@@ -10,83 +10,6 @@
 function farm_log_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'log-farm_issue-field_date'.
-  $fields['log-farm_issue-field_date'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_date',
-      'foreign keys' => array(),
-      'indexes' => array(),
-      'locked' => '0',
-      'module' => 'date',
-      'settings' => array(
-        'cache_count' => '4',
-        'cache_enabled' => 0,
-        'granularity' => array(
-          'day' => 'day',
-          'hour' => 0,
-          'minute' => 0,
-          'month' => 'month',
-          'second' => 0,
-          'year' => 'year',
-        ),
-        'timezone_db' => '',
-        'todate' => '',
-        'tz_handling' => 'none',
-      ),
-      'translatable' => '0',
-      'type' => 'datestamp',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_issue',
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'date',
-          'settings' => array(
-            'format_type' => 'long',
-            'fromto' => 'both',
-            'multiple_from' => '',
-            'multiple_number' => '',
-            'multiple_to' => '',
-          ),
-          'type' => 'date_default',
-          'weight' => '0',
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_date',
-      'label' => 'Date',
-      'required' => 0,
-      'settings' => array(
-        'default_value' => 'now',
-        'default_value2' => 'same',
-        'default_value_code' => '',
-        'default_value_code2' => '',
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'date',
-        'settings' => array(
-          'increment' => '15',
-          'input_format' => 'm/d/Y - H:i:s',
-          'input_format_custom' => '',
-          'label_position' => 'above',
-          'text_parts' => array(),
-          'year_range' => '-3:+3',
-        ),
-        'type' => 'date_popup',
-        'weight' => '0',
-      ),
-    ),
-  );
-
   // Exported field: 'log-farm_issue-field_farm_areas'.
   $fields['log-farm_issue-field_farm_areas'] = array(
     'field_config' => array(
@@ -225,6 +148,86 @@ function farm_log_field_default_fields() {
     ),
   );
 
+  // Exported field: 'log-farm_issue-field_farm_date'.
+  $fields['log-farm_issue-field_farm_date'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_date',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'locked' => '0',
+      'module' => 'date',
+      'settings' => array(
+        'cache_count' => '4',
+        'cache_enabled' => 0,
+        'granularity' => array(
+          'day' => 'day',
+          'hour' => 0,
+          'minute' => 0,
+          'month' => 'month',
+          'second' => 0,
+          'year' => 'year',
+        ),
+        'repeat' => '0',
+        'timezone_db' => '',
+        'todate' => '',
+        'tz_handling' => 'none',
+      ),
+      'translatable' => '0',
+      'type' => 'datestamp',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_issue',
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'date',
+          'settings' => array(
+            'format_type' => 'long',
+            'fromto' => 'both',
+            'multiple_from' => '',
+            'multiple_number' => '',
+            'multiple_to' => '',
+            'show_repeat_rule' => 'show',
+          ),
+          'type' => 'date_default',
+          'weight' => '0',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_date',
+      'label' => 'Date',
+      'required' => 0,
+      'settings' => array(
+        'default_value' => 'now',
+        'default_value2' => 'same',
+        'default_value_code' => '',
+        'default_value_code2' => '',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'date',
+        'settings' => array(
+          'increment' => '15',
+          'input_format' => 'M j Y - g:i:sa',
+          'input_format_custom' => '',
+          'label_position' => 'above',
+          'repeat_collapsed' => 0,
+          'text_parts' => array(),
+          'year_range' => '-3:+3',
+        ),
+        'type' => 'date_popup',
+        'weight' => '1',
+      ),
+    ),
+  );
+
   // Exported field: 'log-farm_issue-field_farm_files'.
   $fields['log-farm_issue-field_farm_files'] = array(
     'field_config' => array(
@@ -266,7 +269,7 @@ function farm_log_field_default_fields() {
           'module' => 'file',
           'settings' => array(),
           'type' => 'file_table',
-          'weight' => '8',
+          'weight' => '9',
         ),
       ),
       'entity_type' => 'log',
@@ -287,7 +290,7 @@ function farm_log_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'file_generic',
-        'weight' => '7',
+        'weight' => '34',
       ),
     ),
   );
@@ -339,7 +342,7 @@ function farm_log_field_default_fields() {
           'precision' => '2',
         ),
         'type' => 'fraction_decimal',
-        'weight' => '5',
+        'weight' => '6',
       ),
     ),
   );
@@ -413,7 +416,7 @@ function farm_log_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'image_image',
-        'weight' => '4',
+        'weight' => '33',
       ),
     ),
   );
@@ -549,7 +552,7 @@ function farm_log_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '6',
+        'weight' => '34',
       ),
     ),
   );
@@ -614,7 +617,7 @@ function farm_log_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '5',
+        'weight' => '33',
       ),
     ),
   );
@@ -683,7 +686,7 @@ function farm_log_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'autocomplete_deluxe_taxonomy',
-        'weight' => '7',
+        'weight' => '35',
       ),
     ),
   );
