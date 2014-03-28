@@ -33,7 +33,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['pager']['options']['items_per_page'] = '100';
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
-    'lid' => 'lid',
+    'id' => 'id',
     'timestamp' => 'timestamp',
     'type' => 'type',
     'name' => 'name',
@@ -41,7 +41,7 @@ function farm_log_crops_views_default_views() {
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
-    'lid' => array(
+    'id' => array(
       'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -80,7 +80,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['fields']['name']['table'] = 'log';
   $handler->display->display_options['fields']['name']['field'] = 'name';
   $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['name']['alter']['path'] = 'log/[lid]';
+  $handler->display->display_options['fields']['name']['alter']['path'] = 'log/[id]';
   /* Sort criterion: Log: Date (field_date) */
   $handler->display->display_options['sorts']['field_date_value']['id'] = 'field_date_value';
   $handler->display->display_options['sorts']['field_date_value']['table'] = 'field_data_field_date';
@@ -102,7 +102,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
-    'lid' => 'lid',
+    'id' => 'id',
     'field_date' => 'field_date',
     'name' => 'name',
     'field_farm_crops' => 'field_farm_crops',
@@ -117,7 +117,7 @@ function farm_log_crops_views_default_views() {
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
-    'lid' => array(
+    'id' => array(
       'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -202,10 +202,10 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['header']['area_text_custom']['content'] = '<a href="/log/add/farm_harvest">+ Log a harvest</a>';
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Log: Log ID */
-  $handler->display->display_options['fields']['lid']['id'] = 'lid';
-  $handler->display->display_options['fields']['lid']['table'] = 'log';
-  $handler->display->display_options['fields']['lid']['field'] = 'lid';
-  $handler->display->display_options['fields']['lid']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['id']['id'] = 'id';
+  $handler->display->display_options['fields']['id']['table'] = 'log';
+  $handler->display->display_options['fields']['id']['field'] = 'id';
+  $handler->display->display_options['fields']['id']['exclude'] = TRUE;
   /* Field: Log: Date */
   $handler->display->display_options['fields']['field_date']['id'] = 'field_date';
   $handler->display->display_options['fields']['field_date']['table'] = 'field_data_field_date';
@@ -223,7 +223,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['fields']['name']['field'] = 'name';
   $handler->display->display_options['fields']['name']['label'] = 'Harvest name';
   $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['name']['alter']['path'] = 'log/[lid]';
+  $handler->display->display_options['fields']['name']['alter']['path'] = 'log/[id]';
   /* Field: Log: Crops */
   $handler->display->display_options['fields']['field_farm_crops']['id'] = 'field_farm_crops';
   $handler->display->display_options['fields']['field_farm_crops']['table'] = 'field_data_field_farm_crops';
@@ -286,7 +286,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['label'] = 'Operations';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/log/[lid]/edit">Edit</a> | <a href="/log/[lid]/delete">Delete</a>';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/log/[id]/edit">Edit</a> | <a href="/log/[id]/delete">Delete</a>';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Log: Type */
@@ -414,7 +414,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['pager']['options']['items_per_page'] = '100';
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
-    'lid' => 'lid',
+    'id' => 'id',
     'timestamp' => 'timestamp',
     'type' => 'type',
     'name' => 'name',
@@ -422,7 +422,7 @@ function farm_log_crops_views_default_views() {
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
-    'lid' => array(
+    'id' => array(
       'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -461,7 +461,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['fields']['name']['table'] = 'log';
   $handler->display->display_options['fields']['name']['field'] = 'name';
   $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['name']['alter']['path'] = 'log/[lid]';
+  $handler->display->display_options['fields']['name']['alter']['path'] = 'log/[id]';
   /* Sort criterion: Log: Date (field_date) */
   $handler->display->display_options['sorts']['field_date_value']['id'] = 'field_date_value';
   $handler->display->display_options['sorts']['field_date_value']['table'] = 'field_data_field_date';
@@ -483,7 +483,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
-    'lid' => 'lid',
+    'id' => 'id',
     'field_date' => 'field_date',
     'name' => 'name',
     'field_farm_inputs' => 'field_farm_inputs',
@@ -499,7 +499,7 @@ function farm_log_crops_views_default_views() {
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
-    'lid' => array(
+    'id' => array(
       'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -584,10 +584,10 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['header']['area_text_custom']['content'] = '<a href="/log/add/farm_input">+ Log an input</a>';
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Log: Log ID */
-  $handler->display->display_options['fields']['lid']['id'] = 'lid';
-  $handler->display->display_options['fields']['lid']['table'] = 'log';
-  $handler->display->display_options['fields']['lid']['field'] = 'lid';
-  $handler->display->display_options['fields']['lid']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['id']['id'] = 'id';
+  $handler->display->display_options['fields']['id']['table'] = 'log';
+  $handler->display->display_options['fields']['id']['field'] = 'id';
+  $handler->display->display_options['fields']['id']['exclude'] = TRUE;
   /* Field: Log: Date */
   $handler->display->display_options['fields']['field_date']['id'] = 'field_date';
   $handler->display->display_options['fields']['field_date']['table'] = 'field_data_field_date';
@@ -604,7 +604,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['fields']['name']['table'] = 'log';
   $handler->display->display_options['fields']['name']['field'] = 'name';
   $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['name']['alter']['path'] = 'log/[lid]';
+  $handler->display->display_options['fields']['name']['alter']['path'] = 'log/[id]';
   /* Field: Log: Inputs */
   $handler->display->display_options['fields']['field_farm_inputs']['id'] = 'field_farm_inputs';
   $handler->display->display_options['fields']['field_farm_inputs']['table'] = 'field_data_field_farm_inputs';
@@ -671,7 +671,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['label'] = 'Operations';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/log/[lid]/edit">Edit</a> | <a href="/log/[lid]/delete">Delete</a>';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/log/[id]/edit">Edit</a> | <a href="/log/[id]/delete">Delete</a>';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Log: Type */
@@ -820,7 +820,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['pager']['options']['items_per_page'] = '100';
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
-    'lid' => 'lid',
+    'id' => 'id',
     'timestamp' => 'timestamp',
     'type' => 'type',
     'name' => 'name',
@@ -828,7 +828,7 @@ function farm_log_crops_views_default_views() {
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
-    'lid' => array(
+    'id' => array(
       'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -867,7 +867,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['fields']['name']['table'] = 'log';
   $handler->display->display_options['fields']['name']['field'] = 'name';
   $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['name']['alter']['path'] = 'log/[lid]';
+  $handler->display->display_options['fields']['name']['alter']['path'] = 'log/[id]';
   /* Sort criterion: Log: Date (field_date) */
   $handler->display->display_options['sorts']['field_date_value']['id'] = 'field_date_value';
   $handler->display->display_options['sorts']['field_date_value']['table'] = 'field_data_field_date';
@@ -888,7 +888,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
-    'lid' => 'lid',
+    'id' => 'id',
     'field_date' => 'field_date',
     'name' => 'name',
     'field_farm_crops' => 'field_farm_crops',
@@ -903,7 +903,7 @@ function farm_log_crops_views_default_views() {
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
-    'lid' => array(
+    'id' => array(
       'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -988,10 +988,10 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['header']['area_text_custom']['content'] = '<a href="/log/add/farm_planting">+ Log a planting</a>';
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Log: Log ID */
-  $handler->display->display_options['fields']['lid']['id'] = 'lid';
-  $handler->display->display_options['fields']['lid']['table'] = 'log';
-  $handler->display->display_options['fields']['lid']['field'] = 'lid';
-  $handler->display->display_options['fields']['lid']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['id']['id'] = 'id';
+  $handler->display->display_options['fields']['id']['table'] = 'log';
+  $handler->display->display_options['fields']['id']['field'] = 'id';
+  $handler->display->display_options['fields']['id']['exclude'] = TRUE;
   /* Field: Log: Date */
   $handler->display->display_options['fields']['field_date']['id'] = 'field_date';
   $handler->display->display_options['fields']['field_date']['table'] = 'field_data_field_date';
@@ -1009,7 +1009,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['fields']['name']['field'] = 'name';
   $handler->display->display_options['fields']['name']['label'] = 'Planting name';
   $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['name']['alter']['path'] = 'log/[lid]';
+  $handler->display->display_options['fields']['name']['alter']['path'] = 'log/[id]';
   /* Field: Log: Crops */
   $handler->display->display_options['fields']['field_farm_crops']['id'] = 'field_farm_crops';
   $handler->display->display_options['fields']['field_farm_crops']['table'] = 'field_data_field_farm_crops';
@@ -1064,7 +1064,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['label'] = 'Operations';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/log/[lid]/edit">Edit</a> | <a href="/log/[lid]/delete">Delete</a>';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/log/[id]/edit">Edit</a> | <a href="/log/[id]/delete">Delete</a>';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Log: Type */

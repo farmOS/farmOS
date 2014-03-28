@@ -303,7 +303,7 @@ function farm_log_crops_field_default_fields() {
       'foreign keys' => array(
         'log' => array(
           'columns' => array(
-            'target_id' => 'lid',
+            'target_id' => 'id',
           ),
           'table' => 'log',
         ),
@@ -504,7 +504,7 @@ function farm_log_crops_field_default_fields() {
       'foreign keys' => array(
         'log' => array(
           'columns' => array(
-            'target_id' => 'lid',
+            'target_id' => 'id',
           ),
           'table' => 'log',
         ),
@@ -640,7 +640,7 @@ function farm_log_crops_field_default_fields() {
       'foreign keys' => array(
         'log' => array(
           'columns' => array(
-            'target_id' => 'lid',
+            'target_id' => 'id',
           ),
           'table' => 'log',
         ),
@@ -1244,7 +1244,7 @@ function farm_log_crops_field_default_fields() {
       'foreign keys' => array(
         'log' => array(
           'columns' => array(
-            'target_id' => 'lid',
+            'target_id' => 'id',
           ),
           'table' => 'log',
         ),
@@ -1459,7 +1459,7 @@ function farm_log_crops_field_default_fields() {
       'foreign keys' => array(
         'log' => array(
           'columns' => array(
-            'target_id' => 'lid',
+            'target_id' => 'id',
           ),
           'table' => 'log',
         ),
@@ -1595,7 +1595,7 @@ function farm_log_crops_field_default_fields() {
       'foreign keys' => array(
         'log' => array(
           'columns' => array(
-            'target_id' => 'lid',
+            'target_id' => 'id',
           ),
           'table' => 'log',
         ),
@@ -2198,7 +2198,7 @@ function farm_log_crops_field_default_fields() {
       'foreign keys' => array(
         'log' => array(
           'columns' => array(
-            'target_id' => 'lid',
+            'target_id' => 'id',
           ),
           'table' => 'log',
         ),
@@ -2396,7 +2396,7 @@ function farm_log_crops_field_default_fields() {
       'foreign keys' => array(
         'log' => array(
           'columns' => array(
-            'target_id' => 'lid',
+            'target_id' => 'id',
           ),
           'table' => 'log',
         ),
