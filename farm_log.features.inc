@@ -34,6 +34,7 @@ function farm_log_default_log_type() {
     "type" : "farm_issue",
     "label" : "Issue",
     "weight" : 0,
+    "name_pattern" : "Issue [log:id]",
     "rdf_mapping" : []
   }');
   return $items;

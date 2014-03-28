@@ -57,6 +57,13 @@ function farm_log_sales_field_default_fields() {
           'type' => 'taxonomy_term_reference_link',
           'weight' => '5',
         ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '5',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_areas',
@@ -126,6 +133,13 @@ function farm_log_sales_field_default_fields() {
           'type' => 'taxonomy_term_reference_link',
           'weight' => '4',
         ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '4',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_crops',
@@ -185,6 +199,20 @@ function farm_log_sales_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
+          'label' => 'inline',
+          'module' => 'date',
+          'settings' => array(
+            'format_type' => 'long',
+            'fromto' => 'both',
+            'multiple_from' => '',
+            'multiple_number' => '',
+            'multiple_to' => '',
+            'show_repeat_rule' => 'show',
+          ),
+          'type' => 'date_default',
+          'weight' => '0',
+        ),
+        'token' => array(
           'label' => 'inline',
           'module' => 'date',
           'settings' => array(
@@ -271,6 +299,13 @@ function farm_log_sales_field_default_fields() {
           'type' => 'file_table',
           'weight' => '9',
         ),
+        'token' => array(
+          'label' => 'above',
+          'module' => 'file',
+          'settings' => array(),
+          'type' => 'file_table',
+          'weight' => '9',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_files',
@@ -331,6 +366,16 @@ function farm_log_sales_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
+          'label' => 'hidden',
+          'module' => 'image',
+          'settings' => array(
+            'image_link' => '',
+            'image_style' => 'large',
+          ),
+          'type' => 'image',
+          'weight' => '7',
+        ),
+        'token' => array(
           'label' => 'hidden',
           'module' => 'image',
           'settings' => array(
@@ -426,6 +471,15 @@ function farm_log_sales_field_default_fields() {
           'type' => 'entityreference_label',
           'weight' => '8',
         ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => 1,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '8',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_issues',
@@ -501,6 +555,15 @@ function farm_log_sales_field_default_fields() {
           'type' => 'entityreference_label',
           'weight' => '11',
         ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => 1,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '11',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_losses',
@@ -553,6 +616,13 @@ function farm_log_sales_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '6',
+        ),
+        'token' => array(
           'label' => 'above',
           'module' => 'text',
           'settings' => array(),
@@ -637,6 +707,15 @@ function farm_log_sales_field_default_fields() {
           'type' => 'entityreference_label',
           'weight' => '10',
         ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => 1,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '10',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_plantings',
@@ -702,6 +781,13 @@ function farm_log_sales_field_default_fields() {
           'type' => 'taxonomy_term_reference_link',
           'weight' => '3',
         ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '3',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_quantity_units',
@@ -750,7 +836,15 @@ function farm_log_sales_field_default_fields() {
           'label' => 'inline',
           'module' => 'fraction',
           'settings' => array(
-            'auto_precision' => 1,
+            'precision' => '3',
+          ),
+          'type' => 'fraction_decimal',
+          'weight' => '2',
+        ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'fraction',
+          'settings' => array(
             'precision' => '3',
           ),
           'type' => 'fraction_decimal',
@@ -802,7 +896,15 @@ function farm_log_sales_field_default_fields() {
           'label' => 'inline',
           'module' => 'fraction',
           'settings' => array(
-            'auto_precision' => 1,
+            'precision' => '2',
+          ),
+          'type' => 'fraction_decimal',
+          'weight' => '1',
+        ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'fraction',
+          'settings' => array(
             'precision' => '2',
           ),
           'type' => 'fraction_decimal',
@@ -869,6 +971,13 @@ function farm_log_sales_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '6',
+        ),
+        'token' => array(
           'label' => 'inline',
           'module' => 'taxonomy',
           'settings' => array(),
@@ -944,6 +1053,13 @@ function farm_log_sales_field_default_fields() {
           'type' => 'taxonomy_term_reference_link',
           'weight' => '5',
         ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '5',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_crops',
@@ -1003,6 +1119,20 @@ function farm_log_sales_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
+          'label' => 'inline',
+          'module' => 'date',
+          'settings' => array(
+            'format_type' => 'long',
+            'fromto' => 'both',
+            'multiple_from' => '',
+            'multiple_number' => '',
+            'multiple_to' => '',
+            'show_repeat_rule' => 'show',
+          ),
+          'type' => 'date_default',
+          'weight' => '0',
+        ),
+        'token' => array(
           'label' => 'inline',
           'module' => 'date',
           'settings' => array(
@@ -1089,6 +1219,13 @@ function farm_log_sales_field_default_fields() {
           'type' => 'file_table',
           'weight' => '9',
         ),
+        'token' => array(
+          'label' => 'above',
+          'module' => 'file',
+          'settings' => array(),
+          'type' => 'file_table',
+          'weight' => '9',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_files',
@@ -1149,6 +1286,16 @@ function farm_log_sales_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
+          'label' => 'hidden',
+          'module' => 'image',
+          'settings' => array(
+            'image_link' => '',
+            'image_style' => 'large',
+          ),
+          'type' => 'image',
+          'weight' => '8',
+        ),
+        'token' => array(
           'label' => 'hidden',
           'module' => 'image',
           'settings' => array(
@@ -1244,6 +1391,15 @@ function farm_log_sales_field_default_fields() {
           'type' => 'entityreference_label',
           'weight' => '10',
         ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => 1,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '10',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_issues',
@@ -1296,6 +1452,13 @@ function farm_log_sales_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '7',
+        ),
+        'token' => array(
           'label' => 'above',
           'module' => 'text',
           'settings' => array(),
@@ -1380,6 +1543,15 @@ function farm_log_sales_field_default_fields() {
           'type' => 'entityreference_label',
           'weight' => '11',
         ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => 1,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '11',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_plantings',
@@ -1455,6 +1627,15 @@ function farm_log_sales_field_default_fields() {
           'type' => 'entityreference_label',
           'weight' => '12',
         ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => 1,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '12',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_purchases',
@@ -1520,6 +1701,13 @@ function farm_log_sales_field_default_fields() {
           'type' => 'taxonomy_term_reference_link',
           'weight' => '4',
         ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '4',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_quantity_units',
@@ -1568,7 +1756,15 @@ function farm_log_sales_field_default_fields() {
           'label' => 'inline',
           'module' => 'fraction',
           'settings' => array(
-            'auto_precision' => 1,
+            'precision' => '3',
+          ),
+          'type' => 'fraction_decimal',
+          'weight' => '3',
+        ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'fraction',
+          'settings' => array(
             'precision' => '3',
           ),
           'type' => 'fraction_decimal',
@@ -1620,7 +1816,15 @@ function farm_log_sales_field_default_fields() {
           'label' => 'inline',
           'module' => 'fraction',
           'settings' => array(
-            'auto_precision' => 1,
+            'precision' => '2',
+          ),
+          'type' => 'fraction_decimal',
+          'weight' => '2',
+        ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'fraction',
+          'settings' => array(
             'precision' => '2',
           ),
           'type' => 'fraction_decimal',
@@ -1687,6 +1891,13 @@ function farm_log_sales_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '5',
+        ),
+        'token' => array(
           'label' => 'inline',
           'module' => 'taxonomy',
           'settings' => array(),
@@ -1762,6 +1973,13 @@ function farm_log_sales_field_default_fields() {
           'type' => 'taxonomy_term_reference_link',
           'weight' => '4',
         ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '4',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_crops',
@@ -1821,6 +2039,20 @@ function farm_log_sales_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
+          'label' => 'inline',
+          'module' => 'date',
+          'settings' => array(
+            'format_type' => 'long',
+            'fromto' => 'both',
+            'multiple_from' => '',
+            'multiple_number' => '',
+            'multiple_to' => '',
+            'show_repeat_rule' => 'show',
+          ),
+          'type' => 'date_default',
+          'weight' => '0',
+        ),
+        'token' => array(
           'label' => 'inline',
           'module' => 'date',
           'settings' => array(
@@ -1907,6 +2139,13 @@ function farm_log_sales_field_default_fields() {
           'type' => 'file_table',
           'weight' => '8',
         ),
+        'token' => array(
+          'label' => 'above',
+          'module' => 'file',
+          'settings' => array(),
+          'type' => 'file_table',
+          'weight' => '8',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_files',
@@ -1967,6 +2206,16 @@ function farm_log_sales_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
+          'label' => 'hidden',
+          'module' => 'image',
+          'settings' => array(
+            'image_link' => '',
+            'image_style' => 'large',
+          ),
+          'type' => 'image',
+          'weight' => '7',
+        ),
+        'token' => array(
           'label' => 'hidden',
           'module' => 'image',
           'settings' => array(
@@ -2062,6 +2311,15 @@ function farm_log_sales_field_default_fields() {
           'type' => 'entityreference_label',
           'weight' => '9',
         ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => 1,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '9',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_issues',
@@ -2114,6 +2372,13 @@ function farm_log_sales_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '6',
+        ),
+        'token' => array(
           'label' => 'above',
           'module' => 'text',
           'settings' => array(),
@@ -2198,6 +2463,15 @@ function farm_log_sales_field_default_fields() {
           'type' => 'entityreference_label',
           'weight' => '10',
         ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => 1,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '10',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_plantings',
@@ -2263,6 +2537,13 @@ function farm_log_sales_field_default_fields() {
           'type' => 'taxonomy_term_reference_link',
           'weight' => '3',
         ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '3',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_quantity_units',
@@ -2311,7 +2592,15 @@ function farm_log_sales_field_default_fields() {
           'label' => 'inline',
           'module' => 'fraction',
           'settings' => array(
-            'auto_precision' => 1,
+            'precision' => '3',
+          ),
+          'type' => 'fraction_decimal',
+          'weight' => '2',
+        ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'fraction',
+          'settings' => array(
             'precision' => '3',
           ),
           'type' => 'fraction_decimal',
@@ -2394,6 +2683,15 @@ function farm_log_sales_field_default_fields() {
           'type' => 'entityreference_label',
           'weight' => '11',
         ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => 1,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '11',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_sales',
@@ -2438,7 +2736,15 @@ function farm_log_sales_field_default_fields() {
           'label' => 'inline',
           'module' => 'fraction',
           'settings' => array(
-            'auto_precision' => 1,
+            'precision' => '2',
+          ),
+          'type' => 'fraction_decimal',
+          'weight' => '1',
+        ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'fraction',
+          'settings' => array(
             'precision' => '2',
           ),
           'type' => 'fraction_decimal',

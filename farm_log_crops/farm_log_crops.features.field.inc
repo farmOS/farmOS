@@ -46,11 +46,18 @@ function farm_log_crops_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'farm_cultivation',
-      'default_value' => NULL,
+      'default_value' => array(),
       'deleted' => '0',
       'description' => '',
       'display' => array(
         'default' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '1',
+        ),
+        'token' => array(
           'label' => 'inline',
           'module' => 'taxonomy',
           'settings' => array(),
@@ -119,6 +126,13 @@ function farm_log_crops_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '4',
+        ),
+        'token' => array(
           'label' => 'inline',
           'module' => 'taxonomy',
           'settings' => array(),
@@ -206,6 +220,15 @@ function farm_log_crops_field_default_fields() {
           'type' => 'entityreference_label',
           'weight' => '10',
         ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => 1,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '10',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_cultivations',
@@ -261,6 +284,20 @@ function farm_log_crops_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
+          'label' => 'inline',
+          'module' => 'date',
+          'settings' => array(
+            'format_type' => 'long',
+            'fromto' => 'both',
+            'multiple_from' => '',
+            'multiple_number' => '',
+            'multiple_to' => '',
+            'show_repeat_rule' => 'show',
+          ),
+          'type' => 'date_default',
+          'weight' => '0',
+        ),
+        'token' => array(
           'label' => 'inline',
           'module' => 'date',
           'settings' => array(
@@ -347,6 +384,13 @@ function farm_log_crops_field_default_fields() {
           'type' => 'file_table',
           'weight' => '8',
         ),
+        'token' => array(
+          'label' => 'above',
+          'module' => 'file',
+          'settings' => array(),
+          'type' => 'file_table',
+          'weight' => '8',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_files',
@@ -421,6 +465,15 @@ function farm_log_crops_field_default_fields() {
           'type' => 'fraction_decimal',
           'weight' => '5',
         ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'fraction',
+          'settings' => array(
+            'precision' => 2,
+          ),
+          'type' => 'fraction_decimal',
+          'weight' => '5',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_hours',
@@ -477,6 +530,16 @@ function farm_log_crops_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
+          'label' => 'hidden',
+          'module' => 'image',
+          'settings' => array(
+            'image_link' => '',
+            'image_style' => 'large',
+          ),
+          'type' => 'image',
+          'weight' => '7',
+        ),
+        'token' => array(
           'label' => 'hidden',
           'module' => 'image',
           'settings' => array(
@@ -591,6 +654,15 @@ function farm_log_crops_field_default_fields() {
           'type' => 'entityreference_label',
           'weight' => '9',
         ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => 1,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '9',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_issues',
@@ -643,6 +715,13 @@ function farm_log_crops_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '6',
+        ),
+        'token' => array(
           'label' => 'above',
           'module' => 'text',
           'settings' => array(),
@@ -717,6 +796,13 @@ function farm_log_crops_field_default_fields() {
           'type' => 'taxonomy_term_reference_link',
           'weight' => '3',
         ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '3',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_quantity_units',
@@ -764,6 +850,15 @@ function farm_log_crops_field_default_fields() {
       'description' => 'How much was cultivated? Use this to describe how much was done. Describe the units below.',
       'display' => array(
         'default' => array(
+          'label' => 'inline',
+          'module' => 'fraction',
+          'settings' => array(
+            'precision' => '3',
+          ),
+          'type' => 'fraction_decimal',
+          'weight' => '2',
+        ),
+        'token' => array(
           'label' => 'inline',
           'module' => 'fraction',
           'settings' => array(
@@ -839,6 +934,20 @@ function farm_log_crops_field_default_fields() {
           'type' => 'taxonomy_term_reference_link',
           'weight' => '4',
         ),
+        'full' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '4',
+        ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '4',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_areas',
@@ -908,6 +1017,20 @@ function farm_log_crops_field_default_fields() {
           'type' => 'taxonomy_term_reference_link',
           'weight' => '1',
         ),
+        'full' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '1',
+        ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '1',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_crops',
@@ -967,6 +1090,34 @@ function farm_log_crops_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
+          'label' => 'inline',
+          'module' => 'date',
+          'settings' => array(
+            'format_type' => 'long',
+            'fromto' => 'both',
+            'multiple_from' => '',
+            'multiple_number' => '',
+            'multiple_to' => '',
+            'show_repeat_rule' => 'show',
+          ),
+          'type' => 'date_default',
+          'weight' => '0',
+        ),
+        'full' => array(
+          'label' => 'inline',
+          'module' => 'date',
+          'settings' => array(
+            'format_type' => 'long',
+            'fromto' => 'both',
+            'multiple_from' => '',
+            'multiple_number' => '',
+            'multiple_to' => '',
+            'show_repeat_rule' => 'show',
+          ),
+          'type' => 'date_default',
+          'weight' => '0',
+        ),
+        'token' => array(
           'label' => 'inline',
           'module' => 'date',
           'settings' => array(
@@ -1047,6 +1198,20 @@ function farm_log_crops_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
+          'label' => 'above',
+          'module' => 'file',
+          'settings' => array(),
+          'type' => 'file_table',
+          'weight' => '8',
+        ),
+        'full' => array(
+          'label' => 'above',
+          'module' => 'file',
+          'settings' => array(),
+          'type' => 'file_table',
+          'weight' => '8',
+        ),
+        'token' => array(
           'label' => 'above',
           'module' => 'file',
           'settings' => array(),
@@ -1134,6 +1299,24 @@ function farm_log_crops_field_default_fields() {
           'type' => 'entityreference_label',
           'weight' => '11',
         ),
+        'full' => array(
+          'label' => 'inline',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => 1,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '11',
+        ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => 1,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '11',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_harvests',
@@ -1175,6 +1358,24 @@ function farm_log_crops_field_default_fields() {
       'description' => 'Record how many total hours this task took. If multiple people worked on it, multiply the time spent by the number of workers. Example: if two people worked together for 45 minutes (0.75 hours), the total time would be 1.5 hours (0.75 x 2).',
       'display' => array(
         'default' => array(
+          'label' => 'inline',
+          'module' => 'fraction',
+          'settings' => array(
+            'precision' => '2',
+          ),
+          'type' => 'fraction_decimal',
+          'weight' => '5',
+        ),
+        'full' => array(
+          'label' => 'inline',
+          'module' => 'fraction',
+          'settings' => array(
+            'precision' => '2',
+          ),
+          'type' => 'fraction_decimal',
+          'weight' => '5',
+        ),
+        'token' => array(
           'label' => 'inline',
           'module' => 'fraction',
           'settings' => array(
@@ -1239,6 +1440,26 @@ function farm_log_crops_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
+          'label' => 'hidden',
+          'module' => 'image',
+          'settings' => array(
+            'image_link' => '',
+            'image_style' => 'large',
+          ),
+          'type' => 'image',
+          'weight' => '7',
+        ),
+        'full' => array(
+          'label' => 'hidden',
+          'module' => 'image',
+          'settings' => array(
+            'image_link' => '',
+            'image_style' => 'large',
+          ),
+          'type' => 'image',
+          'weight' => '7',
+        ),
+        'token' => array(
           'label' => 'hidden',
           'module' => 'image',
           'settings' => array(
@@ -1334,6 +1555,24 @@ function farm_log_crops_field_default_fields() {
           'type' => 'entityreference_label',
           'weight' => '9',
         ),
+        'full' => array(
+          'label' => 'inline',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => 1,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '9',
+        ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => 1,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '9',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_issues',
@@ -1386,6 +1625,20 @@ function farm_log_crops_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '6',
+        ),
+        'full' => array(
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '6',
+        ),
+        'token' => array(
           'label' => 'above',
           'module' => 'text',
           'settings' => array(),
@@ -1470,6 +1723,24 @@ function farm_log_crops_field_default_fields() {
           'type' => 'entityreference_label',
           'weight' => '10',
         ),
+        'full' => array(
+          'label' => 'inline',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => 1,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '10',
+        ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => 1,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '10',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_plantings',
@@ -1535,6 +1806,20 @@ function farm_log_crops_field_default_fields() {
           'type' => 'taxonomy_term_reference_link',
           'weight' => '3',
         ),
+        'full' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '3',
+        ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '3',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_quantity_units',
@@ -1580,6 +1865,24 @@ function farm_log_crops_field_default_fields() {
       'description' => 'How much?',
       'display' => array(
         'default' => array(
+          'label' => 'inline',
+          'module' => 'fraction',
+          'settings' => array(
+            'precision' => '3',
+          ),
+          'type' => 'fraction_decimal',
+          'weight' => '2',
+        ),
+        'full' => array(
+          'label' => 'inline',
+          'module' => 'fraction',
+          'settings' => array(
+            'precision' => '3',
+          ),
+          'type' => 'fraction_decimal',
+          'weight' => '2',
+        ),
+        'token' => array(
           'label' => 'inline',
           'module' => 'fraction',
           'settings' => array(
@@ -1655,6 +1958,13 @@ function farm_log_crops_field_default_fields() {
           'type' => 'taxonomy_term_reference_link',
           'weight' => '6',
         ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '6',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_areas',
@@ -1724,6 +2034,13 @@ function farm_log_crops_field_default_fields() {
           'type' => 'taxonomy_term_reference_link',
           'weight' => '5',
         ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '5',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_crops',
@@ -1783,6 +2100,20 @@ function farm_log_crops_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
+          'label' => 'inline',
+          'module' => 'date',
+          'settings' => array(
+            'format_type' => 'long',
+            'fromto' => 'both',
+            'multiple_from' => '',
+            'multiple_number' => '',
+            'multiple_to' => '',
+            'show_repeat_rule' => 'show',
+          ),
+          'type' => 'date_default',
+          'weight' => '1',
+        ),
+        'token' => array(
           'label' => 'inline',
           'module' => 'date',
           'settings' => array(
@@ -1869,6 +2200,13 @@ function farm_log_crops_field_default_fields() {
           'type' => 'file_table',
           'weight' => '10',
         ),
+        'token' => array(
+          'label' => 'above',
+          'module' => 'file',
+          'settings' => array(),
+          'type' => 'file_table',
+          'weight' => '10',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_files',
@@ -1916,6 +2254,15 @@ function farm_log_crops_field_default_fields() {
       'description' => 'Record how many total hours this task took. If multiple people worked on it, multiply the time spent by the number of workers. Example: if two people worked together for 45 minutes (0.75 hours), the total time would be 1.5 hours (0.75 x 2).',
       'display' => array(
         'default' => array(
+          'label' => 'inline',
+          'module' => 'fraction',
+          'settings' => array(
+            'precision' => 2,
+          ),
+          'type' => 'fraction_decimal',
+          'weight' => '7',
+        ),
+        'token' => array(
           'label' => 'inline',
           'module' => 'fraction',
           'settings' => array(
@@ -1980,6 +2327,16 @@ function farm_log_crops_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
+          'label' => 'hidden',
+          'module' => 'image',
+          'settings' => array(
+            'image_link' => '',
+            'image_style' => 'large',
+          ),
+          'type' => 'image',
+          'weight' => '9',
+        ),
+        'token' => array(
           'label' => 'hidden',
           'module' => 'image',
           'settings' => array(
@@ -2075,6 +2432,15 @@ function farm_log_crops_field_default_fields() {
           'type' => 'entityreference_label',
           'weight' => '13',
         ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => 1,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '13',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_input_logs',
@@ -2134,6 +2500,13 @@ function farm_log_crops_field_default_fields() {
       'description' => 'What type of input is this? You can edit the input types in the <a href="/admin/structure/taxonomy/farm_input_types">input types vocabulary</a>.',
       'display' => array(
         'default' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '0',
+        ),
+        'token' => array(
           'label' => 'inline',
           'module' => 'taxonomy',
           'settings' => array(),
@@ -2202,6 +2575,13 @@ function farm_log_crops_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '2',
+        ),
+        'token' => array(
           'label' => 'inline',
           'module' => 'taxonomy',
           'settings' => array(),
@@ -2287,6 +2667,15 @@ function farm_log_crops_field_default_fields() {
           'type' => 'entityreference_label',
           'weight' => '11',
         ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => 1,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '11',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_issues',
@@ -2339,6 +2728,13 @@ function farm_log_crops_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '8',
+        ),
+        'token' => array(
           'label' => 'above',
           'module' => 'text',
           'settings' => array(),
@@ -2423,6 +2819,15 @@ function farm_log_crops_field_default_fields() {
           'type' => 'entityreference_label',
           'weight' => '12',
         ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => 1,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '12',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_plantings',
@@ -2477,11 +2882,18 @@ function farm_log_crops_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'farm_input',
-      'default_value' => NULL,
+      'default_value' => array(),
       'deleted' => '0',
       'description' => 'Gallons? Pounds? Handfuls?',
       'display' => array(
         'default' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '4',
+        ),
+        'token' => array(
           'label' => 'inline',
           'module' => 'taxonomy',
           'settings' => array(),
@@ -2532,6 +2944,15 @@ function farm_log_crops_field_default_fields() {
       'description' => 'How much?',
       'display' => array(
         'default' => array(
+          'label' => 'inline',
+          'module' => 'fraction',
+          'settings' => array(
+            'precision' => '3',
+          ),
+          'type' => 'fraction_decimal',
+          'weight' => '3',
+        ),
+        'token' => array(
           'label' => 'inline',
           'module' => 'fraction',
           'settings' => array(
@@ -2607,6 +3028,13 @@ function farm_log_crops_field_default_fields() {
           'type' => 'taxonomy_term_reference_link',
           'weight' => '5',
         ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '5',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_areas',
@@ -2676,6 +3104,13 @@ function farm_log_crops_field_default_fields() {
           'type' => 'taxonomy_term_reference_link',
           'weight' => '2',
         ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '2',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_crops',
@@ -2735,6 +3170,20 @@ function farm_log_crops_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
+          'label' => 'inline',
+          'module' => 'date',
+          'settings' => array(
+            'format_type' => 'long',
+            'fromto' => 'both',
+            'multiple_from' => '',
+            'multiple_number' => '',
+            'multiple_to' => '',
+            'show_repeat_rule' => 'show',
+          ),
+          'type' => 'date_default',
+          'weight' => '1',
+        ),
+        'token' => array(
           'label' => 'inline',
           'module' => 'date',
           'settings' => array(
@@ -2821,6 +3270,13 @@ function farm_log_crops_field_default_fields() {
           'type' => 'file_table',
           'weight' => '9',
         ),
+        'token' => array(
+          'label' => 'above',
+          'module' => 'file',
+          'settings' => array(),
+          'type' => 'file_table',
+          'weight' => '9',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_files',
@@ -2868,6 +3324,15 @@ function farm_log_crops_field_default_fields() {
       'description' => 'Record how many total hours this task took. If multiple people worked on it, multiply the time spent by the number of workers. Example: if two people worked together for 45 minutes (0.75 hours), the total time would be 1.5 hours (0.75 x 2).',
       'display' => array(
         'default' => array(
+          'label' => 'inline',
+          'module' => 'fraction',
+          'settings' => array(
+            'precision' => '2',
+          ),
+          'type' => 'fraction_decimal',
+          'weight' => '6',
+        ),
+        'token' => array(
           'label' => 'inline',
           'module' => 'fraction',
           'settings' => array(
@@ -2932,6 +3397,16 @@ function farm_log_crops_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
+          'label' => 'hidden',
+          'module' => 'image',
+          'settings' => array(
+            'image_link' => '',
+            'image_style' => 'large',
+          ),
+          'type' => 'image',
+          'weight' => '8',
+        ),
+        'token' => array(
           'label' => 'hidden',
           'module' => 'image',
           'settings' => array(
@@ -3027,6 +3502,15 @@ function farm_log_crops_field_default_fields() {
           'type' => 'entityreference_label',
           'weight' => '10',
         ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => 1,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '10',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_issues',
@@ -3079,6 +3563,13 @@ function farm_log_crops_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '7',
+        ),
+        'token' => array(
           'label' => 'above',
           'module' => 'text',
           'settings' => array(),
@@ -3144,6 +3635,13 @@ function farm_log_crops_field_default_fields() {
       'description' => 'Select the type of planting that this is: direct seeding (seeding directly into the field/bed), transplant seeding (seeding of transplant "starts" for planting later), or transplanting (planting into the field/bed).',
       'display' => array(
         'default' => array(
+          'label' => 'inline',
+          'module' => 'list',
+          'settings' => array(),
+          'type' => 'list_default',
+          'weight' => '0',
+        ),
+        'token' => array(
           'label' => 'inline',
           'module' => 'list',
           'settings' => array(),
@@ -3225,6 +3723,15 @@ function farm_log_crops_field_default_fields() {
           'type' => 'entityreference_label',
           'weight' => '11',
         ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => 1,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '11',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_plantings',
@@ -3290,6 +3797,13 @@ function farm_log_crops_field_default_fields() {
           'type' => 'taxonomy_term_reference_link',
           'weight' => '4',
         ),
+        'token' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '4',
+        ),
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_quantity_units',
@@ -3335,6 +3849,15 @@ function farm_log_crops_field_default_fields() {
       'description' => 'How much was seeded/planted? If this is a seeding, enter the number of seeds, packets, etc. If it\'s a transplanting, enter the number of plants, trays, etc. Describe the units below.',
       'display' => array(
         'default' => array(
+          'label' => 'inline',
+          'module' => 'fraction',
+          'settings' => array(
+            'precision' => '3',
+          ),
+          'type' => 'fraction_decimal',
+          'weight' => '3',
+        ),
+        'token' => array(
           'label' => 'inline',
           'module' => 'fraction',
           'settings' => array(

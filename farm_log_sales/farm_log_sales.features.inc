@@ -34,18 +34,21 @@ function farm_log_sales_default_log_type() {
     "type" : "farm_loss",
     "label" : "Loss",
     "weight" : 0,
+    "name_pattern" : "Lose [log:field_farm_quantity_value] [log:field-farm-quantity-units]",
     "rdf_mapping" : []
   }');
   $items['farm_purchase'] = entity_import('log_type', '{
     "type" : "farm_purchase",
     "label" : "Purchase",
     "weight" : 0,
+    "name_pattern" : "Purchase [log:field_farm_quantity_value] [log:field-farm-quantity-units]",
     "rdf_mapping" : []
   }');
   $items['farm_sale'] = entity_import('log_type', '{
     "type" : "farm_sale",
     "label" : "Sale",
     "weight" : 0,
+    "name_pattern" : "Sell [log:field_farm_quantity_value] [log:field-farm-quantity-units]",
     "rdf_mapping" : []
   }');
   return $items;

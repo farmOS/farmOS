@@ -34,24 +34,28 @@ function farm_log_crops_default_log_type() {
     "type" : "farm_cultivation",
     "label" : "Cultivation",
     "weight" : 0,
+    "name_pattern" : "Cultivate [log:field_farm_quantity_value] [log:field-farm-quantity-units] [log:field-farm-areas] [log:field-farm-crops]",
     "rdf_mapping" : []
   }');
   $items['farm_harvest'] = entity_import('log_type', '{
     "type" : "farm_harvest",
     "label" : "Harvest",
     "weight" : 0,
+    "name_pattern" : "Harvest [log:field_farm_quantity_value] [log:field-farm-quantity-units] [log:field-farm-crops]",
     "rdf_mapping" : []
   }');
   $items['farm_input'] = entity_import('log_type', '{
     "type" : "farm_input",
     "label" : "Input",
     "weight" : 0,
+    "name_pattern" : "[log:field-farm-input-type] [log:field_farm_quantity_value] [log:field-farm-quantity-units] [log:field-farm-inputs] [log:field-farm-areas] [log:field-farm-crops]",
     "rdf_mapping" : []
   }');
   $items['farm_planting'] = entity_import('log_type', '{
     "type" : "farm_planting",
     "label" : "Seeding\\/Planting",
     "weight" : 0,
+    "name_pattern" : "[log:field-farm-planting-type] [log:field_farm_quantity_value] [log:field-farm-quantity-units] [log:field-farm-crops] [log:field-farm-areas]",
     "rdf_mapping" : []
   }');
   return $items;

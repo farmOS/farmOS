@@ -23,8 +23,8 @@ function farm_log_crops_field_group_info() {
     'label' => 'Crops + Fields',
     'weight' => '1',
     'children' => array(
-      0 => 'field_farm_crops',
-      1 => 'field_farm_areas',
+      0 => 'field_farm_areas',
+      1 => 'field_farm_crops',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -139,9 +139,9 @@ function farm_log_crops_field_group_info() {
     'label' => 'Cultivation Details',
     'weight' => '2',
     'children' => array(
-      0 => 'field_farm_quantity_value',
+      0 => 'field_farm_notes',
       1 => 'field_farm_quantity_units',
-      2 => 'field_farm_notes',
+      2 => 'field_farm_quantity_value',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -376,8 +376,8 @@ function farm_log_crops_field_group_info() {
     'label' => 'Related Logs',
     'weight' => '4',
     'children' => array(
-      0 => 'field_farm_issues',
-      1 => 'field_farm_cultivations',
+      0 => 'field_farm_cultivations',
+      1 => 'field_farm_issues',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
