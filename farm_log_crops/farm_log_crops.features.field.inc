@@ -415,7 +415,7 @@ function farm_log_crops_field_default_fields() {
               'pathauto' => 0,
               'transliterate' => 0,
             ),
-            'value' => '',
+            'value' => 'logs/[log:created:custom:Y]/[log:created:custom:m]/[log:created:custom:d]/[log:id]',
           ),
           'retroactive_update' => 0,
         ),
@@ -574,7 +574,7 @@ function farm_log_crops_field_default_fields() {
               'pathauto' => 0,
               'transliterate' => 0,
             ),
-            'value' => '',
+            'value' => 'logs/[log:created:custom:Y]/[log:created:custom:m]/[log:created:custom:d]/[log:id]',
           ),
           'retroactive_update' => 0,
         ),
@@ -1228,6 +1228,25 @@ function farm_log_crops_field_default_fields() {
         'description_field' => 1,
         'file_directory' => '',
         'file_extensions' => 'csv doc docx odt odp ods pdf ppt pptx txt xls xlsx',
+        'filefield_paths' => array(
+          'active_updating' => 0,
+          'file_name' => array(
+            'options' => array(
+              'pathauto' => 0,
+              'transliterate' => 0,
+            ),
+            'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
+          ),
+          'file_path' => array(
+            'options' => array(
+              'pathauto' => 0,
+              'transliterate' => 0,
+            ),
+            'value' => 'logs/[log:created:custom:Y]/[log:created:custom:m]/[log:created:custom:d]/[log:id]',
+          ),
+          'retroactive_update' => 0,
+        ),
+        'filefield_paths_enabled' => 1,
         'max_filesize' => '',
         'user_register_form' => FALSE,
       ),
@@ -1480,6 +1499,25 @@ function farm_log_crops_field_default_fields() {
         'default_image' => 0,
         'file_directory' => '',
         'file_extensions' => 'png gif jpg jpeg',
+        'filefield_paths' => array(
+          'active_updating' => 0,
+          'file_name' => array(
+            'options' => array(
+              'pathauto' => 0,
+              'transliterate' => 0,
+            ),
+            'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
+          ),
+          'file_path' => array(
+            'options' => array(
+              'pathauto' => 0,
+              'transliterate' => 0,
+            ),
+            'value' => 'logs/[log:created:custom:Y]/[log:created:custom:m]/[log:created:custom:d]/[log:id]',
+          ),
+          'retroactive_update' => 0,
+        ),
+        'filefield_paths_enabled' => 1,
         'max_filesize' => '',
         'max_resolution' => '',
         'min_resolution' => '',
@@ -2217,6 +2255,25 @@ function farm_log_crops_field_default_fields() {
         'description_field' => 0,
         'file_directory' => '',
         'file_extensions' => 'csv doc docx odt odp ods pdf ppt pptx txt xls xlsx',
+        'filefield_paths' => array(
+          'active_updating' => 0,
+          'file_name' => array(
+            'options' => array(
+              'pathauto' => 0,
+              'transliterate' => 0,
+            ),
+            'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
+          ),
+          'file_path' => array(
+            'options' => array(
+              'pathauto' => 0,
+              'transliterate' => 0,
+            ),
+            'value' => 'logs/[log:created:custom:Y]/[log:created:custom:m]/[log:created:custom:d]/[log:id]',
+          ),
+          'retroactive_update' => 0,
+        ),
+        'filefield_paths_enabled' => 1,
         'max_filesize' => '',
         'user_register_form' => FALSE,
       ),
@@ -2357,6 +2414,25 @@ function farm_log_crops_field_default_fields() {
         'default_image' => 0,
         'file_directory' => '',
         'file_extensions' => 'png gif jpg jpeg',
+        'filefield_paths' => array(
+          'active_updating' => 0,
+          'file_name' => array(
+            'options' => array(
+              'pathauto' => 0,
+              'transliterate' => 0,
+            ),
+            'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
+          ),
+          'file_path' => array(
+            'options' => array(
+              'pathauto' => 0,
+              'transliterate' => 0,
+            ),
+            'value' => 'logs/[log:created:custom:Y]/[log:created:custom:m]/[log:created:custom:d]/[log:id]',
+          ),
+          'retroactive_update' => 0,
+        ),
+        'filefield_paths_enabled' => 1,
         'max_filesize' => '',
         'max_resolution' => '',
         'min_resolution' => '',
@@ -3288,6 +3364,25 @@ function farm_log_crops_field_default_fields() {
         'description_field' => 1,
         'file_directory' => '',
         'file_extensions' => 'csv doc docx odt odp ods pdf ppt pptx txt xls xlsx',
+        'filefield_paths' => array(
+          'active_updating' => 0,
+          'file_name' => array(
+            'options' => array(
+              'pathauto' => 0,
+              'transliterate' => 0,
+            ),
+            'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
+          ),
+          'file_path' => array(
+            'options' => array(
+              'pathauto' => 0,
+              'transliterate' => 0,
+            ),
+            'value' => 'logs/[log:created:custom:Y]/[log:created:custom:m]/[log:created:custom:d]/[log:id]',
+          ),
+          'retroactive_update' => 0,
+        ),
+        'filefield_paths_enabled' => 1,
         'max_filesize' => '',
         'user_register_form' => FALSE,
       ),
@@ -3428,6 +3523,25 @@ function farm_log_crops_field_default_fields() {
         'default_image' => 0,
         'file_directory' => '',
         'file_extensions' => 'png gif jpg jpeg',
+        'filefield_paths' => array(
+          'active_updating' => 0,
+          'file_name' => array(
+            'options' => array(
+              'pathauto' => 0,
+              'transliterate' => 0,
+            ),
+            'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
+          ),
+          'file_path' => array(
+            'options' => array(
+              'pathauto' => 0,
+              'transliterate' => 0,
+            ),
+            'value' => 'logs/[log:created:custom:Y]/[log:created:custom:m]/[log:created:custom:d]/[log:id]',
+          ),
+          'retroactive_update' => 0,
+        ),
+        'filefield_paths_enabled' => 1,
         'max_filesize' => '',
         'max_resolution' => '',
         'min_resolution' => '',

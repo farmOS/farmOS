@@ -12,6 +12,7 @@ dependencies[] = farm_area
 dependencies[] = farm_taxonomy
 dependencies[] = features
 dependencies[] = field_group
+dependencies[] = filefield_paths
 dependencies[] = fraction
 dependencies[] = image
 dependencies[] = list
