@@ -2,7 +2,6 @@ name = Farm Log Sales
 description = Log types and fields for farm sales.
 core = 7.x
 package = Farm Features
-php = 5.2.4
 dependencies[] = autocomplete_deluxe
 dependencies[] = date
 dependencies[] = date_popup
