@@ -30,6 +30,12 @@ function farm_log_crops_views_api() {
  */
 function farm_log_crops_default_log_type() {
   $items = array();
+  $items['farm_cultivation'] = entity_import('log_type', '{
+    "type" : "farm_cultivation",
+    "label" : "Cultivation",
+    "weight" : 0,
+    "rdf_mapping" : []
+  }');
   $items['farm_harvest'] = entity_import('log_type', '{
     "type" : "farm_harvest",
     "label" : "Harvest",
