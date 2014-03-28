@@ -341,7 +341,7 @@ function farm_log_field_default_fields() {
         'active' => 1,
         'module' => 'file',
         'settings' => array(
-          'progress_indicator' => 'throbber',
+          'progress_indicator' => 'bar',
         ),
         'type' => 'file_generic',
         'weight' => '34',
@@ -504,7 +504,7 @@ function farm_log_field_default_fields() {
         'module' => 'image',
         'settings' => array(
           'preview_image_style' => 'thumbnail',
-          'progress_indicator' => 'throbber',
+          'progress_indicator' => 'bar',
         ),
         'type' => 'image_image',
         'weight' => '33',
