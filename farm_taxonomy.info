@@ -1,7 +1,7 @@
 name = Farm Taxonomy
 description = Common taxonomies for farms.
 core = 7.x
-package = Farm Features
+package = Farm
 php = 5.2.4
 dependencies[] = date
 dependencies[] = date_popup
