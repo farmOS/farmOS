@@ -1,7 +1,7 @@
 name = Farm Map
 description = Provides OpenLayers configuration for farm maps.
 core = 7.x
-package = Farm Features
+package = Farm
 dependencies[] = ctools
 dependencies[] = openlayers
 dependencies[] = strongarm
