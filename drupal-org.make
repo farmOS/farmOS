@@ -69,6 +69,12 @@ projects[views][version] = "3.7"
 ; Modules (farm)
 ; -----------------------------------------------------------------------------
 
+projects[farm_admin][type] = "module"
+projects[farm_admin][subdir] = "farm"
+projects[farm_admin][download][type] = "git"
+projects[farm_admin][download][url] = "http://github.com/farmier/farm_admin.git"
+projects[farm_admin][download][branch] = "7.x-1.x"
+
 projects[farm_area][type] = "module"
 projects[farm_area][subdir] = "farm"
 projects[farm_area][download][type] = "git"
