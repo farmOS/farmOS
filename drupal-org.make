@@ -5,8 +5,17 @@ core = 7.x
 ; Modules (contrib)
 ; -----------------------------------------------------------------------------
 
+projects[addressfield][subdir] = "contrib"
+projects[addressfield][version] = "1.0-beta5"
+
 projects[autocomplete_deluxe][subdir] = "contrib"
 projects[autocomplete_deluxe][version] = "2.0-beta3"
+
+projects[commerce][subdir] = "contrib"
+projects[commerce][version] = "1.9"
+
+projects[commerce_features][subdir] = "contrib"
+projects[commerce_features][version] = "1.0"
 
 projects[ctools][subdir] = "contrib"
 projects[ctools][version] = "1.4"
@@ -19,6 +28,9 @@ projects[entity][version] = "1.4"
 
 projects[entityreference][subdir] = "contrib"
 projects[entityreference][version] = "1.1"
+
+projects[entityreference_view_widget][subdir] = "contrib"
+projects[entityreference_view_widget][version] = "2.0-alpha2"
 
 projects[features][subdir] = "contrib"
 projects[features][version] = "1.0"
@@ -50,11 +62,20 @@ projects[log][version] = "1.x"
 projects[openlayers][subdir] = "contrib"
 projects[openlayers][version] = "2.0-beta9"
 
+projects[panels][subdir] = "contrib"
+projects[panels][version] = "3.4"
+
 projects[pathauto][subdir] = "contrib"
 projects[pathauto][version] = "1.2"
 
 projects[proj4js][subdir] = "contrib"
 projects[proj4js][version] = "1.2"
+
+projects[role_export][subdir] = "contrib"
+projects[role_export][version] = "1.0"
+
+projects[rules][subdir] = "contrib"
+projects[rules][version] = "2.6"
 
 projects[strongarm][subdir] = "contrib"
 projects[strongarm][version] = "2.0"
@@ -86,6 +107,12 @@ projects[farm_crop][subdir] = "farm"
 projects[farm_crop][download][type] = "git"
 projects[farm_crop][download][url] = "http://github.com/farmier/farm_crop.git"
 projects[farm_crop][download][branch] = "7.x-1.x"
+
+projects[farm_csa][type] = "module"
+projects[farm_csa][subdir] = "farm"
+projects[farm_csa][download][type] = "git"
+projects[farm_csa][download][url] = "http://github.com/farmier/farm_csa.git"
+projects[farm_csa][download][branch] = "7.x-1.x"
 
 projects[farm_log][type] = "module"
 projects[farm_log][subdir] = "farm"
