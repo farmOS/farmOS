@@ -9,6 +9,7 @@ dependencies[] = date_views
 dependencies[] = entity
 dependencies[] = entityreference
 dependencies[] = farm_area
+dependencies[] = farm_crop
 dependencies[] = farm_log
 dependencies[] = farm_taxonomy
 dependencies[] = features
