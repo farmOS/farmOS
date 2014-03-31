@@ -15,7 +15,7 @@ projects[date][subdir] = "contrib"
 projects[date][version] = "2.7"
 
 projects[entity][subdir] = "contrib"
-projects[entity][version] = "1.3"
+projects[entity][version] = "1.4"
 
 projects[entityreference][subdir] = "contrib"
 projects[entityreference][version] = "1.1"
@@ -48,7 +48,7 @@ projects[log][subdir] = "contrib"
 projects[log][version] = "1.x"
 
 projects[openlayers][subdir] = "contrib"
-projects[openlayers][version] = "2.0-beta7"
+projects[openlayers][version] = "2.0-beta9"
 
 projects[pathauto][subdir] = "contrib"
 projects[pathauto][version] = "1.2"
