@@ -75,6 +75,12 @@ projects[farm_area][download][type] = "git"
 projects[farm_area][download][url] = "http://github.com/farmier/farm_area.git"
 projects[farm_area][download][branch] = "7.x-1.x"
 
+projects[farm_crop][type] = "module"
+projects[farm_crop][subdir] = "farm"
+projects[farm_crop][download][type] = "git"
+projects[farm_crop][download][url] = "http://github.com/farmier/farm_crop.git"
+projects[farm_crop][download][branch] = "7.x-1.x"
+
 projects[farm_log][type] = "module"
 projects[farm_log][subdir] = "farm"
 projects[farm_log][download][type] = "git"
