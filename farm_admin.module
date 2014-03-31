@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Farm Admin feature.
+ */
+
+include_once 'farm_admin.features.inc';

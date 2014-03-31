@@ -1,0 +1,11 @@
+name = Farm Admin
+description = Administrative interface for managing the farm.
+core = 7.x
+package = Farm
+dependencies[] = ctools
+dependencies[] = farm_area
+dependencies[] = farm_crop
+dependencies[] = page_manager
+features[ctools][] = page_manager:pages_default:1
+features[features_api][] = api:1
+features[page_manager_pages][] = farm_admin
