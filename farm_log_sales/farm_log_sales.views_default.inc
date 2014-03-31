@@ -361,7 +361,7 @@ function farm_log_sales_views_default_views() {
     1 => 0,
   );
   $handler->display->display_options['filters']['field_farm_areas_tid']['vocabulary'] = 'farm_areas';
-  $handler->display->display_options['path'] = 'logs/money/losses';
+  $handler->display->display_options['path'] = 'admin/farm/logs/money/losses';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Losses';
   $handler->display->display_options['menu']['weight'] = '20';
@@ -740,7 +740,7 @@ function farm_log_sales_views_default_views() {
     1 => 0,
   );
   $handler->display->display_options['filters']['field_farm_areas_tid']['vocabulary'] = 'farm_areas';
-  $handler->display->display_options['path'] = 'logs/money/purchases';
+  $handler->display->display_options['path'] = 'admin/farm/logs/money/purchases';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Purchases';
   $handler->display->display_options['menu']['weight'] = '10';
@@ -1119,7 +1119,7 @@ function farm_log_sales_views_default_views() {
     1 => 0,
   );
   $handler->display->display_options['filters']['field_farm_areas_tid']['vocabulary'] = 'farm_areas';
-  $handler->display->display_options['path'] = 'logs/money/sales';
+  $handler->display->display_options['path'] = 'admin/farm/logs/money/sales';
   $handler->display->display_options['menu']['type'] = 'default tab';
   $handler->display->display_options['menu']['title'] = 'Sales';
   $handler->display->display_options['menu']['weight'] = '';

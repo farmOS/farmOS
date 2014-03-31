@@ -360,7 +360,7 @@ function farm_log_crops_views_default_views() {
     1 => 0,
   );
   $handler->display->display_options['filters']['field_farm_areas_tid']['vocabulary'] = 'farm_areas';
-  $handler->display->display_options['path'] = 'logs/crops/cultivations';
+  $handler->display->display_options['path'] = 'admin/farm/logs/crops/cultivations';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Cultivations';
   $handler->display->display_options['menu']['weight'] = '20';
@@ -741,7 +741,7 @@ function farm_log_crops_views_default_views() {
     1 => 0,
   );
   $handler->display->display_options['filters']['field_farm_areas_tid']['vocabulary'] = 'farm_areas';
-  $handler->display->display_options['path'] = 'logs/crops/harvests';
+  $handler->display->display_options['path'] = 'admin/farm/logs/crops/harvests';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Harvests';
   $handler->display->display_options['menu']['weight'] = '30';
@@ -1147,7 +1147,7 @@ function farm_log_crops_views_default_views() {
     1 => 0,
   );
   $handler->display->display_options['filters']['field_farm_areas_tid']['vocabulary'] = 'farm_areas';
-  $handler->display->display_options['path'] = 'logs/crops/inputs';
+  $handler->display->display_options['path'] = 'admin/farm/logs/crops/inputs';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Inputs';
   $handler->display->display_options['menu']['weight'] = '10';
@@ -1519,7 +1519,7 @@ function farm_log_crops_views_default_views() {
     1 => 0,
   );
   $handler->display->display_options['filters']['field_farm_areas_tid']['vocabulary'] = 'farm_areas';
-  $handler->display->display_options['path'] = 'logs/crops/plantings';
+  $handler->display->display_options['path'] = 'admin/farm/logs/crops/plantings';
   $handler->display->display_options['menu']['type'] = 'default tab';
   $handler->display->display_options['menu']['title'] = 'Plantings';
   $handler->display->display_options['menu']['weight'] = '';

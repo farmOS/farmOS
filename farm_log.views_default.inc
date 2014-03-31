@@ -362,7 +362,7 @@ function farm_log_views_default_views() {
   );
   $handler->display->display_options['filters']['field_farm_priority_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_farm_priority_tid']['vocabulary'] = 'farm_priority';
-  $handler->display->display_options['path'] = 'logs/issue';
+  $handler->display->display_options['path'] = 'admin/farm/logs/issue';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Issues';
   $handler->display->display_options['menu']['weight'] = '100';
