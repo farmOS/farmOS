@@ -15,7 +15,7 @@ function farm_log_views_default_views() {
   $view->description = '';
   $view->tag = 'farm_log';
   $view->base_table = 'log';
-  $view->human_name = 'Farm Issue Log';
+  $view->human_name = 'Farm Log: Issue';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */

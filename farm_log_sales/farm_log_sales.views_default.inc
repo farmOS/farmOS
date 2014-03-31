@@ -15,7 +15,7 @@ function farm_log_sales_views_default_views() {
   $view->description = '';
   $view->tag = 'farm_log_money';
   $view->base_table = 'log';
-  $view->human_name = 'Farm Loss Log';
+  $view->human_name = 'Farm Log: Loss';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
@@ -394,7 +394,7 @@ function farm_log_sales_views_default_views() {
   $view->description = '';
   $view->tag = 'farm_log_money';
   $view->base_table = 'log';
-  $view->human_name = 'Farm Purchase Log';
+  $view->human_name = 'Farm Log: Purchase';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
@@ -773,7 +773,7 @@ function farm_log_sales_views_default_views() {
   $view->description = '';
   $view->tag = 'farm_log_money';
   $view->base_table = 'log';
-  $view->human_name = 'Farm Sale Log';
+  $view->human_name = 'Farm Log: Sale';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */

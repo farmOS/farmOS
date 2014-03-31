@@ -15,7 +15,7 @@ function farm_log_crops_views_default_views() {
   $view->description = '';
   $view->tag = 'farm_log_crops';
   $view->base_table = 'log';
-  $view->human_name = 'Farm Cultivation Log';
+  $view->human_name = 'Farm Log: Cultivation';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
@@ -393,7 +393,7 @@ function farm_log_crops_views_default_views() {
   $view->description = '';
   $view->tag = 'farm_log_crops';
   $view->base_table = 'log';
-  $view->human_name = 'Farm Harvest Log';
+  $view->human_name = 'Farm Log: Harvest';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
@@ -774,7 +774,7 @@ function farm_log_crops_views_default_views() {
   $view->description = '';
   $view->tag = 'farm_log_crops';
   $view->base_table = 'log';
-  $view->human_name = 'Farm Input Log';
+  $view->human_name = 'Farm Log: Input';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
@@ -1180,7 +1180,7 @@ function farm_log_crops_views_default_views() {
   $view->description = '';
   $view->tag = 'farm_log_crops';
   $view->base_table = 'log';
-  $view->human_name = 'Farm Planting Log';
+  $view->human_name = 'Farm Log: Planting';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
