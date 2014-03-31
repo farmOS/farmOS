@@ -14,6 +14,7 @@ dependencies[] = pathauto
 dependencies[] = strongarm
 dependencies[] = taxonomy
 dependencies[] = views
+dependencies[] = views_content
 features[ctools][] = field_group:field_group:1
 features[ctools][] = openlayers:openlayers_maps:1
 features[ctools][] = strongarm:strongarm:1
