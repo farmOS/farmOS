@@ -17,3 +17,10 @@ function farm_crop_ctools_plugin_api() {
     return array("version" => "1");
   }
 }
+
+/**
+ * Implements hook_views_api().
+ */
+function farm_crop_views_api() {
+  return array("version" => "3.0");
+}
