@@ -16,7 +16,19 @@ function farm_log_default_page_manager_pages() {
   $page->admin_title = 'Farm Log Admin';
   $page->admin_description = 'Administrative list of farm logs.';
   $page->path = 'admin/farm/logs/overview';
-  $page->access = array();
+  $page->access = array(
+    'plugins' => array(
+      0 => array(
+        'name' => 'perm',
+        'settings' => array(
+          'perm' => 'view any log entities',
+        ),
+        'context' => 'logged-in-user',
+        'not' => FALSE,
+      ),
+    ),
+    'logic' => 'and',
+  );
   $page->menu = array(
     'type' => 'default tab',
     'title' => 'Overview',
