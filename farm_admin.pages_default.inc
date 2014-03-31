@@ -16,7 +16,19 @@ function farm_admin_default_page_manager_pages() {
   $page->admin_title = 'Farm Admin';
   $page->admin_description = 'An administrative panel for farm managers.';
   $page->path = 'admin/farm';
-  $page->access = array();
+  $page->access = array(
+    'plugins' => array(
+      0 => array(
+        'name' => 'perm',
+        'settings' => array(
+          'perm' => 'access administration pages',
+        ),
+        'context' => 'logged-in-user',
+        'not' => FALSE,
+      ),
+    ),
+    'logic' => 'and',
+  );
   $page->menu = array(
     'type' => 'normal',
     'title' => 'Farm',
