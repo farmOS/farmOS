@@ -13,7 +13,7 @@ function farm_log_crops_views_default_views() {
   $view = new view();
   $view->name = 'farm_log_cultivation';
   $view->description = '';
-  $view->tag = 'default';
+  $view->tag = 'farm_log_crops';
   $view->base_table = 'log';
   $view->human_name = 'Farm Cultivation Log';
   $view->core = 7;
@@ -391,7 +391,7 @@ function farm_log_crops_views_default_views() {
   $view = new view();
   $view->name = 'farm_log_harvest';
   $view->description = '';
-  $view->tag = 'default';
+  $view->tag = 'farm_log_crops';
   $view->base_table = 'log';
   $view->human_name = 'Farm Harvest Log';
   $view->core = 7;
@@ -772,7 +772,7 @@ function farm_log_crops_views_default_views() {
   $view = new view();
   $view->name = 'farm_log_input';
   $view->description = '';
-  $view->tag = 'default';
+  $view->tag = 'farm_log_crops';
   $view->base_table = 'log';
   $view->human_name = 'Farm Input Log';
   $view->core = 7;
@@ -1178,7 +1178,7 @@ function farm_log_crops_views_default_views() {
   $view = new view();
   $view->name = 'farm_log_planting';
   $view->description = '';
-  $view->tag = 'default';
+  $view->tag = 'farm_log_crops';
   $view->base_table = 'log';
   $view->human_name = 'Farm Planting Log';
   $view->core = 7;

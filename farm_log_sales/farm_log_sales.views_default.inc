@@ -13,7 +13,7 @@ function farm_log_sales_views_default_views() {
   $view = new view();
   $view->name = 'farm_log_loss';
   $view->description = '';
-  $view->tag = 'default';
+  $view->tag = 'farm_log_money';
   $view->base_table = 'log';
   $view->human_name = 'Farm Loss Log';
   $view->core = 7;
@@ -392,7 +392,7 @@ function farm_log_sales_views_default_views() {
   $view = new view();
   $view->name = 'farm_log_purchase';
   $view->description = '';
-  $view->tag = 'default';
+  $view->tag = 'farm_log_money';
   $view->base_table = 'log';
   $view->human_name = 'Farm Purchase Log';
   $view->core = 7;
@@ -771,7 +771,7 @@ function farm_log_sales_views_default_views() {
   $view = new view();
   $view->name = 'farm_log_sale';
   $view->description = '';
-  $view->tag = 'default';
+  $view->tag = 'farm_log_money';
   $view->base_table = 'log';
   $view->human_name = 'Farm Sale Log';
   $view->core = 7;
