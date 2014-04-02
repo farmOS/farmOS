@@ -86,7 +86,7 @@ function farm_log_views_default_views() {
   $handler->display->display_options['sorts']['field_farm_date_value']['table'] = 'field_data_field_farm_date';
   $handler->display->display_options['sorts']['field_farm_date_value']['field'] = 'field_farm_date_value';
   $handler->display->display_options['sorts']['field_farm_date_value']['order'] = 'DESC';
-  /* Filter criterion: Log: Type */
+  /* Filter criterion: Log: Log type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'log';
   $handler->display->display_options['filters']['type']['field'] = 'type';
@@ -256,7 +256,7 @@ function farm_log_views_default_views() {
   $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/log/[id]/edit">Edit</a> | <a href="/log/[id]/delete">Delete</a>';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: Log: Type */
+  /* Filter criterion: Log: Log type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'log';
   $handler->display->display_options['filters']['type']['field'] = 'type';

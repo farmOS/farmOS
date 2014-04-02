@@ -86,7 +86,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['sorts']['field_farm_date_value']['table'] = 'field_data_field_farm_date';
   $handler->display->display_options['sorts']['field_farm_date_value']['field'] = 'field_farm_date_value';
   $handler->display->display_options['sorts']['field_farm_date_value']['order'] = 'DESC';
-  /* Filter criterion: Log: Type */
+  /* Filter criterion: Log: Log type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'log';
   $handler->display->display_options['filters']['type']['field'] = 'type';
@@ -257,21 +257,6 @@ function farm_log_crops_views_default_views() {
     'precision' => '2',
     'auto_precision' => 1,
   );
-  /* Field: Log: Related Issues */
-  $handler->display->display_options['fields']['field_farm_issues']['id'] = 'field_farm_issues';
-  $handler->display->display_options['fields']['field_farm_issues']['table'] = 'field_data_field_farm_issues';
-  $handler->display->display_options['fields']['field_farm_issues']['field'] = 'field_farm_issues';
-  $handler->display->display_options['fields']['field_farm_issues']['settings'] = array(
-    'link' => 1,
-  );
-  $handler->display->display_options['fields']['field_farm_issues']['delta_offset'] = '0';
-  /* Field: Log: Related Cultivations */
-  $handler->display->display_options['fields']['field_farm_cultivations']['id'] = 'field_farm_cultivations';
-  $handler->display->display_options['fields']['field_farm_cultivations']['table'] = 'field_data_field_farm_cultivations';
-  $handler->display->display_options['fields']['field_farm_cultivations']['field'] = 'field_farm_cultivations';
-  $handler->display->display_options['fields']['field_farm_cultivations']['settings'] = array(
-    'link' => 1,
-  );
   /* Field: Global: Custom text */
   $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
@@ -280,7 +265,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/log/[id]/edit">Edit</a> | <a href="/log/[id]/delete">Delete</a>';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: Log: Type */
+  /* Filter criterion: Log: Log type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'log';
   $handler->display->display_options['filters']['type']['field'] = 'type';
@@ -464,7 +449,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['sorts']['field_farm_date_value']['table'] = 'field_data_field_farm_date';
   $handler->display->display_options['sorts']['field_farm_date_value']['field'] = 'field_farm_date_value';
   $handler->display->display_options['sorts']['field_farm_date_value']['order'] = 'DESC';
-  /* Filter criterion: Log: Type */
+  /* Filter criterion: Log: Log type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'log';
   $handler->display->display_options['filters']['type']['field'] = 'type';
@@ -635,30 +620,6 @@ function farm_log_crops_views_default_views() {
     'precision' => '2',
     'auto_precision' => 1,
   );
-  /* Field: Log: Related Issues */
-  $handler->display->display_options['fields']['field_farm_issues']['id'] = 'field_farm_issues';
-  $handler->display->display_options['fields']['field_farm_issues']['table'] = 'field_data_field_farm_issues';
-  $handler->display->display_options['fields']['field_farm_issues']['field'] = 'field_farm_issues';
-  $handler->display->display_options['fields']['field_farm_issues']['settings'] = array(
-    'link' => 1,
-  );
-  $handler->display->display_options['fields']['field_farm_issues']['delta_offset'] = '0';
-  /* Field: Log: Related Plantings */
-  $handler->display->display_options['fields']['field_farm_plantings']['id'] = 'field_farm_plantings';
-  $handler->display->display_options['fields']['field_farm_plantings']['table'] = 'field_data_field_farm_plantings';
-  $handler->display->display_options['fields']['field_farm_plantings']['field'] = 'field_farm_plantings';
-  $handler->display->display_options['fields']['field_farm_plantings']['settings'] = array(
-    'link' => 1,
-  );
-  $handler->display->display_options['fields']['field_farm_plantings']['delta_offset'] = '0';
-  /* Field: Log: Related Harvests */
-  $handler->display->display_options['fields']['field_farm_harvests']['id'] = 'field_farm_harvests';
-  $handler->display->display_options['fields']['field_farm_harvests']['table'] = 'field_data_field_farm_harvests';
-  $handler->display->display_options['fields']['field_farm_harvests']['field'] = 'field_farm_harvests';
-  $handler->display->display_options['fields']['field_farm_harvests']['settings'] = array(
-    'link' => 1,
-  );
-  $handler->display->display_options['fields']['field_farm_harvests']['delta_offset'] = '0';
   /* Field: Global: Custom text */
   $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
@@ -667,7 +628,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/log/[id]/edit">Edit</a> | <a href="/log/[id]/delete">Delete</a>';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: Log: Type */
+  /* Filter criterion: Log: Log type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'log';
   $handler->display->display_options['filters']['type']['field'] = 'type';
@@ -845,7 +806,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['sorts']['field_farm_date_value']['table'] = 'field_data_field_farm_date';
   $handler->display->display_options['sorts']['field_farm_date_value']['field'] = 'field_farm_date_value';
   $handler->display->display_options['sorts']['field_farm_date_value']['order'] = 'DESC';
-  /* Filter criterion: Log: Type */
+  /* Filter criterion: Log: Log type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'log';
   $handler->display->display_options['filters']['type']['field'] = 'type';
@@ -1020,30 +981,6 @@ function farm_log_crops_views_default_views() {
     'precision' => '2',
     'auto_precision' => 1,
   );
-  /* Field: Log: Related Issues */
-  $handler->display->display_options['fields']['field_farm_issues']['id'] = 'field_farm_issues';
-  $handler->display->display_options['fields']['field_farm_issues']['table'] = 'field_data_field_farm_issues';
-  $handler->display->display_options['fields']['field_farm_issues']['field'] = 'field_farm_issues';
-  $handler->display->display_options['fields']['field_farm_issues']['settings'] = array(
-    'link' => 1,
-  );
-  $handler->display->display_options['fields']['field_farm_issues']['delta_offset'] = '0';
-  /* Field: Log: Related Plantings */
-  $handler->display->display_options['fields']['field_farm_plantings']['id'] = 'field_farm_plantings';
-  $handler->display->display_options['fields']['field_farm_plantings']['table'] = 'field_data_field_farm_plantings';
-  $handler->display->display_options['fields']['field_farm_plantings']['field'] = 'field_farm_plantings';
-  $handler->display->display_options['fields']['field_farm_plantings']['settings'] = array(
-    'link' => 1,
-  );
-  $handler->display->display_options['fields']['field_farm_plantings']['delta_offset'] = '0';
-  /* Field: Log: Related Inputs */
-  $handler->display->display_options['fields']['field_farm_input_logs']['id'] = 'field_farm_input_logs';
-  $handler->display->display_options['fields']['field_farm_input_logs']['table'] = 'field_data_field_farm_input_logs';
-  $handler->display->display_options['fields']['field_farm_input_logs']['field'] = 'field_farm_input_logs';
-  $handler->display->display_options['fields']['field_farm_input_logs']['settings'] = array(
-    'link' => 1,
-  );
-  $handler->display->display_options['fields']['field_farm_input_logs']['delta_offset'] = '0';
   /* Field: Global: Custom text */
   $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
@@ -1052,7 +989,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/log/[id]/edit">Edit</a> | <a href="/log/[id]/delete">Delete</a>';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: Log: Type */
+  /* Filter criterion: Log: Log type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'log';
   $handler->display->display_options['filters']['type']['field'] = 'type';
@@ -1251,7 +1188,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['sorts']['field_farm_date_value']['table'] = 'field_data_field_farm_date';
   $handler->display->display_options['sorts']['field_farm_date_value']['field'] = 'field_farm_date_value';
   $handler->display->display_options['sorts']['field_farm_date_value']['order'] = 'DESC';
-  /* Filter criterion: Log: Type */
+  /* Filter criterion: Log: Log type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'log';
   $handler->display->display_options['filters']['type']['field'] = 'type';
@@ -1421,22 +1358,6 @@ function farm_log_crops_views_default_views() {
     'precision' => '2',
     'auto_precision' => 1,
   );
-  /* Field: Log: Related Issues */
-  $handler->display->display_options['fields']['field_farm_issues']['id'] = 'field_farm_issues';
-  $handler->display->display_options['fields']['field_farm_issues']['table'] = 'field_data_field_farm_issues';
-  $handler->display->display_options['fields']['field_farm_issues']['field'] = 'field_farm_issues';
-  $handler->display->display_options['fields']['field_farm_issues']['settings'] = array(
-    'link' => 1,
-  );
-  $handler->display->display_options['fields']['field_farm_issues']['delta_offset'] = '0';
-  /* Field: Log: Related Plantings */
-  $handler->display->display_options['fields']['field_farm_plantings']['id'] = 'field_farm_plantings';
-  $handler->display->display_options['fields']['field_farm_plantings']['table'] = 'field_data_field_farm_plantings';
-  $handler->display->display_options['fields']['field_farm_plantings']['field'] = 'field_farm_plantings';
-  $handler->display->display_options['fields']['field_farm_plantings']['settings'] = array(
-    'link' => 0,
-  );
-  $handler->display->display_options['fields']['field_farm_plantings']['delta_offset'] = '0';
   /* Field: Global: Custom text */
   $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
@@ -1445,7 +1366,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/log/[id]/edit">Edit</a> | <a href="/log/[id]/delete">Delete</a>';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: Log: Type */
+  /* Filter criterion: Log: Log type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'log';
   $handler->display->display_options['filters']['type']['field'] = 'type';
