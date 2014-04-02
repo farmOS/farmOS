@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * farm_log_sales.views_default.inc
+ * farm_log_money.views_default.inc
  */
 
 /**
  * Implements hook_views_default_views().
  */
-function farm_log_sales_views_default_views() {
+function farm_log_money_views_default_views() {
   $export = array();
 
   $view = new view();

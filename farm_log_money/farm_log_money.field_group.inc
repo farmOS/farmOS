@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * farm_log_sales.field_group.inc
+ * farm_log_money.field_group.inc
  */
 
 /**
  * Implements hook_field_group_info().
  */
-function farm_log_sales_field_group_info() {
+function farm_log_money_field_group_info() {
   $export = array();
 
   $field_group = new stdClass();

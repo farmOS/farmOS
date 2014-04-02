@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the Farm Log Sales feature.
- */
-
-include_once 'farm_log_sales.features.inc';

@@ -1,5 +1,5 @@
-name = Farm Log Sales
-description = Log types and fields for farm sales.
+name = Farm Log Money
+description = Log types and fields for farm money stuff.
 core = 7.x
 package = Farm Log
 dependencies[] = autocomplete_deluxe

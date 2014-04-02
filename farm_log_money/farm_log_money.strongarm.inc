@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * farm_log_sales.strongarm.inc
+ * farm_log_money.strongarm.inc
  */
 
 /**
  * Implements hook_strongarm().
  */
-function farm_log_sales_strongarm() {
+function farm_log_money_strongarm() {
   $export = array();
 
   $strongarm = new stdClass();

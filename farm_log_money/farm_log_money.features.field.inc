@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * farm_log_sales.features.field.inc
+ * farm_log_money.features.field.inc
  */
 
 /**
  * Implements hook_field_default_fields().
  */
-function farm_log_sales_field_default_fields() {
+function farm_log_money_field_default_fields() {
   $fields = array();
 
   // Exported field: 'log-farm_loss-field_farm_areas'.
