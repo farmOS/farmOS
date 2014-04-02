@@ -253,7 +253,7 @@ function farm_log_views_default_views() {
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['label'] = 'Operations';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/log/[id]/edit">Edit</a> | <a href="/log/[id]/delete">Delete</a>';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/log/[id]/edit?destination=admin/farm/logs/issue">Edit</a> | <a href="/log/[id]/delete?destination=admin/farm/logs/issue">Delete</a>';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Log: Log type */
