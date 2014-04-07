@@ -79,10 +79,10 @@ function farm_crop_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Attach Files',
-    'weight' => '3',
+    'weight' => '4',
     'children' => array(
-      0 => 'field_farm_images',
-      1 => 'field_farm_files',
+      0 => 'field_farm_files',
+      1 => 'field_farm_images',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

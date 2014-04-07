@@ -46,7 +46,7 @@ function farm_crop_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'farm_crops',
-      'default_value' => NULL,
+      'default_value' => array(),
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -67,13 +67,14 @@ function farm_crop_field_default_fields() {
       ),
       'widget' => array(
         'active' => 0,
-        'module' => 'taxonomy',
+        'module' => 'autocomplete_deluxe',
         'settings' => array(
+          'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
           'autocomplete_path' => 'taxonomy/autocomplete',
           'size' => 60,
         ),
-        'type' => 'taxonomy_autocomplete',
-        'weight' => '3',
+        'type' => 'autocomplete_deluxe_taxonomy',
+        'weight' => '4',
       ),
     ),
   );
@@ -87,25 +88,30 @@ function farm_crop_field_default_fields() {
       'entity_types' => array(),
       'field_name' => 'field_farm_crop_family',
       'foreign keys' => array(
-        'format' => array(
+        'tid' => array(
           'columns' => array(
-            'format' => 'format',
+            'tid' => 'tid',
           ),
-          'table' => 'filter_format',
+          'table' => 'taxonomy_term_data',
         ),
       ),
       'indexes' => array(
-        'format' => array(
-          0 => 'format',
+        'tid' => array(
+          0 => 'tid',
         ),
       ),
       'locked' => '0',
-      'module' => 'text',
+      'module' => 'taxonomy',
       'settings' => array(
-        'max_length' => '255',
+        'allowed_values' => array(
+          0 => array(
+            'vocabulary' => 'farm_crop_families',
+            'parent' => '0',
+          ),
+        ),
       ),
       'translatable' => '0',
-      'type' => 'text',
+      'type' => 'taxonomy_term_reference',
     ),
     'field_instance' => array(
       'bundle' => 'farm_crops',
@@ -115,10 +121,16 @@ function farm_crop_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'text',
+          'module' => 'taxonomy',
           'settings' => array(),
-          'type' => 'text_default',
-          'weight' => '0',
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => 6,
+        ),
+        'entityreference_view_widget' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
       ),
       'entity_type' => 'taxonomy_term',
@@ -126,17 +138,20 @@ function farm_crop_field_default_fields() {
       'label' => 'Crop family',
       'required' => 0,
       'settings' => array(
-        'text_processing' => '0',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
         'active' => 1,
-        'module' => 'text',
+        'module' => 'autocomplete_deluxe',
         'settings' => array(
+          'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
+          'delimiter' => '',
+          'limit' => '10',
+          'min_length' => '0',
           'size' => '60',
         ),
-        'type' => 'text_textfield',
-        'weight' => '2',
+        'type' => 'autocomplete_deluxe_taxonomy',
+        'weight' => '3',
       ),
     ),
   );
