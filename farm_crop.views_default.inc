@@ -84,19 +84,6 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['field_farm_crop_family']['id'] = 'field_farm_crop_family';
   $handler->display->display_options['fields']['field_farm_crop_family']['table'] = 'field_data_field_farm_crop_family';
   $handler->display->display_options['fields']['field_farm_crop_family']['field'] = 'field_farm_crop_family';
-  /* Field: Taxonomy term: Companions */
-  $handler->display->display_options['fields']['field_farm_companions']['id'] = 'field_farm_companions';
-  $handler->display->display_options['fields']['field_farm_companions']['table'] = 'field_data_field_farm_companions';
-  $handler->display->display_options['fields']['field_farm_companions']['field'] = 'field_farm_companions';
-  $handler->display->display_options['fields']['field_farm_companions']['delta_offset'] = '0';
-  /* Field: Taxonomy term: Days to maturity */
-  $handler->display->display_options['fields']['field_farm_maturity_days']['id'] = 'field_farm_maturity_days';
-  $handler->display->display_options['fields']['field_farm_maturity_days']['table'] = 'field_data_field_farm_maturity_days';
-  $handler->display->display_options['fields']['field_farm_maturity_days']['field'] = 'field_farm_maturity_days';
-  $handler->display->display_options['fields']['field_farm_maturity_days']['settings'] = array(
-    'thousand_separator' => ' ',
-    'prefix_suffix' => 1,
-  );
   /* Field: Taxonomy term: Term edit link */
   $handler->display->display_options['fields']['edit_term']['id'] = 'edit_term';
   $handler->display->display_options['fields']['edit_term']['table'] = 'taxonomy_term_data';
