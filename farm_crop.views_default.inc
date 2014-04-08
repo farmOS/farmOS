@@ -37,7 +37,7 @@ function farm_crop_views_default_views() {
     'field_farm_crop_family' => 'field_farm_crop_family',
     'edit_term' => 'edit_term',
   );
-  $handler->display->display_options['style_options']['default'] = '-1';
+  $handler->display->display_options['style_options']['default'] = 'name';
   $handler->display->display_options['style_options']['info'] = array(
     'name' => array(
       'sortable' => 1,
@@ -59,6 +59,18 @@ function farm_crop_views_default_views() {
       'empty_column' => 0,
     ),
   );
+  $handler->display->display_options['style_options']['empty_table'] = TRUE;
+  /* Header: Global: Unfiltered text */
+  $handler->display->display_options['header']['area_text_custom']['id'] = 'area_text_custom';
+  $handler->display->display_options['header']['area_text_custom']['table'] = 'views';
+  $handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
+  $handler->display->display_options['header']['area_text_custom']['content'] = '<a href="/admin/structure/taxonomy/farm_crops/add">+ Add a crop.</a>';
+  /* No results behavior: Global: Unfiltered text */
+  $handler->display->display_options['empty']['area_text_custom']['id'] = 'area_text_custom';
+  $handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
+  $handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
+  $handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
+  $handler->display->display_options['empty']['area_text_custom']['content'] = 'No crops found. <a href="/admin/structure/taxonomy/farm_crops/add">Add a crop.</a>';
   /* Field: Taxonomy term: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
   $handler->display->display_options['fields']['name']['table'] = 'taxonomy_term_data';
@@ -95,6 +107,7 @@ function farm_crop_views_default_views() {
 
   /* Display: Content pane */
   $handler = $view->new_display('panel_pane', 'Content pane', 'panel_pane_1');
+  $handler->display->display_options['link_to_view'] = '1';
   $export['farm_crops'] = $view;
 
   return $export;
