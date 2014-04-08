@@ -35,8 +35,6 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['style_options']['columns'] = array(
     'name' => 'name',
     'field_farm_crop_family' => 'field_farm_crop_family',
-    'field_farm_companions' => 'field_farm_companions',
-    'field_farm_maturity_days' => 'field_farm_maturity_days',
     'edit_term' => 'edit_term',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
@@ -49,18 +47,6 @@ function farm_crop_views_default_views() {
       'empty_column' => 0,
     ),
     'field_farm_crop_family' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_farm_companions' => array(
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_farm_maturity_days' => array(
       'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
