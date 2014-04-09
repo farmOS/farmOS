@@ -229,7 +229,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['fields']['field_farm_crops']['table'] = 'field_data_field_farm_crops';
   $handler->display->display_options['fields']['field_farm_crops']['field'] = 'field_farm_crops';
   $handler->display->display_options['fields']['field_farm_crops']['delta_offset'] = '0';
-  /* Field: Field: Fields/Beds */
+  /* Field: Field: Areas */
   $handler->display->display_options['fields']['field_farm_areas']['id'] = 'field_farm_areas';
   $handler->display->display_options['fields']['field_farm_areas']['table'] = 'field_data_field_farm_areas';
   $handler->display->display_options['fields']['field_farm_areas']['field'] = 'field_farm_areas';
@@ -328,7 +328,7 @@ function farm_log_crops_views_default_views() {
     1 => 0,
   );
   $handler->display->display_options['filters']['field_farm_crops_tid']['vocabulary'] = 'farm_crops';
-  /* Filter criterion: Field: Fields/Beds (field_farm_areas) */
+  /* Filter criterion: Field: Areas (field_farm_areas) */
   $handler->display->display_options['filters']['field_farm_areas_tid']['id'] = 'field_farm_areas_tid';
   $handler->display->display_options['filters']['field_farm_areas_tid']['table'] = 'field_data_field_farm_areas';
   $handler->display->display_options['filters']['field_farm_areas_tid']['field'] = 'field_farm_areas_tid';
@@ -605,7 +605,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['fields']['field_farm_quantity_units']['id'] = 'field_farm_quantity_units';
   $handler->display->display_options['fields']['field_farm_quantity_units']['table'] = 'field_data_field_farm_quantity_units';
   $handler->display->display_options['fields']['field_farm_quantity_units']['field'] = 'field_farm_quantity_units';
-  /* Field: Field: Fields/Beds */
+  /* Field: Field: Areas */
   $handler->display->display_options['fields']['field_farm_areas']['id'] = 'field_farm_areas';
   $handler->display->display_options['fields']['field_farm_areas']['table'] = 'field_data_field_farm_areas';
   $handler->display->display_options['fields']['field_farm_areas']['field'] = 'field_farm_areas';
@@ -685,7 +685,7 @@ function farm_log_crops_views_default_views() {
     1 => 0,
   );
   $handler->display->display_options['filters']['field_farm_crops_tid']['vocabulary'] = 'farm_crops';
-  /* Filter criterion: Field: Fields/Beds (field_farm_areas) */
+  /* Filter criterion: Field: Areas (field_farm_areas) */
   $handler->display->display_options['filters']['field_farm_areas_tid']['id'] = 'field_farm_areas_tid';
   $handler->display->display_options['filters']['field_farm_areas_tid']['table'] = 'field_data_field_farm_areas';
   $handler->display->display_options['filters']['field_farm_areas_tid']['field'] = 'field_farm_areas_tid';
@@ -966,7 +966,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['fields']['field_farm_crops']['table'] = 'field_data_field_farm_crops';
   $handler->display->display_options['fields']['field_farm_crops']['field'] = 'field_farm_crops';
   $handler->display->display_options['fields']['field_farm_crops']['delta_offset'] = '0';
-  /* Field: Field: Fields/Beds */
+  /* Field: Field: Areas */
   $handler->display->display_options['fields']['field_farm_areas']['id'] = 'field_farm_areas';
   $handler->display->display_options['fields']['field_farm_areas']['table'] = 'field_data_field_farm_areas';
   $handler->display->display_options['fields']['field_farm_areas']['field'] = 'field_farm_areas';
@@ -1067,7 +1067,7 @@ function farm_log_crops_views_default_views() {
     1 => 0,
   );
   $handler->display->display_options['filters']['field_farm_crops_tid']['vocabulary'] = 'farm_crops';
-  /* Filter criterion: Field: Fields/Beds (field_farm_areas) */
+  /* Filter criterion: Field: Areas (field_farm_areas) */
   $handler->display->display_options['filters']['field_farm_areas_tid']['id'] = 'field_farm_areas_tid';
   $handler->display->display_options['filters']['field_farm_areas_tid']['table'] = 'field_data_field_farm_areas';
   $handler->display->display_options['filters']['field_farm_areas_tid']['field'] = 'field_farm_areas_tid';
@@ -1423,7 +1423,7 @@ function farm_log_crops_views_default_views() {
     1 => 0,
   );
   $handler->display->display_options['filters']['field_farm_crops_tid']['vocabulary'] = 'farm_crops';
-  /* Filter criterion: Field: Fields/Beds (field_farm_areas) */
+  /* Filter criterion: Field: Areas (field_farm_areas) */
   $handler->display->display_options['filters']['field_farm_areas_tid']['id'] = 'field_farm_areas_tid';
   $handler->display->display_options['filters']['field_farm_areas_tid']['table'] = 'field_data_field_farm_areas';
   $handler->display->display_options['filters']['field_farm_areas_tid']['field'] = 'field_farm_areas_tid';
@@ -1431,7 +1431,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['filters']['field_farm_areas_tid']['group'] = 1;
   $handler->display->display_options['filters']['field_farm_areas_tid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_farm_areas_tid']['expose']['operator_id'] = 'field_farm_areas_tid_op';
-  $handler->display->display_options['filters']['field_farm_areas_tid']['expose']['label'] = 'Fields/Beds';
+  $handler->display->display_options['filters']['field_farm_areas_tid']['expose']['label'] = 'Area';
   $handler->display->display_options['filters']['field_farm_areas_tid']['expose']['operator'] = 'field_farm_areas_tid_op';
   $handler->display->display_options['filters']['field_farm_areas_tid']['expose']['identifier'] = 'field_farm_areas_tid';
   $handler->display->display_options['filters']['field_farm_areas_tid']['expose']['multiple'] = TRUE;

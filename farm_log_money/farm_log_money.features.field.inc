@@ -67,7 +67,7 @@ function farm_log_money_field_default_fields() {
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_areas',
-      'label' => 'Fields/Beds',
+      'label' => 'Areas',
       'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
@@ -1025,7 +1025,7 @@ function farm_log_money_field_default_fields() {
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_areas',
-      'label' => 'Fields/Beds',
+      'label' => 'Areas',
       'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
@@ -1983,7 +1983,7 @@ function farm_log_money_field_default_fields() {
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_areas',
-      'label' => 'Fields/Beds',
+      'label' => 'Areas',
       'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
@@ -2886,10 +2886,10 @@ function farm_log_money_field_default_fields() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Areas');
   t('Cases? Pounds? Bunches?');
   t('Crops');
   t('Date');
-  t('Fields/Beds');
   t('Files');
   t('How much money was earned from the sale?');
   t('How much money was spent on the purchase?');

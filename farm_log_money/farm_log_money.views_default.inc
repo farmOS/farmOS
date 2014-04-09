@@ -250,7 +250,7 @@ function farm_log_money_views_default_views() {
   $handler->display->display_options['fields']['field_farm_crops']['table'] = 'field_data_field_farm_crops';
   $handler->display->display_options['fields']['field_farm_crops']['field'] = 'field_farm_crops';
   $handler->display->display_options['fields']['field_farm_crops']['delta_offset'] = '0';
-  /* Field: Field: Fields/Beds */
+  /* Field: Field: Areas */
   $handler->display->display_options['fields']['field_farm_areas']['id'] = 'field_farm_areas';
   $handler->display->display_options['fields']['field_farm_areas']['table'] = 'field_data_field_farm_areas';
   $handler->display->display_options['fields']['field_farm_areas']['field'] = 'field_farm_areas';
@@ -320,7 +320,7 @@ function farm_log_money_views_default_views() {
     1 => 0,
   );
   $handler->display->display_options['filters']['field_farm_crops_tid']['vocabulary'] = 'farm_crops';
-  /* Filter criterion: Field: Fields/Beds (field_farm_areas) */
+  /* Filter criterion: Field: Areas (field_farm_areas) */
   $handler->display->display_options['filters']['field_farm_areas_tid']['id'] = 'field_farm_areas_tid';
   $handler->display->display_options['filters']['field_farm_areas_tid']['table'] = 'field_data_field_farm_areas';
   $handler->display->display_options['filters']['field_farm_areas_tid']['field'] = 'field_farm_areas_tid';
@@ -605,7 +605,7 @@ function farm_log_money_views_default_views() {
   $handler->display->display_options['fields']['field_farm_crops']['table'] = 'field_data_field_farm_crops';
   $handler->display->display_options['fields']['field_farm_crops']['field'] = 'field_farm_crops';
   $handler->display->display_options['fields']['field_farm_crops']['delta_offset'] = '0';
-  /* Field: Field: Fields/Beds */
+  /* Field: Field: Areas */
   $handler->display->display_options['fields']['field_farm_areas']['id'] = 'field_farm_areas';
   $handler->display->display_options['fields']['field_farm_areas']['table'] = 'field_data_field_farm_areas';
   $handler->display->display_options['fields']['field_farm_areas']['field'] = 'field_farm_areas';
@@ -675,7 +675,7 @@ function farm_log_money_views_default_views() {
     1 => 0,
   );
   $handler->display->display_options['filters']['field_farm_crops_tid']['vocabulary'] = 'farm_crops';
-  /* Filter criterion: Field: Fields/Beds (field_farm_areas) */
+  /* Filter criterion: Field: Areas (field_farm_areas) */
   $handler->display->display_options['filters']['field_farm_areas_tid']['id'] = 'field_farm_areas_tid';
   $handler->display->display_options['filters']['field_farm_areas_tid']['table'] = 'field_data_field_farm_areas';
   $handler->display->display_options['filters']['field_farm_areas_tid']['field'] = 'field_farm_areas_tid';
@@ -960,7 +960,7 @@ function farm_log_money_views_default_views() {
   $handler->display->display_options['fields']['field_farm_crops']['table'] = 'field_data_field_farm_crops';
   $handler->display->display_options['fields']['field_farm_crops']['field'] = 'field_farm_crops';
   $handler->display->display_options['fields']['field_farm_crops']['delta_offset'] = '0';
-  /* Field: Field: Fields/Beds */
+  /* Field: Field: Areas */
   $handler->display->display_options['fields']['field_farm_areas']['id'] = 'field_farm_areas';
   $handler->display->display_options['fields']['field_farm_areas']['table'] = 'field_data_field_farm_areas';
   $handler->display->display_options['fields']['field_farm_areas']['field'] = 'field_farm_areas';
@@ -1030,7 +1030,7 @@ function farm_log_money_views_default_views() {
     1 => 0,
   );
   $handler->display->display_options['filters']['field_farm_crops_tid']['vocabulary'] = 'farm_crops';
-  /* Filter criterion: Field: Fields/Beds (field_farm_areas) */
+  /* Filter criterion: Field: Areas (field_farm_areas) */
   $handler->display->display_options['filters']['field_farm_areas_tid']['id'] = 'field_farm_areas_tid';
   $handler->display->display_options['filters']['field_farm_areas_tid']['table'] = 'field_data_field_farm_areas';
   $handler->display->display_options['filters']['field_farm_areas_tid']['field'] = 'field_farm_areas_tid';

@@ -67,7 +67,7 @@ function farm_log_crops_field_default_fields() {
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_areas',
-      'label' => 'Fields/Beds',
+      'label' => 'Areas',
       'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
@@ -952,7 +952,7 @@ function farm_log_crops_field_default_fields() {
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_areas',
-      'label' => 'Fields/Beds',
+      'label' => 'Areas',
       'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
@@ -2007,7 +2007,7 @@ function farm_log_crops_field_default_fields() {
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_areas',
-      'label' => 'Fields/Beds',
+      'label' => 'Areas',
       'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
@@ -3116,7 +3116,7 @@ function farm_log_crops_field_default_fields() {
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_areas',
-      'label' => 'Fields/Beds',
+      'label' => 'Areas',
       'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
@@ -4004,12 +4004,12 @@ function farm_log_crops_field_default_fields() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Areas');
   t('Bushels? Pounds? Dozens?');
   t('Crops');
   t('Date');
   t('Describe the unit of measurement for the quantity above. For example: rows, beds, feet, etc.');
   t('Describe the unit of measurement for the quantity above. For example: seeds, trays, flats, row feet, etc.');
-  t('Fields/Beds');
   t('Files');
   t('Gallons? Pounds? Handfuls?');
   t('Harvest Date');
