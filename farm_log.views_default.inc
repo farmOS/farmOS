@@ -22,7 +22,7 @@ function farm_log_views_default_views() {
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Logs';
+  $handler->display->display_options['title'] = 'Issues';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['access']['perm'] = 'view any log entities';
@@ -34,85 +34,16 @@ function farm_log_views_default_views() {
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
     'id' => 'id',
-    'timestamp' => 'timestamp',
-    'type' => 'type',
-    'name' => 'name',
-    'nothing' => 'nothing',
-  );
-  $handler->display->display_options['style_options']['default'] = '-1';
-  $handler->display->display_options['style_options']['info'] = array(
-    'id' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'timestamp' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'type' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'name' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'nothing' => array(
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-  );
-  /* Field: Log: Name */
-  $handler->display->display_options['fields']['name']['id'] = 'name';
-  $handler->display->display_options['fields']['name']['table'] = 'log';
-  $handler->display->display_options['fields']['name']['field'] = 'name';
-  $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['name']['alter']['path'] = 'log/[id]';
-  /* Sort criterion: Log: Date (field_farm_date) */
-  $handler->display->display_options['sorts']['field_farm_date_value']['id'] = 'field_farm_date_value';
-  $handler->display->display_options['sorts']['field_farm_date_value']['table'] = 'field_data_field_farm_date';
-  $handler->display->display_options['sorts']['field_farm_date_value']['field'] = 'field_farm_date_value';
-  $handler->display->display_options['sorts']['field_farm_date_value']['order'] = 'DESC';
-  /* Filter criterion: Log: Log type */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'log';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'farm_issue' => 'farm_issue',
-  );
-
-  /* Display: Issue log (page) */
-  $handler = $view->new_display('page', 'Issue log (page)', 'page');
-  $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Issue Log';
-  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
-  $handler->display->display_options['style_plugin'] = 'table';
-  $handler->display->display_options['style_options']['columns'] = array(
-    'id' => 'id',
     'field_farm_date' => 'field_farm_date',
     'name' => 'name',
+    'field_farm_threats' => 'field_farm_threats',
     'field_farm_crops' => 'field_farm_crops',
     'field_farm_areas' => 'field_farm_areas',
-    'field_farm_threats' => 'field_farm_threats',
+    'field_farm_priority' => 'field_farm_priority',
     'field_farm_hours' => 'field_farm_hours',
-    'field_farm_issues' => 'field_farm_issues',
-    'field_farm_issue_severity' => 'field_farm_issue_severity',
     'nothing' => 'nothing',
   );
-  $handler->display->display_options['style_options']['default'] = '-1';
+  $handler->display->display_options['style_options']['default'] = 'field_farm_date';
   $handler->display->display_options['style_options']['info'] = array(
     'id' => array(
       'sortable' => 1,
@@ -135,6 +66,11 @@ function farm_log_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
+    'field_farm_threats' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
     'field_farm_crops' => array(
       'align' => '',
       'separator' => '',
@@ -145,24 +81,14 @@ function farm_log_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
-    'field_farm_threats' => array(
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_farm_hours' => array(
+    'field_farm_priority' => array(
       'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
-    'field_farm_issues' => array(
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_farm_issue_severity' => array(
+    'field_farm_hours' => array(
       'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -175,41 +101,35 @@ function farm_log_views_default_views() {
       'empty_column' => 0,
     ),
   );
-  $handler->display->display_options['defaults']['style_options'] = FALSE;
-  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
-  $handler->display->display_options['defaults']['row_options'] = FALSE;
-  $handler->display->display_options['defaults']['header'] = FALSE;
-  /* Header: Global: Unfiltered text */
-  $handler->display->display_options['header']['area_text_custom']['id'] = 'area_text_custom';
-  $handler->display->display_options['header']['area_text_custom']['table'] = 'views';
-  $handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
-  $handler->display->display_options['header']['area_text_custom']['empty'] = TRUE;
-  $handler->display->display_options['header']['area_text_custom']['content'] = '<a href="/log/add/farm_issue">+ Log an issue</a>';
-  $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Log: Log ID */
   $handler->display->display_options['fields']['id']['id'] = 'id';
   $handler->display->display_options['fields']['id']['table'] = 'log';
   $handler->display->display_options['fields']['id']['field'] = 'id';
   $handler->display->display_options['fields']['id']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['id']['separator'] = '';
   /* Field: Log: Date */
   $handler->display->display_options['fields']['field_farm_date']['id'] = 'field_farm_date';
   $handler->display->display_options['fields']['field_farm_date']['table'] = 'field_data_field_farm_date';
   $handler->display->display_options['fields']['field_farm_date']['field'] = 'field_farm_date';
-  $handler->display->display_options['fields']['field_farm_date']['label'] = 'Issue Date';
   $handler->display->display_options['fields']['field_farm_date']['settings'] = array(
     'format_type' => 'short',
     'fromto' => 'both',
     'multiple_number' => '',
     'multiple_from' => '',
     'multiple_to' => '',
+    'show_repeat_rule' => 'show',
   );
   /* Field: Log: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
   $handler->display->display_options['fields']['name']['table'] = 'log';
   $handler->display->display_options['fields']['name']['field'] = 'name';
-  $handler->display->display_options['fields']['name']['label'] = 'Issue name';
   $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['name']['alter']['path'] = 'log/[id]';
+  /* Field: Log: Threats */
+  $handler->display->display_options['fields']['field_farm_threats']['id'] = 'field_farm_threats';
+  $handler->display->display_options['fields']['field_farm_threats']['table'] = 'field_data_field_farm_threats';
+  $handler->display->display_options['fields']['field_farm_threats']['field'] = 'field_farm_threats';
+  $handler->display->display_options['fields']['field_farm_threats']['delta_offset'] = '0';
   /* Field: Log: Crops */
   $handler->display->display_options['fields']['field_farm_crops']['id'] = 'field_farm_crops';
   $handler->display->display_options['fields']['field_farm_crops']['table'] = 'field_data_field_farm_crops';
@@ -220,42 +140,24 @@ function farm_log_views_default_views() {
   $handler->display->display_options['fields']['field_farm_areas']['table'] = 'field_data_field_farm_areas';
   $handler->display->display_options['fields']['field_farm_areas']['field'] = 'field_farm_areas';
   $handler->display->display_options['fields']['field_farm_areas']['delta_offset'] = '0';
-  /* Field: Log: Threats */
-  $handler->display->display_options['fields']['field_farm_threats']['id'] = 'field_farm_threats';
-  $handler->display->display_options['fields']['field_farm_threats']['table'] = 'field_data_field_farm_threats';
-  $handler->display->display_options['fields']['field_farm_threats']['field'] = 'field_farm_threats';
-  $handler->display->display_options['fields']['field_farm_threats']['delta_offset'] = '0';
-  /* Field: Log: Total work hours */
-  $handler->display->display_options['fields']['field_farm_hours']['id'] = 'field_farm_hours';
-  $handler->display->display_options['fields']['field_farm_hours']['table'] = 'field_data_field_farm_hours';
-  $handler->display->display_options['fields']['field_farm_hours']['field'] = 'field_farm_hours';
-  $handler->display->display_options['fields']['field_farm_hours']['label'] = 'Hours';
-  $handler->display->display_options['fields']['field_farm_hours']['type'] = 'fraction_decimal';
-  $handler->display->display_options['fields']['field_farm_hours']['settings'] = array(
-    'precision' => '2',
-    'auto_precision' => 1,
-  );
-  /* Field: Log: Related Issues */
-  $handler->display->display_options['fields']['field_farm_issues']['id'] = 'field_farm_issues';
-  $handler->display->display_options['fields']['field_farm_issues']['table'] = 'field_data_field_farm_issues';
-  $handler->display->display_options['fields']['field_farm_issues']['field'] = 'field_farm_issues';
-  $handler->display->display_options['fields']['field_farm_issues']['settings'] = array(
-    'link' => 1,
-  );
-  $handler->display->display_options['fields']['field_farm_issues']['delta_offset'] = '0';
   /* Field: Log: Priority */
   $handler->display->display_options['fields']['field_farm_priority']['id'] = 'field_farm_priority';
   $handler->display->display_options['fields']['field_farm_priority']['table'] = 'field_data_field_farm_priority';
   $handler->display->display_options['fields']['field_farm_priority']['field'] = 'field_farm_priority';
-  $handler->display->display_options['fields']['field_farm_priority']['type'] = 'taxonomy_term_reference_plain';
+  /* Field: Log: Total work hours */
+  $handler->display->display_options['fields']['field_farm_hours']['id'] = 'field_farm_hours';
+  $handler->display->display_options['fields']['field_farm_hours']['table'] = 'field_data_field_farm_hours';
+  $handler->display->display_options['fields']['field_farm_hours']['field'] = 'field_farm_hours';
+  $handler->display->display_options['fields']['field_farm_hours']['type'] = 'fraction_decimal';
+  $handler->display->display_options['fields']['field_farm_hours']['settings'] = array(
+    'precision' => '2',
+  );
   /* Field: Global: Custom text */
   $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['label'] = 'Operations';
   $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/log/[id]/edit?destination=admin/farm/logs/issue">Edit</a> | <a href="/log/[id]/delete?destination=admin/farm/logs/issue">Delete</a>';
-  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
-  $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Log: Log type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'log';
@@ -271,8 +173,7 @@ function farm_log_views_default_views() {
   $handler->display->display_options['filters']['field_farm_date_value']['group'] = 1;
   $handler->display->display_options['filters']['field_farm_date_value']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_farm_date_value']['expose']['operator_id'] = 'field_farm_date_value_op';
-  $handler->display->display_options['filters']['field_farm_date_value']['expose']['label'] = 'Issue Date';
-  $handler->display->display_options['filters']['field_farm_date_value']['expose']['use_operator'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_date_value']['expose']['label'] = 'Date';
   $handler->display->display_options['filters']['field_farm_date_value']['expose']['operator'] = 'field_farm_date_value_op';
   $handler->display->display_options['filters']['field_farm_date_value']['expose']['identifier'] = 'field_farm_date_value';
   $handler->display->display_options['filters']['field_farm_date_value']['expose']['remember_roles'] = array(
@@ -289,68 +190,68 @@ function farm_log_views_default_views() {
   $handler->display->display_options['filters']['name']['exposed'] = TRUE;
   $handler->display->display_options['filters']['name']['expose']['operator_id'] = 'name_op';
   $handler->display->display_options['filters']['name']['expose']['label'] = 'Name';
-  $handler->display->display_options['filters']['name']['expose']['use_operator'] = TRUE;
   $handler->display->display_options['filters']['name']['expose']['operator'] = 'name_op';
   $handler->display->display_options['filters']['name']['expose']['identifier'] = 'name';
   $handler->display->display_options['filters']['name']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
   );
-  /* Filter criterion: Log: Crops (field_farm_crops) */
-  $handler->display->display_options['filters']['field_farm_crops_tid']['id'] = 'field_farm_crops_tid';
-  $handler->display->display_options['filters']['field_farm_crops_tid']['table'] = 'field_data_field_farm_crops';
-  $handler->display->display_options['filters']['field_farm_crops_tid']['field'] = 'field_farm_crops_tid';
-  $handler->display->display_options['filters']['field_farm_crops_tid']['value'] = '';
-  $handler->display->display_options['filters']['field_farm_crops_tid']['group'] = 1;
-  $handler->display->display_options['filters']['field_farm_crops_tid']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_farm_crops_tid']['expose']['operator_id'] = 'field_farm_crops_tid_op';
-  $handler->display->display_options['filters']['field_farm_crops_tid']['expose']['label'] = 'Crops';
-  $handler->display->display_options['filters']['field_farm_crops_tid']['expose']['operator'] = 'field_farm_crops_tid_op';
-  $handler->display->display_options['filters']['field_farm_crops_tid']['expose']['identifier'] = 'field_farm_crops_tid';
-  $handler->display->display_options['filters']['field_farm_crops_tid']['expose']['multiple'] = TRUE;
-  $handler->display->display_options['filters']['field_farm_crops_tid']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-  );
-  $handler->display->display_options['filters']['field_farm_crops_tid']['vocabulary'] = 'farm_crops';
-  /* Filter criterion: Field: Areas (field_farm_areas) */
-  $handler->display->display_options['filters']['field_farm_areas_tid']['id'] = 'field_farm_areas_tid';
-  $handler->display->display_options['filters']['field_farm_areas_tid']['table'] = 'field_data_field_farm_areas';
-  $handler->display->display_options['filters']['field_farm_areas_tid']['field'] = 'field_farm_areas_tid';
-  $handler->display->display_options['filters']['field_farm_areas_tid']['value'] = '';
-  $handler->display->display_options['filters']['field_farm_areas_tid']['group'] = 1;
-  $handler->display->display_options['filters']['field_farm_areas_tid']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_farm_areas_tid']['expose']['operator_id'] = 'field_farm_areas_tid_op';
-  $handler->display->display_options['filters']['field_farm_areas_tid']['expose']['label'] = 'Fields/Beds';
-  $handler->display->display_options['filters']['field_farm_areas_tid']['expose']['operator'] = 'field_farm_areas_tid_op';
-  $handler->display->display_options['filters']['field_farm_areas_tid']['expose']['identifier'] = 'field_farm_areas_tid';
-  $handler->display->display_options['filters']['field_farm_areas_tid']['expose']['multiple'] = TRUE;
-  $handler->display->display_options['filters']['field_farm_areas_tid']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-  );
-  $handler->display->display_options['filters']['field_farm_areas_tid']['vocabulary'] = 'farm_areas';
   /* Filter criterion: Log: Threats (field_farm_threats) */
   $handler->display->display_options['filters']['field_farm_threats_tid']['id'] = 'field_farm_threats_tid';
   $handler->display->display_options['filters']['field_farm_threats_tid']['table'] = 'field_data_field_farm_threats';
   $handler->display->display_options['filters']['field_farm_threats_tid']['field'] = 'field_farm_threats_tid';
-  $handler->display->display_options['filters']['field_farm_threats_tid']['value'] = '';
   $handler->display->display_options['filters']['field_farm_threats_tid']['group'] = 1;
   $handler->display->display_options['filters']['field_farm_threats_tid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_farm_threats_tid']['expose']['operator_id'] = 'field_farm_threats_tid_op';
-  $handler->display->display_options['filters']['field_farm_threats_tid']['expose']['label'] = 'Threats';
+  $handler->display->display_options['filters']['field_farm_threats_tid']['expose']['label'] = 'Threat';
   $handler->display->display_options['filters']['field_farm_threats_tid']['expose']['operator'] = 'field_farm_threats_tid_op';
   $handler->display->display_options['filters']['field_farm_threats_tid']['expose']['identifier'] = 'field_farm_threats_tid';
-  $handler->display->display_options['filters']['field_farm_threats_tid']['expose']['multiple'] = TRUE;
   $handler->display->display_options['filters']['field_farm_threats_tid']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
   );
+  $handler->display->display_options['filters']['field_farm_threats_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_farm_threats_tid']['vocabulary'] = 'farm_threats';
+  $handler->display->display_options['filters']['field_farm_threats_tid']['hierarchy'] = 1;
+  /* Filter criterion: Log: Crops (field_farm_crops) */
+  $handler->display->display_options['filters']['field_farm_crops_tid']['id'] = 'field_farm_crops_tid';
+  $handler->display->display_options['filters']['field_farm_crops_tid']['table'] = 'field_data_field_farm_crops';
+  $handler->display->display_options['filters']['field_farm_crops_tid']['field'] = 'field_farm_crops_tid';
+  $handler->display->display_options['filters']['field_farm_crops_tid']['group'] = 1;
+  $handler->display->display_options['filters']['field_farm_crops_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_crops_tid']['expose']['operator_id'] = 'field_farm_crops_tid_op';
+  $handler->display->display_options['filters']['field_farm_crops_tid']['expose']['label'] = 'Crop';
+  $handler->display->display_options['filters']['field_farm_crops_tid']['expose']['operator'] = 'field_farm_crops_tid_op';
+  $handler->display->display_options['filters']['field_farm_crops_tid']['expose']['identifier'] = 'field_farm_crops_tid';
+  $handler->display->display_options['filters']['field_farm_crops_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+  );
+  $handler->display->display_options['filters']['field_farm_crops_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_farm_crops_tid']['vocabulary'] = 'farm_crops';
+  $handler->display->display_options['filters']['field_farm_crops_tid']['hierarchy'] = 1;
+  /* Filter criterion: Field: Areas (field_farm_areas) */
+  $handler->display->display_options['filters']['field_farm_areas_tid']['id'] = 'field_farm_areas_tid';
+  $handler->display->display_options['filters']['field_farm_areas_tid']['table'] = 'field_data_field_farm_areas';
+  $handler->display->display_options['filters']['field_farm_areas_tid']['field'] = 'field_farm_areas_tid';
+  $handler->display->display_options['filters']['field_farm_areas_tid']['group'] = 1;
+  $handler->display->display_options['filters']['field_farm_areas_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_areas_tid']['expose']['operator_id'] = 'field_farm_areas_tid_op';
+  $handler->display->display_options['filters']['field_farm_areas_tid']['expose']['label'] = 'Area';
+  $handler->display->display_options['filters']['field_farm_areas_tid']['expose']['operator'] = 'field_farm_areas_tid_op';
+  $handler->display->display_options['filters']['field_farm_areas_tid']['expose']['identifier'] = 'field_farm_areas_tid';
+  $handler->display->display_options['filters']['field_farm_areas_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+  );
+  $handler->display->display_options['filters']['field_farm_areas_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_farm_areas_tid']['vocabulary'] = 'farm_areas';
+  $handler->display->display_options['filters']['field_farm_areas_tid']['hierarchy'] = 1;
   /* Filter criterion: Log: Priority (field_farm_priority) */
   $handler->display->display_options['filters']['field_farm_priority_tid']['id'] = 'field_farm_priority_tid';
   $handler->display->display_options['filters']['field_farm_priority_tid']['table'] = 'field_data_field_farm_priority';
   $handler->display->display_options['filters']['field_farm_priority_tid']['field'] = 'field_farm_priority_tid';
+  $handler->display->display_options['filters']['field_farm_priority_tid']['group'] = 1;
   $handler->display->display_options['filters']['field_farm_priority_tid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_farm_priority_tid']['expose']['operator_id'] = 'field_farm_priority_tid_op';
   $handler->display->display_options['filters']['field_farm_priority_tid']['expose']['label'] = 'Priority';
@@ -362,6 +263,11 @@ function farm_log_views_default_views() {
   );
   $handler->display->display_options['filters']['field_farm_priority_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_farm_priority_tid']['vocabulary'] = 'farm_priority';
+  $handler->display->display_options['filters']['field_farm_priority_tid']['hierarchy'] = 1;
+
+  /* Display: Issue log (page) */
+  $handler = $view->new_display('page', 'Issue log (page)', 'page');
+  $handler->display->display_options['defaults']['header'] = FALSE;
   $handler->display->display_options['path'] = 'admin/farm/logs/issue';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Issues';
@@ -389,6 +295,22 @@ function farm_log_views_default_views() {
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['row_plugin'] = 'entityreference_fields';
   $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Log: Name */
+  $handler->display->display_options['fields']['name']['id'] = 'name';
+  $handler->display->display_options['fields']['name']['table'] = 'log';
+  $handler->display->display_options['fields']['name']['field'] = 'name';
+  $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['name']['alter']['path'] = 'log/[id]';
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Log: Log type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'log';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'farm_issue' => 'farm_issue',
+  );
   $export['farm_log_issues'] = $view;
 
   return $export;
