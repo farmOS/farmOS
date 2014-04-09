@@ -35,10 +35,10 @@ function farm_log_default_page_manager_pages() {
     'name' => 'management',
     'weight' => '-10',
     'parent' => array(
-      'type' => 'normal',
+      'type' => 'tab',
       'title' => 'Logs',
       'name' => 'management',
-      'weight' => '20',
+      'weight' => '50',
     ),
   );
   $page->arguments = array();
