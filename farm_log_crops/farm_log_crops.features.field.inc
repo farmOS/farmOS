@@ -46,7 +46,7 @@ function farm_log_crops_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'farm_cultivation',
-      'default_value' => array(),
+      'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -73,12 +73,14 @@ function farm_log_crops_field_default_fields() {
         'user_register_form' => FALSE,
       ),
       'widget' => array(
-        'active' => 0,
+        'active' => 1,
         'module' => 'autocomplete_deluxe',
         'settings' => array(
           'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
-          'autocomplete_path' => 'taxonomy/autocomplete',
-          'size' => 60,
+          'delimiter' => '',
+          'limit' => '10',
+          'min_length' => '0',
+          'size' => '60',
         ),
         'type' => 'autocomplete_deluxe_taxonomy',
         'weight' => '3',
@@ -924,7 +926,7 @@ function farm_log_crops_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'farm_harvest',
-      'default_value' => array(),
+      'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -958,12 +960,14 @@ function farm_log_crops_field_default_fields() {
         'user_register_form' => FALSE,
       ),
       'widget' => array(
-        'active' => 0,
+        'active' => 1,
         'module' => 'autocomplete_deluxe',
         'settings' => array(
           'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
-          'autocomplete_path' => 'taxonomy/autocomplete',
-          'size' => 60,
+          'delimiter' => '',
+          'limit' => '10',
+          'min_length' => '0',
+          'size' => '60',
         ),
         'type' => 'autocomplete_deluxe_taxonomy',
         'weight' => '10',
@@ -1986,7 +1990,7 @@ function farm_log_crops_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'farm_input',
-      'default_value' => array(),
+      'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -2013,12 +2017,14 @@ function farm_log_crops_field_default_fields() {
         'user_register_form' => FALSE,
       ),
       'widget' => array(
-        'active' => 0,
+        'active' => 1,
         'module' => 'autocomplete_deluxe',
         'settings' => array(
           'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
-          'autocomplete_path' => 'taxonomy/autocomplete',
-          'size' => 60,
+          'delimiter' => '',
+          'limit' => '10',
+          'min_length' => '0',
+          'size' => '60',
         ),
         'type' => 'autocomplete_deluxe_taxonomy',
         'weight' => '5',
@@ -3095,7 +3101,7 @@ function farm_log_crops_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'farm_planting',
-      'default_value' => array(),
+      'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -3122,12 +3128,14 @@ function farm_log_crops_field_default_fields() {
         'user_register_form' => FALSE,
       ),
       'widget' => array(
-        'active' => 0,
+        'active' => 1,
         'module' => 'autocomplete_deluxe',
         'settings' => array(
           'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
-          'autocomplete_path' => 'taxonomy/autocomplete',
-          'size' => 60,
+          'delimiter' => '',
+          'limit' => '10',
+          'min_length' => '0',
+          'size' => '60',
         ),
         'type' => 'autocomplete_deluxe_taxonomy',
         'weight' => '5',
@@ -3171,7 +3179,7 @@ function farm_log_crops_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'farm_planting',
-      'default_value' => array(),
+      'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -3674,7 +3682,7 @@ function farm_log_crops_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'farm_planting',
-      'default_value' => NULL,
+      'default_value' => array(),
       'deleted' => '0',
       'description' => '',
       'display' => array(
