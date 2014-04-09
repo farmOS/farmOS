@@ -50,13 +50,13 @@ function farm_area_views_default_views() {
   $handler->display->display_options['header']['area_text_custom']['id'] = 'area_text_custom';
   $handler->display->display_options['header']['area_text_custom']['table'] = 'views';
   $handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
-  $handler->display->display_options['header']['area_text_custom']['content'] = '<a href="/admin/structure/taxonomy/farm_areas/add">+ Add an area.</a>';
+  $handler->display->display_options['header']['area_text_custom']['content'] = '<a href="/admin/structure/taxonomy/farm_areas/add?destination=admin/farm/areas">+ Add an area.</a>';
   /* No results behavior: Global: Unfiltered text */
   $handler->display->display_options['empty']['area_text_custom']['id'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
   $handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
-  $handler->display->display_options['empty']['area_text_custom']['content'] = 'No areas found. <a href="/admin/structure/taxonomy/farm_areas/add">Add an area.</a>';
+  $handler->display->display_options['empty']['area_text_custom']['content'] = 'No areas found.';
   /* Field: Taxonomy term: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
   $handler->display->display_options['fields']['name']['table'] = 'taxonomy_term_data';
@@ -69,7 +69,7 @@ function farm_area_views_default_views() {
   $handler->display->display_options['fields']['field_farm_area_type']['id'] = 'field_farm_area_type';
   $handler->display->display_options['fields']['field_farm_area_type']['table'] = 'field_data_field_farm_area_type';
   $handler->display->display_options['fields']['field_farm_area_type']['field'] = 'field_farm_area_type';
-  /* Field: Field: Fields/Beds */
+  /* Field: Field: Areas */
   $handler->display->display_options['fields']['field_farm_areas']['id'] = 'field_farm_areas';
   $handler->display->display_options['fields']['field_farm_areas']['table'] = 'field_data_field_farm_areas';
   $handler->display->display_options['fields']['field_farm_areas']['field'] = 'field_farm_areas';
