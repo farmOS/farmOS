@@ -250,7 +250,7 @@ function farm_log_money_views_default_views() {
   $handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['header']['area_text_custom']['empty'] = TRUE;
   $handler->display->display_options['header']['area_text_custom']['content'] = '<a href="/log/add/farm_loss">+ Log a loss</a>';
-  $handler->display->display_options['path'] = 'admin/farm/logs/money/losses';
+  $handler->display->display_options['path'] = 'admin/farm/money/losses';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Losses';
   $handler->display->display_options['menu']['weight'] = '20';
@@ -534,7 +534,7 @@ function farm_log_money_views_default_views() {
   $handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['header']['area_text_custom']['empty'] = TRUE;
   $handler->display->display_options['header']['area_text_custom']['content'] = '<a href="/log/add/farm_purchase">+ Log a purchase</a>';
-  $handler->display->display_options['path'] = 'admin/farm/logs/money/purchases';
+  $handler->display->display_options['path'] = 'admin/farm/money/purchases';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Purchases';
   $handler->display->display_options['menu']['weight'] = '10';
@@ -818,7 +818,7 @@ function farm_log_money_views_default_views() {
   $handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['header']['area_text_custom']['empty'] = TRUE;
   $handler->display->display_options['header']['area_text_custom']['content'] = '<a href="/log/add/farm_sale">+ Log a sale</a>';
-  $handler->display->display_options['path'] = 'admin/farm/logs/money/sales';
+  $handler->display->display_options['path'] = 'admin/farm/money/sales';
   $handler->display->display_options['menu']['type'] = 'default tab';
   $handler->display->display_options['menu']['title'] = 'Sales';
   $handler->display->display_options['menu']['weight'] = '';
@@ -827,7 +827,7 @@ function farm_log_money_views_default_views() {
   $handler->display->display_options['menu']['context_only_inline'] = 0;
   $handler->display->display_options['tab_options']['type'] = 'tab';
   $handler->display->display_options['tab_options']['title'] = 'Money';
-  $handler->display->display_options['tab_options']['weight'] = '0';
+  $handler->display->display_options['tab_options']['weight'] = '50';
 
   /* Display: Entity Reference */
   $handler = $view->new_display('entityreference', 'Entity Reference', 'entityreference_1');
