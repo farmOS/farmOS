@@ -111,3 +111,4 @@ features[views_view][] = farm_log_cultivation
 features[views_view][] = farm_log_harvest
 features[views_view][] = farm_log_input
 features[views_view][] = farm_log_planting
+features[views_view][] = farm_log_planting_location
