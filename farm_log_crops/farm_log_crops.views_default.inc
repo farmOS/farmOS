@@ -1176,11 +1176,11 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['header']['area_text_custom']['table'] = 'views';
   $handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['header']['area_text_custom']['empty'] = TRUE;
-  $handler->display->display_options['header']['area_text_custom']['content'] = '<a href="/log/add/farm_planting">+ Log a planting</a>';
-  $handler->display->display_options['path'] = 'admin/farm/logs/crops/plantings';
-  $handler->display->display_options['menu']['type'] = 'default tab';
+  $handler->display->display_options['header']['area_text_custom']['content'] = '<a href="/log/add/farm_planting?destination=admin/farm/plantings">+ Log a planting</a>';
+  $handler->display->display_options['path'] = 'admin/farm/plantings';
+  $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Plantings';
-  $handler->display->display_options['menu']['weight'] = '';
+  $handler->display->display_options['menu']['weight'] = '20';
   $handler->display->display_options['menu']['name'] = 'management';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
