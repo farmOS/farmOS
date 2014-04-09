@@ -31,7 +31,7 @@ function farm_admin_default_page_manager_pages() {
   );
   $page->menu = array(
     'type' => 'default tab',
-    'title' => 'Farm',
+    'title' => 'Dashboard',
     'name' => 'management',
     'weight' => '-10',
     'parent' => array(
