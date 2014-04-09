@@ -5,3 +5,27 @@
  */
 
 include_once 'farm_admin.features.inc';
+
+/**
+ * Implements hook_navbar().
+ */
+function farm_admin_navbar() {
+
+  // Farm tab.
+  $items['farm'] = array(
+    '#type' => 'navbar_item',
+    'tab' => array(
+      '#type' => 'link',
+      '#title' => t('Farm'),
+      '#href' => 'admin/farm',
+      '#options' => array(
+        'attributes' => array(
+          'title' => t('Farm management'),
+          'class' => array('navbar-icon', 'navbar-icon-dashboard'),
+        ),
+      ),
+    ),
+    '#weight' => 20,
+  );
+  return $items;
+}
