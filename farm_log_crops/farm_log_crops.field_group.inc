@@ -228,11 +228,11 @@ function farm_log_crops_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Planting Details',
-    'weight' => '3',
+    'weight' => '0',
     'children' => array(
-      0 => 'field_farm_notes',
-      1 => 'field_farm_quantity_units',
-      2 => 'field_farm_quantity_value',
+      0 => 'field_farm_crops',
+      1 => 'field_farm_notes',
+      2 => 'field_farm_season',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -345,7 +345,7 @@ function farm_log_crops_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Attach Files',
-    'weight' => '4',
+    'weight' => '1',
     'children' => array(
       0 => 'field_farm_files',
       1 => 'field_farm_images',
@@ -362,6 +362,37 @@ function farm_log_crops_field_group_info() {
     ),
   );
   $export['group_farm_files|log|farm_planting|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_farm_logs|log|farm_planting|form';
+  $field_group->group_name = 'group_farm_logs';
+  $field_group->entity_type = 'log';
+  $field_group->bundle = 'farm_planting';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Logs',
+    'weight' => '2',
+    'children' => array(
+      0 => 'field_farm_input_logs',
+      1 => 'field_farm_issues',
+      2 => 'field_farm_harvests',
+      3 => 'field_farm_cultivations',
+      4 => 'field_farm_planting_locations',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-farm-logs field-group-fieldset',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_farm_logs|log|farm_planting|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
