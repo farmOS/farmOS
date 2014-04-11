@@ -106,6 +106,7 @@ features[variable][] = field_bundle_settings_log__farm_cultivation
 features[variable][] = field_bundle_settings_log__farm_harvest
 features[variable][] = field_bundle_settings_log__farm_input
 features[variable][] = field_bundle_settings_log__farm_planting
+features[variable][] = field_bundle_settings_log__farm_planting_location
 features[variable][] = pathauto_taxonomy_term_farm_input_types_pattern
 features[views_view][] = farm_log_cultivation
 features[views_view][] = farm_log_harvest
