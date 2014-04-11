@@ -345,7 +345,7 @@ function farm_log_crops_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Attach Files',
-    'weight' => '1',
+    'weight' => '2',
     'children' => array(
       0 => 'field_farm_files',
       1 => 'field_farm_images',
@@ -374,7 +374,7 @@ function farm_log_crops_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Logs',
-    'weight' => '2',
+    'weight' => '1',
     'children' => array(
       0 => 'field_farm_input_logs',
       1 => 'field_farm_issues',
