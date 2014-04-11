@@ -41,7 +41,7 @@ function farm_log_crops_default_log_type() {
     "type" : "farm_harvest",
     "label" : "Harvest",
     "weight" : 0,
-    "name_pattern" : "Harvest [log:field_farm_quantity_value] [log:field-farm-quantity-units] [log:field-farm-crops]",
+    "name_pattern" : "Harvest [log:field-farm-date:custom:Y-m-d]",
     "rdf_mapping" : []
   }');
   $items['farm_input'] = entity_import('log_type', '{
