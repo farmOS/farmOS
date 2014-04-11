@@ -38,7 +38,7 @@ function farm_admin_default_page_manager_pages() {
       'type' => 'normal',
       'title' => 'Farm',
       'name' => 'management',
-      'weight' => '0',
+      'weight' => '-100',
     ),
   );
   $page->arguments = array();
