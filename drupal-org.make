@@ -114,6 +114,12 @@ projects[farm_csa][download][type] = "git"
 projects[farm_csa][download][url] = "http://github.com/farmier/farm_csa.git"
 projects[farm_csa][download][branch] = "7.x-1.x"
 
+projects[farm_delivery][type] = "module"
+projects[farm_delivery][subdir] = "farm"
+projects[farm_delivery][download][type] = "git"
+projects[farm_delivery][download][url] = "http://github.com/farmier/farm_delivery.git"
+projects[farm_delivery][download][branch] = "7.x-1.x"
+
 projects[farm_log][type] = "module"
 projects[farm_log][subdir] = "farm"
 projects[farm_log][download][type] = "git"
