@@ -29,11 +29,6 @@ projects[entity][version] = "1.4"
 projects[entityreference][subdir] = "contrib"
 projects[entityreference][version] = "1.1"
 
-projects[entityreference_view_widget][subdir] = "contrib"
-projects[entityreference_view_widget][version] = "2.0-beta3"
-; Add a redirect path option.
-projects[entityreference_view_widget][patch][] = "http://drupal.org/files/issues/entityreference_view_widget-2230695-1.patch"
-
 projects[features][subdir] = "contrib"
 projects[features][version] = "1.0"
 
