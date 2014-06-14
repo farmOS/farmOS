@@ -24,7 +24,7 @@ projects[date][subdir] = "contrib"
 projects[date][version] = "2.7"
 
 projects[entity][subdir] = "contrib"
-projects[entity][version] = "1.4"
+projects[entity][version] = "1.5"
 
 projects[entityreference][subdir] = "contrib"
 projects[entityreference][version] = "1.1"
@@ -33,7 +33,7 @@ projects[features][subdir] = "contrib"
 projects[features][version] = "1.0"
 
 projects[field_group][subdir] = "contrib"
-projects[field_group][version] = "1.3"
+projects[field_group][version] = "1.4"
 
 projects[filefield_paths][subdir] = "contrib"
 projects[filefield_paths][version] = "1.0-beta4"
@@ -72,7 +72,7 @@ projects[role_export][subdir] = "contrib"
 projects[role_export][version] = "1.0"
 
 projects[rules][subdir] = "contrib"
-projects[rules][version] = "2.6"
+projects[rules][version] = "2.7"
 
 projects[rules_array_create][subdir] = "contrib"
 projects[rules_array_create]][version] = "1.0-alpha1"
@@ -84,7 +84,7 @@ projects[token][subdir] = "contrib"
 projects[token][version] = "1.5"
 
 projects[views][subdir] = "contrib"
-projects[views][version] = "3.7"
+projects[views][version] = "3.8"
 
 ; -----------------------------------------------------------------------------
 ; Modules (farm)
