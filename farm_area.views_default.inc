@@ -46,17 +46,15 @@ function farm_area_views_default_views() {
     'style_field' => '',
   );
   $handler->display->display_options['row_plugin'] = 'fields';
-  /* Header: Global: Unfiltered text */
-  $handler->display->display_options['header']['area_text_custom']['id'] = 'area_text_custom';
-  $handler->display->display_options['header']['area_text_custom']['table'] = 'views';
-  $handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
-  $handler->display->display_options['header']['area_text_custom']['content'] = '<a href="/admin/structure/taxonomy/farm_areas/add?destination=admin/farm/areas">+ Add an area.</a>';
-  /* No results behavior: Global: Unfiltered text */
-  $handler->display->display_options['empty']['area_text_custom']['id'] = 'area_text_custom';
-  $handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
-  $handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
-  $handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
-  $handler->display->display_options['empty']['area_text_custom']['content'] = 'No areas found.';
+  /* Footer: Global: Unfiltered text */
+  $handler->display->display_options['footer']['area_text_custom']['id'] = 'area_text_custom';
+  $handler->display->display_options['footer']['area_text_custom']['table'] = 'views';
+  $handler->display->display_options['footer']['area_text_custom']['field'] = 'area_text_custom';
+  /* Field: Taxonomy term: Term ID */
+  $handler->display->display_options['fields']['tid']['id'] = 'tid';
+  $handler->display->display_options['fields']['tid']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['fields']['tid']['field'] = 'tid';
+  $handler->display->display_options['fields']['tid']['exclude'] = TRUE;
   /* Field: Taxonomy term: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
   $handler->display->display_options['fields']['name']['table'] = 'taxonomy_term_data';
@@ -64,27 +62,26 @@ function farm_area_views_default_views() {
   $handler->display->display_options['fields']['name']['label'] = 'Area name';
   $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
-  $handler->display->display_options['fields']['name']['link_to_taxonomy'] = TRUE;
   /* Field: Taxonomy term: Area type */
   $handler->display->display_options['fields']['field_farm_area_type']['id'] = 'field_farm_area_type';
   $handler->display->display_options['fields']['field_farm_area_type']['table'] = 'field_data_field_farm_area_type';
   $handler->display->display_options['fields']['field_farm_area_type']['field'] = 'field_farm_area_type';
-  /* Field: Field: Areas */
-  $handler->display->display_options['fields']['field_farm_areas']['id'] = 'field_farm_areas';
-  $handler->display->display_options['fields']['field_farm_areas']['table'] = 'field_data_field_farm_areas';
-  $handler->display->display_options['fields']['field_farm_areas']['field'] = 'field_farm_areas';
-  $handler->display->display_options['fields']['field_farm_areas']['label'] = 'Adjacent areas';
-  $handler->display->display_options['fields']['field_farm_areas']['delta_offset'] = '0';
-  /* Filter criterion: Taxonomy vocabulary: Machine name */
-  $handler->display->display_options['filters']['machine_name']['id'] = 'machine_name';
-  $handler->display->display_options['filters']['machine_name']['table'] = 'taxonomy_vocabulary';
-  $handler->display->display_options['filters']['machine_name']['field'] = 'machine_name';
-  $handler->display->display_options['filters']['machine_name']['value'] = array(
-    'farm_areas' => 'farm_areas',
+  /* Field: Global: Custom text */
+  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['table'] = 'views';
+  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['label'] = 'Links';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/admin/farm/areas/[tid]/plantings">plantings</a> | <a href="/admin/farm/areas/[tid]/inputs">inputs</a> | <a href="/admin/farm/areas/[tid]/cultivations">cultivations</a> | <a href="/admin/farm/areas/[tid]/harvests">harvests</a> | <a href="/admin/farm/areas/[tid]/issues">issues</a> (<a href="/taxonomy/term/[tid]/edit">edit area</a>)';
+  /* Filter criterion: Taxonomy term: Vocabulary */
+  $handler->display->display_options['filters']['vid']['id'] = 'vid';
+  $handler->display->display_options['filters']['vid']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['filters']['vid']['field'] = 'vid';
+  $handler->display->display_options['filters']['vid']['value'] = array(
+    1 => '1',
   );
 
-  /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'page_1');
+  /* Display: Areas map (Page) */
+  $handler = $view->new_display('page', 'Areas map (Page)', 'page_1');
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'openlayers_map';
   $handler->display->display_options['style_options']['map'] = 'farm_map_areas';
@@ -102,18 +99,18 @@ function farm_area_views_default_views() {
   $handler->display->display_options['tab_options']['title'] = 'Areas';
   $handler->display->display_options['tab_options']['weight'] = '10';
 
-  /* Display: Content pane */
-  $handler = $view->new_display('panel_pane', 'Content pane', 'panel_pane_1');
+  /* Display: Areas dashboard (Content pane) */
+  $handler = $view->new_display('panel_pane', 'Areas dashboard (Content pane)', 'panel_pane_1');
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'openlayers_map';
   $handler->display->display_options['style_options']['map'] = 'farm_map_areas';
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
-  $handler->display->display_options['link_to_view'] = '1';
+  $handler->display->display_options['link_to_view'] = '0';
 
-  /* Display: Attachment */
-  $handler = $view->new_display('attachment', 'Attachment', 'attachment_1');
+  /* Display: Areas list (Attachment) */
+  $handler = $view->new_display('attachment', 'Areas list (Attachment)', 'attachment_1');
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
@@ -149,7 +146,13 @@ function farm_area_views_default_views() {
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
-  $handler->display->display_options['defaults']['header'] = FALSE;
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  /* Footer: Global: Unfiltered text */
+  $handler->display->display_options['footer']['area_text_custom']['id'] = 'area_text_custom';
+  $handler->display->display_options['footer']['area_text_custom']['table'] = 'views';
+  $handler->display->display_options['footer']['area_text_custom']['field'] = 'area_text_custom';
+  $handler->display->display_options['footer']['area_text_custom']['empty'] = TRUE;
+  $handler->display->display_options['footer']['area_text_custom']['content'] = '<a href="/admin/structure/taxonomy/farm_areas/add?destination=admin/farm/areas">+ Add an area</a>';
   $handler->display->display_options['displays'] = array(
     'page_1' => 'page_1',
     'panel_pane_1' => 'panel_pane_1',
@@ -158,8 +161,8 @@ function farm_area_views_default_views() {
   $handler->display->display_options['attachment_position'] = 'after';
   $handler->display->display_options['inherit_exposed_filters'] = TRUE;
 
-  /* Display: Area Data */
-  $handler = $view->new_display('openlayers', 'Area Data', 'openlayers_1');
+  /* Display: Area data (OpenLayers Data Overlay) */
+  $handler = $view->new_display('openlayers', 'Area data (OpenLayers Data Overlay)', 'openlayers_1');
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'openlayers_data';
   $handler->display->display_options['style_options']['data_source'] = array(
@@ -172,31 +175,20 @@ function farm_area_views_default_views() {
     'other_bottom' => 'name',
     'other_left' => 'name',
     'name_field' => 'name',
-    'description_field' => 'description',
+    'description_field' => 'nothing',
     'style_field' => '',
   );
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['row_plugin'] = 'fields';
   $handler->display->display_options['defaults']['row_options'] = FALSE;
-  $handler->display->display_options['defaults']['header'] = FALSE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Taxonomy term: Name */
-  $handler->display->display_options['fields']['name']['id'] = 'name';
-  $handler->display->display_options['fields']['name']['table'] = 'taxonomy_term_data';
-  $handler->display->display_options['fields']['name']['field'] = 'name';
-  $handler->display->display_options['fields']['name']['label'] = '';
-  $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
-  $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
-  $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['name']['link_to_taxonomy'] = TRUE;
-  /* Field: Taxonomy term: Term description */
-  $handler->display->display_options['fields']['description']['id'] = 'description';
-  $handler->display->display_options['fields']['description']['table'] = 'taxonomy_term_data';
-  $handler->display->display_options['fields']['description']['field'] = 'description';
-  $handler->display->display_options['fields']['description']['label'] = '';
-  $handler->display->display_options['fields']['description']['element_label_colon'] = FALSE;
-  /* Field: Taxonomy term: Location */
+  /* Field: Taxonomy term: Term ID */
+  $handler->display->display_options['fields']['tid']['id'] = 'tid';
+  $handler->display->display_options['fields']['tid']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['fields']['tid']['field'] = 'tid';
+  $handler->display->display_options['fields']['tid']['exclude'] = TRUE;
+  /* Field: Field: Location */
   $handler->display->display_options['fields']['field_farm_geofield']['id'] = 'field_farm_geofield';
   $handler->display->display_options['fields']['field_farm_geofield']['table'] = 'field_data_field_farm_geofield';
   $handler->display->display_options['fields']['field_farm_geofield']['field'] = 'field_farm_geofield';
@@ -208,6 +200,21 @@ function farm_area_views_default_views() {
   );
   $handler->display->display_options['fields']['field_farm_geofield']['group_rows'] = FALSE;
   $handler->display->display_options['fields']['field_farm_geofield']['delta_offset'] = '0';
+  /* Field: Taxonomy term: Name */
+  $handler->display->display_options['fields']['name']['id'] = 'name';
+  $handler->display->display_options['fields']['name']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['fields']['name']['field'] = 'name';
+  $handler->display->display_options['fields']['name']['label'] = '';
+  $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
+  $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['name']['link_to_taxonomy'] = TRUE;
+  /* Field: Global: Custom text */
+  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['table'] = 'views';
+  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['label'] = 'Links';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/admin/farm/areas/[tid]/plantings">plantings</a> | <a href="/admin/farm/areas/[tid]/inputs">inputs</a> | <a href="/admin/farm/areas/[tid]/cultivations">cultivations</a> | <a href="/admin/farm/areas/[tid]/harvests">harvests</a> | <a href="/admin/farm/areas/[tid]/issues">issues</a> (<a href="/taxonomy/term/[tid]/edit">edit area</a>)';
   $export['farm_areas'] = $view;
 
   return $export;
