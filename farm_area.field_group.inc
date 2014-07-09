@@ -23,9 +23,8 @@ function farm_area_field_group_info() {
     'label' => 'Area Details',
     'weight' => '2',
     'children' => array(
-      0 => 'field_farm_areas',
-      1 => 'field_farm_area_type',
-      2 => 'description',
+      0 => 'field_farm_area_type',
+      1 => 'description',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
