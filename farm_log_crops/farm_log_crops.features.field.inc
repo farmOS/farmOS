@@ -10,6 +10,397 @@
 function farm_log_crops_field_default_fields() {
   $fields = array();
 
+  // Exported field: 'field_collection_item-field_farm_harvest_list-field_farm_crop'.
+  $fields['field_collection_item-field_farm_harvest_list-field_farm_crop'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_crop',
+      'foreign keys' => array(
+        'tid' => array(
+          'columns' => array(
+            'tid' => 'tid',
+          ),
+          'table' => 'taxonomy_term_data',
+        ),
+      ),
+      'indexes' => array(
+        'tid' => array(
+          0 => 'tid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'taxonomy',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => array(
+            'vocabulary' => 'farm_crops',
+            'parent' => '0',
+          ),
+        ),
+      ),
+      'translatable' => '0',
+      'type' => 'taxonomy_term_reference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'field_farm_harvest_list',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'Enter the crop that was (or will be) harvested. As you type, you will have the option of selecting from crops that you\'ve entered in the past.',
+      'display' => array(
+        'default' => array(
+          'label' => 'hidden',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '1',
+        ),
+      ),
+      'entity_type' => 'field_collection_item',
+      'field_name' => 'field_farm_crop',
+      'label' => 'Crop',
+      'required' => 1,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'taxonomy',
+        'settings' => array(
+          'autocomplete_path' => 'taxonomy/autocomplete',
+          'size' => 60,
+        ),
+        'type' => 'taxonomy_autocomplete',
+        'weight' => 0,
+      ),
+    ),
+  );
+
+  // Exported field: 'field_collection_item-field_farm_harvest_list-field_farm_quantity'.
+  $fields['field_collection_item-field_farm_harvest_list-field_farm_quantity'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_quantity',
+      'foreign keys' => array(),
+      'indexes' => array(
+        'revision_id' => array(
+          0 => 'revision_id',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'field_collection',
+      'settings' => array(
+        'hide_blank_items' => 1,
+        'path' => '',
+      ),
+      'translatable' => '0',
+      'type' => 'field_collection',
+    ),
+    'field_instance' => array(
+      'bundle' => 'field_farm_harvest_list',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'Describe the quantity of this harvest, using a value and a unit of measurement. For example, if you harvested 100 lbs of potatoes, enter "100" in the Value field, and "lbs" in the Units field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.',
+      'display' => array(
+        'default' => array(
+          'label' => 'hidden',
+          'module' => 'field_collection',
+          'settings' => array(
+            'view_mode' => 'full',
+          ),
+          'type' => 'field_collection_fields',
+          'weight' => '0',
+        ),
+      ),
+      'entity_type' => 'field_collection_item',
+      'field_name' => 'field_farm_quantity',
+      'label' => 'Quantity',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'field_collection',
+        'settings' => array(),
+        'type' => 'field_collection_embed',
+        'weight' => '1',
+      ),
+    ),
+  );
+
+  // Exported field: 'field_collection_item-field_farm_planting_location-field_farm_area'.
+  $fields['field_collection_item-field_farm_planting_location-field_farm_area'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_area',
+      'foreign keys' => array(
+        'tid' => array(
+          'columns' => array(
+            'tid' => 'tid',
+          ),
+          'table' => 'taxonomy_term_data',
+        ),
+      ),
+      'indexes' => array(
+        'tid' => array(
+          0 => 'tid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'taxonomy',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => array(
+            'vocabulary' => 'farm_areas',
+            'parent' => '0',
+          ),
+        ),
+      ),
+      'translatable' => '0',
+      'type' => 'taxonomy_term_reference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'field_farm_planting_location',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'Enter the area in which this planting resides. As you type, you will have the option of selecting from areas that you\'ve entered in the past.',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '0',
+        ),
+      ),
+      'entity_type' => 'field_collection_item',
+      'field_name' => 'field_farm_area',
+      'label' => 'Area',
+      'required' => 1,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'taxonomy',
+        'settings' => array(
+          'autocomplete_path' => 'taxonomy/autocomplete',
+          'size' => 60,
+        ),
+        'type' => 'taxonomy_autocomplete',
+        'weight' => '0',
+      ),
+    ),
+  );
+
+  // Exported field: 'field_collection_item-field_farm_planting_location-field_farm_bool'.
+  $fields['field_collection_item-field_farm_planting_location-field_farm_bool'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_bool',
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'list',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => 'no',
+          1 => 'yes',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'translatable' => '0',
+      'type' => 'list_boolean',
+    ),
+    'field_instance' => array(
+      'bundle' => 'field_farm_planting_location',
+      'default_value' => array(
+        0 => array(
+          'value' => 1,
+        ),
+      ),
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'list',
+          'settings' => array(),
+          'type' => 'list_default',
+          'weight' => '4',
+        ),
+      ),
+      'entity_type' => 'field_collection_item',
+      'field_name' => 'field_farm_bool',
+      'label' => 'Planting is still here',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(
+          'display_label' => 1,
+        ),
+        'type' => 'options_onoff',
+        'weight' => '4',
+      ),
+    ),
+  );
+
+  // Exported field: 'field_collection_item-field_farm_planting_location-field_farm_date'.
+  $fields['field_collection_item-field_farm_planting_location-field_farm_date'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_date',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'locked' => '0',
+      'module' => 'date',
+      'settings' => array(
+        'cache_count' => '4',
+        'cache_enabled' => 0,
+        'granularity' => array(
+          'day' => 'day',
+          'hour' => 0,
+          'minute' => 0,
+          'month' => 'month',
+          'second' => 0,
+          'year' => 'year',
+        ),
+        'repeat' => '0',
+        'timezone_db' => '',
+        'todate' => '',
+        'tz_handling' => 'none',
+      ),
+      'translatable' => '0',
+      'type' => 'datestamp',
+    ),
+    'field_instance' => array(
+      'bundle' => 'field_farm_planting_location',
+      'deleted' => '0',
+      'description' => 'Enter the date that the planting came to reside in this location.',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'date',
+          'settings' => array(
+            'format_type' => 'long',
+            'fromto' => 'both',
+            'multiple_from' => '',
+            'multiple_number' => '',
+            'multiple_to' => '',
+            'show_repeat_rule' => 'show',
+          ),
+          'type' => 'date_default',
+          'weight' => '3',
+        ),
+      ),
+      'entity_type' => 'field_collection_item',
+      'field_name' => 'field_farm_date',
+      'label' => 'Date',
+      'required' => 1,
+      'settings' => array(
+        'default_value' => 'now',
+        'default_value2' => 'same',
+        'default_value_code' => '',
+        'default_value_code2' => '',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'date',
+        'settings' => array(
+          'increment' => '15',
+          'input_format' => 'M j Y - g:i:sa',
+          'input_format_custom' => '',
+          'label_position' => 'above',
+          'repeat_collapsed' => 0,
+          'text_parts' => array(),
+          'year_range' => '-3:+3',
+        ),
+        'type' => 'date_popup',
+        'weight' => '2',
+      ),
+    ),
+  );
+
+  // Exported field: 'field_collection_item-field_farm_planting_location-field_farm_quantity'.
+  $fields['field_collection_item-field_farm_planting_location-field_farm_quantity'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_quantity',
+      'foreign keys' => array(),
+      'indexes' => array(
+        'revision_id' => array(
+          0 => 'revision_id',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'field_collection',
+      'settings' => array(
+        'hide_blank_items' => 1,
+        'path' => '',
+      ),
+      'translatable' => '0',
+      'type' => 'field_collection',
+    ),
+    'field_instance' => array(
+      'bundle' => 'field_farm_planting_location',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'Describe the quantity of this planting, using a value and a unit of measurement. For example, if you seeded 10 flats of lettuce, enter "10" in the Value field, and "flats" in the Units field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'field_collection',
+          'settings' => array(
+            'view_mode' => 'full',
+          ),
+          'type' => 'field_collection_fields',
+          'weight' => '1',
+        ),
+      ),
+      'entity_type' => 'field_collection_item',
+      'field_name' => 'field_farm_quantity',
+      'label' => 'Quantity',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'field_collection',
+        'settings' => array(),
+        'type' => 'field_collection_embed',
+        'weight' => '1',
+      ),
+    ),
+  );
+
   // Exported field: 'log-farm_cultivation-field_farm_areas'.
   $fields['log-farm_cultivation-field_farm_areas'] = array(
     'field_config' => array(
@@ -48,14 +439,14 @@ function farm_log_crops_field_default_fields() {
       'bundle' => 'farm_cultivation',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '',
+      'description' => 'Enter a comma-separated list of areas that this is a cultivation of. As you type, you will have the option of selecting from areas that you\'ve entered in the past.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '1',
+          'weight' => '2',
         ),
         'token' => array(
           'label' => 'inline',
@@ -73,17 +464,14 @@ function farm_log_crops_field_default_fields() {
         'user_register_form' => FALSE,
       ),
       'widget' => array(
-        'active' => 1,
-        'module' => 'autocomplete_deluxe',
+        'active' => 0,
+        'module' => 'taxonomy',
         'settings' => array(
-          'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
-          'delimiter' => '',
-          'limit' => '10',
-          'min_length' => '0',
-          'size' => '60',
+          'autocomplete_path' => 'taxonomy/autocomplete',
+          'size' => 60,
         ),
-        'type' => 'autocomplete_deluxe_taxonomy',
-        'weight' => '3',
+        'type' => 'taxonomy_autocomplete',
+        'weight' => '24',
       ),
     ),
   );
@@ -126,14 +514,14 @@ function farm_log_crops_field_default_fields() {
       'bundle' => 'farm_cultivation',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '',
+      'description' => 'Enter a comma-separated list of crops that this is a cultivation of. As you type, you will have the option of selecting from crops that you\'ve entered in the past.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '4',
+          'weight' => '3',
         ),
         'token' => array(
           'label' => 'inline',
@@ -151,101 +539,88 @@ function farm_log_crops_field_default_fields() {
         'user_register_form' => FALSE,
       ),
       'widget' => array(
-        'active' => 1,
-        'module' => 'autocomplete_deluxe',
+        'active' => 0,
+        'module' => 'taxonomy',
         'settings' => array(
-          'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
-          'delimiter' => '',
-          'limit' => '10',
-          'min_length' => '0',
-          'size' => '60',
+          'autocomplete_path' => 'taxonomy/autocomplete',
+          'size' => 60,
         ),
-        'type' => 'autocomplete_deluxe_taxonomy',
-        'weight' => '2',
+        'type' => 'taxonomy_autocomplete',
+        'weight' => '23',
       ),
     ),
   );
 
-  // Exported field: 'log-farm_cultivation-field_farm_cultivations'.
-  $fields['log-farm_cultivation-field_farm_cultivations'] = array(
+  // Exported field: 'log-farm_cultivation-field_farm_cultivation_type'.
+  $fields['log-farm_cultivation-field_farm_cultivation_type'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_farm_cultivations',
+      'field_name' => 'field_farm_cultivation_type',
       'foreign keys' => array(
-        'log' => array(
+        'tid' => array(
           'columns' => array(
-            'target_id' => 'id',
+            'tid' => 'tid',
           ),
-          'table' => 'log',
+          'table' => 'taxonomy_term_data',
         ),
       ),
       'indexes' => array(
-        'target_id' => array(
-          0 => 'target_id',
+        'tid' => array(
+          0 => 'tid',
         ),
       ),
       'locked' => '0',
-      'module' => 'entityreference',
+      'module' => 'taxonomy',
       'settings' => array(
-        'handler' => 'views',
-        'handler_settings' => array(
-          'behaviors' => array(
-            'views-select-list' => array(
-              'status' => 0,
-            ),
-          ),
-          'view' => array(
-            'args' => array(),
-            'display_name' => 'entityreference_1',
-            'view_name' => 'farm_log_cultivation',
+        'allowed_values' => array(
+          0 => array(
+            'vocabulary' => 'farm_cultivation_types',
+            'parent' => '0',
           ),
         ),
-        'target_type' => 'log',
       ),
       'translatable' => '0',
-      'type' => 'entityreference',
+      'type' => 'taxonomy_term_reference',
     ),
     'field_instance' => array(
       'bundle' => 'farm_cultivation',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'Optionally, select other cultivations that are related to this one. This helps to connect data.',
+      'description' => 'Enter the type of cultivation that this is. For example: "tilling", or "hand weeding". As you type, you will have the option of selecting from types that you\'ve entered in the past.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
-          'module' => 'entityreference',
-          'settings' => array(
-            'link' => 1,
-          ),
-          'type' => 'entityreference_label',
-          'weight' => '10',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '1',
         ),
         'token' => array(
-          'label' => 'inline',
-          'module' => 'entityreference',
-          'settings' => array(
-            'link' => 1,
-          ),
-          'type' => 'entityreference_label',
-          'weight' => '10',
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
       ),
       'entity_type' => 'log',
-      'field_name' => 'field_farm_cultivations',
-      'label' => 'Related Cultivations',
-      'required' => 0,
+      'field_name' => 'field_farm_cultivation_type',
+      'label' => 'Cultivation Type',
+      'required' => 1,
       'settings' => array(
         'user_register_form' => FALSE,
       ),
       'widget' => array(
-        'active' => 1,
-        'module' => 'options',
-        'settings' => array(),
-        'type' => 'options_select',
-        'weight' => '17',
+        'active' => 0,
+        'module' => 'taxonomy',
+        'settings' => array(
+          'autocomplete_path' => 'taxonomy/autocomplete',
+          'size' => 60,
+        ),
+        'type' => 'taxonomy_autocomplete',
+        'weight' => '22',
       ),
     ),
   );
@@ -284,7 +659,7 @@ function farm_log_crops_field_default_fields() {
     'field_instance' => array(
       'bundle' => 'farm_cultivation',
       'deleted' => '0',
-      'description' => '',
+      'description' => 'Enter the date when this cultivation took place (or will take place).',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -318,7 +693,7 @@ function farm_log_crops_field_default_fields() {
       'entity_type' => 'log',
       'field_name' => 'field_farm_date',
       'label' => 'Date',
-      'required' => 0,
+      'required' => 1,
       'settings' => array(
         'default_value' => 'now',
         'default_value2' => 'same',
@@ -339,7 +714,7 @@ function farm_log_crops_field_default_fields() {
           'year_range' => '-3:+3',
         ),
         'type' => 'date_popup',
-        'weight' => '0',
+        'weight' => 0,
       ),
     ),
   );
@@ -378,14 +753,14 @@ function farm_log_crops_field_default_fields() {
     'field_instance' => array(
       'bundle' => 'farm_cultivation',
       'deleted' => '0',
-      'description' => '',
+      'description' => 'Use this field to attach files to this cultivation record.',
       'display' => array(
         'default' => array(
           'label' => 'above',
           'module' => 'file',
           'settings' => array(),
           'type' => 'file_table',
-          'weight' => '8',
+          'weight' => '7',
         ),
         'token' => array(
           'label' => 'above',
@@ -437,66 +812,6 @@ function farm_log_crops_field_default_fields() {
     ),
   );
 
-  // Exported field: 'log-farm_cultivation-field_farm_hours'.
-  $fields['log-farm_cultivation-field_farm_hours'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_hours',
-      'foreign keys' => array(),
-      'indexes' => array(),
-      'locked' => '0',
-      'module' => 'fraction',
-      'settings' => array(),
-      'translatable' => '0',
-      'type' => 'fraction',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_cultivation',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => 'Record how many total hours this task took. If multiple people worked on it, multiply the time spent by the number of workers. Example: if two people worked together for 45 minutes (0.75 hours), the total time would be 1.5 hours (0.75 x 2).',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'fraction',
-          'settings' => array(
-            'precision' => 2,
-          ),
-          'type' => 'fraction_decimal',
-          'weight' => '5',
-        ),
-        'token' => array(
-          'label' => 'inline',
-          'module' => 'fraction',
-          'settings' => array(
-            'precision' => 2,
-          ),
-          'type' => 'fraction_decimal',
-          'weight' => '5',
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_hours',
-      'label' => 'Total work hours',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'fraction',
-        'settings' => array(
-          'precision' => '2',
-        ),
-        'type' => 'fraction_decimal',
-        'weight' => '5',
-      ),
-    ),
-  );
-
   // Exported field: 'log-farm_cultivation-field_farm_images'.
   $fields['log-farm_cultivation-field_farm_images'] = array(
     'field_config' => array(
@@ -530,17 +845,17 @@ function farm_log_crops_field_default_fields() {
     'field_instance' => array(
       'bundle' => 'farm_cultivation',
       'deleted' => '0',
-      'description' => '',
+      'description' => 'Use this field to attach image files to this cultivation record.',
       'display' => array(
         'default' => array(
-          'label' => 'hidden',
+          'label' => 'above',
           'module' => 'image',
           'settings' => array(
             'image_link' => '',
             'image_style' => 'large',
           ),
           'type' => 'image',
-          'weight' => '7',
+          'weight' => '6',
         ),
         'token' => array(
           'label' => 'hidden',
@@ -600,90 +915,6 @@ function farm_log_crops_field_default_fields() {
     ),
   );
 
-  // Exported field: 'log-farm_cultivation-field_farm_issues'.
-  $fields['log-farm_cultivation-field_farm_issues'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_issues',
-      'foreign keys' => array(
-        'log' => array(
-          'columns' => array(
-            'target_id' => 'id',
-          ),
-          'table' => 'log',
-        ),
-      ),
-      'indexes' => array(
-        'target_id' => array(
-          0 => 'target_id',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'entityreference',
-      'settings' => array(
-        'handler' => 'views',
-        'handler_settings' => array(
-          'behaviors' => array(
-            'views-select-list' => array(
-              'status' => 0,
-            ),
-          ),
-          'view' => array(
-            'args' => array(),
-            'display_name' => 'entityreference_1',
-            'view_name' => 'farm_log_issues',
-          ),
-        ),
-        'target_type' => 'log',
-      ),
-      'translatable' => '0',
-      'type' => 'entityreference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_cultivation',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => 'Optionally, select issues that are related to this cultivation. This helps to connect data.',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'entityreference',
-          'settings' => array(
-            'link' => 1,
-          ),
-          'type' => 'entityreference_label',
-          'weight' => '9',
-        ),
-        'token' => array(
-          'label' => 'inline',
-          'module' => 'entityreference',
-          'settings' => array(
-            'link' => 1,
-          ),
-          'type' => 'entityreference_label',
-          'weight' => '9',
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_issues',
-      'label' => 'Related Issues',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'options',
-        'settings' => array(),
-        'type' => 'options_select',
-        'weight' => '16',
-      ),
-    ),
-  );
-
   // Exported field: 'log-farm_cultivation-field_farm_notes'.
   $fields['log-farm_cultivation-field_farm_notes'] = array(
     'field_config' => array(
@@ -718,18 +949,17 @@ function farm_log_crops_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'inline',
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '6',
+          'weight' => '5',
         ),
         'token' => array(
           'label' => 'above',
-          'module' => 'text',
           'settings' => array(),
-          'type' => 'text_default',
-          'weight' => '6',
+          'type' => 'hidden',
+          'weight' => 0,
         ),
       ),
       'entity_type' => 'log',
@@ -747,145 +977,69 @@ function farm_log_crops_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '9',
+        'weight' => '26',
       ),
     ),
   );
 
-  // Exported field: 'log-farm_cultivation-field_farm_quantity_units'.
-  $fields['log-farm_cultivation-field_farm_quantity_units'] = array(
+  // Exported field: 'log-farm_cultivation-field_farm_quantity'.
+  $fields['log-farm_cultivation-field_farm_quantity'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_farm_quantity_units',
-      'foreign keys' => array(
-        'tid' => array(
-          'columns' => array(
-            'tid' => 'tid',
-          ),
-          'table' => 'taxonomy_term_data',
-        ),
-      ),
-      'indexes' => array(
-        'tid' => array(
-          0 => 'tid',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'taxonomy',
-      'settings' => array(
-        'allowed_values' => array(
-          0 => array(
-            'vocabulary' => 'farm_quantity_units',
-            'parent' => '0',
-          ),
-        ),
-      ),
-      'translatable' => '0',
-      'type' => 'taxonomy_term_reference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_cultivation',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => 'Describe the unit of measurement for the quantity above. For example: rows, beds, feet, etc.',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => '3',
-        ),
-        'token' => array(
-          'label' => 'inline',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => '3',
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_quantity_units',
-      'label' => 'Units',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'autocomplete_deluxe',
-        'settings' => array(
-          'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
-          'delimiter' => '',
-          'limit' => '10',
-          'min_length' => '0',
-          'size' => '60',
-        ),
-        'type' => 'autocomplete_deluxe_taxonomy',
-        'weight' => '8',
-      ),
-    ),
-  );
-
-  // Exported field: 'log-farm_cultivation-field_farm_quantity_value'.
-  $fields['log-farm_cultivation-field_farm_quantity_value'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_quantity_value',
+      'field_name' => 'field_farm_quantity',
       'foreign keys' => array(),
-      'indexes' => array(),
+      'indexes' => array(
+        'revision_id' => array(
+          0 => 'revision_id',
+        ),
+      ),
       'locked' => '0',
-      'module' => 'fraction',
-      'settings' => array(),
+      'module' => 'field_collection',
+      'settings' => array(
+        'hide_blank_items' => 1,
+        'path' => '',
+      ),
       'translatable' => '0',
-      'type' => 'fraction',
+      'type' => 'field_collection',
     ),
     'field_instance' => array(
       'bundle' => 'farm_cultivation',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'How much was cultivated? Use this to describe how much was done. Describe the units below.',
+      'description' => 'Describe the quantity of this cultivation, using the Value and Units fields below. For example, if 5 beds were tilled, enter "5" in the Value field, and "beds" in the Units field.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
-          'module' => 'fraction',
+          'module' => 'field_collection',
           'settings' => array(
-            'precision' => '3',
+            'view_mode' => 'full',
           ),
-          'type' => 'fraction_decimal',
-          'weight' => '2',
+          'type' => 'field_collection_fields',
+          'weight' => '4',
         ),
         'token' => array(
-          'label' => 'inline',
-          'module' => 'fraction',
-          'settings' => array(
-            'precision' => '3',
-          ),
-          'type' => 'fraction_decimal',
-          'weight' => '2',
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
       ),
       'entity_type' => 'log',
-      'field_name' => 'field_farm_quantity_value',
+      'field_name' => 'field_farm_quantity',
       'label' => 'Quantity',
       'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
       ),
       'widget' => array(
-        'active' => 1,
-        'module' => 'fraction',
-        'settings' => array(
-          'precision' => '3',
-        ),
-        'type' => 'fraction_decimal',
-        'weight' => '7',
+        'active' => 0,
+        'module' => 'field_collection',
+        'settings' => array(),
+        'type' => 'field_collection_embed',
+        'weight' => '25',
       ),
     ),
   );
@@ -928,14 +1082,14 @@ function farm_log_crops_field_default_fields() {
       'bundle' => 'farm_harvest',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '',
+      'description' => 'Enter a comma-separated list of areas that were harvested from. As you type, you will have the option of selecting from areas that you\'ve entered in the past.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '4',
+          'weight' => '1',
         ),
         'full' => array(
           'label' => 'inline',
@@ -960,100 +1114,14 @@ function farm_log_crops_field_default_fields() {
         'user_register_form' => FALSE,
       ),
       'widget' => array(
-        'active' => 1,
-        'module' => 'autocomplete_deluxe',
+        'active' => 0,
+        'module' => 'taxonomy',
         'settings' => array(
-          'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
-          'delimiter' => '',
-          'limit' => '10',
-          'min_length' => '0',
-          'size' => '60',
-        ),
-        'type' => 'autocomplete_deluxe_taxonomy',
-        'weight' => '10',
-      ),
-    ),
-  );
-
-  // Exported field: 'log-farm_harvest-field_farm_crops'.
-  $fields['log-farm_harvest-field_farm_crops'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_crops',
-      'foreign keys' => array(
-        'tid' => array(
-          'columns' => array(
-            'tid' => 'tid',
-          ),
-          'table' => 'taxonomy_term_data',
-        ),
-      ),
-      'indexes' => array(
-        'tid' => array(
-          0 => 'tid',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'taxonomy',
-      'settings' => array(
-        'allowed_values' => array(
-          0 => array(
-            'vocabulary' => 'farm_crops',
-            'parent' => '0',
-          ),
-        ),
-      ),
-      'translatable' => '0',
-      'type' => 'taxonomy_term_reference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_harvest',
-      'default_value' => array(),
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => '1',
-        ),
-        'full' => array(
-          'label' => 'inline',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => '1',
-        ),
-        'token' => array(
-          'label' => 'inline',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => '1',
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_crops',
-      'label' => 'Crops',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'autocomplete_deluxe',
-        'settings' => array(
-          'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
           'autocomplete_path' => 'taxonomy/autocomplete',
           'size' => 60,
         ),
-        'type' => 'autocomplete_deluxe_taxonomy',
-        'weight' => '9',
+        'type' => 'taxonomy_autocomplete',
+        'weight' => '10',
       ),
     ),
   );
@@ -1092,7 +1160,7 @@ function farm_log_crops_field_default_fields() {
     'field_instance' => array(
       'bundle' => 'farm_harvest',
       'deleted' => '0',
-      'description' => '',
+      'description' => 'Enter the date when this harvest took place (or will take place).',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -1140,7 +1208,7 @@ function farm_log_crops_field_default_fields() {
       'entity_type' => 'log',
       'field_name' => 'field_farm_date',
       'label' => 'Harvest Date',
-      'required' => 0,
+      'required' => 1,
       'settings' => array(
         'default_value' => 'now',
         'default_value2' => 'same',
@@ -1200,14 +1268,14 @@ function farm_log_crops_field_default_fields() {
     'field_instance' => array(
       'bundle' => 'farm_harvest',
       'deleted' => '0',
-      'description' => '',
+      'description' => 'Use this field to attach files to this harvest record.',
       'display' => array(
         'default' => array(
           'label' => 'above',
           'module' => 'file',
           'settings' => array(),
           'type' => 'file_table',
-          'weight' => '8',
+          'weight' => '5',
         ),
         'full' => array(
           'label' => 'above',
@@ -1266,164 +1334,64 @@ function farm_log_crops_field_default_fields() {
     ),
   );
 
-  // Exported field: 'log-farm_harvest-field_farm_harvests'.
-  $fields['log-farm_harvest-field_farm_harvests'] = array(
+  // Exported field: 'log-farm_harvest-field_farm_harvest_list'.
+  $fields['log-farm_harvest-field_farm_harvest_list'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '-1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_farm_harvests',
-      'foreign keys' => array(
-        'log' => array(
-          'columns' => array(
-            'target_id' => 'id',
-          ),
-          'table' => 'log',
-        ),
-      ),
-      'indexes' => array(
-        'target_id' => array(
-          0 => 'target_id',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'entityreference',
-      'settings' => array(
-        'handler' => 'views',
-        'handler_settings' => array(
-          'behaviors' => array(
-            'views-select-list' => array(
-              'status' => 0,
-            ),
-          ),
-          'view' => array(
-            'args' => array(),
-            'display_name' => 'entityreference_1',
-            'view_name' => 'farm_log_harvest',
-          ),
-        ),
-        'target_type' => 'log',
-      ),
-      'translatable' => '0',
-      'type' => 'entityreference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_harvest',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => 'Optionally, select other harvests that are related to this one. This helps to connect data.',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'entityreference',
-          'settings' => array(
-            'link' => 1,
-          ),
-          'type' => 'entityreference_label',
-          'weight' => '11',
-        ),
-        'full' => array(
-          'label' => 'inline',
-          'module' => 'entityreference',
-          'settings' => array(
-            'link' => 1,
-          ),
-          'type' => 'entityreference_label',
-          'weight' => '11',
-        ),
-        'token' => array(
-          'label' => 'inline',
-          'module' => 'entityreference',
-          'settings' => array(
-            'link' => 1,
-          ),
-          'type' => 'entityreference_label',
-          'weight' => '11',
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_harvests',
-      'label' => 'Related Harvests',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'options',
-        'settings' => array(),
-        'type' => 'options_select',
-        'weight' => '9',
-      ),
-    ),
-  );
-
-  // Exported field: 'log-farm_harvest-field_farm_hours'.
-  $fields['log-farm_harvest-field_farm_hours'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_hours',
+      'field_name' => 'field_farm_harvest_list',
       'foreign keys' => array(),
-      'indexes' => array(),
+      'indexes' => array(
+        'revision_id' => array(
+          0 => 'revision_id',
+        ),
+      ),
       'locked' => '0',
-      'module' => 'fraction',
-      'settings' => array(),
+      'module' => 'field_collection',
+      'settings' => array(
+        'hide_blank_items' => 1,
+        'path' => '',
+      ),
       'translatable' => '0',
-      'type' => 'fraction',
+      'type' => 'field_collection',
     ),
     'field_instance' => array(
       'bundle' => 'farm_harvest',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'Record how many total hours this task took. If multiple people worked on it, multiply the time spent by the number of workers. Example: if two people worked together for 45 minutes (0.75 hours), the total time would be 1.5 hours (0.75 x 2).',
+      'description' => 'Use these "harvest list" fields to record what was (or will be) harvested. Each list item has a Crop (what was harvested) and a Quantity (with a value and unit of measurement). Click "Add another item" below to add more harvest items to the list.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
-          'module' => 'fraction',
+          'module' => 'field_collection',
           'settings' => array(
-            'precision' => '2',
+            'view_mode' => 'full',
           ),
-          'type' => 'fraction_decimal',
-          'weight' => '5',
-        ),
-        'full' => array(
-          'label' => 'inline',
-          'module' => 'fraction',
-          'settings' => array(
-            'precision' => '2',
-          ),
-          'type' => 'fraction_decimal',
-          'weight' => '5',
+          'type' => 'field_collection_fields',
+          'weight' => '2',
         ),
         'token' => array(
-          'label' => 'inline',
-          'module' => 'fraction',
-          'settings' => array(
-            'precision' => '2',
-          ),
-          'type' => 'fraction_decimal',
-          'weight' => '5',
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
       ),
       'entity_type' => 'log',
-      'field_name' => 'field_farm_hours',
-      'label' => 'Total work hours',
+      'field_name' => 'field_farm_harvest_list',
+      'label' => 'Harvest List',
       'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
       ),
       'widget' => array(
-        'active' => 1,
-        'module' => 'fraction',
-        'settings' => array(
-          'precision' => '2',
-        ),
-        'type' => 'fraction_decimal',
-        'weight' => '6',
+        'active' => 0,
+        'module' => 'field_collection',
+        'settings' => array(),
+        'type' => 'field_collection_embed',
+        'weight' => '11',
       ),
     ),
   );
@@ -1461,17 +1429,17 @@ function farm_log_crops_field_default_fields() {
     'field_instance' => array(
       'bundle' => 'farm_harvest',
       'deleted' => '0',
-      'description' => '',
+      'description' => 'Use this field to attach image files to this harvest record.',
       'display' => array(
         'default' => array(
-          'label' => 'hidden',
+          'label' => 'above',
           'module' => 'image',
           'settings' => array(
             'image_link' => '',
             'image_style' => 'large',
           ),
           'type' => 'image',
-          'weight' => '7',
+          'weight' => '4',
         ),
         'full' => array(
           'label' => 'hidden',
@@ -1541,99 +1509,6 @@ function farm_log_crops_field_default_fields() {
     ),
   );
 
-  // Exported field: 'log-farm_harvest-field_farm_issues'.
-  $fields['log-farm_harvest-field_farm_issues'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_issues',
-      'foreign keys' => array(
-        'log' => array(
-          'columns' => array(
-            'target_id' => 'id',
-          ),
-          'table' => 'log',
-        ),
-      ),
-      'indexes' => array(
-        'target_id' => array(
-          0 => 'target_id',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'entityreference',
-      'settings' => array(
-        'handler' => 'views',
-        'handler_settings' => array(
-          'behaviors' => array(
-            'views-select-list' => array(
-              'status' => 0,
-            ),
-          ),
-          'view' => array(
-            'args' => array(),
-            'display_name' => 'entityreference_1',
-            'view_name' => 'farm_log_issues',
-          ),
-        ),
-        'target_type' => 'log',
-      ),
-      'translatable' => '0',
-      'type' => 'entityreference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_harvest',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => 'Optionally, select issues that are related to this harvest. This helps to connect data.',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'entityreference',
-          'settings' => array(
-            'link' => 1,
-          ),
-          'type' => 'entityreference_label',
-          'weight' => '9',
-        ),
-        'full' => array(
-          'label' => 'inline',
-          'module' => 'entityreference',
-          'settings' => array(
-            'link' => 1,
-          ),
-          'type' => 'entityreference_label',
-          'weight' => '9',
-        ),
-        'token' => array(
-          'label' => 'inline',
-          'module' => 'entityreference',
-          'settings' => array(
-            'link' => 1,
-          ),
-          'type' => 'entityreference_label',
-          'weight' => '9',
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_issues',
-      'label' => 'Related Issues',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'options',
-        'settings' => array(),
-        'type' => 'options_select',
-        'weight' => '7',
-      ),
-    ),
-  );
-
   // Exported field: 'log-farm_harvest-field_farm_notes'.
   $fields['log-farm_harvest-field_farm_notes'] = array(
     'field_config' => array(
@@ -1668,25 +1543,17 @@ function farm_log_crops_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'inline',
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '6',
-        ),
-        'full' => array(
-          'label' => 'above',
-          'module' => 'text',
-          'settings' => array(),
-          'type' => 'text_default',
-          'weight' => '6',
+          'weight' => '3',
         ),
         'token' => array(
           'label' => 'above',
-          'module' => 'text',
           'settings' => array(),
-          'type' => 'text_default',
-          'weight' => '6',
+          'type' => 'hidden',
+          'weight' => 0,
         ),
       ),
       'entity_type' => 'log',
@@ -1704,252 +1571,7 @@ function farm_log_crops_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '5',
-      ),
-    ),
-  );
-
-  // Exported field: 'log-farm_harvest-field_farm_plantings'.
-  $fields['log-farm_harvest-field_farm_plantings'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_plantings',
-      'foreign keys' => array(
-        'log' => array(
-          'columns' => array(
-            'target_id' => 'id',
-          ),
-          'table' => 'log',
-        ),
-      ),
-      'indexes' => array(
-        'target_id' => array(
-          0 => 'target_id',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'entityreference',
-      'settings' => array(
-        'handler' => 'views',
-        'handler_settings' => array(
-          'behaviors' => array(
-            'views-select-list' => array(
-              'status' => 0,
-            ),
-          ),
-          'view' => array(
-            'args' => array(),
-            'display_name' => 'entityreference_1',
-            'view_name' => 'farm_log_planting',
-          ),
-        ),
-        'target_type' => 'log',
-      ),
-      'translatable' => '0',
-      'type' => 'entityreference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_harvest',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => 'Optionally, select plantings that are related to this harvest. This helps to connect data.',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'entityreference',
-          'settings' => array(
-            'link' => 1,
-          ),
-          'type' => 'entityreference_label',
-          'weight' => '10',
-        ),
-        'full' => array(
-          'label' => 'inline',
-          'module' => 'entityreference',
-          'settings' => array(
-            'link' => 1,
-          ),
-          'type' => 'entityreference_label',
-          'weight' => '10',
-        ),
-        'token' => array(
-          'label' => 'inline',
-          'module' => 'entityreference',
-          'settings' => array(
-            'link' => 1,
-          ),
-          'type' => 'entityreference_label',
-          'weight' => '10',
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_plantings',
-      'label' => 'Related Plantings',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'options',
-        'settings' => array(),
-        'type' => 'options_select',
-        'weight' => '8',
-      ),
-    ),
-  );
-
-  // Exported field: 'log-farm_harvest-field_farm_quantity_units'.
-  $fields['log-farm_harvest-field_farm_quantity_units'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_quantity_units',
-      'foreign keys' => array(
-        'tid' => array(
-          'columns' => array(
-            'tid' => 'tid',
-          ),
-          'table' => 'taxonomy_term_data',
-        ),
-      ),
-      'indexes' => array(
-        'tid' => array(
-          0 => 'tid',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'taxonomy',
-      'settings' => array(
-        'allowed_values' => array(
-          0 => array(
-            'vocabulary' => 'farm_quantity_units',
-            'parent' => '0',
-          ),
-        ),
-      ),
-      'translatable' => '0',
-      'type' => 'taxonomy_term_reference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_harvest',
-      'default_value' => array(),
-      'deleted' => '0',
-      'description' => 'Bushels? Pounds? Dozens?',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => '3',
-        ),
-        'full' => array(
-          'label' => 'inline',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => '3',
-        ),
-        'token' => array(
-          'label' => 'inline',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => '3',
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_quantity_units',
-      'label' => 'Units',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 0,
-        'module' => 'autocomplete_deluxe',
-        'settings' => array(
-          'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
-          'autocomplete_path' => 'taxonomy/autocomplete',
-          'size' => 60,
-        ),
-        'type' => 'autocomplete_deluxe_taxonomy',
-        'weight' => '4',
-      ),
-    ),
-  );
-
-  // Exported field: 'log-farm_harvest-field_farm_quantity_value'.
-  $fields['log-farm_harvest-field_farm_quantity_value'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_quantity_value',
-      'foreign keys' => array(),
-      'indexes' => array(),
-      'locked' => '0',
-      'module' => 'fraction',
-      'settings' => array(),
-      'translatable' => '0',
-      'type' => 'fraction',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_harvest',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => 'How much?',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'fraction',
-          'settings' => array(
-            'precision' => '3',
-          ),
-          'type' => 'fraction_decimal',
-          'weight' => '2',
-        ),
-        'full' => array(
-          'label' => 'inline',
-          'module' => 'fraction',
-          'settings' => array(
-            'precision' => '3',
-          ),
-          'type' => 'fraction_decimal',
-          'weight' => '2',
-        ),
-        'token' => array(
-          'label' => 'inline',
-          'module' => 'fraction',
-          'settings' => array(
-            'precision' => '3',
-          ),
-          'type' => 'fraction_decimal',
-          'weight' => '2',
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_quantity_value',
-      'label' => 'Quantity',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'fraction',
-        'settings' => array(
-          'precision' => '2',
-        ),
-        'type' => 'fraction_decimal',
-        'weight' => '3',
+        'weight' => '13',
       ),
     ),
   );
@@ -1992,14 +1614,14 @@ function farm_log_crops_field_default_fields() {
       'bundle' => 'farm_input',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '',
+      'description' => 'Enter a comma-separated list of areas that this an input for. As you type, you will have the option of selecting from areas that you\'ve entered in the past.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '6',
+          'weight' => '5',
         ),
         'token' => array(
           'label' => 'inline',
@@ -2017,17 +1639,14 @@ function farm_log_crops_field_default_fields() {
         'user_register_form' => FALSE,
       ),
       'widget' => array(
-        'active' => 1,
-        'module' => 'autocomplete_deluxe',
+        'active' => 0,
+        'module' => 'taxonomy',
         'settings' => array(
-          'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
-          'delimiter' => '',
-          'limit' => '10',
-          'min_length' => '0',
-          'size' => '60',
+          'autocomplete_path' => 'taxonomy/autocomplete',
+          'size' => 60,
         ),
-        'type' => 'autocomplete_deluxe_taxonomy',
-        'weight' => '5',
+        'type' => 'taxonomy_autocomplete',
+        'weight' => '3',
       ),
     ),
   );
@@ -2068,16 +1687,16 @@ function farm_log_crops_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'farm_input',
-      'default_value' => array(),
+      'default_value' => NULL,
       'deleted' => '0',
-      'description' => '',
+      'description' => 'Enter a comma-separated list of crops that this an input for. As you type, you will have the option of selecting from crops that you\'ve entered in the past.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '5',
+          'weight' => '4',
         ),
         'token' => array(
           'label' => 'inline',
@@ -2096,14 +1715,13 @@ function farm_log_crops_field_default_fields() {
       ),
       'widget' => array(
         'active' => 0,
-        'module' => 'autocomplete_deluxe',
+        'module' => 'taxonomy',
         'settings' => array(
-          'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
           'autocomplete_path' => 'taxonomy/autocomplete',
           'size' => 60,
         ),
-        'type' => 'autocomplete_deluxe_taxonomy',
-        'weight' => '4',
+        'type' => 'taxonomy_autocomplete',
+        'weight' => '2',
       ),
     ),
   );
@@ -2142,7 +1760,7 @@ function farm_log_crops_field_default_fields() {
     'field_instance' => array(
       'bundle' => 'farm_input',
       'deleted' => '0',
-      'description' => '',
+      'description' => 'Enter the date when this input took place (or will take place).',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -2156,7 +1774,7 @@ function farm_log_crops_field_default_fields() {
             'show_repeat_rule' => 'show',
           ),
           'type' => 'date_default',
-          'weight' => '1',
+          'weight' => '0',
         ),
         'token' => array(
           'label' => 'inline',
@@ -2176,7 +1794,7 @@ function farm_log_crops_field_default_fields() {
       'entity_type' => 'log',
       'field_name' => 'field_farm_date',
       'label' => 'Date',
-      'required' => 0,
+      'required' => 1,
       'settings' => array(
         'default_value' => 'now',
         'default_value2' => 'same',
@@ -2197,7 +1815,7 @@ function farm_log_crops_field_default_fields() {
           'year_range' => '-3:+3',
         ),
         'type' => 'date_popup',
-        'weight' => '2',
+        'weight' => '1',
       ),
     ),
   );
@@ -2236,14 +1854,14 @@ function farm_log_crops_field_default_fields() {
     'field_instance' => array(
       'bundle' => 'farm_input',
       'deleted' => '0',
-      'description' => '',
+      'description' => 'Use this field to attach files to this input record.',
       'display' => array(
         'default' => array(
           'label' => 'above',
           'module' => 'file',
           'settings' => array(),
           'type' => 'file_table',
-          'weight' => '10',
+          'weight' => '8',
         ),
         'token' => array(
           'label' => 'above',
@@ -2290,67 +1908,7 @@ function farm_log_crops_field_default_fields() {
           'progress_indicator' => 'bar',
         ),
         'type' => 'file_generic',
-        'weight' => '8',
-      ),
-    ),
-  );
-
-  // Exported field: 'log-farm_input-field_farm_hours'.
-  $fields['log-farm_input-field_farm_hours'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_hours',
-      'foreign keys' => array(),
-      'indexes' => array(),
-      'locked' => '0',
-      'module' => 'fraction',
-      'settings' => array(),
-      'translatable' => '0',
-      'type' => 'fraction',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_input',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => 'Record how many total hours this task took. If multiple people worked on it, multiply the time spent by the number of workers. Example: if two people worked together for 45 minutes (0.75 hours), the total time would be 1.5 hours (0.75 x 2).',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'fraction',
-          'settings' => array(
-            'precision' => 2,
-          ),
-          'type' => 'fraction_decimal',
-          'weight' => '7',
-        ),
-        'token' => array(
-          'label' => 'inline',
-          'module' => 'fraction',
-          'settings' => array(
-            'precision' => 2,
-          ),
-          'type' => 'fraction_decimal',
-          'weight' => '7',
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_hours',
-      'label' => 'Total work hours',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'fraction',
-        'settings' => array(
-          'precision' => '2',
-        ),
-        'type' => 'fraction_decimal',
-        'weight' => '7',
+        'weight' => '34',
       ),
     ),
   );
@@ -2388,17 +1946,17 @@ function farm_log_crops_field_default_fields() {
     'field_instance' => array(
       'bundle' => 'farm_input',
       'deleted' => '0',
-      'description' => '',
+      'description' => 'Use this field to attach image files to this input record.',
       'display' => array(
         'default' => array(
-          'label' => 'hidden',
+          'label' => 'above',
           'module' => 'image',
           'settings' => array(
             'image_link' => '',
             'image_style' => 'large',
           ),
           'type' => 'image',
-          'weight' => '9',
+          'weight' => '7',
         ),
         'token' => array(
           'label' => 'hidden',
@@ -2453,91 +2011,81 @@ function farm_log_crops_field_default_fields() {
           'progress_indicator' => 'bar',
         ),
         'type' => 'image_image',
-        'weight' => '7',
+        'weight' => '33',
       ),
     ),
   );
 
-  // Exported field: 'log-farm_input-field_farm_input_logs'.
-  $fields['log-farm_input-field_farm_input_logs'] = array(
+  // Exported field: 'log-farm_input-field_farm_input'.
+  $fields['log-farm_input-field_farm_input'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '-1',
+      'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_farm_input_logs',
+      'field_name' => 'field_farm_input',
       'foreign keys' => array(
-        'log' => array(
+        'tid' => array(
           'columns' => array(
-            'target_id' => 'id',
+            'tid' => 'tid',
           ),
-          'table' => 'log',
+          'table' => 'taxonomy_term_data',
         ),
       ),
       'indexes' => array(
-        'target_id' => array(
-          0 => 'target_id',
+        'tid' => array(
+          0 => 'tid',
         ),
       ),
       'locked' => '0',
-      'module' => 'entityreference',
+      'module' => 'taxonomy',
       'settings' => array(
-        'handler' => 'views',
-        'handler_settings' => array(
-          'behaviors' => array(
-            'views-select-list' => array(
-              'status' => 0,
-            ),
-          ),
-          'view' => array(
-            'args' => array(),
-            'display_name' => 'entityreference_1',
-            'view_name' => 'farm_log_input',
+        'allowed_values' => array(
+          0 => array(
+            'vocabulary' => 'farm_inputs',
+            'parent' => '0',
           ),
         ),
-        'target_type' => 'log',
       ),
       'translatable' => '0',
-      'type' => 'entityreference',
+      'type' => 'taxonomy_term_reference',
     ),
     'field_instance' => array(
       'bundle' => 'farm_input',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'Optionally, select other logged inputs that are related to this one. This helps to connect data.',
+      'description' => 'Enter the specific input that was used. For example, if you are applying a specific brand or mix of fertilizer, you would enter that here. Or it can be something simple, like "compost".',
       'display' => array(
         'default' => array(
           'label' => 'inline',
-          'module' => 'entityreference',
-          'settings' => array(
-            'link' => 1,
-          ),
-          'type' => 'entityreference_label',
-          'weight' => '13',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '2',
         ),
         'token' => array(
-          'label' => 'inline',
-          'module' => 'entityreference',
-          'settings' => array(
-            'link' => 1,
-          ),
-          'type' => 'entityreference_label',
-          'weight' => '13',
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
       ),
       'entity_type' => 'log',
-      'field_name' => 'field_farm_input_logs',
-      'label' => 'Related Inputs',
-      'required' => 0,
+      'field_name' => 'field_farm_input',
+      'label' => 'Input',
+      'required' => 1,
       'settings' => array(
         'user_register_form' => FALSE,
       ),
       'widget' => array(
-        'active' => 1,
-        'module' => 'options',
-        'settings' => array(),
-        'type' => 'options_select',
-        'weight' => '11',
+        'active' => 0,
+        'module' => 'taxonomy',
+        'settings' => array(
+          'autocomplete_path' => 'taxonomy/autocomplete',
+          'size' => 60,
+        ),
+        'type' => 'taxonomy_autocomplete',
+        'weight' => '1',
       ),
     ),
   );
@@ -2578,16 +2126,16 @@ function farm_log_crops_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'farm_input',
-      'default_value' => array(),
+      'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'What type of input is this? You can edit the input types in the <a href="/admin/structure/taxonomy/farm_input_types">input types vocabulary</a>.',
+      'description' => 'Enter the type of input that this is. For example: "fertilizer", "water", "pesticide", etc. This is used for general categorization of input records. As you type, you will have the option of selecting from input types that you\'ve entered in the past.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '0',
+          'weight' => '1',
         ),
         'token' => array(
           'label' => 'inline',
@@ -2605,174 +2153,14 @@ function farm_log_crops_field_default_fields() {
         'user_register_form' => FALSE,
       ),
       'widget' => array(
-        'active' => 1,
-        'module' => 'autocomplete_deluxe',
-        'settings' => array(
-          'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
-          'size' => 60,
-        ),
-        'type' => 'autocomplete_deluxe_taxonomy',
-        'weight' => '0',
-      ),
-    ),
-  );
-
-  // Exported field: 'log-farm_input-field_farm_inputs'.
-  $fields['log-farm_input-field_farm_inputs'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_inputs',
-      'foreign keys' => array(
-        'tid' => array(
-          'columns' => array(
-            'tid' => 'tid',
-          ),
-          'table' => 'taxonomy_term_data',
-        ),
-      ),
-      'indexes' => array(
-        'tid' => array(
-          0 => 'tid',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'taxonomy',
-      'settings' => array(
-        'allowed_values' => array(
-          0 => array(
-            'vocabulary' => 'farm_inputs',
-            'parent' => '0',
-          ),
-        ),
-      ),
-      'translatable' => '0',
-      'type' => 'taxonomy_term_reference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_input',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => '2',
-        ),
-        'token' => array(
-          'label' => 'inline',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => '2',
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_inputs',
-      'label' => 'Inputs',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
         'active' => 0,
-        'module' => 'autocomplete_deluxe',
+        'module' => 'taxonomy',
         'settings' => array(
-          'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
           'autocomplete_path' => 'taxonomy/autocomplete',
           'size' => 60,
         ),
-        'type' => 'autocomplete_deluxe_taxonomy',
-        'weight' => '3',
-      ),
-    ),
-  );
-
-  // Exported field: 'log-farm_input-field_farm_issues'.
-  $fields['log-farm_input-field_farm_issues'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_issues',
-      'foreign keys' => array(
-        'log' => array(
-          'columns' => array(
-            'target_id' => 'id',
-          ),
-          'table' => 'log',
-        ),
-      ),
-      'indexes' => array(
-        'target_id' => array(
-          0 => 'target_id',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'entityreference',
-      'settings' => array(
-        'handler' => 'views',
-        'handler_settings' => array(
-          'behaviors' => array(
-            'views-select-list' => array(
-              'status' => 0,
-            ),
-          ),
-          'view' => array(
-            'args' => array(),
-            'display_name' => 'entityreference_1',
-            'view_name' => 'farm_log_issues',
-          ),
-        ),
-        'target_type' => 'log',
-      ),
-      'translatable' => '0',
-      'type' => 'entityreference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_input',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => 'Optionally, select issues that are related to this input. This helps to connect data.',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'entityreference',
-          'settings' => array(
-            'link' => 1,
-          ),
-          'type' => 'entityreference_label',
-          'weight' => '11',
-        ),
-        'token' => array(
-          'label' => 'inline',
-          'module' => 'entityreference',
-          'settings' => array(
-            'link' => 1,
-          ),
-          'type' => 'entityreference_label',
-          'weight' => '11',
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_issues',
-      'label' => 'Related Issues',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'options',
-        'settings' => array(),
-        'type' => 'options_select',
-        'weight' => '8',
+        'type' => 'taxonomy_autocomplete',
+        'weight' => '0',
       ),
     ),
   );
@@ -2806,23 +2194,22 @@ function farm_log_crops_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'farm_input',
-      'default_value' => array(),
+      'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'inline',
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '8',
+          'weight' => '6',
         ),
         'token' => array(
           'label' => 'above',
-          'module' => 'text',
           'settings' => array(),
-          'type' => 'text_default',
-          'weight' => '8',
+          'type' => 'hidden',
+          'weight' => 0,
         ),
       ),
       'entity_type' => 'log',
@@ -2840,239 +2227,81 @@ function farm_log_crops_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '7',
-      ),
-    ),
-  );
-
-  // Exported field: 'log-farm_input-field_farm_plantings'.
-  $fields['log-farm_input-field_farm_plantings'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_plantings',
-      'foreign keys' => array(
-        'log' => array(
-          'columns' => array(
-            'target_id' => 'id',
-          ),
-          'table' => 'log',
-        ),
-      ),
-      'indexes' => array(
-        'target_id' => array(
-          0 => 'target_id',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'entityreference',
-      'settings' => array(
-        'handler' => 'views',
-        'handler_settings' => array(
-          'behaviors' => array(
-            'views-select-list' => array(
-              'status' => 0,
-            ),
-          ),
-          'view' => array(
-            'args' => array(),
-            'display_name' => 'entityreference_1',
-            'view_name' => 'farm_log_planting',
-          ),
-        ),
-        'target_type' => 'log',
-      ),
-      'translatable' => '0',
-      'type' => 'entityreference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_input',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => 'Optionally, select plantings that are related to this input. This helps to connect data.',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'entityreference',
-          'settings' => array(
-            'link' => 1,
-          ),
-          'type' => 'entityreference_label',
-          'weight' => '12',
-        ),
-        'token' => array(
-          'label' => 'inline',
-          'module' => 'entityreference',
-          'settings' => array(
-            'link' => 1,
-          ),
-          'type' => 'entityreference_label',
-          'weight' => '12',
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_plantings',
-      'label' => 'Related Plantings',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'options',
-        'settings' => array(),
-        'type' => 'options_select',
-        'weight' => '10',
-      ),
-    ),
-  );
-
-  // Exported field: 'log-farm_input-field_farm_quantity_units'.
-  $fields['log-farm_input-field_farm_quantity_units'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_quantity_units',
-      'foreign keys' => array(
-        'tid' => array(
-          'columns' => array(
-            'tid' => 'tid',
-          ),
-          'table' => 'taxonomy_term_data',
-        ),
-      ),
-      'indexes' => array(
-        'tid' => array(
-          0 => 'tid',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'taxonomy',
-      'settings' => array(
-        'allowed_values' => array(
-          0 => array(
-            'vocabulary' => 'farm_quantity_units',
-            'parent' => '0',
-          ),
-        ),
-      ),
-      'translatable' => '0',
-      'type' => 'taxonomy_term_reference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_input',
-      'default_value' => array(),
-      'deleted' => '0',
-      'description' => 'Gallons? Pounds? Handfuls?',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => '4',
-        ),
-        'token' => array(
-          'label' => 'inline',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => '4',
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_quantity_units',
-      'label' => 'Units',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 0,
-        'module' => 'autocomplete_deluxe',
-        'settings' => array(
-          'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
-          'autocomplete_path' => 'taxonomy/autocomplete',
-          'size' => 60,
-        ),
-        'type' => 'autocomplete_deluxe_taxonomy',
-        'weight' => '6',
-      ),
-    ),
-  );
-
-  // Exported field: 'log-farm_input-field_farm_quantity_value'.
-  $fields['log-farm_input-field_farm_quantity_value'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_quantity_value',
-      'foreign keys' => array(),
-      'indexes' => array(),
-      'locked' => '0',
-      'module' => 'fraction',
-      'settings' => array(),
-      'translatable' => '0',
-      'type' => 'fraction',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_input',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => 'How much?',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'fraction',
-          'settings' => array(
-            'precision' => '3',
-          ),
-          'type' => 'fraction_decimal',
-          'weight' => '3',
-        ),
-        'token' => array(
-          'label' => 'inline',
-          'module' => 'fraction',
-          'settings' => array(
-            'precision' => '3',
-          ),
-          'type' => 'fraction_decimal',
-          'weight' => '3',
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_quantity_value',
-      'label' => 'Quantity',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'fraction',
-        'settings' => array(
-          'precision' => '2',
-        ),
-        'type' => 'fraction_decimal',
         'weight' => '5',
       ),
     ),
   );
 
-  // Exported field: 'log-farm_planting-field_farm_crops'.
-  $fields['log-farm_planting-field_farm_crops'] = array(
+  // Exported field: 'log-farm_input-field_farm_quantity'.
+  $fields['log-farm_input-field_farm_quantity'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '-1',
+      'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_farm_crops',
+      'field_name' => 'field_farm_quantity',
+      'foreign keys' => array(),
+      'indexes' => array(
+        'revision_id' => array(
+          0 => 'revision_id',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'field_collection',
+      'settings' => array(
+        'hide_blank_items' => 1,
+        'path' => '',
+      ),
+      'translatable' => '0',
+      'type' => 'field_collection',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_input',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'Describe the quantity of this input, using a value and a unit of measurement. For example, if you used 10 gallons of liquid fertilizer, enter "10" in the Value field, and "gallons" in the Units field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'field_collection',
+          'settings' => array(
+            'view_mode' => 'full',
+          ),
+          'type' => 'field_collection_fields',
+          'weight' => '3',
+        ),
+        'token' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_quantity',
+      'label' => 'Quantity',
+      'required' => 1,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'field_collection',
+        'settings' => array(),
+        'type' => 'field_collection_embed',
+        'weight' => '4',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_planting-field_farm_crop'.
+  $fields['log-farm_planting-field_farm_crop'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_crop',
       'foreign keys' => array(
         'tid' => array(
           'columns' => array(
@@ -3103,7 +2332,7 @@ function farm_log_crops_field_default_fields() {
       'bundle' => 'farm_planting',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '',
+      'description' => 'Enter the crop that this is a planting of. As you type, you will have the option of selecting from crops that you\'ve entered in the past.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -3113,92 +2342,6 @@ function farm_log_crops_field_default_fields() {
           'weight' => '1',
         ),
         'token' => array(
-          'label' => 'inline',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => '2',
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_crops',
-      'label' => 'Crops',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'autocomplete_deluxe',
-        'settings' => array(
-          'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
-          'autocomplete_path' => 'taxonomy/autocomplete',
-          'size' => 60,
-        ),
-        'type' => 'autocomplete_deluxe_taxonomy',
-        'weight' => '39',
-      ),
-    ),
-  );
-
-  // Exported field: 'log-farm_planting-field_farm_cultivations'.
-  $fields['log-farm_planting-field_farm_cultivations'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_cultivations',
-      'foreign keys' => array(
-        'log' => array(
-          'columns' => array(
-            'target_id' => 'id',
-          ),
-          'table' => 'log',
-        ),
-      ),
-      'indexes' => array(
-        'target_id' => array(
-          0 => 'target_id',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'entityreference',
-      'settings' => array(
-        'handler' => 'views',
-        'handler_settings' => array(
-          'behaviors' => array(
-            'views-select-list' => array(
-              'status' => 0,
-            ),
-          ),
-          'view' => array(
-            'args' => array(),
-            'display_name' => 'entityreference_1',
-            'view_name' => 'farm_log_cultivation',
-          ),
-        ),
-        'target_type' => 'log',
-      ),
-      'translatable' => '0',
-      'type' => 'entityreference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_planting',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'entityreference',
-          'settings' => array(
-            'link' => 1,
-          ),
-          'type' => 'entityreference_label',
-          'weight' => '8',
-        ),
-        'token' => array(
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
@@ -3206,18 +2349,21 @@ function farm_log_crops_field_default_fields() {
         ),
       ),
       'entity_type' => 'log',
-      'field_name' => 'field_farm_cultivations',
-      'label' => 'Cultivations',
-      'required' => 0,
+      'field_name' => 'field_farm_crop',
+      'label' => 'Crop',
+      'required' => 1,
       'settings' => array(
         'user_register_form' => FALSE,
       ),
       'widget' => array(
-        'active' => 1,
-        'module' => 'options',
-        'settings' => array(),
-        'type' => 'options_select',
-        'weight' => '43',
+        'active' => 0,
+        'module' => 'taxonomy',
+        'settings' => array(
+          'autocomplete_path' => 'taxonomy/autocomplete',
+          'size' => 60,
+        ),
+        'type' => 'taxonomy_autocomplete',
+        'weight' => '39',
       ),
     ),
   );
@@ -3256,14 +2402,14 @@ function farm_log_crops_field_default_fields() {
     'field_instance' => array(
       'bundle' => 'farm_planting',
       'deleted' => '0',
-      'description' => '',
+      'description' => 'Use this field to attach files to this planting record.',
       'display' => array(
         'default' => array(
           'label' => 'above',
           'module' => 'file',
           'settings' => array(),
           'type' => 'file_table',
-          'weight' => '4',
+          'weight' => '5',
         ),
         'token' => array(
           'label' => 'above',
@@ -3315,87 +2461,6 @@ function farm_log_crops_field_default_fields() {
     ),
   );
 
-  // Exported field: 'log-farm_planting-field_farm_harvests'.
-  $fields['log-farm_planting-field_farm_harvests'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_harvests',
-      'foreign keys' => array(
-        'log' => array(
-          'columns' => array(
-            'target_id' => 'id',
-          ),
-          'table' => 'log',
-        ),
-      ),
-      'indexes' => array(
-        'target_id' => array(
-          0 => 'target_id',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'entityreference',
-      'settings' => array(
-        'handler' => 'views',
-        'handler_settings' => array(
-          'behaviors' => array(
-            'views-select-list' => array(
-              'status' => 0,
-            ),
-          ),
-          'view' => array(
-            'args' => array(),
-            'display_name' => 'entityreference_1',
-            'view_name' => 'farm_log_harvest',
-          ),
-        ),
-        'target_type' => 'log',
-      ),
-      'translatable' => '0',
-      'type' => 'entityreference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_planting',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'entityreference',
-          'settings' => array(
-            'link' => 1,
-          ),
-          'type' => 'entityreference_label',
-          'weight' => '7',
-        ),
-        'token' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_harvests',
-      'label' => 'Harvests',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'options',
-        'settings' => array(),
-        'type' => 'options_select',
-        'weight' => '44',
-      ),
-    ),
-  );
-
   // Exported field: 'log-farm_planting-field_farm_images'.
   $fields['log-farm_planting-field_farm_images'] = array(
     'field_config' => array(
@@ -3429,17 +2494,17 @@ function farm_log_crops_field_default_fields() {
     'field_instance' => array(
       'bundle' => 'farm_planting',
       'deleted' => '0',
-      'description' => '',
+      'description' => 'Use this field to attach image files to this planting record.',
       'display' => array(
         'default' => array(
-          'label' => 'hidden',
+          'label' => 'above',
           'module' => 'image',
           'settings' => array(
             'image_link' => '',
             'image_style' => 'large',
           ),
           'type' => 'image',
-          'weight' => '3',
+          'weight' => '4',
         ),
         'token' => array(
           'label' => 'hidden',
@@ -3499,168 +2564,6 @@ function farm_log_crops_field_default_fields() {
     ),
   );
 
-  // Exported field: 'log-farm_planting-field_farm_input_logs'.
-  $fields['log-farm_planting-field_farm_input_logs'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_input_logs',
-      'foreign keys' => array(
-        'log' => array(
-          'columns' => array(
-            'target_id' => 'id',
-          ),
-          'table' => 'log',
-        ),
-      ),
-      'indexes' => array(
-        'target_id' => array(
-          0 => 'target_id',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'entityreference',
-      'settings' => array(
-        'handler' => 'views',
-        'handler_settings' => array(
-          'behaviors' => array(
-            'views-select-list' => array(
-              'status' => 0,
-            ),
-          ),
-          'view' => array(
-            'args' => array(),
-            'display_name' => 'entityreference_1',
-            'view_name' => 'farm_log_input',
-          ),
-        ),
-        'target_type' => 'log',
-      ),
-      'translatable' => '0',
-      'type' => 'entityreference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_planting',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'entityreference',
-          'settings' => array(
-            'link' => 1,
-          ),
-          'type' => 'entityreference_label',
-          'weight' => '5',
-        ),
-        'token' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_input_logs',
-      'label' => 'Inputs',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'options',
-        'settings' => array(),
-        'type' => 'options_select',
-        'weight' => '42',
-      ),
-    ),
-  );
-
-  // Exported field: 'log-farm_planting-field_farm_issues'.
-  $fields['log-farm_planting-field_farm_issues'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_issues',
-      'foreign keys' => array(
-        'log' => array(
-          'columns' => array(
-            'target_id' => 'id',
-          ),
-          'table' => 'log',
-        ),
-      ),
-      'indexes' => array(
-        'target_id' => array(
-          0 => 'target_id',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'entityreference',
-      'settings' => array(
-        'handler' => 'views',
-        'handler_settings' => array(
-          'behaviors' => array(
-            'views-select-list' => array(
-              'status' => 0,
-            ),
-          ),
-          'view' => array(
-            'args' => array(),
-            'display_name' => 'entityreference_1',
-            'view_name' => 'farm_log_issues',
-          ),
-        ),
-        'target_type' => 'log',
-      ),
-      'translatable' => '0',
-      'type' => 'entityreference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_planting',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'entityreference',
-          'settings' => array(
-            'link' => 1,
-          ),
-          'type' => 'entityreference_label',
-          'weight' => '6',
-        ),
-        'token' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_issues',
-      'label' => 'Issues',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'options',
-        'settings' => array(),
-        'type' => 'options_select',
-        'weight' => '45',
-      ),
-    ),
-  );
-
   // Exported field: 'log-farm_planting-field_farm_notes'.
   $fields['log-farm_planting-field_farm_notes'] = array(
     'field_config' => array(
@@ -3690,23 +2593,22 @@ function farm_log_crops_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'farm_planting',
-      'default_value' => array(),
+      'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'inline',
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '2',
+          'weight' => '3',
         ),
         'token' => array(
           'label' => 'above',
-          'module' => 'text',
           'settings' => array(),
-          'type' => 'text_default',
-          'weight' => '7',
+          'type' => 'hidden',
+          'weight' => 0,
         ),
       ),
       'entity_type' => 'log',
@@ -3724,68 +2626,48 @@ function farm_log_crops_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '40',
+        'weight' => '41',
       ),
     ),
   );
 
-  // Exported field: 'log-farm_planting-field_farm_planting_locations'.
-  $fields['log-farm_planting-field_farm_planting_locations'] = array(
+  // Exported field: 'log-farm_planting-field_farm_planting_location'.
+  $fields['log-farm_planting-field_farm_planting_location'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '-1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_farm_planting_locations',
-      'foreign keys' => array(
-        'log' => array(
-          'columns' => array(
-            'target_id' => 'id',
-          ),
-          'table' => 'log',
-        ),
-      ),
+      'field_name' => 'field_farm_planting_location',
+      'foreign keys' => array(),
       'indexes' => array(
-        'target_id' => array(
-          0 => 'target_id',
+        'revision_id' => array(
+          0 => 'revision_id',
         ),
       ),
       'locked' => '0',
-      'module' => 'entityreference',
+      'module' => 'field_collection',
       'settings' => array(
-        'handler' => 'base',
-        'handler_settings' => array(
-          'behaviors' => array(
-            'views-select-list' => array(
-              'status' => 0,
-            ),
-          ),
-          'sort' => array(
-            'type' => 'none',
-          ),
-          'target_bundles' => array(
-            'farm_planting_location' => 'farm_planting_location',
-          ),
-        ),
-        'target_type' => 'log',
+        'hide_blank_items' => 1,
+        'path' => '',
       ),
       'translatable' => '0',
-      'type' => 'entityreference',
+      'type' => 'field_collection',
     ),
     'field_instance' => array(
       'bundle' => 'farm_planting',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '',
+      'description' => 'A planting may move around quite a bit in it\'s lifetime. Use these "planting location" fields to describe where the planting is, where it has been, and where it\'s going. Each "planting location" has an Area (where the planting resides), a Quantity (with a value and unit of measurement), and a Date (with an optional end date). Click "Add another item" below to add another one (if the planting moves, for example). When a planting is moved, remember to add an end date to its previous location, to indicate that it is no longer there.',
       'display' => array(
         'default' => array(
-          'label' => 'above',
-          'module' => 'entityreference',
+          'label' => 'inline',
+          'module' => 'field_collection',
           'settings' => array(
-            'link' => FALSE,
+            'view_mode' => 'full',
           ),
-          'type' => 'entityreference_label',
-          'weight' => 9,
+          'type' => 'field_collection_fields',
+          'weight' => '2',
         ),
         'token' => array(
           'label' => 'above',
@@ -3795,18 +2677,18 @@ function farm_log_crops_field_default_fields() {
         ),
       ),
       'entity_type' => 'log',
-      'field_name' => 'field_farm_planting_locations',
-      'label' => 'Locations',
-      'required' => 0,
+      'field_name' => 'field_farm_planting_location',
+      'label' => 'Location',
+      'required' => 1,
       'settings' => array(
         'user_register_form' => FALSE,
       ),
       'widget' => array(
-        'active' => 1,
-        'module' => 'options',
+        'active' => 0,
+        'module' => 'field_collection',
         'settings' => array(),
-        'type' => 'options_select',
-        'weight' => '41',
+        'type' => 'field_collection_embed',
+        'weight' => '40',
       ),
     ),
   );
@@ -3849,7 +2731,7 @@ function farm_log_crops_field_default_fields() {
       'bundle' => 'farm_planting',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '',
+      'description' => 'Assign this planting to a season. You can manage these options in the <a href="/admin/structure/taxonomy/farm_season">Seasons</a> vocabulary.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -3868,494 +2750,71 @@ function farm_log_crops_field_default_fields() {
       'entity_type' => 'log',
       'field_name' => 'field_farm_season',
       'label' => 'Season',
-      'required' => 0,
+      'required' => 1,
       'settings' => array(
         'user_register_form' => FALSE,
       ),
       'widget' => array(
         'active' => 1,
-        'module' => 'autocomplete_deluxe',
-        'settings' => array(
-          'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
-          'delimiter' => '',
-          'limit' => '10',
-          'min_length' => '0',
-          'size' => '60',
-        ),
-        'type' => 'autocomplete_deluxe_taxonomy',
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_select',
         'weight' => '38',
-      ),
-    ),
-  );
-
-  // Exported field: 'log-farm_planting_location-field_farm_areas'.
-  $fields['log-farm_planting_location-field_farm_areas'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_areas',
-      'foreign keys' => array(
-        'tid' => array(
-          'columns' => array(
-            'tid' => 'tid',
-          ),
-          'table' => 'taxonomy_term_data',
-        ),
-      ),
-      'indexes' => array(
-        'tid' => array(
-          0 => 'tid',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'taxonomy',
-      'settings' => array(
-        'allowed_values' => array(
-          0 => array(
-            'vocabulary' => 'farm_areas',
-            'parent' => '0',
-          ),
-        ),
-      ),
-      'translatable' => '0',
-      'type' => 'taxonomy_term_reference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_planting_location',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => '0',
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_areas',
-      'label' => 'Areas',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'autocomplete_deluxe',
-        'settings' => array(
-          'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
-          'delimiter' => '',
-          'limit' => '10',
-          'min_length' => '0',
-          'size' => '60',
-        ),
-        'type' => 'autocomplete_deluxe_taxonomy',
-        'weight' => '2',
-      ),
-    ),
-  );
-
-  // Exported field: 'log-farm_planting_location-field_farm_crops'.
-  $fields['log-farm_planting_location-field_farm_crops'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_crops',
-      'foreign keys' => array(
-        'tid' => array(
-          'columns' => array(
-            'tid' => 'tid',
-          ),
-          'table' => 'taxonomy_term_data',
-        ),
-      ),
-      'indexes' => array(
-        'tid' => array(
-          0 => 'tid',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'taxonomy',
-      'settings' => array(
-        'allowed_values' => array(
-          0 => array(
-            'vocabulary' => 'farm_crops',
-            'parent' => '0',
-          ),
-        ),
-      ),
-      'translatable' => '0',
-      'type' => 'taxonomy_term_reference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_planting_location',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => 5,
-        ),
-        'entityreference_view_widget' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_crops',
-      'label' => 'Crops',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'autocomplete_deluxe',
-        'settings' => array(
-          'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
-          'delimiter' => '',
-          'limit' => '10',
-          'min_length' => '0',
-          'size' => '60',
-        ),
-        'type' => 'autocomplete_deluxe_taxonomy',
-        'weight' => '1',
-      ),
-    ),
-  );
-
-  // Exported field: 'log-farm_planting_location-field_farm_date'.
-  $fields['log-farm_planting_location-field_farm_date'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_date',
-      'foreign keys' => array(),
-      'indexes' => array(),
-      'locked' => '0',
-      'module' => 'date',
-      'settings' => array(
-        'cache_count' => '4',
-        'cache_enabled' => 0,
-        'granularity' => array(
-          'day' => 'day',
-          'hour' => 0,
-          'minute' => 0,
-          'month' => 'month',
-          'second' => 0,
-          'year' => 'year',
-        ),
-        'repeat' => '0',
-        'timezone_db' => '',
-        'todate' => '',
-        'tz_handling' => 'none',
-      ),
-      'translatable' => '0',
-      'type' => 'datestamp',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_planting_location',
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'date',
-          'settings' => array(
-            'format_type' => 'long',
-            'fromto' => 'both',
-            'multiple_from' => '',
-            'multiple_number' => '',
-            'multiple_to' => '',
-            'show_repeat_rule' => 'show',
-          ),
-          'type' => 'date_default',
-          'weight' => '3',
-        ),
-        'entityreference_view_widget' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_date',
-      'label' => 'Date',
-      'required' => 0,
-      'settings' => array(
-        'default_value' => 'now',
-        'default_value2' => 'same',
-        'default_value_code' => '',
-        'default_value_code2' => '',
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'date',
-        'settings' => array(
-          'increment' => '15',
-          'input_format' => 'M j Y - g:i:sa',
-          'input_format_custom' => '',
-          'label_position' => 'above',
-          'repeat_collapsed' => 0,
-          'text_parts' => array(),
-          'year_range' => '-3:+3',
-        ),
-        'type' => 'date_popup',
-        'weight' => '0',
-      ),
-    ),
-  );
-
-  // Exported field: 'log-farm_planting_location-field_farm_notes'.
-  $fields['log-farm_planting_location-field_farm_notes'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_notes',
-      'foreign keys' => array(
-        'format' => array(
-          'columns' => array(
-            'format' => 'format',
-          ),
-          'table' => 'filter_format',
-        ),
-      ),
-      'indexes' => array(
-        'format' => array(
-          0 => 'format',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'text',
-      'settings' => array(),
-      'translatable' => '0',
-      'type' => 'text_long',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_planting_location',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'module' => 'text',
-          'settings' => array(),
-          'type' => 'text_default',
-          'weight' => '4',
-        ),
-        'entityreference_view_widget' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_notes',
-      'label' => 'Notes',
-      'required' => 0,
-      'settings' => array(
-        'text_processing' => '0',
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'text',
-        'settings' => array(
-          'rows' => '5',
-        ),
-        'type' => 'text_textarea',
-        'weight' => '5',
-      ),
-    ),
-  );
-
-  // Exported field: 'log-farm_planting_location-field_farm_quantity_units'.
-  $fields['log-farm_planting_location-field_farm_quantity_units'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_quantity_units',
-      'foreign keys' => array(
-        'tid' => array(
-          'columns' => array(
-            'tid' => 'tid',
-          ),
-          'table' => 'taxonomy_term_data',
-        ),
-      ),
-      'indexes' => array(
-        'tid' => array(
-          0 => 'tid',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'taxonomy',
-      'settings' => array(
-        'allowed_values' => array(
-          0 => array(
-            'vocabulary' => 'farm_quantity_units',
-            'parent' => '0',
-          ),
-        ),
-      ),
-      'translatable' => '0',
-      'type' => 'taxonomy_term_reference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_planting_location',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => '2',
-        ),
-        'entityreference_view_widget' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_quantity_units',
-      'label' => 'Units',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'autocomplete_deluxe',
-        'settings' => array(
-          'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
-          'delimiter' => '',
-          'limit' => '10',
-          'min_length' => '0',
-          'size' => '60',
-        ),
-        'type' => 'autocomplete_deluxe_taxonomy',
-        'weight' => '4',
-      ),
-    ),
-  );
-
-  // Exported field: 'log-farm_planting_location-field_farm_quantity_value'.
-  $fields['log-farm_planting_location-field_farm_quantity_value'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_quantity_value',
-      'foreign keys' => array(),
-      'indexes' => array(),
-      'locked' => '0',
-      'module' => 'fraction',
-      'settings' => array(),
-      'translatable' => '0',
-      'type' => 'fraction',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_planting_location',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'fraction',
-          'settings' => array(
-            'precision' => '3',
-          ),
-          'type' => 'fraction_decimal',
-          'weight' => '1',
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_quantity_value',
-      'label' => 'Quantity',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'fraction',
-        'settings' => array(
-          'precision' => '3',
-        ),
-        'type' => 'fraction_decimal',
-        'weight' => '3',
       ),
     ),
   );
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('A planting may move around quite a bit in it\'s lifetime. Use these "planting location" fields to describe where the planting is, where it has been, and where it\'s going. Each "planting location" has an Area (where the planting resides), a Quantity (with a value and unit of measurement), and a Date (with an optional end date). Click "Add another item" below to add another one (if the planting moves, for example). When a planting is moved, remember to add an end date to its previous location, to indicate that it is no longer there.');
+  t('Area');
   t('Areas');
-  t('Bushels? Pounds? Dozens?');
+  t('Assign this planting to a season. You can manage these options in the <a href="/admin/structure/taxonomy/farm_season">Seasons</a> vocabulary.');
+  t('Crop');
   t('Crops');
-  t('Cultivations');
+  t('Cultivation Type');
   t('Date');
-  t('Describe the unit of measurement for the quantity above. For example: rows, beds, feet, etc.');
+  t('Describe the quantity of this cultivation, using the Value and Units fields below. For example, if 5 beds were tilled, enter "5" in the Value field, and "beds" in the Units field.');
+  t('Describe the quantity of this harvest, using a value and a unit of measurement. For example, if you harvested 100 lbs of potatoes, enter "100" in the Value field, and "lbs" in the Units field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.');
+  t('Describe the quantity of this input, using a value and a unit of measurement. For example, if you used 10 gallons of liquid fertilizer, enter "10" in the Value field, and "gallons" in the Units field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.');
+  t('Describe the quantity of this planting, using a value and a unit of measurement. For example, if you seeded 10 flats of lettuce, enter "10" in the Value field, and "flats" in the Units field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.');
+  t('Enter a comma-separated list of areas that this an input for. As you type, you will have the option of selecting from areas that you\'ve entered in the past.');
+  t('Enter a comma-separated list of areas that this is a cultivation of. As you type, you will have the option of selecting from areas that you\'ve entered in the past.');
+  t('Enter a comma-separated list of areas that were harvested from. As you type, you will have the option of selecting from areas that you\'ve entered in the past.');
+  t('Enter a comma-separated list of crops that this an input for. As you type, you will have the option of selecting from crops that you\'ve entered in the past.');
+  t('Enter a comma-separated list of crops that this is a cultivation of. As you type, you will have the option of selecting from crops that you\'ve entered in the past.');
+  t('Enter the area in which this planting resides. As you type, you will have the option of selecting from areas that you\'ve entered in the past.');
+  t('Enter the crop that this is a planting of. As you type, you will have the option of selecting from crops that you\'ve entered in the past.');
+  t('Enter the crop that was (or will be) harvested. As you type, you will have the option of selecting from crops that you\'ve entered in the past.');
+  t('Enter the date that the planting came to reside in this location.');
+  t('Enter the date when this cultivation took place (or will take place).');
+  t('Enter the date when this harvest took place (or will take place).');
+  t('Enter the date when this input took place (or will take place).');
+  t('Enter the specific input that was used. For example, if you are applying a specific brand or mix of fertilizer, you would enter that here. Or it can be something simple, like "compost".');
+  t('Enter the type of cultivation that this is. For example: "tilling", or "hand weeding". As you type, you will have the option of selecting from types that you\'ve entered in the past.');
+  t('Enter the type of input that this is. For example: "fertilizer", "water", "pesticide", etc. This is used for general categorization of input records. As you type, you will have the option of selecting from input types that you\'ve entered in the past.');
   t('Files');
-  t('Gallons? Pounds? Handfuls?');
   t('Harvest Date');
-  t('Harvests');
-  t('How much was cultivated? Use this to describe how much was done. Describe the units below.');
-  t('How much?');
+  t('Harvest List');
   t('Images');
+  t('Input');
   t('Input Type');
-  t('Inputs');
-  t('Issues');
-  t('Locations');
+  t('Location');
   t('Notes');
-  t('Optionally, select issues that are related to this cultivation. This helps to connect data.');
-  t('Optionally, select issues that are related to this harvest. This helps to connect data.');
-  t('Optionally, select issues that are related to this input. This helps to connect data.');
-  t('Optionally, select other cultivations that are related to this one. This helps to connect data.');
-  t('Optionally, select other harvests that are related to this one. This helps to connect data.');
-  t('Optionally, select other logged inputs that are related to this one. This helps to connect data.');
-  t('Optionally, select plantings that are related to this harvest. This helps to connect data.');
-  t('Optionally, select plantings that are related to this input. This helps to connect data.');
+  t('Planting is still here');
   t('Quantity');
-  t('Record how many total hours this task took. If multiple people worked on it, multiply the time spent by the number of workers. Example: if two people worked together for 45 minutes (0.75 hours), the total time would be 1.5 hours (0.75 x 2).');
-  t('Related Cultivations');
-  t('Related Harvests');
-  t('Related Inputs');
-  t('Related Issues');
-  t('Related Plantings');
   t('Season');
-  t('Total work hours');
   t('Units');
-  t('What type of input is this? You can edit the input types in the <a href="/admin/structure/taxonomy/farm_input_types">input types vocabulary</a>.');
+  t('Use these "harvest list" fields to record what was (or will be) harvested. Each list item has a Crop (what was harvested) and a Quantity (with a value and unit of measurement). Click "Add another item" below to add more harvest items to the list.');
+  t('Use this field to attach files to this cultivation record.');
+  t('Use this field to attach files to this harvest record.');
+  t('Use this field to attach files to this input record.');
+  t('Use this field to attach files to this planting record.');
+  t('Use this field to attach image files to this cultivation record.');
+  t('Use this field to attach image files to this harvest record.');
+  t('Use this field to attach image files to this input record.');
+  t('Use this field to attach image files to this planting record.');
+  t('Value');
 
   return $fields;
 }

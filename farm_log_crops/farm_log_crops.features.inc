@@ -34,7 +34,7 @@ function farm_log_crops_default_log_type() {
     "type" : "farm_cultivation",
     "label" : "Cultivation",
     "weight" : 0,
-    "name_pattern" : "Cultivate [log:field_farm_quantity_value] [log:field-farm-quantity-units] [log:field-farm-areas] [log:field-farm-crops]",
+    "name_pattern" : "Cultivate [log:field-farm-areas] [log:field-farm-crops]",
     "rdf_mapping" : []
   }');
   $items['farm_harvest'] = entity_import('log_type', '{
@@ -48,21 +48,14 @@ function farm_log_crops_default_log_type() {
     "type" : "farm_input",
     "label" : "Input",
     "weight" : 0,
-    "name_pattern" : "[log:field-farm-input-type] [log:field_farm_quantity_value] [log:field-farm-quantity-units] [log:field-farm-inputs] [log:field-farm-areas] [log:field-farm-crops]",
+    "name_pattern" : "[log:field-farm-input-type] [log:field-farm-input] [log:field-farm-areas] [log:field-farm-crops]",
     "rdf_mapping" : []
   }');
   $items['farm_planting'] = entity_import('log_type', '{
     "type" : "farm_planting",
     "label" : "Planting",
     "weight" : 0,
-    "name_pattern" : "[log:field-farm-crops] [log:field-farm-season]",
-    "rdf_mapping" : []
-  }');
-  $items['farm_planting_location'] = entity_import('log_type', '{
-    "type" : "farm_planting_location",
-    "label" : "Planting Location",
-    "weight" : 0,
-    "name_pattern" : "[log:field-farm-crops] in [log:field-farm-areas]",
+    "name_pattern" : "[log:field-farm-crop] [log:field-farm-season]",
     "rdf_mapping" : []
   }');
   return $items;

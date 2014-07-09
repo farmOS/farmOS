@@ -10,6 +10,125 @@
 function farm_log_field_default_fields() {
   $fields = array();
 
+  // Exported field: 'field_collection_item-field_farm_quantity-field_farm_quantity_units'.
+  $fields['field_collection_item-field_farm_quantity-field_farm_quantity_units'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_quantity_units',
+      'foreign keys' => array(
+        'tid' => array(
+          'columns' => array(
+            'tid' => 'tid',
+          ),
+          'table' => 'taxonomy_term_data',
+        ),
+      ),
+      'indexes' => array(
+        'tid' => array(
+          0 => 'tid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'taxonomy',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => array(
+            'vocabulary' => 'farm_quantity_units',
+            'parent' => '0',
+          ),
+        ),
+      ),
+      'translatable' => '0',
+      'type' => 'taxonomy_term_reference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'field_farm_quantity',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'hidden',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_plain',
+          'weight' => '1',
+        ),
+      ),
+      'entity_type' => 'field_collection_item',
+      'field_name' => 'field_farm_quantity_units',
+      'label' => 'Units',
+      'required' => 1,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'taxonomy',
+        'settings' => array(
+          'autocomplete_path' => 'taxonomy/autocomplete',
+          'size' => 60,
+        ),
+        'type' => 'taxonomy_autocomplete',
+        'weight' => '1',
+      ),
+    ),
+  );
+
+  // Exported field: 'field_collection_item-field_farm_quantity-field_farm_quantity_value'.
+  $fields['field_collection_item-field_farm_quantity-field_farm_quantity_value'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_quantity_value',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'locked' => '0',
+      'module' => 'fraction',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'fraction',
+    ),
+    'field_instance' => array(
+      'bundle' => 'field_farm_quantity',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'hidden',
+          'module' => 'fraction',
+          'settings' => array(
+            'precision' => 2,
+          ),
+          'type' => 'fraction_decimal',
+          'weight' => '0',
+        ),
+      ),
+      'entity_type' => 'field_collection_item',
+      'field_name' => 'field_farm_quantity_value',
+      'label' => 'Value',
+      'required' => 1,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'fraction',
+        'settings' => array(
+          'precision' => '2',
+        ),
+        'type' => 'fraction_decimal',
+        'weight' => 0,
+      ),
+    ),
+  );
+
   // Exported field: 'log-farm_issue-field_farm_areas'.
   $fields['log-farm_issue-field_farm_areas'] = array(
     'field_config' => array(
@@ -48,14 +167,14 @@ function farm_log_field_default_fields() {
       'bundle' => 'farm_issue',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '',
+      'description' => 'Enter a comma-separated list of areas that this an issue for. As you type, you will have the option of selecting from areas that you\'ve entered in the past.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '2',
+          'weight' => '4',
         ),
         'token' => array(
           'label' => 'inline',
@@ -73,17 +192,14 @@ function farm_log_field_default_fields() {
         'user_register_form' => FALSE,
       ),
       'widget' => array(
-        'active' => 1,
-        'module' => 'autocomplete_deluxe',
+        'active' => 0,
+        'module' => 'taxonomy',
         'settings' => array(
-          'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
-          'delimiter' => '',
-          'limit' => '10',
-          'min_length' => '0',
-          'size' => '60',
+          'autocomplete_path' => 'taxonomy/autocomplete',
+          'size' => 60,
         ),
-        'type' => 'autocomplete_deluxe_taxonomy',
-        'weight' => '4',
+        'type' => 'taxonomy_autocomplete',
+        'weight' => '36',
       ),
     ),
   );
@@ -124,16 +240,16 @@ function farm_log_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'farm_issue',
-      'default_value' => array(),
+      'default_value' => NULL,
       'deleted' => '0',
-      'description' => '',
+      'description' => 'Enter a comma-separated list of crops that this an issue for. As you type, you will have the option of selecting from crops that you\'ve entered in the past.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '1',
+          'weight' => '3',
         ),
         'token' => array(
           'label' => 'inline',
@@ -151,15 +267,14 @@ function farm_log_field_default_fields() {
         'user_register_form' => FALSE,
       ),
       'widget' => array(
-        'active' => 1,
-        'module' => 'autocomplete_deluxe',
+        'active' => 0,
+        'module' => 'taxonomy',
         'settings' => array(
-          'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
           'autocomplete_path' => 'taxonomy/autocomplete',
           'size' => 60,
         ),
-        'type' => 'autocomplete_deluxe_taxonomy',
-        'weight' => '3',
+        'type' => 'taxonomy_autocomplete',
+        'weight' => '35',
       ),
     ),
   );
@@ -198,7 +313,7 @@ function farm_log_field_default_fields() {
     'field_instance' => array(
       'bundle' => 'farm_issue',
       'deleted' => '0',
-      'description' => '',
+      'description' => 'Enter the date that this became an issue.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -232,7 +347,7 @@ function farm_log_field_default_fields() {
       'entity_type' => 'log',
       'field_name' => 'field_farm_date',
       'label' => 'Date',
-      'required' => 0,
+      'required' => 1,
       'settings' => array(
         'default_value' => 'now',
         'default_value2' => 'same',
@@ -292,14 +407,14 @@ function farm_log_field_default_fields() {
     'field_instance' => array(
       'bundle' => 'farm_issue',
       'deleted' => '0',
-      'description' => '',
+      'description' => 'Use this field to attach files to this issue record.',
       'display' => array(
         'default' => array(
           'label' => 'above',
           'module' => 'file',
           'settings' => array(),
           'type' => 'file_table',
-          'weight' => '9',
+          'weight' => '7',
         ),
         'token' => array(
           'label' => 'above',
@@ -351,66 +466,6 @@ function farm_log_field_default_fields() {
     ),
   );
 
-  // Exported field: 'log-farm_issue-field_farm_hours'.
-  $fields['log-farm_issue-field_farm_hours'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_hours',
-      'foreign keys' => array(),
-      'indexes' => array(),
-      'locked' => '0',
-      'module' => 'fraction',
-      'settings' => array(),
-      'translatable' => '0',
-      'type' => 'fraction',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_issue',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => 'Record how many total hours this task took. If multiple people worked on it, multiply the time spent by the number of workers. Example: if two people worked together for 45 minutes (0.75 hours), the total time would be 1.5 hours (0.75 x 2).',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'fraction',
-          'settings' => array(
-            'precision' => '2',
-          ),
-          'type' => 'fraction_decimal',
-          'weight' => '5',
-        ),
-        'token' => array(
-          'label' => 'inline',
-          'module' => 'fraction',
-          'settings' => array(
-            'precision' => '2',
-          ),
-          'type' => 'fraction_decimal',
-          'weight' => '5',
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_hours',
-      'label' => 'Total work hours',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'fraction',
-        'settings' => array(
-          'precision' => '2',
-        ),
-        'type' => 'fraction_decimal',
-        'weight' => '6',
-      ),
-    ),
-  );
-
   // Exported field: 'log-farm_issue-field_farm_images'.
   $fields['log-farm_issue-field_farm_images'] = array(
     'field_config' => array(
@@ -444,17 +499,17 @@ function farm_log_field_default_fields() {
     'field_instance' => array(
       'bundle' => 'farm_issue',
       'deleted' => '0',
-      'description' => '',
+      'description' => 'Use this field to attach image files to this issue record.',
       'display' => array(
         'default' => array(
-          'label' => 'hidden',
+          'label' => 'above',
           'module' => 'image',
           'settings' => array(
             'image_link' => '',
             'image_style' => 'large',
           ),
           'type' => 'image',
-          'weight' => '7',
+          'weight' => '6',
         ),
         'token' => array(
           'label' => 'hidden',
@@ -514,90 +569,6 @@ function farm_log_field_default_fields() {
     ),
   );
 
-  // Exported field: 'log-farm_issue-field_farm_issues'.
-  $fields['log-farm_issue-field_farm_issues'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_issues',
-      'foreign keys' => array(
-        'log' => array(
-          'columns' => array(
-            'target_id' => 'id',
-          ),
-          'table' => 'log',
-        ),
-      ),
-      'indexes' => array(
-        'target_id' => array(
-          0 => 'target_id',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'entityreference',
-      'settings' => array(
-        'handler' => 'views',
-        'handler_settings' => array(
-          'behaviors' => array(
-            'views-select-list' => array(
-              'status' => 0,
-            ),
-          ),
-          'view' => array(
-            'args' => array(),
-            'display_name' => 'entityreference_1',
-            'view_name' => 'farm_log_issues',
-          ),
-        ),
-        'target_type' => 'log',
-      ),
-      'translatable' => '0',
-      'type' => 'entityreference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_issue',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => 'Optionally, select other issues that are related to this one. This helps to connect data.',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'entityreference',
-          'settings' => array(
-            'link' => 1,
-          ),
-          'type' => 'entityreference_label',
-          'weight' => '8',
-        ),
-        'token' => array(
-          'label' => 'inline',
-          'module' => 'entityreference',
-          'settings' => array(
-            'link' => 1,
-          ),
-          'type' => 'entityreference_label',
-          'weight' => '8',
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_issues',
-      'label' => 'Related Issues',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'options',
-        'settings' => array(),
-        'type' => 'options_select',
-        'weight' => '8',
-      ),
-    ),
-  );
-
   // Exported field: 'log-farm_issue-field_farm_notes'.
   $fields['log-farm_issue-field_farm_notes'] = array(
     'field_config' => array(
@@ -632,11 +603,11 @@ function farm_log_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'inline',
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '6',
+          'weight' => '5',
         ),
         'token' => array(
           'label' => 'above',
@@ -661,7 +632,7 @@ function farm_log_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '34',
+        'weight' => '37',
       ),
     ),
   );
@@ -704,14 +675,14 @@ function farm_log_field_default_fields() {
       'bundle' => 'farm_issue',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '',
+      'description' => 'How important is this issue? You can manage available priority levels in the <a href="/admin/structure/taxonomy/farm_priority">Priority Levels</a> vocabulary.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_plain',
-          'weight' => '3',
+          'weight' => '1',
         ),
         'token' => array(
           'label' => 'inline',
@@ -774,16 +745,16 @@ function farm_log_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'farm_issue',
-      'default_value' => array(),
+      'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'List any threats involved with this issue. This helps to categorize data. Separate each threat with a comma. As you type, you will have the option of selecting from threats that you\'ve entered in the past.',
+      'description' => 'Enter a comma-separated list of threats that this issue includes. For example: "drought", "flooding", "locusts", etc. As you type, you will have the option of selecting from threats that you\'ve entered in the past.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '4',
+          'weight' => '2',
         ),
         'token' => array(
           'label' => 'inline',
@@ -802,14 +773,13 @@ function farm_log_field_default_fields() {
       ),
       'widget' => array(
         'active' => 0,
-        'module' => 'autocomplete_deluxe',
+        'module' => 'taxonomy',
         'settings' => array(
-          'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
           'autocomplete_path' => 'taxonomy/autocomplete',
           'size' => 60,
         ),
-        'type' => 'autocomplete_deluxe_taxonomy',
-        'weight' => '35',
+        'type' => 'taxonomy_autocomplete',
+        'weight' => '34',
       ),
     ),
   );
@@ -819,16 +789,18 @@ function farm_log_field_default_fields() {
   t('Areas');
   t('Crops');
   t('Date');
+  t('Enter a comma-separated list of areas that this an issue for. As you type, you will have the option of selecting from areas that you\'ve entered in the past.');
+  t('Enter a comma-separated list of crops that this an issue for. As you type, you will have the option of selecting from crops that you\'ve entered in the past.');
+  t('Enter a comma-separated list of threats that this issue includes. For example: "drought", "flooding", "locusts", etc. As you type, you will have the option of selecting from threats that you\'ve entered in the past.');
+  t('Enter the date that this became an issue.');
   t('Files');
+  t('How important is this issue? You can manage available priority levels in the <a href="/admin/structure/taxonomy/farm_priority">Priority Levels</a> vocabulary.');
   t('Images');
-  t('List any threats involved with this issue. This helps to categorize data. Separate each threat with a comma. As you type, you will have the option of selecting from threats that you\'ve entered in the past.');
   t('Notes');
-  t('Optionally, select other issues that are related to this one. This helps to connect data.');
   t('Priority');
-  t('Record how many total hours this task took. If multiple people worked on it, multiply the time spent by the number of workers. Example: if two people worked together for 45 minutes (0.75 hours), the total time would be 1.5 hours (0.75 x 2).');
-  t('Related Issues');
   t('Threats');
-  t('Total work hours');
+  t('Use this field to attach files to this issue record.');
+  t('Use this field to attach image files to this issue record.');
 
   return $fields;
 }
