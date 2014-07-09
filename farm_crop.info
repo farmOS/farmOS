@@ -2,7 +2,6 @@ name = Farm Crop
 description = Features for managing farm crops.
 core = 7.x
 package = Farm
-dependencies[] = autocomplete_deluxe
 dependencies[] = features
 dependencies[] = field_group
 dependencies[] = image

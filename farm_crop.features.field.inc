@@ -67,13 +67,13 @@ function farm_crop_field_default_fields() {
       ),
       'widget' => array(
         'active' => 0,
-        'module' => 'autocomplete_deluxe',
+        'module' => 'taxonomy',
         'settings' => array(
           'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
           'autocomplete_path' => 'taxonomy/autocomplete',
           'size' => 60,
         ),
-        'type' => 'autocomplete_deluxe_taxonomy',
+        'type' => 'taxonomy_autocomplete',
         'weight' => '4',
       ),
     ),
@@ -115,7 +115,7 @@ function farm_crop_field_default_fields() {
     ),
     'field_instance' => array(
       'bundle' => 'farm_crops',
-      'default_value' => NULL,
+      'default_value' => array(),
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -142,15 +142,16 @@ function farm_crop_field_default_fields() {
       ),
       'widget' => array(
         'active' => 1,
-        'module' => 'autocomplete_deluxe',
+        'module' => 'taxonomy',
         'settings' => array(
           'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
+          'autocomplete_path' => 'taxonomy/autocomplete',
           'delimiter' => '',
           'limit' => '10',
           'min_length' => '0',
           'size' => '60',
         ),
-        'type' => 'autocomplete_deluxe_taxonomy',
+        'type' => 'taxonomy_autocomplete',
         'weight' => '3',
       ),
     ),
