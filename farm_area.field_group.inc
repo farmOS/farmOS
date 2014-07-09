@@ -52,8 +52,8 @@ function farm_area_field_group_info() {
     'label' => 'Attach Files',
     'weight' => '3',
     'children' => array(
-      0 => 'field_farm_images',
-      1 => 'field_farm_files',
+      0 => 'field_farm_files',
+      1 => 'field_farm_images',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
