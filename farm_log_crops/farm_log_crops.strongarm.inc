@@ -139,6 +139,20 @@ function farm_log_crops_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_taxonomy_term_farm_cultivation_types_pattern';
+  $strongarm->value = 'farm/cultivation-type/[term:name]';
+  $export['pathauto_taxonomy_term_farm_cultivation_types_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_taxonomy_term_farm_inputs_pattern';
+  $strongarm->value = 'farm/input/[term:name]';
+  $export['pathauto_taxonomy_term_farm_inputs_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_taxonomy_term_farm_input_types_pattern';
   $strongarm->value = 'farm/input-type/[term:name]';
   $export['pathauto_taxonomy_term_farm_input_types_pattern'] = $strongarm;
