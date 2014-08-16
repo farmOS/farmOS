@@ -60,7 +60,7 @@ projects[log][subdir] = "contrib"
 projects[log][version] = "1.x"
 
 projects[openlayers][subdir] = "contrib"
-projects[openlayers][version] = "2.0-beta9"
+projects[openlayers][version] = "2.x-dev"
 
 projects[panels][subdir] = "contrib"
 projects[panels][version] = "3.4"
