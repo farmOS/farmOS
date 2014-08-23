@@ -140,3 +140,10 @@ projects[farm_taxonomy][subdir] = "farm"
 projects[farm_taxonomy][download][type] = "git"
 projects[farm_taxonomy][download][url] = "http://github.com/farmier/farm_taxonomy.git"
 projects[farm_taxonomy][download][branch] = "7.x-1.x"
+
+; -----------------------------------------------------------------------------
+; Libraries
+; -----------------------------------------------------------------------------
+
+libraries[openlayers][download][type] = "get"
+libraries[openlayers][download][url] = "http://openlayers.org/download/OpenLayers-2.13.1.tar.gz"
