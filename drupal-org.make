@@ -93,53 +93,29 @@ projects[views][version] = "3.8"
 ; Modules (farm)
 ; -----------------------------------------------------------------------------
 
-projects[farm_admin][type] = "module"
 projects[farm_admin][subdir] = "farm"
-projects[farm_admin][download][type] = "git"
-projects[farm_admin][download][url] = "http://git.drupal.org/project/farm_admin.git"
-projects[farm_admin][download][branch] = "7.x-1.x"
+projects[farm_admin][version] = "1.x-dev"
 
-projects[farm_area][type] = "module"
 projects[farm_area][subdir] = "farm"
-projects[farm_area][download][type] = "git"
-projects[farm_area][download][url] = "http://git.drupal.org/project/farm_area.git"
-projects[farm_area][download][branch] = "7.x-1.x"
+projects[farm_area][version] = "1.x-dev"
 
-projects[farm_crop][type] = "module"
 projects[farm_crop][subdir] = "farm"
-projects[farm_crop][download][type] = "git"
-projects[farm_crop][download][url] = "http://git.drupal.org/project/farm_crop.git"
-projects[farm_crop][download][branch] = "7.x-1.x"
+projects[farm_crop][version] = "1.x-dev"
 
-projects[farm_csa][type] = "module"
 projects[farm_csa][subdir] = "farm"
-projects[farm_csa][download][type] = "git"
-projects[farm_csa][download][url] = "http://git.drupal.org/project/farm_csa.git"
-projects[farm_csa][download][branch] = "7.x-1.x"
+projects[farm_csa][version] = "1.x-dev"
 
-projects[farm_delivery][type] = "module"
 projects[farm_delivery][subdir] = "farm"
-projects[farm_delivery][download][type] = "git"
-projects[farm_delivery][download][url] = "http://git.drupal.org/project/farm_delivery.git"
-projects[farm_delivery][download][branch] = "7.x-1.x"
+projects[farm_delivery][version] = "1.x-dev"
 
-projects[farm_log][type] = "module"
 projects[farm_log][subdir] = "farm"
-projects[farm_log][download][type] = "git"
-projects[farm_log][download][url] = "http://git.drupal.org/project/farm_log.git"
-projects[farm_log][download][branch] = "7.x-1.x"
+projects[farm_log][version] = "1.x-dev"
 
-projects[farm_map][type] = "module"
 projects[farm_map][subdir] = "farm"
-projects[farm_map][download][type] = "git"
-projects[farm_map][download][url] = "http://git.drupal.org/project/farm_map.git"
-projects[farm_map][download][branch] = "7.x-1.x"
+projects[farm_map][version] = "1.x-dev"
 
-projects[farm_taxonomy][type] = "module"
 projects[farm_taxonomy][subdir] = "farm"
-projects[farm_taxonomy][download][type] = "git"
-projects[farm_taxonomy][download][url] = "http://git.drupal.org/project/farm_taxonomy.git"
-projects[farm_taxonomy][download][branch] = "7.x-1.x"
+projects[farm_taxonomy][version] = "1.x-dev"
 
 ; -----------------------------------------------------------------------------
 ; Libraries
