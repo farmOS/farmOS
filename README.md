@@ -1,0 +1,53 @@
+FARM LOG
+========
+
+Provides various log types used in farming.
+
+Currently the following log types are provided:
+
+* Planting
+* Input
+* Cultivation
+* Harvest
+* Issue
+
+This module is part of the [Drupal Farm](http://drupal.org/project/farm)
+distribution.
+
+DEPENDENCIES
+------------
+
+This module depends on the following modules:
+
+ * Ctools (http://drupal.org/project/ctools)
+ * Date (http://drupal.org/project/date)
+ * Entity API (http://drupal.org/project/entity)
+ * Entity Reference (http://drupal.org/project/entityreference)
+ * Features (http://drupal.org/project/features)
+ * Field Collection (http://drupal.org/project/field_collection)
+ * Field Group (http://drupal.org/project/field_group)
+ * Filefield Paths (http://drupal.org/project/filefield_paths)
+ * Fraction (http://drupal.org/project/fraction)
+ * Log (http://drupal.org/project/log)
+ * Views (http://drupal.org/project/views)
+ * Farm Area (http://drupal.org/project/farm_area)
+ * Farm Crop (http://drupal.org/project/farm_crop)
+ * Farm Taxonomy (http://drupal.org/project/farm_taxonomy)
+
+INSTALLATION
+------------
+
+Install as you would normally install a contributed drupal module. See:
+http://drupal.org/documentation/install/modules-themes/modules-7 for further
+information.
+
+MAINTAINERS
+-----------
+
+Current maintainers:
+ * Michael Stenta (m.stenta) - https://drupal.org/user/581414
+
+This project has been sponsored by:
+ * [Farmier](http://farmier.com)
+   Built on top of Drupal Farm, Farmier is a hosted platform that provides
+   website and farm management tools to farmers in the cloud.
