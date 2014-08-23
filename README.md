@@ -1,0 +1,39 @@
+FARM ADMIN
+==========
+
+Administrative interface for managing the farm.
+
+This module provides a Panels page dashboard at /admin/farm. It is used by the
+other Farm modules (ie: [Farm Log](http://drupal.org/project/farm_log)) as a
+root path in the Drupal menu hierarchy.
+
+This module is part of the [Drupal Farm](http://drupal.org/project/farm)
+distribution.
+
+DEPENDENCIES
+------------
+
+This module depends on the following modules:
+
+ * Ctools (http://drupal.org/project/ctools)
+ * Panels and Page Manager (http://drupal.org/project/panels)
+ * Farm Area (http://drupal.org/project/farm_area)
+ * Farm Crop (http://drupal.org/project/farm_crop)
+
+INSTALLATION
+------------
+
+Install as you would normally install a contributed drupal module. See:
+http://drupal.org/documentation/install/modules-themes/modules-7 for further
+information.
+
+MAINTAINERS
+-----------
+
+Current maintainers:
+ * Michael Stenta (m.stenta) - https://drupal.org/user/581414
+
+This project has been sponsored by:
+ * [Farmier](http://farmier.com)
+   Built on top of Drupal Farm, Farmier is a hosted platform that provides
+   website and farm management tools to farmers in the cloud.
