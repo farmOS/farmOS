@@ -15,6 +15,10 @@ comes pre-packaged with a set of farm-related modules, including:
 * [Farm Taxonomy](http://drupal.org/project/farm_taxonomy)
 * [Farm Admin](http://drupal.org/project/farm_admin)
 
+Drupal.org is the location of the canonical repositories and mainline branches.
+Github.org is also used as a mirror, and for some of the more experimental
+development. See http://github.org/farmier for a list of repositories.
+
 INSTALLATION
 ------------
 
