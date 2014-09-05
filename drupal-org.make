@@ -122,4 +122,4 @@ projects[farm_taxonomy][version] = "1.x-dev"
 ; -----------------------------------------------------------------------------
 
 libraries[openlayers][download][type] = "get"
-libraries[openlayers][download][url] = "http://openlayers.org/download/OpenLayers-2.13.1.tar.gz"
+libraries[openlayers][download][url] = "http://github.com/openlayers/openlayers/releases/download/release-2.13.1/OpenLayers-2.13.1.tar.gz"
