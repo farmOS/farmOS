@@ -7,6 +7,25 @@
 include_once 'farm_admin.features.inc';
 
 /**
+ * Implements hook_menu().
+ */
+function farm_admin_menu() {
+
+  // Root farm configuration path.
+  $items['admin/config/farm'] = array(
+    'title' => 'Farm',
+    'description' => 'Configure settings for your farm.',
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('access administration pages'),
+    'type' => MENU_NORMAL_ITEM,
+    'file path' => drupal_get_path('module', 'system'),
+    'file' => 'system.admin.inc',
+  );
+
+  return $items;
+}
+
+/**
  * Implements hook_navbar().
  */
 function farm_admin_navbar() {
