@@ -17,6 +17,9 @@ projects[commerce][version] = "1.9"
 projects[commerce_features][subdir] = "contrib"
 projects[commerce_features][version] = "1.0"
 
+projects[commerce_price_savings_formatter][subdir] = "contrib"
+projects[commerce_price_savings_formatter][version] = "1.4"
+
 projects[ctools][subdir] = "contrib"
 projects[ctools][version] = "1.4"
 
