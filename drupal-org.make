@@ -12,7 +12,7 @@ projects[autocomplete_deluxe][subdir] = "contrib"
 projects[autocomplete_deluxe][version] = "2.0-beta3"
 
 projects[commerce][subdir] = "contrib"
-projects[commerce][version] = "1.9"
+projects[commerce][version] = "1.10"
 
 projects[commerce_features][subdir] = "contrib"
 projects[commerce_features][version] = "1.0"
