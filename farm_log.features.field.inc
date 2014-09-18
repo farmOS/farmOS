@@ -104,7 +104,8 @@ function farm_log_field_default_fields() {
           'label' => 'hidden',
           'module' => 'fraction',
           'settings' => array(
-            'precision' => 2,
+            'auto_precision' => 1,
+            'precision' => '0',
           ),
           'type' => 'fraction_decimal',
           'weight' => '0',
@@ -121,7 +122,8 @@ function farm_log_field_default_fields() {
         'active' => 1,
         'module' => 'fraction',
         'settings' => array(
-          'precision' => '2',
+          'auto_precision' => 1,
+          'precision' => '0',
         ),
         'type' => 'fraction_decimal',
         'weight' => 0,
