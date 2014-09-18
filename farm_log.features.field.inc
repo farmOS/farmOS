@@ -801,8 +801,10 @@ function farm_log_field_default_fields() {
   t('Notes');
   t('Priority');
   t('Threats');
+  t('Units');
   t('Use this field to attach files to this issue record.');
   t('Use this field to attach image files to this issue record.');
+  t('Value');
 
   return $fields;
 }
