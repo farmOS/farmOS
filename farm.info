@@ -9,14 +9,12 @@ core = 7.x
 ; Core
 dependencies[] = block
 dependencies[] = contextual
-dependencies[] = dashboard
 dependencies[] = field
 dependencies[] = field_sql_storage
 dependencies[] = field_ui
 dependencies[] = filter
 dependencies[] = menu
 dependencies[] = node
-dependencies[] = overlay
 dependencies[] = path
 dependencies[] = rdf
 dependencies[] = shortcut
