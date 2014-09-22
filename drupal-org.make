@@ -62,6 +62,9 @@ projects[libraries][version] = "2.2"
 projects[log][subdir] = "contrib"
 projects[log][version] = "1.x"
 
+projects[navbar][subdir] = "contrib"
+projects[navbar][version] = "1.4"
+
 projects[openlayers][subdir] = "contrib"
 projects[openlayers][version] = "2.x-dev"
 
@@ -124,5 +127,14 @@ projects[farm_taxonomy][version] = "1.x-dev"
 ; Libraries
 ; -----------------------------------------------------------------------------
 
+libraries[backbone][download][type] = "get"
+libraries[backbone][download][url] = "http://github.com/documentcloud/backbone/archive/1.1.2.zip"
+
+libraries[modernizr][download][type] = "get"
+libraries[modernizr][download][url] = "http://github.com/modernizr/modernizr/archive/v2.8.3.tar.gz"
+
 libraries[openlayers][download][type] = "get"
 libraries[openlayers][download][url] = "http://github.com/openlayers/openlayers/releases/download/release-2.13.1/OpenLayers-2.13.1.tar.gz"
+
+libraries[underscore][download][type] = "get"
+libraries[underscore][download][url] = "http://github.com/documentcloud/underscore/archive/1.7.0.zip"

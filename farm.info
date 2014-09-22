@@ -22,9 +22,11 @@ dependencies[] = rdf
 dependencies[] = shortcut
 dependencies[] = system
 dependencies[] = taxonomy
-dependencies[] = toolbar
 dependencies[] = user
 dependencies[] = dblog
+
+; Contrib
+dependencies[] = navbar
 
 ; Farm
 dependencies[] = farm_admin
