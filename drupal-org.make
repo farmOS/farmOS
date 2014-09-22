@@ -51,7 +51,7 @@ projects[geocoder][subdir] = "contrib"
 projects[geocoder][version] = "1.2"
 
 projects[geofield][subdir] = "contrib"
-projects[geofield][version] = "2.1"
+projects[geofield][version] = "2.3"
 
 projects[geophp][subdir] = "contrib"
 projects[geophp][version] = "1.7"
