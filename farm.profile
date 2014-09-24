@@ -2,5 +2,5 @@
 
 /**
  * @file
- * Farm installation profile
+ * FarmOS installation profile
  */

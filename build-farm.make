@@ -9,7 +9,7 @@ projects[drupal][type] = core
 projects[drupal][version] = 7.31
 
 ; -----------------------------------------------------------------------------
-; Farm installation profile
+; FarmOS installation profile
 ; -----------------------------------------------------------------------------
 
 projects[farm][type] = profile

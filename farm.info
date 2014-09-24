@@ -1,5 +1,5 @@
-name = Farm
-description = A profile for farmers.
+name = FarmOS
+description = A farm management system.
 core = 7.x
 
 ; -----------------------------------------------------------------------------
