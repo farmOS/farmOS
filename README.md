@@ -1,5 +1,5 @@
-DRUPAL FARM
-===========
+FarmOS
+======
 
 A Drupal installation profile for farms. http://drupal.org/project/farm
 
@@ -22,17 +22,17 @@ development. See http://github.org/farmier for a list of repositories.
 INSTALLATION
 ------------
 
-Drupal Farm is a [Drupal distribution](http://www.drupal.org/documentation/build/distributions),
+FarmOS is a [Drupal distribution](http://www.drupal.org/documentation/build/distributions),
 so it is essentially a Drupal codebase that combines Drupal core with a set of
 pre-selected contributed modules.
 
-If you are downloading Drupal Farm from drupal.org, then it is pre-built and
+If you are downloading FarmOS from drupal.org, then it is pre-built and
 ready to go. Just drop it into a hosted web server environment and it will work
 the same as Drupal. For more information on installing Drupal, see the official
 (Installing Drupal)[http://www.drupal.org/documentation/install] documentation.
 
 During the installation, you will be given a choice of which "Installation
-Profile" you want your site to use. Choose "Drupal Farm" and the modules
+Profile" you want your site to use. Choose "FarmOS" and the modules
 mentioned above will be automatically installed.
 
 **Drush Make**
@@ -51,5 +51,5 @@ Current maintainers:
 
 This project has been sponsored by:
  * [Farmier](http://farmier.com)
-   Built on top of Drupal Farm, Farmier is a hosted platform that provides
+   Built on top of FarmOS, Farmier is a hosted platform that provides
    website and farm management tools to farmers in the cloud.
