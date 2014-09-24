@@ -3,7 +3,7 @@ FARM AREA
 
 Provides an "Areas" vocabulary and data architecture.
 
-This module is part of the [Drupal Farm](http://drupal.org/project/farm)
+This module is part of the [FarmOS](http://drupal.org/project/farm)
 distribution.
 
 DEPENDENCIES
@@ -36,5 +36,5 @@ Current maintainers:
 
 This project has been sponsored by:
  * [Farmier](http://farmier.com)
-   Built on top of Drupal Farm, Farmier is a hosted platform that provides
+   Built on top of FarmOS, Farmier is a hosted platform that provides
    website and farm management tools to farmers in the cloud.
