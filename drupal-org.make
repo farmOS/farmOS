@@ -67,6 +67,8 @@ projects[navbar][version] = "1.4"
 
 projects[openlayers][subdir] = "contrib"
 projects[openlayers][version] = "2.x-dev"
+; Issue #2254625 Layer gets pushed down in map. (http://www.drupal.org/node/2254625)
+projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers-layer-position-2254625-31.patch"
 
 projects[panels][subdir] = "contrib"
 projects[panels][version] = "3.4"
