@@ -217,8 +217,8 @@ function farm_area_field_default_fields() {
           'data_storage' => 'single',
           'delta_handling' => 'default',
           'feature_types' => array(
-            'path' => 0,
-            'point' => 0,
+            'path' => 'path',
+            'point' => 'point',
             'polygon' => 'polygon',
           ),
           'geocoder_field' => 'field_farm_areas',
