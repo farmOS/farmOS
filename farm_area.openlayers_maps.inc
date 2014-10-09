@@ -374,7 +374,7 @@ function farm_area_openlayers_maps() {
       'farm_areas_openlayers_single' => 0,
     ),
     'layer_switcher' => array(
-      'geofield_formatter' => 'geofield_formatter',
+      'geofield_formatter' => 0,
       'openlayers_kml_example' => 0,
       'openlayers_geojson_picture_this' => 0,
       'farm_areas_openlayers_all' => 0,
