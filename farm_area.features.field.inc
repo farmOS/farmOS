@@ -118,7 +118,7 @@ function farm_area_field_default_fields() {
       'settings' => array(
         'description_field' => 1,
         'file_directory' => '',
-        'file_extensions' => 'csv doc docx odt odp ods pdf ppt pptx txt xls xlsx',
+        'file_extensions' => 'csv doc docx odt odp ods pdf ppt pptx txt xls xlsx kml kmz',
         'max_filesize' => '',
         'user_register_form' => FALSE,
       ),
