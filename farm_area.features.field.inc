@@ -221,8 +221,8 @@ function farm_area_field_default_fields() {
             'point' => 'point',
             'polygon' => 'polygon',
           ),
-          'geocoder_field' => 'field_farm_areas',
-          'geocoder_handler' => 'mapquest_nominatim',
+          'geocoder_field' => 'field_farm_files',
+          'geocoder_handler' => 'kml',
           'handler_settings' => array(
             'google' => array(
               'all_results' => 0,
@@ -236,7 +236,7 @@ function farm_area_field_default_fields() {
             ),
           ),
           'openlayers_map' => 'farm_map_areas',
-          'use_geocoder' => 0,
+          'use_geocoder' => 1,
         ),
         'type' => 'geofield_openlayers',
         'weight' => '1',
