@@ -26,6 +26,7 @@ features[field][] = taxonomy_term-farm_areas-field_farm_geofield
 features[field][] = taxonomy_term-farm_areas-field_farm_images
 features[field_group][] = group_farm_details|taxonomy_term|farm_areas|form
 features[field_group][] = group_farm_files|taxonomy_term|farm_areas|form
+features[openlayers_maps][] = farm_map_area
 features[openlayers_maps][] = farm_map_areas
 features[openlayers_maps][] = farm_map_geofield
 features[taxonomy][] = farm_areas

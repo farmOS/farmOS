@@ -196,7 +196,7 @@ function farm_area_field_default_fields() {
           'module' => 'geofield',
           'settings' => array(
             'data' => 'full',
-            'map_preset' => 'farm_map_geofield',
+            'map_preset' => 'farm_map_area',
           ),
           'type' => 'geofield_openlayers',
           'weight' => '1',
