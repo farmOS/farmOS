@@ -161,8 +161,8 @@ function farm_area_views_default_views() {
   $handler->display->display_options['attachment_position'] = 'after';
   $handler->display->display_options['inherit_exposed_filters'] = TRUE;
 
-  /* Display: Area data (OpenLayers Data Overlay) */
-  $handler = $view->new_display('openlayers', 'Area data (OpenLayers Data Overlay)', 'openlayers_1');
+  /* Display: All area data (OpenLayers Data Overlay) */
+  $handler = $view->new_display('openlayers', 'All area data (OpenLayers Data Overlay)', 'openlayers_all');
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'openlayers_data';
   $handler->display->display_options['style_options']['data_source'] = array(
