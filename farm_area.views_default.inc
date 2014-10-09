@@ -215,6 +215,71 @@ function farm_area_views_default_views() {
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['label'] = 'Links';
   $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/admin/farm/areas/[tid]/plantings">plantings</a> | <a href="/admin/farm/areas/[tid]/inputs">inputs</a> | <a href="/admin/farm/areas/[tid]/cultivations">cultivations</a> | <a href="/admin/farm/areas/[tid]/harvests">harvests</a> | <a href="/admin/farm/areas/[tid]/issues">issues</a> (<a href="/taxonomy/term/[tid]/edit">edit area</a>)';
+
+  /* Display: Single area data (OpenLayers Data Overlay) */
+  $handler = $view->new_display('openlayers', 'Single area data (OpenLayers Data Overlay)', 'openlayers_single');
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'openlayers_data';
+  $handler->display->display_options['style_options']['data_source'] = array(
+    'value' => 'wkt',
+    'other_lat' => 'name',
+    'other_lon' => 'name',
+    'wkt' => 'field_farm_geofield',
+    'other_top' => 'name',
+    'other_right' => 'name',
+    'other_bottom' => 'name',
+    'other_left' => 'name',
+    'name_field' => 'name',
+    'description_field' => 'nothing',
+    'style_field' => '',
+  );
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Taxonomy term: Term ID */
+  $handler->display->display_options['fields']['tid']['id'] = 'tid';
+  $handler->display->display_options['fields']['tid']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['fields']['tid']['field'] = 'tid';
+  $handler->display->display_options['fields']['tid']['exclude'] = TRUE;
+  /* Field: Field: Location */
+  $handler->display->display_options['fields']['field_farm_geofield']['id'] = 'field_farm_geofield';
+  $handler->display->display_options['fields']['field_farm_geofield']['table'] = 'field_data_field_farm_geofield';
+  $handler->display->display_options['fields']['field_farm_geofield']['field'] = 'field_farm_geofield';
+  $handler->display->display_options['fields']['field_farm_geofield']['label'] = '';
+  $handler->display->display_options['fields']['field_farm_geofield']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_farm_geofield']['click_sort_column'] = 'geom';
+  $handler->display->display_options['fields']['field_farm_geofield']['settings'] = array(
+    'data' => 'full',
+  );
+  $handler->display->display_options['fields']['field_farm_geofield']['group_rows'] = FALSE;
+  $handler->display->display_options['fields']['field_farm_geofield']['delta_offset'] = '0';
+  /* Field: Taxonomy term: Name */
+  $handler->display->display_options['fields']['name']['id'] = 'name';
+  $handler->display->display_options['fields']['name']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['fields']['name']['field'] = 'name';
+  $handler->display->display_options['fields']['name']['label'] = '';
+  $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
+  $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['name']['link_to_taxonomy'] = TRUE;
+  /* Field: Global: Custom text */
+  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['table'] = 'views';
+  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['label'] = 'Links';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/admin/farm/areas/[tid]/plantings">plantings</a> | <a href="/admin/farm/areas/[tid]/inputs">inputs</a> | <a href="/admin/farm/areas/[tid]/cultivations">cultivations</a> | <a href="/admin/farm/areas/[tid]/harvests">harvests</a> | <a href="/admin/farm/areas/[tid]/issues">issues</a> (<a href="/taxonomy/term/[tid]/edit">edit area</a>)';
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: Taxonomy term: Term ID */
+  $handler->display->display_options['arguments']['tid']['id'] = 'tid';
+  $handler->display->display_options['arguments']['tid']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['arguments']['tid']['field'] = 'tid';
+  $handler->display->display_options['arguments']['tid']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['tid']['default_argument_type'] = 'taxonomy_tid';
+  $handler->display->display_options['arguments']['tid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['tid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['tid']['summary_options']['items_per_page'] = '25';
   $export['farm_areas'] = $view;
 
   return $export;
