@@ -235,7 +235,7 @@ function farm_area_field_default_fields() {
               ),
             ),
           ),
-          'openlayers_map' => 'farm_map_areas',
+          'openlayers_map' => 'farm_map_geofield',
           'use_geocoder' => 1,
         ),
         'type' => 'geofield_openlayers',
