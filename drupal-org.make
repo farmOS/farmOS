@@ -49,6 +49,10 @@ projects[fraction][version] = "1.2"
 
 projects[geocoder][subdir] = "contrib"
 projects[geocoder][version] = "1.2"
+; Patch to fix multi-value filefield support.
+projects[geocoder][patch][] = "http://www.drupal.org/files/issues/geocoder_multivalue_filefields-2352887-1.patch"
+; Patch to add support for KMZ files.
+projects[geocoder][patch][] = "http://www.drupal.org/files/issues/geocoder_kmz-2352931-2.patch"
 
 projects[geofield][subdir] = "contrib"
 projects[geofield][version] = "2.3"
