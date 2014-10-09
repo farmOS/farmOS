@@ -28,7 +28,6 @@ features[field_group][] = group_farm_details|taxonomy_term|farm_areas|form
 features[field_group][] = group_farm_files|taxonomy_term|farm_areas|form
 features[openlayers_maps][] = farm_map_area
 features[openlayers_maps][] = farm_map_areas
-features[openlayers_maps][] = farm_map_geofield
 features[taxonomy][] = farm_areas
 features[variable][] = field_bundle_settings_taxonomy_term__farm_areas
 features[variable][] = pathauto_taxonomy_term_farm_areas_pattern
