@@ -6,7 +6,7 @@ core = 7.x
 ; -----------------------------------------------------------------------------
 
 projects[drupal][type] = core
-projects[drupal][version] = 7.31
+projects[drupal][version] = 7.32
 
 ; -----------------------------------------------------------------------------
 ; FarmOS installation profile
