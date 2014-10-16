@@ -12,7 +12,7 @@ include_once 'farm_map.features.inc';
 function farm_map_openlayers_map_alter(&$map = array()) {
 
   // If this is the Farm Geofield Map, add the Geofield behavior as a zoom-to layer.
-  if ($map['map_name'] == 'farm_map_geofield') {
+  if (!empty($map['map_name']) && $map['map_name'] == 'farm_map_geofield') {
     $map['behaviors']['openlayers_behavior_zoomtolayer']['zoomtolayer']['openlayers_behavior_geofield'] = 'openlayers_behavior_geofield';
   }
 }
