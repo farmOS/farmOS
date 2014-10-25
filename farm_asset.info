@@ -1,0 +1,6 @@
+name = "Farm Asset"
+description = "A farm asset entity type."
+core = 7.x
+package = "Farm"
+dependencies[] = entity
+files[] = farm_asset.class.inc

@@ -1,0 +1,472 @@
+<?php
+
+/**
+ * @file
+ * Farm asset
+ * A farm asset entity type.
+ */
+
+/****************************************************************
+ * Drupal hooks
+ * **************************************************************/
+
+/**
+ * Implements hook_permission().
+ */
+function farm_asset_permission() {
+  $perms = array(
+    'administer farm_asset module' => array(
+      'title' => t('Administer farm asset module'),
+      'description' => t('Gives full access to everything in the farm asset module.'),
+      'restrict access' => TRUE,
+    ),
+    'administer farm_asset types' => array(
+      'title' => t('Administer farm asset types'),
+      'restrict access' => TRUE,
+    ),
+  );
+
+  // Add permissions for each farm_asset type.
+  foreach (farm_asset_types() as $farm_asset_type) {
+    $type = $farm_asset_type->type;
+    $ops = array('view', 'edit', 'delete');
+    $scopes = array('any', 'own');
+    $perms += array(
+      "create $type farm assets" => array(
+        'title' => t('Create new %type_name farm assets', array('%type_name' => $farm_asset_type->label)),
+      ),
+    );
+    foreach ($ops as $op) {
+      foreach ($scopes as $scope) {
+        $perms += array(
+          "$op $scope $type farm assets" => array(
+            'title' => t(drupal_ucfirst($op) . ' ' . $scope . ' %type_name farm assets', array('%type_name' => $farm_asset_type->label)),
+          ),
+        );
+      }
+    }
+  }
+
+  return $perms;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function farm_asset_menu() {
+  $items = array();
+
+  $items['farm/asset/add'] = array(
+    'title' => 'Add asset',
+    'page callback' => 'farm_asset_add_types_page',
+    'access callback' => 'farm_asset_add_access',
+    'file' => 'farm_asset.pages.inc',
+  );
+  foreach (farm_asset_types() as $type => $info) {
+    $items['farm/asset/add/' . $type] = array(
+      'title' => 'Add asset',
+      'page callback' => 'farm_asset_add',
+      'page arguments' => array(3),
+      'access callback' => 'farm_asset_access',
+      'access arguments' => array('create', 3),
+      'file' => 'farm_asset.pages.inc',
+    );
+  }
+
+  $farm_asset_uri = 'farm/asset/%farm_asset';
+  $farm_asset_uri_argument_position = 2;
+
+  $items[$farm_asset_uri] = array(
+    'title callback' => 'entity_label',
+    'title arguments' => array('farm_asset', $farm_asset_uri_argument_position),
+    'page callback' => 'farm_asset_view',
+    'page arguments' => array($farm_asset_uri_argument_position),
+    'access callback' => 'farm_asset_access',
+    'access arguments' => array('view', $farm_asset_uri_argument_position),
+    'file' => 'farm_asset.pages.inc',
+  );
+
+  $items[$farm_asset_uri . '/view'] = array(
+    'title' => 'View',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10,
+  );
+
+  $items[$farm_asset_uri . '/delete'] = array(
+    'title' => 'Delete asset',
+    'title callback' => 'farm_asset_label',
+    'title arguments' => array($farm_asset_uri_argument_position),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('farm_asset_delete_form', $farm_asset_uri_argument_position),
+    'access callback' => 'farm_asset_access',
+    'access arguments' => array('edit', $farm_asset_uri_argument_position),
+    'file' => 'farm_asset.pages.inc',
+  );
+
+  $items[$farm_asset_uri . '/edit'] = array(
+    'title' => 'Edit',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('farm_asset_form', $farm_asset_uri_argument_position),
+    'access callback' => 'farm_asset_access',
+    'access arguments' => array('edit', $farm_asset_uri_argument_position),
+    'file' => 'farm_asset.pages.inc',
+    'type' => MENU_LOCAL_TASK,
+    'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
+  );
+
+  /**
+   * Farm asset admin paths
+   */
+
+  // Asset type delete form
+  $items['admin/config/farm/asset-types/%farm_asset_type/delete'] = array(
+    'title' => 'Delete',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('farm_asset_type_form_delete_confirm', 4),
+    'access arguments' => array('administer farm_asset types'),
+    'weight' => 1,
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'farm_asset.admin.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_entity_info().
+ */
+function farm_asset_entity_info() {
+  $return = array(
+    'farm_asset' => array(
+      'label' => t('Farm asset'),
+      'entity class' => 'FarmAsset',
+      'controller class' => 'FarmAssetController',
+      'base table' => 'farm_asset',
+      'fieldable' => TRUE,
+      'entity keys' => array(
+        'id' => 'id',
+        'bundle' => 'type',
+      ),
+      'bundle keys' => array(
+        'bundle' => 'type',
+      ),
+      'bundles' => array(),
+      'load hook' => 'farm_asset_load',
+      'view modes' => array(
+        'full' => array(
+          'label' => t('Default'),
+          'custom settings' => FALSE,
+        ),
+      ),
+      'label callback' => 'entity_class_label',
+      'uri callback' => 'entity_class_uri',
+      'module' => 'farm_asset',
+      'access callback' => 'farm_asset_access',
+    ),
+  );
+  $return['farm_asset_type'] = array(
+    'label' => t('Farm asset type'),
+    'entity class' => 'FarmAssetType',
+    'controller class' => 'FarmAssetTypeController',
+    'base table' => 'farm_asset_type',
+    'fieldable' => FALSE,
+    'bundle of' => 'farm_asset',
+    'exportable' => TRUE,
+    'entity keys' => array(
+      'id' => 'id',
+      'name' => 'type',
+      'label' => 'label',
+    ),
+    'module' => 'farm_asset',
+    // Enable the entity API's admin UI.
+    'admin ui' => array(
+      'path' => 'admin/config/farm/asset-types',
+      'file' => 'farm_asset.admin.inc',
+      'controller class' => 'FarmAssetTypeUIController',
+    ),
+    'access callback' => 'farm_asset_type_access',
+  );
+
+  return $return;
+}
+
+/**
+ * Implements hook_entity_info_alter().
+ */
+function farm_asset_entity_info_alter(&$entity_info) {
+  foreach (farm_asset_types() as $type => $info) {
+    $entity_info['farm_asset']['bundles'][$type] = array(
+      'label' => $info->label,
+      'admin' => array(
+        'path' => 'admin/config/farm/asset-types/manage/%farm_asset_type',
+        'real path' => 'admin/config/farm/asset-types/manage/' . $type,
+        'bundle argument' => 4,
+      ),
+    );
+  }
+}
+
+/**
+ * Implements hook_entity_property_info_alter().
+ */
+function farm_asset_entity_property_info_alter(&$info) {
+  $properties = &$info['farm_asset']['properties'];
+  $properties['name'] = array(
+    'label' => t('Name'),
+    'description' => t('The name of the asset.'),
+    'setter callback' => 'entity_property_verbatim_set',
+    'schema field' => 'name',
+  );
+  $properties['type'] = array(
+    'label' => t('Farm asset type'),
+    'type' => 'token',
+    'description' => t('The farm asset type.'),
+    'setter callback' => 'entity_property_verbatim_set',
+    'setter permission' => 'administer farm_asset module',
+    'options list' => 'farm_asset_type_get_names',
+    'required' => TRUE,
+    'schema field' => 'type',
+  );
+  $properties['uid'] = array(
+    'label' => t('Owner'),
+    'type' => 'user',
+    'description' => t('The owner of the asset.'),
+    'setter callback' => 'entity_property_verbatim_set',
+    'setter permission' => 'administer farm_asset module',
+    'required' => TRUE,
+    'schema field' => 'uid',
+  );
+  $properties['created'] = array(
+    'label' => t('Created'),
+    'type' => 'date',
+    'description' => t('The timestamp when the asset was created.'),
+    'setter callback' => 'entity_property_verbatim_set',
+    'setter permission' => 'administer farm_assetg module',
+    'required' => TRUE,
+    'schema field' => 'created',
+  );
+  $properties['changed'] = array(
+    'label' => t('Changed'),
+    'type' => 'date',
+    'description' => t('The timestamp when the asset was last modified.'),
+    'setter callback' => 'entity_property_verbatim_set',
+    'setter permission' => 'administer farm_asset module',
+    'required' => TRUE,
+    'schema field' => 'changed',
+  );
+}
+
+/***************************************************************
+ * Access functions
+ * *************************************************************/
+
+/**
+ * Access callback for asset entities.
+ *
+ * @param $op
+ *   The operation being performed. One of 'view', 'edit', 'create', 'delete'.
+ * @param $farm_asset
+ *   Optionally a specific asset entity to check.
+ * @param $account
+ *   The user to check for. Leave it to NULL to check for the global user.
+ *
+ * @return boolean
+ *   Whether access is allowed or not.
+ */
+function farm_asset_access($op, $farm_asset = NULL, $account = NULL) {
+  $rights = &drupal_static(__FUNCTION__, array());
+
+  if (!$farm_asset || !in_array($op, array('create', 'view', 'edit', 'delete'), TRUE)) {
+    // If there was no asset to check against, or the $op was not one of the
+    // supported ones, we return access denied.
+    return FALSE;
+  }
+  // If no user object is supplied, the access check is for the current user.
+  if (empty($account)) {
+    global $user;
+    $account = $user;
+  }
+
+  // $farm_asset may be either an object or an asset type. Since asset types cannot be
+  // an integer, use either id or type as the static cache id.
+
+  $cid = is_object($farm_asset) ? $farm_asset->id : $farm_asset;
+
+  // If we've already checked access for this asset, user and op, return from
+  // cache.
+  if (isset($rights[$account->uid][$cid][$op])) {
+    return $rights[$account->uid][$cid][$op];
+  }
+
+  // If the user has 'administer farm_asset module' permission, grant them access.
+  if (user_access('administer farm_asset module', $account)) {
+    $rights[$account->uid][$cid][$op] = TRUE;
+    return TRUE;
+  }
+
+  // Check access to the asset based on it's type.
+  $type = is_string($farm_asset) ? $farm_asset : $farm_asset->type;
+  $farm_asset_types = farm_asset_types();
+  $type_names = array();
+  foreach ($farm_asset_types as $name => $farm_asset_type) {
+    $type_names[] = $name;
+  }
+  if (in_array($type, $type_names)) {
+    if ($op == 'create' && user_access('create ' . $type . ' farm assets', $account)) {
+      $rights[$account->uid][$cid][$op] = TRUE;
+      return TRUE;
+    }
+
+    if ($op == 'view') {
+      if (user_access('view any ' . $type . ' farm assets', $account) || (user_access('view own ' . $type . ' farm assets', $account) && ($account->uid == $farm_asset->uid))) {
+        $rights[$account->uid][$cid][$op] = TRUE;
+        return TRUE;
+      }
+    }
+
+    if ($op == 'edit') {
+      if (user_access('edit any ' . $type . ' farm assets', $account) || (user_access('edit own ' . $type . ' farm assets', $account) && ($account->uid == $farm_asset->uid))) {
+        $rights[$account->uid][$cid][$op] = TRUE;
+        return TRUE;
+      }
+    }
+
+    if ($op == 'delete') {
+      if (user_access('delete any ' . $type . ' farm assets', $account) || (user_access('delete own ' . $type . ' farm assets', $account) && ($account->uid == $farm_asset->uid))) {
+        $rights[$account->uid][$cid][$op] = TRUE;
+        return TRUE;
+      }
+    }
+  }
+
+  // If all else fails, deny access.
+  return FALSE;
+}
+
+/**
+ * Access callback: Checks whether the user has permission to add an asset.
+ *
+ * @return boolean
+ *   TRUE if the user has add permission, otherwise FALSE.
+ */
+function farm_asset_add_access($account = NULL) {
+
+  // If no user object is supplied, the access check is for the current user.
+  if (empty($account)) {
+    global $user;
+    $account = $user;
+  }
+
+  // Check each of the asset types to see if the user has access.
+  $types = farm_asset_types();
+  foreach ($types as $type) {
+    if (farm_asset_access('create', $type->type, $account)) {
+      return TRUE;
+    }
+  }
+
+  // If all else fails, deny access.
+  return FALSE;
+}
+
+/**
+ * Access callback for asset types.
+ */
+function farm_asset_type_access($op, $farm_asset = NULL) {
+  return user_access('administer farm_asset types');
+}
+
+/***************************************************************
+ * Farm asset API functions
+ * *************************************************************/
+
+/**
+ * Load an asset.
+ */
+function farm_asset_load($id, $reset = FALSE) {
+  $farm_assets = farm_asset_load_multiple(array($id), array(), $reset);
+  return reset($farm_assets);
+}
+
+/**
+ * Load multiple assets based on certain conditions.
+ */
+function farm_asset_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
+  return entity_load('farm_asset', $ids, $conditions, $reset);
+}
+
+/**
+ * Save asset.
+ */
+function farm_asset_save($farm_asset) {
+  entity_save('farm_asset', $farm_asset);
+}
+
+/**
+ * Delete single asset.
+ */
+function farm_asset_delete($farm_asset) {
+  entity_delete('farm_asset', entity_id('farm_asset' ,$farm_asset));
+}
+
+/**
+ * Delete multiple assets.
+ */
+function farm_asset_delete_multiple($farm_asset_ids) {
+  entity_delete_multiple('farm_asset', $farm_asset_ids);
+}
+
+/***************************************************************
+ * Farm asset type API functions
+ * *************************************************************/
+
+/**
+ * Load asset type.
+ */
+function farm_asset_type_load($farm_asset_type) {
+  return farm_asset_types($farm_asset_type);
+}
+
+/**
+ * List of asset types.
+ */
+function farm_asset_types($type_name = NULL) {
+  $types = entity_load_multiple_by_name('farm_asset_type', isset($type_name) ? array($type_name) : FALSE);
+  return isset($type_name) ? reset($types) : $types;
+}
+
+/**
+ * Save asset type entity.
+ */
+function farm_asset_type_save($farm_asset_type) {
+  entity_save('farm_asset_type', $farm_asset_type);
+}
+
+/**
+ * Delete single asset type.
+ */
+function farm_asset_type_delete($farm_asset_type) {
+  entity_delete('farm_asset_type', entity_id('farm_asset_type' ,$farm_asset_type));
+}
+
+/**
+ * Delete multiple asset types.
+ */
+function farm_asset_type_delete_multiple($farm_asset_type_ids) {
+  entity_delete_multiple('farm_asset_type', $farm_asset_type_ids);
+}
+
+/**
+ * Get the names of all asset types.
+ *
+ * @return array
+ *   Returns an array of asset type names, keyed by machine name.
+ */
+function farm_asset_type_get_names() {
+  $names = array();
+  $types = farm_asset_types();
+  foreach ($types as $type) {
+    $names[$type->type] = $type->label;
+  }
+  return $names;
+}
