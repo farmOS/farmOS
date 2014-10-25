@@ -29,6 +29,7 @@ dependencies[] = navbar
 ; Farm
 dependencies[] = farm_admin
 dependencies[] = farm_area
+dependencies[] = farm_asset
 dependencies[] = farm_crop
 dependencies[] = farm_log
 dependencies[] = farm_log_crops

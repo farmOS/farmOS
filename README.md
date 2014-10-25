@@ -6,6 +6,7 @@ A Drupal installation profile for farms. http://drupal.org/project/farm
 This project aims to provide a Drupal distribution for use in agriculture. It
 comes pre-packaged with a set of farm-related modules, including:
 
+* [Farm Asset](http://drupal.org/project/farm_asset)
 * [Farm Log](http://drupal.org/project/farm_log)
 * [Farm Crop](http://drupal.org/project/farm_crop)
 * [Farm Area](http://drupal.org/project/farm_area)
