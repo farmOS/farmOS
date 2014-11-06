@@ -256,6 +256,30 @@ function farm_asset_entity_property_info_alter(&$info) {
   );
 }
 
+/**
+ * Implements hook_field_extra_fields().
+ */
+function farm_asset_field_extra_fields() {
+  $farm_asset_types = farm_asset_types();
+  $extra_fields = array(
+    'farm_asset' => array(),
+  );
+  foreach ($farm_asset_types as $type) {
+    $extra_fields['farm_asset'][$type->type] = array(
+      'form' => array(
+
+        // Add asset name field to field UI.
+        'name' => array(
+          'label' => t('Name'),
+          'description' => t('The name of the asset.'),
+          'weight' => -10,
+        ),
+      ),
+    );
+  }
+  return $extra_fields;
+}
+
 /***************************************************************
  * Access functions
  * *************************************************************/
