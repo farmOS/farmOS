@@ -104,7 +104,7 @@ function farm_log_views_default_views() {
   $handler->display->display_options['fields']['id']['field'] = 'id';
   $handler->display->display_options['fields']['id']['exclude'] = TRUE;
   $handler->display->display_options['fields']['id']['separator'] = '';
-  /* Field: Field: Date */
+  /* Field: Log: Date */
   $handler->display->display_options['fields']['field_farm_date']['id'] = 'field_farm_date';
   $handler->display->display_options['fields']['field_farm_date']['table'] = 'field_data_field_farm_date';
   $handler->display->display_options['fields']['field_farm_date']['field'] = 'field_farm_date';
@@ -149,7 +149,7 @@ function farm_log_views_default_views() {
     'farm_issue' => 'farm_issue',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
-  /* Filter criterion: Field: Date (field_farm_date) */
+  /* Filter criterion: Log: Date (field_farm_date) */
   $handler->display->display_options['filters']['field_farm_date_value']['id'] = 'field_farm_date_value';
   $handler->display->display_options['filters']['field_farm_date_value']['table'] = 'field_data_field_farm_date';
   $handler->display->display_options['filters']['field_farm_date_value']['field'] = 'field_farm_date_value';
@@ -337,7 +337,7 @@ function farm_log_views_default_views() {
   $handler->display->display_options['fields']['id']['field'] = 'id';
   $handler->display->display_options['fields']['id']['exclude'] = TRUE;
   $handler->display->display_options['fields']['id']['separator'] = '';
-  /* Field: Field: Date */
+  /* Field: Log: Date */
   $handler->display->display_options['fields']['field_farm_date']['id'] = 'field_farm_date';
   $handler->display->display_options['fields']['field_farm_date']['table'] = 'field_data_field_farm_date';
   $handler->display->display_options['fields']['field_farm_date']['field'] = 'field_farm_date';
@@ -396,7 +396,7 @@ function farm_log_views_default_views() {
     'farm_issue' => 'farm_issue',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
-  /* Filter criterion: Field: Date (field_farm_date) */
+  /* Filter criterion: Log: Date (field_farm_date) */
   $handler->display->display_options['filters']['field_farm_date_value']['id'] = 'field_farm_date_value';
   $handler->display->display_options['filters']['field_farm_date_value']['table'] = 'field_data_field_farm_date';
   $handler->display->display_options['filters']['field_farm_date_value']['field'] = 'field_farm_date_value';
@@ -553,7 +553,7 @@ function farm_log_views_default_views() {
   $handler->display->display_options['fields']['id']['field'] = 'id';
   $handler->display->display_options['fields']['id']['exclude'] = TRUE;
   $handler->display->display_options['fields']['id']['separator'] = '';
-  /* Field: Field: Date */
+  /* Field: Log: Date */
   $handler->display->display_options['fields']['field_farm_date']['id'] = 'field_farm_date';
   $handler->display->display_options['fields']['field_farm_date']['table'] = 'field_data_field_farm_date';
   $handler->display->display_options['fields']['field_farm_date']['field'] = 'field_farm_date';
@@ -612,7 +612,7 @@ function farm_log_views_default_views() {
     'farm_issue' => 'farm_issue',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
-  /* Filter criterion: Field: Date (field_farm_date) */
+  /* Filter criterion: Log: Date (field_farm_date) */
   $handler->display->display_options['filters']['field_farm_date_value']['id'] = 'field_farm_date_value';
   $handler->display->display_options['filters']['field_farm_date_value']['table'] = 'field_data_field_farm_date';
   $handler->display->display_options['filters']['field_farm_date_value']['field'] = 'field_farm_date_value';

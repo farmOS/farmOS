@@ -202,77 +202,14 @@ function farm_log_crops_field_default_fields() {
     ),
   );
 
-  // Exported field: 'field_collection_item-field_farm_planting_location-field_farm_bool'.
-  $fields['field_collection_item-field_farm_planting_location-field_farm_bool'] = array(
+  // Exported field: 'field_collection_item-field_farm_planting_location-field_farm_planting_date_range'.
+  $fields['field_collection_item-field_farm_planting_location-field_farm_planting_date_range'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_farm_bool',
-      'foreign keys' => array(),
-      'indexes' => array(
-        'value' => array(
-          0 => 'value',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'list',
-      'settings' => array(
-        'allowed_values' => array(
-          0 => 'no',
-          1 => 'yes',
-        ),
-        'allowed_values_function' => '',
-      ),
-      'translatable' => '0',
-      'type' => 'list_boolean',
-    ),
-    'field_instance' => array(
-      'bundle' => 'field_farm_planting_location',
-      'default_value' => array(
-        0 => array(
-          'value' => 1,
-        ),
-      ),
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'list',
-          'settings' => array(),
-          'type' => 'list_default',
-          'weight' => '4',
-        ),
-      ),
-      'entity_type' => 'field_collection_item',
-      'field_name' => 'field_farm_bool',
-      'label' => 'Planting is still here',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'options',
-        'settings' => array(
-          'display_label' => 1,
-        ),
-        'type' => 'options_onoff',
-        'weight' => '4',
-      ),
-    ),
-  );
-
-  // Exported field: 'field_collection_item-field_farm_planting_location-field_farm_date'.
-  $fields['field_collection_item-field_farm_planting_location-field_farm_date'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_date',
+      'field_name' => 'field_farm_planting_date_range',
       'foreign keys' => array(),
       'indexes' => array(),
       'locked' => '0',
@@ -290,7 +227,7 @@ function farm_log_crops_field_default_fields() {
         ),
         'repeat' => '0',
         'timezone_db' => '',
-        'todate' => '',
+        'todate' => 'optional',
         'tz_handling' => 'none',
       ),
       'translatable' => '0',
@@ -299,10 +236,10 @@ function farm_log_crops_field_default_fields() {
     'field_instance' => array(
       'bundle' => 'field_farm_planting_location',
       'deleted' => '0',
-      'description' => 'Enter the date that the planting came to reside in this location.',
+      'description' => 'When was the planting at this location? If the end date is left blank, it will be assumed that the planting is still there.',
       'display' => array(
         'default' => array(
-          'label' => 'inline',
+          'label' => 'above',
           'module' => 'date',
           'settings' => array(
             'format_type' => 'long',
@@ -313,16 +250,16 @@ function farm_log_crops_field_default_fields() {
             'show_repeat_rule' => 'show',
           ),
           'type' => 'date_default',
-          'weight' => '3',
+          'weight' => 4,
         ),
       ),
       'entity_type' => 'field_collection_item',
-      'field_name' => 'field_farm_date',
-      'label' => 'Date',
-      'required' => 1,
+      'field_name' => 'field_farm_planting_date_range',
+      'label' => 'Date range',
+      'required' => 0,
       'settings' => array(
         'default_value' => 'now',
-        'default_value2' => 'same',
+        'default_value2' => 'blank',
         'default_value_code' => '',
         'default_value_code2' => '',
         'user_register_form' => FALSE,
@@ -2774,6 +2711,7 @@ function farm_log_crops_field_default_fields() {
   t('Crops');
   t('Cultivation Type');
   t('Date');
+  t('Date range');
   t('Describe the quantity of this cultivation, using the Value and Units fields below. For example, if 5 beds were tilled, enter "5" in the Value field, and "beds" in the Units field.');
   t('Describe the quantity of this harvest, using a value and a unit of measurement. For example, if you harvested 100 lbs of potatoes, enter "100" in the Value field, and "lbs" in the Units field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.');
   t('Describe the quantity of this input, using a value and a unit of measurement. For example, if you used 10 gallons of liquid fertilizer, enter "10" in the Value field, and "gallons" in the Units field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.');
@@ -2786,7 +2724,6 @@ function farm_log_crops_field_default_fields() {
   t('Enter the area in which this planting resides. As you type, you will have the option of selecting from areas that you\'ve entered in the past.');
   t('Enter the crop that this is a planting of. As you type, you will have the option of selecting from crops that you\'ve entered in the past.');
   t('Enter the crop that was (or will be) harvested. As you type, you will have the option of selecting from crops that you\'ve entered in the past.');
-  t('Enter the date that the planting came to reside in this location.');
   t('Enter the date when this cultivation took place (or will take place).');
   t('Enter the date when this harvest took place (or will take place).');
   t('Enter the date when this input took place (or will take place).');
@@ -2801,10 +2738,8 @@ function farm_log_crops_field_default_fields() {
   t('Input Type');
   t('Location');
   t('Notes');
-  t('Planting is still here');
   t('Quantity');
   t('Season');
-  t('Units');
   t('Use these "harvest list" fields to record what was (or will be) harvested. Each list item has a Crop (what was harvested) and a Quantity (with a value and unit of measurement). Click "Add another item" below to add more harvest items to the list.');
   t('Use this field to attach files to this cultivation record.');
   t('Use this field to attach files to this harvest record.');
@@ -2814,7 +2749,7 @@ function farm_log_crops_field_default_fields() {
   t('Use this field to attach image files to this harvest record.');
   t('Use this field to attach image files to this input record.');
   t('Use this field to attach image files to this planting record.');
-  t('Value');
+  t('When was the planting at this location? If the end date is left blank, it will be assumed that the planting is still there.');
 
   return $fields;
 }
