@@ -200,7 +200,7 @@ function farm_asset_entity_info_alter(&$entity_info) {
       'admin' => array(
         'path' => 'admin/config/farm/asset-types/manage/%farm_asset_type',
         'real path' => 'admin/config/farm/asset-types/manage/' . $type,
-        'bundle argument' => 4,
+        'bundle argument' => 5,
       ),
     );
   }
