@@ -34,7 +34,7 @@ function farm_log_crops_default_log_type() {
     "type" : "farm_cultivation",
     "label" : "Cultivation",
     "weight" : 0,
-    "name_pattern" : "Cultivate [log:field-farm-areas] [log:field-farm-crops]",
+    "name_pattern" : "[log:field-farm-cultivation-type] [log:field-farm-areas] [log:field-farm-crops]",
     "name_edit" : "0",
     "rdf_mapping" : []
   }');
@@ -42,7 +42,7 @@ function farm_log_crops_default_log_type() {
     "type" : "farm_harvest",
     "label" : "Harvest",
     "weight" : 0,
-    "name_pattern" : "Harvest [log:field-farm-date:custom:Y-m-d]",
+    "name_pattern" : "Harvest [log:field-farm-date:custom:Y-m-d] [log:field-farm-areas]",
     "name_edit" : "0",
     "rdf_mapping" : []
   }');
