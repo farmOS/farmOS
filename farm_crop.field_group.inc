@@ -41,6 +41,36 @@ function farm_crop_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_farm_details|farm_asset|planting|form';
+  $field_group->group_name = 'group_farm_details';
+  $field_group->entity_type = 'farm_asset';
+  $field_group->bundle = 'planting';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Planting Details',
+    'weight' => '1',
+    'children' => array(
+      0 => 'field_farm_season',
+      1 => 'field_farm_crop',
+      2 => 'field_farm_notes',
+      3 => 'field_farm_planting_location',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-farm-details field-group-fieldset',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_farm_details|farm_asset|planting|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_farm_details|taxonomy_term|farm_crops|form';
   $field_group->group_name = 'group_farm_details';
   $field_group->entity_type = 'taxonomy_term';
@@ -67,6 +97,35 @@ function farm_crop_field_group_info() {
     ),
   );
   $export['group_farm_details|taxonomy_term|farm_crops|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_farm_files|farm_asset|planting|form';
+  $field_group->group_name = 'group_farm_files';
+  $field_group->entity_type = 'farm_asset';
+  $field_group->bundle = 'planting';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Attach files',
+    'weight' => '2',
+    'children' => array(
+      0 => 'field_farm_files',
+      1 => 'field_farm_images',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => 'Attach files',
+      'instance_settings' => array(
+        'required_fields' => 0,
+        'classes' => 'group-farm-files field-group-fieldset',
+        'description' => '',
+      ),
+      'formatter' => 'collapsed',
+    ),
+  );
+  $export['group_farm_files|farm_asset|planting|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
