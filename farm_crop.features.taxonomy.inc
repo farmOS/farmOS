@@ -10,7 +10,7 @@
 function farm_crop_taxonomy_default_vocabularies() {
   return array(
     'farm_crop_families' => array(
-      'name' => 'Crop Families',
+      'name' => 'Farm Crop Families',
       'machine_name' => 'farm_crop_families',
       'description' => 'A taxonomy of crop families, for organizing crops.',
       'hierarchy' => '0',
@@ -33,7 +33,7 @@ function farm_crop_taxonomy_default_vocabularies() {
       ),
     ),
     'farm_crops' => array(
-      'name' => 'Crops',
+      'name' => 'Farm Crops',
       'machine_name' => 'farm_crops',
       'description' => 'A taxonomy of crop types and varieties.',
       'hierarchy' => '1',
