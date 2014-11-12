@@ -48,8 +48,7 @@ function farm_crop_strongarm() {
       ),
     ),
     'extra_fields' => array(
-      'form' => array(
-      ),
+      'form' => array(),
       'display' => array(),
     ),
   );
@@ -107,6 +106,13 @@ function farm_crop_strongarm() {
   $strongarm->name = 'pathauto_taxonomy_term_farm_crops_pattern';
   $strongarm->value = 'farm/crop/[term:name]';
   $export['pathauto_taxonomy_term_farm_crops_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_taxonomy_term_farm_crop_families_pattern';
+  $strongarm->value = 'farm/crop-family/[term:name]';
+  $export['pathauto_taxonomy_term_farm_crop_families_pattern'] = $strongarm;
 
   return $export;
 }
