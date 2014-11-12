@@ -1,7 +1,7 @@
 FARM CROP
 =========
 
-Provides a "Crops" vocabulary and data architecture.
+Provides features for managing farm crops.
 
 This module is part of the [FarmOS](http://drupal.org/project/farm)
 distribution.
@@ -12,9 +12,15 @@ DEPENDENCIES
 This module depends on the following modules:
 
  * Features (http://drupal.org/project/features)
+ * Field Collection (http://drupal.org/project/field_collection)
  * Field Group (http://drupal.org/project/field_group)
+ * Filefield Paths (http://drupal.org/project/filefield_paths)
  * Pathauto (http://drupal.org/project/pathauto)
  * Strongarm (http://drupal.org/project/strongarm)
+ * Views (http://drupal.org/project/views)
+ * Farm Area (http://drupal.org/project/farm_area)
+ * Farm Asset (http://drupal.org/project/farm_asset)
+ * Farm Taxonomy (http://drupal.org/project/farm_taxonomy)
 
 INSTALLATION
 ------------
