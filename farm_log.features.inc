@@ -38,5 +38,13 @@ function farm_log_default_log_type() {
     "name_edit" : "1",
     "rdf_mapping" : []
   }');
+  $items['farm_movement'] = entity_import('log_type', '{
+    "type" : "farm_movement",
+    "label" : "Movement",
+    "weight" : 0,
+    "name_pattern" : "Move [log:field-farm-asset] to [log:field-farm-move-to]",
+    "name_edit" : "0",
+    "rdf_mapping" : []
+  }');
   return $items;
 }
