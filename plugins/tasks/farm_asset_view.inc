@@ -35,7 +35,7 @@ function farm_asset_farm_asset_view_page_manager_tasks() {
     'get context placeholders' => 'farm_asset_farm_asset_view_get_contexts',
 
     // Allow this to be enabled or disabled:
-    'disabled' => variable_get('farm_asset_farm_asset_view_disabled', TRUE),
+    'disabled' => variable_get('farm_asset_farm_asset_view_disabled', FALSE),
     'enable callback' => 'farm_asset_farm_asset_view_enable',
     'access callback' => 'farm_asset_farm_asset_view_access_check',
   );
