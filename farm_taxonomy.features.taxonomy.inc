@@ -10,9 +10,9 @@
 function farm_taxonomy_taxonomy_default_vocabularies() {
   return array(
     'farm_season' => array(
-      'name' => 'Season',
+      'name' => 'Farm Season',
       'machine_name' => 'farm_season',
-      'description' => '',
+      'description' => 'A list of farm seasons.',
       'hierarchy' => '0',
       'module' => 'taxonomy',
       'weight' => '0',
