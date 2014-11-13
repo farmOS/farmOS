@@ -296,6 +296,21 @@ function farm_asset_field_extra_fields() {
   return $extra_fields;
 }
 
+/****************************************************************
+ * Contrib hooks
+ * **************************************************************/
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function farm_asset_ctools_plugin_directory($owner, $plugin_type) {
+  if ($owner == 'page_manager' || $owner == 'ctools' || $owner == 'panels') {
+    if ($plugin_type == 'tasks') {
+      return 'plugins/tasks';
+    }
+  }
+}
+
 /***************************************************************
  * Access functions
  * *************************************************************/
