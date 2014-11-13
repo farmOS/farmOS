@@ -10,7 +10,7 @@
 function farm_area_taxonomy_default_vocabularies() {
   return array(
     'farm_areas' => array(
-      'name' => 'Areas',
+      'name' => 'Farm Areas',
       'machine_name' => 'farm_areas',
       'description' => 'Distinct areas (fields, beds, greenhouses, etc) that crops are planted into.',
       'hierarchy' => '0',
