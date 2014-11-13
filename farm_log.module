@@ -5,3 +5,26 @@
  */
 
 include_once 'farm_log.features.inc';
+
+/**
+ * Implements hook_form_alter().
+ */
+function farm_log_form_alter(&$form, &$form_state, $form_id) {
+
+  // If this is the farm_movement log form...
+  if ($form_id == 'log_form' && $form['#bundle'] == 'farm_movement') {
+
+    // If the "farm_asset" query parameter is set...
+    $params = drupal_get_query_parameters();
+    if (!empty($params['farm_asset'])) {
+
+      // Verify that the farm_asset is valid.
+      $asset = farm_asset_load($params['farm_asset']);
+      if ($asset) {
+
+        // Prepopulate the movement's asset reference field.
+        $form['field_farm_asset'][LANGUAGE_NONE][0]['target_id']['#default_value'] = entity_label('farm_asset', $asset) . ' (' . $asset->id . ')';
+      }
+    }
+  }
+}
