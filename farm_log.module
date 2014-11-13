@@ -22,9 +22,31 @@ function farm_log_form_alter(&$form, &$form_state, $form_id) {
       $asset = farm_asset_load($params['farm_asset']);
       if ($asset) {
 
+        // Add the asset to the form.
+        $form['farm_asset'] = array(
+          '#type' => 'value',
+          '#value' => $asset,
+        );
+
         // Prepopulate the movement's asset reference field.
         $form['field_farm_asset'][LANGUAGE_NONE][0]['target_id']['#default_value'] = entity_label('farm_asset', $asset) . ' (' . $asset->id . ')';
+
+        // Add our custom submit handler to redirect to the asset on submit.
+        $form['actions']['submit']['#submit'][] = 'farm_log_log_form_submit';
       }
     }
+  }
+}
+
+/**
+ * Additional submit handler for log_form() for redirecting to assets.
+ */
+function farm_log_log_form_submit($form, &$form_state) {
+
+  // If a farm asset is set in the form, redirect to it afterwards.
+  if (!empty($form_state['values']['farm_asset'])) {
+    $asset = $form_state['values']['farm_asset'];
+    $log_uri = entity_uri('farm_asset', $asset);
+    $form_state['redirect'] = $log_uri['path'];
   }
 }
