@@ -29,7 +29,35 @@ function farm_log_form_alter(&$form, &$form_state, $form_id) {
         );
 
         // Prepopulate the movement's asset reference field.
-        $form['field_farm_asset'][LANGUAGE_NONE][0]['target_id']['#default_value'] = entity_label('farm_asset', $asset) . ' (' . $asset->id . ')';
+        if (empty($form['field_farm_asset'][LANGUAGE_NONE][0]['target_id']['#default_value'])) {
+          $form['field_farm_asset'][LANGUAGE_NONE][0]['target_id']['#default_value'] = entity_label('farm_asset', $asset) . ' (' . $asset->id . ')';
+        }
+
+        // If the from field is empty...
+        if (empty($form['field_farm_move_from'][LANGUAGE_NONE][0]['#default_value'])) {
+
+          // Look up the asset's last location and prepopulate the "from" field.
+          $query = new EntityFieldQuery();
+          $query->entityCondition('entity_type', 'log')
+            ->entityCondition('bundle', 'farm_movement')
+            ->fieldCondition('field_farm_asset', 'target_id', $asset->id)
+            ->fieldCondition('field_farm_date', 'value', REQUEST_TIME, '<=')
+            ->fieldOrderBy('field_farm_date', 'value', 'DESC')
+            ->propertyOrderBy('id', 'DESC')
+            ->range(0, 1);
+          $result = $query->execute();
+          if (!empty($result['log'])) {
+            foreach ($result['log'] as $id => $entity) {
+              $log = log_load($id);
+              if (!empty($log->field_farm_move_to[LANGUAGE_NONE][0]['tid'])) {
+                $term = taxonomy_term_load($log->field_farm_move_to[LANGUAGE_NONE][0]['tid']);
+                if (!empty($term)) {
+                  $form['field_farm_move_from'][LANGUAGE_NONE]['#default_value'] = check_plain($term->name);
+                }
+              }
+            }
+          }
+        }
 
         // Add our custom submit handler to redirect to the asset on submit.
         $form['actions']['submit']['#submit'][] = 'farm_log_log_form_submit';
