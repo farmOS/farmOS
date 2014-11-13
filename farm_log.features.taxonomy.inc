@@ -10,7 +10,7 @@
 function farm_log_taxonomy_default_vocabularies() {
   return array(
     'farm_priority' => array(
-      'name' => 'Priority Levels',
+      'name' => 'Farm Priority Levels',
       'machine_name' => 'farm_priority',
       'description' => 'Levels of priority used to describe tasks.',
       'hierarchy' => '0',
@@ -33,7 +33,7 @@ function farm_log_taxonomy_default_vocabularies() {
       ),
     ),
     'farm_quantity_units' => array(
-      'name' => 'Quantity Units',
+      'name' => 'Farm Quantity Units',
       'machine_name' => 'farm_quantity_units',
       'description' => 'A vocabulary of units for describing quantities.',
       'hierarchy' => '0',
@@ -56,7 +56,7 @@ function farm_log_taxonomy_default_vocabularies() {
       ),
     ),
     'farm_threats' => array(
-      'name' => 'Threats',
+      'name' => 'Farm Threats',
       'machine_name' => 'farm_threats',
       'description' => 'External forces that threaten your stuff.',
       'hierarchy' => '0',

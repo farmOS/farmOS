@@ -10,9 +10,9 @@
 function farm_log_crops_taxonomy_default_vocabularies() {
   return array(
     'farm_cultivation_types' => array(
-      'name' => 'Cultivation Types',
+      'name' => 'Farm Cultivation Types',
       'machine_name' => 'farm_cultivation_types',
-      'description' => 'Types of cultivation.',
+      'description' => 'A vocabulary of farm cultivation types.',
       'hierarchy' => '0',
       'module' => 'taxonomy',
       'weight' => '0',
@@ -33,9 +33,9 @@ function farm_log_crops_taxonomy_default_vocabularies() {
       ),
     ),
     'farm_input_types' => array(
-      'name' => 'Input Types',
+      'name' => 'Farm Input Types',
       'machine_name' => 'farm_input_types',
-      'description' => 'Types of inputs.',
+      'description' => 'A vocabulary of farm input types.',
       'hierarchy' => '0',
       'module' => 'taxonomy',
       'weight' => '0',
@@ -56,9 +56,9 @@ function farm_log_crops_taxonomy_default_vocabularies() {
       ),
     ),
     'farm_inputs' => array(
-      'name' => 'Inputs',
+      'name' => 'Farm Inputs',
       'machine_name' => 'farm_inputs',
-      'description' => 'Inputs that are used on crops, fields, beds, etc.',
+      'description' => 'A vocabulary of farm inputs.',
       'hierarchy' => '0',
       'module' => 'taxonomy',
       'weight' => '0',
