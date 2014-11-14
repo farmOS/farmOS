@@ -44,6 +44,7 @@ features[field_group][] = group_farm_details|farm_asset|planting|form
 features[field_group][] = group_farm_details|taxonomy_term|farm_crops|form
 features[field_group][] = group_farm_files|farm_asset|planting|form
 features[field_group][] = group_farm_files|taxonomy_term|farm_crops|form
+features[page_manager_handlers][] = farm_asset_view_panel_context_planting
 features[page_manager_handlers][] = term_view_panel_context_farm_crop
 features[taxonomy][] = farm_crop_families
 features[taxonomy][] = farm_crops
