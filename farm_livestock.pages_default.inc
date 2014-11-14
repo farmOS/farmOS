@@ -13,7 +13,7 @@ function farm_livestock_default_page_manager_handlers() {
   $handler = new stdClass();
   $handler->disabled = FALSE; /* Edit this to true to make a default handler disabled initially */
   $handler->api_version = 1;
-  $handler->name = 'farm_asset_view_panel_context';
+  $handler->name = 'farm_asset_view_panel_context_animal';
   $handler->task = 'farm_asset_view';
   $handler->subtask = '';
   $handler->handler = 'panel_context';
@@ -109,7 +109,7 @@ function farm_livestock_default_page_manager_handlers() {
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
-  $export['farm_asset_view_panel_context'] = $handler;
+  $export['farm_asset_view_panel_context_animal'] = $handler;
 
   return $export;
 }
