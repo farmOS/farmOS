@@ -101,10 +101,10 @@ function farm_admin_default_page_manager_pages() {
     $display->content['new-9005e75c-7c1f-4411-a745-163fc124dabd'] = $pane;
     $display->panels['left'][0] = 'new-9005e75c-7c1f-4411-a745-163fc124dabd';
     $pane = new stdClass();
-    $pane->pid = 'new-14dfa48b-a2c4-45d0-bb8b-2d512c88423b';
+    $pane->pid = 'new-865f8a63-f512-45da-b70f-83eb20840970';
     $pane->panel = 'right';
     $pane->type = 'views_panes';
-    $pane->subtype = 'farm_crops-panel_pane_1';
+    $pane->subtype = 'farm_plan-panel_pane_1';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array();
@@ -116,9 +116,9 @@ function farm_admin_default_page_manager_pages() {
     $pane->extras = array();
     $pane->position = 0;
     $pane->locks = array();
-    $pane->uuid = '14dfa48b-a2c4-45d0-bb8b-2d512c88423b';
-    $display->content['new-14dfa48b-a2c4-45d0-bb8b-2d512c88423b'] = $pane;
-    $display->panels['right'][0] = 'new-14dfa48b-a2c4-45d0-bb8b-2d512c88423b';
+    $pane->uuid = '865f8a63-f512-45da-b70f-83eb20840970';
+    $display->content['new-865f8a63-f512-45da-b70f-83eb20840970'] = $pane;
+    $display->panels['right'][0] = 'new-865f8a63-f512-45da-b70f-83eb20840970';
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
