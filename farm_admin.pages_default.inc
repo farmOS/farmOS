@@ -15,7 +15,7 @@ function farm_admin_default_page_manager_pages() {
   $page->task = 'page';
   $page->admin_title = 'Farm Admin';
   $page->admin_description = 'An administrative panel for farm managers.';
-  $page->path = 'admin/farm/dashboard';
+  $page->path = 'admin/farm/overview';
   $page->access = array(
     'plugins' => array(
       0 => array(
@@ -31,7 +31,7 @@ function farm_admin_default_page_manager_pages() {
   );
   $page->menu = array(
     'type' => 'default tab',
-    'title' => 'Dashboard',
+    'title' => 'Farm',
     'name' => 'management',
     'weight' => '-10',
     'parent' => array(
@@ -77,7 +77,7 @@ function farm_admin_default_page_manager_pages() {
     ),
   );
   $display->cache = array();
-  $display->title = 'Farm Management';
+  $display->title = 'Farm Dashboard';
   $display->uuid = 'b46e42eb-9d6a-46b4-b14e-217133e33208';
   $display->content = array();
   $display->panels = array();
