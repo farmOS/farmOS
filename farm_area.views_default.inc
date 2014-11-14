@@ -71,8 +71,8 @@ function farm_area_views_default_views() {
   $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['label'] = 'Links';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/taxonomy/term/[tid]/plantings">plantings</a> | <a href="/taxonomy/term/[tid]/inputs">inputs</a> | <a href="/taxonomy/term/[tid]/cultivations">cultivations</a> | <a href="/taxonomy/term/[tid]/harvests">harvests</a> | <a href="/taxonomy/term/[tid]/issues">issues</a> (<a href="/taxonomy/term/[tid]/edit">edit area</a>)';
+  $handler->display->display_options['fields']['nothing']['label'] = 'Operations';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/taxonomy/term/[tid]/edit">edit</a>';
   /* Filter criterion: Taxonomy term: Vocabulary */
   $handler->display->display_options['filters']['vid']['id'] = 'vid';
   $handler->display->display_options['filters']['vid']['table'] = 'taxonomy_term_data';
@@ -214,8 +214,9 @@ function farm_area_views_default_views() {
   $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['label'] = 'Links';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/taxonomy/term/[tid]/plantings">plantings</a> | <a href="/taxonomy/term/[tid]/inputs">inputs</a> | <a href="/taxonomy/term/[tid]/cultivations">cultivations</a> | <a href="/taxonomy/term/[tid]/harvests">harvests</a> | <a href="/taxonomy/term/[tid]/issues">issues</a> (<a href="/taxonomy/term/[tid]/edit">edit area</a>)';
+  $handler->display->display_options['fields']['nothing']['label'] = '';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/taxonomy/term/[tid]/edit">edit</a>';
+  $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
 
   /* Display: Single area data (OpenLayers Data Overlay) */
   $handler = $view->new_display('openlayers', 'Single area data (OpenLayers Data Overlay)', 'openlayers_single');
@@ -269,8 +270,9 @@ function farm_area_views_default_views() {
   $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['label'] = 'Links';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/admin/farm/areas/[tid]/plantings">plantings</a> | <a href="/admin/farm/areas/[tid]/inputs">inputs</a> | <a href="/admin/farm/areas/[tid]/cultivations">cultivations</a> | <a href="/admin/farm/areas/[tid]/harvests">harvests</a> | <a href="/admin/farm/areas/[tid]/issues">issues</a> (<a href="/taxonomy/term/[tid]/edit">edit area</a>)';
+  $handler->display->display_options['fields']['nothing']['label'] = '';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/taxonomy/term/[tid]/edit">edit</a>';
+  $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Taxonomy term: Term ID */
   $handler->display->display_options['arguments']['tid']['id'] = 'tid';
