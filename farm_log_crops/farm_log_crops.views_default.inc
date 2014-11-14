@@ -25,7 +25,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['title'] = 'Cultivations';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
-  $handler->display->display_options['access']['perm'] = 'view any log entities';
+  $handler->display->display_options['access']['perm'] = 'view any farm_cultivation log entities';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
@@ -454,8 +454,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['filters']['field_farm_crops_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_farm_crops_tid']['vocabulary'] = 'farm_crops';
   $handler->display->display_options['filters']['field_farm_crops_tid']['hierarchy'] = 1;
-  $handler->display->display_options['path'] = 'admin/farm/areas/%/cultivations';
-  $handler->display->display_options['menu']['type'] = 'tab';
+  $handler->display->display_options['path'] = 'taxonomy/term/%/cultivations';
   $handler->display->display_options['menu']['title'] = 'Cultivations';
   $handler->display->display_options['menu']['weight'] = '30';
   $handler->display->display_options['menu']['name'] = 'management';
@@ -656,8 +655,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['filters']['field_farm_areas_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_farm_areas_tid']['vocabulary'] = 'farm_areas';
   $handler->display->display_options['filters']['field_farm_areas_tid']['hierarchy'] = 1;
-  $handler->display->display_options['path'] = 'admin/farm/crops/%/cultivations';
-  $handler->display->display_options['menu']['type'] = 'tab';
+  $handler->display->display_options['path'] = 'taxonomy/term/%/cultivations';
   $handler->display->display_options['menu']['title'] = 'Cultivations';
   $handler->display->display_options['menu']['weight'] = '30';
   $handler->display->display_options['menu']['name'] = 'management';
@@ -680,7 +678,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['title'] = 'Harvests';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
-  $handler->display->display_options['access']['perm'] = 'view any log entities';
+  $handler->display->display_options['access']['perm'] = 'edit any farm_harvest log entities';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
@@ -1058,8 +1056,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['filters']['field_farm_crop_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_farm_crop_tid']['vocabulary'] = 'farm_crops';
   $handler->display->display_options['filters']['field_farm_crop_tid']['hierarchy'] = 1;
-  $handler->display->display_options['path'] = 'admin/farm/areas/%/harvests';
-  $handler->display->display_options['menu']['type'] = 'tab';
+  $handler->display->display_options['path'] = 'taxonomy/term/%/harvests';
   $handler->display->display_options['menu']['title'] = 'Harvests';
   $handler->display->display_options['menu']['weight'] = '40';
   $handler->display->display_options['menu']['name'] = 'management';
@@ -1229,8 +1226,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['filters']['field_farm_areas_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_farm_areas_tid']['vocabulary'] = 'farm_areas';
   $handler->display->display_options['filters']['field_farm_areas_tid']['hierarchy'] = 1;
-  $handler->display->display_options['path'] = 'admin/farm/crops/%/harvests';
-  $handler->display->display_options['menu']['type'] = 'tab';
+  $handler->display->display_options['path'] = 'taxonomy/term/%/harvests';
   $handler->display->display_options['menu']['title'] = 'Harvests';
   $handler->display->display_options['menu']['weight'] = '40';
   $handler->display->display_options['menu']['name'] = 'management';
@@ -1253,7 +1249,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['title'] = 'Inputs';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
-  $handler->display->display_options['access']['perm'] = 'view any log entities';
+  $handler->display->display_options['access']['perm'] = 'view any farm_input log entities';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
@@ -1745,8 +1741,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['filters']['field_farm_crops_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_farm_crops_tid']['vocabulary'] = 'farm_crops';
   $handler->display->display_options['filters']['field_farm_crops_tid']['hierarchy'] = 1;
-  $handler->display->display_options['path'] = 'admin/farm/areas/%/inputs';
-  $handler->display->display_options['menu']['type'] = 'tab';
+  $handler->display->display_options['path'] = 'taxonomy/term/%/inputs';
   $handler->display->display_options['menu']['title'] = 'Inputs';
   $handler->display->display_options['menu']['weight'] = '20';
   $handler->display->display_options['menu']['name'] = 'management';
@@ -1978,8 +1973,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['filters']['field_farm_areas_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_farm_areas_tid']['vocabulary'] = 'farm_areas';
   $handler->display->display_options['filters']['field_farm_areas_tid']['hierarchy'] = 1;
-  $handler->display->display_options['path'] = 'admin/farm/crops/%/inputs';
-  $handler->display->display_options['menu']['type'] = 'tab';
+  $handler->display->display_options['path'] = 'taxonomy/term/%/inputs';
   $handler->display->display_options['menu']['title'] = 'Inputs';
   $handler->display->display_options['menu']['weight'] = '20';
   $handler->display->display_options['menu']['name'] = 'management';
