@@ -81,8 +81,8 @@ function farm_area_views_default_views() {
     1 => '1',
   );
 
-  /* Display: Areas map (Page) */
-  $handler = $view->new_display('page', 'Areas map (Page)', 'page_1');
+  /* Display: All areas (Page) */
+  $handler = $view->new_display('page', 'All areas (Page)', 'page_1');
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'openlayers_map';
   $handler->display->display_options['style_options']['map'] = 'farm_map_areas';
@@ -100,8 +100,8 @@ function farm_area_views_default_views() {
   $handler->display->display_options['tab_options']['title'] = 'Areas';
   $handler->display->display_options['tab_options']['weight'] = '10';
 
-  /* Display: Areas dashboard (Content pane) */
-  $handler = $view->new_display('panel_pane', 'Areas dashboard (Content pane)', 'panel_pane_1');
+  /* Display: All areas (Content pane) */
+  $handler = $view->new_display('panel_pane', 'All areas (Content pane)', 'panel_pane_1');
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'openlayers_map';
   $handler->display->display_options['style_options']['map'] = 'farm_map_areas';
@@ -110,8 +110,8 @@ function farm_area_views_default_views() {
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['link_to_view'] = '0';
 
-  /* Display: Areas list (Attachment) */
-  $handler = $view->new_display('attachment', 'Areas list (Attachment)', 'attachment_1');
+  /* Display: All areas (Attachment) */
+  $handler = $view->new_display('attachment', 'All areas (Attachment)', 'attachment_1');
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
