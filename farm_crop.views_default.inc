@@ -146,8 +146,8 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['label'] = 'Links';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/admin/farm/crops/[tid]/plantings">plantings</a> | <a href="/admin/farm/crops/[tid]/inputs">inputs</a> | <a href="/admin/farm/crops/[tid]/cultivations">cultivations</a> | <a href="/admin/farm/crops/[tid]/harvests">harvests</a> | <a href="/admin/farm/crops/[tid]/issues">issues</a> (<a href="/taxonomy/term/[tid]/edit">edit crop</a>)';
+  $handler->display->display_options['fields']['nothing']['label'] = 'Operations';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/taxonomy/term/[tid]/edit">edit</a>';
   /* Filter criterion: Taxonomy term: Vocabulary */
   $handler->display->display_options['filters']['vid']['id'] = 'vid';
   $handler->display->display_options['filters']['vid']['table'] = 'taxonomy_term_data';
