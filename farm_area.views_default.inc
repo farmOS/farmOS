@@ -62,6 +62,7 @@ function farm_area_views_default_views() {
   $handler->display->display_options['fields']['name']['label'] = 'Area name';
   $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
+  $handler->display->display_options['fields']['name']['link_to_taxonomy'] = TRUE;
   /* Field: Taxonomy term: Area type */
   $handler->display->display_options['fields']['field_farm_area_type']['id'] = 'field_farm_area_type';
   $handler->display->display_options['fields']['field_farm_area_type']['table'] = 'field_data_field_farm_area_type';
