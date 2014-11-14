@@ -627,8 +627,7 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['filters']['field_farm_season_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_farm_season_tid']['vocabulary'] = 'farm_season';
   $handler->display->display_options['filters']['field_farm_season_tid']['hierarchy'] = 1;
-  $handler->display->display_options['path'] = 'admin/farm/areas/%/plantings';
-  $handler->display->display_options['menu']['type'] = 'tab';
+  $handler->display->display_options['path'] = 'taxonomy/term/%/plantings';
   $handler->display->display_options['menu']['title'] = 'Plantings';
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['name'] = 'management';
@@ -805,8 +804,7 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['filters']['field_farm_area_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_farm_area_tid']['vocabulary'] = 'farm_areas';
   $handler->display->display_options['filters']['field_farm_area_tid']['hierarchy'] = 1;
-  $handler->display->display_options['path'] = 'admin/farm/crops/%/plantings';
-  $handler->display->display_options['menu']['type'] = 'tab';
+  $handler->display->display_options['path'] = 'taxonomy/term/%/plantings';
   $handler->display->display_options['menu']['title'] = 'Plantings';
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['name'] = 'management';
