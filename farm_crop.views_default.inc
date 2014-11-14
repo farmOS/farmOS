@@ -156,8 +156,8 @@ function farm_crop_views_default_views() {
     3 => '3',
   );
 
-  /* Display: Crops list (Page) */
-  $handler = $view->new_display('page', 'Crops list (Page)', 'page');
+  /* Display: All crops (Page) */
+  $handler = $view->new_display('page', 'All crops (Page)', 'page');
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Taxonomy term: Vocabulary */
@@ -246,30 +246,6 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['tab_options']['type'] = 'tab';
   $handler->display->display_options['tab_options']['title'] = 'Crops';
   $handler->display->display_options['tab_options']['weight'] = '10';
-
-  /* Display: Crops dashboard (Content pane) */
-  $handler = $view->new_display('panel_pane', 'Crops dashboard (Content pane)', 'panel_pane_1');
-  $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Taxonomy term: Term ID */
-  $handler->display->display_options['fields']['tid']['id'] = 'tid';
-  $handler->display->display_options['fields']['tid']['table'] = 'taxonomy_term_data';
-  $handler->display->display_options['fields']['tid']['field'] = 'tid';
-  $handler->display->display_options['fields']['tid']['exclude'] = TRUE;
-  /* Field: Taxonomy term: Name */
-  $handler->display->display_options['fields']['name']['id'] = 'name';
-  $handler->display->display_options['fields']['name']['table'] = 'taxonomy_term_data';
-  $handler->display->display_options['fields']['name']['field'] = 'name';
-  $handler->display->display_options['fields']['name']['label'] = 'Crop Name';
-  $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
-  $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
-  $handler->display->display_options['fields']['name']['link_to_taxonomy'] = TRUE;
-  /* Field: Global: Custom text */
-  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['table'] = 'views';
-  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['label'] = 'Links';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/admin/farm/crops/[tid]/plantings">plantings</a> | <a href="/admin/farm/crops/[tid]/inputs">inputs</a> | <a href="/admin/farm/crops/[tid]/cultivations">cultivations</a> | <a href="/admin/farm/crops/[tid]/harvests">harvests</a> | <a href="/admin/farm/crops/[tid]/issues">issues</a> (<a href="/taxonomy/term/[tid]/edit">edit crop</a>)';
-  $handler->display->display_options['link_to_view'] = '0';
   $export['farm_crops'] = $view;
 
   $view = new view();
