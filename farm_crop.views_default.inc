@@ -84,6 +84,7 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['name']['label'] = 'Crop Name';
   $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
+  $handler->display->display_options['fields']['name']['link_to_taxonomy'] = TRUE;
   /* Field: Taxonomy term: Crop family */
   $handler->display->display_options['fields']['field_farm_crop_family']['id'] = 'field_farm_crop_family';
   $handler->display->display_options['fields']['field_farm_crop_family']['table'] = 'field_data_field_farm_crop_family';
@@ -215,6 +216,7 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['name']['label'] = 'Crop Name';
   $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
+  $handler->display->display_options['fields']['name']['link_to_taxonomy'] = TRUE;
   /* Field: Global: Custom text */
   $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
