@@ -692,7 +692,7 @@ function farm_crop_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '4',
+          'weight' => '5',
         ),
       ),
       'entity_type' => 'taxonomy_term',
@@ -835,7 +835,7 @@ function farm_crop_field_default_fields() {
           'module' => 'file',
           'settings' => array(),
           'type' => 'file_table',
-          'weight' => '5',
+          'weight' => '6',
         ),
       ),
       'entity_type' => 'taxonomy_term',
@@ -967,7 +967,7 @@ function farm_crop_field_default_fields() {
             'thousand_separator' => ' ',
           ),
           'type' => 'number_integer',
-          'weight' => '2',
+          'weight' => '3',
         ),
       ),
       'entity_type' => 'taxonomy_term',
@@ -986,7 +986,63 @@ function farm_crop_field_default_fields() {
         'module' => 'number',
         'settings' => array(),
         'type' => 'number',
-        'weight' => '2',
+        'weight' => '8',
+      ),
+    ),
+  );
+
+  // Exported field: 'taxonomy_term-farm_crops-field_farm_transplant_days'.
+  $fields['taxonomy_term-farm_crops-field_farm_transplant_days'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_transplant_days',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'locked' => '0',
+      'module' => 'number',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'number_integer',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_crops',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'number',
+          'settings' => array(
+            'decimal_separator' => '.',
+            'prefix_suffix' => TRUE,
+            'scale' => 0,
+            'thousand_separator' => ' ',
+          ),
+          'type' => 'number_integer',
+          'weight' => '2',
+        ),
+      ),
+      'entity_type' => 'taxonomy_term',
+      'field_name' => 'field_farm_transplant_days',
+      'label' => 'Days to transplant',
+      'required' => 0,
+      'settings' => array(
+        'max' => '',
+        'min' => '',
+        'prefix' => '',
+        'suffix' => ' day| days',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'number',
+        'settings' => array(),
+        'type' => 'number',
+        'weight' => '7',
       ),
     ),
   );
@@ -1000,6 +1056,7 @@ function farm_crop_field_default_fields() {
   t('Crop family');
   t('Date range');
   t('Days to maturity');
+  t('Days to transplant');
   t('Describe the quantity of this planting, using a value and a unit of measurement. For example, if you seeded 10 flats of lettuce, enter "10" in the Value field, and "flats" in the Units field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.');
   t('Enter the area in which this planting resides. As you type, you will have the option of selecting from areas that you\'ve entered in the past.');
   t('Enter the crop that this is a planting of. As you type, you will have the option of selecting from crops that you\'ve entered in the past.');

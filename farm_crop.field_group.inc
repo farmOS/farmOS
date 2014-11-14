@@ -24,6 +24,7 @@ function farm_crop_field_group_info() {
     'weight' => '2',
     'children' => array(
       0 => 'field_farm_maturity_days',
+      1 => 'field_farm_transplant_days',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

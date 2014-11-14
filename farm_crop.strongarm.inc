@@ -91,7 +91,7 @@ function farm_crop_strongarm() {
       'display' => array(
         'description' => array(
           'default' => array(
-            'weight' => '3',
+            'weight' => '4',
             'visible' => TRUE,
           ),
         ),
