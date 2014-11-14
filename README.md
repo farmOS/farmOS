@@ -5,11 +5,11 @@ Provides various log types used in farming.
 
 Currently the following log types are provided:
 
-* Planting
 * Input
 * Cultivation
 * Harvest
 * Issue
+* Movement
 
 This module is part of the [FarmOS](http://drupal.org/project/farm)
 distribution.
@@ -31,8 +31,8 @@ This module depends on the following modules:
  * Log (http://drupal.org/project/log)
  * Views (http://drupal.org/project/views)
  * Farm Area (http://drupal.org/project/farm_area)
+ * Farm Asset (http://drupal.org/project/farm_asset)
  * Farm Crop (http://drupal.org/project/farm_crop)
- * Farm Taxonomy (http://drupal.org/project/farm_taxonomy)
 
 INSTALLATION
 ------------
