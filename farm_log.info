@@ -55,6 +55,6 @@ features[variable][] = field_bundle_settings_log__farm_movement
 features[variable][] = pathauto_taxonomy_term_farm_priority_pattern
 features[variable][] = pathauto_taxonomy_term_farm_quantity_units_pattern
 features[variable][] = pathauto_taxonomy_term_farm_threats_pattern
-features[views_view][] = farm_asset_movements
 features[views_view][] = farm_log_issues
+features[views_view][] = farm_log_movement
 features[views_view][] = farm_plan
