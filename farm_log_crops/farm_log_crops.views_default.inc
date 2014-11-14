@@ -91,12 +91,12 @@ function farm_log_crops_views_default_views() {
     ),
   );
   $handler->display->display_options['style_options']['empty_table'] = TRUE;
-  /* Footer: Global: Unfiltered text */
-  $handler->display->display_options['footer']['area_text_custom']['id'] = 'area_text_custom';
-  $handler->display->display_options['footer']['area_text_custom']['table'] = 'views';
-  $handler->display->display_options['footer']['area_text_custom']['field'] = 'area_text_custom';
-  $handler->display->display_options['footer']['area_text_custom']['empty'] = TRUE;
-  $handler->display->display_options['footer']['area_text_custom']['content'] = '<a href="/log/add/farm_cultivation?destination=admin/farm/logs/cultivations">+ Log a cultivation</a>';
+  /* Header: Global: Unfiltered text */
+  $handler->display->display_options['header']['area_text_custom']['id'] = 'area_text_custom';
+  $handler->display->display_options['header']['area_text_custom']['table'] = 'views';
+  $handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
+  $handler->display->display_options['header']['area_text_custom']['empty'] = TRUE;
+  $handler->display->display_options['header']['area_text_custom']['content'] = '<a href="/log/add/farm_cultivation?destination=admin/farm/plan/cultivations">+ Log a cultivation</a>';
   /* No results behavior: Global: Unfiltered text */
   $handler->display->display_options['empty']['area_text_custom']['id'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
@@ -148,7 +148,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['label'] = 'Operations';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/log/[id]/edit?destination=admin/farm/logs/cultivations">Edit</a> | <a href="/log/[id]/delete?destination=admin/farm/logs/cultivations">Delete</a>';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/log/[id]/edit?destination=admin/farm/plan/cultivations">Edit</a> | <a href="/log/[id]/delete?destination=admin/farm/plan/cultivations">Delete</a>';
   /* Filter criterion: Log: Log type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'log';
@@ -252,10 +252,10 @@ function farm_log_crops_views_default_views() {
 
   /* Display: All cultivations (Page) */
   $handler = $view->new_display('page', 'All cultivations (Page)', 'page');
-  $handler->display->display_options['path'] = 'admin/farm/logs/cultivations';
+  $handler->display->display_options['path'] = 'admin/farm/plan/cultivations';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Cultivations';
-  $handler->display->display_options['menu']['weight'] = '20';
+  $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['name'] = 'management';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
@@ -361,7 +361,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['label'] = 'Operations';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/log/[id]/edit?destination=admin/farm/logs/cultivations">Edit</a> | <a href="/log/[id]/delete?destination=admin/farm/logs/cultivations">Delete</a>';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/log/[id]/edit?destination=admin/farm/plan/cultivations">Edit</a> | <a href="/log/[id]/delete?destination=admin/farm/plan/cultivations">Delete</a>';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Log: Areas (field_farm_areas) */
   $handler->display->display_options['arguments']['field_farm_areas_tid']['id'] = 'field_farm_areas_tid';
@@ -562,7 +562,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['label'] = 'Operations';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/log/[id]/edit?destination=admin/farm/logs/cultivations">Edit</a> | <a href="/log/[id]/delete?destination=admin/farm/logs/cultivations">Delete</a>';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/log/[id]/edit?destination=admin/farm/plan/cultivations">Edit</a> | <a href="/log/[id]/delete?destination=admin/farm/plan/cultivations">Delete</a>';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Log: Crops (field_farm_crops) */
   $handler->display->display_options['arguments']['field_farm_crops_tid']['id'] = 'field_farm_crops_tid';
@@ -748,12 +748,12 @@ function farm_log_crops_views_default_views() {
     ),
   );
   $handler->display->display_options['style_options']['empty_table'] = TRUE;
-  /* Footer: Global: Unfiltered text */
-  $handler->display->display_options['footer']['area_text_custom']['id'] = 'area_text_custom';
-  $handler->display->display_options['footer']['area_text_custom']['table'] = 'views';
-  $handler->display->display_options['footer']['area_text_custom']['field'] = 'area_text_custom';
-  $handler->display->display_options['footer']['area_text_custom']['empty'] = TRUE;
-  $handler->display->display_options['footer']['area_text_custom']['content'] = '<a href="/log/add/farm_harvest?destination=admin/farm/logs/harvests">+ Log a harvest</a>';
+  /* Header: Global: Unfiltered text */
+  $handler->display->display_options['header']['area_text_custom']['id'] = 'area_text_custom';
+  $handler->display->display_options['header']['area_text_custom']['table'] = 'views';
+  $handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
+  $handler->display->display_options['header']['area_text_custom']['empty'] = TRUE;
+  $handler->display->display_options['header']['area_text_custom']['content'] = '<a href="/log/add/farm_harvest?destination=admin/farm/plan/harvests">+ Log a harvest</a>';
   /* No results behavior: Global: Unfiltered text */
   $handler->display->display_options['empty']['area_text_custom']['id'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
@@ -809,7 +809,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['label'] = 'Operations';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/log/[id]/edit?destination=admin/farm/logs/harvests">Edit</a> | <a href="/log/[id]/delete?destination=admin/farm/logs/harvests">Delete</a>';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/log/[id]/edit?destination=admin/farm/plan/harvests">Edit</a> | <a href="/log/[id]/delete?destination=admin/farm/plan/harvests">Delete</a>';
   /* Filter criterion: Log: Log type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'log';
@@ -885,10 +885,10 @@ function farm_log_crops_views_default_views() {
 
   /* Display: All harvests (Page) */
   $handler = $view->new_display('page', 'All harvests (Page)', 'page');
-  $handler->display->display_options['path'] = 'admin/farm/logs/harvests';
+  $handler->display->display_options['path'] = 'admin/farm/plan/harvests';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Harvests';
-  $handler->display->display_options['menu']['weight'] = '30';
+  $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['name'] = 'management';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
@@ -994,7 +994,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['label'] = 'Operations';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/log/[id]/edit?destination=admin/farm/logs/harvests">Edit</a> | <a href="/log/[id]/delete?destination=admin/farm/logs/harvests">Delete</a>';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/log/[id]/edit?destination=admin/farm/plan/harvests">Edit</a> | <a href="/log/[id]/delete?destination=admin/farm/plan/harvests">Delete</a>';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Log: Areas (field_farm_areas) */
   $handler->display->display_options['arguments']['field_farm_areas_tid']['id'] = 'field_farm_areas_tid';
@@ -1164,7 +1164,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['label'] = 'Operations';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/log/[id]/edit?destination=admin/farm/logs/harvests">Edit</a> | <a href="/log/[id]/delete?destination=admin/farm/logs/harvests">Delete</a>';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/log/[id]/edit?destination=admin/farm/plan/harvests">Edit</a> | <a href="/log/[id]/delete?destination=admin/farm/plan/harvests">Delete</a>';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Field: Crop (field_farm_crop) */
   $handler->display->display_options['arguments']['field_farm_crop_tid']['id'] = 'field_farm_crop_tid';
@@ -1329,12 +1329,12 @@ function farm_log_crops_views_default_views() {
     ),
   );
   $handler->display->display_options['style_options']['empty_table'] = TRUE;
-  /* Footer: Global: Unfiltered text */
-  $handler->display->display_options['footer']['area_text_custom']['id'] = 'area_text_custom';
-  $handler->display->display_options['footer']['area_text_custom']['table'] = 'views';
-  $handler->display->display_options['footer']['area_text_custom']['field'] = 'area_text_custom';
-  $handler->display->display_options['footer']['area_text_custom']['empty'] = TRUE;
-  $handler->display->display_options['footer']['area_text_custom']['content'] = '<a href="/log/add/farm_input?destination=admin/farm/logs/inputs">+ Log an input</a>';
+  /* Header: Global: Unfiltered text */
+  $handler->display->display_options['header']['area_text_custom']['id'] = 'area_text_custom';
+  $handler->display->display_options['header']['area_text_custom']['table'] = 'views';
+  $handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
+  $handler->display->display_options['header']['area_text_custom']['empty'] = TRUE;
+  $handler->display->display_options['header']['area_text_custom']['content'] = '<a href="/log/add/farm_input?destination=admin/farm/plan/inputs">+ Log an input</a>';
   /* No results behavior: Global: Unfiltered text */
   $handler->display->display_options['empty']['area_text_custom']['id'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
@@ -1390,7 +1390,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['label'] = 'Operations';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/log/[id]/edit?destination=admin/farm/logs/inputs">Edit</a> | <a href="/log/[id]/delete?destination=admin/farm/logs/inputs">Delete</a>';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/log/[id]/edit?destination=admin/farm/plan/inputs">Edit</a> | <a href="/log/[id]/delete?destination=admin/farm/plan/inputs">Delete</a>';
   /* Filter criterion: Log: Log type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'log';
@@ -1513,10 +1513,10 @@ function farm_log_crops_views_default_views() {
 
   /* Display: All inputs (Page) */
   $handler = $view->new_display('page', 'All inputs (Page)', 'page');
-  $handler->display->display_options['path'] = 'admin/farm/logs/inputs';
+  $handler->display->display_options['path'] = 'admin/farm/plan/inputs';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Inputs';
-  $handler->display->display_options['menu']['weight'] = '10';
+  $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['name'] = 'management';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
@@ -1635,7 +1635,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['label'] = 'Operations';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/log/[id]/edit?destination=admin/farm/logs/inputs">Edit</a> | <a href="/log/[id]/delete?destination=admin/farm/logs/inputs">Delete</a>';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/log/[id]/edit?destination=admin/farm/plan/inputs">Edit</a> | <a href="/log/[id]/delete?destination=admin/farm/plan/inputs">Delete</a>';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Log: Areas (field_farm_areas) */
   $handler->display->display_options['arguments']['field_farm_areas_tid']['id'] = 'field_farm_areas_tid';
@@ -1867,7 +1867,7 @@ function farm_log_crops_views_default_views() {
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['label'] = 'Operations';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/log/[id]/edit?destination=admin/farm/logs/inputs">Edit</a> | <a href="/log/[id]/delete?destination=admin/farm/logs/inputs">Delete</a>';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/log/[id]/edit?destination=admin/farm/plan/inputs">Edit</a> | <a href="/log/[id]/delete?destination=admin/farm/plan/inputs">Delete</a>';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Log: Crops (field_farm_crops) */
   $handler->display->display_options['arguments']['field_farm_crops_tid']['id'] = 'field_farm_crops_tid';
