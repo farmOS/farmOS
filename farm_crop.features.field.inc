@@ -688,11 +688,11 @@ function farm_crop_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'inline',
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '1',
+          'weight' => '4',
         ),
       ),
       'entity_type' => 'taxonomy_term',
@@ -757,11 +757,11 @@ function farm_crop_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'inline',
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => 6,
+          'weight' => '1',
         ),
         'entityreference_view_widget' => array(
           'label' => 'above',
@@ -901,10 +901,10 @@ function farm_crop_field_default_fields() {
           'module' => 'image',
           'settings' => array(
             'image_link' => '',
-            'image_style' => '',
+            'image_style' => 'large',
           ),
           'type' => 'image',
-          'weight' => '4',
+          'weight' => '0',
         ),
       ),
       'entity_type' => 'taxonomy_term',
@@ -958,7 +958,7 @@ function farm_crop_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'inline',
           'module' => 'number',
           'settings' => array(
             'decimal_separator' => '.',
