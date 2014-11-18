@@ -42,3 +42,19 @@ function farm_crop_default_farm_asset_type() {
   }');
   return $items;
 }
+
+/**
+ * Implements hook_default_log_type().
+ */
+function farm_crop_default_log_type() {
+  $items = array();
+  $items['farm_seeding'] = entity_import('log_type', '{
+    "type" : "farm_seeding",
+    "label" : "Seeding",
+    "weight" : 0,
+    "name_pattern" : "Seed [log:field-farm-planting:field-farm-crop] in [log:field-farm-area]",
+    "name_edit" : "0",
+    "rdf_mapping" : []
+  }');
+  return $items;
+}
