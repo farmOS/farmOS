@@ -179,7 +179,7 @@ function farm_log_crops_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '2',
+          'weight' => '3',
         ),
         'token' => array(
           'label' => 'inline',
@@ -204,7 +204,7 @@ function farm_log_crops_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '24',
+        'weight' => '3',
       ),
     ),
   );
@@ -254,7 +254,7 @@ function farm_log_crops_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '3',
+          'weight' => '4',
         ),
         'token' => array(
           'label' => 'inline',
@@ -279,7 +279,7 @@ function farm_log_crops_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '23',
+        'weight' => '2',
       ),
     ),
   );
@@ -329,7 +329,7 @@ function farm_log_crops_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '1',
+          'weight' => '2',
         ),
         'token' => array(
           'label' => 'above',
@@ -353,7 +353,7 @@ function farm_log_crops_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '22',
+        'weight' => '1',
       ),
     ),
   );
@@ -406,7 +406,7 @@ function farm_log_crops_field_default_fields() {
             'show_repeat_rule' => 'show',
           ),
           'type' => 'date_default',
-          'weight' => '0',
+          'weight' => '1',
         ),
         'token' => array(
           'label' => 'inline',
@@ -447,7 +447,7 @@ function farm_log_crops_field_default_fields() {
           'year_range' => '-3:+3',
         ),
         'type' => 'date_popup',
-        'weight' => 0,
+        'weight' => '0',
       ),
     ),
   );
@@ -540,7 +540,7 @@ function farm_log_crops_field_default_fields() {
           'progress_indicator' => 'bar',
         ),
         'type' => 'file_generic',
-        'weight' => '14',
+        'weight' => '7',
       ),
     ),
   );
@@ -581,14 +581,14 @@ function farm_log_crops_field_default_fields() {
       'description' => 'Use this field to attach image files to this cultivation record.',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'hidden',
           'module' => 'image',
           'settings' => array(
             'image_link' => '',
             'image_style' => 'large',
           ),
           'type' => 'image',
-          'weight' => '6',
+          'weight' => '0',
         ),
         'token' => array(
           'label' => 'hidden',
@@ -643,7 +643,7 @@ function farm_log_crops_field_default_fields() {
           'progress_indicator' => 'bar',
         ),
         'type' => 'image_image',
-        'weight' => '13',
+        'weight' => '6',
       ),
     ),
   );
@@ -686,7 +686,7 @@ function farm_log_crops_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '5',
+          'weight' => '6',
         ),
         'token' => array(
           'label' => 'above',
@@ -710,7 +710,7 @@ function farm_log_crops_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '26',
+        'weight' => '5',
       ),
     ),
   );
@@ -751,7 +751,7 @@ function farm_log_crops_field_default_fields() {
             'view_mode' => 'full',
           ),
           'type' => 'field_collection_fields',
-          'weight' => '4',
+          'weight' => '5',
         ),
         'token' => array(
           'label' => 'above',
@@ -772,7 +772,7 @@ function farm_log_crops_field_default_fields() {
         'module' => 'field_collection',
         'settings' => array(),
         'type' => 'field_collection_embed',
-        'weight' => '25',
+        'weight' => '4',
       ),
     ),
   );
@@ -822,7 +822,7 @@ function farm_log_crops_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '1',
+          'weight' => '2',
         ),
         'full' => array(
           'label' => 'inline',
@@ -854,7 +854,7 @@ function farm_log_crops_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '10',
+        'weight' => '1',
       ),
     ),
   );
@@ -907,7 +907,7 @@ function farm_log_crops_field_default_fields() {
             'show_repeat_rule' => 'show',
           ),
           'type' => 'date_default',
-          'weight' => '0',
+          'weight' => '1',
         ),
         'full' => array(
           'label' => 'inline',
@@ -962,7 +962,7 @@ function farm_log_crops_field_default_fields() {
           'year_range' => '-3:+3',
         ),
         'type' => 'date_popup',
-        'weight' => '1',
+        'weight' => '0',
       ),
     ),
   );
@@ -1062,7 +1062,7 @@ function farm_log_crops_field_default_fields() {
           'progress_indicator' => 'bar',
         ),
         'type' => 'file_generic',
-        'weight' => '9',
+        'weight' => '5',
       ),
     ),
   );
@@ -1103,7 +1103,7 @@ function farm_log_crops_field_default_fields() {
             'view_mode' => 'full',
           ),
           'type' => 'field_collection_fields',
-          'weight' => '2',
+          'weight' => '3',
         ),
         'token' => array(
           'label' => 'above',
@@ -1124,7 +1124,7 @@ function farm_log_crops_field_default_fields() {
         'module' => 'field_collection',
         'settings' => array(),
         'type' => 'field_collection_embed',
-        'weight' => '11',
+        'weight' => '2',
       ),
     ),
   );
@@ -1165,14 +1165,14 @@ function farm_log_crops_field_default_fields() {
       'description' => 'Use this field to attach image files to this harvest record.',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'hidden',
           'module' => 'image',
           'settings' => array(
             'image_link' => '',
             'image_style' => 'large',
           ),
           'type' => 'image',
-          'weight' => '4',
+          'weight' => '0',
         ),
         'full' => array(
           'label' => 'hidden',
@@ -1237,7 +1237,7 @@ function farm_log_crops_field_default_fields() {
           'progress_indicator' => 'bar',
         ),
         'type' => 'image_image',
-        'weight' => '7',
+        'weight' => '4',
       ),
     ),
   );
@@ -1280,7 +1280,7 @@ function farm_log_crops_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '3',
+          'weight' => '4',
         ),
         'token' => array(
           'label' => 'above',
@@ -1304,7 +1304,7 @@ function farm_log_crops_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '13',
+        'weight' => '3',
       ),
     ),
   );
@@ -1354,7 +1354,7 @@ function farm_log_crops_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '5',
+          'weight' => '6',
         ),
         'token' => array(
           'label' => 'inline',
@@ -1379,7 +1379,7 @@ function farm_log_crops_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '3',
+        'weight' => '4',
       ),
     ),
   );
@@ -1429,7 +1429,7 @@ function farm_log_crops_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '4',
+          'weight' => '5',
         ),
         'token' => array(
           'label' => 'inline',
@@ -1454,7 +1454,7 @@ function farm_log_crops_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '2',
+        'weight' => '3',
       ),
     ),
   );
@@ -1507,7 +1507,7 @@ function farm_log_crops_field_default_fields() {
             'show_repeat_rule' => 'show',
           ),
           'type' => 'date_default',
-          'weight' => '0',
+          'weight' => '1',
         ),
         'token' => array(
           'label' => 'inline',
@@ -1548,7 +1548,7 @@ function farm_log_crops_field_default_fields() {
           'year_range' => '-3:+3',
         ),
         'type' => 'date_popup',
-        'weight' => '1',
+        'weight' => '0',
       ),
     ),
   );
@@ -1641,7 +1641,7 @@ function farm_log_crops_field_default_fields() {
           'progress_indicator' => 'bar',
         ),
         'type' => 'file_generic',
-        'weight' => '34',
+        'weight' => '8',
       ),
     ),
   );
@@ -1682,14 +1682,14 @@ function farm_log_crops_field_default_fields() {
       'description' => 'Use this field to attach image files to this input record.',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'hidden',
           'module' => 'image',
           'settings' => array(
             'image_link' => '',
             'image_style' => 'large',
           ),
           'type' => 'image',
-          'weight' => '7',
+          'weight' => '0',
         ),
         'token' => array(
           'label' => 'hidden',
@@ -1744,7 +1744,7 @@ function farm_log_crops_field_default_fields() {
           'progress_indicator' => 'bar',
         ),
         'type' => 'image_image',
-        'weight' => '33',
+        'weight' => '7',
       ),
     ),
   );
@@ -1794,7 +1794,7 @@ function farm_log_crops_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '2',
+          'weight' => '3',
         ),
         'token' => array(
           'label' => 'above',
@@ -1818,7 +1818,7 @@ function farm_log_crops_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '1',
+        'weight' => '2',
       ),
     ),
   );
@@ -1868,7 +1868,7 @@ function farm_log_crops_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '1',
+          'weight' => '2',
         ),
         'token' => array(
           'label' => 'inline',
@@ -1893,7 +1893,7 @@ function farm_log_crops_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '0',
+        'weight' => '1',
       ),
     ),
   );
@@ -1936,7 +1936,7 @@ function farm_log_crops_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '6',
+          'weight' => '7',
         ),
         'token' => array(
           'label' => 'above',
@@ -1960,7 +1960,7 @@ function farm_log_crops_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '5',
+        'weight' => '6',
       ),
     ),
   );
@@ -2001,7 +2001,7 @@ function farm_log_crops_field_default_fields() {
             'view_mode' => 'full',
           ),
           'type' => 'field_collection_fields',
-          'weight' => '3',
+          'weight' => '4',
         ),
         'token' => array(
           'label' => 'above',
@@ -2022,7 +2022,7 @@ function farm_log_crops_field_default_fields() {
         'module' => 'field_collection',
         'settings' => array(),
         'type' => 'field_collection_embed',
-        'weight' => '4',
+        'weight' => '5',
       ),
     ),
   );

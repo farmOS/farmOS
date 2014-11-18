@@ -56,7 +56,7 @@ function farm_log_strongarm() {
     'extra_fields' => array(
       'form' => array(
         'name' => array(
-          'weight' => '-10',
+          'weight' => '0',
         ),
       ),
       'display' => array(),

@@ -176,7 +176,7 @@ function farm_log_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '4',
+          'weight' => '5',
         ),
         'token' => array(
           'label' => 'inline',
@@ -201,7 +201,7 @@ function farm_log_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '36',
+        'weight' => '5',
       ),
     ),
   );
@@ -251,7 +251,7 @@ function farm_log_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '3',
+          'weight' => '4',
         ),
         'token' => array(
           'label' => 'inline',
@@ -276,7 +276,7 @@ function farm_log_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '35',
+        'weight' => '4',
       ),
     ),
   );
@@ -329,7 +329,7 @@ function farm_log_field_default_fields() {
             'show_repeat_rule' => 'show',
           ),
           'type' => 'date_default',
-          'weight' => '0',
+          'weight' => '1',
         ),
         'token' => array(
           'label' => 'inline',
@@ -463,7 +463,7 @@ function farm_log_field_default_fields() {
           'progress_indicator' => 'bar',
         ),
         'type' => 'file_generic',
-        'weight' => '34',
+        'weight' => '8',
       ),
     ),
   );
@@ -504,14 +504,14 @@ function farm_log_field_default_fields() {
       'description' => 'Use this field to attach image files to this issue record.',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'hidden',
           'module' => 'image',
           'settings' => array(
             'image_link' => '',
             'image_style' => 'large',
           ),
           'type' => 'image',
-          'weight' => '6',
+          'weight' => '0',
         ),
         'token' => array(
           'label' => 'hidden',
@@ -566,7 +566,7 @@ function farm_log_field_default_fields() {
           'progress_indicator' => 'bar',
         ),
         'type' => 'image_image',
-        'weight' => '33',
+        'weight' => '7',
       ),
     ),
   );
@@ -609,7 +609,7 @@ function farm_log_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '5',
+          'weight' => '6',
         ),
         'token' => array(
           'label' => 'above',
@@ -634,7 +634,7 @@ function farm_log_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '37',
+        'weight' => '6',
       ),
     ),
   );
@@ -684,7 +684,7 @@ function farm_log_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_plain',
-          'weight' => '1',
+          'weight' => '2',
         ),
         'token' => array(
           'label' => 'inline',
@@ -706,7 +706,7 @@ function farm_log_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '33',
+        'weight' => '2',
       ),
     ),
   );
@@ -756,7 +756,7 @@ function farm_log_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '2',
+          'weight' => '3',
         ),
         'token' => array(
           'label' => 'inline',
@@ -781,7 +781,7 @@ function farm_log_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '34',
+        'weight' => '3',
       ),
     ),
   );
@@ -859,7 +859,7 @@ function farm_log_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'entityreference_autocomplete',
-        'weight' => 0,
+        'weight' => '0',
       ),
     ),
   );
