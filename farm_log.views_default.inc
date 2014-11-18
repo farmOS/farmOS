@@ -294,7 +294,7 @@ function farm_log_views_default_views() {
   $handler->display->display_options['title'] = 'Movements';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
-  $handler->display->display_options['access']['perm'] = 'view any animal farm assets';
+  $handler->display->display_options['access']['perm'] = 'administer farm_asset module';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
