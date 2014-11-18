@@ -300,7 +300,7 @@ function farm_crop_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '4',
+        'weight' => '5',
       ),
     ),
   );
@@ -378,74 +378,7 @@ function farm_crop_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '3',
-      ),
-    ),
-  );
-
-  // Exported field: 'taxonomy_term-farm_crops-field_farm_files'.
-  $fields['taxonomy_term-farm_crops-field_farm_files'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_files',
-      'foreign keys' => array(
-        'fid' => array(
-          'columns' => array(
-            'fid' => 'fid',
-          ),
-          'table' => 'file_managed',
-        ),
-      ),
-      'indexes' => array(
-        'fid' => array(
-          0 => 'fid',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'file',
-      'settings' => array(
-        'display_default' => 0,
-        'display_field' => 0,
-        'uri_scheme' => 'public',
-      ),
-      'translatable' => '0',
-      'type' => 'file',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_crops',
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'module' => 'file',
-          'settings' => array(),
-          'type' => 'file_table',
-          'weight' => '6',
-        ),
-      ),
-      'entity_type' => 'taxonomy_term',
-      'field_name' => 'field_farm_files',
-      'label' => 'Files',
-      'required' => 0,
-      'settings' => array(
-        'description_field' => 1,
-        'file_directory' => '',
-        'file_extensions' => 'csv doc docx odt odp ods pdf ppt pptx txt xls xlsx',
-        'max_filesize' => '',
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'file',
-        'settings' => array(
-          'progress_indicator' => 'throbber',
-        ),
-        'type' => 'file_generic',
-        'weight' => '4',
+        'weight' => '1',
       ),
     ),
   );
@@ -498,13 +431,32 @@ function farm_crop_field_default_fields() {
       ),
       'entity_type' => 'taxonomy_term',
       'field_name' => 'field_farm_images',
-      'label' => 'Images',
+      'label' => 'Photo(s)',
       'required' => 0,
       'settings' => array(
         'alt_field' => 0,
         'default_image' => 0,
         'file_directory' => '',
         'file_extensions' => 'png gif jpg jpeg',
+        'filefield_paths' => array(
+          'active_updating' => 0,
+          'file_name' => array(
+            'options' => array(
+              'pathauto' => 0,
+              'transliterate' => 0,
+            ),
+            'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
+          ),
+          'file_path' => array(
+            'options' => array(
+              'pathauto' => 0,
+              'transliterate' => 0,
+            ),
+            'value' => 'farm/crops/[term:tid]',
+          ),
+          'retroactive_update' => 0,
+        ),
+        'filefield_paths_enabled' => 1,
         'max_filesize' => '',
         'max_resolution' => '',
         'min_resolution' => '',
@@ -516,10 +468,10 @@ function farm_crop_field_default_fields() {
         'module' => 'image',
         'settings' => array(
           'preview_image_style' => 'thumbnail',
-          'progress_indicator' => 'throbber',
+          'progress_indicator' => 'bar',
         ),
         'type' => 'image_image',
-        'weight' => '3',
+        'weight' => '6',
       ),
     ),
   );
@@ -575,7 +527,7 @@ function farm_crop_field_default_fields() {
         'module' => 'number',
         'settings' => array(),
         'type' => 'number',
-        'weight' => '8',
+        'weight' => '3',
       ),
     ),
   );
@@ -631,7 +583,7 @@ function farm_crop_field_default_fields() {
         'module' => 'number',
         'settings' => array(),
         'type' => 'number',
-        'weight' => '7',
+        'weight' => '2',
       ),
     ),
   );
@@ -647,10 +599,11 @@ function farm_crop_field_default_fields() {
   t('Days to transplant');
   t('Enter the crop that this is a planting of. As you type, you will have the option of selecting from crops that you\'ve entered in the past.');
   t('Images');
+  t('Location');
   t('Notes');
+  t('Photo(s)');
   t('Quantity');
   t('Season');
-  t('Use this field to attach image files to this planting record.');
 
   return $fields;
 }

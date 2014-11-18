@@ -30,7 +30,6 @@ features[field][] = farm_asset-planting-field_farm_images
 features[field][] = farm_asset-planting-field_farm_season
 features[field][] = taxonomy_term-farm_crops-field_farm_companions
 features[field][] = taxonomy_term-farm_crops-field_farm_crop_family
-features[field][] = taxonomy_term-farm_crops-field_farm_files
 features[field][] = taxonomy_term-farm_crops-field_farm_images
 features[field][] = taxonomy_term-farm_crops-field_farm_maturity_days
 features[field][] = taxonomy_term-farm_crops-field_farm_transplant_days
