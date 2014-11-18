@@ -42,6 +42,7 @@ features[field][] = log-farm_movement-field_farm_asset
 features[field][] = log-farm_movement-field_farm_date
 features[field][] = log-farm_movement-field_farm_move_from
 features[field][] = log-farm_movement-field_farm_move_to
+features[field][] = log-farm_movement-field_farm_notes
 features[field_group][] = group_farm_details|log|farm_issue|form
 features[field_group][] = group_farm_files|log|farm_issue|form
 features[log_type][] = farm_issue
