@@ -11,11 +11,15 @@ DEPENDENCIES
 
 This module depends on the following modules:
 
+ * Ctools (http://drupal.org/project/ctools)
+ * Entity Reference (http://drupal.org/project/entityreference)
  * Features (http://drupal.org/project/features)
  * Field Collection (http://drupal.org/project/field_collection)
  * Field Group (http://drupal.org/project/field_group)
  * Filefield Paths (http://drupal.org/project/filefield_paths)
+ * Log (http://drupal.org/project/log)
  * Pathauto (http://drupal.org/project/pathauto)
+ * Pathauto Entity (http://drupal.org/project/pathauto_entity)
  * Strongarm (http://drupal.org/project/strongarm)
  * Views (http://drupal.org/project/views)
  * Farm Area (http://drupal.org/project/farm_area)
