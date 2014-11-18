@@ -559,9 +559,8 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
     'id' => 'id',
+    'name' => 'name',
     'field_farm_crop' => 'field_farm_crop',
-    'field_farm_area' => 'field_farm_area',
-    'field_farm_quantity' => 'field_farm_quantity',
     'field_farm_season' => 'field_farm_season',
     'nothing' => 'nothing',
   );
@@ -574,21 +573,14 @@ if (!empty($farm_asset)) {
       'separator' => '',
       'empty_column' => 0,
     ),
+    'name' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
     'field_farm_crop' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_farm_area' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_farm_quantity' => array(
       'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -612,6 +604,7 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['header']['area_text_custom']['id'] = 'area_text_custom';
   $handler->display->display_options['header']['area_text_custom']['table'] = 'views';
   $handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
+  $handler->display->display_options['header']['area_text_custom']['empty'] = TRUE;
   $handler->display->display_options['header']['area_text_custom']['content'] = '<a href="/farm/asset/add/planting?destination=admin/farm/crops/plantings">+ Create a planting</a>';
   /* No results behavior: Global: Unfiltered text */
   $handler->display->display_options['empty']['area_text_custom']['id'] = 'area_text_custom';
@@ -619,36 +612,21 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
   $handler->display->display_options['empty']['area_text_custom']['content'] = 'No plantings found.';
-  /* Relationship: Field: Location (field_farm_planting_location) */
-  $handler->display->display_options['relationships']['field_farm_planting_location_value']['id'] = 'field_farm_planting_location_value';
-  $handler->display->display_options['relationships']['field_farm_planting_location_value']['table'] = 'field_data_field_farm_planting_location';
-  $handler->display->display_options['relationships']['field_farm_planting_location_value']['field'] = 'field_farm_planting_location_value';
-  $handler->display->display_options['relationships']['field_farm_planting_location_value']['label'] = 'location';
-  $handler->display->display_options['relationships']['field_farm_planting_location_value']['required'] = TRUE;
-  $handler->display->display_options['relationships']['field_farm_planting_location_value']['delta'] = '-1';
   /* Field: Farm asset: Farm asset ID */
   $handler->display->display_options['fields']['id']['id'] = 'id';
   $handler->display->display_options['fields']['id']['table'] = 'farm_asset';
   $handler->display->display_options['fields']['id']['field'] = 'id';
   $handler->display->display_options['fields']['id']['exclude'] = TRUE;
+  /* Field: Farm asset: Name */
+  $handler->display->display_options['fields']['name']['id'] = 'name';
+  $handler->display->display_options['fields']['name']['table'] = 'farm_asset';
+  $handler->display->display_options['fields']['name']['field'] = 'name';
+  $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['name']['alter']['path'] = 'farm/asset/[id]';
   /* Field: Field: Crop */
   $handler->display->display_options['fields']['field_farm_crop']['id'] = 'field_farm_crop';
   $handler->display->display_options['fields']['field_farm_crop']['table'] = 'field_data_field_farm_crop';
   $handler->display->display_options['fields']['field_farm_crop']['field'] = 'field_farm_crop';
-  /* Field: Field: Area */
-  $handler->display->display_options['fields']['field_farm_area']['id'] = 'field_farm_area';
-  $handler->display->display_options['fields']['field_farm_area']['table'] = 'field_data_field_farm_area';
-  $handler->display->display_options['fields']['field_farm_area']['field'] = 'field_farm_area';
-  $handler->display->display_options['fields']['field_farm_area']['relationship'] = 'field_farm_planting_location_value';
-  /* Field: Field: Quantity */
-  $handler->display->display_options['fields']['field_farm_quantity']['id'] = 'field_farm_quantity';
-  $handler->display->display_options['fields']['field_farm_quantity']['table'] = 'field_data_field_farm_quantity';
-  $handler->display->display_options['fields']['field_farm_quantity']['field'] = 'field_farm_quantity';
-  $handler->display->display_options['fields']['field_farm_quantity']['relationship'] = 'field_farm_planting_location_value';
-  $handler->display->display_options['fields']['field_farm_quantity']['type'] = 'field_collection_fields';
-  $handler->display->display_options['fields']['field_farm_quantity']['settings'] = array(
-    'view_mode' => 'full',
-  );
   /* Field: Field: Season */
   $handler->display->display_options['fields']['field_farm_season']['id'] = 'field_farm_season';
   $handler->display->display_options['fields']['field_farm_season']['table'] = 'field_data_field_farm_season';
@@ -667,22 +645,6 @@ if (!empty($farm_asset)) {
     'planting' => 'planting',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
-  /* Filter criterion: Field: Date range -  start date (field_farm_planting_date_range) */
-  $handler->display->display_options['filters']['field_farm_planting_date_range_value']['id'] = 'field_farm_planting_date_range_value';
-  $handler->display->display_options['filters']['field_farm_planting_date_range_value']['table'] = 'field_data_field_farm_planting_date_range';
-  $handler->display->display_options['filters']['field_farm_planting_date_range_value']['field'] = 'field_farm_planting_date_range_value';
-  $handler->display->display_options['filters']['field_farm_planting_date_range_value']['relationship'] = 'field_farm_planting_location_value';
-  $handler->display->display_options['filters']['field_farm_planting_date_range_value']['operator'] = '<=';
-  $handler->display->display_options['filters']['field_farm_planting_date_range_value']['group'] = 1;
-  $handler->display->display_options['filters']['field_farm_planting_date_range_value']['default_date'] = 'now';
-  /* Filter criterion: Field: Date range - end date (field_farm_planting_date_range:value2) */
-  $handler->display->display_options['filters']['field_farm_planting_date_range_value2']['id'] = 'field_farm_planting_date_range_value2';
-  $handler->display->display_options['filters']['field_farm_planting_date_range_value2']['table'] = 'field_data_field_farm_planting_date_range';
-  $handler->display->display_options['filters']['field_farm_planting_date_range_value2']['field'] = 'field_farm_planting_date_range_value2';
-  $handler->display->display_options['filters']['field_farm_planting_date_range_value2']['relationship'] = 'field_farm_planting_location_value';
-  $handler->display->display_options['filters']['field_farm_planting_date_range_value2']['operator'] = '>=';
-  $handler->display->display_options['filters']['field_farm_planting_date_range_value2']['group'] = 1;
-  $handler->display->display_options['filters']['field_farm_planting_date_range_value2']['default_date'] = 'now';
   /* Filter criterion: Field: Crop (field_farm_crop) */
   $handler->display->display_options['filters']['field_farm_crop_tid']['id'] = 'field_farm_crop_tid';
   $handler->display->display_options['filters']['field_farm_crop_tid']['table'] = 'field_data_field_farm_crop';
@@ -729,30 +691,6 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['filters']['field_farm_season_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_farm_season_tid']['vocabulary'] = 'farm_season';
   $handler->display->display_options['filters']['field_farm_season_tid']['hierarchy'] = 1;
-  /* Filter criterion: Field: Area (field_farm_area) */
-  $handler->display->display_options['filters']['field_farm_area_tid']['id'] = 'field_farm_area_tid';
-  $handler->display->display_options['filters']['field_farm_area_tid']['table'] = 'field_data_field_farm_area';
-  $handler->display->display_options['filters']['field_farm_area_tid']['field'] = 'field_farm_area_tid';
-  $handler->display->display_options['filters']['field_farm_area_tid']['relationship'] = 'field_farm_planting_location_value';
-  $handler->display->display_options['filters']['field_farm_area_tid']['group'] = 1;
-  $handler->display->display_options['filters']['field_farm_area_tid']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_farm_area_tid']['expose']['operator_id'] = 'field_farm_area_tid_op';
-  $handler->display->display_options['filters']['field_farm_area_tid']['expose']['label'] = 'Location';
-  $handler->display->display_options['filters']['field_farm_area_tid']['expose']['operator'] = 'field_farm_area_tid_op';
-  $handler->display->display_options['filters']['field_farm_area_tid']['expose']['identifier'] = 'field_farm_area_tid';
-  $handler->display->display_options['filters']['field_farm_area_tid']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    30037204 => 0,
-    200153887 => 0,
-    125843996 => 0,
-    173712484 => 0,
-    196317508 => 0,
-    146437786 => 0,
-  );
-  $handler->display->display_options['filters']['field_farm_area_tid']['type'] = 'select';
-  $handler->display->display_options['filters']['field_farm_area_tid']['vocabulary'] = 'farm_areas';
-  $handler->display->display_options['filters']['field_farm_area_tid']['hierarchy'] = 1;
 
   /* Display: All plantings (Page) */
   $handler = $view->new_display('page', 'All plantings (Page)', 'page');
