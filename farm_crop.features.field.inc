@@ -1292,8 +1292,6 @@ function farm_crop_field_default_fields() {
   t('Enter the area in which this planting was seeded. As you type, you will have the option of selecting from areas that you\'ve entered in the past.');
   t('Enter the area in which this planting was transplanted. As you type, you will have the option of selecting from areas that you\'ve entered in the past.');
   t('Enter the crop that this is a planting of. As you type, you will have the option of selecting from crops that you\'ve entered in the past.');
-  t('Images');
-  t('Location');
   t('Notes');
   t('Photo(s)');
   t('Planting');
