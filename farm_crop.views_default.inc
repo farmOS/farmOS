@@ -24,6 +24,7 @@ function farm_crop_views_default_views() {
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Crops';
   $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['group_by'] = TRUE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['access']['perm'] = 'edit terms in farm_crops';
   $handler->display->display_options['cache']['type'] = 'none';
@@ -102,6 +103,11 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
   $handler->display->display_options['empty']['area_text_custom']['content'] = 'No crops found.';
+  /* Relationship: Taxonomy term: Farm asset using Crop */
+  $handler->display->display_options['relationships']['reverse_field_farm_crop_farm_asset']['id'] = 'reverse_field_farm_crop_farm_asset';
+  $handler->display->display_options['relationships']['reverse_field_farm_crop_farm_asset']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['relationships']['reverse_field_farm_crop_farm_asset']['field'] = 'reverse_field_farm_crop_farm_asset';
+  $handler->display->display_options['relationships']['reverse_field_farm_crop_farm_asset']['label'] = 'planting';
   /* Field: Taxonomy term: Term ID */
   $handler->display->display_options['fields']['tid']['id'] = 'tid';
   $handler->display->display_options['fields']['tid']['table'] = 'taxonomy_term_data';
@@ -142,6 +148,15 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['field_farm_companions']['field'] = 'field_farm_companions';
   $handler->display->display_options['fields']['field_farm_companions']['type'] = 'taxonomy_term_reference_plain';
   $handler->display->display_options['fields']['field_farm_companions']['delta_offset'] = '0';
+  /* Field: COUNT(Farm asset: Farm asset ID) */
+  $handler->display->display_options['fields']['id']['id'] = 'id';
+  $handler->display->display_options['fields']['id']['table'] = 'farm_asset';
+  $handler->display->display_options['fields']['id']['field'] = 'id';
+  $handler->display->display_options['fields']['id']['relationship'] = 'reverse_field_farm_crop_farm_asset';
+  $handler->display->display_options['fields']['id']['group_type'] = 'count';
+  $handler->display->display_options['fields']['id']['label'] = 'Plantings';
+  $handler->display->display_options['fields']['id']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['id']['alter']['path'] = 'admin/farm/crops/plantings?field_farm_crop_tid=[tid]';
   /* Field: Global: Custom text */
   $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
@@ -155,23 +170,12 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['filters']['vid']['value'] = array(
     3 => '3',
   );
-
-  /* Display: All crops (Page) */
-  $handler = $view->new_display('page', 'All crops (Page)', 'page');
-  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
-  $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: Taxonomy term: Vocabulary */
-  $handler->display->display_options['filters']['vid']['id'] = 'vid';
-  $handler->display->display_options['filters']['vid']['table'] = 'taxonomy_term_data';
-  $handler->display->display_options['filters']['vid']['field'] = 'vid';
-  $handler->display->display_options['filters']['vid']['value'] = array(
-    3 => '3',
-  );
   $handler->display->display_options['filters']['vid']['group'] = 1;
-  /* Filter criterion: Taxonomy term: Name */
+  /* Filter criterion: Farm asset: Name */
   $handler->display->display_options['filters']['name']['id'] = 'name';
-  $handler->display->display_options['filters']['name']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['filters']['name']['table'] = 'farm_asset';
   $handler->display->display_options['filters']['name']['field'] = 'name';
+  $handler->display->display_options['filters']['name']['relationship'] = 'reverse_field_farm_crop_farm_asset';
   $handler->display->display_options['filters']['name']['operator'] = 'contains';
   $handler->display->display_options['filters']['name']['group'] = 1;
   $handler->display->display_options['filters']['name']['exposed'] = TRUE;
@@ -193,13 +197,11 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['filters']['field_farm_crop_family_tid']['id'] = 'field_farm_crop_family_tid';
   $handler->display->display_options['filters']['field_farm_crop_family_tid']['table'] = 'field_data_field_farm_crop_family';
   $handler->display->display_options['filters']['field_farm_crop_family_tid']['field'] = 'field_farm_crop_family_tid';
-  $handler->display->display_options['filters']['field_farm_crop_family_tid']['group'] = 1;
   $handler->display->display_options['filters']['field_farm_crop_family_tid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_farm_crop_family_tid']['expose']['operator_id'] = 'field_farm_crop_family_tid_op';
   $handler->display->display_options['filters']['field_farm_crop_family_tid']['expose']['label'] = 'Crop family';
   $handler->display->display_options['filters']['field_farm_crop_family_tid']['expose']['operator'] = 'field_farm_crop_family_tid_op';
   $handler->display->display_options['filters']['field_farm_crop_family_tid']['expose']['identifier'] = 'field_farm_crop_family_tid';
-  $handler->display->display_options['filters']['field_farm_crop_family_tid']['expose']['multiple'] = TRUE;
   $handler->display->display_options['filters']['field_farm_crop_family_tid']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
@@ -213,29 +215,9 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['filters']['field_farm_crop_family_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_farm_crop_family_tid']['vocabulary'] = 'farm_crop_families';
   $handler->display->display_options['filters']['field_farm_crop_family_tid']['hierarchy'] = 1;
-  /* Filter criterion: Taxonomy term: Companions (field_farm_companions) */
-  $handler->display->display_options['filters']['field_farm_companions_tid']['id'] = 'field_farm_companions_tid';
-  $handler->display->display_options['filters']['field_farm_companions_tid']['table'] = 'field_data_field_farm_companions';
-  $handler->display->display_options['filters']['field_farm_companions_tid']['field'] = 'field_farm_companions_tid';
-  $handler->display->display_options['filters']['field_farm_companions_tid']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_farm_companions_tid']['expose']['operator_id'] = 'field_farm_companions_tid_op';
-  $handler->display->display_options['filters']['field_farm_companions_tid']['expose']['label'] = 'Companions';
-  $handler->display->display_options['filters']['field_farm_companions_tid']['expose']['operator'] = 'field_farm_companions_tid_op';
-  $handler->display->display_options['filters']['field_farm_companions_tid']['expose']['identifier'] = 'field_farm_companions_tid';
-  $handler->display->display_options['filters']['field_farm_companions_tid']['expose']['multiple'] = TRUE;
-  $handler->display->display_options['filters']['field_farm_companions_tid']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    30037204 => 0,
-    200153887 => 0,
-    125843996 => 0,
-    173712484 => 0,
-    196317508 => 0,
-    146437786 => 0,
-  );
-  $handler->display->display_options['filters']['field_farm_companions_tid']['type'] = 'select';
-  $handler->display->display_options['filters']['field_farm_companions_tid']['vocabulary'] = 'farm_crops';
-  $handler->display->display_options['filters']['field_farm_companions_tid']['hierarchy'] = 1;
+
+  /* Display: All crops (Page) */
+  $handler = $view->new_display('page', 'All crops (Page)', 'page');
   $handler->display->display_options['path'] = 'admin/farm/crops/list';
   $handler->display->display_options['menu']['type'] = 'default tab';
   $handler->display->display_options['menu']['title'] = 'Crops';
