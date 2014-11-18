@@ -15,7 +15,6 @@ This module depends on the following modules:
  * Entity Reference (http://drupal.org/project/entityreference)
  * Features (http://drupal.org/project/features)
  * Field Collection (http://drupal.org/project/field_collection)
- * Field Group (http://drupal.org/project/field_group)
  * Filefield Paths (http://drupal.org/project/filefield_paths)
  * Log (http://drupal.org/project/log)
  * Pathauto (http://drupal.org/project/pathauto)

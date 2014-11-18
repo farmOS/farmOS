@@ -28,6 +28,9 @@ function farm_crop_strongarm() {
         'name' => array(
           'weight' => '0',
         ),
+        'path' => array(
+          'weight' => '8',
+        ),
       ),
       'display' => array(),
     ),
@@ -74,16 +77,16 @@ function farm_crop_strongarm() {
           'weight' => '0',
         ),
         'description' => array(
-          'weight' => '5',
+          'weight' => '4',
         ),
         'path' => array(
-          'weight' => '5',
+          'weight' => '7',
         ),
         'metatags' => array(
-          'weight' => '40',
+          'weight' => '9',
         ),
         'redirect' => array(
-          'weight' => '6',
+          'weight' => '8',
         ),
       ),
       'display' => array(
