@@ -147,7 +147,7 @@ function farm_crop_field_default_fields() {
               'pathauto' => 0,
               'transliterate' => 0,
             ),
-            'value' => 'farm/assets/[farm_asset:id]',
+            'value' => 'farm/plantings/[farm_asset:id]',
           ),
           'retroactive_update' => 0,
         ),
