@@ -55,7 +55,7 @@ function farm_crop_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '0',
+          'weight' => '1',
         ),
       ),
       'entity_type' => 'farm_asset',
@@ -73,93 +73,7 @@ function farm_crop_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '5',
-      ),
-    ),
-  );
-
-  // Exported field: 'farm_asset-planting-field_farm_files'.
-  $fields['farm_asset-planting-field_farm_files'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_files',
-      'foreign keys' => array(
-        'fid' => array(
-          'columns' => array(
-            'fid' => 'fid',
-          ),
-          'table' => 'file_managed',
-        ),
-      ),
-      'indexes' => array(
-        'fid' => array(
-          0 => 'fid',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'file',
-      'settings' => array(
-        'display_default' => 0,
-        'display_field' => 0,
-        'uri_scheme' => 'public',
-      ),
-      'translatable' => '0',
-      'type' => 'file',
-    ),
-    'field_instance' => array(
-      'bundle' => 'planting',
-      'deleted' => '0',
-      'description' => 'Use this field to attach files to this planting record.',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'module' => 'file',
-          'settings' => array(),
-          'type' => 'file_default',
-          'weight' => '4',
-        ),
-      ),
-      'entity_type' => 'farm_asset',
-      'field_name' => 'field_farm_files',
-      'label' => 'Files',
-      'required' => 0,
-      'settings' => array(
-        'description_field' => 1,
-        'file_directory' => '',
-        'file_extensions' => 'csv doc docx odt odp ods pdf ppt pptx txt xls xlsx',
-        'filefield_paths' => array(
-          'active_updating' => 0,
-          'file_name' => array(
-            'options' => array(
-              'pathauto' => 0,
-              'transliterate' => 0,
-            ),
-            'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
-          ),
-          'file_path' => array(
-            'options' => array(
-              'pathauto' => 0,
-              'transliterate' => 0,
-            ),
-            'value' => 'farm/assets/[farm_asset:id]',
-          ),
-          'retroactive_update' => 0,
-        ),
-        'filefield_paths_enabled' => 1,
-        'max_filesize' => '',
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'file',
-        'settings' => array(
-          'progress_indicator' => 'bar',
-        ),
-        'type' => 'file_generic',
-        'weight' => '9',
+        'weight' => '1',
       ),
     ),
   );
@@ -197,22 +111,22 @@ function farm_crop_field_default_fields() {
     'field_instance' => array(
       'bundle' => 'planting',
       'deleted' => '0',
-      'description' => 'Use this field to attach image files to this planting record.',
+      'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'hidden',
           'module' => 'image',
           'settings' => array(
-            'image_link' => '',
-            'image_style' => '',
+            'image_link' => 'file',
+            'image_style' => 'large',
           ),
           'type' => 'image',
-          'weight' => '5',
+          'weight' => '0',
         ),
       ),
       'entity_type' => 'farm_asset',
       'field_name' => 'field_farm_images',
-      'label' => 'Images',
+      'label' => 'Photo(s)',
       'required' => 0,
       'settings' => array(
         'alt_field' => 0,
@@ -252,68 +166,7 @@ function farm_crop_field_default_fields() {
           'progress_indicator' => 'bar',
         ),
         'type' => 'image_image',
-        'weight' => '8',
-      ),
-    ),
-  );
-
-  // Exported field: 'farm_asset-planting-field_farm_notes'.
-  $fields['farm_asset-planting-field_farm_notes'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_notes',
-      'foreign keys' => array(
-        'format' => array(
-          'columns' => array(
-            'format' => 'format',
-          ),
-          'table' => 'filter_format',
-        ),
-      ),
-      'indexes' => array(
-        'format' => array(
-          0 => 'format',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'text',
-      'settings' => array(),
-      'translatable' => '0',
-      'type' => 'text_long',
-    ),
-    'field_instance' => array(
-      'bundle' => 'planting',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'module' => 'text',
-          'settings' => array(),
-          'type' => 'text_default',
-          'weight' => '3',
-        ),
-      ),
-      'entity_type' => 'farm_asset',
-      'field_name' => 'field_farm_notes',
-      'label' => 'Notes',
-      'required' => 0,
-      'settings' => array(
-        'text_processing' => '0',
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'text',
-        'settings' => array(
-          'rows' => '5',
-        ),
-        'type' => 'text_textarea',
-        'weight' => '8',
+        'weight' => '3',
       ),
     ),
   );
@@ -363,7 +216,7 @@ function farm_crop_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '1',
+          'weight' => '2',
         ),
       ),
       'entity_type' => 'farm_asset',
@@ -793,12 +646,10 @@ function farm_crop_field_default_fields() {
   t('Days to maturity');
   t('Days to transplant');
   t('Enter the crop that this is a planting of. As you type, you will have the option of selecting from crops that you\'ve entered in the past.');
-  t('Files');
   t('Images');
   t('Notes');
   t('Quantity');
   t('Season');
-  t('Use this field to attach files to this planting record.');
   t('Use this field to attach image files to this planting record.');
 
   return $fields;
