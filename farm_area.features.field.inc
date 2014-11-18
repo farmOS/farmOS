@@ -62,7 +62,7 @@ function farm_area_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '3',
+        'weight' => '2',
       ),
     ),
   );

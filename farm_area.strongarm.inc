@@ -32,10 +32,10 @@ function farm_area_strongarm() {
           'weight' => '0',
         ),
         'description' => array(
-          'weight' => '5',
+          'weight' => '3',
         ),
         'path' => array(
-          'weight' => '5',
+          'weight' => '8',
         ),
       ),
       'display' => array(

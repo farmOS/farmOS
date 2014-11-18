@@ -13,7 +13,6 @@ This module depends on the following modules:
 
  * Ctools (http://drupal.org/project/ctools)
  * Features (http://drupal.org/project/features)
- * Field Group (http://drupal.org/project/field_group)
  * Geofield (http://drupal.org/project/geofield)
  * OpenLayers (http://drupal.org/project/openlayers)
  * Pathauto (http://drupal.org/project/pathauto)
