@@ -222,7 +222,7 @@ function farm_crop_field_default_fields() {
       'entity_type' => 'farm_asset',
       'field_name' => 'field_farm_season',
       'label' => 'Season',
-      'required' => 1,
+      'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
       ),
