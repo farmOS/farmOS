@@ -52,5 +52,13 @@ function farm_crop_default_log_type() {
     "name_edit" : "0",
     "rdf_mapping" : []
   }');
+  $items['farm_transplanting'] = entity_import('log_type', '{
+    "type" : "farm_transplanting",
+    "label" : "Transplanting",
+    "weight" : 0,
+    "name_pattern" : "Transplant [log:field-farm-planting:field-farm-crop] in [log:field-farm-area]",
+    "name_edit" : "0",
+    "rdf_mapping" : []
+  }');
   return $items;
 }
