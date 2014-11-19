@@ -28,8 +28,12 @@ function farm_area_field_default_fields() {
       'module' => 'list',
       'settings' => array(
         'allowed_values' => array(
-          'Inside' => 'Inside',
-          'Outside' => 'Outside',
+          'property' => 'Property',
+          'field' => 'Field',
+          'building' => 'Building',
+          'greenhouse' => 'Greenhouse',
+          'water' => 'Water feature',
+          'landmark' => 'Landmark',
         ),
         'allowed_values_function' => '',
       ),
@@ -40,20 +44,20 @@ function farm_area_field_default_fields() {
       'bundle' => 'farm_areas',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'Is this area inside (greenhouse, barn, etc), or outside (field, pasture, etc)',
+      'description' => 'What type of area is this? Area types will be color coded on maps.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
           'module' => 'list',
           'settings' => array(),
           'type' => 'list_default',
-          'weight' => '2',
+          'weight' => '0',
         ),
       ),
       'entity_type' => 'taxonomy_term',
       'field_name' => 'field_farm_area_type',
       'label' => 'Area type',
-      'required' => 0,
+      'required' => 1,
       'settings' => array(
         'user_register_form' => FALSE,
       ),
@@ -62,7 +66,7 @@ function farm_area_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '2',
+        'weight' => '1',
       ),
     ),
   );
@@ -199,7 +203,7 @@ function farm_area_field_default_fields() {
             'map_preset' => 'farm_map_area',
           ),
           'type' => 'geofield_openlayers',
-          'weight' => '1',
+          'weight' => '2',
         ),
       ),
       'entity_type' => 'taxonomy_term',
@@ -239,7 +243,7 @@ function farm_area_field_default_fields() {
           'use_geocoder' => 1,
         ),
         'type' => 'geofield_openlayers',
-        'weight' => '1',
+        'weight' => '2',
       ),
     ),
   );
@@ -287,7 +291,7 @@ function farm_area_field_default_fields() {
             'image_style' => 'large',
           ),
           'type' => 'image',
-          'weight' => '0',
+          'weight' => '1',
         ),
       ),
       'entity_type' => 'taxonomy_term',
@@ -323,8 +327,8 @@ function farm_area_field_default_fields() {
   t('Area type');
   t('Files');
   t('Images');
-  t('Is this area inside (greenhouse, barn, etc), or outside (field, pasture, etc)');
   t('Location');
+  t('What type of area is this? Area types will be color coded on maps.');
 
   return $fields;
 }
