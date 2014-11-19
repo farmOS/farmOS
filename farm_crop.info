@@ -59,4 +59,5 @@ features[variable][] = pathauto_taxonomy_term_farm_crop_families_pattern
 features[variable][] = pathauto_taxonomy_term_farm_crops_pattern
 features[views_view][] = farm_crops
 features[views_view][] = farm_log_seeding
+features[views_view][] = farm_log_transplanting
 features[views_view][] = farm_plantings

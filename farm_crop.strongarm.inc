@@ -51,8 +51,7 @@ function farm_crop_strongarm() {
       ),
     ),
     'extra_fields' => array(
-      'form' => array(
-      ),
+      'form' => array(),
       'display' => array(),
     ),
   );
@@ -72,8 +71,7 @@ function farm_crop_strongarm() {
       ),
     ),
     'extra_fields' => array(
-      'form' => array(
-      ),
+      'form' => array(),
       'display' => array(),
     ),
   );
