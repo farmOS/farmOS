@@ -96,6 +96,132 @@ function farm_area_views_default_views() {
   /* Display: All area data (OpenLayers Data Overlay) */
   $handler = $view->new_display('openlayers', 'All area data (OpenLayers Data Overlay)', 'all');
 
+  /* Display: Property area data (OpenLayers Data Overlay) */
+  $handler = $view->new_display('openlayers', 'Property area data (OpenLayers Data Overlay)', 'property');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Properties';
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Taxonomy term: Vocabulary */
+  $handler->display->display_options['filters']['vid']['id'] = 'vid';
+  $handler->display->display_options['filters']['vid']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['filters']['vid']['field'] = 'vid';
+  $handler->display->display_options['filters']['vid']['value'] = array(
+    1 => '1',
+  );
+  /* Filter criterion: Taxonomy term: Area type (field_farm_area_type) */
+  $handler->display->display_options['filters']['field_farm_area_type_value']['id'] = 'field_farm_area_type_value';
+  $handler->display->display_options['filters']['field_farm_area_type_value']['table'] = 'field_data_field_farm_area_type';
+  $handler->display->display_options['filters']['field_farm_area_type_value']['field'] = 'field_farm_area_type_value';
+  $handler->display->display_options['filters']['field_farm_area_type_value']['value'] = array(
+    'property' => 'property',
+  );
+
+  /* Display: Field area data (OpenLayers Data Overlay) */
+  $handler = $view->new_display('openlayers', 'Field area data (OpenLayers Data Overlay)', 'field');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Fields';
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Taxonomy term: Vocabulary */
+  $handler->display->display_options['filters']['vid']['id'] = 'vid';
+  $handler->display->display_options['filters']['vid']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['filters']['vid']['field'] = 'vid';
+  $handler->display->display_options['filters']['vid']['value'] = array(
+    1 => '1',
+  );
+  /* Filter criterion: Taxonomy term: Area type (field_farm_area_type) */
+  $handler->display->display_options['filters']['field_farm_area_type_value']['id'] = 'field_farm_area_type_value';
+  $handler->display->display_options['filters']['field_farm_area_type_value']['table'] = 'field_data_field_farm_area_type';
+  $handler->display->display_options['filters']['field_farm_area_type_value']['field'] = 'field_farm_area_type_value';
+  $handler->display->display_options['filters']['field_farm_area_type_value']['value'] = array(
+    'field' => 'field',
+  );
+
+  /* Display: Building area data (OpenLayers Data Overlay) */
+  $handler = $view->new_display('openlayers', 'Building area data (OpenLayers Data Overlay)', 'building');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Buildings';
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Taxonomy term: Vocabulary */
+  $handler->display->display_options['filters']['vid']['id'] = 'vid';
+  $handler->display->display_options['filters']['vid']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['filters']['vid']['field'] = 'vid';
+  $handler->display->display_options['filters']['vid']['value'] = array(
+    1 => '1',
+  );
+  /* Filter criterion: Taxonomy term: Area type (field_farm_area_type) */
+  $handler->display->display_options['filters']['field_farm_area_type_value']['id'] = 'field_farm_area_type_value';
+  $handler->display->display_options['filters']['field_farm_area_type_value']['table'] = 'field_data_field_farm_area_type';
+  $handler->display->display_options['filters']['field_farm_area_type_value']['field'] = 'field_farm_area_type_value';
+  $handler->display->display_options['filters']['field_farm_area_type_value']['value'] = array(
+    'building' => 'building',
+  );
+
+  /* Display: Greenhouse area data (OpenLayers Data Overlay) */
+  $handler = $view->new_display('openlayers', 'Greenhouse area data (OpenLayers Data Overlay)', 'greenhouse');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Greenhouses';
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Taxonomy term: Vocabulary */
+  $handler->display->display_options['filters']['vid']['id'] = 'vid';
+  $handler->display->display_options['filters']['vid']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['filters']['vid']['field'] = 'vid';
+  $handler->display->display_options['filters']['vid']['value'] = array(
+    1 => '1',
+  );
+  /* Filter criterion: Taxonomy term: Area type (field_farm_area_type) */
+  $handler->display->display_options['filters']['field_farm_area_type_value']['id'] = 'field_farm_area_type_value';
+  $handler->display->display_options['filters']['field_farm_area_type_value']['table'] = 'field_data_field_farm_area_type';
+  $handler->display->display_options['filters']['field_farm_area_type_value']['field'] = 'field_farm_area_type_value';
+  $handler->display->display_options['filters']['field_farm_area_type_value']['value'] = array(
+    'greenhouse' => 'greenhouse',
+  );
+
+  /* Display: Water area data (OpenLayers Data Overlay) */
+  $handler = $view->new_display('openlayers', 'Water area data (OpenLayers Data Overlay)', 'water');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Water features';
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Taxonomy term: Vocabulary */
+  $handler->display->display_options['filters']['vid']['id'] = 'vid';
+  $handler->display->display_options['filters']['vid']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['filters']['vid']['field'] = 'vid';
+  $handler->display->display_options['filters']['vid']['value'] = array(
+    1 => '1',
+  );
+  /* Filter criterion: Taxonomy term: Area type (field_farm_area_type) */
+  $handler->display->display_options['filters']['field_farm_area_type_value']['id'] = 'field_farm_area_type_value';
+  $handler->display->display_options['filters']['field_farm_area_type_value']['table'] = 'field_data_field_farm_area_type';
+  $handler->display->display_options['filters']['field_farm_area_type_value']['field'] = 'field_farm_area_type_value';
+  $handler->display->display_options['filters']['field_farm_area_type_value']['value'] = array(
+    'water' => 'water',
+  );
+
+  /* Display: Landmark area data (OpenLayers Data Overlay) */
+  $handler = $view->new_display('openlayers', 'Landmark area data (OpenLayers Data Overlay)', 'landmark');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Landmarks';
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Taxonomy term: Vocabulary */
+  $handler->display->display_options['filters']['vid']['id'] = 'vid';
+  $handler->display->display_options['filters']['vid']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['filters']['vid']['field'] = 'vid';
+  $handler->display->display_options['filters']['vid']['value'] = array(
+    1 => '1',
+  );
+  /* Filter criterion: Taxonomy term: Area type (field_farm_area_type) */
+  $handler->display->display_options['filters']['field_farm_area_type_value']['id'] = 'field_farm_area_type_value';
+  $handler->display->display_options['filters']['field_farm_area_type_value']['table'] = 'field_data_field_farm_area_type';
+  $handler->display->display_options['filters']['field_farm_area_type_value']['field'] = 'field_farm_area_type_value';
+  $handler->display->display_options['filters']['field_farm_area_type_value']['value'] = array(
+    'landmark' => 'landmark',
+  );
+
   /* Display: Single area data (OpenLayers Data Overlay) */
   $handler = $view->new_display('openlayers', 'Single area data (OpenLayers Data Overlay)', 'single');
   $handler->display->display_options['defaults']['arguments'] = FALSE;
