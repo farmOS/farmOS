@@ -5,15 +5,3 @@
  */
 
 include_once 'farm_crop.features.inc';
-
-/**
- * Implements hook_menu_alter().
- */
-function farm_crop_menu_alter(&$items) {
-
-  // Duplicate taxonomy term view pages in the /admin/farm/crops/% path.
-  $items['admin/farm/crops/%taxonomy_term'] = $items['taxonomy/term/%taxonomy_term'];
-  $items['admin/farm/crops/%taxonomy_term/view'] = $items['taxonomy/term/%taxonomy_term/view'];
-  $items['admin/farm/crops/%taxonomy_term']['title arguments'] = array(3);
-  $items['admin/farm/crops/%taxonomy_term']['page arguments'] = array(3);
-}
