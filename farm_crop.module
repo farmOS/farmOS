@@ -5,3 +5,16 @@
  */
 
 include_once 'farm_crop.features.inc';
+
+/**
+ * Implements hook_form_alter().
+ */
+function farm_crop_form_alter(&$form, &$form_state, $form_id) {
+
+  // If this is a log form with a planting reference field...
+  if ($form_id == 'log_form' && !empty($form['field_farm_planting'])) {
+
+    // Alter the form with the farm_log helper function.
+    farm_log_form_prepopulate_asset($form, $field_name = 'field_farm_planting');
+  }
+}
