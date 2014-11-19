@@ -106,6 +106,29 @@ function farm_crop_default_page_manager_handlers() {
     $pane->uuid = '9938add9-ddef-410b-8699-bcd71d668d7b';
     $display->content['new-9938add9-ddef-410b-8699-bcd71d668d7b'] = $pane;
     $display->panels['left'][1] = 'new-9938add9-ddef-410b-8699-bcd71d668d7b';
+    $pane = new stdClass();
+    $pane->pid = 'new-d496f492-d528-4869-8c2e-2157808042ee';
+    $pane->panel = 'left';
+    $pane->type = 'views_panes';
+    $pane->subtype = 'farm_log_transplanting-panel_pane_1';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'context' => array(
+        0 => 'argument_entity_id:farm_asset_1',
+      ),
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 2;
+    $pane->locks = array();
+    $pane->uuid = 'd496f492-d528-4869-8c2e-2157808042ee';
+    $display->content['new-d496f492-d528-4869-8c2e-2157808042ee'] = $pane;
+    $display->panels['left'][2] = 'new-d496f492-d528-4869-8c2e-2157808042ee';
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = 'new-b9cd042f-888f-4d29-9edb-3410303177c3';
   $handler->conf['display'] = $display;
