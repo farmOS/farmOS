@@ -41,7 +41,7 @@ function farm_area_views_default_views() {
     'other_bottom' => 'name',
     'other_left' => 'name',
     'name_field' => 'name',
-    'description_field' => 'field_farm_area_type',
+    'description_field' => 'farm_area_links',
   );
   $handler->display->display_options['row_plugin'] = 'fields';
   /* Field: Taxonomy term: Term ID */
@@ -68,16 +68,14 @@ function farm_area_views_default_views() {
   $handler->display->display_options['fields']['name']['table'] = 'taxonomy_term_data';
   $handler->display->display_options['fields']['name']['field'] = 'name';
   $handler->display->display_options['fields']['name']['label'] = '';
-  $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
-  $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
   $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['name']['link_to_taxonomy'] = TRUE;
-  /* Field: Taxonomy term: Area type */
-  $handler->display->display_options['fields']['field_farm_area_type']['id'] = 'field_farm_area_type';
-  $handler->display->display_options['fields']['field_farm_area_type']['table'] = 'field_data_field_farm_area_type';
-  $handler->display->display_options['fields']['field_farm_area_type']['field'] = 'field_farm_area_type';
-  $handler->display->display_options['fields']['field_farm_area_type']['label'] = '';
-  $handler->display->display_options['fields']['field_farm_area_type']['element_label_colon'] = FALSE;
+  /* Field: Taxonomy term: Area Links */
+  $handler->display->display_options['fields']['farm_area_links']['id'] = 'farm_area_links';
+  $handler->display->display_options['fields']['farm_area_links']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['fields']['farm_area_links']['field'] = 'farm_area_links';
+  $handler->display->display_options['fields']['farm_area_links']['label'] = 'Links';
+  $handler->display->display_options['fields']['farm_area_links']['exclude'] = TRUE;
   /* Filter criterion: Taxonomy term: Vocabulary */
   $handler->display->display_options['filters']['vid']['id'] = 'vid';
   $handler->display->display_options['filters']['vid']['table'] = 'taxonomy_term_data';
@@ -288,6 +286,11 @@ function farm_area_views_default_views() {
   $handler->display->display_options['fields']['field_farm_area_type']['id'] = 'field_farm_area_type';
   $handler->display->display_options['fields']['field_farm_area_type']['table'] = 'field_data_field_farm_area_type';
   $handler->display->display_options['fields']['field_farm_area_type']['field'] = 'field_farm_area_type';
+  /* Field: Taxonomy term: Area Links */
+  $handler->display->display_options['fields']['farm_area_links']['id'] = 'farm_area_links';
+  $handler->display->display_options['fields']['farm_area_links']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['fields']['farm_area_links']['field'] = 'farm_area_links';
+  $handler->display->display_options['fields']['farm_area_links']['label'] = 'Links';
   /* Field: Global: Custom text */
   $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
