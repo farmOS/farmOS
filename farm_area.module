@@ -5,3 +5,21 @@
  */
 
 include_once 'farm_area.features.inc';
+
+/**
+ * Generate area links.
+ *
+ * @param $id
+ *   The area id.
+ *
+ * @return string
+ *   Returns a string of links.
+ */
+function farm_area_get_links($id) {
+
+  // Call out to modules that want to provide links.
+  $links = module_invoke_all('farm_area_links', check_plain($id));
+
+  // Return the links.
+  return $links;
+}
