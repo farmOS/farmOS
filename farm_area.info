@@ -32,3 +32,5 @@ features[variable][] = field_bundle_settings_taxonomy_term__farm_areas
 features[variable][] = pathauto_taxonomy_term_farm_areas_pattern
 features[views_view][] = farm_area_data
 features[views_view][] = farm_areas
+
+files[] = 'views/handlers/farm_area_handler_field_links.inc'
