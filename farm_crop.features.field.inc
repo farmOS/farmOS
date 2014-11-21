@@ -236,74 +236,6 @@ function farm_crop_field_default_fields() {
     ),
   );
 
-  // Exported field: 'log-farm_seeding-field_farm_area'.
-  $fields['log-farm_seeding-field_farm_area'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_area',
-      'foreign keys' => array(
-        'tid' => array(
-          'columns' => array(
-            'tid' => 'tid',
-          ),
-          'table' => 'taxonomy_term_data',
-        ),
-      ),
-      'indexes' => array(
-        'tid' => array(
-          0 => 'tid',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'taxonomy',
-      'settings' => array(
-        'allowed_values' => array(
-          0 => array(
-            'vocabulary' => 'farm_areas',
-            'parent' => '0',
-          ),
-        ),
-      ),
-      'translatable' => '0',
-      'type' => 'taxonomy_term_reference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_seeding',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => 'Enter the area in which this planting was seeded. As you type, you will have the option of selecting from areas that you\'ve entered in the past.',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => '3',
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_area',
-      'label' => 'Area',
-      'required' => 1,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 0,
-        'module' => 'taxonomy',
-        'settings' => array(
-          'autocomplete_path' => 'taxonomy/autocomplete',
-          'size' => 60,
-        ),
-        'type' => 'taxonomy_autocomplete',
-        'weight' => '3',
-      ),
-    ),
-  );
-
   // Exported field: 'log-farm_seeding-field_farm_date'.
   $fields['log-farm_seeding-field_farm_date'] = array(
     'field_config' => array(
@@ -577,74 +509,6 @@ function farm_crop_field_default_fields() {
         'settings' => array(),
         'type' => 'field_collection_embed',
         'weight' => '2',
-      ),
-    ),
-  );
-
-  // Exported field: 'log-farm_transplanting-field_farm_area'.
-  $fields['log-farm_transplanting-field_farm_area'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_area',
-      'foreign keys' => array(
-        'tid' => array(
-          'columns' => array(
-            'tid' => 'tid',
-          ),
-          'table' => 'taxonomy_term_data',
-        ),
-      ),
-      'indexes' => array(
-        'tid' => array(
-          0 => 'tid',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'taxonomy',
-      'settings' => array(
-        'allowed_values' => array(
-          0 => array(
-            'vocabulary' => 'farm_areas',
-            'parent' => '0',
-          ),
-        ),
-      ),
-      'translatable' => '0',
-      'type' => 'taxonomy_term_reference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_transplanting',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => 'Enter the area in which this planting was transplanted. As you type, you will have the option of selecting from areas that you\'ve entered in the past.',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => '3',
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_area',
-      'label' => 'Area',
-      'required' => 1,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 0,
-        'module' => 'taxonomy',
-        'settings' => array(
-          'autocomplete_path' => 'taxonomy/autocomplete',
-          'size' => 60,
-        ),
-        'type' => 'taxonomy_autocomplete',
-        'weight' => '3',
       ),
     ),
   );
@@ -1280,7 +1144,6 @@ function farm_crop_field_default_fields() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Area');
   t('Assign this planting to a season. You can manage these options in the <a href="/admin/structure/taxonomy/farm_season">Seasons</a> vocabulary.');
   t('Companions');
   t('Crop');
@@ -1289,8 +1152,6 @@ function farm_crop_field_default_fields() {
   t('Days to transplant');
   t('Describe the quantity of this seeding, using a value and a unit of measurement. For example, if you seeded 10 flats of lettuce, enter "10" in the Value field, and "flats" in the Units field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.');
   t('Describe the quantity of this transplanting, using a value and a unit of measurement. For example, if you transplanted 400 tomato plants into 4 inch pots, enter "400" in the Value field, and "4-inch pots" in the Units field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.');
-  t('Enter the area in which this planting was seeded. As you type, you will have the option of selecting from areas that you\'ve entered in the past.');
-  t('Enter the area in which this planting was transplanted. As you type, you will have the option of selecting from areas that you\'ve entered in the past.');
   t('Enter the crop that this is a planting of. As you type, you will have the option of selecting from crops that you\'ve entered in the past.');
   t('Notes');
   t('Photo(s)');
