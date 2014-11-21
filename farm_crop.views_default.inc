@@ -40,7 +40,7 @@ function farm_crop_views_default_views() {
     'field_farm_transplant_days' => 'field_farm_transplant_days',
     'field_farm_maturity_days' => 'field_farm_maturity_days',
     'field_farm_companions' => 'field_farm_companions',
-    'nothing' => 'nothing',
+    'id' => 'id',
   );
   $handler->display->display_options['style_options']['default'] = 'name';
   $handler->display->display_options['style_options']['info'] = array(
@@ -84,7 +84,9 @@ function farm_crop_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
-    'nothing' => array(
+    'id' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'desc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -157,12 +159,6 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['id']['label'] = 'Plantings';
   $handler->display->display_options['fields']['id']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['id']['alter']['path'] = 'admin/farm/crops/plantings?field_farm_crop_tid=[tid]';
-  /* Field: Global: Custom text */
-  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['table'] = 'views';
-  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['label'] = 'Operations';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/taxonomy/term/[tid]/edit">edit</a>';
   /* Filter criterion: Taxonomy term: Vocabulary */
   $handler->display->display_options['filters']['vid']['id'] = 'vid';
   $handler->display->display_options['filters']['vid']['table'] = 'taxonomy_term_data';
@@ -864,7 +860,6 @@ if (!empty($farm_asset)) {
     'name' => 'name',
     'field_farm_crop' => 'field_farm_crop',
     'field_farm_season' => 'field_farm_season',
-    'nothing' => 'nothing',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
@@ -892,11 +887,6 @@ if (!empty($farm_asset)) {
     'field_farm_season' => array(
       'sortable' => 1,
       'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'nothing' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -933,12 +923,6 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['fields']['field_farm_season']['id'] = 'field_farm_season';
   $handler->display->display_options['fields']['field_farm_season']['table'] = 'field_data_field_farm_season';
   $handler->display->display_options['fields']['field_farm_season']['field'] = 'field_farm_season';
-  /* Field: Global: Custom text */
-  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['table'] = 'views';
-  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['label'] = 'Operations';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/farm/asset/[id]/edit?destination=admin/farm/crops/plantings">edit</a> | <a href="/farm/asset/[id]/delete?destination=admin/farm/crops/plantings">delete</a>';
   /* Filter criterion: Farm asset: Farm asset type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'farm_asset';
