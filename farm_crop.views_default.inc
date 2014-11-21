@@ -255,10 +255,10 @@ function farm_crop_views_default_views() {
     'id' => 'id',
     'field_farm_date' => 'field_farm_date',
     'name_1' => 'name_1',
-    'name' => 'name',
     'field_farm_quantity' => 'field_farm_quantity',
+    'name' => 'name',
   );
-  $handler->display->display_options['style_options']['default'] = 'field_farm_date';
+  $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
     'id' => array(
       'sortable' => 0,
@@ -268,28 +268,28 @@ function farm_crop_views_default_views() {
       'empty_column' => 0,
     ),
     'field_farm_date' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'desc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'name_1' => array(
-      'sortable' => 1,
+      'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
-    'name' => array(
-      'sortable' => 1,
+    'name_1' => array(
+      'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'field_farm_quantity' => array(
-      'sortable' => 1,
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'name' => array(
+      'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
@@ -339,14 +339,6 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['name_1']['label'] = 'Seeding';
   $handler->display->display_options['fields']['name_1']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['name_1']['alter']['path'] = 'log/[id]';
-  /* Field: Farm asset: Name */
-  $handler->display->display_options['fields']['name']['id'] = 'name';
-  $handler->display->display_options['fields']['name']['table'] = 'farm_asset';
-  $handler->display->display_options['fields']['name']['field'] = 'name';
-  $handler->display->display_options['fields']['name']['relationship'] = 'field_farm_planting_target_id';
-  $handler->display->display_options['fields']['name']['label'] = 'Planting';
-  $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['name']['alter']['path'] = 'farm/asset/!1';
   /* Field: Field: Quantity */
   $handler->display->display_options['fields']['field_farm_quantity']['id'] = 'field_farm_quantity';
   $handler->display->display_options['fields']['field_farm_quantity']['table'] = 'field_data_field_farm_quantity';
@@ -355,6 +347,26 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['field_farm_quantity']['settings'] = array(
     'view_mode' => 'full',
   );
+  /* Field: Farm asset: Name */
+  $handler->display->display_options['fields']['name']['id'] = 'name';
+  $handler->display->display_options['fields']['name']['table'] = 'farm_asset';
+  $handler->display->display_options['fields']['name']['field'] = 'name';
+  $handler->display->display_options['fields']['name']['relationship'] = 'field_farm_planting_target_id';
+  $handler->display->display_options['fields']['name']['label'] = 'Planting';
+  $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['name']['alter']['path'] = 'farm/asset/!1';
+  /* Sort criterion: Field: Date (field_farm_date) */
+  $handler->display->display_options['sorts']['field_farm_date_value']['id'] = 'field_farm_date_value';
+  $handler->display->display_options['sorts']['field_farm_date_value']['table'] = 'field_data_field_farm_date';
+  $handler->display->display_options['sorts']['field_farm_date_value']['field'] = 'field_farm_date_value';
+  $handler->display->display_options['sorts']['field_farm_date_value']['order'] = 'DESC';
+  $handler->display->display_options['sorts']['field_farm_date_value']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['field_farm_date_value']['expose']['label'] = 'Date';
+  /* Sort criterion: Log: Log ID */
+  $handler->display->display_options['sorts']['id']['id'] = 'id';
+  $handler->display->display_options['sorts']['id']['table'] = 'log';
+  $handler->display->display_options['sorts']['id']['field'] = 'id';
+  $handler->display->display_options['sorts']['id']['order'] = 'DESC';
   /* Filter criterion: Log: Log type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'log';
@@ -542,10 +554,10 @@ if (!empty($farm_asset)) {
     'id' => 'id',
     'field_farm_date' => 'field_farm_date',
     'name_1' => 'name_1',
-    'name' => 'name',
     'field_farm_quantity' => 'field_farm_quantity',
+    'name' => 'name',
   );
-  $handler->display->display_options['style_options']['default'] = 'field_farm_date';
+  $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
     'id' => array(
       'sortable' => 0,
@@ -555,28 +567,28 @@ if (!empty($farm_asset)) {
       'empty_column' => 0,
     ),
     'field_farm_date' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'desc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'name_1' => array(
-      'sortable' => 1,
+      'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
-    'name' => array(
-      'sortable' => 1,
+    'name_1' => array(
+      'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'field_farm_quantity' => array(
-      'sortable' => 1,
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'name' => array(
+      'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
@@ -626,14 +638,6 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['fields']['name_1']['label'] = 'Transplanting';
   $handler->display->display_options['fields']['name_1']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['name_1']['alter']['path'] = 'log/[id]';
-  /* Field: Farm asset: Name */
-  $handler->display->display_options['fields']['name']['id'] = 'name';
-  $handler->display->display_options['fields']['name']['table'] = 'farm_asset';
-  $handler->display->display_options['fields']['name']['field'] = 'name';
-  $handler->display->display_options['fields']['name']['relationship'] = 'field_farm_planting_target_id';
-  $handler->display->display_options['fields']['name']['label'] = 'Planting';
-  $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['name']['alter']['path'] = 'farm/asset/!1';
   /* Field: Field: Quantity */
   $handler->display->display_options['fields']['field_farm_quantity']['id'] = 'field_farm_quantity';
   $handler->display->display_options['fields']['field_farm_quantity']['table'] = 'field_data_field_farm_quantity';
@@ -642,6 +646,26 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['fields']['field_farm_quantity']['settings'] = array(
     'view_mode' => 'full',
   );
+  /* Field: Farm asset: Name */
+  $handler->display->display_options['fields']['name']['id'] = 'name';
+  $handler->display->display_options['fields']['name']['table'] = 'farm_asset';
+  $handler->display->display_options['fields']['name']['field'] = 'name';
+  $handler->display->display_options['fields']['name']['relationship'] = 'field_farm_planting_target_id';
+  $handler->display->display_options['fields']['name']['label'] = 'Planting';
+  $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['name']['alter']['path'] = 'farm/asset/!1';
+  /* Sort criterion: Field: Date (field_farm_date) */
+  $handler->display->display_options['sorts']['field_farm_date_value']['id'] = 'field_farm_date_value';
+  $handler->display->display_options['sorts']['field_farm_date_value']['table'] = 'field_data_field_farm_date';
+  $handler->display->display_options['sorts']['field_farm_date_value']['field'] = 'field_farm_date_value';
+  $handler->display->display_options['sorts']['field_farm_date_value']['order'] = 'DESC';
+  $handler->display->display_options['sorts']['field_farm_date_value']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['field_farm_date_value']['expose']['label'] = 'Date';
+  /* Sort criterion: Log: Log ID */
+  $handler->display->display_options['sorts']['id']['id'] = 'id';
+  $handler->display->display_options['sorts']['id']['table'] = 'log';
+  $handler->display->display_options['sorts']['id']['field'] = 'id';
+  $handler->display->display_options['sorts']['id']['order'] = 'DESC';
   /* Filter criterion: Log: Log type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'log';
@@ -831,7 +855,7 @@ if (!empty($farm_asset)) {
     'field_farm_crop' => 'field_farm_crop',
     'field_farm_season' => 'field_farm_season',
   );
-  $handler->display->display_options['style_options']['default'] = '-1';
+  $handler->display->display_options['style_options']['default'] = 'name';
   $handler->display->display_options['style_options']['info'] = array(
     'id' => array(
       'sortable' => 1,
