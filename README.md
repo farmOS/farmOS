@@ -16,6 +16,7 @@ comes pre-packaged with a set of farm-related modules, including:
 * [Farm Delivery](http://drupal.org/project/farm_delivery)
 * [Farm Taxonomy](http://drupal.org/project/farm_taxonomy)
 * [Farm Admin](http://drupal.org/project/farm_admin)
+* [Farm Soil](http://drupal.org/project/farm_soil)
 
 Drupal.org is the location of the canonical repositories and mainline branches.
 Github.org is also used as a mirror, and for some of the more experimental
