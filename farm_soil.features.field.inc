@@ -392,7 +392,6 @@ function farm_soil_field_default_fields() {
   t('List the types of soils that are included in this sample. For soil maps and soil names, visit http://websoilsurvey.nrcs.usda.gov/app');
   t('Notes');
   t('Sample Points');
-  t('Soil Sample');
   t('Soil Types');
   t('Use the map to pinpoint the location(s) from which this sample is taken. If you are preparing a soil test, you may be sampling multiple points within a given area. All the points that comprise this sample should be included.');
   t('Use this field to attach photos or other image files to this soil sample record.');
