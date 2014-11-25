@@ -6,17 +6,17 @@ A Drupal installation profile for farms. http://drupal.org/project/farm
 This project aims to provide a Drupal distribution for use in agriculture. It
 comes pre-packaged with a set of farm-related modules, including:
 
-* [Farm Asset](http://drupal.org/project/farm_asset)
-* [Farm Log](http://drupal.org/project/farm_log)
-* [Farm Crop](http://drupal.org/project/farm_crop)
-* [Farm Livestock](http://drupal.org/project/farm_livestock)
+* [Farm Admin](http://drupal.org/project/farm_admin)
 * [Farm Area](http://drupal.org/project/farm_area)
-* [Farm Map](http://drupal.org/project/farm_map)
+* [Farm Asset](http://drupal.org/project/farm_asset)
+* [Farm Crop](http://drupal.org/project/farm_crop)
 * [Farm CSA](http://drupal.org/project/farm_csa)
 * [Farm Delivery](http://drupal.org/project/farm_delivery)
-* [Farm Taxonomy](http://drupal.org/project/farm_taxonomy)
-* [Farm Admin](http://drupal.org/project/farm_admin)
+* [Farm Livestock](http://drupal.org/project/farm_livestock)
+* [Farm Log](http://drupal.org/project/farm_log)
+* [Farm Map](http://drupal.org/project/farm_map)
 * [Farm Soil](http://drupal.org/project/farm_soil)
+* [Farm Taxonomy](http://drupal.org/project/farm_taxonomy)
 
 Drupal.org is the location of the canonical repositories and mainline branches.
 Github.org is also used as a mirror, and for some of the more experimental
