@@ -24,7 +24,6 @@ function farm_crop_views_default_views() {
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Crops';
   $handler->display->display_options['use_more_always'] = FALSE;
-  $handler->display->display_options['group_by'] = TRUE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['access']['perm'] = 'edit terms in farm_crops';
   $handler->display->display_options['cache']['type'] = 'none';
@@ -108,11 +107,6 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
   $handler->display->display_options['empty']['area_text_custom']['content'] = 'No crops found.';
-  /* Relationship: Taxonomy term: Farm asset using Crop */
-  $handler->display->display_options['relationships']['reverse_field_farm_crop_farm_asset']['id'] = 'reverse_field_farm_crop_farm_asset';
-  $handler->display->display_options['relationships']['reverse_field_farm_crop_farm_asset']['table'] = 'taxonomy_term_data';
-  $handler->display->display_options['relationships']['reverse_field_farm_crop_farm_asset']['field'] = 'reverse_field_farm_crop_farm_asset';
-  $handler->display->display_options['relationships']['reverse_field_farm_crop_farm_asset']['label'] = 'planting';
   /* Field: Taxonomy term: Term ID */
   $handler->display->display_options['fields']['tid']['id'] = 'tid';
   $handler->display->display_options['fields']['tid']['table'] = 'taxonomy_term_data';
@@ -153,15 +147,6 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['field_farm_companions']['field'] = 'field_farm_companions';
   $handler->display->display_options['fields']['field_farm_companions']['type'] = 'taxonomy_term_reference_plain';
   $handler->display->display_options['fields']['field_farm_companions']['delta_offset'] = '0';
-  /* Field: COUNT(Farm asset: Farm asset ID) */
-  $handler->display->display_options['fields']['id']['id'] = 'id';
-  $handler->display->display_options['fields']['id']['table'] = 'farm_asset';
-  $handler->display->display_options['fields']['id']['field'] = 'id';
-  $handler->display->display_options['fields']['id']['relationship'] = 'reverse_field_farm_crop_farm_asset';
-  $handler->display->display_options['fields']['id']['group_type'] = 'count';
-  $handler->display->display_options['fields']['id']['label'] = 'Plantings';
-  $handler->display->display_options['fields']['id']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['id']['alter']['path'] = 'admin/farm/crops/plantings?field_farm_crop_tid=[tid]';
   /* Filter criterion: Taxonomy term: Vocabulary */
   $handler->display->display_options['filters']['vid']['id'] = 'vid';
   $handler->display->display_options['filters']['vid']['table'] = 'taxonomy_term_data';
