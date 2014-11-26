@@ -14,7 +14,7 @@ function farm_soil_openlayers_layers() {
   $openlayers_layers->disabled = FALSE; /* Edit this to true to make a default openlayers_layers disabled initially */
   $openlayers_layers->api_version = 1;
   $openlayers_layers->name = 'farm_soil_nrcs';
-  $openlayers_layers->title = 'Farm Soil NRCS';
+  $openlayers_layers->title = 'NRCS Soil Survey';
   $openlayers_layers->description = 'NRCS Soil Survey layer.';
   $openlayers_layers->data = array(
     'base_url' => 'http://sdmdataaccess.nrcs.usda.gov/Spatial/SDM.wms',
