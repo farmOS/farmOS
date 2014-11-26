@@ -234,7 +234,7 @@ function farm_soil_field_default_fields() {
             'point' => 'point',
             'polygon' => 0,
           ),
-          'openlayers_map' => 'farm_map_geolocate',
+          'openlayers_map' => 'farm_soil_map',
         ),
         'type' => 'geofield_openlayers',
         'weight' => '3',
