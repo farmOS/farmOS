@@ -292,6 +292,7 @@ function farm_area_views_default_views() {
   $handler->display->display_options['filters']['vid']['value'] = array(
     1 => '1',
   );
+  $handler->display->display_options['filters']['vid']['group'] = 1;
 
   /* Display: All areas (Page) */
   $handler = $view->new_display('page', 'All areas (Page)', 'page_1');
@@ -329,27 +330,41 @@ function farm_area_views_default_views() {
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
+    'tid' => 'tid',
     'name' => 'name',
     'field_farm_area_type' => 'field_farm_area_type',
-    'field_farm_areas' => 'field_farm_areas',
+    'farm_area_links' => 'farm_area_links',
+    'nothing' => 'nothing',
   );
-  $handler->display->display_options['style_options']['default'] = 'name';
+  $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
+    'tid' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
     'name' => array(
-      'sortable' => 1,
+      'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'field_farm_area_type' => array(
-      'sortable' => 1,
+      'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
-    'field_farm_areas' => array(
+    'farm_area_links' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'nothing' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -359,7 +374,6 @@ function farm_area_views_default_views() {
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
-  $handler->display->display_options['defaults']['footer'] = FALSE;
   $handler->display->display_options['displays'] = array(
     'page_1' => 'page_1',
     'panel_pane_1' => 'panel_pane_1',
