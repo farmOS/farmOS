@@ -113,7 +113,7 @@ function farm_log_form_alter(&$form, &$form_state, $form_id) {
  * @param $field_name
  *   The machine name of the entity reference field that should be populated.
  *
- * @return $asset
+ * @return FarmAsset farm_asset
  *   Returns the asset object, if found.
  */
 function farm_log_form_prepopulate_asset(&$form, $field_name = 'field_farm_asset') {
