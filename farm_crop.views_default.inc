@@ -44,7 +44,7 @@ function farm_crop_views_default_views() {
     'field_farm_companions' => 'field_farm_companions',
     'id' => 'id',
   );
-  $handler->display->display_options['style_options']['default'] = 'name';
+  $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
     'tid' => array(
       'sortable' => 0,
@@ -54,28 +54,28 @@ function farm_crop_views_default_views() {
       'empty_column' => 0,
     ),
     'name' => array(
-      'sortable' => 1,
+      'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'field_farm_crop_family' => array(
-      'sortable' => 1,
+      'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'field_farm_transplant_days' => array(
-      'sortable' => 1,
+      'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'field_farm_maturity_days' => array(
-      'sortable' => 1,
+      'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
@@ -87,7 +87,7 @@ function farm_crop_views_default_views() {
       'empty_column' => 0,
     ),
     'id' => array(
-      'sortable' => 1,
+      'sortable' => 0,
       'default_sort_order' => 'desc',
       'align' => '',
       'separator' => '',
@@ -147,6 +147,18 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['field_farm_companions']['field'] = 'field_farm_companions';
   $handler->display->display_options['fields']['field_farm_companions']['type'] = 'taxonomy_term_reference_plain';
   $handler->display->display_options['fields']['field_farm_companions']['delta_offset'] = '0';
+  /* Sort criterion: Taxonomy term: Name */
+  $handler->display->display_options['sorts']['name']['id'] = 'name';
+  $handler->display->display_options['sorts']['name']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['sorts']['name']['field'] = 'name';
+  $handler->display->display_options['sorts']['name']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['name']['expose']['label'] = 'Name';
+  /* Sort criterion: Taxonomy term: Crop family (field_farm_crop_family) */
+  $handler->display->display_options['sorts']['field_farm_crop_family_tid']['id'] = 'field_farm_crop_family_tid';
+  $handler->display->display_options['sorts']['field_farm_crop_family_tid']['table'] = 'field_data_field_farm_crop_family';
+  $handler->display->display_options['sorts']['field_farm_crop_family_tid']['field'] = 'field_farm_crop_family_tid';
+  $handler->display->display_options['sorts']['field_farm_crop_family_tid']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['field_farm_crop_family_tid']['expose']['label'] = 'Family';
   /* Filter criterion: Taxonomy term: Vocabulary */
   $handler->display->display_options['filters']['vid']['id'] = 'vid';
   $handler->display->display_options['filters']['vid']['table'] = 'taxonomy_term_data';
@@ -843,31 +855,31 @@ if (!empty($farm_asset)) {
     'field_farm_crop' => 'field_farm_crop',
     'field_farm_season' => 'field_farm_season',
   );
-  $handler->display->display_options['style_options']['default'] = 'name';
+  $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
     'id' => array(
-      'sortable' => 1,
+      'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'name' => array(
-      'sortable' => 1,
+      'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'field_farm_crop' => array(
-      'sortable' => 1,
+      'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'field_farm_season' => array(
-      'sortable' => 1,
+      'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
@@ -906,6 +918,24 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['fields']['field_farm_season']['id'] = 'field_farm_season';
   $handler->display->display_options['fields']['field_farm_season']['table'] = 'field_data_field_farm_season';
   $handler->display->display_options['fields']['field_farm_season']['field'] = 'field_farm_season';
+  /* Sort criterion: Farm asset: Name */
+  $handler->display->display_options['sorts']['name']['id'] = 'name';
+  $handler->display->display_options['sorts']['name']['table'] = 'farm_asset';
+  $handler->display->display_options['sorts']['name']['field'] = 'name';
+  $handler->display->display_options['sorts']['name']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['name']['expose']['label'] = 'Name';
+  /* Sort criterion: Field: Crop (field_farm_crop) */
+  $handler->display->display_options['sorts']['field_farm_crop_tid']['id'] = 'field_farm_crop_tid';
+  $handler->display->display_options['sorts']['field_farm_crop_tid']['table'] = 'field_data_field_farm_crop';
+  $handler->display->display_options['sorts']['field_farm_crop_tid']['field'] = 'field_farm_crop_tid';
+  $handler->display->display_options['sorts']['field_farm_crop_tid']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['field_farm_crop_tid']['expose']['label'] = 'Crop';
+  /* Sort criterion: Field: Season (field_farm_season) */
+  $handler->display->display_options['sorts']['field_farm_season_tid']['id'] = 'field_farm_season_tid';
+  $handler->display->display_options['sorts']['field_farm_season_tid']['table'] = 'field_data_field_farm_season';
+  $handler->display->display_options['sorts']['field_farm_season_tid']['field'] = 'field_farm_season_tid';
+  $handler->display->display_options['sorts']['field_farm_season_tid']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['field_farm_season_tid']['expose']['label'] = 'Season';
   /* Filter criterion: Farm asset: Farm asset type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'farm_asset';
