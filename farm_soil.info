@@ -15,7 +15,6 @@ features[ctools][] = openlayers:openlayers_maps:1
 features[ctools][] = strongarm:strongarm:1
 features[features_api][] = api:1
 features[field][] = log-farm_soil_sample-field_farm_date
-features[field][] = log-farm_soil_sample-field_farm_images
 features[field][] = log-farm_soil_sample-field_farm_notes
 features[field][] = log-farm_soil_sample-field_farm_soil_sample_points
 features[field][] = log-farm_soil_sample-field_farm_soil_types
