@@ -32,7 +32,7 @@ function farm_soil_default_log_type() {
     "label" : "Soil Sample",
     "weight" : 0,
     "name_pattern" : "Sample [log:id]",
-    "name_edit" : "0",
+    "name_edit" : "1",
     "rdf_mapping" : []
   }');
   return $items;
