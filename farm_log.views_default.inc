@@ -305,7 +305,6 @@ function farm_log_views_default_views() {
   $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
-    'id_1' => 'id_1',
     'id' => 'id',
     'field_farm_date' => 'field_farm_date',
     'name' => 'name',
@@ -313,13 +312,6 @@ function farm_log_views_default_views() {
   );
   $handler->display->display_options['style_options']['default'] = 'field_farm_date';
   $handler->display->display_options['style_options']['info'] = array(
-    'id_1' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
     'id' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
@@ -368,12 +360,6 @@ function farm_log_views_default_views() {
   $handler->display->display_options['relationships']['field_farm_asset_target_id']['field'] = 'field_farm_asset_target_id';
   $handler->display->display_options['relationships']['field_farm_asset_target_id']['label'] = 'Farm asset';
   $handler->display->display_options['relationships']['field_farm_asset_target_id']['required'] = TRUE;
-  /* Field: Farm asset: Farm asset ID */
-  $handler->display->display_options['fields']['id_1']['id'] = 'id_1';
-  $handler->display->display_options['fields']['id_1']['table'] = 'farm_asset';
-  $handler->display->display_options['fields']['id_1']['field'] = 'id';
-  $handler->display->display_options['fields']['id_1']['relationship'] = 'field_farm_asset_target_id';
-  $handler->display->display_options['fields']['id_1']['exclude'] = TRUE;
   /* Field: Log: Log ID */
   $handler->display->display_options['fields']['id']['id'] = 'id';
   $handler->display->display_options['fields']['id']['table'] = 'log';
@@ -473,7 +459,7 @@ function farm_log_views_default_views() {
   $handler->display->display_options['header']['area_text_custom']['table'] = 'views';
   $handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['header']['area_text_custom']['empty'] = TRUE;
-  $handler->display->display_options['header']['area_text_custom']['content'] = '<a href="/log/add/farm_movement?farm_asset=[id_1]">+ Record a movement</a>';
+  $handler->display->display_options['header']['area_text_custom']['content'] = '<a href="/log/add/farm_movement?farm_asset=!1">+ Record a movement</a>';
   $handler->display->display_options['header']['area_text_custom']['tokenize'] = TRUE;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Log: Asset (field_farm_asset) */
@@ -518,7 +504,7 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['header']['area_text_custom']['table'] = 'views';
   $handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['header']['area_text_custom']['empty'] = TRUE;
-  $handler->display->display_options['header']['area_text_custom']['content'] = '<a href="/log/add/farm_movement?farm_asset=[id_1]">+ Record a movement</a>';
+  $handler->display->display_options['header']['area_text_custom']['content'] = '<a href="/log/add/farm_movement?farm_asset=!1">+ Record a movement</a>';
   $handler->display->display_options['header']['area_text_custom']['tokenize'] = TRUE;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Log: Asset (field_farm_asset) */
