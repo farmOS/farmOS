@@ -19,6 +19,11 @@ This module depends on the following modules:
  * Strongarm (http://drupal.org/project/strongarm)
  * Farm Map (http://drupal.org/project/farm_map)
 
+The submodule Farm Soil Sample Export requires:
+
+ * Views (http://drupal.org/project/views)
+ * Views Data Export (http://drupal.org/project/views_data_export)
+
 INSTALLATION
 ------------
 
