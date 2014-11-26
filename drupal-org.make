@@ -21,7 +21,7 @@ projects[commerce_price_savings_formatter][subdir] = "contrib"
 projects[commerce_price_savings_formatter][version] = "1.4"
 
 projects[ctools][subdir] = "contrib"
-projects[ctools][version] = "1.4"
+projects[ctools][version] = "1.5"
 
 projects[date][subdir] = "contrib"
 projects[date][version] = "2.8"
@@ -36,7 +36,7 @@ projects[features][subdir] = "contrib"
 projects[features][version] = "1.0"
 
 projects[field_collection][subdir] = "contrib"
-projects[field_collection][version] = "1.0-beta7"
+projects[field_collection][version] = "1.0-beta8"
 
 projects[field_group][subdir] = "contrib"
 projects[field_group][version] = "1.4"
@@ -70,7 +70,7 @@ projects[navbar][subdir] = "contrib"
 projects[navbar][version] = "1.4"
 
 projects[openlayers][subdir] = "contrib"
-projects[openlayers][version] = "2.x-dev"
+projects[openlayers][version] = "2.0-beta11"
 
 projects[panels][subdir] = "contrib"
 projects[panels][version] = "3.4"
