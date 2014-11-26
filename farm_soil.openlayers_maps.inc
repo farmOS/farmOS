@@ -25,8 +25,8 @@ function farm_soil_openlayers_maps() {
     'hide_empty_map' => array(),
     'center' => array(
       'initial' => array(
-        'centerpoint' => '-75.14, 39.95',
-        'zoom' => '12',
+        'centerpoint' => '-96, 40',
+        'zoom' => '4',
       ),
       'restrict' => array(
         'restrictextent' => 0,
@@ -37,6 +37,7 @@ function farm_soil_openlayers_maps() {
       'openlayers_behavior_fullscreen' => array(
         'activated' => 0,
       ),
+      'openlayers_behavior_geofield' => array(),
       'openlayers_behavior_keyboarddefaults' => array(),
       'openlayers_behavior_layerswitcher' => array(
         'ascending' => 1,
@@ -70,7 +71,7 @@ function farm_soil_openlayers_maps() {
         'zoomtolayer_scale' => '1',
       ),
     ),
-    'default_layer' => 'google_satellite',
+    'default_layer' => 'google_hybrid',
     'layers' => array(
       'google_satellite' => 'google_satellite',
       'google_hybrid' => 'google_hybrid',
