@@ -29,6 +29,7 @@ features[features_api][] = api:1
 features[field][] = field_collection_item-field_farm_quantity-field_farm_quantity_units
 features[field][] = field_collection_item-field_farm_quantity-field_farm_quantity_value
 features[field][] = log-farm_issue-field_farm_areas
+features[field][] = log-farm_issue-field_farm_assets
 features[field][] = log-farm_issue-field_farm_date
 features[field][] = log-farm_issue-field_farm_notes
 features[field][] = log-farm_issue-field_farm_priority

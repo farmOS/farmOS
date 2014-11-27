@@ -206,6 +206,90 @@ function farm_log_field_default_fields() {
     ),
   );
 
+  // Exported field: 'log-farm_issue-field_farm_assets'.
+  $fields['log-farm_issue-field_farm_assets'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_assets',
+      'foreign keys' => array(
+        'farm_asset' => array(
+          'columns' => array(
+            'target_id' => 'id',
+          ),
+          'table' => 'farm_asset',
+        ),
+      ),
+      'indexes' => array(
+        'target_id' => array(
+          0 => 'target_id',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'entityreference',
+      'settings' => array(
+        'handler' => 'base',
+        'handler_settings' => array(
+          'behaviors' => array(
+            'views-select-list' => array(
+              'status' => 0,
+            ),
+          ),
+          'sort' => array(
+            'type' => 'none',
+          ),
+          'target_bundles' => array(),
+        ),
+        'target_type' => 'farm_asset',
+      ),
+      'translatable' => '0',
+      'type' => 'entityreference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_issue',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'List any farm assets that this issue pertains to.',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => 1,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '2',
+        ),
+        'token' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_assets',
+      'label' => 'Assets',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'entityreference',
+        'settings' => array(
+          'match_operator' => 'CONTAINS',
+          'path' => '',
+          'size' => '60',
+        ),
+        'type' => 'entityreference_autocomplete',
+        'weight' => '3',
+      ),
+    ),
+  );
+
   // Exported field: 'log-farm_issue-field_farm_date'.
   $fields['log-farm_issue-field_farm_date'] = array(
     'field_config' => array(
@@ -799,11 +883,13 @@ function farm_log_field_default_fields() {
   // Included for use with string extractors like potx.
   t('Areas');
   t('Asset');
+  t('Assets');
   t('Date');
   t('Enter a comma-separated list of areas that this an issue for. As you type, you will have the option of selecting from areas that you\'ve entered in the past.');
   t('Enter the date that this became an issue.');
   t('From');
   t('How important is this issue? You can manage available priority levels in the <a href="/admin/structure/taxonomy/farm_priority">Priority Levels</a> vocabulary.');
+  t('List any farm assets that this issue pertains to.');
   t('Notes');
   t('Priority');
   t('To');
