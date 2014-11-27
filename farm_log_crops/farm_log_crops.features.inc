@@ -38,7 +38,7 @@ function farm_log_crops_default_log_type() {
     "type" : "farm_harvest",
     "label" : "Harvest",
     "weight" : 0,
-    "name_pattern" : "Harvest [log:field-farm-date:custom:Y-m-d] [log:field-farm-areas]",
+    "name_pattern" : "Harvest [log:field-farm-planting:field-farm-crop]",
     "name_edit" : "0",
     "rdf_mapping" : []
   }');
