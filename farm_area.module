@@ -39,10 +39,10 @@ function farm_area_menu_local_tasks_alter(&$data, $router_item, $root_path) {
         ),
       ),
     );
-  }
 
-  // Add the action output.
-  $data['actions']['output'][] = $output;
+    // Add the action output.
+    $data['actions']['output'][] = $output;
+  }
 }
 
 
