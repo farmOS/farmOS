@@ -63,7 +63,9 @@ function farm_log_menu_local_tasks_alter(&$data, $router_item, $root_path) {
   }
 
   // Add the action output.
-  $data['actions']['output'][] = $output;
+  if (!empty($output)) {
+    $data['actions']['output'][] = $output;
+  }
 }
 
 /**
