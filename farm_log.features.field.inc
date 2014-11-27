@@ -176,7 +176,7 @@ function farm_log_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '5',
+          'weight' => '3',
         ),
         'token' => array(
           'label' => 'inline',
@@ -189,81 +189,6 @@ function farm_log_field_default_fields() {
       'entity_type' => 'log',
       'field_name' => 'field_farm_areas',
       'label' => 'Areas',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 0,
-        'module' => 'taxonomy',
-        'settings' => array(
-          'autocomplete_path' => 'taxonomy/autocomplete',
-          'size' => 60,
-        ),
-        'type' => 'taxonomy_autocomplete',
-        'weight' => '5',
-      ),
-    ),
-  );
-
-  // Exported field: 'log-farm_issue-field_farm_crops'.
-  $fields['log-farm_issue-field_farm_crops'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_crops',
-      'foreign keys' => array(
-        'tid' => array(
-          'columns' => array(
-            'tid' => 'tid',
-          ),
-          'table' => 'taxonomy_term_data',
-        ),
-      ),
-      'indexes' => array(
-        'tid' => array(
-          0 => 'tid',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'taxonomy',
-      'settings' => array(
-        'allowed_values' => array(
-          0 => array(
-            'vocabulary' => 'farm_crops',
-            'parent' => '0',
-          ),
-        ),
-      ),
-      'translatable' => '0',
-      'type' => 'taxonomy_term_reference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_issue',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => 'Enter a comma-separated list of crops that this an issue for. As you type, you will have the option of selecting from crops that you\'ve entered in the past.',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => '4',
-        ),
-        'token' => array(
-          'label' => 'inline',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => '1',
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_crops',
-      'label' => 'Crops',
       'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
@@ -329,7 +254,7 @@ function farm_log_field_default_fields() {
             'show_repeat_rule' => 'show',
           ),
           'type' => 'date_default',
-          'weight' => '1',
+          'weight' => '0',
         ),
         'token' => array(
           'label' => 'inline',
@@ -375,202 +300,6 @@ function farm_log_field_default_fields() {
     ),
   );
 
-  // Exported field: 'log-farm_issue-field_farm_files'.
-  $fields['log-farm_issue-field_farm_files'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_files',
-      'foreign keys' => array(
-        'fid' => array(
-          'columns' => array(
-            'fid' => 'fid',
-          ),
-          'table' => 'file_managed',
-        ),
-      ),
-      'indexes' => array(
-        'fid' => array(
-          0 => 'fid',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'file',
-      'settings' => array(
-        'display_default' => 0,
-        'display_field' => 0,
-        'uri_scheme' => 'public',
-      ),
-      'translatable' => '0',
-      'type' => 'file',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_issue',
-      'deleted' => '0',
-      'description' => 'Use this field to attach files to this issue record.',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'module' => 'file',
-          'settings' => array(),
-          'type' => 'file_table',
-          'weight' => '7',
-        ),
-        'token' => array(
-          'label' => 'above',
-          'module' => 'file',
-          'settings' => array(),
-          'type' => 'file_table',
-          'weight' => '9',
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_files',
-      'label' => 'Files',
-      'required' => 0,
-      'settings' => array(
-        'description_field' => 1,
-        'file_directory' => '',
-        'file_extensions' => 'csv doc docx odt odp ods pdf ppt pptx txt xls xlsx',
-        'filefield_paths' => array(
-          'active_updating' => 0,
-          'file_name' => array(
-            'options' => array(
-              'pathauto' => 0,
-              'transliterate' => 0,
-            ),
-            'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
-          ),
-          'file_path' => array(
-            'options' => array(
-              'pathauto' => 0,
-              'transliterate' => 0,
-            ),
-            'value' => 'logs/[log:created:custom:Y]/[log:created:custom:m]/[log:created:custom:d]/[log:id]',
-          ),
-          'retroactive_update' => 0,
-        ),
-        'filefield_paths_enabled' => 1,
-        'max_filesize' => '',
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'file',
-        'settings' => array(
-          'progress_indicator' => 'bar',
-        ),
-        'type' => 'file_generic',
-        'weight' => '8',
-      ),
-    ),
-  );
-
-  // Exported field: 'log-farm_issue-field_farm_images'.
-  $fields['log-farm_issue-field_farm_images'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_images',
-      'foreign keys' => array(
-        'fid' => array(
-          'columns' => array(
-            'fid' => 'fid',
-          ),
-          'table' => 'file_managed',
-        ),
-      ),
-      'indexes' => array(
-        'fid' => array(
-          0 => 'fid',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'image',
-      'settings' => array(
-        'default_image' => 0,
-        'uri_scheme' => 'public',
-      ),
-      'translatable' => '0',
-      'type' => 'image',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_issue',
-      'deleted' => '0',
-      'description' => 'Use this field to attach image files to this issue record.',
-      'display' => array(
-        'default' => array(
-          'label' => 'hidden',
-          'module' => 'image',
-          'settings' => array(
-            'image_link' => '',
-            'image_style' => 'large',
-          ),
-          'type' => 'image',
-          'weight' => '0',
-        ),
-        'token' => array(
-          'label' => 'hidden',
-          'module' => 'image',
-          'settings' => array(
-            'image_link' => '',
-            'image_style' => 'large',
-          ),
-          'type' => 'image',
-          'weight' => '7',
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_images',
-      'label' => 'Images',
-      'required' => 0,
-      'settings' => array(
-        'alt_field' => 0,
-        'default_image' => 0,
-        'file_directory' => '',
-        'file_extensions' => 'png gif jpg jpeg',
-        'filefield_paths' => array(
-          'active_updating' => 0,
-          'file_name' => array(
-            'options' => array(
-              'pathauto' => 0,
-              'transliterate' => 0,
-            ),
-            'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
-          ),
-          'file_path' => array(
-            'options' => array(
-              'pathauto' => 0,
-              'transliterate' => 0,
-            ),
-            'value' => 'logs/[log:created:custom:Y]/[log:created:custom:m]/[log:created:custom:d]/[log:id]',
-          ),
-          'retroactive_update' => 0,
-        ),
-        'filefield_paths_enabled' => 1,
-        'max_filesize' => '',
-        'max_resolution' => '',
-        'min_resolution' => '',
-        'title_field' => 0,
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'image',
-        'settings' => array(
-          'preview_image_style' => 'thumbnail',
-          'progress_indicator' => 'bar',
-        ),
-        'type' => 'image_image',
-        'weight' => '7',
-      ),
-    ),
-  );
-
   // Exported field: 'log-farm_issue-field_farm_notes'.
   $fields['log-farm_issue-field_farm_notes'] = array(
     'field_config' => array(
@@ -609,7 +338,7 @@ function farm_log_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '6',
+          'weight' => '4',
         ),
         'token' => array(
           'label' => 'above',
@@ -634,7 +363,7 @@ function farm_log_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '6',
+        'weight' => '5',
       ),
     ),
   );
@@ -684,7 +413,7 @@ function farm_log_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_plain',
-          'weight' => '2',
+          'weight' => '1',
         ),
         'token' => array(
           'label' => 'inline',
@@ -707,81 +436,6 @@ function farm_log_field_default_fields() {
         'settings' => array(),
         'type' => 'options_select',
         'weight' => '2',
-      ),
-    ),
-  );
-
-  // Exported field: 'log-farm_issue-field_farm_threats'.
-  $fields['log-farm_issue-field_farm_threats'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_threats',
-      'foreign keys' => array(
-        'tid' => array(
-          'columns' => array(
-            'tid' => 'tid',
-          ),
-          'table' => 'taxonomy_term_data',
-        ),
-      ),
-      'indexes' => array(
-        'tid' => array(
-          0 => 'tid',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'taxonomy',
-      'settings' => array(
-        'allowed_values' => array(
-          0 => array(
-            'vocabulary' => 'farm_threats',
-            'parent' => '0',
-          ),
-        ),
-      ),
-      'translatable' => '0',
-      'type' => 'taxonomy_term_reference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_issue',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => 'Enter a comma-separated list of threats that this issue includes. For example: "drought", "flooding", "locusts", etc. As you type, you will have the option of selecting from threats that you\'ve entered in the past.',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => '3',
-        ),
-        'token' => array(
-          'label' => 'inline',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => '4',
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_threats',
-      'label' => 'Threats',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 0,
-        'module' => 'taxonomy',
-        'settings' => array(
-          'autocomplete_path' => 'taxonomy/autocomplete',
-          'size' => 60,
-        ),
-        'type' => 'taxonomy_autocomplete',
-        'weight' => '3',
       ),
     ),
   );
@@ -1145,23 +799,15 @@ function farm_log_field_default_fields() {
   // Included for use with string extractors like potx.
   t('Areas');
   t('Asset');
-  t('Crops');
   t('Date');
   t('Enter a comma-separated list of areas that this an issue for. As you type, you will have the option of selecting from areas that you\'ve entered in the past.');
-  t('Enter a comma-separated list of crops that this an issue for. As you type, you will have the option of selecting from crops that you\'ve entered in the past.');
-  t('Enter a comma-separated list of threats that this issue includes. For example: "drought", "flooding", "locusts", etc. As you type, you will have the option of selecting from threats that you\'ve entered in the past.');
   t('Enter the date that this became an issue.');
-  t('Files');
   t('From');
   t('How important is this issue? You can manage available priority levels in the <a href="/admin/structure/taxonomy/farm_priority">Priority Levels</a> vocabulary.');
-  t('Images');
   t('Notes');
   t('Priority');
-  t('Threats');
   t('To');
   t('Units');
-  t('Use this field to attach files to this issue record.');
-  t('Use this field to attach image files to this issue record.');
   t('Value');
   t('What asset is being moved?');
   t('When did this movement take place? Or when will it?');
