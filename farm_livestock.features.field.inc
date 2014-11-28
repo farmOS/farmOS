@@ -515,7 +515,7 @@ function farm_livestock_field_default_fields() {
           'module' => 'image',
           'settings' => array(
             'image_link' => 'file',
-            'image_style' => 'medium',
+            'image_style' => 'large',
           ),
           'type' => 'image',
           'weight' => '0',
