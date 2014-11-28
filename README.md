@@ -1,15 +1,7 @@
 FARM LOG
 ========
 
-Provides various log types used in farming.
-
-Currently the following log types are provided:
-
-* Input
-* Cultivation
-* Harvest
-* Issue
-* Movement
+Provides log types and UI for farm task management.
 
 This module is part of the [FarmOS](http://drupal.org/project/farm)
 distribution.

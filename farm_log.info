@@ -1,5 +1,5 @@
 name = Farm Log
-description = Log types and fields for farms.
+description = Provides log types and UI for farm task management.
 core = 7.x
 package = Farm
 dependencies[] = ctools
@@ -11,7 +11,6 @@ dependencies[] = entity_token
 dependencies[] = entityreference
 dependencies[] = farm_area
 dependencies[] = farm_asset
-dependencies[] = farm_crop
 dependencies[] = features
 dependencies[] = field_collection
 dependencies[] = filefield_paths
