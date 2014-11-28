@@ -152,6 +152,29 @@ function farm_crop_default_page_manager_handlers() {
     $pane->uuid = 'e79dd32b-0d6e-436a-abd9-b57be8da0d79';
     $display->content['new-e79dd32b-0d6e-436a-abd9-b57be8da0d79'] = $pane;
     $display->panels['right'][0] = 'new-e79dd32b-0d6e-436a-abd9-b57be8da0d79';
+    $pane = new stdClass();
+    $pane->pid = 'new-c960beef-70cf-49e7-a09a-d207bfb12082';
+    $pane->panel = 'right';
+    $pane->type = 'views_panes';
+    $pane->subtype = 'farm_log_harvest-panel_pane_1';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'context' => array(
+        0 => 'argument_entity_id:farm_asset_1',
+      ),
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 1;
+    $pane->locks = array();
+    $pane->uuid = 'c960beef-70cf-49e7-a09a-d207bfb12082';
+    $display->content['new-c960beef-70cf-49e7-a09a-d207bfb12082'] = $pane;
+    $display->panels['right'][1] = 'new-c960beef-70cf-49e7-a09a-d207bfb12082';
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = 'new-b9cd042f-888f-4d29-9edb-3410303177c3';
   $handler->conf['display'] = $display;
