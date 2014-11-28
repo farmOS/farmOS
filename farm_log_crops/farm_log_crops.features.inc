@@ -34,14 +34,6 @@ function farm_log_crops_default_log_type() {
     "name_edit" : "0",
     "rdf_mapping" : []
   }');
-  $items['farm_harvest'] = entity_import('log_type', '{
-    "type" : "farm_harvest",
-    "label" : "Harvest",
-    "weight" : 0,
-    "name_pattern" : "Harvest [log:field-farm-planting:field-farm-crop]",
-    "name_edit" : "0",
-    "rdf_mapping" : []
-  }');
   $items['farm_input'] = entity_import('log_type', '{
     "type" : "farm_input",
     "label" : "Input",
