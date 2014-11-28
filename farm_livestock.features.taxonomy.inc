@@ -9,10 +9,10 @@
  */
 function farm_livestock_taxonomy_default_vocabularies() {
   return array(
-    'farm_animal_breeds' => array(
-      'name' => 'Farm Animal Breeds',
-      'machine_name' => 'farm_animal_breeds',
-      'description' => 'A vocabulary of farm animal breeds.',
+    'farm_animal_types' => array(
+      'name' => 'Farm Animal Types',
+      'machine_name' => 'farm_animal_types',
+      'description' => 'A vocabulary of farm animal types.',
       'hierarchy' => '0',
       'module' => 'taxonomy',
       'weight' => '0',

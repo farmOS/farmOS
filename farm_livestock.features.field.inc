@@ -10,71 +10,6 @@
 function farm_livestock_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'farm_asset-animal-field_farm_animal_breed'.
-  $fields['farm_asset-animal-field_farm_animal_breed'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_animal_breed',
-      'foreign keys' => array(
-        'tid' => array(
-          'columns' => array(
-            'tid' => 'tid',
-          ),
-          'table' => 'taxonomy_term_data',
-        ),
-      ),
-      'indexes' => array(
-        'tid' => array(
-          0 => 'tid',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'taxonomy',
-      'settings' => array(
-        'allowed_values' => array(
-          0 => array(
-            'vocabulary' => 'farm_animal_breeds',
-            'parent' => '0',
-          ),
-        ),
-      ),
-      'translatable' => '0',
-      'type' => 'taxonomy_term_reference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'animal',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => 'What breed is this animal? You can manage the list of available breeds in the <a href="/admin/structure/taxonomy/farm_animal_breeds">Breeds Vocabulary</a>.',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => '3',
-        ),
-      ),
-      'entity_type' => 'farm_asset',
-      'field_name' => 'field_farm_animal_breed',
-      'label' => 'Breed',
-      'required' => 1,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'options',
-        'settings' => array(),
-        'type' => 'options_select',
-        'weight' => '3',
-      ),
-    ),
-  );
-
   // Exported field: 'farm_asset-animal-field_farm_animal_description'.
   $fields['farm_asset-animal-field_farm_animal_description'] = array(
     'field_config' => array(
@@ -131,7 +66,7 @@ function farm_livestock_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '7',
+        'weight' => '8',
       ),
     ),
   );
@@ -274,7 +209,7 @@ function farm_livestock_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'entityreference_autocomplete',
-        'weight' => '6',
+        'weight' => '7',
       ),
     ),
   );
@@ -331,7 +266,7 @@ function farm_livestock_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '4',
+        'weight' => '5',
       ),
     ),
   );
@@ -388,6 +323,74 @@ function farm_livestock_field_default_fields() {
         'settings' => array(),
         'type' => 'field_collection_embed',
         'weight' => '2',
+      ),
+    ),
+  );
+
+  // Exported field: 'farm_asset-animal-field_farm_animal_type'.
+  $fields['farm_asset-animal-field_farm_animal_type'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_animal_type',
+      'foreign keys' => array(
+        'tid' => array(
+          'columns' => array(
+            'tid' => 'tid',
+          ),
+          'table' => 'taxonomy_term_data',
+        ),
+      ),
+      'indexes' => array(
+        'tid' => array(
+          0 => 'tid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'taxonomy',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => array(
+            'vocabulary' => 'farm_animal_types',
+            'parent' => '0',
+          ),
+        ),
+      ),
+      'translatable' => '0',
+      'type' => 'taxonomy_term_reference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'animal',
+      'default_value' => array(),
+      'deleted' => '0',
+      'description' => 'What type of animal is this? You can manage the list of available types in the <a href="/admin/structure/taxonomy/farm_animal_types">Animal Types</a> vocabulary.',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '3',
+        ),
+      ),
+      'entity_type' => 'farm_asset',
+      'field_name' => 'field_farm_animal_type',
+      'label' => 'Type',
+      'required' => 1,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'options',
+        'settings' => array(
+          'autocomplete_path' => 'taxonomy/autocomplete',
+          'size' => 60,
+        ),
+        'type' => 'options_select',
+        'weight' => '3',
       ),
     ),
   );
@@ -467,7 +470,7 @@ function farm_livestock_field_default_fields() {
           'year_range' => '-3:+3',
         ),
         'type' => 'date_popup',
-        'weight' => '5',
+        'weight' => '6',
       ),
     ),
   );
@@ -560,7 +563,7 @@ function farm_livestock_field_default_fields() {
           'progress_indicator' => 'bar',
         ),
         'type' => 'image_image',
-        'weight' => '8',
+        'weight' => '9',
       ),
     ),
   );
@@ -753,7 +756,6 @@ function farm_livestock_field_default_fields() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Body Location');
-  t('Breed');
   t('Date of birth');
   t('Description');
   t('ID');
@@ -765,7 +767,8 @@ function farm_livestock_field_default_fields() {
   t('Photo(s)');
   t('Sex');
   t('Tag Type');
-  t('What breed is this animal? You can manage the list of available breeds in the <a href="/admin/structure/taxonomy/farm_animal_breeds">Breeds Vocabulary</a>.');
+  t('Type');
+  t('What type of animal is this? You can manage the list of available types in the <a href="/admin/structure/taxonomy/farm_animal_types">Animal Types</a> vocabulary.');
 
   return $fields;
 }

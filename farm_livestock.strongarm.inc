@@ -29,10 +29,10 @@ function farm_livestock_strongarm() {
           'weight' => '0',
         ),
         'redirect' => array(
-          'weight' => '10',
+          'weight' => '11',
         ),
         'path' => array(
-          'weight' => '9',
+          'weight' => '10',
         ),
       ),
       'display' => array(),
@@ -60,6 +60,13 @@ function farm_livestock_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'field_bundle_settings_taxonomy_term__farm_animal_types';
+  $strongarm->value = array();
+  $export['field_bundle_settings_taxonomy_term__farm_animal_types'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_farm_asset_animal_pattern';
   $strongarm->value = 'farm/animal/[farm_asset:name]';
   $export['pathauto_farm_asset_animal_pattern'] = $strongarm;
@@ -67,9 +74,9 @@ function farm_livestock_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'pathauto_taxonomy_term_farm_animal_breeds_pattern';
-  $strongarm->value = 'farm/animal/breed/[term:name]';
-  $export['pathauto_taxonomy_term_farm_animal_breeds_pattern'] = $strongarm;
+  $strongarm->name = 'pathauto_taxonomy_term_farm_animal_types_pattern';
+  $strongarm->value = 'farm/animal/type/[term:name]';
+  $export['pathauto_taxonomy_term_farm_animal_types_pattern'] = $strongarm;
 
   return $export;
 }
