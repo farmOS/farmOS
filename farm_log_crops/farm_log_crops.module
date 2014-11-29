@@ -3,5 +3,3 @@
  * @file
  * Code for the Farm Log Crops feature.
  */
-
-include_once 'farm_log_crops.features.inc';
