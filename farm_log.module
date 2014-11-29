@@ -13,6 +13,10 @@ function farm_log_menu_local_tasks_alter(&$data, $router_item, $root_path) {
 
   // Define actions.
   $actions = array(
+    'activity' => array(
+      'title' => t('Record an activity'),
+      'href' => 'log/add/farm_activity',
+    ),
     'movement' => array(
       'title' => t('Record a movement'),
       'href' => 'log/add/farm_movement',
@@ -25,6 +29,8 @@ function farm_log_menu_local_tasks_alter(&$data, $router_item, $root_path) {
 
   // Define actions for various paths.
   $path_actions = array(
+    'admin/farm' => array('activity', 'issue'),
+    'admin/farm/plan/activities' => array('activity'),
     'admin/farm/plan/movements' => array('movement'),
     'admin/farm/plan/issues' => array('issue'),
     'farm/asset/%' => array('movement'),
