@@ -13,7 +13,6 @@ This module depends on the following modules:
 
  * Date (http://drupal.org/project/date)
  * Features (http://drupal.org/project/features)
- * Field Group (http://drupal.org/project/field_group)
  * Pathauto (http://drupal.org/project/pathauto)
  * Strongarm (http://drupal.org/project/strongarm)
 

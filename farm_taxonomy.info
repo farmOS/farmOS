@@ -5,7 +5,6 @@ package = Farm
 dependencies[] = date
 dependencies[] = date_popup
 dependencies[] = features
-dependencies[] = field_group
 dependencies[] = pathauto
 dependencies[] = strongarm
 dependencies[] = taxonomy
