@@ -44,6 +44,14 @@ function farm_crop_default_farm_asset_type() {
  */
 function farm_crop_default_log_type() {
   $items = array();
+  $items['farm_harvest'] = entity_import('log_type', '{
+    "type" : "farm_harvest",
+    "label" : "Harvest",
+    "weight" : 0,
+    "name_pattern" : "Harvest [log:field-farm-planting:field-farm-crop]",
+    "name_edit" : "0",
+    "rdf_mapping" : []
+  }');
   $items['farm_seeding'] = entity_import('log_type', '{
     "type" : "farm_seeding",
     "label" : "Seeding",
