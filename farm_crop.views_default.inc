@@ -502,7 +502,7 @@ if (!empty($farm_asset)) {
   $view = new view();
   $view->name = 'farm_log_input';
   $view->description = '';
-  $view->tag = 'farm_log_crops';
+  $view->tag = 'farm_crop';
   $view->base_table = 'log';
   $view->human_name = 'Farm Log: Input';
   $view->core = 7;
