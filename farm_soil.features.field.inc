@@ -10,6 +10,74 @@
 function farm_soil_field_default_fields() {
   $fields = array();
 
+  // Exported field: 'log-farm_soil_sample-field_farm_area'.
+  $fields['log-farm_soil_sample-field_farm_area'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_area',
+      'foreign keys' => array(
+        'tid' => array(
+          'columns' => array(
+            'tid' => 'tid',
+          ),
+          'table' => 'taxonomy_term_data',
+        ),
+      ),
+      'indexes' => array(
+        'tid' => array(
+          0 => 'tid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'taxonomy',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => array(
+            'vocabulary' => 'farm_areas',
+            'parent' => '0',
+          ),
+        ),
+      ),
+      'translatable' => '0',
+      'type' => 'taxonomy_term_reference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_soil_sample',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'What area does this soil sample pertain to?',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '1',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_area',
+      'label' => 'Area',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'taxonomy',
+        'settings' => array(
+          'autocomplete_path' => 'taxonomy/autocomplete',
+          'size' => 60,
+        ),
+        'type' => 'taxonomy_autocomplete',
+        'weight' => '2',
+      ),
+    ),
+  );
+
   // Exported field: 'log-farm_soil_sample-field_farm_date'.
   $fields['log-farm_soil_sample-field_farm_date'] = array(
     'field_config' => array(
@@ -125,7 +193,7 @@ function farm_soil_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '5',
+          'weight' => '4',
         ),
       ),
       'entity_type' => 'log',
@@ -143,7 +211,7 @@ function farm_soil_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '6',
+        'weight' => '5',
       ),
     ),
   );
@@ -312,6 +380,7 @@ function farm_soil_field_default_fields() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Area');
   t('Date');
   t('Enter the date when this sample was taken (or will take place).');
   t('List the types of soils that are included in this sample. For soil maps and soil names, visit http://websoilsurvey.nrcs.usda.gov/app');
@@ -319,6 +388,7 @@ function farm_soil_field_default_fields() {
   t('Sample Points');
   t('Soil Types');
   t('Use the map to pinpoint the location(s) from which this sample is taken. If you are preparing a soil test, you may be sampling multiple points within a given area. All the points that comprise this sample should be included.');
+  t('What area does this soil sample pertain to?');
 
   return $fields;
 }
