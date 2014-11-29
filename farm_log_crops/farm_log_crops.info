@@ -1,4 +1,0 @@
-name = Farm Log Crops
-description = Log types and fields for farm crops.
-core = 7.x
-package = Farm
