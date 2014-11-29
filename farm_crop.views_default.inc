@@ -13,7 +13,7 @@ function farm_crop_views_default_views() {
   $view = new view();
   $view->name = 'farm_crops';
   $view->description = '';
-  $view->tag = 'default';
+  $view->tag = 'farm_crop';
   $view->base_table = 'taxonomy_term_data';
   $view->human_name = 'Farm Crops';
   $view->core = 7;
@@ -221,7 +221,7 @@ function farm_crop_views_default_views() {
   $view = new view();
   $view->name = 'farm_log_harvest';
   $view->description = '';
-  $view->tag = 'farm_log_crops';
+  $view->tag = 'farm_crop';
   $view->base_table = 'log';
   $view->human_name = 'Farm Log: Harvest';
   $view->core = 7;
@@ -502,7 +502,7 @@ if (!empty($farm_asset)) {
   $view = new view();
   $view->name = 'farm_log_seeding';
   $view->description = '';
-  $view->tag = 'default';
+  $view->tag = 'farm_crop';
   $view->base_table = 'log';
   $view->human_name = 'Farm Log: Seeding';
   $view->core = 7;
@@ -771,7 +771,7 @@ if (!empty($farm_asset)) {
   $view = new view();
   $view->name = 'farm_log_transplanting';
   $view->description = '';
-  $view->tag = 'default';
+  $view->tag = 'farm_crop';
   $view->base_table = 'log';
   $view->human_name = 'Farm Log: Transplanting';
   $view->core = 7;
@@ -1047,7 +1047,7 @@ if (!empty($farm_asset)) {
   $view = new view();
   $view->name = 'farm_plantings';
   $view->description = '';
-  $view->tag = 'default';
+  $view->tag = 'farm_crop';
   $view->base_table = 'farm_asset';
   $view->human_name = 'Farm Plantings';
   $view->core = 7;
