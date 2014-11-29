@@ -518,7 +518,7 @@ function farm_log_views_default_views() {
   $view = new view();
   $view->name = 'farm_log_movement';
   $view->description = '';
-  $view->tag = 'default';
+  $view->tag = 'farm_log';
   $view->base_table = 'log';
   $view->human_name = 'Farm Log: Movement';
   $view->core = 7;
@@ -776,7 +776,7 @@ if (!empty($farm_asset)) {
   $view = new view();
   $view->name = 'farm_plan';
   $view->description = '';
-  $view->tag = 'default';
+  $view->tag = 'farm_log';
   $view->base_table = 'log';
   $view->human_name = 'Farm Plan';
   $view->core = 7;
