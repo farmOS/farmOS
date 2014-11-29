@@ -9,29 +9,6 @@
  */
 function farm_log_crops_taxonomy_default_vocabularies() {
   return array(
-    'farm_cultivation_types' => array(
-      'name' => 'Farm Cultivation Types',
-      'machine_name' => 'farm_cultivation_types',
-      'description' => 'A vocabulary of farm cultivation types.',
-      'hierarchy' => '0',
-      'module' => 'taxonomy',
-      'weight' => '0',
-      'rdf_mapping' => array(
-        'rdftype' => array(
-          0 => 'skos:ConceptScheme',
-        ),
-        'name' => array(
-          'predicates' => array(
-            0 => 'dc:title',
-          ),
-        ),
-        'description' => array(
-          'predicates' => array(
-            0 => 'rdfs:comment',
-          ),
-        ),
-      ),
-    ),
     'farm_input_types' => array(
       'name' => 'Farm Input Types',
       'machine_name' => 'farm_input_types',

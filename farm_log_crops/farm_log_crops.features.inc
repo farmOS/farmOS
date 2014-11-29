@@ -26,14 +26,6 @@ function farm_log_crops_views_api() {
  */
 function farm_log_crops_default_log_type() {
   $items = array();
-  $items['farm_cultivation'] = entity_import('log_type', '{
-    "type" : "farm_cultivation",
-    "label" : "Cultivation",
-    "weight" : 0,
-    "name_pattern" : "[log:field-farm-cultivation-type] [log:field-farm-area]",
-    "name_edit" : "0",
-    "rdf_mapping" : []
-  }');
   $items['farm_input'] = entity_import('log_type', '{
     "type" : "farm_input",
     "label" : "Input",
