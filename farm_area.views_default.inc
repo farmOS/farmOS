@@ -13,7 +13,7 @@ function farm_area_views_default_views() {
   $view = new view();
   $view->name = 'farm_area_data';
   $view->description = '';
-  $view->tag = 'default';
+  $view->tag = 'farm_area';
   $view->base_table = 'taxonomy_term_data';
   $view->human_name = 'Farm Area Data';
   $view->core = 7;
@@ -230,7 +230,7 @@ function farm_area_views_default_views() {
   $view = new view();
   $view->name = 'farm_areas';
   $view->description = '';
-  $view->tag = 'default';
+  $view->tag = 'farm_area';
   $view->base_table = 'taxonomy_term_data';
   $view->human_name = 'Farm Areas';
   $view->core = 7;
