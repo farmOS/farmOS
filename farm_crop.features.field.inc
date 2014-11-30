@@ -604,7 +604,7 @@ function farm_crop_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '1',
+          'weight' => '3',
         ),
         'token' => array(
           'label' => 'above',
@@ -628,7 +628,7 @@ function farm_crop_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '1',
+        'weight' => '3',
       ),
     ),
   );
@@ -727,6 +727,287 @@ function farm_crop_field_default_fields() {
     ),
   );
 
+  // Exported field: 'log-farm_input-field_farm_input_method'.
+  $fields['log-farm_input-field_farm_input_method'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_input_method',
+      'foreign keys' => array(
+        'format' => array(
+          'columns' => array(
+            'format' => 'format',
+          ),
+          'table' => 'filter_format',
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'text',
+      'settings' => array(
+        'max_length' => '255',
+      ),
+      'translatable' => '0',
+      'type' => 'text',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_input',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'How was this input applied?',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '7',
+        ),
+        'token' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_input_method',
+      'label' => 'Application Method',
+      'required' => 0,
+      'settings' => array(
+        'text_processing' => '0',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'text',
+        'settings' => array(
+          'size' => '60',
+        ),
+        'type' => 'text_textfield',
+        'weight' => '7',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_input-field_farm_input_purpose'.
+  $fields['log-farm_input-field_farm_input_purpose'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_input_purpose',
+      'foreign keys' => array(
+        'format' => array(
+          'columns' => array(
+            'format' => 'format',
+          ),
+          'table' => 'filter_format',
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'text',
+      'settings' => array(
+        'max_length' => '255',
+      ),
+      'translatable' => '0',
+      'type' => 'text',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_input',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'What was the purpose of this input?',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '5',
+        ),
+        'token' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_input_purpose',
+      'label' => 'Purpose',
+      'required' => 0,
+      'settings' => array(
+        'text_processing' => '0',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'text',
+        'settings' => array(
+          'size' => '60',
+        ),
+        'type' => 'text_textfield',
+        'weight' => '5',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_input-field_farm_input_source'.
+  $fields['log-farm_input-field_farm_input_source'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_input_source',
+      'foreign keys' => array(
+        'format' => array(
+          'columns' => array(
+            'format' => 'format',
+          ),
+          'table' => 'filter_format',
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'text',
+      'settings' => array(
+        'max_length' => '255',
+      ),
+      'translatable' => '0',
+      'type' => 'text',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_input',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'Where was this input obtained? Who manufactured it?',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '6',
+        ),
+        'token' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_input_source',
+      'label' => 'Source/Manufacturer',
+      'required' => 0,
+      'settings' => array(
+        'text_processing' => '0',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'text',
+        'settings' => array(
+          'size' => '60',
+        ),
+        'type' => 'text_textfield',
+        'weight' => '6',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_input-field_farm_material'.
+  $fields['log-farm_input-field_farm_material'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_material',
+      'foreign keys' => array(
+        'tid' => array(
+          'columns' => array(
+            'tid' => 'tid',
+          ),
+          'table' => 'taxonomy_term_data',
+        ),
+      ),
+      'indexes' => array(
+        'tid' => array(
+          0 => 'tid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'taxonomy',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => array(
+            'vocabulary' => 'product_categories',
+            'parent' => '0',
+          ),
+        ),
+      ),
+      'translatable' => '0',
+      'type' => 'taxonomy_term_reference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_input',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'What material is being applied? As you type, you will have the option of selecting from materials that you\'ve entered in the past.',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '1',
+        ),
+        'token' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_material',
+      'label' => 'Material',
+      'required' => 1,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'taxonomy',
+        'settings' => array(
+          'autocomplete_path' => 'taxonomy/autocomplete',
+          'size' => 60,
+        ),
+        'type' => 'taxonomy_autocomplete',
+        'weight' => '1',
+      ),
+    ),
+  );
+
   // Exported field: 'log-farm_input-field_farm_notes'.
   $fields['log-farm_input-field_farm_notes'] = array(
     'field_config' => array(
@@ -765,7 +1046,7 @@ function farm_crop_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '6',
+          'weight' => '8',
         ),
         'token' => array(
           'label' => 'above',
@@ -789,7 +1070,7 @@ function farm_crop_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '6',
+        'weight' => '8',
       ),
     ),
   );
@@ -850,7 +1131,7 @@ function farm_crop_field_default_fields() {
             'link' => 1,
           ),
           'type' => 'entityreference_label',
-          'weight' => '2',
+          'weight' => '4',
         ),
         'token' => array(
           'label' => 'above',
@@ -875,7 +1156,7 @@ function farm_crop_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'entityreference_autocomplete',
-        'weight' => '2',
+        'weight' => '4',
       ),
     ),
   );
@@ -916,7 +1197,7 @@ function farm_crop_field_default_fields() {
             'view_mode' => 'full',
           ),
           'type' => 'field_collection_fields',
-          'weight' => '4',
+          'weight' => '2',
         ),
         'token' => array(
           'label' => 'above',
@@ -937,7 +1218,7 @@ function farm_crop_field_default_fields() {
         'module' => 'field_collection',
         'settings' => array(),
         'type' => 'field_collection_embed',
-        'weight' => '5',
+        'weight' => '2',
       ),
     ),
   );
@@ -1850,6 +2131,7 @@ function farm_crop_field_default_fields() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Application Method');
   t('Area');
   t('Assign this planting to a season. You can manage these options in the <a href="/admin/structure/taxonomy/farm_season">Seasons</a> vocabulary.');
   t('Companions');
@@ -1868,18 +2150,25 @@ function farm_crop_field_default_fields() {
   t('Enter the date when this input took place (or will take place).');
   t('Harvest Date');
   t('Harvests must reference a specific planting. You can view a list of all plantings, and add new ones, from the <a href="/admin/farm/crops/plantings">Plantings list</a>.');
+  t('How was this input applied?');
+  t('Material');
   t('Notes');
   t('Photo(s)');
   t('Planting');
+  t('Purpose');
   t('Quantity');
   t('Season');
   t('Seeding date');
   t('Seedings must reference a specific planting. You can view a list of all plantings, and add new ones, from the <a href="/admin/farm/crops/plantings">Plantings list</a>.');
+  t('Source/Manufacturer');
   t('Transplant date');
   t('Transplantings must reference a specific planting. You can view a list of all plantings, and add new ones, from the <a href="/admin/farm/crops/plantings">Plantings list</a>.');
   t('What area is this input in?');
+  t('What material is being applied? As you type, you will have the option of selecting from materials that you\'ve entered in the past.');
+  t('What was the purpose of this input?');
   t('When did/will this seeding take place?');
   t('When did/will this transplanting take place?');
+  t('Where was this input obtained? Who manufactured it?');
 
   return $fields;
 }
