@@ -25,3 +25,4 @@ features[openlayers_layers][] = farm_soil_nrcs
 features[openlayers_maps][] = farm_soil_map
 features[taxonomy][] = farm_soil_types
 features[variable][] = field_bundle_settings_log__farm_soil_sample
+features[variable][] = pathauto_taxonomy_term_farm_soil_types_pattern
