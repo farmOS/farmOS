@@ -42,6 +42,7 @@ function farm_crop_menu_local_tasks_alter(&$data, $router_item, $root_path) {
   // Define actions for various paths.
   $path_actions = array(
     'farm/area/%/inputs' => array('input'),
+    'farm/area/%/plantings' => array('planting'),
     'farm/asset/%' => array('seeding', 'transplanting', 'harvest', 'input'),
     'farm/asset/%/harvests' => array('harvest'),
     'farm/asset/%/inputs' => array('input'),
