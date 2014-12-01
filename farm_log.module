@@ -67,9 +67,32 @@ function farm_log_menu_local_tasks_alter(&$data, $router_item, $root_path) {
         $output['#link']['localized_options']['query']['destination'] = 'farm/asset/' . $asset_id;
 
         // Set the farm_asset query string to the asset id. This will be used to
-        // prepopualte asset reference fields in log entities.
+        // prepopulate asset reference fields in log entities.
         // See hook_form_alter() below
         $output['#link']['localized_options']['query']['farm_asset'] = $asset_id;
+      }
+
+      // Or, if this is an area path...
+      elseif ($root_path == 'taxonomy/term/%' || substr($root_path, 0, 11) == 'farm/area/%') {
+
+        // Get the asset id from the path.
+        $area_id = check_plain(arg(2));
+
+        // Load the area.
+        $farm_area = taxonomy_term_load($area_id);
+
+        // If the taxonomy term is not a farm_area, bail.
+        if (empty($farm_area->vocabulary_machine_name) || $farm_area->vocabulary_machine_name != 'farm_areas') {
+          continue;
+        }
+
+        // Set the destination to the farm area page.
+        $output['#link']['localized_options']['query']['destination'] = 'taxonomy/term/' . $area_id;
+
+        // Set the farm_area query string to the area id. This will be used to
+        // prepopulate area reference fields in log entities.
+        // See hook_form_alter() below
+        $output['#link']['localized_options']['query']['farm_area'] = $area_id;
       }
 
       // Add the action output.
@@ -132,6 +155,16 @@ function farm_log_form_alter(&$form, &$form_state, $form_id) {
       }
     }
   }
+
+  // If this is a log form with an area(s) reference field...
+  if ($form_id == 'log_form' && (!empty($form['field_farm_area']) || !empty($form['field_farm_areas']))) {
+
+    // First choice is farm_area, second is farm_areas.
+    $field_name = (!empty($form['field_farm_area'])) ? 'field_farm_area' : 'field_farm_areas';
+
+    // Alter the form with the farm_log helper function.
+    farm_log_form_prepopulate_area($form, $field_name);
+  }
 }
 
 /**
@@ -162,7 +195,7 @@ function farm_log_form_prepopulate_asset(&$form, $field_name = 'field_farm_asset
         '#value' => $asset,
       );
 
-      // Prepopulate the movement's asset reference field.
+      // Prepopulate the asset reference field.
       if (empty($form[$field_name][LANGUAGE_NONE][0]['target_id']['#default_value'])) {
         $form[$field_name][LANGUAGE_NONE][0]['target_id']['#default_value'] = entity_label('farm_asset', $asset) . ' (' . $asset->id . ')';
       }
@@ -170,4 +203,42 @@ function farm_log_form_prepopulate_asset(&$form, $field_name = 'field_farm_asset
   }
 
   return $asset;
+}
+
+/**
+ * Helper function for enabling area prepopulation in log forms.
+ *
+ * @param $form
+ *   The form array to modify, passed by reference.
+ * @param $field_name
+ *   The machine name of the term reference field that should be populated.
+ *
+ * @return TaxonomyTerm term
+ *   Returns the taxonomy term object, if found.
+ */
+function farm_log_form_prepopulate_area(&$form, $field_name = 'field_farm_area') {
+  $area = NULL;
+
+  // If the "farm_area" query parameter is set...
+  $params = drupal_get_query_parameters();
+  if (!empty($params['farm_area'])) {
+
+    // Verify that the farm_area is valid.
+    $area = taxonomy_term_load($params['farm_area']);
+    if ($area) {
+
+      // Add the area to the form.
+      $form['farm_area'] = array(
+        '#type' => 'value',
+        '#value' => $area,
+      );
+
+      // Prepopulate the area reference field.
+      if (empty($form[$field_name][LANGUAGE_NONE]['#default_value'])) {
+        $form[$field_name][LANGUAGE_NONE]['#default_value'] = entity_label('taxonomy_term', $area);
+      }
+    }
+  }
+
+  return $area;
 }
