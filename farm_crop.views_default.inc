@@ -765,7 +765,7 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['arguments']['field_farm_planting_target_id']['id'] = 'field_farm_planting_target_id';
   $handler->display->display_options['arguments']['field_farm_planting_target_id']['table'] = 'field_data_field_farm_planting';
   $handler->display->display_options['arguments']['field_farm_planting_target_id']['field'] = 'field_farm_planting_target_id';
-  $handler->display->display_options['arguments']['field_farm_planting_target_id']['default_action'] = 'not found';
+  $handler->display->display_options['arguments']['field_farm_planting_target_id']['default_action'] = 'empty';
   $handler->display->display_options['arguments']['field_farm_planting_target_id']['default_argument_type'] = 'fixed';
   $handler->display->display_options['arguments']['field_farm_planting_target_id']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['field_farm_planting_target_id']['summary']['format'] = 'default_summary';
@@ -1059,7 +1059,7 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['arguments']['field_farm_planting_target_id']['id'] = 'field_farm_planting_target_id';
   $handler->display->display_options['arguments']['field_farm_planting_target_id']['table'] = 'field_data_field_farm_planting';
   $handler->display->display_options['arguments']['field_farm_planting_target_id']['field'] = 'field_farm_planting_target_id';
-  $handler->display->display_options['arguments']['field_farm_planting_target_id']['default_action'] = 'not found';
+  $handler->display->display_options['arguments']['field_farm_planting_target_id']['default_action'] = 'empty';
   $handler->display->display_options['arguments']['field_farm_planting_target_id']['default_argument_type'] = 'fixed';
   $handler->display->display_options['arguments']['field_farm_planting_target_id']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['field_farm_planting_target_id']['summary']['format'] = 'default_summary';
@@ -1333,7 +1333,7 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['arguments']['field_farm_planting_target_id']['id'] = 'field_farm_planting_target_id';
   $handler->display->display_options['arguments']['field_farm_planting_target_id']['table'] = 'field_data_field_farm_planting';
   $handler->display->display_options['arguments']['field_farm_planting_target_id']['field'] = 'field_farm_planting_target_id';
-  $handler->display->display_options['arguments']['field_farm_planting_target_id']['default_action'] = 'not found';
+  $handler->display->display_options['arguments']['field_farm_planting_target_id']['default_action'] = 'empty';
   $handler->display->display_options['arguments']['field_farm_planting_target_id']['default_argument_type'] = 'fixed';
   $handler->display->display_options['arguments']['field_farm_planting_target_id']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['field_farm_planting_target_id']['summary']['format'] = 'default_summary';
@@ -1587,7 +1587,7 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['arguments']['field_farm_crop_tid']['id'] = 'field_farm_crop_tid';
   $handler->display->display_options['arguments']['field_farm_crop_tid']['table'] = 'field_data_field_farm_crop';
   $handler->display->display_options['arguments']['field_farm_crop_tid']['field'] = 'field_farm_crop_tid';
-  $handler->display->display_options['arguments']['field_farm_crop_tid']['default_action'] = 'not found';
+  $handler->display->display_options['arguments']['field_farm_crop_tid']['default_action'] = 'empty';
   $handler->display->display_options['arguments']['field_farm_crop_tid']['default_argument_type'] = 'fixed';
   $handler->display->display_options['arguments']['field_farm_crop_tid']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['field_farm_crop_tid']['summary']['format'] = 'default_summary';
