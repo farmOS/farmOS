@@ -33,9 +33,9 @@ class farm_area_handler_field_links extends views_handler_field {
     $aid = $this->get_value($values, 'tid');
 
     // Generate the area links.
-    $links = farm_area_get_links($aid);
+    $area_links = farm_area_get_links($aid);
 
     // Return the links as a single string, filtered for XSS.
-    return filter_xss(implode(' | ', $links));
+    return filter_xss($area_links);
   }
 }

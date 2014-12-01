@@ -27,13 +27,21 @@
  *   The area that links are being generated for.
  *
  * @return array
- *   Returns an array of links.
+ *   Returns an array of arrays to represent area links.
  */
 function hook_farm_area_links($id) {
-  $path = 'taxonomy/term/' . $id;
+  $path = 'farm/area/' . $id;
   return array(
-    l('Plantings', $path . '/plantings'),
-    l('Animals', $path . '/animals'),
+    array(
+      'title' => t('Plantings'),
+      'href' => $path . '/plantings',
+      'weight' => 0,
+    ),
+    array(
+      'title' => t('Animals'),
+      'href' => $path . '/animals',
+      'weight' => 20,
+    ),
   );
 }
 

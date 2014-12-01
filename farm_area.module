@@ -47,19 +47,51 @@ function farm_area_menu_local_tasks_alter(&$data, $router_item, $root_path) {
 
 
 /**
- * Generate area links.
+ * Generate area links, sorted by weight.
  *
  * @param $id
  *   The area id.
+ * @param $separator
+ *   Characters to use as a separator between links in the returned string.
  *
  * @return string
  *   Returns a string of links.
  */
-function farm_area_get_links($id) {
+function farm_area_get_links($id, $separator = ' | ') {
 
   // Call out to modules that want to provide links.
-  $links = module_invoke_all('farm_area_links', check_plain($id));
+  $area_links = module_invoke_all('farm_area_links', check_plain($id));
 
-  // Return the links.
-  return $links;
+  // Build an index of links and their weights.
+  $weight_index = array();
+  foreach ($area_links as $key => $link) {
+
+    // Default the weight to zero if it hasn't been set.
+    if (!isset($link['weight'])) {
+      $link['weight'] = 0;
+    }
+
+    // Assign the weight to the index, based on it's key in the original array.
+    $weight_index[$key] = $link['weight'];
+  }
+
+  // Sort the index by weight.
+  asort($weight_index);
+
+  // Rebuild the array of links based on their weights.
+  $sorted_area_links = array();
+  foreach ($weight_index as $key => $weight) {
+    $sorted_area_links[] = $area_links[$key];
+  }
+
+  // Generate an array of Drupal links.
+  $links = array();
+  foreach ($sorted_area_links as $link) {
+    if (!empty($link['title']) && !empty($link['href'])) {
+      $links[] = l($link['title'], $link['href']);
+    }
+  }
+
+  // Convert to a string with a separator and return.
+  return implode($separator, $links);
 }
