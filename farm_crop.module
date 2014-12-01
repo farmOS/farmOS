@@ -54,6 +54,7 @@ function farm_crop_menu_local_tasks_alter(&$data, $router_item, $root_path) {
     'admin/farm/plan/inputs' => array('input'),
     'admin/farm/plan/seedings' => array('seeding'),
     'admin/farm/plan/transplantings' => array('transplanting'),
+    'taxonomy/term/%' => array('input'),
   );
 
   // Add actions depending on the root path.
