@@ -56,3 +56,4 @@ features[views_view][] = farm_log_activity
 features[views_view][] = farm_log_issues
 features[views_view][] = farm_log_movement
 features[views_view][] = farm_plan
+files[] = views/handlers/farm_log_handler_relationship_location.inc
