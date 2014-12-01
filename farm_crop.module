@@ -149,5 +149,9 @@ function farm_crop_farm_area_links($id) {
       'href' => 'farm/area/' . $id . '/inputs',
       'weight' => 10,
     ),
+    array(
+      'title' => t('Plantings'),
+      'href' => 'farm/area/' . $id . '/plantings',
+    ),
   );
 }
