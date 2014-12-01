@@ -51,6 +51,7 @@ features[field][] = log-farm_seeding-field_farm_date
 features[field][] = log-farm_seeding-field_farm_notes
 features[field][] = log-farm_seeding-field_farm_planting
 features[field][] = log-farm_seeding-field_farm_quantity
+features[field][] = log-farm_seeding-field_farm_seed_source
 features[field][] = log-farm_transplanting-field_farm_date
 features[field][] = log-farm_transplanting-field_farm_notes
 features[field][] = log-farm_transplanting-field_farm_planting

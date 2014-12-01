@@ -1439,7 +1439,7 @@ function farm_crop_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'entityreference_autocomplete',
-        'weight' => 0,
+        'weight' => '0',
       ),
     ),
   );
@@ -1496,6 +1496,69 @@ function farm_crop_field_default_fields() {
         'settings' => array(),
         'type' => 'field_collection_embed',
         'weight' => '2',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_seeding-field_farm_seed_source'.
+  $fields['log-farm_seeding-field_farm_seed_source'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_seed_source',
+      'foreign keys' => array(
+        'format' => array(
+          'columns' => array(
+            'format' => 'format',
+          ),
+          'table' => 'filter_format',
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'text',
+      'settings' => array(
+        'max_length' => '255',
+      ),
+      'translatable' => '0',
+      'type' => 'text',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_seeding',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'Where were the seeds obtained?',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '3',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_seed_source',
+      'label' => 'Source/Supplier',
+      'required' => 0,
+      'settings' => array(
+        'text_processing' => '0',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'text',
+        'settings' => array(
+          'size' => '60',
+        ),
+        'type' => 'text_textfield',
+        'weight' => '3',
       ),
     ),
   );
@@ -2161,6 +2224,7 @@ function farm_crop_field_default_fields() {
   t('Seeding date');
   t('Seedings must reference a specific planting. You can view a list of all plantings, and add new ones, from the <a href="/admin/farm/crops/plantings">Plantings list</a>.');
   t('Source/Manufacturer');
+  t('Source/Supplier');
   t('Transplant date');
   t('Transplantings must reference a specific planting. You can view a list of all plantings, and add new ones, from the <a href="/admin/farm/crops/plantings">Plantings list</a>.');
   t('What area is this input in?');
@@ -2169,6 +2233,7 @@ function farm_crop_field_default_fields() {
   t('When did/will this seeding take place?');
   t('When did/will this transplanting take place?');
   t('Where was this input obtained? Who manufactured it?');
+  t('Where were the seeds obtained?');
 
   return $fields;
 }
