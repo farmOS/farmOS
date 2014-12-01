@@ -109,7 +109,11 @@ function farm_log_menu_local_tasks_alter(&$data, $router_item, $root_path) {
  */
 function farm_log_farm_area_links($id) {
   return array(
-    l(t('Activities'), 'farm/area/' . $id . '/activities'),
+    array(
+      'title' => t('Activities'),
+      'href' => 'farm/area/' . $id . '/activities',
+      'weight' => -100,
+    ),
   );
 }
 
