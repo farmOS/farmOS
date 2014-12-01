@@ -24,7 +24,7 @@ function farm_log_views_data_alter(&$data) {
       'field field' => 'field_farm_asset_target_id',
       'date table' => 'field_data_field_farm_date',
       'date field' => 'entity_id',
-      'label' => t('latest movement'),
+      'label' => t('Latest movement'),
       'join_extra' => array(
         0 => array(
           'field' => 'entity_type',
