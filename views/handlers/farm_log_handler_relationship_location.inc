@@ -67,8 +67,11 @@ class farm_log_handler_relationship_location extends views_handler_relationship_
     $query->join('field_data_field_farm_asset', 'ss_fdffa', 'ss_log.id = ss_fdffa.entity_id');
     $query->where('ss_fdffa.field_farm_asset_target_id = ' . $this->table_alias . '.id');
     $query->where('ss_fdffd.field_farm_date_value <= ' . REQUEST_TIME);
-    $query->addExpression('MAX(ss_fdffd.field_farm_date_value)', 'timestamp');
-    $join_extras[] = $alias . '.field_farm_date_value = (' . $query . ')';
+    $query->orderBy('ss_fdffd.field_farm_date_value', 'DESC');
+    $query->orderBy('ss_log.id', 'DESC');
+    $query->range(0, 1);
+    $query->addField('ss_log', 'id');
+    $join_extras[] = $this->alias . '.id = (' . $query . ')';
 
     // Implode the join extras into a single string for the query.
     $join->extra = implode(' AND ', $join_extras);
