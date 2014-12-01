@@ -80,6 +80,16 @@ function farm_log_menu_local_tasks_alter(&$data, $router_item, $root_path) {
 }
 
 /**
+ * Implements hook_farm_area_links().
+ */
+function farm_log_farm_area_links($id) {
+  return array(
+    l(t('Activities'), 'farm/area/' . $id . '/activities'),
+  );
+}
+
+
+/**
  * Implements hook_form_alter().
  */
 function farm_log_form_alter(&$form, &$form_state, $form_id) {
