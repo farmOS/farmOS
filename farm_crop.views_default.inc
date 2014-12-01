@@ -312,13 +312,6 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['field_farm_quantity']['settings'] = array(
     'view_mode' => 'full',
   );
-  /* Field: Log: Planting */
-  $handler->display->display_options['fields']['field_farm_planting']['id'] = 'field_farm_planting';
-  $handler->display->display_options['fields']['field_farm_planting']['table'] = 'field_data_field_farm_planting';
-  $handler->display->display_options['fields']['field_farm_planting']['field'] = 'field_farm_planting';
-  $handler->display->display_options['fields']['field_farm_planting']['settings'] = array(
-    'link' => 1,
-  );
   /* Sort criterion: Field: Date (field_farm_date) */
   $handler->display->display_options['sorts']['field_farm_date_value']['id'] = 'field_farm_date_value';
   $handler->display->display_options['sorts']['field_farm_date_value']['table'] = 'field_data_field_farm_date';
@@ -811,13 +804,6 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['fields']['field_farm_quantity']['settings'] = array(
     'view_mode' => 'full',
   );
-  /* Field: Log: Planting */
-  $handler->display->display_options['fields']['field_farm_planting']['id'] = 'field_farm_planting';
-  $handler->display->display_options['fields']['field_farm_planting']['table'] = 'field_data_field_farm_planting';
-  $handler->display->display_options['fields']['field_farm_planting']['field'] = 'field_farm_planting';
-  $handler->display->display_options['fields']['field_farm_planting']['settings'] = array(
-    'link' => 1,
-  );
   /* Sort criterion: Field: Date (field_farm_date) */
   $handler->display->display_options['sorts']['field_farm_date_value']['id'] = 'field_farm_date_value';
   $handler->display->display_options['sorts']['field_farm_date_value']['table'] = 'field_data_field_farm_date';
@@ -1048,12 +1034,6 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
   $handler->display->display_options['empty']['area_text_custom']['content'] = 'No transplantings found.';
-  /* Relationship: Entity Reference: Referenced Entity */
-  $handler->display->display_options['relationships']['field_farm_planting_target_id']['id'] = 'field_farm_planting_target_id';
-  $handler->display->display_options['relationships']['field_farm_planting_target_id']['table'] = 'field_data_field_farm_planting';
-  $handler->display->display_options['relationships']['field_farm_planting_target_id']['field'] = 'field_farm_planting_target_id';
-  $handler->display->display_options['relationships']['field_farm_planting_target_id']['label'] = 'Planting';
-  $handler->display->display_options['relationships']['field_farm_planting_target_id']['required'] = TRUE;
   /* Field: Log: Log ID */
   $handler->display->display_options['fields']['id']['id'] = 'id';
   $handler->display->display_options['fields']['id']['table'] = 'log';
@@ -1086,14 +1066,6 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['fields']['field_farm_quantity']['settings'] = array(
     'view_mode' => 'full',
   );
-  /* Field: Farm asset: Name */
-  $handler->display->display_options['fields']['name']['id'] = 'name';
-  $handler->display->display_options['fields']['name']['table'] = 'farm_asset';
-  $handler->display->display_options['fields']['name']['field'] = 'name';
-  $handler->display->display_options['fields']['name']['relationship'] = 'field_farm_planting_target_id';
-  $handler->display->display_options['fields']['name']['label'] = 'Planting';
-  $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['name']['alter']['path'] = 'farm/asset/!1';
   /* Sort criterion: Field: Date (field_farm_date) */
   $handler->display->display_options['sorts']['field_farm_date_value']['id'] = 'field_farm_date_value';
   $handler->display->display_options['sorts']['field_farm_date_value']['table'] = 'field_data_field_farm_date';
