@@ -111,3 +111,12 @@ function farm_crop_form_alter(&$form, &$form_state, $form_id) {
     farm_log_form_prepopulate_asset($form, $field_name = 'field_farm_planting');
   }
 }
+
+/**
+ * Implements hook_farm_area_links().
+ */
+function farm_crop_farm_area_links($id) {
+  return array(
+    l(t('Inputs'), 'farm/area/' . $id . '/inputs'),
+  );
+}
