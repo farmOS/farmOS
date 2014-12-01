@@ -36,6 +36,7 @@ function farm_log_menu_local_tasks_alter(&$data, $router_item, $root_path) {
     'admin/farm/plan/activities' => array('activity'),
     'admin/farm/plan/movements' => array('movement'),
     'admin/farm/plan/issues' => array('issue'),
+    'taxonomy/term/%' => array('activity'),
   );
 
   // Add actions depending on the root path.
