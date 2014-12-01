@@ -143,6 +143,10 @@ function farm_crop_form_alter(&$form, &$form_state, $form_id) {
  */
 function farm_crop_farm_area_links($id) {
   return array(
-    l(t('Inputs'), 'farm/area/' . $id . '/inputs'),
+    array(
+      'title' => t('Inputs'),
+      'href' => 'farm/area/' . $id . '/inputs',
+      'weight' => 10,
+    ),
   );
 }
