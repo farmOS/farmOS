@@ -64,8 +64,8 @@ function farm_crop_menu_local_tasks_alter(&$data, $router_item, $root_path) {
         ),
       );
 
-      // If this is a farm asset movements path...
-      if (in_array($root_path, array('farm/asset/%', 'farm/asset/%/seedings', 'farm/asset/%/transplantings', 'farm/asset/%/harvests'))) {
+      // If this is a farm asset path...
+      if (substr($root_path, 0, 12) == 'farm/asset/%') {
 
         // Get the asset id from the path.
         $asset_id = check_plain(arg(2));
