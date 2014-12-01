@@ -130,6 +130,29 @@ function farm_crop_default_page_manager_handlers() {
     $display->content['new-d496f492-d528-4869-8c2e-2157808042ee'] = $pane;
     $display->panels['left'][2] = 'new-d496f492-d528-4869-8c2e-2157808042ee';
     $pane = new stdClass();
+    $pane->pid = 'new-5137f6c6-5556-4950-a570-7d80f655860e';
+    $pane->panel = 'left';
+    $pane->type = 'views_panes';
+    $pane->subtype = 'farm_log_input-panel_pane_1';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'context' => array(
+        0 => 'argument_entity_id:farm_asset_1',
+      ),
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 3;
+    $pane->locks = array();
+    $pane->uuid = '5137f6c6-5556-4950-a570-7d80f655860e';
+    $display->content['new-5137f6c6-5556-4950-a570-7d80f655860e'] = $pane;
+    $display->panels['left'][3] = 'new-5137f6c6-5556-4950-a570-7d80f655860e';
+    $pane = new stdClass();
     $pane->pid = 'new-e79dd32b-0d6e-436a-abd9-b57be8da0d79';
     $pane->panel = 'right';
     $pane->type = 'views_panes';
