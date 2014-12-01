@@ -1438,6 +1438,10 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
   $handler->display->display_options['empty']['area_text_custom']['content'] = 'No plantings found.';
+  /* Relationship: Farm asset: Latest movement */
+  $handler->display->display_options['relationships']['latest_movement']['id'] = 'latest_movement';
+  $handler->display->display_options['relationships']['latest_movement']['table'] = 'farm_asset';
+  $handler->display->display_options['relationships']['latest_movement']['field'] = 'latest_movement';
   /* Field: Farm asset: Farm asset ID */
   $handler->display->display_options['fields']['id']['id'] = 'id';
   $handler->display->display_options['fields']['id']['table'] = 'farm_asset';
@@ -1454,6 +1458,12 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['fields']['field_farm_crop']['id'] = 'field_farm_crop';
   $handler->display->display_options['fields']['field_farm_crop']['table'] = 'field_data_field_farm_crop';
   $handler->display->display_options['fields']['field_farm_crop']['field'] = 'field_farm_crop';
+  /* Field: Log: To */
+  $handler->display->display_options['fields']['field_farm_move_to']['id'] = 'field_farm_move_to';
+  $handler->display->display_options['fields']['field_farm_move_to']['table'] = 'field_data_field_farm_move_to';
+  $handler->display->display_options['fields']['field_farm_move_to']['field'] = 'field_farm_move_to';
+  $handler->display->display_options['fields']['field_farm_move_to']['relationship'] = 'latest_movement';
+  $handler->display->display_options['fields']['field_farm_move_to']['label'] = 'Location';
   /* Field: Field: Season */
   $handler->display->display_options['fields']['field_farm_season']['id'] = 'field_farm_season';
   $handler->display->display_options['fields']['field_farm_season']['table'] = 'field_data_field_farm_season';
