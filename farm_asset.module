@@ -257,7 +257,7 @@ function farm_asset_entity_property_info_alter(&$info) {
     'type' => 'date',
     'description' => t('The timestamp when the asset was created.'),
     'setter callback' => 'entity_property_verbatim_set',
-    'setter permission' => 'administer farm_assetg module',
+    'setter permission' => 'administer farm_asset module',
     'required' => TRUE,
     'schema field' => 'created',
   );
