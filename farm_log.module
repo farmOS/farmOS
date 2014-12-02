@@ -7,6 +7,18 @@
 include_once 'farm_log.features.inc';
 
 /**
+ * Implements hook_permission().
+ */
+function farm_log_permission() {
+  return array(
+    'view farm logs' => array(
+      'title' => t('View farm logs'),
+      'description' => t('View all farm-related log items.'),
+    ),
+  );
+}
+
+/**
  * Implements hook_menu_local_tasks_alter().
  */
 function farm_log_menu_local_tasks_alter(&$data, $router_item, $root_path) {
