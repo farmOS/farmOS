@@ -158,11 +158,6 @@ function farm_map_openlayers_maps() {
         'point_zoom_level' => '16',
         'zoomtolayer_scale' => '1',
       ),
-      'openlayers_behavior_geolocate' => array(
-        'bind' => '1',
-        'zoom_level' => '16',
-        'watch' => '0',
-      ),
     ),
     'default_layer' => 'google_hybrid',
     'layers' => array(
