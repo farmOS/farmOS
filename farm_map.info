@@ -4,6 +4,7 @@ core = 7.x
 package = Farm
 dependencies[] = ctools
 dependencies[] = openlayers
+dependencies[] = openlayers_geolocate_button
 dependencies[] = strongarm
 features[ctools][] = openlayers:openlayers_maps:1
 features[ctools][] = openlayers:openlayers_styles:1
