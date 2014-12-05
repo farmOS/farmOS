@@ -24,6 +24,7 @@ dependencies[] = user
 dependencies[] = dblog
 
 ; Contrib
+dependencies[] = jquery_update
 dependencies[] = navbar
 
 ; Farm

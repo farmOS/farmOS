@@ -62,6 +62,9 @@ projects[geofield][patch][] = "http://www.drupal.org/files/issues/geofield-delet
 projects[geophp][subdir] = "contrib"
 projects[geophp][version] = "1.7"
 
+projects[jquery_update][subdir] = "contrib"
+projects[jquery_update][version] = "2.4"
+
 projects[libraries][subdir] = "contrib"
 projects[libraries][version] = "2.2"
 
@@ -146,6 +149,12 @@ projects[farm_soil][version] = "1.x-dev"
 
 projects[farm_taxonomy][subdir] = "farm"
 projects[farm_taxonomy][version] = "1.x-dev"
+
+; -----------------------------------------------------------------------------
+; Themes
+; -----------------------------------------------------------------------------
+
+projects[bootstrap][version] = "3.x-dev"
 
 ; -----------------------------------------------------------------------------
 ; Libraries
