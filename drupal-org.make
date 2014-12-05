@@ -56,6 +56,8 @@ projects[geocoder][patch][] = "http://www.drupal.org/files/issues/geocoder_kmz-2
 
 projects[geofield][subdir] = "contrib"
 projects[geofield][version] = "2.3"
+; Patch to fix deleting map features.
+projects[geofield][patch][] = "http://www.drupal.org/files/issues/geofield-delete_feature_fix-1350320-20.patch"
 
 projects[geophp][subdir] = "contrib"
 projects[geophp][version] = "1.7"
