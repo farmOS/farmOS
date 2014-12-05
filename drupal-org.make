@@ -74,6 +74,9 @@ projects[navbar][version] = "1.4"
 projects[openlayers][subdir] = "contrib"
 projects[openlayers][version] = "2.0-beta11"
 
+projects[openlayers_geolocate_button][subdir] = "contrib"
+projects[openlayers_geolocate_button][version] = "1.0"
+
 projects[panels][subdir] = "contrib"
 projects[panels][version] = "3.4"
 
