@@ -56,7 +56,7 @@ class farm_log_handler_relationship_location extends views_handler_relationship_
     // simulate it here so that we can add our custom subselect join extra below.
     $join_extras = array();
     foreach ($join->extra as $extra) {
-      $value = $extra['numeric'] ? $extra['value'] : "'" . $extra['value'] . "'";
+      $value = !empty($extra['numeric']) ? $extra['value'] : "'" . $extra['value'] . "'";
       $join_extras[] = $alias . '.' . $extra['field'] . ' = ' . $value;
     }
 
