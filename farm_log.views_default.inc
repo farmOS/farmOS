@@ -1037,11 +1037,11 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['filters']['type']['value'] = array(
     'farm_issue' => 'farm_issue',
     'farm_harvest' => 'farm_harvest',
-    'farm_cultivation' => 'farm_cultivation',
     'farm_input' => 'farm_input',
-    'farm_movement' => 'farm_movement',
     'farm_seeding' => 'farm_seeding',
     'farm_transplanting' => 'farm_transplanting',
+    'farm_activity' => 'farm_activity',
+    'farm_movement' => 'farm_movement',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
   $export['farm_plan'] = $view;
