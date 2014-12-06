@@ -357,7 +357,7 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['filters']['field_farm_date_value']['id'] = 'field_farm_date_value';
   $handler->display->display_options['filters']['field_farm_date_value']['table'] = 'field_data_field_farm_date';
   $handler->display->display_options['filters']['field_farm_date_value']['field'] = 'field_farm_date_value';
-  $handler->display->display_options['filters']['field_farm_date_value']['operator'] = '<=';
+  $handler->display->display_options['filters']['field_farm_date_value']['operator'] = '>=';
   $handler->display->display_options['filters']['field_farm_date_value']['group'] = 1;
   $handler->display->display_options['filters']['field_farm_date_value']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_farm_date_value']['expose']['operator_id'] = 'field_farm_date_value_op';
@@ -374,13 +374,12 @@ function farm_crop_views_default_views() {
     196317508 => 0,
     146437786 => 0,
   );
-  $handler->display->display_options['filters']['field_farm_date_value']['default_date'] = 'now';
   $handler->display->display_options['filters']['field_farm_date_value']['year_range'] = '-10:+3';
   /* Filter criterion: Field: Date (field_farm_date) */
   $handler->display->display_options['filters']['field_farm_date_value_1']['id'] = 'field_farm_date_value_1';
   $handler->display->display_options['filters']['field_farm_date_value_1']['table'] = 'field_data_field_farm_date';
   $handler->display->display_options['filters']['field_farm_date_value_1']['field'] = 'field_farm_date_value';
-  $handler->display->display_options['filters']['field_farm_date_value_1']['operator'] = '>=';
+  $handler->display->display_options['filters']['field_farm_date_value_1']['operator'] = '<=';
   $handler->display->display_options['filters']['field_farm_date_value_1']['group'] = 1;
   $handler->display->display_options['filters']['field_farm_date_value_1']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_farm_date_value_1']['expose']['operator_id'] = 'field_farm_date_value_1_op';
@@ -397,7 +396,6 @@ function farm_crop_views_default_views() {
     196317508 => 0,
     146437786 => 0,
   );
-  $handler->display->display_options['filters']['field_farm_date_value_1']['default_date'] = 'now';
   $handler->display->display_options['filters']['field_farm_date_value_1']['year_range'] = '-10:+3';
 
   /* Display: All harvests (Page) */
@@ -653,7 +651,7 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['filters']['field_farm_date_value']['id'] = 'field_farm_date_value';
   $handler->display->display_options['filters']['field_farm_date_value']['table'] = 'field_data_field_farm_date';
   $handler->display->display_options['filters']['field_farm_date_value']['field'] = 'field_farm_date_value';
-  $handler->display->display_options['filters']['field_farm_date_value']['operator'] = '<=';
+  $handler->display->display_options['filters']['field_farm_date_value']['operator'] = '>=';
   $handler->display->display_options['filters']['field_farm_date_value']['group'] = 1;
   $handler->display->display_options['filters']['field_farm_date_value']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_farm_date_value']['expose']['operator_id'] = 'field_farm_date_value_op';
@@ -670,13 +668,12 @@ if (!empty($farm_asset)) {
     196317508 => 0,
     146437786 => 0,
   );
-  $handler->display->display_options['filters']['field_farm_date_value']['default_date'] = 'now';
   $handler->display->display_options['filters']['field_farm_date_value']['year_range'] = '-10:+3';
   /* Filter criterion: Field: Date (field_farm_date) */
   $handler->display->display_options['filters']['field_farm_date_value_1']['id'] = 'field_farm_date_value_1';
   $handler->display->display_options['filters']['field_farm_date_value_1']['table'] = 'field_data_field_farm_date';
   $handler->display->display_options['filters']['field_farm_date_value_1']['field'] = 'field_farm_date_value';
-  $handler->display->display_options['filters']['field_farm_date_value_1']['operator'] = '>=';
+  $handler->display->display_options['filters']['field_farm_date_value_1']['operator'] = '<=';
   $handler->display->display_options['filters']['field_farm_date_value_1']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_farm_date_value_1']['expose']['operator_id'] = 'field_farm_date_value_1_op';
   $handler->display->display_options['filters']['field_farm_date_value_1']['expose']['label'] = 'End date';
@@ -692,7 +689,6 @@ if (!empty($farm_asset)) {
     196317508 => 0,
     146437786 => 0,
   );
-  $handler->display->display_options['filters']['field_farm_date_value_1']['default_date'] = 'now';
   $handler->display->display_options['filters']['field_farm_date_value_1']['year_range'] = '-10:+3';
 
   /* Display: All inputs (Page) */
