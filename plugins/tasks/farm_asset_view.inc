@@ -86,7 +86,7 @@ function farm_asset_farm_asset_view_page($farm_asset) {
   ctools_include('context-task-handler');
 
   // We need to mimic Drupal's behavior of setting the farm_asset title here.
-  drupal_set_title($farm_asset->label);
+  drupal_set_title($farm_asset->name);
   $uri = entity_uri('farm_asset', $farm_asset);
   // Set the farm_asset path as the canonical URL to prevent duplicate content.
   drupal_add_html_head_link(array('rel' => 'canonical', 'href' => url($uri['path'], $uri['options'])), TRUE);
