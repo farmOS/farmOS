@@ -30,6 +30,7 @@ function farm_area_field_default_fields() {
         'allowed_values' => array(
           'property' => 'Property',
           'field' => 'Field',
+          'rowbed' => 'Row/bed',
           'building' => 'Building',
           'greenhouse' => 'Greenhouse',
           'water' => 'Water feature',
