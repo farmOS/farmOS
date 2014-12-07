@@ -130,6 +130,31 @@ function farm_area_views_default_views() {
     'field' => 'field',
   );
 
+  /* Display: Paddock area data (OpenLayers Data Overlay) */
+  $handler = $view->new_display('openlayers', 'Paddock area data (OpenLayers Data Overlay)', 'paddock');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Paddocks';
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Taxonomy vocabulary: Machine name */
+  $handler->display->display_options['filters']['machine_name']['id'] = 'machine_name';
+  $handler->display->display_options['filters']['machine_name']['table'] = 'taxonomy_vocabulary';
+  $handler->display->display_options['filters']['machine_name']['field'] = 'machine_name';
+  $handler->display->display_options['filters']['machine_name']['value'] = array(
+    'farm_areas' => 'farm_areas',
+  );
+  $handler->display->display_options['filters']['machine_name']['group'] = 1;
+  /* Filter criterion: Taxonomy term: Area type (field_farm_area_type) */
+  $handler->display->display_options['filters']['field_farm_area_type_value']['id'] = 'field_farm_area_type_value';
+  $handler->display->display_options['filters']['field_farm_area_type_value']['table'] = 'field_data_field_farm_area_type';
+  $handler->display->display_options['filters']['field_farm_area_type_value']['field'] = 'field_farm_area_type_value';
+  $handler->display->display_options['filters']['field_farm_area_type_value']['value'] = array(
+    'paddock' => 'paddock',
+  );
+  $handler->display->display_options['filters']['field_farm_area_type_value']['group'] = 1;
+
   /* Display: Row/bed area data (OpenLayers Data Overlay) */
   $handler = $view->new_display('openlayers', 'Row/bed area data (OpenLayers Data Overlay)', 'rowbed');
   $handler->display->display_options['defaults']['title'] = FALSE;
