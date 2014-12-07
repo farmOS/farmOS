@@ -248,6 +248,7 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['style_options']['columns'] = array(
     'id' => 'id',
     'field_farm_date' => 'field_farm_date',
+    'name' => 'name',
     'field_farm_quantity' => 'field_farm_quantity',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
@@ -260,6 +261,13 @@ function farm_crop_views_default_views() {
       'empty_column' => 0,
     ),
     'field_farm_date' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'name' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -851,7 +859,6 @@ if (!empty($farm_asset)) {
     'field_farm_date' => 'field_farm_date',
     'name_1' => 'name_1',
     'field_farm_quantity' => 'field_farm_quantity',
-    'name' => 'name',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
@@ -877,13 +884,6 @@ if (!empty($farm_asset)) {
       'empty_column' => 0,
     ),
     'field_farm_quantity' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'name' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -1126,7 +1126,6 @@ if (!empty($farm_asset)) {
     'field_farm_date' => 'field_farm_date',
     'name_1' => 'name_1',
     'field_farm_quantity' => 'field_farm_quantity',
-    'name' => 'name',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
@@ -1152,13 +1151,6 @@ if (!empty($farm_asset)) {
       'empty_column' => 0,
     ),
     'field_farm_quantity' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'name' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -1400,6 +1392,7 @@ if (!empty($farm_asset)) {
     'id' => 'id',
     'name' => 'name',
     'field_farm_crop' => 'field_farm_crop',
+    'field_farm_move_to' => 'field_farm_move_to',
     'field_farm_season' => 'field_farm_season',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
@@ -1419,6 +1412,13 @@ if (!empty($farm_asset)) {
       'empty_column' => 0,
     ),
     'field_farm_crop' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_move_to' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
