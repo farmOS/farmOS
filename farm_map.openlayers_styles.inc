@@ -53,14 +53,34 @@ function farm_map_openlayers_styles() {
   $openlayers_styles = new stdClass();
   $openlayers_styles->disabled = FALSE; /* Edit this to true to make a default openlayers_styles disabled initially */
   $openlayers_styles->api_version = 1;
+  $openlayers_styles->name = 'farm_dark_green';
+  $openlayers_styles->title = 'Farm Dark Green';
+  $openlayers_styles->description = 'Dark green farm style';
+  $openlayers_styles->data = array(
+    'pointRadius' => 6,
+    'fillColor' => '#060',
+    'fillOpacity' => 0.5,
+    'strokeColor' => '#060',
+    'strokeWidth' => 2,
+    'strokeOpacity' => 0.69999999999999996,
+    'strokeLinecap' => 'round',
+    'strokeDashstyle' => 'solid',
+    'graphicOpacity' => 1,
+    'labelAlign' => 'cm',
+  );
+  $export['farm_dark_green'] = $openlayers_styles;
+
+  $openlayers_styles = new stdClass();
+  $openlayers_styles->disabled = FALSE; /* Edit this to true to make a default openlayers_styles disabled initially */
+  $openlayers_styles->api_version = 1;
   $openlayers_styles->name = 'farm_green';
   $openlayers_styles->title = 'Farm Green';
   $openlayers_styles->description = 'Green farm style';
   $openlayers_styles->data = array(
     'pointRadius' => 6,
-    'fillColor' => '#393',
+    'fillColor' => '#6C6',
     'fillOpacity' => 0.5,
-    'strokeColor' => '#393',
+    'strokeColor' => '#6C6',
     'strokeWidth' => 2,
     'strokeOpacity' => 0.69999999999999996,
     'strokeLinecap' => 'round',
