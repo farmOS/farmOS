@@ -141,11 +141,11 @@ projects[farm_delivery][version] = "1.x-dev"
 projects[farm_equipment][subdir] = "farm"
 projects[farm_equipment][version] = "1.x-dev"
 
-projects[farm_log][subdir] = "farm"
-projects[farm_log][version] = "1.x-dev"
-
 projects[farm_livestock][subdir] = "farm"
 projects[farm_livestock][version] = "1.x-dev"
+
+projects[farm_log][subdir] = "farm"
+projects[farm_log][version] = "1.x-dev"
 
 projects[farm_map][subdir] = "farm"
 projects[farm_map][version] = "1.x-dev"
