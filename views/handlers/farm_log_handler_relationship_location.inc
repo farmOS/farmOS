@@ -81,6 +81,11 @@ class farm_log_handler_relationship_location extends views_handler_relationship_
 
     // Add a condition to the query to filter out any empty dates (this will
     // filter out any logs that don't have the latest date).
-    $this->query->add_where(0, $alias . '.field_farm_date_value', NULL, 'IS NOT NULL');
+    $or = db_or();
+    $or->condition($alias . '.field_farm_date_value', NULL, 'IS NOT NULL');
+    // But, be careful not to filter out assets that don't have a location!
+    // This OR condition allows rows to be included that don't have a movement.
+    $or->condition($this->first_alias . '.entity_id', NULL, 'IS NULL');
+    $this->query->add_where(0, $or);
   }
 }
