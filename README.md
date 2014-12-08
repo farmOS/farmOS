@@ -12,6 +12,7 @@ comes pre-packaged with a set of farm-related modules, including:
 * [Farm Crop](http://drupal.org/project/farm_crop)
 * [Farm CSA](http://drupal.org/project/farm_csa)
 * [Farm Delivery](http://drupal.org/project/farm_delivery)
+* [Farm Equipment](http://drupal.org/project/farm_equipment)
 * [Farm Livestock](http://drupal.org/project/farm_livestock)
 * [Farm Log](http://drupal.org/project/farm_log)
 * [Farm Map](http://drupal.org/project/farm_map)

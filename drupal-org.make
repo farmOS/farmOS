@@ -138,6 +138,9 @@ projects[farm_csa][version] = "1.x-dev"
 projects[farm_delivery][subdir] = "farm"
 projects[farm_delivery][version] = "1.x-dev"
 
+projects[farm_equipment][subdir] = "farm"
+projects[farm_equipment][version] = "1.x-dev"
+
 projects[farm_log][subdir] = "farm"
 projects[farm_log][version] = "1.x-dev"
 
