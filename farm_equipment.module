@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Farm Equipment feature.
+ */
+
+include_once 'farm_equipment.features.inc';
