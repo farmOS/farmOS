@@ -5,6 +5,7 @@ package = Farm
 dependencies[] = ctools
 dependencies[] = entity
 dependencies[] = farm_asset
+dependencies[] = features
 dependencies[] = page_manager
 dependencies[] = strongarm
 dependencies[] = views
