@@ -77,6 +77,10 @@ function farm_area_views_default_views() {
   $handler->display->display_options['fields']['farm_area_links']['field'] = 'farm_area_links';
   $handler->display->display_options['fields']['farm_area_links']['label'] = 'Links';
   $handler->display->display_options['fields']['farm_area_links']['exclude'] = TRUE;
+  /* Sort criterion: Taxonomy term: Weight */
+  $handler->display->display_options['sorts']['weight']['id'] = 'weight';
+  $handler->display->display_options['sorts']['weight']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['sorts']['weight']['field'] = 'weight';
   /* Filter criterion: Taxonomy vocabulary: Machine name */
   $handler->display->display_options['filters']['machine_name']['id'] = 'machine_name';
   $handler->display->display_options['filters']['machine_name']['table'] = 'taxonomy_vocabulary';
