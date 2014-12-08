@@ -113,6 +113,9 @@ projects[views][version] = "3.8"
 projects[views_data_export][subdir] = "contrib"
 projects[views_data_export][version] = "3.0-beta8"
 
+projects[views_tree][subdir] = "contrib"
+projects[views_tree][version] = "2.0"
+
 ; -----------------------------------------------------------------------------
 ; Modules (farm)
 ; -----------------------------------------------------------------------------
