@@ -1,4 +1,5 @@
 name = FarmOS
+distribution_name = FarmOS
 description = A farm management system.
 core = 7.x
 
