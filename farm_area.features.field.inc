@@ -46,7 +46,7 @@ function farm_area_field_default_fields() {
       'bundle' => 'farm_areas',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'What type of area is this? Area types will be color coded on maps.',
+      'description' => 'What type of area is this? Area types will be color coded on maps. If left blank, the area will not appear on maps.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -59,7 +59,7 @@ function farm_area_field_default_fields() {
       'entity_type' => 'taxonomy_term',
       'field_name' => 'field_farm_area_type',
       'label' => 'Area type',
-      'required' => 1,
+      'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
       ),
@@ -330,7 +330,7 @@ function farm_area_field_default_fields() {
   t('Files');
   t('Images');
   t('Location');
-  t('What type of area is this? Area types will be color coded on maps.');
+  t('What type of area is this? Area types will be color coded on maps. If left blank, the area will not appear on maps.');
 
   return $fields;
 }
