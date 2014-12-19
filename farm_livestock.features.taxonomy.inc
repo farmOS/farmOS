@@ -36,7 +36,7 @@ function farm_livestock_taxonomy_default_vocabularies() {
       'name' => 'Farm Animal Types',
       'machine_name' => 'farm_animal_types',
       'description' => 'A vocabulary of farm animal types.',
-      'hierarchy' => '0',
+      'hierarchy' => '1',
       'module' => 'taxonomy',
       'weight' => '0',
       'rdf_mapping' => array(
