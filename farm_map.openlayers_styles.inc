@@ -119,7 +119,7 @@ function farm_map_openlayers_styles() {
   $openlayers_styles->data = array(
     'pointRadius' => 6,
     'fillColor' => '#C36',
-    'fillOpacity' => 0.5,
+    'fillOpacity' => 0.20000000000000001,
     'strokeColor' => '#C36',
     'strokeWidth' => 2,
     'strokeOpacity' => 0.69999999999999996,
