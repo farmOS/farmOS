@@ -108,18 +108,6 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['fields']['field_farm_move_to']['field'] = 'field_farm_move_to';
   $handler->display->display_options['fields']['field_farm_move_to']['relationship'] = 'latest_movement';
   $handler->display->display_options['fields']['field_farm_move_to']['label'] = 'Location';
-  /* Sort criterion: Farm asset: Name */
-  $handler->display->display_options['sorts']['name']['id'] = 'name';
-  $handler->display->display_options['sorts']['name']['table'] = 'farm_asset';
-  $handler->display->display_options['sorts']['name']['field'] = 'name';
-  $handler->display->display_options['sorts']['name']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['name']['expose']['label'] = 'Name';
-  /* Sort criterion: Farm asset: Sex (field_farm_animal_sex) */
-  $handler->display->display_options['sorts']['field_farm_animal_sex_value']['id'] = 'field_farm_animal_sex_value';
-  $handler->display->display_options['sorts']['field_farm_animal_sex_value']['table'] = 'field_data_field_farm_animal_sex';
-  $handler->display->display_options['sorts']['field_farm_animal_sex_value']['field'] = 'field_farm_animal_sex_value';
-  $handler->display->display_options['sorts']['field_farm_animal_sex_value']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['field_farm_animal_sex_value']['expose']['label'] = 'Sex';
   /* Sort criterion: Field: Group (field_farm_animal_group) */
   $handler->display->display_options['sorts']['field_farm_animal_group_tid']['id'] = 'field_farm_animal_group_tid';
   $handler->display->display_options['sorts']['field_farm_animal_group_tid']['table'] = 'field_data_field_farm_animal_group';
@@ -132,6 +120,18 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['sorts']['field_farm_animal_type_tid']['field'] = 'field_farm_animal_type_tid';
   $handler->display->display_options['sorts']['field_farm_animal_type_tid']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['field_farm_animal_type_tid']['expose']['label'] = 'Type';
+  /* Sort criterion: Farm asset: Sex (field_farm_animal_sex) */
+  $handler->display->display_options['sorts']['field_farm_animal_sex_value']['id'] = 'field_farm_animal_sex_value';
+  $handler->display->display_options['sorts']['field_farm_animal_sex_value']['table'] = 'field_data_field_farm_animal_sex';
+  $handler->display->display_options['sorts']['field_farm_animal_sex_value']['field'] = 'field_farm_animal_sex_value';
+  $handler->display->display_options['sorts']['field_farm_animal_sex_value']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['field_farm_animal_sex_value']['expose']['label'] = 'Sex';
+  /* Sort criterion: Farm asset: Name */
+  $handler->display->display_options['sorts']['name']['id'] = 'name';
+  $handler->display->display_options['sorts']['name']['table'] = 'farm_asset';
+  $handler->display->display_options['sorts']['name']['field'] = 'name';
+  $handler->display->display_options['sorts']['name']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['name']['expose']['label'] = 'Name';
   /* Filter criterion: Farm asset: Farm asset type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'farm_asset';
