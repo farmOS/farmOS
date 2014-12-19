@@ -81,6 +81,18 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['fields']['field_farm_animal_sex']['id'] = 'field_farm_animal_sex';
   $handler->display->display_options['fields']['field_farm_animal_sex']['table'] = 'field_data_field_farm_animal_sex';
   $handler->display->display_options['fields']['field_farm_animal_sex']['field'] = 'field_farm_animal_sex';
+  /* Field: Field: Date */
+  $handler->display->display_options['fields']['field_farm_date']['id'] = 'field_farm_date';
+  $handler->display->display_options['fields']['field_farm_date']['table'] = 'field_data_field_farm_date';
+  $handler->display->display_options['fields']['field_farm_date']['field'] = 'field_farm_date';
+  $handler->display->display_options['fields']['field_farm_date']['label'] = 'Birthdate';
+  $handler->display->display_options['fields']['field_farm_date']['settings'] = array(
+    'format_type' => 'long',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+  );
   /* Field: Farm asset: Type */
   $handler->display->display_options['fields']['field_farm_animal_type']['id'] = 'field_farm_animal_type';
   $handler->display->display_options['fields']['field_farm_animal_type']['table'] = 'field_data_field_farm_animal_type';
