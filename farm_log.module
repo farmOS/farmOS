@@ -165,7 +165,7 @@ function farm_log_form_alter(&$form, &$form_state, $form_id) {
           if (!empty($log->field_farm_move_to[LANGUAGE_NONE][0]['tid'])) {
             $term = taxonomy_term_load($log->field_farm_move_to[LANGUAGE_NONE][0]['tid']);
             if (!empty($term)) {
-              $form['field_farm_move_from'][LANGUAGE_NONE]['#default_value'] = check_plain($term->name);
+              $form['field_farm_move_from'][LANGUAGE_NONE]['#default_value'] = $term->name;
             }
           }
         }
