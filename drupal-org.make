@@ -167,13 +167,13 @@ projects[bootstrap][version] = "3.x-dev"
 ; -----------------------------------------------------------------------------
 
 libraries[backbone][download][type] = "get"
-libraries[backbone][download][url] = "http://github.com/documentcloud/backbone/archive/1.1.2.zip"
+libraries[backbone][download][url] = "http://github.com/jashkenas/backbone/archive/1.1.2.zip"
 
 libraries[modernizr][download][type] = "get"
-libraries[modernizr][download][url] = "http://github.com/modernizr/modernizr/archive/v2.8.3.tar.gz"
+libraries[modernizr][download][url] = "http://github.com/Modernizr/Modernizr/archive/v2.8.3.zip"
 
 libraries[openlayers][download][type] = "get"
 libraries[openlayers][download][url] = "http://github.com/openlayers/openlayers/releases/download/release-2.13.1/OpenLayers-2.13.1.tar.gz"
 
 libraries[underscore][download][type] = "get"
-libraries[underscore][download][url] = "http://github.com/documentcloud/underscore/archive/1.7.0.zip"
+libraries[underscore][download][url] = "http://github.com/jashkenas/underscore/archive/1.7.0.zip"
