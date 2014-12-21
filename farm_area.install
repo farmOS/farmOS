@@ -13,6 +13,8 @@ function farm_area_enable() {
   $page_name = 'term_view';
   $page = page_manager_get_page_cache($page_name);
   $function = ctools_plugin_get_function($page->subtask, "enable callback");
-  $function($page, FALSE);
-  menu_rebuild();
+  if (function_exists($function)) {
+    $function($page, FALSE);
+    menu_rebuild();
+  }
 }
