@@ -16,6 +16,9 @@
 function farm_asset_init() {
   global $conf;
 
+  // Ensure that the farm_asset_view page manager is enabled.
+  $conf['farm_asset_farm_asset_view_disabled'] = FALSE;
+
   // If the pathauto_entity module is enabled, ensure that farm_asset entities
   // are enabled in it.
   if (module_exists('pathauto_entity')) {
