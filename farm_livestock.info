@@ -20,6 +20,7 @@ dependencies[] = pathauto_entity
 dependencies[] = strongarm
 dependencies[] = taxonomy
 dependencies[] = views
+dependencies[] = views_bulk_operations
 features[ctools][] = page_manager:pages_default:1
 features[ctools][] = strongarm:strongarm:1
 features[ctools][] = views:views_default:3.0
