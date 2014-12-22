@@ -150,25 +150,9 @@ function farm_log_form_alter(&$form, &$form_state, $form_id) {
     if (empty($form['field_farm_move_from'][LANGUAGE_NONE][0]['#default_value'])) {
 
       // Look up the asset's last location and prepopulate the "from" field.
-      $query = new EntityFieldQuery();
-      $query->entityCondition('entity_type', 'log')
-        ->entityCondition('bundle', 'farm_movement')
-        ->fieldCondition('field_farm_asset', 'target_id', $asset->id)
-        ->fieldCondition('field_farm_date', 'value', REQUEST_TIME, '<=')
-        ->fieldOrderBy('field_farm_date', 'value', 'DESC')
-        ->propertyOrderBy('id', 'DESC')
-        ->range(0, 1);
-      $result = $query->execute();
-      if (!empty($result['log'])) {
-        foreach ($result['log'] as $id => $entity) {
-          $log = log_load($id);
-          if (!empty($log->field_farm_move_to[LANGUAGE_NONE][0]['tid'])) {
-            $term = taxonomy_term_load($log->field_farm_move_to[LANGUAGE_NONE][0]['tid']);
-            if (!empty($term)) {
-              $form['field_farm_move_from'][LANGUAGE_NONE]['#default_value'] = $term->name;
-            }
-          }
-        }
+      $area = farm_log_asset_location($asset);
+      if (!empty($area->name)) {
+        $form['field_farm_move_from'][LANGUAGE_NONE]['#default_value'] = $area->name;
       }
     }
   }
@@ -181,6 +165,38 @@ function farm_log_form_alter(&$form, &$form_state, $form_id) {
 
     // Alter the form with the farm_log helper function.
     farm_log_form_prepopulate_area($form, $field_name);
+  }
+}
+
+/**
+ * Find the location of an asset.
+ *
+ * @param FarmAsset $asset
+ *   The farm_asset object to look for.
+ *
+ * @return area
+ *   Returns the area that the asset is in.
+ */
+function farm_log_asset_location(FarmAsset $asset) {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'log')
+    ->entityCondition('bundle', 'farm_movement')
+    ->fieldCondition('field_farm_asset', 'target_id', $asset->id)
+    ->fieldCondition('field_farm_date', 'value', REQUEST_TIME, '<=')
+    ->fieldOrderBy('field_farm_date', 'value', 'DESC')
+    ->propertyOrderBy('id', 'DESC')
+    ->range(0, 1);
+  $result = $query->execute();
+  if (!empty($result['log'])) {
+    foreach ($result['log'] as $id => $entity) {
+      $log = log_load($id);
+      if (!empty($log->field_farm_move_to[LANGUAGE_NONE][0]['tid'])) {
+        $term = taxonomy_term_load($log->field_farm_move_to[LANGUAGE_NONE][0]['tid']);
+        if (!empty($term)) {
+          return $term;
+        }
+      }
+    }
   }
 }
 
