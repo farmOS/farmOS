@@ -1,0 +1,20 @@
+<?php
+/**
+ * @file
+ * Install code for the Farm Area feature.
+ */
+
+/**
+ * Implements hook_enable().
+ */
+function farm_area_enable() {
+
+  // Enable the taxonomy term view page manager.
+  $page_name = 'term_view';
+  $page = page_manager_get_page_cache($page_name);
+  $function = ctools_plugin_get_function($page->subtask, "enable callback");
+  if (function_exists($function)) {
+    $function($page, FALSE);
+    menu_rebuild();
+  }
+}
