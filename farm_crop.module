@@ -7,16 +7,6 @@
 include_once 'farm_crop.features.inc';
 
 /**
- * Implements hook_init().
- */
-function farm_crop_init() {
-  global $conf;
-
-  // Ensure that the term_view page manager is enabled.
-  $conf['page_manager_term_view_disabled'] = TRUE;
-}
-
-/**
  * Implements hook_menu_local_tasks_alter().
  */
 function farm_crop_menu_local_tasks_alter(&$data, $router_item, $root_path) {
