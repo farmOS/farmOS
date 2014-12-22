@@ -107,18 +107,3 @@ function farm_asset_schema() {
   );
   return $schema;
 }
-
-/**
- * Implements hook_enable().
- */
-function farm_asset_enable() {
-
-  // Enable the farm asset view page manager.
-  $page_name = 'farm_asset_view';
-  $page = page_manager_get_page_cache($page_name);
-  $function = ctools_plugin_get_function($page->subtask, "enable callback");
-  if (function_exists($function)) {
-    $function($page, FALSE);
-    menu_rebuild();
-  }
-}
