@@ -110,6 +110,9 @@ projects[token][version] = "1.5"
 projects[views][subdir] = "contrib"
 projects[views][version] = "3.8"
 
+projects[views_bulk_operations][subdir] = "contrib"
+projects[views_bulk_operations][version] = "3.2"
+
 projects[views_data_export][subdir] = "contrib"
 projects[views_data_export][version] = "3.0-beta8"
 
