@@ -235,6 +235,11 @@ function farm_log_form_prepopulate_asset(&$form, $field_name = 'field_farm_asset
     }
   }
 
+  // If the asset field is not empty, hide it so that it can't be changed.
+  if (!empty($form[$field_name][LANGUAGE_NONE][0]['target_id']['#default_value'])) {
+    $form[$field_name]['#access'] = FALSE;
+  }
+
   return $asset;
 }
 
