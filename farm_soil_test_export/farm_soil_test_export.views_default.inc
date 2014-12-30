@@ -7,25 +7,25 @@
 /**
  * Implements hook_views_default_views().
  */
-function farm_soil_sample_export_views_default_views() {
+function farm_soil_test_export_views_default_views() {
   $export = array();
 
   $view = new view();
-  $view->name = 'farm_soil_sample_export';
+  $view->name = 'farm_soil_test_export';
   $view->description = '';
   $view->tag = 'default';
   $view->base_table = 'log';
-  $view->human_name = 'Farm Soil Sample Export';
+  $view->human_name = 'Farm Soil Test Export';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Soil Samples';
+  $handler->display->display_options['title'] = 'Soil Tests';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
-  $handler->display->display_options['access']['perm'] = 'view any farm_soil_sample log entities';
+  $handler->display->display_options['access']['perm'] = 'view any farm_soil_test log entities';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
@@ -98,7 +98,7 @@ function farm_soil_sample_export_views_default_views() {
   $handler->display->display_options['filters']['type']['table'] = 'log';
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
-    'farm_soil_sample' => 'farm_soil_sample',
+    'farm_soil_test' => 'farm_soil_test',
   );
 
   /* Display: Data export */
@@ -113,8 +113,8 @@ function farm_soil_sample_export_views_default_views() {
   $handler->display->display_options['style_options']['replace_newlines'] = 0;
   $handler->display->display_options['style_options']['header'] = 1;
   $handler->display->display_options['style_options']['keep_html'] = 0;
-  $handler->display->display_options['path'] = 'admin/farm/soil/samples/csv';
-  $export['farm_soil_sample_export'] = $view;
+  $handler->display->display_options['path'] = 'admin/farm/soil/tests/csv';
+  $export['farm_soil_test_export'] = $view;
 
   return $export;
 }

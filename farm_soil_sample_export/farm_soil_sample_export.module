@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the Farm Soil Sample Export feature.
- */
-
-include_once 'farm_soil_sample_export.features.inc';

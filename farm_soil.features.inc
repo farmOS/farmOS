@@ -27,11 +27,11 @@ function farm_soil_ctools_plugin_api() {
  */
 function farm_soil_default_log_type() {
   $items = array();
-  $items['farm_soil_sample'] = entity_import('log_type', '{
-    "type" : "farm_soil_sample",
-    "label" : "Soil Sample",
+  $items['farm_soil_test'] = entity_import('log_type', '{
+    "type" : "farm_soil_test",
+    "label" : "Soil Test",
     "weight" : 0,
-    "name_pattern" : "Sample [log:id]",
+    "name_pattern" : "Soil test [log:id]",
     "name_edit" : "1",
     "rdf_mapping" : []
   }');

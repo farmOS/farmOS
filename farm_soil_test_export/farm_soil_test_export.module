@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Farm Soil Test Export feature.
+ */
+
+include_once 'farm_soil_test_export.features.inc';

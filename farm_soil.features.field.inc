@@ -10,8 +10,8 @@
 function farm_soil_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'log-farm_soil_sample-field_farm_area'.
-  $fields['log-farm_soil_sample-field_farm_area'] = array(
+  // Exported field: 'log-farm_soil_test-field_farm_area'.
+  $fields['log-farm_soil_test-field_farm_area'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
@@ -45,7 +45,7 @@ function farm_soil_field_default_fields() {
       'type' => 'taxonomy_term_reference',
     ),
     'field_instance' => array(
-      'bundle' => 'farm_soil_sample',
+      'bundle' => 'farm_soil_test',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => 'What area does this soil sample pertain to?',
@@ -78,8 +78,8 @@ function farm_soil_field_default_fields() {
     ),
   );
 
-  // Exported field: 'log-farm_soil_sample-field_farm_date'.
-  $fields['log-farm_soil_sample-field_farm_date'] = array(
+  // Exported field: 'log-farm_soil_test-field_farm_date'.
+  $fields['log-farm_soil_test-field_farm_date'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
@@ -110,7 +110,7 @@ function farm_soil_field_default_fields() {
       'type' => 'datestamp',
     ),
     'field_instance' => array(
-      'bundle' => 'farm_soil_sample',
+      'bundle' => 'farm_soil_test',
       'deleted' => '0',
       'description' => 'Enter the date when this sample was taken (or will take place).',
       'display' => array(
@@ -158,8 +158,8 @@ function farm_soil_field_default_fields() {
     ),
   );
 
-  // Exported field: 'log-farm_soil_sample-field_farm_notes'.
-  $fields['log-farm_soil_sample-field_farm_notes'] = array(
+  // Exported field: 'log-farm_soil_test-field_farm_notes'.
+  $fields['log-farm_soil_test-field_farm_notes'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
@@ -186,7 +186,7 @@ function farm_soil_field_default_fields() {
       'type' => 'text_long',
     ),
     'field_instance' => array(
-      'bundle' => 'farm_soil_sample',
+      'bundle' => 'farm_soil_test',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -219,8 +219,8 @@ function farm_soil_field_default_fields() {
     ),
   );
 
-  // Exported field: 'log-farm_soil_sample-field_farm_soil_sample_points'.
-  $fields['log-farm_soil_sample-field_farm_soil_sample_points'] = array(
+  // Exported field: 'log-farm_soil_test-field_farm_soil_test_points'.
+  $fields['log-farm_soil_test-field_farm_soil_sample_points'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '-1',
@@ -271,7 +271,7 @@ function farm_soil_field_default_fields() {
       'type' => 'geofield',
     ),
     'field_instance' => array(
-      'bundle' => 'farm_soil_sample',
+      'bundle' => 'farm_soil_test',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => 'Use the map to pinpoint the location(s) from which this sample is taken. If you are preparing a soil test, you may be sampling multiple points within a given area. All the points that comprise this sample should be included.',
@@ -313,8 +313,8 @@ function farm_soil_field_default_fields() {
     ),
   );
 
-  // Exported field: 'log-farm_soil_sample-field_farm_soil_types'.
-  $fields['log-farm_soil_sample-field_farm_soil_types'] = array(
+  // Exported field: 'log-farm_soil_test-field_farm_soil_types'.
+  $fields['log-farm_soil_test-field_farm_soil_types'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '-1',
@@ -348,7 +348,7 @@ function farm_soil_field_default_fields() {
       'type' => 'taxonomy_term_reference',
     ),
     'field_instance' => array(
-      'bundle' => 'farm_soil_sample',
+      'bundle' => 'farm_soil_test',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => 'List the types of soils that are included in this sample. For soil maps and soil names, visit http://websoilsurvey.nrcs.usda.gov/app',
