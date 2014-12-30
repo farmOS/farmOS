@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * farm_soil_sample_export.views_default.inc
+ * farm_soil_test.views_default.inc
  */
 
 /**
  * Implements hook_views_default_views().
  */
-function farm_soil_test_export_views_default_views() {
+function farm_soil_test_views_default_views() {
   $export = array();
 
   $view = new view();
