@@ -17,13 +17,19 @@ function farm_equipment_menu_local_tasks_alter(&$data, $router_item, $root_path)
       'title' => t('Add equipment'),
       'href' => 'farm/asset/add/equipment',
     ),
+    'maintenance' => array(
+      'title' => t('Add maintenance'),
+      'href' => 'log/add/farm_maintenance',
+    ),
   );
 
   // Define actions for various paths.
   $path_actions = array(
     'farm/area/%/equipment' => array('equipment'),
-    'admin/farm/equipment' => array('equipment'),
-    'admin/farm/equipment/list' => array('equipment'),
+    'farm/asset/%' => array('maintenance'),
+    'admin/farm/equipment' => array('equipment', 'maintenance'),
+    'admin/farm/equipment/list' => array('equipment', 'maintenance'),
+    'admin/farm/equipment/maintenance' => array('maintenance'),
   );
 
   // Add actions depending on the root path.
