@@ -38,3 +38,19 @@ function farm_equipment_default_farm_asset_type() {
   }');
   return $items;
 }
+
+/**
+ * Implements hook_default_log_type().
+ */
+function farm_equipment_default_log_type() {
+  $items = array();
+  $items['farm_maintenance'] = entity_import('log_type', '{
+    "type" : "farm_maintenance",
+    "label" : "Maintenance",
+    "weight" : 0,
+    "name_pattern" : "[log:name]",
+    "name_edit" : "1",
+    "rdf_mapping" : []
+  }');
+  return $items;
+}
