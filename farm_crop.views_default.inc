@@ -411,7 +411,7 @@ function farm_crop_views_default_views() {
 
   /* Display: All harvests (Page) */
   $handler = $view->new_display('page', 'All harvests (Page)', 'page');
-  $handler->display->display_options['path'] = 'admin/farm/plan/harvests';
+  $handler->display->display_options['path'] = 'admin/farm/crops/harvests';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Harvests';
   $handler->display->display_options['menu']['weight'] = '0';
@@ -704,7 +704,7 @@ if (!empty($farm_asset)) {
 
   /* Display: All inputs (Page) */
   $handler = $view->new_display('page', 'All inputs (Page)', 'page');
-  $handler->display->display_options['path'] = 'admin/farm/plan/inputs';
+  $handler->display->display_options['path'] = 'admin/farm/crops/inputs';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Inputs';
   $handler->display->display_options['menu']['weight'] = '0';
@@ -995,7 +995,7 @@ if (!empty($farm_asset)) {
 
   /* Display: All seedings (Page) */
   $handler = $view->new_display('page', 'All seedings (Page)', 'page_1');
-  $handler->display->display_options['path'] = 'admin/farm/plan/seedings';
+  $handler->display->display_options['path'] = 'admin/farm/crops/seedings';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Seedings';
   $handler->display->display_options['menu']['weight'] = '0';
@@ -1262,7 +1262,7 @@ if (!empty($farm_asset)) {
 
   /* Display: All transplantings (Page) */
   $handler = $view->new_display('page', 'All transplantings (Page)', 'page_1');
-  $handler->display->display_options['path'] = 'admin/farm/plan/transplantings';
+  $handler->display->display_options['path'] = 'admin/farm/crops/transplantings';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Transplantings';
   $handler->display->display_options['menu']['weight'] = '0';
@@ -1622,7 +1622,7 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['path'] = 'admin/farm/crops/plantings';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Plantings';
-  $handler->display->display_options['menu']['weight'] = '0';
+  $handler->display->display_options['menu']['weight'] = '-5';
   $handler->display->display_options['menu']['name'] = 'management';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
