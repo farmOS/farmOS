@@ -2,6 +2,7 @@ name = Farm Soil Sample Export
 description = Provides a Views Data Export that lists all soil sample data in CSV form.
 core = 7.x
 package = Farm
+dependencies[] = farm_soil
 dependencies[] = views
 dependencies[] = views_data_export
 features[ctools][] = views:views_default:3.0
