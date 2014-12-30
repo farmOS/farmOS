@@ -57,7 +57,7 @@ function farm_equipment_menu_local_tasks_alter(&$data, $router_item, $root_path)
         // Load the asset.
         $farm_asset = farm_asset_load($asset_id);
 
-        // If the farm asset is not a planting, bail.
+        // If the farm asset is not equipment, bail.
         if (empty($farm_asset->type) || $farm_asset->type != 'equipment') {
           continue;
         }
@@ -97,6 +97,19 @@ function farm_equipment_menu_local_tasks_alter(&$data, $router_item, $root_path)
       // Add the action output.
       $data['actions']['output'][] = $output;
     }
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function farm_equipment_form_alter(&$form, &$form_state, $form_id) {
+
+  // If this is a log form with a planting reference field...
+  if ($form_id == 'log_form' && !empty($form['field_farm_equipment'])) {
+
+    // Alter the form with the farm_log helper function.
+    farm_log_form_prepopulate_asset($form, 'field_farm_equipment');
   }
 }
 
