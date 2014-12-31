@@ -5,3 +5,33 @@
  */
 
 include_once 'farm_soil.features.inc';
+
+/**
+ * Implements hook_openlayers_map_preprocess_alter().
+ */
+function farm_soil_openlayers_map_preprocess_alter(&$map = array()) {
+
+  // Add the NRCS Soil Survey layer to farm maps.
+  $maps = array(
+    'farm_map',
+    'farm_map_area',
+    'farm_map_areas',
+    'farm_map_geofield',
+  );
+
+  // Add the farm_soil_nrcs layer to each of the maps above.
+  if (!empty($map['map_name']) && in_array($map['map_name'], $maps)) {
+
+    // Add the farm_soil_nrcs layer.
+    $map['layers'] += array('farm_soil_nrcs' => 'farm_soil_nrcs');
+
+    // Don't activate the layer by default.
+    $map['layer_activated'] += array('farm_soil_nrcs' => 0);
+
+    // Show the layer in the switcher.
+    $map['layer_switcher'] += array('farm_soil_nrcs' => 'farm_soil_nrcs');
+
+    // Set the layer weight so that it is on the bottom.
+    $map['layer_weight'] += array('farm_soil_nrcs' => 100);
+  }
+}
