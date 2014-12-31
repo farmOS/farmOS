@@ -1,5 +1,86 @@
 <?php
 /**
  * @file
- * Drupal needs this blank file.
+ * Farm Manager role and permission management.
  */
+
+/**
+ * Synchronize all available farm permissions to the Farm Manager role.
+ */
+function farm_manager_sync_perms() {
+
+  // Compare current perms to available perms.
+  $compare = farm_manager_compare_perms();
+
+  // Add perms.
+  if (!empty($compare['add'])) {
+    foreach ($compare['add'] as $perm) {
+      $changes[$perm] = TRUE;
+    }
+  }
+
+  // Remove perms.
+  if (!empty($compare['remove'])) {
+    foreach ($compare['remove'] as $perm) {
+      $changes[$perm] = FALSE;
+    }
+  }
+
+  // If there are changes to be made...
+  if (!empty($changes)) {
+
+    // Load the Farm Manager role.
+    $role = user_role_load_by_name('Farm Manager');
+
+    // Apply the changes.
+    user_role_change_permissions($role->rid, $changes);
+  }
+}
+
+/**
+ * Gets a list of all available farm permissions.
+ */
+function farm_manager_available_perms() {
+
+  // Invoke hook_farm_manager_perms() to allow modules to provide permissions.
+  $perms = module_invoke_all('farm_manager_perms');
+
+  // Return them.
+  return $perms;
+}
+
+/**
+ * Gets a list of the permissions currently assigned to the Farm Manager role.
+ */
+function farm_manager_current_perms() {
+
+  // Load the Farm Manager role.
+  $role = user_role_load_by_name('Farm Manager');
+
+  // Load the permissions that are currently assigned to the role.
+  $perms = user_role_permissions(array($role->rid => $role->name));
+
+  // Return the permissions for this role, as an array of strings.
+  return array_keys($perms[$role->rid]);
+}
+
+/**
+ * Compares available permissions to actual permissions.
+ */
+function farm_manager_compare_perms() {
+
+  // Get the available perms.
+  $available_perms = farm_manager_available_perms();
+
+  // Get the currently applied perms.
+  $current_perms = farm_manager_current_perms();
+
+  // Determine which perms should be added.
+  $compare['add'] = array_diff($available_perms, $current_perms);
+
+  // Determine which perms should be removed.
+  $compare['remove'] = array_diff($current_perms, $available_perms);
+
+  // Return the comparison.
+  return $compare;
+}
