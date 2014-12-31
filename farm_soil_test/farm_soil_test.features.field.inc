@@ -430,7 +430,7 @@ function farm_soil_test_field_default_fields() {
           'module' => 'geofield',
           'settings' => array(
             'data' => 'full',
-            'map_preset' => 'farm_soil_map',
+            'map_preset' => 'farm_map_geofield',
           ),
           'type' => 'geofield_openlayers',
           'weight' => '2',
@@ -455,7 +455,7 @@ function farm_soil_test_field_default_fields() {
             'point' => 'point',
             'polygon' => 0,
           ),
-          'openlayers_map' => 'farm_soil_map',
+          'openlayers_map' => 'farm_map_geofield',
         ),
         'type' => 'geofield_openlayers',
         'weight' => '3',

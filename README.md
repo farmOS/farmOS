@@ -19,7 +19,8 @@ This module depends on the following modules:
 The submodule Farm Soil Test requires:
 
  * Date (http://drupal.org/project/date)
- * Farm Area (http://drupal.org/project/farm_map)
+ * Farm Area (http://drupal.org/project/farm_area)
+ * Farm Map (http://drupal.org/project/farm_map)
  * Geofield (http://drupal.org/project/geofield)
  * Log (http://drupal.org/project/log)
  * Views (http://drupal.org/project/views)
