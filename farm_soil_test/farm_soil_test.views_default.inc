@@ -58,6 +58,11 @@ function farm_soil_test_views_default_views() {
   $handler->display->display_options['fields']['name']['label'] = 'Soil Test';
   $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['name']['alter']['path'] = 'log/[id]';
+  /* Field: Log: Laboratory */
+  $handler->display->display_options['fields']['field_farm_soil_lab']['id'] = 'field_farm_soil_lab';
+  $handler->display->display_options['fields']['field_farm_soil_lab']['table'] = 'field_data_field_farm_soil_lab';
+  $handler->display->display_options['fields']['field_farm_soil_lab']['field'] = 'field_farm_soil_lab';
+  $handler->display->display_options['fields']['field_farm_soil_lab']['label'] = 'Lab';
   /* Field: Log: Area */
   $handler->display->display_options['fields']['field_farm_area']['id'] = 'field_farm_area';
   $handler->display->display_options['fields']['field_farm_area']['table'] = 'field_data_field_farm_area';

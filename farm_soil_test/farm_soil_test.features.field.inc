@@ -199,7 +199,7 @@ function farm_soil_test_field_default_fields() {
           'module' => 'file',
           'settings' => array(),
           'type' => 'file_table',
-          'weight' => '5',
+          'weight' => '6',
         ),
       ),
       'entity_type' => 'log',
@@ -239,7 +239,7 @@ function farm_soil_test_field_default_fields() {
           'progress_indicator' => 'bar',
         ),
         'type' => 'file_generic',
-        'weight' => '6',
+        'weight' => '7',
       ),
     ),
   );
@@ -282,7 +282,7 @@ function farm_soil_test_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '4',
+          'weight' => '5',
         ),
       ),
       'entity_type' => 'log',
@@ -300,6 +300,69 @@ function farm_soil_test_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
+        'weight' => '6',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_soil_test-field_farm_soil_lab'.
+  $fields['log-farm_soil_test-field_farm_soil_lab'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_soil_lab',
+      'foreign keys' => array(
+        'format' => array(
+          'columns' => array(
+            'format' => 'format',
+          ),
+          'table' => 'filter_format',
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'text',
+      'settings' => array(
+        'max_length' => '255',
+      ),
+      'translatable' => '0',
+      'type' => 'text',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_soil_test',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'What laboratory performed the soil test?',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '4',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_soil_lab',
+      'label' => 'Laboratory',
+      'required' => 0,
+      'settings' => array(
+        'text_processing' => '0',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'text',
+        'settings' => array(
+          'size' => '60',
+        ),
+        'type' => 'text_textfield',
         'weight' => '5',
       ),
     ),
@@ -474,12 +537,14 @@ function farm_soil_test_field_default_fields() {
   t('Date');
   t('Enter the date when this sample was taken (or will take place).');
   t('Files');
+  t('Laboratory');
   t('List the types of soils that are included in this sample. For soil maps and soil names, visit http://websoilsurvey.nrcs.usda.gov/app');
   t('Notes');
   t('Sample Points');
   t('Soil Types');
   t('Use the map to pinpoint the location(s) from which this sample is taken. If you are preparing a soil test, you may be sampling multiple points within a given area. All the points that comprise this sample should be included.');
   t('What area does this soil sample pertain to?');
+  t('What laboratory performed the soil test?');
 
   return $fields;
 }

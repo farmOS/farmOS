@@ -17,6 +17,7 @@ features[field][] = log-farm_soil_test-field_farm_area
 features[field][] = log-farm_soil_test-field_farm_date
 features[field][] = log-farm_soil_test-field_farm_files
 features[field][] = log-farm_soil_test-field_farm_notes
+features[field][] = log-farm_soil_test-field_farm_soil_lab
 features[field][] = log-farm_soil_test-field_farm_soil_sample_points
 features[field][] = log-farm_soil_test-field_farm_soil_types
 features[log_type][] = farm_soil_test
