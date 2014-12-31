@@ -986,6 +986,8 @@ if (!empty($farm_asset)) {
     'farm_activity' => 'farm_activity',
     'farm_issue' => 'farm_issue',
     'farm_movement' => 'farm_movement',
+    'farm_eggs' => 'farm_eggs',
+    'farm_soil_test' => 'farm_soil_test',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
   $handler->display->display_options['filters']['type']['exposed'] = TRUE;
