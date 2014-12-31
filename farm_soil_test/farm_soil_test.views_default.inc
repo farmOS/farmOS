@@ -77,7 +77,6 @@ function farm_soil_test_views_default_views() {
   $handler->display->display_options['fields']['field_farm_soil_sample_points']['field'] = 'field_farm_soil_sample_points';
   $handler->display->display_options['fields']['field_farm_soil_sample_points']['label'] = 'points';
   $handler->display->display_options['fields']['field_farm_soil_sample_points']['click_sort_column'] = 'geom';
-  $handler->display->display_options['fields']['field_farm_soil_sample_points']['type'] = 'geofield_geojson';
   $handler->display->display_options['fields']['field_farm_soil_sample_points']['settings'] = array(
     'data' => 'full',
   );
