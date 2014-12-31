@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * farm_soil.features.field.inc
+ * farm_soil_test.features.field.inc
  */
 
 /**
  * Implements hook_field_default_fields().
  */
-function farm_soil_field_default_fields() {
+function farm_soil_test_field_default_fields() {
   $fields = array();
 
   // Exported field: 'log-farm_soil_test-field_farm_area'.
