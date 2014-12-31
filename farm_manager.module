@@ -42,6 +42,9 @@ function farm_manager_sync_perms() {
  */
 function farm_manager_available_perms() {
 
+  // Load the permissions provided by this module on behalf of others.
+  module_load_include('inc', 'farm_manager', 'farm_manager.modules');
+
   // Invoke hook_farm_manager_perms() to allow modules to provide permissions.
   $perms = module_invoke_all('farm_manager_perms');
 
