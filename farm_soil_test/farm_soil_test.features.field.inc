@@ -299,7 +299,8 @@ function farm_soil_test_field_default_fields() {
         'module' => 'openlayers',
         'settings' => array(
           'allow_edit' => 1,
-          'data_storage' => 'single',
+          'data_storage' => 'collection',
+          'delta_handling' => 'default',
           'feature_types' => array(
             'path' => 0,
             'point' => 'point',
