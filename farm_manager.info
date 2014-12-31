@@ -101,4 +101,4 @@ features[user_permission][] = view own farm_movement log entities
 features[user_permission][] = view own farm_seeding log entities
 features[user_permission][] = view own farm_transplanting log entities
 features[user_permission][] = view own planting farm assets
-features[user_role][] = farm_manager
+features[user_role][] = Farm Manager

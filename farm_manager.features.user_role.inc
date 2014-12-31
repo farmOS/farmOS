@@ -10,8 +10,8 @@
 function farm_manager_user_default_roles() {
   $roles = array();
 
-  // Exported role: farm_manager.
-  $roles['farm_manager'] = array(
+  // Exported role: Farm Manager.
+  $roles['Farm Manager'] = array(
     'name' => 'Farm Manager',
     'weight' => '5',
     'machine_name' => 'farm_manager',
