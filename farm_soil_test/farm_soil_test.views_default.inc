@@ -71,6 +71,11 @@ function farm_soil_test_views_default_views() {
   $handler->display->display_options['fields']['name']['table'] = 'log';
   $handler->display->display_options['fields']['name']['field'] = 'name';
   $handler->display->display_options['fields']['name']['label'] = 'name';
+  /* Field: Log: Area */
+  $handler->display->display_options['fields']['field_farm_area']['id'] = 'field_farm_area';
+  $handler->display->display_options['fields']['field_farm_area']['table'] = 'field_data_field_farm_area';
+  $handler->display->display_options['fields']['field_farm_area']['field'] = 'field_farm_area';
+  $handler->display->display_options['fields']['field_farm_area']['type'] = 'taxonomy_term_reference_plain';
   /* Field: Log: Sample Points */
   $handler->display->display_options['fields']['field_farm_soil_sample_points']['id'] = 'field_farm_soil_sample_points';
   $handler->display->display_options['fields']['field_farm_soil_sample_points']['table'] = 'field_data_field_farm_soil_sample_points';
