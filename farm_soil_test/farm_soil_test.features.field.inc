@@ -158,6 +158,92 @@ function farm_soil_test_field_default_fields() {
     ),
   );
 
+  // Exported field: 'log-farm_soil_test-field_farm_files'.
+  $fields['log-farm_soil_test-field_farm_files'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_files',
+      'foreign keys' => array(
+        'fid' => array(
+          'columns' => array(
+            'fid' => 'fid',
+          ),
+          'table' => 'file_managed',
+        ),
+      ),
+      'indexes' => array(
+        'fid' => array(
+          0 => 'fid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'file',
+      'settings' => array(
+        'display_default' => 0,
+        'display_field' => 0,
+        'uri_scheme' => 'public',
+      ),
+      'translatable' => '0',
+      'type' => 'file',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_soil_test',
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'hidden',
+          'module' => 'file',
+          'settings' => array(),
+          'type' => 'file_table',
+          'weight' => '5',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_files',
+      'label' => 'Files',
+      'required' => 0,
+      'settings' => array(
+        'description_field' => 1,
+        'file_directory' => '',
+        'file_extensions' => 'csv doc docx odt odp ods pdf ppt pptx txt xls xlsx kml kmz zip tar gz',
+        'filefield_paths' => array(
+          'active_updating' => 0,
+          'file_name' => array(
+            'options' => array(
+              'pathauto' => 0,
+              'transliterate' => 0,
+            ),
+            'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
+          ),
+          'file_path' => array(
+            'options' => array(
+              'pathauto' => 0,
+              'transliterate' => 0,
+            ),
+            'value' => 'farm/log/soil_test/[log:id]',
+          ),
+          'retroactive_update' => 0,
+        ),
+        'filefield_paths_enabled' => 1,
+        'max_filesize' => '',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'file',
+        'settings' => array(
+          'progress_indicator' => 'bar',
+        ),
+        'type' => 'file_generic',
+        'weight' => '6',
+      ),
+    ),
+  );
+
   // Exported field: 'log-farm_soil_test-field_farm_notes'.
   $fields['log-farm_soil_test-field_farm_notes'] = array(
     'field_config' => array(
@@ -192,7 +278,7 @@ function farm_soil_test_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'inline',
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
@@ -219,7 +305,7 @@ function farm_soil_test_field_default_fields() {
     ),
   );
 
-  // Exported field: 'log-farm_soil_test-field_farm_soil_test_points'.
+  // Exported field: 'log-farm_soil_test-field_farm_soil_sample_points'.
   $fields['log-farm_soil_test-field_farm_soil_sample_points'] = array(
     'field_config' => array(
       'active' => '1',
@@ -387,6 +473,7 @@ function farm_soil_test_field_default_fields() {
   t('Area');
   t('Date');
   t('Enter the date when this sample was taken (or will take place).');
+  t('Files');
   t('List the types of soils that are included in this sample. For soil maps and soil names, visit http://websoilsurvey.nrcs.usda.gov/app');
   t('Notes');
   t('Sample Points');
