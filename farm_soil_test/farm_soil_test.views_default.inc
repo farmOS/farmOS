@@ -11,11 +11,11 @@ function farm_soil_test_views_default_views() {
   $export = array();
 
   $view = new view();
-  $view->name = 'farm_soil_test_export';
+  $view->name = 'farm_log_soil_tests';
   $view->description = '';
   $view->tag = 'default';
   $view->base_table = 'log';
-  $view->human_name = 'Farm Soil Test Export';
+  $view->human_name = 'Farm Log: Soil Tests';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
@@ -114,7 +114,7 @@ function farm_soil_test_views_default_views() {
   $handler->display->display_options['style_options']['header'] = 1;
   $handler->display->display_options['style_options']['keep_html'] = 0;
   $handler->display->display_options['path'] = 'admin/farm/soil/tests/csv';
-  $export['farm_soil_test_export'] = $view;
+  $export['farm_log_soil_tests'] = $view;
 
   return $export;
 }

@@ -18,4 +18,4 @@ features[field][] = log-farm_soil_test-field_farm_notes
 features[field][] = log-farm_soil_test-field_farm_soil_sample_points
 features[field][] = log-farm_soil_test-field_farm_soil_types
 features[log_type][] = farm_soil_test
-features[views_view][] = farm_soil_test_export
+features[views_view][] = farm_log_soil_tests
