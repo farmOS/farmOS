@@ -5,6 +5,7 @@ package = Farm
 dependencies[] = ctools
 dependencies[] = farm_map
 dependencies[] = features
+dependencies[] = filefield_paths
 dependencies[] = geocoder
 dependencies[] = geofield
 dependencies[] = list

@@ -124,7 +124,26 @@ function farm_area_field_default_fields() {
       'settings' => array(
         'description_field' => 1,
         'file_directory' => '',
-        'file_extensions' => 'csv doc docx odt odp ods pdf ppt pptx txt xls xlsx kml kmz',
+        'file_extensions' => 'csv doc docx odt odp ods pdf ppt pptx txt xls xlsx kml kmz zip tar gz',
+        'filefield_paths' => array(
+          'active_updating' => 0,
+          'file_name' => array(
+            'options' => array(
+              'pathauto' => 0,
+              'transliterate' => 0,
+            ),
+            'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
+          ),
+          'file_path' => array(
+            'options' => array(
+              'pathauto' => 0,
+              'transliterate' => 0,
+            ),
+            'value' => 'farm/area/[term:tid]',
+          ),
+          'retroactive_update' => 0,
+        ),
+        'filefield_paths_enabled' => 1,
         'max_filesize' => '',
         'user_register_form' => FALSE,
       ),
@@ -305,6 +324,25 @@ function farm_area_field_default_fields() {
         'default_image' => 0,
         'file_directory' => '',
         'file_extensions' => 'png gif jpg jpeg',
+        'filefield_paths' => array(
+          'active_updating' => 0,
+          'file_name' => array(
+            'options' => array(
+              'pathauto' => 0,
+              'transliterate' => 0,
+            ),
+            'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
+          ),
+          'file_path' => array(
+            'options' => array(
+              'pathauto' => 0,
+              'transliterate' => 0,
+            ),
+            'value' => 'farm/area/[term:tid]',
+          ),
+          'retroactive_update' => 0,
+        ),
+        'filefield_paths_enabled' => 1,
         'max_filesize' => '',
         'max_resolution' => '',
         'min_resolution' => '',
@@ -316,7 +354,7 @@ function farm_area_field_default_fields() {
         'module' => 'image',
         'settings' => array(
           'preview_image_style' => 'thumbnail',
-          'progress_indicator' => 'throbber',
+          'progress_indicator' => 'bar',
         ),
         'type' => 'image_image',
         'weight' => '4',
