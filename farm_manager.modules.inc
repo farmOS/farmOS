@@ -7,6 +7,23 @@
 /**
  * Implements hook_farm_manager_perms().
  */
+function farm_admin_farm_manager_perms() {
+  $perms = array();
+
+  // Access farm dashboard.
+  $perms[] = 'access farm dashboard';
+
+  // Give access to the navbar, if available.
+  if (module_exists('navbar')) {
+    $perms[] = 'access navbar';
+  }
+
+  return $perms;
+}
+
+/**
+ * Implements hook_farm_manager_perms().
+ */
 function farm_area_farm_manager_perms() {
 
   // Build a list of permissions on behalf of the farm_area module.
