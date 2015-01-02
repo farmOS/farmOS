@@ -98,3 +98,68 @@ function farm_manager_compare_perms() {
   // Return the comparison.
   return $compare;
 }
+
+/**
+ * Generate permission lists for specific farm assets, logs, and taxonomies.
+ * This is a helper function to make the task of generating permission lists
+ * easier.
+ *
+ * @param $types
+ *   An array of entity types/bundles to generate permissions for. Example:
+ *     $types = array(
+ *       'taxonomy' => array(
+ *         'farm_areas',
+ *       ),
+ *     );
+ *
+ * @return array
+ *   Returns a list of permissions for the given entity type+bundle.
+ */
+function farm_manager_entity_perms($types) {
+
+  // Start with an empty array.
+  $perms = array();
+
+  // Iterate through the types.
+  foreach ($types as $type => $bundles) {
+
+    // Iterate through the bundles.
+    foreach ($bundles as $bundle) {
+
+      // Switch through available entity types.
+      switch ($type) {
+
+        // Farm Asset
+        case 'farm_asset':
+          $perms[] = 'create ' . $bundle . ' farm assets';
+          $perms[] = 'delete any ' . $bundle . ' farm assets';
+          $perms[] = 'delete own ' . $bundle . ' farm assets';
+          $perms[] = 'edit any ' . $bundle . ' farm assets';
+          $perms[] = 'edit own ' . $bundle . ' farm assets';
+          $perms[] = 'view any ' . $bundle . ' farm assets';
+          $perms[] = 'view own ' . $bundle . ' farm assets';
+          break;
+
+        // Log
+        case 'log':
+          $perms[] = 'create ' . $bundle . ' log entities';
+          $perms[] = 'delete any ' . $bundle . ' log entities';
+          $perms[] = 'delete own ' . $bundle . ' log entities';
+          $perms[] = 'edit any ' . $bundle . ' log entities';
+          $perms[] = 'edit own ' . $bundle . ' log entities';
+          $perms[] = 'view any ' . $bundle . ' log entities';
+          $perms[] = 'view own ' . $bundle . ' log entities';
+          break;
+
+        // Taxonomy
+        case 'taxonomy':
+          $perms[] = 'delete terms in ' . $bundle;
+          $perms[] = 'edit terms in ' . $bundle;
+          break;
+      }
+    }
+  }
+
+  // Return the permissions.
+  return $perms;
+}
