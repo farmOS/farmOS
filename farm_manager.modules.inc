@@ -67,6 +67,9 @@ function farm_equipment_farm_manager_perms() {
     'farm_asset' => array(
       'equipment',
     ),
+    'log' => array(
+      'farm_maintenance',
+    ),
   );
   return farm_manager_entity_perms($types);
 }
