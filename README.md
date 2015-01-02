@@ -16,6 +16,7 @@ comes pre-packaged with a set of farm-related modules, including:
 * [Farm Livestock](http://drupal.org/project/farm_livestock)
 * [Farm Log](http://drupal.org/project/farm_log)
 * [Farm Map](http://drupal.org/project/farm_map)
+* [Farm Manager](http://drupal.org/project/farm_manager)
 * [Farm Soil](http://drupal.org/project/farm_soil)
 * [Farm Taxonomy](http://drupal.org/project/farm_taxonomy)
 
