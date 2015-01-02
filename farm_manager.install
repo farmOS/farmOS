@@ -1,0 +1,14 @@
+<?php
+/**
+ * @file
+ * Farm Manager installation
+ */
+
+/**
+ * Synchronize all available farm permissions to the Farm Manager role.
+ */
+function farm_manager_enable() {
+
+  // Sync permissions.
+  farm_manager_sync_perms();
+}
