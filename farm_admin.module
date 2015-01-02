@@ -7,6 +7,18 @@
 include_once 'farm_admin.features.inc';
 
 /**
+ * Implements hook_permission().
+ */
+function farm_admin_permission() {
+  return array(
+    'access farm dashboard' => array(
+      'title' => t('Access farm dashboard'),
+      'description' => t('Access the farm dashboard.'),
+    ),
+  );
+}
+
+/**
  * Implements hook_menu().
  */
 function farm_admin_menu() {
