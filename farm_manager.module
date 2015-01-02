@@ -39,6 +39,9 @@ function farm_manager_sync_perms() {
 
 /**
  * Gets a list of all available farm permissions.
+ *
+ * @return array
+ *   Returns an array of permission strings.
  */
 function farm_manager_available_perms() {
 
@@ -54,6 +57,9 @@ function farm_manager_available_perms() {
 
 /**
  * Gets a list of the permissions currently assigned to the Farm Manager role.
+ *
+ * @return array
+ *   Returns an array of permission strings.
  */
 function farm_manager_current_perms() {
 
@@ -69,6 +75,11 @@ function farm_manager_current_perms() {
 
 /**
  * Compares available permissions to actual permissions.
+ *
+ * @return array
+ *   Returns an array with two sub-arrays:
+ *     'add': a list of permission strings that should be added
+ *     'remove': a list of permission strings that should be removed
  */
 function farm_manager_compare_perms() {
 
