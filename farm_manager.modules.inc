@@ -119,3 +119,17 @@ function farm_log_farm_manager_perms() {
 
   return $perms;
 }
+
+/**
+ * Implements hook_farm_manager_permissions().
+ */
+function farm_soil_test_farm_manager_perms() {
+
+  // Build a list of permissions on behalf of the farm_log module.
+  $types = array(
+    'log' => array(
+      'farm_soil_test',
+    ),
+  );
+  return farm_manager_entity_perms($types);
+}
