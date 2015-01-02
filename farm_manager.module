@@ -163,3 +163,18 @@ function farm_manager_entity_perms($types) {
   // Return the permissions.
   return $perms;
 }
+
+/**
+ * Implements hook_modules_enabled().
+ */
+function farm_manager_modules_enabled($modules) {
+
+  // Load a list of modules that implement this module's hook_farm_manager_perms().
+  $implementations = module_implements('farm_manager_perms');
+
+  // If one of the modules being enabled implements hook_farm_manager_perms(),
+  // sync permissions.
+  if (array_intersect($modules, $implementations)) {
+    farm_manager_sync_perms();
+  }
+}
