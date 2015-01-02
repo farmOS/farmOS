@@ -5,7 +5,7 @@
  */
 
 /**
- * Implements hook_farm_manager_permissions().
+ * Implements hook_farm_manager_perms().
  */
 function farm_area_farm_manager_perms() {
 
@@ -19,7 +19,7 @@ function farm_area_farm_manager_perms() {
 }
 
 /**
- * Implements hook_farm_manager_permissions().
+ * Implements hook_farm_manager_perms().
  */
 function farm_taxonomy_farm_manager_perms() {
 
@@ -34,7 +34,7 @@ function farm_taxonomy_farm_manager_perms() {
 }
 
 /**
- * Implements hook_farm_manager_permissions().
+ * Implements hook_farm_manager_perms().
  */
 function farm_crop_farm_manager_perms() {
 
@@ -58,7 +58,7 @@ function farm_crop_farm_manager_perms() {
 }
 
 /**
- * Implements hook_farm_manager_permissions().
+ * Implements hook_farm_manager_perms().
  */
 function farm_equipment_farm_manager_perms() {
 
@@ -75,7 +75,7 @@ function farm_equipment_farm_manager_perms() {
 }
 
 /**
- * Implements hook_farm_manager_permissions().
+ * Implements hook_farm_manager_perms().
  */
 function farm_livestock_farm_manager_perms() {
 
@@ -96,7 +96,7 @@ function farm_livestock_farm_manager_perms() {
 }
 
 /**
- * Implements hook_farm_manager_permissions().
+ * Implements hook_farm_manager_perms().
  */
 function farm_log_farm_manager_perms() {
 
@@ -121,7 +121,7 @@ function farm_log_farm_manager_perms() {
 }
 
 /**
- * Implements hook_farm_manager_permissions().
+ * Implements hook_farm_manager_perms().
  */
 function farm_soil_test_farm_manager_perms() {
 
