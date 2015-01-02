@@ -178,3 +178,27 @@ function farm_manager_modules_enabled($modules) {
     farm_manager_sync_perms();
   }
 }
+
+/**
+ * Implements hook_form_alter().
+ */
+function farm_manager_form_alter(&$form, &$form_state, $form_id) {
+
+  // Add our submit function to the core permissions form.
+  if ($form_id == 'user_admin_permissions') {
+    $form['#submit'][] = 'farm_manager_permissions_form_submit';
+  }
+}
+
+/**
+ * Submit function for the core permissions form.
+ * Syncs Farm Manager role permissions.
+ */
+function farm_manager_permissions_form_submit($form, &$form_state) {
+
+  // Sync permissions.
+  farm_manager_sync_perms();
+
+  // Tell the user that we are enforcing the permissions, so there's no confusion.
+  drupal_set_message(t('Farm Manager permissions were automatically assigned.'));
+}
