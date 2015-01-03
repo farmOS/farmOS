@@ -95,3 +95,36 @@ function farm_area_get_links($id, $separator = ' | ') {
   // Convert to a string with a separator and return.
   return implode($separator, $links);
 }
+
+/**
+ * Implements hook_openlayers_map_preprocess_alter().
+ */
+function farm_area_openlayers_map_preprocess_alter(&$map = array()) {
+
+  // Define the layer we are going to add.
+  $layer = 'farm_area_data_all';
+
+  // Add the 'All Areas' layer to Farm Geofield Map.
+  if (!empty($map['map_name']) && $map['map_name'] == 'farm_map_geofield') {
+
+    // Add the farm_soil_nrcs layer.
+    $map['layers'] += array($layer => $layer);
+
+    // Activate the layer by default.
+    $map['layer_activated'] += array($layer => $layer);
+
+    // Show the layer in the switcher.
+    $map['layer_switcher'] += array($layer => $layer);
+
+    // Set the layer style to Farm Grey.
+    $map['layer_styles'] += array($layer => 'farm_grey');
+
+    // Set the layer weight so that it is on the bottom.
+    $map['layer_weight'] += array($layer => 100);
+
+    // Zoom to the "All areas" layer.
+    if (!empty($map['behaviors']['openlayers_behavior_zoomtolayer'])) {
+      $map['behaviors']['openlayers_behavior_zoomtolayer']['zoomtolayer'][$layer] = $layer;
+    }
+  }
+}
