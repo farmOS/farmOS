@@ -20,6 +20,7 @@ dependencies[] = log
 dependencies[] = number
 dependencies[] = options
 dependencies[] = page_manager
+dependencies[] = panels
 dependencies[] = pathauto
 dependencies[] = pathauto_entity
 dependencies[] = strongarm
