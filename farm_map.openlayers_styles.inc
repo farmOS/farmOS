@@ -93,6 +93,26 @@ function farm_map_openlayers_styles() {
   $openlayers_styles = new stdClass();
   $openlayers_styles->disabled = FALSE; /* Edit this to true to make a default openlayers_styles disabled initially */
   $openlayers_styles->api_version = 1;
+  $openlayers_styles->name = 'farm_grey';
+  $openlayers_styles->title = 'Farm Grey';
+  $openlayers_styles->description = 'Grey farm style';
+  $openlayers_styles->data = array(
+    'pointRadius' => 6,
+    'fillColor' => '#333',
+    'fillOpacity' => 0.5,
+    'strokeColor' => '#999',
+    'strokeWidth' => 2,
+    'strokeOpacity' => 0.69999999999999996,
+    'strokeLinecap' => 'round',
+    'strokeDashstyle' => 'solid',
+    'graphicOpacity' => 1,
+    'labelAlign' => 'cm',
+  );
+  $export['farm_grey'] = $openlayers_styles;
+
+  $openlayers_styles = new stdClass();
+  $openlayers_styles->disabled = FALSE; /* Edit this to true to make a default openlayers_styles disabled initially */
+  $openlayers_styles->api_version = 1;
   $openlayers_styles->name = 'farm_orange';
   $openlayers_styles->title = 'Farm Orange';
   $openlayers_styles->description = 'Orange farm style';

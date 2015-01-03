@@ -16,6 +16,7 @@ features[openlayers_styles][] = farm_blue
 features[openlayers_styles][] = farm_brown
 features[openlayers_styles][] = farm_dark_green
 features[openlayers_styles][] = farm_green
+features[openlayers_styles][] = farm_grey
 features[openlayers_styles][] = farm_orange
 features[openlayers_styles][] = farm_purple
 features[openlayers_styles][] = farm_red
