@@ -149,6 +149,9 @@ function farm_soil_test_farm_manager_perms() {
     'log' => array(
       'farm_soil_test',
     ),
+    'taxonomy' => array(
+      'farm_soil_types',
+    ),
   );
   return farm_manager_entity_perms($types);
 }
