@@ -12,6 +12,7 @@ dependencies[] = list
 dependencies[] = openlayers
 dependencies[] = openlayers_views
 dependencies[] = page_manager
+dependencies[] = panels
 dependencies[] = pathauto
 dependencies[] = strongarm
 dependencies[] = taxonomy
