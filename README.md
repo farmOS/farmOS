@@ -6,11 +6,10 @@ Provides a Farm Manager role with all farm permissions.
 This module is part of the [FarmOS](http://drupal.org/project/farm)
 distribution.
 
-This module is part Features, part custom code. The Features part provides a new
-role called "Farm Manager" (depends on the Role Export module). The custom code
-provides a hook that other modules can implement to assign permissions to that
-role: hook_farm_manager_perms(), which just needs to return an array of
-permission strings.
+This module provides two things: 1) a new role called "Farm Manager", and 2) a
+hook that other modules can implement to assign permissions to that role:
+hook_farm_manager_perms(), which just needs to return an array of permission
+strings.
 
 The Farm Manager module implements this hook on behalf of all the farm_*
 modules to automatically add all their necessary permissions. But you can also
@@ -36,11 +35,6 @@ permissions in code.
 
 DEPENDENCIES
 ------------
-
-This module depends on the following modules:
-
- * Features (http://drupal.org/project/features)
- * Role Export (http://drupal.org/project/role_export)
 
 **Requires Drupal core patch!**
 

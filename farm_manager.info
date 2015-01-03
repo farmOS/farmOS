@@ -2,7 +2,3 @@ name = Farm Manager
 description = Provides a Farm Manager role with all farm permissions.
 core = 7.x
 package = Farm
-dependencies[] = features
-dependencies[] = role_export
-features[features_api][] = api:1
-features[user_role][] = Farm Manager
