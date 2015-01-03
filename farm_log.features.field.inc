@@ -1166,6 +1166,347 @@ function farm_log_field_default_fields() {
     ),
   );
 
+  // Exported field: 'log-farm_observation-field_farm_asset'.
+  $fields['log-farm_observation-field_farm_asset'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_asset',
+      'foreign keys' => array(
+        'farm_asset' => array(
+          'columns' => array(
+            'target_id' => 'id',
+          ),
+          'table' => 'farm_asset',
+        ),
+      ),
+      'indexes' => array(
+        'target_id' => array(
+          0 => 'target_id',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'entityreference',
+      'settings' => array(
+        'handler' => 'base',
+        'handler_settings' => array(
+          'behaviors' => array(
+            'views-select-list' => array(
+              'status' => 0,
+            ),
+          ),
+          'sort' => array(
+            'type' => 'none',
+          ),
+          'target_bundles' => array(),
+        ),
+        'target_type' => 'farm_asset',
+      ),
+      'translatable' => '0',
+      'type' => 'entityreference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_observation',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'Optionally, link this observation to a specific farm asset.',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => 1,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '0',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_asset',
+      'label' => 'Asset',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'entityreference',
+        'settings' => array(
+          'match_operator' => 'CONTAINS',
+          'path' => '',
+          'size' => '60',
+        ),
+        'type' => 'entityreference_autocomplete',
+        'weight' => '1',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_observation-field_farm_date'.
+  $fields['log-farm_observation-field_farm_date'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_date',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'locked' => '0',
+      'module' => 'date',
+      'settings' => array(
+        'cache_count' => '4',
+        'cache_enabled' => 0,
+        'granularity' => array(
+          'day' => 'day',
+          'hour' => 0,
+          'minute' => 0,
+          'month' => 'month',
+          'second' => 0,
+          'year' => 'year',
+        ),
+        'repeat' => '0',
+        'timezone_db' => '',
+        'todate' => '',
+        'tz_handling' => 'none',
+      ),
+      'translatable' => '0',
+      'type' => 'datestamp',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_observation',
+      'deleted' => '0',
+      'description' => 'When did this observation occur?',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'date',
+          'settings' => array(
+            'format_type' => 'long',
+            'fromto' => 'both',
+            'multiple_from' => '',
+            'multiple_number' => '',
+            'multiple_to' => '',
+          ),
+          'type' => 'date_default',
+          'weight' => '1',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_date',
+      'label' => 'Date',
+      'required' => 1,
+      'settings' => array(
+        'default_value' => 'now',
+        'default_value2' => 'same',
+        'default_value_code' => '',
+        'default_value_code2' => '',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'date',
+        'settings' => array(
+          'increment' => '15',
+          'input_format' => 'M j Y - g:i:sa',
+          'input_format_custom' => '',
+          'label_position' => 'above',
+          'text_parts' => array(),
+          'year_range' => '-3:+3',
+        ),
+        'type' => 'date_popup',
+        'weight' => '0',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_observation-field_farm_notes'.
+  $fields['log-farm_observation-field_farm_notes'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_notes',
+      'foreign keys' => array(
+        'format' => array(
+          'columns' => array(
+            'format' => 'format',
+          ),
+          'table' => 'filter_format',
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'text',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'text_long',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_observation',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '4',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_notes',
+      'label' => 'Notes',
+      'required' => 0,
+      'settings' => array(
+        'text_processing' => '0',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'text',
+        'settings' => array(
+          'rows' => '5',
+        ),
+        'type' => 'text_textarea',
+        'weight' => '4',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_observation-field_farm_observation_type'.
+  $fields['log-farm_observation-field_farm_observation_type'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_observation_type',
+      'foreign keys' => array(
+        'tid' => array(
+          'columns' => array(
+            'tid' => 'tid',
+          ),
+          'table' => 'taxonomy_term_data',
+        ),
+      ),
+      'indexes' => array(
+        'tid' => array(
+          0 => 'tid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'taxonomy',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => array(
+            'vocabulary' => 'farm_observation_types',
+            'parent' => '0',
+          ),
+        ),
+      ),
+      'translatable' => '0',
+      'type' => 'taxonomy_term_reference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_observation',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'What type of observation is this. Use this to organize your observations into categories for easy viewing later. As you type, you will have the option of selecting from a list of types you entered in the past.',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => '2',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_observation_type',
+      'label' => 'Type',
+      'required' => 1,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'taxonomy',
+        'settings' => array(
+          'autocomplete_path' => 'taxonomy/autocomplete',
+          'size' => 60,
+        ),
+        'type' => 'taxonomy_autocomplete',
+        'weight' => '2',
+      ),
+    ),
+  );
+
+  // Exported field: 'log-farm_observation-field_farm_quantity'.
+  $fields['log-farm_observation-field_farm_quantity'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_quantity',
+      'foreign keys' => array(),
+      'indexes' => array(
+        'revision_id' => array(
+          0 => 'revision_id',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'field_collection',
+      'settings' => array(
+        'hide_blank_items' => 1,
+        'path' => '',
+      ),
+      'translatable' => '0',
+      'type' => 'field_collection',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_observation',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'Optionally, use this quantity field to record an observed quantity.',
+      'display' => array(
+        'default' => array(
+          'label' => 'inline',
+          'module' => 'field_collection',
+          'settings' => array(
+            'view_mode' => 'full',
+          ),
+          'type' => 'field_collection_fields',
+          'weight' => '3',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_quantity',
+      'label' => 'Quantity',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'field_collection',
+        'settings' => array(),
+        'type' => 'field_collection_embed',
+        'weight' => '3',
+      ),
+    ),
+  );
+
   // Translatables
   // Included for use with string extractors like potx.
   t('Areas');
@@ -1179,13 +1520,19 @@ function farm_log_field_default_fields() {
   t('List any farm assets that this activity pertains to.');
   t('List any farm assets that this issue pertains to.');
   t('Notes');
+  t('Optionally, link this observation to a specific farm asset.');
+  t('Optionally, use this quantity field to record an observed quantity.');
   t('Priority');
+  t('Quantity');
   t('To');
+  t('Type');
   t('Units');
   t('Value');
   t('What area(s) did this activity take place in?');
   t('What asset is being moved?');
+  t('What type of observation is this. Use this to organize your observations into categories for easy viewing later. As you type, you will have the option of selecting from a list of types you entered in the past.');
   t('When did this movement take place? Or when will it?');
+  t('When did this observation occur?');
   t('Where is it moving from? This field is optional. You may leave this blank as a way of setting an object\'s initial location.');
   t('Where is it moving to?');
 

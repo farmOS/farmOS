@@ -50,5 +50,13 @@ function farm_log_default_log_type() {
     "name_edit" : "0",
     "rdf_mapping" : []
   }');
+  $items['farm_observation'] = entity_import('log_type', '{
+    "type" : "farm_observation",
+    "label" : "Observation",
+    "weight" : 0,
+    "name_pattern" : "[log:field-farm-observation-type]",
+    "name_edit" : "1",
+    "rdf_mapping" : []
+  }');
   return $items;
 }
