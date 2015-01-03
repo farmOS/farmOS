@@ -654,6 +654,11 @@ function farm_log_views_default_views() {
   $handler->display->display_options['fields']['field_farm_move_from']['id'] = 'field_farm_move_from';
   $handler->display->display_options['fields']['field_farm_move_from']['table'] = 'field_data_field_farm_move_from';
   $handler->display->display_options['fields']['field_farm_move_from']['field'] = 'field_farm_move_from';
+  /* Field: Log: To */
+  $handler->display->display_options['fields']['field_farm_move_to']['id'] = 'field_farm_move_to';
+  $handler->display->display_options['fields']['field_farm_move_to']['table'] = 'field_data_field_farm_move_to';
+  $handler->display->display_options['fields']['field_farm_move_to']['field'] = 'field_farm_move_to';
+  $handler->display->display_options['fields']['field_farm_move_to']['exclude'] = TRUE;
   /* Sort criterion: Field: Date (field_farm_date) */
   $handler->display->display_options['sorts']['field_farm_date_value']['id'] = 'field_farm_date_value';
   $handler->display->display_options['sorts']['field_farm_date_value']['table'] = 'field_data_field_farm_date';
@@ -731,6 +736,13 @@ function farm_log_views_default_views() {
 
   /* Display: Movements by asset (Page) */
   $handler = $view->new_display('page', 'Movements by asset (Page)', 'page_2');
+  $handler->display->display_options['defaults']['header'] = FALSE;
+  /* Header: Global: Unfiltered text */
+  $handler->display->display_options['header']['area_text_custom']['id'] = 'area_text_custom';
+  $handler->display->display_options['header']['area_text_custom']['table'] = 'views';
+  $handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
+  $handler->display->display_options['header']['area_text_custom']['content'] = '<strong>Current location:</strong> [field_farm_move_to]';
+  $handler->display->display_options['header']['area_text_custom']['tokenize'] = TRUE;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Log: Asset (field_farm_asset) */
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['id'] = 'field_farm_asset_target_id';
@@ -768,6 +780,13 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '5';
   $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['defaults']['header'] = FALSE;
+  /* Header: Global: Unfiltered text */
+  $handler->display->display_options['header']['area_text_custom']['id'] = 'area_text_custom';
+  $handler->display->display_options['header']['area_text_custom']['table'] = 'views';
+  $handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
+  $handler->display->display_options['header']['area_text_custom']['content'] = '<strong>Current location:</strong> [field_farm_move_to]';
+  $handler->display->display_options['header']['area_text_custom']['tokenize'] = TRUE;
   $handler->display->display_options['defaults']['sorts'] = FALSE;
   /* Sort criterion: Field: Date (field_farm_date) */
   $handler->display->display_options['sorts']['field_farm_date_value']['id'] = 'field_farm_date_value';
