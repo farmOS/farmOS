@@ -10,6 +10,7 @@ dependencies[] = farm_asset
 dependencies[] = features
 dependencies[] = log
 dependencies[] = page_manager
+dependencies[] = panels
 dependencies[] = strongarm
 dependencies[] = views
 dependencies[] = views_bulk_operations
