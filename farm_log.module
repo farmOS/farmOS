@@ -141,13 +141,31 @@ function farm_log_farm_area_links($id) {
  */
 function farm_log_form_alter(&$form, &$form_state, $form_id) {
 
+  // If this is a log form with an asset(s) reference field.
+  if ($form_id == 'log_form' && (!empty($form['field_farm_asset']) || !empty($form['field_farm_assets']))) {
+
+    // First choice is farm_asset, second is farm_assets.
+    $field_name = (!empty($form['field_farm_asset'])) ? 'field_farm_asset' : 'field_farm_asset';
+
+    // Alter the form using our helper function.
+    // ($asset is used below to for movement logs.)
+    $asset = farm_log_form_prepopulate_asset($form, 'field_farm_asset');
+  }
+
+  // If this is a log form with an area(s) reference field...
+  if ($form_id == 'log_form' && (!empty($form['field_farm_area']) || !empty($form['field_farm_areas']))) {
+
+    // First choice is farm_area, second is farm_areas.
+    $field_name = (!empty($form['field_farm_area'])) ? 'field_farm_area' : 'field_farm_areas';
+
+    // Alter the form with the farm_log helper function.
+    farm_log_form_prepopulate_area($form, $field_name);
+  }
+
   // If this is the farm_movement log form...
   if ($form_id == 'log_form' && $form['#bundle'] == 'farm_movement') {
 
-    // Alter the form using our helper function.
-    $asset = farm_log_form_prepopulate_asset($form, 'field_farm_asset');
-
-    // If no asset was returned, don't continue.
+    // If no asset was found above, don't continue.
     if (empty($asset)) {
       return;
     }
@@ -161,16 +179,6 @@ function farm_log_form_alter(&$form, &$form_state, $form_id) {
         $form['field_farm_move_from'][LANGUAGE_NONE]['#default_value'] = $area->name;
       }
     }
-  }
-
-  // If this is a log form with an area(s) reference field...
-  if ($form_id == 'log_form' && (!empty($form['field_farm_area']) || !empty($form['field_farm_areas']))) {
-
-    // First choice is farm_area, second is farm_areas.
-    $field_name = (!empty($form['field_farm_area'])) ? 'field_farm_area' : 'field_farm_areas';
-
-    // Alter the form with the farm_log helper function.
-    farm_log_form_prepopulate_area($form, $field_name);
   }
 }
 
