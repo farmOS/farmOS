@@ -107,6 +107,29 @@ function farm_equipment_default_page_manager_handlers() {
     $display->content['new-60948175-91ca-413b-aeb0-dce040e7b166'] = $pane;
     $display->panels['left'][1] = 'new-60948175-91ca-413b-aeb0-dce040e7b166';
     $pane = new stdClass();
+    $pane->pid = 'new-08fcff53-cedf-42fe-a0e0-43cdc9f0e7ae';
+    $pane->panel = 'left';
+    $pane->type = 'views_panes';
+    $pane->subtype = 'farm_log_observation-panel_pane_1';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'context' => array(
+        0 => 'argument_entity_id:farm_asset_1',
+      ),
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 2;
+    $pane->locks = array();
+    $pane->uuid = '08fcff53-cedf-42fe-a0e0-43cdc9f0e7ae';
+    $display->content['new-08fcff53-cedf-42fe-a0e0-43cdc9f0e7ae'] = $pane;
+    $display->panels['left'][2] = 'new-08fcff53-cedf-42fe-a0e0-43cdc9f0e7ae';
+    $pane = new stdClass();
     $pane->pid = 'new-7d838235-4b44-4466-a902-474308b0fd6b';
     $pane->panel = 'right';
     $pane->type = 'views_panes';
