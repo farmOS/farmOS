@@ -84,52 +84,6 @@ function farm_crop_default_page_manager_handlers() {
     $display->content['new-b9cd042f-888f-4d29-9edb-3410303177c3'] = $pane;
     $display->panels['left'][0] = 'new-b9cd042f-888f-4d29-9edb-3410303177c3';
     $pane = new stdClass();
-    $pane->pid = 'new-9938add9-ddef-410b-8699-bcd71d668d7b';
-    $pane->panel = 'left';
-    $pane->type = 'views_panes';
-    $pane->subtype = 'farm_log_seeding-panel_pane_1';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array(
-      'context' => array(
-        0 => 'argument_entity_id:farm_asset_1',
-      ),
-    );
-    $pane->cache = array();
-    $pane->style = array(
-      'settings' => NULL,
-    );
-    $pane->css = array();
-    $pane->extras = array();
-    $pane->position = 1;
-    $pane->locks = array();
-    $pane->uuid = '9938add9-ddef-410b-8699-bcd71d668d7b';
-    $display->content['new-9938add9-ddef-410b-8699-bcd71d668d7b'] = $pane;
-    $display->panels['left'][1] = 'new-9938add9-ddef-410b-8699-bcd71d668d7b';
-    $pane = new stdClass();
-    $pane->pid = 'new-d496f492-d528-4869-8c2e-2157808042ee';
-    $pane->panel = 'left';
-    $pane->type = 'views_panes';
-    $pane->subtype = 'farm_log_transplanting-panel_pane_1';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array(
-      'context' => array(
-        0 => 'argument_entity_id:farm_asset_1',
-      ),
-    );
-    $pane->cache = array();
-    $pane->style = array(
-      'settings' => NULL,
-    );
-    $pane->css = array();
-    $pane->extras = array();
-    $pane->position = 2;
-    $pane->locks = array();
-    $pane->uuid = 'd496f492-d528-4869-8c2e-2157808042ee';
-    $display->content['new-d496f492-d528-4869-8c2e-2157808042ee'] = $pane;
-    $display->panels['left'][2] = 'new-d496f492-d528-4869-8c2e-2157808042ee';
-    $pane = new stdClass();
     $pane->pid = 'new-5137f6c6-5556-4950-a570-7d80f655860e';
     $pane->panel = 'left';
     $pane->type = 'views_panes';
@@ -147,11 +101,57 @@ function farm_crop_default_page_manager_handlers() {
     );
     $pane->css = array();
     $pane->extras = array();
-    $pane->position = 3;
+    $pane->position = 1;
     $pane->locks = array();
     $pane->uuid = '5137f6c6-5556-4950-a570-7d80f655860e';
     $display->content['new-5137f6c6-5556-4950-a570-7d80f655860e'] = $pane;
-    $display->panels['left'][3] = 'new-5137f6c6-5556-4950-a570-7d80f655860e';
+    $display->panels['left'][1] = 'new-5137f6c6-5556-4950-a570-7d80f655860e';
+    $pane = new stdClass();
+    $pane->pid = 'new-c960beef-70cf-49e7-a09a-d207bfb12082';
+    $pane->panel = 'left';
+    $pane->type = 'views_panes';
+    $pane->subtype = 'farm_log_harvest-panel_pane_1';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'context' => array(
+        0 => 'argument_entity_id:farm_asset_1',
+      ),
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 2;
+    $pane->locks = array();
+    $pane->uuid = 'c960beef-70cf-49e7-a09a-d207bfb12082';
+    $display->content['new-c960beef-70cf-49e7-a09a-d207bfb12082'] = $pane;
+    $display->panels['left'][2] = 'new-c960beef-70cf-49e7-a09a-d207bfb12082';
+    $pane = new stdClass();
+    $pane->pid = 'new-1ac32772-b039-4fdb-b8a5-ea15b2f22b96';
+    $pane->panel = 'left';
+    $pane->type = 'views_panes';
+    $pane->subtype = 'farm_log_observation-panel_pane_1';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'context' => array(
+        0 => 'argument_entity_id:farm_asset_1',
+      ),
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 3;
+    $pane->locks = array();
+    $pane->uuid = '1ac32772-b039-4fdb-b8a5-ea15b2f22b96';
+    $display->content['new-1ac32772-b039-4fdb-b8a5-ea15b2f22b96'] = $pane;
+    $display->panels['left'][3] = 'new-1ac32772-b039-4fdb-b8a5-ea15b2f22b96';
     $pane = new stdClass();
     $pane->pid = 'new-e79dd32b-0d6e-436a-abd9-b57be8da0d79';
     $pane->panel = 'right';
@@ -176,10 +176,10 @@ function farm_crop_default_page_manager_handlers() {
     $display->content['new-e79dd32b-0d6e-436a-abd9-b57be8da0d79'] = $pane;
     $display->panels['right'][0] = 'new-e79dd32b-0d6e-436a-abd9-b57be8da0d79';
     $pane = new stdClass();
-    $pane->pid = 'new-c960beef-70cf-49e7-a09a-d207bfb12082';
+    $pane->pid = 'new-9938add9-ddef-410b-8699-bcd71d668d7b';
     $pane->panel = 'right';
     $pane->type = 'views_panes';
-    $pane->subtype = 'farm_log_harvest-panel_pane_1';
+    $pane->subtype = 'farm_log_seeding-panel_pane_1';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
@@ -195,9 +195,32 @@ function farm_crop_default_page_manager_handlers() {
     $pane->extras = array();
     $pane->position = 1;
     $pane->locks = array();
-    $pane->uuid = 'c960beef-70cf-49e7-a09a-d207bfb12082';
-    $display->content['new-c960beef-70cf-49e7-a09a-d207bfb12082'] = $pane;
-    $display->panels['right'][1] = 'new-c960beef-70cf-49e7-a09a-d207bfb12082';
+    $pane->uuid = '9938add9-ddef-410b-8699-bcd71d668d7b';
+    $display->content['new-9938add9-ddef-410b-8699-bcd71d668d7b'] = $pane;
+    $display->panels['right'][1] = 'new-9938add9-ddef-410b-8699-bcd71d668d7b';
+    $pane = new stdClass();
+    $pane->pid = 'new-d496f492-d528-4869-8c2e-2157808042ee';
+    $pane->panel = 'right';
+    $pane->type = 'views_panes';
+    $pane->subtype = 'farm_log_transplanting-panel_pane_1';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'context' => array(
+        0 => 'argument_entity_id:farm_asset_1',
+      ),
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 2;
+    $pane->locks = array();
+    $pane->uuid = 'd496f492-d528-4869-8c2e-2157808042ee';
+    $display->content['new-d496f492-d528-4869-8c2e-2157808042ee'] = $pane;
+    $display->panels['right'][2] = 'new-d496f492-d528-4869-8c2e-2157808042ee';
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = 'new-b9cd042f-888f-4d29-9edb-3410303177c3';
   $handler->conf['display'] = $display;
