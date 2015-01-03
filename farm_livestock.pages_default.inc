@@ -84,6 +84,29 @@ function farm_livestock_default_page_manager_handlers() {
     $display->content['new-14a5b1a8-a389-4c09-badf-1d90f1a93d3e'] = $pane;
     $display->panels['left'][0] = 'new-14a5b1a8-a389-4c09-badf-1d90f1a93d3e';
     $pane = new stdClass();
+    $pane->pid = 'new-d35dd1d0-aacd-425d-9551-d990a663f1a2';
+    $pane->panel = 'left';
+    $pane->type = 'views_panes';
+    $pane->subtype = 'farm_log_observation-panel_pane_1';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'context' => array(
+        0 => 'argument_entity_id:farm_asset_1',
+      ),
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 1;
+    $pane->locks = array();
+    $pane->uuid = 'd35dd1d0-aacd-425d-9551-d990a663f1a2';
+    $display->content['new-d35dd1d0-aacd-425d-9551-d990a663f1a2'] = $pane;
+    $display->panels['left'][1] = 'new-d35dd1d0-aacd-425d-9551-d990a663f1a2';
+    $pane = new stdClass();
     $pane->pid = 'new-7d838235-4b44-4466-a902-474308b0fd6b';
     $pane->panel = 'right';
     $pane->type = 'views_panes';
