@@ -26,3 +26,12 @@ function farm_manager_enable() {
   // Sync permissions.
   farm_manager_sync_perms();
 }
+
+/**
+ * Implements hook_uninstall().
+ */
+function farm_manager_uninstall() {
+
+  // Delete the Farm Manager role.
+  user_role_delete('Farm Manager');
+}
