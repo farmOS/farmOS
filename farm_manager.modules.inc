@@ -123,8 +123,10 @@ function farm_log_farm_manager_perms() {
       'farm_activity',
       'farm_issue',
       'farm_movement',
+      'farm_observation',
     ),
     'taxonomy' => array(
+      'farm_observation_types',
       'farm_priority',
       'farm_quantity_units',
     ),
