@@ -172,7 +172,7 @@ function farm_soil_test_views_default_views() {
   $handler->display->display_options['arguments']['field_farm_area_tid']['validate_options']['vocabularies'] = array(
     'farm_areas' => 'farm_areas',
   );
-  $handler->display->display_options['path'] = 'farm/area/%/soil_tests';
+  $handler->display->display_options['path'] = 'farm/area/%/soil-tests';
 
   /* Display: CSV (Data export) */
   $handler = $view->new_display('views_data_export', 'CSV (Data export)', 'views_data_export_1');
