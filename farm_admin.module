@@ -48,7 +48,7 @@ function farm_admin_navbar() {
     'tab' => array(
       '#type' => 'link',
       '#title' => t('Farm'),
-      '#href' => 'admin/farm',
+      '#href' => 'farm',
       '#options' => array(
         'attributes' => array(
           'title' => t('Farm management'),

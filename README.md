@@ -3,7 +3,7 @@ FARM ADMIN
 
 Administrative interface for managing the farm.
 
-This module provides a Panels page dashboard at /admin/farm. It is used by the
+This module provides a Panels page dashboard at /farm. It is used by the
 other Farm modules (ie: [Farm Log](http://drupal.org/project/farm_log)) as a
 root path in the Drupal menu hierarchy.
 

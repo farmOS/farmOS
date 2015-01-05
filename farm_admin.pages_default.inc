@@ -15,7 +15,7 @@ function farm_admin_default_page_manager_pages() {
   $page->task = 'page';
   $page->admin_title = 'Farm Admin';
   $page->admin_description = 'An administrative panel for farm managers.';
-  $page->path = 'admin/farm/overview';
+  $page->path = 'farm/overview';
   $page->access = array(
     'plugins' => array(
       0 => array(
@@ -35,7 +35,7 @@ function farm_admin_default_page_manager_pages() {
     'name' => 'management',
     'weight' => '-10',
     'parent' => array(
-      'type' => 'normal',
+      'type' => 'none',
       'title' => 'Farm',
       'name' => 'management',
       'weight' => '-100',
