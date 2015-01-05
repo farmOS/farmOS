@@ -650,22 +650,14 @@ function farm_log_views_default_views() {
     'multiple_to' => '',
     'show_repeat_rule' => 'show',
   );
-  /* Field: Log: Name */
-  $handler->display->display_options['fields']['name']['id'] = 'name';
-  $handler->display->display_options['fields']['name']['table'] = 'log';
-  $handler->display->display_options['fields']['name']['field'] = 'name';
-  $handler->display->display_options['fields']['name']['label'] = 'Movement';
-  $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['name']['alter']['path'] = 'log/[id]';
-  /* Field: Log: From */
-  $handler->display->display_options['fields']['field_farm_move_from']['id'] = 'field_farm_move_from';
-  $handler->display->display_options['fields']['field_farm_move_from']['table'] = 'field_data_field_farm_move_from';
-  $handler->display->display_options['fields']['field_farm_move_from']['field'] = 'field_farm_move_from';
   /* Field: Log: To */
   $handler->display->display_options['fields']['field_farm_move_to']['id'] = 'field_farm_move_to';
   $handler->display->display_options['fields']['field_farm_move_to']['table'] = 'field_data_field_farm_move_to';
   $handler->display->display_options['fields']['field_farm_move_to']['field'] = 'field_farm_move_to';
-  $handler->display->display_options['fields']['field_farm_move_to']['exclude'] = TRUE;
+  /* Field: Log: From */
+  $handler->display->display_options['fields']['field_farm_move_from']['id'] = 'field_farm_move_from';
+  $handler->display->display_options['fields']['field_farm_move_from']['table'] = 'field_data_field_farm_move_from';
+  $handler->display->display_options['fields']['field_farm_move_from']['field'] = 'field_farm_move_from';
   /* Sort criterion: Field: Date (field_farm_date) */
   $handler->display->display_options['sorts']['field_farm_date_value']['id'] = 'field_farm_date_value';
   $handler->display->display_options['sorts']['field_farm_date_value']['table'] = 'field_data_field_farm_date';
