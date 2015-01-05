@@ -107,6 +107,8 @@ function farm_log_views_default_views() {
   $handler->display->display_options['fields']['field_farm_date']['id'] = 'field_farm_date';
   $handler->display->display_options['fields']['field_farm_date']['table'] = 'field_data_field_farm_date';
   $handler->display->display_options['fields']['field_farm_date']['field'] = 'field_farm_date';
+  $handler->display->display_options['fields']['field_farm_date']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['field_farm_date']['alter']['path'] = 'log/[id]';
   $handler->display->display_options['fields']['field_farm_date']['settings'] = array(
     'format_type' => 'short',
     'fromto' => 'both',
@@ -401,6 +403,8 @@ function farm_log_views_default_views() {
   $handler->display->display_options['fields']['field_farm_date']['id'] = 'field_farm_date';
   $handler->display->display_options['fields']['field_farm_date']['table'] = 'field_data_field_farm_date';
   $handler->display->display_options['fields']['field_farm_date']['field'] = 'field_farm_date';
+  $handler->display->display_options['fields']['field_farm_date']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['field_farm_date']['alter']['path'] = 'log/[id]';
   $handler->display->display_options['fields']['field_farm_date']['settings'] = array(
     'format_type' => 'short',
     'fromto' => 'both',
@@ -635,6 +639,8 @@ function farm_log_views_default_views() {
   $handler->display->display_options['fields']['field_farm_date']['id'] = 'field_farm_date';
   $handler->display->display_options['fields']['field_farm_date']['table'] = 'field_data_field_farm_date';
   $handler->display->display_options['fields']['field_farm_date']['field'] = 'field_farm_date';
+  $handler->display->display_options['fields']['field_farm_date']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['field_farm_date']['alter']['path'] = 'log/[id]';
   $handler->display->display_options['fields']['field_farm_date']['settings'] = array(
     'format_type' => 'short',
     'fromto' => 'both',
@@ -911,6 +917,8 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['fields']['field_farm_date']['id'] = 'field_farm_date';
   $handler->display->display_options['fields']['field_farm_date']['table'] = 'field_data_field_farm_date';
   $handler->display->display_options['fields']['field_farm_date']['field'] = 'field_farm_date';
+  $handler->display->display_options['fields']['field_farm_date']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['field_farm_date']['alter']['path'] = 'log/[id]';
   $handler->display->display_options['fields']['field_farm_date']['settings'] = array(
     'format_type' => 'short',
     'fromto' => 'both',
@@ -1201,6 +1209,8 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['fields']['field_farm_date']['id'] = 'field_farm_date';
   $handler->display->display_options['fields']['field_farm_date']['table'] = 'field_data_field_farm_date';
   $handler->display->display_options['fields']['field_farm_date']['field'] = 'field_farm_date';
+  $handler->display->display_options['fields']['field_farm_date']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['field_farm_date']['alter']['path'] = 'log/[id]';
   $handler->display->display_options['fields']['field_farm_date']['settings'] = array(
     'format_type' => 'short',
     'fromto' => 'both',
