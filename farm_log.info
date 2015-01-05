@@ -53,6 +53,7 @@ features[log_type][] = farm_observation
 features[taxonomy][] = farm_observation_types
 features[taxonomy][] = farm_priority
 features[taxonomy][] = farm_quantity_units
+features[variable][] = pathauto_taxonomy_term_farm_observation_types_pattern
 features[variable][] = pathauto_taxonomy_term_farm_priority_pattern
 features[variable][] = pathauto_taxonomy_term_farm_quantity_units_pattern
 features[views_view][] = farm_log_activity
