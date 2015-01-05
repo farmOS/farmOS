@@ -1669,6 +1669,28 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '25';
   $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Farm asset: Farm asset ID */
+  $handler->display->display_options['fields']['id']['id'] = 'id';
+  $handler->display->display_options['fields']['id']['table'] = 'farm_asset';
+  $handler->display->display_options['fields']['id']['field'] = 'id';
+  $handler->display->display_options['fields']['id']['exclude'] = TRUE;
+  /* Field: Farm asset: Name */
+  $handler->display->display_options['fields']['name']['id'] = 'name';
+  $handler->display->display_options['fields']['name']['table'] = 'farm_asset';
+  $handler->display->display_options['fields']['name']['field'] = 'name';
+  $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['name']['alter']['path'] = 'farm/asset/[id]';
+  /* Field: Log: To */
+  $handler->display->display_options['fields']['field_farm_move_to']['id'] = 'field_farm_move_to';
+  $handler->display->display_options['fields']['field_farm_move_to']['table'] = 'field_data_field_farm_move_to';
+  $handler->display->display_options['fields']['field_farm_move_to']['field'] = 'field_farm_move_to';
+  $handler->display->display_options['fields']['field_farm_move_to']['relationship'] = 'latest_movement';
+  $handler->display->display_options['fields']['field_farm_move_to']['label'] = 'Location';
+  /* Field: Farm asset: Season */
+  $handler->display->display_options['fields']['field_farm_season']['id'] = 'field_farm_season';
+  $handler->display->display_options['fields']['field_farm_season']['table'] = 'field_data_field_farm_season';
+  $handler->display->display_options['fields']['field_farm_season']['field'] = 'field_farm_season';
   $handler->display->display_options['defaults']['sorts'] = FALSE;
   /* Sort criterion: Farm asset: Name */
   $handler->display->display_options['sorts']['name']['id'] = 'name';
