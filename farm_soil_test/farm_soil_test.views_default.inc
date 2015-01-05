@@ -146,15 +146,12 @@ function farm_soil_test_views_default_views() {
 
   /* Display: All soil tests (Page) */
   $handler = $view->new_display('page', 'All soil tests (Page)', 'page_1');
-  $handler->display->display_options['path'] = 'admin/farm/soil/tests';
-  $handler->display->display_options['menu']['type'] = 'default tab';
+  $handler->display->display_options['path'] = 'admin/farm/areas/soil-tests';
+  $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Soil Tests';
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
-  $handler->display->display_options['tab_options']['type'] = 'tab';
-  $handler->display->display_options['tab_options']['title'] = 'Soil';
-  $handler->display->display_options['tab_options']['weight'] = '10';
 
   /* Display: Soil tests by area (Page) */
   $handler = $view->new_display('page', 'Soil tests by area (Page)', 'page_2');
