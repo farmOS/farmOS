@@ -18,7 +18,7 @@ This module depends on the following modules:
  * Ctools (http://drupal.org/project/ctools)
  * Panels and Page Manager (http://drupal.org/project/panels)
  * Farm Area (http://drupal.org/project/farm_area)
- * Farm Crop (http://drupal.org/project/farm_crop)
+ * Farm Log (http://drupal.org/project/farm_log)
 
 INSTALLATION
 ------------
