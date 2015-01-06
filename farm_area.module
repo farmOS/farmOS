@@ -21,8 +21,8 @@ function farm_area_menu_local_tasks_alter(&$data, $router_item, $root_path) {
 
   // Define actions for various paths.
   $path_actions = array(
-    'admin/farm' => $actions['area'],
-    'admin/farm/areas' => $actions['area'],
+    'farm' => $actions['area'],
+    'farm/areas' => $actions['area'],
   );
 
   // Add actions depending on the root path.
