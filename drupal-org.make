@@ -135,12 +135,6 @@ projects[farm_asset][version] = "1.x-dev"
 projects[farm_crop][subdir] = "farm"
 projects[farm_crop][version] = "1.x-dev"
 
-projects[farm_csa][subdir] = "farm"
-projects[farm_csa][version] = "1.x-dev"
-
-projects[farm_delivery][subdir] = "farm"
-projects[farm_delivery][version] = "1.x-dev"
-
 projects[farm_equipment][subdir] = "farm"
 projects[farm_equipment][version] = "1.x-dev"
 

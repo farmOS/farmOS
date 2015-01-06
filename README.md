@@ -10,8 +10,6 @@ comes pre-packaged with a set of farm-related modules, including:
 * [Farm Area](http://drupal.org/project/farm_area)
 * [Farm Asset](http://drupal.org/project/farm_asset)
 * [Farm Crop](http://drupal.org/project/farm_crop)
-* [Farm CSA](http://drupal.org/project/farm_csa)
-* [Farm Delivery](http://drupal.org/project/farm_delivery)
 * [Farm Equipment](http://drupal.org/project/farm_equipment)
 * [Farm Livestock](http://drupal.org/project/farm_livestock)
 * [Farm Log](http://drupal.org/project/farm_log)
