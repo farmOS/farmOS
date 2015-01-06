@@ -49,11 +49,11 @@ function farm_log_menu_local_tasks_alter(&$data, $router_item, $root_path) {
     'farm/asset/%' => array('movement', 'observation'),
     'farm/asset/%/movements' => array('movement'),
     'farm/asset/%/observations' => array('observation'),
-    'admin/farm' => array('activity', 'issue', 'observation'),
-    'admin/farm/plan/activities' => array('activity'),
-    'admin/farm/plan/movements' => array('movement'),
-    'admin/farm/plan/issues' => array('issue'),
-    'admin/farm/plan/observations' => array('observation'),
+    'farm' => array('activity', 'issue', 'observation'),
+    'farm/plan/activities' => array('activity'),
+    'farm/plan/movements' => array('movement'),
+    'farm/plan/issues' => array('issue'),
+    'farm/plan/observations' => array('observation'),
     'taxonomy/term/%' => array('activity'),
   );
 

@@ -210,7 +210,7 @@ function farm_log_views_default_views() {
 
   /* Display: All activities (Page) */
   $handler = $view->new_display('page', 'All activities (Page)', 'page');
-  $handler->display->display_options['path'] = 'admin/farm/plan/activities';
+  $handler->display->display_options['path'] = 'farm/plan/activities';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Activities';
   $handler->display->display_options['menu']['weight'] = '';
@@ -549,7 +549,7 @@ function farm_log_views_default_views() {
 
   /* Display: All issues (Page) */
   $handler = $view->new_display('page', 'All issues (Page)', 'page');
-  $handler->display->display_options['path'] = 'admin/farm/plan/issues';
+  $handler->display->display_options['path'] = 'farm/plan/issues';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Issues';
   $handler->display->display_options['menu']['weight'] = '';
@@ -725,7 +725,7 @@ function farm_log_views_default_views() {
 
   /* Display: All movements (Page) */
   $handler = $view->new_display('page', 'All movements (Page)', 'page_1');
-  $handler->display->display_options['path'] = 'admin/farm/plan/movements';
+  $handler->display->display_options['path'] = 'farm/plan/movements';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Movements';
   $handler->display->display_options['menu']['weight'] = '0';
@@ -1023,7 +1023,7 @@ if (!empty($farm_asset)) {
 
   /* Display: All observations (Page) */
   $handler = $view->new_display('page', 'All observations (Page)', 'page_1');
-  $handler->display->display_options['path'] = 'admin/farm/plan/observations';
+  $handler->display->display_options['path'] = 'farm/plan/observations';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Observations';
   $handler->display->display_options['menu']['weight'] = '0';
@@ -1313,7 +1313,7 @@ if (!empty($farm_asset)) {
 
   /* Display: Farm plan (Page) */
   $handler = $view->new_display('page', 'Farm plan (Page)', 'page');
-  $handler->display->display_options['path'] = 'admin/farm/plan/all';
+  $handler->display->display_options['path'] = 'farm/plan/all';
   $handler->display->display_options['menu']['type'] = 'default tab';
   $handler->display->display_options['menu']['title'] = 'All';
   $handler->display->display_options['menu']['weight'] = '-100';
