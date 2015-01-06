@@ -15,15 +15,17 @@ This module depends on the following modules:
  * OpenLayers (http://drupal.org/project/openlayers)
  * Strongarm (http://drupal.org/project/strongarm)
 
-The submodule Farm Soil Test requires:
+The Farm Soil Test sub-module requires:
 
  * Date (http://drupal.org/project/date)
- * Farm Area (http://drupal.org/project/farm_area)
- * Farm Map (http://drupal.org/project/farm_map)
+ * Features (http://drupal.org/project/features)
+ * Filefield Paths (http://drupal.org/project/filefield_paths)
  * Geofield (http://drupal.org/project/geofield)
  * Log (http://drupal.org/project/log)
  * Views (http://drupal.org/project/views)
  * Views Data Export (http://drupal.org/project/views_data_export)
+ * Farm Area (http://drupal.org/project/farm_area)
+ * Farm Map (http://drupal.org/project/farm_map)
 
 INSTALLATION
 ------------
