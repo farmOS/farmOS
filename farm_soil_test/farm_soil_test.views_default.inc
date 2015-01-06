@@ -147,7 +147,7 @@ function farm_soil_test_views_default_views() {
 
   /* Display: All soil tests (Page) */
   $handler = $view->new_display('page', 'All soil tests (Page)', 'page_1');
-  $handler->display->display_options['path'] = 'admin/farm/areas/soil-tests';
+  $handler->display->display_options['path'] = 'farm/areas/soil-tests';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Soil Tests';
   $handler->display->display_options['menu']['weight'] = '0';
@@ -253,7 +253,7 @@ function farm_soil_test_views_default_views() {
   $handler->display->display_options['fields']['field_farm_notes']['table'] = 'field_data_field_farm_notes';
   $handler->display->display_options['fields']['field_farm_notes']['field'] = 'field_farm_notes';
   $handler->display->display_options['fields']['field_farm_notes']['label'] = 'notes';
-  $handler->display->display_options['path'] = 'admin/farm/soil/tests/csv';
+  $handler->display->display_options['path'] = 'farm/soil/tests/csv';
   $handler->display->display_options['displays'] = array(
     'page_1' => 'page_1',
     'default' => 0,

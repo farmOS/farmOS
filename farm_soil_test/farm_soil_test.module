@@ -22,7 +22,7 @@ function farm_soil_test_menu_local_tasks_alter(&$data, $router_item, $root_path)
   // Define actions for various paths.
   $path_actions = array(
     'farm/area/%/soil-tests' => array('soil_test'),
-    'admin/farm/areas/soil-tests' => array('soil_test'),
+    'farm/areas/soil-tests' => array('soil_test'),
   );
 
   // Add actions depending on the root path.
