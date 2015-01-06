@@ -27,9 +27,9 @@ function farm_equipment_menu_local_tasks_alter(&$data, $router_item, $root_path)
   $path_actions = array(
     'farm/area/%/equipment' => array('equipment'),
     'farm/asset/%' => array('maintenance'),
-    'admin/farm/equipment' => array('equipment', 'maintenance'),
-    'admin/farm/equipment/list' => array('equipment', 'maintenance'),
-    'admin/farm/equipment/maintenance' => array('maintenance'),
+    'farm/equipment' => array('equipment', 'maintenance'),
+    'farm/equipment/list' => array('equipment', 'maintenance'),
+    'farm/equipment/maintenance' => array('maintenance'),
   );
 
   // Add actions depending on the root path.

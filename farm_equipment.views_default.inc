@@ -203,7 +203,7 @@ function farm_equipment_views_default_views() {
 
   /* Display: All equipment (Page) */
   $handler = $view->new_display('page', 'All equipment (Page)', 'page');
-  $handler->display->display_options['path'] = 'admin/farm/equipment/list';
+  $handler->display->display_options['path'] = 'farm/equipment/list';
   $handler->display->display_options['menu']['type'] = 'default tab';
   $handler->display->display_options['menu']['title'] = 'Equipment';
   $handler->display->display_options['menu']['weight'] = '0';
@@ -406,7 +406,7 @@ function farm_equipment_views_default_views() {
 
   /* Display: All maintenance (Page) */
   $handler = $view->new_display('page', 'All maintenance (Page)', 'page_1');
-  $handler->display->display_options['path'] = 'admin/farm/equipment/maintenance';
+  $handler->display->display_options['path'] = 'farm/equipment/maintenance';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Maintenance';
   $handler->display->display_options['menu']['weight'] = '0';
