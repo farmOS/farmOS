@@ -300,7 +300,7 @@ function farm_livestock_views_default_views() {
 
   /* Display: All animals (Page) */
   $handler = $view->new_display('page', 'All animals (Page)', 'page');
-  $handler->display->display_options['path'] = 'admin/farm/livestock/animals';
+  $handler->display->display_options['path'] = 'farm/livestock/animals';
   $handler->display->display_options['menu']['type'] = 'default tab';
   $handler->display->display_options['menu']['title'] = 'Animals';
   $handler->display->display_options['menu']['weight'] = '0';

@@ -21,7 +21,7 @@ function farm_livestock_eggs_menu_local_tasks_alter(&$data, $router_item, $root_
 
   // Define actions for various paths.
   $path_actions = array(
-    'admin/farm/livestock/eggs' => array('eggs'),
+    'farm/livestock/eggs' => array('eggs'),
   );
 
   // Add actions depending on the root path.
