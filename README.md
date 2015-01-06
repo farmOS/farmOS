@@ -1,7 +1,8 @@
 FARM LIVESTOCK
 ==============
 
-Provides features for managing farm livestock.
+Provides features for managing farm livestock. Also includes a sub-module for
+tracking egg collection.
 
 This module is part of the [FarmOS](http://drupal.org/project/farm)
 distribution.
@@ -26,6 +27,16 @@ This module depends on the following modules:
  * Views Bulk Operations (http://drupal.org/project/views_bulk_operations)
  * Farm Asset (http://drupal.org/project/farm_asset)
  * Farm Log (http://drupal.org/project/farm_log)
+
+The Farm Livestock: Eggs sub-module depends on the following modules:
+
+ * Ctools (http://drupal.org/project/ctools)
+ * Date (http://drupal.org/project/date)
+ * Entity API (http://drupal.org/project/entity)
+ * Features (http://drupal.org/project/features)
+ * Log (http://drupal.org/project/log)
+ * Views (http://drupal.org/project/views)
+ * Farm Livestock (http://drupal.org/project/farm_livestock)
 
 INSTALLATION
 ------------
