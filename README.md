@@ -11,6 +11,7 @@ DEPENDENCIES
 
 This module depends on the following modules:
 
+ * Ctools (http://drupal.org/project/ctools)
  * Entity API (http://drupal.org/project/entity)
 
 INSTALLATION
