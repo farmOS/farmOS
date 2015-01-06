@@ -458,7 +458,7 @@ function farm_crop_field_default_fields() {
       'bundle' => 'farm_harvest',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'Harvests must reference a specific planting. You can view a list of all plantings, and add new ones, from the <a href="/admin/farm/crops/plantings">Plantings list</a>.',
+      'description' => 'Harvests must reference a specific planting. You can view a list of all plantings, and add new ones, from the <a href="/farm/crops/plantings">Plantings list</a>.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -1411,7 +1411,7 @@ function farm_crop_field_default_fields() {
       'bundle' => 'farm_seeding',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'Seedings must reference a specific planting. You can view a list of all plantings, and add new ones, from the <a href="/admin/farm/crops/plantings">Plantings list</a>.',
+      'description' => 'Seedings must reference a specific planting. You can view a list of all plantings, and add new ones, from the <a href="/farm/crops/plantings">Plantings list</a>.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -1751,7 +1751,7 @@ function farm_crop_field_default_fields() {
       'bundle' => 'farm_transplanting',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'Transplantings must reference a specific planting. You can view a list of all plantings, and add new ones, from the <a href="/admin/farm/crops/plantings">Plantings list</a>.',
+      'description' => 'Transplantings must reference a specific planting. You can view a list of all plantings, and add new ones, from the <a href="/farm/crops/plantings">Plantings list</a>.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -2212,7 +2212,7 @@ function farm_crop_field_default_fields() {
   t('Enter the date when this harvest took place (or will take place).');
   t('Enter the date when this input took place (or will take place).');
   t('Harvest Date');
-  t('Harvests must reference a specific planting. You can view a list of all plantings, and add new ones, from the <a href="/admin/farm/crops/plantings">Plantings list</a>.');
+  t('Harvests must reference a specific planting. You can view a list of all plantings, and add new ones, from the <a href="/farm/crops/plantings">Plantings list</a>.');
   t('How was this input applied?');
   t('Material');
   t('Notes');
@@ -2222,11 +2222,11 @@ function farm_crop_field_default_fields() {
   t('Quantity');
   t('Season');
   t('Seeding date');
-  t('Seedings must reference a specific planting. You can view a list of all plantings, and add new ones, from the <a href="/admin/farm/crops/plantings">Plantings list</a>.');
+  t('Seedings must reference a specific planting. You can view a list of all plantings, and add new ones, from the <a href="/farm/crops/plantings">Plantings list</a>.');
   t('Source/Manufacturer');
   t('Source/Supplier');
   t('Transplant date');
-  t('Transplantings must reference a specific planting. You can view a list of all plantings, and add new ones, from the <a href="/admin/farm/crops/plantings">Plantings list</a>.');
+  t('Transplantings must reference a specific planting. You can view a list of all plantings, and add new ones, from the <a href="/farm/crops/plantings">Plantings list</a>.');
   t('What area is this input in?');
   t('What material is being applied? As you type, you will have the option of selecting from materials that you\'ve entered in the past.');
   t('What was the purpose of this input?');
