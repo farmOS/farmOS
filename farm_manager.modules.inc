@@ -101,12 +101,23 @@ function farm_livestock_farm_manager_perms() {
     'farm_asset' => array(
       'animal',
     ),
-    'log' => array(
-      'farm_eggs',
-    ),
     'taxonomy' => array(
       'farm_animal_groups',
       'farm_animal_types',
+    ),
+  );
+  return farm_manager_entity_perms($types);
+}
+
+/**
+ * Implements hook_farm_manager_perms().
+ */
+function farm_livestock_eggs_farm_manager_perms() {
+
+  // Build a list of permissions on behalf of the farm_livestock module.
+  $types = array(
+    'log' => array(
+      'farm_eggs',
     ),
   );
   return farm_manager_entity_perms($types);
