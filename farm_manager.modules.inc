@@ -13,11 +13,6 @@ function farm_admin_farm_manager_perms() {
   // Access farm dashboard.
   $perms[] = 'access farm dashboard';
 
-  // Give access to the navbar, if available.
-  if (module_exists('navbar')) {
-    $perms[] = 'access navbar';
-  }
-
   return $perms;
 }
 
