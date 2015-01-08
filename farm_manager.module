@@ -51,6 +51,15 @@ function farm_manager_available_perms() {
   // Invoke hook_farm_manager_perms() to allow modules to provide permissions.
   $perms = module_invoke_all('farm_manager_perms');
 
+  // Unset any that don't exist.
+  // This can be an issue with Taxonomies provided by Features.
+  $permissions_modules = user_permission_get_modules();
+  foreach ($perms as $key => $perm) {
+    if (empty($permissions_modules[$perm])) {
+      unset($perms[$key]);
+    }
+  }
+
   // Return them.
   return $perms;
 }
