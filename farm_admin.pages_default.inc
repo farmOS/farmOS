@@ -21,7 +21,7 @@ function farm_admin_default_page_manager_pages() {
       0 => array(
         'name' => 'perm',
         'settings' => array(
-          'perm' => 'access administration pages',
+          'perm' => 'access farm dashboard',
         ),
         'context' => 'logged-in-user',
         'not' => FALSE,
