@@ -17,6 +17,13 @@ function farm_install_tasks($install_state) {
     'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
     'function' => 'farm_configure_themes',
   );
+  $tasks['farm_configure_front'] = array(
+    'display_name' => st('Farm: configure front page'),
+    'display' => FALSE,
+    'type' => 'normal',
+    'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
+    'function' => 'farm_configure_front',
+  );
   return $tasks;
 }
 
@@ -42,4 +49,13 @@ function farm_configure_themes() {
 
   // Disable the default Bartik theme
   theme_disable(array('bartik'));
+}
+
+/**
+ * Set the front page of the site.
+ */
+function farm_configure_front() {
+
+  // Set the front page to the farm dashboard provided by the farm_admin module.
+  variable_set('site_frontpage', 'farm');
 }
