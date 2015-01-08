@@ -12,7 +12,6 @@ dependencies[] = block
 dependencies[] = contextual
 dependencies[] = field
 dependencies[] = field_sql_storage
-dependencies[] = field_ui
 dependencies[] = filter
 dependencies[] = menu
 dependencies[] = node
