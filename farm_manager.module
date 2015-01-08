@@ -228,3 +228,12 @@ function farm_manager_farm_manager_perms() {
 
   return $perms;
 }
+
+/**
+ * Implements hook_flush_caches().
+ */
+function farm_manager_flush_caches() {
+
+  // Sync permissions when the cache is cleared.
+  farm_manager_sync_perms();
+}
