@@ -65,6 +65,7 @@ function farm_asset_form($form, &$form_state, $farm_asset) {
     '#title' => t('Name'),
     '#description' => t('Give this %type a name.', array('%type' => $farm_asset_type->label)),
     '#default_value' => $farm_asset->name,
+    '#required' => TRUE,
     '#weight' => -100,
   );
 
