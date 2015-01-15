@@ -32,6 +32,11 @@ function farm_manager_sync_perms() {
     // Load the Farm Manager role.
     $role = user_role_load_by_name('Farm Manager');
 
+    // If the role does not exist, bail.
+    if (empty($role)) {
+      return;
+    }
+
     // Apply the changes.
     user_role_change_permissions($role->rid, $changes);
   }
@@ -74,6 +79,11 @@ function farm_manager_current_perms() {
 
   // Load the Farm Manager role.
   $role = user_role_load_by_name('Farm Manager');
+
+  // If the role does not exist, bail.
+  if (empty($role)) {
+    return array();
+  }
 
   // Load the permissions that are currently assigned to the role.
   $perms = user_role_permissions(array($role->rid => $role->name));
@@ -195,7 +205,12 @@ function farm_manager_form_alter(&$form, &$form_state, $form_id) {
 
   // Add our submit function to the core permissions form.
   if ($form_id == 'user_admin_permissions') {
-    $form['#submit'][] = 'farm_manager_permissions_form_submit';
+
+    // Only if the role exists...
+    $role = user_role_load_by_name('Farm Manager');
+    if (!empty($role)) {
+      $form['#submit'][] = 'farm_manager_permissions_form_submit';
+    }
   }
 }
 
