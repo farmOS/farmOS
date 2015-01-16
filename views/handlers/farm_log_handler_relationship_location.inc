@@ -16,6 +16,33 @@
 class farm_log_handler_relationship_location extends views_handler_relationship_entity_reverse {
 
   /**
+   * Default options.
+   */
+  function option_definition() {
+    $options = parent::option_definition();
+
+    // Don't include future logs by default.
+    $options['future'] = array('default' => FALSE, 'bool' => TRUE);
+
+    return $options;
+  }
+
+  /**
+   * Add an option for including future logs.
+   */
+  function options_form(&$form, &$form_state) {
+    parent::options_form($form, $form_state);
+
+    // Allow future logs to be included.
+    $form['future'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Include future logs'),
+      '#description' => t('Finds the latest log, even if it is in the future.'),
+      '#default_value' => !empty($this->options['future']),
+    );
+  }
+
+  /**
    * Called to implement a relationship in a query.
    */
   function query() {
@@ -66,11 +93,18 @@ class farm_log_handler_relationship_location extends views_handler_relationship_
     $query->join('field_data_field_farm_date', 'ss_fdffd', 'ss_log.id = ss_fdffd.entity_id');
     $query->join('field_data_field_farm_asset', 'ss_fdffa', 'ss_log.id = ss_fdffa.entity_id');
     $query->where('ss_fdffa.field_farm_asset_target_id = ' . $this->table_alias . '.id');
-    $query->where('ss_fdffd.field_farm_date_value <= ' . REQUEST_TIME);
     $query->orderBy('ss_fdffd.field_farm_date_value', 'DESC');
     $query->orderBy('ss_log.id', 'DESC');
     $query->range(0, 1);
     $query->addField('ss_log', 'id');
+
+    // If future logs should not be included, then limit to only logs that
+    // have a date before right now.
+    if (empty($this->options['future'])) {
+      $query->where('ss_fdffd.field_farm_date_value <= ' . REQUEST_TIME);
+    }
+
+    // Add the subselect query as a join extra.
     $join_extras[] = $this->alias . '.id = (' . $query . ')';
 
     // Implode the join extras into a single string for the query.
