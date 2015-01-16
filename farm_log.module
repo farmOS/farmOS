@@ -187,16 +187,19 @@ function farm_log_form_alter(&$form, &$form_state, $form_id) {
  *
  * @param FarmAsset $asset
  *   The farm_asset object to look for.
+ * @param int $time
+ *   Unix timestamp limiter. Only movement logs before this time will be
+ *   included. Defaults to the current time.
  *
  * @return area
  *   Returns the area that the asset is in.
  */
-function farm_log_asset_location(FarmAsset $asset) {
+function farm_log_asset_location(FarmAsset $asset, $time = REQUEST_TIME) {
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'log')
     ->entityCondition('bundle', 'farm_movement')
     ->fieldCondition('field_farm_asset', 'target_id', $asset->id)
-    ->fieldCondition('field_farm_date', 'value', REQUEST_TIME, '<=')
+    ->fieldCondition('field_farm_date', 'value', $time, '<=')
     ->fieldOrderBy('field_farm_date', 'value', 'DESC')
     ->propertyOrderBy('id', 'DESC')
     ->range(0, 1);
