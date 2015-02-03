@@ -22,7 +22,7 @@ function farm_asset_init() {
   // If the pathauto_entity module is enabled, ensure that farm_asset entities
   // are enabled in it.
   if (module_exists('pathauto_entity')) {
-    if (empty('pathauto_entity_available_entity_types')) {
+    if (empty($conf['pathauto_entity_available_entity_types'])) {
       $conf['pathauto_entity_available_entity_types'] = array();
     }
     $conf['pathauto_entity_available_entity_types']['farm_asset'] = 'farm_asset';
