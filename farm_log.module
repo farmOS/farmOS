@@ -199,10 +199,12 @@ function farm_log_asset_location(FarmAsset $asset, $time = REQUEST_TIME) {
   $query->entityCondition('entity_type', 'log')
     ->entityCondition('bundle', 'farm_movement')
     ->fieldCondition('field_farm_asset', 'target_id', $asset->id)
-    ->fieldCondition('field_farm_date', 'value', $time, '<=')
-    ->fieldOrderBy('field_farm_date', 'value', 'DESC')
+    ->propertyOrderBy('timestamp', 'DESC')
     ->propertyOrderBy('id', 'DESC')
     ->range(0, 1);
+  if (!empty($time)) {
+    $query->propertyCondition('timestamp', $time, '<=');
+  }
   $result = $query->execute();
   if (!empty($result['log'])) {
     foreach ($result['log'] as $id => $entity) {
