@@ -50,6 +50,7 @@ function farm_crop_default_log_type() {
     "weight" : 0,
     "name_pattern" : "Harvest [log:field-farm-planting:field-farm-crop]",
     "name_edit" : "0",
+    "done" : "1",
     "rdf_mapping" : []
   }');
   $items['farm_input'] = entity_import('log_type', '{
@@ -58,6 +59,7 @@ function farm_crop_default_log_type() {
     "weight" : 0,
     "name_pattern" : "[log:field-farm-material] [log:field-farm-area] [log:field-farm-planting:field-farm-crop]",
     "name_edit" : "0",
+    "done" : "1",
     "rdf_mapping" : []
   }');
   $items['farm_seeding'] = entity_import('log_type', '{
@@ -66,6 +68,7 @@ function farm_crop_default_log_type() {
     "weight" : 0,
     "name_pattern" : "Seed [log:field-farm-planting:field-farm-crop]",
     "name_edit" : "0",
+    "done" : "1",
     "rdf_mapping" : []
   }');
   $items['farm_transplanting'] = entity_import('log_type', '{
@@ -74,6 +77,7 @@ function farm_crop_default_log_type() {
     "weight" : 0,
     "name_pattern" : "Transplant [log:field-farm-planting:field-farm-crop]",
     "name_edit" : "0",
+    "done" : "1",
     "rdf_mapping" : []
   }');
   return $items;
