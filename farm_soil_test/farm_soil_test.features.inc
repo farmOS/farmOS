@@ -22,6 +22,7 @@ function farm_soil_test_default_log_type() {
     "weight" : 0,
     "name_pattern" : "Soil test [log:id]",
     "name_edit" : "1",
+    "done" : "1",
     "rdf_mapping" : []
   }');
   return $items;
