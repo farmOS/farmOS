@@ -236,114 +236,6 @@ function farm_crop_field_default_fields() {
     ),
   );
 
-  // Exported field: 'log-farm_harvest-field_farm_date'.
-  $fields['log-farm_harvest-field_farm_date'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_date',
-      'foreign keys' => array(),
-      'indexes' => array(),
-      'locked' => '0',
-      'module' => 'date',
-      'settings' => array(
-        'cache_count' => '4',
-        'cache_enabled' => 0,
-        'granularity' => array(
-          'day' => 'day',
-          'hour' => 0,
-          'minute' => 0,
-          'month' => 'month',
-          'second' => 0,
-          'year' => 'year',
-        ),
-        'repeat' => '0',
-        'timezone_db' => '',
-        'todate' => '',
-        'tz_handling' => 'none',
-      ),
-      'translatable' => '0',
-      'type' => 'datestamp',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_harvest',
-      'deleted' => '0',
-      'description' => 'Enter the date when this harvest took place (or will take place).',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'date',
-          'settings' => array(
-            'format_type' => 'long',
-            'fromto' => 'both',
-            'multiple_from' => '',
-            'multiple_number' => '',
-            'multiple_to' => '',
-            'show_repeat_rule' => 'show',
-          ),
-          'type' => 'date_default',
-          'weight' => '1',
-        ),
-        'full' => array(
-          'label' => 'inline',
-          'module' => 'date',
-          'settings' => array(
-            'format_type' => 'long',
-            'fromto' => 'both',
-            'multiple_from' => '',
-            'multiple_number' => '',
-            'multiple_to' => '',
-            'show_repeat_rule' => 'show',
-          ),
-          'type' => 'date_default',
-          'weight' => '0',
-        ),
-        'token' => array(
-          'label' => 'inline',
-          'module' => 'date',
-          'settings' => array(
-            'format_type' => 'long',
-            'fromto' => 'both',
-            'multiple_from' => '',
-            'multiple_number' => '',
-            'multiple_to' => '',
-            'show_repeat_rule' => 'show',
-          ),
-          'type' => 'date_default',
-          'weight' => '0',
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_date',
-      'label' => 'Harvest Date',
-      'required' => 1,
-      'settings' => array(
-        'default_value' => 'now',
-        'default_value2' => 'same',
-        'default_value_code' => '',
-        'default_value_code2' => '',
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'date',
-        'settings' => array(
-          'increment' => '15',
-          'input_format' => 'M j Y - g:i:sa',
-          'input_format_custom' => '',
-          'label_position' => 'above',
-          'repeat_collapsed' => 0,
-          'text_parts' => array(),
-          'year_range' => '-3:+3',
-        ),
-        'type' => 'date_popup',
-        'weight' => '1',
-      ),
-    ),
-  );
-
   // Exported field: 'log-farm_harvest-field_farm_notes'.
   $fields['log-farm_harvest-field_farm_notes'] = array(
     'field_config' => array(
@@ -629,100 +521,6 @@ function farm_crop_field_default_fields() {
         ),
         'type' => 'taxonomy_autocomplete',
         'weight' => '3',
-      ),
-    ),
-  );
-
-  // Exported field: 'log-farm_input-field_farm_date'.
-  $fields['log-farm_input-field_farm_date'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_date',
-      'foreign keys' => array(),
-      'indexes' => array(),
-      'locked' => '0',
-      'module' => 'date',
-      'settings' => array(
-        'cache_count' => '4',
-        'cache_enabled' => 0,
-        'granularity' => array(
-          'day' => 'day',
-          'hour' => 0,
-          'minute' => 0,
-          'month' => 'month',
-          'second' => 0,
-          'year' => 'year',
-        ),
-        'repeat' => '0',
-        'timezone_db' => '',
-        'todate' => '',
-        'tz_handling' => 'none',
-      ),
-      'translatable' => '0',
-      'type' => 'datestamp',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_input',
-      'deleted' => '0',
-      'description' => 'Enter the date when this input took place (or will take place).',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'date',
-          'settings' => array(
-            'format_type' => 'long',
-            'fromto' => 'both',
-            'multiple_from' => '',
-            'multiple_number' => '',
-            'multiple_to' => '',
-            'show_repeat_rule' => 'show',
-          ),
-          'type' => 'date_default',
-          'weight' => '0',
-        ),
-        'token' => array(
-          'label' => 'inline',
-          'module' => 'date',
-          'settings' => array(
-            'format_type' => 'long',
-            'fromto' => 'both',
-            'multiple_from' => '',
-            'multiple_number' => '',
-            'multiple_to' => '',
-            'show_repeat_rule' => 'show',
-          ),
-          'type' => 'date_default',
-          'weight' => '1',
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_date',
-      'label' => 'Date',
-      'required' => 1,
-      'settings' => array(
-        'default_value' => 'now',
-        'default_value2' => 'same',
-        'default_value_code' => '',
-        'default_value_code2' => '',
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'date',
-        'settings' => array(
-          'increment' => '15',
-          'input_format' => 'M j Y - g:i:sa',
-          'input_format_custom' => '',
-          'label_position' => 'above',
-          'repeat_collapsed' => 0,
-          'text_parts' => array(),
-          'year_range' => '-3:+3',
-        ),
-        'type' => 'date_popup',
-        'weight' => '0',
       ),
     ),
   );
@@ -1223,86 +1021,6 @@ function farm_crop_field_default_fields() {
     ),
   );
 
-  // Exported field: 'log-farm_seeding-field_farm_date'.
-  $fields['log-farm_seeding-field_farm_date'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_date',
-      'foreign keys' => array(),
-      'indexes' => array(),
-      'locked' => '0',
-      'module' => 'date',
-      'settings' => array(
-        'cache_count' => '4',
-        'cache_enabled' => 0,
-        'granularity' => array(
-          'day' => 'day',
-          'hour' => 0,
-          'minute' => 0,
-          'month' => 'month',
-          'second' => 0,
-          'year' => 'year',
-        ),
-        'repeat' => '0',
-        'timezone_db' => '',
-        'todate' => '',
-        'tz_handling' => 'none',
-      ),
-      'translatable' => '0',
-      'type' => 'datestamp',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_seeding',
-      'deleted' => '0',
-      'description' => 'When did/will this seeding take place?',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'date',
-          'settings' => array(
-            'format_type' => 'long',
-            'fromto' => 'both',
-            'multiple_from' => '',
-            'multiple_number' => '',
-            'multiple_to' => '',
-            'show_repeat_rule' => 'show',
-          ),
-          'type' => 'date_default',
-          'weight' => '1',
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_date',
-      'label' => 'Seeding date',
-      'required' => 1,
-      'settings' => array(
-        'default_value' => 'now',
-        'default_value2' => 'same',
-        'default_value_code' => '',
-        'default_value_code2' => '',
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'date',
-        'settings' => array(
-          'increment' => '15',
-          'input_format' => 'M j Y - g:i:sa',
-          'input_format_custom' => '',
-          'label_position' => 'above',
-          'repeat_collapsed' => 0,
-          'text_parts' => array(),
-          'year_range' => '-3:+3',
-        ),
-        'type' => 'date_popup',
-        'weight' => '1',
-      ),
-    ),
-  );
-
   // Exported field: 'log-farm_seeding-field_farm_notes'.
   $fields['log-farm_seeding-field_farm_notes'] = array(
     'field_config' => array(
@@ -1559,86 +1277,6 @@ function farm_crop_field_default_fields() {
         ),
         'type' => 'text_textfield',
         'weight' => '3',
-      ),
-    ),
-  );
-
-  // Exported field: 'log-farm_transplanting-field_farm_date'.
-  $fields['log-farm_transplanting-field_farm_date'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_date',
-      'foreign keys' => array(),
-      'indexes' => array(),
-      'locked' => '0',
-      'module' => 'date',
-      'settings' => array(
-        'cache_count' => '4',
-        'cache_enabled' => 0,
-        'granularity' => array(
-          'day' => 'day',
-          'hour' => 0,
-          'minute' => 0,
-          'month' => 'month',
-          'second' => 0,
-          'year' => 'year',
-        ),
-        'repeat' => '0',
-        'timezone_db' => '',
-        'todate' => '',
-        'tz_handling' => 'none',
-      ),
-      'translatable' => '0',
-      'type' => 'datestamp',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_transplanting',
-      'deleted' => '0',
-      'description' => 'When did/will this transplanting take place?',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'date',
-          'settings' => array(
-            'format_type' => 'long',
-            'fromto' => 'both',
-            'multiple_from' => '',
-            'multiple_number' => '',
-            'multiple_to' => '',
-            'show_repeat_rule' => 'show',
-          ),
-          'type' => 'date_default',
-          'weight' => '1',
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_date',
-      'label' => 'Transplant date',
-      'required' => 1,
-      'settings' => array(
-        'default_value' => 'now',
-        'default_value2' => 'same',
-        'default_value_code' => '',
-        'default_value_code2' => '',
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'date',
-        'settings' => array(
-          'increment' => '15',
-          'input_format' => 'M j Y - g:i:sa',
-          'input_format_custom' => '',
-          'label_position' => 'above',
-          'repeat_collapsed' => 0,
-          'text_parts' => array(),
-          'year_range' => '-3:+3',
-        ),
-        'type' => 'date_popup',
-        'weight' => '1',
       ),
     ),
   );
@@ -2200,7 +1838,6 @@ function farm_crop_field_default_fields() {
   t('Companions');
   t('Crop');
   t('Crop family');
-  t('Date');
   t('Days to maturity');
   t('Days to transplant');
   t('Describe the quantity of this harvest, using a value and a unit of measurement. For example, if you harvested 100 pounds of potatoes, enter "100" in the Value field, and "lbs" in the Units field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.');
@@ -2209,9 +1846,6 @@ function farm_crop_field_default_fields() {
   t('Describe the quantity of this transplanting, using a value and a unit of measurement. For example, if you transplanted 400 tomato plants into 4 inch pots, enter "400" in the Value field, and "4-inch pots" in the Units field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.');
   t('Does this input apply to a specific planting?');
   t('Enter the crop that this is a planting of. As you type, you will have the option of selecting from crops that you\'ve entered in the past.');
-  t('Enter the date when this harvest took place (or will take place).');
-  t('Enter the date when this input took place (or will take place).');
-  t('Harvest Date');
   t('Harvests must reference a specific planting. You can view a list of all plantings, and add new ones, from the <a href="/farm/crops/plantings">Plantings list</a>.');
   t('How was this input applied?');
   t('Material');
@@ -2221,17 +1855,13 @@ function farm_crop_field_default_fields() {
   t('Purpose');
   t('Quantity');
   t('Season');
-  t('Seeding date');
   t('Seedings must reference a specific planting. You can view a list of all plantings, and add new ones, from the <a href="/farm/crops/plantings">Plantings list</a>.');
   t('Source/Manufacturer');
   t('Source/Supplier');
-  t('Transplant date');
   t('Transplantings must reference a specific planting. You can view a list of all plantings, and add new ones, from the <a href="/farm/crops/plantings">Plantings list</a>.');
   t('What area is this input in?');
   t('What material is being applied? As you type, you will have the option of selecting from materials that you\'ve entered in the past.');
   t('What was the purpose of this input?');
-  t('When did/will this seeding take place?');
-  t('When did/will this transplanting take place?');
   t('Where was this input obtained? Who manufactured it?');
   t('Where were the seeds obtained?');
 
