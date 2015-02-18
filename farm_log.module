@@ -363,9 +363,7 @@ function farm_log_asset_move_action($entity, $context = array()) {
   );
 
   // Set the date.
-  $log->field_farm_date[LANGUAGE_NONE][] = array(
-    'value' => REQUEST_TIME,
-  );
+  $log->timestamp = REQUEST_TIME;
 
   // Load the asset's current location.
   $area = farm_log_asset_location($asset);
