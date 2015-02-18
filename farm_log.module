@@ -135,6 +135,55 @@ function farm_log_farm_area_links($id) {
   );
 }
 
+/**
+ * Implements hook_entity_view_alter()
+ */
+function farm_log_entity_view_alter(&$build, $type) {
+
+  /**
+   * Alter farm assets to display their current location.
+   */
+
+  // If it's not a farm_asset, bail.
+  if ($type != 'farm_asset') {
+    return;
+  }
+
+  // If the entity information isn't available, bail.
+  if (empty($build['#entity'])) {
+    return;
+  }
+  $asset = $build['#entity'];
+
+  // Start an output string.
+  $output = '<strong>Current location:</strong> ';
+
+  // Get the asset's location.
+  $area = farm_log_asset_location($asset);
+
+  // If a location was found, add a link to it.
+  if (!empty($area->tid)) {
+    $output .= l($area->name, 'taxonomy/term/' . $area->tid);
+  }
+
+  // Otherwise, none.
+  else {
+    $options = array(
+      'query' => array(
+        'destination' => 'farm/asset/' . $asset->id,
+        'farm_asset' => $asset->id,
+      ),
+    );
+    $link = l('add a movement', 'log/add/farm_movement', $options);
+    $output .= 'N/A (' . $link .')';
+  }
+
+  // Add it to the build array.
+  $build['location'] = array(
+    '#markup' => $output,
+    '#weight' => -100,
+  );
+}
 
 /**
  * Implements hook_form_alter().
@@ -189,7 +238,7 @@ function farm_log_form_alter(&$form, &$form_state, $form_id) {
  *   The farm_asset object to look for.
  * @param int $time
  *   Unix timestamp limiter. Only movement logs before this time will be
- *   included. Defaults to the current time.
+ *   included. Defaults to the current time. Set to 0 to load the absolute last.
  *
  * @return area
  *   Returns the area that the asset is in.
