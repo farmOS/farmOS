@@ -194,7 +194,7 @@ function farm_log_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '2',
+        'weight' => '3',
       ),
     ),
   );
@@ -272,87 +272,7 @@ function farm_log_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'entityreference_autocomplete',
-        'weight' => '3',
-      ),
-    ),
-  );
-
-  // Exported field: 'log-farm_activity-field_farm_date'.
-  $fields['log-farm_activity-field_farm_date'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_date',
-      'foreign keys' => array(),
-      'indexes' => array(),
-      'locked' => '0',
-      'module' => 'date',
-      'settings' => array(
-        'cache_count' => '4',
-        'cache_enabled' => 0,
-        'granularity' => array(
-          'day' => 'day',
-          'hour' => 0,
-          'minute' => 0,
-          'month' => 'month',
-          'second' => 0,
-          'year' => 'year',
-        ),
-        'repeat' => '0',
-        'timezone_db' => '',
-        'todate' => '',
-        'tz_handling' => 'none',
-      ),
-      'translatable' => '0',
-      'type' => 'datestamp',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_activity',
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'date',
-          'settings' => array(
-            'format_type' => 'long',
-            'fromto' => 'both',
-            'multiple_from' => '',
-            'multiple_number' => '',
-            'multiple_to' => '',
-            'show_repeat_rule' => 'show',
-          ),
-          'type' => 'date_default',
-          'weight' => '0',
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_date',
-      'label' => 'Date',
-      'required' => 1,
-      'settings' => array(
-        'default_value' => 'now',
-        'default_value2' => 'same',
-        'default_value_code' => '',
-        'default_value_code2' => '',
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'date',
-        'settings' => array(
-          'increment' => '15',
-          'input_format' => 'M j Y - g:i:sa',
-          'input_format_custom' => '',
-          'label_position' => 'above',
-          'repeat_collapsed' => 0,
-          'text_parts' => array(),
-          'year_range' => '-3:+3',
-        ),
-        'type' => 'date_popup',
-        'weight' => '1',
+        'weight' => '4',
       ),
     ),
   );
@@ -413,7 +333,7 @@ function farm_log_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '4',
+        'weight' => '5',
       ),
     ),
   );
@@ -488,7 +408,7 @@ function farm_log_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '3',
+        'weight' => '4',
       ),
     ),
   );
@@ -572,101 +492,7 @@ function farm_log_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'entityreference_autocomplete',
-        'weight' => '4',
-      ),
-    ),
-  );
-
-  // Exported field: 'log-farm_issue-field_farm_date'.
-  $fields['log-farm_issue-field_farm_date'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_date',
-      'foreign keys' => array(),
-      'indexes' => array(),
-      'locked' => '0',
-      'module' => 'date',
-      'settings' => array(
-        'cache_count' => '4',
-        'cache_enabled' => 0,
-        'granularity' => array(
-          'day' => 'day',
-          'hour' => 0,
-          'minute' => 0,
-          'month' => 'month',
-          'second' => 0,
-          'year' => 'year',
-        ),
-        'repeat' => '0',
-        'timezone_db' => '',
-        'todate' => '',
-        'tz_handling' => 'none',
-      ),
-      'translatable' => '0',
-      'type' => 'datestamp',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_issue',
-      'deleted' => '0',
-      'description' => 'Enter the date that this became an issue.',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'date',
-          'settings' => array(
-            'format_type' => 'long',
-            'fromto' => 'both',
-            'multiple_from' => '',
-            'multiple_number' => '',
-            'multiple_to' => '',
-            'show_repeat_rule' => 'show',
-          ),
-          'type' => 'date_default',
-          'weight' => '0',
-        ),
-        'token' => array(
-          'label' => 'inline',
-          'module' => 'date',
-          'settings' => array(
-            'format_type' => 'long',
-            'fromto' => 'both',
-            'multiple_from' => '',
-            'multiple_number' => '',
-            'multiple_to' => '',
-            'show_repeat_rule' => 'show',
-          ),
-          'type' => 'date_default',
-          'weight' => '0',
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_date',
-      'label' => 'Date',
-      'required' => 1,
-      'settings' => array(
-        'default_value' => 'now',
-        'default_value2' => 'same',
-        'default_value_code' => '',
-        'default_value_code2' => '',
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'date',
-        'settings' => array(
-          'increment' => '15',
-          'input_format' => 'M j Y - g:i:sa',
-          'input_format_custom' => '',
-          'label_position' => 'above',
-          'repeat_collapsed' => 0,
-          'text_parts' => array(),
-          'year_range' => '-3:+3',
-        ),
-        'type' => 'date_popup',
-        'weight' => '1',
+        'weight' => '5',
       ),
     ),
   );
@@ -734,7 +560,7 @@ function farm_log_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '5',
+        'weight' => '6',
       ),
     ),
   );
@@ -806,7 +632,7 @@ function farm_log_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '2',
+        'weight' => '3',
       ),
     ),
   );
@@ -885,86 +711,6 @@ function farm_log_field_default_fields() {
         ),
         'type' => 'entityreference_autocomplete',
         'weight' => '0',
-      ),
-    ),
-  );
-
-  // Exported field: 'log-farm_movement-field_farm_date'.
-  $fields['log-farm_movement-field_farm_date'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_date',
-      'foreign keys' => array(),
-      'indexes' => array(),
-      'locked' => '0',
-      'module' => 'date',
-      'settings' => array(
-        'cache_count' => '4',
-        'cache_enabled' => 0,
-        'granularity' => array(
-          'day' => 'day',
-          'hour' => 0,
-          'minute' => 0,
-          'month' => 'month',
-          'second' => 0,
-          'year' => 'year',
-        ),
-        'repeat' => '0',
-        'timezone_db' => '',
-        'todate' => '',
-        'tz_handling' => 'none',
-      ),
-      'translatable' => '0',
-      'type' => 'datestamp',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_movement',
-      'deleted' => '0',
-      'description' => 'When did this movement take place? Or when will it?',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'date',
-          'settings' => array(
-            'format_type' => 'long',
-            'fromto' => 'both',
-            'multiple_from' => '',
-            'multiple_number' => '',
-            'multiple_to' => '',
-            'show_repeat_rule' => 'show',
-          ),
-          'type' => 'date_default',
-          'weight' => '1',
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_date',
-      'label' => 'Date',
-      'required' => 1,
-      'settings' => array(
-        'default_value' => 'now',
-        'default_value2' => 'same',
-        'default_value_code' => '',
-        'default_value_code2' => '',
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'date',
-        'settings' => array(
-          'increment' => '15',
-          'input_format' => 'M j Y - g:i:sa',
-          'input_format_custom' => '',
-          'label_position' => 'above',
-          'repeat_collapsed' => 0,
-          'text_parts' => array(),
-          'year_range' => '-3:+3',
-        ),
-        'type' => 'date_popup',
-        'weight' => '1',
       ),
     ),
   );
@@ -1244,84 +990,6 @@ function farm_log_field_default_fields() {
     ),
   );
 
-  // Exported field: 'log-farm_observation-field_farm_date'.
-  $fields['log-farm_observation-field_farm_date'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_farm_date',
-      'foreign keys' => array(),
-      'indexes' => array(),
-      'locked' => '0',
-      'module' => 'date',
-      'settings' => array(
-        'cache_count' => '4',
-        'cache_enabled' => 0,
-        'granularity' => array(
-          'day' => 'day',
-          'hour' => 0,
-          'minute' => 0,
-          'month' => 'month',
-          'second' => 0,
-          'year' => 'year',
-        ),
-        'repeat' => '0',
-        'timezone_db' => '',
-        'todate' => '',
-        'tz_handling' => 'none',
-      ),
-      'translatable' => '0',
-      'type' => 'datestamp',
-    ),
-    'field_instance' => array(
-      'bundle' => 'farm_observation',
-      'deleted' => '0',
-      'description' => 'When did this observation occur?',
-      'display' => array(
-        'default' => array(
-          'label' => 'inline',
-          'module' => 'date',
-          'settings' => array(
-            'format_type' => 'long',
-            'fromto' => 'both',
-            'multiple_from' => '',
-            'multiple_number' => '',
-            'multiple_to' => '',
-          ),
-          'type' => 'date_default',
-          'weight' => '1',
-        ),
-      ),
-      'entity_type' => 'log',
-      'field_name' => 'field_farm_date',
-      'label' => 'Date',
-      'required' => 1,
-      'settings' => array(
-        'default_value' => 'now',
-        'default_value2' => 'same',
-        'default_value_code' => '',
-        'default_value_code2' => '',
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'date',
-        'settings' => array(
-          'increment' => '15',
-          'input_format' => 'M j Y - g:i:sa',
-          'input_format_custom' => '',
-          'label_position' => 'above',
-          'text_parts' => array(),
-          'year_range' => '-3:+3',
-        ),
-        'type' => 'date_popup',
-        'weight' => '0',
-      ),
-    ),
-  );
-
   // Exported field: 'log-farm_observation-field_farm_notes'.
   $fields['log-farm_observation-field_farm_notes'] = array(
     'field_config' => array(
@@ -1512,9 +1180,7 @@ function farm_log_field_default_fields() {
   t('Areas');
   t('Asset');
   t('Assets');
-  t('Date');
   t('Enter a comma-separated list of areas that this an issue for. As you type, you will have the option of selecting from areas that you\'ve entered in the past.');
-  t('Enter the date that this became an issue.');
   t('From');
   t('How important is this issue? You can manage available priority levels in the <a href="/admin/structure/taxonomy/farm_priority">Priority Levels</a> vocabulary.');
   t('List any farm assets that this activity pertains to.');
@@ -1531,8 +1197,6 @@ function farm_log_field_default_fields() {
   t('What area(s) did this activity take place in?');
   t('What asset is being moved?');
   t('What type of observation is this. Use this to organize your observations into categories for easy viewing later. As you type, you will have the option of selecting from a list of types you entered in the past.');
-  t('When did this movement take place? Or when will it?');
-  t('When did this observation occur?');
   t('Where is it moving from? This field is optional. You may leave this blank as a way of setting an object\'s initial location.');
   t('Where is it moving to?');
 
