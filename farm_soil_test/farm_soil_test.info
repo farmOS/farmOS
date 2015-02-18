@@ -15,7 +15,6 @@ dependencies[] = views_data_export
 features[ctools][] = views:views_default:3.0
 features[features_api][] = api:1
 features[field][] = log-farm_soil_test-field_farm_area
-features[field][] = log-farm_soil_test-field_farm_date
 features[field][] = log-farm_soil_test-field_farm_files
 features[field][] = log-farm_soil_test-field_farm_notes
 features[field][] = log-farm_soil_test-field_farm_soil_lab
