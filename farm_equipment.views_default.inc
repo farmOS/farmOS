@@ -36,12 +36,18 @@ function farm_equipment_views_default_views() {
   $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
+    'views_bulk_operations' => 'views_bulk_operations',
     'id' => 'id',
     'name' => 'name',
     'field_farm_move_to' => 'field_farm_move_to',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
+    'views_bulk_operations' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
     'id' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
@@ -264,9 +270,9 @@ function farm_equipment_views_default_views() {
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
     'id' => 'id',
-    'field_farm_date' => 'field_farm_date',
+    'timestamp' => 'timestamp',
     'name' => 'name',
-    'field_farm_move_from' => 'field_farm_move_from',
+    'field_farm_equipment' => 'field_farm_equipment',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
@@ -277,7 +283,7 @@ function farm_equipment_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
-    'field_farm_date' => array(
+    'timestamp' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -291,7 +297,7 @@ function farm_equipment_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
-    'field_farm_move_from' => array(
+    'field_farm_equipment' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -311,20 +317,16 @@ function farm_equipment_views_default_views() {
   $handler->display->display_options['fields']['id']['table'] = 'log';
   $handler->display->display_options['fields']['id']['field'] = 'id';
   $handler->display->display_options['fields']['id']['exclude'] = TRUE;
-  /* Field: Field: Date */
-  $handler->display->display_options['fields']['field_farm_date']['id'] = 'field_farm_date';
-  $handler->display->display_options['fields']['field_farm_date']['table'] = 'field_data_field_farm_date';
-  $handler->display->display_options['fields']['field_farm_date']['field'] = 'field_farm_date';
-  $handler->display->display_options['fields']['field_farm_date']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['field_farm_date']['alter']['path'] = 'log/[id]';
-  $handler->display->display_options['fields']['field_farm_date']['settings'] = array(
-    'format_type' => 'short',
-    'fromto' => 'both',
-    'multiple_number' => '',
-    'multiple_from' => '',
-    'multiple_to' => '',
-    'show_repeat_rule' => 'show',
-  );
+  /* Field: Log: Timestamp */
+  $handler->display->display_options['fields']['timestamp']['id'] = 'timestamp';
+  $handler->display->display_options['fields']['timestamp']['table'] = 'log';
+  $handler->display->display_options['fields']['timestamp']['field'] = 'timestamp';
+  $handler->display->display_options['fields']['timestamp']['label'] = 'Date';
+  $handler->display->display_options['fields']['timestamp']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['timestamp']['alter']['path'] = 'log/[id]';
+  $handler->display->display_options['fields']['timestamp']['date_format'] = 'custom';
+  $handler->display->display_options['fields']['timestamp']['custom_date_format'] = 'M j Y';
+  $handler->display->display_options['fields']['timestamp']['second_date_format'] = 'long';
   /* Field: Log: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
   $handler->display->display_options['fields']['name']['table'] = 'log';
@@ -339,13 +341,13 @@ function farm_equipment_views_default_views() {
   $handler->display->display_options['fields']['field_farm_equipment']['settings'] = array(
     'link' => 1,
   );
-  /* Sort criterion: Field: Date (field_farm_date) */
-  $handler->display->display_options['sorts']['field_farm_date_value']['id'] = 'field_farm_date_value';
-  $handler->display->display_options['sorts']['field_farm_date_value']['table'] = 'field_data_field_farm_date';
-  $handler->display->display_options['sorts']['field_farm_date_value']['field'] = 'field_farm_date_value';
-  $handler->display->display_options['sorts']['field_farm_date_value']['order'] = 'DESC';
-  $handler->display->display_options['sorts']['field_farm_date_value']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['field_farm_date_value']['expose']['label'] = 'Date';
+  /* Sort criterion: Log: Timestamp */
+  $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
+  $handler->display->display_options['sorts']['timestamp']['table'] = 'log';
+  $handler->display->display_options['sorts']['timestamp']['field'] = 'timestamp';
+  $handler->display->display_options['sorts']['timestamp']['order'] = 'DESC';
+  $handler->display->display_options['sorts']['timestamp']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['timestamp']['expose']['label'] = 'Date';
   /* Sort criterion: Log: Log ID */
   $handler->display->display_options['sorts']['id']['id'] = 'id';
   $handler->display->display_options['sorts']['id']['table'] = 'log';
@@ -359,18 +361,17 @@ function farm_equipment_views_default_views() {
     'farm_maintenance' => 'farm_maintenance',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
-  /* Filter criterion: Field: Date (field_farm_date) */
-  $handler->display->display_options['filters']['field_farm_date_value']['id'] = 'field_farm_date_value';
-  $handler->display->display_options['filters']['field_farm_date_value']['table'] = 'field_data_field_farm_date';
-  $handler->display->display_options['filters']['field_farm_date_value']['field'] = 'field_farm_date_value';
-  $handler->display->display_options['filters']['field_farm_date_value']['operator'] = '>=';
-  $handler->display->display_options['filters']['field_farm_date_value']['group'] = 1;
-  $handler->display->display_options['filters']['field_farm_date_value']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_farm_date_value']['expose']['operator_id'] = 'field_farm_date_value_op';
-  $handler->display->display_options['filters']['field_farm_date_value']['expose']['label'] = 'Start date';
-  $handler->display->display_options['filters']['field_farm_date_value']['expose']['operator'] = 'field_farm_date_value_op';
-  $handler->display->display_options['filters']['field_farm_date_value']['expose']['identifier'] = 'field_farm_date_value';
-  $handler->display->display_options['filters']['field_farm_date_value']['expose']['remember_roles'] = array(
+  /* Filter criterion: Date: Date (log) */
+  $handler->display->display_options['filters']['date_filter']['id'] = 'date_filter';
+  $handler->display->display_options['filters']['date_filter']['table'] = 'log';
+  $handler->display->display_options['filters']['date_filter']['field'] = 'date_filter';
+  $handler->display->display_options['filters']['date_filter']['operator'] = '>=';
+  $handler->display->display_options['filters']['date_filter']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['date_filter']['expose']['operator_id'] = 'date_filter_op';
+  $handler->display->display_options['filters']['date_filter']['expose']['label'] = 'Start date';
+  $handler->display->display_options['filters']['date_filter']['expose']['operator'] = 'date_filter_op';
+  $handler->display->display_options['filters']['date_filter']['expose']['identifier'] = 'date_filter';
+  $handler->display->display_options['filters']['date_filter']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
     30037204 => 0,
@@ -380,19 +381,21 @@ function farm_equipment_views_default_views() {
     196317508 => 0,
     146437786 => 0,
   );
-  $handler->display->display_options['filters']['field_farm_date_value']['year_range'] = '-10:+3';
-  /* Filter criterion: Field: Date (field_farm_date) */
-  $handler->display->display_options['filters']['field_farm_date_value_1']['id'] = 'field_farm_date_value_1';
-  $handler->display->display_options['filters']['field_farm_date_value_1']['table'] = 'field_data_field_farm_date';
-  $handler->display->display_options['filters']['field_farm_date_value_1']['field'] = 'field_farm_date_value';
-  $handler->display->display_options['filters']['field_farm_date_value_1']['operator'] = '<=';
-  $handler->display->display_options['filters']['field_farm_date_value_1']['group'] = 1;
-  $handler->display->display_options['filters']['field_farm_date_value_1']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_farm_date_value_1']['expose']['operator_id'] = 'field_farm_date_value_1_op';
-  $handler->display->display_options['filters']['field_farm_date_value_1']['expose']['label'] = 'End date';
-  $handler->display->display_options['filters']['field_farm_date_value_1']['expose']['operator'] = 'field_farm_date_value_1_op';
-  $handler->display->display_options['filters']['field_farm_date_value_1']['expose']['identifier'] = 'field_farm_date_value_1';
-  $handler->display->display_options['filters']['field_farm_date_value_1']['expose']['remember_roles'] = array(
+  $handler->display->display_options['filters']['date_filter']['year_range'] = '-10:+3';
+  $handler->display->display_options['filters']['date_filter']['date_fields'] = array(
+    'log.timestamp' => 'log.timestamp',
+  );
+  /* Filter criterion: Date: Date (log) */
+  $handler->display->display_options['filters']['date_filter_1']['id'] = 'date_filter_1';
+  $handler->display->display_options['filters']['date_filter_1']['table'] = 'log';
+  $handler->display->display_options['filters']['date_filter_1']['field'] = 'date_filter';
+  $handler->display->display_options['filters']['date_filter_1']['operator'] = '<=';
+  $handler->display->display_options['filters']['date_filter_1']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['date_filter_1']['expose']['operator_id'] = 'date_filter_1_op';
+  $handler->display->display_options['filters']['date_filter_1']['expose']['label'] = 'End date';
+  $handler->display->display_options['filters']['date_filter_1']['expose']['operator'] = 'date_filter_1_op';
+  $handler->display->display_options['filters']['date_filter_1']['expose']['identifier'] = 'date_filter_1';
+  $handler->display->display_options['filters']['date_filter_1']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
     30037204 => 0,
@@ -402,7 +405,10 @@ function farm_equipment_views_default_views() {
     196317508 => 0,
     146437786 => 0,
   );
-  $handler->display->display_options['filters']['field_farm_date_value_1']['year_range'] = '-10:+3';
+  $handler->display->display_options['filters']['date_filter_1']['year_range'] = '-10:+3';
+  $handler->display->display_options['filters']['date_filter_1']['date_fields'] = array(
+    'log.timestamp' => 'log.timestamp',
+  );
 
   /* Display: All maintenance (Page) */
   $handler = $view->new_display('page', 'All maintenance (Page)', 'page_1');
@@ -454,12 +460,11 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['pager']['options']['items_per_page'] = '5';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['defaults']['sorts'] = FALSE;
-  /* Sort criterion: Field: Date (field_farm_date) */
-  $handler->display->display_options['sorts']['field_farm_date_value']['id'] = 'field_farm_date_value';
-  $handler->display->display_options['sorts']['field_farm_date_value']['table'] = 'field_data_field_farm_date';
-  $handler->display->display_options['sorts']['field_farm_date_value']['field'] = 'field_farm_date_value';
-  $handler->display->display_options['sorts']['field_farm_date_value']['order'] = 'DESC';
-  $handler->display->display_options['sorts']['field_farm_date_value']['expose']['label'] = 'Date';
+  /* Sort criterion: Log: Timestamp */
+  $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
+  $handler->display->display_options['sorts']['timestamp']['table'] = 'log';
+  $handler->display->display_options['sorts']['timestamp']['field'] = 'timestamp';
+  $handler->display->display_options['sorts']['timestamp']['order'] = 'DESC';
   /* Sort criterion: Log: Log ID */
   $handler->display->display_options['sorts']['id']['id'] = 'id';
   $handler->display->display_options['sorts']['id']['table'] = 'log';
