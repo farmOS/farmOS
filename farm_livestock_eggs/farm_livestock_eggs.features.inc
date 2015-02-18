@@ -22,6 +22,7 @@ function farm_livestock_eggs_default_log_type() {
     "weight" : 0,
     "name_pattern" : "Collected [log:field-farm-egg-qty] egg(s)",
     "name_edit" : "0",
+    "done" : "1",
     "rdf_mapping" : []
   }');
   return $items;
