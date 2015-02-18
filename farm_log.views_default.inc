@@ -39,10 +39,6 @@ function farm_log_views_default_views() {
     'id' => 'id',
     'timestamp' => 'timestamp',
     'name' => 'name',
-    'field_farm_threats' => 'field_farm_threats',
-    'field_farm_assets' => 'field_farm_assets',
-    'field_farm_areas' => 'field_farm_areas',
-    'field_farm_priority' => 'field_farm_priority',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
@@ -61,28 +57,6 @@ function farm_log_views_default_views() {
       'empty_column' => 0,
     ),
     'name' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_farm_threats' => array(
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_farm_assets' => array(
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_farm_areas' => array(
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_farm_priority' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -148,7 +122,7 @@ function farm_log_views_default_views() {
   $handler->display->display_options['filters']['name']['group'] = 1;
   $handler->display->display_options['filters']['name']['exposed'] = TRUE;
   $handler->display->display_options['filters']['name']['expose']['operator_id'] = 'name_op';
-  $handler->display->display_options['filters']['name']['expose']['label'] = 'Name';
+  $handler->display->display_options['filters']['name']['expose']['label'] = 'Search';
   $handler->display->display_options['filters']['name']['expose']['operator'] = 'name_op';
   $handler->display->display_options['filters']['name']['expose']['identifier'] = 'name';
   $handler->display->display_options['filters']['name']['expose']['remember_roles'] = array(
@@ -336,7 +310,6 @@ function farm_log_views_default_views() {
     'id' => 'id',
     'timestamp' => 'timestamp',
     'name' => 'name',
-    'field_farm_threats' => 'field_farm_threats',
     'field_farm_assets' => 'field_farm_assets',
     'field_farm_areas' => 'field_farm_areas',
     'field_farm_priority' => 'field_farm_priority',
@@ -360,11 +333,6 @@ function farm_log_views_default_views() {
     'name' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_farm_threats' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -463,7 +431,7 @@ function farm_log_views_default_views() {
   $handler->display->display_options['filters']['name']['group'] = 1;
   $handler->display->display_options['filters']['name']['exposed'] = TRUE;
   $handler->display->display_options['filters']['name']['expose']['operator_id'] = 'name_op';
-  $handler->display->display_options['filters']['name']['expose']['label'] = 'Name';
+  $handler->display->display_options['filters']['name']['expose']['label'] = 'Search';
   $handler->display->display_options['filters']['name']['expose']['operator'] = 'name_op';
   $handler->display->display_options['filters']['name']['expose']['identifier'] = 'name';
   $handler->display->display_options['filters']['name']['expose']['remember_roles'] = array(
@@ -592,8 +560,8 @@ function farm_log_views_default_views() {
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
     'id' => 'id',
-    'name' => 'name',
     'timestamp' => 'timestamp',
+    'field_farm_move_to' => 'field_farm_move_to',
     'field_farm_move_from' => 'field_farm_move_from',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
@@ -612,7 +580,7 @@ function farm_log_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
-    'name' => array(
+    'field_farm_move_to' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -871,6 +839,7 @@ if (!empty($farm_asset)) {
     'id' => 'id',
     'timestamp' => 'timestamp',
     'name' => 'name',
+    'field_farm_quantity' => 'field_farm_quantity',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
@@ -889,6 +858,13 @@ if (!empty($farm_asset)) {
       'empty_column' => 0,
     ),
     'name' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_quantity' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -1285,15 +1261,17 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['filters']['type']['table'] = 'log';
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
+    'farm_issue' => 'farm_issue',
     'farm_harvest' => 'farm_harvest',
     'farm_input' => 'farm_input',
+    'farm_movement' => 'farm_movement',
     'farm_seeding' => 'farm_seeding',
     'farm_transplanting' => 'farm_transplanting',
     'farm_activity' => 'farm_activity',
-    'farm_issue' => 'farm_issue',
-    'farm_movement' => 'farm_movement',
     'farm_eggs' => 'farm_eggs',
+    'farm_maintenance' => 'farm_maintenance',
     'farm_soil_test' => 'farm_soil_test',
+    'farm_observation' => 'farm_observation',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
   $handler->display->display_options['filters']['type']['exposed'] = TRUE;
