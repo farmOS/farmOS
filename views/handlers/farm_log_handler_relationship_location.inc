@@ -55,6 +55,12 @@ class farm_log_handler_relationship_location extends views_handler_relationship_
     // a subselect that returns the maximum date value.
     $query = db_select('log', 'ss_log');
     $query->join('field_data_field_farm_asset', 'ss_fdffa', 'ss_log.id = ss_fdffa.entity_id');
+    /**
+     * @todo
+     * Change where()s to condition()s.
+     * See related @todo below for more details.
+     */
+    $query->where("ss_log.type = 'farm_movement'");
     $query->where('ss_fdffa.field_farm_asset_target_id = ' . $this->table_alias . '.id');
     $query->orderBy('ss_log.timestamp', 'DESC');
     $query->orderBy('ss_log.id', 'DESC');
@@ -68,6 +74,14 @@ class farm_log_handler_relationship_location extends views_handler_relationship_
     }
 
     // Add the subselect query as a join extra.
+    /**
+     * @todo
+     * Casting the query as a string here does not take the placeholder naming
+     * of the parent query into account, so methods that use placeholders
+     * (like condition()) end up getting replaced with the wrong values.
+     * Figure out how to do this the right way, and then change the where()s to
+     * condition()s in the above subquery.
+     */
     $join_extra = $this->alias . '.id = (' . $query . ')';
 
     // Add the join extra to the second relationship.
