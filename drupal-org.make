@@ -101,9 +101,6 @@ projects[role_export][version] = "1.0"
 projects[rules][subdir] = "contrib"
 projects[rules][version] = "2.7"
 
-projects[rules_array_create][subdir] = "contrib"
-projects[rules_array_create]][version] = "1.0-alpha1"
-
 projects[strongarm][subdir] = "contrib"
 projects[strongarm][version] = "2.0"
 
