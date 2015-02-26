@@ -1,0 +1,6 @@
+/**
+ * Nudge the logo down a bit.
+ */
+.navbar .logo {
+  padding-top: 5px;
+}
