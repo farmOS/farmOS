@@ -35,4 +35,9 @@ function farm_theme_form_alter(&$form, &$form_state, $form_id) {
   </div>
 </div>';
   }
+
+  // Move Views Bulk Operations actions to the bottom.
+  else if (strpos($form_id, 'views_form_') === 0 && !empty($form['select'])) {
+    $form['select']['#weight'] = 100;
+  }
 }
