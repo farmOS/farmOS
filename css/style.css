@@ -4,3 +4,16 @@
 .navbar .logo {
   padding-top: 5px;
 }
+
+/**
+ * Fix DateAPI field styles.
+ */
+.container-inline-date {
+  margin-bottom: 10px;
+}
+.container-inline-date .control-label {
+  display: block;
+}
+.container-inline-date .date-padding {
+  padding-left: 0;
+}
