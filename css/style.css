@@ -17,3 +17,11 @@
 .container-inline-date .date-padding {
   padding-left: 0;
 }
+
+/**
+ * Fix Views exposed filter/sort.
+ */
+.views-exposed-form .views-exposed-widget .form-submit {
+  margin-top: 1.6em;
+  padding: 6px 12px;
+}
