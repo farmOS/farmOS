@@ -25,3 +25,10 @@
   margin-top: 1.6em;
   padding: 6px 12px;
 }
+
+/**
+ * Fix checkboxes in Views Bulk Operations.
+ */
+.views-field-views-bulk-operations .checkbox input[type="checkbox"] {
+  margin-left: 0;
+}
