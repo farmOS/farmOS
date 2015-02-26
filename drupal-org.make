@@ -156,6 +156,8 @@ projects[farm_taxonomy][version] = "1.x-dev"
 
 projects[bootstrap][version] = "3.x-dev"
 
+projects[farm_theme][version] = "1.x-dev"
+
 ; -----------------------------------------------------------------------------
 ; Libraries
 ; -----------------------------------------------------------------------------

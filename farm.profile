@@ -42,8 +42,8 @@ function farm_configure_themes() {
   // Any themes without keys here will get numeric keys and so will be enabled,
   // but not placed into variables.
   $enable = array(
-    'theme_default' => 'bootstrap',
-    'admin_theme' => 'bootstrap',
+    'theme_default' => 'farm_theme',
+    'admin_theme' => 'farm_theme',
   );
   theme_enable($enable);
 
