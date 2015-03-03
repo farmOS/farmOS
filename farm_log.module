@@ -382,6 +382,13 @@ function farm_log_asset_move_action_form($context, $form_state) {
     '#required' => TRUE,
   );
 
+  // "Done" field: mark movements as done.
+  $form['done'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Movement is done'),
+    '#description' => t('Check this if the movement has already been done. Otherwise, you will need to mark the movement log item as done later.'),
+  );
+
   return $form;
 }
 
@@ -391,6 +398,7 @@ function farm_log_asset_move_action_form($context, $form_state) {
 function farm_log_asset_move_action_submit($form, $form_state) {
   return array(
     'to' => $form_state['values']['to'],
+    'done' => $form_state['values']['done'],
   );
 }
 
@@ -434,6 +442,9 @@ function farm_log_asset_move_action($entity, $context = array()) {
   $log->field_farm_move_to[LANGUAGE_NONE][] = array(
     'tid' => $context['to'],
   );
+
+  // Set the log's done status.
+  $log->done = (!empty($context['done'])) ? TRUE : FALSE;
 
   // Save the movement.
   log_save($log);
