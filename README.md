@@ -32,7 +32,7 @@ pre-selected contributed modules.
 If you are downloading FarmOS from drupal.org, then it is pre-built and
 ready to go. Just drop it into a hosted web server environment and it will work
 the same as Drupal. For more information on installing Drupal, see the official
-(Installing Drupal)[http://www.drupal.org/documentation/install] documentation.
+[Installing Drupal](http://www.drupal.org/documentation/install) documentation.
 
 During the installation, you will be given a choice of which "Installation
 Profile" you want your site to use. Choose "FarmOS" and the modules
