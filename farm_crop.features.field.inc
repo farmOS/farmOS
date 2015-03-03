@@ -384,7 +384,7 @@ function farm_crop_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'entityreference_autocomplete',
-        'weight' => '0',
+        'weight' => '1',
       ),
     ),
   );
@@ -1157,7 +1157,7 @@ function farm_crop_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'entityreference_autocomplete',
-        'weight' => '0',
+        'weight' => '1',
       ),
     ),
   );
@@ -1337,7 +1337,7 @@ function farm_crop_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '4',
+        'weight' => '3',
       ),
     ),
   );
@@ -1417,7 +1417,7 @@ function farm_crop_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'entityreference_autocomplete',
-        'weight' => '0',
+        'weight' => '1',
       ),
     ),
   );
