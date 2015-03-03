@@ -411,7 +411,7 @@ function farm_log_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'entityreference_autocomplete',
-        'weight' => '0',
+        'weight' => '1',
       ),
     ),
   );
@@ -686,7 +686,7 @@ function farm_log_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'entityreference_autocomplete',
-        'weight' => '1',
+        'weight' => '2',
       ),
     ),
   );
@@ -747,7 +747,7 @@ function farm_log_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '4',
+        'weight' => '5',
       ),
     ),
   );
@@ -815,7 +815,7 @@ function farm_log_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '2',
+        'weight' => '3',
       ),
     ),
   );
@@ -871,7 +871,7 @@ function farm_log_field_default_fields() {
         'module' => 'field_collection',
         'settings' => array(),
         'type' => 'field_collection_embed',
-        'weight' => '3',
+        'weight' => '4',
       ),
     ),
   );
