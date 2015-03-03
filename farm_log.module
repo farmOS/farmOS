@@ -239,11 +239,14 @@ function farm_log_form_alter(&$form, &$form_state, $form_id) {
  * @param int $time
  *   Unix timestamp limiter. Only movement logs before this time will be
  *   included. Defaults to the current time. Set to 0 to load the absolute last.
+ * @param boolean $done
+ *   Whether or not to only show movement logs that are marked as "done".
+ *   Defaults to TRUE.
  *
  * @return area
  *   Returns the area that the asset is in.
  */
-function farm_log_asset_location(FarmAsset $asset, $time = REQUEST_TIME) {
+function farm_log_asset_location(FarmAsset $asset, $time = REQUEST_TIME, $done = TRUE) {
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'log')
     ->entityCondition('bundle', 'farm_movement')
@@ -253,6 +256,9 @@ function farm_log_asset_location(FarmAsset $asset, $time = REQUEST_TIME) {
     ->range(0, 1);
   if (!empty($time)) {
     $query->propertyCondition('timestamp', $time, '<=');
+  }
+  if (!empty($done)) {
+    $query->propertyCondition('done', TRUE);
   }
   $result = $query->execute();
   if (!empty($result['log'])) {
