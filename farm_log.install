@@ -58,3 +58,80 @@ function farm_log_update_7000(&$sandbox) {
     field_delete_instance($field);
   }
 }
+
+/**
+ * Migrate Issues to Observations.
+ */
+function farm_log_update_7001(&$sandbox) {
+
+  // Create a new "Issue" Observation Type.
+  $vocab = taxonomy_vocabulary_machine_name_load('farm_observation_types');
+  $term = entity_create('taxonomy_term', array(
+    'name' => 'Issue',
+    'vid' => $vocab->vid
+  ));
+  taxonomy_term_save($term);
+
+  // Load all issue logs.
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'log');
+  $query->entityCondition('bundle', 'farm_issue'); // Run the query as user 1.
+  $result = $query->execute();
+  if (isset($result['log'])) {
+    $ids = array_keys($result['log']);
+    $logs = entity_load('log', $ids);
+  }
+
+  // If logs were loaded, iterate through them...
+  if (!empty($logs)) {
+    foreach ($logs as $log) {
+
+      // Build a list of values for the new observation log.
+      $values = array(
+        'type' => 'farm_observation',
+        'name' => $log->name,
+        'timestamp' => $log->timestamp,
+        'created' => $log->created,
+        'changed' => $log->changed,
+        'done' => $log->done,
+        'uid' => $log->uid,
+      );
+
+      // Create a new observation log.
+      $observation = entity_create('log', $values);
+
+      // Assign it to the new "Issue" Observation Type.
+      $observation->field_farm_observation_type[LANGUAGE_NONE][] = array(
+        'tid' => $term->tid,
+      );
+
+      // Copy fields from the issue log.
+      $observation->field_farm_asset = $log->field_farm_assets;
+      $observation->field_farm_notes = $log->field_farm_notes;
+
+      // Save the new log.
+      log_save($observation);
+
+      // Delete the old log.
+      log_delete($log);
+    }
+  }
+
+  // Delete the View, if it still exists.
+  $view = views_get_view('farm_log_issues');
+  if (!empty($view)) {
+    views_delete_view($view);
+  }
+
+  // Delete the Priority Levels vocabulary.
+  $vocab = taxonomy_vocabulary_machine_name_load('farm_priority');
+  if (!empty($vocab)) {
+    taxonomy_vocabulary_delete($vocab->vid);
+  }
+
+  // Delete the issue log type.
+  $log_type = log_type_load('farm_issue');
+  if (!empty($log_type)) {
+    log_type_delete($log_type);
+  }
+}

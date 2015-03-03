@@ -35,15 +35,6 @@ function farm_log_default_log_type() {
     "done" : "1",
     "rdf_mapping" : []
   }');
-  $items['farm_issue'] = entity_import('log_type', '{
-    "type" : "farm_issue",
-    "label" : "Issue",
-    "weight" : 0,
-    "name_pattern" : "Issue [log:id]",
-    "name_edit" : "1",
-    "done" : "1",
-    "rdf_mapping" : []
-  }');
   $items['farm_movement'] = entity_import('log_type', '{
     "type" : "farm_movement",
     "label" : "Movement",
