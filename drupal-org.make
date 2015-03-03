@@ -63,7 +63,7 @@ projects[libraries][subdir] = "contrib"
 projects[libraries][version] = "2.2"
 
 projects[log][subdir] = "contrib"
-projects[log][version] = "1.x"
+projects[log][version] = "1.0-alpha1"
 
 projects[logintoboggan][subdir] = "contrib"
 projects[logintoboggan][version] = "1.4"
