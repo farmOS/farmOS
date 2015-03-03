@@ -50,6 +50,7 @@ function farm_equipment_default_log_type() {
     "weight" : 0,
     "name_pattern" : "[log:name]",
     "name_edit" : "1",
+    "done" : "1",
     "rdf_mapping" : []
   }');
   return $items;
