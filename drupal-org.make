@@ -127,16 +127,16 @@ projects[farm_asset][subdir] = "farm"
 projects[farm_asset][version] = "1.x-dev"
 
 projects[farm_crop][subdir] = "farm"
-projects[farm_crop][version] = "1.x-dev"
+projects[farm_crop][version] = "1.0-alpha1"
 
 projects[farm_equipment][subdir] = "farm"
-projects[farm_equipment][version] = "1.x-dev"
+projects[farm_equipment][version] = "1.0-alpha1"
 
 projects[farm_livestock][subdir] = "farm"
-projects[farm_livestock][version] = "1.x-dev"
+projects[farm_livestock][version] = "1.0-alpha1"
 
 projects[farm_log][subdir] = "farm"
-projects[farm_log][version] = "1.x-dev"
+projects[farm_log][version] = "1.0-alpha1"
 
 projects[farm_map][subdir] = "farm"
 projects[farm_map][version] = "1.x-dev"
@@ -145,7 +145,7 @@ projects[farm_manager][subdir] = "farm"
 projects[farm_manager][version] = "1.x-dev"
 
 projects[farm_soil][subdir] = "farm"
-projects[farm_soil][version] = "1.x-dev"
+projects[farm_soil][version] = "1.0-alpha1"
 
 projects[farm_taxonomy][subdir] = "farm"
 projects[farm_taxonomy][version] = "1.x-dev"
