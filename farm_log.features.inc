@@ -32,7 +32,7 @@ function farm_log_default_log_type() {
     "weight" : 0,
     "name_pattern" : "[log:name]",
     "name_edit" : "1",
-    "done" : "1",
+    "done" : "0",
     "rdf_mapping" : []
   }');
   $items['farm_movement'] = entity_import('log_type', '{
@@ -41,7 +41,7 @@ function farm_log_default_log_type() {
     "weight" : 0,
     "name_pattern" : "Move [log:field-farm-asset] to [log:field-farm-move-to]",
     "name_edit" : "0",
-    "done" : "1",
+    "done" : "0",
     "rdf_mapping" : []
   }');
   $items['farm_observation'] = entity_import('log_type', '{
