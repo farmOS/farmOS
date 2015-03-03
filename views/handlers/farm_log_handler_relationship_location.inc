@@ -13,7 +13,7 @@
  * views_handler_relationship_entity_reverse
  * views_handler_relationship_node_term_data
  */
-class farm_log_handler_relationship_location extends views_handler_relationship_entity_reverse {
+class farm_log_handler_relationship_location extends views_handler_relationship {
 
   /**
    * Default options.
@@ -47,21 +47,19 @@ class farm_log_handler_relationship_location extends views_handler_relationship_
    */
   function query() {
 
-    // Start with the joins of the parent method, which will create a reverse entity reference
-    // relationship to all log items that reference the farm asset.
-    parent::query();
+    // Figure out what base table this relationship brings to the party.
+    $table_data = views_fetch_data($this->definition['base']);
+    $base_field = empty($this->definition['base field']) ? $table_data['table']['base']['field'] : $this->definition['base field'];
 
-    // Here's where the special sauce is: we add an additional join extra with
-    // a subselect that returns the maximum date value.
+    $this->ensure_my_table();
+
+    // Build a sub-query that will be used in the join to load the latest
+    // movement log of a given asset.
     $query = db_select('log', 'ss_log');
     $query->join('field_data_field_farm_asset', 'ss_fdffa', 'ss_log.id = ss_fdffa.entity_id');
-    /**
-     * @todo
-     * Change where()s to condition()s.
-     * See related @todo below for more details.
-     */
     $query->where("ss_log.type = 'farm_movement'");
     $query->where('ss_fdffa.field_farm_asset_target_id = ' . $this->table_alias . '.id');
+    $query->where('ss_fdffa.deleted = 0');
     $query->orderBy('ss_log.timestamp', 'DESC');
     $query->orderBy('ss_log.id', 'DESC');
     $query->range(0, 1);
@@ -73,27 +71,38 @@ class farm_log_handler_relationship_location extends views_handler_relationship_
       $query->where('ss_log.timestamp <= ' . REQUEST_TIME);
     }
 
-    // Add the subselect query as a join extra.
-    /**
-     * @todo
-     * Casting the query as a string here does not take the placeholder naming
-     * of the parent query into account, so methods that use placeholders
-     * (like condition()) end up getting replaced with the wrong values.
-     * Figure out how to do this the right way, and then change the where()s to
-     * condition()s in the above subquery.
-     */
-    $join_extra = $this->alias . '.id = (' . $query . ')';
+    // Build the join definition.
+    $def = $this->definition;
+    $def['table'] = $this->definition['base'];
+    $def['field'] = $base_field;
+    $def['left_table'] = $this->table_alias;
+    $def['left_field'] = $this->real_field;
+    $def['left_query'] = $query;
+    if (!empty($this->options['required'])) {
+      $def['type'] = 'INNER';
+    }
 
-    // Add the join extra to the second relationship.
-    $this->query->table_queue[$this->alias]['join']->extra = $join_extra;
+    if (!empty($this->definition['extra'])) {
+      $def['extra'] = $this->definition['extra'];
+    }
 
-    // Add a condition to the query to filter out any empty dates (this will
-    // filter out any logs that don't have the latest date).
-    $or = db_or();
-    $or->condition($this->alias . '.timestamp', NULL, 'IS NOT NULL');
-    // But, be careful not to filter out assets that don't have a location!
-    // This OR condition allows rows to be included that don't have a movement.
-    $or->condition($this->first_alias . '.entity_id', NULL, 'IS NULL');
-    $this->query->add_where(0, $or);
+    // Create the join as an instance of the views_join_subquery class.
+    $join = new views_join_subquery();
+
+    $join->definition = $def;
+    $join->options = $this->options;
+    $join->construct();
+    $join->adjusted = TRUE;
+
+    // use a short alias for this:
+    $alias = $def['table'] . '_' . $this->table;
+
+    $this->alias = $this->query->add_relationship($alias, $join, $this->definition['base'], $this->relationship);
+
+    // Add access tags if the base table provide it.
+    if (empty($this->query->options['disable_sql_rewrite']) && isset($table_data['table']['base']['access query tag'])) {
+      $access_tag = $table_data['table']['base']['access query tag'];
+      $this->query->add_tag($access_tag);
+    }
   }
 }
