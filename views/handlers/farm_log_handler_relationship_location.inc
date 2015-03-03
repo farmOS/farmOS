@@ -21,6 +21,9 @@ class farm_log_handler_relationship_location extends views_handler_relationship 
   function option_definition() {
     $options = parent::option_definition();
 
+    // Only include "done" logs by default.
+    $options['done'] = array('default' => TRUE, 'bool' => TRUE);
+
     // Don't include future logs by default.
     $options['future'] = array('default' => FALSE, 'bool' => TRUE);
 
@@ -28,10 +31,18 @@ class farm_log_handler_relationship_location extends views_handler_relationship 
   }
 
   /**
-   * Add an option for including future logs.
+   * Add an options for filtering logs
    */
   function options_form(&$form, &$form_state) {
     parent::options_form($form, $form_state);
+
+    // Only include log that are "done".
+    $form['done'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Only include done logs'),
+      '#description' => t('Filters out logs that have not been marked as done.'),
+      '#default_value' => !empty($this->options['done']),
+    );
 
     // Allow future logs to be included.
     $form['future'] = array(
@@ -64,6 +75,11 @@ class farm_log_handler_relationship_location extends views_handler_relationship 
     $query->orderBy('ss_log.id', 'DESC');
     $query->range(0, 1);
     $query->addField('ss_log', 'id');
+
+    // If only "done" movement logs should be included, add a filter.
+    if (!empty($this->options['done'])) {
+      $query->where('ss_log.done = 1');
+    }
 
     // If future logs should not be included, then limit to only logs that
     // have a date before right now.
