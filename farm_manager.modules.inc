@@ -161,3 +161,15 @@ function farm_soil_test_farm_manager_perms() {
   );
   return farm_manager_entity_perms($types);
 }
+
+/**
+ * Implements hook_farm_manager_perms().
+ */
+function log_farm_manager_perms() {
+  $perms = array();
+
+  // Access farm dashboard.
+  $perms[] = 'view log plan';
+
+  return $perms;
+}
