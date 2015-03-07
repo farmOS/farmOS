@@ -53,7 +53,7 @@ function farm_area_views_default_views() {
   $handler->display->display_options['fields']['tid']['label'] = '';
   $handler->display->display_options['fields']['tid']['exclude'] = TRUE;
   $handler->display->display_options['fields']['tid']['element_label_colon'] = FALSE;
-  /* Field: Field: Location */
+  /* Field: Taxonomy term: Location */
   $handler->display->display_options['fields']['field_farm_geofield']['id'] = 'field_farm_geofield';
   $handler->display->display_options['fields']['field_farm_geofield']['table'] = 'field_data_field_farm_geofield';
   $handler->display->display_options['fields']['field_farm_geofield']['field'] = 'field_farm_geofield';
@@ -390,8 +390,8 @@ function farm_area_views_default_views() {
   );
   $handler->display->display_options['filters']['vid']['group'] = 1;
 
-  /* Display: All areas (Page) */
-  $handler = $view->new_display('page', 'All areas (Page)', 'page_1');
+  /* Display: Map (Page) */
+  $handler = $view->new_display('page', 'Map (Page)', 'page_1');
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'openlayers_map';
   $handler->display->display_options['style_options']['map'] = 'farm_map_areas';
@@ -409,8 +409,8 @@ function farm_area_views_default_views() {
   $handler->display->display_options['tab_options']['title'] = 'Areas';
   $handler->display->display_options['tab_options']['weight'] = '10';
 
-  /* Display: All areas (Attachment) */
-  $handler = $view->new_display('attachment', 'All areas (Attachment)', 'attachment_1');
+  /* Display: Hierarchy (Attachment) */
+  $handler = $view->new_display('attachment', 'Hierarchy (Attachment)', 'attachment_1');
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
@@ -425,12 +425,14 @@ function farm_area_views_default_views() {
     'field_farm_area_type' => 'field_farm_area_type',
   );
   $handler->display->display_options['defaults']['row_options'] = FALSE;
-  $handler->display->display_options['defaults']['footer'] = FALSE;
-  /* Footer: Global: Unfiltered text */
-  $handler->display->display_options['footer']['area_text_custom']['id'] = 'area_text_custom';
-  $handler->display->display_options['footer']['area_text_custom']['table'] = 'views';
-  $handler->display->display_options['footer']['area_text_custom']['field'] = 'area_text_custom';
-  $handler->display->display_options['footer']['area_text_custom']['content'] = '<a href="/admin/structure/taxonomy/farm_areas">Manage area hierarchy</a>';
+  $handler->display->display_options['defaults']['header'] = FALSE;
+  /* Header: Global: Unfiltered text */
+  $handler->display->display_options['header']['area_text_custom']['id'] = 'area_text_custom';
+  $handler->display->display_options['header']['area_text_custom']['table'] = 'views';
+  $handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
+  $handler->display->display_options['header']['area_text_custom']['content'] = '<h4>Hierarchy</h4>
+<p><a href="/admin/structure/taxonomy/farm_areas">(change hierarchy)</a></p>
+<br />';
   $handler->display->display_options['displays'] = array(
     'page_1' => 'page_1',
     'default' => 0,
