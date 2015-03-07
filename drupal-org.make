@@ -121,7 +121,7 @@ projects[farm_admin][subdir] = "farm"
 projects[farm_admin][version] = "1.0-alpha1"
 
 projects[farm_area][subdir] = "farm"
-projects[farm_area][version] = "1.x-dev"
+projects[farm_area][version] = "1.0-alpha1"
 
 projects[farm_asset][subdir] = "farm"
 projects[farm_asset][version] = "1.x-dev"
