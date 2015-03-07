@@ -66,7 +66,7 @@ function farm_admin_default_page_manager_pages() {
     'relationships' => array(),
   );
   $display = new panels_display();
-  $display->layout = 'twocol';
+  $display->layout = 'onecol';
   $display->layout_settings = array();
   $display->panel_settings = array(
     'style_settings' => array(
@@ -74,6 +74,7 @@ function farm_admin_default_page_manager_pages() {
       'center' => NULL,
       'left' => NULL,
       'right' => NULL,
+      'middle' => NULL,
     ),
   );
   $display->cache = array();
@@ -82,27 +83,8 @@ function farm_admin_default_page_manager_pages() {
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass();
-    $pane->pid = 'new-9005e75c-7c1f-4411-a745-163fc124dabd';
-    $pane->panel = 'left';
-    $pane->type = 'views_panes';
-    $pane->subtype = 'farm_areas-panel_pane_1';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array();
-    $pane->cache = array();
-    $pane->style = array(
-      'settings' => NULL,
-    );
-    $pane->css = array();
-    $pane->extras = array();
-    $pane->position = 0;
-    $pane->locks = array();
-    $pane->uuid = '9005e75c-7c1f-4411-a745-163fc124dabd';
-    $display->content['new-9005e75c-7c1f-4411-a745-163fc124dabd'] = $pane;
-    $display->panels['left'][0] = 'new-9005e75c-7c1f-4411-a745-163fc124dabd';
-    $pane = new stdClass();
     $pane->pid = 'new-3f0d901e-5538-45b5-8cf1-2e190c67e079';
-    $pane->panel = 'right';
+    $pane->panel = 'middle';
     $pane->type = 'views_panes';
     $pane->subtype = 'log_plan-panel_pane_1';
     $pane->shown = TRUE;
@@ -120,10 +102,10 @@ function farm_admin_default_page_manager_pages() {
     $pane->locks = array();
     $pane->uuid = '3f0d901e-5538-45b5-8cf1-2e190c67e079';
     $display->content['new-3f0d901e-5538-45b5-8cf1-2e190c67e079'] = $pane;
-    $display->panels['right'][0] = 'new-3f0d901e-5538-45b5-8cf1-2e190c67e079';
+    $display->panels['middle'][0] = 'new-3f0d901e-5538-45b5-8cf1-2e190c67e079';
     $pane = new stdClass();
     $pane->pid = 'new-8815b7ae-ed68-45a0-ad9f-26a01e736486';
-    $pane->panel = 'right';
+    $pane->panel = 'middle';
     $pane->type = 'views_panes';
     $pane->subtype = 'log_plan-panel_pane_2';
     $pane->shown = TRUE;
@@ -141,7 +123,7 @@ function farm_admin_default_page_manager_pages() {
     $pane->locks = array();
     $pane->uuid = '8815b7ae-ed68-45a0-ad9f-26a01e736486';
     $display->content['new-8815b7ae-ed68-45a0-ad9f-26a01e736486'] = $pane;
-    $display->panels['right'][1] = 'new-8815b7ae-ed68-45a0-ad9f-26a01e736486';
+    $display->panels['middle'][1] = 'new-8815b7ae-ed68-45a0-ad9f-26a01e736486';
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;

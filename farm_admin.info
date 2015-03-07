@@ -3,7 +3,6 @@ description = Administrative interface for managing the farm.
 core = 7.x
 package = Farm
 dependencies[] = ctools
-dependencies[] = farm_area
 dependencies[] = log_plan
 dependencies[] = page_manager
 dependencies[] = panels
