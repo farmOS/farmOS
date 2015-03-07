@@ -409,16 +409,6 @@ function farm_area_views_default_views() {
   $handler->display->display_options['tab_options']['title'] = 'Areas';
   $handler->display->display_options['tab_options']['weight'] = '10';
 
-  /* Display: All areas (Content pane) */
-  $handler = $view->new_display('panel_pane', 'All areas (Content pane)', 'panel_pane_1');
-  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
-  $handler->display->display_options['style_plugin'] = 'openlayers_map';
-  $handler->display->display_options['style_options']['map'] = 'farm_map_areas';
-  $handler->display->display_options['defaults']['style_options'] = FALSE;
-  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
-  $handler->display->display_options['defaults']['row_options'] = FALSE;
-  $handler->display->display_options['link_to_view'] = '0';
-
   /* Display: All areas (Attachment) */
   $handler = $view->new_display('attachment', 'All areas (Attachment)', 'attachment_1');
   $handler->display->display_options['pager']['type'] = 'none';
@@ -443,7 +433,6 @@ function farm_area_views_default_views() {
   $handler->display->display_options['footer']['area_text_custom']['content'] = '<a href="/admin/structure/taxonomy/farm_areas">Manage area hierarchy</a>';
   $handler->display->display_options['displays'] = array(
     'page_1' => 'page_1',
-    'panel_pane_1' => 'panel_pane_1',
     'default' => 0,
   );
   $handler->display->display_options['attachment_position'] = 'after';
