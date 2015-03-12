@@ -2,40 +2,32 @@
   Drupal.behaviors.farm_theme_vbo = {
     attach: function (context, settings) {
 
-      // Attach the toggle function to both the VBO select and select-all checkboxes.
-      $('.vbo-select', context).click(event, function() {
-        Drupal.behaviors.farm_theme_vbo.toggle(event.target);
-      });
-      $('.vbo-table-select-all', context).click(event, function() {
-        Drupal.behaviors.farm_theme_vbo.toggle(event.target);
+      // Reset the visibility of the VBO buttons if the VBO form is clicked.
+      $('.vbo-views-form', context).click(event, function() {
+        Drupal.behaviors.farm_theme_vbo.reset_buttons(event.target);
       });
 
       // Hide VBO buttons by default.
       $('.vbo-views-form .form-wrapper', context).hide();
 
-      // Toggle the buttons.
-      Drupal.behaviors.farm_theme_vbo.toggle(context);
+      // Reset the buttons.
+      Drupal.behaviors.farm_theme_vbo.reset_buttons(context);
     },
 
-    // Toggle the visibility of the VBO buttons.
-    toggle: function (context) {
+    // Reset the visibility of the VBO buttons.
+    reset_buttons: function (context) {
 
-      // Check to see if the VBO buttons are visible.
-      var visible = $('.vbo-views-form .form-wrapper').is(':visible');
-
-      // Find all checkboxes within the given VBO.
+      // Find all checked boxes within the given VBO.
       var checked = $(context).closest('.vbo-views-form').find('input:checked');
-
-      // Do we want to show the VBO buttons?
-      var show = false;
-
-      // If any boxes are checked, show the VBO buttons.
-      if (checked.length) {
-        show = true;
-      }
 
       // Get the VBO buttons fieldset.
       var buttons = $(context).closest('.vbo-views-form').find('.form-wrapper');
+
+      // Check to see if the VBO buttons are visible.
+      var visible = buttons.is(':visible');
+
+      // If any boxes are checked, show the VBO buttons.
+      var show = (checked.length) ? true : false;
 
       // If the VBO buttons are hidden and we want to show them, slide down.
       if (!visible && show) {
