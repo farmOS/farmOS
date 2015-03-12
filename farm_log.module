@@ -410,6 +410,7 @@ function farm_log_asset_move_action_form($context, $form_state) {
     '#type' => 'checkbox',
     '#title' => t('Movement is done'),
     '#description' => t('Check this if the movement has already been done. Otherwise, you will need to mark the movement log item as done later.'),
+    '#default_value' => TRUE,
   );
 
   return $form;
