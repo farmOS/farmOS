@@ -369,6 +369,34 @@ function farm_log_action_info() {
  */
 function farm_log_asset_move_action_form($context, $form_state) {
 
+  // Build a list of the assets being moved.
+  if (!empty($form_state['selection'])) {
+    $assets = array();
+    $query = db_select('farm_asset', 'a');
+    $query->addField('a', 'name');
+    $query->condition('a.id', $form_state['selection']);
+    $results = $query->execute();
+    foreach ($results as $result) {
+      $assets[] = $result->name;
+    }
+
+    // If there is more than one asset, theme an item list.
+    if (count($assets) > 1) {
+      $markup = theme('item_list', array('items' => $assets, 'title' => t('Move Assets:')));
+    }
+
+    // Otherwise, display the one.
+    else {
+      $markup = '<h3>' . t('Move') . ' ' . reset($assets) . '</h3>';
+    }
+
+    // Display the asset(s) in the form.
+    $form['assets'] = array(
+      '#type' => 'markup',
+      '#markup' => $markup,
+    );
+  }
+
   // "To" field: select list of areas.
   $form['to'] = array(
     '#type' => 'select',
