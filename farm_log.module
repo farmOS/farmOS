@@ -189,11 +189,11 @@ function farm_log_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'log_form' && (!empty($form['field_farm_asset']) || !empty($form['field_farm_assets']))) {
 
     // First choice is farm_asset, second is farm_assets.
-    $field_name = (!empty($form['field_farm_asset'])) ? 'field_farm_asset' : 'field_farm_asset';
+    $field_name = (!empty($form['field_farm_asset'])) ? 'field_farm_asset' : 'field_farm_assets';
 
     // Alter the form using our helper function.
     // ($asset is used below to for movement logs.)
-    $asset = farm_log_form_prepopulate_asset($form, 'field_farm_asset');
+    $asset = farm_log_form_prepopulate_asset($form, $field_name);
   }
 
   // If this is a log form with an area(s) reference field...
