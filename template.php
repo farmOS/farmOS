@@ -9,11 +9,11 @@
  */
 function farm_theme_form_alter(&$form, &$form_state, $form_id) {
 
-  // Collapse the Views Exposed form
+  // Views Exposed (filters and sort) form:
   if ($form_id == 'views_exposed_form') {
 
     /**
-     * Wrap the exposed form in a Bootstrap collapsible panel.
+     * Wrap the exposed form in a Bootstrap collapsed panel.
      */
 
     // Form prefix HTML:
@@ -36,8 +36,13 @@ function farm_theme_form_alter(&$form, &$form_state, $form_id) {
 </div>';
   }
 
-  // Move Views Bulk Operations actions to the bottom.
+  // Views Bulk Operations form:
   else if (strpos($form_id, 'views_form_') === 0 && !empty($form['select'])) {
+
+    // Add some JavaScript to hide the VBO buttons until items are selected.
+    drupal_add_js(drupal_get_path('theme', 'farm_theme') . '/js/vbo.js');
+
+    // Move VBO buttons to the bottom.
     $form['select']['#weight'] = 100;
   }
 }
