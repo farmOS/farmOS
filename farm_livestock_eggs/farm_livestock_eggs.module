@@ -7,41 +7,19 @@
 include_once 'farm_livestock_eggs.features.inc';
 
 /**
- * Implements hook_menu_local_tasks_alter().
+ * Implements hook_farm_admin_actions().
  */
-function farm_livestock_eggs_menu_local_tasks_alter(&$data, $router_item, $root_path) {
+function farm_livestock_eggs_farm_admin_actions() {
 
-  // Define actions.
+  // Define farm area actions.
   $actions = array(
     'eggs' => array(
       'title' => t('Add eggs'),
       'href' => 'log/add/farm_eggs',
+      'paths' => array(
+        'farm/livestock/eggs',
+      ),
     ),
   );
-
-  // Define actions for various paths.
-  $path_actions = array(
-    'farm/livestock/eggs' => array('eggs'),
-  );
-
-  // Add actions depending on the root path.
-  if (array_key_exists($root_path, $path_actions)) {
-    foreach ($path_actions[$root_path] as $action) {
-      $output = array(
-        '#theme' => 'menu_local_action',
-        '#link' => array(
-          'title' => $actions[$action]['title'],
-          'href' => $actions[$action]['href'],
-          'localized_options' => array(
-            'query' => array(
-              'destination' => $root_path,
-            ),
-          ),
-        ),
-      );
-
-      // Add the action output.
-      $data['actions']['output'][] = $output;
-    }
-  }
+  return $actions;
 }
