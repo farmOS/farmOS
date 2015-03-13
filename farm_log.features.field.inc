@@ -199,14 +199,14 @@ function farm_log_field_default_fields() {
     ),
   );
 
-  // Exported field: 'log-farm_activity-field_farm_assets'.
-  $fields['log-farm_activity-field_farm_assets'] = array(
+  // Exported field: 'log-farm_activity-field_farm_asset'.
+  $fields['log-farm_activity-field_farm_asset'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '-1',
+      'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_farm_assets',
+      'field_name' => 'field_farm_asset',
       'foreign keys' => array(
         'farm_asset' => array(
           'columns' => array(
@@ -244,7 +244,7 @@ function farm_log_field_default_fields() {
       'bundle' => 'farm_activity',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'List any farm assets that this activity pertains to.',
+      'description' => 'What asset does this activity pertain to?',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -253,12 +253,12 @@ function farm_log_field_default_fields() {
             'link' => 1,
           ),
           'type' => 'entityreference_label',
-          'weight' => '2',
+          'weight' => '1',
         ),
       ),
       'entity_type' => 'log',
-      'field_name' => 'field_farm_assets',
-      'label' => 'Assets',
+      'field_name' => 'field_farm_asset',
+      'label' => 'Asset',
       'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
@@ -315,7 +315,7 @@ function farm_log_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '3',
+          'weight' => '2',
         ),
       ),
       'entity_type' => 'log',
@@ -880,9 +880,7 @@ function farm_log_field_default_fields() {
   // Included for use with string extractors like potx.
   t('Areas');
   t('Asset');
-  t('Assets');
   t('From');
-  t('List any farm assets that this activity pertains to.');
   t('Notes');
   t('Optionally, link this observation to a specific farm asset.');
   t('Optionally, use this quantity field to record an observed quantity.');
@@ -892,6 +890,7 @@ function farm_log_field_default_fields() {
   t('Units');
   t('Value');
   t('What area(s) did this activity take place in?');
+  t('What asset does this activity pertain to?');
   t('What asset is being moved?');
   t('What type of observation is this. Use this to organize your observations into categories for easy viewing later. As you type, you will have the option of selecting from a list of types you entered in the past.');
   t('Where is it moving from? This field is optional. You may leave this blank as a way of setting an object\'s initial location.');
