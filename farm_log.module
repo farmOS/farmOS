@@ -19,102 +19,50 @@ function farm_log_permission() {
 }
 
 /**
- * Implements hook_menu_local_tasks_alter().
+ * Implements hook_farm_admin_actions().
  */
-function farm_log_menu_local_tasks_alter(&$data, $router_item, $root_path) {
+function farm_log_farm_admin_actions() {
 
-  // Define actions.
+  // Define farm area actions.
   $actions = array(
     'activity' => array(
       'title' => t('Add an activity'),
       'href' => 'log/add/farm_activity',
+      'paths' => array(
+        'farm',
+        'farm/area/%/activities',
+        'farm/plan/activities',
+        'taxonomy/term/%',
+      ),
+      'assets' => array(
+        'all',
+      ),
     ),
     'movement' => array(
       'title' => t('Add a movement'),
       'href' => 'log/add/farm_movement',
+      'paths' => array(
+        'farm/asset/%/movements',
+        'farm/plan/movements',
+      ),
+      'assets' => array(
+        'all',
+      ),
     ),
     'observation' => array(
       'title' => t('Add an observation'),
       'href' => 'log/add/farm_observation',
+      'paths' => array(
+        'farm',
+        'farm/asset/%/observations',
+        'farm/plan/observations',
+      ),
+      'assets' => array(
+        'all',
+      ),
     ),
   );
-
-  // Define actions for various paths.
-  $path_actions = array(
-    'farm/area/%/activities' => array('activity'),
-    'farm/asset/%' => array('movement', 'observation'),
-    'farm/asset/%/movements' => array('movement'),
-    'farm/asset/%/observations' => array('observation'),
-    'farm' => array('activity', 'observation'),
-    'farm/plan/activities' => array('activity'),
-    'farm/plan/movements' => array('movement'),
-    'farm/plan/observations' => array('observation'),
-    'taxonomy/term/%' => array('activity'),
-  );
-
-  // Add actions depending on the root path.
-  if (array_key_exists($root_path, $path_actions)) {
-    foreach ($path_actions[$root_path] as $action) {
-      $output = array(
-        '#theme' => 'menu_local_action',
-        '#link' => array(
-          'title' => $actions[$action]['title'],
-          'href' => $actions[$action]['href'],
-          'localized_options' => array(
-            'query' => array(
-              'destination' => $root_path,
-            ),
-          ),
-        ),
-      );
-
-      // If this is a farm asset movements path...
-      if (in_array($root_path, array(
-          'farm/asset/%',
-          'farm/asset/%/movements'
-        ))) {
-
-        // Get the asset id from the path.
-        $asset_id = check_plain(arg(2));
-
-        // Set the destination to the farm asset page.
-        $output['#link']['localized_options']['query']['destination'] = 'farm/asset/' . $asset_id;
-
-        // Set the farm_asset query string to the asset id. This will be used to
-        // prepopulate asset reference fields in log entities.
-        // See hook_form_alter() below
-        $output['#link']['localized_options']['query']['farm_asset'] = $asset_id;
-      }
-
-      // Or, if this is an area path...
-      elseif ($root_path == 'taxonomy/term/%' || substr($root_path, 0, 11) == 'farm/area/%') {
-
-        // Get the asset id from the path.
-        $area_id = check_plain(arg(2));
-
-        // Load the area.
-        $farm_area = taxonomy_term_load($area_id);
-
-        // If the taxonomy term is not a farm_area, bail.
-        if (empty($farm_area->vocabulary_machine_name) || $farm_area->vocabulary_machine_name != 'farm_areas') {
-          continue;
-        }
-
-        // Set the destination to the farm area page.
-        $output['#link']['localized_options']['query']['destination'] = 'taxonomy/term/' . $area_id;
-
-        // Set the farm_area query string to the area id. This will be used to
-        // prepopulate area reference fields in log entities.
-        // See hook_form_alter() below
-        $output['#link']['localized_options']['query']['farm_area'] = $area_id;
-      }
-
-      // Add the action output.
-      if (!empty($output)) {
-        $data['actions']['output'][] = $output;
-      }
-    }
-  }
+  return $actions;
 }
 
 /**
