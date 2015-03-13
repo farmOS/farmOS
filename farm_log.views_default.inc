@@ -40,6 +40,7 @@ function farm_log_views_default_views() {
     'id' => 'id',
     'timestamp' => 'timestamp',
     'name' => 'name',
+    'field_farm_asset' => 'field_farm_asset',
     'done' => 'done',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
@@ -64,6 +65,13 @@ function farm_log_views_default_views() {
       'empty_column' => 0,
     ),
     'name' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_asset' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -175,6 +183,13 @@ function farm_log_views_default_views() {
   $handler->display->display_options['fields']['name']['label'] = 'Activity';
   $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['name']['alter']['path'] = 'log/[id]';
+  /* Field: Log: Asset */
+  $handler->display->display_options['fields']['field_farm_asset']['id'] = 'field_farm_asset';
+  $handler->display->display_options['fields']['field_farm_asset']['table'] = 'field_data_field_farm_asset';
+  $handler->display->display_options['fields']['field_farm_asset']['field'] = 'field_farm_asset';
+  $handler->display->display_options['fields']['field_farm_asset']['settings'] = array(
+    'link' => 1,
+  );
   /* Field: Log: Done */
   $handler->display->display_options['fields']['done']['id'] = 'done';
   $handler->display->display_options['fields']['done']['table'] = 'log';
@@ -514,6 +529,13 @@ function farm_log_views_default_views() {
   $handler->display->display_options['fields']['timestamp']['date_format'] = 'custom';
   $handler->display->display_options['fields']['timestamp']['custom_date_format'] = 'M j Y';
   $handler->display->display_options['fields']['timestamp']['second_date_format'] = 'long';
+  /* Field: Log: Asset */
+  $handler->display->display_options['fields']['field_farm_asset']['id'] = 'field_farm_asset';
+  $handler->display->display_options['fields']['field_farm_asset']['table'] = 'field_data_field_farm_asset';
+  $handler->display->display_options['fields']['field_farm_asset']['field'] = 'field_farm_asset';
+  $handler->display->display_options['fields']['field_farm_asset']['settings'] = array(
+    'link' => 1,
+  );
   /* Field: Log: To */
   $handler->display->display_options['fields']['field_farm_move_to']['id'] = 'field_farm_move_to';
   $handler->display->display_options['fields']['field_farm_move_to']['table'] = 'field_data_field_farm_move_to';
@@ -862,6 +884,13 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['fields']['name']['label'] = 'Observation';
   $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['name']['alter']['path'] = 'log/[id]';
+  /* Field: Log: Asset */
+  $handler->display->display_options['fields']['field_farm_asset']['id'] = 'field_farm_asset';
+  $handler->display->display_options['fields']['field_farm_asset']['table'] = 'field_data_field_farm_asset';
+  $handler->display->display_options['fields']['field_farm_asset']['field'] = 'field_farm_asset';
+  $handler->display->display_options['fields']['field_farm_asset']['settings'] = array(
+    'link' => 1,
+  );
   /* Field: Log: Quantity */
   $handler->display->display_options['fields']['field_farm_quantity']['id'] = 'field_farm_quantity';
   $handler->display->display_options['fields']['field_farm_quantity']['table'] = 'field_data_field_farm_quantity';
