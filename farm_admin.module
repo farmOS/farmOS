@@ -37,6 +37,23 @@ function farm_admin_menu() {
   return $items;
 }
 
+
+/**
+ * Implements hook_menu_breadcrumb_alter().
+ */
+function farm_admin_menu_breadcrumb_alter(&$active_trail, $item) {
+
+  // If the current path contains /farm...
+  if (strpos($item['path'], 'farm') === 0) {
+
+    // Add an item for /farm.
+    $start = array_shift($active_trail);
+    $farm_item = menu_get_item('farm');
+    array_unshift($active_trail, $farm_item);
+    array_unshift($active_trail, $start);
+  }
+}
+
 /**
  * Implements hook_navbar().
  */
