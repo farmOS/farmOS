@@ -131,14 +131,14 @@ function farm_log_field_default_fields() {
     ),
   );
 
-  // Exported field: 'log-farm_activity-field_farm_areas'.
-  $fields['log-farm_activity-field_farm_areas'] = array(
+  // Exported field: 'log-farm_activity-field_farm_area'.
+  $fields['log-farm_activity-field_farm_area'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '-1',
+      'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_farm_areas',
+      'field_name' => 'field_farm_area',
       'foreign keys' => array(
         'tid' => array(
           'columns' => array(
@@ -169,19 +169,19 @@ function farm_log_field_default_fields() {
       'bundle' => 'farm_activity',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'What area(s) did this activity take place in?',
+      'description' => 'What area did this activity take place in?',
       'display' => array(
         'default' => array(
-          'label' => 'inline',
+          'label' => 'above',
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '1',
+          'weight' => 4,
         ),
       ),
       'entity_type' => 'log',
-      'field_name' => 'field_farm_areas',
-      'label' => 'Areas',
+      'field_name' => 'field_farm_area',
+      'label' => 'Area',
       'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
@@ -878,7 +878,7 @@ function farm_log_field_default_fields() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Areas');
+  t('Area');
   t('Asset');
   t('From');
   t('Notes');
@@ -889,7 +889,7 @@ function farm_log_field_default_fields() {
   t('Type');
   t('Units');
   t('Value');
-  t('What area(s) did this activity take place in?');
+  t('What area did this activity take place in?');
   t('What asset does this activity pertain to?');
   t('What asset is being moved?');
   t('What type of observation is this. Use this to organize your observations into categories for easy viewing later. As you type, you will have the option of selecting from a list of types you entered in the past.');
