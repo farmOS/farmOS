@@ -7,123 +7,77 @@
 include_once 'farm_crop.features.inc';
 
 /**
- * Implements hook_menu_local_tasks_alter().
+ * Implements hook_farm_admin_actions().
  */
-function farm_crop_menu_local_tasks_alter(&$data, $router_item, $root_path) {
+function farm_crop_farm_admin_actions() {
 
   // Define actions.
   $actions = array(
     'crop' => array(
       'title' => t('Add a crop'),
       'href' => 'admin/structure/taxonomy/farm_crops/add',
+      'paths' => array(
+        'farm/crops',
+      ),
     ),
     'harvest' => array(
       'title' => t('Add a harvest'),
       'href' => 'log/add/farm_harvest',
+      'paths' => array(
+        'farm/asset/%/harvests',
+        'farm/crops/harvests',
+      ),
+      'assets' => array(
+        'planting'
+      ),
     ),
     'input' => array(
       'title' => t('Add an input'),
       'href' => 'log/add/farm_input',
+      'paths' => array(
+        'farm/area/%/inputs',
+        'farm/asset/%/inputs',
+        'farm/crops/inputs',
+        'taxonomy/term/%',
+      ),
+      'assets' => array(
+        'planting'
+      ),
     ),
     'planting' => array(
       'title' => t('Add a planting'),
       'href' => 'farm/asset/add/planting',
+      'paths' => array(
+        'farm/area/%/plantings',
+        'farm/crop/%/plantings',
+        'farm/crops',
+        'farm/crops/plantings',
+      ),
     ),
     'seeding' => array(
       'title' => t('Add a seeding'),
       'href' => 'log/add/farm_seeding',
+      'paths' => array(
+        'farm/asset/%/seedings',
+        'farm/crops/seedings',
+      ),
+      'assets' => array(
+        'planting'
+      ),
     ),
     'transplanting' => array(
       'title' => t('Add a transplanting'),
       'href' => 'log/add/farm_transplanting',
+      'paths' => array(
+        'farm/asset/%/transplantings',
+        'farm/crops/transplantings',
+      ),
+      'assets' => array(
+        'planting'
+      ),
     ),
   );
-
-  // Define actions for various paths.
-  $path_actions = array(
-    'farm/area/%/inputs' => array('input'),
-    'farm/area/%/plantings' => array('planting'),
-    'farm/asset/%' => array('seeding', 'transplanting', 'harvest', 'input'),
-    'farm/asset/%/harvests' => array('harvest'),
-    'farm/asset/%/inputs' => array('input'),
-    'farm/asset/%/seedings' => array('seeding'),
-    'farm/asset/%/transplantings' => array('transplanting'),
-    'farm/crop/%/plantings' => array('planting'),
-    'farm/crops' => array('crop', 'planting'),
-    'farm/crops/harvests' => array('harvest'),
-    'farm/crops/inputs' => array('input'),
-    'farm/crops/plantings' => array('planting'),
-    'farm/crops/seedings' => array('seeding'),
-    'farm/crops/transplantings' => array('transplanting'),
-    'taxonomy/term/%' => array('input'),
-  );
-
-  // Add actions depending on the root path.
-  if (array_key_exists($root_path, $path_actions)) {
-    foreach ($path_actions[$root_path] as $action) {
-      $output = array(
-        '#theme' => 'menu_local_action',
-        '#link' => array(
-          'title' => $actions[$action]['title'],
-          'href' => $actions[$action]['href'],
-          'localized_options' => array(
-            'query' => array(
-              'destination' => $root_path,
-            ),
-          ),
-        ),
-      );
-
-      // If this is a farm asset path...
-      if (substr($root_path, 0, 12) == 'farm/asset/%') {
-
-        // Get the asset id from the path.
-        $asset_id = check_plain(arg(2));
-
-        // Load the asset.
-        $farm_asset = farm_asset_load($asset_id);
-
-        // If the farm asset is not a planting, bail.
-        if (empty($farm_asset->type) || $farm_asset->type != 'planting') {
-          continue;
-        }
-
-        // Set the destination to the farm asset page.
-        $output['#link']['localized_options']['query']['destination'] = 'farm/asset/' . $asset_id;
-
-        // Set the farm_asset query string to the asset id. This will be used to
-        // prepopulate asset reference fields in log entities.
-        // See hook_form_alter() below
-        $output['#link']['localized_options']['query']['farm_asset'] = $asset_id;
-      }
-
-      // Or, if this is a farm area path...
-      elseif ($root_path == 'taxonomy/term/%' || substr($root_path, 0, 11) == 'farm/area/%') {
-
-        // Get the area id from the path.
-        $area_id = check_plain(arg(2));
-
-        // Load the area.
-        $farm_area = taxonomy_term_load($area_id);
-
-        // If the taxonomy term is not a farm_area, bail.
-        if (empty($farm_area->vocabulary_machine_name) || $farm_area->vocabulary_machine_name != 'farm_areas') {
-          continue;
-        }
-
-        // Set the destination to the farm asset page.
-        $output['#link']['localized_options']['query']['destination'] = 'taxonomy/term/' . $area_id;
-
-        // Set the farm_area query string to the area id. This will be used to
-        // prepopulate area(s) reference fields in log entities.
-        // See hook_form_alter() below
-        $output['#link']['localized_options']['query']['farm_area'] = $area_id;
-      }
-
-      // Add the action output.
-      $data['actions']['output'][] = $output;
-    }
-  }
+  return $actions;
 }
 
 /**
