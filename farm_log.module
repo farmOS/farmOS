@@ -350,6 +350,9 @@ function farm_log_asset_move_action_form($context, $form_state) {
     '#required' => TRUE,
   );
 
+  // Convert the timestamp to the format Date API expects.
+  $default_value = date('Y-m-d H:i', REQUEST_TIME);
+
   // "Date" field: default to current date.
   $form['timestamp'] = array(
     '#type' => 'date_select',
@@ -357,7 +360,7 @@ function farm_log_asset_move_action_form($context, $form_state) {
     '#date_format' => 'M j Y',
     '#date_type' => DATE_FORMAT_UNIX,
     '#date_year_range' => '-10:+3',
-    '#default_value' => REQUEST_TIME,
+    '#default_value' => $default_value,
     '#required' => TRUE,
   );
 
