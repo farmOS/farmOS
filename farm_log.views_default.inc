@@ -41,6 +41,7 @@ function farm_log_views_default_views() {
     'timestamp' => 'timestamp',
     'name' => 'name',
     'field_farm_asset' => 'field_farm_asset',
+    'field_farm_area' => 'field_farm_area',
     'done' => 'done',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
@@ -72,6 +73,13 @@ function farm_log_views_default_views() {
       'empty_column' => 0,
     ),
     'field_farm_asset' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_area' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -191,6 +199,10 @@ function farm_log_views_default_views() {
   $handler->display->display_options['fields']['field_farm_asset']['settings'] = array(
     'link' => 1,
   );
+  /* Field: Log: Area */
+  $handler->display->display_options['fields']['field_farm_area']['id'] = 'field_farm_area';
+  $handler->display->display_options['fields']['field_farm_area']['table'] = 'field_data_field_farm_area';
+  $handler->display->display_options['fields']['field_farm_area']['field'] = 'field_farm_area';
   /* Field: Log: Done */
   $handler->display->display_options['fields']['done']['id'] = 'done';
   $handler->display->display_options['fields']['done']['table'] = 'log';
@@ -285,20 +297,20 @@ function farm_log_views_default_views() {
   /* Display: Activities by area (Page) */
   $handler = $view->new_display('page', 'Activities by area (Page)', 'page_1');
   $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: Log: Areas (field_farm_areas) */
-  $handler->display->display_options['arguments']['field_farm_areas_tid']['id'] = 'field_farm_areas_tid';
-  $handler->display->display_options['arguments']['field_farm_areas_tid']['table'] = 'field_data_field_farm_areas';
-  $handler->display->display_options['arguments']['field_farm_areas_tid']['field'] = 'field_farm_areas_tid';
-  $handler->display->display_options['arguments']['field_farm_areas_tid']['default_action'] = 'not found';
-  $handler->display->display_options['arguments']['field_farm_areas_tid']['title_enable'] = TRUE;
-  $handler->display->display_options['arguments']['field_farm_areas_tid']['title'] = 'Activities in %1';
-  $handler->display->display_options['arguments']['field_farm_areas_tid']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['field_farm_areas_tid']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['field_farm_areas_tid']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['field_farm_areas_tid']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['field_farm_areas_tid']['specify_validation'] = TRUE;
-  $handler->display->display_options['arguments']['field_farm_areas_tid']['validate']['type'] = 'taxonomy_term';
-  $handler->display->display_options['arguments']['field_farm_areas_tid']['validate_options']['vocabularies'] = array(
+  /* Contextual filter: Log: Area (field_farm_area) */
+  $handler->display->display_options['arguments']['field_farm_area_tid']['id'] = 'field_farm_area_tid';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['table'] = 'field_data_field_farm_area';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['field'] = 'field_farm_area_tid';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['default_action'] = 'empty';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['title_enable'] = TRUE;
+  $handler->display->display_options['arguments']['field_farm_area_tid']['title'] = 'Activities in %1';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['specify_validation'] = TRUE;
+  $handler->display->display_options['arguments']['field_farm_area_tid']['validate']['type'] = 'taxonomy_term';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['validate_options']['vocabularies'] = array(
     'farm_areas' => 'farm_areas',
   );
   $handler->display->display_options['path'] = 'farm/area/%/activities';
@@ -329,18 +341,20 @@ function farm_log_views_default_views() {
   $handler->display->display_options['sorts']['id']['field'] = 'id';
   $handler->display->display_options['sorts']['id']['order'] = 'DESC';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: Log: Areas (field_farm_areas) */
-  $handler->display->display_options['arguments']['field_farm_areas_tid']['id'] = 'field_farm_areas_tid';
-  $handler->display->display_options['arguments']['field_farm_areas_tid']['table'] = 'field_data_field_farm_areas';
-  $handler->display->display_options['arguments']['field_farm_areas_tid']['field'] = 'field_farm_areas_tid';
-  $handler->display->display_options['arguments']['field_farm_areas_tid']['default_action'] = 'empty';
-  $handler->display->display_options['arguments']['field_farm_areas_tid']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['field_farm_areas_tid']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['field_farm_areas_tid']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['field_farm_areas_tid']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['field_farm_areas_tid']['specify_validation'] = TRUE;
-  $handler->display->display_options['arguments']['field_farm_areas_tid']['validate']['type'] = 'taxonomy_term';
-  $handler->display->display_options['arguments']['field_farm_areas_tid']['validate_options']['vocabularies'] = array(
+  /* Contextual filter: Log: Area (field_farm_area) */
+  $handler->display->display_options['arguments']['field_farm_area_tid']['id'] = 'field_farm_area_tid';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['table'] = 'field_data_field_farm_area';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['field'] = 'field_farm_area_tid';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['default_action'] = 'not found';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['title_enable'] = TRUE;
+  $handler->display->display_options['arguments']['field_farm_area_tid']['title'] = 'Activities in %1';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['specify_validation'] = TRUE;
+  $handler->display->display_options['arguments']['field_farm_area_tid']['validate']['type'] = 'taxonomy_term';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['validate_options']['vocabularies'] = array(
     'farm_areas' => 'farm_areas',
   );
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
