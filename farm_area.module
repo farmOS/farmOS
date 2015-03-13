@@ -7,43 +7,22 @@
 include_once 'farm_area.features.inc';
 
 /**
- * Implements hook_menu_local_tasks_alter().
+ * Implements hook_farm_admin_actions().
  */
-function farm_area_menu_local_tasks_alter(&$data, $router_item, $root_path) {
+function farm_area_farm_admin_actions() {
 
-  // Define actions.
+  // Define farm admin actions.
   $actions = array(
     'area' => array(
       'title' => t('Add an area'),
-      'href' => t('admin/structure/taxonomy/farm_areas/add'),
+      'href' => 'admin/structure/taxonomy/farm_areas/add',
+      'paths' => array(
+        'farm/areas',
+      ),
     ),
   );
-
-  // Define actions for various paths.
-  $path_actions = array(
-    'farm/areas' => $actions['area'],
-  );
-
-  // Add actions depending on the root path.
-  if (array_key_exists($root_path, $path_actions)) {
-    $output = array(
-      '#theme' => 'menu_local_action',
-      '#link' => array(
-        'title' => $path_actions[$root_path]['title'],
-        'href' => $path_actions[$root_path]['href'],
-        'localized_options' => array(
-          'query' => array(
-            'destination' => $root_path,
-          ),
-        ),
-      ),
-    );
-
-    // Add the action output.
-    $data['actions']['output'][] = $output;
-  }
+  return $actions;
 }
-
 
 /**
  * Generate area links, sorted by weight.
