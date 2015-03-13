@@ -75,7 +75,7 @@ function farm_log_update_7001(&$sandbox) {
   // Load all issue logs.
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'log');
-  $query->entityCondition('bundle', 'farm_issue'); // Run the query as user 1.
+  $query->entityCondition('bundle', 'farm_issue');
   $result = $query->execute();
   if (isset($result['log'])) {
     $ids = array_keys($result['log']);
@@ -134,4 +134,47 @@ function farm_log_update_7001(&$sandbox) {
   if (!empty($log_type)) {
     log_type_delete($log_type);
   }
+}
+
+/**
+ * Migrate Areas and Assets fields to Area and Asset field.
+ */
+function farm_log_update_7002(&$sandbox) {
+
+  // Load all activity logs.
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'log');
+  $query->entityCondition('bundle', 'farm_activity');
+  $result = $query->execute();
+  if (isset($result['log'])) {
+    $ids = array_keys($result['log']);
+    $logs = entity_load('log', $ids);
+  }
+
+  // If logs were loaded, iterate through them...
+  if (!empty($logs)) {
+    foreach ($logs as $log) {
+
+      // Copy the first area, discard the rest.
+      if (!empty($log->field_farm_areas[LANGUAGE_NONE][0])) {
+        $log->field_farm_area[LANGUAGE_NONE][] = $log->field_farm_areas[LANGUAGE_NONE][0];
+      }
+
+      // Copy the first asset, discard the rest.
+      if (!empty($log->field_farm_assets[LANGUAGE_NONE][0])) {
+        $log->field_farm_asset[LANGUAGE_NONE][] = $log->field_farm_assets[LANGUAGE_NONE][0];
+      }
+
+      // Save the log.
+      log_save($log);
+    }
+  }
+
+  // Delete the areas field.
+  $field = field_info_instance('log', 'field_farm_areas', 'farm_activity');
+  field_delete_instance($field);
+
+  // Delete the assets field.
+  $field = field_info_instance('log', 'field_farm_assets', 'farm_activity');
+  field_delete_instance($field);
 }
