@@ -341,6 +341,13 @@ function farm_crop_views_default_views() {
       'override_label' => 1,
       'label' => 'Done',
     ),
+    'action::log_undone_action' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 1,
+      'override_label' => 1,
+      'label' => 'Not Done',
+    ),
     'action::views_bulk_operations_modify_action' => array(
       'selected' => 0,
       'postpone_processing' => 0,
@@ -362,6 +369,13 @@ function farm_crop_views_default_views() {
       'settings' => array(
         'url' => '',
       ),
+    ),
+    'action::log_reschedule_action' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 1,
+      'override_label' => 0,
+      'label' => '',
     ),
     'action::system_send_email_action' => array(
       'selected' => 0,
@@ -715,6 +729,13 @@ if (!empty($farm_asset)) {
       'override_label' => 1,
       'label' => 'Done',
     ),
+    'action::log_undone_action' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 1,
+      'override_label' => 1,
+      'label' => 'Not Done',
+    ),
     'action::views_bulk_operations_modify_action' => array(
       'selected' => 0,
       'postpone_processing' => 0,
@@ -736,6 +757,13 @@ if (!empty($farm_asset)) {
       'settings' => array(
         'url' => '',
       ),
+    ),
+    'action::log_reschedule_action' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 1,
+      'override_label' => 0,
+      'label' => '',
     ),
     'action::system_send_email_action' => array(
       'selected' => 0,
@@ -1109,6 +1137,13 @@ if (!empty($farm_asset)) {
       'override_label' => 1,
       'label' => 'Done',
     ),
+    'action::log_undone_action' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 1,
+      'override_label' => 1,
+      'label' => 'Not Done',
+    ),
     'action::views_bulk_operations_modify_action' => array(
       'selected' => 0,
       'postpone_processing' => 0,
@@ -1130,6 +1165,13 @@ if (!empty($farm_asset)) {
       'settings' => array(
         'url' => '',
       ),
+    ),
+    'action::log_reschedule_action' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 1,
+      'override_label' => 0,
+      'label' => '',
     ),
     'action::system_send_email_action' => array(
       'selected' => 0,
@@ -1478,6 +1520,13 @@ if (!empty($farm_asset)) {
       'override_label' => 1,
       'label' => 'Done',
     ),
+    'action::log_undone_action' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 1,
+      'override_label' => 1,
+      'label' => 'Not Done',
+    ),
     'action::views_bulk_operations_modify_action' => array(
       'selected' => 0,
       'postpone_processing' => 0,
@@ -1499,6 +1548,13 @@ if (!empty($farm_asset)) {
       'settings' => array(
         'url' => '',
       ),
+    ),
+    'action::log_reschedule_action' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 1,
+      'override_label' => 0,
+      'label' => '',
     ),
     'action::system_send_email_action' => array(
       'selected' => 0,
