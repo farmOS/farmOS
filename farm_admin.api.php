@@ -34,10 +34,13 @@ function hook_farm_admin_actions() {
       'title' => t('Add a foo log'),
       'href' => 'log/add/farm_foo',
       'paths' => array(
-        'farm/asset/%',
+        'farm/asset/%/foo',
       ),
       'assets' => array(
         'bar',
+      ),
+      'views' => array(
+        'foo_view',
       ),
     ),
   );
