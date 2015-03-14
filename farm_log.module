@@ -28,37 +28,40 @@ function farm_log_farm_admin_actions() {
     'activity' => array(
       'title' => t('Add an activity'),
       'href' => 'log/add/farm_activity',
-      'paths' => array(
-        'farm',
-        'farm/area/%/activities',
-        'farm/plan/activities',
-        'taxonomy/term/%',
-      ),
       'assets' => array(
         'all',
+      ),
+      'views' => array(
+        'farm_log_activity',
+      ),
+      'paths' => array(
+        'farm',
+        'farm/plan',
+        'taxonomy/term/%',
       ),
     ),
     'movement' => array(
       'title' => t('Add a movement'),
       'href' => 'log/add/farm_movement',
-      'paths' => array(
-        'farm/asset/%/movements',
-        'farm/plan/movements',
-      ),
       'assets' => array(
         'all',
+      ),
+      'views' => array(
+        'farm_log_movement',
       ),
     ),
     'observation' => array(
       'title' => t('Add an observation'),
       'href' => 'log/add/farm_observation',
-      'paths' => array(
-        'farm',
-        'farm/asset/%/observations',
-        'farm/plan/observations',
-      ),
       'assets' => array(
         'all',
+      ),
+      'views' => array(
+        'farm_log_observation',
+      ),
+      'paths' => array(
+        'farm',
+        'farm/plan',
       ),
     ),
   );
