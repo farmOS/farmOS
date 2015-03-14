@@ -13,22 +13,19 @@ function farm_equipment_farm_admin_actions() {
     'equipment' => array(
       'title' => t('Add equipment'),
       'href' => 'farm/asset/add/equipment',
-      'paths' => array(
-        'farm/area/%/equipment',
-        'farm/equipment',
-        'farm/equipment/list',
+      'views' => array(
+        'farm_equipment',
       ),
     ),
     'maintenance' => array(
       'title' => t('Add maintenance'),
       'href' => 'log/add/farm_maintenance',
-      'paths' => array(
-        'farm/equipment',
-        'farm/equipment/list',
-        'farm/equipment/maintenance',
-      ),
       'assets' => array(
         'equipment',
+      ),
+      'views' => array(
+        'farm_equipment',
+        'farm_log_maintenance',
       ),
     ),
   );
