@@ -16,8 +16,8 @@ function farm_area_farm_admin_actions() {
     'area' => array(
       'title' => t('Add an area'),
       'href' => 'admin/structure/taxonomy/farm_areas/add',
-      'paths' => array(
-        'farm/areas',
+      'views' => array(
+        'farm_areas',
       ),
     ),
   );
