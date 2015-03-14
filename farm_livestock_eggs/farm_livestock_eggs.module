@@ -16,8 +16,9 @@ function farm_livestock_eggs_farm_admin_actions() {
     'eggs' => array(
       'title' => t('Add eggs'),
       'href' => 'log/add/farm_eggs',
-      'paths' => array(
-        'farm/livestock/eggs',
+      'views' => array(
+        'farm_animals',
+        'farm_log_eggs',
       ),
     ),
   );

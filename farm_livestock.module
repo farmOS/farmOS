@@ -16,10 +16,8 @@ function farm_livestock_farm_admin_actions() {
     'animal' => array(
       'title' => t('Add an animal'),
       'href' => 'farm/asset/add/animal',
-      'paths' => array(
-        'farm/area/%/animals',
-        'farm/livestock',
-        'farm/livestock/animals',
+      'views' => array(
+        'farm_animals',
       ),
     ),
   );
