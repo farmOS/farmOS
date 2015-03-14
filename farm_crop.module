@@ -23,57 +23,54 @@ function farm_crop_farm_admin_actions() {
     'harvest' => array(
       'title' => t('Add a harvest'),
       'href' => 'log/add/farm_harvest',
-      'paths' => array(
-        'farm/asset/%/harvests',
-        'farm/crops/harvests',
-      ),
       'assets' => array(
         'planting'
+      ),
+      'views' => array(
+        'farm_log_harvest',
       ),
     ),
     'input' => array(
       'title' => t('Add an input'),
       'href' => 'log/add/farm_input',
-      'paths' => array(
-        'farm/area/%/inputs',
-        'farm/asset/%/inputs',
-        'farm/crops/inputs',
-        'taxonomy/term/%',
-      ),
       'assets' => array(
         'planting'
+      ),
+      'views' => array(
+        'farm_log_input',
+      ),
+      'paths' => array(
+        'taxonomy/term/%',
       ),
     ),
     'planting' => array(
       'title' => t('Add a planting'),
       'href' => 'farm/asset/add/planting',
+      'views' => array(
+        'farm_plantings',
+      ),
       'paths' => array(
-        'farm/area/%/plantings',
-        'farm/crop/%/plantings',
         'farm/crops',
-        'farm/crops/plantings',
       ),
     ),
     'seeding' => array(
       'title' => t('Add a seeding'),
       'href' => 'log/add/farm_seeding',
-      'paths' => array(
-        'farm/asset/%/seedings',
-        'farm/crops/seedings',
-      ),
       'assets' => array(
         'planting'
+      ),
+      'views' => array(
+        'farm_log_seeding',
       ),
     ),
     'transplanting' => array(
       'title' => t('Add a transplanting'),
       'href' => 'log/add/farm_transplanting',
-      'paths' => array(
-        'farm/asset/%/transplantings',
-        'farm/crops/transplantings',
-      ),
       'assets' => array(
         'planting'
+      ),
+      'views' => array(
+        'farm_log_transplanting',
       ),
     ),
   );
