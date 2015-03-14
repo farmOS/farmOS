@@ -16,9 +16,8 @@ function farm_soil_test_farm_admin_actions() {
     'soil_test' => array(
       'title' => t('Add a soil test'),
       'href' => 'log/add/farm_soil_test',
-      'paths' => array(
-        'farm/area/%/soil-tests',
-        'farm/areas/soil-tests',
+      'views' => array(
+        'farm_log_soil_tests',
       ),
     ),
   );
