@@ -236,6 +236,14 @@ function farm_log_views_default_views() {
   $handler->display->display_options['sorts']['id']['table'] = 'log';
   $handler->display->display_options['sorts']['id']['field'] = 'id';
   $handler->display->display_options['sorts']['id']['order'] = 'DESC';
+  /* Contextual filter: Log: Asset (field_farm_asset) */
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['id'] = 'field_farm_asset_target_id';
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['table'] = 'field_data_field_farm_asset';
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['field'] = 'field_farm_asset_target_id';
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary_options']['items_per_page'] = '25';
   /* Filter criterion: Log: Log type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'log';
@@ -294,8 +302,8 @@ function farm_log_views_default_views() {
   $handler->display->display_options['filters']['done']['expose']['operator'] = 'done_op';
   $handler->display->display_options['filters']['done']['expose']['identifier'] = 'done';
 
-  /* Display: All activities (Page) */
-  $handler = $view->new_display('page', 'All activities (Page)', 'page');
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page');
   $handler->display->display_options['path'] = 'farm/plan/activities';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Activities';
@@ -607,6 +615,25 @@ function farm_log_views_default_views() {
   $handler->display->display_options['sorts']['id']['table'] = 'log';
   $handler->display->display_options['sorts']['id']['field'] = 'id';
   $handler->display->display_options['sorts']['id']['order'] = 'DESC';
+  /* Contextual filter: Log: Asset (field_farm_asset) */
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['id'] = 'field_farm_asset_target_id';
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['table'] = 'field_data_field_farm_asset';
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['field'] = 'field_farm_asset_target_id';
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['title_enable'] = TRUE;
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['title'] = '%1\'s movements';
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['specify_validation'] = TRUE;
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['validate']['type'] = 'php';
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['validate_options']['code'] = '// Attempt to load the asset.
+$farm_asset = farm_asset_load($argument);
+if (!empty($farm_asset)) {
+  // Set the title.
+  $handler->validated_title = entity_label(\'farm_asset\', $farm_asset);
+  return TRUE;
+}';
   /* Filter criterion: Log: Log type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'log';
@@ -654,8 +681,8 @@ function farm_log_views_default_views() {
   $handler->display->display_options['filters']['done']['expose']['operator'] = 'done_op';
   $handler->display->display_options['filters']['done']['expose']['identifier'] = 'done';
 
-  /* Display: All movements (Page) */
-  $handler = $view->new_display('page', 'All movements (Page)', 'page_1');
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page_1');
   $handler->display->display_options['path'] = 'farm/plan/movements';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Movements';
@@ -663,97 +690,6 @@ function farm_log_views_default_views() {
   $handler->display->display_options['menu']['name'] = 'management';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
-
-  /* Display: Movements by asset (Page) */
-  $handler = $view->new_display('page', 'Movements by asset (Page)', 'page_2');
-  $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: Log: Asset (field_farm_asset) */
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['id'] = 'field_farm_asset_target_id';
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['table'] = 'field_data_field_farm_asset';
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['field'] = 'field_farm_asset_target_id';
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['default_action'] = 'not found';
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['title_enable'] = TRUE;
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['title'] = '%1\'s movements';
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['specify_validation'] = TRUE;
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['validate']['type'] = 'php';
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['validate_options']['code'] = '// Attempt to load the asset.
-$farm_asset = farm_asset_load($argument);
-if (!empty($farm_asset)) {
-  // Set the title.
-  $handler->validated_title = entity_label(\'farm_asset\', $farm_asset);
-  return TRUE;
-}';
-  $handler->display->display_options['path'] = 'farm/asset/%/movements';
-
-  /* Display: Movements by asset (Content pane) */
-  $handler = $view->new_display('panel_pane', 'Movements by asset (Content pane)', 'panel_pane_1');
-  $handler->display->display_options['defaults']['use_more'] = FALSE;
-  $handler->display->display_options['use_more'] = TRUE;
-  $handler->display->display_options['defaults']['use_more_always'] = FALSE;
-  $handler->display->display_options['defaults']['use_more_always'] = FALSE;
-  $handler->display->display_options['use_more_always'] = FALSE;
-  $handler->display->display_options['defaults']['use_more_text'] = FALSE;
-  $handler->display->display_options['defaults']['link_display'] = FALSE;
-  $handler->display->display_options['link_display'] = 'page_2';
-  $handler->display->display_options['defaults']['pager'] = FALSE;
-  $handler->display->display_options['pager']['type'] = 'some';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '5';
-  $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['defaults']['sorts'] = FALSE;
-  /* Sort criterion: Log: Timestamp */
-  $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
-  $handler->display->display_options['sorts']['timestamp']['table'] = 'log';
-  $handler->display->display_options['sorts']['timestamp']['field'] = 'timestamp';
-  $handler->display->display_options['sorts']['timestamp']['order'] = 'DESC';
-  /* Sort criterion: Log: Log ID */
-  $handler->display->display_options['sorts']['id']['id'] = 'id';
-  $handler->display->display_options['sorts']['id']['table'] = 'log';
-  $handler->display->display_options['sorts']['id']['field'] = 'id';
-  $handler->display->display_options['sorts']['id']['order'] = 'DESC';
-  $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: Log: Asset (field_farm_asset) */
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['id'] = 'field_farm_asset_target_id';
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['table'] = 'field_data_field_farm_asset';
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['field'] = 'field_farm_asset_target_id';
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['default_action'] = 'empty';
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['specify_validation'] = TRUE;
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['validate']['type'] = 'php';
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['validate_options']['code'] = '// Attempt to load the asset.
-$farm_asset = farm_asset_load($argument);
-if (!empty($farm_asset)) {
-  // Set the title.
-  $handler->validated_title = entity_label(\'farm_asset\', $farm_asset);
-  return TRUE;
-}';
-  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
-  $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: Log: Log type */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'log';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'farm_movement' => 'farm_movement',
-  );
-  $handler->display->display_options['filters']['type']['group'] = 1;
-  $handler->display->display_options['argument_input'] = array(
-    'field_farm_asset_target_id' => array(
-      'type' => 'context',
-      'context' => 'entity:farm_asset.id',
-      'context_optional' => 0,
-      'panel' => '0',
-      'fixed' => '',
-      'label' => 'Log: Asset (field_farm_asset)',
-    ),
-  );
-  $handler->display->display_options['link_to_view'] = '0';
   $export['farm_log_movement'] = $view;
 
   $view = new view();
@@ -977,6 +913,25 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['sorts']['id']['table'] = 'log';
   $handler->display->display_options['sorts']['id']['field'] = 'id';
   $handler->display->display_options['sorts']['id']['order'] = 'DESC';
+  /* Contextual filter: Log: Asset (field_farm_asset) */
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['id'] = 'field_farm_asset_target_id';
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['table'] = 'field_data_field_farm_asset';
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['field'] = 'field_farm_asset_target_id';
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['title_enable'] = TRUE;
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['title'] = '%1\'s observations';
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['specify_validation'] = TRUE;
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['validate']['type'] = 'php';
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['validate_options']['code'] = '// Attempt to load the asset.
+$farm_asset = farm_asset_load($argument);
+if (!empty($farm_asset)) {
+  // Set the title.
+  $handler->validated_title = entity_label(\'farm_asset\', $farm_asset);
+  return TRUE;
+}';
   /* Filter criterion: Log: Log type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'log';
@@ -1038,8 +993,8 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['filters']['done']['expose']['operator'] = 'done_op';
   $handler->display->display_options['filters']['done']['expose']['identifier'] = 'done';
 
-  /* Display: All observations (Page) */
-  $handler = $view->new_display('page', 'All observations (Page)', 'page_1');
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page_1');
   $handler->display->display_options['path'] = 'farm/plan/observations';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Observations';
@@ -1047,97 +1002,6 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['menu']['name'] = 'management';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
-
-  /* Display: Observations by asset (Page) */
-  $handler = $view->new_display('page', 'Observations by asset (Page)', 'page_2');
-  $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: Log: Asset (field_farm_asset) */
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['id'] = 'field_farm_asset_target_id';
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['table'] = 'field_data_field_farm_asset';
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['field'] = 'field_farm_asset_target_id';
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['default_action'] = 'not found';
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['title_enable'] = TRUE;
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['title'] = '%1\'s observations';
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['specify_validation'] = TRUE;
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['validate']['type'] = 'php';
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['validate_options']['code'] = '// Attempt to load the asset.
-$farm_asset = farm_asset_load($argument);
-if (!empty($farm_asset)) {
-  // Set the title.
-  $handler->validated_title = entity_label(\'farm_asset\', $farm_asset);
-  return TRUE;
-}';
-  $handler->display->display_options['path'] = 'farm/asset/%/observations';
-
-  /* Display: Observations by asset (Content pane) */
-  $handler = $view->new_display('panel_pane', 'Observations by asset (Content pane)', 'panel_pane_1');
-  $handler->display->display_options['defaults']['use_more'] = FALSE;
-  $handler->display->display_options['use_more'] = TRUE;
-  $handler->display->display_options['defaults']['use_more_always'] = FALSE;
-  $handler->display->display_options['defaults']['use_more_always'] = FALSE;
-  $handler->display->display_options['use_more_always'] = FALSE;
-  $handler->display->display_options['defaults']['use_more_text'] = FALSE;
-  $handler->display->display_options['defaults']['link_display'] = FALSE;
-  $handler->display->display_options['link_display'] = 'page_2';
-  $handler->display->display_options['defaults']['pager'] = FALSE;
-  $handler->display->display_options['pager']['type'] = 'some';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '5';
-  $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['defaults']['sorts'] = FALSE;
-  /* Sort criterion: Log: Timestamp */
-  $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
-  $handler->display->display_options['sorts']['timestamp']['table'] = 'log';
-  $handler->display->display_options['sorts']['timestamp']['field'] = 'timestamp';
-  $handler->display->display_options['sorts']['timestamp']['order'] = 'DESC';
-  /* Sort criterion: Log: Log ID */
-  $handler->display->display_options['sorts']['id']['id'] = 'id';
-  $handler->display->display_options['sorts']['id']['table'] = 'log';
-  $handler->display->display_options['sorts']['id']['field'] = 'id';
-  $handler->display->display_options['sorts']['id']['order'] = 'DESC';
-  $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: Log: Asset (field_farm_asset) */
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['id'] = 'field_farm_asset_target_id';
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['table'] = 'field_data_field_farm_asset';
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['field'] = 'field_farm_asset_target_id';
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['default_action'] = 'empty';
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['specify_validation'] = TRUE;
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['validate']['type'] = 'php';
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['validate_options']['code'] = '// Attempt to load the asset.
-$farm_asset = farm_asset_load($argument);
-if (!empty($farm_asset)) {
-  // Set the title.
-  $handler->validated_title = entity_label(\'farm_asset\', $farm_asset);
-  return TRUE;
-}';
-  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
-  $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: Log: Log type */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'log';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'farm_observation' => 'farm_observation',
-  );
-  $handler->display->display_options['filters']['type']['group'] = 1;
-  $handler->display->display_options['argument_input'] = array(
-    'field_farm_asset_target_id' => array(
-      'type' => 'context',
-      'context' => 'entity:farm_asset.id',
-      'context_optional' => 0,
-      'panel' => '0',
-      'fixed' => '',
-      'label' => 'Log: Asset (field_farm_asset)',
-    ),
-  );
-  $handler->display->display_options['link_to_view'] = '0';
   $export['farm_log_observation'] = $view;
 
   return $export;
