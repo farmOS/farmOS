@@ -889,7 +889,7 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['title'] = 'Seedings';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
-  $handler->display->display_options['access']['perm'] = 'view any planting farm assets';
+  $handler->display->display_options['access']['perm'] = 'view any farm_seeding log entities';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
@@ -1200,7 +1200,7 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['title'] = 'Transplantings';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
-  $handler->display->display_options['access']['perm'] = 'view any planting farm assets';
+  $handler->display->display_options['access']['perm'] = 'view any farm_transplanting log entities';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
