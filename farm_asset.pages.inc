@@ -9,8 +9,46 @@
  * Asset view callback.
  */
 function farm_asset_view($farm_asset) {
+
+  // Set the page title.
   drupal_set_title(entity_label('farm_asset', $farm_asset));
-  return entity_view('farm_asset', array(entity_id('farm_asset', $farm_asset) => $farm_asset), 'full');
+
+  // Build the asset's render array.
+  $build = entity_view('farm_asset', array(entity_id('farm_asset', $farm_asset) => $farm_asset), 'full');
+
+  // Allow other modules to add Views to the entity render array.
+  if (!empty($build['farm_asset'])) {
+    foreach ($build['farm_asset'] as &$entity_build) {
+
+      // Pull the farm asset entity out of the build array.
+      $farm_asset = $entity_build['#entity'];
+
+      // Invoke hook_farm_asset_view_views() to get a list of Views.
+      $views = module_invoke_all('farm_asset_view_views', $farm_asset);
+
+      // Add the Views to the entity's render array.
+      foreach ($views as $key => $name) {
+
+        // Load the View, and bail if it isn't found.
+        $view = views_get_view($name);
+        if (empty($view)) {
+          continue;
+        }
+
+        // Build the output of the View, with a title.
+        $output = '<h3>' . $view->get_title() . '</h3>' . $view->preview('default', array($farm_asset->id));
+
+        // Add the output to the entity build array.
+        $entity_build[$name] = array(
+          '#markup' => $output,
+          '#weight' => 100 + $key,
+        );
+      }
+    }
+  }
+
+  // Return the render array.
+  return $build;
 }
 
 /**
