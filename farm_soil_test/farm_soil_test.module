@@ -31,7 +31,7 @@ function farm_soil_test_farm_area_links($id) {
   return array(
     array(
       'title' => t('Soil Tests'),
-      'href' => 'farm/area/' . $id . '/soil_tests',
+      'href' => 'farm/area/' . $id . '/soil-tests',
       'weight' => 100,
     ),
   );
