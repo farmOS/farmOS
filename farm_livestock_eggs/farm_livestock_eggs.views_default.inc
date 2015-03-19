@@ -345,8 +345,8 @@ function farm_livestock_eggs_views_default_views() {
   $handler->display->display_options['filters']['done']['expose']['operator'] = 'done_op';
   $handler->display->display_options['filters']['done']['expose']['identifier'] = 'done';
 
-  /* Display: All eggs (Page) */
-  $handler = $view->new_display('page', 'All eggs (Page)', 'page');
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page');
   $handler->display->display_options['path'] = 'farm/livestock/eggs';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Eggs';
