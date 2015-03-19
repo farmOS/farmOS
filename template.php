@@ -19,14 +19,14 @@ function farm_theme_form_alter(&$form, &$form_state, $form_id) {
     // Form prefix HTML:
     $form['#prefix'] = '
 <div class="panel panel-default">
-  <div class="panel-heading" role="tab" id="ViewsFilterSortHeading">
+  <div class="panel-heading" role="tab" id="' . $form['#id'] . '-panel-heading">
     <h4 class="panel-title">
-      <a class="collapsed" data-toggle="collapse" href="#ViewsFilterSort" aria-expanded="false" aria-controls="ViewsFilterSort">
+      <a class="collapsed" data-toggle="collapse" href="#' . $form['#id'] . '-panel-body" aria-expanded="false" aria-controls="' . $form['#id'] . '-panel-body">
         Filter/Sort
       </a>
     </h4>
   </div>
-  <div id="ViewsFilterSort" class="panel-collapse collapse" role="tabpanel" aria-labelledby="ViewsFilterSortHeading" aria-expanded="false" style="height: 0px;">
+  <div id="' . $form['#id'] . '-panel-body" class="panel-collapse collapse" role="tabpanel" aria-labelledby="' . $form['#id'] . '-panel-heading" aria-expanded="false" style="height: 0px;">
     <div class="panel-body">';
 
     // Form suffix HTML:
