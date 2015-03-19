@@ -78,6 +78,28 @@ function farm_crop_farm_admin_actions() {
 }
 
 /**
+ * Implements hook_farm_asset_view_views().
+ */
+function farm_crop_farm_asset_view_views($farm_asset) {
+
+  // If the entity is not a planting, bail.
+  if ($farm_asset->type != 'planting') {
+    return;
+  }
+
+  // Return a list of Views to include on Plantings.
+  return array(
+    'farm_log_seeding',
+    'farm_log_transplanting',
+    'farm_log_input',
+    'farm_log_harvest',
+    'farm_log_activity',
+    'farm_log_observation',
+    'farm_log_movement',
+  );
+}
+
+/**
  * Implements hook_form_alter().
  */
 function farm_crop_form_alter(&$form, &$form_state, $form_id) {
