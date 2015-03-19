@@ -306,8 +306,8 @@ function farm_soil_test_views_default_views() {
   $handler->display->display_options['filters']['done']['expose']['operator'] = 'done_op';
   $handler->display->display_options['filters']['done']['expose']['identifier'] = 'done';
 
-  /* Display: All soil tests (Page) */
-  $handler = $view->new_display('page', 'All soil tests (Page)', 'page_1');
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page_1');
   $handler->display->display_options['path'] = 'farm/areas/soil-tests';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Soil Tests';
