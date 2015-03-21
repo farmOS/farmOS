@@ -439,6 +439,36 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['validate_options']['vocabularies'] = array(
     'farm_areas' => 'farm_areas',
   );
+  /* Contextual filter: Field: Group (field_farm_animal_group) */
+  $handler->display->display_options['arguments']['field_farm_animal_group_tid']['id'] = 'field_farm_animal_group_tid';
+  $handler->display->display_options['arguments']['field_farm_animal_group_tid']['table'] = 'field_data_field_farm_animal_group';
+  $handler->display->display_options['arguments']['field_farm_animal_group_tid']['field'] = 'field_farm_animal_group_tid';
+  $handler->display->display_options['arguments']['field_farm_animal_group_tid']['title_enable'] = TRUE;
+  $handler->display->display_options['arguments']['field_farm_animal_group_tid']['title'] = 'Animals in group %2';
+  $handler->display->display_options['arguments']['field_farm_animal_group_tid']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['field_farm_animal_group_tid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_farm_animal_group_tid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_farm_animal_group_tid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['field_farm_animal_group_tid']['specify_validation'] = TRUE;
+  $handler->display->display_options['arguments']['field_farm_animal_group_tid']['validate']['type'] = 'taxonomy_term';
+  $handler->display->display_options['arguments']['field_farm_animal_group_tid']['validate_options']['vocabularies'] = array(
+    'farm_animal_groups' => 'farm_animal_groups',
+  );
+  /* Contextual filter: Farm asset: Type (field_farm_animal_type) */
+  $handler->display->display_options['arguments']['field_farm_animal_type_tid']['id'] = 'field_farm_animal_type_tid';
+  $handler->display->display_options['arguments']['field_farm_animal_type_tid']['table'] = 'field_data_field_farm_animal_type';
+  $handler->display->display_options['arguments']['field_farm_animal_type_tid']['field'] = 'field_farm_animal_type_tid';
+  $handler->display->display_options['arguments']['field_farm_animal_type_tid']['title_enable'] = TRUE;
+  $handler->display->display_options['arguments']['field_farm_animal_type_tid']['title'] = 'Animals of type %3';
+  $handler->display->display_options['arguments']['field_farm_animal_type_tid']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['field_farm_animal_type_tid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_farm_animal_type_tid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_farm_animal_type_tid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['field_farm_animal_type_tid']['specify_validation'] = TRUE;
+  $handler->display->display_options['arguments']['field_farm_animal_type_tid']['validate']['type'] = 'taxonomy_term';
+  $handler->display->display_options['arguments']['field_farm_animal_type_tid']['validate_options']['vocabularies'] = array(
+    'farm_animal_types' => 'farm_animal_types',
+  );
   /* Filter criterion: Farm asset: Farm asset type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'farm_asset';
