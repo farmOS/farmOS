@@ -129,6 +129,11 @@ function farm_crop_farm_taxonomy_term_view_views($term) {
         'arg' => 2,
       );
       break;
+
+    // Farm crop family
+    case 'farm_crop_families':
+      $views[] = 'farm_crops';
+      break;
   }
 
   return $views;
