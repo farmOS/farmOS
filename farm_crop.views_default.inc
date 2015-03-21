@@ -1710,6 +1710,21 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['validate_options']['vocabularies'] = array(
     'farm_areas' => 'farm_areas',
   );
+  /* Contextual filter: Farm asset: Crop (field_farm_crop) */
+  $handler->display->display_options['arguments']['field_farm_crop_tid']['id'] = 'field_farm_crop_tid';
+  $handler->display->display_options['arguments']['field_farm_crop_tid']['table'] = 'field_data_field_farm_crop';
+  $handler->display->display_options['arguments']['field_farm_crop_tid']['field'] = 'field_farm_crop_tid';
+  $handler->display->display_options['arguments']['field_farm_crop_tid']['title_enable'] = TRUE;
+  $handler->display->display_options['arguments']['field_farm_crop_tid']['title'] = 'Plantings of %2';
+  $handler->display->display_options['arguments']['field_farm_crop_tid']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['field_farm_crop_tid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_farm_crop_tid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_farm_crop_tid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['field_farm_crop_tid']['specify_validation'] = TRUE;
+  $handler->display->display_options['arguments']['field_farm_crop_tid']['validate']['type'] = 'taxonomy_term';
+  $handler->display->display_options['arguments']['field_farm_crop_tid']['validate_options']['vocabularies'] = array(
+    'farm_crops' => 'farm_crops',
+  );
   /* Filter criterion: Farm asset: Farm asset type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'farm_asset';
@@ -1765,8 +1780,8 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['filters']['field_farm_season_tid']['vocabulary'] = 'farm_season';
   $handler->display->display_options['filters']['field_farm_season_tid']['hierarchy'] = 1;
 
-  /* Display: All plantings (Page) */
-  $handler = $view->new_display('page', 'All plantings (Page)', 'page');
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page');
   $handler->display->display_options['path'] = 'farm/crops/plantings';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Plantings';
@@ -1774,105 +1789,6 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['menu']['name'] = 'management';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
-
-  /* Display: Plantings by crop (Page) */
-  $handler = $view->new_display('page', 'Plantings by crop (Page)', 'page_1');
-  $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: Farm asset: Crop (field_farm_crop) */
-  $handler->display->display_options['arguments']['field_farm_crop_tid']['id'] = 'field_farm_crop_tid';
-  $handler->display->display_options['arguments']['field_farm_crop_tid']['table'] = 'field_data_field_farm_crop';
-  $handler->display->display_options['arguments']['field_farm_crop_tid']['field'] = 'field_farm_crop_tid';
-  $handler->display->display_options['arguments']['field_farm_crop_tid']['default_action'] = 'not found';
-  $handler->display->display_options['arguments']['field_farm_crop_tid']['title_enable'] = TRUE;
-  $handler->display->display_options['arguments']['field_farm_crop_tid']['title'] = 'Plantings of %1';
-  $handler->display->display_options['arguments']['field_farm_crop_tid']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['field_farm_crop_tid']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['field_farm_crop_tid']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['field_farm_crop_tid']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['field_farm_crop_tid']['specify_validation'] = TRUE;
-  $handler->display->display_options['arguments']['field_farm_crop_tid']['validate']['type'] = 'taxonomy_term';
-  $handler->display->display_options['arguments']['field_farm_crop_tid']['validate_options']['vocabularies'] = array(
-    'farm_crops' => 'farm_crops',
-  );
-  $handler->display->display_options['path'] = 'farm/crop/%/plantings';
-
-  /* Display: Plantings by crop (Content pane) */
-  $handler = $view->new_display('panel_pane', 'Plantings by crop (Content pane)', 'panel_pane_1');
-  $handler->display->display_options['defaults']['use_more'] = FALSE;
-  $handler->display->display_options['use_more'] = TRUE;
-  $handler->display->display_options['defaults']['use_more_always'] = FALSE;
-  $handler->display->display_options['defaults']['use_more_always'] = FALSE;
-  $handler->display->display_options['use_more_always'] = FALSE;
-  $handler->display->display_options['defaults']['use_more_text'] = FALSE;
-  $handler->display->display_options['defaults']['link_display'] = FALSE;
-  $handler->display->display_options['link_display'] = 'page_1';
-  $handler->display->display_options['defaults']['pager'] = FALSE;
-  $handler->display->display_options['pager']['type'] = 'some';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '25';
-  $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Farm asset: Farm asset ID */
-  $handler->display->display_options['fields']['id']['id'] = 'id';
-  $handler->display->display_options['fields']['id']['table'] = 'farm_asset';
-  $handler->display->display_options['fields']['id']['field'] = 'id';
-  $handler->display->display_options['fields']['id']['exclude'] = TRUE;
-  /* Field: Farm asset: Name */
-  $handler->display->display_options['fields']['name']['id'] = 'name';
-  $handler->display->display_options['fields']['name']['table'] = 'farm_asset';
-  $handler->display->display_options['fields']['name']['field'] = 'name';
-  $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['name']['alter']['path'] = 'farm/asset/[id]';
-  /* Field: Log: To */
-  $handler->display->display_options['fields']['field_farm_move_to']['id'] = 'field_farm_move_to';
-  $handler->display->display_options['fields']['field_farm_move_to']['table'] = 'field_data_field_farm_move_to';
-  $handler->display->display_options['fields']['field_farm_move_to']['field'] = 'field_farm_move_to';
-  $handler->display->display_options['fields']['field_farm_move_to']['relationship'] = 'latest_movement';
-  $handler->display->display_options['fields']['field_farm_move_to']['label'] = 'Location';
-  /* Field: Field: Season */
-  $handler->display->display_options['fields']['field_farm_season']['id'] = 'field_farm_season';
-  $handler->display->display_options['fields']['field_farm_season']['table'] = 'field_data_field_farm_season';
-  $handler->display->display_options['fields']['field_farm_season']['field'] = 'field_farm_season';
-  $handler->display->display_options['defaults']['sorts'] = FALSE;
-  /* Sort criterion: Farm asset: Name */
-  $handler->display->display_options['sorts']['name']['id'] = 'name';
-  $handler->display->display_options['sorts']['name']['table'] = 'farm_asset';
-  $handler->display->display_options['sorts']['name']['field'] = 'name';
-  $handler->display->display_options['sorts']['name']['expose']['label'] = 'Name';
-  $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: Farm asset: Crop (field_farm_crop) */
-  $handler->display->display_options['arguments']['field_farm_crop_tid']['id'] = 'field_farm_crop_tid';
-  $handler->display->display_options['arguments']['field_farm_crop_tid']['table'] = 'field_data_field_farm_crop';
-  $handler->display->display_options['arguments']['field_farm_crop_tid']['field'] = 'field_farm_crop_tid';
-  $handler->display->display_options['arguments']['field_farm_crop_tid']['default_action'] = 'empty';
-  $handler->display->display_options['arguments']['field_farm_crop_tid']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['field_farm_crop_tid']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['field_farm_crop_tid']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['field_farm_crop_tid']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['field_farm_crop_tid']['specify_validation'] = TRUE;
-  $handler->display->display_options['arguments']['field_farm_crop_tid']['validate']['type'] = 'taxonomy_term';
-  $handler->display->display_options['arguments']['field_farm_crop_tid']['validate_options']['vocabularies'] = array(
-    'farm_crops' => 'farm_crops',
-  );
-  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
-  $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: Farm asset: Farm asset type */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'farm_asset';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'planting' => 'planting',
-  );
-  $handler->display->display_options['filters']['type']['group'] = 1;
-  $handler->display->display_options['argument_input'] = array(
-    'field_farm_crop_tid' => array(
-      'type' => 'context',
-      'context' => 'entity:taxonomy_term.tid',
-      'context_optional' => 0,
-      'panel' => '0',
-      'fixed' => '',
-      'label' => 'Farm asset: Crop (field_farm_crop)',
-    ),
-  );
   $export['farm_plantings'] = $view;
 
   return $export;
