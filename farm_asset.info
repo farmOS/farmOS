@@ -3,5 +3,4 @@ description = "A farm asset entity type."
 core = 7.x
 package = "Farm"
 dependencies[] = entity
-dependencies[] = page_manager
 files[] = farm_asset.class.inc
