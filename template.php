@@ -80,3 +80,15 @@ function farm_theme_entity_view_alter(&$build, $type) {
     }
   }
 }
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function farm_theme_preprocess_page(&$vars) {
+
+  // Remove from taxonomy term pages:
+  // "There is currently no content classified with this term."
+  if (isset($vars['page']['content']['system_main']['no_content'])) {
+    unset($vars['page']['content']['system_main']['no_content']);
+  }
+}
