@@ -407,7 +407,7 @@ function farm_area_views_default_views() {
   $handler->display->display_options['menu']['context_only_inline'] = 0;
   $handler->display->display_options['tab_options']['type'] = 'tab';
   $handler->display->display_options['tab_options']['title'] = 'Areas';
-  $handler->display->display_options['tab_options']['weight'] = '10';
+  $handler->display->display_options['tab_options']['weight'] = '0';
 
   /* Display: Hierarchy (Attachment) */
   $handler = $view->new_display('attachment', 'Hierarchy (Attachment)', 'attachment_1');
@@ -430,9 +430,7 @@ function farm_area_views_default_views() {
   $handler->display->display_options['header']['area_text_custom']['id'] = 'area_text_custom';
   $handler->display->display_options['header']['area_text_custom']['table'] = 'views';
   $handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
-  $handler->display->display_options['header']['area_text_custom']['content'] = '<h4>Hierarchy</h4>
-<p><a href="/admin/structure/taxonomy/farm_areas">(change hierarchy)</a></p>
-<br />';
+  $handler->display->display_options['header']['area_text_custom']['content'] = '<h4>Hierarchy <small><a href="/admin/structure/taxonomy/farm_areas">(change)</a></small></h4>';
   $handler->display->display_options['displays'] = array(
     'page_1' => 'page_1',
     'default' => 0,
