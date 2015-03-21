@@ -8,6 +8,9 @@ core = 7.x
 projects[autocomplete_deluxe][subdir] = "contrib"
 projects[autocomplete_deluxe][version] = "2.0-beta3"
 
+projects[colorbox][subdir] = "contrib"
+projects[colorbox][version] = "2.8"
+
 projects[ctools][subdir] = "contrib"
 projects[ctools][version] = "1.5"
 
