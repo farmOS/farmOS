@@ -5,17 +5,8 @@ core = 7.x
 ; Modules (contrib)
 ; -----------------------------------------------------------------------------
 
-projects[addressfield][subdir] = "contrib"
-projects[addressfield][version] = "1.0-beta5"
-
 projects[autocomplete_deluxe][subdir] = "contrib"
 projects[autocomplete_deluxe][version] = "2.0-beta3"
-
-projects[commerce][subdir] = "contrib"
-projects[commerce][version] = "1.10"
-
-projects[commerce_features][subdir] = "contrib"
-projects[commerce_features][version] = "1.0"
 
 projects[ctools][subdir] = "contrib"
 projects[ctools][version] = "1.5"
@@ -91,9 +82,6 @@ projects[proj4js][version] = "1.2"
 
 projects[role_export][subdir] = "contrib"
 projects[role_export][version] = "1.0"
-
-projects[rules][subdir] = "contrib"
-projects[rules][version] = "2.7"
 
 projects[strongarm][subdir] = "contrib"
 projects[strongarm][version] = "2.0"
