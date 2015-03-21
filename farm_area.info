@@ -33,7 +33,6 @@ features[openlayers_maps][] = farm_map_area
 features[openlayers_maps][] = farm_map_areas
 features[page_manager_handlers][] = term_view_panel_context_farm_area
 features[taxonomy][] = farm_areas
-features[variable][] = field_bundle_settings_taxonomy_term__farm_areas
 features[variable][] = pathauto_taxonomy_term_farm_areas_pattern
 features[views_view][] = farm_area_data
 features[views_view][] = farm_areas
