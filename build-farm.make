@@ -18,4 +18,4 @@ projects[drupal][patch][995156] = http://drupal.org/files/issues/995156-5_portab
 projects[farm][type] = profile
 projects[farm][download][type] = git
 projects[farm][download][url] = http://git.drupal.org/project/farm.git
-projects[farm][download][branch] = 7.x-1.x
+projects[farm][download][tag] = 7.x-1.0-alpha1
