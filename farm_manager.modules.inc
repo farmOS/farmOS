@@ -127,7 +127,6 @@ function farm_log_farm_manager_perms() {
   $types = array(
     'log' => array(
       'farm_activity',
-      'farm_issue',
       'farm_movement',
       'farm_observation',
     ),
