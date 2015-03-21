@@ -62,6 +62,7 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['fields']['tid_1']['id'] = 'tid_1';
   $handler->display->display_options['fields']['tid_1']['table'] = 'taxonomy_term_data';
   $handler->display->display_options['fields']['tid_1']['field'] = 'tid';
+  $handler->display->display_options['fields']['tid_1']['relationship'] = 'parent';
   $handler->display->display_options['fields']['tid_1']['label'] = 'Parent Term ID';
   $handler->display->display_options['fields']['tid_1']['exclude'] = TRUE;
   /* Field: Taxonomy term: Name */
