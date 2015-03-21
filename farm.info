@@ -1,5 +1,5 @@
-name = FarmOS
-distribution_name = FarmOS
+name = farmOS
+distribution_name = farmOS
 description = A farm management system.
 core = 7.x
 
