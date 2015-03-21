@@ -119,7 +119,6 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['field_farm_crop_family']['id'] = 'field_farm_crop_family';
   $handler->display->display_options['fields']['field_farm_crop_family']['table'] = 'field_data_field_farm_crop_family';
   $handler->display->display_options['fields']['field_farm_crop_family']['field'] = 'field_farm_crop_family';
-  $handler->display->display_options['fields']['field_farm_crop_family']['type'] = 'taxonomy_term_reference_plain';
   /* Field: Taxonomy term: Days to transplant */
   $handler->display->display_options['fields']['field_farm_transplant_days']['id'] = 'field_farm_transplant_days';
   $handler->display->display_options['fields']['field_farm_transplant_days']['table'] = 'field_data_field_farm_transplant_days';
