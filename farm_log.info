@@ -19,7 +19,6 @@ dependencies[] = image
 dependencies[] = list
 dependencies[] = log
 dependencies[] = options
-dependencies[] = page_manager
 dependencies[] = taxonomy
 dependencies[] = views
 features[ctools][] = strongarm:strongarm:1
