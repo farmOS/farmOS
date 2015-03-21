@@ -26,6 +26,7 @@ The Farm Soil Test sub-module requires:
  * Views Data Export (http://drupal.org/project/views_data_export)
  * Farm Area (http://drupal.org/project/farm_area)
  * Farm Map (http://drupal.org/project/farm_map)
+ * Farm Soil (http://drupal.org/project/farm_soil)
 
 INSTALLATION
 ------------
