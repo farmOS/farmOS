@@ -11,6 +11,7 @@ DEPENDENCIES
 
 This module depends on the following modules:
 
+ * Colorbox (http://drupal.org/project/colorbox)
  * Ctools (http://drupal.org/project/ctools)
  * Date (http://drupal.org/project/date)
  * Entity API (http://drupal.org/project/entity)
