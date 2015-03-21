@@ -771,6 +771,21 @@ if (!empty($farm_asset)) {
   $handler->validated_title = entity_label(\'farm_asset\', $farm_asset);
   return TRUE;
 }';
+  /* Contextual filter: Log: Area (field_farm_area) */
+  $handler->display->display_options['arguments']['field_farm_area_tid']['id'] = 'field_farm_area_tid';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['table'] = 'field_data_field_farm_area';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['field'] = 'field_farm_area_tid';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['title_enable'] = TRUE;
+  $handler->display->display_options['arguments']['field_farm_area_tid']['title'] = 'Inputs to %2';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['specify_validation'] = TRUE;
+  $handler->display->display_options['arguments']['field_farm_area_tid']['validate']['type'] = 'taxonomy_term';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['validate_options']['vocabularies'] = array(
+    'farm_areas' => 'farm_areas',
+  );
   /* Filter criterion: Log: Log type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'log';
@@ -1694,6 +1709,22 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['sorts']['field_farm_season_tid']['field'] = 'field_farm_season_tid';
   $handler->display->display_options['sorts']['field_farm_season_tid']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['field_farm_season_tid']['expose']['label'] = 'Season';
+  /* Contextual filter: Log: To (field_farm_move_to) */
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['id'] = 'field_farm_move_to_tid';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['table'] = 'field_data_field_farm_move_to';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['field'] = 'field_farm_move_to_tid';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['relationship'] = 'latest_movement';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['title_enable'] = TRUE;
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['title'] = 'Plantings in %1';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['specify_validation'] = TRUE;
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['validate']['type'] = 'taxonomy_term';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['validate_options']['vocabularies'] = array(
+    'farm_areas' => 'farm_areas',
+  );
   /* Filter criterion: Farm asset: Farm asset type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'farm_asset';
