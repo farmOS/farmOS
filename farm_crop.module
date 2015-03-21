@@ -100,6 +100,33 @@ function farm_crop_farm_asset_view_views($farm_asset) {
 }
 
 /**
+ * Implements hook_farm_taxonomy_term_view_views().
+ */
+function farm_crop_farm_taxonomy_term_view_views($term) {
+
+  // Start a list of View names.
+  $views = array();
+
+  // Switch logic depending on the vocabulary.
+  switch ($term->vocabulary_machine_name) {
+
+    // Farm areas:
+    case 'farm_areas':
+      $views[] = array(
+        'name' => 'farm_plantings',
+        'arg' => 1,
+      );
+      $views[] = array(
+        'name' => 'farm_log_input',
+        'arg' => 2,
+      );
+      break;
+  }
+
+  return $views;
+}
+
+/**
  * Implements hook_form_alter().
  */
 function farm_crop_form_alter(&$form, &$form_state, $form_id) {
@@ -119,12 +146,18 @@ function farm_crop_farm_area_links($id) {
   return array(
     array(
       'title' => t('Inputs'),
-      'href' => 'farm/area/' . $id . '/inputs',
+      'href' => 'taxonomy/term/' . $id,
+      'options' => array(
+        'fragment' => 'Inputs',
+      ),
       'weight' => 10,
     ),
     array(
       'title' => t('Plantings'),
-      'href' => 'farm/area/' . $id . '/plantings',
+      'href' => 'taxonomy/term/' . $id,
+      'options' => array(
+        'fragment' => 'Plantings',
+      ),
     ),
   );
 }
