@@ -35,8 +35,20 @@ function farm_asset_view($farm_asset) {
           continue;
         }
 
-        // Build the output of the View, with a title.
-        $output = '<h3>' . $view->get_title() . '</h3>' . $view->preview('default', array($farm_asset->id));
+        // Build the View's arguments.
+        $args = array($farm_asset->id);
+
+        // Get the View's default title.
+        // We intentionally do this before we build the preview so that the title
+        // is not overridden by the arguments. This keeps the title simple on the
+        // actual term page, but more descriptive in other contexts.
+        $title = $view->get_title();
+
+        // Build the View preview.
+        $preview = $view->preview('default', $args);
+
+        // Build the output.
+        $output = '<h3 id="' . $title . '">' . $title . '</h3>' . $preview;
 
         // Add the output to the entity build array.
         $entity_build[$name] = array(
