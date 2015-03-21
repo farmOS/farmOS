@@ -3,9 +3,9 @@ FARM ADMIN
 
 Administrative interface for managing the farm.
 
-This module provides a Panels page dashboard at /farm. It is used by the
-other Farm modules (ie: [Farm Log](http://drupal.org/project/farm_log)) as a
-root path in the Drupal menu hierarchy.
+This module provides useful UI stuff for the farmOS system. This includes a
+Panels page dashboard at /farm, which forms the root of the farm path
+hierarchy.
 
 This module is part of the [FarmOS](http://drupal.org/project/farm)
 distribution.
@@ -16,6 +16,7 @@ DEPENDENCIES
 This module depends on the following modules:
 
  * Ctools (http://drupal.org/project/ctools)
+ * Log (http://drupal.org/project/log)
  * Panels (http://drupal.org/project/panels)
 
 INSTALLATION
