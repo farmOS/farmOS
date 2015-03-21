@@ -25,13 +25,32 @@ function farm_soil_test_farm_admin_actions() {
 }
 
 /**
+ * Implements hook_farm_taxonomy_term_view_views().
+ */
+function farm_soil_test_farm_taxonomy_term_view_views($term) {
+
+  // If the term is not an area, bail.
+  if ($term->vocabulary_machine_name != 'farm_areas') {
+    return;
+  }
+
+  // Return a list of Views to include on Areas.
+  return array(
+    'farm_log_soil_tests',
+  );
+}
+
+/**
  * Implements hook_farm_area_links().
  */
 function farm_soil_test_farm_area_links($id) {
   return array(
     array(
       'title' => t('Soil Tests'),
-      'href' => 'farm/area/' . $id . '/soil-tests',
+      'href' => 'taxonomy/term/' . $id,
+      'options' => array(
+        'fragment' => 'Soil Tests',
+      ),
       'weight' => 100,
     ),
   );
