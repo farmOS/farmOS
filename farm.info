@@ -17,7 +17,6 @@ dependencies[] = menu
 dependencies[] = node
 dependencies[] = path
 dependencies[] = rdf
-dependencies[] = shortcut
 dependencies[] = system
 dependencies[] = taxonomy
 dependencies[] = user
