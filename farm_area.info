@@ -19,7 +19,6 @@ dependencies[] = views
 dependencies[] = views_content
 dependencies[] = views_tree
 features[ctools][] = openlayers:openlayers_maps:1
-features[ctools][] = page_manager:pages_default:1
 features[ctools][] = strongarm:strongarm:1
 features[ctools][] = views:views_default:3.0
 features[features_api][] = api:1
