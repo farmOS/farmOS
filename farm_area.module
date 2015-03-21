@@ -65,8 +65,18 @@ function farm_area_get_links($id, $separator = ' | ') {
   // Generate an array of Drupal links.
   $links = array();
   foreach ($sorted_area_links as $link) {
+
+    // If a title and href are available...
     if (!empty($link['title']) && !empty($link['href'])) {
-      $links[] = l($link['title'], $link['href']);
+
+      // Build link options.
+      $options = array();
+      if (!empty($link['options'])) {
+        $options = $link['options'];
+      }
+
+      // Build the link and add it to the array.
+      $links[] = l($link['title'], $link['href'], $options);
     }
   }
 

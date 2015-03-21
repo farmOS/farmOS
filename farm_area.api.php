@@ -40,6 +40,9 @@ function hook_farm_area_links($id) {
     array(
       'title' => t('Animals'),
       'href' => $path . '/animals',
+      'options' => array(
+        'fragment' => 'Animals',
+      ),
       'weight' => 20,
     ),
   );
