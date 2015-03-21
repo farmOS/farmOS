@@ -691,6 +691,105 @@ function farm_log_field_default_fields() {
     ),
   );
 
+  // Exported field: 'log-farm_observation-field_farm_images'.
+  $fields['log-farm_observation-field_farm_images'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_images',
+      'foreign keys' => array(
+        'fid' => array(
+          'columns' => array(
+            'fid' => 'fid',
+          ),
+          'table' => 'file_managed',
+        ),
+      ),
+      'indexes' => array(
+        'fid' => array(
+          0 => 'fid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'image',
+      'settings' => array(
+        'default_image' => 0,
+        'uri_scheme' => 'public',
+      ),
+      'translatable' => '0',
+      'type' => 'image',
+    ),
+    'field_instance' => array(
+      'bundle' => 'farm_observation',
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'colorbox',
+          'settings' => array(
+            'colorbox_caption' => 'auto',
+            'colorbox_caption_custom' => '',
+            'colorbox_gallery' => 'post',
+            'colorbox_gallery_custom' => '',
+            'colorbox_image_style' => '',
+            'colorbox_multivalue_index' => NULL,
+            'colorbox_node_style' => 'thumbnail',
+            'colorbox_node_style_first' => 'large',
+          ),
+          'type' => 'colorbox',
+          'weight' => '5',
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_images',
+      'label' => 'Photo(s)',
+      'required' => 0,
+      'settings' => array(
+        'alt_field' => 0,
+        'default_image' => 0,
+        'file_directory' => '',
+        'file_extensions' => 'png gif jpg jpeg',
+        'filefield_paths' => array(
+          'active_updating' => 0,
+          'file_name' => array(
+            'options' => array(
+              'pathauto' => 0,
+              'transliterate' => 0,
+            ),
+            'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
+          ),
+          'file_path' => array(
+            'options' => array(
+              'pathauto' => 0,
+              'transliterate' => 0,
+            ),
+            'value' => 'farm/log/observation/[log:id]',
+          ),
+          'retroactive_update' => 0,
+        ),
+        'filefield_paths_enabled' => 1,
+        'max_filesize' => '',
+        'max_resolution' => '',
+        'min_resolution' => '',
+        'title_field' => 0,
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'image',
+        'settings' => array(
+          'preview_image_style' => 'thumbnail',
+          'progress_indicator' => 'bar',
+        ),
+        'type' => 'image_image',
+        'weight' => '6',
+      ),
+    ),
+  );
+
   // Exported field: 'log-farm_observation-field_farm_notes'.
   $fields['log-farm_observation-field_farm_notes'] = array(
     'field_config' => array(
@@ -884,6 +983,7 @@ function farm_log_field_default_fields() {
   t('Notes');
   t('Optionally, link this observation to a specific farm asset.');
   t('Optionally, use this quantity field to record an observed quantity.');
+  t('Photo(s)');
   t('Quantity');
   t('To');
   t('Type');
