@@ -330,29 +330,8 @@ function farm_soil_test_views_default_views() {
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
 
-  /* Display: Soil tests by area (Page) */
-  $handler = $view->new_display('page', 'Soil tests by area (Page)', 'page_2');
-  $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: Log: Area (field_farm_area) */
-  $handler->display->display_options['arguments']['field_farm_area_tid']['id'] = 'field_farm_area_tid';
-  $handler->display->display_options['arguments']['field_farm_area_tid']['table'] = 'field_data_field_farm_area';
-  $handler->display->display_options['arguments']['field_farm_area_tid']['field'] = 'field_farm_area_tid';
-  $handler->display->display_options['arguments']['field_farm_area_tid']['default_action'] = 'not found';
-  $handler->display->display_options['arguments']['field_farm_area_tid']['title_enable'] = TRUE;
-  $handler->display->display_options['arguments']['field_farm_area_tid']['title'] = 'Soil tests in %1';
-  $handler->display->display_options['arguments']['field_farm_area_tid']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['field_farm_area_tid']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['field_farm_area_tid']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['field_farm_area_tid']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['field_farm_area_tid']['specify_validation'] = TRUE;
-  $handler->display->display_options['arguments']['field_farm_area_tid']['validate']['type'] = 'taxonomy_term';
-  $handler->display->display_options['arguments']['field_farm_area_tid']['validate_options']['vocabularies'] = array(
-    'farm_areas' => 'farm_areas',
-  );
-  $handler->display->display_options['path'] = 'farm/area/%/soil-tests';
-
-  /* Display: CSV (Data export) */
-  $handler = $view->new_display('views_data_export', 'CSV (Data export)', 'views_data_export_1');
+  /* Display: Data export */
+  $handler = $view->new_display('views_data_export', 'Data export', 'views_data_export_1');
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'views_data_export_csv';
@@ -428,7 +407,6 @@ function farm_soil_test_views_default_views() {
   $handler->display->display_options['displays'] = array(
     'page_1' => 'page_1',
     'default' => 0,
-    'page_2' => 0,
   );
   $export['farm_log_soil_tests'] = $view;
 
