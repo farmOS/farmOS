@@ -154,6 +154,21 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['sorts']['field_farm_crop_family_tid']['field'] = 'field_farm_crop_family_tid';
   $handler->display->display_options['sorts']['field_farm_crop_family_tid']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['field_farm_crop_family_tid']['expose']['label'] = 'Family';
+  /* Contextual filter: Taxonomy term: Crop family (field_farm_crop_family) */
+  $handler->display->display_options['arguments']['field_farm_crop_family_tid']['id'] = 'field_farm_crop_family_tid';
+  $handler->display->display_options['arguments']['field_farm_crop_family_tid']['table'] = 'field_data_field_farm_crop_family';
+  $handler->display->display_options['arguments']['field_farm_crop_family_tid']['field'] = 'field_farm_crop_family_tid';
+  $handler->display->display_options['arguments']['field_farm_crop_family_tid']['title_enable'] = TRUE;
+  $handler->display->display_options['arguments']['field_farm_crop_family_tid']['title'] = 'Crops in %1';
+  $handler->display->display_options['arguments']['field_farm_crop_family_tid']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['field_farm_crop_family_tid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_farm_crop_family_tid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_farm_crop_family_tid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['field_farm_crop_family_tid']['specify_validation'] = TRUE;
+  $handler->display->display_options['arguments']['field_farm_crop_family_tid']['validate']['type'] = 'taxonomy_term';
+  $handler->display->display_options['arguments']['field_farm_crop_family_tid']['validate_options']['vocabularies'] = array(
+    'farm_crop_families' => 'farm_crop_families',
+  );
   /* Filter criterion: Taxonomy vocabulary: Machine name */
   $handler->display->display_options['filters']['machine_name']['id'] = 'machine_name';
   $handler->display->display_options['filters']['machine_name']['table'] = 'taxonomy_vocabulary';
@@ -207,8 +222,8 @@ function farm_crop_views_default_views() {
     146437786 => 0,
   );
 
-  /* Display: All crops (Page) */
-  $handler = $view->new_display('page', 'All crops (Page)', 'page');
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page');
   $handler->display->display_options['path'] = 'farm/crops/list';
   $handler->display->display_options['menu']['type'] = 'default tab';
   $handler->display->display_options['menu']['title'] = 'Crops';
