@@ -392,7 +392,6 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['fields']['field_farm_animal_group']['id'] = 'field_farm_animal_group';
   $handler->display->display_options['fields']['field_farm_animal_group']['table'] = 'field_data_field_farm_animal_group';
   $handler->display->display_options['fields']['field_farm_animal_group']['field'] = 'field_farm_animal_group';
-  $handler->display->display_options['fields']['field_farm_animal_group']['type'] = 'taxonomy_term_reference_plain';
   /* Field: Log: To */
   $handler->display->display_options['fields']['field_farm_move_to']['id'] = 'field_farm_move_to';
   $handler->display->display_options['fields']['field_farm_move_to']['table'] = 'field_data_field_farm_move_to';
