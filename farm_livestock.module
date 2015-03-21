@@ -20,6 +20,20 @@ function farm_livestock_farm_admin_actions() {
         'farm_animals',
       ),
     ),
+    'animal_group' => array(
+      'title' => t('Add a group'),
+      'href' => 'admin/structure/taxonomy/farm_animal_groups/add',
+      'views' => array(
+        'farm_animal_groups',
+      ),
+    ),
+    'animal_type' => array(
+      'title' => t('Add a type'),
+      'href' => 'admin/structure/taxonomy/farm_animal_types/add',
+      'views' => array(
+        'farm_animal_types',
+      ),
+    ),
   );
   return $actions;
 }
