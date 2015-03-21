@@ -11,6 +11,7 @@ DEPENDENCIES
 
 This module depends on the following modules:
 
+ * Colorbox (http://drupal.org/project/colorbox)
  * Ctools (http://drupal.org/project/ctools)
  * Date (http://drupal.org/project/date)
  * Entity API (http://drupal.org/project/entity)
@@ -23,7 +24,6 @@ This module depends on the following modules:
  * Views (http://drupal.org/project/views)
  * Farm Area (http://drupal.org/project/farm_area)
  * Farm Asset (http://drupal.org/project/farm_asset)
- * Farm Crop (http://drupal.org/project/farm_crop)
 
 INSTALLATION
 ------------
