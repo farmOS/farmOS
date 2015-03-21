@@ -5,3 +5,73 @@
  */
 
 include_once 'farm_taxonomy.features.inc';
+
+/**
+ * Implements hook_entity_view_alter().
+ */
+function farm_taxonomy_entity_view_alter(&$build, $type) {
+
+  // If the entity is not a taxonomy term, bail.
+  if ($type != 'taxonomy_term') {
+    return;
+  }
+
+  // If the term entity is not there, bail.
+  if (empty($build['#term'])) {
+    return;
+  }
+
+  // Pull the term entity out of the build array.
+  $term = $build['#term'];
+
+  // Invoke hook_farm_taxonomy_term_view_views() to get a list of Views.
+  $views = module_invoke_all('farm_taxonomy_term_view_views', $term);
+
+  // Add the Views to the entity's render array.
+  foreach ($views as $key => $data) {
+
+    // If the data is an array, extract the name from it.
+    $name = is_array($data) ? $data['name'] : $data;
+
+    // Load the View, and bail if it isn't found.
+    $view = views_get_view($name);
+    if (empty($view)) {
+      continue;
+    }
+
+    // Determine the argument position (default to 1).
+    // This looks for the presence of $data['arg'] to learn which argument
+    // in the View we should send $term->tid into. This is useful if the View
+    // has multiple contextual filters, and the term filter is not first.
+    // Any arguments that come before the term argument will receive 'all'
+    // as their input.
+    $args = array();
+    $arg_pos = isset($data['arg']) ? $data['arg'] : 1;
+    for ($i = 1; $i <= $arg_pos; $i++) {
+      if ($i == $arg_pos) {
+        $args[] = $term->tid;
+      }
+      else {
+        $args[] = 'all';
+      }
+    }
+
+    // Get the View's default title.
+    // We intentionally do this before we build the preview so that the title
+    // is not overridden by the arguments. This keeps the title simple on the
+    // actual term page, but more descriptive in other contexts.
+    $title = $view->get_title();
+
+    // Build the View preview.
+    $preview = $view->preview('default', $args);
+
+    // Build the output.
+    $output = '<h3 id="' . $title . '">' . $title . '</h3>' . $preview;
+
+    // Add the output to the entity build array.
+    $build[$name] = array(
+      '#markup' => $output,
+      '#weight' => 100 + $key,
+    );
+  }
+}
