@@ -47,15 +47,35 @@ function farm_livestock_farm_asset_view_views($farm_asset) {
  */
 function farm_livestock_farm_taxonomy_term_view_views($term) {
 
-  // If the term is not an area, bail.
-  if ($term->vocabulary_machine_name != 'farm_areas') {
-    return;
+  // Start a list of View names.
+  $views = array();
+
+  // Switch logic depending on the vocabulary.
+  switch ($term->vocabulary_machine_name) {
+
+    // Farm areas:
+    case 'farm_areas':
+      $views[] = 'farm_animals';
+      break;
+
+    // Farm animal groups:
+    case 'farm_animal_groups':
+      $views[] = array(
+        'name' => 'farm_animals',
+        'arg' => 2,
+      );
+      break;
+
+    // Farm animal types:
+    case 'farm_animal_types':
+      $views[] = array(
+        'name' => 'farm_animals',
+        'arg' => 3,
+      );
+      break;
   }
 
-  // Return a list of Views to include on Areas.
-  return array(
-    'farm_animals',
-  );
+  return $views;
 }
 
 /**
