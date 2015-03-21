@@ -43,13 +43,32 @@ function farm_livestock_farm_asset_view_views($farm_asset) {
 }
 
 /**
+ * Implements hook_farm_taxonomy_term_view_views().
+ */
+function farm_livestock_farm_taxonomy_term_view_views($term) {
+
+  // If the term is not an area, bail.
+  if ($term->vocabulary_machine_name != 'farm_areas') {
+    return;
+  }
+
+  // Return a list of Views to include on Areas.
+  return array(
+    'farm_animals',
+  );
+}
+
+/**
  * Implements hook_farm_area_links().
  */
 function farm_livestock_farm_area_links($id) {
   return array(
     array(
       'title' => t('Animals'),
-      'href' => 'farm/area/' . $id . '/animals',
+      'href' => 'taxonomy/term/' . $id,
+      'options' => array(
+        'fragment' => 'Animals',
+      ),
     ),
   );
 }
