@@ -69,13 +69,35 @@ function farm_log_farm_admin_actions() {
 }
 
 /**
+ * Implements hook_farm_taxonomy_term_view_views().
+ */
+function farm_log_farm_taxonomy_term_view_views($term) {
+
+  // If the term is not an area, bail.
+  if ($term->vocabulary_machine_name != 'farm_areas') {
+    return;
+  }
+
+  // Return a list of Views to include on Areas.
+  return array(
+    array(
+      'name' => 'farm_log_activity',
+      'arg' => 2,
+    ),
+  );
+}
+
+/**
  * Implements hook_farm_area_links().
  */
 function farm_log_farm_area_links($id) {
   return array(
     array(
       'title' => t('Activities'),
-      'href' => 'farm/area/' . $id . '/activities',
+      'href' => 'taxonomy/term/' . $id,
+      'options' => array(
+        'fragment' => 'Activities',
+      ),
       'weight' => -100,
     ),
   );
