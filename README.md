@@ -11,13 +11,13 @@ DEPENDENCIES
 
 This module depends on the following modules:
 
+ * Colorbox (http://drupal.org/project/colorbox)
  * Ctools (http://drupal.org/project/ctools)
  * Features (http://drupal.org/project/features)
  * Filefield Paths (http://drupal.org/project/filefield_paths)
  * Geocoder (http://drupal.org/project/geocoder)
  * Geofield (http://drupal.org/project/geofield)
  * OpenLayers (http://drupal.org/project/openlayers)
- * Panels (http://drupal.org/project/panels)
  * Pathauto (http://drupal.org/project/pathauto)
  * Strongarm (http://drupal.org/project/strongarm)
  * Views (http://drupal.org/project/views)
