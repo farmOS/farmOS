@@ -53,7 +53,7 @@ function farm_area_field_default_fields() {
           'module' => 'list',
           'settings' => array(),
           'type' => 'list_default',
-          'weight' => '0',
+          'weight' => '2',
         ),
       ),
       'entity_type' => 'taxonomy_term',
@@ -224,7 +224,7 @@ function farm_area_field_default_fields() {
             'map_preset' => 'farm_map_area',
           ),
           'type' => 'geofield_openlayers',
-          'weight' => '2',
+          'weight' => '0',
         ),
       ),
       'entity_type' => 'taxonomy_term',
@@ -305,19 +305,25 @@ function farm_area_field_default_fields() {
       'description' => '',
       'display' => array(
         'default' => array(
-          'label' => 'hidden',
-          'module' => 'image',
+          'label' => 'above',
+          'module' => 'colorbox',
           'settings' => array(
-            'image_link' => '',
-            'image_style' => 'large',
+            'colorbox_caption' => 'auto',
+            'colorbox_caption_custom' => '',
+            'colorbox_gallery' => 'post',
+            'colorbox_gallery_custom' => '',
+            'colorbox_image_style' => '',
+            'colorbox_multivalue_index' => NULL,
+            'colorbox_node_style' => 'thumbnail',
+            'colorbox_node_style_first' => 'large',
           ),
-          'type' => 'image',
+          'type' => 'colorbox',
           'weight' => '1',
         ),
       ),
       'entity_type' => 'taxonomy_term',
       'field_name' => 'field_farm_images',
-      'label' => 'Images',
+      'label' => 'Photo(s)',
       'required' => 0,
       'settings' => array(
         'alt_field' => 0,
@@ -366,8 +372,8 @@ function farm_area_field_default_fields() {
   // Included for use with string extractors like potx.
   t('Area type');
   t('Files');
-  t('Images');
   t('Location');
+  t('Photo(s)');
   t('What type of area is this? Area types will be color coded on maps. If left blank, the area will not appear on maps.');
 
   return $fields;
