@@ -109,6 +109,15 @@ function farm_log_update_7001(&$sandbox) {
       // Save the new log.
       log_save($observation);
 
+      // Manually copy the timestamp and done properties, in case this
+      // is running at the same time as log_update_7001 and log_update_7002.
+      $result = db_query('SELECT timestamp, done FROM {log} WHERE id=:id', array(':id' => $log->id));
+      if ($result) {
+        while ($row = $result->fetchAssoc()) {
+          db_query('UPDATE {log} SET timestamp=:timestamp, done=:done WHERE id=:id', array(':timestamp' => $row['timestamp'], ':done' => $row['done'], ':id' => $observation->id));
+        }
+      }
+
       // Delete the old log.
       log_delete($log);
     }
