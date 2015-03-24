@@ -34,46 +34,25 @@ function farm_log_update_7000(&$sandbox) {
    * migrating to that.
    */
 
-  // Find all field_farm_date instances in logs.
-  $types = log_types();
-  $fields = array();
-  foreach ($types as $type) {
-    $field = field_info_instance('log', 'field_farm_date', $type->type);
-    if (!empty($field)) {
-      $fields[] = $field;
+  // Load info about the field_farm_date field.
+  $field_info = field_info_field('field_farm_date');
+
+  // Copy all timestamps from the field to the property.
+  $query = "UPDATE {log} l
+    INNER JOIN {field_data_field_farm_date} f
+      ON l.id = f.entity_id
+      AND f.entity_type = 'log'
+    SET l.timestamp = f.field_farm_date_value";
+  db_query($query);
+
+  // Iterate through the log bundles that implement this field.
+  if (!empty($field_info['bundles']['log'])) {
+    foreach ($field_info['bundles']['log'] as $bundle) {
+
+      // Load and delete the field instance.
+      $field_instance = field_info_instance('log', 'field_farm_date', $bundle);
+      field_delete_instance($field_instance);
     }
-  }
-
-  // Iterate through the fields.
-  foreach ($fields as $field) {
-
-    // Load all logs of this type.
-    $logs = array();
-    $query = new EntityFieldQuery();
-    $query->entityCondition('entity_type', 'log');
-    $query->entityCondition('bundle', $field['bundle']);
-    $result = $query->execute();
-    if (isset($result['log'])) {
-      $log_ids = array_keys($result['log']);
-      $logs = entity_load('log', $log_ids);
-    }
-
-    // Iterate through the logs.
-    foreach ($logs as $log) {
-
-      // If it has a field_farm_date value...
-      if (!empty($log->field_farm_date[LANGUAGE_NONE][0]['value'])) {
-
-        // Migrate the timestamp.
-        $log->timestamp = $log->field_farm_date[LANGUAGE_NONE][0]['value'];
-
-        // Save the log.
-        log_save($log);
-      }
-    }
-
-    // Delete the field instance.
-    field_delete_instance($field);
   }
 }
 
