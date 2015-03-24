@@ -87,10 +87,8 @@ function farm_log_update_7001(&$sandbox) {
       $values = array(
         'type' => 'farm_observation',
         'name' => $log->name,
-        'timestamp' => $log->timestamp,
         'created' => $log->created,
         'changed' => $log->changed,
-        'done' => $log->done,
         'uid' => $log->uid,
       );
 
