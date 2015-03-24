@@ -159,6 +159,10 @@ function farm_log_update_7001(&$sandbox) {
  */
 function farm_log_update_7002(&$sandbox) {
 
+  // Start by reverting the fields component of this module
+  // so that the new Area and Asset fields are available.
+  features_revert(array('farm_log' => array('field')));
+
   // Load all activity logs.
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'log');
