@@ -6,6 +6,24 @@
  */
 
 /**
+ * Implements hook_update_dependencies().
+ */
+function farm_log_update_dependencies() {
+
+  // Simultaneous changes to Log and Farm Log modules require
+  // updates to be run in a specific back-and-forth order:
+  // 1. Log 7001 (add timestamp property)
+  // 2. Farm Log 7000 (migrate field_farm_date to timestamp property)
+  // 3. Log 7002 (add done property and mark past logs as done)
+  // 4. Farm Log 7001 (converts Issues to Observations, assumes done property)
+  $dependencies['farm_log'][7000] = array('log' => 7001);
+  $dependencies['log'][7002] = array('farm_log' => 7000);
+  $dependencies['farm_log'][7001] = array('log' => 7002);
+
+  return $dependencies;
+}
+
+/**
  * Migrate all field_farm_date fields to Log timestamp property.
  */
 function farm_log_update_7000(&$sandbox) {
