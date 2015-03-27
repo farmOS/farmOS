@@ -22,4 +22,3 @@ features[openlayers_styles][] = farm_purple
 features[openlayers_styles][] = farm_red
 features[openlayers_styles][] = farm_yellow
 features[variable][] = openlayers_source_type
-features[variable][] = openlayers_ui_preview_map
