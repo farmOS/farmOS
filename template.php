@@ -91,4 +91,10 @@ function farm_theme_preprocess_page(&$vars) {
   if (isset($vars['page']['content']['system_main']['no_content'])) {
     unset($vars['page']['content']['system_main']['no_content']);
   }
+
+  // Add "Powered by farmOS" to the footer.
+  $vars['page']['footer'][] = array(
+    '#type' => 'markup',
+    '#markup' => '<div style="text-align: center;"><small>' . t('Powered by') . ' ' . l('farmOS', 'http://farmos.org') . '</small></div>',
+  );
 }
