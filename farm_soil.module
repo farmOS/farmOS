@@ -13,7 +13,6 @@ function farm_soil_openlayers_map_preprocess_alter(&$map = array()) {
 
   // Add the NRCS Soil Survey layer to farm maps.
   $maps = array(
-    'farm_map',
     'farm_map_area',
     'farm_map_areas',
     'farm_map_geofield',
