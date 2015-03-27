@@ -12,13 +12,13 @@ projects[colorbox][subdir] = "contrib"
 projects[colorbox][version] = "2.8"
 
 projects[ctools][subdir] = "contrib"
-projects[ctools][version] = "1.5"
+projects[ctools][version] = "1.7"
 
 projects[date][subdir] = "contrib"
 projects[date][version] = "2.8"
 
 projects[entity][subdir] = "contrib"
-projects[entity][version] = "1.5"
+projects[entity][version] = "1.6"
 
 projects[entityreference][subdir] = "contrib"
 projects[entityreference][version] = "1.1"
@@ -51,7 +51,7 @@ projects[geophp][subdir] = "contrib"
 projects[geophp][version] = "1.7"
 
 projects[jquery_update][subdir] = "contrib"
-projects[jquery_update][version] = "2.4"
+projects[jquery_update][version] = "2.5"
 
 projects[libraries][subdir] = "contrib"
 projects[libraries][version] = "2.2"
@@ -63,7 +63,7 @@ projects[logintoboggan][subdir] = "contrib"
 projects[logintoboggan][version] = "1.4"
 
 projects[navbar][subdir] = "contrib"
-projects[navbar][version] = "1.4"
+projects[navbar][version] = "1.6"
 
 projects[openlayers][subdir] = "contrib"
 projects[openlayers][version] = "2.x-dev"
@@ -72,7 +72,7 @@ projects[openlayers_geolocate_button][subdir] = "contrib"
 projects[openlayers_geolocate_button][version] = "1.0"
 
 projects[panels][subdir] = "contrib"
-projects[panels][version] = "3.4"
+projects[panels][version] = "3.5"
 
 projects[pathauto][subdir] = "contrib"
 projects[pathauto][version] = "1.2"
@@ -90,10 +90,10 @@ projects[strongarm][subdir] = "contrib"
 projects[strongarm][version] = "2.0"
 
 projects[token][subdir] = "contrib"
-projects[token][version] = "1.5"
+projects[token][version] = "1.6"
 
 projects[views][subdir] = "contrib"
-projects[views][version] = "3.8"
+projects[views][version] = "3.10"
 
 projects[views_bulk_operations][subdir] = "contrib"
 projects[views_bulk_operations][version] = "3.2"
