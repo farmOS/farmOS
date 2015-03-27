@@ -10,7 +10,6 @@ features[ctools][] = openlayers:openlayers_maps:1
 features[ctools][] = openlayers:openlayers_styles:1
 features[ctools][] = strongarm:strongarm:1
 features[features_api][] = api:1
-features[openlayers_maps][] = farm_map
 features[openlayers_maps][] = farm_map_geofield
 features[openlayers_styles][] = farm_blue
 features[openlayers_styles][] = farm_brown
