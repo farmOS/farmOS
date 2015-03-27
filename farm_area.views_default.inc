@@ -392,6 +392,9 @@ function farm_area_views_default_views() {
   $handler->display->display_options['tab_options']['title'] = 'Areas';
   $handler->display->display_options['tab_options']['weight'] = '0';
 
+  /* Display: Map (Block) */
+  $handler = $view->new_display('block', 'Map (Block)', 'block');
+
   /* Display: Hierarchy (Attachment) */
   $handler = $view->new_display('attachment', 'Hierarchy (Attachment)', 'attachment_1');
   $handler->display->display_options['pager']['type'] = 'none';
