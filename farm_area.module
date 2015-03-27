@@ -19,6 +19,9 @@ function farm_area_farm_admin_actions() {
       'views' => array(
         'farm_areas',
       ),
+      'paths' => array(
+        'farm',
+      ),
     ),
   );
   return $actions;
