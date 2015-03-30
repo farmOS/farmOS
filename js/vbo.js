@@ -3,7 +3,7 @@
     attach: function (context, settings) {
 
       // Reset the visibility of the VBO buttons if the VBO form is clicked.
-      $('.vbo-views-form', context).click(event, function() {
+      $('.vbo-views-form', context).click(function(event) {
         Drupal.behaviors.farm_theme_vbo.reset_buttons(event.target);
       });
 
