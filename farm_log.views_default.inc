@@ -207,7 +207,7 @@ function farm_log_views_default_views() {
   $handler->display->display_options['fields']['name']['label'] = 'Activity';
   $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['name']['alter']['path'] = 'log/[id]';
-  /* Field: Log: Asset */
+  /* Field: Log: Assets */
   $handler->display->display_options['fields']['field_farm_asset']['id'] = 'field_farm_asset';
   $handler->display->display_options['fields']['field_farm_asset']['table'] = 'field_data_field_farm_asset';
   $handler->display->display_options['fields']['field_farm_asset']['field'] = 'field_farm_asset';
@@ -237,7 +237,7 @@ function farm_log_views_default_views() {
   $handler->display->display_options['sorts']['id']['table'] = 'log';
   $handler->display->display_options['sorts']['id']['field'] = 'id';
   $handler->display->display_options['sorts']['id']['order'] = 'DESC';
-  /* Contextual filter: Log: Asset (field_farm_asset) */
+  /* Contextual filter: Log: Assets (field_farm_asset) */
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['id'] = 'field_farm_asset_target_id';
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['table'] = 'field_data_field_farm_asset';
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['field'] = 'field_farm_asset_target_id';
@@ -514,7 +514,7 @@ function farm_log_views_default_views() {
   $handler->display->display_options['fields']['timestamp']['date_format'] = 'custom';
   $handler->display->display_options['fields']['timestamp']['custom_date_format'] = 'M j Y';
   $handler->display->display_options['fields']['timestamp']['second_date_format'] = 'long';
-  /* Field: Log: Asset */
+  /* Field: Log: Assets */
   $handler->display->display_options['fields']['field_farm_asset']['id'] = 'field_farm_asset';
   $handler->display->display_options['fields']['field_farm_asset']['table'] = 'field_data_field_farm_asset';
   $handler->display->display_options['fields']['field_farm_asset']['field'] = 'field_farm_asset';
@@ -548,7 +548,7 @@ function farm_log_views_default_views() {
   $handler->display->display_options['sorts']['id']['table'] = 'log';
   $handler->display->display_options['sorts']['id']['field'] = 'id';
   $handler->display->display_options['sorts']['id']['order'] = 'DESC';
-  /* Contextual filter: Log: Asset (field_farm_asset) */
+  /* Contextual filter: Log: Assets (field_farm_asset) */
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['id'] = 'field_farm_asset_target_id';
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['table'] = 'field_data_field_farm_asset';
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['field'] = 'field_farm_asset_target_id';
@@ -813,7 +813,7 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['fields']['name']['label'] = 'Observation';
   $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['name']['alter']['path'] = 'log/[id]';
-  /* Field: Log: Asset */
+  /* Field: Log: Assets */
   $handler->display->display_options['fields']['field_farm_asset']['id'] = 'field_farm_asset';
   $handler->display->display_options['fields']['field_farm_asset']['table'] = 'field_data_field_farm_asset';
   $handler->display->display_options['fields']['field_farm_asset']['field'] = 'field_farm_asset';
@@ -847,7 +847,7 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['sorts']['id']['table'] = 'log';
   $handler->display->display_options['sorts']['id']['field'] = 'id';
   $handler->display->display_options['sorts']['id']['order'] = 'DESC';
-  /* Contextual filter: Log: Asset (field_farm_asset) */
+  /* Contextual filter: Log: Assets (field_farm_asset) */
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['id'] = 'field_farm_asset_target_id';
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['table'] = 'field_data_field_farm_asset';
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['field'] = 'field_farm_asset_target_id';

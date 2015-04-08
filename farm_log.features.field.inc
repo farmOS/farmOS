@@ -203,7 +203,7 @@ function farm_log_field_default_fields() {
   $fields['log-farm_activity-field_farm_asset'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '1',
+      'cardinality' => '-1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_farm_asset',
@@ -244,7 +244,7 @@ function farm_log_field_default_fields() {
       'bundle' => 'farm_activity',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'What asset does this activity pertain to?',
+      'description' => 'What assets does this activity pertain to?',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -258,7 +258,7 @@ function farm_log_field_default_fields() {
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_asset',
-      'label' => 'Asset',
+      'label' => 'Assets',
       'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
@@ -342,7 +342,7 @@ function farm_log_field_default_fields() {
   $fields['log-farm_movement-field_farm_asset'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '1',
+      'cardinality' => '-1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_farm_asset',
@@ -383,7 +383,7 @@ function farm_log_field_default_fields() {
       'bundle' => 'farm_movement',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'What asset is being moved?',
+      'description' => 'What assets are being moved?',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -397,7 +397,7 @@ function farm_log_field_default_fields() {
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_asset',
-      'label' => 'Asset',
+      'label' => 'Assets',
       'required' => 1,
       'settings' => array(
         'user_register_form' => FALSE,
@@ -617,7 +617,7 @@ function farm_log_field_default_fields() {
   $fields['log-farm_observation-field_farm_asset'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '1',
+      'cardinality' => '-1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_farm_asset',
@@ -658,7 +658,7 @@ function farm_log_field_default_fields() {
       'bundle' => 'farm_observation',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'Optionally, link this observation to a specific farm asset.',
+      'description' => 'What assets does this observation pertain to?',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -672,7 +672,7 @@ function farm_log_field_default_fields() {
       ),
       'entity_type' => 'log',
       'field_name' => 'field_farm_asset',
-      'label' => 'Asset',
+      'label' => 'Assets',
       'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
@@ -978,10 +978,9 @@ function farm_log_field_default_fields() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Area');
-  t('Asset');
+  t('Assets');
   t('From');
   t('Notes');
-  t('Optionally, link this observation to a specific farm asset.');
   t('Optionally, use this quantity field to record an observed quantity.');
   t('Photo(s)');
   t('Quantity');
@@ -990,8 +989,9 @@ function farm_log_field_default_fields() {
   t('Units');
   t('Value');
   t('What area did this activity take place in?');
-  t('What asset does this activity pertain to?');
-  t('What asset is being moved?');
+  t('What assets are being moved?');
+  t('What assets does this activity pertain to?');
+  t('What assets does this observation pertain to?');
   t('What type of observation is this. Use this to organize your observations into categories for easy viewing later. As you type, you will have the option of selecting from a list of types you entered in the past.');
   t('Where is it moving from? This field is optional. You may leave this blank as a way of setting an object\'s initial location.');
   t('Where is it moving to?');
