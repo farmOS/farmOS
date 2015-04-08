@@ -223,16 +223,15 @@ function farm_crop_views_default_views() {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'farm/crops/list';
-  $handler->display->display_options['menu']['type'] = 'default tab';
+  $handler->display->display_options['path'] = 'farm/plantings/crops';
+  $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Crops';
-  $handler->display->display_options['menu']['weight'] = '-10';
+  $handler->display->display_options['menu']['weight'] = '';
   $handler->display->display_options['menu']['name'] = 'management';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
   $handler->display->display_options['tab_options']['type'] = 'tab';
-  $handler->display->display_options['tab_options']['title'] = 'Crops';
-  $handler->display->display_options['tab_options']['weight'] = '10';
+  $handler->display->display_options['tab_options']['weight'] = '';
   $export['farm_crops'] = $view;
 
   $view = new view();
@@ -540,7 +539,7 @@ if (!empty($farm_asset)) {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'farm/crops/harvests';
+  $handler->display->display_options['path'] = 'farm/plantings/harvests';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Harvests';
   $handler->display->display_options['menu']['weight'] = '0';
@@ -872,7 +871,7 @@ if (!empty($farm_asset)) {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'farm/crops/inputs';
+  $handler->display->display_options['path'] = 'farm/plantings/inputs';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Inputs';
   $handler->display->display_options['menu']['weight'] = '0';
@@ -1188,7 +1187,7 @@ if (!empty($farm_asset)) {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page_1');
-  $handler->display->display_options['path'] = 'farm/crops/seedings';
+  $handler->display->display_options['path'] = 'farm/plantings/seedings';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Seedings';
   $handler->display->display_options['menu']['weight'] = '0';
@@ -1500,7 +1499,7 @@ if (!empty($farm_asset)) {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page_1');
-  $handler->display->display_options['path'] = 'farm/crops/transplantings';
+  $handler->display->display_options['path'] = 'farm/plantings/transplantings';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Transplantings';
   $handler->display->display_options['menu']['weight'] = '0';
@@ -1796,13 +1795,16 @@ if (!empty($farm_asset)) {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'farm/crops/plantings';
-  $handler->display->display_options['menu']['type'] = 'tab';
+  $handler->display->display_options['path'] = 'farm/plantings/list';
+  $handler->display->display_options['menu']['type'] = 'default tab';
   $handler->display->display_options['menu']['title'] = 'Plantings';
-  $handler->display->display_options['menu']['weight'] = '-5';
+  $handler->display->display_options['menu']['weight'] = '-10';
   $handler->display->display_options['menu']['name'] = 'management';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
+  $handler->display->display_options['tab_options']['type'] = 'tab';
+  $handler->display->display_options['tab_options']['title'] = 'Plantings';
+  $handler->display->display_options['tab_options']['weight'] = '0';
   $export['farm_plantings'] = $view;
 
   return $export;
