@@ -163,7 +163,7 @@ function farm_log_form_alter(&$form, &$form_state, $form_id) {
 
     // Alter the form using our helper function.
     // ($asset is used below to for movement logs.)
-    $asset = farm_log_form_prepopulate_asset($form, 'field_farm_asset');
+    $asset = farm_log_form_prepopulate_asset($form, 'field_farm_asset', TRUE);
   }
 
   // If this is a log form with an area(s) reference field...
@@ -243,12 +243,24 @@ function farm_log_asset_location(FarmAsset $asset, $time = REQUEST_TIME, $done =
  *   The form array to modify, passed by reference.
  * @param $field_name
  *   The machine name of the entity reference field that should be populated.
+ * @param $tags
+ *   Whether or not the field is using the "Tags style" entity reference
+ *   widget. Defaults to FALSE.
  *
  * @return FarmAsset farm_asset
  *   Returns the asset object, if found.
  */
-function farm_log_form_prepopulate_asset(&$form, $field_name = 'field_farm_asset') {
+function farm_log_form_prepopulate_asset(&$form, $field_name = 'field_farm_asset', $tags = FALSE) {
   $asset = NULL;
+
+  // The location of the field's default value depends on whether or not it is
+  // a "Tags style" entity reference field.
+  if (empty($tags)) {
+    $field_value = &$form[$field_name][LANGUAGE_NONE][0]['target_id']['#default_value'];
+  }
+  else {
+    $field_value = &$form[$field_name][LANGUAGE_NONE]['#default_value'];
+  }
 
   // If the "farm_asset" query parameter is set...
   $params = drupal_get_query_parameters();
@@ -265,14 +277,14 @@ function farm_log_form_prepopulate_asset(&$form, $field_name = 'field_farm_asset
       );
 
       // Prepopulate the asset reference field.
-      if (empty($form[$field_name][LANGUAGE_NONE][0]['target_id']['#default_value'])) {
-        $form[$field_name][LANGUAGE_NONE][0]['target_id']['#default_value'] = entity_label('farm_asset', $asset) . ' (' . $asset->id . ')';
+      if (empty($field_value)) {
+        $field_value = entity_label('farm_asset', $asset) . ' (' . $asset->id . ')';
       }
     }
   }
 
   // If the asset field is not empty, hide it so that it can't be changed.
-  if (!empty($form[$field_name][LANGUAGE_NONE][0]['target_id']['#default_value'])) {
+  if (!empty($field_value)) {
     $form[$field_name]['#access'] = FALSE;
   }
 
@@ -293,6 +305,9 @@ function farm_log_form_prepopulate_asset(&$form, $field_name = 'field_farm_asset
 function farm_log_form_prepopulate_area(&$form, $field_name = 'field_farm_area') {
   $area = NULL;
 
+  // Alias for the field's default value.
+  $field_value = &$form[$field_name][LANGUAGE_NONE]['#default_value'];
+
   // If the "farm_area" query parameter is set...
   $params = drupal_get_query_parameters();
   if (!empty($params['farm_area'])) {
@@ -308,8 +323,8 @@ function farm_log_form_prepopulate_area(&$form, $field_name = 'field_farm_area')
       );
 
       // Prepopulate the area reference field.
-      if (empty($form[$field_name][LANGUAGE_NONE]['#default_value'])) {
-        $form[$field_name][LANGUAGE_NONE]['#default_value'] = entity_label('taxonomy_term', $area);
+      if (empty($field_value)) {
+        $field_value = entity_label('taxonomy_term', $area);
       }
     }
   }
