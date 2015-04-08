@@ -52,6 +52,21 @@ function farm_theme_views_bulk_operations_form_alter(&$form, &$form_state, $vbo)
   if (!empty($form['select']['action::log_clone_action'])) {
     $form['select']['action::log_clone_action']['#weight'] = 100;
   }
+
+  // Add Bootstrap classes to the action buttons.
+  $buttons = array(
+    'farm_log_asset_move' => 'primary',
+    'log_done' => 'success',
+    'log_undone' => 'danger',
+    'log_reschedule' => 'warning',
+    'log_clone' => 'primary',
+  );
+  foreach ($buttons as $name => $style) {
+    $action_name = 'action::' . $name . '_action';
+    if (!empty($form['select'][$action_name])) {
+      $form['select'][$action_name]['#attributes']['class'][] = 'btn-' . $style;
+    }
+  }
 }
 
 /**
