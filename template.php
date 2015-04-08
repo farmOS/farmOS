@@ -47,6 +47,11 @@ function farm_theme_views_bulk_operations_form_alter(&$form, &$form_state, $vbo)
 
   // Move VBO buttons to the bottom.
   $form['select']['#weight'] = 100;
+
+  // Move the "Clone" action to the end of the list.
+  if (!empty($form['select']['action::log_clone_action'])) {
+    $form['select']['action::log_clone_action']['#weight'] = 100;
+  }
 }
 
 /**
