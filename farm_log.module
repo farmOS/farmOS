@@ -342,6 +342,7 @@ function farm_log_action_info() {
       'label' => t('Move'),
       'configurable' => TRUE,
       'triggers' => array('any'),
+      'aggregate' => TRUE,
     )
   );
 }
@@ -429,38 +430,39 @@ function farm_log_asset_move_action_submit($form, $form_state) {
 /**
  * Action function for farm_log_asset_move_action.
  *
- * Creates a new movement record for the specified asset.
+ * Creates a new movement record for the specified assets.
  *
- * @param object $entity
- *   An optional entity object.
+ * @param object $assets
+ *   An array of asset entities to move.
  * @param array $context
  *   Array with parameters for this action.
  */
-function farm_log_asset_move_action($entity, $context = array()) {
-
-  // Pull the asset out of the context.
-  $asset = $context['farm_asset'];
+function farm_log_asset_move_action($assets, $context = array()) {
 
   // Create a new movement log entity.
   $log = entity_create('log', array('type' => 'farm_movement'));
 
-  // Set the asset.
-  $log->field_farm_asset[LANGUAGE_NONE][] = array(
-    'target_id' => $asset->id,
-  );
+  // Iterate through the assets.
+  foreach ($assets as $asset) {
+
+    // Add the asset to the asset reference field.
+    $log->field_farm_asset[LANGUAGE_NONE][] = array(
+      'target_id' => $asset->id,
+    );
+
+    // Load the asset's current location.
+    $area = farm_log_asset_location($asset);
+
+    // If the asset has a current location, add it to the "from" field.
+    if (!empty($area->name) && !empty($area->tid)) {
+      $log->field_farm_move_from[LANGUAGE_NONE][] = array(
+        'tid' => $area->tid,
+      );
+    }
+  }
 
   // Set the date.
   $log->timestamp = strtotime($context['timestamp']);
-
-  // Load the asset's current location.
-  $area = farm_log_asset_location($asset);
-
-  // If the asset has a current location, set the "from" area.
-  if (!empty($area->name) && !empty($area->tid)) {
-    $log->field_farm_move_from[LANGUAGE_NONE][] = array(
-      'tid' => $area->tid,
-    );
-  }
 
   // Set the "to" area.
   $log->field_farm_move_to[LANGUAGE_NONE][] = array(
