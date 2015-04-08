@@ -112,6 +112,13 @@ function farm_soil_test_views_default_views() {
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['entity_load_capacity'] = '10';
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['skip_batching'] = 1;
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_operations'] = array(
+    'action::log_clone_action' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 1,
+      'override_label' => 0,
+      'label' => '',
+    ),
     'action::views_bulk_operations_delete_item' => array(
       'selected' => 0,
       'postpone_processing' => 0,
