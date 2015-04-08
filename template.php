@@ -35,16 +35,18 @@ function farm_theme_form_alter(&$form, &$form_state, $form_id) {
   </div>
 </div>';
   }
+}
 
-  // Views Bulk Operations form:
-  else if (strpos($form_id, 'views_form_') === 0 && !empty($form['select'])) {
+/**
+ * Implements hook_views_bulk_operations_form_alter().
+ */
+function farm_theme_views_bulk_operations_form_alter(&$form, &$form_state, $vbo) {
 
-    // Add some JavaScript to hide the VBO buttons until items are selected.
-    drupal_add_js(drupal_get_path('theme', 'farm_theme') . '/js/vbo.js');
+  // Add some JavaScript to hide the VBO buttons until items are selected.
+  drupal_add_js(drupal_get_path('theme', 'farm_theme') . '/js/vbo.js');
 
-    // Move VBO buttons to the bottom.
-    $form['select']['#weight'] = 100;
-  }
+  // Move VBO buttons to the bottom.
+  $form['select']['#weight'] = 100;
 }
 
 /**
