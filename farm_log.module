@@ -158,36 +158,40 @@ function farm_log_entity_view_alter(&$build, $type) {
  */
 function farm_log_form_alter(&$form, &$form_state, $form_id) {
 
-  // If this is a log form with an asset(s) reference field.
-  if ($form_id == 'log_form' && (!empty($form['field_farm_asset']))) {
+  // If this is a log form...
+  if ($form_id == 'log_form') {
 
-    // Alter the form using our helper function.
-    // ($asset is used below to for movement logs.)
-    $asset = farm_log_form_prepopulate_asset($form, 'field_farm_asset', TRUE);
-  }
+    // If there is an asset(s) reference field.
+    if (!empty($form['field_farm_asset'])) {
 
-  // If this is a log form with an area(s) reference field...
-  if ($form_id == 'log_form' && (!empty($form['field_farm_area']))) {
-
-    // Alter the form with the farm_log helper function.
-    farm_log_form_prepopulate_area($form, 'field_farm_area');
-  }
-
-  // If this is the farm_movement log form...
-  if ($form_id == 'log_form' && $form['#bundle'] == 'farm_movement') {
-
-    // If no asset was found above, don't continue.
-    if (empty($asset)) {
-      return;
+      // Alter the form using our helper function.
+      // ($asset is used below to for movement logs.)
+      $asset = farm_log_form_prepopulate_asset($form, 'field_farm_asset', TRUE);
     }
 
-    // If the "from" field is empty...
-    if (empty($form['field_farm_move_from'][LANGUAGE_NONE][0]['#default_value'])) {
+    // If there is an area(s) reference field...
+    if (!empty($form['field_farm_area'])) {
 
-      // Look up the asset's last location and prepopulate the "from" field.
-      $area = farm_log_asset_location($asset);
-      if (!empty($area->name)) {
-        $form['field_farm_move_from'][LANGUAGE_NONE]['#default_value'] = $area->name;
+      // Alter the form with the farm_log helper function.
+      farm_log_form_prepopulate_area($form, 'field_farm_area');
+    }
+
+    // If this is the farm_movement...
+    if ($form['#bundle'] == 'farm_movement') {
+
+      // If no asset was found above, don't continue.
+      if (empty($asset)) {
+        return;
+      }
+
+      // If the "from" field is empty...
+      if (empty($form['field_farm_move_from'][LANGUAGE_NONE][0]['#default_value'])) {
+
+        // Look up the asset's last location and prepopulate the "from" field.
+        $area = farm_log_asset_location($asset);
+        if (!empty($area->name)) {
+          $form['field_farm_move_from'][LANGUAGE_NONE]['#default_value'] = $area->name;
+        }
       }
     }
   }
