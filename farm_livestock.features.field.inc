@@ -704,7 +704,7 @@ function farm_livestock_field_default_fields() {
               'pathauto' => 0,
               'transliterate' => 0,
             ),
-            'value' => 'farm/animals/[farm_asset:id]',
+            'value' => 'farm/asset/animal/[farm_asset:id]',
           ),
           'retroactive_update' => 0,
         ),
