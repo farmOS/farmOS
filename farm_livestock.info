@@ -33,6 +33,7 @@ features[field][] = farm_asset-animal-field_farm_animal_sex
 features[field][] = farm_asset-animal-field_farm_animal_tag
 features[field][] = farm_asset-animal-field_farm_animal_type
 features[field][] = farm_asset-animal-field_farm_date
+features[field][] = farm_asset-animal-field_farm_files
 features[field][] = farm_asset-animal-field_farm_images
 features[field][] = field_collection_item-field_farm_animal_tag-field_farm_animal_tag_id
 features[field][] = field_collection_item-field_farm_animal_tag-field_farm_animal_tag_location
