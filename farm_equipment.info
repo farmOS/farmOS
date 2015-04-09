@@ -20,6 +20,7 @@ features[ctools][] = strongarm:strongarm:1
 features[ctools][] = views:views_default:3.0
 features[farm_asset_type][] = equipment
 features[features_api][] = api:1
+features[field][] = farm_asset-equipment-field_farm_files
 features[field][] = farm_asset-equipment-field_farm_images
 features[field][] = log-farm_maintenance-field_farm_equipment
 features[field][] = log-farm_maintenance-field_farm_images
