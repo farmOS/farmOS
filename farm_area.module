@@ -30,9 +30,9 @@ function farm_area_farm_admin_actions() {
 /**
  * Generate area links, sorted by weight.
  *
- * @param $id
+ * @param int $id
  *   The area id.
- * @param $separator
+ * @param string $separator
  *   Characters to use as a separator between links in the returned string.
  *
  * @return string
@@ -126,12 +126,14 @@ function farm_area_openlayers_map_preprocess_alter(&$map = array()) {
 function farm_area_panels_pre_render($panels_display, $renderer) {
 
   // If this is the Farm Plan panel page, display the areas map.
-  /**
+  $output = '';
+  /*
    * @todo
    * Find a better way to identify this panel page. If the title ever
    * changes, this will stop working.
    */
   if ($panels_display->title == 'Farm Plan') {
-    return views_embed_view('farm_areas', 'block');
+    $output .= views_embed_view('farm_areas', 'block');
   }
+  return $output;
 }

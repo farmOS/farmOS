@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * farm_area.features.inc
+ * Features include file for farm_area.
  */
 
 /**

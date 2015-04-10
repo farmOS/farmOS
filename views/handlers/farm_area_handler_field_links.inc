@@ -4,20 +4,29 @@
  * @file
  * Field handler to present farm area links.
  */
+
+/**
+ * Field handler to present farm area links.
+ */
 class farm_area_handler_field_links extends views_handler_field {
 
-  // Construct the handler.
-  function construct() {
+  /**
+   * {@inheritdoc}
+   */
+  public function construct() {
 
     // Inherit the parent's construction.
     parent::construct();
 
-    // Add the term id as an additional field to load to ensure that it is available in this handler.
+    // Add the term id as an additional field to load to ensure that it is
+    // available in this handler.
     $this->additional_fields['tid'] = 'tid';
   }
 
-  // Add fields to the query.
-  function query() {
+  /**
+   * {@inheritdoc}
+   */
+  public function query() {
 
     // Ensure the main table for this field is included.
     $this->ensure_my_table();
@@ -26,8 +35,10 @@ class farm_area_handler_field_links extends views_handler_field {
     $this->add_additional_fields();
   }
 
-  // Render the field.
-  function render($values) {
+  /**
+   * {@inheritdoc}
+   */
+  public function render($values) {
 
     // Load the term id value.
     $aid = $this->get_value($values, 'tid');
@@ -38,4 +49,5 @@ class farm_area_handler_field_links extends views_handler_field {
     // Return the links as a single string, filtered for XSS.
     return filter_xss($area_links);
   }
+
 }

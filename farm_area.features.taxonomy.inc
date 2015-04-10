@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * farm_area.features.taxonomy.inc
+ * Taxonomy features for farm_area.
  */
 
 /**

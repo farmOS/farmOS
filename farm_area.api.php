@@ -2,11 +2,12 @@
 
 /**
  * @file
+ * Hooks provided by farm_area.
+ *
  * This file contains no working PHP code; it exists to provide additional
  * documentation for doxygen as well as to document hooks in the standard
  * Drupal manner.
  */
-
 
 /**
  * @defgroup farm_area Farm area module integrations.
@@ -23,8 +24,8 @@
 /**
  * Provide links for farm areas.
  *
- * @param $id
- *   The area that links are being generated for.
+ * @param int $id
+ *   The area id that links are being generated for.
  *
  * @return array
  *   Returns an array of arrays to represent area links.
