@@ -450,6 +450,35 @@ function farm_log_asset_move_action_submit($form, $form_state) {
  */
 function farm_log_asset_move_action($assets, $context = array()) {
 
+  // Assemble parameters.
+  $area_id = $context['to'];
+  $timestamp = (!empty($context['timestamp'])) ? strtotime($context['timestamp']) : REQUEST_TIME;
+  $done = (!empty($context['done'])) ? TRUE : FALSE;
+
+  // Delegate to the helper function.
+  farm_log_move_assets($assets, $area_id, $timestamp, $done);
+}
+
+/**
+ * Move farm asset(s) to an area.
+ * Creates a movement log.
+ *
+ * @param $assets
+ *   Array of assets to include in the move.
+ * @param $area_id
+ *   The id of the area to move to.
+ * @param $timestamp
+ *   The timestamp of the move.
+ * @param $done
+ *   Whether or not to mark the movement done. (Default to FALSE.)
+ */
+function farm_log_move_assets($assets, $area_id, $timestamp, $done = FALSE) {
+
+  // If $assets isn't an array, wrap it.
+  if (!is_array($assets)) {
+    $assets = array($assets);
+  }
+
   // Create a new movement log entity.
   $log = entity_create('log', array('type' => 'farm_movement'));
 
@@ -473,15 +502,15 @@ function farm_log_asset_move_action($assets, $context = array()) {
   }
 
   // Set the date.
-  $log->timestamp = strtotime($context['timestamp']);
+  $log->timestamp = $timestamp;
 
   // Set the "to" area.
   $log->field_farm_move_to[LANGUAGE_NONE][] = array(
-    'tid' => $context['to'],
+    'tid' => $area_id,
   );
 
   // Set the log's done status.
-  $log->done = (!empty($context['done'])) ? TRUE : FALSE;
+  $log->done = $done;
 
   // Save the movement.
   log_save($log);
