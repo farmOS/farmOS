@@ -195,6 +195,76 @@ function farm_log_form_alter(&$form, &$form_state, $form_id) {
       }
     }
   }
+
+  // Or, if this is a farm_asset form.
+  elseif ($form_id == 'farm_asset_form') {
+
+    // Get the farm asset entity from the form.
+    $asset = $form['farm_asset']['#value'];
+
+    // Get the asset's current location.
+    $location = farm_log_asset_location($asset);
+
+    // Add a field for setting the asset's current location.
+    $form['farm_log_asset_location'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Current location'),
+      '#description' => t('Set the current location of this asset. Asset location is determined by movement logs, so a movement log will automatically be generated if you change this field.'),
+      '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_area',
+      '#default_value' => !empty($location->name) ? $location->name : '',
+    );
+    $form['actions']['submit']['#submit'][] = 'farm_log_asset_location_submit';
+  }
+}
+
+/**
+ * Submit handler for processing the asset location field.
+ */
+function farm_log_asset_location_submit($form, &$form_state) {
+
+  // Only proceed if farm_log_asset_location has a value.
+  if (empty($form_state['values']['farm_log_asset_location'])) {
+    return;
+  }
+
+  // Only proceed if the value is not the default value.
+  if ($form_state['values']['farm_log_asset_location'] == $form['farm_log_asset_location']['#default_value']) {
+    return;
+  }
+
+  // If an asset doesn't exist, bail.
+  if (empty($form_state['values']['farm_asset'])) {
+    return;
+  }
+
+  // Grab the asset.
+  $asset = $form_state['values']['farm_asset'];
+
+  // Explode the value into an array and only take the first value.
+  // (Same behavior as taxonomy autocomplete widget.)
+  $values = explode(',', $form_state['values']['farm_log_asset_location']);
+  $value = trim(reset($values));
+
+  // If the value is empty, bail.
+  if (empty($value)) {
+    return;
+  }
+
+  // Attempt to look up the area by it's name.
+  $areas = taxonomy_get_term_by_name($value, 'farm_areas');
+  $area = reset($areas);
+
+  // If an area was not found, create a new one.
+  if (empty($area)) {
+    $farm_areas = taxonomy_vocabulary_machine_name_load('farm_areas');
+    $area = new stdClass;
+    $area->name = $value;
+    $area->vid = $farm_areas->vid;
+    taxonomy_term_save($area);
+  }
+
+  // Create a movement log.
+  farm_log_move_assets($asset, $area->tid, REQUEST_TIME, TRUE);
 }
 
 /**
