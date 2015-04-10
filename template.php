@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Farm theme template.php
+ * Farm theme template.php.
  */
 
 /**
@@ -12,9 +12,7 @@ function farm_theme_form_alter(&$form, &$form_state, $form_id) {
   // Views Exposed (filters and sort) form:
   if ($form_id == 'views_exposed_form') {
 
-    /**
-     * Wrap the exposed form in a Bootstrap collapsed panel.
-     */
+    /* Wrap the exposed form in a Bootstrap collapsed panel. */
 
     // Form prefix HTML:
     $form['#prefix'] = '
@@ -26,7 +24,7 @@ function farm_theme_form_alter(&$form, &$form_state, $form_id) {
       </a>
     </h4>
   </div>
-  <div id="' . $form['#id'] . '-panel-body" class="panel-collapse collapse" role="tabpanel" aria-labelledby="' . $form['#id'] . '-panel-heading" aria-expanded="false" style="height: 0px;">
+  <div id="' . $form['#id'] . '-panel-body" class="panel-collapse collapse" role="tabpanel" aria-labelledby="' . $form['#id'] . '-panel-heading" aria-expanded="false" style="height: 0;">
     <div class="panel-body">';
 
     // Form suffix HTML:
@@ -117,6 +115,6 @@ function farm_theme_preprocess_page(&$vars) {
   // Add "Powered by farmOS" to the footer.
   $vars['page']['footer'][] = array(
     '#type' => 'markup',
-    '#markup' => '<div style="text-align: center;"><small>' . t('Powered by') . ' ' . l('farmOS', 'http://farmos.org') . '</small></div>',
+    '#markup' => '<div style="text-align: center;"><small>' . t('Powered by') . ' ' . l(t('farmOS'), 'http://farmos.org') . '</small></div>',
   );
 }
