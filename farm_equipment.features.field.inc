@@ -10,6 +10,67 @@
 function farm_equipment_field_default_fields() {
   $fields = array();
 
+  // Exported field: 'farm_asset-equipment-field_farm_equipment_description'.
+  $fields['farm_asset-equipment-field_farm_equipment_description'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_farm_equipment_description',
+      'foreign keys' => array(
+        'format' => array(
+          'columns' => array(
+            'format' => 'format',
+          ),
+          'table' => 'filter_format',
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'text',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'text_long',
+    ),
+    'field_instance' => array(
+      'bundle' => 'equipment',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '0',
+        ),
+      ),
+      'entity_type' => 'farm_asset',
+      'field_name' => 'field_farm_equipment_description',
+      'label' => 'Description',
+      'required' => 0,
+      'settings' => array(
+        'text_processing' => '0',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'text',
+        'settings' => array(
+          'rows' => '5',
+        ),
+        'type' => 'text_textarea',
+        'weight' => '1',
+      ),
+    ),
+  );
+
   // Exported field: 'farm_asset-equipment-field_farm_files'.
   $fields['farm_asset-equipment-field_farm_files'] = array(
     'field_config' => array(
@@ -51,7 +112,7 @@ function farm_equipment_field_default_fields() {
           'module' => 'file',
           'settings' => array(),
           'type' => 'file_table',
-          'weight' => '1',
+          'weight' => '2',
         ),
       ),
       'entity_type' => 'farm_asset',
@@ -91,7 +152,7 @@ function farm_equipment_field_default_fields() {
           'progress_indicator' => 'bar',
         ),
         'type' => 'file_generic',
-        'weight' => '2',
+        'weight' => '3',
       ),
     ),
   );
@@ -145,7 +206,7 @@ function farm_equipment_field_default_fields() {
             'colorbox_node_style_first' => 'large',
           ),
           'type' => 'colorbox',
-          'weight' => '0',
+          'weight' => '1',
         ),
       ),
       'entity_type' => 'farm_asset',
@@ -190,7 +251,7 @@ function farm_equipment_field_default_fields() {
           'progress_indicator' => 'bar',
         ),
         'type' => 'image_image',
-        'weight' => '1',
+        'weight' => '2',
       ),
     ),
   );
@@ -437,6 +498,7 @@ function farm_equipment_field_default_fields() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Description');
   t('Equipment');
   t('Files');
   t('Notes');
