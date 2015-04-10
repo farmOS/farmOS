@@ -17,7 +17,8 @@ function farm_crop_farm_admin_actions() {
       'title' => t('Add a crop'),
       'href' => 'admin/structure/taxonomy/farm_crops/add',
       'paths' => array(
-        'farm/crops',
+        'farm/plantings',
+        'farm/plantings/crops',
       ),
     ),
     'harvest' => array(
@@ -50,7 +51,7 @@ function farm_crop_farm_admin_actions() {
         'farm_plantings',
       ),
       'paths' => array(
-        'farm/crops',
+        'farm/plantings',
       ),
     ),
     'seeding' => array(

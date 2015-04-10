@@ -356,7 +356,7 @@ function farm_crop_field_default_fields() {
       'bundle' => 'farm_harvest',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'Harvests must reference a specific planting. You can view a list of all plantings, and add new ones, from the <a href="/farm/crops/plantings">Plantings list</a>.',
+      'description' => 'Harvests must reference a specific planting. You can view a list of all plantings, and add new ones, from the <a href="/farm/plantings">Plantings list</a>.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -1135,7 +1135,7 @@ function farm_crop_field_default_fields() {
       'bundle' => 'farm_seeding',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'Seedings must reference a specific planting. You can view a list of all plantings, and add new ones, from the <a href="/farm/crops/plantings">Plantings list</a>.',
+      'description' => 'Seedings must reference a specific planting. You can view a list of all plantings, and add new ones, from the <a href="/farm/plantings">Plantings list</a>.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -1395,7 +1395,7 @@ function farm_crop_field_default_fields() {
       'bundle' => 'farm_transplanting',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'Transplantings must reference a specific planting. You can view a list of all plantings, and add new ones, from the <a href="/farm/crops/plantings">Plantings list</a>.',
+      'description' => 'Transplantings must reference a specific planting. You can view a list of all plantings, and add new ones, from the <a href="/farm/plantings">Plantings list</a>.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -1852,7 +1852,7 @@ function farm_crop_field_default_fields() {
   t('Describe the quantity of this transplanting, using a value and a unit of measurement. For example, if you transplanted 400 tomato plants into 4 inch pots, enter "400" in the Value field, and "4-inch pots" in the Units field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.');
   t('Does this input apply to a specific planting?');
   t('Enter the crop that this is a planting of. As you type, you will have the option of selecting from crops that you\'ve entered in the past.');
-  t('Harvests must reference a specific planting. You can view a list of all plantings, and add new ones, from the <a href="/farm/crops/plantings">Plantings list</a>.');
+  t('Harvests must reference a specific planting. You can view a list of all plantings, and add new ones, from the <a href="/farm/plantings">Plantings list</a>.');
   t('How was this input applied?');
   t('Material');
   t('Notes');
@@ -1861,10 +1861,10 @@ function farm_crop_field_default_fields() {
   t('Purpose');
   t('Quantity');
   t('Season');
-  t('Seedings must reference a specific planting. You can view a list of all plantings, and add new ones, from the <a href="/farm/crops/plantings">Plantings list</a>.');
+  t('Seedings must reference a specific planting. You can view a list of all plantings, and add new ones, from the <a href="/farm/plantings">Plantings list</a>.');
   t('Source/Manufacturer');
   t('Source/Supplier');
-  t('Transplantings must reference a specific planting. You can view a list of all plantings, and add new ones, from the <a href="/farm/crops/plantings">Plantings list</a>.');
+  t('Transplantings must reference a specific planting. You can view a list of all plantings, and add new ones, from the <a href="/farm/plantings">Plantings list</a>.');
   t('What area is this input in?');
   t('What material is being applied? As you type, you will have the option of selecting from materials that you\'ve entered in the past.');
   t('What was the purpose of this input?');
