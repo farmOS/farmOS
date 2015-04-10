@@ -2,11 +2,12 @@
 
 /**
  * @file
+ * Hooks provided by farm_admin.
+ *
  * This file contains no working PHP code; it exists to provide additional
  * documentation for doxygen as well as to document hooks in the standard
  * Drupal manner.
  */
-
 
 /**
  * @defgroup farm_admin Farm admin module integrations.
@@ -15,7 +16,7 @@
  */
 
 /**
- * @defgroup farm_admin_hooks Farm admin's hooks
+ * @defgroup farm_admin_hooks farm_admin's hooks
  * @{
  * Hooks that can be implemented by other modules in order to extend farm_admin.
  */

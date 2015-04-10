@@ -126,7 +126,7 @@ function farm_admin_menu_local_tasks_alter(&$data, $router_item, $root_path) {
   }
 
   // Add actions to Views pages.
-  else if ($router_item['page_callback'] == 'views_page') {
+  elseif ($router_item['page_callback'] == 'views_page') {
 
     // Iterate through the actions.
     foreach ($actions as $name => $action) {
@@ -194,17 +194,18 @@ function farm_admin_menu_local_tasks_alter(&$data, $router_item, $root_path) {
 
 /**
  * Helper function for generating an action link.
- * @see farm_admin_menu_local_tasks_alter()
  *
- * @param $title
+ * @param string $title
  *   The title of the action link.
- * @param $href
+ * @param string $href
  *   The href path of the action link.
- * @param $query
+ * @param array $query
  *   An array of additional query parameters to add.
  *
  * @return string
  *   Returns an action link.
+ *
+ * @see farm_admin_menu_local_tasks_alter()
  */
 function _farm_admin_action_link($title, $href, $query = array()) {
   $output = array(
