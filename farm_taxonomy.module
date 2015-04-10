@@ -27,14 +27,39 @@ function farm_taxonomy_entity_view_alter(&$build, $type) {
   // Invoke hook_farm_taxonomy_term_view_views() to get a list of Views.
   $views = module_invoke_all('farm_taxonomy_term_view_views', $term);
 
+  // Process the list of Views into a standardized list,
+  // and prepare to order by weight and name.
+  $weight_index = array();
+  $name_index = array();
+  foreach ($views as $key => &$data) {
+
+    // If the data is just a name, wrap it in an array.
+    if (!is_array($data)) {
+      $data = array(
+        'name' => $data,
+      );
+    }
+
+    // Merge with defaults.
+    $defaults = array(
+      'arg' => 1,
+      'weight' => 0,
+    );
+    $data = array_merge($defaults, $data);
+
+    // Add to the weight and name indexes for sorting.
+    $weight_index[$key] = $data['weight'];
+    $name_index[$key] = $data['name'];
+  }
+
+  // Sort the Views by weight ascending, name ascending.
+  array_multisort($weight_index, SORT_ASC, $name_index, SORT_ASC, $views);
+
   // Add the Views to the entity's render array.
   foreach ($views as $key => $data) {
 
-    // If the data is an array, extract the name from it.
-    $name = is_array($data) ? $data['name'] : $data;
-
     // Load the View, and bail if it isn't found.
-    $view = views_get_view($name);
+    $view = views_get_view($data['name']);
     if (empty($view)) {
       continue;
     }
@@ -69,7 +94,7 @@ function farm_taxonomy_entity_view_alter(&$build, $type) {
     $output = '<h3 id="' . $title . '">' . $title . '</h3>' . $preview;
 
     // Add the output to the entity build array.
-    $build[$name] = array(
+    $build[$data['name']] = array(
       '#markup' => $output,
       '#weight' => 100 + $key,
     );

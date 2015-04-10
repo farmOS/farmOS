@@ -30,6 +30,8 @@
  *     'name' - the machine name of the View
  *     'arg' - which argument the term id should be passed to in the View
  *       (this is useful if the View has more than one contextual filter)
+ *     'weight' - the weight of the View in the taxonomy page
+ *       (this is useful for changing the order of Views)
  */
 function hook_taxonomy_term_view_views($term) {
 
@@ -48,6 +50,7 @@ function hook_taxonomy_term_view_views($term) {
     array(
       'name' => 'farm_log_input',
       'arg' => 2,
+      'weight' => 10,
     ),
   );
 }
