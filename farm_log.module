@@ -80,9 +80,17 @@ function farm_log_farm_taxonomy_term_view_views($term) {
 
   // Return a list of Views to include on Areas.
   return array(
+
+    // Activities in this area
     array(
       'name' => 'farm_log_activity',
       'arg' => 2,
+    ),
+
+    // Area asset history (at the bottom)
+    array(
+      'name' => 'farm_area_assets',
+      'weight' => 100,
     ),
   );
 }

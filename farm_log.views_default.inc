@@ -11,6 +11,202 @@ function farm_log_views_default_views() {
   $export = array();
 
   $view = new view();
+  $view->name = 'farm_area_assets';
+  $view->description = '';
+  $view->tag = 'default';
+  $view->base_table = 'log';
+  $view->human_name = 'Farm Area Assets';
+  $view->core = 7;
+  $view->api_version = '3.0';
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+  /* Display: Master */
+  $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['title'] = 'History of Assets';
+  $handler->display->display_options['use_ajax'] = TRUE;
+  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['access']['perm'] = 'view farm logs';
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '25';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['quantity'] = '9';
+  $handler->display->display_options['style_plugin'] = 'table';
+  $handler->display->display_options['style_options']['columns'] = array(
+    'id' => 'id',
+    'name' => 'name',
+    'type' => 'type',
+    'timestamp' => 'timestamp',
+    'field_farm_move_from' => 'field_farm_move_from',
+  );
+  $handler->display->display_options['style_options']['default'] = '-1';
+  $handler->display->display_options['style_options']['info'] = array(
+    'id' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'name' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'type' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'timestamp' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_move_from' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+  );
+  $handler->display->display_options['style_options']['empty_table'] = TRUE;
+  /* Header: Global: Unfiltered text */
+  $handler->display->display_options['header']['area_text_custom']['id'] = 'area_text_custom';
+  $handler->display->display_options['header']['area_text_custom']['table'] = 'views';
+  $handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
+  $handler->display->display_options['header']['area_text_custom']['empty'] = TRUE;
+  $handler->display->display_options['header']['area_text_custom']['content'] = '<small>This lists all assets that have ever been moved to this area. If an asset has been moved to this area more than once, it will show up more than once in this list.</small>';
+  /* Relationship: Entity Reference: Referenced Entity */
+  $handler->display->display_options['relationships']['field_farm_asset_target_id']['id'] = 'field_farm_asset_target_id';
+  $handler->display->display_options['relationships']['field_farm_asset_target_id']['table'] = 'field_data_field_farm_asset';
+  $handler->display->display_options['relationships']['field_farm_asset_target_id']['field'] = 'field_farm_asset_target_id';
+  $handler->display->display_options['relationships']['field_farm_asset_target_id']['label'] = 'Asset';
+  /* Field: Farm asset: Farm asset ID */
+  $handler->display->display_options['fields']['id']['id'] = 'id';
+  $handler->display->display_options['fields']['id']['table'] = 'farm_asset';
+  $handler->display->display_options['fields']['id']['field'] = 'id';
+  $handler->display->display_options['fields']['id']['relationship'] = 'field_farm_asset_target_id';
+  $handler->display->display_options['fields']['id']['exclude'] = TRUE;
+  /* Field: Farm asset: Name */
+  $handler->display->display_options['fields']['name']['id'] = 'name';
+  $handler->display->display_options['fields']['name']['table'] = 'farm_asset';
+  $handler->display->display_options['fields']['name']['field'] = 'name';
+  $handler->display->display_options['fields']['name']['relationship'] = 'field_farm_asset_target_id';
+  $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['name']['alter']['path'] = 'farm/asset/[id]';
+  /* Field: Farm asset: Farm asset type */
+  $handler->display->display_options['fields']['type']['id'] = 'type';
+  $handler->display->display_options['fields']['type']['table'] = 'farm_asset';
+  $handler->display->display_options['fields']['type']['field'] = 'type';
+  $handler->display->display_options['fields']['type']['relationship'] = 'field_farm_asset_target_id';
+  $handler->display->display_options['fields']['type']['label'] = 'Type';
+  /* Field: Log: Timestamp */
+  $handler->display->display_options['fields']['timestamp']['id'] = 'timestamp';
+  $handler->display->display_options['fields']['timestamp']['table'] = 'log';
+  $handler->display->display_options['fields']['timestamp']['field'] = 'timestamp';
+  $handler->display->display_options['fields']['timestamp']['label'] = 'Arrived';
+  $handler->display->display_options['fields']['timestamp']['date_format'] = 'custom';
+  $handler->display->display_options['fields']['timestamp']['custom_date_format'] = 'M j Y';
+  $handler->display->display_options['fields']['timestamp']['second_date_format'] = 'long';
+  /* Field: Log: From */
+  $handler->display->display_options['fields']['field_farm_move_from']['id'] = 'field_farm_move_from';
+  $handler->display->display_options['fields']['field_farm_move_from']['table'] = 'field_data_field_farm_move_from';
+  $handler->display->display_options['fields']['field_farm_move_from']['field'] = 'field_farm_move_from';
+  /* Sort criterion: Log: Timestamp */
+  $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
+  $handler->display->display_options['sorts']['timestamp']['table'] = 'log';
+  $handler->display->display_options['sorts']['timestamp']['field'] = 'timestamp';
+  $handler->display->display_options['sorts']['timestamp']['order'] = 'DESC';
+  /* Sort criterion: Log: Log ID */
+  $handler->display->display_options['sorts']['id']['id'] = 'id';
+  $handler->display->display_options['sorts']['id']['table'] = 'log';
+  $handler->display->display_options['sorts']['id']['field'] = 'id';
+  $handler->display->display_options['sorts']['id']['order'] = 'DESC';
+  /* Contextual filter: Log: To (field_farm_move_to) */
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['id'] = 'field_farm_move_to_tid';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['table'] = 'field_data_field_farm_move_to';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['field'] = 'field_farm_move_to_tid';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['default_action'] = 'empty';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['title_enable'] = TRUE;
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['title'] = 'Assets in %1';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['specify_validation'] = TRUE;
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['validate']['type'] = 'taxonomy_term';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['validate_options']['vocabularies'] = array(
+    'farm_areas' => 'farm_areas',
+  );
+  /* Filter criterion: Log: Log type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'log';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'farm_movement' => 'farm_movement',
+  );
+  $handler->display->display_options['filters']['type']['group'] = 1;
+  /* Filter criterion: Log: Done */
+  $handler->display->display_options['filters']['done']['id'] = 'done';
+  $handler->display->display_options['filters']['done']['table'] = 'log';
+  $handler->display->display_options['filters']['done']['field'] = 'done';
+  $handler->display->display_options['filters']['done']['value'] = '1';
+  $handler->display->display_options['filters']['done']['group'] = 1;
+  /* Filter criterion: Farm asset: Farm asset type */
+  $handler->display->display_options['filters']['type_1']['id'] = 'type_1';
+  $handler->display->display_options['filters']['type_1']['table'] = 'farm_asset';
+  $handler->display->display_options['filters']['type_1']['field'] = 'type';
+  $handler->display->display_options['filters']['type_1']['relationship'] = 'field_farm_asset_target_id';
+  $handler->display->display_options['filters']['type_1']['group'] = 1;
+  $handler->display->display_options['filters']['type_1']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['type_1']['expose']['operator_id'] = 'type_1_op';
+  $handler->display->display_options['filters']['type_1']['expose']['label'] = 'Asset type';
+  $handler->display->display_options['filters']['type_1']['expose']['operator'] = 'type_1_op';
+  $handler->display->display_options['filters']['type_1']['expose']['identifier'] = 'type_1';
+  /* Filter criterion: Date: Date (log) */
+  $handler->display->display_options['filters']['date_filter']['id'] = 'date_filter';
+  $handler->display->display_options['filters']['date_filter']['table'] = 'log';
+  $handler->display->display_options['filters']['date_filter']['field'] = 'date_filter';
+  $handler->display->display_options['filters']['date_filter']['operator'] = '>=';
+  $handler->display->display_options['filters']['date_filter']['group'] = 1;
+  $handler->display->display_options['filters']['date_filter']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['date_filter']['expose']['operator_id'] = 'date_filter_op';
+  $handler->display->display_options['filters']['date_filter']['expose']['label'] = 'Arrived after';
+  $handler->display->display_options['filters']['date_filter']['expose']['operator'] = 'date_filter_op';
+  $handler->display->display_options['filters']['date_filter']['expose']['identifier'] = 'date_filter';
+  $handler->display->display_options['filters']['date_filter']['year_range'] = '-10:+3';
+  $handler->display->display_options['filters']['date_filter']['date_fields'] = array(
+    'log.timestamp' => 'log.timestamp',
+  );
+  /* Filter criterion: Date: Date (log) */
+  $handler->display->display_options['filters']['date_filter_1']['id'] = 'date_filter_1';
+  $handler->display->display_options['filters']['date_filter_1']['table'] = 'log';
+  $handler->display->display_options['filters']['date_filter_1']['field'] = 'date_filter';
+  $handler->display->display_options['filters']['date_filter_1']['operator'] = '<=';
+  $handler->display->display_options['filters']['date_filter_1']['group'] = 1;
+  $handler->display->display_options['filters']['date_filter_1']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['date_filter_1']['expose']['operator_id'] = 'date_filter_1_op';
+  $handler->display->display_options['filters']['date_filter_1']['expose']['label'] = 'Arrived before';
+  $handler->display->display_options['filters']['date_filter_1']['expose']['operator'] = 'date_filter_1_op';
+  $handler->display->display_options['filters']['date_filter_1']['expose']['identifier'] = 'date_filter_1';
+  $handler->display->display_options['filters']['date_filter_1']['default_date'] = 'now';
+  $handler->display->display_options['filters']['date_filter_1']['year_range'] = '-10:+3';
+  $handler->display->display_options['filters']['date_filter_1']['date_fields'] = array(
+    'log.timestamp' => 'log.timestamp',
+  );
+  $export['farm_area_assets'] = $view;
+
+  $view = new view();
   $view->name = 'farm_log_activity';
   $view->description = '';
   $view->tag = 'farm_log';
