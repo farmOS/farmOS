@@ -63,7 +63,10 @@ function farm_equipment_farm_taxonomy_term_view_views($term) {
 
   // Return a list of Views to include on Areas.
   return array(
-    'farm_equipment',
+    array(
+      'name' => 'farm_equipment',
+      'weight' => -10,
+    ),
   );
 }
 
