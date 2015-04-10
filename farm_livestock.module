@@ -69,7 +69,10 @@ function farm_livestock_farm_taxonomy_term_view_views($term) {
 
     // Farm areas:
     case 'farm_areas':
-      $views[] = 'farm_animals';
+      $views[] = array(
+        'name' => 'farm_animals',
+        'weight' => -10,
+      );
       break;
 
     // Farm animal groups:
