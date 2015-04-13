@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * farm_soil_test.features.field.inc
+ * Field features for farm_soil.
  */
 
 /**

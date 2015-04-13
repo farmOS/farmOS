@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * farm_soil.features.taxonomy.inc
+ * Taxonomy features for farm_soil.
  */
 
 /**

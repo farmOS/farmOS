@@ -34,7 +34,7 @@ function farm_soil_test_farm_taxonomy_term_view_views($term) {
 
   // If the term is not an area, bail.
   if ($term->vocabulary_machine_name != 'farm_areas') {
-    return;
+    return array();
   }
 
   // Return a list of Views to include on Areas.

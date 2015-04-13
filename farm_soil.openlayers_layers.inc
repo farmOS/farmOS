@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * farm_soil.openlayers_layers.inc
+ * Openlayers for farm_soil.
  */
 
 /**
