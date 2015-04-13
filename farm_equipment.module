@@ -35,6 +35,20 @@ function farm_equipment_farm_admin_actions() {
   return $actions;
 }
 
+
+/**
+ * Implements hook_farm_asset_breadcrumb().
+ */
+function farm_equipment_farm_asset_breadcrumb($farm_asset) {
+
+  // If the asset is equipment, add a link to the animals list.
+  $breadcrumb = array();
+  if ($farm_asset->type == 'equipment') {
+    $breadcrumb[] = l(t('Equipment'), 'farm/equipment');
+  }
+  return $breadcrumb;
+}
+
 /**
  * Implements hook_farm_asset_view_views().
  */
