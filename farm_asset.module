@@ -2,8 +2,7 @@
 
 /**
  * @file
- * Farm asset
- * A farm asset entity type.
+ * Farm asset - A farm asset entity type.
  */
 
 /****************************************************************
@@ -56,7 +55,7 @@ function farm_asset_permission() {
       foreach ($scopes as $scope) {
         $perms += array(
           "$op $scope $type farm assets" => array(
-            'title' => t(drupal_ucfirst($op) . ' ' . $scope . ' %type_name farm assets', array('%type_name' => $farm_asset_type->label)),
+            'title' => drupal_ucfirst($op) . ' ' . $scope . ' ' . t('%type_name farm assets', array('%type_name' => $farm_asset_type->label)),
           ),
         );
       }
@@ -130,11 +129,7 @@ function farm_asset_menu() {
     'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
   );
 
-  /**
-   * Farm asset admin paths
-   */
-
-  // Asset type delete form
+  // Asset type delete form.
   $items['admin/config/farm/asset-types/%farm_asset_type/delete'] = array(
     'title' => 'Delete',
     'page callback' => 'drupal_get_form',
@@ -195,7 +190,7 @@ function farm_asset_entity_info() {
       'label' => 'label',
     ),
     'module' => 'farm_asset',
-    // Enable the entity API's admin UI.
+    // Enable the entity API admin UI.
     'admin ui' => array(
       'path' => 'admin/config/farm/asset-types',
       'file' => 'farm_asset.admin.inc',
@@ -305,11 +300,13 @@ function farm_asset_field_extra_fields() {
  * Implements hook_ctools_plugin_directory().
  */
 function farm_asset_ctools_plugin_directory($owner, $plugin_type) {
+  $directory = '';
   if ($owner == 'page_manager' || $owner == 'ctools' || $owner == 'panels') {
     if ($plugin_type == 'tasks') {
-      return 'plugins/tasks';
+      $directory = 'plugins/tasks';
     }
   }
+  return $directory;
 }
 
 /***************************************************************
@@ -319,14 +316,14 @@ function farm_asset_ctools_plugin_directory($owner, $plugin_type) {
 /**
  * Access callback for asset entities.
  *
- * @param $op
+ * @param string $op
  *   The operation being performed. One of 'view', 'edit', 'create', 'delete'.
- * @param $farm_asset
+ * @param FarmAsset|string $farm_asset
  *   Optionally a specific asset entity to check.
- * @param $account
+ * @param object $account
  *   The user to check for. Leave it to NULL to check for the global user.
  *
- * @return boolean
+ * @return bool
  *   Whether access is allowed or not.
  */
 function farm_asset_access($op, $farm_asset = NULL, $account = NULL) {
@@ -343,9 +340,8 @@ function farm_asset_access($op, $farm_asset = NULL, $account = NULL) {
     $account = $user;
   }
 
-  // $farm_asset may be either an object or an asset type. Since asset types cannot be
-  // an integer, use either id or type as the static cache id.
-
+  // $farm_asset may be either an object or an asset type. Since asset types
+  // cannot be an integer, use either id or type as the static cache id.
   $cid = is_object($farm_asset) ? $farm_asset->id : $farm_asset;
 
   // If we've already checked access for this asset, user and op, return from
@@ -354,7 +350,8 @@ function farm_asset_access($op, $farm_asset = NULL, $account = NULL) {
     return $rights[$account->uid][$cid][$op];
   }
 
-  // If the user has 'administer farm_asset module' permission, grant them access.
+  // If the user has 'administer farm_asset module' permission, grant them
+  // access.
   if (user_access('administer farm_asset module', $account)) {
     $rights[$account->uid][$cid][$op] = TRUE;
     return TRUE;
@@ -402,7 +399,10 @@ function farm_asset_access($op, $farm_asset = NULL, $account = NULL) {
 /**
  * Access callback: Checks whether the user has permission to add an asset.
  *
- * @return boolean
+ * @param object|null $account
+ *   The user account.
+ *
+ * @return bool
  *   TRUE if the user has add permission, otherwise FALSE.
  */
 function farm_asset_add_access($account = NULL) {
@@ -427,8 +427,16 @@ function farm_asset_add_access($account = NULL) {
 
 /**
  * Access callback for asset types.
+ *
+ * @param string $op
+ *   The operation being performed.
+ * @param FarmAsset $farm_asset
+ *   The farm asset entity.
+ *
+ * @return bool
+ *   Returns true if the user has access.
  */
-function farm_asset_type_access($op, $farm_asset = NULL) {
+function farm_asset_type_access($op, FarmAsset $farm_asset = NULL) {
   return user_access('administer farm_asset types');
 }
 
@@ -438,6 +446,14 @@ function farm_asset_type_access($op, $farm_asset = NULL) {
 
 /**
  * Load an asset.
+ *
+ * @param int $id
+ *   The asset id.
+ * @param bool $reset
+ *   Whether or not to reset the entity cache.
+ *
+ * @return FarmAsset
+ *   Returns a farm asset object.
  */
 function farm_asset_load($id, $reset = FALSE) {
   $farm_assets = farm_asset_load_multiple(array($id), array(), $reset);
@@ -446,6 +462,16 @@ function farm_asset_load($id, $reset = FALSE) {
 
 /**
  * Load multiple assets based on certain conditions.
+ *
+ * @param array $ids
+ *   An array of farm asset ids.
+ * @param array $conditions
+ *   An array of entity load conditions.
+ * @param bool $reset
+ *   Whether or not to reset the entity cache.
+ *
+ * @return array
+ *   Returns an array of farm assets.
  */
 function farm_asset_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
   return entity_load('farm_asset', $ids, $conditions, $reset);
@@ -453,22 +479,31 @@ function farm_asset_load_multiple($ids = array(), $conditions = array(), $reset 
 
 /**
  * Save asset.
+ *
+ * @param FarmAsset $farm_asset
+ *   The farm asset entity.
  */
-function farm_asset_save($farm_asset) {
+function farm_asset_save(FarmAsset $farm_asset) {
   entity_save('farm_asset', $farm_asset);
 }
 
 /**
  * Delete single asset.
+ *
+ * @param FarmAsset $farm_asset
+ *   The farm asset entity.
  */
-function farm_asset_delete($farm_asset) {
-  entity_delete('farm_asset', entity_id('farm_asset' ,$farm_asset));
+function farm_asset_delete(FarmAsset $farm_asset) {
+  entity_delete('farm_asset', entity_id('farm_asset', $farm_asset));
 }
 
 /**
  * Delete multiple assets.
+ *
+ * @param array $farm_asset_ids
+ *   An array of farm asset ids.
  */
-function farm_asset_delete_multiple($farm_asset_ids) {
+function farm_asset_delete_multiple(array $farm_asset_ids) {
   entity_delete_multiple('farm_asset', $farm_asset_ids);
 }
 
@@ -478,6 +513,12 @@ function farm_asset_delete_multiple($farm_asset_ids) {
 
 /**
  * Load asset type.
+ *
+ * @param string $farm_asset_type
+ *   The farm asset type.
+ *
+ * @return FarmAssetType
+ *   Returns a farm asset type entity.
  */
 function farm_asset_type_load($farm_asset_type) {
   return farm_asset_types($farm_asset_type);
@@ -485,6 +526,12 @@ function farm_asset_type_load($farm_asset_type) {
 
 /**
  * List of asset types.
+ *
+ * @param string $type_name
+ *   The farm asset type name.
+ *
+ * @return FarmAssetType|array
+ *   Returns either a single type, or an array of types.
  */
 function farm_asset_types($type_name = NULL) {
   $types = entity_load_multiple_by_name('farm_asset_type', isset($type_name) ? array($type_name) : FALSE);
@@ -493,22 +540,31 @@ function farm_asset_types($type_name = NULL) {
 
 /**
  * Save asset type entity.
+ *
+ * @param FarmAssetType $farm_asset_type
+ *   The farm asset type entity.
  */
-function farm_asset_type_save($farm_asset_type) {
+function farm_asset_type_save(FarmAssetType $farm_asset_type) {
   entity_save('farm_asset_type', $farm_asset_type);
 }
 
 /**
  * Delete single asset type.
+ *
+ * @param FarmAssetType $farm_asset_type
+ *   The farm asset type entity.
  */
-function farm_asset_type_delete($farm_asset_type) {
-  entity_delete('farm_asset_type', entity_id('farm_asset_type' ,$farm_asset_type));
+function farm_asset_type_delete(FarmAssetType $farm_asset_type) {
+  entity_delete('farm_asset_type', entity_id('farm_asset_type', $farm_asset_type));
 }
 
 /**
  * Delete multiple asset types.
+ *
+ * @param array $farm_asset_type_ids
+ *   An array of farm asset type ids.
  */
-function farm_asset_type_delete_multiple($farm_asset_type_ids) {
+function farm_asset_type_delete_multiple(array $farm_asset_type_ids) {
   entity_delete_multiple('farm_asset_type', $farm_asset_type_ids);
 }
 

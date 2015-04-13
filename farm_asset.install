@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Farm asset install
+ * Farm asset install.
  */
 
 /**
@@ -83,7 +83,7 @@ function farm_asset_schema() {
       ),
 
       // The following fields are required to make types exportable via
-      // Entity API and Ctools. See
+      // Entity API and Ctools.
       'status' => array(
         'type' => 'int',
         'not null' => TRUE,

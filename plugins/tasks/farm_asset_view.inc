@@ -4,18 +4,19 @@
  * @file
  * Handle the 'farm_asset view' override task.
  *
- * This plugin overrides farm/asset/%farm_asset and reroutes it to the page manager, where
- * a list of tasks can be used to service this request based upon criteria
- * supplied by access plugins.
+ * This plugin overrides farm/asset/%farm_asset and reroutes it to the page
+ * manager, where a list of tasks can be used to service this request based upon
+ * criteria supplied by access plugins.
  */
 
 /**
- * Specialized implementation of hook_farm_asset_task_tasks(). See api-task.html for
- * more information.
+ * Specialized implementation of hook_farm_asset_task_tasks().
+ *
+ * See api-task.html for more information.
  */
 function farm_asset_farm_asset_view_page_manager_tasks() {
   return array(
-    // This is a 'page' task and will fall under the page admin UI
+    // This is a 'page' task and will fall under the page admin UI.
     'task type' => 'page',
 
     'title' => t('farm_asset template'),
@@ -24,7 +25,8 @@ function farm_asset_farm_asset_view_page_manager_tasks() {
     'admin description' => t('When enabled, this overrides the default Drupal behavior for displaying farm assets at <em>farm/asset/%farm_asset</em>. If you add variants, you may use selection criteria such as farm asset type or language or user access to provide different views of farm assets. If no variant is selected, the default Drupal farm asset view will be used. This page only affects farm assets viewed as pages, it will not affect farm assets viewed in lists or at other locations. Also please note that if you are using pathauto, aliases may make a farm asset to be somewhere else, but as far as Drupal is concerned, they are still at farm/asset/%farm_asset.'),
     'admin path' => 'farm/asset/%farm_asset',
 
-    // Menu hooks so that we can alter the farm/asset/%farm_asset menu entry to point to us.
+    // Menu hooks so that we can alter the farm/asset/%farm_asset menu entry to
+    // point to us.
     'hook menu' => 'farm_asset_farm_asset_view_menu',
     'hook menu alter' => 'farm_asset_farm_asset_view_menu_alter',
 
@@ -44,10 +46,15 @@ function farm_asset_farm_asset_view_page_manager_tasks() {
 /**
  * Callback defined by farm_asset_farm_asset_view_farm_asset_tasks().
  *
- * Alter the farm_asset view input so that farm_asset view comes to us rather than the
- * normal farm_asset view process.
+ * Alter the farm_asset view input so that farm_asset view comes to us rather
+ * than the normal farm_asset view process.
+ *
+ * @param array $items
+ *   Array of menu items.
+ * @param array $task
+ *   The task array.
  */
-function farm_asset_farm_asset_view_menu_alter(&$items, $task) {
+function farm_asset_farm_asset_view_menu_alter(array &$items, array $task) {
   if (variable_get('farm_asset_farm_asset_view_disabled', TRUE)) {
     return;
   }
@@ -60,7 +67,7 @@ function farm_asset_farm_asset_view_menu_alter(&$items, $task) {
     $items['farm/asset/%farm_asset']['file'] = $task['file'];
   }
   else {
-    // automatically disable this task if it cannot be enabled.
+    // Automatically disable this task if it cannot be enabled.
     variable_set('farm_asset_farm_asset_view_disabled', TRUE);
     if (!empty($GLOBALS['farm_asset_enabling_farm_asset_view'])) {
       drupal_set_message(t('Page manager module is unable to enable farm/asset/%farm_asset because some other module already has overridden with %callback.', array('%callback' => $callback)), 'error');
@@ -76,9 +83,15 @@ function farm_asset_farm_asset_view_menu_alter(&$items, $task) {
  * This function asks its assigned handlers who, if anyone, would like
  * to run with it. If no one does, it passes through to Drupal core's
  * farm_asset view, which is farm_asset_view().
+ *
+ * @param FarmAsset $farm_asset
+ *   The farm asset entity.
+ *
+ * @return array
+ *   Returns a render array.
  */
-function farm_asset_farm_asset_view_page($farm_asset) {
-  // Load farm_asset task plugin
+function farm_asset_farm_asset_view_page(FarmAsset $farm_asset) {
+  // Load farm_asset task plugin.
   $task = page_manager_get_task('farm_asset_view');
 
   // Load the farm_asset into a context.
@@ -89,14 +102,17 @@ function farm_asset_farm_asset_view_page($farm_asset) {
   drupal_set_title($farm_asset->name);
   $uri = entity_uri('farm_asset', $farm_asset);
   // Set the farm_asset path as the canonical URL to prevent duplicate content.
-  drupal_add_html_head_link(array('rel' => 'canonical', 'href' => url($uri['path'], $uri['options'])), TRUE);
+  drupal_add_html_head_link(array(
+    'rel' => 'canonical',
+    'href' => url($uri['path'], $uri['options'])), TRUE);
   // Set the non-aliased path as a default shortlink.
-  drupal_add_html_head_link(array('rel' => 'shortlink', 'href' => url($uri['path'], array_merge($uri['options'], array('alias' => TRUE)))), TRUE);
+  drupal_add_html_head_link(array(
+    'rel' => 'shortlink',
+    'href' => url($uri['path'], array_merge($uri['options'], array('alias' => TRUE)))), TRUE);
   $contexts = ctools_context_handler_get_task_contexts($task, '', array($farm_asset));
 
   $output = ctools_context_handler_render($task, '', $contexts, array($farm_asset->id));
   if ($output != FALSE) {
-    //farm_asset_tag_new($farm_asset);
     return $output;
   }
 
@@ -119,8 +135,16 @@ function farm_asset_farm_asset_view_page($farm_asset) {
  *
  * Since this is the farm_asset view and there is no UI on the arguments, we
  * create dummy arguments that contain the needed data.
+ *
+ * @param array $task
+ *   The task array.
+ * @param string $subtask_id
+ *   The subtask id.
+ *
+ * @return array
+ *   Returns an array of arguments.
  */
-function farm_asset_farm_asset_view_get_arguments($task, $subtask_id) {
+function farm_asset_farm_asset_view_get_arguments(array $task, $subtask_id) {
   return array(
     array(
       'keyword' => 'farm_asset',
@@ -134,13 +158,26 @@ function farm_asset_farm_asset_view_get_arguments($task, $subtask_id) {
 
 /**
  * Callback to get context placeholders provided by this handler.
+ *
+ * @param array $task
+ *   The task array.
+ * @param string $subtask_id
+ *   The subtask id.
+ *
+ * @return array
+ *   Returns an array of contexts.
  */
-function farm_asset_farm_asset_view_get_contexts($task, $subtask_id) {
+function farm_asset_farm_asset_view_get_contexts(array $task, $subtask_id) {
   return ctools_context_get_placeholders_from_argument(farm_asset_farm_asset_view_get_arguments($task, $subtask_id));
 }
 
 /**
  * Callback to enable/disable the page from the UI.
+ *
+ * @param object $cache
+ *   Cache object for the page manager view.
+ * @param bool $status
+ *   Whether or no the page manager override should be enabled.
  */
 function farm_asset_farm_asset_view_enable($cache, $status) {
   variable_set('farm_asset_farm_asset_view_disabled', $status);
@@ -155,16 +192,17 @@ function farm_asset_farm_asset_view_enable($cache, $status) {
 /**
  * Callback to determine if a page is accessible.
  *
- * @param $task
+ * @param string $task
  *   The task plugin.
- * @param $subtask_id
- *   The subtask id
- * @param $contexts
+ * @param int $subtask_id
+ *   The subtask id.
+ * @param array $contexts
  *   The contexts loaded for the task.
- * @return
+ *
+ * @return bool
  *   TRUE if the current user can access the page.
  */
-function farm_asset_farm_asset_view_access_check($task, $subtask_id, $contexts) {
+function farm_asset_farm_asset_view_access_check($task, $subtask_id, array $contexts) {
   $context = reset($contexts);
   return farm_asset_access('view', $context->data);
 }

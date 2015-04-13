@@ -2,13 +2,25 @@
 
 /**
  * @file
- * Farm asset admin pages
+ * Farm asset admin pages.
  */
 
 /**
  * Generates the farm asset type editing form.
+ *
+ * @param array $form
+ *   The form array.
+ * @param array $form_state
+ *   The form state array.
+ * @param string $farm_asset_type
+ *   The farm asset type.
+ * @param string $op
+ *   The operation being performed.
+ *
+ * @return array
+ *   Returns a form array.
  */
-function farm_asset_type_form($form, &$form_state, $farm_asset_type, $op = 'edit') {
+function farm_asset_type_form(array $form, array &$form_state, $farm_asset_type, $op = 'edit') {
 
   if ($op == 'clone') {
     $farm_asset_type->label .= ' (cloned)';
@@ -50,7 +62,7 @@ function farm_asset_type_form($form, &$form_state, $farm_asset_type, $op = 'edit
       '#value' => t('Delete asset type'),
       '#weight' => 45,
       '#limit_validation_errors' => array(),
-      '#submit' => array('farm_asset_type_form_submit_delete')
+      '#submit' => array('farm_asset_type_form_submit_delete'),
     );
   }
   return $form;
@@ -58,8 +70,13 @@ function farm_asset_type_form($form, &$form_state, $farm_asset_type, $op = 'edit
 
 /**
  * Submit handler for creating/editing asset types.
+ *
+ * @param array $form
+ *   The form array.
+ * @param array $form_state
+ *   The form state array.
  */
-function farm_asset_type_form_submit(&$form, &$form_state) {
+function farm_asset_type_form_submit(array &$form, array &$form_state) {
   $farm_asset_type = entity_ui_form_submit_build_entity($form, $form_state);
   // Save and go back.
   farm_asset_type_save($farm_asset_type);
@@ -68,23 +85,43 @@ function farm_asset_type_form_submit(&$form, &$form_state) {
   $form_state['redirect'] = 'admin/config/farm/asset-types';
 }
 
-function farm_asset_type_form_submit_delete(&$form, &$form_state) {
+/**
+ * Submit handler for deleting asset types.
+ *
+ * @param array $form
+ *   The form array.
+ * @param array $form_state
+ *   The form state array.
+ */
+function farm_asset_type_form_submit_delete(array &$form, array &$form_state) {
   $form_state['redirect'] = 'admin/config/farm/asset-types/' . $form_state['farm_asset_type']->type . '/delete';
 }
 
 /**
  * Asset type delete form.
+ *
+ * @param array $form
+ *   The form array.
+ * @param array $form_state
+ *   The form state array.
+ * @param string $farm_asset_type
+ *   The farm asset type.
+ *
+ * @return array
+ *   Returns a form array.
  */
-function farm_asset_type_form_delete_confirm($form, &$form_state, $farm_asset_type) {
+function farm_asset_type_form_delete_confirm(array $form, array &$form_state, $farm_asset_type) {
   $form['farm_asset_type'] = array(
     '#type' => 'value',
     '#value' => $farm_asset_type,
   );
   // Always provide entity id in the same form key as in the entity edit form.
-  $form['farm_asset_type_id'] = array('#type' => 'value', '#value' => entity_id('farm_asset_type' ,$farm_asset_type));
+  $form['farm_asset_type_id'] = array(
+    '#type' => 'value',
+    '#value' => entity_id('farm_asset_type', $farm_asset_type));
   return confirm_form($form,
     t('Are you sure you want to delete asset type %title?', array('%title' => entity_label('farm_asset_type', $farm_asset_type))),
-    'farm/asset/' . entity_id('farm_asset_type' ,$farm_asset_type),
+    'farm/asset/' . entity_id('farm_asset_type', $farm_asset_type),
     t('This action cannot be undone.'),
     t('Delete'),
     t('Cancel')
@@ -93,8 +130,13 @@ function farm_asset_type_form_delete_confirm($form, &$form_state, $farm_asset_ty
 
 /**
  * Asset type delete form submit handler.
+ *
+ * @param array $form
+ *   The form array.
+ * @param array $form_state
+ *   The form state array.
  */
-function farm_asset_type_form_delete_confirm_submit($form, &$form_state) {
+function farm_asset_type_form_delete_confirm_submit(array $form, array &$form_state) {
   $farm_asset_type = $form_state['values']['farm_asset_type'];
   farm_asset_type_delete($farm_asset_type);
 

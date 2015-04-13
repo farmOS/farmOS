@@ -2,13 +2,19 @@
 
 /**
  * @file
- * Farm asset pages
+ * Farm asset pages.
  */
 
 /**
  * Asset view callback.
+ *
+ * @param FarmAsset $farm_asset
+ *   The farm asset entity.
+ *
+ * @return array
+ *   Returns the entity render array.
  */
-function farm_asset_view($farm_asset) {
+function farm_asset_view(FarmAsset $farm_asset) {
 
   // Set the page title.
   drupal_set_title(entity_label('farm_asset', $farm_asset));
@@ -39,9 +45,9 @@ function farm_asset_view($farm_asset) {
         $args = array($farm_asset->id);
 
         // Get the View's default title.
-        // We intentionally do this before we build the preview so that the title
-        // is not overridden by the arguments. This keeps the title simple on the
-        // actual term page, but more descriptive in other contexts.
+        // We intentionally do this before we build the preview so that the
+        // title is not overridden by the arguments. This keeps the title simple
+        // on the actual term page, but more descriptive in other contexts.
         $title = $view->get_title();
 
         // Build the View preview.
@@ -84,6 +90,12 @@ function farm_asset_add_types_page() {
 
 /**
  * Add new asset page callback.
+ *
+ * @param string $type
+ *   The farm asset type.
+ *
+ * @return array
+ *   Returns a form array.
  */
 function farm_asset_add($type) {
   $farm_asset_type = farm_asset_types($type);
@@ -98,8 +110,18 @@ function farm_asset_add($type) {
 
 /**
  * Asset form.
+ *
+ * @param array $form
+ *   The form array.
+ * @param array $form_state
+ *   The form state array.
+ * @param FarmAsset $farm_asset
+ *   The farm asset entity.
+ *
+ * @return array
+ *   Returns a form array.
  */
-function farm_asset_form($form, &$form_state, $farm_asset) {
+function farm_asset_form(array $form, array &$form_state, FarmAsset $farm_asset) {
 
   $form['farm_asset'] = array(
     '#type' => 'value',
@@ -109,7 +131,7 @@ function farm_asset_form($form, &$form_state, $farm_asset) {
   // Load the asset type.
   $farm_asset_type = farm_asset_type_load($farm_asset->type);
 
-  // Asset name
+  // Asset name.
   $form['name'] = array(
     '#type' => 'textfield',
     '#title' => t('Name'),
@@ -142,11 +164,12 @@ function farm_asset_form($form, &$form_state, $farm_asset) {
   );
 
   // Show Delete button if allowed.
-  $farm_asset_id = entity_id('farm_asset' ,$farm_asset);
+  $farm_asset_id = entity_id('farm_asset', $farm_asset);
   if (!empty($farm_asset_id) && farm_asset_access('delete', $farm_asset)) {
 
-    // Get the destination query parameter. If it is the current path, change to <front>
-    // (because the current path won't exist once the asset is deleted).
+    // Get the destination query parameter. If it is the current path, change
+    // to <front> (because the current path won't exist once the asset is
+    // deleted).
     $destination = drupal_get_destination();
     if ($destination['destination'] == current_path()) {
       $destination['destination'] = '<front>';
@@ -162,15 +185,25 @@ function farm_asset_form($form, &$form_state, $farm_asset) {
 
 /**
  * Asset validate handler.
+ *
+ * @param array $form
+ *   The form array.
+ * @param array $form_state
+ *   The form state array.
  */
-function farm_asset_form_validate($form, &$form_state) {
+function farm_asset_form_validate(array $form, array &$form_state) {
 
 }
 
 /**
  * Asset submit handler.
+ *
+ * @param array $form
+ *   The form array.
+ * @param array $form_state
+ *   The form state array.
  */
-function farm_asset_form_submit($form, &$form_state) {
+function farm_asset_form_submit(array $form, array &$form_state) {
   $farm_asset = $form_state['values']['farm_asset'];
 
   entity_form_submit_build_entity('farm_asset', $farm_asset, $form, $form_state);
@@ -186,14 +219,26 @@ function farm_asset_form_submit($form, &$form_state) {
 
 /**
  * Delete confirmation form.
+ *
+ * @param array $form
+ *   The form array.
+ * @param array $form_state
+ *   The form state array.
+ * @param FarmAsset $farm_asset
+ *   The farm asset entity.
+ *
+ * @return array
+ *   Returns a form array.
  */
-function farm_asset_delete_form($form, &$form_state, $farm_asset) {
+function farm_asset_delete_form(array $form, array &$form_state, FarmAsset $farm_asset) {
   $form['farm_asset'] = array(
     '#type' => 'value',
     '#value' => $farm_asset,
   );
   // Always provide entity id in the same form key as in the entity edit form.
-  $form['farm_asset_type_id'] = array('#type' => 'value', '#value' => entity_id('farm_asset' ,$farm_asset));
+  $form['farm_asset_type_id'] = array(
+    '#type' => 'value',
+    '#value' => entity_id('farm_asset', $farm_asset));
   $farm_asset_uri = entity_uri('farm_asset', $farm_asset);
   return confirm_form($form,
     t('Are you sure you want to delete %title?', array('%title' => entity_label('farm_asset', $farm_asset))),
@@ -206,8 +251,13 @@ function farm_asset_delete_form($form, &$form_state, $farm_asset) {
 
 /**
  * Delete form submit handler.
+ *
+ * @param array $form
+ *   The form array.
+ * @param array $form_state
+ *   The form state array.
  */
-function farm_asset_delete_form_submit($form, &$form_state) {
+function farm_asset_delete_form_submit(array $form, array &$form_state) {
   $farm_asset = $form_state['values']['farm_asset'];
   farm_asset_delete($farm_asset);
 

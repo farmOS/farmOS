@@ -2,11 +2,12 @@
 
 /**
  * @file
+ * Hooks provided by farm_asset.
+ *
  * This file contains no working PHP code; it exists to provide additional
  * documentation for doxygen as well as to document hooks in the standard
  * Drupal manner.
  */
-
 
 /**
  * @defgroup farm_asset Farm asset module integrations.
@@ -23,14 +24,17 @@
 /**
  * Attach Views to asset view pages.
  *
+ * @param FarmAsset $farm_asset
+ *   The farm asset entity.
+ *
  * @return array
  *   Returns an array of View names to attach to farm asset pages.
  */
-function hook_farm_asset_view_views($farm_asset) {
+function hook_farm_asset_view_views(FarmAsset $farm_asset) {
 
   // If the entity is not a planting, bail.
   if ($farm_asset->type != 'planting') {
-    return;
+    return array();
   }
 
   // Return a list of Views to include on Plantings.
