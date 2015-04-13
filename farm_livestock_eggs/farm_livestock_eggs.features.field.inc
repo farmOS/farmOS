@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * farm_livestock_eggs.features.field.inc
+ * Field features for farm_livestock_eggs().
  */
 
 /**

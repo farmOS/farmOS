@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * farm_livestock_eggs.views_default.inc
+ * Default views for farm_livestock_eggs.
  */
 
 /**

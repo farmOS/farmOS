@@ -45,7 +45,7 @@ function farm_livestock_farm_asset_view_views($farm_asset) {
 
   // If the entity is not an animal, bail.
   if ($farm_asset->type != 'animal') {
-    return;
+    return array();
   }
 
   // Return a list of Views to include on Animals.

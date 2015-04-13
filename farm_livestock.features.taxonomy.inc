@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * farm_livestock.features.taxonomy.inc
+ * Taxonomy features for farm_livestock.
  */
 
 /**
