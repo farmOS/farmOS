@@ -20,6 +20,7 @@ dependencies[] = rdf
 dependencies[] = system
 dependencies[] = taxonomy
 dependencies[] = user
+dependencies[] = update
 dependencies[] = dblog
 
 ; Contrib
