@@ -25,7 +25,7 @@ function farm_crop_farm_admin_actions() {
       'title' => t('Add a harvest'),
       'href' => 'log/add/farm_harvest',
       'assets' => array(
-        'planting'
+        'planting',
       ),
       'views' => array(
         'farm_log_harvest',
@@ -35,7 +35,7 @@ function farm_crop_farm_admin_actions() {
       'title' => t('Add an input'),
       'href' => 'log/add/farm_input',
       'assets' => array(
-        'planting'
+        'planting',
       ),
       'views' => array(
         'farm_log_input',
@@ -58,7 +58,7 @@ function farm_crop_farm_admin_actions() {
       'title' => t('Add a seeding'),
       'href' => 'log/add/farm_seeding',
       'assets' => array(
-        'planting'
+        'planting',
       ),
       'views' => array(
         'farm_log_seeding',
@@ -68,7 +68,7 @@ function farm_crop_farm_admin_actions() {
       'title' => t('Add a transplanting'),
       'href' => 'log/add/farm_transplanting',
       'assets' => array(
-        'planting'
+        'planting',
       ),
       'views' => array(
         'farm_log_transplanting',
@@ -85,7 +85,7 @@ function farm_crop_farm_asset_view_views($farm_asset) {
 
   // If the entity is not a planting, bail.
   if ($farm_asset->type != 'planting') {
-    return;
+    return array();
   }
 
   // Return a list of Views to include on Plantings.
@@ -124,7 +124,7 @@ function farm_crop_farm_taxonomy_term_view_views($term) {
       );
       break;
 
-    // Farm crops
+    // Farm crops.
     case 'farm_crops':
       $views[] = array(
         'name' => 'farm_plantings',
@@ -132,7 +132,7 @@ function farm_crop_farm_taxonomy_term_view_views($term) {
       );
       break;
 
-    // Farm crop family
+    // Farm crop family.
     case 'farm_crop_families':
       $views[] = 'farm_crops';
       break;

@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * farm_crop.features.taxonomy.inc
+ * Taxonomy features for farm_crop.
  */
 
 /**

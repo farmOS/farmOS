@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * farm_crop.features.inc
+ * Features include file for farm_crop.
  */
 
 /**
