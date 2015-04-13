@@ -75,19 +75,19 @@ function farm_log_farm_taxonomy_term_view_views($term) {
 
   // If the term is not an area, bail.
   if ($term->vocabulary_machine_name != 'farm_areas') {
-    return;
+    return array();
   }
 
   // Return a list of Views to include on Areas.
   return array(
 
-    // Activities in this area
+    // Activities in this area.
     array(
       'name' => 'farm_log_activity',
       'arg' => 2,
     ),
 
-    // Area asset history (at the bottom)
+    // Area asset history (at the bottom).
     array(
       'name' => 'farm_area_assets',
       'weight' => 100,
@@ -112,11 +112,11 @@ function farm_log_farm_area_links($id) {
 }
 
 /**
- * Implements hook_entity_view_alter()
+ * Implements hook_entity_view_alter().
  */
 function farm_log_entity_view_alter(&$build, $type) {
 
-  /**
+  /*
    * Alter farm assets to display their current location.
    */
 
@@ -150,8 +150,8 @@ function farm_log_entity_view_alter(&$build, $type) {
         'farm_asset' => $asset->id,
       ),
     );
-    $link = l('add a movement', 'log/add/farm_movement', $options);
-    $output .= 'N/A (' . $link .')';
+    $link = l(t('add a movement'), 'log/add/farm_movement', $options);
+    $output .= 'N/A (' . $link . ')';
   }
 
   // Add it to the build array.
@@ -227,8 +227,13 @@ function farm_log_form_alter(&$form, &$form_state, $form_id) {
 
 /**
  * Submit handler for processing the asset location field.
+ *
+ * @param array $form
+ *   The form array.
+ * @param array $form_state
+ *   The form state array.
  */
-function farm_log_asset_location_submit($form, &$form_state) {
+function farm_log_asset_location_submit(array $form, array &$form_state) {
 
   // Only proceed if farm_log_asset_location has a value.
   if (empty($form_state['values']['farm_log_asset_location'])) {
@@ -265,7 +270,7 @@ function farm_log_asset_location_submit($form, &$form_state) {
   // If an area was not found, create a new one.
   if (empty($area)) {
     $farm_areas = taxonomy_vocabulary_machine_name_load('farm_areas');
-    $area = new stdClass;
+    $area = new stdClass();
     $area->name = $value;
     $area->vid = $farm_areas->vid;
     taxonomy_term_save($area);
@@ -283,7 +288,7 @@ function farm_log_asset_location_submit($form, &$form_state) {
  * @param int $time
  *   Unix timestamp limiter. Only movement logs before this time will be
  *   included. Defaults to the current time. Set to 0 to load the absolute last.
- * @param boolean $done
+ * @param bool $done
  *   Whether or not to only show movement logs that are marked as "done".
  *   Defaults to TRUE.
  *
@@ -291,6 +296,7 @@ function farm_log_asset_location_submit($form, &$form_state) {
  *   Returns the area that the asset is in.
  */
 function farm_log_asset_location(FarmAsset $asset, $time = REQUEST_TIME, $done = TRUE) {
+  $area = NULL;
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'log')
     ->entityCondition('bundle', 'farm_movement')
@@ -311,28 +317,30 @@ function farm_log_asset_location(FarmAsset $asset, $time = REQUEST_TIME, $done =
       if (!empty($log->field_farm_move_to[LANGUAGE_NONE][0]['tid'])) {
         $term = taxonomy_term_load($log->field_farm_move_to[LANGUAGE_NONE][0]['tid']);
         if (!empty($term)) {
-          return $term;
+          $area = $term;
+          break;
         }
       }
     }
   }
+  return $area;
 }
 
 /**
  * Helper function for enabling asset prepopulation in log forms.
  *
- * @param $form
+ * @param array $form
  *   The form array to modify, passed by reference.
- * @param $field_name
+ * @param string $field_name
  *   The machine name of the entity reference field that should be populated.
- * @param $tags
+ * @param bool $tags
  *   Whether or not the field is using the "Tags style" entity reference
  *   widget. Defaults to FALSE.
  *
  * @return FarmAsset farm_asset
  *   Returns the asset object, if found.
  */
-function farm_log_form_prepopulate_asset(&$form, $field_name = 'field_farm_asset', $tags = FALSE) {
+function farm_log_form_prepopulate_asset(array &$form, $field_name = 'field_farm_asset', $tags = FALSE) {
   $asset = NULL;
 
   // The location of the field's default value depends on whether or not it is
@@ -383,15 +391,15 @@ function farm_log_form_prepopulate_asset(&$form, $field_name = 'field_farm_asset
 /**
  * Helper function for enabling area prepopulation in log forms.
  *
- * @param $form
+ * @param array $form
  *   The form array to modify, passed by reference.
- * @param $field_name
+ * @param string $field_name
  *   The machine name of the term reference field that should be populated.
  *
  * @return TaxonomyTerm term
  *   Returns the taxonomy term object, if found.
  */
-function farm_log_form_prepopulate_area(&$form, $field_name = 'field_farm_area') {
+function farm_log_form_prepopulate_area(array &$form, $field_name = 'field_farm_area') {
   $area = NULL;
 
   // Alias for the field's default value.
@@ -432,14 +440,22 @@ function farm_log_action_info() {
       'configurable' => TRUE,
       'triggers' => array('any'),
       'aggregate' => TRUE,
-    )
+    ),
   );
 }
 
 /**
  * Asset move action configuration form.
+ *
+ * @param array $context
+ *   The action context array.
+ * @param array $form_state
+ *   The form state array.
+ *
+ * @return array
+ *   Returns a form array.
  */
-function farm_log_asset_move_action_form($context, $form_state) {
+function farm_log_asset_move_action_form(array $context, array $form_state) {
 
   // Add Javascript to improve UX.
   drupal_add_js(drupal_get_path('module', 'farm_log') . '/js/move_action.js');
@@ -507,8 +523,16 @@ function farm_log_asset_move_action_form($context, $form_state) {
 
 /**
  * Asset move action configuration form submit.
+ *
+ * @param array $form
+ *   The form array.
+ * @param array $form_state
+ *   The form state array.
+ *
+ * @return array
+ *   Returns an array of variables to pass to the action function.
  */
-function farm_log_asset_move_action_submit($form, $form_state) {
+function farm_log_asset_move_action_submit(array $form, array $form_state) {
   return array(
     'to' => $form_state['values']['to'],
     'timestamp' => $form_state['values']['timestamp'],
@@ -521,12 +545,12 @@ function farm_log_asset_move_action_submit($form, $form_state) {
  *
  * Creates a new movement record for the specified assets.
  *
- * @param object $assets
+ * @param array $assets
  *   An array of asset entities to move.
  * @param array $context
  *   Array with parameters for this action.
  */
-function farm_log_asset_move_action($assets, $context = array()) {
+function farm_log_asset_move_action(array $assets, $context = array()) {
 
   // Assemble parameters.
   $area_id = $context['to'];
@@ -538,19 +562,18 @@ function farm_log_asset_move_action($assets, $context = array()) {
 }
 
 /**
- * Move farm asset(s) to an area.
- * Creates a movement log.
+ * Move farm asset(s) to an area. Creates a movement log.
  *
- * @param $assets
+ * @param array $assets
  *   Array of assets to include in the move.
- * @param $area_id
+ * @param int $area_id
  *   The id of the area to move to.
- * @param $timestamp
+ * @param int $timestamp
  *   The timestamp of the move.
- * @param $done
- *   Whether or not to mark the movement done. (Default to FALSE.)
+ * @param bool $done
+ *   Whether or not to mark the movement done. Default to FALSE.
  */
-function farm_log_move_assets($assets, $area_id, $timestamp, $done = FALSE) {
+function farm_log_move_assets(array $assets, $area_id, $timestamp, $done = FALSE) {
 
   // If $assets isn't an array, wrap it.
   if (!is_array($assets)) {

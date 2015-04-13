@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Farm Log install
+ * Farm Log install file.
  */
 
 /**
@@ -12,10 +12,10 @@ function farm_log_update_dependencies() {
 
   // Simultaneous changes to Log and Farm Log modules require
   // updates to be run in a specific back-and-forth order:
-  // 1. Log 7001 (add timestamp property)
-  // 2. Farm Log 7000 (migrate field_farm_date to timestamp property)
-  // 3. Log 7002 (add done property and mark past logs as done)
-  // 4. Farm Log 7001 (converts Issues to Observations, assumes done property)
+  // 1. Log 7001 (add timestamp property).
+  // 2. Farm Log 7000 (migrate field_farm_date to timestamp property).
+  // 3. Log 7002 (add done property and mark past logs as done).
+  // 4. Farm Log 7001 (converts Issues to Observations, assumes done property).
   $dependencies['farm_log'][7000] = array('log' => 7001);
   $dependencies['log'][7002] = array('farm_log' => 7000);
   $dependencies['farm_log'][7001] = array('log' => 7002);
@@ -28,7 +28,7 @@ function farm_log_update_dependencies() {
  */
 function farm_log_update_7000(&$sandbox) {
 
-  /**
+  /*
    * As of January 16th, 2015, the Log module has a timestamp property,
    * which has the same goal as the field_farm_date field, so we're
    * migrating to that.
@@ -65,7 +65,7 @@ function farm_log_update_7001(&$sandbox) {
   $vocab = taxonomy_vocabulary_machine_name_load('farm_observation_types');
   $term = entity_create('taxonomy_term', array(
     'name' => 'Issue',
-    'vid' => $vocab->vid
+    'vid' => $vocab->vid,
   ));
   taxonomy_term_save($term);
 
@@ -112,7 +112,10 @@ function farm_log_update_7001(&$sandbox) {
       $result = db_query('SELECT timestamp, done FROM {log} WHERE id=:id', array(':id' => $log->id));
       if ($result) {
         while ($row = $result->fetchAssoc()) {
-          db_query('UPDATE {log} SET timestamp=:timestamp, done=:done WHERE id=:id', array(':timestamp' => $row['timestamp'], ':done' => $row['done'], ':id' => $observation->id));
+          db_query('UPDATE {log} SET timestamp=:timestamp, done=:done WHERE id=:id', array(
+            ':timestamp' => $row['timestamp'],
+            ':done' => $row['done'],
+            ':id' => $observation->id));
         }
       }
 

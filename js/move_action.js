@@ -23,7 +23,7 @@
 
         // Get the timestamp at the start of today.
         var now = new Date();
-        var today = Date.parse(new Date(now.getFullYear(), now.getMonth(), now.getDate()));
+        var today = Date.parse(new Date(now.getFullYear(), now.getMonth(), now.getDate()).toString());
 
         // Get the "Done" checkbox element.
         var done = $(event.target).closest('form').find('#edit-done');

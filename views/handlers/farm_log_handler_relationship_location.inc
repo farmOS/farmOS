@@ -6,6 +6,8 @@
  */
 
 /**
+ * Farm log location relationship handler.
+ *
  * Create a relationship between a farm_asset, and it's most recent movement
  * log entity, in order to determine its current location.
  *
@@ -16,9 +18,9 @@
 class farm_log_handler_relationship_location extends views_handler_relationship {
 
   /**
-   * Default options.
+   * {@inheritfoc}
    */
-  function option_definition() {
+  public function option_definition() {
     $options = parent::option_definition();
 
     // Only include "done" logs by default.
@@ -31,9 +33,9 @@ class farm_log_handler_relationship_location extends views_handler_relationship 
   }
 
   /**
-   * Add an options for filtering logs
+   * {@inheritfoc}
    */
-  function options_form(&$form, &$form_state) {
+  public function options_form(&$form, &$form_state) {
     parent::options_form($form, $form_state);
 
     // Only include log that are "done".
@@ -54,9 +56,9 @@ class farm_log_handler_relationship_location extends views_handler_relationship 
   }
 
   /**
-   * Called to implement a relationship in a query.
+   * {@inheritfoc}
    */
-  function query() {
+  public function query() {
 
     // Figure out what base table this relationship brings to the party.
     $table_data = views_fetch_data($this->definition['base']);
@@ -110,7 +112,7 @@ class farm_log_handler_relationship_location extends views_handler_relationship 
     $join->construct();
     $join->adjusted = TRUE;
 
-    // use a short alias for this:
+    // Use a short alias for this.
     $alias = $def['table'] . '_' . $this->table;
 
     $this->alias = $this->query->add_relationship($alias, $join, $this->definition['base'], $this->relationship);
@@ -121,4 +123,5 @@ class farm_log_handler_relationship_location extends views_handler_relationship 
       $this->query->add_tag($access_tag);
     }
   }
+
 }

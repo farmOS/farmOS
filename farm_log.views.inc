@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Farm Area Views data.
+ * Farm Log Views data.
  */
 
 /**

@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * farm_log.features.field.inc
+ * Field features for farm_log.
  */
 
 /**
@@ -454,7 +454,7 @@ function farm_log_field_default_fields() {
       'bundle' => 'farm_movement',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'Where is it moving from? This field is optional. You may leave this blank as a way of setting an object\'s initial location.',
+      'description' => 'Where is it moving from? This field is optional. You may leave this blank as a way of setting the initial location of an object.',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -993,7 +993,7 @@ function farm_log_field_default_fields() {
   t('What assets does this activity pertain to?');
   t('What assets does this observation pertain to?');
   t('What type of observation is this. Use this to organize your observations into categories for easy viewing later. As you type, you will have the option of selecting from a list of types you entered in the past.');
-  t('Where is it moving from? This field is optional. You may leave this blank as a way of setting an object\'s initial location.');
+  t('Where is it moving from? This field is optional. You may leave this blank as a way of setting the initial location of an object.');
   t('Where is it moving to?');
 
   return $fields;
