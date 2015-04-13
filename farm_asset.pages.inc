@@ -19,6 +19,15 @@ function farm_asset_view(FarmAsset $farm_asset) {
   // Set the page title.
   drupal_set_title(entity_label('farm_asset', $farm_asset));
 
+  // Set the page breadcrumb.
+  $breadcrumb = array(
+    l(t('Home'), '<front>'),
+    l(t('Farm'), 'farm'),
+  );
+  $module_breadcrumbs = module_invoke_all('farm_asset_breadcrumb', $farm_asset);
+  $breadcrumb = array_merge($breadcrumb, $module_breadcrumbs);
+  drupal_set_breadcrumb($breadcrumb);
+
   // Build the asset's render array.
   $build = entity_view('farm_asset', array(entity_id('farm_asset', $farm_asset) => $farm_asset), 'full');
 
