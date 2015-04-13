@@ -6,6 +6,9 @@
 
 include_once 'farm_equipment.features.inc';
 
+/**
+ * Implements hook_farm_admin_actions().
+ */
 function farm_equipment_farm_admin_actions() {
 
   // Define farm area actions.
@@ -39,7 +42,7 @@ function farm_equipment_farm_asset_view_views($farm_asset) {
 
   // If the entity is not equipment, bail.
   if ($farm_asset->type != 'equipment') {
-    return;
+    return array();
   }
 
   // Return a list of Views to include on Equipment.
@@ -58,7 +61,7 @@ function farm_equipment_farm_taxonomy_term_view_views($term) {
 
   // If the term is not an area, bail.
   if ($term->vocabulary_machine_name != 'farm_areas') {
-    return;
+    return array();
   }
 
   // Return a list of Views to include on Areas.

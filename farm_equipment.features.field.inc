@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * farm_equipment.features.field.inc
+ * Field features for farm_equipment.
  */
 
 /**

@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * farm_equipment.views_default.inc
+ * Default views for farm_equipment.
  */
 
 /**
