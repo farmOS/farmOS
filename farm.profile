@@ -2,7 +2,7 @@
 
 /**
  * @file
- * FarmOS installation profile
+ * FarmOS installation profile.
  */
 
 /**
@@ -78,3 +78,4 @@ function farm_configure_logintoboggan() {
   // Display the login form on access denied pages.
   variable_set('site_403', 'toboggan/denied');
 }
+
