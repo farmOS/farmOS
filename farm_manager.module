@@ -119,11 +119,12 @@ function farm_manager_compare_perms() {
 }
 
 /**
- * Generate permission lists for specific farm assets, logs, and taxonomies.
+ * Generate permission lists for farm entities.
+ *
  * This is a helper function to make the task of generating permission lists
  * easier.
  *
- * @param $types
+ * @param array $types
  *   An array of entity types/bundles to generate permissions for. Example:
  *     $types = array(
  *       'taxonomy' => array(
@@ -134,7 +135,7 @@ function farm_manager_compare_perms() {
  * @return array
  *   Returns a list of permissions for the given entity type+bundle.
  */
-function farm_manager_entity_perms($types) {
+function farm_manager_entity_perms(array $types) {
 
   // Start with an empty array.
   $perms = array();
@@ -148,7 +149,7 @@ function farm_manager_entity_perms($types) {
       // Switch through available entity types.
       switch ($type) {
 
-        // Farm Asset
+        // Farm Asset.
         case 'farm_asset':
           $perms[] = 'create ' . $bundle . ' farm assets';
           $perms[] = 'delete any ' . $bundle . ' farm assets';
@@ -159,7 +160,7 @@ function farm_manager_entity_perms($types) {
           $perms[] = 'view own ' . $bundle . ' farm assets';
           break;
 
-        // Log
+        // Log.
         case 'log':
           $perms[] = 'create ' . $bundle . ' log entities';
           $perms[] = 'delete any ' . $bundle . ' log entities';
@@ -170,7 +171,7 @@ function farm_manager_entity_perms($types) {
           $perms[] = 'view own ' . $bundle . ' log entities';
           break;
 
-        // Taxonomy
+        // Taxonomy.
         case 'taxonomy':
           $perms[] = 'delete terms in ' . $bundle;
           $perms[] = 'edit terms in ' . $bundle;
@@ -188,7 +189,8 @@ function farm_manager_entity_perms($types) {
  */
 function farm_manager_modules_enabled($modules) {
 
-  // Load a list of modules that implement this module's hook_farm_manager_perms().
+  // Load a list of modules that implement this module's
+  // hook_farm_manager_perms().
   $implementations = module_implements('farm_manager_perms');
 
   // If one of the modules being enabled implements hook_farm_manager_perms(),
@@ -216,14 +218,14 @@ function farm_manager_form_alter(&$form, &$form_state, $form_id) {
 
 /**
  * Submit function for the core permissions form.
- * Syncs Farm Manager role permissions.
  */
 function farm_manager_permissions_form_submit($form, &$form_state) {
 
   // Sync permissions.
   farm_manager_sync_perms();
 
-  // Tell the user that we are enforcing the permissions, so there's no confusion.
+  // Tell the user that we are enforcing the permissions, so there's no
+  // confusion.
   drupal_set_message(t('Farm Manager permissions were automatically assigned.'));
 }
 

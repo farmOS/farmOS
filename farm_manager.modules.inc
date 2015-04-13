@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Farm Manager module permissions
+ * Farm Manager module permissions.
  */
 
 /**
