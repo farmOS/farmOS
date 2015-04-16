@@ -31,4 +31,5 @@
  */
 .views-field-views-bulk-operations .checkbox input[type="checkbox"] {
   margin-left: 0;
+  position: relative;
 }
