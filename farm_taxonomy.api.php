@@ -23,9 +23,29 @@
  */
 
 /**
+ * Add breadcrumbs to the taxonomy view page.
+ *
+ * @param object $term
+ *   The taxonomy term entity.
+ *
+ * @return array
+ *   Returns an array of links to add to the term's breadcrumb.
+ */
+function hook_farm_taxonomy_breadcrumb($term) {
+  $breadcrumb = array();
+
+  // If the asset is an animal, add a link to /farm/animals.
+  if ($farm_asset->type == 'animal') {
+    $breadcrumb[] = l(t('Animals'), 'farm/animals');
+  }
+
+  return $breadcrumb;
+}
+
+/**
  * Attach Views to taxonomy term pages.
  *
- * @param array $term
+ * @param object $term
  *   The taxonomy term entity.
  *
  * @return array
@@ -38,7 +58,7 @@
  *     'weight' - the weight of the View in the taxonomy page
  *       (this is useful for changing the order of Views)
  */
-function hook_taxonomy_term_view_views(array $term) {
+function hook_taxonomy_term_view_views($term) {
 
   // If the term is not a crop, bail.
   if ($term->vocabulary_machine_name != 'crop') {
