@@ -430,13 +430,13 @@ function farm_asset_add_access($account = NULL) {
  *
  * @param string $op
  *   The operation being performed.
- * @param FarmAsset $farm_asset
+ * @param FarmAssetType $farm_asset_type
  *   The farm asset entity.
  *
  * @return bool
  *   Returns true if the user has access.
  */
-function farm_asset_type_access($op, FarmAsset $farm_asset = NULL) {
+function farm_asset_type_access($op, FarmAssetType $farm_asset_type = NULL) {
   return user_access('administer farm_asset types');
 }
 
