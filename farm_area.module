@@ -28,6 +28,20 @@ function farm_area_farm_admin_actions() {
 }
 
 /**
+ * Implements hook_farm_taxonomy_breadcrumb().
+ */
+function farm_area_farm_taxonomy_breadcrumb($term) {
+  $breadcrumb = array();
+
+  // If the term is in farm_areas, add a link to /farm/areas.
+  if ($term->vocabulary_machine_name == 'farm_areas') {
+    $breadcrumb[] = l(t('Areas'), 'farm/areas');
+  }
+
+  return $breadcrumb;
+}
+
+/**
  * Generate area links, sorted by weight.
  *
  * @param int $id
