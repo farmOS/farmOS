@@ -495,7 +495,7 @@ function farm_crop_field_default_fields() {
       'bundle' => 'farm_input',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'What area is this input in?',
+      'description' => 'Is this input being added to a specific area?',
       'display' => array(
         'default' => array(
           'label' => 'inline',
@@ -514,7 +514,7 @@ function farm_crop_field_default_fields() {
       'entity_type' => 'log',
       'field_name' => 'field_farm_area',
       'label' => 'Area',
-      'required' => 1,
+      'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
       ),
@@ -1013,7 +1013,7 @@ function farm_crop_field_default_fields() {
       'entity_type' => 'log',
       'field_name' => 'field_farm_quantity',
       'label' => 'Quantity',
-      'required' => 1,
+      'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
       ),
@@ -1854,6 +1854,7 @@ function farm_crop_field_default_fields() {
   t('Enter the crop that this is a planting of. As you type, you will have the option of selecting from crops that you\'ve entered in the past.');
   t('Harvests must reference a specific planting. You can view a list of all plantings, and add new ones, from the <a href="/farm/plantings">Plantings list</a>.');
   t('How was this input applied?');
+  t('Is this input being added to a specific area?');
   t('Material');
   t('Notes');
   t('Photo(s)');
@@ -1865,7 +1866,6 @@ function farm_crop_field_default_fields() {
   t('Source/Manufacturer');
   t('Source/Supplier');
   t('Transplantings must reference a specific planting. You can view a list of all plantings, and add new ones, from the <a href="/farm/plantings">Plantings list</a>.');
-  t('What area is this input in?');
   t('What material is being applied? As you type, you will have the option of selecting from materials that you\'ve entered in the past.');
   t('What was the purpose of this input?');
   t('Where was this input obtained? Who manufactured it?');
