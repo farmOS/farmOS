@@ -1729,6 +1729,7 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['fields']['field_farm_season']['id'] = 'field_farm_season';
   $handler->display->display_options['fields']['field_farm_season']['table'] = 'field_data_field_farm_season';
   $handler->display->display_options['fields']['field_farm_season']['field'] = 'field_farm_season';
+  $handler->display->display_options['fields']['field_farm_season']['type'] = 'taxonomy_term_reference_plain';
   /* Sort criterion: Farm asset: Name */
   $handler->display->display_options['sorts']['name']['id'] = 'name';
   $handler->display->display_options['sorts']['name']['table'] = 'farm_asset';
