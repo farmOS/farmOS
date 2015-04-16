@@ -43,12 +43,14 @@ function farm_admin_menu() {
  */
 function farm_admin_menu_breadcrumb_alter(&$active_trail, $item) {
 
-  // If the current path is /farm or /farm/plan
-  if ($item['path'] == 'farm' || $item['path'] == 'farm/plan') {
+  // If the current path contains /farm...
+  if (strpos($item['path'], 'farm') === 0) {
 
     // Add an item for /farm.
+    $start = array_shift($active_trail);
     $farm_item = menu_get_item('farm');
-    $active_trail[] = $farm_item;
+    array_unshift($active_trail, $farm_item);
+    array_unshift($active_trail, $start);
   }
 }
 
