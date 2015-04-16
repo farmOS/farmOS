@@ -93,6 +93,32 @@ function farm_crop_farm_asset_breadcrumb($farm_asset) {
 }
 
 /**
+ * Implements hook_farm_taxonomy_breadcrumb().
+ */
+function farm_crop_farm_taxonomy_breadcrumb($term) {
+  $breadcrumb = array();
+
+  // Switch through available vocabularies.
+  switch ($term->vocabulary_machine_name) {
+
+    // If the term is in farm_crops...
+    case 'farm_crops':
+      $breadcrumb[] = l(t('Plantings'), 'farm/plantings');
+      $breadcrumb[] = l(t('Crops'), 'farm/plantings/crops');
+      break;
+
+    // If the term is in farm_crop_families...
+    case 'farm_crop_families':
+      $breadcrumb[] = l(t('Plantings'), 'farm/plantings');
+      $breadcrumb[] = t('Crop Families');
+      break;
+
+  }
+
+  return $breadcrumb;
+}
+
+/**
  * Implements hook_farm_asset_view_views().
  */
 function farm_crop_farm_asset_view_views($farm_asset) {
