@@ -70,6 +70,32 @@ function farm_livestock_farm_asset_view_views($farm_asset) {
 }
 
 /**
+ * Implements hook_farm_taxonomy_breadcrumb().
+ */
+function farm_livestock_farm_taxonomy_breadcrumb($term) {
+  $breadcrumb = array();
+
+  // Switch through available vocabularies.
+  switch ($term->vocabulary_machine_name) {
+
+    // If the term is in farm_animal_groups...
+    case 'farm_animal_groups':
+      $breadcrumb[] = l(t('Animals'), 'farm/animals');
+      $breadcrumb[] = l(t('Animal Groups'), 'farm/animals/groups');
+      break;
+
+    // If the term is in farm_animal_types...
+    case 'farm_animal_types':
+      $breadcrumb[] = l(t('Animals'), 'farm/animals');
+      $breadcrumb[] = l(t('Animal Types'), 'farm/animals/types');
+      break;
+
+  }
+
+  return $breadcrumb;
+}
+
+/**
  * Implements hook_farm_taxonomy_term_view_views().
  */
 function farm_livestock_farm_taxonomy_term_view_views($term) {
