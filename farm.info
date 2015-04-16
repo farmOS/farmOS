@@ -26,6 +26,7 @@ dependencies[] = dblog
 ; Contrib
 dependencies[] = logintoboggan
 dependencies[] = jquery_update
+dependencies[] = module_filter
 dependencies[] = navbar
 
 ; Farm

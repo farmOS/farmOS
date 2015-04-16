@@ -105,6 +105,22 @@ projects[views_tree][subdir] = "contrib"
 projects[views_tree][version] = "2.0"
 
 ; -----------------------------------------------------------------------------
+; Modules (Development)
+; -----------------------------------------------------------------------------
+
+projects[backup_migrate][subdir] = "dev"
+projects[backup_migrate][version] = "3.0"
+
+projects[devel][subdir] = "dev"
+projects[devel][version] = "1.5"
+
+projects[diff][subdir] = "dev"
+projects[diff][version] = "3.2"
+
+projects[module_filter][subdir] = "dev"
+projects[module_filter][version] = "2.0"
+
+; -----------------------------------------------------------------------------
 ; Modules (farm)
 ; -----------------------------------------------------------------------------
 
