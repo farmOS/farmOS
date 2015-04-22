@@ -172,6 +172,7 @@ function farm_equipment_views_default_views() {
     'image_style' => 'thumbnail',
     'image_link' => 'content',
   );
+  $handler->display->display_options['fields']['field_farm_images']['delta_limit'] = '1';
   $handler->display->display_options['fields']['field_farm_images']['delta_offset'] = '0';
   /* Field: Farm asset: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
