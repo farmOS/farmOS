@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Field features for farm_equipment.
+ * farm_equipment.features.field.inc
  */
 
 /**
@@ -13,9 +13,9 @@ function farm_equipment_field_default_fields() {
   // Exported field: 'farm_asset-equipment-field_farm_equipment_description'.
   $fields['farm_asset-equipment-field_farm_equipment_description'] = array(
     'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
+      'active' => 1,
+      'cardinality' => 1,
+      'deleted' => 0,
       'entity_types' => array(),
       'field_name' => 'field_farm_equipment_description',
       'foreign keys' => array(
@@ -31,16 +31,16 @@ function farm_equipment_field_default_fields() {
           0 => 'format',
         ),
       ),
-      'locked' => '0',
+      'locked' => 0,
       'module' => 'text',
       'settings' => array(),
-      'translatable' => '0',
+      'translatable' => 0,
       'type' => 'text_long',
     ),
     'field_instance' => array(
       'bundle' => 'equipment',
       'default_value' => NULL,
-      'deleted' => '0',
+      'deleted' => 0,
       'description' => '',
       'display' => array(
         'default' => array(
@@ -48,7 +48,7 @@ function farm_equipment_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '0',
+          'weight' => 0,
         ),
       ),
       'entity_type' => 'farm_asset',
@@ -56,17 +56,17 @@ function farm_equipment_field_default_fields() {
       'label' => 'Description',
       'required' => 0,
       'settings' => array(
-        'text_processing' => '0',
+        'text_processing' => 0,
         'user_register_form' => FALSE,
       ),
       'widget' => array(
         'active' => 1,
         'module' => 'text',
         'settings' => array(
-          'rows' => '5',
+          'rows' => 5,
         ),
         'type' => 'text_textarea',
-        'weight' => '1',
+        'weight' => 1,
       ),
     ),
   );
@@ -74,9 +74,9 @@ function farm_equipment_field_default_fields() {
   // Exported field: 'farm_asset-equipment-field_farm_files'.
   $fields['farm_asset-equipment-field_farm_files'] = array(
     'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
+      'active' => 1,
+      'cardinality' => -1,
+      'deleted' => 0,
       'entity_types' => array(),
       'field_name' => 'field_farm_files',
       'foreign keys' => array(
@@ -92,19 +92,19 @@ function farm_equipment_field_default_fields() {
           0 => 'fid',
         ),
       ),
-      'locked' => '0',
+      'locked' => 0,
       'module' => 'file',
       'settings' => array(
         'display_default' => 0,
         'display_field' => 0,
         'uri_scheme' => 'public',
       ),
-      'translatable' => '0',
+      'translatable' => 0,
       'type' => 'file',
     ),
     'field_instance' => array(
       'bundle' => 'equipment',
-      'deleted' => '0',
+      'deleted' => 0,
       'description' => '',
       'display' => array(
         'default' => array(
@@ -112,7 +112,7 @@ function farm_equipment_field_default_fields() {
           'module' => 'file',
           'settings' => array(),
           'type' => 'file_table',
-          'weight' => '2',
+          'weight' => 2,
         ),
       ),
       'entity_type' => 'farm_asset',
@@ -152,7 +152,7 @@ function farm_equipment_field_default_fields() {
           'progress_indicator' => 'bar',
         ),
         'type' => 'file_generic',
-        'weight' => '3',
+        'weight' => 3,
       ),
     ),
   );
@@ -160,9 +160,9 @@ function farm_equipment_field_default_fields() {
   // Exported field: 'farm_asset-equipment-field_farm_images'.
   $fields['farm_asset-equipment-field_farm_images'] = array(
     'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
+      'active' => 1,
+      'cardinality' => -1,
+      'deleted' => 0,
       'entity_types' => array(),
       'field_name' => 'field_farm_images',
       'foreign keys' => array(
@@ -178,18 +178,18 @@ function farm_equipment_field_default_fields() {
           0 => 'fid',
         ),
       ),
-      'locked' => '0',
+      'locked' => 0,
       'module' => 'image',
       'settings' => array(
         'default_image' => 0,
         'uri_scheme' => 'public',
       ),
-      'translatable' => '0',
+      'translatable' => 0,
       'type' => 'image',
     ),
     'field_instance' => array(
       'bundle' => 'equipment',
-      'deleted' => '0',
+      'deleted' => 0,
       'description' => '',
       'display' => array(
         'default' => array(
@@ -206,7 +206,7 @@ function farm_equipment_field_default_fields() {
             'colorbox_node_style_first' => 'large',
           ),
           'type' => 'colorbox',
-          'weight' => '1',
+          'weight' => 1,
         ),
       ),
       'entity_type' => 'farm_asset',
@@ -251,7 +251,7 @@ function farm_equipment_field_default_fields() {
           'progress_indicator' => 'bar',
         ),
         'type' => 'image_image',
-        'weight' => '2',
+        'weight' => 2,
       ),
     ),
   );
@@ -259,9 +259,9 @@ function farm_equipment_field_default_fields() {
   // Exported field: 'log-farm_maintenance-field_farm_equipment'.
   $fields['log-farm_maintenance-field_farm_equipment'] = array(
     'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
+      'active' => 1,
+      'cardinality' => 1,
+      'deleted' => 0,
       'entity_types' => array(),
       'field_name' => 'field_farm_equipment',
       'foreign keys' => array(
@@ -277,7 +277,7 @@ function farm_equipment_field_default_fields() {
           0 => 'target_id',
         ),
       ),
-      'locked' => '0',
+      'locked' => 0,
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -296,13 +296,13 @@ function farm_equipment_field_default_fields() {
         ),
         'target_type' => 'farm_asset',
       ),
-      'translatable' => '0',
+      'translatable' => 0,
       'type' => 'entityreference',
     ),
     'field_instance' => array(
       'bundle' => 'farm_maintenance',
       'default_value' => NULL,
-      'deleted' => '0',
+      'deleted' => 0,
       'description' => 'What equipment is being maintained?',
       'display' => array(
         'default' => array(
@@ -312,7 +312,7 @@ function farm_equipment_field_default_fields() {
             'link' => 1,
           ),
           'type' => 'entityreference_label',
-          'weight' => '0',
+          'weight' => 0,
         ),
       ),
       'entity_type' => 'log',
@@ -328,10 +328,10 @@ function farm_equipment_field_default_fields() {
         'settings' => array(
           'match_operator' => 'CONTAINS',
           'path' => '',
-          'size' => '60',
+          'size' => 60,
         ),
         'type' => 'entityreference_autocomplete',
-        'weight' => '2',
+        'weight' => 2,
       ),
     ),
   );
@@ -339,9 +339,9 @@ function farm_equipment_field_default_fields() {
   // Exported field: 'log-farm_maintenance-field_farm_images'.
   $fields['log-farm_maintenance-field_farm_images'] = array(
     'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
+      'active' => 1,
+      'cardinality' => -1,
+      'deleted' => 0,
       'entity_types' => array(),
       'field_name' => 'field_farm_images',
       'foreign keys' => array(
@@ -357,18 +357,18 @@ function farm_equipment_field_default_fields() {
           0 => 'fid',
         ),
       ),
-      'locked' => '0',
+      'locked' => 0,
       'module' => 'image',
       'settings' => array(
         'default_image' => 0,
         'uri_scheme' => 'public',
       ),
-      'translatable' => '0',
+      'translatable' => 0,
       'type' => 'image',
     ),
     'field_instance' => array(
       'bundle' => 'farm_maintenance',
-      'deleted' => '0',
+      'deleted' => 0,
       'description' => '',
       'display' => array(
         'default' => array(
@@ -385,7 +385,7 @@ function farm_equipment_field_default_fields() {
             'colorbox_node_style_first' => 'large',
           ),
           'type' => 'colorbox',
-          'weight' => '3',
+          'weight' => 3,
         ),
       ),
       'entity_type' => 'log',
@@ -430,7 +430,7 @@ function farm_equipment_field_default_fields() {
           'progress_indicator' => 'bar',
         ),
         'type' => 'image_image',
-        'weight' => '4',
+        'weight' => 4,
       ),
     ),
   );
@@ -438,9 +438,9 @@ function farm_equipment_field_default_fields() {
   // Exported field: 'log-farm_maintenance-field_farm_notes'.
   $fields['log-farm_maintenance-field_farm_notes'] = array(
     'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
+      'active' => 1,
+      'cardinality' => 1,
+      'deleted' => 0,
       'entity_types' => array(),
       'field_name' => 'field_farm_notes',
       'foreign keys' => array(
@@ -456,16 +456,16 @@ function farm_equipment_field_default_fields() {
           0 => 'format',
         ),
       ),
-      'locked' => '0',
+      'locked' => 0,
       'module' => 'text',
       'settings' => array(),
-      'translatable' => '0',
+      'translatable' => 0,
       'type' => 'text_long',
     ),
     'field_instance' => array(
       'bundle' => 'farm_maintenance',
       'default_value' => NULL,
-      'deleted' => '0',
+      'deleted' => 0,
       'description' => '',
       'display' => array(
         'default' => array(
@@ -473,7 +473,7 @@ function farm_equipment_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '2',
+          'weight' => 2,
         ),
       ),
       'entity_type' => 'log',
@@ -481,17 +481,17 @@ function farm_equipment_field_default_fields() {
       'label' => 'Notes',
       'required' => 0,
       'settings' => array(
-        'text_processing' => '0',
+        'text_processing' => 0,
         'user_register_form' => FALSE,
       ),
       'widget' => array(
         'active' => 1,
         'module' => 'text',
         'settings' => array(
-          'rows' => '5',
+          'rows' => 5,
         ),
         'type' => 'text_textarea',
-        'weight' => '3',
+        'weight' => 3,
       ),
     ),
   );
