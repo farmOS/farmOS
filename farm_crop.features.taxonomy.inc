@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Taxonomy features for farm_crop.
+ * farm_crop.features.taxonomy.inc
  */
 
 /**
@@ -13,9 +13,9 @@ function farm_crop_taxonomy_default_vocabularies() {
       'name' => 'Farm Crop Families',
       'machine_name' => 'farm_crop_families',
       'description' => 'A taxonomy of crop families, for organizing crops.',
-      'hierarchy' => '0',
+      'hierarchy' => 0,
       'module' => 'taxonomy',
-      'weight' => '0',
+      'weight' => 0,
       'rdf_mapping' => array(
         'rdftype' => array(
           0 => 'skos:ConceptScheme',
@@ -36,9 +36,9 @@ function farm_crop_taxonomy_default_vocabularies() {
       'name' => 'Farm Crops',
       'machine_name' => 'farm_crops',
       'description' => 'A taxonomy of crop types and varieties.',
-      'hierarchy' => '1',
+      'hierarchy' => 1,
       'module' => 'taxonomy',
-      'weight' => '0',
+      'weight' => 0,
       'rdf_mapping' => array(
         'rdftype' => array(
           0 => 'skos:ConceptScheme',

@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Strongarm variables for farm_crop.
+ * farm_crop.strongarm.inc
  */
 
 /**

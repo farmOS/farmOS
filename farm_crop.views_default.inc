@@ -1726,7 +1726,7 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['fields']['field_farm_move_to']['field'] = 'field_farm_move_to';
   $handler->display->display_options['fields']['field_farm_move_to']['relationship'] = 'latest_movement';
   $handler->display->display_options['fields']['field_farm_move_to']['label'] = 'Location';
-  /* Field: Field: Season */
+  /* Field: Farm asset: Season */
   $handler->display->display_options['fields']['field_farm_season']['id'] = 'field_farm_season';
   $handler->display->display_options['fields']['field_farm_season']['table'] = 'field_data_field_farm_season';
   $handler->display->display_options['fields']['field_farm_season']['field'] = 'field_farm_season';
@@ -1743,7 +1743,7 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['sorts']['field_farm_crop_tid']['field'] = 'field_farm_crop_tid';
   $handler->display->display_options['sorts']['field_farm_crop_tid']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['field_farm_crop_tid']['expose']['label'] = 'Crop';
-  /* Sort criterion: Field: Season (field_farm_season) */
+  /* Sort criterion: Farm asset: Season (field_farm_season) */
   $handler->display->display_options['sorts']['field_farm_season_tid']['id'] = 'field_farm_season_tid';
   $handler->display->display_options['sorts']['field_farm_season_tid']['table'] = 'field_data_field_farm_season';
   $handler->display->display_options['sorts']['field_farm_season_tid']['field'] = 'field_farm_season_tid';
@@ -1811,7 +1811,7 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['filters']['field_farm_crop_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_farm_crop_tid']['vocabulary'] = 'farm_crops';
   $handler->display->display_options['filters']['field_farm_crop_tid']['hierarchy'] = 1;
-  /* Filter criterion: Field: Season (field_farm_season) */
+  /* Filter criterion: Farm asset: Season (field_farm_season) */
   $handler->display->display_options['filters']['field_farm_season_tid']['id'] = 'field_farm_season_tid';
   $handler->display->display_options['filters']['field_farm_season_tid']['table'] = 'field_data_field_farm_season';
   $handler->display->display_options['filters']['field_farm_season_tid']['field'] = 'field_farm_season_tid';
