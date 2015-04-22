@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Default page manager pages provided by farm_admin.
+ * farm_admin.pages_default.inc
  */
 
 /**
@@ -82,48 +82,48 @@ function farm_admin_default_page_manager_pages() {
   $display->uuid = 'b46e42eb-9d6a-46b4-b14e-217133e33208';
   $display->content = array();
   $display->panels = array();
-  $pane = new stdClass();
-  $pane->pid = 'new-3f0d901e-5538-45b5-8cf1-2e190c67e079';
-  $pane->panel = 'middle';
-  $pane->type = 'views_panes';
-  $pane->subtype = 'log_plan-panel_pane_1';
-  $pane->shown = TRUE;
-  $pane->access = array();
-  $pane->configuration = array(
-    'path' => 'log/plan',
-  );
-  $pane->cache = array();
-  $pane->style = array(
-    'settings' => NULL,
-  );
-  $pane->css = array();
-  $pane->extras = array();
-  $pane->position = 0;
-  $pane->locks = array();
-  $pane->uuid = '3f0d901e-5538-45b5-8cf1-2e190c67e079';
-  $display->content['new-3f0d901e-5538-45b5-8cf1-2e190c67e079'] = $pane;
-  $display->panels['middle'][0] = 'new-3f0d901e-5538-45b5-8cf1-2e190c67e079';
-  $pane = new stdClass();
-  $pane->pid = 'new-8815b7ae-ed68-45a0-ad9f-26a01e736486';
-  $pane->panel = 'middle';
-  $pane->type = 'views_panes';
-  $pane->subtype = 'log_plan-panel_pane_2';
-  $pane->shown = TRUE;
-  $pane->access = array();
-  $pane->configuration = array(
-    'path' => 'log/plan',
-  );
-  $pane->cache = array();
-  $pane->style = array(
-    'settings' => NULL,
-  );
-  $pane->css = array();
-  $pane->extras = array();
-  $pane->position = 1;
-  $pane->locks = array();
-  $pane->uuid = '8815b7ae-ed68-45a0-ad9f-26a01e736486';
-  $display->content['new-8815b7ae-ed68-45a0-ad9f-26a01e736486'] = $pane;
-  $display->panels['middle'][1] = 'new-8815b7ae-ed68-45a0-ad9f-26a01e736486';
+    $pane = new stdClass();
+    $pane->pid = 'new-3f0d901e-5538-45b5-8cf1-2e190c67e079';
+    $pane->panel = 'middle';
+    $pane->type = 'views_panes';
+    $pane->subtype = 'log_plan-panel_pane_1';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'path' => 'log/plan',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 0;
+    $pane->locks = array();
+    $pane->uuid = '3f0d901e-5538-45b5-8cf1-2e190c67e079';
+    $display->content['new-3f0d901e-5538-45b5-8cf1-2e190c67e079'] = $pane;
+    $display->panels['middle'][0] = 'new-3f0d901e-5538-45b5-8cf1-2e190c67e079';
+    $pane = new stdClass();
+    $pane->pid = 'new-8815b7ae-ed68-45a0-ad9f-26a01e736486';
+    $pane->panel = 'middle';
+    $pane->type = 'views_panes';
+    $pane->subtype = 'log_plan-panel_pane_2';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'path' => 'log/plan',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 1;
+    $pane->locks = array();
+    $pane->uuid = '8815b7ae-ed68-45a0-ad9f-26a01e736486';
+    $display->content['new-8815b7ae-ed68-45a0-ad9f-26a01e736486'] = $pane;
+    $display->panels['middle'][1] = 'new-8815b7ae-ed68-45a0-ad9f-26a01e736486';
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
