@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Field features for farm_area.
+ * farm_area.features.field.inc
  */
 
 /**
@@ -13,9 +13,9 @@ function farm_area_field_default_fields() {
   // Exported field: 'taxonomy_term-farm_areas-field_farm_area_type'.
   $fields['taxonomy_term-farm_areas-field_farm_area_type'] = array(
     'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
+      'active' => 1,
+      'cardinality' => 1,
+      'deleted' => 0,
       'entity_types' => array(),
       'field_name' => 'field_farm_area_type',
       'foreign keys' => array(),
@@ -24,7 +24,7 @@ function farm_area_field_default_fields() {
           0 => 'value',
         ),
       ),
-      'locked' => '0',
+      'locked' => 0,
       'module' => 'list',
       'settings' => array(
         'allowed_values' => array(
@@ -39,13 +39,13 @@ function farm_area_field_default_fields() {
         ),
         'allowed_values_function' => '',
       ),
-      'translatable' => '0',
+      'translatable' => 0,
       'type' => 'list_text',
     ),
     'field_instance' => array(
       'bundle' => 'farm_areas',
       'default_value' => NULL,
-      'deleted' => '0',
+      'deleted' => 0,
       'description' => 'What type of area is this? Area types will be color coded on maps. If left blank, the area will not appear on maps.',
       'display' => array(
         'default' => array(
@@ -53,7 +53,7 @@ function farm_area_field_default_fields() {
           'module' => 'list',
           'settings' => array(),
           'type' => 'list_default',
-          'weight' => '2',
+          'weight' => 2,
         ),
       ),
       'entity_type' => 'taxonomy_term',
@@ -68,7 +68,7 @@ function farm_area_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '1',
+        'weight' => 1,
       ),
     ),
   );
@@ -76,9 +76,9 @@ function farm_area_field_default_fields() {
   // Exported field: 'taxonomy_term-farm_areas-field_farm_files'.
   $fields['taxonomy_term-farm_areas-field_farm_files'] = array(
     'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
+      'active' => 1,
+      'cardinality' => -1,
+      'deleted' => 0,
       'entity_types' => array(),
       'field_name' => 'field_farm_files',
       'foreign keys' => array(
@@ -94,19 +94,19 @@ function farm_area_field_default_fields() {
           0 => 'fid',
         ),
       ),
-      'locked' => '0',
+      'locked' => 0,
       'module' => 'file',
       'settings' => array(
         'display_default' => 0,
         'display_field' => 0,
         'uri_scheme' => 'public',
       ),
-      'translatable' => '0',
+      'translatable' => 0,
       'type' => 'file',
     ),
     'field_instance' => array(
       'bundle' => 'farm_areas',
-      'deleted' => '0',
+      'deleted' => 0,
       'description' => '',
       'display' => array(
         'default' => array(
@@ -114,7 +114,7 @@ function farm_area_field_default_fields() {
           'module' => 'file',
           'settings' => array(),
           'type' => 'file_table',
-          'weight' => '4',
+          'weight' => 4,
         ),
       ),
       'entity_type' => 'taxonomy_term',
@@ -154,7 +154,7 @@ function farm_area_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'file_generic',
-        'weight' => '5',
+        'weight' => 5,
       ),
     ),
   );
@@ -162,9 +162,9 @@ function farm_area_field_default_fields() {
   // Exported field: 'taxonomy_term-farm_areas-field_farm_geofield'.
   $fields['taxonomy_term-farm_areas-field_farm_geofield'] = array(
     'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
+      'active' => 1,
+      'cardinality' => -1,
+      'deleted' => 0,
       'entity_types' => array(),
       'field_name' => 'field_farm_geofield',
       'foreign keys' => array(),
@@ -201,19 +201,19 @@ function farm_area_field_default_fields() {
           0 => 'top',
         ),
       ),
-      'locked' => '0',
+      'locked' => 0,
       'module' => 'geofield',
       'settings' => array(
         'backend' => 'default',
-        'srid' => '4326',
+        'srid' => 4326,
       ),
-      'translatable' => '0',
+      'translatable' => 0,
       'type' => 'geofield',
     ),
     'field_instance' => array(
       'bundle' => 'farm_areas',
       'default_value' => NULL,
-      'deleted' => '0',
+      'deleted' => 0,
       'description' => '',
       'display' => array(
         'default' => array(
@@ -224,7 +224,7 @@ function farm_area_field_default_fields() {
             'map_preset' => 'farm_map_area',
           ),
           'type' => 'geofield_openlayers',
-          'weight' => '0',
+          'weight' => 0,
         ),
       ),
       'entity_type' => 'taxonomy_term',
@@ -264,7 +264,7 @@ function farm_area_field_default_fields() {
           'use_geocoder' => 1,
         ),
         'type' => 'geofield_openlayers',
-        'weight' => '2',
+        'weight' => 2,
       ),
     ),
   );
@@ -272,9 +272,9 @@ function farm_area_field_default_fields() {
   // Exported field: 'taxonomy_term-farm_areas-field_farm_images'.
   $fields['taxonomy_term-farm_areas-field_farm_images'] = array(
     'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
+      'active' => 1,
+      'cardinality' => -1,
+      'deleted' => 0,
       'entity_types' => array(),
       'field_name' => 'field_farm_images',
       'foreign keys' => array(
@@ -290,18 +290,18 @@ function farm_area_field_default_fields() {
           0 => 'fid',
         ),
       ),
-      'locked' => '0',
+      'locked' => 0,
       'module' => 'image',
       'settings' => array(
         'default_image' => 0,
         'uri_scheme' => 'public',
       ),
-      'translatable' => '0',
+      'translatable' => 0,
       'type' => 'image',
     ),
     'field_instance' => array(
       'bundle' => 'farm_areas',
-      'deleted' => '0',
+      'deleted' => 0,
       'description' => '',
       'display' => array(
         'default' => array(
@@ -318,7 +318,7 @@ function farm_area_field_default_fields() {
             'colorbox_node_style_first' => 'large',
           ),
           'type' => 'colorbox',
-          'weight' => '1',
+          'weight' => 1,
         ),
       ),
       'entity_type' => 'taxonomy_term',
@@ -363,7 +363,7 @@ function farm_area_field_default_fields() {
           'progress_indicator' => 'bar',
         ),
         'type' => 'image_image',
-        'weight' => '4',
+        'weight' => 4,
       ),
     ),
   );

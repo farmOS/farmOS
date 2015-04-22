@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Openlayers maps for farm_area.
+ * farm_area.openlayers_maps.inc
  */
 
 /**

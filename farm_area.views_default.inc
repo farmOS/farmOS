@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Default Views for farm_area.
+ * farm_area.views_default.inc
  */
 
 /**

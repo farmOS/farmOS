@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Taxonomy features for farm_area.
+ * farm_area.features.taxonomy.inc
  */
 
 /**
@@ -13,9 +13,9 @@ function farm_area_taxonomy_default_vocabularies() {
       'name' => 'Farm Areas',
       'machine_name' => 'farm_areas',
       'description' => 'Distinct areas (fields, beds, greenhouses, etc) that crops are planted into.',
-      'hierarchy' => '1',
+      'hierarchy' => 1,
       'module' => 'taxonomy',
-      'weight' => '0',
+      'weight' => 0,
       'rdf_mapping' => array(
         'rdftype' => array(
           0 => 'skos:ConceptScheme',
