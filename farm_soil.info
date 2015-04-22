@@ -2,6 +2,7 @@ name = Farm Soil
 description = Provides features for soil health management.
 core = 7.x
 package = Farm
+dependencies[] = ctools
 dependencies[] = features
 dependencies[] = openlayers
 dependencies[] = strongarm

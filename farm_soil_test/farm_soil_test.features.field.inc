@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Field features for farm_soil.
+ * farm_soil_test.features.field.inc
  */
 
 /**
@@ -13,9 +13,9 @@ function farm_soil_test_field_default_fields() {
   // Exported field: 'log-farm_soil_test-field_farm_area'.
   $fields['log-farm_soil_test-field_farm_area'] = array(
     'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
+      'active' => 1,
+      'cardinality' => 1,
+      'deleted' => 0,
       'entity_types' => array(),
       'field_name' => 'field_farm_area',
       'foreign keys' => array(
@@ -31,23 +31,23 @@ function farm_soil_test_field_default_fields() {
           0 => 'tid',
         ),
       ),
-      'locked' => '0',
+      'locked' => 0,
       'module' => 'taxonomy',
       'settings' => array(
         'allowed_values' => array(
           0 => array(
             'vocabulary' => 'farm_areas',
-            'parent' => '0',
+            'parent' => 0,
           ),
         ),
       ),
-      'translatable' => '0',
+      'translatable' => 0,
       'type' => 'taxonomy_term_reference',
     ),
     'field_instance' => array(
       'bundle' => 'farm_soil_test',
       'default_value' => NULL,
-      'deleted' => '0',
+      'deleted' => 0,
       'description' => 'What area does this soil sample pertain to?',
       'display' => array(
         'default' => array(
@@ -55,7 +55,7 @@ function farm_soil_test_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '1',
+          'weight' => 1,
         ),
       ),
       'entity_type' => 'log',
@@ -73,7 +73,7 @@ function farm_soil_test_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '2',
+        'weight' => 2,
       ),
     ),
   );
@@ -81,9 +81,9 @@ function farm_soil_test_field_default_fields() {
   // Exported field: 'log-farm_soil_test-field_farm_files'.
   $fields['log-farm_soil_test-field_farm_files'] = array(
     'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
+      'active' => 1,
+      'cardinality' => -1,
+      'deleted' => 0,
       'entity_types' => array(),
       'field_name' => 'field_farm_files',
       'foreign keys' => array(
@@ -99,19 +99,19 @@ function farm_soil_test_field_default_fields() {
           0 => 'fid',
         ),
       ),
-      'locked' => '0',
+      'locked' => 0,
       'module' => 'file',
       'settings' => array(
         'display_default' => 0,
         'display_field' => 0,
         'uri_scheme' => 'public',
       ),
-      'translatable' => '0',
+      'translatable' => 0,
       'type' => 'file',
     ),
     'field_instance' => array(
       'bundle' => 'farm_soil_test',
-      'deleted' => '0',
+      'deleted' => 0,
       'description' => '',
       'display' => array(
         'default' => array(
@@ -119,7 +119,7 @@ function farm_soil_test_field_default_fields() {
           'module' => 'file',
           'settings' => array(),
           'type' => 'file_table',
-          'weight' => '6',
+          'weight' => 6,
         ),
       ),
       'entity_type' => 'log',
@@ -159,7 +159,7 @@ function farm_soil_test_field_default_fields() {
           'progress_indicator' => 'bar',
         ),
         'type' => 'file_generic',
-        'weight' => '7',
+        'weight' => 7,
       ),
     ),
   );
@@ -167,9 +167,9 @@ function farm_soil_test_field_default_fields() {
   // Exported field: 'log-farm_soil_test-field_farm_notes'.
   $fields['log-farm_soil_test-field_farm_notes'] = array(
     'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
+      'active' => 1,
+      'cardinality' => 1,
+      'deleted' => 0,
       'entity_types' => array(),
       'field_name' => 'field_farm_notes',
       'foreign keys' => array(
@@ -185,16 +185,16 @@ function farm_soil_test_field_default_fields() {
           0 => 'format',
         ),
       ),
-      'locked' => '0',
+      'locked' => 0,
       'module' => 'text',
       'settings' => array(),
-      'translatable' => '0',
+      'translatable' => 0,
       'type' => 'text_long',
     ),
     'field_instance' => array(
       'bundle' => 'farm_soil_test',
       'default_value' => NULL,
-      'deleted' => '0',
+      'deleted' => 0,
       'description' => '',
       'display' => array(
         'default' => array(
@@ -202,7 +202,7 @@ function farm_soil_test_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '5',
+          'weight' => 5,
         ),
       ),
       'entity_type' => 'log',
@@ -210,17 +210,17 @@ function farm_soil_test_field_default_fields() {
       'label' => 'Notes',
       'required' => 0,
       'settings' => array(
-        'text_processing' => '0',
+        'text_processing' => 0,
         'user_register_form' => FALSE,
       ),
       'widget' => array(
         'active' => 1,
         'module' => 'text',
         'settings' => array(
-          'rows' => '5',
+          'rows' => 5,
         ),
         'type' => 'text_textarea',
-        'weight' => '6',
+        'weight' => 6,
       ),
     ),
   );
@@ -228,9 +228,9 @@ function farm_soil_test_field_default_fields() {
   // Exported field: 'log-farm_soil_test-field_farm_soil_lab'.
   $fields['log-farm_soil_test-field_farm_soil_lab'] = array(
     'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
+      'active' => 1,
+      'cardinality' => 1,
+      'deleted' => 0,
       'entity_types' => array(),
       'field_name' => 'field_farm_soil_lab',
       'foreign keys' => array(
@@ -246,18 +246,18 @@ function farm_soil_test_field_default_fields() {
           0 => 'format',
         ),
       ),
-      'locked' => '0',
+      'locked' => 0,
       'module' => 'text',
       'settings' => array(
-        'max_length' => '255',
+        'max_length' => 255,
       ),
-      'translatable' => '0',
+      'translatable' => 0,
       'type' => 'text',
     ),
     'field_instance' => array(
       'bundle' => 'farm_soil_test',
       'default_value' => NULL,
-      'deleted' => '0',
+      'deleted' => 0,
       'description' => 'What laboratory performed the soil test?',
       'display' => array(
         'default' => array(
@@ -265,7 +265,7 @@ function farm_soil_test_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '4',
+          'weight' => 4,
         ),
       ),
       'entity_type' => 'log',
@@ -273,17 +273,17 @@ function farm_soil_test_field_default_fields() {
       'label' => 'Laboratory',
       'required' => 0,
       'settings' => array(
-        'text_processing' => '0',
+        'text_processing' => 0,
         'user_register_form' => FALSE,
       ),
       'widget' => array(
         'active' => 1,
         'module' => 'text',
         'settings' => array(
-          'size' => '60',
+          'size' => 60,
         ),
         'type' => 'text_textfield',
-        'weight' => '5',
+        'weight' => 5,
       ),
     ),
   );
@@ -291,9 +291,9 @@ function farm_soil_test_field_default_fields() {
   // Exported field: 'log-farm_soil_test-field_farm_soil_sample_points'.
   $fields['log-farm_soil_test-field_farm_soil_sample_points'] = array(
     'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
+      'active' => 1,
+      'cardinality' => -1,
+      'deleted' => 0,
       'entity_types' => array(),
       'field_name' => 'field_farm_soil_sample_points',
       'foreign keys' => array(),
@@ -330,19 +330,19 @@ function farm_soil_test_field_default_fields() {
           0 => 'top',
         ),
       ),
-      'locked' => '0',
+      'locked' => 0,
       'module' => 'geofield',
       'settings' => array(
         'backend' => 'default',
-        'srid' => '4326',
+        'srid' => 4326,
       ),
-      'translatable' => '0',
+      'translatable' => 0,
       'type' => 'geofield',
     ),
     'field_instance' => array(
       'bundle' => 'farm_soil_test',
       'default_value' => NULL,
-      'deleted' => '0',
+      'deleted' => 0,
       'description' => 'Use the map to pinpoint the location(s) from which this sample is taken. If you are preparing a soil test, you may be sampling multiple points within a given area. All the points that comprise this sample should be included.',
       'display' => array(
         'default' => array(
@@ -353,7 +353,7 @@ function farm_soil_test_field_default_fields() {
             'map_preset' => 'farm_map_geofield',
           ),
           'type' => 'geofield_openlayers',
-          'weight' => '2',
+          'weight' => 2,
         ),
       ),
       'entity_type' => 'log',
@@ -378,7 +378,7 @@ function farm_soil_test_field_default_fields() {
           'openlayers_map' => 'farm_map_geofield',
         ),
         'type' => 'geofield_openlayers',
-        'weight' => '3',
+        'weight' => 3,
       ),
     ),
   );
@@ -386,9 +386,9 @@ function farm_soil_test_field_default_fields() {
   // Exported field: 'log-farm_soil_test-field_farm_soil_types'.
   $fields['log-farm_soil_test-field_farm_soil_types'] = array(
     'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
+      'active' => 1,
+      'cardinality' => -1,
+      'deleted' => 0,
       'entity_types' => array(),
       'field_name' => 'field_farm_soil_types',
       'foreign keys' => array(
@@ -404,23 +404,23 @@ function farm_soil_test_field_default_fields() {
           0 => 'tid',
         ),
       ),
-      'locked' => '0',
+      'locked' => 0,
       'module' => 'taxonomy',
       'settings' => array(
         'allowed_values' => array(
           0 => array(
             'vocabulary' => 'farm_soil_types',
-            'parent' => '0',
+            'parent' => 0,
           ),
         ),
       ),
-      'translatable' => '0',
+      'translatable' => 0,
       'type' => 'taxonomy_term_reference',
     ),
     'field_instance' => array(
       'bundle' => 'farm_soil_test',
       'default_value' => NULL,
-      'deleted' => '0',
+      'deleted' => 0,
       'description' => 'List the types of soils that are included in this sample. For soil maps and soil names, visit http://websoilsurvey.nrcs.usda.gov/app',
       'display' => array(
         'default' => array(
@@ -428,7 +428,7 @@ function farm_soil_test_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '3',
+          'weight' => 3,
         ),
       ),
       'entity_type' => 'log',
@@ -446,7 +446,7 @@ function farm_soil_test_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '4',
+        'weight' => 4,
       ),
     ),
   );

@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Default views for farm_soil_test.
+ * farm_soil_test.views_default.inc
  */
 
 /**
