@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Taxonomy features for farm_taxonomy.
+ * farm_taxonomy.features.taxonomy.inc
  */
 
 /**
@@ -13,9 +13,9 @@ function farm_taxonomy_taxonomy_default_vocabularies() {
       'name' => 'Farm Materials',
       'machine_name' => 'farm_materials',
       'description' => 'A vocabulary of farm materials.',
-      'hierarchy' => '0',
+      'hierarchy' => 0,
       'module' => 'taxonomy',
-      'weight' => '0',
+      'weight' => 0,
       'rdf_mapping' => array(
         'rdftype' => array(
           0 => 'skos:ConceptScheme',
@@ -36,9 +36,9 @@ function farm_taxonomy_taxonomy_default_vocabularies() {
       'name' => 'Farm Season',
       'machine_name' => 'farm_season',
       'description' => 'A list of farm seasons.',
-      'hierarchy' => '0',
+      'hierarchy' => 0,
       'module' => 'taxonomy',
-      'weight' => '0',
+      'weight' => 0,
       'rdf_mapping' => array(
         'rdftype' => array(
           0 => 'skos:ConceptScheme',

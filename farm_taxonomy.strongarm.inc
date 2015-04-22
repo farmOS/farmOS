@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Strongarm variables for farm_taxonomy.
+ * farm_taxonomy.strongarm.inc
  */
 
 /**

@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Field features for farm_taxonomy.
+ * farm_taxonomy.features.field.inc
  */
 
 /**
@@ -13,17 +13,17 @@ function farm_taxonomy_field_default_fields() {
   // Exported field: 'taxonomy_term-farm_season-field_farm_date_range'.
   $fields['taxonomy_term-farm_season-field_farm_date_range'] = array(
     'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
+      'active' => 1,
+      'cardinality' => 1,
+      'deleted' => 0,
       'entity_types' => array(),
       'field_name' => 'field_farm_date_range',
       'foreign keys' => array(),
       'indexes' => array(),
-      'locked' => '0',
+      'locked' => 0,
       'module' => 'date',
       'settings' => array(
-        'cache_count' => '4',
+        'cache_count' => 4,
         'cache_enabled' => 0,
         'granularity' => array(
           'day' => 'day',
@@ -33,17 +33,17 @@ function farm_taxonomy_field_default_fields() {
           'second' => 0,
           'year' => 'year',
         ),
-        'repeat' => '0',
+        'repeat' => 0,
         'timezone_db' => '',
         'todate' => 'required',
         'tz_handling' => 'none',
       ),
-      'translatable' => '0',
+      'translatable' => 0,
       'type' => 'datestamp',
     ),
     'field_instance' => array(
       'bundle' => 'farm_season',
-      'deleted' => '0',
+      'deleted' => 0,
       'description' => '',
       'display' => array(
         'default' => array(
@@ -58,7 +58,7 @@ function farm_taxonomy_field_default_fields() {
             'show_repeat_rule' => 'show',
           ),
           'type' => 'date_default',
-          'weight' => '0',
+          'weight' => 0,
         ),
       ),
       'entity_type' => 'taxonomy_term',
@@ -76,7 +76,7 @@ function farm_taxonomy_field_default_fields() {
         'active' => 1,
         'module' => 'date',
         'settings' => array(
-          'increment' => '15',
+          'increment' => 15,
           'input_format' => 'M j Y - g:i:sa',
           'input_format_custom' => '',
           'label_position' => 'above',
@@ -85,7 +85,7 @@ function farm_taxonomy_field_default_fields() {
           'year_range' => '-3:+3',
         ),
         'type' => 'date_popup',
-        'weight' => '1',
+        'weight' => 1,
       ),
     ),
   );
