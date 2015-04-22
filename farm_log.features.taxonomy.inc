@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Taxonomy features for farm_log.
+ * farm_log.features.taxonomy.inc
  */
 
 /**
@@ -13,9 +13,9 @@ function farm_log_taxonomy_default_vocabularies() {
       'name' => 'Farm Observation Types',
       'machine_name' => 'farm_observation_types',
       'description' => 'A vocabulary of farm animal types.',
-      'hierarchy' => '0',
+      'hierarchy' => 0,
       'module' => 'taxonomy',
-      'weight' => '0',
+      'weight' => 0,
       'rdf_mapping' => array(
         'rdftype' => array(
           0 => 'skos:ConceptScheme',
@@ -36,9 +36,9 @@ function farm_log_taxonomy_default_vocabularies() {
       'name' => 'Farm Quantity Units',
       'machine_name' => 'farm_quantity_units',
       'description' => 'A vocabulary of units for describing quantities.',
-      'hierarchy' => '0',
+      'hierarchy' => 0,
       'module' => 'taxonomy',
-      'weight' => '0',
+      'weight' => 0,
       'rdf_mapping' => array(
         'rdftype' => array(
           0 => 'skos:ConceptScheme',

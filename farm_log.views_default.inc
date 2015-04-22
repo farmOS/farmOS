@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Default views for farm_log.
+ * farm_log.views_default.inc
  */
 
 /**

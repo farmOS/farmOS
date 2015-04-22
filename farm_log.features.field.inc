@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Field features for farm_log.
+ * farm_log.features.field.inc
  */
 
 /**
@@ -13,9 +13,9 @@ function farm_log_field_default_fields() {
   // Exported field: 'field_collection_item-field_farm_quantity-field_farm_quantity_units'.
   $fields['field_collection_item-field_farm_quantity-field_farm_quantity_units'] = array(
     'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
+      'active' => 1,
+      'cardinality' => 1,
+      'deleted' => 0,
       'entity_types' => array(),
       'field_name' => 'field_farm_quantity_units',
       'foreign keys' => array(
@@ -31,23 +31,23 @@ function farm_log_field_default_fields() {
           0 => 'tid',
         ),
       ),
-      'locked' => '0',
+      'locked' => 0,
       'module' => 'taxonomy',
       'settings' => array(
         'allowed_values' => array(
           0 => array(
             'vocabulary' => 'farm_quantity_units',
-            'parent' => '0',
+            'parent' => 0,
           ),
         ),
       ),
-      'translatable' => '0',
+      'translatable' => 0,
       'type' => 'taxonomy_term_reference',
     ),
     'field_instance' => array(
       'bundle' => 'field_farm_quantity',
       'default_value' => NULL,
-      'deleted' => '0',
+      'deleted' => 0,
       'description' => '',
       'display' => array(
         'default' => array(
@@ -55,7 +55,7 @@ function farm_log_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_plain',
-          'weight' => '1',
+          'weight' => 1,
         ),
       ),
       'entity_type' => 'field_collection_item',
@@ -73,7 +73,7 @@ function farm_log_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '1',
+        'weight' => 1,
       ),
     ),
   );
@@ -81,23 +81,23 @@ function farm_log_field_default_fields() {
   // Exported field: 'field_collection_item-field_farm_quantity-field_farm_quantity_value'.
   $fields['field_collection_item-field_farm_quantity-field_farm_quantity_value'] = array(
     'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
+      'active' => 1,
+      'cardinality' => 1,
+      'deleted' => 0,
       'entity_types' => array(),
       'field_name' => 'field_farm_quantity_value',
       'foreign keys' => array(),
       'indexes' => array(),
-      'locked' => '0',
+      'locked' => 0,
       'module' => 'fraction',
       'settings' => array(),
-      'translatable' => '0',
+      'translatable' => 0,
       'type' => 'fraction',
     ),
     'field_instance' => array(
       'bundle' => 'field_farm_quantity',
       'default_value' => NULL,
-      'deleted' => '0',
+      'deleted' => 0,
       'description' => '',
       'display' => array(
         'default' => array(
@@ -105,10 +105,10 @@ function farm_log_field_default_fields() {
           'module' => 'fraction',
           'settings' => array(
             'auto_precision' => 1,
-            'precision' => '0',
+            'precision' => 0,
           ),
           'type' => 'fraction_decimal',
-          'weight' => '0',
+          'weight' => 0,
         ),
       ),
       'entity_type' => 'field_collection_item',
@@ -123,7 +123,7 @@ function farm_log_field_default_fields() {
         'module' => 'fraction',
         'settings' => array(
           'auto_precision' => 1,
-          'precision' => '0',
+          'precision' => 0,
         ),
         'type' => 'fraction_decimal',
         'weight' => 0,
@@ -134,9 +134,9 @@ function farm_log_field_default_fields() {
   // Exported field: 'log-farm_activity-field_farm_area'.
   $fields['log-farm_activity-field_farm_area'] = array(
     'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
+      'active' => 1,
+      'cardinality' => 1,
+      'deleted' => 0,
       'entity_types' => array(),
       'field_name' => 'field_farm_area',
       'foreign keys' => array(
@@ -152,23 +152,23 @@ function farm_log_field_default_fields() {
           0 => 'tid',
         ),
       ),
-      'locked' => '0',
+      'locked' => 0,
       'module' => 'taxonomy',
       'settings' => array(
         'allowed_values' => array(
           0 => array(
             'vocabulary' => 'farm_areas',
-            'parent' => '0',
+            'parent' => 0,
           ),
         ),
       ),
-      'translatable' => '0',
+      'translatable' => 0,
       'type' => 'taxonomy_term_reference',
     ),
     'field_instance' => array(
       'bundle' => 'farm_activity',
       'default_value' => NULL,
-      'deleted' => '0',
+      'deleted' => 0,
       'description' => 'What area did this activity take place in?',
       'display' => array(
         'default' => array(
@@ -194,7 +194,7 @@ function farm_log_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '3',
+        'weight' => 3,
       ),
     ),
   );
@@ -202,9 +202,9 @@ function farm_log_field_default_fields() {
   // Exported field: 'log-farm_activity-field_farm_asset'.
   $fields['log-farm_activity-field_farm_asset'] = array(
     'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
+      'active' => 1,
+      'cardinality' => -1,
+      'deleted' => 0,
       'entity_types' => array(),
       'field_name' => 'field_farm_asset',
       'foreign keys' => array(
@@ -220,7 +220,7 @@ function farm_log_field_default_fields() {
           0 => 'target_id',
         ),
       ),
-      'locked' => '0',
+      'locked' => 0,
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -237,13 +237,13 @@ function farm_log_field_default_fields() {
         ),
         'target_type' => 'farm_asset',
       ),
-      'translatable' => '0',
+      'translatable' => 0,
       'type' => 'entityreference',
     ),
     'field_instance' => array(
       'bundle' => 'farm_activity',
       'default_value' => NULL,
-      'deleted' => '0',
+      'deleted' => 0,
       'description' => 'What assets does this activity pertain to?',
       'display' => array(
         'default' => array(
@@ -253,7 +253,7 @@ function farm_log_field_default_fields() {
             'link' => 1,
           ),
           'type' => 'entityreference_label',
-          'weight' => '1',
+          'weight' => 1,
         ),
       ),
       'entity_type' => 'log',
@@ -269,10 +269,10 @@ function farm_log_field_default_fields() {
         'settings' => array(
           'match_operator' => 'CONTAINS',
           'path' => '',
-          'size' => '60',
+          'size' => 60,
         ),
         'type' => 'entityreference_autocomplete_tags',
-        'weight' => '2',
+        'weight' => 2,
       ),
     ),
   );
@@ -280,9 +280,9 @@ function farm_log_field_default_fields() {
   // Exported field: 'log-farm_activity-field_farm_notes'.
   $fields['log-farm_activity-field_farm_notes'] = array(
     'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
+      'active' => 1,
+      'cardinality' => 1,
+      'deleted' => 0,
       'entity_types' => array(),
       'field_name' => 'field_farm_notes',
       'foreign keys' => array(
@@ -298,16 +298,16 @@ function farm_log_field_default_fields() {
           0 => 'format',
         ),
       ),
-      'locked' => '0',
+      'locked' => 0,
       'module' => 'text',
       'settings' => array(),
-      'translatable' => '0',
+      'translatable' => 0,
       'type' => 'text_long',
     ),
     'field_instance' => array(
       'bundle' => 'farm_activity',
       'default_value' => NULL,
-      'deleted' => '0',
+      'deleted' => 0,
       'description' => '',
       'display' => array(
         'default' => array(
@@ -315,7 +315,7 @@ function farm_log_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '2',
+          'weight' => 2,
         ),
       ),
       'entity_type' => 'log',
@@ -323,17 +323,17 @@ function farm_log_field_default_fields() {
       'label' => 'Notes',
       'required' => 0,
       'settings' => array(
-        'text_processing' => '0',
+        'text_processing' => 0,
         'user_register_form' => FALSE,
       ),
       'widget' => array(
         'active' => 1,
         'module' => 'text',
         'settings' => array(
-          'rows' => '5',
+          'rows' => 5,
         ),
         'type' => 'text_textarea',
-        'weight' => '4',
+        'weight' => 4,
       ),
     ),
   );
@@ -341,9 +341,9 @@ function farm_log_field_default_fields() {
   // Exported field: 'log-farm_movement-field_farm_asset'.
   $fields['log-farm_movement-field_farm_asset'] = array(
     'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
+      'active' => 1,
+      'cardinality' => -1,
+      'deleted' => 0,
       'entity_types' => array(),
       'field_name' => 'field_farm_asset',
       'foreign keys' => array(
@@ -359,7 +359,7 @@ function farm_log_field_default_fields() {
           0 => 'target_id',
         ),
       ),
-      'locked' => '0',
+      'locked' => 0,
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -376,13 +376,13 @@ function farm_log_field_default_fields() {
         ),
         'target_type' => 'farm_asset',
       ),
-      'translatable' => '0',
+      'translatable' => 0,
       'type' => 'entityreference',
     ),
     'field_instance' => array(
       'bundle' => 'farm_movement',
       'default_value' => NULL,
-      'deleted' => '0',
+      'deleted' => 0,
       'description' => 'What assets are being moved?',
       'display' => array(
         'default' => array(
@@ -392,7 +392,7 @@ function farm_log_field_default_fields() {
             'link' => 1,
           ),
           'type' => 'entityreference_label',
-          'weight' => '0',
+          'weight' => 0,
         ),
       ),
       'entity_type' => 'log',
@@ -408,10 +408,10 @@ function farm_log_field_default_fields() {
         'settings' => array(
           'match_operator' => 'CONTAINS',
           'path' => '',
-          'size' => '60',
+          'size' => 60,
         ),
         'type' => 'entityreference_autocomplete_tags',
-        'weight' => '1',
+        'weight' => 1,
       ),
     ),
   );
@@ -419,9 +419,9 @@ function farm_log_field_default_fields() {
   // Exported field: 'log-farm_movement-field_farm_move_from'.
   $fields['log-farm_movement-field_farm_move_from'] = array(
     'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
+      'active' => 1,
+      'cardinality' => -1,
+      'deleted' => 0,
       'entity_types' => array(),
       'field_name' => 'field_farm_move_from',
       'foreign keys' => array(
@@ -437,23 +437,23 @@ function farm_log_field_default_fields() {
           0 => 'tid',
         ),
       ),
-      'locked' => '0',
+      'locked' => 0,
       'module' => 'taxonomy',
       'settings' => array(
         'allowed_values' => array(
           0 => array(
             'vocabulary' => 'farm_areas',
-            'parent' => '0',
+            'parent' => 0,
           ),
         ),
       ),
-      'translatable' => '0',
+      'translatable' => 0,
       'type' => 'taxonomy_term_reference',
     ),
     'field_instance' => array(
       'bundle' => 'farm_movement',
       'default_value' => NULL,
-      'deleted' => '0',
+      'deleted' => 0,
       'description' => 'Where is it moving from? This field is optional. You may leave this blank as a way of setting the initial location of an object.',
       'display' => array(
         'default' => array(
@@ -461,7 +461,7 @@ function farm_log_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '2',
+          'weight' => 2,
         ),
       ),
       'entity_type' => 'log',
@@ -479,7 +479,7 @@ function farm_log_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '2',
+        'weight' => 2,
       ),
     ),
   );
@@ -487,9 +487,9 @@ function farm_log_field_default_fields() {
   // Exported field: 'log-farm_movement-field_farm_move_to'.
   $fields['log-farm_movement-field_farm_move_to'] = array(
     'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
+      'active' => 1,
+      'cardinality' => 1,
+      'deleted' => 0,
       'entity_types' => array(),
       'field_name' => 'field_farm_move_to',
       'foreign keys' => array(
@@ -505,23 +505,23 @@ function farm_log_field_default_fields() {
           0 => 'tid',
         ),
       ),
-      'locked' => '0',
+      'locked' => 0,
       'module' => 'taxonomy',
       'settings' => array(
         'allowed_values' => array(
           0 => array(
             'vocabulary' => 'farm_areas',
-            'parent' => '0',
+            'parent' => 0,
           ),
         ),
       ),
-      'translatable' => '0',
+      'translatable' => 0,
       'type' => 'taxonomy_term_reference',
     ),
     'field_instance' => array(
       'bundle' => 'farm_movement',
       'default_value' => NULL,
-      'deleted' => '0',
+      'deleted' => 0,
       'description' => 'Where is it moving to?',
       'display' => array(
         'default' => array(
@@ -529,7 +529,7 @@ function farm_log_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '3',
+          'weight' => 3,
         ),
       ),
       'entity_type' => 'log',
@@ -547,7 +547,7 @@ function farm_log_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '3',
+        'weight' => 3,
       ),
     ),
   );
@@ -555,9 +555,9 @@ function farm_log_field_default_fields() {
   // Exported field: 'log-farm_movement-field_farm_notes'.
   $fields['log-farm_movement-field_farm_notes'] = array(
     'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
+      'active' => 1,
+      'cardinality' => 1,
+      'deleted' => 0,
       'entity_types' => array(),
       'field_name' => 'field_farm_notes',
       'foreign keys' => array(
@@ -573,16 +573,16 @@ function farm_log_field_default_fields() {
           0 => 'format',
         ),
       ),
-      'locked' => '0',
+      'locked' => 0,
       'module' => 'text',
       'settings' => array(),
-      'translatable' => '0',
+      'translatable' => 0,
       'type' => 'text_long',
     ),
     'field_instance' => array(
       'bundle' => 'farm_movement',
       'default_value' => NULL,
-      'deleted' => '0',
+      'deleted' => 0,
       'description' => '',
       'display' => array(
         'default' => array(
@@ -590,7 +590,7 @@ function farm_log_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '4',
+          'weight' => 4,
         ),
       ),
       'entity_type' => 'log',
@@ -598,17 +598,17 @@ function farm_log_field_default_fields() {
       'label' => 'Notes',
       'required' => 0,
       'settings' => array(
-        'text_processing' => '0',
+        'text_processing' => 0,
         'user_register_form' => FALSE,
       ),
       'widget' => array(
         'active' => 1,
         'module' => 'text',
         'settings' => array(
-          'rows' => '5',
+          'rows' => 5,
         ),
         'type' => 'text_textarea',
-        'weight' => '4',
+        'weight' => 4,
       ),
     ),
   );
@@ -616,9 +616,9 @@ function farm_log_field_default_fields() {
   // Exported field: 'log-farm_observation-field_farm_asset'.
   $fields['log-farm_observation-field_farm_asset'] = array(
     'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
+      'active' => 1,
+      'cardinality' => -1,
+      'deleted' => 0,
       'entity_types' => array(),
       'field_name' => 'field_farm_asset',
       'foreign keys' => array(
@@ -634,7 +634,7 @@ function farm_log_field_default_fields() {
           0 => 'target_id',
         ),
       ),
-      'locked' => '0',
+      'locked' => 0,
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -651,13 +651,13 @@ function farm_log_field_default_fields() {
         ),
         'target_type' => 'farm_asset',
       ),
-      'translatable' => '0',
+      'translatable' => 0,
       'type' => 'entityreference',
     ),
     'field_instance' => array(
       'bundle' => 'farm_observation',
       'default_value' => NULL,
-      'deleted' => '0',
+      'deleted' => 0,
       'description' => 'What assets does this observation pertain to?',
       'display' => array(
         'default' => array(
@@ -667,7 +667,7 @@ function farm_log_field_default_fields() {
             'link' => 1,
           ),
           'type' => 'entityreference_label',
-          'weight' => '0',
+          'weight' => 0,
         ),
       ),
       'entity_type' => 'log',
@@ -683,10 +683,10 @@ function farm_log_field_default_fields() {
         'settings' => array(
           'match_operator' => 'CONTAINS',
           'path' => '',
-          'size' => '60',
+          'size' => 60,
         ),
         'type' => 'entityreference_autocomplete_tags',
-        'weight' => '2',
+        'weight' => 2,
       ),
     ),
   );
@@ -694,9 +694,9 @@ function farm_log_field_default_fields() {
   // Exported field: 'log-farm_observation-field_farm_images'.
   $fields['log-farm_observation-field_farm_images'] = array(
     'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
+      'active' => 1,
+      'cardinality' => -1,
+      'deleted' => 0,
       'entity_types' => array(),
       'field_name' => 'field_farm_images',
       'foreign keys' => array(
@@ -712,18 +712,18 @@ function farm_log_field_default_fields() {
           0 => 'fid',
         ),
       ),
-      'locked' => '0',
+      'locked' => 0,
       'module' => 'image',
       'settings' => array(
         'default_image' => 0,
         'uri_scheme' => 'public',
       ),
-      'translatable' => '0',
+      'translatable' => 0,
       'type' => 'image',
     ),
     'field_instance' => array(
       'bundle' => 'farm_observation',
-      'deleted' => '0',
+      'deleted' => 0,
       'description' => '',
       'display' => array(
         'default' => array(
@@ -740,7 +740,7 @@ function farm_log_field_default_fields() {
             'colorbox_node_style_first' => 'large',
           ),
           'type' => 'colorbox',
-          'weight' => '5',
+          'weight' => 5,
         ),
       ),
       'entity_type' => 'log',
@@ -785,7 +785,7 @@ function farm_log_field_default_fields() {
           'progress_indicator' => 'bar',
         ),
         'type' => 'image_image',
-        'weight' => '6',
+        'weight' => 6,
       ),
     ),
   );
@@ -793,9 +793,9 @@ function farm_log_field_default_fields() {
   // Exported field: 'log-farm_observation-field_farm_notes'.
   $fields['log-farm_observation-field_farm_notes'] = array(
     'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
+      'active' => 1,
+      'cardinality' => 1,
+      'deleted' => 0,
       'entity_types' => array(),
       'field_name' => 'field_farm_notes',
       'foreign keys' => array(
@@ -811,16 +811,16 @@ function farm_log_field_default_fields() {
           0 => 'format',
         ),
       ),
-      'locked' => '0',
+      'locked' => 0,
       'module' => 'text',
       'settings' => array(),
-      'translatable' => '0',
+      'translatable' => 0,
       'type' => 'text_long',
     ),
     'field_instance' => array(
       'bundle' => 'farm_observation',
       'default_value' => NULL,
-      'deleted' => '0',
+      'deleted' => 0,
       'description' => '',
       'display' => array(
         'default' => array(
@@ -828,7 +828,7 @@ function farm_log_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '4',
+          'weight' => 4,
         ),
       ),
       'entity_type' => 'log',
@@ -836,17 +836,17 @@ function farm_log_field_default_fields() {
       'label' => 'Notes',
       'required' => 0,
       'settings' => array(
-        'text_processing' => '0',
+        'text_processing' => 0,
         'user_register_form' => FALSE,
       ),
       'widget' => array(
         'active' => 1,
         'module' => 'text',
         'settings' => array(
-          'rows' => '5',
+          'rows' => 5,
         ),
         'type' => 'text_textarea',
-        'weight' => '5',
+        'weight' => 5,
       ),
     ),
   );
@@ -854,9 +854,9 @@ function farm_log_field_default_fields() {
   // Exported field: 'log-farm_observation-field_farm_observation_type'.
   $fields['log-farm_observation-field_farm_observation_type'] = array(
     'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
+      'active' => 1,
+      'cardinality' => 1,
+      'deleted' => 0,
       'entity_types' => array(),
       'field_name' => 'field_farm_observation_type',
       'foreign keys' => array(
@@ -872,23 +872,23 @@ function farm_log_field_default_fields() {
           0 => 'tid',
         ),
       ),
-      'locked' => '0',
+      'locked' => 0,
       'module' => 'taxonomy',
       'settings' => array(
         'allowed_values' => array(
           0 => array(
             'vocabulary' => 'farm_observation_types',
-            'parent' => '0',
+            'parent' => 0,
           ),
         ),
       ),
-      'translatable' => '0',
+      'translatable' => 0,
       'type' => 'taxonomy_term_reference',
     ),
     'field_instance' => array(
       'bundle' => 'farm_observation',
       'default_value' => NULL,
-      'deleted' => '0',
+      'deleted' => 0,
       'description' => 'What type of observation is this. Use this to organize your observations into categories for easy viewing later. As you type, you will have the option of selecting from a list of types you entered in the past.',
       'display' => array(
         'default' => array(
@@ -896,7 +896,7 @@ function farm_log_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '2',
+          'weight' => 2,
         ),
       ),
       'entity_type' => 'log',
@@ -914,7 +914,7 @@ function farm_log_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '3',
+        'weight' => 3,
       ),
     ),
   );
@@ -922,9 +922,9 @@ function farm_log_field_default_fields() {
   // Exported field: 'log-farm_observation-field_farm_quantity'.
   $fields['log-farm_observation-field_farm_quantity'] = array(
     'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
+      'active' => 1,
+      'cardinality' => 1,
+      'deleted' => 0,
       'entity_types' => array(),
       'field_name' => 'field_farm_quantity',
       'foreign keys' => array(),
@@ -933,19 +933,19 @@ function farm_log_field_default_fields() {
           0 => 'revision_id',
         ),
       ),
-      'locked' => '0',
+      'locked' => 0,
       'module' => 'field_collection',
       'settings' => array(
         'hide_blank_items' => 1,
         'path' => '',
       ),
-      'translatable' => '0',
+      'translatable' => 0,
       'type' => 'field_collection',
     ),
     'field_instance' => array(
       'bundle' => 'farm_observation',
       'default_value' => NULL,
-      'deleted' => '0',
+      'deleted' => 0,
       'description' => 'Optionally, use this quantity field to record an observed quantity.',
       'display' => array(
         'default' => array(
@@ -955,7 +955,7 @@ function farm_log_field_default_fields() {
             'view_mode' => 'full',
           ),
           'type' => 'field_collection_fields',
-          'weight' => '3',
+          'weight' => 3,
         ),
       ),
       'entity_type' => 'log',
@@ -970,7 +970,7 @@ function farm_log_field_default_fields() {
         'module' => 'field_collection',
         'settings' => array(),
         'type' => 'field_collection_embed',
-        'weight' => '4',
+        'weight' => 4,
       ),
     ),
   );
