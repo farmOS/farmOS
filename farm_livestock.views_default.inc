@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Default views for farm_livestock.
+ * farm_livestock.views_default.inc
  */
 
 /**
@@ -386,7 +386,7 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['fields']['field_farm_animal_sex']['id'] = 'field_farm_animal_sex';
   $handler->display->display_options['fields']['field_farm_animal_sex']['table'] = 'field_data_field_farm_animal_sex';
   $handler->display->display_options['fields']['field_farm_animal_sex']['field'] = 'field_farm_animal_sex';
-  /* Field: Field: Date */
+  /* Field: Farm asset: Date of birth */
   $handler->display->display_options['fields']['field_farm_date']['id'] = 'field_farm_date';
   $handler->display->display_options['fields']['field_farm_date']['table'] = 'field_data_field_farm_date';
   $handler->display->display_options['fields']['field_farm_date']['field'] = 'field_farm_date';

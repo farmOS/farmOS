@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Taxonomy features for farm_livestock.
+ * farm_livestock.features.taxonomy.inc
  */
 
 /**
@@ -13,9 +13,9 @@ function farm_livestock_taxonomy_default_vocabularies() {
       'name' => 'Farm Animal Groups',
       'machine_name' => 'farm_animal_groups',
       'description' => 'Vocabulary of farm animal groups, herds, flocks, etc.',
-      'hierarchy' => '0',
+      'hierarchy' => 0,
       'module' => 'taxonomy',
-      'weight' => '0',
+      'weight' => 0,
       'rdf_mapping' => array(
         'rdftype' => array(
           0 => 'skos:ConceptScheme',
@@ -36,9 +36,9 @@ function farm_livestock_taxonomy_default_vocabularies() {
       'name' => 'Farm Animal Types',
       'machine_name' => 'farm_animal_types',
       'description' => 'A vocabulary of farm animal types.',
-      'hierarchy' => '1',
+      'hierarchy' => 1,
       'module' => 'taxonomy',
-      'weight' => '0',
+      'weight' => 0,
       'rdf_mapping' => array(
         'rdftype' => array(
           0 => 'skos:ConceptScheme',
