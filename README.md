@@ -3,7 +3,7 @@ FARM MANAGER
 
 Provides a Farm Manager role with all farm permissions.
 
-This module is part of the [FarmOS](http://drupal.org/project/farm)
+This module is part of the [farmOS](http://drupal.org/project/farm)
 distribution.
 
 This module provides two things: 1) a new role called "Farm Manager", and 2) a
@@ -18,7 +18,7 @@ want to craft your own permissions for the Farm Manager role. Maybe in the
 future, we can add an alter hook to alter the ones provided by other modules as
 well. This will be very flexible.
 
-The nice thing about this approach is we can include it in the FarmOS
+The nice thing about this approach is we can include it in the farmOS
 distribution (http://drupal.org/project/farm), but if other people want to use
 the farm_* module individually, and want to define their own permissions, they
 can do that. So it's the best of all worlds, I think.
@@ -46,7 +46,7 @@ Here is the patch: http://www.drupal.org/files/issues/995156-5_portable_taxonomy
 
 And the related issue thread: http://drupal.org/node/995156
 
-If you are using the FarmOS distribution, this patch is already included.
+If you are using the farmOS distribution, this patch is already included.
 
 INSTALLATION
 ------------
