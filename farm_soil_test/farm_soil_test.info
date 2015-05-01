@@ -1,7 +1,7 @@
 name = Farm Soil Test
 description = Features for managing soil tests.
 core = 7.x
-package = Farm
+package = farmOS
 dependencies[] = ctools
 dependencies[] = date
 dependencies[] = entity

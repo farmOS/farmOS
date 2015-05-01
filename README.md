@@ -3,7 +3,7 @@ FARM SOIL
 
 Provides features for soil health management, including a Soil Test log type.
 
-This module is part of the [Drupal Farm](http://drupal.org/project/farm)
+This module is part of the [farmOS](http://drupal.org/project/farm)
 distribution.
 
 DEPENDENCIES
