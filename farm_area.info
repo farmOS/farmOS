@@ -1,7 +1,7 @@
 name = Farm Area
 description = Features for managing farm areas.
 core = 7.x
-package = Farm
+package = farmOS
 dependencies[] = colorbox
 dependencies[] = ctools
 dependencies[] = farm_fields
