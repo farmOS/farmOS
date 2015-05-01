@@ -1,7 +1,7 @@
 name = Farm Equipment
 description = Features for managing farm equipment.
 core = 7.x
-package = Farm
+package = farmOS
 dependencies[] = colorbox
 dependencies[] = ctools
 dependencies[] = date
