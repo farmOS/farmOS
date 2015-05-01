@@ -10,9 +10,8 @@
 function farm_equipment_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance:
-  // 'farm_asset-equipment-field_farm_equipment_description'
-  $field_instances['farm_asset-equipment-field_farm_equipment_description'] = array(
+  // Exported field_instance: 'farm_asset-equipment-field_farm_description'
+  $field_instances['farm_asset-equipment-field_farm_description'] = array(
     'bundle' => 'equipment',
     'default_value' => NULL,
     'deleted' => 0,
@@ -27,7 +26,7 @@ function farm_equipment_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'farm_asset',
-    'field_name' => 'field_farm_equipment_description',
+    'field_name' => 'field_farm_description',
     'label' => 'Description',
     'required' => 0,
     'settings' => array(
