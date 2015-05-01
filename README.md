@@ -24,6 +24,7 @@ This module depends on the following modules:
  * Views (http://drupal.org/project/views)
  * Farm Area (http://drupal.org/project/farm_area)
  * Farm Asset (http://drupal.org/project/farm_asset)
+ * Farm Fields (http://drupal.org/project/farm_fields)
 
 INSTALLATION
 ------------
