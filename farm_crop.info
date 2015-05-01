@@ -1,7 +1,7 @@
 name = Farm Crop
 description = Features for managing farm crops.
 core = 7.x
-package = Farm
+package = farmOS
 dependencies[] = colorbox
 dependencies[] = ctools
 dependencies[] = date

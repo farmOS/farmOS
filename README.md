@@ -3,7 +3,7 @@ FARM CROP
 
 Provides features for managing farm crops.
 
-This module is part of the [FarmOS](http://drupal.org/project/farm)
+This module is part of the [farmOS](http://drupal.org/project/farm)
 distribution.
 
 DEPENDENCIES
