@@ -139,6 +139,9 @@ projects[farm_crop][version] = "1.0-beta2"
 projects[farm_equipment][subdir] = "farm"
 projects[farm_equipment][version] = "1.0-beta2"
 
+projects[farm_fields][subdir] = "farm"
+projects[farm_fields][version] = "1.0-beta1"
+
 projects[farm_livestock][subdir] = "farm"
 projects[farm_livestock][version] = "1.0-beta2"
 

@@ -11,6 +11,7 @@ comes pre-packaged with a set of farm-related modules, including:
 * [Farm Asset](http://drupal.org/project/farm_asset)
 * [Farm Crop](http://drupal.org/project/farm_crop)
 * [Farm Equipment](http://drupal.org/project/farm_equipment)
+* [Farm Fields](http://drupal.org/project/farm_fields)
 * [Farm Livestock](http://drupal.org/project/farm_livestock)
 * [Farm Log](http://drupal.org/project/farm_log)
 * [Farm Map](http://drupal.org/project/farm_map)

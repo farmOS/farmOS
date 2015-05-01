@@ -35,6 +35,7 @@ dependencies[] = farm_area
 dependencies[] = farm_asset
 dependencies[] = farm_crop
 dependencies[] = farm_equipment
+dependencies[] = farm_fields
 dependencies[] = farm_livestock
 dependencies[] = farm_livestock_eggs
 dependencies[] = farm_log
