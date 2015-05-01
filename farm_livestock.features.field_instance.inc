@@ -10,40 +10,6 @@
 function farm_livestock_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'farm_asset-animal-field_farm_animal_description'
-  $field_instances['farm_asset-animal-field_farm_animal_description'] = array(
-    'bundle' => 'animal',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 7,
-      ),
-    ),
-    'entity_type' => 'farm_asset',
-    'field_name' => 'field_farm_animal_description',
-    'label' => 'Description',
-    'required' => 0,
-    'settings' => array(
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'rows' => 5,
-      ),
-      'type' => 'text_textarea',
-      'weight' => 8,
-    ),
-  );
-
   // Exported field_instance: 'farm_asset-animal-field_farm_animal_group'
   $field_instances['farm_asset-animal-field_farm_animal_group'] = array(
     'bundle' => 'animal',
@@ -293,6 +259,40 @@ function farm_livestock_field_default_field_instances() {
       ),
       'type' => 'date_popup',
       'weight' => 6,
+    ),
+  );
+
+  // Exported field_instance: 'farm_asset-animal-field_farm_description'
+  $field_instances['farm_asset-animal-field_farm_description'] = array(
+    'bundle' => 'animal',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 7,
+      ),
+    ),
+    'entity_type' => 'farm_asset',
+    'field_name' => 'field_farm_description',
+    'label' => 'Description',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 8,
     ),
   );
 
