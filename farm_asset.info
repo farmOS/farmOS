@@ -1,5 +1,5 @@
 name = "Farm Asset"
-description = "A farm asset entity type."
+description = A farm asset entity type."
 core = 7.x
 package = farmOS
 dependencies[] = entity
