@@ -22,6 +22,7 @@ This module depends on the following modules:
  * Strongarm (http://drupal.org/project/strongarm)
  * Views (http://drupal.org/project/views)
  * Views Tree (http://drupal.org/project/views_tree)
+ * Farm Fields (http://drupal.org/project/farm_fields)
  * Farm Map (http://drupal.org/project/farm_map)
 
 INSTALLATION
