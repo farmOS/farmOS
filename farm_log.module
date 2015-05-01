@@ -583,6 +583,9 @@ function farm_log_move_assets($assets, $area_id, $timestamp, $done = FALSE) {
   // Create a new movement log entity.
   $log = entity_create('log', array('type' => 'farm_movement'));
 
+  // Keep track of what areas these assets are coming from.
+  $from_areas = array();
+
   // Iterate through the assets.
   foreach ($assets as $asset) {
 
@@ -595,10 +598,12 @@ function farm_log_move_assets($assets, $area_id, $timestamp, $done = FALSE) {
     $area = farm_log_asset_location($asset);
 
     // If the asset has a current location, add it to the "from" field.
-    if (!empty($area->name) && !empty($area->tid)) {
+    // Avoid adding the same area more than once.
+    if (!empty($area->name) && !empty($area->tid) && !in_array($area->tid, $from_areas)) {
       $log->field_farm_move_from[LANGUAGE_NONE][] = array(
         'tid' => $area->tid,
       );
+      $from_areas[] = $area->tid;
     }
   }
 
