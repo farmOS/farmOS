@@ -32,5 +32,3 @@ Current maintainers:
 
 This project has been sponsored by:
  * [Farmier](http://farmier.com)
-   Built on top of FarmOS, Farmier is a hosted platform that provides
-   website and farm management tools to farmers in the cloud.
