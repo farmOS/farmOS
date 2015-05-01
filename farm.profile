@@ -2,7 +2,7 @@
 
 /**
  * @file
- * FarmOS installation profile.
+ * farmOS installation profile.
  */
 
 /**
