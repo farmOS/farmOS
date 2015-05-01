@@ -7,7 +7,7 @@ This module provides useful UI stuff for the farmOS system. This includes a
 Panels page dashboard at /farm, which forms the root of the farm path
 hierarchy.
 
-This module is part of the [FarmOS](http://drupal.org/project/farm)
+This module is part of the [farmOS](http://drupal.org/project/farm)
 distribution.
 
 DEPENDENCIES

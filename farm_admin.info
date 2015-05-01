@@ -1,7 +1,7 @@
 name = Farm Admin
 description = Administrative interface for managing the farm.
 core = 7.x
-package = Farm
+package = farmOS
 dependencies[] = ctools
 dependencies[] = log_plan
 dependencies[] = page_manager
