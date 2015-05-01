@@ -26,6 +26,7 @@ This module depends on the following modules:
  * Views (http://drupal.org/project/views)
  * Views Bulk Operations (http://drupal.org/project/views_bulk_operations)
  * Farm Asset (http://drupal.org/project/farm_asset)
+ * Farm Fields (http://drupal.org/project/farm_fields)
  * Farm Log (http://drupal.org/project/farm_log)
 
 The Farm Livestock: Eggs sub-module depends on the following modules:
@@ -36,6 +37,7 @@ The Farm Livestock: Eggs sub-module depends on the following modules:
  * Features (http://drupal.org/project/features)
  * Log (http://drupal.org/project/log)
  * Views (http://drupal.org/project/views)
+ * Farm Fields (http://drupal.org/project/farm_fields)
  * Farm Livestock (http://drupal.org/project/farm_livestock)
 
 INSTALLATION
