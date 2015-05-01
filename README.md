@@ -3,7 +3,7 @@ FARM ASSET
 
 Provides a "Farm Asset" entity type and UI.
 
-This module is part of the [FarmOS](http://drupal.org/project/farm)
+This module is part of the [farmOS](http://drupal.org/project/farm)
 distribution.
 
 DEPENDENCIES
