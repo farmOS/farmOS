@@ -15,6 +15,7 @@ This module depends on the following modules:
  * Features (http://drupal.org/project/features)
  * Pathauto (http://drupal.org/project/pathauto)
  * Strongarm (http://drupal.org/project/strongarm)
+ * Farm Fields (http://drupal.org/project/farm_fields)
 
 INSTALLATION
 ------------
