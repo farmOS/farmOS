@@ -4,7 +4,7 @@ FARM LIVESTOCK
 Provides features for managing farm livestock. Also includes a sub-module for
 tracking egg collection.
 
-This module is part of the [FarmOS](http://drupal.org/project/farm)
+This module is part of the [farmOS](http://drupal.org/project/farm)
 distribution.
 
 DEPENDENCIES

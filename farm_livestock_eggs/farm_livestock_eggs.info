@@ -1,7 +1,7 @@
 name = Farm Livestock: Eggs
 description = Feature for logging egg collection.
 core = 7.x
-package = Farm
+package = farmOS
 dependencies[] = ctools
 dependencies[] = date
 dependencies[] = entity
