@@ -1,7 +1,7 @@
 name = Farm Log
 description = Provides log types and UI for farm task management.
 core = 7.x
-package = Farm
+package = farmOS
 dependencies[] = colorbox
 dependencies[] = ctools
 dependencies[] = date
