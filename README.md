@@ -3,7 +3,7 @@ FARM TAXONOMY
 
 Provides a "Season" vocabulary and data architecture.
 
-This module is part of the [FarmOS](http://drupal.org/project/farm)
+This module is part of the [farmOS](http://drupal.org/project/farm)
 distribution.
 
 DEPENDENCIES

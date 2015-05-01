@@ -1,7 +1,7 @@
 name = Farm Taxonomy
-description = Common taxonomies for farms.
+description = Common farm taxonomies.
 core = 7.x
-package = Farm
+package = farmOS
 dependencies[] = ctools
 dependencies[] = date
 dependencies[] = date_popup
