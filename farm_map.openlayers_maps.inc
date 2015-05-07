@@ -38,6 +38,19 @@ function farm_map_openlayers_maps() {
         'activated' => 0,
       ),
       'openlayers_behavior_geofield' => array(),
+      'openlayers_behavior_geolocate_button' => array(
+        'bind' => '1',
+        'zoom_level' => '16',
+        'show_location' => '1',
+        'show_location_accuracy_styles' => 'fillColor|#000
+fillOpacity|0.25
+strokeWidth|0',
+        'show_location_position_styles' => 'fillOpacity|0
+graphicName|cross
+pointRadius|10
+strokeColor|#f00
+strokeWidth|2',
+      ),
       'openlayers_behavior_layerswitcher' => array(
         'ascending' => 1,
         'sortBaseLayer' => '0',
@@ -74,10 +87,6 @@ function farm_map_openlayers_maps() {
         ),
         'point_zoom_level' => '16',
         'zoomtolayer_scale' => '1',
-      ),
-      'openlayers_behavior_geolocate_button' => array(
-        'bind' => '1',
-        'zoom_level' => '16',
       ),
     ),
     'default_layer' => 'google_hybrid',
