@@ -69,7 +69,7 @@ projects[openlayers][subdir] = "contrib"
 projects[openlayers][version] = "2.x-dev"
 
 projects[openlayers_geolocate_button][subdir] = "contrib"
-projects[openlayers_geolocate_button][version] = "1.0"
+projects[openlayers_geolocate_button][version] = "1.1"
 
 projects[panels][subdir] = "contrib"
 projects[panels][version] = "3.5"
