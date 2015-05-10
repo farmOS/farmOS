@@ -1,0 +1,53 @@
+<?php
+
+/**
+ * @file
+ * farmOS install file.
+ */
+
+/**
+ * Implements hook_update_dependencies().
+ */
+function farm_update_dependencies() {
+
+  // farm_livestock_7000() and farm_equipment_update_7000 both depend on
+  // farm_update_7000() because they use the new field_bases provided by
+  // farm_fields.
+  $farm_7000 = array(
+    'farm' => 7000,
+  );
+  $dependencies['farm_equipment'][7000] = $farm_7000;
+  $dependencies['farm_livestock'][7000] = $farm_7000;
+  return $dependencies;
+}
+
+/**
+ * Enable the Farm Fields module.
+ */
+function farm_update_7000(&$sandbox) {
+
+  // Install the farm_fields module and revert the field_base component on it,
+  // so that they are available to update hooks in other modules.
+  //
+  // Between farmOS 7.x-1.0-beta2 and 7.x-1.0-beta3, we upgraded from
+  // Features 1.x to 2.x. This replaced the 'field' component with
+  // 'field_base' and 'field_instance'. At the same time, a new module was
+  // introduced, to serve as a place to put common field_bases: farm_fields.
+  if (!module_exists('farm_fields')) {
+
+    // Enable the farm_fields module.
+    module_enable(array('farm_fields'));
+
+    // Reset the "default_hook" static cache for field_base Features components.
+    module_load_include('inc', 'features', 'features.export');
+    features_get_default_hooks('field_base', TRUE);
+
+    // Load the farm_fields field_base Features include file, otherwise
+    // feature_get_default() will not see it, and the revert will fail.
+    module_load_include('inc', 'farm_fields', 'farm_fields.features.field_base');
+
+    // Revert the field_base component of farm_fields.
+    features_revert(array('farm_fields' => array('field_base')));
+  }
+}
+
