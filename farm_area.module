@@ -42,6 +42,24 @@ function farm_area_farm_taxonomy_breadcrumb($term) {
 }
 
 /**
+ * Generate area details.
+ *
+ * @param int $id
+ *   The area id.
+ *
+ * @return string
+ *   Returns a string of links.
+ */
+function farm_area_get_details($id) {
+
+  // Call out to modules that want to provide links.
+  $area_details = module_invoke_all('farm_area_details', check_plain($id));
+
+  // Render and return.
+  return drupal_render($area_details);
+}
+
+/**
  * Generate area links, sorted by weight.
  *
  * @param int $id

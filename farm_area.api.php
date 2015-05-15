@@ -50,5 +50,29 @@ function hook_farm_area_links($id) {
 }
 
 /**
+ * Provide details about farm areas.
+ *
+ * @param int $id
+ *   The area id.
+ *
+ * @return array
+ *   Returns a render array to add to the area's popup.
+ */
+function hook_farm_area_details($id) {
+
+  // Start a render array.
+  $output = array();
+
+  // Add "Hello world!" to area details.
+  $output[] = array(
+    '#type' => 'markup',
+    '#markup' => 'Hello world!',
+  );
+
+  // Return the render array.
+  return $output;
+}
+
+/**
  * @}
  */
