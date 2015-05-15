@@ -42,6 +42,25 @@ function farm_area_farm_taxonomy_breadcrumb($term) {
 }
 
 /**
+ * Implements hook_farm_area_details().
+ */
+function farm_area_farm_area_details($id) {
+
+  // Start a render array.
+  $output = array();
+
+  // Add area links to the details.
+  $output[] = array(
+    '#type' => 'markup',
+    '#markup' => '<p>' . farm_area_get_links($id) . '</p>',
+    '#weight' => -100,
+  );
+
+  // Return the render array.
+  return $output;
+}
+
+/**
  * Generate area details.
  *
  * @param int $id
