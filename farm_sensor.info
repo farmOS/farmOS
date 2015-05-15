@@ -1,0 +1,8 @@
+name = Farm Sensor
+description = Features for managing farm sensors.
+core = 7.x
+package = farmOS
+dependencies[] = entity
+dependencies[] = farm_asset
+features[farm_asset_type][] = sensor
+features[features_api][] = api:2
