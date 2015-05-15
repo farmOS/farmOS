@@ -38,4 +38,5 @@ features[taxonomy][] = farm_areas
 features[variable][] = pathauto_taxonomy_term_farm_areas_pattern
 features[views_view][] = farm_area_data
 features[views_view][] = farm_areas
+files[] = views/handlers/farm_area_handler_field_details.inc
 files[] = views/handlers/farm_area_handler_field_links.inc
