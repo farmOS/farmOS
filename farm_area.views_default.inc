@@ -76,8 +76,9 @@ function farm_area_views_default_views() {
   $handler->display->display_options['fields']['farm_area_details']['id'] = 'farm_area_details';
   $handler->display->display_options['fields']['farm_area_details']['table'] = 'taxonomy_term_data';
   $handler->display->display_options['fields']['farm_area_details']['field'] = 'farm_area_details';
-  $handler->display->display_options['fields']['farm_area_details']['label'] = 'Details';
+  $handler->display->display_options['fields']['farm_area_details']['label'] = '';
   $handler->display->display_options['fields']['farm_area_details']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['farm_area_details']['element_label_colon'] = FALSE;
   /* Sort criterion: Taxonomy term: Weight */
   $handler->display->display_options['sorts']['weight']['id'] = 'weight';
   $handler->display->display_options['sorts']['weight']['table'] = 'taxonomy_term_data';
