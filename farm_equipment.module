@@ -11,7 +11,7 @@ include_once 'farm_equipment.features.inc';
  */
 function farm_equipment_farm_admin_actions() {
 
-  // Define farm area actions.
+  // Define farm equipment actions.
   $actions = array(
     'equipment' => array(
       'title' => t('Add equipment'),
@@ -35,13 +35,12 @@ function farm_equipment_farm_admin_actions() {
   return $actions;
 }
 
-
 /**
  * Implements hook_farm_asset_breadcrumb().
  */
 function farm_equipment_farm_asset_breadcrumb($farm_asset) {
 
-  // If the asset is equipment, add a link to the animals list.
+  // If the asset is equipment, add a link to the equipment list.
   $breadcrumb = array();
   if ($farm_asset->type == 'equipment') {
     $breadcrumb[] = l(t('Equipment'), 'farm/equipment');
