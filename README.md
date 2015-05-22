@@ -23,6 +23,7 @@ MAINTAINERS
 
 Current maintainers:
  * Michael Stenta (m.stenta) - https://drupal.org/user/581414
+ * R.J. Steinert III (R.J. Steinert) - https://www.drupal.org/user/238054
 
 This project has been sponsored by:
  * [Farmier](http://farmier.com)
