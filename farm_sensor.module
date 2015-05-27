@@ -5,3 +5,30 @@
  */
 
 include_once 'farm_sensor.features.inc';
+
+/**
+ * Implements hook_farm_sensor_type_info().
+ */
+function farm_sensor_farm_sensor_type_info() {
+  return array(
+    'none' => array(
+      'label' => t('None'),
+      'description' => t('No sensor type.'),
+    ),
+  );
+}
+
+/**
+ * Get farm sensor types.
+ *
+ * @return array
+ *   Returns an array of sensors type information provided by other modules.
+ */
+function farm_sensor_types() {
+
+  // Gather type information from other modules.
+  $sensor_types = module_invoke_all('farm_sensor_type_info');
+
+  // Return it.
+  return $sensor_types;
+}
