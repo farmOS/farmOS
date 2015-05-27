@@ -53,7 +53,7 @@ function farm_area_farm_area_details($id) {
   $output[] = array(
     '#type' => 'markup',
     '#markup' => '<p>' . farm_area_get_links($id) . '</p>',
-    '#weight' => -100,
+    '#weight' => 100,
   );
 
   // Return the render array.
