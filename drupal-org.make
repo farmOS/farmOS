@@ -109,7 +109,7 @@ projects[views_tree][version] = "2.0"
 ; -----------------------------------------------------------------------------
 
 projects[backup_migrate][subdir] = "dev"
-projects[backup_migrate][version] = "3.0"
+projects[backup_migrate][version] = "3.1"
 
 projects[devel][subdir] = "dev"
 projects[devel][version] = "1.5"
