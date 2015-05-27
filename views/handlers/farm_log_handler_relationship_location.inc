@@ -68,26 +68,10 @@ class farm_log_handler_relationship_location extends views_handler_relationship 
 
     // Build a sub-query that will be used in the join to load the latest
     // movement log of a given asset.
-    $query = db_select('log', 'ss_log');
-    $query->join('field_data_field_farm_asset', 'ss_fdffa', 'ss_log.id = ss_fdffa.entity_id');
-    $query->where("ss_log.type = 'farm_movement'");
-    $query->where('ss_fdffa.field_farm_asset_target_id = ' . $this->table_alias . '.id');
-    $query->where('ss_fdffa.deleted = 0');
-    $query->orderBy('ss_log.timestamp', 'DESC');
-    $query->orderBy('ss_log.id', 'DESC');
-    $query->range(0, 1);
-    $query->addField('ss_log', 'id');
-
-    // If only "done" movement logs should be included, add a filter.
-    if (!empty($this->options['done'])) {
-      $query->where('ss_log.done = 1');
-    }
-
-    // If future logs should not be included, then limit to only logs that
-    // have a date before right now.
-    if (empty($this->options['future'])) {
-      $query->where('ss_log.timestamp <= ' . REQUEST_TIME);
-    }
+    $asset_id_field = $this->table_alias . '.id';
+    $done = !empty($this->options['done']) ? TRUE : FALSE;
+    $future = !empty($this->options['future']) ? TRUE : FALSE;
+    $query = farm_log_asset_movement_query($asset_id_field, $done, $future);
 
     // Build the join definition.
     $def = $this->definition;
