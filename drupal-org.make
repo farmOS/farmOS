@@ -125,40 +125,40 @@ projects[module_filter][version] = "2.0"
 ; -----------------------------------------------------------------------------
 
 projects[farm_admin][subdir] = "farm"
-projects[farm_admin][version] = "1.0-beta2"
+projects[farm_admin][version] = "1.0-beta3"
 
 projects[farm_area][subdir] = "farm"
-projects[farm_area][version] = "1.0-beta2"
+projects[farm_area][version] = "1.0-beta3"
 
 projects[farm_asset][subdir] = "farm"
-projects[farm_asset][version] = "1.0-beta2"
+projects[farm_asset][version] = "1.0-beta3"
 
 projects[farm_crop][subdir] = "farm"
-projects[farm_crop][version] = "1.0-beta2"
+projects[farm_crop][version] = "1.0-beta3"
 
 projects[farm_equipment][subdir] = "farm"
-projects[farm_equipment][version] = "1.0-beta2"
+projects[farm_equipment][version] = "1.0-beta3"
 
 projects[farm_fields][subdir] = "farm"
 projects[farm_fields][version] = "1.0-beta1"
 
 projects[farm_livestock][subdir] = "farm"
-projects[farm_livestock][version] = "1.0-beta2"
+projects[farm_livestock][version] = "1.0-beta3"
 
 projects[farm_log][subdir] = "farm"
-projects[farm_log][version] = "1.0-beta2"
+projects[farm_log][version] = "1.0-beta3"
 
 projects[farm_map][subdir] = "farm"
-projects[farm_map][version] = "1.0-beta2"
+projects[farm_map][version] = "1.0-beta3"
 
 projects[farm_manager][subdir] = "farm"
-projects[farm_manager][version] = "1.0-beta2"
+projects[farm_manager][version] = "1.0-beta3"
 
 projects[farm_soil][subdir] = "farm"
-projects[farm_soil][version] = "1.0-beta2"
+projects[farm_soil][version] = "1.0-beta3"
 
 projects[farm_taxonomy][subdir] = "farm"
-projects[farm_taxonomy][version] = "1.0-beta2"
+projects[farm_taxonomy][version] = "1.0-beta3"
 
 ; -----------------------------------------------------------------------------
 ; Themes
@@ -166,7 +166,7 @@ projects[farm_taxonomy][version] = "1.0-beta2"
 
 projects[bootstrap][version] = "3.x-dev"
 
-projects[farm_theme][version] = "1.0-beta2"
+projects[farm_theme][version] = "1.0-beta3"
 
 ; -----------------------------------------------------------------------------
 ; Libraries
