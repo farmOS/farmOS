@@ -222,6 +222,14 @@ function farm_sensor_entity_view_alter(&$build, $type) {
   $build['sensor_type'] = array(
     '#markup' => '<p><strong>Sensor type:</strong> ' . $sensor_type_label . '</p>',
   );
+
+  // Ask other modules for sensor asset view content.
+  $module_content = module_invoke_all('farm_sensor_view', $asset);
+
+  // Merge the asset view content into the build array.
+  if (!empty($module_content)) {
+    $build = array_merge($build, $module_content);
+  }
 }
 
 /**

@@ -38,5 +38,21 @@ function hook_farm_sensor_type_info() {
 }
 
 /**
+ * Add content to the sensor view page.
+ *
+ * @param FarmAsset $asset
+ *   The sensor asset.
+ *
+ * @return array
+ *   Returns a build array to be merged into the sensor asset view page.
+ */
+function hook_farm_sensor_view($asset) {
+  $build['mysensor'] = array(
+    '#markup' => 'Add this to the sensor asset page!',
+  );
+  return $build;
+}
+
+/**
  * @}
  */
