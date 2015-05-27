@@ -154,6 +154,9 @@ projects[farm_map][version] = "1.0-beta3"
 projects[farm_manager][subdir] = "farm"
 projects[farm_manager][version] = "1.0-beta3"
 
+projects[farm_sensor][subdir] = "farm"
+projects[farm_sensor][version] = "1.0-beta1"
+
 projects[farm_soil][subdir] = "farm"
 projects[farm_soil][version] = "1.0-beta3"
 
