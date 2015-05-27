@@ -215,8 +215,15 @@ function farm_sensor_entity_view_alter(&$build, $type) {
   // Load the list of sensor types.
   $sensor_types = farm_sensor_types();
 
-  // Get the sensor type label.
-  $sensor_type_label = $sensor_types[$asset->sensor_type]['label'];
+  // Get the sensor type label if it exists.
+  if (!empty($sensor_types[$asset->sensor_type])) {
+    $sensor_type_label = $sensor_types[$asset->sensor_type]['label'];
+  }
+
+  // Otherwise, indicate that the sensor type definition is missing.
+  else {
+    $sensor_type_label = $asset->sensor_type . ' (undefined)';
+  }
 
   // Add the sensor type.
   $build['sensor_type'] = array(
