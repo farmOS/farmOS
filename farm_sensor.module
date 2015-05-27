@@ -364,3 +364,52 @@ function farm_sensor_save($id, $type, $settings = array()) {
 function farm_sensor_delete($id) {
   db_delete('farm_sensor')->condition('id', $id)->execute();
 }
+
+/**
+ * Load an array of sensors in an area.
+ *
+ * @param int $area_id
+ *   The area id.
+ * @param string $type
+ *   The sensor type (optional).
+ *
+ * @return array
+ *   Returns an array of sensors in the area.
+ */
+function farm_sensor_area_sensors($area_id, $type = '') {
+
+  // Start with a blank array.
+  $sensors = array();
+
+  // Build a query for sensor assets in the area.
+  $query = db_select('farm_asset', 'fa');
+  $query->addField('fa', 'id');
+  $query->condition('fa.type', 'sensor');
+
+  // Build a sub-select query for determining the latest movement log of assets.
+  $subquery = farm_log_asset_movement_query('fa.id');
+
+  // Join the latest movement log for each asset.
+  $query->join('log', 'l', 'l.id = (' . $subquery . ')');
+
+  // Only show assets with a movement to this area.
+  $query->join('field_data_field_farm_move_to', 'fdffmt', 'l.id = fdffmt.entity_id');
+  $query->condition('fdffmt.field_farm_move_to_tid', $area_id);
+
+  // If a sensor type is specified in the arguments, only show that type.
+  if (!empty($type)) {
+    $query->join('farm_sensor', 'fs', 'fa.id = fs.id');
+    $query->condition('fs.type', $type);
+  }
+
+  // Execute the query.
+  $result = $query->execute();
+
+  // Load the sensors.
+  while ($asset_id = $result->fetchField()) {
+    $sensors[] = farm_asset_load($asset_id);
+  }
+
+  // Return the sensors.
+  return $sensors;
+}
