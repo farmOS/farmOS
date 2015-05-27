@@ -7,6 +7,37 @@
 include_once 'farm_sensor.features.inc';
 
 /**
+ * Implements hook_farm_admin_actions().
+ */
+function farm_sensor_farm_admin_actions() {
+
+  // Define farm sensor actions.
+  $actions = array(
+    'sensor' => array(
+      'title' => t('Add sensor'),
+      'href' => 'farm/asset/add/sensor',
+      'views' => array(
+        'farm_sensors',
+      ),
+    ),
+  );
+  return $actions;
+}
+
+/**
+ * Implements hook_farm_asset_breadcrumb().
+ */
+function farm_sensor_farm_asset_breadcrumb($farm_asset) {
+
+  // If the asset is a sensor, add a link to the sensors list.
+  $breadcrumb = array();
+  if ($farm_asset->type == 'sensor') {
+    $breadcrumb[] = l(t('Sensors'), 'farm/sensors');
+  }
+  return $breadcrumb;
+}
+
+/**
  * Implements hook_entity_load().
  */
 function farm_sensor_entity_load($entities, $type) {
