@@ -188,6 +188,43 @@ function farm_sensor_entity_delete($entity, $type) {
 }
 
 /**
+ * Implements hook_entity_view_alter().
+ */
+function farm_sensor_entity_view_alter(&$build, $type) {
+
+  /*
+   * Alter farm assets to display sensor information.
+   */
+
+  // If it's not a farm_asset, bail.
+  if ($type != 'farm_asset') {
+    return;
+  }
+
+  // If the entity information isn't available, bail.
+  if (empty($build['#entity'])) {
+    return;
+  }
+  $asset = $build['#entity'];
+
+  // If the asset does not have a sensor type, bail.
+  if (empty($asset->sensor_type)) {
+    return;
+  }
+
+  // Load the list of sensor types.
+  $sensor_types = farm_sensor_types();
+
+  // Get the sensor type label.
+  $sensor_type_label = $sensor_types[$asset->sensor_type]['label'];
+
+  // Add the sensor type.
+  $build['sensor_type'] = array(
+    '#markup' => '<p><strong>Sensor type:</strong> ' . $sensor_type_label . '</p>',
+  );
+}
+
+/**
  * Implements hook_form_alter().
  */
 function farm_sensor_form_alter(&$form, &$form_state, $form_id) {
