@@ -199,7 +199,7 @@ function farm_log_form_alter(&$form, &$form_state, $form_id) {
       farm_log_form_prepopulate_area($form, 'field_farm_area');
     }
 
-    // If this is the farm_movement...
+    // If this is a farm_movement...
     if ($form['#bundle'] == 'farm_movement') {
 
       // If no asset was found above, don't continue.
@@ -215,6 +215,15 @@ function farm_log_form_alter(&$form, &$form_state, $form_id) {
         if (!empty($area->name)) {
           $form['field_farm_move_from'][LANGUAGE_NONE]['#default_value'] = $area->name;
         }
+      }
+    }
+
+    // Or, if this is a farm_observation...
+    elseif ($form['#bundle'] == 'farm_observation') {
+
+      // If the observation type field is empty, prepopulate it with "General".
+      if (empty($form['field_farm_observation_type'][LANGUAGE_NONE]['#default_value'])) {
+        $form['field_farm_observation_type'][LANGUAGE_NONE]['#default_value'] = t('General');
       }
     }
   }
