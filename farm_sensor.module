@@ -56,6 +56,24 @@ function farm_sensor_farm_asset_view_views($farm_asset) {
 }
 
 /**
+ * Implements hook_farm_taxonomy_term_view_views().
+ */
+function farm_sensor_farm_taxonomy_term_view_views($term) {
+
+  // If the term is not an area, bail.
+  if ($term->vocabulary_machine_name != 'farm_areas') {
+    return array();
+  }
+
+  // Return a list of Views to include on Areas.
+  return array(
+    array(
+      'name' => 'farm_sensors',
+    ),
+  );
+}
+
+/**
  * Implements hook_farm_manager_perms().
  */
 function farm_sensor_farm_manager_perms() {
