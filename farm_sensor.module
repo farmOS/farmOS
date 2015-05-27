@@ -38,6 +38,20 @@ function farm_sensor_farm_asset_breadcrumb($farm_asset) {
 }
 
 /**
+ * Implements hook_farm_manager_perms().
+ */
+function farm_sensor_farm_manager_perms() {
+
+  // Build a list of permissions.
+  $types = array(
+    'farm_asset' => array(
+      'sensor',
+    ),
+  );
+  return farm_manager_entity_perms($types);
+}
+
+/**
  * Implements hook_entity_load().
  */
 function farm_sensor_entity_load($entities, $type) {
