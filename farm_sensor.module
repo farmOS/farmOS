@@ -107,6 +107,86 @@ function farm_sensor_entity_delete($entity, $type) {
 }
 
 /**
+ * Implements hook_form_alter().
+ */
+function farm_sensor_form_alter(&$form, &$form_state, $form_id) {
+
+  // Only alter the farm asset form.
+  if ($form_id != 'farm_asset_form') {
+    return;
+  }
+
+  // Only alter if the asset is of type 'sensor'.
+  if ($form['#entity_type'] != 'farm_asset' || $form['#bundle'] != 'sensor') {
+    return;
+  }
+
+  // Pull the farm asset object out of the form.
+  $farm_asset = $form['farm_asset']['#value'];
+
+  // Load the available sensor types.
+  $sensor_types = farm_sensor_types();
+
+  // Generate a list of sensor type options.
+  $options = array();
+  foreach ($sensor_types as $name => $type) {
+    $options[$name] = $type['label'];
+  }
+
+  // Determine the type.
+  $sensor_type = !empty($farm_asset->sensor_type) ? $farm_asset->sensor_type : NULL;
+
+  // Override sensor type with $form_state value, so AJAX works.
+  if (!empty($form_state['values']['sensor_type'])) {
+    $sensor_type = $form_state['values']['sensor_type'];
+  }
+
+  // Add a sensor type selection field to the form.
+  $form['sensor_type'] = array(
+    '#type' => 'select',
+    '#title' => t('Sensor type'),
+    '#description' => t('What type of sensor is this?'),
+    '#options' => $options,
+    '#default_value' => $sensor_type,
+    '#required' => TRUE,
+    '#ajax' => array(
+      'callback' => 'farm_sensor_settings_form_ajax',
+      'wrapper' => 'farm_sensor_settings'
+    ),
+  );
+
+  // Load the sensor settings.
+  $sensor_settings = !empty($farm_asset->sensor_settings) ? $farm_asset->sensor_settings : array();
+
+  // Sensor settings fieldset.
+  $form['sensor_settings'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Sensor settings'),
+    '#description' => t('Configure settings for the sensor type selected above.'),
+    '#prefix' => '<div id="farm_sensor_settings">',
+    '#suffix' => '</div>',
+    '#tree' => TRUE,
+  );
+
+  // If a sensor type is selected, and the type has a settings form...
+  if (!empty($sensor_type) && !empty($sensor_types[$sensor_type]['form']) && function_exists($sensor_types[$sensor_type]['form'])) {
+
+    // Load the sensor type settings form.
+    $settings_form = call_user_func_array($sensor_types[$sensor_type]['form'], array($sensor_settings));
+
+    // Add it to the fieldset.
+    $form['sensor_settings'] = array_merge($form['sensor_settings'], $settings_form);
+  }
+}
+
+/**
+ * Farm sensor settings form ajax.
+ */
+function farm_sensor_settings_form_ajax($form, $form_state) {
+  return $form['sensor_settings'];
+}
+
+/**
  * Implements hook_farm_sensor_type_info().
  */
 function farm_sensor_farm_sensor_type_info() {
