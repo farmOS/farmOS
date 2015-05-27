@@ -38,6 +38,24 @@ function farm_sensor_farm_asset_breadcrumb($farm_asset) {
 }
 
 /**
+ * Implements hook_farm_asset_view_views().
+ */
+function farm_sensor_farm_asset_view_views($farm_asset) {
+
+  // If the entity is not sensor, bail.
+  if ($farm_asset->type != 'sensor') {
+    return array();
+  }
+
+  // Return a list of Views to include on Sensors.
+  return array(
+    'farm_log_activity',
+    'farm_log_observation',
+    'farm_log_movement',
+  );
+}
+
+/**
  * Implements hook_farm_manager_perms().
  */
 function farm_sensor_farm_manager_perms() {
