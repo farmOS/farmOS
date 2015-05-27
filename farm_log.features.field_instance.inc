@@ -341,7 +341,7 @@ function farm_log_field_default_field_instances() {
           'link' => 1,
         ),
         'type' => 'entityreference_label',
-        'weight' => 0,
+        'weight' => 2,
       ),
     ),
     'entity_type' => 'log',
@@ -360,7 +360,7 @@ function farm_log_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete_tags',
-      'weight' => 2,
+      'weight' => 4,
     ),
   );
 
@@ -384,7 +384,7 @@ function farm_log_field_default_field_instances() {
           'colorbox_node_style_first' => 'large',
         ),
         'type' => 'colorbox',
-        'weight' => 5,
+        'weight' => 4,
       ),
     ),
     'entity_type' => 'log',
@@ -429,7 +429,7 @@ function farm_log_field_default_field_instances() {
         'progress_indicator' => 'bar',
       ),
       'type' => 'image_image',
-      'weight' => 6,
+      'weight' => 5,
     ),
   );
 
@@ -445,7 +445,7 @@ function farm_log_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 4,
+        'weight' => 1,
       ),
     ),
     'entity_type' => 'log',
@@ -463,7 +463,7 @@ function farm_log_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 5,
+      'weight' => 3,
     ),
   );
 
@@ -479,7 +479,7 @@ function farm_log_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 2,
+        'weight' => 0,
       ),
     ),
     'entity_type' => 'log',
@@ -497,7 +497,7 @@ function farm_log_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'taxonomy_autocomplete',
-      'weight' => 3,
+      'weight' => 2,
     ),
   );
 
@@ -530,7 +530,7 @@ function farm_log_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 4,
+      'weight' => 6,
     ),
   );
 
