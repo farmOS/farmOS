@@ -50,9 +50,6 @@ function farm_crop_farm_admin_actions() {
       'views' => array(
         'farm_plantings',
       ),
-      'paths' => array(
-        'farm/plantings',
-      ),
     ),
     'seeding' => array(
       'title' => t('Add a seeding'),
