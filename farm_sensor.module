@@ -32,3 +32,37 @@ function farm_sensor_types() {
   // Return it.
   return $sensor_types;
 }
+
+/**
+ * Helper function for saving farm sensor information.
+ *
+ * @param int $id
+ *   The farm sensor asset id.
+ * @param string $type
+ *   The sensor type.
+ * @param array $settings
+ *   An array of sensor settings.
+ */
+function farm_sensor_save($id, $type, $settings = array()) {
+
+  // Delete any existing
+  farm_sensor_delete($id);
+
+  // Insert a new record.
+  $record = array(
+    'id' => $id,
+    'type' => $type,
+    'settings' => $settings,
+  );
+  drupal_write_record('farm_sensor', $record);
+}
+
+/**
+ * Helper function for deleting farm sensor information.
+ *
+ * @param int $id
+ *   The farm sensor asset id.
+ */
+function farm_sensor_delete($id) {
+  db_delete('farm_sensor')->condition('id', $id)->execute();
+}
