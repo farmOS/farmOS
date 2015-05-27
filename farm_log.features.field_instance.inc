@@ -327,6 +327,40 @@ function farm_log_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_observation-field_farm_area'
+  $field_instances['log-farm_observation-field_farm_area'] = array(
+    'bundle' => 'farm_observation',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'What area did this observation take place in?',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 3,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_area',
+    'label' => 'Area',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'taxonomy',
+      'settings' => array(
+        'autocomplete_path' => 'taxonomy/autocomplete',
+        'size' => 60,
+      ),
+      'type' => 'taxonomy_autocomplete',
+      'weight' => 5,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_observation-field_farm_asset'
   $field_instances['log-farm_observation-field_farm_asset'] = array(
     'bundle' => 'farm_observation',
@@ -384,7 +418,7 @@ function farm_log_field_default_field_instances() {
           'colorbox_node_style_first' => 'large',
         ),
         'type' => 'colorbox',
-        'weight' => 4,
+        'weight' => 5,
       ),
     ),
     'entity_type' => 'log',
@@ -429,7 +463,7 @@ function farm_log_field_default_field_instances() {
         'progress_indicator' => 'bar',
       ),
       'type' => 'image_image',
-      'weight' => 5,
+      'weight' => 6,
     ),
   );
 
@@ -515,7 +549,7 @@ function farm_log_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 3,
+        'weight' => 4,
       ),
     ),
     'entity_type' => 'log',
@@ -530,7 +564,7 @@ function farm_log_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 6,
+      'weight' => 7,
     ),
   );
 
@@ -548,6 +582,7 @@ function farm_log_field_default_field_instances() {
   t('Units');
   t('Value');
   t('What area did this activity take place in?');
+  t('What area did this observation take place in?');
   t('What assets are being moved?');
   t('What assets does this activity pertain to?');
   t('What assets does this observation pertain to?');

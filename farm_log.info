@@ -42,6 +42,7 @@ features[field_instance][] = log-farm_movement-field_farm_asset
 features[field_instance][] = log-farm_movement-field_farm_move_from
 features[field_instance][] = log-farm_movement-field_farm_move_to
 features[field_instance][] = log-farm_movement-field_farm_notes
+features[field_instance][] = log-farm_observation-field_farm_area
 features[field_instance][] = log-farm_observation-field_farm_asset
 features[field_instance][] = log-farm_observation-field_farm_images
 features[field_instance][] = log-farm_observation-field_farm_notes

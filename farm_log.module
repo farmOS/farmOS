@@ -62,6 +62,7 @@ function farm_log_farm_admin_actions() {
       'paths' => array(
         'farm',
         'farm/plan',
+        'taxonomy/term/%',
       ),
     ),
   );
@@ -87,6 +88,12 @@ function farm_log_farm_taxonomy_term_view_views($term) {
       'arg' => 2,
     ),
 
+    // Observations in this area.
+    array(
+      'name' => 'farm_log_observation',
+      'arg' => 2,
+    ),
+
     // Area asset history (at the bottom).
     array(
       'name' => 'farm_area_assets',
@@ -107,6 +114,14 @@ function farm_log_farm_area_links($id) {
         'fragment' => 'Activities',
       ),
       'weight' => -100,
+    ),
+    array(
+      'title' => t('Observations'),
+      'href' => 'taxonomy/term/' . $id,
+      'options' => array(
+        'fragment' => 'Observations',
+      ),
+      'weight' => -90,
     ),
   );
 }
