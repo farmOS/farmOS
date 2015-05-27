@@ -7,6 +7,106 @@
 include_once 'farm_sensor.features.inc';
 
 /**
+ * Implements hook_entity_load().
+ */
+function farm_sensor_entity_load($entities, $type) {
+
+  // Only act on farm_asset entities.
+  if ($type != 'farm_asset') {
+    return;
+  }
+
+  // Iterate through the loaded assets...
+  foreach ($entities as $entity) {
+
+    // Only act on sensors...
+    if ($entity->type != 'sensor') {
+      continue;
+    }
+
+    // Load the sensor information from the {farm_sensor} database.
+    $query = db_select('farm_sensor', 's');
+    $query->fields('s');
+    $query->condition('id', $entity->id);
+    $result = $query->execute();
+    $sensor_info = $result->fetchAssoc();
+
+    // Only continue if sensor info was returned.
+    if (empty($sensor_info)) {
+      continue;
+    }
+
+    // Assign the entity's sensor type.
+    $entity->sensor_type = $sensor_info['type'];
+
+    // Assign the entity's sensor settings.
+    $entity->sensor_settings = unserialize($sensor_info['settings']);
+  }
+}
+
+/**
+ * Implements hook_entity_insert().
+ */
+function farm_sensor_entity_insert($entity, $type) {
+  _farm_sensor_entity_save($entity, $type);
+}
+
+/**
+ * Implements hook_entity_update().
+ */
+function farm_sensor_entity_update($entity, $type) {
+  _farm_sensor_entity_save($entity, $type);
+}
+
+/**
+ * Helper function for saving farm sensor information on entity insert and update.
+ *
+ * @param $entity
+ *   The entity being saved.
+ * @param $type
+ *   The type of entity being saved.
+ */
+function _farm_sensor_entity_save($entity, $type) {
+
+  // Only act on farm asset entities.
+  if ($type != 'farm_asset') {
+    return;
+  }
+
+  // Only act on sensor assets.
+  if ($entity->type != 'sensor') {
+    return;
+  }
+
+  // Only act if a sensor type is set.
+  if (empty($entity->sensor_type)) {
+    return;
+  }
+
+  // Save the sensor record.
+  farm_sensor_save($entity->id, $entity->sensor_type, $entity->sensor_settings);
+}
+
+/**
+ * Implements hook_entity_delete().
+ */
+function farm_sensor_entity_delete($entity, $type) {
+
+  // Only act on farm asset entities.
+  if ($type != 'farm_asset') {
+    return;
+  }
+
+  // Only act on sensor assets.
+  if ($entity->type != 'sensor') {
+    return;
+  }
+
+  // Delete sensor record.
+  farm_sensor_delete($entity->id);
+}
+
+/**
  * Implements hook_farm_sensor_type_info().
  */
 function farm_sensor_farm_sensor_type_info() {
