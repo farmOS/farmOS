@@ -864,8 +864,10 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['style_options']['columns'] = array(
     'views_bulk_operations' => 'views_bulk_operations',
     'id' => 'id',
+    'field_farm_images' => 'field_farm_images',
     'timestamp' => 'timestamp',
     'name' => 'name',
+    'field_farm_asset' => 'field_farm_asset',
     'field_farm_area' => 'field_farm_area',
     'field_farm_quantity' => 'field_farm_quantity',
     'field_farm_observation_type' => 'field_farm_observation_type',
@@ -885,6 +887,11 @@ if (!empty($farm_asset)) {
       'separator' => '',
       'empty_column' => 0,
     ),
+    'field_farm_images' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
     'timestamp' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
@@ -895,6 +902,11 @@ if (!empty($farm_asset)) {
     'name' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_asset' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -1163,6 +1175,7 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['filters']['date_filter']['table'] = 'log';
   $handler->display->display_options['filters']['date_filter']['field'] = 'date_filter';
   $handler->display->display_options['filters']['date_filter']['operator'] = '>=';
+  $handler->display->display_options['filters']['date_filter']['group'] = 1;
   $handler->display->display_options['filters']['date_filter']['exposed'] = TRUE;
   $handler->display->display_options['filters']['date_filter']['expose']['operator_id'] = 'date_filter_op';
   $handler->display->display_options['filters']['date_filter']['expose']['label'] = 'Start date';
@@ -1177,6 +1190,7 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['filters']['date_filter_1']['table'] = 'log';
   $handler->display->display_options['filters']['date_filter_1']['field'] = 'date_filter';
   $handler->display->display_options['filters']['date_filter_1']['operator'] = '<=';
+  $handler->display->display_options['filters']['date_filter_1']['group'] = 1;
   $handler->display->display_options['filters']['date_filter_1']['exposed'] = TRUE;
   $handler->display->display_options['filters']['date_filter_1']['expose']['operator_id'] = 'date_filter_1_op';
   $handler->display->display_options['filters']['date_filter_1']['expose']['label'] = 'End date';
@@ -1191,6 +1205,7 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['filters']['done']['table'] = 'log';
   $handler->display->display_options['filters']['done']['field'] = 'done';
   $handler->display->display_options['filters']['done']['value'] = 'All';
+  $handler->display->display_options['filters']['done']['group'] = 1;
   $handler->display->display_options['filters']['done']['exposed'] = TRUE;
   $handler->display->display_options['filters']['done']['expose']['operator_id'] = '';
   $handler->display->display_options['filters']['done']['expose']['label'] = 'Done';
