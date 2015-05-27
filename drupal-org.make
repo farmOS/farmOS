@@ -60,7 +60,7 @@ projects[log][subdir] = "contrib"
 projects[log][version] = "1.0-beta2"
 
 projects[logintoboggan][subdir] = "contrib"
-projects[logintoboggan][version] = "1.4"
+projects[logintoboggan][version] = "1.5"
 
 projects[navbar][subdir] = "contrib"
 projects[navbar][version] = "1.6"
