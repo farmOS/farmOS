@@ -1013,6 +1013,19 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['fields']['id']['table'] = 'log';
   $handler->display->display_options['fields']['id']['field'] = 'id';
   $handler->display->display_options['fields']['id']['exclude'] = TRUE;
+  /* Field: Field: Photo(s) */
+  $handler->display->display_options['fields']['field_farm_images']['id'] = 'field_farm_images';
+  $handler->display->display_options['fields']['field_farm_images']['table'] = 'field_data_field_farm_images';
+  $handler->display->display_options['fields']['field_farm_images']['field'] = 'field_farm_images';
+  $handler->display->display_options['fields']['field_farm_images']['label'] = '';
+  $handler->display->display_options['fields']['field_farm_images']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_farm_images']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_farm_images']['settings'] = array(
+    'image_style' => 'thumbnail',
+    'image_link' => 'content',
+  );
+  $handler->display->display_options['fields']['field_farm_images']['delta_limit'] = '1';
+  $handler->display->display_options['fields']['field_farm_images']['delta_offset'] = '0';
   /* Field: Log: Timestamp */
   $handler->display->display_options['fields']['timestamp']['id'] = 'timestamp';
   $handler->display->display_options['fields']['timestamp']['table'] = 'log';
