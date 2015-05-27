@@ -868,6 +868,7 @@ if (!empty($farm_asset)) {
     'name' => 'name',
     'field_farm_area' => 'field_farm_area',
     'field_farm_quantity' => 'field_farm_quantity',
+    'field_farm_observation_type' => 'field_farm_observation_type',
     'done' => 'done',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
@@ -906,6 +907,13 @@ if (!empty($farm_asset)) {
       'empty_column' => 0,
     ),
     'field_farm_quantity' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_observation_type' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -1070,6 +1078,11 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['fields']['field_farm_quantity']['settings'] = array(
     'view_mode' => 'full',
   );
+  /* Field: Log: Type */
+  $handler->display->display_options['fields']['field_farm_observation_type']['id'] = 'field_farm_observation_type';
+  $handler->display->display_options['fields']['field_farm_observation_type']['table'] = 'field_data_field_farm_observation_type';
+  $handler->display->display_options['fields']['field_farm_observation_type']['field'] = 'field_farm_observation_type';
+  $handler->display->display_options['fields']['field_farm_observation_type']['type'] = 'taxonomy_term_reference_plain';
   /* Field: Log: Done */
   $handler->display->display_options['fields']['done']['id'] = 'done';
   $handler->display->display_options['fields']['done']['table'] = 'log';
