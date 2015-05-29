@@ -149,7 +149,7 @@ function farm_area_openlayers_map_preprocess_alter(&$map = array()) {
   // Add the 'All Areas' layer to Farm Geofield Map.
   if (!empty($map['map_name']) && $map['map_name'] == 'farm_map_geofield') {
 
-    // Add the farm_soil_nrcs layer.
+    // Add the layer.
     $map['layers'] += array($layer => $layer);
 
     // Activate the layer by default.
