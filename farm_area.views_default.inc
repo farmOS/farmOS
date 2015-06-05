@@ -428,7 +428,7 @@ function farm_area_views_default_views() {
     'default' => 0,
   );
   $handler->display->display_options['attachment_position'] = 'after';
-  $handler->display->display_options['inherit_exposed_filters'] = TRUE;
+  $handler->display->display_options['inherit_arguments'] = FALSE;
   $export['farm_areas'] = $view;
 
   return $export;
