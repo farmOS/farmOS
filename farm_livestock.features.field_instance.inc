@@ -182,7 +182,7 @@ function farm_livestock_field_default_field_instances() {
   // Exported field_instance: 'farm_asset-animal-field_farm_animal_type'
   $field_instances['farm_asset-animal-field_farm_animal_type'] = array(
     'bundle' => 'animal',
-    'default_value' => NULL,
+    'default_value' => array(),
     'deleted' => 0,
     'description' => 'What type of animal is this? You can manage the list of available types in the <a href="/farm/animals/types">Animal Types</a> vocabulary.',
     'display' => array(
