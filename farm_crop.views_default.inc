@@ -25,6 +25,7 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['title'] = 'Crops';
   $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['group_by'] = TRUE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['access']['perm'] = 'edit terms in farm_crops';
   $handler->display->display_options['cache']['type'] = 'none';
@@ -35,112 +36,63 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '0';
   $handler->display->display_options['pager']['options']['quantity'] = '9';
-  $handler->display->display_options['style_plugin'] = 'table';
-  $handler->display->display_options['style_options']['columns'] = array(
-    'tid' => 'tid',
+  $handler->display->display_options['style_plugin'] = 'tree';
+  $handler->display->display_options['style_options']['main_field'] = 'tid';
+  $handler->display->display_options['style_options']['parent_field'] = 'tid_1';
+  $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['row_options']['inline'] = array(
     'name' => 'name',
-    'field_farm_crop_family' => 'field_farm_crop_family',
-    'field_farm_transplant_days' => 'field_farm_transplant_days',
-    'field_farm_maturity_days' => 'field_farm_maturity_days',
-    'field_farm_companions' => 'field_farm_companions',
     'id' => 'id',
   );
-  $handler->display->display_options['style_options']['default'] = '-1';
-  $handler->display->display_options['style_options']['info'] = array(
-    'tid' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'name' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_farm_crop_family' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_farm_transplant_days' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_farm_maturity_days' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_farm_companions' => array(
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'id' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'desc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-  );
-  $handler->display->display_options['style_options']['empty_table'] = TRUE;
+  /* Header: Global: Unfiltered text */
+  $handler->display->display_options['header']['area_text_custom']['id'] = 'area_text_custom';
+  $handler->display->display_options['header']['area_text_custom']['table'] = 'views';
+  $handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
+  $handler->display->display_options['header']['area_text_custom']['content'] = '<h4>Hierarchy <small><a href="/admin/structure/taxonomy/farm_crops">(change)</a></small></h4>';
   /* No results behavior: Global: Unfiltered text */
   $handler->display->display_options['empty']['area_text_custom']['id'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
   $handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
   $handler->display->display_options['empty']['area_text_custom']['content'] = 'No crops found.';
+  /* Relationship: Taxonomy term: Parent term */
+  $handler->display->display_options['relationships']['parent']['id'] = 'parent';
+  $handler->display->display_options['relationships']['parent']['table'] = 'taxonomy_term_hierarchy';
+  $handler->display->display_options['relationships']['parent']['field'] = 'parent';
+  /* Relationship: Taxonomy term: Farm asset using Crop */
+  $handler->display->display_options['relationships']['reverse_field_farm_crop_farm_asset']['id'] = 'reverse_field_farm_crop_farm_asset';
+  $handler->display->display_options['relationships']['reverse_field_farm_crop_farm_asset']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['relationships']['reverse_field_farm_crop_farm_asset']['field'] = 'reverse_field_farm_crop_farm_asset';
   /* Field: Taxonomy term: Term ID */
   $handler->display->display_options['fields']['tid']['id'] = 'tid';
   $handler->display->display_options['fields']['tid']['table'] = 'taxonomy_term_data';
   $handler->display->display_options['fields']['tid']['field'] = 'tid';
   $handler->display->display_options['fields']['tid']['exclude'] = TRUE;
+  /* Field: Taxonomy term: Term ID */
+  $handler->display->display_options['fields']['tid_1']['id'] = 'tid_1';
+  $handler->display->display_options['fields']['tid_1']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['fields']['tid_1']['field'] = 'tid';
+  $handler->display->display_options['fields']['tid_1']['relationship'] = 'parent';
+  $handler->display->display_options['fields']['tid_1']['exclude'] = TRUE;
   /* Field: Taxonomy term: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
   $handler->display->display_options['fields']['name']['table'] = 'taxonomy_term_data';
   $handler->display->display_options['fields']['name']['field'] = 'name';
-  $handler->display->display_options['fields']['name']['label'] = 'Crop Name';
+  $handler->display->display_options['fields']['name']['label'] = '';
   $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
+  $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['name']['link_to_taxonomy'] = TRUE;
-  /* Field: Taxonomy term: Crop family */
-  $handler->display->display_options['fields']['field_farm_crop_family']['id'] = 'field_farm_crop_family';
-  $handler->display->display_options['fields']['field_farm_crop_family']['table'] = 'field_data_field_farm_crop_family';
-  $handler->display->display_options['fields']['field_farm_crop_family']['field'] = 'field_farm_crop_family';
-  /* Field: Taxonomy term: Days to transplant */
-  $handler->display->display_options['fields']['field_farm_transplant_days']['id'] = 'field_farm_transplant_days';
-  $handler->display->display_options['fields']['field_farm_transplant_days']['table'] = 'field_data_field_farm_transplant_days';
-  $handler->display->display_options['fields']['field_farm_transplant_days']['field'] = 'field_farm_transplant_days';
-  $handler->display->display_options['fields']['field_farm_transplant_days']['settings'] = array(
-    'thousand_separator' => ' ',
-    'prefix_suffix' => 1,
-  );
-  /* Field: Taxonomy term: Days to maturity */
-  $handler->display->display_options['fields']['field_farm_maturity_days']['id'] = 'field_farm_maturity_days';
-  $handler->display->display_options['fields']['field_farm_maturity_days']['table'] = 'field_data_field_farm_maturity_days';
-  $handler->display->display_options['fields']['field_farm_maturity_days']['field'] = 'field_farm_maturity_days';
-  $handler->display->display_options['fields']['field_farm_maturity_days']['settings'] = array(
-    'thousand_separator' => ' ',
-    'prefix_suffix' => 1,
-  );
-  /* Field: Taxonomy term: Companions */
-  $handler->display->display_options['fields']['field_farm_companions']['id'] = 'field_farm_companions';
-  $handler->display->display_options['fields']['field_farm_companions']['table'] = 'field_data_field_farm_companions';
-  $handler->display->display_options['fields']['field_farm_companions']['field'] = 'field_farm_companions';
-  $handler->display->display_options['fields']['field_farm_companions']['type'] = 'taxonomy_term_reference_plain';
-  $handler->display->display_options['fields']['field_farm_companions']['delta_offset'] = '0';
+  /* Field: COUNT(Farm asset: Farm asset ID) */
+  $handler->display->display_options['fields']['id']['id'] = 'id';
+  $handler->display->display_options['fields']['id']['table'] = 'farm_asset';
+  $handler->display->display_options['fields']['id']['field'] = 'id';
+  $handler->display->display_options['fields']['id']['relationship'] = 'reverse_field_farm_crop_farm_asset';
+  $handler->display->display_options['fields']['id']['group_type'] = 'count';
+  $handler->display->display_options['fields']['id']['label'] = '';
+  $handler->display->display_options['fields']['id']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['id']['prefix'] = '(';
+  $handler->display->display_options['fields']['id']['suffix'] = ')';
   /* Sort criterion: Taxonomy term: Name */
   $handler->display->display_options['sorts']['name']['id'] = 'name';
   $handler->display->display_options['sorts']['name']['table'] = 'taxonomy_term_data';

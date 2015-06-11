@@ -29,6 +29,7 @@ dependencies[] = text
 dependencies[] = views
 dependencies[] = views_bulk_operations
 dependencies[] = views_content
+dependencies[] = views_tree
 features[ctools][] = strongarm:strongarm:1
 features[ctools][] = views:views_default:3.0
 features[farm_asset_type][] = planting
