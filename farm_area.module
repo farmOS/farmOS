@@ -225,3 +225,25 @@ function farm_area_get_links($id, $separator = ' | ') {
   // Convert to a string with a separator and return.
   return implode($separator, $links);
 }
+
+/**
+ * Implements hook_page_build().
+ */
+function farm_area_page_build(&$page) {
+
+  // If this is the farm dashboard, display the areas map.
+  if (current_path() == 'farm') {
+
+    // Load the areas map.
+    $map = openlayers_object_load('Map', 'farm_areas');
+
+    // Build the map and add it to the page content.
+    $page['content']['farm_areas'] = $map->build();
+
+    // Set the weight to -100 so that it appears on top.
+    $page['content']['farm_areas']['#weight'] = -100;
+
+    // Set the content region #sorted flag to FALSE so that it resorts.
+    $page['content']['#sorted'] = FALSE;
+  }
+}
