@@ -84,9 +84,6 @@ projects[pathauto][version] = "1.2"
 projects[pathauto_entity][subdir] = "contrib"
 projects[pathauto_entity][version] = "1.0"
 
-projects[proj4js][subdir] = "contrib"
-projects[proj4js][version] = "1.2"
-
 projects[registry_autoload][subdir] = "contrib"
 projects[registry_autoload][version] = "1.2"
 
