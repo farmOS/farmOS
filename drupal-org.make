@@ -66,7 +66,7 @@ projects[navbar][subdir] = "contrib"
 projects[navbar][version] = "1.6"
 
 projects[openlayers][subdir] = "contrib"
-projects[openlayers][version] = "2.x-dev"
+projects[openlayers][version] = "3.x-dev"
 
 projects[openlayers_geolocate_button][subdir] = "contrib"
 projects[openlayers_geolocate_button][version] = "1.1"
