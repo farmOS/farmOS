@@ -67,6 +67,10 @@ projects[navbar][version] = "1.6"
 
 projects[openlayers][subdir] = "contrib"
 projects[openlayers][version] = "3.x-dev"
+; Patch to fix fatal error in update from 2.x to 3.x.
+projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_3x_upgrade_error-2456859-6.patch"
+; Patch to update database tables from 2.x to 3.x.
+projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_sync_7350-2500037-2.patch"
 
 projects[openlayers_geolocate_button][subdir] = "contrib"
 projects[openlayers_geolocate_button][version] = "1.1"
