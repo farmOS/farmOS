@@ -192,7 +192,8 @@ libraries[modernizr][download][type] = "get"
 libraries[modernizr][download][url] = "http://github.com/Modernizr/Modernizr/archive/v2.8.3.zip"
 
 libraries[openlayers][download][type] = "get"
-libraries[openlayers][download][url] = "http://github.com/openlayers/openlayers/releases/download/release-2.13.1/OpenLayers-2.13.1.tar.gz"
+libraries[openlayers][download][url] = "http://github.com/openlayers/ol3/releases/download/v3.5.0/v3.5.0.zip"
+libraries[openlayers][directory_name] = "openlayers3"
 
 libraries[underscore][download][type] = "get"
 libraries[underscore][download][url] = "http://github.com/jashkenas/underscore/archive/1.7.0.zip"
