@@ -7,6 +7,18 @@
 include_once 'farm_livestock.features.inc';
 
 /**
+ * Implements hook_farm_area_type_info().
+ */
+function farm_livestock_farm_area_type_info() {
+  return array(
+    'paddock' => array(
+      'label' => t('Paddock'),
+      'weight' => 30,
+    ),
+  );
+}
+
+/**
  * Implements hook_farm_admin_actions().
  */
 function farm_livestock_farm_admin_actions() {
