@@ -7,6 +7,94 @@
 include_once 'farm_area.features.inc';
 
 /**
+ * Implements hook_farm_area_type_info().
+ */
+function farm_area_farm_area_type_info() {
+  return array(
+    'property' => array(
+      'label' => t('Property'),
+      'weight' => 0,
+    ),
+    'building' => array(
+      'label' => t('Building'),
+      'weight' => 10,
+    ),
+    'field' => array(
+      'label' => t('Field'),
+      'weight' => 20,
+    ),
+    'water' => array(
+      'label' => t('Water feature'),
+      'weight' => 90,
+    ),
+    'landmark' => array(
+      'label' => t('Landmark'),
+      'weight' => 100,
+    ),
+  );
+}
+
+/**
+ * Get information about all available area types.
+ */
+function farm_area_types() {
+
+  // Get available types from modules.
+  $area_types = module_invoke_all('farm_area_type_info');
+
+  // Iterate through the types and create an index by weight.
+  $weight_index = array();
+  foreach ($area_types as $key => $type) {
+
+    // Default weight is zero.
+    if (empty($type['weight'])) {
+      $type['weight'] = 0;
+    }
+
+    // Add it to the weight index array.
+    $weight_index[$key] = $type['weight'];
+  }
+
+  // Sort the weight index array.
+  asort($weight_index);
+
+  // Iterate through the weight index to build the final sorted list.
+  $area_types_sorted = array();
+  foreach ($weight_index as $key => $weight) {
+    $area_types_sorted[$key] = $area_types[$key];
+  }
+
+  // Return the sorted list.
+  return $area_types_sorted;
+}
+
+/**
+ * Get an array of available farm area type options.
+ *
+ * @return array
+ *   Returns an array of farm area type options provided by modules, for use
+ *   in a form select element.
+ */
+function farm_area_type_options() {
+
+  // Start with an empty options array.
+  $options = array();
+
+  // Get available types from modules.
+  $area_types = module_invoke_all('farm_area_type_info');
+
+  // Iterate through the weight index to build the final options list.
+  foreach ($area_types as $key => $type) {
+    if (!empty($type['label'])) {
+      $options[$key] = $type['label'];
+    }
+  }
+
+  // Return the list of options.
+  return $options;
+}
+
+/**
  * Implements hook_farm_admin_actions().
  */
 function farm_area_farm_admin_actions() {

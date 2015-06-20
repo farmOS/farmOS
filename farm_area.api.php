@@ -22,6 +22,21 @@
  */
 
 /**
+ * Defines farm area types.
+ *
+ * @return array
+ *   Returns an array of farm area type information.
+ */
+function hook_farm_area_type_info() {
+  return array(
+    'building' => array(
+      'label' => t('Building'),
+      'weight' => 10,
+    ),
+  );
+}
+
+/**
  * Provide links for farm areas.
  *
  * @param int $id
