@@ -91,7 +91,7 @@ function farm_log_field_default_field_instances() {
     'description' => 'What area did this activity take place in?',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'inline',
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
