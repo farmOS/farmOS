@@ -37,6 +37,7 @@ features[field_instance][] = field_collection_item-field_farm_quantity-field_far
 features[field_instance][] = field_collection_item-field_farm_quantity-field_farm_quantity_value
 features[field_instance][] = log-farm_activity-field_farm_area
 features[field_instance][] = log-farm_activity-field_farm_asset
+features[field_instance][] = log-farm_activity-field_farm_images
 features[field_instance][] = log-farm_activity-field_farm_notes
 features[field_instance][] = log-farm_movement-field_farm_asset
 features[field_instance][] = log-farm_movement-field_farm_move_from
