@@ -9,7 +9,7 @@ projects[autocomplete_deluxe][subdir] = "contrib"
 projects[autocomplete_deluxe][version] = "2.0-beta3"
 
 projects[colorbox][subdir] = "contrib"
-projects[colorbox][version] = "2.8"
+projects[colorbox][version] = "2.9"
 
 projects[ctools][subdir] = "contrib"
 projects[ctools][version] = "1.7"
@@ -24,7 +24,7 @@ projects[entityreference][subdir] = "contrib"
 projects[entityreference][version] = "1.1"
 
 projects[features][subdir] = "contrib"
-projects[features][version] = "2.5"
+projects[features][version] = "2.6"
 
 projects[field_collection][subdir] = "contrib"
 projects[field_collection][version] = "1.0-beta8"
@@ -51,7 +51,7 @@ projects[geophp][subdir] = "contrib"
 projects[geophp][version] = "1.7"
 
 projects[jquery_update][subdir] = "contrib"
-projects[jquery_update][version] = "2.5"
+projects[jquery_update][version] = "2.6"
 
 projects[libraries][subdir] = "contrib"
 projects[libraries][version] = "2.2"
@@ -96,7 +96,7 @@ projects[views][subdir] = "contrib"
 projects[views][version] = "3.11"
 
 projects[views_bulk_operations][subdir] = "contrib"
-projects[views_bulk_operations][version] = "3.2"
+projects[views_bulk_operations][version] = "3.3"
 
 projects[views_data_export][subdir] = "contrib"
 projects[views_data_export][version] = "3.0-beta8"
