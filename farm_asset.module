@@ -114,7 +114,7 @@ function farm_asset_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('farm_asset_delete_form', $farm_asset_uri_argument_position),
     'access callback' => 'farm_asset_access',
-    'access arguments' => array('edit', $farm_asset_uri_argument_position),
+    'access arguments' => array('update', $farm_asset_uri_argument_position),
     'file' => 'farm_asset.pages.inc',
   );
 
@@ -123,7 +123,7 @@ function farm_asset_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('farm_asset_form', $farm_asset_uri_argument_position),
     'access callback' => 'farm_asset_access',
-    'access arguments' => array('edit', $farm_asset_uri_argument_position),
+    'access arguments' => array('update', $farm_asset_uri_argument_position),
     'file' => 'farm_asset.pages.inc',
     'type' => MENU_LOCAL_TASK,
     'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
@@ -317,7 +317,7 @@ function farm_asset_ctools_plugin_directory($owner, $plugin_type) {
  * Access callback for asset entities.
  *
  * @param string $op
- *   The operation being performed. One of 'view', 'edit', 'create', 'delete'.
+ *   The operation being performed. One of 'view', 'update', 'create', 'delete'.
  * @param FarmAsset|string $farm_asset
  *   Optionally a specific asset entity to check.
  * @param object $account
@@ -329,7 +329,7 @@ function farm_asset_ctools_plugin_directory($owner, $plugin_type) {
 function farm_asset_access($op, $farm_asset = NULL, $account = NULL) {
   $rights = &drupal_static(__FUNCTION__, array());
 
-  if (!$farm_asset || !in_array($op, array('create', 'view', 'edit', 'delete'), TRUE)) {
+  if (!$farm_asset || !in_array($op, array('create', 'view', 'update', 'delete'), TRUE)) {
     // If there was no asset to check against, or the $op was not one of the
     // supported ones, we return access denied.
     return FALSE;
@@ -377,7 +377,7 @@ function farm_asset_access($op, $farm_asset = NULL, $account = NULL) {
       }
     }
 
-    if ($op == 'edit') {
+    if ($op == 'update') {
       if (user_access('edit any ' . $type . ' farm assets', $account) || (user_access('edit own ' . $type . ' farm assets', $account) && ($account->uid == $farm_asset->uid))) {
         $rights[$account->uid][$cid][$op] = TRUE;
         return TRUE;
