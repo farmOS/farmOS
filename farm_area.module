@@ -235,7 +235,7 @@ function farm_area_page_build(&$page) {
   if (current_path() == 'farm') {
 
     // Load the areas map.
-    $map = openlayers_object_load('Map', 'farm_areas');
+    $map = \Drupal\openlayers\Openlayers::load('Map', 'farm_areas');
 
     // Build the map and add it to the page content.
     $page['content']['farm_areas'] = $map->build();
