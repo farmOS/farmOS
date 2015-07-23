@@ -19,4 +19,3 @@ features[openlayers_layers][] = farm_map_google_hybrid
 features[openlayers_maps][] = farm_map_geofield
 features[openlayers_maps][] = farm_map_geofield_formatter
 features[openlayers_sources][] = farm_map_google_hybrid
-features[openlayers_styles][] = farm_blue
