@@ -1,0 +1,34 @@
+<?php
+/**
+ * @file
+ * farm_map.default_openlayers_components.inc
+ */
+
+/**
+ * Implements hook_default_openlayers_components().
+ */
+function farm_map_default_openlayers_components() {
+  $export = array();
+
+  $ol_component = new stdClass();
+  $ol_component->disabled = FALSE; /* Edit this to true to make a default ol_component disabled initially */
+  $ol_component->api_version = 1;
+  $ol_component->machine_name = 'farm_map_component_geofield_zoom_to_source';
+  $ol_component->name = 'Farm Map Component: Geofield Zoom to Source';
+  $ol_component->description = 'Automatically zoom to a geofield source when the map is first built.';
+  $ol_component->factory_service = 'openlayers.Component:ZoomToSource';
+  $ol_component->options = array(
+    'source' => 'geofield_field_formatter_source',
+    'animations' => array(
+      'pan' => '500',
+      'zoom' => '500',
+    ),
+    'zoom' => 'auto',
+    'enableAnimations' => 1,
+    'max_zoom' => '0',
+    'process_once' => 1,
+  );
+  $export['farm_map_component_geofield_zoom_to_source'] = $ol_component;
+
+  return $export;
+}
