@@ -14,6 +14,9 @@ function farm_area_ctools_plugin_api($module = NULL, $api = NULL) {
   if ($module == "openlayers" && $api == "default_openlayers_layers") {
     return array("version" => "1");
   }
+  if ($module == "openlayers" && $api == "default_openlayers_maps") {
+    return array("version" => "1");
+  }
   if ($module == "strongarm" && $api == "strongarm") {
     return array("version" => "1");
   }
