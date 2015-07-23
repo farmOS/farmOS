@@ -28,9 +28,7 @@ function farm_area_default_openlayers_maps() {
       'rotation' => 0,
       'zoom' => 4,
       'minZoom' => 0,
-      'maxZoom' => 0,
-      'limit_extent' => 0,
-      'extent' => '-194.765625, -57.32652122521709, 21681210.199033674, 7827151.696402048',
+      'maxZoom' => 20,
     ),
     'renderer' => 'canvas',
     'layers' => array(
