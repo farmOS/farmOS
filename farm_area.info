@@ -14,6 +14,7 @@ dependencies[] = geofield
 dependencies[] = image
 dependencies[] = list
 dependencies[] = openlayers
+dependencies[] = openlayers_geofield
 dependencies[] = options
 dependencies[] = pathauto
 dependencies[] = strongarm
