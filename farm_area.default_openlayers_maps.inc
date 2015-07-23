@@ -33,6 +33,7 @@ function farm_area_default_openlayers_maps() {
     'renderer' => 'canvas',
     'layers' => array(
       0 => 'farm_areas',
+      1 => 'farm_map_google_hybrid',
     ),
     'sources' => array(
       0 => 'views_geojson_farm_areas_geojson_feed',
