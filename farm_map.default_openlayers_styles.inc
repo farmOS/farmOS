@@ -14,7 +14,39 @@ function farm_map_default_openlayers_styles() {
   $styles = array(
     'farm_blue' => array(
       'name' => 'Farm Blue',
-      'color' => 'rgba(51,153,255,0.4)',
+      'color' => 'rgba(51,153,255,0.5)',
+    ),
+    'farm_brown' => array(
+      'name' => 'Farm Brown',
+      'color' => 'rgba(153,102,51,0.5)',
+    ),
+    'farm_dark_green' => array(
+      'name' => 'Farm Dark Green',
+      'color' => 'rgba(0,102,0,0.5)',
+    ),
+    'farm_green' => array(
+      'name' => 'Farm Green',
+      'color' => 'rgba(102,204,102,0.5)',
+    ),
+    'farm_grey' => array(
+      'name' => 'Farm Grey',
+      'color' => 'rgba(51,51,51,0.5)',
+    ),
+    'farm_orange' => array(
+      'name' => 'Farm Orange',
+      'color' => 'rgba(255,153,51,0.5)',
+    ),
+    'farm_purple' => array(
+      'name' => 'Farm Purple',
+      'color' => 'rgba(204,51,102,0.5)',
+    ),
+    'farm_red' => array(
+      'name' => 'Farm Red',
+      'color' => 'rgba(204,0,0,0.5)',
+    ),
+    'farm_yellow' => array(
+      'name' => 'Farm Yellow',
+      'color' => 'rgba(255,255,51,0.5)',
     ),
   );
 
