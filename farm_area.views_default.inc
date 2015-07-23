@@ -101,5 +101,82 @@ function farm_area_views_default_views() {
   $handler->display->display_options['tab_options']['weight'] = '0';
   $export['farm_areas'] = $view;
 
+  $view = new view();
+  $view->name = 'farm_areas_geojson';
+  $view->description = '';
+  $view->tag = 'default';
+  $view->base_table = 'taxonomy_term_data';
+  $view->human_name = 'Farm Areas GeoJSON';
+  $view->core = 7;
+  $view->api_version = '3.0';
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+  /* Display: Master */
+  $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['access']['perm'] = 'edit terms in farm_areas';
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['row_plugin'] = 'fields';
+  /* Field: Taxonomy term: Name */
+  $handler->display->display_options['fields']['name']['id'] = 'name';
+  $handler->display->display_options['fields']['name']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['fields']['name']['field'] = 'name';
+  $handler->display->display_options['fields']['name']['label'] = '';
+  $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
+  $handler->display->display_options['fields']['name']['link_to_taxonomy'] = TRUE;
+  /* Field: Taxonomy term: Location */
+  $handler->display->display_options['fields']['field_farm_geofield']['id'] = 'field_farm_geofield';
+  $handler->display->display_options['fields']['field_farm_geofield']['table'] = 'field_data_field_farm_geofield';
+  $handler->display->display_options['fields']['field_farm_geofield']['field'] = 'field_farm_geofield';
+  $handler->display->display_options['fields']['field_farm_geofield']['click_sort_column'] = 'geom';
+  $handler->display->display_options['fields']['field_farm_geofield']['settings'] = array(
+    'data' => 'full',
+  );
+  $handler->display->display_options['fields']['field_farm_geofield']['delta_offset'] = '0';
+  /* Field: Taxonomy term: Area Details */
+  $handler->display->display_options['fields']['farm_area_details']['id'] = 'farm_area_details';
+  $handler->display->display_options['fields']['farm_area_details']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['fields']['farm_area_details']['field'] = 'farm_area_details';
+  /* Contextual filter: Taxonomy term: Area type (field_farm_area_type) */
+  $handler->display->display_options['arguments']['field_farm_area_type_value']['id'] = 'field_farm_area_type_value';
+  $handler->display->display_options['arguments']['field_farm_area_type_value']['table'] = 'field_data_field_farm_area_type';
+  $handler->display->display_options['arguments']['field_farm_area_type_value']['field'] = 'field_farm_area_type_value';
+  $handler->display->display_options['arguments']['field_farm_area_type_value']['default_argument_type'] = 'raw';
+  $handler->display->display_options['arguments']['field_farm_area_type_value']['default_argument_options']['index'] = '3';
+  $handler->display->display_options['arguments']['field_farm_area_type_value']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_farm_area_type_value']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_farm_area_type_value']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['field_farm_area_type_value']['limit'] = '0';
+  /* Filter criterion: Taxonomy vocabulary: Machine name */
+  $handler->display->display_options['filters']['machine_name']['id'] = 'machine_name';
+  $handler->display->display_options['filters']['machine_name']['table'] = 'taxonomy_vocabulary';
+  $handler->display->display_options['filters']['machine_name']['field'] = 'machine_name';
+  $handler->display->display_options['filters']['machine_name']['value'] = array(
+    'farm_areas' => 'farm_areas',
+  );
+
+  /* Display: Feed */
+  $handler = $view->new_display('feed', 'Feed', 'feed');
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['style_plugin'] = 'views_geojson_feed';
+  $handler->display->display_options['style_options']['data_source']['value'] = 'wkt';
+  $handler->display->display_options['style_options']['data_source']['latitude'] = 'name';
+  $handler->display->display_options['style_options']['data_source']['longitude'] = 'name';
+  $handler->display->display_options['style_options']['data_source']['geofield'] = 'field_farm_geofield';
+  $handler->display->display_options['style_options']['data_source']['wkt'] = 'field_farm_geofield';
+  $handler->display->display_options['style_options']['data_source']['name_field'] = 'name';
+  $handler->display->display_options['style_options']['data_source']['description_field'] = 'farm_area_details';
+  $handler->display->display_options['style_options']['jsonp_prefix'] = '';
+  $handler->display->display_options['path'] = 'farm/areas/json';
+  $export['farm_areas_geojson'] = $view;
+
   return $export;
 }
