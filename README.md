@@ -12,10 +12,9 @@ DEPENDENCIES
 This module depends on the following modules:
 
  * Ctools (http://drupal.org/project/ctools)
+ * Features (http://drupal.org/project/features)
  * Geofield (http://drupal.org/project/geofield)
  * OpenLayers (http://drupal.org/project/openlayers)
- * OpenLayers Geolocate Button (http://drupal.org/project/openlayers_geolocate_button)
- * Strongarm (http://drupal.org/project/strongarm)
 
 INSTALLATION
 ------------
