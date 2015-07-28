@@ -32,12 +32,11 @@ function farm_area_default_openlayers_maps() {
     ),
     'renderer' => 'canvas',
     'layers' => array(
-      0 => 'farm_area_layer_areas',
-      1 => 'farm_map_layer_google_hybrid',
+      0 => 'farm_map_layer_google_hybrid',
+      1 => 'farm_area_layer_group',
     ),
     'sources' => array(
-      0 => 'views_geojson_farm_areas_geojson_feed',
-      1 => 'farm_map_source_google_hybrid',
+      0 => 'farm_map_source_google_hybrid',
     ),
     'controls' => array(
       0 => 'openlayers_control_fullscreen',
