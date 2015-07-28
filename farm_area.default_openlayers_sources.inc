@@ -5,9 +5,10 @@
  */
 
 /**
- * Implements hook_default_openlayers_sources_alter().
+ * Implements hook_default_openlayers_sources().
  */
-function farm_area_default_openlayers_sources_alter(&$sources) {
+function farm_area_default_openlayers_sources() {
+  $export = array();
 
   // Load all available area types.
   $area_types = farm_area_types();
@@ -36,6 +37,8 @@ function farm_area_default_openlayers_sources_alter(&$sources) {
     );
 
     // Add the source to the export.
-    $sources[$machine_name] = $ol_source;
+    $export[$machine_name] = $ol_source;
   }
+
+  return $export;
 }
