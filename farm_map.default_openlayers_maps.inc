@@ -38,6 +38,7 @@ function farm_map_default_openlayers_maps() {
       0 => 'openlayers_control_fullscreen',
       1 => 'openlayers_control_zoom',
       2 => 'openlayers_control_scaleline',
+      3 => 'farm_map_control_layer_switcher',
     ),
     'interactions' => array(
       0 => 'openlayers_interaction_doubleclickzoom',
@@ -84,6 +85,7 @@ function farm_map_default_openlayers_maps() {
       0 => 'openlayers_control_fullscreen',
       1 => 'openlayers_control_zoom',
       2 => 'openlayers_control_scaleline',
+      3 => 'farm_map_control_layer_switcher',
     ),
     'interactions' => array(
       0 => 'openlayers_interaction_doubleclickzoom',
