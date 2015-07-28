@@ -13,8 +13,8 @@ function farm_area_default_openlayers_layers() {
   $ol_layer = new stdClass();
   $ol_layer->disabled = FALSE; /* Edit this to true to make a default ol_layer disabled initially */
   $ol_layer->api_version = 1;
-  $ol_layer->machine_name = 'farm_area_group_layer';
-  $ol_layer->name = 'Farm Area Group Layer';
+  $ol_layer->machine_name = 'farm_area_layer_group';
+  $ol_layer->name = 'Farm Area Layer Group';
   $ol_layer->description = '';
   $ol_layer->factory_service = 'openlayers.Layer:Group';
   $ol_layer->options = array(
@@ -22,12 +22,12 @@ function farm_area_default_openlayers_layers() {
     'visible' => 1,
     'grouptitle' => 'Farm Areas',
   );
-  $export['farm_area_group_layer'] = $ol_layer;
+  $export['farm_area_layer_group'] = $ol_layer;
 
   $ol_layer = new stdClass();
   $ol_layer->disabled = FALSE; /* Edit this to true to make a default ol_layer disabled initially */
   $ol_layer->api_version = 1;
-  $ol_layer->machine_name = 'farm_areas';
+  $ol_layer->machine_name = 'farm_area_layer_areas';
   $ol_layer->name = 'Farm Areas';
   $ol_layer->description = '';
   $ol_layer->factory_service = 'openlayers.Layer:Vector';
@@ -36,7 +36,7 @@ function farm_area_default_openlayers_layers() {
     'visible' => 1,
     'zoomActivity' => '',
   );
-  $export['farm_areas'] = $ol_layer;
+  $export['farm_area_layer_areas'] = $ol_layer;
 
   return $export;
 }
@@ -79,8 +79,8 @@ function farm_area_default_openlayers_layers_alter(&$layers) {
     $layers[$machine_name] = $ol_layer;
   }
 
-  // If "farm_area_group_layer" is available, add the layers to it.
-  if (!empty($layers['farm_area_group_layer'])) {
-    $layers['farm_area_group_layer']->options['grouplayers'] = $machine_names;
+  // If "farm_area_layer_group" is available, add the layers to it.
+  if (!empty($layers['farm_area_layer_group'])) {
+    $layers['farm_area_layer_group']->options['grouplayers'] = $machine_names;
   }
 }
