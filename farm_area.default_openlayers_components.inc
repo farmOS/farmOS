@@ -19,7 +19,7 @@ function farm_area_default_openlayers_components() {
   $ol_component->factory_service = 'openlayers.Component:Popup';
   $ol_component->options = array(
     'layers' => array(
-      'farm_area_layer_areas' => 'farm_area_layer_areas',
+      'farm_area_layer_property' => 'farm_area_layer_property',
     ),
     'positioning' => 'top-left',
     'autoPan' => 0,
