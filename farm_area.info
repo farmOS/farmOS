@@ -36,6 +36,7 @@ features[field_instance][] = taxonomy_term-farm_areas-field_farm_geofield
 features[field_instance][] = taxonomy_term-farm_areas-field_farm_images
 features[openlayers_components][] = farm_area_component_area_details_popup
 features[openlayers_components][] = farm_area_component_areas_zoom_to_source
+features[openlayers_layers][] = farm_area_group_layer
 features[openlayers_layers][] = farm_areas
 features[openlayers_maps][] = farm_areas
 features[taxonomy][] = farm_areas
