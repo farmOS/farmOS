@@ -67,12 +67,8 @@ projects[navbar][version] = "1.6"
 
 projects[openlayers][subdir] = "contrib"
 projects[openlayers][version] = "3.x-dev"
-; Patch to add TileWMS source.
-projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_3x_wms-2475355-10.patch"
 ; Fix GoogleMaps in Geofield context.
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_googlemaps_postbuild-2538168-1.patch"
-; Fix deleting individual features in Geofield component.
-projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_geofield_delete_single_features-2539384-1.patch"
 
 projects[openlayers_geolocate_button][subdir] = "contrib"
 projects[openlayers_geolocate_button][version] = "1.1"
