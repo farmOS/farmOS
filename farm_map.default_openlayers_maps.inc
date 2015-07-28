@@ -20,9 +20,6 @@ function farm_map_default_openlayers_maps() {
   $ol_map->options = array(
     'width' => 'auto',
     'height' => '400px',
-    'contextualLinks' => 1,
-    'provideBlock' => 1,
-    'provideIframe' => 1,
     'view' => array(
       'center' => array(
         'lat' => -96,
@@ -69,16 +66,15 @@ function farm_map_default_openlayers_maps() {
   $ol_map->options = array(
     'width' => 'auto',
     'height' => '300px',
-    'contextualLinks' => 1,
-    'provideBlock' => 1,
-    'provideIframe' => 1,
     'view' => array(
       'center' => array(
-        'lat' => 0,
-        'lon' => 0,
+        'lat' => -96,
+        'lon' => 40,
       ),
       'rotation' => 0,
-      'zoom' => 2,
+      'zoom' => 4,
+      'minZoom' => 0,
+      'maxZoom' => 20,
     ),
     'layers' => array(
       0 => 'geofield_field_formatter_layer',
