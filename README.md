@@ -28,6 +28,7 @@ This module depends on the following modules:
  * Farm Asset (http://drupal.org/project/farm_asset)
  * Farm Fields (http://drupal.org/project/farm_fields)
  * Farm Log (http://drupal.org/project/farm_log)
+ * Farm Map (http://drupal.org/project/farm_map)
 
 The Farm Livestock: Eggs sub-module depends on the following modules:
 
