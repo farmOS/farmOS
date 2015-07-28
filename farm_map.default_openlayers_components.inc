@@ -14,7 +14,7 @@ function farm_map_default_openlayers_components() {
   $ol_component->disabled = FALSE; /* Edit this to true to make a default ol_component disabled initially */
   $ol_component->api_version = 1;
   $ol_component->machine_name = 'farm_map_component_geofield_zoom_to_source';
-  $ol_component->name = 'Farm Map Component: Geofield Zoom to Source';
+  $ol_component->name = 'Farm Map: Geofield Zoom to Source';
   $ol_component->description = 'Automatically zoom to a geofield source when the map is first built.';
   $ol_component->factory_service = 'openlayers.Component:ZoomToSource';
   $ol_component->options = array(

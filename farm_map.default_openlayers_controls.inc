@@ -14,7 +14,7 @@ function farm_map_default_openlayers_controls() {
   $ol_control->disabled = FALSE; /* Edit this to true to make a default ol_control disabled initially */
   $ol_control->api_version = 1;
   $ol_control->machine_name = 'farm_map_control_layer_switcher';
-  $ol_control->name = 'Farm Map Control: Layer Switcher';
+  $ol_control->name = 'Farm Map: Layer Switcher';
   $ol_control->description = '';
   $ol_control->factory_service = 'openlayers.Control:OL3LayerSwitcher';
   $ol_control->options = array(
