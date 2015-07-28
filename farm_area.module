@@ -13,22 +13,27 @@ function farm_area_farm_area_type_info() {
   return array(
     'property' => array(
       'label' => t('Property'),
+      'style' => 'farm_map_style_purple',
       'weight' => 0,
     ),
     'building' => array(
       'label' => t('Building'),
+      'style' => 'farm_map_style_brown',
       'weight' => 10,
     ),
     'field' => array(
       'label' => t('Field'),
+      'style' => 'farm_map_style_yellow',
       'weight' => 20,
     ),
     'water' => array(
       'label' => t('Water feature'),
+      'style' => 'farm_map_style_blue',
       'weight' => 90,
     ),
     'landmark' => array(
       'label' => t('Landmark'),
+      'style' => 'farm_map_style_red',
       'weight' => 100,
     ),
   );

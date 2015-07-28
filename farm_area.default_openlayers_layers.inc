@@ -73,6 +73,7 @@ function farm_area_default_openlayers_layers_alter(&$layers) {
       'source' => 'farm_area_source_' . $key,
       'visible' => 1,
       'zoomActivity' => '',
+      'style' => $type['style'],
     );
 
     // Add the source to the export.
