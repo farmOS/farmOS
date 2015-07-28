@@ -36,10 +36,12 @@ function farm_area_default_openlayers_components() {
   $ol_component->description = 'Automatically zoom to the areas source when the map is first built.';
   $ol_component->factory_service = 'openlayers.Component:ZoomToSource';
   $ol_component->options = array(
-    'source' => 'views_geojson_farm_areas_geojson_feed',
+    'source' => array(
+      'farm_area_source_property' => 'farm_area_source_property',
+    ),
     'animations' => array(
-      'pan' => '500',
-      'zoom' => '500',
+      'pan' => 500,
+      'zoom' => 500,
     ),
     'zoom' => 'auto',
     'enableAnimations' => 1,
