@@ -1,7 +1,7 @@
 FARM MAP
 ========
 
-Provides OpenLayers configuration for a farm map type.
+Provides OpenLayers configuration for farm maps.
 
 This module is part of the [farmOS](http://drupal.org/project/farm)
 distribution.
@@ -14,7 +14,7 @@ This module depends on the following modules:
  * Ctools (http://drupal.org/project/ctools)
  * Features (http://drupal.org/project/features)
  * Geofield (http://drupal.org/project/geofield)
- * OpenLayers (http://drupal.org/project/openlayers)
+ * Openlayers 3.x (http://drupal.org/project/openlayers)
 
 INSTALLATION
 ------------
