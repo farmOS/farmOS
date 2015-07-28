@@ -57,7 +57,7 @@ function farm_area_default_openlayers_components() {
     'zoom' => 'auto',
     'enableAnimations' => 1,
     'max_zoom' => 20,
-    'process_once' => 1,
+    'process_once' => 0,
   );
   $export['farm_area_component_areas_zoom_to_source'] = $ol_component;
 
