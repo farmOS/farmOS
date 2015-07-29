@@ -31,7 +31,6 @@ function farm_map_default_openlayers_maps() {
       'maxZoom' => 20,
     ),
     'layers' => array(
-      0 => 'geofield_field_formatter_layer',
       1 => 'farm_map_layer_group',
     ),
     'controls' => array(
@@ -48,9 +47,6 @@ function farm_map_default_openlayers_maps() {
     'components' => array(
       0 => 'openlayers_geofield_component_geofield',
       1 => 'farm_map_component_geofield_zoom_to_source',
-    ),
-    'sources' => array(
-      0 => 'geofield_field_formatter_source',
     ),
     'renderer' => 'canvas',
   );
