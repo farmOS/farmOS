@@ -90,9 +90,6 @@ function farm_map_default_openlayers_maps() {
     'components' => array(
       0 => 'farm_map_component_geofield_zoom_to_source',
     ),
-    'sources' => array(
-      0 => 'geofield_field_formatter_source',
-    ),
   );
   $export['farm_map_geofield_formatter'] = $ol_map;
 
