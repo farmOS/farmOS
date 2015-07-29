@@ -14,6 +14,9 @@ function farm_map_ctools_plugin_api($module = NULL, $api = NULL) {
   if ($module == "openlayers" && $api == "default_openlayers_controls") {
     return array("version" => "1");
   }
+  if ($module == "openlayers" && $api == "default_openlayers_interactions") {
+    return array("version" => "1");
+  }
   if ($module == "openlayers" && $api == "default_openlayers_layers") {
     return array("version" => "1");
   }
