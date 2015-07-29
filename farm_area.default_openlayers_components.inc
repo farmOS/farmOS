@@ -33,10 +33,11 @@ function farm_area_default_openlayers_components() {
   $ol_component->factory_service = 'openlayers.Component:Popup';
   $ol_component->options = array(
     'layers' => $area_type_layers,
-    'positioning' => 'top-left',
+    'positioning' => 'top-center',
     'autoPan' => 0,
-    'autoPanAnimation' => '1000',
+    'autoPanAnimation' => '0',
     'autoPanMargin' => '20',
+    'closer' => 1,
   );
   $export['farm_area_component_area_details_popup'] = $ol_component;
 
