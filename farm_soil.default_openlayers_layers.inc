@@ -35,8 +35,8 @@ function farm_soil_default_openlayers_layers() {
   $ol_layer->description = '';
   $ol_layer->factory_service = 'openlayers.Layer:Tile';
   $ol_layer->options = array(
-    'visible' => 1,
     'source' => 'farm_soil_source_nrcs_soil_survey',
+    'visible' => 0,
     'opacity' => '1',
     'zoomOffset' => '0',
     'wrapDateLine' => 0,
