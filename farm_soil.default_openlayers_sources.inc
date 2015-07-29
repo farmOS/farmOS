@@ -21,6 +21,10 @@ function farm_soil_default_openlayers_sources() {
     'url' => 'http://sdmdataaccess.nrcs.usda.gov/Spatial/SDM.wms',
     'version' => '1.1.1',
     'wms_layers' => 'MapunitPoly',
+    'params' => array(
+      'LAYERS' => 'MapunitPoly',
+      'VERSION' => '1.1.1',
+    ),
   );
   $export['farm_soil_source_nrcs_soil_survey'] = $ol_source;
 
