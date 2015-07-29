@@ -11,6 +11,7 @@ features[ctools][] = openlayers:default_openlayers_layers:1
 features[ctools][] = openlayers:default_openlayers_sources:1
 features[ctools][] = strongarm:strongarm:1
 features[features_api][] = api:2
+features[openlayers_layers][] = farm_soil_layer_group
 features[openlayers_layers][] = farm_soil_layer_nrcs_soil_survey
 features[openlayers_sources][] = farm_soil_source_nrcs_soil_survey
 features[taxonomy][] = farm_soil_types
