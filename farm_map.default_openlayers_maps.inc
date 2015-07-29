@@ -32,7 +32,7 @@ function farm_map_default_openlayers_maps() {
     ),
     'layers' => array(
       0 => 'geofield_field_formatter_layer',
-      1 => 'farm_map_layer_google_hybrid',
+      1 => 'farm_map_layer_group',
     ),
     'controls' => array(
       0 => 'openlayers_control_fullscreen',
@@ -51,7 +51,6 @@ function farm_map_default_openlayers_maps() {
     ),
     'sources' => array(
       0 => 'geofield_field_formatter_source',
-      1 => 'farm_map_source_google_hybrid',
     ),
     'renderer' => 'canvas',
   );
@@ -78,8 +77,8 @@ function farm_map_default_openlayers_maps() {
       'maxZoom' => 20,
     ),
     'layers' => array(
-      0 => 'geofield_field_formatter_layer',
-      1 => 'farm_map_layer_google_hybrid',
+      0 => 'farm_map_layer_group',
+      1 => 'geofield_field_formatter_layer',
     ),
     'controls' => array(
       0 => 'openlayers_control_fullscreen',
@@ -97,7 +96,6 @@ function farm_map_default_openlayers_maps() {
     ),
     'sources' => array(
       0 => 'geofield_field_formatter_source',
-      1 => 'farm_map_source_google_hybrid',
     ),
   );
   $export['farm_map_geofield_formatter'] = $ol_map;
