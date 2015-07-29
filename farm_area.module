@@ -142,10 +142,19 @@ function farm_area_farm_area_details($id) {
   // Start a render array.
   $output = array();
 
+  // Get area links.
+  $area_links = farm_area_get_links($id);
+
+  // Create variables for an item list.
+  $variables = array(
+    'items' => $area_links,
+    'attributes' => array(),
+  );
+
   // Add area links to the details.
   $output[] = array(
     '#type' => 'markup',
-    '#markup' => '<p>' . farm_area_get_links($id) . '</p>',
+    '#markup' => theme('item_list', $variables),
     '#weight' => 100,
   );
 
@@ -176,13 +185,11 @@ function farm_area_get_details($id) {
  *
  * @param int $id
  *   The area id.
- * @param string $separator
- *   Characters to use as a separator between links in the returned string.
  *
- * @return string
- *   Returns a string of links.
+ * @return array
+ *   Returns an array of links.
  */
-function farm_area_get_links($id, $separator = ' | ') {
+function farm_area_get_links($id) {
 
   // Call out to modules that want to provide links.
   $area_links = module_invoke_all('farm_area_links', check_plain($id));
@@ -227,8 +234,8 @@ function farm_area_get_links($id, $separator = ' | ') {
     }
   }
 
-  // Convert to a string with a separator and return.
-  return implode($separator, $links);
+  // Return links.
+  return $links;
 }
 
 /**
