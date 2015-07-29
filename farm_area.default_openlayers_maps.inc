@@ -19,7 +19,7 @@ function farm_area_default_openlayers_maps() {
   $ol_map->factory_service = 'openlayers.Map:OLMap';
   $ol_map->options = array(
     'width' => 'auto',
-    'height' => '400px',
+    'height' => '500px',
     'view' => array(
       'center' => array(
         'lat' => -96,
