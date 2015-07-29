@@ -13,8 +13,8 @@ function farm_soil_default_openlayers_sources() {
   $ol_source = new stdClass();
   $ol_source->disabled = FALSE; /* Edit this to true to make a default ol_source disabled initially */
   $ol_source->api_version = 1;
-  $ol_source->machine_name = 'farm_soil_nrcs_soil_survey';
-  $ol_source->name = 'NRCS Soil Survey';
+  $ol_source->machine_name = 'farm_soil_source_nrcs_soil_survey';
+  $ol_source->name = 'Farm Soil: NRCS Soil Survey';
   $ol_source->description = '';
   $ol_source->factory_service = 'openlayers.Source:TileWMS';
   $ol_source->options = array(
@@ -22,7 +22,7 @@ function farm_soil_default_openlayers_sources() {
     'version' => '1.1.1',
     'wms_layers' => 'MapunitPoly',
   );
-  $export['farm_soil_nrcs_soil_survey'] = $ol_source;
+  $export['farm_soil_source_nrcs_soil_survey'] = $ol_source;
 
   return $export;
 }
