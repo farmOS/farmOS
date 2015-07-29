@@ -52,5 +52,24 @@ function farm_map_default_openlayers_layers() {
   );
   $export['farm_map_layer_google_terrain'] = $ol_layer;
 
+  $ol_layer = new stdClass();
+  $ol_layer->disabled = FALSE; /* Edit this to true to make a default ol_layer disabled initially */
+  $ol_layer->api_version = 1;
+  $ol_layer->machine_name = 'farm_map_layer_group';
+  $ol_layer->name = 'Farm Map Layer Group';
+  $ol_layer->description = '';
+  $ol_layer->factory_service = 'openlayers.Layer:Group';
+  $ol_layer->options = array(
+    'source' => '',
+    'visible' => 1,
+    'grouptitle' => 'Base layers',
+    'grouplayers' => array(
+      0 => 'farm_map_layer_google_hybrid',
+      1 => 'farm_map_layer_google_satellite',
+      2 => 'farm_map_layer_google_terrain',
+    ),
+  );
+  $export['farm_map_layer_group'] = $ol_layer;
+
   return $export;
 }
