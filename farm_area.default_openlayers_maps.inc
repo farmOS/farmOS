@@ -40,6 +40,7 @@ function farm_area_default_openlayers_maps() {
       1 => 'openlayers_control_zoom',
       2 => 'openlayers_control_scaleline',
       3 => 'farm_map_control_layer_switcher',
+      4 => 'farm_map_control_geolocate',
     ),
     'components' => array(
       0 => 'farm_area_component_areas_zoom_to_source',
