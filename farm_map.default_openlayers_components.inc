@@ -30,5 +30,15 @@ function farm_map_default_openlayers_components() {
   );
   $export['farm_map_component_geofield_zoom_to_source'] = $ol_component;
 
+  $ol_component = new stdClass();
+  $ol_component->disabled = FALSE; /* Edit this to true to make a default ol_component disabled initially */
+  $ol_component->api_version = 1;
+  $ol_component->machine_name = 'farm_map_component_progress_bar';
+  $ol_component->name = 'Farm Map: Progress Bar';
+  $ol_component->description = '';
+  $ol_component->factory_service = 'openlayers.Component:ProgressBar';
+  $ol_component->options = array();
+  $export['farm_map_component_progress_bar'] = $ol_component;
+
   return $export;
 }
