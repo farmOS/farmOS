@@ -45,6 +45,7 @@ function farm_area_default_openlayers_maps() {
     'components' => array(
       0 => 'farm_area_component_areas_zoom_to_source',
       1 => 'farm_area_component_area_details_popup',
+      2 => 'farm_map_component_progress_bar',
     ),
     'interactions' => array(
       0 => 'openlayers_interaction_doubleclickzoom',
