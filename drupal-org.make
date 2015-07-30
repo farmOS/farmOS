@@ -71,7 +71,7 @@ projects[openlayers][version] = "3.x-dev"
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_googlemaps_postbuild-2538168-1.patch"
 
 projects[openlayers_geolocate_button][subdir] = "contrib"
-projects[openlayers_geolocate_button][version] = "1.1"
+projects[openlayers_geolocate_button][version] = "3.0-beta1"
 
 projects[panels][subdir] = "contrib"
 projects[panels][version] = "3.5"
