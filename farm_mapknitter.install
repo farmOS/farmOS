@@ -1,0 +1,14 @@
+<?php
+/**
+ * @file
+ * Farm MapKnitter install code.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function farm_mapknitter_uninstall() {
+
+  // Clean up variables.
+  variable_del('farm_mapknitter_urls');
+}
