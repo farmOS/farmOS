@@ -36,11 +36,15 @@ function farm_area_default_openlayers_maps() {
       1 => 'farm_area_layer_group',
     ),
     'controls' => array(
-      0 => 'openlayers_control_fullscreen',
-      1 => 'openlayers_control_zoom',
-      2 => 'openlayers_control_scaleline',
-      3 => 'farm_map_control_layer_switcher',
-      4 => 'farm_map_control_geolocate',
+      0 => 'openlayers_control_zoom',
+      1 => 'openlayers_control_scaleline',
+      2 => 'farm_map_control_layer_switcher',
+      3 => 'farm_map_control_geolocate',
+      /**
+       * @todo
+       * https://www.drupal.org/node/2543186
+       */
+//      4 => 'openlayers_control_fullscreen',
     ),
     'components' => array(
       0 => 'farm_area_component_areas_zoom_to_source',
