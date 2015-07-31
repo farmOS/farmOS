@@ -131,7 +131,7 @@ function farm_area_views_default_views() {
   $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
   $handler->display->display_options['fields']['name']['link_to_taxonomy'] = TRUE;
-  /* Field: Taxonomy term: Location */
+  /* Field: Field: Location */
   $handler->display->display_options['fields']['field_farm_geofield']['id'] = 'field_farm_geofield';
   $handler->display->display_options['fields']['field_farm_geofield']['table'] = 'field_data_field_farm_geofield';
   $handler->display->display_options['fields']['field_farm_geofield']['field'] = 'field_farm_geofield';
