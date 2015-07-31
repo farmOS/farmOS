@@ -31,7 +31,7 @@ function farm_map_default_openlayers_maps() {
       'maxZoom' => 20,
     ),
     'layers' => array(
-      1 => 'farm_map_layer_group',
+      0 => 'farm_map_layer_group',
     ),
     'controls' => array(
       0 => 'openlayers_control_zoom',
