@@ -31,7 +31,7 @@ function farm_soil_default_openlayers_layers() {
   $ol_layer->disabled = FALSE; /* Edit this to true to make a default ol_layer disabled initially */
   $ol_layer->api_version = 1;
   $ol_layer->machine_name = 'farm_soil_layer_nrcs_soil_survey';
-  $ol_layer->name = 'Farm Soil: NRCS Soil Survey';
+  $ol_layer->name = 'NRCS Soil Survey';
   $ol_layer->description = '';
   $ol_layer->factory_service = 'openlayers.Layer:Tile';
   $ol_layer->options = array(
