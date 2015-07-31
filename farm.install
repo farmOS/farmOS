@@ -63,7 +63,7 @@ function farm_update_7001(&$sandbox) {
   );
   foreach ($modules as $module) {
     if (!module_exists($module)) {
-      module_enable($module);
+      module_enable(array($module));
     }
   }
 }
