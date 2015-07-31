@@ -14,7 +14,7 @@ function farm_map_default_openlayers_layers() {
   $ol_layer->disabled = FALSE; /* Edit this to true to make a default ol_layer disabled initially */
   $ol_layer->api_version = 1;
   $ol_layer->machine_name = 'farm_map_layer_google_hybrid';
-  $ol_layer->name = 'Farm Map: Google Hybrid';
+  $ol_layer->name = 'Google Hybrid';
   $ol_layer->description = '';
   $ol_layer->factory_service = 'openlayers.Layer:Tile';
   $ol_layer->options = array(
@@ -33,7 +33,7 @@ function farm_map_default_openlayers_layers() {
   $ol_layer->disabled = FALSE; /* Edit this to true to make a default ol_layer disabled initially */
   $ol_layer->api_version = 1;
   $ol_layer->machine_name = 'farm_map_layer_google_satellite';
-  $ol_layer->name = 'Farm Map: Google Satellite';
+  $ol_layer->name = 'Google Satellite';
   $ol_layer->description = '';
   $ol_layer->factory_service = 'openlayers.Layer:Tile';
   $ol_layer->options = array(
@@ -52,7 +52,7 @@ function farm_map_default_openlayers_layers() {
   $ol_layer->disabled = FALSE; /* Edit this to true to make a default ol_layer disabled initially */
   $ol_layer->api_version = 1;
   $ol_layer->machine_name = 'farm_map_layer_google_terrain';
-  $ol_layer->name = 'Farm Map: Google Terrain';
+  $ol_layer->name = 'Google Terrain';
   $ol_layer->description = '';
   $ol_layer->factory_service = 'openlayers.Layer:Tile';
   $ol_layer->options = array(
