@@ -7,8 +7,8 @@
 /**
  * Implements hook_views_api().
  */
-function farm_sensor_views_api() {
-  return array("version" => "3.0");
+function farm_sensor_views_api($module = NULL, $api = NULL) {
+  return array("api" => "3.0");
 }
 
 /**
