@@ -32,8 +32,8 @@ function farm_area_default_openlayers_maps() {
     ),
     'renderer' => 'canvas',
     'layers' => array(
-      0 => 'farm_map_layer_group',
-      1 => 'farm_area_layer_group',
+      0 => 'farm_area_layer_group',
+      1 => 'farm_map_layer_group',
     ),
     'controls' => array(
       0 => 'openlayers_control_zoom',
