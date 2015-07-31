@@ -15,3 +15,12 @@ function farm_mapknitter_permission() {
   );
   return $perms;
 }
+
+/**
+ * Implements hook_farm_manager_perms().
+ */
+function farm_mapknitter_farm_manager_perms() {
+
+  // Give farm managers access to the mapknitter config.
+  return array('administer farm_mapknitter module');
+}
