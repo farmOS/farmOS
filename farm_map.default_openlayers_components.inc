@@ -28,6 +28,7 @@ function farm_map_default_openlayers_components() {
     'zoom' => 'auto',
     'enableAnimations' => 1,
     'max_zoom' => 20,
+    'process_once' => 1,
   );
   $export['farm_map_component_geofield_zoom_to_source'] = $ol_component;
 
