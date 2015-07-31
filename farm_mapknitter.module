@@ -3,3 +3,15 @@
  * @file
  * Code for the Farm MapKnitter module.
  */
+
+/**
+ * Implements hook_permission().
+ */
+function farm_mapknitter_permission() {
+  $perms = array(
+    'administer farm_mapknitter module' => array(
+      'title' => t('Administer farm MapKnitter module'),
+    ),
+  );
+  return $perms;
+}
