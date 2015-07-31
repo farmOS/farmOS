@@ -57,3 +57,16 @@ function farm_area_default_openlayers_maps() {
 
   return $export;
 }
+
+/**
+ * Implements hook_default_openlayers_maps_alter().
+ */
+function farm_area_default_openlayers_maps_alter(&$maps) {
+
+  // Add areas layer to farm_geofield* maps.
+  foreach ($maps as &$map) {
+    if (substr($map->machine_name, 0, 17) == 'farm_map_geofield') {
+      array_unshift($map->options['layers'], 'farm_area_layer_areas');
+    }
+  }
+}
