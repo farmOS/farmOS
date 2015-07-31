@@ -34,11 +34,15 @@ function farm_map_default_openlayers_maps() {
       1 => 'farm_map_layer_group',
     ),
     'controls' => array(
-      0 => 'openlayers_control_fullscreen',
-      1 => 'openlayers_control_zoom',
-      2 => 'openlayers_control_scaleline',
-      3 => 'farm_map_control_layer_switcher',
-      4 => 'farm_map_control_geolocate',
+      0 => 'openlayers_control_zoom',
+      1 => 'openlayers_control_scaleline',
+      2 => 'farm_map_control_layer_switcher',
+      3 => 'farm_map_control_geolocate',
+      /**
+       * @todo
+       * https://www.drupal.org/node/2543186
+       */
+//      4 => 'openlayers_control_fullscreen',
     ),
     'interactions' => array(
       0 => 'openlayers_interaction_doubleclickzoom',
@@ -79,10 +83,14 @@ function farm_map_default_openlayers_maps() {
       1 => 'geofield_field_formatter_layer',
     ),
     'controls' => array(
-      0 => 'openlayers_control_fullscreen',
-      1 => 'openlayers_control_zoom',
-      2 => 'openlayers_control_scaleline',
-      3 => 'farm_map_control_layer_switcher',
+      0 => 'openlayers_control_zoom',
+      1 => 'openlayers_control_scaleline',
+      2 => 'farm_map_control_layer_switcher',
+      /**
+       * @todo
+       * https://www.drupal.org/node/2543186
+       */
+//      3 => 'openlayers_control_fullscreen',
     ),
     'interactions' => array(
       0 => 'openlayers_interaction_doubleclickzoom',
