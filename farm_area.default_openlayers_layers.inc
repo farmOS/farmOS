@@ -72,6 +72,7 @@ function farm_area_default_openlayers_layers() {
     'source' => 'views_geojson_farm_areas_geojson_feed',
     'visible' => 1,
     'zoomActivity' => '',
+    'style' => 'farm_map_style_grey',
   );
   $export['farm_area_layer_areas'] = $ol_layer;
 
