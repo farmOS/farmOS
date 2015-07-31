@@ -176,12 +176,12 @@ function farm_soil_test_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'geofield',
+        'module' => 'openlayers_geofield',
         'settings' => array(
           'data' => 'full',
-          'map_preset' => 'farm_map_geofield',
+          'map_preset' => 'farm_map_geofield_formatter',
         ),
-        'type' => 'geofield_openlayers',
+        'type' => 'openlayers_geofield',
         'weight' => 2,
       ),
     ),
@@ -194,7 +194,7 @@ function farm_soil_test_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'openlayers',
+      'module' => 'openlayers_geofield',
       'settings' => array(
         'allow_edit' => 1,
         'data_storage' => 'collection',
@@ -205,8 +205,9 @@ function farm_soil_test_field_default_field_instances() {
           'polygon' => 0,
         ),
         'openlayers_map' => 'farm_map_geofield',
+        'showInputField' => 0,
       ),
-      'type' => 'geofield_openlayers',
+      'type' => 'openlayers_geofield',
       'weight' => 3,
     ),
   );

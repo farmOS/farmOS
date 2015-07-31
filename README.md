@@ -12,7 +12,7 @@ DEPENDENCIES
 This module depends on the following modules:
 
  * Features (http://drupal.org/project/features)
- * OpenLayers (http://drupal.org/project/openlayers)
+ * OpenLayers 3.x (http://drupal.org/project/openlayers)
  * Strongarm (http://drupal.org/project/strongarm)
 
 The Farm Soil Test sub-module requires:
@@ -22,6 +22,7 @@ The Farm Soil Test sub-module requires:
  * Filefield Paths (http://drupal.org/project/filefield_paths)
  * Geofield (http://drupal.org/project/geofield)
  * Log (http://drupal.org/project/log)
+ * OpenLayers 3.x (http://drupal.org/project/openlayers)
  * Views (http://drupal.org/project/views)
  * Views Data Export (http://drupal.org/project/views_data_export)
  * Farm Area (http://drupal.org/project/farm_area)
