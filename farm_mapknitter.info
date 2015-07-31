@@ -1,0 +1,5 @@
+name = Farm MapKnitter
+description = Provides integration with Public Lab's MapKnitter.org.
+core = 7.x
+package = farmOS
+dependencies[] = farm_map
