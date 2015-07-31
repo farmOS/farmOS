@@ -10,5 +10,6 @@
 function farm_mapknitter_uninstall() {
 
   // Clean up variables.
-  variable_del('farm_mapknitter_urls');
+  variable_del('farm_mapknitter_title');
+  variable_del('farm_mapknitter_url');
 }

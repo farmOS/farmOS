@@ -47,11 +47,18 @@ function farm_mapknitter_menu() {
  */
 function farm_mapknitter_form($form, &$form_state) {
 
-  $form['farm_mapknitter_urls'] = array(
-    '#type' => 'textarea',
-    '#title' => t('MapKnitter TMS URLs'),
-    '#description' => t('List the URLs of MapKnitter TMS layers you would like to include, one per line.'),
-    '#default_value' => variable_get('farm_mapknitter_urls', ''),
+  $form['farm_mapknitter_title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('MapKnitter TMS Title'),
+    '#description' => t('Give the MapKnitter TMS layer a name.'),
+    '#default_value' => variable_get('farm_mapknitter_title', ''),
+  );
+
+  $form['farm_mapknitter_url'] = array(
+    '#type' => 'textfield',
+    '#title' => t('MapKnitter TMS URL'),
+    '#description' => t('Enter the URL of the MapKnitter TMS layer you would like to include in your map.'),
+    '#default_value' => variable_get('farm_mapknitter_url', ''),
   );
 
   return system_settings_form($form);
