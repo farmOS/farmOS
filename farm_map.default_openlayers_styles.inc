@@ -61,10 +61,10 @@ function farm_map_default_openlayers_styles() {
     $ol_style->factory_service = 'openlayers.Style:InlineJS';
     $ol_style->options = array(
       'javascript' => 'var fill = new ol.style.Fill({
-  color: \'' . $style['color'] . '\'
+  color: "' . $style['color'] . '"
 });
 var stroke = new ol.style.Stroke({
-  color: \'' . $style['color'] . '\',
+  color: "' . $style['color'] . '",
   width: 2
 });
 var style = [
