@@ -7,13 +7,16 @@
 include_once 'farm_map.features.inc';
 
 /**
- * Implements hook_openlayers_map_alter().
+ * Implements hook_openlayers_object_preprocess_alter().
  */
-function farm_map_openlayers_map_alter(&$map = array()) {
+function farm_map_openlayers_object_preprocess_alter(&$build, $context) {
 
-  // If this is the Farm Geofield Map, add the Geofield behavior as a zoom-to
-  // layer.
-  if (!empty($map['map_name']) && $map['map_name'] == 'farm_map_geofield') {
-    $map['behaviors']['openlayers_behavior_zoomtolayer']['zoomtolayer']['openlayers_behavior_geofield'] = 'openlayers_behavior_geofield';
+  // If the object is a Map...
+  if ($context instanceof Drupal\openlayers\Types\MapInterface) {
+
+    // If the map machine name starts with "farm_", add farm map CSS.
+    if (substr($context->getMachineName(), 0, 5) == 'farm_') {
+      drupal_add_css(drupal_get_path('module', 'farm_map') . '/farm_map.css');
+    }
   }
 }

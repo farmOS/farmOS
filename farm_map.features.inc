@@ -7,17 +7,26 @@
 /**
  * Implements hook_ctools_plugin_api().
  */
-function farm_map_ctools_plugin_api() {
-  list($module, $api) = func_get_args();
-  if ($module == "openlayers" && $api == "openlayers_maps") {
+function farm_map_ctools_plugin_api($module = NULL, $api = NULL) {
+  if ($module == "openlayers" && $api == "default_openlayers_components") {
     return array("version" => "1");
   }
-  list($module, $api) = func_get_args();
-  if ($module == "openlayers" && $api == "openlayers_styles") {
+  if ($module == "openlayers" && $api == "default_openlayers_controls") {
     return array("version" => "1");
   }
-  list($module, $api) = func_get_args();
-  if ($module == "strongarm" && $api == "strongarm") {
+  if ($module == "openlayers" && $api == "default_openlayers_interactions") {
+    return array("version" => "1");
+  }
+  if ($module == "openlayers" && $api == "default_openlayers_layers") {
+    return array("version" => "1");
+  }
+  if ($module == "openlayers" && $api == "default_openlayers_maps") {
+    return array("version" => "1");
+  }
+  if ($module == "openlayers" && $api == "default_openlayers_sources") {
+    return array("version" => "1");
+  }
+  if ($module == "openlayers" && $api == "default_openlayers_styles") {
     return array("version" => "1");
   }
 }
