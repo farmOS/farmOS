@@ -105,12 +105,12 @@ function farm_area_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'hidden',
-        'module' => 'geofield',
+        'module' => 'openlayers_geofield',
         'settings' => array(
           'data' => 'full',
-          'map_preset' => 'farm_map_area',
+          'map_preset' => 'farm_map_geofield_formatter',
         ),
-        'type' => 'geofield_openlayers',
+        'type' => 'openlayers_geofield',
         'weight' => 0,
       ),
     ),
@@ -123,7 +123,7 @@ function farm_area_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'openlayers',
+      'module' => 'openlayers_geofield',
       'settings' => array(
         'allow_edit' => 1,
         'data_storage' => 'collection',
@@ -148,9 +148,10 @@ function farm_area_field_default_field_instances() {
           ),
         ),
         'openlayers_map' => 'farm_map_geofield',
+        'showInputField' => 0,
         'use_geocoder' => 1,
       ),
-      'type' => 'geofield_openlayers',
+      'type' => 'openlayers_geofield',
       'weight' => 2,
     ),
   );

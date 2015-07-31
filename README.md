@@ -17,7 +17,7 @@ This module depends on the following modules:
  * Filefield Paths (http://drupal.org/project/filefield_paths)
  * Geocoder (http://drupal.org/project/geocoder)
  * Geofield (http://drupal.org/project/geofield)
- * OpenLayers (http://drupal.org/project/openlayers)
+ * OpenLayers 3.x (http://drupal.org/project/openlayers)
  * Pathauto (http://drupal.org/project/pathauto)
  * Strongarm (http://drupal.org/project/strongarm)
  * Views (http://drupal.org/project/views)

@@ -11,24 +11,29 @@ include_once 'farm_area.features.inc';
  */
 function farm_area_farm_area_type_info() {
   return array(
-    'property' => array(
-      'label' => t('Property'),
-      'weight' => 0,
-    ),
     'building' => array(
       'label' => t('Building'),
-      'weight' => 10,
+      'style' => 'farm_map_style_brown',
+      'weight' => 0,
     ),
     'field' => array(
       'label' => t('Field'),
-      'weight' => 20,
-    ),
-    'water' => array(
-      'label' => t('Water feature'),
-      'weight' => 90,
+      'style' => 'farm_map_style_yellow',
+      'weight' => 10,
     ),
     'landmark' => array(
       'label' => t('Landmark'),
+      'style' => 'farm_map_style_red',
+      'weight' => 50,
+    ),
+    'water' => array(
+      'label' => t('Water feature'),
+      'style' => 'farm_map_style_blue',
+      'weight' => 50,
+    ),
+    'property' => array(
+      'label' => t('Property'),
+      'style' => 'farm_map_style_purple',
       'weight' => 100,
     ),
   );
@@ -137,10 +142,19 @@ function farm_area_farm_area_details($id) {
   // Start a render array.
   $output = array();
 
+  // Get area links.
+  $area_links = farm_area_get_links($id);
+
+  // Create variables for an item list.
+  $variables = array(
+    'items' => $area_links,
+    'attributes' => array(),
+  );
+
   // Add area links to the details.
   $output[] = array(
     '#type' => 'markup',
-    '#markup' => '<p>' . farm_area_get_links($id) . '</p>',
+    '#markup' => theme('item_list', $variables),
     '#weight' => 100,
   );
 
@@ -171,13 +185,11 @@ function farm_area_get_details($id) {
  *
  * @param int $id
  *   The area id.
- * @param string $separator
- *   Characters to use as a separator between links in the returned string.
  *
- * @return string
- *   Returns a string of links.
+ * @return array
+ *   Returns an array of links.
  */
-function farm_area_get_links($id, $separator = ' | ') {
+function farm_area_get_links($id) {
 
   // Call out to modules that want to provide links.
   $area_links = module_invoke_all('farm_area_links', check_plain($id));
@@ -222,57 +234,28 @@ function farm_area_get_links($id, $separator = ' | ') {
     }
   }
 
-  // Convert to a string with a separator and return.
-  return implode($separator, $links);
+  // Return links.
+  return $links;
 }
 
 /**
- * Implements hook_openlayers_map_preprocess_alter().
+ * Implements hook_page_build().
  */
-function farm_area_openlayers_map_preprocess_alter(&$map = array()) {
+function farm_area_page_build(&$page) {
 
-  // Define the layer we are going to add.
-  $layer = 'farm_area_data_all';
+  // If this is the farm dashboard, display the areas map.
+  if (current_path() == 'farm') {
 
-  // Add the 'All Areas' layer to Farm Geofield Map.
-  if (!empty($map['map_name']) && $map['map_name'] == 'farm_map_geofield') {
+    // Load the areas map.
+    $map = \Drupal\openlayers\Openlayers::load('Map', 'farm_areas');
 
-    // Add the layer.
-    $map['layers'] += array($layer => $layer);
+    // Build the map and add it to the page content.
+    $page['content']['farm_areas'] = $map->build();
 
-    // Activate the layer by default.
-    $map['layer_activated'] += array($layer => $layer);
+    // Set the weight to -100 so that it appears on top.
+    $page['content']['farm_areas']['#weight'] = -100;
 
-    // Show the layer in the switcher.
-    $map['layer_switcher'] += array($layer => $layer);
-
-    // Set the layer style to Farm Grey.
-    $map['layer_styles'] += array($layer => 'farm_grey');
-
-    // Set the layer weight so that it is on the bottom.
-    $map['layer_weight'] += array($layer => 100);
-
-    // Zoom to the "All areas" layer.
-    if (!empty($map['behaviors']['openlayers_behavior_zoomtolayer'])) {
-      $map['behaviors']['openlayers_behavior_zoomtolayer']['zoomtolayer'][$layer] = $layer;
-    }
+    // Set the content region #sorted flag to FALSE so that it resorts.
+    $page['content']['#sorted'] = FALSE;
   }
-}
-
-/**
- * Implements hook_panels_pre_render().
- */
-function farm_area_panels_pre_render($panels_display, $renderer) {
-
-  // If this is the Farm Plan panel page, display the areas map.
-  $output = '';
-  /*
-   * @todo
-   * Find a better way to identify this panel page. If the title ever
-   * changes, this will stop working.
-   */
-  if ($panels_display->title == 'Farm Plan') {
-    $output .= views_embed_view('farm_areas', 'block');
-  }
-  return $output;
 }
