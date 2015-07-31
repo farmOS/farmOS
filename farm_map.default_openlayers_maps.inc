@@ -48,6 +48,7 @@ function farm_map_default_openlayers_maps() {
       0 => 'openlayers_interaction_doubleclickzoom',
       1 => 'openlayers_interaction_dragpan',
       2 => 'openlayers_interaction_mousewheelzoom',
+      3 => 'openlayers_interaction_pinchzoom',
     ),
     'components' => array(
       0 => 'openlayers_geofield_component_geofield',
@@ -96,6 +97,7 @@ function farm_map_default_openlayers_maps() {
       0 => 'openlayers_interaction_doubleclickzoom',
       1 => 'openlayers_interaction_dragpan',
       2 => 'openlayers_interaction_mousewheelzoom',
+      3 => 'openlayers_interaction_pinchzoom',
     ),
     'components' => array(
       0 => 'farm_map_component_geofield_zoom_to_source',
