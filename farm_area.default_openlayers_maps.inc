@@ -55,6 +55,7 @@ function farm_area_default_openlayers_maps() {
       0 => 'openlayers_interaction_doubleclickzoom',
       1 => 'openlayers_interaction_dragpan',
       2 => 'openlayers_interaction_mousewheelzoom',
+      3 => 'openlayers_interaction_pinchzoom',
     ),
   );
   $export['farm_areas'] = $ol_map;
