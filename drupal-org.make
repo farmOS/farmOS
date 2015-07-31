@@ -51,7 +51,7 @@ projects[geophp][subdir] = "contrib"
 projects[geophp][version] = "1.7"
 
 projects[jquery_update][subdir] = "contrib"
-projects[jquery_update][version] = "2.6"
+projects[jquery_update][version] = "3.0-alpha2"
 
 projects[libraries][subdir] = "contrib"
 projects[libraries][version] = "2.2"
