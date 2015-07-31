@@ -24,3 +24,35 @@ function farm_mapknitter_farm_manager_perms() {
   // Give farm managers access to the mapknitter config.
   return array('administer farm_mapknitter module');
 }
+
+/**
+ * Implements hook_menu().
+ */
+function farm_mapknitter_menu() {
+  $items = array();
+
+  $items['admin/config/farm/mapknitter'] = array(
+    'title' => 'MapKnitter Layers',
+    'description' => 'Include MapKnitter layers in your farm maps.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('farm_mapknitter_form'),
+    'access arguments' => array('administer farm_mapknitter module'),
+  );
+
+  return $items;
+}
+
+/**
+ * MapKnitter configuration form.
+ */
+function farm_mapknitter_form($form, &$form_state) {
+
+  $form['farm_mapknitter_urls'] = array(
+    '#type' => 'textarea',
+    '#title' => t('MapKnitter TMS URLs'),
+    '#description' => t('List the URLs of MapKnitter TMS layers you would like to include, one per line.'),
+    '#default_value' => variable_get('farm_mapknitter_urls', ''),
+  );
+
+  return system_settings_form($form);
+}
