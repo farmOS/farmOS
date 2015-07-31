@@ -18,7 +18,9 @@ function farm_map_default_openlayers_components() {
   $ol_component->description = 'Automatically zoom to a geofield source when the map is first built.';
   $ol_component->factory_service = 'openlayers.Component:ZoomToSource';
   $ol_component->options = array(
-    'source' => 'geofield_field_formatter_source',
+    'source' => array(
+      'geofield_field_formatter_source' => 'geofield_field_formatter_source',
+    ),
     'animations' => array(
       'pan' => '500',
       'zoom' => '500',
