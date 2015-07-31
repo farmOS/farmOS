@@ -21,6 +21,11 @@ function farm_map_default_openlayers_layers() {
     'source' => 'farm_map_source_google_hybrid',
     'visible' => 1,
     'opacity' => 1,
+    /**
+     * @todo
+     * https://www.drupal.org/node/2543130
+     */
+    'type' => 'base',
   );
   $export['farm_map_layer_google_hybrid'] = $ol_layer;
 
@@ -35,6 +40,11 @@ function farm_map_default_openlayers_layers() {
     'source' => 'farm_map_source_google_satellite',
     'visible' => 1,
     'opacity' => 1,
+    /**
+     * @todo
+     * https://www.drupal.org/node/2543130
+     */
+    'type' => 'base',
   );
   $export['farm_map_layer_google_satellite'] = $ol_layer;
 
@@ -49,6 +59,11 @@ function farm_map_default_openlayers_layers() {
     'source' => 'farm_map_source_google_terrain',
     'visible' => 1,
     'opacity' => 1,
+    /**
+     * @todo
+     * https://www.drupal.org/node/2543130
+     */
+    'type' => 'base',
   );
   $export['farm_map_layer_google_terrain'] = $ol_layer;
 
