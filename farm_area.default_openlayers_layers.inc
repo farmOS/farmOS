@@ -30,7 +30,7 @@ function farm_area_default_openlayers_layers() {
     $ol_layer->disabled = FALSE; /* Edit this to true to make a default ol_layer disabled initially */
     $ol_layer->api_version = 1;
     $ol_layer->machine_name = $layer_name;
-    $ol_layer->name = 'Farm Area: ' . $type['label'];
+    $ol_layer->name = $type['label'];
     $ol_layer->description = '';
     $ol_layer->factory_service = 'openlayers.Layer:Vector';
     $ol_layer->options = array(
