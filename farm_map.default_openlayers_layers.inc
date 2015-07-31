@@ -65,6 +65,10 @@ function farm_map_default_openlayers_layers() {
     'grouptitle' => 'Base layers',
     'grouplayers' => array(
       0 => 'farm_map_layer_google_hybrid',
+      /**
+       * @todo
+       * https://www.drupal.org/node/2543188
+       */
 //      1 => 'farm_map_layer_google_satellite',
 //      2 => 'farm_map_layer_google_terrain',
     ),
