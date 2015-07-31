@@ -55,7 +55,7 @@ function farm_area_default_openlayers_layers() {
   $ol_layer->options = array(
     'source' => '',
     'visible' => 1,
-    'grouptitle' => 'Farm Areas',
+    'grouptitle' => 'Area layers',
     'grouplayers' => $layer_names,
   );
   $export['farm_area_layer_group'] = $ol_layer;
