@@ -34,7 +34,7 @@ function farm_area_default_openlayers_components() {
   $ol_component->options = array(
     'layers' => $area_type_layers,
     'positioning' => 'top-center',
-    'autoPan' => 0,
+    'autoPan' => 1,
     'autoPanAnimation' => '0',
     'autoPanMargin' => '20',
     'closer' => 1,
