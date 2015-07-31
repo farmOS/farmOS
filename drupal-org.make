@@ -196,7 +196,7 @@ libraries[modernizr][download][type] = "get"
 libraries[modernizr][download][url] = "http://github.com/Modernizr/Modernizr/archive/v2.8.3.zip"
 
 libraries[openlayers][download][type] = "get"
-libraries[openlayers][download][url] = "http://github.com/openlayers/ol3/releases/download/v3.5.0/v3.5.0.zip"
+libraries[openlayers][download][url] = "http://github.com/openlayers/ol3/releases/download/v3.7.0/v3.7.0.zip"
 libraries[openlayers][directory_name] = "openlayers3"
 
 libraries[underscore][download][type] = "get"
