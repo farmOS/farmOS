@@ -67,7 +67,7 @@ projects[navbar][version] = "1.6"
 
 projects[openlayers][subdir] = "contrib"
 projects[openlayers][download][type] = "git"
-projects[openlayers][download][url] = "http://git.drupal.org/project/farm.git"
+projects[openlayers][download][url] = "http://github.com/farmOS/openlayers.git"
 projects[openlayers][download][tag] = "farmOS-beta4"
 ; Fix GoogleMaps in Geofield context.
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_googlemaps_postbuild-2538168-5.patch"
