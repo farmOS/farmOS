@@ -73,7 +73,7 @@ projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_g
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_base_layer_mechanism-2543130-1.patch"
 
 projects[openlayers_geolocate_button][subdir] = "contrib"
-projects[openlayers_geolocate_button][version] = "3.0-beta3"
+projects[openlayers_geolocate_button][version] = "3.0"
 
 projects[panels][subdir] = "contrib"
 projects[panels][version] = "3.5"
