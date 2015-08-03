@@ -91,7 +91,7 @@ projects[role_export][subdir] = "contrib"
 projects[role_export][version] = "1.0"
 
 projects[service_container][subdir] = "contrib"
-projects[service_container][version] = "1.x-dev"
+projects[service_container][version] = "1.0-beta5"
 
 projects[strongarm][subdir] = "contrib"
 projects[strongarm][version] = "2.0"
