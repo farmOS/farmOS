@@ -73,6 +73,8 @@ projects[openlayers][download][tag] = "farmOS-beta4"
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_googlemaps_postbuild-2538168-5.patch"
 ; Remove base layer assignment code.
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_base_layer_mechanism-2543130-2.patch"
+; Use default zoom level in ZoomToSource.
+projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_zoomtosource_default_level-2545512-1.patch"
 
 projects[openlayers_geolocate_button][subdir] = "contrib"
 projects[openlayers_geolocate_button][version] = "3.0"
