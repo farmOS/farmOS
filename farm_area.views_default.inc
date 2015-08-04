@@ -166,6 +166,11 @@ function farm_area_views_default_views() {
   $handler->display->display_options['filters']['machine_name']['value'] = array(
     'farm_areas' => 'farm_areas',
   );
+  /* Filter criterion: Taxonomy term: Area type (field_farm_area_type) */
+  $handler->display->display_options['filters']['field_farm_area_type_value']['id'] = 'field_farm_area_type_value';
+  $handler->display->display_options['filters']['field_farm_area_type_value']['table'] = 'field_data_field_farm_area_type';
+  $handler->display->display_options['filters']['field_farm_area_type_value']['field'] = 'field_farm_area_type_value';
+  $handler->display->display_options['filters']['field_farm_area_type_value']['operator'] = 'not empty';
 
   /* Display: Feed */
   $handler = $view->new_display('feed', 'Feed', 'feed');
