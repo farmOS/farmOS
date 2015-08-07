@@ -61,6 +61,13 @@ function farm_update_7001(&$sandbox) {
     'openlayers_geofield',
     'views_geojson',
   );
+  _farm_enable_modules($modules);
+}
+
+/**
+ * Helper function: enable modules.
+ */
+function _farm_enable_modules($modules = array()) {
   foreach ($modules as $module) {
     if (!module_exists($module)) {
       module_enable(array($module));
