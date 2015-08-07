@@ -443,18 +443,6 @@ function farm_log_form_prepopulate_asset(array &$form, $field_name = 'field_farm
     }
   }
 
-  // If the asset field is not empty, hide it so that it can't be changed, and
-  // display them as plain text in a fieldset at the top.
-  if (!empty($field_value)) {
-    $form[$field_name]['#access'] = FALSE;
-    $form[$field_name . '_markup'] = array(
-      '#type' => 'fieldset',
-      '#title' => t('Assets'),
-      '#description' => $field_value,
-      '#weight' => -100,
-    );
-  }
-
   return $asset;
 }
 
