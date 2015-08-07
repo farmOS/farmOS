@@ -16,6 +16,7 @@ This module depends on the following modules:
  * Date (http://drupal.org/project/date)
  * Entity API (http://drupal.org/project/entity)
  * Entity Reference (http://drupal.org/project/entityreference)
+ * Entity Reference View Widget (http://drupal.org/project/entityreference_view_widget)
  * Features (http://drupal.org/project/features)
  * Field Collection (http://drupal.org/project/field_collection)
  * Filefield Paths (http://drupal.org/project/filefield_paths)
