@@ -19,7 +19,7 @@ function farm_crop_farm_area_type_info() {
     'rowbed' => array(
       'label' => t('Row/bed'),
       'style' => 'farm_map_style_red',
-      'weight' => 5,
+      'weight' => -5,
     ),
   );
 }
