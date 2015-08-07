@@ -25,6 +25,8 @@ projects[entityreference][version] = "1.1"
 
 projects[entityreference_view_widget][subdir] = "contrib"
 projects[entityreference_view_widget][version] = "2.0-rc6"
+; Patch to fix blank checkboxes.
+projects[entityreference_view_widget][patch][] = "http://www.drupal.org/files/issues/entityreference_view_widget_suffix-2524296-2.patch"
 
 projects[features][subdir] = "contrib"
 projects[features][version] = "2.6"
