@@ -120,7 +120,7 @@ function farm_log_field_default_field_instances() {
   // Exported field_instance: 'log-farm_activity-field_farm_asset'
   $field_instances['log-farm_activity-field_farm_asset'] = array(
     'bundle' => 'farm_activity',
-    'default_value' => NULL,
+    'default_value' => array(),
     'deleted' => 0,
     'description' => 'What assets does this activity pertain to?',
     'display' => array(
@@ -143,13 +143,17 @@ function farm_log_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'entityreference',
+      'module' => 'entityreference_view_widget',
       'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
+        'allow_duplicates' => 0,
+        'close_modal' => 1,
+        'pass_argument' => 1,
+        'pass_arguments' => '',
+        'rendered_entity' => 0,
+        'view' => 'farm_asset_entityreference_view|entityreference_view_widget',
+        'view_mode' => 'full',
       ),
-      'type' => 'entityreference_autocomplete_tags',
+      'type' => 'entityreference_view_widget',
       'weight' => 2,
     ),
   );
@@ -260,7 +264,7 @@ function farm_log_field_default_field_instances() {
   // Exported field_instance: 'log-farm_movement-field_farm_asset'
   $field_instances['log-farm_movement-field_farm_asset'] = array(
     'bundle' => 'farm_movement',
-    'default_value' => NULL,
+    'default_value' => array(),
     'deleted' => 0,
     'description' => 'What assets are being moved?',
     'display' => array(
@@ -283,13 +287,17 @@ function farm_log_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'entityreference',
+      'module' => 'entityreference_view_widget',
       'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
+        'allow_duplicates' => 0,
+        'close_modal' => 1,
+        'pass_argument' => 1,
+        'pass_arguments' => '',
+        'rendered_entity' => 0,
+        'view' => 'farm_asset_entityreference_view|entityreference_view_widget',
+        'view_mode' => 'full',
       ),
-      'type' => 'entityreference_autocomplete_tags',
+      'type' => 'entityreference_view_widget',
       'weight' => 1,
     ),
   );
@@ -433,7 +441,7 @@ function farm_log_field_default_field_instances() {
   // Exported field_instance: 'log-farm_observation-field_farm_asset'
   $field_instances['log-farm_observation-field_farm_asset'] = array(
     'bundle' => 'farm_observation',
-    'default_value' => NULL,
+    'default_value' => array(),
     'deleted' => 0,
     'description' => 'What assets does this observation pertain to?',
     'display' => array(
@@ -456,13 +464,17 @@ function farm_log_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'entityreference',
+      'module' => 'entityreference_view_widget',
       'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
+        'allow_duplicates' => 0,
+        'close_modal' => 1,
+        'pass_argument' => 1,
+        'pass_arguments' => '',
+        'rendered_entity' => 0,
+        'view' => 'farm_asset_entityreference_view|entityreference_view_widget',
+        'view_mode' => 'full',
       ),
-      'type' => 'entityreference_autocomplete_tags',
+      'type' => 'entityreference_view_widget',
       'weight' => 4,
     ),
   );
