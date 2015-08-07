@@ -65,6 +65,18 @@ function farm_update_7001(&$sandbox) {
 }
 
 /**
+ * Enable Entity Reference View Widget.
+ */
+function farm_update_7002(&$sandbox) {
+
+  // Enable new module dependencies.
+  $modules = array(
+    'entityreference_view_widget',
+  );
+  _farm_enable_modules($modules);
+}
+
+/**
  * Helper function: enable modules.
  */
 function _farm_enable_modules($modules = array()) {
