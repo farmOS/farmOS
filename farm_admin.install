@@ -28,3 +28,14 @@ function farm_admin_uninstall() {
     }
   }
 }
+
+/**
+ * Create new farm menu.
+ */
+function farm_admin_update_7000(&$sandbox) {
+
+  // If Menu module is enabled, create the farm menu.
+  if (module_exists('menu')) {
+    farm_admin_menu_save();
+  }
+}
