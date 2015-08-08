@@ -20,6 +20,9 @@ function farm_install() {
   // Set the front page to the farm dashboard (provided by the farm_admin).
   variable_set('site_frontpage', 'farm');
 
+  // Use the farm menu for primary links (provided by farm_admin).
+  variable_set('menu_main_links_source', 'farm');
+
   // Allow login via email (via logintoboggan).
   variable_set('logintoboggan_login_with_email', TRUE);
 
@@ -96,6 +99,13 @@ function farm_update_7002(&$sandbox) {
     'entityreference_view_widget',
   );
   _farm_enable_modules($modules);
+}
+
+/**
+ * Use the farm menu for primary links.
+ */
+function farm_update_7003(&$sandbox) {
+  variable_set('menu_main_links_source', 'farm');
 }
 
 /**
