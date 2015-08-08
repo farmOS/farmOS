@@ -79,7 +79,7 @@ function farm_asset_menu() {
   );
   foreach (farm_asset_types() as $type => $info) {
     $items['farm/asset/add/' . $type] = array(
-      'title' => 'Add asset',
+      'title' => 'Add ' . $info->label,
       'page callback' => 'farm_asset_add',
       'page arguments' => array(3),
       'access callback' => 'farm_asset_access',
