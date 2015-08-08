@@ -106,6 +106,16 @@ function farm_theme_entity_view_alter(&$build, $type) {
  */
 function farm_theme_preprocess_page(&$vars) {
 
+  // When the farm_areas map is displayed on a page...
+  if (!empty($vars['page']['content']['farm_areas'])) {
+
+    // Wrap map and content in "col-md-6" class so they display in two columns.
+    $vars['page']['content']['farm_areas']['#prefix'] = '<div class="col-md-6">';
+    $vars['page']['content']['farm_areas']['#suffix'] = '</div>';
+    $vars['page']['content']['system_main']['#prefix'] = '<div class="col-md-6">';
+    $vars['page']['content']['system_main']['#suffix'] = '</div>';
+  }
+
   // Remove from taxonomy term pages:
   // "There is currently no content classified with this term."
   if (isset($vars['page']['content']['system_main']['no_content'])) {
