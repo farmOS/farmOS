@@ -13,9 +13,9 @@ function farm_admin_default_page_manager_pages() {
   $page->api_version = 1;
   $page->name = 'farm_admin';
   $page->task = 'page';
-  $page->admin_title = 'Farm Plan';
+  $page->admin_title = 'Farm Dashboard';
   $page->admin_description = 'An administrative dashboard for farm managers.';
-  $page->path = 'farm';
+  $page->path = 'farm/dashboard';
   $page->access = array(
     'plugins' => array(
       0 => array(
@@ -29,7 +29,18 @@ function farm_admin_default_page_manager_pages() {
     ),
     'logic' => 'and',
   );
-  $page->menu = array();
+  $page->menu = array(
+    'type' => 'default tab',
+    'title' => 'Farm',
+    'name' => 'farm',
+    'weight' => '-100',
+    'parent' => array(
+      'type' => 'none',
+      'title' => 'Farm',
+      'name' => 'farm',
+      'weight' => '0',
+    ),
+  );
   $page->arguments = array();
   $page->conf = array(
     'admin_paths' => FALSE,
