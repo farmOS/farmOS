@@ -15,3 +15,16 @@ function farm_admin_enable() {
     farm_admin_menu_save();
   }
 }
+
+/**
+ * Implements hook_uninstall().
+ */
+function farm_admin_uninstall() {
+
+  // Delete the farm menu.
+  if (module_exists('menu')) {
+    if ($farm_menu = menu_load('farm')) {
+      menu_delete($farm_menu);
+    }
+  }
+}
