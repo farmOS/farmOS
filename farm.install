@@ -6,6 +6,28 @@
  */
 
 /**
+ * Implements hook_install().
+ */
+function farm_install() {
+
+  // Enable farm theme and set as default.
+  theme_enable(array('farm_theme'));
+  variable_set('theme_default', 'farm_theme');
+
+  // Disable the default Bartik theme
+  theme_disable(array('bartik'));
+
+  // Set the front page to the farm dashboard (provided by the farm_admin).
+  variable_set('site_frontpage', 'farm');
+
+  // Allow login via email (via logintoboggan).
+  variable_set('logintoboggan_login_with_email', TRUE);
+
+  // Display the login form on access denied pages (via logintoboggan).
+  variable_set('site_403', 'toboggan/denied');
+}
+
+/**
  * Implements hook_update_dependencies().
  */
 function farm_update_dependencies() {
