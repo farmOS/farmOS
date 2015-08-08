@@ -244,7 +244,14 @@ function farm_area_get_links($id) {
 function farm_area_page_build(&$page) {
 
   // If this is the farm dashboard, display the areas map.
-  if (current_path() == 'farm') {
+  $current_path = current_path();
+  $map_paths = array(
+    'farm',
+    'farm/plan',
+    'farm/areas',
+    'farm/areas/list',
+  );
+  if (in_array($current_path, $map_paths)) {
 
     // Load the areas map.
     $map = \Drupal\openlayers\Openlayers::load('Map', 'farm_areas');
