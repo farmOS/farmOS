@@ -233,16 +233,6 @@ function farm_livestock_eggs_views_default_views() {
   $handler->display->display_options['filters']['date_filter']['expose']['label'] = 'Start date';
   $handler->display->display_options['filters']['date_filter']['expose']['operator'] = 'date_filter_op';
   $handler->display->display_options['filters']['date_filter']['expose']['identifier'] = 'date_filter';
-  $handler->display->display_options['filters']['date_filter']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    30037204 => 0,
-    200153887 => 0,
-    125843996 => 0,
-    173712484 => 0,
-    196317508 => 0,
-    146437786 => 0,
-  );
   $handler->display->display_options['filters']['date_filter']['year_range'] = '-10:+3';
   $handler->display->display_options['filters']['date_filter']['date_fields'] = array(
     'log.timestamp' => 'log.timestamp',
@@ -258,16 +248,6 @@ function farm_livestock_eggs_views_default_views() {
   $handler->display->display_options['filters']['date_filter_1']['expose']['label'] = 'End date';
   $handler->display->display_options['filters']['date_filter_1']['expose']['operator'] = 'date_filter_1_op';
   $handler->display->display_options['filters']['date_filter_1']['expose']['identifier'] = 'date_filter_1';
-  $handler->display->display_options['filters']['date_filter_1']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    30037204 => 0,
-    200153887 => 0,
-    125843996 => 0,
-    173712484 => 0,
-    196317508 => 0,
-    146437786 => 0,
-  );
   $handler->display->display_options['filters']['date_filter_1']['year_range'] = '-10:+3';
   $handler->display->display_options['filters']['date_filter_1']['date_fields'] = array(
     'log.timestamp' => 'log.timestamp',
@@ -283,12 +263,6 @@ function farm_livestock_eggs_views_default_views() {
   $handler->display->display_options['filters']['field_farm_animal_group_tid']['expose']['label'] = 'Group';
   $handler->display->display_options['filters']['field_farm_animal_group_tid']['expose']['operator'] = 'field_farm_animal_group_tid_op';
   $handler->display->display_options['filters']['field_farm_animal_group_tid']['expose']['identifier'] = 'field_farm_animal_group_tid';
-  $handler->display->display_options['filters']['field_farm_animal_group_tid']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    30037204 => 0,
-    200153887 => 0,
-  );
   $handler->display->display_options['filters']['field_farm_animal_group_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_farm_animal_group_tid']['vocabulary'] = 'farm_animal_groups';
   $handler->display->display_options['filters']['field_farm_animal_group_tid']['hierarchy'] = 1;

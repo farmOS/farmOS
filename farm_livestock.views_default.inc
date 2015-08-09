@@ -482,16 +482,6 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['filters']['name']['expose']['label'] = 'Name';
   $handler->display->display_options['filters']['name']['expose']['operator'] = 'name_op';
   $handler->display->display_options['filters']['name']['expose']['identifier'] = 'name';
-  $handler->display->display_options['filters']['name']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    30037204 => 0,
-    200153887 => 0,
-    125843996 => 0,
-    173712484 => 0,
-    196317508 => 0,
-    146437786 => 0,
-  );
   /* Filter criterion: Farm asset: Sex (field_farm_animal_sex) */
   $handler->display->display_options['filters']['field_farm_animal_sex_value']['id'] = 'field_farm_animal_sex_value';
   $handler->display->display_options['filters']['field_farm_animal_sex_value']['table'] = 'field_data_field_farm_animal_sex';
@@ -502,16 +492,6 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['filters']['field_farm_animal_sex_value']['expose']['label'] = 'Sex';
   $handler->display->display_options['filters']['field_farm_animal_sex_value']['expose']['operator'] = 'field_farm_animal_sex_value_op';
   $handler->display->display_options['filters']['field_farm_animal_sex_value']['expose']['identifier'] = 'field_farm_animal_sex_value';
-  $handler->display->display_options['filters']['field_farm_animal_sex_value']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    30037204 => 0,
-    200153887 => 0,
-    125843996 => 0,
-    173712484 => 0,
-    196317508 => 0,
-    146437786 => 0,
-  );
   /* Filter criterion: Farm asset: Type (field_farm_animal_type) */
   $handler->display->display_options['filters']['field_farm_animal_type_tid']['id'] = 'field_farm_animal_type_tid';
   $handler->display->display_options['filters']['field_farm_animal_type_tid']['table'] = 'field_data_field_farm_animal_type';
@@ -523,16 +503,6 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['filters']['field_farm_animal_type_tid']['expose']['label'] = 'Type';
   $handler->display->display_options['filters']['field_farm_animal_type_tid']['expose']['operator'] = 'field_farm_animal_type_tid_op';
   $handler->display->display_options['filters']['field_farm_animal_type_tid']['expose']['identifier'] = 'field_farm_animal_type_tid';
-  $handler->display->display_options['filters']['field_farm_animal_type_tid']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    30037204 => 0,
-    200153887 => 0,
-    125843996 => 0,
-    173712484 => 0,
-    196317508 => 0,
-    146437786 => 0,
-  );
   $handler->display->display_options['filters']['field_farm_animal_type_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_farm_animal_type_tid']['vocabulary'] = 'farm_animal_types';
   $handler->display->display_options['filters']['field_farm_animal_type_tid']['hierarchy'] = 1;
@@ -545,12 +515,6 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['filters']['field_farm_animal_group_tid']['expose']['label'] = 'Group';
   $handler->display->display_options['filters']['field_farm_animal_group_tid']['expose']['operator'] = 'field_farm_animal_group_tid_op';
   $handler->display->display_options['filters']['field_farm_animal_group_tid']['expose']['identifier'] = 'field_farm_animal_group_tid';
-  $handler->display->display_options['filters']['field_farm_animal_group_tid']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    30037204 => 0,
-    200153887 => 0,
-  );
   $handler->display->display_options['filters']['field_farm_animal_group_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_farm_animal_group_tid']['vocabulary'] = 'farm_animal_groups';
   $handler->display->display_options['filters']['field_farm_animal_group_tid']['hierarchy'] = 1;
