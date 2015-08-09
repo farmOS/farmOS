@@ -611,7 +611,7 @@ function farm_log_views_default_views() {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'farm/plan/activities';
+  $handler->display->display_options['path'] = 'farm/activities';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Activities';
   $handler->display->display_options['menu']['weight'] = '';
@@ -864,7 +864,7 @@ if (!empty($farm_asset)) {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page_1');
-  $handler->display->display_options['path'] = 'farm/plan/movements';
+  $handler->display->display_options['path'] = 'farm/movements';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Movements';
   $handler->display->display_options['menu']['weight'] = '0';
@@ -1202,7 +1202,7 @@ if (!empty($farm_asset)) {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page_1');
-  $handler->display->display_options['path'] = 'farm/plan/observations';
+  $handler->display->display_options['path'] = 'farm/observations';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Observations';
   $handler->display->display_options['menu']['weight'] = '0';
