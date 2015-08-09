@@ -54,8 +54,9 @@ function farm_admin_menu() {
  */
 function farm_admin_menu_breadcrumb_alter(&$active_trail, $item) {
 
-  // If the current path contains /farm...
-  if (strpos($item['path'], 'farm') === 0) {
+  // If the current path contains /farm, and a link to /farm does not already
+  // exist in the second position...
+  if ((strpos($item['path'], 'farm') === 0) && ($active_trail[1]['link_path'] != 'farm')) {
 
     // Add an item for /farm.
     $start = array_shift($active_trail);
