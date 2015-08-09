@@ -247,7 +247,7 @@ function farm_area_page_build(&$page) {
   $current_path = current_path();
   $map_paths = array(
     'farm',
-    'farm/plan',
+    'farm/dashboard',
     'farm/areas',
     'farm/areas/list',
   );
