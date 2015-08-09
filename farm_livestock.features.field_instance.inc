@@ -15,7 +15,7 @@ function farm_livestock_field_default_field_instances() {
     'bundle' => 'animal',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Assign this animal to a particular group, herd, flock, etc. You can manage the list of available groups in the <a href="/farm/animals/groups">Animal Groups</a> vocabulary.',
+    'description' => 'Assign this animal to a particular group, herd, flock, etc. You can manage the list of available groups in the ' . l('Animal Groups', 'farm/animals/groups') . ' vocabulary.',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -184,7 +184,7 @@ function farm_livestock_field_default_field_instances() {
     'bundle' => 'animal',
     'default_value' => array(),
     'deleted' => 0,
-    'description' => 'What type of animal is this? You can manage the list of available types in the <a href="/farm/animals/types">Animal Types</a> vocabulary.',
+    'description' => 'What type of animal is this? You can manage the list of available types in the ' . l('Animal Types', 'farm/animals/types') . ' vocabulary.',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -524,7 +524,7 @@ function farm_livestock_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Assign this animal to a particular group, herd, flock, etc. You can manage the list of available groups in the <a href="/farm/animals/groups">Animal Groups</a> vocabulary.');
+  t('Assign this animal to a particular group, herd, flock, etc. You can manage the list of available groups in the ' . l('Animal Groups', 'farm/animals/groups') . ' vocabulary.');
   t('Body Location');
   t('Date of birth');
   t('Description');
@@ -540,7 +540,7 @@ function farm_livestock_field_default_field_instances() {
   t('Sex');
   t('Tag Type');
   t('Type');
-  t('What type of animal is this? You can manage the list of available types in the <a href="/farm/animals/types">Animal Types</a> vocabulary.');
+  t('What type of animal is this? You can manage the list of available types in the ' . l('Animal Types', 'farm/animals/types') . ' vocabulary.');
 
   return $field_instances;
 }
