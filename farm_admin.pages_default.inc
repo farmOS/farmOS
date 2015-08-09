@@ -78,7 +78,7 @@ function farm_admin_default_page_manager_pages() {
     ),
   );
   $display->cache = array();
-  $display->title = 'Farm Plan';
+  $display->title = 'Farm Dashboard';
   $display->uuid = 'b46e42eb-9d6a-46b4-b14e-217133e33208';
   $display->content = array();
   $display->panels = array();
