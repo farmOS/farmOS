@@ -152,7 +152,7 @@ function farm_crop_field_default_field_instances() {
     'bundle' => 'planting',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Assign this planting to a season. You can manage these options in the <a href="/admin/structure/taxonomy/farm_season">Seasons</a> vocabulary.',
+    'description' => 'Assign this planting to a season. You can manage these options in the ' . l('Seasons', 'admin/structure/taxonomy/farm_season') . ' vocabulary.',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -223,7 +223,7 @@ function farm_crop_field_default_field_instances() {
     'bundle' => 'farm_harvest',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Harvests must reference a specific planting. You can view a list of all plantings, and add new ones, from the <a href="/farm/plantings">Plantings list</a>.',
+    'description' => 'Harvests must reference a specific planting. You can view a list of all plantings, and add new ones, from the ' . l('Plantings list', 'farm/plantings') . '.',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -661,7 +661,7 @@ function farm_crop_field_default_field_instances() {
     'bundle' => 'farm_seeding',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Seedings must reference a specific planting. You can view a list of all plantings, and add new ones, from the <a href="/farm/plantings">Plantings list</a>.',
+    'description' => 'Seedings must reference a specific planting. You can view a list of all plantings, and add new ones, from the ' . l('Plantings list', 'farm/plantings') . '.',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -799,7 +799,7 @@ function farm_crop_field_default_field_instances() {
     'bundle' => 'farm_transplanting',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Transplantings must reference a specific planting. You can view a list of all plantings, and add new ones, from the <a href="/farm/plantings">Plantings list</a>.',
+    'description' => 'Transplantings must reference a specific planting. You can view a list of all plantings, and add new ones, from the ' . l('Plantings list', 'farm/plantings') . '.',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -1092,7 +1092,7 @@ function farm_crop_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Application Method');
   t('Area');
-  t('Assign this planting to a season. You can manage these options in the <a href="/admin/structure/taxonomy/farm_season">Seasons</a> vocabulary.');
+  t('Assign this planting to a season. You can manage these options in the ' . l('Seasons', 'admin/structure/taxonomy/farm_season') . ' vocabulary.');
   t('Companions');
   t('Crop');
   t('Crop family');
@@ -1105,7 +1105,7 @@ function farm_crop_field_default_field_instances() {
   t('Description');
   t('Does this input apply to a specific planting?');
   t('Enter the crop that this is a planting of. As you type, you will have the option of selecting from crops that you\'ve entered in the past.');
-  t('Harvests must reference a specific planting. You can view a list of all plantings, and add new ones, from the <a href="/farm/plantings">Plantings list</a>.');
+  t('Harvests must reference a specific planting. You can view a list of all plantings, and add new ones, from the ' . l('Plantings list', 'farm/plantings') . '.');
   t('How was this input applied?');
   t('Is this input being added to a specific area?');
   t('Material');
@@ -1115,10 +1115,10 @@ function farm_crop_field_default_field_instances() {
   t('Purpose');
   t('Quantity');
   t('Season');
-  t('Seedings must reference a specific planting. You can view a list of all plantings, and add new ones, from the <a href="/farm/plantings">Plantings list</a>.');
+  t('Seedings must reference a specific planting. You can view a list of all plantings, and add new ones, from the ' . l('Plantings list', 'farm/plantings') . '.');
   t('Source/Manufacturer');
   t('Source/Supplier');
-  t('Transplantings must reference a specific planting. You can view a list of all plantings, and add new ones, from the <a href="/farm/plantings">Plantings list</a>.');
+  t('Transplantings must reference a specific planting. You can view a list of all plantings, and add new ones, from the ' . l('Plantings list', 'farm/plantings') . '.');
   t('What material is being applied? As you type, you will have the option of selecting from materials that you\'ve entered in the past.');
   t('What was the purpose of this input?');
   t('Where was this input obtained? Who manufactured it?');
