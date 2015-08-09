@@ -138,16 +138,6 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['filters']['field_farm_crop_family_tid']['expose']['label'] = 'Crop family';
   $handler->display->display_options['filters']['field_farm_crop_family_tid']['expose']['operator'] = 'field_farm_crop_family_tid_op';
   $handler->display->display_options['filters']['field_farm_crop_family_tid']['expose']['identifier'] = 'field_farm_crop_family_tid';
-  $handler->display->display_options['filters']['field_farm_crop_family_tid']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    30037204 => 0,
-    200153887 => 0,
-    125843996 => 0,
-    173712484 => 0,
-    196317508 => 0,
-    146437786 => 0,
-  );
   $handler->display->display_options['filters']['field_farm_crop_family_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_farm_crop_family_tid']['vocabulary'] = 'farm_crop_families';
   $handler->display->display_options['filters']['field_farm_crop_family_tid']['hierarchy'] = 1;
@@ -162,16 +152,6 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['filters']['name']['expose']['label'] = 'Name';
   $handler->display->display_options['filters']['name']['expose']['operator'] = 'name_op';
   $handler->display->display_options['filters']['name']['expose']['identifier'] = 'name';
-  $handler->display->display_options['filters']['name']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    30037204 => 0,
-    200153887 => 0,
-    125843996 => 0,
-    173712484 => 0,
-    196317508 => 0,
-    146437786 => 0,
-  );
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
@@ -397,16 +377,6 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['filters']['date_filter']['expose']['label'] = 'Start date';
   $handler->display->display_options['filters']['date_filter']['expose']['operator'] = 'date_filter_op';
   $handler->display->display_options['filters']['date_filter']['expose']['identifier'] = 'date_filter';
-  $handler->display->display_options['filters']['date_filter']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    30037204 => 0,
-    200153887 => 0,
-    125843996 => 0,
-    173712484 => 0,
-    196317508 => 0,
-    146437786 => 0,
-  );
   $handler->display->display_options['filters']['date_filter']['year_range'] = '-10:+3';
   $handler->display->display_options['filters']['date_filter']['date_fields'] = array(
     'log.timestamp' => 'log.timestamp',
@@ -421,16 +391,6 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['filters']['date_filter_1']['expose']['label'] = 'End date';
   $handler->display->display_options['filters']['date_filter_1']['expose']['operator'] = 'date_filter_1_op';
   $handler->display->display_options['filters']['date_filter_1']['expose']['identifier'] = 'date_filter_1';
-  $handler->display->display_options['filters']['date_filter_1']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    30037204 => 0,
-    200153887 => 0,
-    125843996 => 0,
-    173712484 => 0,
-    196317508 => 0,
-    146437786 => 0,
-  );
   $handler->display->display_options['filters']['date_filter_1']['year_range'] = '-10:+3';
   $handler->display->display_options['filters']['date_filter_1']['date_fields'] = array(
     'log.timestamp' => 'log.timestamp',
@@ -686,16 +646,6 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['filters']['date_filter']['expose']['label'] = 'Start date';
   $handler->display->display_options['filters']['date_filter']['expose']['operator'] = 'date_filter_op';
   $handler->display->display_options['filters']['date_filter']['expose']['identifier'] = 'date_filter';
-  $handler->display->display_options['filters']['date_filter']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    30037204 => 0,
-    200153887 => 0,
-    125843996 => 0,
-    173712484 => 0,
-    196317508 => 0,
-    146437786 => 0,
-  );
   $handler->display->display_options['filters']['date_filter']['year_range'] = '-10:+3';
   $handler->display->display_options['filters']['date_filter']['date_fields'] = array(
     'log.timestamp' => 'log.timestamp',
@@ -710,16 +660,6 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['filters']['date_filter_1']['expose']['label'] = 'End date';
   $handler->display->display_options['filters']['date_filter_1']['expose']['operator'] = 'date_filter_1_op';
   $handler->display->display_options['filters']['date_filter_1']['expose']['identifier'] = 'date_filter_1';
-  $handler->display->display_options['filters']['date_filter_1']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    30037204 => 0,
-    200153887 => 0,
-    125843996 => 0,
-    173712484 => 0,
-    196317508 => 0,
-    146437786 => 0,
-  );
   $handler->display->display_options['filters']['date_filter_1']['year_range'] = '-10:+3';
   $handler->display->display_options['filters']['date_filter_1']['date_fields'] = array(
     'log.timestamp' => 'log.timestamp',
@@ -959,16 +899,6 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['filters']['date_filter']['expose']['label'] = 'Start date';
   $handler->display->display_options['filters']['date_filter']['expose']['operator'] = 'date_filter_op';
   $handler->display->display_options['filters']['date_filter']['expose']['identifier'] = 'date_filter';
-  $handler->display->display_options['filters']['date_filter']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    30037204 => 0,
-    200153887 => 0,
-    125843996 => 0,
-    173712484 => 0,
-    196317508 => 0,
-    146437786 => 0,
-  );
   $handler->display->display_options['filters']['date_filter']['year_range'] = '-10:+3';
   $handler->display->display_options['filters']['date_filter']['date_fields'] = array(
     'log.timestamp' => 'log.timestamp',
@@ -983,16 +913,6 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['filters']['date_filter_1']['expose']['label'] = 'End date';
   $handler->display->display_options['filters']['date_filter_1']['expose']['operator'] = 'date_filter_1_op';
   $handler->display->display_options['filters']['date_filter_1']['expose']['identifier'] = 'date_filter_1';
-  $handler->display->display_options['filters']['date_filter_1']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    30037204 => 0,
-    200153887 => 0,
-    125843996 => 0,
-    173712484 => 0,
-    196317508 => 0,
-    146437786 => 0,
-  );
   $handler->display->display_options['filters']['date_filter_1']['year_range'] = '-10:+3';
   $handler->display->display_options['filters']['date_filter_1']['date_fields'] = array(
     'log.timestamp' => 'log.timestamp',
@@ -1228,16 +1148,6 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['filters']['date_filter']['expose']['label'] = 'Start date';
   $handler->display->display_options['filters']['date_filter']['expose']['operator'] = 'date_filter_op';
   $handler->display->display_options['filters']['date_filter']['expose']['identifier'] = 'date_filter';
-  $handler->display->display_options['filters']['date_filter']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    30037204 => 0,
-    200153887 => 0,
-    125843996 => 0,
-    173712484 => 0,
-    196317508 => 0,
-    146437786 => 0,
-  );
   $handler->display->display_options['filters']['date_filter']['year_range'] = '-10:+3';
   $handler->display->display_options['filters']['date_filter']['date_fields'] = array(
     'log.timestamp' => 'log.timestamp',
@@ -1252,16 +1162,6 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['filters']['date_filter_1']['expose']['label'] = 'End date';
   $handler->display->display_options['filters']['date_filter_1']['expose']['operator'] = 'date_filter_1_op';
   $handler->display->display_options['filters']['date_filter_1']['expose']['identifier'] = 'date_filter_1';
-  $handler->display->display_options['filters']['date_filter_1']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    30037204 => 0,
-    200153887 => 0,
-    125843996 => 0,
-    173712484 => 0,
-    196317508 => 0,
-    146437786 => 0,
-  );
   $handler->display->display_options['filters']['date_filter_1']['year_range'] = '-10:+3';
   $handler->display->display_options['filters']['date_filter_1']['date_fields'] = array(
     'log.timestamp' => 'log.timestamp',
@@ -1493,16 +1393,6 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['filters']['field_farm_crop_tid']['expose']['label'] = 'Crop';
   $handler->display->display_options['filters']['field_farm_crop_tid']['expose']['operator'] = 'field_farm_crop_tid_op';
   $handler->display->display_options['filters']['field_farm_crop_tid']['expose']['identifier'] = 'field_farm_crop_tid';
-  $handler->display->display_options['filters']['field_farm_crop_tid']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    30037204 => 0,
-    200153887 => 0,
-    125843996 => 0,
-    173712484 => 0,
-    196317508 => 0,
-    146437786 => 0,
-  );
   $handler->display->display_options['filters']['field_farm_crop_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_farm_crop_tid']['vocabulary'] = 'farm_crops';
   $handler->display->display_options['filters']['field_farm_crop_tid']['hierarchy'] = 1;
@@ -1516,16 +1406,6 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['filters']['field_farm_season_tid']['expose']['label'] = 'Season';
   $handler->display->display_options['filters']['field_farm_season_tid']['expose']['operator'] = 'field_farm_season_tid_op';
   $handler->display->display_options['filters']['field_farm_season_tid']['expose']['identifier'] = 'field_farm_season_tid';
-  $handler->display->display_options['filters']['field_farm_season_tid']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    30037204 => 0,
-    200153887 => 0,
-    125843996 => 0,
-    173712484 => 0,
-    196317508 => 0,
-    146437786 => 0,
-  );
   $handler->display->display_options['filters']['field_farm_season_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_farm_season_tid']['vocabulary'] = 'farm_season';
   $handler->display->display_options['filters']['field_farm_season_tid']['hierarchy'] = 1;
