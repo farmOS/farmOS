@@ -224,12 +224,6 @@ function farm_soil_test_views_default_views() {
   $handler->display->display_options['filters']['name']['expose']['label'] = 'Name';
   $handler->display->display_options['filters']['name']['expose']['operator'] = 'name_op';
   $handler->display->display_options['filters']['name']['expose']['identifier'] = 'name';
-  $handler->display->display_options['filters']['name']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    30037204 => 0,
-    200153887 => 0,
-  );
   /* Filter criterion: Date: Date (log) */
   $handler->display->display_options['filters']['date_filter']['id'] = 'date_filter';
   $handler->display->display_options['filters']['date_filter']['table'] = 'log';
@@ -240,12 +234,6 @@ function farm_soil_test_views_default_views() {
   $handler->display->display_options['filters']['date_filter']['expose']['label'] = 'Start date';
   $handler->display->display_options['filters']['date_filter']['expose']['operator'] = 'date_filter_op';
   $handler->display->display_options['filters']['date_filter']['expose']['identifier'] = 'date_filter';
-  $handler->display->display_options['filters']['date_filter']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    30037204 => 0,
-    200153887 => 0,
-  );
   $handler->display->display_options['filters']['date_filter']['year_range'] = '-10:+3';
   $handler->display->display_options['filters']['date_filter']['date_fields'] = array(
     'log.timestamp' => 'log.timestamp',
@@ -260,12 +248,6 @@ function farm_soil_test_views_default_views() {
   $handler->display->display_options['filters']['date_filter_1']['expose']['label'] = 'End date';
   $handler->display->display_options['filters']['date_filter_1']['expose']['operator'] = 'date_filter_1_op';
   $handler->display->display_options['filters']['date_filter_1']['expose']['identifier'] = 'date_filter_1';
-  $handler->display->display_options['filters']['date_filter_1']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    30037204 => 0,
-    200153887 => 0,
-  );
   $handler->display->display_options['filters']['date_filter_1']['year_range'] = '-10:+3';
   $handler->display->display_options['filters']['date_filter_1']['date_fields'] = array(
     'log.timestamp' => 'log.timestamp',
