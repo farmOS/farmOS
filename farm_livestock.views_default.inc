@@ -108,10 +108,9 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Groups';
   $handler->display->display_options['menu']['weight'] = '10';
-  $handler->display->display_options['menu']['name'] = 'management';
+  $handler->display->display_options['menu']['name'] = 'farm';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
-  $handler->display->display_options['tab_options']['weight'] = '';
   $export['farm_animal_groups'] = $view;
 
   $view = new view();
@@ -212,10 +211,9 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Types';
   $handler->display->display_options['menu']['weight'] = '0';
-  $handler->display->display_options['menu']['name'] = 'management';
+  $handler->display->display_options['menu']['name'] = 'farm';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
-  $handler->display->display_options['tab_options']['weight'] = '';
   $export['farm_animal_types'] = $view;
 
   $view = new view();
@@ -525,12 +523,13 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['menu']['type'] = 'default tab';
   $handler->display->display_options['menu']['title'] = 'Animals';
   $handler->display->display_options['menu']['weight'] = '-10';
-  $handler->display->display_options['menu']['name'] = 'management';
+  $handler->display->display_options['menu']['name'] = 'farm';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
-  $handler->display->display_options['tab_options']['type'] = 'tab';
+  $handler->display->display_options['tab_options']['type'] = 'normal';
   $handler->display->display_options['tab_options']['title'] = 'Animals';
   $handler->display->display_options['tab_options']['weight'] = '10';
+  $handler->display->display_options['tab_options']['name'] = 'farm';
   $export['farm_animals'] = $view;
 
   return $export;
