@@ -33,6 +33,18 @@ function farm_area_farm_manager_perms() {
 /**
  * Implements hook_farm_manager_perms().
  */
+function farm_asset_farm_manager_perms() {
+  $perms = array();
+
+  // Access RESTful Web Services farm_asset resources.
+  $perms[] = 'access resource farm_asset';
+
+  return $perms;
+}
+
+/**
+ * Implements hook_farm_manager_perms().
+ */
 function farm_taxonomy_farm_manager_perms() {
 
   // Build a list of permissions on behalf of the farm_taxonomy module.
@@ -169,6 +181,21 @@ function log_farm_manager_perms() {
 
   // Access farm dashboard.
   $perms[] = 'view log plan';
+
+  // Access RESTful Web Services log resources.
+  $perms[] = 'access resource log';
+
+  return $perms;
+}
+
+/**
+ * Implements hook_farm_manager_perms().
+ */
+function taxonomy_farm_manager_perms() {
+  $perms = array();
+
+  // Access RESTful Web Services taxonomy_term resources.
+  $perms[] = 'access resource taxonomy_term';
 
   return $perms;
 }
