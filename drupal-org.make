@@ -96,6 +96,9 @@ projects[pathauto_entity][version] = "1.0"
 projects[registry_autoload][subdir] = "contrib"
 projects[registry_autoload][version] = "1.2"
 
+projects[restws][subdir] = "contrib"
+projects[restws][version] = "2.4"
+
 projects[role_export][subdir] = "contrib"
 projects[role_export][version] = "1.0"
 

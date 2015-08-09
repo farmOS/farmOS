@@ -109,6 +109,13 @@ function farm_update_7003(&$sandbox) {
 }
 
 /**
+ * Enable the RESTful Web Services module.
+ */
+function farm_update_7004(&$sandbox) {
+  _farm_enable_modules(array('restws'));
+}
+
+/**
  * Helper function: enable modules.
  */
 function _farm_enable_modules($modules = array()) {

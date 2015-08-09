@@ -28,6 +28,7 @@ dependencies[] = logintoboggan
 dependencies[] = jquery_update
 dependencies[] = module_filter
 dependencies[] = navbar
+dependencies[] = restws
 
 ; Farm
 dependencies[] = farm_admin
