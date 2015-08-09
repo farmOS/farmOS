@@ -2,4 +2,3 @@ name = Farm Manager
 description = Provides a Farm Manager role with all farm permissions.
 core = 7.x
 package = farmOS
-
