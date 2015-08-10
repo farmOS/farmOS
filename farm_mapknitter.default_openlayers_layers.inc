@@ -30,7 +30,7 @@ function farm_mapknitter_default_openlayers_layers() {
     'source' => 'farm_mapknitter_source',
     'visible' => 1,
   );
-  $export['farm_mapknitter_source'] = $ol_layer;
+  $export['farm_mapknitter_layer'] = $ol_layer;
 
   // Add a layer group for MapKnitter layers.
   $ol_layer = new stdClass();
