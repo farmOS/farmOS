@@ -9,6 +9,14 @@
  */
 function farm_mapknitter_default_openlayers_maps_alter(&$maps) {
 
+  // Load the MapKnitter slug.
+  $slug = variable_get('farm_mapknitter_slug', '');
+
+  // If the slug is blank, bail.
+  if (empty($slug)) {
+    return;
+  }
+
   // Add the MapKnitter layer group to farm maps.
   $farm_maps = array(
     'farm_areas',

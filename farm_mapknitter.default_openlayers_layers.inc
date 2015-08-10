@@ -10,11 +10,12 @@
 function farm_mapknitter_default_openlayers_layers() {
   $export = array();
 
-  // Load the MapKnitter title.
+  // Load the MapKnitter slug and title.
+  $slug = variable_get('farm_mapknitter_slug', '');
   $title = variable_get('farm_mapknitter_title', '');
 
-  // If the title isn't set, bail.
-  if (empty($title)) {
+  // If the slug or title is empty, bail.
+  if (empty($slug) || empty($title)) {
     return $export;
   }
 
