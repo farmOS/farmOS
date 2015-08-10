@@ -178,7 +178,7 @@ projects[farm_map][subdir] = "farm"
 projects[farm_map][version] = "1.0-beta4"
 
 projects[farm_mapknitter][subdir] = "farm"
-projects[farm_mapknitter][version] = "1.x-dev"
+projects[farm_mapknitter][version] = "1.0"
 
 projects[farm_manager][subdir] = "farm"
 projects[farm_manager][version] = "1.0-beta4"
