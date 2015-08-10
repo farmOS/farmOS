@@ -32,8 +32,8 @@ function farm_mapknitter_menu() {
   $items = array();
 
   $items['admin/config/farm/mapknitter'] = array(
-    'title' => 'MapKnitter Layers',
-    'description' => 'Include MapKnitter layers in your farm maps.',
+    'title' => 'MapKnitter',
+    'description' => 'Include a MapKnitter layer in your farm maps.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('farm_mapknitter_form'),
     'access arguments' => array('administer farm_mapknitter module'),
@@ -47,10 +47,11 @@ function farm_mapknitter_menu() {
  */
 function farm_mapknitter_form($form, &$form_state) {
 
+  // MapKnitter layer title.
   $form['farm_mapknitter_title'] = array(
     '#type' => 'textfield',
-    '#title' => t('MapKnitter TMS Title'),
-    '#description' => t('Give the MapKnitter TMS layer a name.'),
+    '#title' => t('MapKnitter layer title'),
+    '#description' => t('Give your MapKnitter layer a name. This will be used in the layer switcher '),
     '#default_value' => variable_get('farm_mapknitter_title', ''),
   );
 
