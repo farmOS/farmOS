@@ -10,13 +10,19 @@
 function farm_mapknitter_default_openlayers_sources() {
   $export = array();
 
-  // Load the MapKnitter title and URL.
-  $url = variable_get('farm_mapknitter_url', '');
+  // Load the MapKnitter slug.
+  $slug = variable_get('farm_mapknitter_slug', '');
 
-  // If either the title or URL are blank, or the URL is not valid, bail.
-  if (empty($url) || !valid_url($url, TRUE)) {
+  // If the slug is blank, bail.
+  if (empty($slug)) {
     return $export;
   }
+
+  // Check plain.
+  $slug = check_plain($slug);
+
+  // Assemble the URL.
+  $url = 'http://mapknitter.org/tms/' . $slug . '/{z}/{x}/{-y}.png';
 
   // Generate a MapKnitter source.
   $ol_source = new stdClass();

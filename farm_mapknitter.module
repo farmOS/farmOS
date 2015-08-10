@@ -54,11 +54,12 @@ function farm_mapknitter_form($form, &$form_state) {
     '#default_value' => variable_get('farm_mapknitter_title', ''),
   );
 
-  $form['farm_mapknitter_url'] = array(
+  // MapKnitter slug.
+  $form['farm_mapknitter_slug'] = array(
     '#type' => 'textfield',
-    '#title' => t('MapKnitter TMS URL'),
-    '#description' => t('Enter the URL of the MapKnitter TMS layer you would like to include in your map.'),
-    '#default_value' => variable_get('farm_mapknitter_url', ''),
+    '#title' => t('MapKnitter Slug'),
+    '#description' => t('Enter the unique MapKnitter slug. This would be the [map-slug] part in your MapKnitter map URL: http://mapknitter.org/maps/[map-slug]'),
+    '#default_value' => variable_get('farm_mapknitter_slug', ''),
   );
 
   return system_settings_form($form);
