@@ -12,7 +12,7 @@ projects[colorbox][subdir] = "contrib"
 projects[colorbox][version] = "2.9"
 
 projects[ctools][subdir] = "contrib"
-projects[ctools][version] = "1.7"
+projects[ctools][version] = "1.9"
 
 projects[date][subdir] = "contrib"
 projects[date][version] = "2.8"
