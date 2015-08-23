@@ -128,6 +128,13 @@ function farm_crop_views_default_views() {
     'farm_crops' => 'farm_crops',
   );
   $handler->display->display_options['filters']['machine_name']['group'] = 1;
+  /* Filter criterion: Farm asset: Active */
+  $handler->display->display_options['filters']['active']['id'] = 'active';
+  $handler->display->display_options['filters']['active']['table'] = 'farm_asset';
+  $handler->display->display_options['filters']['active']['field'] = 'active';
+  $handler->display->display_options['filters']['active']['relationship'] = 'reverse_field_farm_crop_farm_asset';
+  $handler->display->display_options['filters']['active']['value'] = '1';
+  $handler->display->display_options['filters']['active']['group'] = 1;
   /* Filter criterion: Taxonomy term: Crop family (field_farm_crop_family) */
   $handler->display->display_options['filters']['field_farm_crop_family_tid']['id'] = 'field_farm_crop_family_tid';
   $handler->display->display_options['filters']['field_farm_crop_family_tid']['table'] = 'field_data_field_farm_crop_family';
@@ -1399,6 +1406,16 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['filters']['field_farm_season_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_farm_season_tid']['vocabulary'] = 'farm_season';
   $handler->display->display_options['filters']['field_farm_season_tid']['hierarchy'] = 1;
+  /* Filter criterion: Farm asset: Active */
+  $handler->display->display_options['filters']['active']['id'] = 'active';
+  $handler->display->display_options['filters']['active']['table'] = 'farm_asset';
+  $handler->display->display_options['filters']['active']['field'] = 'active';
+  $handler->display->display_options['filters']['active']['value'] = '1';
+  $handler->display->display_options['filters']['active']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['active']['expose']['operator_id'] = '';
+  $handler->display->display_options['filters']['active']['expose']['label'] = 'Active';
+  $handler->display->display_options['filters']['active']['expose']['operator'] = 'active_op';
+  $handler->display->display_options['filters']['active']['expose']['identifier'] = 'active';
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
