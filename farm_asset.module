@@ -266,6 +266,14 @@ function farm_asset_entity_property_info_alter(&$info) {
     'required' => TRUE,
     'schema field' => 'changed',
   );
+  $properties['active'] = array(
+    'label' => t('Active'),
+    'description' => t('Whether the asset is active.'),
+    'setter callback' => 'entity_property_verbatim_set',
+    'setter permission' => 'administer farm_asset module',
+    'schema field' => 'active',
+    'type' => 'boolean',
+  );
 }
 
 /**
@@ -285,6 +293,13 @@ function farm_asset_field_extra_fields() {
           'label' => t('Name'),
           'description' => t('The name of the asset.'),
           'weight' => -10,
+        ),
+
+        // Display the active field.
+        'active' => array(
+          'label' => t('Active'),
+          'description' => t('Whether or not the asset is done.'),
+          'weight' => 100,
         ),
       ),
     );

@@ -49,6 +49,13 @@ function farm_asset_schema() {
         'not null' => TRUE,
         'default' => 0,
       ),
+      'active' => array(
+        'description' => 'Boolean indicating whether the asset is active.',
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'default' => 1,
+      ),
     ),
     'primary key' => array('id'),
     'indexes' => array(
@@ -57,6 +64,7 @@ function farm_asset_schema() {
       'uid' => array('uid'),
       'created' => array('created'),
       'modified' => array('changed'),
+      'active' => array('active'),
     ),
   );
   $schema['farm_asset_type'] = array(
@@ -106,4 +114,21 @@ function farm_asset_schema() {
     ),
   );
   return $schema;
+}
+
+/**
+ * Add 'active' field to farm assets.
+ */
+function farm_asset_update_7000(&$sandbox) {
+
+  // Add 'active' field to farm assets.
+  $active = array(
+    'description' => 'Boolean indicating whether the asset is active.',
+    'type' => 'int',
+    'size' => 'tiny',
+    'not null' => TRUE,
+    'default' => 1,
+  );
+  db_add_field('farm_asset', 'active', $active);
+  db_add_index('farm_asset', 'active', array('active'));
 }

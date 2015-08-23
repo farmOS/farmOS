@@ -74,6 +74,19 @@ function farm_asset_view(FarmAsset $farm_asset) {
     }
   }
 
+  // Add the asset's "active" status.
+  if ($farm_asset->active) {
+    $status = 'YES';
+  }
+  else {
+    $status = 'NO';
+    drupal_set_message(t('This asset is no longer active. Inactive assets should be considered "archived" and should not be edited or deleted unless they contain information that is incorrect.'), 'warning');
+  }
+  $build['farm_asset'][$farm_asset->id]['active'] = array(
+    '#markup' => '<div style="float: right;">Active: <strong>' . $status . '</strong></div>',
+    '#weight' => -100,
+  );
+
   // Return the render array.
   return $build;
 }
@@ -150,6 +163,18 @@ function farm_asset_form(array $form, array &$form_state, FarmAsset $farm_asset)
     '#weight' => -100,
   );
 
+  // Asset active/inactive (new assets are active by default).
+  if (empty($farm_asset->id)) {
+    $farm_asset->active = TRUE;
+  }
+  $form['active'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Active'),
+    '#description' => t('Mark this asset as active/inactive. Inactive assets will not show in most lists, but will be visible in archives.'),
+    '#default_value' => $farm_asset->active,
+  );
+
+  // Asset user id.
   $form['uid'] = array(
     '#type' => 'value',
     '#value' => $farm_asset->uid,
