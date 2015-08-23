@@ -40,6 +40,7 @@ function farm_log_views_default_views() {
     'id' => 'id',
     'name' => 'name',
     'type' => 'type',
+    'active' => 'active',
     'timestamp' => 'timestamp',
     'field_farm_move_from' => 'field_farm_move_from',
   );
@@ -60,6 +61,13 @@ function farm_log_views_default_views() {
       'empty_column' => 0,
     ),
     'type' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'active' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -110,6 +118,12 @@ function farm_log_views_default_views() {
   $handler->display->display_options['fields']['type']['field'] = 'type';
   $handler->display->display_options['fields']['type']['relationship'] = 'field_farm_asset_target_id';
   $handler->display->display_options['fields']['type']['label'] = 'Type';
+  /* Field: Farm asset: Active */
+  $handler->display->display_options['fields']['active']['id'] = 'active';
+  $handler->display->display_options['fields']['active']['table'] = 'farm_asset';
+  $handler->display->display_options['fields']['active']['field'] = 'active';
+  $handler->display->display_options['fields']['active']['relationship'] = 'field_farm_asset_target_id';
+  $handler->display->display_options['fields']['active']['not'] = 0;
   /* Field: Log: Timestamp */
   $handler->display->display_options['fields']['timestamp']['id'] = 'timestamp';
   $handler->display->display_options['fields']['timestamp']['table'] = 'log';
@@ -308,6 +322,28 @@ function farm_log_views_default_views() {
   $handler->display->display_options['filters']['type']['expose']['label'] = 'Asset type';
   $handler->display->display_options['filters']['type']['expose']['operator'] = 'type_op';
   $handler->display->display_options['filters']['type']['expose']['identifier'] = 'type';
+  /* Filter criterion: Farm asset: Name */
+  $handler->display->display_options['filters']['name']['id'] = 'name';
+  $handler->display->display_options['filters']['name']['table'] = 'farm_asset';
+  $handler->display->display_options['filters']['name']['field'] = 'name';
+  $handler->display->display_options['filters']['name']['operator'] = 'contains';
+  $handler->display->display_options['filters']['name']['group'] = 1;
+  $handler->display->display_options['filters']['name']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['name']['expose']['operator_id'] = 'name_op';
+  $handler->display->display_options['filters']['name']['expose']['label'] = 'Name';
+  $handler->display->display_options['filters']['name']['expose']['operator'] = 'name_op';
+  $handler->display->display_options['filters']['name']['expose']['identifier'] = 'name';
+  /* Filter criterion: Farm asset: Active */
+  $handler->display->display_options['filters']['active']['id'] = 'active';
+  $handler->display->display_options['filters']['active']['table'] = 'farm_asset';
+  $handler->display->display_options['filters']['active']['field'] = 'active';
+  $handler->display->display_options['filters']['active']['value'] = '1';
+  $handler->display->display_options['filters']['active']['group'] = 1;
+  $handler->display->display_options['filters']['active']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['active']['expose']['operator_id'] = '';
+  $handler->display->display_options['filters']['active']['expose']['label'] = 'Active';
+  $handler->display->display_options['filters']['active']['expose']['operator'] = 'active_op';
+  $handler->display->display_options['filters']['active']['expose']['identifier'] = 'active';
   /* Filter criterion: Log: To (field_farm_move_to) */
   $handler->display->display_options['filters']['field_farm_move_to_tid']['id'] = 'field_farm_move_to_tid';
   $handler->display->display_options['filters']['field_farm_move_to_tid']['table'] = 'field_data_field_farm_move_to';
@@ -321,17 +357,6 @@ function farm_log_views_default_views() {
   $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['operator'] = 'field_farm_move_to_tid_op';
   $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['identifier'] = 'field_farm_move_to_tid';
   $handler->display->display_options['filters']['field_farm_move_to_tid']['vocabulary'] = 'farm_areas';
-  /* Filter criterion: Farm asset: Name */
-  $handler->display->display_options['filters']['name']['id'] = 'name';
-  $handler->display->display_options['filters']['name']['table'] = 'farm_asset';
-  $handler->display->display_options['filters']['name']['field'] = 'name';
-  $handler->display->display_options['filters']['name']['operator'] = 'contains';
-  $handler->display->display_options['filters']['name']['group'] = 1;
-  $handler->display->display_options['filters']['name']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['name']['expose']['operator_id'] = 'name_op';
-  $handler->display->display_options['filters']['name']['expose']['label'] = 'Name';
-  $handler->display->display_options['filters']['name']['expose']['operator'] = 'name_op';
-  $handler->display->display_options['filters']['name']['expose']['identifier'] = 'name';
 
   /* Display: Entity Reference View Widget */
   $handler = $view->new_display('entityreference_view_widget', 'Entity Reference View Widget', 'entityreference_view_widget');
