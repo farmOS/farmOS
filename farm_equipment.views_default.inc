@@ -170,6 +170,16 @@ function farm_equipment_views_default_views() {
   $handler->display->display_options['filters']['name']['expose']['label'] = 'Name';
   $handler->display->display_options['filters']['name']['expose']['operator'] = 'name_op';
   $handler->display->display_options['filters']['name']['expose']['identifier'] = 'name';
+  /* Filter criterion: Farm asset: Active */
+  $handler->display->display_options['filters']['active']['id'] = 'active';
+  $handler->display->display_options['filters']['active']['table'] = 'farm_asset';
+  $handler->display->display_options['filters']['active']['field'] = 'active';
+  $handler->display->display_options['filters']['active']['value'] = '1';
+  $handler->display->display_options['filters']['active']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['active']['expose']['operator_id'] = '';
+  $handler->display->display_options['filters']['active']['expose']['label'] = 'Active';
+  $handler->display->display_options['filters']['active']['expose']['operator'] = 'active_op';
+  $handler->display->display_options['filters']['active']['expose']['identifier'] = 'active';
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
