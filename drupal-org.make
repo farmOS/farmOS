@@ -152,7 +152,7 @@ projects[module_filter][version] = "2.0"
 ; -----------------------------------------------------------------------------
 
 projects[farm_admin][subdir] = "farm"
-projects[farm_admin][version] = "1.0-beta4"
+projects[farm_admin][version] = "1.0-beta5"
 
 projects[farm_area][subdir] = "farm"
 projects[farm_area][version] = "1.0-beta5"
