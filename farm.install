@@ -28,6 +28,9 @@ function farm_install() {
 
   // Display the login form on access denied pages (via logintoboggan).
   variable_set('site_403', 'toboggan/denied');
+
+  // Load Openlayers 3.8.2 from jsDelivr CDN.
+  \Drupal\openlayers\Config::set('openlayers.variant', 'jsdelivr:ol3:3.8.2');
 }
 
 /**
