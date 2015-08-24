@@ -34,12 +34,7 @@ function farm_admin_default_page_manager_pages() {
     'title' => 'Farm',
     'name' => 'farm',
     'weight' => '-100',
-    'parent' => array(
-      'type' => 'normal',
-      'title' => 'Farm',
-      'name' => 'farm',
-      'weight' => '-100',
-    ),
+    'parent' => array(),
   );
   $page->arguments = array();
   $page->conf = array(
