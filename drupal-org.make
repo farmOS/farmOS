@@ -200,6 +200,8 @@ projects[farm_taxonomy][version] = "1.0-beta3"
 projects[bootstrap][version] = "3.1-beta3"
 ; Patch to fix http://www.drupal.org/node/2468625
 projects[bootstrap][patch][] = "http://www.drupal.org/files/issues/bootstrap_panel_element_id-2468625-7.patch"
+; Patch to fix bootstrap_fluid_container default theme setting.
+projects[bootstrap][patch][] = "http://www.drupal.org/files/issues/bootstrap_fluid_container_default-2556603-1.patch"
 
 projects[farm_theme][version] = "1.0-beta5"
 
