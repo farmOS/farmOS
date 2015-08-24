@@ -197,7 +197,7 @@ projects[farm_taxonomy][version] = "1.0-beta3"
 ; Themes
 ; -----------------------------------------------------------------------------
 
-projects[bootstrap][version] = "3.x-dev"
+projects[bootstrap][version] = "3.1-beta3"
 ; Patch to fix http://www.drupal.org/node/2468625
 projects[bootstrap][patch][] = "http://www.drupal.org/files/issues/bootstrap_panel_element_id-2468625-7.patch"
 
