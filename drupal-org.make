@@ -74,9 +74,7 @@ projects[navbar][subdir] = "contrib"
 projects[navbar][version] = "1.6"
 
 projects[openlayers][subdir] = "contrib"
-projects[openlayers][download][type] = "git"
-projects[openlayers][download][url] = "http://github.com/farmOS/openlayers.git"
-projects[openlayers][download][tag] = "farmOS-beta5"
+projects[openlayers][version] = "3.x-dev"
 ; Fix GoogleMaps in Geofield context.
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_googlemaps_postbuild-2538168-5.patch"
 ; Remove base layer assignment code.
