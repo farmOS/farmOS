@@ -116,6 +116,18 @@ function farm_update_7004(&$sandbox) {
 }
 
 /**
+ * Load Openlayers via CDN.
+ */
+function farm_update_7005(&$sandbox) {
+
+  // Enable the Libraries CDN module.
+  _farm_enable_modules(array('libraries_cdn'));
+
+  // Load Openlayers 3.8.2 from JSDelivr CDN.
+  \Drupal\openlayers\Config::set('openlayers.variant', 'jsdelivr:ol3:3.8.2');
+}
+
+/**
  * Helper function: enable modules.
  */
 function _farm_enable_modules($modules = array()) {

@@ -61,6 +61,9 @@ projects[jquery_update][version] = "3.0-alpha2"
 projects[libraries][subdir] = "contrib"
 projects[libraries][version] = "2.2"
 
+projects[libraries_cdn][subdir] = "contrib"
+projects[libraries_cdn][version] = "1.6"
+
 projects[log][subdir] = "contrib"
 projects[log][version] = "1.0"
 
@@ -209,10 +212,6 @@ libraries[backbone][download][url] = "http://github.com/jashkenas/backbone/archi
 
 libraries[modernizr][download][type] = "get"
 libraries[modernizr][download][url] = "http://github.com/Modernizr/Modernizr/archive/v2.8.3.zip"
-
-libraries[openlayers][download][type] = "get"
-libraries[openlayers][download][url] = "http://github.com/openlayers/ol3/releases/download/v3.7.0/v3.7.0.zip"
-libraries[openlayers][directory_name] = "openlayers3"
 
 libraries[underscore][download][type] = "get"
 libraries[underscore][download][url] = "http://github.com/jashkenas/underscore/archive/1.7.0.zip"
