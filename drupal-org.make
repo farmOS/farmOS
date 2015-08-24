@@ -201,7 +201,7 @@ projects[bootstrap][version] = "3.x-dev"
 ; Patch to fix http://www.drupal.org/node/2468625
 projects[bootstrap][patch][] = "http://www.drupal.org/files/issues/bootstrap_panel_element_id-2468625-7.patch"
 
-projects[farm_theme][version] = "1.0-beta4"
+projects[farm_theme][version] = "1.0-beta5"
 
 ; -----------------------------------------------------------------------------
 ; Libraries
