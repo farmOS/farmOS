@@ -1,6 +1,7 @@
 name = Farm
 distribution_name = farmOS
 description = Farm management system.
+exclusive = 1
 core = 7.x
 
 ; -----------------------------------------------------------------------------
