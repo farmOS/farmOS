@@ -3,6 +3,9 @@ distribution_name = farmOS
 description = Farm management system.
 core = 7.x
 
+; Ensure that usage statistics are sent to drupal.org
+hidden = FALSE
+
 ; Auto-select profile during installation.
 exclusive = TRUE
 
