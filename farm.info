@@ -1,4 +1,4 @@
-name = Farm
+name = farmOS
 distribution_name = farmOS
 description = Farm management system.
 core = 7.x
