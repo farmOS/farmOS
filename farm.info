@@ -1,8 +1,10 @@
 name = Farm
 distribution_name = farmOS
 description = Farm management system.
-exclusive = 1
 core = 7.x
+
+; Auto-select profile during installation.
+exclusive = TRUE
 
 ; -----------------------------------------------------------------------------
 ; Dependencies
