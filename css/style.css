@@ -33,3 +33,12 @@
   margin-left: 0;
   position: relative;
 }
+
+/**
+ * Fix Modal popup close button (x).
+ * See https://www.drupal.org/node/2563967
+ */
+.modal-header .close {
+  color: #222222;
+}
+
