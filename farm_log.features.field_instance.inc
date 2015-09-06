@@ -158,6 +158,61 @@ function farm_log_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_activity-field_farm_files'
+  $field_instances['log-farm_activity-field_farm_files'] = array(
+    'bundle' => 'farm_activity',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'file',
+        'settings' => array(),
+        'type' => 'file_default',
+        'weight' => 6,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_files',
+    'label' => 'Files',
+    'required' => 0,
+    'settings' => array(
+      'description_field' => 1,
+      'file_directory' => '',
+      'file_extensions' => 'csv doc docx odt odp ods pdf ppt pptx txt xls xlsx kml kmz zip tar gz',
+      'filefield_paths' => array(
+        'active_updating' => 0,
+        'file_name' => array(
+          'options' => array(
+            'pathauto' => 0,
+            'transliterate' => 0,
+          ),
+          'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
+        ),
+        'file_path' => array(
+          'options' => array(
+            'pathauto' => 0,
+            'transliterate' => 0,
+          ),
+          'value' => '',
+        ),
+        'retroactive_update' => 0,
+      ),
+      'filefield_paths_enabled' => 1,
+      'max_filesize' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'file',
+      'settings' => array(
+        'progress_indicator' => 'bar',
+      ),
+      'type' => 'file_generic',
+      'weight' => 6,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_activity-field_farm_images'
   $field_instances['log-farm_activity-field_farm_images'] = array(
     'bundle' => 'farm_activity',
@@ -653,6 +708,7 @@ function farm_log_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Area');
   t('Assets');
+  t('Files');
   t('From');
   t('Notes');
   t('Optionally, use this quantity field to record an observed quantity.');
