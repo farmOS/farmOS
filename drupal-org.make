@@ -13,6 +13,8 @@ projects[colorbox][version] = "2.9"
 
 projects[ctools][subdir] = "contrib"
 projects[ctools][version] = "1.9"
+; Patch to fix "Autosubmit forms in modals are broken" (https://www.drupal.org/node/1823088).
+projects[ctools][patch][] = "http://www.drupal.org/files/issues/eventBubblingBugIE8-1823088-9.patch"
 
 projects[date][subdir] = "contrib"
 projects[date][version] = "2.8"
