@@ -12,19 +12,41 @@ function farm_theme_form_alter(&$form, &$form_state, $form_id) {
   // Views Exposed (filters and sort) form:
   if ($form_id == 'views_exposed_form') {
 
-    /* Wrap the exposed form in a Bootstrap collapsed panel. */
+    /* Wrap the exposed form in a Bootstrap collapsible panel. */
+
+    // Collapsible panel ID.
+    $panel_head_id = $form['#id'] . '-panel-heading';
+    $panel_body_id = $form['#id'] . '-panel-body';
+
+    // Collapse by default.
+    $collapse = TRUE;
+    
+    // If the form was submitted (if there are values in $_GET other than 'q'),
+    // do not collapse the form.
+    if (count($_GET) > 1) {
+      $collapse = FALSE;
+    }
+
+    // Set attributes depending on the collapsed state (used in HTML below).
+    if ($collapse) {
+      $collapse_class = '';
+      $aria_expanded = 'false';
+    } else {
+      $collapse_class = ' in';
+      $aria_expanded = 'true';
+    }
 
     // Form prefix HTML:
     $form['#prefix'] = '
 <div class="panel panel-default">
-  <div class="panel-heading" role="tab" id="' . $form['#id'] . '-panel-heading">
+  <div class="panel-heading" role="tab" id="' . $panel_head_id . '">
     <h4 class="panel-title">
-      <a class="collapsed" data-toggle="collapse" href="#' . $form['#id'] . '-panel-body" aria-expanded="false" aria-controls="' . $form['#id'] . '-panel-body">
+      <a data-toggle="collapse" href="#' . $panel_body_id . '" aria-expanded="' . $aria_expanded . '" aria-controls="' . $panel_body_id . '">
         Filter/Sort
       </a>
     </h4>
   </div>
-  <div id="' . $form['#id'] . '-panel-body" class="panel-collapse collapse" role="tabpanel" aria-labelledby="' . $form['#id'] . '-panel-heading" aria-expanded="false" style="height: 0;">
+  <div id="' . $panel_body_id . '" class="panel-collapse collapse' . $collapse_class . '" role="tabpanel" aria-labelledby="' . $panel_head_id . '">
     <div class="panel-body">';
 
     // Form suffix HTML:
