@@ -93,13 +93,12 @@ function farm_crop_farm_admin_actions() {
   return $actions;
 }
 
-
 /**
  * Implements hook_farm_asset_breadcrumb().
  */
 function farm_crop_farm_asset_breadcrumb($farm_asset) {
 
-  // If the asset is a planting, add a link to the animals list.
+  // If the asset is a planting, add a link to the plantings list.
   $breadcrumb = array();
   if ($farm_asset->type == 'planting') {
     $breadcrumb[] = l(t('Plantings'), 'farm/plantings');
