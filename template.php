@@ -20,7 +20,7 @@ function farm_theme_form_alter(&$form, &$form_state, $form_id) {
 
     // Collapse by default.
     $collapse = TRUE;
-    
+
     // If the form was submitted (if there are values in $_GET other than 'q'),
     // do not collapse the form.
     if (count($_GET) > 1) {
