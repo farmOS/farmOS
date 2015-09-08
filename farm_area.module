@@ -13,7 +13,7 @@ function farm_area_farm_area_type_info() {
   return array(
     'building' => array(
       'label' => t('Building'),
-      'style' => 'farm_map_style_brown',
+      'style' => 'farm_map_style_red',
       'weight' => 0,
     ),
     'field' => array(
@@ -23,7 +23,7 @@ function farm_area_farm_area_type_info() {
     ),
     'landmark' => array(
       'label' => t('Landmark'),
-      'style' => 'farm_map_style_red',
+      'style' => 'farm_map_style_orange',
       'weight' => 50,
     ),
     'water' => array(
