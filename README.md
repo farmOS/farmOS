@@ -17,6 +17,8 @@ comes pre-packaged with a set of farm-related modules, including:
 * [Farm Manager](http://drupal.org/project/farm_manager)
 * [Farm Map](http://drupal.org/project/farm_map)
 * [Farm MapKnitter](http://drupal.org/project/farm_mapknitter)
+* [Farm Maple](http://drupal.org/project/farm_maple)
+* [Farm Mushroom](http://drupal.org/project/farm_mushroom)
 * [Farm Soil](http://drupal.org/project/farm_soil)
 * [Farm Taxonomy](http://drupal.org/project/farm_taxonomy)
 
