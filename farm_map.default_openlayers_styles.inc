@@ -14,11 +14,11 @@ function farm_map_default_openlayers_styles() {
   $styles = array(
     'farm_map_style_blue' => array(
       'name' => 'Farm Blue',
-      'color' => 'rgba(51,153,255,0.5)',
+      'color' => 'rgba(51,153,255,1)',
     ),
     'farm_map_style_green' => array(
       'name' => 'Farm Green',
-      'color' => 'rgba(102,204,102,0.5)',
+      'color' => 'rgba(102,204,102,1)',
     ),
     'farm_map_style_grey' => array(
       'name' => 'Farm Grey',
@@ -26,19 +26,19 @@ function farm_map_default_openlayers_styles() {
     ),
     'farm_map_style_orange' => array(
       'name' => 'Farm Orange',
-      'color' => 'rgba(255,153,51,0.5)',
+      'color' => 'rgba(255,153,51,1)',
     ),
     'farm_map_style_purple' => array(
       'name' => 'Farm Purple',
-      'color' => 'rgba(204,51,102,0.5)',
+      'color' => 'rgba(204,51,102,1)',
     ),
     'farm_map_style_red' => array(
       'name' => 'Farm Red',
-      'color' => 'rgba(204,0,0,0.5)',
+      'color' => 'rgba(204,0,0,1)',
     ),
     'farm_map_style_yellow' => array(
       'name' => 'Farm Yellow',
-      'color' => 'rgba(255,255,51,0.5)',
+      'color' => 'rgba(255,255,51,1)',
     ),
   );
 
@@ -53,7 +53,7 @@ function farm_map_default_openlayers_styles() {
     $ol_style->factory_service = 'openlayers.Style:InlineJS';
     $ol_style->options = array(
       'javascript' => 'var fill = new ol.style.Fill({
-  color: "' . $style['color'] . '"
+  color: "rgba(0,0,0,0)"
 });
 var stroke = new ol.style.Stroke({
   color: "' . $style['color'] . '",
