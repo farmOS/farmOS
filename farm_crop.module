@@ -7,6 +7,30 @@
 include_once 'farm_crop.features.inc';
 
 /**
+ * Implements hook_farm_manager_perms().
+ */
+function farm_crop_farm_manager_perms() {
+
+  // Grant manager permissions to crop management features.
+  $types = array(
+    'farm_asset' => array(
+      'planting',
+    ),
+    'log' => array(
+      'farm_harvest',
+      'farm_input',
+      'farm_seeding',
+      'farm_transplanting',
+    ),
+    'taxonomy' => array(
+      'farm_crops',
+      'farm_crop_families',
+    ),
+  );
+  return farm_manager_entity_perms($types);
+}
+
+/**
  * Implements hook_farm_area_type_info().
  */
 function farm_crop_farm_area_type_info() {
