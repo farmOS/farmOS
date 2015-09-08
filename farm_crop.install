@@ -1,0 +1,15 @@
+<?php
+/**
+ * @file
+ * Farm crop install file.
+ */
+
+/**
+ * Convert all "Row/bed" type areas to "Bed" type.
+ */
+function farm_crop_update_7000(&$sandbox) {
+  $field = 'field_farm_area_type';
+  $column = 'field_farm_area_type_value';
+  db_query("UPDATE {field_data_$field} SET $column = 'bed' WHERE $column = 'rowbed'");
+  db_query("UPDATE {field_revision_$field} SET $column = 'bed' WHERE $column = 'rowbed'");
+}
