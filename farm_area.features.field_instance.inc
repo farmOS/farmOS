@@ -101,7 +101,7 @@ function farm_area_field_default_field_instances() {
     'bundle' => 'farm_areas',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'Use this field to define the geometry of this area on a map. Points, lines, and polygons can be drawn using the controls below.',
     'display' => array(
       'default' => array(
         'label' => 'hidden',
@@ -116,7 +116,7 @@ function farm_area_field_default_field_instances() {
     ),
     'entity_type' => 'taxonomy_term',
     'field_name' => 'field_farm_geofield',
-    'label' => 'Location',
+    'label' => 'Geometry',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -229,8 +229,9 @@ function farm_area_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Area type');
   t('Files');
-  t('Location');
+  t('Geometry');
   t('Photo(s)');
+  t('Use this field to define the geometry of this area on a map. Points, lines, and polygons can be drawn using the controls below.');
   t('What type of area is this? Area types will be color coded on maps. If left blank, the area will not appear on maps.');
 
   return $field_instances;
