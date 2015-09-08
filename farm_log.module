@@ -19,6 +19,32 @@ function farm_log_permission() {
 }
 
 /**
+ * Implements hook_farm_manager_perms().
+ */
+function farm_log_farm_manager_perms() {
+
+  // Grant manager permissions to default log types and taxonomies.
+  $types = array(
+    'log' => array(
+      'farm_activity',
+      'farm_movement',
+      'farm_observation',
+    ),
+    'taxonomy' => array(
+      'farm_observation_types',
+      'farm_priority',
+      'farm_quantity_units',
+    ),
+  );
+  $perms = farm_manager_entity_perms($types);
+
+  // Add 'view farm logs' permission.
+  $perms[] = 'view farm logs';
+
+  return $perms;
+}
+
+/**
  * Implements hook_farm_admin_actions().
  */
 function farm_log_farm_admin_actions() {
