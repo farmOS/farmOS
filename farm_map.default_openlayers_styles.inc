@@ -16,14 +16,6 @@ function farm_map_default_openlayers_styles() {
       'name' => 'Farm Blue',
       'color' => 'rgba(51,153,255,0.5)',
     ),
-    'farm_map_style_brown' => array(
-      'name' => 'Farm Brown',
-      'color' => 'rgba(153,102,51,0.5)',
-    ),
-    'farm_map_style_dark_green' => array(
-      'name' => 'Farm Dark Green',
-      'color' => 'rgba(0,102,0,0.5)',
-    ),
     'farm_map_style_green' => array(
       'name' => 'Farm Green',
       'color' => 'rgba(102,204,102,0.5)',
