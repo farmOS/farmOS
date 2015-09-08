@@ -13,7 +13,7 @@ function farm_livestock_farm_area_type_info() {
   return array(
     'paddock' => array(
       'label' => t('Paddock'),
-      'style' => 'farm_map_style_dark_green',
+      'style' => 'farm_map_style_green',
       'weight' => 5,
     ),
   );
