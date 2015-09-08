@@ -30,6 +30,18 @@ function farm_admin_permission() {
 }
 
 /**
+ * Implements hook_farm_manager_perms().
+ */
+function farm_admin_farm_manager_perms() {
+  $perms = array();
+
+  // Access farm dashboard.
+  $perms[] = 'access farm dashboard';
+
+  return $perms;
+}
+
+/**
  * Implements hook_menu().
  */
 function farm_admin_menu() {
