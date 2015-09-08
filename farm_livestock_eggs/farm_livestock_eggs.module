@@ -7,6 +7,20 @@
 include_once 'farm_livestock_eggs.features.inc';
 
 /**
+ * Implements hook_farm_manager_perms().
+ */
+function farm_livestock_eggs_farm_manager_perms() {
+
+  // Grant manager permissions to egg management features.
+  $types = array(
+    'log' => array(
+      'farm_eggs',
+    ),
+  );
+  return farm_manager_entity_perms($types);
+}
+
+/**
  * Implements hook_farm_admin_actions().
  */
 function farm_livestock_eggs_farm_admin_actions() {
