@@ -64,7 +64,7 @@ var style = [
     image: new ol.style.Circle({
       fill: fill,
       stroke: stroke,
-      radius: 6
+      radius: 4
     }),
     fill: fill,
     stroke: stroke
