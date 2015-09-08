@@ -22,7 +22,7 @@ function farm_map_default_openlayers_styles() {
     ),
     'farm_map_style_grey' => array(
       'name' => 'Farm Grey',
-      'color' => 'rgba(51,51,51,0.5)',
+      'color' => 'rgba(204,204,204,0.7)',
     ),
     'farm_map_style_orange' => array(
       'name' => 'Farm Orange',
