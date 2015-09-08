@@ -189,3 +189,61 @@ function farm_log_update_7002(&$sandbox) {
   $field = field_info_instance('log', 'field_farm_assets', 'farm_activity');
   field_delete_instance($field);
 }
+
+/**
+ * Populate the new movement geofields with geometry from referenced areas.
+ */
+function farm_log_update_7003(&$sandbox) {
+
+  // Process this in passes of 50 movements at a time.
+  $sandbox['#finished'] = 0;
+  $limit = 10;
+
+  // Keep track of progress.
+  if (!isset($sandbox['progress'])) {
+
+    // Start out at zero.
+    $sandbox['progress'] = 0;
+
+    // Count how many movement logs there are.
+    $sandbox['max'] = db_select('log')
+      ->fields(NULL, array('id'))
+      ->condition('type', 'farm_movement')
+      ->countQuery()
+      ->execute()
+      ->fetchField();
+  }
+
+  // Fetch the next set of movements.
+  $query = db_select('log')
+    ->fields(NULL, array('id'))
+    ->condition('type', 'farm_movement')
+    ->orderBy('id', 'ASC')
+    ->range($sandbox['progress'], $limit);
+  $results = $query->execute();
+
+  // Iterate over the results and process each one.
+  while ($id = $results->fetchField()) {
+
+    // Increment progress.
+    $sandbox['progress']++;
+
+    // Load the log.
+    $log = log_load($id);
+
+    // Load the area referenced by field_farm_move_to.
+    if (!empty($log->field_farm_move_to[LANGUAGE_NONE][0])) {
+      $tid = $log->field_farm_move_to[LANGUAGE_NONE][0]['tid'];
+      $area = taxonomy_term_load($tid);
+    }
+
+    // Copy the areas geometry to the movement log.
+    if (!empty($area->field_farm_geofield[LANGUAGE_NONE][0]['geom'])) {
+      $log->field_farm_geofield[LANGUAGE_NONE][0] = $area->field_farm_geofield[LANGUAGE_NONE][0];
+      log_save($log);
+    }
+  }
+
+  // Tell Drupal whether or not we're finished.
+  $sandbox['#finished'] = $sandbox['progress'] / $sandbox['max'];
+}

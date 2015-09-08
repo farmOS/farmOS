@@ -357,6 +357,66 @@ function farm_log_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_movement-field_farm_geofield'
+  $field_instances['log-farm_movement-field_farm_geofield'] = array(
+    'bundle' => 'farm_movement',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'This field is optional. It allows you to specify a more precise geometry for assets referenced by this particular movement. If you leave it blank, the geometry will be copied from the area that assets are moving to (if available).',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'openlayers_geofield',
+        'settings' => array(
+          'data' => 'full',
+          'map_preset' => 'farm_map_geofield_formatter',
+        ),
+        'type' => 'openlayers_geofield',
+        'weight' => 3,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_geofield',
+    'label' => 'Geometry',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'openlayers_geofield',
+      'settings' => array(
+        'allow_edit' => 1,
+        'data_storage' => 'collection',
+        'delta_handling' => 'default',
+        'feature_types' => array(
+          'path' => 'path',
+          'point' => 'point',
+          'polygon' => 'polygon',
+        ),
+        'geocoder_field' => 'field_farm_move_from',
+        'geocoder_handler' => 'yandex',
+        'handler_settings' => array(
+          'google' => array(
+            'all_results' => 0,
+            'geometry_type' => 'point',
+            'reject_results' => array(
+              'APPROXIMATE' => 0,
+              'GEOMETRIC_CENTER' => 0,
+              'RANGE_INTERPOLATED' => 0,
+              'ROOFTOP' => 0,
+            ),
+          ),
+        ),
+        'openlayers_map' => 'farm_map_geofield',
+        'showInputField' => 0,
+        'use_geocoder' => 0,
+      ),
+      'type' => 'openlayers_geofield',
+      'weight' => 4,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_movement-field_farm_move_from'
   $field_instances['log-farm_movement-field_farm_move_from'] = array(
     'bundle' => 'farm_movement',
@@ -369,7 +429,7 @@ function farm_log_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 2,
+        'weight' => 1,
       ),
     ),
     'entity_type' => 'log',
@@ -396,14 +456,14 @@ function farm_log_field_default_field_instances() {
     'bundle' => 'farm_movement',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Where is it moving to?',
+    'description' => 'Specify the area that assets are being moved to.',
     'display' => array(
       'default' => array(
         'label' => 'inline',
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 3,
+        'weight' => 2,
       ),
     ),
     'entity_type' => 'log',
@@ -455,7 +515,7 @@ function farm_log_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 4,
+      'weight' => 5,
     ),
   );
 
@@ -710,10 +770,13 @@ function farm_log_field_default_field_instances() {
   t('Assets');
   t('Files');
   t('From');
+  t('Geometry');
   t('Notes');
   t('Optionally, use this quantity field to record an observed quantity.');
   t('Photo(s)');
   t('Quantity');
+  t('Specify the area that assets are being moved to.');
+  t('This field is optional. It allows you to specify a more precise geometry for assets referenced by this particular movement. If you leave it blank, the geometry will be copied from the area that assets are moving to (if available).');
   t('To');
   t('Type');
   t('Units');
@@ -725,7 +788,6 @@ function farm_log_field_default_field_instances() {
   t('What assets does this observation pertain to?');
   t('What type of observation is this. Use this to organize your observations into categories for easy viewing later. As you type, you will have the option of selecting from a list of types you entered in the past.');
   t('Where is it moving from? This field is optional. You may leave this blank as a way of setting the initial location of an object.');
-  t('Where is it moving to?');
 
   return $field_instances;
 }
