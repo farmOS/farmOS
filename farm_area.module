@@ -7,6 +7,20 @@
 include_once 'farm_area.features.inc';
 
 /**
+ * Implements hook_farm_manager_perms().
+ */
+function farm_area_farm_manager_perms() {
+
+  // Grant manager permissions to area management features.
+  $types = array(
+    'taxonomy' => array(
+      'farm_areas',
+    ),
+  );
+  return farm_manager_entity_perms($types);
+}
+
+/**
  * Implements hook_farm_area_type_info().
  */
 function farm_area_farm_area_type_info() {
