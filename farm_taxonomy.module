@@ -7,6 +7,21 @@
 include_once 'farm_taxonomy.features.inc';
 
 /**
+ * Implements hook_farm_manager_perms().
+ */
+function farm_taxonomy_farm_manager_perms() {
+
+  // Build a list of manager permissions for farm taxonomies.
+  $types = array(
+    'taxonomy' => array(
+      'farm_materials',
+      'farm_season',
+    ),
+  );
+  return farm_manager_entity_perms($types);
+}
+
+/**
  * Implements hook_entity_view_alter().
  */
 function farm_taxonomy_entity_view_alter(&$build, $type) {
