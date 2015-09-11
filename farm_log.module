@@ -463,6 +463,10 @@ function farm_log_form_prepopulate_asset(array &$form, $field_name = 'field_farm
       $field_value = &$form[$field_name][LANGUAGE_NONE]['#default_value'];
       $type = 'text';
       break;
+    case 'entityreference_view_widget':
+      $field_value = &$form[$field_name][LANGUAGE_NONE][0]['target_id'];
+      $type = 'entityreference_view_widget';
+      break;
     case 'options_buttons':
     case 'options_select':
       $field_value = &$form[$field_name][LANGUAGE_NONE]['#default_value'];
@@ -496,6 +500,22 @@ function farm_log_form_prepopulate_asset(array &$form, $field_name = 'field_farm
           // If the type is "id", just add the asset id.
           case 'id':
             $field_value = array($asset->id);
+            break;
+
+          // The Entity Reference View Widget module does things differently.
+          // We need to add a checkbox form element.
+          // @see entityreference_view_widget_rows()
+          case 'entityreference_view_widget':
+            $field_value = array(
+              '#type' => 'checkbox',
+              '#return_value' => $asset->id,
+              '#value' => $asset->id,
+              '#title_display' => 'after',
+              '#attributes' => array(
+                'checked' => 'checked',
+              ),
+              '#title' => entity_label('farm_asset', $asset),
+            );
             break;
         }
       }
