@@ -220,7 +220,7 @@ function farm_log_form_alter(&$form, &$form_state, $form_id) {
 
       // Alter the form using our helper function.
       // ($asset is used below for movement logs.)
-      $asset = farm_log_form_prepopulate_asset($form, 'field_farm_asset', TRUE);
+      $asset = farm_log_form_prepopulate_asset($form, 'field_farm_asset');
     }
 
     // If there is an area(s) reference field...
@@ -441,23 +441,33 @@ function farm_log_asset_movement_query($asset_id, $done = TRUE, $future = FALSE)
  *   The form array to modify, passed by reference.
  * @param string $field_name
  *   The machine name of the entity reference field that should be populated.
- * @param bool $tags
- *   Whether or not the field is using the "Tags style" entity reference
- *   widget. Defaults to FALSE.
  *
  * @return FarmAsset farm_asset
  *   Returns the asset object, if found.
  */
-function farm_log_form_prepopulate_asset(array &$form, $field_name = 'field_farm_asset', $tags = FALSE) {
+function farm_log_form_prepopulate_asset(array &$form, $field_name = 'field_farm_asset') {
   $asset = NULL;
 
-  // The location of the field's default value depends on whether or not it is
-  // a "Tags style" entity reference field.
-  if (empty($tags)) {
-    $field_value = &$form[$field_name][LANGUAGE_NONE][0]['target_id']['#default_value'];
-  }
-  else {
-    $field_value = &$form[$field_name][LANGUAGE_NONE]['#default_value'];
+  // Load the field instance definition.
+  $entity_type = $form['#entity_type'];
+  $bundle = $form['#bundle'];
+  $field_instance = field_info_instance($entity_type, $field_name, $bundle);
+
+  // Create a reference to the asset reference field based on the widget type.
+  switch ($field_instance['widget']['type']) {
+    case 'entityreference_autocomplete':
+      $field_value = &$form[$field_name][LANGUAGE_NONE][0]['target_id']['#default_value'];
+      $type = 'text';
+      break;
+    case 'entityreference_autocomplete_tags':
+      $field_value = &$form[$field_name][LANGUAGE_NONE]['#default_value'];
+      $type = 'text';
+      break;
+    case 'options_buttons':
+    case 'options_select':
+      $field_value = &$form[$field_name][LANGUAGE_NONE]['#default_value'];
+      $type = 'id';
+      break;
   }
 
   // If the "farm_asset" query parameter is set...
@@ -474,9 +484,20 @@ function farm_log_form_prepopulate_asset(array &$form, $field_name = 'field_farm
         '#value' => $asset,
       );
 
-      // Prepopulate the asset reference field.
+      // Prepopulate the asset reference field based on the type.
       if (empty($field_value)) {
-        $field_value = entity_label('farm_asset', $asset) . ' (' . $asset->id . ')';
+        switch ($type) {
+
+          // If the type is "text", generate the expected text.
+          case 'text':
+            $field_value = entity_label('farm_asset', $asset) . ' (' . $asset->id . ')';
+            break;
+
+          // If the type is "id", just add the asset id.
+          case 'id':
+            $field_value = array($asset->id);
+            break;
+        }
       }
     }
   }
