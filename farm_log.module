@@ -442,11 +442,28 @@ function farm_log_asset_movement_query($asset_id, $done = TRUE, $future = FALSE)
  * @param string $field_name
  *   The machine name of the entity reference field that should be populated.
  *
- * @return FarmAsset farm_asset
- *   Returns the asset object, if found.
+ * @return FarmAsset|bool farm_asset
+ *   Returns the asset object, if found, FALSE otherwise.
  */
 function farm_log_form_prepopulate_asset(array &$form, $field_name = 'field_farm_asset') {
-  $asset = NULL;
+
+  // If the "farm_asset" GET parameter isn't set, bail.
+  $params = drupal_get_query_parameters();
+  if (empty($params['farm_asset'])) {
+    return FALSE;
+  }
+
+  // Verify that the farm_asset is valid.
+  $asset = farm_asset_load($params['farm_asset']);
+  if (!$asset) {
+    return FALSE;
+  }
+
+  // Add the asset to the form.
+  $form['farm_asset'] = array(
+    '#type' => 'value',
+    '#value' => $asset,
+  );
 
   // Load the field instance definition.
   $entity_type = $form['#entity_type'];
@@ -474,51 +491,35 @@ function farm_log_form_prepopulate_asset(array &$form, $field_name = 'field_farm
       break;
   }
 
-  // If the "farm_asset" query parameter is set...
-  $params = drupal_get_query_parameters();
-  if (!empty($params['farm_asset'])) {
+  // Prepopulate the asset reference field based on the type.
+  if (empty($field_value)) {
+    switch ($type) {
 
-    // Verify that the farm_asset is valid.
-    $asset = farm_asset_load($params['farm_asset']);
-    if ($asset) {
+      // If the type is "text", generate the expected text.
+      case 'text':
+        $field_value = entity_label('farm_asset', $asset) . ' (' . $asset->id . ')';
+        break;
 
-      // Add the asset to the form.
-      $form['farm_asset'] = array(
-        '#type' => 'value',
-        '#value' => $asset,
-      );
+      // If the type is "id", just add the asset id.
+      case 'id':
+        $field_value = array($asset->id);
+        break;
 
-      // Prepopulate the asset reference field based on the type.
-      if (empty($field_value)) {
-        switch ($type) {
-
-          // If the type is "text", generate the expected text.
-          case 'text':
-            $field_value = entity_label('farm_asset', $asset) . ' (' . $asset->id . ')';
-            break;
-
-          // If the type is "id", just add the asset id.
-          case 'id':
-            $field_value = array($asset->id);
-            break;
-
-          // The Entity Reference View Widget module does things differently.
-          // We need to add a checkbox form element.
-          // @see entityreference_view_widget_rows()
-          case 'entityreference_view_widget':
-            $field_value = array(
-              '#type' => 'checkbox',
-              '#return_value' => $asset->id,
-              '#value' => $asset->id,
-              '#title_display' => 'after',
-              '#attributes' => array(
-                'checked' => 'checked',
-              ),
-              '#title' => entity_label('farm_asset', $asset),
-            );
-            break;
-        }
-      }
+      // The Entity Reference View Widget module does things differently.
+      // We need to add a checkbox form element.
+      // @see entityreference_view_widget_rows()
+      case 'entityreference_view_widget':
+        $field_value = array(
+          '#type' => 'checkbox',
+          '#return_value' => $asset->id,
+          '#value' => $asset->id,
+          '#title_display' => 'after',
+          '#attributes' => array(
+            'checked' => 'checked',
+          ),
+          '#title' => entity_label('farm_asset', $asset),
+        );
+        break;
     }
   }
 
