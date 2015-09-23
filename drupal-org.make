@@ -84,6 +84,8 @@ projects[openlayers][download][revision] = "deee17fd3bf605a273f2bfacca40b84aa199
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_googlemaps_postbuild-2538168-5.patch"
 ; Remove base layer assignment code.
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_base_layer_mechanism-2543130-4.patch"
+; Set Google Maps tilt to 0.
+projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_google_maps_tilt_0-2573005-1.patch"
 
 projects[openlayers_geolocate_button][subdir] = "contrib"
 projects[openlayers_geolocate_button][version] = "3.1"
