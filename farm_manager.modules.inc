@@ -34,8 +34,23 @@ function log_farm_manager_perms() {
 /**
  * Implements hook_farm_manager_perms().
  */
+function node_farm_manager_perms() {
+  $perms = array();
+
+  // This is needed to view nodes and taxonomy terms.
+  $perms[] = 'access content';
+
+  return $perms;
+}
+
+/**
+ * Implements hook_farm_manager_perms().
+ */
 function taxonomy_farm_manager_perms() {
   $perms = array();
+
+  // This is needed to add terms.
+  $perms[] = 'administer taxonomy';
 
   // Access RESTful Web Services taxonomy_term resources.
   $perms[] = 'access resource taxonomy_term';
