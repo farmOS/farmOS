@@ -46,6 +46,18 @@ function node_farm_manager_perms() {
 /**
  * Implements hook_farm_manager_perms().
  */
+function system_farm_manager_perms() {
+  $perms = array();
+
+  // Give farm managers the ability to see admin pages.
+  $perms[] = 'access administration pages';
+
+  return $perms;
+}
+
+/**
+ * Implements hook_farm_manager_perms().
+ */
 function taxonomy_farm_manager_perms() {
   $perms = array();
 
