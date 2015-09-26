@@ -5,9 +5,6 @@ core = 7.x
 ; Modules (contrib)
 ; -----------------------------------------------------------------------------
 
-projects[autocomplete_deluxe][subdir] = "contrib"
-projects[autocomplete_deluxe][version] = "2.1"
-
 projects[colorbox][subdir] = "contrib"
 projects[colorbox][version] = "2.9"
 
