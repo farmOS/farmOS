@@ -890,7 +890,6 @@ function farm_crop_field_default_field_instances() {
       'active' => 0,
       'module' => 'taxonomy',
       'settings' => array(
-        'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
         'autocomplete_path' => 'taxonomy/autocomplete',
         'size' => 60,
       ),
@@ -931,7 +930,6 @@ function farm_crop_field_default_field_instances() {
       'active' => 1,
       'module' => 'taxonomy',
       'settings' => array(
-        'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
         'autocomplete_path' => 'taxonomy/autocomplete',
         'delimiter' => '',
         'limit' => 10,
