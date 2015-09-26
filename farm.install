@@ -131,6 +131,15 @@ function farm_update_7005(&$sandbox) {
 }
 
 /**
+ * Autorotate images.
+ */
+function farm_update_7006(&$sandbox) {
+
+  // Enable the EXIF Orientation module.
+  _farm_enable_modules(array('exif_orientation'));
+}
+
+/**
  * Helper function: enable modules.
  */
 function _farm_enable_modules($modules = array()) {
