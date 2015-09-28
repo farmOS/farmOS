@@ -396,16 +396,17 @@ function farm_log_asset_location(FarmAsset $asset, $time = REQUEST_TIME, $done =
  *   alias string from another query (ie: 'mytable.assetid'). For an example
  *   of field alias string usage, see the Views field handler code in
  *   farm_log_handler_relationship_location::query().
+ * @param int $time
+ *   Unix timestamp limiter. Only movement logs before this time will be
+ *   included. Defaults to the current time. Set to 0 to load the absolute last.
  * @param bool $done
- *   Whether or not to include only logs that are done. Defaults to TRUE.
- * @param bool $future
- *   Whether or not to include logs with a timestamp in the future. Defaults to
- *   FALSE.
+ *   Whether or not to only show movement logs that are marked as "done".
+ *   Defaults to TRUE.
  *
  * @return \SelectQuery
  *   Returns a SelectQuery for finding the latest log.
  */
-function farm_log_asset_movement_query($asset_id, $done = TRUE, $future = FALSE) {
+function farm_log_asset_movement_query($asset_id, $time = REQUEST_TIME, $done = TRUE) {
 
   // Build a sub-query that will be used in the join to load the latest
   // movement log of a given asset.
@@ -424,10 +425,15 @@ function farm_log_asset_movement_query($asset_id, $done = TRUE, $future = FALSE)
     $query->where('ss_log.done = 1');
   }
 
-  // If future logs should not be included, then limit to only logs that
-  // have a date before right now.
-  if (!$future) {
-    $query->where('ss_log.timestamp <= ' . REQUEST_TIME);
+  // Ensure $time is a positive integer.
+  if (!is_int($time) || $time < 0) {
+    $time = REQUEST_TIME;
+  }
+
+  // If $time is not zero, limit to only logs before it. This allows the
+  // absolute last log to be found by setting $time to zero.
+  if ($time !== 0) {
+    $query->where('ss_log.timestamp <= ' . $time);
   }
 
   // Return the query object.

@@ -71,7 +71,13 @@ class farm_log_handler_relationship_location extends views_handler_relationship 
     $asset_id_field = $this->table_alias . '.id';
     $done = !empty($this->options['done']) ? TRUE : FALSE;
     $future = !empty($this->options['future']) ? TRUE : FALSE;
-    $query = farm_log_asset_movement_query($asset_id_field, $done, $future);
+    if ($future) {
+      $time = 0;
+    }
+    else {
+      $time = REQUEST_TIME;
+    }
+    $query = farm_log_asset_movement_query($asset_id_field, $time, $done);
 
     // Build the join definition.
     $def = $this->definition;
