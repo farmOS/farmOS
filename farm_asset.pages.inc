@@ -31,64 +31,76 @@ function farm_asset_view(FarmAsset $farm_asset) {
   // Build the asset's render array.
   $build = entity_view('farm_asset', array(entity_id('farm_asset', $farm_asset) => $farm_asset), 'full');
 
-  // Allow other modules to add Views to the entity render array.
-  if (!empty($build['farm_asset'])) {
-    foreach ($build['farm_asset'] as &$entity_build) {
+  // Return the render array.
+  return $build;
+}
 
-      // Pull the farm asset entity out of the build array.
-      $farm_asset = $entity_build['#entity'];
+/**
+ * Implements hook_entity_view_alter().
+ */
+function farm_asset_entity_view_alter(&$build, $type) {
 
-      // Invoke hook_farm_asset_view_views() to get a list of Views.
-      $views = module_invoke_all('farm_asset_view_views', $farm_asset);
-
-      // Add the Views to the entity's render array.
-      foreach ($views as $key => $name) {
-
-        // Load the View, and bail if it isn't found.
-        $view = views_get_view($name);
-        if (empty($view)) {
-          continue;
-        }
-
-        // Build the View's arguments.
-        $args = array($farm_asset->id);
-
-        // Get the View's default title.
-        // We intentionally do this before we build the preview so that the
-        // title is not overridden by the arguments. This keeps the title simple
-        // on the actual term page, but more descriptive in other contexts.
-        $title = $view->get_title();
-
-        // Build the View preview.
-        $preview = $view->preview('default', $args);
-
-        // Build the output.
-        $output = '<h3 id="' . $title . '">' . $title . '</h3>' . $preview;
-
-        // Add the output to the entity build array.
-        $entity_build[$name] = array(
-          '#markup' => $output,
-          '#weight' => 100 + $key,
-        );
-      }
-    }
+  // If the entity is not a farm_asset, bail.
+  if ($type != 'farm_asset') {
+    return;
   }
+
+  // Pull the farm asset entity out of the build array.
+  $farm_asset = $build['#entity'];
 
   // Add the asset's "active" status.
   if ($farm_asset->active) {
-    $status = 'YES';
+    $status = 'Yes';
   }
   else {
-    $status = 'NO';
+    $status = 'No';
     drupal_set_message(t('This asset is no longer active. Inactive assets should be considered "archived" and should not be edited or deleted unless they contain information that is incorrect.'), 'warning');
   }
-  $build['farm_asset'][$farm_asset->id]['active'] = array(
-    '#markup' => '<div style="float: right;">Active: <strong>' . $status . '</strong></div>',
+  $build['active'] = array(
+    '#markup' => '<div><strong>Active:</strong> ' . $status . '</div>',
     '#weight' => -100,
   );
 
-  // Return the render array.
-  return $build;
+  // Invoke hook_farm_asset_view_views() to get a list of Views.
+  $views = module_invoke_all('farm_asset_view_views', $farm_asset);
+
+  // If views are found
+  if (!empty($views)) {
+
+    // Create a container for the Views.
+    $build['views'] = array();
+
+    // Add the Views to the entity's render array.
+    foreach ($views as $key => $name) {
+
+      // Load the View, and bail if it isn't found.
+      $view = views_get_view($name);
+      if (empty($view)) {
+        continue;
+      }
+
+      // Build the View's arguments.
+      $args = array($farm_asset->id);
+
+      // Get the View's default title.
+      // We intentionally do this before we build the preview so that the
+      // title is not overridden by the arguments. This keeps the title simple
+      // on the actual term page, but more descriptive in other contexts.
+      $title = $view->get_title();
+
+      // Build the View preview.
+      $preview = $view->preview('default', $args);
+
+      // Build the output.
+      $output = '<h3 id="' . $title . '">' . $title . '</h3>' . $preview;
+
+      // Add the output to the entity build array.
+      $build['views'][$name] = array(
+        '#markup' => $output,
+        '#weight' => 100 + $key,
+      );
+    }
+  }
 }
 
 /**
