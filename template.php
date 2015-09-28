@@ -99,12 +99,13 @@ function farm_theme_entity_view_alter(&$build, $type) {
     return;
   }
 
-  // If there is a farm images field, float it in the top left.
-  if (!empty($build['field_farm_images'])) {
+  // Float the location information to the right.
+  if (!empty($build['location'])) {
 
     // Wrap it in a floated div.
-    $build['field_farm_images']['#prefix'] = '<div class="col-md-6">';
-    $build['field_farm_images']['#suffix'] = '</div>';
+    $build['location']['#prefix'] = '<div class="col-md-6">';
+    $build['location']['#suffix'] = '</div>';
+    $build['location']['#weight'] = -99;
 
     // Put everything else into another div and move it to the top so it
     // aligns left.
@@ -115,10 +116,17 @@ function farm_theme_entity_view_alter(&$build, $type) {
     );
     $elements = element_children($build);
     foreach ($elements as $element) {
-      if (!in_array($element, array('field_farm_images', 'fields'))) {
+      if (!in_array($element, array('location', 'fields', 'views'))) {
         $build['fields'][$element] = $build[$element];
         unset($build[$element]);
       }
+    }
+
+    // Wrap the Views in a full-width div at the bottom.
+    if (!empty($build['views'])) {
+      $build['views']['#prefix'] = '<div class="col-md-12">';
+      $build['views']['#suffix'] = '</div>';
+      $build['views']['#weight'] = 101;
     }
   }
 }
