@@ -200,6 +200,18 @@ function farm_log_entity_view_alter(&$build, $type) {
     $output .= 'N/A (' . $link . ')';
   }
 
+  // Get the asset's most recent movement.
+  $movement = farm_log_asset_latest_movement($asset);
+
+  // If a geofield exists on the movement, display it.
+  if (!empty($movement->field_farm_geofield[LANGUAGE_NONE][0]['geom'])) {
+
+    // Build the geofield map and add it to the page content.
+    $field_instance = field_info_instance('log', 'field_farm_geofield', 'farm_movement');
+    $geofield = field_view_field('log', $movement, 'field_farm_geofield', $field_instance['display']['default']);
+    $output .= drupal_render($geofield);
+  }
+
   // Add it to the build array.
   $build['location'] = array(
     '#markup' => $output,
