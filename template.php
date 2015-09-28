@@ -160,3 +160,15 @@ function farm_theme_preprocess_page(&$vars) {
     '#suffix' => '</small></div>',
   );
 }
+
+/**
+ * Implements hook_preprocess_field().
+ */
+function farm_theme_preprocess_field(&$vars) {
+
+  // Add a clearfix class to field_farm_images to prevent float issues.
+  // @see .field-name-field-farm-images .field-item in styles.css.
+  if ($vars['element']['#field_name'] == 'field_farm_images') {
+    $vars['classes_array'][] = 'clearfix';
+  }
+}

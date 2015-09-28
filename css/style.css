@@ -6,6 +6,15 @@
 }
 
 /**
+ * Colorbox image styles.
+ * @see farm_theme_preprocess_field() in template.php.
+ */
+.field-name-field-farm-images .field-item {
+  float: left;
+  padding: 5px;
+}
+
+/**
  * Fix DateAPI field styles.
  */
 .container-inline-date {
