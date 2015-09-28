@@ -389,6 +389,37 @@ function farm_log_asset_location(FarmAsset $asset, $time = REQUEST_TIME, $done =
 }
 
 /**
+ * Find the latest movement of an asset.
+ *
+ * @param FarmAsset $asset
+ *   The farm_asset object to look for.
+ * @param int $time
+ *   Unix timestamp limiter. Only movement logs before this time will be
+ *   included. Defaults to the current time. Set to 0 to load the absolute last.
+ * @param bool $done
+ *   Whether or not to only show movement logs that are marked as "done".
+ *   Defaults to TRUE.
+ *
+ * @return Log|bool
+ *   Returns a movement log entity. FALSE if something goes wrong.
+ */
+function farm_log_asset_latest_movement(FarmAsset $asset, $time = REQUEST_TIME, $done = TRUE) {
+
+  // Make a query for loading the latest movement log.
+  $query = farm_log_asset_movement_query($asset->id, $time, $done);
+
+  // Execute the query and gather the log id.
+  $result = $query->execute();
+  $log_id = $result->fetchField();
+
+  // If a log id exists, load and return it.
+  if (!empty($log_id)) {
+    return log_load($log_id);
+  }
+  return FALSE;
+}
+
+/**
  * Build a query to find the latest movement log of an asset.
  *
  * @param int|string $asset_id
