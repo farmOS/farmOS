@@ -756,11 +756,11 @@ function farm_log_asset_move_action(array $assets, $context = array()) {
  * @param int $area_id
  *   The id of the area to move to.
  * @param int $timestamp
- *   The timestamp of the move.
+ *   The timestamp of the move. Defaults to the current time.
  * @param bool $done
  *   Whether or not to mark the movement done. Default to FALSE.
  */
-function farm_log_move_assets($assets, $area_id, $timestamp, $done = FALSE) {
+function farm_log_move_assets($assets, $area_id, $timestamp = REQUEST_TIME, $done = FALSE) {
 
   // If $assets isn't an array, wrap it.
   if (!is_array($assets)) {
