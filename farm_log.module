@@ -283,10 +283,7 @@ function farm_log_form_alter(&$form, &$form_state, $form_id) {
       if (empty($form['field_farm_move_from'][LANGUAGE_NONE][0]['#default_value']) && !empty($assets)) {
 
         // Look up the asset's last location and prepopulate the "from" field.
-        $area = farm_log_asset_location($asset);
-        if (!empty($area->name)) {
-          $form['field_farm_move_from'][LANGUAGE_NONE]['#default_value'] = $area->name;
-        }
+        farm_log_prepopulate_movement_from($form['field_farm_move_from'], $assets, TRUE);
       }
     }
 
@@ -862,9 +859,6 @@ function farm_log_move_assets($assets, $area_id, $timestamp = REQUEST_TIME, $don
   // Create a new movement log entity.
   $log = entity_create('log', array('type' => 'farm_movement'));
 
-  // Keep track of what areas these assets are coming from.
-  $from_areas = array();
-
   // Iterate through the assets.
   foreach ($assets as $asset) {
 
@@ -872,19 +866,10 @@ function farm_log_move_assets($assets, $area_id, $timestamp = REQUEST_TIME, $don
     $log->field_farm_asset[LANGUAGE_NONE][] = array(
       'target_id' => $asset->id,
     );
-
-    // Load the asset's current location.
-    $area = farm_log_asset_location($asset);
-
-    // If the asset has a current location, add it to the "from" field.
-    // Avoid adding the same area more than once.
-    if (!empty($area->name) && !empty($area->tid) && !in_array($area->tid, $from_areas)) {
-      $log->field_farm_move_from[LANGUAGE_NONE][] = array(
-        'tid' => $area->tid,
-      );
-      $from_areas[] = $area->tid;
-    }
   }
+
+  // Populate the movement's "From" field based on the current asset location(s).
+  farm_log_prepopulate_movement_from($log->field_farm_move_from, $assets);
 
   // Set the date.
   $log->timestamp = $timestamp;
@@ -899,4 +884,67 @@ function farm_log_move_assets($assets, $area_id, $timestamp = REQUEST_TIME, $don
 
   // Save the movement.
   log_save($log);
+}
+
+/**
+ * Populate a movement's "from" field based on current asset location(s).
+ *
+ * @param array $from_field
+ *   A reference to the field on the movement log. The values in this array
+ *   will be populated.
+ * @param array $assets
+ *   An array of FarmAsset entities.
+ * @param bool $log_form
+ *   By default, this function assumes that it is working with a $log entity.
+ *   By setting $log_form to TRUE, it can also be used to alter the default
+ *   value of the "from" field in a log edit form.
+ */
+function farm_log_prepopulate_movement_from(&$from_field, $assets = array(), $log_form = FALSE) {
+
+  // If assets are empty, bail.
+  if (empty($assets)) {
+    return;
+  }
+
+  // Keep track of what areas these assets are coming from.
+  $from_areas = array();
+
+  // If this is a log form, start with an empty array for default values.
+  if ($log_form) {
+    $form_default_values = array();
+  }
+
+  // Iterate through the assets.
+  foreach ($assets as $asset) {
+
+    // Load the asset's current location.
+    $area = farm_log_asset_location($asset);
+
+    // If the asset has a current location, add it to the "from" field.
+    // Avoid adding the same area more than once.
+    if (!empty($area->name) && !empty($area->tid) && !in_array($area->tid, $from_areas)) {
+
+      // Assuming that this is an entity object, and not a log form, add area
+      // term ids to the array in the expected format.
+      if (!$log_form) {
+        $from_field[LANGUAGE_NONE][] = array(
+          'tid' => $area->tid,
+        );
+      }
+
+      // If this is a log form, assemble the list of areas as a comma-separated
+      // string (to be added to the #default_value below).
+      else {
+        $form_default_values[] = $area->name;
+      }
+
+      $from_areas[] = $area->tid;
+    }
+  }
+
+  // Finally, if this is a log form, and there are default values, implode them
+  // into a comma-separated string and set the form field's default value.
+  if ($log_form && !empty($form_default_values)) {
+    $from_field[LANGUAGE_NONE]['#default_value'] = implode(', ', $form_default_values);
+  }
 }
