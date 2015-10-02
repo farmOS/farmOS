@@ -258,8 +258,8 @@ function farm_log_form_alter(&$form, &$form_state, $form_id) {
     if (!empty($form['field_farm_asset'])) {
 
       // Alter the form using our helper function.
-      // ($asset is used below for movement logs.)
-      $asset = farm_log_form_prepopulate_asset($form, 'field_farm_asset');
+      // ($assets are used below for movement logs.)
+      $assets = farm_log_form_prepopulate_asset($form, 'field_farm_asset');
     }
 
     // If there is an area(s) reference field...
@@ -279,13 +279,8 @@ function farm_log_form_alter(&$form, &$form_state, $form_id) {
         farm_log_form_prepopulate_area($form, 'field_farm_move_to');
       }
 
-      // If no asset was found above, don't continue.
-      if (empty($asset)) {
-        return;
-      }
-
-      // If the "from" field is empty...
-      if (empty($form['field_farm_move_from'][LANGUAGE_NONE][0]['#default_value'])) {
+      // If the "from" field is empty, and assets are available...
+      if (empty($form['field_farm_move_from'][LANGUAGE_NONE][0]['#default_value']) && !empty($assets)) {
 
         // Look up the asset's last location and prepopulate the "from" field.
         $area = farm_log_asset_location($asset);
@@ -518,8 +513,8 @@ function farm_log_asset_movement_query($asset_id, $time = REQUEST_TIME, $done = 
  * @param string $field_name
  *   The machine name of the entity reference field that should be populated.
  *
- * @return FarmAsset|bool farm_asset
- *   Returns the asset object, if found, FALSE otherwise.
+ * @return array|bool farm_asset
+ *   Returns the asset objects in an array, if found, FALSE otherwise.
  */
 function farm_log_form_prepopulate_asset(array &$form, $field_name = 'field_farm_asset') {
 
@@ -529,77 +524,127 @@ function farm_log_form_prepopulate_asset(array &$form, $field_name = 'field_farm
     return FALSE;
   }
 
-  // Verify that the farm_asset is valid.
-  $asset = farm_asset_load($params['farm_asset']);
-  if (!$asset) {
-    return FALSE;
+  // If only a single asset id is passed, convert it to an array.
+  if (!is_array($params['farm_asset'])) {
+    $params['farm_asset'] = array($params['farm_asset']);
   }
 
-  // Add the asset to the form.
-  $form['farm_asset'] = array(
-    '#type' => 'value',
-    '#value' => $asset,
-  );
+  // Validate that all the asset IDs are valid by loading the assets themselves.
+  $assets = array();
+  foreach($params['farm_asset'] as $asset_id) {
+
+    // Attempt to load the asset.
+    $asset = farm_asset_load($asset_id);
+
+    // If it loaded, add it to the array.
+    if (!empty($asset)) {
+      $assets[] = $asset;
+    }
+  }
+
+  // If there are no assets, bail.
+  if (empty($assets)) {
+    return FALSE;
+  }
 
   // Load the field instance definition.
   $entity_type = $form['#entity_type'];
   $bundle = $form['#bundle'];
   $field_instance = field_info_instance($entity_type, $field_name, $bundle);
 
-  // Create a reference to the asset reference field based on the widget type.
-  switch ($field_instance['widget']['type']) {
-    case 'entityreference_autocomplete':
-      $field_value = &$form[$field_name][LANGUAGE_NONE][0]['target_id']['#default_value'];
-      $type = 'text';
-      break;
-    case 'entityreference_autocomplete_tags':
-      $field_value = &$form[$field_name][LANGUAGE_NONE]['#default_value'];
-      $type = 'text';
-      break;
-    case 'entityreference_view_widget':
-      $field_value = &$form[$field_name][LANGUAGE_NONE][0]['target_id'];
-      $type = 'entityreference_view_widget';
-      break;
-    case 'options_buttons':
-    case 'options_select':
-      $field_value = &$form[$field_name][LANGUAGE_NONE]['#default_value'];
-      $type = 'id';
-      break;
-  }
+  // If the widget type is "radios/checkboxes" or "select list"...
+  if (in_array($field_instance['widget']['type'], array('options_buttons', 'options_select'))) {
 
-  // Prepopulate the asset reference field based on the type.
-  if (empty($field_value)) {
-    switch ($type) {
+    // Build a list of asset ID.
+    $asset_ids = array();
+    foreach ($assets as $asset) {
+      $asset_ids[] = $asset->id;
+    }
 
-      // If the type is "text", generate the expected text.
-      case 'text':
-        $field_value = entity_label('farm_asset', $asset) . ' (' . $asset->id . ')';
-        break;
-
-      // If the type is "id", just add the asset id.
-      case 'id':
-        $field_value = array($asset->id);
-        break;
-
-      // The Entity Reference View Widget module does things differently.
-      // We need to add a checkbox form element.
-      // @see entityreference_view_widget_rows()
-      case 'entityreference_view_widget':
-        $field_value = array(
-          '#type' => 'checkbox',
-          '#return_value' => $asset->id,
-          '#value' => $asset->id,
-          '#title_display' => 'after',
-          '#attributes' => array(
-            'checked' => 'checked',
-          ),
-          '#title' => entity_label('farm_asset', $asset),
-        );
-        break;
+    // Use the array of asset IDs as the field's default value.
+    if (empty($form[$field_name][LANGUAGE_NONE]['#default_value'])) {
+      $form[$field_name][LANGUAGE_NONE]['#default_value'] = $asset_ids;
     }
   }
 
-  return $asset;
+  // If the widget type is "autocomplete" or "autocomplete tags"...
+  elseif (in_array($field_instance['widget']['type'], array('entityreference_autocomplete', 'entityreference_autocomplete_tags'))) {
+
+    // Build a list of asset labels in the format that the widget expects.
+    $asset_labels = array();
+    foreach ($assets as $asset) {
+      $asset_labels[] = entity_label('farm_asset', $asset) . ' (' . $asset->id . ')';
+    }
+
+    // For "autocomplete", add each one as a separate field.
+    if ($field_instance['widget']['type'] == 'entityreference_autocomplete') {
+      foreach ($asset_labels as $key => $label) {
+
+        // If the item isn't empty, skip it.
+        if (!empty($form[$field_name][LANGUAGE_NONE][$key]['target_id']['#default_value'])) {
+          continue;
+        }
+
+        /**
+         * @todo
+         * This seems to be the easiest way to autopopulate entityreference_autocomplete
+         * widgets, but it is MESSY! If anyone can figure out a better way, I will buy
+         * you a beer.
+         */
+        // Copy the initial array structure from the first element.
+        $form[$field_name][LANGUAGE_NONE][$key] = $form[$field_name][LANGUAGE_NONE][0];
+
+        // Set the default, delta, and weight values.
+        $form[$field_name][LANGUAGE_NONE][$key]['target_id']['#default_value'] = $label;
+        $form[$field_name][LANGUAGE_NONE][$key]['target_id']['#delta'] = $key;
+        $form[$field_name][LANGUAGE_NONE][$key]['target_id']['#weight'] = $key;
+
+        // Only make the first one required.
+        if ($key > 0) {
+          $form[$field_name][LANGUAGE_NONE][$key]['target_id']['#required'] = 0;
+        }
+
+        $form[$field_name][LANGUAGE_NONE]['#max_delta'] = $key;
+        $form[$field_name][LANGUAGE_NONE][$key]['_weight']['#delta'] = $key;
+        $form[$field_name][LANGUAGE_NONE][$key]['_weight']['#default_value'] = $key;
+      }
+    }
+
+    // For "autocomplete tags", implode them all into one comma-separated list.
+    elseif ($field_instance['widget']['type'] == 'entityreference_autocomplete_tags') {
+      if (empty($form[$field_name][LANGUAGE_NONE]['#default_value'])) {
+        $form[$field_name][LANGUAGE_NONE]['#default_value'] = implode(', ', $asset_labels);
+      }
+    }
+  }
+
+  // If the widget type is "entity reference view widget"...
+  elseif ($field_instance['widget']['type'] == 'entityreference_view_widget') {
+
+    // Add a set of checkbox form elements, as the entityreference_view_widget
+    // module expects...
+    foreach ($assets as $key => $asset) {
+
+      // If the item isn't empty, skip it.
+      if (!empty($form[$field_name][LANGUAGE_NONE][$key]['target_id'])) {
+        continue;
+      }
+
+      // Add the checkbox element.
+      $form[$field_name][LANGUAGE_NONE][$key]['target_id'] = array(
+        '#type' => 'checkbox',
+        '#return_value' => $asset->id,
+        '#value' => $asset->id,
+        '#title_display' => 'after',
+        '#attributes' => array(
+          'checked' => 'checked',
+        ),
+        '#title' => entity_label('farm_asset', $asset),
+      );
+    }
+  }
+
+  return $assets;
 }
 
 /**
