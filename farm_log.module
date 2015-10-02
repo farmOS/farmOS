@@ -158,6 +158,33 @@ function farm_log_farm_area_links($id) {
 }
 
 /**
+ * Implements hook_entity_presave().
+ */
+function farm_log_entity_presave($entity, $type) {
+
+  // If it's not a log entity, bail.
+  if ($type != 'log') {
+    return;
+  }
+
+  // Populate the geometry of movement logs from the area they reference,
+  // if no geometry is already defined.
+  if ($entity->type == 'farm_movement' && empty($entity->field_farm_geofield[LANGUAGE_NONE][0]['geom'])) {
+
+    // Load the area referenced by field_farm_move_to.
+    if (!empty($entity->field_farm_move_to[LANGUAGE_NONE][0])) {
+      $tid = $entity->field_farm_move_to[LANGUAGE_NONE][0]['tid'];
+      $area = taxonomy_term_load($tid);
+    }
+
+    // Copy the areas geometry to the movement log.
+    if (!empty($area->field_farm_geofield[LANGUAGE_NONE][0]['geom'])) {
+      $entity->field_farm_geofield[LANGUAGE_NONE][0] = $area->field_farm_geofield[LANGUAGE_NONE][0];
+    }
+  }
+}
+
+/**
  * Implements hook_entity_view_alter().
  */
 function farm_log_entity_view_alter(&$build, $type) {
