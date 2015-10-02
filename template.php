@@ -16,9 +16,18 @@ function farm_theme_form_alter(&$form, &$form_state, $form_id) {
     if ($form['#bundle'] == 'farm_movement') {
 
       // Collapse the geofield fieldset by default.
-      if (!empty($form['field_farm_geofield'][LANGUAGE_NONE][0])) {
+      if (!empty($form['field_farm_geofield'])) {
+
+        // We make the fieldset collapsible with PHP, but we collapse it with
+        // Javascript. This is because collapsing it with PHP breaks the
+        // Openlayers Geofield zoom to source component for some reason.
+        /**
+         * @todo
+         * https://www.drupal.org/node/2579009
+         */
         $form['field_farm_geofield'][LANGUAGE_NONE][0]['#collapsible'] = TRUE;
-        $form['field_farm_geofield'][LANGUAGE_NONE][0]['#collapsed'] = TRUE;
+        //$form['field_farm_geofield'][LANGUAGE_NONE][0]['#collapsed'] = TRUE;
+        drupal_add_js(drupal_get_path('theme', 'farm_theme') . '/js/movement_geofield.js');
       }
     }
   }
