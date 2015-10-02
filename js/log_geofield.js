@@ -1,5 +1,5 @@
 (function ($) {
-  Drupal.behaviors.farm_theme_movement_geofield = {
+  Drupal.behaviors.farm_theme_log_geofield = {
     attach: function (context, settings) {
 
       // Collapse the geofield fieldset by default. We do this in JS

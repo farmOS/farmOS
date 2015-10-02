@@ -12,11 +12,11 @@ function farm_theme_form_alter(&$form, &$form_state, $form_id) {
   // Log form:
   if ($form_id == 'log_form') {
 
-    // Movement logs:
-    if ($form['#bundle'] == 'farm_movement') {
+    // Activity/Movement/Observation logs:
+    if (in_array($form['#bundle'], array('farm_activity', 'farm_movement', 'farm_observation'))) {
 
-      // Collapse the geofield fieldset by default.
-      if (!empty($form['field_farm_geofield'])) {
+      // Collapse the geofield fieldset if it's empty.
+      if (isset($form['field_farm_geofield']) && empty($form['field_farm_geofield'][LANGUAGE_NONE][0]['geom']['#default_value'])) {
 
         // We make the fieldset collapsible with PHP, but we collapse it with
         // Javascript. This is because collapsing it with PHP breaks the
@@ -27,7 +27,7 @@ function farm_theme_form_alter(&$form, &$form_state, $form_id) {
          */
         $form['field_farm_geofield'][LANGUAGE_NONE][0]['#collapsible'] = TRUE;
         //$form['field_farm_geofield'][LANGUAGE_NONE][0]['#collapsed'] = TRUE;
-        drupal_add_js(drupal_get_path('theme', 'farm_theme') . '/js/movement_geofield.js');
+        drupal_add_js(drupal_get_path('theme', 'farm_theme') . '/js/log_geofield.js');
       }
     }
   }
