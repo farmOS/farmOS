@@ -693,126 +693,10 @@ function farm_log_action_info() {
     'farm_log_asset_move_action' => array(
       'type' => 'farm_asset',
       'label' => t('Move'),
-      'configurable' => TRUE,
+      'configurable' => FALSE,
       'triggers' => array('any'),
       'aggregate' => TRUE,
     ),
-  );
-}
-
-/**
- * Asset move action configuration form.
- *
- * @param array $context
- *   The action context array.
- * @param array $form_state
- *   The form state array.
- *
- * @return array
- *   Returns a form array.
- */
-function farm_log_asset_move_action_form(array $context, array $form_state) {
-
-  // Add Javascript to improve UX.
-  drupal_add_js(drupal_get_path('module', 'farm_log') . '/js/move_action.js');
-
-  // Build a list of the assets being moved.
-  if (!empty($form_state['selection'])) {
-    $assets = array();
-    $query = db_select('farm_asset', 'a');
-    $query->addField('a', 'name');
-    $query->condition('a.id', $form_state['selection']);
-    $results = $query->execute();
-    foreach ($results as $result) {
-      $assets[] = $result->name;
-    }
-
-    // If there is more than one asset, theme an item list.
-    if (count($assets) > 1) {
-      $markup = theme('item_list', array('items' => $assets, 'title' => t('Move Assets:')));
-    }
-
-    // Otherwise, display the one.
-    else {
-      $markup = '<h3>' . t('Move') . ' ' . reset($assets) . '</h3>';
-    }
-
-    // Display the asset(s) in the form.
-    $form['assets'] = array(
-      '#type' => 'markup',
-      '#markup' => $markup,
-      '#weight' => -100,
-    );
-  }
-
-  // Create a new movement entity. This will be used to generate form elements
-  // via field_attach_form(), and it will be saved in the submit function
-  // to actually create the movement log.
-  $values = array(
-    'type' => 'farm_movement',
-  );
-  $movement = entity_create('log', $values);
-
-  // Define the fields we want to pull from the movement form.
-  $fields = array(
-    'field_farm_move_to',
-  );
-
-  // Add the field forms.
-  foreach ($fields as $field) {
-    $options = array(
-      'field_name' => $field,
-    );
-    field_attach_form('log', $movement, $form, $form_state, NULL, $options);
-  }
-
-  // Convert the timestamp to the format Date API expects.
-  $default_value = date('Y-m-d H:i', REQUEST_TIME);
-
-  // Add a form container for log entity properties, at the bottom.
-  $form['properties'] = array(
-    '#type' => 'container',
-    '#weight' => 100,
-  );
-
-  // "Date" field: default to current date.
-  $form['properties']['timestamp'] = array(
-    '#type' => 'date_select',
-    '#title' => t('Date'),
-    '#date_format' => 'M j Y',
-    '#date_type' => DATE_FORMAT_UNIX,
-    '#date_year_range' => '-10:+3',
-    '#default_value' => $default_value,
-    '#required' => TRUE,
-  );
-
-  // "Done" field: mark movements as done.
-  $form['properties']['done'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('Movement is done'),
-    '#description' => t('Check this if the movement has already been done. Otherwise, you will need to mark the movement log item as done later.'),
-    '#default_value' => TRUE,
-  );
-
-  return $form;
-}
-
-/**
- * Asset move action configuration form submit.
- *
- * @param array $form
- *   The form array.
- * @param array $form_state
- *   The form state array.
- *
- * @return array
- *   Returns an array of variables to pass to the action function.
- */
-function farm_log_asset_move_action_submit(array $form, array $form_state) {
-  return array(
-    'to' => $form_state['values']['field_farm_move_to'],
-    'timestamp' => $form_state['values']['timestamp'],
-    'done' => $form_state['values']['done'],
   );
 }
 
@@ -828,13 +712,14 @@ function farm_log_asset_move_action_submit(array $form, array $form_state) {
  */
 function farm_log_asset_move_action(array $assets, $context = array()) {
 
-  // Assemble parameters.
-  $area_id = $context['to'];
-  $timestamp = (!empty($context['timestamp'])) ? strtotime($context['timestamp']) : REQUEST_TIME;
-  $done = (!empty($context['done'])) ? TRUE : FALSE;
+  // Build a list of asset IDs.
+  $ids = array();
+  foreach ($assets as $asset) {
+    $ids[] = $asset->id;
+  }
 
-  // Delegate to the helper function.
-  farm_log_move_assets($assets, $area_id, $timestamp, $done);
+  // Redirect to a form for adding a new movement log.
+  drupal_goto('log/add/farm_movement', array('query' => array('farm_asset' => $ids)));
 }
 
 /**
