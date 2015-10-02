@@ -9,8 +9,22 @@
  */
 function farm_theme_form_alter(&$form, &$form_state, $form_id) {
 
+  // Log form:
+  if ($form_id == 'log_form') {
+
+    // Movement logs:
+    if ($form['#bundle'] == 'farm_movement') {
+
+      // Collapse the geofield fieldset by default.
+      if (!empty($form['field_farm_geofield'][LANGUAGE_NONE][0])) {
+        $form['field_farm_geofield'][LANGUAGE_NONE][0]['#collapsible'] = TRUE;
+        $form['field_farm_geofield'][LANGUAGE_NONE][0]['#collapsed'] = TRUE;
+      }
+    }
+  }
+
   // Views Exposed (filters and sort) form:
-  if ($form_id == 'views_exposed_form') {
+  elseif ($form_id == 'views_exposed_form') {
 
     /* Wrap the exposed form in a Bootstrap collapsible panel. */
 
