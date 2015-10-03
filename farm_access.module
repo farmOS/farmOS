@@ -187,14 +187,35 @@ function farm_access_compare_perms($role) {
  *         'farm_areas',
  *       ),
  *     );
+ * @param array $ops
+ *   An array of strings: 'create', 'read', 'update', 'delete'
+ *   Use this to specify exactly what kinds of permissions should be returned
+ *   for each entity type. Only include the ones you want. If none are provided,
+ *   all permissions will be returned. Example:
+ *     $ops = array(
+ *       'create',
+ *       'read',
+ *       'update',
+ *       'delete',
+ *     );
  *
  * @return array
  *   Returns a list of permissions for the given entity type+bundle.
  */
-function farm_access_entity_perms(array $types) {
+function farm_access_entity_perms(array $types, $ops = array()) {
 
   // Start with an empty array.
   $perms = array();
+
+  // If the operations array is empty, fill it in.
+  if (empty($ops)) {
+    $ops = array(
+      'create',
+      'read',
+      'update',
+      'delete',
+    );
+  }
 
   // Iterate through the types.
   foreach ($types as $type => $bundles) {
@@ -207,30 +228,70 @@ function farm_access_entity_perms(array $types) {
 
         // Farm Asset.
         case 'farm_asset':
-          $perms[] = 'create ' . $bundle . ' farm assets';
-          $perms[] = 'delete any ' . $bundle . ' farm assets';
-          $perms[] = 'delete own ' . $bundle . ' farm assets';
-          $perms[] = 'edit any ' . $bundle . ' farm assets';
-          $perms[] = 'edit own ' . $bundle . ' farm assets';
-          $perms[] = 'view any ' . $bundle . ' farm assets';
-          $perms[] = 'view own ' . $bundle . ' farm assets';
+
+          // Create.
+          if (in_array('create', $ops)) {
+            $perms[] = 'create ' . $bundle . ' farm assets';
+          }
+
+          // Read.
+          if (in_array('read', $ops)) {
+            $perms[] = 'view any ' . $bundle . ' farm assets';
+            $perms[] = 'view own ' . $bundle . ' farm assets';
+          }
+
+          // Update.
+          if (in_array('update', $ops)) {
+            $perms[] = 'edit any ' . $bundle . ' farm assets';
+            $perms[] = 'edit own ' . $bundle . ' farm assets';
+          }
+
+          // Delete.
+          if (in_array('delete', $ops)) {
+            $perms[] = 'delete any ' . $bundle . ' farm assets';
+            $perms[] = 'delete own ' . $bundle . ' farm assets';
+          }
           break;
 
         // Log.
         case 'log':
-          $perms[] = 'create ' . $bundle . ' log entities';
-          $perms[] = 'delete any ' . $bundle . ' log entities';
-          $perms[] = 'delete own ' . $bundle . ' log entities';
-          $perms[] = 'edit any ' . $bundle . ' log entities';
-          $perms[] = 'edit own ' . $bundle . ' log entities';
-          $perms[] = 'view any ' . $bundle . ' log entities';
-          $perms[] = 'view own ' . $bundle . ' log entities';
+
+          // Create.
+          if (in_array('create', $ops)) {
+            $perms[] = 'create ' . $bundle . ' log entities';
+          }
+
+          // Read.
+          if (in_array('read', $ops)) {
+            $perms[] = 'view any ' . $bundle . ' log entities';
+            $perms[] = 'view own ' . $bundle . ' log entities';
+          }
+
+          // Update.
+          if (in_array('update', $ops)) {
+            $perms[] = 'edit any ' . $bundle . ' log entities';
+            $perms[] = 'edit own ' . $bundle . ' log entities';
+          }
+
+          // Delete.
+          if (in_array('delete', $ops)) {
+            $perms[] = 'delete any ' . $bundle . ' log entities';
+            $perms[] = 'delete own ' . $bundle . ' log entities';
+          }
           break;
 
         // Taxonomy.
         case 'taxonomy':
-          $perms[] = 'delete terms in ' . $bundle;
-          $perms[] = 'edit terms in ' . $bundle;
+
+          // Update.
+          if (in_array('update', $ops)) {
+            $perms[] = 'edit terms in ' . $bundle;
+          }
+
+          // Delete.
+          if (in_array('delete', $ops)) {
+            $perms[] = 'delete terms in ' . $bundle;
+          }
           break;
       }
     }
