@@ -12,6 +12,8 @@ function farm_access_farm_access_roles() {
   // Build a list of roles.
   $roles = array(
     'Farm Manager',
+    'Farm Worker',
+    'Farm Viewer',
   );
   return $roles;
 }
