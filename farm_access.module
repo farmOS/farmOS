@@ -191,14 +191,14 @@ function farm_access_compare_perms($role) {
  *       ),
  *     );
  * @param array $ops
- *   An array of strings: 'create', 'read', 'update', 'delete'
+ *   An array of strings: 'create', 'view', 'edit', 'delete'
  *   Use this to specify exactly what kinds of permissions should be returned
  *   for each entity type. Only include the ones you want. If none are provided,
  *   all permissions will be returned. Example:
  *     $ops = array(
  *       'create',
- *       'read',
- *       'update',
+ *       'view',
+ *       'edit',
  *       'delete',
  *     );
  *
@@ -214,8 +214,8 @@ function farm_access_entity_perms(array $types, $ops = array()) {
   if (empty($ops)) {
     $ops = array(
       'create',
-      'read',
-      'update',
+      'view',
+      'edit',
       'delete',
     );
   }
@@ -237,14 +237,14 @@ function farm_access_entity_perms(array $types, $ops = array()) {
             $perms[] = 'create ' . $bundle . ' farm assets';
           }
 
-          // Read.
-          if (in_array('read', $ops)) {
+          // View.
+          if (in_array('view', $ops)) {
             $perms[] = 'view any ' . $bundle . ' farm assets';
             $perms[] = 'view own ' . $bundle . ' farm assets';
           }
 
-          // Update.
-          if (in_array('update', $ops)) {
+          // Edit.
+          if (in_array('edit', $ops)) {
             $perms[] = 'edit any ' . $bundle . ' farm assets';
             $perms[] = 'edit own ' . $bundle . ' farm assets';
           }
@@ -264,14 +264,14 @@ function farm_access_entity_perms(array $types, $ops = array()) {
             $perms[] = 'create ' . $bundle . ' log entities';
           }
 
-          // Read.
-          if (in_array('read', $ops)) {
+          // View.
+          if (in_array('view', $ops)) {
             $perms[] = 'view any ' . $bundle . ' log entities';
             $perms[] = 'view own ' . $bundle . ' log entities';
           }
 
-          // Update.
-          if (in_array('update', $ops)) {
+          // Edit.
+          if (in_array('edit', $ops)) {
             $perms[] = 'edit any ' . $bundle . ' log entities';
             $perms[] = 'edit own ' . $bundle . ' log entities';
           }
@@ -286,8 +286,8 @@ function farm_access_entity_perms(array $types, $ops = array()) {
         // Taxonomy.
         case 'taxonomy':
 
-          // Update.
-          if (in_array('update', $ops)) {
+          // Edit.
+          if (in_array('edit', $ops)) {
             $perms[] = 'edit terms in ' . $bundle;
           }
 
