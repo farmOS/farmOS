@@ -78,5 +78,21 @@ function hook_farm_access_perms($role) {
 }
 
 /**
+ * Alter permissions that were defined by modules using hook_farm_access_perms().
+ *
+ * @param string $role
+ *   The role name that permissions are being built for.
+ * @param array $perms
+ *   The permissions provided by other modules, passed by reference.
+ */
+function hook_farm_access_perms_alter($role, &$perms) {
+
+  // Give Farm Managers permission to administer modules.
+  if ($role == 'Farm Manager') {
+    $perms[] = 'administer modules';
+  }
+}
+
+/**
  * @}
  */

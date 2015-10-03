@@ -115,6 +115,9 @@ function farm_access_available_perms($role) {
     }
   }
 
+  // Allow other modules to alter the permissions for this role.
+  drupal_alter('farm_access_perms', $role, $perms);
+
   // Return them.
   return $perms;
 }
@@ -309,13 +312,14 @@ function farm_access_modules_enabled($modules) {
   // Create new roles.
   farm_access_roles_create();
 
-  // Load a list of modules that implement this module's
-  // hook_farm_access_perms().
-  $implementations = module_implements('farm_access_perms');
+  // Load a list of modules that implement hook_farm_access_perms() or
+  // hook_farm_access_perms_alter().
+  $perms_implementations = module_implements('farm_access_perms');
+  $alter_implementations = module_implements('farm_access_perms_alter');
 
-  // If one of the modules being enabled implements hook_farm_access_perms(),
-  // sync permissions.
-  if (array_intersect($modules, $implementations)) {
+  // If one of the modules being enabled implements hook_farm_access_perms() or
+  // hook_farm_access_perms_alter(), sync permissions.
+  if (array_intersect($modules, $perms_implementations) || array_intersect($modules, $alter_implementations)) {
     farm_access_sync_perms();
   }
 }
