@@ -22,10 +22,13 @@ This module depends on the following modules:
  * Filefield Paths (http://drupal.org/project/filefield_paths)
  * Fraction (http://drupal.org/project/fraction)
  * Log (http://drupal.org/project/log)
+ * Openlayers (http://drupal.org/project/openlayers)
+ * Strongarm (http://drupal.org/project/strongarm)
  * Views (http://drupal.org/project/views)
  * Farm Area (http://drupal.org/project/farm_area)
  * Farm Asset (http://drupal.org/project/farm_asset)
  * Farm Fields (http://drupal.org/project/farm_fields)
+ * Farm Map (http://drupal.org/project/farm_map)
 
 INSTALLATION
 ------------
