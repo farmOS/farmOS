@@ -5,6 +5,41 @@
  */
 
 /**
+ * Implements hook_farm_access_roles().
+ */
+function farm_access_farm_access_roles() {
+
+  // Build a list of roles.
+  $roles = array(
+    'Farm Manager',
+  );
+  return $roles;
+}
+
+/**
+ * Create farm roles.
+ */
+function farm_access_roles_create() {
+
+  // Invoke hook_farm_access_roles() to get a list of roles.
+  $roles = module_invoke_all('farm_access_roles');
+
+  // Iterate through the roles.
+  foreach ($roles as $name) {
+
+    // Load the role by name.
+    $role = user_role_load_by_name($name);
+
+    // If the role doesn't exist, create it.
+    if (empty($role)) {
+      $role = new stdClass();
+      $role->name = $name;
+      user_role_save($role);
+    }
+  }
+}
+
+/**
  * Synchronize all available farm permissions farm roles.
  */
 function farm_access_sync_perms() {
@@ -189,6 +224,9 @@ function farm_access_entity_perms(array $types) {
  */
 function farm_access_modules_enabled($modules) {
 
+  // Create new roles.
+  farm_access_roles_create();
+
   // Load a list of modules that implement this module's
   // hook_farm_access_perms().
   $implementations = module_implements('farm_access_perms');
@@ -221,6 +259,9 @@ function farm_access_form_alter(&$form, &$form_state, $form_id) {
  */
 function farm_access_permissions_form_submit($form, &$form_state) {
 
+  // Create new roles.
+  farm_access_roles_create();
+
   // Sync permissions.
   farm_access_sync_perms();
 
@@ -233,6 +274,9 @@ function farm_access_permissions_form_submit($form, &$form_state) {
  * Implements hook_flush_caches().
  */
 function farm_access_flush_caches() {
+
+  // Create new roles.
+  farm_access_roles_create();
 
   // Sync permissions when the cache is cleared.
   farm_access_sync_perms();

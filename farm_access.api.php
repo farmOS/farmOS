@@ -22,6 +22,23 @@
  */
 
 /**
+ * Defines farm access roles.
+ *
+ * @return array
+ *   Returns an array of farm access roles.
+ */
+function hook_farm_access_roles() {
+
+  // Build a list of roles.
+  $roles = array(
+    'Farm Manager',
+    'Farm Worker',
+    'Farm Viewer',
+  );
+  return $roles;
+}
+
+/**
  * Defines farm access permissions.
  * Use farm_access_entity_perms() to generate permissions for common entity
  * types.
