@@ -43,12 +43,20 @@ function hook_farm_access_roles() {
  * Use farm_access_entity_perms() to generate permissions for common entity
  * types.
  *
+ * @param string $role
+ *   The role name to add permissions for.
+ *
  * @return array
  *   Returns an array of farm access permissions.
  *
  * @see farm_access_entity_perms()
  */
-function hook_farm_access_perms() {
+function hook_farm_access_perms($role) {
+
+  // Only add permissions to the Farm Manager role.
+  if ($role != 'Farm Manager') {
+    return array();
+  }
 
   // Build a list of permissions on behalf of the farm_crop module.
   $types = array(

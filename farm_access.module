@@ -44,52 +44,65 @@ function farm_access_roles_create() {
  */
 function farm_access_sync_perms() {
 
-  // Compare current perms to available perms.
-  $compare = farm_access_compare_perms();
+  // Load a list of all farm roles.
+  $roles = module_invoke_all('farm_access_roles');
 
-  // Add perms.
-  if (!empty($compare['add'])) {
-    foreach ($compare['add'] as $perm) {
-      $changes[$perm] = TRUE;
-    }
-  }
+  // Iterate through the available roles.
+  foreach ($roles as $role) {
 
-  // Remove perms.
-  if (!empty($compare['remove'])) {
-    foreach ($compare['remove'] as $perm) {
-      $changes[$perm] = FALSE;
-    }
-  }
+    // Compare current perms to available perms.
+    $compare = farm_access_compare_perms($role);
 
-  // If there are changes to be made...
-  if (!empty($changes)) {
+    // Start with a blank array of changes.
+    $changes = array();
 
-    // Load the Farm Manager role.
-    $role = user_role_load_by_name('Farm Manager');
-
-    // If the role does not exist, bail.
-    if (empty($role)) {
-      return;
+    // Add perms.
+    if (!empty($compare['add'])) {
+      foreach ($compare['add'] as $perm) {
+        $changes[$perm] = TRUE;
+      }
     }
 
-    // Apply the changes.
-    user_role_change_permissions($role->rid, $changes);
+    // Remove perms.
+    if (!empty($compare['remove'])) {
+      foreach ($compare['remove'] as $perm) {
+        $changes[$perm] = FALSE;
+      }
+    }
+
+    // If there are changes to be made...
+    if (!empty($changes)) {
+
+      // Load the role.
+      $role = user_role_load_by_name($role);
+
+      // If the role does not exist, bail.
+      if (empty($role)) {
+        return;
+      }
+
+      // Apply the changes.
+      user_role_change_permissions($role->rid, $changes);
+    }
   }
 }
 
 /**
  * Gets a list of all available farm permissions.
  *
+ * @param string $role
+ *    A role name to get current permissions for.
+ *
  * @return array
  *   Returns an array of permission strings.
  */
-function farm_access_available_perms() {
+function farm_access_available_perms($role) {
 
   // Load the permissions provided by this module on behalf of others.
   module_load_include('inc', 'farm_access', 'farm_access.modules');
 
   // Invoke hook_farm_access_perms() to allow modules to provide permissions.
-  $perms = module_invoke_all('farm_access_perms');
+  $perms = module_invoke_all('farm_access_perms', $role);
 
   // Unset any that don't exist.
   // This can be an issue with Taxonomies provided by Features.
@@ -107,13 +120,16 @@ function farm_access_available_perms() {
 /**
  * Gets a list of the permissions currently assigned to farm roles.
  *
+ * @param string $role
+ *   A role name to get current permissions for.
+ *
  * @return array
  *   Returns an array of permission strings.
  */
-function farm_access_current_perms() {
+function farm_access_current_perms($role) {
 
-  // Load the Farm Manager role.
-  $role = user_role_load_by_name('Farm Manager');
+  // Load the role.
+  $role = user_role_load_by_name($role);
 
   // If the role does not exist, bail.
   if (empty($role)) {
@@ -130,18 +146,21 @@ function farm_access_current_perms() {
 /**
  * Compares available permissions to actual permissions.
  *
+ * @param string $role
+ *   A role name to get current permissions for.
+ *
  * @return array
  *   Returns an array with two sub-arrays:
  *     'add': a list of permission strings that should be added
  *     'remove': a list of permission strings that should be removed
  */
-function farm_access_compare_perms() {
+function farm_access_compare_perms($role) {
 
   // Get the available perms.
-  $available_perms = farm_access_available_perms();
+  $available_perms = farm_access_available_perms($role);
 
   // Get the currently applied perms.
-  $current_perms = farm_access_current_perms();
+  $current_perms = farm_access_current_perms($role);
 
   // Determine which perms should be added.
   $compare['add'] = array_diff($available_perms, $current_perms);
