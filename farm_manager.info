@@ -1,4 +1,0 @@
-name = Farm Manager
-description = DEPRECATED - Use Farm Access instead.
-core = 7.x
-package = farmOS
