@@ -17,12 +17,17 @@ function farm_mapknitter_permission() {
 }
 
 /**
- * Implements hook_farm_manager_perms().
+ * Implements hook_farm_access_perms().
  */
-function farm_mapknitter_farm_manager_perms() {
+function farm_mapknitter_farm_access_perms($role) {
+  $perms = array();
 
-  // Give farm managers access to the mapknitter config.
-  return array('administer farm_mapknitter module');
+  // Grant administer permission to Farm Managers.
+  if ($role == 'Farm Manager') {
+    $perms[] = 'administer farm_mapknitter module';
+  }
+
+  return $perms;
 }
 
 /**
