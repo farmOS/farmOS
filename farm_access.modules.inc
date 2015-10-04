@@ -15,6 +15,14 @@ function farm_access_farm_access_perms($role) {
 
     // Administer users.
     $perms[] = 'administer users';
+
+    // Allow role delegation (add one for each defined role).
+    if (module_exists('role_delegation')) {
+      $roles = module_invoke_all('farm_access_roles');
+      foreach ($roles as $role) {
+        $perms[] = 'assign ' . $role . ' role';
+      }
+    }
   }
 
   return $perms;
