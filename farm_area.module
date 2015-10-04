@@ -7,17 +7,34 @@
 include_once 'farm_area.features.inc';
 
 /**
- * Implements hook_farm_manager_perms().
+ * Implements hook_farm_access_perms().
  */
-function farm_area_farm_manager_perms() {
+function farm_area_farm_access_perms($role) {
 
-  // Grant manager permissions to area management features.
+  // Assemble a list of entity types provided by this module.
   $types = array(
     'taxonomy' => array(
       'farm_areas',
     ),
   );
-  return farm_manager_entity_perms($types);
+
+  // Grant different CRUD permissions based on the role.
+  $perms = array();
+  switch ($role) {
+
+    // Farm Manager and Worker
+    case 'Farm Manager':
+    case 'Farm Worker':
+      $perms = farm_access_entity_perms($types);
+      break;
+
+    // Farm Viewer
+    case 'Farm Viewer':
+      $perms = farm_access_entity_perms($types, array('view'));
+      break;
+  }
+
+  return $perms;
 }
 
 /**
