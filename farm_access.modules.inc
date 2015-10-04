@@ -7,6 +7,22 @@
 /**
  * Implements hook_farm_access_perms().
  */
+function farm_access_farm_access_perms($role) {
+  $perms = array();
+
+  // Allow Farm Managers to administer users and delegate roles.
+  if ($role == 'Farm Manager') {
+
+    // Administer users.
+    $perms[] = 'administer users';
+  }
+
+  return $perms;
+}
+
+/**
+ * Implements hook_farm_access_perms().
+ */
 function farm_asset_farm_access_perms($role) {
   $perms = array();
 
