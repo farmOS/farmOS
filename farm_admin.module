@@ -30,9 +30,9 @@ function farm_admin_permission() {
 }
 
 /**
- * Implements hook_farm_manager_perms().
+ * Implements hook_farm_access_perms().
  */
-function farm_admin_farm_manager_perms() {
+function farm_admin_farm_access_perms($role) {
   $perms = array();
 
   // Access farm dashboard.
