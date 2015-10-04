@@ -6,6 +6,22 @@
  */
 
 /**
+ * Implements hook_enable().
+ */
+function farm_asset_install() {
+
+  /**
+   * Set the weight of this module to 1.
+   *
+   * We do this so that our hook_views_data_alter() fires after the taxonomy
+   * module's hook, because we need to alter it.
+   *
+   * @see farm_asset_views_data_alter()
+   */
+  db_query("UPDATE {system} SET weight = 1 WHERE name = 'farm_asset'");
+}
+
+/**
  * Implements hook_schema().
  */
 function farm_asset_schema() {
@@ -131,4 +147,13 @@ function farm_asset_update_7000(&$sandbox) {
   );
   db_add_field('farm_asset', 'active', $active);
   db_add_index('farm_asset', 'active', array('active'));
+}
+
+/**
+ * Increase module weight.
+ */
+function farm_asset_update_7001(&$sandbox) {
+
+  // Set the weight of farm_asset to 1.
+  db_query("UPDATE {system} SET weight = 1 WHERE name = 'farm_asset'");
 }

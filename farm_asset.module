@@ -389,6 +389,14 @@ function farm_asset_ctools_plugin_directory($owner, $plugin_type) {
   return $directory;
 }
 
+/**
+ * Implements hook_views_api().
+ */
+function farm_asset_views_api($module = NULL, $api = NULL) {
+  return array('api' => '3.0');
+}
+
+
 /***************************************************************
  * Access functions
  * *************************************************************/
