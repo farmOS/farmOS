@@ -53,12 +53,7 @@ function hook_farm_access_roles() {
  */
 function hook_farm_access_perms($role) {
 
-  // Only add permissions to the Farm Manager role.
-  if ($role != 'Farm Manager') {
-    return array();
-  }
-
-  // Build a list of permissions on behalf of the farm_crop module.
+  // Assemble a list of entity types provided by this module.
   $types = array(
     'farm_asset' => array(
       'planting',
@@ -74,7 +69,24 @@ function hook_farm_access_perms($role) {
       'farm_crop_families',
     ),
   );
-  return farm_access_entity_perms($types);
+
+  // Grant different CRUD permissions based on the role.
+  $perms = array();
+  switch ($role) {
+
+    // Farm Manager and Worker
+    case 'Farm Manager':
+    case 'Farm Worker':
+      $perms = farm_access_entity_perms($types);
+      break;
+
+    // Farm Viewer
+    case 'Farm Viewer':
+      $perms = farm_access_entity_perms($types, array('view'));
+      break;
+  }
+
+  return $perms;
 }
 
 /**
