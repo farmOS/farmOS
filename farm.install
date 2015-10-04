@@ -140,6 +140,22 @@ function farm_update_7006(&$sandbox) {
 }
 
 /**
+ * Load Openlayers via CDN.
+ */
+function farm_update_7007(&$sandbox) {
+
+  // Enable the Farm Access module.
+  _farm_enable_modules(array('farm_access'));
+  
+  // Disable and uninstall the Farm Manager module.
+  $module = 'farm_manager';
+  if (module_exists($module)) {
+    module_disable(array($module));
+    drupal_uninstall_modules(array($module));
+  }
+}
+
+/**
  * Helper function: enable modules.
  */
 function _farm_enable_modules($modules = array()) {

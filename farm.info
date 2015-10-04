@@ -39,6 +39,7 @@ dependencies[] = navbar
 dependencies[] = restws
 
 ; Farm
+dependencies[] = farm_access
 dependencies[] = farm_admin
 dependencies[] = farm_area
 dependencies[] = farm_asset
@@ -48,7 +49,6 @@ dependencies[] = farm_fields
 dependencies[] = farm_livestock
 dependencies[] = farm_livestock_eggs
 dependencies[] = farm_log
-dependencies[] = farm_manager
 dependencies[] = farm_map
 dependencies[] = farm_soil
 dependencies[] = farm_soil_test

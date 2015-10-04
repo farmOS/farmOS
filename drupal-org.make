@@ -105,6 +105,9 @@ projects[registry_autoload][version] = "1.2"
 projects[restws][subdir] = "contrib"
 projects[restws][version] = "2.4"
 
+projects[role_delegation][subdir] = "contrib"
+projects[role_delegation][version] = "1.1"
+
 projects[role_export][subdir] = "contrib"
 projects[role_export][version] = "1.0"
 
@@ -156,6 +159,9 @@ projects[module_filter][version] = "2.0"
 ; Modules (farm)
 ; -----------------------------------------------------------------------------
 
+projects[farm_access][subdir] = "farm"
+projects[farm_access][version] = "1.0"
+
 projects[farm_admin][subdir] = "farm"
 projects[farm_admin][version] = "1.0-beta5"
 
@@ -190,7 +196,7 @@ projects[farm_maple][subdir] = "farm"
 projects[farm_maple][version] = "1.x-dev"
 
 projects[farm_manager][subdir] = "farm"
-projects[farm_manager][version] = "1.0-beta5"
+projects[farm_manager][version] = "1.0-beta7"
 
 projects[farm_mushroom][subdir] = "farm"
 projects[farm_mushroom][version] = "1.x-dev"
