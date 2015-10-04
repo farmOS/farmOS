@@ -103,12 +103,6 @@ function farm_livestock_views_default_views() {
     'farm_animal_groups' => 'farm_animal_groups',
   );
   $handler->display->display_options['filters']['machine_name']['group'] = 1;
-  /* Filter criterion: Farm asset: Active */
-  $handler->display->display_options['filters']['active']['id'] = 'active';
-  $handler->display->display_options['filters']['active']['table'] = 'farm_asset';
-  $handler->display->display_options['filters']['active']['field'] = 'active';
-  $handler->display->display_options['filters']['active']['relationship'] = 'reverse_field_farm_animal_group_farm_asset';
-  $handler->display->display_options['filters']['active']['value'] = '1';
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
@@ -214,12 +208,6 @@ function farm_livestock_views_default_views() {
     'farm_animal_types' => 'farm_animal_types',
   );
   $handler->display->display_options['filters']['machine_name']['group'] = 1;
-  /* Filter criterion: Farm asset: Active */
-  $handler->display->display_options['filters']['active']['id'] = 'active';
-  $handler->display->display_options['filters']['active']['table'] = 'farm_asset';
-  $handler->display->display_options['filters']['active']['field'] = 'active';
-  $handler->display->display_options['filters']['active']['relationship'] = 'reverse_field_farm_animal_type_farm_asset';
-  $handler->display->display_options['filters']['active']['value'] = '1';
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
