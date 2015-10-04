@@ -178,6 +178,72 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_harvest-field_farm_geofield'
+  $field_instances['log-farm_harvest-field_farm_geofield'] = array(
+    'bundle' => 'farm_harvest',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'This field is optional. It allows you to store geospatial data along with this harvest.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'openlayers_geofield',
+        'settings' => array(
+          'data' => 'full',
+          'map_preset' => 'farm_map_geofield_formatter',
+        ),
+        'type' => 'openlayers_geofield',
+        'weight' => 4,
+      ),
+      'token' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_geofield',
+    'label' => 'Geometry',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'openlayers_geofield',
+      'settings' => array(
+        'allow_edit' => 1,
+        'data_storage' => 'collection',
+        'delta_handling' => 'default',
+        'feature_types' => array(
+          'path' => 'path',
+          'point' => 'point',
+          'polygon' => 'polygon',
+        ),
+        'geocoder_field' => 'field_farm_notes',
+        'geocoder_handler' => 'yandex',
+        'handler_settings' => array(
+          'google' => array(
+            'all_results' => 0,
+            'geometry_type' => 'point',
+            'reject_results' => array(
+              'APPROXIMATE' => 0,
+              'GEOMETRIC_CENTER' => 0,
+              'RANGE_INTERPOLATED' => 0,
+              'ROOFTOP' => 0,
+            ),
+          ),
+        ),
+        'openlayers_map' => 'farm_map_geofield',
+        'showInputField' => 0,
+        'use_geocoder' => 0,
+      ),
+      'type' => 'openlayers_geofield',
+      'weight' => 4,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_harvest-field_farm_notes'
   $field_instances['log-farm_harvest-field_farm_notes'] = array(
     'bundle' => 'farm_harvest',
@@ -337,6 +403,72 @@ function farm_crop_field_default_field_instances() {
       ),
       'type' => 'taxonomy_autocomplete',
       'weight' => 3,
+    ),
+  );
+
+  // Exported field_instance: 'log-farm_input-field_farm_geofield'
+  $field_instances['log-farm_input-field_farm_geofield'] = array(
+    'bundle' => 'farm_input',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'This field is optional. It allows you to store geospatial data along with this input.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'openlayers_geofield',
+        'settings' => array(
+          'data' => 'full',
+          'map_preset' => 'farm_map_geofield_formatter',
+        ),
+        'type' => 'openlayers_geofield',
+        'weight' => 9,
+      ),
+      'token' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_geofield',
+    'label' => 'Geometry',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'openlayers_geofield',
+      'settings' => array(
+        'allow_edit' => 1,
+        'data_storage' => 'collection',
+        'delta_handling' => 'default',
+        'feature_types' => array(
+          'path' => 'path',
+          'point' => 'point',
+          'polygon' => 'polygon',
+        ),
+        'geocoder_field' => 'field_farm_area',
+        'geocoder_handler' => 'yandex',
+        'handler_settings' => array(
+          'google' => array(
+            'all_results' => 0,
+            'geometry_type' => 'point',
+            'reject_results' => array(
+              'APPROXIMATE' => 0,
+              'GEOMETRIC_CENTER' => 0,
+              'RANGE_INTERPOLATED' => 0,
+              'ROOFTOP' => 0,
+            ),
+          ),
+        ),
+        'openlayers_map' => 'farm_map_geofield',
+        'showInputField' => 0,
+        'use_geocoder' => 0,
+      ),
+      'type' => 'openlayers_geofield',
+      'weight' => 9,
     ),
   );
 
@@ -1104,6 +1236,7 @@ function farm_crop_field_default_field_instances() {
   t('Does this input apply to a specific planting?');
   t('Enter the crop that this is a planting of. As you type, you will have the option of selecting from crops that you\'ve entered in the past.');
   t('Harvests must reference a specific planting. You can view a list of all plantings, and add new ones, from the ' . l('Plantings list', 'farm/plantings') . '.');
+  t('Geometry');
   t('How was this input applied?');
   t('Is this input being added to a specific area?');
   t('Material');
@@ -1117,6 +1250,8 @@ function farm_crop_field_default_field_instances() {
   t('Source/Manufacturer');
   t('Source/Supplier');
   t('Transplantings must reference a specific planting. You can view a list of all plantings, and add new ones, from the ' . l('Plantings list', 'farm/plantings') . '.');
+  t('This field is optional. It allows you to store geospatial data along with this harvest.');
+  t('This field is optional. It allows you to store geospatial data along with this input.');
   t('What material is being applied? As you type, you will have the option of selecting from materials that you\'ve entered in the past.');
   t('What was the purpose of this input?');
   t('Where was this input obtained? Who manufactured it?');
