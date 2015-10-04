@@ -7,7 +7,7 @@
 /**
  * Implements hook_farm_access_perms().
  */
-function farm_asset_farm_access_perms() {
+function farm_asset_farm_access_perms($role) {
   $perms = array();
 
   // Grant access to RESTful Web Services resources.
@@ -19,7 +19,7 @@ function farm_asset_farm_access_perms() {
 /**
  * Implements hook_farm_access_perms().
  */
-function log_farm_access_perms() {
+function log_farm_access_perms($role) {
   $perms = array();
 
   // Access farm dashboard.
@@ -34,7 +34,7 @@ function log_farm_access_perms() {
 /**
  * Implements hook_farm_access_perms().
  */
-function node_farm_access_perms() {
+function node_farm_access_perms($role) {
   $perms = array();
 
   // This is needed to view nodes and taxonomy terms.
@@ -46,7 +46,7 @@ function node_farm_access_perms() {
 /**
  * Implements hook_farm_access_perms().
  */
-function system_farm_access_perms() {
+function system_farm_access_perms($role) {
   $perms = array();
 
   // Grant access to admin pages.
@@ -58,11 +58,13 @@ function system_farm_access_perms() {
 /**
  * Implements hook_farm_access_perms().
  */
-function taxonomy_farm_access_perms() {
+function taxonomy_farm_access_perms($role) {
   $perms = array();
 
   // This is needed to add terms.
-  $perms[] = 'administer taxonomy';
+  if (in_array($role, array('Farm Manager', 'Farm Worker'))) {
+    $perms[] = 'administer taxonomy';
+  }
 
   // Access RESTful Web Services taxonomy_term resources.
   $perms[] = 'access resource taxonomy_term';
