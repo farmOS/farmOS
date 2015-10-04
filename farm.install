@@ -140,7 +140,7 @@ function farm_update_7006(&$sandbox) {
 }
 
 /**
- * Load Openlayers via CDN.
+ * Install Farm Access and uninstall Farm Manager.
  */
 function farm_update_7007(&$sandbox) {
 
