@@ -19,11 +19,11 @@ function farm_log_permission() {
 }
 
 /**
- * Implements hook_farm_manager_perms().
+ * Implements hook_farm_access_perms().
  */
-function farm_log_farm_manager_perms() {
+function farm_log_farm_access_perms($role) {
 
-  // Grant manager permissions to default log types and taxonomies.
+  // Assemble a list of log types and taxonomies provided by this module.
   $types = array(
     'log' => array(
       'farm_activity',
@@ -36,7 +36,22 @@ function farm_log_farm_manager_perms() {
       'farm_quantity_units',
     ),
   );
-  $perms = farm_manager_entity_perms($types);
+
+  // Grant different CRUD permissions based on the role.
+  $perms = array();
+  switch ($role) {
+
+    // Farm Manager and Worker
+    case 'Farm Manager':
+    case 'Farm Worker':
+      $perms = farm_access_entity_perms($types);
+      break;
+
+    // Farm Viewer
+    case 'Farm Viewer':
+      $perms = farm_access_entity_perms($types, array('view'));
+      break;
+  }
 
   // Add 'view farm logs' permission.
   $perms[] = 'view farm logs';
