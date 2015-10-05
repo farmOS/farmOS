@@ -37,6 +37,7 @@ dependencies[] = jquery_update
 dependencies[] = module_filter
 dependencies[] = navbar
 dependencies[] = restws
+dependencies[] = role_delegation
 
 ; Farm
 dependencies[] = farm_access
