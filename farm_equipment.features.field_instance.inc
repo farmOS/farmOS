@@ -205,6 +205,64 @@ function farm_equipment_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_maintenance-field_farm_files'
+  $field_instances['log-farm_maintenance-field_farm_files'] = array(
+    'bundle' => 'farm_maintenance',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'file',
+        'settings' => array(),
+        'type' => 'file_table',
+        'weight' => 3,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_files',
+    'label' => 'Files',
+    'required' => 0,
+    'settings' => array(
+      'description_field' => 1,
+      'file_directory' => '',
+      'file_extensions' => 'csv doc docx odt odp ods pdf ppt pptx txt xls xlsx kml kmz zip tar gz',
+      'filefield_paths' => array(
+        'active_updating' => 0,
+        'file_name' => array(
+          'options' => array(
+            'pathauto' => 0,
+            'slashes' => 0,
+            'transliterate' => 0,
+          ),
+          'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
+        ),
+        'file_path' => array(
+          'options' => array(
+            'pathauto' => 0,
+            'slashes' => 0,
+            'transliterate' => 0,
+          ),
+          'value' => 'farm/log/maintenance/[log:id]',
+        ),
+        'redirect' => FALSE,
+        'retroactive_update' => 0,
+      ),
+      'filefield_paths_enabled' => 1,
+      'max_filesize' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'file',
+      'settings' => array(
+        'progress_indicator' => 'bar',
+      ),
+      'type' => 'file_generic',
+      'weight' => 5,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_maintenance-field_farm_images'
   $field_instances['log-farm_maintenance-field_farm_images'] = array(
     'bundle' => 'farm_maintenance',
@@ -225,7 +283,7 @@ function farm_equipment_field_default_field_instances() {
           'colorbox_node_style_first' => 'large',
         ),
         'type' => 'colorbox',
-        'weight' => 3,
+        'weight' => 2,
       ),
     ),
     'entity_type' => 'log',
@@ -286,7 +344,7 @@ function farm_equipment_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 2,
+        'weight' => 1,
       ),
     ),
     'entity_type' => 'log',

@@ -28,6 +28,7 @@ features[field_instance][] = farm_asset-equipment-field_farm_description
 features[field_instance][] = farm_asset-equipment-field_farm_files
 features[field_instance][] = farm_asset-equipment-field_farm_images
 features[field_instance][] = log-farm_maintenance-field_farm_equipment
+features[field_instance][] = log-farm_maintenance-field_farm_files
 features[field_instance][] = log-farm_maintenance-field_farm_images
 features[field_instance][] = log-farm_maintenance-field_farm_notes
 features[log_type][] = farm_maintenance
