@@ -178,6 +178,70 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_harvest-field_farm_files'
+  $field_instances['log-farm_harvest-field_farm_files'] = array(
+    'bundle' => 'farm_harvest',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'file',
+        'settings' => array(),
+        'type' => 'file_table',
+        'weight' => 4,
+      ),
+      'token' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_files',
+    'label' => 'Files',
+    'required' => 0,
+    'settings' => array(
+      'description_field' => 1,
+      'file_directory' => '',
+      'file_extensions' => 'csv doc docx odt odp ods pdf ppt pptx txt xls xlsx kml kmz zip tar gz',
+      'filefield_paths' => array(
+        'active_updating' => 0,
+        'file_name' => array(
+          'options' => array(
+            'pathauto' => 0,
+            'slashes' => 0,
+            'transliterate' => 0,
+          ),
+          'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
+        ),
+        'file_path' => array(
+          'options' => array(
+            'pathauto' => 0,
+            'slashes' => 0,
+            'transliterate' => 0,
+          ),
+          'value' => 'farm/log/harvest/[log:id]',
+        ),
+        'redirect' => FALSE,
+        'retroactive_update' => 0,
+      ),
+      'filefield_paths_enabled' => 1,
+      'max_filesize' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'file',
+      'settings' => array(
+        'progress_indicator' => 'bar',
+      ),
+      'type' => 'file_generic',
+      'weight' => 6,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_harvest-field_farm_geofield'
   $field_instances['log-farm_harvest-field_farm_geofield'] = array(
     'bundle' => 'farm_harvest',
@@ -193,7 +257,7 @@ function farm_crop_field_default_field_instances() {
           'map_preset' => 'farm_map_geofield_formatter',
         ),
         'type' => 'openlayers_geofield',
-        'weight' => 4,
+        'weight' => 5,
       ),
       'token' => array(
         'label' => 'above',
@@ -221,8 +285,8 @@ function farm_crop_field_default_field_instances() {
           'point' => 'point',
           'polygon' => 'polygon',
         ),
-        'geocoder_field' => 'field_farm_notes',
-        'geocoder_handler' => 'yandex',
+        'geocoder_field' => 'field_farm_files',
+        'geocoder_handler' => 'kml',
         'handler_settings' => array(
           'google' => array(
             'all_results' => 0,
@@ -237,10 +301,88 @@ function farm_crop_field_default_field_instances() {
         ),
         'openlayers_map' => 'farm_map_geofield',
         'showInputField' => 0,
-        'use_geocoder' => 0,
+        'use_geocoder' => 1,
       ),
       'type' => 'openlayers_geofield',
       'weight' => 4,
+    ),
+  );
+
+  // Exported field_instance: 'log-farm_harvest-field_farm_images'
+  $field_instances['log-farm_harvest-field_farm_images'] = array(
+    'bundle' => 'farm_harvest',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'colorbox',
+        'settings' => array(
+          'colorbox_caption' => 'auto',
+          'colorbox_caption_custom' => '',
+          'colorbox_gallery' => 'post',
+          'colorbox_gallery_custom' => '',
+          'colorbox_image_style' => '',
+          'colorbox_multivalue_index' => NULL,
+          'colorbox_node_style' => 'thumbnail',
+          'colorbox_node_style_first' => 'large',
+        ),
+        'type' => 'colorbox',
+        'weight' => 3,
+      ),
+      'token' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_images',
+    'label' => 'Photo(s)',
+    'required' => 0,
+    'settings' => array(
+      'alt_field' => 0,
+      'default_image' => 0,
+      'file_directory' => '',
+      'file_extensions' => 'png gif jpg jpeg',
+      'filefield_paths' => array(
+        'active_updating' => 0,
+        'file_name' => array(
+          'options' => array(
+            'pathauto' => 0,
+            'slashes' => 0,
+            'transliterate' => 0,
+          ),
+          'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
+        ),
+        'file_path' => array(
+          'options' => array(
+            'pathauto' => 0,
+            'slashes' => 0,
+            'transliterate' => 0,
+          ),
+          'value' => 'farm/log/harvest/[log:id]',
+        ),
+        'redirect' => FALSE,
+        'retroactive_update' => 0,
+      ),
+      'filefield_paths_enabled' => 1,
+      'max_filesize' => '',
+      'max_resolution' => '',
+      'min_resolution' => '',
+      'title_field' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'image',
+      'settings' => array(
+        'preview_image_style' => 'thumbnail',
+        'progress_indicator' => 'bar',
+      ),
+      'type' => 'image_image',
+      'weight' => 5,
     ),
   );
 
@@ -256,7 +398,7 @@ function farm_crop_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 3,
+        'weight' => 2,
       ),
       'token' => array(
         'label' => 'above',
@@ -341,7 +483,7 @@ function farm_crop_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 2,
+        'weight' => 1,
       ),
       'token' => array(
         'label' => 'above',
@@ -378,7 +520,7 @@ function farm_crop_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 3,
+        'weight' => 2,
       ),
       'token' => array(
         'label' => 'above',
@@ -406,6 +548,70 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_input-field_farm_files'
+  $field_instances['log-farm_input-field_farm_files'] = array(
+    'bundle' => 'farm_input',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'file',
+        'settings' => array(),
+        'type' => 'file_table',
+        'weight' => 9,
+      ),
+      'token' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_files',
+    'label' => 'Files',
+    'required' => 0,
+    'settings' => array(
+      'description_field' => 1,
+      'file_directory' => '',
+      'file_extensions' => 'csv doc docx odt odp ods pdf ppt pptx txt xls xlsx kml kmz zip tar gz',
+      'filefield_paths' => array(
+        'active_updating' => 0,
+        'file_name' => array(
+          'options' => array(
+            'pathauto' => 0,
+            'slashes' => 0,
+            'transliterate' => 0,
+          ),
+          'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
+        ),
+        'file_path' => array(
+          'options' => array(
+            'pathauto' => 0,
+            'slashes' => 0,
+            'transliterate' => 0,
+          ),
+          'value' => 'farm/log/input/[log:id]',
+        ),
+        'redirect' => FALSE,
+        'retroactive_update' => 0,
+      ),
+      'filefield_paths_enabled' => 1,
+      'max_filesize' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'file',
+      'settings' => array(
+        'progress_indicator' => 'bar',
+      ),
+      'type' => 'file_generic',
+      'weight' => 11,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_input-field_farm_geofield'
   $field_instances['log-farm_input-field_farm_geofield'] = array(
     'bundle' => 'farm_input',
@@ -421,7 +627,7 @@ function farm_crop_field_default_field_instances() {
           'map_preset' => 'farm_map_geofield_formatter',
         ),
         'type' => 'openlayers_geofield',
-        'weight' => 9,
+        'weight' => 10,
       ),
       'token' => array(
         'label' => 'above',
@@ -449,8 +655,8 @@ function farm_crop_field_default_field_instances() {
           'point' => 'point',
           'polygon' => 'polygon',
         ),
-        'geocoder_field' => 'field_farm_area',
-        'geocoder_handler' => 'yandex',
+        'geocoder_field' => 'field_farm_files',
+        'geocoder_handler' => 'kml',
         'handler_settings' => array(
           'google' => array(
             'all_results' => 0,
@@ -465,10 +671,88 @@ function farm_crop_field_default_field_instances() {
         ),
         'openlayers_map' => 'farm_map_geofield',
         'showInputField' => 0,
-        'use_geocoder' => 0,
+        'use_geocoder' => 1,
       ),
       'type' => 'openlayers_geofield',
       'weight' => 9,
+    ),
+  );
+
+  // Exported field_instance: 'log-farm_input-field_farm_images'
+  $field_instances['log-farm_input-field_farm_images'] = array(
+    'bundle' => 'farm_input',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'colorbox',
+        'settings' => array(
+          'colorbox_caption' => 'auto',
+          'colorbox_caption_custom' => '',
+          'colorbox_gallery' => 'post',
+          'colorbox_gallery_custom' => '',
+          'colorbox_image_style' => '',
+          'colorbox_multivalue_index' => NULL,
+          'colorbox_node_style' => 'thumbnail',
+          'colorbox_node_style_first' => 'large',
+        ),
+        'type' => 'colorbox',
+        'weight' => 8,
+      ),
+      'token' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_images',
+    'label' => 'Photo(s)',
+    'required' => 0,
+    'settings' => array(
+      'alt_field' => 0,
+      'default_image' => 0,
+      'file_directory' => '',
+      'file_extensions' => 'png gif jpg jpeg',
+      'filefield_paths' => array(
+        'active_updating' => 0,
+        'file_name' => array(
+          'options' => array(
+            'pathauto' => 0,
+            'slashes' => 0,
+            'transliterate' => 0,
+          ),
+          'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
+        ),
+        'file_path' => array(
+          'options' => array(
+            'pathauto' => 0,
+            'slashes' => 0,
+            'transliterate' => 0,
+          ),
+          'value' => 'farm/log/input/[log:id]',
+        ),
+        'redirect' => FALSE,
+        'retroactive_update' => 0,
+      ),
+      'filefield_paths_enabled' => 1,
+      'max_filesize' => '',
+      'max_resolution' => '',
+      'min_resolution' => '',
+      'title_field' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'image',
+      'settings' => array(
+        'preview_image_style' => 'thumbnail',
+        'progress_indicator' => 'bar',
+      ),
+      'type' => 'image_image',
+      'weight' => 10,
     ),
   );
 
@@ -484,7 +768,7 @@ function farm_crop_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 7,
+        'weight' => 6,
       ),
       'token' => array(
         'label' => 'above',
@@ -524,7 +808,7 @@ function farm_crop_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 5,
+        'weight' => 4,
       ),
       'token' => array(
         'label' => 'above',
@@ -564,7 +848,7 @@ function farm_crop_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 6,
+        'weight' => 5,
       ),
       'token' => array(
         'label' => 'above',
@@ -604,7 +888,7 @@ function farm_crop_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 1,
+        'weight' => 0,
       ),
       'token' => array(
         'label' => 'above',
@@ -644,7 +928,7 @@ function farm_crop_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 8,
+        'weight' => 7,
       ),
       'token' => array(
         'label' => 'above',
@@ -686,7 +970,7 @@ function farm_crop_field_default_field_instances() {
           'link' => 1,
         ),
         'type' => 'entityreference_label',
-        'weight' => 4,
+        'weight' => 3,
       ),
       'token' => array(
         'label' => 'above',
@@ -729,7 +1013,7 @@ function farm_crop_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 2,
+        'weight' => 1,
       ),
       'token' => array(
         'label' => 'above',
@@ -1236,6 +1520,7 @@ function farm_crop_field_default_field_instances() {
   t('Does this input apply to a specific planting?');
   t('Enter the crop that this is a planting of. As you type, you will have the option of selecting from crops that you\'ve entered in the past.');
   t('Harvests must reference a specific planting. You can view a list of all plantings, and add new ones, from the ' . l('Plantings list', 'farm/plantings') . '.');
+  t('Files');
   t('Geometry');
   t('How was this input applied?');
   t('Is this input being added to a specific area?');
