@@ -202,6 +202,10 @@ function farm_log_update_7003(&$sandbox) {
   // Keep track of progress.
   if (!isset($sandbox['progress'])) {
 
+    // Start by reverting the field instance component of this module
+    // so that the new geofield is available
+    features_revert(array('farm_log' => array('field_instance')));
+
     // Start out at zero.
     $sandbox['progress'] = 0;
 
