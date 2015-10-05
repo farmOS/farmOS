@@ -189,9 +189,6 @@ projects[farm_map][version] = "1.0-beta6"
 projects[farm_mapknitter][subdir] = "farm"
 projects[farm_mapknitter][version] = "1.1"
 
-projects[farm_manager][subdir] = "farm"
-projects[farm_manager][version] = "1.0-beta7"
-
 projects[farm_sensor][subdir] = "farm"
 projects[farm_sensor][version] = "1.0-beta3"
 
