@@ -226,26 +226,16 @@ function farm_log_update_7003(&$sandbox) {
     ->range($sandbox['progress'], $limit);
   $results = $query->execute();
 
-  // Iterate over the results and process each one.
+  // Iterate over the results and save each one. farm_log_entity_presave() will
+  // do the rest.
   while ($id = $results->fetchField()) {
 
     // Increment progress.
     $sandbox['progress']++;
 
-    // Load the log.
+    // Load the log and save it.
     $log = log_load($id);
-
-    // Load the area referenced by field_farm_move_to.
-    if (!empty($log->field_farm_move_to[LANGUAGE_NONE][0])) {
-      $tid = $log->field_farm_move_to[LANGUAGE_NONE][0]['tid'];
-      $area = taxonomy_term_load($tid);
-    }
-
-    // Copy the areas geometry to the movement log.
-    if (!empty($area->field_farm_geofield[LANGUAGE_NONE][0]['geom'])) {
-      $log->field_farm_geofield[LANGUAGE_NONE][0] = $area->field_farm_geofield[LANGUAGE_NONE][0];
-      log_save($log);
-    }
+    log_save($log);
   }
 
   // Tell Drupal whether or not we're finished.
