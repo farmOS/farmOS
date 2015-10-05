@@ -17,7 +17,10 @@ This module depends on the following modules:
 
 The Farm Soil Test sub-module requires:
 
+ * Colorbox (http://drupal.org/project/colorbox)
+ * Ctools (http://drupal.org/project/ctools)
  * Date (http://drupal.org/project/date)
+ * Entity API (http://drupal.org/project/entity)
  * Features (http://drupal.org/project/features)
  * Filefield Paths (http://drupal.org/project/filefield_paths)
  * Geofield (http://drupal.org/project/geofield)
