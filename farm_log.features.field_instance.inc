@@ -168,7 +168,7 @@ function farm_log_field_default_field_instances() {
         'label' => 'above',
         'module' => 'file',
         'settings' => array(),
-        'type' => 'file_default',
+        'type' => 'file_table',
         'weight' => 4,
       ),
     ),
@@ -185,6 +185,7 @@ function farm_log_field_default_field_instances() {
         'file_name' => array(
           'options' => array(
             'pathauto' => 0,
+            'slashes' => 0,
             'transliterate' => 0,
           ),
           'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
@@ -192,10 +193,12 @@ function farm_log_field_default_field_instances() {
         'file_path' => array(
           'options' => array(
             'pathauto' => 0,
+            'slashes' => 0,
             'transliterate' => 0,
           ),
-          'value' => '',
+          'value' => 'farm/log/activity/[log:id]',
         ),
+        'redirect' => FALSE,
         'retroactive_update' => 0,
       ),
       'filefield_paths_enabled' => 1,
@@ -251,7 +254,7 @@ function farm_log_field_default_field_instances() {
           'polygon' => 'polygon',
         ),
         'geocoder_field' => 'field_farm_files',
-        'geocoder_handler' => 'yandex',
+        'geocoder_handler' => 'kml',
         'handler_settings' => array(
           'google' => array(
             'all_results' => 0,
@@ -266,7 +269,7 @@ function farm_log_field_default_field_instances() {
         ),
         'openlayers_map' => 'farm_map_geofield',
         'showInputField' => 0,
-        'use_geocoder' => 0,
+        'use_geocoder' => 1,
       ),
       'type' => 'openlayers_geofield',
       'weight' => 5,
@@ -417,6 +420,64 @@ function farm_log_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_movement-field_farm_files'
+  $field_instances['log-farm_movement-field_farm_files'] = array(
+    'bundle' => 'farm_movement',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'file',
+        'settings' => array(),
+        'type' => 'file_table',
+        'weight' => 5,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_files',
+    'label' => 'Files',
+    'required' => 0,
+    'settings' => array(
+      'description_field' => 1,
+      'file_directory' => '',
+      'file_extensions' => 'csv doc docx odt odp ods pdf ppt pptx txt xls xlsx kml kmz zip tar gz',
+      'filefield_paths' => array(
+        'active_updating' => 0,
+        'file_name' => array(
+          'options' => array(
+            'pathauto' => 0,
+            'slashes' => 0,
+            'transliterate' => 0,
+          ),
+          'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
+        ),
+        'file_path' => array(
+          'options' => array(
+            'pathauto' => 0,
+            'slashes' => 0,
+            'transliterate' => 0,
+          ),
+          'value' => 'farm/log/movement/[log:id]',
+        ),
+        'redirect' => FALSE,
+        'retroactive_update' => 0,
+      ),
+      'filefield_paths_enabled' => 1,
+      'max_filesize' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'file',
+      'settings' => array(
+        'progress_indicator' => 'bar',
+      ),
+      'type' => 'file_generic',
+      'weight' => 7,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_movement-field_farm_geofield'
   $field_instances['log-farm_movement-field_farm_geofield'] = array(
     'bundle' => 'farm_movement',
@@ -432,7 +493,7 @@ function farm_log_field_default_field_instances() {
           'map_preset' => 'farm_map_geofield_formatter',
         ),
         'type' => 'openlayers_geofield',
-        'weight' => 4,
+        'weight' => 6,
       ),
     ),
     'entity_type' => 'log',
@@ -454,8 +515,8 @@ function farm_log_field_default_field_instances() {
           'point' => 'point',
           'polygon' => 'polygon',
         ),
-        'geocoder_field' => 'field_farm_move_from',
-        'geocoder_handler' => 'yandex',
+        'geocoder_field' => 'field_farm_files',
+        'geocoder_handler' => 'kml',
         'handler_settings' => array(
           'google' => array(
             'all_results' => 0,
@@ -470,10 +531,82 @@ function farm_log_field_default_field_instances() {
         ),
         'openlayers_map' => 'farm_map_geofield',
         'showInputField' => 0,
-        'use_geocoder' => 0,
+        'use_geocoder' => 1,
       ),
       'type' => 'openlayers_geofield',
       'weight' => 5,
+    ),
+  );
+
+  // Exported field_instance: 'log-farm_movement-field_farm_images'
+  $field_instances['log-farm_movement-field_farm_images'] = array(
+    'bundle' => 'farm_movement',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'colorbox',
+        'settings' => array(
+          'colorbox_caption' => 'auto',
+          'colorbox_caption_custom' => '',
+          'colorbox_gallery' => 'post',
+          'colorbox_gallery_custom' => '',
+          'colorbox_image_style' => '',
+          'colorbox_multivalue_index' => NULL,
+          'colorbox_node_style' => 'thumbnail',
+          'colorbox_node_style_first' => 'large',
+        ),
+        'type' => 'colorbox',
+        'weight' => 4,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_images',
+    'label' => 'Photo(s)',
+    'required' => 0,
+    'settings' => array(
+      'alt_field' => 0,
+      'default_image' => 0,
+      'file_directory' => '',
+      'file_extensions' => 'png gif jpg jpeg',
+      'filefield_paths' => array(
+        'active_updating' => 0,
+        'file_name' => array(
+          'options' => array(
+            'pathauto' => 0,
+            'slashes' => 0,
+            'transliterate' => 0,
+          ),
+          'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
+        ),
+        'file_path' => array(
+          'options' => array(
+            'pathauto' => 0,
+            'slashes' => 0,
+            'transliterate' => 0,
+          ),
+          'value' => 'farm/log/movement/[log:id]',
+        ),
+        'redirect' => FALSE,
+        'retroactive_update' => 0,
+      ),
+      'filefield_paths_enabled' => 1,
+      'max_filesize' => '',
+      'max_resolution' => '',
+      'min_resolution' => '',
+      'title_field' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'image',
+      'settings' => array(
+        'preview_image_style' => 'thumbnail',
+        'progress_indicator' => 'bar',
+      ),
+      'type' => 'image_image',
+      'weight' => 6,
     ),
   );
 
@@ -654,6 +787,64 @@ function farm_log_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_observation-field_farm_files'
+  $field_instances['log-farm_observation-field_farm_files'] = array(
+    'bundle' => 'farm_observation',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'file',
+        'settings' => array(),
+        'type' => 'file_table',
+        'weight' => 6,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_files',
+    'label' => 'Files',
+    'required' => 0,
+    'settings' => array(
+      'description_field' => 1,
+      'file_directory' => '',
+      'file_extensions' => 'csv doc docx odt odp ods pdf ppt pptx txt xls xlsx kml kmz zip tar gz',
+      'filefield_paths' => array(
+        'active_updating' => 0,
+        'file_name' => array(
+          'options' => array(
+            'pathauto' => 0,
+            'slashes' => 0,
+            'transliterate' => 0,
+          ),
+          'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
+        ),
+        'file_path' => array(
+          'options' => array(
+            'pathauto' => 0,
+            'slashes' => 0,
+            'transliterate' => 0,
+          ),
+          'value' => 'farm/log/observation/[log:id]',
+        ),
+        'redirect' => FALSE,
+        'retroactive_update' => 0,
+      ),
+      'filefield_paths_enabled' => 1,
+      'max_filesize' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'file',
+      'settings' => array(
+        'progress_indicator' => 'bar',
+      ),
+      'type' => 'file_generic',
+      'weight' => 8,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_observation-field_farm_geofield'
   $field_instances['log-farm_observation-field_farm_geofield'] = array(
     'bundle' => 'farm_observation',
@@ -669,7 +860,7 @@ function farm_log_field_default_field_instances() {
           'map_preset' => 'farm_map_geofield_formatter',
         ),
         'type' => 'openlayers_geofield',
-        'weight' => 6,
+        'weight' => 7,
       ),
     ),
     'entity_type' => 'log',
@@ -691,8 +882,8 @@ function farm_log_field_default_field_instances() {
           'point' => 'point',
           'polygon' => 'polygon',
         ),
-        'geocoder_field' => 'field_farm_observation_type',
-        'geocoder_handler' => 'yandex',
+        'geocoder_field' => 'field_farm_files',
+        'geocoder_handler' => 'kml',
         'handler_settings' => array(
           'google' => array(
             'all_results' => 0,
@@ -707,10 +898,10 @@ function farm_log_field_default_field_instances() {
         ),
         'openlayers_map' => 'farm_map_geofield',
         'showInputField' => 0,
-        'use_geocoder' => 0,
+        'use_geocoder' => 1,
       ),
       'type' => 'openlayers_geofield',
-      'weight' => 7,
+      'weight' => 6,
     ),
   );
 
@@ -779,7 +970,7 @@ function farm_log_field_default_field_instances() {
         'progress_indicator' => 'bar',
       ),
       'type' => 'image_image',
-      'weight' => 6,
+      'weight' => 7,
     ),
   );
 
@@ -880,7 +1071,7 @@ function farm_log_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 8,
+      'weight' => 9,
     ),
   );
 
