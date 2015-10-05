@@ -108,9 +108,6 @@ projects[restws][version] = "2.4"
 projects[role_delegation][subdir] = "contrib"
 projects[role_delegation][version] = "1.1"
 
-projects[role_export][subdir] = "contrib"
-projects[role_export][version] = "1.0"
-
 projects[service_container][subdir] = "contrib"
 projects[service_container][version] = "1.0-beta5"
 
