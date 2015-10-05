@@ -239,5 +239,10 @@ function farm_log_update_7003(&$sandbox) {
   }
 
   // Tell Drupal whether or not we're finished.
-  $sandbox['#finished'] = $sandbox['progress'] / $sandbox['max'];
+  if ($sandbox['max'] > 0) {
+    $sandbox['#finished'] = $sandbox['progress'] / $sandbox['max'];
+  }
+  else {
+    $sandbox['#finished'] = 1;
+  }
 }
