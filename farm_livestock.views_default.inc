@@ -326,6 +326,11 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['relationships']['latest_movement']['id'] = 'latest_movement';
   $handler->display->display_options['relationships']['latest_movement']['table'] = 'farm_asset';
   $handler->display->display_options['relationships']['latest_movement']['field'] = 'latest_movement';
+  /* Relationship: Farm asset: ID Tag(s) (field_farm_animal_tag) */
+  $handler->display->display_options['relationships']['field_farm_animal_tag_value']['id'] = 'field_farm_animal_tag_value';
+  $handler->display->display_options['relationships']['field_farm_animal_tag_value']['table'] = 'field_data_field_farm_animal_tag';
+  $handler->display->display_options['relationships']['field_farm_animal_tag_value']['field'] = 'field_farm_animal_tag_value';
+  $handler->display->display_options['relationships']['field_farm_animal_tag_value']['delta'] = '-1';
   /* Field: Bulk operations: Farm asset */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
   $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'farm_asset';
@@ -391,6 +396,15 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['fields']['field_farm_animal_group']['id'] = 'field_farm_animal_group';
   $handler->display->display_options['fields']['field_farm_animal_group']['table'] = 'field_data_field_farm_animal_group';
   $handler->display->display_options['fields']['field_farm_animal_group']['field'] = 'field_farm_animal_group';
+  /* Field: Farm asset: ID Tag(s) */
+  $handler->display->display_options['fields']['field_farm_animal_tag']['id'] = 'field_farm_animal_tag';
+  $handler->display->display_options['fields']['field_farm_animal_tag']['table'] = 'field_data_field_farm_animal_tag';
+  $handler->display->display_options['fields']['field_farm_animal_tag']['field'] = 'field_farm_animal_tag';
+  $handler->display->display_options['fields']['field_farm_animal_tag']['type'] = 'field_collection_fields';
+  $handler->display->display_options['fields']['field_farm_animal_tag']['settings'] = array(
+    'view_mode' => 'full',
+  );
+  $handler->display->display_options['fields']['field_farm_animal_tag']['delta_offset'] = '0';
   /* Field: Log: To */
   $handler->display->display_options['fields']['field_farm_move_to']['id'] = 'field_farm_move_to';
   $handler->display->display_options['fields']['field_farm_move_to']['table'] = 'field_data_field_farm_move_to';
@@ -421,6 +435,13 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['sorts']['name']['field'] = 'name';
   $handler->display->display_options['sorts']['name']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['name']['expose']['label'] = 'Name';
+  /* Sort criterion: Field collection item: ID (field_farm_animal_tag_id) */
+  $handler->display->display_options['sorts']['field_farm_animal_tag_id_value']['id'] = 'field_farm_animal_tag_id_value';
+  $handler->display->display_options['sorts']['field_farm_animal_tag_id_value']['table'] = 'field_data_field_farm_animal_tag_id';
+  $handler->display->display_options['sorts']['field_farm_animal_tag_id_value']['field'] = 'field_farm_animal_tag_id_value';
+  $handler->display->display_options['sorts']['field_farm_animal_tag_id_value']['relationship'] = 'field_farm_animal_tag_value';
+  $handler->display->display_options['sorts']['field_farm_animal_tag_id_value']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['field_farm_animal_tag_id_value']['expose']['label'] = 'ID Tag';
   /* Contextual filter: Log: To (field_farm_move_to) */
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['id'] = 'field_farm_move_to_tid';
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['table'] = 'field_data_field_farm_move_to';
@@ -514,6 +535,7 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['filters']['field_farm_animal_group_tid']['id'] = 'field_farm_animal_group_tid';
   $handler->display->display_options['filters']['field_farm_animal_group_tid']['table'] = 'field_data_field_farm_animal_group';
   $handler->display->display_options['filters']['field_farm_animal_group_tid']['field'] = 'field_farm_animal_group_tid';
+  $handler->display->display_options['filters']['field_farm_animal_group_tid']['group'] = 1;
   $handler->display->display_options['filters']['field_farm_animal_group_tid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_farm_animal_group_tid']['expose']['operator_id'] = 'field_farm_animal_group_tid_op';
   $handler->display->display_options['filters']['field_farm_animal_group_tid']['expose']['label'] = 'Group';
@@ -522,11 +544,24 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['filters']['field_farm_animal_group_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_farm_animal_group_tid']['vocabulary'] = 'farm_animal_groups';
   $handler->display->display_options['filters']['field_farm_animal_group_tid']['hierarchy'] = 1;
+  /* Filter criterion: Field collection item: ID (field_farm_animal_tag_id) */
+  $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['id'] = 'field_farm_animal_tag_id_value';
+  $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['table'] = 'field_data_field_farm_animal_tag_id';
+  $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['field'] = 'field_farm_animal_tag_id_value';
+  $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['relationship'] = 'field_farm_animal_tag_value';
+  $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['operator'] = 'contains';
+  $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['expose']['operator_id'] = 'field_farm_animal_tag_id_value_op';
+  $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['expose']['label'] = 'ID Tag';
+  $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['expose']['operator'] = 'field_farm_animal_tag_id_value_op';
+  $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['expose']['identifier'] = 'field_farm_animal_tag_id_value';
   /* Filter criterion: Farm asset: Active */
   $handler->display->display_options['filters']['active']['id'] = 'active';
   $handler->display->display_options['filters']['active']['table'] = 'farm_asset';
   $handler->display->display_options['filters']['active']['field'] = 'active';
   $handler->display->display_options['filters']['active']['value'] = '1';
+  $handler->display->display_options['filters']['active']['group'] = 1;
   $handler->display->display_options['filters']['active']['exposed'] = TRUE;
   $handler->display->display_options['filters']['active']['expose']['operator_id'] = '';
   $handler->display->display_options['filters']['active']['expose']['label'] = 'Active';
