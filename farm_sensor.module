@@ -13,11 +13,39 @@ function farm_sensor_menu() {
   $items = array();
   $items['farm/sensor/listener'] = array(
     'page callback' => 'farm_sensor_listener_page_callback',
-    'access callback' => TRUE,
+    'access callback' => 'farm_sensor_listener_access_callback',
     'type' => MENU_CALLBACK,
     'file' => 'farm_sensor.listener.inc',
   );
   return $items;
+}
+
+/**
+ * Access callback /farm/sensor/listener.
+ */
+function farm_sensor_listener_access_callback() {
+
+  /**
+   * @todo
+   * Change this to use HMAC authentication instead of Drupal user login.
+   */
+
+  // Load the username and password from PHP basic authentication.
+  $username = $_SERVER['PHP_AUTH_USER'];
+  $password = $_SERVER['PHP_AUTH_PW'];
+
+  // If either are empty, deny access.
+  if (empty($username) || empty($password)) {
+    return FALSE;
+  }
+
+  // Attempt to authenticate the user, and grant access if it worked.
+  if (user_authenticate($username, $password)) {
+    return TRUE;
+  }
+
+  // If all else failed, deny access.
+  return FALSE;
 }
 
 /**
