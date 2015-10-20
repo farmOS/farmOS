@@ -1,0 +1,46 @@
+<?php
+
+/**
+ * @file
+ * Farm sensor listener install.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function farm_sensor_listener_schema() {
+  $schema['farm_sensor_data'] = array(
+    'description' => 'Farm sensor data storage',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Farm sensor asset ID',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'timestamp' => array(
+        'description' => 'Timestamp of the sensor reading',
+        'type' => 'int',
+      ),
+      'name' => array(
+        'description' => 'Sensor reading name',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ),
+      'value' => array(
+        'description' => 'Sensor reading value',
+        'type' => 'float',
+        'default' => 0,
+        'unsigned' => FALSE,
+      ),
+    ),
+    'indexes' => array(
+      'id' => array('id'),
+      'name' => array('name'),
+      'timestamp' => array('timestamp'),
+    ),
+  );
+  return $schema;
+}
