@@ -443,5 +443,10 @@ function farm_sensor_farm_sensor_type_info() {
       'label' => t('None'),
       'description' => t('No sensor type.'),
     ),
+    'listener' => array(
+      'label' => t('Listener'),
+      'description' => t('Open up a data listener that accepts data from
+      external sources over HTTP'),
+    ),
   );
 }
