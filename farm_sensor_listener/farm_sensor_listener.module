@@ -96,3 +96,10 @@ function farm_sensor_listener_farm_sensor_type_info() {
     ),
   );
 }
+
+/**
+ * Implements hook_views_api().
+ */
+function farm_sensor_listener_views_api() {
+  return array('api' => 3);
+}
