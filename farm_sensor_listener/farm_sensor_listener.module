@@ -63,8 +63,13 @@ function farm_sensor_listener_page_callback() {
   $data = drupal_json_decode(file_get_contents("php://input"));
 
   // Ensure that all the necessary keys are set.
-  if (empty($data['id']) || empty($data['timestamp']) || empty($data['name']) || !isset($data['value'])) {
+  if (empty($data['id']) || empty($data['name']) || !isset($data['value'])) {
     return;
+  }
+
+  // If the timestamp is empty, populate it with the current time.
+  if (empty($data['timestamp'])) {
+    $data['timestamp'] = REQUEST_TIME;
   }
 
   // Look up the sensor by asset id.
