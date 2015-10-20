@@ -7,6 +7,20 @@
 include_once 'farm_sensor.features.inc';
 
 /**
+ * Implements hook_menu().
+ */
+function farm_sensor_menu() {
+  $items = array();
+  $items['farm/sensor/listener'] = array(
+    'page callback' => 'farm_sensor_listener_page_callback',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+    'file' => 'farm_sensor.listener.inc',
+  );
+  return $items;
+}
+
+/**
  * Implements hook_farm_admin_actions().
  */
 function farm_sensor_farm_admin_actions() {
