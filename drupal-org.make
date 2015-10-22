@@ -6,7 +6,7 @@ core = 7.x
 ; -----------------------------------------------------------------------------
 
 projects[colorbox][subdir] = "contrib"
-projects[colorbox][version] = "2.9"
+projects[colorbox][version] = "2.10"
 
 projects[ctools][subdir] = "contrib"
 projects[ctools][version] = "1.9"
@@ -31,10 +31,10 @@ projects[exif_orientation][subdir] = "contrib"
 projects[exif_orientation][version] = "1.0"
 
 projects[features][subdir] = "contrib"
-projects[features][version] = "2.6"
+projects[features][version] = "2.7"
 
 projects[field_collection][subdir] = "contrib"
-projects[field_collection][version] = "1.0-beta8"
+projects[field_collection][version] = "1.0-beta9"
 
 projects[filefield_paths][subdir] = "contrib"
 projects[filefield_paths][version] = "1.0-rc1"
@@ -58,7 +58,7 @@ projects[geophp][subdir] = "contrib"
 projects[geophp][version] = "1.7"
 
 projects[jquery_update][subdir] = "contrib"
-projects[jquery_update][version] = "3.0-alpha2"
+projects[jquery_update][version] = "3.0-alpha3"
 
 projects[libraries][subdir] = "contrib"
 projects[libraries][version] = "2.2"
@@ -94,7 +94,7 @@ projects[panels][subdir] = "contrib"
 projects[panels][version] = "3.5"
 
 projects[pathauto][subdir] = "contrib"
-projects[pathauto][version] = "1.2"
+projects[pathauto][version] = "1.3"
 
 projects[pathauto_entity][subdir] = "contrib"
 projects[pathauto_entity][version] = "1.0"
