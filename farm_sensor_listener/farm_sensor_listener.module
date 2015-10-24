@@ -51,7 +51,7 @@ function farm_sensor_listener_access_callback() {
  *
  * JSON should be in the following format:
  *   {
- *     'id': 123,
+ *     'id': 123abc456def,
  *     'timestamp: 1234567890,
  *     'name': 'sensor1',
  *     'value': 76.5
@@ -72,8 +72,8 @@ function farm_sensor_listener_page_callback() {
     $data['timestamp'] = REQUEST_TIME;
   }
 
-  // Look up the sensor by asset id.
-  $sensor = farm_asset_load($data['id']);
+  // Look up the sensor by it's public key.
+  $sensor = farm_sensor_listener_load($data['id']);
 
   // If no asset was found, bail.
   if (empty($sensor)) {
