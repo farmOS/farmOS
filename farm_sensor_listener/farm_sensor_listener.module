@@ -56,6 +56,14 @@ function farm_sensor_listener_access_callback() {
  *     'name': 'sensor1',
  *     'value': 76.5
  *   }
+ * Where:
+ *   id = The public key of the sensor (automatically generated in the sensor
+ *     settings form).
+ *   timestamp = The timestamp of the sensor reading. This is optional, and if
+ *     omitted will be automatically filled in with the current time.
+ *   name = The sub-name of the sensor reading. This is used for sensor devices
+ *     that are taking multiple different readings.
+ *   value = The value of the sensor reading, in decimal form.
  */
 function farm_sensor_listener_page_callback() {
 
