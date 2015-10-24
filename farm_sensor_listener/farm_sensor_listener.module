@@ -134,3 +134,36 @@ function farm_sensor_listener_settings_form($settings = array()) {
 function farm_sensor_listener_views_api() {
   return array('api' => 3);
 }
+
+/**
+ * Helper function for loading a sensor asset from it's public/private key.
+ *
+ * @param $key
+ *   The sensor public/private key.
+ *
+ * @return FarmAsset|bool
+ *   Returns a farm sensor asset, or FALSE if not found.
+ */
+function farm_sensor_listener_load($key) {
+
+  // Query the {farm_sensor} table to look for a sensor with a matching key.
+  $sql = 'SELECT id FROM {farm_sensor} WHERE settings LIKE :settings';
+  $result = db_query($sql, array(':settings' => '%' . db_like($key) . '%'));
+  $asset_id = $result->fetchField();
+
+  // If no asset id was found, bail.
+  if (empty($asset_id)) {
+    return FALSE;
+  }
+
+  // Attempt to load the sensor asset.
+  $asset = farm_asset_load($asset_id);
+
+  // If a sensor wasn't loaded, bail.
+  if (empty($asset)) {
+    return FALSE;
+  }
+
+  // Return the sensor asset.
+  return $asset;
+}
