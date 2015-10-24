@@ -51,10 +51,10 @@ function farm_sensor_listener_access_callback() {
  *
  * JSON should be in the following format:
  *   {
- *     'id': 123abc456def,
- *     'timestamp: 1234567890,
- *     'name': 'sensor1',
- *     'value': 76.5
+ *     "id": "123abc456def",
+ *     "timestamp": 1234567890,
+ *     "name": "sensor1",
+ *     "value": 76.5
  *   }
  * Where:
  *   id = The public key of the sensor (automatically generated in the sensor
