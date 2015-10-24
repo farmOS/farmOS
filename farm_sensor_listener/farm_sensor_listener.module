@@ -93,8 +93,39 @@ function farm_sensor_listener_farm_sensor_type_info() {
       'label' => t('Listener'),
       'description' => t('Open up a data listener that accepts data from
       external sources over HTTP'),
+      'form' => 'farm_sensor_listener_settings_form',
     ),
   );
+}
+
+/**
+ * Settings form for listener sensor.
+ *
+ * @param array $settings
+ *   The farm sensor settings.
+ *
+ * @return array
+ *   Returns a form with settings for this  Listener sensor.
+ */
+function farm_sensor_listener_settings_form($settings = array()) {
+
+  // Automatically generated public key.
+  $form['public_key'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Public key'),
+    '#description' => t('An automatically generated public key for this sensor.'),
+    '#default_value' => !empty($settings['public_key']) ? $settings['public_key'] : hash('md5', mt_rand()),
+  );
+
+  // Automatically generated private key.
+  $form['private_key'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Private key'),
+    '#description' => t('An automatically generated private key for this sensor.'),
+    '#default_value' => !empty($settings['private_key']) ? $settings['private_key'] : hash('md5', mt_rand()),
+  );
+
+  return $form;
 }
 
 /**
