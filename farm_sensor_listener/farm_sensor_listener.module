@@ -9,92 +9,111 @@
  */
 function farm_sensor_listener_menu() {
   $items = array();
-  $items['farm/sensor/listener'] = array(
+  $items['farm/sensor/listener/%'] = array(
     'page callback' => 'farm_sensor_listener_page_callback',
-    'access callback' => 'farm_sensor_listener_access_callback',
+    'page arguments' => array(3),
+    'access callback' => TRUE,
     'type' => MENU_CALLBACK,
   );
   return $items;
-}
-
-/**
- * Access callback /farm/sensor/listener.
- */
-function farm_sensor_listener_access_callback() {
-
-  /**
-   * @todo
-   * Change this to use HMAC authentication instead of Drupal user login.
-   */
-
-  // Load the username and password from PHP basic authentication.
-  $username = $_SERVER['PHP_AUTH_USER'];
-  $password = $_SERVER['PHP_AUTH_PW'];
-
-  // If either are empty, deny access.
-  if (empty($username) || empty($password)) {
-    return FALSE;
-  }
-
-  // Attempt to authenticate the user, and grant access if it worked.
-  if (user_authenticate($username, $password)) {
-    return TRUE;
-  }
-
-  // If all else failed, deny access.
-  return FALSE;
 }
 
 
 /**
  * Callback function for receiving JSON over HTTP and storing data to the {farm_sensor_data} table.
  *
+ * @param $public_key
+ *   The public key of the sensor that is pushing the data.
+ *
  * JSON should be in the following format:
  *   {
- *     "id": "123abc456def",
  *     "timestamp": 1234567890,
- *     "name": "sensor1",
- *     "value": 76.5
+ *     "sensor1": 76.5,
+ *     "sensor2": 55,
  *   }
  * Where:
- *   id = The public key of the sensor (automatically generated in the sensor
- *     settings form).
- *   timestamp = The timestamp of the sensor reading. This is optional, and if
- *     omitted will be automatically filled in with the current time.
- *   name = The sub-name of the sensor reading. This is used for sensor devices
- *     that are taking multiple different readings.
- *   value = The value of the sensor reading, in decimal form.
+ *   "timestamp" is an optional Unix timestamp of the sensor reading. If it's
+ *     omitted, the time that the request is received will be used instead.
+ *   The rest of the JSON properties will be considered sensor readings, and
+ *   should be in the form "[name]": [value]. The value should be a decimal or
+ *   integer, and will be stored as a fraction (numerator and denominator) in
+ *   the database, for accurate precision.
+ *
+ * @return int
+ *   Returns MENU_FOUND or MENU_NOT_FOUND.
  */
-function farm_sensor_listener_page_callback() {
+function farm_sensor_listener_page_callback($public_key) {
+
+  // Load the private key from the URL query string.
+  $params = drupal_get_query_parameters();
+
+  // If the private key is not set, bail.
+  if (empty($params['private_key'])) {
+    return MENU_FOUND;
+  }
+
+  // Load the private key.
+  $private_key = $params['private_key'];
+
+  // Look up the sensor by it's public key.
+  $sensor = farm_sensor_listener_load($public_key);
+
+  // If no asset was found, bail.
+  if (empty($sensor)) {
+    return MENU_NOT_FOUND;
+  }
+
+  // Compare the private key.
+  if ($sensor->sensor_settings['private_key'] != $private_key) {
+    return MENU_FOUND;
+  }
 
   // Pull the data from the request.
   $data = drupal_json_decode(file_get_contents("php://input"));
 
-  // Ensure that all the necessary keys are set.
-  if (empty($data['id']) || empty($data['name']) || !isset($data['value'])) {
-    return;
+  // If the data is empty, bail.
+  if (empty($data)) {
+    return MENU_FOUND;
   }
 
-  // If the timestamp is empty, populate it with the current time.
-  if (empty($data['timestamp'])) {
-    $data['timestamp'] = REQUEST_TIME;
+  // Generate a timestamp from the request time. This will be overridden if
+  // a timestamp is provided in the JSON.
+  $timestamp = REQUEST_TIME;
+  if (!empty($data['timestamp'])) {
+    $timestamp = $data['timestamp'];
   }
 
-  // Look up the sensor by it's public key.
-  $sensor = farm_sensor_listener_load($data['id']);
+  // Iterate over the JSON properties.
+  foreach ($data as $key => $value) {
 
-  // If no asset was found, bail.
-  if (empty($sensor)) {
-    return;
+    // If the key is "timestamp", skip to the next property in the JSON.
+    if ($key == 'timestamp') {
+      continue;
+    }
+
+    // If the value is not numeric, skip it.
+    if (!is_numeric($value)) {
+      continue;
+    }
+
+    // Create a row to store in the database;
+    $row = array(
+      'id' => $sensor->id,
+      'timestamp' => $timestamp,
+      'name' => $key,
+    );
+
+    // Convert the value to a fraction.
+    $fraction = fraction_from_decimal($value);
+    $row['value_numerator'] = $fraction->getNumerator();
+    $row['value_denominator'] = $fraction->getDenominator();
+
+    // Enter the reading into the {farm_sensor_data} table.
+    drupal_write_record('farm_sensor_data', $row);
   }
 
-  // Convert the value to a fraction.
-  $fraction = fraction_from_decimal($data['value']);
-  $data['value_numerator'] = $fraction->getNumerator();
-  $data['value_denominator'] = $fraction->getDenominator();
-
-  // Enter the reading into the {farm_sensor_data} table.
-  drupal_write_record('farm_sensor_data', $data);
+  // Return found.
+  return MENU_FOUND;
 }
 
 /**
