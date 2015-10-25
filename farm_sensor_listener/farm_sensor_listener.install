@@ -29,11 +29,19 @@ function farm_sensor_listener_schema() {
         'length' => '255',
         'not null' => FALSE,
       ),
-      'value' => array(
-        'description' => 'Sensor reading value',
-        'type' => 'float',
+      'value_numerator' => array(
+        'description' => 'Value numerator',
+        'type' => 'int',
+        'size' => 'big',
+        'not null' => TRUE,
         'default' => 0,
-        'unsigned' => FALSE,
+      ),
+      'value_denominator' => array(
+        'description' => 'Value denominator',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 1,
       ),
     ),
     'indexes' => array(

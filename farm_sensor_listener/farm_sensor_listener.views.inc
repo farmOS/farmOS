@@ -57,10 +57,26 @@ function farm_sensor_listener_views_data() {
     ),
   );
 
-  // Sensor reading value.
-  $data['farm_sensor_data']['value'] = array(
-    'title' => t('Sensor reading value'),
-    'help' => t('The stored value of the sensor reading.'),
+  // Value numerator.
+  $data['farm_sensor_data']['value_numerator'] = array(
+    'title' => t('Sensor value numerator'),
+    'help' => t('The stored numerator value of the sensor reading.'),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+  );
+
+  // Value denominator.
+  $data['farm_sensor_data']['value_denominator'] = array(
+    'title' => t('Sensor value denominator'),
+    'help' => t('The stored denominator value of the sensor reading.'),
     'field' => array(
       'handler' => 'views_handler_field_numeric',
       'click sortable' => TRUE,
