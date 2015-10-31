@@ -51,3 +51,12 @@
   color: #222222;
 }
 
+/**
+ * Improve Bootstrap Tour styling.
+ */
+.tour .btn {
+  padding: 6px 12px;
+}
+.tour .popover-content {
+  font-size: 16px;
+}
