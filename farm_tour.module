@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Farm Tour feature.
+ */
+
+include_once 'farm_tour.features.inc';

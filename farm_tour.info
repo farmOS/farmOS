@@ -1,0 +1,9 @@
+name = Farm Tour
+description = Provides tours of the farmOS system using the Bootstrap Tour module.
+core = 7.x
+package = farmOS
+dependencies[] = bootstrap_tour
+dependencies[] = entity
+features[bootstrap_tour][] = farmos_areas
+features[bootstrap_tour][] = farmos_intro
+features[features_api][] = api:2
