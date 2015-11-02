@@ -9,9 +9,9 @@
  */
 function farm_tour_default_bootstrap_tour() {
   $items = array();
-  $items['farmos_areas'] = entity_import('bootstrap_tour', '{
-    "title" : "farmOS Areas",
-    "name" : "farmos_areas",
+  $items['farm_areas'] = entity_import('bootstrap_tour', '{
+    "title" : "Farn Areas",
+    "name" : "farm_areas",
     "description" : "A tour of area management.",
     "roles" : "2",
     "autorun" : "1",
@@ -35,9 +35,9 @@ function farm_tour_default_bootstrap_tour() {
       {"path":"farm\\/areas","selector":"#navbar .menu .active","placement":"bottom","title":"Area Management","content":"That\\u0027s all there is to it! Now go map your farm!","content_text_format":"plain_text","rdf_mapping":[]}
     ]
   }');
-  $items['farmos_intro'] = entity_import('bootstrap_tour', '{
+  $items['farm_intro'] = entity_import('bootstrap_tour', '{
     "title" : "farmOS Intro",
-    "name" : "farmos_intro",
+    "name" : "farm_intro",
     "description" : "An introduction to farmOS.",
     "roles" : "2",
     "autorun" : "1",
