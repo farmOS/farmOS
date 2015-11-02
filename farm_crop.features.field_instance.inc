@@ -1534,9 +1534,9 @@ function farm_crop_field_default_field_instances() {
   t('Seedings must reference a specific planting. You can view a list of all plantings, and add new ones, from the ' . l('Plantings list', 'farm/plantings') . '.');
   t('Source/Manufacturer');
   t('Source/Supplier');
-  t('Transplantings must reference a specific planting. You can view a list of all plantings, and add new ones, from the ' . l('Plantings list', 'farm/plantings') . '.');
   t('This field is optional. It allows you to store geospatial data along with this harvest.');
   t('This field is optional. It allows you to store geospatial data along with this input.');
+  t('Transplantings must reference a specific planting. You can view a list of all plantings, and add new ones, from the ' . l('Plantings list', 'farm/plantings') . '.');
   t('What material is being applied? As you type, you will have the option of selecting from materials that you\'ve entered in the past.');
   t('What was the purpose of this input?');
   t('Where was this input obtained? Who manufactured it?');
