@@ -5,7 +5,7 @@
       // If a tour is available, add a question mark icon link to the navbar.
       if (settings.farm_tour.tour.name) {
         var link = '?tour=' + settings.farm_tour.tour.name;
-        $('#navbar .secondary').append('<li><a href="' + link + '"><span class="glyphicon glyphicon-question-sign"></span></a></li>');
+        $('#navbar .secondary').append('<li><a href="' + link + '" id="tour"><span class="glyphicon glyphicon-question-sign"></span></a></li>');
       }
     }
   };
