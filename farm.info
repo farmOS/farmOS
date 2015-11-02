@@ -54,3 +54,5 @@ dependencies[] = farm_map
 dependencies[] = farm_soil
 dependencies[] = farm_soil_test
 dependencies[] = farm_taxonomy
+dependencies[] = farm_tour
+

@@ -156,6 +156,15 @@ function farm_update_7007(&$sandbox) {
 }
 
 /**
+ * Install Farm Tour.
+ */
+function farm_update_7008(&$sandbox) {
+
+  // Enable the Farm Access and Role Delegation modules.
+  _farm_enable_modules(array('farm_tour'));
+}
+
+/**
  * Helper function: enable modules.
  */
 function _farm_enable_modules($modules = array()) {

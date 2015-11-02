@@ -5,6 +5,11 @@ core = 7.x
 ; Modules (contrib)
 ; -----------------------------------------------------------------------------
 
+projects[bootstrap_tour][subdir] = "contrib"
+projects[bootstrap_tour][version] = "2.4"
+; Patch to fix role access control (https://www.drupal.org/node/2534986).
+projects[bootstrap_tour][patch][] = "http://www.drupal.org/files/issues/access_by_role_doesn_t-2534986-1.patch"
+
 projects[colorbox][subdir] = "contrib"
 projects[colorbox][version] = "2.10"
 
@@ -56,6 +61,9 @@ projects[geofield][patch][] = "http://www.drupal.org/files/issues/geofield-delet
 
 projects[geophp][subdir] = "contrib"
 projects[geophp][version] = "1.7"
+
+projects[inline_entity_form][subdir] = "contrib"
+projects[inline_entity_form][version] = "1.6"
 
 projects[jquery_update][subdir] = "contrib"
 projects[jquery_update][version] = "3.0-alpha3"
@@ -198,6 +206,9 @@ projects[farm_soil][version] = "1.0-beta6"
 projects[farm_taxonomy][subdir] = "farm"
 projects[farm_taxonomy][version] = "1.0-beta4"
 
+projects[farm_tour][subdir] = "farm"
+projects[farm_tour][version] = "1.0-beta1"
+
 ; -----------------------------------------------------------------------------
 ; Themes
 ; -----------------------------------------------------------------------------
@@ -222,3 +233,4 @@ libraries[modernizr][download][url] = "http://github.com/Modernizr/Modernizr/arc
 
 libraries[underscore][download][type] = "get"
 libraries[underscore][download][url] = "http://github.com/jashkenas/underscore/archive/1.7.0.zip"
+
