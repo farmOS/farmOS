@@ -57,5 +57,25 @@ function farm_tour_default_bootstrap_tour() {
       {"path":"\\u003Cfront\\u003E","selector":"","placement":"top","title":"That\\u0027s it!","content":"Pretty simple, right?\\n\\nNow go forth! And keep records!","content_text_format":"plain_text","rdf_mapping":[]}
     ]
   }');
+  $items['farm_plantings'] = entity_import('bootstrap_tour', '{
+    "title" : "Farm Plantings",
+    "name" : "farm_plantings",
+    "description" : "A tour of plantings.",
+    "roles" : "2",
+    "autorun" : "1",
+    "start_path" : "farm\\/plantings",
+    "enabled" : "1",
+    "rdf_mapping" : [],
+    "steps" : [
+      {"path":"farm\\/plantings","selector":"","placement":"top","title":"Plantings","content":"\\u0022Plantings\\u0022 represent the plants you\\u0027re growing.","content_text_format":"plain_text","rdf_mapping":[]},
+      {"path":"farm\\/plantings","selector":"","placement":"top","title":"Terminology","content":"In farmOS:\\n\\nPlantings = the actual plants you own\\n\\nCrops = the various \\u0022types\\u0022 of plants you grow (species\\/varieties)","content_text_format":"plain_text","rdf_mapping":[]},
+      {"path":"farm\\/plantings","selector":".nav-tabs li:last-child","placement":"right","title":"Logs","content":"Plantings have a few special types of logs (in addition to Activities, Observations, and Movements):\\n\\nHarvests - for recording harvests from the planting\\nInputs - for recording inputs to the planting\\nSeedings - for recording specific seeding details\\nTransplantings - for recording details when a transplanting occurs","content_text_format":"plain_text","rdf_mapping":[]},
+      {"path":"farm\\/plantings","selector":".action-links li:first-child","placement":"top","title":"Getting started","content":"To get started, add a planting for each crop you are growing.","content_text_format":"plain_text","rdf_mapping":[]},
+      {"path":"farm\\/asset\\/add\\/planting","selector":"#edit-name","placement":"bottom","title":"Planting name","content":"A planting represents real plants that are growing at a given time, so it can be helpful to name it in a way that includes that information.\\n\\nFor example, if you are growing 2 plantings of cabbages in 2016, you might call them \\u00222016 Cabbage Planting 1\\u0022 and \\u00222016 Cabbage Planting 2\\u0022.\\n\\nThis makes it easier to browse your list of plantings later.","content_text_format":"plain_text","rdf_mapping":[]},
+      {"path":"farm\\/asset\\/add\\/planting","selector":"#edit-field-farm-crop-und","placement":"top","title":"Crop","content":"The \\u0022Crop\\u0022 of a planting is the \\u0022type\\u0022 of plant being grown. It could be a species, or a variety.\\n\\nCrops can be defined on-the-fly by simply typing a new crop name into this field.  They can then be described in greater detail and organized hierarchically later.","content_text_format":"plain_text","rdf_mapping":[]},
+      {"path":"farm\\/asset\\/add\\/planting","selector":"#edit-active","placement":"top","title":"Active","content":"Plantings (like all assets in farmOS) are considered \\u0022active\\u0022 when they are alive\\/functioning. So when you harvest and clean up your cabbage planting, you can mark it as \\u0022Inactive\\u0022.\\n\\nOnly active plantings will be listed in farmOS by default - but you can also search through the archive of inactive assets whenever you want.","content_text_format":"plain_text","rdf_mapping":[]},
+      {"path":"farm\\/asset\\/add\\/planting","selector":"#edit-submit","placement":"top","title":"Save","content":"Once you save your planting, you\\u0027ll be able to add logs to it, like seedings, transplantings, inputs, harvest, activities, observations, etc.","content_text_format":"plain_text","rdf_mapping":[]}
+    ]
+  }');
   return $items;
 }
