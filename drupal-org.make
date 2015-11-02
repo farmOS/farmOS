@@ -39,10 +39,10 @@ projects[features][subdir] = "contrib"
 projects[features][version] = "2.7"
 
 projects[field_collection][subdir] = "contrib"
-projects[field_collection][version] = "1.0-beta9"
+projects[field_collection][version] = "1.0-beta10"
 
 projects[filefield_paths][subdir] = "contrib"
-projects[filefield_paths][version] = "1.0-rc1"
+projects[filefield_paths][version] = "1.0-rc2"
 
 projects[fraction][subdir] = "contrib"
 projects[fraction][version] = "1.2"
@@ -134,7 +134,7 @@ projects[views_bulk_operations][subdir] = "contrib"
 projects[views_bulk_operations][version] = "3.3"
 
 projects[views_data_export][subdir] = "contrib"
-projects[views_data_export][version] = "3.0-beta8"
+projects[views_data_export][version] = "3.0-beta9"
 
 projects[views_geojson][subdir] = "contrib"
 projects[views_geojson][version] = "1.0-beta2"
