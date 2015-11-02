@@ -11,14 +11,12 @@ DEPENDENCIES
 
 This module depends on the following modules:
 
- * Features (http://drupal.org/project/features)
- * OpenLayers 3.x (http://drupal.org/project/openlayers)
- * Strongarm (http://drupal.org/project/strongarm)
-
-The Farm Soil Test sub-module requires:
-
  * Bootstrap Tour (http://drupal.org/project/bootstrap_tour)
  * Entity API (http://drupal.org/project/entity)
+ * Farm Area (http://drupal.org/project/farm_area)
+ * Farm Asset (http://drupal.org/project/farm_asset)
+ * Farm Crop (http://drupal.org/project/farm_crop)
+ * Farm Map (http://drupal.org/project/farm_map)
 
 INSTALLATION
 ------------
