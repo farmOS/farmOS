@@ -30,6 +30,11 @@ function farm_fields_filter_default_formats() {
           'filter_url_length' => 72,
         ),
       ),
+      'log_filter' => array(
+        'weight' => 0,
+        'status' => 1,
+        'settings' => array(),
+      ),
     ),
   );
 

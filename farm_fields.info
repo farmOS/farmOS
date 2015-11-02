@@ -9,6 +9,7 @@ dependencies[] = features
 dependencies[] = file
 dependencies[] = filter
 dependencies[] = image
+dependencies[] = log
 dependencies[] = text
 features[features_api][] = api:2
 features[field_base][] = field_farm_asset
