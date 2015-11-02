@@ -5,3 +5,38 @@
  */
 
 include_once 'farm_tour.features.inc';
+
+/**
+ * Implements hook_init().
+ */
+function farm_tour_init() {
+
+  // Get the current path.
+  if (drupal_is_front_page()) {
+    $path = '<front>';
+  }
+  else {
+    $path = current_path();
+  }
+
+  // Load all Bootstrap Tours.
+  $tours = bootstrap_tour_load_all();
+
+  // Iterate through tours.
+  foreach ($tours as $tour) {
+
+    // If the tour doesn't start on the current path, skip it.
+    if ($tour->start_path != $path) {
+      continue;
+    }
+
+    // If the user doesn't have access to the tour, skip it.
+    if (!bootstrap_tour_access($tour)) {
+      continue;
+    }
+
+    // Add JavaScript.
+    drupal_add_js(array('farm_tour' => array('tour' => $tour)), 'setting');
+    drupal_add_js(drupal_get_path('module', 'farm_tour') . '/farm_tour.js');
+  }
+}
