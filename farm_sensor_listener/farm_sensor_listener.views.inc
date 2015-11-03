@@ -89,5 +89,29 @@ function farm_sensor_listener_views_data() {
     ),
   );
 
+  // Create a new decimal column with fraction decimal handlers.
+  $fraction_fields = array(
+    'numerator' => 'value_numerator',
+    'denominator' => 'value_denominator',
+  );
+  $data['farm_sensor_data']['value_decimal'] = array(
+    'title' => t('Sensor value (decimal)'),
+    'help' => t('Decimal equivalent of sensor value.'),
+    'real field' => 'value_numerator',
+    'field' => array(
+      'handler' => 'fraction_handler_field',
+      'additional fields' => $fraction_fields,
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'fraction_handler_sort_decimal',
+      'additional fields' => $fraction_fields,
+    ),
+    'filter' => array(
+      'handler' => 'fraction_handler_filter_decimal',
+      'additional fields' => $fraction_fields,
+    )
+  );
+
   return $data;
 }
