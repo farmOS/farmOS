@@ -219,7 +219,7 @@ projects[bootstrap][patch][] = "http://www.drupal.org/files/issues/bootstrap_pan
 ; Patch to fix bootstrap_fluid_container default theme setting.
 projects[bootstrap][patch][] = "http://www.drupal.org/files/issues/bootstrap_fluid_container_default-2556603-1.patch"
 
-projects[farm_theme][version] = "1.0-beta6"
+projects[farm_theme][version] = "1.0-beta7"
 
 ; -----------------------------------------------------------------------------
 ; Libraries
