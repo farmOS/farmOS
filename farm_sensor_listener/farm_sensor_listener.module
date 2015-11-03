@@ -199,3 +199,24 @@ function farm_sensor_listener_load($key) {
   // Return the sensor asset.
   return $asset;
 }
+
+/**
+ * Implements hook_farm_asset_view_views().
+ */
+function farm_sensor_listener_farm_asset_view_views($farm_asset) {
+
+  // If the entity is not a sensor, bail.
+  if ($farm_asset->type != 'sensor') {
+    return array();
+  }
+
+  // If the sensor is not a listener, bail.
+  if ($farm_asset->sensor_type != 'listener') {
+    return array();
+  }
+
+  // Return a list of Views to include on listener sensors.
+  return array(
+    'farm_sensor_data',
+  );
+}
