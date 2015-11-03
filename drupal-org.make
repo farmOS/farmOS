@@ -45,7 +45,7 @@ projects[filefield_paths][subdir] = "contrib"
 projects[filefield_paths][version] = "1.0-rc2"
 
 projects[fraction][subdir] = "contrib"
-projects[fraction][version] = "1.2"
+projects[fraction][version] = "1.3"
 
 projects[geocoder][subdir] = "contrib"
 projects[geocoder][version] = "1.2"
