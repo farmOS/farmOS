@@ -207,7 +207,7 @@ projects[farm_taxonomy][subdir] = "farm"
 projects[farm_taxonomy][version] = "1.0-beta4"
 
 projects[farm_tour][subdir] = "farm"
-projects[farm_tour][version] = "1.0-beta2"
+projects[farm_tour][version] = "1.0-beta3"
 
 ; -----------------------------------------------------------------------------
 ; Themes
