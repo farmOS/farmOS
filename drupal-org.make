@@ -75,7 +75,7 @@ projects[libraries_cdn][subdir] = "contrib"
 projects[libraries_cdn][version] = "1.7"
 
 projects[log][subdir] = "contrib"
-projects[log][version] = "1.1"
+projects[log][version] = "1.2"
 
 projects[logintoboggan][subdir] = "contrib"
 projects[logintoboggan][version] = "1.5"
