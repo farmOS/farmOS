@@ -7,6 +7,18 @@
 include_once 'farm_area.features.inc';
 
 /**
+ * Implements hook_permission().
+ */
+function farm_area_permission() {
+  return array(
+    'view farm areas' => array(
+      'title' => t('View farm areas'),
+      'description' => t('View all areas in the farm.'),
+    ),
+  );
+}
+
+/**
  * Implements hook_farm_access_perms().
  */
 function farm_area_farm_access_perms($role) {
@@ -33,6 +45,9 @@ function farm_area_farm_access_perms($role) {
       $perms = farm_access_entity_perms($types, array('view'));
       break;
   }
+
+  // Add the "view farm areas" permission to all roles.
+  $perms[] = 'view farm areas';
 
   return $perms;
 }
