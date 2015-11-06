@@ -18,6 +18,29 @@ function farm_sensor_listener_menu() {
   return $items;
 }
 
+/**
+ * Implements hook_entity_delete().
+ */
+function farm_sensor_listener_entity_delete($entity, $type) {
+
+  // Only act on farm asset entities.
+  if ($type != 'farm_asset') {
+    return;
+  }
+
+  // Only act on sensor assets.
+  if ($entity->type != 'sensor') {
+    return;
+  }
+
+  // Only act on "listener" type sensors.
+  if ($entity->sensor_type != 'listener') {
+    return;
+  }
+
+  // Delete data from the {farm_sensor_data} table.
+  db_delete('farm_sensor_data')->condition('id', $entity->id)->execute();
+}
 
 /**
  * Callback function for receiving JSON over HTTP and storing data to the {farm_sensor_data} table.
