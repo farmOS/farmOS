@@ -53,7 +53,7 @@ function farm_crop_default_log_type() {
     "label" : "Input",
     "weight" : 0,
     "name_pattern" : "[log:field-farm-material] [log:field-farm-area] [log:field-farm-planting:field-farm-crop]",
-    "name_edit" : "0",
+    "name_edit" : "1",
     "done" : "1",
     "rdf_mapping" : []
   }');
