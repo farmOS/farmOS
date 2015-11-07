@@ -10,7 +10,7 @@
 function farm_crop_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'farm_asset-planting-field_farm_crop'
+  // Exported field_instance: 'farm_asset-planting-field_farm_crop'.
   $field_instances['farm_asset-planting-field_farm_crop'] = array(
     'bundle' => 'planting',
     'default_value' => NULL,
@@ -44,7 +44,7 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'farm_asset-planting-field_farm_description'
+  // Exported field_instance: 'farm_asset-planting-field_farm_description'.
   $field_instances['farm_asset-planting-field_farm_description'] = array(
     'bundle' => 'planting',
     'default_value' => NULL,
@@ -78,7 +78,7 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'farm_asset-planting-field_farm_images'
+  // Exported field_instance: 'farm_asset-planting-field_farm_images'.
   $field_instances['farm_asset-planting-field_farm_images'] = array(
     'bundle' => 'planting',
     'deleted' => 0,
@@ -147,7 +147,7 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'farm_asset-planting-field_farm_season'
+  // Exported field_instance: 'farm_asset-planting-field_farm_season'.
   $field_instances['farm_asset-planting-field_farm_season'] = array(
     'bundle' => 'planting',
     'default_value' => NULL,
@@ -178,7 +178,7 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_harvest-field_farm_files'
+  // Exported field_instance: 'log-farm_harvest-field_farm_files'.
   $field_instances['log-farm_harvest-field_farm_files'] = array(
     'bundle' => 'farm_harvest',
     'deleted' => 0,
@@ -242,7 +242,7 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_harvest-field_farm_geofield'
+  // Exported field_instance: 'log-farm_harvest-field_farm_geofield'.
   $field_instances['log-farm_harvest-field_farm_geofield'] = array(
     'bundle' => 'farm_harvest',
     'default_value' => NULL,
@@ -308,7 +308,7 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_harvest-field_farm_images'
+  // Exported field_instance: 'log-farm_harvest-field_farm_images'.
   $field_instances['log-farm_harvest-field_farm_images'] = array(
     'bundle' => 'farm_harvest',
     'deleted' => 0,
@@ -386,7 +386,7 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_harvest-field_farm_notes'
+  // Exported field_instance: 'log-farm_harvest-field_farm_notes'.
   $field_instances['log-farm_harvest-field_farm_notes'] = array(
     'bundle' => 'farm_harvest',
     'default_value' => NULL,
@@ -426,7 +426,7 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_harvest-field_farm_planting'
+  // Exported field_instance: 'log-farm_harvest-field_farm_planting'.
   $field_instances['log-farm_harvest-field_farm_planting'] = array(
     'bundle' => 'farm_harvest',
     'default_value' => NULL,
@@ -469,7 +469,7 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_harvest-field_farm_quantity'
+  // Exported field_instance: 'log-farm_harvest-field_farm_quantity'.
   $field_instances['log-farm_harvest-field_farm_quantity'] = array(
     'bundle' => 'farm_harvest',
     'default_value' => NULL,
@@ -508,7 +508,7 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_input-field_farm_area'
+  // Exported field_instance: 'log-farm_input-field_farm_area'.
   $field_instances['log-farm_input-field_farm_area'] = array(
     'bundle' => 'farm_input',
     'default_value' => NULL,
@@ -548,7 +548,7 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_input-field_farm_files'
+  // Exported field_instance: 'log-farm_input-field_farm_files'.
   $field_instances['log-farm_input-field_farm_files'] = array(
     'bundle' => 'farm_input',
     'deleted' => 0,
@@ -612,7 +612,7 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_input-field_farm_geofield'
+  // Exported field_instance: 'log-farm_input-field_farm_geofield'.
   $field_instances['log-farm_input-field_farm_geofield'] = array(
     'bundle' => 'farm_input',
     'default_value' => NULL,
@@ -678,7 +678,7 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_input-field_farm_images'
+  // Exported field_instance: 'log-farm_input-field_farm_images'.
   $field_instances['log-farm_input-field_farm_images'] = array(
     'bundle' => 'farm_input',
     'deleted' => 0,
@@ -756,7 +756,7 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_input-field_farm_input_method'
+  // Exported field_instance: 'log-farm_input-field_farm_input_method'.
   $field_instances['log-farm_input-field_farm_input_method'] = array(
     'bundle' => 'farm_input',
     'default_value' => NULL,
@@ -796,7 +796,7 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_input-field_farm_input_purpose'
+  // Exported field_instance: 'log-farm_input-field_farm_input_purpose'.
   $field_instances['log-farm_input-field_farm_input_purpose'] = array(
     'bundle' => 'farm_input',
     'default_value' => NULL,
@@ -836,7 +836,7 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_input-field_farm_input_source'
+  // Exported field_instance: 'log-farm_input-field_farm_input_source'.
   $field_instances['log-farm_input-field_farm_input_source'] = array(
     'bundle' => 'farm_input',
     'default_value' => NULL,
@@ -876,7 +876,7 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_input-field_farm_material'
+  // Exported field_instance: 'log-farm_input-field_farm_material'.
   $field_instances['log-farm_input-field_farm_material'] = array(
     'bundle' => 'farm_input',
     'default_value' => NULL,
@@ -916,7 +916,7 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_input-field_farm_notes'
+  // Exported field_instance: 'log-farm_input-field_farm_notes'.
   $field_instances['log-farm_input-field_farm_notes'] = array(
     'bundle' => 'farm_input',
     'default_value' => NULL,
@@ -956,7 +956,7 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_input-field_farm_planting'
+  // Exported field_instance: 'log-farm_input-field_farm_planting'.
   $field_instances['log-farm_input-field_farm_planting'] = array(
     'bundle' => 'farm_input',
     'default_value' => NULL,
@@ -999,7 +999,7 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_input-field_farm_quantity'
+  // Exported field_instance: 'log-farm_input-field_farm_quantity'.
   $field_instances['log-farm_input-field_farm_quantity'] = array(
     'bundle' => 'farm_input',
     'default_value' => NULL,
@@ -1038,7 +1038,7 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_seeding-field_farm_notes'
+  // Exported field_instance: 'log-farm_seeding-field_farm_notes'.
   $field_instances['log-farm_seeding-field_farm_notes'] = array(
     'bundle' => 'farm_seeding',
     'default_value' => NULL,
@@ -1072,7 +1072,7 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_seeding-field_farm_planting'
+  // Exported field_instance: 'log-farm_seeding-field_farm_planting'.
   $field_instances['log-farm_seeding-field_farm_planting'] = array(
     'bundle' => 'farm_seeding',
     'default_value' => NULL,
@@ -1109,7 +1109,7 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_seeding-field_farm_quantity'
+  // Exported field_instance: 'log-farm_seeding-field_farm_quantity'.
   $field_instances['log-farm_seeding-field_farm_quantity'] = array(
     'bundle' => 'farm_seeding',
     'default_value' => NULL,
@@ -1142,7 +1142,7 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_seeding-field_farm_seed_source'
+  // Exported field_instance: 'log-farm_seeding-field_farm_seed_source'.
   $field_instances['log-farm_seeding-field_farm_seed_source'] = array(
     'bundle' => 'farm_seeding',
     'default_value' => NULL,
@@ -1176,7 +1176,7 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_transplanting-field_farm_notes'
+  // Exported field_instance: 'log-farm_transplanting-field_farm_notes'.
   $field_instances['log-farm_transplanting-field_farm_notes'] = array(
     'bundle' => 'farm_transplanting',
     'default_value' => NULL,
@@ -1210,7 +1210,7 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_transplanting-field_farm_planting'
+  // Exported field_instance: 'log-farm_transplanting-field_farm_planting'.
   $field_instances['log-farm_transplanting-field_farm_planting'] = array(
     'bundle' => 'farm_transplanting',
     'default_value' => NULL,
@@ -1247,7 +1247,7 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_transplanting-field_farm_quantity'
+  // Exported field_instance: 'log-farm_transplanting-field_farm_quantity'.
   $field_instances['log-farm_transplanting-field_farm_quantity'] = array(
     'bundle' => 'farm_transplanting',
     'default_value' => NULL,
@@ -1280,7 +1280,7 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-farm_crops-field_farm_companions'
+  // Exported field_instance: 'taxonomy_term-farm_crops-field_farm_companions'.
   $field_instances['taxonomy_term-farm_crops-field_farm_companions'] = array(
     'bundle' => 'farm_crops',
     'default_value' => array(),
@@ -1314,7 +1314,7 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-farm_crops-field_farm_crop_family'
+  // Exported field_instance: 'taxonomy_term-farm_crops-field_farm_crop_family'.
   $field_instances['taxonomy_term-farm_crops-field_farm_crop_family'] = array(
     'bundle' => 'farm_crops',
     'default_value' => array(),
@@ -1357,7 +1357,7 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-farm_crops-field_farm_images'
+  // Exported field_instance: 'taxonomy_term-farm_crops-field_farm_images'.
   $field_instances['taxonomy_term-farm_crops-field_farm_images'] = array(
     'bundle' => 'farm_crops',
     'deleted' => 0,
@@ -1421,7 +1421,7 @@ function farm_crop_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'taxonomy_term-farm_crops-field_farm_maturity_days'
+  // 'taxonomy_term-farm_crops-field_farm_maturity_days'.
   $field_instances['taxonomy_term-farm_crops-field_farm_maturity_days'] = array(
     'bundle' => 'farm_crops',
     'default_value' => NULL,
@@ -1462,7 +1462,7 @@ function farm_crop_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'taxonomy_term-farm_crops-field_farm_transplant_days'
+  // 'taxonomy_term-farm_crops-field_farm_transplant_days'.
   $field_instances['taxonomy_term-farm_crops-field_farm_transplant_days'] = array(
     'bundle' => 'farm_crops',
     'default_value' => NULL,

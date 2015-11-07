@@ -10,7 +10,7 @@
 function farm_crop_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_farm_companions'
+  // Exported field_base: 'field_farm_companions'.
   $field_bases['field_farm_companions'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -36,7 +36,7 @@ function farm_crop_field_default_field_bases() {
     'type' => 'taxonomy_term_reference',
   );
 
-  // Exported field_base: 'field_farm_crop'
+  // Exported field_base: 'field_farm_crop'.
   $field_bases['field_farm_crop'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -62,7 +62,7 @@ function farm_crop_field_default_field_bases() {
     'type' => 'taxonomy_term_reference',
   );
 
-  // Exported field_base: 'field_farm_crop_family'
+  // Exported field_base: 'field_farm_crop_family'.
   $field_bases['field_farm_crop_family'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -88,7 +88,7 @@ function farm_crop_field_default_field_bases() {
     'type' => 'taxonomy_term_reference',
   );
 
-  // Exported field_base: 'field_farm_input_method'
+  // Exported field_base: 'field_farm_input_method'.
   $field_bases['field_farm_input_method'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -109,7 +109,7 @@ function farm_crop_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_farm_input_purpose'
+  // Exported field_base: 'field_farm_input_purpose'.
   $field_bases['field_farm_input_purpose'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -130,7 +130,7 @@ function farm_crop_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_farm_input_source'
+  // Exported field_base: 'field_farm_input_source'.
   $field_bases['field_farm_input_source'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -151,7 +151,7 @@ function farm_crop_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_farm_material'
+  // Exported field_base: 'field_farm_material'.
   $field_bases['field_farm_material'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -177,7 +177,7 @@ function farm_crop_field_default_field_bases() {
     'type' => 'taxonomy_term_reference',
   );
 
-  // Exported field_base: 'field_farm_maturity_days'
+  // Exported field_base: 'field_farm_maturity_days'.
   $field_bases['field_farm_maturity_days'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -192,7 +192,7 @@ function farm_crop_field_default_field_bases() {
     'type' => 'number_integer',
   );
 
-  // Exported field_base: 'field_farm_planting'
+  // Exported field_base: 'field_farm_planting'.
   $field_bases['field_farm_planting'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -227,7 +227,7 @@ function farm_crop_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_farm_season'
+  // Exported field_base: 'field_farm_season'.
   $field_bases['field_farm_season'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -253,7 +253,7 @@ function farm_crop_field_default_field_bases() {
     'type' => 'taxonomy_term_reference',
   );
 
-  // Exported field_base: 'field_farm_seed_source'
+  // Exported field_base: 'field_farm_seed_source'.
   $field_bases['field_farm_seed_source'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -274,7 +274,7 @@ function farm_crop_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_farm_transplant_days'
+  // Exported field_base: 'field_farm_transplant_days'.
   $field_bases['field_farm_transplant_days'] = array(
     'active' => 1,
     'cardinality' => 1,
