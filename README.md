@@ -55,6 +55,12 @@ run the following command:
 
     drush make build-farm.make farm
 
+This will build the farmOS distribution in a directory called "farm".
+
+It is generally recommended that you download the latest official packaged
+version from http://drupal.org/project/farm if you are getting started with
+farmOS for the first time.
+
 MAINTAINERS
 -----------
 
