@@ -1,10 +1,17 @@
 farmOS
 ======
 
-A Drupal installation profile for farms. http://drupal.org/project/farm
+Official website: http://farmos.org
 
-This project aims to provide a Drupal distribution for use in agriculture. It
-comes pre-packaged with a set of farm-related modules, including:
+A web-based farm record keeping application.
+
+farmOS is a built on top of [Drupal](http://drupal.org). It packages Drupal core
+along with a set of modules and configuration to create a flexible and
+extensible farm management interface.
+
+Drupal distribution: http://drupal.org/project/farm
+
+Some of the farm-specific modules included with farmOS are:
 
 * [Farm Access](http://drupal.org/project/farm_access)
 * [Farm Admin](http://drupal.org/project/farm_admin)
