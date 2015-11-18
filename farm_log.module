@@ -842,9 +842,18 @@ function farm_log_prepopulate_movement_from(&$from_field, $assets = array(), $lo
     }
   }
 
-  // Finally, if this is a log form, and there are default values, implode them
-  // into a comma-separated string and set the form field's default value.
+  // Finally, if this is a log form, and there are default values...
   if ($log_form && !empty($form_default_values)) {
+
+    // If any of the areas have commas in their name, wrap them in quotes.
+    foreach ($form_default_values as &$value) {
+      if (strpos($value, ',') !== FALSE) {
+        $value = '"' . $value . '"';
+      }
+    }
+
+    // Implode the values into a comma-separated string and set the form field's
+    // default value.
     $from_field[LANGUAGE_NONE]['#default_value'] = implode(', ', $form_default_values);
   }
 }
