@@ -6,6 +6,16 @@
 }
 
 /**
+ * Remove padding and list style from user login block links (request new password).
+ */
+form#user-login-form ul {
+  padding-left: 0;
+}
+form#user-login-form ul li {
+  list-style: none;
+}
+
+/**
  * Colorbox image styles.
  * @see farm_theme_preprocess_field() in template.php.
  */
