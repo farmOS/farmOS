@@ -10,7 +10,7 @@
 function farm_log_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_farm_move_from'
+  // Exported field_base: 'field_farm_move_from'.
   $field_bases['field_farm_move_from'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -36,7 +36,7 @@ function farm_log_field_default_field_bases() {
     'type' => 'taxonomy_term_reference',
   );
 
-  // Exported field_base: 'field_farm_move_to'
+  // Exported field_base: 'field_farm_move_to'.
   $field_bases['field_farm_move_to'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -62,7 +62,7 @@ function farm_log_field_default_field_bases() {
     'type' => 'taxonomy_term_reference',
   );
 
-  // Exported field_base: 'field_farm_observation_type'
+  // Exported field_base: 'field_farm_observation_type'.
   $field_bases['field_farm_observation_type'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -88,7 +88,7 @@ function farm_log_field_default_field_bases() {
     'type' => 'taxonomy_term_reference',
   );
 
-  // Exported field_base: 'field_farm_quantity'
+  // Exported field_base: 'field_farm_quantity'.
   $field_bases['field_farm_quantity'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -110,7 +110,7 @@ function farm_log_field_default_field_bases() {
     'type' => 'field_collection',
   );
 
-  // Exported field_base: 'field_farm_quantity_units'
+  // Exported field_base: 'field_farm_quantity_units'.
   $field_bases['field_farm_quantity_units'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -136,7 +136,7 @@ function farm_log_field_default_field_bases() {
     'type' => 'taxonomy_term_reference',
   );
 
-  // Exported field_base: 'field_farm_quantity_value'
+  // Exported field_base: 'field_farm_quantity_value'.
   $field_bases['field_farm_quantity_value'] = array(
     'active' => 1,
     'cardinality' => 1,

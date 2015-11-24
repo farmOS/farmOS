@@ -11,7 +11,7 @@ function farm_log_field_default_field_instances() {
   $field_instances = array();
 
   // Exported field_instance:
-  // 'field_collection_item-field_farm_quantity-field_farm_quantity_units'
+  // 'field_collection_item-field_farm_quantity-field_farm_quantity_units'.
   $field_instances['field_collection_item-field_farm_quantity-field_farm_quantity_units'] = array(
     'bundle' => 'field_farm_quantity',
     'default_value' => NULL,
@@ -46,7 +46,7 @@ function farm_log_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_farm_quantity-field_farm_quantity_value'
+  // 'field_collection_item-field_farm_quantity-field_farm_quantity_value'.
   $field_instances['field_collection_item-field_farm_quantity-field_farm_quantity_value'] = array(
     'bundle' => 'field_farm_quantity',
     'default_value' => NULL,
@@ -83,7 +83,7 @@ function farm_log_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_activity-field_farm_area'
+  // Exported field_instance: 'log-farm_activity-field_farm_area'.
   $field_instances['log-farm_activity-field_farm_area'] = array(
     'bundle' => 'farm_activity',
     'default_value' => NULL,
@@ -117,7 +117,7 @@ function farm_log_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_activity-field_farm_asset'
+  // Exported field_instance: 'log-farm_activity-field_farm_asset'.
   $field_instances['log-farm_activity-field_farm_asset'] = array(
     'bundle' => 'farm_activity',
     'default_value' => array(),
@@ -158,7 +158,7 @@ function farm_log_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_activity-field_farm_files'
+  // Exported field_instance: 'log-farm_activity-field_farm_files'.
   $field_instances['log-farm_activity-field_farm_files'] = array(
     'bundle' => 'farm_activity',
     'deleted' => 0,
@@ -216,7 +216,7 @@ function farm_log_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_activity-field_farm_geofield'
+  // Exported field_instance: 'log-farm_activity-field_farm_geofield'.
   $field_instances['log-farm_activity-field_farm_geofield'] = array(
     'bundle' => 'farm_activity',
     'default_value' => NULL,
@@ -276,7 +276,7 @@ function farm_log_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_activity-field_farm_images'
+  // Exported field_instance: 'log-farm_activity-field_farm_images'.
   $field_instances['log-farm_activity-field_farm_images'] = array(
     'bundle' => 'farm_activity',
     'deleted' => 0,
@@ -345,7 +345,7 @@ function farm_log_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_activity-field_farm_notes'
+  // Exported field_instance: 'log-farm_activity-field_farm_notes'.
   $field_instances['log-farm_activity-field_farm_notes'] = array(
     'bundle' => 'farm_activity',
     'default_value' => NULL,
@@ -379,7 +379,7 @@ function farm_log_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_movement-field_farm_asset'
+  // Exported field_instance: 'log-farm_movement-field_farm_asset'.
   $field_instances['log-farm_movement-field_farm_asset'] = array(
     'bundle' => 'farm_movement',
     'default_value' => array(),
@@ -420,7 +420,7 @@ function farm_log_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_movement-field_farm_files'
+  // Exported field_instance: 'log-farm_movement-field_farm_files'.
   $field_instances['log-farm_movement-field_farm_files'] = array(
     'bundle' => 'farm_movement',
     'deleted' => 0,
@@ -478,7 +478,7 @@ function farm_log_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_movement-field_farm_geofield'
+  // Exported field_instance: 'log-farm_movement-field_farm_geofield'.
   $field_instances['log-farm_movement-field_farm_geofield'] = array(
     'bundle' => 'farm_movement',
     'default_value' => NULL,
@@ -538,7 +538,7 @@ function farm_log_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_movement-field_farm_images'
+  // Exported field_instance: 'log-farm_movement-field_farm_images'.
   $field_instances['log-farm_movement-field_farm_images'] = array(
     'bundle' => 'farm_movement',
     'deleted' => 0,
@@ -610,7 +610,7 @@ function farm_log_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_movement-field_farm_move_from'
+  // Exported field_instance: 'log-farm_movement-field_farm_move_from'.
   $field_instances['log-farm_movement-field_farm_move_from'] = array(
     'bundle' => 'farm_movement',
     'default_value' => NULL,
@@ -644,7 +644,7 @@ function farm_log_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_movement-field_farm_move_to'
+  // Exported field_instance: 'log-farm_movement-field_farm_move_to'.
   $field_instances['log-farm_movement-field_farm_move_to'] = array(
     'bundle' => 'farm_movement',
     'default_value' => NULL,
@@ -678,7 +678,7 @@ function farm_log_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_movement-field_farm_notes'
+  // Exported field_instance: 'log-farm_movement-field_farm_notes'.
   $field_instances['log-farm_movement-field_farm_notes'] = array(
     'bundle' => 'farm_movement',
     'default_value' => NULL,
@@ -712,7 +712,7 @@ function farm_log_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_observation-field_farm_area'
+  // Exported field_instance: 'log-farm_observation-field_farm_area'.
   $field_instances['log-farm_observation-field_farm_area'] = array(
     'bundle' => 'farm_observation',
     'default_value' => NULL,
@@ -746,7 +746,7 @@ function farm_log_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_observation-field_farm_asset'
+  // Exported field_instance: 'log-farm_observation-field_farm_asset'.
   $field_instances['log-farm_observation-field_farm_asset'] = array(
     'bundle' => 'farm_observation',
     'default_value' => array(),
@@ -787,7 +787,7 @@ function farm_log_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_observation-field_farm_files'
+  // Exported field_instance: 'log-farm_observation-field_farm_files'.
   $field_instances['log-farm_observation-field_farm_files'] = array(
     'bundle' => 'farm_observation',
     'deleted' => 0,
@@ -845,7 +845,7 @@ function farm_log_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_observation-field_farm_geofield'
+  // Exported field_instance: 'log-farm_observation-field_farm_geofield'.
   $field_instances['log-farm_observation-field_farm_geofield'] = array(
     'bundle' => 'farm_observation',
     'default_value' => NULL,
@@ -905,7 +905,7 @@ function farm_log_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_observation-field_farm_images'
+  // Exported field_instance: 'log-farm_observation-field_farm_images'.
   $field_instances['log-farm_observation-field_farm_images'] = array(
     'bundle' => 'farm_observation',
     'deleted' => 0,
@@ -974,7 +974,7 @@ function farm_log_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_observation-field_farm_notes'
+  // Exported field_instance: 'log-farm_observation-field_farm_notes'.
   $field_instances['log-farm_observation-field_farm_notes'] = array(
     'bundle' => 'farm_observation',
     'default_value' => NULL,
@@ -1008,7 +1008,8 @@ function farm_log_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_observation-field_farm_observation_type'
+  // Exported field_instance:
+  // 'log-farm_observation-field_farm_observation_type'.
   $field_instances['log-farm_observation-field_farm_observation_type'] = array(
     'bundle' => 'farm_observation',
     'default_value' => NULL,
@@ -1042,7 +1043,7 @@ function farm_log_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_observation-field_farm_quantity'
+  // Exported field_instance: 'log-farm_observation-field_farm_quantity'.
   $field_instances['log-farm_observation-field_farm_quantity'] = array(
     'bundle' => 'farm_observation',
     'default_value' => NULL,
