@@ -10,7 +10,7 @@
 function farm_fields_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_farm_asset'
+  // Exported field_base: 'field_farm_asset'.
   $field_bases['field_farm_asset'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -43,7 +43,7 @@ function farm_fields_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_farm_date'
+  // Exported field_base: 'field_farm_date'.
   $field_bases['field_farm_date'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -73,7 +73,7 @@ function farm_fields_field_default_field_bases() {
     'type' => 'datestamp',
   );
 
-  // Exported field_base: 'field_farm_date_range'
+  // Exported field_base: 'field_farm_date_range'.
   $field_bases['field_farm_date_range'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -103,7 +103,7 @@ function farm_fields_field_default_field_bases() {
     'type' => 'datestamp',
   );
 
-  // Exported field_base: 'field_farm_description'
+  // Exported field_base: 'field_farm_description'.
   $field_bases['field_farm_description'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -122,7 +122,7 @@ function farm_fields_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_farm_files'
+  // Exported field_base: 'field_farm_files'.
   $field_bases['field_farm_files'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -145,7 +145,7 @@ function farm_fields_field_default_field_bases() {
     'type' => 'file',
   );
 
-  // Exported field_base: 'field_farm_images'
+  // Exported field_base: 'field_farm_images'.
   $field_bases['field_farm_images'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -167,7 +167,7 @@ function farm_fields_field_default_field_bases() {
     'type' => 'image',
   );
 
-  // Exported field_base: 'field_farm_notes'
+  // Exported field_base: 'field_farm_notes'.
   $field_bases['field_farm_notes'] = array(
     'active' => 1,
     'cardinality' => 1,
