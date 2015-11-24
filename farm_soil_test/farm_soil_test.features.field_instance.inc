@@ -10,7 +10,7 @@
 function farm_soil_test_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'log-farm_soil_test-field_farm_area'
+  // Exported field_instance: 'log-farm_soil_test-field_farm_area'.
   $field_instances['log-farm_soil_test-field_farm_area'] = array(
     'bundle' => 'farm_soil_test',
     'default_value' => NULL,
@@ -44,7 +44,7 @@ function farm_soil_test_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_soil_test-field_farm_files'
+  // Exported field_instance: 'log-farm_soil_test-field_farm_files'.
   $field_instances['log-farm_soil_test-field_farm_files'] = array(
     'bundle' => 'farm_soil_test',
     'deleted' => 0,
@@ -99,7 +99,7 @@ function farm_soil_test_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_soil_test-field_farm_images'
+  // Exported field_instance: 'log-farm_soil_test-field_farm_images'.
   $field_instances['log-farm_soil_test-field_farm_images'] = array(
     'bundle' => 'farm_soil_test',
     'deleted' => 0,
@@ -171,7 +171,7 @@ function farm_soil_test_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_soil_test-field_farm_notes'
+  // Exported field_instance: 'log-farm_soil_test-field_farm_notes'.
   $field_instances['log-farm_soil_test-field_farm_notes'] = array(
     'bundle' => 'farm_soil_test',
     'default_value' => NULL,
@@ -205,7 +205,7 @@ function farm_soil_test_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_soil_test-field_farm_soil_lab'
+  // Exported field_instance: 'log-farm_soil_test-field_farm_soil_lab'.
   $field_instances['log-farm_soil_test-field_farm_soil_lab'] = array(
     'bundle' => 'farm_soil_test',
     'default_value' => NULL,
@@ -239,7 +239,8 @@ function farm_soil_test_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_soil_test-field_farm_soil_sample_points'
+  // Exported field_instance:
+  // 'log-farm_soil_test-field_farm_soil_sample_points'.
   $field_instances['log-farm_soil_test-field_farm_soil_sample_points'] = array(
     'bundle' => 'farm_soil_test',
     'default_value' => NULL,
@@ -299,7 +300,7 @@ function farm_soil_test_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_soil_test-field_farm_soil_types'
+  // Exported field_instance: 'log-farm_soil_test-field_farm_soil_types'.
   $field_instances['log-farm_soil_test-field_farm_soil_types'] = array(
     'bundle' => 'farm_soil_test',
     'default_value' => NULL,
