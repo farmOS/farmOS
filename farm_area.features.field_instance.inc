@@ -10,7 +10,7 @@
 function farm_area_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'taxonomy_term-farm_areas-field_farm_area_type'
+  // Exported field_instance: 'taxonomy_term-farm_areas-field_farm_area_type'.
   $field_instances['taxonomy_term-farm_areas-field_farm_area_type'] = array(
     'bundle' => 'farm_areas',
     'default_value' => NULL,
@@ -41,7 +41,7 @@ function farm_area_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-farm_areas-field_farm_files'
+  // Exported field_instance: 'taxonomy_term-farm_areas-field_farm_files'.
   $field_instances['taxonomy_term-farm_areas-field_farm_files'] = array(
     'bundle' => 'farm_areas',
     'deleted' => 0,
@@ -96,7 +96,7 @@ function farm_area_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-farm_areas-field_farm_geofield'
+  // Exported field_instance: 'taxonomy_term-farm_areas-field_farm_geofield'.
   $field_instances['taxonomy_term-farm_areas-field_farm_geofield'] = array(
     'bundle' => 'farm_areas',
     'default_value' => NULL,
@@ -156,7 +156,7 @@ function farm_area_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-farm_areas-field_farm_images'
+  // Exported field_instance: 'taxonomy_term-farm_areas-field_farm_images'.
   $field_instances['taxonomy_term-farm_areas-field_farm_images'] = array(
     'bundle' => 'farm_areas',
     'deleted' => 0,
