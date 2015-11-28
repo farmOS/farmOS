@@ -128,9 +128,7 @@ projects[token][subdir] = "contrib"
 projects[token][version] = "1.6"
 
 projects[views][subdir] = "contrib"
-projects[views][version] = "3.11"
-; Fix AJAX with exposed filters.
-projects[views][patch][] = "http://www.drupal.org/files/issues/views_with_exposed-1809958-28.patch"
+projects[views][version] = "3.13"
 
 projects[views_bulk_operations][subdir] = "contrib"
 projects[views_bulk_operations][version] = "3.3"
