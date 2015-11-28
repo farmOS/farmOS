@@ -88,7 +88,7 @@ function farm_log_field_default_field_instances() {
     'bundle' => 'farm_activity',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'What area did this activity take place in?',
+    'description' => 'What area(s) did this activity take place in?',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -717,7 +717,7 @@ function farm_log_field_default_field_instances() {
     'bundle' => 'farm_observation',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'What area did this observation take place in?',
+    'description' => 'What area(s) did this observation take place in?',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -1095,8 +1095,8 @@ function farm_log_field_default_field_instances() {
   t('Type');
   t('Units');
   t('Value');
-  t('What area did this activity take place in?');
-  t('What area did this observation take place in?');
+  t('What area(s) did this activity take place in?');
+  t('What area(s) did this observation take place in?');
   t('What assets are being moved?');
   t('What assets does this activity pertain to?');
   t('What assets does this observation pertain to?');
