@@ -649,7 +649,7 @@ function farm_log_field_default_field_instances() {
     'bundle' => 'farm_movement',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Specify the area that assets are being moved to.',
+    'description' => 'Specify the area(s) that assets are being moved to. If you need to specify more precise locations, use the Geometry field below.',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -1087,7 +1087,7 @@ function farm_log_field_default_field_instances() {
   t('Optionally, use this quantity field to record an observed quantity.');
   t('Photo(s)');
   t('Quantity');
-  t('Specify the area that assets are being moved to.');
+  t('Specify the area(s) that assets are being moved to. If you need to specify more precise locations, use the Geometry field below.');
   t('This field is optional. It allows you to specify a more precise geometry for assets referenced by this particular movement. If you leave it blank, the geometry will be copied from the area that assets are moving to (if available).');
   t('This field is optional. It allows you to store geospatial data along with this activity.');
   t('This field is optional. It allows you to store geospatial data along with this observation.');

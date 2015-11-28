@@ -18,15 +18,47 @@ function farm_log_movement_geometry_populate(&$log) {
     return;
   }
 
-  // Load the area referenced by field_farm_move_to.
-  if (!empty($log->field_farm_move_to[LANGUAGE_NONE][0])) {
-    $tid = $log->field_farm_move_to[LANGUAGE_NONE][0]['tid'];
-    $area = taxonomy_term_load($tid);
+  // Load the area(s) referenced by field_farm_move_to.
+  $areas = array();
+  if (!empty($log->field_farm_move_to[LANGUAGE_NONE])) {
+    foreach ($log->field_farm_move_to[LANGUAGE_NONE] as $area_reference) {
+      if (!empty($area_reference['tid'])) {
+        $areas[] = taxonomy_term_load($area_reference['tid']);
+      }
+    }
   }
 
-  // Copy the area geometry to the movement log.
-  if (!empty($area->field_farm_geofield[LANGUAGE_NONE][0]['geom'])) {
-    $log->field_farm_geofield[LANGUAGE_NONE][0] = $area->field_farm_geofield[LANGUAGE_NONE][0];
+  // If no areas are referenced, bail.
+  if (empty($areas)) {
+    return;
+  }
+
+  // Iterate over the areas to find geometries.
+  $geoms = array();
+  foreach ($areas as $area) {
+    if (!empty($area->field_farm_geofield[LANGUAGE_NONE][0]['geom'])) {
+      $geoms[] = $area->field_farm_geofield[LANGUAGE_NONE][0]['geom'];
+    }
+  }
+
+  // If no geometries were found, bail.
+  if (empty($geoms)) {
+    return;
+  }
+
+  // Load the GeoPHP library.
+  geophp_load();
+
+  // Build a geometry collection.
+  $geometry_collection = 'GEOMETRYCOLLECTION(' . implode(',', $geoms) . ')';
+
+  // Convert to a GeoPHP geometry object and reduce the geometry.
+  $geometry = geoPHP::load($geometry_collection, 'wkt');
+  $geometry = geoPHP::geometryReduce($geometry);
+
+  // Save the combined geometry to the movement log.
+  if (!empty($geometry)) {
+    $log->field_farm_geofield[LANGUAGE_NONE][0] = geofield_get_values_from_geometry($geometry);
   }
 }
 
@@ -45,11 +77,17 @@ function farm_log_asset_location_markup($asset) {
   $output = '<strong>Current location:</strong> ';
 
   // Get the asset's location.
-  $area = farm_log_asset_location($asset);
+  $areas = farm_log_asset_location($asset);
 
-  // If a location was found, add a link to it.
-  if (!empty($area->tid)) {
-    $output .= l($area->name, 'taxonomy/term/' . $area->tid);
+  // If locations were found, add links to them.
+  if (!empty($areas)) {
+    $area_links = array();
+    foreach ($areas as $area) {
+      if (!empty($area->tid)) {
+        $area_links[] = l($area->name, 'taxonomy/term/' . $area->tid);
+      }
+    }
+    $output .= implode(', ', $area_links);
   }
 
   // Otherwise, none.
@@ -89,7 +127,28 @@ function farm_log_form_farm_asset_form_alter(&$form, &$form_state, $form_id) {
   $asset = $form['farm_asset']['#value'];
 
   // Get the asset's current location.
-  $location = farm_log_asset_location($asset);
+  $areas = farm_log_asset_location($asset);
+  $area_names = array();
+  if (!empty($areas)) {
+    foreach ($areas as $area) {
+      if (!empty($area->name)) {
+
+        // Get the area name.
+        $name = $area->name;
+
+        // If the area name contains commas, wrap it in quotes.
+        if (strpos($area->name, ',') !== FALSE) {
+          $name = '"' . $area->name . '"';
+        }
+
+        // Add the name to the list.
+        $area_names[] = $name;
+      }
+    }
+  }
+
+  // Assemble the list of areas into a string.
+  $location = implode(', ', $area_names);
 
   // Add a field for setting the asset's current location.
   $form['farm_log_asset_location'] = array(
@@ -97,7 +156,7 @@ function farm_log_form_farm_asset_form_alter(&$form, &$form_state, $form_id) {
     '#title' => t('Current location'),
     '#description' => t('Set the current location of this asset. Asset location is determined by movement logs, so a movement log will automatically be generated if you change this field.'),
     '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_area',
-    '#default_value' => !empty($location->name) ? $location->name : '',
+    '#default_value' => $location,
   );
   $form['actions']['submit']['#submit'][] = 'farm_log_asset_location_submit';
 }
@@ -132,29 +191,36 @@ function farm_log_asset_location_submit(array $form, array &$form_state) {
 
   // Explode the value into an array and only take the first value.
   // (Same behavior as taxonomy autocomplete widget.)
-  $values = explode(',', $form_state['values']['farm_log_asset_location']);
-  $value = trim(reset($values));
+  $values = drupal_explode_tags($form_state['values']['farm_log_asset_location']);
 
   // If the value is empty, bail.
-  if (empty($value)) {
+  if (empty($values)) {
     return;
   }
 
-  // Attempt to look up the area by it's name.
-  $areas = taxonomy_get_term_by_name($value, 'farm_areas');
-  $area = reset($areas);
+  // Iterate through the values and built an array of areas.
+  $areas = array();
+  foreach ($values as $value) {
 
-  // If an area was not found, create a new one.
-  if (empty($area)) {
-    $farm_areas = taxonomy_vocabulary_machine_name_load('farm_areas');
-    $area = new stdClass();
-    $area->name = $value;
-    $area->vid = $farm_areas->vid;
-    taxonomy_term_save($area);
+    // Attempt to look up the area by it's name.
+    $terms = taxonomy_get_term_by_name($value, 'farm_areas');
+    $area = reset($terms);
+
+    // If an area was not found, create a new one.
+    if (empty($area)) {
+      $farm_areas = taxonomy_vocabulary_machine_name_load('farm_areas');
+      $area = new stdClass();
+      $area->name = $value;
+      $area->vid = $farm_areas->vid;
+      taxonomy_term_save($area);
+    }
+
+    // Add to the array of areas.
+    $areas[] = $area;
   }
 
   // Create a movement log.
-  farm_log_move_assets($asset, $area->tid, REQUEST_TIME, TRUE);
+  farm_log_move_assets($asset, $areas, REQUEST_TIME, TRUE);
 }
 
 /**
@@ -169,11 +235,11 @@ function farm_log_asset_location_submit(array $form, array &$form_state) {
  *   Whether or not to only show movement logs that are marked as "done".
  *   Defaults to TRUE.
  *
- * @return area
- *   Returns the area that the asset is in.
+ * @return array
+ *   Returns an array of areas that the asset is in.
  */
 function farm_log_asset_location(FarmAsset $asset, $time = REQUEST_TIME, $done = TRUE) {
-  $area = NULL;
+  $areas = array();
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'log')
     ->entityCondition('bundle', 'farm_movement')
@@ -191,16 +257,17 @@ function farm_log_asset_location(FarmAsset $asset, $time = REQUEST_TIME, $done =
   if (!empty($result['log'])) {
     foreach ($result['log'] as $id => $entity) {
       $log = log_load($id);
-      if (!empty($log->field_farm_move_to[LANGUAGE_NONE][0]['tid'])) {
-        $term = taxonomy_term_load($log->field_farm_move_to[LANGUAGE_NONE][0]['tid']);
-        if (!empty($term)) {
-          $area = $term;
-          break;
+      foreach ($log->field_farm_move_to[LANGUAGE_NONE] as $area_reference) {
+        if (!empty($area_reference['tid'])) {
+          $term = taxonomy_term_load($area_reference['tid']);
+          if (!empty($term)) {
+            $areas[] = $term;
+          }
         }
       }
     }
   }
-  return $area;
+  return $areas;
 }
 
 /**
@@ -328,14 +395,14 @@ function farm_log_asset_move_action(array $assets, $context = array()) {
  *
  * @param array|FarmAsset $assets
  *   Array of assets to include in the move.
- * @param int $area_id
- *   The id of the area to move to.
+ * @param array $areas
+ *   An array of areas to move to.
  * @param int $timestamp
  *   The timestamp of the move. Defaults to the current time.
  * @param bool $done
  *   Whether or not to mark the movement done. Default to FALSE.
  */
-function farm_log_move_assets($assets, $area_id, $timestamp = REQUEST_TIME, $done = FALSE) {
+function farm_log_move_assets($assets, $areas, $timestamp = REQUEST_TIME, $done = FALSE) {
 
   // If $assets isn't an array, wrap it.
   if (!is_array($assets)) {
@@ -360,10 +427,14 @@ function farm_log_move_assets($assets, $area_id, $timestamp = REQUEST_TIME, $don
   // Set the date.
   $log->timestamp = $timestamp;
 
-  // Set the "to" area.
-  $log->field_farm_move_to[LANGUAGE_NONE][] = array(
-    'tid' => $area_id,
-  );
+  // Set the "to" area(s).
+  foreach ($areas as $area) {
+    if (!empty($area->tid)) {
+      $log->field_farm_move_to[LANGUAGE_NONE][] = array(
+        'tid' => $area->tid,
+      );
+    }
+  }
 
   // Set the log's done status.
   $log->done = $done;
@@ -404,27 +475,34 @@ function farm_log_prepopulate_movement_from(&$from_field, $assets = array(), $lo
   foreach ($assets as $asset) {
 
     // Load the asset's current location.
-    $area = farm_log_asset_location($asset);
+    $areas = farm_log_asset_location($asset);
 
-    // If the asset has a current location, add it to the "from" field.
-    // Avoid adding the same area more than once.
-    if (!empty($area->name) && !empty($area->tid) && !in_array($area->tid, $from_areas)) {
+    // If the asset has a current location, add the location area names to the
+    // "from" field.
+    if (!empty($areas)) {
+      foreach ($areas as $area) {
 
-      // Assuming that this is an entity object, and not a log form, add area
-      // term ids to the array in the expected format.
-      if (!$log_form) {
-        $from_field[LANGUAGE_NONE][] = array(
-          'tid' => $area->tid,
-        );
+        // Avoid adding the same area more than once.
+        if (in_array($area->tid, $from_areas)) {
+          continue;
+        }
+
+        // Assuming that this is an entity object, and not a log form, add area
+        // term ids to the array in the expected format.
+        if (!$log_form) {
+          $from_field[LANGUAGE_NONE][] = array(
+            'tid' => $area->tid,
+          );
+        }
+
+        // If this is a log form, assemble the list of areas as a comma-separated
+        // string (to be added to the #default_value below).
+        else {
+          $form_default_values[] = $area->name;
+        }
+
+        $from_areas[] = $area->tid;
       }
-
-      // If this is a log form, assemble the list of areas as a comma-separated
-      // string (to be added to the #default_value below).
-      else {
-        $form_default_values[] = $area->name;
-      }
-
-      $from_areas[] = $area->tid;
     }
   }
 
