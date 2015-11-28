@@ -15,7 +15,7 @@ function farm_soil_test_field_default_field_instances() {
     'bundle' => 'farm_soil_test',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'What area does this soil sample pertain to?',
+    'description' => 'What area(s) were this soil sample taken from?',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -345,7 +345,7 @@ function farm_soil_test_field_default_field_instances() {
   t('Sample Points');
   t('Soil Types');
   t('Use the map to pinpoint the location(s) from which this sample is taken. If you are preparing a soil test, you may be sampling multiple points within a given area. All the points that comprise this sample should be included.');
-  t('What area does this soil sample pertain to?');
+  t('What area(s) were this soil sample taken from?');
   t('What laboratory performed the soil test?');
 
   return $field_instances;
