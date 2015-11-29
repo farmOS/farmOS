@@ -172,6 +172,100 @@ function farm_update_7009(&$sandbox) {
 }
 
 /**
+ * Recalculate all Geofield metadata, using BCMath (patched GeoPHP module), so
+ * centroids are correct.
+ */
+function farm_update_7010(&$sandbox) {
+
+  // Process this in passes of 50 at a time.
+  $sandbox['#finished'] = 0;
+  $limit = 50;
+
+  // Keep track of progress.
+  if (!isset($sandbox['progress'])) {
+
+    // Start out at zero.
+    $sandbox['progress'] = 0;
+
+    // Figure out which entity types/bundles have geofields.
+    $sandbox['geofields'] = array();
+    $query = "SELECT fci.entity_type, fci.bundle, fc.field_name FROM {field_config_instance} fci LEFT JOIN {field_config} fc ON fc.id = fci.field_id WHERE fc.type = 'geofield'";
+    $result = db_query($query);
+    foreach ($result as $row) {
+      $sandbox['geofields'][$row->entity_type][$row->bundle] = $row->field_name;
+    }
+
+    // Build an array of all the entities that need to be processed, and take a
+    // count of the total.
+    $sandbox['entities'] = array();
+    $sandbox['total'] = 0;
+    foreach ($sandbox['geofields'] as $entity_type => $bundles) {
+      $sandbox['entities'][$entity_type] = array();
+      foreach ($bundles as $bundle => $field_name) {
+        $query = new EntityFieldQuery;
+        $query->entityCondition('entity_type', $entity_type)
+          ->entityCondition('bundle', $bundle);
+        $results = $query->execute();
+        if (isset($results[$entity_type])) {
+          $sandbox['entities'][$entity_type] = array_merge($sandbox['entities'][$entity_type], $results[$entity_type]);
+          $sandbox['total'] += count($results[$entity_type]);
+        }
+      }
+    }
+  }
+
+  // Process the next set of entities.
+  $i = 0;
+  while ($i < $limit && $sandbox['progress'] < $sandbox['total']) {
+
+    // Get the entity array keys, which correspond to the entity types.
+    $keys = array_keys($sandbox['entities']);
+
+    // If the first array in the list of entities is empty, remove it.
+    if (empty($sandbox['entities'][$keys[0]])) {
+      array_shift($sandbox['entities']);
+      array_shift($keys);
+    }
+
+    // The first key is the entity type we're currently working with.
+    $entity_type = $keys[0];
+
+    // Shift the next entity off the front of the list.
+    $info = array_shift($sandbox['entities'][$entity_type]);
+
+    // Load the entity.
+    $id = reset($info);
+    $entities = entity_load($entity_type, array($id));
+    $entity = reset($entities);
+
+    // Look up which field this bundle is using.
+    $wrapper = entity_metadata_wrapper($entity_type, $id);
+    $bundle = $wrapper->getBundle();
+    $field_name = $sandbox['geofields'][$entity_type][$bundle];
+
+    // If the geofield 'geom' value is not empty...
+    if (!empty($entity->{$field_name}[LANGUAGE_NONE][0]['geom'])) {
+
+      // Save the entity, so that geofield_field_presave() runs and regenerates
+      // the other geometry metadata values.
+      entity_save($entity_type, $entity);
+    }
+
+    // Increment $i and $sandbox['progress'].
+    $i++;
+    $sandbox['progress']++;
+  }
+
+  // Tell Drupal whether or not we're finished.
+  if ($sandbox['total'] > 0) {
+    $sandbox['#finished'] = $sandbox['progress'] / $sandbox['total'];
+  }
+  else {
+    $sandbox['#finished'] = 1;
+  }
+}
+
+/**
  * Helper function: enable modules.
  */
 function _farm_enable_modules($modules = array()) {

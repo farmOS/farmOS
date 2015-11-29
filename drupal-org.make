@@ -60,7 +60,9 @@ projects[geofield][version] = "2.3"
 projects[geofield][patch][] = "http://www.drupal.org/files/issues/geofield-delete_feature_fix-1350320-20.patch"
 
 projects[geophp][subdir] = "contrib"
-projects[geophp][version] = "1.7"
+projects[geophp][version] = "1.x-dev"
+; Patch to use BCMath for arithmetic.
+projects[geophp][patch][] = "http://www.drupal.org/files/issues/geophp_bcmath-2625348-1.patch"
 
 projects[inline_entity_form][subdir] = "contrib"
 projects[inline_entity_form][version] = "1.6"
