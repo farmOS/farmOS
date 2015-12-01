@@ -64,3 +64,14 @@ function farm_area_default_openlayers_components() {
 
   return $export;
 }
+
+/**
+ * Implements hook_default_openlayers_components_alter().
+ */
+function farm_area_default_openlayers_components_alter(&$components) {
+
+  // Add the Farm Areas source to the Geofield Zoom-To-Source component.
+  if (!empty($components['farm_map_component_geofield_zoom_to_source'])) {
+    $components['farm_map_component_geofield_zoom_to_source']->options['source']['views_geojson_farm_areas_geojson_feed'] = 'views_geojson_farm_areas_geojson_feed';
+  }
+}
