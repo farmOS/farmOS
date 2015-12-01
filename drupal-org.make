@@ -100,6 +100,8 @@ projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_b
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_google_maps_tilt_0-2573005-1.patch"
 ; Limit ZoomToSource to the selected sources.
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_zoomtosource-2626172-1.patch"
+; Add cluster support to popup components.
+projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_popup_cluster-2626200-1.patch"
 
 projects[openlayers_geolocate_button][subdir] = "contrib"
 projects[openlayers_geolocate_button][version] = "3.1"
