@@ -57,6 +57,23 @@ function farm_log_default_openlayers_sources() {
       'geojson_data' => '',
     );
     $export[$centroid_source_name] = $ol_source;
+
+    // Generate a machine name for the cluster source.
+    $cluster_source_name = 'farm_asset_cluster_source_' . $key;
+
+    // Build the cluster source.
+    $ol_source = new stdClass();
+    $ol_source->disabled = FALSE; /* Edit this to true to make a default ol_source disabled initially */
+    $ol_source->api_version = 1;
+    $ol_source->machine_name = $cluster_source_name;
+    $ol_source->name = 'Farm Assets: ' . $type->label . ' (cluster)';
+    $ol_source->description = '';
+    $ol_source->factory_service = 'openlayers.Source:Cluster';
+    $ol_source->options = array(
+      'source' => $centroid_source_name,
+      'distance' => '50',
+    );
+    $export[$cluster_source_name] = $ol_source;
   }
 
   return $export;
