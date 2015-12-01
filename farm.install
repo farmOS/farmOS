@@ -32,8 +32,8 @@ function farm_install() {
   // Show "Request new password" link on 403 pages (via LoginToboggan).
   variable_set('logintoboggan_site_403_user_login_block', TRUE);
 
-  // Load Openlayers 3.8.2 from jsDelivr CDN.
-  \Drupal\openlayers\Config::set('openlayers.variant', 'jsdelivr:ol3:3.8.2');
+  // Load Openlayers 3.10.1 from CDNJS.
+  \Drupal\openlayers\Config::set('openlayers.variant', 'cdnjs:ol3:3.10.1');
 }
 
 /**
@@ -266,6 +266,13 @@ function farm_update_7010(&$sandbox) {
   else {
     $sandbox['#finished'] = 1;
   }
+}
+
+/**
+ * Load Openlayers 3.10.1 from CDNJS.
+ */
+function farm_update_7011(&$sandbox) {
+  \Drupal\openlayers\Config::set('openlayers.variant', 'cdnjs:ol3:3.10.1');
 }
 
 /**

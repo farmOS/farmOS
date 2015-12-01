@@ -88,22 +88,19 @@ projects[navbar][subdir] = "contrib"
 projects[navbar][version] = "1.6"
 
 projects[openlayers][subdir] = "contrib"
-projects[openlayers][download][type] = "git"
-projects[openlayers][download][url] = "http://git.drupal.org/project/openlayers.git"
-projects[openlayers][download][branch] = "7.x-3.x"
-projects[openlayers][download][revision] = "deee17fd3bf605a273f2bfacca40b84aa1993c65"
+projects[openlayers][version] = "3.0-beta4"
 ; Fix GoogleMaps in Geofield context.
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_googlemaps_postbuild-2538168-5.patch"
 ; Remove base layer assignment code.
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_base_layer_mechanism-2543130-4.patch"
-; Set Google Maps tilt to 0.
-projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_google_maps_tilt_0-2573005-1.patch"
 ; Limit ZoomToSource to the selected sources.
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_zoomtosource-2626172-1.patch"
 ; Add cluster support to popup components.
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_popup_cluster-2626200-1.patch"
 ; Fix popup components require multiple clicks.
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_popup_click-2606054-3.patch"
+; Move Elements dependency to Openlayers Examples.
+projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_examples_elements_dependency-2620098-2.patch"
 
 projects[openlayers_geolocate_button][subdir] = "contrib"
 projects[openlayers_geolocate_button][version] = "3.1"
