@@ -101,6 +101,8 @@ projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_p
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_popup_click-2606054-3.patch"
 ; Move Elements dependency to Openlayers Examples.
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_examples_elements_dependency-2620098-2.patch"
+; Fix PHP fatal error in Geofield widget settings form.
+projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_geofield_widget_fatal_error-2626706-2.patch"
 
 projects[openlayers_geolocate_button][subdir] = "contrib"
 projects[openlayers_geolocate_button][version] = "3.1"
