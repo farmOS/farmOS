@@ -102,6 +102,8 @@ projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_g
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_zoomtosource-2626172-1.patch"
 ; Add cluster support to popup components.
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_popup_cluster-2626200-1.patch"
+; Fix popup components require multiple clicks.
+projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_popup_click-2606054-3.patch"
 
 projects[openlayers_geolocate_button][subdir] = "contrib"
 projects[openlayers_geolocate_button][version] = "3.1"
