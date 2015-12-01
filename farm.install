@@ -149,7 +149,7 @@ function farm_update_7007(&$sandbox) {
 
   // Enable the Farm Access and Role Delegation modules.
   _farm_enable_modules(array('farm_access', 'role_delegation'));
-  
+
   // Disable and uninstall the Farm Manager module.
   $module = 'farm_manager';
   if (module_exists($module)) {
