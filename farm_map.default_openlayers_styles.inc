@@ -89,5 +89,37 @@ var style = [
   $ol_style->options = array();
   $export['farm_map_style_cluster'] = $ol_style;
 
+  // Add a style for Geofield editing.
+  $ol_style = new stdClass();
+  $ol_style->api_version = 1;
+  $ol_style->machine_name = 'farm_map_style_geofield_edit';
+  $ol_style->name = 'Farm Map Geofield Edit';
+  $ol_style->description = '';
+  $ol_style->factory_service = 'openlayers.Style:Circle';
+  $ol_style->options = array(
+    'default' => array(
+      'image' => array(
+        'radius' => 4,
+        'fill' => array(
+          'color' => '0, 0, 0, 0',
+        ),
+        'stroke' => array(
+          'color' => '255, 153, 51, 1',
+          'width' => 2,
+          'lineDash' => '0,0',
+        ),
+      ),
+      'stroke' => array(
+        'color' => '51, 153, 255, 1',
+        'width' => 2,
+        'lineDash' => '0,0',
+      ),
+      'fill' => array(
+        'color' => '0, 0, 0, 0',
+      ),
+    ),
+  );
+  $export['farm_map_style_geofield_edit'] = $ol_style;
+
   return $export;
 }
