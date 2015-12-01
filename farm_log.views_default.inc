@@ -505,6 +505,11 @@ function farm_log_views_default_views() {
   $handler->display->display_options['style_options']['data_source']['description_field'] = 'name';
   $handler->display->display_options['style_options']['jsonp_prefix'] = '';
   $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Farm asset: Farm asset ID */
+  $handler->display->display_options['fields']['id']['id'] = 'id';
+  $handler->display->display_options['fields']['id']['table'] = 'farm_asset';
+  $handler->display->display_options['fields']['id']['field'] = 'id';
+  $handler->display->display_options['fields']['id']['exclude'] = TRUE;
   /* Field: Field: Geometry */
   $handler->display->display_options['fields']['field_farm_geofield']['id'] = 'field_farm_geofield';
   $handler->display->display_options['fields']['field_farm_geofield']['table'] = 'field_data_field_farm_geofield';
@@ -520,6 +525,8 @@ function farm_log_views_default_views() {
   $handler->display->display_options['fields']['name']['id'] = 'name';
   $handler->display->display_options['fields']['name']['table'] = 'farm_asset';
   $handler->display->display_options['fields']['name']['field'] = 'name';
+  $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['name']['alter']['path'] = 'farm/asset/[id]';
   $handler->display->display_options['path'] = 'farm/assets/geojson/latlon';
   $export['farm_asset_geojson'] = $view;
 
