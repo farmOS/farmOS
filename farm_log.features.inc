@@ -8,6 +8,9 @@
  * Implements hook_ctools_plugin_api().
  */
 function farm_log_ctools_plugin_api($module = NULL, $api = NULL) {
+  if ($module == "openlayers" && $api == "default_openlayers_components") {
+    return array("version" => "1");
+  }
   if ($module == "openlayers" && $api == "default_openlayers_layers") {
     return array("version" => "1");
   }

@@ -59,7 +59,8 @@ function farm_log_default_openlayers_maps() {
         3 => 'openlayers_interaction_pinchzoom',
       ),
       'components' => array(
-        0 => 'farm_map_component_progress_bar',
+        0 => 'farm_asset_component_assets_zoom_to_source',
+        1 => 'farm_map_component_progress_bar',
       ),
     );
 
