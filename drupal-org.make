@@ -103,6 +103,8 @@ projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_p
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_examples_elements_dependency-2620098-2.patch"
 ; Fix PHP fatal error in Geofield widget settings form.
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_geofield_widget_fatal_error-2626706-2.patch"
+; Move Geofield controls to the top right.
+projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_geofield_controls_topright-2626724-2.patch"
 
 projects[openlayers_geolocate_button][subdir] = "contrib"
 projects[openlayers_geolocate_button][version] = "3.1"
