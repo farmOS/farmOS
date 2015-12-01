@@ -12,19 +12,27 @@ function farm_theme_form_alter(&$form, &$form_state, $form_id) {
   // Log form:
   if ($form_id == 'log_form') {
 
-    // Collapse the geofield fieldset if it's available and empty.
-    if (isset($form['field_farm_geofield']) && empty($form['field_farm_geofield'][LANGUAGE_NONE][0]['geom']['#default_value'])) {
+    // If the log has a field_farm_geofield, put it in a collapsible fieldset.
+    if (isset($form['field_farm_geofield'])) {
 
-      // We make the fieldset collapsible with PHP, but we collapse it with
-      // Javascript. This is because collapsing it with PHP breaks the
-      // Openlayers Geofield zoom to source component for some reason.
-      /**
-       * @todo
-       * https://www.drupal.org/node/2579009
-       */
+      // Change it from a 'container' to a 'fieldset'. This allows the field
+      // description to be displayed, and it means we can make it collapsible.
+      $form['field_farm_geofield'][LANGUAGE_NONE][0]['#type'] = 'fieldset';
       $form['field_farm_geofield'][LANGUAGE_NONE][0]['#collapsible'] = TRUE;
-      //$form['field_farm_geofield'][LANGUAGE_NONE][0]['#collapsed'] = TRUE;
-      drupal_add_js(drupal_get_path('theme', 'farm_theme') . '/js/log_geofield.js');
+
+      // If the field is empty, collapse the fieldset by default.
+      if (empty($form['field_farm_geofield'][LANGUAGE_NONE][0]['geom']['#default_value'])) {
+//        $form['field_farm_geofield'][LANGUAGE_NONE][0]['#collapsed'] = TRUE;
+        /**
+         * @todo
+         * We make the fieldset collapsible with PHP, but we collapse it with
+         * Javascript. This is because collapsing it with PHP breaks the
+         * Openlayers Geofield zoom to source component for some reason.
+         *
+         * @see https://www.drupal.org/node/2579009
+         */
+        drupal_add_js(drupal_get_path('theme', 'farm_theme') . '/js/log_geofield.js');
+      }
     }
   }
 
