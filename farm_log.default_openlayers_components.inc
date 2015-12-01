@@ -62,6 +62,7 @@ function farm_log_default_openlayers_components() {
     'autoPan' => TRUE,
     'autoPanAnimation' => 1000,
     'autoPanMargin' => 20,
+    'closer' => 1,
   );
   $export['farm_asset_component_assets_popup'] = $ol_component;
 
