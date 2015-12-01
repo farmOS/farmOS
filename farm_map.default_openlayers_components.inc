@@ -19,7 +19,7 @@ function farm_map_default_openlayers_components() {
   $ol_component->factory_service = 'openlayers.Component:ZoomToSource';
   $ol_component->options = array(
     'source' => array(
-      'geofield_field_formatter_source' => 'geofield_field_formatter_source',
+      'openlayers_geofield_source_vector' => 'openlayers_geofield_source_vector',
     ),
     'animations' => array(
       'pan' => '500',
