@@ -41,5 +41,29 @@ function farm_log_default_openlayers_components() {
   );
   $export['farm_asset_component_assets_zoom_to_source'] = $ol_component;
 
+  // Create an array of layers to enable popups on.
+  $layers = array();
+  foreach ($asset_types as $type => $info) {
+    $layer = 'farm_asset_cluster_layer_' . $type;
+    $layers[$layer] = $layer;
+  }
+
+  // Create a popup component for cluster layers.
+  $ol_component = new stdClass();
+  $ol_component->disabled = FALSE; /* Edit this to true to make a default ol_component disabled initially */
+  $ol_component->api_version = 1;
+  $ol_component->machine_name = 'farm_asset_component_assets_popup';
+  $ol_component->name = 'Farm Asset: Assets Popup';
+  $ol_component->description = '';
+  $ol_component->factory_service = 'openlayers.Component:Popup';
+  $ol_component->options = array(
+    'layers' => $layers,
+    'positioning' => 'top-right',
+    'autoPan' => TRUE,
+    'autoPanAnimation' => 1000,
+    'autoPanMargin' => 20,
+  );
+  $export['farm_asset_component_assets_popup'] = $ol_component;
+
   return $export;
 }
