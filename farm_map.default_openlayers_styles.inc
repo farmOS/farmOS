@@ -78,5 +78,16 @@ var style = [
     $export[$machine_name] = $ol_style;
   }
 
+  // Add a cluster style type.
+  $ol_style = new stdClass();
+  $ol_style->disabled = FALSE; /* Edit this to true to make a default ol_style disabled initially */
+  $ol_style->api_version = 1;
+  $ol_style->machine_name = 'farm_map_style_cluster';
+  $ol_style->name = 'Farm Cluster';
+  $ol_style->description = '';
+  $ol_style->factory_service = 'openlayers.Style:Cluster';
+  $ol_style->options = array();
+  $export['farm_map_style_cluster'] = $ol_style;
+
   return $export;
 }
