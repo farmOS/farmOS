@@ -406,6 +406,124 @@ function farm_log_views_default_views() {
   $export['farm_asset_entityreference_view'] = $view;
 
   $view = new view();
+  $view->name = 'farm_asset_geojson';
+  $view->description = '';
+  $view->tag = 'default';
+  $view->base_table = 'farm_asset';
+  $view->human_name = 'Farm Asset GeoJSON';
+  $view->core = 7;
+  $view->api_version = '3.0';
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+  /* Display: Master */
+  $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['title'] = 'Farm Asset GeoJSON';
+  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['access']['perm'] = 'view any farm_movement log entities';
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['style_plugin'] = 'views_geojson';
+  $handler->display->display_options['style_options']['data_source']['value'] = 'wkt';
+  $handler->display->display_options['style_options']['data_source']['latitude'] = 'field_farm_geofield';
+  $handler->display->display_options['style_options']['data_source']['longitude'] = 'field_farm_geofield';
+  $handler->display->display_options['style_options']['data_source']['geofield'] = 'field_farm_geofield';
+  $handler->display->display_options['style_options']['data_source']['wkt'] = 'field_farm_geofield';
+  $handler->display->display_options['style_options']['data_source']['name_field'] = 'name';
+  $handler->display->display_options['style_options']['data_source']['description_field'] = '';
+  $handler->display->display_options['style_options']['jsonp_prefix'] = '';
+  $handler->display->display_options['style_options']['using_views_api_mode'] = 0;
+  /* Relationship: Farm asset: Latest movement */
+  $handler->display->display_options['relationships']['latest_movement']['id'] = 'latest_movement';
+  $handler->display->display_options['relationships']['latest_movement']['table'] = 'farm_asset';
+  $handler->display->display_options['relationships']['latest_movement']['field'] = 'latest_movement';
+  /* Field: Field: Geometry */
+  $handler->display->display_options['fields']['field_farm_geofield']['id'] = 'field_farm_geofield';
+  $handler->display->display_options['fields']['field_farm_geofield']['table'] = 'field_data_field_farm_geofield';
+  $handler->display->display_options['fields']['field_farm_geofield']['field'] = 'field_farm_geofield';
+  $handler->display->display_options['fields']['field_farm_geofield']['relationship'] = 'latest_movement';
+  $handler->display->display_options['fields']['field_farm_geofield']['click_sort_column'] = 'geom';
+  $handler->display->display_options['fields']['field_farm_geofield']['settings'] = array(
+    'data' => 'full',
+  );
+  $handler->display->display_options['fields']['field_farm_geofield']['group_column'] = 'entity_id';
+  $handler->display->display_options['fields']['field_farm_geofield']['delta_offset'] = '0';
+  /* Field: Farm asset: Name */
+  $handler->display->display_options['fields']['name']['id'] = 'name';
+  $handler->display->display_options['fields']['name']['table'] = 'farm_asset';
+  $handler->display->display_options['fields']['name']['field'] = 'name';
+  /* Contextual filter: Farm asset: Farm asset type */
+  $handler->display->display_options['arguments']['type']['id'] = 'type';
+  $handler->display->display_options['arguments']['type']['table'] = 'farm_asset';
+  $handler->display->display_options['arguments']['type']['field'] = 'type';
+  $handler->display->display_options['arguments']['type']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['type']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['type']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['type']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['type']['limit'] = '0';
+  /* Filter criterion: Farm asset: Active */
+  $handler->display->display_options['filters']['active']['id'] = 'active';
+  $handler->display->display_options['filters']['active']['table'] = 'farm_asset';
+  $handler->display->display_options['filters']['active']['field'] = 'active';
+  $handler->display->display_options['filters']['active']['value'] = '1';
+  /* Filter criterion: Field: Geometry (field_farm_geofield:geom) */
+  $handler->display->display_options['filters']['field_farm_geofield_geom']['id'] = 'field_farm_geofield_geom';
+  $handler->display->display_options['filters']['field_farm_geofield_geom']['table'] = 'field_data_field_farm_geofield';
+  $handler->display->display_options['filters']['field_farm_geofield_geom']['field'] = 'field_farm_geofield_geom';
+  $handler->display->display_options['filters']['field_farm_geofield_geom']['relationship'] = 'latest_movement';
+  $handler->display->display_options['filters']['field_farm_geofield_geom']['operator'] = 'not empty';
+
+  /* Display: Full Geometry */
+  $handler = $view->new_display('feed', 'Full Geometry', 'feed_full');
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['style_plugin'] = 'views_geojson_feed';
+  $handler->display->display_options['style_options']['data_source']['value'] = 'geofield';
+  $handler->display->display_options['style_options']['data_source']['latitude'] = 'field_farm_geofield';
+  $handler->display->display_options['style_options']['data_source']['longitude'] = 'field_farm_geofield';
+  $handler->display->display_options['style_options']['data_source']['geofield'] = 'field_farm_geofield';
+  $handler->display->display_options['style_options']['data_source']['wkt'] = 'field_farm_geofield';
+  $handler->display->display_options['style_options']['data_source']['name_field'] = 'name';
+  $handler->display->display_options['style_options']['data_source']['description_field'] = '';
+  $handler->display->display_options['style_options']['jsonp_prefix'] = '';
+  $handler->display->display_options['path'] = 'farm/assets/geojson/full';
+
+  /* Display: Lat/Lon */
+  $handler = $view->new_display('feed', 'Lat/Lon', 'feed_latlon');
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['style_plugin'] = 'views_geojson_feed';
+  $handler->display->display_options['style_options']['data_source']['value'] = 'wkt';
+  $handler->display->display_options['style_options']['data_source']['latitude'] = 'field_farm_geofield';
+  $handler->display->display_options['style_options']['data_source']['longitude'] = 'field_farm_geofield';
+  $handler->display->display_options['style_options']['data_source']['geofield'] = 'field_farm_geofield';
+  $handler->display->display_options['style_options']['data_source']['wkt'] = 'field_farm_geofield';
+  $handler->display->display_options['style_options']['data_source']['name_field'] = 'name';
+  $handler->display->display_options['style_options']['data_source']['description_field'] = 'name';
+  $handler->display->display_options['style_options']['jsonp_prefix'] = '';
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Field: Geometry */
+  $handler->display->display_options['fields']['field_farm_geofield']['id'] = 'field_farm_geofield';
+  $handler->display->display_options['fields']['field_farm_geofield']['table'] = 'field_data_field_farm_geofield';
+  $handler->display->display_options['fields']['field_farm_geofield']['field'] = 'field_farm_geofield';
+  $handler->display->display_options['fields']['field_farm_geofield']['relationship'] = 'latest_movement';
+  $handler->display->display_options['fields']['field_farm_geofield']['click_sort_column'] = 'geom';
+  $handler->display->display_options['fields']['field_farm_geofield']['settings'] = array(
+    'data' => 'centroid',
+  );
+  $handler->display->display_options['fields']['field_farm_geofield']['group_column'] = 'entity_id';
+  $handler->display->display_options['fields']['field_farm_geofield']['delta_offset'] = '0';
+  /* Field: Farm asset: Name */
+  $handler->display->display_options['fields']['name']['id'] = 'name';
+  $handler->display->display_options['fields']['name']['table'] = 'farm_asset';
+  $handler->display->display_options['fields']['name']['field'] = 'name';
+  $handler->display->display_options['path'] = 'farm/assets/geojson/latlon';
+  $export['farm_asset_geojson'] = $view;
+
+  $view = new view();
   $view->name = 'farm_log_activity';
   $view->description = '';
   $view->tag = 'farm_log';
