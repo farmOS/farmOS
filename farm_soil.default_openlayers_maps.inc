@@ -12,7 +12,12 @@ function farm_soil_default_openlayers_maps_alter(&$maps) {
   // Add the soil layers to farm maps.
   $farm_maps = array(
     'farm_areas',
-    'farm_map_geofield',
+    /**
+     * @todo
+     * Re-enable farm_map_geofield when the following issue is resolved:
+     * https://www.drupal.org/node/2626902
+     */
+//    'farm_map_geofield',
     'farm_map_geofield_formatter',
   );
 
