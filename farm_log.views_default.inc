@@ -426,16 +426,8 @@ function farm_log_views_default_views() {
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['style_plugin'] = 'views_geojson';
-  $handler->display->display_options['style_options']['data_source']['value'] = 'wkt';
-  $handler->display->display_options['style_options']['data_source']['latitude'] = 'field_farm_geofield';
-  $handler->display->display_options['style_options']['data_source']['longitude'] = 'field_farm_geofield';
-  $handler->display->display_options['style_options']['data_source']['geofield'] = 'field_farm_geofield';
-  $handler->display->display_options['style_options']['data_source']['wkt'] = 'field_farm_geofield';
-  $handler->display->display_options['style_options']['data_source']['name_field'] = 'name';
-  $handler->display->display_options['style_options']['data_source']['description_field'] = '';
-  $handler->display->display_options['style_options']['jsonp_prefix'] = '';
-  $handler->display->display_options['style_options']['using_views_api_mode'] = 0;
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['row_plugin'] = 'fields';
   /* Relationship: Farm asset: Latest movement */
   $handler->display->display_options['relationships']['latest_movement']['id'] = 'latest_movement';
   $handler->display->display_options['relationships']['latest_movement']['table'] = 'farm_asset';
