@@ -198,28 +198,19 @@ function farm_livestock_farm_area_links($id) {
 }
 
 /**
- * Implements hook_page_build().
+ * Implements hook_views_post_render().
  */
-function farm_livestock_page_build(&$page) {
+function farm_livestock_views_post_render(&$view, &$output, &$cache) {
 
-  // If this is the animals page, display the animals asset map.
-  $current_path = current_path();
-  $map_paths = array(
-    'farm/animals',
-    'farm/animals/list',
-  );
-  if (in_array($current_path, $map_paths)) {
+  // If this is the Farm Animals page...
+  if ($view->name == 'farm_animals' && $view->current_display == 'page') {
 
-    // Load the assets map.
-    $map = \Drupal\openlayers\Openlayers::load('Map', 'farm_assets_animal');
+    // If the View result is not empty...
+    if (!empty($view->result)) {
 
-    // Build the map and add it to the page content.
-    $page['content']['farm_assets_animal'] = $map->build();
-
-    // Set the weight to -100 so that it appears on top.
-    $page['content']['farm_assets_animal']['#weight'] = -100;
-
-    // Set the content region #sorted flag to FALSE so that it resorts.
-    $page['content']['#sorted'] = FALSE;
+      // Add the Animals asset map to the top of the View.
+      $map = \Drupal\openlayers\Openlayers::load('Map', 'farm_assets_animal');
+      $output = drupal_render($map->build()) . $output;
+    }
   }
 }
