@@ -60,7 +60,7 @@ function farm_log_default_openlayers_components() {
     'layers' => $layers,
     'positioning' => 'top-right',
     'autoPan' => TRUE,
-    'autoPanAnimation' => 1000,
+    'autoPanAnimation' => 0,
     'autoPanMargin' => 20,
     'closer' => 1,
   );
