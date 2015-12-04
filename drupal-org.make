@@ -95,6 +95,8 @@ projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_g
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_base_layer_mechanism-2543130-4.patch"
 ; Move Elements dependency to Openlayers Examples.
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_examples_elements_dependency-2620098-2.patch"
+; Fix popup positioning bug.
+projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_popup_position-2629008-7.x-3.x-beta5.patch"
 
 projects[openlayers_geolocate_button][subdir] = "contrib"
 projects[openlayers_geolocate_button][version] = "3.1"
