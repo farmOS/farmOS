@@ -210,7 +210,8 @@ function farm_livestock_views_post_render(&$view, &$output, &$cache) {
 
       // Add the Animals asset map to the top of the View.
       $map = \Drupal\openlayers\Openlayers::load('Map', 'farm_assets_animal');
-      $output = drupal_render($map->build()) . $output;
+      $map_build = $map->build();
+      $output = drupal_render($map_build) . $output;
     }
   }
 }
