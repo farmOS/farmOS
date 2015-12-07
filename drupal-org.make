@@ -85,7 +85,7 @@ projects[logintoboggan][version] = "1.5"
 projects[logintoboggan][patch][] = "http://www.drupal.org/files/issues/logintoboggan-403passwordlink-1823764-5.patch"
 
 projects[navbar][subdir] = "contrib"
-projects[navbar][version] = "1.6"
+projects[navbar][version] = "1.7"
 
 projects[openlayers][subdir] = "contrib"
 projects[openlayers][version] = "3.0-beta5"
