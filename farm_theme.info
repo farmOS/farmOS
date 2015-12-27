@@ -35,6 +35,10 @@ stylesheets[all][] = css/style.css
 ; --------------
 settings[bootstrap_fluid_container] = 1
 
+; Forms
+; --------------
+settings[bootstrap_forms_smart_descriptions] = 0
+
 ; Advanced
 ; --------------
 settings[bootstrap_cdn] = 3.2.0
