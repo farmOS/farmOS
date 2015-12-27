@@ -10,7 +10,7 @@
 function farm_tour_default_bootstrap_tour() {
   $items = array();
   $items['farm_areas'] = entity_import('bootstrap_tour', '{
-    "title" : "Farn Areas",
+    "title" : "Farm Areas",
     "name" : "farm_areas",
     "description" : "A tour of area management.",
     "roles" : "2",
