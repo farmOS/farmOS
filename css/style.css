@@ -1,4 +1,11 @@
 /**
+ * Override the Yeti override to eliminate extra space at the top.
+ */
+.navbar.container, .navbar.container-fluid {
+  margin-top: 0;
+}
+
+/**
  * Nudge the logo down a bit.
  */
 .navbar .logo {
