@@ -214,7 +214,7 @@ projects[farm_tour][version] = "1.0-beta3"
 ; Themes
 ; -----------------------------------------------------------------------------
 
-projects[bootstrap][version] = "3.1"
+projects[bootstrap][version] = "3.4"
 
 projects[farm_theme][version] = "1.0-beta8"
 
