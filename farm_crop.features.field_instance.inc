@@ -1519,9 +1519,9 @@ function farm_crop_field_default_field_instances() {
   t('Description');
   t('Does this input apply to a specific planting?');
   t('Enter the crop that this is a planting of. As you type, you will have the option of selecting from crops that you\'ve entered in the past.');
-  t('Harvests must reference a specific planting. You can view a list of all plantings, and add new ones, from the ' . l('Plantings list', 'farm/plantings') . '.');
   t('Files');
   t('Geometry');
+  t('Harvests must reference a specific planting. You can view a list of all plantings, and add new ones, from the ' . l('Plantings list', 'farm/plantings') . '.');
   t('How was this input applied?');
   t('Material');
   t('Notes');
