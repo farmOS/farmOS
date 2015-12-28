@@ -254,7 +254,7 @@ function farm_crop_field_default_field_instances() {
         'module' => 'openlayers_geofield',
         'settings' => array(
           'data' => 'full',
-          'map_preset' => 'farm_map_geofield_formatter',
+          'map_layer_preset' => 'farm_map_geofield_formatter:openlayers_geofield_layer_formatter',
         ),
         'type' => 'openlayers_geofield',
         'weight' => 5,
@@ -624,7 +624,7 @@ function farm_crop_field_default_field_instances() {
         'module' => 'openlayers_geofield',
         'settings' => array(
           'data' => 'full',
-          'map_preset' => 'farm_map_geofield_formatter',
+          'map_layer_preset' => 'farm_map_geofield_formatter:openlayers_geofield_layer_formatter',
         ),
         'type' => 'openlayers_geofield',
         'weight' => 10,
