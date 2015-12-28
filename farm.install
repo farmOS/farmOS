@@ -33,7 +33,7 @@ function farm_install() {
   variable_set('logintoboggan_site_403_user_login_block', TRUE);
 
   // Load Openlayers 3.10.1 from CDNJS.
-  \Drupal\openlayers\Config::set('openlayers.variant', 'cdnjs:ol3:3.10.1');
+  \Drupal\openlayers\Config::set('openlayers.variant', 'cdnjs:ol3:3.12.1');
 }
 
 /**
@@ -273,6 +273,13 @@ function farm_update_7010(&$sandbox) {
  */
 function farm_update_7011(&$sandbox) {
   \Drupal\openlayers\Config::set('openlayers.variant', 'cdnjs:ol3:3.10.1');
+}
+
+/**
+ * Load Openlayers 3.12.1 from CDNJS.
+ */
+function farm_update_7012(&$sandbox) {
+  \Drupal\openlayers\Config::set('openlayers.variant', 'cdnjs:ol3:3.12.1');
 }
 
 /**

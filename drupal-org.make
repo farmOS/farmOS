@@ -90,15 +90,16 @@ projects[navbar][subdir] = "contrib"
 projects[navbar][version] = "1.7"
 
 projects[openlayers][subdir] = "contrib"
-projects[openlayers][version] = "3.0-beta5"
+projects[openlayers][download][type] = "git"
+projects[openlayers][download][url] = "http://git.drupal.org/project/openlayers.git"
+projects[openlayers][download][branch] = "7.x-3.x"
+projects[openlayers][download][revision] = "f25f13501b95ccae4037280f0e37edb236a7a0a4"
 ; Fix GoogleMaps in Geofield context.
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_googlemaps_postbuild-2538168-5.patch"
 ; Remove base layer assignment code.
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_base_layer_mechanism-2543130-4.patch"
 ; Move Elements dependency to Openlayers Examples.
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_examples_elements_dependency-2620098-2.patch"
-; Fix popup positioning bug.
-projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_popup_position-2629008-7.x-3.x-beta5.patch"
 
 projects[openlayers_geolocate_button][subdir] = "contrib"
 projects[openlayers_geolocate_button][version] = "3.1"
