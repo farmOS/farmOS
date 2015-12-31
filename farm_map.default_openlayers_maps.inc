@@ -31,16 +31,7 @@ function farm_map_default_openlayers_maps() {
       'maxZoom' => 20,
     ),
     'layers' => array(
-      /**
-       * @todo
-       * We are including the Google Hybrid layer here directly, instead of
-       * using the Group layer that includes it, because GeofieldWidget is
-       * incompatible. Switch back to using the Group layer when the following
-       * issue is solved:
-       * https://www.drupal.org/node/2626902
-       */
-//      0 => 'farm_map_layer_group',
-      0 => 'farm_map_layer_google_hybrid',
+      0 => 'farm_map_layer_group',
       1 => 'openlayers_geofield_layer_widget',
     ),
     'controls' => array(
