@@ -97,7 +97,7 @@ projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_b
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_examples_elements_dependency-2620098-2.patch"
 
 projects[openlayers_geolocate_button][subdir] = "contrib"
-projects[openlayers_geolocate_button][version] = "3.1"
+projects[openlayers_geolocate_button][version] = "3.2"
 
 projects[panels][subdir] = "contrib"
 projects[panels][version] = "3.5"
