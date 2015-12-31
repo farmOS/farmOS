@@ -15,7 +15,7 @@ function farm_area_default_openlayers_maps() {
   $ol_map->api_version = 1;
   $ol_map->machine_name = 'farm_areas';
   $ol_map->name = 'Farm Areas';
-  $ol_map->description = '';
+  $ol_map->description = 'A map of all farm areas, color-coded by type.';
   $ol_map->factory_service = 'openlayers.Map:OLMap';
   $ol_map->options = array(
     'width' => 'auto',
