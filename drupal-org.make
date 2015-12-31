@@ -90,12 +90,7 @@ projects[navbar][subdir] = "contrib"
 projects[navbar][version] = "1.7"
 
 projects[openlayers][subdir] = "contrib"
-projects[openlayers][download][type] = "git"
-projects[openlayers][download][url] = "http://git.drupal.org/project/openlayers.git"
-projects[openlayers][download][branch] = "7.x-3.x"
-projects[openlayers][download][revision] = "f25f13501b95ccae4037280f0e37edb236a7a0a4"
-; Fix GoogleMaps in Geofield context.
-projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_googlemaps_postbuild-2538168-5.patch"
+projects[openlayers][version] = "3.0"
 ; Remove base layer assignment code.
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_base_layer_mechanism-2543130-4.patch"
 ; Move Elements dependency to Openlayers Examples.
