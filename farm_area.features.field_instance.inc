@@ -148,7 +148,7 @@ function farm_area_field_default_field_instances() {
           ),
         ),
         'openlayers_map' => 'farm_map_geofield',
-        'showInputField' => 0,
+        'showInputField' => 1,
         'use_geocoder' => 1,
       ),
       'type' => 'openlayers_geofield',
