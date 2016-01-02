@@ -61,6 +61,13 @@ form#user-login-form ul li {
 }
 
 /**
+ * Increase the default font size within maps to create larger buttons.
+ */
+.openlayers-map-container .gm-style {
+  font-size: 16px;
+}
+
+/**
  * Fix Modal popup close button (x).
  * See https://www.drupal.org/node/2563967
  */
