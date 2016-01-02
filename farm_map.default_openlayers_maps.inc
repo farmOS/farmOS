@@ -52,7 +52,7 @@ function farm_map_default_openlayers_maps() {
       3 => 'openlayers_interaction_pinchzoom',
     ),
     'components' => array(
-      0 => 'openlayers_geofield_component_geofield_widget',
+      0 => 'farm_map_component_geofield_widget',
       1 => 'farm_map_component_geofield_zoom_to_source',
       2 => 'farm_map_component_progress_bar',
     ),
