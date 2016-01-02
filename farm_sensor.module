@@ -181,6 +181,11 @@ function _farm_sensor_entity_save($entity, $type) {
     return;
   }
 
+  // If sensor settings are not set, save an empty array.
+  if (!isset($entity->sensor_settings)) {
+    $entity->sensor_settings = array();
+  }
+
   // Save the sensor record.
   farm_sensor_save($entity->id, $entity->sensor_type, $entity->sensor_settings);
 }
