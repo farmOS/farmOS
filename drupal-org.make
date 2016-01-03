@@ -244,7 +244,7 @@ projects[farm_tour][download][branch] = 7.x-1.x
 
 projects[bootstrap][version] = "3.4"
 
-;projects[farm_theme][version] = "1.0-beta8"
+;projects[farm_theme][version] = "1.0-beta9"
 projects[farm_theme][download][type] = git
 projects[farm_theme][download][branch] = 7.x-1.x
 
