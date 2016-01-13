@@ -1,4 +1,5 @@
 site_name: farmOS Documentation
+site_favicon: favicon.ico
 pages:
 - Home: index.md
 theme: yeti
