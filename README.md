@@ -27,7 +27,6 @@ The Farm Soil Test sub-module requires:
  * Log (http://drupal.org/project/log)
  * OpenLayers 3.x (http://drupal.org/project/openlayers)
  * Views (http://drupal.org/project/views)
- * Views Data Export (http://drupal.org/project/views_data_export)
  * Farm Area (http://drupal.org/project/farm_area)
  * Farm Fields (http://drupal.org/project/farm_fields)
  * Farm Map (http://drupal.org/project/farm_map)
