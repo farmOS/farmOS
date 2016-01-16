@@ -1,12 +1,34 @@
-# farmOS Documentation
+# Overview
 
-Official website: [http://farmOS.org](http://farmos.org)
+farmOS is a web-based application for farm management and planning.
 
-A documentation initiative is currently underway. More detailed documentation
-will be available here soon.
+It is built on [Drupal], which makes it [modular], [extensible], and [secure].
 
-If you are interested in helping with documentation, please get in touch via the
-[Github issue queue](https://github.com/farmOS/documentation/issues), or by
-forking the [repository](https://github.com/farmOS/documentation), making
-changes, and creating a pull request.
+[Openlayers] is used for mapping and geodata manipulation.
+
+## Status
+
+farmOS is under active development, but is still relatively new. The focus right
+now is laying a strong [groundwork], so that others can more easily join in and
+[contribute].
+
+## License
+
+Both Drupal and farmOS are licensed under the [GNU General Public License],
+which means they are [open source].
+
+## Official website
+
+[http://farmOS.org]
+
+[Drupal]: https://drupal.org
+[modular]: http://en.wikipedia.org/wiki/Modular_programming
+[extensible]: http://www.drupal.org/features/extend
+[secure]: http://www.drupal.org/documentation/is-drupal-secure
+[Openlayers]: http://openlayers.org
+[GNU General Public License]: http://www.gnu.org/copyleft/gpl.html
+[open source]: http://en.wikipedia.org/wiki/Open_source
+[groundwork]: development/architecture
+[contribute]: contribute
+[http://farmOS.org]: http://farmos.org
 

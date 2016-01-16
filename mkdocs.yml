@@ -6,4 +6,19 @@ copyright: <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4
 google_analytics: ['UA-56974603-2', 'docs.farmos.org']
 pages:
 - Home: index.md
+- User Guide:
+    - Mapping your farm: guide/areas.md
+    - Managing assets: guide/assets.md
+    - Logging events: guide/logs.md
+    - Movements and location: guide/location.md
+    - Roles: guide/roles.md
+- Hosting:
+    - Installing: hosting/installing.md
+    - Updating: hosting/updating.md
+- Development:
+    - Projects: development/projects.md
+    - Issue Queues: development/issue-queues.md
+    - Architecture: development/architecture.md
+    - Best Practice: development/best-practice.md
+- Contribute: contribute.md
 theme: yeti
