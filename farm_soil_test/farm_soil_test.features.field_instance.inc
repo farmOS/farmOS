@@ -239,6 +239,40 @@ function farm_soil_test_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_soil_test-field_farm_soil_names'.
+  $field_instances['log-farm_soil_test-field_farm_soil_names'] = array(
+    'bundle' => 'farm_soil_test',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'List the names of soils that are included in this sample. For soil maps and soil names, visit http://websoilsurvey.nrcs.usda.gov/app',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 2,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_soil_names',
+    'label' => 'Soil Names',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'taxonomy',
+      'settings' => array(
+        'autocomplete_path' => 'taxonomy/autocomplete',
+        'size' => 60,
+      ),
+      'type' => 'taxonomy_autocomplete',
+      'weight' => 4,
+    ),
+  );
+
   // Exported field_instance:
   // 'log-farm_soil_test-field_farm_soil_sample_points'.
   $field_instances['log-farm_soil_test-field_farm_soil_sample_points'] = array(
@@ -297,40 +331,6 @@ function farm_soil_test_field_default_field_instances() {
       ),
       'type' => 'openlayers_geofield',
       'weight' => 3,
-    ),
-  );
-
-  // Exported field_instance: 'log-farm_soil_test-field_farm_soil_names'.
-  $field_instances['log-farm_soil_test-field_farm_soil_names'] = array(
-    'bundle' => 'farm_soil_test',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => 'List the names of soils that are included in this sample. For soil maps and soil names, visit http://websoilsurvey.nrcs.usda.gov/app',
-    'display' => array(
-      'default' => array(
-        'label' => 'inline',
-        'module' => 'taxonomy',
-        'settings' => array(),
-        'type' => 'taxonomy_term_reference_link',
-        'weight' => 2,
-      ),
-    ),
-    'entity_type' => 'log',
-    'field_name' => 'field_farm_soil_names',
-    'label' => 'Soil Names',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 0,
-      'module' => 'taxonomy',
-      'settings' => array(
-        'autocomplete_path' => 'taxonomy/autocomplete',
-        'size' => 60,
-      ),
-      'type' => 'taxonomy_autocomplete',
-      'weight' => 4,
     ),
   );
 
