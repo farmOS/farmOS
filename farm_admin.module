@@ -26,6 +26,10 @@ function farm_admin_permission() {
       'title' => t('Access farm dashboard'),
       'description' => t('Access the farm dashboard.'),
     ),
+    'access farm help' => array(
+      'title' => t('Access farm help pages'),
+      'description' => t('Access the farm help pages.'),
+    ),
   );
 }
 
@@ -38,6 +42,9 @@ function farm_admin_farm_access_perms($role) {
   // Access farm dashboard.
   $perms[] = 'access farm dashboard';
 
+  // Access farm help.
+  $perms[] = 'access farm help';
+
   return $perms;
 }
 
@@ -45,6 +52,15 @@ function farm_admin_farm_access_perms($role) {
  * Implements hook_menu().
  */
 function farm_admin_menu() {
+
+  $items['farm/help'] = array(
+    'title' => 'Help',
+    'page callback' => 'farm_admin_help_page',
+    'access arguments' => array('access farm help'),
+    'type' => MENU_NORMAL_ITEM,
+    'menu_name' => 'user-menu',
+    'weight' => 100,
+  );
 
   // Root farm configuration path.
   $items['admin/config/farm'] = array(
@@ -60,6 +76,29 @@ function farm_admin_menu() {
   return $items;
 }
 
+/**
+ * Farm help page callback.
+ */
+function farm_admin_help_page() {
+
+  // Set the title so it is different than the menu item.
+  drupal_set_title(t('farmOS Resources'));
+
+  // Create output.
+  $output = '';
+
+  // Add a link to the farmOS documentation.
+  $output .= '<h3>Documentation</h3><p>' . l('http://docs.farmos.org', 'http://docs.farmos.org') . '</h3>';
+
+  // Add a link to the farmOS IRC channel.
+  $output .= '<h3>Community Chat</h3><p>' . l('#farmOS IRC channel on Freenode', 'http://webchat.freenode.net/?channels=#farmOS') . '</p>';
+
+  // Add a link to the farmOS distribution issue queue.
+  $output .= '<h3>Issue Queues</h3><p>' . l('https://drupal.org/project/issues/farm', 'https://drupal.org/project/issues/farm') . '</p>';
+
+  // Return output.
+  return $output;
+}
 
 /**
  * Implements hook_menu_breadcrumb_alter().
