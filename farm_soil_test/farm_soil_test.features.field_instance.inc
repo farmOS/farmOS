@@ -300,12 +300,12 @@ function farm_soil_test_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_soil_test-field_farm_soil_types'.
-  $field_instances['log-farm_soil_test-field_farm_soil_types'] = array(
+  // Exported field_instance: 'log-farm_soil_test-field_farm_soil_names'.
+  $field_instances['log-farm_soil_test-field_farm_soil_names'] = array(
     'bundle' => 'farm_soil_test',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'List the types of soils that are included in this sample. For soil maps and soil names, visit http://websoilsurvey.nrcs.usda.gov/app',
+    'description' => 'List the names of soils that are included in this sample. For soil maps and soil names, visit http://websoilsurvey.nrcs.usda.gov/app',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -316,8 +316,8 @@ function farm_soil_test_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'log',
-    'field_name' => 'field_farm_soil_types',
-    'label' => 'Soil Types',
+    'field_name' => 'field_farm_soil_names',
+    'label' => 'Soil Names',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -339,11 +339,11 @@ function farm_soil_test_field_default_field_instances() {
   t('Area');
   t('Files');
   t('Laboratory');
-  t('List the types of soils that are included in this sample. For soil maps and soil names, visit http://websoilsurvey.nrcs.usda.gov/app');
+  t('List the names of soils that are included in this sample. For soil maps and soil names, visit http://websoilsurvey.nrcs.usda.gov/app');
   t('Notes');
   t('Photo(s)');
   t('Sample Points');
-  t('Soil Types');
+  t('Soil Names');
   t('Use the map to pinpoint the location(s) from which this sample is taken. If you are preparing a soil test, you may be sampling multiple points within a given area. All the points that comprise this sample should be included.');
   t('What area(s) were this soil sample taken from?');
   t('What laboratory performed the soil test?');

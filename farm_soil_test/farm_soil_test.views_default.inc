@@ -337,12 +337,12 @@ function farm_soil_test_views_default_views() {
     'data' => 'full',
   );
   $handler->display->display_options['fields']['field_farm_soil_sample_points']['delta_offset'] = '0';
-  /* Field: Log: Soil Types */
-  $handler->display->display_options['fields']['field_farm_soil_types']['id'] = 'field_farm_soil_types';
-  $handler->display->display_options['fields']['field_farm_soil_types']['table'] = 'field_data_field_farm_soil_types';
-  $handler->display->display_options['fields']['field_farm_soil_types']['field'] = 'field_farm_soil_types';
-  $handler->display->display_options['fields']['field_farm_soil_types']['label'] = 'soil_types';
-  $handler->display->display_options['fields']['field_farm_soil_types']['delta_offset'] = '0';
+  /* Field: Log: Soil Names */
+  $handler->display->display_options['fields']['field_farm_soil_names']['id'] = 'field_farm_soil_names';
+  $handler->display->display_options['fields']['field_farm_soil_names']['table'] = 'field_data_field_farm_soil_names';
+  $handler->display->display_options['fields']['field_farm_soil_names']['field'] = 'field_farm_soil_names';
+  $handler->display->display_options['fields']['field_farm_soil_names']['label'] = 'soil_names';
+  $handler->display->display_options['fields']['field_farm_soil_names']['delta_offset'] = '0';
   /* Field: Log: Notes */
   $handler->display->display_options['fields']['field_farm_notes']['id'] = 'field_farm_notes';
   $handler->display->display_options['fields']['field_farm_notes']['table'] = 'field_data_field_farm_notes';

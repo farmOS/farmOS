@@ -9,10 +9,10 @@
  */
 function farm_soil_taxonomy_default_vocabularies() {
   return array(
-    'farm_soil_types' => array(
-      'name' => 'Farm Soil Types',
-      'machine_name' => 'farm_soil_types',
-      'description' => 'A vocabulary of soil types.',
+    'farm_soil_names' => array(
+      'name' => 'Farm Soil Names',
+      'machine_name' => 'farm_soil_names',
+      'description' => 'A vocabulary of soil names.',
       'hierarchy' => 0,
       'module' => 'taxonomy',
       'weight' => 0,

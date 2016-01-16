@@ -1,0 +1,47 @@
+<?php
+/**
+ * @file
+ * Farm soil test install.
+ */
+
+/**
+ * Implements hook_update_dependencies().
+ */
+function farm_soil_test_update_dependencies() {
+
+  // Ensure that this modules 7000 update runs before the 7000 update of
+  // farm_soil. We will delete a field instance in our update, and they will
+  // delete the field base in theirs.
+  $dependencies['farm_soil'][7000] = array(
+    'farm_soil_test' => 7000,
+  );
+
+  return $dependencies;
+}
+
+
+/**
+ * Change "Soil Types" to "Soil Names".
+ */
+function farm_soil_test_update_7000(&$sandbox) {
+
+  // Start by reverting the field_instance component of this module, and the
+  // field_base component of farm_soil so that the new field is available
+  $features = array(
+    'farm_soil' => array('field_base'),
+    'farm_soil_test' => array('field_instance'),
+  );
+  features_revert($features);
+
+  // Migrate data from old field to new field.
+  if (db_table_exists('field_data_field_farm_soil_types') && db_table_exists('field_data_field_farm_soil_names')) {
+    db_query('INSERT INTO {field_data_field_farm_soil_names} SELECT * FROM {field_data_field_farm_soil_types}');
+  }
+  if (db_table_exists('field_revision_field_farm_soil_types') && db_table_exists('field_revision_field_farm_soil_names')) {
+    db_query('INSERT INTO {field_revision_field_farm_soil_names} SELECT * FROM {field_revision_field_farm_soil_types}');
+  }
+
+  // Delete the old field instance.
+  $field = field_info_instance('log', 'field_farm_soil_types', 'farm_soil_test');
+  field_delete_instance($field);
+}

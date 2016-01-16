@@ -17,7 +17,7 @@ function farm_soil_test_farm_access_perms($role) {
       'farm_soil_test',
     ),
     'taxonomy' => array(
-      'farm_soil_types',
+      'farm_soil_names',
     ),
   );
 
