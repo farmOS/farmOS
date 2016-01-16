@@ -56,3 +56,10 @@ function farm_soil_update_7000(&$sandbox) {
     field_delete_field($field_name);
   }
 }
+
+/**
+ * Enable the Farm Soil: NRCS module.
+ */
+function farm_soil_update_7001(&$sandbox) {
+  module_enable(array('farm_soil_nrcs'));
+}

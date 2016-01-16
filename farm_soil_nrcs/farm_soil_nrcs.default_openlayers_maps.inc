@@ -1,15 +1,15 @@
 <?php
 /**
  * @file
- * farm_soil.default_openlayers_maps.inc
+ * farm_soil_nrcs.default_openlayers_maps.inc
  */
 
 /**
  * Implements hook_default_openlayers_maps_alter().
  */
-function farm_soil_default_openlayers_maps_alter(&$maps) {
+function farm_soil_nrcs_default_openlayers_maps_alter(&$maps) {
 
-  // Add the soil layers to farm maps.
+  // Add the NRCS soil layers to farm maps.
   $farm_maps = array(
     'farm_areas',
     'farm_map_geofield',
@@ -23,7 +23,7 @@ function farm_soil_default_openlayers_maps_alter(&$maps) {
     if (array_key_exists($farm_map, $maps)) {
 
       // Add the soil layer group.
-      $maps[$farm_map]->options['layers'][] = 'farm_soil_layer_group';
+      $maps[$farm_map]->options['layers'][] = 'farm_soil_nrcs_layer_group';
     }
   }
 }

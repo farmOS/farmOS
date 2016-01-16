@@ -1,7 +1,8 @@
 FARM SOIL
 =========
 
-Provides features for soil health management, including a Soil Test log type.
+Provides features for soil health management, including a Soil Test log type. It also includes an NRCS module that
+adds integration with NRCS Soil Survey data.
 
 This module is part of the [farmOS](http://drupal.org/project/farm)
 distribution.
@@ -30,6 +31,12 @@ The Farm Soil Test sub-module requires:
  * Farm Area (http://drupal.org/project/farm_area)
  * Farm Fields (http://drupal.org/project/farm_fields)
  * Farm Map (http://drupal.org/project/farm_map)
+ * Farm Soil (http://drupal.org/project/farm_soil)
+
+The Farm Soil NRCS sub-module requires:
+
+ * Ctools (http://drupal.org/project/ctools)
+ * Features (http://drupal.org/project/features)
  * Farm Soil (http://drupal.org/project/farm_soil)
 
 INSTALLATION

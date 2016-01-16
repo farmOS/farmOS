@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Farm Soil NRCS feature.
+ */
+
+include_once 'farm_soil_nrcs.features.inc';
