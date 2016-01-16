@@ -5,3 +5,183 @@
  */
 
 include_once 'farm_soil_nrcs.features.inc';
+
+/**
+ * Implements hook_form_alter().
+ */
+function farm_soil_nrcs_form_alter(&$form, &$form_state, $form_id) {
+
+  // Only act on the soil test log form.
+  if ($form_id != 'log_form') {
+    return;
+  }
+  if ($form['#bundle'] != 'farm_soil_test') {
+    return;
+  }
+
+  // Add the Farm Soil NRCS soil name lookup button.
+  farm_soil_nrcs_soil_name_lookup_button($form, $form_state);
+}
+
+
+/**
+ * Adds a "Look up soil names" button to a form. The form should contain a
+ * geofield and a text field for storing the names.
+ *
+ * This can be added to a form that has the necessary fields via
+ * hook_form_alter(). See the this module's hook_form_alter() for an example,
+ * which adds the button to the soil test log form.
+ *
+ * @param array $form
+ *   The form array to be altered.
+ * @param array $form_state
+ *   The form state array.
+ */
+function farm_soil_nrcs_soil_name_lookup_button(&$form, &$form_state) {
+
+  // Define the field names.
+  $geofield = 'field_farm_soil_sample_points';
+  $textfield = 'field_farm_soil_names';
+
+  // If the geofield or textfield don't exist, bail.
+  if (empty($form[$geofield]) || empty($form[$textfield])) {
+    return;
+  }
+
+  // Add a wrapper around the text field so we can replace it with AJAX.
+  $form[$textfield]['#prefix'] = '<div id="soil-names">';
+  $form[$textfield]['#suffix'] = '</div>';
+
+  // Add an AJAX button below the text field.
+  $form[$textfield]['soil_name_lookup'] = array(
+    '#type' => 'submit',
+    '#value' => t('Look up soil names'),
+    '#submit' => array('farm_soil_nrcs_soil_name_lookup_submit'),
+    // No need to validate when submitting this.
+    '#limit_validation_errors' => array(),
+    '#ajax' => array(
+      'callback' => 'farm_soil_nrcs_soil_name_lookup_ajax',
+      'wrapper' => 'soil-names',
+    ),
+  );
+}
+
+/**
+ * Ajax callback for soil name lookup.
+ *
+ * @param array $form
+ *   The form array.
+ * @param array $form_state
+ *   The form state array.
+ *
+ * @return array
+ *   Returns the part of the form that will be replaced via AJAX.
+ */
+function farm_soil_nrcs_soil_name_lookup_ajax($form, $form_state) {
+  $textfield = 'field_farm_soil_names';
+  return $form[$textfield];
+}
+
+/**
+ * Submit function for auto-populating the Soil Names field.
+ *
+ * @param array $form
+ *   The form array.
+ * @param array $form_state
+ *   The form state array.
+ */
+function farm_soil_nrcs_soil_name_lookup_submit($form, &$form_state) {
+
+  // Grab the geometry from the geofield input.
+  if (!empty($form_state['input']['field_farm_soil_sample_points'][LANGUAGE_NONE][0]['geom'])) {
+    $wkt = $form_state['input']['field_farm_soil_sample_points'][LANGUAGE_NONE][0]['geom'];
+  }
+
+  // Request soil names from the NRCS.
+  if (!empty($wkt)) {
+    $soil_names = farm_soil_nrcs_soil_name_lookup($wkt);
+  }
+
+  // If no soil names were returned, print a message.
+  if (empty($soil_names)) {
+    drupal_set_message('Soil names could not be found.', 'warning');
+  }
+
+  // If any of the soil names contain commas, wrap them in double-quotes.
+  foreach ($soil_names as &$name) {
+    if (strpos($name, ',') !== FALSE) {
+      $name = '"' . $name . '"';
+    }
+  }
+
+  // Add the soil names to the input.
+  $form_state['input']['field_farm_soil_names'][LANGUAGE_NONE] = implode(', ', $soil_names);
+
+  // Rebuild the form.
+  $form_state['rebuild'] = TRUE;
+}
+
+/**
+ * Send a request to the NRCS server to get names of soils, given a string of
+ * Well-Known Text.
+ *
+ * @param string $wkt
+ *   The Well-Known Text representation of the geometry to query.
+ *
+ * @return array
+ *   Returns an array of soil names.
+ */
+function farm_soil_nrcs_soil_name_lookup($wkt) {
+
+  // Start an empty array.
+  $soil_names = array();
+
+  // Assemble the query.
+  $query = "SELECT MU.nationalmusym, MU.musym, MU.muname FROM SDA_Get_Mukey_from_intersection_with_WktWgs84('" . $wkt . "') K LEFT JOIN mapunit MU ON K.mukey = MU.mukey";
+
+  // Build the request.
+  $url = 'http://sdmdataaccess.sc.egov.usda.gov/tabular/post.rest';
+  $params = array(
+    'query' => $query,
+    'format' => 'json',
+  );
+  $options = array(
+    'method' => 'POST',
+    'data' => json_encode($params),
+    'headers' => array(
+      'Content-Type' => 'application/json',
+      'Accept' => 'application/json',
+    ),
+  );
+
+  // Send the request and get a response.
+  $response = drupal_http_request($url, $options);
+
+  // Decode the JSON data.
+  $data = json_decode($response->data);
+
+  // If the data is empty, bail.
+  if (empty($data) || empty($data->Table) || !is_array($data->Table)) {
+    return $soil_names;
+  }
+
+  // Process the data into an array of soil names.
+  foreach ($data->Table as $row) {
+    $soil_name = '';
+    if (!empty($row[0])) {
+      $soil_name .= $row[0];
+    }
+    if (!empty($row[1])) {
+      $soil_name .= ' (' . $row[1] . ')';
+    }
+    if (!empty($row[2])) {
+      $soil_name .= ': ' . $row[2];
+    }
+    if (!empty($soil_name)) {
+      $soil_names[] = $soil_name;
+    }
+  }
+
+  // Return the array of soil names.
+  return $soil_names;
+}
