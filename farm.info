@@ -52,6 +52,7 @@ dependencies[] = farm_livestock_eggs
 dependencies[] = farm_log
 dependencies[] = farm_map
 dependencies[] = farm_soil
+dependencies[] = farm_soil_nrcs
 dependencies[] = farm_soil_test
 dependencies[] = farm_taxonomy
 dependencies[] = farm_tour
