@@ -134,6 +134,7 @@ projects[views][version] = "3.13"
 projects[views_bulk_operations][subdir] = "contrib"
 projects[views_bulk_operations][version] = "3.3"
 
+; DEPRECATED - Will be removed in the next release.
 projects[views_data_export][subdir] = "contrib"
 projects[views_data_export][version] = "3.0-beta9"
 

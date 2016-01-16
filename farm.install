@@ -283,6 +283,17 @@ function farm_update_7012(&$sandbox) {
 }
 
 /**
+ * Uninstall Views Data Export.
+ */
+function farm_update_7013(&$sandbox) {
+  $module = 'views_data_export';
+  if (module_exists($module)) {
+    module_disable(array($module));
+    drupal_uninstall_modules(array($module));
+  }
+}
+
+/**
  * Helper function: enable modules.
  */
 function _farm_enable_modules($modules = array()) {
