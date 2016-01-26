@@ -360,6 +360,11 @@ function farm_asset_entity_view($entity, $type, $view_mode, $langcode) {
       // Build the View preview.
       $preview = $view->preview('default', $args);
 
+      // Only display if the View has results.
+      if ($view->total_rows == 0) {
+        continue;
+      }
+
       // Build the output.
       $output = '<h3 id="' . $title . '">' . $title . '</h3>' . $preview;
 
