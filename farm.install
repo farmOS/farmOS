@@ -305,6 +305,18 @@ function farm_update_7014(&$sandbox) {
 }
 
 /**
+ * Uninstall Panels and Page Manager.
+ */
+function farm_update_7015(&$sandbox) {
+  $modules = array(
+    'page_manager',
+    'panels',
+  );
+  module_disable(array($modules));
+  drupal_uninstall_modules(array($modules));
+}
+
+/**
  * Helper function: enable modules.
  */
 function _farm_enable_modules($modules = array()) {
