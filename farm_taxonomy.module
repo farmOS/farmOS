@@ -125,6 +125,11 @@ function farm_taxonomy_entity_view_alter(&$build, $type) {
     // Build the View preview.
     $preview = $view->preview('default', $args);
 
+    // Only display if the View has results.
+    if ($view->total_rows == 0) {
+      continue;
+    }
+
     // Build the output.
     $output = '<h3 id="' . $title . '">' . $title . '</h3>' . $preview;
 
