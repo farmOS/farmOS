@@ -165,7 +165,7 @@ projects[farm_access][download][type] = git
 projects[farm_access][download][branch] = 7.x-1.x
 
 projects[farm_admin][subdir] = "farm"
-;projects[farm_admin][version] = "1.0-beta6"
+;projects[farm_admin][version] = "1.0-beta7"
 projects[farm_admin][download][type] = git
 projects[farm_admin][download][branch] = 7.x-1.x
 
