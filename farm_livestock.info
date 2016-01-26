@@ -14,7 +14,6 @@ dependencies[] = farm_map
 dependencies[] = features
 dependencies[] = field_collection
 dependencies[] = file
-dependencies[] = filefield_paths
 dependencies[] = image
 dependencies[] = list
 dependencies[] = options
