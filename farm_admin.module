@@ -124,7 +124,9 @@ function farm_admin_help_page() {
   drupal_set_title(t('farmOS Resources'));
 
   // Create output.
-  $output = '';
+  $output = '<p>' . l('farmOS', 'http://farmos.org'). ' is built and maintained
+  by a community of volunteers. Some farmOS community resources are listed
+  below.</p>';
 
   // Add a link to the farmOS documentation.
   $output .= '<h3>Documentation</h3><p>' . l('http://docs.farmos.org', 'http://docs.farmos.org') . '</h3>';
