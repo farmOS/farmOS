@@ -12,7 +12,6 @@ dependencies[] = farm_map
 dependencies[] = farm_soil
 dependencies[] = features
 dependencies[] = file
-dependencies[] = filefield_paths
 dependencies[] = image
 dependencies[] = log
 dependencies[] = openlayers_geofield
