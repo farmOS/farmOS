@@ -84,11 +84,6 @@ projects[libraries_cdn][version] = "1.7"
 projects[log][subdir] = "contrib"
 projects[log][version] = "1.5"
 
-projects[logintoboggan][subdir] = "contrib"
-projects[logintoboggan][version] = "1.5"
-; Display "Request new password" link in access denied login form.
-projects[logintoboggan][patch][] = "http://www.drupal.org/files/issues/logintoboggan-403passwordlink-1823764-5.patch"
-
 projects[navbar][subdir] = "contrib"
 projects[navbar][version] = "1.7"
 

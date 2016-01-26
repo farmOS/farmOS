@@ -23,15 +23,6 @@ function farm_install() {
   // Use the farm menu for primary links (provided by farm_admin).
   variable_set('menu_main_links_source', 'farm');
 
-  // Allow login via email (via logintoboggan).
-  variable_set('logintoboggan_login_with_email', TRUE);
-
-  // Display the login form on access denied pages (via logintoboggan).
-  variable_set('site_403', 'toboggan/denied');
-
-  // Show "Request new password" link on 403 pages (via LoginToboggan).
-  variable_set('logintoboggan_site_403_user_login_block', TRUE);
-
   // Load Openlayers 3.11.2 from CDNJS.
   \Drupal\openlayers\Config::set('openlayers.variant', 'cdnjs:ol3:3.11.2');
 }
@@ -314,6 +305,15 @@ function farm_update_7015(&$sandbox) {
   );
   module_disable(array($modules));
   drupal_uninstall_modules(array($modules));
+}
+
+/**
+ * Uninstall Logintoboggan.
+ */
+function farm_update_7016(&$sandbox) {
+  variable_del('site_403');
+  variable_del('logintoboggan_login_with_email');
+  variable_del('logintoboggan_site_403_user_login_block');
 }
 
 /**
