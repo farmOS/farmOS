@@ -8,7 +8,6 @@ dependencies[] = farm_fields
 dependencies[] = farm_map
 dependencies[] = features
 dependencies[] = file
-dependencies[] = filefield_paths
 dependencies[] = geocoder
 dependencies[] = geofield
 dependencies[] = image

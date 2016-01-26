@@ -14,7 +14,6 @@ This module depends on the following modules:
  * Colorbox (http://drupal.org/project/colorbox)
  * Ctools (http://drupal.org/project/ctools)
  * Features (http://drupal.org/project/features)
- * Filefield Paths (http://drupal.org/project/filefield_paths)
  * Geocoder (http://drupal.org/project/geocoder)
  * Geofield (http://drupal.org/project/geofield)
  * OpenLayers 3.x (http://drupal.org/project/openlayers)
