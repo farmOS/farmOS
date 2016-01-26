@@ -45,10 +45,6 @@ projects[features][version] = "2.7"
 projects[field_collection][subdir] = "contrib"
 projects[field_collection][version] = "1.0-beta11"
 
-; DEPRECATED - Will be removed in the next release.
-projects[filefield_paths][subdir] = "contrib"
-projects[filefield_paths][version] = "1.0"
-
 projects[fraction][subdir] = "contrib"
 projects[fraction][version] = "1.3"
 
