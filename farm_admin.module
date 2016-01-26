@@ -4,8 +4,6 @@
  * Code for the Farm Admin feature.
  */
 
-include_once 'farm_admin.features.inc';
-
 /**
  * Implements hook_modules_installed().
  */
@@ -53,6 +51,18 @@ function farm_admin_farm_access_perms($role) {
  */
 function farm_admin_menu() {
 
+  $items['farm'] = array(
+    'title' => 'Farm',
+    'page callback' => 'farm_admin_dashboard',
+    'access arguments' => array('access farm dashboard'),
+    'type' => MENU_CALLBACK,
+  );
+  $items['farm/dashboard'] = array(
+    'title' => 'Farm',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -100,
+  );
+
   $items['farm/help'] = array(
     'title' => 'Help',
     'page callback' => 'farm_admin_help_page',
@@ -74,6 +84,35 @@ function farm_admin_menu() {
   );
 
   return $items;
+}
+
+/**
+ * Farm dashboard page callback.
+ */
+function farm_admin_dashboard() {
+
+  // Set the page title.
+  drupal_set_title('Farm Dashboard');
+
+  // Start an output string.
+  $output = '';
+
+  // Render the "Plan" block display.
+  $view = views_get_view('log_plan');
+  $preview = $view->preview('block_plan');
+  $title = $title = $view->get_title();
+  $output .= '<h2 id="' . $title . '">' . $title . '</h3>' . $preview;
+
+  // Render the "Late tasks" block display (only if there are results).
+  $view = views_get_view('log_plan');
+  $preview = $view->preview('block_late');
+  if (!empty($view->total_rows)) {
+    $title = $title = $view->get_title();
+    $output .= '<h2 id="' . $title . '">' . $title . '</h3>' . $preview;
+  }
+
+  // Return the output.
+  return $output;
 }
 
 /**
