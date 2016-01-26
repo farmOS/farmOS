@@ -89,10 +89,6 @@ projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_e
 projects[openlayers_geolocate_button][subdir] = "contrib"
 projects[openlayers_geolocate_button][version] = "3.2"
 
-; DEPRECATED - Will be removed in the next release.
-projects[panels][subdir] = "contrib"
-projects[panels][version] = "3.5"
-
 projects[pathauto][subdir] = "contrib"
 projects[pathauto][version] = "1.3"
 
