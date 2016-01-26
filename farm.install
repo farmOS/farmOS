@@ -294,6 +294,17 @@ function farm_update_7013(&$sandbox) {
 }
 
 /**
+ * Uninstall Filefield Paths.
+ */
+function farm_update_7014(&$sandbox) {
+  $module = 'filefield_paths';
+  if (module_exists($module)) {
+    module_disable(array($module));
+    drupal_uninstall_modules(array($module));
+  }
+}
+
+/**
  * Helper function: enable modules.
  */
 function _farm_enable_modules($modules = array()) {
