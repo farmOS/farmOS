@@ -23,6 +23,11 @@ function farm_fields_filter_default_formats() {
         'status' => 1,
         'settings' => array(),
       ),
+      'log_filter' => array(
+        'weight' => -49,
+        'status' => 1,
+        'settings' => array(),
+      ),
       'filter_html' => array(
         'weight' => -48,
         'status' => 1,
@@ -43,11 +48,6 @@ function farm_fields_filter_default_formats() {
         'settings' => array(
           'filter_url_length' => 72,
         ),
-      ),
-      'log_filter' => array(
-        'weight' => 0,
-        'status' => 1,
-        'settings' => array(),
       ),
     ),
   );
