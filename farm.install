@@ -317,6 +317,13 @@ function farm_update_7016(&$sandbox) {
 }
 
 /**
+ * Enable Markdown module.
+ */
+function farm_update_7017(&$sandbox) {
+  _farm_enable_modules(array('markdown'));
+}
+
+/**
  * Helper function: enable modules.
  */
 function _farm_enable_modules($modules = array()) {

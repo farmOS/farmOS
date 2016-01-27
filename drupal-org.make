@@ -86,6 +86,9 @@ projects[libraries_cdn][version] = "1.7"
 projects[log][subdir] = "contrib"
 projects[log][version] = "1.5"
 
+projects[markdown][subdir] = "contrib"
+projects[markdown][version] = "1.2"
+
 projects[navbar][subdir] = "contrib"
 projects[navbar][version] = "1.7"
 
