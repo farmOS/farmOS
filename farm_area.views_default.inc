@@ -61,6 +61,7 @@ function farm_area_views_default_views() {
   $handler->display->display_options['fields']['tid']['table'] = 'taxonomy_term_data';
   $handler->display->display_options['fields']['tid']['field'] = 'tid';
   $handler->display->display_options['fields']['tid']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['tid']['separator'] = '';
   /* Field: Taxonomy term: Term ID */
   $handler->display->display_options['fields']['tid_1']['id'] = 'tid_1';
   $handler->display->display_options['fields']['tid_1']['table'] = 'taxonomy_term_data';
@@ -69,6 +70,7 @@ function farm_area_views_default_views() {
   $handler->display->display_options['fields']['tid_1']['label'] = '';
   $handler->display->display_options['fields']['tid_1']['exclude'] = TRUE;
   $handler->display->display_options['fields']['tid_1']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['tid_1']['separator'] = '';
   /* Field: Taxonomy term: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
   $handler->display->display_options['fields']['name']['table'] = 'taxonomy_term_data';
