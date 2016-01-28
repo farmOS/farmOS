@@ -10,7 +10,7 @@
 function farm_livestock_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'farm_asset-animal-field_farm_animal_group'
+  // Exported field_instance: 'farm_asset-animal-field_farm_animal_group'.
   $field_instances['farm_asset-animal-field_farm_animal_group'] = array(
     'bundle' => 'animal',
     'default_value' => NULL,
@@ -44,7 +44,7 @@ function farm_livestock_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'farm_asset-animal-field_farm_animal_nicknames'
+  // Exported field_instance: 'farm_asset-animal-field_farm_animal_nicknames'.
   $field_instances['farm_asset-animal-field_farm_animal_nicknames'] = array(
     'bundle' => 'animal',
     'default_value' => NULL,
@@ -78,7 +78,7 @@ function farm_livestock_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'farm_asset-animal-field_farm_animal_parents'
+  // Exported field_instance: 'farm_asset-animal-field_farm_animal_parents'.
   $field_instances['farm_asset-animal-field_farm_animal_parents'] = array(
     'bundle' => 'animal',
     'default_value' => NULL,
@@ -115,7 +115,7 @@ function farm_livestock_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'farm_asset-animal-field_farm_animal_sex'
+  // Exported field_instance: 'farm_asset-animal-field_farm_animal_sex'.
   $field_instances['farm_asset-animal-field_farm_animal_sex'] = array(
     'bundle' => 'animal',
     'default_value' => NULL,
@@ -146,7 +146,7 @@ function farm_livestock_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'farm_asset-animal-field_farm_animal_tag'
+  // Exported field_instance: 'farm_asset-animal-field_farm_animal_tag'.
   $field_instances['farm_asset-animal-field_farm_animal_tag'] = array(
     'bundle' => 'animal',
     'default_value' => NULL,
@@ -179,7 +179,7 @@ function farm_livestock_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'farm_asset-animal-field_farm_animal_type'
+  // Exported field_instance: 'farm_asset-animal-field_farm_animal_type'.
   $field_instances['farm_asset-animal-field_farm_animal_type'] = array(
     'bundle' => 'animal',
     'default_value' => array(),
@@ -213,7 +213,7 @@ function farm_livestock_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'farm_asset-animal-field_farm_date'
+  // Exported field_instance: 'farm_asset-animal-field_farm_date'.
   $field_instances['farm_asset-animal-field_farm_date'] = array(
     'bundle' => 'animal',
     'deleted' => 0,
@@ -228,6 +228,7 @@ function farm_livestock_field_default_field_instances() {
           'multiple_from' => '',
           'multiple_number' => '',
           'multiple_to' => '',
+          'show_remaining_days' => FALSE,
           'show_repeat_rule' => 'show',
         ),
         'type' => 'date_default',
@@ -262,7 +263,7 @@ function farm_livestock_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'farm_asset-animal-field_farm_description'
+  // Exported field_instance: 'farm_asset-animal-field_farm_description'.
   $field_instances['farm_asset-animal-field_farm_description'] = array(
     'bundle' => 'animal',
     'default_value' => NULL,
@@ -296,7 +297,7 @@ function farm_livestock_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'farm_asset-animal-field_farm_files'
+  // Exported field_instance: 'farm_asset-animal-field_farm_files'.
   $field_instances['farm_asset-animal-field_farm_files'] = array(
     'bundle' => 'animal',
     'deleted' => 0,
@@ -332,7 +333,7 @@ function farm_livestock_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'farm_asset-animal-field_farm_images'
+  // Exported field_instance: 'farm_asset-animal-field_farm_images'.
   $field_instances['farm_asset-animal-field_farm_images'] = array(
     'bundle' => 'animal',
     'deleted' => 0,
@@ -383,7 +384,7 @@ function farm_livestock_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_farm_animal_tag-field_farm_animal_tag_id'
+  // 'field_collection_item-field_farm_animal_tag-field_farm_animal_tag_id'.
   $field_instances['field_collection_item-field_farm_animal_tag-field_farm_animal_tag_id'] = array(
     'bundle' => 'field_farm_animal_tag',
     'default_value' => NULL,
@@ -418,7 +419,7 @@ function farm_livestock_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_farm_animal_tag-field_farm_animal_tag_location'
+  // 'field_collection_item-field_farm_animal_tag-field_farm_animal_tag_location'.
   $field_instances['field_collection_item-field_farm_animal_tag-field_farm_animal_tag_location'] = array(
     'bundle' => 'field_farm_animal_tag',
     'default_value' => NULL,
@@ -453,7 +454,7 @@ function farm_livestock_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_farm_animal_tag-field_farm_animal_tag_type'
+  // 'field_collection_item-field_farm_animal_tag-field_farm_animal_tag_type'.
   $field_instances['field_collection_item-field_farm_animal_tag-field_farm_animal_tag_type'] = array(
     'bundle' => 'field_farm_animal_tag',
     'default_value' => NULL,

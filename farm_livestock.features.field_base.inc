@@ -10,7 +10,7 @@
 function farm_livestock_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_farm_animal_group'
+  // Exported field_base: 'field_farm_animal_group'.
   $field_bases['field_farm_animal_group'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -36,7 +36,7 @@ function farm_livestock_field_default_field_bases() {
     'type' => 'taxonomy_term_reference',
   );
 
-  // Exported field_base: 'field_farm_animal_nicknames'
+  // Exported field_base: 'field_farm_animal_nicknames'.
   $field_bases['field_farm_animal_nicknames'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -57,7 +57,7 @@ function farm_livestock_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_farm_animal_parents'
+  // Exported field_base: 'field_farm_animal_parents'.
   $field_bases['field_farm_animal_parents'] = array(
     'active' => 1,
     'cardinality' => 2,
@@ -92,7 +92,7 @@ function farm_livestock_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_farm_animal_sex'
+  // Exported field_base: 'field_farm_animal_sex'.
   $field_bases['field_farm_animal_sex'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -117,7 +117,7 @@ function farm_livestock_field_default_field_bases() {
     'type' => 'list_text',
   );
 
-  // Exported field_base: 'field_farm_animal_tag'
+  // Exported field_base: 'field_farm_animal_tag'.
   $field_bases['field_farm_animal_tag'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -139,7 +139,7 @@ function farm_livestock_field_default_field_bases() {
     'type' => 'field_collection',
   );
 
-  // Exported field_base: 'field_farm_animal_tag_id'
+  // Exported field_base: 'field_farm_animal_tag_id'.
   $field_bases['field_farm_animal_tag_id'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -160,7 +160,7 @@ function farm_livestock_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_farm_animal_tag_location'
+  // Exported field_base: 'field_farm_animal_tag_location'.
   $field_bases['field_farm_animal_tag_location'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -181,7 +181,7 @@ function farm_livestock_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_farm_animal_tag_type'
+  // Exported field_base: 'field_farm_animal_tag_type'.
   $field_bases['field_farm_animal_tag_type'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -208,7 +208,7 @@ function farm_livestock_field_default_field_bases() {
     'type' => 'list_text',
   );
 
-  // Exported field_base: 'field_farm_animal_type'
+  // Exported field_base: 'field_farm_animal_type'.
   $field_bases['field_farm_animal_type'] = array(
     'active' => 1,
     'cardinality' => 1,
