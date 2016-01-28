@@ -10,7 +10,7 @@
 function farm_equipment_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'farm_asset-equipment-field_farm_description'
+  // Exported field_instance: 'farm_asset-equipment-field_farm_description'.
   $field_instances['farm_asset-equipment-field_farm_description'] = array(
     'bundle' => 'equipment',
     'default_value' => NULL,
@@ -44,7 +44,7 @@ function farm_equipment_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'farm_asset-equipment-field_farm_files'
+  // Exported field_instance: 'farm_asset-equipment-field_farm_files'.
   $field_instances['farm_asset-equipment-field_farm_files'] = array(
     'bundle' => 'equipment',
     'deleted' => 0,
@@ -80,7 +80,7 @@ function farm_equipment_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'farm_asset-equipment-field_farm_images'
+  // Exported field_instance: 'farm_asset-equipment-field_farm_images'.
   $field_instances['farm_asset-equipment-field_farm_images'] = array(
     'bundle' => 'equipment',
     'deleted' => 0,
@@ -130,7 +130,7 @@ function farm_equipment_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_maintenance-field_farm_equipment'
+  // Exported field_instance: 'log-farm_maintenance-field_farm_equipment'.
   $field_instances['log-farm_maintenance-field_farm_equipment'] = array(
     'bundle' => 'farm_maintenance',
     'default_value' => NULL,
@@ -167,7 +167,7 @@ function farm_equipment_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_maintenance-field_farm_files'
+  // Exported field_instance: 'log-farm_maintenance-field_farm_files'.
   $field_instances['log-farm_maintenance-field_farm_files'] = array(
     'bundle' => 'farm_maintenance',
     'deleted' => 0,
@@ -203,7 +203,7 @@ function farm_equipment_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_maintenance-field_farm_images'
+  // Exported field_instance: 'log-farm_maintenance-field_farm_images'.
   $field_instances['log-farm_maintenance-field_farm_images'] = array(
     'bundle' => 'farm_maintenance',
     'deleted' => 0,
@@ -253,7 +253,7 @@ function farm_equipment_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_maintenance-field_farm_notes'
+  // Exported field_instance: 'log-farm_maintenance-field_farm_notes'.
   $field_instances['log-farm_maintenance-field_farm_notes'] = array(
     'bundle' => 'farm_maintenance',
     'default_value' => NULL,

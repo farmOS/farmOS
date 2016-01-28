@@ -10,7 +10,7 @@
 function farm_equipment_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_farm_equipment'
+  // Exported field_base: 'field_farm_equipment'.
   $field_bases['field_farm_equipment'] = array(
     'active' => 1,
     'cardinality' => 1,
