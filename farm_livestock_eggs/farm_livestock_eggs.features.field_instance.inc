@@ -10,7 +10,7 @@
 function farm_livestock_eggs_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'log-farm_eggs-field_farm_animal_group'
+  // Exported field_instance: 'log-farm_eggs-field_farm_animal_group'.
   $field_instances['log-farm_eggs-field_farm_animal_group'] = array(
     'bundle' => 'farm_eggs',
     'default_value' => NULL,
@@ -44,7 +44,7 @@ function farm_livestock_eggs_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_eggs-field_farm_egg_qty'
+  // Exported field_instance: 'log-farm_eggs-field_farm_egg_qty'.
   $field_instances['log-farm_eggs-field_farm_egg_qty'] = array(
     'bundle' => 'farm_eggs',
     'default_value' => NULL,
@@ -84,7 +84,7 @@ function farm_livestock_eggs_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_eggs-field_farm_notes'
+  // Exported field_instance: 'log-farm_eggs-field_farm_notes'.
   $field_instances['log-farm_eggs-field_farm_notes'] = array(
     'bundle' => 'farm_eggs',
     'default_value' => NULL,

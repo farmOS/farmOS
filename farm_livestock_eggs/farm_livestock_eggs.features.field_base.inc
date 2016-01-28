@@ -10,7 +10,7 @@
 function farm_livestock_eggs_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_farm_egg_qty'
+  // Exported field_base: 'field_farm_egg_qty'.
   $field_bases['field_farm_egg_qty'] = array(
     'active' => 1,
     'cardinality' => 1,
