@@ -5,6 +5,7 @@ package = farmOS
 dependencies[] = ctools
 dependencies[] = farm_soil
 dependencies[] = features
+dependencies[] = openlayers
 features[ctools][] = openlayers:default_openlayers_layers:1
 features[ctools][] = openlayers:default_openlayers_sources:1
 features[features_api][] = api:2
