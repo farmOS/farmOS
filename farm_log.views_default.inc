@@ -107,6 +107,7 @@ function farm_log_views_default_views() {
   $handler->display->display_options['fields']['id']['field'] = 'id';
   $handler->display->display_options['fields']['id']['relationship'] = 'field_farm_asset_target_id';
   $handler->display->display_options['fields']['id']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['id']['separator'] = '';
   /* Field: Farm asset: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
   $handler->display->display_options['fields']['name']['table'] = 'farm_asset';
@@ -1221,6 +1222,7 @@ function farm_log_views_default_views() {
   $handler->display->display_options['fields']['id']['table'] = 'log';
   $handler->display->display_options['fields']['id']['field'] = 'id';
   $handler->display->display_options['fields']['id']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['id']['separator'] = '';
   /* Field: Log: Timestamp */
   $handler->display->display_options['fields']['timestamp']['id'] = 'timestamp';
   $handler->display->display_options['fields']['timestamp']['table'] = 'log';
@@ -1500,6 +1502,7 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['fields']['id']['table'] = 'log';
   $handler->display->display_options['fields']['id']['field'] = 'id';
   $handler->display->display_options['fields']['id']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['id']['separator'] = '';
   /* Field: Field: Photo(s) */
   $handler->display->display_options['fields']['field_farm_images']['id'] = 'field_farm_images';
   $handler->display->display_options['fields']['field_farm_images']['table'] = 'field_data_field_farm_images';
