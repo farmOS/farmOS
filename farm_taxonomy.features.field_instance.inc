@@ -10,7 +10,7 @@
 function farm_taxonomy_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'taxonomy_term-farm_season-field_farm_date_range'
+  // Exported field_instance: 'taxonomy_term-farm_season-field_farm_date_range'.
   $field_instances['taxonomy_term-farm_season-field_farm_date_range'] = array(
     'bundle' => 'farm_season',
     'deleted' => 0,
@@ -25,6 +25,7 @@ function farm_taxonomy_field_default_field_instances() {
           'multiple_from' => '',
           'multiple_number' => '',
           'multiple_to' => '',
+          'show_remaining_days' => FALSE,
           'show_repeat_rule' => 'show',
         ),
         'type' => 'date_default',
