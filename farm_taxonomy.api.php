@@ -34,9 +34,9 @@
 function hook_farm_taxonomy_breadcrumb($term) {
   $breadcrumb = array();
 
-  // If the asset is an animal, add a link to /farm/animals.
-  if ($farm_asset->type == 'animal') {
-    $breadcrumb[] = l(t('Animals'), 'farm/animals');
+  // If the term is in farm_areas, add a link to /farm/areas.
+  if ($term->vocabulary_machine_name == 'farm_areas') {
+    $breadcrumb[] = l(t('Areas'), 'farm/areas');
   }
 
   return $breadcrumb;
