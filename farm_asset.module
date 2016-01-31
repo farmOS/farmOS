@@ -39,6 +39,10 @@ function farm_asset_permission() {
       'title' => t('Administer farm asset types'),
       'restrict access' => TRUE,
     ),
+    'view farm assets' => array(
+      'title' => t('View farm assets'),
+      'description' => t('Allows users to view the full list of farm assets.'),
+    ),
   );
 
   // Add permissions for each farm_asset type.
