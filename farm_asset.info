@@ -3,5 +3,7 @@ description = A farm asset entity type.
 core = 7.x
 package = farmOS
 dependencies[] = entity
+dependencies[] = views
+dependencies[] = views_bulk_operations
 files[] = farm_asset.class.inc
 files[] = views/handlers/farm_asset_handler_relationship_entity_reverse.inc
