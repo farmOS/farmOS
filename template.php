@@ -5,6 +5,21 @@
  */
 
 /**
+ * Implements hook_menu_link().
+ */
+function farm_theme_menu_link_alter(&$item) {
+
+  // Expand top-level menu link items by default.
+  $paths = array(
+    'farm/assets',
+    'farm/logs',
+  );
+  if (in_array($item['link_path'], $paths)) {
+    $item['expanded'] = TRUE;
+  }
+}
+
+/**
  * Implements hook_form_alter().
  */
 function farm_theme_form_alter(&$form, &$form_state, $form_id) {
