@@ -35,7 +35,8 @@ function hook_farm_asset_breadcrumb(FarmAsset $farm_asset) {
   // If the asset is an animal, add a link to the animals list.
   $breadcrumb = array();
   if ($farm_asset->type == 'animal') {
-    $breadcrumb[] = l(t('Animals'), 'farm/animals');
+    $breadcrumb[] = l(t('Assets'), 'farm/assets');
+    $breadcrumb[] = l(t('Animals'), 'farm/assets/animals');
   }
   return $breadcrumb;
 }
