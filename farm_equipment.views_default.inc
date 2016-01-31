@@ -186,7 +186,7 @@ function farm_equipment_views_default_views() {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'farm/equipment/list';
+  $handler->display->display_options['path'] = 'farm/assets/equipment/list';
   $handler->display->display_options['menu']['type'] = 'default tab';
   $handler->display->display_options['menu']['title'] = 'Equipment';
   $handler->display->display_options['menu']['weight'] = '0';
@@ -441,10 +441,10 @@ if (!empty($farm_asset)) {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page_1');
-  $handler->display->display_options['path'] = 'farm/equipment/maintenance';
-  $handler->display->display_options['menu']['type'] = 'tab';
+  $handler->display->display_options['path'] = 'farm/logs/maintenance';
+  $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'Maintenance';
-  $handler->display->display_options['menu']['weight'] = '0';
+  $handler->display->display_options['menu']['weight'] = '';
   $handler->display->display_options['menu']['name'] = 'farm';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;

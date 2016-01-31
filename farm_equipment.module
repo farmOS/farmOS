@@ -77,7 +77,8 @@ function farm_equipment_farm_asset_breadcrumb($farm_asset) {
   // If the asset is equipment, add a link to the equipment list.
   $breadcrumb = array();
   if ($farm_asset->type == 'equipment') {
-    $breadcrumb[] = l(t('Equipment'), 'farm/equipment');
+    $breadcrumb[] = l(t('Assets'), 'farm/assets');
+    $breadcrumb[] = l(t('Equipment'), 'farm/assets/equipment');
   }
   return $breadcrumb;
 }
