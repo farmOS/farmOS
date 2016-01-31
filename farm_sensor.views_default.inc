@@ -173,7 +173,7 @@ function farm_sensor_views_default_views() {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'farm/sensors/list';
+  $handler->display->display_options['path'] = 'farm/assets/sensors/list';
   $handler->display->display_options['menu']['type'] = 'default tab';
   $handler->display->display_options['menu']['title'] = 'Sensors';
   $handler->display->display_options['menu']['weight'] = '0';

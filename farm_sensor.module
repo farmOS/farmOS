@@ -32,7 +32,8 @@ function farm_sensor_farm_asset_breadcrumb($farm_asset) {
   // If the asset is a sensor, add a link to the sensors list.
   $breadcrumb = array();
   if ($farm_asset->type == 'sensor') {
-    $breadcrumb[] = l(t('Sensors'), 'farm/sensors');
+    $breadcrumb[] = l(t('Assets'), 'farm/assets');
+    $breadcrumb[] = l(t('Sensors'), 'farm/assets/sensors');
   }
   return $breadcrumb;
 }
