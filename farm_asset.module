@@ -75,6 +75,9 @@ function farm_asset_permission() {
 function farm_asset_farm_access_perms($role) {
   $perms = array();
 
+  // Grant access to view farm assets.
+  $perms[] = 'view farm assets';
+
   // Grant access to RESTful Web Services resources.
   $perms[] = 'access resource farm_asset';
 
