@@ -75,8 +75,8 @@ function farm_crop_farm_admin_actions() {
       'title' => t('Add a crop'),
       'href' => 'admin/structure/taxonomy/farm_crops/add',
       'paths' => array(
-        'farm/plantings',
-        'farm/plantings/crops',
+        'farm/assets/plantings',
+        'farm/assets/plantings/crops',
       ),
     ),
     'harvest' => array(
@@ -141,7 +141,8 @@ function farm_crop_farm_asset_breadcrumb($farm_asset) {
   // If the asset is a planting, add a link to the plantings list.
   $breadcrumb = array();
   if ($farm_asset->type == 'planting') {
-    $breadcrumb[] = l(t('Plantings'), 'farm/plantings');
+    $breadcrumb[] = l(t('Assets'), 'farm/assets');
+    $breadcrumb[] = l(t('Plantings'), 'farm/assets/plantings');
   }
   return $breadcrumb;
 }
@@ -157,13 +158,15 @@ function farm_crop_farm_taxonomy_breadcrumb($term) {
 
     // If the term is in farm_crops...
     case 'farm_crops':
-      $breadcrumb[] = l(t('Plantings'), 'farm/plantings');
-      $breadcrumb[] = l(t('Crops'), 'farm/plantings/crops');
+      $breadcrumb[] = l(t('Assets'), 'farm/assets');
+      $breadcrumb[] = l(t('Plantings'), 'farm/assets/plantings');
+      $breadcrumb[] = l(t('Crops'), 'farm/assets/plantings/crops');
       break;
 
     // If the term is in farm_crop_families...
     case 'farm_crop_families':
-      $breadcrumb[] = l(t('Plantings'), 'farm/plantings');
+      $breadcrumb[] = l(t('Assets'), 'farm/assets');
+      $breadcrumb[] = l(t('Plantings'), 'farm/assets/plantings');
       $breadcrumb[] = t('Crop Families');
       break;
 

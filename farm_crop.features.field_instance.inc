@@ -368,7 +368,7 @@ function farm_crop_field_default_field_instances() {
     'bundle' => 'farm_harvest',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Harvests must reference a specific planting. You can view a list of all plantings, and add new ones, from the ' . l('Plantings list', 'farm/plantings') . '.',
+    'description' => 'Harvests must reference a specific planting. You can view a list of all plantings, and add new ones, from the ' . l('Plantings list', 'farm/assets/plantings') . '.',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -970,7 +970,7 @@ function farm_crop_field_default_field_instances() {
     'bundle' => 'farm_seeding',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Seedings must reference a specific planting. You can view a list of all plantings, and add new ones, from the ' . l('Plantings list', 'farm/plantings') . '.',
+    'description' => 'Seedings must reference a specific planting. You can view a list of all plantings, and add new ones, from the ' . l('Plantings list', 'farm/assets/plantings') . '.',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -1108,7 +1108,7 @@ function farm_crop_field_default_field_instances() {
     'bundle' => 'farm_transplanting',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Transplantings must reference a specific planting. You can view a list of all plantings, and add new ones, from the ' . l('Plantings list', 'farm/plantings') . '.',
+    'description' => 'Transplantings must reference a specific planting. You can view a list of all plantings, and add new ones, from the ' . l('Plantings list', 'farm/assets/plantings') . '.',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -1395,7 +1395,7 @@ function farm_crop_field_default_field_instances() {
   t('Enter the crop that this is a planting of. As you type, you will have the option of selecting from crops that you\'ve entered in the past.');
   t('Files');
   t('Geometry');
-  t('Harvests must reference a specific planting. You can view a list of all plantings, and add new ones, from the ' . l('Plantings list', 'farm/plantings') . '.');
+  t('Harvests must reference a specific planting. You can view a list of all plantings, and add new ones, from the ' . l('Plantings list', 'farm/assets/plantings') . '.');
   t('How was this input applied?');
   t('Material');
   t('Notes');
@@ -1404,12 +1404,12 @@ function farm_crop_field_default_field_instances() {
   t('Purpose');
   t('Quantity');
   t('Season');
-  t('Seedings must reference a specific planting. You can view a list of all plantings, and add new ones, from the ' . l('Plantings list', 'farm/plantings') . '.');
+  t('Seedings must reference a specific planting. You can view a list of all plantings, and add new ones, from the ' . l('Plantings list', 'farm/assets/plantings') . '.');
   t('Source/Manufacturer');
   t('Source/Supplier');
   t('This field is optional. It allows you to store geospatial data along with this harvest.');
   t('This field is optional. It allows you to store geospatial data along with this input.');
-  t('Transplantings must reference a specific planting. You can view a list of all plantings, and add new ones, from the ' . l('Plantings list', 'farm/plantings') . '.');
+  t('Transplantings must reference a specific planting. You can view a list of all plantings, and add new ones, from the ' . l('Plantings list', 'farm/assets/plantings') . '.');
   t('What area(s) is this input being applied to?');
   t('What material is being applied? As you type, you will have the option of selecting from materials that you\'ve entered in the past.');
   t('What was the purpose of this input?');
