@@ -31,18 +31,6 @@ function farm_access_farm_access_perms($role) {
 /**
  * Implements hook_farm_access_perms().
  */
-function farm_asset_farm_access_perms($role) {
-  $perms = array();
-
-  // Grant access to RESTful Web Services resources.
-  $perms[] = 'access resource farm_asset';
-
-  return $perms;
-}
-
-/**
- * Implements hook_farm_access_perms().
- */
 function log_farm_access_perms($role) {
   $perms = array();
 
