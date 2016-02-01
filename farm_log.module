@@ -76,6 +76,7 @@ function farm_log_farm_admin_actions() {
       'paths' => array(
         'farm',
       ),
+      'weight' => 1,
     ),
     'activity' => array(
       'title' => t('Add an activity'),
