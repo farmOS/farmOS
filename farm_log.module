@@ -80,8 +80,6 @@ function farm_log_farm_admin_actions() {
         'farm_log_activity',
       ),
       'paths' => array(
-        'farm',
-        'farm/plan',
         'taxonomy/term/%',
       ),
     ),
@@ -95,8 +93,6 @@ function farm_log_farm_admin_actions() {
         'farm_log_movement',
       ),
       'paths' => array(
-        'farm',
-        'farm/plan',
         'taxonomy/term/%',
       ),
     ),
@@ -110,8 +106,6 @@ function farm_log_farm_admin_actions() {
         'farm_log_observation',
       ),
       'paths' => array(
-        'farm',
-        'farm/plan',
         'taxonomy/term/%',
       ),
     ),
