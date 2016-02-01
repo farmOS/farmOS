@@ -70,6 +70,13 @@ function farm_log_farm_admin_actions() {
 
   // Define farm area actions.
   $actions = array(
+    'log' => array(
+      'title' => t('Add a log'),
+      'href' => 'log/add',
+      'paths' => array(
+        'farm',
+      ),
+    ),
     'activity' => array(
       'title' => t('Add an activity'),
       'href' => 'log/add/farm_activity',
