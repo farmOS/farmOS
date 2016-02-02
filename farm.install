@@ -303,8 +303,8 @@ function farm_update_7015(&$sandbox) {
     'page_manager',
     'panels',
   );
-  module_disable(array($modules));
-  drupal_uninstall_modules(array($modules));
+  module_disable($modules);
+  drupal_uninstall_modules($modules);
 }
 
 /**
