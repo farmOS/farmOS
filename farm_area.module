@@ -161,6 +161,7 @@ function farm_area_farm_admin_actions() {
       'paths' => array(
         'farm',
       ),
+      'weight' => -10,
     ),
   );
   return $actions;
