@@ -5,7 +5,7 @@
  */
 
 /**
- * Implements hook_menu_link().
+ * Implements hook_menu_link_alter().
  */
 function farm_theme_menu_link_alter(&$item) {
 
