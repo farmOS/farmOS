@@ -61,7 +61,6 @@ function farm_equipment_farm_admin_actions() {
         'equipment',
       ),
       'views' => array(
-        'farm_equipment',
         'farm_log_maintenance',
       ),
     ),
