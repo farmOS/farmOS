@@ -137,7 +137,7 @@ function farm_soil_nrcs_soil_name_lookup($wkt) {
   $soil_names = array();
 
   // Assemble the query.
-  $query = "SELECT MU.nationalmusym, MU.musym, MU.muname FROM SDA_Get_Mukey_from_intersection_with_WktWgs84('" . $wkt . "') K LEFT JOIN mapunit MU ON K.mukey = MU.mukey";
+  $query = "SELECT MU.muname, MU.musym, MU.nationalmusym FROM SDA_Get_Mukey_from_intersection_with_WktWgs84('" . $wkt . "') K LEFT JOIN mapunit MU ON K.mukey = MU.mukey";
 
   // Build the request.
   $url = 'http://sdmdataaccess.sc.egov.usda.gov/tabular/post.rest';
@@ -168,14 +168,18 @@ function farm_soil_nrcs_soil_name_lookup($wkt) {
   // Process the data into an array of soil names.
   foreach ($data->Table as $row) {
     $soil_name = '';
+    $soil_symbols = array();
     if (!empty($row[0])) {
       $soil_name .= $row[0];
     }
     if (!empty($row[1])) {
-      $soil_name .= ' (' . $row[1] . ')';
+      $soil_symbols[] = $row[1];
     }
     if (!empty($row[2])) {
-      $soil_name .= ': ' . $row[2];
+      $soil_symbols[] = $row[2];
+    }
+    if (!empty($soil_symbols)) {
+      $soil_name .= ' (' . implode('/', $soil_symbols) . ')';
     }
     if (!empty($soil_name)) {
       $soil_names[] = $soil_name;
