@@ -23,8 +23,9 @@ There are three ways that movement logs can be created:
    This allows you to move multiple assets at once. Similarly, this will present
    you with a new movement log form, and automatically fill in the "Assets"
    field with the assets you selected in the list.
-3. Click "Add a Movement" from the farmOS dashboard. This presents you with a
-   blank movement log form, which you can fill in however you'd like.
+3. Click "Add a log" from the farmOS dashboard, and then select "Movement". This
+   presents you with a blank movement log form, which you can fill in however
+   you'd like.
 
 There is also a shortcut: when you are editing an asset, you will see a field
 labeled "Location". This field will show the asset's current location, and if
