@@ -75,7 +75,6 @@ function farm_crop_farm_admin_actions() {
       'title' => t('Add a crop'),
       'href' => 'admin/structure/taxonomy/farm_crops/add',
       'paths' => array(
-        'farm/assets/plantings',
         'farm/assets/plantings/crops',
       ),
     ),
