@@ -43,9 +43,7 @@ projects[features][subdir] = "contrib"
 projects[features][version] = "2.7"
 
 projects[field_collection][subdir] = "contrib"
-projects[field_collection][version] = "1.0-beta10"
-; Patch to fix array_filter() warnings. Already fixed in 7.x-1.x.
-projects[field_collection][patch][] = "http://www.drupal.org/files/issues/field-collection-2599248-2.patch"
+projects[field_collection][version] = "1.0-beta11"
 
 ; DEPRECATED - Will be removed in the next release.
 projects[filefield_paths][subdir] = "contrib"
