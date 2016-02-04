@@ -21,9 +21,9 @@ You can also chat with people directly in the [#farmOS IRC channel on Freenode].
 
 ## Documentation
 
-If you are interested in helping with documentation, please get in touch via the
-[Github issue queue], or by forking the [documentation repository], making
-changes, and creating a pull request.
+If you are interested in helping with documentation, create a new issue in the
+[Github issue queue]. Or, fork the [documentation repository] on Github, make
+changes, and create a pull request.
 
 ## Development
 
