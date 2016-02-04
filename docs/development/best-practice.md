@@ -32,10 +32,6 @@ will affect upgrades, or you shouldn't do it with your live data. Set up a
 second testing site, make some modifications, and then open up a new issue in
 the [farmOS issue queue] and suggest your changes for inclusion in the project!
 
-This isn't meant to disuade you from experimenting! It is only meant to impart
-some caution and practical strategy so you don't end up pulling your hair out...
-or worse: losing data.
-
 [Drupal best practices]: https://www.drupal.org/best-practices
 [Drupal coding standards]: https://www.drupal.org/coding-standards
 [upgrade your farmOS]: /hosting/upgrading

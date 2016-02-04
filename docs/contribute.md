@@ -4,13 +4,8 @@ There are lots of ways to get involved with the farmOS project.
 
 ## Use farmOS
 
-First and foremost: use farmOS! Get set up and start keeping track of your
-farm's assets and activities! farmOS can become a new standard platform for farm
-planning and recordkeeping - but only if a large community develops around it.
-
-It may not be very pretty or intuitive right now, but it is a community-built
-software platform, and it will continue to evolve and improve over time. Get
-started now and invest in a project that can become something great!
+First and foremost: use farmOS! Get in the habit of tracking your farm's assets
+and activities!
 
 ## Share ideas, report bugs, discuss development
 
