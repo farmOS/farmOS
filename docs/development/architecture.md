@@ -10,7 +10,7 @@ farmOS is architected using four Drupal entity types:
 The Entity system in Drupal provides a standardized way of representing
 different types of objects, and includes mechanisms and APIs for adding fields,
 creating relationships to other entities, and performing actions when entities
-are created/displaued/updated/deleted. farmOS uses Drupal's entity system to
+are created/displayed/updated/deleted. farmOS uses Drupal's entity system to
 represent all of its records.
 
 The first three types (Farm Assets, Logs, and Taxonomy Terms) also use a Drupal
