@@ -66,7 +66,7 @@ function farm_taxonomy_entity_view_alter(&$build, $type) {
   // and prepare to order by weight and name.
   $weight_index = array();
   $name_index = array();
-  foreach ($views as $key => &$data) {
+  foreach ($views as $key => $data) {
 
     // If the data is just a name, wrap it in an array.
     if (!is_array($data)) {
@@ -80,11 +80,11 @@ function farm_taxonomy_entity_view_alter(&$build, $type) {
       'arg' => 1,
       'weight' => 0,
     );
-    $data = array_merge($defaults, $data);
+    $views[$key] = array_merge($defaults, $data);
 
     // Add to the weight and name indexes for sorting.
-    $weight_index[$key] = $data['weight'];
-    $name_index[$key] = $data['name'];
+    $weight_index[$key] = $views[$key]['weight'];
+    $name_index[$key] = $views[$key]['name'];
   }
 
   // Sort the Views by weight ascending, name ascending.
