@@ -49,11 +49,16 @@ function farm_log_movement_geometry_populate(&$log) {
   // Load the GeoPHP library.
   geophp_load();
 
-  // Build a geometry collection.
-  $geometry_collection = 'GEOMETRYCOLLECTION(' . implode(',', $geoms) . ')';
+  // Implode the array of geometries into a single string.
+  $geom = implode(',', $geoms);
+
+  // If there is more than one geometry, wrap them all in a geometry collection.
+  if (count($geoms) > 1) {
+    $geom = 'GEOMETRYCOLLECTION (' . $geom . ')';
+  }
 
   // Convert to a GeoPHP geometry object and reduce the geometry.
-  $geometry = geoPHP::load($geometry_collection, 'wkt');
+  $geometry = geoPHP::load($geom, 'wkt');
   $geometry = geoPHP::geometryReduce($geometry);
 
   // Save the combined geometry to the movement log.
