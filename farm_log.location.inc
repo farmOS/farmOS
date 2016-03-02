@@ -159,7 +159,7 @@ function farm_log_form_farm_asset_form_alter(&$form, &$form_state, $form_id) {
   $form['farm_log_asset_location'] = array(
     '#type' => 'textfield',
     '#title' => t('Current location'),
-    '#description' => t('Set the current location of this asset. Asset location is determined by movement logs, so a movement log will automatically be generated if you change this field.'),
+    '#description' => t('Set the current areas(s) that this asset is in. Separate multiple areas with commas. Asset location is determined by movement logs, so a movement log will automatically be generated if you change this field.'),
     '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_area',
     '#default_value' => $location,
   );
