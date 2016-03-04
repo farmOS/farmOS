@@ -98,3 +98,86 @@ function farm_map_lon_deg_len($lat) {
   // Return the length.
   return (string) $length;
 }
+
+/**
+ * Calculate the distance between two latitude/longitude points in meters.
+ *
+ * @param Point $p1
+ *   The first point.
+ * @param Point $p2
+ *   The second point.
+ *
+ * @return string
+ *   Returns the distance as a string, in meters.
+ */
+function farm_map_distance($p1, $p2) {
+
+  // Load GeoPHP.
+  geophp_load();
+
+  // Build a LineString and calculate the center point.
+  $line = new LineString(array($p1, $p2));
+  $centroid = $line->centroid();
+
+  // Calculate the length of latitude and longitude degrees at the centroid.
+  $lon_deg_len = farm_map_lon_deg_len($centroid->getY());
+  $lat_deg_len = farm_map_lat_deg_len($centroid->getY());
+
+  // If BCMath is available, use that. Otherwise, use normal PHP float
+  // operations.
+  if (geoPHP::bcmathInstalled()) {
+    $length = bcsqrt(
+      bcadd(
+        bcpow(bcmul(bcsub($p1->getX(),$p2->getX()), $lon_deg_len), '2'),
+        bcpow(bcmul(bcsub($p1->getY(), $p2->getY()), $lat_deg_len), '2')
+      )
+    );
+  }
+  else {
+    $length = sqrt(pow((($p1->getX() - $p2->getX()) * $lon_deg_len), 2) + pow((($p1->getY()- $p2->getY()) * $lat_deg_len), 2));
+  }
+
+  // Return the length as a string.
+  return (string) $length;
+}
+
+/**
+ * Calculate the length of a LineString in meters.
+ *
+ * @param LineString $line
+ *   The line to measure.
+ *
+ * @return string
+ *   Returns the length of the line as a string, in meters.
+ */
+function farm_map_line_length($line) {
+
+  // Load GeoPHP.
+  geophp_load();
+
+  // Start with a length of zero.
+  $length = 0;
+
+  // Iterate through the points.
+  foreach ($line->getPoints() as $delta => $point) {
+
+    // Attempt to load the previous point.
+    $previous_point = $line->geometryN($delta);
+
+    // If a previous point is available
+    if ($previous_point) {
+
+      // If BCMath is available, use that. Otherwise, use normal PHP float
+      // operations.
+      if (geoPHP::bcmathInstalled()) {
+        $length = bcadd($length, farm_map_distance($previous_point, $point));
+      }
+      else {
+        $length += farm_map_distance($previous_point, $point);
+      }
+    }
+  }
+
+  // Return the length as a string.
+  return (string) $length;
+}
