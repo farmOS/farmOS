@@ -42,10 +42,10 @@ function farm_map_lat_deg_len($lat) {
 
   // Define coefficients. These are copied from
   // http://gis.stackexchange.com/questions/75528/length-of-a-degree-where-do-the-terms-in-this-formula-come-from
-  $m1 = 111132.92;
-  $m2 = 559.82;
-  $m3 = 1.175;
-  $m4 = 0.0023;
+  $m1 = 111132.95255;
+  $m2 = 559.84957;
+  $m3 = 1.17514;
+  $m4 = 0.00230;
 
   // If BCMath is available, use that. Otherwise, use normal PHP float
   // operations.
@@ -82,9 +82,9 @@ function farm_map_lon_deg_len($lat) {
 
   // Define coefficients. These are copied from
   // http://gis.stackexchange.com/questions/75528/length-of-a-degree-where-do-the-terms-in-this-formula-come-from
-  $p1 = 111412.84;
-  $p2 = 93.5;
-  $p3 = 0.118;
+  $p1 = 111412.87733;
+  $p2 = 93.50412;
+  $p3 = 0.11774;
 
   // If BCMath is available, use that. Otherwise, use normal PHP float
   // operations.
