@@ -20,3 +20,81 @@ function farm_map_openlayers_object_preprocess_alter(&$build, $context) {
     }
   }
 }
+
+/**
+ * Calculate latitude degree length at a given latitude. Equations are taken
+ * from https://en.wikipedia.org/wiki/Geographic_coordinate_system#Expressing_latitude_and_longitude_as_linear_units
+ *
+ * @param $lat
+ *   The latitude to calculate degree length at, in degrees.
+ *
+ * @return string
+ *   Returns the length of a degree of latitude at the given latitude as a
+ *   string, in meters.
+ */
+function farm_map_lat_deg_len($lat) {
+
+  // Load GeoPHP.
+  geophp_load();
+
+  // Convert degrees to radians.
+  $lat = deg2rad($lat);
+
+  // Define coefficients. These are copied from
+  // http://gis.stackexchange.com/questions/75528/length-of-a-degree-where-do-the-terms-in-this-formula-come-from
+  $m1 = 111132.92;
+  $m2 = 559.82;
+  $m3 = 1.175;
+  $m4 = 0.0023;
+
+  // If BCMath is available, use that. Otherwise, use normal PHP float
+  // operations.
+  if (geoPHP::bcmathInstalled()) {
+    $length = bcsub($m1, bcadd(bcmul($m2, cos(bcmul(2, $lat))), bcsub(bcmul($m3, cos(bcmul(4, $lat))), bcmul($m4, cos(bcmul(6, $lat))))));
+  }
+  else {
+    $length = $m1 - ($m2 * cos(2 * $lat)) + ($m3 * cos(4 * $lat)) - ($m4 * cos(6 * $lat));
+  }
+
+  // Return the length.
+  return (string) $length;
+}
+
+/**
+ * Calculate longitude degree length at a given latitude. Equations are taken
+ * from https://en.wikipedia.org/wiki/Geographic_coordinate_system#Expressing_latitude_and_longitude_as_linear_units
+ * See also http://gis.stackexchange.com/questions/75528/length-of-a-degree-where-do-the-terms-in-this-formula-come-from
+ *
+ * @param $lat
+ *   The latitude to calculate degree length at, in degrees.
+ *
+ * @return string
+ *   Returns the length of a degree of longitude at the given latitude as a
+ *   string, in meters.
+ */
+function farm_map_lon_deg_len($lat) {
+
+  // Load GeoPHP.
+  geophp_load();
+
+  // Convert degrees to radians.
+  $lat = deg2rad($lat);
+
+  // Define coefficients. These are copied from
+  // http://gis.stackexchange.com/questions/75528/length-of-a-degree-where-do-the-terms-in-this-formula-come-from
+  $p1 = 111412.84;
+  $p2 = 93.5;
+  $p3 = 0.118;
+
+  // If BCMath is available, use that. Otherwise, use normal PHP float
+  // operations.
+  if (geoPHP::bcmathInstalled()) {
+    $length = bcsub(bcmul($p1, cos($lat)), bcsub(bcmul($p2, cos(bcmul(3, $lat))), bcmul($p3, cos(bcmul(5, $lat)))));
+  }
+  else {
+    $length = ($p1 * cos($lat)) - ($p2 * cos(3 * $lat)) - ($p3 * cos(5 * $lat));
+  }
+
+  // Return the length.
+  return (string) $length;
+}

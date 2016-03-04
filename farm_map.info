@@ -5,6 +5,7 @@ package = farmOS
 dependencies[] = ctools
 dependencies[] = features
 dependencies[] = geofield
+dependencies[] = geophp
 dependencies[] = openlayers
 dependencies[] = openlayers_geofield
 dependencies[] = openlayers_geolocate_button
