@@ -84,10 +84,7 @@ function farm_soil_test_farm_area_links($id) {
   return array(
     array(
       'title' => t('Soil Tests'),
-      'href' => 'taxonomy/term/' . $id,
-      'options' => array(
-        'fragment' => 'Soil Tests',
-      ),
+      'href' => 'farm/logs/soil-tests/' . $id,
       'weight' => 100,
     ),
   );
