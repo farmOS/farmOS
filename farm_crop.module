@@ -257,17 +257,25 @@ function farm_crop_farm_area_links($id) {
   $links = array();
 
   // Add link to inputs.
-  $links[] = array(
-    'title' => t('Inputs'),
-    'href' => 'farm/logs/inputs/all/' . $id,
-    'weight' => 10,
-  );
+  $view = views_get_view('farm_log_input');
+  $view->preview('default', array('all', $id));
+  if ($view->total_rows > 0) {
+    $links[] = array(
+      'title' => t('Inputs') . ': ' . $view->total_rows,
+      'href' => 'farm/logs/inputs/all/' . $id,
+      'weight' => 10,
+    );
+  }
 
   // Add link to plantings.
-  $links[] = array(
-    'title' => t('Plantings'),
-    'href' => 'farm/assets/plantings/' . $id,
-  );
+  $view = views_get_view('farm_plantings');
+  $view->preview('default', array($id));
+  if ($view->total_rows > 0) {
+    $links[] = array(
+      'title' => t('Plantings') . ': ' . $view->total_rows,
+      'href' => 'farm/assets/plantings/' . $id,
+    );
+  }
 
   return $links;
 }
