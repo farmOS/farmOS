@@ -259,20 +259,14 @@ function farm_crop_farm_area_links($id) {
   // Add link to inputs.
   $links[] = array(
     'title' => t('Inputs'),
-    'href' => 'taxonomy/term/' . $id,
-    'options' => array(
-      'fragment' => 'Inputs',
-    ),
+    'href' => 'farm/logs/inputs/all/' . $id,
     'weight' => 10,
   );
 
   // Add link to plantings.
   $links[] = array(
     'title' => t('Plantings'),
-    'href' => 'taxonomy/term/' . $id,
-    'options' => array(
-      'fragment' => 'Plantings',
-    ),
+    'href' => 'farm/assets/plantings/' . $id,
   );
 
   return $links;
