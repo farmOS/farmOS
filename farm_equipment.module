@@ -140,10 +140,7 @@ function farm_equipment_farm_area_links($id) {
   return array(
     array(
       'title' => t('Equipment'),
-      'href' => 'taxonomy/term/' . $id,
-      'options' => array(
-        'fragment' => 'Equipment',
-      ),
+      'href' => 'farm/assets/equipment/' . $id,
     ),
   );
 }
