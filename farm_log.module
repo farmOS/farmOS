@@ -158,18 +158,31 @@ function farm_log_farm_taxonomy_term_view_views($term) {
  * Implements hook_farm_area_links().
  */
 function farm_log_farm_area_links($id) {
-  return array(
-    array(
-      'title' => t('Activities'),
+  $links = array();
+
+  // Add link to activities.
+  $view = views_get_view('farm_log_activity');
+  $view->preview('default', array($id));
+  if ($view->total_rows > 0) {
+    $links[] = array(
+      'title' => t('Activities') . ': ' . $view->total_rows,
       'href' => 'farm/logs/activities/all/' . $id,
       'weight' => -100,
-    ),
-    array(
-      'title' => t('Observations'),
+    );
+  }
+
+  // Add link to observations.
+  $view = views_get_view('farm_log_observation');
+  $view->preview('default', array($id));
+  if ($view->total_rows > 0) {
+    $links[] = array(
+      'title' => t('Observations') . ': ' . $view->total_rows,
       'href' => 'farm/logs/observations/all/' . $id,
       'weight' => -90,
-    ),
-  );
+    );
+  }
+
+  return $links;
 }
 
 /**
