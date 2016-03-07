@@ -192,10 +192,7 @@ function farm_livestock_farm_area_links($id) {
   return array(
     array(
       'title' => t('Animals'),
-      'href' => 'taxonomy/term/' . $id,
-      'options' => array(
-        'fragment' => 'Animals',
-      ),
+      'href' => 'farm/assets/animals/' . $id,
     ),
   );
 }
