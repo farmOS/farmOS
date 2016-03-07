@@ -81,11 +81,17 @@ function farm_soil_test_farm_taxonomy_term_view_views($term) {
  * Implements hook_farm_area_links().
  */
 function farm_soil_test_farm_area_links($id) {
-  return array(
-    array(
-      'title' => t('Soil Tests'),
+  $links = array();
+
+  // Add link to soil tests.
+  $view = views_get_view('farm_log_soil_tests');
+  $view->preview('default', array($id));
+  if ($view->total_rows > 0) {
+    $links[] = array(
+      'title' => t('Soil tests') . ': ' . $view->total_rows,
       'href' => 'farm/logs/soil-tests/' . $id,
-      'weight' => 100,
-    ),
-  );
+    );
+  }
+
+  return $links;
 }
