@@ -254,23 +254,28 @@ function farm_crop_form_alter(&$form, &$form_state, $form_id) {
  * Implements hook_farm_area_links().
  */
 function farm_crop_farm_area_links($id) {
-  return array(
-    array(
-      'title' => t('Inputs'),
-      'href' => 'taxonomy/term/' . $id,
-      'options' => array(
-        'fragment' => 'Inputs',
-      ),
-      'weight' => 10,
+  $links = array();
+
+  // Add link to inputs.
+  $links[] = array(
+    'title' => t('Inputs'),
+    'href' => 'taxonomy/term/' . $id,
+    'options' => array(
+      'fragment' => 'Inputs',
     ),
-    array(
-      'title' => t('Plantings'),
-      'href' => 'taxonomy/term/' . $id,
-      'options' => array(
-        'fragment' => 'Plantings',
-      ),
+    'weight' => 10,
+  );
+
+  // Add link to plantings.
+  $links[] = array(
+    'title' => t('Plantings'),
+    'href' => 'taxonomy/term/' . $id,
+    'options' => array(
+      'fragment' => 'Plantings',
     ),
   );
+
+  return $links;
 }
 
 /**
