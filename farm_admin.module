@@ -92,7 +92,7 @@ function farm_admin_menu() {
 function farm_admin_dashboard() {
 
   // Set the page title.
-  drupal_set_title('Farm Dashboard');
+  drupal_set_title('Dashboard');
 
   // Start an output string.
   $output = '';
