@@ -13,6 +13,13 @@
 }
 
 /**
+ * Hide page title on homepage.
+ */
+body.front h1.page-header {
+  display: none;
+}
+
+/**
  * Remove padding and list style from user login block links (request new password).
  */
 form#user-login-form ul {
