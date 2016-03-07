@@ -162,7 +162,7 @@ function farm_log_farm_area_links($id) {
 
   // Add link to activities.
   $view = views_get_view('farm_log_activity');
-  $view->preview('default', array($id));
+  $view->preview('default', array('all', $id));
   if ($view->total_rows > 0) {
     $links[] = array(
       'title' => t('Activities') . ': ' . $view->total_rows,
@@ -173,7 +173,7 @@ function farm_log_farm_area_links($id) {
 
   // Add link to observations.
   $view = views_get_view('farm_log_observation');
-  $view->preview('default', array($id));
+  $view->preview('default', array('all', $id));
   if ($view->total_rows > 0) {
     $links[] = array(
       'title' => t('Observations') . ': ' . $view->total_rows,
