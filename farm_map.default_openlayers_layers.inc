@@ -103,6 +103,6 @@ function farm_map_default_openlayers_layers_alter(&$layers) {
     $layers['openlayers_geofield_layer_widget']->options['style'] = 'farm_map_style_geofield_edit';
   }
   if (!empty($layers['openlayers_geofield_layer_formatter'])) {
-    $layers['openlayers_geofield_layer_formatter']->options['style'] = 'farm_map_style_blue';
+    $layers['openlayers_geofield_layer_formatter']->options['style'] = 'farm_map_style_yellow';
   }
 }
