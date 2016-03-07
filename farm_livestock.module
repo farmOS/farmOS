@@ -208,6 +208,15 @@ function farm_livestock_views_post_render(&$view, &$output, &$cache) {
   // If this is the Farm Animals page...
   if ($view->name == 'farm_animals' && $view->current_display == 'page') {
 
+    // If there are any arguments, bail.
+    /**
+     * @todo
+     * Display a map that is filtered by the same arguments.
+     */
+    if (!empty($view->args)) {
+      return;
+    }
+
     // If the View result is not empty...
     if (!empty($view->result)) {
 
