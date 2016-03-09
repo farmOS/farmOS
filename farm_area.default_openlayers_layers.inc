@@ -25,6 +25,12 @@ function farm_area_default_openlayers_layers() {
     // Add the machine name to the array for later.
     $layer_names[] = $layer_name;
 
+    // If zoom levels were defined, convert them to the correct format.
+    $zoomActivity = '';
+    if (!empty($type['zoom_levels'])) {
+      $zoomActivity = implode("\n", $type['zoom_levels']);
+    }
+
     // Define the layer.
     $ol_layer = new stdClass();
     $ol_layer->disabled = FALSE; /* Edit this to true to make a default ol_layer disabled initially */
@@ -36,7 +42,7 @@ function farm_area_default_openlayers_layers() {
     $ol_layer->options = array(
       'source' => 'farm_area_source_' . $key,
       'visible' => 1,
-      'zoomActivity' => '',
+      'zoomActivity' => $zoomActivity,
       'style' => $type['style'],
     );
 
