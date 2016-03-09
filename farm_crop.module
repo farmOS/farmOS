@@ -59,6 +59,7 @@ function farm_crop_farm_area_type_info() {
     'bed' => array(
       'label' => t('Bed'),
       'style' => 'farm_map_style_green',
+      'zoom_levels' => array(20, 21, 22, 23, 24),
       'weight' => -5,
     ),
   );
