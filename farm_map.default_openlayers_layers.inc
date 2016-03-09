@@ -100,9 +100,9 @@ function farm_map_default_openlayers_layers_alter(&$layers) {
 
   // Override the styles of the Geofield Widget and Formatter layers.
   if (!empty($layers['openlayers_geofield_layer_widget'])) {
-    $layers['openlayers_geofield_layer_widget']->options['style'] = 'farm_map_style_geofield_edit';
+    $layers['openlayers_geofield_layer_widget']->options['style'] = 'farm_map_style_geofield';
   }
   if (!empty($layers['openlayers_geofield_layer_formatter'])) {
-    $layers['openlayers_geofield_layer_formatter']->options['style'] = 'farm_map_style_yellow';
+    $layers['openlayers_geofield_layer_formatter']->options['style'] = 'farm_map_style_geofield';
   }
 }
