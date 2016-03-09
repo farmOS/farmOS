@@ -28,7 +28,7 @@ function farm_map_default_openlayers_maps() {
       'rotation' => 0,
       'zoom' => 4,
       'minZoom' => 0,
-      'maxZoom' => 20,
+      'maxZoom' => 24,
     ),
     'layers' => array(
       0 => 'farm_map_layer_group',
@@ -78,7 +78,7 @@ function farm_map_default_openlayers_maps() {
       'rotation' => 0,
       'zoom' => 4,
       'minZoom' => 0,
-      'maxZoom' => 20,
+      'maxZoom' => 24,
     ),
     'layers' => array(
       0 => 'farm_map_layer_group',
