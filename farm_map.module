@@ -181,3 +181,66 @@ function farm_map_line_length($line) {
   // Return the length as a string.
   return (string) $length;
 }
+
+/**
+ * Calculate the area of a Polygon in square meters.
+ *
+ * @param Polygon $polygon
+ *   The polygon to measure.
+ *
+ * @return string
+ *   Returns the area of the polygon as a string, in  square meters.
+ */
+function farm_map_polygon_area($polygon) {
+
+  // If the geometry is not a polygon, bail.
+  if ($polygon->geometryType() != 'Polygon' || $polygon->components[0]->geometryType() != 'LineString') {
+    return $polygon;
+  }
+
+  // We're going to do a pseudo-projection of the polygon into a coordinate
+  // system that is measured in meters, and then run a standard area calculation
+  // on that. We'll do this by first finding the bounding box of the polygon,
+  // and use the lower left point as origin. Then, we'll calculate the latitude
+  // and longitude lengths of the polygon's centroid point, and use those to
+  // calculate the new point positions.
+
+  // Get the bounding box of the polygon.
+  $bbox = $polygon->getBBox();
+
+  // Create an origin point.
+  $origin = new Point($bbox['minx'], $bbox['miny']);
+
+  // Get the polygon's centroid point.
+  $centroid = $polygon->centroid();
+
+  // Calculate the latitude/longitude degree lengths at the centroid point.
+  $lon_deg_len = farm_map_lon_deg_len($centroid->getY());
+  $lat_deg_len = farm_map_lat_deg_len($centroid->getY());
+
+  // Iterate through the polygon's points and map them to new points.
+  $line = $polygon->components[0];
+  $new_points = array();
+  foreach ($line->getPoints() as $delta => $point) {
+
+    // Calculate the distance between the point and origin.
+    $distance_x = $point->getX() - $origin->getX();
+    $distance_y = $point->getY() - $origin->getY();
+
+    // Multiply distances by latitude/longitude degree lengths to get new point.
+    $new_x = $distance_x * $lon_deg_len;
+    $new_y = $distance_y * $lat_deg_len;
+
+    // Add the new point.
+    $new_points[] = new Point($new_x, $new_y);
+  }
+
+  // Construct a new polygon.
+  $new_polygon = new Polygon(array(new LineString($new_points)));
+
+  // Calculate the area of the new polygon.
+  $area = $new_polygon->area();
+
+  // Return the area as a string.
+  return (string) $area;
+}
