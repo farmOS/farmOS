@@ -408,6 +408,7 @@ function farm_asset_farm_admin_actions() {
       'href' => 'farm/asset/add',
       'paths' => array(
         'farm',
+        'farm/assets',
       ),
     ),
   );
