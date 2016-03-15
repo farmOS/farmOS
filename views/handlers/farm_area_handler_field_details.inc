@@ -43,11 +43,11 @@ class farm_area_handler_field_details extends views_handler_field {
     // Load the term id value.
     $aid = $this->get_value($values, 'tid');
 
-    // Generate the area details.
-    $area_details = farm_area_get_details($aid);
+    // Generate a simple empty DIV that will be populated via the Javascript.
+    $output = '<div class="area-details" id="area-details-' . $aid . '"></div>';
 
     // Return the details.
-    return $area_details;
+    return $output;
   }
 
 }

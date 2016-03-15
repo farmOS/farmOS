@@ -53,6 +53,19 @@ function farm_area_farm_access_perms($role) {
 }
 
 /**
+ * Implements hook_menu().
+ */
+function farm_area_menu() {
+  $items['farm/area/%/details'] = array(
+    'page callback' => 'farm_area_details_json',
+    'page arguments' => array(2),
+    'access arguments' => array('view farm areas'),
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
  * Implements hook_farm_area_type_info().
  */
 function farm_area_farm_area_type_info() {
@@ -228,6 +241,15 @@ function farm_area_get_details($id) {
 }
 
 /**
+ * Menu callback that returns rendered area details as JSON.
+ */
+function farm_area_details_json($aid) {
+  $area_details = farm_area_get_details($aid);
+  drupal_json_output($area_details);
+  drupal_exit();
+}
+
+/**
  * Generate area links, sorted by weight.
  *
  * @param int $id
@@ -283,6 +305,24 @@ function farm_area_get_links($id) {
 
   // Return links.
   return $links;
+}
+
+/**
+ * Implements hook_openlayers_object_preprocess_alter().
+ */
+function farm_area_openlayers_object_preprocess_alter(&$build, $context) {
+
+  // If the object is not a Map, bail.
+  if (!$context instanceof  Drupal\openlayers\Types\MapInterface) {
+    return;
+  }
+
+  // If this is the farm_areas map, add area details JS and CSS.
+  if ($context->getMachineName() == 'farm_areas') {
+    $path = drupal_get_path('module', 'farm_area');
+    drupal_add_js($path . '/js/farm_area.openlayers.popup.js');
+    drupal_add_css($path . '/css/farm_area.openlayers.popup.css');
+  }
 }
 
 /**
