@@ -87,6 +87,8 @@ projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_b
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_examples_elements_dependency-2620098-2.patch"
 ; Switch to ROADMAP when zoomed further than Google's max zoom level.
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_gmap_zoom_switch_type-2680273-1.patch"
+; Add a jQuery trigger event when popups are displayed.
+projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_popup_trigger-2687781-1.patch"
 
 projects[openlayers_geolocate_button][subdir] = "contrib"
 projects[openlayers_geolocate_button][version] = "3.2"
