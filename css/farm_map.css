@@ -1,6 +1,6 @@
-.ol-popup {
-  width: 200px;
+.ol-popup-content {
+  width: 300px;
 }
-.ol-popup .ol-popup-name {
-  font-size: 24px;
+.ol-popup-content .ol-popup-name {
+  font-size: 20px;
 }
