@@ -16,7 +16,7 @@ function farm_map_openlayers_object_preprocess_alter(&$build, $context) {
 
     // If the map machine name starts with "farm_", add farm map CSS.
     if (substr($context->getMachineName(), 0, 5) == 'farm_') {
-      drupal_add_css(drupal_get_path('module', 'farm_map') . '/farm_map.css');
+      drupal_add_css(drupal_get_path('module', 'farm_map') . '/css/farm_map.css');
     }
   }
 }
