@@ -1399,6 +1399,7 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['filters']['field_farm_season_tid']['expose']['label'] = 'Season';
   $handler->display->display_options['filters']['field_farm_season_tid']['expose']['operator'] = 'field_farm_season_tid_op';
   $handler->display->display_options['filters']['field_farm_season_tid']['expose']['identifier'] = 'field_farm_season_tid';
+  $handler->display->display_options['filters']['field_farm_season_tid']['expose']['multiple'] = TRUE;
   $handler->display->display_options['filters']['field_farm_season_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_farm_season_tid']['vocabulary'] = 'farm_season';
   $handler->display->display_options['filters']['field_farm_season_tid']['hierarchy'] = 1;
