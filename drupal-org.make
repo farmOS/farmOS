@@ -6,7 +6,7 @@ core = 7.x
 ; -----------------------------------------------------------------------------
 
 projects[bootstrap_tour][subdir] = "contrib"
-projects[bootstrap_tour][version] = "2.4"
+projects[bootstrap_tour][version] = "2.5"
 ; Patch to fix role access control (https://www.drupal.org/node/2534986).
 projects[bootstrap_tour][patch][] = "http://www.drupal.org/files/issues/access_by_role_doesn_t-2534986-1.patch"
 ; Patch to fix secondary tours not running after you end the first one.
