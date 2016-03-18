@@ -1389,6 +1389,20 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['filters']['field_farm_crop_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_farm_crop_tid']['vocabulary'] = 'farm_crops';
   $handler->display->display_options['filters']['field_farm_crop_tid']['hierarchy'] = 1;
+  /* Filter criterion: Log: To (field_farm_move_to) */
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['id'] = 'field_farm_move_to_tid';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['table'] = 'field_data_field_farm_move_to';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['field'] = 'field_farm_move_to_tid';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['relationship'] = 'latest_movement';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['group'] = 1;
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['operator_id'] = 'field_farm_move_to_tid_op';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['label'] = 'Location';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['operator'] = 'field_farm_move_to_tid_op';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['identifier'] = 'field_farm_move_to_tid';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['vocabulary'] = 'farm_areas';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['hierarchy'] = 1;
   /* Filter criterion: Farm asset: Season (field_farm_season) */
   $handler->display->display_options['filters']['field_farm_season_tid']['id'] = 'field_farm_season_tid';
   $handler->display->display_options['filters']['field_farm_season_tid']['table'] = 'field_data_field_farm_season';
