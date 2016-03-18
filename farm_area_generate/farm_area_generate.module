@@ -3,3 +3,80 @@
  * @file
  * Farm area generate module.
  */
+
+/**
+ * Rotate a polygon around an origin.
+ *
+ * @param $polygon
+ *   A Polygon geometry object.
+ * @param $origin
+ *   An origin point to rotate around.
+ * @param $angle
+ *   The angle of rotation, in degrees.
+ *
+ * @return \Polygon
+ *   Returns a Polygon geometry object that has been rotated around an origin.
+ */
+function farm_area_generate_rotate_polygon($polygon, $origin, $angle) {
+
+  // Load GeoPHP.
+  geophp_load();
+
+  // If the geometry is not a polygon, bail.
+  if ($polygon->geometryType() != 'Polygon' || $polygon->components[0]->geometryType() != 'LineString') {
+    return $polygon;
+  }
+
+  // Iterate through the polygon's points, and rotate each around the origin.
+  $linestring = $polygon->components[0];
+  $new_points = array();
+  if (!empty($linestring->components)) {
+    foreach ($linestring->components as $point) {
+      $new_points[] = farm_area_generate_rotate_point($point, $origin, $angle);
+    }
+  }
+
+  // Return a new Polygon object.
+  return new Polygon(array(new LineString($new_points)));
+}
+
+/**
+ * Rotate a point around an origin.
+ *
+ * @param $point
+ *   A Point geometry object.
+ * @param $origin
+ *   An origin point to rotate around.
+ * @param $angle
+ *   The angle of rotation, in degrees.
+ *
+ * @return \Point
+ *   Returns a Point geometry object that has been rotated around an origin.
+ */
+function farm_area_generate_rotate_point($point, $origin, $angle) {
+
+  // Load GeoPHP.
+  geophp_load();
+
+  // If $point and $origin are not points, or $angle is not an integer between
+  // 0 and 359, bail.
+  if ($point->geometryType() != 'Point' || $origin->geometryType() != 'Point' || $angle < 0 || $angle > 359) {
+    return $point;
+  }
+
+  // Convert the angle to radians.
+  $angle = deg2rad($angle);
+
+  // Calculate the new rotated points.
+  if (geoPHP::bcmathInstalled()) {
+    $x = bcadd($origin->x(), bcsub(bcmul(bcsub($point->x(), $origin->x()), cos($angle)), bcmul(bcsub($point->y(), $origin->y()), sin($angle))));
+    $y = bcadd($origin->y(), bcadd(bcmul(bcsub($point->x(), $origin->x()), sin($angle)), bcmul(bcsub($point->y(), $origin->y()), cos($angle))));
+  }
+  else {
+    $x = $origin->x() + (($point->x() - $origin->x()) * cos($angle)) - (($point->y() - $origin->y()) * sin($angle));
+    $y = $origin->y() + (($point->x() - $origin->x()) * sin($angle)) + (($point->y() - $origin->y()) * cos($angle));
+  }
+
+  // Return a new Point object.
+  return new Point($x, $y);
+}
