@@ -1422,6 +1422,7 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['filters']['active']['table'] = 'farm_asset';
   $handler->display->display_options['filters']['active']['field'] = 'active';
   $handler->display->display_options['filters']['active']['value'] = '1';
+  $handler->display->display_options['filters']['active']['group'] = 1;
   $handler->display->display_options['filters']['active']['exposed'] = TRUE;
   $handler->display->display_options['filters']['active']['expose']['operator_id'] = '';
   $handler->display->display_options['filters']['active']['expose']['label'] = 'Active';
