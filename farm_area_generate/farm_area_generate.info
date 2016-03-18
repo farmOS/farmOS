@@ -1,0 +1,4 @@
+name = Farm Area Generator
+description = A tool for automatically generating areas. Requires GEOS library.
+core = 7.x
+package = farmOS
