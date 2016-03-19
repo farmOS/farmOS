@@ -111,6 +111,13 @@ function farm_area_generate_form($form, &$form_state) {
     );
   }
 
+  // Render the farm areas map.
+  $map = \Drupal\openlayers\Openlayers::load('Map', 'farm_areas')->build();
+  $form['map'] = array(
+    '#type' => 'markup',
+    '#markup' => !empty($map) ? render($map) : '',
+  );
+
   return $form;
 }
 
