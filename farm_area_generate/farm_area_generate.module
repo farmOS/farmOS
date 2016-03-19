@@ -5,6 +5,220 @@
  */
 
 /**
+ * Implements hook_permission().
+ */
+function farm_area_generate_permission() {
+  return array(
+    'use farm area generator' => array(
+      'title' => t('Use farm area generator tool'),
+      'description' => t('Use the farm area generator tool.'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_farm_access_perms().
+ */
+function farm_area_generate_farm_access_perms($role) {
+
+  // Grant area generator access to Farm Managers.
+  if ($role == 'Farm Manager') {
+    return array('use farm area generator');
+  }
+  else {
+    return array();
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function farm_area_generate_menu() {
+
+  // Area generator form.
+  $items['farm/areas/generate'] = array(
+    'title' => 'Area generator',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('farm_area_generate_form'),
+    'access arguments' => array('use farm area generator'),
+    'type' => MENU_LOCAL_TASK,
+  );
+
+  return $items;
+}
+
+/**
+ * Check to see if GEOS is installed and available.
+ *
+ * @return bool
+ *   Returns TRUE if GEOS is installed, FALSE otherwise.
+ */
+function farm_area_generate_geos_exists() {
+  geophp_load();
+  return geoPHP::geosInstalled();
+}
+
+/**
+ * Area generator form.
+ */
+function farm_area_generate_form($form, &$form_state) {
+
+  // Area select.
+  $form['area'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Area'),
+    '#description' => t('Set the parent area that the generated areas will be within. This area must have a single polygon geometry.'),
+    '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_area',
+    '#required' => TRUE,
+  );
+
+  // Area type.
+  $form['area_type'] = array(
+    '#type' => 'select',
+    '#title' => t('Area type'),
+    '#description' => t('Select the type of areas that will be generated.'),
+    '#options' => farm_area_type_options(),
+    '#requited' => TRUE,
+  );
+
+  // Number of child areas to generate.
+  $form['count'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Number of child areas'),
+    '#description' => t('How many child areas should be generated within the area? The width of each child area will be automatically calculated.'),
+    '#required' => TRUE,
+    '#element_validate' => array('element_validate_integer_positive'),
+  );
+
+  // Orientation.
+  $form['orientation'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Orientation'),
+    '#description' => t('The orientation of the child areas in degrees (between 0 and 180). For example: areas running east/west would have an orientation of 0 (or 180), while areas running north/south would have an orientation of 90.'),
+    '#required' => TRUE,
+    '#default_value' => 0,
+    '#element_validate' => array('element_validate_integer'),
+  );
+
+  // If GEOS is not installed, print a warning and hide the submit button.
+  if (!farm_area_generate_geos_exists()) {
+    drupal_set_message('This area generator tool requires the GEOS libary: ' . l('http://trac.osgeo.org/geos', 'http://trac.osgeo.org/geos'), 'warning');
+  }
+  else {
+    $form['actions']['submit'] = array(
+      '#type' => 'submit',
+      '#value' => t('Generate'),
+    );
+  }
+
+  return $form;
+}
+
+/**
+ * Area generator form validate.
+ */
+function farm_area_generate_form_validate(&$form, &$form_state) {
+
+  // If GEOS is not installed, prevent submission.
+  if (!farm_area_generate_geos_exists()) {
+    form_set_error('', 'This area generator tool requires the GEOS libary: ' . l('http://trac.osgeo.org/geos', 'http://trac.osgeo.org/geos'));
+    return;
+  }
+
+  // Load the area and store it in the form state.
+  $areas = taxonomy_get_term_by_name($form_state['values']['area'], 'farm_areas');
+  $area = reset($areas);
+  $form_state['storage']['area'] = $area;
+
+  // Ensure the area exists.
+  if (empty($area)) {
+    form_set_error('area', 'The area does not exist.');
+    return;
+  }
+
+  // Ensure that the area has a geometry.
+  if (empty($area->field_farm_geofield[LANGUAGE_NONE][0]['geom'])) {
+    form_set_error('area', 'The selected area does not have any geometry defined.');
+    return;
+  }
+
+  // Ensure that the area's geometry is a single polygon.
+  geophp_load();
+  $geom = $area->field_farm_geofield[LANGUAGE_NONE][0]['geom'];
+  $polygon = geoPHP::load($geom, 'wkt');
+  $polygon = geoPHP::geometryReduce($polygon);
+  $form_state['storage']['polygon'] = $polygon;
+  if ($polygon->geometryType() != 'Polygon') {
+    form_set_error('area', 'The selected area is not a single polygon. Areas cannot be generated within points, lines, or complex geometries.');
+    return;
+  }
+
+  // Put an upper limit on the number of child that can be created per area.
+  if ($form_state['values']['count'] > 150) {
+    form_set_error('count', 'The area generator tool has a limit of 150 areas. If you need to add more, consider breaking your area up into sub-areas first.');
+  }
+
+  // Ensure that the orientation is between 0 and 360.
+  if ($form_state['values']['orientation'] < 0 || $form_state['values']['orientation'] > 180) {
+    form_set_error('orientation', 'The orientation must be a number between 0 and 180.');
+  }
+}
+
+/**
+ * Farm area generate form submit.
+ */
+function farm_area_generate_form_submit(&$form, &$form_state) {
+
+  // If the area and polygon was not stored in validation, bail.
+  if (empty($form_state['storage']['area']) || empty($form_state['storage']['polygon'])) {
+    return;
+  }
+
+  // Get all the necessary variables from the form state.
+  $area = $form_state['storage']['area'];
+  $polygon = $form_state['storage']['polygon'];
+  $area_type = $form_state['storage']['area_type'];
+  $count = $form_state['values']['count'];
+  $orientation = $form_state['values']['orientation'];
+
+  // Load the area type label and convert to lowercase.
+  $area_types = farm_area_type_options();
+  $area_type_label = strtolower($area_types[$area_type]);
+
+  // Generate child geometries.
+  $geometries = farm_area_generate_geometries($polygon, $count, $orientation);
+
+  // Load the farm_areas vocabulary.
+  $vocab = taxonomy_vocabulary_machine_name_load('farm_areas');
+
+  // Iterate through the geometries and save each one as a new area.
+  foreach ($geometries as $key => $geometry) {
+
+    // Create a new area.
+    $new_area = new stdClass();
+    $new_area->vid = $vocab->vid;
+    $new_area->name = $area->name . ' ' . $area_type_label . ' ' . ($key + 1);
+    $new_area->field_farm_area_type = array(
+      LANGUAGE_NONE => array(
+        0 => array(
+          'value' => $area_type,
+        ),
+      ),
+    );
+    $new_area->field_farm_geofield = array(
+      LANGUAGE_NONE => array(
+        0 => array(
+          'geom' => $geometry->asText(),
+        ),
+      ),
+    );
+    $new_area->parent = $area->tid;
+    $new_area->weight = $key;
+    taxonomy_term_save($new_area);
+  }
+}
+
+/**
  * Generate geometries within a polygon at a given orientation.
  *
  * @param $polygon
