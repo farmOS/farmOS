@@ -67,12 +67,8 @@ function farm_map_default_openlayers_maps() {
     'width' => 'auto',
     'height' => '500px',
     'view' => array(
-      'center' => array(
-        'lat' => -96,
-        'lon' => 40,
-      ),
       'rotation' => 0,
-      'zoom' => 4,
+      'zoom' => 2,
       'minZoom' => 0,
       'maxZoom' => 24,
     ),
