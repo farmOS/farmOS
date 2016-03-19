@@ -104,6 +104,7 @@ function farm_map_default_openlayers_maps() {
       0 => 'farm_map_component_geofield_zoom_to_source',
       1 => 'farm_map_component_progress_bar',
     ),
+    'renderer' => 'canvas',
   );
   $export['farm_map_geofield_formatter'] = $ol_map;
 
