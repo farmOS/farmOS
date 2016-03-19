@@ -136,6 +136,19 @@ function farm_area_generate_form_validate(&$form, &$form_state) {
     return;
   }
 
+  // Ensure that the area doesn't already have child areas.
+  $children = taxonomy_get_children($area->tid);
+  $children_exist = FALSE;
+  foreach ($children as $child) {
+    if (!empty($child->field_farm_area_type[LANGUAGE_NONE][0]['value'])) {
+      $children_exist = TRUE;
+      break;
+    }
+  }
+  if ($children_exist) {
+    form_set_error('area', 'The selected area already has child areas.');
+  }
+
   // Ensure that the area has a geometry.
   if (empty($area->field_farm_geofield[LANGUAGE_NONE][0]['geom'])) {
     form_set_error('area', 'The selected area does not have any geometry defined.');
