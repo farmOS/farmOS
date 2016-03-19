@@ -44,6 +44,13 @@ function farm_area_generate_menu() {
     'type' => MENU_LOCAL_TASK,
   );
 
+  // Area generator callback.
+  $items['farm/areas/generate/callback'] = array(
+    'page callback' => 'farm_area_generate_callback',
+    'access arguments' => array('use farm area generator'),
+    'type' => MENU_CALLBACK,
+  );
+
   return $items;
 }
 
@@ -65,6 +72,15 @@ function farm_area_generate_form($form, &$form_state) {
 
   // Add javascript.
   drupal_add_js(drupal_get_path('module', 'farm_area_generate') . '/js/farm_area_generate.js');
+
+  // Hidden field for generated area WKT. If the areas were generated via the
+  // "Preview" button, WKT will be stored in $form_state['storage']['wkt'].
+  $form['wkt'] = array(
+    '#type' => 'hidden',
+    '#value' => !empty($form_state['storage']['wkt']) ? $form_state['storage']['wkt'] : '',
+    '#prefix' => '<div id="generated-wkt">',
+    '#suffix' => '</div>',
+  );
 
   // Area select.
   $form['area'] = array(
@@ -108,6 +124,14 @@ function farm_area_generate_form($form, &$form_state) {
     drupal_set_message('This area generator tool requires the GEOS libary: ' . l('http://trac.osgeo.org/geos', 'http://trac.osgeo.org/geos'), 'warning');
   }
   else {
+    $form['actions']['preview'] = array(
+      '#type' => 'submit',
+      '#value' => t('Preview'),
+      '#submit' => array('farm_area_generate_form_preview'),
+      '#ajax' => array(
+        'callback' => 'farm_area_generate_form_ajax',
+      ),
+    );
     $form['actions']['submit'] = array(
       '#type' => 'submit',
       '#value' => t('Generate'),
@@ -122,6 +146,31 @@ function farm_area_generate_form($form, &$form_state) {
   );
 
   return $form;
+}
+
+/**
+ * Ajax callback for farm_area_generate_form().
+ */
+function farm_area_generate_form_ajax($form, $form_state) {
+
+  // Get the "wkt" form element and CSS selector.
+  $element = $form['wkt'];
+  $selector = '#generated-wkt';
+
+  // Assemble commands...
+  $commands = array();
+
+  // Replace the hidden field.
+  $commands[] = ajax_command_replace($selector, render($element));
+
+  // Execute Javascript to add WKT to the map.
+  $commands[] = array('command' => 'farmAreaGeneratePreview');
+
+  // Display status messages.
+  $commands[] = ajax_command_prepend($selector, theme('status_messages'));
+
+  // Return ajax commands.
+  return array('#type' => 'ajax', '#commands' => $commands);
 }
 
 /**
@@ -184,6 +233,34 @@ function farm_area_generate_form_validate(&$form, &$form_state) {
   // Ensure that the orientation is between 0 and 360.
   if ($form_state['values']['orientation'] < 0 || $form_state['values']['orientation'] > 180) {
     form_set_error('orientation', 'The orientation must be a number between 0 and 180.');
+  }
+}
+
+/**
+ * Farm area generator form preview.
+ */
+function farm_area_generate_form_preview(&$form, &$form_state) {
+
+  // If the area and polygon was not stored in validation, bail.
+  if (empty($form_state['storage']['area']) || empty($form_state['storage']['polygon'])) {
+    return;
+  }
+
+  // Get all the necessary variables from the form state.
+  $polygon = $form_state['storage']['polygon'];
+  $count = $form_state['values']['count'];
+  $orientation = $form_state['values']['orientation'];
+
+  // Generate child area geometries.
+  $geometries = farm_area_generate_geometries($polygon, $count, $orientation);
+  if (!empty($geometries)) {
+    $collection = new GeometryCollection($geometries);
+    $form_state['storage']['wkt'] = $collection->asText();
+  }
+
+  // Rebuild the form if WKT was generated.
+  if (!empty($form_state['storage']['wkt'])) {
+    $form_state['rebuild'] = TRUE;
   }
 }
 
