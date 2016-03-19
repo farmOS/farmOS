@@ -5,6 +5,104 @@
  */
 
 /**
+ * Generate geometries within a polygon at a given orientation.
+ *
+ * @param $polygon
+ *   A Polygon geometry object that represents the parent area. Child area
+ *   geometries will be generated within this polygon.
+ * @param $count
+ *   The number of child geometries to generate.
+ * @param $orientation
+ *   The orientation of child geometries, in degrees. This should be a positive
+ *   integer between 0 and 359.
+ *
+ * @return array
+ *   Returns an array of child geometries.
+ */
+function farm_area_generate_geometries($polygon, $count, $orientation = 0) {
+
+  // If the orientation isn't within an acceptable range, bail.
+  if ($orientation < 0 || $orientation > 359) {
+    return array();
+  }
+
+  // Rotate the polygon around its centroid so that the orientation is 0.
+  $origin = $polygon->centroid();
+  $angle = 359 - $orientation;
+  $rotated_polygon = farm_area_generate_rotate_polygon($polygon, $origin, $angle);
+
+  // Calculate the bounding box of the rotated polygon.
+  $bbox = $rotated_polygon->getBBox();
+
+  // Generate horizontal rectangles that fill the bounding box.
+  $geometries = farm_area_generate_bbox_geometries($bbox, $count);
+
+  // Rotate child geometries back to the original orientation and trim to fit
+  // the original polygon.
+  $final_geometries = array();
+  foreach ($geometries as $geometry) {
+    $rotated = farm_area_generate_rotate_polygon($geometry, $origin, $orientation);
+    $trimmed = $rotated->intersection($polygon);
+    $final_geometries[] = $trimmed;
+  }
+
+  return $final_geometries;
+}
+
+/**
+ * Generates a set of rectangle geometries running horizontally to fill a
+ * bounding box.
+ *
+ * @param array $bbox
+ *   An array containing bounding box information (in the same format that
+ *   GeoPHP generates).
+ * @param int $count
+ *   The number of rectangles to fit into the box.
+ *
+ * @return array
+ *   Returns an array of rectangle geometries that fit into the bounding box.
+ */
+function farm_area_generate_bbox_geometries($bbox, $count) {
+
+  // Load GeoPHP.
+  geophp_load();
+
+  // Calculate how wide each rectangle needs to be.
+  if (geoPHP::bcmathInstalled()) {
+    $total_width = bcsub($bbox['maxy'], $bbox['miny']);
+    $geom_width = bcdiv($total_width, $count);
+  }
+  else{
+    $total_width = $bbox['maxy'] - $bbox['miny'];
+    $geom_width = $total_width / $count;
+  }
+
+  // Fill the bounding box with rectangles.
+  $geometries = array();
+  $starting_point = new Point($bbox['minx'], $bbox['maxy']);
+  for ($i=1;$i<=$count;$i++) {
+    $points = array();
+    $points[] = $starting_point;
+    if (geoPHP::bcmathInstalled()) {
+      $points[] = new Point($bbox['maxx'], bcsub($bbox['maxy'], bcmul($geom_width, ($i - 1))));
+      $points[] = new Point($bbox['maxx'], bcsub($bbox['maxy'], bcmul($geom_width, $i)));
+      $points[] = new Point($bbox['minx'], bcsub($bbox['maxy'], bcmul($geom_width, $i)));
+    }
+    else {
+      $points[] = new Point($bbox['maxx'], $bbox['maxy'] - ($geom_width * ($i - 1)));
+      $points[] = new Point($bbox['maxx'], $bbox['maxy'] - ($geom_width * $i));
+      $points[] = new Point($bbox['minx'], $bbox['maxy'] - ($geom_width * $i));
+    }
+    $points[] = $starting_point;
+    $geometries[] = new Polygon(array(new LineString($points)));
+    $starting_point = $points[3];
+  }
+
+  // Return the geometries.
+  return $geometries;
+}
+
+/**
  * Rotate a polygon around an origin.
  *
  * @param $polygon
