@@ -316,6 +316,9 @@ function farm_area_generate_form_submit(&$form, &$form_state) {
     $new_area->weight = $key;
     taxonomy_term_save($new_area);
   }
+
+  // Announce how many areas were generated.
+  drupal_set_message(count($geometries) . ' areas were generated.');
 }
 
 /**
