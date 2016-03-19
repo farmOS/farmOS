@@ -66,6 +66,29 @@ function farm_area_generate_geos_exists() {
 }
 
 /**
+ * Implements hook_page_build().
+ */
+function farm_area_generate_page_build(&$page) {
+
+  // If this is the area generator form page, add the areas map.
+  if (current_path() == 'farm/areas/generate') {
+
+    // Load the areas map.
+    $map = \Drupal\openlayers\Openlayers::load('Map', 'farm_areas');
+
+    // Build the map and add it to the page content.
+    $page['content']['farm_areas'] = $map->build();
+
+    // Set the weight to 100 so that it appears on bottom.
+    $page['content']['farm_areas']['#weight'] = 100;
+
+    // Set the content region #sorted flag to FALSE so that it resorts.
+    $page['content']['#sorted'] = FALSE;
+  }
+}
+
+
+/**
  * Area generator form.
  */
 function farm_area_generate_form($form, &$form_state) {
@@ -137,13 +160,6 @@ function farm_area_generate_form($form, &$form_state) {
       '#value' => t('Generate'),
     );
   }
-
-  // Render the farm areas map.
-  $map = \Drupal\openlayers\Openlayers::load('Map', 'farm_areas')->build();
-  $form['map'] = array(
-    '#type' => 'markup',
-    '#markup' => !empty($map) ? render($map) : '',
-  );
 
   return $form;
 }
