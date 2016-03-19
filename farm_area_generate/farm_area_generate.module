@@ -63,11 +63,14 @@ function farm_area_generate_geos_exists() {
  */
 function farm_area_generate_form($form, &$form_state) {
 
+  // Add javascript.
+  drupal_add_js(drupal_get_path('module', 'farm_area_generate') . '/js/farm_area_generate.js');
+
   // Area select.
   $form['area'] = array(
     '#type' => 'textfield',
     '#title' => t('Area'),
-    '#description' => t('Set the parent area that the generated areas will be within. This area must have a single polygon geometry.'),
+    '#description' => t('Set the parent area that the generated areas will be within. This area must have a single polygon geometry. Click on an area in the map below to auto-fill this field.'),
     '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_area',
     '#required' => TRUE,
   );
