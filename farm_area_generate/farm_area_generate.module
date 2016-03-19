@@ -93,6 +93,9 @@ function farm_area_generate_page_build(&$page) {
  */
 function farm_area_generate_form($form, &$form_state) {
 
+  // Set the page title.
+  drupal_set_title('Area generator');
+
   // Add javascript.
   drupal_add_js(drupal_get_path('module', 'farm_area_generate') . '/js/farm_area_generate.js');
 
@@ -103,6 +106,12 @@ function farm_area_generate_form($form, &$form_state) {
     '#value' => !empty($form_state['storage']['wkt']) ? $form_state['storage']['wkt'] : '',
     '#prefix' => '<div id="generated-wkt">',
     '#suffix' => '</div>',
+  );
+
+  // Description.
+  $form['description'] = array(
+    '#type' => 'markup',
+    '#markup' => t('This area generator tool is used to generate multiple child areas within a parent area. Select a parent area, specify how many areas you want in it, and the area orientation. Areas will be generated to fill the parent.'),
   );
 
   // Area select.
