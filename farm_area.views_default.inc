@@ -193,7 +193,7 @@ function farm_area_views_default_views() {
   $handler->display->display_options['style_options']['data_source']['name_field'] = 'name';
   $handler->display->display_options['style_options']['data_source']['description_field'] = 'farm_area_details';
   $handler->display->display_options['style_options']['jsonp_prefix'] = '';
-  $handler->display->display_options['path'] = 'farm/areas/json';
+  $handler->display->display_options['path'] = 'farm/areas/geojson';
   $export['farm_areas_geojson'] = $view;
 
   return $export;
