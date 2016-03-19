@@ -481,8 +481,8 @@ function farm_log_views_default_views() {
   $handler->display->display_options['style_options']['jsonp_prefix'] = '';
   $handler->display->display_options['path'] = 'farm/assets/geojson/full';
 
-  /* Display: Lat/Lon */
-  $handler = $view->new_display('feed', 'Lat/Lon', 'feed_latlon');
+  /* Display: Centroid */
+  $handler = $view->new_display('feed', 'Centroid', 'feed_centroid');
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'views_geojson_feed';
@@ -517,7 +517,7 @@ function farm_log_views_default_views() {
   $handler->display->display_options['fields']['name']['field'] = 'name';
   $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['name']['alter']['path'] = 'farm/asset/[id]';
-  $handler->display->display_options['path'] = 'farm/assets/geojson/latlon';
+  $handler->display->display_options['path'] = 'farm/assets/geojson/centroid';
   $export['farm_asset_geojson'] = $view;
 
   $view = new view();
