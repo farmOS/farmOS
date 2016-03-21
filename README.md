@@ -19,7 +19,6 @@ This module depends on the following modules:
  * Entity Reference View Widget (http://drupal.org/project/entityreference_view_widget)
  * Features (http://drupal.org/project/features)
  * Field Collection (http://drupal.org/project/field_collection)
- * Fraction (http://drupal.org/project/fraction)
  * Log (http://drupal.org/project/log)
  * Openlayers (http://drupal.org/project/openlayers)
  * Strongarm (http://drupal.org/project/strongarm)
@@ -28,6 +27,7 @@ This module depends on the following modules:
  * Farm Asset (http://drupal.org/project/farm_asset)
  * Farm Fields (http://drupal.org/project/farm_fields)
  * Farm Map (http://drupal.org/project/farm_map)
+ * Farm Quantity (http://drupal.org/project/farm_quantity)
 
 INSTALLATION
 ------------
