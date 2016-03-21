@@ -317,6 +317,13 @@ function farm_update_7016(&$sandbox) {
 }
 
 /**
+ * Install Farm Quantity and Farm Area Generator modules.
+ */
+function farm_update_7017(&$sandbox) {
+  _farm_enable_modules(array('farm_area_generate', 'farm_quantity'));
+}
+
+/**
  * Helper function: enable modules.
  */
 function _farm_enable_modules($modules = array()) {
