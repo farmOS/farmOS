@@ -1,0 +1,4 @@
+name = Farm Quantity
+description = Provides a framework for dealing with quantities.
+core = 7.x
+package = farmOS
