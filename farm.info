@@ -42,6 +42,7 @@ dependencies[] = role_delegation
 dependencies[] = farm_access
 dependencies[] = farm_admin
 dependencies[] = farm_area
+dependencies[] = farm_area_generate
 dependencies[] = farm_asset
 dependencies[] = farm_crop
 dependencies[] = farm_equipment
