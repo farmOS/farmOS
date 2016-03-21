@@ -1,5 +1,5 @@
-FARM LOG
-========
+FARM QUANTITY
+=============
 
 Provides a framework for dealing with quantities.
 
