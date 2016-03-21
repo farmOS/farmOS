@@ -29,6 +29,7 @@ This module depends on the following modules:
  * Farm Fields (http://drupal.org/project/farm_fields)
  * Farm Log (http://drupal.org/project/farm_log)
  * Farm Map (http://drupal.org/project/farm_map)
+ * Farm Quantity (http://drupal.org/project/farm_quantity)
  * Farm Taxonomy (http://drupal.org/project/farm_taxonomy)
 
 INSTALLATION
