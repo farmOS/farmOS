@@ -202,6 +202,16 @@ function farm_area_farm_area_details($id) {
   // Start a render array.
   $output = array();
 
+  // Display the calculated area.
+  $calculated_area = farm_area_calculate_area($id);
+  if (!empty($calculated_area)) {
+    $output['calculated_area'] = array(
+      '#type' => 'markup',
+      '#markup' => '<p><small>Calculated area: ' . $calculated_area . '</small></p>',
+      '#weight' => -100,
+    );
+  }
+
   // Get area links.
   $area_links = farm_area_get_links($id);
 
@@ -212,10 +222,10 @@ function farm_area_farm_area_details($id) {
   );
 
   // Add area links to the details.
-  $output[] = array(
+  $output['area_links'] = array(
     '#type' => 'markup',
     '#markup' => theme('item_list', $variables),
-    '#weight' => 100,
+    '#weight' => -50,
   );
 
   // Return the render array.
