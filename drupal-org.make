@@ -200,6 +200,11 @@ projects[farm_mapknitter][subdir] = "farm"
 projects[farm_mapknitter][download][type] = git
 projects[farm_mapknitter][download][branch] = 7.x-1.x
 
+projects[farm_quantity][subdir] = "farm"
+;projects[farm_quantity][version] = "1.0-beta1"
+projects[farm_quantity][download][type] = git
+projects[farm_quantity][download][branch] = 7.x-1.x
+
 projects[farm_sensor][subdir] = "farm"
 ;projects[farm_sensor][version] = "1.0-beta7"
 projects[farm_sensor][download][type] = git
