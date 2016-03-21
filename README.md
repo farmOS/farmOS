@@ -3,6 +3,8 @@ farmOS
 
 Official website: http://farmos.org
 
+Documentation: http://docs.farmos.org
+
 A web-based farm record keeping application.
 
 farmOS is a built on top of [Drupal](http://drupal.org). It packages Drupal core
@@ -11,21 +13,8 @@ extensible farm management interface.
 
 Drupal distribution: http://drupal.org/project/farm
 
-Some of the farm-specific modules included with farmOS are:
-
-* [Farm Access](http://drupal.org/project/farm_access)
-* [Farm Admin](http://drupal.org/project/farm_admin)
-* [Farm Area](http://drupal.org/project/farm_area)
-* [Farm Asset](http://drupal.org/project/farm_asset)
-* [Farm Crop](http://drupal.org/project/farm_crop)
-* [Farm Equipment](http://drupal.org/project/farm_equipment)
-* [Farm Fields](http://drupal.org/project/farm_fields)
-* [Farm Livestock](http://drupal.org/project/farm_livestock)
-* [Farm Log](http://drupal.org/project/farm_log)
-* [Farm Map](http://drupal.org/project/farm_map)
-* [Farm MapKnitter](http://drupal.org/project/farm_mapknitter)
-* [Farm Soil](http://drupal.org/project/farm_soil)
-* [Farm Taxonomy](http://drupal.org/project/farm_taxonomy)
+For a list of the farm-specific modules included with the farmOS distribution,
+see [http://docs.farmos.org/development/projects](http://docs.farmos.org/development/projects).
 
 Drupal.org is the location of the canonical repositories and mainline branches.
 Github.org is also used as a mirror, and for some of the more experimental
