@@ -352,3 +352,116 @@ function farm_area_page_build(&$page) {
     $page['content']['#sorted'] = FALSE;
   }
 }
+
+/**
+ * Calculate the area of a farm area.
+ *
+ * @param $area_id
+ *   The area id to load.
+ *
+ * @return string
+ *   Returns the calculated are of the area as a string, in meters squared.
+ */
+function farm_area_calculate_area($area_id) {
+
+  // Load the area.
+  $area = taxonomy_term_load($area_id);
+
+  // If the area doesn't exist, bail.
+  if (empty($area)) {
+    return '';
+  }
+
+  // Get WKT from the field. If empty, bail.
+  if (!empty($area->field_farm_geofield[LANGUAGE_NONE][0]['geom'])) {
+    $geom = $area->field_farm_geofield[LANGUAGE_NONE][0]['geom'];
+  } else {
+    return '';
+  }
+
+  // Load the WKT into a GeoPHP Geometry object and reduce it.
+  geophp_load();
+  $polygon = geoPHP::load($geom, 'wkt');
+  $polygon = geoPHP::geometryReduce($polygon);
+
+  // Ensure that it is a simple polygon.
+  if ($polygon->geometryType() != 'Polygon') {
+    return '';
+  }
+
+  // Calculate the area in square meters.
+  $measurement = farm_map_polygon_area($polygon);
+
+  // Format the area in the default system of measure, and return it as a string.
+  return farm_area_format_calculated_area($measurement);
+}
+
+/**
+ * Format a calculated area in the default system of measurement.
+ *
+ * @param int|float $measurement
+ *   The measurement of area to format.
+ *
+ * @return string
+ *   Returns a formatted string.
+ */
+function farm_area_format_calculated_area($measurement) {
+
+  // If the measurement is empty or not a number, return an empty string.
+  if (empty($measurement) || !is_numeric($measurement)) {
+    return '';
+  }
+
+  // Get the system of measurement.
+  $unit_system = variable_get('farm_quantity_unit_system', 'metric');
+
+  // Switch through available unit systems and generate a formatted string.
+  $conversion = '';
+  $unit = '';
+  switch ($unit_system) {
+
+    // Metric:
+    case 'metric':
+
+      // Convert to hectares.
+      $conversion = '0.0001';
+      $unit = 'hectares';
+
+      // If it is less than 0.25 hectares, use square meters instead.
+      if ($measurement * $conversion < 0.25) {
+        $conversion = '1';
+        $unit = 'square meters';
+      }
+      break;
+
+    // US/Imperial:
+    case 'us':
+
+      // Convert to acres.
+      $conversion = '0.000247105';
+      $unit = 'acres';
+
+      // If it is less than 0.25 acres, use square feet instead.
+      if ($measurement * $conversion < 0.25) {
+        $conversion = '10.7639';
+        $unit = 'square feet';
+      }
+      break;
+  }
+
+  // If a unit and conversion were not found, bail.
+  if (empty($unit) || empty($conversion)) {
+    return '';
+  }
+
+  // Convert to the desired units.
+  if (function_exists('bcmul')) {
+    $measurement = bcmul($measurement, $conversion);
+  }
+  else {
+    $measurement = $measurement * $conversion;
+  }
+
+  // Format and return.
+  return (string) round($measurement, 2) . ' ' . $unit;
+}
