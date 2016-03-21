@@ -32,6 +32,10 @@ function farm_log_default_openlayers_maps() {
       'height' => '500px',
       'provideBlockLayerSwitcher' => 0,
       'view' => array(
+        'center' => array(
+          'lat' => 0,
+          'lon' => 0,
+        ),
         'rotation' => 0,
         'zoom' => 2,
         'minZoom' => 0,
