@@ -49,6 +49,7 @@ These modules are packaged with the farmOS distribution:
 * [Farm Log]
 * [Farm Map]
 * [Farm MapKnitter]
+* [Farm Quantity]
 * [Farm Sensor]
 * [Farm Soil]
 * [Farm Taxonomy]
@@ -85,6 +86,7 @@ The official farmOS theme is a Drupal theme based off of [Bootstrap].
 [Farm Log]: https://drupal.org/project/farm_log
 [Farm Map]: https://drupal.org/project/farm_map
 [Farm MapKnitter]: https://drupal.org/project/farm_mapknitter
+[Farm Quantity]: https://drupal.org/project/farm_quantity
 [Farm Sensor]: https://drupal.org/project/farm_sensor
 [Farm Soil]: https://drupal.org/project/farm_soil
 [Farm Taxonomy]: https://drupal.org/project/farm_taxonomy
