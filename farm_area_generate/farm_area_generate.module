@@ -302,7 +302,7 @@ function farm_area_generate_form_submit(&$form, &$form_state) {
   // Get all the necessary variables from the form state.
   $area = $form_state['storage']['area'];
   $polygon = $form_state['storage']['polygon'];
-  $area_type = $form_state['storage']['area_type'];
+  $area_type = $form_state['values']['area_type'];
   $count = $form_state['values']['count'];
   $orientation = $form_state['values']['orientation'];
 
