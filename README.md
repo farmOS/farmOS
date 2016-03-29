@@ -13,7 +13,6 @@ DEPENDENCIES
 This module depends on the following modules:
 
  * Features (http://drupal.org/project/features)
- * OpenLayers 3.x (http://drupal.org/project/openlayers)
  * Strongarm (http://drupal.org/project/strongarm)
 
 The Farm Soil Test sub-module requires:

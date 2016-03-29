@@ -14,6 +14,7 @@ dependencies[] = features
 dependencies[] = file
 dependencies[] = image
 dependencies[] = log
+dependencies[] = openlayers
 dependencies[] = openlayers_geofield
 dependencies[] = taxonomy
 dependencies[] = text
