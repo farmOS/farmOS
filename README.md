@@ -35,6 +35,8 @@ The Farm Soil NRCS sub-module requires:
 
  * Ctools (http://drupal.org/project/ctools)
  * Features (http://drupal.org/project/features)
+ * OpenLayers 3.x (http://drupal.org/project/openlayers)
+ * Farm Map (http://drupal.org/project/farm_map)
  * Farm Soil (http://drupal.org/project/farm_soil)
 
 INSTALLATION

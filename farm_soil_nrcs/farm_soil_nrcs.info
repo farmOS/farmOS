@@ -3,6 +3,7 @@ description = Provides integration with NRCS Soil Survey data.
 core = 7.x
 package = farmOS
 dependencies[] = ctools
+dependencies[] = farm_map
 dependencies[] = farm_soil
 dependencies[] = features
 dependencies[] = openlayers
