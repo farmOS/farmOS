@@ -24,6 +24,12 @@ This module depends on the following modules:
  * Farm Fields (http://drupal.org/project/farm_fields)
  * Farm Map (http://drupal.org/project/farm_map)
 
+The Farm Area Generate sub-module requires:
+
+  * Farm Area
+  * GeoPHP (http://drupal.org/project/geophp)
+  * GEOS (https://trac.osgeo.org/geos)
+
 INSTALLATION
 ------------
 
