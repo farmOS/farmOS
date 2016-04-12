@@ -193,10 +193,10 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['style_options']['columns'] = array(
     'views_bulk_operations' => 'views_bulk_operations',
     'id' => 'id',
+    'done' => 'done',
     'timestamp' => 'timestamp',
     'name' => 'name',
     'field_farm_quantity' => 'field_farm_quantity',
-    'done' => 'done',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
@@ -206,6 +206,13 @@ function farm_crop_views_default_views() {
       'empty_column' => 0,
     ),
     'id' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'done' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -227,13 +234,6 @@ function farm_crop_views_default_views() {
       'empty_column' => 0,
     ),
     'field_farm_quantity' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'done' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -294,6 +294,13 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['id']['label'] = 'Harvest ID';
   $handler->display->display_options['fields']['id']['exclude'] = TRUE;
   $handler->display->display_options['fields']['id']['separator'] = '';
+  /* Field: Log: Done */
+  $handler->display->display_options['fields']['done']['id'] = 'done';
+  $handler->display->display_options['fields']['done']['table'] = 'log';
+  $handler->display->display_options['fields']['done']['field'] = 'done';
+  $handler->display->display_options['fields']['done']['type'] = 'custom';
+  $handler->display->display_options['fields']['done']['type_custom_true'] = '✔';
+  $handler->display->display_options['fields']['done']['not'] = 0;
   /* Field: Log: Timestamp */
   $handler->display->display_options['fields']['timestamp']['id'] = 'timestamp';
   $handler->display->display_options['fields']['timestamp']['table'] = 'log';
@@ -319,13 +326,6 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['field_farm_quantity']['settings'] = array(
     'view_mode' => 'full',
   );
-  /* Field: Log: Done */
-  $handler->display->display_options['fields']['done']['id'] = 'done';
-  $handler->display->display_options['fields']['done']['table'] = 'log';
-  $handler->display->display_options['fields']['done']['field'] = 'done';
-  $handler->display->display_options['fields']['done']['type'] = 'custom';
-  $handler->display->display_options['fields']['done']['type_custom_true'] = '✔';
-  $handler->display->display_options['fields']['done']['not'] = 0;
   /* Sort criterion: Log: Timestamp */
   $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
   $handler->display->display_options['sorts']['timestamp']['table'] = 'log';
@@ -444,10 +444,10 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['style_options']['columns'] = array(
     'views_bulk_operations' => 'views_bulk_operations',
     'id' => 'id',
+    'done' => 'done',
     'timestamp' => 'timestamp',
     'name' => 'name',
     'field_farm_quantity' => 'field_farm_quantity',
-    'done' => 'done',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
@@ -457,6 +457,13 @@ if (!empty($farm_asset)) {
       'empty_column' => 0,
     ),
     'id' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'done' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -478,13 +485,6 @@ if (!empty($farm_asset)) {
       'empty_column' => 0,
     ),
     'field_farm_quantity' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'done' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -544,6 +544,13 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['fields']['id']['field'] = 'id';
   $handler->display->display_options['fields']['id']['exclude'] = TRUE;
   $handler->display->display_options['fields']['id']['separator'] = '';
+  /* Field: Log: Done */
+  $handler->display->display_options['fields']['done']['id'] = 'done';
+  $handler->display->display_options['fields']['done']['table'] = 'log';
+  $handler->display->display_options['fields']['done']['field'] = 'done';
+  $handler->display->display_options['fields']['done']['type'] = 'custom';
+  $handler->display->display_options['fields']['done']['type_custom_true'] = '✔';
+  $handler->display->display_options['fields']['done']['not'] = 0;
   /* Field: Log: Timestamp */
   $handler->display->display_options['fields']['timestamp']['id'] = 'timestamp';
   $handler->display->display_options['fields']['timestamp']['table'] = 'log';
@@ -569,13 +576,6 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['fields']['field_farm_quantity']['settings'] = array(
     'view_mode' => 'full',
   );
-  /* Field: Log: Done */
-  $handler->display->display_options['fields']['done']['id'] = 'done';
-  $handler->display->display_options['fields']['done']['table'] = 'log';
-  $handler->display->display_options['fields']['done']['field'] = 'done';
-  $handler->display->display_options['fields']['done']['type'] = 'custom';
-  $handler->display->display_options['fields']['done']['type_custom_true'] = '✔';
-  $handler->display->display_options['fields']['done']['not'] = 0;
   /* Sort criterion: Log: Timestamp */
   $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
   $handler->display->display_options['sorts']['timestamp']['table'] = 'log';
@@ -709,10 +709,10 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['style_options']['columns'] = array(
     'views_bulk_operations' => 'views_bulk_operations',
     'id' => 'id',
+    'done' => 'done',
     'timestamp' => 'timestamp',
     'name_1' => 'name_1',
     'field_farm_quantity' => 'field_farm_quantity',
-    'done' => 'done',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
@@ -722,6 +722,13 @@ if (!empty($farm_asset)) {
       'empty_column' => 0,
     ),
     'id' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'done' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -743,13 +750,6 @@ if (!empty($farm_asset)) {
       'empty_column' => 0,
     ),
     'field_farm_quantity' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'done' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -809,6 +809,13 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['fields']['id']['field'] = 'id';
   $handler->display->display_options['fields']['id']['exclude'] = TRUE;
   $handler->display->display_options['fields']['id']['separator'] = '';
+  /* Field: Log: Done */
+  $handler->display->display_options['fields']['done']['id'] = 'done';
+  $handler->display->display_options['fields']['done']['table'] = 'log';
+  $handler->display->display_options['fields']['done']['field'] = 'done';
+  $handler->display->display_options['fields']['done']['type'] = 'custom';
+  $handler->display->display_options['fields']['done']['type_custom_true'] = '✔';
+  $handler->display->display_options['fields']['done']['not'] = 0;
   /* Field: Log: Timestamp */
   $handler->display->display_options['fields']['timestamp']['id'] = 'timestamp';
   $handler->display->display_options['fields']['timestamp']['table'] = 'log';
@@ -834,13 +841,6 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['fields']['field_farm_quantity']['settings'] = array(
     'view_mode' => 'full',
   );
-  /* Field: Log: Done */
-  $handler->display->display_options['fields']['done']['id'] = 'done';
-  $handler->display->display_options['fields']['done']['table'] = 'log';
-  $handler->display->display_options['fields']['done']['field'] = 'done';
-  $handler->display->display_options['fields']['done']['type'] = 'custom';
-  $handler->display->display_options['fields']['done']['type_custom_true'] = '✔';
-  $handler->display->display_options['fields']['done']['not'] = 0;
   /* Sort criterion: Log: Timestamp */
   $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
   $handler->display->display_options['sorts']['timestamp']['table'] = 'log';
@@ -959,10 +959,10 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['style_options']['columns'] = array(
     'views_bulk_operations' => 'views_bulk_operations',
     'id' => 'id',
+    'done' => 'done',
     'timestamp' => 'timestamp',
     'name_1' => 'name_1',
     'field_farm_quantity' => 'field_farm_quantity',
-    'done' => 'done',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
@@ -972,6 +972,13 @@ if (!empty($farm_asset)) {
       'empty_column' => 0,
     ),
     'id' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'done' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -993,13 +1000,6 @@ if (!empty($farm_asset)) {
       'empty_column' => 0,
     ),
     'field_farm_quantity' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'done' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -1059,6 +1059,13 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['fields']['id']['field'] = 'id';
   $handler->display->display_options['fields']['id']['exclude'] = TRUE;
   $handler->display->display_options['fields']['id']['separator'] = '';
+  /* Field: Log: Done */
+  $handler->display->display_options['fields']['done']['id'] = 'done';
+  $handler->display->display_options['fields']['done']['table'] = 'log';
+  $handler->display->display_options['fields']['done']['field'] = 'done';
+  $handler->display->display_options['fields']['done']['type'] = 'custom';
+  $handler->display->display_options['fields']['done']['type_custom_true'] = '✔';
+  $handler->display->display_options['fields']['done']['not'] = 0;
   /* Field: Log: Timestamp */
   $handler->display->display_options['fields']['timestamp']['id'] = 'timestamp';
   $handler->display->display_options['fields']['timestamp']['table'] = 'log';
@@ -1084,13 +1091,6 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['fields']['field_farm_quantity']['settings'] = array(
     'view_mode' => 'full',
   );
-  /* Field: Log: Done */
-  $handler->display->display_options['fields']['done']['id'] = 'done';
-  $handler->display->display_options['fields']['done']['table'] = 'log';
-  $handler->display->display_options['fields']['done']['field'] = 'done';
-  $handler->display->display_options['fields']['done']['type'] = 'custom';
-  $handler->display->display_options['fields']['done']['type_custom_true'] = '✔';
-  $handler->display->display_options['fields']['done']['not'] = 0;
   /* Sort criterion: Log: Timestamp */
   $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
   $handler->display->display_options['sorts']['timestamp']['table'] = 'log';
