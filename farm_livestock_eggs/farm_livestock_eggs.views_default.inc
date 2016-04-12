@@ -39,12 +39,12 @@ function farm_livestock_eggs_views_default_views() {
   $handler->display->display_options['style_options']['columns'] = array(
     'views_bulk_operations' => 'views_bulk_operations',
     'id' => 'id',
+    'done' => 'done',
     'timestamp' => 'timestamp',
     'field_farm_egg_qty' => 'field_farm_egg_qty',
     'field_farm_animal_group' => 'field_farm_animal_group',
     'name' => 'name',
     'field_farm_notes' => 'field_farm_notes',
-    'done' => 'done',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
@@ -54,6 +54,13 @@ function farm_livestock_eggs_views_default_views() {
       'empty_column' => 0,
     ),
     'id' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'done' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -89,13 +96,6 @@ function farm_livestock_eggs_views_default_views() {
       'empty_column' => 0,
     ),
     'field_farm_notes' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'done' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -159,6 +159,13 @@ function farm_livestock_eggs_views_default_views() {
   $handler->display->display_options['fields']['id']['field'] = 'id';
   $handler->display->display_options['fields']['id']['exclude'] = TRUE;
   $handler->display->display_options['fields']['id']['separator'] = '';
+  /* Field: Log: Done */
+  $handler->display->display_options['fields']['done']['id'] = 'done';
+  $handler->display->display_options['fields']['done']['table'] = 'log';
+  $handler->display->display_options['fields']['done']['field'] = 'done';
+  $handler->display->display_options['fields']['done']['type'] = 'custom';
+  $handler->display->display_options['fields']['done']['type_custom_true'] = '✔';
+  $handler->display->display_options['fields']['done']['not'] = 0;
   /* Field: Log: Timestamp */
   $handler->display->display_options['fields']['timestamp']['id'] = 'timestamp';
   $handler->display->display_options['fields']['timestamp']['table'] = 'log';
@@ -195,13 +202,6 @@ function farm_livestock_eggs_views_default_views() {
   $handler->display->display_options['fields']['field_farm_notes']['id'] = 'field_farm_notes';
   $handler->display->display_options['fields']['field_farm_notes']['table'] = 'field_data_field_farm_notes';
   $handler->display->display_options['fields']['field_farm_notes']['field'] = 'field_farm_notes';
-  /* Field: Log: Done */
-  $handler->display->display_options['fields']['done']['id'] = 'done';
-  $handler->display->display_options['fields']['done']['table'] = 'log';
-  $handler->display->display_options['fields']['done']['field'] = 'done';
-  $handler->display->display_options['fields']['done']['type'] = 'custom';
-  $handler->display->display_options['fields']['done']['type_custom_true'] = '✔';
-  $handler->display->display_options['fields']['done']['not'] = 0;
   /* Sort criterion: Log: Timestamp */
   $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
   $handler->display->display_options['sorts']['timestamp']['table'] = 'log';
