@@ -22,7 +22,7 @@ function farm_mapknitter_default_openlayers_sources() {
   $slug = check_plain($slug);
 
   // Assemble the URL.
-  $url = 'http://mapknitter.org/tms/' . $slug . '/{z}/{x}/{-y}.png';
+  $url = 'https://mapknitter.org/tms/' . $slug . '/{z}/{x}/{-y}.png';
 
   // Generate a MapKnitter source.
   $ol_source = new stdClass();
