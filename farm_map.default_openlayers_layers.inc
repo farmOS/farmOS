@@ -94,6 +94,42 @@ function farm_map_default_openlayers_layers() {
   );
   $export['farm_map_layer_group'] = $ol_layer;
 
+  // Geofield widget layer group.
+  $ol_layer = new stdClass();
+  $ol_layer->disabled = FALSE; /* Edit this to true to make a default ol_layer disabled initially */
+  $ol_layer->api_version = 1;
+  $ol_layer->machine_name = 'farm_map_geofield_widget_layer_group';
+  $ol_layer->name = 'Farm Map Geofield Widget Layer Group';
+  $ol_layer->description = '';
+  $ol_layer->factory_service = 'openlayers.Layer:Group';
+  $ol_layer->options = array(
+    'source' => '',
+    'visible' => 1,
+    'grouptitle' => 'Draw',
+    'grouplayers' => array(
+      'openlayers_geofield_layer_widget',
+    ),
+  );
+  $export['farm_map_geofield_widget_layer_group'] = $ol_layer;
+
+  // Geofield formatter layer group.
+  $ol_layer = new stdClass();
+  $ol_layer->disabled = FALSE; /* Edit this to true to make a default ol_layer disabled initially */
+  $ol_layer->api_version = 1;
+  $ol_layer->machine_name = 'farm_map_geofield_formatter_layer_group';
+  $ol_layer->name = 'Farm Map Geofield Formatter Layer Group';
+  $ol_layer->description = '';
+  $ol_layer->factory_service = 'openlayers.Layer:Group';
+  $ol_layer->options = array(
+    'source' => '',
+    'visible' => 1,
+    'grouptitle' => 'Geometry',
+    'grouplayers' => array(
+      'openlayers_geofield_layer_formatter',
+    ),
+  );
+  $export['farm_map_geofield_formatter_layer_group'] = $ol_layer;
+
   return $export;
 }
 
