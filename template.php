@@ -192,6 +192,13 @@ function farm_theme_preprocess_page(&$vars) {
     '#markup' => t('Powered by') . ' ' . l(t('farmOS'), 'http://farmos.org'),
     '#suffix' => '</small></div>',
   );
+
+  // Find the current farmOS version and add it to the footer.
+  $path = drupal_get_path('module', 'farm') . '/farm.info';
+  $info = drupal_parse_info_file($path);
+  if (!empty($info['version'])) {
+    $vars['page']['footer']['farmos']['#markup'] .= ' ' . $info['version'];
+  }
 }
 
 /**
