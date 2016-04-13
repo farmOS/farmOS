@@ -10,6 +10,7 @@
 function farm_map_default_openlayers_layers() {
   $export = array();
 
+  // Google Hybrid layer.
   $ol_layer = new stdClass();
   $ol_layer->disabled = FALSE; /* Edit this to true to make a default ol_layer disabled initially */
   $ol_layer->api_version = 1;
@@ -29,6 +30,7 @@ function farm_map_default_openlayers_layers() {
   );
   $export['farm_map_layer_google_hybrid'] = $ol_layer;
 
+  // Google Satellite layer.
   $ol_layer = new stdClass();
   $ol_layer->disabled = FALSE; /* Edit this to true to make a default ol_layer disabled initially */
   $ol_layer->api_version = 1;
@@ -48,6 +50,7 @@ function farm_map_default_openlayers_layers() {
   );
   $export['farm_map_layer_google_satellite'] = $ol_layer;
 
+  // Google Terrain layer.
   $ol_layer = new stdClass();
   $ol_layer->disabled = FALSE; /* Edit this to true to make a default ol_layer disabled initially */
   $ol_layer->api_version = 1;
@@ -67,6 +70,7 @@ function farm_map_default_openlayers_layers() {
   );
   $export['farm_map_layer_google_terrain'] = $ol_layer;
 
+  // Base layer group.
   $ol_layer = new stdClass();
   $ol_layer->disabled = FALSE; /* Edit this to true to make a default ol_layer disabled initially */
   $ol_layer->api_version = 1;
