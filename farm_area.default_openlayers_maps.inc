@@ -68,10 +68,10 @@ function farm_area_default_openlayers_maps() {
  */
 function farm_area_default_openlayers_maps_alter(&$maps) {
 
-  // Add areas layer to farm_geofield* maps.
+  // Add "all areas" group layer to farm_geofield* maps.
   foreach ($maps as &$map) {
     if (substr($map->machine_name, 0, 17) == 'farm_map_geofield') {
-      array_unshift($map->options['layers'], 'farm_area_layer_areas');
+      $map->options['layers'][] = 'farm_area_layer_areas_group';
     }
   }
 }

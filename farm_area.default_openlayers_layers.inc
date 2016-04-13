@@ -50,7 +50,7 @@ function farm_area_default_openlayers_layers() {
     $export[$layer_name] = $ol_layer;
   }
 
-  // Define a layer group for all area type layers.
+  // Define a layer group for individual area type layers.
   $ol_layer = new stdClass();
   $ol_layer->disabled = FALSE; /* Edit this to true to make a default ol_layer disabled initially */
   $ol_layer->api_version = 1;
@@ -81,6 +81,24 @@ function farm_area_default_openlayers_layers() {
     'style' => 'farm_map_style_grey',
   );
   $export['farm_area_layer_areas'] = $ol_layer;
+
+  // Define a layer group for the "all areas" layer.
+  $ol_layer = new stdClass();
+  $ol_layer->disabled = FALSE; /* Edit this to true to make a default ol_layer disabled initially */
+  $ol_layer->api_version = 1;
+  $ol_layer->machine_name = 'farm_area_layer_areas_group';
+  $ol_layer->name = 'Farm Area Layer Group (all areas)';
+  $ol_layer->description = '';
+  $ol_layer->factory_service = 'openlayers.Layer:Group';
+  $ol_layer->options = array(
+    'source' => '',
+    'visible' => 1,
+    'grouptitle' => 'Areas layer',
+    'grouplayers' => array(
+      'farm_area_layer_areas'
+    ),
+  );
+  $export['farm_area_layer_areas_group'] = $ol_layer;
 
   return $export;
 }
