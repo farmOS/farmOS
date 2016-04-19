@@ -45,7 +45,7 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['header']['area_text_custom']['id'] = 'area_text_custom';
   $handler->display->display_options['header']['area_text_custom']['table'] = 'views';
   $handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
-  $handler->display->display_options['header']['area_text_custom']['content'] = '<h4>Hierarchy <small>' . l('(change)', 'admin/structure/taxonomy/farm_animal_groups', array('query' => array('destination' => 'farm/assets/animals/groups'))) . '</small></h4>';
+  $handler->display->display_options['header']['area_text_custom']['content'] = '<h4>Hierarchy <small><a href="/admin/structure/taxonomy/farm_animal_groups?destination=farm/assets/animals/groups">(change)</a></small></h4>';
   /* No results behavior: Global: Unfiltered text */
   $handler->display->display_options['empty']['area_text_custom']['id'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
@@ -148,7 +148,7 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['header']['area_text_custom']['id'] = 'area_text_custom';
   $handler->display->display_options['header']['area_text_custom']['table'] = 'views';
   $handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
-  $handler->display->display_options['header']['area_text_custom']['content'] = '<h4>Hierarchy <small>' . l('(change)', 'admin/structure/taxonomy/farm_animal_types', array('query' => array('destination' => 'farm/assets/animals/types'))) . '</small></h4>';
+  $handler->display->display_options['header']['area_text_custom']['content'] = '<h4>Hierarchy <small><a href="/admin/structure/taxonomy/farm_animal_types?destination=farm/assets/animals/types">(change)</a></small></h4>';
   /* No results behavior: Global: Unfiltered text */
   $handler->display->display_options['empty']['area_text_custom']['id'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
@@ -400,6 +400,15 @@ function farm_livestock_views_default_views() {
     'view_mode' => 'full',
   );
   $handler->display->display_options['fields']['field_farm_animal_tag']['delta_offset'] = '0';
+  /* Field: Farm asset: Description */
+  $handler->display->display_options['fields']['field_farm_description']['id'] = 'field_farm_description';
+  $handler->display->display_options['fields']['field_farm_description']['table'] = 'field_data_field_farm_description';
+  $handler->display->display_options['fields']['field_farm_description']['field'] = 'field_farm_description';
+  $handler->display->display_options['fields']['field_farm_description']['alter']['trim_whitespace'] = TRUE;
+  $handler->display->display_options['fields']['field_farm_description']['alter']['max_length'] = '140';
+  $handler->display->display_options['fields']['field_farm_description']['alter']['more_link'] = TRUE;
+  $handler->display->display_options['fields']['field_farm_description']['alter']['strip_tags'] = TRUE;
+  $handler->display->display_options['fields']['field_farm_description']['alter']['trim'] = TRUE;
   /* Field: Log: To */
   $handler->display->display_options['fields']['field_farm_move_to']['id'] = 'field_farm_move_to';
   $handler->display->display_options['fields']['field_farm_move_to']['table'] = 'field_data_field_farm_move_to';
