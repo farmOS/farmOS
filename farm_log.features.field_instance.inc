@@ -541,7 +541,7 @@ function farm_log_field_default_field_instances() {
     'entity_type' => 'log',
     'field_name' => 'field_farm_quantity',
     'label' => 'Quantity',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
     ),
