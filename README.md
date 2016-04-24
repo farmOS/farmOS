@@ -14,7 +14,7 @@ DEPENDENCIES
 
 This module depends on the following modules:
 
- * Log (http://drupal.org/project/log)
+ * Farm Log (http://drupal.org/project/farm_log)
 
 INSTALLATION
 ------------

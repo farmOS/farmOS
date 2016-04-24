@@ -98,14 +98,14 @@ function farm_admin_dashboard() {
   $output = '';
 
   // Render the "Plan" block display.
-  $view = views_get_view('log_plan');
+  $view = views_get_view('farm_log');
   $preview = $view->preview('block_plan');
   $title = $title = $view->get_title();
   $output .= '<h2 id="' . $title . '">' . $title . '</h3>' . $preview;
 
   // Render the "Late tasks" block display (only if there are results).
-  $view = views_get_view('log_plan');
-  $preview = $view->preview('block_late');
+  $view = views_get_view('farm_log');
+  $preview = $view->preview('block_late_tasks');
   if (!empty($view->total_rows)) {
     $title = $title = $view->get_title();
     $output .= '<h2 id="' . $title . '">' . $title . '</h3>' . $preview;
