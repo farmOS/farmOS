@@ -13,3 +13,43 @@ function farm_crop_update_7000(&$sandbox) {
   db_query("UPDATE {field_data_$field} SET $column = 'bed' WHERE $column = 'rowbed'");
   db_query("UPDATE {field_revision_$field} SET $column = 'bed' WHERE $column = 'rowbed'");
 }
+
+/**
+ * Migrate Planting field on Harvest and Input logs to Assets field.
+ */
+function farm_crop_update_7001(&$sandbox) {
+
+  // Start by reverting the field instance component of this module
+  // so that the new geofield is available
+  features_revert(array('farm_crop' => array('field_instance')));
+
+  // Load all harvest and input logs.
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'log');
+  $query->entityCondition('bundle', array('farm_harvest', 'farm_input'), 'IN');
+  $result = $query->execute();
+  if (isset($result['log'])) {
+    $ids = array_keys($result['log']);
+    $logs = entity_load('log', $ids);
+  }
+
+  // If logs were loaded, iterate through them...
+  if (!empty($logs)) {
+    foreach ($logs as $log) {
+
+      // Copy the planting to the new asset field.
+      if (!empty($log->field_farm_planting[LANGUAGE_NONE][0])) {
+        $log->field_farm_asset[LANGUAGE_NONE][] = $log->field_farm_planting[LANGUAGE_NONE][0];
+      }
+
+      // Save the log.
+      log_save($log);
+    }
+  }
+
+  // Delete the planting field instances from harvest and input logs.
+  $field = field_info_instance('log', 'field_farm_planting', 'farm_harvest');
+  field_delete_instance($field);
+  $field = field_info_instance('log', 'field_farm_planting', 'farm_input');
+  field_delete_instance($field);
+}
