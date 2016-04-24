@@ -453,7 +453,7 @@ function farm_crop_field_default_field_instances() {
     'bundle' => 'farm_input',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'What area(s) is this input being applied to?',
+    'description' => 'What areas is this input being applied to?',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -471,7 +471,7 @@ function farm_crop_field_default_field_instances() {
     ),
     'entity_type' => 'log',
     'field_name' => 'field_farm_area',
-    'label' => 'Area',
+    'label' => 'Areas',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -1385,8 +1385,8 @@ function farm_crop_field_default_field_instances() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Application Method');
-  t('Area');
   t('Assign this planting to a season. You can manage these options in the ' . l('Seasons', 'admin/structure/taxonomy/farm_season') . ' vocabulary.');
+  t('Areas');
   t('Assets');
   t('Companions');
   t('Crop');
@@ -1417,7 +1417,7 @@ function farm_crop_field_default_field_instances() {
   t('This field is optional. It allows you to store geospatial data along with this harvest.');
   t('This field is optional. It allows you to store geospatial data along with this input.');
   t('Transplantings must reference a specific planting. You can view a list of all plantings, and add new ones, from the ' . l('Plantings list', 'farm/assets/plantings') . '.');
-  t('What area(s) is this input being applied to?');
+  t('What areas is this input being applied to?');
   t('What assets does this harvest pertain to?');
   t('What assets does this input pertain to?');
   t('What material is being applied? As you type, you will have the option of selecting from materials that you\'ve entered in the past.');

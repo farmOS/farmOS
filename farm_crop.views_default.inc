@@ -607,7 +607,7 @@ if (!empty($farm_asset)) {
   $handler->validated_title = entity_label(\'farm_asset\', $farm_asset);
   return TRUE;
 }';
-  /* Contextual filter: Log: Area (field_farm_area) */
+  /* Contextual filter: Log: Areas (field_farm_area) */
   $handler->display->display_options['arguments']['field_farm_area_tid']['id'] = 'field_farm_area_tid';
   $handler->display->display_options['arguments']['field_farm_area_tid']['table'] = 'field_data_field_farm_area';
   $handler->display->display_options['arguments']['field_farm_area_tid']['field'] = 'field_farm_area_tid';
