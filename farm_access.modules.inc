@@ -34,9 +34,6 @@ function farm_access_farm_access_perms($role) {
 function log_farm_access_perms($role) {
   $perms = array();
 
-  // Access farm dashboard.
-  $perms[] = 'view log plan';
-
   // Access RESTful Web Services log resources.
   $perms[] = 'access resource log';
 
