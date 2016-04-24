@@ -159,6 +159,52 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_harvest-field_farm_asset'.
+  $field_instances['log-farm_harvest-field_farm_asset'] = array(
+    'bundle' => 'farm_harvest',
+    'deleted' => 0,
+    'description' => 'What assets does this harvest pertain to?',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => 1,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 0,
+      ),
+      'token' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_asset',
+    'label' => 'Assets',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference_view_widget',
+      'settings' => array(
+        'allow_duplicates' => 0,
+        'close_modal' => 1,
+        'pass_argument' => 1,
+        'pass_arguments' => '',
+        'rendered_entity' => 0,
+        'view' => 'farm_asset_entityreference_view|entityreference_view_widget',
+        'view_mode' => 'full',
+      ),
+      'type' => 'entityreference_view_widget',
+      'weight' => 2,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_harvest-field_farm_files'.
   $field_instances['log-farm_harvest-field_farm_files'] = array(
     'bundle' => 'farm_harvest',
@@ -197,7 +243,7 @@ function farm_crop_field_default_field_instances() {
         'progress_indicator' => 'bar',
       ),
       'type' => 'file_generic',
-      'weight' => 6,
+      'weight' => 7,
     ),
   );
 
@@ -263,7 +309,7 @@ function farm_crop_field_default_field_instances() {
         'use_geocoder' => 1,
       ),
       'type' => 'openlayers_geofield',
-      'weight' => 4,
+      'weight' => 5,
     ),
   );
 
@@ -319,7 +365,7 @@ function farm_crop_field_default_field_instances() {
         'progress_indicator' => 'bar',
       ),
       'type' => 'image_image',
-      'weight' => 5,
+      'weight' => 6,
     ),
   );
 
@@ -359,7 +405,7 @@ function farm_crop_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 3,
+      'weight' => 4,
     ),
   );
 
@@ -377,7 +423,7 @@ function farm_crop_field_default_field_instances() {
           'link' => 1,
         ),
         'type' => 'entityreference_label',
-        'weight' => 0,
+        'weight' => 6,
       ),
       'token' => array(
         'label' => 'above',
@@ -402,7 +448,7 @@ function farm_crop_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 1,
+      'weight' => 9,
     ),
   );
 
@@ -441,7 +487,7 @@ function farm_crop_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 2,
+      'weight' => 3,
     ),
   );
 
@@ -481,7 +527,53 @@ function farm_crop_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'taxonomy_autocomplete',
-      'weight' => 3,
+      'weight' => 4,
+    ),
+  );
+
+  // Exported field_instance: 'log-farm_input-field_farm_asset'.
+  $field_instances['log-farm_input-field_farm_asset'] = array(
+    'bundle' => 'farm_input',
+    'deleted' => 0,
+    'description' => 'What assets does this input pertain to?',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => 1,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 3,
+      ),
+      'token' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_asset',
+    'label' => 'Assets',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference_view_widget',
+      'settings' => array(
+        'allow_duplicates' => 0,
+        'close_modal' => 1,
+        'pass_argument' => 1,
+        'pass_arguments' => '',
+        'rendered_entity' => 0,
+        'view' => 'farm_asset_entityreference_view|entityreference_view_widget',
+        'view_mode' => 'full',
+      ),
+      'type' => 'entityreference_view_widget',
+      'weight' => 5,
     ),
   );
 
@@ -496,7 +588,7 @@ function farm_crop_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_table',
-        'weight' => 9,
+        'weight' => 10,
       ),
       'token' => array(
         'label' => 'above',
@@ -523,7 +615,7 @@ function farm_crop_field_default_field_instances() {
         'progress_indicator' => 'bar',
       ),
       'type' => 'file_generic',
-      'weight' => 11,
+      'weight' => 12,
     ),
   );
 
@@ -542,7 +634,7 @@ function farm_crop_field_default_field_instances() {
           'map_layer_preset' => 'farm_map_geofield_formatter:openlayers_geofield_layer_formatter',
         ),
         'type' => 'openlayers_geofield',
-        'weight' => 10,
+        'weight' => 11,
       ),
       'token' => array(
         'label' => 'above',
@@ -589,7 +681,7 @@ function farm_crop_field_default_field_instances() {
         'use_geocoder' => 1,
       ),
       'type' => 'openlayers_geofield',
-      'weight' => 9,
+      'weight' => 10,
     ),
   );
 
@@ -613,7 +705,7 @@ function farm_crop_field_default_field_instances() {
           'colorbox_node_style_first' => 'large',
         ),
         'type' => 'colorbox',
-        'weight' => 8,
+        'weight' => 9,
       ),
       'token' => array(
         'label' => 'above',
@@ -645,7 +737,7 @@ function farm_crop_field_default_field_instances() {
         'progress_indicator' => 'bar',
       ),
       'type' => 'image_image',
-      'weight' => 10,
+      'weight' => 11,
     ),
   );
 
@@ -661,7 +753,7 @@ function farm_crop_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 6,
+        'weight' => 7,
       ),
       'token' => array(
         'label' => 'above',
@@ -685,7 +777,7 @@ function farm_crop_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 7,
+      'weight' => 8,
     ),
   );
 
@@ -701,7 +793,7 @@ function farm_crop_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 4,
+        'weight' => 5,
       ),
       'token' => array(
         'label' => 'above',
@@ -725,7 +817,7 @@ function farm_crop_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 5,
+      'weight' => 6,
     ),
   );
 
@@ -741,7 +833,7 @@ function farm_crop_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 5,
+        'weight' => 6,
       ),
       'token' => array(
         'label' => 'above',
@@ -765,7 +857,7 @@ function farm_crop_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 6,
+      'weight' => 7,
     ),
   );
 
@@ -805,7 +897,7 @@ function farm_crop_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'taxonomy_autocomplete',
-      'weight' => 1,
+      'weight' => 2,
     ),
   );
 
@@ -821,7 +913,7 @@ function farm_crop_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 7,
+        'weight' => 8,
       ),
       'token' => array(
         'label' => 'above',
@@ -845,7 +937,7 @@ function farm_crop_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 8,
+      'weight' => 9,
     ),
   );
 
@@ -863,7 +955,7 @@ function farm_crop_field_default_field_instances() {
           'link' => 1,
         ),
         'type' => 'entityreference_label',
-        'weight' => 3,
+        'weight' => 4,
       ),
       'token' => array(
         'label' => 'above',
@@ -888,7 +980,7 @@ function farm_crop_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 4,
+      'weight' => 14,
     ),
   );
 
@@ -927,7 +1019,7 @@ function farm_crop_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 2,
+      'weight' => 3,
     ),
   );
 
@@ -1381,6 +1473,7 @@ function farm_crop_field_default_field_instances() {
   t('Application Method');
   t('Area');
   t('Assign this planting to a season. You can manage these options in the ' . l('Seasons', 'admin/structure/taxonomy/farm_season') . ' vocabulary.');
+  t('Assets');
   t('Companions');
   t('Crop');
   t('Crop family');
@@ -1411,6 +1504,8 @@ function farm_crop_field_default_field_instances() {
   t('This field is optional. It allows you to store geospatial data along with this input.');
   t('Transplantings must reference a specific planting. You can view a list of all plantings, and add new ones, from the ' . l('Plantings list', 'farm/assets/plantings') . '.');
   t('What area(s) is this input being applied to?');
+  t('What assets does this harvest pertain to?');
+  t('What assets does this input pertain to?');
   t('What material is being applied? As you type, you will have the option of selecting from materials that you\'ve entered in the past.');
   t('What was the purpose of this input?');
   t('Where was this input obtained? Who manufactured it?');
