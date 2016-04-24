@@ -409,49 +409,6 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_harvest-field_farm_planting'.
-  $field_instances['log-farm_harvest-field_farm_planting'] = array(
-    'bundle' => 'farm_harvest',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => 'Harvests must reference a specific planting. You can view a list of all plantings, and add new ones, from the ' . l('Plantings list', 'farm/assets/plantings') . '.',
-    'display' => array(
-      'default' => array(
-        'label' => 'inline',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => 1,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 6,
-      ),
-      'token' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'log',
-    'field_name' => 'field_farm_planting',
-    'label' => 'Planting',
-    'required' => 1,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'entityreference',
-      'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
-      ),
-      'type' => 'entityreference_autocomplete',
-      'weight' => 9,
-    ),
-  );
-
   // Exported field_instance: 'log-farm_harvest-field_farm_quantity'.
   $field_instances['log-farm_harvest-field_farm_quantity'] = array(
     'bundle' => 'farm_harvest',
@@ -938,49 +895,6 @@ function farm_crop_field_default_field_instances() {
       ),
       'type' => 'text_textarea',
       'weight' => 9,
-    ),
-  );
-
-  // Exported field_instance: 'log-farm_input-field_farm_planting'.
-  $field_instances['log-farm_input-field_farm_planting'] = array(
-    'bundle' => 'farm_input',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => 'Does this input apply to a specific planting?',
-    'display' => array(
-      'default' => array(
-        'label' => 'inline',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => 1,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 4,
-      ),
-      'token' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'log',
-    'field_name' => 'field_farm_planting',
-    'label' => 'Planting',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'entityreference',
-      'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
-      ),
-      'type' => 'entityreference_autocomplete',
-      'weight' => 14,
     ),
   );
 
