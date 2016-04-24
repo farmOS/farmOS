@@ -15,7 +15,7 @@ function farm_log_field_default_field_instances() {
     'bundle' => 'farm_activity',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'What area(s) did this activity take place in?',
+    'description' => 'What areas did this activity take place in?',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -27,7 +27,7 @@ function farm_log_field_default_field_instances() {
     ),
     'entity_type' => 'log',
     'field_name' => 'field_farm_area',
-    'label' => 'Area',
+    'label' => 'Areas',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -559,7 +559,7 @@ function farm_log_field_default_field_instances() {
     'bundle' => 'farm_observation',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'What area(s) did this observation take place in?',
+    'description' => 'What areas did this observation take place in?',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -571,7 +571,7 @@ function farm_log_field_default_field_instances() {
     ),
     'entity_type' => 'log',
     'field_name' => 'field_farm_area',
-    'label' => 'Area',
+    'label' => 'Areas',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -879,7 +879,7 @@ function farm_log_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Area');
+  t('Areas');
   t('Assets');
   t('Files');
   t('From');
@@ -894,8 +894,8 @@ function farm_log_field_default_field_instances() {
   t('This field is optional. It allows you to store geospatial data along with this observation.');
   t('To');
   t('Type');
-  t('What area(s) did this activity take place in?');
-  t('What area(s) did this observation take place in?');
+  t('What areas did this activity take place in?');
+  t('What areas did this observation take place in?');
   t('What assets are being moved?');
   t('What assets does this activity pertain to?');
   t('What assets does this observation pertain to?');

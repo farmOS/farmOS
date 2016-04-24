@@ -697,7 +697,7 @@ function farm_log_views_default_views() {
   $handler->display->display_options['fields']['field_farm_asset']['settings'] = array(
     'link' => 1,
   );
-  /* Field: Log: Area */
+  /* Field: Log: Areas */
   $handler->display->display_options['fields']['field_farm_area']['id'] = 'field_farm_area';
   $handler->display->display_options['fields']['field_farm_area']['table'] = 'field_data_field_farm_area';
   $handler->display->display_options['fields']['field_farm_area']['field'] = 'field_farm_area';
@@ -721,7 +721,7 @@ function farm_log_views_default_views() {
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary_options']['items_per_page'] = '25';
-  /* Contextual filter: Log: Area (field_farm_area) */
+  /* Contextual filter: Log: Areas (field_farm_area) */
   $handler->display->display_options['arguments']['field_farm_area_tid']['id'] = 'field_farm_area_tid';
   $handler->display->display_options['arguments']['field_farm_area_tid']['table'] = 'field_data_field_farm_area';
   $handler->display->display_options['arguments']['field_farm_area_tid']['field'] = 'field_farm_area_tid';
@@ -1085,7 +1085,7 @@ function farm_log_views_default_views() {
   $handler->display->display_options['fields']['field_farm_asset']['settings'] = array(
     'link' => 1,
   );
-  /* Field: Log: Area */
+  /* Field: Log: Areas */
   $handler->display->display_options['fields']['field_farm_area']['id'] = 'field_farm_area';
   $handler->display->display_options['fields']['field_farm_area']['table'] = 'field_data_field_farm_area';
   $handler->display->display_options['fields']['field_farm_area']['field'] = 'field_farm_area';
@@ -1109,7 +1109,7 @@ function farm_log_views_default_views() {
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary_options']['items_per_page'] = '25';
-  /* Contextual filter: Log: Area (field_farm_area) */
+  /* Contextual filter: Log: Areas (field_farm_area) */
   $handler->display->display_options['arguments']['field_farm_area_tid']['id'] = 'field_farm_area_tid';
   $handler->display->display_options['arguments']['field_farm_area_tid']['table'] = 'field_data_field_farm_area';
   $handler->display->display_options['arguments']['field_farm_area_tid']['field'] = 'field_farm_area_tid';
@@ -1659,7 +1659,7 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['fields']['field_farm_asset']['settings'] = array(
     'link' => 1,
   );
-  /* Field: Log: Area */
+  /* Field: Log: Areas */
   $handler->display->display_options['fields']['field_farm_area']['id'] = 'field_farm_area';
   $handler->display->display_options['fields']['field_farm_area']['table'] = 'field_data_field_farm_area';
   $handler->display->display_options['fields']['field_farm_area']['field'] = 'field_farm_area';
@@ -1707,7 +1707,7 @@ if (!empty($farm_asset)) {
   $handler->validated_title = entity_label(\'farm_asset\', $farm_asset);
   return TRUE;
 }';
-  /* Contextual filter: Log: Area (field_farm_area) */
+  /* Contextual filter: Log: Areas (field_farm_area) */
   $handler->display->display_options['arguments']['field_farm_area_tid']['id'] = 'field_farm_area_tid';
   $handler->display->display_options['arguments']['field_farm_area_tid']['table'] = 'field_data_field_farm_area';
   $handler->display->display_options['arguments']['field_farm_area_tid']['field'] = 'field_farm_area_tid';
