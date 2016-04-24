@@ -592,6 +592,11 @@ if (!empty($farm_asset)) {
     'link' => 1,
   );
   $handler->display->display_options['fields']['field_farm_asset']['delta_offset'] = '0';
+  /* Field: Log: Areas */
+  $handler->display->display_options['fields']['field_farm_area']['id'] = 'field_farm_area';
+  $handler->display->display_options['fields']['field_farm_area']['table'] = 'field_data_field_farm_area';
+  $handler->display->display_options['fields']['field_farm_area']['field'] = 'field_farm_area';
+  $handler->display->display_options['fields']['field_farm_area']['delta_offset'] = '0';
   /* Sort criterion: Log: Timestamp */
   $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
   $handler->display->display_options['sorts']['timestamp']['table'] = 'log';
