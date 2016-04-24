@@ -39,24 +39,6 @@ function farm_crop_default_farm_asset_type() {
  */
 function farm_crop_default_log_type() {
   $items = array();
-  $items['farm_harvest'] = entity_import('log_type', '{
-    "type" : "farm_harvest",
-    "label" : "Harvest",
-    "weight" : 0,
-    "name_pattern" : "Harvest [log:field-farm-asset]",
-    "name_edit" : "1",
-    "done" : "1",
-    "rdf_mapping" : []
-  }');
-  $items['farm_input'] = entity_import('log_type', '{
-    "type" : "farm_input",
-    "label" : "Input",
-    "weight" : 0,
-    "name_pattern" : "[log:field-farm-material] [log:field-farm-area] [log:field-farm-asset]",
-    "name_edit" : "1",
-    "done" : "1",
-    "rdf_mapping" : []
-  }');
   $items['farm_seeding'] = entity_import('log_type', '{
     "type" : "farm_seeding",
     "label" : "Seeding",
