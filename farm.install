@@ -324,6 +324,17 @@ function farm_update_7017(&$sandbox) {
 }
 
 /**
+ * Uninstall Log Plan module.
+ */
+function farm_update_7018(&$sandbox) {
+  $modules = array(
+    'log_plan',
+  );
+  module_disable($modules);
+  drupal_uninstall_modules($modules);
+}
+
+/**
  * Helper function: enable modules.
  */
 function _farm_enable_modules($modules = array()) {
