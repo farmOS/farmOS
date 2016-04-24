@@ -326,6 +326,14 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['field_farm_quantity']['settings'] = array(
     'view_mode' => 'full',
   );
+  /* Field: Log: Assets */
+  $handler->display->display_options['fields']['field_farm_asset']['id'] = 'field_farm_asset';
+  $handler->display->display_options['fields']['field_farm_asset']['table'] = 'field_data_field_farm_asset';
+  $handler->display->display_options['fields']['field_farm_asset']['field'] = 'field_farm_asset';
+  $handler->display->display_options['fields']['field_farm_asset']['settings'] = array(
+    'link' => 1,
+  );
+  $handler->display->display_options['fields']['field_farm_asset']['delta_offset'] = '0';
   /* Sort criterion: Log: Timestamp */
   $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
   $handler->display->display_options['sorts']['timestamp']['table'] = 'log';
@@ -576,6 +584,14 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['fields']['field_farm_quantity']['settings'] = array(
     'view_mode' => 'full',
   );
+  /* Field: Log: Assets */
+  $handler->display->display_options['fields']['field_farm_asset']['id'] = 'field_farm_asset';
+  $handler->display->display_options['fields']['field_farm_asset']['table'] = 'field_data_field_farm_asset';
+  $handler->display->display_options['fields']['field_farm_asset']['field'] = 'field_farm_asset';
+  $handler->display->display_options['fields']['field_farm_asset']['settings'] = array(
+    'link' => 1,
+  );
+  $handler->display->display_options['fields']['field_farm_asset']['delta_offset'] = '0';
   /* Sort criterion: Log: Timestamp */
   $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
   $handler->display->display_options['sorts']['timestamp']['table'] = 'log';
