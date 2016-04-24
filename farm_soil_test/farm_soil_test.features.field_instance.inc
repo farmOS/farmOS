@@ -15,7 +15,7 @@ function farm_soil_test_field_default_field_instances() {
     'bundle' => 'farm_soil_test',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'What area(s) were this soil sample taken from?',
+    'description' => 'What areas were this soil sample taken from?',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -27,7 +27,7 @@ function farm_soil_test_field_default_field_instances() {
     ),
     'entity_type' => 'log',
     'field_name' => 'field_farm_area',
-    'label' => 'Area',
+    'label' => 'Areas',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -295,7 +295,7 @@ function farm_soil_test_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Area');
+  t('Areas');
   t('Files');
   t('Laboratory');
   t('List the names of soils that are included in this sample. For soil maps and soil names, visit http://websoilsurvey.nrcs.usda.gov/app');
@@ -304,7 +304,7 @@ function farm_soil_test_field_default_field_instances() {
   t('Sample Points');
   t('Soil Names');
   t('Use the map to pinpoint the location(s) from which this sample is taken. If you are preparing a soil test, you may be sampling multiple points within a given area. All the points that comprise this sample should be included.');
-  t('What area(s) were this soil sample taken from?');
+  t('What areas were this soil sample taken from?');
   t('What laboratory performed the soil test?');
 
   return $field_instances;

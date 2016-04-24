@@ -174,7 +174,7 @@ function farm_soil_test_views_default_views() {
   $handler->display->display_options['fields']['field_farm_soil_lab']['table'] = 'field_data_field_farm_soil_lab';
   $handler->display->display_options['fields']['field_farm_soil_lab']['field'] = 'field_farm_soil_lab';
   $handler->display->display_options['fields']['field_farm_soil_lab']['label'] = 'Lab';
-  /* Field: Log: Area */
+  /* Field: Log: Areas */
   $handler->display->display_options['fields']['field_farm_area']['id'] = 'field_farm_area';
   $handler->display->display_options['fields']['field_farm_area']['table'] = 'field_data_field_farm_area';
   $handler->display->display_options['fields']['field_farm_area']['field'] = 'field_farm_area';
@@ -191,7 +191,7 @@ function farm_soil_test_views_default_views() {
   $handler->display->display_options['sorts']['id']['field'] = 'id';
   $handler->display->display_options['sorts']['id']['order'] = 'DESC';
   $handler->display->display_options['sorts']['id']['expose']['label'] = 'Log ID';
-  /* Contextual filter: Log: Area (field_farm_area) */
+  /* Contextual filter: Log: Areas (field_farm_area) */
   $handler->display->display_options['arguments']['field_farm_area_tid']['id'] = 'field_farm_area_tid';
   $handler->display->display_options['arguments']['field_farm_area_tid']['table'] = 'field_data_field_farm_area';
   $handler->display->display_options['arguments']['field_farm_area_tid']['field'] = 'field_farm_area_tid';
