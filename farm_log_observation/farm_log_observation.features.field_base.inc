@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * farm_log.features.field_base.inc
+ * farm_log_observation.features.field_base.inc
  */
 
 /**
  * Implements hook_field_default_field_bases().
  */
-function farm_log_field_default_field_bases() {
+function farm_log_observation_field_default_field_bases() {
   $field_bases = array();
 
   // Exported field_base: 'field_farm_observation_type'.

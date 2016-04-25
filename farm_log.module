@@ -20,44 +20,6 @@ function farm_log_permission() {
 }
 
 /**
- * Implements hook_farm_access_perms().
- */
-function farm_log_farm_access_perms($role) {
-
-  // Assemble a list of log types and taxonomies provided by this module.
-  $types = array(
-    'log' => array(
-      'farm_observation',
-    ),
-    'taxonomy' => array(
-      'farm_observation_types',
-      'farm_priority',
-    ),
-  );
-
-  // Grant different CRUD permissions based on the role.
-  $perms = array();
-  switch ($role) {
-
-    // Farm Manager and Worker
-    case 'Farm Manager':
-    case 'Farm Worker':
-      $perms = farm_access_entity_perms($types);
-      break;
-
-    // Farm Viewer
-    case 'Farm Viewer':
-      $perms = farm_access_entity_perms($types, array('view'));
-      break;
-  }
-
-  // Add 'view farm logs' permission.
-  $perms[] = 'view farm logs';
-
-  return $perms;
-}
-
-/**
  * Implements hook_farm_admin_actions().
  */
 function farm_log_farm_admin_actions() {
@@ -73,62 +35,8 @@ function farm_log_farm_admin_actions() {
       ),
       'weight' => 1,
     ),
-    'observation' => array(
-      'title' => t('Add an observation'),
-      'href' => 'log/add/farm_observation',
-      'assets' => array(
-        'all',
-      ),
-      'views' => array(
-        'farm_log_observation',
-      ),
-      'paths' => array(
-        'taxonomy/term/%',
-      ),
-    ),
   );
   return $actions;
-}
-
-/**
- * Implements hook_farm_taxonomy_term_view_views().
- */
-function farm_log_farm_taxonomy_term_view_views($term) {
-
-  // If the term is not an area, bail.
-  if ($term->vocabulary_machine_name != 'farm_areas') {
-    return array();
-  }
-
-  // Return a list of Views to include on Areas.
-  return array(
-
-    // Observations in this area.
-    array(
-      'name' => 'farm_log_observation',
-      'arg' => 2,
-    ),
-  );
-}
-
-/**
- * Implements hook_farm_area_links().
- */
-function farm_log_farm_area_links($id) {
-  $links = array();
-
-  // Add link to observations.
-  $view = views_get_view('farm_log_observation');
-  $view->preview('default', array('all', $id));
-  if ($view->total_rows > 0) {
-    $links[] = array(
-      'title' => t('Observations') . ': ' . $view->total_rows,
-      'href' => 'farm/logs/observations/all/' . $id,
-      'weight' => -100,
-    );
-  }
-
-  return $links;
 }
 
 /**
@@ -152,15 +60,6 @@ function farm_log_form_alter(&$form, &$form_state, $form_id) {
 
       // Alter the form with the farm_log helper function.
       farm_log_form_prepopulate_area($form, 'field_farm_area');
-    }
-
-    // If this is a farm_observation...
-    if ($form['#bundle'] == 'farm_observation') {
-
-      // If the observation type field is empty, prepopulate it with "General".
-      if (empty($form['field_farm_observation_type'][LANGUAGE_NONE]['#default_value'])) {
-        $form['field_farm_observation_type'][LANGUAGE_NONE]['#default_value'] = t('General');
-      }
     }
   }
 }

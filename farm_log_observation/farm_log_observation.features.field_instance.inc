@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * farm_log.features.field_instance.inc
+ * farm_log_observation.features.field_instance.inc
  */
 
 /**
  * Implements hook_field_default_field_instances().
  */
-function farm_log_field_default_field_instances() {
+function farm_log_observation_field_default_field_instances() {
   $field_instances = array();
 
   // Exported field_instance: 'log-farm_observation-field_farm_area'.
@@ -335,43 +335,19 @@ function farm_log_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Application Method');
   t('Areas');
   t('Assets');
-  t('Describe the quantity of this harvest, using a value and a unit of measurement. For example, if you harvested 100 pounds of potatoes, enter "100" in the Value field, and "lbs" in the Units field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.');
-  t('Describe the quantity of this input, using a value and a unit of measurement. For example, if you used 10 gallons of liquid fertilizer, enter "10" in the Value field, and "gallons" in the Units field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.');
   t('Files');
-  t('From');
   t('Geometry');
-  t('How was this input applied?');
-  t('Material');
   t('Notes');
   t('Optionally, use this quantity field to record an observed quantity.');
   t('Photo(s)');
-  t('Purpose');
   t('Quantity');
-  t('Source/Manufacturer');
-  t('Specify the area(s) that assets are being moved to. If you need to specify more precise locations, use the Geometry field below.');
-  t('This field is optional. It allows you to specify a more precise geometry for assets referenced by this particular movement. If you leave it blank, the geometry will be copied from the area that assets are moving to (if available).');
-  t('This field is optional. It allows you to store geospatial data along with this activity.');
-  t('This field is optional. It allows you to store geospatial data along with this harvest.');
-  t('This field is optional. It allows you to store geospatial data along with this input.');
   t('This field is optional. It allows you to store geospatial data along with this observation.');
-  t('To');
   t('Type');
-  t('What areas did this activity take place in?');
   t('What areas did this observation take place in?');
-  t('What areas is this input being applied to?');
-  t('What assets are being moved?');
-  t('What assets does this activity pertain to?');
-  t('What assets does this harvest pertain to?');
-  t('What assets does this input pertain to?');
   t('What assets does this observation pertain to?');
-  t('What material is being applied? As you type, you will have the option of selecting from materials that you\'ve entered in the past.');
   t('What type of observation is this. Use this to organize your observations into categories for easy viewing later. As you type, you will have the option of selecting from a list of types you entered in the past.');
-  t('What was the purpose of this input?');
-  t('Where is it moving from? This field is optional. You may leave this blank as a way of setting the initial location of an object.');
-  t('Where was this input obtained? Who manufactured it?');
 
   return $field_instances;
 }
