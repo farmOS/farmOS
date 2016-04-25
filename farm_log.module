@@ -30,7 +30,6 @@ function farm_log_farm_access_perms($role) {
   // Assemble a list of log types and taxonomies provided by this module.
   $types = array(
     'log' => array(
-      'farm_activity',
       'farm_harvest',
       'farm_input',
       'farm_movement',
@@ -79,19 +78,6 @@ function farm_log_farm_admin_actions() {
         'farm/logs',
       ),
       'weight' => 1,
-    ),
-    'activity' => array(
-      'title' => t('Add an activity'),
-      'href' => 'log/add/farm_activity',
-      'assets' => array(
-        'all',
-      ),
-      'views' => array(
-        'farm_log_activity',
-      ),
-      'paths' => array(
-        'taxonomy/term/%',
-      ),
     ),
     'harvest' => array(
       'title' => t('Add a harvest'),
@@ -165,12 +151,6 @@ function farm_log_farm_taxonomy_term_view_views($term) {
       'arg' => 2,
     ),
 
-    // Activities in this area.
-    array(
-      'name' => 'farm_log_activity',
-      'arg' => 2,
-    ),
-
     // Inputs in this area.
     array(
       'name' => 'farm_log_input',
@@ -199,17 +179,6 @@ function farm_log_farm_area_links($id) {
       'title' => t('Observations') . ': ' . $view->total_rows,
       'href' => 'farm/logs/observations/all/' . $id,
       'weight' => -100,
-    );
-  }
-
-  // Add link to activities.
-  $view = views_get_view('farm_log_activity');
-  $view->preview('default', array('all', $id));
-  if ($view->total_rows > 0) {
-    $links[] = array(
-      'title' => t('Activities') . ': ' . $view->total_rows,
-      'href' => 'farm/logs/activities/all/' . $id,
-      'weight' => -90,
     );
   }
 
