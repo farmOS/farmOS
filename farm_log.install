@@ -246,3 +246,21 @@ function farm_log_update_7003(&$sandbox) {
     $sandbox['#finished'] = 1;
   }
 }
+
+/**
+ * Enable new sub-modules: Activity, Harvest, Input, Movement, Observation.
+ */
+function farm_log_update_7004(&$sandbox) {
+  $modules = array(
+    'farm_log_activity',
+    'farm_log_harvest',
+    'farm_log_input',
+    'farm_log_movement',
+    'farm_log_observation',
+  );
+  foreach ($modules as $module) {
+    if (!module_exists($module)) {
+      module_enable(array($module));
+    }
+  }
+}
