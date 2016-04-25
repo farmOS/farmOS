@@ -68,6 +68,27 @@ The Farm Log: Harvest sub-module requires:
   * Farm Map (http://drupal.org/project/farm_map)
   * Farm Quantity (http://drupal.org/project/farm_quantity)
 
+The Farm Log: Input sub-module requires:
+
+  * Colorbox (http://drupal.org/project/colorbox)
+  * Ctools (http://drupal.org/project/ctools)
+  * Date (http://drupal.org/project/date)
+  * Entity API (http://drupal.org/project/entity)
+  * Entity Reference (http://drupal.org/project/entityreference)
+  * Entity Reference View Widget (http://drupal.org/project/entityreference_view_widget)
+  * Features (http://drupal.org/project/features)
+  * Field Collection (http://drupal.org/project/field_collection)
+  * Geofield (http://drupal.org/project/geofield)
+  * GeoPHP (http://drupal.org/project/geophp)
+  * Log (http://drupal.org/project/log)
+  * Openlayers (http://drupal.org/project/openlayers)
+  * Views (http://drupal.org/project/views)
+  * Farm Area (http://drupal.org/project/farm_area)
+  * Farm Asset (http://drupal.org/project/farm_asset)
+  * Farm Fields (http://drupal.org/project/farm_fields)
+  * Farm Map (http://drupal.org/project/farm_map)
+  * Farm Quantity (http://drupal.org/project/farm_quantity)
+
 INSTALLATION
 ------------
 

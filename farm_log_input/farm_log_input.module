@@ -1,0 +1,102 @@
+<?php
+/**
+ * @file
+ * Code for the Farm Log: Input feature.
+ */
+
+// Include Features code.
+include_once 'farm_log_input.features.inc';
+
+/**
+ * Implements hook_farm_access_perms().
+ */
+function farm_log_input_farm_access_perms($role) {
+
+  // Assemble a list of log types provided by this module.
+  $types = array(
+    'log' => array(
+      'farm_input',
+    ),
+  );
+
+  // Grant different CRUD permissions based on the role.
+  $perms = array();
+  switch ($role) {
+
+    // Farm Manager and Worker
+    case 'Farm Manager':
+    case 'Farm Worker':
+      $perms = farm_access_entity_perms($types);
+      break;
+
+    // Farm Viewer
+    case 'Farm Viewer':
+      $perms = farm_access_entity_perms($types, array('view'));
+      break;
+  }
+
+  return $perms;
+}
+
+/**
+ * Implements hook_farm_admin_actions().
+ */
+function farm_log_input_farm_admin_actions() {
+
+  // Define farm area actions.
+  $actions = array(
+    'input' => array(
+      'title' => t('Add an input'),
+      'href' => 'log/add/farm_input',
+      'assets' => array(
+        'all',
+      ),
+      'views' => array(
+        'farm_log_input',
+      ),
+      'paths' => array(
+        'taxonomy/term/%',
+      ),
+    ),
+  );
+  return $actions;
+}
+
+/**
+ * Implements hook_farm_taxonomy_term_view_views().
+ */
+function farm_log_input_farm_taxonomy_term_view_views($term) {
+
+  // If the term is not an area, bail.
+  if ($term->vocabulary_machine_name != 'farm_areas') {
+    return array();
+  }
+
+  // Return a list of Views to include on Areas.
+  return array(
+    array(
+      'name' => 'farm_log_input',
+      'arg' => 2,
+    ),
+  );
+}
+
+/**
+ * Implements hook_farm_area_links().
+ */
+function farm_log_input_farm_area_links($id) {
+  $links = array();
+
+  // Add link to inputs.
+  $view = views_get_view('farm_log_input');
+  $view->preview('default', array('all', $id));
+  if ($view->total_rows > 0) {
+    $links[] = array(
+      'title' => t('Inputs') . ': ' . $view->total_rows,
+      'href' => 'farm/logs/inputs/all/' . $id,
+      'weight' => 10,
+    );
+  }
+
+  return $links;
+}
