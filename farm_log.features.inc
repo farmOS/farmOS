@@ -37,15 +37,6 @@ function farm_log_views_api($module = NULL, $api = NULL) {
  */
 function farm_log_default_log_type() {
   $items = array();
-  $items['farm_harvest'] = entity_import('log_type', '{
-    "type" : "farm_harvest",
-    "label" : "Harvest",
-    "weight" : 0,
-    "name_pattern" : "Harvest [log:field-farm-asset]",
-    "name_edit" : "1",
-    "done" : "1",
-    "rdf_mapping" : []
-  }');
   $items['farm_input'] = entity_import('log_type', '{
     "type" : "farm_input",
     "label" : "Input",

@@ -30,7 +30,6 @@ function farm_log_farm_access_perms($role) {
   // Assemble a list of log types and taxonomies provided by this module.
   $types = array(
     'log' => array(
-      'farm_harvest',
       'farm_input',
       'farm_movement',
       'farm_observation',
@@ -78,16 +77,6 @@ function farm_log_farm_admin_actions() {
         'farm/logs',
       ),
       'weight' => 1,
-    ),
-    'harvest' => array(
-      'title' => t('Add a harvest'),
-      'href' => 'log/add/farm_harvest',
-      'assets' => array(
-        'all',
-      ),
-      'views' => array(
-        'farm_log_harvest',
-      ),
     ),
     'input' => array(
       'title' => t('Add an input'),
