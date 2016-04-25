@@ -17,8 +17,6 @@ function farm_crop_farm_access_perms($role) {
       'planting',
     ),
     'log' => array(
-      'farm_harvest',
-      'farm_input',
       'farm_seeding',
       'farm_transplanting',
     ),
@@ -77,29 +75,6 @@ function farm_crop_farm_admin_actions() {
       'href' => 'admin/structure/taxonomy/farm_crops/add',
       'paths' => array(
         'farm/assets/plantings/crops',
-      ),
-    ),
-    'harvest' => array(
-      'title' => t('Add a harvest'),
-      'href' => 'log/add/farm_harvest',
-      'assets' => array(
-        'planting',
-      ),
-      'views' => array(
-        'farm_log_harvest',
-      ),
-    ),
-    'input' => array(
-      'title' => t('Add an input'),
-      'href' => 'log/add/farm_input',
-      'assets' => array(
-        'planting',
-      ),
-      'views' => array(
-        'farm_log_input',
-      ),
-      'paths' => array(
-        'taxonomy/term/%',
       ),
     ),
     'planting' => array(
@@ -215,10 +190,6 @@ function farm_crop_farm_taxonomy_term_view_views($term) {
         'arg' => 1,
         'weight' => -20,
       );
-      $views[] = array(
-        'name' => 'farm_log_input',
-        'arg' => 2,
-      );
       break;
 
     // Farm crops.
@@ -243,17 +214,6 @@ function farm_crop_farm_taxonomy_term_view_views($term) {
  */
 function farm_crop_farm_area_links($id) {
   $links = array();
-
-  // Add link to inputs.
-  $view = views_get_view('farm_log_input');
-  $view->preview('default', array('all', $id));
-  if ($view->total_rows > 0) {
-    $links[] = array(
-      'title' => t('Inputs') . ': ' . $view->total_rows,
-      'href' => 'farm/logs/inputs/all/' . $id,
-      'weight' => 10,
-    );
-  }
 
   // Add link to plantings.
   $view = views_get_view('farm_plantings');
