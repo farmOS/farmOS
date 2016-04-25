@@ -31,6 +31,8 @@ function farm_log_farm_access_perms($role) {
   $types = array(
     'log' => array(
       'farm_activity',
+      'farm_harvest',
+      'farm_input',
       'farm_movement',
       'farm_observation',
     ),
@@ -91,6 +93,29 @@ function farm_log_farm_admin_actions() {
         'taxonomy/term/%',
       ),
     ),
+    'harvest' => array(
+      'title' => t('Add a harvest'),
+      'href' => 'log/add/farm_harvest',
+      'assets' => array(
+        'all',
+      ),
+      'views' => array(
+        'farm_log_harvest',
+      ),
+    ),
+    'input' => array(
+      'title' => t('Add an input'),
+      'href' => 'log/add/farm_input',
+      'assets' => array(
+        'all',
+      ),
+      'views' => array(
+        'farm_log_input',
+      ),
+      'paths' => array(
+        'taxonomy/term/%',
+      ),
+    ),
     'movement' => array(
       'title' => t('Add a movement'),
       'href' => 'log/add/farm_movement',
@@ -146,6 +171,12 @@ function farm_log_farm_taxonomy_term_view_views($term) {
       'arg' => 2,
     ),
 
+    // Inputs in this area.
+    array(
+      'name' => 'farm_log_input',
+      'arg' => 2,
+    ),
+
     // Area asset history (at the bottom).
     array(
       'name' => 'farm_area_assets',
@@ -179,6 +210,17 @@ function farm_log_farm_area_links($id) {
       'title' => t('Activities') . ': ' . $view->total_rows,
       'href' => 'farm/logs/activities/all/' . $id,
       'weight' => -90,
+    );
+  }
+
+  // Add link to inputs.
+  $view = views_get_view('farm_log_input');
+  $view->preview('default', array('all', $id));
+  if ($view->total_rows > 0) {
+    $links[] = array(
+      'title' => t('Inputs') . ': ' . $view->total_rows,
+      'href' => 'farm/logs/inputs/all/' . $id,
+      'weight' => 10,
     );
   }
 
