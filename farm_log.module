@@ -134,15 +134,15 @@ function farm_log_farm_taxonomy_term_view_views($term) {
   // Return a list of Views to include on Areas.
   return array(
 
-    // Activities in this area.
-    array(
-      'name' => 'farm_log_activity',
-      'arg' => 2,
-    ),
-
     // Observations in this area.
     array(
       'name' => 'farm_log_observation',
+      'arg' => 2,
+    ),
+
+    // Activities in this area.
+    array(
+      'name' => 'farm_log_activity',
       'arg' => 2,
     ),
 
@@ -160,17 +160,6 @@ function farm_log_farm_taxonomy_term_view_views($term) {
 function farm_log_farm_area_links($id) {
   $links = array();
 
-  // Add link to activities.
-  $view = views_get_view('farm_log_activity');
-  $view->preview('default', array('all', $id));
-  if ($view->total_rows > 0) {
-    $links[] = array(
-      'title' => t('Activities') . ': ' . $view->total_rows,
-      'href' => 'farm/logs/activities/all/' . $id,
-      'weight' => -100,
-    );
-  }
-
   // Add link to observations.
   $view = views_get_view('farm_log_observation');
   $view->preview('default', array('all', $id));
@@ -178,6 +167,17 @@ function farm_log_farm_area_links($id) {
     $links[] = array(
       'title' => t('Observations') . ': ' . $view->total_rows,
       'href' => 'farm/logs/observations/all/' . $id,
+      'weight' => -100,
+    );
+  }
+
+  // Add link to activities.
+  $view = views_get_view('farm_log_activity');
+  $view->preview('default', array('all', $id));
+  if ($view->total_rows > 0) {
+    $links[] = array(
+      'title' => t('Activities') . ': ' . $view->total_rows,
+      'href' => 'farm/logs/activities/all/' . $id,
       'weight' => -90,
     );
   }
