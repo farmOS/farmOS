@@ -6,7 +6,7 @@
  */
 
 /**
- * Farm log location relationship handler.
+ * Farm log movement location relationship handler.
  *
  * Create a relationship between a farm_asset, and it's most recent movement
  * log entity, in order to determine its current location.
@@ -15,7 +15,7 @@
  * views_handler_relationship_entity_reverse
  * views_handler_relationship_node_term_data
  */
-class farm_log_handler_relationship_location extends views_handler_relationship {
+class farm_log_movement_handler_relationship_location extends views_handler_relationship {
 
   /**
    * {@inheritfoc}
@@ -77,7 +77,7 @@ class farm_log_handler_relationship_location extends views_handler_relationship 
     else {
       $time = REQUEST_TIME;
     }
-    $query = farm_log_asset_movement_query($asset_id_field, $time, $done);
+    $query = farm_log_movement_asset_movement_query($asset_id_field, $time, $done);
 
     // Build the join definition.
     $def = $this->definition;

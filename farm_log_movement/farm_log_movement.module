@@ -1,0 +1,142 @@
+<?php
+/**
+ * @file
+ * Code for the Farm Log: Movement feature.
+ */
+
+// Include Features code.
+include_once 'farm_log_movement.features.inc';
+
+// Include Asset Location code.
+include_once 'farm_log_movement.location.inc';
+
+/**
+ * Implements hook_farm_access_perms().
+ */
+function farm_log_movement_farm_access_perms($role) {
+
+  // Assemble a list of log types provided by this module.
+  $types = array(
+    'log' => array(
+      'farm_movement',
+    ),
+  );
+
+  // Grant different CRUD permissions based on the role.
+  $perms = array();
+  switch ($role) {
+
+    // Farm Manager and Worker
+    case 'Farm Manager':
+    case 'Farm Worker':
+      $perms = farm_access_entity_perms($types);
+      break;
+
+    // Farm Viewer
+    case 'Farm Viewer':
+      $perms = farm_access_entity_perms($types, array('view'));
+      break;
+  }
+
+  return $perms;
+}
+
+/**
+ * Implements hook_farm_admin_actions().
+ */
+function farm_log_movement_farm_admin_actions() {
+
+  // Define farm area actions.
+  $actions = array(
+    'movement' => array(
+      'title' => t('Add a movement'),
+      'href' => 'log/add/farm_movement',
+      'assets' => array(
+        'all',
+      ),
+      'views' => array(
+        'farm_log_movement',
+      ),
+      'paths' => array(
+        'taxonomy/term/%',
+      ),
+    ),
+  );
+  return $actions;
+}
+
+/**
+ * Implements hook_farm_taxonomy_term_view_views().
+ */
+function farm_log_movement_farm_taxonomy_term_view_views($term) {
+
+  // If the term is not an area, bail.
+  if ($term->vocabulary_machine_name != 'farm_areas') {
+    return array();
+  }
+
+  // Return a list of Views to include on Areas.
+  return array(
+
+    // Area asset history (at the bottom).
+    array(
+      'name' => 'farm_area_assets',
+      'weight' => 100,
+    ),
+  );
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function farm_log_movement_entity_presave($entity, $type) {
+
+  // When a movement log is saved, populate the Geometry field.
+  if ($type == 'log' && $entity->type == 'farm_movement') {
+    farm_log_movement_geometry_populate($entity);
+  }
+}
+
+/**
+ * Implements hook_entity_view_alter().
+ */
+function farm_log_movement_entity_view_alter(&$build, $type) {
+
+  // If it's not a farm_asset, or if the entity object is not available, bail.
+  if ($type != 'farm_asset' || empty($build['#entity'])) {
+    return;
+  }
+
+  // Generate markup to describe the location.
+  $output = farm_log_movement_asset_location_markup($build['#entity']);
+
+  // Add it to the build array.
+  $build['location'] = array(
+    '#markup' => $output,
+    '#weight' => -100,
+  );
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function farm_log_movement_form_alter(&$form, &$form_state, $form_id) {
+
+  // If this is a movement log form...
+  if ($form_id == 'log_form' && $form['#bundle'] == 'farm_movement') {
+
+    // If the "to" field is empty...
+    if (empty($form['field_farm_move_to'][LANGUAGE_NONE][0]['#default_value'])) {
+
+      // Alter the form with the farm_log helper function.
+      farm_log_form_prepopulate_area($form, 'field_farm_move_to');
+    }
+
+    // If the "from" field is empty, and assets are available...
+    if (empty($form['field_farm_move_from'][LANGUAGE_NONE][0]['#default_value']) && !empty($assets)) {
+
+      // Look up the asset's last location and prepopulate the "from" field.
+      farm_log_movement_prepopulate_movement_from($form['field_farm_move_from'], $assets, TRUE);
+    }
+  }
+}

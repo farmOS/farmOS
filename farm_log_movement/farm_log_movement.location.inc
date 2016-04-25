@@ -76,13 +76,13 @@ function farm_log_movement_geometry_populate(&$log) {
  * @return string
  *   Returns rendered HTML.
  */
-function farm_log_asset_location_markup($asset) {
+function farm_log_movement_asset_location_markup($asset) {
 
   // Start an output string.
   $output = '<strong>Current location:</strong> ';
 
   // Get the asset's location.
-  $areas = farm_log_asset_location($asset);
+  $areas = farm_log_movement_asset_location($asset);
 
   // If locations were found, add links to them.
   if (!empty($areas)) {
@@ -108,7 +108,7 @@ function farm_log_asset_location_markup($asset) {
   }
 
   // Get the asset's most recent movement.
-  $movement = farm_log_asset_latest_movement($asset);
+  $movement = farm_log_movement_asset_latest_movement($asset);
 
   // If a geofield exists on the movement, display it.
   if (!empty($movement->field_farm_geofield[LANGUAGE_NONE][0]['geom'])) {
@@ -126,13 +126,13 @@ function farm_log_asset_location_markup($asset) {
 /**
  * Implements hook_form_FORM_ID_alter().
  */
-function farm_log_form_farm_asset_form_alter(&$form, &$form_state, $form_id) {
+function farm_log_movement_form_farm_asset_form_alter(&$form, &$form_state, $form_id) {
 
   // Get the farm asset entity from the form.
   $asset = $form['farm_asset']['#value'];
 
   // Get the asset's current location.
-  $areas = farm_log_asset_location($asset);
+  $areas = farm_log_movement_asset_location($asset);
   $area_names = array();
   if (!empty($areas)) {
     foreach ($areas as $area) {
@@ -156,14 +156,14 @@ function farm_log_form_farm_asset_form_alter(&$form, &$form_state, $form_id) {
   $location = implode(', ', $area_names);
 
   // Add a field for setting the asset's current location.
-  $form['farm_log_asset_location'] = array(
+  $form['farm_log_movement_asset_location'] = array(
     '#type' => 'textfield',
     '#title' => t('Current location'),
     '#description' => t('Set the current areas(s) that this asset is in. Separate multiple areas with commas. Asset location is determined by movement logs, so a movement log will automatically be generated if you change this field.'),
     '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_area',
     '#default_value' => $location,
   );
-  $form['actions']['submit']['#submit'][] = 'farm_log_asset_location_submit';
+  $form['actions']['submit']['#submit'][] = 'farm_log_movement_asset_location_submit';
 }
 
 /**
@@ -174,15 +174,15 @@ function farm_log_form_farm_asset_form_alter(&$form, &$form_state, $form_id) {
  * @param array $form_state
  *   The form state array.
  */
-function farm_log_asset_location_submit(array $form, array &$form_state) {
+function farm_log_movement_asset_location_submit(array $form, array &$form_state) {
 
-  // Only proceed if farm_log_asset_location has a value.
-  if (empty($form_state['values']['farm_log_asset_location'])) {
+  // Only proceed if farm_log_movement_asset_location has a value.
+  if (empty($form_state['values']['farm_log_movement_asset_location'])) {
     return;
   }
 
   // Only proceed if the value is not the default value.
-  if ($form_state['values']['farm_log_asset_location'] == $form['farm_log_asset_location']['#default_value']) {
+  if ($form_state['values']['farm_log_movement_asset_location'] == $form['farm_log_movement_asset_location']['#default_value']) {
     return;
   }
 
@@ -196,7 +196,7 @@ function farm_log_asset_location_submit(array $form, array &$form_state) {
 
   // Explode the value into an array and only take the first value.
   // (Same behavior as taxonomy autocomplete widget.)
-  $values = drupal_explode_tags($form_state['values']['farm_log_asset_location']);
+  $values = drupal_explode_tags($form_state['values']['farm_log_movement_asset_location']);
 
   // If the value is empty, bail.
   if (empty($values)) {
@@ -243,7 +243,7 @@ function farm_log_asset_location_submit(array $form, array &$form_state) {
  * @return array
  *   Returns an array of areas that the asset is in.
  */
-function farm_log_asset_location(FarmAsset $asset, $time = REQUEST_TIME, $done = TRUE) {
+function farm_log_movement_asset_location(FarmAsset $asset, $time = REQUEST_TIME, $done = TRUE) {
   $areas = array();
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'log')
@@ -290,10 +290,10 @@ function farm_log_asset_location(FarmAsset $asset, $time = REQUEST_TIME, $done =
  * @return Log|bool
  *   Returns a movement log entity. FALSE if something goes wrong.
  */
-function farm_log_asset_latest_movement(FarmAsset $asset, $time = REQUEST_TIME, $done = TRUE) {
+function farm_log_movement_asset_latest_movement(FarmAsset $asset, $time = REQUEST_TIME, $done = TRUE) {
 
   // Make a query for loading the latest movement log.
-  $query = farm_log_asset_movement_query($asset->id, $time, $done);
+  $query = farm_log_movement_asset_movement_query($asset->id, $time, $done);
 
   // Execute the query and gather the log id.
   $result = $query->execute();
@@ -324,7 +324,7 @@ function farm_log_asset_latest_movement(FarmAsset $asset, $time = REQUEST_TIME, 
  * @return \SelectQuery
  *   Returns a SelectQuery for finding the latest log.
  */
-function farm_log_asset_movement_query($asset_id, $time = REQUEST_TIME, $done = TRUE) {
+function farm_log_movement_asset_movement_query($asset_id, $time = REQUEST_TIME, $done = TRUE) {
 
   // Build a sub-query that will be used in the join to load the latest
   // movement log of a given asset.
@@ -361,9 +361,9 @@ function farm_log_asset_movement_query($asset_id, $time = REQUEST_TIME, $done = 
 /**
  * Implements hook_action_info().
  */
-function farm_log_action_info() {
+function farm_log_movement_action_info() {
   return array(
-    'farm_log_asset_move_action' => array(
+    'farm_log_movement_asset_move_action' => array(
       'type' => 'farm_asset',
       'label' => t('Move'),
       'configurable' => FALSE,
@@ -383,7 +383,7 @@ function farm_log_action_info() {
  * @param array $context
  *   Array with parameters for this action.
  */
-function farm_log_asset_move_action(array $assets, $context = array()) {
+function farm_log_movement_asset_move_action(array $assets, $context = array()) {
 
   // Build a list of asset IDs.
   $ids = array();
@@ -407,7 +407,7 @@ function farm_log_asset_move_action(array $assets, $context = array()) {
  * @param bool $done
  *   Whether or not to mark the movement done. Default to FALSE.
  */
-function farm_log_move_assets($assets, $areas, $timestamp = REQUEST_TIME, $done = FALSE) {
+function farm_log_movement_move_assets($assets, $areas, $timestamp = REQUEST_TIME, $done = FALSE) {
 
   // If $assets isn't an array, wrap it.
   if (!is_array($assets)) {
@@ -427,7 +427,7 @@ function farm_log_move_assets($assets, $areas, $timestamp = REQUEST_TIME, $done 
   }
 
   // Populate the movement's "From" field based on the current asset location(s).
-  farm_log_prepopulate_movement_from($log->field_farm_move_from, $assets);
+  farm_log_movement_prepopulate_movement_from($log->field_farm_move_from, $assets);
 
   // Set the date.
   $log->timestamp = $timestamp;
@@ -461,7 +461,7 @@ function farm_log_move_assets($assets, $areas, $timestamp = REQUEST_TIME, $done 
  *   By setting $log_form to TRUE, it can also be used to alter the default
  *   value of the "from" field in a log edit form.
  */
-function farm_log_prepopulate_movement_from(&$from_field, $assets = array(), $log_form = FALSE) {
+function farm_log_movement_prepopulate_movement_from(&$from_field, $assets = array(), $log_form = FALSE) {
 
   // If assets are empty, bail.
   if (empty($assets)) {
@@ -480,7 +480,7 @@ function farm_log_prepopulate_movement_from(&$from_field, $assets = array(), $lo
   foreach ($assets as $asset) {
 
     // Load the asset's current location.
-    $areas = farm_log_asset_location($asset);
+    $areas = farm_log_movement_asset_location($asset);
 
     // If the asset has a current location, add the location area names to the
     // "from" field.

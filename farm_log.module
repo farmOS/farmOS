@@ -7,9 +7,6 @@
 // Include Features code.
 include_once 'farm_log.features.inc';
 
-// Include Asset Location code.
-include_once 'farm_log.location.inc';
-
 /**
  * Implements hook_permission().
  */
@@ -30,7 +27,6 @@ function farm_log_farm_access_perms($role) {
   // Assemble a list of log types and taxonomies provided by this module.
   $types = array(
     'log' => array(
-      'farm_movement',
       'farm_observation',
     ),
     'taxonomy' => array(
@@ -77,19 +73,6 @@ function farm_log_farm_admin_actions() {
       ),
       'weight' => 1,
     ),
-    'movement' => array(
-      'title' => t('Add a movement'),
-      'href' => 'log/add/farm_movement',
-      'assets' => array(
-        'all',
-      ),
-      'views' => array(
-        'farm_log_movement',
-      ),
-      'paths' => array(
-        'taxonomy/term/%',
-      ),
-    ),
     'observation' => array(
       'title' => t('Add an observation'),
       'href' => 'log/add/farm_observation',
@@ -125,12 +108,6 @@ function farm_log_farm_taxonomy_term_view_views($term) {
       'name' => 'farm_log_observation',
       'arg' => 2,
     ),
-
-    // Area asset history (at the bottom).
-    array(
-      'name' => 'farm_area_assets',
-      'weight' => 100,
-    ),
   );
 }
 
@@ -152,37 +129,6 @@ function farm_log_farm_area_links($id) {
   }
 
   return $links;
-}
-
-/**
- * Implements hook_entity_presave().
- */
-function farm_log_entity_presave($entity, $type) {
-
-  // When a movement log is saved, populate the Geometry field.
-  if ($type == 'log' && $entity->type == 'farm_movement') {
-    farm_log_movement_geometry_populate($entity);
-  }
-}
-
-/**
- * Implements hook_entity_view_alter().
- */
-function farm_log_entity_view_alter(&$build, $type) {
-
-  // If it's not a farm_asset, or if the entity object is not available, bail.
-  if ($type != 'farm_asset' || empty($build['#entity'])) {
-    return;
-  }
-
-  // Generate markup to describe the location.
-  $output = farm_log_asset_location_markup($build['#entity']);
-
-  // Add it to the build array.
-  $build['location'] = array(
-    '#markup' => $output,
-    '#weight' => -100,
-  );
 }
 
 /**
@@ -208,26 +154,8 @@ function farm_log_form_alter(&$form, &$form_state, $form_id) {
       farm_log_form_prepopulate_area($form, 'field_farm_area');
     }
 
-    // If this is a farm_movement...
-    if ($form['#bundle'] == 'farm_movement') {
-
-      // If the "to" field is empty...
-      if (empty($form['field_farm_move_to'][LANGUAGE_NONE][0]['#default_value'])) {
-
-        // Alter the form with the farm_log helper function.
-        farm_log_form_prepopulate_area($form, 'field_farm_move_to');
-      }
-
-      // If the "from" field is empty, and assets are available...
-      if (empty($form['field_farm_move_from'][LANGUAGE_NONE][0]['#default_value']) && !empty($assets)) {
-
-        // Look up the asset's last location and prepopulate the "from" field.
-        farm_log_prepopulate_movement_from($form['field_farm_move_from'], $assets, TRUE);
-      }
-    }
-
-    // Or, if this is a farm_observation...
-    elseif ($form['#bundle'] == 'farm_observation') {
+    // If this is a farm_observation...
+    if ($form['#bundle'] == 'farm_observation') {
 
       // If the observation type field is empty, prepopulate it with "General".
       if (empty($form['field_farm_observation_type'][LANGUAGE_NONE]['#default_value'])) {
