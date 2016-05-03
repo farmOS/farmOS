@@ -870,6 +870,7 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['filters']['field_farm_crop_tid']['expose']['label'] = 'Crop';
   $handler->display->display_options['filters']['field_farm_crop_tid']['expose']['operator'] = 'field_farm_crop_tid_op';
   $handler->display->display_options['filters']['field_farm_crop_tid']['expose']['identifier'] = 'field_farm_crop_tid';
+  $handler->display->display_options['filters']['field_farm_crop_tid']['expose']['multiple'] = TRUE;
   $handler->display->display_options['filters']['field_farm_crop_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_farm_crop_tid']['vocabulary'] = 'farm_crops';
   $handler->display->display_options['filters']['field_farm_crop_tid']['hierarchy'] = 1;
@@ -884,6 +885,7 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['label'] = 'Location';
   $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['operator'] = 'field_farm_move_to_tid_op';
   $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['identifier'] = 'field_farm_move_to_tid';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['multiple'] = TRUE;
   $handler->display->display_options['filters']['field_farm_move_to_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_farm_move_to_tid']['vocabulary'] = 'farm_areas';
   $handler->display->display_options['filters']['field_farm_move_to_tid']['hierarchy'] = 1;
