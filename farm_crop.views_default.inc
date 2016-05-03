@@ -860,6 +860,17 @@ if (!empty($farm_asset)) {
     'planting' => 'planting',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
+  /* Filter criterion: Farm asset: Name */
+  $handler->display->display_options['filters']['name']['id'] = 'name';
+  $handler->display->display_options['filters']['name']['table'] = 'farm_asset';
+  $handler->display->display_options['filters']['name']['field'] = 'name';
+  $handler->display->display_options['filters']['name']['operator'] = 'contains';
+  $handler->display->display_options['filters']['name']['group'] = 1;
+  $handler->display->display_options['filters']['name']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['name']['expose']['operator_id'] = 'name_op';
+  $handler->display->display_options['filters']['name']['expose']['label'] = 'Name';
+  $handler->display->display_options['filters']['name']['expose']['operator'] = 'name_op';
+  $handler->display->display_options['filters']['name']['expose']['identifier'] = 'name';
   /* Filter criterion: Farm asset: Crop (field_farm_crop) */
   $handler->display->display_options['filters']['field_farm_crop_tid']['id'] = 'field_farm_crop_tid';
   $handler->display->display_options['filters']['field_farm_crop_tid']['table'] = 'field_data_field_farm_crop';
