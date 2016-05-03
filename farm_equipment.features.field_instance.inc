@@ -130,12 +130,11 @@ function farm_equipment_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_maintenance-field_farm_equipment'.
-  $field_instances['log-farm_maintenance-field_farm_equipment'] = array(
+  // Exported field_instance: 'log-farm_maintenance-field_farm_asset'.
+  $field_instances['log-farm_maintenance-field_farm_asset'] = array(
     'bundle' => 'farm_maintenance',
-    'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'What equipment is being maintained?',
+    'description' => 'What assets does this maintenance pertain to?',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -148,21 +147,25 @@ function farm_equipment_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'log',
-    'field_name' => 'field_farm_equipment',
-    'label' => 'Equipment',
-    'required' => 1,
+    'field_name' => 'field_farm_asset',
+    'label' => 'Assets',
+    'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'entityreference',
+      'module' => 'entityreference_view_widget',
       'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
+        'allow_duplicates' => 0,
+        'close_modal' => 1,
+        'pass_argument' => 1,
+        'pass_arguments' => '',
+        'rendered_entity' => 0,
+        'view' => 'farm_asset_entityreference_view|entityreference_view_widget',
+        'view_mode' => 'full',
       ),
-      'type' => 'entityreference_autocomplete',
+      'type' => 'entityreference_view_widget',
       'weight' => 2,
     ),
   );
@@ -289,12 +292,12 @@ function farm_equipment_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Assets');
   t('Description');
-  t('Equipment');
   t('Files');
   t('Notes');
   t('Photo(s)');
-  t('What equipment is being maintained?');
+  t('What assets does this maintenance pertain to?');
 
   return $field_instances;
 }

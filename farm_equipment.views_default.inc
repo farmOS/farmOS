@@ -229,7 +229,7 @@ function farm_equipment_views_default_views() {
     'done' => 'done',
     'timestamp' => 'timestamp',
     'name' => 'name',
-    'field_farm_equipment' => 'field_farm_equipment',
+    'field_farm_asset' => 'field_farm_asset',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
@@ -266,9 +266,7 @@ function farm_equipment_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
-    'field_farm_equipment' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
+    'field_farm_asset' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -350,13 +348,14 @@ function farm_equipment_views_default_views() {
   $handler->display->display_options['fields']['name']['label'] = 'Maintenance';
   $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['name']['alter']['path'] = 'log/[id]';
-  /* Field: Log: Equipment */
-  $handler->display->display_options['fields']['field_farm_equipment']['id'] = 'field_farm_equipment';
-  $handler->display->display_options['fields']['field_farm_equipment']['table'] = 'field_data_field_farm_equipment';
-  $handler->display->display_options['fields']['field_farm_equipment']['field'] = 'field_farm_equipment';
-  $handler->display->display_options['fields']['field_farm_equipment']['settings'] = array(
+  /* Field: Log: Assets */
+  $handler->display->display_options['fields']['field_farm_asset']['id'] = 'field_farm_asset';
+  $handler->display->display_options['fields']['field_farm_asset']['table'] = 'field_data_field_farm_asset';
+  $handler->display->display_options['fields']['field_farm_asset']['field'] = 'field_farm_asset';
+  $handler->display->display_options['fields']['field_farm_asset']['settings'] = array(
     'link' => 1,
   );
+  $handler->display->display_options['fields']['field_farm_asset']['delta_offset'] = '0';
   /* Sort criterion: Log: Timestamp */
   $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
   $handler->display->display_options['sorts']['timestamp']['table'] = 'log';
@@ -369,19 +368,19 @@ function farm_equipment_views_default_views() {
   $handler->display->display_options['sorts']['id']['table'] = 'log';
   $handler->display->display_options['sorts']['id']['field'] = 'id';
   $handler->display->display_options['sorts']['id']['order'] = 'DESC';
-  /* Contextual filter: Log: Equipment (field_farm_equipment) */
-  $handler->display->display_options['arguments']['field_farm_equipment_target_id']['id'] = 'field_farm_equipment_target_id';
-  $handler->display->display_options['arguments']['field_farm_equipment_target_id']['table'] = 'field_data_field_farm_equipment';
-  $handler->display->display_options['arguments']['field_farm_equipment_target_id']['field'] = 'field_farm_equipment_target_id';
-  $handler->display->display_options['arguments']['field_farm_equipment_target_id']['title_enable'] = TRUE;
-  $handler->display->display_options['arguments']['field_farm_equipment_target_id']['title'] = '%1\'s maintenance';
-  $handler->display->display_options['arguments']['field_farm_equipment_target_id']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['field_farm_equipment_target_id']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['field_farm_equipment_target_id']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['field_farm_equipment_target_id']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['field_farm_equipment_target_id']['specify_validation'] = TRUE;
-  $handler->display->display_options['arguments']['field_farm_equipment_target_id']['validate']['type'] = 'php';
-  $handler->display->display_options['arguments']['field_farm_equipment_target_id']['validate_options']['code'] = '// Attempt to load the asset.
+  /* Contextual filter: Log: Assets (field_farm_asset) */
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['id'] = 'field_farm_asset_target_id';
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['table'] = 'field_data_field_farm_asset';
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['field'] = 'field_farm_asset_target_id';
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['title_enable'] = TRUE;
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['title'] = '%1\'s maintenance';
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['specify_validation'] = TRUE;
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['validate']['type'] = 'php';
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['validate_options']['code'] = '// Attempt to load the asset.
 $farm_asset = farm_asset_load($argument);
 if (!empty($farm_asset)) {
   // Set the title.

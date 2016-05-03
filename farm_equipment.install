@@ -24,3 +24,20 @@ function farm_equipment_update_7000(&$sandbox) {
     field_delete_instance($field);
   }
 }
+
+/**
+ * Migrate equipment reference field to new asset reference field.
+ */
+function farm_equipment_update_7001(&$sandbox) {
+
+  // Revert this module's field_instance Features component.
+  features_revert(array('farm_equipment' => array('field_instance')));
+
+  // Copy all field data from the old database tables to the new ones.
+  db_query("INSERT INTO {field_data_field_farm_asset} (SELECT * FROM {field_data_field_farm_equipment} WHERE entity_type = 'log' AND bundle = 'farm_maintenance')");
+  db_query("INSERT INTO {field_revision_field_farm_asset} (SELECT * FROM {field_revision_field_farm_equipment} WHERE entity_type = 'log' AND bundle = 'farm_maintenance')");
+
+  // Delete the old equipment reference field.
+  $field = field_info_instance('log', 'field_farm_equipment', 'farm_maintenance');
+  field_delete_instance($field);
+}
