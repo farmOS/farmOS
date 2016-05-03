@@ -435,7 +435,7 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['filters']['done']['expose']['identifier'] = 'done';
 
   /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'page_1');
+  $handler = $view->new_display('page', 'Page', 'page');
   $handler->display->display_options['path'] = 'farm/logs/maintenance';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'Maintenance';
