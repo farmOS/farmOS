@@ -524,16 +524,6 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['expose']['description'] = 'If there are multiple ID tags on an animal, this filter will only look at the first one.';
   $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['expose']['operator'] = 'field_farm_animal_tag_id_value_op';
   $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['expose']['identifier'] = 'field_farm_animal_tag_id_value';
-  /* Filter criterion: Farm asset: Sex (field_farm_animal_sex) */
-  $handler->display->display_options['filters']['field_farm_animal_sex_value']['id'] = 'field_farm_animal_sex_value';
-  $handler->display->display_options['filters']['field_farm_animal_sex_value']['table'] = 'field_data_field_farm_animal_sex';
-  $handler->display->display_options['filters']['field_farm_animal_sex_value']['field'] = 'field_farm_animal_sex_value';
-  $handler->display->display_options['filters']['field_farm_animal_sex_value']['group'] = 1;
-  $handler->display->display_options['filters']['field_farm_animal_sex_value']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_farm_animal_sex_value']['expose']['operator_id'] = 'field_farm_animal_sex_value_op';
-  $handler->display->display_options['filters']['field_farm_animal_sex_value']['expose']['label'] = 'Sex';
-  $handler->display->display_options['filters']['field_farm_animal_sex_value']['expose']['operator'] = 'field_farm_animal_sex_value_op';
-  $handler->display->display_options['filters']['field_farm_animal_sex_value']['expose']['identifier'] = 'field_farm_animal_sex_value';
   /* Filter criterion: Farm asset: Type (field_farm_animal_type) */
   $handler->display->display_options['filters']['field_farm_animal_type_tid']['id'] = 'field_farm_animal_type_tid';
   $handler->display->display_options['filters']['field_farm_animal_type_tid']['table'] = 'field_data_field_farm_animal_type';
@@ -577,6 +567,16 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['filters']['field_farm_move_to_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_farm_move_to_tid']['vocabulary'] = 'farm_areas';
   $handler->display->display_options['filters']['field_farm_move_to_tid']['hierarchy'] = 1;
+  /* Filter criterion: Farm asset: Sex (field_farm_animal_sex) */
+  $handler->display->display_options['filters']['field_farm_animal_sex_value']['id'] = 'field_farm_animal_sex_value';
+  $handler->display->display_options['filters']['field_farm_animal_sex_value']['table'] = 'field_data_field_farm_animal_sex';
+  $handler->display->display_options['filters']['field_farm_animal_sex_value']['field'] = 'field_farm_animal_sex_value';
+  $handler->display->display_options['filters']['field_farm_animal_sex_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_farm_animal_sex_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_animal_sex_value']['expose']['operator_id'] = 'field_farm_animal_sex_value_op';
+  $handler->display->display_options['filters']['field_farm_animal_sex_value']['expose']['label'] = 'Sex';
+  $handler->display->display_options['filters']['field_farm_animal_sex_value']['expose']['operator'] = 'field_farm_animal_sex_value_op';
+  $handler->display->display_options['filters']['field_farm_animal_sex_value']['expose']['identifier'] = 'field_farm_animal_sex_value';
   /* Filter criterion: Farm asset: Active */
   $handler->display->display_options['filters']['active']['id'] = 'active';
   $handler->display->display_options['filters']['active']['table'] = 'farm_asset';
