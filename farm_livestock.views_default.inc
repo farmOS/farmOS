@@ -324,7 +324,7 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['relationships']['field_farm_animal_tag_value']['id'] = 'field_farm_animal_tag_value';
   $handler->display->display_options['relationships']['field_farm_animal_tag_value']['table'] = 'field_data_field_farm_animal_tag';
   $handler->display->display_options['relationships']['field_farm_animal_tag_value']['field'] = 'field_farm_animal_tag_value';
-  $handler->display->display_options['relationships']['field_farm_animal_tag_value']['delta'] = '-1';
+  $handler->display->display_options['relationships']['field_farm_animal_tag_value']['delta'] = '0';
   /* Field: Bulk operations: Farm asset */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
   $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'farm_asset';
@@ -511,6 +511,19 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['filters']['name']['expose']['label'] = 'Name';
   $handler->display->display_options['filters']['name']['expose']['operator'] = 'name_op';
   $handler->display->display_options['filters']['name']['expose']['identifier'] = 'name';
+  /* Filter criterion: Field collection item: ID (field_farm_animal_tag_id) */
+  $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['id'] = 'field_farm_animal_tag_id_value';
+  $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['table'] = 'field_data_field_farm_animal_tag_id';
+  $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['field'] = 'field_farm_animal_tag_id_value';
+  $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['relationship'] = 'field_farm_animal_tag_value';
+  $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['operator'] = 'contains';
+  $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['expose']['operator_id'] = 'field_farm_animal_tag_id_value_op';
+  $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['expose']['label'] = 'ID Tag';
+  $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['expose']['description'] = 'If there are multiple ID tags on an animal, this filter will only look at the first one.';
+  $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['expose']['operator'] = 'field_farm_animal_tag_id_value_op';
+  $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['expose']['identifier'] = 'field_farm_animal_tag_id_value';
   /* Filter criterion: Farm asset: Sex (field_farm_animal_sex) */
   $handler->display->display_options['filters']['field_farm_animal_sex_value']['id'] = 'field_farm_animal_sex_value';
   $handler->display->display_options['filters']['field_farm_animal_sex_value']['table'] = 'field_data_field_farm_animal_sex';
@@ -549,18 +562,6 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['filters']['field_farm_animal_group_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_farm_animal_group_tid']['vocabulary'] = 'farm_animal_groups';
   $handler->display->display_options['filters']['field_farm_animal_group_tid']['hierarchy'] = 1;
-  /* Filter criterion: Field collection item: ID (field_farm_animal_tag_id) */
-  $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['id'] = 'field_farm_animal_tag_id_value';
-  $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['table'] = 'field_data_field_farm_animal_tag_id';
-  $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['field'] = 'field_farm_animal_tag_id_value';
-  $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['relationship'] = 'field_farm_animal_tag_value';
-  $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['operator'] = 'contains';
-  $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['group'] = 1;
-  $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['expose']['operator_id'] = 'field_farm_animal_tag_id_value_op';
-  $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['expose']['label'] = 'ID Tag';
-  $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['expose']['operator'] = 'field_farm_animal_tag_id_value_op';
-  $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['expose']['identifier'] = 'field_farm_animal_tag_id_value';
   /* Filter criterion: Farm asset: Active */
   $handler->display->display_options['filters']['active']['id'] = 'active';
   $handler->display->display_options['filters']['active']['table'] = 'farm_asset';
