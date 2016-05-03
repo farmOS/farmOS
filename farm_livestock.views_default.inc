@@ -525,13 +525,13 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['filters']['field_farm_animal_type_tid']['id'] = 'field_farm_animal_type_tid';
   $handler->display->display_options['filters']['field_farm_animal_type_tid']['table'] = 'field_data_field_farm_animal_type';
   $handler->display->display_options['filters']['field_farm_animal_type_tid']['field'] = 'field_farm_animal_type_tid';
-  $handler->display->display_options['filters']['field_farm_animal_type_tid']['value'] = '';
   $handler->display->display_options['filters']['field_farm_animal_type_tid']['group'] = 1;
   $handler->display->display_options['filters']['field_farm_animal_type_tid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_farm_animal_type_tid']['expose']['operator_id'] = 'field_farm_animal_type_tid_op';
   $handler->display->display_options['filters']['field_farm_animal_type_tid']['expose']['label'] = 'Type';
   $handler->display->display_options['filters']['field_farm_animal_type_tid']['expose']['operator'] = 'field_farm_animal_type_tid_op';
   $handler->display->display_options['filters']['field_farm_animal_type_tid']['expose']['identifier'] = 'field_farm_animal_type_tid';
+  $handler->display->display_options['filters']['field_farm_animal_type_tid']['expose']['multiple'] = TRUE;
   $handler->display->display_options['filters']['field_farm_animal_type_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_farm_animal_type_tid']['vocabulary'] = 'farm_animal_types';
   $handler->display->display_options['filters']['field_farm_animal_type_tid']['hierarchy'] = 1;
@@ -545,6 +545,7 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['filters']['field_farm_animal_group_tid']['expose']['label'] = 'Group';
   $handler->display->display_options['filters']['field_farm_animal_group_tid']['expose']['operator'] = 'field_farm_animal_group_tid_op';
   $handler->display->display_options['filters']['field_farm_animal_group_tid']['expose']['identifier'] = 'field_farm_animal_group_tid';
+  $handler->display->display_options['filters']['field_farm_animal_group_tid']['expose']['multiple'] = TRUE;
   $handler->display->display_options['filters']['field_farm_animal_group_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_farm_animal_group_tid']['vocabulary'] = 'farm_animal_groups';
   $handler->display->display_options['filters']['field_farm_animal_group_tid']['hierarchy'] = 1;
