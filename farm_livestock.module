@@ -114,6 +114,8 @@ function farm_livestock_farm_asset_view_views($farm_asset) {
   return array(
     'farm_log_activity',
     'farm_log_observation',
+    'farm_log_input',
+    'farm_log_harvest',
     'farm_log_movement',
   );
 }
