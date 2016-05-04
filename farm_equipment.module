@@ -97,6 +97,7 @@ function farm_equipment_farm_asset_view_views($farm_asset) {
     'farm_log_maintenance',
     'farm_log_activity',
     'farm_log_observation',
+    'farm_log_input',
     'farm_log_movement',
   );
 }
