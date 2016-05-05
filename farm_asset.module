@@ -406,6 +406,15 @@ function farm_asset_entity_view($entity, $type, $view_mode, $langcode) {
       }
     }
 
+    // If a specific display was specified, use it. Otherwise use 'default'.
+    if (!empty($data['display'])) {
+      $display = $data['display'];
+    }
+    else {
+      $display = 'default';
+    }
+    $view->set_display($display);
+
     // Get the View's default title.
     // We intentionally do this before we build the preview so that the title
     // is not overridden by the arguments. This keeps the title simple on the
@@ -413,7 +422,7 @@ function farm_asset_entity_view($entity, $type, $view_mode, $langcode) {
     $title = $view->get_title();
 
     // Build the View preview.
-    $preview = $view->preview('default', $args);
+    $preview = $view->preview($display, $args);
 
     // Only display if the View has results.
     if ($view->total_rows == 0) {
