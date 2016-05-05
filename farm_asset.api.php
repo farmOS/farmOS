@@ -59,13 +59,18 @@ function hook_farm_asset_view_views(FarmAsset $farm_asset) {
 
   // Return a list of Views to include on Plantings.
   return array(
-    'farm_log_seeding',
-    'farm_log_transplanting',
-    'farm_log_input',
-    'farm_log_harvest',
-    'farm_log_activity',
-    'farm_log_observation',
-    'farm_log_movement',
+
+    // Example 1: simple View machine name.
+    'farm_activity',
+
+    // Example 2: explicitly set details like display, argument position,
+    // and weight.
+    array(
+      'name' => 'farm_log_input',
+      'display' => 'block',
+      'arg' => 2,
+      'weight' => 10,
+    ),
   );
 }
 
