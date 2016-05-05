@@ -79,7 +79,7 @@ function farm_log_movement_geometry_populate(&$log) {
 function farm_log_movement_asset_location_markup($asset) {
 
   // Start an output string.
-  $output = '<strong>Current location:</strong> ';
+  $output = '<strong>' . t('Location') . ':</strong> ';
 
   // Get the asset's location.
   $areas = farm_log_movement_asset_location($asset);
