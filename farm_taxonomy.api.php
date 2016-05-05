@@ -61,19 +61,20 @@ function hook_farm_taxonomy_breadcrumb($term) {
 function hook_taxonomy_term_view_views($term) {
 
   // If the term is not a crop, bail.
-  if ($term->vocabulary_machine_name != 'crop') {
+  if ($term->vocabulary_machine_name != 'farm_crops') {
     return array();
   }
 
-  // Return a list of Views to include on Plantings.
+  // Return a list of Views to include on Crops.
   return array(
 
     // Example 1: simple View machine name.
     'farm_planting',
 
-    // Example 2: also include the position of the term id argument.
+    // Example 2: explicitly set details like display, argument position, weight.
     array(
       'name' => 'farm_log_input',
+      'display' => 'block',
       'arg' => 2,
       'weight' => 10,
     ),
