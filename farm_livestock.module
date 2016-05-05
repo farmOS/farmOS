@@ -112,11 +112,26 @@ function farm_livestock_farm_asset_view_views($farm_asset) {
 
   // Return a list of Views to include on Animals.
   return array(
-    'farm_log_activity',
-    'farm_log_observation',
-    'farm_log_input',
-    'farm_log_harvest',
-    'farm_log_movement',
+    array(
+      'name' => 'farm_log_activity',
+      'weight' => 0,
+    ),
+    array(
+      'name' => 'farm_log_observation',
+      'weight' => 10,
+    ),
+    array(
+      'name' => 'farm_log_input',
+      'weight' => 50,
+    ),
+    array(
+      'name' => 'farm_log_harvest',
+      'weight' => 60,
+    ),
+    array(
+      'name' => 'farm_log_movement',
+      'weight' => 100,
+    ),
   );
 }
 
