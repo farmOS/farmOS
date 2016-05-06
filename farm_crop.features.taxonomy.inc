@@ -33,9 +33,9 @@ function farm_crop_taxonomy_default_vocabularies() {
       ),
     ),
     'farm_crops' => array(
-      'name' => 'Farm Crops',
+      'name' => 'Farm Crops/Varieties',
       'machine_name' => 'farm_crops',
-      'description' => 'A taxonomy of crop types and varieties.',
+      'description' => 'A taxonomy of crops and varieties.',
       'hierarchy' => 1,
       'module' => 'taxonomy',
       'weight' => 0,

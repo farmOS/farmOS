@@ -15,14 +15,14 @@ function farm_crop_views_default_views() {
   $view->description = '';
   $view->tag = 'farm_crop';
   $view->base_table = 'taxonomy_term_data';
-  $view->human_name = 'Farm Crops';
+  $view->human_name = 'Farm Crops/Varieties';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Crops';
+  $handler->display->display_options['title'] = 'Crops/Varieties';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['group_by'] = TRUE;
   $handler->display->display_options['access']['type'] = 'perm';
@@ -51,7 +51,7 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
   $handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
-  $handler->display->display_options['empty']['area_text_custom']['content'] = 'No crops found.';
+  $handler->display->display_options['empty']['area_text_custom']['content'] = 'No crops/varieties found.';
   /* Relationship: Taxonomy term: Parent term */
   $handler->display->display_options['relationships']['parent']['id'] = 'parent';
   $handler->display->display_options['relationships']['parent']['table'] = 'taxonomy_term_hierarchy';
@@ -157,7 +157,7 @@ function farm_crop_views_default_views() {
   $handler = $view->new_display('page', 'Page', 'page');
   $handler->display->display_options['path'] = 'farm/assets/plantings/crops';
   $handler->display->display_options['menu']['type'] = 'tab';
-  $handler->display->display_options['menu']['title'] = 'Crops';
+  $handler->display->display_options['menu']['title'] = 'Crops/Varieties';
   $handler->display->display_options['menu']['weight'] = '';
   $handler->display->display_options['menu']['name'] = 'farm';
   $handler->display->display_options['menu']['context'] = 0;
@@ -814,7 +814,7 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['sorts']['field_farm_crop_tid']['table'] = 'field_data_field_farm_crop';
   $handler->display->display_options['sorts']['field_farm_crop_tid']['field'] = 'field_farm_crop_tid';
   $handler->display->display_options['sorts']['field_farm_crop_tid']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['field_farm_crop_tid']['expose']['label'] = 'Crop';
+  $handler->display->display_options['sorts']['field_farm_crop_tid']['expose']['label'] = 'Crop/Variety';
   /* Sort criterion: Farm asset: Season (field_farm_season) */
   $handler->display->display_options['sorts']['field_farm_season_tid']['id'] = 'field_farm_season_tid';
   $handler->display->display_options['sorts']['field_farm_season_tid']['table'] = 'field_data_field_farm_season';
@@ -878,7 +878,7 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['filters']['field_farm_crop_tid']['group'] = 1;
   $handler->display->display_options['filters']['field_farm_crop_tid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_farm_crop_tid']['expose']['operator_id'] = 'field_farm_crop_tid_op';
-  $handler->display->display_options['filters']['field_farm_crop_tid']['expose']['label'] = 'Crop';
+  $handler->display->display_options['filters']['field_farm_crop_tid']['expose']['label'] = 'Crop/Variety';
   $handler->display->display_options['filters']['field_farm_crop_tid']['expose']['operator'] = 'field_farm_crop_tid_op';
   $handler->display->display_options['filters']['field_farm_crop_tid']['expose']['identifier'] = 'field_farm_crop_tid';
   $handler->display->display_options['filters']['field_farm_crop_tid']['expose']['multiple'] = TRUE;

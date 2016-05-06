@@ -71,7 +71,7 @@ function farm_crop_farm_admin_actions() {
   // Define actions.
   $actions = array(
     'crop' => array(
-      'title' => t('Add a crop'),
+      'title' => t('Add a crop/variety'),
       'href' => 'admin/structure/taxonomy/farm_crops/add',
       'paths' => array(
         'farm/assets/plantings/crops',
@@ -135,7 +135,7 @@ function farm_crop_farm_taxonomy_breadcrumb($term) {
     case 'farm_crops':
       $breadcrumb[] = l(t('Assets'), 'farm/assets');
       $breadcrumb[] = l(t('Plantings'), 'farm/assets/plantings');
-      $breadcrumb[] = l(t('Crops'), 'farm/assets/plantings/crops');
+      $breadcrumb[] = l(t('Crops/Varieties'), 'farm/assets/plantings/crops');
       break;
 
     // If the term is in farm_crop_families...

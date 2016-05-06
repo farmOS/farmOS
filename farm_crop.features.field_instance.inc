@@ -15,7 +15,7 @@ function farm_crop_field_default_field_instances() {
     'bundle' => 'planting',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Enter the crop that this is a planting of. As you type, you will have the option of selecting from crops that you\'ve entered in the past.',
+    'description' => 'Enter the crop/variety that this is a planting of. As you type, you will have the option of selecting from crops/varieties that you\'ve entered in the past.',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -27,7 +27,7 @@ function farm_crop_field_default_field_instances() {
     ),
     'entity_type' => 'farm_asset',
     'field_name' => 'field_farm_crop',
-    'label' => 'Crop',
+    'label' => 'Crop/Variety',
     'required' => 1,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -608,14 +608,14 @@ function farm_crop_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Assign this planting to a season. You can manage these options in the ' . l('Seasons', 'admin/structure/taxonomy/farm_season') . ' vocabulary.');
   t('Companions');
-  t('Crop');
+  t('Crop/Variety');
   t('Crop family');
   t('Days to maturity');
   t('Days to transplant');
   t('Describe the quantity of this seeding, using a value and a unit of measurement. For example, if you seeded 10 flats of lettuce, enter "10" in the Value field, and "flats" in the Units field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.');
   t('Describe the quantity of this transplanting, using a value and a unit of measurement. For example, if you transplanted 400 tomato plants into 4 inch pots, enter "400" in the Value field, and "4-inch pots" in the Units field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.');
   t('Description');
-  t('Enter the crop that this is a planting of. As you type, you will have the option of selecting from crops that you\'ve entered in the past.');
+  t('Enter the crop/variety that this is a planting of. As you type, you will have the option of selecting from crops/varieties that you\'ve entered in the past.');
   t('Notes');
   t('Photo(s)');
   t('Planting');
