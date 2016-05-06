@@ -161,7 +161,7 @@ function farm_livestock_farm_taxonomy_breadcrumb($term) {
     case 'farm_animal_types':
       $breadcrumb[] = l(t('Assets'), 'farm/assets');
       $breadcrumb[] = l(t('Animals'), 'farm/assets/animals');
-      $breadcrumb[] = l(t('Types'), 'farm/assets/animals/types');
+      $breadcrumb[] = l(t('Species/Breeds'), 'farm/assets/animals/types');
       break;
 
   }

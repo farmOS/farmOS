@@ -118,14 +118,14 @@ function farm_livestock_views_default_views() {
   $view->description = '';
   $view->tag = 'farm_crop';
   $view->base_table = 'taxonomy_term_data';
-  $view->human_name = 'Farm Animal Types';
+  $view->human_name = 'Farm Animal Species/Breeds';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Animal Types';
+  $handler->display->display_options['title'] = 'Animal Species/Breeds';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['group_by'] = TRUE;
   $handler->display->display_options['access']['type'] = 'perm';
@@ -209,7 +209,7 @@ function farm_livestock_views_default_views() {
   $handler = $view->new_display('page', 'Page', 'page');
   $handler->display->display_options['path'] = 'farm/assets/animals/types';
   $handler->display->display_options['menu']['type'] = 'tab';
-  $handler->display->display_options['menu']['title'] = 'Types';
+  $handler->display->display_options['menu']['title'] = 'Species/Breeds';
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['name'] = 'farm';
   $handler->display->display_options['menu']['context'] = 0;
@@ -387,6 +387,7 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['fields']['field_farm_animal_type']['id'] = 'field_farm_animal_type';
   $handler->display->display_options['fields']['field_farm_animal_type']['table'] = 'field_data_field_farm_animal_type';
   $handler->display->display_options['fields']['field_farm_animal_type']['field'] = 'field_farm_animal_type';
+  $handler->display->display_options['fields']['field_farm_animal_type']['label'] = 'Species/Breed';
   /* Field: Field: Group */
   $handler->display->display_options['fields']['field_farm_animal_group']['id'] = 'field_farm_animal_group';
   $handler->display->display_options['fields']['field_farm_animal_group']['table'] = 'field_data_field_farm_animal_group';
@@ -426,7 +427,7 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['sorts']['field_farm_animal_type_tid']['table'] = 'field_data_field_farm_animal_type';
   $handler->display->display_options['sorts']['field_farm_animal_type_tid']['field'] = 'field_farm_animal_type_tid';
   $handler->display->display_options['sorts']['field_farm_animal_type_tid']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['field_farm_animal_type_tid']['expose']['label'] = 'Type';
+  $handler->display->display_options['sorts']['field_farm_animal_type_tid']['expose']['label'] = 'Species/Breed';
   /* Sort criterion: Farm asset: Sex (field_farm_animal_sex) */
   $handler->display->display_options['sorts']['field_farm_animal_sex_value']['id'] = 'field_farm_animal_sex_value';
   $handler->display->display_options['sorts']['field_farm_animal_sex_value']['table'] = 'field_data_field_farm_animal_sex';
@@ -670,6 +671,7 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['fields']['field_farm_animal_type']['id'] = 'field_farm_animal_type';
   $handler->display->display_options['fields']['field_farm_animal_type']['table'] = 'field_data_field_farm_animal_type';
   $handler->display->display_options['fields']['field_farm_animal_type']['field'] = 'field_farm_animal_type';
+  $handler->display->display_options['fields']['field_farm_animal_type']['label'] = 'Species/Breed';
   /* Field: Field: Group */
   $handler->display->display_options['fields']['field_farm_animal_group']['id'] = 'field_farm_animal_group';
   $handler->display->display_options['fields']['field_farm_animal_group']['table'] = 'field_data_field_farm_animal_group';
@@ -764,7 +766,7 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['filters']['field_farm_animal_type_tid']['group'] = 1;
   $handler->display->display_options['filters']['field_farm_animal_type_tid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_farm_animal_type_tid']['expose']['operator_id'] = 'field_farm_animal_type_tid_op';
-  $handler->display->display_options['filters']['field_farm_animal_type_tid']['expose']['label'] = 'Type';
+  $handler->display->display_options['filters']['field_farm_animal_type_tid']['expose']['label'] = 'Species/Breed';
   $handler->display->display_options['filters']['field_farm_animal_type_tid']['expose']['operator'] = 'field_farm_animal_type_tid_op';
   $handler->display->display_options['filters']['field_farm_animal_type_tid']['expose']['identifier'] = 'field_farm_animal_type_tid';
   $handler->display->display_options['filters']['field_farm_animal_type_tid']['expose']['multiple'] = TRUE;

@@ -33,9 +33,9 @@ function farm_livestock_taxonomy_default_vocabularies() {
       ),
     ),
     'farm_animal_types' => array(
-      'name' => 'Farm Animal Types',
+      'name' => 'Farm Animal Species/Breeds',
       'machine_name' => 'farm_animal_types',
-      'description' => 'A vocabulary of farm animal types.',
+      'description' => 'A vocabulary of farm animal species and breeds.',
       'hierarchy' => 1,
       'module' => 'taxonomy',
       'weight' => 0,

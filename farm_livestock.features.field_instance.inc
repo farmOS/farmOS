@@ -184,7 +184,7 @@ function farm_livestock_field_default_field_instances() {
     'bundle' => 'animal',
     'default_value' => array(),
     'deleted' => 0,
-    'description' => 'What type of animal is this? You can manage the list of available types in the ' . l('Animal Types', 'farm/assets/animals/types') . ' vocabulary.',
+    'description' => 'What is the species/breed of this animal? You can manage the list of available species/breeds in the ' . l('Animal Species/Breeds', 'farm/assets/animals/types') . ' vocabulary.',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -503,7 +503,7 @@ function farm_livestock_field_default_field_instances() {
   t('Sex');
   t('Tag Type');
   t('Type');
-  t('What type of animal is this? You can manage the list of available types in the ' . l('Animal Types', 'farm/assets/animals/types') . ' vocabulary.');
+  t('What is the species/breed of this animal? You can manage the list of available species/breeds in the ' . l('Animal Species/Breeds', 'farm/assets/animals/types') . ' vocabulary.');
 
   return $field_instances;
 }
