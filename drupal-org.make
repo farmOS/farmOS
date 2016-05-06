@@ -38,7 +38,7 @@ projects[exif_orientation][subdir] = "contrib"
 projects[exif_orientation][version] = "1.1"
 
 projects[features][subdir] = "contrib"
-projects[features][version] = "2.9"
+projects[features][version] = "2.10"
 
 projects[field_collection][subdir] = "contrib"
 projects[field_collection][version] = "1.0-beta11"
@@ -60,7 +60,7 @@ projects[geophp][version] = "1.x-dev"
 projects[geophp][patch][] = "http://www.drupal.org/files/issues/geophp_bcmath-2625348-1.patch"
 
 projects[inline_entity_form][subdir] = "contrib"
-projects[inline_entity_form][version] = "1.6"
+projects[inline_entity_form][version] = "1.8"
 
 projects[jquery_update][subdir] = "contrib"
 projects[jquery_update][version] = "3.0-alpha3"
