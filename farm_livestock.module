@@ -16,6 +16,9 @@ function farm_livestock_farm_access_perms($role) {
     'farm_asset' => array(
       'animal',
     ),
+    'log' => array(
+      'farm_medical',
+    ),
     'taxonomy' => array(
       'farm_animal_groups',
       'farm_animal_types',
@@ -82,6 +85,16 @@ function farm_livestock_farm_admin_actions() {
         'farm_animal_types',
       ),
     ),
+    'medical' => array(
+      'title' => t('Add a medical record'),
+      'href' => 'log/add/farm_medical',
+      'assets' => array(
+        'animal',
+      ),
+      'views' => array(
+        'farm_log_medical',
+      ),
+    ),
   );
   return $actions;
 }
@@ -119,6 +132,10 @@ function farm_livestock_farm_asset_view_views($farm_asset) {
     array(
       'name' => 'farm_log_observation',
       'weight' => 10,
+    ),
+    array(
+      'name' => 'farm_log_medical',
+      'weight' => 20,
     ),
     array(
       'name' => 'farm_log_input',
