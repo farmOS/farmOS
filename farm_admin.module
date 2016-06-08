@@ -45,6 +45,11 @@ function farm_admin_farm_access_perms($role) {
   // Access farm help.
   $perms[] = 'access farm help';
 
+  // Allow Farm Managers and Farm Workers to view user profiles.
+  if ($role == 'Farm Manager' || $role == 'Farm Worker') {
+    $perms[] = 'access user profiles';
+  }
+
   // Allow Farm Managers to administer users and delegate roles.
   if ($role == 'Farm Manager') {
 
