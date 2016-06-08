@@ -77,6 +77,18 @@ function farm_install_configure_form($form, &$form_state) {
     '#default_value' => array_keys($default_modules),
   );
 
+  // Allow the user to select their default system of measurement.
+  $form['farm_quantity_unit_system'] = array(
+    '#type' => 'radios',
+    '#title' => t('System of measurement'),
+    '#description' => t('Select the system of measurement you would like to use in farmOS.'),
+    '#options' => array(
+      'metric' => t('Metric'),
+      'us' => t('US/Imperial'),
+    ),
+    '#default_value' => variable_get('farm_quantity_unit_system', 'metric'),
+  );
+
   // Form actions.
   $form['actions'] = array('#type' => 'actions');
   $form['actions']['submit'] = array(
@@ -96,6 +108,11 @@ function farm_install_configure_form_submit($form, &$form_state) {
   // Save the list of selected modules to a variable.
   if (!empty($form_state['values']['farm_modules'])) {
     variable_set('farm_install_optional_modules', $form_state['values']['farm_modules']);
+  }
+
+  // Save the selected system of measure.
+  if (!empty($form_state['values']['farm_quantity_unit_system'])) {
+    variable_set('farm_quantity_unit_system', $form_state['values']['farm_quantity_unit_system']);
   }
 }
 
