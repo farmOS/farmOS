@@ -64,6 +64,101 @@ function farm_log_form_alter(&$form, &$form_state, $form_id) {
 }
 
 /**
+ * Implements hook_entity_presave().
+ */
+function farm_log_entity_presave($entity, $type) {
+
+  // When a log is saved, populate the Geometry field if available.
+  if ($type == 'log') {
+
+    // In the case of movement logs, the area reference field name is
+    // 'field_farm_move_to'.
+    /**
+     * @todo
+     * Migrate field_farm_move_to to field_farm_area? Currently farm_log depends
+     * on farm_log_movement, but if that needs to change in the future this will
+     * also need to change.
+     */
+    $area_field = 'field_farm_area';
+    if ($entity->type == 'farm_movement') {
+      $area_field = 'field_farm_move_to';
+    }
+    farm_log_geometry_populate($entity, $area_field);
+  }
+}
+
+/**
+ * Populate the geometry of logs from the area(s) they reference, if no
+ * geometry is already defined.
+ *
+ * @param Log $log
+ *   The log entity.
+ * @param string $area_field
+ *   Optionally, the machine name of the area reference field to look for.
+ *   Defaults to 'field_farm_area'.
+ */
+function farm_log_geometry_populate(&$log, $area_field = 'field_farm_area') {
+
+  // If the log doesn't have an area reference field, or a geofield, bail.
+  if (empty($log->{$area_field}) || empty($log->field_farm_geofield)) {
+    return;
+  }
+
+  // If a geometry is already defined, bail.
+  if (!empty($log->field_farm_geofield[LANGUAGE_NONE][0]['geom'])) {
+    return;
+  }
+
+  // Load the area(s) referenced by field_farm_move_to.
+  $areas = array();
+  if (!empty($log->{$area_field}[LANGUAGE_NONE])) {
+    foreach ($log->{$area_field}[LANGUAGE_NONE] as $area_reference) {
+      if (!empty($area_reference['tid'])) {
+        $areas[] = taxonomy_term_load($area_reference['tid']);
+      }
+    }
+  }
+
+  // If no areas are referenced, bail.
+  if (empty($areas)) {
+    return;
+  }
+
+  // Iterate over the areas to find geometries.
+  $geoms = array();
+  foreach ($areas as $area) {
+    if (!empty($area->field_farm_geofield[LANGUAGE_NONE][0]['geom'])) {
+      $geoms[] = $area->field_farm_geofield[LANGUAGE_NONE][0]['geom'];
+    }
+  }
+
+  // If no geometries were found, bail.
+  if (empty($geoms)) {
+    return;
+  }
+
+  // Load the GeoPHP library.
+  geophp_load();
+
+  // Implode the array of geometries into a single string.
+  $geom = implode(',', $geoms);
+
+  // If there is more than one geometry, wrap them all in a geometry collection.
+  if (count($geoms) > 1) {
+    $geom = 'GEOMETRYCOLLECTION (' . $geom . ')';
+  }
+
+  // Convert to a GeoPHP geometry object and reduce the geometry.
+  $geometry = geoPHP::load($geom, 'wkt');
+  $geometry = geoPHP::geometryReduce($geometry);
+
+  // Save the combined geometry to the movement log.
+  if (!empty($geometry)) {
+    $log->field_farm_geofield[LANGUAGE_NONE][0] = geofield_get_values_from_geometry($geometry);
+  }
+}
+
+/**
  * Helper function for enabling asset prepopulation in log forms.
  *
  * @param array $form

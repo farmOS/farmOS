@@ -87,17 +87,6 @@ function farm_log_movement_farm_taxonomy_term_view_views($term) {
 }
 
 /**
- * Implements hook_entity_presave().
- */
-function farm_log_movement_entity_presave($entity, $type) {
-
-  // When a movement log is saved, populate the Geometry field.
-  if ($type == 'log' && $entity->type == 'farm_movement') {
-    farm_log_movement_geometry_populate($entity);
-  }
-}
-
-/**
  * Implements hook_entity_view_alter().
  */
 function farm_log_movement_entity_view_alter(&$build, $type) {

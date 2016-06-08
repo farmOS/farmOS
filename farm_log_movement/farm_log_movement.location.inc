@@ -5,69 +5,6 @@
  */
 
 /**
- * Populate the geometry of movement logs from the area they reference, if no
- * geometry is already defined.
- *
- * @param Log $log
- *   The movement log.
- */
-function farm_log_movement_geometry_populate(&$log) {
-
-  // If a geometry is already defined, bail.
-  if (!empty($log->field_farm_geofield[LANGUAGE_NONE][0]['geom'])) {
-    return;
-  }
-
-  // Load the area(s) referenced by field_farm_move_to.
-  $areas = array();
-  if (!empty($log->field_farm_move_to[LANGUAGE_NONE])) {
-    foreach ($log->field_farm_move_to[LANGUAGE_NONE] as $area_reference) {
-      if (!empty($area_reference['tid'])) {
-        $areas[] = taxonomy_term_load($area_reference['tid']);
-      }
-    }
-  }
-
-  // If no areas are referenced, bail.
-  if (empty($areas)) {
-    return;
-  }
-
-  // Iterate over the areas to find geometries.
-  $geoms = array();
-  foreach ($areas as $area) {
-    if (!empty($area->field_farm_geofield[LANGUAGE_NONE][0]['geom'])) {
-      $geoms[] = $area->field_farm_geofield[LANGUAGE_NONE][0]['geom'];
-    }
-  }
-
-  // If no geometries were found, bail.
-  if (empty($geoms)) {
-    return;
-  }
-
-  // Load the GeoPHP library.
-  geophp_load();
-
-  // Implode the array of geometries into a single string.
-  $geom = implode(',', $geoms);
-
-  // If there is more than one geometry, wrap them all in a geometry collection.
-  if (count($geoms) > 1) {
-    $geom = 'GEOMETRYCOLLECTION (' . $geom . ')';
-  }
-
-  // Convert to a GeoPHP geometry object and reduce the geometry.
-  $geometry = geoPHP::load($geom, 'wkt');
-  $geometry = geoPHP::geometryReduce($geometry);
-
-  // Save the combined geometry to the movement log.
-  if (!empty($geometry)) {
-    $log->field_farm_geofield[LANGUAGE_NONE][0] = geofield_get_values_from_geometry($geometry);
-  }
-}
-
-/**
  * Generate markup that describes an asset's current location.
  *
  * @param FarmAsset $asset
