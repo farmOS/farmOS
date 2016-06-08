@@ -11,7 +11,7 @@ projects[bootstrap_tour][version] = "2.5"
 projects[bootstrap_tour][patch][] = "http://www.drupal.org/files/issues/add_unique_tour_name_to_avoid_local_storage_collisions-2533524-9.patch"
 
 projects[colorbox][subdir] = "contrib"
-projects[colorbox][version] = "2.10"
+projects[colorbox][version] = "2.12"
 
 projects[ctools][subdir] = "contrib"
 projects[ctools][version] = "1.9"
@@ -66,7 +66,7 @@ projects[jquery_update][subdir] = "contrib"
 projects[jquery_update][version] = "3.0-alpha3"
 
 projects[libraries][subdir] = "contrib"
-projects[libraries][version] = "2.2"
+projects[libraries][version] = "2.3"
 
 projects[libraries_cdn][subdir] = "contrib"
 projects[libraries_cdn][version] = "1.7"
