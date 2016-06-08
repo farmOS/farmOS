@@ -14,6 +14,11 @@ DEPENDENCIES
 
 This module depends on the following modules:
 
+ * Ctools (http://drupal.org/project/ctools)
+ * Features (http://drupal.org/project/features)
+ * Role Delegation (http://drupal.org/project/role_delegation)
+ * Views (http://drupal.org/project/views)
+ * Views Bulk Operations (http://drupal.org/project/views_bulk_operations)
  * Farm Log (http://drupal.org/project/farm_log)
 
 INSTALLATION
