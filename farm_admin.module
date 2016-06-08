@@ -69,6 +69,24 @@ function farm_admin_farm_access_perms($role) {
 }
 
 /**
+ * Implements hook_farm_admin_actions().
+ */
+function farm_admin_farm_admin_actions() {
+
+  // Add a link to /farm/people for adding new users.
+  $actions = array(
+    'foo' => array(
+      'title' => t('Add a person'),
+      'href' => 'admin/people/create',
+      'views' => array(
+        'farm_people',
+      ),
+    ),
+  );
+  return $actions;
+}
+
+/**
  * Implements hook_menu().
  */
 function farm_admin_menu() {
