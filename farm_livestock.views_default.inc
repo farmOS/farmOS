@@ -111,6 +111,27 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['menu']['name'] = 'farm';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
+  $translatables['farm_animal_groups'] = array(
+    t('Master'),
+    t('Animal Groups'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('<h4>Hierarchy <small><a href="/admin/structure/taxonomy/farm_animal_groups?destination=farm/assets/animals/groups">(change)</a></small></h4>'),
+    t('No groups found.'),
+    t('Parent'),
+    t('field_farm_animal_group'),
+    t('Term ID'),
+    t('.'),
+    t('Parent Term ID'),
+    t(','),
+    t('('),
+    t(')'),
+    t('Page'),
+  );
   $export['farm_animal_groups'] = $view;
 
   $view = new view();
@@ -214,6 +235,27 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['menu']['name'] = 'farm';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
+  $translatables['farm_animal_types'] = array(
+    t('Master'),
+    t('Animal Species/Breeds'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('<h4>Hierarchy <small><a href="/admin/structure/taxonomy/farm_animal_types?destination=farm/assets/animals/types">(change)</a></small></h4>'),
+    t('No types found.'),
+    t('Parent'),
+    t('field_farm_animal_type'),
+    t('Term ID'),
+    t('.'),
+    t('Parent Term ID'),
+    t(','),
+    t('('),
+    t(')'),
+    t('Page'),
+  );
   $export['farm_animal_types'] = $view;
 
   $view = new view();
@@ -824,6 +866,50 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['filters']['active']['expose']['operator'] = 'active_op';
   $handler->display->display_options['filters']['active']['expose']['identifier'] = 'active';
   $handler->display->display_options['path'] = 'farm/asset/%/offspring';
+  $translatables['farm_animals'] = array(
+    t('Master'),
+    t('Animals'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('No animals found.'),
+    t('Latest movement'),
+    t('field collection item from field_farm_animal_tag'),
+    t('Farm asset'),
+    t('- Choose an operation -'),
+    t('Farm asset ID'),
+    t('.'),
+    t('Name'),
+    t('Sex'),
+    t('Birthdate'),
+    t('Species/Breed'),
+    t('Group'),
+    t('ID Tag(s)'),
+    t('Description'),
+    t('Location'),
+    t('ID Tag'),
+    t('All'),
+    t('Animals in %1'),
+    t('Animals in group %2'),
+    t('Animals of type %3'),
+    t('If there are multiple ID tags on an animal, this filter will only look at the first one.'),
+    t('Type'),
+    t('Active'),
+    t('Page'),
+    t('Page: Offspring'),
+    t('Offspring'),
+    t('Offspring of %1'),
+  );
   $export['farm_animals'] = $view;
 
   return $export;
