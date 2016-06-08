@@ -83,7 +83,7 @@ function farm_update_7001(&$sandbox) {
     'openlayers_geofield',
     'views_geojson',
   );
-  _farm_enable_modules($modules);
+  _farm_update_enable_modules($modules);
 }
 
 /**
@@ -95,7 +95,7 @@ function farm_update_7002(&$sandbox) {
   $modules = array(
     'entityreference_view_widget',
   );
-  _farm_enable_modules($modules);
+  _farm_update_enable_modules($modules);
 }
 
 /**
@@ -109,7 +109,7 @@ function farm_update_7003(&$sandbox) {
  * Enable the RESTful Web Services module.
  */
 function farm_update_7004(&$sandbox) {
-  _farm_enable_modules(array('restws'));
+  _farm_update_enable_modules(array('restws'));
 }
 
 /**
@@ -118,7 +118,7 @@ function farm_update_7004(&$sandbox) {
 function farm_update_7005(&$sandbox) {
 
   // Enable the Libraries CDN module.
-  _farm_enable_modules(array('libraries_cdn'));
+  _farm_update_enable_modules(array('libraries_cdn'));
 
   // Load Openlayers 3.8.2 from JSDelivr CDN.
   \Drupal\openlayers\Config::set('openlayers.variant', 'jsdelivr:ol3:3.8.2');
@@ -130,7 +130,7 @@ function farm_update_7005(&$sandbox) {
 function farm_update_7006(&$sandbox) {
 
   // Enable the EXIF Orientation module.
-  _farm_enable_modules(array('exif_orientation'));
+  _farm_update_enable_modules(array('exif_orientation'));
 }
 
 /**
@@ -139,7 +139,7 @@ function farm_update_7006(&$sandbox) {
 function farm_update_7007(&$sandbox) {
 
   // Enable the Farm Access and Role Delegation modules.
-  _farm_enable_modules(array('farm_access', 'role_delegation'));
+  _farm_update_enable_modules(array('farm_access', 'role_delegation'));
 
   // Disable and uninstall the Farm Manager module.
   $module = 'farm_manager';
@@ -155,7 +155,7 @@ function farm_update_7007(&$sandbox) {
 function farm_update_7008(&$sandbox) {
 
   // Enable the Farm Access and Role Delegation modules.
-  _farm_enable_modules(array('farm_tour'));
+  _farm_update_enable_modules(array('farm_tour'));
 }
 
 /**
@@ -320,7 +320,7 @@ function farm_update_7016(&$sandbox) {
  * Install Farm Quantity and Farm Area Generator modules.
  */
 function farm_update_7017(&$sandbox) {
-  _farm_enable_modules(array('farm_area_generate', 'farm_quantity'));
+  _farm_update_enable_modules(array('farm_area_generate', 'farm_quantity'));
 }
 
 /**
@@ -335,9 +335,9 @@ function farm_update_7018(&$sandbox) {
 }
 
 /**
- * Helper function: enable modules.
+ * Update helper function: enable modules.
  */
-function _farm_enable_modules($modules = array()) {
+function _farm_update_enable_modules($modules = array()) {
   foreach ($modules as $module) {
     if (!module_exists($module)) {
       module_enable(array($module));
