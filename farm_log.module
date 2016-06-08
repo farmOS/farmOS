@@ -51,8 +51,7 @@ function farm_log_form_alter(&$form, &$form_state, $form_id) {
     if (!empty($form['field_farm_asset'])) {
 
       // Alter the form using our helper function.
-      // ($assets are used below for movement logs.)
-      $assets = farm_log_form_prepopulate_asset($form, 'field_farm_asset');
+      farm_log_form_prepopulate_asset($form, 'field_farm_asset');
     }
 
     // If there is an area(s) reference field...
