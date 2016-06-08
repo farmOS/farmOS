@@ -28,6 +28,119 @@ function farm_install() {
 }
 
 /**
+ * Implements hook_install_tasks().
+ */
+function farm_install_tasks(&$install_state) {
+  $tasks = array(
+    'farm_install_configure_form' => array(
+      'display_name' => st('Configure farmOS'),
+      'type' => 'form',
+    ),
+    'farm_install_optional_modules' => array(
+      'display_name' => st('Install optional modules'),
+      'type' => 'batch',
+    ),
+  );
+  return $tasks;
+}
+
+/**
+ * Form callback for farmOS configuration install task.
+ */
+function farm_install_configure_form($form, &$form_state) {
+
+  // Set the page title.
+  drupal_set_title(st('Configure farmOS'));
+
+  // Allow user to choose which high-level farm modules to install.
+  // Default modules will be selected by default.
+  $default_modules = array(
+    'farm_crop' => st('Crops'),
+    'farm_livestock' => st('Livestock'),
+    'farm_livestock_eggs' => st('Livestock: Egg logs'),
+    'farm_equipment' => st('Equipment'),
+    'farm_soil_nrcs' => st('NRCS Soil Survey'),
+    'farm_soil_test' => st('Soil test logs'),
+    'farm_area_generate' => st('Area generator (for generating parallel beds within an area)'),
+    'farm_tour' => st('farmOS Tours'),
+  );
+  // Extra modules will not be selected by default.
+  $extra_modules = array(
+    'farm_sensor' => st('Sensor'),
+    'farm_sensor_listener' => st('Sensor: Listener'),
+  );
+  $form['farm_modules'] = array(
+    '#type' => 'checkboxes',
+    '#title' => st('farmOS Modules'),
+    '#description' => st('Select the farmOS modules that you would like installed by default.'),
+    '#options' => array_merge($default_modules, $extra_modules),
+    '#default_value' => array_keys($default_modules),
+  );
+
+  // Form actions.
+  $form['actions'] = array('#type' => 'actions');
+  $form['actions']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => st('Continue'),
+  );
+
+  // Return the form.
+  return $form;
+}
+
+/**
+ * Submit function for farmOS configuration install task form.
+ */
+function farm_install_configure_form_submit($form, &$form_state) {
+
+  // Save the list of selected modules to a variable.
+  if (!empty($form_state['values']['farm_modules'])) {
+    variable_set('farm_install_optional_modules', $form_state['values']['farm_modules']);
+  }
+}
+
+/**
+ * Callback function for installing optional farmOS modules via Batch API.
+ */
+function farm_install_optional_modules() {
+
+  // Load the list of modules to install.
+  $modules = variable_get('farm_install_optional_modules', array());
+
+  // Load list of module names.
+  $files = system_rebuild_module_data();
+
+  // Start an array of batch operations.
+  $operations = array();
+
+  // Add operation to enable selected modules.
+  foreach ($modules as $module => $enable) {
+    if (!empty($enable)) {
+      $operations[] = array('_farm_install_enable_module', array($module, $files[$module]->info['name']));
+    }
+  }
+
+  // Assemble the Batch API.
+  $batch = array(
+    'title' => t('Installing optional modules'),
+    'operations' => $operations,
+  );
+
+  // Return the Batch API.
+  return $batch;
+}
+
+/**
+ * BatchAPI callback: enable a module.
+ *
+ * @see farm_install_optional_modules()
+ */
+function _farm_install_enable_module($module, $module_name, &$context) {
+  module_enable(array($module));
+  $context['message'] = st('Installed %module module.', array('%module' => $module_name));
+}
+
+/**
  * Implements hook_update_dependencies().
  */
 function farm_update_dependencies() {
