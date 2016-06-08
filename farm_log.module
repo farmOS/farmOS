@@ -20,6 +20,18 @@ function farm_log_permission() {
 }
 
 /**
+ * Implements hook_farm_access_perms().
+ */
+function farm_log_farm_access_perms($role) {
+  $perms = array();
+
+  // Grant access to view farm logs.
+  $perms[] = 'view farm logs';
+
+  return $perms;
+}
+
+/**
  * Implements hook_farm_admin_actions().
  */
 function farm_log_farm_admin_actions() {
