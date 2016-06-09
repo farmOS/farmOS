@@ -211,6 +211,35 @@ function farm_equipment_views_default_views() {
   $handler->display->display_options['tab_options']['title'] = 'Equipment';
   $handler->display->display_options['tab_options']['weight'] = '10';
   $handler->display->display_options['tab_options']['name'] = 'farm';
+  $translatables['farm_equipment'] = array(
+    t('Master'),
+    t('Equipment'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('No equipment found.'),
+    t('Latest movement'),
+    t('Farm asset'),
+    t('- Choose an operation -'),
+    t('Farm asset ID'),
+    t('.'),
+    t('Name'),
+    t('Location'),
+    t('All'),
+    t('Equipment in %1'),
+    t('Active'),
+    t('Page'),
+  );
   $export['farm_equipment'] = $view;
 
   $view = new view();
@@ -459,6 +488,38 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['menu']['name'] = 'farm';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
+  $translatables['farm_log_maintenance'] = array(
+    t('Master'),
+    t('Maintenance'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('No maintenance logs found.'),
+    t('Log'),
+    t('- Choose an operation -'),
+    t('Done'),
+    t('Not Done'),
+    t('Log ID'),
+    t('.'),
+    t('✔'),
+    t('Date'),
+    t('Assets'),
+    t('All'),
+    t('%1\'s maintenance'),
+    t('Start date'),
+    t('End date'),
+    t('Page'),
+  );
   $export['farm_log_maintenance'] = $view;
 
   return $export;
