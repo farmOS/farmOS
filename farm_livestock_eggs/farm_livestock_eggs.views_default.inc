@@ -286,6 +286,40 @@ function farm_livestock_eggs_views_default_views() {
   $handler->display->display_options['menu']['name'] = 'farm';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
+  $translatables['farm_log_eggs'] = array(
+    t('Master'),
+    t('Eggs'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('No egg logs found.'),
+    t('User'),
+    t('Log'),
+    t('- Choose an operation -'),
+    t('Done'),
+    t('Not Done'),
+    t('Log ID'),
+    t('.'),
+    t('✔'),
+    t('Date'),
+    t('Quantity'),
+    t('Group'),
+    t('Person'),
+    t('Notes'),
+    t('Start date'),
+    t('End date'),
+    t('Page'),
+  );
   $export['farm_log_eggs'] = $view;
 
   return $export;
