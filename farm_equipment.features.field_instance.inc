@@ -134,7 +134,7 @@ function farm_equipment_field_default_field_instances() {
   $field_instances['log-farm_maintenance-field_farm_asset'] = array(
     'bundle' => 'farm_maintenance',
     'deleted' => 0,
-    'description' => 'What assets does this maintenance pertain to?',
+    'description' => 'What assets do this maintenance log pertain to?',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -297,7 +297,7 @@ function farm_equipment_field_default_field_instances() {
   t('Files');
   t('Notes');
   t('Photo(s)');
-  t('What assets does this maintenance pertain to?');
+  t('What assets do this maintenance log pertain to?');
 
   return $field_instances;
 }
