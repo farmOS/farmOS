@@ -49,7 +49,7 @@ function farm_log_observation_field_default_field_instances() {
     'bundle' => 'farm_observation',
     'default_value' => array(),
     'deleted' => 0,
-    'description' => 'What assets does this observation pertain to?',
+    'description' => 'What assets do this observation log pertain to?',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -346,7 +346,7 @@ function farm_log_observation_field_default_field_instances() {
   t('This field is optional. It allows you to store geospatial data along with this observation.');
   t('Type');
   t('What areas did this observation take place in?');
-  t('What assets does this observation pertain to?');
+  t('What assets do this observation log pertain to?');
   t('What type of observation is this. Use this to organize your observations into categories for easy viewing later. As you type, you will have the option of selecting from a list of types you entered in the past.');
 
   return $field_instances;

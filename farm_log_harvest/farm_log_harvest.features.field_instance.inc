@@ -14,7 +14,7 @@ function farm_log_harvest_field_default_field_instances() {
   $field_instances['log-farm_harvest-field_farm_asset'] = array(
     'bundle' => 'farm_harvest',
     'deleted' => 0,
-    'description' => 'What assets does this harvest pertain to?',
+    'description' => 'What assets do this harvest log pertain to?',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -309,7 +309,7 @@ function farm_log_harvest_field_default_field_instances() {
   t('Photo(s)');
   t('Quantity');
   t('This field is optional. It allows you to store geospatial data along with this harvest.');
-  t('What assets does this harvest pertain to?');
+  t('What assets do this harvest log pertain to?');
 
   return $field_instances;
 }

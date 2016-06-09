@@ -49,7 +49,7 @@ function farm_log_activity_field_default_field_instances() {
     'bundle' => 'farm_activity',
     'default_value' => array(),
     'deleted' => 0,
-    'description' => 'What assets does this activity pertain to?',
+    'description' => 'What assets do this activity log pertain to?',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -275,7 +275,7 @@ function farm_log_activity_field_default_field_instances() {
   t('Photo(s)');
   t('This field is optional. It allows you to store geospatial data along with this activity.');
   t('What areas did this activity take place in?');
-  t('What assets does this activity pertain to?');
+  t('What assets do this activity log pertain to?');
 
   return $field_instances;
 }

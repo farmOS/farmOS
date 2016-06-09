@@ -54,7 +54,7 @@ function farm_log_input_field_default_field_instances() {
   $field_instances['log-farm_input-field_farm_asset'] = array(
     'bundle' => 'farm_input',
     'deleted' => 0,
-    'description' => 'What assets does this input pertain to?',
+    'description' => 'What assets do this input log pertain to?',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -516,7 +516,7 @@ function farm_log_input_field_default_field_instances() {
   t('Source/Manufacturer');
   t('This field is optional. It allows you to store geospatial data along with this input.');
   t('What areas is this input being applied to?');
-  t('What assets does this input pertain to?');
+  t('What assets do this input log pertain to?');
   t('What material is being applied? As you type, you will have the option of selecting from materials that you\'ve entered in the past.');
   t('What was the purpose of this input?');
   t('Where was this input obtained? Who manufactured it?');
