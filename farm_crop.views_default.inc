@@ -162,6 +162,30 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['menu']['name'] = 'farm';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
+  $translatables['farm_crops'] = array(
+    t('Master'),
+    t('Crops/Varieties'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('<h4>Hierarchy <small><a href="/admin/structure/taxonomy/farm_crops?destination=farm/assets/plantings/crops">(change)</a></small></h4>'),
+    t('No crops/varieties found.'),
+    t('Parent'),
+    t('field_farm_crop'),
+    t('Term ID'),
+    t('.'),
+    t('('),
+    t(')'),
+    t('Name'),
+    t('Family'),
+    t('All'),
+    t('Crops in %1'),
+    t('Crop family'),
+    t('Page'),
+  );
   $export['farm_crops'] = $view;
 
   $view = new view();
@@ -412,6 +436,39 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['menu']['name'] = 'farm';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
+  $translatables['farm_log_seeding'] = array(
+    t('Master'),
+    t('Seedings'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('No seedings found.'),
+    t('Log'),
+    t('- Choose an operation -'),
+    t('Done'),
+    t('Not Done'),
+    t('Log ID'),
+    t('.'),
+    t('✔'),
+    t('Date'),
+    t('Seeding'),
+    t('Quantity'),
+    t('All'),
+    t('Seedings of %1'),
+    t('Start date'),
+    t('End date'),
+    t('Page'),
+  );
   $export['farm_log_seeding'] = $view;
 
   $view = new view();
@@ -662,6 +719,39 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['menu']['name'] = 'farm';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
+  $translatables['farm_log_transplanting'] = array(
+    t('Master'),
+    t('Transplantings'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('No transplantings found.'),
+    t('Log'),
+    t('- Choose an operation -'),
+    t('Done'),
+    t('Not Done'),
+    t('Log ID'),
+    t('.'),
+    t('✔'),
+    t('Date'),
+    t('Transplanting'),
+    t('Quantity'),
+    t('All'),
+    t('Transplantings of %1'),
+    t('Start date'),
+    t('End date'),
+    t('Page'),
+  );
   $export['farm_log_transplanting'] = $view;
 
   $view = new view();
@@ -939,6 +1029,38 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['tab_options']['title'] = 'Plantings';
   $handler->display->display_options['tab_options']['weight'] = '0';
   $handler->display->display_options['tab_options']['name'] = 'farm';
+  $translatables['farm_plantings'] = array(
+    t('Master'),
+    t('Plantings'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('No plantings found.'),
+    t('Latest movement'),
+    t('Farm asset'),
+    t('- Choose an operation -'),
+    t('Farm asset ID'),
+    t('.'),
+    t('Name'),
+    t('Crop/Variety'),
+    t('Location'),
+    t('Season'),
+    t('All'),
+    t('Plantings in %1'),
+    t('Plantings of %2'),
+    t('Active'),
+    t('Page'),
+  );
   $export['farm_plantings'] = $view;
 
   return $export;
