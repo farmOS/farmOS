@@ -43,8 +43,8 @@ function farm_crop_default_log_type() {
     "type" : "farm_seeding",
     "label" : "Seeding",
     "weight" : 0,
-    "name_edit" : "0",
     "name_pattern" : "Seed [log:field-farm-planting]",
+    "name_edit" : "0",
     "done" : "1",
     "rdf_mapping" : []
   }');

@@ -608,8 +608,8 @@ function farm_crop_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Assign this planting to a season. You can manage these options in the ' . l('Seasons', 'admin/structure/taxonomy/farm_season') . ' vocabulary.');
   t('Companions');
-  t('Crop/Variety');
   t('Crop family');
+  t('Crop/Variety');
   t('Days to maturity');
   t('Days to transplant');
   t('Describe the quantity of this seeding, using a value and a unit of measurement. For example, if you seeded 10 flats of lettuce, enter "10" in the Value field, and "flats" in the Units field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.');

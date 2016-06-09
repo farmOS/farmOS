@@ -56,7 +56,7 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['relationships']['parent']['id'] = 'parent';
   $handler->display->display_options['relationships']['parent']['table'] = 'taxonomy_term_hierarchy';
   $handler->display->display_options['relationships']['parent']['field'] = 'parent';
-  /* Relationship: Taxonomy term: Farm asset using Crop */
+  /* Relationship: Taxonomy term: Farm asset using Crop/Variety */
   $handler->display->display_options['relationships']['reverse_field_farm_crop_farm_asset']['id'] = 'reverse_field_farm_crop_farm_asset';
   $handler->display->display_options['relationships']['reverse_field_farm_crop_farm_asset']['table'] = 'taxonomy_term_data';
   $handler->display->display_options['relationships']['reverse_field_farm_crop_farm_asset']['field'] = 'reverse_field_farm_crop_farm_asset';
@@ -788,7 +788,7 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['fields']['name']['field'] = 'name';
   $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['name']['alter']['path'] = 'farm/asset/[id]';
-  /* Field: Farm asset: Crop */
+  /* Field: Farm asset: Crop/Variety */
   $handler->display->display_options['fields']['field_farm_crop']['id'] = 'field_farm_crop';
   $handler->display->display_options['fields']['field_farm_crop']['table'] = 'field_data_field_farm_crop';
   $handler->display->display_options['fields']['field_farm_crop']['field'] = 'field_farm_crop';
@@ -809,7 +809,7 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['sorts']['name']['field'] = 'name';
   $handler->display->display_options['sorts']['name']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['name']['expose']['label'] = 'Name';
-  /* Sort criterion: Farm asset: Crop (field_farm_crop) */
+  /* Sort criterion: Farm asset: Crop/Variety (field_farm_crop) */
   $handler->display->display_options['sorts']['field_farm_crop_tid']['id'] = 'field_farm_crop_tid';
   $handler->display->display_options['sorts']['field_farm_crop_tid']['table'] = 'field_data_field_farm_crop';
   $handler->display->display_options['sorts']['field_farm_crop_tid']['field'] = 'field_farm_crop_tid';
@@ -837,7 +837,7 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['validate_options']['vocabularies'] = array(
     'farm_areas' => 'farm_areas',
   );
-  /* Contextual filter: Farm asset: Crop (field_farm_crop) */
+  /* Contextual filter: Farm asset: Crop/Variety (field_farm_crop) */
   $handler->display->display_options['arguments']['field_farm_crop_tid']['id'] = 'field_farm_crop_tid';
   $handler->display->display_options['arguments']['field_farm_crop_tid']['table'] = 'field_data_field_farm_crop';
   $handler->display->display_options['arguments']['field_farm_crop_tid']['field'] = 'field_farm_crop_tid';
@@ -871,7 +871,7 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['filters']['name']['expose']['label'] = 'Name';
   $handler->display->display_options['filters']['name']['expose']['operator'] = 'name_op';
   $handler->display->display_options['filters']['name']['expose']['identifier'] = 'name';
-  /* Filter criterion: Farm asset: Crop (field_farm_crop) */
+  /* Filter criterion: Farm asset: Crop/Variety (field_farm_crop) */
   $handler->display->display_options['filters']['field_farm_crop_tid']['id'] = 'field_farm_crop_tid';
   $handler->display->display_options['filters']['field_farm_crop_tid']['table'] = 'field_data_field_farm_crop';
   $handler->display->display_options['filters']['field_farm_crop_tid']['field'] = 'field_farm_crop_tid';
