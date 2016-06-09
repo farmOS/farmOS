@@ -198,6 +198,35 @@ function farm_sensor_views_default_views() {
   $handler->display->display_options['tab_options']['title'] = 'Sensors';
   $handler->display->display_options['tab_options']['weight'] = '100';
   $handler->display->display_options['tab_options']['name'] = 'farm';
+  $translatables['farm_sensors'] = array(
+    t('Master'),
+    t('Sensors'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('No sensors found.'),
+    t('Latest movement'),
+    t('Farm asset'),
+    t('- Choose an operation -'),
+    t('Farm asset ID'),
+    t('.'),
+    t('Name'),
+    t('Location'),
+    t('All'),
+    t('Equipment in %1'),
+    t('Active'),
+    t('Page'),
+  );
   $export['farm_sensors'] = $view;
 
   return $export;
