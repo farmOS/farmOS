@@ -219,6 +219,37 @@ function farm_log_movement_views_default_views() {
   $handler->display->display_options['filters']['date_filter_1']['date_fields'] = array(
     'log.timestamp' => 'log.timestamp',
   );
+  $translatables['farm_area_assets'] = array(
+    t('Master'),
+    t('History of Assets'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('<small>This lists all assets that have ever been moved to this area. If an asset has been moved to this area more than once, it will show up more than once in this list.</small>'),
+    t('Asset'),
+    t('Farm asset ID'),
+    t('.'),
+    t('Name'),
+    t('Type'),
+    t('Active'),
+    t('Arrived'),
+    t('From'),
+    t('All'),
+    t('Assets in %1'),
+    t('Asset type'),
+    t('Arrived after'),
+    t('Arrived before'),
+  );
   $export['farm_area_assets'] = $view;
 
   $view = new view();
@@ -336,6 +367,25 @@ function farm_log_movement_views_default_views() {
   $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['name']['alter']['path'] = 'farm/asset/[id]';
   $handler->display->display_options['path'] = 'farm/assets/geojson/centroid';
+  $translatables['farm_asset_geojson'] = array(
+    t('Master'),
+    t('Farm Asset GeoJSON'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Latest movement'),
+    t('Geometry'),
+    t('Name'),
+    t('All'),
+    t('Full Geometry'),
+    t('Centroid'),
+    t('Farm asset ID'),
+    t('.'),
+    t(','),
+  );
   $export['farm_asset_geojson'] = $view;
 
   $view = new view();
@@ -603,6 +653,41 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['menu']['name'] = 'farm';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
+  $translatables['farm_log_movement'] = array(
+    t('Master'),
+    t('Movements'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('No movements found.'),
+    t('Log'),
+    t('- Choose an operation -'),
+    t('Done'),
+    t('Not Done'),
+    t('Log ID'),
+    t('.'),
+    t('✔'),
+    t('Date'),
+    t('Assets'),
+    t('To'),
+    t('From'),
+    t('All'),
+    t('%1\'s movements'),
+    t('Area'),
+    t('Start date'),
+    t('End date'),
+    t('Page'),
+  );
   $export['farm_log_movement'] = $view;
 
   return $export;

@@ -345,6 +345,43 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['menu']['name'] = 'farm';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
+  $translatables['farm_log_observation'] = array(
+    t('Master'),
+    t('Observations'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('No observations found.'),
+    t('Log'),
+    t('- Choose an operation -'),
+    t('Done'),
+    t('Not Done'),
+    t('Log ID'),
+    t('.'),
+    t('✔'),
+    t('Date'),
+    t('Observation'),
+    t('Assets'),
+    t('Areas'),
+    t('Quantity'),
+    t('Type'),
+    t('All'),
+    t('%1\'s observations'),
+    t('Observations in %2'),
+    t('Start date'),
+    t('End date'),
+    t('Page'),
+  );
   $export['farm_log_observation'] = $view;
 
   return $export;

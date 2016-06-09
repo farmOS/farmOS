@@ -191,6 +191,30 @@ function farm_log_views_default_views() {
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $translatables['farm_asset_entityreference_view'] = array(
+    t('Master'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('No assets found.'),
+    t('Latest movement'),
+    t('Asset type'),
+    t('Location'),
+    t('Name'),
+    t('All'),
+    t('Active'),
+    t('Entity Reference View Widget'),
+  );
   $export['farm_asset_entityreference_view'] = $view;
 
   $view = new view();
@@ -591,6 +615,46 @@ function farm_log_views_default_views() {
   $handler->display->display_options['filters']['done']['expose']['label'] = 'Done';
   $handler->display->display_options['filters']['done']['expose']['operator'] = 'done_op';
   $handler->display->display_options['filters']['done']['expose']['identifier'] = 'done';
+  $translatables['farm_log'] = array(
+    t('Master'),
+    t('Logs'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('No logs found.'),
+    t('Log'),
+    t('- Choose an operation -'),
+    t('Done'),
+    t('Not Done'),
+    t('Log ID'),
+    t('.'),
+    t('✔'),
+    t('Date'),
+    t('Log type'),
+    t('Name'),
+    t('Assets'),
+    t('Areas'),
+    t('All'),
+    t('Activities in %2'),
+    t('Search'),
+    t('Start date'),
+    t('End date'),
+    t('Page'),
+    t('Block: Plan'),
+    t('Plan'),
+    t('Block: Late Tasks'),
+    t('Late tasks'),
+  );
   $export['farm_log'] = $view;
 
   return $export;
