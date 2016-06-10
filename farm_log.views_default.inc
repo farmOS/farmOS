@@ -510,6 +510,59 @@ function farm_log_views_default_views() {
   $handler->display->display_options['tab_options']['weight'] = '0';
   $handler->display->display_options['tab_options']['name'] = 'farm';
 
+  /* Display: Page: Plan */
+  $handler = $view->new_display('page', 'Page: Plan', 'page_plan');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Plan';
+  $handler->display->display_options['defaults']['sorts'] = FALSE;
+  /* Sort criterion: Log: Timestamp */
+  $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
+  $handler->display->display_options['sorts']['timestamp']['table'] = 'log';
+  $handler->display->display_options['sorts']['timestamp']['field'] = 'timestamp';
+  $handler->display->display_options['sorts']['timestamp']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['timestamp']['expose']['label'] = 'Date';
+  /* Sort criterion: Log: Log ID */
+  $handler->display->display_options['sorts']['id']['id'] = 'id';
+  $handler->display->display_options['sorts']['id']['table'] = 'log';
+  $handler->display->display_options['sorts']['id']['field'] = 'id';
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Date: Date (log) */
+  $handler->display->display_options['filters']['date_filter']['id'] = 'date_filter';
+  $handler->display->display_options['filters']['date_filter']['table'] = 'log';
+  $handler->display->display_options['filters']['date_filter']['field'] = 'date_filter';
+  $handler->display->display_options['filters']['date_filter']['operator'] = '>=';
+  $handler->display->display_options['filters']['date_filter']['group'] = 1;
+  $handler->display->display_options['filters']['date_filter']['expose']['operator_id'] = 'date_filter_op';
+  $handler->display->display_options['filters']['date_filter']['expose']['label'] = 'Start date';
+  $handler->display->display_options['filters']['date_filter']['expose']['operator'] = 'date_filter_op';
+  $handler->display->display_options['filters']['date_filter']['expose']['identifier'] = 'date_filter';
+  $handler->display->display_options['filters']['date_filter']['default_date'] = 'today';
+  $handler->display->display_options['filters']['date_filter']['year_range'] = '-10:+3';
+  $handler->display->display_options['filters']['date_filter']['date_fields'] = array(
+    'log.timestamp' => 'log.timestamp',
+  );
+  /* Filter criterion: Log: Done */
+  $handler->display->display_options['filters']['done']['id'] = 'done';
+  $handler->display->display_options['filters']['done']['table'] = 'log';
+  $handler->display->display_options['filters']['done']['field'] = 'done';
+  $handler->display->display_options['filters']['done']['value'] = '0';
+  $handler->display->display_options['filters']['done']['group'] = 1;
+  $handler->display->display_options['filters']['done']['expose']['operator_id'] = '';
+  $handler->display->display_options['filters']['done']['expose']['label'] = 'Done';
+  $handler->display->display_options['filters']['done']['expose']['operator'] = 'done_op';
+  $handler->display->display_options['filters']['done']['expose']['identifier'] = 'done';
+  $handler->display->display_options['path'] = 'farm/logs/plan';
+  $handler->display->display_options['menu']['title'] = 'Logs';
+  $handler->display->display_options['menu']['weight'] = '';
+  $handler->display->display_options['menu']['name'] = 'farm';
+  $handler->display->display_options['menu']['context'] = 0;
+  $handler->display->display_options['menu']['context_only_inline'] = 0;
+  $handler->display->display_options['tab_options']['type'] = 'normal';
+  $handler->display->display_options['tab_options']['title'] = 'Logs';
+  $handler->display->display_options['tab_options']['weight'] = '0';
+  $handler->display->display_options['tab_options']['name'] = 'farm';
+
   /* Display: Block: Plan */
   $handler = $view->new_display('block', 'Block: Plan', 'block_plan');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -520,6 +573,8 @@ function farm_log_views_default_views() {
   $handler->display->display_options['defaults']['use_more_always'] = FALSE;
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['defaults']['use_more_text'] = FALSE;
+  $handler->display->display_options['defaults']['link_display'] = FALSE;
+  $handler->display->display_options['link_display'] = 'page_plan';
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '10';
@@ -563,6 +618,59 @@ function farm_log_views_default_views() {
   $handler->display->display_options['filters']['done']['expose']['operator'] = 'done_op';
   $handler->display->display_options['filters']['done']['expose']['identifier'] = 'done';
 
+  /* Display: Page: Late Tasks */
+  $handler = $view->new_display('page', 'Page: Late Tasks', 'page_late_tasks');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Late tasks';
+  $handler->display->display_options['defaults']['sorts'] = FALSE;
+  /* Sort criterion: Log: Timestamp */
+  $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
+  $handler->display->display_options['sorts']['timestamp']['table'] = 'log';
+  $handler->display->display_options['sorts']['timestamp']['field'] = 'timestamp';
+  $handler->display->display_options['sorts']['timestamp']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['timestamp']['expose']['label'] = 'Date';
+  /* Sort criterion: Log: Log ID */
+  $handler->display->display_options['sorts']['id']['id'] = 'id';
+  $handler->display->display_options['sorts']['id']['table'] = 'log';
+  $handler->display->display_options['sorts']['id']['field'] = 'id';
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Date: Date (log) */
+  $handler->display->display_options['filters']['date_filter']['id'] = 'date_filter';
+  $handler->display->display_options['filters']['date_filter']['table'] = 'log';
+  $handler->display->display_options['filters']['date_filter']['field'] = 'date_filter';
+  $handler->display->display_options['filters']['date_filter']['operator'] = '<';
+  $handler->display->display_options['filters']['date_filter']['group'] = 1;
+  $handler->display->display_options['filters']['date_filter']['expose']['operator_id'] = 'date_filter_op';
+  $handler->display->display_options['filters']['date_filter']['expose']['label'] = 'Start date';
+  $handler->display->display_options['filters']['date_filter']['expose']['operator'] = 'date_filter_op';
+  $handler->display->display_options['filters']['date_filter']['expose']['identifier'] = 'date_filter';
+  $handler->display->display_options['filters']['date_filter']['default_date'] = 'today';
+  $handler->display->display_options['filters']['date_filter']['year_range'] = '-10:+3';
+  $handler->display->display_options['filters']['date_filter']['date_fields'] = array(
+    'log.timestamp' => 'log.timestamp',
+  );
+  /* Filter criterion: Log: Done */
+  $handler->display->display_options['filters']['done']['id'] = 'done';
+  $handler->display->display_options['filters']['done']['table'] = 'log';
+  $handler->display->display_options['filters']['done']['field'] = 'done';
+  $handler->display->display_options['filters']['done']['value'] = '0';
+  $handler->display->display_options['filters']['done']['group'] = 1;
+  $handler->display->display_options['filters']['done']['expose']['operator_id'] = '';
+  $handler->display->display_options['filters']['done']['expose']['label'] = 'Done';
+  $handler->display->display_options['filters']['done']['expose']['operator'] = 'done_op';
+  $handler->display->display_options['filters']['done']['expose']['identifier'] = 'done';
+  $handler->display->display_options['path'] = 'farm/logs/late';
+  $handler->display->display_options['menu']['title'] = 'Logs';
+  $handler->display->display_options['menu']['weight'] = '';
+  $handler->display->display_options['menu']['name'] = 'farm';
+  $handler->display->display_options['menu']['context'] = 0;
+  $handler->display->display_options['menu']['context_only_inline'] = 0;
+  $handler->display->display_options['tab_options']['type'] = 'normal';
+  $handler->display->display_options['tab_options']['title'] = 'Logs';
+  $handler->display->display_options['tab_options']['weight'] = '0';
+  $handler->display->display_options['tab_options']['name'] = 'farm';
+
   /* Display: Block: Late Tasks */
   $handler = $view->new_display('block', 'Block: Late Tasks', 'block_late_tasks');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -573,6 +681,8 @@ function farm_log_views_default_views() {
   $handler->display->display_options['defaults']['use_more_always'] = FALSE;
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['defaults']['use_more_text'] = FALSE;
+  $handler->display->display_options['defaults']['link_display'] = FALSE;
+  $handler->display->display_options['link_display'] = 'page_late_tasks';
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '10';
@@ -650,10 +760,12 @@ function farm_log_views_default_views() {
     t('Start date'),
     t('End date'),
     t('Page'),
-    t('Block: Plan'),
+    t('Page: Plan'),
     t('Plan'),
-    t('Block: Late Tasks'),
+    t('Block: Plan'),
+    t('Page: Late Tasks'),
     t('Late tasks'),
+    t('Block: Late Tasks'),
   );
   $export['farm_log'] = $view;
 
