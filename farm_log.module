@@ -112,7 +112,7 @@ function farm_log_entity_presave($entity, $type) {
 function farm_log_geometry_populate(&$log, $area_field = 'field_farm_area') {
 
   // If the log doesn't have an area reference field, or a geofield, bail.
-  if (empty($log->{$area_field}) || empty($log->field_farm_geofield)) {
+  if (!isset($log->{$area_field}) || !isset($log->field_farm_geofield)) {
     return;
   }
 
