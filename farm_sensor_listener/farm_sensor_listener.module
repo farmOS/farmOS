@@ -195,7 +195,11 @@ function farm_sensor_listener_settings_form($settings = array()) {
     '#title' => t('Developer Information'),
     '#description' => t('A "listener" sensor allows you to send sensor data to
     farmOS over standard HTTP in a JSON array. Set up your sensor to post JSON
-    to the URL below.'),
+    to the URL below. Note that multiple sensor values can be included in each request (if a
+    device has multiple sensors, for example). The name given to each value
+    can be any string of numbers and letters ("timestamp" is reserved). Each
+    value will be stored in a separate row in the database, with the "name"
+    column used for filtering purposes.'),
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
@@ -209,8 +213,7 @@ function farm_sensor_listener_settings_form($settings = array()) {
   // Example JSON objects.
   $form['info']['json'] = array(
     '#type' => 'markup',
-    '#markup' => '<p><strong>JSON Example:</strong>
-    { "timestamp": 1234567890, "sensor1": 76.5, "sensor2": 55 }</p>',
+    '#markup' => '<p><strong>JSON Example:</strong> { "timestamp": 1234567890, "value": 76.5 }</p><p><strong>JSON Example (multiple values):</strong> { "timestamp": 1234567890, "sensor1": 76.5, "sensor2": 60 }</p>',
   );
 
   return $form;
