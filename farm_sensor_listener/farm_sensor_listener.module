@@ -164,12 +164,20 @@ function farm_sensor_listener_farm_sensor_type_info() {
  */
 function farm_sensor_listener_settings_form($settings = array()) {
 
+  // If a public/private key haven't been set yet, generate them.
+  if (empty($settings['public_key'])) {
+    $settings['public_key'] = hash('md5', mt_rand());
+  }
+  if (empty($settings['private_key'])) {
+    $settings['private_key'] = hash('md5', mt_rand());
+  }
+
   // Automatically generated public key.
   $form['public_key'] = array(
     '#type' => 'textfield',
     '#title' => t('Public key'),
     '#description' => t('An automatically generated public key for this sensor.'),
-    '#default_value' => !empty($settings['public_key']) ? $settings['public_key'] : hash('md5', mt_rand()),
+    '#default_value' => $settings['public_key'],
   );
 
   // Automatically generated private key.
@@ -177,7 +185,7 @@ function farm_sensor_listener_settings_form($settings = array()) {
     '#type' => 'textfield',
     '#title' => t('Private key'),
     '#description' => t('An automatically generated private key for this sensor.'),
-    '#default_value' => !empty($settings['private_key']) ? $settings['private_key'] : hash('md5', mt_rand()),
+    '#default_value' => $settings['private_key'],
   );
 
   return $form;
