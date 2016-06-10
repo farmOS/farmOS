@@ -121,7 +121,7 @@ function farm_log_geometry_populate(&$log, $area_field = 'field_farm_area') {
     return;
   }
 
-  // Load the area(s) referenced by field_farm_move_to.
+  // Load the area(s) referenced by the area reference field.
   $areas = array();
   if (!empty($log->{$area_field}[LANGUAGE_NONE])) {
     foreach ($log->{$area_field}[LANGUAGE_NONE] as $area_reference) {
