@@ -156,13 +156,15 @@ function farm_sensor_listener_farm_sensor_type_info() {
 /**
  * Settings form for listener sensor.
  *
+ * @param FarmAsset $sensor
+ *   The sensor asset entity.
  * @param array $settings
  *   The farm sensor settings.
  *
  * @return array
  *   Returns a form with settings for this  Listener sensor.
  */
-function farm_sensor_listener_settings_form($settings = array()) {
+function farm_sensor_listener_settings_form($sensor, $settings = array()) {
 
   // If a public/private key haven't been set yet, generate them.
   if (empty($settings['public_key'])) {

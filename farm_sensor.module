@@ -356,7 +356,7 @@ function farm_sensor_form_alter(&$form, &$form_state, $form_id) {
   if (!empty($sensor_type) && !empty($sensor_types[$sensor_type]['form']) && function_exists($sensor_types[$sensor_type]['form'])) {
 
     // Load the sensor type settings form.
-    $settings_form = call_user_func_array($sensor_types[$sensor_type]['form'], array($sensor_settings));
+    $settings_form = call_user_func_array($sensor_types[$sensor_type]['form'], array($farm_asset, $sensor_settings));
 
     // Add it to the fieldset.
     $form['sensor_settings'] = array_merge($form['sensor_settings'], $settings_form);
