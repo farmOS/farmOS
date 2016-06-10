@@ -215,15 +215,25 @@ function farm_sensor_listener_settings_form($sensor, $settings = array()) {
   );
 
   // URL to post data to.
+  $url = $base_url . '/farm/sensor/listener/' . $settings['public_key'] . '?private_key=' . $settings['private_key'];
   $form['info']['url'] = array(
     '#type' => 'markup',
-    '#markup' => '<p><strong>URL:</strong> ' . $base_url . '/farm/sensor/listener/' . $settings['public_key'] . '?private_key=' . $settings['private_key'] . '</p>',
+    '#markup' => '<p><strong>URL:</strong> ' . $url . '</p>',
   );
 
   // Example JSON objects.
+  $json_example1 = '{ "timestamp": ' . REQUEST_TIME . ', "value": 76.5 }';
+  $json_example2 = '{ "timestamp": ' . REQUEST_TIME . ', "sensor1": 76.5, "sensor2": 60 }';
   $form['info']['json'] = array(
     '#type' => 'markup',
-    '#markup' => '<p><strong>JSON Example:</strong> { "timestamp": 1234567890, "value": 76.5 }</p><p><strong>JSON Example (multiple values):</strong> { "timestamp": 1234567890, "sensor1": 76.5, "sensor2": 60 }</p>',
+    '#markup' => '<p><strong>JSON Example:</strong> ' . $json_example1 . '</p><p><strong>JSON Example (multiple values):</strong> ' . $json_example2 . '</p>',
+  );
+
+  // Example CURL command.
+  $curl_example = 'curl -H "Content-Type: application/json" -X POST -d \'' . $json_example1 . '\' ' . $url;
+  $form['info']['curl'] = array(
+    '#type' => 'markup',
+    '#markup' => '<p><strong>Example CURL command:</strong> ' . $curl_example . '</p>',
   );
 
   return $form;
