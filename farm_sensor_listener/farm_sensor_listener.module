@@ -190,6 +190,14 @@ function farm_sensor_listener_settings_form($sensor, $settings = array()) {
     '#default_value' => $settings['private_key'],
   );
 
+  // Reminder to save the sensor entity before posting data.
+  if (empty($sensor->id)) {
+    $form['reminder'] = array(
+      '#type' => 'markup',
+      '#markup' => '<p><strong>Remember to save your sensor before attempting to send data to it!</strong></p>',
+    );
+  }
+
   // Display some information about how to stream data to the listener.
   global $base_url;
   $form['info'] = array(
