@@ -188,6 +188,31 @@ function farm_sensor_listener_settings_form($settings = array()) {
     '#default_value' => $settings['private_key'],
   );
 
+  // Display some information about how to stream data to the listener.
+  global $base_url;
+  $form['info'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Developer Information'),
+    '#description' => t('A "listener" sensor allows you to send sensor data to
+    farmOS over standard HTTP in a JSON array. Set up your sensor to post JSON
+    to the URL below.'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+
+  // URL to post data to.
+  $form['info']['url'] = array(
+    '#type' => 'markup',
+    '#markup' => '<p><strong>URL:</strong> ' . $base_url . '/farm/sensor/listener/' . $settings['public_key'] . '?private_key=' . $settings['private_key'] . '</p>',
+  );
+
+  // Example JSON objects.
+  $form['info']['json'] = array(
+    '#type' => 'markup',
+    '#markup' => '<p><strong>JSON Example:</strong>
+    { "timestamp": 1234567890, "sensor1": 76.5, "sensor2": 55 }</p>',
+  );
+
   return $form;
 }
 
