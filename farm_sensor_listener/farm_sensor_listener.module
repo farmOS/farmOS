@@ -43,6 +43,38 @@ function farm_sensor_listener_entity_delete($entity, $type) {
 }
 
 /**
+ * Implements hook_mail().
+ */
+function farm_sensor_listener_mail($key, &$message, $params) {
+
+  // Assemble the notification email.
+  if ($key == 'listener_notification') {
+
+    // Build the email subject.
+    $message['subject'] = t('Sensor notification from @sensor', array('@sensor' => $params['sensor']->name));
+
+    // Build the email body.
+    $condition = '';
+    switch ($params['condition']) {
+      case '>':
+        $condition = 'greater than';
+        break;
+      case '<':
+        $condition = 'less than';
+        break;
+    }
+    $message['body'][] = t('The latest sensor reading "@name" is !condition @threshold. Actual value: @value', array(
+      '@name' => $params['name'],
+      '!condition' => $condition,
+      '@threshold' => $params['threshold'],
+      '@value' => $params['value'],
+    ));
+    $uri = entity_uri('farm_asset', $params['sensor']);
+    $message['body'][] = entity_label('farm_asset', $params['sensor']) . ': ' . url($uri['path'], array('absolute' => TRUE));
+  }
+}
+
+/**
  * Callback function for receiving JSON over HTTP and storing data to the {farm_sensor_data} table.
  *
  * @param $public_key
@@ -133,6 +165,74 @@ function farm_sensor_listener_page_callback($public_key) {
 
     // Enter the reading into the {farm_sensor_data} table.
     drupal_write_record('farm_sensor_data', $row);
+
+    // Send notifications, if the conditions are met.
+    if (!empty($sensor->sensor_settings['notifications'][0]['name']) && !empty($sensor->sensor_settings['notifications'][0]['condition']) && !empty($sensor->sensor_settings['notifications'][0]['threshold']) && !empty($sensor->sensor_settings['notifications'][0]['email'])) {
+
+      // Get all the variables.
+      $name = $sensor->sensor_settings['notifications'][0]['name'];
+      $condition = $sensor->sensor_settings['notifications'][0]['condition'];
+      $threshold = $sensor->sensor_settings['notifications'][0]['threshold'];
+      $email = $sensor->sensor_settings['notifications'][0]['email'];
+
+      // Only proceed if the name matches.
+      if ($name != $key) {
+        continue;
+      }
+
+      // Switch based on the condition.
+      $send_email = FALSE;
+      switch ($condition) {
+
+        // Greater than threshold.
+        case '>':
+          if ($value > $threshold) {
+            $send_email = TRUE;
+          }
+          break;
+
+        // Less than threshold.
+        case '<':
+          if ($value < $threshold) {
+            $send_email = TRUE;
+          }
+          break;
+      }
+
+      // Perform a check to see if the condition has already been met in the
+      // past hour, so we don't send an email more often than that.
+      if ($send_email) {
+        $query = db_select('farm_sensor_data', 'fsd');
+        $query->addField('fsd', 'id');
+        $query->condition('fsd.name', $name);
+        // Note that $condition should only be '<' or '>' at this point,
+        // because this code will only run if the switch statement above set
+        // $send_email to TRUE.
+        $query->where('fsd.value_numerator / fsd.value_denominator ' . $condition . ' :value', array(':value' => $threshold));
+        $query->condition('fsd.timestamp', REQUEST_TIME - 3600, '>');
+        // Subtract 100 milliseconds from the current time, to avoid
+        // accidentally including the data point that triggered this.
+        $query->condition('fsd.timestamp', REQUEST_TIME - 100, '<');
+        $rows = $query->execute()->rowCount();
+        if (!empty($rows)) {
+          $send_email = FALSE;
+        }
+      }
+
+      // Send the email.
+      if ($send_email) {
+        $params = array(
+          'sensor' => $sensor,
+          'name' => $name,
+          'value' => $value,
+          'condition' => $condition,
+          'threshold' => $threshold,
+          'email' => $email,
+        );
+        drupal_mail('farm_sensor_listener', 'listener_notification', $email, language_default(), $params);
+        watchdog('farm_sensor_listener', 'Sensor notification email sent. (' . $value . ' ' . $condition . ' ' . $threshold . ')');
+      }
+    }
   }
 
   // Return found.
@@ -234,6 +334,44 @@ function farm_sensor_listener_settings_form($sensor, $settings = array()) {
   $form['info']['curl'] = array(
     '#type' => 'markup',
     '#markup' => '<p><strong>Example CURL command:</strong> ' . $curl_example . '</p>',
+  );
+
+  // Provide configuration for generating notifications.
+  $form['notifications'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Notifications'),
+    '#description' => t('Configure automatic email notifications when values
+    are above/below a certain value. Notifications will be sent once per hour as
+    long as the conditions below are met.'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $form['notifications'][0]['name'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Name'),
+    '#description' => t('The name given to the data point in the JSON array. Defaults to "value".'),
+    '#default_value' => !empty($settings['notifications'][0]['name']) ? $settings['notifications'][0]['name'] : 'value',
+  );
+  $form['notifications'][0]['condition'] = array(
+    '#type' => 'select',
+    '#title' => t('Condition'),
+    '#options' => array(
+      '>' => 'is greater than',
+      '<' => 'is less than',
+    ),
+    '#default_value' => !empty($settings['notifications'][0]['condition']) ? $settings['notifications'][0]['condition'] : '>',
+  );
+  $form['notifications'][0]['threshold'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Value threshold'),
+    '#description' => t('If the data value is above/below this threshold, a notification will be sent.'),
+    '#default_value' => !empty($settings['notifications'][0]['threshold']) ? $settings['notifications'][0]['threshold'] : '',
+  );
+  $form['notifications'][0]['email'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Email address'),
+    '#description' => t('Email address(es) to send notification to. Separate multiple addresses with a comma.'),
+    '#default_value' => !empty($settings['notifications'][0]['email']) ? $settings['notifications'][0]['email'] : '',
   );
 
   return $form;
