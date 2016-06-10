@@ -264,3 +264,57 @@ function farm_log_update_7004(&$sandbox) {
     }
   }
 }
+
+/**
+ * Populate geofields on activity, input, and observation logs with geometry
+ * from referenced areas.
+ */
+function farm_log_update_7005(&$sandbox) {
+
+  // Process this in passes of 50 movements at a time.
+  $sandbox['#finished'] = 0;
+  $limit = 10;
+
+  // Keep track of progress.
+  if (!isset($sandbox['progress'])) {
+
+    // Start out at zero.
+    $sandbox['progress'] = 0;
+
+    // Count how many movement logs there are.
+    $sandbox['max'] = db_select('log')
+      ->fields(NULL, array('id'))
+      ->condition('type', array('farm_activity', 'farm_input', 'farm_observation'), 'IN')
+      ->countQuery()
+      ->execute()
+      ->fetchField();
+  }
+
+  // Fetch the next set of movements.
+  $query = db_select('log')
+    ->fields(NULL, array('id'))
+    ->condition('type', array('farm_activity', 'farm_input', 'farm_observation'), 'IN')
+    ->orderBy('id', 'ASC')
+    ->range($sandbox['progress'], $limit);
+  $results = $query->execute();
+
+  // Iterate over the results and save each one. farm_log_entity_presave() will
+  // do the rest.
+  while ($id = $results->fetchField()) {
+
+    // Increment progress.
+    $sandbox['progress']++;
+
+    // Load the log and save it.
+    $log = log_load($id);
+    log_save($log);
+  }
+
+  // Tell Drupal whether or not we're finished.
+  if ($sandbox['max'] > 0) {
+    $sandbox['#finished'] = $sandbox['progress'] / $sandbox['max'];
+  }
+  else {
+    $sandbox['#finished'] = 1;
+  }
+}
