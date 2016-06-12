@@ -126,10 +126,20 @@ function farm_sensor_listener_page_callback($public_key) {
   // Pull the data from the request.
   $data = drupal_json_decode(file_get_contents("php://input"));
 
-  // If the data is empty, bail.
-  if (empty($data)) {
+  // If data was posted, process it.
+  if (!empty($data)) {
+    farm_sensor_listener_process_data($sensor, $data);
     return MENU_FOUND;
   }
+
+  // Return found.
+  return MENU_FOUND;
+}
+
+/**
+ * Process data posted to a sensor.
+ */
+function farm_sensor_listener_process_data($sensor, $data) {
 
   // Generate a timestamp from the request time. This will be overridden if
   // a timestamp is provided in the JSON.
@@ -234,9 +244,6 @@ function farm_sensor_listener_page_callback($public_key) {
       }
     }
   }
-
-  // Return found.
-  return MENU_FOUND;
 }
 
 /**
