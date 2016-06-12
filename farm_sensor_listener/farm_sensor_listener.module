@@ -120,7 +120,7 @@ function farm_sensor_listener_page_callback($public_key) {
 
   // Compare the private key.
   if ($sensor->sensor_settings['private_key'] != $private_key) {
-    return MENU_FOUND;
+    return MENU_ACCESS_DENIED;
   }
 
   // Pull the data from the request.
