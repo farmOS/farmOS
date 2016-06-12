@@ -132,8 +132,39 @@ function farm_sensor_listener_page_callback($public_key) {
     return MENU_FOUND;
   }
 
-  // Return found.
-  return MENU_FOUND;
+  // Otherwise, return the latest values for each name.
+  else {
+
+    // Query the database for values from this sensor,
+    $query = db_select('farm_sensor_data', 'fsd');
+    $query->fields('fsd', array('timestamp', 'name', 'value_numerator', 'value_denominator'));
+    $query->condition('fsd.id', $sensor->id);
+    $query->orderBy('fsd.timestamp', 'DESC');
+    $query->groupBy('fsd.name');
+    $result = $query->execute();
+
+    // Build an array of latest readings.
+    $readings = array();
+    foreach ($result as $row) {
+
+      // If name or timestamp are empty, skip.
+      if (empty($row->timestamp) || empty($row->name)) {
+        continue;
+      }
+
+      // Convert the value numerator and denominator to a decimal.
+      $value = fraction($row->value_numerator, $row->value_denominator)->toDecimal(0, TRUE);
+
+      // Create a data object for the sensor value.
+      $data = new stdClass();
+      $data->timestamp = $row->timestamp;
+      $data->{$row->name} = $value;
+      $readings[] = $data;
+    }
+
+    // Return the latest readings as JSON.
+    drupal_json_output($readings);
+  }
 }
 
 /**
