@@ -245,6 +245,7 @@ function farm_sensor_listener_process_data($sensor, $data) {
       if ($send_email) {
         $query = db_select('farm_sensor_data', 'fsd');
         $query->addField('fsd', 'id');
+        $query->condition('fsd.id', $sensor->id);
         $query->condition('fsd.name', $name);
         // Note that $condition should only be '<' or '>' at this point,
         // because this code will only run if the switch statement above set
