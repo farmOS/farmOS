@@ -141,6 +141,7 @@ function farm_sensor_listener_page_callback($public_key) {
     $subselect = db_select('farm_sensor_data', 'fsd');
     $subselect->addExpression('MAX(timestamp)', 'timestamp');
     $subselect->addField('fsd', 'name');
+    $subselect->condition('fsd.id', $sensor->id);
     $subselect->groupBy('fsd.name');
     $query->addJoin('LEFT', $subselect, 'fsd2', 'fsd.timestamp = fsd2.timestamp AND fsd.name = fsd2.name');
     $query->condition('fsd.id', $sensor->id);
