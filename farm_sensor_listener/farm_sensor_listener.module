@@ -239,6 +239,12 @@ function farm_sensor_listener_process_data($sensor, $data) {
             $send_email = TRUE;
           }
           break;
+
+        // If the condition didn't match, clear it so that it doesn't get
+        // used in an unintended manner after this point.
+        default:
+          $condition = '';
+          break;
       }
 
       // Perform a check to see if the condition has already been met in the
@@ -248,9 +254,6 @@ function farm_sensor_listener_process_data($sensor, $data) {
         $query->addField('fsd', 'id');
         $query->condition('fsd.id', $sensor->id);
         $query->condition('fsd.name', $name);
-        // Note that $condition should only be '<' or '>' at this point,
-        // because this code will only run if the switch statement above set
-        // $send_email to TRUE.
         $query->where('fsd.value_numerator / fsd.value_denominator ' . $condition . ' :value', array(':value' => $threshold));
         $query->condition('fsd.timestamp', REQUEST_TIME - 3600, '>');
         $rows = $query->execute()->rowCount();
