@@ -247,15 +247,17 @@ function farm_sensor_listener_process_data($sensor, $data) {
           break;
       }
 
-      // Perform a check to see if the condition has already been met in the
-      // past hour, so we don't send an email more often than that.
+      // Perform a check to see if the condition had already been met by the
+      // previous data point that came in, and prevent the email from being sent
+      // if that is the case.
       if ($send_email) {
         $query = db_select('farm_sensor_data', 'fsd');
         $query->addField('fsd', 'id');
         $query->condition('fsd.id', $sensor->id);
         $query->condition('fsd.name', $name);
         $query->where('fsd.value_numerator / fsd.value_denominator ' . $condition . ' :value', array(':value' => $threshold));
-        $query->condition('fsd.timestamp', REQUEST_TIME - 3600, '>');
+        $query->orderBy('fsd.timestamp', 'DESC');
+        $query->range(0, 1);
         $rows = $query->execute()->rowCount();
         if (!empty($rows)) {
           $send_email = FALSE;
@@ -384,8 +386,8 @@ function farm_sensor_listener_settings_form($sensor, $settings = array()) {
     '#type' => 'fieldset',
     '#title' => t('Notifications'),
     '#description' => t('Configure automatic email notifications when values
-    are above/below a certain value. Notifications will be sent once per hour as
-    long as the conditions below are met.'),
+    are above/below a certain value. Notifications will be sent each time that
+    the threshold condition defined below is crossed.'),
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
