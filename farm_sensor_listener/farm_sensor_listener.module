@@ -227,14 +227,14 @@ function farm_sensor_listener_process_data($sensor, $data) {
 
         // Greater than threshold.
         case '>':
-          if ($value > $threshold) {
+          if ((float) $value > (float) $threshold) {
             $send_email = TRUE;
           }
           break;
 
         // Less than threshold.
         case '<':
-          if ($value < $threshold) {
+          if ((float) $value < (float) $threshold) {
             $send_email = TRUE;
           }
           break;
