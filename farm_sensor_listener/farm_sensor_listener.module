@@ -272,7 +272,7 @@ function farm_sensor_listener_process_data($sensor, $data) {
           'email' => $email,
         );
         drupal_mail('farm_sensor_listener', 'listener_notification', $email, language_default(), $params);
-        watchdog('farm_sensor_listener', 'Sensor notification email sent. (' . $value . ' ' . $condition . ' ' . $threshold . ')');
+        watchdog('farm_sensor_listener', 'Sensor id ' . $sensor->id . ' notification email sent. (' . $value . ' ' . $condition . ' ' . $threshold . ')');
       }
     }
   }
