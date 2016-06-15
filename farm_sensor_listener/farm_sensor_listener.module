@@ -252,9 +252,9 @@ function farm_sensor_listener_process_data($sensor, $data) {
         // $send_email to TRUE.
         $query->where('fsd.value_numerator / fsd.value_denominator ' . $condition . ' :value', array(':value' => $threshold));
         $query->condition('fsd.timestamp', REQUEST_TIME - 3600, '>');
-        // Subtract 100 milliseconds from the current time, to avoid
+        // Subtract 60 seconds from the current time, to avoid
         // accidentally including the data point that triggered this.
-        $query->condition('fsd.timestamp', REQUEST_TIME - 100, '<');
+        $query->condition('fsd.timestamp', REQUEST_TIME - 60, '<');
         $rows = $query->execute()->rowCount();
         if (!empty($rows)) {
           $send_email = FALSE;
