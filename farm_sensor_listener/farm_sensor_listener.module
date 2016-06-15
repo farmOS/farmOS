@@ -392,7 +392,7 @@ function farm_sensor_listener_settings_form($sensor, $settings = array()) {
   $form['notifications'][0]['name'] = array(
     '#type' => 'textfield',
     '#title' => t('Name'),
-    '#description' => t('The name given to the data point in the JSON array. Defaults to "value".'),
+    '#description' => t('The name given to the data point in the JSON array.'),
     '#default_value' => !empty($settings['notifications'][0]['name']) ? $settings['notifications'][0]['name'] : 'value',
   );
   $form['notifications'][0]['condition'] = array(
