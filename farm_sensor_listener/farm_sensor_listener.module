@@ -223,35 +223,20 @@ function farm_sensor_listener_process_data($sensor, $data) {
         continue;
       }
 
-      // Switch based on the condition.
-      $send_email = FALSE;
-      switch ($condition) {
+      // Check to see if the condition was met.
+      $pass = farm_sensor_listener_check_condition($value, $condition, $threshold);
 
-        // Greater than threshold.
-        case '>':
-          if ((float) $value > (float) $threshold) {
-            $send_email = TRUE;
-          }
-          break;
-
-        // Less than threshold.
-        case '<':
-          if ((float) $value < (float) $threshold) {
-            $send_email = TRUE;
-          }
-          break;
-
-        // If the condition didn't match, clear it so that it doesn't get
-        // used in an unintended manner after this point.
-        default:
-          $condition = '';
-          break;
+      // If the condition didn't match, clear it so that it doesn't get used in
+      // an unintended manner after this point. (If, for example, $condition was
+      // somehow set to something other than < or >).
+      if (!$pass) {
+        $condition = '';
       }
 
       // Perform a check to see if the condition had already been met by the
       // previous data point that came in, and prevent the email from being sent
       // if that is the case.
-      if ($send_email) {
+      if ($pass) {
         $query = db_select('farm_sensor_data', 'fsd');
         $query->addField('fsd', 'id');
         $query->condition('fsd.id', $sensor->id);
@@ -261,12 +246,12 @@ function farm_sensor_listener_process_data($sensor, $data) {
         $query->range(0, 1);
         $rows = $query->execute()->rowCount();
         if (!empty($rows)) {
-          $send_email = FALSE;
+          $pass = FALSE;
         }
       }
 
       // Send the email.
-      if ($send_email) {
+      if ($pass) {
         $params = array(
           'sensor' => $sensor,
           'name' => $name,
@@ -283,6 +268,46 @@ function farm_sensor_listener_process_data($sensor, $data) {
       drupal_write_record('farm_sensor_data', $row);
     }
   }
+}
+
+/**
+ * Threshold condition check.
+ *
+ * @param $value
+ *   The value being checked.
+ * @param $condition
+ *   The condition (< or >).
+ * @param $threshold
+ *   The threshold to compare against.
+ *
+ * @return bool
+ *   Returns TRUE if the condition passes, FALSE otherwise.
+ */
+function farm_sensor_listener_check_condition($value, $condition, $threshold) {
+
+  // Start with an assumption that the condition does not pass.
+  $pass = FALSE;
+
+  // Switch through available conditions.
+  switch ($condition) {
+
+    // Greater than threshold.
+    case '>':
+      if ((float) $value > (float) $threshold) {
+        $pass = TRUE;
+      }
+      break;
+
+    // Less than threshold.
+    case '<':
+      if ((float) $value < (float) $threshold) {
+        $pass = TRUE;
+      }
+      break;
+  }
+
+  // Return the result.
+  return $pass;
 }
 
 /**
