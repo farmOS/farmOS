@@ -251,8 +251,8 @@ function farm_sensor_listener_process_data($sensor, $data) {
         if (isset($row['value_numerator']) && isset($row['value_denominator'])) {
 
           // Calculate the decimal value and check if it passes the condition.
-          $value = fraction($row['value_numerator'], $row['value_denominator'])->toDecimal(0, TRUE);
-          if (farm_sensor_listener_check_condition($value, $threshold, $condition)) {
+          $last_value = fraction($row['value_numerator'], $row['value_denominator'])->toDecimal(0, TRUE);
+          if (farm_sensor_listener_check_condition($last_value, $threshold, $condition)) {
 
             // If the condition passes, it means the last data point already
             // sent an alert, so don't send it again.
