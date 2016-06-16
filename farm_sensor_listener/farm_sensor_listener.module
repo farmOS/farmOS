@@ -237,16 +237,27 @@ function farm_sensor_listener_process_data($sensor, $data) {
       // previous data point that came in, and prevent the email from being sent
       // if that is the case.
       if ($pass) {
+
+        // Load the last recorded data point.
         $query = db_select('farm_sensor_data', 'fsd');
-        $query->addField('fsd', 'id');
+        $query->fields('fsd', array('value_numerator', 'value_denominator'));
         $query->condition('fsd.id', $sensor->id);
         $query->condition('fsd.name', $name);
-        $query->where('fsd.value_numerator / fsd.value_denominator ' . $condition . ' :value', array(':value' => $threshold));
         $query->orderBy('fsd.timestamp', 'DESC');
         $query->range(0, 1);
-        $rows = $query->execute()->rowCount();
-        if (!empty($rows)) {
-          $pass = FALSE;
+        $row = $query->execute()->fetchAssoc();
+
+        // If a numerator and denominator were returned...
+        if (isset($row['value_numerator']) && isset($row['value_denominator'])) {
+
+          // Calculate the decimal value and check if it passes the condition.
+          $value = fraction($row['value_numerator'], $row['value_denominator'])->toDecimal(0, TRUE);
+          if (farm_sensor_listener_check_condition($value, $threshold, $condition)) {
+
+            // If the condition passes, it means the last data point already
+            // sent an alert, so don't send it again.
+            $pass = FALSE;
+          }
         }
       }
 
