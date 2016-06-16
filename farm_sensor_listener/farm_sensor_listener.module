@@ -312,7 +312,7 @@ function farm_sensor_listener_process_notifications($sensor, $data_name, $value)
 
         // Calculate the decimal value and check if it passes the condition.
         $last_value = fraction($row['value_numerator'], $row['value_denominator'])->toDecimal(0, TRUE);
-        if (farm_sensor_listener_check_condition($last_value, $threshold, $condition)) {
+        if (farm_sensor_listener_check_condition($last_value, $condition, $threshold)) {
 
           // If the condition passes, it means the last data point already
           // sent an alert, so don't send it again.
