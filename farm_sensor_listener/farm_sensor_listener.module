@@ -286,11 +286,9 @@ function farm_sensor_listener_process_notifications($sensor, $data_name, $value)
     // Check to see if the condition was met.
     $pass = farm_sensor_listener_check_condition($value, $condition, $threshold);
 
-    // If the condition didn't match, clear it so that it doesn't get used in
-    // an unintended manner after this point. (If, for example, $condition was
-    // somehow set to something other than < or >).
+    // If the condition didn't match, bail.
     if (!$pass) {
-      $condition = '';
+      return;
     }
 
     // Perform a check to see if the condition had already been met by the
