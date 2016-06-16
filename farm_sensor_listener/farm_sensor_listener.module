@@ -197,72 +197,8 @@ function farm_sensor_listener_process_data($sensor, $data) {
       continue;
     }
 
-    // Send notifications, if the conditions are met.
-    if (!empty($sensor->sensor_settings['notifications'][0]['name']) && !empty($sensor->sensor_settings['notifications'][0]['condition']) && !empty($sensor->sensor_settings['notifications'][0]['threshold']) && !empty($sensor->sensor_settings['notifications'][0]['email'])) {
-
-      // Get all the variables.
-      $name = $sensor->sensor_settings['notifications'][0]['name'];
-      $condition = $sensor->sensor_settings['notifications'][0]['condition'];
-      $threshold = $sensor->sensor_settings['notifications'][0]['threshold'];
-      $email = $sensor->sensor_settings['notifications'][0]['email'];
-
-      // Only proceed if the name matches.
-      if ($name != $key) {
-        continue;
-      }
-
-      // Check to see if the condition was met.
-      $pass = farm_sensor_listener_check_condition($value, $condition, $threshold);
-
-      // If the condition didn't match, clear it so that it doesn't get used in
-      // an unintended manner after this point. (If, for example, $condition was
-      // somehow set to something other than < or >).
-      if (!$pass) {
-        $condition = '';
-      }
-
-      // Perform a check to see if the condition had already been met by the
-      // previous data point that came in, and prevent the email from being sent
-      // if that is the case.
-      if ($pass) {
-
-        // Load the last recorded data point.
-        $query = db_select('farm_sensor_data', 'fsd');
-        $query->fields('fsd', array('value_numerator', 'value_denominator'));
-        $query->condition('fsd.id', $sensor->id);
-        $query->condition('fsd.name', $name);
-        $query->orderBy('fsd.timestamp', 'DESC');
-        $query->range(0, 1);
-        $row = $query->execute()->fetchAssoc();
-
-        // If a numerator and denominator were returned...
-        if (isset($row['value_numerator']) && isset($row['value_denominator'])) {
-
-          // Calculate the decimal value and check if it passes the condition.
-          $last_value = fraction($row['value_numerator'], $row['value_denominator'])->toDecimal(0, TRUE);
-          if (farm_sensor_listener_check_condition($last_value, $threshold, $condition)) {
-
-            // If the condition passes, it means the last data point already
-            // sent an alert, so don't send it again.
-            $pass = FALSE;
-          }
-        }
-      }
-
-      // Send the email.
-      if ($pass) {
-        $params = array(
-          'sensor' => $sensor,
-          'name' => $name,
-          'value' => $value,
-          'condition' => $condition,
-          'threshold' => $threshold,
-          'email' => $email,
-        );
-        drupal_mail('farm_sensor_listener', 'listener_notification', $email, language_default(), $params);
-        watchdog('farm_sensor_listener', 'Sensor id ' . $sensor->id . ' notification email sent. (' . $value . ' ' . $condition . ' ' . $threshold . ')');
-      }
-    }
+    // Process notifications.
+    farm_sensor_listener_process_notifications($sensor, $key, $value);
 
     // Create a row to store in the database;
     $row = array(
@@ -319,6 +255,86 @@ function farm_sensor_listener_check_condition($value, $condition, $threshold) {
 
   // Return the result.
   return $pass;
+}
+
+/**
+ * Process sensor notifications.
+ *
+ * @param FarmAsset $sensor
+ *   The sensor entity.
+ * @param string $data_name
+ *   The name assigned to the data.
+ * @param $value
+ *   The data value.
+ */
+function farm_sensor_listener_process_notifications($sensor, $data_name, $value) {
+
+  // Send notifications, if the conditions are met.
+  if (!empty($sensor->sensor_settings['notifications'][0]['name']) && !empty($sensor->sensor_settings['notifications'][0]['condition']) && !empty($sensor->sensor_settings['notifications'][0]['threshold']) && !empty($sensor->sensor_settings['notifications'][0]['email'])) {
+
+    // Get all the variables.
+    $name = $sensor->sensor_settings['notifications'][0]['name'];
+    $condition = $sensor->sensor_settings['notifications'][0]['condition'];
+    $threshold = $sensor->sensor_settings['notifications'][0]['threshold'];
+    $email = $sensor->sensor_settings['notifications'][0]['email'];
+
+    // Only proceed if the name matches.
+    if ($name != $data_name) {
+      return;
+    }
+
+    // Check to see if the condition was met.
+    $pass = farm_sensor_listener_check_condition($value, $condition, $threshold);
+
+    // If the condition didn't match, clear it so that it doesn't get used in
+    // an unintended manner after this point. (If, for example, $condition was
+    // somehow set to something other than < or >).
+    if (!$pass) {
+      $condition = '';
+    }
+
+    // Perform a check to see if the condition had already been met by the
+    // previous data point that came in, and prevent the email from being sent
+    // if that is the case.
+    if ($pass) {
+
+      // Load the last recorded data point.
+      $query = db_select('farm_sensor_data', 'fsd');
+      $query->fields('fsd', array('value_numerator', 'value_denominator'));
+      $query->condition('fsd.id', $sensor->id);
+      $query->condition('fsd.name', $name);
+      $query->orderBy('fsd.timestamp', 'DESC');
+      $query->range(0, 1);
+      $row = $query->execute()->fetchAssoc();
+
+      // If a numerator and denominator were returned...
+      if (isset($row['value_numerator']) && isset($row['value_denominator'])) {
+
+        // Calculate the decimal value and check if it passes the condition.
+        $last_value = fraction($row['value_numerator'], $row['value_denominator'])->toDecimal(0, TRUE);
+        if (farm_sensor_listener_check_condition($last_value, $threshold, $condition)) {
+
+          // If the condition passes, it means the last data point already
+          // sent an alert, so don't send it again.
+          $pass = FALSE;
+        }
+      }
+    }
+
+    // Send the email.
+    if ($pass) {
+      $params = array(
+        'sensor' => $sensor,
+        'name' => $name,
+        'value' => $value,
+        'condition' => $condition,
+        'threshold' => $threshold,
+        'email' => $email,
+      );
+      drupal_mail('farm_sensor_listener', 'listener_notification', $email, language_default(), $params);
+      watchdog('farm_sensor_listener', 'Sensor id ' . $sensor->id . ' notification email sent. (' . $value . ' ' . $condition . ' ' . $threshold . ')');
+    }
+  }
 }
 
 /**
