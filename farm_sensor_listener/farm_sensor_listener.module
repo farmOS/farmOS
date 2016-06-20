@@ -468,6 +468,7 @@ function farm_sensor_listener_settings_form($sensor, $settings = array()) {
     '#title' => t('Email address'),
     '#description' => t('Email address(es) to send notification to. Separate multiple addresses with a comma.'),
     '#default_value' => !empty($settings['notifications'][0]['email']) ? $settings['notifications'][0]['email'] : '',
+    '#maxlength' => 256,
   );
 
   return $form;
