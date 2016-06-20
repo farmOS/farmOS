@@ -162,7 +162,7 @@ function farm_log_movement_asset_location_submit(array $form, array &$form_state
   }
 
   // Create a movement log.
-  farm_log_move_assets($asset, $areas, REQUEST_TIME, TRUE);
+  farm_log_movement_move_assets($asset, $areas, REQUEST_TIME, TRUE);
 }
 
 /**
