@@ -35,6 +35,7 @@ dependencies[] = libraries_cdn
 dependencies[] = jquery_update
 dependencies[] = module_filter
 dependencies[] = navbar
+dependencies[] = pathauto_entity
 dependencies[] = restws
 
 ; Farm
