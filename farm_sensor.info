@@ -8,6 +8,7 @@ dependencies[] = farm_asset
 dependencies[] = pathauto
 dependencies[] = strongarm
 dependencies[] = views
+dependencies[] = views_bulk_operations
 features[ctools][] = strongarm:strongarm:1
 features[ctools][] = views:views_default:3.0
 features[farm_asset_type][] = sensor
