@@ -5,6 +5,7 @@ package = farmOS
 dependencies[] = ctools
 dependencies[] = entity
 dependencies[] = farm_asset
+dependencies[] = farm_log_movement
 dependencies[] = pathauto
 dependencies[] = strongarm
 dependencies[] = views
