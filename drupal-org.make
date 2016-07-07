@@ -89,6 +89,8 @@ projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_g
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_popup_trigger-2687781-1.patch"
 ; Fix map behavior detach.
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_detach-2688029-5.patch"
+; Move geocoder AJAX callback from Geofield module.
+projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_widget_geocode_callback-2762367-1.patch"
 
 projects[openlayers_geolocate_button][subdir] = "contrib"
 projects[openlayers_geolocate_button][version] = "3.2"
