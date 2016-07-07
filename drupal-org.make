@@ -87,8 +87,8 @@ projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_e
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_gmap_zoom_switch_type-2680273-1.patch"
 ; Add a jQuery trigger event when popups are displayed.
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_popup_trigger-2687781-1.patch"
-; Don't delete map instances when behaviors are detached.
-projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_detach-2688029-1.patch"
+; Fix map behavior detach.
+projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_detach-2688029-5.patch"
 
 projects[openlayers_geolocate_button][subdir] = "contrib"
 projects[openlayers_geolocate_button][version] = "3.2"
