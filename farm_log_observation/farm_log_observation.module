@@ -116,7 +116,63 @@ function farm_log_observation_form_alter(&$form, &$form_state, $form_id) {
 
     // If the observation type field is empty, prepopulate it with "General".
     if (empty($form['field_farm_observation_type'][LANGUAGE_NONE]['#default_value'])) {
-      $form['field_farm_observation_type'][LANGUAGE_NONE]['#default_value'] = t('General');
+      if (!empty($form['field_farm_observation_type'][LANGUAGE_NONE]['#options'])) {
+
+        // If "General" doesn't exist as an option, create it.
+        if (!in_array('General', $form['field_farm_observation_type'][LANGUAGE_NONE]['#options'])) {
+          $term = _farm_log_observation_create_general();
+          if (!empty($term->tid) && !empty($term->name)) {
+            $form['field_farm_observation_type'][LANGUAGE_NONE]['#options'][$term->tid] = $term->name;
+          }
+        }
+
+        // Iterate through the options and select "General" by default.
+        foreach ($form['field_farm_observation_type'][LANGUAGE_NONE]['#options'] as $tid => $name) {
+          if ($name == 'General') {
+            $form['field_farm_observation_type'][LANGUAGE_NONE]['#default_value'] = $tid;
+          }
+        }
+      }
     }
   }
+}
+
+/**
+ * Helper function to create a 'General' observation type.
+ *
+ * @return object|bool
+ *   Returns the term object if it is found/created. FALSE if the vocabulary
+ *   doesn't exist.
+ */
+function _farm_log_observation_create_general() {
+
+  // Define the name of the vocabulary.
+  $vocab_name = 'farm_observation_types';
+
+  // Load the Observation Types vocabulary.
+  $vocab = taxonomy_vocabulary_machine_name_load($vocab_name);
+
+  // If the vocab didn't load, bail.
+  if (empty($vocab->vid)) {
+    return FALSE;
+  }
+
+  // Check to see if the term already exists.
+  $term = taxonomy_get_term_by_name('General', $vocab_name);
+
+  // If the term already exists, bail.
+  if (!empty($term->tid)) {
+    return $term;
+  }
+
+  // Create the term.
+  $term = new stdClass();
+  $term->name = 'General';
+  $term->vid = $vocab->vid;
+
+  // Save the term.
+  taxonomy_term_save($term);
+
+  // Return the new term.
+  return $term;
 }

@@ -271,7 +271,7 @@ function farm_log_observation_field_default_field_instances() {
     'bundle' => 'farm_observation',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'What type of observation is this. Use this to organize your observations into categories for easy viewing later. As you type, you will have the option of selecting from a list of types you entered in the past.',
+    'description' => 'What type of observation is this? Use this to organize your observations into categories for easy viewing later. Some default types are provided, and new observation types can be added to the ' . l('Observation Types', 'admin/structure/taxonomy/farm_observation_types') . ' vocabulary.',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -289,13 +289,10 @@ function farm_log_observation_field_default_field_instances() {
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 0,
-      'module' => 'taxonomy',
-      'settings' => array(
-        'autocomplete_path' => 'taxonomy/autocomplete',
-        'size' => 60,
-      ),
-      'type' => 'taxonomy_autocomplete',
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
       'weight' => 2,
     ),
   );
@@ -347,7 +344,7 @@ function farm_log_observation_field_default_field_instances() {
   t('Type');
   t('What areas did this observation take place in?');
   t('What assets do this observation log pertain to?');
-  t('What type of observation is this. Use this to organize your observations into categories for easy viewing later. As you type, you will have the option of selecting from a list of types you entered in the past.');
+  t('What type of observation is this? Use this to organize your observations into categories for easy viewing later. Some default types are provided, and new observation types can be added to the ' . l('Observation Types', 'admin/structure/taxonomy/farm_observation_types') . ' vocabulary.');
 
   return $field_instances;
 }
