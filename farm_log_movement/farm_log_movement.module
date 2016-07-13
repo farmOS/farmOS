@@ -121,6 +121,9 @@ function farm_log_movement_form_alter(&$form, &$form_state, $form_id) {
       farm_log_form_prepopulate_area($form, 'field_farm_move_to');
     }
 
+    // Load assets from URL query string.
+    $assets = farm_asset_load_assets_from_url();
+
     // If the "from" field is empty, and assets are available...
     if (empty($form['field_farm_move_from'][LANGUAGE_NONE][0]['#default_value']) && !empty($assets)) {
 
