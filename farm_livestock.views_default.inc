@@ -413,6 +413,10 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['fields']['field_farm_animal_sex']['id'] = 'field_farm_animal_sex';
   $handler->display->display_options['fields']['field_farm_animal_sex']['table'] = 'field_data_field_farm_animal_sex';
   $handler->display->display_options['fields']['field_farm_animal_sex']['field'] = 'field_farm_animal_sex';
+  /* Field: Farm asset: Castrated */
+  $handler->display->display_options['fields']['field_farm_animal_castrated']['id'] = 'field_farm_animal_castrated';
+  $handler->display->display_options['fields']['field_farm_animal_castrated']['table'] = 'field_data_field_farm_animal_castrated';
+  $handler->display->display_options['fields']['field_farm_animal_castrated']['field'] = 'field_farm_animal_castrated';
   /* Field: Farm asset: Date of birth */
   $handler->display->display_options['fields']['field_farm_date']['id'] = 'field_farm_date';
   $handler->display->display_options['fields']['field_farm_date']['table'] = 'field_data_field_farm_date';
@@ -620,6 +624,16 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['filters']['field_farm_animal_sex_value']['expose']['label'] = 'Sex';
   $handler->display->display_options['filters']['field_farm_animal_sex_value']['expose']['operator'] = 'field_farm_animal_sex_value_op';
   $handler->display->display_options['filters']['field_farm_animal_sex_value']['expose']['identifier'] = 'field_farm_animal_sex_value';
+  /* Filter criterion: Farm asset: Castrated (field_farm_animal_castrated) */
+  $handler->display->display_options['filters']['field_farm_animal_castrated_value']['id'] = 'field_farm_animal_castrated_value';
+  $handler->display->display_options['filters']['field_farm_animal_castrated_value']['table'] = 'field_data_field_farm_animal_castrated';
+  $handler->display->display_options['filters']['field_farm_animal_castrated_value']['field'] = 'field_farm_animal_castrated_value';
+  $handler->display->display_options['filters']['field_farm_animal_castrated_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_farm_animal_castrated_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_animal_castrated_value']['expose']['operator_id'] = 'field_farm_animal_castrated_value_op';
+  $handler->display->display_options['filters']['field_farm_animal_castrated_value']['expose']['label'] = 'Castrated';
+  $handler->display->display_options['filters']['field_farm_animal_castrated_value']['expose']['operator'] = 'field_farm_animal_castrated_value_op';
+  $handler->display->display_options['filters']['field_farm_animal_castrated_value']['expose']['identifier'] = 'field_farm_animal_castrated_value';
   /* Filter criterion: Farm asset: Active */
   $handler->display->display_options['filters']['active']['id'] = 'active';
   $handler->display->display_options['filters']['active']['table'] = 'farm_asset';
@@ -697,6 +711,10 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['fields']['field_farm_animal_sex']['id'] = 'field_farm_animal_sex';
   $handler->display->display_options['fields']['field_farm_animal_sex']['table'] = 'field_data_field_farm_animal_sex';
   $handler->display->display_options['fields']['field_farm_animal_sex']['field'] = 'field_farm_animal_sex';
+  /* Field: Farm asset: Castrated */
+  $handler->display->display_options['fields']['field_farm_animal_castrated']['id'] = 'field_farm_animal_castrated';
+  $handler->display->display_options['fields']['field_farm_animal_castrated']['table'] = 'field_data_field_farm_animal_castrated';
+  $handler->display->display_options['fields']['field_farm_animal_castrated']['field'] = 'field_farm_animal_castrated';
   /* Field: Farm asset: Date of birth */
   $handler->display->display_options['fields']['field_farm_date']['id'] = 'field_farm_date';
   $handler->display->display_options['fields']['field_farm_date']['table'] = 'field_data_field_farm_date';
@@ -854,6 +872,16 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['filters']['field_farm_animal_sex_value']['expose']['label'] = 'Sex';
   $handler->display->display_options['filters']['field_farm_animal_sex_value']['expose']['operator'] = 'field_farm_animal_sex_value_op';
   $handler->display->display_options['filters']['field_farm_animal_sex_value']['expose']['identifier'] = 'field_farm_animal_sex_value';
+  /* Filter criterion: Farm asset: Castrated (field_farm_animal_castrated) */
+  $handler->display->display_options['filters']['field_farm_animal_castrated_value']['id'] = 'field_farm_animal_castrated_value';
+  $handler->display->display_options['filters']['field_farm_animal_castrated_value']['table'] = 'field_data_field_farm_animal_castrated';
+  $handler->display->display_options['filters']['field_farm_animal_castrated_value']['field'] = 'field_farm_animal_castrated_value';
+  $handler->display->display_options['filters']['field_farm_animal_castrated_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_farm_animal_castrated_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_animal_castrated_value']['expose']['operator_id'] = 'field_farm_animal_castrated_value_op';
+  $handler->display->display_options['filters']['field_farm_animal_castrated_value']['expose']['label'] = 'Castrated';
+  $handler->display->display_options['filters']['field_farm_animal_castrated_value']['expose']['operator'] = 'field_farm_animal_castrated_value_op';
+  $handler->display->display_options['filters']['field_farm_animal_castrated_value']['expose']['identifier'] = 'field_farm_animal_castrated_value';
   /* Filter criterion: Farm asset: Active */
   $handler->display->display_options['filters']['active']['id'] = 'active';
   $handler->display->display_options['filters']['active']['table'] = 'farm_asset';
@@ -891,6 +919,7 @@ if (!empty($farm_asset)) {
     t('.'),
     t('Name'),
     t('Sex'),
+    t('Castrated'),
     t('Birthdate'),
     t('Species/Breed'),
     t('Group'),
