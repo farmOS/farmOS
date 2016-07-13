@@ -44,7 +44,7 @@ projects[field_collection][subdir] = "contrib"
 projects[field_collection][version] = "1.0-beta11"
 
 projects[fraction][subdir] = "contrib"
-projects[fraction][version] = "1.x-dev"
+projects[fraction][version] = "1.4"
 
 projects[geocoder][subdir] = "contrib"
 projects[geocoder][version] = "1.3"
@@ -72,7 +72,7 @@ projects[libraries_cdn][subdir] = "contrib"
 projects[libraries_cdn][version] = "1.7"
 
 projects[log][subdir] = "contrib"
-projects[log][version] = "1.x-dev"
+projects[log][version] = "1.7"
 
 projects[navbar][subdir] = "contrib"
 projects[navbar][version] = "1.7"
