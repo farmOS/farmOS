@@ -148,12 +148,12 @@ projects[module_filter][version] = "2.0"
 ; -----------------------------------------------------------------------------
 
 projects[farm_access][subdir] = "farm"
-;projects[farm_access][version] = "1.1"
+;projects[farm_access][version] = "1.2"
 projects[farm_access][download][type] = git
 projects[farm_access][download][branch] = 7.x-1.x
 
 projects[farm_admin][subdir] = "farm"
-;projects[farm_admin][version] = "1.0-beta8"
+;projects[farm_admin][version] = "1.0-beta9"
 projects[farm_admin][download][type] = git
 projects[farm_admin][download][branch] = 7.x-1.x
 
@@ -163,17 +163,17 @@ projects[farm_area][download][type] = git
 projects[farm_area][download][branch] = 7.x-1.x
 
 projects[farm_asset][subdir] = "farm"
-;projects[farm_asset][version] = "1.0-beta8"
+;projects[farm_asset][version] = "1.0-beta9"
 projects[farm_asset][download][type] = git
 projects[farm_asset][download][branch] = 7.x-1.x
 
 projects[farm_crop][subdir] = "farm"
-;projects[farm_crop][version] = "1.0-beta11"
+;projects[farm_crop][version] = "1.0-beta12"
 projects[farm_crop][download][type] = git
 projects[farm_crop][download][branch] = 7.x-1.x
 
 projects[farm_equipment][subdir] = "farm"
-;projects[farm_equipment][version] = "1.0-beta11"
+;projects[farm_equipment][version] = "1.0-beta12"
 projects[farm_equipment][download][type] = git
 projects[farm_equipment][download][branch] = 7.x-1.x
 
@@ -183,12 +183,12 @@ projects[farm_fields][download][type] = git
 projects[farm_fields][download][branch] = 7.x-1.x
 
 projects[farm_livestock][subdir] = "farm"
-;projects[farm_livestock][version] = "1.0-beta11"
+;projects[farm_livestock][version] = "1.0-beta12"
 projects[farm_livestock][download][type] = git
 projects[farm_livestock][download][branch] = 7.x-1.x
 
 projects[farm_log][subdir] = "farm"
-;projects[farm_log][version] = "1.0-beta11"
+;projects[farm_log][version] = "1.0-beta12"
 projects[farm_log][download][type] = git
 projects[farm_log][download][branch] = 7.x-1.x
 
@@ -208,7 +208,7 @@ projects[farm_quantity][download][type] = git
 projects[farm_quantity][download][branch] = 7.x-1.x
 
 projects[farm_sensor][subdir] = "farm"
-;projects[farm_sensor][version] = "1.0-beta8"
+;projects[farm_sensor][version] = "1.0-beta9"
 projects[farm_sensor][download][type] = git
 projects[farm_sensor][download][branch] = 7.x-1.x
 
@@ -218,7 +218,7 @@ projects[farm_soil][download][type] = git
 projects[farm_soil][download][branch] = 7.x-1.x
 
 projects[farm_taxonomy][subdir] = "farm"
-;projects[farm_taxonomy][version] = "1.0-beta6"
+;projects[farm_taxonomy][version] = "1.0-beta7"
 projects[farm_taxonomy][download][type] = git
 projects[farm_taxonomy][download][branch] = 7.x-1.x
 
