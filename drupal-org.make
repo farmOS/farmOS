@@ -105,7 +105,7 @@ projects[registry_autoload][subdir] = "contrib"
 projects[registry_autoload][version] = "1.3"
 
 projects[restws][subdir] = "contrib"
-projects[restws][version] = "2.5"
+projects[restws][version] = "2.6"
 
 projects[role_delegation][subdir] = "contrib"
 projects[role_delegation][version] = "1.1"
