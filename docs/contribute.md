@@ -17,7 +17,7 @@ You can also chat with people directly in the [#farmOS IRC channel on Freenode].
 ## Documentation
 
 If you are interested in helping with documentation, create a new issue in the
-[Github issue queue]. Or, fork the [documentation repository] on Github, make
+[Github issue queue]. Or, fork the [farmOS.org repository] on Github, make
 changes, and create a pull request.
 
 ## Development
@@ -29,7 +29,6 @@ we'll get done!
 
 [issue queues]: /development/issue-queues
 [#farmOS IRC channel on Freenode]: http://webchat.freenode.net/?channels=#farmOS
-[http://docs.farmos.org]: http://docs.farmos.org
-[Github issue queue]: https://github.com/farmOS/documentation/issues
-[documentation repository]: https://github.com/farmOS/documentation
+[Github issue queue]: https://github.com/farmOS/farmOS.org/issues
+[farmOS.org repository]: https://github.com/farmOS/farmOS.org
 
