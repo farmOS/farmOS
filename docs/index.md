@@ -1,3 +1,5 @@
+![farmOS](/img/farmOS.png)
+
 # Overview
 
 farmOS is a web-based application for farm management and planning.
