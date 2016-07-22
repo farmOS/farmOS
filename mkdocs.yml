@@ -24,5 +24,6 @@ pages:
     - Update Safety: development/update-safety.md
 - Community:
     - Contribute: community/contribute.md
+    - Maintainers: community/maintainers.md
 theme: yeti
 
