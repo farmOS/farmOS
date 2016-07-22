@@ -33,7 +33,7 @@ now is laying a strong [groundwork], so that others can more easily join in and
 
 [Drupal]: https://drupal.org
 [modular]: http://en.wikipedia.org/wiki/Modular_programming
-[extensible]: http://www.drupal.org/features/extend
+[extensible]: https://www.drupal.org/download
 [secure]: http://www.drupal.org/documentation/is-drupal-secure
 [Openlayers]: http://openlayers.org
 [GNU General Public License]: http://www.gnu.org/copyleft/gpl.html
