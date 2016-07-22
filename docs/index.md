@@ -9,16 +9,18 @@ It is built on [Drupal], which makes it [modular], [extensible], and [secure].
 
 [Openlayers] is used for mapping and geodata manipulation.
 
+## Open Source
+
+Both Drupal and farmOS are licensed under the [GNU General Public License],
+which means they are [open source].
+
 ## Status
 
 farmOS is under active development, but is still relatively new. The focus right
 now is laying a strong [groundwork], so that others can more easily join in and
 [contribute].
 
-## License
 
-Both Drupal and farmOS are licensed under the [GNU General Public License],
-which means they are [open source].
 
 ## Official website
 
