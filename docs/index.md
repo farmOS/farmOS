@@ -28,7 +28,7 @@ which means they are [open source].
 [Openlayers]: http://openlayers.org
 [GNU General Public License]: http://www.gnu.org/copyleft/gpl.html
 [open source]: http://en.wikipedia.org/wiki/Open_source
-[groundwork]: development/architecture
-[contribute]: contribute
+[groundwork]: /development/architecture
+[contribute]: /contribute
 [http://farmOS.org]: http://farmos.org
 

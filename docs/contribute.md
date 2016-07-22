@@ -27,7 +27,7 @@ some free time this winter? Consider getting involved in the farmOS development
 process. There's a lot to do! And the more folks who can get involved, the more
 we'll get done!
 
-[issue queues]: development/issue-queues
+[issue queues]: /development/issue-queues
 [#farmOS IRC channel on Freenode]: http://webchat.freenode.net/?channels=#farmOS
 [http://docs.farmos.org]: http://docs.farmos.org
 [Github issue queue]: https://github.com/farmOS/documentation/issues
