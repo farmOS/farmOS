@@ -21,6 +21,7 @@ pages:
     - Issue Queues: development/issue-queues.md
     - Architecture: development/architecture.md
     - Best Practice: development/best-practice.md
-- Contribute: contribute.md
+- Community:
+    - Contribute: community/contribute.md
 theme: yeti
 
