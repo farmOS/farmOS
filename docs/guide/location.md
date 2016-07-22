@@ -51,5 +51,5 @@ Here is a quick summary of the fields on a movement log:
   being moved to. If you leave this blank, the geometry will be automatically
   copied from the area referenced in the "To" field (if available).
 
-[Farm Areas]: /guide/mapping
+[Farm Areas]: /guide/areas
 
