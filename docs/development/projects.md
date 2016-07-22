@@ -60,6 +60,7 @@ These modules are packaged with the farmOS distribution:
 These modules aren't packaged with the farmOS distribution, but they can be
 added to extend your farmOS functionality:
 
+* [Farm Bee]
 * [Farm Maple]
 * [Farm Mushroom]
 
@@ -91,6 +92,7 @@ The official farmOS theme is a Drupal theme based off of [Bootstrap].
 [Farm Soil]: https://drupal.org/project/farm_soil
 [Farm Taxonomy]: https://drupal.org/project/farm_taxonomy
 [Farm Tour]: https://drupal.org/project/farm_tour
+[Farm Bee]: https://drupal.org/project/farm_bee
 [Farm Maple]: https://drupal.org/project/farm_maple
 [Farm Mushroom]: https://drupal.org/project/farm_mushroom
 [Bootstrap]: https://drupal.org/project/bootstrap
