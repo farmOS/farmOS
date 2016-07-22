@@ -2,7 +2,8 @@
 
 # Overview
 
-farmOS is a web-based application for farm management and planning.
+farmOS is a web-based application for farm management, planning, and record
+keeping.
 
 It is built on [Drupal], which makes it [modular], [extensible], and [secure].
 
