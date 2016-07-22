@@ -25,5 +25,6 @@ pages:
 - Community:
     - Contribute: community/contribute.md
     - Maintainers: community/maintainers.md
+    - Supporters: community/supporters.md
 theme: yeti
 
