@@ -17,6 +17,7 @@ pages:
     - Installing: hosting/installing.md
     - Updating: hosting/updating.md
 - Development:
+    - Drupal: development/drupal.md
     - Projects: development/projects.md
     - Issue Queues: development/issue-queues.md
     - Architecture: development/architecture.md
