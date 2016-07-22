@@ -20,7 +20,12 @@ farmOS is under active development, but is still relatively new. The focus right
 now is laying a strong [groundwork], so that others can more easily join in and
 [contribute].
 
+## Quick Links
 
+* Drupal.org: [https://drupal.org/project/farm]
+* Github: [https://github.com/farmOS]
+* Monthly call: [Google Hangout] (2nd Wed of the month at 1pm Eastern)
+* IRC: [#farmOS on Freenode]
 
 ## Official website
 
@@ -36,4 +41,8 @@ now is laying a strong [groundwork], so that others can more easily join in and
 [groundwork]: /development/architecture
 [contribute]: /contribute
 [http://farmOS.org]: http://farmos.org
+[https://drupal.org/project/farm]: https://drupal.org/project/farm
+[https://github.com/farmOS]: https://github.com/farmOS
+[Google Hangout]: https://plus.google.com/hangouts/_/farmier.com/farmos-monthly
+[#farmOS on Freenode]: http://webchat.freenode.net/?channels=#farmOS
 
