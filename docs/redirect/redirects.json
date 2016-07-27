@@ -1,0 +1,6 @@
+redirects = [
+
+  /* Changed paths. */
+  {"src" : "/contribute", "dst" : "/community/contribute"},
+  {"src" : "/development/best-practice", "dst" : "/development/update-safety"},
+];
