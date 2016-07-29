@@ -1,7 +1,7 @@
 # Press
 
 farmOS has been featured in the following articles. If you would like to write
-about farmOS, [contact one of the developers](https://github.com/orgs/farmOS/people).
+about farmOS, [contact m.stenta](http://farmier.com/contact).
 
 ## 2016
 
