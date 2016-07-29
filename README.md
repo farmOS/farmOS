@@ -2,7 +2,7 @@ farmOS.org
 ==========
 
 This repository contains all the code and content used to build
-[https://farmOS.org](https://farmOS.org).
+[http://farmOS.org](http://farmOS.org).
 
 It uses [mkdocs](http://www.mkdocs.org) to convert simple markdown files into
 static HTML files.
