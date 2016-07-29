@@ -3,4 +3,11 @@ redirects = [
   /* Changed paths. */
   {"src" : "/contribute", "dst" : "/community/contribute"},
   {"src" : "/development/best-practice", "dst" : "/development/update-safety"},
+
+  /* Old farmOS.org paths (pre Mkdocs). */
+  {"src" : "/getting-started", "dst" : "/guide/start"},
+  {"src" : "/press", "dst" : "/community/press"},
+  {"src" : "/supporters", "dst" : "/community/supporters"},
+  {"src" : "/donate", "dst" : "/community/contribute"},
+  {"src" : "/monthly-call", "dst" : "/community/contribute"},
 ];
