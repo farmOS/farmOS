@@ -27,10 +27,6 @@ now is laying a strong [groundwork], so that others can more easily join in and
 * Monthly call: [Google Hangout] (2nd Wed of the month at 1pm Eastern)
 * IRC: [#farmOS on Freenode]
 
-## Official website
-
-[http://farmOS.org]
-
 [Drupal]: https://drupal.org
 [modular]: http://en.wikipedia.org/wiki/Modular_programming
 [extensible]: https://www.drupal.org/download
@@ -40,7 +36,6 @@ now is laying a strong [groundwork], so that others can more easily join in and
 [open source]: http://en.wikipedia.org/wiki/Open_source
 [groundwork]: /development/architecture
 [contribute]: /contribute
-[http://farmOS.org]: http://farmos.org
 [https://drupal.org/project/farm]: https://drupal.org/project/farm
 [https://github.com/farmOS]: https://github.com/farmOS
 [Google Hangout]: https://plus.google.com/hangouts/_/farmier.com/farmos-monthly

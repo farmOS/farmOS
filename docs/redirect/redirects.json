@@ -1,0 +1,47 @@
+redirects = [
+
+  /* Changed paths. */
+  {"src" : "/contribute", "dst" : "/community/contribute"},
+  {"src" : "/development/best-practice", "dst" : "/development/update-safety"},
+
+  /* Old farmOS.org paths (pre Mkdocs). */
+  {"src" : "/getting-started", "dst" : "/guide/start"},
+  {"src" : "/press", "dst" : "/community/press"},
+  {"src" : "/supporters", "dst" : "/community/supporters"},
+  {"src" : "/donate", "dst" : "/community/contribute"},
+  {"src" : "/monthly-call", "dst" : "/community/contribute"},
+
+  /* Common 404s. */
+  {"src" : "/home", "dst" : "/"},
+  {"src" : "/about", "dst" : "/"},
+  {"src" : "/how-do-i-try", "dst" : "/guide/start"},
+  {"src" : "/projects", "dst" : "/development/projects"},
+  {"src" : "/doc/projects", "dst" : "/development/projects"},
+  {"src" : "/doc/how-stay-compatible-farmos-main-line", "dst" : "/development/update-safety"},
+
+  /* Old blog paths (moved to farmier.com). */
+  {"src" : "/news", "dst" : "http://farmier.com/news"},
+  {"src" : "/blog", "dst" : "http://farmier.com/news"},
+  {"src" : "/news/2015/01/13/installing-farmos-linuxubuntu-desktop", "dst" : "http://farmier.com/news/2015/01/13/installing-farmos-linuxubuntu-desktop"},
+  {"src" : "/news/2015/03/27/farmos-beta-1-released", "dst" : "http://farmier.com/news/2015/03/27/farmos-beta-1-released"},
+  {"src" : "/news/2015/04/16/farmos-beta-2-released", "dst" : "http://farmier.com/news/2015/04/16/farmos-beta-2-released"},
+  {"src" : "/news/2015/01/10/nofa-massachusetts-2015-winter-conference", "dst" : "http://farmier.com/news/2015/01/10/nofa-massachusetts-2015-winter-conference"},
+  {"src" : "/nofa2015", "dst" : "http://farmier.com/news/2015/01/10/nofa-massachusetts-2015-winter-conference"},
+  {"src" : "/news/2015/04/28/open-agriculture-learning-series", "dst" : "http://farmier.com/news/2015/04/28/open-agriculture-learning-series"},
+  {"src" : "/news/2015/05/28/farmos-beta-3-released", "dst" : "http://farmier.com/news/2015/05/28/farmos-beta-3-released"},
+  {"src" : "/news/2015/08/03/farmos-beta-4-released", "dst" : "http://farmier.com/news/2015/08/03/farmos-beta-4-released"},
+  {"src" : "/news/2015/08/06/monthly-development-calls", "dst" : "http://farmier.com/news/2015/08/06/monthly-development-calls"},
+  {"src" : "/news/2015/08/24/farmos-beta-5-released", "dst" : "http://farmier.com/news/2015/08/24/farmos-beta-5-released"},
+  {"src" : "/news/2015/09/03/first-monthly-call-sep-2nd-2015", "dst" : "http://farmier.com/news/2015/09/03/first-monthly-call-sep-2nd-2015"},
+  {"src" : "/news/2015/10/05/farmos-beta-6-released", "dst" : "http://farmier.com/news/2015/10/05/farmos-beta-6-released"},
+  {"src" : "/news/2015/10/08/monthly-call-oct-7-2015", "dst" : "http://farmier.com/news/2015/10/08/monthly-call-oct-7-2015"},
+  {"src" : "/news/2015/11/03/farmos-beta-7-released", "dst" : "http://farmier.com/news/2015/11/03/farmos-beta-7-released"},
+  {"src" : "/news/2015/11/19/drupal-8", "dst" : "http://farmier.com/news/2015/11/19/drupal-8"},
+  {"src" : "/news/2015/12/04/farmos-beta-8-released", "dst" : "http://farmier.com/news/2015/12/04/farmos-beta-8-released"},
+  {"src" : "/news/2016/01/16/farmos-documentation", "dst" : "http://farmier.com/news/2016/01/16/farmos-documentation"},
+  {"src" : "/news/2016/01/03/farmos-beta-9-released", "dst" : "http://farmier.com/news/2016/01/03/farmos-beta-9-released"},
+  {"src" : "/news/2016/02/02/farmos-beta-10-released", "dst" : "http://farmier.com/news/2016/02/02/farmos-beta-10-released"},
+  {"src" : "/news/2016/04/13/farmos-beta-11-released", "dst" : "http://farmier.com/news/2016/04/13/farmos-beta-11-released"},
+  {"src" : "/news/2016/07/13/farmos-beta-12-released", "dst" : "http://farmier.com/news/2016/07/13/farmos-beta-12-released"},
+];
+
