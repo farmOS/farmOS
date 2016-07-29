@@ -28,5 +28,6 @@ pages:
     - Maintainers: community/maintainers.md
     - Supporters: community/supporters.md
     - Press: community/press.md
+- FAQ: faq.md
 theme: yeti
 
