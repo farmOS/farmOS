@@ -10,4 +10,12 @@ redirects = [
   {"src" : "/supporters", "dst" : "/community/supporters"},
   {"src" : "/donate", "dst" : "/community/contribute"},
   {"src" : "/monthly-call", "dst" : "/community/contribute"},
+
+  /* Common 404s. */
+  {"src" : "/home", "dst" : "/"},
+  {"src" : "/about", "dst" : "/"},
+  {"src" : "/how-do-i-try", "dst" : "/guide/start"},
+  {"src" : "/projects", "dst" : "/development/projects"},
+  {"src" : "/doc/projects", "dst" : "/development/projects"},
+  {"src" : "/doc/how-stay-compatible-farmos-main-line", "dst" : "/development/update-safety"},
 ];
