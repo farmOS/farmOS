@@ -339,6 +339,11 @@ function farm_area_openlayers_object_preprocess_alter(&$build, $context) {
  */
 function farm_area_page_build(&$page) {
 
+  // If the user doesn't have access to view farm areas, bail.
+  if (!user_access('view farm areas')) {
+    return;
+  }
+
   // If this is the farm dashboard, display the areas map.
   $current_path = current_path();
   $map_paths = array(
