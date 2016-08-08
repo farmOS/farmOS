@@ -160,6 +160,24 @@ function farm_theme_entity_view_alter(&$build, $type) {
 }
 
 /**
+ * Implements hook_page_alter().
+ */
+function farm_theme_page_alter(&$page) {
+
+  // If an access denied page is displayed and the user is not logged in...
+  global $user;
+  $status = drupal_get_http_header('status');
+  if ($status == '403 Forbidden' && empty($user->uid)) {
+
+    // Display a link to the user login page.
+    $page['content']['system_main']['login'] = array(
+      '#type' => 'markup',
+      '#markup' => '<p>' . l('Login to farmOS', 'user') . '</p>',
+    );
+  }
+}
+
+/**
  * Implements hook_preprocess_page().
  */
 function farm_theme_preprocess_page(&$vars) {
