@@ -12,8 +12,8 @@ along with a set of modules and configuration to create a flexible and
 extensible farm management interface.
 
 Drupal.org is the location of the canonical repositories and mainline branches.
-Github.org is also used as a mirror, and for some of the more experimental
-development. See http://github.org/farmOS for a list of repositories.
+GitHub is also used as a mirror, and for some of the more experimental
+development. See http://github.com/farmOS for a list of repositories.
 
 INSTALLATION
 ------------
