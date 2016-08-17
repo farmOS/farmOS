@@ -1,20 +1,15 @@
 farmOS
 ======
 
-Official website: http://farmos.org
+Documentation: http://farmos.org
 
-Documentation: http://docs.farmos.org
+Drupal distribution: http://drupal.org/project/farm
 
 A web-based farm record keeping application.
 
 farmOS is a built on top of [Drupal](http://drupal.org). It packages Drupal core
 along with a set of modules and configuration to create a flexible and
 extensible farm management interface.
-
-Drupal distribution: http://drupal.org/project/farm
-
-For a list of the farm-specific modules included with the farmOS distribution,
-see [http://docs.farmos.org/development/projects](http://docs.farmos.org/development/projects).
 
 Drupal.org is the location of the canonical repositories and mainline branches.
 Github.org is also used as a mirror, and for some of the more experimental
