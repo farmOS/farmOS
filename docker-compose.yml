@@ -17,6 +17,7 @@ services:
     image: farmos/farmos:7.x-1.x
     volumes:
       - "./.data/files:/var/www/html/sites/default/files"
+      - "./.data/modules:/var/www/html/sites/all/modules"
     links:
       - db
     ports:
