@@ -14,7 +14,7 @@ services:
   farmos:
     depends_on:
       - db
-    image: rjsteinert/farmos:latest
+    image: farmos/farmos:7.x-1.x
     links:
       - db
     ports:
