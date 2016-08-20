@@ -14,9 +14,7 @@ projects[colorbox][subdir] = "contrib"
 projects[colorbox][version] = "2.12"
 
 projects[ctools][subdir] = "contrib"
-projects[ctools][version] = "1.9"
-; Patch to fix "Autosubmit forms in modals are broken" (https://www.drupal.org/node/1823088).
-projects[ctools][patch][] = "http://www.drupal.org/files/issues/eventBubblingBugIE8-1823088-9.patch"
+projects[ctools][version] = "1.10"
 ; Patch to fix Issue #2643108: Entity reference popup not centered in Linux
 projects[ctools][patch][] = "http://www.drupal.org/files/issues/ctools-fix_modal_position_after_ajax-1803104-13.patch"
 
