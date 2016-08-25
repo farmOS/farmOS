@@ -226,6 +226,8 @@ function farm_livestock_field_default_field_bases() {
         'Ear tag' => 'Ear tag',
         'Tattoo' => 'Tattoo',
         'Leg band' => 'Leg band',
+        'Chip' => 'Chip',
+        'Other' => 'Other',
       ),
       'allowed_values_function' => '',
     ),
