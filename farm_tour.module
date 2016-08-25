@@ -53,3 +53,25 @@ function farm_theme_preprocess_menu_link(&$vars) {
     $vars['element']['#localized_options']['attributes']['class'][] = $class;
   }
 }
+
+/**
+ * Implements hook_farm_admin_help_page().
+ */
+function farm_tour_farm_admin_help_page() {
+
+  // Add links to the available tours.
+  $output = '<h3>Guided Tours</h3>';
+  $tour_list = array();
+  $tours = farm_tour_default_bootstrap_tour();
+  foreach ($tours as $name => $tour) {
+    if (bootstrap_tour_access($tour)) {
+      $tour_list[] = l($tour->title, $tour->start_path, array('query' => array('tour' => $name)));
+    }
+  }
+  if (!empty($tour_list)) {
+    $output .= theme('item_list', array('items' => $tour_list));
+  }
+
+  // Return the output wrapped in an array.
+  return array($output);
+}
