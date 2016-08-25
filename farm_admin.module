@@ -180,6 +180,10 @@ function farm_admin_help_page() {
   // Add a link to the farmOS distribution issue queue.
   $output[] = '<h3>Issue Queues</h3><p>' . l('https://drupal.org/project/issues/farm', 'https://drupal.org/project/issues/farm') . '</p>';
 
+  // Allow other modules to add output.
+  $contrib_output = module_invoke_all('farm_admin_help_page');
+  $output = array_merge($output, $contrib_output);
+
   // Return the output, imploded into a string.
   return implode('', $output);
 }

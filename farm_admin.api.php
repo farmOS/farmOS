@@ -49,5 +49,20 @@ function hook_farm_admin_actions() {
 }
 
 /**
+ * Add output to the /farm/help page.
+ *
+ * @return array
+ *   Returns an array of actions and their meta information (see example below).
+ */
+function hook_farm_admin_help_page() {
+
+  // Add a link to farmOS.rog
+  $output = array(
+    l('farmOS.org', 'http://farmos.org'),
+  );
+  return $output;
+}
+
+/**
  * @}
  */
