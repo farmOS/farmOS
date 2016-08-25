@@ -163,22 +163,25 @@ function farm_admin_help_page() {
   // Set the title so it is different than the menu item.
   drupal_set_title(t('farmOS Resources'));
 
-  // Create output.
-  $output = '<p>' . l('farmOS', 'http://farmos.org'). ' is built and maintained
+  // Create output array.
+  $output = array();
+
+  // Add general text.
+  $output[] = '<p>' . l('farmOS', 'http://farmos.org'). ' is built and maintained
   by a community of volunteers. Some farmOS community resources are listed
   below.</p>';
 
   // Add a link to the farmOS documentation.
-  $output .= '<h3>Documentation</h3><p>' . l('http://farmos.org', 'http://farmos.org') . '</h3>';
+  $output[] = '<h3>Documentation</h3><p>' . l('http://farmos.org', 'http://farmos.org') . '</h3>';
 
   // Add a link to the farmOS IRC channel.
-  $output .= '<h3>Community Chat</h3><p>' . l('#farmOS IRC channel on Freenode', 'http://webchat.freenode.net/?channels=#farmOS') . '</p>';
+  $output[] = '<h3>Community Chat</h3><p>' . l('#farmOS IRC channel on Freenode', 'http://webchat.freenode.net/?channels=#farmOS') . '</p>';
 
   // Add a link to the farmOS distribution issue queue.
-  $output .= '<h3>Issue Queues</h3><p>' . l('https://drupal.org/project/issues/farm', 'https://drupal.org/project/issues/farm') . '</p>';
+  $output[] = '<h3>Issue Queues</h3><p>' . l('https://drupal.org/project/issues/farm', 'https://drupal.org/project/issues/farm') . '</p>';
 
-  // Return output.
-  return $output;
+  // Return the output, imploded into a string.
+  return implode('', $output);
 }
 
 /**
