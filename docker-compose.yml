@@ -1,0 +1,31 @@
+version: '2'
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+      - "./.data/db:/var/lib/mysql"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: farmos 
+      MYSQL_DATABASE: farmos 
+      MYSQL_USER: farmos 
+      MYSQL_PASSWORD: farmos 
+
+  farmos:
+    depends_on:
+      - db
+    image: thedude459/farmos:latest
+    volumes:
+      - "./.data/farmos:/config"
+    links:
+      - db
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: always
+    environment:
+      MYSQL_HOST: db:3306
+      MYSQL_ROOT_PASSWORD: farmos 
+      MYSQL_DATABASE: farmos 
+      MYSQL_USER: farmos 
+      MYSQL_PASSWORD: farmos
