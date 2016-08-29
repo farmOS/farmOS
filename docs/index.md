@@ -11,6 +11,17 @@ It is built on [Drupal], which makes it [modular], [extensible], and [secure].
 
 For more information, read through some of the [Frequently Asked Questions].
 
+## 2016 NOFA Summer Conference
+
+Michael Stenta presented a farmOS workshop at the 2016 [NOFA Summer Conference].
+It covers the core features of farmOS, how to get started, where to find help,
+and how to contribute back to the project.
+
+The full workshop recording is available on YouTube:
+[https://youtu.be/w0ZCu8NsWKE]
+
+<iframe width="640" height="360" src="https://www.youtube.com/embed/w0ZCu8NsWKE?rel=0" frameborder="0" allowfullscreen></iframe>
+
 ## Open Source
 
 Both Drupal and farmOS are licensed under the [GNU General Public License],
@@ -35,6 +46,8 @@ now is laying a strong [groundwork], so that others can more easily join in and
 [secure]: http://www.drupal.org/documentation/is-drupal-secure
 [Openlayers]: http://openlayers.org
 [Frequently Asked Questions]: /faq
+[NOFA Summer Conference]: http://nofasummerconference.org
+[https://youtu.be/w0ZCu8NsWKE]: https://youtu.be/w0ZCu8NsWKE
 [GNU General Public License]: http://www.gnu.org/copyleft/gpl.html
 [open source]: http://en.wikipedia.org/wiki/Open_source
 [groundwork]: /development/architecture
