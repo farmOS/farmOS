@@ -177,6 +177,15 @@ function farm_sensor_listener_page_callback($public_key) {
  */
 function farm_sensor_listener_process_data($sensor, $data) {
 
+  // If the data is an array of multiple data points, iterate over each and
+  // recursively process.
+  if (is_array($data[0])) {
+    foreach ($data as $point) {
+      farm_sensor_listener_process_data($sensor, $point);
+    }
+    return;
+  }
+
   // Generate a timestamp from the request time. This will be overridden if
   // a timestamp is provided in the JSON.
   $timestamp = REQUEST_TIME;
