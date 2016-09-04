@@ -5,6 +5,8 @@ about farmOS, [contact m.stenta](http://farmier.com/contact).
 
 ## 2016
 
+**2016 September 4th** [CT NOFA Geanings Newsletter: farmOS Workshop at 2016 NOFA Summer Conference on YouTube](http://campaign.r20.constantcontact.com/render?m=1101748879193&ca=33f49beb-b2f1-48ca-962b-7899813f5c9b)
+
 **2016 August 29th** [Farm Hack: Video: FarmOS @ NOFA summer conference](http://blog.farmhack.org/2016/08/29/video-farmos-nofa-summer-conference)
 
 **2016 July 30th** [ATTRA Sustainable Agriculture: farmOS Releases Beta 12 Version and Beekeeping Module](https://attra.ncat.org/calendar/br_news.php/farmos-releases-beta-12-version)
