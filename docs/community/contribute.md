@@ -25,9 +25,8 @@ if you find bugs, add them to the [issue queues].
 
 ## Planning and General Discussion
 
-The farmOS developers host a [farmOS Monthly Call] via Google Hangouts. Anyone
-is welcome to join. Calls are currently held on the second Wednesday of the
-month, at 1pm Eastern US time.
+The farmOS community hosts a [farmOS Monthly Call] via Google Hangouts. Anyone
+is welcome to join.
 
 You can also chat with people any time in the [#farmOS IRC channel on Freenode].
 
@@ -56,7 +55,7 @@ we'll get done! Feel free to jump into the [issue queues] to get started!
 
 [Farmier]: http://farmier.com
 [issue queues]: /development/issue-queues
-[farmOS Monthly Call]: https://hangouts.google.com/hangouts/_/farmier.com/farmos-monthly
+[farmOS Monthly Call]: /community/monthly-call
 [#farmOS IRC channel on Freenode]: http://webchat.freenode.net/?channels=#farmOS
 [Github issue queue]: https://github.com/farmOS/farmOS.org/issues
 [farmOS.org repository]: https://github.com/farmOS/farmOS.org
