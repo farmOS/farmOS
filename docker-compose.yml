@@ -6,10 +6,10 @@ services:
       - "./.data/db:/var/lib/mysql"
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: farmos 
-      MYSQL_DATABASE: farmos 
-      MYSQL_USER: farmos 
-      MYSQL_PASSWORD: farmos 
+      MYSQL_ROOT_PASSWORD: farmos
+      MYSQL_DATABASE: farmos
+      MYSQL_USER: farmos
+      MYSQL_PASSWORD: farmos
 
   farmos:
     depends_on:
@@ -25,7 +25,8 @@ services:
     restart: always
     environment:
       MYSQL_HOST: db:3306
-      MYSQL_ROOT_PASSWORD: farmos 
-      MYSQL_DATABASE: farmos 
-      MYSQL_USER: farmos 
+      MYSQL_ROOT_PASSWORD: farmos
+      MYSQL_DATABASE: farmos
+      MYSQL_USER: farmos
       MYSQL_PASSWORD: farmos
+
