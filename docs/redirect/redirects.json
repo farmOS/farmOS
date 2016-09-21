@@ -9,7 +9,7 @@ redirects = [
   {"src" : "/press", "dst" : "/community/press"},
   {"src" : "/supporters", "dst" : "/community/supporters"},
   {"src" : "/donate", "dst" : "/community/contribute"},
-  {"src" : "/monthly-call", "dst" : "/community/contribute"},
+  {"src" : "/monthly-call", "dst" : "/community/monthly-call"},
 
   /* Common 404s. */
   {"src" : "/home", "dst" : "/"},
