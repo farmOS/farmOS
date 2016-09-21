@@ -5,11 +5,15 @@ about farmOS, [contact m.stenta](http://farmier.com/contact).
 
 ## 2016
 
+**2016 September 20th** [Farm Hack: Farm Hack @ the Smithsonian Cooper Hewitt Design Museum](http://blog.farmhack.org/2016/09/20/farm-hack-the-smithsonian-design-museum)
+
 **2016 September 4th** [CT NOFA Geanings Newsletter: farmOS Workshop at 2016 NOFA Summer Conference on YouTube](http://campaign.r20.constantcontact.com/render?m=1101748879193&ca=33f49beb-b2f1-48ca-962b-7899813f5c9b)
 
 **2016 August 29th** [Farm Hack: Video: FarmOS @ NOFA summer conference](http://blog.farmhack.org/2016/08/29/video-farmos-nofa-summer-conference)
 
 **2016 July 30th** [ATTRA Sustainable Agriculture: farmOS Releases Beta 12 Version and Beekeeping Module](https://attra.ncat.org/calendar/br_news.php/farmos-releases-beta-12-version)
+
+**2016 April 19th** [Cooper Hewitt: COOPER HEWITT TO PRESENT "BY THE PEOPLE: DESIGNING A BETTER AMERICA"](http://www.cooperhewitt.org/2016/04/19/cooper-hewitt-to-present-by-the-people-designing-a-better-america)
 
 **2016 April 1st** [Lancaster Farming: Using 'Big Data' Can Prevent Big Problems on the Farm](http://www.lancasterfarming.com/news/northern_edition/using-big-data-can-prevent-big-problems-on-the-farm/article_09dc6c40-097d-5fb3-8c5b-520405709a1e.html)
 
