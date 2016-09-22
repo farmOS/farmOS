@@ -12,10 +12,6 @@ RUN php -r "readfile('http://files.drush.org/drush.phar');" > drush && \
 
 ADD build-farm.make /farmOS/build-farm.make
 ADD drupal-org-core.make /farmOS/drupal-org-core.make
-ADD drupal-org.make /farmOS/drupal-org.make
-ADD farm.info /farmOS/farm.info
-ADD farm.install /farmOS/farm.install
-ADD farm.profile  /farmOS/farm.profile
 
 WORKDIR /farmOS
 RUN cd /farmOS && drush make build-farm.make farm
