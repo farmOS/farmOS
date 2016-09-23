@@ -9,8 +9,8 @@ RUN php -r "readfile('http://files.drush.org/drush.phar');" > drush && \
     chmod +x drush && \
     mv drush /usr/local/bin
 
-ADD build-farm.make /farmOS/build-farm.make
-ADD drupal-org-core.make /farmOS/drupal-org-core.make
+COPY build-farm.make /farmOS/build-farm.make
+COPY drupal-org-core.make /farmOS/drupal-org-core.make
 
 WORKDIR /farmOS
 RUN cd /farmOS && drush make build-farm.make farm
