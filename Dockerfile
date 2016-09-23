@@ -1,7 +1,9 @@
 FROM drupal:7
 
-RUN apt-get update && \
-    apt-get install -y git unzip libgeos-dev
+RUN apt-get update && apt-get install -y \
+  git \
+  libgeos-dev \
+  unzip
 
 RUN php -r "readfile('http://files.drush.org/drush.phar');" > drush && \
     chmod +x drush && \
