@@ -33,7 +33,7 @@ August 10th @ 1pm EST / 5pm UTC
 
 September 14th @ 1pm EST / 5pm UTC
 
-October 12th @ 1pm EST / 5pm UTC
+<strike>October 12th @ 1pm EST / 5pm UTC</strike> Cancelled to welcome [Ben-J](https://twitter.com/getfarmier/status/784515463653056517)
 
 November 9th @ 1pm EST / 6pm UTC
 
