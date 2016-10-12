@@ -16,8 +16,7 @@ services:
       - db
     image: farmos/farmos:docker
     volumes:
-      - "./.data/files:/var/www/html/sites/default/files"
-      - "./.data/modules:/var/www/html/sites/all/modules"
+      - "./.data/www:/var/www/html"
     links:
       - db
     ports:
