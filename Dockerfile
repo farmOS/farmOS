@@ -32,3 +32,8 @@ RUN rm -rf /var/www/html && ln -s /farmOS/farm /var/www/html
 # Change ownership of the Drupal sites folder to www-data.
 RUN chown -R www-data:www-data /farmOS/farm/sites
 
+# Set the entrypoint.
+COPY docker-entrypoint.sh /usr/local/bin/
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["apache2-foreground"]
+
