@@ -1,5 +1,5 @@
-# Inherit from the Drupal 7 image on Docker Hub.
-FROM drupal:7
+# Inherit from the PHP 5.6 Apache image on Docker Hub.
+FROM php:5.6-apache
 
 # Install dependencies via apt-get.
 RUN apt-get update && apt-get install -y \
