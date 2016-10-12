@@ -8,9 +8,8 @@ RUN apt-get update && apt-get install -y \
   unzip
 
 # Install Drush.
-RUN php -r "readfile('http://files.drush.org/drush.phar');" > drush && \
-    chmod +x drush && \
-    mv drush /usr/local/bin
+RUN curl -fSL "http://files.drush.org/drush.phar" -o /usr/local/bin/drush \
+  && chmod +x /usr/local/bin/drush
 
 # Build farmOS with Drush Make.
 COPY build-farm.make /farmOS/build-farm.make
