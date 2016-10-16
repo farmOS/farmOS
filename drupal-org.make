@@ -14,7 +14,7 @@ projects[colorbox][subdir] = "contrib"
 projects[colorbox][version] = "2.12"
 
 projects[ctools][subdir] = "contrib"
-projects[ctools][version] = "1.10"
+projects[ctools][version] = "1.11"
 ; Patch to fix Issue #2643108: Entity reference popup not centered in Linux
 projects[ctools][patch][] = "http://www.drupal.org/files/issues/ctools-fix_modal_position_after_ajax-1803104-13.patch"
 
@@ -22,10 +22,10 @@ projects[date][subdir] = "contrib"
 projects[date][version] = "2.9"
 
 projects[entity][subdir] = "contrib"
-projects[entity][version] = "1.7"
+projects[entity][version] = "1.8"
 
 projects[entityreference][subdir] = "contrib"
-projects[entityreference][version] = "1.1"
+projects[entityreference][version] = "1.2"
 
 projects[entityreference_view_widget][subdir] = "contrib"
 projects[entityreference_view_widget][version] = "2.0-rc7"
