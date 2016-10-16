@@ -1,6 +1,9 @@
 # Inherit from the PHP 5.6 Apache image on Docker Hub.
 FROM php:5.6-apache
 
+# Enable Apache rewrite module.
+RUN a2enmod rewrite
+
 # Install dependencies via apt-get.
 RUN apt-get update && apt-get install -y \
   git \
