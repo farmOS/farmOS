@@ -1,7 +1,7 @@
 version: '2'
 services:
   db:
-    image: mysql:5.7
+    image: mysql:latest
     volumes:
       - "./.data/db:/var/lib/mysql"
     restart: always
