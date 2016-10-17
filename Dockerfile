@@ -21,7 +21,9 @@ RUN curl -fSL "http://files.drush.org/drush.phar" -o /usr/local/bin/drush \
   && chmod +x /usr/local/bin/drush
 
 # Set environment variables.
+ENV FARMOS_VERSION 7.x-1.0-beta12
 ENV FARMOS_DEV_BRANCH 7.x-1.x
+ENV FARMOS_DEV false
 
 # Mount a volume at /var/www/html.
 VOLUME /var/www/html
