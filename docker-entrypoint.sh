@@ -5,7 +5,7 @@ set -e
 if ! [ -e /var/farmOS/build-farm.make ]; then
 
   # Clone the farmOS installation profile.
-  git clone --branch 7.x-1.x https://git.drupal.org/project/farm.git /var/farmOS
+  git clone --branch $FARMOS_DEV_BRANCH https://git.drupal.org/project/farm.git /var/farmOS
 
   # Build farmOS with Drush.
   drush make /var/farmOS/build-farm.make /tmp/farmOS \

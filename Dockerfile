@@ -20,6 +20,9 @@ RUN apt-get update && apt-get install -y \
 RUN curl -fSL "http://files.drush.org/drush.phar" -o /usr/local/bin/drush \
   && chmod +x /usr/local/bin/drush
 
+# Set environment variables.
+ENV FARMOS_DEV_BRANCH 7.x-1.x
+
 # Mount a volume at /var/www/html.
 VOLUME /var/www/html
 
