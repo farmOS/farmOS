@@ -32,8 +32,8 @@ else
     git -C /var/farmOS pull origin $FARMOS_DEV_BRANCH
   fi
 
-  # Build farmOS with Drush.
-  drush make /var/farmOS/build-farm.make /tmp/farmOS \
+  # Build farmOS with Drush. Use the --working-copy flag to keep .git folders.
+  drush make --working-copy /var/farmOS/build-farm.make /tmp/farmOS \
   && cp -r /tmp/farmOS/. /var/www/html \
   && rm -r /tmp/farmOS
 
