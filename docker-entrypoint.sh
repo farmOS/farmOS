@@ -1,12 +1,17 @@
 #!/bin/bash
 set -e
 
-# If we are building a development environment, and the farmOS codebase does
-# not exist, build it.
-if $FARMOS_DEV && [ ! -e /var/farmOS/build-farm.make ]; then
+# Build a development environment, if desired.
+if $FARMOS_DEV; then
 
-  # Clone the farmOS installation profile.
-  git clone --branch $FARMOS_DEV_BRANCH https://git.drupal.org/project/farm.git /var/farmOS
+  # Clone the farmOS installation profile, if it doesn't already exist.
+  if ! [ -e /var/farmOS/build-farm.make ]; then
+    git clone --branch $FARMOS_DEV_BRANCH https://git.drupal.org/project/farm.git /var/farmOS
+
+  # Update it if it does exist.
+  else
+    git -C /var/farmOS pull origin $FARMOS_DEV_BRANCH
+  fi
 
   # If the sites folder exists, preserve it by temporarily moving it up one dir.
   if [ -e /var/www/html/sites ]; then
