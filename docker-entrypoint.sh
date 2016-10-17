@@ -3,11 +3,13 @@ set -e
 
 # If the sites folder exists, preserve it by temporarily moving it up one dir.
 if [ -e /var/www/html/sites ]; then
+  echo >&2 "Existing sites folder detected. Moving temporarily..."
   mv /var/www/html/sites /var/www/sites
 fi
 
 # Remove the existing farmOS codebase, if it exists.
 if [ -e /var/www/html/index.php ]; then
+  echo >&2 "Removing existing farmOS codebase..."
   rm -rf /var/www/html/*
 fi
 
@@ -41,6 +43,7 @@ fi
 
 # Restore the sites folder.
 if [ -e /var/www/sites ]; then
+  echo >&2 "Restoring sites directory..."
   rm -r /var/www/html/sites \
   && mv /var/www/sites /var/www/html/sites
 fi
