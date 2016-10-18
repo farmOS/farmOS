@@ -1,24 +1,46 @@
-FROM drupal:7 
+# Inherit from the PHP 5.6 Apache image on Docker Hub.
+FROM php:5.6-apache
 
-ENV DEBIAN_FRONTEND noninteractive
-RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+# Enable Apache rewrite module.
+RUN a2enmod rewrite
 
-RUN apt-get update && \
-    apt-get install -y git unzip 
+# Install the PHP extensions that Drupal needs.
+RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev libpq-dev \
+	&& rm -rf /var/lib/apt/lists/* \
+	&& docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
+	&& docker-php-ext-install gd mbstring opcache pdo pdo_mysql pdo_pgsql zip
 
-RUN php -r "readfile('http://files.drush.org/drush.phar');" > drush && \
-    chmod +x drush && \
-    mv drush /usr/local/bin
+# Set recommended opcache settings.
+# See https://secure.php.net/manual/en/opcache.installation.php
+RUN { \
+    echo 'opcache.memory_consumption=128'; \
+    echo 'opcache.interned_strings_buffer=8'; \
+    echo 'opcache.max_accelerated_files=4000'; \
+    echo 'opcache.revalidate_freq=60'; \
+    echo 'opcache.fast_shutdown=1'; \
+    echo 'opcache.enable_cli=1'; \
+  } > /usr/local/etc/php/conf.d/opcache-recommended.ini
 
-ADD build-farm.make /farmos/build-farm.make
-ADD drupal-org-core.make /farmos/drupal-org-core.make  
-ADD drupal-org.make /farmos/drupal-org.make  
-ADD farm.info /farmos/farm.info  
-ADD farm.install /farmos/farm.install  
-ADD farm.profile  /farmos/farm.profile
+# Install other dependencies via apt-get.
+RUN apt-get update && apt-get install -y \
+  git \
+  libgeos-dev \
+  unzip
 
-WORKDIR /farmos
-RUN cd /farmos && drush make build-farm.make farm 
-RUN rm -rf /var/www/html && \
-    ln -s /farmos/farm /var/www/html && \
-    chown -R www-data:www-data /farmos/farm/sites
+# Install Drush.
+RUN curl -fSL "http://files.drush.org/drush.phar" -o /usr/local/bin/drush \
+  && chmod +x /usr/local/bin/drush
+
+# Set environment variables.
+ENV FARMOS_VERSION 7.x-1.0-beta12
+ENV FARMOS_DEV_BRANCH 7.x-1.x
+ENV FARMOS_DEV false
+
+# Mount a volume at /var/www/html.
+VOLUME /var/www/html
+
+# Set the entrypoint.
+COPY docker-entrypoint.sh /usr/local/bin/
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["apache2-foreground"]
+
