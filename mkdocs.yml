@@ -22,6 +22,7 @@ pages:
     - Issue Queues: development/issue-queues.md
     - Architecture: development/architecture.md
     - Update Safety: development/update-safety.md
+    - Docker: development/docker.md
 - Community:
     - Contribute: community/contribute.md
     - Monthly Call: community/monthly-call.md
