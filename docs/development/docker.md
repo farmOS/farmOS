@@ -16,6 +16,9 @@ container.
 First, install Docker and Docker Compose:
 
 * [Install Docker](https://docs.docker.com/engine/installation)
+    * On Mac OS X, use "Docker for Mac" (not "Docker Toolbox")
+    * On Windows, use "Docker for Windows" (not "Docker Toolbox")
+    * On Linux, follow the directions on docker.com
 * [Install Docker Compose](https://docs.docker.com/compose/install)
 
 Then run the following commands to build the containers:
