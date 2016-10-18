@@ -11,7 +11,7 @@ services:
       MYSQL_USER: farmos
       MYSQL_PASSWORD: farmos
 
-  farmos:
+  www:
     depends_on:
       - db
     image: farmos/farmos:docker
