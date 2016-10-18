@@ -3,7 +3,7 @@ services:
   db:
     image: mysql:latest
     volumes:
-      - "./.data/db:/var/lib/mysql"
+      - './.data/db:/var/lib/mysql'
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: farmos
@@ -16,11 +16,11 @@ services:
       - db
     image: farmos/farmos:docker
     volumes:
-      - "./.data/www:/var/www/html"
+      - './.data/www:/var/www/html'
     links:
       - db
     ports:
-      - "80:80"
+      - '80:80'
     restart: always
     environment:
       MYSQL_HOST: db:3306
