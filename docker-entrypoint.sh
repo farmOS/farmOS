@@ -10,7 +10,7 @@ fi
 # Remove the existing farmOS codebase, if it exists.
 if [ -e /var/www/html/index.php ]; then
   echo >&2 "Removing existing farmOS codebase..."
-  rm -rf /var/www/html/*
+  find /var/www/html -mindepth 1 -delete
 fi
 
 # Download the packaged release of farmOS, if a dev environment is not desired.
