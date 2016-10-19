@@ -35,7 +35,7 @@ else
   fi
 
   # Build farmOS with Drush. Use the --working-copy flag to keep .git folders.
-  drush make --working-copy /var/farmOS/build-farm.make /tmp/farmOS \
+  drush make --working-copy --no-gitinfofile /var/farmOS/build-farm.make /tmp/farmOS \
   && cp -r /tmp/farmOS/. /var/www/html \
   && rm -r /tmp/farmOS
 
