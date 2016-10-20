@@ -21,6 +21,10 @@ RUN { \
     echo 'opcache.enable_cli=1'; \
   } > /usr/local/etc/php/conf.d/opcache-recommended.ini
 
+# Install PECL Uploadprogress.
+RUN pecl install uploadprogress \
+  && echo 'extension=uploadprogress.so' > /usr/local/etc/php/conf.d/uploadprogress.ini
+
 # Install other dependencies via apt-get.
 RUN apt-get update && apt-get install -y \
   git \
