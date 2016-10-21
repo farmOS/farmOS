@@ -75,15 +75,30 @@ build_farmos () {
   fi
 }
 
-# Archive the sites folder and delete the farmOS codebase.
-archive_sites
-delete_farmos
+# Function for determining whether a rebuild is required.
+rebuild_required () {
 
-# Build farmOS.
-build_farmos
+	# If index.php doesn't exist, a rebuild is required.
+	if ! [ -e /var/www/html/index.php ]; then
+    return 0
+	else
+	  return 1
+	fi
+}
 
-# Restore the sites folder.
-restore_sites
+# Rebuild farmOS, if necessary.
+if rebuild_required; then
+
+	# Archive the sites folder and delete the farmOS codebase.
+	archive_sites
+	delete_farmos
+
+	# Build farmOS.
+	build_farmos
+
+	# Restore the sites folder.
+	restore_sites
+fi
 
 # Execute the arguments passed into this script.
 echo "Attempting: $@"
