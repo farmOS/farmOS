@@ -1,29 +1,52 @@
 #!/bin/bash
 set -e
 
-# If the sites folder exists, preserve it by temporarily moving it up one dir.
-if [ -e /var/www/html/sites ]; then
-  echo >&2 "Existing sites folder detected. Moving temporarily..."
-  mv /var/www/html/sites /var/www/sites
-fi
+# Function for archiving the sites folder.
+archive_sites () {
 
-# Remove the existing farmOS codebase, if it exists.
-if [ -e /var/www/html/index.php ]; then
-  echo >&2 "Removing existing farmOS codebase..."
-  find /var/www/html -mindepth 1 -delete
-fi
+	# If the sites folder exists, preserve it by temporarily moving it up one dir.
+	if [ -e /var/www/html/sites ]; then
+		echo >&2 "Existing sites folder detected. Moving temporarily..."
+		mv /var/www/html/sites /var/www/sites
+	fi
+}
 
-# Download the packaged release of farmOS, if a dev environment is not desired.
-if ! $FARMOS_DEV; then
+# Function for restoring the sites folder.
+restore_sites () {
+
+	# Restore the sites folder.
+	if [ -e /var/www/sites ]; then
+		echo >&2 "Restoring sites directory..."
+		rm -r /var/www/html/sites \
+		&& mv /var/www/sites /var/www/html/sites
+	fi
+
+	# Change ownership of the sites folder.
+  chown -R www-data:www-data /var/www/html/sites
+}
+
+# Function for deleting the farmOS codebase.
+delete_farmos () {
+
+	# Remove the existing farmOS codebase, if it exists.
+	if [ -e /var/www/html/index.php ]; then
+		echo >&2 "Removing existing farmOS codebase..."
+		find /var/www/html -mindepth 1 -delete
+	fi
+}
+
+# Function for downloading and unpacking a farmOS release.
+build_farmos_release () {
 
   # Download and unpack farmOS release.
   echo >&2 "Downloading farmOS $FARMOS_VERSION..."
   curl -SL "http://ftp.drupal.org/files/projects/farm-${FARMOS_VERSION}-core.tar.gz" -o /usr/src/farm-${FARMOS_VERSION}-core.tar.gz
   echo >&2 "Unpacking farmOS $FARMOS_VERSION..."
   tar -xvzf /usr/src/farm-${FARMOS_VERSION}-core.tar.gz -C /var/www/html/ --strip-components=1
+}
 
-# Or, build a development environment.
-else
+# Function for building a dev branch of farmOS.
+build_farmos_dev () {
 
   # Clone the farmOS installation profile, if it doesn't already exist.
   if ! [ -e /var/farmOS/build-farm.make ]; then
@@ -38,18 +61,29 @@ else
   drush make --working-copy --no-gitinfofile /var/farmOS/build-farm.make /tmp/farmOS \
   && cp -r /tmp/farmOS/. /var/www/html \
   && rm -r /tmp/farmOS
+}
 
-fi
+# Function for building farmOS.
+build_farmos () {
+
+  # If a development environment is desired, build from dev branch. Otherwise,
+  # build from official packaged release.
+  if $FARMOS_DEV; then
+    build_farmos_dev
+  else
+    build_farmos_release
+  fi
+}
+
+# Archive the sites folder and delete the farmOS codebase.
+archive_sites
+delete_farmos
+
+# Build farmOS.
+build_farmos
 
 # Restore the sites folder.
-if [ -e /var/www/sites ]; then
-  echo >&2 "Restoring sites directory..."
-  rm -r /var/www/html/sites \
-  && mv /var/www/sites /var/www/html/sites
-fi
-
-# Change ownership of the sites folder.
-chown -R www-data:www-data /var/www/html/sites
+restore_sites
 
 # Execute the arguments passed into this script.
 echo "Attempting: $@"
