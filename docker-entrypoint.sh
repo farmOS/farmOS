@@ -4,10 +4,10 @@ set -e
 # Function for archiving the sites folder.
 archive_sites () {
 
-	# If the sites folder exists, preserve it by temporarily moving it up one dir.
+	# If the sites folder exists, preserve it by temporarily archiving it.
 	if [ -e /var/www/html/sites ]; then
-		echo >&2 "Existing sites folder detected. Moving temporarily..."
-		mv /var/www/html/sites /var/www/sites
+		echo >&2 "Existing sites folder detected. Archiving temporarily..."
+		tar -czf /var/www/html/sites.tar.gz /var/www/html/sites
 	fi
 }
 
@@ -15,10 +15,11 @@ archive_sites () {
 restore_sites () {
 
 	# Restore the sites folder.
-	if [ -e /var/www/sites ]; then
+	if [ -e /var/www/html/sites.tar.gz ]; then
 		echo >&2 "Restoring sites directory..."
 		rm -r /var/www/html/sites \
-		&& mv /var/www/sites /var/www/html/sites
+		&& tar -xzf /var/www/html/sites.tar.gz -C /var/www/html/ --strip-components=3 \
+		&& rm /var/www/html/sites.tar.gz
 	fi
 
 	# Change ownership of the sites folder.
@@ -29,9 +30,10 @@ restore_sites () {
 delete_farmos () {
 
 	# Remove the existing farmOS codebase, if it exists.
+	# Exclude sites.tar.gz.
 	if [ -e /var/www/html/index.php ]; then
 		echo >&2 "Removing existing farmOS codebase..."
-		find /var/www/html -mindepth 1 -delete
+		find /var/www/html ! -name 'sites.tar.gz' -mindepth 1 -delete
 	fi
 }
 
