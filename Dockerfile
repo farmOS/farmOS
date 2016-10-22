@@ -27,9 +27,25 @@ RUN pecl install uploadprogress \
 
 # Install other dependencies via apt-get.
 RUN apt-get update && apt-get install -y \
+  bzip2 \
   git \
-  libgeos-dev \
+  php5-geos \
+  phpunit \
   unzip
+
+# Build and install the GEOS PHP extension.
+RUN curl -fsSL 'http://download.osgeo.org/geos/geos-3.4.2.tar.bz2' -o geos.tar.bz2 \
+  && mkdir -p geos \
+  && tar -xf geos.tar.bz2 -C geos --strip-components=1 \
+  && rm geos.tar.bz2 \
+  && ( \
+    cd geos \
+    && ./configure --enable-php \
+    && make \
+    && make install \
+  ) \
+  && rm -r geos \
+  && docker-php-ext-enable geos
 
 # Install Drush.
 RUN curl -fSL "http://files.drush.org/drush.phar" -o /usr/local/bin/drush \
