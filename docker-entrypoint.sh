@@ -82,8 +82,10 @@ rebuild_required () {
 
 	# If index.php doesn't exist, a rebuild is required.
 	if ! [ -e /var/www/html/index.php ]; then
+	  echo >&2 "farmOS not detected. Building..."
     return 0
 	else
+	  echo >&2 "An existing farmOS codebase was detected."
 	  return 1
 	fi
 }
