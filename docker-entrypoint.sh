@@ -80,12 +80,13 @@ build_farmos () {
 # Function for determining whether a rebuild is required.
 rebuild_required () {
 
-	# If index.php doesn't exist, a rebuild is required.
-	if ! [ -e /var/www/html/index.php ]; then
+	# If farm.info doesn't exist, a rebuild is required.
+	if ! [ -e /var/www/html/profiles/farm/farm.info ]; then
 	  echo >&2 "farmOS not detected. Building..."
     return 0
 	else
 	  echo >&2 "An existing farmOS codebase was detected."
+	  echo >&2 "To force a rebuild, delete profiles/farm/farm.info and restart the container."
 	  return 1
 	fi
 }
