@@ -213,34 +213,6 @@ function farm_admin_views_default_views() {
   $handler->display->display_options['menu']['name'] = 'farm';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
-  $translatables['farm_people'] = array(
-    t('Master'),
-    t('People'),
-    t('more'),
-    t('Apply'),
-    t('Reset'),
-    t('Sort by'),
-    t('Asc'),
-    t('Desc'),
-    t('Items per page'),
-    t('- All -'),
-    t('Offset'),
-    t('« first'),
-    t('‹ previous'),
-    t('next ›'),
-    t('last »'),
-    t('No people found.'),
-    t('User'),
-    t('- Choose an operation -'),
-    t('Name'),
-    t('E-mail'),
-    t('Roles'),
-    t('Created date'),
-    t('Last login'),
-    t('Active'),
-    t('Edit'),
-    t('Page'),
-  );
   $export['farm_people'] = $view;
 
   return $export;
