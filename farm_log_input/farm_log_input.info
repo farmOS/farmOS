@@ -24,6 +24,7 @@ dependencies[] = geophp
 dependencies[] = image
 dependencies[] = log
 dependencies[] = openlayers_geofield
+dependencies[] = options
 dependencies[] = taxonomy
 dependencies[] = text
 dependencies[] = views
