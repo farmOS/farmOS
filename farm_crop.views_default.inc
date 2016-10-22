@@ -899,12 +899,6 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['sorts']['name']['field'] = 'name';
   $handler->display->display_options['sorts']['name']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['name']['expose']['label'] = 'Name';
-  /* Sort criterion: Farm asset: Crop/Variety (field_farm_crop) */
-  $handler->display->display_options['sorts']['field_farm_crop_tid']['id'] = 'field_farm_crop_tid';
-  $handler->display->display_options['sorts']['field_farm_crop_tid']['table'] = 'field_data_field_farm_crop';
-  $handler->display->display_options['sorts']['field_farm_crop_tid']['field'] = 'field_farm_crop_tid';
-  $handler->display->display_options['sorts']['field_farm_crop_tid']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['field_farm_crop_tid']['expose']['label'] = 'Crop/Variety';
   /* Sort criterion: Farm asset: Season (field_farm_season) */
   $handler->display->display_options['sorts']['field_farm_season_tid']['id'] = 'field_farm_season_tid';
   $handler->display->display_options['sorts']['field_farm_season_tid']['table'] = 'field_data_field_farm_season';
