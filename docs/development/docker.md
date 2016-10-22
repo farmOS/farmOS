@@ -51,30 +51,47 @@ packaged release of farmOS will be downloaded from drupal.org and unpacked in
 the container. It will download the version specified in the `FARMOS_VERSION`
 variable. The `FARMOS_DEV_BRANCH` variable is ignored.
 
-### Persistent data
+### Rebuilding the codebase
 
 The farmOS Docker image assumes that the entire farmOS codebase (located in
 `/var/www/html` within the container) will be mounted on the host as a
 [Docker volume]. A Docker `ENTRYPOINT` script is included to ensure that the
-farmOS codebase is created within that volume.
+farmOS codebase is created within that volume. When the container is destroyed,
+everything in `/var/www/html` persists in the host volume.
 
-When the container is destroyed, everything in `/var/www/html` (the entire
-farmOS codebase) is preserved in the host. When a new container is created, the
-`docker-entrypoint.sh` script rebuilds the farmOS codebase based on the status
-of the environment variables described above. When this happens, everything in
-the codebase is wiped out and replaced automatically, with the exception of the
-`/var/www/html/sites` directory - which is preserved across the rebuild.
+Since the farmOS codebase is built in the `ENTRYPOINT` script, and not in the
+Dockerfile, that means that updating your Docker image will not necessarily
+update your farmOS codebase.
 
-This ensures that Drupal's `settings.php`, any uploaded files (in
-`sites/default/files`), and any additional modules that you add to
-`sites/*/modules` are not lost when the farmOS codebase is rebuilt.
+Therefore, the `ENTRTYPOINT` script has logic to decide if/when the farmOS
+codebase should be rebuilt. Simply put, if you are running a packaged release of
+farmOS, and a new version of farmOS is released, all you have to do is pull an
+updated farmOS Docker image and rebuild your container to get the new version.
 
-**WARNING:** If you have a development environment (created with `FARMOS_DEV` set to
-`true`) and you have made changes to any of the working Git repositories in
-`/var/www/html/profiles/farm`, they will be overwritten when the container is
+If, on the other hand, you have a development build (`FARMOS_DEV` is `true`),
+then the only way to trigger a rebuild is to delete `profiles/farm/farm.info`.
+Then, stop and start your container and the farmOS development codebase will be
+rebuilt with `drush make`.
+
+More specifically, farmOS will be rebuilt if one of the following is true:
+
+1. `profiles/farm/farm.info` is missing, or:
+2. `FARMOS_DEV` is `false` and the version string in `profiles/farm/farm.info`
+does not match `FARMOS_VERSION` in the Dockerfile.
+
+When the codebase is rebuilt, everything in `/var/www/html` is wiped out and
+replaced automatically, with the exception of the `/var/www/html/sites`
+directory - which is preserved across the rebuild. This ensures that Drupal's
+`settings.php`, any uploaded files (in `sites/default/files`), and any
+additional modules that you add to `sites/*/modules` are not lost when the
+codebase is rebuilt.
+
+**WARNING:** If you have a development environment (created with `FARMOS_DEV`
+set to `true`) and you have made changes to any of the working Git repositories
+in `/var/www/html/profiles/farm`, they will be overwritten when the codebase is
 rebuilt. The best way to avoid this is to copy any overridden modules/themes to
 the `sites/all/modules` or `sites/all/themes` directory so that they are
-preserved when the container is rebuilt.
+preserved when the codebase is rebuilt.
 
 ## Local development with Docker Compose
 
@@ -159,18 +176,6 @@ To stop your running containers:
 To start your containers:
 
     sudo docker-compose start
-
-### Upgrade/rebuild containers
-
-When a new version of farmOS is released, or if you want to freshen up your
-development environment, you will need to rebuild the codebase in /var/www/html.
-
-This is done automatically when the containers are destroyed and rebuilt.
-
-    sudo docker-compose stop
-    sudo docker-compose rm
-    sudo docker pull farmos
-    sudo docker-compose up
 
 [Docker]: https://www.docker.com
 [Wikipedia]: https://en.wikipedia.org/wiki/Docker_(software)
