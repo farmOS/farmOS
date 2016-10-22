@@ -408,11 +408,6 @@ function farm_log_movement_prepopulate_movement_from(&$from_field, $assets = arr
   // Keep track of what areas these assets are coming from.
   $from_areas = array();
 
-  // If this is a log form, start with an empty array for default values.
-  if ($log_form) {
-    $form_default_values = array();
-  }
-
   // Iterate through the assets.
   foreach ($assets as $asset) {
 
@@ -437,29 +432,14 @@ function farm_log_movement_prepopulate_movement_from(&$from_field, $assets = arr
           );
         }
 
-        // If this is a log form, assemble the list of areas as a comma-separated
-        // string (to be added to the #default_value below).
+        // If this is a log form, add areas to the #default_value array.
         else {
-          $form_default_values[] = $area->name;
+          $from_field[LANGUAGE_NONE]['#default_value'][] = $area->tid;
         }
 
+        // Remember the areas that have already been added.
         $from_areas[] = $area->tid;
       }
     }
-  }
-
-  // Finally, if this is a log form, and there are default values...
-  if ($log_form && !empty($form_default_values)) {
-
-    // If any of the areas have commas in their name, wrap them in quotes.
-    foreach ($form_default_values as &$value) {
-      if (strpos($value, ',') !== FALSE) {
-        $value = '"' . $value . '"';
-      }
-    }
-
-    // Implode the values into a comma-separated string and set the form field's
-    // default value.
-    $from_field[LANGUAGE_NONE]['#default_value'] = implode(', ', $form_default_values);
   }
 }

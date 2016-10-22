@@ -200,7 +200,7 @@ function farm_log_movement_field_default_field_instances() {
   // Exported field_instance: 'log-farm_movement-field_farm_move_from'.
   $field_instances['log-farm_movement-field_farm_move_from'] = array(
     'bundle' => 'farm_movement',
-    'default_value' => NULL,
+    'default_value' => array(),
     'deleted' => 0,
     'description' => 'Where is it moving from? This field is optional. You may leave this blank as a way of setting the initial location of an object.',
     'display' => array(
@@ -221,12 +221,12 @@ function farm_log_movement_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 0,
-      'module' => 'taxonomy',
+      'module' => 'options',
       'settings' => array(
         'autocomplete_path' => 'taxonomy/autocomplete',
         'size' => 60,
       ),
-      'type' => 'taxonomy_autocomplete',
+      'type' => 'options_select',
       'weight' => 2,
     ),
   );
@@ -234,7 +234,7 @@ function farm_log_movement_field_default_field_instances() {
   // Exported field_instance: 'log-farm_movement-field_farm_move_to'.
   $field_instances['log-farm_movement-field_farm_move_to'] = array(
     'bundle' => 'farm_movement',
-    'default_value' => NULL,
+    'default_value' => array(),
     'deleted' => 0,
     'description' => 'Specify the area(s) that assets are being moved to. If you need to specify more precise locations, use the Geometry field below.',
     'display' => array(
@@ -255,12 +255,12 @@ function farm_log_movement_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 0,
-      'module' => 'taxonomy',
+      'module' => 'options',
       'settings' => array(
         'autocomplete_path' => 'taxonomy/autocomplete',
         'size' => 60,
       ),
-      'type' => 'taxonomy_autocomplete',
+      'type' => 'options_select',
       'weight' => 3,
     ),
   );
