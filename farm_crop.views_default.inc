@@ -341,7 +341,7 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['name_1']['label'] = 'Seeding';
   $handler->display->display_options['fields']['name_1']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['name_1']['alter']['path'] = 'log/[id]';
-  /* Field: Field: Quantity */
+  /* Field: Log: Quantity */
   $handler->display->display_options['fields']['field_farm_quantity']['id'] = 'field_farm_quantity';
   $handler->display->display_options['fields']['field_farm_quantity']['table'] = 'field_data_field_farm_quantity';
   $handler->display->display_options['fields']['field_farm_quantity']['field'] = 'field_farm_quantity';
@@ -624,7 +624,7 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['fields']['name_1']['label'] = 'Transplanting';
   $handler->display->display_options['fields']['name_1']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['name_1']['alter']['path'] = 'log/[id]';
-  /* Field: Field: Quantity */
+  /* Field: Log: Quantity */
   $handler->display->display_options['fields']['field_farm_quantity']['id'] = 'field_farm_quantity';
   $handler->display->display_options['fields']['field_farm_quantity']['table'] = 'field_data_field_farm_quantity';
   $handler->display->display_options['fields']['field_farm_quantity']['field'] = 'field_farm_quantity';
