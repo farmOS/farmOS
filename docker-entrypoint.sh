@@ -84,11 +84,21 @@ rebuild_required () {
 	if ! [ -e /var/www/html/profiles/farm/farm.info ]; then
 	  echo >&2 "farmOS not detected. Building..."
     return 0
-	else
-	  echo >&2 "An existing farmOS codebase was detected."
-	  echo >&2 "To force a rebuild, delete profiles/farm/farm.info and restart the container."
-	  return 1
 	fi
+
+  # Get the current version of farmOS from the installation profile info file.
+  CURRENT_VERSION="$(grep 'version' profiles/farm/farm.info | sed 's/version = .\(.*\)./\1/')"
+
+  # If this is not a development build, and the current version does not match
+  # the desired version, then rebuild.
+  if ! $FARMOS_DEV && [ "$CURRENT_VERSION" != "$FARMOS_VERSION" ]; then
+    echo >&2 "farmOS $CURRENT_VERSION was detected. Replacing with $FARMOS_VERSION..."
+    return 0
+  fi
+
+  echo >&2 "An existing farmOS codebase was detected."
+  echo >&2 "To force a rebuild, delete profiles/farm/farm.info and restart the container."
+  return 1
 }
 
 # Rebuild farmOS, if necessary.
