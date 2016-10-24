@@ -76,7 +76,7 @@ function farm_asset_schema() {
     'primary key' => array('id'),
     'indexes' => array(
       'name' => array('name'),
-      'type' => array('type'),
+      'type_index' => array('type'),
       'uid' => array('uid'),
       'created' => array('created'),
       'modified' => array('changed'),
@@ -156,4 +156,12 @@ function farm_asset_update_7001(&$sandbox) {
 
   // Set the weight of farm_asset to 1.
   db_query("UPDATE {system} SET weight = 1 WHERE name = 'farm_asset'");
+}
+
+/**
+ * Change the name of the {farm_asset} index to fix SQLite installs.
+ */
+function farm_asset_update_7002(&$sandbox) {
+  db_drop_index('farm_asset', 'type');
+  db_add_index('farm_asset', 'type_index', array('type'));
 }
