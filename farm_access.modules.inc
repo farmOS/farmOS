@@ -10,6 +10,9 @@
 function log_farm_access_perms($role) {
   $perms = array();
 
+  // View all logs.
+  $perms[] = 'view all logs';
+
   // Access RESTful Web Services log resources.
   $perms[] = 'access resource log';
 
