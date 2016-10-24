@@ -504,15 +504,19 @@ function farm_asset_views_api($module = NULL, $api = NULL) {
 function farm_asset_access($op, $farm_asset = NULL, $account = NULL) {
   $rights = &drupal_static(__FUNCTION__, array());
 
-  if (!$farm_asset || !in_array($op, array('create', 'view', 'update', 'delete'), TRUE)) {
-    // If there was no asset to check against, or the $op was not one of the
-    // supported ones, we return access denied.
+  // If $op is not one of the supported ones, deny access.
+  if (!in_array($op, array('create', 'view', 'update', 'delete'), TRUE)) {
     return FALSE;
   }
   // If no user object is supplied, the access check is for the current user.
   if (empty($account)) {
     global $user;
     $account = $user;
+  }
+
+  // If no asset is provided, check for access to all assets.
+  if (empty($farm_asset)) {
+    return user_access('view farm assets', $account);
   }
 
   // $farm_asset may be either an object or an asset type. Since asset types
