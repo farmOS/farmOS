@@ -97,6 +97,8 @@ projects[openlayers_geolocate_button][version] = "3.2"
 
 projects[pathauto][subdir] = "contrib"
 projects[pathauto][version] = "1.3"
+; Fix SQLite3 issue.
+projects[pathauto][patch][] = "http://www.drupal.org/files/issues/2582655-path-pathauto-is-alias-reserved-db-query.patch"
 
 projects[pathauto_entity][subdir] = "contrib"
 projects[pathauto_entity][version] = "1.0"
