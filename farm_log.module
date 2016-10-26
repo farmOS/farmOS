@@ -324,7 +324,7 @@ function farm_log_form_prepopulate_area(array &$form, $field_name = 'field_farm_
 
       // Prepopulate the area reference field.
       if (empty($field_value)) {
-        $field_value = entity_label('taxonomy_term', $area);
+        $field_value = $area->tid;
       }
     }
   }
