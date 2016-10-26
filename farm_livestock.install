@@ -24,3 +24,24 @@ function farm_livestock_update_7000(&$sandbox) {
     field_delete_instance($field);
   }
 }
+
+/**
+ * Migrate Animal Parents field to plain Parents field (from farm_asset_children).
+ */
+function farm_livestock_update_7001(&$sandbox) {
+
+  // Revert this module's field_instance Features component.
+  features_revert(array('farm_livestock' => array('field_instance')));
+
+  // If the new description field database tables exist...
+  if (db_table_exists('field_data_field_farm_parent') && db_table_exists('field_revision_field_farm_parent')) {
+
+    // Copy all references from the old database tables to the new ones.
+    db_query('INSERT INTO {field_data_field_farm_parent} SELECT * FROM {field_data_field_farm_animal_parents}');
+    db_query('INSERT INTO {field_revision_field_farm_parent} SELECT * FROM {field_revision_field_farm_animal_parents}');
+
+    // Delete the old field.
+    $field = field_info_instance('farm_asset', 'field_farm_animal_parents', 'animal');
+    field_delete_instance($field);
+  }
+}
