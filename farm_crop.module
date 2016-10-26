@@ -190,6 +190,12 @@ function farm_crop_farm_asset_view_views($farm_asset) {
       'name' => 'farm_log_movement',
       'weight' => 100,
     ),
+    array(
+      'name' => 'farm_asset_children',
+      'display' => 'page',
+      'title' => t('Children'),
+      'weight' => 110,
+    ),
   );
 }
 
