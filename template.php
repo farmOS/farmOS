@@ -44,6 +44,7 @@ function farm_theme_form_alter(&$form, &$form_state, $form_id) {
          * Javascript. This is because collapsing it with PHP breaks the
          * Openlayers Geofield zoom to source component for some reason.
          *
+         * @see https://www.drupal.org/node/2644580
          * @see https://www.drupal.org/node/2579009
          */
         drupal_add_js(drupal_get_path('theme', 'farm_theme') . '/js/log_geofield.js');
