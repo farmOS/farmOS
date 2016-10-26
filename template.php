@@ -36,7 +36,7 @@ function farm_theme_form_alter(&$form, &$form_state, $form_id) {
       $form['field_farm_geofield'][LANGUAGE_NONE][0]['#collapsible'] = TRUE;
 
       // If the field is empty, collapse the fieldset by default.
-      if (empty($form['field_farm_geofield'][LANGUAGE_NONE][0]['geom']['#default_value'])) {
+      if (empty($form['#entity']->field_farm_geofield[LANGUAGE_NONE][0]['geom'])) {
 //        $form['field_farm_geofield'][LANGUAGE_NONE][0]['#collapsed'] = TRUE;
         /**
          * @todo
