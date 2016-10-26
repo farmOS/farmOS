@@ -37,7 +37,16 @@ function farm_theme_form_alter(&$form, &$form_state, $form_id) {
 
       // If the field is empty, collapse the fieldset by default.
       if (empty($form['field_farm_geofield'][LANGUAGE_NONE][0]['geom']['#default_value'])) {
-        $form['field_farm_geofield'][LANGUAGE_NONE][0]['#collapsed'] = TRUE;
+//        $form['field_farm_geofield'][LANGUAGE_NONE][0]['#collapsed'] = TRUE;
+        /**
+         * @todo
+         * We make the fieldset collapsible with PHP, but we collapse it with
+         * Javascript. This is because collapsing it with PHP breaks the
+         * Openlayers Geofield zoom to source component for some reason.
+         *
+         * @see https://www.drupal.org/node/2579009
+         */
+        drupal_add_js(drupal_get_path('theme', 'farm_theme') . '/js/log_geofield.js');
       }
     }
   }
