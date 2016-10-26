@@ -115,43 +115,6 @@ function farm_livestock_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'farm_asset-animal-field_farm_animal_parents'.
-  $field_instances['farm_asset-animal-field_farm_animal_parents'] = array(
-    'bundle' => 'animal',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'inline',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => FALSE,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 7,
-      ),
-    ),
-    'entity_type' => 'farm_asset',
-    'field_name' => 'field_farm_animal_parents',
-    'label' => 'Parents',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'entityreference',
-      'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
-      ),
-      'type' => 'entityreference_autocomplete',
-      'weight' => 8,
-    ),
-  );
-
   // Exported field_instance: 'farm_asset-animal-field_farm_animal_sex'.
   $field_instances['farm_asset-animal-field_farm_animal_sex'] = array(
     'bundle' => 'animal',
@@ -736,7 +699,6 @@ function farm_livestock_field_default_field_instances() {
   t('Nickname(s)');
   t('Notes');
   t('Parent(s)');
-  t('Parents');
   t('Photo(s)');
   t('Sex');
   t('Specify the parent(s) of this animal.');
