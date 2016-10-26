@@ -170,6 +170,11 @@ function farm_update_dependencies() {
   );
   $dependencies['farm_equipment'][7000] = $farm_7000;
   $dependencies['farm_livestock'][7000] = $farm_7000;
+
+  // farm_livestock_7001() depends on farm_update_7019() because it uses the new
+  // field_farm_parent field from the farm_asset_children module.
+  $dependencies['farm_livestock'][7001] = array('farm' => 7019);
+
   return $dependencies;
 }
 
@@ -462,6 +467,26 @@ function farm_update_7018(&$sandbox) {
   );
   module_disable($modules);
   drupal_uninstall_modules($modules);
+}
+
+/**
+ * Install Farm Asset Children module.
+ */
+function farm_update_7019(&$sandbox) {
+
+  // Enable the Farm Asset Children module.
+  _farm_update_enable_modules(array('farm_asset_children'));
+
+  // Reset the "default_hook" static cache for field_base Features components.
+  module_load_include('inc', 'features', 'features.export');
+  features_get_default_hooks('field_base', TRUE);
+
+  // Load the farm_asset_children field_base Features include file, otherwise
+  // feature_get_default() will not see it, and the revert will fail.
+  module_load_include('inc', 'farm_asset_children', 'farm_asset_children.features.field_base');
+
+  // Revert the field_base component of farm_asset_children.
+  features_revert(array('farm_asset_children' => array('field_base')));
 }
 
 /**
