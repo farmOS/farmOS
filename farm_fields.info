@@ -19,5 +19,4 @@ features[field_base][] = field_farm_description
 features[field_base][] = field_farm_files
 features[field_base][] = field_farm_images
 features[field_base][] = field_farm_notes
-features[field_base][] = field_farm_parent
 features[filter][] = farm_format
