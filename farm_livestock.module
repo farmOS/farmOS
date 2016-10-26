@@ -150,9 +150,9 @@ function farm_livestock_farm_asset_view_views($farm_asset) {
       'weight' => 100,
     ),
     array(
-      'name' => 'farm_animals',
-      'display' => 'page_offspring',
-      'title' => t('Offspring'),
+      'name' => 'farm_asset_children',
+      'display' => 'page',
+      'title' => t('Children'),
       'weight' => 110,
     ),
   );
