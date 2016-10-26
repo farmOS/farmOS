@@ -31,9 +31,14 @@ function farm_theme_form_alter(&$form, &$form_state, $form_id) {
     if (isset($form['field_farm_geofield'])) {
 
       // Change it from a 'container' to a 'fieldset'. This allows the field
-      // description to be displayed.
+      // description to be displayed, and it means we can make it collapsible.
       $form['field_farm_geofield'][LANGUAGE_NONE][0]['#type'] = 'fieldset';
       $form['field_farm_geofield'][LANGUAGE_NONE][0]['#collapsible'] = TRUE;
+
+      // If the field is empty, collapse the fieldset by default.
+      if (empty($form['field_farm_geofield'][LANGUAGE_NONE][0]['geom']['#default_value'])) {
+        $form['field_farm_geofield'][LANGUAGE_NONE][0]['#collapsed'] = TRUE;
+      }
     }
   }
 
