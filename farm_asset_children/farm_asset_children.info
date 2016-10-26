@@ -1,0 +1,13 @@
+name = Farm Asset Children
+description = Provides child asset relationships.
+core = 7.x
+package = farmOS
+dependencies[] = ctools
+dependencies[] = entityreference
+dependencies[] = farm_asset
+dependencies[] = features
+dependencies[] = views
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:2
+features[field_base][] = field_farm_parent
+features[views_view][] = farm_asset_children
