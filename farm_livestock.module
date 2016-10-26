@@ -252,6 +252,11 @@ function farm_livestock_views_post_render(&$view, &$output, &$cache) {
   // If this is the Farm Animals page...
   if ($view->name == 'farm_animals' && $view->current_display == 'page') {
 
+    // If dashboard maps are disabled in the farm_map module settings, bail.
+    if (!variable_get('farm_map_show', TRUE)) {
+      return;
+    }
+
     // If there are any arguments, bail.
     /**
      * @todo
