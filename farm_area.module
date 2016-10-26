@@ -344,6 +344,11 @@ function farm_area_page_build(&$page) {
     return;
   }
 
+  // If dashboard maps are disabled in the farm_map module settings, bail.
+  if (!variable_get('farm_map_show', TRUE)) {
+    return;
+  }
+
   // If this is the farm dashboard, display the areas map.
   $current_path = current_path();
   $map_paths = array(
