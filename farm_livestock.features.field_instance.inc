@@ -311,7 +311,7 @@ function farm_livestock_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 8,
+        'weight' => 9,
       ),
     ),
     'entity_type' => 'farm_asset',
@@ -329,7 +329,7 @@ function farm_livestock_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 9,
+      'weight' => 10,
     ),
   );
 
@@ -344,7 +344,7 @@ function farm_livestock_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_table',
-        'weight' => 10,
+        'weight' => 11,
       ),
     ),
     'entity_type' => 'farm_asset',
@@ -365,7 +365,7 @@ function farm_livestock_field_default_field_instances() {
         'progress_indicator' => 'bar',
       ),
       'type' => 'file_generic',
-      'weight' => 11,
+      'weight' => 12,
     ),
   );
 
@@ -389,7 +389,7 @@ function farm_livestock_field_default_field_instances() {
           'colorbox_node_style_first' => 'large',
         ),
         'type' => 'colorbox',
-        'weight' => 9,
+        'weight' => 10,
       ),
     ),
     'entity_type' => 'farm_asset',
@@ -415,7 +415,44 @@ function farm_livestock_field_default_field_instances() {
         'progress_indicator' => 'bar',
       ),
       'type' => 'image_image',
-      'weight' => 10,
+      'weight' => 11,
+    ),
+  );
+
+  // Exported field_instance: 'farm_asset-animal-field_farm_parent'.
+  $field_instances['farm_asset-animal-field_farm_parent'] = array(
+    'bundle' => 'animal',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Specify the parent(s) of this animal.',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => 1,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 8,
+      ),
+    ),
+    'entity_type' => 'farm_asset',
+    'field_name' => 'field_farm_parent',
+    'label' => 'Parent(s)',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference',
+      'settings' => array(
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'size' => 256,
+      ),
+      'type' => 'entityreference_autocomplete',
+      'weight' => 9,
     ),
   );
 
@@ -698,9 +735,11 @@ function farm_livestock_field_default_field_instances() {
   t('List any nickname(s) of this animal.');
   t('Nickname(s)');
   t('Notes');
+  t('Parent(s)');
   t('Parents');
   t('Photo(s)');
   t('Sex');
+  t('Specify the parent(s) of this animal.');
   t('Tag Type');
   t('Type');
   t('What assets do this medical log pertain to?');

@@ -51,6 +51,7 @@ features[field_instance][] = farm_asset-animal-field_farm_date
 features[field_instance][] = farm_asset-animal-field_farm_description
 features[field_instance][] = farm_asset-animal-field_farm_files
 features[field_instance][] = farm_asset-animal-field_farm_images
+features[field_instance][] = farm_asset-animal-field_farm_parent
 features[field_instance][] = field_collection_item-field_farm_animal_tag-field_farm_animal_tag_id
 features[field_instance][] = field_collection_item-field_farm_animal_tag-field_farm_animal_tag_location
 features[field_instance][] = field_collection_item-field_farm_animal_tag-field_farm_animal_tag_type
