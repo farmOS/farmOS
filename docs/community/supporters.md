@@ -22,4 +22,5 @@ The farmOS project is made possible by many supporters.
 * Phil Anzel
 * Jeff Warren
 * Sam Chapatwala
+* Joel Baranick
 
