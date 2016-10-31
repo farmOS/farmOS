@@ -113,7 +113,7 @@ First, install Docker and Docker Compose:
 * [Install Docker Compose]
 
 #### Mac Specific Instructions
-Due to [performance issues](https://forums.docker.com/t/file-access-in-mounted-volumes-extremely-slow-cpu-bound) with shared volumes in Docker for Mac, [dlite](https://github.com/nlf/dlite) is currently the suggested way to host Docker images. To install dlite perform the following steps:
+Due to [performance issues](https://forums.docker.com/t/file-access-in-mounted-volumes-extremely-slow-cpu-bound) with shared volumes in Docker for Mac, [dlite](https://github.com/nlf/dlite) is currently the suggested way to host Docker images. The following sections describe how to install dlite and start/stop containers:
 
 ##### Installing
 1. Download the latest release from [dlite](https://github.com/nlf/dlite/releases) from github
