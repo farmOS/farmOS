@@ -2,6 +2,8 @@ version: '2'
 services:
   db:
     image: mysql:latest
+    container_name: farmos-db
+    network_mode: bridge
     volumes:
       - './.data/db:/var/lib/mysql'
     restart: always
@@ -15,6 +17,8 @@ services:
     depends_on:
       - db
     image: farmos/farmos:7.x-1.x
+    container_name: farmos
+    network_mode: bridge
     volumes:
       - './.data/www:/var/www/html'
     links:
