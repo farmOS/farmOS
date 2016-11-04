@@ -18,7 +18,7 @@ function farm_soil_nrcs_default_openlayers_sources() {
   $ol_source->description = '';
   $ol_source->factory_service = 'openlayers.Source:TileWMS';
   $ol_source->options = array(
-    'url' => 'http://sdmdataaccess.nrcs.usda.gov/Spatial/SDM.wms',
+    'url' => 'https://sdmdataaccess.nrcs.usda.gov/Spatial/SDM.wms',
     'version' => '1.1.1',
     'wms_layers' => 'MapunitPoly',
     'params' => array(
