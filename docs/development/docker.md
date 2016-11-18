@@ -113,23 +113,25 @@ First, install Docker and Docker Compose:
 * [Install Docker Compose]
 
 #### Mac Specific Instructions
-Due to [performance issues](https://forums.docker.com/t/file-access-in-mounted-volumes-extremely-slow-cpu-bound) with shared volumes in Docker for Mac, [dlite](https://github.com/nlf/dlite) is currently the suggested way to host Docker images. The following sections describe how to install dlite and start/stop containers:
+Due to [performance issues] with shared volumes in Docker for Mac, [dlite] is
+currently the suggested way to host Docker images. The following sections
+describe how to install dlite and start/stop containers:
 
 ##### Installing
-1. Download the latest release from [dlite](https://github.com/nlf/dlite/releases) from github
-1. Extract dlite from the tarball and copy it to `/usr/local/bin/dlite`
-1. Run: `chmod +x /usr/local/bin/dlite`
-1. Initialize dlite by running: `dlite init`
-1. Start dlite host by running: `dlite start`
+1. Download the latest release from [dlite releases] on GitHub
+2. Extract dlite from the tarball and copy it to `/usr/local/bin/dlite`
+3. Run: `chmod +x /usr/local/bin/dlite`
+4. Initialize dlite by running: `dlite init`
+5. Start dlite host by running: `dlite start`
 
 ##### Starting
 1. Proceed with [Create Containers](#create-containers)
-1. Fix networking by running `docker network connect bridge farmos_www_1`
-1. Proceed with [Install farmOS](#install-farmos) at [http://farmos\_www\_1.docker](http://farmos_www_1.docker)
+2. Fix networking by running `docker network connect bridge farmos_www_1`
+3. Proceed with [Install farmOS](#install-farmos) at [http://farmos\_www\_1.docker](http://farmos_www_1.docker)
 
 ##### Stopping
 1. Run: `docker-compose stop`
-1. Remove networking: `docker network disconnect bridge farmos_www_1`
+2. Remove networking: `docker network disconnect bridge farmos_www_1`
 
 ### Create containers
 
@@ -206,5 +208,7 @@ To start your containers:
 [Docker Compose]: https://docs.docker.com/compose
 [Install Docker]: https://docs.docker.com/engine/installation
 [Install Docker Compose]: https://docs.docker.com/compose/install
-[Docker for Mac Performance Issues]: https://forums.docker.com/t/file-access-in-mounted-volumes-extremely-slow-cpu-bound
+[performance issues]: https://forums.docker.com/t/file-access-in-mounted-volumes-extremely-slow-cpu-bound
 [dlite]: https://github.com/nlf/dlite
+[dlite releases]: https://github.com/nlf/dlite/releases
+
