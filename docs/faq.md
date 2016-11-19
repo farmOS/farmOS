@@ -108,6 +108,12 @@ agree to release it under the same license as Drupal and farmOS. If you are
 unable or unwilling to contribute a patch under the GPL version 2 or later, do
 not submit a patch.
 
+> Who owns the farmOS trademark?
+
+farmOS is a registered trademark of [Michael Stenta]. For more information on
+the farmOS tradmark and acceptable usage, refer to the
+[farmOS Trademark Guidelines].
+
 ## Why Drupal?
 
 > Why was farmOS built on Drupal?
@@ -187,6 +193,8 @@ service. Bonus!
 [open source software]: https://en.wikipedia.org/wiki/Open-source_software
 [Drupal]: https://drupal.org
 [GNU General Public License (GPL) v2+]: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+[Michael Stenta]: http://mstenta.net
+[farmOS Trademark Guidelines]: /community/trademark
 [Views]: https://drupal.org/project/views
 [Rules]: https://drupal.org/project/rules
 [Features]: https://drupal.org/project/features
