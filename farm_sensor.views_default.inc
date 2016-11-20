@@ -13,7 +13,7 @@ function farm_sensor_views_default_views() {
   $view = new view();
   $view->name = 'farm_sensors';
   $view->description = '';
-  $view->tag = 'farm_livestock';
+  $view->tag = 'farm_sensor';
   $view->base_table = 'farm_asset';
   $view->human_name = 'Farm Sensors';
   $view->core = 7;
@@ -129,7 +129,7 @@ function farm_sensor_views_default_views() {
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['field'] = 'field_farm_move_to_tid';
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['relationship'] = 'latest_movement';
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['title_enable'] = TRUE;
-  $handler->display->display_options['arguments']['field_farm_move_to_tid']['title'] = 'Equipment in %1';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['title'] = 'Sensors in %1';
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['default_argument_type'] = 'fixed';
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['summary']['format'] = 'default_summary';
