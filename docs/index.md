@@ -11,6 +11,13 @@ It is built on [Drupal], which makes it [modular], [extensible], and [secure].
 
 For more information, read through some of the [Frequently Asked Questions].
 
+## GODAN Documentary Web Series
+
+farmOS was featured in the [GODAN Documentary Web Series: "OPEN FARMS"],
+available on YouTube: [https://youtu.be/bCOqg5iH6fM]
+
+<iframe width="640" height="360" src="https://www.youtube.com/embed/bCOqg5iH6fM?rel=0" frameborder="0" allowfullscreen></iframe>
+
 ## 2016 NOFA Summer Conference
 
 Michael Stenta presented a farmOS workshop at the 2016 [NOFA Summer Conference].
@@ -46,6 +53,8 @@ now is laying a strong [groundwork], so that others can more easily join in and
 [secure]: http://www.drupal.org/documentation/is-drupal-secure
 [Openlayers]: http://openlayers.org
 [Frequently Asked Questions]: /faq
+[GODAN Documentary Web Series: "OPEN FARMS"]: http://www.godan.info/news/open-farms-godan-documentary-web-series-episode-3
+[https://youtu.be/bCOqg5iH6fM]: https://youtu.be/bCOqg5iH6fM
 [NOFA Summer Conference]: http://nofasummerconference.org
 [https://youtu.be/w0ZCu8NsWKE]: https://youtu.be/w0ZCu8NsWKE
 [GNU General Public License]: http://www.gnu.org/copyleft/gpl.html
