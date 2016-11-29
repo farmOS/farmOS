@@ -5,6 +5,8 @@ about farmOS, [contact m.stenta](http://farmier.com/contact).
 
 ## 2016
 
+**2016 November 24th** [GODAN: OPEN FARMS - GODAN Documentary Web Series - Episode 3](http://www.godan.info/news/open-farms-godan-documentary-web-series-episode-3)
+
 **2016 November 4th** [PC Magazine: Smart Farms: Big Data Meets Big Ag](http://www.pcmag.com/news/348981/smart-farms-big-data-meets-big-ag)
 
 **2016 September 20th** [Farm Hack: Farm Hack @ the Smithsonian Cooper Hewitt Design Museum](http://blog.farmhack.org/2016/09/20/farm-hack-the-smithsonian-design-museum)
