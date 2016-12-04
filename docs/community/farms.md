@@ -17,6 +17,7 @@ included in this list, add a comment to [this issue on Github].
 * Cloud 9 Ranch (Greeneville, Tennessee)
 * Double Doc Ranch (Shell, Wyoming)
 * Hampton Plantation (Owings, Maryland)
+* Liberty University Campus Farm (Rustburg, VA)
 * Miles Smith Farm (Loudon, New Hampshire)
 * North Mountain Pastures (Newport, Pennsylvania)
 * Patroon Land Farm (Voorheesville, New York)
