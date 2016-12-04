@@ -93,6 +93,11 @@ rebuilt. The best way to avoid this is to copy any overridden modules/themes to
 the `sites/all/modules` or `sites/all/themes` directory so that they are
 preserved when the codebase is rebuilt.
 
+**ALSO NOTE:** When the codebase is rebuilt, it does NOT automatically run
+update.php on the site. You must do this manually. See the [Updating farmOS]
+page (specifically the steps for clearing cache and running database updates)
+for more details.
+
 ## Local development with Docker Compose
 
 The recommended approach for local farmOS development in Docker is to use
@@ -205,6 +210,7 @@ To start your containers:
 [farmOS GitHub repository]: https://github.com/farmOS/farmOS
 [farmOS projects]: /development/projects
 [Docker volume]: https://docs.docker.com/engine/tutorials/dockervolumes
+[Updating farmOS]: /hosting/updating
 [Docker Compose]: https://docs.docker.com/compose
 [Install Docker]: https://docs.docker.com/engine/installation
 [Install Docker Compose]: https://docs.docker.com/compose/install
