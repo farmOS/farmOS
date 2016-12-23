@@ -16,6 +16,7 @@ included in this list, add a comment to [this issue on Github].
 * All In Farm (Georgetown, Texas)
 * Cloud 9 Ranch (Greeneville, Tennessee)
 * Double Doc Ranch (Shell, Wyoming)
+* FoodScaping Permaculture Farm (Cheshire, Oregon)
 * Hampton Plantation (Owings, Maryland)
 * Liberty University Campus Farm (Rustburg, Virginia)
 * Miles Smith Farm (Loudon, New Hampshire)
