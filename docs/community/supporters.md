@@ -13,6 +13,7 @@ The farmOS project is made possible by many supporters.
 * [MapKnitter](https://mapknitter.org)
 * [USDA/NRCS Soil Survey](http://sdmdataaccess.nrcs.usda.gov)
 * [GODAN](http://www.godan.info)
+* [The Agroecology Lab](http://open-seeds.org)
 
 ## Individuals
 
