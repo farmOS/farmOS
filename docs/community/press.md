@@ -5,6 +5,10 @@ about farmOS, [contact m.stenta](http://farmier.com/contact).
 
 ## 2016
 
+**2016 December 6th** [FOSS Force: Family Farming and Open Source Wireless Networking](http://fossforce.com/2016/12/future-farming-utilizing-data-open-source-network-farmers)
+
+**2016 December 5th** [CNBC: The Future Of Farming Is Utilizing Data In An Open Source Network Of Farmers](https://www.youtube.com/watch?v=zua1y-hBcGc)
+
 **2016 November 24th** [GODAN: OPEN FARMS - GODAN Documentary Web Series - Episode 3](http://www.godan.info/news/open-farms-godan-documentary-web-series-episode-3)
 
 **2016 November 22nd** [CNBC: Silicon Valley cultivates a life on the American family farm](http://www.cnbc.com/2016/11/22/silicon-valley-spreads-its-gospel-on-the-american-family-farm.html)
