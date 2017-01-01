@@ -4,7 +4,6 @@ services:
     image: mysql:latest
     volumes:
       - './.data/db:/var/lib/mysql'
-    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: farmos
       MYSQL_DATABASE: farmos
@@ -21,7 +20,6 @@ services:
       - db
     ports:
       - '80:80'
-    restart: always
     environment:
       MYSQL_HOST: db:3306
       MYSQL_ROOT_PASSWORD: farmos
