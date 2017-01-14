@@ -3,6 +3,10 @@
 farmOS has been featured in the following articles. If you would like to write
 about farmOS, [contact m.stenta](http://farmier.com/contact).
 
+## 2017
+
+**2017 January 10** [Permaculture Research Institute: Open Source Tools for Permaculturists](http://permaculturenews.org/2017/01/10/open-source-tools-permaculturists)
+
 ## 2016
 
 **2016 December 6th** [FOSS Force: Family Farming and Open Source Wireless Networking](http://fossforce.com/2016/12/future-farming-utilizing-data-open-source-network-farmers)
