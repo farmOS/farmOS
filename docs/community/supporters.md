@@ -14,6 +14,11 @@ The farmOS project is made possible by many supporters.
 * [USDA/NRCS Soil Survey](http://sdmdataaccess.nrcs.usda.gov)
 * [GODAN](http://www.godan.info)
 * [The Agroecology Lab](http://open-seeds.org)
+* [Strafford County Conservation District](http://straffordccd.org)
+* [Cheshire County Conservation District](http://www.cheshireconservation.org)
+* [Sullivan County Conservation District](http://www.sullivancountynh.gov/index.php?n=conservation_district)
+* [Coos County Conservation District](http://www.cooscountyconservation.org)
+* [Long Island Sound RCPP](http://www.lisw-rcpp.com)
 
 ## Individuals
 
