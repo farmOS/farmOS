@@ -53,6 +53,8 @@ now is laying a strong [groundwork], so that others can more easily join in and
 * Github: [https://github.com/farmOS]
 * Monthly call: [Google Hangout] (2nd Wed of the month at 1pm Eastern)
 * IRC: [#farmOS on Freenode]
+* Twitter: [@farmOSorg]
+* Twitter: [@getFarmier]
 
 [Drupal]: https://drupal.org
 [modular]: http://en.wikipedia.org/wiki/Modular_programming
@@ -73,4 +75,6 @@ now is laying a strong [groundwork], so that others can more easily join in and
 [https://github.com/farmOS]: https://github.com/farmOS
 [Google Hangout]: https://plus.google.com/hangouts/_/farmier.com/farmos-monthly
 [#farmOS on Freenode]: http://webchat.freenode.net/?channels=#farmOS
+[@farmOSorg]: https://twitter.com/farmOSorg
+[@getFarmier]: https://twitter.com/getFarmier
 
