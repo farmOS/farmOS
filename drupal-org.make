@@ -14,7 +14,7 @@ projects[colorbox][subdir] = "contrib"
 projects[colorbox][version] = "2.12"
 
 projects[ctools][subdir] = "contrib"
-projects[ctools][version] = "1.11"
+projects[ctools][version] = "1.12"
 ; Patch to fix Issue #2643108: Entity reference popup not centered in Linux
 projects[ctools][patch][] = "http://www.drupal.org/files/issues/ctools-fix_modal_position_after_ajax-1803104-13.patch"
 
@@ -39,7 +39,7 @@ projects[features][subdir] = "contrib"
 projects[features][version] = "2.10"
 
 projects[field_collection][subdir] = "contrib"
-projects[field_collection][version] = "1.0-beta11"
+projects[field_collection][version] = "1.0-beta12"
 
 projects[fraction][subdir] = "contrib"
 projects[fraction][version] = "1.4"
@@ -140,7 +140,7 @@ projects[views_tree][version] = "2.0"
 ; -----------------------------------------------------------------------------
 
 projects[diff][subdir] = "dev"
-projects[diff][version] = "3.2"
+projects[diff][version] = "3.3"
 
 projects[module_filter][subdir] = "dev"
 projects[module_filter][version] = "2.0"
@@ -233,7 +233,7 @@ projects[farm_tour][download][branch] = 7.x-1.x
 ; Themes
 ; -----------------------------------------------------------------------------
 
-projects[bootstrap][version] = "3.8"
+projects[bootstrap][version] = "3.10"
 
 projects[farm_theme][type] = "theme"
 ;projects[farm_theme][version] = "1.0-beta12"
