@@ -1,0 +1,5 @@
+name: farmOS
+type: profile
+description: 'A web-based farm record keeping application.'
+core: 8.x
+version: 2.x
