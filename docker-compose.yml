@@ -1,7 +1,7 @@
 version: '2'
 services:
   db:
-    image: mysql:latest
+    image: mariadb:latest
     volumes:
       - './.data/db:/var/lib/mysql'
     environment:
