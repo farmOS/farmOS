@@ -1,0 +1,24 @@
+version: '2'
+services:
+  db:
+    image: mariadb:latest
+    volumes:
+      - './.data/db:/var/lib/mysql'
+    environment:
+      MYSQL_ROOT_PASSWORD: farm
+      MYSQL_DATABASE: farm
+      MYSQL_USER: farm
+      MYSQL_PASSWORD: farm
+
+  www:
+    depends_on:
+      - db
+    image: farmos/farmos:8.x-2.x
+    volumes:
+      - './.data/www:/var/www/html'
+    links:
+      - db
+    ports:
+      - '80:80'
+    environment:
+      FARMOS_DEV: 'true'
