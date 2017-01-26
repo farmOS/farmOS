@@ -101,7 +101,7 @@ for more details.
 ## Local development with Docker Compose
 
 The recommended approach for local farmOS development in Docker is to use
-[Docker Compose] to build both the farmOS container and the MySQL database
+[Docker Compose] to build both the farmOS container and the MariaDB database
 container.
 
 The `docker-compose.yml` file included with farmOS sets `FARMOS_DEV` to `true`
@@ -148,7 +148,7 @@ Then, use `docker-compose up` to create the containers:
 
     sudo docker-compose up
 
-This will create two containers: a farmOS application container, and a MySQL
+This will create two containers: a farmOS application container, and a MariaDB
 database container.
 
 **Note:** It will take some time for the containers to start the first time.
@@ -164,7 +164,7 @@ The docker-compose.yml file defines two Docker volumes that will be available on
 your host system:
 
 * `/var/html/www` from the farmOS application container
-* `/var/lib/mysql` from the MySQL database container
+* `/var/lib/mysql` from the MariaDB database container
 
 Both will be made available within a `.data` directory in the farmOS repository
 on the host. This is where you will be able to access the code for development
