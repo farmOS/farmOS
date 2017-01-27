@@ -1,5 +1,22 @@
 name: farmOS Theme
 type: theme
-description: farmOS Drupal theme.
+description: farmOS Drupal theme. Based on Bootstrap.
 package: farmOS
 core: 8.x
+base theme: bootstrap
+
+regions:
+  navigation: 'Navigation'
+  navigation_collapsible: 'Navigation (Collapsible)'
+  header: 'Top Bar'
+  highlighted: 'Highlighted'
+  help: 'Help'
+  content: 'Content'
+  sidebar_first: 'Primary'
+  sidebar_second: 'Secondary'
+  footer: 'Footer'
+  page_top: 'Page top'
+  page_bottom: 'Page bottom'
+
+libraries:
+  - 'farm_theme/global-styling'

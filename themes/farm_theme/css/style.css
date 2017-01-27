@@ -1,0 +1,14 @@
+/**
+ * Logo padding.
+ */
+.navbar .logo {
+  padding-top: 4px;
+  padding-right: 20px;
+}
+
+/**
+ * Remove top margin added by Paper Bootswatch override CSS.
+ */
+body {
+  margin-top: 0 !important;
+}

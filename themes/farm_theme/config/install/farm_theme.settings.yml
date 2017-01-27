@@ -1,0 +1,12 @@
+# Default settings should not be located here. This file is only used to
+# override existing settings. If your theme is the one that introduces a new
+# theme setting, it should use the Drupal Bootstrap base theme's
+# @BootstrapSetting annotation discovery process. This ensures that sub-theme
+# settings are inherited from base themes themes properly and to determine when
+# a setting should be saved to config as "overridden".
+#
+# @see \Drupal\bootstrap\Plugin\SettingBase
+# @see \Drupal\bootstrap\Plugin\SettingInterface
+# @see \Drupal\bootstrap\Plugin\SettingManager
+# @see \Drupal\bootstrap\Plugin\Form\SystemThemeSettings
+# @see \Drupal\bootstrap\ThemeSettings
