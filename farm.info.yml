@@ -9,3 +9,7 @@ version: 2.x
 distribution:
   name: farmOS
 exclusive: true
+
+# Enable the theme.
+themes:
+  - farm_theme

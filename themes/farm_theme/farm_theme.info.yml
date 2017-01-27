@@ -1,0 +1,5 @@
+name: farmOS Theme
+type: theme
+description: farmOS Drupal theme.
+package: farmOS
+core: 8.x
