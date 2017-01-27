@@ -10,6 +10,10 @@ distribution:
   name: farmOS
 exclusive: true
 
+# Declare required modules.
+dependencies:
+  - toolbar
+
 # Enable the theme.
 themes:
   - farm_theme
