@@ -8,4 +8,5 @@ pages:
 - Development:
   - Docker: dev/docker.md
   - Theme: dev/theme.md
+  - Dependencies: dev/dependencies.md
 theme: readthedocs

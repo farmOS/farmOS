@@ -11,6 +11,7 @@ distribution:
 exclusive: true
 
 # Declare required modules.
+# @see docs/dev/dependencies.md
 dependencies:
   - block
   - farm_roles
