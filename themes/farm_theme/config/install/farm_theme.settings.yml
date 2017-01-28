@@ -10,3 +10,11 @@
 # @see \Drupal\bootstrap\Plugin\SettingManager
 # @see \Drupal\bootstrap\Plugin\Form\SystemThemeSettings
 # @see \Drupal\bootstrap\ThemeSettings
+
+# Use a fluid container model.
+fluid_container: 1
+
+# Use the Paper Bootswatch theme from jsDelivr.
+cdn_provider: jsdelivr
+cdn_jsdelivr_version: 3.3.5
+cdn_jsdelivr_theme: paper
