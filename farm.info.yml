@@ -3,3 +3,9 @@ type: profile
 description: 'A web-based farm record keeping application.'
 core: 8.x
 version: 2.x
+
+# Declare this profile a distribution and mark it as 'exclusive' so that it is
+# automatically selected during installation.
+distribution:
+  name: farmOS
+exclusive: true
