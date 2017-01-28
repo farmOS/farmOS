@@ -10,3 +10,4 @@ as a base, and performs the following modifications:
     * Use a fluid container model.
     * Use the jsDelivr CDN.
     * Use the Paper Bootswatch theme.
+* Add default Blocks to the Bootstrap layout.

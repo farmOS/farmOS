@@ -12,6 +12,7 @@ exclusive: true
 
 # Declare required modules.
 dependencies:
+  - block
   - toolbar
 
 # Enable the theme.
