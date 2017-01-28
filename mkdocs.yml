@@ -7,4 +7,5 @@ pages:
 - Home: index.md
 - Development:
   - Docker: dev/docker.md
+  - Theme: dev/theme.md
 theme: readthedocs
