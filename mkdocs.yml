@@ -5,4 +5,6 @@ copyright: <p><a rel="license" href="http://creativecommons.org/licenses/by-nc-s
 google_analytics: ['UA-56974603-1', 'farmos.org']
 pages:
 - Home: index.md
+- Development:
+  - Docker: dev/docker.md
 theme: readthedocs
