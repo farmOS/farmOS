@@ -13,6 +13,7 @@ exclusive: true
 # Declare required modules.
 dependencies:
   - block
+  - farm_roles
   - toolbar
 
 # Enable the theme.

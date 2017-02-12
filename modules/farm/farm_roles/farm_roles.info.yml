@@ -1,0 +1,6 @@
+name: 'Farm Roles'
+description: 'Provides default user roles for farmOS.'
+type: module
+core: 8.x
+dependencies:
+  - user

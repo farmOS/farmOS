@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: farm_worker
+label: 'Farm Worker'
+weight: 3
+is_admin: null

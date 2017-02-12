@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: farm_viewer
+label: 'Farm Viewer'
+weight: 4
+is_admin: null
