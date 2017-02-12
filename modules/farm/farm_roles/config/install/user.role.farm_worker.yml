@@ -5,3 +5,5 @@ id: farm_worker
 label: 'Farm Worker'
 weight: 3
 is_admin: null
+permissions:
+  - 'access user profiles'
