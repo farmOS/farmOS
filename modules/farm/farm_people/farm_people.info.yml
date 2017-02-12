@@ -1,0 +1,7 @@
+name: 'Farm People'
+description: 'Provides tools for managing people on the farm.'
+type: module
+core: 8.x
+dependencies:
+  - user
+  - views

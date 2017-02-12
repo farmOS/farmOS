@@ -18,9 +18,11 @@ dependencies of the explicit dependencies.
 * **Update Manager** - Checks for available updates, and can securely install
   or update modules and themes via a web interface.
 * **User** - Manages the user registration and login system.
+* **Views** - Create customized lists and queries from your database.
 
 ## farmOS modules
 
+* **Farm People** - Provides tools for managing people on the farm.
 * **Farm Roles** - Provides default user roles for farmOS.
 
 ## Themes
