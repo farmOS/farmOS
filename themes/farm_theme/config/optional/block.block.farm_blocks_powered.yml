@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - farm_blocks
+  theme:
+    - farm_theme
+id: farm_blocks_powered
+theme: farm_theme
+region: footer
+weight: -10
+provider: null
+plugin: farm_blocks_powered_by_block
+settings:
+  id: farm_blocks_powered_by_block
+  label: 'Powered by farmOS'
+  provider: farm_blocks
+  label_display: '0'
+visibility: {  }

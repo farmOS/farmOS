@@ -14,6 +14,7 @@ exclusive: true
 # @see docs/dev/dependencies.md
 dependencies:
   - block
+  - farm_blocks
   - farm_people
   - farm_roles
   - toolbar

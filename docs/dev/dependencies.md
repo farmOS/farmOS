@@ -22,6 +22,8 @@ dependencies of the explicit dependencies.
 
 ## farmOS modules
 
+* **Farm Blocks** - Provides common blocks used throughout the farmOS
+  interface.
 * **Farm People** - Provides tools for managing people on the farm.
 * **Farm Roles** - Provides default user roles for farmOS.
 

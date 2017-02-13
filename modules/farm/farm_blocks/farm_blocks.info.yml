@@ -1,0 +1,6 @@
+name: 'Farm Blocks'
+description: 'Provides common blocks used throughout the farmOS interface.'
+type: module
+core: 8.x
+dependencies:
+  - block
