@@ -12,3 +12,14 @@
 body {
   margin-top: 0 !important;
 }
+
+/**
+ * Footer margin, padding, border, and alignment.
+ */
+.footer {
+  margin-top: 45px;
+  padding-top: 35px;
+  padding-bottom: 36px;
+  border-top: 1px solid #E5E5E5;
+  text-align: center;
+}
