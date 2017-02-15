@@ -5,7 +5,7 @@ about farmOS, [contact m.stenta](http://farmier.com/contact).
 
 ## 2017
 
-**2017 January 10** [Permaculture Research Institute: Open Source Tools for Permaculturists](http://permaculturenews.org/2017/01/10/open-source-tools-permaculturists)
+**2017 January 10th** [Permaculture Research Institute: Open Source Tools for Permaculturists](http://permaculturenews.org/2017/01/10/open-source-tools-permaculturists)
 
 ## 2016
 
