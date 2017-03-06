@@ -225,7 +225,7 @@ projects[farm_taxonomy][download][type] = git
 projects[farm_taxonomy][download][branch] = 7.x-1.x
 
 projects[farm_tour][subdir] = "farm"
-;projects[farm_tour][version] = "1.0-beta5"
+;projects[farm_tour][version] = "1.0-beta6"
 projects[farm_tour][download][type] = git
 projects[farm_tour][download][branch] = 7.x-1.x
 
