@@ -119,13 +119,13 @@ projects[strongarm][subdir] = "contrib"
 projects[strongarm][version] = "2.0"
 
 projects[token][subdir] = "contrib"
-projects[token][version] = "1.6"
+projects[token][version] = "1.7"
 
 projects[views][subdir] = "contrib"
 projects[views][version] = "3.15"
 
 projects[views_bulk_operations][subdir] = "contrib"
-projects[views_bulk_operations][version] = "3.3"
+projects[views_bulk_operations][version] = "3.4"
 
 projects[views_geojson][subdir] = "contrib"
 projects[views_geojson][version] = "1.0-beta3"
@@ -231,7 +231,7 @@ projects[farm_tour][download][branch] = 7.x-1.x
 ; Themes
 ; -----------------------------------------------------------------------------
 
-projects[bootstrap][version] = "3.10"
+projects[bootstrap][version] = "3.12"
 
 projects[farm_theme][type] = "theme"
 ;projects[farm_theme][version] = "1.0-beta12"
