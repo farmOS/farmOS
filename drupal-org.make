@@ -122,9 +122,7 @@ projects[token][subdir] = "contrib"
 projects[token][version] = "1.6"
 
 projects[views][subdir] = "contrib"
-projects[views][version] = "3.14"
-; Fix delta in Views joins.
-projects[views][patch][] = "http://www.drupal.org/files/issues/2750453.patch"
+projects[views][version] = "3.15"
 
 projects[views_bulk_operations][subdir] = "contrib"
 projects[views_bulk_operations][version] = "3.3"
