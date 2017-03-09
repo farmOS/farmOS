@@ -8,6 +8,7 @@ pages:
 - Home: index.md
 - User Guide:
     - Getting started: guide/start.md
+    - Dashboard: guide/dashboard.md
     - Mapping your farm: guide/areas.md
     - Managing assets: guide/assets.md
     - Logging events: guide/logs.md
