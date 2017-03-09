@@ -92,7 +92,7 @@ bottom of the page to save your changes.
 
 ## Organizing areas hierarchically
 
-There are two ways to arrange areas hierarchically in farmOS
+There are two ways to arrange areas hierarchically in farmOS:
 
 1. When you are editing an individual area, click "Relations" at the bottom and
    use the "Parent" and "Weight" values to define the area's relationship to
