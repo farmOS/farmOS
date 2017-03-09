@@ -10,3 +10,7 @@ On the right are the todo lists. The "Plan" shows all upcoming tasks that need
 to be done. If you miss a task, a "Late tasks" list will also be displayed
 underneath.
 
+<video width="100%" controls>
+  <source src="/img/demos/farmOS-dashboard.mp4" type="video/mp4">
+</video>
+

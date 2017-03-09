@@ -14,6 +14,7 @@ pages:
     - Logging events: guide/logs.md
     - Movements and location: guide/location.md
     - Roles: guide/roles.md
+    - Demos: guide/demos.md
 - Hosting:
     - Installing: hosting/installing.md
     - Updating: hosting/updating.md

@@ -28,3 +28,7 @@ For example, if you are applying for Organic certification in the United States,
 you can create a user with the Farm Viewer role for your certifying agent, so
 they can log into your farmOS and see your records.
 
+<video width="100%" controls>
+  <source src="/img/demos/farmOS-people.mp4" type="video/mp4">
+</video>
+

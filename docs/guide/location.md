@@ -12,6 +12,10 @@ required), and whatever area is referenced in the "To" field is considered to be
 the asset's current location. Only movement logs that have been marked as "done"
 are taken into consideration.
 
+<video width="100%" controls>
+  <source src="/img/demos/farmOS-movements.mp4" type="video/mp4">
+</video>
+
 ## Creating movement logs
 
 There are three ways that movement logs can be created:

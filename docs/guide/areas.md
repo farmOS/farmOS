@@ -57,6 +57,10 @@ There are four buttons for drawing shapes:
 4. **Polygon**: A polygon works the same as a line, except it will create a
    closed shape at the end, whereas a line will not be filled in.
 
+<video width="100%" controls>
+  <source src="/img/demos/farmOS-mapping-areas.mp4" type="video/mp4">
+</video>
+
 ### Modifying
 
 There are three buttons for modifying shapes:
@@ -85,6 +89,10 @@ To import a KML file, follow these steps:
    labeled "Find using Files field". If you uploaded a valid KML file, you will
    see the shape(s) appear in the map.
 
+<video width="100%" controls>
+  <source src="/img/demos/farmOS-kml-import.mp4" type="video/mp4">
+</video>
+
 ## Remember to save!
 
 When you're done modifying your area, remember to click the Save button at the
@@ -103,6 +111,10 @@ There are two ways to arrange areas hierarchically in farmOS:
    Click "(change)" to be brought to the hierarchy editor. Click and drag the
    areas up and down, and left and right to arrange them how you want, and then
    click "Save" at the bottom of the page.
+
+<video width="100%" controls>
+  <source src="/img/demos/farmOS-area-hierarchy.mp4" type="video/mp4">
+</video>
 
 ## Generate beds
 
@@ -124,6 +136,10 @@ To use the area generator to generate beds, follow these steps:
    generate the beds.
 
 Beds will be numbered and labeled using the parent area's name.
+
+<video width="100%" controls>
+  <source src="/img/demos/farmOS-area-generator.mp4" type="video/mp4">
+</video>
 
 [logging events]: /guide/logs
 [setting location of assets]: /guide/location
