@@ -11,6 +11,21 @@ which means they are [open source].
 
 For more information, read through some of the [Frequently Asked Questions].
 
+## Status
+
+farmOS is under active development, but is still relatively new. The focus right
+now is laying a strong [groundwork], so that others can more easily join in and
+[contribute].
+
+## Quick Links
+
+* Drupal.org: [https://drupal.org/project/farm]
+* Github: [https://github.com/farmOS]
+* Monthly call: [Google Hangout] (2nd Wed of the month at 1pm Eastern)
+* IRC: [#farmOS on Freenode]
+* Twitter: [@farmOSorg]
+* Twitter: [@getFarmier]
+
 ## GODAN Documentary Web Series
 
 farmOS was featured in the [GODAN Documentary Web Series: "OPEN FARMS"],
@@ -35,21 +50,6 @@ The full workshop recording is available on YouTube:
 [https://youtu.be/w0ZCu8NsWKE]
 
 <iframe width="640" height="360" src="https://www.youtube.com/embed/w0ZCu8NsWKE?rel=0" frameborder="0" allowfullscreen></iframe>
-
-## Status
-
-farmOS is under active development, but is still relatively new. The focus right
-now is laying a strong [groundwork], so that others can more easily join in and
-[contribute].
-
-## Quick Links
-
-* Drupal.org: [https://drupal.org/project/farm]
-* Github: [https://github.com/farmOS]
-* Monthly call: [Google Hangout] (2nd Wed of the month at 1pm Eastern)
-* IRC: [#farmOS on Freenode]
-* Twitter: [@farmOSorg]
-* Twitter: [@getFarmier]
 
 [Drupal]: https://drupal.org
 [modular]: http://en.wikipedia.org/wiki/Modular_programming
