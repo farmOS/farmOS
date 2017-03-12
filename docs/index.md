@@ -51,6 +51,11 @@ The full workshop recording is available on YouTube:
 
 <iframe width="640" height="360" src="https://www.youtube.com/embed/w0ZCu8NsWKE?rel=0" frameborder="0" allowfullscreen></iframe>
 
+## @farmOSorg on Twitter
+
+<a class="twitter-timeline" href="https://twitter.com/farmOSorg">@farmOSorg</a>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
 [Drupal]: https://drupal.org
 [modular]: http://en.wikipedia.org/wiki/Modular_programming
 [extensible]: https://www.drupal.org/download
