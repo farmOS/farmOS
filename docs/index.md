@@ -6,8 +6,8 @@ farmOS is a web-based application for farm management, planning, and record
 keeping.
 
 It is built on [Drupal], which makes it [modular], [extensible], and [secure].
-
-[Openlayers] is used for mapping and geodata manipulation.
+Both Drupal and farmOS are licensed under the [GNU General Public License],
+which means they are [open source].
 
 For more information, read through some of the [Frequently Asked Questions].
 
@@ -36,11 +36,6 @@ The full workshop recording is available on YouTube:
 
 <iframe width="640" height="360" src="https://www.youtube.com/embed/w0ZCu8NsWKE?rel=0" frameborder="0" allowfullscreen></iframe>
 
-## Open Source
-
-Both Drupal and farmOS are licensed under the [GNU General Public License],
-which means they are [open source].
-
 ## Status
 
 farmOS is under active development, but is still relatively new. The focus right
@@ -60,7 +55,6 @@ now is laying a strong [groundwork], so that others can more easily join in and
 [modular]: http://en.wikipedia.org/wiki/Modular_programming
 [extensible]: https://www.drupal.org/download
 [secure]: http://www.drupal.org/documentation/is-drupal-secure
-[Openlayers]: http://openlayers.org
 [Frequently Asked Questions]: /faq
 [CNBC: The Future Of Farming Is Utilizing Data In An Open Source Network Of Farmers]: https://youtu.be/zua1y-hBcGc
 [GODAN Documentary Web Series: "OPEN FARMS"]: http://www.godan.info/news/open-farms-godan-documentary-web-series-episode-3
