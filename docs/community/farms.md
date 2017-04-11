@@ -22,6 +22,7 @@ included in this list, add a comment to [this issue on Github].
 * Miles Smith Farm (Loudon, New Hampshire)
 * North Mountain Pastures (Newport, Pennsylvania)
 * Patroon Land Farm (Voorheesville, New York)
+* Silver Market Gardens (Silver City, New Mexico)
 * Stone Grown Farm (Mansfield, Connecticut)
 * Tuckaway Farm (Lee, New Hampshire)
 * University of New Hampshire (Durham, New Hampshire)
