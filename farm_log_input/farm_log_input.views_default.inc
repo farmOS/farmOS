@@ -133,12 +133,6 @@ function farm_log_input_views_default_views() {
       'label' => '',
     ),
   );
-  /* Field: Log: Log ID */
-  $handler->display->display_options['fields']['id']['id'] = 'id';
-  $handler->display->display_options['fields']['id']['table'] = 'log';
-  $handler->display->display_options['fields']['id']['field'] = 'id';
-  $handler->display->display_options['fields']['id']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['id']['separator'] = '';
   /* Field: Log: Done */
   $handler->display->display_options['fields']['done']['id'] = 'done';
   $handler->display->display_options['fields']['done']['table'] = 'log';
@@ -146,6 +140,11 @@ function farm_log_input_views_default_views() {
   $handler->display->display_options['fields']['done']['type'] = 'custom';
   $handler->display->display_options['fields']['done']['type_custom_true'] = '✔';
   $handler->display->display_options['fields']['done']['not'] = 0;
+  /* Field: Log: Log ID */
+  $handler->display->display_options['fields']['id']['id'] = 'id';
+  $handler->display->display_options['fields']['id']['table'] = 'log';
+  $handler->display->display_options['fields']['id']['field'] = 'id';
+  $handler->display->display_options['fields']['id']['separator'] = '';
   /* Field: Log: Timestamp */
   $handler->display->display_options['fields']['timestamp']['id'] = 'timestamp';
   $handler->display->display_options['fields']['timestamp']['table'] = 'log';
@@ -307,9 +306,9 @@ if (!empty($farm_asset)) {
     t('- Choose an operation -'),
     t('Done'),
     t('Not Done'),
+    t('✔'),
     t('Log ID'),
     t('.'),
-    t('✔'),
     t('Date'),
     t('Input'),
     t('Quantity'),
