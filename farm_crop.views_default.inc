@@ -481,6 +481,7 @@ if (!empty($farm_asset)) {
     t('Start date'),
     t('End date'),
     t('Page'),
+  );
 
   /* Display: Data export */
   $handler = $view->new_display('views_data_export', 'Data export', 'views_data_export_1');
@@ -796,6 +797,7 @@ if (!empty($farm_asset)) {
     t('Start date'),
     t('End date'),
     t('Page'),
+  );
 
   /* Display: Data export */
   $handler = $view->new_display('views_data_export', 'Data export', 'views_data_export_1');
@@ -1118,6 +1120,7 @@ if (!empty($farm_asset)) {
     t('Plantings of %2'),
     t('Active'),
     t('Page'),
+  );
 
   /* Display: Data export */
   $handler = $view->new_display('views_data_export', 'Data export', 'views_data_export_1');
