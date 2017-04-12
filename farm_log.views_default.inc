@@ -887,6 +887,29 @@ function farm_log_views_default_views() {
   $handler->display->display_options['filters']['done']['expose']['label'] = 'Done';
   $handler->display->display_options['filters']['done']['expose']['operator'] = 'done_op';
   $handler->display->display_options['filters']['done']['expose']['identifier'] = 'done';
+
+  /* Display: Data export */
+  $handler = $view->new_display('views_data_export', 'Data export', 'views_data_export_1');
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['style_plugin'] = 'views_data_export_csv';
+  $handler->display->display_options['style_options']['provide_file'] = 1;
+  $handler->display->display_options['style_options']['filename'] = '%view-%exposed-%timestamp-full.csv';
+  $handler->display->display_options['style_options']['parent_sort'] = 1;
+  $handler->display->display_options['style_options']['quote'] = 1;
+  $handler->display->display_options['style_options']['trim'] = 1;
+  $handler->display->display_options['style_options']['replace_newlines'] = 0;
+  $handler->display->display_options['style_options']['newline_token'] = '1';
+  $handler->display->display_options['style_options']['header'] = 1;
+  $handler->display->display_options['style_options']['keep_html'] = 0;
+  $handler->display->display_options['path'] = 'farm/logs/csv';
+  $handler->display->display_options['displays'] = array(
+    'page' => 'page',
+    'default' => 0,
+    'page_plan' => 0,
+    'block_plan' => 0,
+    'page_late_tasks' => 0,
+    'block_late_tasks' => 0,
+  );
   $translatables['farm_log'] = array(
     t('Master'),
     t('Logs'),
@@ -929,6 +952,7 @@ function farm_log_views_default_views() {
     t('Page: Late Tasks'),
     t('Late tasks'),
     t('Block: Late Tasks'),
+    t('Data export'),
   );
   $export['farm_log'] = $view;
 

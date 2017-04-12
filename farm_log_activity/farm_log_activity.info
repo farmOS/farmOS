@@ -25,6 +25,7 @@ dependencies[] = options
 dependencies[] = taxonomy
 dependencies[] = text
 dependencies[] = views
+dependencies[] = views_data_export
 features[ctools][] = views:views_default:3.0
 features[features_api][] = api:2
 features[field_instance][] = log-farm_activity-field_farm_area

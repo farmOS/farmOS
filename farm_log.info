@@ -15,6 +15,7 @@ dependencies[] = farm_log_movement
 dependencies[] = farm_log_observation
 dependencies[] = features
 dependencies[] = views
+dependencies[] = views_data_export
 features[ctools][] = views:views_default:3.0
 features[features_api][] = api:2
 features[views_view][] = farm_asset_entityreference_view
