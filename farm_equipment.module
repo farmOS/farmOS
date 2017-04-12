@@ -182,8 +182,10 @@ function farm_equipment_views_post_render(&$view, &$output, &$cache) {
 
       // Add the Equipment asset map to the top of the View.
       $map = \Drupal\openlayers\Openlayers::load('Map', 'farm_assets_equipment');
-      $map_build = $map->build();
-      $output = drupal_render($map_build) . $output;
+      if (!empty($map)) {
+        $map_build = $map->build();
+        $output = drupal_render($map_build) . $output;
+      }
     }
   }
 }
