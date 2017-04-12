@@ -438,15 +438,24 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['fields']['field_farm_animal_group']['id'] = 'field_farm_animal_group';
   $handler->display->display_options['fields']['field_farm_animal_group']['table'] = 'field_data_field_farm_animal_group';
   $handler->display->display_options['fields']['field_farm_animal_group']['field'] = 'field_farm_animal_group';
-  /* Field: Farm asset: ID Tag(s) */
-  $handler->display->display_options['fields']['field_farm_animal_tag']['id'] = 'field_farm_animal_tag';
-  $handler->display->display_options['fields']['field_farm_animal_tag']['table'] = 'field_data_field_farm_animal_tag';
-  $handler->display->display_options['fields']['field_farm_animal_tag']['field'] = 'field_farm_animal_tag';
-  $handler->display->display_options['fields']['field_farm_animal_tag']['type'] = 'field_collection_fields';
-  $handler->display->display_options['fields']['field_farm_animal_tag']['settings'] = array(
-    'view_mode' => 'full',
-  );
-  $handler->display->display_options['fields']['field_farm_animal_tag']['delta_offset'] = '0';
+  /* Field: Field collection item: ID */
+  $handler->display->display_options['fields']['field_farm_animal_tag_id']['id'] = 'field_farm_animal_tag_id';
+  $handler->display->display_options['fields']['field_farm_animal_tag_id']['table'] = 'field_data_field_farm_animal_tag_id';
+  $handler->display->display_options['fields']['field_farm_animal_tag_id']['field'] = 'field_farm_animal_tag_id';
+  $handler->display->display_options['fields']['field_farm_animal_tag_id']['relationship'] = 'field_farm_animal_tag_value';
+  $handler->display->display_options['fields']['field_farm_animal_tag_id']['label'] = 'ID Tag';
+  /* Field: Field collection item: Tag Type */
+  $handler->display->display_options['fields']['field_farm_animal_tag_type']['id'] = 'field_farm_animal_tag_type';
+  $handler->display->display_options['fields']['field_farm_animal_tag_type']['table'] = 'field_data_field_farm_animal_tag_type';
+  $handler->display->display_options['fields']['field_farm_animal_tag_type']['field'] = 'field_farm_animal_tag_type';
+  $handler->display->display_options['fields']['field_farm_animal_tag_type']['relationship'] = 'field_farm_animal_tag_value';
+  $handler->display->display_options['fields']['field_farm_animal_tag_type']['label'] = 'Tag type';
+  /* Field: Field collection item: Body Location */
+  $handler->display->display_options['fields']['field_farm_animal_tag_location']['id'] = 'field_farm_animal_tag_location';
+  $handler->display->display_options['fields']['field_farm_animal_tag_location']['table'] = 'field_data_field_farm_animal_tag_location';
+  $handler->display->display_options['fields']['field_farm_animal_tag_location']['field'] = 'field_farm_animal_tag_location';
+  $handler->display->display_options['fields']['field_farm_animal_tag_location']['relationship'] = 'field_farm_animal_tag_value';
+  $handler->display->display_options['fields']['field_farm_animal_tag_location']['label'] = 'Tag location';
   /* Field: Farm asset: Description */
   $handler->display->display_options['fields']['field_farm_description']['id'] = 'field_farm_description';
   $handler->display->display_options['fields']['field_farm_description']['table'] = 'field_data_field_farm_description';
@@ -707,10 +716,11 @@ function farm_livestock_views_default_views() {
     t('Birthdate'),
     t('Species/Breed'),
     t('Group'),
-    t('ID Tag(s)'),
+    t('ID Tag'),
+    t('Tag type'),
+    t('Tag location'),
     t('Description'),
     t('Location'),
-    t('ID Tag'),
     t('All'),
     t('Animals in %1'),
     t('Animals in group %2'),
