@@ -127,6 +127,9 @@ projects[views][version] = "3.15"
 projects[views_bulk_operations][subdir] = "contrib"
 projects[views_bulk_operations][version] = "3.4"
 
+projects[views_data_export][subdir] = "contrib"
+projects[views_data_export][version] = "3.2"
+
 projects[views_geojson][subdir] = "contrib"
 projects[views_geojson][version] = "1.0-beta3"
 

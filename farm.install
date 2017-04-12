@@ -490,6 +490,13 @@ function farm_update_7019(&$sandbox) {
 }
 
 /**
+ * Install Views Data Export.
+ */
+function farm_update_7020(&$sandbox) {
+  _farm_update_enable_modules(array('views_data_export'));
+}
+
+/**
  * Update helper function: enable modules.
  */
 function _farm_update_enable_modules($modules = array()) {
