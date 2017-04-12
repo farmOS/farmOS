@@ -272,6 +272,11 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
   $handler->display->display_options['empty']['area_text_custom']['content'] = 'No seedings found.';
+  /* Relationship: Field: Quantity (field_farm_quantity) */
+  $handler->display->display_options['relationships']['field_farm_quantity_value']['id'] = 'field_farm_quantity_value';
+  $handler->display->display_options['relationships']['field_farm_quantity_value']['table'] = 'field_data_field_farm_quantity';
+  $handler->display->display_options['relationships']['field_farm_quantity_value']['field'] = 'field_farm_quantity_value';
+  $handler->display->display_options['relationships']['field_farm_quantity_value']['delta'] = '0';
   /* Field: Bulk operations: Log */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
   $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'log';
@@ -340,14 +345,23 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['name_1']['label'] = 'Seeding';
   $handler->display->display_options['fields']['name_1']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['name_1']['alter']['path'] = 'log/[id]';
-  /* Field: Log: Quantity */
-  $handler->display->display_options['fields']['field_farm_quantity']['id'] = 'field_farm_quantity';
-  $handler->display->display_options['fields']['field_farm_quantity']['table'] = 'field_data_field_farm_quantity';
-  $handler->display->display_options['fields']['field_farm_quantity']['field'] = 'field_farm_quantity';
-  $handler->display->display_options['fields']['field_farm_quantity']['type'] = 'field_collection_fields';
-  $handler->display->display_options['fields']['field_farm_quantity']['settings'] = array(
-    'view_mode' => 'full',
+  /* Field: Field collection item: Value */
+  $handler->display->display_options['fields']['field_farm_quantity_value']['id'] = 'field_farm_quantity_value';
+  $handler->display->display_options['fields']['field_farm_quantity_value']['table'] = 'field_data_field_farm_quantity_value';
+  $handler->display->display_options['fields']['field_farm_quantity_value']['field'] = 'field_farm_quantity_value';
+  $handler->display->display_options['fields']['field_farm_quantity_value']['relationship'] = 'field_farm_quantity_value';
+  $handler->display->display_options['fields']['field_farm_quantity_value']['label'] = 'Quantity';
+  $handler->display->display_options['fields']['field_farm_quantity_value']['type'] = 'fraction_decimal';
+  $handler->display->display_options['fields']['field_farm_quantity_value']['settings'] = array(
+    'precision' => '0',
+    'auto_precision' => 1,
   );
+  /* Field: Field collection item: Units */
+  $handler->display->display_options['fields']['field_farm_quantity_units']['id'] = 'field_farm_quantity_units';
+  $handler->display->display_options['fields']['field_farm_quantity_units']['table'] = 'field_data_field_farm_quantity_units';
+  $handler->display->display_options['fields']['field_farm_quantity_units']['field'] = 'field_farm_quantity_units';
+  $handler->display->display_options['fields']['field_farm_quantity_units']['relationship'] = 'field_farm_quantity_value';
+  $handler->display->display_options['fields']['field_farm_quantity_units']['type'] = 'taxonomy_term_reference_plain';
   /* Sort criterion: Log: Timestamp */
   $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
   $handler->display->display_options['sorts']['timestamp']['table'] = 'log';
@@ -554,6 +568,11 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
   $handler->display->display_options['empty']['area_text_custom']['content'] = 'No transplantings found.';
+  /* Relationship: Field: Quantity (field_farm_quantity) */
+  $handler->display->display_options['relationships']['field_farm_quantity_value']['id'] = 'field_farm_quantity_value';
+  $handler->display->display_options['relationships']['field_farm_quantity_value']['table'] = 'field_data_field_farm_quantity';
+  $handler->display->display_options['relationships']['field_farm_quantity_value']['field'] = 'field_farm_quantity_value';
+  $handler->display->display_options['relationships']['field_farm_quantity_value']['delta'] = '0';
   /* Field: Bulk operations: Log */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
   $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'log';
@@ -622,14 +641,23 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['fields']['name_1']['label'] = 'Transplanting';
   $handler->display->display_options['fields']['name_1']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['name_1']['alter']['path'] = 'log/[id]';
-  /* Field: Log: Quantity */
-  $handler->display->display_options['fields']['field_farm_quantity']['id'] = 'field_farm_quantity';
-  $handler->display->display_options['fields']['field_farm_quantity']['table'] = 'field_data_field_farm_quantity';
-  $handler->display->display_options['fields']['field_farm_quantity']['field'] = 'field_farm_quantity';
-  $handler->display->display_options['fields']['field_farm_quantity']['type'] = 'field_collection_fields';
-  $handler->display->display_options['fields']['field_farm_quantity']['settings'] = array(
-    'view_mode' => 'full',
+  /* Field: Field collection item: Value */
+  $handler->display->display_options['fields']['field_farm_quantity_value']['id'] = 'field_farm_quantity_value';
+  $handler->display->display_options['fields']['field_farm_quantity_value']['table'] = 'field_data_field_farm_quantity_value';
+  $handler->display->display_options['fields']['field_farm_quantity_value']['field'] = 'field_farm_quantity_value';
+  $handler->display->display_options['fields']['field_farm_quantity_value']['relationship'] = 'field_farm_quantity_value';
+  $handler->display->display_options['fields']['field_farm_quantity_value']['label'] = 'Quantity';
+  $handler->display->display_options['fields']['field_farm_quantity_value']['type'] = 'fraction_decimal';
+  $handler->display->display_options['fields']['field_farm_quantity_value']['settings'] = array(
+    'precision' => '0',
+    'auto_precision' => 1,
   );
+  /* Field: Field collection item: Units */
+  $handler->display->display_options['fields']['field_farm_quantity_units']['id'] = 'field_farm_quantity_units';
+  $handler->display->display_options['fields']['field_farm_quantity_units']['table'] = 'field_data_field_farm_quantity_units';
+  $handler->display->display_options['fields']['field_farm_quantity_units']['field'] = 'field_farm_quantity_units';
+  $handler->display->display_options['fields']['field_farm_quantity_units']['relationship'] = 'field_farm_quantity_value';
+  $handler->display->display_options['fields']['field_farm_quantity_units']['type'] = 'taxonomy_term_reference_plain';
   /* Sort criterion: Log: Timestamp */
   $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
   $handler->display->display_options['sorts']['timestamp']['table'] = 'log';
