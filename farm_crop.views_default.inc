@@ -449,39 +449,6 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['menu']['name'] = 'farm';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
-  $translatables['farm_log_seeding'] = array(
-    t('Master'),
-    t('Seedings'),
-    t('more'),
-    t('Apply'),
-    t('Reset'),
-    t('Sort by'),
-    t('Asc'),
-    t('Desc'),
-    t('Items per page'),
-    t('- All -'),
-    t('Offset'),
-    t('« first'),
-    t('‹ previous'),
-    t('next ›'),
-    t('last »'),
-    t('No seedings found.'),
-    t('Log'),
-    t('- Choose an operation -'),
-    t('Done'),
-    t('Not Done'),
-    t('Log ID'),
-    t('.'),
-    t('✔'),
-    t('Date'),
-    t('Seeding'),
-    t('Quantity'),
-    t('All'),
-    t('Seedings of %1'),
-    t('Start date'),
-    t('End date'),
-    t('Page'),
-  );
 
   /* Display: Data export */
   $handler = $view->new_display('views_data_export', 'Data export', 'views_data_export_1');
@@ -501,6 +468,42 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['displays'] = array(
     'page_1' => 'page_1',
     'default' => 0,
+  );
+  $translatables['farm_log_seeding'] = array(
+    t('Master'),
+    t('Seedings'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('No seedings found.'),
+    t('field collection item from field_farm_quantity'),
+    t('Log'),
+    t('- Choose an operation -'),
+    t('Done'),
+    t('Not Done'),
+    t('✔'),
+    t('Log ID'),
+    t('.'),
+    t('Date'),
+    t('Seeding'),
+    t('Quantity'),
+    t('Units'),
+    t('All'),
+    t('Seedings of %1'),
+    t('Start date'),
+    t('End date'),
+    t('Page'),
+    t('Data export'),
   );
   $export['farm_log_seeding'] = $view;
 
@@ -765,39 +768,6 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['menu']['name'] = 'farm';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
-  $translatables['farm_log_transplanting'] = array(
-    t('Master'),
-    t('Transplantings'),
-    t('more'),
-    t('Apply'),
-    t('Reset'),
-    t('Sort by'),
-    t('Asc'),
-    t('Desc'),
-    t('Items per page'),
-    t('- All -'),
-    t('Offset'),
-    t('« first'),
-    t('‹ previous'),
-    t('next ›'),
-    t('last »'),
-    t('No transplantings found.'),
-    t('Log'),
-    t('- Choose an operation -'),
-    t('Done'),
-    t('Not Done'),
-    t('Log ID'),
-    t('.'),
-    t('✔'),
-    t('Date'),
-    t('Transplanting'),
-    t('Quantity'),
-    t('All'),
-    t('Transplantings of %1'),
-    t('Start date'),
-    t('End date'),
-    t('Page'),
-  );
 
   /* Display: Data export */
   $handler = $view->new_display('views_data_export', 'Data export', 'views_data_export_1');
@@ -817,6 +787,42 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['displays'] = array(
     'page_1' => 'page_1',
     'default' => 0,
+  );
+  $translatables['farm_log_transplanting'] = array(
+    t('Master'),
+    t('Transplantings'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('No transplantings found.'),
+    t('field collection item from field_farm_quantity'),
+    t('Log'),
+    t('- Choose an operation -'),
+    t('Done'),
+    t('Not Done'),
+    t('✔'),
+    t('Log ID'),
+    t('.'),
+    t('Date'),
+    t('Transplanting'),
+    t('Quantity'),
+    t('Units'),
+    t('All'),
+    t('Transplantings of %1'),
+    t('Start date'),
+    t('End date'),
+    t('Page'),
+    t('Data export'),
   );
   $export['farm_log_transplanting'] = $view;
 
@@ -1089,6 +1095,26 @@ if (!empty($farm_asset)) {
   $handler->display->display_options['tab_options']['title'] = 'Plantings';
   $handler->display->display_options['tab_options']['weight'] = '0';
   $handler->display->display_options['tab_options']['name'] = 'farm';
+
+  /* Display: Data export */
+  $handler = $view->new_display('views_data_export', 'Data export', 'views_data_export_1');
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['style_plugin'] = 'views_data_export_csv';
+  $handler->display->display_options['style_options']['provide_file'] = 1;
+  $handler->display->display_options['style_options']['filename'] = '%view-%exposed-%timestamp-full.csv';
+  $handler->display->display_options['style_options']['parent_sort'] = 1;
+  $handler->display->display_options['style_options']['quote'] = 1;
+  $handler->display->display_options['style_options']['trim'] = 1;
+  $handler->display->display_options['style_options']['replace_newlines'] = 0;
+  $handler->display->display_options['style_options']['newline_token'] = '1';
+  $handler->display->display_options['style_options']['header'] = 1;
+  $handler->display->display_options['style_options']['keep_html'] = 0;
+  $handler->display->display_options['path'] = 'farm/assets/plantings/csv';
+  $handler->display->display_options['displays'] = array(
+    'page' => 'page',
+    'default' => 0,
+  );
   $translatables['farm_plantings'] = array(
     t('Master'),
     t('Plantings'),
@@ -1109,7 +1135,7 @@ if (!empty($farm_asset)) {
     t('Latest movement'),
     t('Farm asset'),
     t('- Choose an operation -'),
-    t('Farm asset ID'),
+    t('Asset ID'),
     t('.'),
     t('Name'),
     t('Crop/Variety'),
@@ -1120,26 +1146,7 @@ if (!empty($farm_asset)) {
     t('Plantings of %2'),
     t('Active'),
     t('Page'),
-  );
-
-  /* Display: Data export */
-  $handler = $view->new_display('views_data_export', 'Data export', 'views_data_export_1');
-  $handler->display->display_options['pager']['type'] = 'none';
-  $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['style_plugin'] = 'views_data_export_csv';
-  $handler->display->display_options['style_options']['provide_file'] = 1;
-  $handler->display->display_options['style_options']['filename'] = '%view-%exposed-%timestamp-full.csv';
-  $handler->display->display_options['style_options']['parent_sort'] = 1;
-  $handler->display->display_options['style_options']['quote'] = 1;
-  $handler->display->display_options['style_options']['trim'] = 1;
-  $handler->display->display_options['style_options']['replace_newlines'] = 0;
-  $handler->display->display_options['style_options']['newline_token'] = '1';
-  $handler->display->display_options['style_options']['header'] = 1;
-  $handler->display->display_options['style_options']['keep_html'] = 0;
-  $handler->display->display_options['path'] = 'farm/assets/plantings/csv';
-  $handler->display->display_options['displays'] = array(
-    'page' => 'page',
-    'default' => 0,
+    t('Data export'),
   );
   $export['farm_plantings'] = $view;
 
