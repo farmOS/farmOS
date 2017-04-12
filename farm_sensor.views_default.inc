@@ -243,7 +243,7 @@ function farm_sensor_views_default_views() {
     t('Name'),
     t('Location'),
     t('All'),
-    t('Equipment in %1'),
+    t('Sensors in %1'),
     t('Active'),
     t('Page'),
     t('Data export'),
