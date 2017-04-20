@@ -8,6 +8,7 @@
       // that render first, and then collapse with JS, it works.
       /**
        * @todo
+       * https://www.drupal.org/node/2644580
        * https://www.drupal.org/node/2579009
        */
       setTimeout(function(){
