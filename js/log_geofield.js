@@ -13,8 +13,8 @@
        */
       setTimeout(function(){
         var fieldset = $('.field-type-geofield fieldset.collapsible', context);
-        var $toggle = $($(fieldset).find('[data-toggle=collapse]').data('target'));
-        $toggle.collapse('hide');
+        var toggle = $(fieldset.find('[data-toggle=collapse]').data('target'));
+        toggle.collapse('hide');
       }, 1000);
 
     },
