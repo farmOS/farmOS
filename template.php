@@ -20,40 +20,43 @@ function farm_theme_menu_link_alter(&$item) {
 }
 
 /**
+ * Implements hook_field_widget_form_alter().
+ */
+function farm_theme_field_widget_form_alter(&$element, &$form_state, $context) {
+
+  // Put geofields into a collapsible fieldset. Collapse it by default if empty.
+  if ($context['field']['type'] == 'geofield') {
+
+    // Iterate through all the element children.
+    $children = element_children($element);
+    foreach ($children as $child) {
+
+      // Make the parent element into a collapsible fieldset.
+      $element[$child]['#type'] = 'fieldset';
+      $element[$child]['#collapsible'] = TRUE;
+    }
+
+    // Add Javascript to collapse the fieldset automatically if it is empty.
+    /**
+     * @todo
+     * We make the fieldset collapsible with PHP, but we collapse it with
+     * Javascript. This is because collapsing it with PHP breaks the
+     * Openlayers Geofield zoom to source component for some reason.
+     *
+     * @see https://www.drupal.org/node/2644580
+     * @see https://www.drupal.org/node/2579009
+     */
+    drupal_add_js(drupal_get_path('theme', 'farm_theme') . '/js/log_geofield.js');
+  }
+}
+
+/**
  * Implements hook_form_alter().
  */
 function farm_theme_form_alter(&$form, &$form_state, $form_id) {
 
-  // Log form:
-  if ($form_id == 'log_form') {
-
-    // If the log has a field_farm_geofield, put it in a collapsible fieldset.
-    if (isset($form['field_farm_geofield'])) {
-
-      // Change it from a 'container' to a 'fieldset'. This allows the field
-      // description to be displayed, and it means we can make it collapsible.
-      $form['field_farm_geofield'][LANGUAGE_NONE][0]['#type'] = 'fieldset';
-      $form['field_farm_geofield'][LANGUAGE_NONE][0]['#collapsible'] = TRUE;
-
-      // If the field is empty, collapse the fieldset by default.
-      if (empty($form['#entity']->field_farm_geofield[LANGUAGE_NONE][0]['geom'])) {
-//        $form['field_farm_geofield'][LANGUAGE_NONE][0]['#collapsed'] = TRUE;
-        /**
-         * @todo
-         * We make the fieldset collapsible with PHP, but we collapse it with
-         * Javascript. This is because collapsing it with PHP breaks the
-         * Openlayers Geofield zoom to source component for some reason.
-         *
-         * @see https://www.drupal.org/node/2644580
-         * @see https://www.drupal.org/node/2579009
-         */
-        drupal_add_js(drupal_get_path('theme', 'farm_theme') . '/js/log_geofield.js');
-      }
-    }
-  }
-
   // Views Exposed (filters and sort) form:
-  elseif ($form_id == 'views_exposed_form') {
+  if ($form_id == 'views_exposed_form') {
 
     /* Wrap the exposed form in a Bootstrap collapsible panel. */
 
