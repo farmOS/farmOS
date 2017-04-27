@@ -42,3 +42,24 @@ function farm_crop_update_7001(&$sandbox) {
   $field = field_info_instance('log', 'field_farm_planting', 'farm_input');
   field_delete_instance($field);
 }
+
+/**
+ * Migrate Planting field on Seeding and Transplanting logs to Assets field.
+ */
+function farm_crop_update_7002(&$sandbox) {
+
+  // Start by reverting the field base and instance components of this module
+  // so that the new asset field is available
+  features_revert(array('farm_crop' => array('field_base', 'field_instance')));
+
+  // Run database queries to copy all "planting" field values from seeding and
+  // transplanting logs to the new "asset" field.
+  db_query("INSERT INTO {field_data_field_farm_asset} (SELECT * FROM {field_data_field_farm_planting} WHERE entity_type = 'log' AND bundle IN ('farm_seeding', 'farm_transplanting'))");
+  db_query("INSERT INTO {field_revision_field_farm_asset} (SELECT * FROM {field_revision_field_farm_planting} WHERE entity_type = 'log' AND bundle IN ('farm_seeding', 'farm_transplanting'))");
+
+  // Delete the planting field instances from seeding and transplanting logs.
+  $field = field_info_instance('log', 'field_farm_planting', 'farm_seeding');
+  field_delete_instance($field);
+  $field = field_info_instance('log', 'field_farm_planting', 'farm_transplanting');
+  field_delete_instance($field);
+}

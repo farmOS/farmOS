@@ -196,6 +196,46 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_seeding-field_farm_asset'.
+  $field_instances['log-farm_seeding-field_farm_asset'] = array(
+    'bundle' => 'farm_seeding',
+    'deleted' => 0,
+    'description' => 'What planting does this seeding log pertain to?',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => 1,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_asset',
+    'label' => 'Planting',
+    'required' => 1,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference_view_widget',
+      'settings' => array(
+        'allow_duplicates' => 0,
+        'close_modal' => 1,
+        'pass_argument' => 1,
+        'pass_arguments' => '',
+        'rendered_entity' => 0,
+        'view' => 'farm_asset_entityreference_view|entityreference_view_widget',
+        'view_mode' => 'full',
+      ),
+      'type' => 'entityreference_view_widget',
+      'weight' => 1,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_seeding-field_farm_notes'.
   $field_instances['log-farm_seeding-field_farm_notes'] = array(
     'bundle' => 'farm_seeding',
@@ -227,43 +267,6 @@ function farm_crop_field_default_field_instances() {
       ),
       'type' => 'text_textarea',
       'weight' => 4,
-    ),
-  );
-
-  // Exported field_instance: 'log-farm_seeding-field_farm_planting'.
-  $field_instances['log-farm_seeding-field_farm_planting'] = array(
-    'bundle' => 'farm_seeding',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => 'Seedings must reference a specific planting. You can view a list of all plantings, and add new ones, from the ' . l('Plantings list', 'farm/assets/plantings') . '.',
-    'display' => array(
-      'default' => array(
-        'label' => 'inline',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => 1,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'log',
-    'field_name' => 'field_farm_planting',
-    'label' => 'Planting',
-    'required' => 1,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'entityreference',
-      'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
-      ),
-      'type' => 'entityreference_autocomplete',
-      'weight' => 1,
     ),
   );
 
@@ -334,6 +337,46 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_transplanting-field_farm_asset'.
+  $field_instances['log-farm_transplanting-field_farm_asset'] = array(
+    'bundle' => 'farm_transplanting',
+    'deleted' => 0,
+    'description' => 'What planting does this transplanting log pertain to?',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => 1,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_asset',
+    'label' => 'Planting',
+    'required' => 1,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference_view_widget',
+      'settings' => array(
+        'allow_duplicates' => 0,
+        'close_modal' => 1,
+        'pass_argument' => 1,
+        'pass_arguments' => '',
+        'rendered_entity' => 0,
+        'view' => 'farm_asset_entityreference_view|entityreference_view_widget',
+        'view_mode' => 'full',
+      ),
+      'type' => 'entityreference_view_widget',
+      'weight' => 1,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_transplanting-field_farm_notes'.
   $field_instances['log-farm_transplanting-field_farm_notes'] = array(
     'bundle' => 'farm_transplanting',
@@ -365,43 +408,6 @@ function farm_crop_field_default_field_instances() {
       ),
       'type' => 'text_textarea',
       'weight' => 3,
-    ),
-  );
-
-  // Exported field_instance: 'log-farm_transplanting-field_farm_planting'.
-  $field_instances['log-farm_transplanting-field_farm_planting'] = array(
-    'bundle' => 'farm_transplanting',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => 'Transplantings must reference a specific planting. You can view a list of all plantings, and add new ones, from the ' . l('Plantings list', 'farm/assets/plantings') . '.',
-    'display' => array(
-      'default' => array(
-        'label' => 'inline',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => 1,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'log',
-    'field_name' => 'field_farm_planting',
-    'label' => 'Planting',
-    'required' => 1,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'entityreference',
-      'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
-      ),
-      'type' => 'entityreference_autocomplete',
-      'weight' => 1,
     ),
   );
 
@@ -659,10 +665,10 @@ function farm_crop_field_default_field_instances() {
   t('Planting');
   t('Quantity');
   t('Season');
-  t('Seedings must reference a specific planting. You can view a list of all plantings, and add new ones, from the ' . l('Plantings list', 'farm/assets/plantings') . '.');
   t('Source/Supplier');
   t('Specify the parent(s) of this planting.');
-  t('Transplantings must reference a specific planting. You can view a list of all plantings, and add new ones, from the ' . l('Plantings list', 'farm/assets/plantings') . '.');
+  t('What planting does this seeding log pertain to?');
+  t('What planting does this transplanting log pertain to?');
   t('Where were the seeds obtained?');
 
   return $field_instances;
