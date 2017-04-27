@@ -5,6 +5,18 @@
  */
 
 /**
+ * Implements hook_update_dependencies().
+ */
+function farm_equipment_update_dependencies() {
+
+  // Update 7002 (add new movement field to maintenance logs) depends on
+  // farm_log_movement_update_7000().
+  $dependencies['farm_equipment'][7002] = array('farm_log_movement' => 7000);
+
+  return $dependencies;
+}
+
+/**
  * Migrate Equipment Description field to plain Description field (from farm_fields).
  */
 function farm_equipment_update_7000(&$sandbox) {
@@ -40,4 +52,11 @@ function farm_equipment_update_7001(&$sandbox) {
   // Delete the old equipment reference field.
   $field = field_info_instance('log', 'field_farm_equipment', 'farm_maintenance');
   field_delete_instance($field);
+}
+
+/**
+ * Add new movement field to maintenance logs.
+ */
+function farm_equipment_update_7002(&$sandbox) {
+  features_revert(array('farm_equipment' => array('field_instance')));
 }

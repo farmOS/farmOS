@@ -202,7 +202,7 @@ function farm_equipment_field_default_field_instances() {
         'progress_indicator' => 'bar',
       ),
       'type' => 'file_generic',
-      'weight' => 5,
+      'weight' => 7,
     ),
   );
 
@@ -252,7 +252,40 @@ function farm_equipment_field_default_field_instances() {
         'progress_indicator' => 'bar',
       ),
       'type' => 'image_image',
-      'weight' => 4,
+      'weight' => 6,
+    ),
+  );
+
+  // Exported field_instance: 'log-farm_maintenance-field_farm_movement'.
+  $field_instances['log-farm_maintenance-field_farm_movement'] = array(
+    'bundle' => 'farm_maintenance',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Use these fields to record a movement with this log entry. This will be used to define the location of any referenced assets. The current location of any asset is determined by the most recently completed movement log. Only the "to" field is required.',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'module' => 'field_collection',
+        'settings' => array(
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_fields',
+        'weight' => 5,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_movement',
+    'label' => 'Movement',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 5,
     ),
   );
 
@@ -295,8 +328,10 @@ function farm_equipment_field_default_field_instances() {
   t('Assets');
   t('Description');
   t('Files');
+  t('Movement');
   t('Notes');
   t('Photo(s)');
+  t('Use these fields to record a movement with this log entry. This will be used to define the location of any referenced assets. The current location of any asset is determined by the most recently completed movement log. Only the "to" field is required.');
   t('What assets do this maintenance log pertain to?');
 
   return $field_instances;
