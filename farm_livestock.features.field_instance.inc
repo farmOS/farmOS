@@ -593,7 +593,7 @@ function farm_livestock_field_default_field_instances() {
         'progress_indicator' => 'bar',
       ),
       'type' => 'file_generic',
-      'weight' => 5,
+      'weight' => 7,
     ),
   );
 
@@ -643,7 +643,40 @@ function farm_livestock_field_default_field_instances() {
         'progress_indicator' => 'bar',
       ),
       'type' => 'image_image',
-      'weight' => 4,
+      'weight' => 6,
+    ),
+  );
+
+  // Exported field_instance: 'log-farm_medical-field_farm_movement'.
+  $field_instances['log-farm_medical-field_farm_movement'] = array(
+    'bundle' => 'farm_medical',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Use these fields to record a movement with this log entry. This will be used to define the location of any referenced assets. The current location of any asset is determined by the most recently completed movement log. Only the "to" field is required.',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'module' => 'field_collection',
+        'settings' => array(
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_fields',
+        'weight' => 5,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_movement',
+    'label' => 'Movement',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 5,
     ),
   );
 
@@ -696,6 +729,7 @@ function farm_livestock_field_default_field_instances() {
   t('ID Tag(s)');
   t('List any identification tags that this animal has. These can be ear tags, tattoos, leg bands, etc. Use the fields below to describe the type, location, and ID of each.');
   t('List any nickname(s) of this animal.');
+  t('Movement');
   t('Nickname(s)');
   t('Notes');
   t('Parent(s)');
@@ -704,6 +738,7 @@ function farm_livestock_field_default_field_instances() {
   t('Specify the parent(s) of this animal.');
   t('Tag Type');
   t('Type');
+  t('Use these fields to record a movement with this log entry. This will be used to define the location of any referenced assets. The current location of any asset is determined by the most recently completed movement log. Only the "to" field is required.');
   t('What assets do this medical log pertain to?');
   t('What is the species/breed of this animal? You can manage the list of available species/breeds in the ' . l('Animal Species/Breeds', 'farm/assets/animals/types') . ' vocabulary.');
 

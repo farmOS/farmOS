@@ -5,6 +5,18 @@
  */
 
 /**
+ * Implements hook_update_dependencies().
+ */
+function farm_livestock_update_dependencies() {
+
+  // Update 7003 (add movement field to medical logs) depends on
+  // farm_log_movement_update_7000().
+  $dependencies['farm_livestock'][7003] = array('farm_log_movement' => 7000);
+
+  return $dependencies;
+}
+
+/**
  * Migrate Animal Description field to plain Description field (from farm_fields).
  */
 function farm_livestock_update_7000(&$sandbox) {
@@ -51,4 +63,11 @@ function farm_livestock_update_7001(&$sandbox) {
  */
 function farm_livestock_update_7002(&$sandbox) {
   features_revert(array('farm_livestock' => array('field_base', 'field_instance')));
+}
+
+/**
+ * Add new movement field to medical logs.
+ */
+function farm_livestock_update_7003(&$sandbox) {
+  features_revert(array('farm_livestock' => array('field_instance')));
 }

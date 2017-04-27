@@ -465,7 +465,7 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['fields']['field_farm_description']['alter']['more_link'] = TRUE;
   $handler->display->display_options['fields']['field_farm_description']['alter']['strip_tags'] = TRUE;
   $handler->display->display_options['fields']['field_farm_description']['alter']['trim'] = TRUE;
-  /* Field: Log: To */
+  /* Field: Field: To */
   $handler->display->display_options['fields']['field_farm_move_to']['id'] = 'field_farm_move_to';
   $handler->display->display_options['fields']['field_farm_move_to']['table'] = 'field_data_field_farm_move_to';
   $handler->display->display_options['fields']['field_farm_move_to']['field'] = 'field_farm_move_to';
@@ -502,7 +502,7 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['sorts']['field_farm_animal_tag_id_value']['relationship'] = 'field_farm_animal_tag_value';
   $handler->display->display_options['sorts']['field_farm_animal_tag_id_value']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['field_farm_animal_tag_id_value']['expose']['label'] = 'ID Tag';
-  /* Contextual filter: Log: To (field_farm_move_to) */
+  /* Contextual filter: Field: To (field_farm_move_to) */
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['id'] = 'field_farm_move_to_tid';
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['table'] = 'field_data_field_farm_move_to';
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['field'] = 'field_farm_move_to_tid';
@@ -608,7 +608,7 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['filters']['field_farm_animal_group_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_farm_animal_group_tid']['vocabulary'] = 'farm_animal_groups';
   $handler->display->display_options['filters']['field_farm_animal_group_tid']['hierarchy'] = 1;
-  /* Filter criterion: Log: To (field_farm_move_to) */
+  /* Filter criterion: Field: To (field_farm_move_to) */
   $handler->display->display_options['filters']['field_farm_move_to_tid']['id'] = 'field_farm_move_to_tid';
   $handler->display->display_options['filters']['field_farm_move_to_tid']['table'] = 'field_data_field_farm_move_to';
   $handler->display->display_options['filters']['field_farm_move_to_tid']['field'] = 'field_farm_move_to_tid';
