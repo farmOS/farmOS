@@ -118,14 +118,7 @@ function farm_asset_children_views_default_views() {
   $handler->display->display_options['arguments']['field_farm_parent_target_id']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['field_farm_parent_target_id']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['arguments']['field_farm_parent_target_id']['specify_validation'] = TRUE;
-  $handler->display->display_options['arguments']['field_farm_parent_target_id']['validate']['type'] = 'php';
-  $handler->display->display_options['arguments']['field_farm_parent_target_id']['validate_options']['code'] = '// Attempt to load the asset.
-$farm_asset = farm_asset_load($argument);
-if (!empty($farm_asset)) {
-  // Set the title.
-  $handler->validated_title = entity_label(\'farm_asset\', $farm_asset);
-  return TRUE;
-}';
+  $handler->display->display_options['arguments']['field_farm_parent_target_id']['validate']['type'] = 'farm_asset';
   /* Filter criterion: Farm asset: Name */
   $handler->display->display_options['filters']['name']['id'] = 'name';
   $handler->display->display_options['filters']['name']['table'] = 'farm_asset';

@@ -42,3 +42,18 @@ function farm_asset_views_data_alter(&$data) {
     }
   }
 }
+
+/**
+ * Implements hook_views_plugins().
+ */
+function farm_asset_views_plugins() {
+  return array(
+    'argument validator' => array(
+      'farm_asset' => array(
+        'title' => t('Farm asset'),
+        'handler' => 'farm_asset_plugin_argument_validate_farm_asset',
+        'path' => drupal_get_path('module', 'farm_asset') . '/views/plugins',
+      ),
+    ),
+  );
+}

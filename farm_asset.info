@@ -7,3 +7,4 @@ dependencies[] = views
 dependencies[] = views_bulk_operations
 files[] = farm_asset.class.inc
 files[] = views/handlers/farm_asset_handler_relationship_entity_reverse.inc
+files[] = views/plugins/farm_asset_plugin_argument_validate_farm_asset.inc
