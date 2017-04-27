@@ -193,6 +193,8 @@ function farm_log_activity_views_default_views() {
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['id'] = 'field_farm_asset_target_id';
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['table'] = 'field_data_field_farm_asset';
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['field'] = 'field_farm_asset_target_id';
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['title_enable'] = TRUE;
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['title'] = 'Activities of %1';
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['default_argument_type'] = 'fixed';
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary']['format'] = 'default_summary';
@@ -329,6 +331,7 @@ function farm_log_activity_views_default_views() {
     t('Assets'),
     t('Areas'),
     t('All'),
+    t('Activities of %1'),
     t('Activities in %2'),
     t('Search'),
     t('Start date'),
