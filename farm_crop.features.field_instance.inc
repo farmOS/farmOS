@@ -236,6 +236,39 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_seeding-field_farm_movement'.
+  $field_instances['log-farm_seeding-field_farm_movement'] = array(
+    'bundle' => 'farm_seeding',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Use these fields to record a movement with this log entry. This will be used to define the location of any referenced assets. The current location of any asset is determined by the most recently completed movement log. Only the "to" field is required.',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'module' => 'field_collection',
+        'settings' => array(
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_fields',
+        'weight' => 4,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_movement',
+    'label' => 'Movement',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 5,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_seeding-field_farm_notes'.
   $field_instances['log-farm_seeding-field_farm_notes'] = array(
     'bundle' => 'farm_seeding',
@@ -248,7 +281,7 @@ function farm_crop_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 4,
+        'weight' => 3,
       ),
     ),
     'entity_type' => 'log',
@@ -284,7 +317,7 @@ function farm_crop_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 2,
+        'weight' => 1,
       ),
     ),
     'entity_type' => 'log',
@@ -315,7 +348,7 @@ function farm_crop_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 3,
+        'weight' => 2,
       ),
     ),
     'entity_type' => 'log',
@@ -377,6 +410,39 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_transplanting-field_farm_movement'.
+  $field_instances['log-farm_transplanting-field_farm_movement'] = array(
+    'bundle' => 'farm_transplanting',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Use these fields to record a movement with this log entry. This will be used to define the location of any referenced assets. The current location of any asset is determined by the most recently completed movement log. Only the "to" field is required.',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'module' => 'field_collection',
+        'settings' => array(
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_fields',
+        'weight' => 3,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_movement',
+    'label' => 'Movement',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 4,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_transplanting-field_farm_notes'.
   $field_instances['log-farm_transplanting-field_farm_notes'] = array(
     'bundle' => 'farm_transplanting',
@@ -389,7 +455,7 @@ function farm_crop_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 4,
+        'weight' => 2,
       ),
     ),
     'entity_type' => 'log',
@@ -425,7 +491,7 @@ function farm_crop_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 2,
+        'weight' => 1,
       ),
     ),
     'entity_type' => 'log',
@@ -659,6 +725,7 @@ function farm_crop_field_default_field_instances() {
   t('Describe the quantity of this transplanting, using a value and a unit of measurement. For example, if you transplanted 400 tomato plants into 4 inch pots, enter "400" in the Value field, and "4-inch pots" in the Units field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.');
   t('Description');
   t('Enter the crop/variety that this is a planting of. As you type, you will have the option of selecting from crops/varieties that you\'ve entered in the past.');
+  t('Movement');
   t('Notes');
   t('Parent(s)');
   t('Photo(s)');
@@ -667,6 +734,7 @@ function farm_crop_field_default_field_instances() {
   t('Season');
   t('Source/Supplier');
   t('Specify the parent(s) of this planting.');
+  t('Use these fields to record a movement with this log entry. This will be used to define the location of any referenced assets. The current location of any asset is determined by the most recently completed movement log. Only the "to" field is required.');
   t('What planting does this seeding log pertain to?');
   t('What planting does this transplanting log pertain to?');
   t('Where were the seeds obtained?');

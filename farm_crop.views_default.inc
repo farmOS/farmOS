@@ -946,7 +946,7 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['field_farm_crop']['id'] = 'field_farm_crop';
   $handler->display->display_options['fields']['field_farm_crop']['table'] = 'field_data_field_farm_crop';
   $handler->display->display_options['fields']['field_farm_crop']['field'] = 'field_farm_crop';
-  /* Field: Log: To */
+  /* Field: Field: To */
   $handler->display->display_options['fields']['field_farm_move_to']['id'] = 'field_farm_move_to';
   $handler->display->display_options['fields']['field_farm_move_to']['table'] = 'field_data_field_farm_move_to';
   $handler->display->display_options['fields']['field_farm_move_to']['field'] = 'field_farm_move_to';
@@ -969,7 +969,7 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['sorts']['field_farm_season_tid']['field'] = 'field_farm_season_tid';
   $handler->display->display_options['sorts']['field_farm_season_tid']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['field_farm_season_tid']['expose']['label'] = 'Season';
-  /* Contextual filter: Log: To (field_farm_move_to) */
+  /* Contextual filter: Field: To (field_farm_move_to) */
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['id'] = 'field_farm_move_to_tid';
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['table'] = 'field_data_field_farm_move_to';
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['field'] = 'field_farm_move_to_tid';
@@ -1033,7 +1033,7 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['filters']['field_farm_crop_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_farm_crop_tid']['vocabulary'] = 'farm_crops';
   $handler->display->display_options['filters']['field_farm_crop_tid']['hierarchy'] = 1;
-  /* Filter criterion: Log: To (field_farm_move_to) */
+  /* Filter criterion: Field: To (field_farm_move_to) */
   $handler->display->display_options['filters']['field_farm_move_to_tid']['id'] = 'field_farm_move_to_tid';
   $handler->display->display_options['filters']['field_farm_move_to_tid']['table'] = 'field_data_field_farm_move_to';
   $handler->display->display_options['filters']['field_farm_move_to_tid']['field'] = 'field_farm_move_to_tid';
