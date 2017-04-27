@@ -159,6 +159,31 @@ if (!empty($farm_asset)) {
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
   $handler->display->display_options['path'] = 'farm/asset/%/children';
+  $translatables['farm_asset_children'] = array(
+    t('Master'),
+    t('Children'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('No children found.'),
+    t('Farm asset ID'),
+    t('.'),
+    t('Name'),
+    t('Active'),
+    t('All'),
+    t('Children of %1'),
+    t('Page'),
+  );
   $export['farm_asset_children'] = $view;
 
   return $export;
