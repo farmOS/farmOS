@@ -58,6 +58,11 @@ function farm_log_views_default_views() {
     ),
   );
   $handler->display->display_options['style_options']['empty_table'] = TRUE;
+  /* Header: Global: Unfiltered text */
+  $handler->display->display_options['header']['area_text_custom']['id'] = 'area_text_custom';
+  $handler->display->display_options['header']['area_text_custom']['table'] = 'views';
+  $handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
+  $handler->display->display_options['header']['area_text_custom']['content'] = 'Select the asset(s) you would like to reference and click "Submit". Use the filters to narrow down the list.';
   /* No results behavior: Global: Unfiltered text */
   $handler->display->display_options['empty']['area_text_custom']['id'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
@@ -166,6 +171,7 @@ function farm_log_views_default_views() {
   /* Display: Entity Reference View Widget */
   $handler = $view->new_display('entityreference_view_widget', 'Entity Reference View Widget', 'entityreference_view_widget');
   $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Select assets';
   $handler->display->display_options['defaults']['use_ajax'] = FALSE;
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'table';
@@ -215,6 +221,7 @@ function farm_log_views_default_views() {
     t('‹ previous'),
     t('next ›'),
     t('last »'),
+    t('Select the asset(s) you would like to reference and click "Submit". Use the filters to narrow down the list.'),
     t('No assets found.'),
     t('Latest movement'),
     t('Asset type'),
@@ -223,6 +230,7 @@ function farm_log_views_default_views() {
     t('All'),
     t('Active'),
     t('Entity Reference View Widget'),
+    t('Select assets'),
   );
   $export['farm_asset_entityreference_view'] = $view;
 
