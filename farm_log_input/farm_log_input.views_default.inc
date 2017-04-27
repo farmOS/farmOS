@@ -220,14 +220,7 @@ function farm_log_input_views_default_views() {
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['specify_validation'] = TRUE;
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['validate']['type'] = 'php';
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['validate_options']['code'] = '// Attempt to load the asset.
-$farm_asset = farm_asset_load($argument);
-if (!empty($farm_asset)) {
-  // Set the title.
-  $handler->validated_title = entity_label(\'farm_asset\', $farm_asset);
-  return TRUE;
-}';
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['validate']['type'] = 'farm_asset';
   /* Contextual filter: Log: Areas (field_farm_area) */
   $handler->display->display_options['arguments']['field_farm_area_tid']['id'] = 'field_farm_area_tid';
   $handler->display->display_options['arguments']['field_farm_area_tid']['table'] = 'field_data_field_farm_area';

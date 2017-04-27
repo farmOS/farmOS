@@ -197,6 +197,8 @@ function farm_log_activity_views_default_views() {
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['specify_validation'] = TRUE;
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['validate']['type'] = 'farm_asset';
   /* Contextual filter: Log: Areas (field_farm_area) */
   $handler->display->display_options['arguments']['field_farm_area_tid']['id'] = 'field_farm_area_tid';
   $handler->display->display_options['arguments']['field_farm_area_tid']['table'] = 'field_data_field_farm_area';
