@@ -908,7 +908,7 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['table'] = 'field_data_field_farm_asset';
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['field'] = 'field_farm_asset_target_id';
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['title_enable'] = TRUE;
-  $handler->display->display_options['arguments']['field_farm_asset_target_id']['title'] = '%1\'s maintenance';
+  $handler->display->display_options['arguments']['field_farm_asset_target_id']['title'] = 'Medical records for %1';
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['default_argument_type'] = 'fixed';
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary']['format'] = 'default_summary';
@@ -1018,7 +1018,7 @@ function farm_livestock_views_default_views() {
     t('Medical'),
     t('Assets'),
     t('All'),
-    t('%1\'s maintenance'),
+    t('Medical records for %1'),
     t('Start date'),
     t('End date'),
     t('Page'),
