@@ -63,14 +63,14 @@ function farm_log_form_alter(&$form, &$form_state, $form_id) {
     if (!empty($form['field_farm_asset'])) {
 
       // Alter the form using our helper function.
-      farm_log_form_prepopulate_asset($form, 'field_farm_asset');
+      farm_log_form_prepopulate_asset($form);
     }
 
     // If there is an area(s) reference field...
     if (!empty($form['field_farm_area'])) {
 
       // Alter the form with the farm_log helper function.
-      farm_log_form_prepopulate_area($form, 'field_farm_area');
+      farm_log_form_prepopulate_area($form);
     }
   }
 }
@@ -199,13 +199,11 @@ function farm_log_populate_geometry($entity) {
  *
  * @param array $form
  *   The form array to modify, passed by reference.
- * @param string $field_name
- *   The machine name of the entity reference field that should be populated.
  *
  * @return array|bool
  *   Returns the asset objects in an array, if found, FALSE otherwise.
  */
-function farm_log_form_prepopulate_asset(array &$form, $field_name = 'field_farm_asset') {
+function farm_log_form_prepopulate_asset(array &$form) {
 
   // Load assets from the ?farm_asset query parameter.
   $assets = farm_asset_load_assets_from_url();
@@ -218,7 +216,7 @@ function farm_log_form_prepopulate_asset(array &$form, $field_name = 'field_farm
   // Load the field instance definition.
   $entity_type = $form['#entity_type'];
   $bundle = $form['#bundle'];
-  $field_instance = field_info_instance($entity_type, $field_name, $bundle);
+  $field_instance = field_info_instance($entity_type, 'field_farm_asset', $bundle);
 
   // If the widget type is "radios/checkboxes" or "select list"...
   if (in_array($field_instance['widget']['type'], array('options_buttons', 'options_select'))) {
@@ -230,8 +228,8 @@ function farm_log_form_prepopulate_asset(array &$form, $field_name = 'field_farm
     }
 
     // Use the array of asset IDs as the field's default value.
-    if (empty($form[$field_name][LANGUAGE_NONE]['#default_value'])) {
-      $form[$field_name][LANGUAGE_NONE]['#default_value'] = $asset_ids;
+    if (empty($form['field_farm_asset'][LANGUAGE_NONE]['#default_value'])) {
+      $form['field_farm_asset'][LANGUAGE_NONE]['#default_value'] = $asset_ids;
     }
   }
 
@@ -249,7 +247,7 @@ function farm_log_form_prepopulate_asset(array &$form, $field_name = 'field_farm
       foreach ($asset_labels as $key => $label) {
 
         // If the item isn't empty, skip it.
-        if (!empty($form[$field_name][LANGUAGE_NONE][$key]['target_id']['#default_value'])) {
+        if (!empty($form['field_farm_asset'][LANGUAGE_NONE][$key]['target_id']['#default_value'])) {
           continue;
         }
 
@@ -260,28 +258,28 @@ function farm_log_form_prepopulate_asset(array &$form, $field_name = 'field_farm
          * you a beer.
          */
         // Copy the initial array structure from the first element.
-        $form[$field_name][LANGUAGE_NONE][$key] = $form[$field_name][LANGUAGE_NONE][0];
+        $form['field_farm_asset'][LANGUAGE_NONE][$key] = $form['field_farm_asset'][LANGUAGE_NONE][0];
 
         // Set the default, delta, and weight values.
-        $form[$field_name][LANGUAGE_NONE][$key]['target_id']['#default_value'] = $label;
-        $form[$field_name][LANGUAGE_NONE][$key]['target_id']['#delta'] = $key;
-        $form[$field_name][LANGUAGE_NONE][$key]['target_id']['#weight'] = $key;
+        $form['field_farm_asset'][LANGUAGE_NONE][$key]['target_id']['#default_value'] = $label;
+        $form['field_farm_asset'][LANGUAGE_NONE][$key]['target_id']['#delta'] = $key;
+        $form['field_farm_asset'][LANGUAGE_NONE][$key]['target_id']['#weight'] = $key;
 
         // Only make the first one required.
         if ($key > 0) {
-          $form[$field_name][LANGUAGE_NONE][$key]['target_id']['#required'] = 0;
+          $form['field_farm_asset'][LANGUAGE_NONE][$key]['target_id']['#required'] = 0;
         }
 
-        $form[$field_name][LANGUAGE_NONE]['#max_delta'] = $key;
-        $form[$field_name][LANGUAGE_NONE][$key]['_weight']['#delta'] = $key;
-        $form[$field_name][LANGUAGE_NONE][$key]['_weight']['#default_value'] = $key;
+        $form['field_farm_asset'][LANGUAGE_NONE]['#max_delta'] = $key;
+        $form['field_farm_asset'][LANGUAGE_NONE][$key]['_weight']['#delta'] = $key;
+        $form['field_farm_asset'][LANGUAGE_NONE][$key]['_weight']['#default_value'] = $key;
       }
     }
 
     // For "autocomplete tags", implode them all into one comma-separated list.
     elseif ($field_instance['widget']['type'] == 'entityreference_autocomplete_tags') {
-      if (empty($form[$field_name][LANGUAGE_NONE]['#default_value'])) {
-        $form[$field_name][LANGUAGE_NONE]['#default_value'] = implode(', ', $asset_labels);
+      if (empty($form['field_farm_asset'][LANGUAGE_NONE]['#default_value'])) {
+        $form['field_farm_asset'][LANGUAGE_NONE]['#default_value'] = implode(', ', $asset_labels);
       }
     }
   }
@@ -294,12 +292,12 @@ function farm_log_form_prepopulate_asset(array &$form, $field_name = 'field_farm
     foreach ($assets as $key => $asset) {
 
       // If the item isn't empty, skip it.
-      if (!empty($form[$field_name][LANGUAGE_NONE][$key]['target_id'])) {
+      if (!empty($form['field_farm_asset'][LANGUAGE_NONE][$key]['target_id'])) {
         continue;
       }
 
       // Add the checkbox element.
-      $form[$field_name][LANGUAGE_NONE][$key]['target_id'] = array(
+      $form['field_farm_asset'][LANGUAGE_NONE][$key]['target_id'] = array(
         '#type' => 'checkbox',
         '#return_value' => $asset->id,
         '#value' => $asset->id,
@@ -320,17 +318,15 @@ function farm_log_form_prepopulate_asset(array &$form, $field_name = 'field_farm
  *
  * @param array $form
  *   The form array to modify, passed by reference.
- * @param string $field_name
- *   The machine name of the term reference field that should be populated.
  *
  * @return TaxonomyTerm term
  *   Returns the taxonomy term object, if found.
  */
-function farm_log_form_prepopulate_area(array &$form, $field_name = 'field_farm_area') {
+function farm_log_form_prepopulate_area(array &$form) {
   $area = NULL;
 
   // Alias for the field's default value.
-  $field_value = &$form[$field_name][LANGUAGE_NONE]['#default_value'];
+  $field_value = &$form['field_farm_area'][LANGUAGE_NONE]['#default_value'];
 
   // If the "farm_area" query parameter is set...
   $params = drupal_get_query_parameters();
