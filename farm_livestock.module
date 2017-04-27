@@ -278,3 +278,14 @@ function farm_livestock_views_post_render(&$view, &$output, &$cache) {
     }
   }
 }
+
+/**
+ * Implements hook_farm_log_allowed_asset_reference_type().
+ */
+function farm_livestock_farm_log_allowed_asset_reference_type($log_type) {
+
+  // On medical logs, only animals can be referenced.
+  if ($log_type == 'farm_medical') {
+    return 'animal';
+  }
+}
