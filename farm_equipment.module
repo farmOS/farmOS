@@ -189,3 +189,14 @@ function farm_equipment_views_post_render(&$view, &$output, &$cache) {
     }
   }
 }
+
+/**
+ * Implements hook_farm_log_allowed_asset_reference_type().
+ */
+function farm_equipment_farm_log_allowed_asset_reference_type($log_type) {
+
+  // On maintenance logs, only equipment can be referenced.
+  if ($log_type == 'farm_maintenance') {
+    return 'equipment';
+  }
+}
