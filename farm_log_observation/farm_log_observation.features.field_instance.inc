@@ -13,7 +13,7 @@ function farm_log_observation_field_default_field_instances() {
   // Exported field_instance: 'log-farm_observation-field_farm_area'.
   $field_instances['log-farm_observation-field_farm_area'] = array(
     'bundle' => 'farm_observation',
-    'default_value' => NULL,
+    'default_value' => array(),
     'deleted' => 0,
     'description' => 'What areas did this observation take place in?',
     'display' => array(
@@ -114,7 +114,7 @@ function farm_log_observation_field_default_field_instances() {
         'progress_indicator' => 'bar',
       ),
       'type' => 'file_generic',
-      'weight' => 8,
+      'weight' => 10,
     ),
   );
 
@@ -224,7 +224,40 @@ function farm_log_observation_field_default_field_instances() {
         'progress_indicator' => 'bar',
       ),
       'type' => 'image_image',
-      'weight' => 7,
+      'weight' => 9,
+    ),
+  );
+
+  // Exported field_instance: 'log-farm_observation-field_farm_movement'.
+  $field_instances['log-farm_observation-field_farm_movement'] = array(
+    'bundle' => 'farm_observation',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Use these fields to record a movement with this log entry. This will be used to define the location of any referenced assets. The current location of any asset is determined by the most recently completed movement log. Only the "to" field is required.',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'module' => 'field_collection',
+        'settings' => array(
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_fields',
+        'weight' => 9,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_movement',
+    'label' => 'Movement',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 8,
     ),
   );
 
@@ -323,7 +356,7 @@ function farm_log_observation_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 9,
+      'weight' => 11,
     ),
   );
 
@@ -333,12 +366,14 @@ function farm_log_observation_field_default_field_instances() {
   t('Assets');
   t('Files');
   t('Geometry');
+  t('Movement');
   t('Notes');
   t('Optionally, use this quantity field to record an observed quantity.');
   t('Photo(s)');
   t('Quantity');
   t('This field is optional. It allows you to store geospatial data along with this observation.');
   t('Type');
+  t('Use these fields to record a movement with this log entry. This will be used to define the location of any referenced assets. The current location of any asset is determined by the most recently completed movement log. Only the "to" field is required.');
   t('What areas did this observation take place in?');
   t('What assets do this observation log pertain to?');
   t('What type of observation is this? Use this to organize your observations into categories for easy viewing later. Some default types are provided, and new observation types can be added to the ' . l('Observation Types', 'admin/structure/taxonomy/farm_observation_types') . ' vocabulary.');

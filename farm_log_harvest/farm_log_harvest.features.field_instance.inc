@@ -94,7 +94,7 @@ function farm_log_harvest_field_default_field_instances() {
         'progress_indicator' => 'bar',
       ),
       'type' => 'file_generic',
-      'weight' => 7,
+      'weight' => 9,
     ),
   );
 
@@ -216,7 +216,40 @@ function farm_log_harvest_field_default_field_instances() {
         'progress_indicator' => 'bar',
       ),
       'type' => 'image_image',
-      'weight' => 6,
+      'weight' => 8,
+    ),
+  );
+
+  // Exported field_instance: 'log-farm_harvest-field_farm_movement'.
+  $field_instances['log-farm_harvest-field_farm_movement'] = array(
+    'bundle' => 'farm_harvest',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Use these fields to record a movement with this log entry. This will be used to define the location of any referenced assets. The current location of any asset is determined by the most recently completed movement log. Only the "to" field is required.',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'module' => 'field_collection',
+        'settings' => array(
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_fields',
+        'weight' => 7,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_movement',
+    'label' => 'Movement',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 7,
     ),
   );
 
@@ -305,10 +338,12 @@ function farm_log_harvest_field_default_field_instances() {
   t('Describe the quantity of this harvest, using a value and a unit of measurement. For example, if you harvested 100 pounds of potatoes, enter "100" in the Value field, and "lbs" in the Units field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.');
   t('Files');
   t('Geometry');
+  t('Movement');
   t('Notes');
   t('Photo(s)');
   t('Quantity');
   t('This field is optional. It allows you to store geospatial data along with this harvest.');
+  t('Use these fields to record a movement with this log entry. This will be used to define the location of any referenced assets. The current location of any asset is determined by the most recently completed movement log. Only the "to" field is required.');
   t('What assets do this harvest log pertain to?');
 
   return $field_instances;

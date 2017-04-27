@@ -87,6 +87,126 @@ function farm_log_movement_farm_taxonomy_term_view_views($term) {
 }
 
 /**
+ * Implements hook_entity_presave().
+ */
+function farm_log_movement_entity_presave($entity, $type) {
+
+  // When a movement field collection entity is being saved, populate the
+  // geometry field from the "move to" area reference field.
+  if ($type == 'field_collection_item' && $entity->field_name == 'field_farm_movement') {
+    farm_log_movement_populate_geometry($entity);
+  }
+
+  // When a log is being saved, populate the "move from" field with current
+  // asset location(s).
+  if ($type == 'log') {
+    farm_log_movement_populate_move_from($entity);
+  }
+}
+
+/**
+ * Helper function for populating a movement field collection geometry from the
+ * "move to" area reference field.
+ *
+ * @param Entity $entity
+ *   The entity to act upon.
+ *
+ * @see farm_log_entity_presave().
+ */
+function farm_log_movement_populate_geometry($entity) {
+
+  // Define the area field name.
+  $area_field = 'field_farm_move_to';
+
+  // If the log doesn't have an area reference field, bail.
+  if (!isset($entity->{$area_field})) {
+    return;
+  }
+
+  // If a geometry is already defined, bail.
+  if (!empty($entity->field_farm_geofield[LANGUAGE_NONE][0]['geom'])) {
+    return;
+  }
+
+  // Load the area(s) referenced by the area reference field.
+  $area_ids = array();
+  if (!empty($entity->{$area_field}[LANGUAGE_NONE])) {
+    foreach ($entity->{$area_field}[LANGUAGE_NONE] as $area_reference) {
+      if (!empty($area_reference['tid'])) {
+        $area_ids[] = $area_reference['tid'];
+      }
+    }
+  }
+
+  // Extract geometries from the areas.
+  $geoms = farm_area_extract_geoms($area_ids);
+
+  // Populate the geofield.
+  farm_map_geofield_populate($entity, $geoms);
+}
+
+/**
+ * Helper function for populating a movement field collection's "from" field
+ * based on current asset location(s).
+ *
+ * @param Entity $log
+ *   The log entity.
+ */
+function farm_log_movement_populate_move_from($log) {
+
+  // Create an entity wrapper for the log.
+  $log_wrapper = entity_metadata_wrapper('log', $log);
+
+  // If the "move to" field is empty, then this isn't a movement, so bail.
+  if (empty($log_wrapper->field_farm_movement->field_farm_move_to->value())) {
+    return;
+  }
+
+  // If the "move from" field is already populated, bail.
+  if (!empty($log_wrapper->field_farm_movement->field_farm_move_from->value())) {
+    return;
+  }
+
+  // If there are no assets referenced, bail.
+  if (empty($log_wrapper->field_farm_asset->value())) {
+    return;
+  }
+
+  // Load assets.
+  $assets = array();
+  foreach ($log_wrapper->field_farm_asset->value() as $asset) {
+    $assets[] = $asset;
+  }
+
+  // Keep track of what areas these assets are coming from.
+  $from_areas = array();
+
+  // Iterate through the assets.
+  foreach ($assets as $asset) {
+
+    // Load the asset's current location.
+    $areas = farm_log_movement_asset_location($asset);
+
+    // Build a list of areas.
+    if (!empty($areas)) {
+      foreach ($areas as $area) {
+
+        // Avoid adding the same area more than once.
+        if (in_array($area->tid, $from_areas)) {
+          continue;
+        }
+
+        // Remember the areas that have already been added.
+        $from_areas[] = $area->tid;
+      }
+    }
+  }
+
+  // Add the areas to the "move from" field.
+  $log_wrapper->field_farm_movement->field_farm_move_from->set($from_areas);
+}
+
+/**
  * Implements hook_entity_view_alter().
  */
 function farm_log_movement_entity_view_alter(&$build, $type) {
@@ -104,31 +224,4 @@ function farm_log_movement_entity_view_alter(&$build, $type) {
     '#markup' => $output,
     '#weight' => -100,
   );
-}
-
-/**
- * Implements hook_form_alter().
- */
-function farm_log_movement_form_alter(&$form, &$form_state, $form_id) {
-
-  // If this is a movement log form...
-  if ($form_id == 'log_form' && $form['#bundle'] == 'farm_movement') {
-
-    // If the "to" field is empty...
-    if (empty($form['field_farm_move_to'][LANGUAGE_NONE][0]['#default_value'])) {
-
-      // Alter the form with the farm_log helper function.
-      farm_log_form_prepopulate_area($form, 'field_farm_move_to');
-    }
-
-    // Load assets from URL query string.
-    $assets = farm_asset_load_assets_from_url();
-
-    // If the "from" field is empty, and assets are available...
-    if (empty($form['field_farm_move_from'][LANGUAGE_NONE][0]['#default_value']) && !empty($assets)) {
-
-      // Look up the asset's last location and prepopulate the "from" field.
-      farm_log_movement_prepopulate_movement_from($form['field_farm_move_from'], $assets, TRUE);
-    }
-  }
 }

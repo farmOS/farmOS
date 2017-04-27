@@ -8,8 +8,8 @@
 /**
  * Farm log movement location relationship handler.
  *
- * Create a relationship between a farm_asset, and it's most recent movement
- * log entity, in order to determine its current location.
+ * Create a relationship between a farm_asset, and it's most recent log entity's
+ * movement field collection, in order to determine its current location.
  *
  * The following Views handlers were used as examples to develop this:
  * views_handler_relationship_entity_reverse
@@ -50,7 +50,7 @@ class farm_log_movement_handler_relationship_location extends views_handler_rela
     $form['future'] = array(
       '#type' => 'checkbox',
       '#title' => t('Include future logs'),
-      '#description' => t('Finds the latest log, even if it is in the future.'),
+      '#description' => t('Finds the last log, even if it is in the future.'),
       '#default_value' => !empty($this->options['future']),
     );
   }
@@ -77,7 +77,7 @@ class farm_log_movement_handler_relationship_location extends views_handler_rela
     else {
       $time = REQUEST_TIME;
     }
-    $query = farm_log_movement_asset_movement_query($asset_id_field, $time, $done);
+    $query = farm_log_movement_asset_movement_query($asset_id_field, $time, $done, 'movement_id');
 
     // Build the join definition.
     $def = $this->definition;

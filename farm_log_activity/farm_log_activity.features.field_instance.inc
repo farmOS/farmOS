@@ -13,7 +13,7 @@ function farm_log_activity_field_default_field_instances() {
   // Exported field_instance: 'log-farm_activity-field_farm_area'.
   $field_instances['log-farm_activity-field_farm_area'] = array(
     'bundle' => 'farm_activity',
-    'default_value' => NULL,
+    'default_value' => array(),
     'deleted' => 0,
     'description' => 'What areas did this activity take place in?',
     'display' => array(
@@ -114,7 +114,7 @@ function farm_log_activity_field_default_field_instances() {
         'progress_indicator' => 'bar',
       ),
       'type' => 'file_generic',
-      'weight' => 7,
+      'weight' => 8,
     ),
   );
 
@@ -224,6 +224,39 @@ function farm_log_activity_field_default_field_instances() {
         'progress_indicator' => 'bar',
       ),
       'type' => 'image_image',
+      'weight' => 7,
+    ),
+  );
+
+  // Exported field_instance: 'log-farm_activity-field_farm_movement'.
+  $field_instances['log-farm_activity-field_farm_movement'] = array(
+    'bundle' => 'farm_activity',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Use these fields to record a movement with this log entry. This will be used to define the location of any referenced assets. The current location of any asset is determined by the most recently completed movement log. Only the "to" field is required.',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'module' => 'field_collection',
+        'settings' => array(
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_fields',
+        'weight' => 7,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_movement',
+    'label' => 'Movement',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
       'weight' => 6,
     ),
   );
@@ -268,9 +301,11 @@ function farm_log_activity_field_default_field_instances() {
   t('Assets');
   t('Files');
   t('Geometry');
+  t('Movement');
   t('Notes');
   t('Photo(s)');
   t('This field is optional. It allows you to store geospatial data along with this activity.');
+  t('Use these fields to record a movement with this log entry. This will be used to define the location of any referenced assets. The current location of any asset is determined by the most recently completed movement log. Only the "to" field is required.');
   t('What areas did this activity take place in?');
   t('What assets do this activity log pertain to?');
 

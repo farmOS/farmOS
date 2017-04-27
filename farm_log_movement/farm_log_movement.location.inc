@@ -34,25 +34,23 @@ function farm_log_movement_asset_location_markup($asset) {
 
   // Otherwise, none.
   else {
-    $options = array(
-      'query' => array(
-        'destination' => 'farm/asset/' . $asset->id,
-        'farm_asset' => $asset->id,
-      ),
-    );
-    $link = l(t('add a movement'), 'log/add/farm_movement', $options);
-    $output .= 'N/A (' . $link . ')';
+    $output .= 'N/A';
   }
 
   // Get the asset's most recent movement.
-  $movement = farm_log_movement_asset_latest_movement($asset);
+  $log = farm_log_movement_asset_latest_movement($asset);
+
+  // Load the log's movement field, if it exists.
+  if (!empty($log->field_farm_movement[LANGUAGE_NONE][0]['value'])) {
+    $movement = field_collection_item_load($log->field_farm_movement[LANGUAGE_NONE][0]['value']);
+  }
 
   // If a geofield exists on the movement, display it.
   if (!empty($movement->field_farm_geofield[LANGUAGE_NONE][0]['geom'])) {
 
     // Build the geofield map and add it to the page content.
-    $field_instance = field_info_instance('log', 'field_farm_geofield', 'farm_movement');
-    $geofield = field_view_field('log', $movement, 'field_farm_geofield', $field_instance['display']['default']);
+    $field_instance = field_info_instance('field_collection_item', 'field_farm_geofield', 'field_farm_movement');
+    $geofield = field_view_field('field_collection_item', $movement, 'field_farm_geofield', $field_instance['display']['default']);
     $output .= drupal_render($geofield);
   }
 
@@ -96,7 +94,7 @@ function farm_log_movement_form_farm_asset_form_alter(&$form, &$form_state, $for
   $form['farm_log_movement_asset_location'] = array(
     '#type' => 'textfield',
     '#title' => t('Current location'),
-    '#description' => t('Set the current areas(s) that this asset is in. Separate multiple areas with commas. Asset location is determined by movement logs, so a movement log will automatically be generated if you change this field.'),
+    '#description' => t('Set the current areas(s) that this asset is in. Separate multiple areas with commas. A movement observation log will be created automatically if you change this field.'),
     '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_area',
     '#default_value' => $location,
   );
@@ -161,8 +159,8 @@ function farm_log_movement_asset_location_submit(array $form, array &$form_state
     $areas[] = $area;
   }
 
-  // Create a movement log.
-  farm_log_movement_move_assets($asset, $areas, REQUEST_TIME, TRUE);
+  // Create an observation log to record the movement.
+  farm_log_movement_observation($asset, $areas, REQUEST_TIME);
 }
 
 /**
@@ -171,10 +169,10 @@ function farm_log_movement_asset_location_submit(array $form, array &$form_state
  * @param FarmAsset $asset
  *   The farm_asset object to look for.
  * @param int $time
- *   Unix timestamp limiter. Only movement logs before this time will be
- *   included. Defaults to the current time. Set to 0 to load the absolute last.
+ *   Unix timestamp limiter. Only logs before this time will be included.
+ *   Defaults to the current time. Set to 0 to load the absolute last.
  * @param bool $done
- *   Whether or not to only show movement logs that are marked as "done".
+ *   Whether or not to only show logs that are marked as "done".
  *   Defaults to TRUE.
  *
  * @return array
@@ -182,29 +180,24 @@ function farm_log_movement_asset_location_submit(array $form, array &$form_state
  */
 function farm_log_movement_asset_location(FarmAsset $asset, $time = REQUEST_TIME, $done = TRUE) {
   $areas = array();
-  $query = new EntityFieldQuery();
-  $query->entityCondition('entity_type', 'log')
-    ->entityCondition('bundle', 'farm_movement')
-    ->fieldCondition('field_farm_asset', 'target_id', $asset->id)
-    ->propertyOrderBy('timestamp', 'DESC')
-    ->propertyOrderBy('id', 'DESC')
-    ->range(0, 1);
-  if (!empty($time)) {
-    $query->propertyCondition('timestamp', $time, '<=');
+
+  // Load the log using our helper function.
+  $log = farm_log_movement_asset_latest_movement($asset, $time, $done);
+
+  // If a movement field doesn't exist, bail.
+  if (empty($log->field_farm_movement[LANGUAGE_NONE][0]['value'])) {
+    return $areas;
   }
-  if (!empty($done)) {
-    $query->propertyCondition('done', TRUE);
-  }
-  $result = $query->execute();
-  if (!empty($result['log'])) {
-    foreach ($result['log'] as $id => $entity) {
-      $log = log_load($id);
-      foreach ($log->field_farm_move_to[LANGUAGE_NONE] as $area_reference) {
-        if (!empty($area_reference['tid'])) {
-          $term = taxonomy_term_load($area_reference['tid']);
-          if (!empty($term)) {
-            $areas[] = $term;
-          }
+
+  // Load the log's movement field
+  $movement = field_collection_item_load($log->field_farm_movement[LANGUAGE_NONE][0]['value']);
+
+  if (!empty($movement->field_farm_move_to[LANGUAGE_NONE])) {
+    foreach ($movement->field_farm_move_to[LANGUAGE_NONE] as $area_reference) {
+      if (!empty($area_reference['tid'])) {
+        $term = taxonomy_term_load($area_reference['tid']);
+        if (!empty($term)) {
+          $areas[] = $term;
         }
       }
     }
@@ -213,21 +206,27 @@ function farm_log_movement_asset_location(FarmAsset $asset, $time = REQUEST_TIME
 }
 
 /**
- * Find the latest movement of an asset.
+ * Load an asset's latest log that defines a movement.
  *
  * @param FarmAsset $asset
  *   The farm_asset object to look for.
  * @param int $time
- *   Unix timestamp limiter. Only movement logs before this time will be
- *   included. Defaults to the current time. Set to 0 to load the absolute last.
+ *   Unix timestamp limiter. Only logs before this time will be included.
+ *   Defaults to the current time. Set to 0 to load the absolute last.
  * @param bool $done
- *   Whether or not to only show movement logs that are marked as "done".
- *   Defaults to TRUE.
+ *   Whether or not to only show logs that are marked as "done". Defaults to
+ *   TRUE.
  *
  * @return Log|bool
- *   Returns a movement log entity. FALSE if something goes wrong.
+ *   Returns a log entity. FALSE if something goes wrong.
  */
 function farm_log_movement_asset_latest_movement(FarmAsset $asset, $time = REQUEST_TIME, $done = TRUE) {
+
+  // If the asset doesn't have an ID (for instance if it is new and hasn't been
+  // saved yet), bail.
+  if (empty($asset->id)) {
+    return FALSE;
+  }
 
   // Make a query for loading the latest movement log.
   $query = farm_log_movement_asset_movement_query($asset->id, $time, $done);
@@ -244,7 +243,7 @@ function farm_log_movement_asset_latest_movement(FarmAsset $asset, $time = REQUE
 }
 
 /**
- * Build a query to find the latest movement log of an asset.
+ * Build a query to find the latest log of an asset that define a movement.
  *
  * @param int|string $asset_id
  *   The asset id to search for. This can either be a specific id, or a field
@@ -252,28 +251,45 @@ function farm_log_movement_asset_latest_movement(FarmAsset $asset, $time = REQUE
  *   of field alias string usage, see the Views field handler code in
  *   farm_log_handler_relationship_location::query().
  * @param int $time
- *   Unix timestamp limiter. Only movement logs before this time will be
- *   included. Defaults to the current time. Set to 0 to load the absolute last.
+ *   Unix timestamp limiter. Onlylogs before this time will be included.
+ *   Defaults to the current time. Set to 0 to load the absolute last.
  * @param bool $done
- *   Whether or not to only show movement logs that are marked as "done".
- *   Defaults to TRUE.
+ *   Whether or not to only show logs that are marked as "done". Defaults to
+ *   TRUE.
+ * @param string $field
+ *   If the log id is desired, use "log_id. If the movement field_collection id
+ *   is desired, use "movement_id".
  *
  * @return \SelectQuery
- *   Returns a SelectQuery for finding the latest log.
+ *   Returns a SelectQuery object.
  */
-function farm_log_movement_asset_movement_query($asset_id, $time = REQUEST_TIME, $done = TRUE) {
+function farm_log_movement_asset_movement_query($asset_id, $time = REQUEST_TIME, $done = TRUE, $field = 'log_id') {
 
-  // Build a sub-query that will be used in the join to load the latest
-  // movement log of a given asset.
+  // Build a query to find an asset's latest log that defines a movement.
+  // We use the "ss_" prefix throughout to indicate that this is generally going
+  // to be used as a sub-select, and to avoid potential name conflicts when this
+  // is used elsewhere (ie: farm_log_handler_relationship_location::query()).
   $query = db_select('log', 'ss_log');
-  $query->join('field_data_field_farm_asset', 'ss_fdffa', 'ss_log.id = ss_fdffa.entity_id');
-  $query->where("ss_log.type = 'farm_movement'");
+
+  // Join in asset references and filter to only include logs that reference the
+  // specified asset.
+  $query->join('field_data_field_farm_asset', 'ss_fdffa', "ss_fdffa.entity_type = 'log' AND ss_fdffa.entity_id = ss_log.id");
   $query->where('ss_fdffa.field_farm_asset_target_id = ' . $asset_id);
   $query->where('ss_fdffa.deleted = 0');
+
+  // Join in movement field collections and the "move to" field data.
+  // Filter to only include logs that have a movement with a "to" value.
+  $query->join('field_data_field_farm_movement', 'ss_fdffm', "ss_fdffm.entity_type = 'log' AND ss_fdffm.entity_id = ss_log.id");
+  $query->where('ss_fdffm.deleted = 0');
+  $query->join('field_data_field_farm_move_to', 'ss_fdffmt', "ss_fdffmt.entity_type = 'field_collection_item' AND ss_fdffmt.bundle = 'field_farm_movement' AND ss_fdffmt.entity_id = ss_fdffm.field_farm_movement_value");
+  $query->where('ss_fdffmt.field_farm_move_to_tid IS NOT NULL');
+
+  // Order by timestamp and then log id, descending.
   $query->orderBy('ss_log.timestamp', 'DESC');
   $query->orderBy('ss_log.id', 'DESC');
+
+  // We only want the first result.
   $query->range(0, 1);
-  $query->addField('ss_log', 'id');
 
   // If only "done" movement logs should be included, add a filter.
   if ($done) {
@@ -289,6 +305,14 @@ function farm_log_movement_asset_movement_query($asset_id, $time = REQUEST_TIME,
   // absolute last log to be found by setting $time to zero.
   if ($time !== 0) {
     $query->where('ss_log.timestamp <= ' . $time);
+  }
+
+  // Add a field to the query based on the function argument.
+  if ($field == 'log_id') {
+    $query->addField('ss_log', 'id');
+  }
+  elseif ($field == 'movement_id') {
+    $query->addField('ss_fdffm', 'field_farm_movement_value');
   }
 
   // Return the query object.
@@ -313,7 +337,7 @@ function farm_log_movement_action_info() {
 /**
  * Action function for farm_log_asset_move_action.
  *
- * Creates a new movement record for the specified assets.
+ * Creates a new movement activity log for the specified assets.
  *
  * @param array $assets
  *   An array of asset entities to move.
@@ -333,7 +357,7 @@ function farm_log_movement_asset_move_action(array $assets, $context = array()) 
 }
 
 /**
- * Move farm asset(s) to an area. Creates a movement log.
+ * Create an observation log for moving assets to areas.
  *
  * @param array|FarmAsset $assets
  *   Array of assets to include in the move.
@@ -341,105 +365,65 @@ function farm_log_movement_asset_move_action(array $assets, $context = array()) 
  *   An array of areas to move to.
  * @param int $timestamp
  *   The timestamp of the move. Defaults to the current time.
- * @param bool $done
- *   Whether or not to mark the movement done. Default to FALSE.
  */
-function farm_log_movement_move_assets($assets, $areas, $timestamp = REQUEST_TIME, $done = FALSE) {
+function farm_log_movement_observation($assets, $areas, $timestamp = REQUEST_TIME) {
 
   // If $assets isn't an array, wrap it.
   if (!is_array($assets)) {
     $assets = array($assets);
   }
 
+  // If there are no areas to move to, bail.
+  if (empty($areas)) {
+    return;
+  }
+
   // Create a new movement log entity.
-  $log = entity_create('log', array('type' => 'farm_movement'));
+  $log = entity_create('log', array('type' => 'farm_observation'));
+
+  // Create an entity wrapper for the log.
+  $log_wrapper = entity_metadata_wrapper('log', $log);
+
+  // Set the name of the observation: "Current location: [area(s)]". If there
+  // are more than 3 areas, just list the first, and add "(+ X more)".
+  $log_name = t('Current location') . ': ';
+  $area_names = array();
+  foreach ($areas as $area) {
+    $area_names[] = $area->name;
+  }
+  $count_areas = count($area_names);
+  if (count($area_names) <= 3) {
+    $log_name .= implode($area_names, ', ');
+  }
+  else {
+    $log_name .= $area_names[0] . ' (+' . ($count_areas - 1) . ' ' . t('more') . ')';
+  }
+  $log_wrapper->name->set($log_name);
 
   // Iterate through the assets.
   foreach ($assets as $asset) {
 
     // Add the asset to the asset reference field.
-    $log->field_farm_asset[LANGUAGE_NONE][] = array(
-      'target_id' => $asset->id,
-    );
+    $log_wrapper->field_farm_asset[] = $asset;
   }
 
-  // Populate the movement's "From" field based on the current asset location(s).
-  farm_log_movement_prepopulate_movement_from($log->field_farm_move_from, $assets);
-
   // Set the date.
-  $log->timestamp = $timestamp;
+  $log_wrapper->timestamp->set($timestamp);
+
+  // Create a new movement field_collection entity.
+  $movement = entity_create('field_collection_item', array('field_name' => 'field_farm_movement'));
+
+  // Attach the movement to the log.
+  $movement->setHostEntity('log', $log);
 
   // Set the "to" area(s).
   foreach ($areas as $area) {
-    if (!empty($area->tid)) {
-      $log->field_farm_move_to[LANGUAGE_NONE][] = array(
-        'tid' => $area->tid,
-      );
-    }
+    $log_wrapper->field_farm_movement->field_farm_move_to[] = $area;
   }
 
-  // Set the log's done status.
-  $log->done = $done;
+  // Set the log's done status to TRUE.
+  $log_wrapper->done->set(TRUE);
 
-  // Save the movement.
-  log_save($log);
-}
-
-/**
- * Populate a movement's "from" field based on current asset location(s).
- *
- * @param array $from_field
- *   A reference to the field on the movement log. The values in this array
- *   will be populated.
- * @param array $assets
- *   An array of FarmAsset entities.
- * @param bool $log_form
- *   By default, this function assumes that it is working with a $log entity.
- *   By setting $log_form to TRUE, it can also be used to alter the default
- *   value of the "from" field in a log edit form.
- */
-function farm_log_movement_prepopulate_movement_from(&$from_field, $assets = array(), $log_form = FALSE) {
-
-  // If assets are empty, bail.
-  if (empty($assets)) {
-    return;
-  }
-
-  // Keep track of what areas these assets are coming from.
-  $from_areas = array();
-
-  // Iterate through the assets.
-  foreach ($assets as $asset) {
-
-    // Load the asset's current location.
-    $areas = farm_log_movement_asset_location($asset);
-
-    // If the asset has a current location, add the location area names to the
-    // "from" field.
-    if (!empty($areas)) {
-      foreach ($areas as $area) {
-
-        // Avoid adding the same area more than once.
-        if (in_array($area->tid, $from_areas)) {
-          continue;
-        }
-
-        // Assuming that this is an entity object, and not a log form, add area
-        // term ids to the array in the expected format.
-        if (!$log_form) {
-          $from_field[LANGUAGE_NONE][] = array(
-            'tid' => $area->tid,
-          );
-        }
-
-        // If this is a log form, add areas to the #default_value array.
-        else {
-          $from_field[LANGUAGE_NONE]['#default_value'][] = $area->tid;
-        }
-
-        // Remember the areas that have already been added.
-        $from_areas[] = $area->tid;
-      }
-    }
-  }
+  // Save the log.
+  $log_wrapper->save();
 }

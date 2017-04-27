@@ -159,6 +159,8 @@ function farm_log_entity_presave($entity, $type) {
  *
  * @param Entity $entity
  *   The entity to act upon.
+ *
+ * @see farm_log_entity_movement_presave().
  */
 function farm_log_populate_geometry($entity) {
 

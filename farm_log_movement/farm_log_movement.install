@@ -1,0 +1,12 @@
+<?php
+/**
+ * @file
+ * Code for Farm Log: Movement installation/updates.
+ */
+
+/**
+ * Create new movement field collection.
+ */
+function farm_log_movement_update_7000(&$sandbox) {
+  features_revert(array('farm_log_movement' => array('field_base', 'field_instance')));
+}
