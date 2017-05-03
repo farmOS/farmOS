@@ -13,4 +13,4 @@ projects:
   # Bootstrap base theme.
   bootstrap:
     type: theme
-    version: 3.2
+    version: 3.3
