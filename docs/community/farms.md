@@ -3,6 +3,10 @@
 The following is a list of farms using farmOS. If you want your farm to be
 included in this list, add a comment to [this issue on Github].
 
+## Brazil
+
+* Olivopampa (Santana do Livramento, Rio Grande do Sul)
+
 ## Fiji
 
 * Naitauba Gardens (Naitauba Island, Northern Lau Group)
@@ -19,6 +23,7 @@ included in this list, add a comment to [this issue on Github].
 * FoodScaping Permaculture Farm (Cheshire, Oregon)
 * Hampton Plantation (Owings, Maryland)
 * Liberty University Campus Farm (Rustburg, Virginia)
+* Lokoea Farms (Haleiwa, Hawai)
 * Miles Smith Farm (Loudon, New Hampshire)
 * North Mountain Pastures (Newport, Pennsylvania)
 * Patroon Land Farm (Voorheesville, New York)
