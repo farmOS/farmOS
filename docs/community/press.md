@@ -35,6 +35,8 @@ about farmOS, [contact m.stenta](http://farmier.com/contact).
 
 **2016 April 1st** [Lancaster Farming: Using 'Big Data' Can Prevent Big Problems on the Farm](http://www.lancasterfarming.com/news/northern_edition/using-big-data-can-prevent-big-problems-on-the-farm/article_09dc6c40-097d-5fb3-8c5b-520405709a1e.html)
 
+**2016 February 5th** [Maryland Organic Food & Farming Association: Open Source Agricultural Tools with Farm Hack](https://marylandorganic.org/2016/02/05/open-source-agricultural-tools-with-farm-hack)
+
 ## 2015
 
 **2015 December 13th** [Farm Hack: FarmOS: A Drupal-based farm management solution](http://blog.farmhack.org/2015/12/13/farmos-a-drupal-based-farm-management-solution)
