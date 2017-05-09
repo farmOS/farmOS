@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev libpq-dev \
 RUN { \
     echo 'realpath_cache_size=256K'; \
     echo 'realpath_cache_ttl=3600'; \
-  } > /usr/local/etc/php/conf.d/farmOS.ini
+  } > /usr/local/etc/php/conf.d/realpath_cache-recommended.ini
 
 # Set recommended opcache settings.
 # See https://secure.php.net/manual/en/opcache.installation.php
