@@ -45,3 +45,10 @@ function farm_livestock_update_7001(&$sandbox) {
     field_delete_instance($field);
   }
 }
+
+/**
+ * Add new animal ID tag types: Chip, Other.
+ */
+function farm_livestock_update_7002(&$sandbox) {
+  features_revert(array('farm_livestock' => array('field_base', 'field_instance')));
+}
