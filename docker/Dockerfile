@@ -10,6 +10,13 @@ RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev libpq-dev \
 	&& docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
 	&& docker-php-ext-install bcmath gd mbstring opcache pdo pdo_mysql pdo_pgsql zip
 
+# Set recommended realpath_cache settings.
+# See https://www.drupal.org/docs/7/managing-site-performance/tuning-phpini-for-drupal
+RUN { \
+    echo 'realpath_cache_size=256K'; \
+    echo 'realpath_cache_ttl=3600'; \
+  } > /usr/local/etc/php/conf.d/realpath_cache-recommended.ini
+
 # Set recommended opcache settings.
 # See https://secure.php.net/manual/en/opcache.installation.php
 RUN { \
