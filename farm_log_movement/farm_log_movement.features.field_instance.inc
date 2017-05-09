@@ -217,71 +217,6 @@ function farm_log_movement_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_movement-field_farm_geofield'.
-  $field_instances['log-farm_movement-field_farm_geofield'] = array(
-    'bundle' => 'farm_movement',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => 'This field is optional. It allows you to specify a more precise geometry for assets referenced by this particular movement. If you leave it blank, the geometry will be copied from the area that assets are moving to (if available).',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'openlayers_geofield',
-        'settings' => array(
-          'data' => 'full',
-          'map_layer_preset' => 'farm_map_geofield_formatter:openlayers_geofield_layer_formatter',
-        ),
-        'type' => 'openlayers_geofield',
-        'weight' => 6,
-      ),
-    ),
-    'entity_type' => 'log',
-    'field_name' => 'field_farm_geofield',
-    'label' => 'Geometry',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'openlayers_geofield',
-      'settings' => array(
-        'allow_edit' => 1,
-        'data_storage' => 'collection',
-        'delta_handling' => 'default',
-        'feature_types' => array(
-          'path' => 'path',
-          'point' => 'point',
-          'polygon' => 'polygon',
-        ),
-        'geocoder_field' => 'field_farm_files',
-        'geocoder_handler' => 'kml',
-        'handler_settings' => array(
-          'google' => array(
-            'all_results' => 0,
-            'biasing' => array(
-              'bounds' => '',
-              'components' => '',
-              'region' => '',
-            ),
-            'geometry_type' => 'point',
-            'reject_results' => array(
-              'APPROXIMATE' => 0,
-              'GEOMETRIC_CENTER' => 0,
-              'RANGE_INTERPOLATED' => 0,
-              'ROOFTOP' => 0,
-            ),
-          ),
-        ),
-        'openlayers_map' => 'farm_map_geofield',
-        'showInputField' => 1,
-        'use_geocoder' => 1,
-      ),
-      'type' => 'openlayers_geofield',
-      'weight' => 7,
-    ),
-  );
-
   // Exported field_instance: 'log-farm_movement-field_farm_images'.
   $field_instances['log-farm_movement-field_farm_images'] = array(
     'bundle' => 'farm_movement',
@@ -329,74 +264,6 @@ function farm_log_movement_field_default_field_instances() {
       ),
       'type' => 'image_image',
       'weight' => 8,
-    ),
-  );
-
-  // Exported field_instance: 'log-farm_movement-field_farm_move_from'.
-  $field_instances['log-farm_movement-field_farm_move_from'] = array(
-    'bundle' => 'farm_movement',
-    'default_value' => array(),
-    'deleted' => 0,
-    'description' => 'Where is it moving from? This field is optional. You may leave this blank as a way of setting the initial location of an object.',
-    'display' => array(
-      'default' => array(
-        'label' => 'inline',
-        'module' => 'taxonomy',
-        'settings' => array(),
-        'type' => 'taxonomy_term_reference_link',
-        'weight' => 1,
-      ),
-    ),
-    'entity_type' => 'log',
-    'field_name' => 'field_farm_move_from',
-    'label' => 'From',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 0,
-      'module' => 'options',
-      'settings' => array(
-        'autocomplete_path' => 'taxonomy/autocomplete',
-        'size' => 60,
-      ),
-      'type' => 'options_select',
-      'weight' => 4,
-    ),
-  );
-
-  // Exported field_instance: 'log-farm_movement-field_farm_move_to'.
-  $field_instances['log-farm_movement-field_farm_move_to'] = array(
-    'bundle' => 'farm_movement',
-    'default_value' => array(),
-    'deleted' => 0,
-    'description' => 'Specify the area(s) that assets are being moved to. If you need to specify more precise locations, use the Geometry field below.',
-    'display' => array(
-      'default' => array(
-        'label' => 'inline',
-        'module' => 'taxonomy',
-        'settings' => array(),
-        'type' => 'taxonomy_term_reference_link',
-        'weight' => 2,
-      ),
-    ),
-    'entity_type' => 'log',
-    'field_name' => 'field_farm_move_to',
-    'label' => 'To',
-    'required' => 1,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 0,
-      'module' => 'options',
-      'settings' => array(
-        'autocomplete_path' => 'taxonomy/autocomplete',
-        'size' => 60,
-      ),
-      'type' => 'options_select',
-      'weight' => 5,
     ),
   );
 
@@ -479,13 +346,10 @@ function farm_log_movement_field_default_field_instances() {
   t('Photo(s)');
   t('Specify the area(s) that assets are being moved from. This field is optional, and is only used for reference. You may leave this blank as a way of setting initial location.');
   t('Specify the area(s) that assets are being moved to. If you need to specify more precise locations (in addition to these areas), use the Geometry field below.');
-  t('Specify the area(s) that assets are being moved to. If you need to specify more precise locations, use the Geometry field below.');
   t('This field allows you to optionally specify a more precise geometry for the new location of assets. If you leave it blank, the geometry will be copied from the areas that assets are moving to (if available).');
-  t('This field is optional. It allows you to specify a more precise geometry for assets referenced by this particular movement. If you leave it blank, the geometry will be copied from the area that assets are moving to (if available).');
   t('To');
   t('Use these fields to record a movement with this log entry. This will be used to define the location of any referenced assets. The current location of any asset is determined by the most recently completed movement log. Only the "to" field is required.');
   t('What assets are being moved?');
-  t('Where is it moving from? This field is optional. You may leave this blank as a way of setting the initial location of an object.');
 
   return $field_instances;
 }
