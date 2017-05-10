@@ -13,6 +13,7 @@ dependencies[] = farm_log_harvest
 dependencies[] = farm_log_input
 dependencies[] = farm_log_movement
 dependencies[] = farm_log_observation
+dependencies[] = farm_map
 dependencies[] = features
 dependencies[] = views
 dependencies[] = views_data_export

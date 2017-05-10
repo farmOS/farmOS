@@ -212,30 +212,8 @@ function farm_log_geometry_populate(&$log, $area_field = 'field_farm_area') {
     }
   }
 
-  // If no geometries were found, bail.
-  if (empty($geoms)) {
-    return;
-  }
-
-  // Load the GeoPHP library.
-  geophp_load();
-
-  // Implode the array of geometries into a single string.
-  $geom = implode(',', $geoms);
-
-  // If there is more than one geometry, wrap them all in a geometry collection.
-  if (count($geoms) > 1) {
-    $geom = 'GEOMETRYCOLLECTION (' . $geom . ')';
-  }
-
-  // Convert to a GeoPHP geometry object and reduce the geometry.
-  $geometry = geoPHP::load($geom, 'wkt');
-  $geometry = geoPHP::geometryReduce($geometry);
-
-  // Save the combined geometry to the movement log.
-  if (!empty($geometry)) {
-    $log->field_farm_geofield[LANGUAGE_NONE][0] = geofield_get_values_from_geometry($geometry);
-  }
+  // Populate the geofield.
+  farm_map_geofield_populate($log, $geoms);
 }
 
 /**
