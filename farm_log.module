@@ -148,51 +148,37 @@ function farm_crop_entityreference_view_widget_views_arguments_alter(&$arguments
  */
 function farm_log_entity_presave($entity, $type) {
 
-  // When a log is saved, populate the Geometry field if available.
+  // When a log entity is being saved, populate the geometry field from areas.
   if ($type == 'log') {
-
-    // In the case of movement logs, the area reference field name is
-    // 'field_farm_move_to'.
-    /**
-     * @todo
-     * Migrate field_farm_move_to to field_farm_area? Currently farm_log depends
-     * on farm_log_movement, but if that needs to change in the future this will
-     * also need to change.
-     */
-    $area_field = 'field_farm_area';
-    if ($entity->type == 'farm_movement') {
-      $area_field = 'field_farm_move_to';
-    }
-    farm_log_geometry_populate($entity, $area_field);
+    farm_log_populate_geometry($entity);
   }
 }
 
 /**
- * Populate the geometry of logs from the area(s) they reference, if no
- * geometry is already defined.
+ * Helper function for populating a log's geometry from an area reference field.
  *
- * @param Log $log
- *   The log entity.
- * @param string $area_field
- *   Optionally, the machine name of the area reference field to look for.
- *   Defaults to 'field_farm_area'.
+ * @param Entity $entity
+ *   The entity to act upon.
  */
-function farm_log_geometry_populate(&$log, $area_field = 'field_farm_area') {
+function farm_log_populate_geometry($entity) {
+
+  // Define the area field name.
+  $area_field = 'field_farm_area';
 
   // If the log doesn't have an area reference field, bail.
-  if (!isset($log->{$area_field})) {
+  if (!isset($entity->{$area_field})) {
     return;
   }
 
   // If a geometry is already defined, bail.
-  if (!empty($log->field_farm_geofield[LANGUAGE_NONE][0]['geom'])) {
+  if (!empty($entity->field_farm_geofield[LANGUAGE_NONE][0]['geom'])) {
     return;
   }
 
   // Load the area(s) referenced by the area reference field.
   $area_ids = array();
-  if (!empty($log->{$area_field}[LANGUAGE_NONE])) {
-    foreach ($log->{$area_field}[LANGUAGE_NONE] as $area_reference) {
+  if (!empty($entity->{$area_field}[LANGUAGE_NONE])) {
+    foreach ($entity->{$area_field}[LANGUAGE_NONE] as $area_reference) {
       if (!empty($area_reference['tid'])) {
         $area_ids[] = $area_reference['tid'];
       }
@@ -203,7 +189,7 @@ function farm_log_geometry_populate(&$log, $area_field = 'field_farm_area') {
   $geoms = farm_area_extract_geoms($area_ids);
 
   // Populate the geofield.
-  farm_map_geofield_populate($log, $geoms);
+  farm_map_geofield_populate($entity, $geoms);
 }
 
 /**
