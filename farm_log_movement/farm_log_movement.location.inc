@@ -51,6 +51,7 @@ function farm_log_movement_asset_location_markup($asset) {
     // Build the geofield map and add it to the page content.
     $field_instance = field_info_instance('field_collection_item', 'field_farm_geofield', 'field_farm_movement');
     $geofield = field_view_field('field_collection_item', $movement, 'field_farm_geofield', $field_instance['display']['default']);
+    $geofield['#title'] = t('Geometry');
     $output .= drupal_render($geofield);
   }
 
