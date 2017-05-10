@@ -374,6 +374,50 @@ function farm_area_page_build(&$page) {
 }
 
 /**
+ * Helper function to extract geometries from areas.
+ *
+ * @param array $ids
+ *   An array of area term IDs.
+ *
+ * @return array
+ *   Returns an array of geometry strings in WKT format.
+ */
+function farm_area_extract_geoms($ids = array()) {
+
+  // Start an empty array of geometries to return.
+  $geoms = array();
+
+  // If the array of IDs is empty, bail.
+  if (empty($ids)) {
+    return $geoms;
+  }
+
+  // Load the areas.
+  $areas = array();
+  foreach ($ids as $id) {
+    if ($area = taxonomy_term_load($id)) {
+      $areas[] = $area;
+    }
+  }
+
+  // If no areas are referenced, bail.
+  if (empty($areas)) {
+    return $geoms;
+  }
+
+  // Iterate over the areas to find geometries.
+  $geoms = array();
+  foreach ($areas as $area) {
+    if (!empty($area->field_farm_geofield[LANGUAGE_NONE][0]['geom'])) {
+      $geoms[] = $area->field_farm_geofield[LANGUAGE_NONE][0]['geom'];
+    }
+  }
+
+  // Return the geometries.
+  return $geoms;
+}
+
+/**
  * Calculate the area of a farm area.
  *
  * @param $area_id
