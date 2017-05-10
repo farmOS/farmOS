@@ -277,6 +277,11 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['relationships']['field_farm_quantity_value']['table'] = 'field_data_field_farm_quantity';
   $handler->display->display_options['relationships']['field_farm_quantity_value']['field'] = 'field_farm_quantity_value';
   $handler->display->display_options['relationships']['field_farm_quantity_value']['delta'] = '0';
+  /* Relationship: Log: Movement (field_farm_movement) */
+  $handler->display->display_options['relationships']['field_farm_movement_value']['id'] = 'field_farm_movement_value';
+  $handler->display->display_options['relationships']['field_farm_movement_value']['table'] = 'field_data_field_farm_movement';
+  $handler->display->display_options['relationships']['field_farm_movement_value']['field'] = 'field_farm_movement_value';
+  $handler->display->display_options['relationships']['field_farm_movement_value']['delta'] = '-1';
   /* Field: Bulk operations: Log */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
   $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'log';
@@ -362,6 +367,12 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['field_farm_quantity_units']['field'] = 'field_farm_quantity_units';
   $handler->display->display_options['fields']['field_farm_quantity_units']['relationship'] = 'field_farm_quantity_value';
   $handler->display->display_options['fields']['field_farm_quantity_units']['type'] = 'taxonomy_term_reference_plain';
+  /* Field: Field collection item: Movement to */
+  $handler->display->display_options['fields']['field_farm_move_to']['id'] = 'field_farm_move_to';
+  $handler->display->display_options['fields']['field_farm_move_to']['table'] = 'field_data_field_farm_move_to';
+  $handler->display->display_options['fields']['field_farm_move_to']['field'] = 'field_farm_move_to';
+  $handler->display->display_options['fields']['field_farm_move_to']['relationship'] = 'field_farm_quantity_value';
+  $handler->display->display_options['fields']['field_farm_move_to']['delta_offset'] = '0';
   /* Sort criterion: Log: Timestamp */
   $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
   $handler->display->display_options['sorts']['timestamp']['table'] = 'log';
@@ -592,6 +603,11 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['relationships']['field_farm_quantity_value']['table'] = 'field_data_field_farm_quantity';
   $handler->display->display_options['relationships']['field_farm_quantity_value']['field'] = 'field_farm_quantity_value';
   $handler->display->display_options['relationships']['field_farm_quantity_value']['delta'] = '0';
+  /* Relationship: Log: Movement (field_farm_movement) */
+  $handler->display->display_options['relationships']['field_farm_movement_value']['id'] = 'field_farm_movement_value';
+  $handler->display->display_options['relationships']['field_farm_movement_value']['table'] = 'field_data_field_farm_movement';
+  $handler->display->display_options['relationships']['field_farm_movement_value']['field'] = 'field_farm_movement_value';
+  $handler->display->display_options['relationships']['field_farm_movement_value']['delta'] = '-1';
   /* Field: Bulk operations: Log */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
   $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'log';
@@ -677,6 +693,12 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['field_farm_quantity_units']['field'] = 'field_farm_quantity_units';
   $handler->display->display_options['fields']['field_farm_quantity_units']['relationship'] = 'field_farm_quantity_value';
   $handler->display->display_options['fields']['field_farm_quantity_units']['type'] = 'taxonomy_term_reference_plain';
+  /* Field: Field collection item: Movement to */
+  $handler->display->display_options['fields']['field_farm_move_to']['id'] = 'field_farm_move_to';
+  $handler->display->display_options['fields']['field_farm_move_to']['table'] = 'field_data_field_farm_move_to';
+  $handler->display->display_options['fields']['field_farm_move_to']['field'] = 'field_farm_move_to';
+  $handler->display->display_options['fields']['field_farm_move_to']['relationship'] = 'field_farm_quantity_value';
+  $handler->display->display_options['fields']['field_farm_move_to']['delta_offset'] = '0';
   /* Sort criterion: Log: Timestamp */
   $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
   $handler->display->display_options['sorts']['timestamp']['table'] = 'log';
