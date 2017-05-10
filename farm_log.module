@@ -190,27 +190,17 @@ function farm_log_geometry_populate(&$log, $area_field = 'field_farm_area') {
   }
 
   // Load the area(s) referenced by the area reference field.
-  $areas = array();
+  $area_ids = array();
   if (!empty($log->{$area_field}[LANGUAGE_NONE])) {
     foreach ($log->{$area_field}[LANGUAGE_NONE] as $area_reference) {
       if (!empty($area_reference['tid'])) {
-        $areas[] = taxonomy_term_load($area_reference['tid']);
+        $area_ids[] = $area_reference['tid'];
       }
     }
   }
 
-  // If no areas are referenced, bail.
-  if (empty($areas)) {
-    return;
-  }
-
-  // Iterate over the areas to find geometries.
-  $geoms = array();
-  foreach ($areas as $area) {
-    if (!empty($area->field_farm_geofield[LANGUAGE_NONE][0]['geom'])) {
-      $geoms[] = $area->field_farm_geofield[LANGUAGE_NONE][0]['geom'];
-    }
-  }
+  // Extract geometries from the areas.
+  $geoms = farm_area_extract_geoms($area_ids);
 
   // Populate the geofield.
   farm_map_geofield_populate($log, $geoms);
