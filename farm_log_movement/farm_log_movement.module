@@ -102,6 +102,12 @@ function farm_log_movement_entity_presave($entity, $type) {
   if ($type == 'log') {
     farm_log_movement_populate_move_from($entity);
   }
+
+  // If an activity log is being saved with movement information, auto-fill the
+  // log title.
+  if ($type == 'log' && $entity->type == 'farm_activity') {
+    farm_log_movement_populate_name($entity);
+  }
 }
 
 /**
@@ -204,6 +210,56 @@ function farm_log_movement_populate_move_from($log) {
 
   // Add the areas to the "move from" field.
   $log_wrapper->field_farm_movement->field_farm_move_from->set($from_areas);
+}
+
+/**
+ * Helper function for populating a log's name when it contains movement info.
+ *
+ * @param Entity $log
+ *   The log entity.
+ */
+function farm_log_movement_populate_name($log) {
+
+  // If the log already has a name, bail.
+  if (!empty($log->name)) {
+    return;
+  }
+
+  // Create an entity wrapper for the log.
+  $log_wrapper = entity_metadata_wrapper('log', $log);
+
+  // If there are no assets, bail.
+  if (empty($log_wrapper->field_farm_asset)) {
+    return;
+  }
+
+  // If there are no "movement to" areas, bail.
+  if (empty($log_wrapper->field_farm_movement->field_farm_move_to)) {
+    return;
+  }
+
+  // If there are more than one assets, summarize.
+  $asset_names = '';
+  $count_assets = count($log_wrapper->field_farm_asset);
+  if ($count_assets > 1) {
+    $asset_names .= $log_wrapper->field_farm_asset[0]->name->value() . ' (+ ' . ($count_assets - 1) . ' ' . t('more') . ')';
+  }
+  else {
+    $asset_names .= $log_wrapper->field_farm_asset[0]->name->value();
+  }
+
+  // If there are more than one areas, summarize.
+  $area_names = '';
+  $count_areas = count($log_wrapper->field_farm_movement->field_farm_move_to);
+  if ($count_areas > 1) {
+    $area_names .= $log_wrapper->field_farm_movement->field_farm_move_to[0]->name->value() . ' (+ ' . ($count_areas - 1) . ' ' . t('more') . ')';
+  }
+  else {
+    $area_names .= $log_wrapper->field_farm_movement->field_farm_move_to[0]->name->value();
+  }
+
+  // Build the log name.
+  $log->name = t('Move') . ' ' . $asset_names . ' to ' . $area_names;
 }
 
 /**
