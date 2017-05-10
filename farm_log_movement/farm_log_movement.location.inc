@@ -353,8 +353,10 @@ function farm_log_movement_asset_move_action(array $assets, $context = array()) 
     $ids[] = $asset->id;
   }
 
-  // Redirect to a form for adding a new movement log.
-  drupal_goto('log/add/farm_movement', array('query' => array('farm_asset' => $ids)));
+  // Redirect to a form for adding a new activity log, and set a message
+  // instructing the user how to make a movement.
+  drupal_set_message(t('To move the selected assets, set a destination in the "Movement to" field below.'));
+  drupal_goto('log/add/farm_activity', array('query' => array('farm_asset' => $ids)));
 }
 
 /**
