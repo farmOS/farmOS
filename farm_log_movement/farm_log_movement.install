@@ -112,3 +112,64 @@ function farm_log_movement_update_7001(&$sandbox) {
     field_delete_instance($field);
   }
 }
+
+/**
+ * Migrate movement logs to activity logs.
+ */
+function farm_log_movement_update_7002(&$sandbox) {
+
+  // Search for fields that exist on movements, but not on activities, so we can
+  // move them to activities. This would only be the case if a user added their
+  // own fields, movements do not have any extra fields in default farmOS.
+  // (They used to, but the "move to" and "move from" moved to the new
+  // field_farm_movement field collection. See farm_log_movement_update_7001()).
+  $log_types = array(
+    'farm_movement',
+    'farm_activity',
+  );
+  $log_fields = array();
+  foreach ($log_types as $type) {
+    $query = db_select('field_config_instance', 'fci');
+    $query->addField('fci', 'field_name');
+    $query->condition('fci.entity_type', 'log');
+    $query->condition('fci.bundle', $type);
+    $query->condition('fci.deleted', 0);
+    $log_fields[$type] = $query->execute()->fetchAllKeyed(0,0);
+  }
+  $movement_only_fields = array_keys(array_diff($log_fields['farm_movement'], $log_fields['farm_activity']));
+
+  // Move fields that are unique to movements over to activity log types.
+  foreach ($movement_only_fields as $field_name) {
+    db_query("UPDATE {field_config_instance} SET bundle = 'farm_activity' WHERE entity_type = 'log' AND bundle = 'farm_movement' AND field_name = :field_name", array(':field_name' => $field_name));
+  }
+
+  // Change all movement logs to activity logs directly in the {log} table.
+  db_query("UPDATE {log} SET type = 'farm_activity' WHERE type = 'farm_movement'");
+
+  // Update the bundles in all field data and revision tables.
+  foreach ($log_fields['farm_movement'] as $key => $field_name) {
+    db_query("UPDATE {field_data_" . $field_name . "} SET bundle = 'farm_activity' WHERE entity_type = 'log' AND bundle = 'farm_movement'");
+    db_query("UPDATE {field_revision_" . $field_name . "} SET bundle = 'farm_activity' WHERE entity_type = 'log' AND bundle = 'farm_movement'");
+  }
+
+  // Mark all movement log field instances for deletion.
+  foreach ($log_fields['farm_movement'] as $key => $field_name) {
+    $field = field_info_instance('log', $field_name, 'farm_movement');
+    field_delete_instance($field);
+  }
+
+  // Flush all caches.
+  drupal_flush_all_caches();
+}
+
+/**
+ * Remove movement log type.
+ */
+function farm_log_movement_update_7003(&$sandbox) {
+
+  // Delete the movement log type, if it exists.
+  $log_type = log_type_load('farm_movement');
+  if (!empty($log_type)) {
+    log_type_delete($log_type);
+  }
+}
