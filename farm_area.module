@@ -408,8 +408,12 @@ function farm_area_extract_geoms($ids = array()) {
   // Iterate over the areas to find geometries.
   $geoms = array();
   foreach ($areas as $area) {
-    if (!empty($area->field_farm_geofield[LANGUAGE_NONE][0]['geom'])) {
-      $geoms[] = $area->field_farm_geofield[LANGUAGE_NONE][0]['geom'];
+    if (!empty($area->field_farm_geofield[LANGUAGE_NONE])) {
+      foreach ($area->field_farm_geofield[LANGUAGE_NONE] as $geofield) {
+        if (!empty($geofield['geom'])) {
+          $geoms[] = $geofield['geom'];
+        }
+      }
     }
   }
 
