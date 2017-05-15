@@ -82,7 +82,7 @@ function farm_log_movement_field_default_field_instances() {
     'bundle' => 'field_farm_movement',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Specify the area(s) that assets are being moved from. This field is optional, and is only used for reference. You may leave this blank as a way of setting initial location.',
+    'description' => 'Specify the area(s) that assets are being moved from. This field is optional, and is only used for reference. You may leave this blank as a way of setting initial location. If the assets currently have a location set from a previously logged movement, this field will be automatically filled using that information.',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -145,7 +145,7 @@ function farm_log_movement_field_default_field_instances() {
   t('Movement from');
   t('Movement geometry');
   t('Movement to');
-  t('Specify the area(s) that assets are being moved from. This field is optional, and is only used for reference. You may leave this blank as a way of setting initial location.');
+  t('Specify the area(s) that assets are being moved from. This field is optional, and is only used for reference. You may leave this blank as a way of setting initial location. If the assets currently have a location set from a previously logged movement, this field will be automatically filled using that information.');
   t('Specify the area(s) that assets are being moved to. If you need to specify more precise locations (in addition to these areas), use the Geometry field below.');
   t('This field allows you to optionally specify a more precise geometry for the new location of assets. If you leave it blank, the geometry will be copied from the areas that assets are moving to (if available).');
 
