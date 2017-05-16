@@ -12,6 +12,9 @@ function farm_log_movement_update_7000(&$sandbox) {
   // Revert this module's field_base and field_instance components
   features_revert(array('farm_log_movement' => array('field_base', 'field_instance')));
 
+  // Flush all caches.
+  drupal_flush_all_caches();
+
   // Create the movement log type, if it doesn't exist. This may happen during
   // an upgrade from beta12 to beta13, because we are removing the farm_movement
   // log type definition from this module, but we still need to migrate data
@@ -78,6 +81,11 @@ function farm_log_movement_update_7001(&$sandbox) {
 
     // Increment progress.
     $sandbox['progress']++;
+
+    // If the id is empty, skip it.
+    if (empty($id)) {
+      continue;
+    }
 
     // Load the log.
     $log = log_load($id);
@@ -187,9 +195,6 @@ function farm_log_movement_update_7002(&$sandbox) {
     $field = field_info_instance('log', $field_name, 'farm_movement');
     field_delete_instance($field);
   }
-
-  // Flush all caches.
-  drupal_flush_all_caches();
 }
 
 /**
