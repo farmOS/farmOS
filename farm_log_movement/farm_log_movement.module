@@ -126,7 +126,9 @@ function farm_log_movement_populate_move_from($log) {
   // Load assets.
   $assets = array();
   foreach ($log_wrapper->field_farm_asset->value() as $asset) {
-    $assets[] = $asset;
+    if (!empty($asset)) {
+      $assets[] = $asset;
+    }
   }
 
   // Keep track of what areas these assets are coming from.
