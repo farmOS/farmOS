@@ -13,7 +13,7 @@ function farm_soil_test_field_default_field_instances() {
   // Exported field_instance: 'log-farm_soil_test-field_farm_area'.
   $field_instances['log-farm_soil_test-field_farm_area'] = array(
     'bundle' => 'farm_soil_test',
-    'default_value' => NULL,
+    'default_value' => array(),
     'deleted' => 0,
     'description' => 'What areas were this soil sample taken from?',
     'display' => array(
