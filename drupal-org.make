@@ -11,7 +11,7 @@ projects[bootstrap_tour][version] = "2.5"
 projects[bootstrap_tour][patch][] = "http://www.drupal.org/files/issues/add_unique_tour_name_to_avoid_local_storage_collisions-2533524-9.patch"
 
 projects[colorbox][subdir] = "contrib"
-projects[colorbox][version] = "2.12"
+projects[colorbox][version] = "2.13"
 
 projects[ctools][subdir] = "contrib"
 projects[ctools][version] = "1.12"
@@ -19,13 +19,13 @@ projects[ctools][version] = "1.12"
 projects[ctools][patch][] = "http://www.drupal.org/files/issues/ctools-fix_modal_position_after_ajax-1803104-13.patch"
 
 projects[date][subdir] = "contrib"
-projects[date][version] = "2.9"
+projects[date][version] = "2.10"
 
 projects[entity][subdir] = "contrib"
 projects[entity][version] = "1.8"
 
 projects[entityreference][subdir] = "contrib"
-projects[entityreference][version] = "1.2"
+projects[entityreference][version] = "1.3"
 
 projects[entityreference_view_widget][subdir] = "contrib"
 projects[entityreference_view_widget][version] = "2.0-rc7"
@@ -61,7 +61,7 @@ projects[inline_entity_form][subdir] = "contrib"
 projects[inline_entity_form][version] = "1.8"
 
 projects[jquery_update][subdir] = "contrib"
-projects[jquery_update][version] = "3.0-alpha3"
+projects[jquery_update][version] = "3.0-alpha5"
 
 projects[libraries][subdir] = "contrib"
 projects[libraries][version] = "2.3"
@@ -234,7 +234,7 @@ projects[farm_tour][download][branch] = 7.x-1.x
 ; Themes
 ; -----------------------------------------------------------------------------
 
-projects[bootstrap][version] = "3.12"
+projects[bootstrap][version] = "3.13"
 
 projects[farm_theme][type] = "theme"
 ;projects[farm_theme][version] = "1.0-beta12"
