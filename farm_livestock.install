@@ -9,6 +9,10 @@
  */
 function farm_livestock_update_dependencies() {
 
+  // Ensure that farm_update_7019 runs before farm_livestock_update_7001, so
+  // that the new Parents field is available.
+  $dependencies['farm_livestock'][7001] = array('farm' => 7019);
+
   // Update 7003 (add movement field to medical logs) depends on
   // farm_log_movement_update_7000().
   $dependencies['farm_livestock'][7003] = array('farm_log_movement' => 7000);
