@@ -13,6 +13,14 @@ function farm_crop_update_dependencies() {
   // logs) depends on farm_log update 7004 (enable log type sub-modules)
   $dependencies['farm_crop'][7001] = array('farm_log' => 7004);
 
+  // Ensure that farm_update_7019() runs before farm_crop_update_7002(), so that
+  // the Asset Children module is installed before we revert features. This
+  // issue was discovered late in the farmOS beta13 upgrade path testing, which
+  // is why we don't have a dedicated hook for adding the Parents field in this
+  // module. Instead we're just going to join forces with an existing hook that
+  // will do the same thing.
+  $dependencies['farm_crop'][7002] = array('farm' => 7019);
+
   // Update 7003 (add movement field to seedings and transplantings) depends on
   // farm_log_movement_update_7000().
   $dependencies['farm_crop'][7003] = array('farm_log_movement' => 7000);
