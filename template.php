@@ -27,6 +27,11 @@ function farm_theme_field_widget_form_alter(&$element, &$form_state, $context) {
   // Put geofields into a collapsible fieldset. Collapse it by default if empty.
   if ($context['field']['type'] == 'geofield') {
 
+    // Exception: do not collapse geofields when adding/editing areas.
+    if (!empty($context['form']['#term']) && $context['form']['#term']['vocabulary_machine_name'] == 'farm_areas') {
+      return;
+    }
+
     // Iterate through all the element children.
     $children = element_children($element);
     foreach ($children as $child) {
