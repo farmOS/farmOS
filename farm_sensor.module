@@ -325,8 +325,17 @@ function farm_sensor_form_alter(&$form, &$form_state, $form_id) {
     $sensor_type = $form_state['values']['sensor_type'];
   }
 
+  // Add a sensor fieldset.
+  $form['sensor'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Sensor configuration'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#weight' => 99,
+  );
+
   // Add a sensor type selection field to the form.
-  $form['sensor_type'] = array(
+  $form['sensor']['sensor_type'] = array(
     '#type' => 'select',
     '#title' => t('Sensor type'),
     '#description' => t('What type of sensor is this?'),
@@ -343,7 +352,7 @@ function farm_sensor_form_alter(&$form, &$form_state, $form_id) {
   $sensor_settings = !empty($farm_asset->sensor_settings) ? $farm_asset->sensor_settings : array();
 
   // Sensor settings fieldset.
-  $form['sensor_settings'] = array(
+  $form['sensor']['sensor_settings'] = array(
     '#type' => 'fieldset',
     '#title' => t('Sensor settings'),
     '#description' => t('Configure settings for the sensor type selected above.'),
@@ -359,7 +368,7 @@ function farm_sensor_form_alter(&$form, &$form_state, $form_id) {
     $settings_form = call_user_func_array($sensor_types[$sensor_type]['form'], array($farm_asset, $sensor_settings));
 
     // Add it to the fieldset.
-    $form['sensor_settings'] = array_merge($form['sensor_settings'], $settings_form);
+    $form['sensor']['sensor_settings'] = array_merge($form['sensor_settings'], $settings_form);
   }
 }
 
