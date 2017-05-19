@@ -126,7 +126,7 @@ function farm_theme_views_bulk_operations_form_alter(&$form, &$form_state, $vbo)
 
   // Add Bootstrap classes to the action buttons.
   $buttons = array(
-    'farm_log_asset_move' => 'primary',
+    'farm_log_movement_asset_move' => 'primary',
     'log_done' => 'success',
     'log_undone' => 'danger',
     'log_reschedule' => 'warning',
