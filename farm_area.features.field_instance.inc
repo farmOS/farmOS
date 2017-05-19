@@ -44,6 +44,7 @@ function farm_area_field_default_field_instances() {
   // Exported field_instance: 'taxonomy_term-farm_areas-field_farm_files'.
   $field_instances['taxonomy_term-farm_areas-field_farm_files'] = array(
     'bundle' => 'farm_areas',
+    'default_value' => array(),
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -68,11 +69,11 @@ function farm_area_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'file',
+      'module' => 'multiupload_filefield_widget',
       'settings' => array(
         'progress_indicator' => 'throbber',
       ),
-      'type' => 'file_generic',
+      'type' => 'file_mfw',
       'weight' => 5,
     ),
   );
@@ -140,6 +141,7 @@ function farm_area_field_default_field_instances() {
   // Exported field_instance: 'taxonomy_term-farm_areas-field_farm_images'.
   $field_instances['taxonomy_term-farm_areas-field_farm_images'] = array(
     'bundle' => 'farm_areas',
+    'default_value' => array(),
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -177,12 +179,12 @@ function farm_area_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'image',
+      'module' => 'multiupload_imagefield_widget',
       'settings' => array(
         'preview_image_style' => 'thumbnail',
         'progress_indicator' => 'bar',
       ),
-      'type' => 'image_image',
+      'type' => 'image_miw',
       'weight' => 4,
     ),
   );
