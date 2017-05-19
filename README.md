@@ -24,6 +24,8 @@ The Farm Soil Test sub-module requires:
  * Features (http://drupal.org/project/features)
  * Geofield (http://drupal.org/project/geofield)
  * Log (http://drupal.org/project/log)
+ * Multiupload Filefield Widget (http://drupal.org/project/multiupload_filefield_widget)
+ * Multiupload Imagefield Widget (http://drupal.org/project/multiupload_imagefield_widget)
  * OpenLayers 3.x (http://drupal.org/project/openlayers)
  * Views (http://drupal.org/project/views)
  * Farm Area (http://drupal.org/project/farm_area)
