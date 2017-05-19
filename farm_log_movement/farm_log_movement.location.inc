@@ -92,10 +92,16 @@ function farm_log_movement_form_farm_asset_form_alter(&$form, &$form_state, $for
   $location = implode(', ', $area_names);
 
   // Add a field for setting the asset's current location.
-  $form['farm_log_movement_asset_location'] = array(
+  $form['location'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Location'),
+    '#description' => t('Set the current areas(s) that this asset is in. Separate multiple areas with commas. A movement observation log will be created automatically if you change this field.'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $form['location']['farm_log_movement_asset_location'] = array(
     '#type' => 'textfield',
     '#title' => t('Current location'),
-    '#description' => t('Set the current areas(s) that this asset is in. Separate multiple areas with commas. A movement observation log will be created automatically if you change this field.'),
     '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_area',
     '#default_value' => $location,
   );
