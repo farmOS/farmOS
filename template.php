@@ -24,7 +24,24 @@ function farm_theme_menu_link_alter(&$item) {
  */
 function farm_theme_field_widget_form_alter(&$element, &$form_state, $context) {
 
-  // Put geofields into a collapsible fieldset. Collapse it by default if empty.
+  // The code below will be used to make certain fieldsets collapsible.
+  // Collapsing them will be done via Javascript, instead of PHP, however,
+  // because of an outstanding issue with rendering Openlayers maps in collapsed
+  // fieldsets. The $collapse_js boolean variable will keep track of whether or
+  // not the Javascript is necessary in the current page, and will add it at the
+  // bottom of this function. The Javascript works by looking for a CSS class
+  // called 'farm-theme-collapse' on the fieldsets, and collapses them.
+  /**
+   * @todo
+   * Revert to using normal PHP `['collapsed'] = TRUE;` when the following
+   * issues are fixed.
+   *
+   * @see https://www.drupal.org/node/2644580
+   * @see https://www.drupal.org/node/2579009
+   */
+  $collapse_js = FALSE;
+
+  // Put geofields into a collapsible fieldset.
   if ($context['field']['type'] == 'geofield') {
 
     // Exception: do not collapse geofields when adding/editing areas.
@@ -39,19 +56,21 @@ function farm_theme_field_widget_form_alter(&$element, &$form_state, $context) {
       // Make the parent element into a collapsible fieldset.
       $element[$child]['#type'] = 'fieldset';
       $element[$child]['#collapsible'] = TRUE;
+      $element[$child]['#attributes']['class'][] = 'farm-theme-collapse';
+      $collapse_js = TRUE;
     }
+  }
 
-    // Add Javascript to collapse the fieldset automatically if it is empty.
-    /**
-     * @todo
-     * We make the fieldset collapsible with PHP, but we collapse it with
-     * Javascript. This is because collapsing it with PHP breaks the
-     * Openlayers Geofield zoom to source component for some reason.
-     *
-     * @see https://www.drupal.org/node/2644580
-     * @see https://www.drupal.org/node/2579009
-     */
-    drupal_add_js(drupal_get_path('theme', 'farm_theme') . '/js/log_geofield.js');
+  // Collapse field collection fieldsets by default.
+  elseif ($context['field']['type'] == 'field_collection') {
+    $element['#collapsible'] = TRUE;
+    $element['#attributes']['class'][] = 'farm-theme-collapse';
+    $collapse_js = TRUE;
+  }
+
+  // Add Javascript to collapse fieldsets.
+  if ($collapse_js) {
+    drupal_add_js(drupal_get_path('theme', 'farm_theme') . '/js/collapse.js');
   }
 }
 
