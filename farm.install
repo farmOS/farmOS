@@ -497,6 +497,13 @@ function farm_update_7020(&$sandbox) {
 }
 
 /**
+ * Install Multiupload Filefield and Imagefield Widget modules.
+ */
+function farm_update_7021(&$sandbox) {
+  _farm_update_enable_modules(array('multiupload_filefield_widget', 'multiupload_imagefield_widget'));
+}
+
+/**
  * Update helper function: enable modules.
  */
 function _farm_update_enable_modules($modules = array()) {

@@ -72,6 +72,12 @@ projects[libraries_cdn][version] = "1.7"
 projects[log][subdir] = "contrib"
 projects[log][version] = "1.7"
 
+projects[multiupload_filefield_widget][subdir] = "contrib"
+projects[multiupload_filefield_widget][version] = "1.13"
+
+projects[multiupload_imagefield_widget][subdir] = "contrib"
+projects[multiupload_imagefield_widget][version] = "1.3"
+
 projects[navbar][subdir] = "contrib"
 projects[navbar][version] = "1.7"
 
