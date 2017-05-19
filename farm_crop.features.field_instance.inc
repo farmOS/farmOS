@@ -239,6 +239,92 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_seeding-field_farm_files'.
+  $field_instances['log-farm_seeding-field_farm_files'] = array(
+    'bundle' => 'farm_seeding',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'file',
+        'settings' => array(),
+        'type' => 'file_table',
+        'weight' => 5,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_files',
+    'label' => 'Files',
+    'required' => 0,
+    'settings' => array(
+      'description_field' => 1,
+      'file_directory' => 'farm/log/seeding',
+      'file_extensions' => 'csv doc docx odt odp ods pdf ppt pptx txt xls xlsx kml kmz zip tar gz',
+      'max_filesize' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'multiupload_filefield_widget',
+      'settings' => array(
+        'progress_indicator' => 'bar',
+      ),
+      'type' => 'file_mfw',
+      'weight' => 7,
+    ),
+  );
+
+  // Exported field_instance: 'log-farm_seeding-field_farm_images'.
+  $field_instances['log-farm_seeding-field_farm_images'] = array(
+    'bundle' => 'farm_seeding',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'colorbox',
+        'settings' => array(
+          'colorbox_caption' => 'auto',
+          'colorbox_caption_custom' => '',
+          'colorbox_gallery' => 'post',
+          'colorbox_gallery_custom' => '',
+          'colorbox_image_style' => '',
+          'colorbox_multivalue_index' => NULL,
+          'colorbox_node_style' => 'thumbnail',
+          'colorbox_node_style_first' => 'large',
+        ),
+        'type' => 'colorbox',
+        'weight' => 4,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_images',
+    'label' => 'Photo(s)',
+    'required' => 0,
+    'settings' => array(
+      'alt_field' => 0,
+      'default_image' => 0,
+      'file_directory' => 'farm/log/seeding',
+      'file_extensions' => 'png gif jpg jpeg',
+      'max_filesize' => '',
+      'max_resolution' => '',
+      'min_resolution' => '',
+      'title_field' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'multiupload_imagefield_widget',
+      'settings' => array(
+        'preview_image_style' => 'thumbnail',
+        'progress_indicator' => 'bar',
+      ),
+      'type' => 'image_miw',
+      'weight' => 6,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_seeding-field_farm_movement'.
   $field_instances['log-farm_seeding-field_farm_movement'] = array(
     'bundle' => 'farm_seeding',
@@ -253,7 +339,7 @@ function farm_crop_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 4,
+        'weight' => 6,
       ),
     ),
     'entity_type' => 'log',
@@ -414,6 +500,92 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_transplanting-field_farm_files'.
+  $field_instances['log-farm_transplanting-field_farm_files'] = array(
+    'bundle' => 'farm_transplanting',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'file',
+        'settings' => array(),
+        'type' => 'file_table',
+        'weight' => 4,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_files',
+    'label' => 'Files',
+    'required' => 0,
+    'settings' => array(
+      'description_field' => 1,
+      'file_directory' => 'farm/log/transplanting',
+      'file_extensions' => 'csv doc docx odt odp ods pdf ppt pptx txt xls xlsx kml kmz zip tar gz',
+      'max_filesize' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'multiupload_filefield_widget',
+      'settings' => array(
+        'progress_indicator' => 'bar',
+      ),
+      'type' => 'file_mfw',
+      'weight' => 6,
+    ),
+  );
+
+  // Exported field_instance: 'log-farm_transplanting-field_farm_images'.
+  $field_instances['log-farm_transplanting-field_farm_images'] = array(
+    'bundle' => 'farm_transplanting',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'colorbox',
+        'settings' => array(
+          'colorbox_caption' => 'auto',
+          'colorbox_caption_custom' => '',
+          'colorbox_gallery' => 'post',
+          'colorbox_gallery_custom' => '',
+          'colorbox_image_style' => '',
+          'colorbox_multivalue_index' => NULL,
+          'colorbox_node_style' => 'thumbnail',
+          'colorbox_node_style_first' => 'large',
+        ),
+        'type' => 'colorbox',
+        'weight' => 3,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_images',
+    'label' => 'Photo(s)',
+    'required' => 0,
+    'settings' => array(
+      'alt_field' => 0,
+      'default_image' => 0,
+      'file_directory' => 'farm/log/transplanting',
+      'file_extensions' => 'png gif jpg jpeg',
+      'max_filesize' => '',
+      'max_resolution' => '',
+      'min_resolution' => '',
+      'title_field' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'multiupload_imagefield_widget',
+      'settings' => array(
+        'preview_image_style' => 'thumbnail',
+        'progress_indicator' => 'bar',
+      ),
+      'type' => 'image_miw',
+      'weight' => 5,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_transplanting-field_farm_movement'.
   $field_instances['log-farm_transplanting-field_farm_movement'] = array(
     'bundle' => 'farm_transplanting',
@@ -428,7 +600,7 @@ function farm_crop_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 3,
+        'weight' => 5,
       ),
     ),
     'entity_type' => 'log',
@@ -729,6 +901,7 @@ function farm_crop_field_default_field_instances() {
   t('Describe the quantity of this transplanting, using a value and a unit of measurement. For example, if you transplanted 400 tomato plants into 4 inch pots, enter "400" in the Value field, and "4-inch pots" in the Units field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.');
   t('Description');
   t('Enter the crop/variety that this is a planting of. As you type, you will have the option of selecting from crops/varieties that you\'ve entered in the past.');
+  t('Files');
   t('Movement');
   t('Notes');
   t('Parent(s)');
