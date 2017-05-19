@@ -74,7 +74,7 @@ function farm_soil_test_field_default_field_instances() {
         'progress_indicator' => 'bar',
       ),
       'type' => 'file_mfw',
-      'weight' => 8,
+      'weight' => 7,
     ),
   );
 
@@ -125,7 +125,7 @@ function farm_soil_test_field_default_field_instances() {
         'progress_indicator' => 'bar',
       ),
       'type' => 'image_miw',
-      'weight' => 7,
+      'weight' => 6,
     ),
   );
 
@@ -193,7 +193,7 @@ function farm_soil_test_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 5,
+      'weight' => 4,
     ),
   );
 

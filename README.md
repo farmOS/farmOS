@@ -22,6 +22,7 @@ The Farm Soil Test sub-module requires:
  * Date (http://drupal.org/project/date)
  * Entity API (http://drupal.org/project/entity)
  * Features (http://drupal.org/project/features)
+ * Field Group (http://drupal.org/project/field_group)
  * Geofield (http://drupal.org/project/geofield)
  * Log (http://drupal.org/project/log)
  * Multiupload Filefield Widget (http://drupal.org/project/multiupload_filefield_widget)

@@ -5,6 +5,15 @@
  */
 
 /**
+ * Implements hook_ctools_plugin_api().
+ */
+function farm_soil_test_ctools_plugin_api($module = NULL, $api = NULL) {
+  if ($module == "field_group" && $api == "field_group") {
+    return array("version" => "1");
+  }
+}
+
+/**
  * Implements hook_views_api().
  */
 function farm_soil_test_views_api($module = NULL, $api = NULL) {
