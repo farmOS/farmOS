@@ -47,6 +47,7 @@ function farm_equipment_field_default_field_instances() {
   // Exported field_instance: 'farm_asset-equipment-field_farm_files'.
   $field_instances['farm_asset-equipment-field_farm_files'] = array(
     'bundle' => 'equipment',
+    'default_value' => array(),
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -71,11 +72,11 @@ function farm_equipment_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'file',
+      'module' => 'multiupload_filefield_widget',
       'settings' => array(
         'progress_indicator' => 'bar',
       ),
-      'type' => 'file_generic',
+      'type' => 'file_mfw',
       'weight' => 3,
     ),
   );
@@ -83,6 +84,7 @@ function farm_equipment_field_default_field_instances() {
   // Exported field_instance: 'farm_asset-equipment-field_farm_images'.
   $field_instances['farm_asset-equipment-field_farm_images'] = array(
     'bundle' => 'equipment',
+    'default_value' => array(),
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -120,12 +122,12 @@ function farm_equipment_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'image',
+      'module' => 'multiupload_imagefield_widget',
       'settings' => array(
         'preview_image_style' => 'thumbnail',
         'progress_indicator' => 'bar',
       ),
-      'type' => 'image_image',
+      'type' => 'image_miw',
       'weight' => 2,
     ),
   );
@@ -174,6 +176,7 @@ function farm_equipment_field_default_field_instances() {
   // Exported field_instance: 'log-farm_maintenance-field_farm_files'.
   $field_instances['log-farm_maintenance-field_farm_files'] = array(
     'bundle' => 'farm_maintenance',
+    'default_value' => array(),
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -198,11 +201,11 @@ function farm_equipment_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'file',
+      'module' => 'multiupload_filefield_widget',
       'settings' => array(
         'progress_indicator' => 'bar',
       ),
-      'type' => 'file_generic',
+      'type' => 'file_mfw',
       'weight' => 7,
     ),
   );
@@ -210,6 +213,7 @@ function farm_equipment_field_default_field_instances() {
   // Exported field_instance: 'log-farm_maintenance-field_farm_images'.
   $field_instances['log-farm_maintenance-field_farm_images'] = array(
     'bundle' => 'farm_maintenance',
+    'default_value' => array(),
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -247,12 +251,12 @@ function farm_equipment_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'image',
+      'module' => 'multiupload_imagefield_widget',
       'settings' => array(
         'preview_image_style' => 'thumbnail',
         'progress_indicator' => 'bar',
       ),
-      'type' => 'image_image',
+      'type' => 'image_miw',
       'weight' => 6,
     ),
   );
