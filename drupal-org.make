@@ -41,6 +41,9 @@ projects[features][version] = "2.10"
 projects[field_collection][subdir] = "contrib"
 projects[field_collection][version] = "1.0-beta12"
 
+projects[field_group][subdir] = "contrib"
+projects[field_group][version] = "1.5"
+
 projects[fraction][subdir] = "contrib"
 projects[fraction][version] = "1.4"
 

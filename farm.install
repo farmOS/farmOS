@@ -504,6 +504,13 @@ function farm_update_7021(&$sandbox) {
 }
 
 /**
+ * Install Field Group module.
+ */
+function farm_update_7022(&$sandbox) {
+  _farm_update_enable_modules(array('field_group'));
+}
+
+/**
  * Update helper function: enable modules.
  */
 function _farm_update_enable_modules($modules = array()) {
