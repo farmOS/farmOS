@@ -40,7 +40,7 @@ function farm_equipment_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 4,
+      'weight' => 7,
     ),
   );
 
@@ -77,7 +77,7 @@ function farm_equipment_field_default_field_instances() {
         'progress_indicator' => 'bar',
       ),
       'type' => 'file_mfw',
-      'weight' => 6,
+      'weight' => 9,
     ),
   );
 
@@ -128,7 +128,7 @@ function farm_equipment_field_default_field_instances() {
         'progress_indicator' => 'bar',
       ),
       'type' => 'image_miw',
-      'weight' => 5,
+      'weight' => 8,
     ),
   );
 
@@ -162,7 +162,7 @@ function farm_equipment_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 1,
+      'weight' => 4,
     ),
   );
 
@@ -196,7 +196,7 @@ function farm_equipment_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 2,
+      'weight' => 5,
     ),
   );
 
@@ -230,7 +230,7 @@ function farm_equipment_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 3,
+      'weight' => 6,
     ),
   );
 
@@ -308,7 +308,7 @@ function farm_equipment_field_default_field_instances() {
         'progress_indicator' => 'bar',
       ),
       'type' => 'file_mfw',
-      'weight' => 7,
+      'weight' => 6,
     ),
   );
 
@@ -359,7 +359,7 @@ function farm_equipment_field_default_field_instances() {
         'progress_indicator' => 'bar',
       ),
       'type' => 'image_miw',
-      'weight' => 6,
+      'weight' => 5,
     ),
   );
 
@@ -392,7 +392,7 @@ function farm_equipment_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 5,
+      'weight' => 3,
     ),
   );
 
