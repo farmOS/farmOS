@@ -50,6 +50,7 @@ features[field_base][] = field_farm_seed_source
 features[field_base][] = field_farm_transplant_days
 features[field_instance][] = farm_asset-planting-field_farm_crop
 features[field_instance][] = farm_asset-planting-field_farm_description
+features[field_instance][] = farm_asset-planting-field_farm_files
 features[field_instance][] = farm_asset-planting-field_farm_images
 features[field_instance][] = farm_asset-planting-field_farm_parent
 features[field_instance][] = farm_asset-planting-field_farm_season

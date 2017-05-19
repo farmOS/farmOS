@@ -78,6 +78,42 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'farm_asset-planting-field_farm_files'.
+  $field_instances['farm_asset-planting-field_farm_files'] = array(
+    'bundle' => 'planting',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'file',
+        'settings' => array(),
+        'type' => 'file_table',
+        'weight' => 5,
+      ),
+    ),
+    'entity_type' => 'farm_asset',
+    'field_name' => 'field_farm_files',
+    'label' => 'Files',
+    'required' => 0,
+    'settings' => array(
+      'description_field' => 1,
+      'file_directory' => 'farm/asset/planting',
+      'file_extensions' => 'csv doc docx odt odp ods pdf ppt pptx txt xls xlsx kml kmz zip tar gz',
+      'max_filesize' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'multiupload_filefield_widget',
+      'settings' => array(
+        'progress_indicator' => 'bar',
+      ),
+      'type' => 'file_mfw',
+      'weight' => 6,
+    ),
+  );
+
   // Exported field_instance: 'farm_asset-planting-field_farm_images'.
   $field_instances['farm_asset-planting-field_farm_images'] = array(
     'bundle' => 'planting',
