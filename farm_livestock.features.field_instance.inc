@@ -253,7 +253,7 @@ function farm_livestock_field_default_field_instances() {
         'input_format' => 'M j Y - g:i:sa',
         'input_format_custom' => '',
         'label_position' => 'above',
-        'repeat_collapsed' => 0,
+        'no_fieldset' => 1,
         'text_parts' => array(),
         'year_range' => '-3:+3',
       ),
