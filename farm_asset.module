@@ -313,13 +313,6 @@ function farm_asset_field_extra_fields() {
           'description' => t('The name of the asset.'),
           'weight' => -10,
         ),
-
-        // Display the active field.
-        'active' => array(
-          'label' => t('Active'),
-          'description' => t('Whether or not the asset is done.'),
-          'weight' => 100,
-        ),
       ),
     );
   }

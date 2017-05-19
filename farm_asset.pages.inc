@@ -107,14 +107,26 @@ function farm_asset_form(array $form, array &$form_state, FarmAsset $farm_asset)
     '#weight' => -100,
   );
 
+  // Additional settings (vertical tabs at the bottom of the form).
+  $form['additional_settings'] = array(
+    '#type' => 'vertical_tabs',
+    '#weight' => 99,
+  );
+
   // Asset active/inactive (new assets are active by default).
   if (empty($farm_asset->id)) {
     $farm_asset->active = TRUE;
   }
-  $form['active'] = array(
+  $form['asset_status'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Asset status'),
+    '#description' => t('Mark this asset as active/inactive. Inactive assets will not show in most lists, but will be visible in archives.'),
+    '#collapsible' => TRUE,
+    '#group' => 'additional_settings'
+  );
+  $form['asset_status']['active'] = array(
     '#type' => 'checkbox',
     '#title' => t('Active'),
-    '#description' => t('Mark this asset as active/inactive. Inactive assets will not show in most lists, but will be visible in archives.'),
     '#default_value' => $farm_asset->active,
   );
 
