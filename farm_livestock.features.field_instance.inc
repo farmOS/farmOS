@@ -292,7 +292,7 @@ function farm_livestock_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 10,
+      'weight' => 9,
     ),
   );
 
@@ -329,7 +329,7 @@ function farm_livestock_field_default_field_instances() {
         'progress_indicator' => 'bar',
       ),
       'type' => 'file_mfw',
-      'weight' => 12,
+      'weight' => 11,
     ),
   );
 
@@ -380,7 +380,7 @@ function farm_livestock_field_default_field_instances() {
         'progress_indicator' => 'bar',
       ),
       'type' => 'image_miw',
-      'weight' => 11,
+      'weight' => 10,
     ),
   );
 
@@ -418,7 +418,7 @@ function farm_livestock_field_default_field_instances() {
         'size' => 256,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 9,
+      'weight' => 8,
     ),
   );
 
