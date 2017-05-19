@@ -511,6 +511,19 @@ function farm_update_7022(&$sandbox) {
 }
 
 /**
+ * Change the Bootswatch theme to Simplex 3.3.7.
+ */
+function farm_update_7023(&$sandbox) {
+  $theme_settings = variable_get('theme_farm_theme_settings', array());
+  $theme_settings['bootstrap_cdn_provider'] = 'custom';
+  $theme_settings['bootstrap_cdn_custom_css_min'] = '//cdn.jsdelivr.net/bootswatch/3.3.7/simplex/bootstrap.css';
+  $theme_settings['bootstrap_cdn_custom_css'] = '//cdn.jsdelivr.net/bootswatch/3.3.7/simplex/bootstrap.min.css';
+  $theme_settings['bootstrap_cdn_custom_js'] = '//cdn.jsdelivr.net/bootstrap/3.3.7/js/bootstrap.js';
+  $theme_settings['bootstrap_cdn_custom_js_min'] = '//cdn.jsdelivr.net/bootstrap/3.3.7/js/bootstrap.min.js';
+  variable_set('theme_farm_theme_settings', $theme_settings);
+}
+
+/**
  * Update helper function: enable modules.
  */
 function _farm_update_enable_modules($modules = array()) {
