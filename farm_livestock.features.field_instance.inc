@@ -299,6 +299,7 @@ function farm_livestock_field_default_field_instances() {
   // Exported field_instance: 'farm_asset-animal-field_farm_files'.
   $field_instances['farm_asset-animal-field_farm_files'] = array(
     'bundle' => 'animal',
+    'default_value' => array(),
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -323,11 +324,11 @@ function farm_livestock_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'file',
+      'module' => 'multiupload_filefield_widget',
       'settings' => array(
         'progress_indicator' => 'bar',
       ),
-      'type' => 'file_generic',
+      'type' => 'file_mfw',
       'weight' => 12,
     ),
   );
@@ -335,6 +336,7 @@ function farm_livestock_field_default_field_instances() {
   // Exported field_instance: 'farm_asset-animal-field_farm_images'.
   $field_instances['farm_asset-animal-field_farm_images'] = array(
     'bundle' => 'animal',
+    'default_value' => array(),
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -372,12 +374,12 @@ function farm_livestock_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'image',
+      'module' => 'multiupload_imagefield_widget',
       'settings' => array(
         'preview_image_style' => 'thumbnail',
         'progress_indicator' => 'bar',
       ),
-      'type' => 'image_image',
+      'type' => 'image_miw',
       'weight' => 11,
     ),
   );
@@ -566,6 +568,7 @@ function farm_livestock_field_default_field_instances() {
   // Exported field_instance: 'log-farm_medical-field_farm_files'.
   $field_instances['log-farm_medical-field_farm_files'] = array(
     'bundle' => 'farm_medical',
+    'default_value' => array(),
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -590,11 +593,11 @@ function farm_livestock_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'file',
+      'module' => 'multiupload_filefield_widget',
       'settings' => array(
         'progress_indicator' => 'bar',
       ),
-      'type' => 'file_generic',
+      'type' => 'file_mfw',
       'weight' => 7,
     ),
   );
@@ -602,6 +605,7 @@ function farm_livestock_field_default_field_instances() {
   // Exported field_instance: 'log-farm_medical-field_farm_images'.
   $field_instances['log-farm_medical-field_farm_images'] = array(
     'bundle' => 'farm_medical',
+    'default_value' => array(),
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -639,12 +643,12 @@ function farm_livestock_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'image',
+      'module' => 'multiupload_imagefield_widget',
       'settings' => array(
         'preview_image_style' => 'thumbnail',
         'progress_indicator' => 'bar',
       ),
-      'type' => 'image_image',
+      'type' => 'image_miw',
       'weight' => 6,
     ),
   );

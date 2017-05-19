@@ -21,6 +21,8 @@ This module depends on the following modules:
  * Features (http://drupal.org/project/features)
  * Field Collection (http://drupal.org/project/field_collection)
  * Log (http://drupal.org/project/log)
+ * Multiupload Filefield Widget (http://drupal.org/project/multiupload_filefield_widget)
+ * Multiupload Imagefield Widget (http://drupal.org/project/multiupload_imagefield_widget)
  * Pathauto (http://drupal.org/project/pathauto)
  * Strongarm (http://drupal.org/project/strongarm)
  * Views (http://drupal.org/project/views)
