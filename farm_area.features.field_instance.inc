@@ -120,6 +120,11 @@ function farm_area_field_default_field_instances() {
         'handler_settings' => array(
           'google' => array(
             'all_results' => 0,
+            'biasing' => array(
+              'bounds' => '',
+              'components' => '',
+              'region' => '',
+            ),
             'geometry_type' => 'point',
             'reject_results' => array(
               'APPROXIMATE' => 0,
