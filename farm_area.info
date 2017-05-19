@@ -24,6 +24,7 @@ dependencies[] = taxonomy
 dependencies[] = views
 dependencies[] = views_geojson
 dependencies[] = views_tree
+features[ctools][] = field_group:field_group:1
 features[ctools][] = openlayers:default_openlayers_components:1
 features[ctools][] = openlayers:default_openlayers_maps:1
 features[ctools][] = strongarm:strongarm:1
