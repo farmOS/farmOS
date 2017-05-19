@@ -19,6 +19,7 @@ This module depends on the following modules:
  * Entity Reference View Widget (http://drupal.org/project/entityreference_view_widget)
  * Features (http://drupal.org/project/features)
  * Field Collection (http://drupal.org/project/field_collection)
+ * Field Group (http://drupal.org/project/field_group)
  * Log (http://drupal.org/project/log)
  * Multiupload Filefield Widget (http://drupal.org/project/multiupload_filefield_widget)
  * Multiupload Imagefield Widget (http://drupal.org/project/multiupload_imagefield_widget)

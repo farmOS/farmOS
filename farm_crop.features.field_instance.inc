@@ -40,7 +40,7 @@ function farm_crop_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'taxonomy_autocomplete',
-      'weight' => 1,
+      'weight' => 2,
     ),
   );
 
@@ -110,7 +110,7 @@ function farm_crop_field_default_field_instances() {
         'progress_indicator' => 'bar',
       ),
       'type' => 'file_mfw',
-      'weight' => 6,
+      'weight' => 4,
     ),
   );
 
@@ -161,7 +161,7 @@ function farm_crop_field_default_field_instances() {
         'progress_indicator' => 'bar',
       ),
       'type' => 'image_miw',
-      'weight' => 5,
+      'weight' => 3,
     ),
   );
 
@@ -234,7 +234,7 @@ function farm_crop_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 2,
+      'weight' => 3,
     ),
   );
 
@@ -275,7 +275,7 @@ function farm_crop_field_default_field_instances() {
         'view_mode' => 'full',
       ),
       'type' => 'entityreference_view_widget',
-      'weight' => 1,
+      'weight' => 2,
     ),
   );
 
@@ -311,7 +311,7 @@ function farm_crop_field_default_field_instances() {
         'progress_indicator' => 'bar',
       ),
       'type' => 'file_mfw',
-      'weight' => 7,
+      'weight' => 6,
     ),
   );
 
@@ -361,7 +361,7 @@ function farm_crop_field_default_field_instances() {
         'progress_indicator' => 'bar',
       ),
       'type' => 'image_miw',
-      'weight' => 6,
+      'weight' => 5,
     ),
   );
 
@@ -394,7 +394,7 @@ function farm_crop_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 5,
+      'weight' => 2,
     ),
   );
 
@@ -428,7 +428,7 @@ function farm_crop_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 4,
+      'weight' => 3,
     ),
   );
 
@@ -461,7 +461,7 @@ function farm_crop_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 2,
+      'weight' => 1,
     ),
   );
 
@@ -536,7 +536,7 @@ function farm_crop_field_default_field_instances() {
         'view_mode' => 'full',
       ),
       'type' => 'entityreference_view_widget',
-      'weight' => 1,
+      'weight' => 2,
     ),
   );
 
@@ -655,7 +655,7 @@ function farm_crop_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 4,
+      'weight' => 2,
     ),
   );
 
@@ -689,7 +689,7 @@ function farm_crop_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 3,
+      'weight' => 4,
     ),
   );
 
@@ -722,7 +722,7 @@ function farm_crop_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 2,
+      'weight' => 1,
     ),
   );
 
