@@ -387,7 +387,7 @@ function farm_livestock_field_default_field_instances() {
   // Exported field_instance: 'farm_asset-animal-field_farm_parent'.
   $field_instances['farm_asset-animal-field_farm_parent'] = array(
     'bundle' => 'animal',
-    'default_value' => NULL,
+    'default_value' => array(),
     'deleted' => 0,
     'description' => 'Specify the parent(s) of this animal.',
     'display' => array(
@@ -411,14 +411,18 @@ function farm_livestock_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'entityreference',
+      'module' => 'entityreference_view_widget',
       'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 256,
+        'allow_duplicates' => 0,
+        'close_modal' => 1,
+        'pass_argument' => 1,
+        'pass_arguments' => '',
+        'rendered_entity' => 0,
+        'view' => 'farm_asset_entityreference_view|entityreference_view_widget',
+        'view_mode' => 'full',
       ),
-      'type' => 'entityreference_autocomplete',
-      'weight' => 8,
+      'type' => 'entityreference_view_widget',
+      'weight' => 3,
     ),
   );
 
@@ -528,7 +532,7 @@ function farm_livestock_field_default_field_instances() {
   $field_instances['log-farm_medical-field_farm_asset'] = array(
     'bundle' => 'farm_medical',
     'deleted' => 0,
-    'description' => 'What assets do this medical log pertain to?',
+    'description' => 'What animals do this medical log pertain to?',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -543,7 +547,7 @@ function farm_livestock_field_default_field_instances() {
     ),
     'entity_type' => 'log',
     'field_name' => 'field_farm_asset',
-    'label' => 'Assets',
+    'label' => 'Animals',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -722,7 +726,7 @@ function farm_livestock_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Assets');
+  t('Animals');
   t('Assign this animal to a particular group, herd, flock, etc. You can manage the list of available groups in the ' . l('Animal Groups', 'farm/assets/animals/groups') . ' vocabulary.');
   t('Body Location');
   t('Castrated');
@@ -745,7 +749,7 @@ function farm_livestock_field_default_field_instances() {
   t('Tag Type');
   t('Type');
   t('Use these fields to record a movement with this log entry. This will be used to define the location of any referenced assets. The current location of any asset is determined by the most recently completed movement log. Only the "to" field is required.');
-  t('What assets do this medical log pertain to?');
+  t('What animals do this medical log pertain to?');
   t('What is the species/breed of this animal? You can manage the list of available species/breeds in the ' . l('Animal Species/Breeds', 'farm/assets/animals/types') . ' vocabulary.');
 
   return $field_instances;
