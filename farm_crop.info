@@ -24,6 +24,7 @@ dependencies[] = file
 dependencies[] = image
 dependencies[] = list
 dependencies[] = log
+dependencies[] = multiupload_imagefield_widget
 dependencies[] = number
 dependencies[] = openlayers
 dependencies[] = options
