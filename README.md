@@ -14,6 +14,7 @@ This module depends on the following modules:
  * Colorbox (http://drupal.org/project/colorbox)
  * Ctools (http://drupal.org/project/ctools)
  * Features (http://drupal.org/project/features)
+ * Field Group (http://drupal.org/project/field_group)
  * Geocoder (http://drupal.org/project/geocoder)
  * Geofield (http://drupal.org/project/geofield)
  * Multiupload Filefield Widget (http://drupal.org/project/multiupload_filefield_widget)

@@ -37,7 +37,7 @@ function farm_area_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 1,
+      'weight' => 2,
     ),
   );
 
@@ -83,7 +83,7 @@ function farm_area_field_default_field_instances() {
     'bundle' => 'farm_areas',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Use this field to define the geometry of this area on a map. Points, lines, and polygons can be drawn using the controls below.',
+    'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'hidden',
@@ -134,7 +134,7 @@ function farm_area_field_default_field_instances() {
         'use_geocoder' => 1,
       ),
       'type' => 'openlayers_geofield',
-      'weight' => 2,
+      'weight' => 3,
     ),
   );
 
@@ -195,7 +195,6 @@ function farm_area_field_default_field_instances() {
   t('Files');
   t('Geometry');
   t('Photo(s)');
-  t('Use this field to define the geometry of this area on a map. Points, lines, and polygons can be drawn using the controls below.');
   t('What type of area is this? Area types will be color coded on maps. If left blank, the area will not appear on maps.');
 
   return $field_instances;
