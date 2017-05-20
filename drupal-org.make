@@ -133,7 +133,7 @@ projects[token][subdir] = "contrib"
 projects[token][version] = "1.7"
 
 projects[views][subdir] = "contrib"
-projects[views][version] = "3.15"
+projects[views][version] = "3.16"
 
 projects[views_bulk_operations][subdir] = "contrib"
 projects[views_bulk_operations][version] = "3.4"
