@@ -12,6 +12,7 @@ This module depends on the following modules:
  * Ctools (http://drupal.org/project/ctools)
  * Entity API (http://drupal.org/project/entity)
  * Features (http://drupal.org/project/features)
+ * Field Group (http://drupal.org/project/field_group)
  * Multiupload Filefield Widget (http://drupal.org/project/multiupload_filefield_widget)
  * Multiupload Imagefield Widget (http://drupal.org/project/multiupload_imagefield_widget)
  * Pathauto (http://drupal.org/project/pathauto)
