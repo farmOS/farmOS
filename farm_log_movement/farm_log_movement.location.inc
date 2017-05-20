@@ -124,7 +124,7 @@ function farm_log_movement_asset_location_submit(array $form, array &$form_state
   }
 
   // Only proceed if the value is not the default value.
-  if ($form_state['values']['farm_log_movement_asset_location'] == $form['farm_log_movement_asset_location']['#default_value']) {
+  if ($form_state['values']['farm_log_movement_asset_location'] == $form['location']['farm_log_movement_asset_location']['#default_value']) {
     return;
   }
 
