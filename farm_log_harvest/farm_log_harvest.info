@@ -34,6 +34,7 @@ features[ctools][] = views:views_default:3.0
 features[features_api][] = api:2
 features[field_group][] = group_farm_assets|log|farm_harvest|form
 features[field_group][] = group_farm_files|log|farm_harvest|form
+features[field_group][] = group_farm_general|log|farm_harvest|form
 features[field_group][] = group_farm_notes|log|farm_harvest|form
 features[field_instance][] = log-farm_harvest-field_farm_asset
 features[field_instance][] = log-farm_harvest-field_farm_files

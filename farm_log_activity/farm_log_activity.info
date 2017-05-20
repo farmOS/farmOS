@@ -37,6 +37,7 @@ features[features_api][] = api:2
 features[field_group][] = group_farm_areas|log|farm_activity|form
 features[field_group][] = group_farm_assets|log|farm_activity|form
 features[field_group][] = group_farm_files|log|farm_activity|form
+features[field_group][] = group_farm_general|log|farm_activity|form
 features[field_group][] = group_farm_notes|log|farm_activity|form
 features[field_instance][] = log-farm_activity-field_farm_area
 features[field_instance][] = log-farm_activity-field_farm_asset
