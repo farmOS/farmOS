@@ -15,8 +15,8 @@ services:
   www:
     depends_on:
       - db
-    image: farmos/farmos:7.x-1.0-beta13
-#    image: farmos/farmos:7.x-1.x
+#    image: farmos/farmos:7.x-1.0-beta13
+    image: farmos/farmos:7.x-1.x
     volumes:
       - './.data/www:/var/www/html'
     links:
@@ -29,5 +29,5 @@ services:
       MYSQL_DATABASE: farmos
       MYSQL_USER: farmos
       MYSQL_PASSWORD: farmos
-#      FARMOS_DEV: 'true'
+      FARMOS_DEV: 'true'
 
