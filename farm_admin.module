@@ -137,6 +137,9 @@ function farm_admin_dashboard() {
   // Start an output string.
   $output = '';
 
+  // Display the current date.
+  $output .= '<h2>Today is ' . date('M j Y') . '</h2>';
+
   // Render the "Plan" block display.
   $view = views_get_view('farm_log');
   $preview = $view->preview('block_plan');
