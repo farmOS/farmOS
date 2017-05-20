@@ -13,6 +13,35 @@ function farm_area_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_farm_description|taxonomy_term|farm_areas|form';
+  $field_group->group_name = 'group_farm_description';
+  $field_group->entity_type = 'taxonomy_term';
+  $field_group->bundle = 'farm_areas';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Description',
+    'weight' => '2',
+    'children' => array(
+      0 => 'description',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => 'Description',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'group-farm-description field-group-fieldset',
+        'description' => '',
+      ),
+      'formatter' => 'collapsed',
+    ),
+  );
+  $field_groups['group_farm_description|taxonomy_term|farm_areas|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_farm_files|taxonomy_term|farm_areas|form';
   $field_group->group_name = 'group_farm_files';
   $field_group->entity_type = 'taxonomy_term';
@@ -100,6 +129,7 @@ function farm_area_field_group_info() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Description');
   t('File attachments');
   t('General information');
   t('Geometry');

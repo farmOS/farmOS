@@ -32,6 +32,7 @@ features[ctools][] = views:views_default:3.0
 features[features_api][] = api:2
 features[field_base][] = field_farm_area
 features[field_base][] = field_farm_area_type
+features[field_group][] = group_farm_description|taxonomy_term|farm_areas|form
 features[field_group][] = group_farm_files|taxonomy_term|farm_areas|form
 features[field_group][] = group_farm_general|taxonomy_term|farm_areas|form
 features[field_group][] = group_farm_geometry|taxonomy_term|farm_areas|form
