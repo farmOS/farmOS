@@ -404,7 +404,7 @@ function farm_log_input_field_default_field_instances() {
     'entity_type' => 'log',
     'field_name' => 'field_farm_material',
     'label' => 'Material',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
     ),
