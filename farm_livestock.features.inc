@@ -46,7 +46,7 @@ function farm_livestock_default_log_type() {
     "type" : "farm_medical",
     "label" : "Medical",
     "weight" : 0,
-    "name_pattern" : "[log:name]",
+    "name_pattern" : "Medical: [log:field-farm-asset] [log:timestamp:short]",
     "name_edit" : "1",
     "done" : "1",
     "rdf_mapping" : []
