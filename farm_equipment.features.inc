@@ -46,7 +46,7 @@ function farm_equipment_default_log_type() {
     "type" : "farm_maintenance",
     "label" : "Maintenance",
     "weight" : 0,
-    "name_pattern" : "[log:name]",
+    "name_pattern" : "Maintenance: [log:field-farm-asset]",
     "name_edit" : "1",
     "done" : "1",
     "rdf_mapping" : []
