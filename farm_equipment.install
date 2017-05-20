@@ -60,3 +60,10 @@ function farm_equipment_update_7001(&$sandbox) {
 function farm_equipment_update_7002(&$sandbox) {
   features_revert(array('farm_equipment' => array('field_instance')));
 }
+
+/**
+ * Add new equipment fields: manufacturer, model, serial number.
+ */
+function farm_equipment_update_7003(&$sandbox) {
+  features_revert(array('farm_equipment' => array('field_base', 'field_instance')));
+}
