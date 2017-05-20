@@ -210,6 +210,7 @@ function farm_livestock_farm_taxonomy_term_view_views($term) {
       $views[] = array(
         'name' => 'farm_animals',
         'arg' => 2,
+        'always' => TRUE,
       );
       break;
 
@@ -218,6 +219,7 @@ function farm_livestock_farm_taxonomy_term_view_views($term) {
       $views[] = array(
         'name' => 'farm_animals',
         'arg' => 3,
+        'always' => TRUE,
       );
       break;
   }
