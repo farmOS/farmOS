@@ -27,6 +27,7 @@ function farm_log_movement_farm_taxonomy_term_view_views($term) {
     array(
       'name' => 'farm_area_assets',
       'weight' => 100,
+      'always' => TRUE,
     ),
   );
 }
