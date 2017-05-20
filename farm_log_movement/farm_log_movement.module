@@ -109,7 +109,7 @@ function farm_log_movement_populate_move_from($log) {
   $log_wrapper = entity_metadata_wrapper('log', $log);
 
   // If the movement field collection doesn't exist, bail.
-  if (empty($log_wrapper->field_farm_movement->value())) {
+  if (!isset($log_wrapper->field_farm_movement) || empty($log_wrapper->field_farm_movement->value())) {
     return;
   }
 
