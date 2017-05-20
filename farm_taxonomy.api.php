@@ -58,6 +58,8 @@ function hook_farm_taxonomy_breadcrumb($term) {
  *       (this is useful if the View has more than one contextual filter)
  *     'weight' - the weight of the View in the taxonomy page
  *       (this is useful for changing the order of Views)
+ *     'always' - always display, even if there are no View results
+ *       (default is FALSE)
  */
 function hook_farm_taxonomy_term_view_views($term) {
 
@@ -78,6 +80,7 @@ function hook_farm_taxonomy_term_view_views($term) {
       'display' => 'block',
       'arg' => 2,
       'weight' => 10,
+      'always' => TRUE,
     ),
   );
 }

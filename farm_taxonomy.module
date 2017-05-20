@@ -134,8 +134,8 @@ function farm_taxonomy_entity_view_alter(&$build, $type) {
     // Build the View preview.
     $preview = $view->preview($display, $args);
 
-    // Only display if the View has results.
-    if ($view->total_rows == 0) {
+    // Only display if the View has results (and 'always' is not TRUE).
+    if (empty($data['always']) && $view->total_rows == 0) {
       continue;
     }
 
