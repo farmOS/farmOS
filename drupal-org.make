@@ -100,6 +100,8 @@ projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_d
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_widget_geocode_callback-2762367-1.patch"
 ; Fix Geocode from field.
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_geocode_button_fix-2755899-9.patch"
+; Hide empty Openlayers Geofield labels.
+projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_geofield_empty_label-2880034-1.patch"
 
 projects[openlayers_geolocate_button][subdir] = "contrib"
 projects[openlayers_geolocate_button][version] = "3.2"
