@@ -224,6 +224,7 @@ function farm_crop_farm_taxonomy_term_view_views($term) {
       $views[] = array(
         'name' => 'farm_plantings',
         'arg' => 2,
+        'always' => TRUE,
       );
       break;
 
