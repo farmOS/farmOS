@@ -29,7 +29,7 @@ function farm_log_activity_default_log_type() {
     "type" : "farm_activity",
     "label" : "Activity",
     "weight" : 0,
-    "name_pattern" : "[log:name]",
+    "name_pattern" : "Activity: [log:field-farm-asset] [log:field-farm-area]",
     "name_edit" : "1",
     "done" : "1",
     "rdf_mapping" : []
