@@ -20,12 +20,6 @@ Activities are a sort of catch-all, or default, log type, which can be used for
 general planning and recordkeeping of activities that don't fit any of the
 other, more specific, log types.
 
-## Movements
-
-Movements are used to record the movement of a farm asset from one area to
-another. Movement logs are the primary way that an object's location is
-determined.
-
 ## Observations
 
 Observations are used to record any kind of passive observation on the farm. For

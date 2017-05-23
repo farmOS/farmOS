@@ -17,8 +17,8 @@ Each asset type will have it's own set of fields, but some of the common ones
 include:
 
 * **Name** (required) - The name of the asset.
-* **Current location** - This is actually not a real field. It is a shortcut for
-  creating movement logs to assign asset location. For more information see
+* **Location** - This is actually not a real field. It is a shortcut for
+  creating a log that assigns the asset to a location. For more information see
   [Movements and location].
 * **Photos** - This field lets you attach photos to your asset.
 * **Description** - This is a simple text tield that you can use to describe
@@ -42,15 +42,15 @@ single point with a "20" on it. You can click on that point to see a list of the
 animals, and if you zoom in, that point will automatically break up into
 multiple other cluster points, showing more precise locations.
 
-Here's a little more nitty-gritty on how this works: Movement logs are used to
-record the [location of assets in farmOS], along with a geometry field for
-storing precise geodata about location. This geometry is being loaded into
-cluster maps twice. The first is to draw the actual geometry of the asset
-location. And the second is to generate the cluster points. The points
-themselves are just the "centroid" of the geometry itself - which basically
-means it's the average centerpoint, represented in latitude and longitude. So by
-displaying both the actual geometry, and the centroid points, you're able to get
-a very nice overview of exactly where assets are on your farm. Pretty cool huh?
+Here's a little more nitty-gritty on how this works: logs are used to record
+the [location of assets in farmOS], along with a geometry field for storing
+precise geodata about location. This geometry is being loaded into cluster maps
+twice. The first is to draw the actual geometry of the asset location. And the
+second is to generate the cluster points. The points themselves are just the
+"centroid" of the geometry itself - which basically means it's the average
+centerpoint, represented in latitude and longitude. So by displaying both the
+actual geometry, and the centroid points, you're able to get a very nice
+overview of exactly where assets are on your farm. Pretty cool huh?
 
 ## Archiving assets
 

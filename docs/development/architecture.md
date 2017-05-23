@@ -33,8 +33,8 @@ via contributed modules.
 ## Logs
 
 The "Log" entity type is provided by the [Log module], and is used to represent
-various types of events that are recorded on a farm (ie: activities, movements,
-observations, harvests, etc).
+various types of events that are recorded on a farm (ie: activities,
+observations, inputs, harvests, etc).
 
 The [Farm Log module] provides a [core set of log types] that can apply to any
 kind of asset. Other modules can provide more specific log types - like the
