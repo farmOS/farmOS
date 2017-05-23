@@ -30,9 +30,10 @@ webroot) and open it in a browser to access farmOS.
 
 You will need a web server with all the basic [requirements of Drupal].
 
-**The only additional requirement is that you use PHP 5.3+.** Drupal 7 itself
-only requires PHP 5.2+, but farmOS makes heavy use of the [Openlayers module],
-which uses some newer features of PHP.
+In addition to Drupal's basic requirements, farmOS also needs the following:
+
+* **PHP 5.3+.** Drupal 7 itself only requires PHP 5.2+, but farmOS makes heavy
+  use of the [Openlayers module], which uses some newer features of PHP.
 
 [Drupal distribution]: https://drupal.org/documentation/build/distributions
 [Drupal]: https://drupal.org
