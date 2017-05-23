@@ -41,6 +41,10 @@ In addition to Drupal's basic requirements, farmOS also needs the following:
   calculations.
 * **[GEOS - Geometry Engine, Open Source]** is required by the Area Generator
   module.
+* **SSL** Although not strictly a requirement, some features (like the
+  "Geolocate" button on maps) will only work when over a secure connection. SSL
+  is also recommended if you are using the Sensor Listener module to keep your
+  sensor's private key a secret.
 
 [Drupal distribution]: https://drupal.org/documentation/build/distributions
 [Drupal]: https://drupal.org
