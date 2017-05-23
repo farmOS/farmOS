@@ -18,6 +18,7 @@ pages:
 - Hosting:
     - Installing: hosting/installing.md
     - Updating: hosting/updating.md
+    - Google Maps: hosting/googlemaps.md
 - Development:
     - Drupal: development/drupal.md
     - Projects: development/projects.md
