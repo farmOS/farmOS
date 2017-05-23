@@ -37,6 +37,8 @@ In addition to Drupal's basic requirements, farmOS also needs the following:
 * **A Google Maps API key** is necessary for rendering the Google Maps layers
   used in farmOS maps. See the [Google Maps API Key] instructions for more
   information about how to set this up.
+* **[PHP BCMath extension]** is required for accurate geometric polygon area
+  calculations.
 
 [Drupal distribution]: https://drupal.org/documentation/build/distributions
 [Drupal]: https://drupal.org
@@ -47,4 +49,5 @@ In addition to Drupal's basic requirements, farmOS also needs the following:
 [requirements of Drupal]: https://drupal.org/requirements
 [Openlayers module]: https://drupal.org/project/openlayers
 [Google Maps API Key]: /hosting/googlemaps
+[PHP BCMath extension]: http://php.net/manual/en/book.bc.php
 
