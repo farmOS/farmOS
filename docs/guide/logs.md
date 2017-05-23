@@ -28,6 +28,15 @@ flexible log type that can be used for a lot of different things. It comes with
 it's own "Observation Type" vocabulary for defining your own custom
 categorizations.
 
+## Inputs
+
+Input logs are used to record resources that are put into an asset. Fertlizer
+(for plantings) or feed (for animals) can be recorded with input logs.
+
+## Harvests
+
+Harvest logs are used to record harvests from an asset.
+
 [areas]: /guide/areas
 [assets]: /guide/assets
 
