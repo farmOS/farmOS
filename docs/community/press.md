@@ -31,6 +31,8 @@ about farmOS, [contact m.stenta](http://farmier.com/contact).
 
 **2016 July 30th** [ATTRA Sustainable Agriculture: farmOS Releases Beta 12 Version and Beekeeping Module](https://attra.ncat.org/calendar/br_news.php/farmos-releases-beta-12-version)
 
+**2016 May 16th** [Sanmita: Three Cool Drupal-Based Software Projects](http://www.sanmita.com/three-cool-drupal-based-software-projects)
+
 **2016 April 19th** [Cooper Hewitt: COOPER HEWITT TO PRESENT "BY THE PEOPLE: DESIGNING A BETTER AMERICA"](http://www.cooperhewitt.org/2016/04/19/cooper-hewitt-to-present-by-the-people-designing-a-better-america)
 
 **2016 April 1st** [Lancaster Farming: Using 'Big Data' Can Prevent Big Problems on the Farm](http://www.lancasterfarming.com/news/northern_edition/using-big-data-can-prevent-big-problems-on-the-farm/article_09dc6c40-097d-5fb3-8c5b-520405709a1e.html)
