@@ -5,6 +5,8 @@ about farmOS, [contact m.stenta](http://farmier.com/contact).
 
 ## 2017
 
+**2017 April 5th** [PASA Education Event - Advanced Farm Management Using FarmOS](https://www.pasafarming.org/events/pasa-events/pasa-education-event-advanced-farm-management-using-farmos)
+
 **2017 March 14th** [Tech Economy: Precision farming: la sfida dell’agricoltura 4.0 è open source](http://techeconomy.it/2017/03/14/precision-farming-la-sfida-dellagricoltura-4-0-open-source)
 
 **2017 January 24th** [AgroTIC: Les nouvelles technologies sont aussi un levier pour les petites exploitations](http://www.agrotic.org/blog/les-nouvelles-technologies-sont-aussi-un-levier-pour-les-petites-exploitations)
