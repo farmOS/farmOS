@@ -39,6 +39,8 @@ In addition to Drupal's basic requirements, farmOS also needs the following:
   information about how to set this up.
 * **[PHP BCMath extension]** is required for accurate geometric polygon area
   calculations.
+* **[GEOS - Geometry Engine, Open Source]** is required by the Area Generator
+  module.
 
 [Drupal distribution]: https://drupal.org/documentation/build/distributions
 [Drupal]: https://drupal.org
@@ -50,4 +52,5 @@ In addition to Drupal's basic requirements, farmOS also needs the following:
 [Openlayers module]: https://drupal.org/project/openlayers
 [Google Maps API Key]: /hosting/googlemaps
 [PHP BCMath extension]: http://php.net/manual/en/book.bc.php
+[GEOS - Geometry Engine, Open Source]: https://trac.osgeo.org/geos
 
