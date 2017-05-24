@@ -4,4 +4,3 @@
  * @file
  * farmOS installation profile.
  */
-

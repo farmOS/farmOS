@@ -118,4 +118,3 @@ fi
 # Execute the arguments passed into this script.
 echo "Attempting: $@"
 exec "$@"
-

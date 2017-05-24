@@ -30,4 +30,3 @@ services:
       MYSQL_USER: farmos
       MYSQL_PASSWORD: farmos
       FARMOS_DEV: 'true'
-

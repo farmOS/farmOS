@@ -175,4 +175,3 @@ libraries[modernizr][download][url] = "http://github.com/Modernizr/Modernizr/arc
 
 libraries[underscore][download][type] = "get"
 libraries[underscore][download][url] = "http://github.com/jashkenas/underscore/archive/1.7.0.zip"
-

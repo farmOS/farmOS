@@ -48,4 +48,3 @@ dependencies[] = farm_log
 dependencies[] = farm_map
 dependencies[] = farm_quantity
 dependencies[] = farm_taxonomy
-

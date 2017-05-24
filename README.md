@@ -31,4 +31,3 @@ Current maintainers:
 
 This project has been sponsored by:
  * [Farmier](http://farmier.com)
-
