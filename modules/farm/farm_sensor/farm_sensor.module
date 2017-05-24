@@ -369,7 +369,7 @@ function farm_sensor_form_alter(&$form, &$form_state, $form_id) {
     $settings_form = call_user_func_array($sensor_types[$sensor_type]['form'], array($farm_asset, $sensor_settings));
 
     // Add it to the fieldset.
-    $form['sensor']['sensor_settings'] = array_merge($form['sensor_settings'], $settings_form);
+    $form['sensor']['sensor_settings'] = array_merge($form['sensor']['sensor_settings'], $settings_form);
   }
 }
 
