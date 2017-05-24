@@ -94,6 +94,12 @@ function farm_log_movement_views_default_views() {
   $handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['header']['area_text_custom']['empty'] = TRUE;
   $handler->display->display_options['header']['area_text_custom']['content'] = '<small>This lists all assets that have ever been moved to this area. If an asset has been moved to this area more than once, it will show up more than once in this list.</small>';
+  /* Relationship: Log: Movement (field_farm_movement) */
+  $handler->display->display_options['relationships']['field_farm_movement_value']['id'] = 'field_farm_movement_value';
+  $handler->display->display_options['relationships']['field_farm_movement_value']['table'] = 'field_data_field_farm_movement';
+  $handler->display->display_options['relationships']['field_farm_movement_value']['field'] = 'field_farm_movement_value';
+  $handler->display->display_options['relationships']['field_farm_movement_value']['required'] = TRUE;
+  $handler->display->display_options['relationships']['field_farm_movement_value']['delta'] = '0';
   /* Relationship: Entity Reference: Referenced Entity */
   $handler->display->display_options['relationships']['field_farm_asset_target_id']['id'] = 'field_farm_asset_target_id';
   $handler->display->display_options['relationships']['field_farm_asset_target_id']['table'] = 'field_data_field_farm_asset';
@@ -133,10 +139,6 @@ function farm_log_movement_views_default_views() {
   $handler->display->display_options['fields']['timestamp']['date_format'] = 'custom';
   $handler->display->display_options['fields']['timestamp']['custom_date_format'] = 'M j Y';
   $handler->display->display_options['fields']['timestamp']['second_date_format'] = 'long';
-  /* Field: Field collection item: Movement from */
-  $handler->display->display_options['fields']['field_farm_move_from']['id'] = 'field_farm_move_from';
-  $handler->display->display_options['fields']['field_farm_move_from']['table'] = 'field_data_field_farm_move_from';
-  $handler->display->display_options['fields']['field_farm_move_from']['field'] = 'field_farm_move_from';
   /* Sort criterion: Log: Timestamp */
   $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
   $handler->display->display_options['sorts']['timestamp']['table'] = 'log';
@@ -151,6 +153,7 @@ function farm_log_movement_views_default_views() {
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['id'] = 'field_farm_move_to_tid';
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['table'] = 'field_data_field_farm_move_to';
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['field'] = 'field_farm_move_to_tid';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['relationship'] = 'field_farm_movement_value';
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['default_action'] = 'empty';
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['title_enable'] = TRUE;
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['title'] = 'Assets in %1';
@@ -163,14 +166,6 @@ function farm_log_movement_views_default_views() {
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['validate_options']['vocabularies'] = array(
     'farm_areas' => 'farm_areas',
   );
-  /* Filter criterion: Log: Log type */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'log';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'farm_movement' => 'farm_movement',
-  );
-  $handler->display->display_options['filters']['type']['group'] = 1;
   /* Filter criterion: Log: Done */
   $handler->display->display_options['filters']['done']['id'] = 'done';
   $handler->display->display_options['filters']['done']['table'] = 'log';
