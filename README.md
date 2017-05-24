@@ -11,9 +11,9 @@ farmOS is a built on top of [Drupal](http://drupal.org). It packages Drupal core
 along with a set of modules and configuration to create a flexible and
 extensible farm management interface.
 
-Drupal.org is the location of the canonical repositories and mainline branches.
+Drupal.org is the location of the canonical repository and mainline branch.
 GitHub is also used as a mirror, and for some of the more experimental
-development. See http://github.com/farmOS for a list of repositories.
+development. See http://github.com/farmOS for a list of related repositories.
 
 INSTALLATION
 ------------
