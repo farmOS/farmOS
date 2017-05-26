@@ -19,56 +19,57 @@ To learn more about Drupal in general, refer to the [Drupal documentation].
 
 * [farmOS Distribution]
 
-If you are getting started with farmOS, downloading and installing the farmOS
-distribution is the recommended approach. Drupal.org has an automated packaging
-system, so you can be sure it's all built properly and everything is included.
-
 The purpose of the farmOS distribution is to collect all the modules in one
-package, along with some default configuration, theming, etc - so you can get up
-and running using farmOS the way it was intendend and designed to be used.
+package, along with some default configuration, theming, etc. Drupal.org has an
+automated packaging system, so if you are getting started with farmOS,
+downloading and installing a packaged release is the recommended approach. See
+[installing farmOS] for more information.
 
-You are not required to use the distribution. Each of the farmOS components is
-provided as a separate module, so you can install them individually on a
-non-farmOS Drupal website. This isn't recommended unless you're very comfortable
-with Drupal.
+The farmOS repository itself does not include a fully-built codebase. So if you
+clone it from drupal.org or Github, you will either need to build it yourself
+with [Drush] or use [Docker].
 
 ## Modules
 
 ### Included in farmOS
 
-These modules are packaged with the farmOS distribution:
+These modules are included directly in the farmOS distribution repository:
 
-* [Farm Access]
-* [Farm Admin]
-* [Farm Area]
-* [Farm Asset]
-* [Farm Crop]
-* [Farm Equipment]
-* [Farm Fields]
-* [Farm Livestock]
-* [Farm Log]
-* [Farm Map]
-* [Farm MapKnitter]
-* [Farm Quantity]
-* [Farm Sensor]
-* [Farm Soil]
-* [Farm Taxonomy]
-* [Farm Tour]
+* **Farm Access** - Provides mechanisms for managing farmOS user access
+  permissions.
+* **Farm Admin** - Administrative interface for managing the farm.
+* **Farm Area** - Features for managing farm areas.
+* **Farm Asset** - A farm asset entity type.
+* **Farm Crop** - Features for managing farm crops.
+* **Farm Equipment** - Features for managing farm equipment.
+* **Farm Fields** - Provides common base field definitions for farmOS entity
+  types.
+* **Farm Livestock** - Features for managing farm livestock.
+* **Farm Log** - Provides integration with the Log module.
+* **Farm Map** - Provides OpenLayers configuration for farm maps.
+* **Farm MapKnitter** - Provides integration with Public Lab's MapKnitter.org.
+* **Farm Quantity** - Provides a framework for dealing with quantities.
+* **Farm Sensor** - Features for managing farm sensors.
+* **Farm Soil** - Provides features for soil health management.
+* **Farm Taxonomy** - Common farm taxonomies.
+* **Farm Tour** - Provides tours of the farmOS system using the Bootstrap Tour
+  module.
 
 ### Other modules
 
-These modules aren't packaged with the farmOS distribution, but they can be
+These modules aren't included with the farmOS distribution, but they can be
 added to extend your farmOS functionality:
 
-* [Farm Bee]
-* [Farm Maple]
-* [Farm Mushroom]
+* **[Farm Bee]** - Features for beekeeping.
+* **[Farm Maple]** - Features for management of maple tapping and production.
+* **[Farm Map: Norway]** - Norwegian map layers for farmOS maps.
+* **[Farm Mushroom]** - Features for managing mushroom production.
+* **[Farm Sensor: Atmospi]** - Integrates farmOS and [Atmospi] sensors.
 
 ## Theme
 
-The official farmOS theme is a Drupal theme based off of [Bootstrap].
-
-* [Farm Theme]
+The official farmOS theme ("Farm Theme") that is included with farmOS is a
+Drupal theme based off of [Bootstrap].
 
 [farmOS]: http://farmos.org
 [Drupal]: https://drupal.org
@@ -76,25 +77,14 @@ The official farmOS theme is a Drupal theme based off of [Bootstrap].
 [Drupal distribution documentation]: https://www.drupal.org/documentation/build/distributions
 [Drupal documentation]: https://www.drupal.org/documentation
 [farmOS Distribution]: https://drupal.org/project/farm
-[Farm Access]: https://drupal.org/project/farm_access
-[Farm Admin]: https://drupal.org/project/farm_admin
-[Farm Area]: https://drupal.org/project/farm_area
-[Farm Asset]: https://drupal.org/project/farm_asset
-[Farm Crop]: https://drupal.org/project/farm_crop
-[Farm Equipment]: https://drupal.org/project/farm_equipment
-[Farm Fields]: https://drupal.org/project/farm_fields
-[Farm Livestock]: https://drupal.org/project/farm_livestock
-[Farm Log]: https://drupal.org/project/farm_log
-[Farm Map]: https://drupal.org/project/farm_map
-[Farm MapKnitter]: https://drupal.org/project/farm_mapknitter
-[Farm Quantity]: https://drupal.org/project/farm_quantity
-[Farm Sensor]: https://drupal.org/project/farm_sensor
-[Farm Soil]: https://drupal.org/project/farm_soil
-[Farm Taxonomy]: https://drupal.org/project/farm_taxonomy
-[Farm Tour]: https://drupal.org/project/farm_tour
+[installing farmOS]: /hosting/installing
+[Drush]: http://www.drush.org
+[Docker]: /development/docker
 [Farm Bee]: https://drupal.org/project/farm_bee
 [Farm Maple]: https://drupal.org/project/farm_maple
+[Farm Map: Norway]: https://github.com/farmOS/farm_map_no
 [Farm Mushroom]: https://drupal.org/project/farm_mushroom
+[Farm Sensor: Atmospi]: https://github.com/mstenta/farm_sensor_atmospi
+[Atmospi]: https://github.com/mstenta/atmospi
 [Bootstrap]: https://drupal.org/project/bootstrap
-[Farm Theme]: https://drupal.org/project/farm_theme
 

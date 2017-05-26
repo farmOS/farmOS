@@ -1,22 +1,17 @@
-# Issue Queues
+# Issue queues
 
 ## Drupal.org
 
 All farmOS development tasks, feature requests, bug reports, and general
-planning/discussion takes place in the Drupal.org issue queues.
+planning/discussion takes place in the Drupal.org issue queue.
 
-farmOS is comprised of many [projects], and each has its own issue queue. If you
-aren't sure where a particular issue should be posted, just add it to the
-[farmOS Distribution issue queue], and someone will move it to the appropriate
-place.
+Drupal.org issue queue: [https://drupal.org/project/issues/farm](https://drupal.org/project/issues/farm)
 
 ## Github
 
-If you're a Github user, you can also feel free to post issues in the
-[Github queues]. They will either be addressed there, or copied to Drupal.org
-and integrated into the roadmap.
+If you're a Github user, we also maintain an issue queue for farmOS on Github.
+You post issues there if you prefer, and they will either be addressed there,
+or copied to Drupal.org and integrated into the roadmap.
 
-[projects]: /development/projects
-[farmOS Distribution issue queue]: https://drupal.org/project/issues/farm
-[Github queues]: https://github.com/farmOS
+Github issue queue: [https://github.com/farmOS/farmOS/issues](https://github.com/farmOS/farmOS/issues)
 

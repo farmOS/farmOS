@@ -42,9 +42,10 @@ environments. The farmOS codebase will be set up differently, depending on the
 status of the `FARMOS_DEV` environment variable.
 
 When `FARMOS_DEV` is set to `true`, farmOS is built using `drush make` with the
-`--working-copy` flag. This ensures that working Git directories are checked out
-for each of the [farmOS projects]. It will use whatever branch is specified in
-the `FARMOS_DEV_BRANCH` variable. The `FARMOS_VERSION` variable is ignored.
+`--working-copy` flag. This ensures that a working Git directory is checked out
+for the farmOS installation profile (in `profiles/farm` within the built
+codebase). It will use whatever branch is specified in the `FARMOS_DEV_BRANCH`
+variable. The `FARMOS_VERSION` variable is ignored.
 
 When `FARMOS_DEV` is set to `false` (this is the default), then the officially
 packaged release of farmOS will be downloaded from drupal.org and unpacked in
@@ -208,7 +209,6 @@ To start your containers:
 [Docker Hub]: https://hub.docker.com
 [farmOS distribution]: https://www.drupal.org/project/farm
 [farmOS GitHub repository]: https://github.com/farmOS/farmOS
-[farmOS projects]: /development/projects
 [Docker volume]: https://docs.docker.com/engine/tutorials/dockervolumes
 [Updating farmOS]: /hosting/updating
 [Docker Compose]: https://docs.docker.com/compose

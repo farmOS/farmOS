@@ -25,20 +25,20 @@ The following is a brief overview of the entity types that farmOS uses.
 
 ## Farm Assets
 
-The "Farm Asset" entity type is provided by the [Farm Asset module], and is used
+The "Farm Asset" entity type is provided by the "Farm Asset" module, and is used
 to represent "assets" or "things" in the farm. farmOS comes with a core set of
 asset types, including Plantings, Animals, and Equipment - and more can be added
 via contributed modules.
 
 ## Logs
 
-The "Log" entity type is provided by the [Log module], and is used to represent
+The "Log" entity type is provided by the "Log" module, and is used to represent
 various types of events that are recorded on a farm (ie: activities,
 observations, inputs, harvests, etc).
 
-The [Farm Log module] provides a [core set of log types] that can apply to any
+The "Farm Log" module provides a [core set of log types] that can apply to any
 kind of asset. Other modules can provide more specific log types - like the
-"Seeding" log type, which is provided by the [Farm Crop module].
+"Seeding" log type, which is provided by the "Farm Crop" module.
 
 ## Taxonomy Terms
 
@@ -55,10 +55,6 @@ people who are involved with the farm, and they can be assigned roles to grant
 them different [levels of permission].
 
 [An Introduction to Entities]: http://www.drupal.org/node/1261744
-[Farm Asset module]: https://drupal.org/project/farm_asset
-[Log module]: https://drupal.org/project/log
-[Farm Log module]: https://drupal.org/project/farm_log
 [core set of log types]: /guide/logs
-[Farm Crop module]: https://drupal.org/project/farm_crop
 [levels of permission]: /guide/roles
 
