@@ -1,0 +1,369 @@
+<?php
+/**
+ * @file
+ * Farm Access module.
+ */
+
+/**
+ * Implements hook_farm_access_roles().
+ */
+function farm_access_farm_access_roles() {
+
+  // Build a list of roles.
+  $roles = array(
+    'Farm Manager',
+    'Farm Worker',
+    'Farm Viewer',
+  );
+  return $roles;
+}
+
+/**
+ * Create farm roles.
+ */
+function farm_access_roles_create() {
+
+  // Invoke hook_farm_access_roles() to get a list of roles.
+  $roles = module_invoke_all('farm_access_roles');
+
+  // Iterate through the roles.
+  foreach ($roles as $name) {
+
+    // Load the role by name.
+    $role = user_role_load_by_name($name);
+
+    // If the role doesn't exist, create it.
+    if (empty($role)) {
+      $role = new stdClass();
+      $role->name = $name;
+      user_role_save($role);
+    }
+  }
+}
+
+/**
+ * Synchronize all available farm permissions farm roles.
+ */
+function farm_access_sync_perms() {
+
+  // Load a list of all farm roles.
+  $roles = module_invoke_all('farm_access_roles');
+
+  // Iterate through the available roles.
+  foreach ($roles as $role) {
+
+    // Compare current perms to available perms.
+    $compare = farm_access_compare_perms($role);
+
+    // Start with a blank array of changes.
+    $changes = array();
+
+    // Add perms.
+    if (!empty($compare['add'])) {
+      foreach ($compare['add'] as $perm) {
+        $changes[$perm] = TRUE;
+      }
+    }
+
+    // Remove perms.
+    if (!empty($compare['remove'])) {
+      foreach ($compare['remove'] as $perm) {
+        $changes[$perm] = FALSE;
+      }
+    }
+
+    // If there are changes to be made...
+    if (!empty($changes)) {
+
+      // Load the role.
+      $role = user_role_load_by_name($role);
+
+      // If the role does not exist, bail.
+      if (empty($role)) {
+        return;
+      }
+
+      // Apply the changes.
+      user_role_change_permissions($role->rid, $changes);
+    }
+  }
+}
+
+/**
+ * Gets a list of all available farm permissions.
+ *
+ * @param string $role
+ *    A role name to get current permissions for.
+ *
+ * @return array
+ *   Returns an array of permission strings.
+ */
+function farm_access_available_perms($role) {
+
+  // Load the permissions provided by this module on behalf of others.
+  module_load_include('inc', 'farm_access', 'farm_access.modules');
+
+  // Invoke hook_farm_access_perms() to allow modules to provide permissions.
+  $perms = module_invoke_all('farm_access_perms', $role);
+
+  // Unset any that don't exist.
+  // This can be an issue with Taxonomies provided by Features.
+  $permissions_modules = user_permission_get_modules();
+  foreach ($perms as $key => $perm) {
+    if (empty($permissions_modules[$perm])) {
+      unset($perms[$key]);
+    }
+  }
+
+  // Allow other modules to alter the permissions for this role.
+  drupal_alter('farm_access_perms', $role, $perms);
+
+  // Return them.
+  return $perms;
+}
+
+/**
+ * Gets a list of the permissions currently assigned to farm roles.
+ *
+ * @param string $role
+ *   A role name to get current permissions for.
+ *
+ * @return array
+ *   Returns an array of permission strings.
+ */
+function farm_access_current_perms($role) {
+
+  // Load the role.
+  $role = user_role_load_by_name($role);
+
+  // If the role does not exist, bail.
+  if (empty($role)) {
+    return array();
+  }
+
+  // Load the permissions that are currently assigned to the role.
+  $perms = user_role_permissions(array($role->rid => $role->name));
+
+  // Return the permissions for this role, as an array of strings.
+  return array_keys($perms[$role->rid]);
+}
+
+/**
+ * Compares available permissions to actual permissions.
+ *
+ * @param string $role
+ *   A role name to get current permissions for.
+ *
+ * @return array
+ *   Returns an array with two sub-arrays:
+ *     'add': a list of permission strings that should be added
+ *     'remove': a list of permission strings that should be removed
+ */
+function farm_access_compare_perms($role) {
+
+  // Get the available perms.
+  $available_perms = farm_access_available_perms($role);
+
+  // Get the currently applied perms.
+  $current_perms = farm_access_current_perms($role);
+
+  // Determine which perms should be added.
+  $compare['add'] = array_diff($available_perms, $current_perms);
+
+  // Determine which perms should be removed.
+  $compare['remove'] = array_diff($current_perms, $available_perms);
+
+  // Return the comparison.
+  return $compare;
+}
+
+/**
+ * Generate permission lists for farm entities.
+ *
+ * This is a helper function to make the task of generating permission lists
+ * easier.
+ *
+ * @param array $types
+ *   An array of entity types/bundles to generate permissions for. Example:
+ *     $types = array(
+ *       'taxonomy' => array(
+ *         'farm_areas',
+ *       ),
+ *     );
+ * @param array $ops
+ *   An array of strings: 'create', 'view', 'edit', 'delete'
+ *   Use this to specify exactly what kinds of permissions should be returned
+ *   for each entity type. Only include the ones you want. If none are provided,
+ *   all permissions will be returned. Example:
+ *     $ops = array(
+ *       'create',
+ *       'view',
+ *       'edit',
+ *       'delete',
+ *     );
+ *
+ * @return array
+ *   Returns a list of permissions for the given entity type+bundle.
+ */
+function farm_access_entity_perms(array $types, $ops = array()) {
+
+  // Start with an empty array.
+  $perms = array();
+
+  // If the operations array is empty, fill it in.
+  if (empty($ops)) {
+    $ops = array(
+      'create',
+      'view',
+      'edit',
+      'delete',
+    );
+  }
+
+  // Iterate through the types.
+  foreach ($types as $type => $bundles) {
+
+    // Iterate through the bundles.
+    foreach ($bundles as $bundle) {
+
+      // Switch through available entity types.
+      switch ($type) {
+
+        // Farm Asset.
+        case 'farm_asset':
+
+          // Create.
+          if (in_array('create', $ops)) {
+            $perms[] = 'create ' . $bundle . ' farm assets';
+          }
+
+          // View.
+          if (in_array('view', $ops)) {
+            $perms[] = 'view any ' . $bundle . ' farm assets';
+            $perms[] = 'view own ' . $bundle . ' farm assets';
+          }
+
+          // Edit.
+          if (in_array('edit', $ops)) {
+            $perms[] = 'edit any ' . $bundle . ' farm assets';
+            $perms[] = 'edit own ' . $bundle . ' farm assets';
+          }
+
+          // Delete.
+          if (in_array('delete', $ops)) {
+            $perms[] = 'delete any ' . $bundle . ' farm assets';
+            $perms[] = 'delete own ' . $bundle . ' farm assets';
+          }
+          break;
+
+        // Log.
+        case 'log':
+
+          // Create.
+          if (in_array('create', $ops)) {
+            $perms[] = 'create ' . $bundle . ' log entities';
+          }
+
+          // View.
+          if (in_array('view', $ops)) {
+            $perms[] = 'view any ' . $bundle . ' log entities';
+            $perms[] = 'view own ' . $bundle . ' log entities';
+          }
+
+          // Edit.
+          if (in_array('edit', $ops)) {
+            $perms[] = 'edit any ' . $bundle . ' log entities';
+            $perms[] = 'edit own ' . $bundle . ' log entities';
+          }
+
+          // Delete.
+          if (in_array('delete', $ops)) {
+            $perms[] = 'delete any ' . $bundle . ' log entities';
+            $perms[] = 'delete own ' . $bundle . ' log entities';
+          }
+          break;
+
+        // Taxonomy.
+        case 'taxonomy':
+
+          // Edit.
+          if (in_array('edit', $ops)) {
+            $perms[] = 'edit terms in ' . $bundle;
+          }
+
+          // Delete.
+          if (in_array('delete', $ops)) {
+            $perms[] = 'delete terms in ' . $bundle;
+          }
+          break;
+      }
+    }
+  }
+
+  // Return the permissions.
+  return $perms;
+}
+
+/**
+ * Implements hook_modules_enabled().
+ */
+function farm_access_modules_enabled($modules) {
+
+  // Create new roles.
+  farm_access_roles_create();
+
+  // Load a list of modules that implement hook_farm_access_perms() or
+  // hook_farm_access_perms_alter().
+  $perms_implementations = module_implements('farm_access_perms');
+  $alter_implementations = module_implements('farm_access_perms_alter');
+
+  // If one of the modules being enabled implements hook_farm_access_perms() or
+  // hook_farm_access_perms_alter(), sync permissions.
+  if (array_intersect($modules, $perms_implementations) || array_intersect($modules, $alter_implementations)) {
+    farm_access_sync_perms();
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function farm_access_form_alter(&$form, &$form_state, $form_id) {
+
+  // Add our submit function to the core permissions form.
+  if ($form_id == 'user_admin_permissions') {
+
+    // Only if the role exists...
+    $role = user_role_load_by_name('Farm Manager');
+    if (!empty($role)) {
+      $form['#submit'][] = 'farm_access_permissions_form_submit';
+    }
+  }
+}
+
+/**
+ * Submit function for the core permissions form.
+ */
+function farm_access_permissions_form_submit($form, &$form_state) {
+
+  // Create new roles.
+  farm_access_roles_create();
+
+  // Sync permissions.
+  farm_access_sync_perms();
+
+  // Tell the user that we are enforcing the permissions, so there's no
+  // confusion.
+  drupal_set_message(t('Farm access permissions were automatically assigned.'));
+}
+
+/**
+ * Implements hook_flush_caches().
+ */
+function farm_access_flush_caches() {
+
+  // Create new roles.
+  farm_access_roles_create();
+
+  // Sync permissions when the cache is cleared.
+  farm_access_sync_perms();
+}

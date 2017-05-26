@@ -1,0 +1,17 @@
+<?php
+/**
+ * @file
+ * Farm fields module.
+ */
+
+/**
+ * Implements hook_farm_access_perms().
+ */
+function farm_fields_farm_access_perms($role) {
+  $perms = array();
+
+  // Grant access to the farm input filter.
+  $perms[] = 'use text format farm_format';
+
+  return $perms;
+}

@@ -1,0 +1,353 @@
+<?php
+/**
+ * @file
+ * Code for the Farm Log feature.
+ */
+
+// Include Features code.
+include_once 'farm_log.features.inc';
+
+/**
+ * Implements hook_permission().
+ */
+function farm_log_permission() {
+  return array(
+    'view farm logs' => array(
+      'title' => t('View farm logs'),
+      'description' => t('View all farm-related log items.'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_farm_access_perms().
+ */
+function farm_log_farm_access_perms($role) {
+  $perms = array();
+
+  // Grant access to view farm logs.
+  $perms[] = 'view farm logs';
+
+  return $perms;
+}
+
+/**
+ * Implements hook_farm_admin_actions().
+ */
+function farm_log_farm_admin_actions() {
+
+  // Define farm area actions.
+  $actions = array(
+    'log' => array(
+      'title' => t('Add a log'),
+      'href' => 'log/add',
+      'paths' => array(
+        'farm',
+        'farm/logs',
+      ),
+      'weight' => 1,
+    ),
+  );
+  return $actions;
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function farm_log_form_alter(&$form, &$form_state, $form_id) {
+
+  // If this is a log form...
+  if ($form_id == 'log_form') {
+
+    // If there is an asset(s) reference field.
+    if (!empty($form['field_farm_asset'])) {
+
+      // Alter the form using our helper function.
+      farm_log_form_prepopulate_asset($form);
+    }
+
+    // If there is an area(s) reference field...
+    if (!empty($form['field_farm_area'])) {
+
+      // Alter the form with the farm_log helper function.
+      farm_log_form_prepopulate_area($form);
+    }
+  }
+}
+
+/**
+ * Implements hook_entityreference_view_widget_views_arguments_alter().
+ */
+function farm_crop_entityreference_view_widget_views_arguments_alter(&$arguments, $form_state, $view) {
+
+  // This module provides a View that is used for searching and selecting assets
+  // for the field_farm_asset entity reference field, using the Entity
+  // Reference View Widget module.
+  //
+  // In some cases, we want to limit what shows up in the View of assets, based
+  // on the log type that the field is on. For instance, a seeding should only
+  // be able to reference planting assets, but it still uses the general
+  // field_farm_asset field, which technically can reference any asset type.
+  //
+  // The Entity Reference View Widget module provides this hook to allow the
+  // View arguments to be altered. We implement this hook, and invoke our own
+  // custom hook to allow farmOS modules to filter the View results to a
+  // specific entity type, given the current log type.
+  //
+  // The View that we use is farm_asset_entityreference_view, which has two
+  // contextual arguments: asset id (to filter out already-selected assets), and
+  // asset type. The code below only tries to set the asset type argument, and
+  // maintains any asset id argument that is already set.
+
+  /**
+   * @todo
+   * Note that this does NOT alter the "Asset type" exposed filter. So users
+   * will still see that filter, and it will still default to "- Any -". If
+   * the contextual filter is activated here, however, then selecting any other
+   * asset type with the exposed filter will return an empty result set. That's
+   * confusing, so perhaps we should find a way to hide that exposed filter if
+   * this code successfully sets a contextual filter argument.
+   */
+
+  // Figure out what the log type is.
+  if (!empty($form_state['build_info']['args'][0]->type)) {
+    $log_type = $form_state['build_info']['args'][0]->type;
+  }
+
+  // If that failed, bail.
+  else {
+    return;
+  }
+
+  // Ask modules if we should limit the asset type.
+  $limit_types = module_invoke_all('farm_log_allowed_asset_reference_type', $log_type);
+
+  // The asset type argument only supports a single value, so we're just going
+  // to take the first one.
+  if (!empty($limit_types[0])) {
+    $type = $limit_types[0];
+  }
+
+  // If a type was not found, bail.
+  if (empty($type)) {
+    return;
+  }
+
+  // We need to ensure that the first argument is reserved for asset id(s). So
+  // if it's not set, set it to 'all'.
+  if (empty($arguments)) {
+    $arguments[0] = 'all';
+  }
+
+  // Add the asset type as the second argument.
+  $arguments[1] = $type;
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function farm_log_entity_presave($entity, $type) {
+
+  // When a log entity is being saved, populate the geometry field from areas.
+  if ($type == 'log') {
+    farm_log_populate_geometry($entity);
+  }
+}
+
+/**
+ * Helper function for populating a log's geometry from an area reference field.
+ *
+ * @param Entity $entity
+ *   The entity to act upon.
+ *
+ * @see farm_log_entity_movement_presave().
+ */
+function farm_log_populate_geometry($entity) {
+
+  // Define the area field name.
+  $area_field = 'field_farm_area';
+
+  // If the log doesn't have an area reference field, bail.
+  if (!isset($entity->{$area_field})) {
+    return;
+  }
+
+  // If a geometry is already defined, bail.
+  if (!empty($entity->field_farm_geofield[LANGUAGE_NONE][0]['geom'])) {
+    return;
+  }
+
+  // Load the area(s) referenced by the area reference field.
+  $area_ids = array();
+  if (!empty($entity->{$area_field}[LANGUAGE_NONE])) {
+    foreach ($entity->{$area_field}[LANGUAGE_NONE] as $area_reference) {
+      if (!empty($area_reference['tid'])) {
+        $area_ids[] = $area_reference['tid'];
+      }
+    }
+  }
+
+  // Extract geometries from the areas.
+  $geoms = farm_area_extract_geoms($area_ids);
+
+  // Populate the geofield.
+  farm_map_geofield_populate($entity, $geoms);
+}
+
+/**
+ * Helper function for enabling asset prepopulation in log forms.
+ *
+ * @param array $form
+ *   The form array to modify, passed by reference.
+ *
+ * @return array|bool
+ *   Returns the asset objects in an array, if found, FALSE otherwise.
+ */
+function farm_log_form_prepopulate_asset(array &$form) {
+
+  // Load assets from the ?farm_asset query parameter.
+  $assets = farm_asset_load_assets_from_url();
+
+  // If there are no assets, bail.
+  if (empty($assets)) {
+    return FALSE;
+  }
+
+  // Load the field instance definition.
+  $entity_type = $form['#entity_type'];
+  $bundle = $form['#bundle'];
+  $field_instance = field_info_instance($entity_type, 'field_farm_asset', $bundle);
+
+  // If the widget type is "radios/checkboxes" or "select list"...
+  if (in_array($field_instance['widget']['type'], array('options_buttons', 'options_select'))) {
+
+    // Build a list of asset ID.
+    $asset_ids = array();
+    foreach ($assets as $asset) {
+      $asset_ids[] = $asset->id;
+    }
+
+    // Use the array of asset IDs as the field's default value.
+    if (empty($form['field_farm_asset'][LANGUAGE_NONE]['#default_value'])) {
+      $form['field_farm_asset'][LANGUAGE_NONE]['#default_value'] = $asset_ids;
+    }
+  }
+
+  // If the widget type is "autocomplete" or "autocomplete tags"...
+  elseif (in_array($field_instance['widget']['type'], array('entityreference_autocomplete', 'entityreference_autocomplete_tags'))) {
+
+    // Build a list of asset labels in the format that the widget expects.
+    $asset_labels = array();
+    foreach ($assets as $asset) {
+      $asset_labels[] = entity_label('farm_asset', $asset) . ' (' . $asset->id . ')';
+    }
+
+    // For "autocomplete", add each one as a separate field.
+    if ($field_instance['widget']['type'] == 'entityreference_autocomplete') {
+      foreach ($asset_labels as $key => $label) {
+
+        // If the item isn't empty, skip it.
+        if (!empty($form['field_farm_asset'][LANGUAGE_NONE][$key]['target_id']['#default_value'])) {
+          continue;
+        }
+
+        /**
+         * @todo
+         * This seems to be the easiest way to autopopulate entityreference_autocomplete
+         * widgets, but it is MESSY! If anyone can figure out a better way, I will buy
+         * you a beer.
+         */
+        // Copy the initial array structure from the first element.
+        $form['field_farm_asset'][LANGUAGE_NONE][$key] = $form['field_farm_asset'][LANGUAGE_NONE][0];
+
+        // Set the default, delta, and weight values.
+        $form['field_farm_asset'][LANGUAGE_NONE][$key]['target_id']['#default_value'] = $label;
+        $form['field_farm_asset'][LANGUAGE_NONE][$key]['target_id']['#delta'] = $key;
+        $form['field_farm_asset'][LANGUAGE_NONE][$key]['target_id']['#weight'] = $key;
+
+        // Only make the first one required.
+        if ($key > 0) {
+          $form['field_farm_asset'][LANGUAGE_NONE][$key]['target_id']['#required'] = 0;
+        }
+
+        $form['field_farm_asset'][LANGUAGE_NONE]['#max_delta'] = $key;
+        $form['field_farm_asset'][LANGUAGE_NONE][$key]['_weight']['#delta'] = $key;
+        $form['field_farm_asset'][LANGUAGE_NONE][$key]['_weight']['#default_value'] = $key;
+      }
+    }
+
+    // For "autocomplete tags", implode them all into one comma-separated list.
+    elseif ($field_instance['widget']['type'] == 'entityreference_autocomplete_tags') {
+      if (empty($form['field_farm_asset'][LANGUAGE_NONE]['#default_value'])) {
+        $form['field_farm_asset'][LANGUAGE_NONE]['#default_value'] = implode(', ', $asset_labels);
+      }
+    }
+  }
+
+  // If the widget type is "entity reference view widget"...
+  elseif ($field_instance['widget']['type'] == 'entityreference_view_widget') {
+
+    // Add a set of checkbox form elements, as the entityreference_view_widget
+    // module expects...
+    foreach ($assets as $key => $asset) {
+
+      // If the item isn't empty, skip it.
+      if (!empty($form['field_farm_asset'][LANGUAGE_NONE][$key]['target_id'])) {
+        continue;
+      }
+
+      // Add the checkbox element.
+      $form['field_farm_asset'][LANGUAGE_NONE][$key]['target_id'] = array(
+        '#type' => 'checkbox',
+        '#return_value' => $asset->id,
+        '#value' => $asset->id,
+        '#title_display' => 'after',
+        '#attributes' => array(
+          'checked' => 'checked',
+        ),
+        '#title' => entity_label('farm_asset', $asset),
+      );
+    }
+  }
+
+  return $assets;
+}
+
+/**
+ * Helper function for enabling area prepopulation in log forms.
+ *
+ * @param array $form
+ *   The form array to modify, passed by reference.
+ *
+ * @return TaxonomyTerm term
+ *   Returns the taxonomy term object, if found.
+ */
+function farm_log_form_prepopulate_area(array &$form) {
+  $area = NULL;
+
+  // Alias for the field's default value.
+  $field_value = &$form['field_farm_area'][LANGUAGE_NONE]['#default_value'];
+
+  // If the "farm_area" query parameter is set...
+  $params = drupal_get_query_parameters();
+  if (!empty($params['farm_area'])) {
+
+    // Verify that the farm_area is valid.
+    $area = taxonomy_term_load($params['farm_area']);
+    if ($area) {
+
+      // Add the area to the form.
+      $form['farm_area'] = array(
+        '#type' => 'value',
+        '#value' => $area,
+      );
+
+      // Prepopulate the area reference field.
+      if (empty($field_value)) {
+        $field_value = $area->tid;
+      }
+    }
+  }
+
+  return $area;
+}

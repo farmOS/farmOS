@@ -1,0 +1,26 @@
+<?php
+/**
+ * @file
+ * Farm quantity install.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function farm_quantity_install() {
+
+  // Set the default system of measurement (metric), if it isn't already.
+  $unit_system = variable_get('farm_quantity_unit_system', NULL);
+  if (empty($unit_system)) {
+    variable_set('farm_quantity_unit_system', 'metric');
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function farm_quantity_uninstall() {
+
+  // Delete variables.
+  variable_del('farm_quantity_unit_system');
+}

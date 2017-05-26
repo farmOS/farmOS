@@ -1,0 +1,77 @@
+<?php
+/**
+ * @file
+ * Farm livestock install file.
+ */
+
+/**
+ * Implements hook_update_dependencies().
+ */
+function farm_livestock_update_dependencies() {
+
+  // Ensure that farm_update_7019 runs before farm_livestock_update_7001, so
+  // that the new Parents field is available.
+  $dependencies['farm_livestock'][7001] = array('farm' => 7019);
+
+  // Update 7003 (add movement field to medical logs) depends on
+  // farm_log_movement_update_7000().
+  $dependencies['farm_livestock'][7003] = array('farm_log_movement' => 7000);
+
+  return $dependencies;
+}
+
+/**
+ * Migrate Animal Description field to plain Description field (from farm_fields).
+ */
+function farm_livestock_update_7000(&$sandbox) {
+
+  // Revert this module's field_instance Features component.
+  features_revert(array('farm_livestock' => array('field_instance')));
+
+  // If the new description field database tables exist...
+  if (db_table_exists('field_data_field_farm_description') && db_table_exists('field_revision_field_farm_description')) {
+
+    // Copy all descriptions from the old database tables to the new ones.
+    db_query('INSERT INTO {field_data_field_farm_description} SELECT * FROM {field_data_field_farm_animal_description}');
+    db_query('INSERT INTO {field_revision_field_farm_description} SELECT * FROM {field_revision_field_farm_animal_description}');
+
+    // Delete the old field.
+    $field = field_info_instance('farm_asset', 'field_farm_animal_description', 'animal');
+    field_delete_instance($field);
+  }
+}
+
+/**
+ * Migrate Animal Parents field to plain Parents field (from farm_asset_children).
+ */
+function farm_livestock_update_7001(&$sandbox) {
+
+  // Revert this module's field_instance Features component.
+  features_revert(array('farm_livestock' => array('field_instance')));
+
+  // If the new description field database tables exist...
+  if (db_table_exists('field_data_field_farm_parent') && db_table_exists('field_revision_field_farm_parent')) {
+
+    // Copy all references from the old database tables to the new ones.
+    db_query('INSERT INTO {field_data_field_farm_parent} SELECT * FROM {field_data_field_farm_animal_parents}');
+    db_query('INSERT INTO {field_revision_field_farm_parent} SELECT * FROM {field_revision_field_farm_animal_parents}');
+
+    // Delete the old field.
+    $field = field_info_instance('farm_asset', 'field_farm_animal_parents', 'animal');
+    field_delete_instance($field);
+  }
+}
+
+/**
+ * Add new animal ID tag types: Chip, Other.
+ */
+function farm_livestock_update_7002(&$sandbox) {
+  features_revert(array('farm_livestock' => array('field_base', 'field_instance')));
+}
+
+/**
+ * Add new movement field to medical logs.
+ */
+function farm_livestock_update_7003(&$sandbox) {
+  features_revert(array('farm_livestock' => array('field_instance')));
+}

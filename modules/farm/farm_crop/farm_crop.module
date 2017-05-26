@@ -1,0 +1,303 @@
+<?php
+/**
+ * @file
+ * Code for the Farm Crop feature.
+ */
+
+include_once 'farm_crop.features.inc';
+
+/**
+ * Implements hook_farm_access_perms($role).
+ */
+function farm_crop_farm_access_perms($role) {
+
+  // Assemble a list of entity types provided by this module.
+  $types = array(
+    'farm_asset' => array(
+      'planting',
+    ),
+    'log' => array(
+      'farm_seeding',
+      'farm_transplanting',
+    ),
+    'taxonomy' => array(
+      'farm_crops',
+      'farm_crop_families',
+    ),
+  );
+
+  // Grant different CRUD permissions based on the role.
+  $perms = array();
+  switch ($role) {
+
+    // Farm Manager and Worker
+    case 'Farm Manager':
+    case 'Farm Worker':
+      $perms = farm_access_entity_perms($types);
+      break;
+
+    // Farm Viewer
+    case 'Farm Viewer':
+      $perms = farm_access_entity_perms($types, array('view'));
+      break;
+  }
+  return $perms;
+}
+
+/**
+ * Implements hook_farm_area_type_info().
+ */
+function farm_crop_farm_area_type_info() {
+  return array(
+    'greenhouse' => array(
+      'label' => t('Greenhouse'),
+      'style' => 'farm_map_style_green',
+      'weight' => 0,
+    ),
+    'bed' => array(
+      'label' => t('Bed'),
+      'style' => 'farm_map_style_green',
+      'zoom_levels' => array(18, 19, 20, 21, 22, 23, 24),
+      'weight' => -5,
+    ),
+  );
+}
+
+/**
+ * Implements hook_farm_admin_actions().
+ */
+function farm_crop_farm_admin_actions() {
+
+  // Define actions.
+  $actions = array(
+    'crop' => array(
+      'title' => t('Add a crop/variety'),
+      'href' => 'admin/structure/taxonomy/farm_crops/add',
+      'paths' => array(
+        'farm/assets/plantings/crops',
+      ),
+    ),
+    'planting' => array(
+      'title' => t('Add a planting'),
+      'href' => 'farm/asset/add/planting',
+      'views' => array(
+        'farm_plantings',
+      ),
+    ),
+    'seeding' => array(
+      'title' => t('Add a seeding'),
+      'href' => 'log/add/farm_seeding',
+      'assets' => array(
+        'planting',
+      ),
+      'views' => array(
+        'farm_log_seeding',
+      ),
+    ),
+    'transplanting' => array(
+      'title' => t('Add a transplanting'),
+      'href' => 'log/add/farm_transplanting',
+      'assets' => array(
+        'planting',
+      ),
+      'views' => array(
+        'farm_log_transplanting',
+      ),
+    ),
+  );
+  return $actions;
+}
+
+/**
+ * Implements hook_farm_asset_breadcrumb().
+ */
+function farm_crop_farm_asset_breadcrumb($farm_asset) {
+
+  // If the asset is a planting, add a link to the plantings list.
+  $breadcrumb = array();
+  if ($farm_asset->type == 'planting') {
+    $breadcrumb[] = l(t('Assets'), 'farm/assets');
+    $breadcrumb[] = l(t('Plantings'), 'farm/assets/plantings');
+  }
+  return $breadcrumb;
+}
+
+/**
+ * Implements hook_farm_taxonomy_breadcrumb().
+ */
+function farm_crop_farm_taxonomy_breadcrumb($term) {
+  $breadcrumb = array();
+
+  // Switch through available vocabularies.
+  switch ($term->vocabulary_machine_name) {
+
+    // If the term is in farm_crops...
+    case 'farm_crops':
+      $breadcrumb[] = l(t('Assets'), 'farm/assets');
+      $breadcrumb[] = l(t('Plantings'), 'farm/assets/plantings');
+      $breadcrumb[] = l(t('Crops/Varieties'), 'farm/assets/plantings/crops');
+      break;
+
+    // If the term is in farm_crop_families...
+    case 'farm_crop_families':
+      $breadcrumb[] = l(t('Assets'), 'farm/assets');
+      $breadcrumb[] = l(t('Plantings'), 'farm/assets/plantings');
+      $breadcrumb[] = t('Crop Families');
+      break;
+
+  }
+
+  return $breadcrumb;
+}
+
+/**
+ * Implements hook_farm_asset_view_views().
+ */
+function farm_crop_farm_asset_view_views($farm_asset) {
+
+  // If the entity is not a planting, bail.
+  if ($farm_asset->type != 'planting') {
+    return array();
+  }
+
+  // Return a list of Views to include on Plantings.
+  return array(
+    array(
+      'name' => 'farm_log_activity',
+      'weight' => 0,
+    ),
+    array(
+      'name' => 'farm_log_observation',
+      'weight' => 10,
+    ),
+    array(
+      'name' => 'farm_log_seeding',
+      'weight' => 20,
+    ),
+    array(
+      'name' => 'farm_log_transplanting',
+      'weight' => 30,
+    ),
+    array(
+      'name' => 'farm_log_input',
+      'weight' => 50,
+    ),
+    array(
+      'name' => 'farm_log_harvest',
+      'weight' => 60,
+    ),
+    array(
+      'name' => 'farm_log_movement',
+      'weight' => 100,
+    ),
+    array(
+      'name' => 'farm_asset_children',
+      'display' => 'page',
+      'title' => t('Children'),
+      'weight' => 110,
+    ),
+  );
+}
+
+/**
+ * Implements hook_farm_taxonomy_term_view_views().
+ */
+function farm_crop_farm_taxonomy_term_view_views($term) {
+
+  // Start a list of View names.
+  $views = array();
+
+  // Switch logic depending on the vocabulary.
+  switch ($term->vocabulary_machine_name) {
+
+    // Farm areas:
+    case 'farm_areas':
+      $views[] = array(
+        'name' => 'farm_plantings',
+        'arg' => 1,
+        'weight' => -20,
+      );
+      break;
+
+    // Farm crops.
+    case 'farm_crops':
+      $views[] = array(
+        'name' => 'farm_plantings',
+        'arg' => 2,
+        'always' => TRUE,
+      );
+      break;
+
+    // Farm crop family.
+    case 'farm_crop_families':
+      $views[] = 'farm_crops';
+      break;
+  }
+
+  return $views;
+}
+
+/**
+ * Implements hook_farm_area_links().
+ */
+function farm_crop_farm_area_links($id) {
+  $links = array();
+
+  // Add link to plantings.
+  $view = views_get_view('farm_plantings');
+  $view->preview('default', array($id));
+  if ($view->total_rows > 0) {
+    $links[] = array(
+      'title' => t('Plantings') . ': ' . $view->total_rows,
+      'href' => 'farm/assets/plantings/' . $id,
+    );
+  }
+
+  return $links;
+}
+
+/**
+ * Implements hook_views_post_render().
+ */
+function farm_crop_views_post_render(&$view, &$output, &$cache) {
+
+  // If this is the Farm Plantings page...
+  if ($view->name == 'farm_plantings' && $view->current_display == 'page') {
+
+    // If dashboard maps are disabled in the farm_map module settings, bail.
+    if (!variable_get('farm_map_show', TRUE)) {
+      return;
+    }
+
+    // If there are any arguments, bail.
+    /**
+     * @todo
+     * Display a map that is filtered by the same arguments.
+     */
+    if (!empty($view->args)) {
+      return;
+    }
+
+    // If the View result is not empty...
+    if (!empty($view->result)) {
+
+      // Add the Plantings asset map to the top of the View.
+      $map = \Drupal\openlayers\Openlayers::load('Map', 'farm_assets_planting');
+      if (!empty($map)) {
+        $map_build = $map->build();
+        $output = drupal_render($map_build) . $output;
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_farm_log_allowed_asset_reference_type().
+ */
+function farm_crop_farm_log_allowed_asset_reference_type($log_type) {
+
+  // On seeding and transplanting logs, only plantings can be referenced.
+  if (in_array($log_type, array('farm_seeding', 'farm_transplanting'))) {
+    return 'planting';
+  }
+}

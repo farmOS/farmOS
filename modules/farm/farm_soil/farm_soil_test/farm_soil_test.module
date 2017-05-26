@@ -1,0 +1,97 @@
+<?php
+/**
+ * @file
+ * Code for the Farm Soil Test feature.
+ */
+
+include_once 'farm_soil_test.features.inc';
+
+/**
+ * Implements hook_farm_access_perms().
+ */
+function farm_soil_test_farm_access_perms($role) {
+
+  // Assemble a list of entity types provided by this module.
+  $types = array(
+    'log' => array(
+      'farm_soil_test',
+    ),
+    'taxonomy' => array(
+      'farm_soil_names',
+    ),
+  );
+
+  // Grant different CRUD permissions based on the role.
+  $perms = array();
+  switch ($role) {
+
+    // Farm Manager and Worker
+    case 'Farm Manager':
+    case 'Farm Worker':
+      $perms = farm_access_entity_perms($types);
+      break;
+
+    // Farm Viewer
+    case 'Farm Viewer':
+      $perms = farm_access_entity_perms($types, array('view'));
+      break;
+  }
+
+  return $perms;
+}
+
+/**
+ * Implements hook_farm_admin_actions().
+ */
+function farm_soil_test_farm_admin_actions() {
+
+  // Define farm area actions.
+  $actions = array(
+    'soil_test' => array(
+      'title' => t('Add a soil test'),
+      'href' => 'log/add/farm_soil_test',
+      'views' => array(
+        'farm_log_soil_tests',
+      ),
+      'paths' => array(
+        'taxonomy/term/%',
+      ),
+    ),
+  );
+  return $actions;
+}
+
+/**
+ * Implements hook_farm_taxonomy_term_view_views().
+ */
+function farm_soil_test_farm_taxonomy_term_view_views($term) {
+
+  // If the term is not an area, bail.
+  if ($term->vocabulary_machine_name != 'farm_areas') {
+    return array();
+  }
+
+  // Return a list of Views to include on Areas.
+  return array(
+    'farm_log_soil_tests',
+  );
+}
+
+/**
+ * Implements hook_farm_area_links().
+ */
+function farm_soil_test_farm_area_links($id) {
+  $links = array();
+
+  // Add link to soil tests.
+  $view = views_get_view('farm_log_soil_tests');
+  $view->preview('default', array($id));
+  if ($view->total_rows > 0) {
+    $links[] = array(
+      'title' => t('Soil tests') . ': ' . $view->total_rows,
+      'href' => 'farm/logs/soil-tests/' . $id,
+    );
+  }
+
+  return $links;
+}

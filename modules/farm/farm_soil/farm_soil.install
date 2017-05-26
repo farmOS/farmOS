@@ -1,0 +1,65 @@
+<?php
+/**
+ * @file
+ * Farm soil install.
+ */
+
+/**
+ * Change "Soil Types" to "Soil Names".
+ */
+function farm_soil_update_7000(&$sandbox) {
+
+  // Start by reverting the Features components of this module, to ensure the
+  // new configuration is created.
+  $features = array(
+    'farm_soil' => array('field_base', 'taxonomy', 'variable'),
+  );
+  features_revert($features);
+
+  // Migrate all taxonomy terms from the old vocabulary to the new one.
+  $old_vocab = taxonomy_vocabulary_machine_name_load('farm_soil_types');
+  $new_vocab = taxonomy_vocabulary_machine_name_load('farm_soil_names');
+  if (!empty($old_vocab->vid) && !empty($new_vocab->vid)) {
+
+    // Migrate terms.
+    $params = array(
+      'old_vid' => $old_vocab->vid,
+      'new_vid' => $new_vocab->vid
+    );
+    db_query('UPDATE {taxonomy_term_data} SET vid = :new_vid WHERE vid = :old_vid', $params);
+
+    // Delete old vocabulary.
+    taxonomy_vocabulary_delete($old_vocab->vid);
+
+    // Delete old pathauto variable.
+    variable_del('pathauto_taxonomy_term_farm_soil_types_pattern');
+  }
+  else {
+    throw new DrupalUpdateException('The new soil names vocabulary was not built properly, and terms were not migrated.');
+  }
+
+  // Delete soil types field base, if it isn't used by any other instances.
+  $field_name = 'field_farm_soil_types';
+  $field = field_info_field($field_name);
+  $instances = FALSE;
+  if (isset($field['bundles'])) {
+    foreach ($field['bundles'] as $entity_type => $bundles) {
+      foreach ($bundles as $bundle) {
+        $instance = field_info_instance($entity_type, $field_name, $bundle);
+        if ($instance['deleted'] === 0) {
+          $instances = TRUE;
+        }
+      }
+    }
+  }
+  if ($instances) {
+    field_delete_field($field_name);
+  }
+}
+
+/**
+ * Enable the Farm Soil: NRCS module.
+ */
+function farm_soil_update_7001(&$sandbox) {
+  module_enable(array('farm_soil_nrcs'));
+}

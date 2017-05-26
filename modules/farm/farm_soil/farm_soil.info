@@ -1,0 +1,15 @@
+name = Farm Soil
+description = Provides features for soil health management.
+core = 7.x
+package = farmOS
+dependencies[] = ctools
+dependencies[] = features
+dependencies[] = geofield
+dependencies[] = strongarm
+dependencies[] = taxonomy
+features[ctools][] = strongarm:strongarm:1
+features[features_api][] = api:2
+features[field_base][] = field_farm_soil_names
+features[field_base][] = field_farm_soil_sample_points
+features[taxonomy][] = farm_soil_names
+features[variable][] = pathauto_taxonomy_term_farm_soil_names_pattern

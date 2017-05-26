@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Farm Soil feature.
+ */
+
+include_once 'farm_soil.features.inc';

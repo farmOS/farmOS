@@ -1,0 +1,522 @@
+<?php
+/**
+ * @file
+ * Farm area generate module.
+ */
+
+/**
+ * Implements hook_permission().
+ */
+function farm_area_generate_permission() {
+  return array(
+    'use farm area generator' => array(
+      'title' => t('Use farm area generator tool'),
+      'description' => t('Use the farm area generator tool.'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_farm_access_perms().
+ */
+function farm_area_generate_farm_access_perms($role) {
+
+  // Grant area generator access to Farm Managers.
+  if ($role == 'Farm Manager') {
+    return array('use farm area generator');
+  }
+  else {
+    return array();
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function farm_area_generate_menu() {
+
+  // Area generator form.
+  $items['farm/areas/generate'] = array(
+    'title' => 'Area generator',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('farm_area_generate_form'),
+    'access arguments' => array('use farm area generator'),
+    'type' => MENU_LOCAL_TASK,
+  );
+
+  // Area generator callback.
+  $items['farm/areas/generate/callback'] = array(
+    'page callback' => 'farm_area_generate_callback',
+    'access arguments' => array('use farm area generator'),
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+/**
+ * Check to see if GEOS is installed and available.
+ *
+ * @return bool
+ *   Returns TRUE if GEOS is installed, FALSE otherwise.
+ */
+function farm_area_generate_geos_exists() {
+  geophp_load();
+  return geoPHP::geosInstalled();
+}
+
+/**
+ * Implements hook_page_build().
+ */
+function farm_area_generate_page_build(&$page) {
+
+  // If this is the area generator form page, add the areas map.
+  if (current_path() == 'farm/areas/generate') {
+
+    // Load the areas map.
+    $map = \Drupal\openlayers\Openlayers::load('Map', 'farm_areas');
+
+    // Build the map and add it to the page content.
+    $page['content']['farm_areas'] = $map->build();
+
+    // Set the weight to 100 so that it appears on bottom.
+    $page['content']['farm_areas']['#weight'] = 100;
+
+    // Set the content region #sorted flag to FALSE so that it resorts.
+    $page['content']['#sorted'] = FALSE;
+  }
+}
+
+
+/**
+ * Area generator form.
+ */
+function farm_area_generate_form($form, &$form_state) {
+
+  // Set the page title.
+  drupal_set_title('Area generator');
+
+  // Add javascript.
+  drupal_add_js(drupal_get_path('module', 'farm_area_generate') . '/js/farm_area_generate.js');
+
+  // Hidden field for generated area WKT. If the areas were generated via the
+  // "Preview" button, WKT will be stored in $form_state['storage']['wkt'].
+  $form['wkt'] = array(
+    '#type' => 'hidden',
+    '#value' => !empty($form_state['storage']['wkt']) ? $form_state['storage']['wkt'] : '',
+    '#prefix' => '<div id="generated-wkt">',
+    '#suffix' => '</div>',
+  );
+
+  // Description.
+  $form['description'] = array(
+    '#type' => 'markup',
+    '#markup' => t('This area generator tool is used to generate multiple child areas within a parent area. Select a parent area, specify how many areas you want in it, and the area orientation. Areas will be generated to fill the parent.'),
+  );
+
+  // Area select.
+  $form['area'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Area'),
+    '#description' => t('Set the parent area that the generated areas will be within. This area must have a single polygon geometry. Click on an area in the map below to auto-fill this field.'),
+    '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_area',
+    '#required' => TRUE,
+  );
+
+  // Area type.
+  $form['area_type'] = array(
+    '#type' => 'select',
+    '#title' => t('Area type'),
+    '#description' => t('Select the type of areas that will be generated.'),
+    '#options' => farm_area_type_options(),
+    '#requited' => TRUE,
+  );
+
+  // Number of child areas to generate.
+  $form['count'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Number of child areas'),
+    '#description' => t('How many child areas should be generated within the area? The width of each child area will be automatically calculated.'),
+    '#required' => TRUE,
+    '#element_validate' => array('element_validate_integer_positive'),
+  );
+
+  // Orientation.
+  $form['orientation'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Orientation'),
+    '#description' => t('The orientation of the child areas in degrees (between 0 and 180). For example: areas running east/west would have an orientation of 0 (or 180), while areas running north/south would have an orientation of 90.'),
+    '#required' => TRUE,
+    '#default_value' => 0,
+    '#element_validate' => array('element_validate_integer'),
+  );
+
+  // If GEOS is not installed, print a warning and hide the submit button.
+  if (!farm_area_generate_geos_exists()) {
+    drupal_set_message('This area generator tool requires the GEOS libary: ' . l('http://trac.osgeo.org/geos', 'http://trac.osgeo.org/geos'), 'warning');
+  }
+  else {
+    $form['actions']['preview'] = array(
+      '#type' => 'submit',
+      '#value' => t('Preview'),
+      '#submit' => array('farm_area_generate_form_preview'),
+      '#ajax' => array(
+        'callback' => 'farm_area_generate_form_ajax',
+      ),
+    );
+    $form['actions']['submit'] = array(
+      '#type' => 'submit',
+      '#value' => t('Generate'),
+    );
+  }
+
+  return $form;
+}
+
+/**
+ * Ajax callback for farm_area_generate_form().
+ */
+function farm_area_generate_form_ajax($form, $form_state) {
+
+  // Get the "wkt" form element and CSS selector.
+  $element = $form['wkt'];
+  $selector = '#generated-wkt';
+
+  // Assemble commands...
+  $commands = array();
+
+  // Replace the hidden field.
+  $commands[] = ajax_command_replace($selector, render($element));
+
+  // Execute Javascript to add WKT to the map.
+  $commands[] = array('command' => 'farmAreaGeneratePreview');
+
+  // Display status messages.
+  $commands[] = ajax_command_prepend($selector, theme('status_messages'));
+
+  // Return ajax commands.
+  return array('#type' => 'ajax', '#commands' => $commands);
+}
+
+/**
+ * Area generator form validate.
+ */
+function farm_area_generate_form_validate(&$form, &$form_state) {
+
+  // If GEOS is not installed, prevent submission.
+  if (!farm_area_generate_geos_exists()) {
+    form_set_error('', 'This area generator tool requires the GEOS libary: ' . l('http://trac.osgeo.org/geos', 'http://trac.osgeo.org/geos'));
+    return;
+  }
+
+  // Load the area and store it in the form state.
+  $areas = taxonomy_get_term_by_name($form_state['values']['area'], 'farm_areas');
+  $area = reset($areas);
+  $form_state['storage']['area'] = $area;
+
+  // Ensure the area exists.
+  if (empty($area)) {
+    form_set_error('area', 'The area does not exist.');
+    return;
+  }
+
+  // Ensure that the area doesn't already have child areas.
+  $children = taxonomy_get_children($area->tid);
+  $children_exist = FALSE;
+  foreach ($children as $child) {
+    if (!empty($child->field_farm_area_type[LANGUAGE_NONE][0]['value'])) {
+      $children_exist = TRUE;
+      break;
+    }
+  }
+  if ($children_exist) {
+    form_set_error('area', 'The selected area already has child areas.');
+  }
+
+  // Ensure that the area has a geometry.
+  if (empty($area->field_farm_geofield[LANGUAGE_NONE][0]['geom'])) {
+    form_set_error('area', 'The selected area does not have any geometry defined.');
+    return;
+  }
+
+  // Ensure that the area's geometry is a single polygon.
+  geophp_load();
+  $geom = $area->field_farm_geofield[LANGUAGE_NONE][0]['geom'];
+  $polygon = geoPHP::load($geom, 'wkt');
+  $polygon = geoPHP::geometryReduce($polygon);
+  $form_state['storage']['polygon'] = $polygon;
+  if ($polygon->geometryType() != 'Polygon') {
+    form_set_error('area', 'The selected area is not a single polygon. Areas cannot be generated within points, lines, or complex geometries.');
+    return;
+  }
+
+  // Put an upper limit on the number of child that can be created per area.
+  if ($form_state['values']['count'] > 150) {
+    form_set_error('count', 'The area generator tool has a limit of 150 areas. If you need to add more, consider breaking your area up into sub-areas first.');
+  }
+
+  // Ensure that the orientation is between 0 and 360.
+  if ($form_state['values']['orientation'] < 0 || $form_state['values']['orientation'] > 180) {
+    form_set_error('orientation', 'The orientation must be a number between 0 and 180.');
+  }
+}
+
+/**
+ * Farm area generator form preview.
+ */
+function farm_area_generate_form_preview(&$form, &$form_state) {
+
+  // If the area and polygon was not stored in validation, bail.
+  if (empty($form_state['storage']['area']) || empty($form_state['storage']['polygon'])) {
+    return;
+  }
+
+  // Get all the necessary variables from the form state.
+  $polygon = $form_state['storage']['polygon'];
+  $count = $form_state['values']['count'];
+  $orientation = $form_state['values']['orientation'];
+
+  // Generate child area geometries.
+  $geometries = farm_area_generate_geometries($polygon, $count, $orientation);
+  if (!empty($geometries)) {
+    $collection = new GeometryCollection($geometries);
+    $form_state['storage']['wkt'] = $collection->asText();
+  }
+
+  // Rebuild the form if WKT was generated.
+  if (!empty($form_state['storage']['wkt'])) {
+    $form_state['rebuild'] = TRUE;
+  }
+}
+
+/**
+ * Farm area generate form submit.
+ */
+function farm_area_generate_form_submit(&$form, &$form_state) {
+
+  // If the area and polygon was not stored in validation, bail.
+  if (empty($form_state['storage']['area']) || empty($form_state['storage']['polygon'])) {
+    return;
+  }
+
+  // Get all the necessary variables from the form state.
+  $area = $form_state['storage']['area'];
+  $polygon = $form_state['storage']['polygon'];
+  $area_type = $form_state['values']['area_type'];
+  $count = $form_state['values']['count'];
+  $orientation = $form_state['values']['orientation'];
+
+  // Load the area type label and convert to lowercase.
+  $area_types = farm_area_type_options();
+  $area_type_label = strtolower($area_types[$area_type]);
+
+  // Generate child geometries.
+  $geometries = farm_area_generate_geometries($polygon, $count, $orientation);
+
+  // Load the farm_areas vocabulary.
+  $vocab = taxonomy_vocabulary_machine_name_load('farm_areas');
+
+  // Iterate through the geometries and save each one as a new area.
+  foreach ($geometries as $key => $geometry) {
+
+    // Create a new area.
+    $new_area = new stdClass();
+    $new_area->vid = $vocab->vid;
+    $new_area->name = $area->name . ' ' . $area_type_label . ' ' . ($key + 1);
+    $new_area->field_farm_area_type = array(
+      LANGUAGE_NONE => array(
+        0 => array(
+          'value' => $area_type,
+        ),
+      ),
+    );
+    $new_area->field_farm_geofield = array(
+      LANGUAGE_NONE => array(
+        0 => array(
+          'geom' => $geometry->asText(),
+        ),
+      ),
+    );
+    $new_area->parent = $area->tid;
+    $new_area->weight = $key;
+    taxonomy_term_save($new_area);
+  }
+
+  // Announce how many areas were generated.
+  drupal_set_message(count($geometries) . ' areas were generated.');
+}
+
+/**
+ * Generate geometries within a polygon at a given orientation.
+ *
+ * @param $polygon
+ *   A Polygon geometry object that represents the parent area. Child area
+ *   geometries will be generated within this polygon.
+ * @param $count
+ *   The number of child geometries to generate.
+ * @param $orientation
+ *   The orientation of child geometries, in degrees. This should be a positive
+ *   integer between 0 and 359.
+ *
+ * @return array
+ *   Returns an array of child geometries.
+ */
+function farm_area_generate_geometries($polygon, $count, $orientation = 0) {
+
+  // If the orientation isn't within an acceptable range, bail.
+  if ($orientation < 0 || $orientation > 359) {
+    return array();
+  }
+
+  // Rotate the polygon around its centroid so that the orientation is 0.
+  $origin = $polygon->centroid();
+  $angle = 359 - $orientation;
+  $rotated_polygon = farm_area_generate_rotate_polygon($polygon, $origin, $angle);
+
+  // Calculate the bounding box of the rotated polygon.
+  $bbox = $rotated_polygon->getBBox();
+
+  // Generate horizontal rectangles that fill the bounding box.
+  $geometries = farm_area_generate_bbox_geometries($bbox, $count);
+
+  // Rotate child geometries back to the original orientation and trim to fit
+  // the original polygon.
+  $final_geometries = array();
+  foreach ($geometries as $geometry) {
+    $rotated = farm_area_generate_rotate_polygon($geometry, $origin, $orientation);
+    $trimmed = $rotated->intersection($polygon);
+    $final_geometries[] = $trimmed;
+  }
+
+  return $final_geometries;
+}
+
+/**
+ * Generates a set of rectangle geometries running horizontally to fill a
+ * bounding box.
+ *
+ * @param array $bbox
+ *   An array containing bounding box information (in the same format that
+ *   GeoPHP generates).
+ * @param int $count
+ *   The number of rectangles to fit into the box.
+ *
+ * @return array
+ *   Returns an array of rectangle geometries that fit into the bounding box.
+ */
+function farm_area_generate_bbox_geometries($bbox, $count) {
+
+  // Load GeoPHP.
+  geophp_load();
+
+  // Calculate how wide each rectangle needs to be.
+  if (geoPHP::bcmathInstalled()) {
+    $total_width = bcsub($bbox['maxy'], $bbox['miny']);
+    $geom_width = bcdiv($total_width, $count);
+  }
+  else{
+    $total_width = $bbox['maxy'] - $bbox['miny'];
+    $geom_width = $total_width / $count;
+  }
+
+  // Fill the bounding box with rectangles.
+  $geometries = array();
+  $starting_point = new Point($bbox['minx'], $bbox['maxy']);
+  for ($i=1;$i<=$count;$i++) {
+    $points = array();
+    $points[] = $starting_point;
+    if (geoPHP::bcmathInstalled()) {
+      $points[] = new Point($bbox['maxx'], bcsub($bbox['maxy'], bcmul($geom_width, ($i - 1))));
+      $points[] = new Point($bbox['maxx'], bcsub($bbox['maxy'], bcmul($geom_width, $i)));
+      $points[] = new Point($bbox['minx'], bcsub($bbox['maxy'], bcmul($geom_width, $i)));
+    }
+    else {
+      $points[] = new Point($bbox['maxx'], $bbox['maxy'] - ($geom_width * ($i - 1)));
+      $points[] = new Point($bbox['maxx'], $bbox['maxy'] - ($geom_width * $i));
+      $points[] = new Point($bbox['minx'], $bbox['maxy'] - ($geom_width * $i));
+    }
+    $points[] = $starting_point;
+    $geometries[] = new Polygon(array(new LineString($points)));
+    $starting_point = $points[3];
+  }
+
+  // Return the geometries.
+  return $geometries;
+}
+
+/**
+ * Rotate a polygon around an origin.
+ *
+ * @param $polygon
+ *   A Polygon geometry object.
+ * @param $origin
+ *   An origin point to rotate around.
+ * @param $angle
+ *   The angle of rotation, in degrees.
+ *
+ * @return \Polygon
+ *   Returns a Polygon geometry object that has been rotated around an origin.
+ */
+function farm_area_generate_rotate_polygon($polygon, $origin, $angle) {
+
+  // Load GeoPHP.
+  geophp_load();
+
+  // If the geometry is not a polygon, bail.
+  if ($polygon->geometryType() != 'Polygon' || $polygon->components[0]->geometryType() != 'LineString') {
+    return $polygon;
+  }
+
+  // Iterate through the polygon's points, and rotate each around the origin.
+  $linestring = $polygon->components[0];
+  $new_points = array();
+  if (!empty($linestring->components)) {
+    foreach ($linestring->components as $point) {
+      $new_points[] = farm_area_generate_rotate_point($point, $origin, $angle);
+    }
+  }
+
+  // Return a new Polygon object.
+  return new Polygon(array(new LineString($new_points)));
+}
+
+/**
+ * Rotate a point around an origin.
+ *
+ * @param $point
+ *   A Point geometry object.
+ * @param $origin
+ *   An origin point to rotate around.
+ * @param $angle
+ *   The angle of rotation, in degrees.
+ *
+ * @return \Point
+ *   Returns a Point geometry object that has been rotated around an origin.
+ */
+function farm_area_generate_rotate_point($point, $origin, $angle) {
+
+  // Load GeoPHP.
+  geophp_load();
+
+  // If $point and $origin are not points, or $angle is not an integer between
+  // 0 and 359, bail.
+  if ($point->geometryType() != 'Point' || $origin->geometryType() != 'Point' || $angle < 0 || $angle > 359) {
+    return $point;
+  }
+
+  // Convert the angle to radians.
+  $angle = deg2rad($angle);
+
+  // Calculate the new rotated points.
+  if (geoPHP::bcmathInstalled()) {
+    $x = bcadd($origin->x(), bcsub(bcmul(bcsub($point->x(), $origin->x()), cos($angle)), bcmul(bcsub($point->y(), $origin->y()), sin($angle))));
+    $y = bcadd($origin->y(), bcadd(bcmul(bcsub($point->x(), $origin->x()), sin($angle)), bcmul(bcsub($point->y(), $origin->y()), cos($angle))));
+  }
+  else {
+    $x = $origin->x() + (($point->x() - $origin->x()) * cos($angle)) - (($point->y() - $origin->y()) * sin($angle));
+    $y = $origin->y() + (($point->x() - $origin->x()) * sin($angle)) + (($point->y() - $origin->y()) * cos($angle));
+  }
+
+  // Return a new Point object.
+  return new Point($x, $y);
+}

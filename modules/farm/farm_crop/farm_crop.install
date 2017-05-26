@@ -1,0 +1,84 @@
+<?php
+/**
+ * @file
+ * Farm crop install file.
+ */
+
+/**
+ * Implements hook_update_dependencies().
+ */
+function farm_crop_update_dependencies() {
+
+  // Update 7001 (migrate planting field to asset field on harvest and input
+  // logs) depends on farm_log update 7004 (enable log type sub-modules)
+  $dependencies['farm_crop'][7001] = array('farm_log' => 7004);
+
+  // Ensure that farm_update_7019() runs before farm_crop_update_7002(), so that
+  // the Asset Children module is installed before we revert features. This
+  // issue was discovered late in the farmOS beta13 upgrade path testing, which
+  // is why we don't have a dedicated hook for adding the Parents field in this
+  // module. Instead we're just going to join forces with an existing hook that
+  // will do the same thing.
+  $dependencies['farm_crop'][7002] = array('farm' => 7019);
+
+  // Update 7003 (add movement field to seedings and transplantings) depends on
+  // farm_log_movement_update_7000().
+  $dependencies['farm_crop'][7003] = array('farm_log_movement' => 7000);
+
+  return $dependencies;
+}
+
+/**
+ * Convert all "Row/bed" type areas to "Bed" type.
+ */
+function farm_crop_update_7000(&$sandbox) {
+  $field = 'field_farm_area_type';
+  $column = 'field_farm_area_type_value';
+  db_query("UPDATE {field_data_$field} SET $column = 'bed' WHERE $column = 'rowbed'");
+  db_query("UPDATE {field_revision_$field} SET $column = 'bed' WHERE $column = 'rowbed'");
+}
+
+/**
+ * Migrate Planting field on Harvest and Input logs to Assets field.
+ */
+function farm_crop_update_7001(&$sandbox) {
+
+  // Run database queries to copy all "planting" field values from harvest and
+  // input logs to the new "asset" field.
+  db_query("INSERT INTO {field_data_field_farm_asset} (SELECT * FROM {field_data_field_farm_planting} WHERE entity_type = 'log' AND bundle IN ('farm_harvest', 'farm_input'))");
+  db_query("INSERT INTO {field_revision_field_farm_asset} (SELECT * FROM {field_revision_field_farm_planting} WHERE entity_type = 'log' AND bundle IN ('farm_harvest', 'farm_input'))");
+
+  // Delete the planting field instances from harvest and input logs.
+  $field = field_info_instance('log', 'field_farm_planting', 'farm_harvest');
+  field_delete_instance($field);
+  $field = field_info_instance('log', 'field_farm_planting', 'farm_input');
+  field_delete_instance($field);
+}
+
+/**
+ * Migrate Planting field on Seeding and Transplanting logs to Assets field.
+ */
+function farm_crop_update_7002(&$sandbox) {
+
+  // Start by reverting the field base and instance components of this module
+  // so that the new asset field is available
+  features_revert(array('farm_crop' => array('field_base', 'field_instance')));
+
+  // Run database queries to copy all "planting" field values from seeding and
+  // transplanting logs to the new "asset" field.
+  db_query("INSERT INTO {field_data_field_farm_asset} (SELECT * FROM {field_data_field_farm_planting} WHERE entity_type = 'log' AND bundle IN ('farm_seeding', 'farm_transplanting'))");
+  db_query("INSERT INTO {field_revision_field_farm_asset} (SELECT * FROM {field_revision_field_farm_planting} WHERE entity_type = 'log' AND bundle IN ('farm_seeding', 'farm_transplanting'))");
+
+  // Delete the planting field instances from seeding and transplanting logs.
+  $field = field_info_instance('log', 'field_farm_planting', 'farm_seeding');
+  field_delete_instance($field);
+  $field = field_info_instance('log', 'field_farm_planting', 'farm_transplanting');
+  field_delete_instance($field);
+}
+
+/**
+ * Add new movement field to seedings and transplantings.
+ */
+function farm_crop_update_7003(&$sandbox) {
+  features_revert(array('farm_crop' => array('field_instance')));
+}

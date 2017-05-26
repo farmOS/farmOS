@@ -1,0 +1,526 @@
+<?php
+/**
+ * @file
+ * Code for the Farm Sensor feature.
+ */
+
+include_once 'farm_sensor.features.inc';
+
+/**
+ * Implements hook_farm_admin_actions().
+ */
+function farm_sensor_farm_admin_actions() {
+
+  // Define farm sensor actions.
+  $actions = array(
+    'sensor' => array(
+      'title' => t('Add sensor'),
+      'href' => 'farm/asset/add/sensor',
+      'views' => array(
+        'farm_sensors',
+      ),
+    ),
+  );
+  return $actions;
+}
+
+/**
+ * Implements hook_farm_area_links().
+ */
+function farm_sensor_farm_area_links($id) {
+  $links = array();
+
+  // Add link to sensors.
+  $view = views_get_view('farm_sensors');
+  $view->preview('default', array($id));
+  if ($view->total_rows > 0) {
+    $links[] = array(
+      'title' => t('Sensors') . ': ' . $view->total_rows,
+      'href' => 'farm/assets/sensors/' . $id,
+    );
+  }
+
+  return $links;
+}
+
+/**
+ * Implements hook_farm_asset_breadcrumb().
+ */
+function farm_sensor_farm_asset_breadcrumb($farm_asset) {
+
+  // If the asset is a sensor, add a link to the sensors list.
+  $breadcrumb = array();
+  if ($farm_asset->type == 'sensor') {
+    $breadcrumb[] = l(t('Assets'), 'farm/assets');
+    $breadcrumb[] = l(t('Sensors'), 'farm/assets/sensors');
+  }
+  return $breadcrumb;
+}
+
+/**
+ * Implements hook_farm_asset_view_views().
+ */
+function farm_sensor_farm_asset_view_views($farm_asset) {
+
+  // If the entity is not sensor, bail.
+  if ($farm_asset->type != 'sensor') {
+    return array();
+  }
+
+  // Return a list of Views to include on Sensors.
+  return array(
+    array(
+      'name' => 'farm_log_activity',
+      'weight' => 0,
+    ),
+    array(
+      'name' => 'farm_log_observation',
+      'weight' => 10,
+    ),
+    array(
+      'name' => 'farm_log_movement',
+      'weight' => 100,
+    ),
+  );
+}
+
+/**
+ * Implements hook_farm_taxonomy_term_view_views().
+ */
+function farm_sensor_farm_taxonomy_term_view_views($term) {
+
+  // If the term is not an area, bail.
+  if ($term->vocabulary_machine_name != 'farm_areas') {
+    return array();
+  }
+
+  // Return a list of Views to include on Areas.
+  return array(
+    array(
+      'name' => 'farm_sensors',
+      'always' => TRUE,
+    ),
+  );
+}
+
+/**
+ * Implements hook_farm_access_perms().
+ */
+function farm_sensor_farm_access_perms($role) {
+
+  // Assemble a list of entity types provided by this module.
+  $types = array(
+    'farm_asset' => array(
+      'sensor',
+    ),
+  );
+
+  // Grant different CRUD permissions based on the role.
+  $perms = array();
+  switch ($role) {
+
+    // Farm Manager and Worker
+    case 'Farm Manager':
+    case 'Farm Worker':
+      $perms = farm_access_entity_perms($types);
+      break;
+
+    // Farm Viewer
+    case 'Farm Viewer':
+      $perms = farm_access_entity_perms($types, array('view'));
+      break;
+  }
+
+  return $perms;
+}
+
+/**
+ * Implements hook_entity_load().
+ */
+function farm_sensor_entity_load($entities, $type) {
+
+  // Only act on farm_asset entities.
+  if ($type != 'farm_asset') {
+    return;
+  }
+
+  // Iterate through the loaded assets...
+  foreach ($entities as $entity) {
+
+    // Only act on sensors...
+    if ($entity->type != 'sensor') {
+      continue;
+    }
+
+    // Load the sensor information from the {farm_sensor} database.
+    $query = db_select('farm_sensor', 's');
+    $query->fields('s');
+    $query->condition('id', $entity->id);
+    $result = $query->execute();
+    $sensor_info = $result->fetchAssoc();
+
+    // Only continue if sensor info was returned.
+    if (empty($sensor_info)) {
+      continue;
+    }
+
+    // Assign the entity's sensor type.
+    $entity->sensor_type = $sensor_info['type'];
+
+    // Assign the entity's sensor settings.
+    $entity->sensor_settings = unserialize($sensor_info['settings']);
+  }
+}
+
+/**
+ * Implements hook_entity_insert().
+ */
+function farm_sensor_entity_insert($entity, $type) {
+  _farm_sensor_entity_save($entity, $type);
+}
+
+/**
+ * Implements hook_entity_update().
+ */
+function farm_sensor_entity_update($entity, $type) {
+  _farm_sensor_entity_save($entity, $type);
+}
+
+/**
+ * Helper function for saving farm sensor information on entity insert and update.
+ *
+ * @param $entity
+ *   The entity being saved.
+ * @param $type
+ *   The type of entity being saved.
+ */
+function _farm_sensor_entity_save($entity, $type) {
+
+  // Only act on farm asset entities.
+  if ($type != 'farm_asset') {
+    return;
+  }
+
+  // Only act on sensor assets.
+  if ($entity->type != 'sensor') {
+    return;
+  }
+
+  // Only act if a sensor type is set.
+  if (empty($entity->sensor_type)) {
+    return;
+  }
+
+  // If sensor settings are not set, save an empty array.
+  if (!isset($entity->sensor_settings)) {
+    $entity->sensor_settings = array();
+  }
+
+  // Save the sensor record.
+  farm_sensor_save($entity->id, $entity->sensor_type, $entity->sensor_settings);
+}
+
+/**
+ * Implements hook_entity_delete().
+ */
+function farm_sensor_entity_delete($entity, $type) {
+
+  // Only act on farm asset entities.
+  if ($type != 'farm_asset') {
+    return;
+  }
+
+  // Only act on sensor assets.
+  if ($entity->type != 'sensor') {
+    return;
+  }
+
+  // Delete sensor record.
+  farm_sensor_delete($entity->id);
+}
+
+/**
+ * Implements hook_entity_view_alter().
+ */
+function farm_sensor_entity_view_alter(&$build, $type) {
+
+  /*
+   * Alter farm assets to display sensor information.
+   */
+
+  // If it's not a farm_asset, bail.
+  if ($type != 'farm_asset') {
+    return;
+  }
+
+  // If the entity information isn't available, bail.
+  if (empty($build['#entity'])) {
+    return;
+  }
+  $asset = $build['#entity'];
+
+  // If the asset does not have a sensor type, bail.
+  if (empty($asset->sensor_type)) {
+    return;
+  }
+
+  // Load the list of sensor types.
+  $sensor_types = farm_sensor_types();
+
+  // Get the sensor type label if it exists.
+  if (!empty($sensor_types[$asset->sensor_type])) {
+    $sensor_type_label = $sensor_types[$asset->sensor_type]['label'];
+  }
+
+  // Otherwise, indicate that the sensor type definition is missing.
+  else {
+    $sensor_type_label = $asset->sensor_type . ' (undefined)';
+  }
+
+  // Add the sensor type.
+  $build['sensor_type'] = array(
+    '#markup' => '<p><strong>Sensor type:</strong> ' . $sensor_type_label . '</p>',
+  );
+
+  // Ask other modules for sensor asset view content.
+  $module_content = module_invoke_all('farm_sensor_view', $asset);
+
+  // Merge the asset view content into the build array.
+  if (!empty($module_content)) {
+    $build = array_merge($build, $module_content);
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function farm_sensor_form_alter(&$form, &$form_state, $form_id) {
+
+  // Only alter the farm asset form.
+  if ($form_id != 'farm_asset_form') {
+    return;
+  }
+
+  // Only alter if the asset is of type 'sensor'.
+  if ($form['#entity_type'] != 'farm_asset' || $form['#bundle'] != 'sensor') {
+    return;
+  }
+
+  // Pull the farm asset object out of the form.
+  $farm_asset = $form['farm_asset']['#value'];
+
+  // Load the available sensor types.
+  $sensor_types = farm_sensor_types();
+
+  // Generate a list of sensor type options.
+  $options = array();
+  foreach ($sensor_types as $name => $type) {
+    $options[$name] = $type['label'];
+  }
+
+  // Determine the type.
+  $sensor_type = !empty($farm_asset->sensor_type) ? $farm_asset->sensor_type : NULL;
+
+  // Override sensor type with $form_state value, so AJAX works.
+  if (!empty($form_state['values']['sensor_type'])) {
+    $sensor_type = $form_state['values']['sensor_type'];
+  }
+
+  // Add a sensor fieldset.
+  $form['sensor'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Sensor configuration'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#weight' => 99,
+  );
+
+  // Add a sensor type selection field to the form.
+  $form['sensor']['sensor_type'] = array(
+    '#type' => 'select',
+    '#title' => t('Sensor type'),
+    '#description' => t('What type of sensor is this?'),
+    '#options' => $options,
+    '#default_value' => $sensor_type,
+    '#required' => TRUE,
+    '#ajax' => array(
+      'callback' => 'farm_sensor_settings_form_ajax',
+      'wrapper' => 'farm_sensor_settings'
+    ),
+  );
+
+  // Load the sensor settings.
+  $sensor_settings = !empty($farm_asset->sensor_settings) ? $farm_asset->sensor_settings : array();
+
+  // Sensor settings fieldset.
+  $form['sensor']['sensor_settings'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Sensor settings'),
+    '#description' => t('Configure settings for the sensor type selected above.'),
+    '#prefix' => '<div id="farm_sensor_settings">',
+    '#suffix' => '</div>',
+    '#tree' => TRUE,
+  );
+
+  // If a sensor type is selected, and the type has a settings form...
+  if (!empty($sensor_type) && !empty($sensor_types[$sensor_type]['form']) && function_exists($sensor_types[$sensor_type]['form'])) {
+
+    // Load the sensor type settings form.
+    $settings_form = call_user_func_array($sensor_types[$sensor_type]['form'], array($farm_asset, $sensor_settings));
+
+    // Add it to the fieldset.
+    $form['sensor']['sensor_settings'] = array_merge($form['sensor_settings'], $settings_form);
+  }
+}
+
+/**
+ * Farm sensor settings form ajax.
+ */
+function farm_sensor_settings_form_ajax($form, $form_state) {
+  return $form['sensor_settings'];
+}
+
+/**
+ * Get farm sensor types.
+ *
+ * @return array
+ *   Returns an array of sensors type information provided by other modules.
+ */
+function farm_sensor_types() {
+
+  // Gather type information from other modules.
+  $sensor_types = module_invoke_all('farm_sensor_type_info');
+
+  // Return it.
+  return $sensor_types;
+}
+
+/**
+ * Helper function for saving farm sensor information.
+ *
+ * @param int $id
+ *   The farm sensor asset id.
+ * @param string $type
+ *   The sensor type.
+ * @param array $settings
+ *   An array of sensor settings.
+ */
+function farm_sensor_save($id, $type, $settings = array()) {
+
+  // Delete any existing
+  farm_sensor_delete($id);
+
+  // Insert a new record.
+  $record = array(
+    'id' => $id,
+    'type' => $type,
+    'settings' => $settings,
+  );
+  drupal_write_record('farm_sensor', $record);
+}
+
+/**
+ * Helper function for deleting farm sensor information.
+ *
+ * @param int $id
+ *   The farm sensor asset id.
+ */
+function farm_sensor_delete($id) {
+  db_delete('farm_sensor')->condition('id', $id)->execute();
+}
+
+/**
+ * Load an array of sensors in an area.
+ *
+ * @param int $area_id
+ *   The area id.
+ * @param string $type
+ *   The sensor type (optional).
+ *
+ * @return array
+ *   Returns an array of sensors in the area.
+ */
+function farm_sensor_area_sensors($area_id, $type = '') {
+
+  // Start with a blank array.
+  $sensors = array();
+
+  // Build a query for sensor assets in the area.
+  $query = db_select('farm_asset', 'fa');
+  $query->addField('fa', 'id');
+  $query->condition('fa.type', 'sensor');
+
+  // Build a sub-select query for determining the latest movement log of assets.
+  $subquery = farm_log_movement_asset_movement_query('fa.id');
+
+  // Join the latest movement log for each asset.
+  $query->join('log', 'l', 'l.id = (' . $subquery . ')');
+
+  // Only show assets with a movement to this area.
+  $query->join('field_data_field_farm_move_to', 'fdffmt', 'l.id = fdffmt.entity_id');
+  $query->condition('fdffmt.field_farm_move_to_tid', $area_id);
+
+  // If a sensor type is specified in the arguments, only show that type.
+  if (!empty($type)) {
+    $query->join('farm_sensor', 'fs', 'fa.id = fs.id');
+    $query->condition('fs.type', $type);
+  }
+
+  // Execute the query.
+  $result = $query->execute();
+
+  // Load the sensors.
+  while ($asset_id = $result->fetchField()) {
+    $sensors[] = farm_asset_load($asset_id);
+  }
+
+  // Return the sensors.
+  return $sensors;
+}
+
+/**
+ * Implements hook_farm_sensor_type_info().
+ */
+function farm_sensor_farm_sensor_type_info() {
+  return array(
+    'none' => array(
+      'label' => t('None'),
+      'description' => t('No sensor type.'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_views_post_render().
+ */
+function farm_sensor_views_post_render(&$view, &$output, &$cache) {
+
+  // If this is the Farm Sensors page...
+  if ($view->name == 'farm_sensors' && $view->current_display == 'page') {
+
+    // If dashboard maps are disabled in the farm_map module settings, bail.
+    if (!variable_get('farm_map_show', TRUE)) {
+      return;
+    }
+
+    // If there are any arguments, bail.
+    /**
+     * @todo
+     * Display a map that is filtered by the same arguments.
+     */
+    if (!empty($view->args)) {
+      return;
+    }
+
+    // If the View result is not empty...
+    if (!empty($view->result)) {
+
+      // Add the Sensors asset map to the top of the View.
+      $map = \Drupal\openlayers\Openlayers::load('Map', 'farm_assets_sensor');
+      if (!empty($map)) {
+        $map_build = $map->build();
+        $output = drupal_render($map_build) . $output;
+      }
+    }
+  }
+}

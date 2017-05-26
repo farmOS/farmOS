@@ -1,0 +1,339 @@
+<?php
+
+/**
+ * @file
+ * Farm Log install file.
+ */
+
+/**
+ * Implements hook_update_dependencies().
+ */
+function farm_log_update_dependencies() {
+
+  // Simultaneous changes to Log and Farm Log modules require
+  // updates to be run in a specific back-and-forth order:
+  // 1. Log 7001 (add timestamp property).
+  // 2. Farm Log 7000 (migrate field_farm_date to timestamp property).
+  // 3. Log 7002 (add done property and mark past logs as done).
+  // 4. Farm Log 7001 (converts Issues to Observations, assumes done property).
+  $dependencies['farm_log'][7000] = array('log' => 7001);
+  $dependencies['log'][7002] = array('farm_log' => 7000);
+  $dependencies['farm_log'][7001] = array('log' => 7002);
+
+  // Update 7006 (Add movement field to activities, harvests, inputs, and
+  // observations.) depends on farm_log_movement_update_7000().
+  $dependencies['farm_log'][7006] = array('farm_log_movement' => 7000);
+
+  return $dependencies;
+}
+
+/**
+ * Migrate all field_farm_date fields to Log timestamp property.
+ */
+function farm_log_update_7000(&$sandbox) {
+
+  /*
+   * As of January 16th, 2015, the Log module has a timestamp property,
+   * which has the same goal as the field_farm_date field, so we're
+   * migrating to that.
+   */
+
+  // Load info about the field_farm_date field.
+  $field_info = field_info_field('field_farm_date');
+
+  // Copy all timestamps from the field to the property.
+  $query = "UPDATE {log} l
+    INNER JOIN {field_data_field_farm_date} f
+      ON l.id = f.entity_id
+      AND f.entity_type = 'log'
+    SET l.timestamp = f.field_farm_date_value";
+  db_query($query);
+
+  // Iterate through the log bundles that implement this field.
+  if (!empty($field_info['bundles']['log'])) {
+    foreach ($field_info['bundles']['log'] as $bundle) {
+
+      // Load and delete the field instance.
+      $field_instance = field_info_instance('log', 'field_farm_date', $bundle);
+      field_delete_instance($field_instance);
+    }
+  }
+}
+
+/**
+ * Migrate Issues to Observations.
+ */
+function farm_log_update_7001(&$sandbox) {
+
+  // Create a new "Issue" Observation Type.
+  $vocab = taxonomy_vocabulary_machine_name_load('farm_observation_types');
+  $term = entity_create('taxonomy_term', array(
+    'name' => 'Issue',
+    'vid' => $vocab->vid,
+  ));
+  taxonomy_term_save($term);
+
+  // Load all issue logs.
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'log');
+  $query->entityCondition('bundle', 'farm_issue');
+  $result = $query->execute();
+  if (isset($result['log'])) {
+    $ids = array_keys($result['log']);
+    $logs = entity_load('log', $ids);
+  }
+
+  // If logs were loaded, iterate through them...
+  if (!empty($logs)) {
+    foreach ($logs as $log) {
+
+      // Build a list of values for the new observation log.
+      $values = array(
+        'type' => 'farm_observation',
+        'name' => $log->name,
+        'created' => $log->created,
+        'changed' => $log->changed,
+        'uid' => $log->uid,
+      );
+
+      // Create a new observation log.
+      $observation = entity_create('log', $values);
+
+      // Assign it to the new "Issue" Observation Type.
+      $observation->field_farm_observation_type[LANGUAGE_NONE][] = array(
+        'tid' => $term->tid,
+      );
+
+      // Copy fields from the issue log.
+      $observation->field_farm_asset = $log->field_farm_assets;
+      $observation->field_farm_notes = $log->field_farm_notes;
+
+      // Save the new log.
+      log_save($observation);
+
+      // Manually copy the timestamp and done properties, in case this
+      // is running at the same time as log_update_7001 and log_update_7002.
+      $result = db_query('SELECT timestamp, done FROM {log} WHERE id=:id', array(':id' => $log->id));
+      if ($result) {
+        while ($row = $result->fetchAssoc()) {
+          db_query('UPDATE {log} SET timestamp=:timestamp, done=:done WHERE id=:id', array(
+            ':timestamp' => $row['timestamp'],
+            ':done' => $row['done'],
+            ':id' => $observation->id));
+        }
+      }
+
+      // Delete the old log.
+      log_delete($log);
+    }
+  }
+
+  // Delete the View, if it still exists.
+  $view = views_get_view('farm_log_issues');
+  if (!empty($view)) {
+    views_delete_view($view);
+  }
+
+  // Delete the Priority Levels vocabulary.
+  $vocab = taxonomy_vocabulary_machine_name_load('farm_priority');
+  if (!empty($vocab)) {
+    taxonomy_vocabulary_delete($vocab->vid);
+  }
+
+  // Delete the issue log type.
+  $log_type = log_type_load('farm_issue');
+  if (!empty($log_type)) {
+    log_type_delete($log_type);
+  }
+}
+
+/**
+ * Migrate Areas and Assets fields to Area and Asset field.
+ */
+function farm_log_update_7002(&$sandbox) {
+
+  // Start by reverting the fields component of this module
+  // so that the new Area and Asset fields are available.
+  features_revert(array('farm_log' => array('field')));
+
+  // Load all activity logs.
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'log');
+  $query->entityCondition('bundle', 'farm_activity');
+  $result = $query->execute();
+  if (isset($result['log'])) {
+    $ids = array_keys($result['log']);
+    $logs = entity_load('log', $ids);
+  }
+
+  // If logs were loaded, iterate through them...
+  if (!empty($logs)) {
+    foreach ($logs as $log) {
+
+      // Copy the first area, discard the rest.
+      if (!empty($log->field_farm_areas[LANGUAGE_NONE][0])) {
+        $log->field_farm_area[LANGUAGE_NONE][] = $log->field_farm_areas[LANGUAGE_NONE][0];
+      }
+
+      // Copy the first asset, discard the rest.
+      if (!empty($log->field_farm_assets[LANGUAGE_NONE][0])) {
+        $log->field_farm_asset[LANGUAGE_NONE][] = $log->field_farm_assets[LANGUAGE_NONE][0];
+      }
+
+      // Save the log.
+      log_save($log);
+    }
+  }
+
+  // Delete the areas field.
+  $field = field_info_instance('log', 'field_farm_areas', 'farm_activity');
+  field_delete_instance($field);
+
+  // Delete the assets field.
+  $field = field_info_instance('log', 'field_farm_assets', 'farm_activity');
+  field_delete_instance($field);
+}
+
+/**
+ * Populate the new movement geofields with geometry from referenced areas.
+ */
+function farm_log_update_7003(&$sandbox) {
+
+  // Process this in passes of 50 movements at a time.
+  $sandbox['#finished'] = 0;
+  $limit = 10;
+
+  // Keep track of progress.
+  if (!isset($sandbox['progress'])) {
+
+    // Start by reverting the field instance component of this module
+    // so that the new geofield is available
+    features_revert(array('farm_log' => array('field_instance')));
+
+    // Start out at zero.
+    $sandbox['progress'] = 0;
+
+    // Count how many movement logs there are.
+    $sandbox['max'] = db_select('log')
+      ->fields(NULL, array('id'))
+      ->condition('type', 'farm_movement')
+      ->countQuery()
+      ->execute()
+      ->fetchField();
+  }
+
+  // Fetch the next set of movements.
+  $query = db_select('log')
+    ->fields(NULL, array('id'))
+    ->condition('type', 'farm_movement')
+    ->orderBy('id', 'ASC')
+    ->range($sandbox['progress'], $limit);
+  $results = $query->execute();
+
+  // Iterate over the results and save each one. farm_log_entity_presave() will
+  // do the rest.
+  while ($id = $results->fetchField()) {
+
+    // Increment progress.
+    $sandbox['progress']++;
+
+    // Load the log and save it.
+    $log = log_load($id);
+    log_save($log);
+  }
+
+  // Tell Drupal whether or not we're finished.
+  if ($sandbox['max'] > 0) {
+    $sandbox['#finished'] = $sandbox['progress'] / $sandbox['max'];
+  }
+  else {
+    $sandbox['#finished'] = 1;
+  }
+}
+
+/**
+ * Enable new sub-modules: Activity, Harvest, Input, Movement, Observation.
+ */
+function farm_log_update_7004(&$sandbox) {
+  $modules = array(
+    'farm_log_activity',
+    'farm_log_harvest',
+    'farm_log_input',
+    'farm_log_movement',
+    'farm_log_observation',
+  );
+  foreach ($modules as $module) {
+    if (!module_exists($module)) {
+      module_enable(array($module));
+    }
+  }
+}
+
+/**
+ * Populate geofields on activity, input, and observation logs with geometry
+ * from referenced areas.
+ */
+function farm_log_update_7005(&$sandbox) {
+
+  // Process this in passes of 50 movements at a time.
+  $sandbox['#finished'] = 0;
+  $limit = 10;
+
+  // Keep track of progress.
+  if (!isset($sandbox['progress'])) {
+
+    // Start out at zero.
+    $sandbox['progress'] = 0;
+
+    // Count how many movement logs there are.
+    $sandbox['max'] = db_select('log')
+      ->fields(NULL, array('id'))
+      ->condition('type', array('farm_activity', 'farm_input', 'farm_observation'), 'IN')
+      ->countQuery()
+      ->execute()
+      ->fetchField();
+  }
+
+  // Fetch the next set of movements.
+  $query = db_select('log')
+    ->fields(NULL, array('id'))
+    ->condition('type', array('farm_activity', 'farm_input', 'farm_observation'), 'IN')
+    ->orderBy('id', 'ASC')
+    ->range($sandbox['progress'], $limit);
+  $results = $query->execute();
+
+  // Iterate over the results and save each one. farm_log_entity_presave() will
+  // do the rest.
+  while ($id = $results->fetchField()) {
+
+    // Increment progress.
+    $sandbox['progress']++;
+
+    // Load the log and save it.
+    $log = log_load($id);
+    log_save($log);
+  }
+
+  // Tell Drupal whether or not we're finished.
+  if ($sandbox['max'] > 0) {
+    $sandbox['#finished'] = $sandbox['progress'] / $sandbox['max'];
+  }
+  else {
+    $sandbox['#finished'] = 1;
+  }
+}
+
+/**
+ * Add movement field to activities, harvests, inputs, and observations.
+ */
+function farm_log_update_7006(&$sandbox) {
+  $modules = array(
+    'farm_log_activity',
+    'farm_log_harvest',
+    'farm_log_input',
+    'farm_log_observation',
+  );
+  foreach ($modules as $module) {
+    features_revert(array($module => array('field_instance')));
+  }
+}

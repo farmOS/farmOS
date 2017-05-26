@@ -1,0 +1,408 @@
+<?php
+/**
+ * @file
+ * Code for the Farm Admin feature.
+ */
+
+include_once 'farm_admin.features.inc';
+
+/**
+ * Implements hook_modules_installed().
+ */
+function farm_admin_modules_installed($modules) {
+
+  // If the menu module is installed, create the farm menu.
+  if (in_array('menu', $modules)) {
+    farm_admin_menu_save();
+  }
+}
+
+/**
+ * Implements hook_permission().
+ */
+function farm_admin_permission() {
+  return array(
+    'access farm dashboard' => array(
+      'title' => t('Access farm dashboard'),
+      'description' => t('Access the farm dashboard.'),
+    ),
+    'access farm help' => array(
+      'title' => t('Access farm help pages'),
+      'description' => t('Access the farm help pages.'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_farm_access_perms().
+ */
+function farm_admin_farm_access_perms($role) {
+  $perms = array();
+
+  // Access farm dashboard.
+  $perms[] = 'access farm dashboard';
+
+  // Access farm help.
+  $perms[] = 'access farm help';
+
+  // Allow Farm Managers and Farm Workers to view user profiles.
+  if ($role == 'Farm Manager' || $role == 'Farm Worker') {
+    $perms[] = 'access user profiles';
+  }
+
+  // Allow Farm Managers to administer users and delegate roles.
+  if ($role == 'Farm Manager') {
+
+    // Administer users.
+    $perms[] = 'administer users';
+
+    // Allow role delegation (add one for each defined role).
+    if (module_exists('role_delegation')) {
+      $roles = module_invoke_all('farm_access_roles');
+      foreach ($roles as $role) {
+        $perms[] = 'assign ' . $role . ' role';
+      }
+    }
+  }
+
+  return $perms;
+}
+
+/**
+ * Implements hook_farm_admin_actions().
+ */
+function farm_admin_farm_admin_actions() {
+
+  // Add a link to /farm/people for adding new users.
+  $actions = array(
+    'foo' => array(
+      'title' => t('Add a person'),
+      'href' => 'admin/people/create',
+      'views' => array(
+        'farm_people',
+      ),
+    ),
+  );
+  return $actions;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function farm_admin_menu() {
+
+  $items['farm'] = array(
+    'title' => 'Farm',
+    'page callback' => 'farm_admin_dashboard',
+    'access arguments' => array('access farm dashboard'),
+    'type' => MENU_CALLBACK,
+  );
+  $items['farm/dashboard'] = array(
+    'title' => 'Farm',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -100,
+  );
+
+  $items['farm/help'] = array(
+    'title' => 'Help',
+    'page callback' => 'farm_admin_help_page',
+    'access arguments' => array('access farm help'),
+    'type' => MENU_NORMAL_ITEM,
+    'menu_name' => 'user-menu',
+    'weight' => 100,
+  );
+
+  // Root farm configuration path.
+  $items['admin/config/farm'] = array(
+    'title' => 'Farm',
+    'description' => 'Configure settings for your farm.',
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('access administration pages'),
+    'type' => MENU_NORMAL_ITEM,
+    'file path' => drupal_get_path('module', 'system'),
+    'file' => 'system.admin.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Farm dashboard page callback.
+ */
+function farm_admin_dashboard() {
+
+  // Set the page title.
+  drupal_set_title('Dashboard');
+
+  // Start an output string.
+  $output = '';
+
+  // Display the current date.
+  $output .= '<h2>Today is ' . date('M j Y') . '</h2>';
+
+  // Render the "Plan" block display.
+  $view = views_get_view('farm_log');
+  $preview = $view->preview('block_plan');
+  $title = $title = $view->get_title();
+  $output .= '<h2 id="' . $title . '">' . $title . '</h3>' . $preview;
+
+  // Render the "Late tasks" block display (only if there are results).
+  $view = views_get_view('farm_log');
+  $preview = $view->preview('block_late_tasks');
+  if (!empty($view->total_rows)) {
+    $title = $title = $view->get_title();
+    $output .= '<h2 id="' . $title . '">' . $title . '</h3>' . $preview;
+  }
+
+  // Return the output.
+  return $output;
+}
+
+/**
+ * Farm help page callback.
+ */
+function farm_admin_help_page() {
+
+  // Set the title so it is different than the menu item.
+  drupal_set_title(t('farmOS Resources'));
+
+  // Create output array.
+  $output = array();
+
+  // Allow other modules to add output.
+  $contrib_output = module_invoke_all('farm_admin_help_page');
+  $output = array_merge($output, $contrib_output);
+
+  // Return the output, imploded into a string.
+  return implode('', $output);
+}
+
+/**
+ * Implements hook_farm_admin_help_page().
+ */
+function farm_admin_farm_admin_help_page() {
+  $output = array();
+
+  // Add general text.
+  $output[] = '<p>' . l('farmOS', 'http://farmos.org'). ' is built and maintained
+  by a community of volunteers. Some farmOS community resources are listed
+  below.</p>';
+
+  // Add a link to the farmOS documentation.
+  $output[] = '<h3>Documentation</h3><p>' . l('http://farmos.org', 'http://farmos.org') . '</h3>';
+
+  // Add a link to the farmOS IRC channel.
+  $output[] = '<h3>Community Chat</h3><p>' . l('#farmOS IRC channel on Freenode', 'http://webchat.freenode.net/?channels=#farmOS') . '</p>';
+
+  // Add a link to the farmOS distribution issue queue.
+  $output[] = '<h3>Issue Queues</h3><p>' . l('https://drupal.org/project/issues/farm', 'https://drupal.org/project/issues/farm') . '</p>';
+
+  return $output;
+}
+
+/**
+ * Implements hook_menu_breadcrumb_alter().
+ */
+function farm_admin_menu_breadcrumb_alter(&$active_trail, $item) {
+
+  // If the current path contains /farm...
+  if (strpos($item['path'], 'farm') === 0) {
+
+    // If the link to /farm already exists in the second position, bail.
+    if (!empty($active_trail[1]['link_path']) && $active_trail[1]['link_path'] == 'farm') {
+      return;
+    }
+
+    // Add an item for /farm.
+    $start = array_shift($active_trail);
+    $farm_item = menu_get_item('farm');
+    array_unshift($active_trail, $farm_item);
+    array_unshift($active_trail, $start);
+  }
+}
+
+/**
+ * Implements hook_navbar().
+ */
+function farm_admin_navbar() {
+
+  // Farm tab.
+  $items['farm'] = array(
+    '#type' => 'navbar_item',
+    'tab' => array(
+      '#type' => 'link',
+      '#title' => t('Farm'),
+      '#href' => 'farm',
+      '#options' => array(
+        'attributes' => array(
+          'title' => t('Farm management'),
+          'class' => array('navbar-icon', 'navbar-icon-dashboard'),
+        ),
+      ),
+    ),
+    '#weight' => 20,
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_menu_local_tasks_alter().
+ */
+function farm_admin_menu_local_tasks_alter(&$data, $router_item, $root_path) {
+
+  // Load path actions from modules.
+  $actions = module_invoke_all('farm_admin_actions');
+
+  // If no path actions were provided, bail.
+  if (empty($actions)) {
+    return;
+  }
+
+  // Sort by weight.
+  uasort($actions, 'drupal_sort_weight');
+
+  // Add actions to farm/asset/* paths.
+  if ($router_item['page_callback'] == 'farm_asset_view') {
+
+    // Get the asset id from the path.
+    $asset_id = check_plain(arg(2));
+
+    // Iterate through the actions.
+    foreach ($actions as $name => $action) {
+
+      // If the list of assets types is empty, skip it.
+      if (empty($actions[$name]['assets'])) {
+        continue;
+      }
+
+      // If 'all' assets are not allowed...
+      if (!in_array('all', $actions[$name]['assets'])) {
+
+        // Load the asset.
+        $asset = farm_asset_load($asset_id);
+
+        // If the asset's type is not in the list of acceptable types, skip it.
+        if (!in_array($asset->type, $actions[$name]['assets'])) {
+          continue;
+        }
+      }
+
+      // Build the action link.
+      $link = _farm_admin_action_link($actions[$name]['title'], $actions[$name]['href'], array('destination' => 'farm/asset/' . $asset_id, 'farm_asset' => $asset_id));
+
+      // Add the action link to the output.
+      $data['actions']['output'][] = $link;
+    }
+  }
+
+  // Add actions to Views pages.
+  elseif ($router_item['page_callback'] == 'views_page') {
+
+    // Iterate through the actions.
+    foreach ($actions as $name => $action) {
+
+      // If the list of Views is empty, skip it.
+      if (empty($actions[$name]['views'])) {
+        continue;
+      }
+
+      // Get the View name from the first page argument.
+      $view_name = reset($router_item['page_arguments']);
+
+      // If the View is not in the list of acceptable Views, skip it.
+      if (!in_array($view_name, $actions[$name]['views'])) {
+        continue;
+      }
+
+      // Build the action link.
+      $link = _farm_admin_action_link($actions[$name]['title'], $actions[$name]['href'], array('destination' => $root_path));
+
+      // Add the action link to the output.
+      $data['actions']['output'][] = $link;
+    }
+  }
+
+  // Create a new array of actions keyed by path.
+  $path_actions = array();
+  foreach ($actions as $name => $action) {
+    if (!empty($action['paths'])) {
+      foreach ($action['paths'] as $path) {
+        $path_actions[$path][] = $name;
+      }
+    }
+  }
+
+  // Add actions depending on the root path.
+  if (array_key_exists($root_path, $path_actions)) {
+    foreach ($path_actions[$root_path] as $name) {
+
+      // Generate the action link.
+      $link = _farm_admin_action_link($actions[$name]['title'], $actions[$name]['href'], array('destination' => $root_path));
+
+      if ($root_path == 'taxonomy/term/%' || substr($root_path, 0, 11) == 'farm/area/%') {
+
+        // Get the area id from the path.
+        $area_id = check_plain(arg(2));
+
+        // Load the area taxonomy term.
+        $term = taxonomy_term_load($area_id);
+
+        // If the taxonomy term is not a farm_area, bail.
+        if (empty($term->vocabulary_machine_name) || $term->vocabulary_machine_name != 'farm_areas') {
+          continue;
+        }
+
+        // Build the action link.
+        $link = _farm_admin_action_link($actions[$name]['title'], $actions[$name]['href'], array('destination' => 'taxonomy/term/' . $area_id, 'farm_area' => $area_id));
+      }
+
+      // Add the action link to the output.
+      $data['actions']['output'][] = $link;
+    }
+  }
+}
+
+/**
+ * Helper function for generating an action link.
+ *
+ * @param string $title
+ *   The title of the action link.
+ * @param string $href
+ *   The href path of the action link.
+ * @param array $query
+ *   An array of additional query parameters to add.
+ *
+ * @return string
+ *   Returns an action link.
+ *
+ * @see farm_admin_menu_local_tasks_alter()
+ */
+function _farm_admin_action_link($title, $href, $query = array()) {
+  $output = array(
+    '#theme' => 'menu_local_action',
+    '#link' => array(
+      'title' => $title,
+      'href' => $href,
+      'localized_options' => array(
+        'query' => $query,
+      ),
+    ),
+  );
+  return $output;
+}
+
+/**
+ * Generate the farm menu.
+ *
+ * @see farm_admin_enable()
+ * @see farm_admin_install_modules()
+ */
+function farm_admin_menu_save() {
+  $t = get_t();
+  $menu = array(
+    'menu_name' => 'farm',
+    'title' => $t('Farm'),
+    'description' => $t('Farm management links'),
+  );
+  menu_save($menu);
+}

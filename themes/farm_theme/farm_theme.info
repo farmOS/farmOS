@@ -1,0 +1,49 @@
+name = Farm Theme
+description = Official theme of farmOS. Based on Bootstrap CDN starter kit theme.
+core = 7.x
+base theme = bootstrap
+
+
+;;;;;;;;;;;;;;;;;;;;;
+;; Regions
+;;;;;;;;;;;;;;;;;;;;;
+
+regions[navigation]     = 'Navigation'
+regions[header]         = 'Top Bar'
+regions[highlighted]    = 'Highlighted'
+regions[help]           = 'Help'
+regions[content]        = 'Content'
+regions[sidebar_first]  = 'Primary'
+regions[sidebar_second] = 'Secondary'
+regions[footer]         = 'Footer'
+regions[page_top]       = 'Page top'
+regions[page_bottom]    = 'Page bottom'
+
+
+;;;;;;;;;;;;;;;;;;;;;
+;; Stylesheets
+;;;;;;;;;;;;;;;;;;;;;
+
+stylesheets[all][] = css/style.css
+
+
+;;;;;;;;;;;;;;;;;;;;;
+;; Theme Settings
+;;;;;;;;;;;;;;;;;;;;;
+
+; Container
+; --------------
+settings[bootstrap_fluid_container] = 1
+
+; Forms
+; --------------
+; Disable smart form descriptions. See https://www.drupal.org/node/2879967
+settings[bootstrap_forms_smart_descriptions] = 0
+
+; Advanced
+; --------------
+settings[bootstrap_cdn_provider] = 'custom'
+settings[bootstrap_cdn_custom_css] = '//cdn.jsdelivr.net/bootswatch/3.3.7/simplex/bootstrap.css'
+settings[bootstrap_cdn_custom_css_min] = '//cdn.jsdelivr.net/bootswatch/3.3.7/simplex/bootstrap.min.css'
+settings[bootstrap_cdn_custom_js] = '//cdn.jsdelivr.net/bootstrap/3.3.7/js/bootstrap.js'
+settings[bootstrap_cdn_custom_js_min] = '//cdn.jsdelivr.net/bootstrap/3.3.7/js/bootstrap.min.js'

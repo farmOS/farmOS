@@ -1,0 +1,23 @@
+<?php
+/**
+ * @file
+ * Farm area install.
+ */
+
+/**
+ * Update allowed values in the farm area types field.
+ */
+function farm_area_update_7000() {
+
+  // Load the farm area type field info.
+  $area_type_field = field_info_field('field_farm_area_type');
+
+  // Set the allowed values to an empty array.
+  $area_type_field['settings']['allowed_values'] = array();
+
+  // Point to the new allowed values function.
+  $area_type_field['settings']['allowed_values_function'] = 'farm_area_type_options';
+
+  // Update the field.
+  field_update_field($area_type_field);
+}

@@ -1,0 +1,41 @@
+<?php
+/**
+ * @file
+ * Farm admin install.
+ */
+
+/**
+ * Implements hook_enable().
+ */
+function farm_admin_enable() {
+
+  // If Menu module is enabled, create the farm menu.
+  // @see farm_admin_modules_installed()
+  if (module_exists('menu')) {
+    farm_admin_menu_save();
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function farm_admin_uninstall() {
+
+  // Delete the farm menu.
+  if (module_exists('menu')) {
+    if ($farm_menu = menu_load('farm')) {
+      menu_delete($farm_menu);
+    }
+  }
+}
+
+/**
+ * Create new farm menu.
+ */
+function farm_admin_update_7000(&$sandbox) {
+
+  // If Menu module is enabled, create the farm menu.
+  if (module_exists('menu')) {
+    farm_admin_menu_save();
+  }
+}

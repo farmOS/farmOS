@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Farm Asset Children feature.
+ */
+
+include_once 'farm_asset_children.features.inc';

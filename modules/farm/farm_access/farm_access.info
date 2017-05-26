@@ -1,0 +1,4 @@
+name = Farm Access
+description = Provides mechanisms for managing farmOS user access permissions.
+core = 7.x
+package = farmOS

@@ -1,0 +1,94 @@
+<?php
+/**
+ * @file
+ * Farm quantity module.
+ */
+
+// Include Features code.
+include_once 'farm_quantity.features.inc';
+
+/**
+ * Implements hook_permission().
+ */
+function farm_quantity_permission() {
+  $perms = array(
+    'administer farm_quantity module' => array(
+      'title' => t('Administer farm quantity module'),
+    ),
+  );
+  return $perms;
+}
+
+/**
+ * Implements hook_farm_access_perms().
+ */
+function farm_quantity_farm_access_perms($role) {
+
+  // Assemble a list of entity types provided by this module.
+  $types = array(
+    'taxonomy' => array(
+      'farm_quantity_units',
+    ),
+  );
+
+  // Grant different CRUD permissions based on the role.
+  $perms = array();
+  switch ($role) {
+
+    // Farm Manager and Worker
+    case 'Farm Manager':
+    case 'Farm Worker':
+      $perms = farm_access_entity_perms($types);
+      break;
+
+    // Farm Viewer
+    case 'Farm Viewer':
+      $perms = farm_access_entity_perms($types, array('view'));
+      break;
+  }
+
+  // If the role is "Farm Manager", grant access to quantity configuration.
+  if ($role == 'Farm Manager') {
+    $perms[] = 'administer farm_quantity module';
+  }
+
+  return $perms;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function farm_quantity_menu() {
+
+  // Quantity configuration form.
+  $items['admin/config/farm/quantity'] = array(
+    'title' => 'Quantity',
+    'description' => 'Quantity configuration settings.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('farm_quantity_settings_form'),
+    'access arguments' => array('administer farm_quantity module'),
+  );
+
+  return $items;
+}
+
+/**
+ * Quantity settings form.
+ */
+function farm_quantity_settings_form($form, &$form_state) {
+
+  // Metric or US/Imperial.
+  $form['farm_quantity_unit_system'] = array(
+    '#type' => 'radios',
+    '#title' => t('System of measurement'),
+    '#description' => t('Select the system of measurement you would like to use in farmOS.'),
+    '#options' => array(
+      'metric' => t('Metric'),
+      'us' => t('US/Imperial'),
+    ),
+    '#default_value' => variable_get('farm_quantity_unit_system', 'metric'),
+  );
+
+  // Return it as a system settings form.
+  return system_settings_form($form);
+}

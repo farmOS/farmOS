@@ -1,0 +1,42 @@
+<?php
+/**
+ * @file
+ * Code for the Farm Tour feature.
+ */
+
+include_once 'farm_tour.features.inc';
+
+/**
+ * Implements hook_preprocess_menu_link().
+ */
+function farm_theme_preprocess_menu_link(&$vars) {
+
+  // Give each menu item a CSS class according to its title.
+  if (!empty($vars['element']['#title'])) {
+    $title = $vars['element']['#title'];
+    $class = drupal_html_class($title);
+    $vars['element']['#localized_options']['attributes']['class'][] = $class;
+  }
+}
+
+/**
+ * Implements hook_farm_admin_help_page().
+ */
+function farm_tour_farm_admin_help_page() {
+
+  // Add links to the available tours.
+  $output = '<h3>Guided Tours</h3>';
+  $tour_list = array();
+  $tours = farm_tour_default_bootstrap_tour();
+  foreach ($tours as $name => $tour) {
+    if (bootstrap_tour_access($tour)) {
+      $tour_list[] = l($tour->title, $tour->start_path, array('query' => array('tour' => $name)));
+    }
+  }
+  if (!empty($tour_list)) {
+    $output .= theme('item_list', array('items' => $tour_list));
+  }
+
+  // Return the output wrapped in an array.
+  return array($output);
+}

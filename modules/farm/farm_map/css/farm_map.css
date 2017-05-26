@@ -1,0 +1,10 @@
+.ol-popup-content {
+  width: 300px;
+}
+.ol-popup-content .ol-popup-name {
+  font-size: 20px;
+}
+.ol-popup-content .ol-popup-description {
+  max-height: 200px;
+  overflow: auto;
+}

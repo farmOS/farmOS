@@ -1,0 +1,545 @@
+<?php
+/**
+ * @file
+ * Code for the Farm Sensor Listener module.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function farm_sensor_listener_menu() {
+  $items = array();
+  $items['farm/sensor/listener/%'] = array(
+    'page callback' => 'farm_sensor_listener_page_callback',
+    'page arguments' => array(3),
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_entity_delete().
+ */
+function farm_sensor_listener_entity_delete($entity, $type) {
+
+  // Only act on farm asset entities.
+  if ($type != 'farm_asset') {
+    return;
+  }
+
+  // Only act on sensor assets.
+  if ($entity->type != 'sensor') {
+    return;
+  }
+
+  // Only act on "listener" type sensors.
+  if ($entity->sensor_type != 'listener') {
+    return;
+  }
+
+  // Delete data from the {farm_sensor_data} table.
+  db_delete('farm_sensor_data')->condition('id', $entity->id)->execute();
+}
+
+/**
+ * Implements hook_mail().
+ */
+function farm_sensor_listener_mail($key, &$message, $params) {
+
+  // Assemble the notification email.
+  if ($key == 'listener_notification') {
+
+    // Build the email subject.
+    $message['subject'] = t('Sensor notification from @sensor', array('@sensor' => $params['sensor']->name));
+
+    // Build the email body.
+    $condition = '';
+    switch ($params['condition']) {
+      case '>':
+        $condition = 'greater than';
+        break;
+      case '<':
+        $condition = 'less than';
+        break;
+    }
+    $message['body'][] = t('The latest sensor reading "@name" is !condition @threshold. Actual value: @value', array(
+      '@name' => $params['name'],
+      '!condition' => $condition,
+      '@threshold' => $params['threshold'],
+      '@value' => $params['value'],
+    ));
+    $uri = entity_uri('farm_asset', $params['sensor']);
+    $message['body'][] = entity_label('farm_asset', $params['sensor']) . ': ' . url($uri['path'], array('absolute' => TRUE));
+  }
+}
+
+/**
+ * Callback function for receiving JSON over HTTP and storing data to the {farm_sensor_data} table.
+ *
+ * @param $public_key
+ *   The public key of the sensor that is pushing the data.
+ *
+ * JSON should be in the following format:
+ *   {
+ *     "timestamp": 1234567890,
+ *     "sensor1": 76.5,
+ *     "sensor2": 55,
+ *   }
+ * Where:
+ *   "timestamp" is an optional Unix timestamp of the sensor reading. If it's
+ *     omitted, the time that the request is received will be used instead.
+ *   The rest of the JSON properties will be considered sensor readings, and
+ *   should be in the form "[name]": [value]. The value should be a decimal or
+ *   integer, and will be stored as a fraction (numerator and denominator) in
+ *   the database, for accurate precision.
+ *
+ * @return int
+ *   Returns MENU_FOUND or MENU_NOT_FOUND.
+ */
+function farm_sensor_listener_page_callback($public_key) {
+
+  // Load the private key from the URL query string.
+  $params = drupal_get_query_parameters();
+
+  // If the private key is not set, bail.
+  if (empty($params['private_key'])) {
+    return MENU_FOUND;
+  }
+
+  // Load the private key.
+  $private_key = $params['private_key'];
+
+  // Look up the sensor by it's public key.
+  $sensor = farm_sensor_listener_load($public_key);
+
+  // If no asset was found, bail.
+  if (empty($sensor)) {
+    return MENU_NOT_FOUND;
+  }
+
+  // Compare the private key.
+  if ($sensor->sensor_settings['private_key'] != $private_key) {
+    return MENU_ACCESS_DENIED;
+  }
+
+  // Pull the data from the request.
+  $data = drupal_json_decode(file_get_contents("php://input"));
+
+  // If data was posted, process it.
+  if (!empty($data)) {
+    farm_sensor_listener_process_data($sensor, $data);
+    return MENU_FOUND;
+  }
+
+  // Otherwise, return the latest values for each name.
+  else {
+
+    // Query the database for latest values from this sensor,
+    $query = db_select('farm_sensor_data', 'fsd');
+    $query->fields('fsd', array('timestamp', 'name', 'value_numerator', 'value_denominator'));
+    $subselect = db_select('farm_sensor_data', 'fsd');
+    $subselect->addExpression('MAX(timestamp)', 'timestamp');
+    $subselect->addField('fsd', 'name');
+    $subselect->condition('fsd.id', $sensor->id);
+    $subselect->groupBy('fsd.name');
+    $query->addJoin('LEFT', $subselect, 'fsd2', 'fsd.timestamp = fsd2.timestamp AND fsd.name = fsd2.name');
+    $query->condition('fsd.id', $sensor->id);
+    $query->isNotNull('fsd2.timestamp');
+    $result = $query->execute();
+
+    // Build an array of latest readings.
+    $readings = array();
+    foreach ($result as $row) {
+
+      // If name or timestamp are empty, skip.
+      if (empty($row->timestamp) || empty($row->name)) {
+        continue;
+      }
+
+      // Convert the value numerator and denominator to a decimal.
+      $value = fraction($row->value_numerator, $row->value_denominator)->toDecimal(0, TRUE);
+
+      // Create a data object for the sensor value.
+      $data = new stdClass();
+      $data->timestamp = $row->timestamp;
+      $data->{$row->name} = $value;
+      $readings[] = $data;
+    }
+
+    // Return the latest readings as JSON.
+    drupal_json_output($readings);
+  }
+}
+
+/**
+ * Process data posted to a sensor.
+ */
+function farm_sensor_listener_process_data($sensor, $data) {
+
+  // If the data is an array of multiple data points, iterate over each and
+  // recursively process.
+  if (is_array($data[0])) {
+    foreach ($data as $point) {
+      farm_sensor_listener_process_data($sensor, $point);
+    }
+    return;
+  }
+
+  // Generate a timestamp from the request time. This will be overridden if
+  // a timestamp is provided in the JSON.
+  $timestamp = REQUEST_TIME;
+  if (!empty($data['timestamp'])) {
+    $timestamp = $data['timestamp'];
+  }
+
+  // Iterate over the JSON properties.
+  foreach ($data as $key => $value) {
+
+    // If the key is "timestamp", skip to the next property in the JSON.
+    if ($key == 'timestamp') {
+      continue;
+    }
+
+    // If the value is not numeric, skip it.
+    if (!is_numeric($value)) {
+      continue;
+    }
+
+    // Process notifications.
+    farm_sensor_listener_process_notifications($sensor, $key, $value);
+
+    // Create a row to store in the database;
+    $row = array(
+      'id' => $sensor->id,
+      'timestamp' => $timestamp,
+      'name' => $key,
+    );
+
+    // Convert the value to a fraction.
+    $fraction = fraction_from_decimal($value);
+    $row['value_numerator'] = $fraction->getNumerator();
+    $row['value_denominator'] = $fraction->getDenominator();
+
+    // Enter the reading into the {farm_sensor_data} table.
+    drupal_write_record('farm_sensor_data', $row);
+  }
+}
+
+/**
+ * Threshold condition check.
+ *
+ * @param $value
+ *   The value being checked.
+ * @param $condition
+ *   The condition (< or >).
+ * @param $threshold
+ *   The threshold to compare against.
+ *
+ * @return bool
+ *   Returns TRUE if the condition passes, FALSE otherwise.
+ */
+function farm_sensor_listener_check_condition($value, $condition, $threshold) {
+
+  // Start with an assumption that the condition does not pass.
+  $pass = FALSE;
+
+  // Switch through available conditions.
+  switch ($condition) {
+
+    // Greater than threshold.
+    case '>':
+      if ((float) $value > (float) $threshold) {
+        $pass = TRUE;
+      }
+      break;
+
+    // Less than threshold.
+    case '<':
+      if ((float) $value < (float) $threshold) {
+        $pass = TRUE;
+      }
+      break;
+  }
+
+  // Return the result.
+  return $pass;
+}
+
+/**
+ * Process sensor notifications.
+ *
+ * @param FarmAsset $sensor
+ *   The sensor entity.
+ * @param string $data_name
+ *   The name assigned to the data.
+ * @param $value
+ *   The data value.
+ */
+function farm_sensor_listener_process_notifications($sensor, $data_name, $value) {
+
+  // Send notifications, if the conditions are met.
+  if (!empty($sensor->sensor_settings['notifications'][0]['name']) && !empty($sensor->sensor_settings['notifications'][0]['condition']) && !empty($sensor->sensor_settings['notifications'][0]['threshold']) && !empty($sensor->sensor_settings['notifications'][0]['email'])) {
+
+    // Get all the variables.
+    $name = $sensor->sensor_settings['notifications'][0]['name'];
+    $condition = $sensor->sensor_settings['notifications'][0]['condition'];
+    $threshold = $sensor->sensor_settings['notifications'][0]['threshold'];
+    $email = $sensor->sensor_settings['notifications'][0]['email'];
+
+    // Only proceed if the name matches.
+    if ($name != $data_name) {
+      return;
+    }
+
+    // Check to see if the condition was met.
+    $pass = farm_sensor_listener_check_condition($value, $condition, $threshold);
+
+    // If the condition didn't match, bail.
+    if (!$pass) {
+      return;
+    }
+
+    // Perform a check to see if the condition had already been met by the
+    // previous data point that came in, and prevent the email from being sent
+    // if that is the case.
+    if ($pass) {
+
+      // Load the last recorded data point.
+      $query = db_select('farm_sensor_data', 'fsd');
+      $query->fields('fsd', array('value_numerator', 'value_denominator'));
+      $query->condition('fsd.id', $sensor->id);
+      $query->condition('fsd.name', $name);
+      $query->orderBy('fsd.timestamp', 'DESC');
+      $query->range(0, 1);
+      $row = $query->execute()->fetchAssoc();
+
+      // If a numerator and denominator were returned...
+      if (isset($row['value_numerator']) && isset($row['value_denominator'])) {
+
+        // Calculate the decimal value and check if it passes the condition.
+        $last_value = fraction($row['value_numerator'], $row['value_denominator'])->toDecimal(0, TRUE);
+        if (farm_sensor_listener_check_condition($last_value, $condition, $threshold)) {
+
+          // If the condition passes, it means the last data point already
+          // sent an alert, so don't send it again.
+          $pass = FALSE;
+        }
+      }
+    }
+
+    // Send the email.
+    if ($pass) {
+      $params = array(
+        'sensor' => $sensor,
+        'name' => $name,
+        'value' => $value,
+        'condition' => $condition,
+        'threshold' => $threshold,
+        'email' => $email,
+      );
+      drupal_mail('farm_sensor_listener', 'listener_notification', $email, language_default(), $params);
+      watchdog('farm_sensor_listener', 'Sensor id ' . $sensor->id . ' notification email sent. (' . $value . ' ' . $condition . ' ' . $threshold . ')');
+    }
+  }
+}
+
+/**
+ * Implements hook_farm_sensor_type_info().
+ */
+function farm_sensor_listener_farm_sensor_type_info() {
+  return array(
+    'listener' => array(
+      'label' => t('Listener'),
+      'description' => t('Open up a data listener that accepts data from
+      external sources over HTTP'),
+      'form' => 'farm_sensor_listener_settings_form',
+    ),
+  );
+}
+
+/**
+ * Settings form for listener sensor.
+ *
+ * @param FarmAsset $sensor
+ *   The sensor asset entity.
+ * @param array $settings
+ *   The farm sensor settings.
+ *
+ * @return array
+ *   Returns a form with settings for this  Listener sensor.
+ */
+function farm_sensor_listener_settings_form($sensor, $settings = array()) {
+
+  // If a public/private key haven't been set yet, generate them.
+  if (empty($settings['public_key'])) {
+    $settings['public_key'] = hash('md5', mt_rand());
+  }
+  if (empty($settings['private_key'])) {
+    $settings['private_key'] = hash('md5', mt_rand());
+  }
+
+  // Automatically generated public key.
+  $form['public_key'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Public key'),
+    '#description' => t('An automatically generated public key for this sensor.'),
+    '#default_value' => $settings['public_key'],
+  );
+
+  // Automatically generated private key.
+  $form['private_key'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Private key'),
+    '#description' => t('An automatically generated private key for this sensor.'),
+    '#default_value' => $settings['private_key'],
+  );
+
+  // Reminder to save the sensor entity before posting data.
+  if (empty($sensor->id)) {
+    $form['reminder'] = array(
+      '#type' => 'markup',
+      '#markup' => '<p><strong>Remember to save your sensor before attempting to send data to it!</strong></p>',
+    );
+  }
+
+  // Display some information about how to stream data to the listener.
+  global $base_url;
+  $form['info'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Developer Information'),
+    '#description' => t('A "listener" sensor allows you to send sensor data to
+    farmOS over standard HTTP in a JSON array. Set up your sensor to post JSON
+    to the URL below. Note that multiple sensor values can be included in each request (if a
+    device has multiple sensors, for example). The name given to each value
+    can be any string of numbers and letters ("timestamp" is reserved). Each
+    value will be stored in a separate row in the database, with the "name"
+    column used for filtering purposes.'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+
+  // URL to post data to.
+  $url = $base_url . '/farm/sensor/listener/' . $settings['public_key'] . '?private_key=' . $settings['private_key'];
+  $form['info']['url'] = array(
+    '#type' => 'markup',
+    '#markup' => '<p><strong>URL:</strong> ' . $url . '</p>',
+  );
+
+  // Example JSON objects.
+  $json_example1 = '{ "timestamp": ' . REQUEST_TIME . ', "value": 76.5 }';
+  $json_example2 = '{ "timestamp": ' . REQUEST_TIME . ', "sensor1": 76.5, "sensor2": 60 }';
+  $form['info']['json'] = array(
+    '#type' => 'markup',
+    '#markup' => '<p><strong>JSON Example:</strong> ' . $json_example1 . '</p><p><strong>JSON Example (multiple values):</strong> ' . $json_example2 . '</p>',
+  );
+
+  // Example CURL command.
+  $curl_example = 'curl -H "Content-Type: application/json" -X POST -d \'' . $json_example1 . '\' ' . $url;
+  $form['info']['curl'] = array(
+    '#type' => 'markup',
+    '#markup' => '<p><strong>Example CURL command:</strong> ' . $curl_example . '</p>',
+  );
+
+  // Provide configuration for generating notifications.
+  $form['notifications'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Notifications'),
+    '#description' => t('Configure automatic email notifications when values
+    are above/below a certain value. Notifications will be sent each time that
+    the threshold condition defined below is crossed.'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $form['notifications'][0]['name'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Name'),
+    '#description' => t('The name given to the data point in the JSON array.'),
+    '#default_value' => !empty($settings['notifications'][0]['name']) ? $settings['notifications'][0]['name'] : 'value',
+  );
+  $form['notifications'][0]['condition'] = array(
+    '#type' => 'select',
+    '#title' => t('Condition'),
+    '#options' => array(
+      '>' => 'is greater than',
+      '<' => 'is less than',
+    ),
+    '#default_value' => !empty($settings['notifications'][0]['condition']) ? $settings['notifications'][0]['condition'] : '>',
+  );
+  $form['notifications'][0]['threshold'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Value threshold'),
+    '#description' => t('If the data value is above/below this threshold, a notification will be sent.'),
+    '#default_value' => !empty($settings['notifications'][0]['threshold']) ? $settings['notifications'][0]['threshold'] : '',
+  );
+  $form['notifications'][0]['email'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Email address'),
+    '#description' => t('Email address(es) to send notification to. Separate multiple addresses with a comma.'),
+    '#default_value' => !empty($settings['notifications'][0]['email']) ? $settings['notifications'][0]['email'] : '',
+    '#maxlength' => 256,
+  );
+
+  return $form;
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function farm_sensor_listener_views_api() {
+  return array('api' => 3);
+}
+
+/**
+ * Helper function for loading a sensor asset from it's public/private key.
+ *
+ * @param $key
+ *   The sensor public/private key.
+ *
+ * @return FarmAsset|bool
+ *   Returns a farm sensor asset, or FALSE if not found.
+ */
+function farm_sensor_listener_load($key) {
+
+  // Query the {farm_sensor} table to look for a sensor with a matching key.
+  $sql = 'SELECT id FROM {farm_sensor} WHERE settings LIKE :settings';
+  $result = db_query($sql, array(':settings' => '%' . db_like($key) . '%'));
+  $asset_id = $result->fetchField();
+
+  // If no asset id was found, bail.
+  if (empty($asset_id)) {
+    return FALSE;
+  }
+
+  // Attempt to load the sensor asset.
+  $asset = farm_asset_load($asset_id);
+
+  // If a sensor wasn't loaded, bail.
+  if (empty($asset)) {
+    return FALSE;
+  }
+
+  // Return the sensor asset.
+  return $asset;
+}
+
+/**
+ * Implements hook_farm_asset_view_views().
+ */
+function farm_sensor_listener_farm_asset_view_views($farm_asset) {
+
+  // If the entity is not a sensor, bail.
+  if ($farm_asset->type != 'sensor') {
+    return array();
+  }
+
+  // If the sensor is not a listener, bail.
+  if ($farm_asset->sensor_type != 'listener') {
+    return array();
+  }
+
+  // Return a list of Views to include on listener sensors.
+  return array(
+    'farm_sensor_data',
+  );
+}

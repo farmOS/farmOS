@@ -1,0 +1,6 @@
+name = Farm Sensor: Listener
+description = Opens up a listener at /farm/sensor/listener for receiving data from sensors as JSON and storing it in the database.
+core = 7.x
+package = farmOS
+dependencies[] = farm_sensor
+dependencies[] = fraction

@@ -1,0 +1,345 @@
+<?php
+/**
+ * @file
+ * Code for the Farm Maps feature.
+ */
+
+include_once 'farm_map.features.inc';
+
+/**
+ * Implements hook_permission().
+ */
+function farm_map_permission() {
+  $perms = array(
+    'administer farm_map module' => array(
+      'title' => t('Administer farm map module'),
+    ),
+  );
+  return $perms;
+}
+
+/**
+ * Implements hook_farm_access_perms().
+ */
+function farm_map_farm_access_perms($role) {
+
+  // If the role is "Farm Manager", grant access to map configuration.
+  $perms = array();
+  if ($role == 'Farm Manager') {
+    $perms[] = 'administer farm_map module';
+  }
+
+  return $perms;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function farm_map_menu() {
+
+  // Map configuration form.
+  $items['admin/config/farm/map'] = array(
+    'title' => 'Map',
+    'description' => 'Map configuration settings.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('farm_map_settings_form'),
+    'access arguments' => array('administer farm_map module'),
+  );
+
+  return $items;
+}
+
+/**
+ * Map settings form.
+ */
+function farm_map_settings_form($form, &$form_state) {
+
+  // Show/hide the dashboard maps.
+  // This provides a central variable that other modules can use to determine
+  // whether or not to display a dashboard map.
+  $form['farm_map_show'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Show dashboard maps'),
+    '#description' => t('If unchecked, this setting will disable the display of dashboard maps in farmOS. This may be helpful for farms that do not want to use the mapping features (for instance, if they are in a part of the world that has limited map imagery coverage).'),
+    '#default_value' => variable_get('farm_map_show', TRUE),
+  );
+
+  // Return it as a system settings form.
+  return system_settings_form($form);
+}
+
+
+/**
+ * Implements hook_openlayers_object_preprocess_alter().
+ */
+function farm_map_openlayers_object_preprocess_alter(&$build, $context) {
+
+  // If the object is a Map...
+  if ($context instanceof Drupal\openlayers\Types\MapInterface) {
+
+    // If the map machine name starts with "farm_", add farm map CSS.
+    if (substr($context->getMachineName(), 0, 5) == 'farm_') {
+      drupal_add_css(drupal_get_path('module', 'farm_map') . '/css/farm_map.css');
+    }
+  }
+}
+
+/**
+ * Helper function for populating the geometry field of an entity.
+ *
+ * @param Entity $entity
+ *   The entity object.
+ * @param array $geoms
+ *   An array of geometry strings in WKT format.
+ */
+function farm_map_geofield_populate(&$entity, $geoms = array()) {
+
+  // If no geometries were found, bail.
+  if (empty($geoms)) {
+    return;
+  }
+
+  // Load the GeoPHP library.
+  geophp_load();
+
+  // Implode the array of geometries into a single string.
+  $geom = implode(',', $geoms);
+
+  // If there is more than one geometry, wrap them all in a geometry collection.
+  if (count($geoms) > 1) {
+    $geom = 'GEOMETRYCOLLECTION (' . $geom . ')';
+  }
+
+  // Convert to a GeoPHP geometry object and reduce the geometry.
+  $geometry = geoPHP::load($geom, 'wkt');
+  $geometry = geoPHP::geometryReduce($geometry);
+
+  // Save the combined geometry to the movement log.
+  if (!empty($geometry)) {
+    $entity->field_farm_geofield[LANGUAGE_NONE][0] = geofield_get_values_from_geometry($geometry);
+  }
+}
+
+/**
+ * Calculate latitude degree length at a given latitude. Equations are taken
+ * from https://en.wikipedia.org/wiki/Geographic_coordinate_system#Expressing_latitude_and_longitude_as_linear_units
+ *
+ * @param $lat
+ *   The latitude to calculate degree length at, in degrees.
+ *
+ * @return string
+ *   Returns the length of a degree of latitude at the given latitude as a
+ *   string, in meters.
+ */
+function farm_map_lat_deg_len($lat) {
+
+  // Load GeoPHP.
+  geophp_load();
+
+  // Convert degrees to radians.
+  $lat = deg2rad($lat);
+
+  // Define coefficients. These are copied from
+  // http://gis.stackexchange.com/questions/75528/length-of-a-degree-where-do-the-terms-in-this-formula-come-from
+  $m1 = 111132.95255;
+  $m2 = 559.84957;
+  $m3 = 1.17514;
+  $m4 = 0.00230;
+
+  // If BCMath is available, use that. Otherwise, use normal PHP float
+  // operations.
+  if (geoPHP::bcmathInstalled()) {
+    $length = bcsub($m1, bcadd(bcmul($m2, cos(bcmul(2, $lat))), bcsub(bcmul($m3, cos(bcmul(4, $lat))), bcmul($m4, cos(bcmul(6, $lat))))));
+  }
+  else {
+    $length = $m1 - ($m2 * cos(2 * $lat)) + ($m3 * cos(4 * $lat)) - ($m4 * cos(6 * $lat));
+  }
+
+  // Return the length.
+  return (string) $length;
+}
+
+/**
+ * Calculate longitude degree length at a given latitude. Equations are taken
+ * from https://en.wikipedia.org/wiki/Geographic_coordinate_system#Expressing_latitude_and_longitude_as_linear_units
+ * See also http://gis.stackexchange.com/questions/75528/length-of-a-degree-where-do-the-terms-in-this-formula-come-from
+ *
+ * @param $lat
+ *   The latitude to calculate degree length at, in degrees.
+ *
+ * @return string
+ *   Returns the length of a degree of longitude at the given latitude as a
+ *   string, in meters.
+ */
+function farm_map_lon_deg_len($lat) {
+
+  // Load GeoPHP.
+  geophp_load();
+
+  // Convert degrees to radians.
+  $lat = deg2rad($lat);
+
+  // Define coefficients. These are copied from
+  // http://gis.stackexchange.com/questions/75528/length-of-a-degree-where-do-the-terms-in-this-formula-come-from
+  $p1 = 111412.87733;
+  $p2 = 93.50412;
+  $p3 = 0.11774;
+
+  // If BCMath is available, use that. Otherwise, use normal PHP float
+  // operations.
+  if (geoPHP::bcmathInstalled()) {
+    $length = bcsub(bcmul($p1, cos($lat)), bcsub(bcmul($p2, cos(bcmul(3, $lat))), bcmul($p3, cos(bcmul(5, $lat)))));
+  }
+  else {
+    $length = ($p1 * cos($lat)) - ($p2 * cos(3 * $lat)) - ($p3 * cos(5 * $lat));
+  }
+
+  // Return the length.
+  return (string) $length;
+}
+
+/**
+ * Calculate the distance between two latitude/longitude points in meters.
+ *
+ * @param Point $p1
+ *   The first point.
+ * @param Point $p2
+ *   The second point.
+ *
+ * @return string
+ *   Returns the distance as a string, in meters.
+ */
+function farm_map_distance($p1, $p2) {
+
+  // Load GeoPHP.
+  geophp_load();
+
+  // Build a LineString and calculate the center point.
+  $line = new LineString(array($p1, $p2));
+  $centroid = $line->centroid();
+
+  // Calculate the length of latitude and longitude degrees at the centroid.
+  $lon_deg_len = farm_map_lon_deg_len($centroid->getY());
+  $lat_deg_len = farm_map_lat_deg_len($centroid->getY());
+
+  // If BCMath is available, use that. Otherwise, use normal PHP float
+  // operations.
+  if (geoPHP::bcmathInstalled()) {
+    $length = bcsqrt(
+      bcadd(
+        bcpow(bcmul(bcsub($p1->getX(),$p2->getX()), $lon_deg_len), '2'),
+        bcpow(bcmul(bcsub($p1->getY(), $p2->getY()), $lat_deg_len), '2')
+      )
+    );
+  }
+  else {
+    $length = sqrt(pow((($p1->getX() - $p2->getX()) * $lon_deg_len), 2) + pow((($p1->getY()- $p2->getY()) * $lat_deg_len), 2));
+  }
+
+  // Return the length as a string.
+  return (string) $length;
+}
+
+/**
+ * Calculate the length of a LineString in meters.
+ *
+ * @param LineString $line
+ *   The line to measure.
+ *
+ * @return string
+ *   Returns the length of the line as a string, in meters.
+ */
+function farm_map_line_length($line) {
+
+  // Load GeoPHP.
+  geophp_load();
+
+  // Start with a length of zero.
+  $length = 0;
+
+  // Iterate through the points.
+  foreach ($line->getPoints() as $delta => $point) {
+
+    // Attempt to load the previous point.
+    $previous_point = $line->geometryN($delta);
+
+    // If a previous point is available
+    if ($previous_point) {
+
+      // If BCMath is available, use that. Otherwise, use normal PHP float
+      // operations.
+      if (geoPHP::bcmathInstalled()) {
+        $length = bcadd($length, farm_map_distance($previous_point, $point));
+      }
+      else {
+        $length += farm_map_distance($previous_point, $point);
+      }
+    }
+  }
+
+  // Return the length as a string.
+  return (string) $length;
+}
+
+/**
+ * Calculate the area of a Polygon in square meters.
+ *
+ * @param Polygon $polygon
+ *   The polygon to measure.
+ *
+ * @return string
+ *   Returns the area of the polygon as a string, in  square meters.
+ */
+function farm_map_polygon_area($polygon) {
+
+  // If the geometry is not a polygon, bail.
+  if ($polygon->geometryType() != 'Polygon' || $polygon->components[0]->geometryType() != 'LineString') {
+    return $polygon;
+  }
+
+  // We're going to do a pseudo-projection of the polygon into a coordinate
+  // system that is measured in meters, and then run a standard area calculation
+  // on that. We'll do this by first finding the bounding box of the polygon,
+  // and use the lower left point as origin. Then, we'll calculate the latitude
+  // and longitude lengths of the polygon's centroid point, and use those to
+  // calculate the new point positions.
+
+  // Get the bounding box of the polygon.
+  $bbox = $polygon->getBBox();
+
+  // Create an origin point.
+  $origin = new Point($bbox['minx'], $bbox['miny']);
+
+  // Get the polygon's centroid point.
+  $centroid = $polygon->centroid();
+
+  // Calculate the latitude/longitude degree lengths at the centroid point.
+  $lon_deg_len = farm_map_lon_deg_len($centroid->getY());
+  $lat_deg_len = farm_map_lat_deg_len($centroid->getY());
+
+  // Iterate through the polygon's points and map them to new points.
+  $line = $polygon->components[0];
+  $new_points = array();
+  foreach ($line->getPoints() as $delta => $point) {
+
+    // Calculate the distance between the point and origin.
+    $distance_x = $point->getX() - $origin->getX();
+    $distance_y = $point->getY() - $origin->getY();
+
+    // Multiply distances by latitude/longitude degree lengths to get new point.
+    $new_x = $distance_x * $lon_deg_len;
+    $new_y = $distance_y * $lat_deg_len;
+
+    // Add the new point.
+    $new_points[] = new Point($new_x, $new_y);
+  }
+
+  // Construct a new polygon.
+  $new_polygon = new Polygon(array(new LineString($new_points)));
+
+  // Calculate the area of the new polygon.
+  $area = $new_polygon->area();
+
+  // Return the area as a string.
+  return (string) $area;
+}

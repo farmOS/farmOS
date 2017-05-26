@@ -1,0 +1,101 @@
+/**
+ * Eliminate extra space at the top.
+ */
+.navbar.container, .navbar.container-fluid {
+  margin-top: 0;
+}
+
+/**
+ * Nudge the logo down a bit.
+ */
+.navbar .logo {
+  padding-top: 5px;
+}
+
+/**
+ * Hide page title on homepage.
+ */
+body.front h1.page-header {
+  display: none;
+}
+
+/**
+ * Remove padding and list style from user login block links (request new password).
+ */
+form#user-login-form ul {
+  padding-left: 0;
+}
+form#user-login-form ul li {
+  list-style: none;
+}
+
+/**
+ * Colorbox image styles.
+ * @see farm_theme_preprocess_field() in template.php.
+ */
+.field-name-field-farm-images .field-item {
+  float: left;
+  padding: 5px;
+}
+
+/**
+ * Fix DateAPI field styles.
+ */
+.container-inline-date {
+  margin-bottom: 10px;
+}
+.container-inline-date .control-label {
+  display: block;
+}
+.container-inline-date .date-padding {
+  padding-left: 0;
+}
+
+/**
+ * Fix Views exposed filter/sort.
+ */
+.views-exposed-form .views-exposed-widget .form-submit {
+  margin-top: 1.6em;
+  padding: 6px 12px;
+}
+
+/**
+ * Fix checkboxes in Views Bulk Operations.
+ */
+.views-field-views-bulk-operations .checkbox input[type="checkbox"] {
+  margin-left: 0;
+  position: relative;
+}
+
+/**
+ * Increase the default font size within maps to create larger buttons.
+ */
+.openlayers-map-container .gm-style {
+  font-size: 16px;
+}
+
+/**
+ * Set max-height and overflow styles for layerswitcher.
+ */
+.openlayers-map-container .layer-switcher .panel {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+/**
+ * Fix Modal popup close button (x).
+ * See https://www.drupal.org/node/2563967
+ */
+.modal-header .close {
+  color: #222222;
+}
+
+/**
+ * Improve Bootstrap Tour styling.
+ */
+.tour .btn {
+  padding: 6px 12px;
+}
+.tour .popover-content {
+  font-size: 16px;
+}

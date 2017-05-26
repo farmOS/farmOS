@@ -1,0 +1,14 @@
+<?php
+/**
+ * @file
+ * Farm map install.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function farm_map_uninstall() {
+
+  // Delete variables.
+  variable_del('farm_map_show');
+}
