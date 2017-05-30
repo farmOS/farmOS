@@ -189,9 +189,12 @@ function farm_log_categories_create($categories) {
       continue;
     }
 
+    // Translate the category name.
+    $term_name = t($category);
+
     // Create the new term.
     $term = new stdClass();
-    $term->name = $category;
+    $term->name = $term_name;
     $term->vid = $vocabulary->vid;
     taxonomy_term_save($term);
   }
