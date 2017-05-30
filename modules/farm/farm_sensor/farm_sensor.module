@@ -524,3 +524,12 @@ function farm_sensor_views_post_render(&$view, &$output, &$cache) {
     }
   }
 }
+
+/**
+ * Implements hook_farm_log_categories().
+ */
+function farm_sensor_farm_log_categories() {
+
+  // Provide an "Sensors" log category.
+  return array('Sensors');
+}

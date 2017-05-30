@@ -200,3 +200,12 @@ function farm_equipment_farm_log_allowed_asset_reference_type($log_type) {
     return 'equipment';
   }
 }
+
+/**
+ * Implements hook_farm_log_categories().
+ */
+function farm_equipment_farm_log_categories() {
+
+  // Provide an "Equipment" log category.
+  return array('Equipment');
+}

@@ -291,3 +291,12 @@ function farm_livestock_farm_log_allowed_asset_reference_type($log_type) {
     return 'animal';
   }
 }
+
+/**
+ * Implements hook_farm_log_categories().
+ */
+function farm_livestock_farm_log_categories() {
+
+  // Provide an "Animals" log category.
+  return array('Animals');
+}
