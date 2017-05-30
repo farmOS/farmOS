@@ -1,2 +1,6 @@
 .data
 .idea
+libraries
+modules/contrib
+modules/dev
+themes/bootstrap
