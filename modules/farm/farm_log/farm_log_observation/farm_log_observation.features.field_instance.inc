@@ -329,37 +329,6 @@ function farm_log_observation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance:
-  // 'log-farm_observation-field_farm_observation_type'.
-  $field_instances['log-farm_observation-field_farm_observation_type'] = array(
-    'bundle' => 'farm_observation',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => 'What type of observation is this? Use this to organize your observations into categories for easy viewing later. Some default types are provided, and new observation types can be added to the <a href="/admin/structure/taxonomy/farm_observation_types">Observation Types</a> vocabulary.',
-    'display' => array(
-      'default' => array(
-        'label' => 'inline',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 9,
-      ),
-    ),
-    'entity_type' => 'log',
-    'field_name' => 'field_farm_observation_type',
-    'label' => 'Type',
-    'required' => 1,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_select',
-      'weight' => 3,
-    ),
-  );
-
   // Exported field_instance: 'log-farm_observation-field_farm_quantity'.
   $field_instances['log-farm_observation-field_farm_quantity'] = array(
     'bundle' => 'farm_observation',
@@ -406,12 +375,10 @@ function farm_log_observation_field_default_field_instances() {
   t('Photo(s)');
   t('Quantity');
   t('This field is optional. It allows you to store geospatial data along with this observation.');
-  t('Type');
   t('Use these fields to record a movement with this log entry. This will be used to define the location of any referenced assets. The current location of any asset is determined by the most recently completed movement log. Only the "to" field is required.');
   t('Use this to organize your logs into categories for easier searching and filtering later.');
   t('What areas did this observation take place in?');
   t('What assets do this observation log pertain to?');
-  t('What type of observation is this? Use this to organize your observations into categories for easy viewing later. Some default types are provided, and new observation types can be added to the <a href="/admin/structure/taxonomy/farm_observation_types">Observation Types</a> vocabulary.');
 
   return $field_instances;
 }

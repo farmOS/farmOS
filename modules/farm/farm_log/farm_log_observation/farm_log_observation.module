@@ -17,9 +17,6 @@ function farm_log_observation_farm_access_perms($role) {
     'log' => array(
       'farm_observation',
     ),
-    'taxonomy' => array(
-      'farm_observation_types',
-    ),
   );
 
   // Grant different CRUD permissions based on the role.

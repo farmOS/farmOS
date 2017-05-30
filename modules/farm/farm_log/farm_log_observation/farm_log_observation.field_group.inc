@@ -140,9 +140,8 @@ function farm_log_observation_field_group_info() {
     'label' => 'General information',
     'weight' => '0',
     'children' => array(
-      0 => 'field_farm_observation_type',
-      1 => 'name',
-      2 => 'timestamp',
+      0 => 'name',
+      1 => 'timestamp',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
