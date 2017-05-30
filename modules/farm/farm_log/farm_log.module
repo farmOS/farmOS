@@ -155,6 +155,68 @@ function farm_log_entity_presave($entity, $type) {
 }
 
 /**
+ * Helper function for creating log categories. Terms will only be added if
+ * they don't already exist.
+ *
+ * @param array $categories
+ *   An array of strings that will be added as terms to the Farm Log Categories
+ *   vocabulary.
+ */
+function farm_log_categories_create($categories) {
+
+  // If the categories is not an array, bail.
+  if (!is_array($categories)) {
+    return;
+  }
+
+  // Define the vocabulary machine name.
+  $vocabulary_machine_name = 'farm_log_categories';
+
+  // Load the vocabulary.
+  $vocabulary = taxonomy_vocabulary_machine_name_load($vocabulary_machine_name);
+
+  // If the vocabulary doesn't exist, bail.
+  if (empty($vocabulary->vid)) {
+    return;
+  }
+
+  // Iterate through the categories.
+  foreach ($categories as $category) {
+
+    // First, check to see if the term already exists. If it does, skip it.
+    $terms = taxonomy_get_term_by_name($category, $vocabulary_machine_name);
+    if (!empty($terms)) {
+      continue;
+    }
+
+    // Create the new term.
+    $term = new stdClass();
+    $term->name = $category;
+    $term->vid = $vocabulary->vid;
+    taxonomy_term_save($term);
+  }
+
+  // Always reset the categories to alphabetical order.
+  /**
+   * @see taxonomy_vocabulary_confirm_reset_alphabetical_submit()
+   */
+  db_update('taxonomy_term_data')
+    ->fields(array('weight' => 0))
+    ->condition('vid', $vocabulary->vid)
+    ->execute();
+}
+
+/**
+ * Create log categories on behalf of all modules that provide them.
+ */
+function farm_log_categories_create_all() {
+  $categories = module_invoke_all('farm_log_categories');
+  if (!empty($categories)) {
+    farm_log_categories_create($categories);
+  }
+}
+
+/**
  * Helper function for populating a log's geometry from an area reference field.
  *
  * @param Entity $entity

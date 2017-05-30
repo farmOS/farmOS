@@ -6,6 +6,15 @@
  */
 
 /**
+ * Implements hook_modules_enabled().
+ */
+function farm_log_modules_enabled($modules) {
+
+  // Create log categories on behalf of all enabled modules.
+  farm_log_categories_create_all();
+}
+
+/**
  * Implements hook_update_dependencies().
  */
 function farm_log_update_dependencies() {

@@ -22,6 +22,20 @@
  */
 
 /**
+ * Provide a list of log categories that should be created when the module
+ * is installed.
+ *
+ * @return array
+ *   Returns an array of log categories (as simple strings).
+ */
+function hook_farm_log_categories() {
+  return array(
+    'My module category',
+    'My other category',
+  );
+}
+
+/**
  * Specify what asset types can be referenced by field_farm_asset on a given
  * log type.
  *
