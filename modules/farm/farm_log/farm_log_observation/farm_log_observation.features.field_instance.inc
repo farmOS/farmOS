@@ -22,7 +22,7 @@ function farm_log_observation_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 4,
+        'weight' => 1,
       ),
     ),
     'entity_type' => 'log',
@@ -56,7 +56,7 @@ function farm_log_observation_field_default_field_instances() {
           'link' => 1,
         ),
         'type' => 'entityreference_label',
-        'weight' => 3,
+        'weight' => 0,
       ),
     ),
     'entity_type' => 'log',
@@ -176,7 +176,7 @@ function farm_log_observation_field_default_field_instances() {
         'use_geocoder' => 1,
       ),
       'type' => 'openlayers_geofield',
-      'weight' => 5,
+      'weight' => 4,
     ),
   );
 
@@ -231,6 +231,37 @@ function farm_log_observation_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_observation-field_farm_log_category'.
+  $field_instances['log-farm_observation-field_farm_log_category'] = array(
+    'bundle' => 'farm_observation',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Use this to organize your logs into categories for easier searching and filtering later.',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_plain',
+        'weight' => 4,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_log_category',
+    'label' => 'Log category',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 9,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_observation-field_farm_movement'.
   $field_instances['log-farm_observation-field_farm_movement'] = array(
     'bundle' => 'farm_observation',
@@ -245,7 +276,7 @@ function farm_log_observation_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 9,
+        'weight' => 8,
       ),
     ),
     'entity_type' => 'log',
@@ -260,7 +291,7 @@ function farm_log_observation_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 6,
+      'weight' => 5,
     ),
   );
 
@@ -276,7 +307,7 @@ function farm_log_observation_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 1,
+        'weight' => 3,
       ),
     ),
     'entity_type' => 'log',
@@ -304,14 +335,13 @@ function farm_log_observation_field_default_field_instances() {
     'bundle' => 'farm_observation',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'What type of observation is this? Use this to organize your observations into categories for easy viewing later. Some default types are provided, and new observation types can be added to the ' . l('Observation Types', 'admin/structure/taxonomy/farm_observation_types') . ' vocabulary.',
+    'description' => 'What type of observation is this? Use this to organize your observations into categories for easy viewing later. Some default types are provided, and new observation types can be added to the <a href="/admin/structure/taxonomy/farm_observation_types">Observation Types</a> vocabulary.',
     'display' => array(
       'default' => array(
         'label' => 'inline',
-        'module' => 'taxonomy',
         'settings' => array(),
-        'type' => 'taxonomy_term_reference_plain',
-        'weight' => 0,
+        'type' => 'hidden',
+        'weight' => 9,
       ),
     ),
     'entity_type' => 'log',
@@ -359,7 +389,7 @@ function farm_log_observation_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 4,
+      'weight' => 3,
     ),
   );
 
@@ -369,6 +399,7 @@ function farm_log_observation_field_default_field_instances() {
   t('Assets');
   t('Files');
   t('Geometry');
+  t('Log category');
   t('Movement');
   t('Notes');
   t('Optionally, use this quantity field to record an observed quantity.');
@@ -377,9 +408,10 @@ function farm_log_observation_field_default_field_instances() {
   t('This field is optional. It allows you to store geospatial data along with this observation.');
   t('Type');
   t('Use these fields to record a movement with this log entry. This will be used to define the location of any referenced assets. The current location of any asset is determined by the most recently completed movement log. Only the "to" field is required.');
+  t('Use this to organize your logs into categories for easier searching and filtering later.');
   t('What areas did this observation take place in?');
   t('What assets do this observation log pertain to?');
-  t('What type of observation is this? Use this to organize your observations into categories for easy viewing later. Some default types are provided, and new observation types can be added to the ' . l('Observation Types', 'admin/structure/taxonomy/farm_observation_types') . ' vocabulary.');
+  t('What type of observation is this? Use this to organize your observations into categories for easy viewing later. Some default types are provided, and new observation types can be added to the <a href="/admin/structure/taxonomy/farm_observation_types">Observation Types</a> vocabulary.');
 
   return $field_instances;
 }

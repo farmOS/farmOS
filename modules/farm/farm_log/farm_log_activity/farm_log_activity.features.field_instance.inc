@@ -22,7 +22,7 @@ function farm_log_activity_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 2,
+        'weight' => 1,
       ),
     ),
     'entity_type' => 'log',
@@ -79,7 +79,7 @@ function farm_log_activity_field_default_field_instances() {
         'view_mode' => 'full',
       ),
       'type' => 'entityreference_view_widget',
-      'weight' => 3,
+      'weight' => 9,
     ),
   );
 
@@ -95,7 +95,7 @@ function farm_log_activity_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_table',
-        'weight' => 4,
+        'weight' => 5,
       ),
     ),
     'entity_type' => 'log',
@@ -135,7 +135,7 @@ function farm_log_activity_field_default_field_instances() {
           'map_layer_preset' => 'farm_map_geofield_formatter:openlayers_geofield_layer_formatter',
         ),
         'type' => 'openlayers_geofield',
-        'weight' => 5,
+        'weight' => 6,
       ),
     ),
     'entity_type' => 'log',
@@ -201,7 +201,7 @@ function farm_log_activity_field_default_field_instances() {
           'colorbox_node_style_first' => 'large',
         ),
         'type' => 'colorbox',
-        'weight' => 3,
+        'weight' => 4,
       ),
     ),
     'entity_type' => 'log',
@@ -228,6 +228,37 @@ function farm_log_activity_field_default_field_instances() {
       ),
       'type' => 'image_miw',
       'weight' => 6,
+    ),
+  );
+
+  // Exported field_instance: 'log-farm_activity-field_farm_log_category'.
+  $field_instances['log-farm_activity-field_farm_log_category'] = array(
+    'bundle' => 'farm_activity',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Use this to organize your logs into categories for easier searching and filtering later.',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_plain',
+        'weight' => 3,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_log_category',
+    'label' => 'Log category',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => -8,
     ),
   );
 
@@ -276,7 +307,7 @@ function farm_log_activity_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 1,
+        'weight' => 2,
       ),
     ),
     'entity_type' => 'log',
@@ -304,11 +335,13 @@ function farm_log_activity_field_default_field_instances() {
   t('Assets');
   t('Files');
   t('Geometry');
+  t('Log category');
   t('Movement');
   t('Notes');
   t('Photo(s)');
   t('This field is optional. It allows you to store geospatial data along with this activity.');
   t('Use these fields to record a movement with this log entry. This will be used to define the location of any referenced assets. The current location of any asset is determined by the most recently completed movement log. Only the "to" field is required.');
+  t('Use this to organize your logs into categories for easier searching and filtering later.');
   t('What areas did this activity take place in?');
   t('What assets do this activity log pertain to?');
 
