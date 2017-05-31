@@ -263,24 +263,18 @@ function farm_log_views_default_views() {
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
     'views_bulk_operations' => 'views_bulk_operations',
-    'id' => 'id',
     'done' => 'done',
+    'id' => 'id',
     'timestamp' => 'timestamp',
-    'type' => 'type',
     'name' => 'name',
     'field_farm_asset' => 'field_farm_asset',
     'field_farm_area' => 'field_farm_area',
+    'type' => 'type',
+    'field_farm_log_category' => 'field_farm_log_category',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
     'views_bulk_operations' => array(
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'id' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -292,14 +286,14 @@ function farm_log_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
-    'timestamp' => array(
+    'id' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
-    'type' => array(
+    'timestamp' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -319,6 +313,18 @@ function farm_log_views_default_views() {
       'empty_column' => 0,
     ),
     'field_farm_area' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'type' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_log_category' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -414,6 +420,13 @@ function farm_log_views_default_views() {
   $handler->display->display_options['fields']['type']['id'] = 'type';
   $handler->display->display_options['fields']['type']['table'] = 'log';
   $handler->display->display_options['fields']['type']['field'] = 'type';
+  /* Field: Log: Log category */
+  $handler->display->display_options['fields']['field_farm_log_category']['id'] = 'field_farm_log_category';
+  $handler->display->display_options['fields']['field_farm_log_category']['table'] = 'field_data_field_farm_log_category';
+  $handler->display->display_options['fields']['field_farm_log_category']['field'] = 'field_farm_log_category';
+  $handler->display->display_options['fields']['field_farm_log_category']['label'] = 'Category';
+  $handler->display->display_options['fields']['field_farm_log_category']['type'] = 'taxonomy_term_reference_plain';
+  $handler->display->display_options['fields']['field_farm_log_category']['delta_offset'] = '0';
   /* Sort criterion: Log: Timestamp */
   $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
   $handler->display->display_options['sorts']['timestamp']['table'] = 'log';
@@ -462,6 +475,20 @@ function farm_log_views_default_views() {
   $handler->display->display_options['filters']['type']['expose']['operator'] = 'type_op';
   $handler->display->display_options['filters']['type']['expose']['identifier'] = 'type';
   $handler->display->display_options['filters']['type']['expose']['multiple'] = TRUE;
+  /* Filter criterion: Log: Log category (field_farm_log_category) */
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['id'] = 'field_farm_log_category_tid';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['table'] = 'field_data_field_farm_log_category';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['field'] = 'field_farm_log_category_tid';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['group'] = 1;
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['operator_id'] = 'field_farm_log_category_tid_op';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['label'] = 'Category';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['operator'] = 'field_farm_log_category_tid_op';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['identifier'] = 'field_farm_log_category_tid';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['vocabulary'] = 'farm_log_categories';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['hierarchy'] = 1;
   /* Filter criterion: Log: Name */
   $handler->display->display_options['filters']['name']['id'] = 'name';
   $handler->display->display_options['filters']['name']['table'] = 'log';

@@ -301,3 +301,12 @@ function farm_crop_farm_log_allowed_asset_reference_type($log_type) {
     return 'planting';
   }
 }
+
+/**
+ * Implements hook_farm_log_categories().
+ */
+function farm_crop_farm_log_categories() {
+
+  // Provide an "Plantings" log category.
+  return array('Plantings');
+}

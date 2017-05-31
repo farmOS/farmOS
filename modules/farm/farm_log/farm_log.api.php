@@ -22,6 +22,22 @@
  */
 
 /**
+ * Provide a list of log categories that should be created when the module
+ * is installed. Note that these will be passed through the t() function when
+ * they are created so that they can be translated. This does mean that they
+ * will only be translated once, to whatever the site's default language is.
+ *
+ * @return array
+ *   Returns an array of log categories (as simple strings).
+ */
+function hook_farm_log_categories() {
+  return array(
+    'My module category',
+    'My other category',
+  );
+}
+
+/**
  * Specify what asset types can be referenced by field_farm_asset on a given
  * log type.
  *

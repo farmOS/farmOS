@@ -5,3 +5,12 @@
  */
 
 include_once 'farm_soil.features.inc';
+
+/**
+ * Implements hook_farm_log_categories().
+ */
+function farm_soil_farm_log_categories() {
+
+  // Provide an "Soil" log category.
+  return array('Soil');
+}
