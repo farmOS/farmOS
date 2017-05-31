@@ -145,8 +145,9 @@ function farm_log_input_field_group_info() {
       2 => 'field_farm_input_source',
       3 => 'field_farm_material',
       4 => 'field_farm_date_purchase',
-      5 => 'name',
-      6 => 'timestamp',
+      5 => 'field_farm_lot_number',
+      6 => 'name',
+      7 => 'timestamp',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

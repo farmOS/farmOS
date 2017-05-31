@@ -43,7 +43,7 @@ function farm_log_input_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 3,
+      'weight' => 12,
     ),
   );
 
@@ -112,7 +112,7 @@ function farm_log_input_field_default_field_instances() {
           'show_remaining_days' => 0,
         ),
         'type' => 'date_default',
-        'weight' => 7,
+        'weight' => 8,
       ),
     ),
     'entity_type' => 'log',
@@ -139,7 +139,7 @@ function farm_log_input_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_select',
-      'weight' => -4,
+      'weight' => -3,
     ),
   );
 
@@ -155,7 +155,7 @@ function farm_log_input_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_table',
-        'weight' => 11,
+        'weight' => 12,
       ),
       'token' => array(
         'label' => 'above',
@@ -201,7 +201,7 @@ function farm_log_input_field_default_field_instances() {
           'map_layer_preset' => 'farm_map_geofield_formatter:openlayers_geofield_layer_formatter',
         ),
         'type' => 'openlayers_geofield',
-        'weight' => 12,
+        'weight' => 13,
       ),
       'token' => array(
         'label' => 'above',
@@ -273,7 +273,7 @@ function farm_log_input_field_default_field_instances() {
           'colorbox_node_style_first' => 'large',
         ),
         'type' => 'colorbox',
-        'weight' => 10,
+        'weight' => 11,
       ),
       'token' => array(
         'label' => 'above',
@@ -441,7 +441,7 @@ function farm_log_input_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_plain',
-        'weight' => 9,
+        'weight' => 10,
       ),
     ),
     'entity_type' => 'log',
@@ -457,6 +457,40 @@ function farm_log_input_field_default_field_instances() {
       'settings' => array(),
       'type' => 'options_select',
       'weight' => 8,
+    ),
+  );
+
+  // Exported field_instance: 'log-farm_input-field_farm_lot_number'.
+  $field_instances['log-farm_input-field_farm_lot_number'] = array(
+    'bundle' => 'farm_input',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'If the manufacturer assigned this input a lot number, enter it here.',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 7,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_lot_number',
+    'label' => 'Lot number',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => -4,
     ),
   );
 
@@ -514,7 +548,7 @@ function farm_log_input_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 13,
+        'weight' => 14,
       ),
     ),
     'entity_type' => 'log',
@@ -545,7 +579,7 @@ function farm_log_input_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 8,
+        'weight' => 9,
       ),
       'token' => array(
         'label' => 'above',
@@ -622,7 +656,9 @@ function farm_log_input_field_default_field_instances() {
   t('Files');
   t('Geometry');
   t('How was this input applied?');
+  t('If the manufacturer assigned this input a lot number, enter it here.');
   t('Log category');
+  t('Lot number');
   t('Material');
   t('Movement');
   t('Notes');

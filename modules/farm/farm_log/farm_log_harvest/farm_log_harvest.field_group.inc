@@ -21,7 +21,7 @@ function farm_log_harvest_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Assets',
-    'weight' => '1',
+    'weight' => '2',
     'children' => array(
       0 => 'field_farm_asset',
     ),
@@ -50,7 +50,7 @@ function farm_log_harvest_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Category',
-    'weight' => '6',
+    'weight' => '7',
     'children' => array(
       0 => 'field_farm_log_category',
     ),
@@ -111,8 +111,9 @@ function farm_log_harvest_field_group_info() {
     'label' => 'General information',
     'weight' => '0',
     'children' => array(
-      0 => 'name',
-      1 => 'timestamp',
+      0 => 'field_farm_lot_number',
+      1 => 'name',
+      2 => 'timestamp',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -138,7 +139,7 @@ function farm_log_harvest_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Notes',
-    'weight' => '5',
+    'weight' => '6',
     'children' => array(
       0 => 'field_farm_notes',
     ),

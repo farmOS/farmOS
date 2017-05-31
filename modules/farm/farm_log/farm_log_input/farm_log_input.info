@@ -57,6 +57,7 @@ features[field_instance][] = log-farm_input-field_farm_input_method
 features[field_instance][] = log-farm_input-field_farm_input_purpose
 features[field_instance][] = log-farm_input-field_farm_input_source
 features[field_instance][] = log-farm_input-field_farm_log_category
+features[field_instance][] = log-farm_input-field_farm_lot_number
 features[field_instance][] = log-farm_input-field_farm_material
 features[field_instance][] = log-farm_input-field_farm_movement
 features[field_instance][] = log-farm_input-field_farm_notes

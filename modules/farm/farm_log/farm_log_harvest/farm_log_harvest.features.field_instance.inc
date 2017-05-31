@@ -24,7 +24,7 @@ function farm_log_harvest_field_default_field_instances() {
           'link' => 1,
         ),
         'type' => 'entityreference_label',
-        'weight' => 0,
+        'weight' => 1,
       ),
       'token' => array(
         'label' => 'above',
@@ -69,7 +69,7 @@ function farm_log_harvest_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_table',
-        'weight' => 5,
+        'weight' => 6,
       ),
       'token' => array(
         'label' => 'above',
@@ -115,7 +115,7 @@ function farm_log_harvest_field_default_field_instances() {
           'map_layer_preset' => 'farm_map_geofield_formatter:openlayers_geofield_layer_formatter',
         ),
         'type' => 'openlayers_geofield',
-        'weight' => 6,
+        'weight' => 7,
       ),
       'token' => array(
         'label' => 'above',
@@ -162,7 +162,7 @@ function farm_log_harvest_field_default_field_instances() {
         'use_geocoder' => 1,
       ),
       'type' => 'openlayers_geofield',
-      'weight' => 3,
+      'weight' => 4,
     ),
   );
 
@@ -187,7 +187,7 @@ function farm_log_harvest_field_default_field_instances() {
           'colorbox_node_style_first' => 'large',
         ),
         'type' => 'colorbox',
-        'weight' => 4,
+        'weight' => 5,
       ),
       'token' => array(
         'label' => 'above',
@@ -235,7 +235,7 @@ function farm_log_harvest_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_plain',
-        'weight' => 3,
+        'weight' => 4,
       ),
     ),
     'entity_type' => 'log',
@@ -254,6 +254,40 @@ function farm_log_harvest_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_harvest-field_farm_lot_number'.
+  $field_instances['log-farm_harvest-field_farm_lot_number'] = array(
+    'bundle' => 'farm_harvest',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'If this harvest is part of a batch or lot, enter the lot number here.',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_lot_number',
+    'label' => 'Lot number',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => -8,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_harvest-field_farm_movement'.
   $field_instances['log-farm_harvest-field_farm_movement'] = array(
     'bundle' => 'farm_harvest',
@@ -268,7 +302,7 @@ function farm_log_harvest_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 7,
+        'weight' => 8,
       ),
     ),
     'entity_type' => 'log',
@@ -283,7 +317,7 @@ function farm_log_harvest_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 4,
+      'weight' => 5,
     ),
   );
 
@@ -299,7 +333,7 @@ function farm_log_harvest_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 2,
+        'weight' => 3,
       ),
       'token' => array(
         'label' => 'above',
@@ -341,7 +375,7 @@ function farm_log_harvest_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 1,
+        'weight' => 2,
       ),
       'token' => array(
         'label' => 'above',
@@ -362,7 +396,7 @@ function farm_log_harvest_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 2,
+      'weight' => 3,
     ),
   );
 
@@ -372,7 +406,9 @@ function farm_log_harvest_field_default_field_instances() {
   t('Describe the quantity of this harvest, using a value and a unit of measurement. For example, if you harvested 100 pounds of potatoes, enter "100" in the Value field, and "lbs" in the Units field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.');
   t('Files');
   t('Geometry');
+  t('If this harvest is part of a batch or lot, enter the lot number here.');
   t('Log category');
+  t('Lot number');
   t('Movement');
   t('Notes');
   t('Photos');
