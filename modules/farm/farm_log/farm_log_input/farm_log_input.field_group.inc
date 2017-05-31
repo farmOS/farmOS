@@ -21,7 +21,7 @@ function farm_log_input_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Areas',
-    'weight' => '2',
+    'weight' => '3',
     'children' => array(
       0 => 'field_farm_area',
     ),
@@ -50,7 +50,7 @@ function farm_log_input_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Assets',
-    'weight' => '1',
+    'weight' => '2',
     'children' => array(
       0 => 'field_farm_asset',
     ),
@@ -79,7 +79,7 @@ function farm_log_input_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Category',
-    'weight' => '7',
+    'weight' => '8',
     'children' => array(
       0 => 'field_farm_log_category',
     ),
@@ -144,8 +144,9 @@ function farm_log_input_field_group_info() {
       1 => 'field_farm_input_purpose',
       2 => 'field_farm_input_source',
       3 => 'field_farm_material',
-      4 => 'name',
-      5 => 'timestamp',
+      4 => 'field_farm_date_purchase',
+      5 => 'name',
+      6 => 'timestamp',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -171,7 +172,7 @@ function farm_log_input_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Notes',
-    'weight' => '6',
+    'weight' => '7',
     'children' => array(
       0 => 'field_farm_notes',
     ),
