@@ -106,7 +106,7 @@ function farm_sensor_field_default_field_instances() {
     ),
     'entity_type' => 'farm_asset',
     'field_name' => 'field_farm_images',
-    'label' => 'Photo(s)',
+    'label' => 'Photos',
     'required' => 0,
     'settings' => array(
       'alt_field' => 0,
@@ -135,7 +135,7 @@ function farm_sensor_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Description');
   t('Files');
-  t('Photo(s)');
+  t('Photos');
 
   return $field_instances;
 }

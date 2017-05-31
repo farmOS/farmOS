@@ -169,7 +169,7 @@ function farm_area_field_default_field_instances() {
     ),
     'entity_type' => 'taxonomy_term',
     'field_name' => 'field_farm_images',
-    'label' => 'Photo(s)',
+    'label' => 'Photos',
     'required' => 0,
     'settings' => array(
       'alt_field' => 0,
@@ -199,7 +199,7 @@ function farm_area_field_default_field_instances() {
   t('Area type');
   t('Files');
   t('Geometry');
-  t('Photo(s)');
+  t('Photos');
   t('What type of area is this? Area types will be color coded on maps. If left blank, the area will not appear on maps.');
 
   return $field_instances;

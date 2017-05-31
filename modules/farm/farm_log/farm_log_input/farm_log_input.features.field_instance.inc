@@ -235,7 +235,7 @@ function farm_log_input_field_default_field_instances() {
     ),
     'entity_type' => 'log',
     'field_name' => 'field_farm_images',
-    'label' => 'Photo(s)',
+    'label' => 'Photos',
     'required' => 0,
     'settings' => array(
       'alt_field' => 0,
@@ -576,7 +576,7 @@ function farm_log_input_field_default_field_instances() {
   t('Material');
   t('Movement');
   t('Notes');
-  t('Photo(s)');
+  t('Photos');
   t('Purpose');
   t('Quantity');
   t('Source/Manufacturer');

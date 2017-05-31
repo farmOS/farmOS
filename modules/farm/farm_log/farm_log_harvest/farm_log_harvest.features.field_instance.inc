@@ -198,7 +198,7 @@ function farm_log_harvest_field_default_field_instances() {
     ),
     'entity_type' => 'log',
     'field_name' => 'field_farm_images',
-    'label' => 'Photo(s)',
+    'label' => 'Photos',
     'required' => 0,
     'settings' => array(
       'alt_field' => 0,
@@ -375,7 +375,7 @@ function farm_log_harvest_field_default_field_instances() {
   t('Log category');
   t('Movement');
   t('Notes');
-  t('Photo(s)');
+  t('Photos');
   t('Quantity');
   t('This field is optional. It allows you to store geospatial data along with this harvest.');
   t('Use these fields to record a movement with this log entry. This will be used to define the location of any referenced assets. The current location of any asset is determined by the most recently completed movement log. Only the "to" field is required.');

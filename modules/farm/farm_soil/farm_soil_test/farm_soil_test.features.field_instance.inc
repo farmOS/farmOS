@@ -104,7 +104,7 @@ function farm_soil_test_field_default_field_instances() {
     ),
     'entity_type' => 'log',
     'field_name' => 'field_farm_images',
-    'label' => 'Photo(s)',
+    'label' => 'Photos',
     'required' => 0,
     'settings' => array(
       'alt_field' => 0,
@@ -299,7 +299,7 @@ function farm_soil_test_field_default_field_instances() {
   t('Laboratory');
   t('List the names of soils that are included in this sample. For soil maps and soil names, visit http://websoilsurvey.nrcs.usda.gov/app');
   t('Notes');
-  t('Photo(s)');
+  t('Photos');
   t('Sample Points');
   t('Soil Names');
   t('Use the map to pinpoint the location(s) from which this sample is taken. If you are preparing a soil test, you may be sampling multiple points within a given area. All the points that comprise this sample should be included.');

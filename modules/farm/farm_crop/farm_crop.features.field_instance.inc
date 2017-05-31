@@ -140,7 +140,7 @@ function farm_crop_field_default_field_instances() {
     ),
     'entity_type' => 'farm_asset',
     'field_name' => 'field_farm_images',
-    'label' => 'Photo(s)',
+    'label' => 'Photos',
     'required' => 0,
     'settings' => array(
       'alt_field' => 0,
@@ -340,7 +340,7 @@ function farm_crop_field_default_field_instances() {
     ),
     'entity_type' => 'log',
     'field_name' => 'field_farm_images',
-    'label' => 'Photo(s)',
+    'label' => 'Photos',
     'required' => 0,
     'settings' => array(
       'alt_field' => 0,
@@ -601,7 +601,7 @@ function farm_crop_field_default_field_instances() {
     ),
     'entity_type' => 'log',
     'field_name' => 'field_farm_images',
-    'label' => 'Photo(s)',
+    'label' => 'Photos',
     'required' => 0,
     'settings' => array(
       'alt_field' => 0,
@@ -822,7 +822,7 @@ function farm_crop_field_default_field_instances() {
     ),
     'entity_type' => 'taxonomy_term',
     'field_name' => 'field_farm_images',
-    'label' => 'Photo(s)',
+    'label' => 'Photos',
     'required' => 0,
     'settings' => array(
       'alt_field' => 0,
@@ -945,7 +945,7 @@ function farm_crop_field_default_field_instances() {
   t('Movement');
   t('Notes');
   t('Parent(s)');
-  t('Photo(s)');
+  t('Photos');
   t('Planting');
   t('Quantity');
   t('Season');

@@ -182,7 +182,7 @@ function farm_log_observation_views_default_views() {
   $handler->display->display_options['fields']['id']['table'] = 'log';
   $handler->display->display_options['fields']['id']['field'] = 'id';
   $handler->display->display_options['fields']['id']['separator'] = '';
-  /* Field: Field: Photo(s) */
+  /* Field: Field: Photos */
   $handler->display->display_options['fields']['field_farm_images']['id'] = 'field_farm_images';
   $handler->display->display_options['fields']['field_farm_images']['table'] = 'field_data_field_farm_images';
   $handler->display->display_options['fields']['field_farm_images']['field'] = 'field_farm_images';
