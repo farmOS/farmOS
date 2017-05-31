@@ -283,7 +283,7 @@ function farm_log_input_field_default_field_instances() {
     ),
     'entity_type' => 'log',
     'field_name' => 'field_farm_input_method',
-    'label' => 'Application Method',
+    'label' => 'Application method',
     'required' => 0,
     'settings' => array(
       'text_processing' => 0,
@@ -363,7 +363,7 @@ function farm_log_input_field_default_field_instances() {
     ),
     'entity_type' => 'log',
     'field_name' => 'field_farm_input_source',
-    'label' => 'Source/Manufacturer',
+    'label' => 'Source/manufacturer',
     'required' => 0,
     'settings' => array(
       'text_processing' => 0,
@@ -565,7 +565,7 @@ function farm_log_input_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Application Method');
+  t('Application method');
   t('Areas');
   t('Assets');
   t('Describe the quantity of this input, using a value and a unit of measurement. For example, if you used 10 gallons of liquid fertilizer, enter "10" in the Value field, and "gallons" in the Units field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.');
@@ -579,7 +579,7 @@ function farm_log_input_field_default_field_instances() {
   t('Photos');
   t('Purpose');
   t('Quantity');
-  t('Source/Manufacturer');
+  t('Source/manufacturer');
   t('This field is optional. It allows you to store geospatial data along with this input.');
   t('Use these fields to record a movement with this log entry. This will be used to define the location of any referenced assets. The current location of any asset is determined by the most recently completed movement log. Only the "to" field is required.');
   t('Use this to organize your logs into categories for easier searching and filtering later.');
