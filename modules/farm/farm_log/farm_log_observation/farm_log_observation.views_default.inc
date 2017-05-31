@@ -410,6 +410,7 @@ function farm_log_observation_views_default_views() {
     t('Areas'),
     t('Quantity'),
     t('Units'),
+    t('Category'),
     t('All'),
     t('%1\'s observations'),
     t('Observations in %2'),

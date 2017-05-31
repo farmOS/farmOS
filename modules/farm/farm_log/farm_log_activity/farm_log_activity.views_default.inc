@@ -361,6 +361,7 @@ function farm_log_activity_views_default_views() {
     t('Activity'),
     t('Assets'),
     t('Areas'),
+    t('Category'),
     t('All'),
     t('Activities of %1'),
     t('Activities in %2'),

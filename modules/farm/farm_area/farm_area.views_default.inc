@@ -113,6 +113,23 @@ function farm_area_views_default_views() {
   $handler->display->display_options['tab_options']['title'] = 'Areas';
   $handler->display->display_options['tab_options']['weight'] = '0';
   $handler->display->display_options['tab_options']['name'] = 'farm';
+  $translatables['farm_areas'] = array(
+    t('Master'),
+    t('Areas'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('<h4>Hierarchy <small><a href="/admin/structure/taxonomy/farm_areas?destination=farm/areas">(change)</a></small></h4>'),
+    t('No areas found.'),
+    t('Parent'),
+    t('Term ID'),
+    t('.'),
+    t('([field_farm_area_type])'),
+    t('Page'),
+  );
   $export['farm_areas'] = $view;
 
   $view = new view();
@@ -195,6 +212,19 @@ function farm_area_views_default_views() {
   $handler->display->display_options['style_options']['data_source']['description_field'] = 'farm_area_details';
   $handler->display->display_options['style_options']['jsonp_prefix'] = '';
   $handler->display->display_options['path'] = 'farm/areas/geojson';
+  $translatables['farm_areas_geojson'] = array(
+    t('Master'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Geometry'),
+    t('Area Details'),
+    t('All'),
+    t('Feed'),
+  );
   $export['farm_areas_geojson'] = $view;
 
   return $export;

@@ -114,7 +114,7 @@ function farm_log_harvest_views_default_views() {
   $handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
   $handler->display->display_options['empty']['area_text_custom']['content'] = 'No harvests found.';
-  /* Relationship: Log: Quantity (field_farm_quantity) */
+  /* Relationship: Field: Quantity (field_farm_quantity) */
   $handler->display->display_options['relationships']['field_farm_quantity_value']['id'] = 'field_farm_quantity_value';
   $handler->display->display_options['relationships']['field_farm_quantity_value']['table'] = 'field_data_field_farm_quantity';
   $handler->display->display_options['relationships']['field_farm_quantity_value']['field'] = 'field_farm_quantity_value';
@@ -365,6 +365,7 @@ function farm_log_harvest_views_default_views() {
     t('Quantity'),
     t('Units'),
     t('Assets'),
+    t('Category'),
     t('All'),
     t('Harvests of %1'),
     t('Start date'),
