@@ -57,3 +57,17 @@ function farm_log_sale_farm_admin_actions() {
   );
   return $actions;
 }
+
+/**
+ * Implements hook_farm_asset_view_views().
+ */
+function farm_log_sale_farm_asset_view_views($farm_asset) {
+
+  // Show a list of sales at the top of all asset pages.
+  return array(
+    array(
+      'name' => 'farm_log_sale',
+      'weight' => 0,
+    ),
+  );
+}
