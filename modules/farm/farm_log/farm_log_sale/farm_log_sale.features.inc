@@ -14,6 +14,13 @@ function farm_log_sale_ctools_plugin_api($module = NULL, $api = NULL) {
 }
 
 /**
+ * Implements hook_views_api().
+ */
+function farm_log_sale_views_api($module = NULL, $api = NULL) {
+  return array("api" => "3.0");
+}
+
+/**
  * Implements hook_default_log_type().
  */
 function farm_log_sale_default_log_type() {
