@@ -36,3 +36,24 @@ function farm_log_sale_farm_access_perms($role) {
 
   return $perms;
 }
+
+/**
+ * Implements hook_farm_admin_actions().
+ */
+function farm_log_sale_farm_admin_actions() {
+
+  // Define farm area actions.
+  $actions = array(
+    'sale' => array(
+      'title' => t('Add a sale'),
+      'href' => 'log/add/farm_sale',
+      'assets' => array(
+        'all',
+      ),
+      'views' => array(
+        'farm_log_sale',
+      ),
+    ),
+  );
+  return $actions;
+}
