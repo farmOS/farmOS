@@ -329,6 +329,19 @@ function farm_area_openlayers_object_preprocess_alter(&$build, $context) {
 
   // If this is the farm_areas map, add area details javascript.
   if ($context->getMachineName() == 'farm_areas') {
+
+    // Add a Javascript setting that defines the base path of the site.
+    // We do this instead of using Drupal.settings.basePath in Javascript
+    // because that variable does not take into account whether or not clean
+    // URLs are enabled.
+    $setting = array(
+      'farm_area' => array(
+        'base_path' => url('farm/area'),
+      ),
+    );
+    drupal_add_js($setting, 'setting');
+
+    // Add the Javascript for lazy loading area details.
     $path = drupal_get_path('module', 'farm_area');
     drupal_add_js($path . '/js/farm_area.openlayers.popup.js');
   }

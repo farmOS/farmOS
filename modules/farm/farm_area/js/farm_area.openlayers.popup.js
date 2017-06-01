@@ -9,7 +9,7 @@
         var area_details = jQuery('.ol-popup-description .area-details');
         var area_id = area_details.attr('id').replace('area-details-', '');
         if (area_id) {
-          jQuery.getJSON(Drupal.settings.basePath + 'farm/area/' + area_id + '/details', function(data) {
+          jQuery.getJSON(Drupal.settings.farm_area.base_path + '/' + area_id + '/details', function(data) {
             if (data) {
               area_details.html(data);
               options.overlay.setPosition(options.evt.coordinate);
