@@ -59,17 +59,13 @@ function farm_log_form_alter(&$form, &$form_state, $form_id) {
   // If this is a log form...
   if ($form_id == 'log_form') {
 
-    // If there is an asset(s) reference field.
+    // If there is an asset(s) reference field, try to prepopulate it.
     if (!empty($form['field_farm_asset'])) {
-
-      // Alter the form using our helper function.
       farm_log_form_prepopulate_asset($form);
     }
 
-    // If there is an area(s) reference field...
+    // If there is an area(s) reference field, try to prepopulate it.
     if (!empty($form['field_farm_area'])) {
-
-      // Alter the form with the farm_log helper function.
       farm_log_form_prepopulate_area($form);
     }
   }
