@@ -68,6 +68,11 @@ function farm_log_form_alter(&$form, &$form_state, $form_id) {
     if (!empty($form['field_farm_area'])) {
       farm_log_form_prepopulate_area($form);
     }
+
+    // If there is an owner reference field, try to prepopulate it.
+    if (!empty($form['field_farm_log_owner'])) {
+      farm_log_form_prepopulate_owner($form);
+    }
   }
 }
 
@@ -411,4 +416,32 @@ function farm_log_form_prepopulate_area(array &$form) {
   }
 
   return $area;
+}
+
+/**
+ * Helper function for enabling owner prepopulation in log forms.
+ *
+ * @param array $form
+ *   The form array to modify, passed by reference.
+ */
+function farm_log_form_prepopulate_owner(array &$form) {
+
+  // Alias for the field's default value.
+  $field_value = &$form['field_farm_log_owner'][LANGUAGE_NONE]['#default_value'];
+
+  // Only proceed if the field is empty.
+  if (!empty($field_value)) {
+    return;
+  }
+
+  // Load the current authenticated user.
+  global $user;
+
+  // If the user id is empty for whatever reason, bail.
+  if (empty($user->uid)) {
+    return;
+  }
+
+  // Add the user's id to the list of log owners.
+  $field_value = array($user->uid);
 }
