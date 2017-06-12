@@ -95,7 +95,7 @@ function farm_log_observation_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_table',
-        'weight' => 6,
+        'weight' => 7,
       ),
     ),
     'entity_type' => 'log',
@@ -135,7 +135,7 @@ function farm_log_observation_field_default_field_instances() {
           'map_layer_preset' => 'farm_map_geofield_formatter:openlayers_geofield_layer_formatter',
         ),
         'type' => 'openlayers_geofield',
-        'weight' => 7,
+        'weight' => 8,
       ),
     ),
     'entity_type' => 'log',
@@ -201,7 +201,7 @@ function farm_log_observation_field_default_field_instances() {
           'colorbox_node_style_first' => 'large',
         ),
         'type' => 'colorbox',
-        'weight' => 5,
+        'weight' => 6,
       ),
     ),
     'entity_type' => 'log',
@@ -262,6 +262,40 @@ function farm_log_observation_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_observation-field_farm_log_owner'.
+  $field_instances['log-farm_observation-field_farm_log_owner'] = array(
+    'bundle' => 'farm_observation',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Optionally assign this task to one or more people.',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'entityreference',
+        'settings' => array(
+          'bypass_access' => FALSE,
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 5,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_log_owner',
+    'label' => 'Owner',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 11,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_observation-field_farm_movement'.
   $field_instances['log-farm_observation-field_farm_movement'] = array(
     'bundle' => 'farm_observation',
@@ -276,7 +310,7 @@ function farm_log_observation_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 8,
+        'weight' => 9,
       ),
     ),
     'entity_type' => 'log',
@@ -371,7 +405,9 @@ function farm_log_observation_field_default_field_instances() {
   t('Log category');
   t('Movement');
   t('Notes');
+  t('Optionally assign this task to one or more people.');
   t('Optionally, use this quantity field to record an observed quantity.');
+  t('Owner');
   t('Photos');
   t('Quantity');
   t('This field is optional. It allows you to store geospatial data along with this observation.');

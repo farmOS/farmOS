@@ -290,7 +290,7 @@ function farm_crop_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_table',
-        'weight' => 5,
+        'weight' => 6,
       ),
     ),
     'entity_type' => 'log',
@@ -335,7 +335,7 @@ function farm_crop_field_default_field_instances() {
           'colorbox_node_style_first' => 'large',
         ),
         'type' => 'colorbox',
-        'weight' => 4,
+        'weight' => 5,
       ),
     ),
     'entity_type' => 'log',
@@ -365,6 +365,40 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_seeding-field_farm_log_owner'.
+  $field_instances['log-farm_seeding-field_farm_log_owner'] = array(
+    'bundle' => 'farm_seeding',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Optionally assign this task to one or more people.',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'entityreference',
+        'settings' => array(
+          'bypass_access' => FALSE,
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 4,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_log_owner',
+    'label' => 'Owner',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 8,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_seeding-field_farm_movement'.
   $field_instances['log-farm_seeding-field_farm_movement'] = array(
     'bundle' => 'farm_seeding',
@@ -379,7 +413,7 @@ function farm_crop_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 6,
+        'weight' => 7,
       ),
     ),
     'entity_type' => 'log',
@@ -551,7 +585,7 @@ function farm_crop_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_table',
-        'weight' => 4,
+        'weight' => 5,
       ),
     ),
     'entity_type' => 'log',
@@ -596,7 +630,7 @@ function farm_crop_field_default_field_instances() {
           'colorbox_node_style_first' => 'large',
         ),
         'type' => 'colorbox',
-        'weight' => 3,
+        'weight' => 4,
       ),
     ),
     'entity_type' => 'log',
@@ -626,6 +660,40 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_transplanting-field_farm_log_owner'.
+  $field_instances['log-farm_transplanting-field_farm_log_owner'] = array(
+    'bundle' => 'farm_transplanting',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Optionally assign this task to one or more people.',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'entityreference',
+        'settings' => array(
+          'bypass_access' => FALSE,
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 3,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_log_owner',
+    'label' => 'Owner',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 8,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_transplanting-field_farm_movement'.
   $field_instances['log-farm_transplanting-field_farm_movement'] = array(
     'bundle' => 'farm_transplanting',
@@ -640,7 +708,7 @@ function farm_crop_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 5,
+        'weight' => 6,
       ),
     ),
     'entity_type' => 'log',
@@ -944,6 +1012,8 @@ function farm_crop_field_default_field_instances() {
   t('Files');
   t('Movement');
   t('Notes');
+  t('Optionally assign this task to one or more people.');
+  t('Owner');
   t('Parent(s)');
   t('Photos');
   t('Planting');

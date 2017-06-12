@@ -53,7 +53,7 @@ function farm_soil_test_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_table',
-        'weight' => 6,
+        'weight' => 7,
       ),
     ),
     'entity_type' => 'log',
@@ -99,7 +99,7 @@ function farm_soil_test_field_default_field_instances() {
           'colorbox_node_style_first' => 'large',
         ),
         'type' => 'colorbox',
-        'weight' => 5,
+        'weight' => 6,
       ),
     ),
     'entity_type' => 'log',
@@ -126,6 +126,40 @@ function farm_soil_test_field_default_field_instances() {
       ),
       'type' => 'image_miw',
       'weight' => 6,
+    ),
+  );
+
+  // Exported field_instance: 'log-farm_soil_test-field_farm_log_owner'.
+  $field_instances['log-farm_soil_test-field_farm_log_owner'] = array(
+    'bundle' => 'farm_soil_test',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Optionally assign this task to one or more people.',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'entityreference',
+        'settings' => array(
+          'bypass_access' => FALSE,
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 5,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_log_owner',
+    'label' => 'Owner',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 9,
     ),
   );
 
@@ -299,6 +333,8 @@ function farm_soil_test_field_default_field_instances() {
   t('Laboratory');
   t('List the names of soils that are included in this sample. For soil maps and soil names, visit http://websoilsurvey.nrcs.usda.gov/app');
   t('Notes');
+  t('Optionally assign this task to one or more people.');
+  t('Owner');
   t('Photos');
   t('Sample Points');
   t('Soil Names');

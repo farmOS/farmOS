@@ -155,7 +155,7 @@ function farm_log_input_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_table',
-        'weight' => 12,
+        'weight' => 13,
       ),
       'token' => array(
         'label' => 'above',
@@ -201,7 +201,7 @@ function farm_log_input_field_default_field_instances() {
           'map_layer_preset' => 'farm_map_geofield_formatter:openlayers_geofield_layer_formatter',
         ),
         'type' => 'openlayers_geofield',
-        'weight' => 13,
+        'weight' => 14,
       ),
       'token' => array(
         'label' => 'above',
@@ -248,7 +248,7 @@ function farm_log_input_field_default_field_instances() {
         'use_geocoder' => 1,
       ),
       'type' => 'openlayers_geofield',
-      'weight' => 5,
+      'weight' => 4,
     ),
   );
 
@@ -273,7 +273,7 @@ function farm_log_input_field_default_field_instances() {
           'colorbox_node_style_first' => 'large',
         ),
         'type' => 'colorbox',
-        'weight' => 11,
+        'weight' => 12,
       ),
       'token' => array(
         'label' => 'above',
@@ -460,6 +460,40 @@ function farm_log_input_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_input-field_farm_log_owner'.
+  $field_instances['log-farm_input-field_farm_log_owner'] = array(
+    'bundle' => 'farm_input',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Optionally assign this task to one or more people.',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'entityreference',
+        'settings' => array(
+          'bypass_access' => FALSE,
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 11,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_log_owner',
+    'label' => 'Owner',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 14,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_input-field_farm_lot_number'.
   $field_instances['log-farm_input-field_farm_lot_number'] = array(
     'bundle' => 'farm_input',
@@ -548,7 +582,7 @@ function farm_log_input_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 14,
+        'weight' => 15,
       ),
     ),
     'entity_type' => 'log',
@@ -563,7 +597,7 @@ function farm_log_input_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 6,
+      'weight' => 5,
     ),
   );
 
@@ -642,7 +676,7 @@ function farm_log_input_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 4,
+      'weight' => 3,
     ),
   );
 
@@ -662,6 +696,8 @@ function farm_log_input_field_default_field_instances() {
   t('Material');
   t('Movement');
   t('Notes');
+  t('Optionally assign this task to one or more people.');
+  t('Owner');
   t('Photos');
   t('Purpose');
   t('Quantity');

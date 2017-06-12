@@ -21,7 +21,7 @@ function farm_log_harvest_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Assets',
-    'weight' => '2',
+    'weight' => '1',
     'children' => array(
       0 => 'field_farm_asset',
     ),
@@ -42,6 +42,35 @@ function farm_log_harvest_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_farm_assignment|log|farm_harvest|form';
+  $field_group->group_name = 'group_farm_assignment';
+  $field_group->entity_type = 'log';
+  $field_group->bundle = 'farm_harvest';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Assignment',
+    'weight' => '7',
+    'children' => array(
+      0 => 'field_farm_log_owner',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => 'Assignment',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'group-farm-assignment field-group-fieldset',
+        'description' => '',
+      ),
+      'formatter' => 'collapsed',
+    ),
+  );
+  $field_groups['group_farm_assignment|log|farm_harvest|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_farm_category|log|farm_harvest|form';
   $field_group->group_name = 'group_farm_category';
   $field_group->entity_type = 'log';
@@ -50,7 +79,7 @@ function farm_log_harvest_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Category',
-    'weight' => '7',
+    'weight' => '6',
     'children' => array(
       0 => 'field_farm_log_category',
     ),
@@ -139,7 +168,7 @@ function farm_log_harvest_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Notes',
-    'weight' => '6',
+    'weight' => '5',
     'children' => array(
       0 => 'field_farm_notes',
     ),
@@ -160,6 +189,7 @@ function farm_log_harvest_field_group_info() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Assets');
+  t('Assignment');
   t('Category');
   t('File attachments');
   t('General information');
