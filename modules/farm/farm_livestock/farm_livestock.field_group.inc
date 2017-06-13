@@ -13,6 +13,35 @@ function farm_livestock_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_farm_assignment|log|farm_medical|form';
+  $field_group->group_name = 'group_farm_assignment';
+  $field_group->entity_type = 'log';
+  $field_group->bundle = 'farm_medical';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Assignment',
+    'weight' => '3',
+    'children' => array(
+      0 => 'field_farm_log_owner',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => 'Assignment',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'group-farm-assignment field-group-fieldset',
+        'description' => '',
+      ),
+      'formatter' => 'collapsed',
+    ),
+  );
+  $field_groups['group_farm_assignment|log|farm_medical|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_farm_description|farm_asset|animal|form';
   $field_group->group_name = 'group_farm_description';
   $field_group->entity_type = 'farm_asset';
@@ -232,7 +261,7 @@ function farm_livestock_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Notes',
-    'weight' => '3',
+    'weight' => '2',
     'children' => array(
       0 => 'field_farm_notes',
     ),
@@ -252,6 +281,7 @@ function farm_livestock_field_group_info() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Assignment');
   t('Description');
   t('File attachments');
   t('General information');

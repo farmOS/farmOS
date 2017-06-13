@@ -71,6 +71,35 @@ function farm_log_observation_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_farm_assignment|log|farm_observation|form';
+  $field_group->group_name = 'group_farm_assignment';
+  $field_group->entity_type = 'log';
+  $field_group->bundle = 'farm_observation';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Assignment',
+    'weight' => '8',
+    'children' => array(
+      0 => 'field_farm_log_owner',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => 'Assignment',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'group-farm-assignment field-group-fieldset',
+        'description' => '',
+      ),
+      'formatter' => 'collapsed',
+    ),
+  );
+  $field_groups['group_farm_assignment|log|farm_observation|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_farm_category|log|farm_observation|form';
   $field_group->group_name = 'group_farm_category';
   $field_group->entity_type = 'log';
@@ -108,7 +137,7 @@ function farm_log_observation_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'File attachments',
-    'weight' => '8',
+    'weight' => '9',
     'children' => array(
       0 => 'field_farm_files',
       1 => 'field_farm_images',
@@ -189,6 +218,7 @@ function farm_log_observation_field_group_info() {
   // Included for use with string extractors like potx.
   t('Areas');
   t('Assets');
+  t('Assignment');
   t('Category');
   t('File attachments');
   t('General information');

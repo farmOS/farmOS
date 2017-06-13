@@ -524,6 +524,15 @@ function farm_update_7023(&$sandbox) {
 }
 
 /**
+ * Populate all log owner fields with the log's author.
+ */
+function farm_update_7024(&$sandbox) {
+  $select = "SELECT 'log' AS entity_type, type AS bundle, 0 AS deleted, id AS entity_id, id AS revision_id, 'und' AS language, 0 AS delta, uid AS field_farm_log_owner_target_id FROM {log}";
+  db_query('INSERT INTO {field_data_field_farm_log_owner} (' . $select . ')');
+  db_query('INSERT INTO {field_revision_field_farm_log_owner} (' . $select . ')');
+}
+
+/**
  * Update helper function: enable modules.
  */
 function _farm_update_enable_modules($modules = array()) {

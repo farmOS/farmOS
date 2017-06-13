@@ -13,6 +13,64 @@ function farm_crop_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_farm_assignment|log|farm_seeding|form';
+  $field_group->group_name = 'group_farm_assignment';
+  $field_group->entity_type = 'log';
+  $field_group->bundle = 'farm_seeding';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Assignment',
+    'weight' => '4',
+    'children' => array(
+      0 => 'field_farm_log_owner',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => 'Assignment',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'group-farm-assignment field-group-fieldset',
+        'description' => '',
+      ),
+      'formatter' => 'collapsed',
+    ),
+  );
+  $field_groups['group_farm_assignment|log|farm_seeding|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_farm_assignment|log|farm_transplanting|form';
+  $field_group->group_name = 'group_farm_assignment';
+  $field_group->entity_type = 'log';
+  $field_group->bundle = 'farm_transplanting';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Assignment',
+    'weight' => '4',
+    'children' => array(
+      0 => 'field_farm_log_owner',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => 'Assignment',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'group-farm-assignment field-group-fieldset',
+        'description' => '',
+      ),
+      'formatter' => 'collapsed',
+    ),
+  );
+  $field_groups['group_farm_assignment|log|farm_transplanting|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_farm_description|farm_asset|planting|form';
   $field_group->group_name = 'group_farm_description';
   $field_group->entity_type = 'farm_asset';
@@ -80,7 +138,7 @@ function farm_crop_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'File attachments',
-    'weight' => '4',
+    'weight' => '5',
     'children' => array(
       0 => 'field_farm_files',
       1 => 'field_farm_images',
@@ -110,7 +168,7 @@ function farm_crop_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'File attachments',
-    'weight' => '4',
+    'weight' => '5',
     'children' => array(
       0 => 'field_farm_files',
       1 => 'field_farm_images',
@@ -173,8 +231,8 @@ function farm_crop_field_group_info() {
     'label' => 'General information',
     'weight' => '0',
     'children' => array(
-      0 => 'field_farm_seed_source',
-      1 => 'field_farm_asset',
+      0 => 'field_farm_asset',
+      1 => 'field_farm_seed_source',
       2 => 'timestamp',
     ),
     'format_type' => 'fieldset',
@@ -308,6 +366,7 @@ function farm_crop_field_group_info() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Assignment');
   t('Description');
   t('File attachments');
   t('General information');
