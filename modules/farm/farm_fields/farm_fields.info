@@ -24,4 +24,5 @@ features[field_base][] = field_farm_log_category
 features[field_base][] = field_farm_log_owner
 features[field_base][] = field_farm_lot_number
 features[field_base][] = field_farm_notes
+features[field_base][] = field_farm_people
 features[filter][] = farm_format
