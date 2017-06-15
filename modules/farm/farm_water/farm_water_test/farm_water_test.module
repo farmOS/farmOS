@@ -5,3 +5,90 @@
  */
 
 include_once 'farm_water_test.features.inc';
+
+/**
+ * Implements hook_farm_access_perms().
+ */
+function farm_water_test_farm_access_perms($role) {
+
+  // Assemble a list of entity types provided by this module.
+  $types = array(
+    'log' => array(
+      'farm_water_test',
+    ),
+  );
+
+  // Grant different CRUD permissions based on the role.
+  $perms = array();
+  switch ($role) {
+
+    // Farm Manager and Worker
+    case 'Farm Manager':
+    case 'Farm Worker':
+      $perms = farm_access_entity_perms($types);
+      break;
+
+    // Farm Viewer
+    case 'Farm Viewer':
+      $perms = farm_access_entity_perms($types, array('view'));
+      break;
+  }
+
+  return $perms;
+}
+
+/**
+ * Implements hook_farm_admin_actions().
+ */
+function farm_water_test_farm_admin_actions() {
+
+  // Define farm area actions.
+  $actions = array(
+    'water_test' => array(
+      'title' => t('Add a water test'),
+      'href' => 'log/add/farm_water_test',
+      'views' => array(
+        'farm_water_test',
+      ),
+      'paths' => array(
+        'taxonomy/term/%',
+      ),
+    ),
+  );
+  return $actions;
+}
+
+/**
+ * Implements hook_farm_taxonomy_term_view_views().
+ */
+function farm_water_test_farm_taxonomy_term_view_views($term) {
+
+  // If the term is not an area, bail.
+  if ($term->vocabulary_machine_name != 'farm_areas') {
+    return array();
+  }
+
+  // Return a list of Views to include on Areas.
+  return array(
+    'farm_water_test',
+  );
+}
+
+/**
+ * Implements hook_farm_area_links().
+ */
+function farm_water_test_farm_area_links($id) {
+  $links = array();
+
+  // Add link to water tests.
+  $view = views_get_view('farm_water_test');
+  $view->preview('default', array($id));
+  if ($view->total_rows > 0) {
+    $links[] = array(
+      'title' => t('Water tests') . ': ' . $view->total_rows,
+      'href' => 'farm/logs/water-tests/' . $id,
+    );
+  }
+
+  return $links;
+}
