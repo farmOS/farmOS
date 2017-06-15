@@ -50,7 +50,7 @@ function farm_water_test_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'File attachments',
-    'weight' => '5',
+    'weight' => '4',
     'children' => array(
       0 => 'field_farm_files',
       1 => 'field_farm_images',
@@ -110,7 +110,7 @@ function farm_water_test_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Notes',
-    'weight' => '4',
+    'weight' => '2',
     'children' => array(
       0 => 'field_farm_notes',
     ),
