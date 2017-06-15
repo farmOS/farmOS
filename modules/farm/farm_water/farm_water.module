@@ -1,0 +1,14 @@
+<?php
+/**
+ * @file
+ * Code for the Farm Water module.
+ */
+
+/**
+ * Implements hook_farm_log_categories().
+ */
+function farm_water_farm_log_categories() {
+
+  // Provide an "Water" log category.
+  return array('Water');
+}

@@ -1,0 +1,4 @@
+name = Farm Water
+description = Provides features for water management.
+core = 7.x
+package = farmOS
