@@ -33,7 +33,7 @@ projects[entityreference_view_widget][version] = "2.0-rc7"
 projects[entityreference_view_widget][patch][] = "http://www.drupal.org/files/issues/entityreference_view_widget_suffix-2524296-2.patch"
 
 projects[exif_orientation][subdir] = "contrib"
-projects[exif_orientation][version] = "1.1"
+projects[exif_orientation][version] = "1.2"
 
 projects[features][subdir] = "contrib"
 projects[features][version] = "2.10"
@@ -155,7 +155,7 @@ projects[diff][subdir] = "dev"
 projects[diff][version] = "3.3"
 
 projects[module_filter][subdir] = "dev"
-projects[module_filter][version] = "2.0"
+projects[module_filter][version] = "2.1"
 
 ; -----------------------------------------------------------------------------
 ; Themes
