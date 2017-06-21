@@ -14,6 +14,13 @@ function farm_soil_compost_ctools_plugin_api($module = NULL, $api = NULL) {
 }
 
 /**
+ * Implements hook_views_api().
+ */
+function farm_soil_compost_views_api($module = NULL, $api = NULL) {
+  return array("api" => "3.0");
+}
+
+/**
  * Implements hook_default_farm_asset_type().
  */
 function farm_soil_compost_default_farm_asset_type() {
