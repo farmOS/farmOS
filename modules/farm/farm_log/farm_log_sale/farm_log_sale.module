@@ -38,9 +38,9 @@ function farm_log_sale_farm_access_perms($role) {
 }
 
 /**
- * Implements hook_farm_admin_actions().
+ * Implements hook_farm_ui_actions().
  */
-function farm_log_sale_farm_admin_actions() {
+function farm_log_sale_farm_ui_actions() {
 
   // Define farm area actions.
   $actions = array(

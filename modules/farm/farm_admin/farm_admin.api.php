@@ -22,33 +22,6 @@
  */
 
 /**
- * Provide links for farm admins.
- *
- * @return array
- *   Returns an array of actions and their meta information (see example below).
- */
-function hook_farm_admin_actions() {
-
-  // Define farm area actions.
-  $actions = array(
-    'foo' => array(
-      'title' => t('Add a foo log'),
-      'href' => 'log/add/farm_foo',
-      'paths' => array(
-        'farm/asset/%/foo',
-      ),
-      'assets' => array(
-        'bar',
-      ),
-      'views' => array(
-        'foo_view',
-      ),
-    ),
-  );
-  return $actions;
-}
-
-/**
  * Add output to the /farm/help page.
  *
  * @return array

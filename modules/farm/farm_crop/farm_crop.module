@@ -188,9 +188,9 @@ function farm_crop_farm_area_type_info() {
 }
 
 /**
- * Implements hook_farm_admin_actions().
+ * Implements hook_farm_ui_actions().
  */
-function farm_crop_farm_admin_actions() {
+function farm_crop_farm_ui_actions() {
 
   // Define actions.
   $actions = array(

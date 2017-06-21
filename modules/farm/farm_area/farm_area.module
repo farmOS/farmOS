@@ -159,9 +159,9 @@ function farm_area_type_options() {
 }
 
 /**
- * Implements hook_farm_admin_actions().
+ * Implements hook_farm_ui_actions().
  */
-function farm_area_farm_admin_actions() {
+function farm_area_farm_ui_actions() {
 
   // Define farm admin actions.
   $actions = array(

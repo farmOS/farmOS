@@ -58,9 +58,9 @@ function farm_livestock_farm_area_type_info() {
 }
 
 /**
- * Implements hook_farm_admin_actions().
+ * Implements hook_farm_ui_actions().
  */
-function farm_livestock_farm_admin_actions() {
+function farm_livestock_farm_ui_actions() {
 
   // Define farm area actions.
   $actions = array(
