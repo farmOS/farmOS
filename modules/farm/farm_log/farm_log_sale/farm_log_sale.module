@@ -1,0 +1,73 @@
+<?php
+/**
+ * @file
+ * Code for the Farm Log: Sale feature.
+ */
+
+include_once 'farm_log_sale.features.inc';
+
+/**
+ * Implements hook_farm_access_perms().
+ */
+function farm_log_sale_farm_access_perms($role) {
+
+  // Assemble a list of log types provided by this module.
+  $types = array(
+    'log' => array(
+      'farm_sale',
+    ),
+  );
+
+  // Grant different CRUD permissions based on the role.
+  $perms = array();
+  switch ($role) {
+
+    // Farm Manager and Worker
+    case 'Farm Manager':
+    case 'Farm Worker':
+      $perms = farm_access_entity_perms($types);
+      break;
+
+    // Farm Viewer
+    case 'Farm Viewer':
+      $perms = farm_access_entity_perms($types, array('view'));
+      break;
+  }
+
+  return $perms;
+}
+
+/**
+ * Implements hook_farm_admin_actions().
+ */
+function farm_log_sale_farm_admin_actions() {
+
+  // Define farm area actions.
+  $actions = array(
+    'sale' => array(
+      'title' => t('Add a sale'),
+      'href' => 'log/add/farm_sale',
+      'assets' => array(
+        'all',
+      ),
+      'views' => array(
+        'farm_log_sale',
+      ),
+    ),
+  );
+  return $actions;
+}
+
+/**
+ * Implements hook_farm_asset_view_views().
+ */
+function farm_log_sale_farm_asset_view_views($farm_asset) {
+
+  // Show a list of sales at the top of all asset pages.
+  return array(
+    array(
+      'name' => 'farm_log_sale',
+      'weight' => 0,
+    ),
+  );
+}
