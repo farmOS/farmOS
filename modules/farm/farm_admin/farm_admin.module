@@ -45,26 +45,6 @@ function farm_admin_farm_access_perms($role) {
   // Access farm help.
   $perms[] = 'access farm help';
 
-  // Allow Farm Managers and Farm Workers to view user profiles.
-  if ($role == 'Farm Manager' || $role == 'Farm Worker') {
-    $perms[] = 'access user profiles';
-  }
-
-  // Allow Farm Managers to administer users and delegate roles.
-  if ($role == 'Farm Manager') {
-
-    // Administer users.
-    $perms[] = 'administer users';
-
-    // Allow role delegation (add one for each defined role).
-    if (module_exists('role_delegation')) {
-      $roles = module_invoke_all('farm_access_roles');
-      foreach ($roles as $role) {
-        $perms[] = 'assign ' . $role . ' role';
-      }
-    }
-  }
-
   return $perms;
 }
 

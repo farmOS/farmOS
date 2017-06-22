@@ -105,6 +105,25 @@ function system_farm_access_perms($role) {
 /**
  * Implements hook_farm_access_perms().
  */
+function role_delegation_farm_access_perms($role) {
+  $perms = array();
+
+  // Allow Farm Managers to delegate roles.
+  if ($role == 'Farm Manager') {
+
+    // Allow role delegation (add one for each defined role).
+    $roles = module_invoke_all('farm_access_roles');
+    foreach ($roles as $role) {
+      $perms[] = 'assign ' . $role . ' role';
+    }
+  }
+
+  return $perms;
+}
+
+/**
+ * Implements hook_farm_access_perms().
+ */
 function taxonomy_farm_access_perms($role) {
   $perms = array();
 
@@ -139,6 +158,27 @@ function taxonomy_farm_access_perms($role) {
 
   // Access RESTful Web Services taxonomy_term resources.
   $perms[] = 'access resource taxonomy_term';
+
+  return $perms;
+}
+
+/**
+ * Implements hook_farm_access_perms().
+ */
+function user_farm_access_perms($role) {
+  $perms = array();
+
+  // Allow Farm Managers and Farm Workers to view user profiles.
+  if ($role == 'Farm Manager' || $role == 'Farm Worker') {
+    $perms[] = 'access user profiles';
+  }
+
+  // Allow Farm Managers to administer users.
+  if ($role == 'Farm Manager') {
+
+    // Administer users.
+    $perms[] = 'administer users';
+  }
 
   return $perms;
 }
