@@ -137,10 +137,6 @@ function farm_crop_farm_access_perms($role) {
 
   // Assemble a list of entity types provided by this module.
   $types = array(
-    'log' => array(
-      'farm_seeding',
-      'farm_transplanting',
-    ),
     'taxonomy' => array(
       'farm_crops',
       'farm_crop_families',

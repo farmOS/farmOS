@@ -25,6 +25,28 @@ function farm_log_permission() {
 function farm_log_farm_access_perms($role) {
   $perms = array();
 
+  // Set up default CRUD permissions for all log entity types.
+  $log_types = log_types();
+  $access_types = array(
+    'log' => array(),
+  );
+  foreach ($log_types as $type => $data) {
+    $access_types['log'][] = $type;
+  }
+  switch ($role) {
+
+    // Grant full access to Farm Manager and Worker roles.
+    case 'Farm Manager':
+    case 'Farm Worker':
+      $perms = farm_access_entity_perms($access_types);
+      break;
+
+    // Grant read-only access to Farm Viewer role.
+    case 'Farm Viewer':
+      $perms = farm_access_entity_perms($access_types, array('view'));
+      break;
+  }
+
   // Grant access to view farm logs.
   $perms[] = 'view farm logs';
 
