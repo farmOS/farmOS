@@ -7,6 +7,21 @@
 include_once 'farm_sensor.features.inc';
 
 /**
+ * Implements hook_farm_ui_entities().
+ */
+function farm_sensor_farm_ui_entities() {
+  return array(
+    'farm_asset' => array(
+      'sensor' => array(
+        'label' => t('Sensor'),
+        'label_plural' => t('Sensors'),
+        'view' => 'farm_sensors',
+      ),
+    ),
+  );
+}
+
+/**
  * Implements hook_farm_ui_actions().
  */
 function farm_sensor_farm_ui_actions() {
@@ -41,20 +56,6 @@ function farm_sensor_farm_area_links($id) {
   }
 
   return $links;
-}
-
-/**
- * Implements hook_farm_ui_asset_breadcrumb().
- */
-function farm_sensor_farm_ui_asset_breadcrumb($farm_asset) {
-
-  // If the asset is a sensor, add a link to the sensors list.
-  $breadcrumb = array();
-  if ($farm_asset->type == 'sensor') {
-    $breadcrumb[] = l(t('Assets'), 'farm/assets');
-    $breadcrumb[] = l(t('Sensors'), 'farm/assets/sensors');
-  }
-  return $breadcrumb;
 }
 
 /**

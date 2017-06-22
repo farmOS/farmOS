@@ -7,6 +7,21 @@
 include_once 'farm_livestock.features.inc';
 
 /**
+ * Implements hook_farm_ui_entities().
+ */
+function farm_livestock_farm_ui_entities() {
+  return array(
+    'farm_asset' => array(
+      'animal' => array(
+        'label' => t('Animal'),
+        'label_plural' => t('Animals'),
+        'view' => 'farm_animals',
+      ),
+    ),
+  );
+}
+
+/**
  * Implements hook_farm_area_type_info().
  */
 function farm_livestock_farm_area_type_info() {
@@ -59,20 +74,6 @@ function farm_livestock_farm_ui_actions() {
     ),
   );
   return $actions;
-}
-
-/**
- * Implements hook_farm_ui_asset_breadcrumb().
- */
-function farm_livestock_farm_ui_asset_breadcrumb($farm_asset) {
-
-  // If the asset is an animal, add a link to the animals list.
-  $breadcrumb = array();
-  if ($farm_asset->type == 'animal') {
-    $breadcrumb[] = l(t('Assets'), 'farm/assets');
-    $breadcrumb[] = l(t('Animals'), 'farm/assets/animals');
-  }
-  return $breadcrumb;
 }
 
 /**

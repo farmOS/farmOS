@@ -20,13 +20,35 @@ function farm_ui_entity_view($entity, $type, $view_mode, $langcode) {
     return;
   }
 
-  // Set the page breadcrumb.
+  // Build the breadcrumb.
   $breadcrumb = array(
     l(t('Home'), '<front>'),
     l(t('Farm'), 'farm'),
+    l(t('Assets'), 'farm/assets'),
   );
-  $module_breadcrumbs = module_invoke_all('farm_ui_asset_breadcrumb', $entity);
-  $breadcrumb = array_merge($breadcrumb, $module_breadcrumbs);
+
+  // Load entity UI information.
+  $ui_info = farm_ui_entities($type, $entity->type);
+
+  // If the entity type has a View, add it to the breadcrumb.
+  if (!empty($ui_info['view'])) {
+
+    // Load the View.
+    $view = views_get_view($ui_info['view']);
+
+    // Get the path to the page display.
+    $path = '';
+    if (!empty($view->display['page']->display_options['path'])) {
+      $path = $view->display['page']->display_options['path'];
+    }
+
+    // If a path and label are available, add a breadcrumb link.
+    if (!empty($path) && !empty($ui_info['label_plural'])) {
+      $breadcrumb[] = l($ui_info['label_plural'], $path);
+    }
+  }
+
+  // Set the breadcrumb.
   drupal_set_breadcrumb($breadcrumb);
 }
 

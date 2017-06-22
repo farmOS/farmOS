@@ -7,6 +7,21 @@
 include_once 'farm_equipment.features.inc';
 
 /**
+ * Implements hook_farm_ui_entities().
+ */
+function farm_equipment_farm_ui_entities() {
+  return array(
+    'farm_asset' => array(
+      'equipment' => array(
+        'label' => t('Equipment'),
+        'label_plural' => t('Equipment'),
+        'view' => 'farm_equipment',
+      ),
+    ),
+  );
+}
+
+/**
  * Implements hook_farm_ui_actions().
  */
 function farm_equipment_farm_ui_actions() {
@@ -32,20 +47,6 @@ function farm_equipment_farm_ui_actions() {
     ),
   );
   return $actions;
-}
-
-/**
- * Implements hook_farm_ui_asset_breadcrumb().
- */
-function farm_equipment_farm_ui_asset_breadcrumb($farm_asset) {
-
-  // If the asset is equipment, add a link to the equipment list.
-  $breadcrumb = array();
-  if ($farm_asset->type == 'equipment') {
-    $breadcrumb[] = l(t('Assets'), 'farm/assets');
-    $breadcrumb[] = l(t('Equipment'), 'farm/assets/equipment');
-  }
-  return $breadcrumb;
 }
 
 /**

@@ -7,6 +7,21 @@
 include_once 'farm_soil_compost.features.inc';
 
 /**
+ * Implements hook_farm_ui_entities().
+ */
+function farm_soil_compost_farm_ui_entities() {
+  return array(
+    'farm_asset' => array(
+      'compost' => array(
+        'label' => t('Compost'),
+        'label_plural' => t('Compost'),
+        'view' => 'farm_compost',
+      ),
+    ),
+  );
+}
+
+/**
  * Implements hook_farm_ui_actions().
  */
 function farm_soil_compost_farm_ui_actions() {
@@ -41,20 +56,6 @@ function farm_soil_compost_farm_area_links($id) {
   }
 
   return $links;
-}
-
-/**
- * Implements hook_farm_ui_asset_breadcrumb().
- */
-function farm_soil_compost_farm_ui_asset_breadcrumb($farm_asset) {
-
-  // If the asset is a compost, add a link to the compost list.
-  $breadcrumb = array();
-  if ($farm_asset->type == 'compost') {
-    $breadcrumb[] = l(t('Assets'), 'farm/assets');
-    $breadcrumb[] = l(t('Compost'), 'farm/assets/compost');
-  }
-  return $breadcrumb;
 }
 
 /**
