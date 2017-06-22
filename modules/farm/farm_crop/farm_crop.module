@@ -137,9 +137,6 @@ function farm_crop_farm_access_perms($role) {
 
   // Assemble a list of entity types provided by this module.
   $types = array(
-    'farm_asset' => array(
-      'planting',
-    ),
     'log' => array(
       'farm_seeding',
       'farm_transplanting',

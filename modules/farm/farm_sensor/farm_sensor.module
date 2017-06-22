@@ -103,37 +103,6 @@ function farm_sensor_farm_taxonomy_term_view_views($term) {
 }
 
 /**
- * Implements hook_farm_access_perms().
- */
-function farm_sensor_farm_access_perms($role) {
-
-  // Assemble a list of entity types provided by this module.
-  $types = array(
-    'farm_asset' => array(
-      'sensor',
-    ),
-  );
-
-  // Grant different CRUD permissions based on the role.
-  $perms = array();
-  switch ($role) {
-
-    // Farm Manager and Worker
-    case 'Farm Manager':
-    case 'Farm Worker':
-      $perms = farm_access_entity_perms($types);
-      break;
-
-    // Farm Viewer
-    case 'Farm Viewer':
-      $perms = farm_access_entity_perms($types, array('view'));
-      break;
-  }
-
-  return $perms;
-}
-
-/**
  * Implements hook_entity_load().
  */
 function farm_sensor_entity_load($entities, $type) {
