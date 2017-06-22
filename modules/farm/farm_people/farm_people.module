@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Farm People feature.
+ */
+
+include_once 'farm_people.features.inc';

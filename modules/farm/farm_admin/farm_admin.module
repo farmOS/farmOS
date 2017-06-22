@@ -4,8 +4,6 @@
  * Code for the Farm Admin feature.
  */
 
-include_once 'farm_admin.features.inc';
-
 /**
  * Implements hook_modules_installed().
  */

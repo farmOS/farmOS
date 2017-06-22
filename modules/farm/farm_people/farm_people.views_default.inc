@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * farm_admin.views_default.inc
+ * farm_people.views_default.inc
  */
 
 /**
  * Implements hook_views_default_views().
  */
-function farm_admin_views_default_views() {
+function farm_people_views_default_views() {
   $export = array();
 
   $view = new view();
