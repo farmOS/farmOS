@@ -98,7 +98,6 @@ function farm_sensor_farm_taxonomy_term_view_views($term) {
   return array(
     array(
       'name' => 'farm_sensors',
-      'always' => TRUE,
     ),
   );
 }
