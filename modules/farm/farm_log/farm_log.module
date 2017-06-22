@@ -8,30 +8,6 @@
 include_once 'farm_log.features.inc';
 
 /**
- * Implements hook_permission().
- */
-function farm_log_permission() {
-  return array(
-    'view farm logs' => array(
-      'title' => t('View farm logs'),
-      'description' => t('View all farm-related log items.'),
-    ),
-  );
-}
-
-/**
- * Implements hook_farm_access_perms().
- */
-function farm_log_farm_access_perms($role) {
-  $perms = array();
-
-  // Grant access to view farm logs.
-  $perms[] = 'view farm logs';
-
-  return $perms;
-}
-
-/**
  * Implements hook_farm_ui_actions().
  */
 function farm_log_farm_ui_actions() {
