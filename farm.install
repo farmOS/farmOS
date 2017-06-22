@@ -68,6 +68,7 @@ function farm_install_configure_form($form, &$form_state) {
   $extra_modules = array(
     'farm_log_sale' => st('Sale logs'),
     'farm_water_test' => st('Water test logs'),
+    'farm_soil_compost' => st('Compost'),
     'farm_sensor' => st('Sensor'),
     'farm_sensor_listener' => st('Sensor: Listener'),
   );
