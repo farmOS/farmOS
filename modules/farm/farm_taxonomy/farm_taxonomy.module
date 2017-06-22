@@ -7,39 +7,6 @@
 include_once 'farm_taxonomy.features.inc';
 
 /**
- * Implements hook_farm_access_perms().
- */
-function farm_taxonomy_farm_access_perms($role) {
-  $perms = array();
-
-  // Assemble a list of all taxonomies.
-  $vocabularies = taxonomy_get_vocabularies();
-  $types = array(
-    'taxonomy' => array(),
-  );
-  foreach ($vocabularies as $vocab) {
-    $types['taxonomy'][] = $vocab->machine_name;
-  }
-
-  // Grant different CRUD permissions based on the role.
-  switch ($role) {
-
-    // Farm Manager and Worker
-    case 'Farm Manager':
-    case 'Farm Worker':
-      $perms = farm_access_entity_perms($types);
-      break;
-
-    // Farm Viewer
-    case 'Farm Viewer':
-      $perms = farm_access_entity_perms($types, array('view'));
-      break;
-  }
-
-  return $perms;
-}
-
-/**
  * Implements hook_entity_view_alter().
  */
 function farm_taxonomy_entity_view_alter(&$build, $type) {
