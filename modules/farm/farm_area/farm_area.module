@@ -137,28 +137,6 @@ function farm_area_type_options() {
 }
 
 /**
- * Implements hook_farm_ui_actions().
- */
-function farm_area_farm_ui_actions() {
-
-  // Define farm admin actions.
-  $actions = array(
-    'area' => array(
-      'title' => t('Add an area'),
-      'href' => 'admin/structure/taxonomy/farm_areas/add',
-      'views' => array(
-        'farm_areas',
-      ),
-      'paths' => array(
-        'farm',
-      ),
-      'weight' => -10,
-    ),
-  );
-  return $actions;
-}
-
-/**
  * Implements hook_farm_taxonomy_breadcrumb().
  */
 function farm_area_farm_taxonomy_breadcrumb($term) {

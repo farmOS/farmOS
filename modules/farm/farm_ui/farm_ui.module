@@ -6,6 +6,52 @@
  */
 
 /**
+ * Implements hook_farm_ui_actions().
+ */
+function farm_ui_farm_ui_actions() {
+
+  // Define default farm action links.
+  $actions = array(
+    'area' => array(
+      'title' => t('Add an area'),
+      'href' => 'admin/structure/taxonomy/farm_areas/add',
+      'views' => array(
+        'farm_areas',
+      ),
+      'paths' => array(
+        'farm',
+      ),
+      'weight' => -10,
+    ),
+    'asset' => array(
+      'title' => t('Add an asset'),
+      'href' => 'farm/asset/add',
+      'paths' => array(
+        'farm',
+        'farm/assets',
+      ),
+    ),
+    'log' => array(
+      'title' => t('Add a log'),
+      'href' => 'log/add',
+      'paths' => array(
+        'farm',
+        'farm/logs',
+      ),
+      'weight' => 1,
+    ),
+    'user' => array(
+      'title' => t('Add a person'),
+      'href' => 'admin/people/create',
+      'views' => array(
+        'farm_people',
+      ),
+    ),
+  );
+  return $actions;
+}
+
+/**
  * Implements hook_menu_local_tasks_alter().
  */
 function farm_ui_menu_local_tasks_alter(&$data, $router_item, $root_path) {

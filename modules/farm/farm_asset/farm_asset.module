@@ -418,25 +418,6 @@ function farm_asset_entity_view($entity, $type, $view_mode, $langcode) {
   }
 }
 
-/**
- * Implements hook_farm_ui_actions().
- */
-function farm_asset_farm_ui_actions() {
-
-  // Define farm area actions.
-  $actions = array(
-    'asset' => array(
-      'title' => t('Add an asset'),
-      'href' => 'farm/asset/add',
-      'paths' => array(
-        'farm',
-        'farm/assets',
-      ),
-    ),
-  );
-  return $actions;
-}
-
 /****************************************************************
  * Contrib hooks
  * **************************************************************/

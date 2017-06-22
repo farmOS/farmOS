@@ -8,26 +8,6 @@
 include_once 'farm_log.features.inc';
 
 /**
- * Implements hook_farm_ui_actions().
- */
-function farm_log_farm_ui_actions() {
-
-  // Define farm area actions.
-  $actions = array(
-    'log' => array(
-      'title' => t('Add a log'),
-      'href' => 'log/add',
-      'paths' => array(
-        'farm',
-        'farm/logs',
-      ),
-      'weight' => 1,
-    ),
-  );
-  return $actions;
-}
-
-/**
  * Implements hook_form_alter().
  */
 function farm_log_form_alter(&$form, &$form_state, $form_id) {
