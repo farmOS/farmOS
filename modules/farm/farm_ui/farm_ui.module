@@ -221,3 +221,32 @@ function _farm_ui_action_link($title, $href, $query = array()) {
   );
   return $action_link;
 }
+
+/**
+ * Load farmOS entity UI information.
+ *
+ * @param string $type
+ *   Optionally specify the entity type.
+ * @param string $bundle
+ *   Optionally specify the entity bundle.
+ *
+ * @return array
+ *   Returns an array of entity UI information.
+ */
+function farm_ui_entities($type = '', $bundle = '') {
+
+  // Ask modules for entity UI information.
+  $entity_info = module_invoke_all('farm_ui_entities');
+
+  // If a type and bundle are specified, return specific info.
+  if (!empty($type) && !empty($bundle)) {
+    $bundle_info = array();
+    if (!empty($entity_info[$type][$bundle])) {
+      $bundle_info = $entity_info[$type][$bundle];
+    }
+    return $bundle_info;
+  }
+
+  // Return the entity UI information.
+  return $entity_info;
+}

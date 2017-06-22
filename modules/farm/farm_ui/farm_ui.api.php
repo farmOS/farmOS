@@ -23,6 +23,26 @@
  */
 
 /**
+ * Define farmOS-specific information about entities that the module provides.
+ * This is used to generate UI elements in farmOS.
+ *
+ * @return array
+ *   Returns an array of entities and metadata about them (see example below).
+ */
+function hook_farm_ui_entities() {
+  $entities = array(
+    'farm_asset' => array(
+      'planting' => array(
+        'label' => t('Planting'),
+        'label_plural' => t('Plantings'),
+        'view' => 'farm_plantings',
+      ),
+    ),
+  );
+  return $entities;
+}
+
+/**
  * Add breadcrumbs to the asset view page.
  *
  * @param FarmAsset $farm_asset
