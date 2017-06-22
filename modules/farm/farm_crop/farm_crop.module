@@ -195,9 +195,9 @@ function farm_crop_farm_ui_actions() {
 }
 
 /**
- * Implements hook_farm_asset_breadcrumb().
+ * Implements hook_farm_ui_asset_breadcrumb().
  */
-function farm_crop_farm_asset_breadcrumb($farm_asset) {
+function farm_crop_farm_ui_asset_breadcrumb($farm_asset) {
 
   // If the asset is a planting, add a link to the plantings list.
   $breadcrumb = array();

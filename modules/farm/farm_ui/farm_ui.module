@@ -6,6 +6,31 @@
  */
 
 /**
+ * Implements hook_entity_view().
+ */
+function farm_ui_entity_view($entity, $type, $view_mode, $langcode) {
+
+  // If the view mode is not 'full', bail.
+  if ($view_mode != 'full') {
+    return;
+  }
+
+  // If this is not a farm_asset entity, bail.
+  if ($type != 'farm_asset') {
+    return;
+  }
+
+  // Set the page breadcrumb.
+  $breadcrumb = array(
+    l(t('Home'), '<front>'),
+    l(t('Farm'), 'farm'),
+  );
+  $module_breadcrumbs = module_invoke_all('farm_ui_asset_breadcrumb', $entity);
+  $breadcrumb = array_merge($breadcrumb, $module_breadcrumbs);
+  drupal_set_breadcrumb($breadcrumb);
+}
+
+/**
  * Implements hook_farm_ui_actions().
  */
 function farm_ui_farm_ui_actions() {

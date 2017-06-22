@@ -44,9 +44,9 @@ function farm_soil_compost_farm_area_links($id) {
 }
 
 /**
- * Implements hook_farm_asset_breadcrumb().
+ * Implements hook_farm_ui_asset_breadcrumb().
  */
-function farm_soil_compost_farm_asset_breadcrumb($farm_asset) {
+function farm_soil_compost_farm_ui_asset_breadcrumb($farm_asset) {
 
   // If the asset is a compost, add a link to the compost list.
   $breadcrumb = array();

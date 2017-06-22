@@ -23,6 +23,26 @@
  */
 
 /**
+ * Add breadcrumbs to the asset view page.
+ *
+ * @param FarmAsset $farm_asset
+ *   The farm asset entity.
+ *
+ * @return array
+ *   Returns an array of links to add to the asset breadcrumb.
+ */
+function hook_farm_ui_asset_breadcrumb(FarmAsset $farm_asset) {
+
+  // If the asset is an animal, add a link to the animals list.
+  $breadcrumb = array();
+  if ($farm_asset->type == 'animal') {
+    $breadcrumb[] = l(t('Assets'), 'farm/assets');
+    $breadcrumb[] = l(t('Animals'), 'farm/assets/animals');
+  }
+  return $breadcrumb;
+}
+
+/**
  * Provide action links on specific paths, asset types, and views.
  *
  * @return array
