@@ -330,7 +330,7 @@ function farm_water_test_views_default_views() {
   $handler->display->display_options['style_options']['keep_html'] = 0;
   $handler->display->display_options['path'] = 'farm/logs/water-tests/csv';
   $handler->display->display_options['displays'] = array(
-    'page_1' => 'page_1',
+    'page' => 'page',
     'default' => 0,
   );
   $translatables['farm_water_test'] = array(
