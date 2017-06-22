@@ -22,29 +22,7 @@ function farm_area_permission() {
  * Implements hook_farm_access_perms().
  */
 function farm_area_farm_access_perms($role) {
-
-  // Assemble a list of entity types provided by this module.
-  $types = array(
-    'taxonomy' => array(
-      'farm_areas',
-    ),
-  );
-
-  // Grant different CRUD permissions based on the role.
   $perms = array();
-  switch ($role) {
-
-    // Farm Manager and Worker
-    case 'Farm Manager':
-    case 'Farm Worker':
-      $perms = farm_access_entity_perms($types);
-      break;
-
-    // Farm Viewer
-    case 'Farm Viewer':
-      $perms = farm_access_entity_perms($types, array('view'));
-      break;
-  }
 
   // Add the "view farm areas" permission to all roles.
   $perms[] = 'view farm areas';

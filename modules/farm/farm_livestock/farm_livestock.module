@@ -7,38 +7,6 @@
 include_once 'farm_livestock.features.inc';
 
 /**
- * Implements hook_farm_access_perms().
- */
-function farm_livestock_farm_access_perms($role) {
-
-  // Assemble a list of entity types provided by this module.
-  $types = array(
-    'taxonomy' => array(
-      'farm_animal_groups',
-      'farm_animal_types',
-    ),
-  );
-
-  // Grant different CRUD permissions based on the role.
-  $perms = array();
-  switch ($role) {
-
-    // Farm Manager and Worker
-    case 'Farm Manager':
-    case 'Farm Worker':
-      $perms = farm_access_entity_perms($types);
-      break;
-
-    // Farm Viewer
-    case 'Farm Viewer':
-      $perms = farm_access_entity_perms($types, array('view'));
-      break;
-  }
-
-  return $perms;
-}
-
-/**
  * Implements hook_farm_area_type_info().
  */
 function farm_livestock_farm_area_type_info() {
