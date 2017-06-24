@@ -397,16 +397,11 @@ function farm_log_movement_asset_move_action(array $assets, $context = array()) 
  * @param string $log_type
  *   The type of log to create. Defaults to "farm_observation".
  */
-function farm_log_movement_create($assets, $areas, $timestamp = REQUEST_TIME, $log_type = 'farm_observation') {
+function farm_log_movement_create($assets, $areas = array(), $timestamp = REQUEST_TIME, $log_type = 'farm_observation') {
 
   // If $assets isn't an array, wrap it.
   if (!is_array($assets)) {
     $assets = array($assets);
-  }
-
-  // If there are no areas to move to, bail.
-  if (empty($areas)) {
-    return;
   }
 
   // Create a new movement log entity.
@@ -444,15 +439,14 @@ function farm_log_movement_create($assets, $areas, $timestamp = REQUEST_TIME, $l
   // Set the date.
   $log_wrapper->timestamp->set($timestamp);
 
-  // Create a new movement field_collection entity.
-  $movement = entity_create('field_collection_item', array('field_name' => 'field_farm_movement'));
-
-  // Attach the movement to the log.
-  $movement->setHostEntity('log', $log);
-
-  // Set the "to" area(s).
-  foreach ($areas as $area) {
-    $log_wrapper->field_farm_movement->field_farm_move_to[] = $area;
+  // If there are areas, create a new movement field_collection entity attached
+  // to the log.
+  if (!empty($areas)) {
+    $movement = entity_create('field_collection_item', array('field_name' => 'field_farm_movement'));
+    $movement->setHostEntity('log', $log);
+    foreach ($areas as $area) {
+      $log_wrapper->field_farm_movement->field_farm_move_to[] = $area;
+    }
   }
 
   // Set the log's done status to TRUE.
