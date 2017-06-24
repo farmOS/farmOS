@@ -66,6 +66,58 @@ function farm_crop_form_farm_asset_form_alter(&$form, &$form_state, $form_id) {
       '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_area',
     );
   }
+
+  // Add a submit handler.
+  $form['actions']['submit']['#submit'][] = 'farm_crop_planting_plan_submit';
+}
+
+/**
+ * Submit handler for processing the asset location field.
+ *
+ * @param array $form
+ *   The form array.
+ * @param array $form_state
+ *   The form state array.
+ */
+function farm_crop_planting_plan_submit(array $form, array &$form_state) {
+
+  // If an asset doesn't exist, bail.
+  if (empty($form_state['values']['farm_asset'])) {
+    return;
+  }
+
+  // Grab the asset.
+  $asset = $form_state['values']['farm_asset'];
+
+  // For each type: get the date, parse the areas, and create a log.
+  $types = array(
+    'seeding',
+    'transplanting',
+  );
+  foreach ($types as $type) {
+
+    // If a date is not set, skip it.
+    if (empty($form_state['values'][$type . '_date'])) {
+      continue;
+    }
+
+    // Convert the date to a timestamp.
+    $timestamp = strtotime($form_state['values'][$type . '_date']);
+
+    // If the timestamp couldn't be determined, skip.
+    if (empty($timestamp)) {
+      continue;
+    }
+
+    // If the location is available, load areas.
+    $areas = array();
+    if (!empty($form_state['values'][$type . '_location'])) {
+      $areas = farm_log_movement_parse_areas($form_state['values'][$type . '_location']);
+    }
+
+    // Create a log.
+    farm_log_movement_create($asset, $areas, $timestamp, 'farm_' . $type, FALSE);
+  }
 }
 
 /**
