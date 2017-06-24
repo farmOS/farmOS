@@ -19,6 +19,17 @@ function farm_crop_form_farm_asset_form_alter(&$form, &$form_state, $form_id) {
     return;
   }
 
+  // Only show the "Plan" fieldset when adding a new planting.
+  /**
+   * @todo
+   * Expand the form logic below so that it can also work with existing
+   * plantings. See https://www.drupal.org/node/2394839#comment-12141865
+   * for some considerations.
+   */
+  if (!empty($asset->id)) {
+    return;
+  }
+
   // Add a "Plan" fieldset.
   $form['plan'] = array(
     '#type' => 'fieldset',
