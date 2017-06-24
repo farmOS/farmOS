@@ -136,17 +136,37 @@ function farm_log_movement_asset_location_submit(array $form, array &$form_state
   // Grab the asset.
   $asset = $form_state['values']['farm_asset'];
 
+  // Load the areas.
+  $areas = farm_log_movement_parse_areas($form_state['values']['farm_log_movement_asset_location']);
+
+  // Create an observation log to record the movement.
+  farm_log_movement_create($asset, $areas, REQUEST_TIME);
+}
+
+/**
+ * Parse a string of area names and return an array of loaded area entities.
+ *
+ * @param string $area_names
+ *   A comma-separated list of area names.
+ *
+ * @return array
+ *   Returns an array of loaded area entities.
+ */
+function farm_log_movement_parse_areas($area_names) {
+
+  // Start with an empty array.
+  $areas = array();
+
   // Explode the value into an array and only take the first value.
   // (Same behavior as taxonomy autocomplete widget.)
-  $values = drupal_explode_tags($form_state['values']['farm_log_movement_asset_location']);
+  $values = drupal_explode_tags($area_names);
 
   // If the value is empty, bail.
   if (empty($values)) {
-    return;
+    return $areas;
   }
 
   // Iterate through the values and built an array of areas.
-  $areas = array();
   foreach ($values as $value) {
 
     // Attempt to look up the area by it's name.
@@ -166,8 +186,8 @@ function farm_log_movement_asset_location_submit(array $form, array &$form_state
     $areas[] = $area;
   }
 
-  // Create an observation log to record the movement.
-  farm_log_movement_create($asset, $areas, REQUEST_TIME);
+  // Return the array of areas.
+  return $areas;
 }
 
 /**
