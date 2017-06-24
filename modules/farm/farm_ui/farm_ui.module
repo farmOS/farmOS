@@ -15,36 +15,45 @@ function farm_ui_entity_view($entity, $type, $view_mode, $langcode) {
     return;
   }
 
-  // If this is not a farm_asset entity, bail.
-  if ($type != 'farm_asset') {
+  // We are only concerned with farm_asset entities.
+  $entity_types = array(
+    'farm_asset',
+  );
+  if (!in_array($type, $entity_types)) {
     return;
   }
 
-  // Build the breadcrumb.
+  // Start the breadcrumb.
   $breadcrumb = array(
     l(t('Home'), '<front>'),
     l(t('Farm'), 'farm'),
-    l(t('Assets'), 'farm/assets'),
   );
 
-  // Load entity UI information.
-  $ui_info = farm_ui_entities($type, $entity->type);
+  // If we are dealing with a farm_asset entity...
+  if ($type == 'farm_asset') {
 
-  // If the entity type has a View, add it to the breadcrumb.
-  if (!empty($ui_info['view'])) {
+    // Add a link to the full assets list.
+    $breadcrumb[] = l(t('Assets'), 'farm/assets');
 
-    // Load the View.
-    $view = views_get_view($ui_info['view']);
+    // Load entity UI information.
+    $ui_info = farm_ui_entities($type, $entity->type);
 
-    // Get the path to the page display.
-    $path = '';
-    if (!empty($view->display['page']->display_options['path'])) {
-      $path = $view->display['page']->display_options['path'];
-    }
+    // If the entity type has a View, add it to the breadcrumb.
+    if (!empty($ui_info['view'])) {
 
-    // If a path and label are available, add a breadcrumb link.
-    if (!empty($path) && !empty($ui_info['label_plural'])) {
-      $breadcrumb[] = l($ui_info['label_plural'], $path);
+      // Load the View.
+      $view = views_get_view($ui_info['view']);
+
+      // Get the path to the page display.
+      $path = '';
+      if (!empty($view->display['page']->display_options['path'])) {
+        $path = $view->display['page']->display_options['path'];
+      }
+
+      // If a path and label are available, add a breadcrumb link.
+      if (!empty($path) && !empty($ui_info['label_plural'])) {
+        $breadcrumb[] = l($ui_info['label_plural'], $path);
+      }
     }
   }
 
