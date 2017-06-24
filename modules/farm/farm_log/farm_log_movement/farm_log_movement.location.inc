@@ -396,8 +396,11 @@ function farm_log_movement_asset_move_action(array $assets, $context = array()) 
  *   The timestamp of the move. Defaults to the current time.
  * @param string $log_type
  *   The type of log to create. Defaults to "farm_observation".
+ * @param bool $done
+ *   Boolean indicating whether or not the log should be marked "done". Defaults
+ *   to TRUE.
  */
-function farm_log_movement_create($assets, $areas = array(), $timestamp = REQUEST_TIME, $log_type = 'farm_observation') {
+function farm_log_movement_create($assets, $areas = array(), $timestamp = REQUEST_TIME, $log_type = 'farm_observation', $done = TRUE) {
 
   // If $assets isn't an array, wrap it.
   if (!is_array($assets)) {
@@ -449,8 +452,13 @@ function farm_log_movement_create($assets, $areas = array(), $timestamp = REQUES
     }
   }
 
-  // Set the log's done status to TRUE.
-  $log_wrapper->done->set(TRUE);
+  // Set the log's done status.
+  if (!empty($done)) {
+    $log_wrapper->done->set(TRUE);
+  }
+  else {
+    $log_wrapper->done->set(FALSE);
+  }
 
   // Save the log.
   $log_wrapper->save();
