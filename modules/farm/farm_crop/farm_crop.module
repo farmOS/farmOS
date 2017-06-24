@@ -7,6 +7,57 @@
 include_once 'farm_crop.features.inc';
 
 /**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function farm_crop_form_farm_asset_form_alter(&$form, &$form_state, $form_id) {
+
+  // Get the farm asset entity from the form.
+  $asset = $form['farm_asset']['#value'];
+
+  // If the asset is not a planting, bail.
+  if (empty($asset->type) || $asset->type != 'planting') {
+    return;
+  }
+
+  // Add a "Plan" fieldset.
+  $form['plan'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Plan'),
+    '#description' => t('Use these fields to automatically generate seeding/transplanting logs for this planting. A log will only be generated if a date is specified.'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+
+  // Add fields for specifying seeding and transplanting date and location.
+  $date_format = 'Y-m-d';
+  $fields = array(
+    'seeding' => array(
+      'label' => 'Seeding',
+      'default_value' => NULL,
+    ),
+    'transplanting' => array(
+      'label' => 'Transplanting',
+      'default_value' => NULL,
+    ),
+  );
+  foreach ($fields as $field => $data) {
+    $form['plan'][$field . '_date'] = array(
+      '#type' => 'date_select',
+      '#title' => t($data['label'] . ' date'),
+      '#default_value' => $data['default_value'],
+      '#date_format' => $date_format,
+      '#date_label_position' => 'within',
+      '#date_year_range' => '-3:+10',
+    );
+    $form['plan'][$field . '_location'] = array(
+      '#type' => 'textfield',
+      '#title' => t($data['label'] . ' location'),
+      '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_area',
+    );
+  }
+}
+
+/**
  * Implements hook_farm_access_perms($role).
  */
 function farm_crop_farm_access_perms($role) {
