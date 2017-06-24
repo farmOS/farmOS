@@ -136,17 +136,37 @@ function farm_log_movement_asset_location_submit(array $form, array &$form_state
   // Grab the asset.
   $asset = $form_state['values']['farm_asset'];
 
+  // Load the areas.
+  $areas = farm_log_movement_parse_areas($form_state['values']['farm_log_movement_asset_location']);
+
+  // Create an observation log to record the movement.
+  farm_log_movement_create($asset, $areas, REQUEST_TIME);
+}
+
+/**
+ * Parse a string of area names and return an array of loaded area entities.
+ *
+ * @param string $area_names
+ *   A comma-separated list of area names.
+ *
+ * @return array
+ *   Returns an array of loaded area entities.
+ */
+function farm_log_movement_parse_areas($area_names) {
+
+  // Start with an empty array.
+  $areas = array();
+
   // Explode the value into an array and only take the first value.
   // (Same behavior as taxonomy autocomplete widget.)
-  $values = drupal_explode_tags($form_state['values']['farm_log_movement_asset_location']);
+  $values = drupal_explode_tags($area_names);
 
   // If the value is empty, bail.
   if (empty($values)) {
-    return;
+    return $areas;
   }
 
   // Iterate through the values and built an array of areas.
-  $areas = array();
   foreach ($values as $value) {
 
     // Attempt to look up the area by it's name.
@@ -166,8 +186,8 @@ function farm_log_movement_asset_location_submit(array $form, array &$form_state
     $areas[] = $area;
   }
 
-  // Create an observation log to record the movement.
-  farm_log_movement_observation($asset, $areas, REQUEST_TIME);
+  // Return the array of areas.
+  return $areas;
 }
 
 /**
@@ -366,7 +386,7 @@ function farm_log_movement_asset_move_action(array $assets, $context = array()) 
 }
 
 /**
- * Create an observation log for moving assets to areas.
+ * Create a log for moving assets to areas.
  *
  * @param array|FarmAsset $assets
  *   Array of assets to include in the move.
@@ -374,40 +394,43 @@ function farm_log_movement_asset_move_action(array $assets, $context = array()) 
  *   An array of areas to move to.
  * @param int $timestamp
  *   The timestamp of the move. Defaults to the current time.
+ * @param string $log_type
+ *   The type of log to create. Defaults to "farm_observation".
+ * @param bool $done
+ *   Boolean indicating whether or not the log should be marked "done". Defaults
+ *   to TRUE.
  */
-function farm_log_movement_observation($assets, $areas, $timestamp = REQUEST_TIME) {
+function farm_log_movement_create($assets, $areas = array(), $timestamp = REQUEST_TIME, $log_type = 'farm_observation', $done = TRUE) {
 
   // If $assets isn't an array, wrap it.
   if (!is_array($assets)) {
     $assets = array($assets);
   }
 
-  // If there are no areas to move to, bail.
-  if (empty($areas)) {
-    return;
-  }
-
   // Create a new movement log entity.
-  $log = entity_create('log', array('type' => 'farm_observation'));
+  $log = entity_create('log', array('type' => $log_type));
 
   // Create an entity wrapper for the log.
   $log_wrapper = entity_metadata_wrapper('log', $log);
 
-  // Set the name of the observation: "Current location: [area(s)]". If there
-  // are more than 3 areas, just list the first, and add "(+ X more)".
-  $log_name = t('Current location') . ': ';
-  $area_names = array();
-  foreach ($areas as $area) {
-    $area_names[] = $area->name;
+  // If the log is an observation, set the name to:
+  // "Current location: [area(s)]".
+  // If there are more than 3 areas, just list the first, and add "(+ X more)".
+  if ($log_type == 'farm_observation') {
+    $log_name = t('Current location') . ': ';
+    $area_names = array();
+    foreach ($areas as $area) {
+      $area_names[] = $area->name;
+    }
+    $count_areas = count($area_names);
+    if (count($area_names) <= 3) {
+      $log_name .= implode($area_names, ', ');
+    }
+    else {
+      $log_name .= $area_names[0] . ' (+' . ($count_areas - 1) . ' ' . t('more') . ')';
+    }
+    $log_wrapper->name->set($log_name);
   }
-  $count_areas = count($area_names);
-  if (count($area_names) <= 3) {
-    $log_name .= implode($area_names, ', ');
-  }
-  else {
-    $log_name .= $area_names[0] . ' (+' . ($count_areas - 1) . ' ' . t('more') . ')';
-  }
-  $log_wrapper->name->set($log_name);
 
   // Iterate through the assets.
   foreach ($assets as $asset) {
@@ -419,20 +442,29 @@ function farm_log_movement_observation($assets, $areas, $timestamp = REQUEST_TIM
   // Set the date.
   $log_wrapper->timestamp->set($timestamp);
 
-  // Create a new movement field_collection entity.
-  $movement = entity_create('field_collection_item', array('field_name' => 'field_farm_movement'));
-
-  // Attach the movement to the log.
-  $movement->setHostEntity('log', $log);
-
-  // Set the "to" area(s).
-  foreach ($areas as $area) {
-    $log_wrapper->field_farm_movement->field_farm_move_to[] = $area;
+  // If there are areas, create a new movement field_collection entity attached
+  // to the log.
+  if (!empty($areas)) {
+    $movement = entity_create('field_collection_item', array('field_name' => 'field_farm_movement'));
+    $movement->setHostEntity('log', $log);
+    foreach ($areas as $area) {
+      $log_wrapper->field_farm_movement->field_farm_move_to[] = $area;
+    }
   }
 
-  // Set the log's done status to TRUE.
-  $log_wrapper->done->set(TRUE);
+  // Set the log's done status.
+  if (!empty($done)) {
+    $log_wrapper->done->set(TRUE);
+  }
+  else {
+    $log_wrapper->done->set(FALSE);
+  }
 
   // Save the log.
   $log_wrapper->save();
+
+  // Set a message.
+  $label = entity_label('log', $log);
+  $uri = entity_uri('log', $log);
+  drupal_set_message('Log created: ' . l($label, $uri['path']));
 }
