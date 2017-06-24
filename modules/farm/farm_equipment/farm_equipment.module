@@ -28,13 +28,6 @@ function farm_equipment_farm_ui_actions() {
 
   // Define farm equipment actions.
   $actions = array(
-    'equipment' => array(
-      'title' => t('Add equipment'),
-      'href' => 'farm/asset/add/equipment',
-      'views' => array(
-        'farm_equipment',
-      ),
-    ),
     'maintenance' => array(
       'title' => t('Add maintenance'),
       'href' => 'log/add/farm_maintenance',

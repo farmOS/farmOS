@@ -22,24 +22,6 @@ function farm_sensor_farm_ui_entities() {
 }
 
 /**
- * Implements hook_farm_ui_actions().
- */
-function farm_sensor_farm_ui_actions() {
-
-  // Define farm sensor actions.
-  $actions = array(
-    'sensor' => array(
-      'title' => t('Add sensor'),
-      'href' => 'farm/asset/add/sensor',
-      'views' => array(
-        'farm_sensors',
-      ),
-    ),
-  );
-  return $actions;
-}
-
-/**
  * Implements hook_farm_area_links().
  */
 function farm_sensor_farm_area_links($id) {

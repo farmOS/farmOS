@@ -41,13 +41,6 @@ function farm_livestock_farm_ui_actions() {
 
   // Define farm area actions.
   $actions = array(
-    'animal' => array(
-      'title' => t('Add an animal'),
-      'href' => 'farm/asset/add/animal',
-      'views' => array(
-        'farm_animals',
-      ),
-    ),
     'animal_group' => array(
       'title' => t('Add a group'),
       'href' => 'admin/structure/taxonomy/farm_animal_groups/add',

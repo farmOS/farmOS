@@ -22,24 +22,6 @@ function farm_soil_compost_farm_ui_entities() {
 }
 
 /**
- * Implements hook_farm_ui_actions().
- */
-function farm_soil_compost_farm_ui_actions() {
-
-  // Define farm compost actions.
-  $actions = array(
-    'compost' => array(
-      'title' => t('Add compost'),
-      'href' => 'farm/asset/add/compost',
-      'views' => array(
-        'farm_compost',
-      ),
-    ),
-  );
-  return $actions;
-}
-
-/**
  * Implements hook_farm_area_links().
  */
 function farm_soil_compost_farm_area_links($id) {

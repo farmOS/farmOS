@@ -178,13 +178,6 @@ function farm_crop_farm_ui_actions() {
         'farm/assets/plantings/crops',
       ),
     ),
-    'planting' => array(
-      'title' => t('Add a planting'),
-      'href' => 'farm/asset/add/planting',
-      'views' => array(
-        'farm_plantings',
-      ),
-    ),
     'seeding' => array(
       'title' => t('Add a seeding'),
       'href' => 'log/add/farm_seeding',

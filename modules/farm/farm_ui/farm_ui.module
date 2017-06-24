@@ -95,6 +95,23 @@ function farm_ui_farm_ui_actions() {
       ),
     ),
   );
+
+  // Load entity UI information.
+  $ui_info = farm_ui_entities();
+
+  // For each asset type, create an action link on its listing page.
+  foreach ($ui_info['farm_asset'] as $asset_type => $asset_info) {
+    if (!empty($asset_info['label']) && !empty($asset_info['view'])) {
+      $actions[$asset_type] = array(
+        'title' => t('Add ' . strtolower($asset_info['label'])),
+        'href' => 'farm/asset/add/' . $asset_type,
+        'views' => array(
+          $asset_info['view'],
+        ),
+      );
+    }
+  }
+
   return $actions;
 }
 
