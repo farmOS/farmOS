@@ -115,7 +115,7 @@ function farm_livestock_farm_asset_view_views($farm_asset) {
 }
 
 /**
- * Implements hook_farm_taxonomy_breadcrumb().
+ * Implements hook_farm_ui_taxonomy_breadcrumb().
  */
 function farm_livestock_farm_taxonomy_breadcrumb($term) {
   $breadcrumb = array();

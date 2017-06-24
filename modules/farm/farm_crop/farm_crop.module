@@ -203,9 +203,9 @@ function farm_crop_farm_ui_actions() {
 }
 
 /**
- * Implements hook_farm_taxonomy_breadcrumb().
+ * Implements hook_farm_ui_taxonomy_breadcrumb().
  */
-function farm_crop_farm_taxonomy_breadcrumb($term) {
+function farm_crop_farm_ui_taxonomy_breadcrumb($term) {
   $breadcrumb = array();
 
   // Switch through available vocabularies.

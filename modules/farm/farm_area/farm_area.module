@@ -137,9 +137,9 @@ function farm_area_type_options() {
 }
 
 /**
- * Implements hook_farm_taxonomy_breadcrumb().
+ * Implements hook_farm_ui_taxonomy_breadcrumb().
  */
-function farm_area_farm_taxonomy_breadcrumb($term) {
+function farm_area_farm_ui_taxonomy_breadcrumb($term) {
   $breadcrumb = array();
 
   // If the term is in farm_areas, add a link to /farm/areas.

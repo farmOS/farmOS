@@ -23,26 +23,6 @@
  */
 
 /**
- * Add breadcrumbs to the taxonomy view page.
- *
- * @param object $term
- *   The taxonomy term entity.
- *
- * @return array
- *   Returns an array of links to add to the term's breadcrumb.
- */
-function hook_farm_taxonomy_breadcrumb($term) {
-  $breadcrumb = array();
-
-  // If the term is in farm_areas, add a link to /farm/areas.
-  if ($term->vocabulary_machine_name == 'farm_areas') {
-    $breadcrumb[] = l(t('Areas'), 'farm/areas');
-  }
-
-  return $breadcrumb;
-}
-
-/**
  * Attach Views to taxonomy term pages.
  *
  * @param object $term

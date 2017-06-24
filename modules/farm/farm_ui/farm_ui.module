@@ -15,9 +15,10 @@ function farm_ui_entity_view($entity, $type, $view_mode, $langcode) {
     return;
   }
 
-  // We are only concerned with farm_asset entities.
+  // We are only concerned with farm_asset and taxonomy_term entities.
   $entity_types = array(
     'farm_asset',
+    'taxonomy_term',
   );
   if (!in_array($type, $entity_types)) {
     return;
@@ -55,6 +56,24 @@ function farm_ui_entity_view($entity, $type, $view_mode, $langcode) {
         $breadcrumb[] = l($ui_info['label_plural'], $path);
       }
     }
+  }
+
+  // Or, if we are dealing with a taxonomy_term entity...
+  elseif ($type == 'taxonomy_term') {
+
+    // Get the default breadcrumb, so we can take advantage of the structure
+    // already provided by the taxonomy hierarchy. Shift the first item off
+    // (home) because we starting a new breadcrumb from scratch.
+    $default_breadcrumb = drupal_get_breadcrumb();
+    array_shift($default_breadcrumb);
+
+    // Ask other modules for additional breadcrumbs for this term and add them
+    // to the array.
+    $module_breadcrumbs = module_invoke_all('farm_ui_taxonomy_breadcrumb', $entity);
+    $breadcrumb = array_merge($breadcrumb, $module_breadcrumbs);
+
+    // Finally, put the original breadcrumbs back onto the end.
+    $breadcrumb = array_merge($breadcrumb, $default_breadcrumb);
   }
 
   // Set the breadcrumb.

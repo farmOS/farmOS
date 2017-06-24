@@ -24,9 +24,6 @@ function farm_taxonomy_entity_view_alter(&$build, $type) {
   // Pull the term entity out of the build array.
   $term = $build['#term'];
 
-  // Set the term page breadcrumb.
-  _farm_taxonomy_term_set_breadcrumb($term);
-
   // Invoke hook_farm_taxonomy_term_view_views() to get a list of Views.
   $views = module_invoke_all('farm_taxonomy_term_view_views', $term);
 
@@ -115,43 +112,5 @@ function farm_taxonomy_entity_view_alter(&$build, $type) {
       '#markup' => $output,
       '#weight' => 100 + $key,
     );
-  }
-}
-
-/**
- * Helper function for setting farm taxonomy term page breadcrumbs.
- *
- * @param object $term
- *   The taxonomy term.
- */
-function _farm_taxonomy_term_set_breadcrumb($term) {
-
-  // Ask other modules for breadcrumbs for this term.
-  // We don't know if this term is part of a farm vocabulary yet, so we will
-  // only set the breadcrumb if this returns results.
-  $module_breadcrumbs = module_invoke_all('farm_taxonomy_breadcrumb', $term);
-
-  // If other modules provided breadcrumbs...
-  if (!empty($module_breadcrumbs)) {
-
-    // Get the default breadcrumb.
-    $default_breadcrumb = drupal_get_breadcrumb();
-
-    // Shift the first item off (home) and start a new breadcrumb array with it.
-    $home = array_shift($default_breadcrumb);
-    $breadcrumb = array($home);
-
-    // Add "Farm".
-    $farm = l(t('Farm'), 'farm');
-    $breadcrumb[] = $farm;
-
-    // Add the breadcrumbs provided by other modules.
-    $breadcrumb = array_merge($breadcrumb, $module_breadcrumbs);
-
-    // Finally, put the original breadcrumbs back onto the end.
-    $breadcrumb = array_merge($breadcrumb, $default_breadcrumb);
-
-    // Set the breadcrumb.
-    drupal_set_breadcrumb($breadcrumb);
   }
 }
