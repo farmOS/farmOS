@@ -167,7 +167,7 @@ function farm_log_movement_asset_location_submit(array $form, array &$form_state
   }
 
   // Create an observation log to record the movement.
-  farm_log_movement_observation($asset, $areas, REQUEST_TIME);
+  farm_log_movement_create($asset, $areas, REQUEST_TIME);
 }
 
 /**
@@ -366,7 +366,7 @@ function farm_log_movement_asset_move_action(array $assets, $context = array()) 
 }
 
 /**
- * Create an observation log for moving assets to areas.
+ * Create a log for moving assets to areas.
  *
  * @param array|FarmAsset $assets
  *   Array of assets to include in the move.
@@ -374,8 +374,10 @@ function farm_log_movement_asset_move_action(array $assets, $context = array()) 
  *   An array of areas to move to.
  * @param int $timestamp
  *   The timestamp of the move. Defaults to the current time.
+ * @param string $log_type
+ *   The type of log to create. Defaults to "farm_observation".
  */
-function farm_log_movement_observation($assets, $areas, $timestamp = REQUEST_TIME) {
+function farm_log_movement_create($assets, $areas, $timestamp = REQUEST_TIME, $log_type = 'farm_observation') {
 
   // If $assets isn't an array, wrap it.
   if (!is_array($assets)) {
@@ -388,26 +390,29 @@ function farm_log_movement_observation($assets, $areas, $timestamp = REQUEST_TIM
   }
 
   // Create a new movement log entity.
-  $log = entity_create('log', array('type' => 'farm_observation'));
+  $log = entity_create('log', array('type' => $log_type));
 
   // Create an entity wrapper for the log.
   $log_wrapper = entity_metadata_wrapper('log', $log);
 
-  // Set the name of the observation: "Current location: [area(s)]". If there
-  // are more than 3 areas, just list the first, and add "(+ X more)".
-  $log_name = t('Current location') . ': ';
-  $area_names = array();
-  foreach ($areas as $area) {
-    $area_names[] = $area->name;
+  // If the log is an observation, set the name to:
+  // "Current location: [area(s)]".
+  // If there are more than 3 areas, just list the first, and add "(+ X more)".
+  if ($log_type == 'farm_observation') {
+    $log_name = t('Current location') . ': ';
+    $area_names = array();
+    foreach ($areas as $area) {
+      $area_names[] = $area->name;
+    }
+    $count_areas = count($area_names);
+    if (count($area_names) <= 3) {
+      $log_name .= implode($area_names, ', ');
+    }
+    else {
+      $log_name .= $area_names[0] . ' (+' . ($count_areas - 1) . ' ' . t('more') . ')';
+    }
+    $log_wrapper->name->set($log_name);
   }
-  $count_areas = count($area_names);
-  if (count($area_names) <= 3) {
-    $log_name .= implode($area_names, ', ');
-  }
-  else {
-    $log_name .= $area_names[0] . ' (+' . ($count_areas - 1) . ' ' . t('more') . ')';
-  }
-  $log_wrapper->name->set($log_name);
 
   // Iterate through the assets.
   foreach ($assets as $asset) {
