@@ -65,6 +65,10 @@ function farm_crop_form_farm_asset_form_alter(&$form, &$form_state, $form_id) {
       '#title' => t($data['label'] . ' location'),
       '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_area',
     );
+    $form['plan'][$field . '_done'] = array(
+      '#type' => 'checkbox',
+      '#title' => t($data['label'] . ' has taken place (mark the log as done)'),
+    );
   }
 
   // Add a submit handler.
@@ -115,8 +119,14 @@ function farm_crop_planting_plan_submit(array $form, array &$form_state) {
       $areas = farm_log_movement_parse_areas($form_state['values'][$type . '_location']);
     }
 
+    // Mark the log as done or not done.
+    $done = FALSE;
+    if (!empty($form_state['values'][$type . '_done'])) {
+      $done = TRUE;
+    }
+
     // Create a log.
-    farm_log_movement_create($asset, $areas, $timestamp, 'farm_' . $type, FALSE);
+    farm_log_movement_create($asset, $areas, $timestamp, 'farm_' . $type, $done);
   }
 }
 
