@@ -462,4 +462,9 @@ function farm_log_movement_create($assets, $areas = array(), $timestamp = REQUES
 
   // Save the log.
   $log_wrapper->save();
+
+  // Set a message.
+  $label = entity_label('log', $log);
+  $uri = entity_uri('log', $log);
+  drupal_set_message('Log created: ' . l($label, $uri['path']));
 }
