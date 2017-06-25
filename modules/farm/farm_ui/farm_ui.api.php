@@ -31,10 +31,20 @@
  */
 function hook_farm_ui_entities() {
   $entities = array(
+
+    // Define farm_asset entity types provided by this module.
     'farm_asset' => array(
+
+      // Plantings:
       'planting' => array(
+
+        // Label
         'label' => t('Planting'),
+
+        // Label (plural)
         'label_plural' => t('Plantings'),
+
+        // View of plantings (optional).
         'view' => 'farm_plantings',
       ),
     ),
