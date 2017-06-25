@@ -146,7 +146,7 @@ function farm_ui_farm_ui_actions() {
   // Define default farm action links.
   $actions = array(
     'area' => array(
-      'title' => t('Add an area'),
+      'title' => t('Add area'),
       'href' => 'admin/structure/taxonomy/farm_areas/add',
       'views' => array(
         'farm_areas',
@@ -157,7 +157,7 @@ function farm_ui_farm_ui_actions() {
       'weight' => -10,
     ),
     'asset' => array(
-      'title' => t('Add an asset'),
+      'title' => t('Add asset'),
       'href' => 'farm/asset/add',
       'paths' => array(
         'farm',
@@ -165,7 +165,7 @@ function farm_ui_farm_ui_actions() {
       ),
     ),
     'log' => array(
-      'title' => t('Add a log'),
+      'title' => t('Add log'),
       'href' => 'log/add',
       'paths' => array(
         'farm',
@@ -174,7 +174,7 @@ function farm_ui_farm_ui_actions() {
       'weight' => 1,
     ),
     'user' => array(
-      'title' => t('Add a person'),
+      'title' => t('Add person'),
       'href' => 'admin/people/create',
       'views' => array(
         'farm_people',
