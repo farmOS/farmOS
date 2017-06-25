@@ -184,13 +184,6 @@ function farm_crop_farm_ui_actions() {
 
   // Define actions.
   $actions = array(
-    'crop' => array(
-      'title' => t('Add a crop/variety'),
-      'href' => 'admin/structure/taxonomy/farm_crops/add',
-      'paths' => array(
-        'farm/assets/plantings/crops',
-      ),
-    ),
     'seeding' => array(
       'title' => t('Add a seeding'),
       'href' => 'log/add/farm_seeding',
