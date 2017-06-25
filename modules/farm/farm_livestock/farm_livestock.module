@@ -18,6 +18,20 @@ function farm_livestock_farm_ui_entities() {
         'view' => 'farm_animals',
       ),
     ),
+    'taxonomy_term' => array(
+      'farm_animal_groups' => array(
+        'label' => t('Group'),
+        'label_plural' => t('Groups'),
+        'view' => 'farm_animal_groups',
+        'farm_asset' => 'animal',
+      ),
+      'farm_animal_types' => array(
+        'label' => t('Type'),
+        'label_plural' => t('Types'),
+        'view' => 'farm_animal_types',
+        'farm_asset' => 'animal',
+      ),
+    ),
   );
 }
 
@@ -112,34 +126,6 @@ function farm_livestock_farm_asset_view_views($farm_asset) {
       'weight' => 110,
     ),
   );
-}
-
-/**
- * Implements hook_farm_ui_taxonomy_breadcrumb().
- */
-function farm_livestock_farm_taxonomy_breadcrumb($term) {
-  $breadcrumb = array();
-
-  // Switch through available vocabularies.
-  switch ($term->vocabulary_machine_name) {
-
-    // If the term is in farm_animal_groups...
-    case 'farm_animal_groups':
-      $breadcrumb[] = l(t('Assets'), 'farm/assets');
-      $breadcrumb[] = l(t('Animals'), 'farm/assets/animals');
-      $breadcrumb[] = l(t('Groups'), 'farm/assets/animals/groups');
-      break;
-
-    // If the term is in farm_animal_types...
-    case 'farm_animal_types':
-      $breadcrumb[] = l(t('Assets'), 'farm/assets');
-      $breadcrumb[] = l(t('Animals'), 'farm/assets/animals');
-      $breadcrumb[] = l(t('Species/Breeds'), 'farm/assets/animals/types');
-      break;
-
-  }
-
-  return $breadcrumb;
 }
 
 /**

@@ -161,6 +161,19 @@ function farm_crop_farm_ui_entities() {
         'view' => 'farm_plantings',
       ),
     ),
+    'taxonomy_term' => array(
+      'farm_crops' => array(
+        'label' => t('Crop/variety'),
+        'label_plural' => t('Crops/varieties'),
+        'view' => 'farm_crops',
+        'farm_asset' => 'planting',
+      ),
+      'farm_crop_families' => array(
+        'label' => t('Crop Family'),
+        'label_plural' => t('Crop Families'),
+        'farm_asset' => 'planting',
+      ),
+    ),
   );
 }
 
@@ -200,34 +213,6 @@ function farm_crop_farm_ui_actions() {
     ),
   );
   return $actions;
-}
-
-/**
- * Implements hook_farm_ui_taxonomy_breadcrumb().
- */
-function farm_crop_farm_ui_taxonomy_breadcrumb($term) {
-  $breadcrumb = array();
-
-  // Switch through available vocabularies.
-  switch ($term->vocabulary_machine_name) {
-
-    // If the term is in farm_crops...
-    case 'farm_crops':
-      $breadcrumb[] = l(t('Assets'), 'farm/assets');
-      $breadcrumb[] = l(t('Plantings'), 'farm/assets/plantings');
-      $breadcrumb[] = l(t('Crops/Varieties'), 'farm/assets/plantings/crops');
-      break;
-
-    // If the term is in farm_crop_families...
-    case 'farm_crop_families':
-      $breadcrumb[] = l(t('Assets'), 'farm/assets');
-      $breadcrumb[] = l(t('Plantings'), 'farm/assets/plantings');
-      $breadcrumb[] = t('Crop Families');
-      break;
-
-  }
-
-  return $breadcrumb;
 }
 
 /**

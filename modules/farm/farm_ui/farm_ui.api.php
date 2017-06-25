@@ -48,6 +48,26 @@ function hook_farm_ui_entities() {
         'view' => 'farm_plantings',
       ),
     ),
+
+    // Define taxonomy_term vocabularies provided by this module.
+    'taxonomy_term' => array(
+
+      // Crops:
+      'farm_crops' => array(
+
+        // Label.
+        'label' => t('Crop'),
+
+        // Label (plural).
+        'label_plural' => t('Crops'),
+
+        // View of crops (optional).
+        'view' => 'farm_crops',
+
+        // The specific asset type that these terms apply to (optional).
+        'farm_asset' => 'planting',
+      ),
+    ),
   );
   return $entities;
 }
@@ -77,26 +97,6 @@ function hook_farm_ui_actions() {
     ),
   );
   return $actions;
-}
-
-/**
- * Add breadcrumbs to the taxonomy view page.
- *
- * @param object $term
- *   The taxonomy term entity.
- *
- * @return array
- *   Returns an array of links to add to the term's breadcrumb.
- */
-function hook_farm_ui_taxonomy_breadcrumb($term) {
-  $breadcrumb = array();
-
-  // If the term is in farm_areas, add a link to /farm/areas.
-  if ($term->vocabulary_machine_name == 'farm_areas') {
-    $breadcrumb[] = l(t('Areas'), 'farm/areas');
-  }
-
-  return $breadcrumb;
 }
 
 /**

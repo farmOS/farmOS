@@ -44,6 +44,21 @@ function farm_area_menu() {
 }
 
 /**
+ * Implements hook_farm_ui_entities().
+ */
+function farm_area_farm_ui_entities() {
+  return array(
+    'taxonomy_term' => array(
+      'farm_areas' => array(
+        'label' => t('Area'),
+        'label_plural' => t('Areas'),
+        'view' => 'farm_areas',
+      ),
+    ),
+  );
+}
+
+/**
  * Implements hook_farm_area_type_info().
  */
 function farm_area_farm_area_type_info() {
@@ -134,20 +149,6 @@ function farm_area_type_options() {
 
   // Return the list of options.
   return $options;
-}
-
-/**
- * Implements hook_farm_ui_taxonomy_breadcrumb().
- */
-function farm_area_farm_ui_taxonomy_breadcrumb($term) {
-  $breadcrumb = array();
-
-  // If the term is in farm_areas, add a link to /farm/areas.
-  if ($term->vocabulary_machine_name == 'farm_areas') {
-    $breadcrumb[] = l(t('Areas'), 'farm/areas');
-  }
-
-  return $breadcrumb;
 }
 
 /**

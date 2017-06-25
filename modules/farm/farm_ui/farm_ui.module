@@ -24,60 +24,118 @@ function farm_ui_entity_view($entity, $type, $view_mode, $langcode) {
     return;
   }
 
-  // Start the breadcrumb.
-  $breadcrumb = array(
+  // Determine the bundle based on the type.
+  switch ($type) {
+    case 'farm_asset':
+      $bundle = $entity->type;
+      break;
+    case 'taxonomy_term':
+      $bundle = $entity->vocabulary_machine_name;
+      break;
+  }
+
+  // Get the breadcrumb from our helper function.
+  $breadcrumb = farm_ui_entity_type_breadcrumb($type, $bundle);
+
+  // Add base breadcrumb items to the front.
+  $base = array(
     l(t('Home'), '<front>'),
     l(t('Farm'), 'farm'),
   );
-
-  // If we are dealing with a farm_asset entity...
-  if ($type == 'farm_asset') {
-
-    // Add a link to the full assets list.
-    $breadcrumb[] = l(t('Assets'), 'farm/assets');
-
-    // Load entity UI information.
-    $ui_info = farm_ui_entities($type, $entity->type);
-
-    // If the entity type has a View, add it to the breadcrumb.
-    if (!empty($ui_info['view'])) {
-
-      // Load the View.
-      $view = views_get_view($ui_info['view']);
-
-      // Get the path to the page display.
-      $path = '';
-      if (!empty($view->display['page']->display_options['path'])) {
-        $path = $view->display['page']->display_options['path'];
-      }
-
-      // If a path and label are available, add a breadcrumb link.
-      if (!empty($path) && !empty($ui_info['label_plural'])) {
-        $breadcrumb[] = l($ui_info['label_plural'], $path);
-      }
-    }
-  }
-
-  // Or, if we are dealing with a taxonomy_term entity...
-  elseif ($type == 'taxonomy_term') {
-
-    // Get the default breadcrumb, so we can take advantage of the structure
-    // already provided by the taxonomy hierarchy. Shift the first item off
-    // (home) because we starting a new breadcrumb from scratch.
-    $default_breadcrumb = drupal_get_breadcrumb();
-    array_shift($default_breadcrumb);
-
-    // Ask other modules for additional breadcrumbs for this term and add them
-    // to the array.
-    $module_breadcrumbs = module_invoke_all('farm_ui_taxonomy_breadcrumb', $entity);
-    $breadcrumb = array_merge($breadcrumb, $module_breadcrumbs);
-
-    // Finally, put the original breadcrumbs back onto the end.
-    $breadcrumb = array_merge($breadcrumb, $default_breadcrumb);
-  }
+  $breadcrumb = array_merge($base, $breadcrumb);
 
   // Set the breadcrumb.
   drupal_set_breadcrumb($breadcrumb);
+}
+
+/**
+ * Build breadcrumbs for a specific entity type and bundle.
+ *
+ * @param $type
+ *   The entity type.
+ * @param $bundle
+ *   The bundle.
+ *
+ * @return array
+ *   Returns a breadcrumb array.
+ */
+function farm_ui_entity_type_breadcrumb($type, $bundle) {
+
+  // Start an empty breadcrumb array.
+  $breadcrumb = array();
+
+  // Load entity UI information.
+  $ui_info = farm_ui_entities($type, $bundle);
+
+  // Get the label (plural). Bail if it's not set.
+  if (empty($ui_info['label_plural'])) {
+    return $breadcrumb;
+  }
+  $label = $ui_info['label_plural'];
+
+  // If the entity type has a View, load the path.
+  if (!empty($ui_info['view'])) {
+    $path = farm_ui_view_page_path($ui_info['view']);
+  }
+
+  // If this is a farm_asset entity, add a link to the full assets list.
+  if ($type == 'farm_asset') {
+    $breadcrumb[] = l(t('Assets'), 'farm/assets');
+  }
+
+  // If this is a taxonomy_term entity, and it is linked to a specific asset
+  // type, add the asset breadcrumb trail (recurse into this function again).
+  if ($type == 'taxonomy_term' && !empty($ui_info['farm_asset'])) {
+    $asset_breadcrumbs = farm_ui_entity_type_breadcrumb('farm_asset', $ui_info['farm_asset']);
+    $breadcrumb = array_merge($asset_breadcrumbs, $breadcrumb);
+  }
+
+  // If a path was found, add a link to the breadcrumb. Otherwise, add a simple
+  // text breadcrumb.
+  if (!empty($path)) {
+    $breadcrumb[] = l($label, $path);
+  }
+  else {
+    $breadcrumb[] = $label;
+  }
+
+  // If this is a taxonomy_term entity, get the default breadcrumb and tack it
+  // onto the end, so we can take advantage of the structure already provided
+  // by the taxonomy hierarchy. Shift the first item off (home) because we've
+  // started a new breadcrumb from scratch.
+  if ($type == 'taxonomy_term') {
+    $default_breadcrumb = drupal_get_breadcrumb();
+    array_shift($default_breadcrumb);
+    $breadcrumb = array_merge($breadcrumb, $default_breadcrumb);
+  }
+
+  // Return the breadcrumb.
+  return $breadcrumb;
+}
+
+/**
+ * Helper function for getting the path to a View's page display.
+ *
+ * @param string $view_name
+ *   The machine name of the View.
+ * @param string $display
+ *   The machine name of the page display (defaults to "page").
+ *
+ * @return string
+ *   Returns the path to a View's page display.
+ */
+function farm_ui_view_page_path($view_name, $display = 'page') {
+
+  // Load the View.
+  $view = views_get_view($view_name);
+
+  // If the page display exists and has a path, return it.
+  if (!empty($view->display[$display]->display_options['path'])) {
+    return $view->display[$display]->display_options['path'];
+  }
+
+  // Otherwise, return an empty string.
+  return '';
 }
 
 /**
