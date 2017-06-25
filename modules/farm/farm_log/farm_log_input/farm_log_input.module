@@ -8,6 +8,21 @@
 include_once 'farm_log_input.features.inc';
 
 /**
+ * Implements hook_farm_ui_entities().
+ */
+function farm_log_input_farm_ui_entities() {
+  return array(
+    'log' => array(
+      'farm_input' => array(
+        'label' => t('Input'),
+        'label_plural' => t('Inputs'),
+        'view' => 'farm_log_input',
+      ),
+    ),
+  );
+}
+
+/**
  * Implements hook_farm_ui_actions().
  */
 function farm_log_input_farm_ui_actions() {
@@ -19,9 +34,6 @@ function farm_log_input_farm_ui_actions() {
       'href' => 'log/add/farm_input',
       'assets' => array(
         'all',
-      ),
-      'views' => array(
-        'farm_log_input',
       ),
       'paths' => array(
         'taxonomy/term/%',

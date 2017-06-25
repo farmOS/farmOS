@@ -7,6 +7,21 @@
 include_once 'farm_water_test.features.inc';
 
 /**
+ * Implements hook_farm_ui_entities().
+ */
+function farm_water_test_farm_ui_entities() {
+  return array(
+    'log' => array(
+      'farm_water_test' => array(
+        'label' => t('Water test'),
+        'label_plural' => t('Water test'),
+        'view' => 'farm_water_test',
+      ),
+    ),
+  );
+}
+
+/**
  * Implements hook_farm_ui_actions().
  */
 function farm_water_test_farm_ui_actions() {
@@ -16,9 +31,6 @@ function farm_water_test_farm_ui_actions() {
     'water_test' => array(
       'title' => t('Add a water test'),
       'href' => 'log/add/farm_water_test',
-      'views' => array(
-        'farm_water_test',
-      ),
       'paths' => array(
         'taxonomy/term/%',
       ),

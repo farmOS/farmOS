@@ -7,19 +7,16 @@
 include_once 'farm_livestock_eggs.features.inc';
 
 /**
- * Implements hook_farm_ui_actions().
+ * Implements hook_farm_ui_entities().
  */
-function farm_livestock_eggs_farm_ui_actions() {
-
-  // Define farm area actions.
-  $actions = array(
-    'eggs' => array(
-      'title' => t('Add eggs'),
-      'href' => 'log/add/farm_eggs',
-      'views' => array(
-        'farm_log_eggs',
+function farm_livestock_eggs_farm_ui_entities() {
+  return array(
+    'log' => array(
+      'farm_eggs' => array(
+        'label' => t('Egg log'),
+        'label_plural' => t('Egg logs'),
+        'view' => 'farm_log_eggs',
       ),
     ),
   );
-  return $actions;
 }

@@ -3,5 +3,6 @@ description = Provides standardized user interface elements to farmOS modules.
 core = 7.x
 package = farmOS
 dependencies[] = farm_asset
+dependencies[] = farm_log
 dependencies[] = taxonomy
 dependencies[] = views

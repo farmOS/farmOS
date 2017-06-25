@@ -161,6 +161,18 @@ function farm_crop_farm_ui_entities() {
         'view' => 'farm_plantings',
       ),
     ),
+    'log' => array(
+      'farm_seeding' => array(
+        'label' => t('Seeding'),
+        'label_plural' => t('Seedings'),
+        'view' => 'farm_log_seeding',
+      ),
+      'farm_transplanting' => array(
+        'label' => t('Transplanting'),
+        'label_plural' => t('Transplantings'),
+        'view' => 'farm_log_transplanting',
+      ),
+    ),
     'taxonomy_term' => array(
       'farm_crops' => array(
         'label' => t('Crop/variety'),
@@ -190,18 +202,12 @@ function farm_crop_farm_ui_actions() {
       'assets' => array(
         'planting',
       ),
-      'views' => array(
-        'farm_log_seeding',
-      ),
     ),
     'transplanting' => array(
       'title' => t('Add a transplanting'),
       'href' => 'log/add/farm_transplanting',
       'assets' => array(
         'planting',
-      ),
-      'views' => array(
-        'farm_log_transplanting',
       ),
     ),
   );

@@ -7,6 +7,21 @@
 include_once 'farm_soil_test.features.inc';
 
 /**
+ * Implements hook_farm_ui_entities().
+ */
+function farm_soil_test_farm_ui_entities() {
+  return array(
+    'log' => array(
+      'farm_soil_test' => array(
+        'label' => t('Soil test'),
+        'label_plural' => t('Soil tests'),
+        'view' => 'farm_log_soil_tests',
+      ),
+    ),
+  );
+}
+
+/**
  * Implements hook_farm_ui_actions().
  */
 function farm_soil_test_farm_ui_actions() {
@@ -16,9 +31,6 @@ function farm_soil_test_farm_ui_actions() {
     'soil_test' => array(
       'title' => t('Add a soil test'),
       'href' => 'log/add/farm_soil_test',
-      'views' => array(
-        'farm_log_soil_tests',
-      ),
       'paths' => array(
         'taxonomy/term/%',
       ),

@@ -8,6 +8,21 @@
 include_once 'farm_log_harvest.features.inc';
 
 /**
+ * Implements hook_farm_ui_entities().
+ */
+function farm_log_harvest_farm_ui_entities() {
+  return array(
+    'log' => array(
+      'farm_harvest' => array(
+        'label' => t('Harvest'),
+        'label_plural' => t('Harvests'),
+        'view' => 'farm_log_harvest',
+      ),
+    ),
+  );
+}
+
+/**
  * Implements hook_farm_ui_actions().
  */
 function farm_log_harvest_farm_ui_actions() {
@@ -19,9 +34,6 @@ function farm_log_harvest_farm_ui_actions() {
       'href' => 'log/add/farm_harvest',
       'assets' => array(
         'all',
-      ),
-      'views' => array(
-        'farm_log_harvest',
       ),
     ),
   );

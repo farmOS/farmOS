@@ -8,6 +8,21 @@
 include_once 'farm_log_activity.features.inc';
 
 /**
+ * Implements hook_farm_ui_entities().
+ */
+function farm_log_activity_farm_ui_entities() {
+  return array(
+    'log' => array(
+      'farm_activity' => array(
+        'label' => t('Activity'),
+        'label_plural' => t('Activities'),
+        'view' => 'farm_log_activity',
+      ),
+    ),
+  );
+}
+
+/**
  * Implements hook_farm_ui_actions().
  */
 function farm_log_activity_farm_ui_actions() {
@@ -19,9 +34,6 @@ function farm_log_activity_farm_ui_actions() {
       'href' => 'log/add/farm_activity',
       'assets' => array(
         'all',
-      ),
-      'views' => array(
-        'farm_log_activity',
       ),
       'paths' => array(
         'taxonomy/term/%',

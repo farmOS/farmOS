@@ -49,6 +49,23 @@ function hook_farm_ui_entities() {
       ),
     ),
 
+    // Define log entity types provided by this module.
+    'log' => array(
+
+      // Seedings:
+      'farm_seeding' => array(
+
+        // Label.
+        'label' => t('Seeding'),
+
+        // Label (plural).
+        'label_plural' => t('Seedings'),
+
+        // View of seedings (optional).
+        'view' => 'farm_log_seeding',
+      ),
+    ),
+
     // Define taxonomy_term vocabularies provided by this module.
     'taxonomy_term' => array(
 

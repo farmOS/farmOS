@@ -18,6 +18,13 @@ function farm_livestock_farm_ui_entities() {
         'view' => 'farm_animals',
       ),
     ),
+    'log' => array(
+      'farm_medical' => array(
+        'label' => t('Medical record'),
+        'label_plural' => t('Medical records'),
+        'view' => 'farm_log_medical',
+      ),
+    ),
     'taxonomy_term' => array(
       'farm_animal_groups' => array(
         'label' => t('Group'),
@@ -60,9 +67,6 @@ function farm_livestock_farm_ui_actions() {
       'href' => 'log/add/farm_medical',
       'assets' => array(
         'animal',
-      ),
-      'views' => array(
-        'farm_log_medical',
       ),
     ),
   );

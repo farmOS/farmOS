@@ -18,6 +18,13 @@ function farm_equipment_farm_ui_entities() {
         'view' => 'farm_equipment',
       ),
     ),
+    'log' => array(
+      'farm_maintenance' => array(
+        'label' => t('Maintenance'),
+        'label_plural' => t('Maintenance'),
+        'view' => 'farm_log_maintenance',
+      ),
+    ),
   );
 }
 
@@ -33,9 +40,6 @@ function farm_equipment_farm_ui_actions() {
       'href' => 'log/add/farm_maintenance',
       'assets' => array(
         'equipment',
-      ),
-      'views' => array(
-        'farm_log_maintenance',
       ),
     ),
   );
