@@ -73,14 +73,45 @@ function farm_ui_entity_views($entity_type, $entity) {
   // Start an empty build array.
   $build = array();
 
+  // Start an empty array of Views.
+  $views = array();
+
+  // Load entity UI information.
+  $ui_info = farm_ui_entities();
+
+  // Automatically generate a list of log Views to display on assets.
+  if ($entity_type == 'farm_asset' && !empty($ui_info['log'])) {
+    foreach ($ui_info['log'] as $bundle => $info) {
+
+      // If a View is not defined, skip it.
+      if (empty($info['view'])) {
+        continue;
+      }
+
+      // If the log applies to this asset type (or to all types), add the View.
+      if (empty($info['farm_asset']) || $info['farm_asset'] == 'all' || $info['farm_asset'] == $entity->type) {
+        $view = array(
+          'name' => $info['view'],
+        );
+        if (!empty($info['weight'])) {
+          $view['weight'] = $info['weight'];
+        }
+        $views[] = $view;
+      }
+    }
+  }
+
   // Ask modules for Views, based on the type.
   switch ($entity_type) {
     case 'farm_asset':
-      $views = module_invoke_all('farm_ui_asset_views', $entity);
+      $module_views = module_invoke_all('farm_ui_asset_views', $entity);
       break;
     case 'taxonomy_term':
-      $views = module_invoke_all('farm_ui_taxonomy_views', $entity);
+      $module_views = module_invoke_all('farm_ui_taxonomy_views', $entity);
       break;
+  }
+  if (!empty($module_views)) {
+    $views = array_merge($views, $module_views);
   }
 
   // If there are no Views, bail.

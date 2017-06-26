@@ -76,6 +76,13 @@ function hook_farm_ui_entities() {
         // This will add an action link on area pages, and will show a link in
         // the area details popup.
         'areas' => TRUE,
+
+        // Define the weight of this log type relative to others (optional)
+        // This will be used to sort the log Views displayed on entities.
+        /**
+         * @see hook_farm_ui_asset_views() and hook_farm_ui_taxonomy_views()
+         */
+        'weight' => 10,
       ),
     ),
 

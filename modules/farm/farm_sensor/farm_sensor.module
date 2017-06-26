@@ -34,14 +34,6 @@ function farm_sensor_farm_ui_asset_views($farm_asset) {
   // Return a list of Views to include on Sensors.
   return array(
     array(
-      'name' => 'farm_log_activity',
-      'weight' => 0,
-    ),
-    array(
-      'name' => 'farm_log_observation',
-      'weight' => 10,
-    ),
-    array(
       'name' => 'farm_log_movement',
       'weight' => 100,
     ),

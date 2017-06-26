@@ -167,12 +167,14 @@ function farm_crop_farm_ui_entities() {
         'label_plural' => t('Seedings'),
         'view' => 'farm_log_seeding',
         'farm_asset' => 'planting',
+        'weight' => 20,
       ),
       'farm_transplanting' => array(
         'label' => t('Transplanting'),
         'label_plural' => t('Transplantings'),
         'view' => 'farm_log_transplanting',
         'farm_asset' => 'planting',
+        'weight' => 30,
       ),
     ),
     'taxonomy_term' => array(
@@ -203,30 +205,6 @@ function farm_crop_farm_ui_asset_views($farm_asset) {
 
   // Return a list of Views to include on Plantings.
   return array(
-    array(
-      'name' => 'farm_log_activity',
-      'weight' => 0,
-    ),
-    array(
-      'name' => 'farm_log_observation',
-      'weight' => 10,
-    ),
-    array(
-      'name' => 'farm_log_seeding',
-      'weight' => 20,
-    ),
-    array(
-      'name' => 'farm_log_transplanting',
-      'weight' => 30,
-    ),
-    array(
-      'name' => 'farm_log_input',
-      'weight' => 50,
-    ),
-    array(
-      'name' => 'farm_log_harvest',
-      'weight' => 60,
-    ),
     array(
       'name' => 'farm_log_movement',
       'weight' => 100,

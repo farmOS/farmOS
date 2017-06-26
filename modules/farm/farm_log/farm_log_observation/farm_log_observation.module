@@ -18,6 +18,7 @@ function farm_log_observation_farm_ui_entities() {
         'label_plural' => t('Observations'),
         'view' => 'farm_log_observation',
         'areas' => TRUE,
+        'weight' => 10,
       ),
     ),
   );

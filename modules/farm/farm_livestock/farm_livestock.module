@@ -24,6 +24,7 @@ function farm_livestock_farm_ui_entities() {
         'label_plural' => t('Medical records'),
         'view' => 'farm_log_medical',
         'farm_asset' => 'animal',
+        'weight' => 20,
       ),
     ),
     'taxonomy_term' => array(
@@ -68,26 +69,6 @@ function farm_livestock_farm_ui_asset_views($farm_asset) {
 
   // Return a list of Views to include on Animals.
   return array(
-    array(
-      'name' => 'farm_log_activity',
-      'weight' => 0,
-    ),
-    array(
-      'name' => 'farm_log_observation',
-      'weight' => 10,
-    ),
-    array(
-      'name' => 'farm_log_medical',
-      'weight' => 20,
-    ),
-    array(
-      'name' => 'farm_log_input',
-      'weight' => 50,
-    ),
-    array(
-      'name' => 'farm_log_harvest',
-      'weight' => 60,
-    ),
     array(
       'name' => 'farm_log_movement',
       'weight' => 100,

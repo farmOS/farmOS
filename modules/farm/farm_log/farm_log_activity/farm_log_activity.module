@@ -18,6 +18,7 @@ function farm_log_activity_farm_ui_entities() {
         'label_plural' => t('Activities'),
         'view' => 'farm_log_activity',
         'areas' => TRUE,
+        'weight' => 0,
       ),
     ),
   );

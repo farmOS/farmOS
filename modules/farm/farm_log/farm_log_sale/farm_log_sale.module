@@ -16,21 +16,8 @@ function farm_log_sale_farm_ui_entities() {
         'label' => t('Sale'),
         'label_plural' => t('Sales'),
         'view' => 'farm_log_sale',
+        'weight' => 0,
       ),
-    ),
-  );
-}
-
-/**
- * Implements hook_farm_ui_asset_views().
- */
-function farm_log_sale_farm_ui_asset_views($farm_asset) {
-
-  // Show a list of sales at the top of all asset pages.
-  return array(
-    array(
-      'name' => 'farm_log_sale',
-      'weight' => 0,
     ),
   );
 }
