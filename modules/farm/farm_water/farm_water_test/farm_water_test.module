@@ -38,22 +38,3 @@ function farm_water_test_farm_taxonomy_term_view_views($term) {
     'farm_water_test',
   );
 }
-
-/**
- * Implements hook_farm_area_links().
- */
-function farm_water_test_farm_area_links($id) {
-  $links = array();
-
-  // Add link to water tests.
-  $view = views_get_view('farm_water_test');
-  $view->preview('default', array($id));
-  if ($view->total_rows > 0) {
-    $links[] = array(
-      'title' => t('Water tests') . ': ' . $view->total_rows,
-      'href' => 'farm/logs/water-tests/' . $id,
-    );
-  }
-
-  return $links;
-}

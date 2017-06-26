@@ -41,23 +41,3 @@ function farm_log_input_farm_taxonomy_term_view_views($term) {
     ),
   );
 }
-
-/**
- * Implements hook_farm_area_links().
- */
-function farm_log_input_farm_area_links($id) {
-  $links = array();
-
-  // Add link to inputs.
-  $view = views_get_view('farm_log_input');
-  $view->preview('default', array('all', $id));
-  if ($view->total_rows > 0) {
-    $links[] = array(
-      'title' => t('Inputs') . ': ' . $view->total_rows,
-      'href' => 'farm/logs/inputs/all/' . $id,
-      'weight' => 10,
-    );
-  }
-
-  return $links;
-}

@@ -43,23 +43,3 @@ function farm_log_observation_farm_taxonomy_term_view_views($term) {
     ),
   );
 }
-
-/**
- * Implements hook_farm_area_links().
- */
-function farm_log_observation_farm_area_links($id) {
-  $links = array();
-
-  // Add link to observations.
-  $view = views_get_view('farm_log_observation');
-  $view->preview('default', array('all', $id));
-  if ($view->total_rows > 0) {
-    $links[] = array(
-      'title' => t('Observations') . ': ' . $view->total_rows,
-      'href' => 'farm/logs/observations/all/' . $id,
-      'weight' => -100,
-    );
-  }
-
-  return $links;
-}

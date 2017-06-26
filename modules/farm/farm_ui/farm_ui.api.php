@@ -73,7 +73,8 @@ function hook_farm_ui_entities() {
         'farm_asset' => 'planting',
 
         // Set 'areas' to TRUE if the log type can be used on areas.
-        // This will add an action link on area pages.
+        // This will add an action link on area pages, and will show a link in
+        // the area details popup.
         'areas' => TRUE,
       ),
     ),
