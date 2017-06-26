@@ -452,6 +452,11 @@ function farm_ui_entityreference_view_widget_views_arguments_alter(&$arguments, 
    * this code successfully sets a contextual filter argument.
    */
 
+  // Only apply this to the View: farm_asset_entityreference_view
+  if ($view->name != 'farm_asset_entityreference_view') {
+    return;
+  }
+
   // Figure out what the log type is.
   if (!empty($form_state['build_info']['args'][0]->type)) {
     $log_type = $form_state['build_info']['args'][0]->type;
