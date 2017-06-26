@@ -71,6 +71,10 @@ function hook_farm_ui_entities() {
         // Set it to 'all' if the log can apply to all asset types (this is the
         // default behavior).
         'farm_asset' => 'planting',
+
+        // Set 'areas' to TRUE if the log type can be used on areas.
+        // This will add an action link on area pages.
+        'areas' => TRUE,
       ),
     ),
 

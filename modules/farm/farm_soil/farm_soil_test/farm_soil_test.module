@@ -17,27 +17,10 @@ function farm_soil_test_farm_ui_entities() {
         'label_plural' => t('Soil tests'),
         'view' => 'farm_log_soil_tests',
         'farm_asset' => 'none',
+        'areas' => TRUE,
       ),
     ),
   );
-}
-
-/**
- * Implements hook_farm_ui_actions().
- */
-function farm_soil_test_farm_ui_actions() {
-
-  // Define farm area actions.
-  $actions = array(
-    'soil_test' => array(
-      'title' => t('Add a soil test'),
-      'href' => 'log/add/farm_soil_test',
-      'paths' => array(
-        'taxonomy/term/%',
-      ),
-    ),
-  );
-  return $actions;
 }
 
 /**

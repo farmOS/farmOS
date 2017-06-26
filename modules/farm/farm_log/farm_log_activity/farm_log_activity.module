@@ -17,27 +17,10 @@ function farm_log_activity_farm_ui_entities() {
         'label' => t('Activity'),
         'label_plural' => t('Activities'),
         'view' => 'farm_log_activity',
+        'areas' => TRUE,
       ),
     ),
   );
-}
-
-/**
- * Implements hook_farm_ui_actions().
- */
-function farm_log_activity_farm_ui_actions() {
-
-  // Define farm area actions.
-  $actions = array(
-    'activity' => array(
-      'title' => t('Add an activity'),
-      'href' => 'log/add/farm_activity',
-      'paths' => array(
-        'taxonomy/term/%',
-      ),
-    ),
-  );
-  return $actions;
 }
 
 /**

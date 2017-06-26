@@ -17,27 +17,10 @@ function farm_log_input_farm_ui_entities() {
         'label' => t('Input'),
         'label_plural' => t('Inputs'),
         'view' => 'farm_log_input',
+        'areas' => TRUE,
       ),
     ),
   );
-}
-
-/**
- * Implements hook_farm_ui_actions().
- */
-function farm_log_input_farm_ui_actions() {
-
-  // Define farm area actions.
-  $actions = array(
-    'input' => array(
-      'title' => t('Add an input'),
-      'href' => 'log/add/farm_input',
-      'paths' => array(
-        'taxonomy/term/%',
-      ),
-    ),
-  );
-  return $actions;
 }
 
 /**

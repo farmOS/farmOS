@@ -17,27 +17,10 @@ function farm_log_observation_farm_ui_entities() {
         'label' => t('Observation'),
         'label_plural' => t('Observations'),
         'view' => 'farm_log_observation',
+        'areas' => TRUE,
       ),
     ),
   );
-}
-
-/**
- * Implements hook_farm_ui_actions().
- */
-function farm_log_observation_farm_ui_actions() {
-
-  // Define farm area actions.
-  $actions = array(
-    'observation' => array(
-      'title' => t('Add an observation'),
-      'href' => 'log/add/farm_observation',
-      'paths' => array(
-        'taxonomy/term/%',
-      ),
-    ),
-  );
-  return $actions;
 }
 
 /**

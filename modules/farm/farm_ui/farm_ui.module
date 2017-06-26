@@ -218,7 +218,7 @@ function farm_ui_farm_ui_actions() {
         );
       }
 
-      // If the entity is a log, add an action link on asset view pages.
+      // If the entity is a log, add an action link on asset and area pages.
       if ($entity_type == 'log') {
 
         // If 'farm_asset' is empty, or if it is set to 'all', add to all
@@ -227,14 +227,15 @@ function farm_ui_farm_ui_actions() {
           $actions[$bundle]['assets'] = array('all');
         }
 
-        // Or, if 'farm_asset' is set to 'none', don't display anything.
-        elseif ($info['farm_asset'] == 'none') {
-          continue;
+        // Otherwise, if 'farm_asset' is not set to 'none', pass the specified
+        // asset through.
+        elseif ($info['farm_asset'] != 'none') {
+          $actions[$bundle]['assets'] = array($info['farm_asset']);
         }
 
-        // Otherwise, pass the specified asset through.
-        else {
-          $actions[$bundle]['assets'] = array($info['farm_asset']);
+        // Only add an action link on area pages if 'areas' is set to TRUE.
+        if (!empty($info['areas']) && $info['areas'] === TRUE) {
+          $actions[$bundle]['paths'] = array('taxonomy/term/%');
         }
       }
     }

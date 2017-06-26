@@ -17,27 +17,10 @@ function farm_water_test_farm_ui_entities() {
         'label_plural' => t('Water test'),
         'view' => 'farm_water_test',
         'farm_asset' => 'none',
+        'areas' => TRUE,
       ),
     ),
   );
-}
-
-/**
- * Implements hook_farm_ui_actions().
- */
-function farm_water_test_farm_ui_actions() {
-
-  // Define farm area actions.
-  $actions = array(
-    'water_test' => array(
-      'title' => t('Add a water test'),
-      'href' => 'log/add/farm_water_test',
-      'paths' => array(
-        'taxonomy/term/%',
-      ),
-    ),
-  );
-  return $actions;
 }
 
 /**
