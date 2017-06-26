@@ -16,6 +16,7 @@ function farm_soil_test_farm_ui_entities() {
         'label' => t('Soil test'),
         'label_plural' => t('Soil tests'),
         'view' => 'farm_log_soil_tests',
+        'farm_asset' => 'none',
       ),
     ),
   );

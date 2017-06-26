@@ -21,21 +21,3 @@ function farm_log_harvest_farm_ui_entities() {
     ),
   );
 }
-
-/**
- * Implements hook_farm_ui_actions().
- */
-function farm_log_harvest_farm_ui_actions() {
-
-  // Define farm area actions.
-  $actions = array(
-    'harvest' => array(
-      'title' => t('Add a harvest'),
-      'href' => 'log/add/farm_harvest',
-      'assets' => array(
-        'all',
-      ),
-    ),
-  );
-  return $actions;
-}

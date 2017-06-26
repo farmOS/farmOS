@@ -32,9 +32,6 @@ function farm_log_activity_farm_ui_actions() {
     'activity' => array(
       'title' => t('Add an activity'),
       'href' => 'log/add/farm_activity',
-      'assets' => array(
-        'all',
-      ),
       'paths' => array(
         'taxonomy/term/%',
       ),

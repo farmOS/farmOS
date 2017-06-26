@@ -22,24 +22,6 @@ function farm_log_sale_farm_ui_entities() {
 }
 
 /**
- * Implements hook_farm_ui_actions().
- */
-function farm_log_sale_farm_ui_actions() {
-
-  // Define farm area actions.
-  $actions = array(
-    'sale' => array(
-      'title' => t('Add a sale'),
-      'href' => 'log/add/farm_sale',
-      'assets' => array(
-        'all',
-      ),
-    ),
-  );
-  return $actions;
-}
-
-/**
  * Implements hook_farm_asset_view_views().
  */
 function farm_log_sale_farm_asset_view_views($farm_asset) {

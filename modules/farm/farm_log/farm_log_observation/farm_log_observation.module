@@ -32,9 +32,6 @@ function farm_log_observation_farm_ui_actions() {
     'observation' => array(
       'title' => t('Add an observation'),
       'href' => 'log/add/farm_observation',
-      'assets' => array(
-        'all',
-      ),
       'paths' => array(
         'taxonomy/term/%',
       ),

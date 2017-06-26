@@ -16,6 +16,7 @@ function farm_water_test_farm_ui_entities() {
         'label' => t('Water test'),
         'label_plural' => t('Water test'),
         'view' => 'farm_water_test',
+        'farm_asset' => 'none',
       ),
     ),
   );

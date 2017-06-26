@@ -166,11 +166,13 @@ function farm_crop_farm_ui_entities() {
         'label' => t('Seeding'),
         'label_plural' => t('Seedings'),
         'view' => 'farm_log_seeding',
+        'farm_asset' => 'planting',
       ),
       'farm_transplanting' => array(
         'label' => t('Transplanting'),
         'label_plural' => t('Transplantings'),
         'view' => 'farm_log_transplanting',
+        'farm_asset' => 'planting',
       ),
     ),
     'taxonomy_term' => array(
@@ -187,31 +189,6 @@ function farm_crop_farm_ui_entities() {
       ),
     ),
   );
-}
-
-/**
- * Implements hook_farm_ui_actions().
- */
-function farm_crop_farm_ui_actions() {
-
-  // Define actions.
-  $actions = array(
-    'seeding' => array(
-      'title' => t('Add a seeding'),
-      'href' => 'log/add/farm_seeding',
-      'assets' => array(
-        'planting',
-      ),
-    ),
-    'transplanting' => array(
-      'title' => t('Add a transplanting'),
-      'href' => 'log/add/farm_transplanting',
-      'assets' => array(
-        'planting',
-      ),
-    ),
-  );
-  return $actions;
 }
 
 /**

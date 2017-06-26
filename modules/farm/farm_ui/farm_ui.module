@@ -192,9 +192,11 @@ function farm_ui_farm_ui_actions() {
   // Load entity UI information.
   $ui_info = farm_ui_entities();
 
-  // For each entity type/bundle, create an action link on its listing page.
+  // Create action links for each entity type/bundle.
   foreach ($ui_info as $entity_type => $bundles) {
     foreach ($bundles as $bundle => $info) {
+
+      // Start with an action link on the entity listing page.
       if (!empty($info['label']) && !empty($info['view'])) {
         switch ($entity_type) {
           case 'farm_asset':
@@ -214,6 +216,26 @@ function farm_ui_farm_ui_actions() {
             $info['view'],
           ),
         );
+      }
+
+      // If the entity is a log, add an action link on asset view pages.
+      if ($entity_type == 'log') {
+
+        // If 'farm_asset' is empty, or if it is set to 'all', add to all
+        // asset pages.
+        if (empty($info['farm_asset']) || $info['farm_asset'] == 'all') {
+          $actions[$bundle]['assets'] = array('all');
+        }
+
+        // Or, if 'farm_asset' is set to 'none', don't display anything.
+        elseif ($info['farm_asset'] == 'none') {
+          continue;
+        }
+
+        // Otherwise, pass the specified asset through.
+        else {
+          $actions[$bundle]['assets'] = array($info['farm_asset']);
+        }
       }
     }
   }

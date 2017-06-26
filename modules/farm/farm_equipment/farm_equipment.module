@@ -23,27 +23,10 @@ function farm_equipment_farm_ui_entities() {
         'label' => t('Maintenance'),
         'label_plural' => t('Maintenance'),
         'view' => 'farm_log_maintenance',
+        'farm_asset' => 'equipment',
       ),
     ),
   );
-}
-
-/**
- * Implements hook_farm_ui_actions().
- */
-function farm_equipment_farm_ui_actions() {
-
-  // Define farm equipment actions.
-  $actions = array(
-    'maintenance' => array(
-      'title' => t('Add maintenance'),
-      'href' => 'log/add/farm_maintenance',
-      'assets' => array(
-        'equipment',
-      ),
-    ),
-  );
-  return $actions;
 }
 
 /**

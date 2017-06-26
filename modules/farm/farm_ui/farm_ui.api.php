@@ -63,6 +63,13 @@ function hook_farm_ui_entities() {
 
         // View of seedings (optional).
         'view' => 'farm_log_seeding',
+
+        // The specific asset type that these logs apply to (optional).
+        // This will add an action link to asset pages for adding a log.
+        // Set this to 'none' if the log does not apply to any asset types.
+        // Set it to 'all' if the log can apply to all asset types (this is the
+        // default behavior).
+        'farm_asset' => 'planting',
       ),
     ),
 
