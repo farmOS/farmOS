@@ -494,89 +494,76 @@ function farm_ui_farm_area_links($id) {
   // Load entity UI info.
   $ui_info = farm_ui_entities();
 
-  // Add area links for each asset type.
-  if (!empty($ui_info['farm_asset'])) {
-    foreach ($ui_info['farm_asset'] as $asset_type => $info) {
+  // Add area links for assets and logs.
+  $entity_types = array(
+    'farm_asset',
+    'log',
+  );
+  foreach ($entity_types as $entity_type) {
+    if (!empty($ui_info[$entity_type])) {
+      foreach ($ui_info[$entity_type] as $bundle => $info) {
 
-      // If a View is not available, skip it.
-      if (empty($info['view'])) {
-        continue;
-      }
+        // If a View is not available, skip it.
+        if (empty($info['view'])) {
+          continue;
+        }
 
-      // Load the View and generate a preview to count rows.
-      $view = views_get_view($info['view']);
-      $view->preview('default', array($id));
-
-      // If there are no results, skip it.
-      if (empty($view->total_rows)) {
-        continue;
-      }
-
-      // Load the View page path.
-      $path = farm_ui_view_page_path($info['view']);
-
-      // Add the area ID to the end of the path as an argument.
-      $path .= '/' . $id;
-
-      // Build a link.
-      $links[] = array(
-        'title' => $info['label_plural'] . ': ' . $view->total_rows,
-        'href' => $path,
-      );
-    }
-  }
-
-  // Add area links for some log types.
-  if (!empty($ui_info['log'])) {
-    foreach ($ui_info['log'] as $log_type => $info) {
-
-      // Only proceed if the log type has 'areas' set to TRUE.
-      if (empty($info['areas']) || $info['areas'] !== TRUE) {
-        continue;
-      }
-
-      // If a View is not available, skip it.
-      if (empty($info['view'])) {
-        continue;
-      }
-
-      // Log View arguments are a bit more complicated than Asset Views. Most
-      // logs apply to assets, so have an asset contextual filter first, and an
-      // area contextual filter second. Some logs do not apply to assets, so
-      // the first contextual filter is the area ID. The pattern we follow here
-      // is: if the entity UI info has 'farm_asset' set to 'none', then we
-      // assume that 'area ID' is the first argument. Otherwise, we assume that
-      // 'asset ID' is the first, and 'area ID' is the second. In the case of
-      // area links, we only care about the 'area ID', so we set the 'asset ID'
-      // argument to 'all'.
-      if ($info['farm_asset'] == 'none') {
+        // Use the area ID as the View's default argument.
         $args = array($id);
-      }
-      else {
-        $args = array('all', $id);
-      }
 
-      // Load the View and generate a preview to count rows.
-      $view = views_get_view($info['view']);
-      $view->preview('default', $args);
+        // If the entity is a log...
+        if ($entity_type == 'log') {
 
-      // If there are no results, skip it.
-      if (empty($view->total_rows)) {
-        continue;
+          // Only proceed if the log type has 'areas' set to TRUE.
+          if (empty($info['areas']) || $info['areas'] !== TRUE) {
+            continue;
+          }
+
+          // Log View arguments are a bit more complicated than Asset Views.
+          // Most logs apply to assets, so have an asset contextual filter
+          // first, and an area contextual filter second. Some logs do not
+          // apply to assets, so the first contextual filter is the area ID.
+          // The pattern we follow here is: if the entity UI info has
+          // 'farm_asset' set to 'none', then we assume that 'area ID' is the
+          // first argument. Otherwise, we assume that 'asset ID' is the first,
+          // and 'area ID' is the second. In the case of area links, we only
+          // care about the 'area ID', so we set the 'asset ID' argument to
+          // 'all'.
+          if ($info['farm_asset'] != 'none') {
+            array_unshift($args, 'all');
+          }
+        }
+
+        // Load the View and generate a preview to count rows.
+        $view = views_get_view($info['view']);
+        $view->preview('default', $args);
+
+        // If there are no results, skip it.
+        if (empty($view->total_rows)) {
+          continue;
+        }
+
+        // Build the View page path with arguments.
+        $path = farm_ui_view_page_path($info['view']);
+        foreach ($args as $arg) {
+          $path .= '/' . $arg;
+        }
+
+        // Build a link.
+        $link = array(
+          'title' => $info['label_plural'] . ': ' . $view->total_rows,
+          'href' => $path,
+        );
+
+        // If this is a log entity type, set the weight to 10 so it is shown
+        // under the assets.
+        if ($entity_type == 'log') {
+          $link['weight'] = 10;
+        }
+
+        // Add the link.
+        $links[] = $link;
       }
-
-      // Build the View page path with arguments.
-      $path = farm_ui_view_page_path($info['view']);
-      foreach ($args as $arg) {
-        $path .= '/' . $arg;
-      }
-
-      // Build a link.
-      $links[] = array(
-        'title' => $info['label_plural'] . ': ' . $view->total_rows,
-        'href' => $path,
-        'weight' => 10,
-      );
     }
   }
 
