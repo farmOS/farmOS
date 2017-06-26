@@ -333,9 +333,9 @@ function farm_crop_views_post_render(&$view, &$output, &$cache) {
 }
 
 /**
- * Implements hook_farm_log_allowed_asset_reference_type().
+ * Implements hook_farm_ui_allowed_asset_reference_type().
  */
-function farm_crop_farm_log_allowed_asset_reference_type($log_type) {
+function farm_crop_farm_ui_allowed_asset_reference_type($log_type) {
 
   // On seeding and transplanting logs, only plantings can be referenced.
   if (in_array($log_type, array('farm_seeding', 'farm_transplanting'))) {
