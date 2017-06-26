@@ -282,7 +282,7 @@ function farm_ui_menu_local_tasks_alter(&$data, $router_item, $root_path) {
       }
 
       // Build the action link.
-      $link = _farm_ui_action_link($actions[$name]['title'], $actions[$name]['href'], array('destination' => 'farm/asset/' . $asset_id, 'farm_asset' => $asset_id));
+      $link = farm_ui_action_link($actions[$name]['title'], $actions[$name]['href'], array('destination' => 'farm/asset/' . $asset_id, 'farm_asset' => $asset_id));
 
       // Add the action link to the output.
       $data['actions']['output'][] = $link;
@@ -309,7 +309,7 @@ function farm_ui_menu_local_tasks_alter(&$data, $router_item, $root_path) {
       }
 
       // Build the action link.
-      $link = _farm_ui_action_link($actions[$name]['title'], $actions[$name]['href'], array('destination' => $root_path));
+      $link = farm_ui_action_link($actions[$name]['title'], $actions[$name]['href'], array('destination' => $root_path));
 
       // Add the action link to the output.
       $data['actions']['output'][] = $link;
@@ -331,7 +331,7 @@ function farm_ui_menu_local_tasks_alter(&$data, $router_item, $root_path) {
     foreach ($path_actions[$root_path] as $name) {
 
       // Generate the action link.
-      $link = _farm_ui_action_link($actions[$name]['title'], $actions[$name]['href'], array('destination' => $root_path));
+      $link = farm_ui_action_link($actions[$name]['title'], $actions[$name]['href'], array('destination' => $root_path));
 
       if ($root_path == 'taxonomy/term/%' || substr($root_path, 0, 11) == 'farm/area/%') {
 
@@ -347,7 +347,7 @@ function farm_ui_menu_local_tasks_alter(&$data, $router_item, $root_path) {
         }
 
         // Build the action link.
-        $link = _farm_ui_action_link($actions[$name]['title'], $actions[$name]['href'], array('destination' => 'taxonomy/term/' . $area_id, 'farm_area' => $area_id));
+        $link = farm_ui_action_link($actions[$name]['title'], $actions[$name]['href'], array('destination' => 'taxonomy/term/' . $area_id, 'farm_area' => $area_id));
       }
 
       // Add the action link to the output.
@@ -371,7 +371,7 @@ function farm_ui_menu_local_tasks_alter(&$data, $router_item, $root_path) {
  *
  * @see farm_ui_menu_local_tasks_alter()
  */
-function _farm_ui_action_link($title, $href, $query = array()) {
+function farm_ui_action_link($title, $href, $query = array()) {
   $action_link = array(
     '#theme' => 'menu_local_action',
     '#link' => array(
