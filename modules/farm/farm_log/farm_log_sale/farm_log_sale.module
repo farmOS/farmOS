@@ -16,7 +16,7 @@ function farm_log_sale_farm_ui_entities() {
         'label' => t('Sale'),
         'label_plural' => t('Sales'),
         'view' => 'farm_log_sale',
-        'weight' => 0,
+        'weight' => 90,
       ),
     ),
   );

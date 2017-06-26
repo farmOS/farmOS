@@ -18,7 +18,7 @@ function farm_log_input_farm_ui_entities() {
         'label_plural' => t('Inputs'),
         'view' => 'farm_log_input',
         'areas' => TRUE,
-        'weight' => 50,
+        'weight' => 0,
       ),
     ),
   );

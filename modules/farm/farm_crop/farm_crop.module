@@ -167,14 +167,14 @@ function farm_crop_farm_ui_entities() {
         'label_plural' => t('Seedings'),
         'view' => 'farm_log_seeding',
         'farm_asset' => 'planting',
-        'weight' => 20,
+        'weight' => -90,
       ),
       'farm_transplanting' => array(
         'label' => t('Transplanting'),
         'label_plural' => t('Transplantings'),
         'view' => 'farm_log_transplanting',
         'farm_asset' => 'planting',
-        'weight' => 30,
+        'weight' => -80,
       ),
     ),
     'taxonomy_term' => array(

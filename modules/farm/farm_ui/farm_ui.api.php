@@ -79,6 +79,11 @@ function hook_farm_ui_entities() {
 
         // Define the weight of this log type relative to others (optional)
         // This will be used to sort the log Views displayed on entities.
+        // Best practice for this is to use increments of 10 between -90 and 90,
+        // roughly in the order that logs will typically take place with an
+        // entity. -100 and 100 should be reserved for special cases where a
+        // View absolutely needs to be at the very top or the very bottom of
+        // the list.
         /**
          * @see hook_farm_ui_asset_views() and hook_farm_ui_taxonomy_views()
          */
