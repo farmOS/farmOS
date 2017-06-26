@@ -103,5 +103,81 @@ function hook_farm_ui_entities() {
 }
 
 /**
+ * Attach Views to asset view pages.
+ *
+ * @param FarmAsset $farm_asset
+ *   The farm asset entity.
+ *
+ * @return array
+ *   Returns an array of View names to attach to farm asset pages.
+ */
+function hook_farm_ui_asset_views(FarmAsset $farm_asset) {
+
+  // If the entity is not a planting, bail.
+  if ($farm_asset->type != 'planting') {
+    return array();
+  }
+
+  // Return a list of Views to include on Plantings.
+  return array(
+
+    // Example 1: simple View machine name.
+    'farm_activity',
+
+    // Example 2: explicitly set details like display, argument position,
+    // and weight.
+    array(
+      'name' => 'farm_log_input',
+      'display' => 'block',
+      'arg' => 2,
+      'weight' => 10,
+    ),
+  );
+}
+
+/**
+ * Attach Views to taxonomy term pages.
+ *
+ * @param object $term
+ *   The taxonomy term entity.
+ *
+ * @return array
+ *   Returns an array of View to attach to taxonomy term pages.
+ *   Each element in the array can either be the name of a View,
+ *   or an array of options, including:
+ *     'name' - the machine name of the View
+ *     'display' - which display of the View should be used
+ *     'arg' - which argument the term id should be passed to in the View
+ *       (this is useful if the View has more than one contextual filter)
+ *     'weight' - the weight of the View in the taxonomy page
+ *       (this is useful for changing the order of Views)
+ *     'always' - always display, even if there are no View results
+ *       (default is FALSE)
+ */
+function hook_farm_ui_taxonomy_views($term) {
+
+  // If the term is not a crop, bail.
+  if ($term->vocabulary_machine_name != 'farm_crops') {
+    return array();
+  }
+
+  // Return a list of Views to include on Crops.
+  return array(
+
+    // Example 1: simple View machine name.
+    'farm_planting',
+
+    // Example 2: explicitly set details like display, argument position, weight.
+    array(
+      'name' => 'farm_log_input',
+      'display' => 'block',
+      'arg' => 2,
+      'weight' => 10,
+      'always' => TRUE,
+    ),
+  );
+}
+
+/**
  * @}
  */

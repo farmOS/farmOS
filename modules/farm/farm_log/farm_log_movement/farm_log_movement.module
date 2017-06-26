@@ -11,9 +11,9 @@ include_once 'farm_log_movement.features.inc';
 include_once 'farm_log_movement.location.inc';
 
 /**
- * Implements hook_farm_taxonomy_term_view_views().
+ * Implements hook_farm_ui_taxonomy_views().
  */
-function farm_log_movement_farm_taxonomy_term_view_views($term) {
+function farm_log_movement_farm_ui_taxonomy_views($term) {
 
   // If the term is not an area, bail.
   if ($term->vocabulary_machine_name != 'farm_areas') {

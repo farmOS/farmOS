@@ -22,9 +22,9 @@ function farm_log_sale_farm_ui_entities() {
 }
 
 /**
- * Implements hook_farm_asset_view_views().
+ * Implements hook_farm_ui_asset_views().
  */
-function farm_log_sale_farm_asset_view_views($farm_asset) {
+function farm_log_sale_farm_ui_asset_views($farm_asset) {
 
   // Show a list of sales at the top of all asset pages.
   return array(

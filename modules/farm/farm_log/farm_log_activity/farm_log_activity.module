@@ -24,9 +24,9 @@ function farm_log_activity_farm_ui_entities() {
 }
 
 /**
- * Implements hook_farm_taxonomy_term_view_views().
+ * Implements hook_farm_ui_taxonomy_views().
  */
-function farm_log_activity_farm_taxonomy_term_view_views($term) {
+function farm_log_activity_farm_ui_taxonomy_views($term) {
 
   // If the term is not an area, bail.
   if ($term->vocabulary_machine_name != 'farm_areas') {

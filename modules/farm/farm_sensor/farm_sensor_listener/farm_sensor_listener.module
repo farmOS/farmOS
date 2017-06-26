@@ -524,9 +524,9 @@ function farm_sensor_listener_load($key) {
 }
 
 /**
- * Implements hook_farm_asset_view_views().
+ * Implements hook_farm_ui_asset_views().
  */
-function farm_sensor_listener_farm_asset_view_views($farm_asset) {
+function farm_sensor_listener_farm_ui_asset_views($farm_asset) {
 
   // If the entity is not a sensor, bail.
   if ($farm_asset->type != 'sensor') {

@@ -48,6 +48,209 @@ function farm_ui_entity_view($entity, $type, $view_mode, $langcode) {
 
   // Set the breadcrumb.
   drupal_set_breadcrumb($breadcrumb);
+
+  // If this is a farm_asset entity, add Views to it.
+  if ($type == 'farm_asset') {
+
+    // Invoke hook_farm_ui_asset_views() to get a list of Views.
+    $views = module_invoke_all('farm_ui_asset_views', $entity);
+
+    // Process the list of Views into a standardized list,
+    // and prepare to order by weight and name.
+    $weight_index = array();
+    $name_index = array();
+    foreach ($views as $key => $data) {
+
+      // If the data is just a name, wrap it in an array.
+      if (!is_array($data)) {
+        $data = array(
+          'name' => $data,
+        );
+      }
+
+      // Merge with defaults.
+      $defaults = array(
+        'arg' => 1,
+        'weight' => 0,
+      );
+      $views[$key] = array_merge($defaults, $data);
+
+      // Add to the weight and name indexes for sorting.
+      $weight_index[$key] = $views[$key]['weight'];
+      $name_index[$key] = $views[$key]['name'];
+    }
+
+    // Sort the Views by weight ascending, name ascending.
+    array_multisort($weight_index, SORT_ASC, $name_index, SORT_ASC, $views);
+
+    // Add the Views to the entity's render array.
+    foreach ($views as $key => $data) {
+
+      // Load the View, and bail if it isn't found.
+      $view = views_get_view($data['name']);
+      if (empty($view)) {
+        continue;
+      }
+
+      // Determine the argument position (default to 1).
+      // This looks for the presence of $data['arg'] to learn which argument
+      // in the View we should send $entity->id into. This is useful if the View
+      // has multiple contextual filters, and the entity filter is not first.
+      // Any arguments that come before the term argument will receive 'all'
+      // as their input.
+      $args = array();
+      $arg_pos = isset($data['arg']) ? $data['arg'] : 1;
+      for ($i = 1; $i <= $arg_pos; $i++) {
+        if ($i == $arg_pos) {
+          $args[] = $entity->id;
+        }
+        else {
+          $args[] = 'all';
+        }
+      }
+
+      // If a specific display was specified, use it. Otherwise use 'default'.
+      if (!empty($data['display'])) {
+        $display = $data['display'];
+      }
+      else {
+        $display = 'default';
+      }
+      $view->set_display($display);
+
+      // Get the View's default title.
+      // We intentionally do this before we build the preview so that the title
+      // is not overridden by the arguments. This keeps the title simple on the
+      // actual asset page, but more descriptive in other contexts.
+      $title = $view->get_title();
+
+      // Build the View preview.
+      $preview = $view->preview($display, $args);
+
+      // Only display if the View has results.
+      if ($view->total_rows == 0) {
+        continue;
+      }
+
+      // Build the output.
+      $output = '<h3 id="' . $title . '">' . $title . '</h3>' . $preview;
+
+      // Add the output to the entity build array.
+      $entity->content['views'][$data['name']] = array(
+        '#markup' => $output,
+        '#weight' => 100 + $key,
+      );
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_view_alter().
+ */
+function farm_ui_entity_view_alter(&$build, $type) {
+
+  // If the entity is not a taxonomy term, bail.
+  if ($type != 'taxonomy_term') {
+    return;
+  }
+
+  // If the term entity is not there, bail.
+  if (empty($build['#term'])) {
+    return;
+  }
+
+  // Pull the term entity out of the build array.
+  $term = $build['#term'];
+
+  // Invoke hook_farm_ui_taxonomy_views() to get a list of Views.
+  $views = module_invoke_all('farm_ui_taxonomy_views', $term);
+
+  // Process the list of Views into a standardized list,
+  // and prepare to order by weight and name.
+  $weight_index = array();
+  $name_index = array();
+  foreach ($views as $key => $data) {
+
+    // If the data is just a name, wrap it in an array.
+    if (!is_array($data)) {
+      $data = array(
+        'name' => $data,
+      );
+    }
+
+    // Merge with defaults.
+    $defaults = array(
+      'arg' => 1,
+      'weight' => 0,
+    );
+    $views[$key] = array_merge($defaults, $data);
+
+    // Add to the weight and name indexes for sorting.
+    $weight_index[$key] = $views[$key]['weight'];
+    $name_index[$key] = $views[$key]['name'];
+  }
+
+  // Sort the Views by weight ascending, name ascending.
+  array_multisort($weight_index, SORT_ASC, $name_index, SORT_ASC, $views);
+
+  // Add the Views to the entity's render array.
+  foreach ($views as $key => $data) {
+
+    // Load the View, and bail if it isn't found.
+    $view = views_get_view($data['name']);
+    if (empty($view)) {
+      continue;
+    }
+
+    // Determine the argument position (default to 1).
+    // This looks for the presence of $data['arg'] to learn which argument
+    // in the View we should send $term->tid into. This is useful if the View
+    // has multiple contextual filters, and the term filter is not first.
+    // Any arguments that come before the term argument will receive 'all'
+    // as their input.
+    $args = array();
+    $arg_pos = isset($data['arg']) ? $data['arg'] : 1;
+    for ($i = 1; $i <= $arg_pos; $i++) {
+      if ($i == $arg_pos) {
+        $args[] = $term->tid;
+      }
+      else {
+        $args[] = 'all';
+      }
+    }
+
+    // If a specific display was specified, use it. Otherwise use 'default'.
+    if (!empty($data['display'])) {
+      $display = $data['display'];
+    }
+    else {
+      $display = 'default';
+    }
+    $view->set_display($display);
+
+    // Get the View's default title.
+    // We intentionally do this before we build the preview so that the title
+    // is not overridden by the arguments. This keeps the title simple on the
+    // actual term page, but more descriptive in other contexts.
+    $title = $view->get_title();
+
+    // Build the View preview.
+    $preview = $view->preview($display, $args);
+
+    // Only display if the View has results (and 'always' is not TRUE).
+    if (empty($data['always']) && $view->total_rows == 0) {
+      continue;
+    }
+
+    // Build the output.
+    $output = '<h3 id="' . $title . '">' . $title . '</h3>' . $preview;
+
+    // Add the output to the entity build array.
+    $build[$data['name']] = array(
+      '#markup' => $output,
+      '#weight' => 100 + $key,
+    );
+  }
 }
 
 /**

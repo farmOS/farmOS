@@ -22,9 +22,9 @@ function farm_sensor_farm_ui_entities() {
 }
 
 /**
- * Implements hook_farm_asset_view_views().
+ * Implements hook_farm_ui_asset_views().
  */
-function farm_sensor_farm_asset_view_views($farm_asset) {
+function farm_sensor_farm_ui_asset_views($farm_asset) {
 
   // If the entity is not sensor, bail.
   if ($farm_asset->type != 'sensor') {
@@ -49,9 +49,9 @@ function farm_sensor_farm_asset_view_views($farm_asset) {
 }
 
 /**
- * Implements hook_farm_taxonomy_term_view_views().
+ * Implements hook_farm_ui_taxonomy_views().
  */
-function farm_sensor_farm_taxonomy_term_view_views($term) {
+function farm_sensor_farm_ui_taxonomy_views($term) {
 
   // If the term is not an area, bail.
   if ($term->vocabulary_machine_name != 'farm_areas') {
