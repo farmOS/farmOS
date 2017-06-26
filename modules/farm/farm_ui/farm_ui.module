@@ -433,9 +433,9 @@ function farm_ui_entityreference_view_widget_views_arguments_alter(&$arguments, 
   // field_farm_asset field, which technically can reference any asset type.
   //
   // The Entity Reference View Widget module provides this hook to allow the
-  // View arguments to be altered. We implement this hook, and invoke our own
-  // custom hook to allow farmOS modules to filter the View results to a
-  // specific entity type, given the current log type.
+  // View arguments to be altered. We implement this hook, and use information
+  // provided by hook_farm_ui_entities() to see if we should filter the View
+  // results to a specific asset type, given the current log type.
   //
   // The View that we use is farm_asset_entityreference_view, which has two
   // contextual arguments: asset id (to filter out already-selected assets), and
@@ -462,19 +462,17 @@ function farm_ui_entityreference_view_widget_views_arguments_alter(&$arguments, 
     return;
   }
 
-  // Ask modules if we should limit the asset type.
-  $limit_types = module_invoke_all('farm_ui_allowed_asset_reference_type', $log_type);
+  // Load entity UI info for this log type.
+  $ui_info = farm_ui_entities('log', $log_type);
 
-  // The asset type argument only supports a single value, so we're just going
-  // to take the first one.
-  if (!empty($limit_types[0])) {
-    $type = $limit_types[0];
-  }
-
-  // If a type was not found, bail.
-  if (empty($type)) {
+  // If the asset type is empty, or 'all', or 'none', then we will stop here
+  // because we don't want to apply any filtering.
+  if (empty($ui_info['farm_asset']) || in_array($ui_info['farm_asset'], array('all', 'none'))) {
     return;
   }
+
+  // Take the asset type specified so we can use it as a filter.
+  $type = $ui_info['farm_asset'];
 
   // We need to ensure that the first argument is reserved for asset id(s). So
   // if it's not set, set it to 'all'.

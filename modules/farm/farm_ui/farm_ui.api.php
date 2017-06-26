@@ -66,6 +66,7 @@ function hook_farm_ui_entities() {
 
         // The specific asset type that these logs apply to (optional).
         // This will add an action link to asset pages for adding a log.
+        // It will also limit the asset type that can be referenced by the log.
         // Set this to 'none' if the log does not apply to any asset types.
         // Set it to 'all' if the log can apply to all asset types (this is the
         // default behavior).
@@ -121,24 +122,6 @@ function hook_farm_ui_actions() {
     ),
   );
   return $actions;
-}
-
-/**
- * Specify what asset types can be referenced by field_farm_asset on a given
- * log type.
- *
- * @param string $log_type
- *   The log type that contains the asset reference field (field_farm_asset).
- *
- * @return string
- *   Returns the asset type machine name that can be referenced.
- */
-function hook_farm_ui_allowed_asset_reference_type($log_type) {
-
-  // On seeding logs, only plantings can be referenced.
-  if ($log_type == 'farm_seeding') {
-    return 'planting';
-  }
 }
 
 /**
