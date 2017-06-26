@@ -398,7 +398,7 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['field_farm_move_to']['id'] = 'field_farm_move_to';
   $handler->display->display_options['fields']['field_farm_move_to']['table'] = 'field_data_field_farm_move_to';
   $handler->display->display_options['fields']['field_farm_move_to']['field'] = 'field_farm_move_to';
-  $handler->display->display_options['fields']['field_farm_move_to']['relationship'] = 'field_farm_quantity_value';
+  $handler->display->display_options['fields']['field_farm_move_to']['relationship'] = 'field_farm_movement_value';
   $handler->display->display_options['fields']['field_farm_move_to']['delta_offset'] = '0';
   /* Field: User: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
@@ -783,7 +783,7 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['field_farm_move_to']['id'] = 'field_farm_move_to';
   $handler->display->display_options['fields']['field_farm_move_to']['table'] = 'field_data_field_farm_move_to';
   $handler->display->display_options['fields']['field_farm_move_to']['field'] = 'field_farm_move_to';
-  $handler->display->display_options['fields']['field_farm_move_to']['relationship'] = 'field_farm_quantity_value';
+  $handler->display->display_options['fields']['field_farm_move_to']['relationship'] = 'field_farm_movement_value';
   $handler->display->display_options['fields']['field_farm_move_to']['delta_offset'] = '0';
   /* Field: User: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
