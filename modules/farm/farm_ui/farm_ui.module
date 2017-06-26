@@ -493,156 +493,121 @@ function farm_ui_farm_area_details($id) {
   // Start a render array.
   $output = array();
 
-  // Get area links.
-  $area_links = farm_ui_area_links($id);
-
-  // Create variables for an item list.
-  $variables = array(
-    'items' => $area_links,
-    'attributes' => array(),
+  // Add links to lists of assets and logs in the area.
+  $entity_types = array(
+    'farm_asset' => array(
+      'label' => t('Assets'),
+      'weight' => -50,
+    ),
+    'log' => array(
+      'label' => t('Logs'),
+      'weight' => -40,
+    ),
   );
+  foreach ($entity_types as $type => $info) {
 
-  // Add area links to the details.
-  $output['area_links'] = array(
-    '#type' => 'markup',
-    '#markup' => theme('item_list', $variables),
-    '#weight' => -50,
-  );
+    // Get area links for the entity type.
+    $area_links = farm_ui_area_links($id, $type);
+
+    // Create variables for an item list.
+    $variables = array(
+      'items' => $area_links,
+      'attributes' => array(),
+    );
+
+    // Render the links as markup with a title.
+    $output[$type . '_links'] = array(
+      '#type' => 'markup',
+      '#markup' => '<strong>' . $info['label'] . '</strong>' . theme('item_list', $variables),
+      '#weight' => $info['weight'],
+    );
+  }
 
   // Return the render array.
   return $output;
 }
 
 /**
- * Generate area links, sorted by weight.
+ * Generate area links for farm_asset or log entity types.
  *
  * @param int $id
  *   The area id.
+ * @param string $entity_type
+ *   The entity type to general links for. Currently only 'farm_asset' and
+ *   'log' are supported.
  *
  * @return array
  *   Returns an array of links.
  */
-function farm_ui_area_links($id) {
+function farm_ui_area_links($id, $entity_type) {
 
-  // Start an empty array of area links.
-  $area_links = array();
+  // Start an empty array of links.
+  $links = array();
 
   // Load entity UI info.
   $ui_info = farm_ui_entities();
 
-  // Add area links for assets and logs.
-  $entity_types = array(
-    'farm_asset',
-    'log',
-  );
-  foreach ($entity_types as $entity_type) {
-    if (!empty($ui_info[$entity_type])) {
-      foreach ($ui_info[$entity_type] as $bundle => $info) {
+  // Generate links for the entity type.
+  if (!empty($ui_info[$entity_type])) {
+    foreach ($ui_info[$entity_type] as $bundle => $info) {
 
-        // If a View is not available, skip it.
-        if (empty($info['view'])) {
+      // If a View is not available, skip it.
+      if (empty($info['view'])) {
+        continue;
+      }
+
+      // Use the area ID as the View's default argument.
+      $args = array($id);
+
+      // If the entity is a log...
+      if ($entity_type == 'log') {
+
+        // Only proceed if the log type has 'areas' set to TRUE.
+        if (empty($info['areas']) || $info['areas'] !== TRUE) {
           continue;
         }
 
-        // Use the area ID as the View's default argument.
-        $args = array($id);
-
-        // If the entity is a log...
-        if ($entity_type == 'log') {
-
-          // Only proceed if the log type has 'areas' set to TRUE.
-          if (empty($info['areas']) || $info['areas'] !== TRUE) {
-            continue;
-          }
-
-          // Log View arguments are a bit more complicated than Asset Views.
-          // Most logs apply to assets, so have an asset contextual filter
-          // first, and an area contextual filter second. Some logs do not
-          // apply to assets, so the first contextual filter is the area ID.
-          // The pattern we follow here is: if the entity UI info has
-          // 'farm_asset' set to 'none', then we assume that 'area ID' is the
-          // first argument. Otherwise, we assume that 'asset ID' is the first,
-          // and 'area ID' is the second. In the case of area links, we only
-          // care about the 'area ID', so we set the 'asset ID' argument to
-          // 'all'.
-          if ($info['farm_asset'] != 'none') {
-            array_unshift($args, 'all');
-          }
+        // Log View arguments are a bit more complicated than Asset Views.
+        // Most logs apply to assets, so have an asset contextual filter
+        // first, and an area contextual filter second. Some logs do not
+        // apply to assets, so the first contextual filter is the area ID.
+        // The pattern we follow here is: if the entity UI info has
+        // 'farm_asset' set to 'none', then we assume that 'area ID' is the
+        // first argument. Otherwise, we assume that 'asset ID' is the first,
+        // and 'area ID' is the second. In the case of area links, we only
+        // care about the 'area ID', so we set the 'asset ID' argument to
+        // 'all'.
+        if ($info['farm_asset'] != 'none') {
+          array_unshift($args, 'all');
         }
-
-        // Load the View and generate a preview to count rows.
-        $view = views_get_view($info['view']);
-        $view->preview('default', $args);
-
-        // If there are no results, skip it.
-        if (empty($view->total_rows)) {
-          continue;
-        }
-
-        // Build the View page path with arguments.
-        $path = farm_ui_view_page_path($info['view']);
-        foreach ($args as $arg) {
-          $path .= '/' . $arg;
-        }
-
-        // Build a link.
-        $link = array(
-          'title' => $info['label_plural'] . ': ' . $view->total_rows,
-          'href' => $path,
-        );
-
-        // If this is a log entity type, set the weight to 10 so it is shown
-        // under the assets.
-        if ($entity_type == 'log') {
-          $link['weight'] = 10;
-        }
-
-        // Add the link.
-        $area_links[] = $link;
-      }
-    }
-  }
-
-  // Build an index of links and their weights.
-  $weight_index = array();
-  foreach ($area_links as $key => $link) {
-
-    // Default the weight to zero if it hasn't been set.
-    if (!isset($link['weight'])) {
-      $link['weight'] = 0;
-    }
-
-    // Assign the weight to the index, based on it's key in the original array.
-    $weight_index[$key] = $link['weight'];
-  }
-
-  // Sort the index by weight.
-  asort($weight_index);
-
-  // Rebuild the array of links based on their weights.
-  $sorted_area_links = array();
-  foreach ($weight_index as $key => $weight) {
-    $sorted_area_links[] = $area_links[$key];
-  }
-
-  // Generate an array of Drupal links.
-  $links = array();
-  foreach ($sorted_area_links as $link) {
-
-    // If a title and href are available...
-    if (!empty($link['title']) && !empty($link['href'])) {
-
-      // Build link options.
-      $options = array();
-      if (!empty($link['options'])) {
-        $options = $link['options'];
       }
 
-      // Build the link and add it to the array.
-      $links[] = l($link['title'], $link['href'], $options);
+      // Load the View and generate a preview to count rows.
+      $view = views_get_view($info['view']);
+      $view->preview('default', $args);
+
+      // If there are no results, skip it.
+      if (empty($view->total_rows)) {
+        continue;
+      }
+
+      // Build the View page path with arguments.
+      $path = farm_ui_view_page_path($info['view']);
+      foreach ($args as $arg) {
+        $path .= '/' . $arg;
+      }
+
+      // Build a link.
+      $link = array(
+        'title' => $info['label_plural'] . ': ' . $view->total_rows,
+        'href' => $path,
+      );
+
+      // Add the link.
+      $links[] = l($link['title'], $link['href']);
     }
   }
 
-  // Return links.
+  // Return the links.
   return $links;
 }
