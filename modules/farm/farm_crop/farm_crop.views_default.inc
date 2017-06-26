@@ -504,7 +504,7 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['filters']['done']['expose']['identifier'] = 'done';
 
   /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'page_1');
+  $handler = $view->new_display('page', 'Page', 'page');
   $handler->display->display_options['path'] = 'farm/logs/seedings';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'Seedings';
@@ -529,7 +529,7 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['style_options']['keep_html'] = 0;
   $handler->display->display_options['path'] = 'farm/log/seedings/csv';
   $handler->display->display_options['displays'] = array(
-    'page_1' => 'page_1',
+    'page' => 'page',
     'default' => 0,
   );
   $translatables['farm_log_seeding'] = array(
@@ -889,7 +889,7 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['filters']['done']['expose']['identifier'] = 'done';
 
   /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'page_1');
+  $handler = $view->new_display('page', 'Page', 'page');
   $handler->display->display_options['path'] = 'farm/logs/transplantings';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'Transplantings';
@@ -914,7 +914,7 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['style_options']['keep_html'] = 0;
   $handler->display->display_options['path'] = 'farm/logs/transplantings/csv';
   $handler->display->display_options['displays'] = array(
-    'page_1' => 'page_1',
+    'page' => 'page',
     'default' => 0,
   );
   $translatables['farm_log_transplanting'] = array(

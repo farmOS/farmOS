@@ -693,7 +693,7 @@ function farm_log_movement_views_default_views() {
   $handler->display->display_options['filters']['done']['expose']['identifier'] = 'done';
 
   /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'page_1');
+  $handler = $view->new_display('page', 'Page', 'page');
   $handler->display->display_options['path'] = 'farm/logs/movements';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'Logs with movements';
@@ -718,7 +718,7 @@ function farm_log_movement_views_default_views() {
   $handler->display->display_options['style_options']['keep_html'] = 0;
   $handler->display->display_options['path'] = 'farm/logs/movements/csv';
   $handler->display->display_options['displays'] = array(
-    'page_1' => 'page_1',
+    'page' => 'page',
     'default' => 0,
   );
   $translatables['farm_log_movement'] = array(
