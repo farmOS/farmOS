@@ -484,3 +484,47 @@ function farm_ui_entityreference_view_widget_views_arguments_alter(&$arguments, 
   // Add the asset type as the second argument.
   $arguments[1] = $type;
 }
+
+/**
+ * Implements hook_farm_area_links().
+ */
+function farm_ui_farm_area_links($id) {
+  $links = array();
+
+  // Load entity UI info.
+  $ui_info = farm_ui_entities();
+
+  // Add area links for each asset type.
+  if (!empty($ui_info['farm_asset'])) {
+    foreach ($ui_info['farm_asset'] as $asset_type => $info) {
+
+      // If a View is not available, skip it.
+      if (empty($info['view'])) {
+        continue;
+      }
+
+      // Load the View and generate a preview to count rows.
+      $view = views_get_view($info['view']);
+      $view->preview('default', array($id));
+
+      // If there are no results, skip it.
+      if (empty($view->total_rows)) {
+        continue;
+      }
+
+      // Load the View page path.
+      $path = farm_ui_view_page_path($info['view']);
+
+      // Add the area ID to the end of the path as an argument.
+      $path .= '/' . $id;
+
+      // Build a link.
+      $links[] = array(
+        'title' => $info['label_plural'] . ': ' . $view->total_rows,
+        'href' => $path,
+      );
+    }
+  }
+
+  return $links;
+}

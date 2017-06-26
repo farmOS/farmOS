@@ -22,25 +22,6 @@ function farm_sensor_farm_ui_entities() {
 }
 
 /**
- * Implements hook_farm_area_links().
- */
-function farm_sensor_farm_area_links($id) {
-  $links = array();
-
-  // Add link to sensors.
-  $view = views_get_view('farm_sensors');
-  $view->preview('default', array($id));
-  if ($view->total_rows > 0) {
-    $links[] = array(
-      'title' => t('Sensors') . ': ' . $view->total_rows,
-      'href' => 'farm/assets/sensors/' . $id,
-    );
-  }
-
-  return $links;
-}
-
-/**
  * Implements hook_farm_asset_view_views().
  */
 function farm_sensor_farm_asset_view_views($farm_asset) {

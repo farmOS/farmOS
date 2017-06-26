@@ -279,25 +279,6 @@ function farm_crop_farm_taxonomy_term_view_views($term) {
 }
 
 /**
- * Implements hook_farm_area_links().
- */
-function farm_crop_farm_area_links($id) {
-  $links = array();
-
-  // Add link to plantings.
-  $view = views_get_view('farm_plantings');
-  $view->preview('default', array($id));
-  if ($view->total_rows > 0) {
-    $links[] = array(
-      'title' => t('Plantings') . ': ' . $view->total_rows,
-      'href' => 'farm/assets/plantings/' . $id,
-    );
-  }
-
-  return $links;
-}
-
-/**
  * Implements hook_views_post_render().
  */
 function farm_crop_views_post_render(&$view, &$output, &$cache) {

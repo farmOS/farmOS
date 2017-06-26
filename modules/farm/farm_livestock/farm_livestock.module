@@ -143,25 +143,6 @@ function farm_livestock_farm_taxonomy_term_view_views($term) {
 }
 
 /**
- * Implements hook_farm_area_links().
- */
-function farm_livestock_farm_area_links($id) {
-  $links = array();
-
-  // Add link to livestock.
-  $view = views_get_view('farm_animals');
-  $view->preview('default', array($id));
-  if ($view->total_rows > 0) {
-    $links[] = array(
-      'title' => t('Animals') . ': ' . $view->total_rows,
-      'href' => 'farm/assets/animals/' . $id,
-    );
-  }
-
-  return $links;
-}
-
-/**
  * Implements hook_views_post_render().
  */
 function farm_livestock_views_post_render(&$view, &$output, &$cache) {

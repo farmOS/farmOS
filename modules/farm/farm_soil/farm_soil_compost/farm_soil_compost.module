@@ -22,25 +22,6 @@ function farm_soil_compost_farm_ui_entities() {
 }
 
 /**
- * Implements hook_farm_area_links().
- */
-function farm_soil_compost_farm_area_links($id) {
-  $links = array();
-
-  // Add link to compost.
-  $view = views_get_view('farm_compost');
-  $view->preview('default', array($id));
-  if ($view->total_rows > 0) {
-    $links[] = array(
-      'title' => t('Compost') . ': ' . $view->total_rows,
-      'href' => 'farm/assets/compost/' . $id,
-    );
-  }
-
-  return $links;
-}
-
-/**
  * Implements hook_farm_asset_view_views().
  */
 function farm_soil_compost_farm_asset_view_views($farm_asset) {

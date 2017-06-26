@@ -84,25 +84,6 @@ function farm_equipment_farm_taxonomy_term_view_views($term) {
 }
 
 /**
- * Implements hook_farm_area_links().
- */
-function farm_equipment_farm_area_links($id) {
-  $links = array();
-
-  // Add link to equipment.
-  $view = views_get_view('farm_equipment');
-  $view->preview('default', array($id));
-  if ($view->total_rows > 0) {
-    $links[] = array(
-      'title' => t('Equipment') . ': ' . $view->total_rows,
-      'href' => 'farm/assets/equipment/' . $id,
-    );
-  }
-
-  return $links;
-}
-
-/**
  * Implements hook_views_post_render().
  */
 function farm_equipment_views_post_render(&$view, &$output, &$cache) {
