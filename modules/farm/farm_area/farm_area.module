@@ -169,22 +169,6 @@ function farm_area_farm_area_details($id) {
     );
   }
 
-  // Get area links.
-  $area_links = farm_area_get_links($id);
-
-  // Create variables for an item list.
-  $variables = array(
-    'items' => $area_links,
-    'attributes' => array(),
-  );
-
-  // Add area links to the details.
-  $output['area_links'] = array(
-    '#type' => 'markup',
-    '#markup' => theme('item_list', $variables),
-    '#weight' => -50,
-  );
-
   // Return the render array.
   return $output;
 }
@@ -214,64 +198,6 @@ function farm_area_details_json($aid) {
   $area_details = farm_area_get_details($aid);
   drupal_json_output($area_details);
   drupal_exit();
-}
-
-/**
- * Generate area links, sorted by weight.
- *
- * @param int $id
- *   The area id.
- *
- * @return array
- *   Returns an array of links.
- */
-function farm_area_get_links($id) {
-
-  // Call out to modules that want to provide links.
-  $area_links = module_invoke_all('farm_area_links', check_plain($id));
-
-  // Build an index of links and their weights.
-  $weight_index = array();
-  foreach ($area_links as $key => $link) {
-
-    // Default the weight to zero if it hasn't been set.
-    if (!isset($link['weight'])) {
-      $link['weight'] = 0;
-    }
-
-    // Assign the weight to the index, based on it's key in the original array.
-    $weight_index[$key] = $link['weight'];
-  }
-
-  // Sort the index by weight.
-  asort($weight_index);
-
-  // Rebuild the array of links based on their weights.
-  $sorted_area_links = array();
-  foreach ($weight_index as $key => $weight) {
-    $sorted_area_links[] = $area_links[$key];
-  }
-
-  // Generate an array of Drupal links.
-  $links = array();
-  foreach ($sorted_area_links as $link) {
-
-    // If a title and href are available...
-    if (!empty($link['title']) && !empty($link['href'])) {
-
-      // Build link options.
-      $options = array();
-      if (!empty($link['options'])) {
-        $options = $link['options'];
-      }
-
-      // Build the link and add it to the array.
-      $links[] = l($link['title'], $link['href'], $options);
-    }
-  }
-
-  // Return links.
-  return $links;
 }
 
 /**

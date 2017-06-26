@@ -37,34 +37,6 @@ function hook_farm_area_type_info() {
 }
 
 /**
- * Provide links for farm areas.
- *
- * @param int $id
- *   The area id that links are being generated for.
- *
- * @return array
- *   Returns an array of arrays to represent area links.
- */
-function hook_farm_area_links($id) {
-  $path = 'farm/area/' . $id;
-  return array(
-    array(
-      'title' => t('Plantings'),
-      'href' => $path . '/plantings',
-      'weight' => 0,
-    ),
-    array(
-      'title' => t('Animals'),
-      'href' => $path . '/animals',
-      'options' => array(
-        'fragment' => 'Animals',
-      ),
-      'weight' => 20,
-    ),
-  );
-}
-
-/**
  * Provide details about farm areas.
  *
  * @param int $id

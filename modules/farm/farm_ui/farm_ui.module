@@ -486,10 +486,46 @@ function farm_ui_entityreference_view_widget_views_arguments_alter(&$arguments, 
 }
 
 /**
- * Implements hook_farm_area_links().
+ * Implements hook_farm_area_details().
  */
-function farm_ui_farm_area_links($id) {
-  $links = array();
+function farm_ui_farm_area_details($id) {
+
+  // Start a render array.
+  $output = array();
+
+  // Get area links.
+  $area_links = farm_ui_area_links($id);
+
+  // Create variables for an item list.
+  $variables = array(
+    'items' => $area_links,
+    'attributes' => array(),
+  );
+
+  // Add area links to the details.
+  $output['area_links'] = array(
+    '#type' => 'markup',
+    '#markup' => theme('item_list', $variables),
+    '#weight' => -50,
+  );
+
+  // Return the render array.
+  return $output;
+}
+
+/**
+ * Generate area links, sorted by weight.
+ *
+ * @param int $id
+ *   The area id.
+ *
+ * @return array
+ *   Returns an array of links.
+ */
+function farm_ui_area_links($id) {
+
+  // Start an empty array of area links.
+  $area_links = array();
 
   // Load entity UI info.
   $ui_info = farm_ui_entities();
@@ -562,10 +598,51 @@ function farm_ui_farm_area_links($id) {
         }
 
         // Add the link.
-        $links[] = $link;
+        $area_links[] = $link;
       }
     }
   }
 
+  // Build an index of links and their weights.
+  $weight_index = array();
+  foreach ($area_links as $key => $link) {
+
+    // Default the weight to zero if it hasn't been set.
+    if (!isset($link['weight'])) {
+      $link['weight'] = 0;
+    }
+
+    // Assign the weight to the index, based on it's key in the original array.
+    $weight_index[$key] = $link['weight'];
+  }
+
+  // Sort the index by weight.
+  asort($weight_index);
+
+  // Rebuild the array of links based on their weights.
+  $sorted_area_links = array();
+  foreach ($weight_index as $key => $weight) {
+    $sorted_area_links[] = $area_links[$key];
+  }
+
+  // Generate an array of Drupal links.
+  $links = array();
+  foreach ($sorted_area_links as $link) {
+
+    // If a title and href are available...
+    if (!empty($link['title']) && !empty($link['href'])) {
+
+      // Build link options.
+      $options = array();
+      if (!empty($link['options'])) {
+        $options = $link['options'];
+      }
+
+      // Build the link and add it to the array.
+      $links[] = l($link['title'], $link['href'], $options);
+    }
+  }
+
+  // Return links.
   return $links;
 }
