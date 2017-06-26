@@ -102,32 +102,5 @@ function hook_farm_ui_entities() {
 }
 
 /**
- * Provide action links on specific paths, asset types, and views.
- *
- * @return array
- *   Returns an array of actions and their meta information (see example below).
- */
-function hook_farm_ui_actions() {
-
-  // Define farm area actions.
-  $actions = array(
-    'foo' => array(
-      'title' => t('Add a foo log'),
-      'href' => 'log/add/farm_foo',
-      'paths' => array(
-        'farm/asset/%/foo',
-      ),
-      'assets' => array(
-        'bar',
-      ),
-      'views' => array(
-        'foo_view',
-      ),
-    ),
-  );
-  return $actions;
-}
-
-/**
  * @}
  */
