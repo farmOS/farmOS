@@ -188,7 +188,6 @@ function farm_crop_farm_ui_entities() {
       'farm_crop_families' => array(
         'label' => t('Crop Family'),
         'label_plural' => t('Crop Families'),
-        'farm_asset' => 'planting',
       ),
     ),
   );
