@@ -299,6 +299,27 @@ function farm_ui_farm_ui_entity_views($entity_type, $entity_bundle, $entity) {
 }
 
 /**
+ * Implements hook_menu_breadcrumb_alter().
+ */
+function farm_ui_menu_breadcrumb_alter(&$active_trail, $item) {
+
+  // If the current path contains /farm...
+  if (strpos($item['path'], 'farm') === 0) {
+
+    // If the link to /farm already exists in the second position, bail.
+    if (!empty($active_trail[1]['link_path']) && $active_trail[1]['link_path'] == 'farm') {
+      return;
+    }
+
+    // Add an item for /farm.
+    $start = array_shift($active_trail);
+    $farm_item = menu_get_item('farm');
+    array_unshift($active_trail, $farm_item);
+    array_unshift($active_trail, $start);
+  }
+}
+
+/**
  * Build breadcrumbs for a specific entity type and bundle.
  *
  * @param $type
