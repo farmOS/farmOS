@@ -646,8 +646,11 @@ function farm_ui_action_link($title, $href, $query = array()) {
  */
 function farm_ui_entities($type = '', $bundle = '') {
 
-  // Ask modules for entity UI information.
-  $entity_info = module_invoke_all('farm_ui_entities');
+  // Ask modules for entity UI information and static cache the results.
+  $entity_info = &drupal_static(__FUNCTION__);
+  if (!isset($entity_info)) {
+    $entity_info = module_invoke_all('farm_ui_entities');
+  }
 
   // If a type and bundle are specified, return specific info.
   if (!empty($type) && !empty($bundle)) {
