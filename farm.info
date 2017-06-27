@@ -40,7 +40,6 @@ dependencies[] = restws
 
 ; Farm
 dependencies[] = farm_access
-dependencies[] = farm_admin
 dependencies[] = farm_area
 dependencies[] = farm_asset
 dependencies[] = farm_fields

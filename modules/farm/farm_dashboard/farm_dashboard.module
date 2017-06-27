@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * Code for the Farm Admin feature.
+ * Farm dashboard module.
  */
 
 /**
  * Implements hook_permission().
  */
-function farm_admin_permission() {
+function farm_dashboard_permission() {
   return array(
     'access farm dashboard' => array(
       'title' => t('Access farm dashboard'),
@@ -19,7 +19,7 @@ function farm_admin_permission() {
 /**
  * Implements hook_farm_access_perms().
  */
-function farm_admin_farm_access_perms($role) {
+function farm_dashboard_farm_access_perms($role) {
   $perms = array();
 
   // Access farm dashboard.
@@ -31,11 +31,11 @@ function farm_admin_farm_access_perms($role) {
 /**
  * Implements hook_menu().
  */
-function farm_admin_menu() {
+function farm_dashboard_menu() {
 
   $items['farm'] = array(
     'title' => 'Farm',
-    'page callback' => 'farm_admin_dashboard',
+    'page callback' => 'farm_dashboard_page_callback',
     'access arguments' => array('access farm dashboard'),
     'type' => MENU_CALLBACK,
   );
@@ -62,7 +62,7 @@ function farm_admin_menu() {
 /**
  * Farm dashboard page callback.
  */
-function farm_admin_dashboard() {
+function farm_dashboard_page_callback() {
 
   // Set the page title.
   drupal_set_title('Dashboard');

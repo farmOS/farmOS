@@ -1,4 +1,0 @@
-name = Farm Admin
-description = Administrative interface for managing the farm.
-core = 7.x
-package = farmOS

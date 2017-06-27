@@ -1,0 +1,4 @@
+name = Farm Dashboard
+description = Provides a farmOS dashboard at /farm.
+core = 7.x
+package = farmOS

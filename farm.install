@@ -536,16 +536,25 @@ function farm_update_7024(&$sandbox) {
 }
 
 /**
- * Install the new Farm Help, Menu, People, and UI modules.
+ * Install the new Farm Dashboard, Help, Menu, People, and UI modules.
  */
 function farm_update_7025(&$sandbox) {
+
+  // Enable new modules.
   $modules = array(
+    'farm_dashboard',
     'farm_help',
     'farm_menu',
     'farm_people',
     'farm_ui'
   );
   _farm_update_enable_modules($modules);
+
+  // Delete the farm_admin module.
+  db_delete('system')
+    ->condition('name', 'farm_admin')
+    ->condition('type', 'module')
+    ->execute();
 }
 
 /**
