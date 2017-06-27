@@ -1,0 +1,32 @@
+<?php
+/**
+ * @file
+ * Farm menu module.
+ */
+
+/**
+ * Implements hook_modules_installed().
+ */
+function farm_menu_modules_installed($modules) {
+
+  // If the Menu module is installed, create the farm menu.
+  if (in_array('menu', $modules)) {
+    farm_menu_create();
+  }
+}
+
+/**
+ * Generate the farm menu.
+ *
+ * @see farm_menu_enable()
+ * @see farm_menu_install_modules()
+ */
+function farm_menu_create() {
+  $t = get_t();
+  $menu = array(
+    'menu_name' => 'farm',
+    'title' => $t('Farm'),
+    'description' => $t('Farm management links'),
+  );
+  menu_save($menu);
+}

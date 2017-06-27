@@ -536,10 +536,16 @@ function farm_update_7024(&$sandbox) {
 }
 
 /**
- * Install the new Farm Help, People, and UI modules.
+ * Install the new Farm Help, Menu, People, and UI modules.
  */
 function farm_update_7025(&$sandbox) {
-  _farm_update_enable_modules(array('farm_help', 'farm_people', 'farm_ui'));
+  $modules = array(
+    'farm_help',
+    'farm_menu',
+    'farm_people',
+    'farm_ui'
+  );
+  _farm_update_enable_modules($modules);
 }
 
 /**

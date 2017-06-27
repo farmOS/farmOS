@@ -5,17 +5,6 @@
  */
 
 /**
- * Implements hook_modules_installed().
- */
-function farm_admin_modules_installed($modules) {
-
-  // If the menu module is installed, create the farm menu.
-  if (in_array('menu', $modules)) {
-    farm_admin_menu_save();
-  }
-}
-
-/**
  * Implements hook_permission().
  */
 function farm_admin_permission() {
@@ -100,20 +89,4 @@ function farm_admin_dashboard() {
 
   // Return the output.
   return $output;
-}
-
-/**
- * Generate the farm menu.
- *
- * @see farm_admin_enable()
- * @see farm_admin_install_modules()
- */
-function farm_admin_menu_save() {
-  $t = get_t();
-  $menu = array(
-    'menu_name' => 'farm',
-    'title' => $t('Farm'),
-    'description' => $t('Farm management links'),
-  );
-  menu_save($menu);
 }

@@ -1,0 +1,4 @@
+name = Farm Menu
+description = Provides a menu for farm pages.
+core = 7.x
+package = farmOS
