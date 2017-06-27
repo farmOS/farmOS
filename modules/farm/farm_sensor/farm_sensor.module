@@ -22,23 +22,6 @@ function farm_sensor_farm_ui_entities() {
 }
 
 /**
- * Implements hook_farm_ui_entity_views().
- */
-function farm_sensor_farm_ui_entity_views($entity_type, $bundle, $entity) {
-  $views = array();
-
-  // Return a list of Views to include on Sensors.
-  if ($entity_type == 'farm_asset' && $bundle == 'sensor') {
-    $views[] = array(
-      'name' => 'farm_log_movement',
-      'weight' => 100,
-    );
-  }
-
-  return $views;
-}
-
-/**
  * Implements hook_entity_load().
  */
 function farm_sensor_entity_load($entities, $type) {

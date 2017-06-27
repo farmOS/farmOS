@@ -16,10 +16,16 @@ include_once 'farm_log_movement.location.inc';
 function farm_log_movement_farm_ui_entity_views($entity_type, $bundle, $entity) {
   $views = array();
 
-  // Return a list of Views to include on Areas.
-  if ($entity_type == 'taxonomy_term' && $entity->vocabulary_machine_name == 'farm_areas') {
+  // Add asset movements View at the bottom of assets.
+  if ($entity_type == 'farm_asset') {
+    $views[] = array(
+      'name' => 'farm_log_movement',
+      'weight' => 100,
+    );
+  }
 
-    // Area asset history (at the bottom).
+  // Add area asset history View at the bottom of areas.
+  elseif ($entity_type == 'taxonomy_term' && $entity->vocabulary_machine_name == 'farm_areas') {
     $views[] = array(
       'name' => 'farm_area_assets',
       'weight' => 100,

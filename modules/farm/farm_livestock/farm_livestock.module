@@ -63,16 +63,8 @@ function farm_livestock_farm_area_type_info() {
 function farm_livestock_farm_ui_entity_views($entity_type, $bundle, $entity) {
   $views = array();
 
-  // Return a list of Views to include on Animals.
-  if ($entity_type == 'farm_asset' && $bundle == 'animal') {
-    $views[] = array(
-      'name' => 'farm_log_movement',
-      'weight' => 100,
-    );
-  }
-
   // If the entity is a taxonomy_term...
-  elseif ($entity_type == 'taxonomy_term') {
+  if ($entity_type == 'taxonomy_term') {
     switch ($entity->vocabulary_machine_name) {
 
       // Farm animal groups:
