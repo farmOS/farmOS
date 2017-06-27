@@ -77,13 +77,13 @@ function hook_farm_ui_entities() {
         // pages, and will show a link in the area details popup.
         'areas' => TRUE,
 
-        // Define the weight of this log type relative to others (optional)
-        // This will be used to sort the log Views displayed on entities.
+        // Define the weight of this log type relative to others (optional).
+        // This will be used to sort the log Views displayed on entities, as
+        // well as action links displayed at the top of the page.
         // Best practice for this is to use increments of 10 between -90 and 90,
         // roughly in the order that logs will typically take place with an
-        // entity. -100 and 100 should be reserved for special cases where a
-        // View absolutely needs to be at the very top or the very bottom of
-        // the list.
+        // entity. -100 and 100 should be reserved for special cases where it
+        // absolutely needs to be the very first or the very last item.
         /**
          * @see hook_farm_ui_entity_views()
          */

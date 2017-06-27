@@ -466,6 +466,11 @@ function farm_ui_actions() {
         );
       }
 
+      // If the entity has a weight, pass it through to the action link.
+      if (!empty($info['weight'])) {
+        $actions[$bundle]['weight'] = $info['weight'];
+      }
+
       // If the entity is a log, add an action link on asset and area pages.
       if ($entity_type == 'log') {
 
