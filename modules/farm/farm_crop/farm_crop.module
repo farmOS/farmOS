@@ -194,63 +194,51 @@ function farm_crop_farm_ui_entities() {
 }
 
 /**
- * Implements hook_farm_ui_asset_views().
+ * Implements hook_farm_ui_entity_views().
  */
-function farm_crop_farm_ui_asset_views($farm_asset) {
-
-  // If the entity is not a planting, bail.
-  if ($farm_asset->type != 'planting') {
-    return array();
-  }
+function farm_crop_farm_ui_entity_views($entity_type, $bundle, $entity) {
+  $views = array();
 
   // Return a list of Views to include on Plantings.
-  return array(
-    array(
+  if ($entity_type == 'farm_asset' && $bundle == 'planting') {
+    $views[] = array(
       'name' => 'farm_log_movement',
       'weight' => 100,
-    ),
-    array(
+    );
+    $views[] = array(
       'name' => 'farm_asset_children',
       'display' => 'page',
       'title' => t('Children'),
       'weight' => 110,
-    ),
-  );
-}
+    );
+  }
 
-/**
- * Implements hook_farm_ui_taxonomy_views().
- */
-function farm_crop_farm_ui_taxonomy_views($term) {
+  // If the entity is a taxonomy_term...
+  elseif ($entity_type == 'taxonomy_term') {
+    switch ($entity->vocabulary_machine_name) {
 
-  // Start a list of View names.
-  $views = array();
+      // Farm areas:
+      case 'farm_areas':
+        $views[] = array(
+          'name' => 'farm_plantings',
+          'weight' => -20,
+        );
+        break;
 
-  // Switch logic depending on the vocabulary.
-  switch ($term->vocabulary_machine_name) {
+      // Farm crops.
+      case 'farm_crops':
+        $views[] = array(
+          'name' => 'farm_plantings',
+          'arg' => 2,
+          'always' => TRUE,
+        );
+        break;
 
-    // Farm areas:
-    case 'farm_areas':
-      $views[] = array(
-        'name' => 'farm_plantings',
-        'arg' => 1,
-        'weight' => -20,
-      );
-      break;
-
-    // Farm crops.
-    case 'farm_crops':
-      $views[] = array(
-        'name' => 'farm_plantings',
-        'arg' => 2,
-        'always' => TRUE,
-      );
-      break;
-
-    // Farm crop family.
-    case 'farm_crop_families':
-      $views[] = 'farm_crops';
-      break;
+      // Farm crop family.
+      case 'farm_crop_families':
+        $views[] = 'farm_crops';
+        break;
+    }
   }
 
   return $views;

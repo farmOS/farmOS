@@ -85,7 +85,7 @@ function hook_farm_ui_entities() {
         // View absolutely needs to be at the very top or the very bottom of
         // the list.
         /**
-         * @see hook_farm_ui_asset_views() and hook_farm_ui_taxonomy_views()
+         * @see hook_farm_ui_entity_views()
          */
         'weight' => 10,
       ),
@@ -115,43 +115,14 @@ function hook_farm_ui_entities() {
 }
 
 /**
- * Attach Views to asset view pages.
+ * Attach Views to an entity page.
  *
- * @param FarmAsset $farm_asset
- *   The farm asset entity.
- *
- * @return array
- *   Returns an array of View names to attach to farm asset pages.
- */
-function hook_farm_ui_asset_views(FarmAsset $farm_asset) {
-
-  // If the entity is not a planting, bail.
-  if ($farm_asset->type != 'planting') {
-    return array();
-  }
-
-  // Return a list of Views to include on Plantings.
-  return array(
-
-    // Example 1: simple View machine name.
-    'farm_activity',
-
-    // Example 2: explicitly set details like display, argument position,
-    // and weight.
-    array(
-      'name' => 'farm_log_input',
-      'display' => 'block',
-      'arg' => 2,
-      'weight' => 10,
-    ),
-  );
-}
-
-/**
- * Attach Views to taxonomy term pages.
- *
- * @param object $term
- *   The taxonomy term entity.
+ * @param $entity_type
+ *   The entity type. Currently supports: 'farm_asset' or 'taxonomy_term'.
+ * @param $bundle
+ *   The entity bundle.
+ * @param $entity
+ *   The loaded entity object.
  *
  * @return array
  *   Returns an array of View to attach to taxonomy term pages.
@@ -166,20 +137,21 @@ function hook_farm_ui_asset_views(FarmAsset $farm_asset) {
  *     'always' - always display, even if there are no View results
  *       (default is FALSE)
  */
-function hook_farm_ui_taxonomy_views($term) {
+function hook_farm_ui_entity_views($entity_type, $bundle, $entity) {
 
-  // If the term is not a crop, bail.
-  if ($term->vocabulary_machine_name != 'farm_crops') {
+  // If the entity is not a planting asset, bail.
+  if (!($entity_type == 'farm_asset' && $bundle == 'planting')) {
     return array();
   }
 
-  // Return a list of Views to include on Crops.
+  // Return a list of Views to include on Plantings.
   return array(
 
     // Example 1: simple View machine name.
-    'farm_planting',
+    'farm_activity',
 
-    // Example 2: explicitly set details like display, argument position, weight.
+    // Example 2: explicitly set details like display, argument position,
+    // and weight.
     array(
       'name' => 'farm_log_input',
       'display' => 'block',

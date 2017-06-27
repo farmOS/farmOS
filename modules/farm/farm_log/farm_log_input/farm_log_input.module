@@ -25,20 +25,18 @@ function farm_log_input_farm_ui_entities() {
 }
 
 /**
- * Implements hook_farm_ui_taxonomy_views().
+ * Implements hook_farm_ui_entity_views().
  */
-function farm_log_input_farm_ui_taxonomy_views($term) {
-
-  // If the term is not an area, bail.
-  if ($term->vocabulary_machine_name != 'farm_areas') {
-    return array();
-  }
+function farm_log_input_farm_ui_entity_views($entity_type, $bundle, $entity) {
+  $views = array();
 
   // Return a list of Views to include on Areas.
-  return array(
-    array(
+  if ($entity_type == 'taxonomy_term' && $entity->vocabulary_machine_name == 'farm_areas') {
+    $views[] = array(
       'name' => 'farm_log_input',
       'arg' => 2,
-    ),
-  );
+    );
+  }
+
+  return $views;
 }

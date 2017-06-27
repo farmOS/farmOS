@@ -524,22 +524,16 @@ function farm_sensor_listener_load($key) {
 }
 
 /**
- * Implements hook_farm_ui_asset_views().
+ * Implements hook_farm_ui_entity_views().
  */
-function farm_sensor_listener_farm_ui_asset_views($farm_asset) {
+function farm_sensor_listener_farm_ui_entity_views($entity_type, $bundle, $entity) {
 
-  // If the entity is not a sensor, bail.
-  if ($farm_asset->type != 'sensor') {
-    return array();
+  // Show sensor data View on listener sensors.
+  $views = array();
+  if ($entity_type == 'farm_asset' && $bundle == 'sensor' && $entity->sensor_type == 'listener') {
+    $views[] = array(
+      'farm_sensor_data',
+    );
   }
-
-  // If the sensor is not a listener, bail.
-  if ($farm_asset->sensor_type != 'listener') {
-    return array();
-  }
-
-  // Return a list of Views to include on listener sensors.
-  return array(
-    'farm_sensor_data',
-  );
+  return $views;
 }

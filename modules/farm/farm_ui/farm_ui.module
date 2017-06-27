@@ -50,7 +50,7 @@ function farm_ui_entity_view($entity, $type, $view_mode, $langcode) {
   drupal_set_breadcrumb($breadcrumb);
 
   // Add Views to the entity.
-  $views = farm_ui_entity_views($type, $entity);
+  $views = farm_ui_entity_views($type, $bundle, $entity);
   if (!empty($views)) {
     $entity->content['views'] = $views;
     $entity->content['views']['#weight'] = 100;
@@ -62,13 +62,15 @@ function farm_ui_entity_view($entity, $type, $view_mode, $langcode) {
  *
  * @param $entity_type
  *   The entity type. Currently supports: 'farm_asset' or 'taxonomy_term'.
+ * @param $entity_bundle
+ *   The entity bundle.
  * @param $entity
  *   The loaded entity object.
  *
  * @return array
  *   Returns a render array of Views to add to the entity page.
  */
-function farm_ui_entity_views($entity_type, $entity) {
+function farm_ui_entity_views($entity_type, $entity_bundle, $entity) {
 
   // Start an empty build array.
   $build = array();
@@ -101,15 +103,8 @@ function farm_ui_entity_views($entity_type, $entity) {
     }
   }
 
-  // Ask modules for Views, based on the type.
-  switch ($entity_type) {
-    case 'farm_asset':
-      $module_views = module_invoke_all('farm_ui_asset_views', $entity);
-      break;
-    case 'taxonomy_term':
-      $module_views = module_invoke_all('farm_ui_taxonomy_views', $entity);
-      break;
-  }
+  // Ask modules for Views.
+  $module_views = module_invoke_all('farm_ui_entity_views', $entity_type, $entity_bundle, $entity);
   if (!empty($module_views)) {
     $views = array_merge($views, $module_views);
   }

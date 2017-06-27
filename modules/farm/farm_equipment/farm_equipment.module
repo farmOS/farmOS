@@ -31,41 +31,28 @@ function farm_equipment_farm_ui_entities() {
 }
 
 /**
- * Implements hook_farm_ui_asset_views().
+ * Implements hook_farm_ui_entity_views().
  */
-function farm_equipment_farm_ui_asset_views($farm_asset) {
-
-  // If the entity is not equipment, bail.
-  if ($farm_asset->type != 'equipment') {
-    return array();
-  }
+function farm_equipment_farm_ui_entity_views($entity_type, $bundle, $entity) {
+  $views = array();
 
   // Return a list of Views to include on Equipment.
-  return array(
-    array(
+  if ($entity_type == 'farm_asset' && $bundle == 'equipment') {
+    $views[] = array(
       'name' => 'farm_log_movement',
       'weight' => 100,
-    ),
-  );
-}
-
-/**
- * Implements hook_farm_ui_taxonomy_views().
- */
-function farm_equipment_farm_ui_taxonomy_views($term) {
-
-  // If the term is not an area, bail.
-  if ($term->vocabulary_machine_name != 'farm_areas') {
-    return array();
+    );
   }
 
-  // Return a list of Views to include on Areas.
-  return array(
-    array(
+  // Show equipment in area pages.
+  elseif ($entity_type == 'taxonomy_term' && $entity->vocabulary_machine_name == 'farm_areas') {
+    $views[] = array(
       'name' => 'farm_equipment',
       'weight' => -10,
-    ),
-  );
+    );
+  }
+
+  return $views;
 }
 
 /**
