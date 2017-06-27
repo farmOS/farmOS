@@ -103,30 +103,6 @@ function farm_admin_dashboard() {
 }
 
 /**
- * Implements hook_navbar().
- */
-function farm_admin_navbar() {
-
-  // Farm tab.
-  $items['farm'] = array(
-    '#type' => 'navbar_item',
-    'tab' => array(
-      '#type' => 'link',
-      '#title' => t('Farm'),
-      '#href' => 'farm',
-      '#options' => array(
-        'attributes' => array(
-          'title' => t('Farm management'),
-          'class' => array('navbar-icon', 'navbar-icon-dashboard'),
-        ),
-      ),
-    ),
-    '#weight' => 20,
-  );
-  return $items;
-}
-
-/**
  * Generate the farm menu.
  *
  * @see farm_admin_enable()
