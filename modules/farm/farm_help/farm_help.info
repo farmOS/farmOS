@@ -1,0 +1,4 @@
+name = Farm Help
+description = Help pages for farmOS.
+core = 7.x
+package = farmOS
