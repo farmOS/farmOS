@@ -263,6 +263,38 @@ function farm_ui_farm_ui_entity_views($entity_type, $entity_bundle, $entity) {
     }
   }
 
+  // Otherwise, if this is a taxonomy term...
+  elseif ($entity_type == 'taxonomy_term') {
+
+    // And if the term is associated with a specific asset type...
+    if (!empty($ui_info[$entity_type][$entity_bundle]['farm_asset'])) {
+
+      // Get the asset type.
+      $asset_type = $ui_info[$entity_type][$entity_bundle]['farm_asset'];
+
+      // And if that asset type has a View.
+      if (!empty($ui_info['farm_asset'][$asset_type]['view'])) {
+
+        // Get the View.
+        $asset_view = $ui_info['farm_asset'][$asset_type]['view'];
+
+        // And if the 'asset_view_arg' key is set...
+        if (!empty($ui_info[$entity_type][$entity_bundle]['asset_view_arg'])) {
+
+          // Get the argument position.
+          $arg = $ui_info[$entity_type][$entity_bundle]['asset_view_arg'];
+
+          // Add the asset View to this term (and always show it).
+          $views[] = array(
+            'name' => $asset_view,
+            'arg' => $arg,
+            'always' => TRUE,
+          );
+        }
+      }
+    }
+  }
+
   return $views;
 }
 

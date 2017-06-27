@@ -33,12 +33,14 @@ function farm_livestock_farm_ui_entities() {
         'label_plural' => t('Groups'),
         'view' => 'farm_animal_groups',
         'farm_asset' => 'animal',
+        'asset_view_arg' => 2,
       ),
       'farm_animal_types' => array(
         'label' => t('Type'),
         'label_plural' => t('Types'),
         'view' => 'farm_animal_types',
         'farm_asset' => 'animal',
+        'asset_view_arg' => 3,
       ),
     ),
   );
@@ -55,39 +57,6 @@ function farm_livestock_farm_area_type_info() {
       'weight' => 5,
     ),
   );
-}
-
-/**
- * Implements hook_farm_ui_entity_views().
- */
-function farm_livestock_farm_ui_entity_views($entity_type, $bundle, $entity) {
-  $views = array();
-
-  // If the entity is a taxonomy_term...
-  if ($entity_type == 'taxonomy_term') {
-    switch ($entity->vocabulary_machine_name) {
-
-      // Farm animal groups:
-      case 'farm_animal_groups':
-        $views[] = array(
-          'name' => 'farm_animals',
-          'arg' => 2,
-          'always' => TRUE,
-        );
-        break;
-
-      // Farm animal types:
-      case 'farm_animal_types':
-        $views[] = array(
-          'name' => 'farm_animals',
-          'arg' => 3,
-          'always' => TRUE,
-        );
-        break;
-    }
-  }
-
-  return $views;
 }
 
 /**

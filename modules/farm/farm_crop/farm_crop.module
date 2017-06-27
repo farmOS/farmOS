@@ -183,6 +183,7 @@ function farm_crop_farm_ui_entities() {
         'label_plural' => t('Crops/varieties'),
         'view' => 'farm_crops',
         'farm_asset' => 'planting',
+        'asset_view_arg' => 2,
       ),
       'farm_crop_families' => array(
         'label' => t('Crop Family'),
@@ -202,15 +203,6 @@ function farm_crop_farm_ui_entity_views($entity_type, $bundle, $entity) {
   // If the entity is a taxonomy_term...
   if ($entity_type == 'taxonomy_term') {
     switch ($entity->vocabulary_machine_name) {
-
-      // Farm crops.
-      case 'farm_crops':
-        $views[] = array(
-          'name' => 'farm_plantings',
-          'arg' => 2,
-          'always' => TRUE,
-        );
-        break;
 
       // Farm crop family.
       case 'farm_crop_families':

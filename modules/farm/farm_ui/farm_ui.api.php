@@ -108,6 +108,14 @@ function hook_farm_ui_entities() {
 
         // The specific asset type that these terms apply to (optional).
         'farm_asset' => 'planting',
+
+        // The position of a contextual filter argument corresponding to this
+        // taxonomy term in the View of assets that these terms apply to
+        // (optional). This will enable the View of assets to be displayed
+        // on the term pages, filtered to only show assets tagged with the
+        // term being viewed. In most cases, this will be 2 or 3, because asset
+        // Views should always have asset location as their first argument.
+        'asset_view_arg' => 2,
       ),
     ),
   );
