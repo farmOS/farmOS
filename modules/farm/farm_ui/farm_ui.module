@@ -216,6 +216,38 @@ function farm_ui_entity_views($entity_type, $entity_bundle, $entity) {
 }
 
 /**
+ * Implements hook_farm_ui_entity_views().
+ */
+function farm_ui_farm_ui_entity_views($entity_type, $entity_bundle, $entity) {
+  $views = array();
+
+  // Load entity UI information.
+  $ui_info = farm_ui_entities();
+
+  // Automatically generate a list of asset Views to display on areas.
+  if ($entity_type == 'taxonomy_term' && $entity_bundle == 'farm_areas' && !empty($ui_info['farm_asset'])) {
+    foreach ($ui_info['farm_asset'] as $bundle => $info) {
+
+      // If a View is not defined, skip it.
+      if (empty($info['view'])) {
+        continue;
+      }
+
+      // Add the assets View.
+      $view = array(
+        'name' => $info['view'],
+      );
+      if (!empty($info['weight'])) {
+        $view['weight'] = $info['weight'];
+      }
+      $views[] = $view;
+    }
+  }
+
+  return $views;
+}
+
+/**
  * Build breadcrumbs for a specific entity type and bundle.
  *
  * @param $type

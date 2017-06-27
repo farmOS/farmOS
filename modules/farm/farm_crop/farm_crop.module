@@ -217,14 +217,6 @@ function farm_crop_farm_ui_entity_views($entity_type, $bundle, $entity) {
   elseif ($entity_type == 'taxonomy_term') {
     switch ($entity->vocabulary_machine_name) {
 
-      // Farm areas:
-      case 'farm_areas':
-        $views[] = array(
-          'name' => 'farm_plantings',
-          'weight' => -20,
-        );
-        break;
-
       // Farm crops.
       case 'farm_crops':
         $views[] = array(

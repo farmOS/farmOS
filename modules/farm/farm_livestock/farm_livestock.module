@@ -81,14 +81,6 @@ function farm_livestock_farm_ui_entity_views($entity_type, $bundle, $entity) {
   elseif ($entity_type == 'taxonomy_term') {
     switch ($entity->vocabulary_machine_name) {
 
-      // Farm areas:
-      case 'farm_areas':
-        $views[] = array(
-          'name' => 'farm_animals',
-          'weight' => -10,
-        );
-        break;
-
       // Farm animal groups:
       case 'farm_animal_groups':
         $views[] = array(

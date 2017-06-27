@@ -41,13 +41,6 @@ function farm_soil_compost_farm_ui_entity_views($entity_type, $bundle, $entity) 
     );
   }
 
-  // Show compost in area pages.
-  elseif ($entity_type == 'taxonomy_term' && $entity->vocabulary_machine_name == 'farm_areas') {
-    $views[] = array(
-      'name' => 'farm_compost',
-    );
-  }
-
   return $views;
 }
 

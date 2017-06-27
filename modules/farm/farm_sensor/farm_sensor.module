@@ -35,13 +35,6 @@ function farm_sensor_farm_ui_entity_views($entity_type, $bundle, $entity) {
     );
   }
 
-  // Show sensors in area pages.
-  elseif ($entity_type == 'taxonomy_term' && $entity->vocabulary_machine_name == 'farm_areas') {
-    $views[] = array(
-      'name' => 'farm_sensors',
-    );
-  }
-
   return $views;
 }
 
