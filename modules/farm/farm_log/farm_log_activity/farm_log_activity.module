@@ -23,20 +23,3 @@ function farm_log_activity_farm_ui_entities() {
     ),
   );
 }
-
-/**
- * Implements hook_farm_ui_entity_views().
- */
-function farm_log_activity_farm_ui_entity_views($entity_type, $bundle, $entity) {
-  $views = array();
-
-  // Return a list of Views to include on Areas.
-  if ($entity_type == 'taxonomy_term' && $entity->vocabulary_machine_name == 'farm_areas') {
-    $views[] = array(
-      'name' => 'farm_log_activity',
-      'arg' => 2,
-    );
-  }
-
-  return $views;
-}

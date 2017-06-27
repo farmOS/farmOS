@@ -224,23 +224,42 @@ function farm_ui_farm_ui_entity_views($entity_type, $entity_bundle, $entity) {
   // Load entity UI information.
   $ui_info = farm_ui_entities();
 
-  // Automatically generate a list of asset Views to display on areas.
-  if ($entity_type == 'taxonomy_term' && $entity_bundle == 'farm_areas' && !empty($ui_info['farm_asset'])) {
-    foreach ($ui_info['farm_asset'] as $bundle => $info) {
+  // Automatically generate a list of Views to display on areas.
+  if ($entity_type == 'taxonomy_term' && $entity_bundle == 'farm_areas') {
 
-      // If a View is not defined, skip it.
-      if (empty($info['view'])) {
-        continue;
-      }
+    // We will add Views of assets and logs.
+    $types = array(
+      'farm_asset',
+      'log',
+    );
+    foreach ($types as $type) {
+      if (!empty($ui_info[$type])) {
+        foreach ($ui_info[$type] as $bundle => $info) {
 
-      // Add the assets View.
-      $view = array(
-        'name' => $info['view'],
-      );
-      if (!empty($info['weight'])) {
-        $view['weight'] = $info['weight'];
+          // If a View is not defined, skip it.
+          if (empty($info['view'])) {
+            continue;
+          }
+
+          // If the entity is a log, and it doesn't apply to areas, skip it.
+          if ($type == 'log' && (empty($info['areas']) || $info['areas'] !== TRUE)) {
+            continue;
+          }
+
+          // Determine where the area ID argument is in the View.
+          $area_argument_position = farm_ui_views_area_argument_position($type, $bundle);
+
+          // Add the View.
+          $view = array(
+            'name' => $info['view'],
+            'arg' => $area_argument_position,
+          );
+          if (!empty($info['weight'])) {
+            $view['weight'] = $info['weight'];
+          }
+          $views[] = $view;
+        }
       }
-      $views[] = $view;
     }
   }
 
