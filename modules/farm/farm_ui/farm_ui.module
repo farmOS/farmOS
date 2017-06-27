@@ -810,6 +810,48 @@ function farm_ui_area_links($id, $entity_type) {
 }
 
 /**
+ * Encapsulates logic for figuring out where the area ID argument is in a View.
+ *
+ * Views of assets should always have an area ID as their first contextual
+ * filter.
+ *
+ * Views of logs are a bit more complicated. Most logs apply to assets, so they
+ * have an asset ID contextual filter first, and an area ID contextual filter
+ * second. However, some logs do not apply to assets, so the first contextual
+ * filter is the area ID.
+ *
+ * This function will use information provided by hook_farm_ui_entities() to
+ * determine the position of the area ID argument. In general, it will return
+ * 1 (the first argument position). If the entity type is 'log', and the log
+ * type does not apply to assets, then it will return 2 (second argument).
+ *
+ * @param $type
+ *   The entity type.
+ * @param $bundle
+ *   The entity bundle.
+ *
+ * @return int
+ *   Returns the position of the area ID argument as an integer.
+ */
+function farm_ui_views_area_argument_position($type, $bundle) {
+
+  // Load entity UI information.
+  $ui_info = farm_ui_entities($type, $bundle);
+
+  // Default the area ID argument position to 1.
+  $arg = 1;
+
+  // If this is a log entity that applies to assets, the argument position
+  // should be 2.
+  if ($type == 'log' && (empty($ui_info['farm_asset']) || $ui_info['farm_asset'] != 'none')) {
+    $arg = 2;
+  }
+
+  // Return the argument position.
+  return $arg;
+}
+
+/**
  * Implements hook_views_post_render().
  */
 function farm_ui_views_post_render(&$view, &$output, &$cache) {
