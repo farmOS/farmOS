@@ -5,3 +5,21 @@
  */
 
 include_once 'farm_asset_children.features.inc';
+
+/**
+ * Implements hook_farm_ui_entity_views().
+ */
+function farm_asset_children_farm_ui_entity_views($entity_type, $bundle, $entity) {
+
+  // Display View of asset children on assets.
+  if ($entity_type == 'farm_asset') {
+    return array(
+      array(
+        'name' => 'farm_asset_children',
+        'display' => 'page',
+        'title' => t('Children'),
+        'weight' => 110,
+      ),
+    );
+  }
+}

@@ -205,12 +205,6 @@ function farm_crop_farm_ui_entity_views($entity_type, $bundle, $entity) {
       'name' => 'farm_log_movement',
       'weight' => 100,
     );
-    $views[] = array(
-      'name' => 'farm_asset_children',
-      'display' => 'page',
-      'title' => t('Children'),
-      'weight' => 110,
-    );
   }
 
   // If the entity is a taxonomy_term...
