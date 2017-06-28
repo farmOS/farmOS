@@ -73,31 +73,6 @@ function farm_ui_menu_breadcrumb_alter(&$active_trail, $item) {
 }
 
 /**
- * Helper function for getting the path to a View's page display.
- *
- * @param string $view_name
- *   The machine name of the View.
- * @param string $display
- *   The machine name of the page display (defaults to "page").
- *
- * @return string
- *   Returns the path to a View's page display.
- */
-function farm_ui_view_page_path($view_name, $display = 'page') {
-
-  // Load the View.
-  $view = views_get_view($view_name);
-
-  // If the page display exists and has a path, return it.
-  if (!empty($view->display[$display]->display_options['path'])) {
-    return $view->display[$display]->display_options['path'];
-  }
-
-  // Otherwise, return an empty string.
-  return '';
-}
-
-/**
  * Implements hook_menu_local_tasks_alter().
  */
 function farm_ui_menu_local_tasks_alter(&$data, $router_item, $root_path) {
@@ -105,6 +80,26 @@ function farm_ui_menu_local_tasks_alter(&$data, $router_item, $root_path) {
   // Use helper function to add farmOS action links.
   module_load_include('inc', 'farm_ui', 'farm_ui.action_links');
   _farm_ui_menu_local_tasks_alter($data, $router_item, $root_path);
+}
+
+/**
+ * Implements hook_views_post_render().
+ */
+function farm_ui_views_post_render(&$view, &$output, &$cache) {
+
+  // Use helper function to add asset cluster maps to Views.
+  module_load_include('inc', 'farm_ui', 'farm_ui.views');
+  _farm_ui_views_post_render($view, $output, $cache);
+}
+
+/**
+ * Implements hook_entityreference_view_widget_views_arguments_alter().
+ */
+function farm_ui_entityreference_view_widget_views_arguments_alter(&$arguments, $form_state, $view) {
+
+  // Use helper function to alter arguments.
+  module_load_include('inc', 'farm_ui', 'farm_ui.views');
+  _farm_ui_entityreference_view_widget_views_arguments_alter($arguments, $form_state, $view);
 }
 
 /**
@@ -140,13 +135,28 @@ function farm_ui_entities($type = '', $bundle = '') {
 }
 
 /**
- * Implements hook_entityreference_view_widget_views_arguments_alter().
+ * Helper function for getting the path to a View's page display.
+ *
+ * @param string $view_name
+ *   The machine name of the View.
+ * @param string $display
+ *   The machine name of the page display (defaults to "page").
+ *
+ * @return string
+ *   Returns the path to a View's page display.
  */
-function farm_ui_entityreference_view_widget_views_arguments_alter(&$arguments, $form_state, $view) {
+function farm_ui_view_page_path($view_name, $display = 'page') {
 
-  // Use helper function to alter arguments.
-  module_load_include('inc', 'farm_ui', 'farm_ui.views');
-  _farm_ui_entityreference_view_widget_views_arguments_alter($arguments, $form_state, $view);
+  // Load the View.
+  $view = views_get_view($view_name);
+
+  // If the page display exists and has a path, return it.
+  if (!empty($view->display[$display]->display_options['path'])) {
+    return $view->display[$display]->display_options['path'];
+  }
+
+  // Otherwise, return an empty string.
+  return '';
 }
 
 /**
@@ -189,14 +199,4 @@ function farm_ui_views_area_argument_position($type, $bundle) {
 
   // Return the argument position.
   return $arg;
-}
-
-/**
- * Implements hook_views_post_render().
- */
-function farm_ui_views_post_render(&$view, &$output, &$cache) {
-
-  // Use helper function to add asset cluster maps to Views.
-  module_load_include('inc', 'farm_ui', 'farm_ui.views');
-  _farm_ui_views_post_render($view, $output, $cache);
 }
