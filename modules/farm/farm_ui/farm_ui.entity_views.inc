@@ -167,9 +167,11 @@ function farm_ui_entity_views($entity_type, $entity_bundle, $entity) {
   // Add group meta properties.
   $groups = array(
     'assets' => array(
+      'title' => t('Assets'),
       'weight' => 98,
     ),
     'logs' => array(
+      'title' => t('Logs'),
       'weight' => 99,
     ),
     'other' => array(
@@ -178,6 +180,12 @@ function farm_ui_entity_views($entity_type, $entity_bundle, $entity) {
   );
   foreach ($groups as $group => $info) {
     if (!empty($build[$group])) {
+      if (!empty($info['title'])) {
+        $build[$group]['#type'] = 'fieldset';
+        $build[$group]['#title'] = $info['title'];
+        $build[$group]['#collapsible'] = TRUE;
+        $build[$group]['#collapsed'] = FALSE;
+      }
       $build[$group]['#weight'] = $info['weight'];
     }
   }
