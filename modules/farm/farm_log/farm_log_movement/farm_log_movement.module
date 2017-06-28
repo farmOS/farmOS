@@ -28,6 +28,7 @@ function farm_log_movement_farm_ui_entity_views($entity_type, $bundle, $entity) 
   elseif ($entity_type == 'taxonomy_term' && $entity->vocabulary_machine_name == 'farm_areas') {
     $views[] = array(
       'name' => 'farm_area_assets',
+      'group' => 'assets',
       'weight' => 100,
       'always' => TRUE,
     );
