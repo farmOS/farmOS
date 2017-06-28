@@ -4,6 +4,26 @@
  */
 
 /**
+ * Implements hook_farm_ui_groups().
+ */
+function farm_ui_farm_ui_entity_view_groups() {
+  $groups = array(
+    'assets' => array(
+      'title' => t('Assets'),
+      'weight' => 98,
+    ),
+    'logs' => array(
+      'title' => t('Logs'),
+      'weight' => 99,
+    ),
+    'other' => array(
+      'weight' => 100,
+    ),
+  );
+  return $groups;
+}
+
+/**
  * Implements hook_farm_ui_entity_views().
  */
 function farm_ui_farm_ui_entity_views($entity_type, $entity_bundle, $entity) {

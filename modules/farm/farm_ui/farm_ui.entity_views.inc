@@ -165,19 +165,7 @@ function farm_ui_entity_views($entity_type, $entity_bundle, $entity) {
   }
 
   // Add group meta properties.
-  $groups = array(
-    'assets' => array(
-      'title' => t('Assets'),
-      'weight' => 98,
-    ),
-    'logs' => array(
-      'title' => t('Logs'),
-      'weight' => 99,
-    ),
-    'other' => array(
-      'weight' => 100,
-    ),
-  );
+  $groups = module_invoke_all('farm_ui_entity_view_groups');
   foreach ($groups as $group => $info) {
     if (!empty($build[$group])) {
       if (!empty($info['title'])) {

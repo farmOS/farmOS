@@ -123,6 +123,31 @@ function hook_farm_ui_entities() {
 }
 
 /**
+ * Provide a group that entity Views can be sorted into.
+ *
+ * @return array
+ *   Returns an array of group information.
+ *   Each element should have a unique key and an array of options, including:
+ *     'title' - The title of the group. This is optional. If it not provided
+ *       then the Views will not be wrapped in a fieldset.
+ *     'weight' - The weight of the group relative to others.
+ */
+function hook_farm_ui_entity_view_groups() {
+  $groups = array(
+    'assets' => array(
+      'weight' => 98,
+    ),
+    'logs' => array(
+      'weight' => 99,
+    ),
+    'other' => array(
+      'weight' => 100,
+    ),
+  );
+  return $groups;
+}
+
+/**
  * Attach Views to an entity page.
  *
  * @param $entity_type
