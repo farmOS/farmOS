@@ -6,6 +6,19 @@
  */
 
 /**
+ * Implements hook_hook_info().
+ */
+function farm_ui_hook_info() {
+  $hooks['farm_ui_entities'] = array(
+    'group' => 'farm_ui',
+  );
+  $hooks['farm_ui_entity_views'] = array(
+    'group' => 'farm_ui',
+  );
+  return $hooks;
+}
+
+/**
  * Implements hook_entity_view().
  */
 function farm_ui_entity_view($entity, $type, $view_mode, $langcode) {
@@ -36,20 +49,12 @@ function farm_ui_entity_view($entity, $type, $view_mode, $langcode) {
       break;
   }
 
-  // Get the breadcrumb from our helper function.
-  $breadcrumb = farm_ui_entity_type_breadcrumb($type, $bundle);
-
-  // Add base breadcrumb items to the front.
-  $base = array(
-    l(t('Home'), '<front>'),
-    l(t('Farm'), 'farm'),
-  );
-  $breadcrumb = array_merge($base, $breadcrumb);
-
-  // Set the breadcrumb.
-  drupal_set_breadcrumb($breadcrumb);
+  // Set the entity breadcrumb.
+  module_load_include('inc', 'farm_ui', 'farm_ui.breadcrumb');
+  farm_ui_entity_set_breadcrumb($type, $bundle);
 
   // Add Views to the entity.
+  module_load_include('inc', 'farm_ui', 'farm_ui.entity_views');
   $views = farm_ui_entity_views($type, $bundle, $entity);
   if (!empty($views)) {
     $entity->content['views'] = $views;
@@ -58,461 +63,13 @@ function farm_ui_entity_view($entity, $type, $view_mode, $langcode) {
 }
 
 /**
- * Build a renderable array of Views to add to a farmOS entity.
- *
- * @param $entity_type
- *   The entity type. Currently supports: 'farm_asset' or 'taxonomy_term'.
- * @param $entity_bundle
- *   The entity bundle.
- * @param $entity
- *   The loaded entity object.
- *
- * @return array
- *   Returns a render array of Views to add to the entity page.
- */
-function farm_ui_entity_views($entity_type, $entity_bundle, $entity) {
-
-  // Start an empty build array.
-  $build = array();
-
-  // Start an empty array of Views.
-  $views = array();
-
-  // Load entity UI information.
-  $ui_info = farm_ui_entities();
-
-  // Automatically generate a list of log Views to display on assets.
-  if ($entity_type == 'farm_asset' && !empty($ui_info['log'])) {
-    foreach ($ui_info['log'] as $bundle => $info) {
-
-      // If a View is not defined, skip it.
-      if (empty($info['view'])) {
-        continue;
-      }
-
-      // If the log applies to this asset type (or to all types), add the View.
-      if (empty($info['farm_asset']) || $info['farm_asset'] == 'all' || $info['farm_asset'] == $entity->type) {
-        $view = array(
-          'name' => $info['view'],
-        );
-        if (!empty($info['weight'])) {
-          $view['weight'] = $info['weight'];
-        }
-        $views[] = $view;
-      }
-    }
-  }
-
-  // Ask modules for Views.
-  $module_views = module_invoke_all('farm_ui_entity_views', $entity_type, $entity_bundle, $entity);
-  if (!empty($module_views)) {
-    $views = array_merge($views, $module_views);
-  }
-
-  // If there are no Views, bail.
-  if (empty($views)) {
-    return $build;
-  }
-
-  // Process the list of Views into a standardized list,
-  // and prepare to order by weight and name.
-  $weight_index = array();
-  $name_index = array();
-  foreach ($views as $key => $data) {
-
-    // If the data is just a name, wrap it in an array.
-    if (!is_array($data)) {
-      $data = array(
-        'name' => $data,
-      );
-    }
-
-    // Merge with defaults.
-    $defaults = array(
-      'arg' => 1,
-      'weight' => 0,
-    );
-    $views[$key] = array_merge($defaults, $data);
-
-    // Add to the weight and name indexes for sorting.
-    $weight_index[$key] = $views[$key]['weight'];
-    $name_index[$key] = $views[$key]['name'];
-  }
-
-  // Sort the Views by weight ascending, name ascending.
-  array_multisort($weight_index, SORT_ASC, $name_index, SORT_ASC, $views);
-
-  // Define the ID property of the entity, based on the type.
-  switch ($entity_type) {
-    case 'farm_asset':
-      $id = 'id';
-      break;
-    case 'taxonomy_term':
-      $id = 'tid';
-      break;
-  }
-
-  // Add the Views to the entity's render array.
-  foreach ($views as $key => $data) {
-
-    // Load the View, and bail if it isn't found.
-    $view = views_get_view($data['name']);
-    if (empty($view)) {
-      continue;
-    }
-
-    // Determine the argument position (default to 1).
-    // This looks for the presence of $data['arg'] to learn which argument
-    // in the View we should send $entity->{$id} into. This is useful if the View
-    // has multiple contextual filters, and the entity filter is not first.
-    // Any arguments that come before the term argument will receive 'all'
-    // as their input.
-    $args = array();
-    $arg_pos = isset($data['arg']) ? $data['arg'] : 1;
-    for ($i = 1; $i <= $arg_pos; $i++) {
-      if ($i == $arg_pos) {
-        $args[] = $entity->{$id};
-      }
-      else {
-        $args[] = 'all';
-      }
-    }
-
-    // If a specific display was specified, use it. Otherwise use 'default'.
-    if (!empty($data['display'])) {
-      $display = $data['display'];
-    }
-    else {
-      $display = 'default';
-    }
-    $view->set_display($display);
-
-    // Get the View's default title.
-    // We intentionally do this before we build the preview so that the title
-    // is not overridden by the arguments. This keeps the title simple on the
-    // actual entity page, but more descriptive in other contexts.
-    $title = $view->get_title();
-
-    // Build the View preview.
-    $preview = $view->preview($display, $args);
-
-    // Only display if the View has results (and 'always' is not TRUE).
-    if (empty($data['always']) && $view->total_rows == 0) {
-      continue;
-    }
-
-    // Build the output.
-    $output = '<h3 id="' . $title . '">' . $title . '</h3>' . $preview;
-
-    // Add the output to the entity build array.
-    $build[$data['name']] = array(
-      '#markup' => $output,
-      '#weight' => 100 + $key,
-    );
-  }
-
-  // Return the build array.
-  return $build;
-}
-
-/**
- * Implements hook_farm_ui_entity_views().
- */
-function farm_ui_farm_ui_entity_views($entity_type, $entity_bundle, $entity) {
-  $views = array();
-
-  // Load entity UI information.
-  $ui_info = farm_ui_entities();
-
-  // Automatically generate a list of Views to display on areas.
-  if ($entity_type == 'taxonomy_term' && $entity_bundle == 'farm_areas') {
-
-    // We will add Views of assets and logs.
-    $types = array(
-      'farm_asset',
-      'log',
-    );
-    foreach ($types as $type) {
-      if (!empty($ui_info[$type])) {
-        foreach ($ui_info[$type] as $bundle => $info) {
-
-          // If a View is not defined, skip it.
-          if (empty($info['view'])) {
-            continue;
-          }
-
-          // If the entity is a log, and it doesn't apply to areas, skip it.
-          if ($type == 'log' && (empty($info['areas']) || $info['areas'] !== TRUE)) {
-            continue;
-          }
-
-          // Determine where the area ID argument is in the View.
-          $area_argument_position = farm_ui_views_area_argument_position($type, $bundle);
-
-          // Add the View.
-          $view = array(
-            'name' => $info['view'],
-            'arg' => $area_argument_position,
-          );
-          if (!empty($info['weight'])) {
-            $view['weight'] = $info['weight'];
-          }
-          $views[] = $view;
-        }
-      }
-    }
-  }
-
-  // Otherwise, if this is a taxonomy term...
-  elseif ($entity_type == 'taxonomy_term') {
-
-    // And if the term is associated with a specific asset type...
-    if (!empty($ui_info[$entity_type][$entity_bundle]['farm_asset'])) {
-
-      // Get the asset type.
-      $asset_type = $ui_info[$entity_type][$entity_bundle]['farm_asset'];
-
-      // And if that asset type has a View.
-      if (!empty($ui_info['farm_asset'][$asset_type]['view'])) {
-
-        // Get the View.
-        $asset_view = $ui_info['farm_asset'][$asset_type]['view'];
-
-        // And if the 'asset_view_arg' key is set...
-        if (!empty($ui_info[$entity_type][$entity_bundle]['asset_view_arg'])) {
-
-          // Get the argument position.
-          $arg = $ui_info[$entity_type][$entity_bundle]['asset_view_arg'];
-
-          // Add the asset View to this term (and always show it).
-          $views[] = array(
-            'name' => $asset_view,
-            'arg' => $arg,
-            'always' => TRUE,
-          );
-        }
-      }
-    }
-  }
-
-  return $views;
-}
-
-/**
  * Implements hook_menu_breadcrumb_alter().
  */
 function farm_ui_menu_breadcrumb_alter(&$active_trail, $item) {
 
-  // If the current path contains /farm...
-  if (strpos($item['path'], 'farm') === 0) {
-
-    // If the link to /farm already exists in the second position, bail.
-    if (!empty($active_trail[1]['link_path']) && $active_trail[1]['link_path'] == 'farm') {
-      return;
-    }
-
-    // Add an item for /farm.
-    $start = array_shift($active_trail);
-    $farm_item = menu_get_item('farm');
-    array_unshift($active_trail, $farm_item);
-    array_unshift($active_trail, $start);
-  }
-}
-
-/**
- * Build breadcrumbs for a specific entity type and bundle.
- *
- * @param $type
- *   The entity type.
- * @param $bundle
- *   The bundle.
- *
- * @return array
- *   Returns a breadcrumb array.
- */
-function farm_ui_entity_type_breadcrumb($type, $bundle) {
-
-  // Start an empty breadcrumb array.
-  $breadcrumb = array();
-
-  // Load entity UI information.
-  $ui_info = farm_ui_entities($type, $bundle);
-
-  // Get the label (plural). Bail if it's not set.
-  if (empty($ui_info['label_plural'])) {
-    return $breadcrumb;
-  }
-  $label = $ui_info['label_plural'];
-
-  // If the entity type has a View, load the path.
-  if (!empty($ui_info['view'])) {
-    $path = farm_ui_view_page_path($ui_info['view']);
-  }
-
-  // If this is a farm_asset entity, add a link to the full assets list.
-  if ($type == 'farm_asset') {
-    $breadcrumb[] = l(t('Assets'), 'farm/assets');
-  }
-
-  // Or, if this is a log entity, add a link to the full logs list.
-  elseif ($type == 'log') {
-    $breadcrumb[] = l(t('Logs'), 'farm/logs');
-  }
-
-  // If this is a taxonomy_term entity, and it is linked to a specific asset
-  // type, add the asset breadcrumb trail (recurse into this function again).
-  if ($type == 'taxonomy_term' && !empty($ui_info['farm_asset'])) {
-    $asset_breadcrumbs = farm_ui_entity_type_breadcrumb('farm_asset', $ui_info['farm_asset']);
-    $breadcrumb = array_merge($asset_breadcrumbs, $breadcrumb);
-  }
-
-  // If a path was found, add a link to the breadcrumb. Otherwise, add a simple
-  // text breadcrumb.
-  if (!empty($path)) {
-    $breadcrumb[] = l($label, $path);
-  }
-  else {
-    $breadcrumb[] = $label;
-  }
-
-  // If this is a taxonomy_term entity, get the default breadcrumb and tack it
-  // onto the end, so we can take advantage of the structure already provided
-  // by the taxonomy hierarchy. Shift the first item off (home) because we've
-  // started a new breadcrumb from scratch.
-  if ($type == 'taxonomy_term') {
-    $default_breadcrumb = drupal_get_breadcrumb();
-    array_shift($default_breadcrumb);
-    $breadcrumb = array_merge($breadcrumb, $default_breadcrumb);
-  }
-
-  // Return the breadcrumb.
-  return $breadcrumb;
-}
-
-/**
- * Helper function for getting the path to a View's page display.
- *
- * @param string $view_name
- *   The machine name of the View.
- * @param string $display
- *   The machine name of the page display (defaults to "page").
- *
- * @return string
- *   Returns the path to a View's page display.
- */
-function farm_ui_view_page_path($view_name, $display = 'page') {
-
-  // Load the View.
-  $view = views_get_view($view_name);
-
-  // If the page display exists and has a path, return it.
-  if (!empty($view->display[$display]->display_options['path'])) {
-    return $view->display[$display]->display_options['path'];
-  }
-
-  // Otherwise, return an empty string.
-  return '';
-}
-
-/**
- * Define action links for farmOS.
- */
-function farm_ui_actions() {
-
-  // Define default farm action links.
-  $actions = array(
-    'area' => array(
-      'title' => t('Add area'),
-      'href' => 'admin/structure/taxonomy/farm_areas/add',
-      'paths' => array(
-        'farm',
-      ),
-      'weight' => -10,
-    ),
-    'asset' => array(
-      'title' => t('Add asset'),
-      'href' => 'farm/asset/add',
-      'paths' => array(
-        'farm',
-        'farm/assets',
-      ),
-    ),
-    'log' => array(
-      'title' => t('Add log'),
-      'href' => 'log/add',
-      'paths' => array(
-        'farm',
-        'farm/logs',
-      ),
-      'weight' => 1,
-    ),
-    'user' => array(
-      'title' => t('Add person'),
-      'href' => 'admin/people/create',
-      'views' => array(
-        'farm_people',
-      ),
-    ),
-  );
-
-  // Load entity UI information.
-  $ui_info = farm_ui_entities();
-
-  // Create action links for each entity type/bundle.
-  foreach ($ui_info as $entity_type => $bundles) {
-    foreach ($bundles as $bundle => $info) {
-
-      // Start with an action link on the entity listing page.
-      if (!empty($info['label']) && !empty($info['view'])) {
-        switch ($entity_type) {
-          case 'farm_asset':
-            $path = 'farm/asset/add/' . $bundle;
-            break;
-          case 'log':
-            $path = 'log/add/' . $bundle;
-            break;
-          case 'taxonomy_term':
-            $path = 'admin/structure/taxonomy/' . $bundle . '/add';
-            break;
-        }
-        $actions[$bundle] = array(
-          'title' => t('Add ' . strtolower($info['label'])),
-          'href' => $path,
-          'views' => array(
-            $info['view'],
-          ),
-        );
-      }
-
-      // If the entity has a weight, pass it through to the action link.
-      if (!empty($info['weight'])) {
-        $actions[$bundle]['weight'] = $info['weight'];
-      }
-
-      // If the entity is a log, add an action link on asset and area pages.
-      if ($entity_type == 'log') {
-
-        // If 'farm_asset' is empty, or if it is set to 'all', add to all
-        // asset pages.
-        if (empty($info['farm_asset']) || $info['farm_asset'] == 'all') {
-          $actions[$bundle]['assets'] = array('all');
-        }
-
-        // Otherwise, if 'farm_asset' is not set to 'none', pass the specified
-        // asset through.
-        elseif ($info['farm_asset'] != 'none') {
-          $actions[$bundle]['assets'] = array($info['farm_asset']);
-        }
-
-        // Only add an action link on area pages if 'areas' is set to TRUE.
-        if (!empty($info['areas']) && $info['areas'] === TRUE) {
-          $actions[$bundle]['paths'] = array('taxonomy/term/%');
-        }
-      }
-    }
-  }
-
-  return $actions;
+  // Use helper function to alter the breadcrumb.
+  module_load_include('inc', 'farm_ui', 'farm_ui.breadcrumb');
+  _farm_ui_menu_breadcrumb_alter($active_trail, $item);
 }
 
 /**
@@ -520,140 +77,29 @@ function farm_ui_actions() {
  */
 function farm_ui_menu_local_tasks_alter(&$data, $router_item, $root_path) {
 
-  // Load array of defined action links.
-  $actions = farm_ui_actions();
-
-  // Sort by weight.
-  uasort($actions, 'drupal_sort_weight');
-
-  // Add actions to farm/asset/* paths.
-  if ($router_item['page_callback'] == 'farm_asset_view') {
-
-    // Get the asset id from the path.
-    $asset_id = check_plain(arg(2));
-
-    // Iterate through the actions.
-    foreach ($actions as $name => $action) {
-
-      // If the list of assets types is empty, skip it.
-      if (empty($actions[$name]['assets'])) {
-        continue;
-      }
-
-      // If 'all' assets are not allowed...
-      if (!in_array('all', $actions[$name]['assets'])) {
-
-        // Load the asset.
-        $asset = farm_asset_load($asset_id);
-
-        // If the asset's type is not in the list of acceptable types, skip it.
-        if (!in_array($asset->type, $actions[$name]['assets'])) {
-          continue;
-        }
-      }
-
-      // Build the action link.
-      $link = farm_ui_action_link($actions[$name]['title'], $actions[$name]['href'], array('destination' => 'farm/asset/' . $asset_id, 'farm_asset' => $asset_id));
-
-      // Add the action link to the output.
-      $data['actions']['output'][] = $link;
-    }
-  }
-
-  // Add actions to Views pages.
-  elseif ($router_item['page_callback'] == 'views_page') {
-
-    // Iterate through the actions.
-    foreach ($actions as $name => $action) {
-
-      // If the list of Views is empty, skip it.
-      if (empty($actions[$name]['views'])) {
-        continue;
-      }
-
-      // Get the View name from the first page argument.
-      $view_name = reset($router_item['page_arguments']);
-
-      // If the View is not in the list of acceptable Views, skip it.
-      if (!in_array($view_name, $actions[$name]['views'])) {
-        continue;
-      }
-
-      // Build the action link.
-      $link = farm_ui_action_link($actions[$name]['title'], $actions[$name]['href'], array('destination' => $root_path));
-
-      // Add the action link to the output.
-      $data['actions']['output'][] = $link;
-    }
-  }
-
-  // Create a new array of actions keyed by path.
-  $path_actions = array();
-  foreach ($actions as $name => $action) {
-    if (!empty($action['paths'])) {
-      foreach ($action['paths'] as $path) {
-        $path_actions[$path][] = $name;
-      }
-    }
-  }
-
-  // Add actions depending on the root path.
-  if (array_key_exists($root_path, $path_actions)) {
-    foreach ($path_actions[$root_path] as $name) {
-
-      // Generate the action link.
-      $link = farm_ui_action_link($actions[$name]['title'], $actions[$name]['href'], array('destination' => $root_path));
-
-      if ($root_path == 'taxonomy/term/%' || substr($root_path, 0, 11) == 'farm/area/%') {
-
-        // Get the area id from the path.
-        $area_id = check_plain(arg(2));
-
-        // Load the area taxonomy term.
-        $term = taxonomy_term_load($area_id);
-
-        // If the taxonomy term is not a farm_area, bail.
-        if (empty($term->vocabulary_machine_name) || $term->vocabulary_machine_name != 'farm_areas') {
-          continue;
-        }
-
-        // Build the action link.
-        $link = farm_ui_action_link($actions[$name]['title'], $actions[$name]['href'], array('destination' => 'taxonomy/term/' . $area_id, 'farm_area' => $area_id));
-      }
-
-      // Add the action link to the output.
-      $data['actions']['output'][] = $link;
-    }
-  }
+  // Use helper function to add farmOS action links.
+  module_load_include('inc', 'farm_ui', 'farm_ui.action_links');
+  _farm_ui_menu_local_tasks_alter($data, $router_item, $root_path);
 }
 
 /**
- * Helper function for generating an action link.
- *
- * @param string $title
- *   The title of the action link.
- * @param string $href
- *   The href path of the action link.
- * @param array $query
- *   An array of additional query parameters to add.
- *
- * @return array
- *   Returns an action link.
- *
- * @see farm_ui_menu_local_tasks_alter()
+ * Implements hook_views_post_render().
  */
-function farm_ui_action_link($title, $href, $query = array()) {
-  $action_link = array(
-    '#theme' => 'menu_local_action',
-    '#link' => array(
-      'title' => $title,
-      'href' => $href,
-      'localized_options' => array(
-        'query' => $query,
-      ),
-    ),
-  );
-  return $action_link;
+function farm_ui_views_post_render(&$view, &$output, &$cache) {
+
+  // Use helper function to add asset cluster maps to Views.
+  module_load_include('inc', 'farm_ui', 'farm_ui.views');
+  _farm_ui_views_post_render($view, $output, $cache);
+}
+
+/**
+ * Implements hook_entityreference_view_widget_views_arguments_alter().
+ */
+function farm_ui_entityreference_view_widget_views_arguments_alter(&$arguments, $form_state, $view) {
+
+  // Use helper function to alter arguments.
+  module_load_include('inc', 'farm_ui', 'farm_ui.views');
+  _farm_ui_entityreference_view_widget_views_arguments_alter($arguments, $form_state, $view);
 }
 
 /**
@@ -689,190 +135,28 @@ function farm_ui_entities($type = '', $bundle = '') {
 }
 
 /**
- * Implements hook_entityreference_view_widget_views_arguments_alter().
- */
-function farm_ui_entityreference_view_widget_views_arguments_alter(&$arguments, $form_state, $view) {
-
-  // The farm_log module provides a View that is used for searching and
-  // selecting assets for the field_farm_asset entity reference field, using
-  // the Entity Reference View Widget module.
-  //
-  // In some cases, we want to limit what shows up in the View of assets, based
-  // on the log type that the field is on. For instance, a seeding should only
-  // be able to reference planting assets, but it still uses the general
-  // field_farm_asset field, which technically can reference any asset type.
-  //
-  // The Entity Reference View Widget module provides this hook to allow the
-  // View arguments to be altered. We implement this hook, and use information
-  // provided by hook_farm_ui_entities() to see if we should filter the View
-  // results to a specific asset type, given the current log type.
-  //
-  // The View that we use is farm_asset_entityreference_view, which has two
-  // contextual arguments: asset id (to filter out already-selected assets), and
-  // asset type. The code below only tries to set the asset type argument, and
-  // maintains any asset id argument that is already set.
-
-  /**
-   * @todo
-   * Note that this does NOT alter the "Asset type" exposed filter. So users
-   * will still see that filter, and it will still default to "- Any -". If
-   * the contextual filter is activated here, however, then selecting any other
-   * asset type with the exposed filter will return an empty result set. That's
-   * confusing, so perhaps we should find a way to hide that exposed filter if
-   * this code successfully sets a contextual filter argument.
-   */
-
-  // Only apply this to the View: farm_asset_entityreference_view
-  if ($view->name != 'farm_asset_entityreference_view') {
-    return;
-  }
-
-  // Figure out what the log type is.
-  if (!empty($form_state['build_info']['args'][0]->type)) {
-    $log_type = $form_state['build_info']['args'][0]->type;
-  }
-
-  // If that failed, bail.
-  else {
-    return;
-  }
-
-  // Load entity UI info for this log type.
-  $ui_info = farm_ui_entities('log', $log_type);
-
-  // If the asset type is empty, or 'all', or 'none', then we will stop here
-  // because we don't want to apply any filtering.
-  if (empty($ui_info['farm_asset']) || in_array($ui_info['farm_asset'], array('all', 'none'))) {
-    return;
-  }
-
-  // Take the asset type specified so we can use it as a filter.
-  $type = $ui_info['farm_asset'];
-
-  // We need to ensure that the first argument is reserved for asset id(s). So
-  // if it's not set, set it to 'all'.
-  if (empty($arguments)) {
-    $arguments[0] = 'all';
-  }
-
-  // Add the asset type as the second argument.
-  $arguments[1] = $type;
-}
-
-/**
- * Implements hook_farm_area_details().
- */
-function farm_ui_farm_area_details($id) {
-
-  // Start a render array.
-  $output = array();
-
-  // Add links to lists of assets and logs in the area.
-  $entity_types = array(
-    'farm_asset' => array(
-      'label' => t('Assets'),
-      'weight' => -50,
-    ),
-    'log' => array(
-      'label' => t('Logs'),
-      'weight' => -40,
-    ),
-  );
-  foreach ($entity_types as $type => $info) {
-
-    // Get area links for the entity type.
-    $area_links = farm_ui_area_links($id, $type);
-
-    // Create variables for an item list.
-    $variables = array(
-      'items' => $area_links,
-      'attributes' => array(),
-    );
-
-    // Render the links as markup with a title.
-    $output[$type . '_links'] = array(
-      '#type' => 'markup',
-      '#markup' => '<strong>' . $info['label'] . '</strong>' . theme('item_list', $variables),
-      '#weight' => $info['weight'],
-    );
-  }
-
-  // Return the render array.
-  return $output;
-}
-
-/**
- * Generate area links for farm_asset or log entity types.
+ * Helper function for getting the path to a View's page display.
  *
- * @param int $id
- *   The area id.
- * @param string $entity_type
- *   The entity type to general links for. Currently only 'farm_asset' and
- *   'log' are supported.
+ * @param string $view_name
+ *   The machine name of the View.
+ * @param string $display
+ *   The machine name of the page display (defaults to "page").
  *
- * @return array
- *   Returns an array of links.
+ * @return string
+ *   Returns the path to a View's page display.
  */
-function farm_ui_area_links($id, $entity_type) {
+function farm_ui_view_page_path($view_name, $display = 'page') {
 
-  // Start an empty array of links.
-  $links = array();
+  // Load the View.
+  $view = views_get_view($view_name);
 
-  // Load entity UI info.
-  $ui_info = farm_ui_entities();
-
-  // Generate links for the entity type.
-  if (!empty($ui_info[$entity_type])) {
-    foreach ($ui_info[$entity_type] as $bundle => $info) {
-
-      // If a View is not available, skip it.
-      if (empty($info['view'])) {
-        continue;
-      }
-
-      // If the entity is a log, and it doesn't apply to areas, skip it.
-      if ($entity_type == 'log' && (empty($info['areas']) || $info['areas'] !== TRUE)) {
-        continue;
-      }
-
-      // Determine the position of the area ID argument in the View, and build
-      // the arguments array accordingly. If the area ID is in the second
-      // argument position, then we assume that asset ID is the first argument,
-      // and we set that to 'all' to include all assets.
-      $args = array($id);
-      $area_argument_position = farm_ui_views_area_argument_position($entity_type, $bundle);
-      if ($area_argument_position == 2) {
-        array_unshift($args, 'all');
-      }
-
-      // Load the View and generate a preview to count rows.
-      $view = views_get_view($info['view']);
-      $view->preview('default', $args);
-
-      // If there are no results, skip it.
-      if (empty($view->total_rows)) {
-        continue;
-      }
-
-      // Build the View page path with arguments.
-      $path = farm_ui_view_page_path($info['view']);
-      foreach ($args as $arg) {
-        $path .= '/' . $arg;
-      }
-
-      // Build a link.
-      $link = array(
-        'title' => $info['label_plural'] . ': ' . $view->total_rows,
-        'href' => $path,
-      );
-
-      // Add the link.
-      $links[] = l($link['title'], $link['href']);
-    }
+  // If the page display exists and has a path, return it.
+  if (!empty($view->display[$display]->display_options['path'])) {
+    return $view->display[$display]->display_options['path'];
   }
 
-  // Return the links.
-  return $links;
+  // Otherwise, return an empty string.
+  return '';
 }
 
 /**
@@ -915,70 +199,4 @@ function farm_ui_views_area_argument_position($type, $bundle) {
 
   // Return the argument position.
   return $arg;
-}
-
-/**
- * Implements hook_views_post_render().
- */
-function farm_ui_views_post_render(&$view, &$output, &$cache) {
-
-  // Load entity UI info.
-  $ui_info = farm_ui_entities();
-
-  // Search for a matching asset list View.
-  $found = FALSE;
-  if (!empty($ui_info['farm_asset'])) {
-    foreach ($ui_info['farm_asset'] as $bundle => $info) {
-
-      // If an asset list View is not available, skip it.
-      if (empty($info['view'])) {
-        continue;
-      }
-
-      // If we are not working with the same View, skip it.
-      if ($info['view'] != $view->name) {
-        continue;
-      }
-
-      // We must have found it! We can stop now.
-      $found = TRUE;
-      break;
-    }
-  }
-
-  // If nothing was found, bail.
-  if (empty($found)) {
-    return;
-  }
-
-  // We also only care about the 'page' display.
-  if ($view->current_display != 'page') {
-    return;
-  }
-
-  // If there are no results in the View, bail.
-  if (empty($view->result)) {
-    return;
-  }
-
-  // If dashboard maps are disabled in the farm_map module settings, bail.
-  if (!variable_get('farm_map_show', TRUE)) {
-    return;
-  }
-
-  // If there are any arguments, bail.
-  /**
-   * @todo
-   * Display a map that is filtered by the same arguments.
-   */
-  if (!empty($view->args)) {
-    return;
-  }
-
-  // Add the asset cluster map to the top of the View.
-  $map = \Drupal\openlayers\Openlayers::load('Map', 'farm_assets_' . $bundle);
-  if (!empty($map)) {
-    $map_build = $map->build();
-    $output = drupal_render($map_build) . $output;
-  }
 }

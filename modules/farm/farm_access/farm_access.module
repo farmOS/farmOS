@@ -5,17 +5,19 @@
  */
 
 /**
- * Implements hook_farm_access_roles().
+ * Implements hook_hook_info().
  */
-function farm_access_farm_access_roles() {
-
-  // Build a list of roles.
-  $roles = array(
-    'Farm Manager',
-    'Farm Worker',
-    'Farm Viewer',
+function farm_access_hook_info() {
+  $hooks['farm_access_roles'] = array(
+    'group' => 'farm_access',
   );
-  return $roles;
+  $hooks['farm_access_perms'] = array(
+    'group' => 'farm_access',
+  );
+  $hooks['farm_access_perms_alter'] = array(
+    'group' => 'farm_access',
+  );
+  return $hooks;
 }
 
 /**

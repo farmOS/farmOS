@@ -1,8 +1,22 @@
 <?php
 /**
  * @file
- * Farm Access module permissions.
+ * Farm access hooks implemented by farm access module.
  */
+
+/**
+ * Implements hook_farm_access_roles().
+ */
+function farm_access_farm_access_roles() {
+
+  // Build a list of roles.
+  $roles = array(
+    'Farm Manager',
+    'Farm Worker',
+    'Farm Viewer',
+  );
+  return $roles;
+}
 
 /**
  * Implements hook_farm_access_perms().

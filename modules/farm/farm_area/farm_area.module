@@ -7,6 +7,19 @@
 include_once 'farm_area.features.inc';
 
 /**
+ * Implements hook_hook_info().
+ */
+function farm_area_hook_info() {
+  $hooks['farm_area_details'] = array(
+    'group' => 'farm_area',
+  );
+  $hooks['farm_area_type_info'] = array(
+    'group' => 'farm_area',
+  );
+  return $hooks;
+}
+
+/**
  * Implements hook_permission().
  */
 function farm_area_permission() {
@@ -54,39 +67,6 @@ function farm_area_farm_ui_entities() {
         'label_plural' => t('Areas'),
         'view' => 'farm_areas',
       ),
-    ),
-  );
-}
-
-/**
- * Implements hook_farm_area_type_info().
- */
-function farm_area_farm_area_type_info() {
-  return array(
-    'building' => array(
-      'label' => t('Building'),
-      'style' => 'farm_map_style_red',
-      'weight' => 0,
-    ),
-    'field' => array(
-      'label' => t('Field'),
-      'style' => 'farm_map_style_yellow',
-      'weight' => 10,
-    ),
-    'landmark' => array(
-      'label' => t('Landmark'),
-      'style' => 'farm_map_style_orange',
-      'weight' => 50,
-    ),
-    'water' => array(
-      'label' => t('Water'),
-      'style' => 'farm_map_style_blue',
-      'weight' => 50,
-    ),
-    'property' => array(
-      'label' => t('Property'),
-      'style' => 'farm_map_style_purple',
-      'weight' => 100,
     ),
   );
 }
@@ -149,28 +129,6 @@ function farm_area_type_options() {
 
   // Return the list of options.
   return $options;
-}
-
-/**
- * Implements hook_farm_area_details().
- */
-function farm_area_farm_area_details($id) {
-
-  // Start a render array.
-  $output = array();
-
-  // Display the calculated area.
-  $calculated_area = farm_area_calculate_area($id);
-  if (!empty($calculated_area)) {
-    $output['calculated_area'] = array(
-      '#type' => 'markup',
-      '#markup' => '<p><small>Calculated area: ' . $calculated_area . '</small></p>',
-      '#weight' => -100,
-    );
-  }
-
-  // Return the render array.
-  return $output;
 }
 
 /**
