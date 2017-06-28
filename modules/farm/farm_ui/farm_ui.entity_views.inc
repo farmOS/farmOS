@@ -147,14 +147,35 @@ function farm_ui_entity_views($entity_type, $entity_bundle, $entity) {
       continue;
     }
 
+    // Determine which group the View should be in. Available options are:
+    // assets, logs, and other (default).
+    $group = 'other';
+    if (!empty($data['group'])) {
+      $group = $data['group'];
+    }
+
     // Build the output.
     $output = '<h3 id="' . $title . '">' . $title . '</h3>' . $preview;
 
     // Add the output to the entity build array.
-    $build[$data['name']] = array(
+    $build[$group][$data['name']] = array(
       '#markup' => $output,
-      '#weight' => 100 + $key,
+      '#weight' => $key,
     );
+  }
+
+  // Add group meta properties.
+  $groups = module_invoke_all('farm_ui_entity_view_groups');
+  foreach ($groups as $group => $info) {
+    if (!empty($build[$group])) {
+      if (!empty($info['title'])) {
+        $build[$group]['#type'] = 'fieldset';
+        $build[$group]['#title'] = $info['title'];
+        $build[$group]['#collapsible'] = TRUE;
+        $build[$group]['#collapsed'] = FALSE;
+      }
+      $build[$group]['#weight'] = $info['weight'];
+    }
   }
 
   // Return the build array.
