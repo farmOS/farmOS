@@ -140,6 +140,8 @@ function hook_farm_ui_entities() {
  *     'display' - which display of the View should be used
  *     'arg' - which argument the term id should be passed to in the View
  *       (this is useful if the View has more than one contextual filter)
+ *     'group' - the group to put the View in (options are: assets, logs,
+ *       other)
  *     'weight' - the weight of the View in the taxonomy page
  *       (this is useful for changing the order of Views)
  *     'always' - always display, even if there are no View results
@@ -164,6 +166,7 @@ function hook_farm_ui_entity_views($entity_type, $bundle, $entity) {
       'name' => 'farm_log_input',
       'display' => 'block',
       'arg' => 2,
+      'group' => 'logs',
       'weight' => 10,
       'always' => TRUE,
     ),

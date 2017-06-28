@@ -34,6 +34,17 @@ function farm_ui_farm_ui_entity_views($entity_type, $entity_bundle, $entity) {
             continue;
           }
 
+          // Determine which group to put the View in.
+          $group = 'other';
+          switch ($type) {
+            case 'farm_asset':
+              $group = 'assets';
+              break;
+            case 'log':
+              $group = 'logs';
+              break;
+          }
+
           // Determine where the area ID argument is in the View.
           $area_argument_position = farm_ui_views_area_argument_position($type, $bundle);
 
@@ -41,6 +52,7 @@ function farm_ui_farm_ui_entity_views($entity_type, $entity_bundle, $entity) {
           $view = array(
             'name' => $info['view'],
             'arg' => $area_argument_position,
+            'group' => $group,
           );
           if (!empty($info['weight'])) {
             $view['weight'] = $info['weight'];
@@ -76,6 +88,7 @@ function farm_ui_farm_ui_entity_views($entity_type, $entity_bundle, $entity) {
           $views[] = array(
             'name' => $asset_view,
             'arg' => $arg,
+            'group' => 'assets',
             'always' => TRUE,
           );
         }
