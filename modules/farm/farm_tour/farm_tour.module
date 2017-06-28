@@ -20,9 +20,9 @@ function farm_theme_preprocess_menu_link(&$vars) {
 }
 
 /**
- * Implements hook_farm_admin_help_page().
+ * Implements hook_farm_help_page().
  */
-function farm_tour_farm_admin_help_page() {
+function farm_tour_farm_help_page() {
 
   // Add links to the available tours.
   $output = '<h3>Guided Tours</h3>';

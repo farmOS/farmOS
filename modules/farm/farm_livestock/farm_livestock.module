@@ -7,41 +7,43 @@
 include_once 'farm_livestock.features.inc';
 
 /**
- * Implements hook_farm_access_perms().
+ * Implements hook_farm_ui_entities().
  */
-function farm_livestock_farm_access_perms($role) {
-
-  // Assemble a list of entity types provided by this module.
-  $types = array(
+function farm_livestock_farm_ui_entities() {
+  return array(
     'farm_asset' => array(
-      'animal',
+      'animal' => array(
+        'label' => t('Animal'),
+        'label_plural' => t('Animals'),
+        'view' => 'farm_animals',
+      ),
     ),
     'log' => array(
-      'farm_medical',
+      'farm_medical' => array(
+        'label' => t('Medical record'),
+        'label_plural' => t('Medical records'),
+        'view' => 'farm_log_medical',
+        'farm_asset' => 'animal',
+        'weight' => 20,
+      ),
     ),
-    'taxonomy' => array(
-      'farm_animal_groups',
-      'farm_animal_types',
+    'taxonomy_term' => array(
+      'farm_animal_groups' => array(
+        'label' => t('Group'),
+        'label_plural' => t('Groups'),
+        'view' => 'farm_animal_groups',
+        'farm_asset' => 'animal',
+        'asset_view_arg' => 2,
+      ),
+      'farm_animal_types' => array(
+        'label' => t('Type'),
+        'label_plural' => t('Types'),
+        'view' => 'farm_animal_types',
+        'farm_asset' => 'animal',
+        'asset_view_arg' => 3,
+      ),
     ),
   );
-
-  // Grant different CRUD permissions based on the role.
-  $perms = array();
-  switch ($role) {
-
-    // Farm Manager and Worker
-    case 'Farm Manager':
-    case 'Farm Worker':
-      $perms = farm_access_entity_perms($types);
-      break;
-
-    // Farm Viewer
-    case 'Farm Viewer':
-      $perms = farm_access_entity_perms($types, array('view'));
-      break;
-  }
-
-  return $perms;
 }
 
 /**
@@ -55,241 +57,6 @@ function farm_livestock_farm_area_type_info() {
       'weight' => 5,
     ),
   );
-}
-
-/**
- * Implements hook_farm_admin_actions().
- */
-function farm_livestock_farm_admin_actions() {
-
-  // Define farm area actions.
-  $actions = array(
-    'animal' => array(
-      'title' => t('Add an animal'),
-      'href' => 'farm/asset/add/animal',
-      'views' => array(
-        'farm_animals',
-      ),
-    ),
-    'animal_group' => array(
-      'title' => t('Add a group'),
-      'href' => 'admin/structure/taxonomy/farm_animal_groups/add',
-      'views' => array(
-        'farm_animal_groups',
-      ),
-    ),
-    'animal_type' => array(
-      'title' => t('Add a type'),
-      'href' => 'admin/structure/taxonomy/farm_animal_types/add',
-      'views' => array(
-        'farm_animal_types',
-      ),
-    ),
-    'medical' => array(
-      'title' => t('Add a medical record'),
-      'href' => 'log/add/farm_medical',
-      'assets' => array(
-        'animal',
-      ),
-      'views' => array(
-        'farm_log_medical',
-      ),
-    ),
-  );
-  return $actions;
-}
-
-/**
- * Implements hook_farm_asset_breadcrumb().
- */
-function farm_livestock_farm_asset_breadcrumb($farm_asset) {
-
-  // If the asset is an animal, add a link to the animals list.
-  $breadcrumb = array();
-  if ($farm_asset->type == 'animal') {
-    $breadcrumb[] = l(t('Assets'), 'farm/assets');
-    $breadcrumb[] = l(t('Animals'), 'farm/assets/animals');
-  }
-  return $breadcrumb;
-}
-
-/**
- * Implements hook_farm_asset_view_views().
- */
-function farm_livestock_farm_asset_view_views($farm_asset) {
-
-  // If the entity is not an animal, bail.
-  if ($farm_asset->type != 'animal') {
-    return array();
-  }
-
-  // Return a list of Views to include on Animals.
-  return array(
-    array(
-      'name' => 'farm_log_activity',
-      'weight' => 0,
-    ),
-    array(
-      'name' => 'farm_log_observation',
-      'weight' => 10,
-    ),
-    array(
-      'name' => 'farm_log_medical',
-      'weight' => 20,
-    ),
-    array(
-      'name' => 'farm_log_input',
-      'weight' => 50,
-    ),
-    array(
-      'name' => 'farm_log_harvest',
-      'weight' => 60,
-    ),
-    array(
-      'name' => 'farm_log_movement',
-      'weight' => 100,
-    ),
-    array(
-      'name' => 'farm_asset_children',
-      'display' => 'page',
-      'title' => t('Children'),
-      'weight' => 110,
-    ),
-  );
-}
-
-/**
- * Implements hook_farm_taxonomy_breadcrumb().
- */
-function farm_livestock_farm_taxonomy_breadcrumb($term) {
-  $breadcrumb = array();
-
-  // Switch through available vocabularies.
-  switch ($term->vocabulary_machine_name) {
-
-    // If the term is in farm_animal_groups...
-    case 'farm_animal_groups':
-      $breadcrumb[] = l(t('Assets'), 'farm/assets');
-      $breadcrumb[] = l(t('Animals'), 'farm/assets/animals');
-      $breadcrumb[] = l(t('Groups'), 'farm/assets/animals/groups');
-      break;
-
-    // If the term is in farm_animal_types...
-    case 'farm_animal_types':
-      $breadcrumb[] = l(t('Assets'), 'farm/assets');
-      $breadcrumb[] = l(t('Animals'), 'farm/assets/animals');
-      $breadcrumb[] = l(t('Species/Breeds'), 'farm/assets/animals/types');
-      break;
-
-  }
-
-  return $breadcrumb;
-}
-
-/**
- * Implements hook_farm_taxonomy_term_view_views().
- */
-function farm_livestock_farm_taxonomy_term_view_views($term) {
-
-  // Start a list of View names.
-  $views = array();
-
-  // Switch logic depending on the vocabulary.
-  switch ($term->vocabulary_machine_name) {
-
-    // Farm areas:
-    case 'farm_areas':
-      $views[] = array(
-        'name' => 'farm_animals',
-        'weight' => -10,
-      );
-      break;
-
-    // Farm animal groups:
-    case 'farm_animal_groups':
-      $views[] = array(
-        'name' => 'farm_animals',
-        'arg' => 2,
-        'always' => TRUE,
-      );
-      break;
-
-    // Farm animal types:
-    case 'farm_animal_types':
-      $views[] = array(
-        'name' => 'farm_animals',
-        'arg' => 3,
-        'always' => TRUE,
-      );
-      break;
-  }
-
-  return $views;
-}
-
-/**
- * Implements hook_farm_area_links().
- */
-function farm_livestock_farm_area_links($id) {
-  $links = array();
-
-  // Add link to livestock.
-  $view = views_get_view('farm_animals');
-  $view->preview('default', array($id));
-  if ($view->total_rows > 0) {
-    $links[] = array(
-      'title' => t('Animals') . ': ' . $view->total_rows,
-      'href' => 'farm/assets/animals/' . $id,
-    );
-  }
-
-  return $links;
-}
-
-/**
- * Implements hook_views_post_render().
- */
-function farm_livestock_views_post_render(&$view, &$output, &$cache) {
-
-  // If this is the Farm Animals page...
-  if ($view->name == 'farm_animals' && $view->current_display == 'page') {
-
-    // If dashboard maps are disabled in the farm_map module settings, bail.
-    if (!variable_get('farm_map_show', TRUE)) {
-      return;
-    }
-
-    // If there are any arguments, bail.
-    /**
-     * @todo
-     * Display a map that is filtered by the same arguments.
-     */
-    if (!empty($view->args)) {
-      return;
-    }
-
-    // If the View result is not empty...
-    if (!empty($view->result)) {
-
-      // Add the Animals asset map to the top of the View.
-      $map = \Drupal\openlayers\Openlayers::load('Map', 'farm_assets_animal');
-      if (!empty($map)) {
-        $map_build = $map->build();
-        $output = drupal_render($map_build) . $output;
-      }
-    }
-  }
-}
-
-/**
- * Implements hook_farm_log_allowed_asset_reference_type().
- */
-function farm_livestock_farm_log_allowed_asset_reference_type($log_type) {
-
-  // On medical logs, only animals can be referenced.
-  if ($log_type == 'farm_medical') {
-    return 'animal';
-  }
 }
 
 /**

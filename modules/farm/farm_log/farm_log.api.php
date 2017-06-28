@@ -38,23 +38,5 @@ function hook_farm_log_categories() {
 }
 
 /**
- * Specify what asset types can be referenced by field_farm_asset on a given
- * log type.
- *
- * @param string $log_type
- *   The log type that contains the asset reference field (field_farm_asset).
- *
- * @return string
- *   Returns the asset type machine name that can be referenced.
- */
-function hook_farm_log_allowed_asset_reference_type($log_type) {
-
-  // On seeding logs, only plantings can be referenced.
-  if ($log_type == 'farm_seeding') {
-    return 'planting';
-  }
-}
-
-/**
  * @}
  */

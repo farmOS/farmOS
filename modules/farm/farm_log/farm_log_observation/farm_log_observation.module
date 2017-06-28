@@ -8,97 +8,18 @@
 include_once 'farm_log_observation.features.inc';
 
 /**
- * Implements hook_farm_access_perms().
+ * Implements hook_farm_ui_entities().
  */
-function farm_log_observation_farm_access_perms($role) {
-
-  // Assemble a list of log types provided by this module.
-  $types = array(
-    'log' => array(
-      'farm_observation',
-    ),
-  );
-
-  // Grant different CRUD permissions based on the role.
-  $perms = array();
-  switch ($role) {
-
-    // Farm Manager and Worker
-    case 'Farm Manager':
-    case 'Farm Worker':
-      $perms = farm_access_entity_perms($types);
-      break;
-
-    // Farm Viewer
-    case 'Farm Viewer':
-      $perms = farm_access_entity_perms($types, array('view'));
-      break;
-  }
-
-  return $perms;
-}
-
-/**
- * Implements hook_farm_admin_actions().
- */
-function farm_log_observation_farm_admin_actions() {
-
-  // Define farm area actions.
-  $actions = array(
-    'observation' => array(
-      'title' => t('Add an observation'),
-      'href' => 'log/add/farm_observation',
-      'assets' => array(
-        'all',
-      ),
-      'views' => array(
-        'farm_log_observation',
-      ),
-      'paths' => array(
-        'taxonomy/term/%',
-      ),
-    ),
-  );
-  return $actions;
-}
-
-/**
- * Implements hook_farm_taxonomy_term_view_views().
- */
-function farm_log_observation_farm_taxonomy_term_view_views($term) {
-
-  // If the term is not an area, bail.
-  if ($term->vocabulary_machine_name != 'farm_areas') {
-    return array();
-  }
-
-  // Return a list of Views to include on Areas.
+function farm_log_observation_farm_ui_entities() {
   return array(
-
-    // Observations in this area.
-    array(
-      'name' => 'farm_log_observation',
-      'arg' => 2,
+    'log' => array(
+      'farm_observation' => array(
+        'label' => t('Observation'),
+        'label_plural' => t('Observations'),
+        'view' => 'farm_log_observation',
+        'areas' => TRUE,
+        'weight' => -10,
+      ),
     ),
   );
-}
-
-/**
- * Implements hook_farm_area_links().
- */
-function farm_log_observation_farm_area_links($id) {
-  $links = array();
-
-  // Add link to observations.
-  $view = views_get_view('farm_log_observation');
-  $view->preview('default', array('all', $id));
-  if ($view->total_rows > 0) {
-    $links[] = array(
-      'title' => t('Observations') . ': ' . $view->total_rows,
-      'href' => 'farm/logs/observations/all/' . $id,
-      'weight' => -100,
-    );
-  }
-
-  return $links;
 }

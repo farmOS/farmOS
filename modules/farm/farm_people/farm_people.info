@@ -1,5 +1,5 @@
-name = Farm Admin
-description = Administrative interface for managing the farm.
+name = Farm People
+description = A view of people associated with the farm.
 core = 7.x
 package = farmOS
 dependencies[] = ctools

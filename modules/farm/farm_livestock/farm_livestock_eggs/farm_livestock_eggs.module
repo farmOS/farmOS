@@ -7,50 +7,17 @@
 include_once 'farm_livestock_eggs.features.inc';
 
 /**
- * Implements hook_farm_access_perms().
+ * Implements hook_farm_ui_entities().
  */
-function farm_livestock_eggs_farm_access_perms($role) {
-
-  // Assemble a list of entity types provided by this module.
-  $types = array(
+function farm_livestock_eggs_farm_ui_entities() {
+  return array(
     'log' => array(
-      'farm_eggs',
-    ),
-  );
-
-  // Grant different CRUD permissions based on the role.
-  $perms = array();
-  switch ($role) {
-
-    // Farm Manager and Worker
-    case 'Farm Manager':
-    case 'Farm Worker':
-      $perms = farm_access_entity_perms($types);
-      break;
-
-    // Farm Viewer
-    case 'Farm Viewer':
-      $perms = farm_access_entity_perms($types, array('view'));
-      break;
-  }
-
-  return $perms;
-}
-
-/**
- * Implements hook_farm_admin_actions().
- */
-function farm_livestock_eggs_farm_admin_actions() {
-
-  // Define farm area actions.
-  $actions = array(
-    'eggs' => array(
-      'title' => t('Add eggs'),
-      'href' => 'log/add/farm_eggs',
-      'views' => array(
-        'farm_log_eggs',
+      'farm_eggs' => array(
+        'label' => t('Egg log'),
+        'label_plural' => t('Egg logs'),
+        'view' => 'farm_log_eggs',
+        'farm_asset' => 'none',
       ),
     ),
   );
-  return $actions;
 }

@@ -1,0 +1,92 @@
+<?php
+/**
+ * @file
+ * Farm dashboard module.
+ */
+
+/**
+ * Implements hook_permission().
+ */
+function farm_dashboard_permission() {
+  return array(
+    'access farm dashboard' => array(
+      'title' => t('Access farm dashboard'),
+      'description' => t('Access the farm dashboard.'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_farm_access_perms().
+ */
+function farm_dashboard_farm_access_perms($role) {
+  $perms = array();
+
+  // Access farm dashboard.
+  $perms[] = 'access farm dashboard';
+
+  return $perms;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function farm_dashboard_menu() {
+
+  $items['farm'] = array(
+    'title' => 'Farm',
+    'page callback' => 'farm_dashboard_page_callback',
+    'access arguments' => array('access farm dashboard'),
+    'type' => MENU_CALLBACK,
+  );
+  $items['farm/dashboard'] = array(
+    'title' => 'Farm',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -100,
+  );
+
+  // Root farm configuration path.
+  $items['admin/config/farm'] = array(
+    'title' => 'Farm',
+    'description' => 'Configure settings for your farm.',
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('access administration pages'),
+    'type' => MENU_NORMAL_ITEM,
+    'file path' => drupal_get_path('module', 'system'),
+    'file' => 'system.admin.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Farm dashboard page callback.
+ */
+function farm_dashboard_page_callback() {
+
+  // Set the page title.
+  drupal_set_title('Dashboard');
+
+  // Start an output string.
+  $output = '';
+
+  // Display the current date.
+  $output .= '<h2>Today is ' . date('M j Y') . '</h2>';
+
+  // Render the "Plan" block display.
+  $view = views_get_view('farm_log');
+  $preview = $view->preview('block_plan');
+  $title = $title = $view->get_title();
+  $output .= '<h2 id="' . $title . '">' . $title . '</h3>' . $preview;
+
+  // Render the "Late tasks" block display (only if there are results).
+  $view = views_get_view('farm_log');
+  $preview = $view->preview('block_late_tasks');
+  if (!empty($view->total_rows)) {
+    $title = $title = $view->get_title();
+    $output .= '<h2 id="' . $title . '">' . $title . '</h3>' . $preview;
+  }
+
+  // Return the output.
+  return $output;
+}
