@@ -424,9 +424,6 @@ function farm_ui_actions() {
     'area' => array(
       'title' => t('Add area'),
       'href' => 'admin/structure/taxonomy/farm_areas/add',
-      'views' => array(
-        'farm_areas',
-      ),
       'paths' => array(
         'farm',
       ),
