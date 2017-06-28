@@ -530,6 +530,11 @@ function farm_update_7023(&$sandbox) {
  * Populate all log owner fields with the log's author.
  */
 function farm_update_7024(&$sandbox) {
+
+  // Revert the farm_fields feature to ensure that the new field is available.
+  features_revert(array('farm_fields' => array('field_base')));
+
+  // Copy user id from {log} table.
   $select = "SELECT 'log' AS entity_type, type AS bundle, 0 AS deleted, id AS entity_id, id AS revision_id, 'und' AS language, 0 AS delta, uid AS field_farm_log_owner_target_id FROM {log}";
   db_query('INSERT INTO {field_data_field_farm_log_owner} (' . $select . ')');
   db_query('INSERT INTO {field_revision_field_farm_log_owner} (' . $select . ')');
