@@ -22,6 +22,18 @@ function farm_sensor_farm_ui_entities() {
 }
 
 /**
+ * Implements hook_farm_ui_entity_view_groups().
+ */
+function farm_sensor_farm_ui_entity_view_groups() {
+  $groups = array(
+    'sensor_data' => array(
+      'weight' => 80,
+    ),
+  );
+  return $groups;
+}
+
+/**
  * Implements hook_entity_load().
  */
 function farm_sensor_entity_load($entities, $type) {
