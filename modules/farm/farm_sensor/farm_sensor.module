@@ -276,7 +276,7 @@ function farm_sensor_form_alter(&$form, &$form_state, $form_id) {
  * Farm sensor settings form ajax.
  */
 function farm_sensor_settings_form_ajax($form, $form_state) {
-  return $form['sensor_settings'];
+  return $form['sensor']['sensor_settings'];
 }
 
 /**
