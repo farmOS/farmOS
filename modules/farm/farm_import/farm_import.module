@@ -1,0 +1,16 @@
+<?php
+/**
+ * @file
+ * Farm import module.
+ */
+
+/**
+ * Implements hook_ctools_plugin_api().
+ */
+function farm_import_ctools_plugin_api($module = NULL, $api = NULL) {
+  $return = array();
+  if ($module == 'feeds' && $api == 'feeds_importer_default') {
+    $return['version'] = '1';
+  }
+  return $return;
+}

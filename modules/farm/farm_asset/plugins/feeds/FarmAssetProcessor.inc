@@ -29,13 +29,14 @@ class FarmAssetProcessor extends FeedsProcessor {
    * Creates a new farm asset in memory and returns it.
    */
   protected function newEntity(FeedsSource $source) {
-    $farm_asset = parent::newEntity($source);
-    $farm_asset->type = $this->bundle();
-    $farm_asset->changed = REQUEST_TIME;
-    $farm_asset->created = REQUEST_TIME;
-    $farm_asset->is_new = TRUE;
-    $farm_asset->uid = $this->config['author'];
-    return $farm_asset;
+    $values = array(
+      'type' => $this->bundle(),
+      'created' => REQUEST_TIME,
+      'changed' => REQUEST_TIME,
+      'uid' => $this->config['author'],
+      'is_new' => TRUE,
+    );
+    return entity_create('farm_asset', $values);
   }
 
   /**

@@ -1,0 +1,6 @@
+name = Farm Import
+description = Provides a framework for creating CSV importers in farmOS.
+core = 7.x
+package = farmOS
+dependencies[] = farm_asset
+dependencies[] = feeds
