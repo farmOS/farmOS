@@ -16,6 +16,23 @@ function farm_import_ctools_plugin_api($module = NULL, $api = NULL) {
 }
 
 /**
+ * Implements hook_farm_access_perms().
+ */
+function farm_import_farm_access_perms($role) {
+  $perms = array();
+
+  // Grant farm managers access to Feeds importers.
+  if ($role == 'Farm Manager') {
+    $types = farm_asset_types();
+    foreach ($types as $type) {
+      $perms[] = 'import farm_asset_' . $type->type . ' feeds';
+    }
+  }
+
+  return $perms;
+}
+
+/**
  * Implements hook_farm_ui_actions().
  */
 function farm_import_farm_ui_actions() {
