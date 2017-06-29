@@ -14,3 +14,31 @@ function farm_import_ctools_plugin_api($module = NULL, $api = NULL) {
   }
   return $return;
 }
+
+/**
+ * Implements hook_farm_ui_actions().
+ */
+function farm_import_farm_ui_actions() {
+  $actions = array();
+
+  // Load entity UI information.
+  $ui_info = farm_ui_entities();
+
+  // Add action links to asset importers on asset listing pages.
+  if (!empty($ui_info['farm_asset'])) {
+    foreach ($ui_info['farm_asset'] as $bundle => $info) {
+      if (!empty($info['view'])) {
+        $actions[$bundle . '_import'] = array(
+          'title' => t('Import') . ' ' . strtolower($info['label_plural']),
+          'href' => 'import/farm_asset_' . $bundle,
+          'views' => array(
+            $info['view'],
+          ),
+          'weight' => 100,
+        );
+      }
+    }
+  }
+
+  return $actions;
+}
