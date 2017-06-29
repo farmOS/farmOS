@@ -328,9 +328,36 @@ function farm_asset_entity_view($entity, $type, $view_mode, $langcode) {
   );
 }
 
+/**
+ * Implements hook_entity_presave().
+ */
+function farm_asset_entity_presave($entity, $type) {
+
+  // Only operate on farm_asset entities.
+  if ($type != 'farm_asset') {
+    return;
+  }
+
+  // Update "changed" value if there was a value mapped to that.
+  if (isset($entity->feeds_item->asset_changed)) {
+    $entity->changed = $entity->feeds_item->asset_changed;
+  }
+}
+
 /****************************************************************
  * Contrib hooks
  * **************************************************************/
+
+/**
+ * Implements hook_ctools_plugin_api().
+ */
+function farm_asset_ctools_plugin_api($owner, $api) {
+  $return = array();
+  if ($owner == 'feeds' && $api == 'plugins') {
+    $return['version'] = 1;
+  }
+  return $return;
+}
 
 /**
  * Implements hook_ctools_plugin_directory().
@@ -343,6 +370,25 @@ function farm_asset_ctools_plugin_directory($owner, $plugin_type) {
     }
   }
   return $directory;
+}
+
+/**
+ * Implements hook_feed_plugins().
+ */
+function farm_asset_feeds_plugins() {
+  $info = array();
+  $info['FarmAssetProcessor'] = array(
+    'name' => 'Farm asset processor',
+    'description' => 'Create and update farm assets.',
+    'help' => 'Create and update farm assets from parsed content.',
+    'handler' => array(
+      'parent' => 'FeedsProcessor',
+      'class' => 'FarmAssetProcessor',
+      'file' => 'FarmAssetProcessor.inc',
+      'path' => drupal_get_path('module', 'farm_asset') . '/plugins/feeds',
+    ),
+  );
+  return $info;
 }
 
 /**
