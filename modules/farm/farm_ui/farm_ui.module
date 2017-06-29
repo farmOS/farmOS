@@ -18,6 +18,9 @@ function farm_ui_hook_info() {
   $hooks['farm_ui_entity_views'] = array(
     'group' => 'farm_ui',
   );
+  $hooks['farm_ui_actions'] = array(
+    'group' => 'farm_ui',
+  );
   return $hooks;
 }
 

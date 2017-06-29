@@ -118,3 +118,104 @@ function farm_ui_farm_ui_entity_views($entity_type, $entity_bundle, $entity) {
 
   return $views;
 }
+
+/**
+ * Implements hook_farm_ui_actions().
+ */
+function farm_ui_farm_ui_actions() {
+
+  // Define default farm action links.
+  $actions = array(
+    'area' => array(
+      'title' => t('Add area'),
+      'href' => 'admin/structure/taxonomy/farm_areas/add',
+      'paths' => array(
+        'farm',
+      ),
+      'weight' => -10,
+    ),
+    'asset' => array(
+      'title' => t('Add asset'),
+      'href' => 'farm/asset/add',
+      'paths' => array(
+        'farm',
+        'farm/assets',
+      ),
+    ),
+    'log' => array(
+      'title' => t('Add log'),
+      'href' => 'log/add',
+      'paths' => array(
+        'farm',
+        'farm/logs',
+      ),
+      'weight' => 1,
+    ),
+    'user' => array(
+      'title' => t('Add person'),
+      'href' => 'admin/people/create',
+      'views' => array(
+        'farm_people',
+      ),
+    ),
+  );
+
+  // Load entity UI information.
+  $ui_info = farm_ui_entities();
+
+  // Create action links for each entity type/bundle.
+  foreach ($ui_info as $entity_type => $bundles) {
+    foreach ($bundles as $bundle => $info) {
+
+      // Start with an action link on the entity listing page.
+      if (!empty($info['label']) && !empty($info['view'])) {
+        switch ($entity_type) {
+          case 'farm_asset':
+            $path = 'farm/asset/add/' . $bundle;
+            break;
+          case 'log':
+            $path = 'log/add/' . $bundle;
+            break;
+          case 'taxonomy_term':
+            $path = 'admin/structure/taxonomy/' . $bundle . '/add';
+            break;
+        }
+        $actions[$bundle] = array(
+          'title' => t('Add ' . strtolower($info['label'])),
+          'href' => $path,
+          'views' => array(
+            $info['view'],
+          ),
+        );
+      }
+
+      // If the entity has a weight, pass it through to the action link.
+      if (!empty($info['weight'])) {
+        $actions[$bundle]['weight'] = $info['weight'];
+      }
+
+      // If the entity is a log, add an action link on asset and area pages.
+      if ($entity_type == 'log') {
+
+        // If 'farm_asset' is empty, or if it is set to 'all', add to all
+        // asset pages.
+        if (empty($info['farm_asset']) || $info['farm_asset'] == 'all') {
+          $actions[$bundle]['assets'] = array('all');
+        }
+
+        // Otherwise, if 'farm_asset' is not set to 'none', pass the specified
+        // asset through.
+        elseif ($info['farm_asset'] != 'none') {
+          $actions[$bundle]['assets'] = array($info['farm_asset']);
+        }
+
+        // Only add an action link on area pages if 'areas' is set to TRUE.
+        if (!empty($info['areas']) && $info['areas'] === TRUE) {
+          $actions[$bundle]['paths'] = array('taxonomy/term/%');
+        }
+      }
+    }
+  }
+
+  return $actions;
+}
