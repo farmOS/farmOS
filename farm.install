@@ -563,6 +563,13 @@ function farm_update_7025(&$sandbox) {
 }
 
 /**
+ * Install the new Farm Import module.
+ */
+function farm_update_7026(&$sandbox) {
+  _farm_update_enable_modules(array('farm_import'));
+}
+
+/**
  * Update helper function: enable modules.
  */
 function _farm_update_enable_modules($modules = array()) {
