@@ -4,3 +4,4 @@ core = 7.x
 package = farmOS
 dependencies[] = farm_asset
 dependencies[] = feeds
+dependencies[] = feeds_tamper

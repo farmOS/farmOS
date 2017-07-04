@@ -41,6 +41,9 @@ projects[features][version] = "2.10"
 projects[feeds][subdir] = "contrib"
 projects[feeds][version] = "2.0-beta3"
 
+projects[feeds_tamper][subdir] = "contrib"
+projects[feeds_tamper][version] = "1.1"
+
 projects[field_collection][subdir] = "contrib"
 projects[field_collection][version] = "1.0-beta12"
 
