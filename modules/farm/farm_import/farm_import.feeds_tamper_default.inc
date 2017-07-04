@@ -30,7 +30,7 @@ function farm_import_feeds_tamper_default() {
     );
     $feeds_tamper->weight = 0;
     $feeds_tamper->description = 'Required field';
-    $export['farm_asset_' . $bundle . '-name-required'] = $feeds_tamper;
+    $export[$feeds_tamper->id] = $feeds_tamper;
 
     // If a "Parent IDs" field exists, explode it into an array of IDs.
     if (!empty(field_info_instance('farm_asset', 'field_farm_parent', $bundle))) {
@@ -48,7 +48,7 @@ function farm_import_feeds_tamper_default() {
       );
       $feeds_tamper->weight = 0;
       $feeds_tamper->description = 'Explode';
-      $export['farm_asset_' . $bundle . '-parent_ids-explode'] = $feeds_tamper;
+      $export[$feeds_tamper->id] = $feeds_tamper;
     }
   }
 
@@ -72,7 +72,7 @@ function farm_import_feeds_tamper_default() {
     );
     $feeds_tamper->weight = 0;
     $feeds_tamper->description = 'Required field';
-    $export['log_' . $bundle . '-date-required'] = $feeds_tamper;
+    $export[$feeds_tamper->id] = $feeds_tamper;
 
     // If an "Asset IDs" field exists, explode it into an array of IDs.
     if (!empty(field_info_instance('log', 'field_farm_asset', $bundle))) {
@@ -90,7 +90,7 @@ function farm_import_feeds_tamper_default() {
       );
       $feeds_tamper->weight = 0;
       $feeds_tamper->description = 'Explode';
-      $export['log_' . $bundle . '-asset_ids-explode'] = $feeds_tamper;
+      $export[$feeds_tamper->id] = $feeds_tamper;
     }
 
     // If an "Area names" field exists, explode it into an array of area names.
@@ -109,7 +109,7 @@ function farm_import_feeds_tamper_default() {
       );
       $feeds_tamper->weight = 0;
       $feeds_tamper->description = 'Explode';
-      $export['log_' . $bundle . '-area_names-explode'] = $feeds_tamper;
+      $export[$feeds_tamper->id] = $feeds_tamper;
     }
 
     // If a "Category names" field exists, explode it into an array of category
@@ -129,7 +129,7 @@ function farm_import_feeds_tamper_default() {
       );
       $feeds_tamper->weight = 0;
       $feeds_tamper->description = 'Explode';
-      $export['log_' . $bundle . '-category_names-explode'] = $feeds_tamper;
+      $export[$feeds_tamper->id] = $feeds_tamper;
     }
   }
 
