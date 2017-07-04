@@ -56,6 +56,8 @@ projects[fraction][subdir] = "contrib"
 projects[fraction][version] = "1.4"
 ; Issue #2893271: Add Min, Max, Prefix, Suffix settings to Fraction fields
 projects[fraction][patch][] = "http://www.drupal.org/files/issues/fraction_field_settings-2893271-4.patch"
+; Issue #2892160: Provide Fraction targets for Feeds integration
+projects[fraction][patch][] = "http://www.drupal.org/files/issues/fraction_feeds-2892160-6.patch"
 
 projects[geocoder][subdir] = "contrib"
 projects[geocoder][version] = "1.3"
