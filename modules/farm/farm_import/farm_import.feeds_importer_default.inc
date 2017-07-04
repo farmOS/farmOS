@@ -65,12 +65,6 @@ function farm_import_asset_importer($asset_type) {
   $importer->config['processor']['config']['bundle'] = $asset_type->type;
   $importer->config['processor']['config']['mappings'] = array(
     array(
-      'source' => 'Asset ID',
-      'target' => 'id',
-      'unique' => 1,
-      'language' => 'und',
-    ),
-    array(
       'source' => 'Name',
       'target' => 'name',
       'unique' => FALSE,
@@ -117,12 +111,6 @@ function farm_import_log_importer($log_type) {
   $importer->config['processor']['plugin_key'] = 'LogProcessor';
   $importer->config['processor']['config']['bundle'] = $log_type->type;
   $importer->config['processor']['config']['mappings'] = array(
-    array(
-      'source' => 'Log ID',
-      'target' => 'id',
-      'unique' => 1,
-      'language' => 'und',
-    ),
     array(
       'source' => 'Done',
       'target' => 'done',
@@ -184,7 +172,7 @@ function farm_import_base_importer() {
         'author' => 0,
         'authorize' => 1,
         'insert_new' => '1',
-        'update_existing' => '2',
+        'update_existing' => '0',
         'update_non_existent' => 'skip',
         'input_format' => 'plain_text',
         'skip_hash_check' => 0,
