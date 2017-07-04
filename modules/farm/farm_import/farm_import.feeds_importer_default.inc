@@ -12,8 +12,16 @@ function farm_import_feeds_importer_default() {
 
   // Generate an importer for each asset type.
   $asset_types = farm_asset_types();
-  foreach ($asset_types as $type) {
-    $export['farm_asset_' . $type->type] = farm_import_asset_importer($type);
+  foreach ($asset_types as $bundle => $type) {
+
+    // Generate importer.
+    $importer = farm_import_asset_importer($type);
+
+    // Add common field mappings.
+    farm_import_add_asset_fields($bundle, $importer);
+
+    // Add it to the list.
+    $export['farm_asset_' . $bundle] = $importer;
   }
 
   return $export;
@@ -89,18 +97,6 @@ function farm_import_asset_importer($asset_type) {
             'unique' => FALSE,
             'language' => 'und',
           ),
-          array(
-            'source' => 'Description',
-            'target' => 'field_farm_description',
-            'format' => 'farm_format',
-            'language' => 'und',
-          ),
-          array(
-            'source' => 'Parent IDs',
-            'target' => 'field_farm_parent:etid',
-            'unique' => FALSE,
-            'language' => 'und',
-          ),
         ),
         'insert_new' => '1',
         'update_existing' => '2',
@@ -119,4 +115,43 @@ function farm_import_asset_importer($asset_type) {
     'process_in_background' => 0,
   );
   return $feeds_importer;
+}
+
+/**
+ * Add common field mappings to asset importers.
+ *
+ * @param $bundle
+ *   The asset bundle.
+ * @param $importer
+ *   The importer configuration object that will be altered.
+ */
+function farm_import_add_asset_fields($bundle, $importer) {
+
+  // If the importer doesn't have a mapping array for some reason, bail.
+  if (empty($importer->config['processor']['config']['mappings'])) {
+    return;
+  }
+
+  // Define the field mappings that will be added.
+  $fields = array(
+    'field_farm_description' => array(
+      'source' => 'Description',
+      'target' => 'field_farm_description',
+      'format' => 'farm_format',
+      'language' => 'und',
+    ),
+    'field_farm_parent' => array(
+      'source' => 'Parent IDs',
+      'target' => 'field_farm_parent:etid',
+      'unique' => FALSE,
+      'language' => 'und',
+    ),
+  );
+
+  // Add fields, if they exist on the bundle.
+  foreach ($fields as $field => $mapping) {
+    if (!empty(field_info_instance('farm_asset', $field, $bundle))) {
+      $importer->config['processor']['config']['mappings'][] = $mapping;
+    }
+  }
 }
