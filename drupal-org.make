@@ -85,6 +85,8 @@ projects[libraries_cdn][version] = "1.7"
 
 projects[log][subdir] = "contrib"
 projects[log][version] = "1.8"
+; Issue #2402191: Integrate Log with Feeds module
+projects[log][patch][] = "http://www.drupal.org/files/issues/log_feeds-2402191-1.patch"
 
 projects[multiupload_filefield_widget][subdir] = "contrib"
 projects[multiupload_filefield_widget][version] = "1.13"
