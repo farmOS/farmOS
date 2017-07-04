@@ -58,6 +58,19 @@ function farm_import_feeds_tamper_default() {
   // Add log tamper plugins.
   foreach ($log_types as $bundle => $type) {
 
+    // Convert date to timestamp.
+    $feeds_tamper = new stdClass();
+    $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+    $feeds_tamper->api_version = 2;
+    $feeds_tamper->id = 'log_' . $bundle . '-date-strtotime';
+    $feeds_tamper->importer = 'log_' . $bundle;
+    $feeds_tamper->source = 'Date';
+    $feeds_tamper->plugin_id = 'strtotime';
+    $feeds_tamper->settings = array();
+    $feeds_tamper->weight = 0;
+    $feeds_tamper->description = 'String to Unix timestamp';
+    $export[$feeds_tamper->id] = $feeds_tamper;
+
     // Make date field required.
     $feeds_tamper = new stdClass();
     $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
@@ -70,7 +83,7 @@ function farm_import_feeds_tamper_default() {
       'invert' => 0,
       'log' => 0,
     );
-    $feeds_tamper->weight = 0;
+    $feeds_tamper->weight = 1;
     $feeds_tamper->description = 'Required field';
     $export[$feeds_tamper->id] = $feeds_tamper;
 
