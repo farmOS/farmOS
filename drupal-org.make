@@ -46,6 +46,8 @@ projects[feeds_tamper][version] = "1.1"
 
 projects[field_collection][subdir] = "contrib"
 projects[field_collection][version] = "1.0-beta12"
+; Issue #1063434: Add Feeds integration to FieldCollection
+projects[field_collection][patch][] = "http://www.drupal.org/files/issues/add_feeds_integration-1063434-286.patch"
 
 projects[field_group][subdir] = "contrib"
 projects[field_group][version] = "1.5"
