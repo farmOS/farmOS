@@ -44,18 +44,24 @@ function farm_import_farm_ui_actions() {
   // Load entity UI information.
   $ui_info = farm_ui_entities();
 
-  // Add action links to asset importers on asset listing pages.
-  if (!empty($ui_info['farm_asset'])) {
-    foreach ($ui_info['farm_asset'] as $bundle => $info) {
-      if (!empty($info['view'])) {
-        $actions[$bundle . '_import'] = array(
-          'title' => t('Import') . ' ' . strtolower($info['label_plural']),
-          'href' => 'import/farm_asset_' . $bundle,
-          'views' => array(
-            $info['view'],
-          ),
-          'weight' => 100,
-        );
+  // Add action links to asset and log importers on listing pages.
+  $types = array(
+    'farm_asset',
+    'log',
+  );
+  foreach ($types as $type) {
+    if (!empty($ui_info[$type])) {
+      foreach ($ui_info[$type] as $bundle => $info) {
+        if (!empty($info['view'])) {
+          $actions[$bundle . '_import'] = array(
+            'title' => t('Import') . ' ' . strtolower($info['label_plural']),
+            'href' => 'import/' . $type . '_' . $bundle,
+            'views' => array(
+              $info['view'],
+            ),
+            'weight' => 100,
+          );
+        }
       }
     }
   }
