@@ -71,12 +71,6 @@ function farm_import_asset_importer($asset_type) {
       'language' => 'und',
     ),
     array(
-      'source' => 'Created',
-      'target' => 'created',
-      'unique' => FALSE,
-      'language' => 'und',
-    ),
-    array(
       'source' => 'Active',
       'target' => 'active',
       'unique' => FALSE,
