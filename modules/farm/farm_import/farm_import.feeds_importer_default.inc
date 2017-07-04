@@ -236,6 +236,23 @@ function farm_import_add_importer_fields($type, $bundle, $importer) {
       $importer->config['processor']['config']['mappings'][] = $mapping;
     }
   }
+
+  // Add Quantity field, if it exists. This is a bit more complicated because
+  // it is a field collection, so there are two targets.
+  if (!empty(field_info_instance($type, 'field_farm_quantity', $bundle))) {
+    $importer->config['processor']['config']['mappings'][] = array(
+      'source' => 'Quantity value',
+      'target' => 'field_farm_quantity:field_farm_quantity_value',
+      'unique' => FALSE,
+      'language' => 'und',
+    );
+    $importer->config['processor']['config']['mappings'][] = array(
+      'source' => 'Quantity unit',
+      'target' => 'field_farm_quantity:field_farm_quantity_units',
+      'term_search' => '0',
+      'autocreate' => 1,
+    );
+  }
 }
 
 /**
