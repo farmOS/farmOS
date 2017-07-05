@@ -67,3 +67,74 @@ function farm_livestock_farm_log_categories() {
   // Provide an "Animals" log category.
   return array('Animals');
 }
+
+/**
+ * Implements hook_feeds_importer_default_alter().
+ */
+function farm_livestock_feeds_importer_default_alter($importers) {
+
+  // Add extra field mappings to animals.
+  $name = 'farm_asset_animal';
+  if (!empty($importers[$name])) {
+    $mappings = array(
+      array(
+        'source' => 'Nicknames',
+        'target' => 'field_farm_animal_nicknames',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+      array(
+        'source' => 'Date of birth',
+        'target' => 'field_farm_date:start',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+      array(
+        'source' => 'Species/breed',
+        'target' => 'field_farm_animal_type',
+        'term_search' => '0',
+        'autocreate' => 1,
+        'language' => 'und',
+      ),
+      array(
+        'source' => 'Group',
+        'target' => 'field_farm_animal_group',
+        'term_search' => '0',
+        'autocreate' => 1,
+        'language' => 'und',
+      ),
+      array(
+        'source' => 'Sex',
+        'target' => 'field_farm_animal_sex',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+      array(
+        'source' => 'Castrated',
+        'target' => 'field_farm_animal_castrated',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+      array(
+        'source' => 'Tag ID',
+        'target' => 'field_farm_animal_tag:field_farm_animal_tag_id',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+      array(
+        'source' => 'Tag type',
+        'target' => 'field_farm_animal_tag:field_farm_animal_tag_type',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+      array(
+        'source' => 'Tag location',
+        'target' => 'field_farm_animal_tag:field_farm_animal_tag_location',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+    );
+    $importer_mappings =& $importers[$name]->config['processor']['config']['mappings'];
+    $importer_mappings = array_merge($importer_mappings, $mappings);
+  }
+}

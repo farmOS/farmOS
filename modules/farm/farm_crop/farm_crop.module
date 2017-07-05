@@ -221,3 +221,32 @@ function farm_crop_farm_log_categories() {
   // Provide an "Plantings" log category.
   return array('Plantings');
 }
+
+/**
+ * Implements hook_feeds_importer_default_alter().
+ */
+function farm_crop_feeds_importer_default_alter(&$importers) {
+
+  // Add extra field mappings to plantings.
+  $name = 'farm_asset_planting';
+  if (!empty($importers[$name])) {
+    $mappings = array(
+      array(
+        'source' => 'Crop/variety',
+        'target' => 'field_farm_crop',
+        'term_search' => '0',
+        'autocreate' => 1,
+        'language' => 'und',
+      ),
+      array(
+        'source' => 'Season',
+        'target' => 'field_farm_season',
+        'term_search' => '0',
+        'autocreate' => 1,
+        'language' => 'und',
+      ),
+    );
+    $importer_mappings =& $importers[$name]->config['processor']['config']['mappings'];
+    $importer_mappings = array_merge($importer_mappings, $mappings);
+  }
+}

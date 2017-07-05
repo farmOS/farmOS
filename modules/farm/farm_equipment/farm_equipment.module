@@ -38,3 +38,36 @@ function farm_equipment_farm_log_categories() {
   // Provide an "Equipment" log category.
   return array('Equipment');
 }
+
+/**
+ * Implements hook_feeds_importer_default_alter().
+ */
+function farm_equipment_feeds_importer_default_alter($importers) {
+
+  // Add extra field mappings to equipment.
+  $name = 'farm_asset_equipment';
+  if (!empty($importers[$name])) {
+    $mappings = array(
+      array(
+        'source' => 'Manufacturer',
+        'target' => 'field_farm_manufacturer',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+      array(
+        'source' => 'Model',
+        'target' => 'field_farm_model',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+      array(
+        'source' => 'Serial number',
+        'target' => 'field_farm_serial_number',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+    );
+    $importer_mappings =& $importers[$name]->config['processor']['config']['mappings'];
+    $importer_mappings = array_merge($importer_mappings, $mappings);
+  }
+}
