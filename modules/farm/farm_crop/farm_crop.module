@@ -250,3 +250,22 @@ function farm_crop_feeds_importer_default_alter(&$importers) {
     $importer_mappings = array_merge($importer_mappings, $mappings);
   }
 }
+
+/**
+ * Implements hook_feeds_tamper_default_alter().
+ */
+function farm_crop_feeds_tamper_default_alter(&$feeds_tampers) {
+
+  // If farm_import is not installed, bail.
+  if (!module_exists('farm_import')) {
+    return;
+  }
+
+  // Make crop/variety required.
+  $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', 'animal', 'Crop/variety', 'required');
+  $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
+
+  // Explode crop/variety so it supports multiple values.
+  $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', 'planting', 'Crop/variety', 'explode');
+  $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
+}

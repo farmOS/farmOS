@@ -138,3 +138,38 @@ function farm_livestock_feeds_importer_default_alter($importers) {
     $importer_mappings = array_merge($importer_mappings, $mappings);
   }
 }
+
+/**
+ * Implements hook_feeds_tamper_default_alter().
+ */
+function farm_livestock_feeds_tamper_default_alter(&$feeds_tampers) {
+
+  // If farm_import is not installed, bail.
+  if (!module_exists('farm_import')) {
+    return;
+  }
+
+  // Make species/breed required.
+  $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', 'animal', 'Species/breed', 'required');
+  $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
+
+  // Make sex required.
+  $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', 'animal', 'Sex', 'required');
+  $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
+
+  // Convert castrated to boolean.
+  $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', 'animal', 'Castrated', 'convert_boolean');
+  $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
+
+  // Convert date of birth to a Unix timestamp.
+  $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', 'animal', 'Date of birth', 'strtotime');
+  $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
+
+  // Explode groups to allow multiple values.
+  $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', 'animal', 'Group', 'explode');
+  $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
+
+  // Explode nicknames to allow multiple values.
+  $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', 'animal', 'Nicknames', 'explode');
+  $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
+}
