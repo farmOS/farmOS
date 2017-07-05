@@ -98,6 +98,18 @@ function farm_import_feeds_tamper_plugin($entity_type, $bundle, $source, $plugin
   // Build the description and settings based on the plugin type.
   switch ($plugin) {
 
+    // Boolean.
+    case 'convert_boolean':
+      $description = 'Convert to boolean';
+      $settings = array(
+        'true_value' => 'yes',
+        'false_value' => 'no',
+        'match_case' => 0,
+        'no_match' => 'pass',
+        'other_text' => '',
+      );
+      break;
+
     // Explode.
     case 'explode':
       $description = 'Explode';
