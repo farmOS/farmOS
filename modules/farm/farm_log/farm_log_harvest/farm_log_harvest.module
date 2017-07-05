@@ -22,3 +22,24 @@ function farm_log_harvest_farm_ui_entities() {
     ),
   );
 }
+
+/**
+ * Implements hook_feeds_importer_default_alter().
+ */
+function farm_log_harvest_feeds_importer_default_alter(&$importers) {
+
+  // Add extra field mappings to harvests.
+  $name = 'log_farm_harvest';
+  if (!empty($importers[$name])) {
+    $mappings = array(
+      array(
+        'source' => 'Lot number',
+        'target' => 'field_farm_lot_number',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+    );
+    $importer_mappings =& $importers[$name]->config['processor']['config']['mappings'];
+    $importer_mappings = array_merge($importer_mappings, $mappings);
+  }
+}

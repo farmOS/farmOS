@@ -249,6 +249,21 @@ function farm_crop_feeds_importer_default_alter(&$importers) {
     $importer_mappings =& $importers[$name]->config['processor']['config']['mappings'];
     $importer_mappings = array_merge($importer_mappings, $mappings);
   }
+
+  // Add extra field mappings to seedings.
+  $name = 'log_farm_seeding';
+  if (!empty($importers[$name])) {
+    $mappings = array(
+      array(
+        'source' => 'Source/supplier',
+        'target' => 'field_farm_seed_source',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+    );
+    $importer_mappings =& $importers[$name]->config['processor']['config']['mappings'];
+    $importer_mappings = array_merge($importer_mappings, $mappings);
+  }
 }
 
 /**

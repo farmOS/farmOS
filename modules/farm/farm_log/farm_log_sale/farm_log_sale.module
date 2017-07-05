@@ -21,3 +21,48 @@ function farm_log_sale_farm_ui_entities() {
     ),
   );
 }
+
+/**
+ * Implements hook_feeds_importer_default_alter().
+ */
+function farm_log_sale_feeds_importer_default_alter(&$importers) {
+
+  // Add extra field mappings to sales.
+  $name = 'log_farm_sale';
+  if (!empty($importers[$name])) {
+    $mappings = array(
+      array(
+        'source' => 'Customer',
+        'target' => 'field_farm_customer',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+      array(
+        'source' => 'Invoice number',
+        'target' => 'field_farm_invoice_number',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+      array(
+        'source' => 'Lot number',
+        'target' => 'field_farm_lot_number',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+      array(
+        'source' => 'Unit price',
+        'target' => 'field_farm_unit_price',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+      array(
+        'source' => 'Total price',
+        'target' => 'field_farm_total_price',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+    );
+    $importer_mappings =& $importers[$name]->config['processor']['config']['mappings'];
+    $importer_mappings = array_merge($importer_mappings, $mappings);
+  }
+}

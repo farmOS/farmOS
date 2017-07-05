@@ -23,3 +23,69 @@ function farm_log_input_farm_ui_entities() {
     ),
   );
 }
+
+/**
+ * Implements hook_feeds_importer_default_alter().
+ */
+function farm_log_input_feeds_importer_default_alter(&$importers) {
+
+  // Add extra field mappings to inputs.
+  $name = 'log_farm_input';
+  if (!empty($importers[$name])) {
+    $mappings = array(
+      array(
+        'source' => 'Material',
+        'target' => 'field_farm_material',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+      array(
+        'source' => 'Purpose',
+        'target' => 'field_farm_input_purpose',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+      array(
+        'source' => 'Application method',
+        'target' => 'field_farm_input_method',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+      array(
+        'source' => 'Source/manufacturer',
+        'target' => 'field_farm_input_source',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+      array(
+        'source' => 'Lot number',
+        'target' => 'field_farm_lot_number',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+      array(
+        'source' => 'Date purchased',
+        'target' => 'field_farm_date_purchase:start',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+    );
+    $importer_mappings =& $importers[$name]->config['processor']['config']['mappings'];
+    $importer_mappings = array_merge($importer_mappings, $mappings);
+  }
+}
+
+/**
+ * Implements hook_feeds_tamper_default_alter().
+ */
+function farm_log_input_feeds_tamper_default_alter(&$feeds_tampers) {
+
+  // If farm_import is not installed, bail.
+  if (!module_exists('farm_import')) {
+    return;
+  }
+
+  // Convert date purchased to a Unix timestamp
+  $feeds_tamper = farm_import_feeds_tamper_plugin('log', 'farm_input', 'Date purchased', 'strtotime');
+  $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
+}
