@@ -68,3 +68,79 @@ function farm_import_farm_ui_actions() {
 
   return $actions;
 }
+
+/**
+ * Helper function for generating standardized tamper plugin definitions.
+ *
+ * @param string $entity_type
+ *   The entity type.
+ * @param string $bundle
+ *   The entity bundle.
+ * @param string $source
+ *   The name of the Feeds source (column header in CSV imports).
+ * @param string $plugin
+ *   The Feeds Tamper plugin machine name.
+ *
+ * @return object
+ *   Returns a Feeds Tamper plugin object.
+ */
+function farm_import_feeds_tamper_plugin($entity_type, $bundle, $source, $plugin) {
+
+  // Build the importer machine name.
+  $importer = $entity_type . '_' . $bundle;
+
+  // Generate a machine name from the source.
+  $source_machine = feeds_tamper_make_machine($source);
+
+  // Build the tamper plugin ID.
+  $id = $importer . '-' . $source_machine . '-' . $plugin;
+
+  // Build the description and settings based on the plugin type.
+  switch ($plugin) {
+
+    // Explode.
+    case 'explode':
+      $description = 'Explode';
+      $settings = array(
+        'separator' => ',',
+        'limit' => '',
+        'real_separator' => ',',
+      );
+      break;
+
+    // Required.
+    case 'required':
+      $description = 'Required field';
+      $settings = array(
+        'invert' => 0,
+        'log' => 0,
+      );
+      break;
+
+    // String to Unix timestamp.
+    case 'strtotime':
+      $description = 'String to Unix timestamp';
+      $settings = array();
+      break;
+
+    // Empty defaults.
+    default:
+      $description = '';
+      $settings = array();
+  }
+
+  // Build the plugin.
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = $id;
+  $feeds_tamper->importer = $importer;
+  $feeds_tamper->source = $source;
+  $feeds_tamper->plugin_id = $plugin;
+  $feeds_tamper->settings = $settings;
+  $feeds_tamper->weight = 0;
+  $feeds_tamper->description = $description;
+
+  // Return the plugin.
+  return $feeds_tamper;
+}

@@ -17,37 +17,12 @@ function farm_import_feeds_tamper_default() {
   foreach ($asset_types as $bundle => $type) {
 
     // Make asset name field required.
-    $feeds_tamper = new stdClass();
-    $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
-    $feeds_tamper->api_version = 2;
-    $feeds_tamper->id = 'farm_asset_' . $bundle . '-name-required';
-    $feeds_tamper->importer = 'farm_asset_' . $bundle;
-    $feeds_tamper->source = 'Name';
-    $feeds_tamper->plugin_id = 'required';
-    $feeds_tamper->settings = array(
-      'invert' => 0,
-      'log' => 0,
-    );
-    $feeds_tamper->weight = 0;
-    $feeds_tamper->description = 'Required field';
+    $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', $bundle, 'Name', 'required');
     $export[$feeds_tamper->id] = $feeds_tamper;
 
     // If a "Parent IDs" field exists, explode it into an array of IDs.
     if (!empty(field_info_instance('farm_asset', 'field_farm_parent', $bundle))) {
-      $feeds_tamper = new stdClass();
-      $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
-      $feeds_tamper->api_version = 2;
-      $feeds_tamper->id = 'farm_asset_' . $bundle . '-parent_ids-explode';
-      $feeds_tamper->importer = 'farm_asset_' . $bundle;
-      $feeds_tamper->source = 'Parent IDs';
-      $feeds_tamper->plugin_id = 'explode';
-      $feeds_tamper->settings = array(
-        'separator' => ',',
-        'limit' => '',
-        'real_separator' => ',',
-      );
-      $feeds_tamper->weight = 0;
-      $feeds_tamper->description = 'Explode';
+      $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', $bundle, 'Parent IDs', 'explode');
       $export[$feeds_tamper->id] = $feeds_tamper;
     }
   }
@@ -59,89 +34,30 @@ function farm_import_feeds_tamper_default() {
   foreach ($log_types as $bundle => $type) {
 
     // Convert date to timestamp.
-    $feeds_tamper = new stdClass();
-    $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
-    $feeds_tamper->api_version = 2;
-    $feeds_tamper->id = 'log_' . $bundle . '-date-strtotime';
-    $feeds_tamper->importer = 'log_' . $bundle;
-    $feeds_tamper->source = 'Date';
-    $feeds_tamper->plugin_id = 'strtotime';
-    $feeds_tamper->settings = array();
-    $feeds_tamper->weight = 0;
-    $feeds_tamper->description = 'String to Unix timestamp';
+    $feeds_tamper = farm_import_feeds_tamper_plugin('log', $bundle, 'Date', 'strtotime');
     $export[$feeds_tamper->id] = $feeds_tamper;
 
     // Make date field required.
-    $feeds_tamper = new stdClass();
-    $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
-    $feeds_tamper->api_version = 2;
-    $feeds_tamper->id = 'log_' . $bundle . '-date-required';
-    $feeds_tamper->importer = 'log_' . $bundle;
-    $feeds_tamper->source = 'Date';
-    $feeds_tamper->plugin_id = 'required';
-    $feeds_tamper->settings = array(
-      'invert' => 0,
-      'log' => 0,
-    );
+    $feeds_tamper = farm_import_feeds_tamper_plugin('log', $bundle, 'Date', 'required');
     $feeds_tamper->weight = 1;
-    $feeds_tamper->description = 'Required field';
     $export[$feeds_tamper->id] = $feeds_tamper;
 
     // If an "Asset IDs" field exists, explode it into an array of IDs.
     if (!empty(field_info_instance('log', 'field_farm_asset', $bundle))) {
-      $feeds_tamper = new stdClass();
-      $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
-      $feeds_tamper->api_version = 2;
-      $feeds_tamper->id = 'log_' . $bundle . '-asset_ids-explode';
-      $feeds_tamper->importer = 'log_' . $bundle;
-      $feeds_tamper->source = 'Asset IDs';
-      $feeds_tamper->plugin_id = 'explode';
-      $feeds_tamper->settings = array(
-        'separator' => ',',
-        'limit' => '',
-        'real_separator' => ',',
-      );
-      $feeds_tamper->weight = 0;
-      $feeds_tamper->description = 'Explode';
+      $feeds_tamper = farm_import_feeds_tamper_plugin('log', $bundle, 'Asset IDs', 'explode');
       $export[$feeds_tamper->id] = $feeds_tamper;
     }
 
     // If an "Area names" field exists, explode it into an array of area names.
     if (!empty(field_info_instance('log', 'field_farm_area', $bundle))) {
-      $feeds_tamper = new stdClass();
-      $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
-      $feeds_tamper->api_version = 2;
-      $feeds_tamper->id = 'log_' . $bundle . '-area_names-explode';
-      $feeds_tamper->importer = 'log_' . $bundle;
-      $feeds_tamper->source = 'Area names';
-      $feeds_tamper->plugin_id = 'explode';
-      $feeds_tamper->settings = array(
-        'separator' => ',',
-        'limit' => '',
-        'real_separator' => ',',
-      );
-      $feeds_tamper->weight = 0;
-      $feeds_tamper->description = 'Explode';
+      $feeds_tamper = farm_import_feeds_tamper_plugin('log', $bundle, 'Area names', 'explode');
       $export[$feeds_tamper->id] = $feeds_tamper;
     }
 
     // If a "Category names" field exists, explode it into an array of category
     // names.
     if (!empty(field_info_instance('log', 'field_farm_log_category', $bundle))) {
-      $feeds_tamper = new stdClass();
-      $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
-      $feeds_tamper->api_version = 2;
-      $feeds_tamper->id = 'log_' . $bundle . '-category_names-explode';
-      $feeds_tamper->importer = 'log_' . $bundle;
-      $feeds_tamper->source = 'Category names';
-      $feeds_tamper->plugin_id = 'explode';
-      $feeds_tamper->settings = array(
-        'separator' => ',',
-        'limit' => '',
-        'real_separator' => ',',
-      );
-      $feeds_tamper->weight = 0;
-      $feeds_tamper->description = 'Explode';
+      $feeds_tamper = farm_import_feeds_tamper_plugin('log', $bundle, 'Category names', 'explode');
       $export[$feeds_tamper->id] = $feeds_tamper;
     }
   }
