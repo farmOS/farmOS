@@ -180,7 +180,7 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['relationships']['parent']['id'] = 'parent';
   $handler->display->display_options['relationships']['parent']['table'] = 'taxonomy_term_hierarchy';
   $handler->display->display_options['relationships']['parent']['field'] = 'parent';
-  /* Relationship: Taxonomy term: Farm asset using Type */
+  /* Relationship: Taxonomy term: Farm asset using Species/breed */
   $handler->display->display_options['relationships']['reverse_field_farm_animal_type_farm_asset']['id'] = 'reverse_field_farm_animal_type_farm_asset';
   $handler->display->display_options['relationships']['reverse_field_farm_animal_type_farm_asset']['table'] = 'taxonomy_term_data';
   $handler->display->display_options['relationships']['reverse_field_farm_animal_type_farm_asset']['field'] = 'reverse_field_farm_animal_type_farm_asset';
@@ -429,7 +429,7 @@ function farm_livestock_views_default_views() {
     'multiple_from' => '',
     'multiple_to' => '',
   );
-  /* Field: Farm asset: Type */
+  /* Field: Farm asset: Species/breed */
   $handler->display->display_options['fields']['field_farm_animal_type']['id'] = 'field_farm_animal_type';
   $handler->display->display_options['fields']['field_farm_animal_type']['table'] = 'field_data_field_farm_animal_type';
   $handler->display->display_options['fields']['field_farm_animal_type']['field'] = 'field_farm_animal_type';
@@ -477,7 +477,7 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['sorts']['field_farm_animal_group_tid']['field'] = 'field_farm_animal_group_tid';
   $handler->display->display_options['sorts']['field_farm_animal_group_tid']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['field_farm_animal_group_tid']['expose']['label'] = 'Group';
-  /* Sort criterion: Farm asset: Type (field_farm_animal_type) */
+  /* Sort criterion: Farm asset: Species/breed (field_farm_animal_type) */
   $handler->display->display_options['sorts']['field_farm_animal_type_tid']['id'] = 'field_farm_animal_type_tid';
   $handler->display->display_options['sorts']['field_farm_animal_type_tid']['table'] = 'field_data_field_farm_animal_type';
   $handler->display->display_options['sorts']['field_farm_animal_type_tid']['field'] = 'field_farm_animal_type_tid';
@@ -533,7 +533,7 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['arguments']['field_farm_animal_group_tid']['validate_options']['vocabularies'] = array(
     'farm_animal_groups' => 'farm_animal_groups',
   );
-  /* Contextual filter: Farm asset: Type (field_farm_animal_type) */
+  /* Contextual filter: Farm asset: Species/breed (field_farm_animal_type) */
   $handler->display->display_options['arguments']['field_farm_animal_type_tid']['id'] = 'field_farm_animal_type_tid';
   $handler->display->display_options['arguments']['field_farm_animal_type_tid']['table'] = 'field_data_field_farm_animal_type';
   $handler->display->display_options['arguments']['field_farm_animal_type_tid']['field'] = 'field_farm_animal_type_tid';
@@ -580,7 +580,7 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['expose']['description'] = 'If there are multiple ID tags on an animal, this filter will only look at the first one.';
   $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['expose']['operator'] = 'field_farm_animal_tag_id_value_op';
   $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['expose']['identifier'] = 'field_farm_animal_tag_id_value';
-  /* Filter criterion: Farm asset: Type (field_farm_animal_type) */
+  /* Filter criterion: Farm asset: Species/breed (field_farm_animal_type) */
   $handler->display->display_options['filters']['field_farm_animal_type_tid']['id'] = 'field_farm_animal_type_tid';
   $handler->display->display_options['filters']['field_farm_animal_type_tid']['table'] = 'field_data_field_farm_animal_type';
   $handler->display->display_options['filters']['field_farm_animal_type_tid']['field'] = 'field_farm_animal_type_tid';

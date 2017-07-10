@@ -182,7 +182,7 @@ function farm_livestock_field_default_field_instances() {
   // Exported field_instance: 'farm_asset-animal-field_farm_animal_type'.
   $field_instances['farm_asset-animal-field_farm_animal_type'] = array(
     'bundle' => 'animal',
-    'default_value' => array(),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => 'What is the species/breed of this animal? You can manage the list of available species/breeds in the ' . l('Animal Species/Breeds', 'farm/assets/animals/types') . ' vocabulary.',
     'display' => array(
@@ -196,7 +196,7 @@ function farm_livestock_field_default_field_instances() {
     ),
     'entity_type' => 'farm_asset',
     'field_name' => 'field_farm_animal_type',
-    'label' => 'Type',
+    'label' => 'Species/breed',
     'required' => 1,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -781,9 +781,9 @@ function farm_livestock_field_default_field_instances() {
   t('Parent(s)');
   t('Photos');
   t('Sex');
+  t('Species/breed');
   t('Specify the parent(s) of this animal.');
   t('Tag Type');
-  t('Type');
   t('Use these fields to record a movement with this log entry. This will be used to define the location of any referenced assets. The current location of any asset is determined by the most recently completed movement log. Only the "to" field is required.');
   t('What animals do this medical log pertain to?');
   t('What is the species/breed of this animal? You can manage the list of available species/breeds in the ' . l('Animal Species/Breeds', 'farm/assets/animals/types') . ' vocabulary.');
