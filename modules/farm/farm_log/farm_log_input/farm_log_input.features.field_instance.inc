@@ -511,7 +511,7 @@ function farm_log_input_field_default_field_instances() {
     ),
     'entity_type' => 'log',
     'field_name' => 'field_farm_lot_number',
-    'label' => 'Lot number',
+    'label' => 'Input lot number',
     'required' => 0,
     'settings' => array(
       'text_processing' => 0,
@@ -691,8 +691,8 @@ function farm_log_input_field_default_field_instances() {
   t('Geometry');
   t('How was this input applied?');
   t('If the manufacturer assigned this input a lot number, enter it here.');
+  t('Input lot number');
   t('Log category');
-  t('Lot number');
   t('Material');
   t('Movement');
   t('Notes');

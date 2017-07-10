@@ -232,7 +232,7 @@ function farm_log_sale_views_default_views() {
   $handler->display->display_options['fields']['field_farm_invoice_number']['id'] = 'field_farm_invoice_number';
   $handler->display->display_options['fields']['field_farm_invoice_number']['table'] = 'field_data_field_farm_invoice_number';
   $handler->display->display_options['fields']['field_farm_invoice_number']['field'] = 'field_farm_invoice_number';
-  /* Field: Log: Lot number */
+  /* Field: Log: Input lot number */
   $handler->display->display_options['fields']['field_farm_lot_number']['id'] = 'field_farm_lot_number';
   $handler->display->display_options['fields']['field_farm_lot_number']['table'] = 'field_data_field_farm_lot_number';
   $handler->display->display_options['fields']['field_farm_lot_number']['field'] = 'field_farm_lot_number';
@@ -418,7 +418,7 @@ function farm_log_sale_views_default_views() {
     t('Assets'),
     t('Customer'),
     t('Invoice number'),
-    t('Lot number'),
+    t('Input lot number'),
     t('Quantity'),
     t('Units'),
     t('Unit price'),

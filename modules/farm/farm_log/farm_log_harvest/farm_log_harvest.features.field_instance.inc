@@ -305,7 +305,7 @@ function farm_log_harvest_field_default_field_instances() {
     ),
     'entity_type' => 'log',
     'field_name' => 'field_farm_lot_number',
-    'label' => 'Lot number',
+    'label' => 'Harvest lot number',
     'required' => 0,
     'settings' => array(
       'text_processing' => 0,
@@ -440,9 +440,9 @@ function farm_log_harvest_field_default_field_instances() {
   t('Describe the quantity of this harvest, using a value and a unit of measurement. For example, if you harvested 100 pounds of potatoes, enter "100" in the Value field, and "lbs" in the Units field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.');
   t('Files');
   t('Geometry');
+  t('Harvest lot number');
   t('If this harvest is part of a batch or lot, enter the lot number here.');
   t('Log category');
-  t('Lot number');
   t('Movement');
   t('Notes');
   t('Optionally assign this task to one or more people.');

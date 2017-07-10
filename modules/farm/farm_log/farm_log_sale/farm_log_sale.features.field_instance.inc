@@ -275,7 +275,7 @@ function farm_log_sale_field_default_field_instances() {
     'bundle' => 'farm_sale',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'If this sale is from a specific harvest lot, enter the lot number here.',
+    'description' => 'If this sale has a lot number associated with it, enter it here.',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -287,7 +287,7 @@ function farm_log_sale_field_default_field_instances() {
     ),
     'entity_type' => 'log',
     'field_name' => 'field_farm_lot_number',
-    'label' => 'Lot number',
+    'label' => 'Sale lot number',
     'required' => 0,
     'settings' => array(
       'text_processing' => 0,
@@ -450,15 +450,15 @@ function farm_log_sale_field_default_field_instances() {
   t('Assets');
   t('Customer');
   t('Files');
-  t('If this sale is from a specific harvest lot, enter the lot number here.');
+  t('If this sale has a lot number associated with it, enter it here.');
   t('Invoice number');
   t('Log category');
-  t('Lot number');
   t('Notes');
   t('Optionally assign this task to one or more people.');
   t('Owner');
   t('Photos');
   t('Quantity');
+  t('Sale lot number');
   t('Total price');
   t('Unit price');
   t('Use this field to specify the total quantity that was sold.');
