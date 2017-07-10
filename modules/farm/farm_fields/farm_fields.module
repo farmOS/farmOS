@@ -128,8 +128,11 @@ function farm_fields_prepopulate_entityreference(&$form, $entity_type, $field_na
     foreach ($entities as $id => $entity) {
 
       // If the item isn't empty, skip it.
-      if (!empty($form[$field_name][LANGUAGE_NONE][$id][$value_key])) {
-        continue;
+      $children = element_children($form[$field_name][LANGUAGE_NONE]);
+      foreach ($children as $child) {
+        if (!empty($form[$field_name][LANGUAGE_NONE][$child][$value_key]['#value'])) {
+          continue 2;
+        }
       }
 
       // Add the checkbox element.
