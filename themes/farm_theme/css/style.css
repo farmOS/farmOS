@@ -30,6 +30,23 @@ form#user-login-form ul li {
 }
 
 /**
+ * Add up/down arrow to collapsible fieldset headings.
+ */
+fieldset.collapsible .panel-heading .fieldset-legend:after {
+  font-family: 'Glyphicons Halflings';
+  content: "\e113";
+  float: left;
+  color: grey;
+  margin-right: 10px;
+  transition: all 0.5s;
+}
+fieldset.collapsible .panel-heading .fieldset-legend.collapsed:after {
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+/**
  * Colorbox image styles.
  * @see farm_theme_preprocess_field() in template.php.
  */
