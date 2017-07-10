@@ -384,6 +384,7 @@ function farm_log_sale_field_default_field_instances() {
         'settings' => array(
           'auto_precision' => TRUE,
           'precision' => 0,
+          'prefix_suffix' => TRUE,
         ),
         'type' => 'fraction_decimal',
         'weight' => 6,
@@ -394,6 +395,10 @@ function farm_log_sale_field_default_field_instances() {
     'label' => 'Total price',
     'required' => 0,
     'settings' => array(
+      'max' => '',
+      'min' => '',
+      'prefix' => '',
+      'suffix' => '',
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -421,6 +426,7 @@ function farm_log_sale_field_default_field_instances() {
         'settings' => array(
           'auto_precision' => TRUE,
           'precision' => 0,
+          'prefix_suffix' => TRUE,
         ),
         'type' => 'fraction_decimal',
         'weight' => 5,
@@ -431,6 +437,10 @@ function farm_log_sale_field_default_field_instances() {
     'label' => 'Unit price',
     'required' => 0,
     'settings' => array(
+      'max' => '',
+      'min' => '',
+      'prefix' => '',
+      'suffix' => '',
       'user_register_form' => FALSE,
     ),
     'widget' => array(

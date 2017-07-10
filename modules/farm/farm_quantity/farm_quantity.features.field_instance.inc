@@ -59,6 +59,7 @@ function farm_quantity_field_default_field_instances() {
         'settings' => array(
           'auto_precision' => 1,
           'precision' => 0,
+          'prefix_suffix' => TRUE,
         ),
         'type' => 'fraction_decimal',
         'weight' => 0,
@@ -69,6 +70,10 @@ function farm_quantity_field_default_field_instances() {
     'label' => 'Value',
     'required' => 1,
     'settings' => array(
+      'max' => '',
+      'min' => '',
+      'prefix' => '',
+      'suffix' => '',
       'user_register_form' => FALSE,
     ),
     'widget' => array(
