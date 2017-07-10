@@ -46,6 +46,8 @@ projects[field_group][version] = "1.5"
 
 projects[fraction][subdir] = "contrib"
 projects[fraction][version] = "1.4"
+; Issue #2893271: Add Min, Max, Prefix, Suffix settings to Fraction fields
+projects[fraction][patch][] = "http://www.drupal.org/files/issues/fraction_field_settings-2893271-4.patch"
 
 projects[geocoder][subdir] = "contrib"
 projects[geocoder][version] = "1.3"
