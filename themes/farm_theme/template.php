@@ -108,14 +108,12 @@ function farm_theme_form_alter(&$form, &$form_state, $form_id) {
 
     // Form prefix HTML:
     $form['#prefix'] = '
-<div class="panel panel-default">
-  <div class="panel-heading" role="tab" id="' . $panel_head_id . '">
-    <h4 class="panel-title">
-      <a data-toggle="collapse" href="#' . $panel_body_id . '" aria-expanded="' . $aria_expanded . '" aria-controls="' . $panel_body_id . '">
-        Filter/Sort
-      </a>
-    </h4>
-  </div>
+<fieldset class="panel panel-default collapsible">
+  <legend class="panel-heading" role="tab" id="' . $panel_head_id . '">
+    <a class="panel-title fieldset-legend collapsed" data-toggle="collapse" href="#' . $panel_body_id . '" aria-expanded="' . $aria_expanded . '" aria-controls="' . $panel_body_id . '">
+      Filter/Sort
+    </a>
+  </legend>
   <div id="' . $panel_body_id . '" class="panel-collapse collapse' . $collapse_class . '" role="tabpanel" aria-labelledby="' . $panel_head_id . '">
     <div class="panel-body">';
 
@@ -123,7 +121,7 @@ function farm_theme_form_alter(&$form, &$form_state, $form_id) {
     $form['#suffix'] = '
     </div>
   </div>
-</div>';
+</fieldset>';
   }
 }
 
