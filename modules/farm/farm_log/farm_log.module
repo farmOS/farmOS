@@ -12,23 +12,9 @@ include_once 'farm_log.features.inc';
  */
 function farm_log_form_alter(&$form, &$form_state, $form_id) {
 
-  // If this is a log form...
+  // If this is a log form, attempt to prepopulate entityreference fields.
   if ($form_id == 'log_form') {
-
-    // If there is an asset(s) reference field, try to prepopulate it.
-    if (!empty($form['field_farm_asset'])) {
-      farm_log_form_prepopulate_asset($form);
-    }
-
-    // If there is an area(s) reference field, try to prepopulate it.
-    if (!empty($form['field_farm_area'])) {
-      farm_log_form_prepopulate_area($form);
-    }
-
-    // If there is an owner reference field, try to prepopulate it.
-    if (!empty($form['field_farm_log_owner'])) {
-      farm_log_form_prepopulate_owner($form);
-    }
+    farm_log_prepopulate_log_form_references($form);
   }
 }
 
@@ -149,88 +135,150 @@ function farm_log_populate_geometry($entity) {
 }
 
 /**
- * Helper function for enabling asset prepopulation in log forms.
+ * Helper function for populating entity reference fields in log forms.
  *
  * @param array $form
  *   The form array to modify, passed by reference.
  */
-function farm_log_form_prepopulate_asset(&$form) {
+function farm_log_prepopulate_log_form_references(&$form) {
 
-  // Load assets from the ?farm_asset query parameter.
-  $assets = farm_asset_load_assets_from_url();
+  // Define the fields we will be populating.
+  $fields = array(
+    'field_farm_asset' => array(
+      'entity_type' => 'farm_asset',
+      'url_param' => 'farm_asset',
+    ),
+    'field_farm_area' => array(
+      'entity_type' => 'taxonomy_term',
+      'url_param' => 'farm_area',
+    ),
+    'field_farm_log_owner' => array(
+      'entity_type' => 'user',
+    ),
+  );
 
-  // If there are no assets, bail.
-  if (empty($assets)) {
-    return;
+  // Populate the fields.
+  foreach ($fields as $field => $info) {
+
+    // Start with an empty array of IDs.
+    $ids = array();
+
+    // If the field does not exist on the log, skip it.
+    if (!isset($form[$field])) {
+      continue;
+    }
+
+    // If a URL param is available, get a list of entity IDs from it.
+    if (!empty($info['url_param'])) {
+      $ids = farm_log_ids_from_url($info['url_param']);
+    }
+
+    // Or, if the entity type is 'user', load the ID from the current user.
+    elseif ($info['entity_type'] == 'user') {
+      global $user;
+      if (!empty($user->uid)) {
+        $ids[] = $user->uid;
+      }
+    }
+
+    // If there are no IDs, skip.
+    if (empty($ids)) {
+      continue;
+    }
+
+    // Prepopulate with our helper function.
+    farm_log_prepopulate_entityreference($form, $info['entity_type'], $field, $ids);
   }
+}
+
+/**
+ * Helper function for pre-populating entityreference form elements.
+ *
+ * @param array $form
+ *   The form array to modify, passed by reference.
+ * @param string $entity_type
+ *   The entity type that is being referenced.
+ * @param string $field_name
+ *   The machine name of the entity reference field.
+ * @param array $entity_ids
+ *   An array of entities to add to the references.
+ */
+function farm_log_prepopulate_entityreference(&$form, $entity_type, $field_name, $entity_ids) {
 
   // Load the field instance definition.
-  $entity_type = $form['#entity_type'];
-  $bundle = $form['#bundle'];
-  $field_instance = field_info_instance($entity_type, 'field_farm_asset', $bundle);
+  $form_entity_type = $form['#entity_type'];
+  $form_entity_bundle = $form['#bundle'];
+  $field_instance = field_info_instance($form_entity_type, $field_name, $form_entity_bundle);
+
+  // Validate the entity IDs by loading them. Rebuild the list of IDs using
+  // only the entities that loaded.
+  $entities = entity_load($entity_type, $entity_ids);
+  $entity_ids = array();
+  foreach ($entities as $entity) {
+    $entity_ids[] = entity_id($entity_type, $entity);
+  }
+
+  // If there are no entity IDs, bail.
+  if (empty($entity_ids)) {
+    return;
+  }
 
   // If the widget type is "radios/checkboxes" or "select list"...
   if (in_array($field_instance['widget']['type'], array('options_buttons', 'options_select'))) {
 
-    // Build a list of asset ID.
-    $asset_ids = array();
-    foreach ($assets as $asset) {
-      $asset_ids[] = $asset->id;
-    }
-
-    // Use the array of asset IDs as the field's default value.
-    if (empty($form['field_farm_asset'][LANGUAGE_NONE]['#default_value'])) {
-      $form['field_farm_asset'][LANGUAGE_NONE]['#default_value'] = $asset_ids;
+    // Use the array of IDs as the field's default value.
+    if (empty($form[$field_name][LANGUAGE_NONE]['#default_value'])) {
+      $form[$field_name][LANGUAGE_NONE]['#default_value'] = $entity_ids;
     }
   }
 
   // If the widget type is "autocomplete" or "autocomplete tags"...
   elseif (in_array($field_instance['widget']['type'], array('entityreference_autocomplete', 'entityreference_autocomplete_tags'))) {
 
-    // Build a list of asset labels in the format that the widget expects.
-    $asset_labels = array();
-    foreach ($assets as $asset) {
-      $asset_labels[] = entity_label('farm_asset', $asset) . ' (' . $asset->id . ')';
+    // Build a list of entity labels in the format that the widget expects.
+    $labels = array();
+    foreach ($entities as $id => $entity) {
+      $labels[] = entity_label($entity_type, $entity) . ' (' . $id . ')';
     }
 
     // For "autocomplete", add each one as a separate field.
     if ($field_instance['widget']['type'] == 'entityreference_autocomplete') {
-      foreach ($asset_labels as $key => $label) {
+      foreach ($labels as $key => $label) {
 
         // If the item isn't empty, skip it.
-        if (!empty($form['field_farm_asset'][LANGUAGE_NONE][$key]['target_id']['#default_value'])) {
+        if (!empty($form[$field_name][LANGUAGE_NONE][$key]['target_id']['#default_value'])) {
           continue;
         }
 
         /**
          * @todo
-         * This seems to be the easiest way to autopopulate entityreference_autocomplete
+         * This seems to be the easiest way to auto-populate entityreference_autocomplete
          * widgets, but it is MESSY! If anyone can figure out a better way, I will buy
          * you a beer.
          */
         // Copy the initial array structure from the first element.
-        $form['field_farm_asset'][LANGUAGE_NONE][$key] = $form['field_farm_asset'][LANGUAGE_NONE][0];
+        $form[$field_name][LANGUAGE_NONE][$key] = $form[$field_name][LANGUAGE_NONE][0];
 
         // Set the default, delta, and weight values.
-        $form['field_farm_asset'][LANGUAGE_NONE][$key]['target_id']['#default_value'] = $label;
-        $form['field_farm_asset'][LANGUAGE_NONE][$key]['target_id']['#delta'] = $key;
-        $form['field_farm_asset'][LANGUAGE_NONE][$key]['target_id']['#weight'] = $key;
+        $form[$field_name][LANGUAGE_NONE][$key]['target_id']['#default_value'] = $label;
+        $form[$field_name][LANGUAGE_NONE][$key]['target_id']['#delta'] = $key;
+        $form[$field_name][LANGUAGE_NONE][$key]['target_id']['#weight'] = $key;
 
         // Only make the first one required.
         if ($key > 0) {
-          $form['field_farm_asset'][LANGUAGE_NONE][$key]['target_id']['#required'] = 0;
+          $form[$field_name][LANGUAGE_NONE][$key]['target_id']['#required'] = 0;
         }
 
-        $form['field_farm_asset'][LANGUAGE_NONE]['#max_delta'] = $key;
-        $form['field_farm_asset'][LANGUAGE_NONE][$key]['_weight']['#delta'] = $key;
-        $form['field_farm_asset'][LANGUAGE_NONE][$key]['_weight']['#default_value'] = $key;
+        $form[$field_name][LANGUAGE_NONE]['#max_delta'] = $key;
+        $form[$field_name][LANGUAGE_NONE][$key]['_weight']['#delta'] = $key;
+        $form[$field_name][LANGUAGE_NONE][$key]['_weight']['#default_value'] = $key;
       }
     }
 
     // For "autocomplete tags", implode them all into one comma-separated list.
     elseif ($field_instance['widget']['type'] == 'entityreference_autocomplete_tags') {
-      if (empty($form['field_farm_asset'][LANGUAGE_NONE]['#default_value'])) {
-        $form['field_farm_asset'][LANGUAGE_NONE]['#default_value'] = implode(', ', $asset_labels);
+      if (empty($form[$field_name][LANGUAGE_NONE]['#default_value'])) {
+        $form[$field_name][LANGUAGE_NONE]['#default_value'] = implode(', ', $labels);
       }
     }
   }
@@ -240,79 +288,50 @@ function farm_log_form_prepopulate_asset(&$form) {
 
     // Add a set of checkbox form elements, as the entityreference_view_widget
     // module expects...
-    foreach ($assets as $key => $asset) {
+    foreach ($entities as $id => $entity) {
 
       // If the item isn't empty, skip it.
-      if (!empty($form['field_farm_asset'][LANGUAGE_NONE][$key]['target_id'])) {
+      if (!empty($form[$field_name][LANGUAGE_NONE][$id]['target_id'])) {
         continue;
       }
 
       // Add the checkbox element.
-      $form['field_farm_asset'][LANGUAGE_NONE][$key]['target_id'] = array(
+      $form[$field_name][LANGUAGE_NONE][$id]['target_id'] = array(
         '#type' => 'checkbox',
-        '#return_value' => $asset->id,
-        '#value' => $asset->id,
+        '#return_value' => $id,
+        '#value' => $id,
         '#title_display' => 'after',
         '#attributes' => array(
           'checked' => 'checked',
         ),
-        '#title' => entity_label('farm_asset', $asset),
+        '#title' => entity_label($entity_type, $entity),
       );
     }
   }
 }
 
 /**
- * Helper function for enabling area prepopulation in log forms.
+ * Helper function for retrieving a list of entity IDs from a URL query param.
  *
- * @param array $form
- *   The form array to modify, passed by reference.
+ * @param string $param
+ *   The URL query param to look at.
+ *
+ * @return array
+ *   Returns an array of IDs.
  */
-function farm_log_form_prepopulate_area(&$form) {
+function farm_log_ids_from_url($param) {
 
-  // Alias for the field's default value.
-  $field_value = &$form['field_farm_area'][LANGUAGE_NONE]['#default_value'];
-
-  // If the "farm_area" query parameter is set...
+  // If the GET parameter isn't set, bail.
   $params = drupal_get_query_parameters();
-  if (!empty($params['farm_area'])) {
-
-    // Verify that the farm_area is valid.
-    $area = taxonomy_term_load($params['farm_area']);
-    if ($area) {
-
-      // Prepopulate the area reference field.
-      if (empty($field_value)) {
-        $field_value = $area->tid;
-      }
-    }
-  }
-}
-
-/**
- * Helper function for enabling owner prepopulation in log forms.
- *
- * @param array $form
- *   The form array to modify, passed by reference.
- */
-function farm_log_form_prepopulate_owner(&$form) {
-
-  // Alias for the field's default value.
-  $field_value = &$form['field_farm_log_owner'][LANGUAGE_NONE]['#default_value'];
-
-  // Only proceed if the field is empty.
-  if (!empty($field_value)) {
-    return;
+  if (empty($params[$param])) {
+    return array();
   }
 
-  // Load the current authenticated user.
-  global $user;
-
-  // If the user id is empty for whatever reason, bail.
-  if (empty($user->uid)) {
-    return;
+  // If only a single ID is passed, convert it to an array.
+  if (!is_array($params[$param])) {
+    $params[$param] = array($params[$param]);
   }
 
-  // Add the user's id to the list of log owners.
-  $field_value = array($user->uid);
+  // Return the array of IDs.
+  return $params[$param];
 }
