@@ -153,18 +153,15 @@ function farm_log_populate_geometry($entity) {
  *
  * @param array $form
  *   The form array to modify, passed by reference.
- *
- * @return array|bool
- *   Returns the asset objects in an array, if found, FALSE otherwise.
  */
-function farm_log_form_prepopulate_asset(array &$form) {
+function farm_log_form_prepopulate_asset(&$form) {
 
   // Load assets from the ?farm_asset query parameter.
   $assets = farm_asset_load_assets_from_url();
 
   // If there are no assets, bail.
   if (empty($assets)) {
-    return FALSE;
+    return;
   }
 
   // Load the field instance definition.
@@ -263,8 +260,6 @@ function farm_log_form_prepopulate_asset(array &$form) {
       );
     }
   }
-
-  return $assets;
 }
 
 /**
@@ -272,12 +267,8 @@ function farm_log_form_prepopulate_asset(array &$form) {
  *
  * @param array $form
  *   The form array to modify, passed by reference.
- *
- * @return TaxonomyTerm term
- *   Returns the taxonomy term object, if found.
  */
-function farm_log_form_prepopulate_area(array &$form) {
-  $area = NULL;
+function farm_log_form_prepopulate_area(&$form) {
 
   // Alias for the field's default value.
   $field_value = &$form['field_farm_area'][LANGUAGE_NONE]['#default_value'];
@@ -290,20 +281,12 @@ function farm_log_form_prepopulate_area(array &$form) {
     $area = taxonomy_term_load($params['farm_area']);
     if ($area) {
 
-      // Add the area to the form.
-      $form['farm_area'] = array(
-        '#type' => 'value',
-        '#value' => $area,
-      );
-
       // Prepopulate the area reference field.
       if (empty($field_value)) {
         $field_value = $area->tid;
       }
     }
   }
-
-  return $area;
 }
 
 /**
@@ -312,7 +295,7 @@ function farm_log_form_prepopulate_area(array &$form) {
  * @param array $form
  *   The form array to modify, passed by reference.
  */
-function farm_log_form_prepopulate_owner(array &$form) {
+function farm_log_form_prepopulate_owner(&$form) {
 
   // Alias for the field's default value.
   $field_value = &$form['field_farm_log_owner'][LANGUAGE_NONE]['#default_value'];
