@@ -10,6 +10,45 @@
 function farm_log_harvest_field_default_field_instances() {
   $field_instances = array();
 
+  // Exported field_instance: 'log-farm_harvest-field_farm_area'.
+  $field_instances['log-farm_harvest-field_farm_area'] = array(
+    'bundle' => 'farm_harvest',
+    'default_value' => array(),
+    'deleted' => 0,
+    'description' => 'What areas is this harvest taking place in?',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 2,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_area',
+    'label' => 'Areas',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference_view_widget',
+      'settings' => array(
+        'allow_duplicates' => 0,
+        'close_modal' => 1,
+        'pass_argument' => 1,
+        'pass_arguments' => '',
+        'rendered_entity' => 0,
+        'view' => 'farm_area_entityreference_view|entityreference_view_widget',
+        'view_mode' => 'full',
+      ),
+      'type' => 'entityreference_view_widget',
+      'weight' => 12,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_harvest-field_farm_asset'.
   $field_instances['log-farm_harvest-field_farm_asset'] = array(
     'bundle' => 'farm_harvest',
@@ -69,7 +108,7 @@ function farm_log_harvest_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_table',
-        'weight' => 7,
+        'weight' => 8,
       ),
       'token' => array(
         'label' => 'above',
@@ -115,7 +154,7 @@ function farm_log_harvest_field_default_field_instances() {
           'map_layer_preset' => 'farm_map_geofield_formatter:openlayers_geofield_layer_formatter',
         ),
         'type' => 'openlayers_geofield',
-        'weight' => 8,
+        'weight' => 9,
       ),
       'token' => array(
         'label' => 'above',
@@ -162,7 +201,7 @@ function farm_log_harvest_field_default_field_instances() {
         'use_geocoder' => 1,
       ),
       'type' => 'openlayers_geofield',
-      'weight' => 3,
+      'weight' => 4,
     ),
   );
 
@@ -187,7 +226,7 @@ function farm_log_harvest_field_default_field_instances() {
           'colorbox_node_style_first' => 'large',
         ),
         'type' => 'colorbox',
-        'weight' => 6,
+        'weight' => 7,
       ),
       'token' => array(
         'label' => 'above',
@@ -235,7 +274,7 @@ function farm_log_harvest_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_plain',
-        'weight' => 4,
+        'weight' => 5,
       ),
     ),
     'entity_type' => 'log',
@@ -269,7 +308,7 @@ function farm_log_harvest_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 5,
+        'weight' => 6,
       ),
     ),
     'entity_type' => 'log',
@@ -336,7 +375,7 @@ function farm_log_harvest_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 9,
+        'weight' => 10,
       ),
     ),
     'entity_type' => 'log',
@@ -351,7 +390,7 @@ function farm_log_harvest_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 4,
+      'weight' => 5,
     ),
   );
 
@@ -367,7 +406,7 @@ function farm_log_harvest_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 3,
+        'weight' => 4,
       ),
       'token' => array(
         'label' => 'above',
@@ -391,7 +430,7 @@ function farm_log_harvest_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 3,
+      'weight' => 14,
     ),
   );
 
@@ -409,7 +448,7 @@ function farm_log_harvest_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 2,
+        'weight' => 3,
       ),
       'token' => array(
         'label' => 'above',
@@ -430,12 +469,13 @@ function farm_log_harvest_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 2,
+      'weight' => 3,
     ),
   );
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Areas');
   t('Assets');
   t('Describe the quantity of this harvest, using a value and a unit of measurement. For example, if you harvested 100 pounds of potatoes, enter "100" in the Value field, and "lbs" in the Units field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.');
   t('Files');
@@ -452,6 +492,7 @@ function farm_log_harvest_field_default_field_instances() {
   t('This field is optional. It allows you to store geospatial data along with this harvest.');
   t('Use these fields to record a movement with this log entry. This will be used to define the location of any referenced assets. The current location of any asset is determined by the most recently completed movement log. Only the "to" field is required.');
   t('Use this to organize your logs into categories for easier searching and filtering later.');
+  t('What areas is this harvest taking place in?');
   t('What assets do this harvest log pertain to?');
 
   return $field_instances;
