@@ -183,6 +183,35 @@ function farm_asset_views_default_views() {
   $handler->display->display_options['menu']['name'] = 'farm';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
+  $translatables['farm_asset'] = array(
+    t('Master'),
+    t('Assets'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('No assets found.'),
+    t('Farm asset'),
+    t('- Choose an operation -'),
+    t('Delete'),
+    t('Farm asset ID'),
+    t('.'),
+    t(','),
+    t('Name'),
+    t('Asset type'),
+    t('Active'),
+    t('Type'),
+    t('Page'),
+  );
 
   $export['farm_assets'] = $view;
 
