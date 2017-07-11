@@ -15,3 +15,137 @@ function farm_fields_farm_access_perms($role) {
 
   return $perms;
 }
+
+/**
+ * Helper function for pre-populating entityreference fields in entity forms.
+ *
+ * @param array $form
+ *   The entity form array to modify, passed by reference.
+ * @param string $entity_type
+ *   The entity type that is being referenced.
+ * @param string $field_name
+ *   The machine name of the entity reference field.
+ * @param array $entity_ids
+ *   An array of entities to add to the references.
+ */
+function farm_fields_prepopulate_entityreference(&$form, $entity_type, $field_name, $entity_ids) {
+
+  // Load the field instance definition.
+  $form_entity_type = $form['#entity_type'];
+  $form_entity_bundle = $form['#bundle'];
+  $field_base = field_info_field($field_name);
+  $field_instance = field_info_instance($form_entity_type, $field_name, $form_entity_bundle);
+
+  // Set the field value key based on the field type.
+  $value_key = 'value';
+  switch ($field_base['type']) {
+    case 'entity_reference';
+      $value_key = 'target_id';
+      break;
+    case 'taxonomy_term_reference':
+      $value_key = 'tid';
+      break;
+  }
+
+  // Validate the entity IDs by loading them. Rebuild the list of IDs using
+  // only the entities that loaded.
+  $entities = entity_load($entity_type, $entity_ids);
+  $entity_ids = array();
+  foreach ($entities as $entity) {
+    $entity_ids[] = entity_id($entity_type, $entity);
+  }
+
+  // If there are no entity IDs, bail.
+  if (empty($entity_ids)) {
+    return;
+  }
+
+  // If the widget type is "radios/checkboxes" or "select list"...
+  if (in_array($field_instance['widget']['type'], array('options_buttons', 'options_select'))) {
+
+    // Use the array of IDs as the field's default value.
+    if (empty($form[$field_name][LANGUAGE_NONE]['#default_value'])) {
+      $form[$field_name][LANGUAGE_NONE]['#default_value'] = $entity_ids;
+    }
+  }
+
+  // If the widget type is "autocomplete" or "autocomplete tags"...
+  elseif (in_array($field_instance['widget']['type'], array('entityreference_autocomplete', 'entityreference_autocomplete_tags'))) {
+
+    // Build a list of entity labels in the format that the widget expects.
+    $labels = array();
+    foreach ($entities as $id => $entity) {
+      $labels[] = entity_label($entity_type, $entity) . ' (' . $id . ')';
+    }
+
+    // For "autocomplete", add each one as a separate field.
+    if ($field_instance['widget']['type'] == 'entityreference_autocomplete') {
+      foreach ($labels as $key => $label) {
+
+        // If the item isn't empty, skip it.
+        if (!empty($form[$field_name][LANGUAGE_NONE][$key][$value_key]['#default_value'])) {
+          continue;
+        }
+
+        /**
+         * @todo
+         * This seems to be the easiest way to auto-populate entityreference_autocomplete
+         * widgets, but it is MESSY! If anyone can figure out a better way, I will buy
+         * you a beer.
+         */
+        // Copy the initial array structure from the first element.
+        $form[$field_name][LANGUAGE_NONE][$key] = $form[$field_name][LANGUAGE_NONE][0];
+
+        // Set the default, delta, and weight values.
+        $form[$field_name][LANGUAGE_NONE][$key][$value_key]['#default_value'] = $label;
+        $form[$field_name][LANGUAGE_NONE][$key][$value_key]['#delta'] = $key;
+        $form[$field_name][LANGUAGE_NONE][$key][$value_key]['#weight'] = $key;
+
+        // Only make the first one required.
+        if ($key > 0) {
+          $form[$field_name][LANGUAGE_NONE][$key][$value_key]['#required'] = 0;
+        }
+
+        $form[$field_name][LANGUAGE_NONE]['#max_delta'] = $key;
+        $form[$field_name][LANGUAGE_NONE][$key]['_weight']['#delta'] = $key;
+        $form[$field_name][LANGUAGE_NONE][$key]['_weight']['#default_value'] = $key;
+      }
+    }
+
+    // For "autocomplete tags", implode them all into one comma-separated list.
+    elseif ($field_instance['widget']['type'] == 'entityreference_autocomplete_tags') {
+      if (empty($form[$field_name][LANGUAGE_NONE]['#default_value'])) {
+        $form[$field_name][LANGUAGE_NONE]['#default_value'] = implode(', ', $labels);
+      }
+    }
+  }
+
+  // If the widget type is "entity reference view widget"...
+  elseif ($field_instance['widget']['type'] == 'entityreference_view_widget') {
+
+    // Add a set of checkbox form elements, as the entityreference_view_widget
+    // module expects...
+    foreach ($entities as $id => $entity) {
+
+      // If the item isn't empty, skip it.
+      $children = element_children($form[$field_name][LANGUAGE_NONE]);
+      foreach ($children as $child) {
+        if (!empty($form[$field_name][LANGUAGE_NONE][$child][$value_key]['#value'])) {
+          continue 2;
+        }
+      }
+
+      // Add the checkbox element.
+      $form[$field_name][LANGUAGE_NONE][$id][$value_key] = array(
+        '#type' => 'checkbox',
+        '#return_value' => $id,
+        '#value' => $id,
+        '#title_display' => 'after',
+        '#attributes' => array(
+          'checked' => 'checked',
+        ),
+        '#title' => entity_label($entity_type, $entity),
+      );
+    }
+  }
+}

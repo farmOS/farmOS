@@ -15,7 +15,7 @@ function farm_soil_test_field_default_field_instances() {
     'bundle' => 'farm_soil_test',
     'default_value' => array(),
     'deleted' => 0,
-    'description' => 'What areas were this soil sample taken from?',
+    'description' => 'What areas is this sample being taken from?',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -34,9 +34,17 @@ function farm_soil_test_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_select',
+      'module' => 'entityreference_view_widget',
+      'settings' => array(
+        'allow_duplicates' => 0,
+        'close_modal' => 1,
+        'pass_argument' => 1,
+        'pass_arguments' => '',
+        'rendered_entity' => 0,
+        'view' => 'farm_area_entityreference_view|entityreference_view_widget',
+        'view_mode' => 'full',
+      ),
+      'type' => 'entityreference_view_widget',
       'weight' => 2,
     ),
   );
@@ -339,7 +347,7 @@ function farm_soil_test_field_default_field_instances() {
   t('Sample Points');
   t('Soil Names');
   t('Use the map to pinpoint the location(s) from which this sample is taken. If you are preparing a soil test, you may be sampling multiple points within a given area. All the points that comprise this sample should be included.');
-  t('What areas were this soil sample taken from?');
+  t('What areas is this sample being taken from?');
   t('What laboratory performed the soil test?');
 
   return $field_instances;

@@ -232,6 +232,11 @@ function farm_log_harvest_views_default_views() {
     'link' => 1,
   );
   $handler->display->display_options['fields']['field_farm_asset']['delta_offset'] = '0';
+  /* Field: Log: Areas */
+  $handler->display->display_options['fields']['field_farm_area']['id'] = 'field_farm_area';
+  $handler->display->display_options['fields']['field_farm_area']['table'] = 'field_data_field_farm_area';
+  $handler->display->display_options['fields']['field_farm_area']['field'] = 'field_farm_area';
+  $handler->display->display_options['fields']['field_farm_area']['delta_offset'] = '0';
   /* Field: Log: Sale lot number */
   $handler->display->display_options['fields']['field_farm_lot_number']['id'] = 'field_farm_lot_number';
   $handler->display->display_options['fields']['field_farm_lot_number']['table'] = 'field_data_field_farm_lot_number';
