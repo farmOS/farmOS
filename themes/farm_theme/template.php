@@ -151,15 +151,18 @@ function farm_theme_views_bulk_operations_form_alter(&$form, &$form_state, $vbo)
   // Move VBO buttons to the bottom.
   $form['select']['#weight'] = 100;
 
-  // Move the "Assign", "Clone", and "Group" actions to the end of the list.
-  if (!empty($form['select']['action::farm_log_assign_action'])) {
-    $form['select']['action::farm_log_assign_action']['#weight'] = 100;
-  }
-  if (!empty($form['select']['action::log_clone_action'])) {
-    $form['select']['action::log_clone_action']['#weight'] = 100;
-  }
-  if (!empty($form['select']['action::farm_group_asset_membership_action'])) {
-    $form['select']['action::farm_group_asset_membership_action']['#weight'] = 100;
+  // Move the "Assign", "Clone", "Group", and "Delete" actions to the end of
+  // the list.
+  $end_actions = array(
+    'action::farm_log_assign_action',
+    'action::log_clone_action',
+    'action::farm_group_asset_membership_action',
+    'action::views_bulk_operations_delete_item',
+  );
+  $i = 0;
+  foreach ($end_actions as $action) {
+    $form['select'][$action]['#weight'] = 100 + $i;
+    $i++;
   }
 
   // If we are viewing a VBO config form, add Javascript that will hide
@@ -193,6 +196,7 @@ function farm_theme_bootstrap_colorize_text_alter(&$texts) {
   $texts['matches'][t('Reschedule')] = 'warning';
   $texts['matches'][t('Assign')] = 'info';
   $texts['matches'][t('Clone')] = 'default';
+  $texts['matches'][t('Delete')] = 'primary';
 }
 
 /**
@@ -208,6 +212,7 @@ function farm_theme_bootstrap_iconize_text_alter(&$texts) {
   $texts['matches'][t('Reschedule')] = 'calendar';
   $texts['matches'][t('Assign')] = 'user';
   $texts['matches'][t('Clone')] = 'plus';
+  $texts['matches'][t('Delete')] = 'trash';
 }
 
 /**
