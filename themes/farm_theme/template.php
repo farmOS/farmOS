@@ -156,6 +156,19 @@ function farm_theme_bootstrap_colorize_text_alter(&$texts) {
 }
 
 /**
+ * Implements hook_bootstrap_iconize_text_alter().
+ */
+function farm_theme_bootstrap_iconize_text_alter(&$texts) {
+
+  // Iconize VBO action buttons.
+  $texts['matches'][t('Move')] = 'move';
+  $texts['matches'][t('Done')] = 'check';
+  $texts['matches'][t('Not Done')] = 'unchecked';
+  $texts['matches'][t('Reschedule')] = 'calendar';
+  $texts['matches'][t('Clone')] = 'plus';
+}
+
+/**
  * Implements hook_entity_view_alter().
  */
 function farm_theme_entity_view_alter(&$build, $type) {
