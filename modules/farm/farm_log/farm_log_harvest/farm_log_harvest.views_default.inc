@@ -232,10 +232,11 @@ function farm_log_harvest_views_default_views() {
     'link' => 1,
   );
   $handler->display->display_options['fields']['field_farm_asset']['delta_offset'] = '0';
-  /* Field: Log: Input lot number */
+  /* Field: Log: Sale lot number */
   $handler->display->display_options['fields']['field_farm_lot_number']['id'] = 'field_farm_lot_number';
   $handler->display->display_options['fields']['field_farm_lot_number']['table'] = 'field_data_field_farm_lot_number';
   $handler->display->display_options['fields']['field_farm_lot_number']['field'] = 'field_farm_lot_number';
+  $handler->display->display_options['fields']['field_farm_lot_number']['label'] = 'Harvest lot number';
   /* Field: Log: Log category */
   $handler->display->display_options['fields']['field_farm_log_category']['id'] = 'field_farm_log_category';
   $handler->display->display_options['fields']['field_farm_log_category']['table'] = 'field_data_field_farm_log_category';
@@ -289,7 +290,7 @@ function farm_log_harvest_views_default_views() {
     'farm_harvest' => 'farm_harvest',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
-  /* Filter criterion: Log: Input lot number (field_farm_lot_number) */
+  /* Filter criterion: Log: Sale lot number (field_farm_lot_number) */
   $handler->display->display_options['filters']['field_farm_lot_number_value']['id'] = 'field_farm_lot_number_value';
   $handler->display->display_options['filters']['field_farm_lot_number_value']['table'] = 'field_data_field_farm_lot_number';
   $handler->display->display_options['filters']['field_farm_lot_number_value']['field'] = 'field_farm_lot_number_value';
@@ -427,7 +428,8 @@ function farm_log_harvest_views_default_views() {
     t('Quantity'),
     t('Units'),
     t('Assets'),
-    t('Input lot number'),
+    t('Areas'),
+    t('Harvest lot number'),
     t('Category'),
     t('All'),
     t('Harvests of %1'),
