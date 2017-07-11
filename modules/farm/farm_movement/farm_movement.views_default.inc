@@ -530,6 +530,17 @@ function farm_movement_views_default_views() {
       'override_label' => 0,
       'label' => '',
     ),
+    'action::views_bulk_operations_delete_item' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'skip_permission_check' => 0,
+      'override_label' => 1,
+      'label' => 'Delete',
+      'settings' => array(
+        'log' => 0,
+      ),
+    ),
     'action::log_done_action' => array(
       'selected' => 1,
       'postpone_processing' => 0,
@@ -770,6 +781,7 @@ function farm_movement_views_default_views() {
     t('field collection item from field_farm_movement'),
     t('Log'),
     t('- Choose an operation -'),
+    t('Delete'),
     t('Done'),
     t('Not Done'),
     t('✔'),

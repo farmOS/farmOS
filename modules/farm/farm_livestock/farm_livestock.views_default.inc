@@ -315,6 +315,17 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['force_single'] = 0;
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['entity_load_capacity'] = '10';
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_operations'] = array(
+    'action::views_bulk_operations_delete_item' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'skip_permission_check' => 0,
+      'override_label' => 1,
+      'label' => 'Delete',
+      'settings' => array(
+        'log' => 0,
+      ),
+    ),
     'action::farm_group_asset_membership_action' => array(
       'selected' => 1,
       'skip_confirmation' => 1,
@@ -636,6 +647,7 @@ function farm_livestock_views_default_views() {
     t('field collection item from field_farm_animal_tag'),
     t('Farm asset'),
     t('- Choose an operation -'),
+    t('Delete'),
     t('Asset ID'),
     t('.'),
     t('Name'),
@@ -797,6 +809,17 @@ function farm_livestock_views_default_views() {
       'skip_permission_check' => 0,
       'override_label' => 0,
       'label' => '',
+    ),
+    'action::views_bulk_operations_delete_item' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'skip_permission_check' => 0,
+      'override_label' => 1,
+      'label' => 'Delete',
+      'settings' => array(
+        'log' => 0,
+      ),
     ),
     'action::log_done_action' => array(
       'selected' => 1,
@@ -1039,6 +1062,7 @@ function farm_livestock_views_default_views() {
     t('Owner'),
     t('Log'),
     t('- Choose an operation -'),
+    t('Delete'),
     t('Done'),
     t('Not Done'),
     t('✔'),
