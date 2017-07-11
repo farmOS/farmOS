@@ -15,7 +15,7 @@ function farm_water_test_field_default_field_instances() {
     'bundle' => 'farm_water_test',
     'default_value' => array(),
     'deleted' => 0,
-    'description' => 'What areas were this water sample taken from?',
+    'description' => 'What areas is this water sample being taken from?',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -314,7 +314,7 @@ function farm_water_test_field_default_field_instances() {
   t('Photos');
   t('Sample points');
   t('Use the map to pinpoint the location(s) from which this sample is taken.');
-  t('What areas were this water sample taken from?');
+  t('What areas is this water sample being taken from?');
   t('What laboratory performed the water test?');
 
   return $field_instances;

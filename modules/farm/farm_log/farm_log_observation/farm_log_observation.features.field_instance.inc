@@ -15,7 +15,7 @@ function farm_log_observation_field_default_field_instances() {
     'bundle' => 'farm_observation',
     'default_value' => array(),
     'deleted' => 0,
-    'description' => 'What areas did this observation take place in?',
+    'description' => 'What areas is this observation taking place in?',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -421,7 +421,7 @@ function farm_log_observation_field_default_field_instances() {
   t('This field is optional. It allows you to store geospatial data along with this observation.');
   t('Use these fields to record a movement with this log entry. This will be used to define the location of any referenced assets. The current location of any asset is determined by the most recently completed movement log. Only the "to" field is required.');
   t('Use this to organize your logs into categories for easier searching and filtering later.');
-  t('What areas did this observation take place in?');
+  t('What areas is this observation taking place in?');
   t('What assets do this observation log pertain to?');
 
   return $field_instances;
