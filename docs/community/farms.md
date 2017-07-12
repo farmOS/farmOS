@@ -19,6 +19,7 @@ included in this list, add a comment to [this issue on Github].
 
 * All In Farm (Georgetown, Texas)
 * Cloud 9 Ranch (Greeneville, Tennessee)
+* Counter Culture Organic Farm (Waialua, Hawai&#699;i)
 * Double Doc Ranch (Shell, Wyoming)
 * FoodScaping Permaculture Farm (Cheshire, Oregon)
 * Hampton Plantation (Owings, Maryland)
