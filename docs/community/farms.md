@@ -23,7 +23,7 @@ included in this list, add a comment to [this issue on Github].
 * FoodScaping Permaculture Farm (Cheshire, Oregon)
 * Hampton Plantation (Owings, Maryland)
 * Liberty University Campus Farm (Rustburg, Virginia)
-* Lokoea Farms (Haleiwa, Hawai)
+* Lokoea Farms (Haleiwa, Hawai&#699;i)
 * Miles Smith Farm (Loudon, New Hampshire)
 * North Mountain Pastures (Newport, Pennsylvania)
 * Patroon Land Farm (Voorheesville, New York)
