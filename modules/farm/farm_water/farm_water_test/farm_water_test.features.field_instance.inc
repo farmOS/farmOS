@@ -13,7 +13,7 @@ function farm_water_test_field_default_field_instances() {
   // Exported field_instance: 'log-farm_water_test-field_farm_area'.
   $field_instances['log-farm_water_test-field_farm_area'] = array(
     'bundle' => 'farm_water_test',
-    'default_value' => array(),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => 'What areas is this water sample being taken from?',
     'display' => array(
@@ -34,17 +34,9 @@ function farm_water_test_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'entityreference_view_widget',
-      'settings' => array(
-        'allow_duplicates' => 0,
-        'close_modal' => 1,
-        'pass_argument' => 1,
-        'pass_arguments' => '',
-        'rendered_entity' => 0,
-        'view' => 'farm_area_entityreference_view|entityreference_view_widget',
-        'view_mode' => 'full',
-      ),
-      'type' => 'entityreference_view_widget',
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
       'weight' => 7,
     ),
   );

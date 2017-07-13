@@ -6,7 +6,6 @@ dependencies[] = colorbox
 dependencies[] = ctools
 dependencies[] = entity
 dependencies[] = entityreference
-dependencies[] = entityreference_view_widget
 dependencies[] = farm_area
 dependencies[] = farm_fields
 dependencies[] = farm_water
