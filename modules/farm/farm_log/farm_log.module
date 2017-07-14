@@ -194,7 +194,14 @@ function farm_log_prepopulate_log_form_references(&$form) {
 
     // If a URL param is available, get a list of entity IDs from it.
     if (!empty($info['url_param'])) {
-      $ids = farm_log_ids_from_url($info['url_param']);
+
+      // Get query parameters.
+      $params = drupal_get_query_parameters();
+
+      // If the URL param is set, pull the IDs out.
+      if (!empty($params[$info['url_param']])) {
+        $ids = $params[$info['url_param']];
+      }
     }
 
     // Or, if the entity type is 'user', load the ID from the current user.
@@ -205,6 +212,11 @@ function farm_log_prepopulate_log_form_references(&$form) {
       }
     }
 
+    // Ensure that the IDs are an array.
+    if (!is_array($ids)) {
+      $ids = array($ids);
+    }
+
     // If there are no IDs, skip.
     if (empty($ids)) {
       continue;
@@ -213,30 +225,4 @@ function farm_log_prepopulate_log_form_references(&$form) {
     // Prepopulate with the farm_fields helper function.
     farm_fields_prepopulate_entityreference($form, $info['entity_type'], $field, $ids);
   }
-}
-
-/**
- * Helper function for retrieving a list of entity IDs from a URL query param.
- *
- * @param string $param
- *   The URL query param to look at.
- *
- * @return array
- *   Returns an array of IDs.
- */
-function farm_log_ids_from_url($param) {
-
-  // If the GET parameter isn't set, bail.
-  $params = drupal_get_query_parameters();
-  if (empty($params[$param])) {
-    return array();
-  }
-
-  // If only a single ID is passed, convert it to an array.
-  if (!is_array($params[$param])) {
-    $params[$param] = array($params[$param]);
-  }
-
-  // Return the array of IDs.
-  return $params[$param];
 }
