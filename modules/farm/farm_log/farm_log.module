@@ -12,8 +12,9 @@ include_once 'farm_log.features.inc';
  */
 function farm_log_form_alter(&$form, &$form_state, $form_id) {
 
-  // If this is a log form, attempt to prepopulate entityreference fields.
+  // If this is a log form, attempt to prepopulate name and reference fields.
   if ($form_id == 'log_form') {
+    farm_log_prepopulate_log_form_name($form);
     farm_log_prepopulate_log_form_references($form);
   }
 }
@@ -132,6 +133,29 @@ function farm_log_populate_geometry($entity) {
 
   // Populate the geofield.
   farm_map_geofield_populate($entity, $geoms);
+}
+
+/**
+ * Helper function for populating the name field in log forms.
+ *
+ * @param array $form
+ *   The form array to modify, passed by reference.
+ */
+function farm_log_prepopulate_log_form_name(&$form) {
+
+  // If the GET parameter isn't set, bail.
+  $params = drupal_get_query_parameters();
+  if (empty($params['name'])) {
+    return;
+  }
+
+  // If the log form name field already has a default value, bail.
+  if (!empty($form['name']['#default_value'])) {
+    return;
+  }
+
+  // Set the name in the form.
+  $form['name']['#default_value'] = $params['name'];
 }
 
 /**
