@@ -176,6 +176,12 @@ function farm_log_prepopulate_log_form_references(&$form) {
       'entity_type' => 'taxonomy_term',
       'url_param' => 'farm_area',
     ),
+    'field_farm_log_category' => array(
+      'entity_type' => 'taxonomy_term',
+      'lookup' => TRUE,
+      'vocabulary' => 'farm_log_categories',
+      'url_param' => 'category',
+    ),
     'field_farm_log_owner' => array(
       'entity_type' => 'user',
     ),
@@ -220,6 +226,19 @@ function farm_log_prepopulate_log_form_references(&$form) {
     // If there are no IDs, skip.
     if (empty($ids)) {
       continue;
+    }
+
+    // Look up taxonomy term IDs, if necessary.
+    if ($info['entity_type'] == 'taxonomy_term' && !empty($info['lookup']) && !empty($info['vocabulary'])) {
+      $term_names = $ids;
+      $ids = array();
+      foreach ($term_names as $name) {
+        $terms = taxonomy_get_term_by_name($name, $info['vocabulary']);
+        $term = reset($terms);
+        if (!empty($term->tid)) {
+          $ids[] = $term->tid;
+        }
+      }
     }
 
     // Prepopulate with the farm_fields helper function.
