@@ -363,6 +363,37 @@ function farm_equipment_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_maintenance-field_farm_log_category'.
+  $field_instances['log-farm_maintenance-field_farm_log_category'] = array(
+    'bundle' => 'farm_maintenance',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Use this to organize your logs into categories for easier searching and filtering later.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 6,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_log_category',
+    'label' => 'Log category',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 10,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_maintenance-field_farm_log_owner'.
   $field_instances['log-farm_maintenance-field_farm_log_owner'] = array(
     'bundle' => 'farm_maintenance',
@@ -469,6 +500,7 @@ function farm_equipment_field_default_field_instances() {
   t('Assets');
   t('Description');
   t('Files');
+  t('Log category');
   t('Manufacturer');
   t('Model');
   t('Movement');
@@ -478,6 +510,7 @@ function farm_equipment_field_default_field_instances() {
   t('Photos');
   t('Serial Number');
   t('Use these fields to record a movement with this log entry. This will be used to define the location of any referenced assets. The current location of any asset is determined by the most recently completed movement log. Only the "to" field is required.');
+  t('Use this to organize your logs into categories for easier searching and filtering later.');
   t('What assets do this maintenance log pertain to?');
 
   return $field_instances;

@@ -190,6 +190,13 @@ function farm_soil_test_views_default_views() {
   $handler->display->display_options['fields']['field_farm_area']['id'] = 'field_farm_area';
   $handler->display->display_options['fields']['field_farm_area']['table'] = 'field_data_field_farm_area';
   $handler->display->display_options['fields']['field_farm_area']['field'] = 'field_farm_area';
+  /* Field: Log: Log category */
+  $handler->display->display_options['fields']['field_farm_log_category']['id'] = 'field_farm_log_category';
+  $handler->display->display_options['fields']['field_farm_log_category']['table'] = 'field_data_field_farm_log_category';
+  $handler->display->display_options['fields']['field_farm_log_category']['field'] = 'field_farm_log_category';
+  $handler->display->display_options['fields']['field_farm_log_category']['label'] = 'Category';
+  $handler->display->display_options['fields']['field_farm_log_category']['type'] = 'taxonomy_term_reference_plain';
+  $handler->display->display_options['fields']['field_farm_log_category']['delta_offset'] = '0';
   /* Field: User: Name */
   $handler->display->display_options['fields']['name_1']['id'] = 'name_1';
   $handler->display->display_options['fields']['name_1']['table'] = 'users';
@@ -263,6 +270,20 @@ function farm_soil_test_views_default_views() {
   $handler->display->display_options['filters']['uid']['expose']['label'] = 'Owner';
   $handler->display->display_options['filters']['uid']['expose']['operator'] = 'uid_op';
   $handler->display->display_options['filters']['uid']['expose']['identifier'] = 'uid';
+  /* Filter criterion: Log: Log category (field_farm_log_category) */
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['id'] = 'field_farm_log_category_tid';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['table'] = 'field_data_field_farm_log_category';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['field'] = 'field_farm_log_category_tid';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['group'] = 1;
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['operator_id'] = 'field_farm_log_category_tid_op';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['label'] = 'Category';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['operator'] = 'field_farm_log_category_tid_op';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['identifier'] = 'field_farm_log_category_tid';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['vocabulary'] = 'farm_log_categories';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['hierarchy'] = 1;
   /* Filter criterion: Date: Date (log) */
   $handler->display->display_options['filters']['date_filter']['id'] = 'date_filter';
   $handler->display->display_options['filters']['date_filter']['table'] = 'log';
@@ -363,6 +384,7 @@ function farm_soil_test_views_default_views() {
     t('Name'),
     t('Lab'),
     t('Areas'),
+    t('Category'),
     t('All'),
     t('Soil tests in %1'),
     t('Start date'),

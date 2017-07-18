@@ -84,6 +84,37 @@ function farm_livestock_eggs_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_eggs-field_farm_log_category'.
+  $field_instances['log-farm_eggs-field_farm_log_category'] = array(
+    'bundle' => 'farm_eggs',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Use this to organize your logs into categories for easier searching and filtering later.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 5,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_log_category',
+    'label' => 'Log category',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 7,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_eggs-field_farm_log_owner'.
   $field_instances['log-farm_eggs-field_farm_log_owner'] = array(
     'bundle' => 'farm_eggs',
@@ -156,10 +187,12 @@ function farm_livestock_eggs_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Group');
   t('How many eggs were collected?');
+  t('Log category');
   t('Notes');
   t('Optionally assign this task to one or more people.');
   t('Owner');
   t('Quantity');
+  t('Use this to organize your logs into categories for easier searching and filtering later.');
   t('What group/flock were these eggs collected from?');
 
   return $field_instances;

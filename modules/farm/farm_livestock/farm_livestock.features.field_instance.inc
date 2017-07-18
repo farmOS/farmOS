@@ -657,6 +657,37 @@ function farm_livestock_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_medical-field_farm_log_category'.
+  $field_instances['log-farm_medical-field_farm_log_category'] = array(
+    'bundle' => 'farm_medical',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Use this to organize your logs into categories for easier searching and filtering later.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 6,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_log_category',
+    'label' => 'Log category',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 10,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_medical-field_farm_log_owner'.
   $field_instances['log-farm_medical-field_farm_log_owner'] = array(
     'bundle' => 'farm_medical',
@@ -773,6 +804,7 @@ function farm_livestock_field_default_field_instances() {
   t('ID Tag(s)');
   t('List any identification tags that this animal has. These can be ear tags, tattoos, leg bands, etc. Use the fields below to describe the type, location, and ID of each.');
   t('List any nickname(s) of this animal.');
+  t('Log category');
   t('Movement');
   t('Nickname(s)');
   t('Notes');
@@ -785,6 +817,7 @@ function farm_livestock_field_default_field_instances() {
   t('Specify the parent(s) of this animal.');
   t('Tag Type');
   t('Use these fields to record a movement with this log entry. This will be used to define the location of any referenced assets. The current location of any asset is determined by the most recently completed movement log. Only the "to" field is required.');
+  t('Use this to organize your logs into categories for easier searching and filtering later.');
   t('What animals do this medical log pertain to?');
   t('What is the species/breed of this animal? You can manage the list of available species/breeds in the ' . l('Animal Species/Breeds', 'farm/assets/animals/types') . ' vocabulary.');
 

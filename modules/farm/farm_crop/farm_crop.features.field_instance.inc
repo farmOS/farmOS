@@ -365,6 +365,37 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_seeding-field_farm_log_category'.
+  $field_instances['log-farm_seeding-field_farm_log_category'] = array(
+    'bundle' => 'farm_seeding',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Use this to organize your logs into categories for easier searching and filtering later.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 8,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_log_category',
+    'label' => 'Log category',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 10,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_seeding-field_farm_log_owner'.
   $field_instances['log-farm_seeding-field_farm_log_owner'] = array(
     'bundle' => 'farm_seeding',
@@ -657,6 +688,37 @@ function farm_crop_field_default_field_instances() {
       ),
       'type' => 'image_miw',
       'weight' => 5,
+    ),
+  );
+
+  // Exported field_instance: 'log-farm_transplanting-field_farm_log_category'.
+  $field_instances['log-farm_transplanting-field_farm_log_category'] = array(
+    'bundle' => 'farm_transplanting',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Use this to organize your logs into categories for easier searching and filtering later.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 7,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_log_category',
+    'label' => 'Log category',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 10,
     ),
   );
 
@@ -1010,6 +1072,7 @@ function farm_crop_field_default_field_instances() {
   t('Description');
   t('Enter the crop/variety that this is a planting of. As you type, you will have the option of selecting from crops/varieties that you\'ve entered in the past.');
   t('Files');
+  t('Log category');
   t('Movement');
   t('Notes');
   t('Optionally assign this task to one or more people.');
@@ -1022,6 +1085,7 @@ function farm_crop_field_default_field_instances() {
   t('Source/Supplier');
   t('Specify the parent(s) of this planting.');
   t('Use these fields to record a movement with this log entry. This will be used to define the location of any referenced assets. The current location of any asset is determined by the most recently completed movement log. Only the "to" field is required.');
+  t('Use this to organize your logs into categories for easier searching and filtering later.');
   t('What planting does this seeding log pertain to?');
   t('What planting does this transplanting log pertain to?');
   t('Where were the seeds obtained?');
