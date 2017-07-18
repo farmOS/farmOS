@@ -38,5 +38,28 @@ function hook_farm_log_categories() {
 }
 
 /**
+ * Allow modules to automatically populate log categories in log forms. The
+ * category must exist already. Note that these will be passed through the t()
+ * function when they are added so that they can be translated. This does mean
+ * that they will only be translated once, to whatever the site's default
+ * language is.
+ *
+ * @param object $log
+ *   A log entity.
+ *
+ * @return array
+ *   Returns an array of log categories (as simple strings).
+ */
+function hook_farm_log_categories_populate($log) {
+  $categories = array();
+
+  if ($log->type == 'farm_water_test') {
+    $categories[] = 'Water';
+  }
+
+  return $categories;
+}
+
+/**
  * @}
  */

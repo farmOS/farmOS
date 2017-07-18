@@ -24,6 +24,17 @@ function farm_water_test_farm_ui_entities() {
 }
 
 /**
+ * Implements hook_farm_log_categories_populate().
+ */
+function farm_water_test_farm_log_categories_populate($log) {
+  $categories = array();
+  if ($log->type == 'farm_water_test') {
+    $categories[] = 'Water';
+  }
+  return $categories;
+}
+
+/**
  * Implements hook_feeds_importer_default_alter().
  */
 function farm_water_test_feeds_importer_default_alter(&$importers) {

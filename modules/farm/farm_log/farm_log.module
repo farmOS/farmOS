@@ -223,6 +223,18 @@ function farm_log_prepopulate_log_form_references(&$form) {
       $ids = array($ids);
     }
 
+    // Allow modules to add log categories.
+    if ($field == 'field_farm_log_category' && !empty($form['#entity'])) {
+      $categories = module_invoke_all('farm_log_categories_populate', $form['#entity']);
+      if (!empty($categories)) {
+        foreach ($categories as $category) {
+          if (is_string($category)) {
+            $ids[] = t($category);
+          }
+        }
+      }
+    }
+
     // If there are no IDs, skip.
     if (empty($ids)) {
       continue;

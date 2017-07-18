@@ -399,3 +399,113 @@ function farm_log_update_7007(&$sandbox) {
   // Create log categories on behalf of all enabled modules.
   farm_log_categories_create_all();
 }
+
+/**
+ * Autopopulate categories on certain log types.
+ */
+function farm_log_update_7008(&$sandbox) {
+
+  // Process this in passes of 50 logs at a time.
+  $sandbox['#finished'] = 0;
+  $limit = 50;
+
+  // Keep track of progress.
+  if (!isset($sandbox['progress'])) {
+
+    // Start out at zero.
+    $sandbox['progress'] = 0;
+
+    // Count how many movement logs there are.
+    $sandbox['max'] = db_select('log')
+      ->fields(NULL, array('id'))
+      ->countQuery()
+      ->execute()
+      ->fetchField();
+  }
+
+  // Fetch the next set of logs.
+  $query = db_select('log')
+    ->fields(NULL, array('id', 'type'))
+    ->orderBy('id', 'ASC')
+    ->range($sandbox['progress'], $limit);
+  $results = $query->execute();
+
+  // Iterate over the results...
+  foreach ($results as $row) {
+
+    // Increment progress.
+    $sandbox['progress']++;
+
+    // Load categories provided by modules.
+    $categories = module_invoke_all('farm_log_categories_populate', $row);
+
+    // If there are no categories, skip this log.
+    if (empty($categories)) {
+      continue;
+    }
+
+    // Check to see if the log has existing categories so we can increment
+    // the field's delta value accordingly.
+    $query = db_select('field_data_field_farm_log_category', 'cat');
+    $query->fields('cat', array('delta', 'field_farm_log_category_tid'));
+    $query->condition('cat.entity_type', 'log');
+    $query->condition('cat.deleted', 0);
+    $query->condition('cat.entity_id', $row->id);
+    $existing = $query->execute();
+
+    // Iterate over the existing records to build a list of term IDs and get
+    // the highest delta.
+    $delta = NULL;
+    $tids = array();
+    foreach ($existing as $field) {
+      if ($field->delta > $delta) {
+        $delta = $field->delta;
+      }
+      $tids[] = $field->field_farm_log_category_tid;
+    }
+    if (is_null($delta)) {
+      $delta = 0;
+    }
+    else {
+      $delta++;
+    }
+
+    // Iterate over the categories.
+    foreach ($categories as $category) {
+
+      // Load the term.
+      $terms = taxonomy_get_term_by_name($category, 'farm_log_categories');
+      $term = reset($terms);
+
+      // If the term already exists on the log, skip it.
+      if (in_array($term->tid, $tids)) {
+        continue;
+      }
+
+      // Write it to the database.
+      $record = array(
+        'entity_type' => 'log',
+        'bundle' => $row->type,
+        'deleted' => 0,
+        'entity_id' => $row->id,
+        'revision_id' => $row->id,
+        'language' => 'und',
+        'delta' => $delta,
+        'field_farm_log_category_tid' => $term->tid,
+      );
+      drupal_write_record('field_data_field_farm_log_category', $record);
+      drupal_write_record('field_revision_field_farm_log_category', $record);
+
+      // Increment delta.
+      $delta++;
+    }
+  }
+
+  // Tell Drupal whether or not we're finished.
+  if ($sandbox['max'] > 0) {
+    $sandbox['#finished'] = $sandbox['progress'] / $sandbox['max'];
+  }
+  else {
+    $sandbox['#finished'] = 1;
+  }
+}

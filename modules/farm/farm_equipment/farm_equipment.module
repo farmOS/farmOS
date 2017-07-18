@@ -40,6 +40,17 @@ function farm_equipment_farm_log_categories() {
 }
 
 /**
+ * Implements hook_farm_log_categories_populate().
+ */
+function farm_equipment_farm_log_categories_populate($log) {
+  $categories = array();
+  if ($log->type == 'farm_maintenance') {
+    $categories[] = 'Equipment';
+  }
+  return $categories;
+}
+
+/**
  * Implements hook_feeds_importer_default_alter().
  */
 function farm_equipment_feeds_importer_default_alter($importers) {

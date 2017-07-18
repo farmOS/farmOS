@@ -223,6 +223,17 @@ function farm_crop_farm_log_categories() {
 }
 
 /**
+ * Implements hook_farm_log_categories_populate().
+ */
+function farm_crop_farm_log_categories_populate($log) {
+  $categories = array();
+  if (in_array($log->type, array('farm_seeding', 'farm_transplanting'))) {
+    $categories[] = 'Plantings';
+  }
+  return $categories;
+}
+
+/**
  * Implements hook_feeds_importer_default_alter().
  */
 function farm_crop_feeds_importer_default_alter(&$importers) {
