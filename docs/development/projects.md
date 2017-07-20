@@ -63,6 +63,8 @@ added to extend your farmOS functionality:
 * **[Farm Bee](https://drupal.org/project/farm_bee)** - Features for beekeeping.
 * **[Farm Maple](https://drupal.org/project/farm_maple)** - Features for
   management of maple tapping and production.
+* **[Farm Map: Finland](https://github.com/rkioski/farm_map_fi)** - Finnish map
+  layers for farmOS maps.
 * **[Farm Map: Norway](https://github.com/farmOS/farm_map_no)** - Norwegian map
   layers for farmOS maps.
 * **[Farm Mushroom](https://drupal.org/project/farm_mushroom)** - Features for
