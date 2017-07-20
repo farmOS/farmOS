@@ -17,6 +17,73 @@ function farm_fields_farm_access_perms($role) {
 }
 
 /**
+ * Implements hook_field_default_field_instances_alter().
+ */
+function farm_fields_field_default_field_instances_alter(&$fields) {
+
+  // Set the acceptable file extensions on all file and image field instances.
+  foreach ($fields as &$field) {
+    if ($field['field_name'] == 'field_farm_images') {
+      $field['settings']['file_extensions'] = farm_fields_file_types('image');
+    }
+    elseif ($field['field_name'] == 'field_farm_files') {
+      $field['settings']['file_extensions'] = farm_fields_file_types('file');
+    }
+  }
+}
+
+/**
+ * Returns a list of acceptable file types for image/file fields.
+ *
+ * @param string $type
+ *   Can be 'image', 'file', or empty (to return all).
+ * @param string $separator
+ *   Separator string to put between type in the output.
+ *
+ * @return string
+ *   Returns a string of types.
+ */
+function farm_fields_file_types($type = '', $separator = ' ') {
+  $file_types = array(
+    'image' => array(
+      'png',
+      'gif',
+      'jpg',
+      'jpeg',
+    ),
+    'file' => array(
+      'csv',
+      'doc',
+      'docx',
+      'odt',
+      'odp',
+      'ods',
+      'pdf',
+      'ppt',
+      'pptx',
+      'txt',
+      'xls',
+      'xlsx',
+      'kml',
+      'kmz',
+      'zip',
+      'tar',
+      'gz',
+    ),
+  );
+  if ($type == 'image') {
+    $types = $file_types['image'];
+  }
+  elseif ($type == 'file') {
+    $types = $file_types['file'];
+  }
+  else {
+    $types = array_merge($file_types['image'], $file_types['file']);
+  }
+  return implode($separator, $types);
+}
+
+/**
  * Helper function for pre-populating entityreference fields in entity forms.
  *
  * @param array $form

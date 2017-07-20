@@ -65,7 +65,7 @@ function farm_sensor_field_default_field_instances() {
     'settings' => array(
       'description_field' => 1,
       'file_directory' => 'farm/asset/sensor',
-      'file_extensions' => 'csv doc docx odt odp ods pdf ppt pptx txt xls xlsx kml kmz zip tar gz',
+      'file_extensions' => '',
       'max_filesize' => '',
       'user_register_form' => FALSE,
     ),
@@ -112,7 +112,7 @@ function farm_sensor_field_default_field_instances() {
       'alt_field' => 0,
       'default_image' => 0,
       'file_directory' => 'farm/asset/sensor',
-      'file_extensions' => 'png gif jpg jpeg',
+      'file_extensions' => '',
       'max_filesize' => '',
       'max_resolution' => '',
       'min_resolution' => '',
