@@ -60,11 +60,15 @@ These modules are included directly in the farmOS distribution repository:
 These modules aren't included with the farmOS distribution, but they can be
 added to extend your farmOS functionality:
 
-* **[Farm Bee]** - Features for beekeeping.
-* **[Farm Maple]** - Features for management of maple tapping and production.
-* **[Farm Map: Norway]** - Norwegian map layers for farmOS maps.
-* **[Farm Mushroom]** - Features for managing mushroom production.
-* **[Farm Sensor: Atmospi]** - Integrates farmOS and [Atmospi] sensors.
+* **[Farm Bee](https://drupal.org/project/farm_bee)** - Features for beekeeping.
+* **[Farm Maple](https://drupal.org/project/farm_maple)** - Features for
+  management of maple tapping and production.
+* **[Farm Map: Norway](https://github.com/farmOS/farm_map_no)** - Norwegian map
+  layers for farmOS maps.
+* **[Farm Mushroom](https://drupal.org/project/farm_mushroom)** - Features for
+  managing mushroom production.
+* **[Farm Sensor: Atmospi](https://github.com/mstenta/farm_sensor_atmospi)** -
+  Integrates farmOS and [Atmospi](https://github.com/mstenta/atmospi) sensors.
 
 ## Theme
 
@@ -80,11 +84,5 @@ Drupal theme based off of [Bootstrap].
 [installing farmOS]: /hosting/installing
 [Drush]: http://www.drush.org
 [Docker]: /development/docker
-[Farm Bee]: https://drupal.org/project/farm_bee
-[Farm Maple]: https://drupal.org/project/farm_maple
-[Farm Map: Norway]: https://github.com/farmOS/farm_map_no
-[Farm Mushroom]: https://drupal.org/project/farm_mushroom
-[Farm Sensor: Atmospi]: https://github.com/mstenta/farm_sensor_atmospi
-[Atmospi]: https://github.com/mstenta/atmospi
 [Bootstrap]: https://drupal.org/project/bootstrap
 
