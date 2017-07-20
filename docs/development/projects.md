@@ -67,6 +67,8 @@ added to extend your farmOS functionality:
   layers for farmOS maps.
 * **[Farm Mushroom](https://drupal.org/project/farm_mushroom)** - Features for
   managing mushroom production.
+* **[FarmOS NWS](https://github.com/bitsecondal/farmosnws)** - Imports data
+  from the National Weather Service into Drupal for use by FarmOS.
 * **[Farm Sensor: Atmospi](https://github.com/mstenta/farm_sensor_atmospi)** -
   Integrates farmOS and [Atmospi](https://github.com/mstenta/atmospi) sensors.
 
