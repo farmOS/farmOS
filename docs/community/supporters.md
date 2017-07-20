@@ -32,4 +32,5 @@ The farmOS project is made possible by many supporters.
 * Sam Chapatwala
 * Joel Baranick
 * Svenn Are Bjerkem
+* Kenny Robinson
 
