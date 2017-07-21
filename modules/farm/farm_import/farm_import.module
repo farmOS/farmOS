@@ -125,7 +125,7 @@ function farm_import_feeds_tamper_plugin($entity_type, $bundle, $source, $plugin
       $description = 'Required field';
       $settings = array(
         'invert' => 0,
-        'log' => 0,
+        'log' => 1,
       );
       break;
 
