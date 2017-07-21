@@ -40,6 +40,8 @@ projects[features][version] = "2.10"
 
 projects[feeds][subdir] = "contrib"
 projects[feeds][version] = "2.0-beta3"
+; Issue #2379631: field_attach_validate() must be called before programmatic entity saves
+projects[feeds][patch][] = "http://www.drupal.org/files/issues/feeds-field-attach-validate-2379631-31.patch"
 
 projects[feeds_tamper][subdir] = "contrib"
 projects[feeds_tamper][version] = "1.1"
