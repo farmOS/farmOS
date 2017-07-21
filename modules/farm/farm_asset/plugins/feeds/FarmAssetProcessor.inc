@@ -29,11 +29,20 @@ class FarmAssetProcessor extends FeedsProcessor {
    * Creates a new farm asset in memory and returns it.
    */
   protected function newEntity(FeedsSource $source) {
+
+    // If an author is not defined, set the author to the current user.
+    $uid = $this->config['author'];
+    global $user;
+    if (empty($uid) && !empty($user->uid)) {
+      $uid = $user->uid;
+    }
+
+    // Assemble and return the entity.
     $values = array(
       'type' => $this->bundle(),
       'created' => REQUEST_TIME,
       'changed' => REQUEST_TIME,
-      'uid' => $this->config['author'],
+      'uid' => $uid,
       'is_new' => TRUE,
     );
     return entity_create('farm_asset', $values);
@@ -141,9 +150,9 @@ class FarmAssetProcessor extends FeedsProcessor {
     $form['author'] = array(
       '#type' => 'textfield',
       '#title' => t('Author'),
-      '#description' => t('Select the author of the assets to be created - leave empty to assign "anonymous".'),
+      '#description' => t('Select the author of the assets to be created. If this is left empty, they will be assigned to the user running the import, or "anonymous" in the case of automated imports.'),
       '#autocomplete_path' => 'user/autocomplete',
-      '#default_value' => empty($author->name) ?  'anonymous' : check_plain($author->name),
+      '#default_value' => empty($author->name) ?  '' : check_plain($author->name),
     );
     $form['authorize'] = array(
       '#type' => 'checkbox',
