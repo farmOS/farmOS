@@ -56,5 +56,5 @@ them different [levels of permission].
 
 [An Introduction to Entities]: http://www.drupal.org/node/1261744
 [core set of log types]: /guide/logs
-[levels of permission]: /guide/roles
+[levels of permission]: /guide/people
 

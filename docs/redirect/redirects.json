@@ -1,6 +1,7 @@
 redirects = [
 
   /* Changed paths. */
+  {"src" : "/guide/roles", "dst" : "/guide/people"},
   {"src" : "/guide/dashboard", "dst" : "/guide"},
   {"src" : "/guide/start", "dst" : "/hosting"},
   {"src" : "/contribute", "dst" : "/community/contribute"},

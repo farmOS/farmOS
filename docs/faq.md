@@ -199,7 +199,7 @@ service. Bonus!
 [Rules]: https://drupal.org/project/rules
 [Features]: https://drupal.org/project/features
 [Openlayers]: https://drupal.org/project/openlayers
-[roles and permissions]: /guide/roles
+[roles and permissions]: /guide/people
 [internationalization and localization]: https://en.wikipedia.org/wiki/Internationalization_and_localization
 [issue queues]: /development/issue-queues
 [Markdown]: https://en.wikipedia.org/wiki/Markdown

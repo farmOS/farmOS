@@ -13,7 +13,7 @@ pages:
         - Introduction: guide/assets/index.md
     - Logging events: guide/logs.md
     - Movements and location: guide/location.md
-    - Roles: guide/roles.md
+    - People: guide/people.md
     - Demos: guide/demos.md
 - Hosting:
     - Getting started: hosting/index.md
