@@ -9,9 +9,9 @@ pages:
 - User Guide:
     - Introduction: guide/index.md
     - Mapping your farm: guide/areas.md
+    - Logging events: guide/logs.md
     - Managing assets:
         - Introduction: guide/assets/index.md
-    - Logging events: guide/logs.md
     - Movements and location: guide/location.md
     - People: guide/people.md
     - Demos: guide/demos.md
