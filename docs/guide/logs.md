@@ -1,7 +1,5 @@
 # Logging events
 
-Once you have your [areas] and [assets] in farmOS, you can start recording logs.
-
 Logs are records of all kinds of events. You can be as granular as you want: the
 more information you're recording, the more you can look back on and learn from
 in the future.
@@ -37,6 +35,4 @@ Input logs are used to record resources that are put into an asset. Fertlizer
 
 Harvest logs are used to record harvests from an asset.
 
-[areas]: /guide/areas
-[assets]: /guide/assets
 
