@@ -1,4 +1,6 @@
-# farmOS Dashboard
+# Introduction
+
+## farmOS Dashboard
 
 The first thing you see when you log into farmOS is the dashboard.
 

@@ -7,7 +7,7 @@ google_analytics: ['UA-56974603-1', 'farmos.org']
 pages:
 - Home: index.md
 - User Guide:
-    - Dashboard: guide/dashboard.md
+    - Introduction: guide/index.md
     - Mapping your farm: guide/areas.md
     - Managing assets:
         - Introduction: guide/assets/index.md
