@@ -40,7 +40,40 @@ underneath.
   <source src="/demo/dashboard.mp4" type="video/mp4">
 </video>
 
+## Navigation
+
+farmOS is designed to make your records approachable from multiple angles, so
+it is easy to find records you made in the past, and add new ones in the
+future.
+
+The main menu at the top provides direct links to the 4 main types of records:
+
+* [Areas] - Places on or off the farm
+* [Assets] - Things of value that you are managing
+* [Logs] - Events that are related to areas, assets, and people
+* [People] - People with logins to farmOS
+
+These pages will list all areas, assets, logs, or people within the system.
+Filter and sort options allow you to narrow down the lists to find the record
+you're looking for.
+
+You can also use the map to navigate to records that relate to specific areas.
+For example, if you want to view the record for a specific planting, you can
+click on the field in the map where the planting is and you will see all assets
+in that field.
+
+If you are looking for a specific log, you can either find it via the "Logs"
+main menu (and submenus), or you can find the area or asset that the log is
+associated with, and the log will appear there as well.
+
+All your records can be connected and related in this way to make navigating
+them easier.
+
 [Hosting farmOS]: /hosting
 [Contributing to farmOS]: /community/contribute
 [Farmier]: http://farmier.com
+[Areas]: /guide/areas
+[Assets]: /guide/assets
+[Logs]: /guide/logs
+[People]: /guide/people
 
