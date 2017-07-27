@@ -8,7 +8,7 @@ be accessed from the main menu. You can add assets from within each asset type's
 dashboard.
 
 <video width="100%" controls>
-  <source src="/img/demos/farmOS-assets.mp4" type="video/mp4">
+  <source src="/demo/assets.mp4" type="video/mp4">
 </video>
 
 ## Asset fields

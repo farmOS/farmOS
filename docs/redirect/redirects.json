@@ -4,6 +4,20 @@ redirects = [
   {"src" : "/contribute", "dst" : "/community/contribute"},
   {"src" : "/development/best-practice", "dst" : "/development/update-safety"},
 
+  /* Demo videos moved 7/27/17. */
+  {"src" : "/img/demos/farmOS-area-generator.mp4", "dst" : "/demo/area-generator.mp4"},
+  {"src" : "/img/demos/farmOS-area-hierarchy.mp4", "dst" : "/demo/area-hierarchy.mp4"},
+  {"src" : "/img/demos/farmOS-assets.mp4", "dst" : "/demo/assets.mp4"},
+  {"src" : "/img/demos/farmOS-dashboard.mp4", "dst" : "/demo/dashboard.mp4"},
+  {"src" : "/img/demos/farmOS-equipment.mp4", "dst" : "/demo/equipment.mp4"},
+  {"src" : "/img/demos/farmOS-kml-import.mp4", "dst" : "/demo/kml-import.mp4"},
+  {"src" : "/img/demos/farmOS-logs.mp4", "dst" : "/demo/logs.mp4"},
+  {"src" : "/img/demos/farmOS-mapping-areas.mp4", "dst" : "/demo/mapping-areas.mp4"},
+  {"src" : "/img/demos/farmOS-movements.mp4", "dst" : "/demo/movements.mp4"},
+  {"src" : "/img/demos/farmOS-people.mp4", "dst" : "/demo/people.mp4"},
+  {"src" : "/img/demos/farmOS-sensors.mp4", "dst" : "/demo/sensors.mp4"},
+  {"src" : "/img/demos/farmOS-soil.mp4", "dst" : "/demo/soil.mp4"},
+
   /* Old farmOS.org paths (pre Mkdocs). */
   {"src" : "/getting-started", "dst" : "/guide/start"},
   {"src" : "/press", "dst" : "/community/press"},

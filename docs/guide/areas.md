@@ -58,7 +58,7 @@ There are four buttons for drawing shapes:
    closed shape at the end, whereas a line will not be filled in.
 
 <video width="100%" controls>
-  <source src="/img/demos/farmOS-mapping-areas.mp4" type="video/mp4">
+  <source src="/demo/mapping-areas.mp4" type="video/mp4">
 </video>
 
 ### Modifying
@@ -90,7 +90,7 @@ To import a KML file, follow these steps:
    see the shape(s) appear in the map.
 
 <video width="100%" controls>
-  <source src="/img/demos/farmOS-kml-import.mp4" type="video/mp4">
+  <source src="/demo/kml-import.mp4" type="video/mp4">
 </video>
 
 ## Remember to save!
@@ -113,7 +113,7 @@ There are two ways to arrange areas hierarchically in farmOS:
    click "Save" at the bottom of the page.
 
 <video width="100%" controls>
-  <source src="/img/demos/farmOS-area-hierarchy.mp4" type="video/mp4">
+  <source src="/demo/area-hierarchy.mp4" type="video/mp4">
 </video>
 
 ## Generate beds
@@ -138,7 +138,7 @@ To use the area generator to generate beds, follow these steps:
 Beds will be numbered and labeled using the parent area's name.
 
 <video width="100%" controls>
-  <source src="/img/demos/farmOS-area-generator.mp4" type="video/mp4">
+  <source src="/demo/area-generator.mp4" type="video/mp4">
 </video>
 
 [logging events]: /guide/logs

@@ -11,6 +11,6 @@ to be done. If you miss a task, a "Late tasks" list will also be displayed
 underneath.
 
 <video width="100%" controls>
-  <source src="/img/demos/farmOS-dashboard.mp4" type="video/mp4">
+  <source src="/demo/dashboard.mp4" type="video/mp4">
 </video>
 

@@ -11,7 +11,7 @@ purpose and set of fields. Some of the general log types are described below,
 but there are also other log types that pertain to specific asset types.
 
 <video width="100%" controls>
-  <source src="/img/demos/farmOS-logs.mp4" type="video/mp4">
+  <source src="/demo/logs.mp4" type="video/mp4">
 </video>
 
 ## Activities
