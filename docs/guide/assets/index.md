@@ -33,7 +33,7 @@ counts of assets in a map, along with the geometries of their locations.
 
 They are called "cluster" maps because they use a feature of the
 [Openlayers mapping library] called a "Cluster source". This means that the
-location of all assets of a particular type (ie: animals) are loaded into a map
+location of all assets of a particular type (eg: animals) are loaded into a map
 at once, and they are "clustered" into points based on their proximity to one
 another.
 
