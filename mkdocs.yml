@@ -7,7 +7,6 @@ google_analytics: ['UA-56974603-1', 'farmos.org']
 pages:
 - Home: index.md
 - User Guide:
-    - Getting started: guide/start.md
     - Dashboard: guide/dashboard.md
     - Mapping your farm: guide/areas.md
     - Managing assets:
@@ -17,6 +16,7 @@ pages:
     - Roles: guide/roles.md
     - Demos: guide/demos.md
 - Hosting:
+    - Getting started: hosting/index.md
     - Installing: hosting/installing.md
     - Updating: hosting/updating.md
     - Google Maps: hosting/googlemaps.md

@@ -23,7 +23,7 @@ only includes installations that have their "Update" module enabled.
 
 > How do I start using farmOS?
 
-Refer to the [Getting Started] page in the User Guide.
+Refer to the [User Guide] to get started with farmOS.
 
 > Does farmOS cost money?
 
@@ -186,7 +186,7 @@ service. Bonus!
 [Farms using farmOS]: /community/farms
 [Drupal.org Usage Statistics]: https://drupal.org/project/usage/farm
 [Farmier]: http://farmier.com
-[Getting Started]: /guide/start
+[User Guide]: /guide
 [Bootstrap framework]: http://getbootstrap.com
 [Eric S. Raymond]: https://en.wikipedia.org/wiki/Eric_S._Raymond
 [The Cathedral and the Bazaar]: http://www.catb.org/~esr/writings/cathedral-bazaar/cathedral-bazaar
