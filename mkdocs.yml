@@ -23,7 +23,7 @@ pages:
     - Export: guide/export.md
     - Community modules:
         - Introduction: guide/contrib/index.md
->>>>>>> 215841f... Add a general page for community module documentation.
+        - Food Safety: guide/contrib/food-safety.md
 - Hosting:
     - Getting started: hosting/index.md
     - Installing: hosting/installing.md

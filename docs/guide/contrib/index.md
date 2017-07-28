@@ -7,5 +7,8 @@ If you have built a farmOS module and would like to include your documentation
 here, you can fork the [farmOS.org repository on Github] and create a pull
 request.
 
+* [Food Safety]
+
 [farmOS.org repository on Github]: https://github.com/farmOS/farmOS.org
+[Food Safety]: /guide/contrib/food-safety
 
