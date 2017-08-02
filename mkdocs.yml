@@ -15,6 +15,7 @@ pages:
         - Plantings: guide/assets/plantings.md
         - Animals: guide/assets/animals.md
         - Equipment: guide/assets/equipment.md
+        - Compost: guide/assets/compost.md
         - Sensors: guide/assets/sensors.md
     - Movements and location: guide/location.md
     - People: guide/people.md
