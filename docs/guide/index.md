@@ -1,4 +1,6 @@
-# Introduction
+# farmOS User Guide
+
+## Introduction
 
 Welcome to the official farmOS user guide. These documents are intended for
 people who will be using farmOS for record keeping and farm management.
