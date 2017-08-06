@@ -27,7 +27,7 @@ function farm_crop_field_default_field_instances() {
     ),
     'entity_type' => 'farm_asset',
     'field_name' => 'field_farm_crop',
-    'label' => 'Crop/Variety',
+    'label' => 'Crop/variety',
     'required' => 1,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -1064,7 +1064,7 @@ function farm_crop_field_default_field_instances() {
   t('Assign this planting to a season. You can manage these options in the ' . l('Seasons', 'admin/structure/taxonomy/farm_season') . ' vocabulary.');
   t('Companions');
   t('Crop family');
-  t('Crop/Variety');
+  t('Crop/variety');
   t('Days to maturity');
   t('Days to transplant');
   t('Describe the quantity of this seeding, using a value and a unit of measurement. For example, if you seeded 10 flats of lettuce, enter "10" in the Value field, and "flats" in the Units field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.');

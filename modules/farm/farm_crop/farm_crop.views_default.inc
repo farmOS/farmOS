@@ -56,7 +56,7 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['relationships']['parent']['id'] = 'parent';
   $handler->display->display_options['relationships']['parent']['table'] = 'taxonomy_term_hierarchy';
   $handler->display->display_options['relationships']['parent']['field'] = 'parent';
-  /* Relationship: Taxonomy term: Farm asset using Crop/Variety */
+  /* Relationship: Taxonomy term: Farm asset using Crop/variety */
   $handler->display->display_options['relationships']['reverse_field_farm_crop_farm_asset']['id'] = 'reverse_field_farm_crop_farm_asset';
   $handler->display->display_options['relationships']['reverse_field_farm_crop_farm_asset']['table'] = 'taxonomy_term_data';
   $handler->display->display_options['relationships']['reverse_field_farm_crop_farm_asset']['field'] = 'reverse_field_farm_crop_farm_asset';
@@ -1126,7 +1126,7 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['name']['field'] = 'name';
   $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['name']['alter']['path'] = 'farm/asset/[id]';
-  /* Field: Farm asset: Crop/Variety */
+  /* Field: Farm asset: Crop/variety */
   $handler->display->display_options['fields']['field_farm_crop']['id'] = 'field_farm_crop';
   $handler->display->display_options['fields']['field_farm_crop']['table'] = 'field_data_field_farm_crop';
   $handler->display->display_options['fields']['field_farm_crop']['field'] = 'field_farm_crop';
@@ -1169,7 +1169,7 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['validate_options']['vocabularies'] = array(
     'farm_areas' => 'farm_areas',
   );
-  /* Contextual filter: Farm asset: Crop/Variety (field_farm_crop) */
+  /* Contextual filter: Farm asset: Crop/variety (field_farm_crop) */
   $handler->display->display_options['arguments']['field_farm_crop_tid']['id'] = 'field_farm_crop_tid';
   $handler->display->display_options['arguments']['field_farm_crop_tid']['table'] = 'field_data_field_farm_crop';
   $handler->display->display_options['arguments']['field_farm_crop_tid']['field'] = 'field_farm_crop_tid';
@@ -1203,14 +1203,14 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['filters']['name']['expose']['label'] = 'Name';
   $handler->display->display_options['filters']['name']['expose']['operator'] = 'name_op';
   $handler->display->display_options['filters']['name']['expose']['identifier'] = 'name';
-  /* Filter criterion: Farm asset: Crop/Variety (field_farm_crop) */
+  /* Filter criterion: Farm asset: Crop/variety (field_farm_crop) */
   $handler->display->display_options['filters']['field_farm_crop_tid']['id'] = 'field_farm_crop_tid';
   $handler->display->display_options['filters']['field_farm_crop_tid']['table'] = 'field_data_field_farm_crop';
   $handler->display->display_options['filters']['field_farm_crop_tid']['field'] = 'field_farm_crop_tid';
   $handler->display->display_options['filters']['field_farm_crop_tid']['group'] = 1;
   $handler->display->display_options['filters']['field_farm_crop_tid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_farm_crop_tid']['expose']['operator_id'] = 'field_farm_crop_tid_op';
-  $handler->display->display_options['filters']['field_farm_crop_tid']['expose']['label'] = 'Crop/Variety';
+  $handler->display->display_options['filters']['field_farm_crop_tid']['expose']['label'] = 'Crop/variety';
   $handler->display->display_options['filters']['field_farm_crop_tid']['expose']['operator'] = 'field_farm_crop_tid_op';
   $handler->display->display_options['filters']['field_farm_crop_tid']['expose']['identifier'] = 'field_farm_crop_tid';
   $handler->display->display_options['filters']['field_farm_crop_tid']['expose']['multiple'] = TRUE;
@@ -1314,8 +1314,8 @@ function farm_crop_views_default_views() {
     t('Asset ID'),
     t('.'),
     t('Name'),
-    t('Crop/Variety'),
     t('Location'),
+    t('Crop/variety'),
     t('Season'),
     t('All'),
     t('Plantings in %1'),
