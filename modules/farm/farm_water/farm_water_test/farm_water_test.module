@@ -22,3 +22,23 @@ function farm_water_test_farm_ui_entities() {
     ),
   );
 }
+
+/**
+ * Implements hook_feeds_importer_default_alter().
+ */
+function farm_water_test_feeds_importer_default_alter(&$importers) {
+
+  // Add extra field mappings to water tests.
+  $name = 'log_farm_water_test';
+  if (!empty($importers[$name])) {
+    $mappings = array(
+      array(
+        'source' => 'Laboratory',
+        'target' => 'field_farm_water_lab',
+        'unique' => FALSE,
+      ),
+    );
+    $importer_mappings =& $importers[$name]->config['processor']['config']['mappings'];
+    $importer_mappings = array_merge($importer_mappings, $mappings);
+  }
+}

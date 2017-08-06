@@ -1,0 +1,183 @@
+<?php
+/**
+ * @file
+ * Farm import module.
+ */
+
+/**
+ * Implements hook_ctools_plugin_api().
+ */
+function farm_import_ctools_plugin_api($module = NULL, $api = NULL) {
+  $return = array();
+  if ($module == 'feeds' && $api == 'feeds_importer_default') {
+    $return['version'] = '1';
+  }
+  if ($module == 'feeds_tamper' && $api == 'feeds_tamper_default') {
+    $return['version'] = '2';
+  }
+  return $return;
+}
+
+/**
+ * Implements hook_farm_access_perms().
+ */
+function farm_import_farm_access_perms($role) {
+  $perms = array();
+
+  // Grant farm managers access to Feeds importers.
+  if ($role == 'Farm Manager') {
+    $types = farm_asset_types();
+    foreach ($types as $type) {
+      $perms[] = 'import farm_asset_' . $type->type . ' feeds';
+    }
+  }
+
+  return $perms;
+}
+
+/**
+ * Implements hook_farm_ui_actions().
+ */
+function farm_import_farm_ui_actions() {
+  $actions = array();
+
+  // Load entity UI information.
+  $ui_info = farm_ui_entities();
+
+  // Add action links to asset and log importers on listing pages.
+  $types = array(
+    'farm_asset',
+    'log',
+  );
+  foreach ($types as $type) {
+    if (!empty($ui_info[$type])) {
+      foreach ($ui_info[$type] as $bundle => $info) {
+        if (!empty($info['view'])) {
+          $actions[$bundle . '_import'] = array(
+            'title' => t('Import') . ' ' . strtolower($info['label_plural']),
+            'href' => 'import/' . $type . '_' . $bundle,
+            'views' => array(
+              $info['view'],
+            ),
+            'weight' => 100,
+          );
+        }
+      }
+    }
+  }
+
+  return $actions;
+}
+
+/**
+ * Helper function for generating standardized tamper plugin definitions.
+ *
+ * @param string $entity_type
+ *   The entity type.
+ * @param string $bundle
+ *   The entity bundle.
+ * @param string $source
+ *   The name of the Feeds source (column header in CSV imports).
+ * @param string $plugin
+ *   The Feeds Tamper plugin machine name.
+ * @param mixed $value
+ *   A value to provide as input to certain plugins (ie: default_value).
+ *
+ * @return object
+ *   Returns a Feeds Tamper plugin object.
+ */
+function farm_import_feeds_tamper_plugin($entity_type, $bundle, $source, $plugin, $value = NULL) {
+
+  // Build the importer machine name.
+  $importer = $entity_type . '_' . $bundle;
+
+  // Generate a machine name from the source.
+  $source_machine = feeds_tamper_make_machine($source);
+
+  // Build the tamper plugin ID.
+  $id = $importer . '-' . $source_machine . '-' . $plugin;
+
+  // Build the description and settings based on the plugin type.
+  switch ($plugin) {
+
+    // Boolean.
+    case 'convert_boolean':
+      $description = 'Convert to boolean';
+      $settings = array(
+        'true_value' => 'yes',
+        'false_value' => 'no',
+        'match_case' => 0,
+        'no_match' => 'pass',
+        'other_text' => '',
+      );
+      break;
+
+    // Default value.
+    case 'default_value':
+      $description = 'Set value or default value';
+      $settings = array(
+        'default_value' => $value,
+        'only_if_empty' => 1,
+      );
+      break;
+
+    // Explode.
+    case 'explode':
+      $description = 'Explode';
+      $settings = array(
+        'separator' => ',',
+        'limit' => '',
+        'real_separator' => ',',
+      );
+      break;
+
+    // Find and replace.
+    case 'find_replace':
+      $description = 'Find replace';
+      $settings = array(
+        'find' => !empty($value['find']) ? $value['find'] : '',
+        'replace' => !empty($value['replace']) ? $value['replace'] : '',
+        'case_sensitive' => 0,
+        'word_boundaries' => 0,
+        'whole' => 0,
+        'regex' => FALSE,
+        'func' => 'str_ireplace',
+      );
+      break;
+
+    // Required.
+    case 'required':
+      $description = 'Required field';
+      $settings = array(
+        'invert' => 0,
+        'log' => 1,
+      );
+      break;
+
+    // String to Unix timestamp.
+    case 'strtotime':
+      $description = 'String to Unix timestamp';
+      $settings = array();
+      break;
+
+    // Empty defaults.
+    default:
+      $description = '';
+      $settings = array();
+  }
+
+  // Build the plugin.
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = $id;
+  $feeds_tamper->importer = $importer;
+  $feeds_tamper->source = $source;
+  $feeds_tamper->plugin_id = $plugin;
+  $feeds_tamper->settings = $settings;
+  $feeds_tamper->weight = 0;
+  $feeds_tamper->description = $description;
+
+  // Return the plugin.
+  return $feeds_tamper;
+}

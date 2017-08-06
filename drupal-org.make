@@ -38,8 +38,18 @@ projects[exif_orientation][version] = "1.2"
 projects[features][subdir] = "contrib"
 projects[features][version] = "2.10"
 
+projects[feeds][subdir] = "contrib"
+projects[feeds][version] = "2.0-beta3"
+; Issue #2379631: field_attach_validate() must be called before programmatic entity saves
+projects[feeds][patch][] = "http://www.drupal.org/files/issues/feeds-field-attach-validate-2379631-31.patch"
+
+projects[feeds_tamper][subdir] = "contrib"
+projects[feeds_tamper][version] = "1.1"
+
 projects[field_collection][subdir] = "contrib"
 projects[field_collection][version] = "1.0-beta12"
+; Issue #1063434: Add Feeds integration to FieldCollection
+projects[field_collection][patch][] = "http://www.drupal.org/files/issues/add_feeds_integration-1063434-286.patch"
 
 projects[field_group][subdir] = "contrib"
 projects[field_group][version] = "1.5"
@@ -48,6 +58,8 @@ projects[fraction][subdir] = "contrib"
 projects[fraction][version] = "1.4"
 ; Issue #2893271: Add Min, Max, Prefix, Suffix settings to Fraction fields
 projects[fraction][patch][] = "http://www.drupal.org/files/issues/fraction_field_settings-2893271-4.patch"
+; Issue #2892160: Provide Fraction targets for Feeds integration
+projects[fraction][patch][] = "http://www.drupal.org/files/issues/fraction_feeds-2892160-6.patch"
 
 projects[geocoder][subdir] = "contrib"
 projects[geocoder][version] = "1.3"
@@ -65,6 +77,9 @@ projects[geophp][patch][] = "http://www.drupal.org/files/issues/geophp_bcmath-26
 projects[inline_entity_form][subdir] = "contrib"
 projects[inline_entity_form][version] = "1.8"
 
+projects[job_scheduler][subdir] = "contrib"
+projects[job_scheduler][version] = "2.0-alpha3"
+
 projects[jquery_update][subdir] = "contrib"
 projects[jquery_update][version] = "3.0-alpha5"
 
@@ -76,6 +91,8 @@ projects[libraries_cdn][version] = "1.7"
 
 projects[log][subdir] = "contrib"
 projects[log][version] = "1.8"
+; Issue #2402191: Integrate Log with Feeds module
+projects[log][patch][] = "http://www.drupal.org/files/issues/log_feeds-2402191-3.patch"
 
 projects[multiupload_filefield_widget][subdir] = "contrib"
 projects[multiupload_filefield_widget][version] = "1.13"

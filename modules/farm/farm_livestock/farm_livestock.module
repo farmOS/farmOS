@@ -67,3 +67,121 @@ function farm_livestock_farm_log_categories() {
   // Provide an "Animals" log category.
   return array('Animals');
 }
+
+/**
+ * Implements hook_feeds_importer_default_alter().
+ */
+function farm_livestock_feeds_importer_default_alter($importers) {
+
+  // Add extra field mappings to animals.
+  $name = 'farm_asset_animal';
+  if (!empty($importers[$name])) {
+    $mappings = array(
+      array(
+        'source' => 'Nicknames',
+        'target' => 'field_farm_animal_nicknames',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+      array(
+        'source' => 'Date of birth',
+        'target' => 'field_farm_date:start',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+      array(
+        'source' => 'Species/breed',
+        'target' => 'field_farm_animal_type',
+        'term_search' => '0',
+        'autocreate' => 1,
+        'language' => 'und',
+      ),
+      array(
+        'source' => 'Group',
+        'target' => 'field_farm_animal_group',
+        'term_search' => '0',
+        'autocreate' => 1,
+        'language' => 'und',
+      ),
+      array(
+        'source' => 'Sex',
+        'target' => 'field_farm_animal_sex',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+      array(
+        'source' => 'Castrated',
+        'target' => 'field_farm_animal_castrated',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+      array(
+        'source' => 'Tag ID',
+        'target' => 'field_farm_animal_tag:field_farm_animal_tag_id',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+      array(
+        'source' => 'Tag type',
+        'target' => 'field_farm_animal_tag:field_farm_animal_tag_type',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+      array(
+        'source' => 'Tag location',
+        'target' => 'field_farm_animal_tag:field_farm_animal_tag_location',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+    );
+    $importer_mappings =& $importers[$name]->config['processor']['config']['mappings'];
+    $importer_mappings = array_merge($importer_mappings, $mappings);
+  }
+}
+
+/**
+ * Implements hook_feeds_tamper_default_alter().
+ */
+function farm_livestock_feeds_tamper_default_alter(&$feeds_tampers) {
+
+  // If farm_import is not installed, bail.
+  if (!module_exists('farm_import')) {
+    return;
+  }
+
+  // Make species/breed required.
+  $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', 'animal', 'Species/breed', 'required');
+  $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
+
+  // Make sex required.
+  $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', 'animal', 'Sex', 'required');
+  $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
+
+  // Convert "male" to "M".
+  $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', 'animal', 'Sex', 'find_replace', array('find' => t('male'), 'replace' => 'M'));
+  $feeds_tamper->id .= '-male';
+  $feeds_tamper->weight = 1;
+  $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
+
+  // Convert "female" to "F".
+  $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', 'animal', 'Sex', 'find_replace', array('find' => t('female'), 'replace' => 'F'));
+  $feeds_tamper->id .= '-female';
+  $feeds_tamper->weight = 2;
+  $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
+
+  // Convert castrated to boolean.
+  $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', 'animal', 'Castrated', 'convert_boolean');
+  $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
+
+  // Convert date of birth to a Unix timestamp.
+  $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', 'animal', 'Date of birth', 'strtotime');
+  $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
+
+  // Explode groups to allow multiple values.
+  $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', 'animal', 'Group', 'explode');
+  $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
+
+  // Explode nicknames to allow multiple values.
+  $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', 'animal', 'Nicknames', 'explode');
+  $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
+}
