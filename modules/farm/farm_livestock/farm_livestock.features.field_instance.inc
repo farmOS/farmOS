@@ -216,6 +216,7 @@ function farm_livestock_field_default_field_instances() {
   // Exported field_instance: 'farm_asset-animal-field_farm_date'.
   $field_instances['farm_asset-animal-field_farm_date'] = array(
     'bundle' => 'animal',
+    'default_value' => array(),
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -257,7 +258,7 @@ function farm_livestock_field_default_field_instances() {
         'text_parts' => array(),
         'year_range' => '-3:+3',
       ),
-      'type' => 'date_popup',
+      'type' => 'date_select',
       'weight' => 3,
     ),
   );
