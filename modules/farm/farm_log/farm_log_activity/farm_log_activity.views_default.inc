@@ -182,7 +182,6 @@ function farm_log_activity_views_default_views() {
   $handler->display->display_options['fields']['name']['id'] = 'name';
   $handler->display->display_options['fields']['name']['table'] = 'log';
   $handler->display->display_options['fields']['name']['field'] = 'name';
-  $handler->display->display_options['fields']['name']['label'] = 'Activity';
   $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['name']['alter']['path'] = 'log/[id]';
   /* Field: Log: Assets */
@@ -398,7 +397,7 @@ function farm_log_activity_views_default_views() {
     t('Log ID'),
     t('.'),
     t('Date'),
-    t('Activity'),
+    t('Name'),
     t('Assets'),
     t('Areas'),
     t('Category'),

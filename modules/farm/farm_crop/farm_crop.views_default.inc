@@ -374,7 +374,6 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['name_1']['id'] = 'name_1';
   $handler->display->display_options['fields']['name_1']['table'] = 'log';
   $handler->display->display_options['fields']['name_1']['field'] = 'name';
-  $handler->display->display_options['fields']['name_1']['label'] = 'Seeding';
   $handler->display->display_options['fields']['name_1']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['name_1']['alter']['path'] = 'log/[id]';
   /* Field: Field collection item: Value */
@@ -581,7 +580,7 @@ function farm_crop_views_default_views() {
     t('Log ID'),
     t('.'),
     t('Date'),
-    t('Seeding'),
+    t('Name'),
     t('Quantity'),
     t('Units'),
     t('Movement to'),
@@ -781,7 +780,6 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['name_1']['id'] = 'name_1';
   $handler->display->display_options['fields']['name_1']['table'] = 'log';
   $handler->display->display_options['fields']['name_1']['field'] = 'name';
-  $handler->display->display_options['fields']['name_1']['label'] = 'Transplanting';
   $handler->display->display_options['fields']['name_1']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['name_1']['alter']['path'] = 'log/[id]';
   /* Field: Field collection item: Value */
@@ -988,7 +986,7 @@ function farm_crop_views_default_views() {
     t('Log ID'),
     t('.'),
     t('Date'),
-    t('Transplanting'),
+    t('Name'),
     t('Quantity'),
     t('Units'),
     t('Movement to'),

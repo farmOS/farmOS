@@ -203,7 +203,6 @@ function farm_log_input_views_default_views() {
   $handler->display->display_options['fields']['name']['id'] = 'name';
   $handler->display->display_options['fields']['name']['table'] = 'log';
   $handler->display->display_options['fields']['name']['field'] = 'name';
-  $handler->display->display_options['fields']['name']['label'] = 'Input';
   $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['name']['alter']['path'] = 'log/[id]';
   /* Field: Field collection item: Value */
@@ -428,7 +427,7 @@ function farm_log_input_views_default_views() {
     t('Log ID'),
     t('.'),
     t('Date'),
-    t('Input'),
+    t('Name'),
     t('Quantity'),
     t('Units'),
     t('Assets'),
