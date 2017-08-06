@@ -37,19 +37,29 @@ function farm_soil_compost_views_default_views() {
   $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
+    'views_bulk_operations' => 'views_bulk_operations',
     'id' => 'id',
+    'field_farm_images' => 'field_farm_images',
     'name' => 'name',
-    'field_farm_crop' => 'field_farm_crop',
     'field_farm_description' => 'field_farm_description',
     'field_farm_move_to' => 'field_farm_move_to',
-    'field_farm_season' => 'field_farm_season',
     'active' => 'active',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
+    'views_bulk_operations' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
     'id' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_images' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -61,7 +71,7 @@ function farm_soil_compost_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
-    'field_farm_crop' => array(
+    'field_farm_description' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -69,13 +79,11 @@ function farm_soil_compost_views_default_views() {
       'empty_column' => 0,
     ),
     'field_farm_move_to' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
-    'field_farm_season' => array(
+    'active' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',

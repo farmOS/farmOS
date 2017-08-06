@@ -41,10 +41,12 @@ function farm_livestock_eggs_views_default_views() {
     'done' => 'done',
     'id' => 'id',
     'timestamp' => 'timestamp',
+    'name_1' => 'name_1',
     'field_farm_egg_qty' => 'field_farm_egg_qty',
     'field_farm_animal_group' => 'field_farm_animal_group',
-    'name' => 'name',
     'field_farm_notes' => 'field_farm_notes',
+    'field_farm_log_category' => 'field_farm_log_category',
+    'name' => 'name',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
@@ -74,6 +76,13 @@ function farm_livestock_eggs_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
+    'name_1' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
     'field_farm_egg_qty' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
@@ -86,14 +95,19 @@ function farm_livestock_eggs_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
-    'name' => array(
+    'field_farm_notes' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
-    'field_farm_notes' => array(
+    'field_farm_log_category' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'name' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -174,6 +188,12 @@ function farm_livestock_eggs_views_default_views() {
   $handler->display->display_options['fields']['timestamp']['date_format'] = 'custom';
   $handler->display->display_options['fields']['timestamp']['custom_date_format'] = 'M j Y';
   $handler->display->display_options['fields']['timestamp']['second_date_format'] = 'long';
+  /* Field: Log: Name */
+  $handler->display->display_options['fields']['name_1']['id'] = 'name_1';
+  $handler->display->display_options['fields']['name_1']['table'] = 'log';
+  $handler->display->display_options['fields']['name_1']['field'] = 'name';
+  $handler->display->display_options['fields']['name_1']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['name_1']['alter']['path'] = 'log/[id]';
   /* Field: Log: Quantity */
   $handler->display->display_options['fields']['field_farm_egg_qty']['id'] = 'field_farm_egg_qty';
   $handler->display->display_options['fields']['field_farm_egg_qty']['table'] = 'field_data_field_farm_egg_qty';
@@ -375,6 +395,7 @@ function farm_livestock_eggs_views_default_views() {
     t('Log ID'),
     t('.'),
     t('Date'),
+    t('Name'),
     t('Quantity'),
     t('Group'),
     t('Notes'),

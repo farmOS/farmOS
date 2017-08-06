@@ -45,6 +45,7 @@ function farm_water_test_views_default_views() {
     'field_farm_area' => 'field_farm_area',
     'field_farm_water_lab' => 'field_farm_water_lab',
     'field_farm_notes' => 'field_farm_notes',
+    'field_farm_log_category' => 'field_farm_log_category',
     'name_1' => 'name_1',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
@@ -97,6 +98,11 @@ function farm_water_test_views_default_views() {
     'field_farm_notes' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_log_category' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,

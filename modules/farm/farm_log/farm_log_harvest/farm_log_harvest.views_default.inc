@@ -45,6 +45,7 @@ function farm_log_harvest_views_default_views() {
     'field_farm_quantity_value' => 'field_farm_quantity_value',
     'field_farm_quantity_units' => 'field_farm_quantity_units',
     'field_farm_asset' => 'field_farm_asset',
+    'field_farm_area' => 'field_farm_area',
     'field_farm_lot_number' => 'field_farm_lot_number',
     'field_farm_notes' => 'field_farm_notes',
     'field_farm_log_category' => 'field_farm_log_category',
@@ -100,6 +101,11 @@ function farm_log_harvest_views_default_views() {
       'empty_column' => 0,
     ),
     'field_farm_asset' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_area' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,

@@ -267,7 +267,11 @@ function farm_log_views_default_views() {
     'id' => 'id',
     'timestamp' => 'timestamp',
     'name' => 'name',
+    'field_farm_asset' => 'field_farm_asset',
+    'field_farm_area' => 'field_farm_area',
     'type' => 'type',
+    'field_farm_log_category' => 'field_farm_log_category',
+    'name_1' => 'name_1',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
@@ -304,7 +308,29 @@ function farm_log_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
+    'field_farm_asset' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_area' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
     'type' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_log_category' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'name_1' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',

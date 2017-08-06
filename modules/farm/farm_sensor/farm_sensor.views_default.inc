@@ -118,7 +118,6 @@ function farm_sensor_views_default_views() {
   $handler->display->display_options['fields']['id']['table'] = 'farm_asset';
   $handler->display->display_options['fields']['id']['field'] = 'id';
   $handler->display->display_options['fields']['id']['label'] = 'Asset ID';
-  $handler->display->display_options['fields']['id']['exclude'] = TRUE;
   $handler->display->display_options['fields']['id']['separator'] = '';
   /* Field: Farm asset: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';

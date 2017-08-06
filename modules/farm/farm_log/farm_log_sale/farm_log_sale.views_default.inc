@@ -41,14 +41,16 @@ function farm_log_sale_views_default_views() {
     'done' => 'done',
     'id' => 'id',
     'timestamp' => 'timestamp',
+    'name' => 'name',
     'field_farm_asset' => 'field_farm_asset',
     'field_farm_customer' => 'field_farm_customer',
     'field_farm_invoice_number' => 'field_farm_invoice_number',
     'field_farm_lot_number' => 'field_farm_lot_number',
-    'field_farm_unit_price' => 'field_farm_unit_price',
-    'field_farm_total_price' => 'field_farm_total_price',
     'field_farm_quantity_value' => 'field_farm_quantity_value',
     'field_farm_quantity_units' => 'field_farm_quantity_units',
+    'field_farm_unit_price' => 'field_farm_unit_price',
+    'field_farm_total_price' => 'field_farm_total_price',
+    'field_farm_notes' => 'field_farm_notes',
     'field_farm_log_category' => 'field_farm_log_category',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
@@ -73,6 +75,13 @@ function farm_log_sale_views_default_views() {
       'empty_column' => 0,
     ),
     'timestamp' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'name' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -105,6 +114,20 @@ function farm_log_sale_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
+    'field_farm_quantity_value' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_quantity_units' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
     'field_farm_unit_price' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
@@ -119,14 +142,7 @@ function farm_log_sale_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
-    'field_farm_quantity_value' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_farm_quantity_units' => array(
+    'field_farm_notes' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -215,6 +231,12 @@ function farm_log_sale_views_default_views() {
   $handler->display->display_options['fields']['timestamp']['date_format'] = 'custom';
   $handler->display->display_options['fields']['timestamp']['custom_date_format'] = 'M j Y';
   $handler->display->display_options['fields']['timestamp']['second_date_format'] = 'long';
+  /* Field: Log: Name */
+  $handler->display->display_options['fields']['name']['id'] = 'name';
+  $handler->display->display_options['fields']['name']['table'] = 'log';
+  $handler->display->display_options['fields']['name']['field'] = 'name';
+  $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['name']['alter']['path'] = 'log/[id]';
   /* Field: Log: Assets */
   $handler->display->display_options['fields']['field_farm_asset']['id'] = 'field_farm_asset';
   $handler->display->display_options['fields']['field_farm_asset']['table'] = 'field_data_field_farm_asset';
@@ -423,6 +445,7 @@ function farm_log_sale_views_default_views() {
     t('.'),
     t(','),
     t('Date'),
+    t('Name'),
     t('Assets'),
     t('Customer'),
     t('Invoice number'),

@@ -225,6 +225,7 @@ function farm_crop_views_default_views() {
     'field_farm_quantity_units' => 'field_farm_quantity_units',
     'field_farm_move_to' => 'field_farm_move_to',
     'field_farm_notes' => 'field_farm_notes',
+    'field_farm_log_category' => 'field_farm_log_category',
     'name' => 'name',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
@@ -289,6 +290,11 @@ function farm_crop_views_default_views() {
     'field_farm_notes' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_log_category' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -664,6 +670,7 @@ function farm_crop_views_default_views() {
     'field_farm_quantity_units' => 'field_farm_quantity_units',
     'field_farm_move_to' => 'field_farm_move_to',
     'field_farm_notes' => 'field_farm_notes',
+    'field_farm_log_category' => 'field_farm_log_category',
     'name' => 'name',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
@@ -728,6 +735,11 @@ function farm_crop_views_default_views() {
     'field_farm_notes' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_log_category' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -1093,19 +1105,31 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
+    'views_bulk_operations' => 'views_bulk_operations',
     'id' => 'id',
+    'field_farm_images' => 'field_farm_images',
     'name' => 'name',
     'field_farm_crop' => 'field_farm_crop',
-    'field_farm_move_to' => 'field_farm_move_to',
     'field_farm_season' => 'field_farm_season',
     'field_farm_description' => 'field_farm_description',
+    'field_farm_move_to' => 'field_farm_move_to',
     'active' => 'active',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
+    'views_bulk_operations' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
     'id' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_images' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -1118,6 +1142,18 @@ function farm_crop_views_default_views() {
       'empty_column' => 0,
     ),
     'field_farm_crop' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_season' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_description' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -1125,13 +1161,11 @@ function farm_crop_views_default_views() {
       'empty_column' => 0,
     ),
     'field_farm_move_to' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
-    'field_farm_season' => array(
+    'active' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -1196,6 +1230,12 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['field_farm_crop']['id'] = 'field_farm_crop';
   $handler->display->display_options['fields']['field_farm_crop']['table'] = 'field_data_field_farm_crop';
   $handler->display->display_options['fields']['field_farm_crop']['field'] = 'field_farm_crop';
+  $handler->display->display_options['fields']['field_farm_crop']['delta_offset'] = '0';
+  /* Field: Farm asset: Season */
+  $handler->display->display_options['fields']['field_farm_season']['id'] = 'field_farm_season';
+  $handler->display->display_options['fields']['field_farm_season']['table'] = 'field_data_field_farm_season';
+  $handler->display->display_options['fields']['field_farm_season']['field'] = 'field_farm_season';
+  $handler->display->display_options['fields']['field_farm_season']['type'] = 'taxonomy_term_reference_plain';
   /* Field: Farm asset: Description */
   $handler->display->display_options['fields']['field_farm_description']['id'] = 'field_farm_description';
   $handler->display->display_options['fields']['field_farm_description']['table'] = 'field_data_field_farm_description';
@@ -1210,11 +1250,6 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['field_farm_move_to']['field'] = 'field_farm_move_to';
   $handler->display->display_options['fields']['field_farm_move_to']['relationship'] = 'latest_movement';
   $handler->display->display_options['fields']['field_farm_move_to']['label'] = 'Location';
-  /* Field: Farm asset: Season */
-  $handler->display->display_options['fields']['field_farm_season']['id'] = 'field_farm_season';
-  $handler->display->display_options['fields']['field_farm_season']['table'] = 'field_data_field_farm_season';
-  $handler->display->display_options['fields']['field_farm_season']['field'] = 'field_farm_season';
-  $handler->display->display_options['fields']['field_farm_season']['type'] = 'taxonomy_term_reference_plain';
   /* Field: Farm asset: Active */
   $handler->display->display_options['fields']['active']['id'] = 'active';
   $handler->display->display_options['fields']['active']['table'] = 'farm_asset';
@@ -1393,10 +1428,10 @@ function farm_crop_views_default_views() {
     t('Asset ID'),
     t('.'),
     t('Name'),
-    t('Location'),
     t('Crop/variety'),
     t('Season'),
     t('Description'),
+    t('Location'),
     t('Active'),
     t('All'),
     t('Plantings in %1'),

@@ -39,6 +39,7 @@ function farm_equipment_views_default_views() {
   $handler->display->display_options['style_options']['columns'] = array(
     'views_bulk_operations' => 'views_bulk_operations',
     'id' => 'id',
+    'field_farm_images' => 'field_farm_images',
     'name' => 'name',
     'field_farm_manufacturer' => 'field_farm_manufacturer',
     'field_farm_model' => 'field_farm_model',
@@ -57,6 +58,11 @@ function farm_equipment_views_default_views() {
     'id' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_images' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -364,6 +370,7 @@ function farm_equipment_views_default_views() {
     'name' => 'name',
     'field_farm_asset' => 'field_farm_asset',
     'field_farm_notes' => 'field_farm_notes',
+    'field_farm_log_category' => 'field_farm_log_category',
     'name_1' => 'name_1',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
@@ -409,6 +416,11 @@ function farm_equipment_views_default_views() {
     'field_farm_notes' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_log_category' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,

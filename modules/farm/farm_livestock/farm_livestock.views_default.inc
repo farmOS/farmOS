@@ -287,11 +287,16 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['style_options']['columns'] = array(
     'views_bulk_operations' => 'views_bulk_operations',
     'id' => 'id',
+    'field_farm_images' => 'field_farm_images',
     'name' => 'name',
-    'field_farm_animal_sex' => 'field_farm_animal_sex',
-    'field_farm_date' => 'field_farm_date',
     'field_farm_animal_type' => 'field_farm_animal_type',
     'field_farm_animal_group' => 'field_farm_animal_group',
+    'field_farm_date' => 'field_farm_date',
+    'field_farm_animal_sex' => 'field_farm_animal_sex',
+    'field_farm_animal_castrated' => 'field_farm_animal_castrated',
+    'field_farm_animal_tag_id' => 'field_farm_animal_tag_id',
+    'field_farm_animal_tag_type' => 'field_farm_animal_tag_type',
+    'field_farm_animal_tag_location' => 'field_farm_animal_tag_location',
     'field_farm_description' => 'field_farm_description',
     'field_farm_move_to' => 'field_farm_move_to',
     'active' => 'active',
@@ -310,21 +315,12 @@ function farm_livestock_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
+    'field_farm_images' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
     'name' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_farm_animal_sex' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_farm_date' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -339,6 +335,52 @@ function farm_livestock_views_default_views() {
       'empty_column' => 0,
     ),
     'field_farm_animal_group' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_date' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_animal_sex' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_animal_castrated' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_animal_tag_id' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_animal_tag_type' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_animal_tag_location' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
     'field_farm_description' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
@@ -417,6 +459,27 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['fields']['name']['field'] = 'name';
   $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['name']['alter']['path'] = 'farm/asset/[id]';
+  /* Field: Farm asset: Species/breed */
+  $handler->display->display_options['fields']['field_farm_animal_type']['id'] = 'field_farm_animal_type';
+  $handler->display->display_options['fields']['field_farm_animal_type']['table'] = 'field_data_field_farm_animal_type';
+  $handler->display->display_options['fields']['field_farm_animal_type']['field'] = 'field_farm_animal_type';
+  /* Field: Field: Group */
+  $handler->display->display_options['fields']['field_farm_animal_group']['id'] = 'field_farm_animal_group';
+  $handler->display->display_options['fields']['field_farm_animal_group']['table'] = 'field_data_field_farm_animal_group';
+  $handler->display->display_options['fields']['field_farm_animal_group']['field'] = 'field_farm_animal_group';
+  /* Field: Farm asset: Date of birth */
+  $handler->display->display_options['fields']['field_farm_date']['id'] = 'field_farm_date';
+  $handler->display->display_options['fields']['field_farm_date']['table'] = 'field_data_field_farm_date';
+  $handler->display->display_options['fields']['field_farm_date']['field'] = 'field_farm_date';
+  $handler->display->display_options['fields']['field_farm_date']['settings'] = array(
+    'format_type' => 'short',
+    'custom_date_format' => '',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+    'show_remaining_days' => 0,
+  );
   /* Field: Farm asset: Sex */
   $handler->display->display_options['fields']['field_farm_animal_sex']['id'] = 'field_farm_animal_sex';
   $handler->display->display_options['fields']['field_farm_animal_sex']['table'] = 'field_data_field_farm_animal_sex';
@@ -425,33 +488,12 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['fields']['field_farm_animal_castrated']['id'] = 'field_farm_animal_castrated';
   $handler->display->display_options['fields']['field_farm_animal_castrated']['table'] = 'field_data_field_farm_animal_castrated';
   $handler->display->display_options['fields']['field_farm_animal_castrated']['field'] = 'field_farm_animal_castrated';
-  /* Field: Farm asset: Date of birth */
-  $handler->display->display_options['fields']['field_farm_date']['id'] = 'field_farm_date';
-  $handler->display->display_options['fields']['field_farm_date']['table'] = 'field_data_field_farm_date';
-  $handler->display->display_options['fields']['field_farm_date']['field'] = 'field_farm_date';
-  $handler->display->display_options['fields']['field_farm_date']['label'] = 'Birthdate';
-  $handler->display->display_options['fields']['field_farm_date']['settings'] = array(
-    'format_type' => 'long',
-    'fromto' => 'both',
-    'multiple_number' => '',
-    'multiple_from' => '',
-    'multiple_to' => '',
-  );
-  /* Field: Farm asset: Species/breed */
-  $handler->display->display_options['fields']['field_farm_animal_type']['id'] = 'field_farm_animal_type';
-  $handler->display->display_options['fields']['field_farm_animal_type']['table'] = 'field_data_field_farm_animal_type';
-  $handler->display->display_options['fields']['field_farm_animal_type']['field'] = 'field_farm_animal_type';
-  $handler->display->display_options['fields']['field_farm_animal_type']['label'] = 'Species/Breed';
-  /* Field: Field: Group */
-  $handler->display->display_options['fields']['field_farm_animal_group']['id'] = 'field_farm_animal_group';
-  $handler->display->display_options['fields']['field_farm_animal_group']['table'] = 'field_data_field_farm_animal_group';
-  $handler->display->display_options['fields']['field_farm_animal_group']['field'] = 'field_farm_animal_group';
   /* Field: Field collection item: ID */
   $handler->display->display_options['fields']['field_farm_animal_tag_id']['id'] = 'field_farm_animal_tag_id';
   $handler->display->display_options['fields']['field_farm_animal_tag_id']['table'] = 'field_data_field_farm_animal_tag_id';
   $handler->display->display_options['fields']['field_farm_animal_tag_id']['field'] = 'field_farm_animal_tag_id';
   $handler->display->display_options['fields']['field_farm_animal_tag_id']['relationship'] = 'field_farm_animal_tag_value';
-  $handler->display->display_options['fields']['field_farm_animal_tag_id']['label'] = 'ID Tag';
+  $handler->display->display_options['fields']['field_farm_animal_tag_id']['label'] = 'Tag ID';
   /* Field: Field collection item: Tag Type */
   $handler->display->display_options['fields']['field_farm_animal_tag_type']['id'] = 'field_farm_animal_tag_type';
   $handler->display->display_options['fields']['field_farm_animal_tag_type']['table'] = 'field_data_field_farm_animal_tag_type';
@@ -470,7 +512,6 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['fields']['field_farm_description']['field'] = 'field_farm_description';
   $handler->display->display_options['fields']['field_farm_description']['alter']['trim_whitespace'] = TRUE;
   $handler->display->display_options['fields']['field_farm_description']['alter']['max_length'] = '140';
-  $handler->display->display_options['fields']['field_farm_description']['alter']['more_link'] = TRUE;
   $handler->display->display_options['fields']['field_farm_description']['alter']['strip_tags'] = TRUE;
   $handler->display->display_options['fields']['field_farm_description']['alter']['trim'] = TRUE;
   /* Field: Field collection item: Movement to */
@@ -725,17 +766,19 @@ function farm_livestock_views_default_views() {
     t('Asset ID'),
     t('.'),
     t('Name'),
+    t('Species/breed'),
+    t('Group'),
+    t('Date of birth'),
     t('Sex'),
     t('Castrated'),
-    t('Birthdate'),
-    t('Species/Breed'),
-    t('Group'),
-    t('ID Tag'),
+    t('Tag ID'),
     t('Tag type'),
     t('Tag location'),
     t('Description'),
     t('Location'),
     t('Active'),
+    t('Species/Breed'),
+    t('ID Tag'),
     t('All'),
     t('Animals in %1'),
     t('Animals in group %2'),
@@ -781,6 +824,7 @@ function farm_livestock_views_default_views() {
     'name' => 'name',
     'field_farm_asset' => 'field_farm_asset',
     'field_farm_notes' => 'field_farm_notes',
+    'field_farm_log_category' => 'field_farm_log_category',
     'name_1' => 'name_1',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
@@ -826,6 +870,11 @@ function farm_livestock_views_default_views() {
     'field_farm_notes' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_log_category' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
