@@ -80,7 +80,7 @@ function farm_log_movement_field_default_field_instances() {
   // 'field_collection_item-field_farm_movement-field_farm_move_from'.
   $field_instances['field_collection_item-field_farm_movement-field_farm_move_from'] = array(
     'bundle' => 'field_farm_movement',
-    'default_value' => NULL,
+    'default_value' => array(),
     'deleted' => 0,
     'description' => 'Specify the area(s) that assets are being moved from. This field is optional, and is only used for reference. You may leave this blank as a way of setting initial location. If the assets currently have a location set from a previously logged movement, this field will be automatically filled using that information.',
     'display' => array(
@@ -112,7 +112,7 @@ function farm_log_movement_field_default_field_instances() {
   // 'field_collection_item-field_farm_movement-field_farm_move_to'.
   $field_instances['field_collection_item-field_farm_movement-field_farm_move_to'] = array(
     'bundle' => 'field_farm_movement',
-    'default_value' => NULL,
+    'default_value' => array(),
     'deleted' => 0,
     'description' => 'Specify the area(s) that assets are being moved to. If you need to specify more precise locations (in addition to these areas), use the Geometry field below.',
     'display' => array(
