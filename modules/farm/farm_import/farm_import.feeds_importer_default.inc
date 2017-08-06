@@ -278,7 +278,7 @@ function farm_import_log_field_mappings() {
       'language' => 'und',
     ),
     'field_farm_area' => array(
-      'source' => 'Area names',
+      'source' => 'Areas',
       'target' => 'field_farm_area',
       'term_search' => '0',
       'autocreate' => 1,
@@ -293,7 +293,7 @@ function farm_import_log_field_mappings() {
       'language' => 'und',
     ),
     'field_farm_log_category' => array(
-      'source' => 'Category names',
+      'source' => 'Categories',
       'target' => 'field_farm_log_category',
       'term_search' => '0',
       'autocreate' => 0,

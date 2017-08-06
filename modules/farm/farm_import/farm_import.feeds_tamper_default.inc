@@ -66,16 +66,16 @@ function farm_import_feeds_tamper_default() {
       $export[$feeds_tamper->id] = $feeds_tamper;
     }
 
-    // If an "Area names" field exists, explode it into an array of area names.
+    // If an "Areas" field exists, explode it into an array of area names.
     if (!empty(field_info_instance('log', 'field_farm_area', $bundle))) {
-      $feeds_tamper = farm_import_feeds_tamper_plugin('log', $bundle, 'Area names', 'explode');
+      $feeds_tamper = farm_import_feeds_tamper_plugin('log', $bundle, 'Areas', 'explode');
       $export[$feeds_tamper->id] = $feeds_tamper;
     }
 
-    // If a "Category names" field exists, explode it into an array of category
+    // If a "Categories" field exists, explode it into an array of category
     // names.
     if (!empty(field_info_instance('log', 'field_farm_log_category', $bundle))) {
-      $feeds_tamper = farm_import_feeds_tamper_plugin('log', $bundle, 'Category names', 'explode');
+      $feeds_tamper = farm_import_feeds_tamper_plugin('log', $bundle, 'Categories', 'explode');
       $export[$feeds_tamper->id] = $feeds_tamper;
     }
   }
