@@ -40,6 +40,9 @@ function farm_equipment_views_default_views() {
     'views_bulk_operations' => 'views_bulk_operations',
     'id' => 'id',
     'name' => 'name',
+    'field_farm_manufacturer' => 'field_farm_manufacturer',
+    'field_farm_model' => 'field_farm_model',
+    'field_farm_serial_number' => 'field_farm_serial_number',
     'field_farm_description' => 'field_farm_description',
     'field_farm_move_to' => 'field_farm_move_to',
     'active' => 'active',
@@ -59,6 +62,27 @@ function farm_equipment_views_default_views() {
       'empty_column' => 0,
     ),
     'name' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_manufacturer' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_model' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_serial_number' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -138,6 +162,18 @@ function farm_equipment_views_default_views() {
   $handler->display->display_options['fields']['name']['field'] = 'name';
   $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['name']['alter']['path'] = 'farm/asset/[id]';
+  /* Field: Farm asset: Manufacturer */
+  $handler->display->display_options['fields']['field_farm_manufacturer']['id'] = 'field_farm_manufacturer';
+  $handler->display->display_options['fields']['field_farm_manufacturer']['table'] = 'field_data_field_farm_manufacturer';
+  $handler->display->display_options['fields']['field_farm_manufacturer']['field'] = 'field_farm_manufacturer';
+  /* Field: Farm asset: Model */
+  $handler->display->display_options['fields']['field_farm_model']['id'] = 'field_farm_model';
+  $handler->display->display_options['fields']['field_farm_model']['table'] = 'field_data_field_farm_model';
+  $handler->display->display_options['fields']['field_farm_model']['field'] = 'field_farm_model';
+  /* Field: Farm asset: Serial number */
+  $handler->display->display_options['fields']['field_farm_serial_number']['id'] = 'field_farm_serial_number';
+  $handler->display->display_options['fields']['field_farm_serial_number']['table'] = 'field_data_field_farm_serial_number';
+  $handler->display->display_options['fields']['field_farm_serial_number']['field'] = 'field_farm_serial_number';
   /* Field: Farm asset: Description */
   $handler->display->display_options['fields']['field_farm_description']['id'] = 'field_farm_description';
   $handler->display->display_options['fields']['field_farm_description']['table'] = 'field_data_field_farm_description';
@@ -281,6 +317,9 @@ function farm_equipment_views_default_views() {
     t('Asset ID'),
     t('.'),
     t('Name'),
+    t('Manufacturer'),
+    t('Model'),
+    t('Serial number'),
     t('Description'),
     t('Location'),
     t('Active'),
