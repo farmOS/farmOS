@@ -44,6 +44,7 @@ function farm_soil_test_views_default_views() {
     'name' => 'name',
     'field_farm_soil_lab' => 'field_farm_soil_lab',
     'field_farm_area' => 'field_farm_area',
+    'field_farm_notes' => 'field_farm_notes',
     'name_1' => 'name_1',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
@@ -89,6 +90,13 @@ function farm_soil_test_views_default_views() {
       'empty_column' => 0,
     ),
     'field_farm_area' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_notes' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -190,6 +198,14 @@ function farm_soil_test_views_default_views() {
   $handler->display->display_options['fields']['field_farm_area']['id'] = 'field_farm_area';
   $handler->display->display_options['fields']['field_farm_area']['table'] = 'field_data_field_farm_area';
   $handler->display->display_options['fields']['field_farm_area']['field'] = 'field_farm_area';
+  /* Field: Log: Notes */
+  $handler->display->display_options['fields']['field_farm_notes']['id'] = 'field_farm_notes';
+  $handler->display->display_options['fields']['field_farm_notes']['table'] = 'field_data_field_farm_notes';
+  $handler->display->display_options['fields']['field_farm_notes']['field'] = 'field_farm_notes';
+  $handler->display->display_options['fields']['field_farm_notes']['alter']['trim_whitespace'] = TRUE;
+  $handler->display->display_options['fields']['field_farm_notes']['alter']['max_length'] = '140';
+  $handler->display->display_options['fields']['field_farm_notes']['alter']['strip_tags'] = TRUE;
+  $handler->display->display_options['fields']['field_farm_notes']['alter']['trim'] = TRUE;
   /* Field: Log: Log category */
   $handler->display->display_options['fields']['field_farm_log_category']['id'] = 'field_farm_log_category';
   $handler->display->display_options['fields']['field_farm_log_category']['table'] = 'field_data_field_farm_log_category';
@@ -384,6 +400,7 @@ function farm_soil_test_views_default_views() {
     t('Name'),
     t('Lab'),
     t('Areas'),
+    t('Notes'),
     t('Categories'),
     t('All'),
     t('Soil tests in %1'),

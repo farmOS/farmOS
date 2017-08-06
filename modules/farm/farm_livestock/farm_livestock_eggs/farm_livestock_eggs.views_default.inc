@@ -189,6 +189,14 @@ function farm_livestock_eggs_views_default_views() {
   $handler->display->display_options['fields']['field_farm_animal_group']['table'] = 'field_data_field_farm_animal_group';
   $handler->display->display_options['fields']['field_farm_animal_group']['field'] = 'field_farm_animal_group';
   $handler->display->display_options['fields']['field_farm_animal_group']['type'] = 'taxonomy_term_reference_plain';
+  /* Field: Log: Notes */
+  $handler->display->display_options['fields']['field_farm_notes']['id'] = 'field_farm_notes';
+  $handler->display->display_options['fields']['field_farm_notes']['table'] = 'field_data_field_farm_notes';
+  $handler->display->display_options['fields']['field_farm_notes']['field'] = 'field_farm_notes';
+  $handler->display->display_options['fields']['field_farm_notes']['alter']['trim_whitespace'] = TRUE;
+  $handler->display->display_options['fields']['field_farm_notes']['alter']['max_length'] = '140';
+  $handler->display->display_options['fields']['field_farm_notes']['alter']['strip_tags'] = TRUE;
+  $handler->display->display_options['fields']['field_farm_notes']['alter']['trim'] = TRUE;
   /* Field: Log: Log category */
   $handler->display->display_options['fields']['field_farm_log_category']['id'] = 'field_farm_log_category';
   $handler->display->display_options['fields']['field_farm_log_category']['table'] = 'field_data_field_farm_log_category';
@@ -203,10 +211,6 @@ function farm_livestock_eggs_views_default_views() {
   $handler->display->display_options['fields']['name']['relationship'] = 'field_farm_log_owner_target_id';
   $handler->display->display_options['fields']['name']['label'] = 'Owner';
   $handler->display->display_options['fields']['name']['link_to_user'] = FALSE;
-  /* Field: Log: Notes */
-  $handler->display->display_options['fields']['field_farm_notes']['id'] = 'field_farm_notes';
-  $handler->display->display_options['fields']['field_farm_notes']['table'] = 'field_data_field_farm_notes';
-  $handler->display->display_options['fields']['field_farm_notes']['field'] = 'field_farm_notes';
   /* Sort criterion: Log: Timestamp */
   $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
   $handler->display->display_options['sorts']['timestamp']['table'] = 'log';

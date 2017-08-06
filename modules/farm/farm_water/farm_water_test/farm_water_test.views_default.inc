@@ -44,6 +44,7 @@ function farm_water_test_views_default_views() {
     'name' => 'name',
     'field_farm_area' => 'field_farm_area',
     'field_farm_water_lab' => 'field_farm_water_lab',
+    'field_farm_notes' => 'field_farm_notes',
     'name_1' => 'name_1',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
@@ -87,6 +88,13 @@ function farm_water_test_views_default_views() {
       'empty_column' => 0,
     ),
     'field_farm_water_lab' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_notes' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -189,6 +197,14 @@ function farm_water_test_views_default_views() {
   $handler->display->display_options['fields']['field_farm_water_lab']['id'] = 'field_farm_water_lab';
   $handler->display->display_options['fields']['field_farm_water_lab']['table'] = 'field_data_field_farm_water_lab';
   $handler->display->display_options['fields']['field_farm_water_lab']['field'] = 'field_farm_water_lab';
+  /* Field: Log: Notes */
+  $handler->display->display_options['fields']['field_farm_notes']['id'] = 'field_farm_notes';
+  $handler->display->display_options['fields']['field_farm_notes']['table'] = 'field_data_field_farm_notes';
+  $handler->display->display_options['fields']['field_farm_notes']['field'] = 'field_farm_notes';
+  $handler->display->display_options['fields']['field_farm_notes']['alter']['trim_whitespace'] = TRUE;
+  $handler->display->display_options['fields']['field_farm_notes']['alter']['max_length'] = '140';
+  $handler->display->display_options['fields']['field_farm_notes']['alter']['strip_tags'] = TRUE;
+  $handler->display->display_options['fields']['field_farm_notes']['alter']['trim'] = TRUE;
   /* Field: Log: Log category */
   $handler->display->display_options['fields']['field_farm_log_category']['id'] = 'field_farm_log_category';
   $handler->display->display_options['fields']['field_farm_log_category']['table'] = 'field_data_field_farm_log_category';
@@ -383,6 +399,7 @@ function farm_water_test_views_default_views() {
     t('Name'),
     t('Areas'),
     t('Laboratory'),
+    t('Notes'),
     t('Categories'),
     t('All'),
     t('Water tests in %1'),
