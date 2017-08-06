@@ -460,6 +460,10 @@ function farm_log_movement_create($assets, $areas = array(), $timestamp = REQUES
     $log_wrapper->done->set(FALSE);
   }
 
+  // Set the log owner.
+  global $user;
+  $log_wrapper->field_farm_log_owner[] = $user;
+
   // Save the log.
   $log_wrapper->save();
 
