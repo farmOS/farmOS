@@ -220,6 +220,7 @@ function farm_crop_views_default_views() {
     'id' => 'id',
     'timestamp' => 'timestamp',
     'name_1' => 'name_1',
+    'field_farm_asset' => 'field_farm_asset',
     'field_farm_quantity_value' => 'field_farm_quantity_value',
     'field_farm_quantity_units' => 'field_farm_quantity_units',
     'field_farm_move_to' => 'field_farm_move_to',
@@ -257,6 +258,11 @@ function farm_crop_views_default_views() {
     'name_1' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_asset' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -384,6 +390,15 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['name_1']['field'] = 'name';
   $handler->display->display_options['fields']['name_1']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['name_1']['alter']['path'] = 'log/[id]';
+  /* Field: Log: Assets */
+  $handler->display->display_options['fields']['field_farm_asset']['id'] = 'field_farm_asset';
+  $handler->display->display_options['fields']['field_farm_asset']['table'] = 'field_data_field_farm_asset';
+  $handler->display->display_options['fields']['field_farm_asset']['field'] = 'field_farm_asset';
+  $handler->display->display_options['fields']['field_farm_asset']['settings'] = array(
+    'bypass_access' => 0,
+    'link' => 1,
+  );
+  $handler->display->display_options['fields']['field_farm_asset']['delta_offset'] = '0';
   /* Field: Field collection item: Value */
   $handler->display->display_options['fields']['field_farm_quantity_value']['id'] = 'field_farm_quantity_value';
   $handler->display->display_options['fields']['field_farm_quantity_value']['table'] = 'field_data_field_farm_quantity_value';
@@ -597,6 +612,7 @@ function farm_crop_views_default_views() {
     t('.'),
     t('Date'),
     t('Name'),
+    t('Assets'),
     t('Quantity'),
     t('Units'),
     t('Movement to'),
@@ -643,6 +659,7 @@ function farm_crop_views_default_views() {
     'id' => 'id',
     'timestamp' => 'timestamp',
     'name_1' => 'name_1',
+    'field_farm_asset' => 'field_farm_asset',
     'field_farm_quantity_value' => 'field_farm_quantity_value',
     'field_farm_quantity_units' => 'field_farm_quantity_units',
     'field_farm_move_to' => 'field_farm_move_to',
@@ -680,6 +697,11 @@ function farm_crop_views_default_views() {
     'name_1' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_asset' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -807,6 +829,15 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['name_1']['field'] = 'name';
   $handler->display->display_options['fields']['name_1']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['name_1']['alter']['path'] = 'log/[id]';
+  /* Field: Log: Assets */
+  $handler->display->display_options['fields']['field_farm_asset']['id'] = 'field_farm_asset';
+  $handler->display->display_options['fields']['field_farm_asset']['table'] = 'field_data_field_farm_asset';
+  $handler->display->display_options['fields']['field_farm_asset']['field'] = 'field_farm_asset';
+  $handler->display->display_options['fields']['field_farm_asset']['settings'] = array(
+    'bypass_access' => 0,
+    'link' => 1,
+  );
+  $handler->display->display_options['fields']['field_farm_asset']['delta_offset'] = '0';
   /* Field: Field collection item: Value */
   $handler->display->display_options['fields']['field_farm_quantity_value']['id'] = 'field_farm_quantity_value';
   $handler->display->display_options['fields']['field_farm_quantity_value']['table'] = 'field_data_field_farm_quantity_value';
@@ -1020,6 +1051,7 @@ function farm_crop_views_default_views() {
     t('.'),
     t('Date'),
     t('Name'),
+    t('Assets'),
     t('Quantity'),
     t('Units'),
     t('Movement to'),
