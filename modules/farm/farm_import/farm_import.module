@@ -131,6 +131,20 @@ function farm_import_feeds_tamper_plugin($entity_type, $bundle, $source, $plugin
       );
       break;
 
+    // Find and replace.
+    case 'find_replace':
+      $description = 'Find replace';
+      $settings = array(
+        'find' => !empty($value['find']) ? $value['find'] : '',
+        'replace' => !empty($value['replace']) ? $value['replace'] : '',
+        'case_sensitive' => 0,
+        'word_boundaries' => 0,
+        'whole' => 0,
+        'regex' => FALSE,
+        'func' => 'str_ireplace',
+      );
+      break;
+
     // Required.
     case 'required':
       $description = 'Required field';

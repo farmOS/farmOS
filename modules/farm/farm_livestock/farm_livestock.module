@@ -157,6 +157,18 @@ function farm_livestock_feeds_tamper_default_alter(&$feeds_tampers) {
   $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', 'animal', 'Sex', 'required');
   $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
 
+  // Convert "male" to "M".
+  $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', 'animal', 'Sex', 'find_replace', array('find' => t('male'), 'replace' => 'M'));
+  $feeds_tamper->id .= '-male';
+  $feeds_tamper->weight = 1;
+  $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
+
+  // Convert "female" to "F".
+  $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', 'animal', 'Sex', 'find_replace', array('find' => t('female'), 'replace' => 'F'));
+  $feeds_tamper->id .= '-female';
+  $feeds_tamper->weight = 2;
+  $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
+
   // Convert castrated to boolean.
   $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', 'animal', 'Castrated', 'convert_boolean');
   $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
