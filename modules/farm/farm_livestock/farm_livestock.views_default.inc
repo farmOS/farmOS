@@ -292,7 +292,9 @@ function farm_livestock_views_default_views() {
     'field_farm_date' => 'field_farm_date',
     'field_farm_animal_type' => 'field_farm_animal_type',
     'field_farm_animal_group' => 'field_farm_animal_group',
+    'field_farm_description' => 'field_farm_description',
     'field_farm_move_to' => 'field_farm_move_to',
+    'active' => 'active',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
@@ -337,6 +339,7 @@ function farm_livestock_views_default_views() {
       'empty_column' => 0,
     ),
     'field_farm_animal_group' => array(
+    'field_farm_description' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -344,6 +347,11 @@ function farm_livestock_views_default_views() {
       'empty_column' => 0,
     ),
     'field_farm_move_to' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'active' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -471,6 +479,11 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['fields']['field_farm_move_to']['field'] = 'field_farm_move_to';
   $handler->display->display_options['fields']['field_farm_move_to']['relationship'] = 'latest_movement';
   $handler->display->display_options['fields']['field_farm_move_to']['label'] = 'Location';
+  /* Field: Farm asset: Active */
+  $handler->display->display_options['fields']['active']['id'] = 'active';
+  $handler->display->display_options['fields']['active']['table'] = 'farm_asset';
+  $handler->display->display_options['fields']['active']['field'] = 'active';
+  $handler->display->display_options['fields']['active']['not'] = 0;
   /* Sort criterion: Field: Group (field_farm_animal_group) */
   $handler->display->display_options['sorts']['field_farm_animal_group_tid']['id'] = 'field_farm_animal_group_tid';
   $handler->display->display_options['sorts']['field_farm_animal_group_tid']['table'] = 'field_data_field_farm_animal_group';
@@ -722,13 +735,13 @@ function farm_livestock_views_default_views() {
     t('Tag location'),
     t('Description'),
     t('Location'),
+    t('Active'),
     t('All'),
     t('Animals in %1'),
     t('Animals in group %2'),
     t('Animals of type %3'),
     t('If there are multiple ID tags on an animal, this filter will only look at the first one.'),
     t('Type'),
-    t('Active'),
     t('Page'),
     t('Data export'),
   );

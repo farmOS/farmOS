@@ -1066,6 +1066,8 @@ function farm_crop_views_default_views() {
     'field_farm_crop' => 'field_farm_crop',
     'field_farm_move_to' => 'field_farm_move_to',
     'field_farm_season' => 'field_farm_season',
+    'field_farm_description' => 'field_farm_description',
+    'active' => 'active',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
@@ -1162,6 +1164,14 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['field_farm_crop']['id'] = 'field_farm_crop';
   $handler->display->display_options['fields']['field_farm_crop']['table'] = 'field_data_field_farm_crop';
   $handler->display->display_options['fields']['field_farm_crop']['field'] = 'field_farm_crop';
+  /* Field: Farm asset: Description */
+  $handler->display->display_options['fields']['field_farm_description']['id'] = 'field_farm_description';
+  $handler->display->display_options['fields']['field_farm_description']['table'] = 'field_data_field_farm_description';
+  $handler->display->display_options['fields']['field_farm_description']['field'] = 'field_farm_description';
+  $handler->display->display_options['fields']['field_farm_description']['alter']['trim_whitespace'] = TRUE;
+  $handler->display->display_options['fields']['field_farm_description']['alter']['max_length'] = '140';
+  $handler->display->display_options['fields']['field_farm_description']['alter']['strip_tags'] = TRUE;
+  $handler->display->display_options['fields']['field_farm_description']['alter']['trim'] = TRUE;
   /* Field: Field collection item: Movement to */
   $handler->display->display_options['fields']['field_farm_move_to']['id'] = 'field_farm_move_to';
   $handler->display->display_options['fields']['field_farm_move_to']['table'] = 'field_data_field_farm_move_to';
@@ -1173,6 +1183,11 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['field_farm_season']['table'] = 'field_data_field_farm_season';
   $handler->display->display_options['fields']['field_farm_season']['field'] = 'field_farm_season';
   $handler->display->display_options['fields']['field_farm_season']['type'] = 'taxonomy_term_reference_plain';
+  /* Field: Farm asset: Active */
+  $handler->display->display_options['fields']['active']['id'] = 'active';
+  $handler->display->display_options['fields']['active']['table'] = 'farm_asset';
+  $handler->display->display_options['fields']['active']['field'] = 'active';
+  $handler->display->display_options['fields']['active']['not'] = 0;
   /* Sort criterion: Farm asset: Name */
   $handler->display->display_options['sorts']['name']['id'] = 'name';
   $handler->display->display_options['sorts']['name']['table'] = 'farm_asset';
@@ -1349,10 +1364,11 @@ function farm_crop_views_default_views() {
     t('Location'),
     t('Crop/variety'),
     t('Season'),
+    t('Description'),
+    t('Active'),
     t('All'),
     t('Plantings in %1'),
     t('Plantings of %2'),
-    t('Active'),
     t('Page'),
     t('Data export'),
   );
