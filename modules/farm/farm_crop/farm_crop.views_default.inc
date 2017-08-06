@@ -56,7 +56,7 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['relationships']['parent']['id'] = 'parent';
   $handler->display->display_options['relationships']['parent']['table'] = 'taxonomy_term_hierarchy';
   $handler->display->display_options['relationships']['parent']['field'] = 'parent';
-  /* Relationship: Taxonomy term: Farm asset using Crop/Variety */
+  /* Relationship: Taxonomy term: Farm asset using Crop/variety */
   $handler->display->display_options['relationships']['reverse_field_farm_crop_farm_asset']['id'] = 'reverse_field_farm_crop_farm_asset';
   $handler->display->display_options['relationships']['reverse_field_farm_crop_farm_asset']['table'] = 'taxonomy_term_data';
   $handler->display->display_options['relationships']['reverse_field_farm_crop_farm_asset']['field'] = 'reverse_field_farm_crop_farm_asset';
@@ -220,9 +220,12 @@ function farm_crop_views_default_views() {
     'id' => 'id',
     'timestamp' => 'timestamp',
     'name_1' => 'name_1',
+    'field_farm_asset' => 'field_farm_asset',
     'field_farm_quantity_value' => 'field_farm_quantity_value',
     'field_farm_quantity_units' => 'field_farm_quantity_units',
     'field_farm_move_to' => 'field_farm_move_to',
+    'field_farm_notes' => 'field_farm_notes',
+    'field_farm_log_category' => 'field_farm_log_category',
     'name' => 'name',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
@@ -260,6 +263,11 @@ function farm_crop_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
+    'field_farm_asset' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
     'field_farm_quantity_value' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
@@ -275,6 +283,18 @@ function farm_crop_views_default_views() {
       'empty_column' => 0,
     ),
     'field_farm_move_to' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_notes' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_log_category' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -374,9 +394,17 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['name_1']['id'] = 'name_1';
   $handler->display->display_options['fields']['name_1']['table'] = 'log';
   $handler->display->display_options['fields']['name_1']['field'] = 'name';
-  $handler->display->display_options['fields']['name_1']['label'] = 'Seeding';
   $handler->display->display_options['fields']['name_1']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['name_1']['alter']['path'] = 'log/[id]';
+  /* Field: Log: Assets */
+  $handler->display->display_options['fields']['field_farm_asset']['id'] = 'field_farm_asset';
+  $handler->display->display_options['fields']['field_farm_asset']['table'] = 'field_data_field_farm_asset';
+  $handler->display->display_options['fields']['field_farm_asset']['field'] = 'field_farm_asset';
+  $handler->display->display_options['fields']['field_farm_asset']['settings'] = array(
+    'bypass_access' => 0,
+    'link' => 1,
+  );
+  $handler->display->display_options['fields']['field_farm_asset']['delta_offset'] = '0';
   /* Field: Field collection item: Value */
   $handler->display->display_options['fields']['field_farm_quantity_value']['id'] = 'field_farm_quantity_value';
   $handler->display->display_options['fields']['field_farm_quantity_value']['table'] = 'field_data_field_farm_quantity_value';
@@ -400,11 +428,19 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['field_farm_move_to']['field'] = 'field_farm_move_to';
   $handler->display->display_options['fields']['field_farm_move_to']['relationship'] = 'field_farm_movement_value';
   $handler->display->display_options['fields']['field_farm_move_to']['delta_offset'] = '0';
+  /* Field: Log: Notes */
+  $handler->display->display_options['fields']['field_farm_notes']['id'] = 'field_farm_notes';
+  $handler->display->display_options['fields']['field_farm_notes']['table'] = 'field_data_field_farm_notes';
+  $handler->display->display_options['fields']['field_farm_notes']['field'] = 'field_farm_notes';
+  $handler->display->display_options['fields']['field_farm_notes']['alter']['trim_whitespace'] = TRUE;
+  $handler->display->display_options['fields']['field_farm_notes']['alter']['max_length'] = '140';
+  $handler->display->display_options['fields']['field_farm_notes']['alter']['strip_tags'] = TRUE;
+  $handler->display->display_options['fields']['field_farm_notes']['alter']['trim'] = TRUE;
   /* Field: Log: Log category */
   $handler->display->display_options['fields']['field_farm_log_category']['id'] = 'field_farm_log_category';
   $handler->display->display_options['fields']['field_farm_log_category']['table'] = 'field_data_field_farm_log_category';
   $handler->display->display_options['fields']['field_farm_log_category']['field'] = 'field_farm_log_category';
-  $handler->display->display_options['fields']['field_farm_log_category']['label'] = 'Category';
+  $handler->display->display_options['fields']['field_farm_log_category']['label'] = 'Categories';
   $handler->display->display_options['fields']['field_farm_log_category']['type'] = 'taxonomy_term_reference_plain';
   $handler->display->display_options['fields']['field_farm_log_category']['delta_offset'] = '0';
   /* Field: User: Name */
@@ -475,7 +511,7 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['filters']['field_farm_log_category_tid']['group'] = 1;
   $handler->display->display_options['filters']['field_farm_log_category_tid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['operator_id'] = 'field_farm_log_category_tid_op';
-  $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['label'] = 'Category';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['label'] = 'Categories';
   $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['operator'] = 'field_farm_log_category_tid_op';
   $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['identifier'] = 'field_farm_log_category_tid';
   $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['multiple'] = TRUE;
@@ -581,11 +617,13 @@ function farm_crop_views_default_views() {
     t('Log ID'),
     t('.'),
     t('Date'),
-    t('Seeding'),
+    t('Name'),
+    t('Assets'),
     t('Quantity'),
     t('Units'),
     t('Movement to'),
-    t('Category'),
+    t('Notes'),
+    t('Categories'),
     t('All'),
     t('Seedings of %1'),
     t('Start date'),
@@ -627,9 +665,12 @@ function farm_crop_views_default_views() {
     'id' => 'id',
     'timestamp' => 'timestamp',
     'name_1' => 'name_1',
+    'field_farm_asset' => 'field_farm_asset',
     'field_farm_quantity_value' => 'field_farm_quantity_value',
     'field_farm_quantity_units' => 'field_farm_quantity_units',
     'field_farm_move_to' => 'field_farm_move_to',
+    'field_farm_notes' => 'field_farm_notes',
+    'field_farm_log_category' => 'field_farm_log_category',
     'name' => 'name',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
@@ -667,6 +708,11 @@ function farm_crop_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
+    'field_farm_asset' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
     'field_farm_quantity_value' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
@@ -682,6 +728,18 @@ function farm_crop_views_default_views() {
       'empty_column' => 0,
     ),
     'field_farm_move_to' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_notes' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_log_category' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -781,9 +839,17 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['name_1']['id'] = 'name_1';
   $handler->display->display_options['fields']['name_1']['table'] = 'log';
   $handler->display->display_options['fields']['name_1']['field'] = 'name';
-  $handler->display->display_options['fields']['name_1']['label'] = 'Transplanting';
   $handler->display->display_options['fields']['name_1']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['name_1']['alter']['path'] = 'log/[id]';
+  /* Field: Log: Assets */
+  $handler->display->display_options['fields']['field_farm_asset']['id'] = 'field_farm_asset';
+  $handler->display->display_options['fields']['field_farm_asset']['table'] = 'field_data_field_farm_asset';
+  $handler->display->display_options['fields']['field_farm_asset']['field'] = 'field_farm_asset';
+  $handler->display->display_options['fields']['field_farm_asset']['settings'] = array(
+    'bypass_access' => 0,
+    'link' => 1,
+  );
+  $handler->display->display_options['fields']['field_farm_asset']['delta_offset'] = '0';
   /* Field: Field collection item: Value */
   $handler->display->display_options['fields']['field_farm_quantity_value']['id'] = 'field_farm_quantity_value';
   $handler->display->display_options['fields']['field_farm_quantity_value']['table'] = 'field_data_field_farm_quantity_value';
@@ -807,11 +873,19 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['field_farm_move_to']['field'] = 'field_farm_move_to';
   $handler->display->display_options['fields']['field_farm_move_to']['relationship'] = 'field_farm_movement_value';
   $handler->display->display_options['fields']['field_farm_move_to']['delta_offset'] = '0';
+  /* Field: Log: Notes */
+  $handler->display->display_options['fields']['field_farm_notes']['id'] = 'field_farm_notes';
+  $handler->display->display_options['fields']['field_farm_notes']['table'] = 'field_data_field_farm_notes';
+  $handler->display->display_options['fields']['field_farm_notes']['field'] = 'field_farm_notes';
+  $handler->display->display_options['fields']['field_farm_notes']['alter']['trim_whitespace'] = TRUE;
+  $handler->display->display_options['fields']['field_farm_notes']['alter']['max_length'] = '140';
+  $handler->display->display_options['fields']['field_farm_notes']['alter']['strip_tags'] = TRUE;
+  $handler->display->display_options['fields']['field_farm_notes']['alter']['trim'] = TRUE;
   /* Field: Log: Log category */
   $handler->display->display_options['fields']['field_farm_log_category']['id'] = 'field_farm_log_category';
   $handler->display->display_options['fields']['field_farm_log_category']['table'] = 'field_data_field_farm_log_category';
   $handler->display->display_options['fields']['field_farm_log_category']['field'] = 'field_farm_log_category';
-  $handler->display->display_options['fields']['field_farm_log_category']['label'] = 'Category';
+  $handler->display->display_options['fields']['field_farm_log_category']['label'] = 'Categories';
   $handler->display->display_options['fields']['field_farm_log_category']['type'] = 'taxonomy_term_reference_plain';
   $handler->display->display_options['fields']['field_farm_log_category']['delta_offset'] = '0';
   /* Field: User: Name */
@@ -882,7 +956,7 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['filters']['field_farm_log_category_tid']['group'] = 1;
   $handler->display->display_options['filters']['field_farm_log_category_tid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['operator_id'] = 'field_farm_log_category_tid_op';
-  $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['label'] = 'Category';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['label'] = 'Categories';
   $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['operator'] = 'field_farm_log_category_tid_op';
   $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['identifier'] = 'field_farm_log_category_tid';
   $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['multiple'] = TRUE;
@@ -988,11 +1062,13 @@ function farm_crop_views_default_views() {
     t('Log ID'),
     t('.'),
     t('Date'),
-    t('Transplanting'),
+    t('Name'),
+    t('Assets'),
     t('Quantity'),
     t('Units'),
     t('Movement to'),
-    t('Category'),
+    t('Notes'),
+    t('Categories'),
     t('All'),
     t('Transplantings of %1'),
     t('Start date'),
@@ -1029,17 +1105,31 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
+    'views_bulk_operations' => 'views_bulk_operations',
     'id' => 'id',
+    'field_farm_images' => 'field_farm_images',
     'name' => 'name',
     'field_farm_crop' => 'field_farm_crop',
-    'field_farm_move_to' => 'field_farm_move_to',
     'field_farm_season' => 'field_farm_season',
+    'field_farm_description' => 'field_farm_description',
+    'field_farm_move_to' => 'field_farm_move_to',
+    'active' => 'active',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
+    'views_bulk_operations' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
     'id' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_images' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -1052,6 +1142,18 @@ function farm_crop_views_default_views() {
       'empty_column' => 0,
     ),
     'field_farm_crop' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_season' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_description' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -1059,13 +1161,11 @@ function farm_crop_views_default_views() {
       'empty_column' => 0,
     ),
     'field_farm_move_to' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
-    'field_farm_season' => array(
+    'active' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -1126,21 +1226,35 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['name']['field'] = 'name';
   $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['name']['alter']['path'] = 'farm/asset/[id]';
-  /* Field: Farm asset: Crop/Variety */
+  /* Field: Farm asset: Crop/variety */
   $handler->display->display_options['fields']['field_farm_crop']['id'] = 'field_farm_crop';
   $handler->display->display_options['fields']['field_farm_crop']['table'] = 'field_data_field_farm_crop';
   $handler->display->display_options['fields']['field_farm_crop']['field'] = 'field_farm_crop';
+  $handler->display->display_options['fields']['field_farm_crop']['delta_offset'] = '0';
+  /* Field: Farm asset: Season */
+  $handler->display->display_options['fields']['field_farm_season']['id'] = 'field_farm_season';
+  $handler->display->display_options['fields']['field_farm_season']['table'] = 'field_data_field_farm_season';
+  $handler->display->display_options['fields']['field_farm_season']['field'] = 'field_farm_season';
+  $handler->display->display_options['fields']['field_farm_season']['type'] = 'taxonomy_term_reference_plain';
+  /* Field: Farm asset: Description */
+  $handler->display->display_options['fields']['field_farm_description']['id'] = 'field_farm_description';
+  $handler->display->display_options['fields']['field_farm_description']['table'] = 'field_data_field_farm_description';
+  $handler->display->display_options['fields']['field_farm_description']['field'] = 'field_farm_description';
+  $handler->display->display_options['fields']['field_farm_description']['alter']['trim_whitespace'] = TRUE;
+  $handler->display->display_options['fields']['field_farm_description']['alter']['max_length'] = '140';
+  $handler->display->display_options['fields']['field_farm_description']['alter']['strip_tags'] = TRUE;
+  $handler->display->display_options['fields']['field_farm_description']['alter']['trim'] = TRUE;
   /* Field: Field collection item: Movement to */
   $handler->display->display_options['fields']['field_farm_move_to']['id'] = 'field_farm_move_to';
   $handler->display->display_options['fields']['field_farm_move_to']['table'] = 'field_data_field_farm_move_to';
   $handler->display->display_options['fields']['field_farm_move_to']['field'] = 'field_farm_move_to';
   $handler->display->display_options['fields']['field_farm_move_to']['relationship'] = 'latest_movement';
   $handler->display->display_options['fields']['field_farm_move_to']['label'] = 'Location';
-  /* Field: Farm asset: Season */
-  $handler->display->display_options['fields']['field_farm_season']['id'] = 'field_farm_season';
-  $handler->display->display_options['fields']['field_farm_season']['table'] = 'field_data_field_farm_season';
-  $handler->display->display_options['fields']['field_farm_season']['field'] = 'field_farm_season';
-  $handler->display->display_options['fields']['field_farm_season']['type'] = 'taxonomy_term_reference_plain';
+  /* Field: Farm asset: Active */
+  $handler->display->display_options['fields']['active']['id'] = 'active';
+  $handler->display->display_options['fields']['active']['table'] = 'farm_asset';
+  $handler->display->display_options['fields']['active']['field'] = 'active';
+  $handler->display->display_options['fields']['active']['not'] = 0;
   /* Sort criterion: Farm asset: Name */
   $handler->display->display_options['sorts']['name']['id'] = 'name';
   $handler->display->display_options['sorts']['name']['table'] = 'farm_asset';
@@ -1169,7 +1283,7 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['validate_options']['vocabularies'] = array(
     'farm_areas' => 'farm_areas',
   );
-  /* Contextual filter: Farm asset: Crop/Variety (field_farm_crop) */
+  /* Contextual filter: Farm asset: Crop/variety (field_farm_crop) */
   $handler->display->display_options['arguments']['field_farm_crop_tid']['id'] = 'field_farm_crop_tid';
   $handler->display->display_options['arguments']['field_farm_crop_tid']['table'] = 'field_data_field_farm_crop';
   $handler->display->display_options['arguments']['field_farm_crop_tid']['field'] = 'field_farm_crop_tid';
@@ -1203,14 +1317,14 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['filters']['name']['expose']['label'] = 'Name';
   $handler->display->display_options['filters']['name']['expose']['operator'] = 'name_op';
   $handler->display->display_options['filters']['name']['expose']['identifier'] = 'name';
-  /* Filter criterion: Farm asset: Crop/Variety (field_farm_crop) */
+  /* Filter criterion: Farm asset: Crop/variety (field_farm_crop) */
   $handler->display->display_options['filters']['field_farm_crop_tid']['id'] = 'field_farm_crop_tid';
   $handler->display->display_options['filters']['field_farm_crop_tid']['table'] = 'field_data_field_farm_crop';
   $handler->display->display_options['filters']['field_farm_crop_tid']['field'] = 'field_farm_crop_tid';
   $handler->display->display_options['filters']['field_farm_crop_tid']['group'] = 1;
   $handler->display->display_options['filters']['field_farm_crop_tid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_farm_crop_tid']['expose']['operator_id'] = 'field_farm_crop_tid_op';
-  $handler->display->display_options['filters']['field_farm_crop_tid']['expose']['label'] = 'Crop/Variety';
+  $handler->display->display_options['filters']['field_farm_crop_tid']['expose']['label'] = 'Crop/variety';
   $handler->display->display_options['filters']['field_farm_crop_tid']['expose']['operator'] = 'field_farm_crop_tid_op';
   $handler->display->display_options['filters']['field_farm_crop_tid']['expose']['identifier'] = 'field_farm_crop_tid';
   $handler->display->display_options['filters']['field_farm_crop_tid']['expose']['multiple'] = TRUE;
@@ -1314,13 +1428,14 @@ function farm_crop_views_default_views() {
     t('Asset ID'),
     t('.'),
     t('Name'),
-    t('Crop/Variety'),
-    t('Location'),
+    t('Crop/variety'),
     t('Season'),
+    t('Description'),
+    t('Location'),
+    t('Active'),
     t('All'),
     t('Plantings in %1'),
     t('Plantings of %2'),
-    t('Active'),
     t('Page'),
     t('Data export'),
   );

@@ -41,10 +41,12 @@ function farm_livestock_eggs_views_default_views() {
     'done' => 'done',
     'id' => 'id',
     'timestamp' => 'timestamp',
+    'name_1' => 'name_1',
     'field_farm_egg_qty' => 'field_farm_egg_qty',
     'field_farm_animal_group' => 'field_farm_animal_group',
-    'name' => 'name',
     'field_farm_notes' => 'field_farm_notes',
+    'field_farm_log_category' => 'field_farm_log_category',
+    'name' => 'name',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
@@ -74,6 +76,13 @@ function farm_livestock_eggs_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
+    'name_1' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
     'field_farm_egg_qty' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
@@ -86,14 +95,19 @@ function farm_livestock_eggs_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
-    'name' => array(
+    'field_farm_notes' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
-    'field_farm_notes' => array(
+    'field_farm_log_category' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'name' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -174,6 +188,12 @@ function farm_livestock_eggs_views_default_views() {
   $handler->display->display_options['fields']['timestamp']['date_format'] = 'custom';
   $handler->display->display_options['fields']['timestamp']['custom_date_format'] = 'M j Y';
   $handler->display->display_options['fields']['timestamp']['second_date_format'] = 'long';
+  /* Field: Log: Name */
+  $handler->display->display_options['fields']['name_1']['id'] = 'name_1';
+  $handler->display->display_options['fields']['name_1']['table'] = 'log';
+  $handler->display->display_options['fields']['name_1']['field'] = 'name';
+  $handler->display->display_options['fields']['name_1']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['name_1']['alter']['path'] = 'log/[id]';
   /* Field: Log: Quantity */
   $handler->display->display_options['fields']['field_farm_egg_qty']['id'] = 'field_farm_egg_qty';
   $handler->display->display_options['fields']['field_farm_egg_qty']['table'] = 'field_data_field_farm_egg_qty';
@@ -189,11 +209,19 @@ function farm_livestock_eggs_views_default_views() {
   $handler->display->display_options['fields']['field_farm_animal_group']['table'] = 'field_data_field_farm_animal_group';
   $handler->display->display_options['fields']['field_farm_animal_group']['field'] = 'field_farm_animal_group';
   $handler->display->display_options['fields']['field_farm_animal_group']['type'] = 'taxonomy_term_reference_plain';
+  /* Field: Log: Notes */
+  $handler->display->display_options['fields']['field_farm_notes']['id'] = 'field_farm_notes';
+  $handler->display->display_options['fields']['field_farm_notes']['table'] = 'field_data_field_farm_notes';
+  $handler->display->display_options['fields']['field_farm_notes']['field'] = 'field_farm_notes';
+  $handler->display->display_options['fields']['field_farm_notes']['alter']['trim_whitespace'] = TRUE;
+  $handler->display->display_options['fields']['field_farm_notes']['alter']['max_length'] = '140';
+  $handler->display->display_options['fields']['field_farm_notes']['alter']['strip_tags'] = TRUE;
+  $handler->display->display_options['fields']['field_farm_notes']['alter']['trim'] = TRUE;
   /* Field: Log: Log category */
   $handler->display->display_options['fields']['field_farm_log_category']['id'] = 'field_farm_log_category';
   $handler->display->display_options['fields']['field_farm_log_category']['table'] = 'field_data_field_farm_log_category';
   $handler->display->display_options['fields']['field_farm_log_category']['field'] = 'field_farm_log_category';
-  $handler->display->display_options['fields']['field_farm_log_category']['label'] = 'Category';
+  $handler->display->display_options['fields']['field_farm_log_category']['label'] = 'Categories';
   $handler->display->display_options['fields']['field_farm_log_category']['type'] = 'taxonomy_term_reference_plain';
   $handler->display->display_options['fields']['field_farm_log_category']['delta_offset'] = '0';
   /* Field: User: Name */
@@ -203,10 +231,6 @@ function farm_livestock_eggs_views_default_views() {
   $handler->display->display_options['fields']['name']['relationship'] = 'field_farm_log_owner_target_id';
   $handler->display->display_options['fields']['name']['label'] = 'Owner';
   $handler->display->display_options['fields']['name']['link_to_user'] = FALSE;
-  /* Field: Log: Notes */
-  $handler->display->display_options['fields']['field_farm_notes']['id'] = 'field_farm_notes';
-  $handler->display->display_options['fields']['field_farm_notes']['table'] = 'field_data_field_farm_notes';
-  $handler->display->display_options['fields']['field_farm_notes']['field'] = 'field_farm_notes';
   /* Sort criterion: Log: Timestamp */
   $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
   $handler->display->display_options['sorts']['timestamp']['table'] = 'log';
@@ -253,7 +277,7 @@ function farm_livestock_eggs_views_default_views() {
   $handler->display->display_options['filters']['field_farm_log_category_tid']['group'] = 1;
   $handler->display->display_options['filters']['field_farm_log_category_tid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['operator_id'] = 'field_farm_log_category_tid_op';
-  $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['label'] = 'Category';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['label'] = 'Categories';
   $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['operator'] = 'field_farm_log_category_tid_op';
   $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['identifier'] = 'field_farm_log_category_tid';
   $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['multiple'] = TRUE;
@@ -371,10 +395,11 @@ function farm_livestock_eggs_views_default_views() {
     t('Log ID'),
     t('.'),
     t('Date'),
+    t('Name'),
     t('Quantity'),
     t('Group'),
-    t('Category'),
     t('Notes'),
+    t('Categories'),
     t('Start date'),
     t('End date'),
     t('Page'),

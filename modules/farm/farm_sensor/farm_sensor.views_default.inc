@@ -40,7 +40,9 @@ function farm_sensor_views_default_views() {
     'views_bulk_operations' => 'views_bulk_operations',
     'id' => 'id',
     'name' => 'name',
+    'field_farm_description' => 'field_farm_description',
     'field_farm_move_to' => 'field_farm_move_to',
+    'active' => 'active',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
@@ -63,7 +65,19 @@ function farm_sensor_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
+    'field_farm_description' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
     'field_farm_move_to' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'active' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -104,7 +118,6 @@ function farm_sensor_views_default_views() {
   $handler->display->display_options['fields']['id']['table'] = 'farm_asset';
   $handler->display->display_options['fields']['id']['field'] = 'id';
   $handler->display->display_options['fields']['id']['label'] = 'Asset ID';
-  $handler->display->display_options['fields']['id']['exclude'] = TRUE;
   $handler->display->display_options['fields']['id']['separator'] = '';
   /* Field: Farm asset: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
@@ -112,12 +125,25 @@ function farm_sensor_views_default_views() {
   $handler->display->display_options['fields']['name']['field'] = 'name';
   $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['name']['alter']['path'] = 'farm/asset/[id]';
+  /* Field: Farm asset: Description */
+  $handler->display->display_options['fields']['field_farm_description']['id'] = 'field_farm_description';
+  $handler->display->display_options['fields']['field_farm_description']['table'] = 'field_data_field_farm_description';
+  $handler->display->display_options['fields']['field_farm_description']['field'] = 'field_farm_description';
+  $handler->display->display_options['fields']['field_farm_description']['alter']['trim_whitespace'] = TRUE;
+  $handler->display->display_options['fields']['field_farm_description']['alter']['max_length'] = '140';
+  $handler->display->display_options['fields']['field_farm_description']['alter']['strip_tags'] = TRUE;
+  $handler->display->display_options['fields']['field_farm_description']['alter']['trim'] = TRUE;
   /* Field: Field collection item: Movement to */
   $handler->display->display_options['fields']['field_farm_move_to']['id'] = 'field_farm_move_to';
   $handler->display->display_options['fields']['field_farm_move_to']['table'] = 'field_data_field_farm_move_to';
   $handler->display->display_options['fields']['field_farm_move_to']['field'] = 'field_farm_move_to';
   $handler->display->display_options['fields']['field_farm_move_to']['relationship'] = 'latest_movement';
   $handler->display->display_options['fields']['field_farm_move_to']['label'] = 'Location';
+  /* Field: Farm asset: Active */
+  $handler->display->display_options['fields']['active']['id'] = 'active';
+  $handler->display->display_options['fields']['active']['table'] = 'farm_asset';
+  $handler->display->display_options['fields']['active']['field'] = 'active';
+  $handler->display->display_options['fields']['active']['not'] = 0;
   /* Sort criterion: Farm asset: Name */
   $handler->display->display_options['sorts']['name']['id'] = 'name';
   $handler->display->display_options['sorts']['name']['table'] = 'farm_asset';
@@ -242,10 +268,11 @@ function farm_sensor_views_default_views() {
     t('Asset ID'),
     t('.'),
     t('Name'),
+    t('Description'),
     t('Location'),
+    t('Active'),
     t('All'),
     t('Sensors in %1'),
-    t('Active'),
     t('Page'),
     t('Data export'),
   );

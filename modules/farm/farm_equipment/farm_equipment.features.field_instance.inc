@@ -217,7 +217,7 @@ function farm_equipment_field_default_field_instances() {
     ),
     'entity_type' => 'farm_asset',
     'field_name' => 'field_farm_serial_number',
-    'label' => 'Serial Number',
+    'label' => 'Serial number',
     'required' => 0,
     'settings' => array(
       'text_processing' => 0,
@@ -508,7 +508,7 @@ function farm_equipment_field_default_field_instances() {
   t('Optionally assign this task to one or more people.');
   t('Owner');
   t('Photos');
-  t('Serial Number');
+  t('Serial number');
   t('Use these fields to record a movement with this log entry. This will be used to define the location of any referenced assets. The current location of any asset is determined by the most recently completed movement log. Only the "to" field is required.');
   t('Use this to organize your logs into categories for easier searching and filtering later.');
   t('What assets do this maintenance log pertain to?');

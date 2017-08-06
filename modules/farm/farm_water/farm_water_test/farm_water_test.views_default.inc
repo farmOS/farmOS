@@ -44,6 +44,8 @@ function farm_water_test_views_default_views() {
     'name' => 'name',
     'field_farm_area' => 'field_farm_area',
     'field_farm_water_lab' => 'field_farm_water_lab',
+    'field_farm_notes' => 'field_farm_notes',
+    'field_farm_log_category' => 'field_farm_log_category',
     'name_1' => 'name_1',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
@@ -89,6 +91,18 @@ function farm_water_test_views_default_views() {
     'field_farm_water_lab' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_notes' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_log_category' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -189,11 +203,19 @@ function farm_water_test_views_default_views() {
   $handler->display->display_options['fields']['field_farm_water_lab']['id'] = 'field_farm_water_lab';
   $handler->display->display_options['fields']['field_farm_water_lab']['table'] = 'field_data_field_farm_water_lab';
   $handler->display->display_options['fields']['field_farm_water_lab']['field'] = 'field_farm_water_lab';
+  /* Field: Log: Notes */
+  $handler->display->display_options['fields']['field_farm_notes']['id'] = 'field_farm_notes';
+  $handler->display->display_options['fields']['field_farm_notes']['table'] = 'field_data_field_farm_notes';
+  $handler->display->display_options['fields']['field_farm_notes']['field'] = 'field_farm_notes';
+  $handler->display->display_options['fields']['field_farm_notes']['alter']['trim_whitespace'] = TRUE;
+  $handler->display->display_options['fields']['field_farm_notes']['alter']['max_length'] = '140';
+  $handler->display->display_options['fields']['field_farm_notes']['alter']['strip_tags'] = TRUE;
+  $handler->display->display_options['fields']['field_farm_notes']['alter']['trim'] = TRUE;
   /* Field: Log: Log category */
   $handler->display->display_options['fields']['field_farm_log_category']['id'] = 'field_farm_log_category';
   $handler->display->display_options['fields']['field_farm_log_category']['table'] = 'field_data_field_farm_log_category';
   $handler->display->display_options['fields']['field_farm_log_category']['field'] = 'field_farm_log_category';
-  $handler->display->display_options['fields']['field_farm_log_category']['label'] = 'Category';
+  $handler->display->display_options['fields']['field_farm_log_category']['label'] = 'Categories';
   $handler->display->display_options['fields']['field_farm_log_category']['type'] = 'taxonomy_term_reference_plain';
   $handler->display->display_options['fields']['field_farm_log_category']['delta_offset'] = '0';
   /* Field: User: Name */
@@ -276,7 +298,7 @@ function farm_water_test_views_default_views() {
   $handler->display->display_options['filters']['field_farm_log_category_tid']['group'] = 1;
   $handler->display->display_options['filters']['field_farm_log_category_tid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['operator_id'] = 'field_farm_log_category_tid_op';
-  $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['label'] = 'Category';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['label'] = 'Categories';
   $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['operator'] = 'field_farm_log_category_tid_op';
   $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['identifier'] = 'field_farm_log_category_tid';
   $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['multiple'] = TRUE;
@@ -383,7 +405,8 @@ function farm_water_test_views_default_views() {
     t('Name'),
     t('Areas'),
     t('Laboratory'),
-    t('Category'),
+    t('Notes'),
+    t('Categories'),
     t('All'),
     t('Water tests in %1'),
     t('Start date'),
