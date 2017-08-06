@@ -80,11 +80,13 @@ function farm_import_farm_ui_actions() {
  *   The name of the Feeds source (column header in CSV imports).
  * @param string $plugin
  *   The Feeds Tamper plugin machine name.
+ * @param mixed $value
+ *   A value to provide as input to certain plugins (ie: default_value).
  *
  * @return object
  *   Returns a Feeds Tamper plugin object.
  */
-function farm_import_feeds_tamper_plugin($entity_type, $bundle, $source, $plugin) {
+function farm_import_feeds_tamper_plugin($entity_type, $bundle, $source, $plugin, $value = NULL) {
 
   // Build the importer machine name.
   $importer = $entity_type . '_' . $bundle;
@@ -107,6 +109,15 @@ function farm_import_feeds_tamper_plugin($entity_type, $bundle, $source, $plugin
         'match_case' => 0,
         'no_match' => 'pass',
         'other_text' => '',
+      );
+      break;
+
+    // Default value.
+    case 'default_value':
+      $description = 'Set value or default value';
+      $settings = array(
+        'default_value' => $value,
+        'only_if_empty' => 1,
       );
       break;
 

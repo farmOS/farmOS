@@ -24,6 +24,11 @@ function farm_import_feeds_tamper_default() {
     $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', $bundle, 'Active', 'convert_boolean');
     $export[$feeds_tamper->id] = $feeds_tamper;
 
+    // Default assets to active (if a value isn't provided).
+    $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', $bundle, 'Active', 'default_value', '1');
+    $feeds_tamper->weight = 1;
+    $export[$feeds_tamper->id] = $feeds_tamper;
+
     // If a "Parent IDs" field exists, explode it into an array of IDs.
     if (!empty(field_info_instance('farm_asset', 'field_farm_parent', $bundle))) {
       $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', $bundle, 'Parent IDs', 'explode');
@@ -48,6 +53,11 @@ function farm_import_feeds_tamper_default() {
 
     // Convert done to boolean.
     $feeds_tamper = farm_import_feeds_tamper_plugin('log', $bundle, 'Done', 'convert_boolean');
+    $export[$feeds_tamper->id] = $feeds_tamper;
+
+    // Default logs to done (if a value isn't provided).
+    $feeds_tamper = farm_import_feeds_tamper_plugin('log', $bundle, 'Done', 'default_value', '1');
+    $feeds_tamper->weight = 1;
     $export[$feeds_tamper->id] = $feeds_tamper;
 
     // If an "Asset IDs" field exists, explode it into an array of IDs.
