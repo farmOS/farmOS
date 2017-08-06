@@ -141,13 +141,6 @@ function farm_asset_children_views_default_views() {
   $handler->display->display_options['filters']['active']['expose']['label'] = 'Active';
   $handler->display->display_options['filters']['active']['expose']['operator'] = 'active_op';
   $handler->display->display_options['filters']['active']['expose']['identifier'] = 'active';
-  $handler->display->display_options['filters']['active']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    3 => 0,
-    4 => 0,
-    5 => 0,
-  );
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
