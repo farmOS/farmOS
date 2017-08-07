@@ -8,7 +8,7 @@ in the future.
   <source src="/demo/logs.mp4" type="video/mp4">
 </video>
 
-## Log types
+## Standard log types
 
 There are a number of different type of logs in farmOS - each with it's own
 purpose and set of fields. Some of the general log types are described below,
@@ -36,6 +36,23 @@ Input logs are used to record resources that are put into an asset. Fertlizer
 ### Harvests
 
 Harvest logs are used to record harvests.
+
+## Other log types
+
+In addition to the standard log types described above, there are a few other
+types provided for specific purposes.
+
+### Soil tests
+
+Soil test logs can be used to record when you have a soil test performed. They
+can be linked to a specific field or area, and you can specify the exact points
+on a map where samples were taken from. Integration is also provided with the
+US NRCS Soil Survey API, which allows you to view soil type map overlays, as
+well as look up soil name for the specific sample points in your soil tests.
+
+<video width="100%" controls>
+  <source src="/demo/soil.mp4" type="video/mp4">
+</video>
 
 [asset types]: /guide/assets
 
