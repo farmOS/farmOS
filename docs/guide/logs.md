@@ -61,5 +61,13 @@ Similar to soil test logs, they can be linked to a specific field or area, and
 you can specify the lab that performed the test. Some regulatory guidelines
 require that water tests are taken for both field and pack house water sources.
 
+### Sales
+
+Sale logs provide the ability to record the sale of specific assets. You can
+specify quantity sold, unit price, total price, customer, and invoice number.
+Sales logs can only represent the sale of a single item, and are not intended
+for use as multi-item invoices. The primary purpose of sale logs is to connect
+the final dots for food traceability.
+
 [asset types]: /guide/assets
 
