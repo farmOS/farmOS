@@ -40,7 +40,10 @@ Harvest logs are used to record harvests.
 ## Other log types
 
 In addition to the standard log types described above, there are a few other
-types provided for specific purposes.
+types provided for specific purposes. Note that these log types are provided by
+modules that may not be turned on by default in your farmOS. If you do not see
+these types in your farmOS, turn on the applicable module (or ask you farmOS
+host to do so for you).
 
 ### Soil tests
 
