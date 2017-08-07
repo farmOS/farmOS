@@ -72,5 +72,21 @@ Sales logs can only represent the sale of a single item, and are not intended
 for use as multi-item invoices. The primary purpose of sale logs is to connect
 the final dots for food traceability.
 
+## Log features
+
+### Task assignment
+
+Logs can be assigned to one or more person(s) in farmOS using the log's *Owner*
+field. Users can view a list of all logs assigned to them by clicking
+"My Account" in the menu and then selecting the "Logs" tab of their user
+profile.
+
+### Categorization
+
+Logs can be assigned to one or more categories. A set of pre-defined categories
+are provided by farmOS, and more can be added by users. Log categories enable
+you to organize, sort, and filter your logs in ways that make sense to you, so
+you can find the logs you need easily in the future.
+
 [asset types]: /guide/assets
 
