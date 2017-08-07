@@ -40,7 +40,10 @@ Harvest logs are used to record harvests.
 ## Other log types
 
 In addition to the standard log types described above, there are a few other
-types provided for specific purposes.
+types provided for specific purposes. Note that these log types are provided by
+modules that may not be turned on by default in your farmOS. If you do not see
+these types in your farmOS, turn on the applicable module (or ask you farmOS
+host to do so for you).
 
 ### Soil tests
 
@@ -53,6 +56,37 @@ well as look up soil name for the specific sample points in your soil tests.
 <video width="100%" controls>
   <source src="/demo/soil.mp4" type="video/mp4">
 </video>
+
+### Water tests
+
+Water test logs can be used to record when you have a water test performed.
+Similar to soil test logs, they can be linked to a specific field or area, and
+you can specify the lab that performed the test. Some regulatory guidelines
+require that water tests are taken for both field and pack house water sources.
+
+### Sales
+
+Sale logs provide the ability to record the sale of specific assets. You can
+specify quantity sold, unit price, total price, customer, and invoice number.
+Sales logs can only represent the sale of a single item, and are not intended
+for use as multi-item invoices. The primary purpose of sale logs is to connect
+the final dots for food traceability.
+
+## Log features
+
+### Task assignment
+
+Logs can be assigned to one or more person(s) in farmOS using the log's *Owner*
+field. Users can view a list of all logs assigned to them by clicking
+"My Account" in the menu and then selecting the "Logs" tab of their user
+profile.
+
+### Categorization
+
+Logs can be assigned to one or more categories. A set of pre-defined categories
+are provided by farmOS, and more can be added by users. Log categories enable
+you to organize, sort, and filter your logs in ways that make sense to you, so
+you can find the logs you need easily in the future.
 
 [asset types]: /guide/assets
 
