@@ -54,5 +54,12 @@ well as look up soil name for the specific sample points in your soil tests.
   <source src="/demo/soil.mp4" type="video/mp4">
 </video>
 
+### Water tests
+
+Water test logs can be used to record when you have a water test performed.
+Similar to soil test logs, they can be linked to a specific field or area, and
+you can specify the lab that performed the test. Some regulatory guidelines
+require that water tests are taken for both field and pack house water sources.
+
 [asset types]: /guide/assets
 
