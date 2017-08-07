@@ -13,6 +13,7 @@ pages:
     - Managing assets:
         - Introduction: guide/assets/index.md
         - Plantings: guide/assets/plantings.md
+        - Animals: guide/assets/animals.md
         - Equipment: guide/assets/equipment.md
         - Sensors: guide/assets/sensors.md
     - Movements and location: guide/location.md
