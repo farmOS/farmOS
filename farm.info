@@ -42,6 +42,7 @@ dependencies[] = restws
 dependencies[] = farm_access
 dependencies[] = farm_area
 dependencies[] = farm_asset
+dependencies[] = farm_dashboard
 dependencies[] = farm_fields
 dependencies[] = farm_help
 dependencies[] = farm_import
