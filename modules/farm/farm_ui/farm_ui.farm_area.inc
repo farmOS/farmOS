@@ -27,6 +27,11 @@ function farm_ui_farm_area_details($id) {
     // Get area links for the entity type.
     $area_links = farm_ui_area_links($id, $type);
 
+    // If there are none, skip it.
+    if (empty($area_links)) {
+      continue;
+    }
+
     // Create variables for an item list.
     $variables = array(
       'items' => $area_links,
