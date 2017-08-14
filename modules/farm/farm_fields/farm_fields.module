@@ -106,7 +106,7 @@ function farm_fields_prepopulate_entityreference(&$form, $entity_type, $field_na
   // Set the field value key based on the field type.
   $value_key = 'value';
   switch ($field_base['type']) {
-    case 'entity_reference';
+    case 'entityreference';
       $value_key = 'target_id';
       break;
     case 'taxonomy_term_reference':
