@@ -26,9 +26,17 @@ function farm_import_farm_access_perms($role) {
 
   // Grant farm managers access to Feeds importers.
   if ($role == 'Farm Manager') {
-    $types = farm_asset_types();
-    foreach ($types as $type) {
+
+    // Add permissions for asset importers.
+    $asset_types = farm_asset_types();
+    foreach ($asset_types as $type) {
       $perms[] = 'import farm_asset_' . $type->type . ' feeds';
+    }
+
+    // Add permissions for log importers.
+    $log_types = log_types();
+    foreach ($log_types as $type) {
+      $perms[] = 'import log_' . $type->type . ' feeds';
     }
   }
 
