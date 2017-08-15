@@ -38,7 +38,7 @@ function farm_people_views_default_views() {
     'mail' => 'mail',
     'rid' => 'rid',
     'created' => 'created',
-    'login' => 'login',
+    'access' => 'access',
     'status' => 'status',
     'edit_node' => 'edit_node',
   );
@@ -75,7 +75,7 @@ function farm_people_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
-    'login' => array(
+    'access' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -148,12 +148,12 @@ function farm_people_views_default_views() {
   $handler->display->display_options['fields']['created']['field'] = 'created';
   $handler->display->display_options['fields']['created']['date_format'] = 'short';
   $handler->display->display_options['fields']['created']['second_date_format'] = 'long';
-  /* Field: User: Last login */
-  $handler->display->display_options['fields']['login']['id'] = 'login';
-  $handler->display->display_options['fields']['login']['table'] = 'users';
-  $handler->display->display_options['fields']['login']['field'] = 'login';
-  $handler->display->display_options['fields']['login']['date_format'] = 'short';
-  $handler->display->display_options['fields']['login']['second_date_format'] = 'long';
+  /* Field: User: Last access */
+  $handler->display->display_options['fields']['access']['id'] = 'access';
+  $handler->display->display_options['fields']['access']['table'] = 'users';
+  $handler->display->display_options['fields']['access']['field'] = 'access';
+  $handler->display->display_options['fields']['access']['date_format'] = 'short';
+  $handler->display->display_options['fields']['access']['second_date_format'] = 'long';
   /* Field: User: Active */
   $handler->display->display_options['fields']['status']['id'] = 'status';
   $handler->display->display_options['fields']['status']['table'] = 'users';
@@ -171,13 +171,13 @@ function farm_people_views_default_views() {
   $handler->display->display_options['sorts']['created']['field'] = 'created';
   $handler->display->display_options['sorts']['created']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['created']['expose']['label'] = 'Created date';
-  /* Sort criterion: User: Last login */
-  $handler->display->display_options['sorts']['login']['id'] = 'login';
-  $handler->display->display_options['sorts']['login']['table'] = 'users';
-  $handler->display->display_options['sorts']['login']['field'] = 'login';
-  $handler->display->display_options['sorts']['login']['order'] = 'DESC';
-  $handler->display->display_options['sorts']['login']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['login']['expose']['label'] = 'Last login';
+  /* Sort criterion: User: Last access */
+  $handler->display->display_options['sorts']['access']['id'] = 'access';
+  $handler->display->display_options['sorts']['access']['table'] = 'users';
+  $handler->display->display_options['sorts']['access']['field'] = 'access';
+  $handler->display->display_options['sorts']['access']['order'] = 'DESC';
+  $handler->display->display_options['sorts']['access']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['access']['expose']['label'] = 'Last access';
   /* Sort criterion: User: Name */
   $handler->display->display_options['sorts']['name']['id'] = 'name';
   $handler->display->display_options['sorts']['name']['table'] = 'users';
@@ -274,7 +274,7 @@ function farm_people_views_default_views() {
     t('E-mail'),
     t('Roles'),
     t('Created date'),
-    t('Last login'),
+    t('Last access'),
     t('Active'),
     t('Edit'),
     t('Page'),
