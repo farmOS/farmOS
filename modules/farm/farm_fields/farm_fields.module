@@ -190,17 +190,17 @@ function farm_fields_prepopulate_entityreference(&$form, $entity_type, $field_na
   // If the widget type is "entity reference view widget"...
   elseif ($field_instance['widget']['type'] == 'entityreference_view_widget') {
 
+    // If the field isn't empty, do nothing.
+    $children = element_children($form[$field_name][LANGUAGE_NONE]);
+    foreach ($children as $child) {
+      if (!empty($form[$field_name][LANGUAGE_NONE][$child][$value_key]['#value'])) {
+        return;
+      }
+    }
+
     // Add a set of checkbox form elements, as the entityreference_view_widget
     // module expects...
     foreach ($entities as $id => $entity) {
-
-      // If the item isn't empty, skip it.
-      $children = element_children($form[$field_name][LANGUAGE_NONE]);
-      foreach ($children as $child) {
-        if (!empty($form[$field_name][LANGUAGE_NONE][$child][$value_key]['#value'])) {
-          continue 2;
-        }
-      }
 
       // Add the checkbox element.
       $form[$field_name][LANGUAGE_NONE][$id][$value_key] = array(
