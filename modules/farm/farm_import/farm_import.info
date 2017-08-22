@@ -3,5 +3,7 @@ description = Provides a framework for creating CSV importers in farmOS.
 core = 7.x
 package = farmOS
 dependencies[] = farm_asset
+dependencies[] = farm_fields
 dependencies[] = feeds
 dependencies[] = feeds_tamper
+dependencies[] = log
