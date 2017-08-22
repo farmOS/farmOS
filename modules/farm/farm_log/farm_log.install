@@ -355,7 +355,6 @@ function farm_log_update_7007(&$sandbox) {
   // Revert various Features components to ensure that the new log categories
   // vocabulary is created, and the new field base and instances are added.
   $components = array(
-    'farm_taxonomy' => array('taxonomy'),
     'farm_fields' => array('field_base'),
     'farm_log_activity' => array('field_instance'),
     'farm_log_harvest' => array('field_instance'),

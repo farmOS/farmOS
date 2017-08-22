@@ -570,6 +570,21 @@ function farm_update_7026(&$sandbox) {
 }
 
 /**
+ * Enable new Farm Season module and remove Farm Taxonomy.
+ */
+function farm_update_7027(&$sandbox) {
+
+  // Enable Farm Season.
+  _farm_update_enable_modules(array('farm_season'));
+
+  // Delete the farm_taxonomy module.
+  db_delete('system')
+    ->condition('name', 'farm_taxonomy')
+    ->condition('type', 'module')
+    ->execute();
+}
+
+/**
  * Update helper function: enable modules.
  */
 function _farm_update_enable_modules($modules = array()) {

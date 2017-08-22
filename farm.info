@@ -51,5 +51,4 @@ dependencies[] = farm_map
 dependencies[] = farm_menu
 dependencies[] = farm_people
 dependencies[] = farm_quantity
-dependencies[] = farm_taxonomy
 dependencies[] = farm_ui
