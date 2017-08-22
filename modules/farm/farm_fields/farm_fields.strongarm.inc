@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * farm_taxonomy.strongarm.inc
+ * farm_fields.strongarm.inc
  */
 
 /**
  * Implements hook_strongarm().
  */
-function farm_taxonomy_strongarm() {
+function farm_fields_strongarm() {
   $export = array();
 
   $strongarm = new stdClass();

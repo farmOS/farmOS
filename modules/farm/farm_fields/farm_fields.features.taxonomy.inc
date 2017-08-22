@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * farm_taxonomy.features.taxonomy.inc
+ * farm_fields.features.taxonomy.inc
  */
 
 /**
  * Implements hook_taxonomy_default_vocabularies().
  */
-function farm_taxonomy_taxonomy_default_vocabularies() {
+function farm_fields_taxonomy_default_vocabularies() {
   return array(
     'farm_log_categories' => array(
       'name' => 'Farm Log Categories',
