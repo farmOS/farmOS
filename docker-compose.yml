@@ -15,8 +15,8 @@ services:
   www:
     depends_on:
       - db
-    image: farmos/farmos:7.x-1.0-beta15
-#    image: farmos/farmos:7.x-1.x
+#    image: farmos/farmos:7.x-1.0-beta15
+    image: farmos/farmos:7.x-1.x
     volumes:
       - './.data/www:/var/www/html'
     links:
