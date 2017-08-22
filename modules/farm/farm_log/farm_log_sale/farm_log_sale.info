@@ -1,7 +1,7 @@
-name = Farm Log: Sale
+name = Farm Log: Sale (beta)
 description = Provides a sale log type.
 core = 7.x
-package = farmOS
+package = farmOS (beta)
 dependencies[] = colorbox
 dependencies[] = ctools
 dependencies[] = entity
