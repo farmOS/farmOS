@@ -1,0 +1,17 @@
+name = Farm Season
+description = Provides a taxonomy and fields for organizing assets and logs by season.
+core = 7.x
+package = farmOS
+dependencies[] = ctools
+dependencies[] = date
+dependencies[] = date_popup
+dependencies[] = farm_fields
+dependencies[] = features
+dependencies[] = pathauto
+dependencies[] = strongarm
+dependencies[] = taxonomy
+features[ctools][] = strongarm:strongarm:1
+features[features_api][] = api:2
+features[field_instance][] = taxonomy_term-farm_season-field_farm_date_range
+features[taxonomy][] = farm_season
+features[variable][] = pathauto_taxonomy_term_farm_season_pattern

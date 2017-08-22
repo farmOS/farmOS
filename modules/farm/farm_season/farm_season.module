@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Farm Season feature.
+ */
+
+include_once 'farm_season.features.inc';
