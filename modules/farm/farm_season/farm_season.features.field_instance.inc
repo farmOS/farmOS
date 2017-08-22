@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * farm_taxonomy.features.field_instance.inc
+ * farm_season.features.field_instance.inc
  */
 
 /**
  * Implements hook_field_default_field_instances().
  */
-function farm_taxonomy_field_default_field_instances() {
+function farm_season_field_default_field_instances() {
   $field_instances = array();
 
   // Exported field_instance: 'taxonomy_term-farm_season-field_farm_date_range'.

@@ -4,6 +4,8 @@
  * Farm fields module.
  */
 
+include_once 'farm_fields.features.inc';
+
 /**
  * Implements hook_farm_access_perms().
  */
