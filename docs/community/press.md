@@ -5,6 +5,8 @@ about farmOS, [contact m.stenta](http://farmier.com/contact).
 
 ## 2017
 
+**2017 August 28th** [PASA Education Event - Pastured Livestock Research Group: Boosting Land and Feed Efficiency](https://pasafarming.org/events/pasa-events/pasa-education-event-pastured-livestock-research-group-boosting-land-and-feed-efficiency)
+
 **2017 April 5th** [PASA Education Event - Advanced Farm Management Using FarmOS](https://www.pasafarming.org/events/pasa-events/pasa-education-event-advanced-farm-management-using-farmos)
 
 **2017 March 14th** [Tech Economy: Precision farming: la sfida dell’agricoltura 4.0 è open source](http://techeconomy.it/2017/03/14/precision-farming-la-sfida-dellagricoltura-4-0-open-source)
