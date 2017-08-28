@@ -354,7 +354,7 @@ function farm_log_movement_action_info() {
     'farm_log_movement_asset_move_action' => array(
       'type' => 'farm_asset',
       'label' => t('Move'),
-      'configurable' => FALSE,
+      'configurable' => TRUE,
       'triggers' => array('any'),
       'aggregate' => TRUE,
     ),
@@ -362,7 +362,79 @@ function farm_log_movement_action_info() {
 }
 
 /**
- * Action function for farm_log_asset_move_action.
+ * Configuration form for farm_log_movement_asset_move action.
+ *
+ * @param array $context
+ *   The context passed into the action form function.
+ * @param array $form_state
+ *   The form state passed into the action form function.
+ *
+ * @return array
+ *   Returns a form array.
+ */
+function farm_log_movement_asset_move_action_form(array $context, array $form_state) {
+
+  // Date field.
+  $form['date'] = array(
+    '#type' => 'date_select',
+    '#title' => t('Date'),
+    '#date_format' => 'M j Y',
+    '#date_type' => DATE_FORMAT_UNIX,
+    '#date_year_range' => '-10:+3',
+    '#default_value' => date('Y-m-d H:i', REQUEST_TIME),
+    '#required' => TRUE,
+  );
+
+  // Area reference field.
+  $form['areas'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Location'),
+    '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_area',
+    '#required' => TRUE,
+  );
+
+  // Done field.
+  $form['done'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('This movement has taken place (mark the log as done)'),
+    '#default_value' => TRUE,
+  );
+
+  // Return the form.
+  return $form;
+}
+
+/**
+ * Submit handler for farm_log_movement_asset_move action configuration form.
+ *
+ * @param array $form
+ *   The form array.
+ * @param array $form_state
+ *   The form state array.
+ *
+ * @return array
+ *   Returns an array that will end up in the action's context.
+ */
+function farm_log_movement_asset_move_action_submit(array $form, array $form_state) {
+
+  // Start to build the context array.
+  $context = array();
+
+  // Load the areas.
+  $context['areas'] = farm_log_movement_parse_areas($form_state['values']['areas']);
+
+  // Convert the date to a timestamp.
+  $context['timestamp'] = strtotime($form_state['values']['date']);
+
+  // Copy the "done" value as a boolean.
+  $context['done'] = !empty($form_state['values']['done']) ? TRUE : FALSE;
+
+  // Return the context array.
+  return $context;
+}
+
+/**
+ * Action function for farm_log_movement_asset_move.
  *
  * Creates a new movement activity log for the specified assets.
  *
@@ -373,16 +445,14 @@ function farm_log_movement_action_info() {
  */
 function farm_log_movement_asset_move_action(array $assets, $context = array()) {
 
-  // Build a list of asset IDs.
-  $ids = array();
-  foreach ($assets as $asset) {
-    $ids[] = $asset->id;
+  // If we're missing assets, areas, or a timestamp, bail.
+  if (empty($assets) || empty($context['areas']) || empty($context['timestamp'])) {
+    drupal_set_message('Could not perform movement because required information was missing.', 'error');
+    return;
   }
 
-  // Redirect to a form for adding a new activity log, and set a message
-  // instructing the user how to make a movement.
-  drupal_set_message(t('To move the selected assets, set a destination in the "Movement to" field below.'));
-  drupal_goto('log/add/farm_activity', array('query' => array('farm_asset' => $ids)));
+  // Create a movement activity log.
+  farm_log_movement_create($assets, $context['areas'], $context['timestamp'], 'farm_activity', $context['done']);
 }
 
 /**
