@@ -12,6 +12,26 @@
 
       // Reset the buttons.
       Drupal.behaviors.farm_theme_vbo.reset_buttons(context);
+
+      // When a VBO config form is displayed, we want to hide everything else
+      // on the page. This is accomplished by passing in a few variables to JS
+      // via hook_views_bulk_operations_form_alter() when the step is config.
+      if ((typeof Drupal.settings.farm_theme !== 'undefined') && (typeof Drupal.settings.farm_theme.vbo_hide !== 'undefined')) {
+
+        // Hide everything within the page content, and then show only the
+        // View. (use both the View's name and display when building the
+        // selector to ensure specificity).
+        var view_name = Drupal.settings.farm_theme.view_name;
+        var view_display = Drupal.settings.farm_theme.view_display;
+        var selector = '.view-id-' + view_name + '.view-display-id-' + view_display;
+        $('.region-content > :not(' + selector + ')', context).hide();
+        $(selector, context).appendTo('.region-content');
+
+        // Hide breadcrumbs, tabs, and action links as well.
+        $('.breadcrumb', context).hide();
+        $('.tabs--primary', context).hide();
+        $('.action-links', context).hide();
+      }
     },
 
     // Reset the visibility of the VBO buttons.

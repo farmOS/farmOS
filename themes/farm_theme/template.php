@@ -130,7 +130,7 @@ function farm_theme_form_alter(&$form, &$form_state, $form_id) {
  */
 function farm_theme_views_bulk_operations_form_alter(&$form, &$form_state, $vbo) {
 
-  // Add some JavaScript to hide the VBO buttons until items are selected.
+  // Add some JavaScript that enhances VBO.
   drupal_add_js(drupal_get_path('theme', 'farm_theme') . '/js/vbo.js');
 
   // Move VBO buttons to the bottom.
@@ -139,6 +139,23 @@ function farm_theme_views_bulk_operations_form_alter(&$form, &$form_state, $vbo)
   // Move the "Clone" action to the end of the list.
   if (!empty($form['select']['action::log_clone_action'])) {
     $form['select']['action::log_clone_action']['#weight'] = 100;
+  }
+
+  // If we are viewing a VBO config form, add Javascript that will hide
+  // everything on the page except for the form.
+  if (!empty($form_state['step']) && $form_state['step'] == 'views_bulk_operations_config_form') {
+
+    // Set the title to '<none>' so that Views doesn't do drupal_set_title().
+    // See https://www.drupal.org/node/2905171.
+    $vbo->view->set_title('<none>');
+
+    // Add some information to Javascript settings.
+    $settings = array(
+      'vbo_hide' => TRUE,
+      'view_name' => $vbo->view->name,
+      'view_display' => $vbo->view->current_display,
+    );
+    drupal_add_js(array('farm_theme' => $settings), 'setting');
   }
 }
 
