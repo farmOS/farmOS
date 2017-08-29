@@ -31,6 +31,142 @@ function farm_log_entity_presave($entity, $type) {
 }
 
 /**
+ * Implements hook_action_info().
+ */
+function farm_log_action_info() {
+  return array(
+    'farm_log_assign_action' => array(
+      'type' => 'log',
+      'label' => t('Assign'),
+      'configurable' => TRUE,
+      'triggers' => array('any'),
+    ),
+  );
+}
+
+/**
+ * Log assign action configuration form.
+ *
+ * @param array $context
+ *   The context passed into the action form function.
+ * @param array $form_state
+ *   The form state passed into the action form function.
+ *
+ * @return array
+ *   Returns a form array.
+ */
+function farm_log_assign_action_form(array $context, array $form_state) {
+
+  // Generate a list of users. Only include users with farm roles.
+  $user_options = array();
+  $roles = farm_access_roles();
+  $query = db_query('SELECT u.uid, u.name FROM {users} u LEFT JOIN {users_roles} ur ON u.uid = ur.uid LEFT JOIN {role} r ON ur.rid = r.rid WHERE r.name IN (:roles)', array(':roles' => $roles));
+  $records = $query->fetchAll();
+  foreach ($records as $record) {
+    $user_options[$record->uid] = $record->name;
+  }
+
+  // Display a multi-select list.
+  $form['users'] = array(
+    '#type' => 'select',
+    '#title' => t('Assign log(s) to'),
+    '#description' => t('Select people to assign these logs to.'),
+    '#options' => $user_options,
+    '#multiple' => TRUE,
+    '#required' => TRUE,
+  );
+
+  // Return the form.
+  return $form;
+}
+
+/**
+ * Log assign action configuration form submit.
+ *
+ * @param array $form
+ *   The form array.
+ * @param array $form_state
+ *   The form state array.
+ *
+ * @return array
+ *   Returns an array that will end up in the action's context.
+ */
+function farm_log_assign_action_submit(array $form, array $form_state) {
+  return array(
+    'users' => $form_state['values']['users'],
+  );
+}
+
+/**
+ * Action function for farm_log_assign_action.
+ *
+ * Assigns a log to one or more people.
+ *
+ * @param Log $log
+ *   The log entity object.
+ * @param array $context
+ *   Array with parameters for this action.
+ */
+function farm_log_assign_action(Log $log, $context = array()) {
+
+  // If there are no users, bail.
+  if (empty($context['users'])) {
+    return;
+  }
+
+  // Create an entity wrapper for the log.
+  $log_wrapper = entity_metadata_wrapper('log', $log);
+
+  // If the owner field doesn't exist, bail.
+  if (!isset($log_wrapper->field_farm_log_owner)) {
+    return;
+  }
+
+  // Load existing owner IDs.
+  $existing_users = array();
+  if (!empty($log_wrapper->field_farm_log_owner)) {
+    foreach ($log_wrapper->field_farm_log_owner->getIterator() as $delta => $user_wrapper) {
+      $existing_users[] = $user_wrapper->uid->value();
+    }
+  }
+
+  // Assume that we are not going to save the log.
+  $save = FALSE;
+
+  // Iterate through the users.
+  foreach ($context['users'] as $uid) {
+
+    // Load the user.
+    $user = user_load($uid);
+
+    // if the user didn't load, skip it.
+    if (empty($user)) {
+      continue;
+    }
+
+    // If the user is already referenced in the log, skip it.
+    if (in_array($user->uid, $existing_users)) {
+      continue;
+    }
+
+    // Add the user ID to the array of existing users so we don't accidentally
+    // add the same one more than once. Shouldn't happen, but be defensive.
+    $existing_users[] = $user->uid;
+
+    // Add the user to the log's owner field.
+    $log_wrapper->field_farm_log_owner[] = $user;
+
+    // We will save the log.
+    $save = TRUE;
+  }
+
+  // If we should save the log, then save it.
+  if ($save) {
+    $log_wrapper->save();
+  }
+}
+
+/**
  * Helper function for creating log categories. Terms will only be added if
  * they don't already exist.
  *
