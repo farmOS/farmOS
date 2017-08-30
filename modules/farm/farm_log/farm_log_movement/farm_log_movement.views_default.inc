@@ -419,6 +419,7 @@ function farm_log_movement_views_default_views() {
     'name' => 'name',
     'type' => 'type',
     'field_farm_log_category' => 'field_farm_log_category',
+    'field_farm_log_owner' => 'field_farm_log_owner',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
@@ -473,6 +474,11 @@ function farm_log_movement_views_default_views() {
       'empty_column' => 0,
     ),
     'field_farm_log_category' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_log_owner' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -589,6 +595,15 @@ function farm_log_movement_views_default_views() {
   $handler->display->display_options['fields']['field_farm_log_category']['label'] = 'Categories';
   $handler->display->display_options['fields']['field_farm_log_category']['type'] = 'taxonomy_term_reference_plain';
   $handler->display->display_options['fields']['field_farm_log_category']['delta_offset'] = '0';
+  /* Field: Log: Owner */
+  $handler->display->display_options['fields']['field_farm_log_owner']['id'] = 'field_farm_log_owner';
+  $handler->display->display_options['fields']['field_farm_log_owner']['table'] = 'field_data_field_farm_log_owner';
+  $handler->display->display_options['fields']['field_farm_log_owner']['field'] = 'field_farm_log_owner';
+  $handler->display->display_options['fields']['field_farm_log_owner']['settings'] = array(
+    'bypass_access' => 0,
+    'link' => 0,
+  );
+  $handler->display->display_options['fields']['field_farm_log_owner']['delta_offset'] = '0';
   /* Sort criterion: Log: Timestamp */
   $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
   $handler->display->display_options['sorts']['timestamp']['table'] = 'log';
@@ -752,6 +767,7 @@ function farm_log_movement_views_default_views() {
     t('Movement to'),
     t('Log type'),
     t('Categories'),
+    t('Owner'),
     t('All'),
     t('%1\'s movements'),
     t('Area'),
