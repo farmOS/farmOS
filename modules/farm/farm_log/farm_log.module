@@ -73,7 +73,18 @@ function farm_log_assign_action_form(array $context, array $form_state) {
     '#description' => t('Select people to assign these logs to.'),
     '#options' => $user_options,
     '#multiple' => TRUE,
-    '#required' => TRUE,
+  );
+
+  // Add a checkbox for appending the users instead of overwriting them.
+  $form['operation'] = array(
+    '#type' => 'radios',
+    '#title' => t('Append or Replace'),
+    '#description' => t('Select "Append" if you want to add users to the logs, but keep existing assignments. Select "Replace" if you want to replace existing assignments with the ones specified above.'),
+    '#options' => array(
+      'append' => t('Append'),
+      'replace' => t('Replace'),
+    ),
+    '#default_value' => 'append',
   );
 
   // Return the form.
@@ -94,6 +105,7 @@ function farm_log_assign_action_form(array $context, array $form_state) {
 function farm_log_assign_action_submit(array $form, array $form_state) {
   return array(
     'users' => $form_state['values']['users'],
+    'operation' => $form_state['values']['operation'],
   );
 }
 
@@ -109,8 +121,14 @@ function farm_log_assign_action_submit(array $form, array $form_state) {
  */
 function farm_log_assign_action(Log $log, $context = array()) {
 
-  // If there are no users, bail.
-  if (empty($context['users'])) {
+  // If the operation is invalid, bail.
+  if (!in_array($context['operation'], array('append', 'replace'))) {
+    drupal_set_message('Invalid operation.');
+    return;
+  }
+
+  // If the operation is 'append', and there are no users, bail.
+  if ($context['operation'] == 'append' && empty($context['users'])) {
     return;
   }
 
@@ -122,12 +140,19 @@ function farm_log_assign_action(Log $log, $context = array()) {
     return;
   }
 
-  // Load existing owner IDs.
+  // Keep track of users that are already assigned.
   $existing_users = array();
-  if (!empty($log_wrapper->field_farm_log_owner)) {
+
+  // If we are appending, load existing owner IDs.
+  if ($context['operation'] == 'append' && !empty($log_wrapper->field_farm_log_owner)) {
     foreach ($log_wrapper->field_farm_log_owner->getIterator() as $delta => $user_wrapper) {
       $existing_users[] = $user_wrapper->uid->value();
     }
+  }
+
+  // Or, if we are replacing, clear out the existing owner IDs.
+  elseif ($context['operation'] == 'replace') {
+    $log_wrapper->field_farm_log_owner = array();
   }
 
   // Assume that we are not going to save the log.
@@ -135,6 +160,11 @@ function farm_log_assign_action(Log $log, $context = array()) {
 
   // Iterate through the users.
   foreach ($context['users'] as $uid) {
+
+    // If the ID is empty, skip it.
+    if (empty($uid)) {
+      continue;
+    }
 
     // Load the user.
     $user = user_load($uid);
