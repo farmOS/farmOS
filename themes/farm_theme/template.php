@@ -136,7 +136,10 @@ function farm_theme_views_bulk_operations_form_alter(&$form, &$form_state, $vbo)
   // Move VBO buttons to the bottom.
   $form['select']['#weight'] = 100;
 
-  // Move the "Clone" action to the end of the list.
+  // Move the "Assign" and "Clone" actions to the end of the list.
+  if (!empty($form['select']['action::farm_log_assign_action'])) {
+    $form['select']['action::farm_log_assign_action']['#weight'] = 100;
+  }
   if (!empty($form['select']['action::log_clone_action'])) {
     $form['select']['action::log_clone_action']['#weight'] = 100;
   }
@@ -169,6 +172,7 @@ function farm_theme_bootstrap_colorize_text_alter(&$texts) {
   $texts['matches'][t('Done')] = 'success';
   $texts['matches'][t('Not Done')] = 'danger';
   $texts['matches'][t('Reschedule')] = 'warning';
+  $texts['matches'][t('Assign')] = 'info';
   $texts['matches'][t('Clone')] = 'default';
 }
 
@@ -182,6 +186,7 @@ function farm_theme_bootstrap_iconize_text_alter(&$texts) {
   $texts['matches'][t('Done')] = 'check';
   $texts['matches'][t('Not Done')] = 'unchecked';
   $texts['matches'][t('Reschedule')] = 'calendar';
+  $texts['matches'][t('Assign')] = 'user';
   $texts['matches'][t('Clone')] = 'plus';
 }
 
