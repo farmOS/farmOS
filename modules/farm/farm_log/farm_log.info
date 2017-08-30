@@ -7,6 +7,7 @@ dependencies[] = entity
 dependencies[] = entity_token
 dependencies[] = entityreference
 dependencies[] = entityreference_view_widget
+dependencies[] = farm_access
 dependencies[] = farm_area
 dependencies[] = farm_asset
 dependencies[] = farm_fields
