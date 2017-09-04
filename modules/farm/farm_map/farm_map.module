@@ -80,7 +80,7 @@ function farm_map_settings_form($form, &$form_state) {
   $form['farm_map_google_api_key'] = array(
     '#type' => 'textfield',
     '#title' => t('Google Maps API Key'),
-    '#description' => t('Google Maps layers requires that you obtain an API key. Refer to the <a href="@doc">Google Maps API Key</a> documentation on farmOS.org for instructions.', array('@doc' => 'http://farmos.org/hosting/googlemaps')),
+    '#description' => t('Google Maps layers require that you obtain an API key. Refer to the <a href="@doc">Google Maps API Key</a> documentation on farmOS.org for instructions.', array('@doc' => 'http://farmos.org/hosting/googlemaps')),
     '#default_value' => variable_get('farm_map_google_api_key', ''),
   );
 
