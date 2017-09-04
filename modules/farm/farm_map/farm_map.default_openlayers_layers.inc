@@ -70,6 +70,24 @@ function farm_map_default_openlayers_layers() {
   );
   $export['farm_map_layer_google_terrain'] = $ol_layer;
 
+  $ol_layer = new stdClass();
+  $ol_layer->disabled = FALSE; /* Edit this to true to make a default ol_layer disabled initially */
+  $ol_layer->api_version = 1;
+  $ol_layer->machine_name = 'farm_map_layer_openstreetmap';
+  $ol_layer->name = 'OpenStreetMap';
+  $ol_layer->description = '';
+  $ol_layer->factory_service = 'openlayers.Layer:Tile';
+  $ol_layer->options = array(
+    'source' => 'farm_map_source_openstreetmap',
+    'visible' => 1,
+    /**
+     * @todo
+     * https://www.drupal.org/node/2543130
+     */
+    'type' => 'base',
+  );
+  $export['farm_map_layer_openstreetmap'] = $ol_layer;
+
   // Base layer group.
   $ol_layer = new stdClass();
   $ol_layer->disabled = FALSE; /* Edit this to true to make a default ol_layer disabled initially */
@@ -84,12 +102,13 @@ function farm_map_default_openlayers_layers() {
     'grouptitle' => 'Base layers',
     'grouplayers' => array(
       0 => 'farm_map_layer_google_hybrid',
+      1 => 'farm_map_layer_openstreetmap',
       /**
        * @todo
        * https://www.drupal.org/node/2543188
        */
-//      1 => 'farm_map_layer_google_satellite',
-//      2 => 'farm_map_layer_google_terrain',
+//      2 => 'farm_map_layer_google_satellite',
+//      3 => 'farm_map_layer_google_terrain',
     ),
   );
   $export['farm_map_layer_group'] = $ol_layer;
