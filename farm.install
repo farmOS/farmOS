@@ -10,6 +10,9 @@
  */
 function farm_install() {
 
+  // Only admins can create new accounts.
+  variable_set('user_register', USER_REGISTER_ADMINISTRATORS_ONLY);
+
   // Enable farm theme and set as default.
   theme_enable(array('farm_theme'));
   variable_set('theme_default', 'farm_theme');
