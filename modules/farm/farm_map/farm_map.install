@@ -11,4 +11,5 @@ function farm_map_uninstall() {
 
   // Delete variables.
   variable_del('farm_map_show');
+  variable_del('farm_map_default_base_layer');
 }
