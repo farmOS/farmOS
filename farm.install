@@ -92,6 +92,14 @@ function farm_install_configure_form($form, &$form_state) {
     '#default_value' => variable_get('farm_quantity_unit_system', 'metric'),
   );
 
+  // Allow the user to enter a Google Maps API key.
+  $form['farm_map_google_api_key'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Google Maps API Key'),
+    '#description' => t('Google Maps layers require that you obtain an API key. Refer to the <a href="@doc">Google Maps API Key</a> documentation on farmOS.org for instructions.', array('@doc' => 'http://farmos.org/hosting/googlemaps')) . ' ' . t('This can also be done after installation. If no key is provided, OpenStreetMaps will be used as the default map base layer.'),
+    '#default_value' => variable_get('farm_map_google_api_key', ''),
+  );
+
   // Form actions.
   $form['actions'] = array('#type' => 'actions');
   $form['actions']['submit'] = array(
@@ -116,6 +124,16 @@ function farm_install_configure_form_submit($form, &$form_state) {
   // Save the selected system of measure.
   if (!empty($form_state['values']['farm_quantity_unit_system'])) {
     variable_set('farm_quantity_unit_system', $form_state['values']['farm_quantity_unit_system']);
+  }
+
+  // Save the Google Maps API key, and make Google Hybrid the default.
+  // If a Google Maps API key was not provided, make OpenStreetMap the default.
+  if (!empty($form_state['values']['farm_map_google_api_key'])) {
+    variable_set('farm_map_google_api_key', $form_state['values']['farm_map_google_api_key']);
+    variable_set('farm_map_default_base_layer', 'farm_map_layer_google_hybrid');
+  }
+  else {
+    variable_set('farm_map_default_base_layer', 'farm_map_layer_openstreetmap');
   }
 }
 
