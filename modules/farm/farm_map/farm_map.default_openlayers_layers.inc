@@ -164,4 +164,15 @@ function farm_map_default_openlayers_layers_alter(&$layers) {
   if (!empty($layers['openlayers_geofield_layer_formatter'])) {
     $layers['openlayers_geofield_layer_formatter']->options['style'] = 'farm_map_style_geofield';
   }
+
+  // Move the default map base layer to the top.
+  $base_layer = variable_get('farm_map_default_base_layer', NULL);
+  if (!empty($base_layer) && !empty($layers['farm_map_layer_group'])) {
+    $grouplayers = &$layers['farm_map_layer_group']->options['grouplayers'];
+    $key = array_search($base_layer, $grouplayers);
+    if ($key !== FALSE) {
+      unset($grouplayers[$key]);
+      array_unshift($grouplayers, $base_layer);
+    }
+  }
 }
