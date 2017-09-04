@@ -29,10 +29,11 @@ To create an API key and add it to your farmOS, do the following:
 
 ## 3. Enter the key into the farmOS Map configuration
 
-In your farmOS site, go to: `/admin/config/farm/map`
+**a) If you are installing farmOS for the first time**, there is a field for entering
+the Google Maps API key during the "Configure farmOS" step.
 
-Copy and paste your API key into the "Google Maps API Key" field and click
-"Save configuration".
+**b) If you have already installed farmOS**, you can enter the API key in the map
+configuration form at `/admin/config/farm/map`.
 
 **Note that according to Google it may take a couple of minutes before a new
 API key becomes active.**
