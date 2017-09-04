@@ -416,7 +416,7 @@ function farm_crop_field_default_field_instances() {
     ),
     'entity_type' => 'log',
     'field_name' => 'field_farm_log_owner',
-    'label' => 'Owner',
+    'label' => 'Assigned to',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -742,7 +742,7 @@ function farm_crop_field_default_field_instances() {
     ),
     'entity_type' => 'log',
     'field_name' => 'field_farm_log_owner',
-    'label' => 'Owner',
+    'label' => 'Assigned to',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -1062,6 +1062,7 @@ function farm_crop_field_default_field_instances() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Assign this planting to a season. You can manage these options in the ' . l('Seasons', 'admin/structure/taxonomy/farm_season') . ' vocabulary.');
+  t('Assigned to');
   t('Companions');
   t('Crop family');
   t('Crop/variety');
@@ -1076,7 +1077,6 @@ function farm_crop_field_default_field_instances() {
   t('Movement');
   t('Notes');
   t('Optionally assign this task to one or more people.');
-  t('Owner');
   t('Parent(s)');
   t('Photos');
   t('Planting');

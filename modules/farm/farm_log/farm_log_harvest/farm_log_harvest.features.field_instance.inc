@@ -305,7 +305,7 @@ function farm_log_harvest_field_default_field_instances() {
     ),
     'entity_type' => 'log',
     'field_name' => 'field_farm_log_owner',
-    'label' => 'Owner',
+    'label' => 'Assigned to',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -469,6 +469,7 @@ function farm_log_harvest_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Areas');
   t('Assets');
+  t('Assigned to');
   t('Describe the quantity of this harvest, using a value and a unit of measurement. For example, if you harvested 100 pounds of potatoes, enter "100" in the Value field, and "lbs" in the Units field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.');
   t('Files');
   t('Geometry');
@@ -478,7 +479,6 @@ function farm_log_harvest_field_default_field_instances() {
   t('Movement');
   t('Notes');
   t('Optionally assign this task to one or more people.');
-  t('Owner');
   t('Photos');
   t('Quantity');
   t('This field is optional. It allows you to store geospatial data along with this harvest.');

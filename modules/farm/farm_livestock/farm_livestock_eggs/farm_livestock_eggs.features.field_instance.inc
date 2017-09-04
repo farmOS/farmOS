@@ -135,7 +135,7 @@ function farm_livestock_eggs_field_default_field_instances() {
     ),
     'entity_type' => 'log',
     'field_name' => 'field_farm_log_owner',
-    'label' => 'Owner',
+    'label' => 'Assigned to',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -185,12 +185,12 @@ function farm_livestock_eggs_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Assigned to');
   t('Group');
   t('How many eggs were collected?');
   t('Log category');
   t('Notes');
   t('Optionally assign this task to one or more people.');
-  t('Owner');
   t('Quantity');
   t('Use this to organize your logs into categories for easier searching and filtering later.');
   t('What group/flock were these eggs collected from?');

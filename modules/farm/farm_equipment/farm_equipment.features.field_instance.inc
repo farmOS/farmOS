@@ -414,7 +414,7 @@ function farm_equipment_field_default_field_instances() {
     ),
     'entity_type' => 'log',
     'field_name' => 'field_farm_log_owner',
-    'label' => 'Owner',
+    'label' => 'Assigned to',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -498,6 +498,7 @@ function farm_equipment_field_default_field_instances() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Assets');
+  t('Assigned to');
   t('Description');
   t('Files');
   t('Log category');
@@ -506,7 +507,6 @@ function farm_equipment_field_default_field_instances() {
   t('Movement');
   t('Notes');
   t('Optionally assign this task to one or more people.');
-  t('Owner');
   t('Photos');
   t('Serial number');
   t('Use these fields to record a movement with this log entry. This will be used to define the location of any referenced assets. The current location of any asset is determined by the most recently completed movement log. Only the "to" field is required.');

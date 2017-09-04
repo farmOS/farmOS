@@ -454,7 +454,7 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['field_farm_log_category']['label'] = 'Categories';
   $handler->display->display_options['fields']['field_farm_log_category']['type'] = 'taxonomy_term_reference_plain';
   $handler->display->display_options['fields']['field_farm_log_category']['delta_offset'] = '0';
-  /* Field: Log: Owner */
+  /* Field: Log: Assigned to */
   $handler->display->display_options['fields']['field_farm_log_owner']['id'] = 'field_farm_log_owner';
   $handler->display->display_options['fields']['field_farm_log_owner']['table'] = 'field_data_field_farm_log_owner';
   $handler->display->display_options['fields']['field_farm_log_owner']['field'] = 'field_farm_log_owner';
@@ -481,7 +481,7 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['sorts']['name']['field'] = 'name';
   $handler->display->display_options['sorts']['name']['relationship'] = 'field_farm_log_owner_target_id';
   $handler->display->display_options['sorts']['name']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['name']['expose']['label'] = 'Owner';
+  $handler->display->display_options['sorts']['name']['expose']['label'] = 'Assigned to';
   /* Contextual filter: Log: Assets (field_farm_asset) */
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['id'] = 'field_farm_asset_target_id';
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['table'] = 'field_data_field_farm_asset';
@@ -514,7 +514,7 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['filters']['uid']['group'] = 1;
   $handler->display->display_options['filters']['uid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['uid']['expose']['operator_id'] = 'uid_op';
-  $handler->display->display_options['filters']['uid']['expose']['label'] = 'Owner';
+  $handler->display->display_options['filters']['uid']['expose']['label'] = 'Assigned to';
   $handler->display->display_options['filters']['uid']['expose']['operator'] = 'uid_op';
   $handler->display->display_options['filters']['uid']['expose']['identifier'] = 'uid';
   /* Filter criterion: Log: Log category (field_farm_log_category) */
@@ -637,6 +637,7 @@ function farm_crop_views_default_views() {
     t('Movement to'),
     t('Notes'),
     t('Categories'),
+    t('Assigned to'),
     t('All'),
     t('Seedings of %1'),
     t('Start date'),
@@ -912,7 +913,7 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['field_farm_log_category']['label'] = 'Categories';
   $handler->display->display_options['fields']['field_farm_log_category']['type'] = 'taxonomy_term_reference_plain';
   $handler->display->display_options['fields']['field_farm_log_category']['delta_offset'] = '0';
-  /* Field: Log: Owner */
+  /* Field: Log: Assigned to */
   $handler->display->display_options['fields']['field_farm_log_owner']['id'] = 'field_farm_log_owner';
   $handler->display->display_options['fields']['field_farm_log_owner']['table'] = 'field_data_field_farm_log_owner';
   $handler->display->display_options['fields']['field_farm_log_owner']['field'] = 'field_farm_log_owner';
@@ -939,7 +940,7 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['sorts']['name']['field'] = 'name';
   $handler->display->display_options['sorts']['name']['relationship'] = 'field_farm_log_owner_target_id';
   $handler->display->display_options['sorts']['name']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['name']['expose']['label'] = 'Owner';
+  $handler->display->display_options['sorts']['name']['expose']['label'] = 'Assigned to';
   /* Contextual filter: Log: Assets (field_farm_asset) */
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['id'] = 'field_farm_asset_target_id';
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['table'] = 'field_data_field_farm_asset';
@@ -972,7 +973,7 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['filters']['uid']['group'] = 1;
   $handler->display->display_options['filters']['uid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['uid']['expose']['operator_id'] = 'uid_op';
-  $handler->display->display_options['filters']['uid']['expose']['label'] = 'Owner';
+  $handler->display->display_options['filters']['uid']['expose']['label'] = 'Assigned to';
   $handler->display->display_options['filters']['uid']['expose']['operator'] = 'uid_op';
   $handler->display->display_options['filters']['uid']['expose']['identifier'] = 'uid';
   /* Filter criterion: Log: Log category (field_farm_log_category) */
@@ -1095,6 +1096,7 @@ function farm_crop_views_default_views() {
     t('Movement to'),
     t('Notes'),
     t('Categories'),
+    t('Assigned to'),
     t('All'),
     t('Transplantings of %1'),
     t('Start date'),

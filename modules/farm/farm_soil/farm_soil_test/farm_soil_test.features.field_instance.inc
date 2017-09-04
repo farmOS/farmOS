@@ -180,7 +180,7 @@ function farm_soil_test_field_default_field_instances() {
     ),
     'entity_type' => 'log',
     'field_name' => 'field_farm_log_owner',
-    'label' => 'Owner',
+    'label' => 'Assigned to',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -360,13 +360,13 @@ function farm_soil_test_field_default_field_instances() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Areas');
+  t('Assigned to');
   t('Files');
   t('Laboratory');
   t('List the names of soils that are included in this sample. For soil maps and soil names, visit http://websoilsurvey.nrcs.usda.gov/app');
   t('Log category');
   t('Notes');
   t('Optionally assign this task to one or more people.');
-  t('Owner');
   t('Photos');
   t('Sample Points');
   t('Soil Names');

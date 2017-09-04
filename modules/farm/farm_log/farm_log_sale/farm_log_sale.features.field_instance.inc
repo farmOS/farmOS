@@ -256,7 +256,7 @@ function farm_log_sale_field_default_field_instances() {
     ),
     'entity_type' => 'log',
     'field_name' => 'field_farm_log_owner',
-    'label' => 'Owner',
+    'label' => 'Assigned to',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -458,6 +458,7 @@ function farm_log_sale_field_default_field_instances() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Assets');
+  t('Assigned to');
   t('Customer');
   t('Files');
   t('If this sale has a lot number associated with it, enter it here.');
@@ -465,7 +466,6 @@ function farm_log_sale_field_default_field_instances() {
   t('Log category');
   t('Notes');
   t('Optionally assign this task to one or more people.');
-  t('Owner');
   t('Photos');
   t('Quantity');
   t('Sale lot number');

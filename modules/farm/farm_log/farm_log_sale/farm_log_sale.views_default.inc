@@ -321,7 +321,7 @@ function farm_log_sale_views_default_views() {
   $handler->display->display_options['fields']['field_farm_log_category']['label'] = 'Categories';
   $handler->display->display_options['fields']['field_farm_log_category']['type'] = 'taxonomy_term_reference_plain';
   $handler->display->display_options['fields']['field_farm_log_category']['delta_offset'] = '0';
-  /* Field: Log: Owner */
+  /* Field: Log: Assigned to */
   $handler->display->display_options['fields']['field_farm_log_owner']['id'] = 'field_farm_log_owner';
   $handler->display->display_options['fields']['field_farm_log_owner']['table'] = 'field_data_field_farm_log_owner';
   $handler->display->display_options['fields']['field_farm_log_owner']['field'] = 'field_farm_log_owner';
@@ -479,7 +479,7 @@ function farm_log_sale_views_default_views() {
     t('Total price'),
     t('Notes'),
     t('Categories'),
-    t('Owner'),
+    t('Assigned to'),
     t('All'),
     t('%1\'s sales'),
     t('Start date'),

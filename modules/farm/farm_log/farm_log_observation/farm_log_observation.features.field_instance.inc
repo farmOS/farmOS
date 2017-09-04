@@ -282,7 +282,7 @@ function farm_log_observation_field_default_field_instances() {
     ),
     'entity_type' => 'log',
     'field_name' => 'field_farm_log_owner',
-    'label' => 'Owner',
+    'label' => 'Assigned to',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -400,6 +400,7 @@ function farm_log_observation_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Areas');
   t('Assets');
+  t('Assigned to');
   t('Files');
   t('Geometry');
   t('Log category');
@@ -407,7 +408,6 @@ function farm_log_observation_field_default_field_instances() {
   t('Notes');
   t('Optionally assign this task to one or more people.');
   t('Optionally, use this quantity field to record an observed quantity.');
-  t('Owner');
   t('Photos');
   t('Quantity');
   t('This field is optional. It allows you to store geospatial data along with this observation.');

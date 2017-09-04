@@ -709,7 +709,7 @@ function farm_livestock_field_default_field_instances() {
     ),
     'entity_type' => 'log',
     'field_name' => 'field_farm_log_owner',
-    'label' => 'Owner',
+    'label' => 'Assigned to',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -794,6 +794,7 @@ function farm_livestock_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Animals');
   t('Assign this animal to a particular group, herd, flock, etc. You can manage the list of available groups in the ' . l('Animal Groups', 'farm/assets/animals/groups') . ' vocabulary.');
+  t('Assigned to');
   t('Body Location');
   t('Castrated');
   t('Date of birth');
@@ -810,7 +811,6 @@ function farm_livestock_field_default_field_instances() {
   t('Nickname(s)');
   t('Notes');
   t('Optionally assign this task to one or more people.');
-  t('Owner');
   t('Parent(s)');
   t('Photos');
   t('Sex');

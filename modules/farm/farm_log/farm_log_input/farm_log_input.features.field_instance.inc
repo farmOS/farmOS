@@ -480,7 +480,7 @@ function farm_log_input_field_default_field_instances() {
     ),
     'entity_type' => 'log',
     'field_name' => 'field_farm_log_owner',
-    'label' => 'Owner',
+    'label' => 'Assigned to',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -685,6 +685,7 @@ function farm_log_input_field_default_field_instances() {
   t('Application method');
   t('Areas');
   t('Assets');
+  t('Assigned to');
   t('Date purchased');
   t('Describe the quantity of this input, using a value and a unit of measurement. For example, if you used 10 gallons of liquid fertilizer, enter "10" in the Value field, and "gallons" in the Units field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.');
   t('Files');
@@ -697,7 +698,6 @@ function farm_log_input_field_default_field_instances() {
   t('Movement');
   t('Notes');
   t('Optionally assign this task to one or more people.');
-  t('Owner');
   t('Photos');
   t('Purpose');
   t('Quantity');
