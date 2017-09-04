@@ -18,7 +18,7 @@ function farm_map_default_openlayers_sources() {
   $ol_source->description = '';
   $ol_source->factory_service = 'openlayers.Source:GoogleMaps';
   $ol_source->options = array(
-    'key' => '',
+    'key' => variable_get('farm_map_google_api_key', ''),
     'client' => '',
     'channel' => '',
     'mapTypeId' => 'HYBRID',
@@ -34,7 +34,7 @@ function farm_map_default_openlayers_sources() {
   $ol_source->description = '';
   $ol_source->factory_service = 'openlayers.Source:GoogleMaps';
   $ol_source->options = array(
-    'key' => '',
+    'key' => variable_get('farm_map_google_api_key', ''),
     'client' => '',
     'channel' => '',
     'mapTypeId' => 'SATELLITE',
@@ -50,7 +50,7 @@ function farm_map_default_openlayers_sources() {
   $ol_source->description = '';
   $ol_source->factory_service = 'openlayers.Source:GoogleMaps';
   $ol_source->options = array(
-    'key' => '',
+    'key' => variable_get('farm_map_google_api_key', ''),
     'client' => '',
     'channel' => '',
     'mapTypeId' => 'TERRAIN',
