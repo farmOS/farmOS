@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Farm Calendar feature.
+ */
+
+include_once 'farm_calendar.features.inc';
