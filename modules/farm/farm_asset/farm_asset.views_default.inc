@@ -86,7 +86,7 @@ function farm_asset_views_default_views() {
   $handler->display->display_options['empty']['area_text_custom']['content'] = 'No assets found.';
   /* Field: Bulk operations: Farm asset */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
-  $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'farm_asset';
+  $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'views_entity_farm_asset';
   $handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_type'] = '1';
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['enable_select_all_pages'] = 1;
@@ -107,6 +107,7 @@ function farm_asset_views_default_views() {
   $handler->display->display_options['fields']['id']['table'] = 'farm_asset';
   $handler->display->display_options['fields']['id']['field'] = 'id';
   $handler->display->display_options['fields']['id']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['id']['separator'] = '';
   /* Field: Farm asset: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
   $handler->display->display_options['fields']['name']['table'] = 'farm_asset';
@@ -205,7 +206,6 @@ function farm_asset_views_default_views() {
     t('Delete'),
     t('Farm asset ID'),
     t('.'),
-    t(','),
     t('Name'),
     t('Asset type'),
     t('Active'),
