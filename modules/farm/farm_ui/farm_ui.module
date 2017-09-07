@@ -73,9 +73,10 @@ function farm_ui_entity_view($entity, $type, $view_mode, $langcode) {
     return;
   }
 
-  // We are only concerned with farm_asset, log, and taxonomy_term, entities.
+  // We are only concerned with asset, plan, log, and term entities.
   $entity_types = array(
     'farm_asset',
+    'farm_plan',
     'log',
     'taxonomy_term',
   );
@@ -86,6 +87,7 @@ function farm_ui_entity_view($entity, $type, $view_mode, $langcode) {
   // Determine the bundle based on the type.
   switch ($type) {
     case 'farm_asset':
+    case 'farm_plan':
     case 'log':
       $bundle = $entity->type;
       break;

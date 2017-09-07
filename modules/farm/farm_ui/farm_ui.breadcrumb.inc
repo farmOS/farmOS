@@ -86,6 +86,11 @@ function farm_ui_entity_type_breadcrumb($type, $bundle) {
     $breadcrumb[] = l(t('Assets'), 'farm/assets');
   }
 
+  // Or, if this is a farm_plan entity, add a link to the full plans list.
+  elseif ($type == 'farm_plan') {
+    $breadcrumb[] = l(t('Plans'), 'farm/plans');
+  }
+
   // Or, if this is a log entity, add a link to the full logs list.
   elseif ($type == 'log') {
     $breadcrumb[] = l(t('Logs'), 'farm/logs');

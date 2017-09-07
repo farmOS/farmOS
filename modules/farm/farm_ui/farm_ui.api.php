@@ -49,6 +49,23 @@ function hook_farm_ui_entities() {
       ),
     ),
 
+    // Define farm_plan entity types provided by this module.
+    'farm_plan' => array(
+
+      // Grazing plans:
+      'grazing' => array(
+
+        // Label
+        'label' => t('Grazing Plan'),
+
+        // Label (plural)
+        'label_plural' => t('Grazing Plans'),
+
+        // View of grazing plans (optional).
+        'view' => 'farm_grazing_plan',
+      ),
+    ),
+
     // Define log entity types provided by this module.
     'log' => array(
 
