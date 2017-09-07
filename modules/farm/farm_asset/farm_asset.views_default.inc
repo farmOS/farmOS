@@ -212,8 +212,7 @@ function farm_asset_views_default_views() {
     t('Type'),
     t('Page'),
   );
-
-  $export['farm_assets'] = $view;
+  $export['farm_asset'] = $view;
 
   return $export;
 }
