@@ -5,3 +5,18 @@
  */
 
 include_once 'farm_group.features.inc';
+
+/**
+ * Implements hook_farm_ui_entities().
+ */
+function farm_group_farm_ui_entities() {
+  return array(
+    'farm_asset' => array(
+      'group' => array(
+        'label' => t('Group'),
+        'label_plural' => t('Groups'),
+        'view' => 'farm_groups',
+      ),
+    ),
+  );
+}
