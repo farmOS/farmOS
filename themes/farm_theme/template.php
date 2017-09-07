@@ -64,8 +64,36 @@ function farm_theme_field_widget_form_alter(&$element, &$form_state, $context) {
   // Collapse field collection fieldsets by default.
   elseif ($context['field']['type'] == 'field_collection') {
     $element['#collapsible'] = TRUE;
-    $element['#attributes']['class'][] = 'farm-theme-collapse';
-    $collapse_js = TRUE;
+
+    // Exceptions:
+    // Do not collapse the Movement or Quantity fieldsets on Seeding and
+    // Transplanting logs.
+    $exceptions = array(
+      'log' => array(
+        'farm_seeding' => array(
+          'field_farm_movement',
+          'field_farm_quantity',
+        ),
+        'farm_transplanting' => array(
+          'field_farm_movement',
+          'field_farm_quantity',
+        ),
+      ),
+    );
+    $exception = FALSE;
+    if (array_key_exists($context['instance']['entity_type'], $exceptions)) {
+      if (array_key_exists($context['instance']['bundle'], $exceptions[$context['instance']['entity_type']])) {
+        if (in_array($element['#bundle'], $exceptions[$context['instance']['entity_type']][$context['instance']['bundle']])) {
+          $exception = TRUE;
+        }
+      }
+    }
+
+    // If this is not an exception, then collapse it.
+    if (!$exception) {
+      $element['#attributes']['class'][] = 'farm-theme-collapse';
+      $collapse_js = TRUE;
+    }
   }
 
   // Add Javascript to collapse fieldsets.
