@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Farm Group feature.
+ */
+
+include_once 'farm_group.features.inc';
