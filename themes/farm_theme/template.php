@@ -13,6 +13,7 @@ function farm_theme_menu_link_alter(&$item) {
   $paths = array(
     'farm/assets',
     'farm/logs',
+    'farm/plans',
   );
   if (in_array($item['link_path'], $paths)) {
     $item['expanded'] = TRUE;
