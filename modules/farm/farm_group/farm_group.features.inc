@@ -14,6 +14,13 @@ function farm_group_ctools_plugin_api($module = NULL, $api = NULL) {
 }
 
 /**
+ * Implements hook_views_api().
+ */
+function farm_group_views_api($module = NULL, $api = NULL) {
+  return array("api" => "3.0");
+}
+
+/**
  * Implements hook_default_farm_asset_type().
  */
 function farm_group_default_farm_asset_type() {
