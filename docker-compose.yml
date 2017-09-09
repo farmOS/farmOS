@@ -24,9 +24,4 @@ services:
     ports:
       - '80:80'
     environment:
-      MYSQL_HOST: db:3306
-      MYSQL_ROOT_PASSWORD: farmos
-      MYSQL_DATABASE: farmos
-      MYSQL_USER: farmos
-      MYSQL_PASSWORD: farmos
       FARMOS_DEV: 'true'
