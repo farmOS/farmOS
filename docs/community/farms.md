@@ -3,6 +3,10 @@
 The following is a list of farms using farmOS. If you want your farm to be
 included in this list, add a comment to [this issue on Github].
 
+## Australia
+
+* Eagle View Farm (Buckley, Victoria)
+
 ## Brazil
 
 * Olivopampa (Santana do Livramento, Rio Grande do Sul)
