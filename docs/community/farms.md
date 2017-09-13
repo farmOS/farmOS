@@ -29,6 +29,7 @@ included in this list, add a comment to [this issue on Github].
 * Hampton Plantation (Owings, Maryland)
 * Lokoea Farms (Haleiwa, Hawai&#699;i)
 * Miles Smith Farm (Loudon, New Hampshire)
+* Moonstone Farm (Saranac Lake, New York)
 * North Mountain Pastures (Newport, Pennsylvania)
 * Patroon Land Farm (Voorheesville, New York)
 * Silver Market Gardens (Silver City, New Mexico)
