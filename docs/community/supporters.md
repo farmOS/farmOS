@@ -34,4 +34,5 @@ The farmOS project is made possible by many supporters.
 * Svenn Are Bjerkem
 * Kenny Robinson
 * [Stephen Woodbridge](http://imaptools.com)
+* Andy Grimley
 
