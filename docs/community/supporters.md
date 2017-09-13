@@ -23,7 +23,7 @@ The farmOS project is made possible by many supporters.
 
 ## Individuals
 
-* Michael Stenta
+* [Michael Stenta](http://mstenta.net)
 * Dorn Cox
 * RJ Steinert
 * Pol Dellaiera
