@@ -178,11 +178,19 @@ Once the containers are up and running, you can install farmOS using the Drupal
 installer. This is a simple step-by-step process that you will need to go
 through when you first access the site in your browser.
 
+#### Browser address
+
+If you are running Docker on Linux, you can simply go to `http://localhost` in
+your browser. Otherwise, you may need to look up the IP address of the Docker
+container that was created and access it that way.
+
 To find the IP address of your farmOS container, use the following command:
 
     sudo docker inspect --format '{{ .NetworkSettings.Networks.farmos_default.IPAddress }}' farmos_www_1
 
 Visit the IP address in a browser - you should see the Drupal/farmOS installer.
+
+#### Database setup
 
 In the "Set up database" step of installation, use the following values:
 
