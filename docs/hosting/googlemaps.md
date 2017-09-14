@@ -3,7 +3,9 @@
 As of June 22nd, 2016 the Google Maps API requires an API key.
 
 This means that if you are hosting farmOS yourself, you need to create an API
-key in order to use any of the mapping components in farmOS.
+key in order to use the Google Maps base layers in farmOS maps. If an API key
+is not provided during installation, [OpenStreetMap] will be used as the
+default base layer instead.
 
 Anyone who had a farmOS site installed before June 22nd, 2016, and was actively
 using it, was automatically grandfathered in and does not need an API key:
@@ -37,4 +39,6 @@ configuration form at `/admin/config/farm/map`.
 
 **Note that according to Google it may take a couple of minutes before a new
 API key becomes active.**
+
+[OpenStreetMap]: https://www.openstreetmap.org
 

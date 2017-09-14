@@ -42,7 +42,8 @@ enhancements if they are available.
 
 * **A Google Maps API key** is necessary for rendering the Google Maps layers
   used in farmOS maps. See the [Google Maps API Key] instructions for more
-  information about how to set this up.
+  information about how to set this up. If an API key is not provided,
+  [OpenStreetMap] will be used as the default base layer.
 * **[PHP BCMath extension]** is required for accurate geometric polygon area
   calculations.
 * **[GEOS - Geometry Engine, Open Source]** is required by the Area Generator
@@ -61,6 +62,7 @@ enhancements if they are available.
 [requirements of Drupal]: https://drupal.org/requirements
 [Openlayers module]: https://drupal.org/project/openlayers
 [Google Maps API Key]: /hosting/googlemaps
+[OpenStreetMap]: https://www.openstreetmap.org
 [PHP BCMath extension]: http://php.net/manual/en/book.bc.php
 [GEOS - Geometry Engine, Open Source]: https://trac.osgeo.org/geos
 
