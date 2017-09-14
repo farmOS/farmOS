@@ -102,11 +102,28 @@ for more details.
 ## Local development with Docker Compose
 
 The recommended approach for local farmOS development in Docker is to use
-[Docker Compose] to build both the farmOS container and the MariaDB database
-container.
+[Docker Compose] to build both the farmOS container and the MariaDB or
+PostgreSQL database container.
 
 The `docker-compose.yml` file included with farmOS sets `FARMOS_DEV` to `true`
 by default, so it is intended only for development purposes at this time.
+
+### PostgreSQL + PostGIS
+
+If you want to use a PostgreSQL database with the PostGIS extension, an
+additional `docker-compose.postgis.yml` file is provided which can be used to
+override the default `docker-compose.yml` database configuration.
+
+To use the provided override file, use the `-f` flag with all `docker-compose`
+commands to read from both the `docker-compose.yml` file and the
+`docker-compose.postgis.yml` file. For example, instead of
+`sudo docker-compose up` you will run:
+
+    sudo docker-compose -f docker-compose.yml -f docker-compose.postgis.yml up
+
+Alternatively, if you rename `docker-compose.postgis.yml` to
+`docker-compose.override.yml`, it will be picked up automatically and you can
+simply use `sudo docker-compose up` like you would normally.
 
 ### Install Docker and Docker Compose
 
@@ -150,7 +167,8 @@ Then, use `docker-compose up` to create the containers:
     sudo docker-compose up
 
 This will create two containers: a farmOS application container, and a MariaDB
-database container.
+database container (see "PostgreSQL + PostGIS" section above if you would
+rather use PostgreSQL).
 
 **Note:** It will take some time for the containers to start the first time.
 This is because the farmOS codebase needs to be built when the container is run
@@ -165,7 +183,8 @@ The docker-compose.yml file defines two Docker volumes that will be available on
 your host system:
 
 * `/var/html/www` from the farmOS application container
-* `/var/lib/mysql` from the MariaDB database container
+* `/var/lib/mysql` from the MariaDB database container (or
+  `/var/lib/postgresql/data` if you are using PostgreSQL)
 
 Both will be made available within a `.data` directory in the farmOS repository
 on the host. This is where you will be able to access the code for development

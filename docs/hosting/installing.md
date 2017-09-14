@@ -48,6 +48,9 @@ enhancements if they are available.
   calculations.
 * **[GEOS - Geometry Engine, Open Source]** is required by the Area Generator
   module.
+* **[PostgreSQL] + [PostGIS]** can be used as farmOS's database backend, which
+  together provide advanced geographic query capabilities. See
+  [GitHub issue #43] for more information.
 * **SSL** Although not strictly a requirement, some features (like the
   "Geolocate" button on maps) will only work when over a secure connection. SSL
   is also recommended if you are using the Sensor Listener module to keep your
@@ -65,4 +68,7 @@ enhancements if they are available.
 [OpenStreetMap]: https://www.openstreetmap.org
 [PHP BCMath extension]: http://php.net/manual/en/book.bc.php
 [GEOS - Geometry Engine, Open Source]: https://trac.osgeo.org/geos
+[PostgreSQL]: https://www.postgresql.org
+[PostGIS]: http://postgis.net
+[GitHub issue #43]: https://github.com/farmOS/farmOS/issues/43
 
