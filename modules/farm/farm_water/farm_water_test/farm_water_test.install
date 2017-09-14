@@ -1,0 +1,36 @@
+<?php
+/**
+ * @file
+ * Farm water test install.
+ */
+
+/**
+ * Migrate water test sample points to field_farm_geofield.
+ */
+function farm_water_test_update_7000(&$sandbox) {
+
+  // Define table mappings.
+  $table_mappings = array(
+    'field_data_field_farm_water_sample_points' => 'field_data_field_farm_geofield',
+    'field_revision_field_farm_water_sample_points' => 'field_revision_field_farm_geofield',
+  );
+
+  // Check to be sure that the tables exist. If not, bail.
+  foreach ($table_mappings as $old => $new) {
+    $tables = array($old, $new);
+    foreach ($tables as $table) {
+      if (!db_table_exists($table)) {
+        throw new DrupalUpdateException('Database table not found: ' . $table . '. Aborting update.');
+      }
+    }
+  }
+
+  // Migrate data.
+  foreach ($table_mappings as $old => $new) {
+    db_query('INSERT INTO {' . $new . '} SELECT * FROM {' . $old . '}');
+  }
+
+  // Delete the old field instance.
+  $field = field_info_instance('log', 'field_farm_water_sample_points', 'farm_water_test');
+  field_delete_instance($field);
+}

@@ -77,6 +77,71 @@ function farm_water_test_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_water_test-field_farm_geofield'.
+  $field_instances['log-farm_water_test-field_farm_geofield'] = array(
+    'bundle' => 'farm_water_test',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Use the map to pinpoint the location(s) from which this sample is taken.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'openlayers_geofield',
+        'settings' => array(
+          'data' => 'full',
+          'map_layer_preset' => 'farm_map_geofield_formatter:openlayers_geofield_layer_formatter',
+        ),
+        'type' => 'openlayers_geofield',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_geofield',
+    'label' => 'Sample points',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'openlayers_geofield',
+      'settings' => array(
+        'allow_edit' => 1,
+        'data_storage' => 'collection',
+        'delta_handling' => 'default',
+        'feature_types' => array(
+          'path' => 0,
+          'point' => 'point',
+          'polygon' => 0,
+        ),
+        'geocoder_field' => 'field_farm_files',
+        'geocoder_handler' => 'kml',
+        'handler_settings' => array(
+          'google' => array(
+            'all_results' => 0,
+            'biasing' => array(
+              'bounds' => '',
+              'components' => '',
+              'region' => '',
+            ),
+            'geometry_type' => 'point',
+            'reject_results' => array(
+              'APPROXIMATE' => 0,
+              'GEOMETRIC_CENTER' => 0,
+              'RANGE_INTERPOLATED' => 0,
+              'ROOFTOP' => 0,
+            ),
+          ),
+        ),
+        'openlayers_map' => 'farm_map_geofield',
+        'showInputField' => 1,
+        'use_geocoder' => 1,
+      ),
+      'type' => 'openlayers_geofield',
+      'weight' => 8,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_water_test-field_farm_images'.
   $field_instances['log-farm_water_test-field_farm_images'] = array(
     'bundle' => 'farm_water_test',
@@ -257,72 +322,6 @@ function farm_water_test_field_default_field_instances() {
       ),
       'type' => 'text_textfield',
       'weight' => 3,
-    ),
-  );
-
-  // Exported field_instance:
-  // 'log-farm_water_test-field_farm_water_sample_points'.
-  $field_instances['log-farm_water_test-field_farm_water_sample_points'] = array(
-    'bundle' => 'farm_water_test',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => 'Use the map to pinpoint the location(s) from which this sample is taken.',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'openlayers_geofield',
-        'settings' => array(
-          'data' => 'full',
-          'map_layer_preset' => 'farm_map_geofield_formatter:openlayers_geofield_layer_formatter',
-        ),
-        'type' => 'openlayers_geofield',
-        'weight' => 1,
-      ),
-    ),
-    'entity_type' => 'log',
-    'field_name' => 'field_farm_water_sample_points',
-    'label' => 'Sample points',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'openlayers_geofield',
-      'settings' => array(
-        'allow_edit' => 1,
-        'data_storage' => 'collection',
-        'delta_handling' => 'default',
-        'feature_types' => array(
-          'path' => 0,
-          'point' => 'point',
-          'polygon' => 0,
-        ),
-        'geocoder_field' => 'field_farm_files',
-        'geocoder_handler' => 'kml',
-        'handler_settings' => array(
-          'google' => array(
-            'all_results' => 0,
-            'biasing' => array(
-              'bounds' => '',
-              'components' => '',
-              'region' => '',
-            ),
-            'geometry_type' => 'point',
-            'reject_results' => array(
-              'APPROXIMATE' => 0,
-              'GEOMETRIC_CENTER' => 0,
-              'RANGE_INTERPOLATED' => 0,
-              'ROOFTOP' => 0,
-            ),
-          ),
-        ),
-        'openlayers_map' => 'farm_map_geofield',
-        'showInputField' => 1,
-        'use_geocoder' => 1,
-      ),
-      'type' => 'openlayers_geofield',
-      'weight' => 8,
     ),
   );
 
