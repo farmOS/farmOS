@@ -191,6 +191,25 @@ on the host. This is where you will be able to access the code for development
 purposes. It is also how your database and files are persisted when the
 containers are destroyed and rebuilt.
 
+#### File ownership
+
+On a Linux host, all the files in `.data` will have an owner and group of
+`root`. For development purposes, it is recommended that you change the owner
+of everything in the `www` container to your local user. This can be done with
+the following command (executed from the repository's root directory):
+
+    sudo chown -R ${USER} .data/www
+
+This changes the owner of *everything* in /var/www/html to the currently logged
+in user on the host. But it leaves the group alone.
+
+This will persist until the codebase is rebuilt. When rebuilt,
+`docker-entrypoint.sh` changes the owner and group of the `.data/www/sites`
+directory to `www-data`. So you would need to re-run the above `chown` after
+each rebuild. For development environments this isn't a big problem because
+rebuilds don't happen automatically - they need to be triggered by deleting
+`profiles/farm/farm.info`.
+
 ### Install farmOS
 
 Once the containers are up and running, you can install farmOS using the Drupal
