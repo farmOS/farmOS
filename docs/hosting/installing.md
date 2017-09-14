@@ -34,6 +34,12 @@ In addition to Drupal's basic requirements, farmOS also needs the following:
 
 * **PHP 5.4+.** Drupal 7 itself only requires PHP 5.2+, but farmOS makes heavy
   use of the [Openlayers module], which uses some newer features of PHP.
+
+### Optional dependencies
+
+The following are not hard requirements of farmOS, but will provide progressive
+enhancements if they are available.
+
 * **A Google Maps API key** is necessary for rendering the Google Maps layers
   used in farmOS maps. See the [Google Maps API Key] instructions for more
   information about how to set this up.
