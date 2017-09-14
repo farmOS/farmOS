@@ -171,7 +171,7 @@ function farm_water_test_field_group_info() {
     'weight' => '1',
     'children' => array(
       0 => 'field_farm_area',
-      1 => 'field_farm_water_sample_points',
+      1 => 'field_farm_geofield',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

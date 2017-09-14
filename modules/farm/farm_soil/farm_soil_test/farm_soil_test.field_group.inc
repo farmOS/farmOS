@@ -172,7 +172,7 @@ function farm_soil_test_field_group_info() {
     'children' => array(
       0 => 'field_farm_area',
       1 => 'field_farm_soil_names',
-      2 => 'field_farm_soil_sample_points',
+      2 => 'field_farm_geofield',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
