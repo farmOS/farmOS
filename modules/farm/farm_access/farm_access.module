@@ -270,6 +270,33 @@ function farm_access_entity_perms(array $types, $ops = array()) {
           }
           break;
 
+        // Farm Plan.
+        case 'farm_plan':
+
+          // Create.
+          if (in_array('create', $ops)) {
+            $perms[] = 'create ' . $bundle . ' farm plans';
+          }
+
+          // View.
+          if (in_array('view', $ops)) {
+            $perms[] = 'view any ' . $bundle . ' farm plans';
+            $perms[] = 'view own ' . $bundle . ' farm plans';
+          }
+
+          // Edit.
+          if (in_array('edit', $ops)) {
+            $perms[] = 'edit any ' . $bundle . ' farm plans';
+            $perms[] = 'edit own ' . $bundle . ' farm plans';
+          }
+
+          // Delete.
+          if (in_array('delete', $ops)) {
+            $perms[] = 'delete any ' . $bundle . ' farm plans';
+            $perms[] = 'delete own ' . $bundle . ' farm plans';
+          }
+          break;
+
         // Log.
         case 'log':
 
