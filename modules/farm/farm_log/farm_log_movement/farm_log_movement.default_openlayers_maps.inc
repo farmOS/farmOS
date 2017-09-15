@@ -45,7 +45,6 @@ function farm_log_movement_default_openlayers_maps() {
       'layers' => array(
         0 => 'farm_asset_full_layer_' . $key,
         1 => 'farm_asset_cluster_layer_' . $key,
-        2 => 'farm_map_layer_group',
       ),
       'controls' => array(
         0 => 'openlayers_control_zoom',

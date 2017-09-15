@@ -32,7 +32,6 @@ function farm_map_default_openlayers_maps() {
     ),
     'layers' => array(
       0 => 'farm_map_geofield_widget_layer_group',
-      1 => 'farm_map_layer_group',
     ),
     'controls' => array(
       0 => 'openlayers_control_zoom',
@@ -82,7 +81,6 @@ function farm_map_default_openlayers_maps() {
     ),
     'layers' => array(
       0 => 'farm_map_geofield_formatter_layer_group',
-      1 => 'farm_map_layer_group',
     ),
     'controls' => array(
       0 => 'openlayers_control_zoom',
@@ -109,4 +107,21 @@ function farm_map_default_openlayers_maps() {
   $export['farm_map_geofield_formatter'] = $ol_map;
 
   return $export;
+}
+
+/**
+ * Implements hook_default_openlayers_maps_alter().
+ */
+function farm_map_default_openlayers_maps_alter(&$maps) {
+
+  // Add "base layers" group layer to all farm_* maps. This module also
+  // implements hook_module_implements_alter() to ensure that this function
+  // will run last, so that the "base layers" group is always at the bottom
+  // of the layers array in all maps.
+  // @see farm_map_module_implements_alter()
+  foreach ($maps as &$map) {
+    if (substr($map->machine_name, 0, 5) == 'farm_') {
+      $map->options['layers'][] = 'farm_map_layer_group';
+    }
+  }
 }

@@ -117,7 +117,23 @@ function farm_map_openlayers_object_preprocess_alter(&$build, $context) {
 }
 
 /**
- * Helper function for populating the geometry field of an entity.
+ * Implements hook_module_implements_alter().
+ */
+function farm_map_module_implements_alter(&$implementations, $hook) {
+
+  // Ensure that this module's implementation of
+  // hook_default_openlayers_maps_alter() always runs last, so that it can add
+  // the "base layers" group to the bottom of the layers list on all farm maps.
+  // @see farm_map_default_openlayers_maps_alter()
+  if ($hook == 'default_openlayers_maps_alter' && array_key_exists('farm_map', $implementations)) {
+    $group = $implementations['farm_map'];
+    unset($implementations['farm_map']);
+    $implementations['farm_map'] = $group;
+  }
+}
+
+/**
+ * Helper function for popu * Helper function for populating the geometry field of an entity.
  *
  * @param Entity $entity
  *   The entity object.
