@@ -73,7 +73,8 @@ var style = [
     fill: fill,
     stroke: stroke
   })
-];',
+];
+return style;',
     );
     $export[$machine_name] = $ol_style;
   }

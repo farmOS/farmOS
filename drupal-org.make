@@ -100,23 +100,17 @@ projects[navbar][subdir] = "contrib"
 projects[navbar][version] = "1.7"
 
 projects[openlayers][subdir] = "contrib"
-projects[openlayers][version] = "3.1"
+projects[openlayers][download][type] = "git"
+projects[openlayers][download][url] = "http://github.com/mstenta/openlayers.git"
+projects[openlayers][download][revision] = "79932579ea2247cdd89ea52e48971a91898b978e"
 ; Remove base layer assignment code.
-projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_base_layer_mechanism-2543130-4.patch"
+projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_base_layer_mechanism-2543130-10.patch"
 ; Move Elements dependency to Openlayers Examples.
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_examples_elements_dependency-2620098-2.patch"
 ; Switch to ROADMAP when zoomed further than Google's max zoom level.
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_gmap_zoom_switch_type-2680273-1.patch"
 ; Add a jQuery trigger event when popups are displayed.
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_popup_trigger-2687781-1.patch"
-; Fix map behavior detach.
-projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_detach-2688029-5.patch"
-; Move geocoder AJAX callback from Geofield module.
-projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_widget_geocode_callback-2762367-1.patch"
-; Fix Geocode from field.
-projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_geocode_button_fix-2755899-9.patch"
-; Hide empty Openlayers Geofield labels.
-projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_geofield_empty_label-2880034-1.patch"
 ; Fix Google Maps API warning: RetiredVersion
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_google_retired_version-2888085-4.patch"
 

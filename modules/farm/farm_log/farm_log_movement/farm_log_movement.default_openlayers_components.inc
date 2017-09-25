@@ -30,12 +30,8 @@ function farm_log_movement_default_openlayers_components() {
   $ol_component->factory_service = 'openlayers.Component:ZoomToSource';
   $ol_component->options = array(
     'source' => $sources,
-    'animations' => array(
-      'pan' => 500,
-      'zoom' => 500,
-    ),
+    'duration' => 500,
     'zoom' => 'auto',
-    'enableAnimations' => 1,
     'max_zoom' => 20,
     'process_once' => 0,
   );
@@ -57,7 +53,7 @@ function farm_log_movement_default_openlayers_components() {
   $ol_component->description = '';
   $ol_component->factory_service = 'openlayers.Component:Popup';
   $ol_component->options = array(
-    'layers' => $layers,
+    'frontend_layers' => $layers,
     'positioning' => 'top-right',
     'autoPan' => TRUE,
     'autoPanAnimation' => 0,

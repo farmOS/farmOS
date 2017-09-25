@@ -45,12 +45,8 @@ function farm_map_default_openlayers_components() {
     'source' => array(
       'openlayers_geofield_source_vector' => 'openlayers_geofield_source_vector',
     ),
-    'animations' => array(
-      'pan' => '500',
-      'zoom' => '500',
-    ),
+    'duration' => 500,
     'zoom' => 'auto',
-    'enableAnimations' => 1,
     'max_zoom' => 20,
     'process_once' => 1,
   );
