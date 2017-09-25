@@ -100,7 +100,9 @@ projects[navbar][subdir] = "contrib"
 projects[navbar][version] = "1.7"
 
 projects[openlayers][subdir] = "contrib"
-projects[openlayers][version] = "3.1"
+projects[openlayers][download][type] = "git"
+projects[openlayers][download][url] = "http://git.drupal.org/project/openlayers.git"
+projects[openlayers][download][tag] = "7.x-3.1"
 ; Remove base layer assignment code.
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_base_layer_mechanism-2543130-4.patch"
 ; Move Elements dependency to Openlayers Examples.
