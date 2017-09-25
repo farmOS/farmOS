@@ -57,7 +57,7 @@ function farm_log_movement_default_openlayers_components() {
   $ol_component->description = '';
   $ol_component->factory_service = 'openlayers.Component:Popup';
   $ol_component->options = array(
-    'layers' => $layers,
+    'frontend_layers' => $layers,
     'positioning' => 'top-right',
     'autoPan' => TRUE,
     'autoPanAnimation' => 0,
