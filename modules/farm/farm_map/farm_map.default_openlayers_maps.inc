@@ -114,14 +114,24 @@ function farm_map_default_openlayers_maps() {
  */
 function farm_map_default_openlayers_maps_alter(&$maps) {
 
-  // Add "base layers" group layer to all farm_* maps. This module also
-  // implements hook_module_implements_alter() to ensure that this function
-  // will run last, so that the "base layers" group is always at the bottom
-  // of the layers array in all maps.
+  // This module implements hook_module_implements_alter() to ensure that this
+  // function always runs last, so we can ensure that any modifications made
+  // below will take priority over any other implementations of this hook.
   // @see farm_map_module_implements_alter()
+
+  // Iterate through all maps.
   foreach ($maps as &$map) {
+
+    // Only alter maps that have a farm_* namespace.
     if (substr($map->machine_name, 0, 5) == 'farm_') {
+
+      // Add "base layers" group layer to the end all maps.
       $map->options['layers'][] = 'farm_map_layer_group';
+
+      // Reverse the order of layers.
+      // This is necessary because of the following Openlayers module commit:
+      // http://cgit.drupalcode.org/openlayers/commit/?id=321aee3
+      $map->options['layers'] = array_reverse($map->options['layers']);
     }
   }
 }
