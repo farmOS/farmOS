@@ -51,12 +51,8 @@ function farm_area_default_openlayers_components() {
   $ol_component->factory_service = 'openlayers.Component:ZoomToSource';
   $ol_component->options = array(
     'source' => $area_type_sources,
-    'animations' => array(
-      'pan' => 500,
-      'zoom' => 500,
-    ),
+    'duration' => 500,
     'zoom' => 'auto',
-    'enableAnimations' => 1,
     'max_zoom' => 20,
     'process_once' => 0,
   );
