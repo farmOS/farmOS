@@ -21,6 +21,9 @@ projects[ctools][patch][] = "http://www.drupal.org/files/issues/ctools-fix_modal
 projects[date][subdir] = "contrib"
 projects[date][version] = "2.10"
 
+projects[field_group_easy_responsive_tabs][subdir] = "contrib"
+projects[field_group_easy_responsive_tabs][version] = "2.10"
+
 projects[entity][subdir] = "contrib"
 projects[entity][version] = "1.8"
 
@@ -184,6 +187,9 @@ projects[bootstrap][patch][] = "http://www.drupal.org/files/issues/bootstrap_mul
 
 libraries[backbone][download][type] = "get"
 libraries[backbone][download][url] = "http://github.com/jashkenas/backbone/archive/1.1.2.zip"
+
+libraries[easy-responsive-tabs][download][type] = "get"
+libraries[easy-responsive-tabs][download][url] = "https://github.com/samsono/Easy-Responsive-Tabs-to-Accordion/archive/1.2.2.zip"
 
 libraries[modernizr][download][type] = "get"
 libraries[modernizr][download][url] = "http://github.com/Modernizr/Modernizr/archive/v2.8.3.zip"
