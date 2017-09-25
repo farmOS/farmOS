@@ -26,8 +26,8 @@ function farm_install() {
   // Use the farm menu for primary links (provided by farm_admin).
   variable_set('menu_main_links_source', 'farm');
 
-  // Load Openlayers 3.11.2 from CDNJS.
-  \Drupal\openlayers\Config::set('openlayers.variant', 'cdnjs:ol3:3.11.2');
+  // Load Openlayers from CDNJS.
+  \Drupal\openlayers\Config::set('openlayers.variant', 'cdnjs:ol3:4.3.3');
 }
 
 /**
@@ -603,6 +603,13 @@ function farm_update_7027(&$sandbox) {
     ->condition('name', 'farm_taxonomy')
     ->condition('type', 'module')
     ->execute();
+}
+
+/**
+ * Update Openlayers JS library to 4.3.3.
+ */
+function farm_update_7028(&$sandbox) {
+  \Drupal\openlayers\Config::set('openlayers.variant', 'cdnjs:ol3:4.3.3');
 }
 
 /**
