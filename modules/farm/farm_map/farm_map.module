@@ -133,7 +133,7 @@ function farm_map_module_implements_alter(&$implementations, $hook) {
 }
 
 /**
- * Helper function for popu * Helper function for populating the geometry field of an entity.
+ * Helper function for populating the geometry field of an entity.
  *
  * @param Entity $entity
  *   The entity object.
