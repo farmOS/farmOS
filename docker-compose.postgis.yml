@@ -9,4 +9,3 @@ services:
     environment:
       POSTGRES_USER: farmos
       POSTGRES_PASSWORD: farmos
-
