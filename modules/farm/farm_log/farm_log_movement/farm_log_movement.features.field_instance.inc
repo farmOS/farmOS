@@ -72,7 +72,7 @@ function farm_log_movement_field_default_field_instances() {
         'use_geocoder' => 0,
       ),
       'type' => 'openlayers_geofield',
-      'weight' => 6,
+      'weight' => 3,
     ),
   );
 
@@ -104,7 +104,7 @@ function farm_log_movement_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 4,
+      'weight' => 1,
     ),
   );
 
@@ -136,7 +136,7 @@ function farm_log_movement_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 2,
+      'weight' => 0,
     ),
   );
 

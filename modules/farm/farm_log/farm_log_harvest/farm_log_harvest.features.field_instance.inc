@@ -84,7 +84,7 @@ function farm_log_harvest_field_default_field_instances() {
         'view_mode' => 'full',
       ),
       'type' => 'entityreference_view_widget',
-      'weight' => 2,
+      'weight' => 6,
     ),
   );
 
@@ -193,7 +193,7 @@ function farm_log_harvest_field_default_field_instances() {
         'use_geocoder' => 1,
       ),
       'type' => 'openlayers_geofield',
-      'weight' => 4,
+      'weight' => 5,
     ),
   );
 
@@ -382,7 +382,7 @@ function farm_log_harvest_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 5,
+      'weight' => 19,
     ),
   );
 
@@ -422,7 +422,7 @@ function farm_log_harvest_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 14,
+      'weight' => -7,
     ),
   );
 
@@ -461,7 +461,7 @@ function farm_log_harvest_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 3,
+      'weight' => 2,
     ),
   );
 

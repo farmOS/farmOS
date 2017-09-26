@@ -613,6 +613,13 @@ function farm_update_7028(&$sandbox) {
 }
 
 /**
+ * Enable Field Group: Easy Responsive Tabs to Accordion.
+ */
+function farm_update_7029(&$sandbox) {
+  _farm_update_enable_modules(array('field_group_easy_responsive_tabs'));
+}
+
+/**
  * Update helper function: enable modules.
  */
 function _farm_update_enable_modules($modules = array()) {

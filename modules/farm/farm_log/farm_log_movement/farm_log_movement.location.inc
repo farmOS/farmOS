@@ -98,6 +98,7 @@ function farm_log_movement_form_farm_asset_form_alter(&$form, &$form_state, $for
     '#description' => t('Set the current areas(s) that this asset is in. Separate multiple areas with commas. A movement observation log will be created automatically if you change this field.'),
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
+    '#weight' => 100,
   );
   $form['location']['farm_log_movement_asset_location'] = array(
     '#type' => 'textfield',
@@ -106,6 +107,7 @@ function farm_log_movement_form_farm_asset_form_alter(&$form, &$form_state, $for
     '#default_value' => $location,
   );
   $form['actions']['submit']['#submit'][] = 'farm_log_movement_asset_location_submit';
+  $form['#group_children']['location'] = 'group_farm_general';
 }
 
 /**

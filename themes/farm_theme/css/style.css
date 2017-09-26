@@ -30,8 +30,9 @@ form#user-login-form ul li {
 }
 
 /**
- * Add up/down arrow to collapsible fieldset headings.
+ * Add up/down arrow to collapsible fieldset and accordion headings.
  */
+.resp-accordion:after,
 fieldset.collapsible .panel-heading .fieldset-legend:after {
   font-family: 'Glyphicons Halflings';
   content: "\e113";
@@ -40,10 +41,45 @@ fieldset.collapsible .panel-heading .fieldset-legend:after {
   margin-right: 10px;
   transition: all 0.5s;
 }
+.resp-accordion.resp-tab-active:after,
 fieldset.collapsible .panel-heading .fieldset-legend.collapsed:after {
   -webkit-transform: rotate(180deg);
   -moz-transform: rotate(180deg);
   transform: rotate(180deg);
+}
+.resp-accordion .resp-arrow {
+  display: none;
+}
+
+/**
+ * Override styles of responsive accordion tabs/content to match Bootstrap.
+ */
+h2.resp-accordion {
+  background-color: #fcfcfc !important;
+}
+.resp-vtabs .resp-tabs-container,
+.resp-vtabs li.resp-tab-active,
+h2.resp-tab-active,
+.resp-tab-content {
+  border-color: #dddddd !important;
+}
+.resp-tabs-container {
+  margin-bottom: 1em;
+}
+
+/**
+ * Tweak widths of responsive vertical tabs.
+ */
+.resp-vtabs ul.resp-tabs-list {
+  width: 15%;
+}
+.resp-vtabs .resp-tabs-container {
+  width: 85%;
+}
+@media only screen and (max-width: 768px) {
+  .resp-vtabs .resp-tabs-container {
+    width: 100%;
+  }
 }
 
 /**

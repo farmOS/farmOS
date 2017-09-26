@@ -21,6 +21,9 @@ projects[ctools][patch][] = "http://www.drupal.org/files/issues/ctools-fix_modal
 projects[date][subdir] = "contrib"
 projects[date][version] = "2.10"
 
+projects[field_group_easy_responsive_tabs][subdir] = "contrib"
+projects[field_group_easy_responsive_tabs][version] = "2.10"
+
 projects[entity][subdir] = "contrib"
 projects[entity][version] = "1.8"
 
@@ -113,6 +116,8 @@ projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_g
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_popup_trigger-2687781-1.patch"
 ; Fix Google Maps API warning: RetiredVersion
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_google_retired_version-2888085-4.patch"
+; Issue #2644580: Maps with Google layers break when loaded in invisible element
+projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_googlemaps_refresh-2644580-19.patch"
 
 projects[openlayers_geolocate_button][subdir] = "contrib"
 projects[openlayers_geolocate_button][version] = "3.2"
@@ -177,6 +182,8 @@ projects[module_filter][version] = "2.1"
 projects[bootstrap][version] = "3.14"
 ; Issue #2634358: Multiple collapsible fieldsets have broken triggers in BS3.3.4
 projects[bootstrap][patch][] = "http://www.drupal.org/files/issues/bootstrap_multifieldset-2634358-10.patch"
+; Issue #2910624: Collapsible fieldsets inside vertical tabs are disabled
+projects[bootstrap][patch][] = "http://www.drupal.org/files/issues/bootstrap_vertical_tabs_collapsible-2910624-2.patch"
 
 ; -----------------------------------------------------------------------------
 ; Libraries
@@ -184,6 +191,9 @@ projects[bootstrap][patch][] = "http://www.drupal.org/files/issues/bootstrap_mul
 
 libraries[backbone][download][type] = "get"
 libraries[backbone][download][url] = "http://github.com/jashkenas/backbone/archive/1.1.2.zip"
+
+libraries[easy-responsive-tabs][download][type] = "get"
+libraries[easy-responsive-tabs][download][url] = "https://github.com/samsono/Easy-Responsive-Tabs-to-Accordion/archive/1.2.2.zip"
 
 libraries[modernizr][download][type] = "get"
 libraries[modernizr][download][url] = "http://github.com/Modernizr/Modernizr/archive/v2.8.3.zip"
