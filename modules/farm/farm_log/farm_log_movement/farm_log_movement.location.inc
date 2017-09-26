@@ -426,7 +426,21 @@ function farm_log_movement_asset_move_action_submit(array $form, array $form_sta
   $context['areas'] = farm_log_movement_parse_areas($form_state['values']['areas']);
 
   // Convert the date to a timestamp.
-  $context['timestamp'] = strtotime($form_state['values']['date']);
+  $timestamp = strtotime($form_state['values']['date']);
+  watchdog('test', $timestamp);
+  watchdog('test',date('Ymd', $timestamp));
+  watchdog('test',REQUEST_TIME);
+  watchdog('test',date('Ymd', REQUEST_TIME));
+  // The action form only includes month, day, and year. If the movement is
+  // today, then we assume that the current time should also be included.
+  if (date('Ymd', $timestamp) == date('Ymd', REQUEST_TIME)) {
+    $context['timestamp'] = REQUEST_TIME;
+  }
+
+  // Otherwise, the movement is in the past/future, so don't include a time.
+  else {
+    $context['timestamp'] = $timestamp;
+  }
 
   // Copy the "done" value as a boolean.
   $context['done'] = !empty($form_state['values']['done']) ? TRUE : FALSE;
