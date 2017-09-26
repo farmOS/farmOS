@@ -248,7 +248,7 @@ function farm_log_input_field_default_field_instances() {
         'use_geocoder' => 1,
       ),
       'type' => 'openlayers_geofield',
-      'weight' => 4,
+      'weight' => 3,
     ),
   );
 
@@ -456,7 +456,7 @@ function farm_log_input_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 8,
+      'weight' => 4,
     ),
   );
 
@@ -597,7 +597,7 @@ function farm_log_input_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 5,
+      'weight' => 4,
     ),
   );
 
@@ -637,7 +637,7 @@ function farm_log_input_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 4,
+      'weight' => -2,
     ),
   );
 
@@ -676,7 +676,7 @@ function farm_log_input_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 3,
+      'weight' => 1,
     ),
   );
 

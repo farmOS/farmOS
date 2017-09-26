@@ -18,10 +18,10 @@ function farm_log_observation_field_group_info() {
   $field_group->entity_type = 'log';
   $field_group->bundle = 'farm_observation';
   $field_group->mode = 'form';
-  $field_group->parent_name = '';
+  $field_group->parent_name = 'group_farm_references';
   $field_group->data = array(
     'label' => 'Areas',
-    'weight' => '2',
+    'weight' => '7',
     'children' => array(
       0 => 'field_farm_area',
     ),
@@ -34,7 +34,7 @@ function farm_log_observation_field_group_info() {
         'classes' => 'group-farm-areas field-group-fieldset',
         'description' => '',
       ),
-      'formatter' => 'collapsed',
+      'formatter' => 'open',
     ),
   );
   $field_groups['group_farm_areas|log|farm_observation|form'] = $field_group;
@@ -47,10 +47,10 @@ function farm_log_observation_field_group_info() {
   $field_group->entity_type = 'log';
   $field_group->bundle = 'farm_observation';
   $field_group->mode = 'form';
-  $field_group->parent_name = '';
+  $field_group->parent_name = 'group_farm_references';
   $field_group->data = array(
     'label' => 'Assets',
-    'weight' => '1',
+    'weight' => '6',
     'children' => array(
       0 => 'field_farm_asset',
     ),
@@ -63,7 +63,7 @@ function farm_log_observation_field_group_info() {
         'classes' => 'group-farm-assets field-group-fieldset',
         'description' => '',
       ),
-      'formatter' => 'collapsed',
+      'formatter' => 'open',
     ),
   );
   $field_groups['group_farm_assets|log|farm_observation|form'] = $field_group;
@@ -76,7 +76,7 @@ function farm_log_observation_field_group_info() {
   $field_group->entity_type = 'log';
   $field_group->bundle = 'farm_observation';
   $field_group->mode = 'form';
-  $field_group->parent_name = '';
+  $field_group->parent_name = 'group_farm_general';
   $field_group->data = array(
     'label' => 'Assignment',
     'weight' => '8',
@@ -89,7 +89,7 @@ function farm_log_observation_field_group_info() {
       'instance_settings' => array(
         'required_fields' => 1,
         'id' => '',
-        'classes' => 'group-farm-assignment field-group-fieldset',
+        'classes' => '',
         'description' => '',
       ),
       'formatter' => 'collapsed',
@@ -105,7 +105,7 @@ function farm_log_observation_field_group_info() {
   $field_group->entity_type = 'log';
   $field_group->bundle = 'farm_observation';
   $field_group->mode = 'form';
-  $field_group->parent_name = '';
+  $field_group->parent_name = 'group_farm_general';
   $field_group->data = array(
     'label' => 'Category',
     'weight' => '7',
@@ -134,24 +134,21 @@ function farm_log_observation_field_group_info() {
   $field_group->entity_type = 'log';
   $field_group->bundle = 'farm_observation';
   $field_group->mode = 'form';
-  $field_group->parent_name = '';
+  $field_group->parent_name = 'group_farm_tabs';
   $field_group->data = array(
-    'label' => 'File attachments',
-    'weight' => '9',
+    'label' => 'Files',
+    'weight' => '12',
     'children' => array(
       0 => 'field_farm_files',
       1 => 'field_farm_images',
     ),
-    'format_type' => 'fieldset',
+    'format_type' => 'field_group_easy_responsive_tabs_nav_item',
     'format_settings' => array(
-      'label' => 'File attachments',
+      'formatter' => '',
       'instance_settings' => array(
+        'classes' => '',
         'required_fields' => 1,
-        'id' => '',
-        'classes' => 'group-farm-files field-group-fieldset',
-        'description' => '',
       ),
-      'formatter' => 'collapsed',
     ),
   );
   $field_groups['group_farm_files|log|farm_observation|form'] = $field_group;
@@ -164,22 +161,23 @@ function farm_log_observation_field_group_info() {
   $field_group->entity_type = 'log';
   $field_group->bundle = 'farm_observation';
   $field_group->mode = 'form';
-  $field_group->parent_name = '';
+  $field_group->parent_name = 'group_farm_tabs';
   $field_group->data = array(
-    'label' => 'General information',
-    'weight' => '0',
+    'label' => 'General',
+    'weight' => '6',
     'children' => array(
-      0 => 'name',
-      1 => 'timestamp',
+      0 => 'field_farm_notes',
+      1 => 'name',
+      2 => 'timestamp',
+      3 => 'group_farm_assignment',
+      4 => 'group_farm_category',
     ),
-    'format_type' => 'fieldset',
+    'format_type' => 'field_group_easy_responsive_tabs_nav_item',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'formatter' => '',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => 'group-farm-general field-group-fieldset',
+        'classes' => '',
         'required_fields' => 1,
-        'id' => '',
       ),
     ),
   );
@@ -188,31 +186,147 @@ function farm_log_observation_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_farm_notes|log|farm_observation|form';
-  $field_group->group_name = 'group_farm_notes';
+  $field_group->identifier = 'group_farm_geometry|log|farm_observation|form';
+  $field_group->group_name = 'group_farm_geometry';
+  $field_group->entity_type = 'log';
+  $field_group->bundle = 'farm_observation';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_farm_tabs';
+  $field_group->data = array(
+    'label' => 'Geometry',
+    'weight' => '9',
+    'children' => array(
+      0 => 'field_farm_geofield',
+    ),
+    'format_type' => 'field_group_easy_responsive_tabs_nav_item',
+    'format_settings' => array(
+      'formatter' => '',
+      'instance_settings' => array(
+        'classes' => '',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $field_groups['group_farm_geometry|log|farm_observation|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_farm_movement|log|farm_observation|form';
+  $field_group->group_name = 'group_farm_movement';
+  $field_group->entity_type = 'log';
+  $field_group->bundle = 'farm_observation';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_farm_tabs';
+  $field_group->data = array(
+    'label' => 'Movement',
+    'weight' => '10',
+    'children' => array(
+      0 => 'field_farm_movement',
+    ),
+    'format_type' => 'field_group_easy_responsive_tabs_nav_item',
+    'format_settings' => array(
+      'formatter' => '',
+      'instance_settings' => array(
+        'classes' => '',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $field_groups['group_farm_movement|log|farm_observation|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_farm_quantity|log|farm_observation|form';
+  $field_group->group_name = 'group_farm_quantity';
+  $field_group->entity_type = 'log';
+  $field_group->bundle = 'farm_observation';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_farm_tabs';
+  $field_group->data = array(
+    'label' => 'Quantity',
+    'weight' => '8',
+    'children' => array(
+      0 => 'field_farm_quantity',
+    ),
+    'format_type' => 'field_group_easy_responsive_tabs_nav_item',
+    'format_settings' => array(
+      'formatter' => '',
+      'instance_settings' => array(
+        'classes' => '',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $field_groups['group_farm_quantity|log|farm_observation|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_farm_references|log|farm_observation|form';
+  $field_group->group_name = 'group_farm_references';
+  $field_group->entity_type = 'log';
+  $field_group->bundle = 'farm_observation';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_farm_tabs';
+  $field_group->data = array(
+    'label' => 'References',
+    'weight' => '7',
+    'children' => array(
+      0 => 'group_farm_areas',
+      1 => 'group_farm_assets',
+    ),
+    'format_type' => 'field_group_easy_responsive_tabs_nav_item',
+    'format_settings' => array(
+      'formatter' => '',
+      'instance_settings' => array(
+        'classes' => '',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $field_groups['group_farm_references|log|farm_observation|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_farm_tabs|log|farm_observation|form';
+  $field_group->group_name = 'group_farm_tabs';
   $field_group->entity_type = 'log';
   $field_group->bundle = 'farm_observation';
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'Notes',
-    'weight' => '6',
+    'label' => 'Tabs',
+    'weight' => '1',
     'children' => array(
-      0 => 'field_farm_notes',
+      0 => 'group_farm_files',
+      1 => 'group_farm_general',
+      2 => 'group_farm_references',
+      3 => 'group_farm_movement',
+      4 => 'group_farm_geometry',
+      5 => 'group_farm_quantity',
     ),
-    'format_type' => 'fieldset',
+    'format_type' => 'field_group_easy_responsive_tabs_nav',
     'format_settings' => array(
-      'label' => 'Notes',
+      'label' => 'Tabs',
       'instance_settings' => array(
+        'type' => 'vertical',
+        'width' => 'auto',
+        'fit' => '1',
+        'closed' => '0',
+        'activetab_bg' => '',
+        'inactive_bg' => '',
+        'active_border_color' => '',
+        'active_content_border_color' => '',
+        'tabidentify' => '',
         'required_fields' => 1,
-        'id' => '',
-        'classes' => 'group-farm-notes field-group-fieldset',
-        'description' => '',
+        'classes' => '',
       ),
-      'formatter' => 'collapsed',
     ),
   );
-  $field_groups['group_farm_notes|log|farm_observation|form'] = $field_group;
+  $field_groups['group_farm_tabs|log|farm_observation|form'] = $field_group;
 
   // Translatables
   // Included for use with string extractors like potx.
@@ -220,9 +334,13 @@ function farm_log_observation_field_group_info() {
   t('Assets');
   t('Assignment');
   t('Category');
-  t('File attachments');
-  t('General information');
-  t('Notes');
+  t('Files');
+  t('General');
+  t('Geometry');
+  t('Movement');
+  t('Quantity');
+  t('References');
+  t('Tabs');
 
   return $field_groups;
 }

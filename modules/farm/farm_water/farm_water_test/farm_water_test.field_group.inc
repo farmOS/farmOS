@@ -18,10 +18,10 @@ function farm_water_test_field_group_info() {
   $field_group->entity_type = 'log';
   $field_group->bundle = 'farm_water_test';
   $field_group->mode = 'form';
-  $field_group->parent_name = '';
+  $field_group->parent_name = 'group_farm_general';
   $field_group->data = array(
     'label' => 'Assignment',
-    'weight' => '4',
+    'weight' => '19',
     'children' => array(
       0 => 'field_farm_log_owner',
     ),
@@ -47,10 +47,10 @@ function farm_water_test_field_group_info() {
   $field_group->entity_type = 'log';
   $field_group->bundle = 'farm_water_test';
   $field_group->mode = 'form';
-  $field_group->parent_name = '';
+  $field_group->parent_name = 'group_farm_general';
   $field_group->data = array(
     'label' => 'Category',
-    'weight' => '3',
+    'weight' => '18',
     'children' => array(
       0 => 'field_farm_log_category',
     ),
@@ -76,24 +76,22 @@ function farm_water_test_field_group_info() {
   $field_group->entity_type = 'log';
   $field_group->bundle = 'farm_water_test';
   $field_group->mode = 'form';
-  $field_group->parent_name = '';
+  $field_group->parent_name = 'group_farm_tabs';
   $field_group->data = array(
-    'label' => 'File attachments',
-    'weight' => '5',
+    'label' => 'Files',
+    'weight' => '3',
     'children' => array(
       0 => 'field_farm_files',
       1 => 'field_farm_images',
     ),
-    'format_type' => 'fieldset',
+    'format_type' => 'field_group_easy_responsive_tabs_nav_item',
     'format_settings' => array(
-      'label' => 'File attachments',
+      'label' => 'Files',
       'instance_settings' => array(
         'required_fields' => 1,
-        'id' => '',
-        'classes' => 'group-farm-files field-group-fieldset',
-        'description' => '',
+        'classes' => '',
       ),
-      'formatter' => 'collapsed',
+      'formatter' => '',
     ),
   );
   $field_groups['group_farm_files|log|farm_water_test|form'] = $field_group;
@@ -106,24 +104,26 @@ function farm_water_test_field_group_info() {
   $field_group->entity_type = 'log';
   $field_group->bundle = 'farm_water_test';
   $field_group->mode = 'form';
-  $field_group->parent_name = '';
+  $field_group->parent_name = 'group_farm_tabs';
   $field_group->data = array(
-    'label' => 'General information',
-    'weight' => '0',
+    'label' => 'General',
+    'weight' => '1',
     'children' => array(
-      0 => 'field_farm_water_lab',
-      1 => 'name',
-      2 => 'timestamp',
+      0 => 'field_farm_notes',
+      1 => 'field_farm_water_lab',
+      2 => 'name',
+      3 => 'timestamp',
+      4 => 'group_farm_category',
+      5 => 'group_farm_assignment',
     ),
-    'format_type' => 'fieldset',
+    'format_type' => 'field_group_easy_responsive_tabs_nav_item',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'General',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => 'group-farm-general field-group-fieldset',
         'required_fields' => 1,
-        'id' => '',
+        'classes' => '',
       ),
+      'formatter' => '',
     ),
   );
   $field_groups['group_farm_general|log|farm_water_test|form'] = $field_group;
@@ -131,31 +131,39 @@ function farm_water_test_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_farm_notes|log|farm_water_test|form';
-  $field_group->group_name = 'group_farm_notes';
+  $field_group->identifier = 'group_farm_tabs|log|farm_water_test|form';
+  $field_group->group_name = 'group_farm_tabs';
   $field_group->entity_type = 'log';
   $field_group->bundle = 'farm_water_test';
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'Notes',
-    'weight' => '2',
+    'label' => 'Tabs',
+    'weight' => '0',
     'children' => array(
-      0 => 'field_farm_notes',
+      0 => 'group_farm_files',
+      1 => 'group_farm_general',
+      2 => 'group_farm_water',
     ),
-    'format_type' => 'fieldset',
+    'format_type' => 'field_group_easy_responsive_tabs_nav',
     'format_settings' => array(
-      'label' => 'Notes',
+      'label' => 'Tabs',
       'instance_settings' => array(
+        'type' => 'vertical',
+        'width' => 'auto',
+        'fit' => '1',
+        'closed' => '0',
+        'activetab_bg' => '',
+        'inactive_bg' => '',
+        'active_border_color' => '',
+        'active_content_border_color' => '',
+        'tabidentify' => '',
         'required_fields' => 1,
-        'id' => '',
-        'classes' => 'group-farm-notes field-group-fieldset',
-        'description' => '',
+        'classes' => 'group-farm-tabs field-group-field_group_easy_responsive_tabs_nav',
       ),
-      'formatter' => 'collapsed',
     ),
   );
-  $field_groups['group_farm_notes|log|farm_water_test|form'] = $field_group;
+  $field_groups['group_farm_tabs|log|farm_water_test|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -165,24 +173,21 @@ function farm_water_test_field_group_info() {
   $field_group->entity_type = 'log';
   $field_group->bundle = 'farm_water_test';
   $field_group->mode = 'form';
-  $field_group->parent_name = '';
+  $field_group->parent_name = 'group_farm_tabs';
   $field_group->data = array(
     'label' => 'Water information',
-    'weight' => '1',
+    'weight' => '2',
     'children' => array(
       0 => 'field_farm_area',
       1 => 'field_farm_geofield',
     ),
-    'format_type' => 'fieldset',
+    'format_type' => 'field_group_easy_responsive_tabs_nav_item',
     'format_settings' => array(
-      'label' => 'Water information',
+      'formatter' => '',
       'instance_settings' => array(
+        'classes' => '',
         'required_fields' => 1,
-        'id' => '',
-        'classes' => 'group-farm-water field-group-fieldset',
-        'description' => '',
       ),
-      'formatter' => 'collapsible',
     ),
   );
   $field_groups['group_farm_water|log|farm_water_test|form'] = $field_group;
@@ -191,9 +196,9 @@ function farm_water_test_field_group_info() {
   // Included for use with string extractors like potx.
   t('Assignment');
   t('Category');
-  t('File attachments');
-  t('General information');
-  t('Notes');
+  t('Files');
+  t('General');
+  t('Tabs');
   t('Water information');
 
   return $field_groups;

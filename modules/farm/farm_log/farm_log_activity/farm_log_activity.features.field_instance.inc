@@ -79,7 +79,7 @@ function farm_log_activity_field_default_field_instances() {
         'view_mode' => 'full',
       ),
       'type' => 'entityreference_view_widget',
-      'weight' => 9,
+      'weight' => 13,
     ),
   );
 
@@ -162,6 +162,11 @@ function farm_log_activity_field_default_field_instances() {
         'handler_settings' => array(
           'google' => array(
             'all_results' => 0,
+            'biasing' => array(
+              'bounds' => '',
+              'components' => '',
+              'region' => '',
+            ),
             'geometry_type' => 'point',
             'reject_results' => array(
               'APPROXIMATE' => 0,
@@ -359,7 +364,7 @@ function farm_log_activity_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 4,
+      'weight' => 8,
     ),
   );
 

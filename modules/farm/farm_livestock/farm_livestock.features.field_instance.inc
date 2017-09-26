@@ -43,7 +43,7 @@ function farm_livestock_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 7,
+      'weight' => -5,
     ),
   );
 
@@ -77,7 +77,7 @@ function farm_livestock_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'taxonomy_autocomplete',
-      'weight' => 5,
+      'weight' => -7,
     ),
   );
 
@@ -142,7 +142,7 @@ function farm_livestock_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 6,
+      'weight' => -6,
     ),
   );
 
@@ -209,7 +209,7 @@ function farm_livestock_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'taxonomy_autocomplete',
-      'weight' => 4,
+      'weight' => -8,
     ),
   );
 
@@ -259,7 +259,7 @@ function farm_livestock_field_default_field_instances() {
         'year_range' => '-10:+3',
       ),
       'type' => 'date_select',
-      'weight' => 3,
+      'weight' => -9,
     ),
   );
 
@@ -293,7 +293,7 @@ function farm_livestock_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 11,
+      'weight' => -4,
     ),
   );
 
@@ -566,7 +566,7 @@ function farm_livestock_field_default_field_instances() {
         'view_mode' => 'full',
       ),
       'type' => 'entityreference_view_widget',
-      'weight' => 3,
+      'weight' => -8,
     ),
   );
 
@@ -752,7 +752,7 @@ function farm_livestock_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 1,
+      'weight' => 2,
     ),
   );
 
@@ -786,7 +786,7 @@ function farm_livestock_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 3,
+      'weight' => -7,
     ),
   );
 

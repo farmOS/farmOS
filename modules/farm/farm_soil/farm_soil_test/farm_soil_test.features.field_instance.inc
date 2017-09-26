@@ -37,7 +37,7 @@ function farm_soil_test_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 2,
+      'weight' => 6,
     ),
   );
 
@@ -139,7 +139,7 @@ function farm_soil_test_field_default_field_instances() {
         'use_geocoder' => 1,
       ),
       'type' => 'openlayers_geofield',
-      'weight' => 3,
+      'weight' => 7,
     ),
   );
 
@@ -289,7 +289,7 @@ function farm_soil_test_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 6,
+      'weight' => -7,
     ),
   );
 
@@ -323,7 +323,7 @@ function farm_soil_test_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 4,
+      'weight' => -8,
     ),
   );
 
@@ -357,7 +357,7 @@ function farm_soil_test_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'taxonomy_autocomplete',
-      'weight' => 5,
+      'weight' => 8,
     ),
   );
 

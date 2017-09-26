@@ -40,7 +40,7 @@ function farm_livestock_eggs_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'options_buttons',
-      'weight' => 3,
+      'weight' => -3,
     ),
   );
 
@@ -80,7 +80,7 @@ function farm_livestock_eggs_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 2,
+      'weight' => -4,
     ),
   );
 
@@ -179,7 +179,7 @@ function farm_livestock_eggs_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 3,
+      'weight' => -2,
     ),
   );
 
