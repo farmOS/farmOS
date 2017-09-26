@@ -1,0 +1,4 @@
+name = Farm Inventory
+description = Provides inventory management functionality for farm assets.
+core = 7.x
+package = farmOS
