@@ -40,7 +40,7 @@ function farm_group_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 3,
+      'weight' => -9,
     ),
   );
 
