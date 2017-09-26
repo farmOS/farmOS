@@ -73,6 +73,9 @@ function farm_crop_form_farm_asset_form_alter(&$form, &$form_state, $form_id) {
 
   // Add a submit handler.
   $form['actions']['submit']['#submit'][] = 'farm_crop_planting_plan_submit';
+
+  // Add to the "General" group.
+  $form['#group_children']['plan'] = 'group_farm_general';
 }
 
 /**

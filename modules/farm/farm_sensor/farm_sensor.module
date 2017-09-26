@@ -270,6 +270,9 @@ function farm_sensor_form_alter(&$form, &$form_state, $form_id) {
     // Add it to the fieldset.
     $form['sensor']['sensor_settings'] = array_merge($form['sensor']['sensor_settings'], $settings_form);
   }
+
+  // Add to the "General" group.
+  $form['#group_children']['sensor'] = 'group_farm_general';
 }
 
 /**
