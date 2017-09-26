@@ -427,10 +427,7 @@ function farm_log_movement_asset_move_action_submit(array $form, array $form_sta
 
   // Convert the date to a timestamp.
   $timestamp = strtotime($form_state['values']['date']);
-  watchdog('test', $timestamp);
-  watchdog('test',date('Ymd', $timestamp));
-  watchdog('test',REQUEST_TIME);
-  watchdog('test',date('Ymd', REQUEST_TIME));
+
   // The action form only includes month, day, and year. If the movement is
   // today, then we assume that the current time should also be included.
   if (date('Ymd', $timestamp) == date('Ymd', REQUEST_TIME)) {
