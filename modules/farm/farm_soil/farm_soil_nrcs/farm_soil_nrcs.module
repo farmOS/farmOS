@@ -40,7 +40,7 @@ function farm_soil_nrcs_form_alter(&$form, &$form_state, $form_id) {
 function farm_soil_nrcs_soil_name_lookup_button(&$form, &$form_state) {
 
   // Define the field names.
-  $geofield = 'field_farm_soil_sample_points';
+  $geofield = 'field_farm_geofield';
   $textfield = 'field_farm_soil_names';
 
   // If the geofield or textfield don't exist, bail.
@@ -93,8 +93,8 @@ function farm_soil_nrcs_soil_name_lookup_ajax($form, $form_state) {
 function farm_soil_nrcs_soil_name_lookup_submit($form, &$form_state) {
 
   // Grab the geometry from the geofield input.
-  if (!empty($form_state['input']['field_farm_soil_sample_points'][LANGUAGE_NONE][0]['geom'])) {
-    $wkt = $form_state['input']['field_farm_soil_sample_points'][LANGUAGE_NONE][0]['geom'];
+  if (!empty($form_state['input']['field_farm_geofield'][LANGUAGE_NONE][0]['geom'])) {
+    $wkt = $form_state['input']['field_farm_geofield'][LANGUAGE_NONE][0]['geom'];
   }
 
   // Request soil names from the NRCS.
