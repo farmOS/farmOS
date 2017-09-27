@@ -231,6 +231,39 @@ function farm_log_observation_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_observation-field_farm_inventory'.
+  $field_instances['log-farm_observation-field_farm_inventory'] = array(
+    'bundle' => 'farm_observation',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Use this to set or adjust asset inventory levels along with this log.',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'field_collection',
+        'settings' => array(
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_fields',
+        'weight' => 10,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_inventory',
+    'label' => 'Inventory adjustments',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 12,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_observation-field_farm_log_category'.
   $field_instances['log-farm_observation-field_farm_log_category'] = array(
     'bundle' => 'farm_observation',
@@ -403,6 +436,7 @@ function farm_log_observation_field_default_field_instances() {
   t('Assigned to');
   t('Files');
   t('Geometry');
+  t('Inventory adjustments');
   t('Log category');
   t('Movement');
   t('Notes');
@@ -413,6 +447,7 @@ function farm_log_observation_field_default_field_instances() {
   t('This field is optional. It allows you to store geospatial data along with this observation.');
   t('Use these fields to record a movement with this log entry. This will be used to define the location of any referenced assets. The current location of any asset is determined by the most recently completed movement log. Only the "to" field is required.');
   t('Use this to organize your logs into categories for easier searching and filtering later.');
+  t('Use this to set or adjust asset inventory levels along with this log.');
   t('What areas is this observation taking place in?');
   t('What assets do this observation log pertain to?');
 

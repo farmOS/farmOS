@@ -429,6 +429,39 @@ function farm_log_input_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_input-field_farm_inventory'.
+  $field_instances['log-farm_input-field_farm_inventory'] = array(
+    'bundle' => 'farm_input',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Use this to set or adjust asset inventory levels along with this log.',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'field_collection',
+        'settings' => array(
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_fields',
+        'weight' => 16,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_inventory',
+    'label' => 'Inventory adjustments',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 16,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_input-field_farm_log_category'.
   $field_instances['log-farm_input-field_farm_log_category'] = array(
     'bundle' => 'farm_input',
@@ -693,6 +726,7 @@ function farm_log_input_field_default_field_instances() {
   t('How was this input applied?');
   t('If the manufacturer assigned this input a lot number, enter it here.');
   t('Input lot number');
+  t('Inventory adjustments');
   t('Log category');
   t('Material');
   t('Movement');
@@ -705,6 +739,7 @@ function farm_log_input_field_default_field_instances() {
   t('This field is optional. It allows you to store geospatial data along with this input.');
   t('Use these fields to record a movement with this log entry. This will be used to define the location of any referenced assets. The current location of any asset is determined by the most recently completed movement log. Only the "to" field is required.');
   t('Use this to organize your logs into categories for easier searching and filtering later.');
+  t('Use this to set or adjust asset inventory levels along with this log.');
   t('What areas is this input being applied to?');
   t('What assets do this input log pertain to?');
   t('What material is being applied? As you type, you will have the option of selecting from materials that you\'ve entered in the past.');
