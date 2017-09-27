@@ -4,3 +4,106 @@
  * @file
  * Farm inventory module.
  */
+
+/**
+ * Calculate an asset's inventory level.
+ *
+ * @param FarmAsset $asset
+ *   The farm_asset object to calculate inventory for.
+ * @param int $time
+ *   Unix timestamp limiter. Only logs before this time will be included.
+ *   Defaults to the current time. Set to 0 to load the absolute last.
+ * @param bool $done
+ *   Whether or not to only load inventory from logs that are marked as "done".
+ *   Defaults to TRUE.
+ *
+ * @return string
+ *   Returns the asset's inventory as a string.
+ */
+function farm_inventory(FarmAsset $asset, $time = REQUEST_TIME, $done = TRUE) {
+
+  // If the asset doesn't have an ID (for instance if it is new and hasn't been
+  // saved yet), bail.
+  if (empty($asset->id)) {
+    return FALSE;
+  }
+
+  // Make a query for calculating the inventory.
+  $query = farm_inventory_query($asset->id, $time, $done);
+
+  // Execute the query and gather the inventory result.
+  $result = $query->execute();
+  $inventory = $result->fetchField();
+
+  // Add zero (to remove trailing zeroes).
+  // See https://stackoverflow.com/questions/14531679/remove-useless-zero-digits-from-decimals-in-php
+  $inventory += 0;
+
+  // Convert to a string.
+  $inventory = (string) $inventory;
+
+  // Return the inventory.
+  return $inventory;
+}
+
+/**
+ * Build a query to calculate an asset's inventory level.
+ *
+ * @param int $asset_id
+ *   The asset id to search for.
+ * @param int $time
+ *   Unix timestamp limiter. Only logs before this time will be included.
+ *   Defaults to the current time. Set to 0 to load the absolute last.
+ * @param bool $done
+ *   Whether or not to only show logs that are marked as "done". Defaults to
+ *   TRUE.
+ *
+ * @return \SelectQuery
+ *   Returns a SelectQuery object.
+ */
+function farm_inventory_query($asset_id, $time = REQUEST_TIME, $done = TRUE) {
+
+  // Build a query to calculate an asset's inventory level, based on logs.
+  $query = db_select('log', 'l');
+
+  // Join in the Inventory field collection's asset and value fields.
+  $query->join('field_data_field_farm_inventory', 'fdffi', "fdffi.entity_type = 'log' AND fdffi.deleted != 1 AND fdffi.entity_id = l.id");
+  $query->join('field_data_field_farm_inventory_asset', 'fdffia', "fdffi.deleted != 1 AND fdffia.entity_id = fdffi.field_farm_inventory_value");
+  $query->join('field_data_field_farm_inventory_value', 'fdffiv', "fdffi.deleted != 1 AND fdffiv.entity_id = fdffi.field_farm_inventory_value");
+
+  // Filter to only include logs that have inventory adjustments.
+  $query->where('fdffi.field_farm_inventory_value IS NOT NULL');
+
+  // Ensure $asset_id and $time are positive integers, because we use them
+  // directly in the query's WHERE statements below. This is defensive code.
+  if (!is_int($asset_id) || $asset_id < 0) {
+    $asset_id = (int) $asset_id;
+  }
+  if (!is_int($time) || $time < 0) {
+    $time = REQUEST_TIME;
+  }
+
+  // Filter to only include inventory adjustments to the specified asset.
+  $query->where('fdffia.field_farm_inventory_asset_target_id = ' . $asset_id);
+
+  // If $time is not zero, limit to only logs before it. This allows the
+  // absolute last log to be found by setting $time to zero.
+  if ($time !== 0) {
+    $query->where('l.timestamp <= ' . $time);
+  }
+
+  // If only "done" movement logs should be included, add a filter.
+  if ($done) {
+    $query->where('l.done = 1');
+  }
+
+  // Order by timestamp and then log id, descending.
+  $query->orderBy('l.timestamp', 'DESC');
+  $query->orderBy('l.id', 'DESC');
+
+  // Add an expression that calculates the SUM of all values.
+  $query->addExpression('SUM(fdffiv.field_farm_inventory_value_numerator / fdffiv.field_farm_inventory_value_denominator)', 'inventory');
+
+  // Return the query object.
+  return $query;
+}
