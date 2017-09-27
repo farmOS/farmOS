@@ -6,6 +6,30 @@
  */
 
 /**
+ * Implements hook_entity_view_alter().
+ */
+function farm_inventory_entity_view_alter(&$build, $type) {
+
+  // If it's not a farm_asset, or if the entity object is not available, bail.
+  if ($type != 'farm_asset' || empty($build['#entity'])) {
+    return;
+  }
+
+  // Start an output string.
+  $output = '<strong>' . t('Inventory') . ':</strong> ';
+
+  // Get the asset's inventory and add it to the output.
+  $inventory = farm_inventory($build['#entity']);
+  $output .= ' ' . $inventory;
+
+  // Add it to the build array.
+  $build['inventory'] = array(
+    '#markup' => $output,
+    '#weight' => -90,
+  );
+}
+
+/**
  * Calculate an asset's inventory level.
  *
  * @param FarmAsset $asset
