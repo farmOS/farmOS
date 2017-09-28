@@ -679,7 +679,7 @@ function farm_log_input_field_default_field_instances() {
     'bundle' => 'farm_input',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Describe the quantity of this input, using a value and a unit of measurement. For example, if you used 10 gallons of liquid fertilizer, enter "10" in the Value field, and "gallons" in the Units field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.',
+    'description' => 'Describe the quantity of this input, using a value, unit, and measure. For example, if you used 10 gallons of liquid fertilizer, enter "10" in the Value field, and "gallons" in the Units field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -720,7 +720,7 @@ function farm_log_input_field_default_field_instances() {
   t('Assets');
   t('Assigned to');
   t('Date purchased');
-  t('Describe the quantity of this input, using a value and a unit of measurement. For example, if you used 10 gallons of liquid fertilizer, enter "10" in the Value field, and "gallons" in the Units field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.');
+  t('Describe the quantity of this input, using a value, unit, and measure. For example, if you used 10 gallons of liquid fertilizer, enter "10" in the Value field, and "gallons" in the Units field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.');
   t('Files');
   t('Geometry');
   t('How was this input applied?');
