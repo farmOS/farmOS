@@ -650,6 +650,13 @@ function farm_update_7031(&$sandbox) {
 }
 
 /**
+ * Enable new Farm Inventory module.
+ */
+function farm_update_7032(&$sandbox) {
+  _farm_update_enable_modules(array('farm_inventory'));
+}
+
+/**
  * Update helper function: enable modules.
  */
 function _farm_update_enable_modules($modules = array()) {
