@@ -92,3 +92,22 @@ function farm_quantity_settings_form($form, &$form_state) {
   // Return it as a system settings form.
   return system_settings_form($form);
 }
+
+/**
+ * Define available options for the Measure field.
+ */
+function farm_quantity_measure_options() {
+  return array(
+    'count' => 'Count',
+    'length' => 'Length',
+    'weight' => 'Weight',
+    'volume' => 'Volume',
+    'time' => 'Time',
+    'temperature' => 'Temperature',
+    'water_content' => 'Water content',
+    'value' => 'Value',
+    'rating' => 'Rating',
+    'ratio' => 'Ratio',
+    'probability' => 'Probability',
+  );
+}
