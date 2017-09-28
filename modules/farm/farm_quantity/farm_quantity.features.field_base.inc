@@ -36,6 +36,28 @@ function farm_quantity_field_default_field_bases() {
     'type' => 'field_collection',
   );
 
+  // Exported field_base: 'field_farm_quantity_measure'.
+  $field_bases['field_farm_quantity_measure'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_farm_quantity_measure',
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'list',
+    'settings' => array(
+      'allowed_values' => array(),
+      'allowed_values_function' => '',
+    ),
+    'translatable' => 0,
+    'type' => 'list_text',
+  );
+
   // Exported field_base: 'field_farm_quantity_units'.
   $field_bases['field_farm_quantity_units'] = array(
     'active' => 1,

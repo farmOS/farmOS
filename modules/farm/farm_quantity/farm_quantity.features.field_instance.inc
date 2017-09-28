@@ -11,6 +11,38 @@ function farm_quantity_field_default_field_instances() {
   $field_instances = array();
 
   // Exported field_instance:
+  // 'field_collection_item-field_farm_quantity-field_farm_quantity_measure'.
+  $field_instances['field_collection_item-field_farm_quantity-field_farm_quantity_measure'] = array(
+    'bundle' => 'field_farm_quantity',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'What type of measurement is this quantity?',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 2,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_farm_quantity_measure',
+    'label' => 'Measure',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 2,
+    ),
+  );
+
+  // Exported field_instance:
   // 'field_collection_item-field_farm_quantity-field_farm_quantity_units'.
   $field_instances['field_collection_item-field_farm_quantity-field_farm_quantity_units'] = array(
     'bundle' => 'field_farm_quantity',
@@ -90,8 +122,10 @@ function farm_quantity_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Measure');
   t('Units');
   t('Value');
+  t('What type of measurement is this quantity?');
 
   return $field_instances;
 }
