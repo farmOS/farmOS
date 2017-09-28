@@ -21,9 +21,6 @@ projects[ctools][patch][] = "http://www.drupal.org/files/issues/ctools-fix_modal
 projects[date][subdir] = "contrib"
 projects[date][version] = "2.10"
 
-projects[field_group_easy_responsive_tabs][subdir] = "contrib"
-projects[field_group_easy_responsive_tabs][version] = "2.10"
-
 projects[entity][subdir] = "contrib"
 projects[entity][version] = "1.8"
 
@@ -58,6 +55,9 @@ projects[field_collection][patch][] = "http://www.drupal.org/files/issues/add_fe
 
 projects[field_group][subdir] = "contrib"
 projects[field_group][version] = "1.5"
+
+projects[field_group_easy_responsive_tabs][subdir] = "contrib"
+projects[field_group_easy_responsive_tabs][version] = "1.2"
 
 projects[fraction][subdir] = "contrib"
 projects[fraction][version] = "1.5"
