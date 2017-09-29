@@ -20,6 +20,7 @@ The farmOS project is made possible by many supporters.
 * [Coos County Conservation District](http://www.cooscountyconservation.org)
 * [Long Island Sound RCPP](http://www.lisw-rcpp.com)
 * [University of Vermont Extension](https://www.uvm.edu/extension)
+* [Bionutrient Food Association](http://bionutrient.org)
 
 ## Individuals
 
@@ -33,6 +34,7 @@ The farmOS project is made possible by many supporters.
 * Joel Baranick
 * Svenn Are Bjerkem
 * Kenny Robinson
+* Dan Kittredge
 * [Stephen Woodbridge](http://imaptools.com)
 * Andy Grimley
 
