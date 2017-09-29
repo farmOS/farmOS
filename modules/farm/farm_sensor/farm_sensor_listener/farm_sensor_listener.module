@@ -238,6 +238,9 @@ function farm_sensor_listener_process_data($sensor, $data) {
 
     // Enter the reading into the {farm_sensor_data} table.
     drupal_write_record('farm_sensor_data', $row);
+
+    // Invoke hook_farm_sensor_listener_data().
+    module_invoke_all('farm_sensor_listener_data', $sensor, $key, $value);
   }
 }
 
