@@ -28,6 +28,7 @@ The farmOS project is made possible by many supporters.
 * [Michael Stenta](http://mstenta.net)
 * Dorn Cox
 * RJ Steinert
+* Bruce Dawson
 * Pol Dellaiera
 * Phil Anzel
 * Jeff Warren
