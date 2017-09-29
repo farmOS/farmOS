@@ -88,7 +88,7 @@ function farm_sensor_listener_mail($key, &$message, $params) {
  *   }
  * Where:
  *   "timestamp" is an optional Unix timestamp of the sensor reading. If it's
- *     omitted, the time that the request is received will be used instead.
+ *   omitted, the time that the request is received will be used instead.
  *   The rest of the JSON properties will be considered sensor readings, and
  *   should be in the form "[name]": [value]. The value should be a decimal or
  *   integer, and will be stored as a fraction (numerator and denominator) in
