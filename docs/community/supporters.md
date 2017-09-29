@@ -21,6 +21,7 @@ The farmOS project is made possible by many supporters.
 * [Long Island Sound RCPP](http://www.lisw-rcpp.com)
 * [University of Vermont Extension](https://www.uvm.edu/extension)
 * [Bionutrient Food Association](http://bionutrient.org)
+* [Globetrotter Foundation](http://globetrotterfoundation.org)
 
 ## Individuals
 
@@ -37,4 +38,5 @@ The farmOS project is made possible by many supporters.
 * Dan Kittredge
 * [Stephen Woodbridge](http://imaptools.com)
 * Andy Grimley
+* Sallie Calhoun
 
