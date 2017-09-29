@@ -19,6 +19,7 @@ The farmOS project is made possible by many supporters.
 * [Sullivan County Conservation District](http://www.sullivancountynh.gov/index.php?n=conservation_district)
 * [Coos County Conservation District](http://www.cooscountyconservation.org)
 * [Long Island Sound RCPP](http://www.lisw-rcpp.com)
+* [Pennsylvania Association for Sustainable Agriculture](https://www.pasafarming.org)
 * [University of Vermont Extension](https://www.uvm.edu/extension)
 * [Bionutrient Food Association](http://bionutrient.org)
 * [Globetrotter Foundation](http://globetrotterfoundation.org)
