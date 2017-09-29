@@ -186,11 +186,26 @@ function farm_sensor_listener_process_data($sensor, $data) {
     return;
   }
 
-  // Generate a timestamp from the request time. This will be overridden if
-  // a timestamp is provided in the JSON.
+  // Generate a timestamp from the request time. This will only be used if a
+  // timestamp is not provided in the JSON data.
   $timestamp = REQUEST_TIME;
+
+  // If a timestamp is provided, ensure that it is in UNIX timestamp format.
   if (!empty($data['timestamp'])) {
-    $timestamp = $data['timestamp'];
+
+    // If the timestamp is numeric, we're good!
+    if (is_numeric($data['timestamp'])) {
+      $timestamp = $data['timestamp'];
+    }
+
+    // Otherwise, try converting it from a string. If that doesn't work, we
+    // throw it out and fall back on REQUEST_TIME set above.
+    else {
+      $strtotime = strtotime($data['timestamp']);
+      if (!empty($strtotime)) {
+        $timestamp = $strtotime;
+      }
+    }
   }
 
   // Iterate over the JSON properties.
