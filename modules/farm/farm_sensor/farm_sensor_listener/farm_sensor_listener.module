@@ -179,7 +179,7 @@ function farm_sensor_listener_process_data($sensor, $data) {
 
   // If the data is an array of multiple data points, iterate over each and
   // recursively process.
-  if (is_array($data[0])) {
+  if (is_array(reset($data))) {
     foreach ($data as $point) {
       farm_sensor_listener_process_data($sensor, $point);
     }
