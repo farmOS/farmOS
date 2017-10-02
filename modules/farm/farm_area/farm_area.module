@@ -136,11 +136,13 @@ function farm_area_type_options() {
  *
  * @param $type
  *   Optionally specify an area type to filter by.
+ * @param $sort
+ *   Optionally specify the property to sort by. Defaults to 'id'.
  *
  * @return array
  *   Returns an array of areas.
  */
-function farm_area_load_areas($type = '') {
+function farm_area_load_areas($type = '', $sort = 'id') {
 
   // Start with an empty array.
   $areas = array();
@@ -148,8 +150,16 @@ function farm_area_load_areas($type = '') {
   // Start an entity field query for terms in the farm_areas vocabulary.
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'taxonomy_term')
-    ->entityCondition('bundle', 'farm_areas')
-    ->propertyOrderBy('tid', 'ASC');
+    ->entityCondition('bundle', 'farm_areas');
+
+  // If the $sort argument is 'id', translate it to 'tid' (remove this if/when
+  // areas become assets (see https://www.drupal.org/node/2363393).
+  if ($sort == 'id') {
+    $sort = 'tid';
+  }
+
+  // Sort the results.
+  $query->propertyOrderBy($sort, 'ASC');
 
   // If a type is defined, add a field condition to filter by that type.
   if (!empty($type)) {
