@@ -88,7 +88,7 @@ function farm_sensor_listener_mail($key, &$message, $params) {
  *   }
  * Where:
  *   "timestamp" is an optional Unix timestamp of the sensor reading. If it's
- *     omitted, the time that the request is received will be used instead.
+ *   omitted, the time that the request is received will be used instead.
  *   The rest of the JSON properties will be considered sensor readings, and
  *   should be in the form "[name]": [value]. The value should be a decimal or
  *   integer, and will be stored as a fraction (numerator and denominator) in
@@ -179,18 +179,33 @@ function farm_sensor_listener_process_data($sensor, $data) {
 
   // If the data is an array of multiple data points, iterate over each and
   // recursively process.
-  if (is_array($data[0])) {
+  if (is_array(reset($data))) {
     foreach ($data as $point) {
       farm_sensor_listener_process_data($sensor, $point);
     }
     return;
   }
 
-  // Generate a timestamp from the request time. This will be overridden if
-  // a timestamp is provided in the JSON.
+  // Generate a timestamp from the request time. This will only be used if a
+  // timestamp is not provided in the JSON data.
   $timestamp = REQUEST_TIME;
+
+  // If a timestamp is provided, ensure that it is in UNIX timestamp format.
   if (!empty($data['timestamp'])) {
-    $timestamp = $data['timestamp'];
+
+    // If the timestamp is numeric, we're good!
+    if (is_numeric($data['timestamp'])) {
+      $timestamp = $data['timestamp'];
+    }
+
+    // Otherwise, try converting it from a string. If that doesn't work, we
+    // throw it out and fall back on REQUEST_TIME set above.
+    else {
+      $strtotime = strtotime($data['timestamp']);
+      if (!empty($strtotime)) {
+        $timestamp = $strtotime;
+      }
+    }
   }
 
   // Iterate over the JSON properties.
@@ -223,6 +238,9 @@ function farm_sensor_listener_process_data($sensor, $data) {
 
     // Enter the reading into the {farm_sensor_data} table.
     drupal_write_record('farm_sensor_data', $row);
+
+    // Invoke hook_farm_sensor_listener_data().
+    module_invoke_all('farm_sensor_listener_data', $sensor, $key, $value);
   }
 }
 
