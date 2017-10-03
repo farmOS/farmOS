@@ -127,3 +127,22 @@ function farm_asset_property_is_set($asset_id, $name) {
   $set = db_query('SELECT COUNT(*) FROM {farm_asset_property} WHERE id=:id AND name=:name', array(':id' => $asset_id, ':name' => $name))->fetchField();
   return !empty($set);
 }
+
+/**
+ * Implements hook_entity_delete().
+ */
+function farm_asset_property_entity_delete($entity, $type) {
+
+  // Only act on farm asset entities.
+  if ($type != 'farm_asset') {
+    return;
+  }
+
+  // If for some reason the asset ID is not set, bail.
+  if (empty($entity->id)) {
+    return;
+  }
+
+  // Delete all properties of an asset when the asset is deleted.
+  db_query('DELETE FROM {farm_asset_property} WHERE id=:id', array(':id' => $entity->id));
+}
