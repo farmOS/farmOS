@@ -4,3 +4,126 @@
  * @file
  * Farm asset property.
  */
+
+/**
+ * Get the value of an asset's property, given its ID and property name.
+ *
+ * @param $asset_id
+ *   The ID of the asset.
+ * @param $name
+ *   The name of the property.
+ *
+ * @return string
+ *   Returns the value string. This will be an empty string if the property is
+ *   not set. If you need to check whether or not a property is set, use
+ *   farm_asset_property_is_set() instead, which returns a boolean.
+ */
+function farm_asset_property_get($asset_id, $name) {
+
+  // Query the database for the value.
+  $value = db_query('SELECT value FROM {farm_asset_property} WHERE id=:id AND name=:name', array(':id' => $asset_id, ':name' => $name))->fetchField();
+
+  // If nothing was found, return an empty string.
+  if (empty($value)) {
+    return '';
+  }
+
+  // Unserialize the value.
+  $value = unserialize($value);
+
+  // If it's empty for whatever reason, return an empty string.
+  if (empty($value)) {
+    return '';
+  }
+
+  // Return the value.
+  return $value;
+}
+
+/**
+ * Set an asset's property.
+ *
+ * @param $asset_id
+ *   The ID of the asset.
+ * @param $name
+ *   The property name.
+ * @param $value
+ *   The property value.
+ *
+ * @return bool
+ *   Returns TRUE on success, FALSE on failure.
+ */
+function farm_asset_property_set($asset_id, $name, $value) {
+
+  // Make sure $asset_id and $name are not empty.
+  if (empty($asset_id) || empty($name)) {
+    return FALSE;
+  }
+
+  // Make sure the property name is a string that is less than 128 characters
+  // in length.
+  if (!is_string($name) || strlen($name) > 128) {
+    return FALSE;
+  }
+
+  // Serialize the value.
+  $value = serialize($value);
+
+  // Make sure the asset exists.
+  $exists = db_query('SELECT COUNT(*) FROM {farm_asset} WHERE id = :id', array(':id' => $asset_id))->fetchField();
+  if (empty($exists)) {
+    return FALSE;
+  }
+
+  // Assemble a row for insert/update.
+  $row = array(
+    'id' => $asset_id,
+    'name' => $name,
+    'value' => $value,
+  );
+
+  // Check to see if the property is already set for this asset.
+  $set = farm_asset_property_is_set($asset_id, $name);
+
+  // Insert/update the record in the database.
+  $property = $set ? array('id', 'name') : array();
+  $result = drupal_write_record('farm_asset_property', $row, $property);
+
+  // Return TRUE or FALSE.
+  return !empty($result) ? TRUE : FALSE;
+}
+
+/**
+ * Delete an asset property.
+ *
+ * @param $asset_id
+ *   The ID of the asset.
+ * @param $name
+ *   The name of the property.
+ */
+function farm_asset_property_delete($asset_id, $name) {
+
+  // Make sure the ID and name are not empty.
+  if (empty($asset_id) || empty($name)) {
+    return;
+  }
+
+  // Run a DELETE query.
+  db_query('DELETE FROM {farm_asset_property} WHERE id=:id AND name=:name', array(':id' => $asset_id, ':name' => $name));
+}
+
+/**
+ * Check to see if a specific property is set for an asset.
+ *
+ * @param $asset_id
+ *   The ID of the asset.
+ * @param $name
+ *   The name of the property.
+ *
+ * @return bool
+ *   Returns TRUE if the property is set, FALSE otherwise.
+ */
+function farm_asset_property_is_set($asset_id, $name) {
+  $set = db_query('SELECT COUNT(*) FROM {farm_asset_property} WHERE id=:id AND name=:name', array(':id' => $asset_id, ':name' => $name))->fetchField();
+  return !empty($set);
+}
