@@ -190,7 +190,7 @@ function farm_theme_page_alter(&$page) {
     // Display a link to the user login page.
     $page['content']['system_main']['login'] = array(
       '#type' => 'markup',
-      '#markup' => '<p>' . l('Login to farmOS', 'user') . '</p>',
+      '#markup' => '<p>' . l('Login to farmOS', 'user', array('query' => array('destination' => '<front>'))) . '</p>',
     );
   }
 }
