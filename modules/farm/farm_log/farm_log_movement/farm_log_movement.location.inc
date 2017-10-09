@@ -294,6 +294,26 @@ function farm_log_movement_asset_latest_movement(FarmAsset $asset, $time = REQUE
  */
 function farm_log_movement_asset_movement_query($asset_id, $time = REQUEST_TIME, $done = TRUE, $field = 'log_id') {
 
+  /**
+   * This query is used as a subquery join in the Views handler
+   * farm_log_movement_handler_relationship_location (via the
+   * views_join_subquery class). views_join_subquery does not support query
+   * arguments, so we cannot use the query::condition() method, or any other
+   * instances where args() are passed in and replaced in the query. So it is
+   * the responsibility of this function to sanitize any inputs that will be
+   * used in the SQL.
+   */
+
+  // Ensure $asset_id and $time are valid, because we use them directly in the
+  // query's WHERE statements below. This is defensive code.
+  // See note about views_join_subquery above.
+  if (!is_int($asset_id) || $asset_id < 0) {
+    $asset_id = db_escape_field($asset_id);
+  }
+  if (!is_int($time) || $time < 0) {
+    $time = REQUEST_TIME;
+  }
+
   // Build a query to find an asset's latest log that defines a movement.
   // We use the "ss_" prefix throughout to indicate that this is generally going
   // to be used as a sub-select, and to avoid potential name conflicts when this
@@ -323,11 +343,6 @@ function farm_log_movement_asset_movement_query($asset_id, $time = REQUEST_TIME,
   // If only "done" movement logs should be included, add a filter.
   if ($done) {
     $query->where('ss_log.done = 1');
-  }
-
-  // Ensure $time is a positive integer.
-  if (!is_int($time) || $time < 0) {
-    $time = REQUEST_TIME;
   }
 
   // If $time is not zero, limit to only logs before it. This allows the
