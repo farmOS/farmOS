@@ -96,7 +96,7 @@ function farm_quantity_field_default_field_instances() {
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_farm_quantity_units',
     'label' => 'Units',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
     ),
