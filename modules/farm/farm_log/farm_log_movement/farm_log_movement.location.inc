@@ -322,14 +322,13 @@ function farm_log_movement_asset_movement_query($asset_id, $time = REQUEST_TIME,
 
   // Join in asset references and filter to only include logs that reference the
   // specified asset.
-  $query->join('field_data_field_farm_asset', 'ss_fdffa', "ss_fdffa.entity_type = 'log' AND ss_fdffa.entity_id = ss_log.id");
+  $query->join('field_data_field_farm_asset', 'ss_fdffa', "ss_fdffa.entity_type = 'log' AND ss_fdffa.entity_id = ss_log.id AND ss_fdffa.deleted = 0");
   $query->where('ss_fdffa.field_farm_asset_target_id = ' . $asset_id);
-  $query->where('ss_fdffa.deleted = 0');
 
   // Join in movement field collections and the "move to" field data.
   // Filter to only include logs that have a movement with a "to" value.
-  $query->join('field_data_field_farm_movement', 'ss_fdffm', "ss_fdffm.entity_type = 'log' AND ss_fdffm.entity_id = ss_log.id");
-  $query->where('ss_fdffm.deleted = 0');
+  $query->join('field_data_field_farm_movement', 'ss_fdffm', "ss_fdffm.entity_type = 'log' AND ss_fdffm.entity_id = ss_log.id AND ss_fdffm.deleted = 0");
+  $query->where('ss_fdffm.field_farm_movement_value IS NOT NULL');
   $query->join('field_data_field_farm_move_to', 'ss_fdffmt', "ss_fdffmt.entity_type = 'field_collection_item' AND ss_fdffmt.bundle = 'field_farm_movement' AND ss_fdffmt.entity_id = ss_fdffm.field_farm_movement_value");
   $query->where('ss_fdffmt.field_farm_move_to_tid IS NOT NULL');
 
