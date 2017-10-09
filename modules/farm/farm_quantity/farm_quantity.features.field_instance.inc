@@ -19,11 +19,11 @@ function farm_quantity_field_default_field_instances() {
     'description' => 'Optionally give this quantity measurement a label. This helps to differentiate multiple quantities with the same unit and measure that are in the same log.',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'hidden',
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 3,
+        'weight' => 1,
       ),
     ),
     'entity_type' => 'field_collection_item',
@@ -54,11 +54,11 @@ function farm_quantity_field_default_field_instances() {
     'description' => 'What type of measurement is this quantity?',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'hidden',
         'module' => 'list',
         'settings' => array(),
         'type' => 'list_default',
-        'weight' => 2,
+        'weight' => 0,
       ),
     ),
     'entity_type' => 'field_collection_item',
@@ -73,7 +73,7 @@ function farm_quantity_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 2,
+      'weight' => 0,
     ),
   );
 
@@ -90,7 +90,7 @@ function farm_quantity_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_plain',
-        'weight' => 1,
+        'weight' => 3,
       ),
     ),
     'entity_type' => 'field_collection_item',
@@ -108,7 +108,7 @@ function farm_quantity_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'taxonomy_autocomplete',
-      'weight' => 1,
+      'weight' => 2,
     ),
   );
 
@@ -129,7 +129,7 @@ function farm_quantity_field_default_field_instances() {
           'prefix_suffix' => TRUE,
         ),
         'type' => 'fraction_decimal',
-        'weight' => 0,
+        'weight' => 2,
       ),
     ),
     'entity_type' => 'field_collection_item',
@@ -151,7 +151,7 @@ function farm_quantity_field_default_field_instances() {
         'precision' => 0,
       ),
       'type' => 'fraction_decimal',
-      'weight' => 0,
+      'weight' => 1,
     ),
   );
 
