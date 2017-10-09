@@ -187,10 +187,10 @@ function farm_theme_page_alter(&$page) {
   $status = drupal_get_http_header('status');
   if ($status == '403 Forbidden' && empty($user->uid)) {
 
-    // Display a link to the user login page.
+    // Display a link to the user login page, and redirect back to this page.
     $page['content']['system_main']['login'] = array(
       '#type' => 'markup',
-      '#markup' => '<p>' . l('Login to farmOS', 'user', array('query' => array('destination' => '<front>'))) . '</p>',
+      '#markup' => '<p>' . l('Login to farmOS', 'user', array('query' => array('destination' => current_path()))) . '</p>',
     );
   }
 }
