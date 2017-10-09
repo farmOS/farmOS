@@ -25,6 +25,45 @@ function farm_ui_hook_info() {
 }
 
 /**
+ * Implements hook_menu_alter().
+ */
+function farm_ui_menu_alter(&$items) {
+
+  // This function adds links to "All assets" and "All logs" in the Farm menu.
+  // In order to do that, we need to make sure that this hook runs after the
+  // Views module's implementation of hook_menu_alter(). That is accomplished
+  // via hook_module_implements_alter() below.
+
+  // Replicate the farm/assets menu item to farm/assets/all.
+  if (!empty($items['farm/assets'])) {
+    $items['farm/assets/all'] = $items['farm/assets'];
+    $items['farm/assets/all']['title'] = t('All assets');
+    $items['farm/assets/all']['weight'] = -100;
+  }
+
+  // Replicate the farm/logs menu item to farm/logs/all.
+  if (!empty($items['farm/logs'])) {
+    $items['farm/logs/all'] = $items['farm/logs'];
+    $items['farm/logs/all']['title'] = t('All Logs');
+    $items['farm/logs/all']['weight'] = -100;
+  }
+}
+
+/**
+ * Implements hook_module_implements_alter().
+ */
+function farm_ui_module_implements_alter(&$implementations, $hook) {
+
+  // Ensure that this module's hook_menu_alter() runs last.
+  // This is necessary for hook_menu_alter() above.
+  if ($hook == 'menu_alter') {
+    $group = $implementations['farm_ui'];
+    unset($implementations['farm_ui']);
+    $implementations['farm_ui'] = $group;
+  }
+}
+
+/**
  * Implements hook_entity_view().
  */
 function farm_ui_entity_view($entity, $type, $view_mode, $langcode) {
