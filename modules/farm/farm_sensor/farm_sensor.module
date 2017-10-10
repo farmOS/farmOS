@@ -353,7 +353,7 @@ function farm_sensor_area_sensors($area_id, $type = '') {
   $query->condition('fa.type', 'sensor');
 
   // Build a sub-select query for determining the latest movement log of assets.
-  $subquery = farm_log_movement_asset_movement_query('fa.id');
+  $subquery = farm_movement_asset_movement_query('fa.id');
 
   // Join the latest movement log for each asset.
   $query->join('log', 'l', 'l.id = (' . $subquery . ')');

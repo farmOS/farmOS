@@ -30,8 +30,8 @@ function farm_log_update_dependencies() {
   $dependencies['farm_log'][7001] = array('log' => 7002);
 
   // Update 7006 (Add movement field to activities, harvests, inputs, and
-  // observations.) depends on farm_log_movement_update_7000().
-  $dependencies['farm_log'][7006] = array('farm_log_movement' => 7000);
+  // observations.) depends on farm_movement_update_7000().
+  $dependencies['farm_log'][7006] = array('farm_movement' => 7000);
 
   return $dependencies;
 }
@@ -268,8 +268,8 @@ function farm_log_update_7004(&$sandbox) {
     'farm_log_activity',
     'farm_log_harvest',
     'farm_log_input',
-    'farm_log_movement',
     'farm_log_observation',
+    'farm_movement',
   );
   foreach ($modules as $module) {
     if (!module_exists($module)) {

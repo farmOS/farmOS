@@ -627,6 +627,29 @@ function farm_update_7030(&$sandbox) {
 }
 
 /**
+ * Rename farm_log_movement to farm_movement in the {system} table.
+ */
+function farm_update_7031(&$sandbox) {
+
+  // Drupal will autodetect farm_movement as a new module, and will think
+  // farm_log_movement is missing - so we need to do some tricky
+  // bait-and-switch to rename the module and ensure that it stays enabled.
+
+  // Load the {system} record for farm_log_movement, and make our modifications.
+  $record = db_query("SELECT * FROM {system} WHERE name = 'farm_log_movement' AND type = 'module'")->fetch();
+  $record->name = str_replace('farm_log_movement', 'farm_movement', $record->name);
+  $record->filename = str_replace('farm_log/farm_log_movement', 'farm_movement', $record->filename);
+  $record->status = 1;
+
+  // Delete any farm_log_movement and farm_movement records.
+  db_query("DELETE FROM {system} WHERE name = 'farm_log_movement' AND type = 'module'");
+  db_query("DELETE FROM {system} WHERE name = 'farm_movement' AND type = 'module'");
+
+  // Re-save the original record.
+  drupal_write_record('system', $record);
+}
+
+/**
  * Update helper function: enable modules.
  */
 function _farm_update_enable_modules($modules = array()) {

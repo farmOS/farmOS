@@ -13,13 +13,13 @@
  * @return string
  *   Returns rendered HTML.
  */
-function farm_log_movement_asset_location_markup($asset) {
+function farm_movement_asset_location_markup($asset) {
 
   // Start an output string.
   $output = '<strong>' . t('Location') . ':</strong> ';
 
   // Get the asset's location.
-  $areas = farm_log_movement_asset_location($asset);
+  $areas = farm_movement_asset_location($asset);
 
   // If locations were found, add links to them.
   if (!empty($areas)) {
@@ -38,7 +38,7 @@ function farm_log_movement_asset_location_markup($asset) {
   }
 
   // Get the asset's most recent movement.
-  $log = farm_log_movement_asset_latest_movement($asset);
+  $log = farm_movement_asset_latest_movement($asset);
 
   // Load the log's movement field, if it exists.
   if (!empty($log->field_farm_movement[LANGUAGE_NONE][0]['value'])) {
@@ -62,13 +62,13 @@ function farm_log_movement_asset_location_markup($asset) {
 /**
  * Implements hook_form_FORM_ID_alter().
  */
-function farm_log_movement_form_farm_asset_form_alter(&$form, &$form_state, $form_id) {
+function farm_movement_form_farm_asset_form_alter(&$form, &$form_state, $form_id) {
 
   // Get the farm asset entity from the form.
   $asset = $form['farm_asset']['#value'];
 
   // Get the asset's current location.
-  $areas = farm_log_movement_asset_location($asset);
+  $areas = farm_movement_asset_location($asset);
   $area_names = array();
   if (!empty($areas)) {
     foreach ($areas as $area) {
@@ -100,13 +100,13 @@ function farm_log_movement_form_farm_asset_form_alter(&$form, &$form_state, $for
     '#collapsed' => TRUE,
     '#weight' => 100,
   );
-  $form['location']['farm_log_movement_asset_location'] = array(
+  $form['location']['farm_movement_asset_location'] = array(
     '#type' => 'textfield',
     '#title' => t('Current location'),
     '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_area',
     '#default_value' => $location,
   );
-  $form['actions']['submit']['#submit'][] = 'farm_log_movement_asset_location_submit';
+  $form['actions']['submit']['#submit'][] = 'farm_movement_asset_location_submit';
   $form['#group_children']['location'] = 'group_farm_general';
 }
 
@@ -118,15 +118,15 @@ function farm_log_movement_form_farm_asset_form_alter(&$form, &$form_state, $for
  * @param array $form_state
  *   The form state array.
  */
-function farm_log_movement_asset_location_submit(array $form, array &$form_state) {
+function farm_movement_asset_location_submit(array $form, array &$form_state) {
 
-  // Only proceed if farm_log_movement_asset_location has a value.
-  if (empty($form_state['values']['farm_log_movement_asset_location'])) {
+  // Only proceed if farm_movement_asset_location has a value.
+  if (empty($form_state['values']['farm_movement_asset_location'])) {
     return;
   }
 
   // Only proceed if the value is not the default value.
-  if ($form_state['values']['farm_log_movement_asset_location'] == $form['location']['farm_log_movement_asset_location']['#default_value']) {
+  if ($form_state['values']['farm_movement_asset_location'] == $form['location']['farm_movement_asset_location']['#default_value']) {
     return;
   }
 
@@ -139,10 +139,10 @@ function farm_log_movement_asset_location_submit(array $form, array &$form_state
   $asset = $form_state['values']['farm_asset'];
 
   // Load the areas.
-  $areas = farm_log_movement_parse_areas($form_state['values']['farm_log_movement_asset_location']);
+  $areas = farm_movement_parse_areas($form_state['values']['farm_movement_asset_location']);
 
   // Create an observation log to record the movement.
-  farm_log_movement_create($asset, $areas, REQUEST_TIME);
+  farm_movement_create($asset, $areas, REQUEST_TIME);
 }
 
 /**
@@ -154,7 +154,7 @@ function farm_log_movement_asset_location_submit(array $form, array &$form_state
  * @return array
  *   Returns an array of loaded area entities.
  */
-function farm_log_movement_parse_areas($area_names) {
+function farm_movement_parse_areas($area_names) {
 
   // Start with an empty array.
   $areas = array();
@@ -207,11 +207,11 @@ function farm_log_movement_parse_areas($area_names) {
  * @return array
  *   Returns an array of areas that the asset is in.
  */
-function farm_log_movement_asset_location(FarmAsset $asset, $time = REQUEST_TIME, $done = TRUE) {
+function farm_movement_asset_location(FarmAsset $asset, $time = REQUEST_TIME, $done = TRUE) {
   $areas = array();
 
   // Load the log using our helper function.
-  $log = farm_log_movement_asset_latest_movement($asset, $time, $done);
+  $log = farm_movement_asset_latest_movement($asset, $time, $done);
 
   // If a movement field doesn't exist, bail.
   if (empty($log->field_farm_movement[LANGUAGE_NONE][0]['value'])) {
@@ -249,7 +249,7 @@ function farm_log_movement_asset_location(FarmAsset $asset, $time = REQUEST_TIME
  * @return Log|bool
  *   Returns a log entity. FALSE if something goes wrong.
  */
-function farm_log_movement_asset_latest_movement(FarmAsset $asset, $time = REQUEST_TIME, $done = TRUE) {
+function farm_movement_asset_latest_movement(FarmAsset $asset, $time = REQUEST_TIME, $done = TRUE) {
 
   // If the asset doesn't have an ID (for instance if it is new and hasn't been
   // saved yet), bail.
@@ -258,7 +258,7 @@ function farm_log_movement_asset_latest_movement(FarmAsset $asset, $time = REQUE
   }
 
   // Make a query for loading the latest movement log.
-  $query = farm_log_movement_asset_movement_query($asset->id, $time, $done);
+  $query = farm_movement_asset_movement_query($asset->id, $time, $done);
 
   // Execute the query and gather the log id.
   $result = $query->execute();
@@ -278,7 +278,7 @@ function farm_log_movement_asset_latest_movement(FarmAsset $asset, $time = REQUE
  *   The asset id to search for. This can either be a specific id, or a field
  *   alias string from another query (ie: 'mytable.assetid'). For an example
  *   of field alias string usage, see the Views field handler code in
- *   farm_log_movement_handler_relationship_location::query().
+ *   farm_movement_handler_relationship_location::query().
  * @param int $time
  *   Unix timestamp limiter. Only logs before this time will be included.
  *   Defaults to the current time. Set to 0 to load the absolute last.
@@ -292,11 +292,11 @@ function farm_log_movement_asset_latest_movement(FarmAsset $asset, $time = REQUE
  * @return \SelectQuery
  *   Returns a SelectQuery object.
  */
-function farm_log_movement_asset_movement_query($asset_id, $time = REQUEST_TIME, $done = TRUE, $field = 'log_id') {
+function farm_movement_asset_movement_query($asset_id, $time = REQUEST_TIME, $done = TRUE, $field = 'log_id') {
 
   /**
    * This query is used as a subquery join in the Views handler
-   * farm_log_movement_handler_relationship_location (via the
+   * farm_movement_handler_relationship_location (via the
    * views_join_subquery class). views_join_subquery does not support query
    * arguments, so we cannot use the query::condition() method, or any other
    * instances where args() are passed in and replaced in the query. So it is
@@ -317,7 +317,7 @@ function farm_log_movement_asset_movement_query($asset_id, $time = REQUEST_TIME,
   // Build a query to find an asset's latest log that defines a movement.
   // We use the "ss_" prefix throughout to indicate that this is generally going
   // to be used as a sub-select, and to avoid potential name conflicts when this
-  // is used elsewhere (ie: farm_log_handler_relationship_location::query()).
+  // is used elsewhere (ie: farm_movement_handler_relationship_location::query()).
   $query = db_select('log', 'ss_log');
 
   // Join in asset references and filter to only include logs that reference the
@@ -365,9 +365,9 @@ function farm_log_movement_asset_movement_query($asset_id, $time = REQUEST_TIME,
 /**
  * Implements hook_action_info().
  */
-function farm_log_movement_action_info() {
+function farm_movement_action_info() {
   return array(
-    'farm_log_movement_asset_move_action' => array(
+    'farm_movement_asset_move_action' => array(
       'type' => 'farm_asset',
       'label' => t('Move'),
       'configurable' => TRUE,
@@ -378,7 +378,7 @@ function farm_log_movement_action_info() {
 }
 
 /**
- * Configuration form for farm_log_movement_asset_move action.
+ * Configuration form for farm_movement_asset_move action.
  *
  * @param array $context
  *   The context passed into the action form function.
@@ -388,7 +388,7 @@ function farm_log_movement_action_info() {
  * @return array
  *   Returns a form array.
  */
-function farm_log_movement_asset_move_action_form(array $context, array $form_state) {
+function farm_movement_asset_move_action_form(array $context, array $form_state) {
 
   // Date field.
   $form['date'] = array(
@@ -421,7 +421,7 @@ function farm_log_movement_asset_move_action_form(array $context, array $form_st
 }
 
 /**
- * Submit handler for farm_log_movement_asset_move action configuration form.
+ * Submit handler for farm_movement_asset_move action configuration form.
  *
  * @param array $form
  *   The form array.
@@ -431,13 +431,13 @@ function farm_log_movement_asset_move_action_form(array $context, array $form_st
  * @return array
  *   Returns an array that will end up in the action's context.
  */
-function farm_log_movement_asset_move_action_submit(array $form, array $form_state) {
+function farm_movement_asset_move_action_submit(array $form, array $form_state) {
 
   // Start to build the context array.
   $context = array();
 
   // Load the areas.
-  $context['areas'] = farm_log_movement_parse_areas($form_state['values']['areas']);
+  $context['areas'] = farm_movement_parse_areas($form_state['values']['areas']);
 
   // Convert the date to a timestamp.
   $timestamp = strtotime($form_state['values']['date']);
@@ -461,7 +461,7 @@ function farm_log_movement_asset_move_action_submit(array $form, array $form_sta
 }
 
 /**
- * Action function for farm_log_movement_asset_move.
+ * Action function for farm_movement_asset_move.
  *
  * Creates a new movement activity log for the specified assets.
  *
@@ -470,7 +470,7 @@ function farm_log_movement_asset_move_action_submit(array $form, array $form_sta
  * @param array $context
  *   Array with parameters for this action.
  */
-function farm_log_movement_asset_move_action(array $assets, $context = array()) {
+function farm_movement_asset_move_action(array $assets, $context = array()) {
 
   // If we're missing assets, areas, or a timestamp, bail.
   if (empty($assets) || empty($context['areas']) || empty($context['timestamp'])) {
@@ -479,7 +479,7 @@ function farm_log_movement_asset_move_action(array $assets, $context = array()) 
   }
 
   // Create a movement activity log.
-  farm_log_movement_create($assets, $context['areas'], $context['timestamp'], 'farm_activity', $context['done']);
+  farm_movement_create($assets, $context['areas'], $context['timestamp'], 'farm_activity', $context['done']);
 }
 
 /**
@@ -497,7 +497,7 @@ function farm_log_movement_asset_move_action(array $assets, $context = array()) 
  *   Boolean indicating whether or not the log should be marked "done". Defaults
  *   to TRUE.
  */
-function farm_log_movement_create($assets, $areas = array(), $timestamp = REQUEST_TIME, $log_type = 'farm_observation', $done = TRUE) {
+function farm_movement_create($assets, $areas = array(), $timestamp = REQUEST_TIME, $log_type = 'farm_observation', $done = TRUE) {
 
   // If $assets isn't an array, wrap it.
   if (!is_array($assets)) {

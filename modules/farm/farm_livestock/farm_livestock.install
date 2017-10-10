@@ -14,8 +14,8 @@ function farm_livestock_update_dependencies() {
   $dependencies['farm_livestock'][7001] = array('farm' => 7019);
 
   // Update 7003 (add movement field to medical logs) depends on
-  // farm_log_movement_update_7000().
-  $dependencies['farm_livestock'][7003] = array('farm_log_movement' => 7000);
+  // farm_movement_update_7000().
+  $dependencies['farm_livestock'][7003] = array('farm_movement' => 7000);
 
   return $dependencies;
 }

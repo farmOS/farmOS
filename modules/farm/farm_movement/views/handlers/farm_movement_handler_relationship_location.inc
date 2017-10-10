@@ -15,7 +15,7 @@
  * views_handler_relationship_entity_reverse
  * views_handler_relationship_node_term_data
  */
-class farm_log_movement_handler_relationship_location extends views_handler_relationship {
+class farm_movement_handler_relationship_location extends views_handler_relationship {
 
   /**
    * {@inheritfoc}
@@ -77,7 +77,7 @@ class farm_log_movement_handler_relationship_location extends views_handler_rela
     else {
       $time = REQUEST_TIME;
     }
-    $query = farm_log_movement_asset_movement_query($asset_id_field, $time, $done, 'movement_id');
+    $query = farm_movement_asset_movement_query($asset_id_field, $time, $done, 'movement_id');
 
     // Build the join definition.
     $def = $this->definition;

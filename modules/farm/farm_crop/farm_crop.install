@@ -22,8 +22,8 @@ function farm_crop_update_dependencies() {
   $dependencies['farm_crop'][7002] = array('farm' => 7019);
 
   // Update 7003 (add movement field to seedings and transplantings) depends on
-  // farm_log_movement_update_7000().
-  $dependencies['farm_crop'][7003] = array('farm_log_movement' => 7000);
+  // farm_movement_update_7000().
+  $dependencies['farm_crop'][7003] = array('farm_movement' => 7000);
 
   return $dependencies;
 }

@@ -10,8 +10,8 @@
 function farm_equipment_update_dependencies() {
 
   // Update 7002 (add new movement field to maintenance logs) depends on
-  // farm_log_movement_update_7000().
-  $dependencies['farm_equipment'][7002] = array('farm_log_movement' => 7000);
+  // farm_movement_update_7000().
+  $dependencies['farm_equipment'][7002] = array('farm_movement' => 7000);
 
   return $dependencies;
 }

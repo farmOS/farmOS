@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * farm_log_movement.views_default.inc
+ * farm_movement.views_default.inc
  */
 
 /**
  * Implements hook_views_default_views().
  */
-function farm_log_movement_views_default_views() {
+function farm_movement_views_default_views() {
   $export = array();
 
   $view = new view();
@@ -384,11 +384,11 @@ function farm_log_movement_views_default_views() {
   $export['farm_asset_geojson'] = $view;
 
   $view = new view();
-  $view->name = 'farm_log_movement';
+  $view->name = 'farm_movement_log';
   $view->description = '';
-  $view->tag = 'farm_log';
+  $view->tag = 'farm_movement';
   $view->base_table = 'log';
-  $view->human_name = 'Farm Log: Logs with movements';
+  $view->human_name = 'Farm movement logs';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
@@ -749,7 +749,7 @@ function farm_log_movement_views_default_views() {
     'page' => 'page',
     'default' => 0,
   );
-  $translatables['farm_log_movement'] = array(
+  $translatables['farm_movement_log'] = array(
     t('Master'),
     t('Logs with movements'),
     t('more'),
@@ -789,7 +789,7 @@ function farm_log_movement_views_default_views() {
     t('Page'),
     t('Data export'),
   );
-  $export['farm_log_movement'] = $view;
+  $export['farm_movement_log'] = $view;
 
   return $export;
 }

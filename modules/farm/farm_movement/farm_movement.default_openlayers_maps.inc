@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * farm_log_movement.default_openlayers_maps.inc
+ * farm_movement.default_openlayers_maps.inc
  */
 
 /**
  * Implements hook_default_openlayers_maps().
  */
-function farm_log_movement_default_openlayers_maps() {
+function farm_movement_default_openlayers_maps() {
   $export = array();
 
   // Get farm asset types.

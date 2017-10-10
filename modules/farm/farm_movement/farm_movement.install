@@ -1,16 +1,16 @@
 <?php
 /**
  * @file
- * Code for Farm Log: Movement installation/updates.
+ * Code for farm movement installation/updates.
  */
 
 /**
  * Create new movement field collection.
  */
-function farm_log_movement_update_7000(&$sandbox) {
+function farm_movement_update_7000(&$sandbox) {
 
   // Revert this module's field_base and field_instance components
-  features_revert(array('farm_log_movement' => array('field_base', 'field_instance')));
+  features_revert(array('farm_movement' => array('field_base', 'field_instance')));
 
   // Flush all caches.
   drupal_flush_all_caches();
@@ -47,7 +47,7 @@ function farm_log_movement_update_7000(&$sandbox) {
 /**
  * Migrate movement data into new field_farm_movement field collections.
  */
-function farm_log_movement_update_7001(&$sandbox) {
+function farm_movement_update_7001(&$sandbox) {
 
   // Process this in passes of 50 movements at a time.
   $sandbox['#finished'] = 0;
@@ -154,13 +154,13 @@ function farm_log_movement_update_7001(&$sandbox) {
 /**
  * Migrate movement logs to activity logs.
  */
-function farm_log_movement_update_7002(&$sandbox) {
+function farm_movement_update_7002(&$sandbox) {
 
   // Search for fields that exist on movements, but not on activities, so we can
   // move them to activities. This would only be the case if a user added their
   // own fields, movements do not have any extra fields in default farmOS.
   // (They used to, but the "move to" and "move from" moved to the new
-  // field_farm_movement field collection. See farm_log_movement_update_7001()).
+  // field_farm_movement field collection. See farm_movement_update_7001()).
   $log_types = array(
     'farm_movement',
     'farm_activity',
@@ -200,7 +200,7 @@ function farm_log_movement_update_7002(&$sandbox) {
 /**
  * Remove movement log type.
  */
-function farm_log_movement_update_7003(&$sandbox) {
+function farm_movement_update_7003(&$sandbox) {
 
   // Delete the movement log type, if it exists.
   $log_type = log_type_load('farm_movement');

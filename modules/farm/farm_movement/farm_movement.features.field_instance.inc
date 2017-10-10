@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * farm_log_movement.features.field_instance.inc
+ * farm_movement.features.field_instance.inc
  */
 
 /**
  * Implements hook_field_default_field_instances().
  */
-function farm_log_movement_field_default_field_instances() {
+function farm_movement_field_default_field_instances() {
   $field_instances = array();
 
   // Exported field_instance:

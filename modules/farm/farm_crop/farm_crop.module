@@ -119,7 +119,7 @@ function farm_crop_planting_plan_submit(array $form, array &$form_state) {
     // If the location is available, load areas.
     $areas = array();
     if (!empty($form_state['values'][$type . '_location'])) {
-      $areas = farm_log_movement_parse_areas($form_state['values'][$type . '_location']);
+      $areas = farm_movement_parse_areas($form_state['values'][$type . '_location']);
     }
 
     // Mark the log as done or not done.
@@ -129,7 +129,7 @@ function farm_crop_planting_plan_submit(array $form, array &$form_state) {
     }
 
     // Create a log.
-    farm_log_movement_create($asset, $areas, $timestamp, 'farm_' . $type, $done);
+    farm_movement_create($asset, $areas, $timestamp, 'farm_' . $type, $done);
   }
 }
 

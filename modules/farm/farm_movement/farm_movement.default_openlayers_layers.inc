@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * farm_log_movement.default_openlayers_layers.inc
+ * farm_movement.default_openlayers_layers.inc
  */
 
 /**
  * Implements hook_default_openlayers_layers().
  */
-function farm_log_movement_default_openlayers_layers() {
+function farm_movement_default_openlayers_layers() {
   $export = array();
 
   // Load all available asset types.
