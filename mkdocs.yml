@@ -23,7 +23,7 @@ pages:
     - Export: guide/export.md
     - Community modules:
         - Introduction: guide/contrib/index.md
-        - Food Safety: guide/contrib/food-safety.md
+        - Produce Safety: guide/contrib/produce-safety.md
 - Hosting:
     - Getting started: hosting/index.md
     - Installing: hosting/installing.md

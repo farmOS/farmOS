@@ -1,8 +1,8 @@
-# Food Safety
+# Produce Safety
 
-[https://github.com/mstenta/farm_food_safety]
+[https://github.com/mstenta/farm_produce_safety]
 
-The Food Safety module for farmOS provides record keeping features for the
+The Produce Safety module for farmOS provides record keeping features for the
 FSMA Produce Safety Rule in the United States, developed in
 partnership with the [University of Vermont Extension].
 
@@ -21,7 +21,7 @@ their records. For more information on guidelines, refer to the FDA's
 
 ## Overview
 
-The Food Safety module sits on top of farmOS and utilizes many of the core
+The Produce Safety module sits on top of farmOS and utilizes many of the core
 features, including Plantings, Equipment, Compost, and various log types. The
 goal is to leverage the common record keeping capabilities that are already
 provided by farmOS, and extend them with records that are specific to the
@@ -59,21 +59,21 @@ requirements, which focus on farm workers:
 
 ## Dashboard
 
-The module provides a Food Safety Dashboard (available as a tab within the
-farmOS dashboard) which acts as an organized starting point for food safety
+The module provides a Produce Safety Dashboard (available as a tab within the
+farmOS dashboard) which acts as an organized starting point for produce safety
 record keeping. Documents and files that are specific to the operations food
 safety plan and procedures can be uploaded to the dashboard for storage and
 reference.
 
 Quick links are provided for each managing records within each of the 5 main
-food safety focus areas (described below).
+produce safety focus areas (described below).
 
 Logs that are added via the quick links will automatically be given the
-"Food Safety" category for easier lookup in the future (as well as additional
+"Produce Safety" category for easier lookup in the future (as well as additional
 categories that may be specific to the activity being recorded). Remember that
-farmOS can be used for more than just Food Safety record keeping, so it is up
-to you to keep your records organized in a way that makes them easy to find for
-reporting purposes.
+farmOS can be used for more than just Produce Safety record keeping, so it is
+up to you to keep your records organized in a way that makes them easy to find
+for reporting purposes.
 
 ## Focus areas
 
@@ -101,7 +101,8 @@ If compost is being produced on the farm, it is necessary to keep records of
 production time, temperature measurements (via observation logs), and pile
 turnings (via activity logs), to ensure that the compost was produced in a
 manner that reduces the risk of biological pathogens. Logs should be tagged
-with both the "Food Safety" and "Compost" or "Soil" categories, as appropriate.
+with both the "Produce Safety" and "Compost" or "Soil" categories, as
+appropriate.
 
 ### Domesticated and Wild Animals
 
@@ -114,7 +115,7 @@ contamination.
 
 If intrusions or contaminations are observed, they should be recorded as
 observation logs. Corrective actions should be recorded as activity logs. Logs
-should be tagged with both the "Food Safety" and "Animals" categories.
+should be tagged with both the "Produce Safety" and "Animals" categories.
 
 ### Agricultural Water
 
@@ -123,17 +124,17 @@ This includes both field water and water that is used to wash produce before
 packing.
 
 Any corrective actions that are taken should be recorded as activity logs with
-categories of both "Food Safety" and "Water" (these categories are applied
-automatically by the quick links within the Food Safety dashboard).
+categories of both "Produce Safety" and "Water" (these categories are applied
+automatically by the quick links within the Produce Safety dashboard).
 
 ### Equipment, Tools, and Buildings
 
-All areas relevant to food safety (fields, buildings, facilities, etc) can be
-managed as [Areas] in farmOS. Tools and equipment can be managed as [Equipment]
-assets.
+All areas relevant to produce safety (fields, buildings, facilities, etc) can
+be managed as [Areas] in farmOS. Tools and equipment can be managed as
+[Equipment] assets.
 
 When areas or equipment are cleaned/sanitized, this should be recorded as an
-activity log with the "Food Safety" category applied.
+activity log with the "Produce Safety" category applied.
 
 [University of Vermont Extension]: https://www.uvm.edu/extension
 [FSMA Final Rule on Produce Safety]: https://www.fda.gov/Food/GuidanceRegulation/FSMA/ucm334114.htm
