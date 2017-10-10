@@ -21,6 +21,8 @@ The farmOS project is made possible by many supporters.
 * [Long Island Sound RCPP](http://www.lisw-rcpp.com)
 * [Pennsylvania Association for Sustainable Agriculture](https://www.pasafarming.org)
 * [University of Vermont Extension](https://www.uvm.edu/extension)
+* [Vermont Agency of Agriculture Food & Markets](http://agriculture.vermont.gov)
+* [Vermont Housing & Conservation Board](http://www.vhcb.org)
 * [Bionutrient Food Association](http://bionutrient.org)
 * [Globetrotter Foundation](http://globetrotterfoundation.org)
 
