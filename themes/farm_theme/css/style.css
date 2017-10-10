@@ -20,6 +20,15 @@ body.front h1.page-header {
 }
 
 /**
+ * Style help glyphicon in page title.
+ */
+.page-header .glyphicon-question-sign {
+  color: #3a87ad;
+  cursor: pointer;
+  font-size: 0.75em;
+}
+
+/**
  * Remove padding and list style from user login block links (request new password).
  */
 form#user-login-form ul {
