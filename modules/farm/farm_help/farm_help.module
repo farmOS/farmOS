@@ -83,7 +83,7 @@ function farm_help_farm_help_page() {
   below.</p>';
 
   // Add a link to the farmOS documentation.
-  $output[] = '<h3>Documentation</h3><p>' . l('http://farmos.org', 'http://farmos.org') . '</h3>';
+  $output[] = '<h3>Documentation</h3><p>' . l('http://farmOS.org', 'http://farmOS.org') . '</h3>';
 
   // Add a link to the farmOS IRC channel.
   $output[] = '<h3>Community Chat</h3><p>' . l('#farmOS IRC channel on Freenode', 'http://webchat.freenode.net/?channels=#farmOS') . '</p>';
