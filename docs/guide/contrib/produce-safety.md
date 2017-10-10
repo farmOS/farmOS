@@ -1,6 +1,6 @@
 # Produce Safety
 
-[https://github.com/mstenta/farm_produce_safety]
+[https://github.com/farmOS/farm_produce_safety]
 
 The Produce Safety module for farmOS provides record keeping features for the
 FSMA Produce Safety Rule in the United States, developed in partnership with
@@ -135,7 +135,7 @@ be managed as [Areas] in farmOS. Tools and equipment can be managed as
 When areas or equipment are cleaned/sanitized, this should be recorded as an
 activity log with the "Produce Safety" category applied.
 
-[https://github.com/mstenta/farm_produce_safety]: https://github.com/mstenta/farm_produce_safety
+[https://github.com/farmOS/farm_produce_safety]: https://github.com/farmOS/farm_produce_safety
 [Agricultural Engineering Program]: https://www.uvm.edu/extension/agriculture/agricultural_engineering
 [University of Vermont Extension]: https://www.uvm.edu/extension
 [Vermont Agency of Agriculture Food & Markets]: http://agriculture.vermont.gov
