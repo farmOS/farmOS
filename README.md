@@ -32,4 +32,7 @@ Current maintainers:
 This project has been sponsored by:
  * [Farmier](http://farmier.com)
  * [Cornell University](http://www.cornell.edu)
+ * [Vermont Agency of Agriculture Food & Markets](http://agriculture.vermont.gov)
+ * [Vermont Housing & Conservation Board](http://www.vhcb.org)
+ * [UVM Extension](https://www.uvm.edu/extension)
  * [Globetrotter Foundation](http://globetrotterfoundation.org)
