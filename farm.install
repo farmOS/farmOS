@@ -620,6 +620,13 @@ function farm_update_7029(&$sandbox) {
 }
 
 /**
+ * Enable the Drupal Help module for inline help text.
+ */
+function farm_update_7030(&$sandbox) {
+  _farm_update_enable_modules(array('help'));
+}
+
+/**
  * Update helper function: enable modules.
  */
 function _farm_update_enable_modules($modules = array()) {

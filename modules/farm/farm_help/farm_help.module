@@ -5,6 +5,18 @@
  */
 
 /**
+ * Implements hook_help().
+ */
+function farm_help_help($path, $args) {
+  switch ($path) {
+
+    // Help for the /farm/help path.
+    case 'farm/help':
+      return '<p>' . t('This page contains links to helpful farmOS resources. For more information, visit <a href="http://farmOS.org">farmOS.org</a>.') . '</p>';
+  }
+}
+
+/**
  * Implements hook_permission().
  */
 function farm_help_permission() {
@@ -71,7 +83,7 @@ function farm_help_farm_help_page() {
   below.</p>';
 
   // Add a link to the farmOS documentation.
-  $output[] = '<h3>Documentation</h3><p>' . l('http://farmos.org', 'http://farmos.org') . '</h3>';
+  $output[] = '<h3>Documentation</h3><p>' . l('http://farmOS.org', 'http://farmOS.org') . '</h3>';
 
   // Add a link to the farmOS IRC channel.
   $output[] = '<h3>Community Chat</h3><p>' . l('#farmOS IRC channel on Freenode', 'http://webchat.freenode.net/?channels=#farmOS') . '</p>';

@@ -19,6 +19,7 @@ dependencies[] = contextual
 dependencies[] = field
 dependencies[] = field_sql_storage
 dependencies[] = filter
+dependencies[] = help
 dependencies[] = menu
 dependencies[] = node
 dependencies[] = path

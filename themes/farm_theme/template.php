@@ -200,6 +200,11 @@ function farm_theme_page_alter(&$page) {
  */
 function farm_theme_preprocess_page(&$vars) {
 
+  // Add Javascript to automatically collapse the help text.
+  if (!empty($vars['page']['help'])) {
+    drupal_add_js(drupal_get_path('theme', 'farm_theme') . '/js/help.js');
+  }
+
   // When the farm_areas map is displayed on a page...
   if (!empty($vars['page']['content']['farm_areas'])) {
 
