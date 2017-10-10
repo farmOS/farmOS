@@ -71,6 +71,8 @@ added to extend your farmOS functionality:
   managing mushroom production.
 * **[FarmOS NWS](https://github.com/bitsecondal/farmosnws)** - Imports data
   from the National Weather Service into Drupal for use by FarmOS.
+* **[Farm Produce Safety](https://github.com/farmOS/farm_produce_safety)** -
+  A produce safety record keeping module for farmOS.
 * **[Farm Sensor: Atmospi](https://github.com/mstenta/farm_sensor_atmospi)** -
   Integrates farmOS and [Atmospi](https://github.com/mstenta/atmospi) sensors.
 
