@@ -5,6 +5,18 @@
  */
 
 /**
+ * Implements hook_help().
+ */
+function farm_help_help($path, $args) {
+  switch ($path) {
+
+    // Help for the /farm/help path.
+    case 'farm/help':
+      return '<p>' . t('This page contains links to helpful farmOS resources. For more information, visit <a href="http://farmOS.org">farmOS.org</a>.') . '</p>';
+  }
+}
+
+/**
  * Implements hook_permission().
  */
 function farm_help_permission() {
