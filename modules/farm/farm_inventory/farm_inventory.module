@@ -30,6 +30,125 @@ function farm_inventory_entity_view_alter(&$build, $type) {
 }
 
 /**
+ * Implements hook_entity_load().
+ */
+function farm_inventory_entity_load($entities, $type) {
+
+  // Only act on farm_asset_type entities.
+  if ($type != 'farm_asset_type') {
+    return;
+  }
+
+  // Load asset type inventory settings.
+  $settings = array();
+  $result = db_query('SELECT * FROM {farm_inventory_asset_type}');
+  foreach ($result as $row) {
+    if (!empty($row->type)) {
+      $settings[$row->type] = array(
+        'enabled' => $row->enabled,
+        'individual' => $row->individual,
+      );
+    }
+  }
+
+  // Iterate through the entities and add inventory settings.
+  foreach ($entities as $entity) {
+
+    // Get the asset type machine name.
+    $asset_type = $entity->type;
+
+    // If settings are available for the entity's bundle, add them.
+    if (!empty($settings[$asset_type])) {
+      $entity->inventory = $settings[$asset_type];
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_insert().
+ */
+function farm_inventory_entity_insert($entity, $type) {
+
+  // Only act on farm_asset_type entities.
+  if ($type != 'farm_asset_type') {
+    return;
+  }
+
+  // Save asset type inventory settings.
+  _farm_inventory_asset_type_settings_save($entity);
+}
+
+/**
+ * Implements hook_entity_update().
+ */
+function farm_inventory_entity_update($entity, $type) {
+
+  // Only act on farm_asset_type entities.
+  if ($type != 'farm_asset_type') {
+    return;
+  }
+
+  // Save asset type inventory settings.
+  _farm_inventory_asset_type_settings_save($entity);
+}
+
+/**
+ * Helper function for saving asset type inventory settings when an asset type
+ * is inserted or updated.
+ *
+ * @param FarmAssetType $asset_type
+ *   A farm asset type entity.
+ */
+function _farm_inventory_asset_type_settings_save($asset_type) {
+
+  // If the machine name is not set, bail.
+  if (empty($asset_type->type)) {
+    return;
+  }
+
+  // If inventory settings are provided, save them.
+  if (!empty($asset_type->inventory)) {
+
+    // First, delete existing settings.
+    _farm_inventory_asset_type_settings_delete($asset_type->type);
+
+    // Then, save new settings.
+    $record = array('type' => $asset_type->type);
+    $record = array_merge($record, $asset_type->inventory);
+    drupal_write_record('farm_inventory_asset_type', $record);
+  }
+}
+
+/**
+ * Implements hook_entity_update().
+ */
+function farm_inventory_entity_delete($entity, $type) {
+
+  // Only act on farm_asset_type entities.
+  if ($type != 'farm_asset_type') {
+    return;
+  }
+
+  // If the asset machine name is not set, bail.
+  if (empty($entity->type)) {
+    return;
+  }
+
+  // Delete settings for this asset type.
+  _farm_inventory_asset_type_settings_delete($entity->type);
+}
+
+/**
+ * Helper function for deleting asset type inventory settings.
+ *
+ * @param string $type
+ *   The asset type machine name.
+ */
+function _farm_inventory_asset_type_settings_delete($type) {
+  db_query('DELETE FROM {farm_inventory_asset_type} WHERE type = :type', array(':type' => $type));
+}
+
+/**
  * Calculate an asset's inventory level.
  *
  * @param FarmAsset $asset
