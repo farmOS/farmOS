@@ -26,6 +26,12 @@ function farm_inventory_entity_view_alter(&$build, $type) {
   // Get the asset's inventory.
   $inventory = farm_inventory($asset);
 
+  // If the inventory is an empty string, and the asset is treated as an
+  // individual, then set the inventory to 1.
+  if ($inventory == '' && farm_inventory_individual($asset)) {
+    $inventory = '1';
+  }
+
   // Build the inventory display.
   $output = '<strong>' . t('Inventory') . ':</strong> ' . $inventory;
 
@@ -261,7 +267,8 @@ function farm_inventory_individual(FarmAsset $asset) {
  *   Defaults to TRUE.
  *
  * @return string
- *   Returns the asset's inventory as a string.
+ *   Returns the asset's inventory as a string. If no inventory adjustments
+ *   exist for the asset, an empty string will be returned.
  */
 function farm_inventory(FarmAsset $asset, $time = REQUEST_TIME, $done = TRUE) {
 
@@ -277,6 +284,13 @@ function farm_inventory(FarmAsset $asset, $time = REQUEST_TIME, $done = TRUE) {
   // Execute the query and gather the inventory result.
   $result = $query->execute();
   $inventory = $result->fetchField();
+
+  // If there are no inventory adjustments, return an empty string. Note that
+  // we use is_null($inventory) instead of empty($inventory), because empty()
+  // would be TRUE if the inventory is set to 0.
+  if (is_null($inventory)) {
+    return '';
+  }
 
   // Add zero (to remove trailing zeroes).
   // See https://stackoverflow.com/questions/14531679/remove-useless-zero-digits-from-decimals-in-php
