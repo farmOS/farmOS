@@ -149,6 +149,47 @@ function _farm_inventory_asset_type_settings_delete($type) {
 }
 
 /**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function farm_inventory_form_farm_asset_type_form_alter(&$form, &$form_state, $form_id) {
+
+  // Get the asset type machine name, if available.
+  $type = '';
+  if (!empty($form['type']['#default_value'])) {
+    $type = $form['type']['#default_value'];
+  }
+
+  // Load existing settings for this asset type.
+  $settings = array();
+  if (!empty($type)) {
+    $settings = db_query('SELECT * FROM {farm_inventory_asset_type} WHERE type = :type', array(':type' => $type))->fetchAssoc();
+  }
+
+  // Add inventory configuration fieldset for the asset type.
+  $form['inventory'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Inventory'),
+    '#description' => t('Configure inventory management options for this asset type.'),
+    '#tree' => TRUE,
+  );
+
+  // Enable inventory.
+  $form['inventory']['enabled'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable inventory tracking'),
+    '#default_value' => !empty($settings['enabled']) ? TRUE : FALSE,
+  );
+
+  // Define the default inventory value.
+  $form['inventory']['individual'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Assets are individuals'),
+    '#description' => t('If this is enabled, assets that have no inventory adjustments will be assumed to be individuals, and will have a default inventory of 1. If this is disabled, the default inventory for assets of this type will be zero.'),
+    '#default_value' => !empty($settings['individual']) ? TRUE : FALSE,
+  );
+}
+
+/**
  * Calculate an asset's inventory level.
  *
  * @param FarmAsset $asset
