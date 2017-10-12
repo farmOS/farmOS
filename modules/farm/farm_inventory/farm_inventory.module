@@ -190,6 +190,58 @@ function farm_inventory_form_farm_asset_type_form_alter(&$form, &$form_state, $f
 }
 
 /**
+ * Check whether or not inventory management is enabled on an asset.
+ *
+ * @param FarmAsset $asset
+ *   The asset to check.
+ *
+ * @return bool
+ *   Returns TRUE or FALSE.
+ */
+function farm_inventory_enabled(FarmAsset $asset) {
+
+  // If the asset type is not set, bail.
+  if (empty($asset->type)) {
+    return FALSE;
+  }
+
+  // Check the database to see if inventory management is enabled.
+  $result = db_query('SELECT enabled FROM {farm_inventory_asset_type} WHERE type = :type', array(':type' => $asset->type))->fetchField();
+
+  // Return TRUE or FALSE.
+  if (!empty($result)) {
+    return TRUE;
+  }
+  return FALSE;
+}
+
+/**
+ * Check whether or not an asset is treated as an individual by default.
+ *
+ * @param FarmAsset $asset
+ *   The asset to check.
+ *
+ * @return bool
+ *   Returns TRUE or FALSE.
+ */
+function farm_inventory_individual(FarmAsset $asset) {
+
+  // If the asset type is not set, bail.
+  if (empty($asset->type)) {
+    return FALSE;
+  }
+
+  // Check the database to see if the asset is treated as an individual.
+  $result = db_query('SELECT individual FROM {farm_inventory_asset_type} WHERE type = :type', array(':type' => $asset->type))->fetchField();
+
+  // Return TRUE or FALSE.
+  if (!empty($result)) {
+    return TRUE;
+  }
+  return FALSE;
+}
+
+/**
  * Calculate an asset's inventory level.
  *
  * @param FarmAsset $asset
