@@ -3,6 +3,7 @@ description = Provides a framework for dealing with quantities.
 core = 7.x
 package = farmOS
 dependencies[] = ctools
+dependencies[] = farm_log
 dependencies[] = features
 dependencies[] = field_collection
 dependencies[] = fraction
