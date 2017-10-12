@@ -15,12 +15,19 @@ function farm_inventory_entity_view_alter(&$build, $type) {
     return;
   }
 
-  // Start an output string.
-  $output = '<strong>' . t('Inventory') . ':</strong> ';
+  // Alias the asset variable.
+  $asset = $build['#entity'];
 
-  // Get the asset's inventory and add it to the output.
-  $inventory = farm_inventory($build['#entity']);
-  $output .= ' ' . $inventory;
+  // If inventory management is not enabled for this asset, bail.
+  if (!farm_inventory_enabled($asset)) {
+    return;
+  }
+
+  // Get the asset's inventory.
+  $inventory = farm_inventory($asset);
+
+  // Build the inventory display.
+  $output = '<strong>' . t('Inventory') . ':</strong> ' . $inventory;
 
   // Add it to the build array.
   $build['inventory'] = array(
