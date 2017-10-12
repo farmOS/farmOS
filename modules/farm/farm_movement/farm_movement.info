@@ -12,6 +12,7 @@ dependencies[] = entityreference_view_widget
 dependencies[] = farm_area
 dependencies[] = farm_asset
 dependencies[] = farm_fields
+dependencies[] = farm_log
 dependencies[] = farm_map
 dependencies[] = features
 dependencies[] = field_collection
