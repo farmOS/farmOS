@@ -5,6 +5,8 @@
  * Farm inventory module.
  */
 
+include_once 'farm_inventory.features.inc';
+
 /**
  * Implements hook_entity_view_alter().
  */
