@@ -4,6 +4,8 @@
  * Code for the Farm Sensor Listener module.
  */
 
+include_once 'farm_sensor_listener.features.inc';
+
 /**
  * Implements hook_menu().
  */
@@ -499,13 +501,6 @@ function farm_sensor_listener_settings_form($sensor, $settings = array()) {
   );
 
   return $form;
-}
-
-/**
- * Implements hook_views_api().
- */
-function farm_sensor_listener_views_api() {
-  return array('api' => 3);
 }
 
 /**

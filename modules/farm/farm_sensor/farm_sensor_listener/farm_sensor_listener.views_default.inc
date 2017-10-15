@@ -1,14 +1,14 @@
 <?php
-
 /**
  * @file
- * Farm Sensor Listener default Views.
+ * farm_sensor_listener.views_default.inc
  */
 
 /**
  * Implements hook_views_default_views().
  */
 function farm_sensor_listener_views_default_views() {
+  $export = array();
 
   $view = new view();
   $view->name = 'farm_sensor_data';
@@ -148,8 +148,7 @@ function farm_sensor_listener_views_default_views() {
     t('Value'),
     t('All'),
   );
+  $export['farm_sensor_data'] = $view;
 
-  $views['farm_sensor_data'] = $view;
-
-  return $views;
+  return $export;
 }
