@@ -44,7 +44,7 @@ function farm_inventory_field_default_field_instances() {
         'pass_argument' => 1,
         'pass_arguments' => '',
         'rendered_entity' => 0,
-        'view' => 'farm_asset_entityreference_view|entityreference_view_widget',
+        'view' => 'farm_inventory_entityreference_view|entityreference_view_widget',
         'view_mode' => 'full',
       ),
       'type' => 'entityreference_view_widget',
