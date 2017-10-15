@@ -410,3 +410,98 @@ function farm_inventory_query($asset_id, $time = REQUEST_TIME, $done = TRUE) {
   // Return the query object.
   return $query;
 }
+
+/**
+ * Create a log for adjusting asset inventory.
+ *
+ * @param FarmAsset $asset
+ *   The asset to adjust.
+ * @param string $inventory
+ *   The new asset inventory value.
+ * @param int $timestamp
+ *   The timestamp of the inventory adjustment. Defaults to the current time.
+ * @param string $log_type
+ *   The type of log to create. Defaults to "farm_observation".
+ * @param bool $done
+ *   Boolean indicating whether or not the log should be marked "done".
+ *   Defaults to TRUE.
+ */
+function farm_inventory_set($asset, $inventory, $timestamp = REQUEST_TIME, $log_type = 'farm_observation', $done = TRUE) {
+
+  // If the asset type does not have inventory enabled, bail with an error.
+  if (!farm_inventory_enabled($asset)) {
+    drupal_set_message(t('An inventory log was not created for @asset because inventory is not enabled for that asset type.', array('@asset' => entity_label('farm_asset', $asset))), 'error');
+    return;
+  }
+
+  // Create a new log entity.
+  $log = entity_create('log', array('type' => $log_type));
+
+  // Create an entity wrapper for the log.
+  $log_wrapper = entity_metadata_wrapper('log', $log);
+
+  // If the log is an observation, set the name to:
+  // "Current inventory: [value]".
+  if ($log_type == 'farm_observation') {
+    $log_name = t('Current inventory') . ': ' . $inventory;
+    $log_wrapper->name->set($log_name);
+  }
+
+  // Set the date.
+  $log_wrapper->timestamp->set($timestamp);
+
+  // Load the asset's current inventory level.
+  $current_inventory = farm_inventory($asset);
+
+  // Calculate the adjustment value necessary (use BCMath if available).
+  if (function_exists('bcsub')) {
+    $value = bcsub($inventory, $current_inventory);
+  }
+  else {
+    $value = $inventory - $current_inventory;
+  }
+
+  // If there is no value difference, bail.
+  if (empty($value)) {
+    return;
+  }
+
+  // If there is an adjustment value, create a new inventory field_collection
+  // entity attached to the log.
+  $adjustment = entity_create('field_collection_item', array('field_name' => 'field_farm_inventory'));
+  $adjustment->setHostEntity('log', $log);
+
+  // Create an entity wrapper for the adjustment.
+  $adjustment_wrapper = entity_metadata_wrapper('field_collection_item', $adjustment);
+
+  // Set the adjustment asset.
+  $adjustment_wrapper->field_farm_inventory_asset = $asset;
+
+  // Set the adjustment value (fraction numerator and denominator).
+  $value_fraction = fraction_from_decimal($value);
+  $adjustment_wrapper->field_farm_inventory_value->numerator->set($value_fraction->getNumerator());
+  $adjustment_wrapper->field_farm_inventory_value->denominator->set($value_fraction->getDenominator());
+
+  // Set the log's done status.
+  if (!empty($done)) {
+    $log_wrapper->done->set(TRUE);
+  }
+  else {
+    $log_wrapper->done->set(FALSE);
+  }
+
+  // Set the log owner.
+  global $user;
+  $log_wrapper->field_farm_log_owner[] = $user;
+
+  // Save the adjustment.
+  $adjustment_wrapper->save();
+
+  // Save the log.
+  $log_wrapper->save();
+
+  // Set a message.
+  $label = entity_label('log', $log);
+  $uri = entity_uri('log', $log);
+  drupal_set_message('Log created: ' . l($label, $uri['path']));
+}
