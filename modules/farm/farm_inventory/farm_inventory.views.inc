@@ -62,3 +62,24 @@ function farm_inventory_views_data() {
 
   return $data;
 }
+
+/**
+ * Implements hook_views_data_alter().
+ */
+function farm_inventory_views_data_alter(&$data) {
+
+  // Add custom asset type filter that only includes types with inventory
+  // enabled.
+  $data['farm_asset']['inventory_asset_type'] = array(
+    'title' => t('Asset type (inventory)'),
+    'help' => t('Asset type (provided by farm_inventory module).'),
+    'filter' => array(
+      'title' => t('Asset type (inventory)'),
+      'help' => t('The farm asset type, including only asset types with inventory enabled.'),
+      'handler' => 'farm_inventory_handler_filter_asset_type',
+      'base' => 'farm_asset',
+      'base field' => 'id',
+      'label' => t('Asset type (inventory)'),
+    ),
+  );
+}
