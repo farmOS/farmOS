@@ -19,5 +19,6 @@ features[field_base][] = field_farm_inventory_asset
 features[field_base][] = field_farm_inventory_value
 features[field_instance][] = field_collection_item-field_farm_inventory-field_farm_inventory_asset
 features[field_instance][] = field_collection_item-field_farm_inventory-field_farm_inventory_value
+features[views_view][] = farm_inventory_entityreference_view
 features[views_view][] = farm_inventory_log
 files[] = views/handlers/farm_inventory_handler_filter_asset_type.inc
