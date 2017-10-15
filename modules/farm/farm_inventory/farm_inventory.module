@@ -222,6 +222,23 @@ function farm_inventory_form_farm_asset_type_form_alter(&$form, &$form_state, $f
 }
 
 /**
+ * Returns a list of asset types that have inventory enabled.
+ *
+ * @return array
+ *   Returns an array of asset type machine names.
+ */
+function farm_inventory_asset_types() {
+  $asset_types = array();
+  $result = db_query('SELECT type FROM {farm_inventory_asset_type} WHERE enabled = 1');
+  foreach ($result as $row) {
+    if (!empty($row->type)) {
+      $asset_types[] = $row->type;
+    }
+  }
+  return $asset_types;
+}
+
+/**
  * Check whether or not inventory management is enabled on an asset.
  *
  * @param FarmAsset $asset
