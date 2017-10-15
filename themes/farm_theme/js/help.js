@@ -1,5 +1,5 @@
 (function ($) {
-  Drupal.behaviors.farm_grazing_help = {
+  Drupal.behaviors.farm_theme_help = {
     attach: function(context, settings) {
       if ($('.region-help', context).length) {
         var glyphicon = '<span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="Click for more information"></span>';
