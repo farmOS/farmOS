@@ -99,8 +99,9 @@ function farm_movement_form_farm_asset_form_alter(&$form, &$form_state, $form_id
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
     '#weight' => 100,
+    '#tree' => TRUE,
   );
-  $form['location']['farm_movement_asset_location'] = array(
+  $form['location']['areas'] = array(
     '#type' => 'textfield',
     '#title' => t('Current location'),
     '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_area',
@@ -120,13 +121,13 @@ function farm_movement_form_farm_asset_form_alter(&$form, &$form_state, $form_id
  */
 function farm_movement_asset_location_submit(array $form, array &$form_state) {
 
-  // Only proceed if farm_movement_asset_location has a value.
-  if (empty($form_state['values']['farm_movement_asset_location'])) {
+  // Only proceed if current location field has a value.
+  if (empty($form_state['values']['location']['areas'])) {
     return;
   }
 
   // Only proceed if the value is not the default value.
-  if ($form_state['values']['farm_movement_asset_location'] == $form['location']['farm_movement_asset_location']['#default_value']) {
+  if ($form_state['values']['location']['areas'] == $form['location']['areas']['#default_value']) {
     return;
   }
 
@@ -139,7 +140,7 @@ function farm_movement_asset_location_submit(array $form, array &$form_state) {
   $asset = $form_state['values']['farm_asset'];
 
   // Load the areas.
-  $areas = farm_movement_parse_areas($form_state['values']['farm_movement_asset_location']);
+  $areas = farm_movement_parse_areas($form_state['values']['location']['areas']);
 
   // Create an observation log to record the movement.
   farm_movement_create($asset, $areas, REQUEST_TIME);
