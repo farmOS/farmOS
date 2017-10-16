@@ -20,6 +20,74 @@ function farm_theme_menu_link_alter(&$item) {
 }
 
 /**
+ * Implements hook_preprocess_menu_tree().
+ */
+function farm_theme_preprocess_menu_tree(&$variables) {
+
+  /**
+   * This code will generate a list of places in the farm dropdown menus where
+   * a Bootstrap divider item should be inserted. This is done based on the
+   * weights of the menu items. Dividers will be added after all items with a
+   * weight < 0, and before items with a weight >= 100.
+   */
+
+  // Only do this for the primary menu.
+  if ($variables['theme_hook_original'] != 'menu_tree__primary') {
+    return;
+  }
+
+  // Start an empty array to store menu divider information.
+  $dividers = array();
+
+  // Iterate through the top level menu items.
+  $menu = $variables['#tree'];
+  foreach (element_children($menu) as $child) {
+
+    // Define the
+    $menus = array(
+      'farm/assets' => 'assets',
+      'farm/logs' => 'logs',
+    );
+
+    // Only proceed for "Assets" and "Logs" menus.
+    if (!array_key_exists($menu[$child]['#href'], $menus)) {
+      continue;
+    }
+
+    // Get the menu class.
+    $menu_class = $menus[$menu[$child]['#href']];
+
+    // Iterate through child items.
+    $items = $menu[$child]['#below'];
+    $menu_counter = 0;
+    foreach (element_children($items) as $mlid) {
+
+      // If the original link has a weight < 0, remember it.
+      if ($items[$mlid]['#original_link']['weight'] < 0) {
+        $dividers[$menu_class][0] = $menu_counter;
+      }
+
+      // Or, if it has a weight >= 100, and we haven't already found one like
+      // that, remember it. (We only want to remember the first one, because in
+      // this case, we're putting the divider BEFORE it. Whereas with the first
+      // divider it is going AFTER the items with a weight < 0.)
+      elseif ($items[$mlid]['#original_link']['weight'] >= 100 && !isset($dividers[$menu_class][100])) {
+        $dividers[$menu_class][100] = $menu_counter;
+      }
+
+      // Keep count of which item we're on.
+      $menu_counter++;
+    }
+  }
+
+  // If divider information was generated, add Javascript.
+  if (!empty($dividers)) {
+    drupal_add_js(array('farm_theme' => array('menu_dividers' => $dividers)), 'setting');
+    drupal_add_js(drupal_get_path('theme', 'farm_theme') . '/js/menu.js');
+  }
+}
+
+/**
  * Implements hook_form_alter().
  */
 function farm_theme_form_alter(&$form, &$form_state, $form_id) {
