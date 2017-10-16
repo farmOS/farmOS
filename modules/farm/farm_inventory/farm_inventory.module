@@ -394,6 +394,21 @@ function farm_inventory(FarmAsset $asset, $time = REQUEST_TIME, $done = TRUE) {
     return '';
   }
 
+  // Return the formatted inventory.
+  return farm_inventory_format($inventory);
+}
+
+/**
+ * Format an inventory value.
+ *
+ * @param string $inventory
+ *   The inventory value to format.
+ *
+ * @return string
+ *   The formatted inventory string.
+ */
+function farm_inventory_format($inventory) {
+
   // Add zero (to remove trailing zeroes).
   // See https://stackoverflow.com/questions/14531679/remove-useless-zero-digits-from-decimals-in-php
   $inventory += 0;
