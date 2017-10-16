@@ -278,7 +278,7 @@ function farm_movement_asset_latest_movement(FarmAsset $asset, $time = REQUEST_T
  * @param int|string $asset_id
  *   The asset id to search for. This can either be a specific id, or a field
  *   alias string from another query (ie: 'mytable.assetid'). For an example
- *   of field alias string usage, see the Views field handler code in
+ *   of field alias string usage, see the Views relationship handler code in
  *   farm_movement_handler_relationship_location::query().
  * @param int $time
  *   Unix timestamp limiter. Only logs before this time will be included.
