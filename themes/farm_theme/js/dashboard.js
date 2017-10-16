@@ -8,6 +8,9 @@
           case 'Dashboard':
             icon = 'dashboard';
             break;
+          case 'Calendar':
+            icon = 'calendar';
+            break;
         }
         $(this).prepend('<span class="icon glyphicon glyphicon-' + icon + '"></span> ');
       });
