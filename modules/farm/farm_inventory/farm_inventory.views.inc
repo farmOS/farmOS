@@ -68,6 +68,16 @@ function farm_inventory_views_data() {
  */
 function farm_inventory_views_data_alter(&$data) {
 
+  // Asset inventory.
+  $data['farm_asset']['inventory'] = array(
+    'title' => t('Asset inventory value'),
+    'help' => t('The current asset inventory value.'),
+    'field' => array(
+      'handler' => 'farm_inventory_handler_field_asset_inventory_value',
+      'click sortable' => TRUE,
+    ),
+  );
+
   // Add custom asset type filter that only includes types with inventory
   // enabled.
   $data['farm_asset']['inventory_asset_type'] = array(
