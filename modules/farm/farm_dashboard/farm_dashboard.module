@@ -40,7 +40,7 @@ function farm_dashboard_menu() {
     'type' => MENU_CALLBACK,
   );
   $items['farm/dashboard'] = array(
-    'title' => 'Farm',
+    'title' => 'Dashboard',
     'type' => MENU_DEFAULT_LOCAL_TASK,
     'weight' => -100,
   );
