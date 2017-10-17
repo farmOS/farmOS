@@ -442,15 +442,11 @@ function farm_log_prepopulate_log_form_references(&$form) {
  * @param bool $done
  *   Whether or not to only show logs that are marked as "done". Defaults to
  *   TRUE.
- * @param bool $log_id_field
- *   Whether or not to add the log ID field to the query. Defaults to TRUE. You
- *   may want to set this to FALSE if you want to specify a different field or
- *   expression to add to the query instead of the log ID.
  *
  * @return \SelectQuery
  *   Returns a SelectQuery object.
  */
-function farm_log_asset_query($asset_id, $time = REQUEST_TIME, $done = TRUE, $log_id_field = TRUE) {
+function farm_log_asset_query($asset_id, $time = REQUEST_TIME, $done = TRUE) {
 
   /**
    * Please read the comments in farm_log_query() to understand how this works,
@@ -459,7 +455,7 @@ function farm_log_asset_query($asset_id, $time = REQUEST_TIME, $done = TRUE, $lo
    */
 
   // Start with a query from the farm_log_query() helper function.
-  $query = farm_log_query($time, $done, $log_id_field);
+  $query = farm_log_query($time, $done);
 
   // Ensure $asset_id is valid, because it will be used directly in the query
   // string. This is defensive code. See note about farm_log_query() above.
@@ -491,15 +487,11 @@ function farm_log_asset_query($asset_id, $time = REQUEST_TIME, $done = TRUE, $lo
  * @param bool $done
  *   Whether or not to only show logs that are marked as "done". Defaults to
  *   TRUE.
- * @param bool $log_id_field
- *   Whether or not to add the log ID field to the query. Defaults to TRUE. You
- *   may want to set this to FALSE if you want to specify a different field or
- *   expression to add to the query instead of the log ID.
  *
  * @return \SelectQuery
  *   Returns a SelectQuery object.
  */
-function farm_log_query($time = REQUEST_TIME, $done = TRUE, $log_id_field = TRUE) {
+function farm_log_query($time = REQUEST_TIME, $done = TRUE) {
 
   /**
    * This query may be used as a sub-query join in a Views handler via the
@@ -523,11 +515,6 @@ function farm_log_query($time = REQUEST_TIME, $done = TRUE, $log_id_field = TRUE
 
   // Build a query to find a log that references an asset.
   $query = db_select('log', 'ss_log');
-
-  // Add the log ID field (only if $log_id_field is TRUE.
-  if ($log_id_field === TRUE) {
-    $query->addField('ss_log', 'id');
-  }
 
   // If $time is not zero, limit to only logs before it. This allows the
   // absolute last log to be found by setting $time to zero.

@@ -308,15 +308,8 @@ function farm_movement_asset_movement_query($asset_id, $time = REQUEST_TIME, $do
    * this function with regard to sanitizing query inputs.
    */
 
-  // If $field is not 'log_id', then we don't want the query helper function
-  // to add the log ID field to the query.
-  $log_id_field = TRUE;
-  if ($field != 'log_id') {
-    $log_id_field = FALSE;
-  }
-
   // Use the farm_log_asset_query() helper function to start a query object.
-  $query = farm_log_asset_query($asset_id, $time, $done, $log_id_field);
+  $query = farm_log_asset_query($asset_id, $time, $done);
 
   // Join in the Movement field collection and filter to only include logs with
   // movements.
@@ -328,8 +321,13 @@ function farm_movement_asset_movement_query($asset_id, $time = REQUEST_TIME, $do
   $query->join('field_data_field_farm_move_to', 'ss_fdffmt', "ss_fdffmt.entity_type = 'field_collection_item' AND ss_fdffmt.bundle = 'field_farm_movement' AND ss_fdffmt.entity_id = ss_fdffm.field_farm_movement_value");
   $query->where('ss_fdffmt.field_farm_move_to_tid IS NOT NULL');
 
-  // If $field is 'movement_id', then add the movement ID field.
-  if ($field == 'movement_id') {
+  // If $field is 'log_id', then add the log ID field.
+  if ($field == 'log_id') {
+    $query->addField('ss_log', 'id');
+  }
+
+  // Or, if $field is 'movement_id', then add the movement ID field.
+  elseif ($field == 'movement_id') {
     $query->addField('ss_fdffm', 'field_farm_movement_value');
   }
 
