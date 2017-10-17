@@ -338,6 +338,52 @@ function farm_movement_asset_movement_query($asset_id, $time = REQUEST_TIME, $do
 }
 
 /**
+ * Build a query to find movement logs to a specific area.
+ *
+ * @param int $area_id
+ *   The area id to search for.
+ * @param int $time
+ *   Unix timestamp limiter. Only logs before this time will be included.
+ *   Defaults to the current time. Set to 0 to load the absolute last.
+ * @param bool $done
+ *   Whether or not to only show logs that are marked as "done". Defaults to
+ *   TRUE.
+ *
+ * @return \SelectQuery
+ *   Returns a SelectQuery object.
+ */
+function farm_movement_area_movement_query($area_id, $time = REQUEST_TIME, $done = TRUE) {
+
+  /**
+   * Please read the comments in farm_log_query() to understand how this works,
+   * and to be aware of the limitations and responsibilities we have in this
+   * function with regard to sanitizing query inputs.
+   */
+
+  // Ensure $area_id is valid, because it will be used directly in the query
+  // string. This is defensive code. See note about farm_log_query() above.
+  if (!is_int($area_id) || $area_id < 0) {
+    $area_id = db_escape_field($area_id);
+  }
+
+  // Use the farm_log_asset_query() helper function to start a query object.
+  $query = farm_log_query($time, $done);
+
+  // Join in the Movement field collection and filter to only include logs with
+  // movements.
+  $query->join('field_data_field_farm_movement', 'ss_fdffm', "ss_fdffm.entity_type = 'log' AND ss_fdffm.entity_id = ss_log.id AND ss_fdffm.deleted = 0");
+  $query->where('ss_fdffm.field_farm_movement_value IS NOT NULL');
+
+  // Join in the movement's "move to" field, and filter to only include logs
+  // that have a movement with a "move to" the specified area.
+  $query->join('field_data_field_farm_move_to', 'ss_fdffmt', "ss_fdffmt.entity_type = 'field_collection_item' AND ss_fdffmt.bundle = 'field_farm_movement' AND ss_fdffmt.entity_id = ss_fdffm.field_farm_movement_value");
+  $query->where('ss_fdffmt.field_farm_move_to_tid = ' . $area_id);
+
+  // Return the query object.
+  return $query;
+}
+
+/**
  * Implements hook_action_info().
  */
 function farm_movement_action_info() {
