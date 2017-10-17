@@ -77,7 +77,7 @@ class farm_movement_handler_relationship_location extends views_handler_relation
     else {
       $time = REQUEST_TIME;
     }
-    $query = farm_movement_asset_movement_query($asset_id_field, $time, $done, 'movement_id');
+    $query = farm_movement_asset_movement_query($asset_id_field, $time, $done, TRUE, 'movement_id');
 
     // Build the join definition.
     $def = $this->definition;

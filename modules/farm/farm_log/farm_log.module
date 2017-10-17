@@ -442,11 +442,13 @@ function farm_log_prepopulate_log_form_references(&$form) {
  * @param bool $done
  *   Whether or not to only show logs that are marked as "done". Defaults to
  *   TRUE.
+ * @param bool $single
+ *   Whether or not to limit the query to a single result. Defaults to TRUE.
  *
  * @return \SelectQuery
  *   Returns a SelectQuery object.
  */
-function farm_log_asset_query($asset_id, $time = REQUEST_TIME, $done = TRUE) {
+function farm_log_asset_query($asset_id, $time = REQUEST_TIME, $done = TRUE, $single = TRUE) {
 
   /**
    * Please read the comments in farm_log_query() to understand how this works,
@@ -455,7 +457,7 @@ function farm_log_asset_query($asset_id, $time = REQUEST_TIME, $done = TRUE) {
    */
 
   // Start with a query from the farm_log_query() helper function.
-  $query = farm_log_query($time, $done);
+  $query = farm_log_query($time, $done, $single);
 
   // Ensure $asset_id is valid, because it will be used directly in the query
   // string. This is defensive code. See note about farm_log_query() above.
@@ -487,11 +489,13 @@ function farm_log_asset_query($asset_id, $time = REQUEST_TIME, $done = TRUE) {
  * @param bool $done
  *   Whether or not to only show logs that are marked as "done". Defaults to
  *   TRUE.
+ * @param bool $single
+ *   Whether or not to limit the query to a single result. Defaults to TRUE.
  *
  * @return \SelectQuery
  *   Returns a SelectQuery object.
  */
-function farm_log_query($time = REQUEST_TIME, $done = TRUE) {
+function farm_log_query($time = REQUEST_TIME, $done = TRUE, $single = TRUE) {
 
   /**
    * This query may be used as a sub-query join in a Views handler via the
@@ -531,8 +535,10 @@ function farm_log_query($time = REQUEST_TIME, $done = TRUE) {
   $query->orderBy('ss_log.timestamp', 'DESC');
   $query->orderBy('ss_log.id', 'DESC');
 
-  // We only want the first result.
-  $query->range(0, 1);
+  // Limit the query to a single result (the first one), if desired.
+  if (!empty($single)) {
+    $query->range(0, 1);
+  }
 
   // Return the query object.
   return $query;

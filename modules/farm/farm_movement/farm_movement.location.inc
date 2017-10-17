@@ -280,7 +280,7 @@ function farm_movement_asset_latest_movement(FarmAsset $asset, $time = REQUEST_T
 }
 
 /**
- * Build a query to find the latest log of an asset that defines a movement.
+ * Build a query to find movement logs of a specific asset.
  *
  * @param int|string $asset_id
  *   The asset id to search for. This can either be a specific id, or a field
@@ -293,6 +293,8 @@ function farm_movement_asset_latest_movement(FarmAsset $asset, $time = REQUEST_T
  * @param bool $done
  *   Whether or not to only show logs that are marked as "done". Defaults to
  *   TRUE.
+ * @param bool $single
+ *   Whether or not to limit the query to a single result. Defaults to TRUE.
  * @param string $field
  *   If the log id is desired, use "log_id. If the movement field_collection id
  *   is desired, use "movement_id".
@@ -300,7 +302,7 @@ function farm_movement_asset_latest_movement(FarmAsset $asset, $time = REQUEST_T
  * @return \SelectQuery
  *   Returns a SelectQuery object.
  */
-function farm_movement_asset_movement_query($asset_id, $time = REQUEST_TIME, $done = TRUE, $field = 'log_id') {
+function farm_movement_asset_movement_query($asset_id, $time = REQUEST_TIME, $done = TRUE, $single = TRUE, $field = 'log_id') {
 
   /**
    * Please read the comments in farm_log_asset_query() to understand how this
@@ -309,7 +311,7 @@ function farm_movement_asset_movement_query($asset_id, $time = REQUEST_TIME, $do
    */
 
   // Use the farm_log_asset_query() helper function to start a query object.
-  $query = farm_log_asset_query($asset_id, $time, $done);
+  $query = farm_log_asset_query($asset_id, $time, $done, $single);
 
   // Join in the Movement field collection and filter to only include logs with
   // movements.
@@ -346,11 +348,13 @@ function farm_movement_asset_movement_query($asset_id, $time = REQUEST_TIME, $do
  * @param bool $done
  *   Whether or not to only show logs that are marked as "done". Defaults to
  *   TRUE.
+ * @param bool $single
+ *   Whether or not to limit the query to a single result. Defaults to TRUE.
  *
  * @return \SelectQuery
  *   Returns a SelectQuery object.
  */
-function farm_movement_area_movement_query($area_id, $time = REQUEST_TIME, $done = TRUE) {
+function farm_movement_area_movement_query($area_id, $time = REQUEST_TIME, $done = TRUE, $single = TRUE) {
 
   /**
    * Please read the comments in farm_log_query() to understand how this works,
@@ -365,7 +369,7 @@ function farm_movement_area_movement_query($area_id, $time = REQUEST_TIME, $done
   }
 
   // Use the farm_log_asset_query() helper function to start a query object.
-  $query = farm_log_query($time, $done);
+  $query = farm_log_query($time, $done, $single);
 
   // Join in the Movement field collection and filter to only include logs with
   // movements.
