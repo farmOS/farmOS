@@ -441,13 +441,19 @@ function farm_inventory_format($inventory) {
 function farm_inventory_query($asset_id, $time = REQUEST_TIME, $done = TRUE) {
 
   /**
-   * Please read the comments in farm_log_asset_query() to understand how this
-   * works, and to be aware of the limitations and responsibilities we have in
-   * this function with regard to sanitizing query inputs.
+   * Please read the comments in farm_log_query() to understand how this works,
+   * and to be aware of the limitations and responsibilities we have in this
+   * function with regard to sanitizing query inputs.
    */
 
+  // Ensure $asset_id is valid, because it will be used directly in the query
+  // string. This is defensive code. See note about views_join_subquery above.
+  if (!is_int($asset_id) || $asset_id < 0) {
+    $asset_id = db_escape_field($asset_id);
+  }
+
   // Use the farm_log_asset_query() helper function to start a query object.
-  $query = farm_log_asset_query($asset_id, $time, $done, FALSE, FALSE);
+  $query = farm_log_query($time, $done, FALSE);
 
   // Join in the Inventory field collection and filter to only include logs that
   // have inventory adjustments.
