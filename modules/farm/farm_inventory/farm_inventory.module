@@ -447,7 +447,7 @@ function farm_inventory_query($asset_id, $time = REQUEST_TIME, $done = TRUE) {
    */
 
   // Ensure $asset_id is valid, because it will be used directly in the query
-  // string. This is defensive code. See note about views_join_subquery above.
+  // string. This is defensive code. See note about farm_log_query() above.
   if (!is_int($asset_id) || $asset_id < 0) {
     $asset_id = db_escape_field($asset_id);
   }

@@ -252,6 +252,13 @@ function farm_movement_asset_location(FarmAsset $asset, $time = REQUEST_TIME, $d
  */
 function farm_movement_asset_latest_movement(FarmAsset $asset, $time = REQUEST_TIME, $done = TRUE) {
 
+  /**
+   * Please read the comments in farm_movement_asset_movement_query() to
+   * understand how this works, and to be aware of the limitations and
+   * responsibilities we have in this function with regard to sanitizing query
+   * inputs.
+   */
+
   // If the asset doesn't have an ID (for instance if it is new and hasn't been
   // saved yet), bail.
   if (empty($asset->id)) {
