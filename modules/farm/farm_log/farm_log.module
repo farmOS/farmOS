@@ -446,17 +446,11 @@ function farm_log_prepopulate_log_form_references(&$form) {
  *   Whether or not to add the log ID field to the query. Defaults to TRUE. You
  *   may want to set this to FALSE if you want to specify a different field or
  *   expression to add to the query instead of the log ID.
- * @param bool $asset_filter
- *   Whether or not to join in the log's asset reference field and filter to
- *   only include logs that reference the $asset_id. Defaults to TRUE. You may
- *   want to set this to FALSE if you want to filter using a different asset
- *   reference field, in which case you must handle the join() and where()
- *   yourself.
  *
  * @return \SelectQuery
  *   Returns a SelectQuery object.
  */
-function farm_log_asset_query($asset_id, $time = REQUEST_TIME, $done = TRUE, $log_id_field = TRUE, $asset_filter = TRUE) {
+function farm_log_asset_query($asset_id, $time = REQUEST_TIME, $done = TRUE, $log_id_field = TRUE) {
 
   /**
    * Please read the comments in farm_log_query() to understand how this works,
@@ -467,7 +461,7 @@ function farm_log_asset_query($asset_id, $time = REQUEST_TIME, $done = TRUE, $lo
   // Start with a query from the farm_log_query() helper function.
   $query = farm_log_query($time, $done, $log_id_field);
 
-  // Ensure $asset_id is valid, because it may be used directly in the query
+  // Ensure $asset_id is valid, because it will be used directly in the query
   // string. This is defensive code. See note about views_join_subquery above.
   if (!is_int($asset_id) || $asset_id < 0) {
     $asset_id = db_escape_field($asset_id);
@@ -475,10 +469,8 @@ function farm_log_asset_query($asset_id, $time = REQUEST_TIME, $done = TRUE, $lo
 
   // Join in asset references and filter to only include logs that reference the
   // specified asset (only if $asset_filter is TRUE).
-  if ($asset_filter === TRUE) {
-    $query->join('field_data_field_farm_asset', 'ss_fdffa', "ss_fdffa.entity_type = 'log' AND ss_fdffa.entity_id = ss_log.id AND ss_fdffa.deleted = 0");
-    $query->where('ss_fdffa.field_farm_asset_target_id = ' . $asset_id);
-  }
+  $query->join('field_data_field_farm_asset', 'ss_fdffa', "ss_fdffa.entity_type = 'log' AND ss_fdffa.entity_id = ss_log.id AND ss_fdffa.deleted = 0");
+  $query->where('ss_fdffa.field_farm_asset_target_id = ' . $asset_id);
 
   // Return the query object.
   return $query;
