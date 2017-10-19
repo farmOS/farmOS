@@ -236,6 +236,140 @@ function farm_movement_asset_location(FarmAsset $asset, $time = REQUEST_TIME, $d
 }
 
 /**
+ * Retrieve an area's movement history. This will provide an array of arrival
+ * and departure logs for each asset that has been moved to the area. Only
+ * movement logs that have been marked "done" will be included in the history.
+ *
+ * @param $area
+ *   The farm area (taxonomy term object).
+ * @param string|array $asset_types
+ *   Limit to only include certain asset types. This can be a single asset type
+ *   as a string, or an array of asset types. Defaults to empty array, which
+ *   will include all asset types.
+ * @param int $start_time
+ *   How far back to look? This should be a UNIX timestamp. Defaults to NULL,
+ *   which looks back through all movement logs in the system.
+ * @param int $end_time
+ *   How far forward to look? This should be a UNIX timestamp. Defaults to the
+ *   current time, which causes future arrival movements to be excluded.
+ *
+ * @return array
+ *   Returns an array of movement history for each asset in the area. Array
+ *   keys are asset IDs, and each asset will contain an array of arrays that
+ *   contain arrival and departure logs for each movement through the area.
+ *   If an asset moved through the area more than once, it will have multiple
+ *   sub-arrays for each arrival+departure. If a departure log is not found
+ *   (eg: if the asset has not left the area), the 'depart' key will be NULL.
+ *
+ *   Example:
+ *     array(
+ *       '50' => array(
+ *         array(
+ *           'arrive' => [$log],
+ *           'depart' => [$log],
+ *         ),
+ *         array(
+ *           'arrive' => [$log],
+ *           'depart' => NULL,
+ *         ),
+ *       ),
+ *       '51' => array(
+ *         array(
+ *           'arrive' => [$log],
+ *           'depart' => [$log],
+ *         ),
+ *       ),
+ *     );
+ */
+function farm_movement_area_history($area, $asset_types = array(), $start_time = NULL, $end_time = REQUEST_TIME) {
+
+  // Start an empty history array.
+  $history = array();
+
+  // If the area doesn't have an id, bail.
+  if (empty($area->tid)) {
+    return $history;
+  }
+
+  // If $asset_types is not an array, wrap it in one.
+  if (!is_array($asset_types)) {
+    $asset_types = array($asset_types);
+  }
+
+  // Build a query to retrieve movement logs to this area.
+  $query = farm_movement_area_movement_query($area->tid, $end_time, TRUE, FALSE);
+
+  // Add the log ID field.
+  $query->addField('ss_log', 'id');
+
+  // Filter to only include logs that happened AFTER the start time.
+  if (!empty($start_time)) {
+    $query->condition('ss_log.timestamp', $start_time, '>');
+  }
+
+  // Join in asset references, and then the farm_asset table record for each.
+  $query->join('field_data_field_farm_asset', 'ss_fdffa', "ss_fdffa.entity_type = 'log' AND ss_fdffa.entity_id = ss_log.id AND ss_fdffa.deleted = 0");
+  $query->join('farm_asset', 'ss_fa', 'ss_fa.id = ss_fdffa.field_farm_asset_target_id');
+
+  // Filter to only include certain asset types.
+  if (!empty($asset_types)) {
+    $query->condition('ss_fa.type', $asset_types, 'IN');
+  }
+
+  // Group by log ID so that we don't get duplicate rows from logs that
+  // reference multiple assets.
+  $query->groupBy('ss_log.id');
+
+  // Execute the query to get a list of log IDs.
+  $result = $query->execute();
+
+  // Iterate through the log IDs.
+  foreach ($result as $row) {
+
+    // If the log ID is empty, skip it.
+    if (empty($row->id)) {
+      continue;
+    }
+
+    // Load the asset's arrival log.
+    $log_arrive = log_load($row->id);
+
+    // Create an entity metadata wrapper for the log.
+    $log_wrapper = entity_metadata_wrapper('log', $log_arrive);
+
+    // Iterate through the assets.
+    foreach ($log_wrapper->field_farm_asset as $asset_wrapper) {
+
+      // Get the asset object.
+      $asset = $asset_wrapper->value();
+
+      // The the asset doesn't have an ID, skip it.
+      if (empty($asset->id)) {
+        continue;
+      }
+
+      // If the asset is not one of the desired types, skip it.
+      if (!empty($asset_types) && !in_array($asset->type, $asset_types)) {
+        continue;
+      }
+
+      // Look up the asset's next movement log (departure from the area). Only
+      // include logs that have been marked "done".
+      $log_depart = farm_movement_asset_next_movement($asset, $log_arrive->timestamp, TRUE);
+
+      // Record the asset's time spent in this area.
+      $history[$asset->id][] = array(
+        'arrive' => $log_arrive,
+        'depart' => !empty($log_depart) ? $log_depart : NULL,
+      );
+    }
+  }
+
+  // Return the history.
+  return $history;
+}
+
+/**
  * Load an asset's latest log that defines a movement.
  *
  * @param FarmAsset $asset
