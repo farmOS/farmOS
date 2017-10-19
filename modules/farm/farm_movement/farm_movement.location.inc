@@ -280,6 +280,70 @@ function farm_movement_asset_latest_movement(FarmAsset $asset, $time = REQUEST_T
 }
 
 /**
+ * Load an asset's next log that defines a movement.
+ *
+ * @param FarmAsset $asset
+ *   The farm_asset object to look for.
+ * @param int $time
+ *   Unix timestamp limiter. Only logs after this time will be included.
+ *   Defaults to the current time. Set to 0 to load the absolute first.
+ * @param bool $done
+ *   Whether or not to only show logs that are marked as "done". Defaults to
+ *   FALSE because the default $time is now, and future logs are generally not
+ *   done yet.
+ *
+ * @return Log|bool
+ *   Returns a log entity. FALSE if something goes wrong.
+ */
+function farm_movement_asset_next_movement(FarmAsset $asset, $time = REQUEST_TIME, $done = FALSE) {
+
+  /**
+   * Please read the comments in farm_movement_asset_movement_query() to
+   * understand how this works, and to be aware of the limitations and
+   * responsibilities we have in this function with regard to sanitizing query
+   * inputs.
+   */
+
+  // Ensure $time is valid, because it may be used directly in the query
+  // string. This is defensive code. See note about
+  // farm_movement_asset_movement_query() above.
+  if (!is_int($time) || $time < 0) {
+    $time = REQUEST_TIME;
+  }
+
+  // If the asset doesn't have an ID (for instance if it is new and hasn't been
+  // saved yet), bail.
+  if (empty($asset->id)) {
+    return FALSE;
+  }
+
+  // Make a query to load all movement logs for the asset. Use a timestamp of 0
+  // to include future logs.
+  $query = farm_movement_asset_movement_query($asset->id, 0, $done, FALSE);
+
+  // Filter to only include movements after the specified timestamp.
+  $query->where('ss_log.timestamp > ' . $time);
+
+  // Order by timestamp and log ID ascending so we can get the first one (this
+  // overrides the default sort added by farm_log_query())
+  $query->orderBy('ss_log.timestamp', 'ASC');
+  $query->orderBy('ss_log.id', 'ASC');
+
+  // Limit to 1 record.
+  $query->range(0, 1);
+
+  // Execute the query and gather the log id.
+  $result = $query->execute();
+  $log_id = $result->fetchField();
+
+  // If a log id exists, load and return it.
+  if (!empty($log_id)) {
+    return log_load($log_id);
+  }
+  return FALSE;
+}
+
+/**
  * Build a query to find movement logs of a specific asset.
  *
  * @param int|string $asset_id
