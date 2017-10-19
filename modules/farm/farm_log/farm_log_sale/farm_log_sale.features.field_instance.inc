@@ -96,7 +96,7 @@ function farm_log_sale_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_table',
-        'weight' => 11,
+        'weight' => 12,
       ),
     ),
     'entity_type' => 'log',
@@ -141,7 +141,7 @@ function farm_log_sale_field_default_field_instances() {
           'colorbox_node_style_first' => 'large',
         ),
         'type' => 'colorbox',
-        'weight' => 10,
+        'weight' => 11,
       ),
     ),
     'entity_type' => 'log',
@@ -185,7 +185,7 @@ function farm_log_sale_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 12,
+        'weight' => 13,
       ),
     ),
     'entity_type' => 'log',
@@ -250,7 +250,7 @@ function farm_log_sale_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_plain',
-        'weight' => 8,
+        'weight' => 9,
       ),
     ),
     'entity_type' => 'log',
@@ -284,7 +284,7 @@ function farm_log_sale_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 9,
+        'weight' => 10,
       ),
     ),
     'entity_type' => 'log',
@@ -349,7 +349,7 @@ function farm_log_sale_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 7,
+        'weight' => 8,
       ),
     ),
     'entity_type' => 'log',
@@ -367,40 +367,83 @@ function farm_log_sale_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 8,
+      'weight' => 10,
     ),
   );
 
-  // Exported field_instance: 'log-farm_sale-field_farm_quantity'.
-  $field_instances['log-farm_sale-field_farm_quantity'] = array(
+  // Exported field_instance: 'log-farm_sale-field_farm_quantity_units'.
+  $field_instances['log-farm_sale-field_farm_quantity_units'] = array(
     'bundle' => 'farm_sale',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Use this field to specify the total quantity that was sold.',
+    'description' => 'What is the unit of measurement for the quantity entered?',
     'display' => array(
       'default' => array(
         'label' => 'inline',
-        'module' => 'field_collection',
-        'settings' => array(
-          'view_mode' => 'full',
-        ),
-        'type' => 'field_collection_fields',
-        'weight' => 4,
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 5,
       ),
     ),
     'entity_type' => 'log',
-    'field_name' => 'field_farm_quantity',
-    'label' => 'Quantity',
+    'field_name' => 'field_farm_quantity_units',
+    'label' => 'Units',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 0,
-      'module' => 'field_collection',
-      'settings' => array(),
-      'type' => 'field_collection_embed',
-      'weight' => 2,
+      'module' => 'taxonomy',
+      'settings' => array(
+        'autocomplete_path' => 'taxonomy/autocomplete',
+        'size' => 60,
+      ),
+      'type' => 'taxonomy_autocomplete',
+      'weight' => 7,
+    ),
+  );
+
+  // Exported field_instance: 'log-farm_sale-field_farm_quantity_value'.
+  $field_instances['log-farm_sale-field_farm_quantity_value'] = array(
+    'bundle' => 'farm_sale',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'How many were sold?',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'fraction',
+        'settings' => array(
+          'auto_precision' => TRUE,
+          'precision' => 0,
+          'prefix_suffix' => TRUE,
+        ),
+        'type' => 'fraction_decimal',
+        'weight' => 4,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_quantity_value',
+    'label' => 'Quantity',
+    'required' => 0,
+    'settings' => array(
+      'max' => '',
+      'min' => '',
+      'prefix' => '',
+      'suffix' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'fraction',
+      'settings' => array(
+        'auto_precision' => 1,
+        'precision' => 0,
+      ),
+      'type' => 'fraction_decimal',
+      'weight' => 6,
     ),
   );
 
@@ -420,7 +463,7 @@ function farm_log_sale_field_default_field_instances() {
           'prefix_suffix' => TRUE,
         ),
         'type' => 'fraction_decimal',
-        'weight' => 6,
+        'weight' => 7,
       ),
     ),
     'entity_type' => 'log',
@@ -442,7 +485,7 @@ function farm_log_sale_field_default_field_instances() {
         'precision' => 0,
       ),
       'type' => 'fraction_decimal',
-      'weight' => 7,
+      'weight' => 9,
     ),
   );
 
@@ -462,7 +505,7 @@ function farm_log_sale_field_default_field_instances() {
           'prefix_suffix' => TRUE,
         ),
         'type' => 'fraction_decimal',
-        'weight' => 5,
+        'weight' => 6,
       ),
     ),
     'entity_type' => 'log',
@@ -484,7 +527,7 @@ function farm_log_sale_field_default_field_instances() {
         'precision' => 0,
       ),
       'type' => 'fraction_decimal',
-      'weight' => 6,
+      'weight' => 8,
     ),
   );
 
@@ -494,6 +537,7 @@ function farm_log_sale_field_default_field_instances() {
   t('Assigned to');
   t('Customer');
   t('Files');
+  t('How many were sold?');
   t('If this sale has a lot number associated with it, enter it here.');
   t('Inventory adjustments');
   t('Invoice number');
@@ -505,10 +549,11 @@ function farm_log_sale_field_default_field_instances() {
   t('Sale lot number');
   t('Total price');
   t('Unit price');
-  t('Use this field to specify the total quantity that was sold.');
+  t('Units');
   t('Use this to organize your logs into categories for easier searching and filtering later.');
   t('Use this to set or adjust asset inventory levels along with this log.');
   t('What assets do this sale log pertain to?');
+  t('What is the unit of measurement for the quantity entered?');
 
   return $field_instances;
 }

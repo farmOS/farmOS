@@ -1,0 +1,61 @@
+<?php
+
+/**
+ * @file
+ * Farm log sale install.
+ */
+
+/**
+ * Move Sale log quantity values and units to new fields.
+ */
+function farm_log_sale_update_7000(&$sandbox) {
+
+  // Define quantity field collection tables to process.
+  $quantity_tables = array(
+    'field_data_field_farm_quantity',
+    'field_revision_field_farm_quantity',
+  );
+
+  // Iterate through the tables.
+  foreach ($quantity_tables as $quantity_table) {
+
+    // Load all quantity field collections currently attached to sale logs.
+    $result = db_query("SELECT * FROM {" . $quantity_table . "} WHERE entity_type = 'log' AND bundle = 'farm_sale'");
+
+    // Iterate through the quantity field collections.
+    foreach ($result as $row) {
+
+      // Define the tables that need to be updated.
+      $update_tables = array(
+        'field_data_field_farm_quantity_value',
+        'field_revision_field_farm_quantity_value',
+        'field_data_field_farm_quantity_units',
+        'field_revision_field_farm_quantity_units',
+      );
+
+      // Iterate through the tables to update all quantity values and units
+      // fields to point directly to their sale logs.
+      foreach ($update_tables as $table) {
+        $query = "UPDATE {" . $table . "} SET entity_type = 'log', bundle = 'farm_sale', entity_id = :new_entity_id, revision_id = :new_revision_id WHERE entity_type = 'field_collection_item' AND bundle = 'field_farm_quantity' AND entity_id = :old_entity_id AND revision_id = :old_revision_id";
+        $args = array(
+          ':new_entity_id' => $row->entity_id,
+          ':new_revision_id' => $row->revision_id,
+          ':old_entity_id' => $row->field_farm_quantity_value,
+          ':old_revision_id' => $row->field_farm_quantity_revision_id,
+        );
+        db_query($query, $args);
+      }
+    }
+
+    // Delete the old field collection records.
+    db_query("DELETE FROM {" . $table . "} WHERE entity_type = 'log' AND bundle = 'farm_sale'");
+
+    // Delete the quantity field collection from sale logs.
+    $field = field_info_instance('log', 'field_farm_quantity', 'farm_sale');
+    field_delete_instance($field);
+
+    // Delete the Quantity field group from sale logs.
+    $group = field_group_load_field_group('group_farm_quantity', 'log', 'farm_sale', 'form');
+    ctools_export_crud_delete('field_group', $group);
+  }
+}
