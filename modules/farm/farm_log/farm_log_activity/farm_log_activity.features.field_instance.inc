@@ -22,7 +22,7 @@ function farm_log_activity_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 1,
+        'weight' => 2,
       ),
     ),
     'entity_type' => 'log',
@@ -95,7 +95,7 @@ function farm_log_activity_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_table',
-        'weight' => 6,
+        'weight' => 7,
       ),
     ),
     'entity_type' => 'log',
@@ -135,7 +135,7 @@ function farm_log_activity_field_default_field_instances() {
           'map_layer_preset' => 'farm_map_geofield_formatter:openlayers_geofield_layer_formatter',
         ),
         'type' => 'openlayers_geofield',
-        'weight' => 7,
+        'weight' => 8,
       ),
     ),
     'entity_type' => 'log',
@@ -185,6 +185,47 @@ function farm_log_activity_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_activity-field_farm_group'.
+  $field_instances['log-farm_activity-field_farm_group'] = array(
+    'bundle' => 'farm_activity',
+    'deleted' => 0,
+    'description' => 'Use this field to set the group membership of any asset(s) referenced by this log.',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'entityreference',
+        'settings' => array(
+          'bypass_access' => 1,
+          'link' => 1,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_group',
+    'label' => 'Group membership',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference_view_widget',
+      'settings' => array(
+        'allow_duplicates' => 0,
+        'close_modal' => 1,
+        'pass_argument' => 1,
+        'pass_arguments' => '',
+        'rendered_entity' => 0,
+        'view' => 'farm_group_entityreference_view|entityreference_view_widget',
+        'view_mode' => 'full',
+      ),
+      'type' => 'entityreference_view_widget',
+      'weight' => 16,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_activity-field_farm_images'.
   $field_instances['log-farm_activity-field_farm_images'] = array(
     'bundle' => 'farm_activity',
@@ -206,7 +247,7 @@ function farm_log_activity_field_default_field_instances() {
           'colorbox_node_style_first' => 'large',
         ),
         'type' => 'colorbox',
-        'weight' => 5,
+        'weight' => 6,
       ),
     ),
     'entity_type' => 'log',
@@ -250,7 +291,7 @@ function farm_log_activity_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 9,
+        'weight' => 10,
       ),
     ),
     'entity_type' => 'log',
@@ -281,7 +322,7 @@ function farm_log_activity_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_plain',
-        'weight' => 3,
+        'weight' => 4,
       ),
     ),
     'entity_type' => 'log',
@@ -315,7 +356,7 @@ function farm_log_activity_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 4,
+        'weight' => 5,
       ),
     ),
     'entity_type' => 'log',
@@ -348,7 +389,7 @@ function farm_log_activity_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 8,
+        'weight' => 9,
       ),
     ),
     'entity_type' => 'log',
@@ -379,7 +420,7 @@ function farm_log_activity_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 2,
+        'weight' => 3,
       ),
     ),
     'entity_type' => 'log',
@@ -408,6 +449,7 @@ function farm_log_activity_field_default_field_instances() {
   t('Assigned to');
   t('Files');
   t('Geometry');
+  t('Group membership');
   t('Inventory adjustments');
   t('Log category');
   t('Movement');
@@ -416,6 +458,7 @@ function farm_log_activity_field_default_field_instances() {
   t('Photos');
   t('This field is optional. It allows you to store geospatial data along with this activity.');
   t('Use these fields to record a movement with this log entry. This will be used to define the location of any referenced assets. The current location of any asset is determined by the most recently completed movement log. Only the "to" field is required.');
+  t('Use this field to set the group membership of any asset(s) referenced by this log.');
   t('Use this to organize your logs into categories for easier searching and filtering later.');
   t('Use this to set or adjust asset inventory levels along with this log.');
   t('What areas did this activity take place in?');
