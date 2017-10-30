@@ -22,6 +22,7 @@ features[ctools][] = field_group:field_group:1
 features[ctools][] = views:views_default:3.0
 features[farm_asset_type][] = group
 features[features_api][] = api:2
+features[field_base][] = field_farm_group
 features[field_group][] = group_farm_files|farm_asset|group|form
 features[field_group][] = group_farm_general|farm_asset|group|form
 features[field_group][] = group_farm_lineage|farm_asset|group|form
