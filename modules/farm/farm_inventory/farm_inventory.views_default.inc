@@ -243,7 +243,7 @@ function farm_inventory_views_default_views() {
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Logs with inventory adjustments';
+  $handler->display->display_options['title'] = 'Logs of inventory adjustments';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['access']['perm'] = 'view all logs';
@@ -344,7 +344,7 @@ function farm_inventory_views_default_views() {
   $handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
   $handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
-  $handler->display->display_options['empty']['area_text_custom']['content'] = 'No logs with inventory adjustments found.';
+  $handler->display->display_options['empty']['area_text_custom']['content'] = 'No logs of inventory adjustments found.';
   /* Relationship: Log: Inventory adjustments (field_farm_inventory) */
   $handler->display->display_options['relationships']['field_farm_inventory_value']['id'] = 'field_farm_inventory_value';
   $handler->display->display_options['relationships']['field_farm_inventory_value']['table'] = 'field_data_field_farm_inventory';
@@ -569,7 +569,7 @@ function farm_inventory_views_default_views() {
   $handler = $view->new_display('page', 'Page', 'page');
   $handler->display->display_options['path'] = 'farm/logs/inventory';
   $handler->display->display_options['menu']['type'] = 'normal';
-  $handler->display->display_options['menu']['title'] = 'Logs with inventory adjustments';
+  $handler->display->display_options['menu']['title'] = 'Logs of inventory adjustments';
   $handler->display->display_options['menu']['weight'] = '100';
   $handler->display->display_options['menu']['name'] = 'farm';
   $handler->display->display_options['menu']['context'] = 0;
@@ -596,7 +596,7 @@ function farm_inventory_views_default_views() {
   );
   $translatables['farm_inventory_log'] = array(
     t('Master'),
-    t('Logs with inventory adjustments'),
+    t('Logs of inventory adjustments'),
     t('more'),
     t('Apply'),
     t('Reset'),
@@ -611,7 +611,7 @@ function farm_inventory_views_default_views() {
     t('next ›'),
     t('last »'),
     t('This lists all logs that include asset inventory adjustments. If a log contains more than one inventory adjustment, it will be listed more than once in this list. Multiple log types are included in this list, and are specified in the "Log type" column.'),
-    t('No logs with inventory adjustments found.'),
+    t('No logs of inventory adjustments found.'),
     t('field_farm_inventory'),
     t('Log'),
     t('- Choose an operation -'),

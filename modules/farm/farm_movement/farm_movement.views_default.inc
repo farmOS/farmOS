@@ -395,7 +395,7 @@ function farm_movement_views_default_views() {
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Logs with movements';
+  $handler->display->display_options['title'] = 'Logs of movements';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['access']['perm'] = 'view all logs';
@@ -496,7 +496,7 @@ function farm_movement_views_default_views() {
   $handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
   $handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
-  $handler->display->display_options['empty']['area_text_custom']['content'] = 'No logs with movements found.';
+  $handler->display->display_options['empty']['area_text_custom']['content'] = 'No logs of movements found.';
   /* Relationship: Log: Movement (field_farm_movement) */
   $handler->display->display_options['relationships']['field_farm_movement_value']['id'] = 'field_farm_movement_value';
   $handler->display->display_options['relationships']['field_farm_movement_value']['table'] = 'field_data_field_farm_movement';
@@ -724,7 +724,7 @@ function farm_movement_views_default_views() {
   $handler = $view->new_display('page', 'Page', 'page');
   $handler->display->display_options['path'] = 'farm/logs/movements';
   $handler->display->display_options['menu']['type'] = 'normal';
-  $handler->display->display_options['menu']['title'] = 'Logs with movements';
+  $handler->display->display_options['menu']['title'] = 'Logs of movements';
   $handler->display->display_options['menu']['weight'] = '100';
   $handler->display->display_options['menu']['name'] = 'farm';
   $handler->display->display_options['menu']['context'] = 0;
@@ -751,7 +751,7 @@ function farm_movement_views_default_views() {
   );
   $translatables['farm_movement_log'] = array(
     t('Master'),
-    t('Logs with movements'),
+    t('Logs of movements'),
     t('more'),
     t('Apply'),
     t('Reset'),
@@ -766,7 +766,7 @@ function farm_movement_views_default_views() {
     t('next ›'),
     t('last »'),
     t('This lists all logs that define movements of assets. Multiple log types are included in this list, and are specified in the "Log type" column.'),
-    t('No logs with movements found.'),
+    t('No logs of movements found.'),
     t('field collection item from field_farm_movement'),
     t('Log'),
     t('- Choose an operation -'),
