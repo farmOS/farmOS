@@ -22,6 +22,79 @@ function farm_group_farm_ui_entities() {
 }
 
 /**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function farm_group_form_log_form_alter(&$form, &$form_state, $form_id) {
+
+  // If this log form contains field_farm_group, add validation.
+  if (!empty($form['field_farm_group'])) {
+    $form['#validate'][] = 'farm_group_field_farm_group_validate';
+  }
+}
+
+/**
+ * Validation callback for the field_farm_group field in logs.
+ */
+function farm_group_field_farm_group_validate($form, &$form_state) {
+
+  // If there are no groups referenced in the log, bail.
+  if (empty($form_state['values']['field_farm_group'][LANGUAGE_NONE])) {
+    return;
+  }
+
+  // If there are no assets referenced in the log, warn the user.
+  if (empty($form_state['values']['field_farm_asset'][LANGUAGE_NONE])) {
+    form_set_error('field_farm_asset', t('No asset(s) have been selected to become members of the group(s). Please select asset(s) or remove the group(s).'));
+  }
+
+  // Build an array of asset IDs.
+  $asset_ids = array();
+  foreach ($form_state['values']['field_farm_asset'][LANGUAGE_NONE] as $reference) {
+    if (!empty($reference['target_id'])) {
+      $asset_ids[] = $reference['target_id'];
+    }
+  }
+
+  // Build an array of group IDs.
+  $group_ids = array();
+  foreach ($form_state['values']['field_farm_group'][LANGUAGE_NONE] as $reference) {
+    if (!empty($reference['target_id'])) {
+      $group_ids[] = $reference['target_id'];
+    }
+  }
+
+  // Iterate through the selected groups and assets to check for possible
+  // circular membership.
+  foreach ($group_ids as $group_id) {
+    foreach ($asset_ids as $asset_id) {
+
+      // Load the group and asset.
+      $group = farm_asset_load($group_id);
+      $asset = farm_asset_load($asset_id);
+
+      // Check for a circular membership.
+      $circular = farm_group_circular_membership($group, $asset);
+
+      // If a circular membership is detected, warn the user.
+      if ($circular) {
+
+        // Get the URI information for the group and asset.
+        $group_uri = entity_uri('farm_asset', $group);
+        $asset_uri = entity_uri('farm_asset', $asset);
+
+        // Create links to the asset and group.
+        $group_link = l(entity_label('farm_asset', $group), $group_uri['path']);
+        $asset_link = l(entity_label('farm_asset', $asset), $asset_uri['path']);
+
+        // Set an error on the asset field and describe which asset and group
+        // would create the circular membership.
+        form_set_error('field_farm_asset', t('The asset "!asset_link" cannot be added to the group "!group_link" because it would create a circular membership.', array('!asset_link' => $asset_link, '!group_link' => $group_link)));
+      }
+    }
+  }
+}
+
+/**
  * Load groups that an asset is a member of.
  *
  * @param FarmAsset $asset
