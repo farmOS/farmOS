@@ -22,6 +22,26 @@ function farm_group_farm_ui_entities() {
 }
 
 /**
+ * Implements hook_farm_ui_entity_views().
+ */
+function farm_group_farm_ui_entity_views($entity_type, $bundle, $entity) {
+
+  // Display View of group members on groups.
+  if ($entity_type == 'farm_asset' && $bundle == 'group') {
+    return array(
+      array(
+        'name' => 'farm_group_members',
+        'display' => 'page',
+        'title' => t('Group members'),
+        'group' => 'assets',
+        'weight' => -100,
+        'always' => TRUE,
+      ),
+    );
+  }
+}
+
+/**
  * Implements hook_form_FORM_ID_alter().
  */
 function farm_group_form_log_form_alter(&$form, &$form_state, $form_id) {
