@@ -147,3 +147,43 @@ function farm_group_asset_membership_query($asset_id, $time = REQUEST_TIME, $don
   // Return the query object.
   return $query;
 }
+
+/**
+ * Recursively check for circular group membership.
+ *
+ * @param FarmAsset $group
+ *   The group that the asset will be added to.
+ * @params FarmAsset $asset
+ *   The asset being considered for membership in the group.
+ *
+ * @return bool
+ *   Returns TRUE if a circular dependency would exist if the asset became a
+ *   member of the group, FALSE otherwise.
+ */
+function farm_group_circular_membership(FarmAsset $group, FarmAsset $asset) {
+
+  // A group can't be inside itself. This is primarily how we will check for
+  // circular membership, along with recursively checking parent groups below.
+  if ($group->id == $asset->id) {
+    return TRUE;
+  }
+
+  // Check to see if the group is a member of other groups.
+  $parent_groups = farm_group_asset_membership($group);
+
+  // If no parent groups were found, no circular membership can exist.
+  if (empty($parent_groups)) {
+    return FALSE;
+  }
+
+  // Iterate through the parent groups and recurse into them to check if the
+  // new asset will create a circular membership anywhere down the line.
+  foreach ($parent_groups as $parent_group) {
+    if (farm_group_circular_membership($parent_group, $asset)) {
+      return TRUE;
+    }
+  }
+
+  // Ok we're good! No circular memberships detected!
+  return FALSE;
+}
