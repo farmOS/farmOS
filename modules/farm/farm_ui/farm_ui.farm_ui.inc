@@ -13,7 +13,7 @@ function farm_ui_farm_ui_entity_view_groups() {
       'weight' => 98,
     ),
     'logs' => array(
-      'title' => t('Logs'),
+      'title' => t('Logs by type'),
       'weight' => 99,
     ),
     'logs_special' => array(
