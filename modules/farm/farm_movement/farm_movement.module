@@ -20,6 +20,7 @@ function farm_movement_farm_ui_entity_views($entity_type, $bundle, $entity) {
   if ($entity_type == 'farm_asset') {
     $views[] = array(
       'name' => 'farm_movement_log',
+      'group' => 'logs_special',
       'weight' => 100,
     );
   }
