@@ -184,7 +184,7 @@ function farm_livestock_field_default_field_instances() {
     'bundle' => 'animal',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'What is the species/breed of this animal? You can manage the list of available species/breeds in the ' . l('Animal Species/Breeds', 'farm/assets/animals/types') . ' vocabulary.',
+    'description' => 'Enter this animal asset\'s species/breed. You can manage the list of available species/breeds in the ' . l('Animal Species/Breeds', 'farm/assets/animals/types') . ' vocabulary.',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -832,6 +832,7 @@ function farm_livestock_field_default_field_instances() {
   t('Castrated');
   t('Date of birth');
   t('Description');
+  t('Enter this animal asset\'s species/breed. You can manage the list of available species/breeds in the <a href="/farm/assets/animals/types">Animal Species/Breeds</a> vocabulary.');
   t('Files');
   t('Group');
   t('Has this animal been castrated?');
@@ -855,7 +856,6 @@ function farm_livestock_field_default_field_instances() {
   t('Use this to organize your logs into categories for easier searching and filtering later.');
   t('Use this to set or adjust asset inventory levels along with this log.');
   t('What animals do this medical log pertain to?');
-  t('What is the species/breed of this animal? You can manage the list of available species/breeds in the ' . l('Animal Species/Breeds', 'farm/assets/animals/types') . ' vocabulary.');
 
   return $field_instances;
 }
