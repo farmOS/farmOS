@@ -20,3 +20,130 @@ function farm_group_farm_ui_entities() {
     ),
   );
 }
+
+/**
+ * Load groups that an asset is a member of.
+ *
+ * @param FarmAsset $asset
+ *   The farm_asset object to look for.
+ * @param int $time
+ *   Unix timestamp limiter. Only logs before this time will be included.
+ *   Defaults to the current time. Set to 0 to load the absolute last.
+ * @param bool $done
+ *   Whether or not to only show logs that are marked as "done".
+ *   Defaults to TRUE.
+ *
+ * @return array
+ *   Returns an array of groups that the asset is a member of.
+ */
+function farm_group_asset_membership(FarmAsset $asset, $time = REQUEST_TIME, $done = TRUE) {
+  $groups = array();
+
+  // Load the log using our helper function.
+  $log = farm_group_asset_latest_membership($asset, $time, $done);
+
+  // If no groups are specified, bail.
+  if (empty($log->field_farm_group[LANGUAGE_NONE])) {
+    return $groups;
+  }
+
+  // Iterate through the referenced groups and load them.
+  if (!empty($log->field_farm_group[LANGUAGE_NONE])) {
+    foreach ($log->field_farm_group[LANGUAGE_NONE] as $group_reference) {
+      if (!empty($group_reference['target_id'])) {
+        $group = farm_asset_load($group_reference['target_id']);
+        if (!empty($group)) {
+          $groups[] = $group;
+        }
+      }
+    }
+  }
+  return $groups;
+}
+
+/**
+ * Load an asset's latest log that defines a group membership.
+ *
+ * @param FarmAsset $asset
+ *   The farm_asset object to look for.
+ * @param int $time
+ *   Unix timestamp limiter. Only logs before this time will be included.
+ *   Defaults to the current time. Set to 0 to load the absolute last.
+ * @param bool $done
+ *   Whether or not to only show logs that are marked as "done". Defaults to
+ *   TRUE.
+ *
+ * @return Log|bool
+ *   Returns a log entity. FALSE if something goes wrong.
+ */
+function farm_group_asset_latest_membership(FarmAsset $asset, $time = REQUEST_TIME, $done = TRUE) {
+
+  /**
+   * Please read the comments in farm_group_asset_membership_query() to
+   * understand how this works, and to be aware of the limitations and
+   * responsibilities we have in this function with regard to sanitizing query
+   * inputs.
+   */
+
+  // If the asset doesn't have an ID (for instance if it is new and hasn't been
+  // saved yet), bail.
+  if (empty($asset->id)) {
+    return FALSE;
+  }
+
+  // Make a query for loading the latest group membership log.
+  $query = farm_group_asset_membership_query($asset->id, $time, $done);
+
+  // Execute the query and gather the log id.
+  $result = $query->execute();
+  $log_id = $result->fetchField();
+
+  // If a log id exists, load and return it.
+  if (!empty($log_id)) {
+    return log_load($log_id);
+  }
+  return FALSE;
+}
+
+/**
+ * Build a query to find group membership logs of a specific asset.
+ *
+ * @param int|string $asset_id
+ *   The asset id to search for. This can either be a specific id, or a field
+ *   alias string from another query (ie: 'mytable.assetid'). For an example
+ *   of field alias string usage, see the Views relationship handler code in
+ *   farm_group_handler_relationship_membership::query().
+ * @param int $time
+ *   Unix timestamp limiter. Only logs before this time will be included.
+ *   Defaults to the current time. Set to 0 to load the absolute last.
+ * @param bool $done
+ *   Whether or not to only show logs that are marked as "done". Defaults to
+ *   TRUE.
+ * @param bool $single
+ *   Whether or not to limit the query to a single result. Defaults to TRUE.
+ *
+ * @return \SelectQuery
+ *   Returns a SelectQuery object.
+ */
+function farm_group_asset_membership_query($asset_id, $time = REQUEST_TIME, $done = TRUE, $single = TRUE) {
+
+  /**
+   * Please read the comments in farm_log_asset_query() to understand how this
+   * works, and to be aware of the limitations and responsibilities we have in
+   * this function with regard to sanitizing query inputs.
+   */
+
+  // Use the farm_log_asset_query() helper function to start a query object.
+  $query = farm_log_asset_query($asset_id, $time, $done, $single);
+
+  // Join in the log's "group" field, and filter to only include logs that have
+  // a "group" value defined.
+  $query->join('field_data_field_farm_group', 'ss_fdffg', "ss_fdffg.entity_type = 'log' AND ss_fdffg.entity_id = ss_log.id AND ss_fdffg.deleted = 0");
+  $query->where('ss_fdffg.field_farm_group_target_id IS NOT NULL');
+
+  // Add the log ID field.
+  $query->addField('ss_log', 'id');
+
+  // Return the query object.
+  return $query;
+}
