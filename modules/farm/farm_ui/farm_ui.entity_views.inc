@@ -172,8 +172,6 @@ function farm_ui_entity_views($entity_type, $entity_bundle, $entity) {
       if (!empty($info['title'])) {
         $build[$group]['#type'] = 'fieldset';
         $build[$group]['#title'] = $info['title'];
-        $build[$group]['#collapsible'] = TRUE;
-        $build[$group]['#collapsed'] = FALSE;
       }
       $build[$group]['#weight'] = $info['weight'];
     }
