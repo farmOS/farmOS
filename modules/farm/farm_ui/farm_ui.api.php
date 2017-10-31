@@ -167,7 +167,7 @@ function hook_farm_ui_entity_view_groups() {
  *       (this is useful if the View has more than one contextual filter)
  *     'group' - the group to put the View in (options are: assets, logs,
  *       other)
- *     'weight' - the weight of the View in the taxonomy page
+ *     'weight' - the weight of the View in the entity page
  *       (this is useful for changing the order of Views)
  *     'always' - always display, even if there are no View results
  *       (default is FALSE)
