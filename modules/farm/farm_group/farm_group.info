@@ -33,3 +33,4 @@ features[field_instance][] = farm_asset-group-field_farm_images
 features[field_instance][] = farm_asset-group-field_farm_parent
 features[views_view][] = farm_group_entityreference_view
 features[views_view][] = farm_groups
+files[] = views/handlers/farm_group_handler_relationship_membership.inc
