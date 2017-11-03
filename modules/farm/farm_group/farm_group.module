@@ -242,6 +242,107 @@ function farm_group_asset_membership_query($asset_id, $time = REQUEST_TIME, $don
 }
 
 /**
+ * Load all members of a group.
+ *
+ * @param FarmAsset $group
+ *   The group to load members from.
+ * @param int $time
+ *   Unix timestamp limiter. Only logs before this time will be included.
+ *   Defaults to the current time. Set to 0 to load the absolute last.
+ * @param bool $done
+ *   Whether or not to only show logs that are marked as "done".
+ *   Defaults to TRUE.
+ *
+ * @return array
+ *   Returns an array of the group's member assets, keyed by asset ID.
+ */
+function farm_group_members(FarmAsset $group, $time = REQUEST_TIME, $done = TRUE) {
+
+  // Start an empty array of members.
+  $members = array();
+
+  // If the group doesn't have an id, bail.
+  if (empty($group->id)) {
+    return $members;
+  }
+
+  // Build a query to find all members of the group.
+  $query = farm_group_members_query($group->id, $time, $done);
+
+  // Join in asset references.
+  $query->join('field_data_field_farm_asset', 'ss_fdffa', "ss_fdffa.entity_type = 'log' AND ss_fdffa.entity_id = ss_log.id AND ss_fdffa.deleted = 0");
+
+  // Add the asset ID field.
+  $query->addField('ss_fdffa', 'field_farm_asset_target_id', 'asset_id');
+
+  // Execute the query to get a list of asset IDs.
+  $result = $query->execute();
+
+  // Iterate through the results.
+  foreach ($result as $row) {
+
+    // If the asset ID is empty, skip it.
+    if (empty($row->asset_id)) {
+      continue;
+    }
+
+    // If the asset has already been loaded, skip it.
+    if (array_key_exists($row->asset_id, $members)) {
+      continue;
+    }
+
+    // Load the asset.
+    $members[$row->asset_id] = farm_asset_load($row->asset_id);
+  }
+
+  // Return the array of members.
+  return $members;
+}
+
+/**
+ * Build a query to find membership logs for a specific group.
+ *
+ * @param int $group_id
+ *   The group's asset id to search for.
+ * @param int $time
+ *   Unix timestamp limiter. Only logs before this time will be included.
+ *   Defaults to the current time. Set to 0 to load the absolute last.
+ * @param bool $done
+ *   Whether or not to only show logs that are marked as "done". Defaults to
+ *   TRUE.
+ *
+ * @return \SelectQuery
+ *   Returns a SelectQuery object.
+ */
+function farm_group_members_query($group_id, $time = REQUEST_TIME, $done = TRUE) {
+
+  /**
+   * Please read the comments in farm_log_query() to understand how this works,
+   * and to be aware of the limitations and responsibilities we have in this
+   * function with regard to sanitizing query inputs.
+   */
+
+  // Ensure $group_id is valid, because it will be used directly in the query
+  // string. This is defensive code. See note about farm_log_query() above.
+  if (!is_int($group_id) || $group_id < 0) {
+    $group_id = db_escape_field($group_id);
+  }
+
+  // Use the farm_log_query() helper function to start a query object. Do not
+  // limit the results to a single row because by the very nature of this we
+  // want to find all assets in the group, which may come from multiple logs.
+  $query = farm_log_query($time, $done, FALSE);
+
+  // Join in the log's "group" field, and filter to only include logs that
+  // reference the specified group.
+  $query->join('field_data_field_farm_group', 'ss_fdffg', "ss_fdffg.entity_type = 'log' AND ss_fdffg.entity_id = ss_log.id AND ss_fdffg.deleted = 0");
+  $query->where('ss_fdffg.field_farm_group_target_id = ' . $group_id);
+
+  // Return the query object.
+  return $query;
+}
+
+/**
  * Recursively check for circular group membership.
  *
  * @param FarmAsset $group
