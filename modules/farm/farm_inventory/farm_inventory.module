@@ -516,19 +516,25 @@ function farm_inventory_set($asset, $inventory, $timestamp = REQUEST_TIME, $log_
   // Set the date.
   $log_wrapper->timestamp->set($timestamp);
 
-  // Load the asset's current inventory level.
+  // Load the asset's current inventory level (as a fraction).
   $current_inventory = farm_inventory($asset);
 
-  // Calculate the adjustment value necessary (use BCMath if available).
-  if (function_exists('bcsub')) {
-    $value = bcsub($inventory, $current_inventory);
-  }
-  else {
-    $value = $inventory - $current_inventory;
-  }
+  // Convert the current inventory to a fraction.
+  $current_inventory_fraction = fraction_from_decimal($current_inventory);
+
+  // Convert the new inventory to a fraction.
+  $inventory_fraction = fraction_from_decimal($inventory);
+
+  // Subtract the current inventory from the new inventory to figure out the
+  // necessary adjustment value.
+  $value_fraction = $inventory_fraction->subtract($current_inventory_fraction);
+
+  // Get the numerator and denominator.
+  $numerator = $value_fraction->getNumerator();
+  $denominator = $value_fraction->getDenominator();
 
   // If there is no value difference, bail.
-  if (empty($value)) {
+  if (empty($numerator) || empty($denominator)) {
     return;
   }
 
@@ -544,9 +550,8 @@ function farm_inventory_set($asset, $inventory, $timestamp = REQUEST_TIME, $log_
   $adjustment_wrapper->field_farm_inventory_asset = $asset;
 
   // Set the adjustment value (fraction numerator and denominator).
-  $value_fraction = fraction_from_decimal($value);
-  $adjustment_wrapper->field_farm_inventory_value->numerator->set($value_fraction->getNumerator());
-  $adjustment_wrapper->field_farm_inventory_value->denominator->set($value_fraction->getDenominator());
+  $adjustment_wrapper->field_farm_inventory_value->numerator->set($numerator);
+  $adjustment_wrapper->field_farm_inventory_value->denominator->set($denominator);
 
   // Set the log's done status.
   if (!empty($done)) {
