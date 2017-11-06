@@ -42,6 +42,44 @@ function farm_group_farm_ui_entity_views($entity_type, $bundle, $entity) {
 }
 
 /**
+ * Implements hook_entity_view_alter().
+ */
+function farm_group_entity_view_alter(&$build, $type) {
+
+  // If it's not a farm_asset, or if the entity object is not available, bail.
+  if ($type != 'farm_asset' || empty($build['#entity'])) {
+    return;
+  }
+
+  // Get the asset's group membership.
+  $membership = farm_group_asset_membership($build['#entity']);
+
+  // If no group membership information was found, bail.
+  if (empty($membership)) {
+    return;
+  }
+
+  // Start an output string.
+  $output = '<strong>' . t('Group membership') . ':</strong> ';
+
+  // Iterate through the group memberships and add links to them.
+  $group_links = array();
+  foreach ($membership as $group) {
+    $uri = entity_uri('farm_asset', $group);
+    if (!empty($uri['path'])) {
+      $group_links[] = l(entity_label('farm_asset', $group), $uri['path']);
+    }
+  }
+  $output .= implode(', ', $group_links);
+
+  // Add it to the build array.
+  $build['group'] = array(
+    '#markup' => $output,
+    '#weight' => -110,
+  );
+}
+
+/**
  * Implements hook_form_FORM_ID_alter().
  */
 function farm_group_form_log_form_alter(&$form, &$form_state, $form_id) {
