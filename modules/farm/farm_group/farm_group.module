@@ -672,7 +672,7 @@ function farm_group_members_query($group_id, $time = REQUEST_TIME, $done = TRUE)
 
   // Ensure $group_id is valid, because it will be used directly in the query
   // string. This is defensive code. See note about farm_log_query() above.
-  if (!is_int($group_id) || $group_id < 0) {
+  if (!is_numeric($group_id) || $group_id < 0) {
     $group_id = db_escape_field($group_id);
   }
 

@@ -441,7 +441,7 @@ function farm_movement_asset_next_movement(FarmAsset $asset, $time = REQUEST_TIM
   // Ensure $time is valid, because it may be used directly in the query
   // string. This is defensive code. See note about
   // farm_movement_asset_movement_query() above.
-  if (!is_int($time) || $time < 0) {
+  if (!is_numeric($time) || $time < 0) {
     $time = REQUEST_TIME;
   }
 
@@ -560,7 +560,7 @@ function farm_movement_area_movement_query($area_id, $time = REQUEST_TIME, $done
 
   // Ensure $area_id is valid, because it will be used directly in the query
   // string. This is defensive code. See note about farm_log_query() above.
-  if (!is_int($area_id) || $area_id < 0) {
+  if (!is_numeric($area_id) || $area_id < 0) {
     $area_id = db_escape_field($area_id);
   }
 
