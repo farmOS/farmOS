@@ -297,7 +297,7 @@ function farm_movement_area_history($area, $asset_types = array(), $start_time =
   }
 
   // Build a query to retrieve movement logs to this area.
-  $query = farm_movement_area_movement_query($area->tid, $end_time, TRUE, FALSE);
+  $query = farm_movement_area_movement_query($area->tid, $end_time);
 
   // Add the log ID field.
   $query->addField('ss_log', 'id');
@@ -546,13 +546,11 @@ function farm_movement_asset_movement_query($asset_id, $time = REQUEST_TIME, $do
  * @param bool $done
  *   Whether or not to only show logs that are marked as "done". Defaults to
  *   TRUE.
- * @param bool $single
- *   Whether or not to limit the query to a single result. Defaults to TRUE.
  *
  * @return \SelectQuery
  *   Returns a SelectQuery object.
  */
-function farm_movement_area_movement_query($area_id, $time = REQUEST_TIME, $done = TRUE, $single = TRUE) {
+function farm_movement_area_movement_query($area_id, $time = REQUEST_TIME, $done = TRUE) {
 
   /**
    * Please read the comments in farm_log_query() to understand how this works,
@@ -566,8 +564,10 @@ function farm_movement_area_movement_query($area_id, $time = REQUEST_TIME, $done
     $area_id = db_escape_field($area_id);
   }
 
-  // Use the farm_log_asset_query() helper function to start a query object.
-  $query = farm_log_query($time, $done, $single);
+  // Use the farm_log_query() helper function to start a query object. Do not
+  // limit the results to a single row because by the very nature of this we
+  // want to find all assets in the area, which may come from multiple logs.
+  $query = farm_log_query($time, $done, FALSE);
 
   // Join in the Movement field collection and filter to only include logs with
   // movements.
