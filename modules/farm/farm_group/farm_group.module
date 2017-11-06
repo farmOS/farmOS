@@ -87,6 +87,8 @@ function farm_group_entity_view_alter(&$build, $type) {
   // Add it to the build array.
   $build['group'] = array(
     '#markup' => $output,
+    '#prefix' => '<div class="group-membership">',
+    '#suffix' => '</div>',
     '#weight' => -110,
   );
 }

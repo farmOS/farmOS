@@ -58,7 +58,9 @@ function farm_inventory_entity_view_alter(&$build, $type) {
   // Add it to the build array.
   $build['inventory'] = array(
     '#markup' => $output,
-    '#weight' => -90,
+    '#prefix' => '<div class="inventory">',
+    '#suffix' => '</div>',
+    '#weight' => -120,
   );
 }
 

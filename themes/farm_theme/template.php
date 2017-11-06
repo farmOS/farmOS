@@ -213,25 +213,49 @@ function farm_theme_entity_view_alter(&$build, $type) {
     return;
   }
 
-  // Float the location information to the right.
-  if (!empty($build['location'])) {
+  // If certain elements exist, we will split the page into two columns and
+  // put them in the right column, and everything else in the left.
+  $right_elements = array(
+    'inventory',
+    'group',
+    'location',
+  );
+  $right_elements_exist = FALSE;
+  foreach ($right_elements as $name) {
+    if (!empty($build[$name])) {
+      $right_elements_exist = TRUE;
+      break;
+    }
+  }
+  if ($right_elements_exist) {
 
-    // Wrap it in a floated div.
-    $build['location']['#prefix'] = '<div class="col-md-6">';
-    $build['location']['#suffix'] = '</div>';
-    $build['location']['#weight'] = -99;
+    // Create a new container div that spans half of the grid.
+    $build['right'] = array(
+      '#type' => 'container',
+      '#prefix' => '<div class="col-md-6">',
+      '#suffix' => '</div>',
+      '#weight' => -99,
+    );
+
+    // Move the elements into the container.
+    foreach ($right_elements as $name) {
+      if (!empty($build[$name])) {
+        $build['right'][$name] = $build[$name];
+        unset($build[$name]);
+      }
+    }
 
     // Put everything else into another div and move it to the top so it
     // aligns left.
-    $build['fields'] = array(
+    $build['left'] = array(
       '#prefix' => '<div class="col-md-6">',
       '#suffix' => '</div>',
       '#weight' => -100,
     );
     $elements = element_children($build);
     foreach ($elements as $element) {
-      if (!in_array($element, array('location', 'fields', 'views'))) {
-        $build['fields'][$element] = $build[$element];
+      if (!in_array($element, array('left', 'right', 'views'))) {
+        $build['left'][$element] = $build[$element];
         unset($build[$element]);
       }
     }
