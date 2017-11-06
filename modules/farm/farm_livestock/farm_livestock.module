@@ -164,10 +164,6 @@ function farm_livestock_feeds_tamper_default_alter(&$feeds_tampers) {
   $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', 'animal', 'Species/breed', 'required');
   $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
 
-  // Make sex required.
-  $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', 'animal', 'Sex', 'required');
-  $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
-
   // Convert "male" to "M".
   $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', 'animal', 'Sex', 'find_replace', array('find' => t('male'), 'replace' => 'M'));
   $feeds_tamper->id .= '-male';
