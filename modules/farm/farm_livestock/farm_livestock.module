@@ -174,3 +174,38 @@ function farm_livestock_feeds_tamper_default_alter(&$feeds_tampers) {
   $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', 'animal', 'Nicknames', 'explode');
   $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
 }
+
+/**
+ * Helper function for retrieving the weight of an animal.
+ *
+ * @param FarmAsset $asset
+ *   The animal asset to get weight for.
+ *
+ * @return array
+ *   Returns an array of quantity information about the asset's weight, based
+ *   on its latest weight quantity log. Returns an empty array if nothing is
+ *   found.
+ */
+function farm_livestock_animal_weight($asset) {
+
+  // Load the latest log with a 'weight' quantity measurement for this asset.
+  $log = farm_quantity_asset_log($asset, 'weight');
+
+  // if no weight observation log exists for asset
+  if (empty($log)) {
+    return array();
+  }
+
+  // Extract quantity data from the log.
+  $data = farm_quantity_log_data($log, 'weight');
+
+  // Iterate through the data and return the first one with a value.
+  foreach ($data as $quantity) {
+    if (!empty($quantity['value'])) {
+      return $quantity;
+    }
+  }
+
+  // If nothing was returned, return an empty array.
+  return array();
+}
