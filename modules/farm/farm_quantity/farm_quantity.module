@@ -94,22 +94,67 @@ function farm_quantity_settings_form($form, &$form_state) {
 }
 
 /**
+ * Define information about available quantity measures.
+ *
+ * @return array
+ *   Returns an array of measure information.
+ */
+function farm_quantity_measures() {
+  return array(
+    'count' => array(
+      'label' => t('Count'),
+    ),
+    'length' => array(
+      'label' => t('Length'),
+    ),
+    'weight' => array(
+      'label' => t('Weight'),
+    ),
+    'volume' => array(
+      'label' => t('Volume'),
+    ),
+    'time' => array(
+      'label' => t('Time'),
+    ),
+    'temperature' => array(
+      'label' => t('Temperature'),
+    ),
+    'water_content' => array(
+      'label' => t('Water content'),
+    ),
+    'value' => array(
+      'label' => t('Value'),
+    ),
+    'rating' => array(
+      'label' => t('Rating'),
+    ),
+    'ratio' => array(
+      'label' => t('Ratio'),
+    ),
+    'probability' => array(
+      'label' => t('Probability'),
+    ),
+  );
+}
+
+/**
  * Define available options for the Measure field.
  */
 function farm_quantity_measure_options() {
-  return array(
-    'count' => 'Count',
-    'length' => 'Length',
-    'weight' => 'Weight',
-    'volume' => 'Volume',
-    'time' => 'Time',
-    'temperature' => 'Temperature',
-    'water_content' => 'Water content',
-    'value' => 'Value',
-    'rating' => 'Rating',
-    'ratio' => 'Ratio',
-    'probability' => 'Probability',
-  );
+
+  // Start an empty options array.
+  $options = array();
+
+  // Load information about measures.
+  $measures = farm_quantity_measures();
+
+  // Iterate through the measures and build a list of options.
+  foreach ($measures as $measure => $data) {
+    $options[$measure] = $data['label'];
+  }
+
+  // Return the array of options.
+  return $options;
 }
 
 /**
