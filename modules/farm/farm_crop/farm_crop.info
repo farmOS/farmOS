@@ -13,6 +13,7 @@ dependencies[] = farm_area
 dependencies[] = farm_asset
 dependencies[] = farm_asset_children
 dependencies[] = farm_fields
+dependencies[] = farm_group
 dependencies[] = farm_inventory
 dependencies[] = farm_map
 dependencies[] = farm_movement
