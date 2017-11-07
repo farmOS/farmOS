@@ -431,3 +431,91 @@ function farm_group_circular_membership(FarmAsset $group, FarmAsset $asset) {
   // Ok we're good! No circular memberships detected!
   return FALSE;
 }
+
+/**
+ * Create a log for assigning assets to group(s).
+ *
+ * @param array|FarmAsset $assets
+ *   Array of assets to assign to the groups.
+ * @param array $groups
+ *   An array of groups to move to.
+ * @param int $timestamp
+ *   The timestamp of the assignment. Defaults to the current time.
+ * @param string $log_type
+ *   The type of log to create. Defaults to "farm_observation".
+ * @param bool $done
+ *   Boolean indicating whether or not the log should be marked "done". Defaults
+ *   to TRUE.
+ */
+function farm_group_membership_set($assets, $groups = array(), $timestamp = REQUEST_TIME, $log_type = 'farm_observation', $done = TRUE) {
+
+  // If $assets isn't an array, wrap it.
+  if (!is_array($assets)) {
+    $assets = array($assets);
+  }
+
+  // Create a new group membership log entity.
+  $log = entity_create('log', array('type' => $log_type));
+
+  // Create an entity wrapper for the log.
+  $log_wrapper = entity_metadata_wrapper('log', $log);
+
+  // If the log is an observation, set the name to:
+  // "Group membership: [group(s)]".
+  // If there are more than 3 groups, just list the first, and add "(+ X more)".
+  if ($log_type == 'farm_observation') {
+    $log_name = t('Group membership') . ': ';
+    $group_names = array();
+    foreach ($groups as $group) {
+      $group_names[] = $group->name;
+    }
+    $count_groups = count($group_names);
+    if (count($group_names) <= 3) {
+      $log_name .= implode($group_names, ', ');
+    }
+    else {
+      $log_name .= $group_names[0] . ' (+' . ($count_groups - 1) . ' ' . t('more') . ')';
+    }
+    $log_wrapper->name->set($log_name);
+  }
+
+  // Iterate through the assets.
+  foreach ($assets as $asset) {
+
+    // Add the asset to the asset reference field.
+    $log_wrapper->field_farm_asset[] = $asset;
+  }
+
+  // Set the date.
+  $log_wrapper->timestamp->set($timestamp);
+
+  // If there are groups, add them to the field_farm_group field. If they are
+  // not group assets, ignore them.
+  if (!empty($groups)) {
+    foreach ($groups as $group) {
+      if ($group->type == 'group') {
+        $log_wrapper->field_farm_group[] = $group;
+      }
+    }
+  }
+
+  // Set the log's done status.
+  if (!empty($done)) {
+    $log_wrapper->done->set(TRUE);
+  }
+  else {
+    $log_wrapper->done->set(FALSE);
+  }
+
+  // Set the log owner.
+  global $user;
+  $log_wrapper->field_farm_log_owner[] = $user;
+
+  // Save the log.
+  $log_wrapper->save();
+
+  // Set a message.
+  $label = entity_label('log', $log);
+  $uri = entity_uri('log', $log);
+  drupal_set_message('Log created: ' . l($label, $uri['path']));
+}
