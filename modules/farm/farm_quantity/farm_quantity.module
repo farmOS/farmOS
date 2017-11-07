@@ -110,6 +110,9 @@ function farm_quantity_measures() {
     'weight' => array(
       'label' => t('Weight'),
     ),
+    'area' => array(
+      'label' => t('Area'),
+    ),
     'volume' => array(
       'label' => t('Volume'),
     ),
