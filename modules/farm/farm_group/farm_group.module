@@ -165,6 +165,130 @@ function farm_group_field_farm_group_validate($form, &$form_state) {
 }
 
 /**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function farm_group_form_farm_asset_form_alter(&$form, &$form_state, $form_id) {
+
+  // Get the farm asset entity from the form.
+  $asset = $form['farm_asset']['#value'];
+
+  // Get a list of active groups.
+  $active_groups = farm_group_options();
+
+  // Get the asset's current group membership.
+  $membership = farm_group_asset_membership($asset);
+
+  // Build a list of default options for the group select list below.
+  $current_groups = array();
+  if (!empty($membership)) {
+    foreach ($membership as $group) {
+      if (!empty($group->id)) {
+        $current_groups[$group->id] = $group->id;
+      }
+    }
+  }
+
+  // Add a field for assigning group membership.
+  $form['group'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Group membership'),
+    '#description' => t('Set the current group membership for this asset. An observation log will be created automatically that assigns the new membership.'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#weight' => 100,
+    '#tree' => TRUE,
+  );
+  $form['group']['group'] = array(
+    '#type' => 'select',
+    '#title' => t('Select group(s)'),
+    '#multiple' => TRUE,
+    '#options' => $active_groups,
+    '#default_value' => $current_groups,
+  );
+  $form['actions']['submit']['#submit'][] = 'farm_group_asset_form_submit';
+  $form['#group_children']['group'] = 'group_farm_general';
+}
+
+/**
+ * Submit handler for processing the asset group field.
+ *
+ * @param array $form
+ *   The form array.
+ * @param array $form_state
+ *   The form state array.
+ */
+function farm_group_asset_form_submit(array $form, array &$form_state) {
+
+  // Only proceed if group has a value.
+  if (empty($form_state['values']['group']['group'])) {
+    return;
+  }
+
+  // Only proceed if the value is not the default value.
+  if ($form_state['values']['group']['group'] == $form['group']['group']['#default_value']) {
+    return;
+  }
+
+  // If an asset doesn't exist, bail.
+  if (empty($form_state['values']['farm_asset'])) {
+    return;
+  }
+
+  // Grab the asset.
+  $asset = $form_state['values']['farm_asset'];
+
+  // Load the groups.
+  $groups = farm_asset_load_multiple($form_state['values']['group']['group']);
+
+  // Create an observation log to set the group membership.
+  farm_group_membership_set($asset, $groups);
+}
+
+/**
+ * Build a list of group options for use in form select fields.
+ *
+ * @param bool $active
+ *   Whether or not to limit the list to active groups. Defaults to TRUE. If
+ *   FALSE, both active and inactive groups will be included in the list.
+ *
+ * @return array
+ *   Returns an array of groups for use in a form.
+ */
+function farm_group_options($active = TRUE) {
+
+  // Start an empty options array.
+  $options = array();
+
+  // Build an entity field query of group assets.
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'farm_asset');
+  $query->entityCondition('bundle', 'group');
+  $query->propertyOrderBy('name', 'ASC');
+
+  // Limit to active groups.
+  if (!empty($active)) {
+    $query->propertyCondition('active', TRUE);
+  }
+
+  // Execute the query and buid a list of options.
+  $result = $query->execute();
+  if (isset($result['farm_asset'])) {
+    $group_ids = array_keys($result['farm_asset']);
+    $groups = farm_asset_load_multiple($group_ids);
+    if (!empty($groups)) {
+      foreach ($groups as $group) {
+        if (!empty($group->id)) {
+          $options[$group->id] = entity_label('farm_asset', $group);
+        }
+      }
+    }
+  }
+
+  // Return the options array.
+  return $options;
+}
+
+/**
  * Load groups that an asset is a member of.
  *
  * @param FarmAsset $asset
