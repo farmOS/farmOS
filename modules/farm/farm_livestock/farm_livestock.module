@@ -176,6 +176,54 @@ function farm_livestock_feeds_tamper_default_alter(&$feeds_tampers) {
 }
 
 /**
+ * Implements hook_entity_view_alter().
+ */
+function farm_livestock_entity_view_alter(&$build, $type) {
+
+  // If it's not a farm_asset, or if the entity object is not available, bail.
+  if ($type != 'farm_asset' || empty($build['#entity'])) {
+    return;
+  }
+
+  // Alias the asset variable.
+  $asset = $build['#entity'];
+
+  // If it isn't an animal asset, bail.
+  if ($asset->type != 'animal') {
+    return;
+  }
+
+  // Get the animal's current weight.
+  $weight = farm_livestock_animal_weight($asset);
+
+  // If a weight measurement isn't available, bail.
+  if (empty($weight)) {
+    return;
+  }
+
+  // Get the value and the units.
+  $value = !empty($weight['value']) ? $weight['value'] : '';
+  $units = !empty($weight['units']) ? $weight['units'] : '';
+
+  // Build the weight display.
+  $output = '<strong>' . t('Weight') . ':</strong> ' . $value . ' ' . $units;
+
+  // If the animal has an inventory greater than 1, add "(average)".
+  $inventory = farm_inventory($asset);
+  if ($inventory > 1) {
+    $output .= ' (' . t('average') . ')';
+  }
+
+  // Add it to the build array.
+  $build['weight'] = array(
+    '#markup' => $output,
+    '#prefix' => '<div class="weight">',
+    '#suffix' => '</div>',
+    '#weight' => -120,
+  );
+}
+
+/**
  * Helper function for retrieving the weight of an animal.
  *
  * @param FarmAsset $asset

@@ -222,6 +222,7 @@ function farm_theme_entity_view_alter(&$build, $type) {
   // put them in the right column, and everything else in the left.
   $right_elements = array(
     'inventory',
+    'weight',
     'group',
     'location',
   );
