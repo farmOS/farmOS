@@ -62,7 +62,7 @@ projects[field_group_easy_responsive_tabs][version] = "1.2"
 projects[fraction][subdir] = "contrib"
 projects[fraction][version] = "1.5"
 ; Issue #2918218: Empty decimal widgets always show zero
-projects[field_collection][patch][] = "http://www.drupal.org/files/issues/fraction_empty_zero-2918218-2.patch"
+projects[fraction][patch][] = "http://www.drupal.org/files/issues/fraction_empty_zero-2918218-2.patch"
 
 projects[geocoder][subdir] = "contrib"
 projects[geocoder][version] = "1.3"
