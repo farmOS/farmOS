@@ -11,130 +11,6 @@ function farm_livestock_views_default_views() {
   $export = array();
 
   $view = new view();
-  $view->name = 'farm_animal_groups';
-  $view->description = '';
-  $view->tag = 'farm_crop';
-  $view->base_table = 'taxonomy_term_data';
-  $view->human_name = 'Farm Animal Groups';
-  $view->core = 7;
-  $view->api_version = '3.0';
-  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-
-  /* Display: Master */
-  $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Animal Groups';
-  $handler->display->display_options['use_more_always'] = FALSE;
-  $handler->display->display_options['group_by'] = TRUE;
-  $handler->display->display_options['access']['type'] = 'perm';
-  $handler->display->display_options['access']['perm'] = 'view any animal farm assets';
-  $handler->display->display_options['cache']['type'] = 'none';
-  $handler->display->display_options['query']['type'] = 'views_query';
-  $handler->display->display_options['exposed_form']['type'] = 'basic';
-  $handler->display->display_options['exposed_form']['options']['reset_button'] = TRUE;
-  $handler->display->display_options['pager']['type'] = 'none';
-  $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['style_plugin'] = 'tree';
-  $handler->display->display_options['style_options']['main_field'] = 'tid';
-  $handler->display->display_options['style_options']['parent_field'] = 'tid_1';
-  $handler->display->display_options['row_plugin'] = 'fields';
-  $handler->display->display_options['row_options']['inline'] = array(
-    'name' => 'name',
-    'id' => 'id',
-  );
-  /* Header: Global: Unfiltered text */
-  $handler->display->display_options['header']['area_text_custom']['id'] = 'area_text_custom';
-  $handler->display->display_options['header']['area_text_custom']['table'] = 'views';
-  $handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
-  $handler->display->display_options['header']['area_text_custom']['content'] = '<h4>Hierarchy <small><a href="/admin/structure/taxonomy/farm_animal_groups?destination=farm/assets/animals/groups">(change)</a></small></h4>';
-  /* No results behavior: Global: Unfiltered text */
-  $handler->display->display_options['empty']['area_text_custom']['id'] = 'area_text_custom';
-  $handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
-  $handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
-  $handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
-  $handler->display->display_options['empty']['area_text_custom']['content'] = 'No groups found.';
-  /* Relationship: Taxonomy term: Parent term */
-  $handler->display->display_options['relationships']['parent']['id'] = 'parent';
-  $handler->display->display_options['relationships']['parent']['table'] = 'taxonomy_term_hierarchy';
-  $handler->display->display_options['relationships']['parent']['field'] = 'parent';
-  /* Relationship: Taxonomy term: Farm asset using Group */
-  $handler->display->display_options['relationships']['reverse_field_farm_animal_group_farm_asset']['id'] = 'reverse_field_farm_animal_group_farm_asset';
-  $handler->display->display_options['relationships']['reverse_field_farm_animal_group_farm_asset']['table'] = 'taxonomy_term_data';
-  $handler->display->display_options['relationships']['reverse_field_farm_animal_group_farm_asset']['field'] = 'reverse_field_farm_animal_group_farm_asset';
-  /* Field: Taxonomy term: Term ID */
-  $handler->display->display_options['fields']['tid']['id'] = 'tid';
-  $handler->display->display_options['fields']['tid']['table'] = 'taxonomy_term_data';
-  $handler->display->display_options['fields']['tid']['field'] = 'tid';
-  $handler->display->display_options['fields']['tid']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['tid']['separator'] = '';
-  /* Field: Taxonomy term: Term ID */
-  $handler->display->display_options['fields']['tid_1']['id'] = 'tid_1';
-  $handler->display->display_options['fields']['tid_1']['table'] = 'taxonomy_term_data';
-  $handler->display->display_options['fields']['tid_1']['field'] = 'tid';
-  $handler->display->display_options['fields']['tid_1']['relationship'] = 'parent';
-  $handler->display->display_options['fields']['tid_1']['label'] = 'Parent Term ID';
-  $handler->display->display_options['fields']['tid_1']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['tid_1']['separator'] = '';
-  /* Field: Taxonomy term: Name */
-  $handler->display->display_options['fields']['name']['id'] = 'name';
-  $handler->display->display_options['fields']['name']['table'] = 'taxonomy_term_data';
-  $handler->display->display_options['fields']['name']['field'] = 'name';
-  $handler->display->display_options['fields']['name']['label'] = '';
-  $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
-  $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
-  $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['name']['link_to_taxonomy'] = TRUE;
-  /* Field: COUNT(Farm asset: Farm asset ID) */
-  $handler->display->display_options['fields']['id']['id'] = 'id';
-  $handler->display->display_options['fields']['id']['table'] = 'farm_asset';
-  $handler->display->display_options['fields']['id']['field'] = 'id';
-  $handler->display->display_options['fields']['id']['relationship'] = 'reverse_field_farm_animal_group_farm_asset';
-  $handler->display->display_options['fields']['id']['group_type'] = 'count';
-  $handler->display->display_options['fields']['id']['label'] = '';
-  $handler->display->display_options['fields']['id']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['id']['prefix'] = '(';
-  $handler->display->display_options['fields']['id']['suffix'] = ')';
-  /* Filter criterion: Taxonomy vocabulary: Machine name */
-  $handler->display->display_options['filters']['machine_name']['id'] = 'machine_name';
-  $handler->display->display_options['filters']['machine_name']['table'] = 'taxonomy_vocabulary';
-  $handler->display->display_options['filters']['machine_name']['field'] = 'machine_name';
-  $handler->display->display_options['filters']['machine_name']['value'] = array(
-    'farm_animal_groups' => 'farm_animal_groups',
-  );
-  $handler->display->display_options['filters']['machine_name']['group'] = 1;
-
-  /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'farm/assets/animals/groups';
-  $handler->display->display_options['menu']['type'] = 'tab';
-  $handler->display->display_options['menu']['title'] = 'Groups';
-  $handler->display->display_options['menu']['weight'] = '';
-  $handler->display->display_options['menu']['name'] = 'farm';
-  $handler->display->display_options['menu']['context'] = 0;
-  $handler->display->display_options['menu']['context_only_inline'] = 0;
-  $translatables['farm_animal_groups'] = array(
-    t('Master'),
-    t('Animal Groups'),
-    t('more'),
-    t('Apply'),
-    t('Reset'),
-    t('Sort by'),
-    t('Asc'),
-    t('Desc'),
-    t('<h4>Hierarchy <small><a href="/admin/structure/taxonomy/farm_animal_groups?destination=farm/assets/animals/groups">(change)</a></small></h4>'),
-    t('No groups found.'),
-    t('Parent'),
-    t('field_farm_animal_group'),
-    t('Term ID'),
-    t('.'),
-    t('Parent Term ID'),
-    t(','),
-    t('('),
-    t(')'),
-    t('Page'),
-  );
-  $export['farm_animal_groups'] = $view;
-
-  $view = new view();
   $view->name = 'farm_animal_types';
   $view->description = '';
   $view->tag = 'farm_crop';
@@ -590,27 +466,12 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['validate_options']['vocabularies'] = array(
     'farm_areas' => 'farm_areas',
   );
-  /* Contextual filter: Field: Group (field_farm_animal_group) */
-  $handler->display->display_options['arguments']['field_farm_animal_group_tid']['id'] = 'field_farm_animal_group_tid';
-  $handler->display->display_options['arguments']['field_farm_animal_group_tid']['table'] = 'field_data_field_farm_animal_group';
-  $handler->display->display_options['arguments']['field_farm_animal_group_tid']['field'] = 'field_farm_animal_group_tid';
-  $handler->display->display_options['arguments']['field_farm_animal_group_tid']['title_enable'] = TRUE;
-  $handler->display->display_options['arguments']['field_farm_animal_group_tid']['title'] = 'Animals in group %2';
-  $handler->display->display_options['arguments']['field_farm_animal_group_tid']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['field_farm_animal_group_tid']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['field_farm_animal_group_tid']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['field_farm_animal_group_tid']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['field_farm_animal_group_tid']['specify_validation'] = TRUE;
-  $handler->display->display_options['arguments']['field_farm_animal_group_tid']['validate']['type'] = 'taxonomy_term';
-  $handler->display->display_options['arguments']['field_farm_animal_group_tid']['validate_options']['vocabularies'] = array(
-    'farm_animal_groups' => 'farm_animal_groups',
-  );
   /* Contextual filter: Farm asset: Species/breed (field_farm_animal_type) */
   $handler->display->display_options['arguments']['field_farm_animal_type_tid']['id'] = 'field_farm_animal_type_tid';
   $handler->display->display_options['arguments']['field_farm_animal_type_tid']['table'] = 'field_data_field_farm_animal_type';
   $handler->display->display_options['arguments']['field_farm_animal_type_tid']['field'] = 'field_farm_animal_type_tid';
   $handler->display->display_options['arguments']['field_farm_animal_type_tid']['title_enable'] = TRUE;
-  $handler->display->display_options['arguments']['field_farm_animal_type_tid']['title'] = 'Animals of type %3';
+  $handler->display->display_options['arguments']['field_farm_animal_type_tid']['title'] = 'Animals of type %2';
   $handler->display->display_options['arguments']['field_farm_animal_type_tid']['default_argument_type'] = 'fixed';
   $handler->display->display_options['arguments']['field_farm_animal_type_tid']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['field_farm_animal_type_tid']['summary']['format'] = 'default_summary';

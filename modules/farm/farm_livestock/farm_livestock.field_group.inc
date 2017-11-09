@@ -137,11 +137,10 @@ function farm_livestock_field_group_info() {
     'label' => 'General',
     'weight' => '1',
     'children' => array(
-      0 => 'field_farm_animal_group',
-      1 => 'field_farm_animal_type',
-      2 => 'field_farm_description',
-      3 => 'name',
-      4 => 'group_farm_individual',
+      0 => 'field_farm_animal_type',
+      1 => 'field_farm_description',
+      2 => 'name',
+      3 => 'group_farm_individual',
     ),
     'format_type' => 'field_group_easy_responsive_tabs_nav_item',
     'format_settings' => array(

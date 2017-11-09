@@ -47,40 +47,6 @@ function farm_livestock_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'farm_asset-animal-field_farm_animal_group'.
-  $field_instances['farm_asset-animal-field_farm_animal_group'] = array(
-    'bundle' => 'animal',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => 'Assign this animal to a particular group, herd, flock, etc. You can manage the list of available groups in the ' . l('Animal Groups', 'farm/assets/animals/groups') . ' vocabulary.',
-    'display' => array(
-      'default' => array(
-        'label' => 'inline',
-        'module' => 'taxonomy',
-        'settings' => array(),
-        'type' => 'taxonomy_term_reference_link',
-        'weight' => 1,
-      ),
-    ),
-    'entity_type' => 'farm_asset',
-    'field_name' => 'field_farm_animal_group',
-    'label' => 'Group',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 0,
-      'module' => 'taxonomy',
-      'settings' => array(
-        'autocomplete_path' => 'taxonomy/autocomplete',
-        'size' => 60,
-      ),
-      'type' => 'taxonomy_autocomplete',
-      'weight' => -8,
-    ),
-  );
-
   // Exported field_instance: 'farm_asset-animal-field_farm_animal_nicknames'.
   $field_instances['farm_asset-animal-field_farm_animal_nicknames'] = array(
     'bundle' => 'animal',
