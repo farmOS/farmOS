@@ -152,7 +152,7 @@ function _farm_inventory_asset_type_settings_save($asset_type) {
 }
 
 /**
- * Implements hook_entity_update().
+ * Implements hook_entity_delete().
  */
 function farm_inventory_entity_delete($entity, $type) {
 
