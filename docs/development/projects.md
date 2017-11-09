@@ -61,6 +61,8 @@ These modules aren't included with the farmOS distribution, but they can be
 added to extend your farmOS functionality:
 
 * **[Farm Bee](https://drupal.org/project/farm_bee)** - Features for beekeeping.
+* **[Farm Eggs](https://drupal.org/project/farm_eggs)** - Provides a simple UI
+  for creating egg harvest logs.
 * **[Farm Maple](https://drupal.org/project/farm_maple)** - Features for
   management of maple tapping and production.
 * **[Farm Map: Finland](https://github.com/rkioski/farm_map_fi)** - Finnish map
