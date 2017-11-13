@@ -793,6 +793,9 @@ function farm_group_circular_membership_validate($asset_ids, $group_ids, $elemen
  * @param bool $done
  *   Boolean indicating whether or not the log should be marked "done". Defaults
  *   to TRUE.
+ *
+ * @return \Log
+ *   Returns the log that was created.
  */
 function farm_group_membership_set($assets, $groups = array(), $timestamp = REQUEST_TIME, $log_type = 'farm_observation', $done = TRUE) {
 
@@ -867,4 +870,7 @@ function farm_group_membership_set($assets, $groups = array(), $timestamp = REQU
   $label = entity_label('log', $log);
   $uri = entity_uri('log', $log);
   drupal_set_message('Log created: ' . l($label, $uri['path']));
+
+  // Return the log.
+  return $log;
 }

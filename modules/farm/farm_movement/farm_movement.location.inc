@@ -717,6 +717,9 @@ function farm_movement_asset_move_action(array $assets, $context = array()) {
  * @param bool $done
  *   Boolean indicating whether or not the log should be marked "done". Defaults
  *   to TRUE.
+ *
+ * @return \Log
+ *   Returns the log that was created.
  */
 function farm_movement_create($assets, $areas = array(), $timestamp = REQUEST_TIME, $log_type = 'farm_observation', $done = TRUE) {
 
@@ -789,4 +792,7 @@ function farm_movement_create($assets, $areas = array(), $timestamp = REQUEST_TI
   $label = entity_label('log', $log);
   $uri = entity_uri('log', $log);
   drupal_set_message('Log created: ' . l($label, $uri['path']));
+
+  // Return the log.
+  return $log;
 }

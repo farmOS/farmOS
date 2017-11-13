@@ -364,6 +364,9 @@ function farm_livestock_animal_weight($asset) {
  * @param bool $done
  *   Boolean indicating whether or not the log should be marked "done".
  *   Defaults to TRUE.
+ *
+ * @return \Log
+ *   Returns the log that was created.
  */
 function farm_livestock_weight_set($asset, $weight, $units, $timestamp = REQUEST_TIME, $done = TRUE) {
 
@@ -440,4 +443,7 @@ function farm_livestock_weight_set($asset, $weight, $units, $timestamp = REQUEST
   $label = entity_label('log', $log);
   $uri = entity_uri('log', $log);
   drupal_set_message('Log created: ' . l($label, $uri['path']));
+
+  // Return the log.
+  return $log;
 }
