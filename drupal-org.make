@@ -12,6 +12,8 @@ projects[bootstrap_tour][patch][] = "http://www.drupal.org/files/issues/add_uniq
 
 projects[calendar][subdir] = "contrib"
 projects[calendar][version] = "3.5"
+; Patch to fix Issue #2160183: Undefined index: groupby_times
+projects[calendar][patch][] = "http://www.drupal.org/files/issues/calendar-2160183-18.patch"
 
 projects[colorbox][subdir] = "contrib"
 projects[colorbox][version] = "2.13"
