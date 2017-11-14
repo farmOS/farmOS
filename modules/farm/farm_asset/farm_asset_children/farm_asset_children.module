@@ -18,6 +18,7 @@ function farm_asset_children_farm_ui_entity_views($entity_type, $bundle, $entity
         'name' => 'farm_asset_children',
         'display' => 'page',
         'title' => t('Children'),
+        'group' => 'assets',
         'weight' => 110,
       ),
     );

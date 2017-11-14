@@ -40,6 +40,7 @@ function farm_ui_entity_views($entity_type, $entity_bundle, $entity) {
       if (empty($info['farm_asset']) || $info['farm_asset'] == 'all' || $info['farm_asset'] == $entity->type) {
         $view = array(
           'name' => $info['view'],
+          'group' => 'logs',
         );
         if (!empty($info['weight'])) {
           $view['weight'] = $info['weight'];
@@ -171,8 +172,6 @@ function farm_ui_entity_views($entity_type, $entity_bundle, $entity) {
       if (!empty($info['title'])) {
         $build[$group]['#type'] = 'fieldset';
         $build[$group]['#title'] = $info['title'];
-        $build[$group]['#collapsible'] = TRUE;
-        $build[$group]['#collapsed'] = FALSE;
       }
       $build[$group]['#weight'] = $info['weight'];
     }

@@ -13,11 +13,15 @@ function farm_ui_farm_ui_entity_view_groups() {
       'weight' => 98,
     ),
     'logs' => array(
-      'title' => t('Logs'),
+      'title' => t('Logs by type'),
       'weight' => 99,
     ),
-    'other' => array(
+    'logs_special' => array(
+      'title' => t('Logs with special purpose'),
       'weight' => 100,
+    ),
+    'other' => array(
+      'weight' => 101,
     ),
   );
   return $groups;
