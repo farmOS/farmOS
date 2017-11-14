@@ -284,6 +284,127 @@ function farm_group_asset_form_submit(array $form, array &$form_state) {
 }
 
 /**
+ * Implements hook_action_info().
+ */
+function farm_group_action_info() {
+  return array(
+    'farm_group_asset_membership_action' => array(
+      'type' => 'farm_asset',
+      'label' => t('Group'),
+      'configurable' => TRUE,
+      'triggers' => array('any'),
+      'aggregate' => TRUE,
+    ),
+  );
+}
+
+/**
+ * Configuration form for farm_group_asset_membership action.
+ *
+ * @param array $context
+ *   The context passed into the action form function.
+ * @param array $form_state
+ *   The form state passed into the action form function.
+ *
+ * @return array
+ *   Returns a form array.
+ */
+function farm_group_asset_membership_action_form(array $context, array $form_state) {
+
+  // Date field.
+  $form['date'] = array(
+    '#type' => 'date_select',
+    '#title' => t('Date'),
+    '#date_format' => 'M j Y',
+    '#date_type' => DATE_FORMAT_UNIX,
+    '#date_year_range' => '-10:+3',
+    '#default_value' => date('Y-m-d H:i', REQUEST_TIME),
+    '#required' => TRUE,
+  );
+
+  // Group reference field.
+  $form['groups'] = array(
+    '#type' => 'select',
+    '#title' => t('Group'),
+    '#options' => farm_group_options(),
+    '#required' => TRUE,
+    '#multiple' => TRUE,
+  );
+
+  // Done field.
+  $form['done'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('This membership change has taken place (mark the log as done)'),
+    '#default_value' => TRUE,
+  );
+
+  // Return the form.
+  return $form;
+}
+
+/**
+ * Submit handler for farm_group_asset_membership action configuration form.
+ *
+ * @param array $form
+ *   The form array.
+ * @param array $form_state
+ *   The form state array.
+ *
+ * @return array
+ *   Returns an array that will end up in the action's context.
+ */
+function farm_group_asset_membership_action_submit(array $form, array $form_state) {
+
+  // Start to build the context array.
+  $context = array();
+
+  // Load the groups.
+  $context['groups'] = farm_asset_load_multiple($form_state['values']['groups']);
+
+  // Convert the date to a timestamp.
+  $timestamp = strtotime($form_state['values']['date']);
+
+  // The action form only includes month, day, and year. If the event is today,
+  // then we assume that the current time should also be included.
+  if (date('Ymd', $timestamp) == date('Ymd', REQUEST_TIME)) {
+    $context['timestamp'] = REQUEST_TIME;
+  }
+
+  // Otherwise, the event is in the past/future, so don't include a time.
+  else {
+    $context['timestamp'] = $timestamp;
+  }
+
+  // Copy the "done" value as a boolean.
+  $context['done'] = !empty($form_state['values']['done']) ? TRUE : FALSE;
+
+  // Return the context array.
+  return $context;
+}
+
+/**
+ * Action function for farm_group_asset_membership.
+ *
+ * Creates a new group membership observation log for the specified assets.
+ *
+ * @param array $assets
+ *   An array of asset entities to change membership of.
+ * @param array $context
+ *   Array with parameters for this action.
+ */
+function farm_group_asset_membership_action(array $assets, $context = array()) {
+
+  // If we're missing assets, areas, or a timestamp, bail.
+  if (empty($assets) || empty($context['groups']) || empty($context['timestamp'])) {
+    drupal_set_message('Could not perform membership change because required information was missing.', 'error');
+    return;
+  }
+
+  // Create a group membership observation log.
+  farm_group_membership_set($assets, $context['groups'], $context['timestamp'], 'farm_observation', $context['done']);
+}
+
+/**
  * Build a list of group options for use in form select fields.
  *
  * @param bool $active
