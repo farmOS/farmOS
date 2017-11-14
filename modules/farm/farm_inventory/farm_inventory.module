@@ -1,0 +1,578 @@
+<?php
+
+/**
+ * @file
+ * Farm inventory module.
+ */
+
+include_once 'farm_inventory.features.inc';
+
+/**
+ * Implements hook_farm_ui_entity_views().
+ */
+function farm_inventory_farm_ui_entity_views($entity_type, $bundle, $entity) {
+  $views = array();
+
+  // Add asset movements View at the bottom of assets.
+  if ($entity_type == 'farm_asset') {
+    $views[] = array(
+      'name' => 'farm_inventory_log',
+      'weight' => 100,
+    );
+  }
+
+  return $views;
+}
+
+/**
+ * Implements hook_entity_view_alter().
+ */
+function farm_inventory_entity_view_alter(&$build, $type) {
+
+  // If it's not a farm_asset, or if the entity object is not available, bail.
+  if ($type != 'farm_asset' || empty($build['#entity'])) {
+    return;
+  }
+
+  // Alias the asset variable.
+  $asset = $build['#entity'];
+
+  // If inventory management is not enabled for this asset, bail.
+  if (!farm_inventory_enabled($asset)) {
+    return;
+  }
+
+  // Get the asset's inventory.
+  $inventory = farm_inventory($asset);
+
+  // If the inventory is an empty string, and the asset is treated as an
+  // individual, then set the inventory to 1.
+  if ($inventory == '' && farm_inventory_individual($asset)) {
+    $inventory = '1';
+  }
+
+  // Build the inventory display.
+  $output = '<strong>' . t('Inventory') . ':</strong> ' . $inventory;
+
+  // Add it to the build array.
+  $build['inventory'] = array(
+    '#markup' => $output,
+    '#weight' => -90,
+  );
+}
+
+/**
+ * Implements hook_entity_load().
+ */
+function farm_inventory_entity_load($entities, $type) {
+
+  // Only act on farm_asset_type entities.
+  if ($type != 'farm_asset_type') {
+    return;
+  }
+
+  // Load asset type inventory settings.
+  $settings = array();
+  $result = db_query('SELECT * FROM {farm_inventory_asset_type}');
+  foreach ($result as $row) {
+    if (!empty($row->type)) {
+      $settings[$row->type] = array(
+        'enabled' => $row->enabled,
+        'individual' => $row->individual,
+      );
+    }
+  }
+
+  // Iterate through the entities and add inventory settings.
+  foreach ($entities as $entity) {
+
+    // Get the asset type machine name.
+    $asset_type = $entity->type;
+
+    // If settings are available for the entity's bundle, add them.
+    if (!empty($settings[$asset_type])) {
+      $entity->inventory = $settings[$asset_type];
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_insert().
+ */
+function farm_inventory_entity_insert($entity, $type) {
+
+  // Only act on farm_asset_type entities.
+  if ($type != 'farm_asset_type') {
+    return;
+  }
+
+  // Save asset type inventory settings.
+  _farm_inventory_asset_type_settings_save($entity);
+}
+
+/**
+ * Implements hook_entity_update().
+ */
+function farm_inventory_entity_update($entity, $type) {
+
+  // Only act on farm_asset_type entities.
+  if ($type != 'farm_asset_type') {
+    return;
+  }
+
+  // Save asset type inventory settings.
+  _farm_inventory_asset_type_settings_save($entity);
+}
+
+/**
+ * Helper function for saving asset type inventory settings when an asset type
+ * is inserted or updated.
+ *
+ * @param FarmAssetType $asset_type
+ *   A farm asset type entity.
+ */
+function _farm_inventory_asset_type_settings_save($asset_type) {
+
+  // If the machine name is not set, bail.
+  if (empty($asset_type->type)) {
+    return;
+  }
+
+  // If inventory settings are provided, save them.
+  if (!empty($asset_type->inventory)) {
+
+    // First, delete existing settings.
+    _farm_inventory_asset_type_settings_delete($asset_type->type);
+
+    // Then, save new settings.
+    $record = array('type' => $asset_type->type);
+    $record = array_merge($record, $asset_type->inventory);
+    drupal_write_record('farm_inventory_asset_type', $record);
+  }
+}
+
+/**
+ * Implements hook_entity_delete().
+ */
+function farm_inventory_entity_delete($entity, $type) {
+
+  // Only act on farm_asset_type entities.
+  if ($type != 'farm_asset_type') {
+    return;
+  }
+
+  // If the asset machine name is not set, bail.
+  if (empty($entity->type)) {
+    return;
+  }
+
+  // Delete settings for this asset type.
+  _farm_inventory_asset_type_settings_delete($entity->type);
+}
+
+/**
+ * Helper function for deleting asset type inventory settings.
+ *
+ * @param string $type
+ *   The asset type machine name.
+ */
+function _farm_inventory_asset_type_settings_delete($type) {
+  db_query('DELETE FROM {farm_inventory_asset_type} WHERE type = :type', array(':type' => $type));
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function farm_inventory_form_farm_asset_type_form_alter(&$form, &$form_state, $form_id) {
+
+  // Get the asset type machine name, if available.
+  $type = '';
+  if (!empty($form['type']['#default_value'])) {
+    $type = $form['type']['#default_value'];
+  }
+
+  // Load existing settings for this asset type.
+  $settings = array();
+  if (!empty($type)) {
+    $settings = db_query('SELECT * FROM {farm_inventory_asset_type} WHERE type = :type', array(':type' => $type))->fetchAssoc();
+  }
+
+  // Add inventory configuration fieldset for the asset type.
+  $form['inventory'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Inventory'),
+    '#description' => t('Configure inventory management options for this asset type.'),
+    '#tree' => TRUE,
+  );
+
+  // Enable inventory.
+  $form['inventory']['enabled'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable inventory tracking'),
+    '#default_value' => !empty($settings['enabled']) ? TRUE : FALSE,
+  );
+
+  // Define the default inventory value.
+  $form['inventory']['individual'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Assets are individuals'),
+    '#description' => t('If this is enabled, assets that have no inventory adjustments will be assumed to be individuals, and will have a default inventory of 1. If this is disabled, the default inventory for assets of this type will be zero.'),
+    '#default_value' => !empty($settings['individual']) ? TRUE : FALSE,
+  );
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function farm_inventory_form_farm_asset_form_alter(&$form, &$form_state, $form_id) {
+
+  // Get the farm asset entity from the form.
+  $asset = $form['farm_asset']['#value'];
+
+  // If inventory is not enabled for this asset, bail.
+  if (!farm_inventory_enabled($asset)) {
+    return;
+  }
+
+  // Get the asset's current inventory.
+  $inventory = farm_inventory($asset);
+
+  // Add a field for setting the asset's current inventory.
+  $form['inventory'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Inventory'),
+    '#description' => t('Set the current inventory level for this asset. An observation log will be created automatically that adjusts the inventory level to match this value.'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#weight' => 100,
+  );
+  $form['inventory']['inventory'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Current inventory'),
+    '#default_value' => $inventory,
+  );
+  $form['actions']['submit']['#submit'][] = 'farm_inventory_asset_form_submit';
+  $form['#group_children']['inventory'] = 'group_farm_general';
+}
+
+/**
+ * Submit handler for processing the asset inventory field.
+ *
+ * @param array $form
+ *   The form array.
+ * @param array $form_state
+ *   The form state array.
+ */
+function farm_inventory_asset_form_submit(array $form, array &$form_state) {
+
+  // Only proceed if inventory has a value.
+  if (empty($form_state['values']['inventory'])) {
+    return;
+  }
+
+  // Only proceed if the value is not the default value.
+  if ($form_state['values']['inventory'] == $form['inventory']['inventory']['#default_value']) {
+    return;
+  }
+
+  // If an asset doesn't exist, bail.
+  if (empty($form_state['values']['farm_asset'])) {
+    return;
+  }
+
+  // Grab the asset.
+  $asset = $form_state['values']['farm_asset'];
+
+  // Create an observation log to set the inventory.
+  farm_inventory_set($asset, $form_state['values']['inventory']);
+}
+
+/**
+ * Returns a list of asset types that have inventory enabled.
+ *
+ * @return array
+ *   Returns an array of asset type machine names.
+ */
+function farm_inventory_asset_types() {
+  $asset_types = array();
+  $result = db_query('SELECT type FROM {farm_inventory_asset_type} WHERE enabled = 1');
+  foreach ($result as $row) {
+    if (!empty($row->type)) {
+      $asset_types[] = $row->type;
+    }
+  }
+  return $asset_types;
+}
+
+/**
+ * Check whether or not inventory management is enabled on an asset.
+ *
+ * @param FarmAsset $asset
+ *   The asset to check.
+ *
+ * @return bool
+ *   Returns TRUE or FALSE.
+ */
+function farm_inventory_enabled(FarmAsset $asset) {
+
+  // If the asset type is not set, bail.
+  if (empty($asset->type)) {
+    return FALSE;
+  }
+
+  // Check the database to see if inventory management is enabled.
+  $result = db_query('SELECT enabled FROM {farm_inventory_asset_type} WHERE type = :type', array(':type' => $asset->type))->fetchField();
+
+  // Return TRUE or FALSE.
+  if (!empty($result)) {
+    return TRUE;
+  }
+  return FALSE;
+}
+
+/**
+ * Check whether or not an asset is treated as an individual by default.
+ *
+ * @param FarmAsset $asset
+ *   The asset to check.
+ *
+ * @return bool
+ *   Returns TRUE or FALSE.
+ */
+function farm_inventory_individual(FarmAsset $asset) {
+
+  // If the asset type is not set, bail.
+  if (empty($asset->type)) {
+    return FALSE;
+  }
+
+  // Check the database to see if the asset is treated as an individual.
+  $result = db_query('SELECT individual FROM {farm_inventory_asset_type} WHERE type = :type', array(':type' => $asset->type))->fetchField();
+
+  // Return TRUE or FALSE.
+  if (!empty($result)) {
+    return TRUE;
+  }
+  return FALSE;
+}
+
+/**
+ * Calculate an asset's inventory level.
+ *
+ * @param FarmAsset $asset
+ *   The farm_asset object to calculate inventory for.
+ * @param int $time
+ *   Unix timestamp limiter. Only logs before this time will be included.
+ *   Defaults to the current time. Set to 0 to load the absolute last.
+ * @param bool $done
+ *   Whether or not to only load inventory from logs that are marked as "done".
+ *   Defaults to TRUE.
+ *
+ * @return string
+ *   Returns the asset's inventory as a string. If no inventory adjustments
+ *   exist for the asset, an empty string will be returned.
+ */
+function farm_inventory(FarmAsset $asset, $time = REQUEST_TIME, $done = TRUE) {
+
+  // If the asset doesn't have an ID (for instance if it is new and hasn't been
+  // saved yet), bail.
+  if (empty($asset->id)) {
+    return FALSE;
+  }
+
+  // Make a query for calculating the inventory.
+  $query = farm_inventory_query($asset->id, $time, $done);
+
+  // Execute the query and gather the inventory result.
+  $result = $query->execute();
+  $inventory = $result->fetchField();
+
+  // If there are no inventory adjustments, return an empty string. Note that
+  // we use is_null($inventory) instead of empty($inventory), because empty()
+  // would be TRUE if the inventory is set to 0.
+  if (is_null($inventory)) {
+    return '';
+  }
+
+  // Return the formatted inventory.
+  return farm_inventory_format($inventory);
+}
+
+/**
+ * Format an inventory value.
+ *
+ * @param string $inventory
+ *   The inventory value to format.
+ *
+ * @return string
+ *   The formatted inventory string.
+ */
+function farm_inventory_format($inventory) {
+
+  // Add zero (to remove trailing zeroes).
+  // See https://stackoverflow.com/questions/14531679/remove-useless-zero-digits-from-decimals-in-php
+  $inventory += 0;
+
+  // Convert to a string.
+  $inventory = (string) $inventory;
+
+  // Return the inventory.
+  return $inventory;
+}
+
+/**
+ * Build a query to calculate an asset's inventory level.
+ *
+ * @param int|string $asset_id
+ *   The asset id to search for. This can either be a specific id, or a field
+ *   alias string from another query (ie: 'mytable.assetid'). For an example
+ *   of field alias string usage, see the Views field handler code in
+ *   farm_inventory_handler_field_asset_inventory_value::query().
+ * @param int $time
+ *   Unix timestamp limiter. Only logs before this time will be included.
+ *   Defaults to the current time. Set to 0 to load the absolute last.
+ * @param bool $done
+ *   Whether or not to only show logs that are marked as "done". Defaults to
+ *   TRUE.
+ *
+ * @return \SelectQuery
+ *   Returns a SelectQuery object.
+ */
+function farm_inventory_query($asset_id, $time = REQUEST_TIME, $done = TRUE) {
+
+  /**
+   * Please read the comments in farm_log_query() to understand how this works,
+   * and to be aware of the limitations and responsibilities we have in this
+   * function with regard to sanitizing query inputs.
+   */
+
+  // Ensure $asset_id is valid, because it will be used directly in the query
+  // string. This is defensive code. See note about farm_log_query() above.
+  if (!is_int($asset_id) || $asset_id < 0) {
+    $asset_id = db_escape_field($asset_id);
+  }
+
+  // Use the farm_log_asset_query() helper function to start a query object.
+  $query = farm_log_query($time, $done, FALSE);
+
+  // Join in the Inventory field collection and filter to only include logs that
+  // have inventory adjustments.
+  $query->join('field_data_field_farm_inventory', 'ss_fdffi', "ss_fdffi.entity_type = 'log' AND ss_fdffi.entity_id = ss_log.id AND ss_fdffi.deleted = 0");
+  $query->where('ss_fdffi.field_farm_inventory_value IS NOT NULL');
+
+  // Join in the inventory adjustment asset and filter to only include
+  // inventory adjustments that reference the specified asset.
+  $query->join('field_data_field_farm_inventory_asset', 'ss_fdffia', "ss_fdffia.entity_id = ss_fdffi.field_farm_inventory_value AND ss_fdffia.deleted = 0");
+  $query->where('ss_fdffia.field_farm_inventory_asset_target_id = ' . $asset_id);
+
+  // Join in the inventory adjustment value and filter to only include logs
+  // that have inventory adjustments with a value.
+  $query->join('field_data_field_farm_inventory_value', 'ss_fdffiv', "ss_fdffiv.entity_id = ss_fdffi.field_farm_inventory_value AND ss_fdffiv.deleted = 0");
+  $query->where('ss_fdffi.field_farm_inventory_value IS NOT NULL');
+
+  // Add an expression that calculates the SUM of all values.
+  $query->addExpression('SUM(ss_fdffiv.field_farm_inventory_value_numerator / ss_fdffiv.field_farm_inventory_value_denominator)', 'inventory');
+
+  // Return the query object.
+  return $query;
+}
+
+/**
+ * Create a log for adjusting asset inventory.
+ *
+ * @param FarmAsset $asset
+ *   The asset to adjust.
+ * @param string $inventory
+ *   The new asset inventory value.
+ * @param int $timestamp
+ *   The timestamp of the inventory adjustment. Defaults to the current time.
+ * @param string $log_type
+ *   The type of log to create. Defaults to "farm_observation".
+ * @param bool $done
+ *   Boolean indicating whether or not the log should be marked "done".
+ *   Defaults to TRUE.
+ */
+function farm_inventory_set($asset, $inventory, $timestamp = REQUEST_TIME, $log_type = 'farm_observation', $done = TRUE) {
+
+  // If the asset type does not have inventory enabled, bail with an error.
+  if (!farm_inventory_enabled($asset)) {
+    drupal_set_message(t('An inventory log was not created for @asset because inventory is not enabled for that asset type.', array('@asset' => entity_label('farm_asset', $asset))), 'error');
+    return;
+  }
+
+  // Create a new log entity.
+  $log = entity_create('log', array('type' => $log_type));
+
+  // Create an entity wrapper for the log.
+  $log_wrapper = entity_metadata_wrapper('log', $log);
+
+  // If the log is an observation, set the name to:
+  // "Current inventory: [value]".
+  if ($log_type == 'farm_observation') {
+    $log_name = t('Current inventory') . ': ' . $inventory;
+    $log_wrapper->name->set($log_name);
+  }
+
+  // Set the date.
+  $log_wrapper->timestamp->set($timestamp);
+
+  // Load the asset's current inventory level (as a fraction).
+  $current_inventory = farm_inventory($asset);
+
+  // Convert the current inventory to a fraction.
+  $current_inventory_fraction = fraction_from_decimal($current_inventory);
+
+  // Convert the new inventory to a fraction.
+  $inventory_fraction = fraction_from_decimal($inventory);
+
+  // Subtract the current inventory from the new inventory to figure out the
+  // necessary adjustment value.
+  $value_fraction = $inventory_fraction->subtract($current_inventory_fraction);
+
+  // Get the numerator and denominator.
+  $numerator = $value_fraction->getNumerator();
+  $denominator = $value_fraction->getDenominator();
+
+  // If there is no value difference, bail.
+  if (empty($numerator) || empty($denominator)) {
+    return;
+  }
+
+  // If there is an adjustment value, create a new inventory field_collection
+  // entity attached to the log.
+  $adjustment = entity_create('field_collection_item', array('field_name' => 'field_farm_inventory'));
+  $adjustment->setHostEntity('log', $log);
+
+  // Create an entity wrapper for the adjustment.
+  $adjustment_wrapper = entity_metadata_wrapper('field_collection_item', $adjustment);
+
+  // Set the adjustment asset.
+  $adjustment_wrapper->field_farm_inventory_asset = $asset;
+
+  // Set the adjustment value (fraction numerator and denominator).
+  $adjustment_wrapper->field_farm_inventory_value->numerator->set($numerator);
+  $adjustment_wrapper->field_farm_inventory_value->denominator->set($denominator);
+
+  // Set the log's done status.
+  if (!empty($done)) {
+    $log_wrapper->done->set(TRUE);
+  }
+  else {
+    $log_wrapper->done->set(FALSE);
+  }
+
+  // Set the log owner.
+  global $user;
+  $log_wrapper->field_farm_log_owner[] = $user;
+
+  // Save the adjustment.
+  $adjustment_wrapper->save();
+
+  // Save the log.
+  $log_wrapper->save();
+
+  // Set a message.
+  $label = entity_label('log', $log);
+  $uri = entity_uri('log', $log);
+  drupal_set_message('Log created: ' . l($label, $uri['path']));
+}

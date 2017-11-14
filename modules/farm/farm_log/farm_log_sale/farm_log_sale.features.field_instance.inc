@@ -171,6 +171,39 @@ function farm_log_sale_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_sale-field_farm_inventory'.
+  $field_instances['log-farm_sale-field_farm_inventory'] = array(
+    'bundle' => 'farm_sale',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Use this to set or adjust asset inventory levels along with this log.',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'field_collection',
+        'settings' => array(
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_fields',
+        'weight' => 12,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_inventory',
+    'label' => 'Inventory adjustments',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 12,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_sale-field_farm_invoice_number'.
   $field_instances['log-farm_sale-field_farm_invoice_number'] = array(
     'bundle' => 'farm_sale',
@@ -462,6 +495,7 @@ function farm_log_sale_field_default_field_instances() {
   t('Customer');
   t('Files');
   t('If this sale has a lot number associated with it, enter it here.');
+  t('Inventory adjustments');
   t('Invoice number');
   t('Log category');
   t('Notes');
@@ -473,6 +507,7 @@ function farm_log_sale_field_default_field_instances() {
   t('Unit price');
   t('Use this field to specify the total quantity that was sold.');
   t('Use this to organize your logs into categories for easier searching and filtering later.');
+  t('Use this to set or adjust asset inventory levels along with this log.');
   t('What assets do this sale log pertain to?');
 
   return $field_instances;

@@ -252,6 +252,13 @@ function farm_movement_asset_location(FarmAsset $asset, $time = REQUEST_TIME, $d
  */
 function farm_movement_asset_latest_movement(FarmAsset $asset, $time = REQUEST_TIME, $done = TRUE) {
 
+  /**
+   * Please read the comments in farm_movement_asset_movement_query() to
+   * understand how this works, and to be aware of the limitations and
+   * responsibilities we have in this function with regard to sanitizing query
+   * inputs.
+   */
+
   // If the asset doesn't have an ID (for instance if it is new and hasn't been
   // saved yet), bail.
   if (empty($asset->id)) {
@@ -273,7 +280,7 @@ function farm_movement_asset_latest_movement(FarmAsset $asset, $time = REQUEST_T
 }
 
 /**
- * Build a query to find the latest log of an asset that define a movement.
+ * Build a query to find the latest log of an asset that defines a movement.
  *
  * @param int|string $asset_id
  *   The asset id to search for. This can either be a specific id, or a field
@@ -296,66 +303,33 @@ function farm_movement_asset_latest_movement(FarmAsset $asset, $time = REQUEST_T
 function farm_movement_asset_movement_query($asset_id, $time = REQUEST_TIME, $done = TRUE, $field = 'log_id') {
 
   /**
-   * This query is used as a subquery join in the Views handler
-   * farm_movement_handler_relationship_location (via the
-   * views_join_subquery class). views_join_subquery does not support query
-   * arguments, so we cannot use the query::condition() method, or any other
-   * instances where args() are passed in and replaced in the query. So it is
-   * the responsibility of this function to sanitize any inputs that will be
-   * used in the SQL.
+   * Please read the comments in farm_log_asset_query() to understand how this
+   * works, and to be aware of the limitations and responsibilities we have in
+   * this function with regard to sanitizing query inputs.
    */
 
-  // Ensure $asset_id and $time are valid, because we use them directly in the
-  // query's WHERE statements below. This is defensive code.
-  // See note about views_join_subquery above.
-  if (!is_int($asset_id) || $asset_id < 0) {
-    $asset_id = db_escape_field($asset_id);
-  }
-  if (!is_int($time) || $time < 0) {
-    $time = REQUEST_TIME;
+  // If $field is not 'log_id', then we don't want the query helper function
+  // to add the log ID field to the query.
+  $log_id_field = TRUE;
+  if ($field != 'log_id') {
+    $log_id_field = FALSE;
   }
 
-  // Build a query to find an asset's latest log that defines a movement.
-  // We use the "ss_" prefix throughout to indicate that this is generally going
-  // to be used as a sub-select, and to avoid potential name conflicts when this
-  // is used elsewhere (ie: farm_movement_handler_relationship_location::query()).
-  $query = db_select('log', 'ss_log');
+  // Use the farm_log_asset_query() helper function to start a query object.
+  $query = farm_log_asset_query($asset_id, $time, $done, $log_id_field);
 
-  // Join in asset references and filter to only include logs that reference the
-  // specified asset.
-  $query->join('field_data_field_farm_asset', 'ss_fdffa', "ss_fdffa.entity_type = 'log' AND ss_fdffa.entity_id = ss_log.id AND ss_fdffa.deleted = 0");
-  $query->where('ss_fdffa.field_farm_asset_target_id = ' . $asset_id);
-
-  // Join in movement field collections and the "move to" field data.
-  // Filter to only include logs that have a movement with a "to" value.
+  // Join in the Movement field collection and filter to only include logs with
+  // movements.
   $query->join('field_data_field_farm_movement', 'ss_fdffm', "ss_fdffm.entity_type = 'log' AND ss_fdffm.entity_id = ss_log.id AND ss_fdffm.deleted = 0");
   $query->where('ss_fdffm.field_farm_movement_value IS NOT NULL');
+
+  // Join in the movement's "move to" field, and filter to only include logs
+  // that have a movement with a "move to" value.
   $query->join('field_data_field_farm_move_to', 'ss_fdffmt', "ss_fdffmt.entity_type = 'field_collection_item' AND ss_fdffmt.bundle = 'field_farm_movement' AND ss_fdffmt.entity_id = ss_fdffm.field_farm_movement_value");
   $query->where('ss_fdffmt.field_farm_move_to_tid IS NOT NULL');
 
-  // Order by timestamp and then log id, descending.
-  $query->orderBy('ss_log.timestamp', 'DESC');
-  $query->orderBy('ss_log.id', 'DESC');
-
-  // We only want the first result.
-  $query->range(0, 1);
-
-  // If only "done" movement logs should be included, add a filter.
-  if ($done) {
-    $query->where('ss_log.done = 1');
-  }
-
-  // If $time is not zero, limit to only logs before it. This allows the
-  // absolute last log to be found by setting $time to zero.
-  if ($time !== 0) {
-    $query->where('ss_log.timestamp <= ' . $time);
-  }
-
-  // Add a field to the query based on the function argument.
-  if ($field == 'log_id') {
-    $query->addField('ss_log', 'id');
-  }
-  elseif ($field == 'movement_id') {
+  // If $field is 'movement_id', then add the movement ID field.
+  if ($field == 'movement_id') {
     $query->addField('ss_fdffm', 'field_farm_movement_value');
   }
 

@@ -423,3 +423,130 @@ function farm_log_prepopulate_log_form_references(&$form) {
     farm_fields_prepopulate_entityreference($form, $info['entity_type'], $field, $ids);
   }
 }
+
+/**
+ * Helper function for building a select query of logs related to assets.
+ *
+ * This builds on top of the more general farm_log_query() function.
+ *
+ * @see farm_log_query()
+ *
+ * @param int|string $asset_id
+ *   The asset id to search for. This can either be a specific id, or a field
+ *   alias string from another query (ie: 'mytable.assetid'). For an example
+ *   of field alias string usage, see the Views field handler code in
+ *   farm_movement_handler_relationship_location::query().
+ * @param int $time
+ *   Unix timestamp limiter. Only logs before this time will be included.
+ *   Defaults to the current time. Set to 0 to load the absolute last.
+ * @param bool $done
+ *   Whether or not to only show logs that are marked as "done". Defaults to
+ *   TRUE.
+ * @param bool $log_id_field
+ *   Whether or not to add the log ID field to the query. Defaults to TRUE. You
+ *   may want to set this to FALSE if you want to specify a different field or
+ *   expression to add to the query instead of the log ID.
+ *
+ * @return \SelectQuery
+ *   Returns a SelectQuery object.
+ */
+function farm_log_asset_query($asset_id, $time = REQUEST_TIME, $done = TRUE, $log_id_field = TRUE) {
+
+  /**
+   * Please read the comments in farm_log_query() to understand how this works,
+   * and to be aware of the limitations and responsibilities we have in this
+   * function with regard to sanitizing query inputs.
+   */
+
+  // Start with a query from the farm_log_query() helper function.
+  $query = farm_log_query($time, $done, $log_id_field);
+
+  // Ensure $asset_id is valid, because it will be used directly in the query
+  // string. This is defensive code. See note about farm_log_query() above.
+  if (!is_int($asset_id) || $asset_id < 0) {
+    $asset_id = db_escape_field($asset_id);
+  }
+
+  // Join in asset references and filter to only include logs that reference the
+  // specified asset (only if $asset_filter is TRUE).
+  $query->join('field_data_field_farm_asset', 'ss_fdffa', "ss_fdffa.entity_type = 'log' AND ss_fdffa.entity_id = ss_log.id AND ss_fdffa.deleted = 0");
+  $query->where('ss_fdffa.field_farm_asset_target_id = ' . $asset_id);
+
+  // Return the query object.
+  return $query;
+}
+
+/**
+ * Helper function for building a select query of logs.
+ *
+ * This function is used by other modules to build queries and Views handlers
+ * that need to find the most recent log in a specific context.
+ *
+ * Modules can use this to generate a base query, and then add their own
+ * modifications on top of that.
+ *
+ * @param int $time
+ *   Unix timestamp limiter. Only logs before this time will be included.
+ *   Defaults to the current time. Set to 0 to load the absolute last.
+ * @param bool $done
+ *   Whether or not to only show logs that are marked as "done". Defaults to
+ *   TRUE.
+ * @param bool $log_id_field
+ *   Whether or not to add the log ID field to the query. Defaults to TRUE. You
+ *   may want to set this to FALSE if you want to specify a different field or
+ *   expression to add to the query instead of the log ID.
+ *
+ * @return \SelectQuery
+ *   Returns a SelectQuery object.
+ */
+function farm_log_query($time = REQUEST_TIME, $done = TRUE, $log_id_field = TRUE) {
+
+  /**
+   * This query may be used as a sub-query join in a Views handler via the
+   * views_join_subquery class (for an example see:
+   * farm_movement_handler_relationship_location). When a sub-query is added
+   * via views_join_subquery, it is not possible to use query arguments in the
+   * sub-query itself. So we cannot use the query::condition() method, or any
+   * other methods that take query arguments separately and perform sanitation
+   * on them. Thus, it is the responsibility of this function to sanitize any
+   * inputs and use them directly in the SQL.
+   *
+   * We use the "ss_" prefix on aliases to avoid potential name conflicts when
+   * this query is used as a sub-select inside another query.
+   */
+
+  // Ensure $time is valid, because it may be used directly in the query
+  // string. This is defensive code. See note about views_join_subquery above.
+  if (!is_int($time) || $time < 0) {
+    $time = REQUEST_TIME;
+  }
+
+  // Build a query to find a log that references an asset.
+  $query = db_select('log', 'ss_log');
+
+  // Add the log ID field (only if $log_id_field is TRUE.
+  if ($log_id_field === TRUE) {
+    $query->addField('ss_log', 'id');
+  }
+
+  // If $time is not zero, limit to only logs before it. This allows the
+  // absolute last log to be found by setting $time to zero.
+  if ($time !== 0) {
+    $query->where('ss_log.timestamp <= ' . $time);
+  }
+
+  // If only "done" movement logs should be included, add a filter.
+  if ($done) {
+    $query->where('ss_log.done = 1');
+  }
+
+  // Order by timestamp and then log id, descending.
+  $query->orderBy('ss_log.timestamp', 'DESC');
+  $query->orderBy('ss_log.id', 'DESC');
+
+  // We only want the first result.
+  $query->range(0, 1);
+
+  // Return the query object.
+  return $query;
+}

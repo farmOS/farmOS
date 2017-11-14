@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * @file
+ * Farm inventory install.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function farm_inventory_schema() {
+  $schema['farm_inventory_asset_type'] = array(
+    'description' => 'Farm inventory asset type settings',
+    'fields' => array(
+      'type' => array(
+        'description' => 'Farm asset type machine-readable name',
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+      ),
+      'enabled' => array(
+        'description' => 'Boolean indicating whether inventory is enabled on this asset type.',
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'individual' => array(
+        'description' => 'Boolean indicating that assets without inventory will be treated as individuals.',
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'unique keys' => array(
+      'type' => array('type'),
+    ),
+  );
+  return $schema;
+}
