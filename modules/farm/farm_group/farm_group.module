@@ -317,6 +317,27 @@ function farm_group_asset_membership_action_form(array $context, array $form_sta
 }
 
 /**
+ * Validation handler for farm_group_asset_membership action configuration form.
+ *
+ * @param array $form
+ *   The form array.
+ * @param array $form_state
+ *   The form state array.
+ */
+function farm_group_asset_membership_action_validate(array $form, array $form_state) {
+
+  // Get the asset IDs.
+  $asset_ids = array_values($form_state['selection']);
+
+  // Get the group IDs.
+  $group_ids = $form_state['values']['groups'];
+
+  // Validate the asset IDs and group IDs to prevent circular memberships.
+  // If an issue is found, flag the 'groups' element in the form.
+  farm_group_circular_membership_validate($asset_ids, $group_ids, 'groups');
+}
+
+/**
  * Submit handler for farm_group_asset_membership action configuration form.
  *
  * @param array $form
