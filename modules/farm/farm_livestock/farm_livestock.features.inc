@@ -32,6 +32,7 @@ function farm_livestock_default_farm_asset_type() {
     "type" : "animal",
     "label" : "Animal",
     "weight" : 0,
+    "inventory" : { "enabled" : "1", "individual" : "1" },
     "rdf_mapping" : []
   }');
   return $items;

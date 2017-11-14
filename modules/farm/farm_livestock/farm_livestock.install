@@ -17,6 +17,10 @@ function farm_livestock_update_dependencies() {
   // farm_movement_update_7000().
   $dependencies['farm_livestock'][7003] = array('farm_movement' => 7000);
 
+  // Update 7004 (enable inventory tracking for animal assets.) depends on
+  // farm_7032().
+  $dependencies['farm_livestock'][7004] = array('farm' => 7032);
+
   return $dependencies;
 }
 
@@ -74,4 +78,23 @@ function farm_livestock_update_7002(&$sandbox) {
  */
 function farm_livestock_update_7003(&$sandbox) {
   features_revert(array('farm_livestock' => array('field_instance')));
+}
+
+/**
+ * Enable inventory tracking for animal assets.
+ */
+function farm_livestock_update_7004(&$sandbox) {
+
+  // Load the animal asset type.
+  $asset_type = farm_asset_type_load('animal');
+
+  // Add the inventory settings.
+  $asset_type->inventory = array(
+    'type' => 'animal',
+    'enabled' => TRUE,
+    'individual' => TRUE,
+  );
+
+  // Save the asset type.
+  farm_asset_type_save($asset_type);
 }

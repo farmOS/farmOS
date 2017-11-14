@@ -43,7 +43,7 @@ function farm_livestock_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => -5,
+      'weight' => 12,
     ),
   );
 
@@ -77,7 +77,7 @@ function farm_livestock_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'taxonomy_autocomplete',
-      'weight' => -7,
+      'weight' => -8,
     ),
   );
 
@@ -111,7 +111,7 @@ function farm_livestock_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 9,
+      'weight' => 13,
     ),
   );
 
@@ -133,7 +133,7 @@ function farm_livestock_field_default_field_instances() {
     'entity_type' => 'farm_asset',
     'field_name' => 'field_farm_animal_sex',
     'label' => 'Sex',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
     ),
@@ -142,7 +142,7 @@ function farm_livestock_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => -6,
+      'weight' => 11,
     ),
   );
 
@@ -175,7 +175,7 @@ function farm_livestock_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 8,
+      'weight' => 13,
     ),
   );
 
@@ -184,7 +184,7 @@ function farm_livestock_field_default_field_instances() {
     'bundle' => 'animal',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'What is the species/breed of this animal? You can manage the list of available species/breeds in the ' . l('Animal Species/Breeds', 'farm/assets/animals/types') . ' vocabulary.',
+    'description' => 'Enter this animal asset\'s species/breed. You can manage the list of available species/breeds in the ' . l('Animal Species/Breeds', 'farm/assets/animals/types') . ' vocabulary.',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -209,7 +209,7 @@ function farm_livestock_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'taxonomy_autocomplete',
-      'weight' => -8,
+      'weight' => -9,
     ),
   );
 
@@ -240,7 +240,7 @@ function farm_livestock_field_default_field_instances() {
     'label' => 'Date of birth',
     'required' => 0,
     'settings' => array(
-      'default_value' => 'now',
+      'default_value' => 'blank',
       'default_value2' => 'same',
       'default_value_code' => '',
       'default_value_code2' => '',
@@ -253,13 +253,13 @@ function farm_livestock_field_default_field_instances() {
         'increment' => 15,
         'input_format' => 'M j Y - g:i:sa',
         'input_format_custom' => '',
-        'label_position' => 'above',
+        'label_position' => 'within',
         'no_fieldset' => 1,
         'text_parts' => array(),
         'year_range' => '-10:+3',
       ),
       'type' => 'date_select',
-      'weight' => -9,
+      'weight' => 10,
     ),
   );
 
@@ -832,6 +832,7 @@ function farm_livestock_field_default_field_instances() {
   t('Castrated');
   t('Date of birth');
   t('Description');
+  t('Enter this animal asset\'s species/breed. You can manage the list of available species/breeds in the <a href="/farm/assets/animals/types">Animal Species/Breeds</a> vocabulary.');
   t('Files');
   t('Group');
   t('Has this animal been castrated?');
@@ -855,7 +856,6 @@ function farm_livestock_field_default_field_instances() {
   t('Use this to organize your logs into categories for easier searching and filtering later.');
   t('Use this to set or adjust asset inventory levels along with this log.');
   t('What animals do this medical log pertain to?');
-  t('What is the species/breed of this animal? You can manage the list of available species/breeds in the ' . l('Animal Species/Breeds', 'farm/assets/animals/types') . ' vocabulary.');
 
   return $field_instances;
 }

@@ -467,6 +467,11 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['fields']['field_farm_animal_group']['id'] = 'field_farm_animal_group';
   $handler->display->display_options['fields']['field_farm_animal_group']['table'] = 'field_data_field_farm_animal_group';
   $handler->display->display_options['fields']['field_farm_animal_group']['field'] = 'field_farm_animal_group';
+  /* Field: Farm asset: Asset inventory value */
+  $handler->display->display_options['fields']['inventory']['id'] = 'inventory';
+  $handler->display->display_options['fields']['inventory']['table'] = 'farm_asset';
+  $handler->display->display_options['fields']['inventory']['field'] = 'inventory';
+  $handler->display->display_options['fields']['inventory']['label'] = 'Inventory';
   /* Field: Farm asset: Date of birth */
   $handler->display->display_options['fields']['field_farm_date']['id'] = 'field_farm_date';
   $handler->display->display_options['fields']['field_farm_date']['table'] = 'field_data_field_farm_date';
@@ -768,6 +773,7 @@ function farm_livestock_views_default_views() {
     t('Name'),
     t('Species/breed'),
     t('Group'),
+    t('Inventory'),
     t('Date of birth'),
     t('Sex'),
     t('Castrated'),

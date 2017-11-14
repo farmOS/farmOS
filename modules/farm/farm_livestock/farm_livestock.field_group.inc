@@ -137,13 +137,11 @@ function farm_livestock_field_group_info() {
     'label' => 'General',
     'weight' => '1',
     'children' => array(
-      0 => 'field_farm_animal_castrated',
-      1 => 'field_farm_animal_group',
-      2 => 'field_farm_animal_sex',
-      3 => 'field_farm_animal_type',
-      4 => 'field_farm_date',
-      5 => 'field_farm_description',
-      6 => 'name',
+      0 => 'field_farm_animal_group',
+      1 => 'field_farm_animal_type',
+      2 => 'field_farm_description',
+      3 => 'name',
+      4 => 'group_farm_individual',
     ),
     'format_type' => 'field_group_easy_responsive_tabs_nav_item',
     'format_settings' => array(
@@ -202,8 +200,7 @@ function farm_livestock_field_group_info() {
     'label' => 'Identification',
     'weight' => '2',
     'children' => array(
-      0 => 'field_farm_animal_nicknames',
-      1 => 'field_farm_animal_tag',
+      0 => 'field_farm_animal_tag',
     ),
     'format_type' => 'field_group_easy_responsive_tabs_nav_item',
     'format_settings' => array(
@@ -215,6 +212,38 @@ function farm_livestock_field_group_info() {
     ),
   );
   $field_groups['group_farm_id|farm_asset|animal|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_farm_individual|farm_asset|animal|form';
+  $field_group->group_name = 'group_farm_individual';
+  $field_group->entity_type = 'farm_asset';
+  $field_group->bundle = 'animal';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_farm_general';
+  $field_group->data = array(
+    'label' => 'Individual',
+    'weight' => '-3',
+    'children' => array(
+      0 => 'field_farm_animal_castrated',
+      1 => 'field_farm_animal_nicknames',
+      2 => 'field_farm_animal_sex',
+      3 => 'field_farm_date',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => 'Individual',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'group-farm-individual field-group-fieldset',
+        'description' => 'If this record is for an individual animal, these fields can be used to provide more information. If this record is representing multiple animals, you may leave these blank, and define the animal head count using the "Inventory" field below.',
+      ),
+      'formatter' => 'collapsed',
+    ),
+  );
+  $field_groups['group_farm_individual|farm_asset|animal|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -377,6 +406,7 @@ function farm_livestock_field_group_info() {
   t('Files');
   t('General');
   t('Identification');
+  t('Individual');
   t('Inventory');
   t('Lineage');
   t('Movement');

@@ -53,6 +53,7 @@ features[field_group][] = group_farm_files|log|farm_medical|form
 features[field_group][] = group_farm_general|farm_asset|animal|form
 features[field_group][] = group_farm_general|log|farm_medical|form
 features[field_group][] = group_farm_id|farm_asset|animal|form
+features[field_group][] = group_farm_individual|farm_asset|animal|form
 features[field_group][] = group_farm_inventory|log|farm_medical|form
 features[field_group][] = group_farm_lineage|farm_asset|animal|form
 features[field_group][] = group_farm_movement|log|farm_medical|form
