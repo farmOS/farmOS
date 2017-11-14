@@ -135,35 +135,9 @@ function farm_group_field_farm_group_validate($form, &$form_state) {
     }
   }
 
-  // Iterate through the selected groups and assets to check for possible
-  // circular membership.
-  foreach ($group_ids as $group_id) {
-    foreach ($asset_ids as $asset_id) {
-
-      // Load the group and asset.
-      $group = farm_asset_load($group_id);
-      $asset = farm_asset_load($asset_id);
-
-      // Check for a circular membership.
-      $circular = farm_group_circular_membership($group, $asset);
-
-      // If a circular membership is detected, warn the user.
-      if ($circular) {
-
-        // Get the URI information for the group and asset.
-        $group_uri = entity_uri('farm_asset', $group);
-        $asset_uri = entity_uri('farm_asset', $asset);
-
-        // Create links to the asset and group.
-        $group_link = l(entity_label('farm_asset', $group), $group_uri['path']);
-        $asset_link = l(entity_label('farm_asset', $asset), $asset_uri['path']);
-
-        // Set an error on the asset field and describe which asset and group
-        // would create the circular membership.
-        form_set_error('field_farm_asset', t('The asset "!asset_link" cannot be added to the group "!group_link" because it would create a circular membership.', array('!asset_link' => $asset_link, '!group_link' => $group_link)));
-      }
-    }
-  }
+  // Validate the asset IDs and group IDs to prevent circular memberships.
+  // If an issue is found, flag the 'field_farm_asset' element in the form.
+  farm_group_circular_membership_validate($asset_ids, $group_ids, 'field_farm_asset');
 }
 
 /**
@@ -714,6 +688,50 @@ function farm_group_circular_membership(FarmAsset $group, FarmAsset $asset) {
 
   // Ok we're good! No circular memberships detected!
   return FALSE;
+}
+
+/**
+ * Form helper function for validating against circular membership assignment.
+ *
+ * @param array $asset_ids
+ *   An array of asset IDs that are being assigned to group(s).
+ * @param array $group_ids
+ *   An array of group IDs that the assets are being assigned to.
+ * @param string $element_name
+ *   The form element name to flag in form_set_error() if circular membership
+ *   is detected.
+ */
+function farm_group_circular_membership_validate($asset_ids, $group_ids, $element_name) {
+
+  // Iterate through the selected groups and assets to check for possible
+  // circular membership.
+  foreach ($group_ids as $group_id) {
+    foreach ($asset_ids as $asset_id) {
+
+      // Load the group and asset.
+      $group = farm_asset_load($group_id);
+      $asset = farm_asset_load($asset_id);
+
+      // Check for a circular membership.
+      $circular = farm_group_circular_membership($group, $asset);
+
+      // If a circular membership is detected, warn the user.
+      if ($circular) {
+
+        // Get the URI information for the group and asset.
+        $group_uri = entity_uri('farm_asset', $group);
+        $asset_uri = entity_uri('farm_asset', $asset);
+
+        // Create links to the asset and group.
+        $group_link = l(entity_label('farm_asset', $group), $group_uri['path']);
+        $asset_link = l(entity_label('farm_asset', $asset), $asset_uri['path']);
+
+        // Set an error on the asset field and describe which asset and group
+        // would create the circular membership.
+        form_set_error($element_name, t('The asset "!asset_link" cannot be added to the group "!group_link" because it would create a circular membership.', array('!asset_link' => $asset_link, '!group_link' => $group_link)));
+      }
+    }
+  }
 }
 
 /**
