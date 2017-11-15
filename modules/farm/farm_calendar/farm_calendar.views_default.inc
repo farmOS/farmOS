@@ -62,6 +62,16 @@ function farm_calendar_views_default_views() {
   $handler->display->display_options['fields']['timestamp']['hide_alter_empty'] = FALSE;
   $handler->display->display_options['fields']['timestamp']['date_format'] = 'long';
   $handler->display->display_options['fields']['timestamp']['second_date_format'] = 'long';
+  /* Field: Log: Assets */
+  $handler->display->display_options['fields']['field_farm_asset']['id'] = 'field_farm_asset';
+  $handler->display->display_options['fields']['field_farm_asset']['table'] = 'field_data_field_farm_asset';
+  $handler->display->display_options['fields']['field_farm_asset']['field'] = 'field_farm_asset';
+  $handler->display->display_options['fields']['field_farm_asset']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_farm_asset']['settings'] = array(
+    'bypass_access' => 0,
+    'link' => 0,
+  );
+  $handler->display->display_options['fields']['field_farm_asset']['delta_offset'] = '0';
   /* Field: Log: Done */
   $handler->display->display_options['fields']['done']['id'] = 'done';
   $handler->display->display_options['fields']['done']['table'] = 'log';
@@ -78,6 +88,7 @@ function farm_calendar_views_default_views() {
   $handler->display->display_options['fields']['name']['label'] = '';
   $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['name']['alter']['path'] = 'log/[id]';
+  $handler->display->display_options['fields']['name']['alter']['alt'] = '[field_farm_asset]';
   $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
   /* Sort criterion: Log: Timestamp */
   $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
@@ -302,7 +313,9 @@ function farm_calendar_views_default_views() {
     t('Desc'),
     t('User entity referenced from field_farm_log_owner'),
     t('.'),
+    t('Assets'),
     t('✔'),
+    t('[field_farm_asset]'),
     t('Log type'),
     t('Category'),
     t('Assigned to'),
