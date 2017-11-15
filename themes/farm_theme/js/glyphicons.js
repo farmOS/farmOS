@@ -21,11 +21,20 @@
         case 'Help':
           icon = 'question-sign';
           break;
+        case 'Create new account':
+          icon = 'user';
+          break;
         case 'My account':
           icon = 'user';
           break;
         case 'Log out':
           icon = 'log-out';
+          break;
+        case 'Log in':
+          icon = 'log-in';
+          break;
+        case 'Request new password':
+          icon = 'lock';
           break;
         default:
           icon = typeof default_icon !== 'undefined' ? default_icon : FALSE;
