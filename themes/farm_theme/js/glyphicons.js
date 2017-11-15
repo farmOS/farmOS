@@ -1,7 +1,7 @@
 (function ($) {
   Drupal.behaviors.farm_theme_glyphicons = {
     attach: function(context, settings) {
-      $('#navbar ul.secondary li a', context).each(function(index) {
+      $('#navbar ul li a', context).each(function(index) {
         Drupal.behaviors.farm_theme_glyphicons.glyphicon(this);
       });
       $('ul.tabs--primary li a', context).each(function(index) {
@@ -9,7 +9,7 @@
       });
     },
     glyphicon: function(element) {
-      var link_text = $(element).clone().children().remove().end().text();
+      var link_text = $(element).clone().children().remove().end().text().trim();
       var icon = '';
       switch (link_text) {
         case 'Dashboard':
@@ -35,6 +35,21 @@
           break;
         case 'Request new password':
           icon = 'lock';
+          break;
+        case 'Areas':
+          icon = 'globe';
+          break;
+        case 'Assets':
+          icon = 'grain';
+          break;
+        case 'Logs':
+          icon = 'list';
+          break;
+        case 'People':
+          icon = 'user';
+          break;
+        case 'Plans':
+          icon = 'book';
           break;
       }
       if (icon) {
