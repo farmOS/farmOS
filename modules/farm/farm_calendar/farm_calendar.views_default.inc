@@ -170,10 +170,10 @@ function farm_calendar_views_default_views() {
   $handler->display->display_options['menu']['title'] = 'Month';
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['context'] = 0;
-  $handler->display->display_options['tab_options']['type'] = 'tab';
+  $handler->display->display_options['tab_options']['type'] = 'normal';
   $handler->display->display_options['tab_options']['title'] = 'Calendar';
-  $handler->display->display_options['tab_options']['weight'] = '0';
-  $handler->display->display_options['tab_options']['name'] = 'farm';
+  $handler->display->display_options['tab_options']['weight'] = '-100';
+  $handler->display->display_options['tab_options']['name'] = 'user-menu';
 
   /* Display: Week */
   $handler = $view->new_display('page', 'Week', 'page_week');
