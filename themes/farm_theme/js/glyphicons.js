@@ -18,6 +18,15 @@
         case 'Calendar':
           icon = 'calendar';
           break;
+        case 'Help':
+          icon = 'question-sign';
+          break;
+        case 'My account':
+          icon = 'user';
+          break;
+        case 'Log out':
+          icon = 'log-out';
+          break;
         default:
           icon = typeof default_icon !== 'undefined' ? default_icon : FALSE;
       }
