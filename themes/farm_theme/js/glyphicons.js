@@ -5,12 +5,12 @@
         Drupal.behaviors.farm_theme_glyphicons.glyphicon(this);
       });
       $('ul.tabs--primary li a', context).each(function(index) {
-        Drupal.behaviors.farm_theme_glyphicons.glyphicon(this, 'leaf');
+        Drupal.behaviors.farm_theme_glyphicons.glyphicon(this);
       });
     },
-    glyphicon: function(element, default_icon) {
-      default_icon = typeof default_icon !== 'undefined' ? default_icon : false;
+    glyphicon: function(element) {
       var link_text = $(element).clone().children().remove().end().text();
+      var icon = '';
       switch (link_text) {
         case 'Dashboard':
           icon = 'dashboard';
@@ -36,8 +36,6 @@
         case 'Request new password':
           icon = 'lock';
           break;
-        default:
-          icon = typeof default_icon !== 'undefined' ? default_icon : FALSE;
       }
       if (icon) {
         $(element).prepend('<span class="icon glyphicon glyphicon-' + icon + '"></span> ');
