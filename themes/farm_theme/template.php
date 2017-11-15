@@ -300,15 +300,12 @@ function farm_theme_page_alter(&$page) {
  */
 function farm_theme_preprocess_page(&$vars) {
 
+  // Add JS for adding Bootstrap glyphicons throughout the UI.
+  drupal_add_js(drupal_get_path('theme', 'farm_theme') . '/js/glyphicons.js');
+
   // Add Javascript to automatically collapse the help text.
   if (!empty($vars['page']['help'])) {
     drupal_add_js(drupal_get_path('theme', 'farm_theme') . '/js/help.js');
-  }
-
-  // If we are on a page that shows the Dashboard tabs, add Bootstrap icons to
-  // them via JS.
-  if (!empty($vars['tabs']['#primary'][0]['#link']['path']) && $vars['tabs']['#primary'][0]['#link']['path'] == 'farm/dashboard') {
-    drupal_add_js(drupal_get_path('theme', 'farm_theme') . '/js/dashboard.js');
   }
 
   // When the farm_areas map is displayed on a page...
