@@ -671,6 +671,15 @@ function farm_update_7034(&$sandbox) {
 }
 
 /**
+ * Set the Bootstrap navbar position to "Fixed Top".
+ */
+function farm_update_7035(&$sandbox) {
+  $theme_settings = variable_get('theme_farm_theme_settings', array());
+  $theme_settings['bootstrap_navbar_position'] = 'fixed-top';
+  variable_set('theme_farm_theme_settings', $theme_settings);
+}
+
+/**
  * Update helper function: enable modules.
  */
 function _farm_update_enable_modules($modules = array()) {

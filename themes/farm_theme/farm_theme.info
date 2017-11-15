@@ -40,6 +40,10 @@ settings[bootstrap_fluid_container] = 1
 ; Disable smart form descriptions. See https://www.drupal.org/node/2879967
 settings[bootstrap_forms_smart_descriptions] = 0
 
+; Navbar
+; --------------
+settings[bootstrap_navbar_position] = 'fixed-top'
+
 ; Advanced
 ; --------------
 settings[bootstrap_cdn_provider] = 'custom'
