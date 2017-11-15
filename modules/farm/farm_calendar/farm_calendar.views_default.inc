@@ -62,6 +62,15 @@ function farm_calendar_views_default_views() {
   $handler->display->display_options['fields']['timestamp']['hide_alter_empty'] = FALSE;
   $handler->display->display_options['fields']['timestamp']['date_format'] = 'long';
   $handler->display->display_options['fields']['timestamp']['second_date_format'] = 'long';
+  /* Field: Log: Done */
+  $handler->display->display_options['fields']['done']['id'] = 'done';
+  $handler->display->display_options['fields']['done']['table'] = 'log';
+  $handler->display->display_options['fields']['done']['field'] = 'done';
+  $handler->display->display_options['fields']['done']['label'] = '';
+  $handler->display->display_options['fields']['done']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['done']['type'] = 'custom';
+  $handler->display->display_options['fields']['done']['type_custom_true'] = '✔';
+  $handler->display->display_options['fields']['done']['not'] = 0;
   /* Field: Log: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
   $handler->display->display_options['fields']['name']['table'] = 'log';
@@ -128,7 +137,10 @@ function farm_calendar_views_default_views() {
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['row_plugin'] = 'calendar_entity';
-  $handler->display->display_options['row_options']['colors']['legend'] = 'type';
+  $handler->display->display_options['row_options']['inline'] = array(
+    'done' => 'done',
+    'name' => 'name',
+  );
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Date: Date (log) */
@@ -170,6 +182,10 @@ function farm_calendar_views_default_views() {
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['row_plugin'] = 'calendar_entity';
+  $handler->display->display_options['row_options']['inline'] = array(
+    'done' => 'done',
+    'name' => 'name',
+  );
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Date: Date (log) */
@@ -208,6 +224,10 @@ function farm_calendar_views_default_views() {
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['row_plugin'] = 'calendar_entity';
+  $handler->display->display_options['row_options']['inline'] = array(
+    'done' => 'done',
+    'name' => 'name',
+  );
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Date: Date (log) */
@@ -282,6 +302,7 @@ function farm_calendar_views_default_views() {
     t('Desc'),
     t('User entity referenced from field_farm_log_owner'),
     t('.'),
+    t('✔'),
     t('Log type'),
     t('Category'),
     t('Assigned to'),
