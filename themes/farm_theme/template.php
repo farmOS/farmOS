@@ -347,3 +347,93 @@ function farm_theme_preprocess_field(&$vars) {
     $vars['classes_array'][] = 'clearfix';
   }
 }
+
+/**
+ * Implements hook_preprocess_calendar_item().
+ */
+function farm_theme_preprocess_calendar_item(&$vars) {
+
+  // If the item has a Log entity associated with it, add the log type as a
+  // CSS class.
+  if (!empty($vars['item']->entity->type)) {
+    $class = drupal_html_class($vars['item']->entity->type);
+    if (empty($vars['item']->class)) {
+      $vars['item']->class = $class;
+    }
+    else {
+      $vars['item']->class .= ' ' . $class;
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_calendar_month().
+ */
+function farm_theme_preprocess_calendar_month(&$vars) {
+  farm_theme_calendar_css('month');
+}
+
+/**
+ * Implements hook_preprocess_calendar_week().
+ */
+function farm_theme_preprocess_calendar_week_overlap(&$vars) {
+  farm_theme_calendar_css('week');
+}
+
+/**
+ * Implements hook_preprocess_calendar_day().
+ */
+function farm_theme_preprocess_calendar_day_overlap(&$vars) {
+  farm_theme_calendar_css('day');
+}
+
+/**
+ * Helper function for adding calendar CSS.
+ *
+ * @param string $period
+ *   The calendar period being displayed (year, month, week, or day).
+ */
+function farm_theme_calendar_css($period) {
+
+  // Add general CSS styles.
+  drupal_add_css(drupal_get_path('theme', 'farm_theme') . '/css/calendar.css');
+
+  // Define the log type colors.
+  $log_type_colors = array(
+    'farm_activity' => '#f7e6d2',
+    'farm_harvest' => '#daeace',
+    'farm_input' => '#ebdaec',
+    'farm_observation' => '#ccebf5',
+  );
+
+  // Use the color information to build CSS rules.
+  $css = '';
+  foreach ($log_type_colors as $log_type => $color) {
+
+    // Convert the log type to a valid CSS class.
+    $log_type_class = drupal_html_class($log_type);
+
+    // Build the item selector based on the period.
+    switch ($period) {
+      case 'month':
+        $calendar_item_selector = '.calendar-calendar .month-view .full td.single-day .' . $log_type_class . ' div.monthview, .calendar-calendar .week-view .full td.single-day .' . $log_type_class . ' div.weekview, .calendar-calendar .day-view .full td.single-day .' . $log_type_class . ' div.dayview';
+        break;
+      case 'week':
+      case 'day':
+        $calendar_item_selector = '.calendar-calendar .week-view .full div.single-day .' . $log_type_class . ' div.weekview, .calendar-calendar .day-view .full div.single-day .' . $log_type_class . ' div.dayview';
+        break;
+      default:
+        $calendar_item_selector = '';
+    }
+
+    // If a selector was found, add the CSS.
+    if (!empty($calendar_item_selector)) {
+      $css .= $calendar_item_selector . '{background: ' . $color . ';} ';
+    }
+  }
+
+  // If we have CSS to add, add it.
+  if (!empty($css)) {
+    drupal_add_css($css, array('type' => 'inline'));
+  }
+}
