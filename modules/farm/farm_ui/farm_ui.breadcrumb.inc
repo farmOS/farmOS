@@ -8,8 +8,8 @@
  */
 function _farm_ui_menu_breadcrumb_alter(&$active_trail, $item) {
 
-  // If the current path contains /farm...
-  if (strpos($item['path'], 'farm') === 0) {
+  // If the current path contains /farm, and there are more than 2 trail items:
+  if (strpos($item['path'], 'farm') === 0 && count($active_trail) > 2) {
 
     // If the link to /farm already exists in the second position, bail.
     if (!empty($active_trail[1]['link_path']) && $active_trail[1]['link_path'] == 'farm') {
