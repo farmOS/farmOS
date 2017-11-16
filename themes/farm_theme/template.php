@@ -44,13 +44,14 @@ function farm_theme_preprocess_menu_tree(&$variables) {
   $menu = $variables['#tree'];
   foreach (element_children($menu) as $child) {
 
-    // Define the
+    // Define the menu items we care about.
     $menus = array(
       'farm/assets' => 'assets',
       'farm/logs' => 'logs',
+      'farm/plans' => 'plans',
     );
 
-    // Only proceed for "Assets" and "Logs" menus.
+    // If we don't care about this menu item, skip it.
     if (!array_key_exists($menu[$child]['#href'], $menus)) {
       continue;
     }

@@ -29,10 +29,10 @@ function farm_ui_hook_info() {
  */
 function farm_ui_menu_alter(&$items) {
 
-  // This function adds links to "All assets" and "All logs" in the Farm menu.
-  // In order to do that, we need to make sure that this hook runs after the
-  // Views module's implementation of hook_menu_alter(). That is accomplished
-  // via hook_module_implements_alter() below.
+  // This function adds links to "All assets", "All logs", and "All plans" in
+  // the Farm menu. In order to do that, we need to make sure that this hook
+  // runs after the Views module's implementation of hook_menu_alter(). That is
+  // accomplished via hook_module_implements_alter() below.
 
   // Replicate the farm/assets menu item to farm/assets/all.
   if (!empty($items['farm/assets'])) {
@@ -44,8 +44,15 @@ function farm_ui_menu_alter(&$items) {
   // Replicate the farm/logs menu item to farm/logs/all.
   if (!empty($items['farm/logs'])) {
     $items['farm/logs/all'] = $items['farm/logs'];
-    $items['farm/logs/all']['title'] = t('All Logs');
+    $items['farm/logs/all']['title'] = t('All logs');
     $items['farm/logs/all']['weight'] = -100;
+  }
+
+  // Replicate the farm/plans menu item to farm/plans/all.
+  if (!empty($items['farm/plans'])) {
+    $items['farm/plans/all'] = $items['farm/plans'];
+    $items['farm/plans/all']['title'] = t('All plans');
+    $items['farm/plans/all']['weight'] = -100;
   }
 }
 
