@@ -12,28 +12,31 @@
  *   The ID of the asset.
  * @param $name
  *   The name of the property.
+ * @param $default
+ *   A default value to use if the asset property is not set.
  *
  * @return string
- *   Returns the value string. This will be an empty string if the property is
- *   not set. If you need to check whether or not a property is set, use
+ *   Returns the value string. This will return the default value provided by
+ *   the $default paremeter (which defaults to an empty string) if the property
+ *   is not set. If you need to check whether or not a property is set, use
  *   farm_asset_property_is_set() instead, which returns a boolean.
  */
-function farm_asset_property_get($asset_id, $name) {
+function farm_asset_property_get($asset_id, $name, $default = '') {
 
   // Query the database for the value.
   $value = db_query('SELECT value FROM {farm_asset_property} WHERE id=:id AND name=:name', array(':id' => $asset_id, ':name' => $name))->fetchField();
 
-  // If nothing was found, return an empty string.
+  // If nothing was found, return the default.
   if (empty($value)) {
-    return '';
+    return $default;
   }
 
   // Unserialize the value.
   $value = unserialize($value);
 
-  // If it's empty for whatever reason, return an empty string.
+  // If it's empty for whatever reason, return the default.
   if (empty($value)) {
-    return '';
+    return $default;
   }
 
   // Return the value.
