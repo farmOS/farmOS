@@ -93,7 +93,7 @@ function farm_plan_menu() {
   );
 
   $items[$farm_plan_uri . '/view'] = array(
-    'title' => 'View',
+    'title' => 'Plan',
     'type' => MENU_DEFAULT_LOCAL_TASK,
     'weight' => -10,
   );
@@ -110,7 +110,7 @@ function farm_plan_menu() {
   );
 
   $items[$farm_plan_uri . '/edit'] = array(
-    'title' => 'Edit',
+    'title' => 'Settings',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('farm_plan_form', $farm_plan_uri_argument_position),
     'access callback' => 'farm_plan_access',
@@ -118,6 +118,7 @@ function farm_plan_menu() {
     'file' => 'farm_plan.pages.inc',
     'type' => MENU_LOCAL_TASK,
     'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
+    'weight' => 100,
   );
 
   // Plan type delete form.
