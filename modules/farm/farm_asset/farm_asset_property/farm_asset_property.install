@@ -35,6 +35,9 @@ function farm_asset_property_schema() {
       ),
     ),
     'primary key' => array('id', 'name'),
+    'indexes' => array(
+      'namevalue' => array('name', 'value'),
+    ),
   );
   return $schema;
 }
