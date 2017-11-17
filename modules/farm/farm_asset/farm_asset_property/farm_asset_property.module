@@ -31,9 +31,6 @@ function farm_asset_property_get($asset_id, $name, $default = '') {
     return $default;
   }
 
-  // Unserialize the value.
-  $value = unserialize($value);
-
   // If it's empty for whatever reason, return the default.
   if (empty($value)) {
     return $default;
@@ -69,8 +66,16 @@ function farm_asset_property_set($asset_id, $name, $value) {
     return FALSE;
   }
 
-  // Serialize the value.
-  $value = serialize($value);
+  // Make sure that the value is a scalar.
+  if (!is_scalar($value)) {
+    return FALSE;
+  }
+
+  // Convert the value to a string, and make sure it's length is less than 128.
+  $value = (string) $value;
+  if (strlen($value) > 128) {
+    return FALSE;
+  }
 
   // Make sure the asset exists.
   $exists = db_query('SELECT COUNT(*) FROM {farm_asset} WHERE id = :id', array(':id' => $asset_id))->fetchField();

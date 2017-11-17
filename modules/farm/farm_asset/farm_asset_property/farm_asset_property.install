@@ -28,9 +28,10 @@ function farm_asset_property_schema() {
       ),
       'value' => array(
         'description' => 'Property value',
-        'type' => 'blob',
+        'type' => 'varchar',
+        'length' => 128,
         'not null' => TRUE,
-        'size' => 'big',
+        'default' => '',
       ),
     ),
     'primary key' => array('id', 'name'),
