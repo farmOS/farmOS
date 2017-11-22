@@ -28,7 +28,8 @@ function farm_constraint_farm_constraint($type, $id) {
   // Get information about all field instances.
   $instances = field_info_field_map();
 
-  // Iterate through the instances.
+  // Iterate through the instances to find references.
+  $references = array();
   foreach ($instances as $field_name => $instance) {
 
     // If the field type is not one of the ones we care about, skip it.
@@ -76,12 +77,39 @@ function farm_constraint_farm_constraint($type, $id) {
 
     // Finally, query the table to see if there are any references to this
     // entity.
-    $references = db_query('SELECT COUNT(entity_id) FROM {' . $table . '} WHERE ' . $column . ' = :id AND deleted != 1', array(':id' => $id))->fetchField();
+    $result = db_query('SELECT entity_type, entity_id FROM {' . $table . '} WHERE ' . $column . ' = :id AND deleted != 1', array(':id' => $id));
 
-    // If references were found, a constraint was detected! Return TRUE.
-    if (!empty($references)) {
-      return TRUE;
+    // Iterate through the results and add to the references array.
+    foreach ($result as $row) {
+      if (!empty($row)) {
+        $references[] = array(
+          'entity_type' => $row->entity_type,
+          'entity_id' => $row->entity_id,
+          'field' => $field_name,
+          'table' => $table,
+          'column' => $column,
+        );
+      }
     }
+  }
+
+  // If references were found, a constraint was detected! Return TRUE.
+  if (!empty($references)) {
+    return TRUE;
   }
 }
 
+/**
+ * Find all field references to an entity.
+ *
+ * @param $type
+ *   The entity type.
+ * @param $id
+ *   The entity id.
+ *
+ * @return array
+ *   Returns an array of references to the entity.
+ */
+function farm_constraint_field_references($type, $id) {
+
+}
