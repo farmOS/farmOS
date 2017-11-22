@@ -10,8 +10,33 @@
  */
 function farm_constraint_farm_constraint($type, $id) {
 
-  // This implementation of hook_farm_constraint provides constraints on behalf
-  // of all entity and term reference fields in the system.
+  // Find all field references to the entity.
+  $references = farm_constraint_field_references($type, $id);
+
+  // If references were found, a constraint was detected! Return TRUE.
+  if (!empty($references)) {
+    return TRUE;
+  }
+
+  // Otherwise, return FALSE.
+  return FALSE;
+}
+
+/**
+ * Find all field references to an entity.
+ *
+ * @param $type
+ *   The entity type.
+ * @param $id
+ *   The entity id.
+ *
+ * @return array
+ *   Returns an array of references to the entity.
+ */
+function farm_constraint_field_references($type, $id) {
+
+  // Start an empty references array.
+  $references = array();
 
   // Define the field types, and entity type that they are used for.
   $field_types = array(
@@ -28,8 +53,7 @@ function farm_constraint_farm_constraint($type, $id) {
   // Get information about all field instances.
   $instances = field_info_field_map();
 
-  // Iterate through the instances to find references.
-  $references = array();
+  // Iterate through the instances.
   foreach ($instances as $field_name => $instance) {
 
     // If the field type is not one of the ones we care about, skip it.
@@ -93,23 +117,6 @@ function farm_constraint_farm_constraint($type, $id) {
     }
   }
 
-  // If references were found, a constraint was detected! Return TRUE.
-  if (!empty($references)) {
-    return TRUE;
-  }
-}
-
-/**
- * Find all field references to an entity.
- *
- * @param $type
- *   The entity type.
- * @param $id
- *   The entity id.
- *
- * @return array
- *   Returns an array of references to the entity.
- */
-function farm_constraint_field_references($type, $id) {
-
+  // Return the references array.
+  return $references;
 }
