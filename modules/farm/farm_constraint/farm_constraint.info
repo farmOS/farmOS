@@ -1,0 +1,4 @@
+name = Farm Constraint
+description = Provides a framework for managing foreign key constraints between farmOS entities.
+core = 7.x
+package = farmOS
