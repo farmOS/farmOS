@@ -6,6 +6,16 @@
  */
 
 /**
+ * Implements hook_hook_info().
+ */
+function farm_constraint_hook_info() {
+  $hooks['farm_constraint'] = array(
+    'group' => 'farm_constraint',
+  );
+  return $hooks;
+}
+
+/**
  * Function for checking if a constraint exists (if a record is referenced by
  * other records).
  *
