@@ -11,16 +11,16 @@
  *
  * @param $type
  *   The entity type.
- * @param $entity
- *   The entity.
+ * @param $id
+ *   The entity id.
  *
  * @return bool
  *   Returns TRUE if the record is referenced elsewhere, FALSE otherwise.
  */
-function farm_constraint_exists($type, $entity) {
+function farm_constraint_exists($type, $id) {
 
   // Ask other modules if they are aware of any constraints.
-  $constraints = module_invoke_all('farm_constraint', $type, $entity);
+  $constraints = module_invoke_all('farm_constraint', $type, $id);
 
   // Iterate through the constraints and return TRUE if any were detected.
   foreach ($constraints as $constraint) {
@@ -31,4 +31,82 @@ function farm_constraint_exists($type, $entity) {
 
   // If we haven't already returned, no constraints were detected.
   return FALSE;
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function farm_constraint_form_alter(&$form, &$form_state, $form_id) {
+
+  // This alters forms for deleting individual entities.
+
+  // Extract the entity type and ID from the form.
+  $type = NULL;
+  $id = NULL;
+  switch ($form_id) {
+
+    // Farm asset delete form.
+    case 'farm_asset_delete_form':
+      $type = 'farm_asset';
+      if (!empty($form['farm_asset']['#value']->id)) {
+        $id = $form['farm_asset']['#value']->id;
+      }
+      break;
+
+    // Log delete form.
+    case 'log_delete_form':
+      $type = 'log';
+      if (!empty($form['log']['#value']->id)) {
+        $id = $form['log']['#value']->id;
+      }
+      break;
+
+    // User cancel form.
+    case 'user_cancel_confirm_form':
+      $type = 'user';
+      if (!empty($form['_account']['#value']->uid)) {
+        $id = $form['_account']['#value']->uid;
+      }
+      break;
+
+    // Taxonomy term edit form.
+    // The taxonomy module uses the same form for editing and deleting,
+    // differentiated by the presence of $form_state['confirm_delete'].
+    case 'taxonomy_form_term':
+      $type = 'taxonomy_term';
+      if (!empty($form_state['confirm_delete']) && !empty($form['#term']->tid)) {
+        $id = $form['#term']->tid;
+      }
+      break;
+  }
+
+  // If the entity type and ID were not found, bail.
+  if (empty($type) || empty($id)) {
+    return;
+  }
+
+  // Check to see if any constraints exist for this entity. If not, bail.
+  if (!farm_constraint_exists($type, $id)) {
+    return;
+  }
+
+  // From here on, we know that constraints exist, so we want to prevent
+  // deletion of the entity.
+
+  // If this is a user, remove additional options.
+  if ($type == 'user') {
+    unset($form['user_cancel_method']);
+    unset($form['user_cancel_confirm']);
+    unset($form['user_cancel_notify']);
+  }
+
+  // Override the page title.
+  drupal_set_title('Unable to delete this record');
+
+  // Modify the form description.
+  $form['description']['#markup'] = t('This record cannot be deleted because it is referenced by other records. You must remove all references to this record before you can delete it.');
+
+  // Remove submit handlers and buttons.
+  unset($form['#submit']);
+  unset($form['actions']);
 }
