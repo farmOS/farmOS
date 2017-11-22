@@ -10,8 +10,11 @@
  */
 function farm_constraint_farm_constraint($type, $id) {
 
-  // Find all field references to the entity.
-  $references = farm_constraint_field_references($type, $id);
+  // Check to see if there are any field references to this entity.
+  // Limit to 1 because we don't need a full list of references, we only want
+  // to know if ANY references exist.
+  $limit = 1;
+  $references = farm_constraint_field_references($type, $id, $limit);
 
   // If references were found, a constraint was detected! Return TRUE.
   if (!empty($references)) {
@@ -29,11 +32,16 @@ function farm_constraint_farm_constraint($type, $id) {
  *   The entity type.
  * @param $id
  *   The entity id.
+ * @param $limit
+ *   An optional limit to the number of references to return. This is disabled
+ *   by default, which means all references will be returned. Setting this to
+ *   1 is a good way to check if ANY references exist without loading all of
+ *   them. It will stop looking as soon as the limit is reached.
  *
  * @return array
  *   Returns an array of references to the entity.
  */
-function farm_constraint_field_references($type, $id) {
+function farm_constraint_field_references($type, $id, $limit = FALSE) {
 
   // Start an empty references array.
   $references = array();
@@ -103,9 +111,11 @@ function farm_constraint_field_references($type, $id) {
     // entity.
     $result = db_query('SELECT entity_type, entity_id FROM {' . $table . '} WHERE ' . $column . ' = :id AND deleted != 1', array(':id' => $id));
 
-    // Iterate through the results and add to the references array.
+    // Iterate through the results.
     foreach ($result as $row) {
       if (!empty($row)) {
+
+        // Add the reference to the array.
         $references[] = array(
           'entity_type' => $row->entity_type,
           'entity_id' => $row->entity_id,
@@ -113,6 +123,11 @@ function farm_constraint_field_references($type, $id) {
           'table' => $table,
           'column' => $column,
         );
+
+        // If we are at or over our limit, return now.
+        if (!empty($limit) && count($references) >= $limit) {
+          return $references;
+        }
       }
     }
   }
