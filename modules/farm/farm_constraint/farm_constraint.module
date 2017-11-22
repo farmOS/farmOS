@@ -120,9 +120,74 @@ function farm_constraint_form_alter(&$form, &$form_state, $form_id) {
   drupal_set_title('Unable to delete this record');
 
   // Modify the form description.
-  $form['description']['#markup'] = t('This record cannot be deleted because it is referenced by other records. You must remove all references to this record before you can delete it.');
+  $form['description']['#markup'] = t('This record cannot be deleted because it is referenced by other records.') . ' ' . t('You must remove all references to this record before you can delete it.');
 
   // Remove submit handlers and buttons.
   unset($form['#submit']);
   unset($form['actions']);
+}
+
+/**
+ * Implements hook_views_bulk_operations_form_alter().
+ */
+function farm_constraint_views_bulk_operations_form_alter(&$form, &$form_state, $vbo) {
+
+  // Add the entity type as a form value, for use in validation.
+  if (!empty($vbo->entity_type)) {
+    $form['farm_constraint_entity_type'] = array(
+      '#type' => 'value',
+      '#value' => $vbo->entity_type,
+    );
+  }
+
+  // Add a validation function to the submit button which checks for
+  // constraints before deleting entities.
+  if ($vbo->get_vbo_option('display_type') == 0) {
+    $form['select']['submit']['#validate'][] = 'farm_constraint_views_bulk_operations_form_validate';
+  }
+  else {
+    if (!empty($form['select']['action::views_bulk_operations_delete_item'])) {
+      $form['select']['action::views_bulk_operations_delete_item']['#validate'][] = 'farm_constraint_views_bulk_operations_form_validate';
+    }
+  }
+}
+
+/**
+ * Validation function for Views Bulk Operations form.
+ */
+function farm_constraint_views_bulk_operations_form_validate(&$form, &$form_state) {
+
+  // Only validate if entities are being deleted.
+  if (empty($form_state['values']['operation']) || $form_state['values']['operation'] != 'action::views_bulk_operations_delete_item') {
+    return;
+  }
+
+  // If the entity type was not saved, bail.
+  if (empty($form_state['values']['farm_constraint_entity_type'])) {
+    return;
+  }
+
+  // Get the entity type.
+  $type = $form_state['values']['farm_constraint_entity_type'];
+
+  // Iterate through the selected entities.
+  foreach ($form_state['values']['views_bulk_operations'] as $key => $id) {
+    if (!empty($id)) {
+
+      // Load the entity.
+      $entities = entity_load($type, array($id));
+      $entity = reset($entities);
+
+      // Get the entity bundle.
+      list(, , $bundle) = entity_extract_ids($type, $entity);
+
+      // If a constraint exists on the entity, set a form error.
+      if (farm_constraint_exists($type, $bundle, $id)) {
+        $entity_label = entity_label($type, $entity);
+        $entity_uri = entity_uri($type, $entity);
+        $message = t('The record <a href="@entity_path">@entity_label</a> cannot be deleted because it is referenced by other records.', array('@entity_path' => url($entity_uri['path']), '@entity_label' => $entity_label)) . ' ' . t('You must remove all references to this record before you can delete it.');
+        form_set_error('views_bulk_operations][' . $key, $message);
+      }
+    }
+  }
 }
