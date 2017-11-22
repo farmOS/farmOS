@@ -165,9 +165,13 @@ function farm_theme_views_bulk_operations_form_alter(&$form, &$form_state, $vbo)
     $i++;
   }
 
-  // If we are viewing a VBO config form, add Javascript that will hide
-  // everything on the page except for the form.
-  if (!empty($form_state['step']) && $form_state['step'] == 'views_bulk_operations_config_form') {
+  // If we are viewing a VBO config or confirm form, add Javascript that will
+  // hide everything on the page except for the form.
+  $vbo_steps = array(
+    'views_bulk_operations_config_form',
+    'views_bulk_operations_confirm_form',
+  );
+  if (!empty($form_state['step']) && in_array($form_state['step'],  $vbo_steps)) {
 
     // Set the title to '<none>' so that Views doesn't do drupal_set_title().
     // See https://www.drupal.org/node/2905171.
