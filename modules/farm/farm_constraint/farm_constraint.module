@@ -4,3 +4,31 @@
  * @file
  * Farm constraint module.
  */
+
+/**
+ * Function for checking if a constraint exists (if a record is referenced by
+ * other records).
+ *
+ * @param $type
+ *   The entity type.
+ * @param $entity
+ *   The entity.
+ *
+ * @return bool
+ *   Returns TRUE if the record is referenced elsewhere, FALSE otherwise.
+ */
+function farm_constraint_exists($type, $entity) {
+
+  // Ask other modules if they are aware of any constraints.
+  $constraints = module_invoke_all('farm_constraint', $type, $entity);
+
+  // Iterate through the constraints and return TRUE if any were detected.
+  foreach ($constraints as $constraint) {
+    if (!empty($constraint)) {
+      return TRUE;
+    }
+  }
+
+  // If we haven't already returned, no constraints were detected.
+  return FALSE;
+}
