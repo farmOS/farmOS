@@ -76,7 +76,7 @@ function farm_constraint_farm_constraint($type, $id) {
 
     // Finally, query the table to see if there are any references to this
     // entity.
-    $references = db_query('SELECT COUNT(entity_id) FROM {' . $table . '} WHERE ' . $column . ' = :id', array(':id' => $id))->fetchField();
+    $references = db_query('SELECT COUNT(entity_id) FROM {' . $table . '} WHERE ' . $column . ' = :id AND deleted != 1', array(':id' => $id))->fetchField();
 
     // If references were found, a constraint was detected! Return TRUE.
     if (!empty($references)) {
