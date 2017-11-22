@@ -27,10 +27,10 @@ function farm_constraint_hook_info() {
  * @return bool
  *   Returns TRUE if the record is referenced elsewhere, FALSE otherwise.
  */
-function farm_constraint_exists($type, $id) {
+function farm_constraint_exists($type, $bundle, $id) {
 
   // Ask other modules if they are aware of any constraints.
-  $constraints = module_invoke_all('farm_constraint', $type, $id);
+  $constraints = module_invoke_all('farm_constraint', $type, $bundle, $id);
 
   // Iterate through the constraints and return TRUE if any were detected.
   foreach ($constraints as $constraint) {
@@ -50,15 +50,17 @@ function farm_constraint_form_alter(&$form, &$form_state, $form_id) {
 
   // This alters forms for deleting individual entities.
 
-  // Extract the entity type and ID from the form.
+  // Extract the entity type, bundle, and ID from the form.
   $type = NULL;
+  $bundle = NULL;
   $id = NULL;
   switch ($form_id) {
 
     // Farm asset delete form.
     case 'farm_asset_delete_form':
       $type = 'farm_asset';
-      if (!empty($form['farm_asset']['#value']->id)) {
+      if (!empty($form['farm_asset']['#value'])) {
+        $bundle = $form['farm_asset']['#value']->type;
         $id = $form['farm_asset']['#value']->id;
       }
       break;
@@ -66,7 +68,8 @@ function farm_constraint_form_alter(&$form, &$form_state, $form_id) {
     // Log delete form.
     case 'log_delete_form':
       $type = 'log';
-      if (!empty($form['log']['#value']->id)) {
+      if (!empty($form['log']['#value'])) {
+        $bundle = $form['log']['#value']->type;
         $id = $form['log']['#value']->id;
       }
       break;
@@ -74,7 +77,8 @@ function farm_constraint_form_alter(&$form, &$form_state, $form_id) {
     // User cancel form.
     case 'user_cancel_confirm_form':
       $type = 'user';
-      if (!empty($form['_account']['#value']->uid)) {
+      if (!empty($form['_account']['#value'])) {
+        $bundle = '';
         $id = $form['_account']['#value']->uid;
       }
       break;
@@ -84,19 +88,21 @@ function farm_constraint_form_alter(&$form, &$form_state, $form_id) {
     // differentiated by the presence of $form_state['confirm_delete'].
     case 'taxonomy_form_term':
       $type = 'taxonomy_term';
-      if (!empty($form_state['confirm_delete']) && !empty($form['#term']->tid)) {
+      if (!empty($form_state['confirm_delete']) && !empty($form['#term'])) {
+        $bundle = $form['#term']->vocabulary_machine_name;
         $id = $form['#term']->tid;
       }
       break;
   }
 
-  // If the entity type and ID were not found, bail.
+  // If the entity type and ID were not found, bail (bundle will be blank on
+  // user entities).
   if (empty($type) || empty($id)) {
     return;
   }
 
   // Check to see if any constraints exist for this entity. If not, bail.
-  if (!farm_constraint_exists($type, $id)) {
+  if (!farm_constraint_exists($type, $bundle, $id)) {
     return;
   }
 

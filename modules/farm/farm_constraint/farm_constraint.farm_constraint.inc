@@ -8,7 +8,7 @@
 /**
  * Implements hook_farm_constraint().
  */
-function farm_constraint_farm_constraint($type, $id) {
+function farm_constraint_farm_constraint($type, $bundle, $id) {
 
   // Check to see if there are any field references to this entity.
   // Limit to 1 because we don't need a full list of references, we only want

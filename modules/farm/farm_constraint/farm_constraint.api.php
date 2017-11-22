@@ -26,13 +26,15 @@
  *
  * @param $type
  *   The entity type.
+ * @param $bundle
+ *   The entity bundle.
  * @param $id
  *   The entity id.
  *
  * @return bool
  *   Return TRUE if a constraint exists. FALSE otherwise.
  */
-function hook_farm_constraint($type, $id) {
+function hook_farm_constraint($type, $bundle, $id) {
 
   // Check to see if any other records reference this entity.
   // ...
