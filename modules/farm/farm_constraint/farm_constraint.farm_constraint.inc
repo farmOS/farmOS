@@ -21,6 +21,15 @@ function farm_constraint_farm_constraint($type, $bundle, $id) {
     return TRUE;
   }
 
+  // If this is a taxonomy term, check to see if it has any children. If so,
+  // prevent deletion.
+  if ($type == 'taxonomy_term') {
+    $children = db_query('SELECT COUNT(tid) FROM {taxonomy_term_hierarchy} WHERE parent = :id', array(':id' => $id))->fetchField();
+    if (!empty($children)) {
+      return TRUE;
+    }
+  }
+
   // Otherwise, return FALSE.
   return FALSE;
 }
