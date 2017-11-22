@@ -680,6 +680,13 @@ function farm_update_7035(&$sandbox) {
 }
 
 /**
+ * Enable new Farm Constraint module.
+ */
+function farm_update_7036(&$sandbox) {
+  _farm_update_enable_modules(array('farm_constraint'));
+}
+
+/**
  * Update helper function: enable modules.
  */
 function _farm_update_enable_modules($modules = array()) {
