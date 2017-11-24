@@ -191,3 +191,45 @@ function farm_constraint_views_bulk_operations_form_validate(&$form, &$form_stat
     }
   }
 }
+
+/**
+ * Implements hook_restws_request_alter().
+ */
+function farm_constraint_restws_request_alter(array &$request) {
+
+  // Prevent deletion of entities that are referenced by other entities.
+  // This works by altering the "operation" in the request object that is built
+  // in restws_handle_request() before the access check is called. We replace
+  // the "delete" operation with "noop" so that the access check fails.
+  // This is a heavy-handed approach, and doesn't provide more nuanced options
+  // for dealing with referenced data, but it works to stop the deletion from
+  // occurring.
+
+  // If an operation, resource, and ID are not available, bail.
+  if (empty($request['op']) || empty($request['resource']) || empty($request['id'])) {
+    return;
+  }
+
+  // We only care about delete operations.
+  if ($request['op'] != 'delete') {
+    return;
+  }
+
+  // Get the entity type.
+  $type = $request['resource']->resource();
+
+  // Get the entity ID.
+  $id = $request['id'];
+
+  // Get the entity.
+  $entity = $request['resource']->read($id);
+
+  // Get the entity bundle.
+  list($entity_id, $revision_id, $bundle) = entity_extract_ids($type, $entity);
+
+  // If constraints exist on the entity, change the operation to 'noop' so the
+  // access check in restws_handle_request() fails.
+  if (farm_constraint_exists($type, $bundle, $id)) {
+    $request['op'] = 'noop';
+  }
+}
