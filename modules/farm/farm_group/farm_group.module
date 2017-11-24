@@ -98,19 +98,19 @@ function farm_group_entity_view_alter(&$build, $type) {
  */
 function farm_group_form_log_form_alter(&$form, &$form_state, $form_id) {
 
-  // If this log form contains field_farm_group, add validation.
-  if (!empty($form['field_farm_group'])) {
-    $form['#validate'][] = 'farm_group_field_farm_group_validate';
+  // If this log form contains field_farm_membership, add validation.
+  if (!empty($form['field_farm_membership'])) {
+    $form['#validate'][] = 'farm_group_field_farm_membership_validate';
   }
 }
 
 /**
  * Validation callback for the field_farm_group field in logs.
  */
-function farm_group_field_farm_group_validate($form, &$form_state) {
+function farm_group_field_farm_membership_validate($form, &$form_state) {
 
   // If there are no groups referenced in the log, bail.
-  if (empty($form_state['values']['field_farm_group'][LANGUAGE_NONE])) {
+  if (empty($form_state['values']['field_farm_membership'][LANGUAGE_NONE][0]['field_farm_group'][LANGUAGE_NONE])) {
     return;
   }
 
@@ -129,7 +129,7 @@ function farm_group_field_farm_group_validate($form, &$form_state) {
 
   // Build an array of group IDs.
   $group_ids = array();
-  foreach ($form_state['values']['field_farm_group'][LANGUAGE_NONE] as $reference) {
+  foreach ($form_state['values']['field_farm_membership'][LANGUAGE_NONE][0]['field_farm_group'][LANGUAGE_NONE] as $reference) {
     if (!empty($reference['target_id'])) {
       $group_ids[] = $reference['target_id'];
     }
@@ -464,19 +464,23 @@ function farm_group_asset_membership(FarmAsset $asset, $time = REQUEST_TIME, $do
   // Load the log using our helper function.
   $log = farm_group_asset_latest_membership($asset, $time, $done);
 
+  // Load the log's membership field, if it exists.
+  if (!empty($log->field_farm_membership[LANGUAGE_NONE][0]['value'])) {
+    $membership = field_collection_item_load($log->field_farm_membership[LANGUAGE_NONE][0]['value']);
+  }
+
+  // Create an entity metadata wrapper so we can get the membership info.
   // If no groups are specified, bail.
-  if (empty($log->field_farm_group[LANGUAGE_NONE])) {
+  if (empty($membership->field_farm_group[LANGUAGE_NONE])) {
     return $groups;
   }
 
   // Iterate through the referenced groups and load them.
-  if (!empty($log->field_farm_group[LANGUAGE_NONE])) {
-    foreach ($log->field_farm_group[LANGUAGE_NONE] as $group_reference) {
-      if (!empty($group_reference['target_id'])) {
-        $group = farm_asset_load($group_reference['target_id']);
-        if (!empty($group)) {
-          $groups[] = $group;
-        }
+  foreach ($membership->field_farm_group[LANGUAGE_NONE] as $group_reference) {
+    if (!empty($group_reference['target_id'])) {
+      $group = farm_asset_load($group_reference['target_id']);
+      if (!empty($group)) {
+        $groups[] = $group;
       }
     }
   }
@@ -543,11 +547,14 @@ function farm_group_asset_latest_membership(FarmAsset $asset, $time = REQUEST_TI
  *   TRUE.
  * @param bool $single
  *   Whether or not to limit the query to a single result. Defaults to TRUE.
+ * @param string $field
+ *   If the log id is desired, use "log_id. If the membership field_collection
+ *   id is desired, use "membership_id".
  *
  * @return \SelectQuery
  *   Returns a SelectQuery object.
  */
-function farm_group_asset_membership_query($asset_id, $time = REQUEST_TIME, $done = TRUE, $single = TRUE) {
+function farm_group_asset_membership_query($asset_id, $time = REQUEST_TIME, $done = TRUE, $single = TRUE, $field = 'log_id') {
 
   /**
    * Please read the comments in farm_log_asset_query() to understand how this
@@ -558,13 +565,25 @@ function farm_group_asset_membership_query($asset_id, $time = REQUEST_TIME, $don
   // Use the farm_log_asset_query() helper function to start a query object.
   $query = farm_log_asset_query($asset_id, $time, $done, $single);
 
-  // Join in the log's "group" field, and filter to only include logs that have
-  // a "group" value defined.
-  $query->join('field_data_field_farm_group', 'ss_fdffg', "ss_fdffg.entity_type = 'log' AND ss_fdffg.entity_id = ss_log.id AND ss_fdffg.deleted = 0");
+  // Join in the Membership field collection and filter to only include logs
+  // with memberships.
+  $query->join('field_data_field_farm_membership', 'ss_fdffm', "ss_fdffm.entity_type = 'log' AND ss_fdffm.entity_id = ss_log.id AND ss_fdffm.deleted = 0");
+  $query->where('ss_fdffm.field_farm_membership_value IS NOT NULL');
+
+  // Join in the membership's "group" field, and filter to only include logs
+  // that have a membership with a "group" value.
+  $query->join('field_data_field_farm_group', 'ss_fdffg', "ss_fdffg.entity_type = 'field_collection_item' AND ss_fdffg.bundle = 'field_farm_membership' AND ss_fdffg.entity_id = ss_fdffm.field_farm_membership_value AND ss_fdffg.deleted = 0");
   $query->where('ss_fdffg.field_farm_group_target_id IS NOT NULL');
 
-  // Add the log ID field.
-  $query->addField('ss_log', 'id');
+  // If $field is 'log_id', then add the log ID field.
+  if ($field == 'log_id') {
+    $query->addField('ss_log', 'id');
+  }
+
+  // Or, if $field is 'membership_id', then add the membership ID field.
+  elseif ($field == 'membership_id') {
+    $query->addField('ss_fdffm', 'field_farm_membership_value');
+  }
 
   // Return the query object.
   return $query;
@@ -662,9 +681,14 @@ function farm_group_members_query($group_id, $time = REQUEST_TIME, $done = TRUE)
   // want to find all assets in the group, which may come from multiple logs.
   $query = farm_log_query($time, $done, FALSE);
 
-  // Join in the log's "group" field, and filter to only include logs that
-  // reference the specified group.
-  $query->join('field_data_field_farm_group', 'ss_fdffg', "ss_fdffg.entity_type = 'log' AND ss_fdffg.entity_id = ss_log.id AND ss_fdffg.deleted = 0");
+  // Join in the Membership field collection and filter to only include logs
+  // with memberships.
+  $query->join('field_data_field_farm_membership', 'ss_fdffm', "ss_fdffm.entity_type = 'log' AND ss_fdffm.entity_id = ss_log.id AND ss_fdffm.deleted = 0");
+  $query->where('ss_fdffm.field_farm_membership_value IS NOT NULL');
+
+  // Join in the membership's "group" field, and filter to only include logs
+  // that have a membership that references the specified group.
+  $query->join('field_data_field_farm_group', 'ss_fdffg', "ss_fdffg.entity_type = 'field_collection_item' AND ss_fdffg.bundle = 'field_farm_membership' AND ss_fdffg.entity_id = ss_fdffm.field_farm_membership_value AND ss_fdffg.deleted = 0");
   $query->where('ss_fdffg.field_farm_group_target_id = ' . $group_id);
 
   // Return the query object.
@@ -812,12 +836,14 @@ function farm_group_membership_set($assets, $groups = array(), $timestamp = REQU
   // Set the date.
   $log_wrapper->timestamp->set($timestamp);
 
-  // If there are groups, add them to the field_farm_group field. If they are
-  // not group assets, ignore them.
+  // If there are groups, create a new membership field_collection entity
+  // attached to the log. If they are not group assets, ignore them.
   if (!empty($groups)) {
+    $membership = entity_create('field_collection_item', array('field_name' => 'field_farm_membership'));
+    $membership->setHostEntity('log', $log);
     foreach ($groups as $group) {
       if ($group->type == 'group') {
-        $log_wrapper->field_farm_group[] = $group;
+        $log_wrapper->field_farm_membership->field_farm_group[] = $group;
       }
     }
   }

@@ -1290,12 +1290,11 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['field_farm_description']['alter']['max_length'] = '140';
   $handler->display->display_options['fields']['field_farm_description']['alter']['strip_tags'] = TRUE;
   $handler->display->display_options['fields']['field_farm_description']['alter']['trim'] = TRUE;
-  /* Field: Log: Group membership */
+  /* Field: Field collection item: Group */
   $handler->display->display_options['fields']['field_farm_group']['id'] = 'field_farm_group';
   $handler->display->display_options['fields']['field_farm_group']['table'] = 'field_data_field_farm_group';
   $handler->display->display_options['fields']['field_farm_group']['field'] = 'field_farm_group';
   $handler->display->display_options['fields']['field_farm_group']['relationship'] = 'membership';
-  $handler->display->display_options['fields']['field_farm_group']['label'] = 'Group';
   $handler->display->display_options['fields']['field_farm_group']['settings'] = array(
     'bypass_access' => 0,
     'link' => 1,

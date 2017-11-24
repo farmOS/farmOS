@@ -137,7 +137,7 @@ function farm_log_observation_field_group_info() {
   $field_group->parent_name = 'group_farm_tabs';
   $field_group->data = array(
     'label' => 'Files',
-    'weight' => '13',
+    'weight' => '14',
     'children' => array(
       0 => 'field_farm_files',
       1 => 'field_farm_images',
@@ -222,7 +222,7 @@ function farm_log_observation_field_group_info() {
     'label' => 'Group Membership',
     'weight' => '11',
     'children' => array(
-      0 => 'field_farm_group',
+      0 => 'field_farm_membership',
     ),
     'format_type' => 'field_group_easy_responsive_tabs_nav_item',
     'format_settings' => array(
@@ -246,7 +246,7 @@ function farm_log_observation_field_group_info() {
   $field_group->parent_name = 'group_farm_tabs';
   $field_group->data = array(
     'label' => 'Inventory',
-    'weight' => '12',
+    'weight' => '13',
     'children' => array(
       0 => 'field_farm_inventory',
     ),

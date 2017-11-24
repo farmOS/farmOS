@@ -315,6 +315,12 @@ function farm_group_views_default_views() {
   $handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
   $handler->display->display_options['empty']['area_text_custom']['content'] = 'No logs of group membership found.';
+  /* Relationship: Log: Group membership (field_farm_membership) */
+  $handler->display->display_options['relationships']['field_farm_membership_value']['id'] = 'field_farm_membership_value';
+  $handler->display->display_options['relationships']['field_farm_membership_value']['table'] = 'field_data_field_farm_membership';
+  $handler->display->display_options['relationships']['field_farm_membership_value']['field'] = 'field_farm_membership_value';
+  $handler->display->display_options['relationships']['field_farm_membership_value']['required'] = TRUE;
+  $handler->display->display_options['relationships']['field_farm_membership_value']['delta'] = '0';
   /* Field: Bulk operations: Log */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
   $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'views_entity_log';
@@ -396,10 +402,12 @@ function farm_group_views_default_views() {
   $handler->display->display_options['fields']['field_farm_asset']['settings'] = array(
     'link' => 1,
   );
-  /* Field: Log: Group membership */
+  /* Field: Field collection item: Group */
   $handler->display->display_options['fields']['field_farm_group']['id'] = 'field_farm_group';
   $handler->display->display_options['fields']['field_farm_group']['table'] = 'field_data_field_farm_group';
   $handler->display->display_options['fields']['field_farm_group']['field'] = 'field_farm_group';
+  $handler->display->display_options['fields']['field_farm_group']['relationship'] = 'field_farm_membership_value';
+  $handler->display->display_options['fields']['field_farm_group']['label'] = 'Group membership';
   $handler->display->display_options['fields']['field_farm_group']['settings'] = array(
     'bypass_access' => 0,
     'link' => 1,
@@ -456,12 +464,6 @@ function farm_group_views_default_views() {
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['specify_validation'] = TRUE;
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['validate']['type'] = 'farm_asset';
-  /* Filter criterion: Log: Group membership (field_farm_group) */
-  $handler->display->display_options['filters']['field_farm_group_target_id']['id'] = 'field_farm_group_target_id';
-  $handler->display->display_options['filters']['field_farm_group_target_id']['table'] = 'field_data_field_farm_group';
-  $handler->display->display_options['filters']['field_farm_group_target_id']['field'] = 'field_farm_group_target_id';
-  $handler->display->display_options['filters']['field_farm_group_target_id']['operator'] = 'not empty';
-  $handler->display->display_options['filters']['field_farm_group_target_id']['group'] = 1;
   /* Filter criterion: Log: Log type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'log';
@@ -575,6 +577,7 @@ function farm_group_views_default_views() {
     t('last »'),
     t('This lists all logs that assign assets as members of a group. Multiple log types are included in this list, and are specified in the "Log type" column.'),
     t('No logs of group membership found.'),
+    t('field collection item from field_farm_membership'),
     t('Log'),
     t('- Choose an operation -'),
     t('Done'),
@@ -699,7 +702,7 @@ function farm_group_views_default_views() {
   $handler->display->display_options['sorts']['name']['field'] = 'name';
   $handler->display->display_options['sorts']['name']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['name']['expose']['label'] = 'Name';
-  /* Contextual filter: Log: Group membership (field_farm_group) */
+  /* Contextual filter: Field collection item: Group (field_farm_group) */
   $handler->display->display_options['arguments']['field_farm_group_target_id']['id'] = 'field_farm_group_target_id';
   $handler->display->display_options['arguments']['field_farm_group_target_id']['table'] = 'field_data_field_farm_group';
   $handler->display->display_options['arguments']['field_farm_group_target_id']['field'] = 'field_farm_group_target_id';
@@ -931,12 +934,11 @@ function farm_group_views_default_views() {
   $handler->display->display_options['fields']['field_farm_description']['alter']['max_length'] = '140';
   $handler->display->display_options['fields']['field_farm_description']['alter']['strip_tags'] = TRUE;
   $handler->display->display_options['fields']['field_farm_description']['alter']['trim'] = TRUE;
-  /* Field: Log: Group membership */
+  /* Field: Field collection item: Group */
   $handler->display->display_options['fields']['field_farm_group']['id'] = 'field_farm_group';
   $handler->display->display_options['fields']['field_farm_group']['table'] = 'field_data_field_farm_group';
   $handler->display->display_options['fields']['field_farm_group']['field'] = 'field_farm_group';
   $handler->display->display_options['fields']['field_farm_group']['relationship'] = 'membership';
-  $handler->display->display_options['fields']['field_farm_group']['label'] = 'Group';
   $handler->display->display_options['fields']['field_farm_group']['settings'] = array(
     'bypass_access' => 0,
     'link' => 1,

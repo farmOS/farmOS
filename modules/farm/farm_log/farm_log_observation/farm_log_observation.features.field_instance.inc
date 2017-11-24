@@ -180,47 +180,6 @@ function farm_log_observation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'log-farm_observation-field_farm_group'.
-  $field_instances['log-farm_observation-field_farm_group'] = array(
-    'bundle' => 'farm_observation',
-    'deleted' => 0,
-    'description' => 'Use this field to set the group membership of any asset(s) referenced by this log.',
-    'display' => array(
-      'default' => array(
-        'label' => 'inline',
-        'module' => 'entityreference',
-        'settings' => array(
-          'bypass_access' => 1,
-          'link' => 1,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 3,
-      ),
-    ),
-    'entity_type' => 'log',
-    'field_name' => 'field_farm_group',
-    'label' => 'Group membership',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'entityreference_view_widget',
-      'settings' => array(
-        'allow_duplicates' => 0,
-        'close_modal' => 1,
-        'pass_argument' => 1,
-        'pass_arguments' => '',
-        'rendered_entity' => 0,
-        'view' => 'farm_group_entityreference_view|entityreference_view_widget',
-        'view_mode' => 'full',
-      ),
-      'type' => 'entityreference_view_widget',
-      'weight' => 14,
-    ),
-  );
-
   // Exported field_instance: 'log-farm_observation-field_farm_images'.
   $field_instances['log-farm_observation-field_farm_images'] = array(
     'bundle' => 'farm_observation',
@@ -367,6 +326,39 @@ function farm_log_observation_field_default_field_instances() {
       'settings' => array(),
       'type' => 'options_select',
       'weight' => 6,
+    ),
+  );
+
+  // Exported field_instance: 'log-farm_observation-field_farm_membership'.
+  $field_instances['log-farm_observation-field_farm_membership'] = array(
+    'bundle' => 'farm_observation',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Use this field to set the group membership of any asset(s) referenced by this log.',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'field_collection',
+        'settings' => array(
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_fields',
+        'weight' => 3,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_membership',
+    'label' => 'Group membership',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 12,
     ),
   );
 

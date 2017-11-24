@@ -224,7 +224,7 @@ function farm_log_activity_field_group_info() {
     'label' => 'Group Membership',
     'weight' => '5',
     'children' => array(
-      0 => 'field_farm_group',
+      0 => 'field_farm_membership',
     ),
     'format_type' => 'field_group_easy_responsive_tabs_nav_item',
     'format_settings' => array(

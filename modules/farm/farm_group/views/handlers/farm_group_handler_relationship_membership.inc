@@ -19,7 +19,7 @@ class farm_group_handler_relationship_membership extends farm_log_handler_relati
    * {@inheritdoc}
    */
   protected function build_query($asset_id, $time, $done) {
-    return farm_group_asset_membership_query($asset_id, $time, $done);
+    return farm_group_asset_membership_query($asset_id, $time, $done, TRUE, 'membership_id');
   }
 
 }
