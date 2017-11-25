@@ -152,7 +152,7 @@ function _farm_livestock_update_7005_stage1(&$sandbox) {
   // Revert Features to enable the group field on observation logs, and the
   // measure field on quantity field collections.
   $components = array(
-    'farm_group' => array('field_base'),
+    'farm_group' => array('field_base', 'field_instance'),
     'farm_log_observation' => array('field_instance'),
     'farm_quantity' => array('field_base', 'field_instance'),
   );
