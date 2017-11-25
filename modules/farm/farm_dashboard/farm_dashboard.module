@@ -40,7 +40,7 @@ function farm_dashboard_menu() {
     'type' => MENU_CALLBACK,
   );
   $items['farm/dashboard'] = array(
-    'title' => 'Farm',
+    'title' => 'Dashboard',
     'type' => MENU_DEFAULT_LOCAL_TASK,
     'weight' => -100,
   );
@@ -71,7 +71,7 @@ function farm_dashboard_page_callback() {
   $output = '';
 
   // Display the current date.
-  $output .= '<h2>Today is ' . date('M j Y') . '</h2>';
+  $output .= '<h2>' . t('Today is') . ' ' . l(date('M j Y'), 'farm/calendar/day') . '</h2>';
 
   // Render the "Plan" block display.
   $view = views_get_view('farm_log');

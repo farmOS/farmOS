@@ -1,0 +1,4 @@
+.calendar-calendar .week-view .full div.single-day div.weekview,
+.calendar-calendar .day-view .full div.single-day div.dayview {
+  border-color: #999;
+}

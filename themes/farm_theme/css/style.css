@@ -13,6 +13,13 @@
 }
 
 /**
+ * Reset calendar class width in menu.
+ */
+.menu .calendar {
+  width: auto;
+}
+
+/**
  * Hide page title on homepage.
  */
 body.front h1.page-header {
