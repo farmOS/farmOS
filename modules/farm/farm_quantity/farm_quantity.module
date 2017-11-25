@@ -313,6 +313,9 @@ function farm_quantity_asset_log_query($asset_id, $measure = NULL, $label = NULL
   // Use the farm_log_asset_query() helper function to start a query object.
   $query = farm_log_asset_query($asset_id, $time, $done);
 
+  // Add the log ID field.
+  $query->addField('ss_log', 'id');
+
   // Join in the Quantity field collection and filter to only include logs that
   // have quantities.
   $query->join('field_data_field_farm_quantity', 'ss_fdffq', "ss_fdffq.entity_type = 'log' AND ss_fdffq.entity_id = ss_log.id AND ss_fdffq.deleted = 0");

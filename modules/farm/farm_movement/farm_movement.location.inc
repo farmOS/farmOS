@@ -236,6 +236,140 @@ function farm_movement_asset_location(FarmAsset $asset, $time = REQUEST_TIME, $d
 }
 
 /**
+ * Retrieve an area's movement history. This will provide an array of arrival
+ * and departure logs for each asset that has been moved to the area. Only
+ * movement logs that have been marked "done" will be included in the history.
+ *
+ * @param $area
+ *   The farm area (taxonomy term object).
+ * @param string|array $asset_types
+ *   Limit to only include certain asset types. This can be a single asset type
+ *   as a string, or an array of asset types. Defaults to empty array, which
+ *   will include all asset types.
+ * @param int $start_time
+ *   How far back to look? This should be a UNIX timestamp. Defaults to NULL,
+ *   which looks back through all movement logs in the system.
+ * @param int $end_time
+ *   How far forward to look? This should be a UNIX timestamp. Defaults to the
+ *   current time, which causes future arrival movements to be excluded.
+ *
+ * @return array
+ *   Returns an array of movement history for each asset in the area. Array
+ *   keys are asset IDs, and each asset will contain an array of arrays that
+ *   contain arrival and departure logs for each movement through the area.
+ *   If an asset moved through the area more than once, it will have multiple
+ *   sub-arrays for each arrival+departure. If a departure log is not found
+ *   (eg: if the asset has not left the area), the 'depart' key will be NULL.
+ *
+ *   Example:
+ *     array(
+ *       '50' => array(
+ *         array(
+ *           'arrive' => [$log],
+ *           'depart' => [$log],
+ *         ),
+ *         array(
+ *           'arrive' => [$log],
+ *           'depart' => NULL,
+ *         ),
+ *       ),
+ *       '51' => array(
+ *         array(
+ *           'arrive' => [$log],
+ *           'depart' => [$log],
+ *         ),
+ *       ),
+ *     );
+ */
+function farm_movement_area_history($area, $asset_types = array(), $start_time = NULL, $end_time = REQUEST_TIME) {
+
+  // Start an empty history array.
+  $history = array();
+
+  // If the area doesn't have an id, bail.
+  if (empty($area->tid)) {
+    return $history;
+  }
+
+  // If $asset_types is not an array, wrap it in one.
+  if (!is_array($asset_types)) {
+    $asset_types = array($asset_types);
+  }
+
+  // Build a query to retrieve movement logs to this area.
+  $query = farm_movement_area_movement_query($area->tid, $end_time);
+
+  // Add the log ID field.
+  $query->addField('ss_log', 'id');
+
+  // Filter to only include logs that happened AFTER the start time.
+  if (!empty($start_time)) {
+    $query->condition('ss_log.timestamp', $start_time, '>');
+  }
+
+  // Join in asset references, and then the farm_asset table record for each.
+  $query->join('field_data_field_farm_asset', 'ss_fdffa', "ss_fdffa.entity_type = 'log' AND ss_fdffa.entity_id = ss_log.id AND ss_fdffa.deleted = 0");
+  $query->join('farm_asset', 'ss_fa', 'ss_fa.id = ss_fdffa.field_farm_asset_target_id');
+
+  // Filter to only include certain asset types.
+  if (!empty($asset_types)) {
+    $query->condition('ss_fa.type', $asset_types, 'IN');
+  }
+
+  // Group by log ID so that we don't get duplicate rows from logs that
+  // reference multiple assets.
+  $query->groupBy('ss_log.id');
+
+  // Execute the query to get a list of log IDs.
+  $result = $query->execute();
+
+  // Iterate through the log IDs.
+  foreach ($result as $row) {
+
+    // If the log ID is empty, skip it.
+    if (empty($row->id)) {
+      continue;
+    }
+
+    // Load the asset's arrival log.
+    $log_arrive = log_load($row->id);
+
+    // Create an entity metadata wrapper for the log.
+    $log_wrapper = entity_metadata_wrapper('log', $log_arrive);
+
+    // Iterate through the assets.
+    foreach ($log_wrapper->field_farm_asset as $asset_wrapper) {
+
+      // Get the asset object.
+      $asset = $asset_wrapper->value();
+
+      // The the asset doesn't have an ID, skip it.
+      if (empty($asset->id)) {
+        continue;
+      }
+
+      // If the asset is not one of the desired types, skip it.
+      if (!empty($asset_types) && !in_array($asset->type, $asset_types)) {
+        continue;
+      }
+
+      // Look up the asset's next movement log (departure from the area). Only
+      // include logs that have been marked "done".
+      $log_depart = farm_movement_asset_next_movement($asset, $log_arrive->timestamp, TRUE);
+
+      // Record the asset's time spent in this area.
+      $history[$asset->id][] = array(
+        'arrive' => $log_arrive,
+        'depart' => !empty($log_depart) ? $log_depart : NULL,
+      );
+    }
+  }
+
+  // Return the history.
+  return $history;
+}
+
+/**
  * Load an asset's latest log that defines a movement.
  *
  * @param FarmAsset $asset
@@ -280,7 +414,71 @@ function farm_movement_asset_latest_movement(FarmAsset $asset, $time = REQUEST_T
 }
 
 /**
- * Build a query to find the latest log of an asset that defines a movement.
+ * Load an asset's next log that defines a movement.
+ *
+ * @param FarmAsset $asset
+ *   The farm_asset object to look for.
+ * @param int $time
+ *   Unix timestamp limiter. Only logs after this time will be included.
+ *   Defaults to the current time. Set to 0 to load the absolute first.
+ * @param bool $done
+ *   Whether or not to only show logs that are marked as "done". Defaults to
+ *   FALSE because the default $time is now, and future logs are generally not
+ *   done yet.
+ *
+ * @return Log|bool
+ *   Returns a log entity. FALSE if something goes wrong.
+ */
+function farm_movement_asset_next_movement(FarmAsset $asset, $time = REQUEST_TIME, $done = FALSE) {
+
+  /**
+   * Please read the comments in farm_movement_asset_movement_query() to
+   * understand how this works, and to be aware of the limitations and
+   * responsibilities we have in this function with regard to sanitizing query
+   * inputs.
+   */
+
+  // Ensure $time is valid, because it may be used directly in the query
+  // string. This is defensive code. See note about
+  // farm_movement_asset_movement_query() above.
+  if (!is_int($time) || $time < 0) {
+    $time = REQUEST_TIME;
+  }
+
+  // If the asset doesn't have an ID (for instance if it is new and hasn't been
+  // saved yet), bail.
+  if (empty($asset->id)) {
+    return FALSE;
+  }
+
+  // Make a query to load all movement logs for the asset. Use a timestamp of 0
+  // to include future logs.
+  $query = farm_movement_asset_movement_query($asset->id, 0, $done, FALSE);
+
+  // Filter to only include movements after the specified timestamp.
+  $query->where('ss_log.timestamp > ' . $time);
+
+  // Order by timestamp and log ID ascending so we can get the first one (this
+  // overrides the default sort added by farm_log_query())
+  $query->orderBy('ss_log.timestamp', 'ASC');
+  $query->orderBy('ss_log.id', 'ASC');
+
+  // Limit to 1 record.
+  $query->range(0, 1);
+
+  // Execute the query and gather the log id.
+  $result = $query->execute();
+  $log_id = $result->fetchField();
+
+  // If a log id exists, load and return it.
+  if (!empty($log_id)) {
+    return log_load($log_id);
+  }
+  return FALSE;
+}
+
+/**
+ * Build a query to find movement logs of a specific asset.
  *
  * @param int|string $asset_id
  *   The asset id to search for. This can either be a specific id, or a field
@@ -293,6 +491,8 @@ function farm_movement_asset_latest_movement(FarmAsset $asset, $time = REQUEST_T
  * @param bool $done
  *   Whether or not to only show logs that are marked as "done". Defaults to
  *   TRUE.
+ * @param bool $single
+ *   Whether or not to limit the query to a single result. Defaults to TRUE.
  * @param string $field
  *   If the log id is desired, use "log_id. If the movement field_collection id
  *   is desired, use "movement_id".
@@ -300,7 +500,7 @@ function farm_movement_asset_latest_movement(FarmAsset $asset, $time = REQUEST_T
  * @return \SelectQuery
  *   Returns a SelectQuery object.
  */
-function farm_movement_asset_movement_query($asset_id, $time = REQUEST_TIME, $done = TRUE, $field = 'log_id') {
+function farm_movement_asset_movement_query($asset_id, $time = REQUEST_TIME, $done = TRUE, $single = TRUE, $field = 'log_id') {
 
   /**
    * Please read the comments in farm_log_asset_query() to understand how this
@@ -308,15 +508,8 @@ function farm_movement_asset_movement_query($asset_id, $time = REQUEST_TIME, $do
    * this function with regard to sanitizing query inputs.
    */
 
-  // If $field is not 'log_id', then we don't want the query helper function
-  // to add the log ID field to the query.
-  $log_id_field = TRUE;
-  if ($field != 'log_id') {
-    $log_id_field = FALSE;
-  }
-
   // Use the farm_log_asset_query() helper function to start a query object.
-  $query = farm_log_asset_query($asset_id, $time, $done, $log_id_field);
+  $query = farm_log_asset_query($asset_id, $time, $done, $single);
 
   // Join in the Movement field collection and filter to only include logs with
   // movements.
@@ -328,10 +521,63 @@ function farm_movement_asset_movement_query($asset_id, $time = REQUEST_TIME, $do
   $query->join('field_data_field_farm_move_to', 'ss_fdffmt', "ss_fdffmt.entity_type = 'field_collection_item' AND ss_fdffmt.bundle = 'field_farm_movement' AND ss_fdffmt.entity_id = ss_fdffm.field_farm_movement_value");
   $query->where('ss_fdffmt.field_farm_move_to_tid IS NOT NULL');
 
-  // If $field is 'movement_id', then add the movement ID field.
-  if ($field == 'movement_id') {
+  // If $field is 'log_id', then add the log ID field.
+  if ($field == 'log_id') {
+    $query->addField('ss_log', 'id');
+  }
+
+  // Or, if $field is 'movement_id', then add the movement ID field.
+  elseif ($field == 'movement_id') {
     $query->addField('ss_fdffm', 'field_farm_movement_value');
   }
+
+  // Return the query object.
+  return $query;
+}
+
+/**
+ * Build a query to find movement logs to a specific area.
+ *
+ * @param int $area_id
+ *   The area id to search for.
+ * @param int $time
+ *   Unix timestamp limiter. Only logs before this time will be included.
+ *   Defaults to the current time. Set to 0 to load the absolute last.
+ * @param bool $done
+ *   Whether or not to only show logs that are marked as "done". Defaults to
+ *   TRUE.
+ *
+ * @return \SelectQuery
+ *   Returns a SelectQuery object.
+ */
+function farm_movement_area_movement_query($area_id, $time = REQUEST_TIME, $done = TRUE) {
+
+  /**
+   * Please read the comments in farm_log_query() to understand how this works,
+   * and to be aware of the limitations and responsibilities we have in this
+   * function with regard to sanitizing query inputs.
+   */
+
+  // Ensure $area_id is valid, because it will be used directly in the query
+  // string. This is defensive code. See note about farm_log_query() above.
+  if (!is_int($area_id) || $area_id < 0) {
+    $area_id = db_escape_field($area_id);
+  }
+
+  // Use the farm_log_query() helper function to start a query object. Do not
+  // limit the results to a single row because by the very nature of this we
+  // want to find all assets in the area, which may come from multiple logs.
+  $query = farm_log_query($time, $done, FALSE);
+
+  // Join in the Movement field collection and filter to only include logs with
+  // movements.
+  $query->join('field_data_field_farm_movement', 'ss_fdffm', "ss_fdffm.entity_type = 'log' AND ss_fdffm.entity_id = ss_log.id AND ss_fdffm.deleted = 0");
+  $query->where('ss_fdffm.field_farm_movement_value IS NOT NULL');
+
+  // Join in the movement's "move to" field, and filter to only include logs
+  // that have a movement with a "move to" the specified area.
+  $query->join('field_data_field_farm_move_to', 'ss_fdffmt', "ss_fdffmt.entity_type = 'field_collection_item' AND ss_fdffmt.bundle = 'field_farm_movement' AND ss_fdffmt.entity_id = ss_fdffm.field_farm_movement_value");
+  $query->where('ss_fdffmt.field_farm_move_to_tid = ' . $area_id);
 
   // Return the query object.
   return $query;

@@ -454,7 +454,7 @@ function farm_inventory_query($asset_id, $time = REQUEST_TIME, $done = TRUE) {
   }
 
   // Use the farm_log_asset_query() helper function to start a query object.
-  $query = farm_log_query($time, $done, FALSE);
+  $query = farm_log_query($time, $done);
 
   // Join in the Inventory field collection and filter to only include logs that
   // have inventory adjustments.
