@@ -8,8 +8,8 @@
  */
 function _farm_ui_menu_breadcrumb_alter(&$active_trail, $item) {
 
-  // If the current path contains /farm...
-  if (strpos($item['path'], 'farm') === 0) {
+  // If the current path contains /farm, and there are more than 2 trail items:
+  if (strpos($item['path'], 'farm') === 0 && count($active_trail) > 2) {
 
     // If the link to /farm already exists in the second position, bail.
     if (!empty($active_trail[1]['link_path']) && $active_trail[1]['link_path'] == 'farm') {
@@ -84,6 +84,11 @@ function farm_ui_entity_type_breadcrumb($type, $bundle) {
   // If this is a farm_asset entity, add a link to the full assets list.
   if ($type == 'farm_asset') {
     $breadcrumb[] = l(t('Assets'), 'farm/assets');
+  }
+
+  // Or, if this is a farm_plan entity, add a link to the full plans list.
+  elseif ($type == 'farm_plan') {
+    $breadcrumb[] = l(t('Plans'), 'farm/plans');
   }
 
   // Or, if this is a log entity, add a link to the full logs list.

@@ -58,6 +58,40 @@ function farm_asset_farm_access_perms($role) {
 /**
  * Implements hook_farm_access_perms().
  */
+function farm_plan_farm_access_perms($role) {
+  $perms = array();
+
+  // Set up default CRUD permissions for all farm plan entity types.
+  $plan_types = farm_plan_types();
+  $access_types = array(
+    'farm_plan' => array(),
+  );
+  foreach ($plan_types as $type => $data) {
+    $access_types['farm_plan'][] = $type;
+  }
+  switch ($role) {
+
+    // Grant full access to Farm Manager and Worker roles.
+    case 'Farm Manager':
+    case 'Farm Worker':
+      $perms = farm_access_entity_perms($access_types);
+      break;
+
+    // Grant read-only access to Farm Viewer role.
+    case 'Farm Viewer':
+      $perms = farm_access_entity_perms($access_types, array('view'));
+      break;
+  }
+
+  // Grant access to view farm plans.
+  $perms[] = 'view farm plans';
+
+  return $perms;
+}
+
+/**
+ * Implements hook_farm_access_perms().
+ */
 function log_farm_access_perms($role) {
   $perms = array();
 

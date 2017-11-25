@@ -1,0 +1,595 @@
+<?php
+
+/**
+ * @file
+ * Farm plan - A farm plan entity type.
+ */
+
+// Include Features code.
+include_once 'farm_plan.features.inc';
+
+/****************************************************************
+ * Drupal hooks
+ * **************************************************************/
+
+/**
+ * Implements hook_permission().
+ */
+function farm_plan_permission() {
+  $perms = array(
+    'administer farm_plan module' => array(
+      'title' => t('Administer farm plan module'),
+      'description' => t('Gives full access to everything in the farm plan module.'),
+      'restrict access' => TRUE,
+    ),
+    'administer farm_plan types' => array(
+      'title' => t('Administer farm plan types'),
+      'restrict access' => TRUE,
+    ),
+    'view farm plans' => array(
+      'title' => t('View farm plans'),
+      'description' => t('Allows users to view the full list of farm plans.'),
+    ),
+  );
+
+  // Add permissions for each farm_plan type.
+  foreach (farm_plan_types() as $farm_plan_type) {
+    $type = $farm_plan_type->type;
+    $ops = array('view', 'edit', 'delete');
+    $scopes = array('any', 'own');
+    $perms += array(
+      "create $type farm plans" => array(
+        'title' => t('Create new %type_name farm plans', array('%type_name' => $farm_plan_type->label)),
+      ),
+    );
+    foreach ($ops as $op) {
+      foreach ($scopes as $scope) {
+        $perms += array(
+          "$op $scope $type farm plans" => array(
+            'title' => drupal_ucfirst($op) . ' ' . $scope . ' ' . t('%type_name farm plans', array('%type_name' => $farm_plan_type->label)),
+          ),
+        );
+      }
+    }
+  }
+
+  return $perms;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function farm_plan_menu() {
+  $items = array();
+
+  $items['farm/plan/add'] = array(
+    'title' => 'Add plan',
+    'page callback' => 'farm_plan_add_types_page',
+    'access callback' => 'farm_plan_add_access',
+    'file' => 'farm_plan.pages.inc',
+  );
+  foreach (farm_plan_types() as $type => $info) {
+    $items['farm/plan/add/' . $type] = array(
+      'title' => 'Add ' . $info->label,
+      'page callback' => 'farm_plan_add',
+      'page arguments' => array(3),
+      'access callback' => 'farm_plan_access',
+      'access arguments' => array('create', 3),
+      'file' => 'farm_plan.pages.inc',
+    );
+  }
+
+  $farm_plan_uri = 'farm/plan/%farm_plan';
+  $farm_plan_uri_argument_position = 2;
+
+  $items[$farm_plan_uri] = array(
+    'title callback' => 'entity_label',
+    'title arguments' => array('farm_plan', $farm_plan_uri_argument_position),
+    'page callback' => 'farm_plan_view',
+    'page arguments' => array($farm_plan_uri_argument_position),
+    'access callback' => 'farm_plan_access',
+    'access arguments' => array('view', $farm_plan_uri_argument_position),
+    'file' => 'farm_plan.pages.inc',
+  );
+
+  $items[$farm_plan_uri . '/view'] = array(
+    'title' => 'Plan',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10,
+  );
+
+  $items[$farm_plan_uri . '/delete'] = array(
+    'title' => 'Delete plan',
+    'title callback' => 'farm_plan_label',
+    'title arguments' => array($farm_plan_uri_argument_position),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('farm_plan_delete_form', $farm_plan_uri_argument_position),
+    'access callback' => 'farm_plan_access',
+    'access arguments' => array('update', $farm_plan_uri_argument_position),
+    'file' => 'farm_plan.pages.inc',
+  );
+
+  $items[$farm_plan_uri . '/edit'] = array(
+    'title' => 'Settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('farm_plan_form', $farm_plan_uri_argument_position),
+    'access callback' => 'farm_plan_access',
+    'access arguments' => array('update', $farm_plan_uri_argument_position),
+    'file' => 'farm_plan.pages.inc',
+    'type' => MENU_LOCAL_TASK,
+    'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
+    'weight' => 100,
+  );
+
+  // Plan type delete form.
+  $items['admin/config/farm/plan-types/%farm_plan_type/delete'] = array(
+    'title' => 'Delete',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('farm_plan_type_form_delete_confirm', 4),
+    'access arguments' => array('administer farm_plan types'),
+    'weight' => 1,
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'farm_plan.admin.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_entity_info().
+ */
+function farm_plan_entity_info() {
+  $return = array(
+    'farm_plan' => array(
+      'label' => t('Farm plan'),
+      'entity class' => 'FarmPlan',
+      'controller class' => 'FarmPlanController',
+      'base table' => 'farm_plan',
+      'fieldable' => TRUE,
+      'entity keys' => array(
+        'id' => 'id',
+        'bundle' => 'type',
+        'label' => 'name',
+      ),
+      'bundle keys' => array(
+        'bundle' => 'type',
+      ),
+      'bundles' => array(),
+      'load hook' => 'farm_plan_load',
+      'view modes' => array(
+        'full' => array(
+          'label' => t('Default'),
+          'custom settings' => FALSE,
+        ),
+      ),
+      'label callback' => 'entity_class_label',
+      'uri callback' => 'entity_class_uri',
+      'module' => 'farm_plan',
+      'access callback' => 'farm_plan_access',
+    ),
+  );
+  $return['farm_plan_type'] = array(
+    'label' => t('Farm plan type'),
+    'entity class' => 'FarmPlanType',
+    'controller class' => 'FarmPlanTypeController',
+    'base table' => 'farm_plan_type',
+    'fieldable' => FALSE,
+    'bundle of' => 'farm_plan',
+    'exportable' => TRUE,
+    'entity keys' => array(
+      'id' => 'id',
+      'name' => 'type',
+      'label' => 'label',
+    ),
+    'module' => 'farm_plan',
+    // Enable the entity API admin UI.
+    'admin ui' => array(
+      'path' => 'admin/config/farm/plan-types',
+      'file' => 'farm_plan.admin.inc',
+      'controller class' => 'FarmPlanTypeUIController',
+    ),
+    'access callback' => 'farm_plan_type_access',
+  );
+
+  return $return;
+}
+
+/**
+ * Implements hook_entity_info_alter().
+ */
+function farm_plan_entity_info_alter(&$entity_info) {
+  foreach (farm_plan_types() as $type => $info) {
+    $entity_info['farm_plan']['bundles'][$type] = array(
+      'label' => $info->label,
+      'admin' => array(
+        'path' => 'admin/config/farm/plan-types/manage/%farm_plan_type',
+        'real path' => 'admin/config/farm/plan-types/manage/' . $type,
+        'bundle argument' => 5,
+      ),
+    );
+  }
+}
+
+/**
+ * Implements hook_entity_property_info_alter().
+ */
+function farm_plan_entity_property_info_alter(&$info) {
+  $properties = &$info['farm_plan']['properties'];
+  $properties['name'] = array(
+    'label' => t('Name'),
+    'description' => t('The name of the plan.'),
+    'setter callback' => 'entity_property_verbatim_set',
+    'schema field' => 'name',
+  );
+  $properties['type'] = array(
+    'label' => t('Farm plan type'),
+    'type' => 'token',
+    'description' => t('The farm plan type.'),
+    'setter callback' => 'entity_property_verbatim_set',
+    'setter permission' => 'administer farm_plan module',
+    'options list' => 'farm_plan_type_get_names',
+    'required' => TRUE,
+    'schema field' => 'type',
+  );
+  $properties['uid'] = array(
+    'label' => t('Owner'),
+    'type' => 'user',
+    'description' => t('The owner of the plan.'),
+    'setter callback' => 'entity_property_verbatim_set',
+    'setter permission' => 'administer farm_plan module',
+    'required' => TRUE,
+    'schema field' => 'uid',
+  );
+  $properties['created'] = array(
+    'label' => t('Created'),
+    'type' => 'date',
+    'description' => t('The timestamp when the plan was created.'),
+    'setter callback' => 'entity_property_verbatim_set',
+    'setter permission' => 'administer farm_plan module',
+    'required' => TRUE,
+    'schema field' => 'created',
+  );
+  $properties['changed'] = array(
+    'label' => t('Changed'),
+    'type' => 'date',
+    'description' => t('The timestamp when the plan was last modified.'),
+    'setter callback' => 'entity_property_verbatim_set',
+    'setter permission' => 'administer farm_plan module',
+    'required' => TRUE,
+    'schema field' => 'changed',
+  );
+  $properties['active'] = array(
+    'label' => t('Active'),
+    'description' => t('Whether the plan is active.'),
+    'setter callback' => 'entity_property_verbatim_set',
+    'setter permission' => 'administer farm_plan module',
+    'schema field' => 'active',
+    'type' => 'boolean',
+  );
+}
+
+/**
+ * Implements hook_field_extra_fields().
+ */
+function farm_plan_field_extra_fields() {
+  $farm_plan_types = farm_plan_types();
+  $extra_fields = array(
+    'farm_plan' => array(),
+  );
+  foreach ($farm_plan_types as $type) {
+    $extra_fields['farm_plan'][$type->type] = array(
+      'form' => array(
+
+        // Add plan name field to field UI.
+        'name' => array(
+          'label' => t('Name'),
+          'description' => t('The name of the plan.'),
+          'weight' => -10,
+        ),
+      ),
+    );
+  }
+  return $extra_fields;
+}
+
+/**
+ * Implements hook_entity_view().
+ */
+function farm_plan_entity_view($entity, $type, $view_mode, $langcode) {
+
+  // If the entity is not a farm_plan, bail.
+  if ($type != 'farm_plan') {
+    return;
+  }
+
+  // Add the plan's "active" status.
+  if ($entity->active) {
+    $status = 'Yes';
+  }
+  else {
+    $status = 'No';
+    drupal_set_message(t('This plan is no longer active. Inactive plans should be considered "archived" and should not be edited or deleted unless they contain information that is incorrect.'), 'warning');
+  }
+  $entity->content['active'] = array(
+    '#markup' => '<div><strong>Active plan:</strong> ' . $status . '</div>',
+    '#weight' => -100,
+  );
+}
+
+/***************************************************************
+ * Access functions
+ * *************************************************************/
+
+/**
+ * Access callback for plan entities.
+ *
+ * @param string $op
+ *   The operation being performed. One of 'view', 'update', 'create', 'delete'.
+ * @param FarmPlan|string $farm_plan
+ *   Optionally a specific plan entity to check.
+ * @param object $account
+ *   The user to check for. Leave it to NULL to check for the global user.
+ *
+ * @return bool
+ *   Whether access is allowed or not.
+ */
+function farm_plan_access($op, $farm_plan = NULL, $account = NULL) {
+  $rights = &drupal_static(__FUNCTION__, array());
+
+  // If $op is not one of the supported ones, deny access.
+  if (!in_array($op, array('create', 'view', 'update', 'delete'), TRUE)) {
+    return FALSE;
+  }
+  // If no user object is supplied, the access check is for the current user.
+  if (empty($account)) {
+    global $user;
+    $account = $user;
+  }
+
+  // If no plan is provided, check for access to all plans.
+  if (empty($farm_plan)) {
+    return user_access('view farm plans', $account);
+  }
+
+  // $farm_plan may be either an object or a plan type. Since plan types
+  // cannot be an integer, use either id or type as the static cache id.
+  $cid = is_object($farm_plan) ? $farm_plan->id : $farm_plan;
+
+  // If we've already checked access for this plan, user and op, return from
+  // cache.
+  if (isset($rights[$account->uid][$cid][$op])) {
+    return $rights[$account->uid][$cid][$op];
+  }
+
+  // If the user has 'administer farm_plan module' permission, grant them
+  // access.
+  if (user_access('administer farm_plan module', $account)) {
+    $rights[$account->uid][$cid][$op] = TRUE;
+    return TRUE;
+  }
+
+  // Check access to the plan based on it's type.
+  $type = is_string($farm_plan) ? $farm_plan : $farm_plan->type;
+  $farm_plan_types = farm_plan_types();
+  $type_names = array();
+  foreach ($farm_plan_types as $name => $farm_plan_type) {
+    $type_names[] = $name;
+  }
+  if (in_array($type, $type_names)) {
+    if ($op == 'create' && user_access('create ' . $type . ' farm plans', $account)) {
+      $rights[$account->uid][$cid][$op] = TRUE;
+      return TRUE;
+    }
+
+    if ($op == 'view') {
+      if (user_access('view any ' . $type . ' farm plans', $account) || (user_access('view own ' . $type . ' farm plans', $account) && ($account->uid == $farm_plan->uid))) {
+        $rights[$account->uid][$cid][$op] = TRUE;
+        return TRUE;
+      }
+    }
+
+    if ($op == 'update') {
+      if (user_access('edit any ' . $type . ' farm plans', $account) || (user_access('edit own ' . $type . ' farm plans', $account) && ($account->uid == $farm_plan->uid))) {
+        $rights[$account->uid][$cid][$op] = TRUE;
+        return TRUE;
+      }
+    }
+
+    if ($op == 'delete') {
+      if (user_access('delete any ' . $type . ' farm plans', $account) || (user_access('delete own ' . $type . ' farm plans', $account) && ($account->uid == $farm_plan->uid))) {
+        $rights[$account->uid][$cid][$op] = TRUE;
+        return TRUE;
+      }
+    }
+  }
+
+  // If all else fails, deny access.
+  return FALSE;
+}
+
+/**
+ * Access callback: Checks whether the user has permission to add a plan.
+ *
+ * @param object|null $account
+ *   The user account.
+ *
+ * @return bool
+ *   TRUE if the user has add permission, otherwise FALSE.
+ */
+function farm_plan_add_access($account = NULL) {
+
+  // If no user object is supplied, the access check is for the current user.
+  if (empty($account)) {
+    global $user;
+    $account = $user;
+  }
+
+  // Check each of the plan types to see if the user has access.
+  $types = farm_plan_types();
+  foreach ($types as $type) {
+    if (farm_plan_access('create', $type->type, $account)) {
+      return TRUE;
+    }
+  }
+
+  // If all else fails, deny access.
+  return FALSE;
+}
+
+/**
+ * Access callback for plan types.
+ *
+ * @param string $op
+ *   The operation being performed.
+ * @param FarmPlanType $farm_plan_type
+ *   The farm plan entity.
+ *
+ * @return bool
+ *   Returns true if the user has access.
+ */
+function farm_plan_type_access($op, FarmPlanType $farm_plan_type = NULL) {
+  return user_access('administer farm_plan types');
+}
+
+/***************************************************************
+ * Farm plan API functions
+ * *************************************************************/
+
+/**
+ * Load a plan.
+ *
+ * @param int $id
+ *   The plan id.
+ * @param bool $reset
+ *   Whether or not to reset the entity cache.
+ *
+ * @return FarmPlan
+ *   Returns a farm plan object.
+ */
+function farm_plan_load($id, $reset = FALSE) {
+  $farm_plans = farm_plan_load_multiple(array($id), array(), $reset);
+  return reset($farm_plans);
+}
+
+/**
+ * Load multiple plans based on certain conditions.
+ *
+ * @param array $ids
+ *   An array of farm plan ids.
+ * @param array $conditions
+ *   An array of entity load conditions.
+ * @param bool $reset
+ *   Whether or not to reset the entity cache.
+ *
+ * @return array
+ *   Returns an array of farm plans.
+ */
+function farm_plan_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
+  return entity_load('farm_plan', $ids, $conditions, $reset);
+}
+
+/**
+ * Save plan.
+ *
+ * @param FarmPlan $farm_plan
+ *   The farm plan entity.
+ */
+function farm_plan_save(FarmPlan $farm_plan) {
+  entity_save('farm_plan', $farm_plan);
+}
+
+/**
+ * Delete single plan.
+ *
+ * @param FarmPlan $farm_plan
+ *   The farm plan entity.
+ */
+function farm_plan_delete(FarmPlan $farm_plan) {
+  entity_delete('farm_plan', entity_id('farm_plan', $farm_plan));
+}
+
+/**
+ * Delete multiple plans.
+ *
+ * @param array $farm_plan_ids
+ *   An array of farm plan ids.
+ */
+function farm_plan_delete_multiple(array $farm_plan_ids) {
+  entity_delete_multiple('farm_plan', $farm_plan_ids);
+}
+
+/***************************************************************
+ * Farm plan type API functions
+ * *************************************************************/
+
+/**
+ * Load plan type.
+ *
+ * @param string $farm_plan_type
+ *   The farm plan type.
+ *
+ * @return FarmPlanType
+ *   Returns a farm plan type entity.
+ */
+function farm_plan_type_load($farm_plan_type) {
+  return farm_plan_types($farm_plan_type);
+}
+
+/**
+ * List of plan types.
+ *
+ * @param string $type_name
+ *   The farm plan type name.
+ *
+ * @return FarmPlanType|array
+ *   Returns either a single type, or an array of types.
+ */
+function farm_plan_types($type_name = NULL) {
+  $types = entity_load_multiple_by_name('farm_plan_type', isset($type_name) ? array($type_name) : FALSE);
+  return isset($type_name) ? reset($types) : $types;
+}
+
+/**
+ * Save plan type entity.
+ *
+ * @param FarmPlanType $farm_plan_type
+ *   The farm plan type entity.
+ */
+function farm_plan_type_save(FarmPlanType $farm_plan_type) {
+  entity_save('farm_plan_type', $farm_plan_type);
+}
+
+/**
+ * Delete single plan type.
+ *
+ * @param FarmPlanType $farm_plan_type
+ *   The farm plan type entity.
+ */
+function farm_plan_type_delete(FarmPlanType $farm_plan_type) {
+  entity_delete('farm_plan_type', entity_id('farm_plan_type', $farm_plan_type));
+}
+
+/**
+ * Delete multiple plan types.
+ *
+ * @param array $farm_plan_type_ids
+ *   An array of farm plan type ids.
+ */
+function farm_plan_type_delete_multiple(array $farm_plan_type_ids) {
+  entity_delete_multiple('farm_plan_type', $farm_plan_type_ids);
+}
+
+/**
+ * Get the names of all plan types.
+ *
+ * @return array
+ *   Returns an array of plan type names, keyed by machine name.
+ */
+function farm_plan_type_get_names() {
+  $names = array();
+  $types = farm_plan_types();
+  foreach ($types as $type) {
+    $names[$type->type] = $type->label;
+  }
+  return $names;
+}
