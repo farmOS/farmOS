@@ -174,3 +174,270 @@ function farm_livestock_feeds_tamper_default_alter(&$feeds_tampers) {
   $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', 'animal', 'Nicknames', 'explode');
   $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
 }
+
+/**
+ * Implements hook_entity_view_alter().
+ */
+function farm_livestock_entity_view_alter(&$build, $type) {
+
+  // If it's not a farm_asset, or if the entity object is not available, bail.
+  if ($type != 'farm_asset' || empty($build['#entity'])) {
+    return;
+  }
+
+  // Alias the asset variable.
+  $asset = $build['#entity'];
+
+  // If it isn't an animal asset, bail.
+  if ($asset->type != 'animal') {
+    return;
+  }
+
+  // Get the animal's current weight.
+  $weight = farm_livestock_animal_weight($asset);
+
+  // If a weight measurement isn't available, bail.
+  if (empty($weight)) {
+    return;
+  }
+
+  // Get the value and the units.
+  $value = !empty($weight['value']) ? $weight['value'] : '';
+  $units = !empty($weight['units']) ? $weight['units'] : '';
+
+  // Build the weight display.
+  $output = '<strong>' . t('Weight') . ':</strong> ' . $value . ' ' . $units;
+
+  // If the animal has an inventory greater than 1, add "(average)".
+  $inventory = farm_inventory($asset);
+  if ($inventory > 1) {
+    $output .= ' (' . t('average') . ')';
+  }
+
+  // Add it to the build array.
+  $build['weight'] = array(
+    '#markup' => $output,
+    '#prefix' => '<div class="weight">',
+    '#suffix' => '</div>',
+    '#weight' => -120,
+  );
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function farm_livestock_form_farm_asset_form_alter(&$form, &$form_state, $form_id) {
+
+  // Get the farm asset entity from the form.
+  $asset = $form['farm_asset']['#value'];
+
+  // If the asset is not an animal, bail.
+  if ($asset->type != 'animal') {
+    return;
+  }
+
+  // Get the animal's current weight.
+  $weight = farm_livestock_animal_weight($asset);
+
+  // Add a field for setting the animal's current weight.
+  $form['weight'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Weight'),
+    '#description' => t('Set the current weight for this animal. If this record is used to represent multiple animals, enter their average weight. An observation log will be created automatically to record the weight.'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#weight' => 100,
+    '#tree' => TRUE,
+  );
+  $form['weight']['value'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Weight'),
+    '#default_value' => !empty($weight['value']) ? $weight['value'] : '',
+  );
+  $form['weight']['units'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Units'),
+    '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_quantity_units',
+    '#default_value' => !empty($weight['units']) ? $weight['units'] : '',
+  );
+  $form['actions']['submit']['#validate'][] = 'farm_livestock_asset_form_validate';
+  $form['actions']['submit']['#submit'][] = 'farm_livestock_asset_form_submit';
+  $form['#group_children']['weight'] = 'group_farm_general';
+}
+
+/**
+ * Validate handler for processing the animal weight field.
+ *
+ * @param array $form
+ *   The form array.
+ * @param array $form_state
+ *   The form state array.
+ */
+function farm_livestock_asset_form_validate(array $form, array &$form_state) {
+
+  // If units are set, but not weight, show an error.
+  if (empty($form_state['values']['weight']['value']) && !empty($form_state['values']['weight']['units'])) {
+    form_set_error('weight][value', t('Both weight and units must be specified.'));
+  }
+}
+
+/**
+ * Submit handler for processing the animal weight field.
+ *
+ * @param array $form
+ *   The form array.
+ * @param array $form_state
+ *   The form state array.
+ */
+function farm_livestock_asset_form_submit(array $form, array &$form_state) {
+
+  // Only proceed if weight has a value.
+  if (empty($form_state['values']['weight']['value'])) {
+    return;
+  }
+
+  // Only proceed if the value is not the default value.
+  if ($form_state['values']['weight']['value'] == $form['weight']['value']['#default_value']) {
+    return;
+  }
+
+  // If an asset doesn't exist, bail.
+  if (empty($form_state['values']['farm_asset'])) {
+    return;
+  }
+
+  // Grab the asset, weight, and units.
+  $asset = $form_state['values']['farm_asset'];
+  $weight = $form_state['values']['weight']['value'];
+  $units = $form_state['values']['weight']['units'];
+
+  // Create an observation log to set the weight.
+  farm_livestock_weight_set($asset, $weight, $units);
+}
+
+/**
+ * Helper function for retrieving the weight of an animal.
+ *
+ * @param FarmAsset $asset
+ *   The animal asset to get weight for.
+ *
+ * @return array
+ *   Returns an array of quantity information about the asset's weight, based
+ *   on its latest weight quantity log. Returns an empty array if nothing is
+ *   found.
+ */
+function farm_livestock_animal_weight($asset) {
+
+  // Load the latest log with a 'weight' quantity measurement for this asset.
+  $log = farm_quantity_asset_log($asset, 'weight');
+
+  // if no weight observation log exists for asset
+  if (empty($log)) {
+    return array();
+  }
+
+  // Extract quantity data from the log.
+  $data = farm_quantity_log_data($log, 'weight');
+
+  // Iterate through the data and return the first one with a value.
+  foreach ($data as $quantity) {
+    if (!empty($quantity['value'])) {
+      return $quantity;
+    }
+  }
+
+  // If nothing was returned, return an empty array.
+  return array();
+}
+
+/**
+ * Create a weight measurement log associated with an animal.
+ *
+ * @param FarmAsset $asset
+ *   The asset to add quantity measurements to.
+ * @param string $weight
+ *   The animal's current weight.
+ * @param object $units
+ *   The units of measurement.
+ * @param int $timestamp
+ *   The timestamp of the measurement. Defaults to the current time.
+ * @param bool $done
+ *   Boolean indicating whether or not the log should be marked "done".
+ *   Defaults to TRUE.
+ */
+function farm_livestock_weight_set($asset, $weight, $units, $timestamp = REQUEST_TIME, $done = TRUE) {
+
+  // Create a new log entity.
+  $log = entity_create('log', array('type' => 'farm_observation'));
+
+  // Create an entity wrapper for the log.
+  $log_wrapper = entity_metadata_wrapper('log', $log);
+
+  // Set the name to: "Current weight: [value]".
+  $log_name = t('Current weight') . ': ' . check_plain($weight) . ' ' . check_plain($units);
+  $log_wrapper->name->set($log_name);
+
+  // Set the date.
+  $log_wrapper->timestamp->set($timestamp);
+
+  // Add the asset to the asset reference field.
+  $log_wrapper->field_farm_asset[] = $asset;
+
+  // Create a new quantity field_collection entity attached to the log.
+  $quantity = entity_create('field_collection_item', array('field_name' => 'field_farm_quantity'));
+  $quantity->setHostEntity('log', $log);
+
+  // Create an entity wrapper for the quantity.
+  $quantity_wrapper = entity_metadata_wrapper('field_collection_item', $quantity);
+
+  // Set the quantity measure.
+  $quantity_wrapper->field_farm_quantity_measure->set('weight');
+
+  // Set the quantity value.
+  $value_fraction = fraction_from_decimal($weight);
+  $quantity_wrapper->field_farm_quantity_value->numerator->set($value_fraction->getNumerator());
+  $quantity_wrapper->field_farm_quantity_value->denominator->set($value_fraction->getDenominator());
+
+  // Look up the units taxonomy term.
+  $units_terms = taxonomy_get_term_by_name($units, 'farm_quantity_units');
+
+  // If terms were found, use the first one.
+  if (!empty($units_terms)) {
+    $units_term = reset($units_terms);
+  }
+
+  // If a term wasn't found, create it.
+  else {
+    $farm_units = taxonomy_vocabulary_machine_name_load('farm_quantity_units');
+    $units_term = new stdClass();
+    $units_term->name = check_plain($units);
+    $units_term->vid = $farm_units->vid;
+    taxonomy_term_save($units_term);
+  }
+
+  // Set the quantity units.
+  $quantity_wrapper->field_farm_quantity_units = $units_term;
+
+  // Set the log's done status.
+  if (!empty($done)) {
+    $log_wrapper->done->set(TRUE);
+  }
+  else {
+    $log_wrapper->done->set(FALSE);
+  }
+
+  // Set the log owner.
+  global $user;
+  $log_wrapper->field_farm_log_owner[] = $user;
+
+  // Save the quantity.
+  $quantity_wrapper->save();
+
+  // Save the log.
+  $log_wrapper->save();
+
+  // Set a message.
+  $label = entity_label('log', $log);
+  $uri = entity_uri('log', $log);
+  drupal_set_message('Log created: ' . l($label, $uri['path']));
+}
