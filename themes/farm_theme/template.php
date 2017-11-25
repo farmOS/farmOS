@@ -149,12 +149,15 @@ function farm_theme_views_bulk_operations_form_alter(&$form, &$form_state, $vbo)
   // Move VBO buttons to the bottom.
   $form['select']['#weight'] = 100;
 
-  // Move the "Assign" and "Clone" actions to the end of the list.
+  // Move the "Assign", "Clone", and "Group" actions to the end of the list.
   if (!empty($form['select']['action::farm_log_assign_action'])) {
     $form['select']['action::farm_log_assign_action']['#weight'] = 100;
   }
   if (!empty($form['select']['action::log_clone_action'])) {
     $form['select']['action::log_clone_action']['#weight'] = 100;
+  }
+  if (!empty($form['select']['action::farm_group_asset_membership_action'])) {
+    $form['select']['action::farm_group_asset_membership_action']['#weight'] = 100;
   }
 
   // If we are viewing a VBO config form, add Javascript that will hide
@@ -181,7 +184,8 @@ function farm_theme_views_bulk_operations_form_alter(&$form, &$form_state, $vbo)
 function farm_theme_bootstrap_colorize_text_alter(&$texts) {
 
   // Colorize VBO action buttons.
-  $texts['matches'][t('Move')] = 'default';
+  $texts['matches'][t('Move')] = 'success';
+  $texts['matches'][t('Group')] = 'warning';
   $texts['matches'][t('Done')] = 'success';
   $texts['matches'][t('Not Done')] = 'danger';
   $texts['matches'][t('Reschedule')] = 'warning';
@@ -195,7 +199,8 @@ function farm_theme_bootstrap_colorize_text_alter(&$texts) {
 function farm_theme_bootstrap_iconize_text_alter(&$texts) {
 
   // Iconize VBO action buttons.
-  $texts['matches'][t('Move')] = 'move';
+  $texts['matches'][t('Move')] = 'globe';
+  $texts['matches'][t('Group')] = 'bookmark';
   $texts['matches'][t('Done')] = 'check';
   $texts['matches'][t('Not Done')] = 'unchecked';
   $texts['matches'][t('Reschedule')] = 'calendar';
@@ -213,25 +218,49 @@ function farm_theme_entity_view_alter(&$build, $type) {
     return;
   }
 
-  // Float the location information to the right.
-  if (!empty($build['location'])) {
+  // If certain elements exist, we will split the page into two columns and
+  // put them in the right column, and everything else in the left.
+  $right_elements = array(
+    'inventory',
+    'group',
+    'location',
+  );
+  $right_elements_exist = FALSE;
+  foreach ($right_elements as $name) {
+    if (!empty($build[$name])) {
+      $right_elements_exist = TRUE;
+      break;
+    }
+  }
+  if ($right_elements_exist) {
 
-    // Wrap it in a floated div.
-    $build['location']['#prefix'] = '<div class="col-md-6">';
-    $build['location']['#suffix'] = '</div>';
-    $build['location']['#weight'] = -99;
+    // Create a new container div that spans half of the grid.
+    $build['right'] = array(
+      '#type' => 'container',
+      '#prefix' => '<div class="col-md-6">',
+      '#suffix' => '</div>',
+      '#weight' => -99,
+    );
+
+    // Move the elements into the container.
+    foreach ($right_elements as $name) {
+      if (!empty($build[$name])) {
+        $build['right'][$name] = $build[$name];
+        unset($build[$name]);
+      }
+    }
 
     // Put everything else into another div and move it to the top so it
     // aligns left.
-    $build['fields'] = array(
+    $build['left'] = array(
       '#prefix' => '<div class="col-md-6">',
       '#suffix' => '</div>',
       '#weight' => -100,
     );
     $elements = element_children($build);
     foreach ($elements as $element) {
-      if (!in_array($element, array('location', 'fields', 'views'))) {
-        $build['fields'][$element] = $build[$element];
+      if (!in_array($element, array('left', 'right', 'views'))) {
+        $build['left'][$element] = $build[$element];
         unset($build[$element]);
       }
     }

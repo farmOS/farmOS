@@ -242,6 +242,8 @@ function farm_movement_entity_view_alter(&$build, $type) {
   // Add it to the build array.
   $build['location'] = array(
     '#markup' => $output,
+    '#prefix' => '<div class="location">',
+    '#suffix' => '</div>',
     '#weight' => -100,
   );
 }

@@ -1,0 +1,870 @@
+<?php
+/**
+ * @file
+ * Code for the Farm Group feature.
+ */
+
+include_once 'farm_group.features.inc';
+
+/**
+ * Implements hook_farm_ui_entities().
+ */
+function farm_group_farm_ui_entities() {
+  return array(
+    'farm_asset' => array(
+      'group' => array(
+        'label' => t('Group'),
+        'label_plural' => t('Groups'),
+        'view' => 'farm_groups',
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_farm_ui_entity_views().
+ */
+function farm_group_farm_ui_entity_views($entity_type, $bundle, $entity) {
+  $views = array();
+
+  // Add Views to assets.
+  if ($entity_type == 'farm_asset') {
+
+    // Add group membership log View at the bottom of assets.
+    $views[] = array(
+      'name' => 'farm_group_log',
+      'group' => 'logs_special',
+      'weight' => 100,
+    );
+
+    // If the asset is a group, add View of group members.
+    if ($bundle == 'group') {
+      $views[] = array(
+        'name' => 'farm_group_members',
+        'display' => 'page',
+        'title' => t('Group members'),
+        'group' => 'assets',
+        'weight' => -100,
+        'always' => TRUE,
+      );
+    }
+  }
+
+  return $views;
+}
+
+/**
+ * Implements hook_entity_view_alter().
+ */
+function farm_group_entity_view_alter(&$build, $type) {
+
+  // If it's not a farm_asset, or if the entity object is not available, bail.
+  if ($type != 'farm_asset' || empty($build['#entity'])) {
+    return;
+  }
+
+  // Get the asset's group membership.
+  $membership = farm_group_asset_membership($build['#entity']);
+
+  // If no group membership information was found, bail.
+  if (empty($membership)) {
+    return;
+  }
+
+  // Start an output string.
+  $output = '<strong>' . t('Group membership') . ':</strong> ';
+
+  // Iterate through the group memberships and add links to them.
+  $group_links = array();
+  foreach ($membership as $group) {
+    $uri = entity_uri('farm_asset', $group);
+    if (!empty($uri['path'])) {
+      $group_links[] = l(entity_label('farm_asset', $group), $uri['path']);
+    }
+  }
+  $output .= implode(', ', $group_links);
+
+  // Add it to the build array.
+  $build['group'] = array(
+    '#markup' => $output,
+    '#prefix' => '<div class="group-membership">',
+    '#suffix' => '</div>',
+    '#weight' => -110,
+  );
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function farm_group_form_log_form_alter(&$form, &$form_state, $form_id) {
+
+  // If this log form contains field_farm_membership, add validation.
+  if (!empty($form['field_farm_membership'])) {
+    $form['#validate'][] = 'farm_group_field_farm_membership_validate';
+  }
+}
+
+/**
+ * Validation callback for the field_farm_group field in logs.
+ */
+function farm_group_field_farm_membership_validate($form, &$form_state) {
+
+  // If there are no groups referenced in the log, bail.
+  if (empty($form_state['values']['field_farm_membership'][LANGUAGE_NONE][0]['field_farm_group'][LANGUAGE_NONE])) {
+    return;
+  }
+
+  // If there are no assets referenced in the log, warn the user.
+  if (empty($form_state['values']['field_farm_asset'][LANGUAGE_NONE])) {
+    form_set_error('field_farm_asset', t('No asset(s) have been selected to become members of the group(s). Please select asset(s) or remove the group(s).'));
+  }
+
+  // Build an array of asset IDs.
+  $asset_ids = array();
+  foreach ($form_state['values']['field_farm_asset'][LANGUAGE_NONE] as $reference) {
+    if (!empty($reference['target_id'])) {
+      $asset_ids[] = $reference['target_id'];
+    }
+  }
+
+  // Build an array of group IDs.
+  $group_ids = array();
+  foreach ($form_state['values']['field_farm_membership'][LANGUAGE_NONE][0]['field_farm_group'][LANGUAGE_NONE] as $reference) {
+    if (!empty($reference['target_id'])) {
+      $group_ids[] = $reference['target_id'];
+    }
+  }
+
+  // Validate the asset IDs and group IDs to prevent circular memberships.
+  // If an issue is found, flag the 'field_farm_asset' element in the form.
+  farm_group_circular_membership_validate($asset_ids, $group_ids, 'field_farm_asset');
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function farm_group_form_farm_asset_form_alter(&$form, &$form_state, $form_id) {
+
+  // Get the farm asset entity from the form.
+  $asset = $form['farm_asset']['#value'];
+
+  // Get a list of active groups.
+  $active_groups = farm_group_options();
+
+  // Get the asset's current group membership.
+  $membership = farm_group_asset_membership($asset);
+
+  // Build a list of default options for the group select list below.
+  $current_groups = array();
+  if (!empty($membership)) {
+    foreach ($membership as $group) {
+      if (!empty($group->id)) {
+        $current_groups[$group->id] = $group->id;
+      }
+    }
+  }
+
+  // Add a field for assigning group membership.
+  $form['group'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Group membership'),
+    '#description' => t('Set the current group membership for this asset. An observation log will be created automatically that assigns the new membership.'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#weight' => 100,
+    '#tree' => TRUE,
+  );
+
+  // If there are active groups available, show a multi-select field.
+  if (!empty($active_groups)) {
+    $form['group']['group'] = array(
+      '#type' => 'select',
+      '#title' => t('Select group(s)'),
+      '#multiple' => TRUE,
+      '#options' => $active_groups,
+      '#default_value' => $current_groups,
+    );
+  }
+
+  // Add a field for creating a new group.
+  $form['group']['create'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Create a new group'),
+    '#description' => t('Optionally enter the name of a new group to be created. The assets will become members of this group.')
+  );
+
+  // Add submit function and put the fieldset into the general field group.
+  $form['actions']['submit']['#submit'][] = 'farm_group_asset_form_submit';
+  $form['#group_children']['group'] = 'group_farm_general';
+}
+
+/**
+ * Submit handler for processing the asset group field.
+ *
+ * @param array $form
+ *   The form array.
+ * @param array $form_state
+ *   The form state array.
+ */
+function farm_group_asset_form_submit(array $form, array &$form_state) {
+
+  // Only proceed if the group multiselect has a value, or a new group is
+  // being created.
+  if (empty($form_state['values']['group']['group']) && empty($form_state['values']['group']['create'])) {
+    return;
+  }
+
+  // If no groups are being created, and the selected groups match the
+  // default value (meaning nothing is changing), bail.
+  if (empty($form_state['values']['group']['create']) && ($form_state['values']['group']['group'] == $form['group']['group']['#default_value'])) {
+    return;
+  }
+
+  // If an asset doesn't exist, bail.
+  if (empty($form_state['values']['farm_asset'])) {
+    return;
+  }
+
+  // Grab the asset.
+  $asset = $form_state['values']['farm_asset'];
+
+  // Load the selected groups.
+  $groups = farm_asset_load_multiple($form_state['values']['group']['group']);
+
+  // If a new group needs to be created, create it and add it to the list.
+  if (!empty($form_state['values']['group']['create'])) {
+
+    // Build the new group.
+    $values = array(
+      'name' => check_plain($form_state['values']['group']['create']),
+      'type' => 'group',
+    );
+    $new_group = entity_create('farm_asset', $values);
+
+    // Save the group and print a message.
+    farm_asset_save($new_group);
+
+    // Print a message.
+    $label = entity_label('farm_asset', $new_group);
+    $uri = entity_uri('farm_asset', $new_group);
+    drupal_set_message(t('Group created:') . ' ' . l($label, $uri['path']));
+
+    // Add the group to the array.
+    $groups[] = $new_group;
+  }
+
+  // Create an observation log to set the group membership.
+  farm_group_membership_set($asset, $groups);
+}
+
+/**
+ * Implements hook_action_info().
+ */
+function farm_group_action_info() {
+  return array(
+    'farm_group_asset_membership_action' => array(
+      'type' => 'farm_asset',
+      'label' => t('Group'),
+      'configurable' => TRUE,
+      'triggers' => array('any'),
+      'aggregate' => TRUE,
+    ),
+  );
+}
+
+/**
+ * Configuration form for farm_group_asset_membership action.
+ *
+ * @param array $context
+ *   The context passed into the action form function.
+ * @param array $form_state
+ *   The form state passed into the action form function.
+ *
+ * @return array
+ *   Returns a form array.
+ */
+function farm_group_asset_membership_action_form(array $context, array $form_state) {
+
+  // Date field.
+  $form['date'] = array(
+    '#type' => 'date_select',
+    '#title' => t('Date'),
+    '#date_format' => 'M j Y',
+    '#date_type' => DATE_FORMAT_UNIX,
+    '#date_year_range' => '-10:+3',
+    '#default_value' => date('Y-m-d H:i', REQUEST_TIME),
+    '#required' => TRUE,
+  );
+
+  // Group reference field.
+  $form['groups'] = array(
+    '#type' => 'select',
+    '#title' => t('Group'),
+    '#options' => farm_group_options(),
+    '#required' => TRUE,
+    '#multiple' => TRUE,
+  );
+
+  // Done field.
+  $form['done'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('This membership change has taken place (mark the log as done)'),
+    '#default_value' => TRUE,
+  );
+
+  // Return the form.
+  return $form;
+}
+
+/**
+ * Validation handler for farm_group_asset_membership action configuration form.
+ *
+ * @param array $form
+ *   The form array.
+ * @param array $form_state
+ *   The form state array.
+ */
+function farm_group_asset_membership_action_validate(array $form, array $form_state) {
+
+  // Get the asset IDs.
+  $asset_ids = array_values($form_state['selection']);
+
+  // Get the group IDs.
+  $group_ids = $form_state['values']['groups'];
+
+  // Validate the asset IDs and group IDs to prevent circular memberships.
+  // If an issue is found, flag the 'groups' element in the form.
+  farm_group_circular_membership_validate($asset_ids, $group_ids, 'groups');
+}
+
+/**
+ * Submit handler for farm_group_asset_membership action configuration form.
+ *
+ * @param array $form
+ *   The form array.
+ * @param array $form_state
+ *   The form state array.
+ *
+ * @return array
+ *   Returns an array that will end up in the action's context.
+ */
+function farm_group_asset_membership_action_submit(array $form, array $form_state) {
+
+  // Start to build the context array.
+  $context = array();
+
+  // Load the groups.
+  $context['groups'] = farm_asset_load_multiple($form_state['values']['groups']);
+
+  // Convert the date to a timestamp.
+  $timestamp = strtotime($form_state['values']['date']);
+
+  // The action form only includes month, day, and year. If the event is today,
+  // then we assume that the current time should also be included.
+  if (date('Ymd', $timestamp) == date('Ymd', REQUEST_TIME)) {
+    $context['timestamp'] = REQUEST_TIME;
+  }
+
+  // Otherwise, the event is in the past/future, so don't include a time.
+  else {
+    $context['timestamp'] = $timestamp;
+  }
+
+  // Copy the "done" value as a boolean.
+  $context['done'] = !empty($form_state['values']['done']) ? TRUE : FALSE;
+
+  // Return the context array.
+  return $context;
+}
+
+/**
+ * Action function for farm_group_asset_membership.
+ *
+ * Creates a new group membership observation log for the specified assets.
+ *
+ * @param array $assets
+ *   An array of asset entities to change membership of.
+ * @param array $context
+ *   Array with parameters for this action.
+ */
+function farm_group_asset_membership_action(array $assets, $context = array()) {
+
+  // If we're missing assets, areas, or a timestamp, bail.
+  if (empty($assets) || empty($context['groups']) || empty($context['timestamp'])) {
+    drupal_set_message('Could not perform membership change because required information was missing.', 'error');
+    return;
+  }
+
+  // Create a group membership observation log.
+  farm_group_membership_set($assets, $context['groups'], $context['timestamp'], 'farm_observation', $context['done']);
+}
+
+/**
+ * Build a list of group options for use in form select fields.
+ *
+ * @param bool $active
+ *   Whether or not to limit the list to active groups. Defaults to TRUE. If
+ *   FALSE, both active and inactive groups will be included in the list.
+ *
+ * @return array
+ *   Returns an array of groups for use in a form.
+ */
+function farm_group_options($active = TRUE) {
+
+  // Start an empty options array.
+  $options = array();
+
+  // Build an entity field query of group assets.
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'farm_asset');
+  $query->entityCondition('bundle', 'group');
+  $query->propertyOrderBy('name', 'ASC');
+
+  // Limit to active groups.
+  if (!empty($active)) {
+    $query->propertyCondition('active', TRUE);
+  }
+
+  // Execute the query and buid a list of options.
+  $result = $query->execute();
+  if (isset($result['farm_asset'])) {
+    $group_ids = array_keys($result['farm_asset']);
+    $groups = farm_asset_load_multiple($group_ids);
+    if (!empty($groups)) {
+      foreach ($groups as $group) {
+        if (!empty($group->id)) {
+          $options[$group->id] = entity_label('farm_asset', $group);
+        }
+      }
+    }
+  }
+
+  // Return the options array.
+  return $options;
+}
+
+/**
+ * Load groups that an asset is a member of.
+ *
+ * @param FarmAsset $asset
+ *   The farm_asset object to look for.
+ * @param int $time
+ *   Unix timestamp limiter. Only logs before this time will be included.
+ *   Defaults to the current time. Set to 0 to load the absolute last.
+ * @param bool $done
+ *   Whether or not to only show logs that are marked as "done".
+ *   Defaults to TRUE.
+ *
+ * @return array
+ *   Returns an array of groups that the asset is a member of.
+ */
+function farm_group_asset_membership(FarmAsset $asset, $time = REQUEST_TIME, $done = TRUE) {
+  $groups = array();
+
+  // Load the log using our helper function.
+  $log = farm_group_asset_latest_membership($asset, $time, $done);
+
+  // Load the log's membership field, if it exists.
+  if (!empty($log->field_farm_membership[LANGUAGE_NONE][0]['value'])) {
+    $membership = field_collection_item_load($log->field_farm_membership[LANGUAGE_NONE][0]['value']);
+  }
+
+  // Create an entity metadata wrapper so we can get the membership info.
+  // If no groups are specified, bail.
+  if (empty($membership->field_farm_group[LANGUAGE_NONE])) {
+    return $groups;
+  }
+
+  // Iterate through the referenced groups and load them.
+  foreach ($membership->field_farm_group[LANGUAGE_NONE] as $group_reference) {
+    if (!empty($group_reference['target_id'])) {
+      $group = farm_asset_load($group_reference['target_id']);
+      if (!empty($group)) {
+        $groups[] = $group;
+      }
+    }
+  }
+  return $groups;
+}
+
+/**
+ * Load an asset's latest log that defines a group membership.
+ *
+ * @param FarmAsset $asset
+ *   The farm_asset object to look for.
+ * @param int $time
+ *   Unix timestamp limiter. Only logs before this time will be included.
+ *   Defaults to the current time. Set to 0 to load the absolute last.
+ * @param bool $done
+ *   Whether or not to only show logs that are marked as "done". Defaults to
+ *   TRUE.
+ *
+ * @return Log|bool
+ *   Returns a log entity. FALSE if something goes wrong.
+ */
+function farm_group_asset_latest_membership(FarmAsset $asset, $time = REQUEST_TIME, $done = TRUE) {
+
+  /**
+   * Please read the comments in farm_group_asset_membership_query() to
+   * understand how this works, and to be aware of the limitations and
+   * responsibilities we have in this function with regard to sanitizing query
+   * inputs.
+   */
+
+  // If the asset doesn't have an ID (for instance if it is new and hasn't been
+  // saved yet), bail.
+  if (empty($asset->id)) {
+    return FALSE;
+  }
+
+  // Make a query for loading the latest group membership log.
+  $query = farm_group_asset_membership_query($asset->id, $time, $done);
+
+  // Execute the query and gather the log id.
+  $result = $query->execute();
+  $log_id = $result->fetchField();
+
+  // If a log id exists, load and return it.
+  if (!empty($log_id)) {
+    return log_load($log_id);
+  }
+  return FALSE;
+}
+
+/**
+ * Build a query to find group membership logs of a specific asset.
+ *
+ * @param int|string $asset_id
+ *   The asset id to search for. This can either be a specific id, or a field
+ *   alias string from another query (ie: 'mytable.assetid'). For an example
+ *   of field alias string usage, see the Views relationship handler code in
+ *   farm_group_handler_relationship_membership::query().
+ * @param int $time
+ *   Unix timestamp limiter. Only logs before this time will be included.
+ *   Defaults to the current time. Set to 0 to load the absolute last.
+ * @param bool $done
+ *   Whether or not to only show logs that are marked as "done". Defaults to
+ *   TRUE.
+ * @param bool $single
+ *   Whether or not to limit the query to a single result. Defaults to TRUE.
+ * @param string $field
+ *   If the log id is desired, use "log_id. If the membership field_collection
+ *   id is desired, use "membership_id".
+ *
+ * @return \SelectQuery
+ *   Returns a SelectQuery object.
+ */
+function farm_group_asset_membership_query($asset_id, $time = REQUEST_TIME, $done = TRUE, $single = TRUE, $field = 'log_id') {
+
+  /**
+   * Please read the comments in farm_log_asset_query() to understand how this
+   * works, and to be aware of the limitations and responsibilities we have in
+   * this function with regard to sanitizing query inputs.
+   */
+
+  // Use the farm_log_asset_query() helper function to start a query object.
+  $query = farm_log_asset_query($asset_id, $time, $done, $single);
+
+  // Join in the Membership field collection and filter to only include logs
+  // with memberships.
+  $query->join('field_data_field_farm_membership', 'ss_fdffm', "ss_fdffm.entity_type = 'log' AND ss_fdffm.entity_id = ss_log.id AND ss_fdffm.deleted = 0");
+  $query->where('ss_fdffm.field_farm_membership_value IS NOT NULL');
+
+  // Join in the membership's "group" field, and filter to only include logs
+  // that have a membership with a "group" value.
+  $query->join('field_data_field_farm_group', 'ss_fdffg', "ss_fdffg.entity_type = 'field_collection_item' AND ss_fdffg.bundle = 'field_farm_membership' AND ss_fdffg.entity_id = ss_fdffm.field_farm_membership_value AND ss_fdffg.deleted = 0");
+  $query->where('ss_fdffg.field_farm_group_target_id IS NOT NULL');
+
+  // If $field is 'log_id', then add the log ID field.
+  if ($field == 'log_id') {
+    $query->addField('ss_log', 'id');
+  }
+
+  // Or, if $field is 'membership_id', then add the membership ID field.
+  elseif ($field == 'membership_id') {
+    $query->addField('ss_fdffm', 'field_farm_membership_value');
+  }
+
+  // Return the query object.
+  return $query;
+}
+
+/**
+ * Load all members of a group.
+ *
+ * @param FarmAsset $group
+ *   The group to load members from.
+ * @param int $time
+ *   Unix timestamp limiter. Only logs before this time will be included.
+ *   Defaults to the current time. Set to 0 to load the absolute last.
+ * @param bool $done
+ *   Whether or not to only show logs that are marked as "done".
+ *   Defaults to TRUE.
+ *
+ * @return array
+ *   Returns an array of the group's member assets, keyed by asset ID.
+ */
+function farm_group_members(FarmAsset $group, $time = REQUEST_TIME, $done = TRUE) {
+
+  // Start an empty array of members.
+  $members = array();
+
+  // If the group doesn't have an id, bail.
+  if (empty($group->id)) {
+    return $members;
+  }
+
+  // Build a query to find all members of the group.
+  $query = farm_group_members_query($group->id, $time, $done);
+
+  // Join in asset references.
+  $query->join('field_data_field_farm_asset', 'ss_fdffa', "ss_fdffa.entity_type = 'log' AND ss_fdffa.entity_id = ss_log.id AND ss_fdffa.deleted = 0");
+
+  // Add the asset ID field.
+  $query->addField('ss_fdffa', 'field_farm_asset_target_id', 'asset_id');
+
+  // Execute the query to get a list of asset IDs.
+  $result = $query->execute();
+
+  // Iterate through the results.
+  foreach ($result as $row) {
+
+    // If the asset ID is empty, skip it.
+    if (empty($row->asset_id)) {
+      continue;
+    }
+
+    // If the asset has already been loaded, skip it.
+    if (array_key_exists($row->asset_id, $members)) {
+      continue;
+    }
+
+    // Load the asset.
+    $members[$row->asset_id] = farm_asset_load($row->asset_id);
+  }
+
+  // Return the array of members.
+  return $members;
+}
+
+/**
+ * Build a query to find membership logs for a specific group.
+ *
+ * @param int $group_id
+ *   The group's asset id to search for.
+ * @param int $time
+ *   Unix timestamp limiter. Only logs before this time will be included.
+ *   Defaults to the current time. Set to 0 to load the absolute last.
+ * @param bool $done
+ *   Whether or not to only show logs that are marked as "done". Defaults to
+ *   TRUE.
+ *
+ * @return \SelectQuery
+ *   Returns a SelectQuery object.
+ */
+function farm_group_members_query($group_id, $time = REQUEST_TIME, $done = TRUE) {
+
+  /**
+   * Please read the comments in farm_log_query() to understand how this works,
+   * and to be aware of the limitations and responsibilities we have in this
+   * function with regard to sanitizing query inputs.
+   */
+
+  // Ensure $group_id is valid, because it will be used directly in the query
+  // string. This is defensive code. See note about farm_log_query() above.
+  if (!is_int($group_id) || $group_id < 0) {
+    $group_id = db_escape_field($group_id);
+  }
+
+  // Use the farm_log_query() helper function to start a query object. Do not
+  // limit the results to a single row because by the very nature of this we
+  // want to find all assets in the group, which may come from multiple logs.
+  $query = farm_log_query($time, $done, FALSE);
+
+  // Join in the Membership field collection and filter to only include logs
+  // with memberships.
+  $query->join('field_data_field_farm_membership', 'ss_fdffm', "ss_fdffm.entity_type = 'log' AND ss_fdffm.entity_id = ss_log.id AND ss_fdffm.deleted = 0");
+  $query->where('ss_fdffm.field_farm_membership_value IS NOT NULL');
+
+  // Join in the membership's "group" field, and filter to only include logs
+  // that have a membership that references the specified group.
+  $query->join('field_data_field_farm_group', 'ss_fdffg', "ss_fdffg.entity_type = 'field_collection_item' AND ss_fdffg.bundle = 'field_farm_membership' AND ss_fdffg.entity_id = ss_fdffm.field_farm_membership_value AND ss_fdffg.deleted = 0");
+  $query->where('ss_fdffg.field_farm_group_target_id = ' . $group_id);
+
+  // Return the query object.
+  return $query;
+}
+
+/**
+ * Recursively check for circular group membership.
+ *
+ * @param FarmAsset $group
+ *   The group that the asset will be added to.
+ * @params FarmAsset $asset
+ *   The asset being considered for membership in the group.
+ *
+ * @return bool
+ *   Returns TRUE if a circular dependency would exist if the asset became a
+ *   member of the group, FALSE otherwise.
+ */
+function farm_group_circular_membership(FarmAsset $group, FarmAsset $asset) {
+
+  // A group can't be inside itself. This is primarily how we will check for
+  // circular membership, along with recursively checking parent groups below.
+  if ($group->id == $asset->id) {
+    return TRUE;
+  }
+
+  // Check to see if the group is a member of other groups.
+  $parent_groups = farm_group_asset_membership($group);
+
+  // If no parent groups were found, no circular membership can exist.
+  if (empty($parent_groups)) {
+    return FALSE;
+  }
+
+  // Iterate through the parent groups and recurse into them to check if the
+  // new asset will create a circular membership anywhere down the line.
+  foreach ($parent_groups as $parent_group) {
+    if (farm_group_circular_membership($parent_group, $asset)) {
+      return TRUE;
+    }
+  }
+
+  // Ok we're good! No circular memberships detected!
+  return FALSE;
+}
+
+/**
+ * Form helper function for validating against circular membership assignment.
+ *
+ * @param array $asset_ids
+ *   An array of asset IDs that are being assigned to group(s).
+ * @param array $group_ids
+ *   An array of group IDs that the assets are being assigned to.
+ * @param string $element_name
+ *   The form element name to flag in form_set_error() if circular membership
+ *   is detected.
+ */
+function farm_group_circular_membership_validate($asset_ids, $group_ids, $element_name) {
+
+  // Iterate through the selected groups and assets to check for possible
+  // circular membership.
+  foreach ($group_ids as $group_id) {
+    foreach ($asset_ids as $asset_id) {
+
+      // Load the group and asset.
+      $group = farm_asset_load($group_id);
+      $asset = farm_asset_load($asset_id);
+
+      // Check for a circular membership.
+      $circular = farm_group_circular_membership($group, $asset);
+
+      // If a circular membership is detected, warn the user.
+      if ($circular) {
+
+        // Get the URI information for the group and asset.
+        $group_uri = entity_uri('farm_asset', $group);
+        $asset_uri = entity_uri('farm_asset', $asset);
+
+        // Create links to the asset and group.
+        $group_link = l(entity_label('farm_asset', $group), $group_uri['path']);
+        $asset_link = l(entity_label('farm_asset', $asset), $asset_uri['path']);
+
+        // Set an error on the asset field and describe which asset and group
+        // would create the circular membership.
+        form_set_error($element_name, t('The asset "!asset_link" cannot be added to the group "!group_link" because it would create a circular membership.', array('!asset_link' => $asset_link, '!group_link' => $group_link)));
+      }
+    }
+  }
+}
+
+/**
+ * Create a log for assigning assets to group(s).
+ *
+ * @param array|FarmAsset $assets
+ *   Array of assets to assign to the groups.
+ * @param array $groups
+ *   An array of groups to move to.
+ * @param int $timestamp
+ *   The timestamp of the assignment. Defaults to the current time.
+ * @param string $log_type
+ *   The type of log to create. Defaults to "farm_observation".
+ * @param bool $done
+ *   Boolean indicating whether or not the log should be marked "done". Defaults
+ *   to TRUE.
+ */
+function farm_group_membership_set($assets, $groups = array(), $timestamp = REQUEST_TIME, $log_type = 'farm_observation', $done = TRUE) {
+
+  // If $assets isn't an array, wrap it.
+  if (!is_array($assets)) {
+    $assets = array($assets);
+  }
+
+  // Create a new group membership log entity.
+  $log = entity_create('log', array('type' => $log_type));
+
+  // Create an entity wrapper for the log.
+  $log_wrapper = entity_metadata_wrapper('log', $log);
+
+  // If the log is an observation, set the name to:
+  // "Group membership: [group(s)]".
+  // If there are more than 3 groups, just list the first, and add "(+ X more)".
+  if ($log_type == 'farm_observation') {
+    $log_name = t('Group membership') . ': ';
+    $group_names = array();
+    foreach ($groups as $group) {
+      $group_names[] = $group->name;
+    }
+    $count_groups = count($group_names);
+    if (count($group_names) <= 3) {
+      $log_name .= implode($group_names, ', ');
+    }
+    else {
+      $log_name .= $group_names[0] . ' (+' . ($count_groups - 1) . ' ' . t('more') . ')';
+    }
+    $log_wrapper->name->set($log_name);
+  }
+
+  // Iterate through the assets.
+  foreach ($assets as $asset) {
+
+    // Add the asset to the asset reference field.
+    $log_wrapper->field_farm_asset[] = $asset;
+  }
+
+  // Set the date.
+  $log_wrapper->timestamp->set($timestamp);
+
+  // If there are groups, create a new membership field_collection entity
+  // attached to the log. If they are not group assets, ignore them.
+  if (!empty($groups)) {
+    $membership = entity_create('field_collection_item', array('field_name' => 'field_farm_membership'));
+    $membership->setHostEntity('log', $log);
+    foreach ($groups as $group) {
+      if ($group->type == 'group') {
+        $log_wrapper->field_farm_membership->field_farm_group[] = $group;
+      }
+    }
+  }
+
+  // Set the log's done status.
+  if (!empty($done)) {
+    $log_wrapper->done->set(TRUE);
+  }
+  else {
+    $log_wrapper->done->set(FALSE);
+  }
+
+  // Set the log owner.
+  global $user;
+  $log_wrapper->field_farm_log_owner[] = $user;
+
+  // Save the log.
+  $log_wrapper->save();
+
+  // Set a message.
+  $label = entity_label('log', $log);
+  $uri = entity_uri('log', $log);
+  drupal_set_message('Log created: ' . l($label, $uri['path']));
+}

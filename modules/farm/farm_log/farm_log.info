@@ -19,3 +19,4 @@ features[ctools][] = views:views_default:3.0
 features[features_api][] = api:2
 features[views_view][] = farm_asset_entityreference_view
 features[views_view][] = farm_log
+files[] = views/handlers/farm_log_handler_relationship_asset.inc

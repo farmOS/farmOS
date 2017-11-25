@@ -10,6 +10,7 @@ dependencies[] = entityreference_view_widget
 dependencies[] = farm_asset
 dependencies[] = farm_asset_children
 dependencies[] = farm_fields
+dependencies[] = farm_group
 dependencies[] = features
 dependencies[] = field_group
 dependencies[] = file

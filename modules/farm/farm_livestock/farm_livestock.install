@@ -21,6 +21,10 @@ function farm_livestock_update_dependencies() {
   // farm_7032().
   $dependencies['farm_livestock'][7004] = array('farm' => 7032);
 
+  // Update 7005 (migrate to group assets) depends on farmOS core update 7033
+  // (install the farm_group module).
+  $dependencies['farm_livestock'][7005] = array('farm' => 7033);
+
   return $dependencies;
 }
 
@@ -97,4 +101,393 @@ function farm_livestock_update_7004(&$sandbox) {
 
   // Save the asset type.
   farm_asset_type_save($asset_type);
+}
+
+/**
+ * Create group assets for each animal group term, assign animals to new group
+ * assets, convert egg logs to harvest logs, and remove old animal groups
+ * taxonomy and related features.
+ */
+function farm_livestock_update_7005(&$sandbox) {
+
+  // This is a multi-stage update.
+  // We use the $sandbox['stage'] variable to remember what stage we are on.
+
+  // Start with stage 1.
+  if (!isset($sandbox['stage'])) {
+    $sandbox['stage'] = 1;
+  }
+
+  // Stage 1: Prepare.
+  _farm_livestock_update_7005_stage1($sandbox);
+
+  // Stage 2: Create group assets for each animal group term.
+  _farm_livestock_update_7005_stage2($sandbox);
+
+  // Stage 3: Assign animals to new group assets.
+  _farm_livestock_update_7005_stage3($sandbox);
+
+  // Stage 4: Convert egg logs to harvest logs.
+  _farm_livestock_update_7005_stage4($sandbox);
+
+  // Stage 5: Clean up.
+  _farm_livestock_update_7005_stage5($sandbox);
+}
+
+/**
+ * Update 7005 stage 1: Prepare.
+ *
+ * @see farm_livestock_update_7005().
+ */
+function _farm_livestock_update_7005_stage1(&$sandbox) {
+
+  // If we are not on stage 1, bail.
+  if (empty($sandbox['stage']) || $sandbox['stage'] != 1) {
+    return;
+  }
+
+  // Delete the farm_livestock_eggs module from the {system} table.
+  db_query("DELETE FROM {system} WHERE type = 'module' AND name = 'farm_livestock_eggs'");
+
+  // Revert Features to enable the group field on observation logs, and the
+  // measure field on quantity field collections.
+  $components = array(
+    'farm_group' => array('field_base'),
+    'farm_log_observation' => array('field_instance'),
+    'farm_quantity' => array('field_base', 'field_instance'),
+  );
+  features_get_modules(NULL, TRUE);
+  features_revert($components);
+
+  // We are ready for stage 2.
+  $sandbox['#finished'] = 0;
+  $sandbox['stage'] = 2;
+}
+
+/**
+ * Update 7005 stage 2: Create group assets for each animal group term.
+ *
+ * @see farm_livestock_update_7005().
+ */
+function _farm_livestock_update_7005_stage2(&$sandbox) {
+
+  // If we are not on stage 2, bail.
+  if (empty($sandbox['stage']) || $sandbox['stage'] != 2) {
+    return;
+  }
+
+  // Load the "Farm Animal Groups" vocabulary.
+  $group_vocab = taxonomy_vocabulary_machine_name_load('farm_animal_groups');
+
+  // Prepare to process this stage in batches.
+  if (!isset($sandbox['stage2_progress'])) {
+    $sandbox['stage2_progress'] = 0;
+    $sandbox['stage2_max'] = db_query('SELECT COUNT(tid) FROM {taxonomy_term_data} WHERE vid = :vid ORDER BY tid ASC', array(':vid' => $group_vocab->vid))->fetchField();
+  }
+
+  // Load the next batch of term IDs from the database.
+  $limit = 25;
+  $result = db_query_range('SELECT tid FROM {taxonomy_term_data} WHERE vid = :vid ORDER BY tid ASC', $sandbox['stage2_progress'], $limit, array(':vid' => $group_vocab->vid));
+  $group_ids = array();
+  foreach ($result as $row) {
+    if (!empty($row->tid)) {
+      $group_ids[] = $row->tid;
+    }
+  }
+
+  // Iterate through the animal groups.
+  foreach ($group_ids as $tid) {
+
+    // Increment the progress.
+    $sandbox['stage2_progress']++;
+
+    // Load the term.
+    $group_term = taxonomy_term_load($tid);
+
+    // Create a new Group asset with the same name.
+    $values = array(
+      'name' => $group_term->name,
+      'type' => 'group',
+    );
+    $group_asset = entity_create('farm_asset', $values);
+    farm_asset_save($group_asset);
+
+    // Save an association with the old term ID.
+    $sandbox['groups'][$tid] = $group_asset->id;
+  }
+
+  // The overall update is not finished.
+  $sandbox['#finished'] = 0.25;
+
+  // Once we've processed all of the groups, we are ready for stage 3.
+  if ($sandbox['stage2_progress'] >= $sandbox['stage2_max']) {
+    $sandbox['stage'] = 3;
+  }
+}
+
+/**
+ * Update 7005 stage 3: Assign animals to new group assets.
+ *
+ * @see farm_livestock_update_7005().
+ */
+function _farm_livestock_update_7005_stage3(&$sandbox) {
+
+  // If we are not on stage 3, bail.
+  if (empty($sandbox['stage']) || $sandbox['stage'] != 3) {
+    return;
+  }
+
+  // Prepare to process this stage in batches.
+  if (!isset($sandbox['stage3_progress'])) {
+    $sandbox['stage3_progress'] = 0;
+    $sandbox['stage3_max'] = db_query("SELECT COUNT(id) FROM {farm_asset} WHERE type = 'animal' ORDER BY id ASC")->fetchField();
+  }
+
+  // Load the next batch of animal asset IDs.
+  $limit = 25;
+  $result = db_query_range("SELECT id FROM {farm_asset} WHERE type = 'animal' ORDER BY id ASC", $sandbox['stage3_progress'], $limit);
+  $animal_ids = array();
+  foreach ($result as $row) {
+    if (!empty($row->id)) {
+      $animal_ids[] = $row->id;
+    }
+  }
+
+  // Iterate through the animals.
+  foreach ($animal_ids as $animal_id) {
+
+    // Increment the progress.
+    $sandbox['stage3_progress']++;
+
+    // Load the animal.
+    $animal = farm_asset_load($animal_id);
+
+    // Get the IDs of the old group terms this animal is assigned to.
+    $old_group_ids = array();
+    if (!empty($animal->field_farm_animal_group[LANGUAGE_NONE])) {
+      foreach ($animal->field_farm_animal_group[LANGUAGE_NONE] as $value) {
+        if (!empty($value['tid'])) {
+          $old_group_ids[] = $value['tid'];
+        }
+      }
+    }
+
+    // Build an array of new group IDs.
+    $new_group_ids = array();
+    foreach ($old_group_ids as $old_group_id) {
+      if (!empty($sandbox['groups'][$old_group_id])) {
+        $new_group_ids[] = $sandbox['groups'][$old_group_id];
+      }
+    }
+
+    // Load the groups.
+    $groups = farm_asset_load_multiple($new_group_ids);
+
+    // If there are no groups, don't do anything (skip to the next animal).
+    if (empty($groups)) {
+      continue;
+    }
+
+    // Create a log assigning this animal to the new group asset(s). Use the
+    // animals creation date as the date of the log.
+    farm_group_membership_set($animal, $groups, $animal->created);
+  }
+
+  // The overall update is not finished.
+  $sandbox['#finished'] = 0.5;
+
+  // Once we've processed all of the animals, we are ready for stage 4.
+  if ($sandbox['stage3_progress'] >= $sandbox['stage3_max']) {
+    $sandbox['stage'] = 4;
+  }
+}
+
+/**
+ * Update 7005 stage 4: Convert egg logs to harvest logs.
+ *
+ * @see farm_livestock_update_7005().
+ */
+function _farm_livestock_update_7005_stage4(&$sandbox) {
+
+  // If we are not on stage 4, bail.
+  if (empty($sandbox['stage']) || $sandbox['stage'] != 4) {
+    return;
+  }
+
+  // Prepare to process this stage in batches.
+  if (!isset($sandbox['stage4_progress'])) {
+
+    // Set up progress and max variables.
+    $sandbox['stage4_progress'] = 0;
+    $sandbox['stage4_max'] = db_query("SELECT COUNT(id) FROM {log} WHERE type = 'farm_eggs' ORDER BY id ASC")->fetchField();
+
+    // Update all field data and revisions for fields that will be kept.
+    $egg_log_fields = array(
+      'field_farm_notes',
+      'field_farm_log_category',
+      'field_farm_log_owner',
+    );
+    foreach ($egg_log_fields as $field_name) {
+      $tables = array(
+        'field_data_' . $field_name,
+        'field_revision_' . $field_name,
+      );
+      foreach ($tables as $table) {
+        db_query("UPDATE {" . $table . "} SET bundle = 'farm_harvest' WHERE entity_type = 'log' AND bundle = 'farm_eggs'");
+      }
+    }
+  }
+
+  // Load the next batch of egg log IDs.
+  $limit = 25;
+  $result = db_query_range("SELECT id FROM {log} WHERE type = 'farm_eggs'", 0, $limit);
+  $egg_log_ids = array();
+  foreach ($result as $row) {
+    if (!empty($row->id)) {
+      $egg_log_ids[] = $row->id;
+    }
+  }
+
+  // Iterate through egg logs.
+  foreach ($egg_log_ids as $egg_log_id) {
+
+    // Increment the progress.
+    $sandbox['stage4_progress']++;
+
+    // Change the log type to 'farm_harvest'.
+    db_query("UPDATE {log} SET type = 'farm_harvest' WHERE type = 'farm_eggs' AND id = :id", array(':id' => $egg_log_id));
+
+    // Load the log.
+    $log = log_load($egg_log_id, TRUE);
+
+    // Create an entity wrapper for the log.
+    $log_wrapper = entity_metadata_wrapper('log', $log);
+
+    // Find old animal groups associated with this log.
+    $old_group_ids = array();
+    $result = db_query("SELECT field_farm_animal_group_tid FROM {field_data_field_farm_animal_group} WHERE entity_type = 'log' AND bundle = 'farm_eggs' AND entity_id = :log_id ORDER BY delta ASC", array(':log_id' => $egg_log_id));
+    foreach ($result as $row) {
+      if (!empty($row->field_farm_animal_group_tid)) {
+        $old_group_ids[] = $row->field_farm_animal_group_tid;
+      }
+    }
+
+    // Iterate through the old group term IDs and add asset references to the
+    // new group assets that were created in stage 1 above.
+    foreach($old_group_ids as $delta => $old_group_id) {
+      if (array_key_exists($old_group_id, $sandbox['groups'])) {
+        $group = farm_asset_load($sandbox['groups'][$old_group_id]);
+        if (!empty($group)) {
+          $log_wrapper->field_farm_asset[] = $group;
+        }
+      }
+    }
+
+    // Find the old egg quantity value from this log.
+    $egg_qty = db_query("SELECT field_farm_egg_qty_value FROM {field_data_field_farm_egg_qty} WHERE entity_type = 'log' AND bundle = 'farm_eggs' AND entity_id = :log_id", array(':log_id' => $egg_log_id))->fetchField();
+
+    // If no quantity was found, set it to zero.
+    if (empty($egg_qty)) {
+      $egg_qty = 0;
+    }
+
+    // Create a new quantity field_collection entity attached to the log.
+    $quantity = entity_create('field_collection_item', array('field_name' => 'field_farm_quantity'));
+    $quantity->setHostEntity('log', $log);
+
+    // Create an entity wrapper for the quantity.
+    $quantity_wrapper = entity_metadata_wrapper('field_collection_item', $quantity);
+
+    // Set the quantity measure.
+    $quantity_wrapper->field_farm_quantity_measure->set('count');
+
+    // Set the quantity value.
+    $value_fraction = fraction_from_decimal($egg_qty);
+    $quantity_wrapper->field_farm_quantity_value->numerator->set($value_fraction->getNumerator());
+    $quantity_wrapper->field_farm_quantity_value->denominator->set($value_fraction->getDenominator());
+
+    // Look up the units taxonomy term.
+    $units = t('egg(s)');
+    $units_terms = taxonomy_get_term_by_name($units, 'farm_quantity_units');
+
+    // If terms were found, use the first one.
+    if (!empty($units_terms)) {
+      $units_term = reset($units_terms);
+    }
+
+    // If a term wasn't found, create it.
+    else {
+      $farm_units = taxonomy_vocabulary_machine_name_load('farm_quantity_units');
+      $units_term = new stdClass();
+      $units_term->name = check_plain($units);
+      $units_term->vid = $farm_units->vid;
+      taxonomy_term_save($units_term);
+    }
+
+    // Set the quantity units.
+    $quantity_wrapper->field_farm_quantity_units = $units_term;
+
+    // Save the quantity.
+    $quantity_wrapper->save();
+
+    // Save the log.
+    $log_wrapper->save();
+  }
+
+  // The overall update is not finished.
+  $sandbox['#finished'] = 0.75;
+
+  // Once we've processed all of the egg logs, we are ready for stage 5.
+  if ($sandbox['stage4_progress'] >= $sandbox['stage4_max']) {
+    $sandbox['stage'] = 5;
+  }
+}
+
+/**
+ * Update 7005 stage 5: Clean up.
+ *
+ * @see farm_livestock_update_7005().
+ */
+function _farm_livestock_update_7005_stage5(&$sandbox) {
+
+  // If we are not on stage 5, bail.
+  if (empty($sandbox['stage']) || $sandbox['stage'] != 5) {
+    return;
+  }
+
+  // Delete the "Animal Groups" field instance from animal assets.
+  $field = field_info_instance('farm_asset', 'field_farm_animal_group', 'animal');
+  if (!empty($field)) {
+    field_delete_instance($field);
+  }
+
+  // Delete "Farm Animal Groups" View (if it still exists).
+  $view = views_get_view('farm_animal_groups');
+  if (!empty($view)) {
+    views_delete_view($view);
+  }
+
+  // Remove "Farm Animal Groups" taxonomy.
+  $group_vocab = taxonomy_vocabulary_machine_name_load('farm_animal_groups');
+  if (!empty($group_vocab)) {
+    taxonomy_vocabulary_delete($group_vocab->vid);
+  }
+
+  // Delete the egg logs View.
+  $view = views_get_view('farm_log_eggs');
+  if (!empty($view)) {
+    views_delete_view($view);
+  }
+
+  // Delete the egg log type.
+  $egg_log_type = log_type_load('farm_eggs');
+  if (!empty($egg_log_type)) {
+    log_type_delete($egg_log_type);
+  }
+
+  // Ensure that all field instances on egg logs are marked for deletion.
+  db_query("UPDATE {field_config_instance} SET deleted = 1 WHERE entity_type = 'log' AND bundle = 'farm_eggs'");
+
+  // We are finished!
+  $sandbox['#finished'] = 1;
 }
