@@ -50,6 +50,20 @@ function farm_log_sale_feeds_importer_default_alter(&$importers) {
         'language' => 'und',
       ),
       array(
+        'source' => 'Quantity',
+        'target' => 'field_farm_quantity_value',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+      array(
+        'source' => 'Units',
+        'target' => 'field_farm_quantity_units',
+        'term_search' => '0',
+        'autocreate' => 1,
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+      array(
         'source' => 'Unit price',
         'target' => 'field_farm_unit_price',
         'unique' => FALSE,

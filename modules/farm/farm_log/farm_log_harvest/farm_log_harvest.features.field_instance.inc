@@ -464,7 +464,7 @@ function farm_log_harvest_field_default_field_instances() {
     'bundle' => 'farm_harvest',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Describe the quantity of this harvest, using a value and a unit of measurement. For example, if you harvested 100 pounds of potatoes, enter "100" in the Value field, and "lbs" in the Units field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.',
+    'description' => 'Describe the quantity of this harvest, using a value, unit, and measure. For example, if you harvested 100 pounds of potatoes, enter "100" in the Value field, "lbs" in the Units field, and "Weight" in the Measure field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -503,7 +503,7 @@ function farm_log_harvest_field_default_field_instances() {
   t('Areas');
   t('Assets');
   t('Assigned to');
-  t('Describe the quantity of this harvest, using a value and a unit of measurement. For example, if you harvested 100 pounds of potatoes, enter "100" in the Value field, and "lbs" in the Units field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.');
+  t('Describe the quantity of this harvest, using a value, unit, and measure. For example, if you harvested 100 pounds of potatoes, enter "100" in the Value field, "lbs" in the Units field, and "Weight" in the Measure field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.');
   t('Files');
   t('Geometry');
   t('Harvest lot number');

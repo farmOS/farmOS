@@ -168,11 +168,6 @@ function farm_log_sale_views_default_views() {
   $handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
   $handler->display->display_options['empty']['area_text_custom']['content'] = 'No sales found.';
-  /* Relationship: Field: Quantity (field_farm_quantity) */
-  $handler->display->display_options['relationships']['field_farm_quantity_value']['id'] = 'field_farm_quantity_value';
-  $handler->display->display_options['relationships']['field_farm_quantity_value']['table'] = 'field_data_field_farm_quantity';
-  $handler->display->display_options['relationships']['field_farm_quantity_value']['field'] = 'field_farm_quantity_value';
-  $handler->display->display_options['relationships']['field_farm_quantity_value']['delta'] = '0';
   /* Field: Bulk operations: Log */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
   $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'views_entity_log';
@@ -273,22 +268,20 @@ function farm_log_sale_views_default_views() {
   $handler->display->display_options['fields']['field_farm_lot_number']['id'] = 'field_farm_lot_number';
   $handler->display->display_options['fields']['field_farm_lot_number']['table'] = 'field_data_field_farm_lot_number';
   $handler->display->display_options['fields']['field_farm_lot_number']['field'] = 'field_farm_lot_number';
-  /* Field: Field collection item: Value */
+  /* Field: Field: Value */
   $handler->display->display_options['fields']['field_farm_quantity_value']['id'] = 'field_farm_quantity_value';
   $handler->display->display_options['fields']['field_farm_quantity_value']['table'] = 'field_data_field_farm_quantity_value';
   $handler->display->display_options['fields']['field_farm_quantity_value']['field'] = 'field_farm_quantity_value';
-  $handler->display->display_options['fields']['field_farm_quantity_value']['relationship'] = 'field_farm_quantity_value';
   $handler->display->display_options['fields']['field_farm_quantity_value']['label'] = 'Quantity';
   $handler->display->display_options['fields']['field_farm_quantity_value']['type'] = 'fraction_decimal';
   $handler->display->display_options['fields']['field_farm_quantity_value']['settings'] = array(
     'precision' => '0',
     'auto_precision' => 1,
   );
-  /* Field: Field collection item: Units */
+  /* Field: Field: Units */
   $handler->display->display_options['fields']['field_farm_quantity_units']['id'] = 'field_farm_quantity_units';
   $handler->display->display_options['fields']['field_farm_quantity_units']['table'] = 'field_data_field_farm_quantity_units';
   $handler->display->display_options['fields']['field_farm_quantity_units']['field'] = 'field_farm_quantity_units';
-  $handler->display->display_options['fields']['field_farm_quantity_units']['relationship'] = 'field_farm_quantity_value';
   /* Field: Log: Unit price */
   $handler->display->display_options['fields']['field_farm_unit_price']['id'] = 'field_farm_unit_price';
   $handler->display->display_options['fields']['field_farm_unit_price']['table'] = 'field_data_field_farm_unit_price';
@@ -459,7 +452,6 @@ function farm_log_sale_views_default_views() {
     t('next ›'),
     t('last »'),
     t('No sales found.'),
-    t('field collection item from field_farm_quantity'),
     t('Log'),
     t('- Choose an operation -'),
     t('Done'),

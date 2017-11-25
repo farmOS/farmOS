@@ -535,7 +535,7 @@ function farm_crop_field_default_field_instances() {
     'bundle' => 'farm_seeding',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Describe the quantity of this seeding, using a value and a unit of measurement. For example, if you seeded 10 flats of lettuce, enter "10" in the Value field, and "flats" in the Units field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.',
+    'description' => 'Describe the quantity of this seeding, using a value, unit, and measure. For example, if you seeded 10 flats of lettuce, enter "10" in the Value field, "flats" in the Units field, and "Count" in the Measure field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -894,7 +894,7 @@ function farm_crop_field_default_field_instances() {
     'bundle' => 'farm_transplanting',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Describe the quantity of this transplanting, using a value and a unit of measurement. For example, if you transplanted 400 tomato plants into 4 inch pots, enter "400" in the Value field, and "4-inch pots" in the Units field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.',
+    'description' => 'Describe the quantity of this transplanting, using a value, unit, and measure. For example, if you transplanted 400 tomato plants into 4 inch pots, enter "400" in the Value field, "4-inch pots" in the Units field, and "Count" in the Measure field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -1134,8 +1134,8 @@ function farm_crop_field_default_field_instances() {
   t('Crop/variety');
   t('Days to maturity');
   t('Days to transplant');
-  t('Describe the quantity of this seeding, using a value and a unit of measurement. For example, if you seeded 10 flats of lettuce, enter "10" in the Value field, and "flats" in the Units field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.');
-  t('Describe the quantity of this transplanting, using a value and a unit of measurement. For example, if you transplanted 400 tomato plants into 4 inch pots, enter "400" in the Value field, and "4-inch pots" in the Units field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.');
+  t('Describe the quantity of this seeding, using a value, unit, and measure. For example, if you seeded 10 flats of lettuce, enter "10" in the Value field, "flats" in the Units field, and "Count" in the Measure field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.');
+  t('Describe the quantity of this transplanting, using a value, unit, and measure. For example, if you transplanted 400 tomato plants into 4 inch pots, enter "400" in the Value field, "4-inch pots" in the Units field, and "Count" in the Measure field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.');
   t('Description');
   t('Enter the crop/variety that this is a planting of. As you type, you will have the option of selecting from crops/varieties that you\'ve entered in the past.');
   t('Files');

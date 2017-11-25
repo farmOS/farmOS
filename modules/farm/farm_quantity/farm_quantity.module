@@ -92,3 +92,244 @@ function farm_quantity_settings_form($form, &$form_state) {
   // Return it as a system settings form.
   return system_settings_form($form);
 }
+
+/**
+ * Define information about available quantity measures.
+ *
+ * @return array
+ *   Returns an array of measure information.
+ */
+function farm_quantity_measures() {
+  return array(
+    'count' => array(
+      'label' => t('Count'),
+    ),
+    'length' => array(
+      'label' => t('Length'),
+    ),
+    'weight' => array(
+      'label' => t('Weight'),
+    ),
+    'area' => array(
+      'label' => t('Area'),
+    ),
+    'volume' => array(
+      'label' => t('Volume'),
+    ),
+    'time' => array(
+      'label' => t('Time'),
+    ),
+    'temperature' => array(
+      'label' => t('Temperature'),
+    ),
+    'water_content' => array(
+      'label' => t('Water content'),
+    ),
+    'value' => array(
+      'label' => t('Value'),
+    ),
+    'rating' => array(
+      'label' => t('Rating'),
+    ),
+    'ratio' => array(
+      'label' => t('Ratio'),
+    ),
+    'probability' => array(
+      'label' => t('Probability'),
+    ),
+  );
+}
+
+/**
+ * Define available options for the Measure field.
+ */
+function farm_quantity_measure_options() {
+
+  // Start an empty options array.
+  $options = array();
+
+  // Load information about measures.
+  $measures = farm_quantity_measures();
+
+  // Iterate through the measures and build a list of options.
+  foreach ($measures as $measure => $data) {
+    $options[$measure] = $data['label'];
+  }
+
+  // Return the array of options.
+  return $options;
+}
+
+/**
+ * Extract quantity data from a log, with optional filters for measure/label.
+ *
+ * @param Log $log
+ *   The log object to extract quantity information from.
+ * @param string $measure
+ *   The quantity measure to search for (ie: weight).
+ * @param string $label
+ *   The quantity label to search for.
+ *
+ * @return array
+ *   Returns a structured array of information about the quantities recorded
+ *   on the log.
+ */
+function farm_quantity_log_data(Log $log, $measure = NULL, $label = NULL) {
+
+  // Start with an empty data array.
+  $data = array();
+
+  // Load the log entity metadata wrapper.
+  $log_wrapper = entity_metadata_wrapper('log', $log);
+
+  // If there are no quantities, bail.
+  if (empty($log_wrapper->field_farm_quantity)) {
+    return $data;
+  }
+
+  // Iterate over the quantities.
+  foreach ($log_wrapper->field_farm_quantity as $quantity) {
+
+    // If a measure is specified, and it doesn't match, skip this one.
+    if (!empty($measure) && $quantity->field_farm_quantity_measure->value() != $measure) {
+      continue;
+    }
+
+    // If a label is specified, and it doesn't match, skip this one.
+    if (!empty($label) && $quantity->field_farm_quantity_label->value() != $measure) {
+      continue;
+    }
+
+    // Get the quantity value and convert to a decimal.
+    $value = '';
+    if (!empty($quantity->field_farm_quantity_value->value())) {
+      if (!empty($quantity->field_farm_quantity_value->value()['fraction'])) {
+        $value = $quantity->field_farm_quantity_value->value()['fraction']->toDecimal(0, TRUE);
+      }
+    }
+
+    // Get the quantity units name.
+    $units = '';
+    if (!empty($quantity->field_farm_quantity_units->value())) {
+      if (!empty($quantity->field_farm_quantity_units->value()->name)) {
+        $units = $quantity->field_farm_quantity_units->value()->name;
+      }
+    }
+
+    // Add quantity data to the array.
+    $data[] = array(
+      'measure' => $quantity->field_farm_quantity_measure->value(),
+      'value' => $value,
+      'units' => $units,
+      'label' => $quantity->field_farm_quantity_label->value(),
+    );
+  }
+
+  // Return the data.
+  return $data;
+}
+
+/**
+ * Load an asset's latest log with a given quantity measure and/or label.
+ *
+ * @param FarmAsset $asset
+ *   The farm_asset object to look for.
+ * @param string $measure
+ *   The quantity measure to search for (ie: weight).
+ * @param string $label
+ *   The quantity label to search for.
+ * @param int $time
+ *   Unix timestamp limiter. Only logs before this time will be included.
+ *   Defaults to the current time. Set to 0 to load the absolute last.
+ * @param bool $done
+ *   Whether or not to only show logs that are marked as "done". Defaults to
+ *   TRUE.
+ *
+ * @return Log|bool
+ *   Returns a log entity. FALSE if something goes wrong.
+ */
+function farm_quantity_asset_log(FarmAsset $asset, $measure = NULL, $label = NULL, $time = REQUEST_TIME, $done = TRUE) {
+
+  // If the asset doesn't have an ID (for instance if it is new and hasn't been
+  // saved yet), bail.
+  if (empty($asset->id)) {
+    return FALSE;
+  }
+
+  // Make a query for loading the latest quantity log.
+  $query = farm_quantity_asset_log_query($asset->id, $measure, $label, $time, $done);
+
+  // Execute the query and gather the log id.
+  $result = $query->execute();
+  $log_id = $result->fetchField();
+
+  // If a log id exists, load and return it.
+  if (!empty($log_id)) {
+    return log_load($log_id);
+  }
+  return FALSE;
+}
+
+/**
+ * Build a query to find the latest log of an asset that defines a quantity.
+ *
+ * @param int $asset_id
+ *   The asset id to search for.
+ * @param string $measure
+ *   The quantity measure to search for (ie: weight).
+ * @param string $label
+ *   The quantity label to search for.
+ * @param int $time
+ *   Unix timestamp limiter. Only logs before this time will be included.
+ *   Defaults to the current time. Set to 0 to load the absolute last.
+ * @param bool $done
+ *   Whether or not to only show logs that are marked as "done". Defaults to
+ *   TRUE.
+ *
+ * @return \SelectQuery
+ *   Returns a SelectQuery object.
+ */
+function farm_quantity_asset_log_query($asset_id, $measure = NULL, $label = NULL, $time = REQUEST_TIME, $done = TRUE) {
+
+  /**
+   * Please read the comments in farm_log_asset_query() to understand how this
+   * works, and to be aware of the limitations and responsibilities we have in
+   * this function with regard to sanitizing query inputs.
+   */
+
+  // Ensure that $measure and $label are valid strings, because we use them
+  // directly in the query's WHERE statements below. This is defensive code.
+  // See note about views_join_subquery in farm_log_asset_query().
+  if (!is_null($measure)) {
+    $measures = farm_quantity_measure_options();
+    if (!array_key_exists($measure, $measures)) {
+      $measure = '';
+    }
+  }
+  if (!is_null($label)) {
+    $label = db_escape_field($label);
+  }
+
+  // Use the farm_log_asset_query() helper function to start a query object.
+  $query = farm_log_asset_query($asset_id, $time, $done);
+
+  // Join in the Quantity field collection and filter to only include logs that
+  // have quantities.
+  $query->join('field_data_field_farm_quantity', 'ss_fdffq', "ss_fdffq.entity_type = 'log' AND ss_fdffq.entity_id = ss_log.id AND ss_fdffq.deleted = 0");
+  $query->where('ss_fdffq.field_farm_quantity_value IS NOT NULL');
+
+  // Filter to only include logs with a matching measure.
+  if (!empty($measure)) {
+    $query->join('field_data_field_farm_quantity_measure', 'ss_fdffqm', "ss_fdffqm.entity_id = ss_fdffq.field_farm_quantity_value AND ss_fdffqm.deleted = 0");
+    $query->where("ss_fdffqm.field_farm_quantity_measure_value = '" . $measure . "'");
+  }
+
+  // Filter to only include logs with a matching label.
+  if (!empty($label)) {
+    $query->join('field_data_field_farm_quantity_label', 'ss_fdffql', "ss_fdffql.entity_id = ss_fdffq.field_farm_quantity_value AND ss_fdffql.deleted = 0");
+    $query->where("ss_fdffql.field_farm_quantity_label_value = '" . $label . "'");
+  }
+
+  // Return the query object.
+  return $query;
+}
