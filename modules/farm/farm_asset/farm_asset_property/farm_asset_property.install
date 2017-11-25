@@ -1,0 +1,43 @@
+<?php
+
+/**
+ * @file
+ * Farm asset property install.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function farm_asset_property_schema() {
+  $schema['farm_asset_property'] = array(
+    'description' => 'Farm asset property key/value store.',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Farm asset ID',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'name' => array(
+        'description' => 'Property name',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'value' => array(
+        'description' => 'Property value',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+    ),
+    'primary key' => array('id', 'name'),
+    'indexes' => array(
+      'namevalue' => array('name', 'value'),
+    ),
+  );
+  return $schema;
+}

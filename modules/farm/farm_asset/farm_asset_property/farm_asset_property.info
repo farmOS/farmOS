@@ -1,0 +1,4 @@
+name = Farm Asset Property
+description = Provides the ability to assign arbitrary (key-value pairs) properties to assets.
+core = 7.x
+package = farmOS
