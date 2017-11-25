@@ -60,7 +60,6 @@ function farm_install_configure_form($form, &$form_state) {
   $default_modules = array(
     'farm_crop' => st('Crops'),
     'farm_livestock' => st('Livestock'),
-    'farm_livestock_eggs' => st('Livestock: Egg logs'),
     'farm_equipment' => st('Equipment'),
     'farm_soil_nrcs' => st('NRCS Soil Survey'),
     'farm_soil_test' => st('Soil test logs'),
