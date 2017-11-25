@@ -55,7 +55,7 @@ projects[field_collection][version] = "1.0-beta12"
 projects[field_collection][patch][] = "http://www.drupal.org/files/issues/add_feeds_integration-1063434-286.patch"
 
 projects[field_group][subdir] = "contrib"
-projects[field_group][version] = "1.5"
+projects[field_group][version] = "1.6"
 
 projects[field_group_easy_responsive_tabs][subdir] = "contrib"
 projects[field_group_easy_responsive_tabs][version] = "1.2"
@@ -184,7 +184,7 @@ projects[module_filter][version] = "2.1"
 ; Themes
 ; -----------------------------------------------------------------------------
 
-projects[bootstrap][version] = "3.14"
+projects[bootstrap][version] = "3.15"
 ; Issue #2634358: Multiple collapsible fieldsets have broken triggers in BS3.3.4
 projects[bootstrap][patch][] = "http://www.drupal.org/files/issues/bootstrap_multifieldset-2634358-10.patch"
 ; Issue #2910624: Collapsible fieldsets inside vertical tabs are disabled
