@@ -137,6 +137,18 @@ h2.resp-tab-active,
 }
 
 /**
+ * Display VBO checkboxes inline in Views Tree displays.
+ * Note: the .views-tree class must be added manually to the View's
+ * "Advanced > CSS class" setting.
+ */
+.views-tree .views-field-views-bulk-operations div.checkbox {
+  display: inline;
+}
+.views-tree .views-field-views-bulk-operations .checkbox label {
+  padding-left: 0;
+}
+
+/**
  * Increase the default font size within maps to create larger buttons.
  */
 .openlayers-map-container .gm-style {
