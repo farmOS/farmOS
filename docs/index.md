@@ -26,6 +26,16 @@ now is laying a strong [groundwork], so that others can more easily join in and
 * Twitter: [@farmOSorg]
 * Twitter: [@getFarmier]
 
+## Motivations
+
+In this video by Chris Callahan at [UVM Extension]'s
+[Agricultural Engineering Program], Michael Stenta provides an overview of the
+motivations behind farmOS.  Why he started the project, why he uses Drupal as
+the development framework and why it is open-source. Available on YouTube:
+[https://youtu.be/ATUEWrlDbWw]
+
+<iframe width="640" height="360" src="https://www.youtube.com/embed/ATUEWrlDbWw?rel=0" frameborder="0" allowfullscreen></iframe>
+
 ## GODAN Documentary Web Series
 
 farmOS was featured in the [GODAN Documentary Web Series: "OPEN FARMS"],
@@ -61,6 +71,9 @@ The full workshop recording is available on YouTube:
 [extensible]: https://www.drupal.org/download
 [secure]: http://www.drupal.org/documentation/is-drupal-secure
 [Frequently Asked Questions]: /faq
+[UVM Extension]: https://www.uvm.edu/extension
+[Agricultural Engineering Program]: https://www.uvm.edu/extension/agriculture/agricultural_engineering
+[https://youtu.be/ATUEWrlDbWw]: https://youtu.be/ATUEWrlDbWw
 [CNBC: The Future Of Farming Is Utilizing Data In An Open Source Network Of Farmers]: https://youtu.be/zua1y-hBcGc
 [GODAN Documentary Web Series: "OPEN FARMS"]: http://www.godan.info/news/open-farms-godan-documentary-web-series-episode-3
 [https://youtu.be/bCOqg5iH6fM]: https://youtu.be/bCOqg5iH6fM

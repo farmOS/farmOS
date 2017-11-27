@@ -1,5 +1,12 @@
 # Getting Started
 
+<iframe width="640" height="360" src="https://www.youtube.com/embed/vT3y-4dwVAc?rel=0" frameborder="0" allowfullscreen></iframe>
+
+This video provides an overview of the download and hosting options for farmOS
+by Michael Stenta at [Farmier], how to get deeply involved with the open-source
+development community behind farmOS, or simply subscribe for a hosted version
+to start using it today.
+
 Since farmOS is a web application, it must be hosted on a web server. This is
 different than most apps, which you simply install on your local computer or
 device. In contrast, farmOS is installed on a server, and you use your various

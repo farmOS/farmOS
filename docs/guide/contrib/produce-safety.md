@@ -20,6 +20,14 @@ It is only intended to help farmers become familiar with using farmOS to manage
 their records. For more information on guidelines, refer to the FDA's
 [FSMA Final Rule on Produce Safety] and the [Produce Safety Alliance].
 
+## Video walkthrough
+
+The following video walkthrough was produced by Chris Callahan at the
+[University of Vermont Extension]'s [Agricultural Engineering Program] and
+Michael Stenta at [Farmier].
+
+<iframe width="640" height="360" src="https://www.youtube.com/embed/DHlsT8pGC0Y?rel=0" frameborder="0" allowfullscreen></iframe>
+
 ## Overview
 
 The Produce Safety module sits on top of farmOS and utilizes many of the core
@@ -136,14 +144,15 @@ When areas or equipment are cleaned/sanitized, this should be recorded as an
 activity log with the "Produce Safety" category applied.
 
 [https://github.com/farmOS/farm_produce_safety]: https://github.com/farmOS/farm_produce_safety
-[Agricultural Engineering Program]: https://www.uvm.edu/extension/agriculture/agricultural_engineering
 [University of Vermont Extension]: https://www.uvm.edu/extension
+[Agricultural Engineering Program]: https://www.uvm.edu/extension/agriculture/agricultural_engineering
 [Vermont Agency of Agriculture Food & Markets]: http://agriculture.vermont.gov
 [Vermont Housing & Conservation Board]: http://www.vhcb.org
 [Produce Safety Rule]: https://www.fda.gov/Food/GuidanceRegulation/FSMA/ucm334114.htm
 [Food Safety Modernization Act]: https://www.fda.gov/food/guidanceregulation/fsma
 [FSMA Final Rule on Produce Safety]: https://www.fda.gov/Food/GuidanceRegulation/FSMA/ucm334114.htm
 [Produce Safety Alliance]: https://producesafetyalliance.cornell.edu
+[Farmier]: http://farmier.com
 [Introduction]: /guide
 [Areas]: /guide/areas
 [Logs]: /guide/logs
