@@ -154,3 +154,24 @@ function farm_asset_property_entity_delete($entity, $type) {
   // Delete all properties of an asset when the asset is deleted.
   db_query('DELETE FROM {farm_asset_property} WHERE id=:id', array(':id' => $entity->id));
 }
+
+/**
+ * Implements hook_modules_uninstalled().
+ */
+function farm_asset_property_modules_uninstalled($modules) {
+
+  // When a module is uninstalled, delete any asset properties that were
+  // maintained by it. This assumes that the module declared its properties
+  // via hook_farm_asset_propert().
+  foreach ($modules as $module) {
+    $hook = 'farm_asset_property';
+    if (function_exists($module . '_' . $hook)) {
+      $properties = module_invoke($module, $hook);
+      if (!empty($properties) && is_array($properties)) {
+        foreach ($properties as $property) {
+          db_query('DELETE FROM {farm_asset_property} WHERE name = :name', array('name' => $property));
+        }
+      }
+    }
+  }
+}
