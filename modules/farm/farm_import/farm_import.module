@@ -168,6 +168,14 @@ function farm_import_feeds_tamper_plugin($entity_type, $bundle, $source, $plugin
       $settings = array();
       break;
 
+    // Unix timestamp to date.
+    case 'timetodate':
+      $description = 'Unix timestamp to Date';
+      $settings = array(
+        'date_format' => 'Y-m-d',
+      );
+      break;
+
     // Empty defaults.
     default:
       $description = '';
