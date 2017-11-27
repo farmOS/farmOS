@@ -137,6 +137,93 @@ function farm_asset_property_is_set($asset_id, $name) {
 }
 
 /**
+ * Implements hook_feeds_processor_targets().
+ */
+function farm_asset_property_feeds_processor_targets($entity_type, $bundle) {
+  $targets = array();
+
+  // If this is not a farm_asset entity, bail.
+  if ($entity_type != 'farm_asset') {
+    return $targets;
+  }
+
+  // Ask modules for available asset properties.
+  $properties = module_invoke_all('farm_asset_property');
+
+  // If there are no properties, bail.
+  if (empty($properties) || !is_array($properties)) {
+    return $targets;
+  }
+
+  // Create a mapping target for each property.
+  foreach ($properties as $property) {
+    $targets['farm_asset_property:' . $property] = array(
+      'name' => t('Farm asset property: @property', array('@property' => $property)),
+      'description' => t('Sets the @property property on a farm asset entity.', array('@property' => $property)),
+      'callback' => 'farm_asset_property_feeds_set_target',
+    );
+  }
+
+  // Return the targets.
+  return $targets;
+}
+
+/**
+ * Callback for setting an asset property during a Feeds import.
+ */
+function farm_asset_property_feeds_set_target(FeedsSource $source, $entity, $target, array $values, array $mapping) {
+
+  // If values are empty, bail. Asset properties are always single values, so
+  // we are only going to look t the first array element.
+  if (empty($values[0])) {
+    return;
+  }
+
+  // Get the value.
+  $value = reset($values);
+
+  // Split the $target variable to get the property name.
+  $parts = explode(':', $target);
+
+  // If the first part isn't 'farm_asset_property', something's wrong. Bail.
+  if ($parts[0] != 'farm_asset_property') {
+    return;
+  }
+
+  // If the second part is empty, bail.
+  if (empty($parts[1])) {
+    return;
+  }
+
+  // Get the property name.
+  $property = $parts[1];
+
+  // Add the property to the $entity->farm_asset_property. We don't have an
+  // entity ID yet, so we can't save directly. This module implements
+  // hook_entity_insert() to set any asset properties stored in that array.
+  $entity->farm_asset_property[$property] = $value;
+}
+
+/**
+ * Implements hook_entity_insert().
+ */
+function farm_asset_property_entity_insert($entity, $type) {
+
+  // Only act on farm asset entities.
+  if ($type != 'farm_asset') {
+    return;
+  }
+
+  // If the entity has any properties defined in $entity->farm_asset_property,
+  // save them to the database.
+  if (!empty($entity->farm_asset_property) && is_array($entity->farm_asset_property)) {
+    foreach ($entity->farm_asset_property as $name => $value) {
+      farm_asset_property_set($entity->id, $name, $value);
+    }
+  }
+}
+
+/**
  * Implements hook_entity_delete().
  */
 function farm_asset_property_entity_delete($entity, $type) {
