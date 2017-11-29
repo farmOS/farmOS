@@ -42,6 +42,7 @@ The farmOS project is made possible by many supporters.
 * Dan Kittredge
 * Brooks Miller
 * Franklin Egan
+* Chris Callahan
 * [Stephen Woodbridge](http://imaptools.com)
 * Andy Grimley
 * Sallie Calhoun
