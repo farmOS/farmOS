@@ -2,6 +2,14 @@
 
 [CSV] importers are provided for all [asset] and [log] types in farmOS.
 
+This video by Chris Callahan at [UVM Extension]'s
+[Agricultural Engineering Program] summarizes the comma separated variable
+(CSV) import and export feature of FarmOS which allows for the import and
+export of FarmOS data from and to spreadsheet applications. This may be
+especially helpful for offline use.
+
+<iframe width="640" height="360" src="https://www.youtube.com/embed/NoOuNZRNjRo?rel=0" frameborder="0" allowfullscreen></iframe>
+
 Links to each importer can be found at the top of each primary asset or log
 listing page (accessible via the [main menu] of farmOS). For example, if you
 want to import Animal assets, click on Assets > Animals in the main menu, and
@@ -60,6 +68,8 @@ CSV importers are only available to users with the Farm Manager [role].
 [CSV]: https://en.wikipedia.org/wiki/Comma-separated_values
 [asset]: /guide/assets
 [log]: /guide/logs
+[UVM Extension]: https://www.uvm.edu/extension
+[Agricultural Engineering Program]: https://www.uvm.edu/extension/agriculture/agricultural_engineering
 [main menu]: /guide#navigation
 [role]: /guide/people
 
