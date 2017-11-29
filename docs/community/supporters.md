@@ -40,6 +40,8 @@ The farmOS project is made possible by many supporters.
 * Svenn Are Bjerkem
 * Kenny Robinson
 * Dan Kittredge
+* David Forster
+* Greg Austic
 * Brooks Miller
 * Franklin Egan
 * Chris Callahan
