@@ -13,6 +13,7 @@ dependencies[] = farm_fields
 dependencies[] = features
 dependencies[] = field_collection
 dependencies[] = field_group
+dependencies[] = field_group_easy_responsive_tabs
 dependencies[] = file
 dependencies[] = image
 dependencies[] = multiupload_filefield_widget
