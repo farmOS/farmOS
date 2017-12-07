@@ -435,7 +435,9 @@ function farm_log_prepopulate_log_form_references(&$form) {
  *   The asset id to search for. This can either be a specific id, or a field
  *   alias string from another query (ie: 'mytable.assetid'). For an example
  *   of field alias string usage, see the Views field handler code in
- *   farm_movement_handler_relationship_location::query().
+ *   farm_movement_handler_relationship_location::query(). If this is omitted,
+ *   the asset reference table will still be joined in, but no further
+ *   filtering will be done.
  * @param int $time
  *   Unix timestamp limiter. Only logs before this time will be included.
  *   Defaults to the current time. Set to 0 to load the absolute last.
@@ -448,7 +450,7 @@ function farm_log_prepopulate_log_form_references(&$form) {
  * @return \SelectQuery
  *   Returns a SelectQuery object.
  */
-function farm_log_asset_query($asset_id, $time = REQUEST_TIME, $done = TRUE, $single = TRUE) {
+function farm_log_asset_query($asset_id = NULL, $time = REQUEST_TIME, $done = TRUE, $single = TRUE) {
 
   /**
    * Please read the comments in farm_log_query() to understand how this works,
@@ -465,11 +467,14 @@ function farm_log_asset_query($asset_id, $time = REQUEST_TIME, $done = TRUE, $si
     $asset_id = db_escape_field($asset_id);
   }
 
-  // Join in asset references and filter to only include logs that reference the
-  // specified asset. Use an inner join to exclude logs that do not have any
-  // asset references.
+  // Join in asset reference field. Use an inner join to exclude logs that do
+  // not have any asset references.
   $query->innerJoin('field_data_field_farm_asset', 'ss_fdffa', "ss_fdffa.entity_type = 'log' AND ss_fdffa.entity_id = ss_log.id AND ss_fdffa.deleted = 0");
-  $query->where('ss_fdffa.field_farm_asset_target_id = ' . $asset_id);
+
+  // If an asset ID is specified, only include logs that reference it.
+  if (!empty($asset_id)) {
+    $query->where('ss_fdffa.field_farm_asset_target_id = ' . $asset_id);
+  }
 
   // Return the query object.
   return $query;
