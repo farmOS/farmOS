@@ -565,15 +565,13 @@ function farm_group_asset_membership_query($asset_id, $time = REQUEST_TIME, $don
   // Use the farm_log_asset_query() helper function to start a query object.
   $query = farm_log_asset_query($asset_id, $time, $done, $single);
 
-  // Join in the Membership field collection and filter to only include logs
-  // with memberships.
-  $query->join('field_data_field_farm_membership', 'ss_fdffm', "ss_fdffm.entity_type = 'log' AND ss_fdffm.entity_id = ss_log.id AND ss_fdffm.deleted = 0");
-  $query->where('ss_fdffm.field_farm_membership_value IS NOT NULL');
+  // Join in the Membership field collection. Use an inner join to exclude logs
+  // that do not a membership field collection attached.
+  $query->innerJoin('field_data_field_farm_membership', 'ss_fdffm', "ss_fdffm.entity_type = 'log' AND ss_fdffm.entity_id = ss_log.id AND ss_fdffm.deleted = 0");
 
-  // Join in the membership's "group" field, and filter to only include logs
-  // that have a membership with a "group" value.
-  $query->join('field_data_field_farm_group', 'ss_fdffg', "ss_fdffg.entity_type = 'field_collection_item' AND ss_fdffg.bundle = 'field_farm_membership' AND ss_fdffg.entity_id = ss_fdffm.field_farm_membership_value AND ss_fdffg.deleted = 0");
-  $query->where('ss_fdffg.field_farm_group_target_id IS NOT NULL');
+  // Join in the membership's "group" field. Use an inner join to exclude logs
+  // that do not have a group reference.
+  $query->innerJoin('field_data_field_farm_group', 'ss_fdffg', "ss_fdffg.entity_type = 'field_collection_item' AND ss_fdffg.bundle = 'field_farm_membership' AND ss_fdffg.entity_id = ss_fdffm.field_farm_membership_value AND ss_fdffg.deleted = 0");
 
   // If $field is 'log_id', then add the log ID field.
   if ($field == 'log_id') {

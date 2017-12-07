@@ -458,20 +458,19 @@ function farm_inventory_query($asset_id, $time = REQUEST_TIME, $done = TRUE) {
   // Use the farm_log_asset_query() helper function to start a query object.
   $query = farm_log_query($time, $done);
 
-  // Join in the Inventory field collection and filter to only include logs that
-  // have inventory adjustments.
-  $query->join('field_data_field_farm_inventory', 'ss_fdffi', "ss_fdffi.entity_type = 'log' AND ss_fdffi.entity_id = ss_log.id AND ss_fdffi.deleted = 0");
-  $query->where('ss_fdffi.field_farm_inventory_value IS NOT NULL');
+  // Join in the Inventory field collection. Use an inner join to exclude logs
+  // that do not have an inventory field collection attached.
+  $query->innerJoin('field_data_field_farm_inventory', 'ss_fdffi', "ss_fdffi.entity_type = 'log' AND ss_fdffi.entity_id = ss_log.id AND ss_fdffi.deleted = 0");
 
   // Join in the inventory adjustment asset and filter to only include
-  // inventory adjustments that reference the specified asset.
-  $query->join('field_data_field_farm_inventory_asset', 'ss_fdffia', "ss_fdffia.entity_id = ss_fdffi.field_farm_inventory_value AND ss_fdffia.deleted = 0");
+  // inventory adjustments that reference the specified asset. Use an inner
+  // join to exclude logs that do not have an inventory asset reference.
+  $query->innerJoin('field_data_field_farm_inventory_asset', 'ss_fdffia', "ss_fdffia.entity_id = ss_fdffi.field_farm_inventory_value AND ss_fdffia.deleted = 0");
   $query->where('ss_fdffia.field_farm_inventory_asset_target_id = ' . $asset_id);
 
-  // Join in the inventory adjustment value and filter to only include logs
-  // that have inventory adjustments with a value.
-  $query->join('field_data_field_farm_inventory_value', 'ss_fdffiv', "ss_fdffiv.entity_id = ss_fdffi.field_farm_inventory_value AND ss_fdffiv.deleted = 0");
-  $query->where('ss_fdffi.field_farm_inventory_value IS NOT NULL');
+  // Join in the inventory adjustment value. Use an inner join to exclude logs
+  // that do not have an inventory adjustment value.
+  $query->innerJoin('field_data_field_farm_inventory_value', 'ss_fdffiv', "ss_fdffiv.entity_id = ss_fdffi.field_farm_inventory_value AND ss_fdffiv.deleted = 0");
 
   // Add an expression that calculates the SUM of all values.
   $query->addExpression('SUM(ss_fdffiv.field_farm_inventory_value_numerator / ss_fdffiv.field_farm_inventory_value_denominator)', 'inventory');

@@ -512,14 +512,14 @@ function farm_movement_asset_movement_query($asset_id, $time = REQUEST_TIME, $do
   $query = farm_log_asset_query($asset_id, $time, $done, $single);
 
   // Join in the Movement field collection and filter to only include logs with
-  // movements.
-  $query->join('field_data_field_farm_movement', 'ss_fdffm', "ss_fdffm.entity_type = 'log' AND ss_fdffm.entity_id = ss_log.id AND ss_fdffm.deleted = 0");
-  $query->where('ss_fdffm.field_farm_movement_value IS NOT NULL');
+  // movements. Use an inner join to exclude logs that do not have any
+  // movement field collections attached.
+  $query->innerJoin('field_data_field_farm_movement', 'ss_fdffm', "ss_fdffm.entity_type = 'log' AND ss_fdffm.entity_id = ss_log.id AND ss_fdffm.deleted = 0");
 
   // Join in the movement's "move to" field, and filter to only include logs
-  // that have a movement with a "move to" value.
-  $query->join('field_data_field_farm_move_to', 'ss_fdffmt', "ss_fdffmt.entity_type = 'field_collection_item' AND ss_fdffmt.bundle = 'field_farm_movement' AND ss_fdffmt.entity_id = ss_fdffm.field_farm_movement_value AND ss_fdffmt.deleted = 0");
-  $query->where('ss_fdffmt.field_farm_move_to_tid IS NOT NULL');
+  // that have a movement with a "move to" value. Use an inner join to exclude
+  // logs that do not have a "move to" area reference.
+  $query->innerJoin('field_data_field_farm_move_to', 'ss_fdffmt', "ss_fdffmt.entity_type = 'field_collection_item' AND ss_fdffmt.bundle = 'field_farm_movement' AND ss_fdffmt.entity_id = ss_fdffm.field_farm_movement_value AND ss_fdffmt.deleted = 0");
 
   // If $field is 'log_id', then add the log ID field.
   if ($field == 'log_id') {
@@ -570,13 +570,14 @@ function farm_movement_area_movement_query($area_id, $time = REQUEST_TIME, $done
   $query = farm_log_query($time, $done, FALSE);
 
   // Join in the Movement field collection and filter to only include logs with
-  // movements.
-  $query->join('field_data_field_farm_movement', 'ss_fdffm', "ss_fdffm.entity_type = 'log' AND ss_fdffm.entity_id = ss_log.id AND ss_fdffm.deleted = 0");
-  $query->where('ss_fdffm.field_farm_movement_value IS NOT NULL');
+  // movements. Use an inner join to exclude logs that do not have a movement
+  // field collection attached.
+  $query->innerJoin('field_data_field_farm_movement', 'ss_fdffm', "ss_fdffm.entity_type = 'log' AND ss_fdffm.entity_id = ss_log.id AND ss_fdffm.deleted = 0");
 
   // Join in the movement's "move to" field, and filter to only include logs
-  // that have a movement with a "move to" the specified area.
-  $query->join('field_data_field_farm_move_to', 'ss_fdffmt', "ss_fdffmt.entity_type = 'field_collection_item' AND ss_fdffmt.bundle = 'field_farm_movement' AND ss_fdffmt.entity_id = ss_fdffm.field_farm_movement_value AND ss_fdffmt.deleted = 0");
+  // that have a movement with a "move to" the specified area. Use an inner
+  // join to exclude logs that do not have a "move to" area reference.
+  $query->innerJoin('field_data_field_farm_move_to', 'ss_fdffmt', "ss_fdffmt.entity_type = 'field_collection_item' AND ss_fdffmt.bundle = 'field_farm_movement' AND ss_fdffmt.entity_id = ss_fdffm.field_farm_movement_value AND ss_fdffmt.deleted = 0");
   $query->where('ss_fdffmt.field_farm_move_to_tid = ' . $area_id);
 
   // Return the query object.

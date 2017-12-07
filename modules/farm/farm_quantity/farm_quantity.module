@@ -316,20 +316,21 @@ function farm_quantity_asset_log_query($asset_id, $measure = NULL, $label = NULL
   // Add the log ID field.
   $query->addField('ss_log', 'id');
 
-  // Join in the Quantity field collection and filter to only include logs that
-  // have quantities.
-  $query->join('field_data_field_farm_quantity', 'ss_fdffq', "ss_fdffq.entity_type = 'log' AND ss_fdffq.entity_id = ss_log.id AND ss_fdffq.deleted = 0");
-  $query->where('ss_fdffq.field_farm_quantity_value IS NOT NULL');
+  // Join in the Quantity field collection. Use an inner join to exclude logs
+  // that do not have quantity field collection attached.
+  $query->innerJoin('field_data_field_farm_quantity', 'ss_fdffq', "ss_fdffq.entity_type = 'log' AND ss_fdffq.entity_id = ss_log.id AND ss_fdffq.deleted = 0");
 
-  // Filter to only include logs with a matching measure.
+  // Filter to only include logs with a matching measure. Use an inner join to
+  // exclude logs that do not have a measure.
   if (!empty($measure)) {
-    $query->join('field_data_field_farm_quantity_measure', 'ss_fdffqm', "ss_fdffqm.entity_id = ss_fdffq.field_farm_quantity_value AND ss_fdffqm.deleted = 0");
+    $query->innerJoin('field_data_field_farm_quantity_measure', 'ss_fdffqm', "ss_fdffqm.entity_id = ss_fdffq.field_farm_quantity_value AND ss_fdffqm.deleted = 0");
     $query->where("ss_fdffqm.field_farm_quantity_measure_value = '" . $measure . "'");
   }
 
-  // Filter to only include logs with a matching label.
+  // Filter to only include logs with a matching label. Use an inner join to
+  // exclude logs that do not have a label.
   if (!empty($label)) {
-    $query->join('field_data_field_farm_quantity_label', 'ss_fdffql', "ss_fdffql.entity_id = ss_fdffq.field_farm_quantity_value AND ss_fdffql.deleted = 0");
+    $query->innerJoin('field_data_field_farm_quantity_label', 'ss_fdffql', "ss_fdffql.entity_id = ss_fdffq.field_farm_quantity_value AND ss_fdffql.deleted = 0");
     $query->where("ss_fdffql.field_farm_quantity_label_value = '" . $label . "'");
   }
 

@@ -466,8 +466,9 @@ function farm_log_asset_query($asset_id, $time = REQUEST_TIME, $done = TRUE, $si
   }
 
   // Join in asset references and filter to only include logs that reference the
-  // specified asset (only if $asset_filter is TRUE).
-  $query->join('field_data_field_farm_asset', 'ss_fdffa', "ss_fdffa.entity_type = 'log' AND ss_fdffa.entity_id = ss_log.id AND ss_fdffa.deleted = 0");
+  // specified asset. Use an inner join to exclude logs that do not have any
+  // asset references.
+  $query->innerJoin('field_data_field_farm_asset', 'ss_fdffa', "ss_fdffa.entity_type = 'log' AND ss_fdffa.entity_id = ss_log.id AND ss_fdffa.deleted = 0");
   $query->where('ss_fdffa.field_farm_asset_target_id = ' . $asset_id);
 
   // Return the query object.
