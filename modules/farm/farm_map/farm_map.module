@@ -150,16 +150,52 @@ function farm_map_geofield_populate(&$entity, $geoms = array()) {
   // Load the GeoPHP library.
   geophp_load();
 
-  // Implode the array of geometries into a single string.
-  $geom = implode(',', $geoms);
-
-  // If there is more than one geometry, wrap them all in a geometry collection.
+  // If there is more than one geometry, we will wrap it all in a
+  // GEOMETRYCOLLECTION() at the end.
+  $geometrycollection = FALSE;
   if (count($geoms) > 1) {
-    $geom = 'GEOMETRYCOLLECTION (' . $geom . ')';
+    $geometrycollection = TRUE;
   }
 
-  // Convert to a GeoPHP geometry object and reduce the geometry.
-  $geometry = geoPHP::load($geom, 'wkt');
+  // Build an array of WKT strings.
+  $wkt_strings = array();
+  foreach ($geoms as &$geom) {
+
+    // Convert to a GeoPHP geometry object.
+    $geometry = geoPHP::load($geom, 'wkt');
+
+    // If this is a geometry collection, then extract its components and add
+    // them individually to the array.
+    if ($geometry->geometryType() == 'GeometryCollection') {
+
+      // Iterate through the geometry components and add each to the array.
+      $components = $geometry->getComponents();
+      foreach ($components as $component) {
+        $wkt_strings[] = $component->asText();
+      }
+
+      // Set $geometrycollection to TRUE in case there was only one geometry in
+      // the $geoms parameter of this function, so that we know to wrap the WKT
+      // in a GEOMETRYCOLLECTION() at the end.
+      $geometrycollection = TRUE;
+    }
+
+    // Otherwise, add it to the array.
+    else {
+      $wkt_strings[] = $geometry->asText();
+    }
+  }
+
+  // Combine all the WKT strings together into one.
+  $wkt = implode(',', $wkt_strings);
+
+  // If there is more than one geometry, wrap them all in a geometry collection.
+  if ($geometrycollection) {
+    $wkt = 'GEOMETRYCOLLECTION (' . $wkt . ')';
+  }
+
+  // Convert to a final GeoPHP geometry object and reduce the geometry.
+  $geometry = geoPHP::load($wkt, 'wkt');
   $geometry = geoPHP::geometryReduce($geometry);
 
   // Save the combined geometry to the movement log.
