@@ -357,7 +357,7 @@ function farm_livestock_animal_weight($asset) {
  *   The asset to add quantity measurements to.
  * @param string $weight
  *   The animal's current weight.
- * @param object $units
+ * @param string $units
  *   The units of measurement.
  * @param int $timestamp
  *   The timestamp of the measurement. Defaults to the current time.
