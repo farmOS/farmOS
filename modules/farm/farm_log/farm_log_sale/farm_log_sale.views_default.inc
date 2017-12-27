@@ -389,6 +389,7 @@ function farm_log_sale_views_default_views() {
   $handler->display->display_options['filters']['field_farm_log_category_tid']['id'] = 'field_farm_log_category_tid';
   $handler->display->display_options['filters']['field_farm_log_category_tid']['table'] = 'field_data_field_farm_log_category';
   $handler->display->display_options['filters']['field_farm_log_category_tid']['field'] = 'field_farm_log_category_tid';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['group'] = 1;
   $handler->display->display_options['filters']['field_farm_log_category_tid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['operator_id'] = 'field_farm_log_category_tid_op';
   $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['label'] = 'Categories';
@@ -403,6 +404,7 @@ function farm_log_sale_views_default_views() {
   $handler->display->display_options['filters']['date_filter']['table'] = 'log';
   $handler->display->display_options['filters']['date_filter']['field'] = 'date_filter';
   $handler->display->display_options['filters']['date_filter']['operator'] = '>=';
+  $handler->display->display_options['filters']['date_filter']['group'] = 1;
   $handler->display->display_options['filters']['date_filter']['exposed'] = TRUE;
   $handler->display->display_options['filters']['date_filter']['expose']['operator_id'] = 'date_filter_op';
   $handler->display->display_options['filters']['date_filter']['expose']['label'] = 'Start date';
@@ -417,6 +419,7 @@ function farm_log_sale_views_default_views() {
   $handler->display->display_options['filters']['date_filter_1']['table'] = 'log';
   $handler->display->display_options['filters']['date_filter_1']['field'] = 'date_filter';
   $handler->display->display_options['filters']['date_filter_1']['operator'] = '<=';
+  $handler->display->display_options['filters']['date_filter_1']['group'] = 1;
   $handler->display->display_options['filters']['date_filter_1']['exposed'] = TRUE;
   $handler->display->display_options['filters']['date_filter_1']['expose']['operator_id'] = 'date_filter_1_op';
   $handler->display->display_options['filters']['date_filter_1']['expose']['label'] = 'End date';
@@ -431,6 +434,7 @@ function farm_log_sale_views_default_views() {
   $handler->display->display_options['filters']['done']['table'] = 'log';
   $handler->display->display_options['filters']['done']['field'] = 'done';
   $handler->display->display_options['filters']['done']['value'] = 'All';
+  $handler->display->display_options['filters']['done']['group'] = 1;
   $handler->display->display_options['filters']['done']['exposed'] = TRUE;
   $handler->display->display_options['filters']['done']['expose']['operator_id'] = '';
   $handler->display->display_options['filters']['done']['expose']['label'] = 'Done';
