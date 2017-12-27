@@ -214,6 +214,7 @@ function farm_water_test_views_default_views() {
   $handler->display->display_options['fields']['name']['id'] = 'name';
   $handler->display->display_options['fields']['name']['table'] = 'log';
   $handler->display->display_options['fields']['name']['field'] = 'name';
+  $handler->display->display_options['fields']['name']['label'] = 'Log name';
   $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['name']['alter']['path'] = 'log/[id]';
   /* Field: Log: Areas */
@@ -261,6 +262,12 @@ function farm_water_test_views_default_views() {
   $handler->display->display_options['sorts']['id']['field'] = 'id';
   $handler->display->display_options['sorts']['id']['order'] = 'DESC';
   $handler->display->display_options['sorts']['id']['expose']['label'] = 'Log ID';
+  /* Sort criterion: Log: Name */
+  $handler->display->display_options['sorts']['name_1']['id'] = 'name_1';
+  $handler->display->display_options['sorts']['name_1']['table'] = 'log';
+  $handler->display->display_options['sorts']['name_1']['field'] = 'name';
+  $handler->display->display_options['sorts']['name_1']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['name_1']['expose']['label'] = 'Log name';
   /* Sort criterion: User: Name */
   $handler->display->display_options['sorts']['name']['id'] = 'name';
   $handler->display->display_options['sorts']['name']['table'] = 'users';
@@ -299,7 +306,7 @@ function farm_water_test_views_default_views() {
   $handler->display->display_options['filters']['name']['group'] = 1;
   $handler->display->display_options['filters']['name']['exposed'] = TRUE;
   $handler->display->display_options['filters']['name']['expose']['operator_id'] = 'name_op';
-  $handler->display->display_options['filters']['name']['expose']['label'] = 'Name';
+  $handler->display->display_options['filters']['name']['expose']['label'] = 'Log name';
   $handler->display->display_options['filters']['name']['expose']['operator'] = 'name_op';
   $handler->display->display_options['filters']['name']['expose']['identifier'] = 'name';
   /* Filter criterion: User: Name */
@@ -426,7 +433,7 @@ function farm_water_test_views_default_views() {
     t('Log ID'),
     t('.'),
     t('Date'),
-    t('Name'),
+    t('Log name'),
     t('Areas'),
     t('Laboratory'),
     t('Notes'),

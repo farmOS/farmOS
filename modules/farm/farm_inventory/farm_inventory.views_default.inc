@@ -430,7 +430,7 @@ function farm_inventory_views_default_views() {
   $handler->display->display_options['fields']['name']['id'] = 'name';
   $handler->display->display_options['fields']['name']['table'] = 'log';
   $handler->display->display_options['fields']['name']['field'] = 'name';
-  $handler->display->display_options['fields']['name']['label'] = 'Log';
+  $handler->display->display_options['fields']['name']['label'] = 'Log name';
   $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['name']['alter']['path'] = 'log/[id]';
   /* Field: Field collection item: Asset */
@@ -486,6 +486,18 @@ function farm_inventory_views_default_views() {
   $handler->display->display_options['sorts']['id']['table'] = 'log';
   $handler->display->display_options['sorts']['id']['field'] = 'id';
   $handler->display->display_options['sorts']['id']['order'] = 'DESC';
+  /* Sort criterion: Log: Name */
+  $handler->display->display_options['sorts']['name']['id'] = 'name';
+  $handler->display->display_options['sorts']['name']['table'] = 'log';
+  $handler->display->display_options['sorts']['name']['field'] = 'name';
+  $handler->display->display_options['sorts']['name']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['name']['expose']['label'] = 'Log name';
+  /* Sort criterion: Log: Log type */
+  $handler->display->display_options['sorts']['type']['id'] = 'type';
+  $handler->display->display_options['sorts']['type']['table'] = 'log';
+  $handler->display->display_options['sorts']['type']['field'] = 'type';
+  $handler->display->display_options['sorts']['type']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['type']['expose']['label'] = 'Log type';
   /* Contextual filter: Field collection item: Asset (field_farm_inventory_asset) */
   $handler->display->display_options['arguments']['field_farm_inventory_asset_target_id']['id'] = 'field_farm_inventory_asset_target_id';
   $handler->display->display_options['arguments']['field_farm_inventory_asset_target_id']['table'] = 'field_data_field_farm_inventory_asset';
@@ -499,6 +511,17 @@ function farm_inventory_views_default_views() {
   $handler->display->display_options['arguments']['field_farm_inventory_asset_target_id']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['arguments']['field_farm_inventory_asset_target_id']['specify_validation'] = TRUE;
   $handler->display->display_options['arguments']['field_farm_inventory_asset_target_id']['validate']['type'] = 'farm_asset';
+  /* Filter criterion: Log: Name */
+  $handler->display->display_options['filters']['name']['id'] = 'name';
+  $handler->display->display_options['filters']['name']['table'] = 'log';
+  $handler->display->display_options['filters']['name']['field'] = 'name';
+  $handler->display->display_options['filters']['name']['operator'] = 'contains';
+  $handler->display->display_options['filters']['name']['group'] = 1;
+  $handler->display->display_options['filters']['name']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['name']['expose']['operator_id'] = 'name_op';
+  $handler->display->display_options['filters']['name']['expose']['label'] = 'Log name';
+  $handler->display->display_options['filters']['name']['expose']['operator'] = 'name_op';
+  $handler->display->display_options['filters']['name']['expose']['identifier'] = 'name';
   /* Filter criterion: Log: Log type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'log';
@@ -621,6 +644,7 @@ function farm_inventory_views_default_views() {
     t('Log ID'),
     t('.'),
     t('Date'),
+    t('Log name'),
     t('Asset'),
     t('Adjustment value'),
     t('Log type'),

@@ -241,6 +241,7 @@ function farm_log_harvest_views_default_views() {
   $handler->display->display_options['fields']['name']['id'] = 'name';
   $handler->display->display_options['fields']['name']['table'] = 'log';
   $handler->display->display_options['fields']['name']['field'] = 'name';
+  $handler->display->display_options['fields']['name']['label'] = 'Log name';
   $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['name']['alter']['path'] = 'log/[id]';
   /* Field: Field collection item: Value */
@@ -314,6 +315,12 @@ function farm_log_harvest_views_default_views() {
   $handler->display->display_options['sorts']['id']['table'] = 'log';
   $handler->display->display_options['sorts']['id']['field'] = 'id';
   $handler->display->display_options['sorts']['id']['order'] = 'DESC';
+  /* Sort criterion: Log: Name */
+  $handler->display->display_options['sorts']['name_1']['id'] = 'name_1';
+  $handler->display->display_options['sorts']['name_1']['table'] = 'log';
+  $handler->display->display_options['sorts']['name_1']['field'] = 'name';
+  $handler->display->display_options['sorts']['name_1']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['name_1']['expose']['label'] = 'Log name';
   /* Sort criterion: User: Name */
   $handler->display->display_options['sorts']['name']['id'] = 'name';
   $handler->display->display_options['sorts']['name']['table'] = 'users';
@@ -341,6 +348,17 @@ function farm_log_harvest_views_default_views() {
     'farm_harvest' => 'farm_harvest',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
+  /* Filter criterion: Log: Name */
+  $handler->display->display_options['filters']['name']['id'] = 'name';
+  $handler->display->display_options['filters']['name']['table'] = 'log';
+  $handler->display->display_options['filters']['name']['field'] = 'name';
+  $handler->display->display_options['filters']['name']['operator'] = 'contains';
+  $handler->display->display_options['filters']['name']['group'] = 1;
+  $handler->display->display_options['filters']['name']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['name']['expose']['operator_id'] = 'name_op';
+  $handler->display->display_options['filters']['name']['expose']['label'] = 'Log name';
+  $handler->display->display_options['filters']['name']['expose']['operator'] = 'name_op';
+  $handler->display->display_options['filters']['name']['expose']['identifier'] = 'name';
   /* Filter criterion: Log: Sale lot number (field_farm_lot_number) */
   $handler->display->display_options['filters']['field_farm_lot_number_value']['id'] = 'field_farm_lot_number_value';
   $handler->display->display_options['filters']['field_farm_lot_number_value']['table'] = 'field_data_field_farm_lot_number';
@@ -476,7 +494,7 @@ function farm_log_harvest_views_default_views() {
     t('Log ID'),
     t('.'),
     t('Date'),
-    t('Name'),
+    t('Log name'),
     t('Quantity'),
     t('Units'),
     t('Assets'),
