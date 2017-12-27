@@ -535,6 +535,21 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['filters']['name']['expose']['label'] = 'Log name';
   $handler->display->display_options['filters']['name']['expose']['operator'] = 'name_op';
   $handler->display->display_options['filters']['name']['expose']['identifier'] = 'name';
+  /* Filter criterion: Field collection item: Movement to (field_farm_move_to) */
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['id'] = 'field_farm_move_to_tid';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['table'] = 'field_data_field_farm_move_to';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['field'] = 'field_farm_move_to_tid';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['relationship'] = 'field_farm_movement_value';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['group'] = 1;
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['operator_id'] = 'field_farm_move_to_tid_op';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['label'] = 'Movement to';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['operator'] = 'field_farm_move_to_tid_op';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['identifier'] = 'field_farm_move_to_tid';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['vocabulary'] = 'farm_areas';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['hierarchy'] = 1;
   /* Filter criterion: User: Name */
   $handler->display->display_options['filters']['uid']['id'] = 'uid';
   $handler->display->display_options['filters']['uid']['table'] = 'users';
@@ -1024,6 +1039,21 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['filters']['name']['expose']['label'] = 'Log name';
   $handler->display->display_options['filters']['name']['expose']['operator'] = 'name_op';
   $handler->display->display_options['filters']['name']['expose']['identifier'] = 'name';
+  /* Filter criterion: Field collection item: Movement to (field_farm_move_to) */
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['id'] = 'field_farm_move_to_tid';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['table'] = 'field_data_field_farm_move_to';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['field'] = 'field_farm_move_to_tid';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['relationship'] = 'field_farm_movement_value';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['group'] = 1;
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['operator_id'] = 'field_farm_move_to_tid_op';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['label'] = 'Movement to';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['operator'] = 'field_farm_move_to_tid_op';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['identifier'] = 'field_farm_move_to_tid';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['vocabulary'] = 'farm_areas';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['hierarchy'] = 1;
   /* Filter criterion: User: Name */
   $handler->display->display_options['filters']['uid']['id'] = 'uid';
   $handler->display->display_options['filters']['uid']['table'] = 'users';
