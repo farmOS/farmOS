@@ -108,8 +108,9 @@ projects[navbar][subdir] = "contrib"
 projects[navbar][version] = "1.7"
 
 projects[openlayers][subdir] = "contrib"
-projects[openlayers][download][type] = "get"
-projects[openlayers][download][url] = "http://github.com/mstenta/openlayers/archive/79932579ea2247cdd89ea52e48971a91898b978e.zip"
+projects[openlayers][download][type] = "git"
+projects[openlayers][download][url] = "https://git.drupal.org/project/openlayers.git"
+projects[openlayers][download][branch] = "7.x-3.x"
 ; Remove base layer assignment code.
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_base_layer_mechanism-2543130-10.patch"
 ; Move Elements dependency to Openlayers Examples.
@@ -122,6 +123,8 @@ projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_p
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_google_retired_version-2888085-4.patch"
 ; Issue #2644580: Maps with Google layers break when loaded in invisible element
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_googlemaps_refresh-2644580-19.patch"
+; Issue #2911611: Update ZoomToSource Component: use new view.animate() method.
+projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_ol4_zoomtosource-2911611-4.patch"
 
 projects[openlayers_geolocate_button][subdir] = "contrib"
 projects[openlayers_geolocate_button][version] = "3.2"
