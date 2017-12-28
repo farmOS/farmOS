@@ -792,7 +792,6 @@ function farm_livestock_field_default_field_instances() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Animals');
-  t('Assign this animal to a particular group, herd, flock, etc. You can manage the list of available groups in the ' . l('Animal Groups', 'farm/assets/animals/groups') . ' vocabulary.');
   t('Assigned to');
   t('Body Location');
   t('Castrated');
@@ -800,7 +799,6 @@ function farm_livestock_field_default_field_instances() {
   t('Description');
   t('Enter this animal asset\'s species/breed. You can manage the list of available species/breeds in the <a href="/farm/assets/animals/types">Animal Species/Breeds</a> vocabulary.');
   t('Files');
-  t('Group');
   t('Has this animal been castrated?');
   t('ID');
   t('ID Tag(s)');
