@@ -369,7 +369,7 @@ function farm_asset_ctools_plugin_directory($owner, $plugin_type) {
   $directory = '';
   if ($owner == 'page_manager' || $owner == 'ctools' || $owner == 'panels') {
     if ($plugin_type == 'tasks') {
-      $directory = 'plugins/tasks';
+      $directory = 'includes/ctools';
     }
   }
   return $directory;
@@ -388,7 +388,7 @@ function farm_asset_feeds_plugins() {
       'parent' => 'FeedsProcessor',
       'class' => 'FarmAssetProcessor',
       'file' => 'FarmAssetProcessor.inc',
-      'path' => drupal_get_path('module', 'farm_asset') . '/plugins/feeds',
+      'path' => drupal_get_path('module', 'farm_asset') . '/includes/feeds/plugins',
     ),
   );
   return $info;
