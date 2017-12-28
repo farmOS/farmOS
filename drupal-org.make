@@ -96,7 +96,7 @@ projects[libraries_cdn][subdir] = "contrib"
 projects[libraries_cdn][version] = "1.7"
 
 projects[log][subdir] = "contrib"
-projects[log][version] = "1.9"
+projects[log][version] = "1.10"
 
 projects[multiupload_filefield_widget][subdir] = "contrib"
 projects[multiupload_filefield_widget][version] = "1.13"
