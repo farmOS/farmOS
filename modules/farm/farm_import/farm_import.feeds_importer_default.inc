@@ -118,7 +118,7 @@ function farm_import_log_importer($log_type) {
       'language' => 'und',
     ),
     array(
-      'source' => 'Name',
+      'source' => 'Log name',
       'target' => 'name',
       'unique' => FALSE,
       'language' => 'und',
