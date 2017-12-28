@@ -193,9 +193,38 @@ function farm_group_form_farm_asset_form_alter(&$form, &$form_state, $form_id) {
     '#description' => t('Optionally enter the name of a new group to be created. The assets will become members of this group.')
   );
 
-  // Add submit function and put the fieldset into the general field group.
+  // Add validate and submit functions and put the fieldset into the general
+  // field group.
+  $form['actions']['submit']['#validate'][] = 'farm_group_asset_form_validate';
   $form['actions']['submit']['#submit'][] = 'farm_group_asset_form_submit';
   $form['#group_children']['group'] = 'group_farm_general';
+}
+
+/**
+ * Validation handler for processing the asset group field.
+ *
+ * @param array $form
+ *   The form array.
+ * @param array $form_state
+ *   The form state array.
+ */
+function farm_group_asset_form_validate(array $form, array &$form_state) {
+
+  // Only proceed if the group multiselect has a value, and there is an asset.
+  if (empty($form_state['values']['group']['group']) || empty($form_state['values']['farm_asset'])) {
+    return;
+  }
+
+  // Grab the asset ID.
+  $asset = $form_state['values']['farm_asset'];
+  $asset_ids[] = $asset->id;
+
+  // Get selected group IDs.
+  $group_ids = $form_state['values']['group']['group'];
+
+  // Validate the asset IDs and group IDs to prevent circular memberships.
+  // If an issue is found, flag the 'field_farm_asset' element in the form.
+  farm_group_circular_membership_validate($asset_ids, $group_ids, 'group][group');
 }
 
 /**
