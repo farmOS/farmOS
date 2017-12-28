@@ -47,7 +47,7 @@ function farm_asset_schema() {
         'not null' => FALSE,
       ),
       'uid' => array(
-        'description' => 'Asset owner',
+        'description' => 'Asset author',
         'type' => 'int',
         'unsigned' => TRUE,
         'not null' => TRUE,

@@ -247,9 +247,9 @@ function farm_asset_entity_property_info_alter(&$info) {
     'schema field' => 'type',
   );
   $properties['uid'] = array(
-    'label' => t('Owner'),
+    'label' => t('Author'),
     'type' => 'user',
-    'description' => t('The owner of the asset.'),
+    'description' => t('The author of the asset.'),
     'setter callback' => 'entity_property_verbatim_set',
     'setter permission' => 'administer farm_asset module',
     'required' => TRUE,
