@@ -110,6 +110,7 @@ projects[navbar][version] = "1.7"
 projects[openlayers][subdir] = "contrib"
 projects[openlayers][download][type] = "git"
 projects[openlayers][download][url] = "http://github.com/mstenta/openlayers.git"
+projects[openlayers][download][branch] = "ol4"
 projects[openlayers][download][revision] = "79932579ea2247cdd89ea52e48971a91898b978e"
 ; Remove base layer assignment code.
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_base_layer_mechanism-2543130-10.patch"
