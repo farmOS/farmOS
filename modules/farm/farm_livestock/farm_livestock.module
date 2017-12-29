@@ -163,7 +163,7 @@ function farm_livestock_feeds_tamper_default_alter(&$feeds_tampers) {
   $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
 
   // Convert castrated to boolean.
-  $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', 'animal', 'Castrated', 'convert_boolean');
+  $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', 'animal', 'Castrated', 'boolean_default_false');
   $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
 
   // Convert date of birth to a Unix timestamp.

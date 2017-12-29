@@ -115,26 +115,23 @@ function farm_import_feeds_tamper_plugin($entity_type, $bundle, $source, $plugin
   $id = $importer . '-' . $source_machine . '-' . $plugin;
 
   // Build the description and settings based on the plugin type.
-  switch ($plugin) {
+  $plugin_type = $plugin;
+  switch ($plugin_type) {
 
     // Boolean.
-    case 'convert_boolean':
-      $description = 'Convert to boolean';
+    case 'boolean_default_true':
+      $plugin_type = 'boolean_default';
+      $description = 'Convert to boolean (with default)';
       $settings = array(
-        'true_value' => 'yes',
-        'false_value' => 'no',
-        'match_case' => 0,
-        'no_match' => 'pass',
-        'other_text' => '',
+        'default_value' => TRUE,
       );
       break;
 
-    // Default value.
-    case 'default_value':
-      $description = 'Set value or default value';
+    case 'boolean_default_false':
+      $plugin_type = 'boolean_default';
+      $description = 'Convert to boolean (with default)';
       $settings = array(
-        'default_value' => $value,
-        'only_if_empty' => 1,
+        'default_value' => FALSE,
       );
       break;
 
@@ -198,7 +195,7 @@ function farm_import_feeds_tamper_plugin($entity_type, $bundle, $source, $plugin
   $feeds_tamper->id = $id;
   $feeds_tamper->importer = $importer;
   $feeds_tamper->source = $source;
-  $feeds_tamper->plugin_id = $plugin;
+  $feeds_tamper->plugin_id = $plugin_type;
   $feeds_tamper->settings = $settings;
   $feeds_tamper->weight = 0;
   $feeds_tamper->description = $description;
