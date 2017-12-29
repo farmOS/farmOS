@@ -45,6 +45,8 @@ projects[features][version] = "2.10"
 
 projects[feeds][subdir] = "contrib"
 projects[feeds][version] = "2.0-beta4"
+; Issue #1428096: Import using label of list field succeeds, but item not selected in list field
+projects[feeds][patch][] = "http://www.drupal.org/files/issues/feeds-map-to-allowed-value-1428096-8.patch"
 
 projects[feeds_tamper][subdir] = "contrib"
 projects[feeds_tamper][version] = "1.1"
