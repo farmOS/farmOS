@@ -532,7 +532,7 @@ function farm_livestock_field_default_field_instances() {
         'view_mode' => 'full',
       ),
       'type' => 'entityreference_view_widget',
-      'weight' => -8,
+      'weight' => 1,
     ),
   );
 
@@ -785,7 +785,7 @@ function farm_livestock_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => -7,
+      'weight' => 2,
     ),
   );
 

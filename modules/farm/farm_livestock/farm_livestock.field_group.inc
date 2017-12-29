@@ -21,7 +21,7 @@ function farm_livestock_field_group_info() {
   $field_group->parent_name = 'group_farm_general';
   $field_group->data = array(
     'label' => 'Assignment',
-    'weight' => '-5',
+    'weight' => '4',
     'children' => array(
       0 => 'field_farm_log_owner',
     ),
@@ -50,7 +50,7 @@ function farm_livestock_field_group_info() {
   $field_group->parent_name = 'group_farm_general';
   $field_group->data = array(
     'label' => 'Category',
-    'weight' => '-6',
+    'weight' => '3',
     'children' => array(
       0 => 'field_farm_log_category',
     ),
@@ -375,8 +375,8 @@ function farm_livestock_field_group_info() {
     'children' => array(
       0 => 'group_farm_files',
       1 => 'group_farm_general',
-      2 => 'group_farm_movement',
-      3 => 'group_farm_inventory',
+      2 => 'group_farm_inventory',
+      3 => 'group_farm_movement',
     ),
     'format_type' => 'field_group_easy_responsive_tabs_nav',
     'format_settings' => array(
