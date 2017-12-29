@@ -161,6 +161,17 @@ function farm_quantity_measure_options() {
 }
 
 /**
+ * Implements hook_preprocess_field().
+ */
+function farm_quantity_preprocess_field(&$vars) {
+
+  // Add quantity CSS when a Quantity field is displayed.
+  if (!empty($vars['element']['#field_name']) && $vars['element']['#field_name'] == 'field_farm_quantity') {
+    drupal_add_css(drupal_get_path('module', 'farm_quantity') . '/farm_quantity.css');
+  }
+}
+
+/**
  * Extract quantity data from a log, with optional filters for measure/label.
  *
  * @param Log $log

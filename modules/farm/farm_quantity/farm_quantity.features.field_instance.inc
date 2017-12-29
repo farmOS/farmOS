@@ -19,11 +19,11 @@ function farm_quantity_field_default_field_instances() {
     'description' => 'Optionally give this quantity measurement a label. This helps to differentiate multiple quantities with the same unit and measure that are in the same log.',
     'display' => array(
       'default' => array(
-        'label' => 'hidden',
+        'label' => 'inline',
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 1,
+        'weight' => 3,
       ),
     ),
     'entity_type' => 'field_collection_item',
@@ -54,7 +54,7 @@ function farm_quantity_field_default_field_instances() {
     'description' => 'What type of measurement is this quantity?',
     'display' => array(
       'default' => array(
-        'label' => 'hidden',
+        'label' => 'inline',
         'module' => 'list',
         'settings' => array(),
         'type' => 'list_default',
@@ -86,11 +86,11 @@ function farm_quantity_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'hidden',
+        'label' => 'inline',
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_plain',
-        'weight' => 3,
+        'weight' => 2,
       ),
     ),
     'entity_type' => 'field_collection_item',
@@ -121,7 +121,7 @@ function farm_quantity_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'hidden',
+        'label' => 'inline',
         'module' => 'fraction',
         'settings' => array(
           'auto_precision' => 1,
@@ -129,7 +129,7 @@ function farm_quantity_field_default_field_instances() {
           'prefix_suffix' => TRUE,
         ),
         'type' => 'fraction_decimal',
-        'weight' => 2,
+        'weight' => 1,
       ),
     ),
     'entity_type' => 'field_collection_item',
