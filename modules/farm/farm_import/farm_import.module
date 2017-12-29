@@ -19,6 +19,15 @@ function farm_import_ctools_plugin_api($module = NULL, $api = NULL) {
 }
 
 /**
+ * Implements hook_ctools_plugin_directory().
+ */
+function farm_import_ctools_plugin_directory($owner, $plugin_type) {
+  if ($owner == 'feeds_tamper' && $plugin_type == 'plugins') {
+    return 'includes/feeds_tamper/plugins/';
+  }
+}
+
+/**
  * Implements hook_farm_access_perms().
  */
 function farm_import_farm_access_perms($role) {
