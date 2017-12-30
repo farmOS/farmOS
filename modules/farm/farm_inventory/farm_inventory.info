@@ -5,6 +5,7 @@ package = farmOS
 dependencies[] = ctools
 dependencies[] = entityreference
 dependencies[] = entityreference_view_widget
+dependencies[] = farm_group
 dependencies[] = farm_log
 dependencies[] = features
 dependencies[] = field_collection
