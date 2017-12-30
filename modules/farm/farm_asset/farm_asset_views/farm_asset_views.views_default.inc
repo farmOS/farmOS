@@ -83,6 +83,10 @@ function farm_asset_views_views_default_views() {
   $handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
   $handler->display->display_options['empty']['area_text_custom']['content'] = 'No assets found.';
+  /* Relationship: Farm asset: Latest movement */
+  $handler->display->display_options['relationships']['latest_movement']['id'] = 'latest_movement';
+  $handler->display->display_options['relationships']['latest_movement']['table'] = 'farm_asset';
+  $handler->display->display_options['relationships']['latest_movement']['field'] = 'latest_movement';
   /* Field: Bulk operations: Farm asset */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
   $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'views_entity_farm_asset';
@@ -137,6 +141,13 @@ function farm_asset_views_views_default_views() {
   $handler->display->display_options['fields']['type']['table'] = 'farm_asset';
   $handler->display->display_options['fields']['type']['field'] = 'type';
   $handler->display->display_options['fields']['type']['label'] = 'Asset type';
+  /* Field: Field collection item: Movement to */
+  $handler->display->display_options['fields']['field_farm_move_to']['id'] = 'field_farm_move_to';
+  $handler->display->display_options['fields']['field_farm_move_to']['table'] = 'field_data_field_farm_move_to';
+  $handler->display->display_options['fields']['field_farm_move_to']['field'] = 'field_farm_move_to';
+  $handler->display->display_options['fields']['field_farm_move_to']['relationship'] = 'latest_movement';
+  $handler->display->display_options['fields']['field_farm_move_to']['label'] = 'Location';
+  $handler->display->display_options['fields']['field_farm_move_to']['delta_offset'] = '0';
   /* Field: Farm asset: Active */
   $handler->display->display_options['fields']['active']['id'] = 'active';
   $handler->display->display_options['fields']['active']['table'] = 'farm_asset';
@@ -181,6 +192,19 @@ function farm_asset_views_views_default_views() {
   $handler->display->display_options['filters']['type']['expose']['label'] = 'Asset type';
   $handler->display->display_options['filters']['type']['expose']['operator'] = 'type_op';
   $handler->display->display_options['filters']['type']['expose']['identifier'] = 'type';
+  /* Filter criterion: Field collection item: Movement to (field_farm_move_to) */
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['id'] = 'field_farm_move_to_tid';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['table'] = 'field_data_field_farm_move_to';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['field'] = 'field_farm_move_to_tid';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['relationship'] = 'latest_movement';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['value'] = '';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['group'] = 1;
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['operator_id'] = 'field_farm_move_to_tid_op';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['label'] = 'Location';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['operator'] = 'field_farm_move_to_tid_op';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['identifier'] = 'field_farm_move_to_tid';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['vocabulary'] = 'farm_areas';
   /* Filter criterion: Farm asset: Active */
   $handler->display->display_options['filters']['active']['id'] = 'active';
   $handler->display->display_options['filters']['active']['table'] = 'farm_asset';
@@ -219,6 +243,7 @@ function farm_asset_views_views_default_views() {
     t('next ›'),
     t('last »'),
     t('No assets found.'),
+    t('Latest movement'),
     t('Farm asset'),
     t('- Choose an operation -'),
     t('Delete'),
@@ -226,6 +251,7 @@ function farm_asset_views_views_default_views() {
     t('.'),
     t('Name'),
     t('Asset type'),
+    t('Location'),
     t('Active'),
     t('Type'),
     t('Page'),
