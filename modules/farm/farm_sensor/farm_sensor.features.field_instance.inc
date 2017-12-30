@@ -40,7 +40,7 @@ function farm_sensor_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => -9,
+      'weight' => 1,
     ),
   );
 

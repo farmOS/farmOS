@@ -175,7 +175,7 @@ function farm_livestock_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'taxonomy_autocomplete',
-      'weight' => -9,
+      'weight' => 1,
     ),
   );
 
@@ -259,7 +259,7 @@ function farm_livestock_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => -4,
+      'weight' => 2,
     ),
   );
 
