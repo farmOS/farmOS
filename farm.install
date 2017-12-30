@@ -686,6 +686,13 @@ function farm_update_7036(&$sandbox) {
 }
 
 /**
+ * Enable new Farm Asset Views module.
+ */
+function farm_update_7037(&$sandbox) {
+  _farm_update_enable_modules(array('farm_asset_views'));
+}
+
+/**
  * Update helper function: enable modules.
  */
 function _farm_update_enable_modules($modules = array()) {

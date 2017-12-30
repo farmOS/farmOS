@@ -1,0 +1,12 @@
+name = Farm Asset Views
+description = Default Views of farm assets.
+core = 7.x
+package = farmOS
+dependencies[] = ctools
+dependencies[] = farm_asset
+dependencies[] = features
+dependencies[] = views
+dependencies[] = views_bulk_operations
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:2
+features[views_view][] = farm_asset

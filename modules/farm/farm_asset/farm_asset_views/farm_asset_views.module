@@ -1,0 +1,9 @@
+<?php
+
+/**
+ * @file
+ * Farm asset views.
+ */
+
+// Include Features code.
+include_once 'farm_asset_views.features.inc';
