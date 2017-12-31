@@ -112,7 +112,7 @@ function farm_movement_field_default_field_instances() {
   // 'field_collection_item-field_farm_movement-field_farm_move_to'.
   $field_instances['field_collection_item-field_farm_movement-field_farm_move_to'] = array(
     'bundle' => 'field_farm_movement',
-    'default_value' => array(),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => 'Specify the area(s) that assets are being moved to. If you need to specify more precise locations (in addition to these areas), use the Geometry field below.',
     'display' => array(
@@ -127,7 +127,7 @@ function farm_movement_field_default_field_instances() {
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_farm_move_to',
     'label' => 'Movement to',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
     ),
