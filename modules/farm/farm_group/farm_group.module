@@ -258,7 +258,10 @@ function farm_group_asset_form_submit(array $form, array &$form_state) {
   $asset = $form_state['values']['farm_asset'];
 
   // Load the selected groups.
-  $groups = farm_asset_load_multiple($form_state['values']['group']['group']);
+  $groups = array();
+  if (!empty($form_state['values']['group']['group'])) {
+    $groups = farm_asset_load_multiple($form_state['values']['group']['group']);
+  }
 
   // If a new group needs to be created, create it and add it to the list.
   if (!empty($form_state['values']['group']['create'])) {
