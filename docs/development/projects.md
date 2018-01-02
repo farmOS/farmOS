@@ -108,6 +108,9 @@ added to extend your farmOS functionality:
 * **[Farm Sensor: Atmospi](https://github.com/mstenta/farm_sensor_atmospi)** -
   Integrates farmOS and [Atmospi](https://github.com/mstenta/atmospi) sensors.
 
+For more information and documentation about these modules, see
+[farmOS community modules].
+
 ## Theme
 
 The official farmOS theme ("Farm Theme") that is included with farmOS is a
@@ -122,5 +125,6 @@ Drupal theme based off of [Bootstrap].
 [installing farmOS]: /hosting/installing
 [Drush]: http://www.drush.org
 [Docker]: /development/docker
+[farmOS community modules]: /guide/contrib
 [Bootstrap]: https://drupal.org/project/bootstrap
 
