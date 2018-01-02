@@ -37,16 +37,12 @@ RUN { \
 RUN pecl install uploadprogress \
   && echo 'extension=uploadprogress.so' > /usr/local/etc/php/conf.d/uploadprogress.ini
 
-# Install other dependencies via apt-get.
-RUN apt-get update && apt-get install -y \
-  bzip2 \
-  git \
-  php5-geos \
-  phpunit \
-  unzip
+# Install Git.
+RUN apt-get update && apt-get install -y git
 
 # Build and install the GEOS PHP extension.
-RUN curl -fsSL 'http://download.osgeo.org/geos/geos-3.4.2.tar.bz2' -o geos.tar.bz2 \
+RUN apt-get update && apt-get install -y libgeos-dev bzip2 \
+  && curl -fsSL 'http://download.osgeo.org/geos/geos-3.4.2.tar.bz2' -o geos.tar.bz2 \
   && mkdir -p geos \
   && tar -xf geos.tar.bz2 -C geos --strip-components=1 \
   && rm geos.tar.bz2 \
