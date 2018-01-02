@@ -35,6 +35,13 @@ In addition to Drupal's basic requirements, farmOS also needs the following:
 * **PHP 5.5+.** Drupal 7 itself only requires PHP 5.2+, but farmOS makes heavy
   use of the [Openlayers module], and includes some custom code that uses
   newer features of PHP only available in 5.5+.
+* **PHP configuration** - It is recommended that you set the following PHP
+  configuration variables, to ensure that farmOS runs smoothly. It may run fine
+  without these settings, but some features may not work properly without them.
+    * `memory_limit=256M`
+    * `max_execution_time=240`
+    * `max_input_time=240`
+    * `max_input_vars = 5000`
 
 ### Optional dependencies
 
