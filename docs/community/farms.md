@@ -23,6 +23,10 @@ included in this list, add a comment to [this issue on Github].
 
 * Grierfield Farms (Grierfield, St Ann)
 
+## Poland
+
+* Piotr Małkowski (Dołubowo, Podlasie)
+
 ## United States
 
 * All In Farm (Georgetown, Texas)
