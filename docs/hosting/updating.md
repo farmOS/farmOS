@@ -22,7 +22,13 @@ The general procedure is:
 
     `drush rr`
 
-5. [Run database updates]!
+5. [Run database updates].
+6. Revert all Features via Drush. If you have intentionally overridden any
+   specific farmOS configurations, then you should NOT do this. You will need
+   to resolve any merge conflicts with farmOS core Features changes in order to
+   complete the upgrade. See [developing with updates in mind].
+
+    `drush fra`
 
 
 [updating Drupal core]: https://drupal.org/node/1223018
@@ -30,4 +36,5 @@ The general procedure is:
 [Drush]: https://github.com/drush-ops/drush
 [Drush Registry Rebuild]: https://drupal.org/project/registry_rebuild
 [Run database updates]: https://drupal.org/upgrade/running-update-php
+[developing with updates in mind]: /development/update-safety
 
