@@ -8,6 +8,13 @@ in the future.
   <source src="/demo/logs.mp4" type="video/mp4">
 </video>
 
+## Calendar
+
+In addition to the standard lists by log type, you can also view all logs in
+a calendar format. This is available via the main menu, next to "My Account",
+or directly at `farm/calendar`. Month, week, day, and year views are all
+available.
+
 ## Standard log types
 
 There are a number of different type of logs in farmOS - each with it's own
