@@ -40,6 +40,7 @@ included in this list, add a comment to [this issue on Github].
 * Moonstone Farm (Saranac Lake, New York)
 * North Mountain Pastures (Newport, Pennsylvania)
 * Patroon Land Farm (Voorheesville, New York)
+* Red Shirt Farm (Lanesborough, Massachusetts)
 * Silver Market Gardens (Silver City, New Mexico)
 * Stone Grown Farm (Mansfield, Connecticut)
 * Tuckaway Farm (Lee, New Hampshire)
