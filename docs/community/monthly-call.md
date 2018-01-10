@@ -16,7 +16,7 @@ actual GMT times for each call.
 
 ### 2018 Schedule
 
-January 10th @ 1pm EST / 6pm UTC
+<strike>January 10th @ 1pm EST / 6pm UTC</strike> ([cancelled due to flu](https://twitter.com/getFarmier/status/951140238679736320))
 
 February 14th @ 1pm EST / 6pm UTC
 
