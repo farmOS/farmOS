@@ -37,8 +37,8 @@ RUN { \
 RUN pecl install uploadprogress \
   && echo 'extension=uploadprogress.so' > /usr/local/etc/php/conf.d/uploadprogress.ini
 
-# Install Git.
-RUN apt-get update && apt-get install -y git
+# Install git and unzip for use by Drush Make.
+RUN apt-get update && apt-get install -y git unzip
 
 # Build and install the GEOS PHP extension.
 RUN apt-get update && apt-get install -y libgeos-dev bzip2 \
