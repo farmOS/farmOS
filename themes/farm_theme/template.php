@@ -287,6 +287,21 @@ function farm_theme_entity_view_alter(&$build, $type) {
 }
 
 /**
+ * Implements hook_entityreference_view_widget_rows_alter().
+ */
+function farm_theme_entityreference_view_widget_rows_alter(&$rows, $entities, $settings) {
+
+  // Fix "Checkbox titles missing with Bootstrap theme" in Entity Reference
+  // View Widget. See issue:
+  // https://www.drupal.org/project/entityreference_view_widget/issues/2524296
+  foreach (element_children($rows) as $key => $child) {
+    if ($rows[$key]['target_id']['#type'] == 'checkbox') {
+      $rows[$key]['target_id']['#title'] = $rows[$key]['target_id']['#field_suffix'];
+    }
+  }
+}
+
+/**
  * Implements hook_page_alter().
  */
 function farm_theme_page_alter(&$page) {
