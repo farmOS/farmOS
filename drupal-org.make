@@ -187,11 +187,7 @@ projects[module_filter][version] = "2.1"
 ; Themes
 ; -----------------------------------------------------------------------------
 
-projects[bootstrap][version] = "3.15"
-; Issue #2634358: Multiple collapsible fieldsets have broken triggers in BS3.3.4
-projects[bootstrap][patch][] = "http://www.drupal.org/files/issues/bootstrap_multifieldset-2634358-10.patch"
-; Issue #2910624: Collapsible fieldsets inside vertical tabs are disabled
-projects[bootstrap][patch][] = "http://www.drupal.org/files/issues/bootstrap_vertical_tabs_collapsible_after_2634358-2910624-4.patch"
+projects[bootstrap][version] = "3.18"
 
 ; -----------------------------------------------------------------------------
 ; Libraries
