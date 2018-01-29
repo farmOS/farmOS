@@ -115,6 +115,21 @@ function farm_ui_area_links($id, $entity_type) {
         'href' => $path,
       );
 
+      // Build an array of entity IDs included in the View.
+      $entity_ids = array();
+      foreach ($view->result as $delta => $record) {
+        $entity_ids[] = $record->id;
+      }
+
+      // Allow other modules to modify the link. Pass in some additional info
+      // about the entities it represents.
+      $entity_info = array(
+        'entity_type' => $entity_type,
+        'bundle' => $bundle,
+        'entity_ids' => $entity_ids,
+      );
+      drupal_alter('farm_area_link', $link, $entity_info);
+
       // Add the link.
       $links[] = l($link['title'], $link['href']);
     }

@@ -243,5 +243,27 @@ function hook_farm_ui_actions() {
 }
 
 /**
+ * Alter area link in area details created by Farm UI.
+ *
+ * @param $link
+ *   An array with keys for the link 'href' and 'title', which will be used
+ *   directly in the l() function.
+ * @param $entity_info
+ *   Information about the entity type that the link is being built for. This
+ *   will contain keys:
+ *     - entity_type: The entity type.
+ *     - bundle: The entity bundle.
+ *     - entity_ids: An array of entity IDs that are extracted from the entity
+ *       View results (which may be paged, in which case you only get the
+ *       first page).
+ */
+function hook_farm_area_link_alter(&$link, $entity_info) {
+  $link = array(
+    'title' => 'New title',
+    'href' => 'new-path',
+  );
+}
+
+/**
  * @}
  */
