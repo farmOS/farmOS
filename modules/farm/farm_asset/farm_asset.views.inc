@@ -41,6 +41,21 @@ function farm_asset_views_data_alter(&$data) {
       }
     }
   }
+
+  // Add a special filter for asset 'archived' property that treats it as a
+  // boolean value.
+  if (!empty($data['farm_asset']['archived'])) {
+    $data['farm_asset']['archived_boolean'] = array(
+      'title' => t('Archived (boolean)'),
+      'help' => t('Whether or not the asset is archived.'),
+      'filter' => array(
+        'real field' => 'archived',
+        'handler' => 'views_handler_filter_boolean_operator',
+        'type' => 'yes-no',
+        'accept null' => TRUE,
+      ),
+    );
+  }
 }
 
 /**
