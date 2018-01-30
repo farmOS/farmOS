@@ -104,21 +104,28 @@ function farm_asset_form(array $form, array &$form_state, FarmAsset $farm_asset)
     '#weight' => 99,
   );
 
-  // Asset active/inactive (new assets are active by default).
-  if (empty($farm_asset->id)) {
-    $farm_asset->active = TRUE;
+  // Asset archived status.
+  $archived_boolean = FALSE;
+  $archived_date = '';
+  if (!empty($farm_asset->archived)) {
+    $archived_boolean = TRUE;
+    $archived_date = ' (' . format_date($farm_asset->archived) . ')';
   }
   $form['asset_status'] = array(
     '#type' => 'fieldset',
     '#title' => t('Asset status'),
-    '#description' => t('Mark this asset as active/inactive. Inactive assets will not show in most lists, but will be visible in archives.'),
+    '#description' => t('Archive this asset. Archived assets will not show in most lists, but will be visible in archives.'),
     '#collapsible' => TRUE,
     '#group' => 'additional_settings'
   );
-  $form['asset_status']['active'] = array(
+  $form['asset_status']['archived_boolean'] = array(
     '#type' => 'checkbox',
-    '#title' => t('Active'),
-    '#default_value' => $farm_asset->active,
+    '#title' => t('Archived') . $archived_date,
+    '#default_value' => $archived_boolean,
+  );
+  $form['asset_status']['archived'] = array(
+    '#type' => 'value',
+    '#value' => $farm_asset->archived,
   );
 
   // Asset user id.
@@ -136,6 +143,7 @@ function farm_asset_form(array $form, array &$form_state, FarmAsset $farm_asset)
   $form['actions']['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Save'),
+    '#validate' => array('farm_asset_form_validate'),
     '#submit' => array('farm_asset_form_submit'),
   );
 
@@ -169,6 +177,19 @@ function farm_asset_form(array $form, array &$form_state, FarmAsset $farm_asset)
  */
 function farm_asset_form_validate(array $form, array &$form_state) {
 
+  // If the 'archived_boolean' checkbox has changed, update the asset.
+  if ($form_state['values']['archived_boolean'] != $form['asset_status']['archived_boolean']['#default_value']) {
+
+    // If it is checked, set the asset's archived date to current timestamp.
+    if (!empty($form_state['values']['archived_boolean'])) {
+      $form_state['values']['archived'] = REQUEST_TIME;
+    }
+
+    // Otherwise, set the asset's archived date to NULL.
+    else {
+      $form_state['values']['archived'] = NULL;
+    }
+  }
 }
 
 /**
