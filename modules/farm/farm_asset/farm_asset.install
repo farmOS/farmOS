@@ -65,12 +65,9 @@ function farm_asset_schema() {
         'not null' => TRUE,
         'default' => 0,
       ),
-      'active' => array(
-        'description' => 'Boolean indicating whether the asset is active.',
+      'archived' => array(
+        'description' => 'Timestamp when the asset was archived',
         'type' => 'int',
-        'size' => 'tiny',
-        'not null' => TRUE,
-        'default' => 1,
       ),
     ),
     'primary key' => array('id'),
@@ -80,7 +77,7 @@ function farm_asset_schema() {
       'uid' => array('uid'),
       'created' => array('created'),
       'modified' => array('changed'),
-      'active' => array('active'),
+      'archived' => array('archived'),
     ),
   );
   $schema['farm_asset_type'] = array(
