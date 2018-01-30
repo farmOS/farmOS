@@ -314,18 +314,15 @@ function farm_asset_entity_view($entity, $type, $view_mode, $langcode) {
     return;
   }
 
-  // Add the asset's "active" status.
-  if ($entity->active) {
-    $status = 'Yes';
+  // If the asset is archived, display a message and the archived date.
+  if (!empty($entity->archived)) {
+    drupal_set_message(t('This asset is archived. Archived assets should not be edited or deleted unless they contain information that is incorrect.'), 'warning');
+    $date = format_date($entity->archived);
+    $entity->content['archived'] = array(
+      '#markup' => '<div><strong>'. t('Archived') . ':</strong> ' . $date . '</div>',
+      '#weight' => -100,
+    );
   }
-  else {
-    $status = 'No';
-    drupal_set_message(t('This asset is no longer active. Inactive assets should be considered "archived" and should not be edited or deleted unless they contain information that is incorrect.'), 'warning');
-  }
-  $entity->content['active'] = array(
-    '#markup' => '<div><strong>Active:</strong> ' . $status . '</div>',
-    '#weight' => -100,
-  );
 }
 
 /**
