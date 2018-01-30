@@ -129,11 +129,6 @@ function farm_asset_form(array $form, array &$form_state, FarmAsset $farm_asset)
 
   field_attach_form('farm_asset', $farm_asset, $form, $form_state);
 
-  $submit = array();
-  if (!empty($form['#submit'])) {
-    $submit += $form['#submit'];
-  }
-
   $form['actions'] = array(
     '#weight' => 100,
   );
@@ -141,7 +136,7 @@ function farm_asset_form(array $form, array &$form_state, FarmAsset $farm_asset)
   $form['actions']['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Save'),
-    '#submit' => $submit + array('farm_asset_form_submit'),
+    '#submit' => array('farm_asset_form_submit'),
   );
 
   // Show Delete button if allowed.
