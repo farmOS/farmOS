@@ -270,13 +270,13 @@ function farm_asset_entity_property_info_alter(&$info) {
     'required' => TRUE,
     'schema field' => 'changed',
   );
-  $properties['active'] = array(
-    'label' => t('Active'),
-    'description' => t('Whether the asset is active.'),
+  $properties['archived'] = array(
+    'label' => t('Archived'),
+    'type' => 'date',
+    'description' => t('The timestamp when the asset was archived.'),
     'setter callback' => 'entity_property_verbatim_set',
     'setter permission' => 'administer farm_asset module',
-    'schema field' => 'active',
-    'type' => 'boolean',
+    'schema field' => 'archived',
   );
 }
 
