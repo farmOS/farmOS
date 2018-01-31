@@ -6,7 +6,7 @@
  */
 
 /**
- * A relationship handlers which reverse entity references.
+ * A relationship handler for reverse entity references.
  *
  * @ingroup views_relationship_handlers
  */
@@ -15,22 +15,22 @@ class farm_asset_handler_relationship_entity_reverse extends views_handler_relat
   function option_definition() {
     $options = parent::option_definition();
 
-    // Add an option for limiting the join to "active" assets.
-    $options['active'] = array('default' => TRUE, 'bool' => TRUE);
+    // Add an option for limiting the join to non-archived assets.
+    $options['archived'] = array('default' => FALSE, 'bool' => TRUE);
 
     return $options;
   }
 
   /**
-   * Default options form that provides the "active" checkbox.
+   * Default options form that provides the "archived" checkbox.
    */
   function options_form(&$form, &$form_state) {
     parent::options_form($form, $form_state);
-    $form['active'] = array(
+    $form['archived'] = array(
       '#type' => 'checkbox',
-      '#title' => t('Active assets'),
-      '#description' => t('Only include assets that are currently active.'),
-      '#default_value' => !empty($this->options['active']),
+      '#title' => t('Archived assets'),
+      '#description' => t('Include archived assets.'),
+      '#default_value' => !empty($this->options['archived']),
     );
   }
 
@@ -51,13 +51,14 @@ class farm_asset_handler_relationship_entity_reverse extends views_handler_relat
       'field' => $this->definition['base field'],
     );
 
-    // If the "active" option is set, add an extra join condition that
-    // excludes inactive assets from the join.
-    if (!empty($this->options['active'])) {
+    // If the "archived" option is not set, add an extra join condition that
+    // excludes archived assets from the join.
+    if (empty($this->options['archived'])) {
       $second['extra'] = array(
         0 => array(
-          'field' => 'active',
-          'value' => 1,
+          'field' => 'archived',
+          'operator' => 'IS',
+          'value' => NULL,
           'numeric' => TRUE,
         ),
       );

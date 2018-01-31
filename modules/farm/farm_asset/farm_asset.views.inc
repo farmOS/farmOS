@@ -20,7 +20,7 @@ function farm_asset_views_data_alter(&$data) {
    * Crops in Farm Plantings.
    *
    * The reason we override is so that we can add a little extra logic to the
-   * join so that only "active" assets are included. This is provided as an
+   * join so that only non-archived assets are included. This is provided as an
    * option in the relationship handler, so it can be added only when necessary.
    */
   if (!empty($data['taxonomy_term_data'])) {
