@@ -434,14 +434,14 @@ function farm_group_asset_membership_action(array $assets, $context = array()) {
 /**
  * Build a list of group options for use in form select fields.
  *
- * @param bool $active
- *   Whether or not to limit the list to active groups. Defaults to TRUE. If
- *   FALSE, both active and inactive groups will be included in the list.
+ * @param bool $archived
+ *   Whether or not to include archived groups. Defaults to FALSE. If TRUE,
+ *   both active and archived groups will be included in the list.
  *
  * @return array
  *   Returns an array of groups for use in a form.
  */
-function farm_group_options($active = TRUE) {
+function farm_group_options($archived = FALSE) {
 
   // Start an empty options array.
   $options = array();
@@ -452,12 +452,12 @@ function farm_group_options($active = TRUE) {
   $query->entityCondition('bundle', 'group');
   $query->propertyOrderBy('name', 'ASC');
 
-  // Limit to active groups.
-  if (!empty($active)) {
-    $query->propertyCondition('active', TRUE);
+  // Limit to non-archived groups.
+  if (empty($archived)) {
+    $query->propertyCondition('archived', NULL);
   }
 
-  // Execute the query and buid a list of options.
+  // Execute the query and build a list of options.
   $result = $query->execute();
   if (isset($result['farm_asset'])) {
     $group_ids = array_keys($result['farm_asset']);
@@ -630,14 +630,13 @@ function farm_group_asset_membership_query($asset_id, $time = REQUEST_TIME, $don
  * @param bool $done
  *   Whether or not to only show logs that are marked as "done".
  *   Defaults to TRUE.
- * @param bool $active
- *   Whether or not to only include member assets that are active. Defaults to
- *   TRUE.
+ * @param bool $archived
+ *   Whether or not to include archived member assets. Defaults to FALSE.
  *
  * @return array
  *   Returns an array of the group's member assets, keyed by asset ID.
  */
-function farm_group_members(FarmAsset $group, $time = REQUEST_TIME, $done = TRUE, $active = TRUE) {
+function farm_group_members(FarmAsset $group, $time = REQUEST_TIME, $done = TRUE, $archived = FALSE) {
 
   // Start an empty array of members.
   $members = array();
@@ -648,7 +647,7 @@ function farm_group_members(FarmAsset $group, $time = REQUEST_TIME, $done = TRUE
   }
 
   // Build a query to find all members of the group.
-  $query = farm_group_members_query($group->id, $time, $done, $active);
+  $query = farm_group_members_query($group->id, $time, $done, $archived);
 
   // Execute the query to get a list of asset IDs.
   $result = $query->execute();
@@ -685,14 +684,13 @@ function farm_group_members(FarmAsset $group, $time = REQUEST_TIME, $done = TRUE
  * @param bool $done
  *   Whether or not to only show logs that are marked as "done". Defaults to
  *   TRUE.
- * @param bool $active
- *   Whether or not to only include member assets that are active. Defaults to
- *   TRUE.
+ * @param bool $archived
+ *   Whether or not to include archived member assets. Defaults to FALSE.
  *
  * @return \SelectQuery
  *   Returns a SelectQuery object.
  */
-function farm_group_members_query($group_id, $time = REQUEST_TIME, $done = TRUE, $active = TRUE) {
+function farm_group_members_query($group_id, $time = REQUEST_TIME, $done = TRUE, $archived = TRUE) {
 
   /**
    * Please read the comments in farm_log_asset_query() to understand how this
@@ -741,10 +739,10 @@ function farm_group_members_query($group_id, $time = REQUEST_TIME, $done = TRUE,
   $query->innerJoin('field_data_field_farm_group', 'ss_current_log_fdffg', "ss_current_log_fdffg.entity_type = 'field_collection_item' AND ss_current_log_fdffg.bundle = 'field_farm_membership' AND ss_current_log_fdffg.entity_id = ss_current_log_fdffm.field_farm_membership_value AND ss_current_log_fdffg.deleted = 0");
   $query->where('ss_current_log_fdffg.field_farm_group_target_id = ' . $group_id);
 
-  // Limit to active assets, if requested.
-  if (!empty($active)) {
+  // Exclude archived assets, if requested.
+  if (empty($archived)) {
     $query->join('farm_asset', 'ss_current_log_fa', "ss_asset_current_log.field_farm_asset_target_id = ss_current_log_fa.id");
-    $query->where('ss_current_log_fa.active = 1');
+    $query->where('ss_current_log_fa.archived IS NULL');
   }
 
   // Add the asset ID field.
