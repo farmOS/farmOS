@@ -30,9 +30,8 @@ importers.
 Common asset fields include:
 
 * **Name** - The name of the asset (required).
-* **Active** - Whether or not the asset is currently active. See
-  "Boolean options" below for allowed values. If omitted, the asset will be
-  marked as "active".
+* **Archived** - Whether or not the asset is archived. See "Boolean options"
+  below for allowed values. If omitted, the asset will not be archived.
 * **Description** - A longer description of the asset.
 * **Parent IDs** - A comma-separated list of asset IDs that represent parents
   of the asset being imported. These parent assets must already exist in farmOS
@@ -62,9 +61,9 @@ importers may have additional required fields.
 
 ## Boolean values
 
-The following values are acceptable for boolean fields, like "Active" for asset
-importers, and "Done" for log importers. These values are not case sensitive
-(so "Yes" and "yes" will be treated the same).
+The following values are acceptable for boolean fields, like "Archived" for
+asset importers, and "Done" for log importers. These values are not case
+sensitive (so "Yes" and "yes" will be treated the same).
 
 ### True
 
