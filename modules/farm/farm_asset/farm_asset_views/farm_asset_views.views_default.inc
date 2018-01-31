@@ -39,6 +39,8 @@ function farm_asset_views_views_default_views() {
     'id' => 'id',
     'name' => 'name',
     'type' => 'type',
+    'field_farm_group' => 'field_farm_group',
+    'field_farm_move_to' => 'field_farm_move_to',
     'archived' => 'archived',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
@@ -65,6 +67,16 @@ function farm_asset_views_views_default_views() {
     'type' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_group' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_move_to' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,

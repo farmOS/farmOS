@@ -433,7 +433,7 @@ function farm_crop_views_default_views() {
     'link' => 1,
   );
   $handler->display->display_options['fields']['field_farm_asset']['delta_offset'] = '0';
-  /* Field: Field collection item: Value */
+  /* Field: Field: Value */
   $handler->display->display_options['fields']['field_farm_quantity_value']['id'] = 'field_farm_quantity_value';
   $handler->display->display_options['fields']['field_farm_quantity_value']['table'] = 'field_data_field_farm_quantity_value';
   $handler->display->display_options['fields']['field_farm_quantity_value']['field'] = 'field_farm_quantity_value';
@@ -444,7 +444,7 @@ function farm_crop_views_default_views() {
     'precision' => '0',
     'auto_precision' => 1,
   );
-  /* Field: Field collection item: Units */
+  /* Field: Field: Units */
   $handler->display->display_options['fields']['field_farm_quantity_units']['id'] = 'field_farm_quantity_units';
   $handler->display->display_options['fields']['field_farm_quantity_units']['table'] = 'field_data_field_farm_quantity_units';
   $handler->display->display_options['fields']['field_farm_quantity_units']['field'] = 'field_farm_quantity_units';
@@ -969,7 +969,7 @@ function farm_crop_views_default_views() {
     'link' => 1,
   );
   $handler->display->display_options['fields']['field_farm_asset']['delta_offset'] = '0';
-  /* Field: Field collection item: Value */
+  /* Field: Field: Value */
   $handler->display->display_options['fields']['field_farm_quantity_value']['id'] = 'field_farm_quantity_value';
   $handler->display->display_options['fields']['field_farm_quantity_value']['table'] = 'field_data_field_farm_quantity_value';
   $handler->display->display_options['fields']['field_farm_quantity_value']['field'] = 'field_farm_quantity_value';
@@ -980,7 +980,7 @@ function farm_crop_views_default_views() {
     'precision' => '0',
     'auto_precision' => 1,
   );
-  /* Field: Field collection item: Units */
+  /* Field: Field: Units */
   $handler->display->display_options['fields']['field_farm_quantity_units']['id'] = 'field_farm_quantity_units';
   $handler->display->display_options['fields']['field_farm_quantity_units']['table'] = 'field_data_field_farm_quantity_units';
   $handler->display->display_options['fields']['field_farm_quantity_units']['field'] = 'field_farm_quantity_units';
