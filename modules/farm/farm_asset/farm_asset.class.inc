@@ -43,7 +43,7 @@ class FarmAssetController extends EntityAPIController {
       'uid' => $user->uid,
       'created' => REQUEST_TIME,
       'changed' => REQUEST_TIME,
-      'active' => TRUE,
+      'archived' => NULL,
     );
     return parent::create($values);
   }

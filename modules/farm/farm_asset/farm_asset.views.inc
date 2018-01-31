@@ -20,7 +20,7 @@ function farm_asset_views_data_alter(&$data) {
    * Crops in Farm Plantings.
    *
    * The reason we override is so that we can add a little extra logic to the
-   * join so that only "active" assets are included. This is provided as an
+   * join so that only non-archived assets are included. This is provided as an
    * option in the relationship handler, so it can be added only when necessary.
    */
   if (!empty($data['taxonomy_term_data'])) {
@@ -40,6 +40,21 @@ function farm_asset_views_data_alter(&$data) {
         }
       }
     }
+  }
+
+  // Add a special filter for asset 'archived' property that treats it as a
+  // boolean value.
+  if (!empty($data['farm_asset']['archived'])) {
+    $data['farm_asset']['archived_boolean'] = array(
+      'title' => t('Archived (boolean)'),
+      'help' => t('Whether or not the asset is archived.'),
+      'filter' => array(
+        'real field' => 'archived',
+        'handler' => 'views_handler_filter_boolean_operator',
+        'type' => 'yes-no',
+        'accept null' => TRUE,
+      ),
+    );
   }
 }
 

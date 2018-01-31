@@ -184,17 +184,16 @@ function farm_inventory_views_default_views() {
   $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['operator'] = 'field_farm_move_to_tid_op';
   $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['identifier'] = 'field_farm_move_to_tid';
   $handler->display->display_options['filters']['field_farm_move_to_tid']['vocabulary'] = 'farm_areas';
-  /* Filter criterion: Farm asset: Active */
-  $handler->display->display_options['filters']['active']['id'] = 'active';
-  $handler->display->display_options['filters']['active']['table'] = 'farm_asset';
-  $handler->display->display_options['filters']['active']['field'] = 'active';
-  $handler->display->display_options['filters']['active']['value'] = '1';
-  $handler->display->display_options['filters']['active']['group'] = 1;
-  $handler->display->display_options['filters']['active']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['active']['expose']['operator_id'] = '';
-  $handler->display->display_options['filters']['active']['expose']['label'] = 'Active';
-  $handler->display->display_options['filters']['active']['expose']['operator'] = 'active_op';
-  $handler->display->display_options['filters']['active']['expose']['identifier'] = 'active';
+  /* Filter criterion: Farm asset: Archived (boolean) */
+  $handler->display->display_options['filters']['archived_boolean']['id'] = 'archived_boolean';
+  $handler->display->display_options['filters']['archived_boolean']['table'] = 'farm_asset';
+  $handler->display->display_options['filters']['archived_boolean']['field'] = 'archived_boolean';
+  $handler->display->display_options['filters']['archived_boolean']['value'] = '0';
+  $handler->display->display_options['filters']['archived_boolean']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['archived_boolean']['expose']['operator_id'] = '';
+  $handler->display->display_options['filters']['archived_boolean']['expose']['label'] = 'Archived';
+  $handler->display->display_options['filters']['archived_boolean']['expose']['operator'] = 'archived_boolean_op';
+  $handler->display->display_options['filters']['archived_boolean']['expose']['identifier'] = 'archived_boolean';
 
   /* Display: Entity Reference View Widget */
   $handler = $view->new_display('entityreference_view_widget', 'Entity Reference View Widget', 'entityreference_view_widget');
@@ -263,7 +262,7 @@ function farm_inventory_views_default_views() {
     t('Group'),
     t('Name'),
     t('All'),
-    t('Active'),
+    t('Archived'),
     t('Entity Reference View Widget'),
     t('Select asset'),
   );

@@ -44,7 +44,7 @@ function farm_soil_compost_views_default_views() {
     'field_farm_description' => 'field_farm_description',
     'field_farm_group' => 'field_farm_group',
     'field_farm_move_to' => 'field_farm_move_to',
-    'active' => 'active',
+    'archived' => 'archived',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
@@ -89,7 +89,7 @@ function farm_soil_compost_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
-    'active' => array(
+    'archived' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -202,11 +202,13 @@ function farm_soil_compost_views_default_views() {
   $handler->display->display_options['fields']['field_farm_move_to']['field'] = 'field_farm_move_to';
   $handler->display->display_options['fields']['field_farm_move_to']['relationship'] = 'latest_movement';
   $handler->display->display_options['fields']['field_farm_move_to']['label'] = 'Location';
-  /* Field: Farm asset: Active */
-  $handler->display->display_options['fields']['active']['id'] = 'active';
-  $handler->display->display_options['fields']['active']['table'] = 'farm_asset';
-  $handler->display->display_options['fields']['active']['field'] = 'active';
-  $handler->display->display_options['fields']['active']['not'] = 0;
+  /* Field: Farm asset: Archived */
+  $handler->display->display_options['fields']['archived']['id'] = 'archived';
+  $handler->display->display_options['fields']['archived']['table'] = 'farm_asset';
+  $handler->display->display_options['fields']['archived']['field'] = 'archived';
+  $handler->display->display_options['fields']['archived']['date_format'] = 'custom';
+  $handler->display->display_options['fields']['archived']['custom_date_format'] = 'M j Y';
+  $handler->display->display_options['fields']['archived']['second_date_format'] = 'long';
   /* Sort criterion: Farm asset: Name */
   $handler->display->display_options['sorts']['name']['id'] = 'name';
   $handler->display->display_options['sorts']['name']['table'] = 'farm_asset';
@@ -275,17 +277,16 @@ function farm_soil_compost_views_default_views() {
   $handler->display->display_options['filters']['field_farm_move_to_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_farm_move_to_tid']['vocabulary'] = 'farm_areas';
   $handler->display->display_options['filters']['field_farm_move_to_tid']['hierarchy'] = 1;
-  /* Filter criterion: Farm asset: Active */
-  $handler->display->display_options['filters']['active']['id'] = 'active';
-  $handler->display->display_options['filters']['active']['table'] = 'farm_asset';
-  $handler->display->display_options['filters']['active']['field'] = 'active';
-  $handler->display->display_options['filters']['active']['value'] = '1';
-  $handler->display->display_options['filters']['active']['group'] = 1;
-  $handler->display->display_options['filters']['active']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['active']['expose']['operator_id'] = '';
-  $handler->display->display_options['filters']['active']['expose']['label'] = 'Active';
-  $handler->display->display_options['filters']['active']['expose']['operator'] = 'active_op';
-  $handler->display->display_options['filters']['active']['expose']['identifier'] = 'active';
+  /* Filter criterion: Farm asset: Archived (boolean) */
+  $handler->display->display_options['filters']['archived_boolean']['id'] = 'archived_boolean';
+  $handler->display->display_options['filters']['archived_boolean']['table'] = 'farm_asset';
+  $handler->display->display_options['filters']['archived_boolean']['field'] = 'archived_boolean';
+  $handler->display->display_options['filters']['archived_boolean']['value'] = '0';
+  $handler->display->display_options['filters']['archived_boolean']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['archived_boolean']['expose']['operator_id'] = '';
+  $handler->display->display_options['filters']['archived_boolean']['expose']['label'] = 'Archived';
+  $handler->display->display_options['filters']['archived_boolean']['expose']['operator'] = 'archived_boolean_op';
+  $handler->display->display_options['filters']['archived_boolean']['expose']['identifier'] = 'archived_boolean';
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
@@ -349,7 +350,7 @@ function farm_soil_compost_views_default_views() {
     t('Description'),
     t('Group'),
     t('Location'),
-    t('Active'),
+    t('Archived'),
     t('All'),
     t('Compost in %1'),
     t('Page'),

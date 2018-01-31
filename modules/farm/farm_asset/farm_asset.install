@@ -65,12 +65,9 @@ function farm_asset_schema() {
         'not null' => TRUE,
         'default' => 0,
       ),
-      'active' => array(
-        'description' => 'Boolean indicating whether the asset is active.',
+      'archived' => array(
+        'description' => 'Timestamp when the asset was archived',
         'type' => 'int',
-        'size' => 'tiny',
-        'not null' => TRUE,
-        'default' => 1,
       ),
     ),
     'primary key' => array('id'),
@@ -80,7 +77,7 @@ function farm_asset_schema() {
       'uid' => array('uid'),
       'created' => array('created'),
       'modified' => array('changed'),
-      'active' => array('active'),
+      'archived' => array('archived'),
     ),
   );
   $schema['farm_asset_type'] = array(
@@ -164,4 +161,29 @@ function farm_asset_update_7001(&$sandbox) {
 function farm_asset_update_7002(&$sandbox) {
   db_drop_index('farm_asset', 'type');
   db_add_index('farm_asset', 'type_index', array('type'));
+}
+
+/**
+ * Change the asset active property to an archived timestamp.
+ */
+function farm_asset_update_7003(&$sandbox) {
+
+  // Add the new archived field and index.
+  $new_field = array(
+    'description' => 'Timestamp when the asset was last archived',
+    'type' => 'int',
+  );
+  $new_keys = array(
+    'indexes' => array(
+      'archived' => array('archived'),
+    ),
+  );
+  db_add_field('farm_asset', 'archived', $new_field, $new_keys);
+
+  // Populate the archived field of inactive assets with the value from the
+  // asset's changed field.
+  db_query('UPDATE {farm_asset} SET archived = changed WHERE active = 0');
+
+  // Drop the active field.
+  db_drop_field('farm_asset', 'active');
 }

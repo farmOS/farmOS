@@ -270,13 +270,13 @@ function farm_asset_entity_property_info_alter(&$info) {
     'required' => TRUE,
     'schema field' => 'changed',
   );
-  $properties['active'] = array(
-    'label' => t('Active'),
-    'description' => t('Whether the asset is active.'),
+  $properties['archived'] = array(
+    'label' => t('Archived'),
+    'type' => 'date',
+    'description' => t('The timestamp when the asset was archived.'),
     'setter callback' => 'entity_property_verbatim_set',
     'setter permission' => 'administer farm_asset module',
-    'schema field' => 'active',
-    'type' => 'boolean',
+    'schema field' => 'archived',
   );
 }
 
@@ -314,18 +314,15 @@ function farm_asset_entity_view($entity, $type, $view_mode, $langcode) {
     return;
   }
 
-  // Add the asset's "active" status.
-  if ($entity->active) {
-    $status = 'Yes';
+  // If the asset is archived, display a message and the archived date.
+  if (!empty($entity->archived)) {
+    drupal_set_message(t('This asset is archived. Archived assets should not be edited or deleted unless they contain information that is incorrect.'), 'warning');
+    $date = format_date($entity->archived);
+    $entity->content['archived'] = array(
+      '#markup' => '<div><strong>'. t('Archived') . ':</strong> ' . $date . '</div>',
+      '#weight' => -100,
+    );
   }
-  else {
-    $status = 'No';
-    drupal_set_message(t('This asset is no longer active. Inactive assets should be considered "archived" and should not be edited or deleted unless they contain information that is incorrect.'), 'warning');
-  }
-  $entity->content['active'] = array(
-    '#markup' => '<div><strong>Active:</strong> ' . $status . '</div>',
-    '#weight' => -100,
-  );
 }
 
 /**

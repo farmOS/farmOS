@@ -125,12 +125,14 @@ function farm_movement_views_default_views() {
   $handler->display->display_options['fields']['type']['field'] = 'type';
   $handler->display->display_options['fields']['type']['relationship'] = 'field_farm_asset_target_id';
   $handler->display->display_options['fields']['type']['label'] = 'Type';
-  /* Field: Farm asset: Active */
-  $handler->display->display_options['fields']['active']['id'] = 'active';
-  $handler->display->display_options['fields']['active']['table'] = 'farm_asset';
-  $handler->display->display_options['fields']['active']['field'] = 'active';
-  $handler->display->display_options['fields']['active']['relationship'] = 'field_farm_asset_target_id';
-  $handler->display->display_options['fields']['active']['not'] = 0;
+  /* Field: Farm asset: Archived */
+  $handler->display->display_options['fields']['archived']['id'] = 'archived';
+  $handler->display->display_options['fields']['archived']['table'] = 'farm_asset';
+  $handler->display->display_options['fields']['archived']['field'] = 'archived';
+  $handler->display->display_options['fields']['archived']['relationship'] = 'field_farm_asset_target_id';
+  $handler->display->display_options['fields']['archived']['date_format'] = 'custom';
+  $handler->display->display_options['fields']['archived']['custom_date_format'] = 'M j Y';
+  $handler->display->display_options['fields']['archived']['second_date_format'] = 'long';
   /* Field: Log: Timestamp */
   $handler->display->display_options['fields']['timestamp']['id'] = 'timestamp';
   $handler->display->display_options['fields']['timestamp']['table'] = 'log';
@@ -232,7 +234,7 @@ function farm_movement_views_default_views() {
     t('.'),
     t('Name'),
     t('Type'),
-    t('Active'),
+    t('Archived'),
     t('Arrived'),
     t('All'),
     t('Assets in %1'),
@@ -293,17 +295,19 @@ function farm_movement_views_default_views() {
   $handler->display->display_options['arguments']['type']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['type']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['arguments']['type']['limit'] = '0';
-  /* Filter criterion: Farm asset: Active */
-  $handler->display->display_options['filters']['active']['id'] = 'active';
-  $handler->display->display_options['filters']['active']['table'] = 'farm_asset';
-  $handler->display->display_options['filters']['active']['field'] = 'active';
-  $handler->display->display_options['filters']['active']['value'] = '1';
+  /* Filter criterion: Farm asset: Archived (boolean) */
+  $handler->display->display_options['filters']['archived_boolean']['id'] = 'archived_boolean';
+  $handler->display->display_options['filters']['archived_boolean']['table'] = 'farm_asset';
+  $handler->display->display_options['filters']['archived_boolean']['field'] = 'archived_boolean';
+  $handler->display->display_options['filters']['archived_boolean']['value'] = '0';
+  $handler->display->display_options['filters']['archived_boolean']['group'] = 1;
   /* Filter criterion: Field: Geometry (field_farm_geofield:geom) */
   $handler->display->display_options['filters']['field_farm_geofield_geom']['id'] = 'field_farm_geofield_geom';
   $handler->display->display_options['filters']['field_farm_geofield_geom']['table'] = 'field_data_field_farm_geofield';
   $handler->display->display_options['filters']['field_farm_geofield_geom']['field'] = 'field_farm_geofield_geom';
   $handler->display->display_options['filters']['field_farm_geofield_geom']['relationship'] = 'latest_movement';
   $handler->display->display_options['filters']['field_farm_geofield_geom']['operator'] = 'not empty';
+  $handler->display->display_options['filters']['field_farm_geofield_geom']['group'] = 1;
 
   /* Display: Full Geometry */
   $handler = $view->new_display('feed', 'Full Geometry', 'feed_full');
