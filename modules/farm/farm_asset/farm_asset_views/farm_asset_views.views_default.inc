@@ -39,7 +39,7 @@ function farm_asset_views_views_default_views() {
     'id' => 'id',
     'name' => 'name',
     'type' => 'type',
-    'active' => 'active',
+    'archived' => 'archived',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
@@ -69,7 +69,7 @@ function farm_asset_views_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
-    'active' => array(
+    'archived' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -167,11 +167,13 @@ function farm_asset_views_views_default_views() {
   $handler->display->display_options['fields']['field_farm_move_to']['relationship'] = 'latest_movement';
   $handler->display->display_options['fields']['field_farm_move_to']['label'] = 'Location';
   $handler->display->display_options['fields']['field_farm_move_to']['delta_offset'] = '0';
-  /* Field: Farm asset: Active */
-  $handler->display->display_options['fields']['active']['id'] = 'active';
-  $handler->display->display_options['fields']['active']['table'] = 'farm_asset';
-  $handler->display->display_options['fields']['active']['field'] = 'active';
-  $handler->display->display_options['fields']['active']['not'] = 0;
+  /* Field: Farm asset: Archived */
+  $handler->display->display_options['fields']['archived']['id'] = 'archived';
+  $handler->display->display_options['fields']['archived']['table'] = 'farm_asset';
+  $handler->display->display_options['fields']['archived']['field'] = 'archived';
+  $handler->display->display_options['fields']['archived']['date_format'] = 'custom';
+  $handler->display->display_options['fields']['archived']['custom_date_format'] = 'M j Y';
+  $handler->display->display_options['fields']['archived']['second_date_format'] = 'long';
   /* Sort criterion: Farm asset: Name */
   $handler->display->display_options['sorts']['name']['id'] = 'name';
   $handler->display->display_options['sorts']['name']['table'] = 'farm_asset';
@@ -184,12 +186,13 @@ function farm_asset_views_views_default_views() {
   $handler->display->display_options['sorts']['type']['field'] = 'type';
   $handler->display->display_options['sorts']['type']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['type']['expose']['label'] = 'Type';
-  /* Sort criterion: Farm asset: Active */
-  $handler->display->display_options['sorts']['active']['id'] = 'active';
-  $handler->display->display_options['sorts']['active']['table'] = 'farm_asset';
-  $handler->display->display_options['sorts']['active']['field'] = 'active';
-  $handler->display->display_options['sorts']['active']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['active']['expose']['label'] = 'Active';
+  /* Sort criterion: Farm asset: Archived */
+  $handler->display->display_options['sorts']['archived']['id'] = 'archived';
+  $handler->display->display_options['sorts']['archived']['table'] = 'farm_asset';
+  $handler->display->display_options['sorts']['archived']['field'] = 'archived';
+  $handler->display->display_options['sorts']['archived']['order'] = 'DESC';
+  $handler->display->display_options['sorts']['archived']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['archived']['expose']['label'] = 'Archived date';
   /* Filter criterion: Farm asset: Name */
   $handler->display->display_options['filters']['name']['id'] = 'name';
   $handler->display->display_options['filters']['name']['table'] = 'farm_asset';
@@ -236,17 +239,16 @@ function farm_asset_views_views_default_views() {
   $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['operator'] = 'field_farm_move_to_tid_op';
   $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['identifier'] = 'field_farm_move_to_tid';
   $handler->display->display_options['filters']['field_farm_move_to_tid']['vocabulary'] = 'farm_areas';
-  /* Filter criterion: Farm asset: Active */
-  $handler->display->display_options['filters']['active']['id'] = 'active';
-  $handler->display->display_options['filters']['active']['table'] = 'farm_asset';
-  $handler->display->display_options['filters']['active']['field'] = 'active';
-  $handler->display->display_options['filters']['active']['value'] = '1';
-  $handler->display->display_options['filters']['active']['group'] = 1;
-  $handler->display->display_options['filters']['active']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['active']['expose']['operator_id'] = '';
-  $handler->display->display_options['filters']['active']['expose']['label'] = 'Active';
-  $handler->display->display_options['filters']['active']['expose']['operator'] = 'active_op';
-  $handler->display->display_options['filters']['active']['expose']['identifier'] = 'active';
+  /* Filter criterion: Farm asset: Archived (boolean) */
+  $handler->display->display_options['filters']['archived_boolean']['id'] = 'archived_boolean';
+  $handler->display->display_options['filters']['archived_boolean']['table'] = 'farm_asset';
+  $handler->display->display_options['filters']['archived_boolean']['field'] = 'archived_boolean';
+  $handler->display->display_options['filters']['archived_boolean']['value'] = '0';
+  $handler->display->display_options['filters']['archived_boolean']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['archived_boolean']['expose']['operator_id'] = '';
+  $handler->display->display_options['filters']['archived_boolean']['expose']['label'] = 'Archived';
+  $handler->display->display_options['filters']['archived_boolean']['expose']['operator'] = 'archived_boolean_op';
+  $handler->display->display_options['filters']['archived_boolean']['expose']['identifier'] = 'archived_boolean';
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
@@ -286,8 +288,9 @@ function farm_asset_views_views_default_views() {
     t('Asset type'),
     t('Group'),
     t('Location'),
-    t('Active'),
+    t('Archived'),
     t('Type'),
+    t('Archived date'),
     t('Page'),
   );
   $export['farm_asset'] = $view;
@@ -468,17 +471,16 @@ function farm_asset_views_views_default_views() {
   $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['operator'] = 'field_farm_move_to_tid_op';
   $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['identifier'] = 'field_farm_move_to_tid';
   $handler->display->display_options['filters']['field_farm_move_to_tid']['vocabulary'] = 'farm_areas';
-  /* Filter criterion: Farm asset: Active */
-  $handler->display->display_options['filters']['active']['id'] = 'active';
-  $handler->display->display_options['filters']['active']['table'] = 'farm_asset';
-  $handler->display->display_options['filters']['active']['field'] = 'active';
-  $handler->display->display_options['filters']['active']['value'] = '1';
-  $handler->display->display_options['filters']['active']['group'] = 1;
-  $handler->display->display_options['filters']['active']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['active']['expose']['operator_id'] = '';
-  $handler->display->display_options['filters']['active']['expose']['label'] = 'Active';
-  $handler->display->display_options['filters']['active']['expose']['operator'] = 'active_op';
-  $handler->display->display_options['filters']['active']['expose']['identifier'] = 'active';
+  /* Filter criterion: Farm asset: Archived (boolean) */
+  $handler->display->display_options['filters']['archived_boolean']['id'] = 'archived_boolean';
+  $handler->display->display_options['filters']['archived_boolean']['table'] = 'farm_asset';
+  $handler->display->display_options['filters']['archived_boolean']['field'] = 'archived_boolean';
+  $handler->display->display_options['filters']['archived_boolean']['value'] = '0';
+  $handler->display->display_options['filters']['archived_boolean']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['archived_boolean']['expose']['operator_id'] = '';
+  $handler->display->display_options['filters']['archived_boolean']['expose']['label'] = 'Archived';
+  $handler->display->display_options['filters']['archived_boolean']['expose']['operator'] = 'archived_boolean_op';
+  $handler->display->display_options['filters']['archived_boolean']['expose']['identifier'] = 'archived_boolean';
 
   /* Display: Entity Reference View Widget */
   $handler = $view->new_display('entityreference_view_widget', 'Entity Reference View Widget', 'entityreference_view_widget');
@@ -548,7 +550,7 @@ function farm_asset_views_views_default_views() {
     t('Group'),
     t('Name'),
     t('All'),
-    t('Active'),
+    t('Archived'),
     t('Entity Reference View Widget'),
     t('Select assets'),
   );
