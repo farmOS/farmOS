@@ -20,8 +20,8 @@ function farm_import_feeds_tamper_default() {
     $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', $bundle, 'Name', 'required');
     $export[$feeds_tamper->id] = $feeds_tamper;
 
-    // Convert active to boolean.
-    $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', $bundle, 'Active', 'boolean_default_true');
+    // Convert archived to boolean.
+    $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', $bundle, 'Archived', 'boolean_default_false');
     $export[$feeds_tamper->id] = $feeds_tamper;
 
     // If a "Parent IDs" field exists, explode it into an array of IDs.
