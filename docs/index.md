@@ -50,16 +50,16 @@ farmOS was featured in a CNBC special:
 
 <iframe width="640" height="360" src="https://www.youtube.com/embed/zua1y-hBcGc?rel=0" frameborder="0" allowfullscreen></iframe>
 
-## 2016 NOFA Summer Conference
+## 2017 NOFA Summer Conference
 
-Michael Stenta presented a farmOS workshop at the 2016 [NOFA Summer Conference].
+Michael Stenta presented a farmOS workshop at the 2017 [NOFA Summer Conference].
 It covers the core features of farmOS, how to get started, where to find help,
 and how to contribute back to the project.
 
 The full workshop recording is available on YouTube:
-[https://youtu.be/w0ZCu8NsWKE]
+[https://youtu.be/B8ouL9Et98o]
 
-<iframe width="640" height="360" src="https://www.youtube.com/embed/w0ZCu8NsWKE?rel=0" frameborder="0" allowfullscreen></iframe>
+<iframe width="640" height="360" src="https://www.youtube.com/embed/B8ouL9Et98o?rel=0" frameborder="0" allowfullscreen></iframe>
 
 ## @farmOSorg on Twitter
 
