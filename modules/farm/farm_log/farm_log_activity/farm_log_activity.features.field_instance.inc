@@ -434,6 +434,43 @@ function farm_log_activity_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_activity-field_farm_quantity'.
+  $field_instances['log-farm_activity-field_farm_quantity'] = array(
+    'bundle' => 'farm_activity',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Optionally, use this quantity field to record quantity measurements with this activity.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'field_collection',
+        'settings' => array(
+          'add' => 'Add',
+          'delete' => 'Delete',
+          'description' => TRUE,
+          'edit' => 'Edit',
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_view',
+        'weight' => 11,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_quantity',
+    'label' => 'Quantity',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 19,
+    ),
+  );
+
   // Translatables
   // Included for use with string extractors like potx.
   t('Areas');
@@ -447,7 +484,9 @@ function farm_log_activity_field_default_field_instances() {
   t('Movement');
   t('Notes');
   t('Optionally assign this task to one or more people.');
+  t('Optionally, use this quantity field to record quantity measurements with this activity.');
   t('Photos');
+  t('Quantity');
   t('This field is optional. It allows you to store geospatial data along with this activity.');
   t('Use these fields to record a movement with this log entry. This will be used to define the location of any referenced assets. The current location of any asset is determined by the most recently completed movement log. Only the "to" field is required.');
   t('Use this field to set the group membership of any asset(s) referenced by this log.');
