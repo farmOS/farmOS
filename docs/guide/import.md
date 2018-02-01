@@ -30,9 +30,9 @@ importers.
 Common asset fields include:
 
 * **Name** - The name of the asset (required).
-* **Active** - Whether or not the asset is currently active. This should be set
-  to "yes" or "1" if the asset is active, and "no" or "0" if the asset is not
-  active. If omitted, this will default to "1" (active).
+* **Active** - Whether or not the asset is currently active. See
+  "Boolean options" below for allowed values. If omitted, the asset will be
+  marked as "active".
 * **Description** - A longer description of the asset.
 * **Parent IDs** - A comma-separated list of asset IDs that represent parents
   of the asset being imported. These parent assets must already exist in farmOS
@@ -44,9 +44,8 @@ Common log fields include:
   left blank.
 * **Date** - The date when the logged event takes place (required). This can be
   a string in any English date format that is convertable to a UNIX timestamp.
-* **Done** - Whether or not the log is complete. This should be set to "yes" or "1"
-  if the log is done, and "no" or "0" if the log is not done. If omitted, this
-  will default to "1" (done).
+* **Done** - Whether or not the log is complete. See "Boolean options" below
+  for allowed values. If omitted, the log will be marked as "done".
 * **Notes** - A longer description of the logged event.
 * **Asset IDs** - A comma-separated list of asset IDs that this log is related
   to. These assets must already exist in farmOS in order for the link to be
@@ -60,6 +59,28 @@ Common log fields include:
 
 Common fields that are required are noted above. Specific asset/log type
 importers may have additional required fields.
+
+## Boolean values
+
+The following values are acceptable for boolean fields, like "Active" for asset
+importers, and "Done" for log importers. These values are not case sensitive
+(so "Yes" and "yes" will be treated the same).
+
+### True
+
+* Yes
+* Y
+* True
+* T
+* 1
+
+### False
+
+* No
+* N
+* False
+* F
+* 0
 
 ## Access
 

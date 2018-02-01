@@ -37,23 +37,53 @@ These modules are included directly in the farmOS distribution repository:
 
 * **Farm Access** - Provides mechanisms for managing farmOS user access
   permissions.
-* **Farm Admin** - Administrative interface for managing the farm.
 * **Farm Area** - Features for managing farm areas.
+* **Farm Area Generator** - A tool for automatically generating areas. Requires
+  GEOS library.
 * **Farm Asset** - A farm asset entity type.
+* **Farm Asset Children** - Provides child asset relationships.
+* **Farm Asset Property** - Provides the ability to assign arbitrary (key-value
+  pairs) properties to assets.
+* **Farm Asset Views** - Default Views of farm assets.
+* **Farm Calendar** - Provides a calendar view of farmOS logs.
+* **Farm Constraint** - Provides a framework for managing foreign key
+  constraints between farmOS entities.
 * **Farm Crop** - Features for managing farm crops.
+* **Farm Dashboard** - Provides a farmOS dashboard at /farm.
 * **Farm Equipment** - Features for managing farm equipment.
 * **Farm Fields** - Provides common base field definitions for farmOS entity
   types.
+* **Farm Group** - Features for managing group assets like herds, flocks, etc.
+* **Farm Help** - Help pages for farmOS.
+* **Farm Import** - Provides a framework for creating CSV importers in farmOS.
+* **Farm Inventory** - Provides inventory management functionality for farm
+  assets.
 * **Farm Livestock** - Features for managing farm livestock.
 * **Farm Log** - Provides integration with the Log module.
+* **Farm Log: Activity** - Provides an activity log type.
+* **Farm Log: Harvest** - Provides a harvest log type.
+* **Farm Log: Input** - Provides an input log type.
+* **Farm Log: Observation** - Provides an observation log type
+* **Farm Log: Sale** - Provides a sale log type.
 * **Farm Map** - Provides OpenLayers configuration for farm maps.
 * **Farm MapKnitter** - Provides integration with Public Lab's MapKnitter.org.
+* **Farm Menu** - Provides a menu for farm pages.
+* **Farm Movement** - Provides movement field and related asset location code.
+* **Farm People** - A view of people associated with the farm.
+* **Farm Plan** - A farm plan entity type.
 * **Farm Quantity** - Provides a framework for dealing with quantities.
+* **Farm Season** -   Provides a taxonomy and fields for organizing assets and logs by season.
 * **Farm Sensor** - Features for managing farm sensors.
+* **Farm Sensor: Listener** - ...
 * **Farm Soil** - Provides features for soil health management.
-* **Farm Taxonomy** - Common farm taxonomies.
+* **Farm Soil NRCS** - Provides integration with NRCS Soil Survey data.
+* **Farm Soil Test** - .Features for managing soil tests.
+* **Farm Soil: Compost** - Features for managing compost.
 * **Farm Tour** - Provides tours of the farmOS system using the Bootstrap Tour
   module.
+* **Farm UI** - Provides standardized user interface support to farmOS modules.
+* **Farm Water** - Provides features for water management.
+* **Farm Water Test** - Features for managing water tests.
 
 ### Other modules
 
@@ -78,6 +108,9 @@ added to extend your farmOS functionality:
 * **[Farm Sensor: Atmospi](https://github.com/mstenta/farm_sensor_atmospi)** -
   Integrates farmOS and [Atmospi](https://github.com/mstenta/atmospi) sensors.
 
+For more information and documentation about these modules, see
+[farmOS community modules].
+
 ## Theme
 
 The official farmOS theme ("Farm Theme") that is included with farmOS is a
@@ -92,5 +125,6 @@ Drupal theme based off of [Bootstrap].
 [installing farmOS]: /hosting/installing
 [Drush]: http://www.drush.org
 [Docker]: /development/docker
+[farmOS community modules]: /guide/contrib
 [Bootstrap]: https://drupal.org/project/bootstrap
 

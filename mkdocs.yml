@@ -17,12 +17,16 @@ pages:
         - Equipment: guide/assets/equipment.md
         - Compost: guide/assets/compost.md
         - Sensors: guide/assets/sensors.md
+        - Groups: guide/assets/groups.md
     - Movements and location: guide/location.md
+    - Quantity measurements: guide/quantity.md
+    - Inventory tracking: guide/inventory.md
     - People: guide/people.md
     - Import: guide/import.md
     - Export: guide/export.md
     - Community modules:
         - Introduction: guide/contrib/index.md
+        - Eggs: guide/contrib/eggs.md
         - Produce Safety: guide/contrib/produce-safety.md
 - Hosting:
     - Getting started: hosting/index.md
