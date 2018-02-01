@@ -19,6 +19,7 @@ pages:
         - Sensors: guide/assets/sensors.md
         - Groups: guide/assets/groups.md
     - Movements and location: guide/location.md
+    - Quantity measurements: guide/quantity.md
     - Inventory tracking: guide/inventory.md
     - People: guide/people.md
     - Import: guide/import.md
