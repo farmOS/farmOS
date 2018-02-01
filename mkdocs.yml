@@ -17,6 +17,7 @@ pages:
         - Equipment: guide/assets/equipment.md
         - Compost: guide/assets/compost.md
         - Sensors: guide/assets/sensors.md
+        - Groups: guide/assets/groups.md
     - Movements and location: guide/location.md
     - People: guide/people.md
     - Import: guide/import.md
