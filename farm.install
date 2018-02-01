@@ -73,6 +73,7 @@ function farm_install_configure_form($form, &$form_state) {
     'farm_sensor' => st('Sensor'),
     'farm_sensor_listener' => st('Sensor: Listener'),
     'farm_log_sale' => st('Sale logs (beta)'),
+    'farm_quantity_report' => st('Quantity report generator (beta)')
   );
   $form['farm_modules'] = array(
     '#type' => 'checkboxes',

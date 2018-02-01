@@ -1,0 +1,13 @@
+name = Farm Quantity Report
+description = Generate reports of quantity measurements.
+core = 7.x
+package = farmOS (beta)
+dependencies[] = farm_asset
+dependencies[] = farm_log
+dependencies[] = farm_quantity
+dependencies[] = views
+dependencies[] = views_data_export
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:2
+features[views_view][] = farm_quantity_report
+features_exclude[dependencies][ctools] = ctools
