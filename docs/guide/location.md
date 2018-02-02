@@ -13,10 +13,8 @@ most recent movement log (with a date less than or equal to the present moment).
 Only logs that have been marked as "done" are taken into consideration.
 
 Every movement has a "Movement To" field on it, which is required in order to
-record a movement. It also includes an optional "Movement From" field (which
-will be automatically filled in with the asset's current location if it is left
-blank), and a "Movement Geometry" field (which can be used to specify a more
-specific location of the assets on a map).
+record a movement. It also includes an optional "Movement Geometry" field,
+which can be used to specify a more specific location of the assets on a map.
 
 ## Creating movement logs
 
@@ -52,10 +50,6 @@ Here is a quick summary of the fields in the "Movement" fieldset:
 * **To** - (required) This is the most important field on a movement log. The
   area that is referenced with this field will be considered the asset's
   location.
-* **From** - (optional) Allows you to reference a specific area that assets are
-  moving FROM. This is optional, and in some cases it's filled in automatically
-  for you. It is primarily intended for more accurate historical records, and to
-  help identify inconsistencies or missing data.
 * **Geometry** - (optional) movements can be defined with a more specific
   geometry on the map using this field. This can be useful for temporary
   locations (like a moveable fence) within a larger area. If you leave this
