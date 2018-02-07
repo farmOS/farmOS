@@ -173,3 +173,60 @@ function farm_movement_entity_view_alter(&$build, $type) {
     '#weight' => -100,
   );
 }
+
+/**
+ * Implements hook_preprocess_field().
+ */
+function farm_movement_preprocess_field(&$vars) {
+
+  // If this is the "Movement to" field, add "from" information.
+  if (!empty($vars['element']['#field_name']) && $vars['element']['#field_name'] == 'field_farm_move_to') {
+
+    // Get the log entity from the field collection.
+    $log = $vars['element']['#object']->hostEntity();
+
+    // If a log entity isn't available, bail.
+    if (empty($log)) {
+      return;
+    }
+
+    // Get the log entity and metadata wrapper.
+    $log_wrapper = entity_metadata_wrapper('log', $log);
+
+    // Load all the assets referenced by this log.
+    $assets = $log_wrapper->field_farm_asset->value();
+
+    // If there are no assets, bail.
+    if (empty($assets)) {
+      return;
+    }
+
+    // Subtract one from the log's timestamp, so we can find the most recent
+    // movement BEFORE this one.
+    $previous_timestamp = $log->timestamp - 1;
+
+    // Include movements that have not been marked "done".
+    $done = FALSE;
+
+    // Look up the previous location(s) of the asset(s) and build a list of
+    // unique area links.
+    $from_areas = array();
+    foreach ($assets as $asset) {
+      $areas = farm_movement_asset_location($asset, $previous_timestamp, $done);
+      foreach ($areas as $area) {
+        if (empty($from_areas[$area->tid])) {
+          $from_areas[$area->tid] = l($area->name, 'taxonomy/term/' . $area->tid);
+        }
+      }
+    }
+
+    // If no areas were found, bail.
+    if (empty($from_areas)) {
+      return;
+    }
+
+    // Append links to the field.
+    $from_areas = implode(', ', $from_areas);
+    $vars['items'][0]['#suffix'] = ' (' . t('from !areas', array('!areas' => $from_areas)) . ')';
+  }
+}
