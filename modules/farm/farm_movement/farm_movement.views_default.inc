@@ -42,7 +42,6 @@ function farm_movement_views_default_views() {
     'type' => 'type',
     'active' => 'active',
     'timestamp' => 'timestamp',
-    'field_farm_move_from' => 'field_farm_move_from',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
@@ -77,11 +76,6 @@ function farm_movement_views_default_views() {
     'timestamp' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_farm_move_from' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,

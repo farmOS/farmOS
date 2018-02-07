@@ -108,11 +108,10 @@ function farm_movement_update_7001(&$sandbox) {
       $movement->setHostEntity('log', $log);
     }
 
-    // Copy the to, from, and geometry fields from the movement log itself to
-    // the new field collection.
+    // Copy the "movement to" and "geometry" fields from the movement log
+    // itself to the new field collection.
     $fields = array(
       'field_farm_move_to',
-      'field_farm_move_from',
       'field_farm_geofield',
     );
     foreach ($fields as $field) {
@@ -141,10 +140,6 @@ function farm_movement_update_7001(&$sandbox) {
     $field = field_info_instance('log', 'field_farm_move_to', 'farm_movement');
     field_delete_instance($field);
 
-    // Delete field_farm_move_to.
-    $field = field_info_instance('log', 'field_farm_move_from', 'farm_movement');
-    field_delete_instance($field);
-
     // Delete field_farm_geofield.
     $field = field_info_instance('log', 'field_farm_geofield', 'farm_movement');
     field_delete_instance($field);
@@ -159,7 +154,7 @@ function farm_movement_update_7002(&$sandbox) {
   // Search for fields that exist on movements, but not on activities, so we can
   // move them to activities. This would only be the case if a user added their
   // own fields, movements do not have any extra fields in default farmOS.
-  // (They used to, but the "move to" and "move from" moved to the new
+  // (They used to, but the "move to" and "geometry" moved to the new
   // field_farm_movement field collection. See farm_movement_update_7001()).
   $log_types = array(
     'farm_movement',
@@ -206,5 +201,15 @@ function farm_movement_update_7003(&$sandbox) {
   $log_type = log_type_load('farm_movement');
   if (!empty($log_type)) {
     log_type_delete($log_type);
+  }
+}
+
+/**
+ * Delete the "Movement from" field from movement field collections.
+ */
+function farm_movement_update_7004 (&$sandbox) {
+  $field = field_info_instance('field_collection_item', 'field_farm_move_from', 'field_farm_movement');
+  if (!empty($field)) {
+    field_delete_instance($field);
   }
 }

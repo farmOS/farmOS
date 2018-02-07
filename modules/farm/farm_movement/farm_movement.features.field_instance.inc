@@ -77,38 +77,6 @@ function farm_movement_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_farm_movement-field_farm_move_from'.
-  $field_instances['field_collection_item-field_farm_movement-field_farm_move_from'] = array(
-    'bundle' => 'field_farm_movement',
-    'default_value' => array(),
-    'deleted' => 0,
-    'description' => 'Specify the area(s) that assets are being moved from. This field is optional, and is only used for reference. You may leave this blank as a way of setting initial location. If the assets currently have a location set from a previously logged movement, this field will be automatically filled using that information.',
-    'display' => array(
-      'default' => array(
-        'label' => 'inline',
-        'module' => 'taxonomy',
-        'settings' => array(),
-        'type' => 'taxonomy_term_reference_link',
-        'weight' => 1,
-      ),
-    ),
-    'entity_type' => 'field_collection_item',
-    'field_name' => 'field_farm_move_from',
-    'label' => 'Movement from',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_select',
-      'weight' => 1,
-    ),
-  );
-
-  // Exported field_instance:
   // 'field_collection_item-field_farm_movement-field_farm_move_to'.
   $field_instances['field_collection_item-field_farm_movement-field_farm_move_to'] = array(
     'bundle' => 'field_farm_movement',
@@ -142,10 +110,8 @@ function farm_movement_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Movement from');
   t('Movement geometry');
   t('Movement to');
-  t('Specify the area(s) that assets are being moved from. This field is optional, and is only used for reference. You may leave this blank as a way of setting initial location. If the assets currently have a location set from a previously logged movement, this field will be automatically filled using that information.');
   t('Specify the area(s) that assets are being moved to. If you need to specify more precise locations (in addition to these areas), use the Geometry field below.');
   t('This field allows you to optionally specify a more precise geometry for the new location of assets. If you leave it blank, the geometry will be copied from the areas that assets are moving to (if available).');
 
