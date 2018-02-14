@@ -3,7 +3,15 @@
 farmOS has been featured in the following articles. If you would like to write
 about farmOS, [contact m.stenta](http://farmier.com/contact).
 
+## 2018
+
+**2018 February 13th** [Morning Ag Clips: Wolfe’s Neck's Dorn Cox earns national award](https://www.morningagclips.com/wolfes-necks-dorn-cox-earns-national-award)
+
+**2018 February 6th** [Wolfe's Neck Center: Research Director, Dorn Cox, Receives Bennett Award](https://www.wolfesneck.org/blog/research-director-dorn-cox-receives-bennett-award)
+
 ## 2017
+
+**2017 November 21st** [UVM Extension AgEngineering: Produce Tracking and Traceability](http://blog.uvm.edu/cwcallah/produce-tracking-and-traceability)
 
 **2017 August 28th** [PASA Education Event - Pastured Livestock Research Group: Boosting Land and Feed Efficiency](https://pasafarming.org/events/pasa-events/pasa-education-event-pastured-livestock-research-group-boosting-land-and-feed-efficiency)
 
