@@ -36,7 +36,8 @@ function farm_crop_form_farm_asset_form_alter(&$form, &$form_state, $form_id) {
     '#title' => t('Plan'),
     '#description' => t('Use these fields to automatically generate seeding/transplanting logs for this planting. A log will only be generated if a date is specified.'),
     '#collapsible' => TRUE,
-    '#collapsed' => FALSE,
+    '#collapsed' => TRUE,
+    '#weight' => 90,
   );
 
   // Add fields for specifying seeding and transplanting date and location.
