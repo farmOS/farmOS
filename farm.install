@@ -27,7 +27,7 @@ function farm_install() {
   variable_set('menu_main_links_source', 'farm');
 
   // Load Openlayers from CDNJS.
-  \Drupal\openlayers\Config::set('openlayers.variant', 'cdnjs:ol3:4.3.3');
+  \Drupal\openlayers\Config::set('openlayers.variant', 'cdnjs:ol3:4.6.4');
 }
 
 /**
@@ -691,6 +691,13 @@ function farm_update_7036(&$sandbox) {
  */
 function farm_update_7037(&$sandbox) {
   _farm_update_enable_modules(array('farm_asset_views'));
+}
+
+/**
+ * Update Openlayers JS library to 4.6.4.
+ */
+function farm_update_7038(&$sandbox) {
+  \Drupal\openlayers\Config::set('openlayers.variant', 'cdnjs:ol3:4.6.4');
 }
 
 /**
