@@ -126,6 +126,8 @@ projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_g
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_googlemaps_refresh-2644580-19.patch"
 ; Issue #2911611: Update ZoomToSource Component: use new view.animate() method.
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_ol4_zoomtosource-2911611-4.patch"
+; Issue #2946213: Google maps do not support fractional zoom
+projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_googlemaps_fractional_zoom-2946213-2.patch"
 
 projects[openlayers_geolocate_button][subdir] = "contrib"
 projects[openlayers_geolocate_button][version] = "3.2"
