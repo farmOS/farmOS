@@ -250,7 +250,7 @@ function farm_log_activity_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 4,
+        'weight' => 5,
       ),
     ),
     'entity_type' => 'log',
@@ -363,7 +363,7 @@ function farm_log_activity_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 17,
+      'weight' => 15,
     ),
   );
 
@@ -396,7 +396,7 @@ function farm_log_activity_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 4,
+      'weight' => 14,
     ),
   );
 

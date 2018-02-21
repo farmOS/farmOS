@@ -107,7 +107,7 @@ function farm_livestock_field_group_info() {
   $field_group->parent_name = 'group_farm_tabs';
   $field_group->data = array(
     'label' => 'Files',
-    'weight' => '4',
+    'weight' => '5',
     'children' => array(
       0 => 'field_farm_files',
       1 => 'field_farm_images',
@@ -255,7 +255,7 @@ function farm_livestock_field_group_info() {
   $field_group->parent_name = 'group_farm_tabs';
   $field_group->data = array(
     'label' => 'Inventory',
-    'weight' => '3',
+    'weight' => '4',
     'children' => array(
       0 => 'field_farm_inventory',
     ),
@@ -299,14 +299,14 @@ function farm_livestock_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_farm_movement|log|farm_medical|form';
-  $field_group->group_name = 'group_farm_movement';
+  $field_group->identifier = 'group_farm_location|log|farm_medical|form';
+  $field_group->group_name = 'group_farm_location';
   $field_group->entity_type = 'log';
   $field_group->bundle = 'farm_medical';
   $field_group->mode = 'form';
   $field_group->parent_name = 'group_farm_tabs';
   $field_group->data = array(
-    'label' => 'Movement',
+    'label' => 'Location',
     'weight' => '2',
     'children' => array(
       0 => 'field_farm_movement',
@@ -315,12 +315,12 @@ function farm_livestock_field_group_info() {
     'format_settings' => array(
       'formatter' => '',
       'instance_settings' => array(
-        'classes' => 'group-farm-movement field-group-field_group_easy_responsive_tabs_nav_item',
+        'classes' => 'group-farm-location field-group-field_group_easy_responsive_tabs_nav_item',
         'required_fields' => 1,
       ),
     ),
   );
-  $field_groups['group_farm_movement|log|farm_medical|form'] = $field_group;
+  $field_groups['group_farm_location|log|farm_medical|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -377,6 +377,7 @@ function farm_livestock_field_group_info() {
       1 => 'group_farm_general',
       2 => 'group_farm_inventory',
       3 => 'group_farm_movement',
+      4 => 'group_farm_location',
     ),
     'format_type' => 'field_group_easy_responsive_tabs_nav',
     'format_settings' => array(
@@ -408,7 +409,7 @@ function farm_livestock_field_group_info() {
   t('Individual');
   t('Inventory');
   t('Lineage');
-  t('Movement');
+  t('Location');
   t('Tabs');
 
   return $field_groups;

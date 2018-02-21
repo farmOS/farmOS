@@ -39,7 +39,6 @@ features[field_group][] = group_farm_attachments|log|farm_sale|form
 features[field_group][] = group_farm_category|log|farm_sale|form
 features[field_group][] = group_farm_general|log|farm_sale|form
 features[field_group][] = group_farm_inventory|log|farm_sale|form
-features[field_group][] = group_farm_references|log|farm_sale|form
 features[field_group][] = group_farm_tabs|log|farm_sale|form
 features[field_instance][] = log-farm_sale-field_farm_asset
 features[field_instance][] = log-farm_sale-field_farm_customer

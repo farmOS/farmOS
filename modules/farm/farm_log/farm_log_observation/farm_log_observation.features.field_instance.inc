@@ -358,7 +358,7 @@ function farm_log_observation_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 12,
+      'weight' => 4,
     ),
   );
 
@@ -391,7 +391,7 @@ function farm_log_observation_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 9,
+      'weight' => 3,
     ),
   );
 

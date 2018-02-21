@@ -630,7 +630,7 @@ function farm_log_input_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 4,
+      'weight' => 5,
     ),
   );
 
