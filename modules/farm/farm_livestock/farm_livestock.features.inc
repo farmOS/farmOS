@@ -43,6 +43,15 @@ function farm_livestock_default_farm_asset_type() {
  */
 function farm_livestock_default_log_type() {
   $items = array();
+  $items['farm_birth'] = entity_import('log_type', '{
+    "type" : "farm_birth",
+    "label" : "Birth",
+    "weight" : 0,
+    "name_pattern" : "Birth: [log:field-farm-asset]",
+    "name_edit" : "0",
+    "done" : "1",
+    "rdf_mapping" : []
+  }');
   $items['farm_medical'] = entity_import('log_type', '{
     "type" : "farm_medical",
     "label" : "Medical",
