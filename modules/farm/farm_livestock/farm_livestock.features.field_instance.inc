@@ -507,7 +507,7 @@ function farm_livestock_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 4,
+        'weight' => 5,
       ),
     ),
     'entity_type' => 'log',
@@ -540,7 +540,7 @@ function farm_livestock_field_default_field_instances() {
           'link' => 1,
         ),
         'type' => 'entityreference_label',
-        'weight' => 0,
+        'weight' => 1,
       ),
     ),
     'entity_type' => 'log',
@@ -578,7 +578,7 @@ function farm_livestock_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_table',
-        'weight' => 9,
+        'weight' => 10,
       ),
     ),
     'entity_type' => 'log',
@@ -618,7 +618,7 @@ function farm_livestock_field_default_field_instances() {
           'map_layer_preset' => 'farm_map_geofield_formatter:openlayers_geofield_layer_formatter',
         ),
         'type' => 'openlayers_geofield',
-        'weight' => 10,
+        'weight' => 11,
       ),
     ),
     'entity_type' => 'log',
@@ -688,7 +688,7 @@ function farm_livestock_field_default_field_instances() {
           'colorbox_node_style_first' => 'large',
         ),
         'type' => 'colorbox',
-        'weight' => 8,
+        'weight' => 9,
       ),
     ),
     'entity_type' => 'log',
@@ -732,7 +732,7 @@ function farm_livestock_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 3,
+        'weight' => 4,
       ),
     ),
     'entity_type' => 'log',
@@ -767,7 +767,7 @@ function farm_livestock_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 6,
+        'weight' => 7,
       ),
     ),
     'entity_type' => 'log',
@@ -801,7 +801,7 @@ function farm_livestock_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 7,
+        'weight' => 8,
       ),
     ),
     'entity_type' => 'log',
@@ -834,7 +834,7 @@ function farm_livestock_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 2,
+        'weight' => 3,
       ),
     ),
     'entity_type' => 'log',
@@ -853,6 +853,47 @@ function farm_livestock_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_birth-field_farm_mother'.
+  $field_instances['log-farm_birth-field_farm_mother'] = array(
+    'bundle' => 'farm_birth',
+    'deleted' => 0,
+    'description' => 'Link this birth log to a mother animal so that you can easily see all birth logs for that animal on their record.',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'entityreference',
+        'settings' => array(
+          'bypass_access' => 0,
+          'link' => 1,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_mother',
+    'label' => 'Mother',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference_view_widget',
+      'settings' => array(
+        'allow_duplicates' => 0,
+        'close_modal' => 1,
+        'pass_argument' => 1,
+        'pass_arguments' => '',
+        'rendered_entity' => 0,
+        'view' => 'farm_asset_entityreference_view|entityreference_view_widget',
+        'view_mode' => 'full',
+      ),
+      'type' => 'entityreference_view_widget',
+      'weight' => 23,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_birth-field_farm_movement'.
   $field_instances['log-farm_birth-field_farm_movement'] = array(
     'bundle' => 'farm_birth',
@@ -867,7 +908,7 @@ function farm_livestock_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 1,
+        'weight' => 2,
       ),
     ),
     'entity_type' => 'log',
@@ -898,7 +939,7 @@ function farm_livestock_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 5,
+        'weight' => 6,
       ),
     ),
     'entity_type' => 'log',
@@ -1232,9 +1273,11 @@ function farm_livestock_field_default_field_instances() {
   t('ID');
   t('ID Tag(s)');
   t('Inventory adjustments');
+  t('Link this birth log to a mother animal so that you can easily see all birth logs for that animal on their record.');
   t('List any identification tags that this animal has. These can be ear tags, tattoos, leg bands, etc. Use the fields below to describe the type, location, and ID of each.');
   t('List any nickname(s) of this animal.');
   t('Log category');
+  t('Mother');
   t('Movement');
   t('Nickname(s)');
   t('Notes');
