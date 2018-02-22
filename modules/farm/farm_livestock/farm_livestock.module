@@ -24,6 +24,7 @@ function farm_livestock_farm_ui_entities() {
         'label_plural' => t('Birth records'),
         'view' => 'farm_log_birth',
         'farm_asset' => 'animal',
+        'log_view_asset_arg' => 3,
         'weight' => 20,
       ),
       'farm_medical' => array(
