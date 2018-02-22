@@ -80,6 +80,39 @@ function farm_livestock_farm_log_categories_populate($log) {
 }
 
 /**
+ * Implements hook_farm_log_prepopulate_reference_fields().
+ */
+function farm_livestock_farm_log_prepopulate_reference_fields($log_type) {
+
+  // Allow field_farm_mother to be prepopulated in birth log forms.
+  if ($log_type == 'farm_birth') {
+    return array(
+      'field_farm_mother' => array(
+        'entity_type' => 'farm_asset',
+        'url_param' => 'farm_asset',
+      ),
+    );
+  }
+}
+
+/**
+ * Implements hook_farm_log_prepopulate_reference_fields_alter().
+ */
+function farm_livestock_farm_log_prepopulate_reference_fields_alter(&$fields, $log_type) {
+
+  // Do not prepopulate field_farm_asset in birth log forms, because that is
+  // the children reference field. When the "Add birth record" action is
+  // clicked, we assume that the user wants to create a birth record from the
+  // context of a mother animal. So field_farm_mother is prepopulated instead.
+  // See farm_livestock_farm_log_prepopulate_reference_fields() above.
+  if ($log_type == 'farm_birth') {
+    if (!empty($fields['field_farm_asset'])) {
+      unset($fields['field_farm_asset']);
+    }
+  }
+}
+
+/**
  * Implements hook_feeds_importer_default_alter().
  */
 function farm_livestock_feeds_importer_default_alter($importers) {
