@@ -19,6 +19,13 @@ function farm_livestock_farm_ui_entities() {
       ),
     ),
     'log' => array(
+      'farm_birth' => array(
+        'label' => t('Birth record'),
+        'label_plural' => t('Birth records'),
+        'view' => 'farm_log_birth',
+        'farm_asset' => 'animal',
+        'weight' => 20,
+      ),
       'farm_medical' => array(
         'label' => t('Medical record'),
         'label_plural' => t('Medical records'),
