@@ -61,5 +61,21 @@ function hook_farm_log_categories_populate($log) {
 }
 
 /**
+ * Allow modules to provide information about fields that should be
+ * prepopulated in log forms.
+ *
+ * @return array
+ *   Returns an array of field information.
+ */
+function hook_farm_log_prepopulate_reference_fields() {
+  return array(
+    'field_farm_asset' => array(
+      'entity_type' => 'farm_asset',
+      'url_param' => 'farm_asset',
+    ),
+  );
+}
+
+/**
  * @}
  */
