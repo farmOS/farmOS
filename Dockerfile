@@ -15,6 +15,15 @@ RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev libpq-dev \
   && docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
   && docker-php-ext-install bcmath gd mbstring opcache pdo pdo_mysql pdo_pgsql zip
 
+# Set recommended PHP settings for farmOS.
+# See http://farmos.org/hosting/installing/#requirements
+RUN { \
+    echo 'memory_limit=256M'; \
+    echo 'max_execution_time=240'; \
+    echo 'max_input_time=240'; \
+    echo 'max_input_vars=5000'; \
+  } > /usr/local/etc/php/conf.d/farmOS-recommended.ini
+
 # Set recommended realpath_cache settings.
 # See https://www.drupal.org/docs/7/managing-site-performance/tuning-phpini-for-drupal
 RUN { \
