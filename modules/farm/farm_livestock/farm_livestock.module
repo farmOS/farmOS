@@ -289,6 +289,89 @@ function farm_livestock_entity_view_alter(&$build, $type) {
 }
 
 /**
+ * Implements hook_entity_insert().
+ */
+function farm_livestock_entity_insert($entity, $type) {
+
+  // If this is a birth log, sync children.
+  if ($type == 'log' && $entity->type == 'farm_birth') {
+    farm_livestock_birth_log_sync($entity);
+  }
+}
+
+/**
+ * Implements hook_entity_update().
+ */
+function farm_livestock_entity_update($entity, $type) {
+
+  // If this is a birth log, sync children.
+  if ($type == 'log' && $entity->type == 'farm_birth') {
+    farm_livestock_birth_log_sync($entity);
+  }
+}
+
+/**
+ * Sync information in children animals if a birth log is saved.
+ *
+ * @param Log $log
+ *   The log entity that is being created or updated.
+ */
+function farm_livestock_birth_log_sync($log) {
+
+  // Load log entity metadata wrapper.
+  $log_wrapper = entity_metadata_wrapper('log', $log);
+
+  // Get the mother animal asset ID from the birth log.
+  $mother_id = $log_wrapper->field_farm_mother->getIdentifier();
+
+  // Iterate through the children assets.
+  foreach ($log_wrapper->field_farm_asset->getIterator() as $delta => $child_wrapper) {
+
+    // We will only save the child asset if we need to.
+    $save = FALSE;
+
+    // If the animal's date of birth does not match the timestamp of the birth
+    // log, sync it.
+    if ($child_wrapper->field_farm_date->value() != $log->timestamp) {
+      $child_wrapper->field_farm_date->set($log->timestamp);
+      drupal_set_message(t('<a href="!asset_path">@asset_label</a>\'s date of birth has been updated to match their birth log.', array('!asset_path' => 'farm/asset/' . $child_wrapper->getIdentifier(), '@asset_label' => $child_wrapper->label())));
+      $save = TRUE;
+    }
+
+    // If a mother is specified, make sure that it is listed as one of the
+    // child's parents.
+    if (!empty($mother_id)) {
+
+      // Iterate through the child's parents to see if the mother is listed.
+      $mother_exists = FALSE;
+      foreach ($child_wrapper->field_farm_parent->getIterator() as $delta => $parent_wrapper) {
+        if ($parent_wrapper->getIdentifier() == $mother_id) {
+          $mother_exists = TRUE;
+        }
+      }
+
+      // If the mother is not one of the child's parents, add her.
+      if (!$mother_exists) {
+        $child_wrapper->field_farm_parent[] = $mother_id;
+        $message_args = array(
+          '!mother_path' => 'farm/asset/' . $log_wrapper->field_farm_mother->getIdentifier(),
+          '@mother_label' => $log_wrapper->field_farm_mother->label(),
+          '!child_path' => 'farm/asset/' . $child_wrapper->getIdentifier(),
+          '@child_label' => $child_wrapper->label(),
+        );
+        drupal_set_message(t('<a href="!mother_path">@mother_label</a> was added to <a href="!child_path">@child_label</a>\'s parents.', $message_args));
+        $save = TRUE;
+      }
+    }
+
+    // Save the asset, if necessary.
+    if ($save) {
+      $child_wrapper->save();
+    }
+  }
+}
+
+/**
  * Implements hook_form_FORM_ID_alter().
  */
 function farm_livestock_form_farm_asset_form_alter(&$form, &$form_state, $form_id) {
