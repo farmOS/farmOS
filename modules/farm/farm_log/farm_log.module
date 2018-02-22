@@ -327,7 +327,7 @@ function farm_log_prepopulate_log_form_name(&$form) {
 /**
  * Implements hook_farm_log_prepopulate_reference_fields().
  */
-function farm_log_farm_log_prepopulate_reference_fields() {
+function farm_log_farm_log_prepopulate_reference_fields($log_type) {
 
   // Define the fields that will be prepopulated in log forms.
   return array(
@@ -359,8 +359,15 @@ function farm_log_farm_log_prepopulate_reference_fields() {
  */
 function farm_log_prepopulate_log_form_references(&$form) {
 
-  // Ask modules for information about fields that should be prepopulated.
-  $fields = module_invoke_all('farm_log_prepopulate_reference_fields');
+  // Get the log type from the form. Bail if none.
+  if (empty($form['#bundle'])) {
+    return;
+  }
+  $log_type = $form['#bundle'];
+
+  // Ask modules for information about fields that should be prepopulated for
+  // this log type.
+  $fields = module_invoke_all('farm_log_prepopulate_reference_fields', $log_type);
 
   // Populate the fields.
   foreach ($fields as $field => $info) {
