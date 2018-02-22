@@ -73,7 +73,7 @@ function farm_livestock_farm_log_categories() {
  */
 function farm_livestock_farm_log_categories_populate($log) {
   $categories = array();
-  if ($log->type == 'farm_medical') {
+  if (in_array($log->type, array('farm_birth', 'farm_medical'))) {
     $categories[] = 'Animals';
   }
   return $categories;
