@@ -141,6 +141,30 @@ function farm_livestock_feeds_importer_default_alter($importers) {
     $importer_mappings =& $importers[$name]->config['processor']['config']['mappings'];
     $importer_mappings = array_merge($importer_mappings, $mappings);
   }
+
+  // Add/alter field mappings on birth logs.
+  $name = 'log_farm_birth';
+  if (!empty($importers[$name])) {
+
+    // Add Mother ID mapping.
+    $mappings = array(
+      array(
+        'source' => 'Mother ID',
+        'target' => 'field_farm_mother',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+    );
+    $importer_mappings =& $importers[$name]->config['processor']['config']['mappings'];
+    $importer_mappings = array_merge($importer_mappings, $mappings);
+
+    // Change "Asset IDs" to "Children IDs".
+    foreach ($importer_mappings as &$mapping) {
+      if ($mapping['source'] == 'Asset IDs') {
+        $mapping['source'] = 'Children IDs';
+      }
+    }
+  }
 }
 
 /**
