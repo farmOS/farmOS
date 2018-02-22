@@ -55,9 +55,11 @@ RUN apt-get update && apt-get install -y libgeos-dev bzip2 \
   && rm -r geos \
   && docker-php-ext-enable geos
 
-# Install Drush.
-RUN curl -fSL "http://files.drush.org/drush.phar" -o /usr/local/bin/drush \
-  && chmod +x /usr/local/bin/drush
+# Install Drush 8 with the phar file.
+ENV DRUSH_VERSION 8.1.16
+RUN curl -fsSL -o /usr/local/bin/drush "https://github.com/drush-ops/drush/releases/download/$DRUSH_VERSION/drush.phar" && \
+  chmod +x /usr/local/bin/drush && \
+  drush core-status
 
 # Mount a volume at /var/www/html.
 VOLUME /var/www/html
