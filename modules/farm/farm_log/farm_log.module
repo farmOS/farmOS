@@ -369,6 +369,9 @@ function farm_log_prepopulate_log_form_references(&$form) {
   // this log type.
   $fields = module_invoke_all('farm_log_prepopulate_reference_fields', $log_type);
 
+  // Allow modules to alter the field information.
+  drupal_alter('farm_log_prepopulate_reference_fields', $fields, $log_type);
+
   // Populate the fields.
   foreach ($fields as $field => $info) {
 

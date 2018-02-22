@@ -80,5 +80,26 @@ function hook_farm_log_prepopulate_reference_fields($log_type) {
 }
 
 /**
+ * Allow modules to alter information about fields that should be
+ * prepopulated in log forms.
+ *
+ * @param array $fields
+ *   An array of field information defined via
+ *   hook_farm_log_prepopulate_reference_fields().
+ * @param string $log_type
+ *   The log type.
+ *
+ * @return array
+ *   Returns an array of field information.
+ */
+function hook_farm_log_prepopulate_reference_fields_alter(&$fields, $log_type) {
+
+  // Example: don't allow prepopulating the asset field on activity logs.
+  if ($log_type == 'farm_activity') {
+    unset($fields['field_farm_asset']);
+  }
+}
+
+/**
  * @}
  */
