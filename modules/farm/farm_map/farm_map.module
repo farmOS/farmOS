@@ -50,6 +50,40 @@ function farm_map_menu() {
 }
 
 /**
+ * Build a map render array.
+ *
+ * @param string $map_name
+ *   The machine name of the map.
+ *
+ * @return array
+ *   Returns a Drupal render array.
+ */
+function farm_map_build($map_name) {
+
+  // Start with an empty build.
+  $build = array();
+
+  // If maps are disabled, bail.
+  if (!variable_get('farm_map_show', TRUE)) {
+    return $build;
+  }
+
+  // Load the map.
+  $map = \Drupal\openlayers\Openlayers::load('Map', $map_name);
+
+  // If the map didn't load, bail.
+  if (empty($map)) {
+    return $build;
+  }
+
+  // Build the map.
+  $build = $map->build();
+
+  // Return the build.
+  return $build;
+}
+
+/**
  * Map settings form.
  */
 function farm_map_settings_form($form, &$form_state) {
