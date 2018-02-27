@@ -54,11 +54,17 @@ function farm_map_menu() {
  *
  * @param string $map_name
  *   The machine name of the map.
+ * @param bool $fieldset
+ *   Whether or not to wrap the map in a fieldset.
+ * @param string $title
+ *   Whether or not to wrap the map in a fieldset.
+ * @param bool $collapsed
+ *   Whether or not to collapse the fieldset by default.
  *
  * @return array
  *   Returns a Drupal render array.
  */
-function farm_map_build($map_name) {
+function farm_map_build($map_name, $fieldset = FALSE, $title = '', $collapsed = FALSE) {
 
   // Start with an empty build.
   $build = array();
@@ -78,6 +84,26 @@ function farm_map_build($map_name) {
 
   // Build the map.
   $build = $map->build();
+
+  // Wrap the map in a fieldset, if desired.
+  if (!empty($fieldset)) {
+
+    // Create the fieldset.
+    $build = array(
+      '#type' => 'fieldset',
+      '#title' => $title,
+      '#collapsible' => TRUE,
+      '#collapsed' => $collapsed,
+      'farm_map' => $build,
+    );
+
+    // Add 'collapsible' and 'collapsed' classes. This is necessary when
+    // rendering the fieldset outside of a form.
+    // See: https://www.drupal.org/node/1099132
+    drupal_add_library('system', 'drupal.collapse');
+    $build['#attributes']['class'][] = 'collapsible';
+    $build['#attributes']['class'][] = 'collapsed';
+  }
 
   // Return the build.
   return $build;
