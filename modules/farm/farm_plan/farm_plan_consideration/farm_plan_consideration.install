@@ -1,0 +1,84 @@
+<?php
+
+/**
+ * @file
+ * Farm plan consideration install.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function farm_plan_consideration_schema() {
+  $schema['farm_plan_consideration'] = array(
+    'description' => 'Stores information about farm planning considerations.',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary Key: Unique consideration ID.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'type' => array(
+        'description' => 'The machine-readable consideration type.',
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+      ),
+      'name' => array(
+        'description' => 'The user-entered name of the consideration.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => TRUE,
+      ),
+      'start' => array(
+        'description' => 'The timestamp when this consideration starts.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'end' => array(
+        'description' => 'The timestamp when this consideration ends.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('id'),
+    'indexes' => array(
+      'name' => array('name'),
+      'type_index' => array('type'),
+      'start' => array('start'),
+      'end' => array('end'),
+    ),
+  );
+  $schema['farm_plan_consideration_entity'] = array(
+    'description' => 'Links plan considerations to specific entities.',
+    'fields' => array(
+      'consideration_id' => array(
+        'description' => 'Consideration ID.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'entity_type' => array(
+        'description' => 'The entity type to link to.',
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+      ),
+      'entity_id' => array(
+        'description' => 'The entity ID to link to.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('consideration_id', 'entity_type', 'entity_id'),
+    'indexes' => array(
+      'consideration_id' => array('consideration_id'),
+      'entity_type' => array('entity_type'),
+      'entity_id' => array('entity_id'),
+    ),
+  );
+  return $schema;
+}
