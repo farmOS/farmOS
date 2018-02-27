@@ -19,3 +19,21 @@ function farm_plan_consideration_types() {
   // Return consideration types.
   return $consideration_types;
 }
+
+/**
+ * Implements hook_farm_plan_consideration_types().
+ */
+function farm_plan_farm_plan_consideration_types() {
+
+  // Provide two basic consideration types: "Management concern" and "Urgent".
+  return array(
+    'concern' => array(
+      'label' => t('Management concern'),
+      'color' => 'purple',
+    ),
+    'urgent' => array(
+      'label' => t('Urgent'),
+      'color' => 'red',
+    ),
+  );
+}
