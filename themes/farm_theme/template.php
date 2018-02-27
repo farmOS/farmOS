@@ -151,12 +151,14 @@ function farm_theme_views_bulk_operations_form_alter(&$form, &$form_state, $vbo)
   // Move VBO buttons to the bottom.
   $form['select']['#weight'] = 100;
 
-  // Move the "Assign", "Clone", "Group", and "Delete" actions to the end of
-  // the list.
+  // Move the "Assign", "Clone", "Group", "Archive", "Unarchive", and "Delete"
+  // actions to the end of the list.
   $end_actions = array(
     'action::farm_log_assign_action',
     'action::log_clone_action',
     'action::farm_group_asset_membership_action',
+    'action::farm_asset_archive_action',
+    'action::farm_asset_unarchive_action',
     'action::views_bulk_operations_delete_item',
   );
   $i = 0;
@@ -200,6 +202,8 @@ function farm_theme_bootstrap_colorize_text_alter(&$texts) {
   $texts['matches'][t('Reschedule')] = 'warning';
   $texts['matches'][t('Assign')] = 'info';
   $texts['matches'][t('Clone')] = 'default';
+  $texts['matches'][t('Archive')] = 'danger';
+  $texts['matches'][t('Unarchive')] = 'default';
   $texts['matches'][t('Delete')] = 'primary';
 }
 
@@ -216,6 +220,8 @@ function farm_theme_bootstrap_iconize_text_alter(&$texts) {
   $texts['matches'][t('Reschedule')] = 'calendar';
   $texts['matches'][t('Assign')] = 'user';
   $texts['matches'][t('Clone')] = 'plus';
+  $texts['matches'][t('Archive')] = 'eye-close';
+  $texts['matches'][t('Unarchive')] = 'eye-open';
   $texts['matches'][t('Delete')] = 'trash';
 }
 

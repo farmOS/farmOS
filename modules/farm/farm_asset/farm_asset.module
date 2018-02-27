@@ -341,6 +341,78 @@ function farm_asset_entity_presave($entity, $type) {
   }
 }
 
+/**
+ * Implements hook_action_info().
+ */
+function farm_asset_action_info() {
+  return array(
+    'farm_asset_archive_action' => array(
+      'type' => 'farm_asset',
+      'label' => t('Archive'),
+      'configurable' => FALSE,
+      'triggers' => array('any'),
+    ),
+    'farm_asset_unarchive_action' => array(
+      'type' => 'farm_asset',
+      'label' => t('Unarchive'),
+      'configurable' => FALSE,
+      'triggers' => array('any'),
+    ),
+  );
+}
+
+/***************************************************************
+ * Asset action callbacks
+ * *************************************************************/
+
+/**
+ * Action function for farm_asset_archive_action.
+ *
+ * Archives an asset.
+ *
+ * @param FarmAsset $asset
+ *   The asset entity object.
+ * @param array $context
+ *   Array with parameters for this action.
+ */
+function farm_asset_archive_action(FarmAsset $asset, $context = array()) {
+
+  // Only proceed if the asset is not already archived.
+  if (!empty($asset->archived)) {
+    return;
+  }
+
+  // Archive the asset.
+  $asset->archived = REQUEST_TIME;
+
+  // Save the asset.
+  farm_asset_save($asset);
+}
+
+/**
+ * Action function for farm_asset_unarchive_action.
+ *
+ * Un-archives an asset.
+ *
+ * @param FarmAsset $asset
+ *   The asset entity object.
+ * @param array $context
+ *   Array with parameters for this action.
+ */
+function farm_asset_unarchive_action(FarmAsset $asset, $context = array()) {
+
+  // Only proceed if the asset is already archived.
+  if (empty($asset->archived)) {
+    return;
+  }
+
+  // Un-archive the asset..
+  $asset->archived = NULL;
+
+  // Save the asset.
+  farm_asset_save($asset);
+}
+
 /****************************************************************
  * Contrib hooks
  * **************************************************************/
