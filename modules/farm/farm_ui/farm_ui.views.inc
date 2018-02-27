@@ -57,7 +57,14 @@ function _farm_ui_views_post_render(&$view, &$output, &$cache) {
   }
 
   // Add the asset cluster map to the top of the View.
-  $map_build = farm_map_build('farm_assets_' . $bundle);
+  $title = t('Asset cluster map');
+  if (!empty($view->display['default']->display_options['title'])) {
+    $asset_type_label = $view->display['default']->display_options['title'];
+    $title = t('@asset_type cluster map', array('@asset_type' => $asset_type_label));
+  }
+  $fieldset = TRUE;
+  $collapsed = TRUE;
+  $map_build = farm_map_build('farm_assets_' . $bundle, $fieldset, $title, $collapsed);
   $output = drupal_render($map_build)  . $output;
 }
 
