@@ -484,10 +484,10 @@ function farm_log_views_default_views() {
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
 
-  /* Display: Page: Plan */
-  $handler = $view->new_display('page', 'Page: Plan', 'page_plan');
+  /* Display: Page: Upcoming */
+  $handler = $view->new_display('page', 'Page: Upcoming', 'page_upcoming');
   $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Plan';
+  $handler->display->display_options['title'] = 'Upcoming tasks';
   $handler->display->display_options['defaults']['empty'] = FALSE;
   /* No results behavior: Global: Unfiltered text */
   $handler->display->display_options['empty']['area_text_custom']['id'] = 'area_text_custom';
@@ -558,10 +558,10 @@ function farm_log_views_default_views() {
   $handler->display->display_options['tab_options']['weight'] = '0';
   $handler->display->display_options['tab_options']['name'] = 'farm';
 
-  /* Display: Block: Plan */
-  $handler = $view->new_display('block', 'Block: Plan', 'block_plan');
+  /* Display: Block: Upcoming */
+  $handler = $view->new_display('block', 'Block: Upcoming', 'block_upcoming');
   $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Plan';
+  $handler->display->display_options['title'] = 'Upcoming tasks';
   $handler->display->display_options['defaults']['use_more'] = FALSE;
   $handler->display->display_options['use_more'] = TRUE;
   $handler->display->display_options['defaults']['use_more_always'] = FALSE;
@@ -569,7 +569,7 @@ function farm_log_views_default_views() {
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['defaults']['use_more_text'] = FALSE;
   $handler->display->display_options['defaults']['link_display'] = FALSE;
-  $handler->display->display_options['link_display'] = 'page_plan';
+  $handler->display->display_options['link_display'] = 'page_upcoming';
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '10';
@@ -714,8 +714,8 @@ function farm_log_views_default_views() {
   $handler->display->display_options['filters']['done']['expose']['operator'] = 'done_op';
   $handler->display->display_options['filters']['done']['expose']['identifier'] = 'done';
 
-  /* Display: Page: Late Tasks */
-  $handler = $view->new_display('page', 'Page: Late Tasks', 'page_late_tasks');
+  /* Display: Page: Late */
+  $handler = $view->new_display('page', 'Page: Late', 'page_late');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Late tasks';
   $handler->display->display_options['defaults']['sorts'] = FALSE;
@@ -781,8 +781,8 @@ function farm_log_views_default_views() {
   $handler->display->display_options['tab_options']['weight'] = '0';
   $handler->display->display_options['tab_options']['name'] = 'farm';
 
-  /* Display: Block: Late Tasks */
-  $handler = $view->new_display('block', 'Block: Late Tasks', 'block_late_tasks');
+  /* Display: Block: Late */
+  $handler = $view->new_display('block', 'Block: Late', 'block_late');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Late tasks';
   $handler->display->display_options['defaults']['use_more'] = FALSE;
@@ -792,7 +792,7 @@ function farm_log_views_default_views() {
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['defaults']['use_more_text'] = FALSE;
   $handler->display->display_options['defaults']['link_display'] = FALSE;
-  $handler->display->display_options['link_display'] = 'page_late_tasks';
+  $handler->display->display_options['link_display'] = 'page_late';
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '10';
@@ -947,11 +947,12 @@ function farm_log_views_default_views() {
   $handler->display->display_options['path'] = 'farm/logs/csv';
   $handler->display->display_options['displays'] = array(
     'page' => 'page',
+    'page_user' => 'page_user',
+    'page_upcoming' => 'page_upcoming',
+    'page_late' => 'page_late',
     'default' => 0,
-    'page_plan' => 0,
-    'block_plan' => 0,
-    'page_late_tasks' => 0,
-    'block_late_tasks' => 0,
+    'block_upcoming' => 0,
+    'block_late' => 0,
   );
   $translatables['farm_log'] = array(
     t('Master'),
@@ -993,13 +994,13 @@ function farm_log_views_default_views() {
     t('All'),
     t('Logs assigned to %1'),
     t('Search'),
-    t('Page: Plan'),
-    t('Plan'),
+    t('Page: Upcoming'),
+    t('Upcoming tasks'),
     t('No tasks are currently planned.'),
-    t('Block: Plan'),
-    t('Page: Late Tasks'),
+    t('Block: Upcoming'),
+    t('Page: Late'),
     t('Late tasks'),
-    t('Block: Late Tasks'),
+    t('Block: Late'),
     t('Data export'),
   );
   $export['farm_log'] = $view;
