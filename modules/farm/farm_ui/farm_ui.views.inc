@@ -47,11 +47,6 @@ function _farm_ui_views_post_render(&$view, &$output, &$cache) {
     return;
   }
 
-  // If dashboard maps are disabled in the farm_map module settings, bail.
-  if (!variable_get('farm_map_show', TRUE)) {
-    return;
-  }
-
   // If there are any arguments, bail.
   /**
    * @todo
@@ -62,11 +57,15 @@ function _farm_ui_views_post_render(&$view, &$output, &$cache) {
   }
 
   // Add the asset cluster map to the top of the View.
-  $map = \Drupal\openlayers\Openlayers::load('Map', 'farm_assets_' . $bundle);
-  if (!empty($map)) {
-    $map_build = $map->build();
-    $output = drupal_render($map_build) . $output;
+  $title = t('Asset cluster map');
+  if (!empty($view->display['default']->display_options['title'])) {
+    $asset_type_label = $view->display['default']->display_options['title'];
+    $title = t('@asset_type cluster map', array('@asset_type' => $asset_type_label));
   }
+  $fieldset = TRUE;
+  $collapsed = TRUE;
+  $map_build = farm_map_build('farm_assets_' . $bundle, $fieldset, $title, $collapsed);
+  $output = drupal_render($map_build)  . $output;
 }
 
 /**

@@ -244,11 +244,6 @@ function farm_area_page_build(&$page) {
     return;
   }
 
-  // If dashboard maps are disabled in the farm_map module settings, bail.
-  if (!variable_get('farm_map_show', TRUE)) {
-    return;
-  }
-
   // If this is the farm dashboard, display the areas map.
   $current_path = current_path();
   $map_paths = array(
@@ -259,11 +254,8 @@ function farm_area_page_build(&$page) {
   );
   if (in_array($current_path, $map_paths)) {
 
-    // Load the areas map.
-    $map = \Drupal\openlayers\Openlayers::load('Map', 'farm_areas');
-
     // Build the map and add it to the page content.
-    $page['content']['farm_areas'] = $map->build();
+    $page['content']['farm_areas'] = farm_map_build('farm_areas');
 
     // Set the weight to -100 so that it appears on top.
     $page['content']['farm_areas']['#weight'] = -100;
