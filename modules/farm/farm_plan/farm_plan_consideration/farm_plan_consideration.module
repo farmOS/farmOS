@@ -37,3 +37,87 @@ function farm_plan_farm_plan_consideration_types() {
     ),
   );
 }
+
+/**
+ * Create a new consideration.
+ *
+ * @param string $type
+ *   The consideration type machine name.
+ * @param string $name
+ *   The consideration name.
+ * @param int $start
+ *   The start timestamp of the consideration.
+ * @param int $end
+ *   The end timestamp of the consideration.
+ *
+ * @return object
+ *   Returns an empty consideration object.
+ */
+function farm_plan_consideration_create($type = 'concern', $name = '', $start = 0, $end = 0) {
+  $consideration = new stdClass();
+  $consideration->id = NULL;
+  $consideration->type = $type;
+  $consideration->name = $name;
+  $consideration->start = $start;
+  $consideration->end = $end;
+  return $consideration;
+}
+
+/**
+ * Save a consideration to the database.
+ *
+ * @param object $consideration
+ *   The consideration object.
+ */
+function farm_plan_consideration_save(&$consideration) {
+
+  // Build the primary keys parameter for drupal_write_record() depending on
+  // whether or not the consideration has an ID (insert vs update).
+  $keys = array();
+  if (!empty($consideration->id)) {
+    $keys[] = 'id';
+  }
+
+  // Save the consideration to the database.
+  drupal_write_record('farm_plan_consideration', $consideration, $keys);
+}
+
+/**
+ * Load a consideration from the database.
+ *
+ * @param int $id
+ *   The consideration ID.
+ *
+ * @return object|bool
+ *   Returns the consideration object, or FALSE if one doesn't exist.
+ */
+function farm_plan_consideration_load($id) {
+
+  // Load the consideration record from the database.
+  $consideration =  db_query('SELECT * FROM {farm_plan_consideration} WHERE id = :id', array(':id' => $id))->fetch();
+
+  // If a consideration couldn't be loaded, bail.
+  if (empty($consideration)) {
+    return FALSE;
+  }
+
+  // Return the consideration.
+  return $consideration;
+}
+
+/**
+ * Delete a consideration from the database.
+ *
+ * @param int $id
+ *   The consideration ID.
+ */
+function farm_plan_consideration_delete($id) {
+
+  // If the ID is empty, bail.
+  if (empty($id)) {
+    return;
+  }
+
+  // Delete the consideration.
+  db_query('DELETE FROM {farm_plan_consideration} WHERE id = :id', array(':id' => $id));
+}
