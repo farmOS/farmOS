@@ -60,6 +60,7 @@ function farm_plan_consideration_create($type = 'concern', $name = '', $start = 
   $consideration->name = $name;
   $consideration->start = $start;
   $consideration->end = $end;
+  $consideration->entities = array();
   return $consideration;
 }
 
@@ -80,6 +81,31 @@ function farm_plan_consideration_save(&$consideration) {
 
   // Save the consideration to the database.
   drupal_write_record('farm_plan_consideration', $consideration, $keys);
+
+  // Save all entity links to the consideration.
+  if (!empty($consideration->id)) {
+
+    // First delete all existing links.
+    db_query('DELETE FROM {farm_plan_consideration_entity} WHERE consideration_id = :id', array(':id' => $consideration->id));
+
+    // If there are links to save, iterate through them.
+    if (!empty($consideration->entities)) {
+      foreach ($consideration->entities as $entity_type => $entity_ids) {
+        if (!empty($entity_ids)) {
+          foreach ($entity_ids as $entity_id) {
+
+            // Save the entity+consideration link.
+            $record = array(
+              'consideration_id' => $consideration->id,
+              'entity_type' => $entity_type,
+              'entity_id' => $entity_id,
+            );
+            drupal_write_record('farm_plan_consideration_entity', $record);
+          }
+        }
+      }
+    }
+  }
 }
 
 /**
@@ -101,6 +127,12 @@ function farm_plan_consideration_load($id) {
     return FALSE;
   }
 
+  // Load entity associations with this consideration.
+  $result = db_query('SELECT * FROM {farm_plan_consideration_entity} WHERE consideration_id = :id', array(':id' => $id));
+  foreach ($result as $record) {
+    $consideration->entities[$record->entity_type][] = $record->entity_id;
+  }
+
   // Return the consideration.
   return $consideration;
 }
@@ -120,4 +152,7 @@ function farm_plan_consideration_delete($id) {
 
   // Delete the consideration.
   db_query('DELETE FROM {farm_plan_consideration} WHERE id = :id', array(':id' => $id));
+
+  // Delete any entity associations to that consideration.
+  db_query('DELETE FROM {farm_plan_consideration_entity} WHERE consideration_id = :id', array(':id' => $id));
 }
