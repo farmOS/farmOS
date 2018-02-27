@@ -80,5 +80,34 @@ function farm_plan_consideration_schema() {
       'entity_id' => array('entity_id'),
     ),
   );
+  $schema['farm_plan_consideration_entity'] = array(
+    'description' => 'Links plan considerations to specific entities.',
+    'fields' => array(
+      'consideration_id' => array(
+        'description' => 'Consideration ID.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'entity_type' => array(
+        'description' => 'The entity type to link to.',
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+      ),
+      'entity_id' => array(
+        'description' => 'The entity ID to link to.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('consideration_id', 'entity_type', 'entity_id'),
+    'indexes' => array(
+      'consideration_id' => array('consideration_id'),
+      'entity_type' => array('entity_type'),
+      'entity_id' => array('entity_id'),
+    ),
+  );
   return $schema;
 }
