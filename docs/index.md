@@ -22,7 +22,9 @@ now is laying a strong [groundwork], so that others can more easily join in and
 * Drupal.org: [https://drupal.org/project/farm]
 * Github: [https://github.com/farmOS]
 * Monthly call: [Google Hangout] (2nd Wed of the month at 1pm Eastern)
-* IRC: [#farmOS on Freenode]
+* Chat:
+    * Riot.im: [#farmOS on Matrix.org]
+    * IRC: [#farmOS on Freenode]
 * Twitter: [@farmOSorg]
 * Twitter: [@getFarmier]
 
@@ -86,6 +88,7 @@ The full workshop recording is available on YouTube:
 [https://drupal.org/project/farm]: https://drupal.org/project/farm
 [https://github.com/farmOS]: https://github.com/farmOS
 [Google Hangout]: https://plus.google.com/hangouts/_/farmier.com/farmos-monthly
+[#farmOS on Matrix.org]: https://riot.im/app/#/room/#farmOS:matrix.org
 [#farmOS on Freenode]: http://webchat.freenode.net/?channels=#farmOS
 [@farmOSorg]: https://twitter.com/farmOSorg
 [@getFarmier]: https://twitter.com/getFarmier
