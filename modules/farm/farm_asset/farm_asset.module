@@ -144,6 +144,16 @@ function farm_asset_menu() {
     'file' => 'farm_asset.admin.inc',
   );
 
+  // Asset autocomplete path.
+  $items['farm_asset/autocomplete/%/%'] = array(
+    'title' => 'Autocomplete for farm assets',
+    'page callback' => 'farm_asset_autocomplete',
+    'page arguments' => array(2, 3),
+    'access callback' => 'farm_asset_autocomplete_access',
+    'access arguments' => array(2),
+    'type' => MENU_CALLBACK
+  );
+
   return $items;
 }
 
@@ -600,6 +610,72 @@ function farm_asset_add_access($account = NULL) {
  */
 function farm_asset_type_access($op, FarmAssetType $farm_asset_type = NULL) {
   return user_access('administer farm_asset types');
+}
+
+/**
+ * Access callback for the farm_asset autocomplete path.
+ *
+ * @param string $asset_type
+ *   The asset type to filter to, or "all" for no filtering.
+ *
+ * @return bool
+ *   Returns TRUE or FALSE to grant or deny access to the path.
+ */
+function farm_asset_autocomplete_access($asset_type) {
+  if ($asset_type == 'all') {
+    return user_access('view farm assets');
+  }
+  return user_access('view all ' . $asset_type . ' farm assets');
+}
+
+/***************************************************************
+ * Farm asset page callbacks.
+ * *************************************************************/
+
+/**
+ * Page callback for the farm_asset autocomplete path.
+ *
+ * @param string $asset_type
+ *   The asset type to filter to. If this is set to 'all' then no filtering
+ *   will be performed.
+ * @param string $string
+ *   The string to search for.
+ *
+ * @return array
+ *   Returns an array of matching assets in JSON form.
+ */
+function farm_asset_autocomplete($asset_type, $string) {
+
+  // Search the database for assets with matching names
+  $query = db_select('farm_asset', 'fa')
+    ->fields('fa', array('id', 'name', 'archived'))
+    ->condition('name', '%' . db_like($string) . '%', 'LIKE')
+    ->orderBy('id', 'ASC')
+    ->range(0, 10);
+
+  // If the asset type is not "all", filter.
+  if ($asset_type != 'all') {
+    $query->condition('type', $asset_type);
+  }
+
+  // Execute the query.
+  $result = $query->execute();
+
+  // Save matches to an array, including the asset name and ID.
+  $matches = array();
+  foreach ($result as $row) {
+    $match = t('@asset_name [id: @asset_id]', array('@asset_name' => $row->name, '@asset_id' => $row->id));
+    if (!empty($row->archived)) {
+      $match .= ' (' . t('archived') . ')';
+    }
+    $matches[] = $match;
+  }
+
+  // Map to an associative array.
+  $matches = drupal_map_assoc($matches);
+
+  // Return the matches as JSON.
+  drupal_json_output($matches);
 }
 
 /***************************************************************
