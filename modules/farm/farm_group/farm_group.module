@@ -809,6 +809,11 @@ function farm_group_circular_membership_validate($asset_ids, $group_ids, $elemen
   // circular membership.
   foreach ($group_ids as $group_id) {
 
+    // If the group ID is empty, skip it.
+    if (empty($group_id)) {
+      continue;
+    }
+
     // Load the group.
     $group = farm_asset_load($group_id);
 
@@ -819,6 +824,11 @@ function farm_group_circular_membership_validate($asset_ids, $group_ids, $elemen
 
     // Iterate through the assets being assigned to the group.
     foreach ($asset_ids as $asset_id) {
+
+      // If the asset ID is empty, skip it.
+      if (empty($asset_id)) {
+        continue;
+      }
 
       // Load the asset.
       $asset = farm_asset_load($asset_id);
