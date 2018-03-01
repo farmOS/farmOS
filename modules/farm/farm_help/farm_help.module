@@ -85,8 +85,12 @@ function farm_help_farm_help_page() {
   // Add a link to the farmOS documentation.
   $output[] = '<h3>Documentation</h3><p>' . l('http://farmOS.org', 'http://farmOS.org') . '</h3>';
 
-  // Add a link to the farmOS IRC channel.
-  $output[] = '<h3>Community Chat</h3><p>' . l('#farmOS IRC channel on Freenode', 'http://webchat.freenode.net/?channels=#farmOS') . '</p>';
+  // Add a link to the farmOS chat rooms.
+  $chat_rooms = array(
+    l('#farmOS Riot.im channel on Matrix.org', 'https://riot.im/app/#/room/#farmOS:matrix.org'),
+    l('#farmOS IRC channel on Freenode', 'http://webchat.freenode.net/?channels=#farmOS'),
+  );
+  $output[] = '<h3>Community Chat</h3><p>' . theme('item_list', array('items' => $chat_rooms)) . '</p>';
 
   // Add a link to the farmOS distribution issue queue.
   $output[] = '<h3>Issue Queues</h3><p>' . l('https://drupal.org/project/issues/farm', 'https://drupal.org/project/issues/farm') . '</p>';
