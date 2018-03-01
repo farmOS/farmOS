@@ -152,7 +152,7 @@ function farm_area_views_default_views() {
     t('Sort by'),
     t('Asc'),
     t('Desc'),
-    t('<h4>Hierarchy <small><a href="/admin/structure/taxonomy/farm_areas?destination=farm/areas">(change)</a></small></h4>'),
+    t('<h4>Hierarchy <small>' . l('(change)', 'admin/structure/taxonomy/farm_areas', array('query' => array('destination' => 'farm/areas'))) . '</small></h4>'),
     t('No areas found.'),
     t('Parent'),
     t('Term ID'),
