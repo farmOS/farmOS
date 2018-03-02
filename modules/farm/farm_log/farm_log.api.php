@@ -61,5 +61,45 @@ function hook_farm_log_categories_populate($log) {
 }
 
 /**
+ * Allow modules to provide information about fields that should be
+ * prepopulated in log forms.
+ *
+ * @param string $log_type
+ *   The log type.
+ *
+ * @return array
+ *   Returns an array of field information.
+ */
+function hook_farm_log_prepopulate_reference_fields($log_type) {
+  return array(
+    'field_farm_asset' => array(
+      'entity_type' => 'farm_asset',
+      'url_param' => 'farm_asset',
+    ),
+  );
+}
+
+/**
+ * Allow modules to alter information about fields that should be
+ * prepopulated in log forms.
+ *
+ * @param array $fields
+ *   An array of field information defined via
+ *   hook_farm_log_prepopulate_reference_fields().
+ * @param string $log_type
+ *   The log type.
+ *
+ * @return array
+ *   Returns an array of field information.
+ */
+function hook_farm_log_prepopulate_reference_fields_alter(&$fields, $log_type) {
+
+  // Example: don't allow prepopulating the asset field on activity logs.
+  if ($log_type == 'farm_activity') {
+    unset($fields['field_farm_asset']);
+  }
+}
+
+/**
  * @}
  */

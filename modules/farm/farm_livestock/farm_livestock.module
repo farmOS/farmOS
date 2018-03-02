@@ -19,6 +19,14 @@ function farm_livestock_farm_ui_entities() {
       ),
     ),
     'log' => array(
+      'farm_birth' => array(
+        'label' => t('Birth record'),
+        'label_plural' => t('Birth records'),
+        'view' => 'farm_log_birth',
+        'farm_asset' => 'animal',
+        'log_view_asset_arg' => 3,
+        'weight' => 20,
+      ),
       'farm_medical' => array(
         'label' => t('Medical record'),
         'label_plural' => t('Medical records'),
@@ -66,10 +74,43 @@ function farm_livestock_farm_log_categories() {
  */
 function farm_livestock_farm_log_categories_populate($log) {
   $categories = array();
-  if ($log->type == 'farm_medical') {
+  if (in_array($log->type, array('farm_birth', 'farm_medical'))) {
     $categories[] = 'Animals';
   }
   return $categories;
+}
+
+/**
+ * Implements hook_farm_log_prepopulate_reference_fields().
+ */
+function farm_livestock_farm_log_prepopulate_reference_fields($log_type) {
+
+  // Allow field_farm_mother to be prepopulated in birth log forms.
+  if ($log_type == 'farm_birth') {
+    return array(
+      'field_farm_mother' => array(
+        'entity_type' => 'farm_asset',
+        'url_param' => 'farm_asset',
+      ),
+    );
+  }
+}
+
+/**
+ * Implements hook_farm_log_prepopulate_reference_fields_alter().
+ */
+function farm_livestock_farm_log_prepopulate_reference_fields_alter(&$fields, $log_type) {
+
+  // Do not prepopulate field_farm_asset in birth log forms, because that is
+  // the children reference field. When the "Add birth record" action is
+  // clicked, we assume that the user wants to create a birth record from the
+  // context of a mother animal. So field_farm_mother is prepopulated instead.
+  // See farm_livestock_farm_log_prepopulate_reference_fields() above.
+  if ($log_type == 'farm_birth') {
+    if (!empty($fields['field_farm_asset'])) {
+      unset($fields['field_farm_asset']);
+    }
+  }
 }
 
 /**
@@ -133,6 +174,30 @@ function farm_livestock_feeds_importer_default_alter($importers) {
     );
     $importer_mappings =& $importers[$name]->config['processor']['config']['mappings'];
     $importer_mappings = array_merge($importer_mappings, $mappings);
+  }
+
+  // Add/alter field mappings on birth logs.
+  $name = 'log_farm_birth';
+  if (!empty($importers[$name])) {
+
+    // Add Mother ID mapping.
+    $mappings = array(
+      array(
+        'source' => 'Mother ID',
+        'target' => 'field_farm_mother',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+    );
+    $importer_mappings =& $importers[$name]->config['processor']['config']['mappings'];
+    $importer_mappings = array_merge($importer_mappings, $mappings);
+
+    // Change "Asset IDs" to "Children IDs".
+    foreach ($importer_mappings as &$mapping) {
+      if ($mapping['source'] == 'Asset IDs') {
+        $mapping['source'] = 'Children IDs';
+      }
+    }
   }
 }
 
@@ -221,6 +286,89 @@ function farm_livestock_entity_view_alter(&$build, $type) {
     '#suffix' => '</div>',
     '#weight' => -120,
   );
+}
+
+/**
+ * Implements hook_entity_insert().
+ */
+function farm_livestock_entity_insert($entity, $type) {
+
+  // If this is a birth log, sync children.
+  if ($type == 'log' && $entity->type == 'farm_birth') {
+    farm_livestock_birth_log_sync($entity);
+  }
+}
+
+/**
+ * Implements hook_entity_update().
+ */
+function farm_livestock_entity_update($entity, $type) {
+
+  // If this is a birth log, sync children.
+  if ($type == 'log' && $entity->type == 'farm_birth') {
+    farm_livestock_birth_log_sync($entity);
+  }
+}
+
+/**
+ * Sync information in children animals if a birth log is saved.
+ *
+ * @param Log $log
+ *   The log entity that is being created or updated.
+ */
+function farm_livestock_birth_log_sync($log) {
+
+  // Load log entity metadata wrapper.
+  $log_wrapper = entity_metadata_wrapper('log', $log);
+
+  // Get the mother animal asset ID from the birth log.
+  $mother_id = $log_wrapper->field_farm_mother->getIdentifier();
+
+  // Iterate through the children assets.
+  foreach ($log_wrapper->field_farm_asset->getIterator() as $delta => $child_wrapper) {
+
+    // We will only save the child asset if we need to.
+    $save = FALSE;
+
+    // If the animal's date of birth does not match the timestamp of the birth
+    // log, sync it.
+    if ($child_wrapper->field_farm_date->value() != $log->timestamp) {
+      $child_wrapper->field_farm_date->set($log->timestamp);
+      drupal_set_message(t('<a href="!asset_path">@asset_label</a>\'s date of birth has been updated to match their birth log.', array('!asset_path' => 'farm/asset/' . $child_wrapper->getIdentifier(), '@asset_label' => $child_wrapper->label())));
+      $save = TRUE;
+    }
+
+    // If a mother is specified, make sure that it is listed as one of the
+    // child's parents.
+    if (!empty($mother_id)) {
+
+      // Iterate through the child's parents to see if the mother is listed.
+      $mother_exists = FALSE;
+      foreach ($child_wrapper->field_farm_parent->getIterator() as $delta => $parent_wrapper) {
+        if ($parent_wrapper->getIdentifier() == $mother_id) {
+          $mother_exists = TRUE;
+        }
+      }
+
+      // If the mother is not one of the child's parents, add her.
+      if (!$mother_exists) {
+        $child_wrapper->field_farm_parent[] = $mother_id;
+        $message_args = array(
+          '!mother_path' => 'farm/asset/' . $log_wrapper->field_farm_mother->getIdentifier(),
+          '@mother_label' => $log_wrapper->field_farm_mother->label(),
+          '!child_path' => 'farm/asset/' . $child_wrapper->getIdentifier(),
+          '@child_label' => $child_wrapper->label(),
+        );
+        drupal_set_message(t('<a href="!mother_path">@mother_label</a> was added to <a href="!child_path">@child_label</a>\'s parents.', $message_args));
+        $save = TRUE;
+      }
+    }
+
+    // Save the asset, if necessary.
+    if ($save) {
+      $child_wrapper->save();
+    }
+  }
 }
 
 /**

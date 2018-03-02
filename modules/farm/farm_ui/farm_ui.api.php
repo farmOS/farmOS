@@ -94,6 +94,13 @@ function hook_farm_ui_entities() {
         // pages, and will show a link in the area details popup.
         'areas' => TRUE,
 
+        // The position of an asset ID contextual filter argument in the log
+        // View, which will be used to filter the logs to only include ones
+        // that reference a particular asset. This is used when logs Views are
+        // added to asset record pages, to show logs associated with the asset.
+        // This is optional, and will default to 1 if omitted.
+        'log_view_asset_arg' => 1,
+
         // Define the weight of this log type relative to others (optional).
         // This will be used to sort the log Views displayed on entities, as
         // well as action links displayed at the top of the page.

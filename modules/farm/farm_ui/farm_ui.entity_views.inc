@@ -42,6 +42,9 @@ function farm_ui_entity_views($entity_type, $entity_bundle, $entity) {
           'name' => $info['view'],
           'group' => 'logs',
         );
+        if (!empty($info['log_view_asset_arg'])) {
+          $view['arg'] = $info['log_view_asset_arg'];
+        }
         if (!empty($info['weight'])) {
           $view['weight'] = $info['weight'];
         }
