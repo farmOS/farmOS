@@ -13,7 +13,7 @@ include_once 'farm_inventory.features.inc';
 function farm_inventory_farm_ui_entity_views($entity_type, $bundle, $entity) {
   $views = array();
 
-  // Add asset movements View at the bottom of assets.
+  // Add inventory adjustments View at the bottom of assets.
   if ($entity_type == 'farm_asset') {
     $views[] = array(
       'name' => 'farm_inventory_log',
