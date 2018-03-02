@@ -1,0 +1,5 @@
+name = Farm Quick Forms
+description = Provides a framework for quick forms in farmOS.
+core = 7.x
+package = farmOS (beta)
+dependencies[] = farm_dashboard

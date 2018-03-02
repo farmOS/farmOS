@@ -1,0 +1,80 @@
+<?php
+/**
+ * @file
+ * Code for the Farm Quick module.
+ */
+
+/**
+ * Load information about all quick forms provided by other modules.
+ */
+function farm_quick_forms() {
+
+  // Ask modules for quick forms.
+  $forms = module_invoke_all('farm_quick_forms');
+
+  // Sort the quick forms.
+  uasort($forms, 'farm_quick_forms_sort');
+
+  // Return the array of quick forms.
+  return $forms;
+}
+
+/**
+ * Sort function for quick form definitions.
+ */
+function farm_quick_forms_sort($a, $b) {
+
+  // Sort alphabetically by the 'tab' property.
+  return strcasecmp($a['tab'], $b['tab']);
+}
+
+/**
+ * Implements hook_menu().
+ */
+function farm_quick_menu() {
+
+  // Start with an empty menu items array.
+  $items = array();
+
+  // Ask for quick forms from modules.
+  $forms = farm_quick_forms();
+
+  // If there are no forms, bail.
+  if (empty($forms)) {
+    return $items;
+  }
+
+  // Add a menu item for each form.
+  reset($forms);
+  $first = key($forms);
+  foreach ($forms as $name => $form) {
+
+    // Add a "Quick forms" default tab for the first item.
+    if ($name == $first) {
+      $items['farm/quick'] = array(
+        'title' => 'Quick forms',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array($form['form']),
+        'access arguments' => array($form['permission']),
+        'type' => MENU_LOCAL_TASK,
+      );
+      $items['farm/quick/' . $name] = array(
+        'title' => $form['tab'],
+        'type' => MENU_DEFAULT_LOCAL_TASK,
+      );
+      continue;
+    }
+
+    // Add each remaining form as another tab.
+    $items['farm/quick/' . $name] = array(
+      'title' => $form['tab'],
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array($form['form']),
+      'access arguments' => array($form['permission']),
+      'type' => MENU_LOCAL_TASK,
+    );
+  }
+
+  // Return menu items.
+  return $items;
+}
