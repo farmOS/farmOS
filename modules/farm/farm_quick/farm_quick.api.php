@@ -36,6 +36,10 @@ function hook_farm_quick_forms() {
 
       // The form callback function.
       'form' => 'my_quick_form',
+
+      // If the quick form functions are stored in a separate PHP file, specify
+      // that as follows (relative to the module's directory).
+      'file' => 'mymodule.farm_quick.inc',
     ),
   );
 }

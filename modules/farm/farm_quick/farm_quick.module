@@ -5,12 +5,30 @@
  */
 
 /**
+ * Implements hook_hook_info().
+ */
+function farm_quick_hook_info() {
+  $hooks['farm_quick_forms'] = array(
+    'group' => 'farm_quick',
+  );
+  return $hooks;
+}
+
+/**
  * Load information about all quick forms provided by other modules.
  */
 function farm_quick_forms() {
 
   // Ask modules for quick forms.
-  $forms = module_invoke_all('farm_quick_forms');
+  $forms = array();
+  $modules = module_implements('farm_quick_forms');
+  foreach ($modules as $module) {
+    $module_forms = module_invoke($module, 'farm_quick_forms');
+    foreach ($module_forms as &$form) {
+      $form['module'] = $module;
+    }
+    $forms = array_merge($forms, $module_forms);
+  }
 
   // Sort the quick forms.
   uasort($forms, 'farm_quick_forms_sort');
@@ -57,6 +75,13 @@ function farm_quick_menu() {
       'access arguments' => array($form['permission']),
       'type' => MENU_LOCAL_TASK,
     );
+
+    // If the quick form code is in a separate file, add that information
+    // to the menu item so Drupal knows where to look.
+    if (!empty($form['file']) && !empty($form['module'])) {
+      $menu_item['file'] = $form['file'];
+      $menu_item['file path'] = drupal_get_path('module', $form['module']);
+    }
 
     // If this is the first item, make it the default tab for "Quick forms".
     if ($name == $first) {
