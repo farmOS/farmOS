@@ -97,6 +97,8 @@ projects[libraries_cdn][version] = "1.7"
 
 projects[log][subdir] = "contrib"
 projects[log][version] = "1.10"
+; Patch to fix Issue #2949445.
+projects[log][patch][] = "http://www.drupal.org/files/issues/log_name_generate-2949445-1.patch"
 
 projects[multiupload_filefield_widget][subdir] = "contrib"
 projects[multiupload_filefield_widget][version] = "1.13"
