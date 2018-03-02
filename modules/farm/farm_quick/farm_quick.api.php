@@ -27,8 +27,14 @@
 function hook_farm_quick_forms() {
   return array(
     'myform' => array(
+
+      // This will be displayed as the title of the tab under "Quick forms".
       'tab' => t('My form'),
+
+      // This permission will be required to access the form.
       'permission' => 'create farm_harvest log entities',
+
+      // The form callback function.
       'form' => 'my_quick_form',
     ),
   );

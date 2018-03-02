@@ -49,30 +49,30 @@ function farm_quick_menu() {
   $first = key($forms);
   foreach ($forms as $name => $form) {
 
-    // Add a "Quick forms" default tab for the first item.
-    if ($name == $first) {
-      $items['farm/quick'] = array(
-        'title' => 'Quick forms',
-        'page callback' => 'drupal_get_form',
-        'page arguments' => array($form['form']),
-        'access arguments' => array($form['permission']),
-        'type' => MENU_LOCAL_TASK,
-      );
-      $items['farm/quick/' . $name] = array(
-        'title' => $form['tab'],
-        'type' => MENU_DEFAULT_LOCAL_TASK,
-      );
-      continue;
-    }
-
-    // Add each remaining form as another tab.
-    $items['farm/quick/' . $name] = array(
+    // Build a menu item definition.
+    $menu_item = array(
       'title' => $form['tab'],
       'page callback' => 'drupal_get_form',
       'page arguments' => array($form['form']),
       'access arguments' => array($form['permission']),
       'type' => MENU_LOCAL_TASK,
     );
+
+    // If this is the first item, make it the default tab for "Quick forms".
+    if ($name == $first) {
+      $items['farm/quick'] = $menu_item;
+      $items['farm/quick']['title'] = 'Quick forms';
+      $items['farm/quick']['type'] = MENU_LOCAL_TASK;
+      $items['farm/quick/' . $name] = array(
+        'title' => $menu_item['title'],
+        'type' => MENU_DEFAULT_LOCAL_TASK,
+      );
+    }
+
+    // Otherwise, treat it as a normal menu tab.
+    else {
+      $items['farm/quick/' . $name] = $menu_item;
+    }
   }
 
   // Return menu items.
