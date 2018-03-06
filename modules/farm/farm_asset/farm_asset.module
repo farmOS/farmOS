@@ -625,7 +625,7 @@ function farm_asset_autocomplete_access($asset_type) {
   if ($asset_type == 'all') {
     return user_access('view farm assets');
   }
-  return user_access('view all ' . $asset_type . ' farm assets');
+  return user_access('view any ' . $asset_type . ' farm assets');
 }
 
 /***************************************************************
