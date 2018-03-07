@@ -34,6 +34,7 @@ included in this list, add a comment to [this issue on Github].
 * Counter Culture Organic Farm (Waialua, Hawai&#699;i)
 * Double Doc Ranch (Shell, Wyoming)
 * FoodScaping Permaculture Farm (Cheshire, Oregon)
+* Grocholl and Sons Farms (Harrison, Illinois)
 * Hampton Plantation (Owings, Maryland)
 * Lokoea Farms (Haleiwa, Hawai&#699;i)
 * Miles Smith Farm (Loudon, New Hampshire)
