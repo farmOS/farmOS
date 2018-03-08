@@ -38,10 +38,11 @@ In addition to Drupal's basic requirements, farmOS also needs the following:
 * **PHP configuration** - It is recommended that you set the following PHP
   configuration variables, to ensure that farmOS runs smoothly. It may run fine
   without these settings, but some features may not work properly without them.
+  Note that the farmOS [Docker] image sets these automatically.
     * `memory_limit=256M`
     * `max_execution_time=240`
     * `max_input_time=240`
-    * `max_input_vars = 5000`
+    * `max_input_vars=5000`
 
 ### Optional dependencies
 
@@ -72,6 +73,7 @@ enhancements if they are available.
 [Drupal Installation Guide]: https://drupal.org/documentation/install
 [requirements of Drupal]: https://drupal.org/requirements
 [Openlayers module]: https://drupal.org/project/openlayers
+[Docker]: /development/docker
 [Google Maps API Key]: /hosting/googlemaps
 [OpenStreetMap]: https://www.openstreetmap.org
 [PHP BCMath extension]: http://php.net/manual/en/book.bc.php
