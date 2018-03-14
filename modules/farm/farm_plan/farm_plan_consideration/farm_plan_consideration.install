@@ -18,6 +18,11 @@ function farm_plan_consideration_schema() {
         'unsigned' => TRUE,
         'not null' => TRUE,
       ),
+      'plan_id' => array(
+        'description' => 'Plan ID that this consideration is linked to (optional).',
+        'type' => 'int',
+        'unsigned' => TRUE,
+      ),
       'type' => array(
         'description' => 'The machine-readable consideration type.',
         'type' => 'varchar',

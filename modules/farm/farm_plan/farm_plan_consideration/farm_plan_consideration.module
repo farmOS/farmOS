@@ -45,6 +45,8 @@ function farm_plan_farm_plan_consideration_types() {
  *   The consideration type machine name.
  * @param string $name
  *   The consideration name.
+ * @param int $plan_id
+ *   The ID of the plan this consideration is linked to (optional).
  * @param int $start
  *   The start timestamp of the consideration.
  * @param int $end
@@ -53,11 +55,12 @@ function farm_plan_farm_plan_consideration_types() {
  * @return object
  *   Returns an empty consideration object.
  */
-function farm_plan_consideration_create($type = 'concern', $name = '', $start = 0, $end = 0) {
+function farm_plan_consideration_create($type = 'concern', $name = '', $plan_id = NULL, $start = 0, $end = 0) {
   $consideration = new stdClass();
   $consideration->id = NULL;
   $consideration->type = $type;
   $consideration->name = $name;
+  $consideration->plan_id = $plan_id;
   $consideration->start = $start;
   $consideration->end = $end;
   $consideration->entities = array();
