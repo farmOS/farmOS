@@ -2,3 +2,4 @@ name = Farm Plan Considerations
 description = Provides features for managing considerations within a farm plan.
 core = 7.x
 package = farmOS (beta)
+dependencies[] = farm_plan
