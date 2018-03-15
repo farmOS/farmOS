@@ -245,6 +245,10 @@ function farm_plan_consideration_form($form, &$form_state, $plan, $consideration
     '#options' => $consideration_type_options,
     '#default_value' => !empty($consideration->type) ? $consideration->type : 'concern',
     '#required' => TRUE,
+    '#ajax' => array(
+      'callback' => 'farm_plan_consideration_form_ajax',
+      'wrapper' => 'consideration-extra',
+    ),
   );
 
   // Name.
@@ -308,6 +312,14 @@ function farm_plan_consideration_form($form, &$form_state, $plan, $consideration
     );
   }
 
+  // Add an area for extra fields. Modules can use this to add type-specific
+  // configuration for their consideration types. For example: linking them
+  // to entities.
+  $form['extra'] = array(
+    '#prefix' => '<div id="consideration-extra">',
+    '#suffix' => '</div>',
+  );
+
   // Submit button.
   $form['submit'] = array(
     '#type' => 'submit',
@@ -315,6 +327,13 @@ function farm_plan_consideration_form($form, &$form_state, $plan, $consideration
   );
 
   return $form;
+}
+
+/**
+ * Consideration form ajax callback.
+ */
+function farm_plan_consideration_form_ajax($form, &$form_state) {
+  return $form['extra'];
 }
 
 /**
