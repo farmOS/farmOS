@@ -21,6 +21,16 @@ function farm_plan_consideration_menu() {
     'type' => MENU_LOCAL_ACTION,
   );
 
+  // Edit an existing consideration.
+  $items['farm/plan/%farm_plan/considerations/%/edit'] = array(
+    'title' => 'Edit consideration',
+    'description' => 'Edit an existing consideration.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('farm_plan_consideration_form', 2, 4),
+    'access callback' => 'farm_plan_access',
+    'access arguments' => array('update', 2),
+  );
+
   return $items;
 }
 
@@ -185,7 +195,7 @@ function farm_plan_consideration_delete($id) {
 /**
  * Build the farm plan considerations form.
  */
-function farm_plan_consideration_form($form, &$form_state, $plan) {
+function farm_plan_consideration_form($form, &$form_state, $plan, $consideration_id = NULL) {
 
   // Set the page title.
   if (empty($consideration_id)) {
@@ -200,6 +210,22 @@ function farm_plan_consideration_form($form, &$form_state, $plan) {
   $form['plan'] = array(
     '#type' => 'value',
     '#value' => $plan,
+  );
+
+  // Load the consideration record, if one is specified.
+  if (!empty($consideration_id)) {
+    $consideration = farm_plan_consideration_load($consideration_id);
+  }
+
+  // Otherwise, start a new one.
+  else {
+    $consideration = farm_plan_consideration_create();
+  }
+
+  // Store the consideration in the form for future use.
+  $form['consideration'] = array(
+    '#type' => 'value',
+    '#value' => $consideration,
   );
 
   // Build an array of consideration type options.
@@ -217,7 +243,7 @@ function farm_plan_consideration_form($form, &$form_state, $plan) {
     '#title' => t('Consideration type'),
     '#description' => t('Specify what type of consideration this is.'),
     '#options' => $consideration_type_options,
-    '#default_value' => 'concern',
+    '#default_value' => !empty($consideration->type) ? $consideration->type : 'concern',
     '#required' => TRUE,
   );
 
@@ -226,40 +252,61 @@ function farm_plan_consideration_form($form, &$form_state, $plan) {
     '#type' => 'textfield',
     '#title' => t('Name'),
     '#description' => t('Provide a brief name for this consideration to describe it.'),
-    '#default_value' => '',
+    '#default_value' => !empty($consideration->name) ? $consideration->name : '',
     '#required' => TRUE,
   );
 
+  // Define date format.
+  $date_format = 'Y-m-d';
+
   // Start date.
+  $default_start = !empty($consideration->start) ? date($date_format, $consideration->start) : '';
   $form['start'] = array(
     '#type' => 'date_select',
     '#title' => t('Start date'),
     '#date_label_position' => 'within',
-    '#date_format' => 'Y-m-d',
+    '#date_format' => $date_format,
     '#date_year_range' => '-3:+10',
-    '#default_value' => '',
+    '#default_value' => $default_start,
     '#required' => TRUE,
   );
 
   // End date.
+  $default_end = !empty($consideration->end) ? date($date_format, $consideration->end) : '';
   $form['end'] = array(
     '#type' => 'date_select',
     '#title' => t('End date'),
     '#date_label_position' => 'within',
-    '#date_format' => 'Y-m-d',
+    '#date_format' => $date_format,
     '#date_year_range' => '-3:+10',
-    '#default_value' => '',
+    '#default_value' => $default_end,
     '#required' => TRUE,
   );
 
-  // Should this consideration specific to this plan?
+  // Is this consideration specific to a plan?
   $plan_label = entity_label('farm_plan', $plan);
-  $form['plan_specific'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('Is this consideration specific to plan %plan_label?', array('%plan_label' => $plan_label)),
-    '#description' => t('If this is checked, the consideration will only be visible in the context of this plan. Otherwise, it will be visible to all plans.'),
-    '#default_value' => FALSE,
-  );
+  if (!empty($consideration_id)) {
+    if (!empty($consideration->plan_id)) {
+      $form['plan_id'] = array(
+        '#type' => 'markup',
+        '#markup' => '<p><strong>' . t('This consideration is specific to plan %plan_label.', array('%plan_label' => $plan_label)) . '</strong></p>',
+      );
+    }
+    else {
+      $form['plan_id'] = array(
+        '#type' => 'markup',
+        '#markup' => '<p><strong>' . t('This consideration applies to all plans.') . '</p></strong>',
+      );
+    }
+  }
+  else {
+    $form['plan_id'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Is this consideration specific to plan %plan_label?', array('%plan_label' => $plan_label)),
+      '#description' => t('If this is checked, the consideration will only be visible in the context of this plan. Otherwise, it will be visible to all plans.'),
+      '#default_value' => FALSE,
+    );
+  }
 
   // Submit button.
   $form['submit'] = array(
@@ -275,21 +322,26 @@ function farm_plan_consideration_form($form, &$form_state, $plan) {
  */
 function farm_plan_consideration_form_submit($form, &$form_state) {
 
-  // Gather and sanitize information from the submitted values.
-  $type = $form_state['values']['type'];
-  $name = check_plain($form_state['values']['name']);
+  // Load the consideration from the form.
+  $consideration = $form_state['values']['consideration'];
+
+  // Format, sanitize, and set information from the submitted values.
+  $consideration->type = $form_state['values']['type'];
+  $consideration->name = check_plain($form_state['values']['name']);
 
   // Convert dates to timestamps.
-  $start = strtotime($form_state['values']['start']);
-  $end = strtotime($form_state['values']['end']);
+  $consideration->start = strtotime($form_state['values']['start']);
+  $consideration->end = strtotime($form_state['values']['end']);
 
-  // If this consideration is specific to the plan, get the plan id.
-  $plan_id = NULL;
-  if (!empty($form_state['values']['plan_specific']) && !empty($form_state['values']['plan']->id)) {
-    $plan_id = $form_state['values']['plan']->id;
+  // If this is a new consideration, and it is specific to the plan, save the
+  // plan ID.
+  if (empty($consideration->id) && !empty($form_state['values']['plan']->id)) {
+    $consideration->plan_id = $form_state['values']['plan']->id;
   }
 
-  // Create and save a new consideration.
-  $consideration = farm_plan_consideration_create($type, $name, $plan_id, $start, $end);
+  // Save the consideration.
   farm_plan_consideration_save($consideration);
+
+  // Set a message.
+  drupal_set_message(t('Consideration saved.'));
 }
