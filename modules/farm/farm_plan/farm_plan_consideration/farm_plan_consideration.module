@@ -13,8 +13,11 @@
  */
 function farm_plan_consideration_types() {
 
-  // Ask modules for consideration types.
-  $consideration_types = module_invoke_all('farm_plan_consideration_types');
+  // Ask modules for consideration types. Use static caching.
+  $consideration_types = &drupal_static(__FUNCTION__);
+  if (!isset($consideration_types)) {
+    $consideration_types = module_invoke_all('farm_plan_consideration_types');
+  }
 
   // Return consideration types.
   return $consideration_types;
