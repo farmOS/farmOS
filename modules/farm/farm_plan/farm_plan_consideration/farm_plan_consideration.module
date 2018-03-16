@@ -503,4 +503,7 @@ function farm_plan_consideration_form_submit($form, &$form_state) {
 
   // Set a message.
   drupal_set_message(t('Consideration saved.'));
+
+  // Redirect to the considerations list.
+  $form_state['redirect'] = 'farm/plan/' . $form_state['values']['plan']->id . '/considerations';
 }
