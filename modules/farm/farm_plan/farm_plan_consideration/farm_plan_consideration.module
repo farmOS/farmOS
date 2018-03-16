@@ -42,6 +42,16 @@ function farm_plan_consideration_menu() {
     'access arguments' => array('update', 2),
   );
 
+  // Delete a consideration.
+  $items['farm/plan/%farm_plan/considerations/%/delete'] = array(
+    'title' => 'Delete consideration',
+    'description' => 'Delete a consideration.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('farm_plan_consideration_delete_form', 2, 4),
+    'access callback' => 'farm_plan_access',
+    'access arguments' => array('update', 2),
+  );
+
   return $items;
 }
 
@@ -506,4 +516,70 @@ function farm_plan_consideration_form_submit($form, &$form_state) {
 
   // Redirect to the considerations list.
   $form_state['redirect'] = 'farm/plan/' . $form_state['values']['plan']->id . '/considerations';
+}
+
+/**
+ * Delete confirmation form.
+ *
+ * @param array $form
+ *   The form array.
+ * @param array $form_state
+ *   The form state array.
+ * @param $plan
+ *   The farm plan entity.
+ * @param $consideration_id
+ *   The ID of the consideration record.
+ *
+ * @return array
+ *   Returns a form array.
+ */
+function farm_plan_consideration_delete_form(array $form, array &$form_state, $plan, $consideration_id) {
+
+  // Store the plan in the form.
+  $form['plan'] = array(
+    '#type' => 'value',
+    '#value' => $plan,
+  );
+
+  // Load the consideration.
+  $consideration = farm_plan_consideration_load($consideration_id);
+
+  // Store the consideration in the form.
+  $form['consideration'] = array(
+    '#type' => 'value',
+    '#value' => $consideration,
+  );
+
+  // Build a confirmation form.
+  return confirm_form($form,
+    t('Are you sure you want to delete %name?', array('%name' => $consideration->name)),
+    'farm/plan/' . $plan->id . '/considerations',
+    t('This action cannot be undone.'),
+    t('Delete'),
+    t('Cancel')
+  );
+}
+
+/**
+ * Delete form submit handler.
+ *
+ * @param array $form
+ *   The form array.
+ * @param array $form_state
+ *   The form state array.
+ */
+function farm_plan_consideration_delete_form_submit(array $form, array &$form_state) {
+
+  // Pull the plan and consideration out of the form.
+  $plan = $form_state['values']['plan'];
+  $consideration = $form_state['values']['consideration'];
+
+  // Delete the consideration.
+  farm_plan_consideration_delete($consideration->id);
+
+  // Set a message.
+  drupal_set_message(t('The consideration was deleted.'));
+
+  // Redirect to the considerations list.
+  $form_state['redirect'] = 'farm/plan/' . $plan->id . '/considerations';
 }
