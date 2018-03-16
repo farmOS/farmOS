@@ -281,15 +281,15 @@ function farm_plan_consideration_list($plan) {
     $associations = '';
     $entity_links = array();
     if (!empty($consideration->entities)) {
-      foreach ($consideration->entities as $type => $ids) {
+      foreach ($consideration->entities as $entity_type => $ids) {
         foreach ($ids as $id) {
-          $entities = entity_load($type, array($id));
+          $entities = entity_load($entity_type, array($id));
           if (empty($entities)) {
             continue;
           }
           $entity = reset($entities);
-          $label = entity_label($type, $entity);
-          $uri = entity_uri($type, $entity);
+          $label = entity_label($entity_type, $entity);
+          $uri = entity_uri($entity_type, $entity);
           $entity_links[] = l($label, $uri['path']);
         }
       }
