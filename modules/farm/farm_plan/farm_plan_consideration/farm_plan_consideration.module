@@ -231,6 +231,7 @@ function farm_plan_consideration_list($plan) {
     t('Start'),
     t('End'),
     t('Associations'),
+    t('Plan'),
     t('Actions'),
   );
 
@@ -287,6 +288,18 @@ function farm_plan_consideration_list($plan) {
       $associations = theme('item_list', array('items' => $entity_links));
     }
 
+    // If the consideration is linked to a plan, show a link to it. Otherwise,
+    // just say "all".
+    $plan_link = 'all';
+    if (!empty($consideration->plan_id)) {
+      $consideration_plan = farm_plan_load($consideration->plan_id);
+      if (!empty($plan)) {
+        $plan_label = entity_label('farm_plan', $consideration_plan);
+        $plan_uri = entity_uri('farm_plan', $consideration_plan);
+        $plan_link = l($plan_label, $plan_uri['path']);
+      }
+    }
+
     // Build the actions.
     $actions = array();
     $actions[] = l(t('Edit'), 'farm/plan/' . $plan->id . '/considerations/' . $consideration->id . '/edit');
@@ -300,6 +313,7 @@ function farm_plan_consideration_list($plan) {
       $start,
       $end,
       $associations,
+      $plan_link,
       $actions,
     );
 
