@@ -650,7 +650,7 @@ function farm_asset_autocomplete($asset_type, $string) {
   $query = db_select('farm_asset', 'fa')
     ->fields('fa', array('id', 'name', 'archived'))
     ->condition('name', '%' . db_like($string) . '%', 'LIKE')
-    ->orderBy('id', 'ASC')
+    ->orderBy('name', 'ASC')
     ->range(0, 10);
 
   // If the asset type is not "all", filter.
