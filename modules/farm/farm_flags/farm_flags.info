@@ -1,0 +1,8 @@
+name = Farm Flags
+description = Provides a general purpose record flagging system.
+core = 7.x
+package = farmOS
+dependencies[] = features
+dependencies[] = list
+features[features_api][] = api:2
+features[field_base][] = field_farm_flags
