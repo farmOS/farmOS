@@ -613,6 +613,20 @@ function farm_log_views_default_views() {
   $handler->display->display_options['filters']['field_farm_flags_value']['expose']['operator'] = 'field_farm_flags_value_op';
   $handler->display->display_options['filters']['field_farm_flags_value']['expose']['identifier'] = 'field_farm_flags_value';
   $handler->display->display_options['filters']['field_farm_flags_value']['expose']['multiple'] = TRUE;
+  /* Filter criterion: Log: Log category (field_farm_log_category) */
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['id'] = 'field_farm_log_category_tid';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['table'] = 'field_data_field_farm_log_category';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['field'] = 'field_farm_log_category_tid';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['group'] = 1;
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['operator_id'] = 'field_farm_log_category_tid_op';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['label'] = 'Log category';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['operator'] = 'field_farm_log_category_tid_op';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['identifier'] = 'field_farm_log_category_tid';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['vocabulary'] = 'farm_log_categories';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['hierarchy'] = 1;
   $handler->display->display_options['path'] = 'farm/logs/plan';
   $handler->display->display_options['menu']['title'] = 'Logs';
   $handler->display->display_options['menu']['weight'] = '';
@@ -855,6 +869,20 @@ function farm_log_views_default_views() {
   $handler->display->display_options['filters']['field_farm_flags_value']['expose']['operator'] = 'field_farm_flags_value_op';
   $handler->display->display_options['filters']['field_farm_flags_value']['expose']['identifier'] = 'field_farm_flags_value';
   $handler->display->display_options['filters']['field_farm_flags_value']['expose']['multiple'] = TRUE;
+  /* Filter criterion: Log: Log category (field_farm_log_category) */
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['id'] = 'field_farm_log_category_tid';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['table'] = 'field_data_field_farm_log_category';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['field'] = 'field_farm_log_category_tid';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['group'] = 1;
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['operator_id'] = 'field_farm_log_category_tid_op';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['label'] = 'Log category';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['operator'] = 'field_farm_log_category_tid_op';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['identifier'] = 'field_farm_log_category_tid';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['vocabulary'] = 'farm_log_categories';
+  $handler->display->display_options['filters']['field_farm_log_category_tid']['hierarchy'] = 1;
   $handler->display->display_options['path'] = 'farm/logs/late';
   $handler->display->display_options['menu']['title'] = 'Logs';
   $handler->display->display_options['menu']['weight'] = '';
@@ -1083,6 +1111,7 @@ function farm_log_views_default_views() {
     t('Page: Upcoming'),
     t('Upcoming tasks'),
     t('No tasks are currently planned.'),
+    t('Log category'),
     t('Block: Upcoming'),
     t('Page: Late'),
     t('Late tasks'),
