@@ -1,0 +1,34 @@
+<?php
+/**
+ * @file
+ * Farm flags module.
+ */
+
+/**
+ * Get a list of available flags.
+ */
+function farm_flags_list() {
+
+  // Ask modules for flags.
+  $flags = module_invoke_all('farm_flags');
+
+  // Return them.
+  return $flags;
+}
+
+/**
+ * Allowed values callback function for the flags field.
+ */
+function farm_flags_field_allowed_values() {
+  return farm_flags_list();
+}
+
+/**
+ * Implements hook_farm_flags().
+ */
+function farm_flags_farm_flags() {
+  return array(
+    'priority' => t('Priority'),
+    'review' => t('Needs Review'),
+  );
+}

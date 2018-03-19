@@ -46,6 +46,7 @@ function farm_log_views_default_views() {
     'field_farm_asset' => 'field_farm_asset',
     'field_farm_area' => 'field_farm_area',
     'type' => 'type',
+    'field_farm_flags' => 'field_farm_flags',
     'field_farm_log_category' => 'field_farm_log_category',
     'field_farm_log_owner' => 'field_farm_log_owner',
   );
@@ -97,6 +98,11 @@ function farm_log_views_default_views() {
     'type' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_flags' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -231,6 +237,11 @@ function farm_log_views_default_views() {
   $handler->display->display_options['fields']['type']['id'] = 'type';
   $handler->display->display_options['fields']['type']['table'] = 'log';
   $handler->display->display_options['fields']['type']['field'] = 'type';
+  /* Field: Field: Flags */
+  $handler->display->display_options['fields']['field_farm_flags']['id'] = 'field_farm_flags';
+  $handler->display->display_options['fields']['field_farm_flags']['table'] = 'field_data_field_farm_flags';
+  $handler->display->display_options['fields']['field_farm_flags']['field'] = 'field_farm_flags';
+  $handler->display->display_options['fields']['field_farm_flags']['delta_offset'] = '0';
   /* Field: Log: Log category */
   $handler->display->display_options['fields']['field_farm_log_category']['id'] = 'field_farm_log_category';
   $handler->display->display_options['fields']['field_farm_log_category']['table'] = 'field_data_field_farm_log_category';
@@ -267,6 +278,13 @@ function farm_log_views_default_views() {
   $handler->display->display_options['sorts']['name']['relationship'] = 'field_farm_log_owner_target_id';
   $handler->display->display_options['sorts']['name']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['name']['expose']['label'] = 'Assigned to';
+  /* Sort criterion: Log: Log ID */
+  $handler->display->display_options['sorts']['id']['id'] = 'id';
+  $handler->display->display_options['sorts']['id']['table'] = 'log';
+  $handler->display->display_options['sorts']['id']['field'] = 'id';
+  $handler->display->display_options['sorts']['id']['order'] = 'DESC';
+  $handler->display->display_options['sorts']['id']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['id']['expose']['label'] = 'Log ID';
   /* Filter criterion: Log: Name */
   $handler->display->display_options['filters']['name']['id'] = 'name';
   $handler->display->display_options['filters']['name']['table'] = 'log';
@@ -301,6 +319,17 @@ function farm_log_views_default_views() {
   $handler->display->display_options['filters']['type']['expose']['operator'] = 'type_op';
   $handler->display->display_options['filters']['type']['expose']['identifier'] = 'type';
   $handler->display->display_options['filters']['type']['expose']['multiple'] = TRUE;
+  /* Filter criterion: Field: Flags (field_farm_flags) */
+  $handler->display->display_options['filters']['field_farm_flags_value']['id'] = 'field_farm_flags_value';
+  $handler->display->display_options['filters']['field_farm_flags_value']['table'] = 'field_data_field_farm_flags';
+  $handler->display->display_options['filters']['field_farm_flags_value']['field'] = 'field_farm_flags_value';
+  $handler->display->display_options['filters']['field_farm_flags_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_farm_flags_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_flags_value']['expose']['operator_id'] = 'field_farm_flags_value_op';
+  $handler->display->display_options['filters']['field_farm_flags_value']['expose']['label'] = 'Flags';
+  $handler->display->display_options['filters']['field_farm_flags_value']['expose']['operator'] = 'field_farm_flags_value_op';
+  $handler->display->display_options['filters']['field_farm_flags_value']['expose']['identifier'] = 'field_farm_flags_value';
+  $handler->display->display_options['filters']['field_farm_flags_value']['expose']['multiple'] = TRUE;
   /* Filter criterion: Log: Log category (field_farm_log_category) */
   $handler->display->display_options['filters']['field_farm_log_category_tid']['id'] = 'field_farm_log_category_tid';
   $handler->display->display_options['filters']['field_farm_log_category_tid']['table'] = 'field_data_field_farm_log_category';
@@ -381,6 +410,13 @@ function farm_log_views_default_views() {
   $handler->display->display_options['sorts']['timestamp']['order'] = 'DESC';
   $handler->display->display_options['sorts']['timestamp']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['timestamp']['expose']['label'] = 'Date';
+  /* Sort criterion: Log: Log ID */
+  $handler->display->display_options['sorts']['id']['id'] = 'id';
+  $handler->display->display_options['sorts']['id']['table'] = 'log';
+  $handler->display->display_options['sorts']['id']['field'] = 'id';
+  $handler->display->display_options['sorts']['id']['order'] = 'DESC';
+  $handler->display->display_options['sorts']['id']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['id']['expose']['label'] = 'Log ID';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: User: Uid */
   $handler->display->display_options['arguments']['uid']['id'] = 'uid';
@@ -421,6 +457,17 @@ function farm_log_views_default_views() {
   $handler->display->display_options['filters']['type']['expose']['operator'] = 'type_op';
   $handler->display->display_options['filters']['type']['expose']['identifier'] = 'type';
   $handler->display->display_options['filters']['type']['expose']['multiple'] = TRUE;
+  /* Filter criterion: Field: Flags (field_farm_flags) */
+  $handler->display->display_options['filters']['field_farm_flags_value']['id'] = 'field_farm_flags_value';
+  $handler->display->display_options['filters']['field_farm_flags_value']['table'] = 'field_data_field_farm_flags';
+  $handler->display->display_options['filters']['field_farm_flags_value']['field'] = 'field_farm_flags_value';
+  $handler->display->display_options['filters']['field_farm_flags_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_farm_flags_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_flags_value']['expose']['operator_id'] = 'field_farm_flags_value_op';
+  $handler->display->display_options['filters']['field_farm_flags_value']['expose']['label'] = 'Flags';
+  $handler->display->display_options['filters']['field_farm_flags_value']['expose']['operator'] = 'field_farm_flags_value_op';
+  $handler->display->display_options['filters']['field_farm_flags_value']['expose']['identifier'] = 'field_farm_flags_value';
+  $handler->display->display_options['filters']['field_farm_flags_value']['expose']['multiple'] = TRUE;
   /* Filter criterion: Log: Log category (field_farm_log_category) */
   $handler->display->display_options['filters']['field_farm_log_category_tid']['id'] = 'field_farm_log_category_tid';
   $handler->display->display_options['filters']['field_farm_log_category_tid']['table'] = 'field_data_field_farm_log_category';
@@ -509,6 +556,13 @@ function farm_log_views_default_views() {
   $handler->display->display_options['sorts']['name']['relationship'] = 'field_farm_log_owner_target_id';
   $handler->display->display_options['sorts']['name']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['name']['expose']['label'] = 'Owner';
+  /* Sort criterion: Log: Log ID */
+  $handler->display->display_options['sorts']['id']['id'] = 'id';
+  $handler->display->display_options['sorts']['id']['table'] = 'log';
+  $handler->display->display_options['sorts']['id']['field'] = 'id';
+  $handler->display->display_options['sorts']['id']['order'] = 'DESC';
+  $handler->display->display_options['sorts']['id']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['id']['expose']['label'] = 'Log ID';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Date: Date (log) */
@@ -542,11 +596,23 @@ function farm_log_views_default_views() {
   $handler->display->display_options['filters']['uid']['field'] = 'uid';
   $handler->display->display_options['filters']['uid']['relationship'] = 'field_farm_log_owner_target_id';
   $handler->display->display_options['filters']['uid']['value'] = '';
+  $handler->display->display_options['filters']['uid']['group'] = 1;
   $handler->display->display_options['filters']['uid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['uid']['expose']['operator_id'] = 'uid_op';
   $handler->display->display_options['filters']['uid']['expose']['label'] = 'Owner';
   $handler->display->display_options['filters']['uid']['expose']['operator'] = 'uid_op';
   $handler->display->display_options['filters']['uid']['expose']['identifier'] = 'uid';
+  /* Filter criterion: Field: Flags (field_farm_flags) */
+  $handler->display->display_options['filters']['field_farm_flags_value']['id'] = 'field_farm_flags_value';
+  $handler->display->display_options['filters']['field_farm_flags_value']['table'] = 'field_data_field_farm_flags';
+  $handler->display->display_options['filters']['field_farm_flags_value']['field'] = 'field_farm_flags_value';
+  $handler->display->display_options['filters']['field_farm_flags_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_farm_flags_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_flags_value']['expose']['operator_id'] = 'field_farm_flags_value_op';
+  $handler->display->display_options['filters']['field_farm_flags_value']['expose']['label'] = 'Flags';
+  $handler->display->display_options['filters']['field_farm_flags_value']['expose']['operator'] = 'field_farm_flags_value_op';
+  $handler->display->display_options['filters']['field_farm_flags_value']['expose']['identifier'] = 'field_farm_flags_value';
+  $handler->display->display_options['filters']['field_farm_flags_value']['expose']['multiple'] = TRUE;
   $handler->display->display_options['path'] = 'farm/logs/plan';
   $handler->display->display_options['menu']['title'] = 'Logs';
   $handler->display->display_options['menu']['weight'] = '';
@@ -732,6 +798,13 @@ function farm_log_views_default_views() {
   $handler->display->display_options['sorts']['name']['relationship'] = 'field_farm_log_owner_target_id';
   $handler->display->display_options['sorts']['name']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['name']['expose']['label'] = 'Owner';
+  /* Sort criterion: Log: Log ID */
+  $handler->display->display_options['sorts']['id']['id'] = 'id';
+  $handler->display->display_options['sorts']['id']['table'] = 'log';
+  $handler->display->display_options['sorts']['id']['field'] = 'id';
+  $handler->display->display_options['sorts']['id']['order'] = 'DESC';
+  $handler->display->display_options['sorts']['id']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['id']['expose']['label'] = 'Log ID';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Date: Date (log) */
@@ -765,11 +838,23 @@ function farm_log_views_default_views() {
   $handler->display->display_options['filters']['uid']['field'] = 'uid';
   $handler->display->display_options['filters']['uid']['relationship'] = 'field_farm_log_owner_target_id';
   $handler->display->display_options['filters']['uid']['value'] = '';
+  $handler->display->display_options['filters']['uid']['group'] = 1;
   $handler->display->display_options['filters']['uid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['uid']['expose']['operator_id'] = 'uid_op';
   $handler->display->display_options['filters']['uid']['expose']['label'] = 'Owner';
   $handler->display->display_options['filters']['uid']['expose']['operator'] = 'uid_op';
   $handler->display->display_options['filters']['uid']['expose']['identifier'] = 'uid';
+  /* Filter criterion: Field: Flags (field_farm_flags) */
+  $handler->display->display_options['filters']['field_farm_flags_value']['id'] = 'field_farm_flags_value';
+  $handler->display->display_options['filters']['field_farm_flags_value']['table'] = 'field_data_field_farm_flags';
+  $handler->display->display_options['filters']['field_farm_flags_value']['field'] = 'field_farm_flags_value';
+  $handler->display->display_options['filters']['field_farm_flags_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_farm_flags_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_flags_value']['expose']['operator_id'] = 'field_farm_flags_value_op';
+  $handler->display->display_options['filters']['field_farm_flags_value']['expose']['label'] = 'Flags';
+  $handler->display->display_options['filters']['field_farm_flags_value']['expose']['operator'] = 'field_farm_flags_value_op';
+  $handler->display->display_options['filters']['field_farm_flags_value']['expose']['identifier'] = 'field_farm_flags_value';
+  $handler->display->display_options['filters']['field_farm_flags_value']['expose']['multiple'] = TRUE;
   $handler->display->display_options['path'] = 'farm/logs/late';
   $handler->display->display_options['menu']['title'] = 'Logs';
   $handler->display->display_options['menu']['weight'] = '';
@@ -985,6 +1070,7 @@ function farm_log_views_default_views() {
     t('Assets'),
     t('Areas'),
     t('Log type'),
+    t('Flags'),
     t('Categories'),
     t('Assigned to'),
     t('Start date'),

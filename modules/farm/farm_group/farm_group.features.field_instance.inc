@@ -22,7 +22,7 @@ function farm_group_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 1,
+        'weight' => 2,
       ),
     ),
     'entity_type' => 'farm_asset',
@@ -40,7 +40,7 @@ function farm_group_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 1,
+      'weight' => -9,
     ),
   );
 
@@ -55,7 +55,7 @@ function farm_group_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_table',
-        'weight' => 3,
+        'weight' => 4,
       ),
     ),
     'entity_type' => 'farm_asset',
@@ -80,6 +80,37 @@ function farm_group_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'farm_asset-group-field_farm_flags'.
+  $field_instances['farm_asset-group-field_farm_flags'] = array(
+    'bundle' => 'group',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Add flags to this asset to enable better sorting and filtering of records.',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'farm_asset',
+    'field_name' => 'field_farm_flags',
+    'label' => 'Flags',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => -8,
+    ),
+  );
+
   // Exported field_instance: 'farm_asset-group-field_farm_images'.
   $field_instances['farm_asset-group-field_farm_images'] = array(
     'bundle' => 'group',
@@ -100,7 +131,7 @@ function farm_group_field_default_field_instances() {
           'colorbox_node_style_first' => 'large',
         ),
         'type' => 'colorbox',
-        'weight' => 2,
+        'weight' => 3,
       ),
     ),
     'entity_type' => 'farm_asset',
@@ -215,8 +246,10 @@ function farm_group_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Add flags to this asset to enable better sorting and filtering of records.');
   t('Description');
   t('Files');
+  t('Flags');
   t('Group');
   t('Parent(s)');
   t('Photos');

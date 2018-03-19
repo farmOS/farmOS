@@ -22,7 +22,7 @@ function farm_equipment_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 3,
+        'weight' => 4,
       ),
     ),
     'entity_type' => 'farm_asset',
@@ -40,7 +40,7 @@ function farm_equipment_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 4,
+      'weight' => -6,
     ),
   );
 
@@ -56,7 +56,7 @@ function farm_equipment_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_table',
-        'weight' => 5,
+        'weight' => 6,
       ),
     ),
     'entity_type' => 'farm_asset',
@@ -81,6 +81,37 @@ function farm_equipment_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'farm_asset-equipment-field_farm_flags'.
+  $field_instances['farm_asset-equipment-field_farm_flags'] = array(
+    'bundle' => 'equipment',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Add flags to this asset to enable better sorting and filtering of records.',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 3,
+      ),
+    ),
+    'entity_type' => 'farm_asset',
+    'field_name' => 'field_farm_flags',
+    'label' => 'Flags',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => -5,
+    ),
+  );
+
   // Exported field_instance: 'farm_asset-equipment-field_farm_images'.
   $field_instances['farm_asset-equipment-field_farm_images'] = array(
     'bundle' => 'equipment',
@@ -102,7 +133,7 @@ function farm_equipment_field_default_field_instances() {
           'colorbox_node_style_first' => 'large',
         ),
         'type' => 'colorbox',
-        'weight' => 4,
+        'weight' => 5,
       ),
     ),
     'entity_type' => 'farm_asset',
@@ -162,7 +193,7 @@ function farm_equipment_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 1,
+      'weight' => -9,
     ),
   );
 
@@ -196,7 +227,7 @@ function farm_equipment_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 2,
+      'weight' => -8,
     ),
   );
 
@@ -230,7 +261,7 @@ function farm_equipment_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 3,
+      'weight' => -7,
     ),
   );
 
@@ -287,7 +318,7 @@ function farm_equipment_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_table',
-        'weight' => 7,
+        'weight' => 8,
       ),
     ),
     'entity_type' => 'log',
@@ -312,6 +343,37 @@ function farm_equipment_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_maintenance-field_farm_flags'.
+  $field_instances['log-farm_maintenance-field_farm_flags'] = array(
+    'bundle' => 'farm_maintenance',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Add flags to this log to enable better sorting and filtering of records.',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 4,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_flags',
+    'label' => 'Flags',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => -7,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_maintenance-field_farm_images'.
   $field_instances['log-farm_maintenance-field_farm_images'] = array(
     'bundle' => 'farm_maintenance',
@@ -333,7 +395,7 @@ function farm_equipment_field_default_field_instances() {
           'colorbox_node_style_first' => 'large',
         ),
         'type' => 'colorbox',
-        'weight' => 6,
+        'weight' => 7,
       ),
     ),
     'entity_type' => 'log',
@@ -408,7 +470,7 @@ function farm_equipment_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 4,
+        'weight' => 5,
       ),
     ),
     'entity_type' => 'log',
@@ -442,7 +504,7 @@ function farm_equipment_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 5,
+        'weight' => 6,
       ),
     ),
     'entity_type' => 'log',
@@ -524,16 +586,19 @@ function farm_equipment_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 1,
+      'weight' => -8,
     ),
   );
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Add flags to this asset to enable better sorting and filtering of records.');
+  t('Add flags to this log to enable better sorting and filtering of records.');
   t('Assets');
   t('Assigned to');
   t('Description');
   t('Files');
+  t('Flags');
   t('Inventory adjustments');
   t('Log category');
   t('Manufacturer');

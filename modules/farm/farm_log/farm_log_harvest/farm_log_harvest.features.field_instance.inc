@@ -100,7 +100,7 @@ function farm_log_harvest_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_table',
-        'weight' => 10,
+        'weight' => 11,
       ),
       'token' => array(
         'label' => 'above',
@@ -131,6 +131,37 @@ function farm_log_harvest_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_harvest-field_farm_flags'.
+  $field_instances['log-farm_harvest-field_farm_flags'] = array(
+    'bundle' => 'farm_harvest',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Add flags to this log to enable better sorting and filtering of records.',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 7,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_flags',
+    'label' => 'Flags',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => -6,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_harvest-field_farm_geofield'.
   $field_instances['log-farm_harvest-field_farm_geofield'] = array(
     'bundle' => 'farm_harvest',
@@ -146,7 +177,7 @@ function farm_log_harvest_field_default_field_instances() {
           'map_layer_preset' => 'farm_map_geofield_formatter:openlayers_geofield_layer_formatter',
         ),
         'type' => 'openlayers_geofield',
-        'weight' => 11,
+        'weight' => 12,
       ),
       'token' => array(
         'label' => 'above',
@@ -218,7 +249,7 @@ function farm_log_harvest_field_default_field_instances() {
           'colorbox_node_style_first' => 'large',
         ),
         'type' => 'colorbox',
-        'weight' => 9,
+        'weight' => 10,
       ),
       'token' => array(
         'label' => 'above',
@@ -299,7 +330,7 @@ function farm_log_harvest_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_plain',
-        'weight' => 7,
+        'weight' => 8,
       ),
     ),
     'entity_type' => 'log',
@@ -333,7 +364,7 @@ function farm_log_harvest_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 8,
+        'weight' => 9,
       ),
     ),
     'entity_type' => 'log',
@@ -382,7 +413,7 @@ function farm_log_harvest_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 1,
+      'weight' => -8,
     ),
   );
 
@@ -455,7 +486,7 @@ function farm_log_harvest_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 2,
+      'weight' => -7,
     ),
   );
 
@@ -500,11 +531,13 @@ function farm_log_harvest_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Add flags to this log to enable better sorting and filtering of records.');
   t('Areas');
   t('Assets');
   t('Assigned to');
   t('Describe the quantity of this harvest, using a value, unit, and measure. For example, if you harvested 100 pounds of potatoes, enter "100" in the Value field, "lbs" in the Units field, and "Weight" in the Measure field. As you type the unit, you will have the option of selecting from units that you\'ve entered in the past.');
   t('Files');
+  t('Flags');
   t('Geometry');
   t('Harvest lot number');
   t('If this harvest is part of a batch or lot, enter the lot number here.');

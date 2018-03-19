@@ -57,3 +57,51 @@ function farm_area_farm_area_details($id) {
   // Return the render array.
   return $output;
 }
+
+/**
+ * Implements hook_farm_area_details().
+ */
+function farm_flags_farm_area_details($id) {
+
+  // Start a render array.
+  $output = array();
+
+  // Load the area.
+  $area = taxonomy_term_load($id);
+
+  // If the area didn't load, bail.
+  if (empty($area)) {
+    return $output;
+  }
+
+  // Load an entity metadata wrapper for the area.
+  $area_wrapper = entity_metadata_wrapper('taxonomy_term', $area);
+
+  // Load a list of available flags.
+  $flags = farm_flags_list();
+
+  // Create a list of flags on the area.
+  $area_flags = array();
+  foreach ($area_wrapper->field_farm_flags as $flag) {
+    if (!empty($flag->value())) {
+      $flag_machine_name = $flag->value();
+      if (!empty($flags[$flag_machine_name])) {
+        $area_flags[] = '<strong>' . $flags[$flag_machine_name] . '</strong>';
+      }
+    }
+  }
+
+  // If there are no flags, bail.
+  if (empty($area_flags)) {
+    return $output;
+  }
+
+  // Add the list of flags to the area details.
+  $output[] = array(
+    '#type' => 'markup',
+    '#markup' => '<small>' . t('Flags') . ': ' . implode(', ', $area_flags) . '</small>',
+  );
+
+  // Return the output.
+  return $output;
+}

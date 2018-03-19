@@ -97,6 +97,13 @@ function farm_asset_children_views_default_views() {
   $handler->display->display_options['sorts']['name']['field'] = 'name';
   $handler->display->display_options['sorts']['name']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['name']['expose']['label'] = 'Name';
+  /* Sort criterion: Farm asset: Farm asset ID */
+  $handler->display->display_options['sorts']['id']['id'] = 'id';
+  $handler->display->display_options['sorts']['id']['table'] = 'farm_asset';
+  $handler->display->display_options['sorts']['id']['field'] = 'id';
+  $handler->display->display_options['sorts']['id']['order'] = 'DESC';
+  $handler->display->display_options['sorts']['id']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['id']['expose']['label'] = 'Asset ID';
   /* Contextual filter: Farm asset: Parent(s) (field_farm_parent) */
   $handler->display->display_options['arguments']['field_farm_parent_target_id']['id'] = 'field_farm_parent_target_id';
   $handler->display->display_options['arguments']['field_farm_parent_target_id']['table'] = 'field_data_field_farm_parent';
@@ -155,6 +162,7 @@ function farm_asset_children_views_default_views() {
     t('.'),
     t('Name'),
     t('Archived'),
+    t('Asset ID'),
     t('All'),
     t('Children of %1'),
     t('Page'),

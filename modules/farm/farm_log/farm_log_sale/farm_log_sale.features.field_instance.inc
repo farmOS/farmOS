@@ -81,7 +81,7 @@ function farm_log_sale_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 3,
+      'weight' => -4,
     ),
   );
 
@@ -96,7 +96,7 @@ function farm_log_sale_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_table',
-        'weight' => 13,
+        'weight' => 14,
       ),
     ),
     'entity_type' => 'log',
@@ -121,6 +121,37 @@ function farm_log_sale_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_sale-field_farm_flags'.
+  $field_instances['log-farm_sale-field_farm_flags'] = array(
+    'bundle' => 'farm_sale',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Add flags to this log to enable better sorting and filtering of records.',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 10,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_flags',
+    'label' => 'Flags',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 4,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_sale-field_farm_images'.
   $field_instances['log-farm_sale-field_farm_images'] = array(
     'bundle' => 'farm_sale',
@@ -141,7 +172,7 @@ function farm_log_sale_field_default_field_instances() {
           'colorbox_node_style_first' => 'large',
         ),
         'type' => 'colorbox',
-        'weight' => 12,
+        'weight' => 13,
       ),
     ),
     'entity_type' => 'log',
@@ -234,7 +265,7 @@ function farm_log_sale_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 4,
+      'weight' => -3,
     ),
   );
 
@@ -250,7 +281,7 @@ function farm_log_sale_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_plain',
-        'weight' => 10,
+        'weight' => 11,
       ),
     ),
     'entity_type' => 'log',
@@ -284,7 +315,7 @@ function farm_log_sale_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 11,
+        'weight' => 12,
       ),
     ),
     'entity_type' => 'log',
@@ -333,7 +364,7 @@ function farm_log_sale_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 5,
+      'weight' => -2,
     ),
   );
 
@@ -367,7 +398,7 @@ function farm_log_sale_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 10,
+      'weight' => 3,
     ),
   );
 
@@ -401,7 +432,7 @@ function farm_log_sale_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'taxonomy_autocomplete',
-      'weight' => 7,
+      'weight' => 0,
     ),
   );
 
@@ -443,7 +474,7 @@ function farm_log_sale_field_default_field_instances() {
         'precision' => 0,
       ),
       'type' => 'fraction_decimal',
-      'weight' => 6,
+      'weight' => -1,
     ),
   );
 
@@ -485,7 +516,7 @@ function farm_log_sale_field_default_field_instances() {
         'precision' => 0,
       ),
       'type' => 'fraction_decimal',
-      'weight' => 9,
+      'weight' => 2,
     ),
   );
 
@@ -527,16 +558,18 @@ function farm_log_sale_field_default_field_instances() {
         'precision' => 0,
       ),
       'type' => 'fraction_decimal',
-      'weight' => 8,
+      'weight' => 1,
     ),
   );
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Add flags to this log to enable better sorting and filtering of records.');
   t('Assets');
   t('Assigned to');
   t('Customer');
   t('Files');
+  t('Flags');
   t('How many were sold?');
   t('If this sale has a lot number associated with it, enter it here.');
   t('Inventory adjustments');

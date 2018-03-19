@@ -53,7 +53,7 @@ function farm_soil_test_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_table',
-        'weight' => 8,
+        'weight' => 9,
       ),
     ),
     'entity_type' => 'log',
@@ -75,6 +75,37 @@ function farm_soil_test_field_default_field_instances() {
       ),
       'type' => 'file_mfw',
       'weight' => 7,
+    ),
+  );
+
+  // Exported field_instance: 'log-farm_soil_test-field_farm_flags'.
+  $field_instances['log-farm_soil_test-field_farm_flags'] = array(
+    'bundle' => 'farm_soil_test',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Add flags to this log to enable better sorting and filtering of records.',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 5,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_flags',
+    'label' => 'Flags',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => -6,
     ),
   );
 
@@ -164,7 +195,7 @@ function farm_soil_test_field_default_field_instances() {
           'colorbox_node_style_first' => 'large',
         ),
         'type' => 'colorbox',
-        'weight' => 7,
+        'weight' => 8,
       ),
     ),
     'entity_type' => 'log',
@@ -206,7 +237,7 @@ function farm_soil_test_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 5,
+        'weight' => 6,
       ),
     ),
     'entity_type' => 'log',
@@ -240,7 +271,7 @@ function farm_soil_test_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 6,
+        'weight' => 7,
       ),
     ),
     'entity_type' => 'log',
@@ -289,7 +320,7 @@ function farm_soil_test_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 2,
+      'weight' => -7,
     ),
   );
 
@@ -323,7 +354,7 @@ function farm_soil_test_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 1,
+      'weight' => -8,
     ),
   );
 
@@ -363,9 +394,11 @@ function farm_soil_test_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Add flags to this log to enable better sorting and filtering of records.');
   t('Areas');
   t('Assigned to');
   t('Files');
+  t('Flags');
   t('Laboratory');
   t('List the names of soils that are included in this sample. For soil maps and soil names, visit http://websoilsurvey.nrcs.usda.gov/app');
   t('Log category');

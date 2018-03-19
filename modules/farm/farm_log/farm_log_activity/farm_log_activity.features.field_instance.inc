@@ -95,7 +95,7 @@ function farm_log_activity_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_table',
-        'weight' => 10,
+        'weight' => 11,
       ),
     ),
     'entity_type' => 'log',
@@ -120,6 +120,37 @@ function farm_log_activity_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_activity-field_farm_flags'.
+  $field_instances['log-farm_activity-field_farm_flags'] = array(
+    'bundle' => 'farm_activity',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Add flags to this log to enable better sorting and filtering of records.',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 7,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_flags',
+    'label' => 'Flags',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => -7,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_activity-field_farm_geofield'.
   $field_instances['log-farm_activity-field_farm_geofield'] = array(
     'bundle' => 'farm_activity',
@@ -135,7 +166,7 @@ function farm_log_activity_field_default_field_instances() {
           'map_layer_preset' => 'farm_map_geofield_formatter:openlayers_geofield_layer_formatter',
         ),
         'type' => 'openlayers_geofield',
-        'weight' => 11,
+        'weight' => 12,
       ),
     ),
     'entity_type' => 'log',
@@ -206,7 +237,7 @@ function farm_log_activity_field_default_field_instances() {
           'colorbox_node_style_first' => 'large',
         ),
         'type' => 'colorbox',
-        'weight' => 9,
+        'weight' => 10,
       ),
     ),
     'entity_type' => 'log',
@@ -281,7 +312,7 @@ function farm_log_activity_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_plain',
-        'weight' => 7,
+        'weight' => 8,
       ),
     ),
     'entity_type' => 'log',
@@ -315,7 +346,7 @@ function farm_log_activity_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 8,
+        'weight' => 9,
       ),
     ),
     'entity_type' => 'log',
@@ -430,7 +461,7 @@ function farm_log_activity_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 8,
+      'weight' => -8,
     ),
   );
 
@@ -469,10 +500,12 @@ function farm_log_activity_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Add flags to this log to enable better sorting and filtering of records.');
   t('Areas');
   t('Assets');
   t('Assigned to');
   t('Files');
+  t('Flags');
   t('Geometry');
   t('Group membership');
   t('Inventory adjustments');

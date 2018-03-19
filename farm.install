@@ -701,6 +701,13 @@ function farm_update_7038(&$sandbox) {
 }
 
 /**
+ * Enable new Farm Flags module.
+ */
+function farm_update_7039(&$sandbox) {
+  _farm_update_enable_modules(array('farm_flags'));
+}
+
+/**
  * Update helper function: enable modules.
  */
 function _farm_update_enable_modules($modules = array()) {

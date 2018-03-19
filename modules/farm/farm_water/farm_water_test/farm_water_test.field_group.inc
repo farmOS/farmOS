@@ -21,7 +21,7 @@ function farm_water_test_field_group_info() {
   $field_group->parent_name = 'group_farm_general';
   $field_group->data = array(
     'label' => 'Assignment',
-    'weight' => '19',
+    'weight' => '-4',
     'children' => array(
       0 => 'field_farm_log_owner',
     ),
@@ -50,7 +50,7 @@ function farm_water_test_field_group_info() {
   $field_group->parent_name = 'group_farm_general';
   $field_group->data = array(
     'label' => 'Category',
-    'weight' => '18',
+    'weight' => '-5',
     'children' => array(
       0 => 'field_farm_log_category',
     ),
@@ -111,10 +111,11 @@ function farm_water_test_field_group_info() {
     'children' => array(
       0 => 'field_farm_notes',
       1 => 'field_farm_water_lab',
-      2 => 'name',
-      3 => 'timestamp',
-      4 => 'group_farm_category',
-      5 => 'group_farm_assignment',
+      2 => 'field_farm_flags',
+      3 => 'name',
+      4 => 'timestamp',
+      5 => 'group_farm_category',
+      6 => 'group_farm_assignment',
     ),
     'format_type' => 'field_group_easy_responsive_tabs_nav_item',
     'format_settings' => array(
@@ -170,8 +171,7 @@ function farm_water_test_field_group_info() {
     'children' => array(
       0 => 'group_farm_files',
       1 => 'group_farm_general',
-      2 => 'group_farm_water',
-      3 => 'group_farm_location',
+      2 => 'group_farm_location',
     ),
     'format_type' => 'field_group_easy_responsive_tabs_nav',
     'format_settings' => array(

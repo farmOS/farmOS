@@ -50,7 +50,7 @@ function farm_livestock_field_group_info() {
   $field_group->parent_name = 'group_farm_general';
   $field_group->data = array(
     'label' => 'Assignment',
-    'weight' => '4',
+    'weight' => '-4',
     'children' => array(
       0 => 'field_farm_log_owner',
     ),
@@ -108,7 +108,7 @@ function farm_livestock_field_group_info() {
   $field_group->parent_name = 'group_farm_general';
   $field_group->data = array(
     'label' => 'Category',
-    'weight' => '3',
+    'weight' => '-5',
     'children' => array(
       0 => 'field_farm_log_category',
     ),
@@ -252,8 +252,9 @@ function farm_livestock_field_group_info() {
     'children' => array(
       0 => 'field_farm_animal_type',
       1 => 'field_farm_description',
-      2 => 'name',
-      3 => 'group_farm_individual',
+      2 => 'field_farm_flags',
+      3 => 'name',
+      4 => 'group_farm_individual',
     ),
     'format_type' => 'field_group_easy_responsive_tabs_nav_item',
     'format_settings' => array(
@@ -281,9 +282,10 @@ function farm_livestock_field_group_info() {
     'weight' => '4',
     'children' => array(
       0 => 'field_farm_notes',
-      1 => 'timestamp',
-      2 => 'group_farm_category',
-      3 => 'group_farm_assignment',
+      1 => 'field_farm_flags',
+      2 => 'timestamp',
+      3 => 'group_farm_category',
+      4 => 'group_farm_assignment',
     ),
     'format_type' => 'field_group_easy_responsive_tabs_nav_item',
     'format_settings' => array(
@@ -311,10 +313,11 @@ function farm_livestock_field_group_info() {
     'children' => array(
       0 => 'field_farm_asset',
       1 => 'field_farm_notes',
-      2 => 'name',
-      3 => 'timestamp',
-      4 => 'group_farm_assignment',
-      5 => 'group_farm_category',
+      2 => 'field_farm_flags',
+      3 => 'name',
+      4 => 'timestamp',
+      5 => 'group_farm_assignment',
+      6 => 'group_farm_category',
     ),
     'format_type' => 'field_group_easy_responsive_tabs_nav_item',
     'format_settings' => array(
@@ -394,7 +397,7 @@ function farm_livestock_field_group_info() {
   $field_group->parent_name = 'group_farm_general';
   $field_group->data = array(
     'label' => 'Individual',
-    'weight' => '3',
+    'weight' => '-6',
     'children' => array(
       0 => 'field_farm_animal_castrated',
       1 => 'field_farm_animal_nicknames',
@@ -668,8 +671,7 @@ function farm_livestock_field_group_info() {
       0 => 'group_farm_files',
       1 => 'group_farm_general',
       2 => 'group_farm_inventory',
-      3 => 'group_farm_movement',
-      4 => 'group_farm_location',
+      3 => 'group_farm_location',
     ),
     'format_type' => 'field_group_easy_responsive_tabs_nav',
     'format_settings' => array(

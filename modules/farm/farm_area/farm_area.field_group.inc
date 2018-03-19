@@ -21,7 +21,7 @@ function farm_area_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Description',
-    'weight' => '2',
+    'weight' => '3',
     'children' => array(
       0 => 'description',
     ),
@@ -50,7 +50,7 @@ function farm_area_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'File attachments',
-    'weight' => '3',
+    'weight' => '4',
     'children' => array(
       0 => 'field_farm_files',
       1 => 'field_farm_images',
@@ -83,7 +83,8 @@ function farm_area_field_group_info() {
     'weight' => '0',
     'children' => array(
       0 => 'field_farm_area_type',
-      1 => 'name',
+      1 => 'field_farm_flags',
+      2 => 'name',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -109,7 +110,7 @@ function farm_area_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Geometry',
-    'weight' => '1',
+    'weight' => '2',
     'children' => array(
       0 => 'field_farm_geofield',
     ),
