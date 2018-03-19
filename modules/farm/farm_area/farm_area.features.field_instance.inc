@@ -37,7 +37,7 @@ function farm_area_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 2,
+      'weight' => -4,
     ),
   );
 
@@ -75,6 +75,37 @@ function farm_area_field_default_field_instances() {
       ),
       'type' => 'file_mfw',
       'weight' => 5,
+    ),
+  );
+
+  // Exported field_instance: 'taxonomy_term-farm_areas-field_farm_flags'.
+  $field_instances['taxonomy_term-farm_areas-field_farm_flags'] = array(
+    'bundle' => 'farm_areas',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Add flags to this area to enable better sorting and filtering of records.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 5,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'field_farm_flags',
+    'label' => 'Flags',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => -3,
     ),
   );
 
@@ -196,8 +227,10 @@ function farm_area_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Add flags to this area to enable better sorting and filtering of records.');
   t('Area type');
   t('Files');
+  t('Flags');
   t('Geometry');
   t('Photos');
   t('What type of area is this? Area types will be color coded on maps. If left blank, the area will not appear on maps.');
