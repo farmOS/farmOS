@@ -616,6 +616,18 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['filters']['field_farm_animal_castrated_value']['expose']['label'] = 'Castrated';
   $handler->display->display_options['filters']['field_farm_animal_castrated_value']['expose']['operator'] = 'field_farm_animal_castrated_value_op';
   $handler->display->display_options['filters']['field_farm_animal_castrated_value']['expose']['identifier'] = 'field_farm_animal_castrated_value';
+  /* Filter criterion: Farm asset: Date of birth (field_farm_date) */
+  $handler->display->display_options['filters']['field_farm_date_value']['id'] = 'field_farm_date_value';
+  $handler->display->display_options['filters']['field_farm_date_value']['table'] = 'field_data_field_farm_date';
+  $handler->display->display_options['filters']['field_farm_date_value']['field'] = 'field_farm_date_value';
+  $handler->display->display_options['filters']['field_farm_date_value']['operator'] = 'between';
+  $handler->display->display_options['filters']['field_farm_date_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_farm_date_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_date_value']['expose']['operator_id'] = 'field_farm_date_value_op';
+  $handler->display->display_options['filters']['field_farm_date_value']['expose']['label'] = 'Date of birth (range)';
+  $handler->display->display_options['filters']['field_farm_date_value']['expose']['operator'] = 'field_farm_date_value_op';
+  $handler->display->display_options['filters']['field_farm_date_value']['expose']['identifier'] = 'field_farm_date_value';
+  $handler->display->display_options['filters']['field_farm_date_value']['year_range'] = '-10:+3';
   /* Filter criterion: Farm asset: Archived (boolean) */
   $handler->display->display_options['filters']['archived_boolean']['id'] = 'archived_boolean';
   $handler->display->display_options['filters']['archived_boolean']['table'] = 'farm_asset';
