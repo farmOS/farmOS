@@ -172,6 +172,15 @@ h2.resp-tab-active,
 }
 
 /**
+ * Style flags checkboxes inline.
+ */
+#edit-field-farm-flags .form-checkboxes .form-item {
+  display: inline;
+  padding-left: 0.5em;
+  padding-right: 1em;
+}
+
+/**
  * Improve Bootstrap Tour styling.
  */
 .tour .btn {
