@@ -40,7 +40,7 @@ function farm_crop_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'taxonomy_autocomplete',
-      'weight' => 1,
+      'weight' => -9,
     ),
   );
 
@@ -56,7 +56,7 @@ function farm_crop_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 3,
+        'weight' => 4,
       ),
     ),
     'entity_type' => 'farm_asset',
@@ -74,7 +74,7 @@ function farm_crop_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 3,
+      'weight' => -7,
     ),
   );
 
@@ -89,7 +89,7 @@ function farm_crop_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_table',
-        'weight' => 5,
+        'weight' => 6,
       ),
     ),
     'entity_type' => 'farm_asset',
@@ -114,6 +114,37 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'farm_asset-planting-field_farm_flags'.
+  $field_instances['farm_asset-planting-field_farm_flags'] = array(
+    'bundle' => 'planting',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Add flags to this asset to enable better sorting and filtering of records.',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 3,
+      ),
+    ),
+    'entity_type' => 'farm_asset',
+    'field_name' => 'field_farm_flags',
+    'label' => 'Flags',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => -6,
+    ),
+  );
+
   // Exported field_instance: 'farm_asset-planting-field_farm_images'.
   $field_instances['farm_asset-planting-field_farm_images'] = array(
     'bundle' => 'planting',
@@ -135,7 +166,7 @@ function farm_crop_field_default_field_instances() {
           'colorbox_node_style_first' => 'large',
         ),
         'type' => 'colorbox',
-        'weight' => 4,
+        'weight' => 5,
       ),
     ),
     'entity_type' => 'farm_asset',
@@ -234,7 +265,7 @@ function farm_crop_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 2,
+      'weight' => -8,
     ),
   );
 
@@ -275,7 +306,7 @@ function farm_crop_field_default_field_instances() {
         'view_mode' => 'full',
       ),
       'type' => 'entityreference_view_widget',
-      'weight' => 5,
+      'weight' => -4,
     ),
   );
 
@@ -290,7 +321,7 @@ function farm_crop_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_table',
-        'weight' => 8,
+        'weight' => 10,
       ),
     ),
     'entity_type' => 'log',
@@ -315,6 +346,37 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_seeding-field_farm_flags'.
+  $field_instances['log-farm_seeding-field_farm_flags'] = array(
+    'bundle' => 'farm_seeding',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Add flags to this log to enable better sorting and filtering of records.',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 6,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_flags',
+    'label' => 'Flags',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => -1,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_seeding-field_farm_images'.
   $field_instances['log-farm_seeding-field_farm_images'] = array(
     'bundle' => 'farm_seeding',
@@ -335,7 +397,7 @@ function farm_crop_field_default_field_instances() {
           'colorbox_node_style_first' => 'large',
         ),
         'type' => 'colorbox',
-        'weight' => 7,
+        'weight' => 9,
       ),
     ),
     'entity_type' => 'log',
@@ -406,11 +468,11 @@ function farm_crop_field_default_field_instances() {
     'description' => 'Use this to organize your logs into categories for easier searching and filtering later.',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'inline',
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 9,
+        'weight' => 7,
       ),
     ),
     'entity_type' => 'log',
@@ -444,7 +506,7 @@ function farm_crop_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 6,
+        'weight' => 8,
       ),
     ),
     'entity_type' => 'log',
@@ -492,7 +554,7 @@ function farm_crop_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 14,
+      'weight' => 19,
     ),
   );
 
@@ -526,7 +588,7 @@ function farm_crop_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 7,
+      'weight' => -2,
     ),
   );
 
@@ -593,7 +655,7 @@ function farm_crop_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 6,
+      'weight' => -3,
     ),
   );
 
@@ -649,7 +711,7 @@ function farm_crop_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_table',
-        'weight' => 7,
+        'weight' => 9,
       ),
     ),
     'entity_type' => 'log',
@@ -674,6 +736,37 @@ function farm_crop_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_transplanting-field_farm_flags'.
+  $field_instances['log-farm_transplanting-field_farm_flags'] = array(
+    'bundle' => 'farm_transplanting',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Add flags to this log to enable better sorting and filtering of records.',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 5,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_flags',
+    'label' => 'Flags',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => -2,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_transplanting-field_farm_images'.
   $field_instances['log-farm_transplanting-field_farm_images'] = array(
     'bundle' => 'farm_transplanting',
@@ -694,7 +787,7 @@ function farm_crop_field_default_field_instances() {
           'colorbox_node_style_first' => 'large',
         ),
         'type' => 'colorbox',
-        'weight' => 6,
+        'weight' => 8,
       ),
     ),
     'entity_type' => 'log',
@@ -765,11 +858,11 @@ function farm_crop_field_default_field_instances() {
     'description' => 'Use this to organize your logs into categories for easier searching and filtering later.',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'inline',
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 8,
+        'weight' => 6,
       ),
     ),
     'entity_type' => 'log',
@@ -803,7 +896,7 @@ function farm_crop_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 5,
+        'weight' => 7,
       ),
     ),
     'entity_type' => 'log',
@@ -918,7 +1011,7 @@ function farm_crop_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 4,
+      'weight' => 15,
     ),
   );
 
@@ -1127,6 +1220,8 @@ function farm_crop_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Add flags to this asset to enable better sorting and filtering of records.');
+  t('Add flags to this log to enable better sorting and filtering of records.');
   t('Assign this planting to a season. You can manage these options in the ' . l('Seasons', 'admin/structure/taxonomy/farm_season') . ' vocabulary.');
   t('Assigned to');
   t('Companions');
@@ -1139,6 +1234,7 @@ function farm_crop_field_default_field_instances() {
   t('Description');
   t('Enter the crop/variety that this is a planting of. As you type, you will have the option of selecting from crops/varieties that you\'ve entered in the past.');
   t('Files');
+  t('Flags');
   t('Inventory adjustments');
   t('Log category');
   t('Movement');

@@ -21,7 +21,7 @@ function farm_crop_field_group_info() {
   $field_group->parent_name = 'group_farm_general';
   $field_group->data = array(
     'label' => 'Assignment',
-    'weight' => '9',
+    'weight' => '1',
     'children' => array(
       0 => 'field_farm_log_owner',
     ),
@@ -50,7 +50,7 @@ function farm_crop_field_group_info() {
   $field_group->parent_name = 'group_farm_general';
   $field_group->data = array(
     'label' => 'Assignment',
-    'weight' => '-1',
+    'weight' => '0',
     'children' => array(
       0 => 'field_farm_log_owner',
     ),
@@ -79,7 +79,7 @@ function farm_crop_field_group_info() {
   $field_group->parent_name = 'group_farm_general';
   $field_group->data = array(
     'label' => 'Category',
-    'weight' => '8',
+    'weight' => '0',
     'children' => array(
       0 => 'field_farm_log_category',
     ),
@@ -108,7 +108,7 @@ function farm_crop_field_group_info() {
   $field_group->parent_name = 'group_farm_general';
   $field_group->data = array(
     'label' => 'Category',
-    'weight' => '-2',
+    'weight' => '-1',
     'children' => array(
       0 => 'field_farm_log_category',
     ),
@@ -226,7 +226,8 @@ function farm_crop_field_group_info() {
       0 => 'field_farm_crop',
       1 => 'field_farm_description',
       2 => 'field_farm_season',
-      3 => 'name',
+      3 => 'field_farm_flags',
+      4 => 'name',
     ),
     'format_type' => 'field_group_easy_responsive_tabs_nav_item',
     'format_settings' => array(
@@ -256,9 +257,10 @@ function farm_crop_field_group_info() {
       0 => 'field_farm_asset',
       1 => 'field_farm_notes',
       2 => 'field_farm_seed_source',
-      3 => 'timestamp',
-      4 => 'group_farm_assignment',
-      5 => 'group_farm_category',
+      3 => 'field_farm_flags',
+      4 => 'timestamp',
+      5 => 'group_farm_assignment',
+      6 => 'group_farm_category',
     ),
     'format_type' => 'field_group_easy_responsive_tabs_nav_item',
     'format_settings' => array(
@@ -287,9 +289,10 @@ function farm_crop_field_group_info() {
     'children' => array(
       0 => 'field_farm_asset',
       1 => 'field_farm_notes',
-      2 => 'timestamp',
-      3 => 'group_farm_assignment',
-      4 => 'group_farm_category',
+      2 => 'field_farm_flags',
+      3 => 'timestamp',
+      4 => 'group_farm_assignment',
+      5 => 'group_farm_category',
     ),
     'format_type' => 'field_group_easy_responsive_tabs_nav_item',
     'format_settings' => array(
@@ -395,7 +398,6 @@ function farm_crop_field_group_info() {
     'weight' => '2',
     'children' => array(
       0 => 'field_farm_movement',
-      1 => 'group_farm_movement',
     ),
     'format_type' => 'field_group_easy_responsive_tabs_nav_item',
     'format_settings' => array(
@@ -577,10 +579,9 @@ function farm_crop_field_group_info() {
     'children' => array(
       0 => 'group_farm_files',
       1 => 'group_farm_general',
-      2 => 'group_farm_movement',
-      3 => 'group_farm_quantity',
-      4 => 'group_farm_inventory',
-      5 => 'group_farm_location',
+      2 => 'group_farm_quantity',
+      3 => 'group_farm_inventory',
+      4 => 'group_farm_location',
     ),
     'format_type' => 'field_group_easy_responsive_tabs_nav',
     'format_settings' => array(

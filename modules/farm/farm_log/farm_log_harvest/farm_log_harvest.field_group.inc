@@ -21,7 +21,7 @@ function farm_log_harvest_field_group_info() {
   $field_group->parent_name = 'group_farm_location';
   $field_group->data = array(
     'label' => 'Areas',
-    'weight' => '14',
+    'weight' => '24',
     'children' => array(
       0 => 'field_farm_area',
     ),
@@ -77,7 +77,7 @@ function farm_log_harvest_field_group_info() {
   $field_group->parent_name = 'group_farm_general';
   $field_group->data = array(
     'label' => 'Assignment',
-    'weight' => '4',
+    'weight' => '-4',
     'children' => array(
       0 => 'field_farm_log_owner',
     ),
@@ -106,7 +106,7 @@ function farm_log_harvest_field_group_info() {
   $field_group->parent_name = 'group_farm_general';
   $field_group->data = array(
     'label' => 'Category',
-    'weight' => '3',
+    'weight' => '-5',
     'children' => array(
       0 => 'field_farm_log_category',
     ),
@@ -167,10 +167,11 @@ function farm_log_harvest_field_group_info() {
     'children' => array(
       0 => 'field_farm_notes',
       1 => 'field_farm_lot_number',
-      2 => 'name',
-      3 => 'timestamp',
-      4 => 'group_farm_category',
-      5 => 'group_farm_assignment',
+      2 => 'field_farm_flags',
+      3 => 'name',
+      4 => 'timestamp',
+      5 => 'group_farm_category',
+      6 => 'group_farm_assignment',
     ),
     'format_type' => 'field_group_easy_responsive_tabs_nav_item',
     'format_settings' => array(
@@ -195,7 +196,7 @@ function farm_log_harvest_field_group_info() {
   $field_group->parent_name = 'group_farm_location';
   $field_group->data = array(
     'label' => 'Geometry',
-    'weight' => '16',
+    'weight' => '25',
     'children' => array(
       0 => 'field_farm_geofield',
     ),

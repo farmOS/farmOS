@@ -21,7 +21,7 @@ function farm_log_input_field_group_info() {
   $field_group->parent_name = 'group_farm_location';
   $field_group->data = array(
     'label' => 'Areas',
-    'weight' => '3',
+    'weight' => '19',
     'children' => array(
       0 => 'field_farm_area',
     ),
@@ -77,7 +77,7 @@ function farm_log_input_field_group_info() {
   $field_group->parent_name = 'group_farm_general';
   $field_group->data = array(
     'label' => 'Assignment',
-    'weight' => '9',
+    'weight' => '1',
     'children' => array(
       0 => 'field_farm_log_owner',
     ),
@@ -106,7 +106,7 @@ function farm_log_input_field_group_info() {
   $field_group->parent_name = 'group_farm_general';
   $field_group->data = array(
     'label' => 'Category',
-    'weight' => '8',
+    'weight' => '0',
     'children' => array(
       0 => 'field_farm_log_category',
     ),
@@ -172,10 +172,11 @@ function farm_log_input_field_group_info() {
       4 => 'field_farm_notes',
       5 => 'field_farm_date_purchase',
       6 => 'field_farm_lot_number',
-      7 => 'name',
-      8 => 'timestamp',
-      9 => 'group_farm_category',
-      10 => 'group_farm_assignment',
+      7 => 'field_farm_flags',
+      8 => 'name',
+      9 => 'timestamp',
+      10 => 'group_farm_category',
+      11 => 'group_farm_assignment',
     ),
     'format_type' => 'field_group_easy_responsive_tabs_nav_item',
     'format_settings' => array(
@@ -200,7 +201,7 @@ function farm_log_input_field_group_info() {
   $field_group->parent_name = 'group_farm_location';
   $field_group->data = array(
     'label' => 'Geometry',
-    'weight' => '4',
+    'weight' => '20',
     'children' => array(
       0 => 'field_farm_geofield',
     ),
@@ -313,10 +314,9 @@ function farm_log_input_field_group_info() {
       0 => 'group_farm_assets',
       1 => 'group_farm_files',
       2 => 'group_farm_general',
-      3 => 'group_farm_references',
-      4 => 'group_farm_quantity',
-      5 => 'group_farm_inventory',
-      6 => 'group_farm_location',
+      3 => 'group_farm_quantity',
+      4 => 'group_farm_inventory',
+      5 => 'group_farm_location',
     ),
     'format_type' => 'field_group_easy_responsive_tabs_nav',
     'format_settings' => array(

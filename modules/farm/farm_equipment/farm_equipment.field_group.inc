@@ -25,7 +25,6 @@ function farm_equipment_field_group_info() {
     'children' => array(
       0 => 'field_farm_asset',
       1 => 'field_farm_movement',
-      2 => 'group_farm_movement',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -52,7 +51,7 @@ function farm_equipment_field_group_info() {
   $field_group->parent_name = 'group_farm_general';
   $field_group->data = array(
     'label' => 'Assignment',
-    'weight' => '3',
+    'weight' => '-5',
     'children' => array(
       0 => 'field_farm_log_owner',
     ),
@@ -81,7 +80,7 @@ function farm_equipment_field_group_info() {
   $field_group->parent_name = 'group_farm_general';
   $field_group->data = array(
     'label' => 'Category',
-    'weight' => '2',
+    'weight' => '-6',
     'children' => array(
       0 => 'field_farm_log_category',
     ),
@@ -171,7 +170,8 @@ function farm_equipment_field_group_info() {
       1 => 'field_farm_manufacturer',
       2 => 'field_farm_model',
       3 => 'field_farm_serial_number',
-      4 => 'name',
+      4 => 'field_farm_flags',
+      5 => 'name',
     ),
     'format_type' => 'field_group_easy_responsive_tabs_nav_item',
     'format_settings' => array(
@@ -199,10 +199,11 @@ function farm_equipment_field_group_info() {
     'weight' => '1',
     'children' => array(
       0 => 'field_farm_notes',
-      1 => 'name',
-      2 => 'timestamp',
-      3 => 'group_farm_category',
-      4 => 'group_farm_assignment',
+      1 => 'field_farm_flags',
+      2 => 'name',
+      3 => 'timestamp',
+      4 => 'group_farm_category',
+      5 => 'group_farm_assignment',
     ),
     'format_type' => 'field_group_easy_responsive_tabs_nav_item',
     'format_settings' => array(
@@ -294,8 +295,7 @@ function farm_equipment_field_group_info() {
       0 => 'group_farm_assets',
       1 => 'group_farm_files',
       2 => 'group_farm_general',
-      3 => 'group_farm_references',
-      4 => 'group_farm_inventory',
+      3 => 'group_farm_inventory',
     ),
     'format_type' => 'field_group_easy_responsive_tabs_nav',
     'format_settings' => array(

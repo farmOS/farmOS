@@ -52,7 +52,8 @@ function farm_group_field_group_info() {
     'weight' => '1',
     'children' => array(
       0 => 'field_farm_description',
-      1 => 'name',
+      1 => 'field_farm_flags',
+      2 => 'name',
     ),
     'format_type' => 'field_group_easy_responsive_tabs_nav_item',
     'format_settings' => array(
