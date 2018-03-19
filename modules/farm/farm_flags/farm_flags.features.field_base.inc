@@ -26,7 +26,7 @@ function farm_flags_field_default_field_bases() {
     'module' => 'list',
     'settings' => array(
       'allowed_values' => array(),
-      'allowed_values_function' => '',
+      'allowed_values_function' => 'farm_flags_field_allowed_values',
     ),
     'translatable' => 0,
     'type' => 'list_text',

@@ -3,3 +3,10 @@
  * @file
  * Farm flags module.
  */
+
+/**
+ * Allowed values callback function for the flags field.
+ */
+function farm_flags_field_allowed_values() {
+  return array();
+}
