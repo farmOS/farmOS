@@ -503,6 +503,12 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['sorts']['field_farm_animal_tag_id_value']['relationship'] = 'field_farm_animal_tag_value';
   $handler->display->display_options['sorts']['field_farm_animal_tag_id_value']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['field_farm_animal_tag_id_value']['expose']['label'] = 'ID Tag';
+  /* Sort criterion: Farm asset: Farm asset ID */
+  $handler->display->display_options['sorts']['id']['id'] = 'id';
+  $handler->display->display_options['sorts']['id']['table'] = 'farm_asset';
+  $handler->display->display_options['sorts']['id']['field'] = 'id';
+  $handler->display->display_options['sorts']['id']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['id']['expose']['label'] = 'Asset ID';
   /* Contextual filter: Field collection item: Movement to (field_farm_move_to) */
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['id'] = 'field_farm_move_to_tid';
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['table'] = 'field_data_field_farm_move_to';
@@ -1041,6 +1047,13 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['sorts']['name']['relationship'] = 'field_farm_log_owner_target_id';
   $handler->display->display_options['sorts']['name']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['name']['expose']['label'] = 'Assigned to';
+  /* Sort criterion: Log: Log ID */
+  $handler->display->display_options['sorts']['id']['id'] = 'id';
+  $handler->display->display_options['sorts']['id']['table'] = 'log';
+  $handler->display->display_options['sorts']['id']['field'] = 'id';
+  $handler->display->display_options['sorts']['id']['order'] = 'DESC';
+  $handler->display->display_options['sorts']['id']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['id']['expose']['label'] = 'Log ID';
   /* Contextual filter: Log: Assets (field_farm_asset) */
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['id'] = 'field_farm_asset_target_id';
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['table'] = 'field_data_field_farm_asset';
@@ -1531,6 +1544,13 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['sorts']['name']['relationship'] = 'field_farm_log_owner_target_id';
   $handler->display->display_options['sorts']['name']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['name']['expose']['label'] = 'Assigned to';
+  /* Sort criterion: Log: Log ID */
+  $handler->display->display_options['sorts']['id']['id'] = 'id';
+  $handler->display->display_options['sorts']['id']['table'] = 'log';
+  $handler->display->display_options['sorts']['id']['field'] = 'id';
+  $handler->display->display_options['sorts']['id']['order'] = 'DESC';
+  $handler->display->display_options['sorts']['id']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['id']['expose']['label'] = 'Log ID';
   /* Contextual filter: Log: Assets (field_farm_asset) */
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['id'] = 'field_farm_asset_target_id';
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['table'] = 'field_data_field_farm_asset';

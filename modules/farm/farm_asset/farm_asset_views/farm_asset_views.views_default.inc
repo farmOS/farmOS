@@ -232,6 +232,13 @@ function farm_asset_views_views_default_views() {
   $handler->display->display_options['sorts']['archived']['order'] = 'DESC';
   $handler->display->display_options['sorts']['archived']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['archived']['expose']['label'] = 'Archived date';
+  /* Sort criterion: Farm asset: Farm asset ID */
+  $handler->display->display_options['sorts']['id']['id'] = 'id';
+  $handler->display->display_options['sorts']['id']['table'] = 'farm_asset';
+  $handler->display->display_options['sorts']['id']['field'] = 'id';
+  $handler->display->display_options['sorts']['id']['order'] = 'DESC';
+  $handler->display->display_options['sorts']['id']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['id']['expose']['label'] = 'Asset ID';
   /* Filter criterion: Farm asset: Name */
   $handler->display->display_options['filters']['name']['id'] = 'name';
   $handler->display->display_options['filters']['name']['table'] = 'farm_asset';
@@ -459,6 +466,13 @@ function farm_asset_views_views_default_views() {
   $handler->display->display_options['sorts']['type']['field'] = 'type';
   $handler->display->display_options['sorts']['type']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['type']['expose']['label'] = 'Asset type';
+  /* Sort criterion: Farm asset: Farm asset ID */
+  $handler->display->display_options['sorts']['id']['id'] = 'id';
+  $handler->display->display_options['sorts']['id']['table'] = 'farm_asset';
+  $handler->display->display_options['sorts']['id']['field'] = 'id';
+  $handler->display->display_options['sorts']['id']['order'] = 'DESC';
+  $handler->display->display_options['sorts']['id']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['id']['expose']['label'] = 'Asset ID';
   /* Contextual filter: Farm asset: Farm asset ID */
   $handler->display->display_options['arguments']['id']['id'] = 'id';
   $handler->display->display_options['arguments']['id']['table'] = 'farm_asset';
@@ -601,6 +615,7 @@ function farm_asset_views_views_default_views() {
     t('Location'),
     t('Group'),
     t('Name'),
+    t('Asset ID'),
     t('All'),
     t('Archived'),
     t('Entity Reference View Widget'),

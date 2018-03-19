@@ -123,6 +123,13 @@ function farm_inventory_views_default_views() {
   $handler->display->display_options['sorts']['type']['field'] = 'type';
   $handler->display->display_options['sorts']['type']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['type']['expose']['label'] = 'Asset type';
+  /* Sort criterion: Farm asset: Farm asset ID */
+  $handler->display->display_options['sorts']['id']['id'] = 'id';
+  $handler->display->display_options['sorts']['id']['table'] = 'farm_asset';
+  $handler->display->display_options['sorts']['id']['field'] = 'id';
+  $handler->display->display_options['sorts']['id']['order'] = 'DESC';
+  $handler->display->display_options['sorts']['id']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['id']['expose']['label'] = 'Asset ID';
   /* Contextual filter: Farm asset: Farm asset ID */
   $handler->display->display_options['arguments']['id']['id'] = 'id';
   $handler->display->display_options['arguments']['id']['table'] = 'farm_asset';
@@ -261,6 +268,7 @@ function farm_inventory_views_default_views() {
     t('Location'),
     t('Group'),
     t('Name'),
+    t('Asset ID'),
     t('All'),
     t('Archived'),
     t('Entity Reference View Widget'),
@@ -545,6 +553,13 @@ function farm_inventory_views_default_views() {
   $handler->display->display_options['sorts']['type']['field'] = 'type';
   $handler->display->display_options['sorts']['type']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['type']['expose']['label'] = 'Log type';
+  /* Sort criterion: Log: Log ID */
+  $handler->display->display_options['sorts']['id']['id'] = 'id';
+  $handler->display->display_options['sorts']['id']['table'] = 'log';
+  $handler->display->display_options['sorts']['id']['field'] = 'id';
+  $handler->display->display_options['sorts']['id']['order'] = 'DESC';
+  $handler->display->display_options['sorts']['id']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['id']['expose']['label'] = 'Log ID';
   /* Contextual filter: Field collection item: Asset (field_farm_inventory_asset) */
   $handler->display->display_options['arguments']['field_farm_inventory_asset_target_id']['id'] = 'field_farm_inventory_asset_target_id';
   $handler->display->display_options['arguments']['field_farm_inventory_asset_target_id']['table'] = 'field_data_field_farm_inventory_asset';

@@ -278,6 +278,13 @@ function farm_log_views_default_views() {
   $handler->display->display_options['sorts']['name']['relationship'] = 'field_farm_log_owner_target_id';
   $handler->display->display_options['sorts']['name']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['name']['expose']['label'] = 'Assigned to';
+  /* Sort criterion: Log: Log ID */
+  $handler->display->display_options['sorts']['id']['id'] = 'id';
+  $handler->display->display_options['sorts']['id']['table'] = 'log';
+  $handler->display->display_options['sorts']['id']['field'] = 'id';
+  $handler->display->display_options['sorts']['id']['order'] = 'DESC';
+  $handler->display->display_options['sorts']['id']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['id']['expose']['label'] = 'Log ID';
   /* Filter criterion: Log: Name */
   $handler->display->display_options['filters']['name']['id'] = 'name';
   $handler->display->display_options['filters']['name']['table'] = 'log';
@@ -403,6 +410,13 @@ function farm_log_views_default_views() {
   $handler->display->display_options['sorts']['timestamp']['order'] = 'DESC';
   $handler->display->display_options['sorts']['timestamp']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['timestamp']['expose']['label'] = 'Date';
+  /* Sort criterion: Log: Log ID */
+  $handler->display->display_options['sorts']['id']['id'] = 'id';
+  $handler->display->display_options['sorts']['id']['table'] = 'log';
+  $handler->display->display_options['sorts']['id']['field'] = 'id';
+  $handler->display->display_options['sorts']['id']['order'] = 'DESC';
+  $handler->display->display_options['sorts']['id']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['id']['expose']['label'] = 'Log ID';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: User: Uid */
   $handler->display->display_options['arguments']['uid']['id'] = 'uid';
@@ -542,6 +556,13 @@ function farm_log_views_default_views() {
   $handler->display->display_options['sorts']['name']['relationship'] = 'field_farm_log_owner_target_id';
   $handler->display->display_options['sorts']['name']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['name']['expose']['label'] = 'Owner';
+  /* Sort criterion: Log: Log ID */
+  $handler->display->display_options['sorts']['id']['id'] = 'id';
+  $handler->display->display_options['sorts']['id']['table'] = 'log';
+  $handler->display->display_options['sorts']['id']['field'] = 'id';
+  $handler->display->display_options['sorts']['id']['order'] = 'DESC';
+  $handler->display->display_options['sorts']['id']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['id']['expose']['label'] = 'Log ID';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Date: Date (log) */
@@ -777,6 +798,13 @@ function farm_log_views_default_views() {
   $handler->display->display_options['sorts']['name']['relationship'] = 'field_farm_log_owner_target_id';
   $handler->display->display_options['sorts']['name']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['name']['expose']['label'] = 'Owner';
+  /* Sort criterion: Log: Log ID */
+  $handler->display->display_options['sorts']['id']['id'] = 'id';
+  $handler->display->display_options['sorts']['id']['table'] = 'log';
+  $handler->display->display_options['sorts']['id']['field'] = 'id';
+  $handler->display->display_options['sorts']['id']['order'] = 'DESC';
+  $handler->display->display_options['sorts']['id']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['id']['expose']['label'] = 'Log ID';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Date: Date (log) */

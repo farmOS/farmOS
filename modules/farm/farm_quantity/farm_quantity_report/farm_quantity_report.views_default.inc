@@ -274,6 +274,14 @@ function farm_quantity_report_views_default_views() {
   $handler->display->display_options['sorts']['field_farm_quantity_label_value']['field'] = 'field_farm_quantity_label_value';
   $handler->display->display_options['sorts']['field_farm_quantity_label_value']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['field_farm_quantity_label_value']['expose']['label'] = 'Label';
+  /* Sort criterion: Log: Log ID */
+  $handler->display->display_options['sorts']['id']['id'] = 'id';
+  $handler->display->display_options['sorts']['id']['table'] = 'log';
+  $handler->display->display_options['sorts']['id']['field'] = 'id';
+  $handler->display->display_options['sorts']['id']['relationship'] = 'field_farm_quantity_log';
+  $handler->display->display_options['sorts']['id']['order'] = 'DESC';
+  $handler->display->display_options['sorts']['id']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['id']['expose']['label'] = 'Log ID';
   /* Filter criterion: Field collection item: Field name */
   $handler->display->display_options['filters']['field_name']['id'] = 'field_name';
   $handler->display->display_options['filters']['field_name']['table'] = 'field_collection_item';
