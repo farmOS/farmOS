@@ -581,21 +581,6 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['filters']['field_farm_animal_type_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_farm_animal_type_tid']['vocabulary'] = 'farm_animal_types';
   $handler->display->display_options['filters']['field_farm_animal_type_tid']['hierarchy'] = 1;
-  /* Filter criterion: Field collection item: Movement to (field_farm_move_to) */
-  $handler->display->display_options['filters']['field_farm_move_to_tid']['id'] = 'field_farm_move_to_tid';
-  $handler->display->display_options['filters']['field_farm_move_to_tid']['table'] = 'field_data_field_farm_move_to';
-  $handler->display->display_options['filters']['field_farm_move_to_tid']['field'] = 'field_farm_move_to_tid';
-  $handler->display->display_options['filters']['field_farm_move_to_tid']['relationship'] = 'latest_movement';
-  $handler->display->display_options['filters']['field_farm_move_to_tid']['group'] = 1;
-  $handler->display->display_options['filters']['field_farm_move_to_tid']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['operator_id'] = 'field_farm_move_to_tid_op';
-  $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['label'] = 'Location';
-  $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['operator'] = 'field_farm_move_to_tid_op';
-  $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['identifier'] = 'field_farm_move_to_tid';
-  $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['multiple'] = TRUE;
-  $handler->display->display_options['filters']['field_farm_move_to_tid']['type'] = 'select';
-  $handler->display->display_options['filters']['field_farm_move_to_tid']['vocabulary'] = 'farm_areas';
-  $handler->display->display_options['filters']['field_farm_move_to_tid']['hierarchy'] = 1;
   /* Filter criterion: Farm asset: Sex (field_farm_animal_sex) */
   $handler->display->display_options['filters']['field_farm_animal_sex_value']['id'] = 'field_farm_animal_sex_value';
   $handler->display->display_options['filters']['field_farm_animal_sex_value']['table'] = 'field_data_field_farm_animal_sex';
@@ -628,11 +613,27 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['filters']['field_farm_date_value']['expose']['operator'] = 'field_farm_date_value_op';
   $handler->display->display_options['filters']['field_farm_date_value']['expose']['identifier'] = 'field_farm_date_value';
   $handler->display->display_options['filters']['field_farm_date_value']['year_range'] = '-10:+3';
+  /* Filter criterion: Field collection item: Movement to (field_farm_move_to) */
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['id'] = 'field_farm_move_to_tid';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['table'] = 'field_data_field_farm_move_to';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['field'] = 'field_farm_move_to_tid';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['relationship'] = 'latest_movement';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['group'] = 1;
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['operator_id'] = 'field_farm_move_to_tid_op';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['label'] = 'Location';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['operator'] = 'field_farm_move_to_tid_op';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['identifier'] = 'field_farm_move_to_tid';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['vocabulary'] = 'farm_areas';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['hierarchy'] = 1;
   /* Filter criterion: Farm asset: Archived (boolean) */
   $handler->display->display_options['filters']['archived_boolean']['id'] = 'archived_boolean';
   $handler->display->display_options['filters']['archived_boolean']['table'] = 'farm_asset';
   $handler->display->display_options['filters']['archived_boolean']['field'] = 'archived_boolean';
   $handler->display->display_options['filters']['archived_boolean']['value'] = '0';
+  $handler->display->display_options['filters']['archived_boolean']['group'] = 1;
   $handler->display->display_options['filters']['archived_boolean']['exposed'] = TRUE;
   $handler->display->display_options['filters']['archived_boolean']['expose']['operator_id'] = '';
   $handler->display->display_options['filters']['archived_boolean']['expose']['label'] = 'Archived';
