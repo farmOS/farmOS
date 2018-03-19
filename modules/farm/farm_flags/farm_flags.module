@@ -22,3 +22,13 @@ function farm_flags_list() {
 function farm_flags_field_allowed_values() {
   return farm_flags_list();
 }
+
+/**
+ * Implements hook_farm_flags().
+ */
+function farm_flags_farm_flags() {
+  return array(
+    'priority' => t('Priority'),
+    'review' => t('Needs Review'),
+  );
+}
