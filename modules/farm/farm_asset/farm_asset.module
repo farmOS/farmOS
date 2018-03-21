@@ -637,7 +637,8 @@ function farm_asset_autocomplete_access($asset_type) {
  *
  * @param string $asset_type
  *   The asset type to filter to. If this is set to 'all' then no filtering
- *   will be performed.
+ *   will be performed. Multiple asset types can be specified as a single
+ *   string, separated by plus characters (+). ie: "animal+group"
  * @param string $string
  *   The string to search for.
  *
@@ -653,9 +654,16 @@ function farm_asset_autocomplete($asset_type, $string) {
     ->orderBy('name', 'ASC')
     ->range(0, 10);
 
-  // If the asset type is not "all", filter.
+  // If the asset type is not "all", filter by asset type.
   if ($asset_type != 'all') {
-    $query->condition('type', $asset_type);
+    $asset_types = array();
+    if (strpos($asset_type, '+') !== FALSE) {
+      $asset_types = explode('+', $asset_type);
+    }
+    else {
+      $asset_types[] = $asset_type;
+    }
+    $query->condition('type', $asset_types, 'IN');
   }
 
   // Execute the query.
