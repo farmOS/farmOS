@@ -15,6 +15,32 @@ function farm_quick_hook_info() {
 }
 
 /**
+ * Implements hook_permission().
+ */
+function farm_quick_permission() {
+  return array(
+    'configure farm quick forms' => array(
+      'title' => t('Configure quick forms'),
+      'description' => t('Allow access to the quick forms configuration.'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_farm_access_perms().
+ */
+function farm_quick_farm_access_perms($role) {
+  $perms = array();
+
+  // Add the "configure farm quick forms" permission to Farm Manager roles.
+  if ($role == 'Farm Manager') {
+    $perms[] = 'configure farm quick forms';
+  }
+
+  return $perms;
+}
+
+/**
  * Load information about all quick forms provided by other modules.
  */
 function farm_quick_forms() {
@@ -95,7 +121,7 @@ function farm_quick_menu() {
     'title' => t('Configure'),
     'page callback' => 'drupal_get_form',
     'page arguments' => array('farm_quick_configure_form'),
-    'access arguments' => array('administer site configuration'),
+    'access arguments' => array('configure farm quick forms'),
     'type' => MENU_LOCAL_TASK,
     'weight' => 100,
   );
