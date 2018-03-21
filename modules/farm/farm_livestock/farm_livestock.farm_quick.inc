@@ -15,6 +15,12 @@ function farm_livestock_farm_quick_forms() {
       'form' => 'farm_livestock_birth_form',
       'file' => 'farm_livestock.farm_quick.inc',
     ),
+    'milk' => array(
+      'label' => t('Milk'),
+      'permission' => 'create farm_harvest log entities',
+      'form' => 'farm_livestock_milk_form',
+      'file' => 'farm_livestock.farm_quick.inc',
+    ),
   );
 }
 
@@ -366,4 +372,204 @@ function farm_livestock_birth_form_submit($form, &$form_state) {
   $label = entity_label('farm_asset', $parents['mother']);
   $uri = entity_uri('farm_asset', $parents['mother']);
   drupal_set_message("View the mother's animal record: " . l($label, $uri['path']));
+}
+
+/**
+ * Form for adding milk harvest logs.
+ */
+function farm_livestock_milk_form($form, &$form_state) {
+
+  // Determine the default quantity measure and units based on the system of
+  // measurement (Weight in Lbs for US/Imperial, Volume in Liters for Metric).
+  $system = farm_quantity_system_of_measurement();
+  $default_measure = 'volume';
+  $default_units = 'liters';
+  if ($system == 'us') {
+    $default_measure = 'weight';
+    $default_units = 'lbs';
+  }
+
+  // We also remember what the measure and units were from the previous
+  // submission. So if those are set, override the defaults.
+  $default_measure = variable_get('farm_livestock_milk_measure', $default_measure);
+  $default_units = variable_get('farm_livestock_milk_units', $default_units);
+
+  // Wrapper fieldset.
+  $form['milk'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Record a milk harvest'),
+    '#description' => t('Use this form to record a milk harvest. A harvest log will be created with standard details filled in.'),
+  );
+
+  // Animal/group select.
+  $form['milk']['asset'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Group/animal'),
+    '#description' => t('Select the group/animal that this milk came from.'),
+    '#autocomplete_path' => 'farm_asset/autocomplete/animal+group',
+    '#required' => TRUE,
+  );
+
+  // Quantity measure.
+  $form['milk']['measure'] = array(
+    '#type' => 'select',
+    '#title' => t('Measure'),
+    '#description' => t('Is this harvest measured in weight or in volume?'),
+    '#options' => array(
+      'weight' => t('Weight'),
+      'volume' => t('Volume'),
+    ),
+    '#default_value' => $default_measure,
+    '#required' => TRUE,
+  );
+
+  // Quantity value.
+  $form['milk']['quantity'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Quantity'),
+    '#required' => TRUE,
+    '#element_validate' => array('element_validate_integer_positive'),
+  );
+
+  // Quantity units.
+  $form['milk']['units'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Unit of measure'),
+    '#description' => t('Specify what units this harvest is measured in. This will remember what you entered previously, so if you use standard units you only need to enter them the first time you use this form.'),
+    '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_quantity_units',
+    '#default_value' => $default_units,
+    '#required' => TRUE,
+  );
+
+  // Submit button.
+  $form['milk']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Save log'),
+  );
+
+  // Return the form.
+  return $form;
+}
+
+/**
+ * Validate callback for milk quick form.
+ */
+function farm_livestock_milk_form_validate($form, &$form_state) {
+
+  // Validate the animal/group asset.
+  if (!empty($form_state['values']['asset'])) {
+
+    // Extract asset ID.
+    $id = 0;
+    $matches = array();
+    $result = preg_match('/\\[id: ([0-9]+)\\]$/', $form_state['values']['asset'], $matches);
+    if (!empty($matches[$result])) {
+      $id = $matches[$result];
+    }
+
+    // If an ID couldn't be extracted, throw an error.
+    if (empty($id)) {
+      form_set_error('asset', t('Could not load the animal/group record. Make sure the asset ID is included. For example: "My animal [id: 123]"'));
+    }
+
+    // Load the asset.
+    $asset = farm_asset_load($id);
+
+    // If the asset didn't load, throw an error.
+    if (empty($asset)) {
+      form_set_error('asset', t('Could not load the animal/group record. Make sure the asset name and ID are correct.'));
+    }
+
+    // Save the asset to the form state.
+    $form_state['storage']['asset'] = $asset;
+  }
+}
+
+/**
+ * Submit function for milk quick form.
+ */
+function farm_livestock_milk_form_submit($form, &$form_state) {
+
+  // Remember what was entered for measure and units. This will be used as the
+  // default the next time the form is loaded.
+  $measure = check_plain($form_state['values']['measure']);
+  $units = check_plain($form_state['values']['units']);
+  variable_set('farm_livestock_milk_measure', $measure);
+  variable_set('farm_livestock_milk_units', $units);
+
+  // Get the asset.
+  $asset = $form_state['storage']['asset'];
+
+  // Create a new log entity.
+  $log = entity_create('log', array('type' => 'farm_harvest'));
+
+  // Create an entity wrapper for the log.
+  $log_wrapper = entity_metadata_wrapper('log', $log);
+
+  // Set log name.
+  $log_name = t('Milk @asset: @qty @units', array('@asset' => entity_label('farm_asset', $asset), '@qty' => $form_state['values']['quantity'], '@units' => $form_state['values']['units']));
+  $log_wrapper->name->set($log_name);
+
+  // Set the date.
+  $log_wrapper->timestamp->set(REQUEST_TIME);
+
+  // Add the asset to the log.
+  $log_wrapper->field_farm_asset[] = $asset;
+
+  // Create a new quantity field_collection entity attached to the log.
+  $quantity = entity_create('field_collection_item', array('field_name' => 'field_farm_quantity'));
+  $quantity->setHostEntity('log', $log);
+
+  // Create an entity wrapper for the quantity.
+  $quantity_wrapper = entity_metadata_wrapper('field_collection_item', $quantity);
+
+  // Set the quantity measure.
+  $quantity_wrapper->field_farm_quantity_measure->set($measure);
+
+  // Set the quantity value.
+  $value_fraction = fraction_from_decimal($form_state['values']['quantity']);
+  $quantity_wrapper->field_farm_quantity_value->numerator->set($value_fraction->getNumerator());
+  $quantity_wrapper->field_farm_quantity_value->denominator->set($value_fraction->getDenominator());
+
+  // Look up the units taxonomy term.
+  $units_terms = taxonomy_get_term_by_name($form_state['values']['units'], 'farm_quantity_units');
+
+  // If terms were found, use the first one.
+  if (!empty($units_terms)) {
+    $units_term = reset($units_terms);
+  }
+
+  // If a term wasn't found, create it.
+  else {
+    $farm_units = taxonomy_vocabulary_machine_name_load('farm_quantity_units');
+    $units_term = new stdClass();
+    $units_term->name = check_plain($units);
+    $units_term->vid = $farm_units->vid;
+    taxonomy_term_save($units_term);
+  }
+
+  // Set the quantity units.
+  $quantity_wrapper->field_farm_quantity_units = $units_term;
+
+  // Set the quantity label to "milk".
+  $label = t('milk');
+  $quantity_wrapper->field_farm_quantity_label->set($label);
+
+  // Mark the log as done.
+  $log_wrapper->done->set(TRUE);
+
+  // Set the log owner.
+  global $user;
+  $log_wrapper->field_farm_log_owner[] = $user;
+
+  // Save the quantity.
+  $quantity_wrapper->save();
+
+  // Save the log.
+  $log_wrapper->save();
+
+  // Set a message.
+  $label = entity_label('log', $log);
+  $uri = entity_uri('log', $log);
+  drupal_set_message(t('Log created') . ': ' . l($label, $uri['path']));
 }

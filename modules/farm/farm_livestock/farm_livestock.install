@@ -5,6 +5,16 @@
  */
 
 /**
+ * Implements hook_uninstall().
+ */
+function farm_livestock_uninstall() {
+
+  // Delete variables.
+  variable_del('farm_livestock_milk_measure');
+  variable_del('farm_livestock_milk_units');
+}
+
+/**
  * Implements hook_update_dependencies().
  */
 function farm_livestock_update_dependencies() {
