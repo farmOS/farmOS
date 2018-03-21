@@ -1,0 +1,6 @@
+name = Farm Quantity Log
+description = Provides helper functions for querying logs with quantity data.
+core = 7.x
+package = farmOS
+dependencies[] = farm_log
+dependencies[] = farm_quantity

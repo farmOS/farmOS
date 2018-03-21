@@ -477,7 +477,7 @@ function farm_livestock_asset_form_submit(array $form, array &$form_state) {
 function farm_livestock_animal_weight($asset) {
 
   // Load the latest log with a 'weight' quantity measurement for this asset.
-  $log = farm_quantity_asset_log($asset, 'weight');
+  $log = farm_quantity_log_asset($asset, 'weight');
 
   // if no weight observation log exists for asset
   if (empty($log)) {

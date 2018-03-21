@@ -708,6 +708,13 @@ function farm_update_7039(&$sandbox) {
 }
 
 /**
+ * Enable new Farm Quantity Log module.
+ */
+function farm_update_7040(&$sandbox) {
+  _farm_update_enable_modules(array('farm_quantity_log'));
+}
+
+/**
  * Update helper function: enable modules.
  */
 function _farm_update_enable_modules($modules = array()) {
