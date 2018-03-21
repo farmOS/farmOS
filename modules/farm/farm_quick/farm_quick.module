@@ -58,14 +58,12 @@ function farm_quick_menu() {
   $forms = farm_quick_forms();
 
   // Get a list of enabled quick forms from saved variable.
-  $enabled_quick_forms = variable_get('farm_quick_forms_enabled', NULL);
+  $enabled_quick_forms = variable_get('farm_quick_forms_enabled', array());
 
-  // If list of enabled forms is not null, filter out disabled forms.
-  if (!is_null($enabled_quick_forms)) {
-    foreach ($forms as $name => $info) {
-      if (empty($enabled_quick_forms[$name])) {
-        unset($forms[$name]);
-      }
+  // Filter out disabled forms.
+  foreach ($forms as $name => $info) {
+    if (empty($enabled_quick_forms[$name])) {
+      unset($forms[$name]);
     }
   }
 
@@ -143,14 +141,7 @@ function farm_quick_configure_form($form, &$form_state) {
   }
 
   // Load the list of enabled quick forms from a variable.
-  $enabled_quick_forms = variable_get('farm_quick_forms_enabled', NULL);
-
-  // If no quick forms variable was set, assume that all are enabled.
-  if (is_null($enabled_quick_forms)) {
-    foreach ($options as $name => $option) {
-      $enabled_quick_forms[$name] = $name;
-    }
-  }
+  $enabled_quick_forms = variable_get('farm_quick_forms_enabled', array());
 
   // Display as a list of checkboxes.
   $form['farm_quick_forms_enabled'] = array(
