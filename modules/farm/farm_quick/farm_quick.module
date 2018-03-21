@@ -42,8 +42,8 @@ function farm_quick_forms() {
  */
 function farm_quick_forms_sort($a, $b) {
 
-  // Sort alphabetically by the 'tab' property.
-  return strcasecmp($a['tab'], $b['tab']);
+  // Sort alphabetically by the 'label' property.
+  return strcasecmp($a['label'], $b['label']);
 }
 
 /**
@@ -69,7 +69,7 @@ function farm_quick_menu() {
 
     // Build a menu item definition.
     $menu_item = array(
-      'title' => $form['tab'],
+      'title' => $form['label'],
       'page callback' => 'drupal_get_form',
       'page arguments' => array($form['form']),
       'access arguments' => array($form['permission']),
