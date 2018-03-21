@@ -373,7 +373,7 @@ function farm_area_format_calculated_area($measurement) {
   }
 
   // Get the system of measurement.
-  $unit_system = variable_get('farm_quantity_unit_system', 'metric');
+  $unit_system = farm_quantity_system_of_measurement();
 
   // Switch through available unit systems and generate a formatted string.
   $conversion = '';
