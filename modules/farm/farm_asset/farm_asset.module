@@ -622,7 +622,7 @@ function farm_asset_type_access($op, FarmAssetType $farm_asset_type = NULL) {
  *   Returns TRUE or FALSE to grant or deny access to the path.
  */
 function farm_asset_autocomplete_access($asset_type) {
-  if ($asset_type == 'all') {
+  if ($asset_type == 'all' || strpos($asset_type, '+') !== FALSE) {
     return user_access('view farm assets');
   }
   return user_access('view any ' . $asset_type . ' farm assets');
