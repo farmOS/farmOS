@@ -1,0 +1,14 @@
+<?php
+/**
+ * @file
+ * Farm quick install.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function farm_quick_uninstall() {
+
+  // Delete variables.
+  variable_del('farm_quick_forms_enabled');
+}
