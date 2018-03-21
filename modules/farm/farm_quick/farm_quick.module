@@ -57,11 +57,6 @@ function farm_quick_menu() {
   // Ask for quick forms from modules.
   $forms = farm_quick_forms();
 
-  // If there are no forms, bail.
-  if (empty($forms)) {
-    return $items;
-  }
-
   // Get a list of enabled quick forms from saved variable.
   $enabled_quick_forms = variable_get('farm_quick_forms_enabled', NULL);
 
@@ -75,8 +70,6 @@ function farm_quick_menu() {
   }
 
   // Add a menu item for each form.
-  reset($forms);
-  $first = key($forms);
   foreach ($forms as $name => $form) {
 
     // Build a menu item definition.
@@ -95,21 +88,8 @@ function farm_quick_menu() {
       $menu_item['file path'] = drupal_get_path('module', $form['module']);
     }
 
-    // If this is the first item, make it the default tab for "Quick forms".
-    if ($name == $first) {
-      $items['farm/quick'] = $menu_item;
-      $items['farm/quick']['title'] = 'Quick forms';
-      $items['farm/quick']['type'] = MENU_LOCAL_TASK;
-      $items['farm/quick/' . $name] = array(
-        'title' => $menu_item['title'],
-        'type' => MENU_DEFAULT_LOCAL_TASK,
-      );
-    }
-
-    // Otherwise, treat it as a normal menu tab.
-    else {
-      $items['farm/quick/' . $name] = $menu_item;
-    }
+    // Add a menu item.
+    $items['farm/quick/' . $name] = $menu_item;
   }
 
   // Add a tab for configuring quick forms.
@@ -120,6 +100,17 @@ function farm_quick_menu() {
     'access arguments' => array('administer site configuration'),
     'type' => MENU_LOCAL_TASK,
     'weight' => 100,
+  );
+
+  // Make the first item into the default tab.
+  reset($items);
+  $first = key($items);
+  $items['farm/quick'] = $items[$first];
+  $items['farm/quick']['title'] = 'Quick forms';
+  $items['farm/quick']['type'] = MENU_LOCAL_TASK;
+  $items[$first] = array(
+    'title' => $items[$first]['title'],
+    'type' => MENU_DEFAULT_LOCAL_TASK,
   );
 
   // Return menu items.
