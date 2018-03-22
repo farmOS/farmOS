@@ -307,11 +307,6 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['relationships']['membership']['id'] = 'membership';
   $handler->display->display_options['relationships']['membership']['table'] = 'farm_asset';
   $handler->display->display_options['relationships']['membership']['field'] = 'membership';
-  /* Relationship: Entity Reference: Referenced Entity */
-  $handler->display->display_options['relationships']['field_farm_group_target_id']['id'] = 'field_farm_group_target_id';
-  $handler->display->display_options['relationships']['field_farm_group_target_id']['table'] = 'field_data_field_farm_group';
-  $handler->display->display_options['relationships']['field_farm_group_target_id']['field'] = 'field_farm_group_target_id';
-  $handler->display->display_options['relationships']['field_farm_group_target_id']['relationship'] = 'membership';
   /* Relationship: Farm asset: ID Tag(s) (field_farm_animal_tag) */
   $handler->display->display_options['relationships']['field_farm_animal_tag_value']['id'] = 'field_farm_animal_tag_value';
   $handler->display->display_options['relationships']['field_farm_animal_tag_value']['table'] = 'field_data_field_farm_animal_tag';
@@ -559,18 +554,6 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['filters']['name']['expose']['label'] = 'Name';
   $handler->display->display_options['filters']['name']['expose']['operator'] = 'name_op';
   $handler->display->display_options['filters']['name']['expose']['identifier'] = 'name';
-  /* Filter criterion: Farm asset: Name */
-  $handler->display->display_options['filters']['name_1']['id'] = 'name_1';
-  $handler->display->display_options['filters']['name_1']['table'] = 'farm_asset';
-  $handler->display->display_options['filters']['name_1']['field'] = 'name';
-  $handler->display->display_options['filters']['name_1']['relationship'] = 'field_farm_group_target_id';
-  $handler->display->display_options['filters']['name_1']['operator'] = 'contains';
-  $handler->display->display_options['filters']['name_1']['group'] = 1;
-  $handler->display->display_options['filters']['name_1']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['name_1']['expose']['operator_id'] = 'name_1_op';
-  $handler->display->display_options['filters']['name_1']['expose']['label'] = 'Group';
-  $handler->display->display_options['filters']['name_1']['expose']['operator'] = 'name_1_op';
-  $handler->display->display_options['filters']['name_1']['expose']['identifier'] = 'name_1';
   /* Filter criterion: Field collection item: ID (field_farm_animal_tag_id) */
   $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['id'] = 'field_farm_animal_tag_id_value';
   $handler->display->display_options['filters']['field_farm_animal_tag_id_value']['table'] = 'field_data_field_farm_animal_tag_id';
@@ -720,7 +703,6 @@ function farm_livestock_views_default_views() {
     t('No animals found.'),
     t('Latest movement'),
     t('Group membership'),
-    t('Farm asset entity referenced from field_farm_group'),
     t('field collection item from field_farm_animal_tag'),
     t('Farm asset'),
     t('- Choose an operation -'),

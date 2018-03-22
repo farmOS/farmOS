@@ -77,11 +77,6 @@ function farm_inventory_views_default_views() {
   $handler->display->display_options['relationships']['membership']['id'] = 'membership';
   $handler->display->display_options['relationships']['membership']['table'] = 'farm_asset';
   $handler->display->display_options['relationships']['membership']['field'] = 'membership';
-  /* Relationship: Entity Reference: Referenced Entity */
-  $handler->display->display_options['relationships']['field_farm_group_target_id']['id'] = 'field_farm_group_target_id';
-  $handler->display->display_options['relationships']['field_farm_group_target_id']['table'] = 'field_data_field_farm_group';
-  $handler->display->display_options['relationships']['field_farm_group_target_id']['field'] = 'field_farm_group_target_id';
-  $handler->display->display_options['relationships']['field_farm_group_target_id']['relationship'] = 'membership';
   /* Field: Entity Reference View Widget Checkbox: Farm asset */
   $handler->display->display_options['fields']['entityreference_view_widget']['id'] = 'entityreference_view_widget';
   $handler->display->display_options['fields']['entityreference_view_widget']['table'] = 'farm_asset';
@@ -166,18 +161,6 @@ function farm_inventory_views_default_views() {
   $handler->display->display_options['filters']['name']['expose']['label'] = 'Name';
   $handler->display->display_options['filters']['name']['expose']['operator'] = 'name_op';
   $handler->display->display_options['filters']['name']['expose']['identifier'] = 'name';
-  /* Filter criterion: Farm asset: Name */
-  $handler->display->display_options['filters']['name_1']['id'] = 'name_1';
-  $handler->display->display_options['filters']['name_1']['table'] = 'farm_asset';
-  $handler->display->display_options['filters']['name_1']['field'] = 'name';
-  $handler->display->display_options['filters']['name_1']['relationship'] = 'field_farm_group_target_id';
-  $handler->display->display_options['filters']['name_1']['operator'] = 'contains';
-  $handler->display->display_options['filters']['name_1']['group'] = 1;
-  $handler->display->display_options['filters']['name_1']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['name_1']['expose']['operator_id'] = 'name_1_op';
-  $handler->display->display_options['filters']['name_1']['expose']['label'] = 'Group';
-  $handler->display->display_options['filters']['name_1']['expose']['operator'] = 'name_1_op';
-  $handler->display->display_options['filters']['name_1']['expose']['identifier'] = 'name_1';
   /* Filter criterion: Field collection item: Movement to (field_farm_move_to) */
   $handler->display->display_options['filters']['field_farm_move_to_tid']['id'] = 'field_farm_move_to_tid';
   $handler->display->display_options['filters']['field_farm_move_to_tid']['table'] = 'field_data_field_farm_move_to';
@@ -263,7 +246,6 @@ function farm_inventory_views_default_views() {
     t('No assets found.'),
     t('Latest movement'),
     t('Group membership'),
-    t('Farm asset entity referenced from field_farm_group'),
     t('Asset type'),
     t('Location'),
     t('Group'),
