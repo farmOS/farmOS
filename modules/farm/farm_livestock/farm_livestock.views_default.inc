@@ -730,6 +730,7 @@ function farm_livestock_views_default_views() {
     t('Animals of type %2'),
     t('If there are multiple ID tags on an animal, this filter will only look at the first one.'),
     t('Type'),
+    t('Date of birth (range)'),
     t('Page'),
     t('Data export'),
   );
