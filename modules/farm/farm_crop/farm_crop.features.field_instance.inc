@@ -306,7 +306,7 @@ function farm_crop_field_default_field_instances() {
         'view_mode' => 'full',
       ),
       'type' => 'entityreference_view_widget',
-      'weight' => -4,
+      'weight' => 1,
     ),
   );
 
@@ -373,7 +373,7 @@ function farm_crop_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => -1,
+      'weight' => 4,
     ),
   );
 
@@ -588,7 +588,7 @@ function farm_crop_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => -2,
+      'weight' => 3,
     ),
   );
 
@@ -655,7 +655,7 @@ function farm_crop_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => -3,
+      'weight' => 2,
     ),
   );
 
@@ -696,7 +696,7 @@ function farm_crop_field_default_field_instances() {
         'view_mode' => 'full',
       ),
       'type' => 'entityreference_view_widget',
-      'weight' => -4,
+      'weight' => 1,
     ),
   );
 
@@ -763,7 +763,7 @@ function farm_crop_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => -2,
+      'weight' => 2,
     ),
   );
 
@@ -978,7 +978,7 @@ function farm_crop_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => -3,
+      'weight' => 1,
     ),
   );
 

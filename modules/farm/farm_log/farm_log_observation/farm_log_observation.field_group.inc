@@ -81,7 +81,7 @@ function farm_log_observation_field_group_info() {
   $field_group->parent_name = 'group_farm_general';
   $field_group->data = array(
     'label' => 'Assignment',
-    'weight' => '-5',
+    'weight' => '4',
     'children' => array(
       0 => 'field_farm_log_owner',
     ),
@@ -110,7 +110,7 @@ function farm_log_observation_field_group_info() {
   $field_group->parent_name = 'group_farm_general';
   $field_group->data = array(
     'label' => 'Category',
-    'weight' => '-6',
+    'weight' => '3',
     'children' => array(
       0 => 'field_farm_log_category',
     ),

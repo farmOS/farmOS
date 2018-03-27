@@ -81,7 +81,7 @@ function farm_log_sale_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => -4,
+      'weight' => 1,
     ),
   );
 
@@ -148,7 +148,7 @@ function farm_log_sale_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 4,
+      'weight' => 9,
     ),
   );
 
@@ -265,7 +265,7 @@ function farm_log_sale_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => -3,
+      'weight' => 2,
     ),
   );
 
@@ -364,7 +364,7 @@ function farm_log_sale_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => -2,
+      'weight' => 3,
     ),
   );
 
@@ -398,7 +398,7 @@ function farm_log_sale_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 3,
+      'weight' => 8,
     ),
   );
 
@@ -432,7 +432,7 @@ function farm_log_sale_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'taxonomy_autocomplete',
-      'weight' => 0,
+      'weight' => 5,
     ),
   );
 
@@ -474,7 +474,7 @@ function farm_log_sale_field_default_field_instances() {
         'precision' => 0,
       ),
       'type' => 'fraction_decimal',
-      'weight' => -1,
+      'weight' => 4,
     ),
   );
 
@@ -516,7 +516,7 @@ function farm_log_sale_field_default_field_instances() {
         'precision' => 0,
       ),
       'type' => 'fraction_decimal',
-      'weight' => 2,
+      'weight' => 7,
     ),
   );
 
@@ -558,7 +558,7 @@ function farm_log_sale_field_default_field_instances() {
         'precision' => 0,
       ),
       'type' => 'fraction_decimal',
-      'weight' => 1,
+      'weight' => 6,
     ),
   );
 

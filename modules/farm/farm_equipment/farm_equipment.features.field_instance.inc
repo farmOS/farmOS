@@ -370,7 +370,7 @@ function farm_equipment_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => -7,
+      'weight' => 2,
     ),
   );
 
@@ -586,7 +586,7 @@ function farm_equipment_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => -8,
+      'weight' => 1,
     ),
   );
 

@@ -139,7 +139,7 @@ function farm_log_input_field_default_field_instances() {
         'year_range' => '-10:+3',
       ),
       'type' => 'date_select',
-      'weight' => -3,
+      'weight' => 6,
     ),
   );
 
@@ -213,7 +213,7 @@ function farm_log_input_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => -1,
+      'weight' => 8,
     ),
   );
 
@@ -376,7 +376,7 @@ function farm_log_input_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => -6,
+      'weight' => 3,
     ),
   );
 
@@ -416,7 +416,7 @@ function farm_log_input_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => -7,
+      'weight' => 2,
     ),
   );
 
@@ -456,7 +456,7 @@ function farm_log_input_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => -5,
+      'weight' => 4,
     ),
   );
 
@@ -588,7 +588,7 @@ function farm_log_input_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => -4,
+      'weight' => 5,
     ),
   );
 
@@ -628,7 +628,7 @@ function farm_log_input_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'taxonomy_autocomplete',
-      'weight' => -8,
+      'weight' => 1,
     ),
   );
 
@@ -701,7 +701,7 @@ function farm_log_input_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => -2,
+      'weight' => 7,
     ),
   );
 
