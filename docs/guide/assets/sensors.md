@@ -27,6 +27,15 @@ information, as well as sample code and JSON formatting.
 The listener module is useful for simple data streams. For more complex data, a
 more customized sub-module may be necessary.
 
+### GrovePi + Node Red
+
+If you are looking for a DIY approach to collecting sensor data that doesn't
+require soldering or coding check out this guide to
+[Collecting sensor data in farmOS using GrovePi and Node-RED](http://farmhack.org/tools/collecting-sensor-data-farmos-using-grovepi-and-node-red)
+on [Farm Hack](http://farmhack.org).
+
+<iframe width="100%" height="480" src="https://www.youtube.com/embed/rCl06YBb4cM" frameborder="0" allowfullscreen></iframe>
+
 ### Open Pipe Kit
 
 The [Open Pipe Kit] project provides a command-line script that can be used to
