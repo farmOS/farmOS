@@ -859,11 +859,6 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
   $handler->display->display_options['empty']['area_text_custom']['content'] = 'No birth logs found.';
   /* Relationship: Entity Reference: Referenced Entity */
-  $handler->display->display_options['relationships']['field_farm_log_owner_target_id']['id'] = 'field_farm_log_owner_target_id';
-  $handler->display->display_options['relationships']['field_farm_log_owner_target_id']['table'] = 'field_data_field_farm_log_owner';
-  $handler->display->display_options['relationships']['field_farm_log_owner_target_id']['field'] = 'field_farm_log_owner_target_id';
-  $handler->display->display_options['relationships']['field_farm_log_owner_target_id']['label'] = 'Owner';
-  /* Relationship: Entity Reference: Referenced Entity */
   $handler->display->display_options['relationships']['field_farm_mother_target_id']['id'] = 'field_farm_mother_target_id';
   $handler->display->display_options['relationships']['field_farm_mother_target_id']['table'] = 'field_data_field_farm_mother';
   $handler->display->display_options['relationships']['field_farm_mother_target_id']['field'] = 'field_farm_mother_target_id';
@@ -1023,13 +1018,6 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['sorts']['name_1']['field'] = 'name';
   $handler->display->display_options['sorts']['name_1']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['name_1']['expose']['label'] = 'Log name';
-  /* Sort criterion: User: Name */
-  $handler->display->display_options['sorts']['name']['id'] = 'name';
-  $handler->display->display_options['sorts']['name']['table'] = 'users';
-  $handler->display->display_options['sorts']['name']['field'] = 'name';
-  $handler->display->display_options['sorts']['name']['relationship'] = 'field_farm_log_owner_target_id';
-  $handler->display->display_options['sorts']['name']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['name']['expose']['label'] = 'Assigned to';
   /* Sort criterion: Log: Log ID */
   $handler->display->display_options['sorts']['id']['id'] = 'id';
   $handler->display->display_options['sorts']['id']['table'] = 'log';
@@ -1110,18 +1098,6 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['filters']['name']['expose']['label'] = 'Log name';
   $handler->display->display_options['filters']['name']['expose']['operator'] = 'name_op';
   $handler->display->display_options['filters']['name']['expose']['identifier'] = 'name';
-  /* Filter criterion: User: Name */
-  $handler->display->display_options['filters']['uid']['id'] = 'uid';
-  $handler->display->display_options['filters']['uid']['table'] = 'users';
-  $handler->display->display_options['filters']['uid']['field'] = 'uid';
-  $handler->display->display_options['filters']['uid']['relationship'] = 'field_farm_log_owner_target_id';
-  $handler->display->display_options['filters']['uid']['value'] = '';
-  $handler->display->display_options['filters']['uid']['group'] = 1;
-  $handler->display->display_options['filters']['uid']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['uid']['expose']['operator_id'] = 'uid_op';
-  $handler->display->display_options['filters']['uid']['expose']['label'] = 'Assigned to';
-  $handler->display->display_options['filters']['uid']['expose']['operator'] = 'uid_op';
-  $handler->display->display_options['filters']['uid']['expose']['identifier'] = 'uid';
   /* Filter criterion: Field: Flags (field_farm_flags) */
   $handler->display->display_options['filters']['field_farm_flags_value']['id'] = 'field_farm_flags_value';
   $handler->display->display_options['filters']['field_farm_flags_value']['table'] = 'field_data_field_farm_flags';
@@ -1235,7 +1211,6 @@ function farm_livestock_views_default_views() {
     t('next ›'),
     t('last »'),
     t('No birth logs found.'),
-    t('Owner'),
     t('Farm asset entity referenced from field_farm_mother'),
     t('Log'),
     t('- Choose an operation -'),
@@ -1373,11 +1348,6 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
   $handler->display->display_options['empty']['area_text_custom']['content'] = 'No medical logs found.';
-  /* Relationship: Entity Reference: Referenced Entity */
-  $handler->display->display_options['relationships']['field_farm_log_owner_target_id']['id'] = 'field_farm_log_owner_target_id';
-  $handler->display->display_options['relationships']['field_farm_log_owner_target_id']['table'] = 'field_data_field_farm_log_owner';
-  $handler->display->display_options['relationships']['field_farm_log_owner_target_id']['field'] = 'field_farm_log_owner_target_id';
-  $handler->display->display_options['relationships']['field_farm_log_owner_target_id']['label'] = 'Owner';
   /* Field: Bulk operations: Log */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
   $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'views_entity_log';
@@ -1520,13 +1490,6 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['sorts']['name_1']['field'] = 'name';
   $handler->display->display_options['sorts']['name_1']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['name_1']['expose']['label'] = 'Log name';
-  /* Sort criterion: User: Name */
-  $handler->display->display_options['sorts']['name']['id'] = 'name';
-  $handler->display->display_options['sorts']['name']['table'] = 'users';
-  $handler->display->display_options['sorts']['name']['field'] = 'name';
-  $handler->display->display_options['sorts']['name']['relationship'] = 'field_farm_log_owner_target_id';
-  $handler->display->display_options['sorts']['name']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['name']['expose']['label'] = 'Assigned to';
   /* Sort criterion: Log: Log ID */
   $handler->display->display_options['sorts']['id']['id'] = 'id';
   $handler->display->display_options['sorts']['id']['table'] = 'log';
@@ -1565,18 +1528,6 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['filters']['name']['expose']['label'] = 'Log name';
   $handler->display->display_options['filters']['name']['expose']['operator'] = 'name_op';
   $handler->display->display_options['filters']['name']['expose']['identifier'] = 'name';
-  /* Filter criterion: User: Name */
-  $handler->display->display_options['filters']['uid']['id'] = 'uid';
-  $handler->display->display_options['filters']['uid']['table'] = 'users';
-  $handler->display->display_options['filters']['uid']['field'] = 'uid';
-  $handler->display->display_options['filters']['uid']['relationship'] = 'field_farm_log_owner_target_id';
-  $handler->display->display_options['filters']['uid']['value'] = '';
-  $handler->display->display_options['filters']['uid']['group'] = 1;
-  $handler->display->display_options['filters']['uid']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['uid']['expose']['operator_id'] = 'uid_op';
-  $handler->display->display_options['filters']['uid']['expose']['label'] = 'Assigned to';
-  $handler->display->display_options['filters']['uid']['expose']['operator'] = 'uid_op';
-  $handler->display->display_options['filters']['uid']['expose']['identifier'] = 'uid';
   /* Filter criterion: Field: Flags (field_farm_flags) */
   $handler->display->display_options['filters']['field_farm_flags_value']['id'] = 'field_farm_flags_value';
   $handler->display->display_options['filters']['field_farm_flags_value']['table'] = 'field_data_field_farm_flags';
@@ -1690,7 +1641,6 @@ function farm_livestock_views_default_views() {
     t('next ›'),
     t('last »'),
     t('No medical logs found.'),
-    t('Owner'),
     t('Log'),
     t('- Choose an operation -'),
     t('Delete'),

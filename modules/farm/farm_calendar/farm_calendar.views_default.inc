@@ -40,10 +40,6 @@ function farm_calendar_views_default_views() {
   $handler->display->display_options['style_options']['theme_style'] = '1';
   $handler->display->display_options['style_options']['max_items'] = '0';
   $handler->display->display_options['row_plugin'] = 'calendar_entity';
-  /* Relationship: Entity Reference: Referenced Entity */
-  $handler->display->display_options['relationships']['field_farm_log_owner_target_id']['id'] = 'field_farm_log_owner_target_id';
-  $handler->display->display_options['relationships']['field_farm_log_owner_target_id']['table'] = 'field_data_field_farm_log_owner';
-  $handler->display->display_options['relationships']['field_farm_log_owner_target_id']['field'] = 'field_farm_log_owner_target_id';
   /* Field: Log: Log ID */
   $handler->display->display_options['fields']['id']['id'] = 'id';
   $handler->display->display_options['fields']['id']['table'] = 'log';
@@ -132,18 +128,6 @@ function farm_calendar_views_default_views() {
   $handler->display->display_options['filters']['field_farm_flags_value']['expose']['operator'] = 'field_farm_flags_value_op';
   $handler->display->display_options['filters']['field_farm_flags_value']['expose']['identifier'] = 'field_farm_flags_value';
   $handler->display->display_options['filters']['field_farm_flags_value']['expose']['multiple'] = TRUE;
-  /* Filter criterion: User: Name */
-  $handler->display->display_options['filters']['uid']['id'] = 'uid';
-  $handler->display->display_options['filters']['uid']['table'] = 'users';
-  $handler->display->display_options['filters']['uid']['field'] = 'uid';
-  $handler->display->display_options['filters']['uid']['relationship'] = 'field_farm_log_owner_target_id';
-  $handler->display->display_options['filters']['uid']['value'] = '';
-  $handler->display->display_options['filters']['uid']['group'] = 1;
-  $handler->display->display_options['filters']['uid']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['uid']['expose']['operator_id'] = 'uid_op';
-  $handler->display->display_options['filters']['uid']['expose']['label'] = 'Assigned to';
-  $handler->display->display_options['filters']['uid']['expose']['operator'] = 'uid_op';
-  $handler->display->display_options['filters']['uid']['expose']['identifier'] = 'uid';
 
   /* Display: Month */
   $handler = $view->new_display('page', 'Month', 'page_month');
@@ -325,7 +309,6 @@ function farm_calendar_views_default_views() {
     t('Sort by'),
     t('Asc'),
     t('Desc'),
-    t('User entity referenced from field_farm_log_owner'),
     t('.'),
     t('Assets'),
     t('✔'),

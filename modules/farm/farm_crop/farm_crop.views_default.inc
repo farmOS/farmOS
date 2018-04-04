@@ -319,11 +319,6 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
   $handler->display->display_options['empty']['area_text_custom']['content'] = 'No seedings found.';
-  /* Relationship: Entity Reference: Referenced Entity */
-  $handler->display->display_options['relationships']['field_farm_log_owner_target_id']['id'] = 'field_farm_log_owner_target_id';
-  $handler->display->display_options['relationships']['field_farm_log_owner_target_id']['table'] = 'field_data_field_farm_log_owner';
-  $handler->display->display_options['relationships']['field_farm_log_owner_target_id']['field'] = 'field_farm_log_owner_target_id';
-  $handler->display->display_options['relationships']['field_farm_log_owner_target_id']['label'] = 'Owner';
   /* Relationship: Field: Quantity (field_farm_quantity) */
   $handler->display->display_options['relationships']['field_farm_quantity_value']['id'] = 'field_farm_quantity_value';
   $handler->display->display_options['relationships']['field_farm_quantity_value']['table'] = 'field_data_field_farm_quantity';
@@ -504,13 +499,6 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['sorts']['name_1']['field'] = 'name';
   $handler->display->display_options['sorts']['name_1']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['name_1']['expose']['label'] = 'Log name';
-  /* Sort criterion: User: Name */
-  $handler->display->display_options['sorts']['name']['id'] = 'name';
-  $handler->display->display_options['sorts']['name']['table'] = 'users';
-  $handler->display->display_options['sorts']['name']['field'] = 'name';
-  $handler->display->display_options['sorts']['name']['relationship'] = 'field_farm_log_owner_target_id';
-  $handler->display->display_options['sorts']['name']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['name']['expose']['label'] = 'Assigned to';
   /* Sort criterion: Log: Log ID */
   $handler->display->display_options['sorts']['id']['id'] = 'id';
   $handler->display->display_options['sorts']['id']['table'] = 'log';
@@ -597,18 +585,6 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['filters']['field_farm_move_to_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_farm_move_to_tid']['vocabulary'] = 'farm_areas';
   $handler->display->display_options['filters']['field_farm_move_to_tid']['hierarchy'] = 1;
-  /* Filter criterion: User: Name */
-  $handler->display->display_options['filters']['uid']['id'] = 'uid';
-  $handler->display->display_options['filters']['uid']['table'] = 'users';
-  $handler->display->display_options['filters']['uid']['field'] = 'uid';
-  $handler->display->display_options['filters']['uid']['relationship'] = 'field_farm_log_owner_target_id';
-  $handler->display->display_options['filters']['uid']['value'] = '';
-  $handler->display->display_options['filters']['uid']['group'] = 1;
-  $handler->display->display_options['filters']['uid']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['uid']['expose']['operator_id'] = 'uid_op';
-  $handler->display->display_options['filters']['uid']['expose']['label'] = 'Assigned to';
-  $handler->display->display_options['filters']['uid']['expose']['operator'] = 'uid_op';
-  $handler->display->display_options['filters']['uid']['expose']['identifier'] = 'uid';
   /* Filter criterion: Field: Flags (field_farm_flags) */
   $handler->display->display_options['filters']['field_farm_flags_value']['id'] = 'field_farm_flags_value';
   $handler->display->display_options['filters']['field_farm_flags_value']['table'] = 'field_data_field_farm_flags';
@@ -722,7 +698,6 @@ function farm_crop_views_default_views() {
     t('next ›'),
     t('last »'),
     t('No seedings found.'),
-    t('Owner'),
     t('field collection item from field_farm_quantity'),
     t('field collection item from field_farm_movement'),
     t('Farm asset entity referenced from field_farm_asset'),
@@ -885,11 +860,6 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
   $handler->display->display_options['empty']['area_text_custom']['content'] = 'No transplantings found.';
-  /* Relationship: Entity Reference: Referenced Entity */
-  $handler->display->display_options['relationships']['field_farm_log_owner_target_id']['id'] = 'field_farm_log_owner_target_id';
-  $handler->display->display_options['relationships']['field_farm_log_owner_target_id']['table'] = 'field_data_field_farm_log_owner';
-  $handler->display->display_options['relationships']['field_farm_log_owner_target_id']['field'] = 'field_farm_log_owner_target_id';
-  $handler->display->display_options['relationships']['field_farm_log_owner_target_id']['label'] = 'Owner';
   /* Relationship: Field: Quantity (field_farm_quantity) */
   $handler->display->display_options['relationships']['field_farm_quantity_value']['id'] = 'field_farm_quantity_value';
   $handler->display->display_options['relationships']['field_farm_quantity_value']['table'] = 'field_data_field_farm_quantity';
@@ -1070,13 +1040,6 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['sorts']['name_1']['field'] = 'name';
   $handler->display->display_options['sorts']['name_1']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['name_1']['expose']['label'] = 'Log name';
-  /* Sort criterion: User: Name */
-  $handler->display->display_options['sorts']['name']['id'] = 'name';
-  $handler->display->display_options['sorts']['name']['table'] = 'users';
-  $handler->display->display_options['sorts']['name']['field'] = 'name';
-  $handler->display->display_options['sorts']['name']['relationship'] = 'field_farm_log_owner_target_id';
-  $handler->display->display_options['sorts']['name']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['name']['expose']['label'] = 'Assigned to';
   /* Sort criterion: Log: Log ID */
   $handler->display->display_options['sorts']['id']['id'] = 'id';
   $handler->display->display_options['sorts']['id']['table'] = 'log';
@@ -1163,18 +1126,6 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['filters']['field_farm_move_to_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_farm_move_to_tid']['vocabulary'] = 'farm_areas';
   $handler->display->display_options['filters']['field_farm_move_to_tid']['hierarchy'] = 1;
-  /* Filter criterion: User: Name */
-  $handler->display->display_options['filters']['uid']['id'] = 'uid';
-  $handler->display->display_options['filters']['uid']['table'] = 'users';
-  $handler->display->display_options['filters']['uid']['field'] = 'uid';
-  $handler->display->display_options['filters']['uid']['relationship'] = 'field_farm_log_owner_target_id';
-  $handler->display->display_options['filters']['uid']['value'] = '';
-  $handler->display->display_options['filters']['uid']['group'] = 1;
-  $handler->display->display_options['filters']['uid']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['uid']['expose']['operator_id'] = 'uid_op';
-  $handler->display->display_options['filters']['uid']['expose']['label'] = 'Assigned to';
-  $handler->display->display_options['filters']['uid']['expose']['operator'] = 'uid_op';
-  $handler->display->display_options['filters']['uid']['expose']['identifier'] = 'uid';
   /* Filter criterion: Field: Flags (field_farm_flags) */
   $handler->display->display_options['filters']['field_farm_flags_value']['id'] = 'field_farm_flags_value';
   $handler->display->display_options['filters']['field_farm_flags_value']['table'] = 'field_data_field_farm_flags';
@@ -1288,7 +1239,6 @@ function farm_crop_views_default_views() {
     t('next ›'),
     t('last »'),
     t('No transplantings found.'),
-    t('Owner'),
     t('field collection item from field_farm_quantity'),
     t('field collection item from field_farm_movement'),
     t('Farm asset entity referenced from field_farm_asset'),
