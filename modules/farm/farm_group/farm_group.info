@@ -44,4 +44,5 @@ features[views_view][] = farm_group_entityreference_view
 features[views_view][] = farm_group_log
 features[views_view][] = farm_group_members
 features[views_view][] = farm_groups
+files[] = views/handlers/farm_group_handler_filter_asset_group.inc
 files[] = views/handlers/farm_group_handler_relationship_membership.inc
