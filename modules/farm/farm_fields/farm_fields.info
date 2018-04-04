@@ -31,4 +31,5 @@ features[field_base][] = field_farm_people
 features[filter][] = farm_format
 features[taxonomy][] = farm_log_categories
 features[variable][] = pathauto_taxonomy_term_farm_log_categories_pattern
+files[] = views/handlers/farm_fields_handler_filter_entity.inc
 files[] = views/handlers/farm_fields_handler_filter_log_owner.inc
