@@ -142,7 +142,7 @@ function farm_area_generate_form($form, &$form_state) {
   $form['orientation'] = array(
     '#type' => 'textfield',
     '#title' => t('Orientation'),
-    '#description' => t('The orientation of the child areas in degrees (between 0 and 180). For example: areas running east/west would have an orientation of 0 (or 180), while areas running north/south would have an orientation of 90.'),
+    '#description' => t('Specify the orientation of the child areas in degrees (between 0 and 360). For example: areas running east/west would have an orientation of 0 or 180, while areas running north/south would have an orientation of 90 or 270. Areas will be numbered automatically in the direction of the orientation. For example: an orientation of 90 will number the areas from west to east, while an orientation of 270 will number the areas from east to west. Note that 0 and 360 are considered equivalent.'),
     '#required' => TRUE,
     '#default_value' => 0,
     '#element_validate' => array('element_validate_integer'),
@@ -253,8 +253,8 @@ function farm_area_generate_form_validate(&$form, &$form_state) {
   }
 
   // Ensure that the orientation is between 0 and 360.
-  if ($form_state['values']['orientation'] < 0 || $form_state['values']['orientation'] > 180) {
-    form_set_error('orientation', 'The orientation must be a number between 0 and 180.');
+  if ($form_state['values']['orientation'] < 0 || $form_state['values']['orientation'] > 360) {
+    form_set_error('orientation', 'The orientation must be a number between 0 and 360.');
   }
 }
 
@@ -361,8 +361,13 @@ function farm_area_generate_form_submit(&$form, &$form_state) {
 function farm_area_generate_geometries($polygon, $count, $orientation = 0) {
 
   // If the orientation isn't within an acceptable range, bail.
-  if ($orientation < 0 || $orientation > 359) {
+  if ($orientation < 0 || $orientation > 360) {
     return array();
+  }
+
+  // If the orientation is 360, reset to 0.
+  if ($orientation == 360) {
+    $orientation = 0;
   }
 
   // Rotate the polygon around its centroid so that the orientation is 0.
