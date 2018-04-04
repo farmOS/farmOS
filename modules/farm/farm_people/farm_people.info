@@ -4,6 +4,7 @@ core = 7.x
 package = farmOS
 dependencies[] = ctools
 dependencies[] = entityreference
+dependencies[] = farm_log
 dependencies[] = features
 dependencies[] = role_delegation
 dependencies[] = views
