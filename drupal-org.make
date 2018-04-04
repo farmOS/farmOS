@@ -91,6 +91,8 @@ projects[jquery_update][version] = "3.0-alpha5"
 
 projects[libraries][subdir] = "contrib"
 projects[libraries][version] = "2.3"
+; Patch to fix issue on PHP 7.
+projects[libraries][patch][] = "http://www.drupal.org/files/issues/libraries-version-callback-reference-parameter-fix-2779591-11.patch"
 
 projects[libraries_cdn][subdir] = "contrib"
 projects[libraries_cdn][version] = "1.7"
