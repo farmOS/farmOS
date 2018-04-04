@@ -128,6 +128,17 @@ function farm_calendar_views_default_views() {
   $handler->display->display_options['filters']['field_farm_flags_value']['expose']['operator'] = 'field_farm_flags_value_op';
   $handler->display->display_options['filters']['field_farm_flags_value']['expose']['identifier'] = 'field_farm_flags_value';
   $handler->display->display_options['filters']['field_farm_flags_value']['expose']['multiple'] = TRUE;
+  /* Filter criterion: Log: Assigned to (field_farm_log_owner) */
+  $handler->display->display_options['filters']['field_farm_log_owner_target_id']['id'] = 'field_farm_log_owner_target_id';
+  $handler->display->display_options['filters']['field_farm_log_owner_target_id']['table'] = 'field_data_field_farm_log_owner';
+  $handler->display->display_options['filters']['field_farm_log_owner_target_id']['field'] = 'field_farm_log_owner_target_id';
+  $handler->display->display_options['filters']['field_farm_log_owner_target_id']['group'] = 1;
+  $handler->display->display_options['filters']['field_farm_log_owner_target_id']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_log_owner_target_id']['expose']['operator_id'] = 'field_farm_log_owner_target_id_op';
+  $handler->display->display_options['filters']['field_farm_log_owner_target_id']['expose']['label'] = 'Assigned to';
+  $handler->display->display_options['filters']['field_farm_log_owner_target_id']['expose']['operator'] = 'field_farm_log_owner_target_id_op';
+  $handler->display->display_options['filters']['field_farm_log_owner_target_id']['expose']['identifier'] = 'field_farm_log_owner_target_id';
+  $handler->display->display_options['filters']['field_farm_log_owner_target_id']['expose']['multiple'] = TRUE;
 
   /* Display: Month */
   $handler = $view->new_display('page', 'Month', 'page_month');

@@ -610,6 +610,17 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['filters']['field_farm_log_category_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_farm_log_category_tid']['vocabulary'] = 'farm_log_categories';
   $handler->display->display_options['filters']['field_farm_log_category_tid']['hierarchy'] = 1;
+  /* Filter criterion: Log: Assigned to (field_farm_log_owner) */
+  $handler->display->display_options['filters']['field_farm_log_owner_target_id']['id'] = 'field_farm_log_owner_target_id';
+  $handler->display->display_options['filters']['field_farm_log_owner_target_id']['table'] = 'field_data_field_farm_log_owner';
+  $handler->display->display_options['filters']['field_farm_log_owner_target_id']['field'] = 'field_farm_log_owner_target_id';
+  $handler->display->display_options['filters']['field_farm_log_owner_target_id']['group'] = 1;
+  $handler->display->display_options['filters']['field_farm_log_owner_target_id']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_log_owner_target_id']['expose']['operator_id'] = 'field_farm_log_owner_target_id_op';
+  $handler->display->display_options['filters']['field_farm_log_owner_target_id']['expose']['label'] = 'Assigned to';
+  $handler->display->display_options['filters']['field_farm_log_owner_target_id']['expose']['operator'] = 'field_farm_log_owner_target_id_op';
+  $handler->display->display_options['filters']['field_farm_log_owner_target_id']['expose']['identifier'] = 'field_farm_log_owner_target_id';
+  $handler->display->display_options['filters']['field_farm_log_owner_target_id']['expose']['multiple'] = TRUE;
   /* Filter criterion: Date: Date (log) */
   $handler->display->display_options['filters']['date_filter']['id'] = 'date_filter';
   $handler->display->display_options['filters']['date_filter']['table'] = 'log';
@@ -1151,6 +1162,17 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['filters']['field_farm_log_category_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_farm_log_category_tid']['vocabulary'] = 'farm_log_categories';
   $handler->display->display_options['filters']['field_farm_log_category_tid']['hierarchy'] = 1;
+  /* Filter criterion: Log: Assigned to (field_farm_log_owner) */
+  $handler->display->display_options['filters']['field_farm_log_owner_target_id']['id'] = 'field_farm_log_owner_target_id';
+  $handler->display->display_options['filters']['field_farm_log_owner_target_id']['table'] = 'field_data_field_farm_log_owner';
+  $handler->display->display_options['filters']['field_farm_log_owner_target_id']['field'] = 'field_farm_log_owner_target_id';
+  $handler->display->display_options['filters']['field_farm_log_owner_target_id']['group'] = 1;
+  $handler->display->display_options['filters']['field_farm_log_owner_target_id']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_log_owner_target_id']['expose']['operator_id'] = 'field_farm_log_owner_target_id_op';
+  $handler->display->display_options['filters']['field_farm_log_owner_target_id']['expose']['label'] = 'Assigned to';
+  $handler->display->display_options['filters']['field_farm_log_owner_target_id']['expose']['operator'] = 'field_farm_log_owner_target_id_op';
+  $handler->display->display_options['filters']['field_farm_log_owner_target_id']['expose']['identifier'] = 'field_farm_log_owner_target_id';
+  $handler->display->display_options['filters']['field_farm_log_owner_target_id']['expose']['multiple'] = TRUE;
   /* Filter criterion: Date: Date (log) */
   $handler->display->display_options['filters']['date_filter']['id'] = 'date_filter';
   $handler->display->display_options['filters']['date_filter']['table'] = 'log';
