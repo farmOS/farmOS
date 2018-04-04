@@ -26,6 +26,10 @@ This will build the farmOS distribution in a directory called "farm". Point your
 server's webroot to this directory (or move the contents to your server's
 webroot) and open it in a browser to access farmOS.
 
+## Local development
+
+See http://farmos.org/development/docker/
+
 ## Requirements
 
 You will need a web server with all the basic [requirements of Drupal].
