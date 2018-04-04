@@ -57,6 +57,7 @@ function farm_fields_file_types($type = '', $separator = ' ') {
       'csv',
       'doc',
       'docx',
+      'logz',
       'odt',
       'odp',
       'ods',
