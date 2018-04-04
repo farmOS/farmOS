@@ -28,7 +28,7 @@ webroot) and open it in a browser to access farmOS.
 
 ## Local development
 
-See http://farmos.org/development/docker/
+See [farmOS on Docker].
 
 ## Requirements
 
@@ -75,6 +75,7 @@ enhancements if they are available.
 [https://drupal.org/project/farm]: https://drupal.org/project/farm
 [farmOS distribution]: https://drupal.org/project/farm
 [Drupal Installation Guide]: https://drupal.org/documentation/install
+[farmOS on Docker]: /development/docker
 [requirements of Drupal]: https://drupal.org/requirements
 [Openlayers module]: https://drupal.org/project/openlayers
 [Docker]: /development/docker
