@@ -174,11 +174,24 @@ function farm_inventory_views_default_views() {
   $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['operator'] = 'field_farm_move_to_tid_op';
   $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['identifier'] = 'field_farm_move_to_tid';
   $handler->display->display_options['filters']['field_farm_move_to_tid']['vocabulary'] = 'farm_areas';
+  /* Filter criterion: Field collection item: Group (field_farm_group) */
+  $handler->display->display_options['filters']['field_farm_group_target_id']['id'] = 'field_farm_group_target_id';
+  $handler->display->display_options['filters']['field_farm_group_target_id']['table'] = 'field_data_field_farm_group';
+  $handler->display->display_options['filters']['field_farm_group_target_id']['field'] = 'field_farm_group_target_id';
+  $handler->display->display_options['filters']['field_farm_group_target_id']['relationship'] = 'membership';
+  $handler->display->display_options['filters']['field_farm_group_target_id']['group'] = 1;
+  $handler->display->display_options['filters']['field_farm_group_target_id']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_group_target_id']['expose']['operator_id'] = 'field_farm_group_target_id_op';
+  $handler->display->display_options['filters']['field_farm_group_target_id']['expose']['label'] = 'Group';
+  $handler->display->display_options['filters']['field_farm_group_target_id']['expose']['operator'] = 'field_farm_group_target_id_op';
+  $handler->display->display_options['filters']['field_farm_group_target_id']['expose']['identifier'] = 'field_farm_group_target_id';
+  $handler->display->display_options['filters']['field_farm_group_target_id']['expose']['multiple'] = TRUE;
   /* Filter criterion: Farm asset: Archived (boolean) */
   $handler->display->display_options['filters']['archived_boolean']['id'] = 'archived_boolean';
   $handler->display->display_options['filters']['archived_boolean']['table'] = 'farm_asset';
   $handler->display->display_options['filters']['archived_boolean']['field'] = 'archived_boolean';
   $handler->display->display_options['filters']['archived_boolean']['value'] = '0';
+  $handler->display->display_options['filters']['archived_boolean']['group'] = 1;
   $handler->display->display_options['filters']['archived_boolean']['exposed'] = TRUE;
   $handler->display->display_options['filters']['archived_boolean']['expose']['operator_id'] = '';
   $handler->display->display_options['filters']['archived_boolean']['expose']['label'] = 'Archived';
