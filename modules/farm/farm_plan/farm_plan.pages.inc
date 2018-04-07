@@ -195,7 +195,7 @@ function farm_plan_form_submit(array $form, array &$form_state) {
 
   $form_state['redirect'] = $farm_plan_uri['path'];
 
-  drupal_set_message(t('Plan saved: <a href="@uri">%title</a>', array('@uri' => base_path() . $farm_plan_uri['path'], '%title' => entity_label('farm_plan', $farm_plan))));
+  drupal_set_message(t('Plan saved: <a href="@uri">%title</a>', array('@uri' => url($farm_plan_uri['path']), '%title' => entity_label('farm_plan', $farm_plan))));
 }
 
 /**
