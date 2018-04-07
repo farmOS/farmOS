@@ -141,6 +141,24 @@ function farm_theme_form_alter(&$form, &$form_state, $form_id) {
 }
 
 /**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function farm_theme_form_log_form_alter(&$form, &$form_state, $form_id) {
+
+  // Collapse the "Movement" and "Group Membership" fieldsets in log forms.
+  $collapse_fieldsets = array(
+    'field_farm_movement',
+    'field_farm_membership',
+  );
+  foreach ($collapse_fieldsets as $fieldset) {
+    if (!empty($form[$fieldset][LANGUAGE_NONE][0])) {
+      $form[$fieldset][LANGUAGE_NONE][0]['#collapsible'] = TRUE;
+      $form[$fieldset][LANGUAGE_NONE][0]['#collapsed'] = TRUE;
+    }
+  }
+}
+
+/**
  * Implements hook_views_bulk_operations_form_alter().
  */
 function farm_theme_views_bulk_operations_form_alter(&$form, &$form_state, $vbo) {
