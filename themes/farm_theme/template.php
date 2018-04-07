@@ -90,54 +90,50 @@ function farm_theme_preprocess_menu_tree(&$variables) {
 }
 
 /**
- * Implements hook_form_alter().
+ * Implements hook_form_FORM_ID_alter().
  */
-function farm_theme_form_alter(&$form, &$form_state, $form_id) {
+function farm_theme_form_views_exposed_form_alter(&$form, &$form_state, $form_id) {
 
-  // Views Exposed (filters and sort) form:
-  if ($form_id == 'views_exposed_form') {
+  /* Wrap the exposed form in a Bootstrap collapsible panel. */
 
-    /* Wrap the exposed form in a Bootstrap collapsible panel. */
+  // Collapsible panel ID.
+  $panel_head_id = $form['#id'] . '-panel-heading';
+  $panel_body_id = $form['#id'] . '-panel-body';
 
-    // Collapsible panel ID.
-    $panel_head_id = $form['#id'] . '-panel-heading';
-    $panel_body_id = $form['#id'] . '-panel-body';
+  // Collapse by default.
+  $collapse = TRUE;
 
-    // Collapse by default.
-    $collapse = TRUE;
-
-    // If the form was submitted (if there are values in $_GET other than 'q'),
-    // do not collapse the form.
-    if (count($_GET) > 1) {
-      $collapse = FALSE;
-    }
-
-    // Set attributes depending on the collapsed state (used in HTML below).
-    if ($collapse) {
-      $collapse_class = '';
-      $aria_expanded = 'false';
-    } else {
-      $collapse_class = ' in';
-      $aria_expanded = 'true';
-    }
-
-    // Form prefix HTML:
-    $form['#prefix'] = '
-<fieldset class="panel panel-default collapsible">
-  <legend class="panel-heading" role="tab" id="' . $panel_head_id . '">
-    <a class="panel-title fieldset-legend collapsed" data-toggle="collapse" href="#' . $panel_body_id . '" aria-expanded="' . $aria_expanded . '" aria-controls="' . $panel_body_id . '">
-      Filter/Sort
-    </a>
-  </legend>
-  <div id="' . $panel_body_id . '" class="panel-collapse collapse' . $collapse_class . '" role="tabpanel" aria-labelledby="' . $panel_head_id . '">
-    <div class="panel-body">';
-
-    // Form suffix HTML:
-    $form['#suffix'] = '
-    </div>
-  </div>
-</fieldset>';
+  // If the form was submitted (if there are values in $_GET other than 'q'),
+  // do not collapse the form.
+  if (count($_GET) > 1) {
+    $collapse = FALSE;
   }
+
+  // Set attributes depending on the collapsed state (used in HTML below).
+  if ($collapse) {
+    $collapse_class = '';
+    $aria_expanded = 'false';
+  } else {
+    $collapse_class = ' in';
+    $aria_expanded = 'true';
+  }
+
+  // Form prefix HTML:
+  $form['#prefix'] = '
+<fieldset class="panel panel-default collapsible">
+<legend class="panel-heading" role="tab" id="' . $panel_head_id . '">
+  <a class="panel-title fieldset-legend collapsed" data-toggle="collapse" href="#' . $panel_body_id . '" aria-expanded="' . $aria_expanded . '" aria-controls="' . $panel_body_id . '">
+    Filter/Sort
+  </a>
+</legend>
+<div id="' . $panel_body_id . '" class="panel-collapse collapse' . $collapse_class . '" role="tabpanel" aria-labelledby="' . $panel_head_id . '">
+  <div class="panel-body">';
+
+  // Form suffix HTML:
+  $form['#suffix'] = '
+  </div>
+</div>
+</fieldset>';
 }
 
 /**
