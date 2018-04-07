@@ -194,6 +194,10 @@ projects[module_filter][version] = "2.1"
 ; -----------------------------------------------------------------------------
 
 projects[bootstrap][version] = "3.19"
+; The following patch may need to be applied when 3.20 is released. Commented
+; out for now.
+; See https://www.drupal.org/project/bootstrap/issues/2910624
+; projects[bootstrap][patch][] = "http://www.drupal.org/files/issues/2018-04-07/bootstrap_collapsed-2910624-21.patch"
 
 ; -----------------------------------------------------------------------------
 ; Libraries
