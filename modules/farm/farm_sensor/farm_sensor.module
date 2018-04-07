@@ -244,7 +244,7 @@ function farm_sensor_form_alter(&$form, &$form_state, $form_id) {
     '#required' => TRUE,
     '#ajax' => array(
       'callback' => 'farm_sensor_settings_form_ajax',
-      'wrapper' => 'farm_sensor_settings'
+      'wrapper' => 'farm_sensor_settings',
     ),
   );
 

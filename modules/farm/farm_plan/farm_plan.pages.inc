@@ -113,7 +113,7 @@ function farm_plan_form(array $form, array &$form_state, FarmPlan $farm_plan) {
     '#title' => t('Plan status'),
     '#description' => t('Mark this plan as active/inactive. Inactive plans will not show in most lists, but will be visible in archives.'),
     '#collapsible' => TRUE,
-    '#group' => 'additional_settings'
+    '#group' => 'additional_settings',
   );
   $form['plan_status']['active'] = array(
     '#type' => 'checkbox',
@@ -219,7 +219,8 @@ function farm_plan_delete_form(array $form, array &$form_state, FarmPlan $farm_p
   // Always provide entity id in the same form key as in the entity edit form.
   $form['farm_plan_type_id'] = array(
     '#type' => 'value',
-    '#value' => entity_id('farm_plan', $farm_plan));
+    '#value' => entity_id('farm_plan', $farm_plan),
+  );
   $farm_plan_uri = entity_uri('farm_plan', $farm_plan);
   return confirm_form($form,
     t('Are you sure you want to delete %title?', array('%title' => entity_label('farm_plan', $farm_plan))),

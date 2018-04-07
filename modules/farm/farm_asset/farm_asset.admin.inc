@@ -118,7 +118,8 @@ function farm_asset_type_form_delete_confirm(array $form, array &$form_state, $f
   // Always provide entity id in the same form key as in the entity edit form.
   $form['farm_asset_type_id'] = array(
     '#type' => 'value',
-    '#value' => entity_id('farm_asset_type', $farm_asset_type));
+    '#value' => entity_id('farm_asset_type', $farm_asset_type),
+  );
   return confirm_form($form,
     t('Are you sure you want to delete asset type %title?', array('%title' => entity_label('farm_asset_type', $farm_asset_type))),
     'farm/asset/' . entity_id('farm_asset_type', $farm_asset_type),

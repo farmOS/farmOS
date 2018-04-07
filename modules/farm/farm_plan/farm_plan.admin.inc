@@ -118,7 +118,8 @@ function farm_plan_type_form_delete_confirm(array $form, array &$form_state, $fa
   // Always provide entity id in the same form key as in the entity edit form.
   $form['farm_plan_type_id'] = array(
     '#type' => 'value',
-    '#value' => entity_id('farm_plan_type', $farm_plan_type));
+    '#value' => entity_id('farm_plan_type', $farm_plan_type),
+  );
   return confirm_form($form,
     t('Are you sure you want to delete plan type %title?', array('%title' => entity_label('farm_plan_type', $farm_plan_type))),
     'farm/plan/' . entity_id('farm_plan_type', $farm_plan_type),

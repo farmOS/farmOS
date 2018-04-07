@@ -24,7 +24,7 @@ function farm_soil_update_7000(&$sandbox) {
     // Migrate terms.
     $params = array(
       'old_vid' => $old_vocab->vid,
-      'new_vid' => $new_vocab->vid
+      'new_vid' => $new_vocab->vid,
     );
     db_query('UPDATE {taxonomy_term_data} SET vid = :new_vid WHERE vid = :old_vid', $params);
 

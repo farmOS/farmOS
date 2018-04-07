@@ -384,7 +384,7 @@ function _farm_livestock_update_7005_stage4(&$sandbox) {
 
     // Iterate through the old group term IDs and add asset references to the
     // new group assets that were created in stage 1 above.
-    foreach($old_group_ids as $delta => $old_group_id) {
+    foreach ($old_group_ids as $delta => $old_group_id) {
       if (array_key_exists($old_group_id, $sandbox['groups'])) {
         $group = farm_asset_load($sandbox['groups'][$old_group_id]);
         if (!empty($group)) {

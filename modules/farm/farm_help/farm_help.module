@@ -78,7 +78,7 @@ function farm_help_farm_help_page() {
   $output = array();
 
   // Add general text.
-  $output[] = '<p>' . l('farmOS', 'http://farmos.org'). ' is built and maintained
+  $output[] = '<p>' . l('farmOS', 'http://farmos.org') . ' is built and maintained
   by a community of volunteers. Some farmOS community resources are listed
   below.</p>';
 

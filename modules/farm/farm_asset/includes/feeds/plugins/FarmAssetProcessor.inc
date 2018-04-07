@@ -152,7 +152,7 @@ class FarmAssetProcessor extends FeedsProcessor {
       '#title' => t('Author'),
       '#description' => t('Select the author of the assets to be created. If this is left empty, they will be assigned to the user running the import, or "anonymous" in the case of automated imports.'),
       '#autocomplete_path' => 'user/autocomplete',
-      '#default_value' => empty($author->name) ?  '' : check_plain($author->name),
+      '#default_value' => empty($author->name) ? '' : check_plain($author->name),
     );
     $form['authorize'] = array(
       '#type' => 'checkbox',

@@ -190,7 +190,7 @@ function farm_group_form_farm_asset_form_alter(&$form, &$form_state, $form_id) {
   $form['group']['create'] = array(
     '#type' => 'textfield',
     '#title' => t('Create a new group'),
-    '#description' => t('Optionally enter the name of a new group to be created. The assets will become members of this group.')
+    '#description' => t('Optionally enter the name of a new group to be created. The assets will become members of this group.'),
   );
 
   // Add validate and submit functions and put the fieldset into the general

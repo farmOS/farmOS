@@ -128,7 +128,8 @@ function farm_log_update_7001(&$sandbox) {
           db_query('UPDATE {log} SET timestamp=:timestamp, done=:done WHERE id=:id', array(
             ':timestamp' => $row['timestamp'],
             ':done' => $row['done'],
-            ':id' => $observation->id));
+            ':id' => $observation->id,
+          ));
         }
       }
 

@@ -65,7 +65,7 @@ function _farm_ui_views_post_render(&$view, &$output, &$cache) {
   $fieldset = TRUE;
   $collapsed = TRUE;
   $map_build = farm_map_build('farm_assets_' . $bundle, $fieldset, $title, $collapsed);
-  $output = drupal_render($map_build)  . $output;
+  $output = drupal_render($map_build) . $output;
 }
 
 /**

@@ -113,7 +113,8 @@ function farm_theme_form_views_exposed_form_alter(&$form, &$form_state, $form_id
   if ($collapse) {
     $collapse_class = '';
     $aria_expanded = 'false';
-  } else {
+  }
+  else {
     $collapse_class = ' in';
     $aria_expanded = 'true';
   }
@@ -187,7 +188,7 @@ function farm_theme_views_bulk_operations_form_alter(&$form, &$form_state, $vbo)
     'views_bulk_operations_config_form',
     'views_bulk_operations_confirm_form',
   );
-  if (!empty($form_state['step']) && in_array($form_state['step'],  $vbo_steps)) {
+  if (!empty($form_state['step']) && in_array($form_state['step'], $vbo_steps)) {
 
     // Set the title to '<none>' so that Views doesn't do drupal_set_title().
     // See https://www.drupal.org/node/2905171.

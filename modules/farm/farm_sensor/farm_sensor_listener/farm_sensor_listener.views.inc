@@ -110,7 +110,7 @@ function farm_sensor_listener_views_data() {
     'filter' => array(
       'handler' => 'fraction_handler_filter_decimal',
       'additional fields' => $fraction_fields,
-    )
+    ),
   );
 
   return $data;

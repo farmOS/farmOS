@@ -151,7 +151,7 @@ function farm_asset_menu() {
     'page arguments' => array(2, 3),
     'access callback' => 'farm_asset_autocomplete_access',
     'access arguments' => array(2),
-    'type' => MENU_CALLBACK
+    'type' => MENU_CALLBACK,
   );
 
   return $items;
@@ -329,7 +329,7 @@ function farm_asset_entity_view($entity, $type, $view_mode, $langcode) {
     drupal_set_message(t('This asset is archived. Archived assets should not be edited or deleted unless they contain information that is incorrect.'), 'warning');
     $date = format_date($entity->archived);
     $entity->content['archived'] = array(
-      '#markup' => '<div><strong>'. t('Archived') . ':</strong> ' . $date . '</div>',
+      '#markup' => '<div><strong>' . t('Archived') . ':</strong> ' . $date . '</div>',
       '#weight' => -100,
     );
   }

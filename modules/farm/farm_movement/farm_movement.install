@@ -167,7 +167,7 @@ function farm_movement_update_7002(&$sandbox) {
     $query->condition('fci.entity_type', 'log');
     $query->condition('fci.bundle', $type);
     $query->condition('fci.deleted', 0);
-    $log_fields[$type] = $query->execute()->fetchAllKeyed(0,0);
+    $log_fields[$type] = $query->execute()->fetchAllKeyed(0, 0);
   }
   $movement_only_fields = array_keys(array_diff($log_fields['farm_movement'], $log_fields['farm_activity']));
 
@@ -207,7 +207,7 @@ function farm_movement_update_7003(&$sandbox) {
 /**
  * Delete the "Movement from" field from movement field collections.
  */
-function farm_movement_update_7004 (&$sandbox) {
+function farm_movement_update_7004(&$sandbox) {
   $field = field_info_instance('field_collection_item', 'field_farm_move_from', 'field_farm_movement');
   if (!empty($field)) {
     field_delete_instance($field);

@@ -416,7 +416,7 @@ function farm_area_generate_bbox_geometries($bbox, $count) {
     $total_width = bcsub($bbox['maxy'], $bbox['miny']);
     $geom_width = bcdiv($total_width, $count);
   }
-  else{
+  else {
     $total_width = $bbox['maxy'] - $bbox['miny'];
     $geom_width = $total_width / $count;
   }
@@ -424,7 +424,7 @@ function farm_area_generate_bbox_geometries($bbox, $count) {
   // Fill the bounding box with rectangles.
   $geometries = array();
   $starting_point = new Point($bbox['minx'], $bbox['maxy']);
-  for ($i=1;$i<=$count;$i++) {
+  for ($i = 1; $i <= $count; $i++) {
     $points = array();
     $points[] = $starting_point;
     if (geoPHP::bcmathInstalled()) {

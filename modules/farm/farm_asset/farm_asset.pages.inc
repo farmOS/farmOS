@@ -116,7 +116,7 @@ function farm_asset_form(array $form, array &$form_state, FarmAsset $farm_asset)
     '#title' => t('Asset status'),
     '#description' => t('Archive this asset. Archived assets will not show in most lists, but will be visible in archives.'),
     '#collapsible' => TRUE,
-    '#group' => 'additional_settings'
+    '#group' => 'additional_settings',
   );
   $form['asset_status']['archived_boolean'] = array(
     '#type' => 'checkbox',
@@ -235,7 +235,8 @@ function farm_asset_delete_form(array $form, array &$form_state, FarmAsset $farm
   // Always provide entity id in the same form key as in the entity edit form.
   $form['farm_asset_type_id'] = array(
     '#type' => 'value',
-    '#value' => entity_id('farm_asset', $farm_asset));
+    '#value' => entity_id('farm_asset', $farm_asset),
+  );
   $farm_asset_uri = entity_uri('farm_asset', $farm_asset);
   return confirm_form($form,
     t('Are you sure you want to delete %title?', array('%title' => entity_label('farm_asset', $farm_asset))),

@@ -210,7 +210,7 @@ function farm_area_details_json($aid) {
 function farm_area_openlayers_object_preprocess_alter(&$build, $context) {
 
   // If the object is not a Map, bail.
-  if (!$context instanceof  Drupal\openlayers\Types\MapInterface) {
+  if (!$context instanceof Drupal\openlayers\Types\MapInterface) {
     return;
   }
 
@@ -335,7 +335,8 @@ function farm_area_calculate_area($area_id) {
   // Get WKT from the field. If empty, bail.
   if (!empty($area->field_farm_geofield[LANGUAGE_NONE][0]['geom'])) {
     $geom = $area->field_farm_geofield[LANGUAGE_NONE][0]['geom'];
-  } else {
+  }
+  else {
     return '';
   }
 

@@ -371,13 +371,13 @@ function farm_map_distance($p1, $p2) {
   if (geoPHP::bcmathInstalled()) {
     $length = bcsqrt(
       bcadd(
-        bcpow(bcmul(bcsub($p1->getX(),$p2->getX()), $lon_deg_len), '2'),
+        bcpow(bcmul(bcsub($p1->getX(), $p2->getX()), $lon_deg_len), '2'),
         bcpow(bcmul(bcsub($p1->getY(), $p2->getY()), $lat_deg_len), '2')
       )
     );
   }
   else {
-    $length = sqrt(pow((($p1->getX() - $p2->getX()) * $lon_deg_len), 2) + pow((($p1->getY()- $p2->getY()) * $lat_deg_len), 2));
+    $length = sqrt(pow((($p1->getX() - $p2->getX()) * $lon_deg_len), 2) + pow((($p1->getY() - $p2->getY()) * $lat_deg_len), 2));
   }
 
   // Return the length as a string.

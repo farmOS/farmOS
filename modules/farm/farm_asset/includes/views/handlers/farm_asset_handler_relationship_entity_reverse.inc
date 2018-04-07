@@ -10,7 +10,7 @@
  *
  * @ingroup views_relationship_handlers
  */
-class farm_asset_handler_relationship_entity_reverse extends views_handler_relationship_entity_reverse  {
+class farm_asset_handler_relationship_entity_reverse extends views_handler_relationship_entity_reverse {
 
   function option_definition() {
     $options = parent::option_definition();
