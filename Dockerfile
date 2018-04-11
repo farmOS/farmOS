@@ -2,7 +2,7 @@
 FROM php:5.6-apache
 
 # Set environment variables.
-ENV FARMOS_VERSION 7.x-1.0-beta16
+ENV FARMOS_VERSION 7.x-1.0-beta17
 ENV FARMOS_DEV_BRANCH 7.x-1.x
 ENV FARMOS_DEV false
 
