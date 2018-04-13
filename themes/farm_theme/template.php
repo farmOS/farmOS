@@ -90,6 +90,24 @@ function farm_theme_preprocess_menu_tree(&$variables) {
 }
 
 /**
+ * Implements hook_preprocess_views_view().
+ */
+function farm_theme_preprocess_views_view(&$vars) {
+
+  // If the View has a 'footer' or 'feed_icon', wrap it in a div with the
+  // 'text-center' class.
+  $center_elements = array(
+    'footer',
+    'feed_icon',
+  );
+  foreach ($center_elements as $element) {
+    if (!empty($vars[$element])) {
+      $vars[$element] = '<div class="text-center">' . $vars[$element] . '</div>';
+    }
+  }
+}
+
+/**
  * Implements hook_form_FORM_ID_alter().
  */
 function farm_theme_form_views_exposed_form_alter(&$form, &$form_state, $form_id) {

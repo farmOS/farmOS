@@ -46,6 +46,13 @@ form#user-login-form ul li {
 }
 
 /**
+ * Override Views feed-icon img-responsive block display.
+ */
+.view .feed-icon .img-responsive {
+  display: inline;
+}
+
+/**
  * Add up/down arrow to collapsible fieldset and accordion headings.
  */
 .resp-accordion:after,
