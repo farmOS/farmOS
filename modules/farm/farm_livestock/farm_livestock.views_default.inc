@@ -486,6 +486,12 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['sorts']['name']['field'] = 'name';
   $handler->display->display_options['sorts']['name']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['name']['expose']['label'] = 'Name';
+  /* Sort criterion: Farm asset: Date of birth (field_farm_date) */
+  $handler->display->display_options['sorts']['field_farm_date_value']['id'] = 'field_farm_date_value';
+  $handler->display->display_options['sorts']['field_farm_date_value']['table'] = 'field_data_field_farm_date';
+  $handler->display->display_options['sorts']['field_farm_date_value']['field'] = 'field_farm_date_value';
+  $handler->display->display_options['sorts']['field_farm_date_value']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['field_farm_date_value']['expose']['label'] = 'Date of birth';
   /* Sort criterion: Farm asset: Species/breed (field_farm_animal_type) */
   $handler->display->display_options['sorts']['field_farm_animal_type_tid']['id'] = 'field_farm_animal_type_tid';
   $handler->display->display_options['sorts']['field_farm_animal_type_tid']['table'] = 'field_data_field_farm_animal_type';
