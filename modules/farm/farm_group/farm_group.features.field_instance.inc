@@ -40,7 +40,7 @@ function farm_group_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => -9,
+      'weight' => 1,
     ),
   );
 
@@ -107,7 +107,7 @@ function farm_group_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => -8,
+      'weight' => 2,
     ),
   );
 
