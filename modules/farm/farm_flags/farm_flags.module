@@ -33,3 +33,157 @@ function farm_flags_farm_flags() {
     'review' => t('Needs Review'),
   );
 }
+
+/**
+ * Implements hook_action_info().
+ */
+function farm_flags_action_info() {
+  return array(
+    'farm_flags_action' => array(
+      'type' => 'entity',
+      'label' => t('Flag'),
+      'configurable' => TRUE,
+      'triggers' => array('any'),
+    ),
+  );
+}
+
+/**
+ * Configuration form for farm_flags_action.
+ *
+ * @param array $context
+ *   The context passed into the action form function.
+ * @param array $form_state
+ *   The form state passed into the action form function.
+ *
+ * @return array
+ *   Returns a form array.
+ */
+function farm_flags_action_form(array $context, array $form_state) {
+
+  // Store the entity type in the form values.
+  $form['entity_type'] = array(
+    '#type' => 'value',
+    '#value' => $context['entity_type'],
+  );
+
+  // Get a list of flag options.
+  $flag_options = farm_flags_field_allowed_values();
+
+  // Display a multi-select list.
+  $form['flags'] = array(
+    '#type' => 'select',
+    '#title' => t('Flags'),
+    '#description' => t('Select the flags that should be attached to the record(s).'),
+    '#options' => $flag_options,
+    '#multiple' => TRUE,
+  );
+
+  // Add a checkbox for appending the flags instead of overwriting them.
+  $form['operation'] = array(
+    '#type' => 'radios',
+    '#title' => t('Append or Replace'),
+    '#description' => t('Select "Append" if you want to add flags to the records, but keep existing flags. Select "Replace" if you want to replace existing flags with the ones specified above.'),
+    '#options' => array(
+      'append' => t('Append'),
+      'replace' => t('Replace'),
+    ),
+    '#default_value' => 'append',
+  );
+
+  // Return the form.
+  return $form;
+}
+
+/**
+ * Configuration form submit for farm_flags_action.
+ *
+ * @param array $form
+ *   The form array.
+ * @param array $form_state
+ *   The form state array.
+ *
+ * @return array
+ *   Returns an array that will end up in the action's context.
+ */
+function farm_flags_action_submit(array $form, array $form_state) {
+  return array(
+    'entity_type' => $form_state['values']['entity_type'],
+    'flags' => $form_state['values']['flags'],
+    'operation' => $form_state['values']['operation'],
+  );
+}
+
+/**
+ * Action function for farm_flags_action.
+ *
+ * Assigns a log to one or more people.
+ *
+ * @param Entity $entity
+ *   The entity object.
+ * @param array $context
+ *   Array with parameters for this action.
+ */
+function farm_flags_action(Entity $entity, $context = array()) {
+
+  // If the operation is invalid, bail.
+  if (!in_array($context['operation'], array('append', 'replace'))) {
+    drupal_set_message('Invalid operation.');
+    return;
+  }
+
+  // If the operation is 'append', and there are no flags, bail.
+  if ($context['operation'] == 'append' && empty($context['flags'])) {
+    return;
+  }
+
+  // Create an entity wrapper object.
+  $entity_wrapper = entity_metadata_wrapper($context['entity_type'], $entity);
+
+  // If the flags field doesn't exist, bail.
+  if (!isset($entity_wrapper->field_farm_flags)) {
+    return;
+  }
+
+  // Keep track of flags that are already assigned.
+  $existing_flags = array();
+
+  // If we are appending, load existing flags.
+  if ($context['operation'] == 'append' && !empty($entity_wrapper->field_farm_flags)) {
+    foreach ($entity_wrapper->field_farm_flags->getIterator() as $delta => $flag) {
+      $existing_flags[] = $flag->value();
+    }
+  }
+
+  // Or, if we are replacing, clear out the existing flags.
+  elseif ($context['operation'] == 'replace') {
+    $entity_wrapper->field_farm_flags = array();
+  }
+
+  // Assume that we are not going to save the entity.
+  $save = FALSE;
+
+  // Iterate through the flags.
+  foreach ($context['flags'] as $flag) {
+
+    // If the flag is already referenced in the entity, skip it.
+    if (in_array($flag, $existing_flags)) {
+      continue;
+    }
+
+    // Add the flag to the array of existing flags so we don't accidentally
+    // add the same one more than once. Shouldn't happen, but be defensive.
+    $existing_flags[] = $flag;
+
+    // Add the flag to the entity's flags field.
+    $entity_wrapper->field_farm_flags[] = $flag;
+
+    // We will save the entity.
+    $save = TRUE;
+  }
+
+  // If we should save the entity, then save it.
+  if ($save) {
+    $entity_wrapper->save();
+  }
+}
