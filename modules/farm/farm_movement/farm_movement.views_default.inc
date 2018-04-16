@@ -91,6 +91,10 @@ function farm_movement_views_default_views() {
   $handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['header']['area_text_custom']['empty'] = TRUE;
   $handler->display->display_options['header']['area_text_custom']['content'] = '<small>This lists all assets that have ever been moved to this area. If an asset has been moved to this area more than once, it will show up more than once in this list.</small>';
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
   /* Relationship: Log: Movement (field_farm_movement) */
   $handler->display->display_options['relationships']['field_farm_movement_value']['id'] = 'field_farm_movement_value';
   $handler->display->display_options['relationships']['field_farm_movement_value']['table'] = 'field_data_field_farm_movement';
@@ -225,6 +229,7 @@ function farm_movement_views_default_views() {
     t('next ›'),
     t('last »'),
     t('<small>This lists all assets that have ever been moved to this area. If an asset has been moved to this area more than once, it will show up more than once in this list.</small>'),
+    t('Displaying @start - @end of @total'),
     t('field collection item from field_farm_movement'),
     t('Asset'),
     t('Farm asset ID'),
@@ -496,6 +501,10 @@ function farm_movement_views_default_views() {
   $handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['header']['area_text_custom']['empty'] = TRUE;
   $handler->display->display_options['header']['area_text_custom']['content'] = 'This lists all logs that define movements of assets. Multiple log types are included in this list, and are specified in the "Log type" column.';
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
   /* No results behavior: Global: Unfiltered text */
   $handler->display->display_options['empty']['area_text_custom']['id'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
@@ -823,6 +832,7 @@ function farm_movement_views_default_views() {
     t('next ›'),
     t('last »'),
     t('This lists all logs that define movements of assets. Multiple log types are included in this list, and are specified in the "Log type" column.'),
+    t('Displaying @start - @end of @total'),
     t('No logs of movements found.'),
     t('field collection item from field_farm_movement'),
     t('Log'),

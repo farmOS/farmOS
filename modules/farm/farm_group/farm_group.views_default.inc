@@ -66,6 +66,10 @@ function farm_group_views_default_views() {
   $handler->display->display_options['header']['area_text_custom']['table'] = 'views';
   $handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['header']['area_text_custom']['content'] = 'Select the group you would like to reference and click "Submit". Use the filters to narrow down the list.';
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
   /* No results behavior: Global: Unfiltered text */
   $handler->display->display_options['empty']['area_text_custom']['id'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
@@ -193,6 +197,7 @@ function farm_group_views_default_views() {
     t('next ›'),
     t('last »'),
     t('Select the group you would like to reference and click "Submit". Use the filters to narrow down the list.'),
+    t('Displaying @start - @end of @total'),
     t('No groups found.'),
     t('Latest movement'),
     t('Location'),
@@ -321,6 +326,10 @@ function farm_group_views_default_views() {
   $handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['header']['area_text_custom']['empty'] = TRUE;
   $handler->display->display_options['header']['area_text_custom']['content'] = 'This lists all logs that assign assets as members of a group. Multiple log types are included in this list, and are specified in the "Log type" column.';
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
   /* No results behavior: Global: Unfiltered text */
   $handler->display->display_options['empty']['area_text_custom']['id'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
@@ -629,6 +638,7 @@ function farm_group_views_default_views() {
     t('next ›'),
     t('last »'),
     t('This lists all logs that assign assets as members of a group. Multiple log types are included in this list, and are specified in the "Log type" column.'),
+    t('Displaying @start - @end of @total'),
     t('No logs of group membership found.'),
     t('field collection item from field_farm_membership'),
     t('Log'),
@@ -728,6 +738,10 @@ function farm_group_views_default_views() {
     ),
   );
   $handler->display->display_options['style_options']['empty_table'] = TRUE;
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
   /* No results behavior: Global: Unfiltered text */
   $handler->display->display_options['empty']['area_text_custom']['id'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
@@ -885,6 +899,7 @@ function farm_group_views_default_views() {
     t('‹ previous'),
     t('next ›'),
     t('last »'),
+    t('Displaying @start - @end of @total'),
     t('No group members found.'),
     t('Group membership'),
     t('Farm asset'),
@@ -999,6 +1014,10 @@ function farm_group_views_default_views() {
     ),
   );
   $handler->display->display_options['style_options']['empty_table'] = TRUE;
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
   /* No results behavior: Global: Unfiltered text */
   $handler->display->display_options['empty']['area_text_custom']['id'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
@@ -1262,6 +1281,7 @@ function farm_group_views_default_views() {
     t('‹ previous'),
     t('next ›'),
     t('last »'),
+    t('Displaying @start - @end of @total'),
     t('No groups found.'),
     t('Latest movement'),
     t('Group membership'),

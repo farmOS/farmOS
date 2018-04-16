@@ -66,6 +66,10 @@ function farm_inventory_views_default_views() {
   $handler->display->display_options['header']['area_text_custom']['table'] = 'views';
   $handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['header']['area_text_custom']['content'] = 'Select the asset you would like to reference and click "Submit". Use the filters to narrow down the list.';
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
   /* No results behavior: Global: Unfiltered text */
   $handler->display->display_options['empty']['area_text_custom']['id'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
@@ -259,6 +263,7 @@ function farm_inventory_views_default_views() {
     t('next ›'),
     t('last »'),
     t('Select the asset you would like to reference and click "Submit". Use the filters to narrow down the list.'),
+    t('Displaying @start - @end of @total'),
     t('No assets found.'),
     t('Latest movement'),
     t('Group membership'),
@@ -395,6 +400,10 @@ function farm_inventory_views_default_views() {
   $handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['header']['area_text_custom']['empty'] = TRUE;
   $handler->display->display_options['header']['area_text_custom']['content'] = 'This lists all logs that include asset inventory adjustments. If a log contains more than one inventory adjustment, it will be listed more than once in this list. Multiple log types are included in this list, and are specified in the "Log type" column.';
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
   /* No results behavior: Global: Unfiltered text */
   $handler->display->display_options['empty']['area_text_custom']['id'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
@@ -708,6 +717,7 @@ function farm_inventory_views_default_views() {
     t('next ›'),
     t('last »'),
     t('This lists all logs that include asset inventory adjustments. If a log contains more than one inventory adjustment, it will be listed more than once in this list. Multiple log types are included in this list, and are specified in the "Log type" column.'),
+    t('Displaying @start - @end of @total'),
     t('No logs of inventory adjustments found.'),
     t('field_farm_inventory'),
     t('Log'),
