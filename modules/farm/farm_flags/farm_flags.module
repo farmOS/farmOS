@@ -29,6 +29,7 @@ function farm_flags_field_allowed_values() {
 function farm_flags_farm_flags() {
   return array(
     'priority' => t('Priority'),
+    'monitor' => t('Monitor'),
     'review' => t('Needs Review'),
   );
 }
