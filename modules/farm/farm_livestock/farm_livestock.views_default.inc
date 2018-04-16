@@ -480,6 +480,12 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['fields']['archived']['date_format'] = 'custom';
   $handler->display->display_options['fields']['archived']['custom_date_format'] = 'M j Y';
   $handler->display->display_options['fields']['archived']['second_date_format'] = 'long';
+  /* Sort criterion: Farm asset: Name */
+  $handler->display->display_options['sorts']['name']['id'] = 'name';
+  $handler->display->display_options['sorts']['name']['table'] = 'farm_asset';
+  $handler->display->display_options['sorts']['name']['field'] = 'name';
+  $handler->display->display_options['sorts']['name']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['name']['expose']['label'] = 'Name';
   /* Sort criterion: Farm asset: Species/breed (field_farm_animal_type) */
   $handler->display->display_options['sorts']['field_farm_animal_type_tid']['id'] = 'field_farm_animal_type_tid';
   $handler->display->display_options['sorts']['field_farm_animal_type_tid']['table'] = 'field_data_field_farm_animal_type';
@@ -492,12 +498,6 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['sorts']['field_farm_animal_sex_value']['field'] = 'field_farm_animal_sex_value';
   $handler->display->display_options['sorts']['field_farm_animal_sex_value']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['field_farm_animal_sex_value']['expose']['label'] = 'Sex';
-  /* Sort criterion: Farm asset: Name */
-  $handler->display->display_options['sorts']['name']['id'] = 'name';
-  $handler->display->display_options['sorts']['name']['table'] = 'farm_asset';
-  $handler->display->display_options['sorts']['name']['field'] = 'name';
-  $handler->display->display_options['sorts']['name']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['name']['expose']['label'] = 'Name';
   /* Sort criterion: Field collection item: ID (field_farm_animal_tag_id) */
   $handler->display->display_options['sorts']['field_farm_animal_tag_id_value']['id'] = 'field_farm_animal_tag_id_value';
   $handler->display->display_options['sorts']['field_farm_animal_tag_id_value']['table'] = 'field_data_field_farm_animal_tag_id';
