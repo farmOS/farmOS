@@ -74,20 +74,12 @@ function farm_flags_farm_area_details($id) {
     return $output;
   }
 
-  // Load an entity metadata wrapper for the area.
-  $area_wrapper = entity_metadata_wrapper('taxonomy_term', $area);
-
-  // Load a list of available flags.
-  $flags = farm_flags_list();
-
-  // Create a list of flags on the area.
-  $area_flags = array();
-  foreach ($area_wrapper->field_farm_flags as $flag) {
-    if (!empty($flag->value())) {
-      $flag_machine_name = $flag->value();
-      if (!empty($flags[$flag_machine_name])) {
-        $area_flags[] = '<strong>' . $flags[$flag_machine_name] . '</strong>';
-      }
+  // Load and display any flags on the area.
+  $all_flags = farm_flags_list();
+  $area_flags = farm_flags_load($area);
+  foreach ($area_flags as $key => $flag) {
+    if (!empty($all_flags[$flag])) {
+      $area_flags[$key] = farm_flags_wrap($all_flags[$flag], $flag);
     }
   }
 
@@ -99,7 +91,8 @@ function farm_flags_farm_area_details($id) {
   // Add the list of flags to the area details.
   $output[] = array(
     '#type' => 'markup',
-    '#markup' => '<small>' . t('Flags') . ': ' . implode(', ', $area_flags) . '</small>',
+    '#markup' => implode(' ', $area_flags),
+    '#weight' => -101,
   );
 
   // Return the output.
