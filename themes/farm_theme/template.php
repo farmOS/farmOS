@@ -261,6 +261,31 @@ function farm_theme_bootstrap_iconize_text_alter(&$texts) {
 }
 
 /**
+ * Implements hook_farm_flags_classes_alter().
+ */
+function farm_theme_farm_flags_classes_alter($flag, &$classes) {
+
+  // Render all flags as extra small buttons using Bootstrap's classes.
+  $classes[] = 'btn';
+  $classes[] = 'btn-xs';
+
+  // Add a button style class based on the flag used.
+  switch ($flag) {
+    case 'priority':
+      $classes[] = 'btn-primary';
+      break;
+    case 'monitor':
+      $classes[] = 'btn-danger';
+      break;
+    case 'review':
+      $classes[] = 'btn-warning';
+      break;
+    default:
+      $classes[] = 'btn-default';
+  }
+}
+
+/**
  * Implements hook_entity_view_alter().
  */
 function farm_theme_entity_view_alter(&$build, $type) {
