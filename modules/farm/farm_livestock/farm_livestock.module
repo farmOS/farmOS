@@ -518,79 +518,27 @@ function farm_livestock_animal_weight($asset) {
  */
 function farm_livestock_weight_set($asset, $weight, $units, $timestamp = REQUEST_TIME, $done = TRUE) {
 
-  // Create a new log entity.
-  $log = entity_create('log', array('type' => 'farm_observation'));
-
-  // Create an entity wrapper for the log.
-  $log_wrapper = entity_metadata_wrapper('log', $log);
+  // The log will be an observation.
+  $log_type = 'farm_observation';
 
   // Set the name to: "Current weight: [value]".
   $log_name = t('Current weight') . ': ' . check_plain($weight) . ' ' . check_plain($units);
-  $log_wrapper->name->set($log_name);
 
-  // Set the date.
-  $log_wrapper->timestamp->set($timestamp);
+  // Wrap the asset in an array.
+  $assets = array($asset);
 
-  // Add the asset to the asset reference field.
-  $log_wrapper->field_farm_asset[] = $asset;
+  // Assemble an array of measurements.
+  $measurements = array(
+    array(
+      'measure' => 'weight',
+      'value' => $weight,
+      'units' => $units,
+      'label' => '',
+    ),
+  );
 
-  // Create a new quantity field_collection entity attached to the log.
-  $quantity = entity_create('field_collection_item', array('field_name' => 'field_farm_quantity'));
-  $quantity->setHostEntity('log', $log);
-
-  // Create an entity wrapper for the quantity.
-  $quantity_wrapper = entity_metadata_wrapper('field_collection_item', $quantity);
-
-  // Set the quantity measure.
-  $quantity_wrapper->field_farm_quantity_measure->set('weight');
-
-  // Set the quantity value.
-  $value_fraction = fraction_from_decimal($weight);
-  $quantity_wrapper->field_farm_quantity_value->numerator->set($value_fraction->getNumerator());
-  $quantity_wrapper->field_farm_quantity_value->denominator->set($value_fraction->getDenominator());
-
-  // Look up the units taxonomy term.
-  $units_terms = taxonomy_get_term_by_name($units, 'farm_quantity_units');
-
-  // If terms were found, use the first one.
-  if (!empty($units_terms)) {
-    $units_term = reset($units_terms);
-  }
-
-  // If a term wasn't found, create it.
-  else {
-    $farm_units = taxonomy_vocabulary_machine_name_load('farm_quantity_units');
-    $units_term = new stdClass();
-    $units_term->name = check_plain($units);
-    $units_term->vid = $farm_units->vid;
-    taxonomy_term_save($units_term);
-  }
-
-  // Set the quantity units.
-  $quantity_wrapper->field_farm_quantity_units = $units_term;
-
-  // Set the log's done status.
-  if (!empty($done)) {
-    $log_wrapper->done->set(TRUE);
-  }
-  else {
-    $log_wrapper->done->set(FALSE);
-  }
-
-  // Set the log owner.
-  global $user;
-  $log_wrapper->field_farm_log_owner[] = $user;
-
-  // Save the quantity.
-  $quantity_wrapper->save();
-
-  // Save the log.
-  $log_wrapper->save();
-
-  // Set a message.
-  $label = entity_label('log', $log);
-  $uri = entity_uri('log', $log);
-  drupal_set_message('Log created: ' . l($label, $uri['path']));
+  // Create a new log entity.
+  $log = farm_quantity_log_create($log_type, $log_name, $timestamp, $done, $assets, $measurements);
 
   // Return the log.
   return $log;
