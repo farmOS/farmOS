@@ -568,3 +568,70 @@ function farm_log_query($time = REQUEST_TIME, $done = TRUE, $single = TRUE) {
   // Return the query object.
   return $query;
 }
+
+/**
+ * Helper function for creating a farm log.
+ *
+ * @param string $type
+ *   The log type machine name.
+ * @param string $name
+ *   Optionally specify a name for the new log.
+ * @param int $timestamp
+ *   The timestamp of the log (defaults to REQUEST_TIME).
+ * @param bool $done
+ *   Boolean indicating whether or not the log is done.
+ * @param array $assets
+ *   An array of assets to reference in the log.
+ *
+ * @return \Log
+ *   Returns a saved log entity.
+ */
+function farm_log_create($type, $name = '', $timestamp = REQUEST_TIME, $done = TRUE, $assets = array()) {
+
+  // Create a new log entity.
+  $log = entity_create('log', array('type' => $type));
+
+  // If a log name is specified, set it.
+  if (!empty($name)) {
+    $log->name = $name;
+  }
+
+  // Set the timestamp.
+  $log->timestamp = $timestamp;
+
+  // Set the log's done status.
+  if (!empty($done)) {
+    $log->done = TRUE;
+  }
+  else {
+    $log->done = FALSE;
+  }
+
+  // Add asset references.
+  if (!empty($assets)) {
+    foreach ($assets as $asset) {
+      if (!empty($asset->id)) {
+        $log->field_farm_asset[LANGUAGE_NONE][] = array(
+          'target_id' => $asset->id,
+        );
+      }
+    }
+  }
+
+  // Set the log owner to the currently authenticated user.
+  global $user;
+  $log->field_farm_log_owner[LANGUAGE_NONE][] = array(
+    'target_id' => $user->uid,
+  );
+
+  // Save the log.
+  log_save($log);
+
+  // Set a message.
+  $label = entity_label('log', $log);
+  $uri = entity_uri('log', $log);
+  drupal_set_message('Log created: ' . l($label, $uri['path']));
+
+  // Return the log.
+  return $log;
+}
