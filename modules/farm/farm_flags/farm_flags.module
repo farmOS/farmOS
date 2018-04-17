@@ -35,6 +35,81 @@ function farm_flags_farm_flags() {
 }
 
 /**
+ * Implements hook_preprocess_field().
+ */
+function farm_flags_preprocess_field(&$variables, $hook) {
+
+  // Only act on field_farm_flags.
+  if (empty($variables['element']['#field_name']) || $variables['element']['#field_name'] != 'field_farm_flags') {
+    return;
+  }
+
+  // Wrap the flag in a span with a class.
+  if (!empty($variables['element']['#items'])) {
+    foreach ($variables['element']['#items'] as $key => $item) {
+      if (!empty($variables['items'][$key]['#markup'])) {
+        $string = $variables['items'][$key]['#markup'];
+        $class = $item['value'];
+        $variables['items'][$key]['#markup'] = farm_flags_wrap($string, $class);
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_views_pre_render().
+ */
+function farm_flags_views_pre_render(&$view) {
+
+  // If there are no results, bail early.
+  if (empty($view->result)) {
+    return;
+  }
+
+  // Iterate through results.
+  foreach ($view->result as $item) {
+
+    // If there are no flags, skip it.
+    if (empty($item->field_field_farm_flags)) {
+      continue;
+    }
+
+    // Wrap flags in a span with a class.
+    foreach ($item->field_field_farm_flags as &$flag) {
+      $string = $flag['rendered']['#markup'];
+      $class = $flag['raw']['value'];
+      $flag['rendered']['#markup'] = farm_flags_wrap($string, $class);
+    }
+  }
+}
+
+/**
+ * Wrap a flag string in a span.
+ *
+ * @param $string
+ *   The string to wrap.
+ * @param $flag
+ *   The flag machine name.
+ *
+ * @return string
+ *   Returns the string wrapped in a span.
+ */
+function farm_flags_wrap($string, $flag) {
+
+  // Start an array of classes.
+  $classes = array();
+
+  // Add the flag itself as a class.
+  $classes[] = check_plain($flag);
+
+  // Allow other modules to alter the classes, or add their own.
+  drupal_alter('farm_flags_classes', $flag, $classes);
+
+  // Wrap the string and return it.
+  return '<span class="' . implode(' ', $classes) . '">' . $string . '</span>';
+}
+
+/**
  * Implements hook_action_info().
  */
 function farm_flags_action_info() {
