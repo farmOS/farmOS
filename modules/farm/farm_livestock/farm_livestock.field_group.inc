@@ -397,7 +397,7 @@ function farm_livestock_field_group_info() {
   $field_group->parent_name = 'group_farm_general';
   $field_group->data = array(
     'label' => 'Individual',
-    'weight' => '-6',
+    'weight' => '4',
     'children' => array(
       0 => 'field_farm_animal_castrated',
       1 => 'field_farm_animal_nicknames',
