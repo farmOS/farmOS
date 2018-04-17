@@ -41,6 +41,7 @@ function farm_area_views_default_views() {
     'views_bulk_operations' => 'views_bulk_operations',
     'name' => 'name',
     'field_farm_area_type' => 'field_farm_area_type',
+    'field_farm_flags' => 'field_farm_flags',
   );
   /* Header: Global: Unfiltered text */
   $handler->display->display_options['header']['area_text_custom']['id'] = 'area_text_custom';
@@ -122,6 +123,14 @@ function farm_area_views_default_views() {
   $handler->display->display_options['fields']['field_farm_area_type']['alter']['alter_text'] = TRUE;
   $handler->display->display_options['fields']['field_farm_area_type']['alter']['text'] = '([field_farm_area_type])';
   $handler->display->display_options['fields']['field_farm_area_type']['element_label_colon'] = FALSE;
+  /* Field: Field: Flags */
+  $handler->display->display_options['fields']['field_farm_flags']['id'] = 'field_farm_flags';
+  $handler->display->display_options['fields']['field_farm_flags']['table'] = 'field_data_field_farm_flags';
+  $handler->display->display_options['fields']['field_farm_flags']['field'] = 'field_farm_flags';
+  $handler->display->display_options['fields']['field_farm_flags']['label'] = '';
+  $handler->display->display_options['fields']['field_farm_flags']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_farm_flags']['delta_offset'] = '0';
+  $handler->display->display_options['fields']['field_farm_flags']['separator'] = ' ';
   /* Sort criterion: Taxonomy term: Weight */
   $handler->display->display_options['sorts']['weight']['id'] = 'weight';
   $handler->display->display_options['sorts']['weight']['table'] = 'taxonomy_term_data';
