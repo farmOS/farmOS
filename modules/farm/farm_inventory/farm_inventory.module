@@ -505,22 +505,6 @@ function farm_inventory_set($asset, $inventory, $timestamp = REQUEST_TIME, $log_
     return;
   }
 
-  // Create a new log entity.
-  $log = entity_create('log', array('type' => $log_type));
-
-  // Create an entity wrapper for the log.
-  $log_wrapper = entity_metadata_wrapper('log', $log);
-
-  // If the log is an observation, set the name to:
-  // "Current inventory: [value]".
-  if ($log_type == 'farm_observation') {
-    $log_name = t('Current inventory') . ': ' . $inventory;
-    $log_wrapper->name->set($log_name);
-  }
-
-  // Set the date.
-  $log_wrapper->timestamp->set($timestamp);
-
   // Load the asset's current inventory level (as a fraction).
   $current_inventory = farm_inventory($asset);
 
@@ -543,8 +527,17 @@ function farm_inventory_set($asset, $inventory, $timestamp = REQUEST_TIME, $log_
     return;
   }
 
-  // If there is an adjustment value, create a new inventory field_collection
-  // entity attached to the log.
+  // If the log is an observation, set the name to:
+  // "Current inventory: [value]".
+  $log_name = '';
+  if ($log_type == 'farm_observation') {
+    $log_name = t('Current inventory') . ': ' . $inventory;
+  }
+
+  // Create a new farm log entity.
+  $log = farm_log_create($log_type, $log_name, $timestamp, $done);
+
+  // Create a new inventory field_collection entity attached to the log.
   $adjustment = entity_create('field_collection_item', array('field_name' => 'field_farm_inventory'));
   $adjustment->setHostEntity('log', $log);
 
@@ -558,28 +551,8 @@ function farm_inventory_set($asset, $inventory, $timestamp = REQUEST_TIME, $log_
   $adjustment_wrapper->field_farm_inventory_value->numerator->set($numerator);
   $adjustment_wrapper->field_farm_inventory_value->denominator->set($denominator);
 
-  // Set the log's done status.
-  if (!empty($done)) {
-    $log_wrapper->done->set(TRUE);
-  }
-  else {
-    $log_wrapper->done->set(FALSE);
-  }
-
-  // Set the log owner.
-  global $user;
-  $log_wrapper->field_farm_log_owner[] = $user;
-
   // Save the adjustment.
   $adjustment_wrapper->save();
-
-  // Save the log.
-  $log_wrapper->save();
-
-  // Set a message.
-  $label = entity_label('log', $log);
-  $uri = entity_uri('log', $log);
-  drupal_set_message('Log created: ' . l($label, $uri['path']));
 
   // Return the log.
   return $log;
