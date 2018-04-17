@@ -309,21 +309,16 @@ function farm_livestock_birth_form_submit($form, &$form_state) {
     drupal_set_message('Child animal created: ' . l($label, $uri['path']));
   }
 
-  // Create a birth log.
-  $values = array(
-    'type' => 'farm_birth',
-    'timestamp' => $timestamp,
-  );
-  $log = entity_create('log', $values);
+  // Create a birth log. Leave the name blank so that it is auto-generated.
+  $log_type = 'farm_birth';
+  $log_name = '';
+  $log = farm_log_create($log_type, $log_name, $timestamp, TRUE, $children);
+
+  // Create an entity metadata wrapper for the log.
   $log_wrapper = entity_metadata_wrapper('log', $log);
 
   // Set the birth mother.
   $log_wrapper->field_farm_mother->set($parents['mother']->id);
-
-  // Add the children.
-  foreach ($children as $child) {
-    $log_wrapper->field_farm_asset[] = $child->id;
-  }
 
   // Set the location (from the mother, if available).
   $movement_log = farm_movement_asset_latest_movement($parents['mother']);
@@ -353,20 +348,8 @@ function farm_livestock_birth_form_submit($form, &$form_state) {
     $log_wrapper->field_farm_notes->set($form_state['values']['birth']['notes']);
   }
 
-  // Set the log's done status.
-  $log_wrapper->done->set(TRUE);
-
-  // Set the log owner.
-  global $user;
-  $log_wrapper->field_farm_log_owner[] = $user;
-
   // Save the log.
   $log_wrapper->save();
-
-  // Set a message that the log was created.
-  $label = entity_label('log', $log);
-  $uri = entity_uri('log', $log);
-  drupal_set_message('Log created: ' . l($label, $uri['path']));
 
   // Set a message linking to the mother animal.
   $label = entity_label('farm_asset', $parents['mother']);
@@ -497,79 +480,26 @@ function farm_livestock_milk_form_submit($form, &$form_state) {
   variable_set('farm_livestock_milk_measure', $measure);
   variable_set('farm_livestock_milk_units', $units);
 
-  // Get the asset.
+  // Get the asset and wrap it in an array.
   $asset = $form_state['storage']['asset'];
+  $assets = array($asset);
 
-  // Create a new log entity.
-  $log = entity_create('log', array('type' => 'farm_harvest'));
-
-  // Create an entity wrapper for the log.
-  $log_wrapper = entity_metadata_wrapper('log', $log);
+  // The log type will be a harvest.
+  $log_type = 'farm_harvest';
 
   // Set log name.
   $log_name = t('Milk @asset: @qty @units', array('@asset' => entity_label('farm_asset', $asset), '@qty' => $form_state['values']['quantity'], '@units' => $form_state['values']['units']));
-  $log_wrapper->name->set($log_name);
 
-  // Set the date.
-  $log_wrapper->timestamp->set(REQUEST_TIME);
+  // Assemble an array of measurements.
+  $measurements = array(
+    array(
+      'measure' => $measure,
+      'value' => $form_state['values']['quantity'],
+      'units' => $units,
+      'label' => t('milk'),
+    ),
+  );
 
-  // Add the asset to the log.
-  $log_wrapper->field_farm_asset[] = $asset;
-
-  // Create a new quantity field_collection entity attached to the log.
-  $quantity = entity_create('field_collection_item', array('field_name' => 'field_farm_quantity'));
-  $quantity->setHostEntity('log', $log);
-
-  // Create an entity wrapper for the quantity.
-  $quantity_wrapper = entity_metadata_wrapper('field_collection_item', $quantity);
-
-  // Set the quantity measure.
-  $quantity_wrapper->field_farm_quantity_measure->set($measure);
-
-  // Set the quantity value.
-  $value_fraction = fraction_from_decimal($form_state['values']['quantity']);
-  $quantity_wrapper->field_farm_quantity_value->numerator->set($value_fraction->getNumerator());
-  $quantity_wrapper->field_farm_quantity_value->denominator->set($value_fraction->getDenominator());
-
-  // Look up the units taxonomy term.
-  $units_terms = taxonomy_get_term_by_name($form_state['values']['units'], 'farm_quantity_units');
-
-  // If terms were found, use the first one.
-  if (!empty($units_terms)) {
-    $units_term = reset($units_terms);
-  }
-
-  // If a term wasn't found, create it.
-  else {
-    $farm_units = taxonomy_vocabulary_machine_name_load('farm_quantity_units');
-    $units_term = new stdClass();
-    $units_term->name = check_plain($units);
-    $units_term->vid = $farm_units->vid;
-    taxonomy_term_save($units_term);
-  }
-
-  // Set the quantity units.
-  $quantity_wrapper->field_farm_quantity_units = $units_term;
-
-  // Set the quantity label to "milk".
-  $label = t('milk');
-  $quantity_wrapper->field_farm_quantity_label->set($label);
-
-  // Mark the log as done.
-  $log_wrapper->done->set(TRUE);
-
-  // Set the log owner.
-  global $user;
-  $log_wrapper->field_farm_log_owner[] = $user;
-
-  // Save the quantity.
-  $quantity_wrapper->save();
-
-  // Save the log.
-  $log_wrapper->save();
-
-  // Set a message.
-  $label = entity_label('log', $log);
-  $uri = entity_uri('log', $log);
-  drupal_set_message(t('Log created') . ': ' . l($label, $uri['path']));
+  // Create a new farm quantity log.
+  farm_quantity_log_create($log_type, $log_name, REQUEST_TIME, TRUE, $assets, $measurements);
 }
