@@ -37,5 +37,15 @@ function hook_farm_flags() {
 }
 
 /**
+ * Allow modules to alter the classes that are added to flags when they are
+ * displayed in farmOS.
+ */
+function hook_farm_flags_classes_alter($flag, &$classes) {
+  if ($flag == 'priority') {
+    $classes[] = 'my-priority-class';
+  }
+}
+
+/**
  * @}
  */

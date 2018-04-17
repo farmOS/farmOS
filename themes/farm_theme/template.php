@@ -228,6 +228,7 @@ function farm_theme_views_bulk_operations_form_alter(&$form, &$form_state, $vbo)
 function farm_theme_bootstrap_colorize_text_alter(&$texts) {
 
   // Colorize VBO action buttons.
+  $texts['matches'][t('Flag')] = 'info';
   $texts['matches'][t('Move')] = 'success';
   $texts['matches'][t('Group')] = 'warning';
   $texts['matches'][t('Done')] = 'success';
@@ -246,6 +247,7 @@ function farm_theme_bootstrap_colorize_text_alter(&$texts) {
 function farm_theme_bootstrap_iconize_text_alter(&$texts) {
 
   // Iconize VBO action buttons.
+  $texts['matches'][t('Flag')] = 'flag';
   $texts['matches'][t('Move')] = 'globe';
   $texts['matches'][t('Group')] = 'bookmark';
   $texts['matches'][t('Done')] = 'check';
@@ -256,6 +258,31 @@ function farm_theme_bootstrap_iconize_text_alter(&$texts) {
   $texts['matches'][t('Archive')] = 'eye-close';
   $texts['matches'][t('Unarchive')] = 'eye-open';
   $texts['matches'][t('Delete')] = 'trash';
+}
+
+/**
+ * Implements hook_farm_flags_classes_alter().
+ */
+function farm_theme_farm_flags_classes_alter($flag, &$classes) {
+
+  // Render all flags as extra small buttons using Bootstrap's classes.
+  $classes[] = 'btn';
+  $classes[] = 'btn-xs';
+
+  // Add a button style class based on the flag used.
+  switch ($flag) {
+    case 'priority':
+      $classes[] = 'btn-primary';
+      break;
+    case 'monitor':
+      $classes[] = 'btn-danger';
+      break;
+    case 'review':
+      $classes[] = 'btn-warning';
+      break;
+    default:
+      $classes[] = 'btn-default';
+  }
 }
 
 /**
