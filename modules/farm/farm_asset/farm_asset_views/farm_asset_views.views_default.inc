@@ -149,6 +149,14 @@ function farm_asset_views_views_default_views() {
         'log' => 0,
       ),
     ),
+    'action::farm_flags_action' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 1,
+      'skip_permission_check' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
     'action::farm_group_asset_membership_action' => array(
       'selected' => 1,
       'skip_confirmation' => 1,

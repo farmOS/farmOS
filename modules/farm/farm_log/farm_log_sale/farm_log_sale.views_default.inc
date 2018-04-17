@@ -218,6 +218,14 @@ function farm_log_sale_views_default_views() {
         'log' => 0,
       ),
     ),
+    'action::farm_flags_action' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 1,
+      'skip_permission_check' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
     'action::log_done_action' => array(
       'selected' => 1,
       'postpone_processing' => 0,
