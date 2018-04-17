@@ -501,8 +501,8 @@ function farm_livestock_animal_weight($asset) {
 /**
  * Create a weight measurement log associated with an animal.
  *
- * @param FarmAsset $asset
- *   The asset to add quantity measurements to.
+ * @param FarmAsset $assets
+ *   The assets to add a weight measurement to.
  * @param string $weight
  *   The animal's current weight.
  * @param string $units
@@ -516,7 +516,7 @@ function farm_livestock_animal_weight($asset) {
  * @return \Log
  *   Returns the log that was created.
  */
-function farm_livestock_weight_set($asset, $weight, $units, $timestamp = REQUEST_TIME, $done = TRUE) {
+function farm_livestock_weight_set($assets, $weight, $units, $timestamp = REQUEST_TIME, $done = TRUE) {
 
   // The log will be an observation.
   $log_type = 'farm_observation';
@@ -524,8 +524,10 @@ function farm_livestock_weight_set($asset, $weight, $units, $timestamp = REQUEST
   // Set the name to: "Current weight: [value]".
   $log_name = t('Current weight') . ': ' . check_plain($weight) . ' ' . check_plain($units);
 
-  // Wrap the asset in an array.
-  $assets = array($asset);
+  // If $assets isn't an array, wrap it.
+  if (!is_array($assets)) {
+    $assets = array($assets);
+  }
 
   // Assemble an array of measurements.
   $measurements = array(
