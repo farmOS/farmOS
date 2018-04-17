@@ -401,6 +401,7 @@ function farm_livestock_form_farm_asset_form_alter(&$form, &$form_state, $form_i
     '#type' => 'textfield',
     '#title' => t('Weight'),
     '#default_value' => !empty($weight['value']) ? $weight['value'] : '',
+    '#element_validate' => array('element_validate_number'),
   );
   $form['weight']['units'] = array(
     '#type' => 'textfield',
