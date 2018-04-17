@@ -230,6 +230,7 @@ function farm_theme_bootstrap_colorize_text_alter(&$texts) {
   // Colorize VBO action buttons.
   $texts['matches'][t('Flag')] = 'info';
   $texts['matches'][t('Move')] = 'success';
+  $texts['matches'][t('Weight')] = 'default';
   $texts['matches'][t('Group')] = 'warning';
   $texts['matches'][t('Done')] = 'success';
   $texts['matches'][t('Not Done')] = 'danger';
@@ -249,6 +250,7 @@ function farm_theme_bootstrap_iconize_text_alter(&$texts) {
   // Iconize VBO action buttons.
   $texts['matches'][t('Flag')] = 'flag';
   $texts['matches'][t('Move')] = 'globe';
+  $texts['matches'][t('Weight')] = 'scale';
   $texts['matches'][t('Group')] = 'bookmark';
   $texts['matches'][t('Done')] = 'check';
   $texts['matches'][t('Not Done')] = 'unchecked';
