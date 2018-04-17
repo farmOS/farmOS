@@ -35,6 +35,33 @@ function farm_flags_farm_flags() {
 }
 
 /**
+ * Helper function for loading a list of flags on an entity.
+ *
+ * @param $entity
+ *   The entity with flags on it (area, asset, or log).
+ *
+ * @return array
+ *   Returns an array of flag machine names.
+ */
+function farm_flags_load($entity) {
+
+  // Start with an empty array.
+  $flags = array();
+
+  // If there are flags, iterate through them and add them to the array.
+  if (!empty($entity->field_farm_flags[LANGUAGE_NONE])) {
+    foreach ($entity->field_farm_flags[LANGUAGE_NONE] as $value) {
+      if (!empty($value['value'])) {
+        $flags[] = $value['value'];
+      }
+    }
+  }
+
+  // Return the flags.
+  return $flags;
+}
+
+/**
  * Implements hook_preprocess_field().
  */
 function farm_flags_preprocess_field(&$variables, $hook) {
