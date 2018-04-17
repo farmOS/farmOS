@@ -501,7 +501,7 @@ function farm_livestock_animal_weight($asset) {
 /**
  * Create a weight measurement log associated with an animal.
  *
- * @param FarmAsset $assets
+ * @param array $assets
  *   The assets to add a weight measurement to.
  * @param string $weight
  *   The animal's current weight.
