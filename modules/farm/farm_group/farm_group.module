@@ -880,16 +880,15 @@ function farm_group_circular_membership_validate($asset_ids, $group_ids, $elemen
  */
 function farm_group_membership_set($assets, $groups = array(), $timestamp = REQUEST_TIME, $log_type = 'farm_observation', $done = TRUE) {
 
+  // If there are no groups specified, bail.
+  if (empty($groups)) {
+    return;
+  }
+
   // If $assets isn't an array, wrap it.
   if (!is_array($assets)) {
     $assets = array($assets);
   }
-
-  // Create a new group membership log entity.
-  $log = entity_create('log', array('type' => $log_type));
-
-  // Create an entity wrapper for the log.
-  $log_wrapper = entity_metadata_wrapper('log', $log);
 
   // If the log is an observation, set the name to:
   // "Group membership: [group(s)]".
@@ -907,50 +906,28 @@ function farm_group_membership_set($assets, $groups = array(), $timestamp = REQU
     else {
       $log_name .= $group_names[0] . ' (+' . ($count_groups - 1) . ' ' . t('more') . ')';
     }
-    $log_wrapper->name->set($log_name);
   }
 
-  // Iterate through the assets.
-  foreach ($assets as $asset) {
+  // Create a new farm log entity.
+  $log = farm_log_create($log_type, $log_name, $timestamp, $done, $assets);
 
-    // Add the asset to the asset reference field.
-    $log_wrapper->field_farm_asset[] = $asset;
-  }
+  // Create a new membership field_collection entity attached to the log.
+  $membership = entity_create('field_collection_item', array('field_name' => 'field_farm_membership'));
+  $membership->setHostEntity('log', $log);
 
-  // Set the date.
-  $log_wrapper->timestamp->set($timestamp);
+  // Create an entity wrapper for the membership.
+  $membership_wrapper = entity_metadata_wrapper('field_collection_item', $membership);
 
-  // If there are groups, create a new membership field_collection entity
-  // attached to the log. If they are not group assets, ignore them.
-  if (!empty($groups)) {
-    $membership = entity_create('field_collection_item', array('field_name' => 'field_farm_membership'));
-    $membership->setHostEntity('log', $log);
-    foreach ($groups as $group) {
-      if ($group->type == 'group') {
-        $log_wrapper->field_farm_membership->field_farm_group[] = $group;
-      }
+  // Iterate through the areas and add each to the "Move to" field.
+  // If they are not group assets, ignore them.
+  foreach ($groups as $group) {
+    if ($group->type == 'group') {
+      $membership_wrapper->field_farm_group[] = $group;
     }
   }
 
-  // Set the log's done status.
-  if (!empty($done)) {
-    $log_wrapper->done->set(TRUE);
-  }
-  else {
-    $log_wrapper->done->set(FALSE);
-  }
-
-  // Set the log owner.
-  global $user;
-  $log_wrapper->field_farm_log_owner[] = $user;
-
-  // Save the log.
-  $log_wrapper->save();
-
-  // Set a message.
-  $label = entity_label('log', $log);
-  $uri = entity_uri('log', $log);
-  drupal_set_message('Log created: ' . l($label, $uri['path']));
+  // Save the membership.
+  $membership_wrapper->save();
 
   // Return the log.
   return $log;
