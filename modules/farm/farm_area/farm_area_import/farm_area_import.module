@@ -177,6 +177,7 @@ function farm_area_import_form_ajax($form, &$form_state) {
  * Area importer parse button submit.
  */
 function farm_area_import_form_parse(&$form, &$form_state) {
+  $form_state['input'] = array();
   $form_state['rebuild'] = TRUE;
 }
 
