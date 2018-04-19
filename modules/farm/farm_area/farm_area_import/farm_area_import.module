@@ -141,6 +141,14 @@ function farm_area_import_form($form, &$form_state) {
         '#default_value' => 'field',
       );
 
+      // Get the placemark description and put it in a text field.
+      $description = (string) $placemark->description;
+      $form['output'][$g]['description'] = array(
+        '#type' => 'textarea',
+        '#title' => t('Description'),
+        '#default_value' => $description,
+      );
+
       // Parse the placemark into a GeoPHP geometry object.
       $xml = $placemark->asXML();
       $geom = geoPHP::load($xml, 'kml');
@@ -244,6 +252,7 @@ function farm_area_import_form_submit(&$form, &$form_state) {
     // Create the new area.
     $area = new stdClass();
     $area->name = $values['name'];
+    $area->description = $values['description'];
     $area->vid = $vocab->vid;
     $area->field_farm_area_type[LANGUAGE_NONE][0]['value'] = $values['type'];
     $area->field_farm_geofield[LANGUAGE_NONE][0]['geom'] = $values['geometry'];
