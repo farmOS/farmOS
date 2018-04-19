@@ -105,8 +105,14 @@ function farm_area_import_form($form, &$form_state) {
   // Maintain an iterator for the geometries.
   $g = 0;
 
-  // Iterate through KML $folders.
-  $placemarks = $kml->Document->Folder->Placemark;
+  // Determine the root element. Sometimes it is "Document".
+  $root = $kml;
+  if (isset($kml->Document)) {
+    $root = $kml->Document;
+  }
+
+  // Iterate through KML placemarks.
+  $placemarks = $root->Folder->Placemark;
   foreach ($placemarks as $placemark) {
 
     // Create a simple fieldset for the geometry.
