@@ -123,6 +123,14 @@ function farm_area_import_form($form, &$form_state) {
       '#default_value' => $name,
     );
 
+    // Area type select.
+    $form['output'][$g]['type'] = array(
+      '#type' => 'select',
+      '#title' => t('Area type'),
+      '#options' => farm_area_type_options(),
+      '#default_value' => 'field',
+    );
+
     // Parse the placemark into a GeoPHP geometry object.
     $xml = $placemark->asXML();
     $geom = geoPHP::load($xml, 'kml');
@@ -137,9 +145,23 @@ function farm_area_import_form($form, &$form_state) {
       '#default_value' => $wkt,
     );
 
+    // Checkbox for creating the area.
+    $form['output'][$g]['confirm'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Create this area'),
+      '#description' => t('Uncheck this if you do not want to create this area in farmOS.'),
+      '#default_value' => TRUE,
+    );
+
     // Increment the geometry iterator.
     $g++;
   }
+
+  // Submit button.
+  $form['output']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Create areas'),
+  );
 
   return $form;
 }
