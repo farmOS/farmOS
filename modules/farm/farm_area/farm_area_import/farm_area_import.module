@@ -218,4 +218,28 @@ function farm_area_import_form_validate(&$form, &$form_state) {
  */
 function farm_area_import_form_submit(&$form, &$form_state) {
 
+  // Load the Areas vocabulary.
+  $vocab = taxonomy_vocabulary_machine_name_load('farm_areas');
+
+  // Iterate through the submitted values.
+  foreach ($form_state['values']['output'] as $values) {
+
+    // If the confirmation checkbox is not checked, skip.
+    if (empty($values['confirm'])) {
+      continue;
+    }
+
+    // Create the new area.
+    $area = new stdClass();
+    $area->name = $values['name'];
+    $area->vid = $vocab->vid;
+    $area->field_farm_area_type[LANGUAGE_NONE][0]['value'] = $values['type'];
+    $area->field_farm_geofield[LANGUAGE_NONE][0]['geom'] = $values['geometry'];
+    taxonomy_term_save($area);
+
+    // Display a message with a link to the new area.
+    $area_label = entity_label('taxonomy_term', $area);
+    $area_uri = entity_uri('taxonomy_term', $area);
+    drupal_set_message(t('Area created: <a href="@path">@label</a>', array('@path' => url($area_uri['path']), '@label' => $area_label)));
+  }
 }
