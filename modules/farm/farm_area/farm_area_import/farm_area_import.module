@@ -185,6 +185,32 @@ function farm_area_import_form_parse(&$form, &$form_state) {
  */
 function farm_area_import_form_validate(&$form, &$form_state) {
 
+  // Iterate through the submitted values.
+  foreach ($form_state['values']['output'] as $key => $values) {
+
+    // If the confirmation checkbox is not checked, skip.
+    if (empty($values['confirm'])) {
+      continue;
+    }
+
+    // Prevent empty values.
+    $fields = array(
+      'name',
+      'type',
+      'geometry',
+    );
+    foreach ($fields as $field) {
+      if (empty($values[$field])) {
+        form_set_error('output][' . $key . '][' . $field, t('The %field field is required on geometry @num', array('%field' => $field, '@num' => $key + 1)));
+      }
+    }
+
+    // Validate the geometry using the geofield function.
+    $error = geofield_validate_geom(array('geom' => $values['geometry']));
+    if (!empty($error)) {
+      form_set_error('output][' . $key . '][geometry', t('Geometry @num is invalid.', array('@num' => $key + 1)));
+    }
+  }
 }
 
 /**
