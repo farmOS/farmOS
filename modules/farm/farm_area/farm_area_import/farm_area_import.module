@@ -180,6 +180,8 @@ function farm_area_import_form($form, &$form_state) {
   $form['output']['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Create areas'),
+    '#validate' => array('farm_area_import_form_create_validate'),
+    '#submit' => array('farm_area_import_form_create_submit'),
   );
 
   return $form;
@@ -203,7 +205,7 @@ function farm_area_import_form_parse(&$form, &$form_state) {
 /**
  * Area importer form validation.
  */
-function farm_area_import_form_validate(&$form, &$form_state) {
+function farm_area_import_form_create_validate(&$form, &$form_state) {
 
   // Iterate through the submitted values.
   foreach ($form_state['values']['output'] as $key => $values) {
@@ -236,7 +238,7 @@ function farm_area_import_form_validate(&$form, &$form_state) {
 /**
  * Area importer form submit.
  */
-function farm_area_import_form_submit(&$form, &$form_state) {
+function farm_area_import_form_create_submit(&$form, &$form_state) {
 
   // Load the Areas vocabulary.
   $vocab = taxonomy_vocabulary_machine_name_load('farm_areas');
