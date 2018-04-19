@@ -1,0 +1,268 @@
+<?php
+/**
+ * @file
+ * Farm area import module.
+ */
+
+/**
+ * Implements hook_permission().
+ */
+function farm_area_import_permission() {
+  return array(
+    'use farm area importer' => array(
+      'title' => t('Use farm area importer tool'),
+      'description' => t('Use the farm area importer tool.'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_farm_access_perms().
+ */
+function farm_area_import_farm_access_perms($role) {
+
+  // Grant area generator access to Farm Managers.
+  if ($role == 'Farm Manager') {
+    return array('use farm area importer');
+  }
+  else {
+    return array();
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function farm_area_import_menu() {
+
+  // Area generator form.
+  $items['farm/areas/import'] = array(
+    'title' => 'Area importer',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('farm_area_import_form'),
+    'access arguments' => array('use farm area importer'),
+    'type' => MENU_LOCAL_TASK,
+  );
+
+  return $items;
+}
+
+/**
+ * Area import form.
+ */
+function farm_area_import_form($form, &$form_state) {
+
+  // Set the page title.
+  drupal_set_title('Area importer');
+
+  // Create a fieldset for input.
+  $form['input'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Input'),
+  );
+
+  // KML text area.
+  $form['input']['kml'] = array(
+    '#type' => 'textarea',
+    '#title' => t('KML'),
+    '#description' => t('Paste the contents of your KML file here and click "Parse".'),
+    '#required' => TRUE,
+  );
+
+  // Parse button.
+  $form['input']['parse'] = array(
+    '#type' => 'submit',
+    '#value' => t('Parse'),
+    '#submit' => array('farm_area_import_form_parse'),
+    '#ajax' => array(
+      'callback' => 'farm_area_import_form_ajax',
+      'wrapper' => 'output',
+    ),
+  );
+
+  // Create a wrapper for the output.
+  $form['output'] = array(
+    '#tree' => TRUE,
+    '#prefix' => '<div id="output">',
+    '#suffix' => '</div>',
+  );
+
+  // If a file has not been uploaded, return the form.
+  if (empty($form_state['values']['kml'])) {
+    return $form;
+  }
+
+  // Make the output wrapper into a fieldset.
+  $form['output']['#type'] = 'fieldset';
+  $form['output']['#title'] = t('Output');
+
+  // Load the GeoPHP library.
+  geophp_load();
+
+  // Parse the KML.
+  $kml = simplexml_load_string($form_state['values']['kml']);
+
+  // Maintain an iterator for the geometries.
+  $g = 0;
+
+  // Determine the root element. Sometimes it is "Document".
+  $root = $kml;
+  if (isset($kml->Document)) {
+    $root = $kml->Document;
+  }
+
+  // Iterate through KML Folders.
+  $folders = $root->Folder;
+  foreach ($folders as $folder) {
+
+    // Iterate through KML Placemarks.
+    $placemarks = $folder->Placemark;
+    foreach ($placemarks as $placemark) {
+
+      // Create a simple fieldset for the geometry.
+      $form['output'][$g] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Geometry') . ' ' . ($g + 1),
+      );
+
+      // Get the placemark name and put it in a text field.
+      $name = (string) $placemark->name;
+      $form['output'][$g]['name'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Name'),
+        '#default_value' => $name,
+      );
+
+      // Area type select.
+      $form['output'][$g]['type'] = array(
+        '#type' => 'select',
+        '#title' => t('Area type'),
+        '#options' => farm_area_type_options(),
+        '#default_value' => 'field',
+      );
+
+      // Get the placemark description and put it in a text field.
+      $description = (string) $placemark->description;
+      $form['output'][$g]['description'] = array(
+        '#type' => 'textarea',
+        '#title' => t('Description'),
+        '#default_value' => $description,
+      );
+
+      // Parse the placemark into a GeoPHP geometry object.
+      $xml = $placemark->asXML();
+      $geom = geoPHP::load($xml, 'kml');
+
+      // Convert the geometry to WKT.
+      $wkt = $geom->out('wkt');
+
+      // Add a text area for the geometry data.
+      $form['output'][$g]['geometry'] = array(
+        '#type' => 'textarea',
+        '#title' => t('Geometry'),
+        '#default_value' => $wkt,
+      );
+
+      // Checkbox for creating the area.
+      $form['output'][$g]['confirm'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Create this area'),
+        '#description' => t('Uncheck this if you do not want to create this area in farmOS.'),
+        '#default_value' => TRUE,
+      );
+
+      // Increment the geometry iterator.
+      $g++;
+    }
+  }
+
+  // Submit button.
+  $form['output']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Create areas'),
+    '#validate' => array('farm_area_import_form_create_validate'),
+    '#submit' => array('farm_area_import_form_create_submit'),
+  );
+
+  return $form;
+}
+
+/**
+ * Area importer form ajax callback.
+ */
+function farm_area_import_form_ajax($form, &$form_state) {
+  return $form['output'];
+}
+
+/**
+ * Area importer parse button submit.
+ */
+function farm_area_import_form_parse(&$form, &$form_state) {
+  $form_state['input'] = array();
+  $form_state['rebuild'] = TRUE;
+}
+
+/**
+ * Area importer form validation.
+ */
+function farm_area_import_form_create_validate(&$form, &$form_state) {
+
+  // Iterate through the submitted values.
+  foreach ($form_state['values']['output'] as $key => $values) {
+
+    // If the confirmation checkbox is not checked, skip.
+    if (empty($values['confirm'])) {
+      continue;
+    }
+
+    // Prevent empty values.
+    $fields = array(
+      'name',
+      'type',
+      'geometry',
+    );
+    foreach ($fields as $field) {
+      if (empty($values[$field])) {
+        form_set_error('output][' . $key . '][' . $field, t('The %field field is required on geometry @num', array('%field' => $field, '@num' => $key + 1)));
+      }
+    }
+
+    // Validate the geometry using the geofield function.
+    $error = geofield_validate_geom(array('geom' => $values['geometry']));
+    if (!empty($error)) {
+      form_set_error('output][' . $key . '][geometry', t('Geometry @num is invalid.', array('@num' => $key + 1)));
+    }
+  }
+}
+
+/**
+ * Area importer form submit.
+ */
+function farm_area_import_form_create_submit(&$form, &$form_state) {
+
+  // Load the Areas vocabulary.
+  $vocab = taxonomy_vocabulary_machine_name_load('farm_areas');
+
+  // Iterate through the submitted values.
+  foreach ($form_state['values']['output'] as $values) {
+
+    // If the confirmation checkbox is not checked, skip.
+    if (empty($values['confirm'])) {
+      continue;
+    }
+
+    // Create the new area.
+    $area = new stdClass();
+    $area->name = $values['name'];
+    $area->description = $values['description'];
+    $area->vid = $vocab->vid;
+    $area->field_farm_area_type[LANGUAGE_NONE][0]['value'] = $values['type'];
+    $area->field_farm_geofield[LANGUAGE_NONE][0]['geom'] = $values['geometry'];
+    taxonomy_term_save($area);
+
+    // Display a message with a link to the new area.
+    $area_label = entity_label('taxonomy_term', $area);
+    $area_uri = entity_uri('taxonomy_term', $area);
+    drupal_set_message(t('Area created: <a href="@path">@label</a>', array('@path' => url($area_uri['path']), '@label' => $area_label)));
+  }
+}
