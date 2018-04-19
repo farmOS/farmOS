@@ -1,0 +1,173 @@
+<?php
+/**
+ * @file
+ * Farm area import module.
+ */
+
+/**
+ * Implements hook_permission().
+ */
+function farm_area_import_permission() {
+  return array(
+    'use farm area importer' => array(
+      'title' => t('Use farm area importer tool'),
+      'description' => t('Use the farm area importer tool.'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_farm_access_perms().
+ */
+function farm_area_import_farm_access_perms($role) {
+
+  // Grant area generator access to Farm Managers.
+  if ($role == 'Farm Manager') {
+    return array('use farm area importer');
+  }
+  else {
+    return array();
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function farm_area_import_menu() {
+
+  // Area generator form.
+  $items['farm/areas/import'] = array(
+    'title' => 'Area importer',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('farm_area_import_form'),
+    'access arguments' => array('use farm area importer'),
+    'type' => MENU_LOCAL_TASK,
+  );
+
+  return $items;
+}
+
+/**
+ * Area import form.
+ */
+function farm_area_import_form($form, &$form_state) {
+
+  // Set the page title.
+  drupal_set_title('Area importer');
+
+  // Create a fieldset for input.
+  $form['input'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Input'),
+  );
+
+  // KML text area.
+  $form['input']['kml'] = array(
+    '#type' => 'textarea',
+    '#title' => t('KML'),
+    '#description' => t('Paste the contents of your KML file here and click "Parse".'),
+    '#required' => TRUE,
+  );
+
+  // Parse button.
+  $form['input']['parse'] = array(
+    '#type' => 'submit',
+    '#value' => t('Parse'),
+    '#submit' => array('farm_area_import_form_parse'),
+    '#ajax' => array(
+      'callback' => 'farm_area_import_form_ajax',
+      'wrapper' => 'output',
+    ),
+  );
+
+  // Create a wrapper for the output.
+  $form['output'] = array(
+    '#tree' => TRUE,
+    '#prefix' => '<div id="output">',
+    '#suffix' => '</div>',
+  );
+
+  // If a file has not been uploaded, return the form.
+  if (empty($form_state['values']['kml'])) {
+    return $form;
+  }
+
+  // Make the output wrapper into a fieldset.
+  $form['output']['#type'] = 'fieldset';
+  $form['output']['#title'] = t('Output');
+
+  // Load the GeoPHP library.
+  geophp_load();
+
+  // Parse the KML.
+  $kml = simplexml_load_string($form_state['values']['kml']);
+
+  // Maintain an iterator for the geometries.
+  $g = 0;
+
+  // Iterate through KML $folders.
+  $placemarks = $kml->Document->Folder->Placemark;
+  foreach ($placemarks as $placemark) {
+
+    // Create a simple fieldset for the geometry.
+    $form['output'][$g] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Geometry') . ' ' . ($g + 1),
+    );
+
+    // Get the placemark name and put it in a text field.
+    $name = (string) $placemark->name;
+    $form['output'][$g]['name'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Name'),
+      '#default_value' => $name,
+    );
+
+    // Parse the placemark into a GeoPHP geometry object.
+    $xml = $placemark->asXML();
+    $geom = geoPHP::load($xml, 'kml');
+
+    // Convert the geometry to WKT.
+    $wkt = $geom->out('wkt');
+
+    // Add a text area for the geometry data.
+    $form['output'][$g]['geometry'] = array(
+      '#type' => 'textarea',
+      '#title' => t('Geometry'),
+      '#default_value' => $wkt,
+    );
+
+    // Increment the geometry iterator.
+    $g++;
+  }
+
+  return $form;
+}
+
+/**
+ * Area importer form ajax callback.
+ */
+function farm_area_import_form_ajax($form, &$form_state) {
+  return $form['output'];
+}
+
+/**
+ * Area importer parse button submit.
+ */
+function farm_area_import_form_parse(&$form, &$form_state) {
+  $form_state['rebuild'] = TRUE;
+}
+
+/**
+ * Area importer form validation.
+ */
+function farm_area_import_form_validate(&$form, &$form_state) {
+
+}
+
+/**
+ * Area importer form submit.
+ */
+function farm_area_import_form_submit(&$form, &$form_state) {
+
+}
