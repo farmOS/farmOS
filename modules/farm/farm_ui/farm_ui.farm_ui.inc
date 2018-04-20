@@ -144,6 +144,7 @@ function farm_ui_farm_ui_actions() {
       'paths' => array(
         'farm',
         'farm/assets',
+        'farm/assets/all',
       ),
     ),
     'log' => array(
@@ -152,6 +153,7 @@ function farm_ui_farm_ui_actions() {
       'paths' => array(
         'farm',
         'farm/logs',
+        'farm/logs/all',
       ),
       'weight' => 1,
     ),
