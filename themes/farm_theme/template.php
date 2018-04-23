@@ -187,6 +187,7 @@ function farm_theme_views_bulk_operations_form_alter(&$form, &$form_state, $vbo)
   // Move the "Assign", "Clone", "Group", "Archive", "Unarchive", and "Delete"
   // actions to the end of the list.
   $end_actions = array(
+    'action::farm_flags_action',
     'action::farm_log_assign_action',
     'action::log_clone_action',
     'action::farm_group_asset_membership_action',
