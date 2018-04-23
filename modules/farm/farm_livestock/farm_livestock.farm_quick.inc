@@ -53,7 +53,7 @@ function farm_livestock_birth_form($form, &$form_state) {
   $form['birth']['mother'] = array(
     '#type' => 'textfield',
     '#title' => t('Mother'),
-    '#description' => t('Select the mother animal.'),
+    '#description' => t('Select the mother animal. As you type, a dropdown of matching animal names will appear. Click on the one you want, and the field will be filled in with the name and asset ID (example: "Betsy [id: 123]"). The "[id: X]" portion is required.'),
     '#autocomplete_path' => 'farm_asset/autocomplete/animal',
     '#required' => TRUE,
   );
@@ -62,7 +62,7 @@ function farm_livestock_birth_form($form, &$form_state) {
   $form['birth']['father'] = array(
     '#type' => 'textfield',
     '#title' => t('Father'),
-    '#description' => t('Select the father animal (optional).'),
+    '#description' => t('Select the father animal (optional). See the mother field above for instructions.'),
     '#autocomplete_path' => 'farm_asset/autocomplete/animal',
   );
 
@@ -103,13 +103,15 @@ function farm_livestock_birth_form($form, &$form_state) {
     $form['birth']['child'][$i]['name'] = array(
       '#type' => 'textfield',
       '#title' => t('Name'),
-      '#required' => TRUE,
+      '#description' => t('Give the animal a name (and/or tag ID below). If the name is left blank, then it will be copied from the tag ID.'),
+      '#weight' => 0,
     );
 
     // Tag ID.
     $form['birth']['child'][$i]['tag_id'] = array(
       '#type' => 'textfield',
       '#title' => t('Tag ID'),
+      '#weight' => 0,
     );
 
     // Male or female.
@@ -120,6 +122,21 @@ function farm_livestock_birth_form($form, &$form_state) {
         'F' => t('Female'),
         'M' => t('Male'),
       ),
+      '#weight' => 10,
+    );
+
+    // Birth weight.
+    $form['birth']['child'][$i]['weight'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Birth weight'),
+      '#element_validate' => array('element_validate_number'),
+      '#weight' => 20,
+    );
+    $form['birth']['child'][$i]['units'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Weight units'),
+      '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_quantity_units',
+      '#weight' => 21,
     );
 
     // Animal description.
@@ -127,6 +144,7 @@ function farm_livestock_birth_form($form, &$form_state) {
       '#type' => 'text_format',
       '#title' => t('Description'),
       '#format' => 'farm_format',
+      '#weight' => 30,
     );
 
     // Survived.
@@ -135,6 +153,7 @@ function farm_livestock_birth_form($form, &$form_state) {
       '#title' => t('Survived birth'),
       '#description' => t('Uncheck this if the child did not survive. The child animal record will still be created, but will be immediately archived.'),
       '#default_value' => TRUE,
+      '#weight' => 40,
     );
   }
 
@@ -211,6 +230,15 @@ function farm_livestock_birth_form_validate($form, &$form_state) {
       form_set_error('birth][father', t('The mother and father cannot be the same animal.'));
     }
   }
+
+  // Iterate through the children.
+  foreach ($form_state['values']['birth']['child'] as $i => $child) {
+
+    // Make sure that either the name or tag ID is filled in.
+    if (empty($child['name']) && empty($child['tag_id'])) {
+      form_set_error('birth][child][' . $i . '][name', t('The child must have a name or tag ID.'));
+    }
+  }
 }
 
 /**
@@ -236,6 +264,11 @@ function farm_livestock_birth_form_submit($form, &$form_state) {
   // Iterate through the children, and build an array of their asset records.
   $children = array();
   foreach ($form_state['values']['birth']['child'] as $child) {
+
+    // If the name is not set, but tag ID is, copy the tag ID to the name.
+    if (empty($child['name']) && !empty($child['tag_id'])) {
+      $child['name'] = $child['tag_id'];
+    }
 
     // Create a new animal asset.
     $values = array(
@@ -307,6 +340,11 @@ function farm_livestock_birth_form_submit($form, &$form_state) {
     $label = entity_label('farm_asset', $child_asset);
     $uri = entity_uri('farm_asset', $child_asset);
     drupal_set_message('Child animal created: ' . l($label, $uri['path']));
+
+    // If the animal's weight was specified, create a weight measurement log.
+    if (!empty($child['weight'])) {
+      farm_livestock_weight_set($child_asset, $child['weight'], $child['units'], $timestamp);
+    }
   }
 
   // Create a birth log. Leave the name blank so that it is auto-generated.
@@ -355,6 +393,10 @@ function farm_livestock_birth_form_submit($form, &$form_state) {
   $label = entity_label('farm_asset', $parents['mother']);
   $uri = entity_uri('farm_asset', $parents['mother']);
   drupal_set_message("View the mother's animal record: " . l($label, $uri['path']));
+
+  // Add the children to $form_state['storage'] so that other submit functions
+  // can work with them.
+  $form_state['storage']['children'] = $children;
 }
 
 /**
