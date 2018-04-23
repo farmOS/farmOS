@@ -469,10 +469,69 @@ function farm_livestock_asset_form_submit(array $form, array &$form_state) {
  */
 function farm_livestock_form_log_form_alter(&$form, &$form_state, $form_id) {
 
+  // Only act on the birth log form.
+  if (!(!empty($form['log']['#value']->type) && $form['log']['#value']->type == 'farm_birth')) {
+    return;
+  }
+
   // If this is a new birth log form, display a link to the birth quick form
   // for convenience.
-  if (!empty($form['log']['#value']->is_new) && $form['log']['#value']->type == 'farm_birth') {
+  if (!empty($form['log']['#value']->is_new)) {
     drupal_set_message(t('Tip: Use the <a href="@path">Birth Quick Form</a> to quickly record animal births and create child animal records at the same time.', array('@path' => url('farm/quick/birth'))));
+  }
+
+  // Add validation to make sure that the same child is not referenced in
+  // multiple birth logs.
+  $form['#validate'][] = 'farm_livestock_birth_log_form_validate';
+}
+
+/**
+ * Validate handler for the birth log form.
+ *
+ * @param array $form
+ *   The form array.
+ * @param array $form_state
+ *   The form state array.
+ */
+function farm_livestock_birth_log_form_validate(array $form, array &$form_state) {
+
+  // Get the log ID (if available).
+  $log_id = 0;
+  if (!empty($form_state['values']['log']->id)) {
+    $log_id = $form_state['values']['log']->id;
+  }
+
+  // Get the referenced assets.
+  $asset_ids = array();
+  if (!empty($form_state['values']['field_farm_asset'][LANGUAGE_NONE])) {
+    foreach ($form_state['values']['field_farm_asset'][LANGUAGE_NONE] as $asset_reference) {
+      if (empty($asset_reference['target_id'])) {
+        continue;
+      }
+      $asset_ids[] = $asset_reference['target_id'];
+    }
+  }
+
+  // Perform an entity field query to see if any birth logs already reference
+  // the assets.
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'log')
+    ->entityCondition('bundle', 'farm_birth')
+    ->propertyCondition('id', $log_id, '!=')
+    ->fieldCondition('field_farm_asset', 'target_id', $asset_ids);
+  $result = $query->execute();
+  if (isset($result['log'])) {
+    $log_ids = array_keys($result['log']);
+    $logs = entity_load('log', $log_ids);
+  }
+
+  // If matching logs were found, set form error(s).
+  if (!empty($logs)) {
+    foreach ($logs as $log) {
+      $log_label = entity_label('log', $log);
+      $log_uri = entity_uri('log', $log);
+      form_set_error('field_farm_asset', t('The existing birth log <a href="@log_path">%log_name</a> already references one or more of the children. More than one birth log cannot reference the same child.', array('%child_name' => '', '@log_path' => url($log_uri['path']), '%log_name' => $log_label)));
+    }
   }
 }
 
