@@ -104,12 +104,14 @@ function farm_livestock_birth_form($form, &$form_state) {
       '#type' => 'textfield',
       '#title' => t('Name'),
       '#description' => t('Give the animal a name (and/or tag ID below). If the name is left blank, then it will be copied from the tag ID.'),
+      '#weight' => 0,
     );
 
     // Tag ID.
     $form['birth']['child'][$i]['tag_id'] = array(
       '#type' => 'textfield',
       '#title' => t('Tag ID'),
+      '#weight' => 0,
     );
 
     // Male or female.
@@ -120,6 +122,7 @@ function farm_livestock_birth_form($form, &$form_state) {
         'F' => t('Female'),
         'M' => t('Male'),
       ),
+      '#weight' => 10,
     );
 
     // Birth weight.
@@ -127,11 +130,13 @@ function farm_livestock_birth_form($form, &$form_state) {
       '#type' => 'textfield',
       '#title' => t('Birth weight'),
       '#element_validate' => array('element_validate_number'),
+      '#weight' => 20,
     );
     $form['birth']['child'][$i]['units'] = array(
       '#type' => 'textfield',
       '#title' => t('Weight units'),
       '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_quantity_units',
+      '#weight' => 21,
     );
 
     // Animal description.
@@ -139,6 +144,7 @@ function farm_livestock_birth_form($form, &$form_state) {
       '#type' => 'text_format',
       '#title' => t('Description'),
       '#format' => 'farm_format',
+      '#weight' => 30,
     );
 
     // Survived.
@@ -147,6 +153,7 @@ function farm_livestock_birth_form($form, &$form_state) {
       '#title' => t('Survived birth'),
       '#description' => t('Uncheck this if the child did not survive. The child animal record will still be created, but will be immediately archived.'),
       '#default_value' => TRUE,
+      '#weight' => 40,
     );
   }
 
