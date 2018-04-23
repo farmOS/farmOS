@@ -53,7 +53,7 @@ function farm_livestock_birth_form($form, &$form_state) {
   $form['birth']['mother'] = array(
     '#type' => 'textfield',
     '#title' => t('Mother'),
-    '#description' => t('Select the mother animal.'),
+    '#description' => t('Select the mother animal. As you type, a dropdown of matching animal names will appear. Click on the one you want, and the field will be filled in with the name and asset ID (example: "Betsy [id: 123]"). The "[id: X]" portion is required.'),
     '#autocomplete_path' => 'farm_asset/autocomplete/animal',
     '#required' => TRUE,
   );
@@ -62,7 +62,7 @@ function farm_livestock_birth_form($form, &$form_state) {
   $form['birth']['father'] = array(
     '#type' => 'textfield',
     '#title' => t('Father'),
-    '#description' => t('Select the father animal (optional).'),
+    '#description' => t('Select the father animal (optional). See the mother field above for instructions.'),
     '#autocomplete_path' => 'farm_asset/autocomplete/animal',
   );
 
