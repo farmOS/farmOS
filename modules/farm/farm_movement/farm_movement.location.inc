@@ -753,18 +753,6 @@ function farm_movement_create($assets, $areas = array(), $timestamp = REQUEST_TI
   // Create a new farm log entity.
   $log = farm_log_create($log_type, $log_name, $timestamp, $done, $assets);
 
-  // Create an entity wrapper for the log.
-  $log_wrapper = entity_metadata_wrapper('log', $log);
-
-  // Create a new movement field_collection entity attached to the log.
-  if (!empty($areas)) {
-    $movement = entity_create('field_collection_item', array('field_name' => 'field_farm_movement'));
-    $movement->setHostEntity('log', $log);
-    foreach ($areas as $area) {
-      $log_wrapper->field_farm_movement->field_farm_move_to[] = $area;
-    }
-  }
-
   // Create a new movement field_collection entity attached to the log.
   $movement = entity_create('field_collection_item', array('field_name' => 'field_farm_movement'));
   $movement->setHostEntity('log', $log);
