@@ -35,6 +35,13 @@ function farm_log_entity_presave($entity, $type) {
  */
 function farm_log_action_info() {
   return array(
+    'farm_log_asset_action' => array(
+      'type' => 'farm_asset',
+      'label' => t('Add log'),
+      'configurable' => TRUE,
+      'triggers' => array('any'),
+      'aggregate' => TRUE,
+    ),
     'farm_log_assign_action' => array(
       'type' => 'log',
       'label' => t('Assign'),
@@ -42,6 +49,82 @@ function farm_log_action_info() {
       'triggers' => array('any'),
     ),
   );
+}
+
+/**
+ * Configuration form for farm_log_asset_action.
+ *
+ * @param array $context
+ *   The context passed into the action form function.
+ * @param array $form_state
+ *   The form state passed into the action form function.
+ *
+ * @return array
+ *   Returns a form array.
+ */
+function farm_log_asset_action_form(array $context, array $form_state) {
+
+  // Log type.
+  $log_types = log_types();
+  $log_type_options = array();
+  foreach ($log_types as $log_type => $info) {
+    $log_type_options[$log_type] = $info->label;
+  }
+  $form['log_type'] = array(
+    '#type' => 'select',
+    '#title' => t('Log type'),
+    '#description' => t('What type of log would you like to create?'),
+    '#options' => $log_type_options,
+    '#required' => TRUE,
+  );
+
+  // Return the form.
+  return $form;
+}
+
+/**
+ * Submit handler for farm_log_asset_action configuration form.
+ *
+ * @param array $form
+ *   The form array.
+ * @param array $form_state
+ *   The form state array.
+ *
+ * @return array
+ *   Returns an array that will end up in the action's context.
+ */
+function farm_log_asset_action_submit(array $form, array $form_state) {
+
+  // Start to build the context array.
+  $context = array();
+
+  // Add the log type to the context.
+  $context['log_type'] = $form_state['values']['log_type'];
+
+  // Return the context array.
+  return $context;
+}
+
+/**
+ * Action function for farm_log_asset_action.
+ *
+ * Sends the user to a new log form with the selected assets referenced.
+ *
+ * @param array $assets
+ *   An array of asset entities.
+ * @param array $context
+ *   Array with parameters for this action.
+ */
+function farm_log_asset_action(array $assets, $context = array()) {
+
+  // Redirect to the log creation form for the selected type, with the asset
+  // IDs passed as query parameters.
+  $options = array(
+    'query' => array(
+      'farm_asset' => array_keys($assets),
+    ),
+  );
+  drupal_goto('log/add/' . $context['log_type'], $options);
 }
 
 /**
