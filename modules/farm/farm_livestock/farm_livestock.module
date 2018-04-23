@@ -334,7 +334,7 @@ function farm_livestock_birth_log_sync($log) {
     // log, sync it.
     if ($child_wrapper->field_farm_date->value() != $log->timestamp) {
       $child_wrapper->field_farm_date->set($log->timestamp);
-      drupal_set_message(t('<a href="!asset_path">@asset_label</a>\'s date of birth has been updated to match their birth log.', array('!asset_path' => 'farm/asset/' . $child_wrapper->getIdentifier(), '@asset_label' => $child_wrapper->label())));
+      drupal_set_message(t('<a href="!asset_path">@asset_label</a>\'s date of birth has been updated to match their birth log.', array('!asset_path' => url('farm/asset/' . $child_wrapper->getIdentifier()), '@asset_label' => $child_wrapper->label())));
       $save = TRUE;
     }
 
@@ -354,9 +354,9 @@ function farm_livestock_birth_log_sync($log) {
       if (!$mother_exists) {
         $child_wrapper->field_farm_parent[] = $mother_id;
         $message_args = array(
-          '!mother_path' => 'farm/asset/' . $log_wrapper->field_farm_mother->getIdentifier(),
+          '!mother_path' => url('farm/asset/' . $log_wrapper->field_farm_mother->getIdentifier()),
           '@mother_label' => $log_wrapper->field_farm_mother->label(),
-          '!child_path' => 'farm/asset/' . $child_wrapper->getIdentifier(),
+          '!child_path' => url('farm/asset/' . $child_wrapper->getIdentifier()),
           '@child_label' => $child_wrapper->label(),
         );
         drupal_set_message(t('<a href="!mother_path">@mother_label</a> was added to <a href="!child_path">@child_label</a>\'s parents.', $message_args));
