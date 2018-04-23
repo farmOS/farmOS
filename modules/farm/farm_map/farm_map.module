@@ -224,9 +224,16 @@ function farm_map_geofield_populate(&$entity, $geoms = array()) {
     // Convert to a GeoPHP geometry object.
     $geometry = geoPHP::load($geom, 'wkt');
 
-    // If this is a geometry collection, then extract its components and add
-    // them individually to the array.
-    if ($geometry->geometryType() == 'GeometryCollection') {
+    // If this is a geometry collection, multi-point, multi-linestring, or
+    // multi-polygon, then extract its components and add them individually to
+    // the array.
+    $multigeometries = array(
+      'GeometryCollection',
+      'MultiPoint',
+      'MultiLineSting',
+      'MultiPolygon',
+    );
+    if (in_array($geometry->geometryType(), $multigeometries)) {
 
       // Iterate through the geometry components and add each to the array.
       $components = $geometry->getComponents();
