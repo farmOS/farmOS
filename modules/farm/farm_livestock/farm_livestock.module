@@ -289,6 +289,54 @@ function farm_livestock_entity_view_alter(&$build, $type) {
 }
 
 /**
+ * Implements hook_preprocess_field().
+ */
+function farm_livestock_preprocess_field(&$variables, $hook) {
+
+  // Only act on field_farm_date on animal assets.
+  $element = $variables['element'];
+  if (empty($element['#field_name']) || $element['#field_name'] != 'field_farm_date') {
+    return;
+  }
+  if (!($element['#entity_type'] == 'farm_asset' && $element['#bundle'] == 'animal')) {
+    return;
+  }
+
+  // If the field is blank, bail.
+  if (empty($element['#items'][0]['value']) || empty($variables['items'][0]['#markup'])) {
+    return;
+  }
+
+  // Get the asset ID.
+  if (empty($element['#object']->id)) {
+    return;
+  }
+  $asset_id = $element['#object']->id;
+
+  // Search for this asset's birth log.
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'log')
+    ->entityCondition('bundle', 'farm_birth')
+    ->fieldCondition('field_farm_asset', 'target_id', $asset_id);
+  $result = $query->execute();
+
+  // Load only the first log.
+  $log = NULL;
+  if (isset($result['log'])) {
+    $log_ids = array_keys($result['log']);
+    $log_id = reset($log_ids);
+    $log = log_load($log_id);
+  }
+
+  // If a log exists, link the birth date field to it.
+  if (!empty($log)) {
+    $birthdate = $variables['items'][0]['#markup'];
+    $log_uri = entity_uri('log', $log);
+    $variables['items'][0]['#markup'] = '<a href="' . url($log_uri['path']) . '">' . $birthdate . '</a>';
+  }
+}
+
+/**
  * Implements hook_entity_insert().
  */
 function farm_livestock_entity_insert($entity, $type) {
