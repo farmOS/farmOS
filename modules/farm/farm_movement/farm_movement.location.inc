@@ -736,21 +736,9 @@ function farm_movement_create($assets, $areas = array(), $timestamp = REQUEST_TI
 
   // If the log is an observation, set the name to:
   // "Current location: [area(s)]".
-  // If there are more than 3 areas, just list the first, and add "(+ X more)".
   $log_name = '';
   if ($log_type == 'farm_observation') {
-    $log_name = t('Current location') . ': ';
-    $area_names = array();
-    foreach ($areas as $area) {
-      $area_names[] = $area->name;
-    }
-    $count_areas = count($area_names);
-    if (count($area_names) <= 3) {
-      $log_name .= implode($area_names, ', ');
-    }
-    else {
-      $log_name .= $area_names[0] . ' (+' . ($count_areas - 1) . ' ' . t('more') . ')';
-    }
+    $log_name = t('Current location') . ': ' . farm_log_entity_label_summary('taxonomy_term', $areas);
   }
 
   // Create a new farm log entity.

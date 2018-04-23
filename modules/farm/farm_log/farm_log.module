@@ -635,3 +635,42 @@ function farm_log_create($type, $name = '', $timestamp = REQUEST_TIME, $done = T
   // Return the log.
   return $log;
 }
+
+/**
+ * Helper function for generating a summary of entity labels for use in a
+ * log name.
+ *
+ * @param string $entity_type
+ *   The entity type.
+ * @param Entity|array $entities
+ *   An entity or array of entities.
+ * @param int $cutoff
+ *   The number of entity labels to include before summarizing the rest.
+ *   If the number of entities exceeds the cutoff, only the first entity's
+ *   label will be included, and the rest will be summarized as "(+ X more)".
+ *   If the number of entities is less than or equal to the cutoff, or if the
+ *   cutoff is 0, all entity labels will be included.
+ *
+ * @return string
+ *   Returns a string summarizing the assets.
+ */
+function farm_log_entity_label_summary($entity_type, $entities, $cutoff = 3) {
+  $labels = array();
+  if (!is_array($entities)) {
+    $entities = array($entities);
+  }
+  foreach ($entities as $entity) {
+    $label = entity_label($entity_type, $entity);
+    if (!empty($label)) {
+      $labels[] = $label;
+    }
+  }
+  $count = count($labels);
+  if ($cutoff == 0 || count($labels) <= $cutoff) {
+    $output = implode($labels, ', ');
+  }
+  else {
+    $output = $labels[0] . ' (+' . ($count - 1) . ' ' . t('more') . ')';
+  }
+  return $output;
+}
