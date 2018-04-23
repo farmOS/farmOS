@@ -122,6 +122,18 @@ function farm_livestock_birth_form($form, &$form_state) {
       ),
     );
 
+    // Birth weight.
+    $form['birth']['child'][$i]['weight'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Birth weight'),
+      '#element_validate' => array('element_validate_number'),
+    );
+    $form['birth']['child'][$i]['units'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Weight units'),
+      '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_quantity_units',
+    );
+
     // Animal description.
     $form['birth']['child'][$i]['description'] = array(
       '#type' => 'text_format',
@@ -307,6 +319,11 @@ function farm_livestock_birth_form_submit($form, &$form_state) {
     $label = entity_label('farm_asset', $child_asset);
     $uri = entity_uri('farm_asset', $child_asset);
     drupal_set_message('Child animal created: ' . l($label, $uri['path']));
+
+    // If the animal's weight was specified, create a weight measurement log.
+    if (!empty($child['weight'])) {
+      farm_livestock_weight_set($child_asset, $child['weight'], $child['units'], $timestamp);
+    }
   }
 
   // Create a birth log. Leave the name blank so that it is auto-generated.
