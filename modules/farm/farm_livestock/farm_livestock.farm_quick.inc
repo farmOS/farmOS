@@ -393,6 +393,10 @@ function farm_livestock_birth_form_submit($form, &$form_state) {
   $label = entity_label('farm_asset', $parents['mother']);
   $uri = entity_uri('farm_asset', $parents['mother']);
   drupal_set_message("View the mother's animal record: " . l($label, $uri['path']));
+
+  // Add the children to $form_state['storage'] so that other submit functions
+  // can work with them.
+  $form_state['storage']['children'] = $children;
 }
 
 /**
