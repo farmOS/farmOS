@@ -103,7 +103,7 @@ function farm_livestock_birth_form($form, &$form_state) {
     $form['birth']['child'][$i]['name'] = array(
       '#type' => 'textfield',
       '#title' => t('Name'),
-      '#required' => TRUE,
+      '#description' => t('Give the animal a name (and/or tag ID below). If the name is left blank, then it will be copied from the tag ID.'),
     );
 
     // Tag ID.
@@ -223,6 +223,15 @@ function farm_livestock_birth_form_validate($form, &$form_state) {
       form_set_error('birth][father', t('The mother and father cannot be the same animal.'));
     }
   }
+
+  // Iterate through the children.
+  foreach ($form_state['values']['birth']['child'] as $i => $child) {
+
+    // Make sure that either the name or tag ID is filled in.
+    if (empty($child['name']) && empty($child['tag_id'])) {
+      form_set_error('birth][child][' . $i . '][name', t('The child must have a name or tag ID.'));
+    }
+  }
 }
 
 /**
@@ -248,6 +257,11 @@ function farm_livestock_birth_form_submit($form, &$form_state) {
   // Iterate through the children, and build an array of their asset records.
   $children = array();
   foreach ($form_state['values']['birth']['child'] as $child) {
+
+    // If the name is not set, but tag ID is, copy the tag ID to the name.
+    if (empty($child['name']) && !empty($child['tag_id'])) {
+      $child['name'] = $child['tag_id'];
+    }
 
     // Create a new animal asset.
     $values = array(
