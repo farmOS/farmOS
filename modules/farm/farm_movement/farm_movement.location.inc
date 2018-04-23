@@ -736,12 +736,19 @@ function farm_movement_create($assets, $areas = array(), $timestamp = REQUEST_TI
 
   // If the log is an observation, set the name to:
   // "[assets] are located in [areas]".
+  // If the log is an activity, set the name to:
+  // "Move [assets] to [areas]".
   $log_name = '';
+  $assets_summary = farm_log_entity_label_summary('farm_asset', $assets);
+  $areas_summary = farm_log_entity_label_summary('taxonomy_term', $areas);
+  $arguments = array('!assets' => $assets_summary, '!areas' => $areas_summary);
   if ($log_type == 'farm_observation') {
-    $assets_summary = farm_log_entity_label_summary('farm_asset', $assets);
-    $areas_summary = farm_log_entity_label_summary('taxonomy_term', $areas);
-    $log_name = t('!assets are located in !areas', array('!assets' => $assets_summary, '!areas' => $areas_summary));
+    $log_name = t('!assets are located in !areas', $arguments);
   }
+  elseif ($log_type == 'farm_activity') {
+    $log_name = t('Move !assets to !areas', $arguments);
+  }
+
 
   // Create a new farm log entity.
   $log = farm_log_create($log_type, $log_name, $timestamp, $done, $assets);
