@@ -735,10 +735,12 @@ function farm_movement_create($assets, $areas = array(), $timestamp = REQUEST_TI
   }
 
   // If the log is an observation, set the name to:
-  // "Current location: [area(s)]".
+  // "[assets] are located in [areas]".
   $log_name = '';
   if ($log_type == 'farm_observation') {
-    $log_name = t('Current location') . ': ' . farm_log_entity_label_summary('taxonomy_term', $areas);
+    $assets_summary = farm_log_entity_label_summary('farm_asset', $assets);
+    $areas_summary = farm_log_entity_label_summary('taxonomy_term', $areas);
+    $log_name = t('!assets are located in !areas', array('!assets' => $assets_summary, '!areas' => $areas_summary));
   }
 
   // Create a new farm log entity.

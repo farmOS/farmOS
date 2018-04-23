@@ -891,10 +891,12 @@ function farm_group_membership_set($assets, $groups = array(), $timestamp = REQU
   }
 
   // If the log is an observation, set the name to:
-  // "Group membership: [group(s)]".
+  // "Group [assets] into [groups]".
   $log_name = '';
   if ($log_type == 'farm_observation') {
-    $log_name = t('Group membership') . ': ' . farm_log_entity_label_summary('farm_asset', $groups);
+    $assets_summary = farm_log_entity_label_summary('farm_asset', $assets);
+    $groups_summary = farm_log_entity_label_summary('farm_asset', $groups);
+    $log_name = t('Group !assets into !groups', array('!assets' => $assets_summary, '!groups' => $groups_summary));
   }
 
   // Create a new farm log entity.
