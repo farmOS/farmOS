@@ -465,6 +465,18 @@ function farm_livestock_asset_form_submit(array $form, array &$form_state) {
 }
 
 /**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function farm_livestock_form_log_form_alter(&$form, &$form_state, $form_id) {
+
+  // If this is a new birth log form, display a link to the birth quick form
+  // for convenience.
+  if (!empty($form['log']['#value']->is_new) && $form['log']['#value']->type == 'farm_birth') {
+    drupal_set_message(t('Tip: Use the <a href="@path">Birth Quick Form</a> to quickly record animal births and create child animal records at the same time.', array('@path' => url('farm/quick/birth'))));
+  }
+}
+
+/**
  * Implements hook_action_info().
  */
 function farm_livestock_action_info() {
