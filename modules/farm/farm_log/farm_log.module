@@ -64,12 +64,26 @@ function farm_log_action_info() {
  */
 function farm_log_asset_action_form(array $context, array $form_state) {
 
-  // Log type.
+  // Load a list of all available log types.
   $log_types = log_types();
+
+  // Get information about field instances on logs.
+  $field_instances = field_info_instances('log');
+
+  // Build a list of log type options.
   $log_type_options = array();
   foreach ($log_types as $log_type => $info) {
+
+    // If this log type does not have field_farm_asset, skip it.
+    if (empty($field_instances[$log_type]['field_farm_asset'])) {
+      continue;
+    }
+
+    // Add the log type to the list of options.
     $log_type_options[$log_type] = $info->label;
   }
+
+  // Log type select list.
   $form['log_type'] = array(
     '#type' => 'select',
     '#title' => t('Log type'),
