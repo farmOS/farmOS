@@ -816,11 +816,7 @@ function farm_livestock_field_default_field_instances() {
   // Exported field_instance: 'log-farm_birth-field_farm_log_category'.
   $field_instances['log-farm_birth-field_farm_log_category'] = array(
     'bundle' => 'farm_birth',
-    'default_value' => array(
-      0 => array(
-        'tid' => 5,
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => 'Use this to organize your logs into categories for easier searching and filtering later.',
     'display' => array(
