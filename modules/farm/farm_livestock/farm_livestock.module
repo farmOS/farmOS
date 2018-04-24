@@ -560,25 +560,28 @@ function farm_livestock_birth_log_form_validate(array $form, array &$form_state)
     }
   }
 
-  // Perform an entity field query to see if any birth logs already reference
-  // the assets.
-  $query = new EntityFieldQuery();
-  $query->entityCondition('entity_type', 'log')
-    ->entityCondition('bundle', 'farm_birth')
-    ->propertyCondition('id', $log_id, '!=')
-    ->fieldCondition('field_farm_asset', 'target_id', $asset_ids);
-  $result = $query->execute();
-  if (isset($result['log'])) {
-    $log_ids = array_keys($result['log']);
-    $logs = entity_load('log', $log_ids);
-  }
+  // If there are assets, look up birth logs that reference them.
+  if (!empty($asset_ids)) {
 
-  // If matching logs were found, set form error(s).
-  if (!empty($logs)) {
-    foreach ($logs as $log) {
-      $log_label = entity_label('log', $log);
-      $log_uri = entity_uri('log', $log);
-      form_set_error('field_farm_asset', t('The existing birth log <a href="@log_path">%log_name</a> already references one or more of the children. More than one birth log cannot reference the same child.', array('%child_name' => '', '@log_path' => url($log_uri['path']), '%log_name' => $log_label)));
+    // Perform an entity field query to find logs that reference the assets.
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'log')
+      ->entityCondition('bundle', 'farm_birth')
+      ->propertyCondition('id', $log_id, '!=')
+      ->fieldCondition('field_farm_asset', 'target_id', $asset_ids);
+    $result = $query->execute();
+    if (isset($result['log'])) {
+      $log_ids = array_keys($result['log']);
+      $logs = entity_load('log', $log_ids);
+    }
+
+    // If matching logs were found, set form error(s).
+    if (!empty($logs)) {
+      foreach ($logs as $log) {
+        $log_label = entity_label('log', $log);
+        $log_uri = entity_uri('log', $log);
+        form_set_error('field_farm_asset', t('The existing birth log <a href="@log_path">%log_name</a> already references one or more of the children. More than one birth log cannot reference the same child.', array('%child_name' => '', '@log_path' => url($log_uri['path']), '%log_name' => $log_label)));
+      }
     }
   }
 }
