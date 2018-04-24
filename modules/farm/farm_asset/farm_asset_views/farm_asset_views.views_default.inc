@@ -43,6 +43,7 @@ function farm_asset_views_views_default_views() {
   $handler->display->display_options['style_options']['columns'] = array(
     'views_bulk_operations' => 'views_bulk_operations',
     'id' => 'id',
+    'field_farm_images' => 'field_farm_images',
     'name' => 'name',
     'type' => 'type',
     'field_farm_flags' => 'field_farm_flags',
@@ -60,6 +61,11 @@ function farm_asset_views_views_default_views() {
     'id' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_images' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -194,6 +200,19 @@ function farm_asset_views_views_default_views() {
   $handler->display->display_options['fields']['id']['field'] = 'id';
   $handler->display->display_options['fields']['id']['label'] = 'Asset ID';
   $handler->display->display_options['fields']['id']['separator'] = '';
+  /* Field: Field: Photos */
+  $handler->display->display_options['fields']['field_farm_images']['id'] = 'field_farm_images';
+  $handler->display->display_options['fields']['field_farm_images']['table'] = 'field_data_field_farm_images';
+  $handler->display->display_options['fields']['field_farm_images']['field'] = 'field_farm_images';
+  $handler->display->display_options['fields']['field_farm_images']['label'] = '';
+  $handler->display->display_options['fields']['field_farm_images']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_farm_images']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_farm_images']['settings'] = array(
+    'image_style' => 'thumbnail',
+    'image_link' => 'content',
+  );
+  $handler->display->display_options['fields']['field_farm_images']['delta_limit'] = '1';
+  $handler->display->display_options['fields']['field_farm_images']['delta_offset'] = '0';
   /* Field: Farm asset: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
   $handler->display->display_options['fields']['name']['table'] = 'farm_asset';
