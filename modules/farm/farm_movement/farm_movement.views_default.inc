@@ -693,19 +693,6 @@ function farm_movement_views_default_views() {
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['specify_validation'] = TRUE;
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['validate']['type'] = 'farm_asset';
-  /* Filter criterion: Field collection item: Movement to (field_farm_move_to) */
-  $handler->display->display_options['filters']['field_farm_move_to_tid']['id'] = 'field_farm_move_to_tid';
-  $handler->display->display_options['filters']['field_farm_move_to_tid']['table'] = 'field_data_field_farm_move_to';
-  $handler->display->display_options['filters']['field_farm_move_to_tid']['field'] = 'field_farm_move_to_tid';
-  $handler->display->display_options['filters']['field_farm_move_to_tid']['relationship'] = 'field_farm_movement_value';
-  $handler->display->display_options['filters']['field_farm_move_to_tid']['value'] = '';
-  $handler->display->display_options['filters']['field_farm_move_to_tid']['group'] = 1;
-  $handler->display->display_options['filters']['field_farm_move_to_tid']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['operator_id'] = 'field_farm_move_to_tid_op';
-  $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['label'] = 'Area';
-  $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['operator'] = 'field_farm_move_to_tid_op';
-  $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['identifier'] = 'field_farm_move_to_tid';
-  $handler->display->display_options['filters']['field_farm_move_to_tid']['vocabulary'] = 'farm_areas';
   /* Filter criterion: Log: Name */
   $handler->display->display_options['filters']['name']['id'] = 'name';
   $handler->display->display_options['filters']['name']['table'] = 'log';
@@ -717,6 +704,21 @@ function farm_movement_views_default_views() {
   $handler->display->display_options['filters']['name']['expose']['label'] = 'Log name';
   $handler->display->display_options['filters']['name']['expose']['operator'] = 'name_op';
   $handler->display->display_options['filters']['name']['expose']['identifier'] = 'name';
+  /* Filter criterion: Field collection item: Movement to (field_farm_move_to) */
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['id'] = 'field_farm_move_to_tid';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['table'] = 'field_data_field_farm_move_to';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['field'] = 'field_farm_move_to_tid';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['relationship'] = 'field_farm_movement_value';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['group'] = 1;
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['operator_id'] = 'field_farm_move_to_tid_op';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['label'] = 'Movement to';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['operator'] = 'field_farm_move_to_tid_op';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['identifier'] = 'field_farm_move_to_tid';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['vocabulary'] = 'farm_areas';
+  $handler->display->display_options['filters']['field_farm_move_to_tid']['hierarchy'] = 1;
   /* Filter criterion: Log: Log type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'log';
@@ -861,7 +863,6 @@ function farm_movement_views_default_views() {
     t('Assigned to'),
     t('All'),
     t('%1\'s movements'),
-    t('Area'),
     t('Start date'),
     t('End date'),
     t('Page'),
