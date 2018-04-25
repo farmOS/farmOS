@@ -146,6 +146,14 @@ function farm_area_import_form($form, &$form_state) {
     );
   }
 
+  // Parent area name (for optionally creating a new parent area for all the
+  // newly created areas).
+  $form['output']['parent'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Optional parent area'),
+    '#description' => t('If a name is entered here, it will be used to create a new parent area, and all geometries above will be added as child areas of it. This is helpful if you are importing a lot of areas, and want to keep them all organized upon import.')
+  );
+
   // Submit button.
   $form['output']['submit'] = array(
     '#type' => 'submit',
@@ -213,6 +221,23 @@ function farm_area_import_form_create_submit(&$form, &$form_state) {
   // Load the Areas vocabulary.
   $vocab = taxonomy_vocabulary_machine_name_load('farm_areas');
 
+  // If a parent area name was provided, create it and remember it's ID.
+  $parent_tid = 0;
+  if (!empty($form_state['values']['output']['parent'])) {
+    $parent_area = new stdClass();
+    $parent_area->name = $form_state['values']['output']['parent'];
+    $parent_area->vid = $vocab->vid;
+    taxonomy_term_save($parent_area);
+    if (!empty($parent_area->tid)) {
+      $parent_tid = $parent_area->tid;
+    }
+
+    // Display a message with a link to the new area.
+    $area_label = entity_label('taxonomy_term', $parent_area);
+    $area_uri = entity_uri('taxonomy_term', $parent_area);
+    drupal_set_message(t('Area created: <a href="@path">@label</a>', array('@path' => url($area_uri['path']), '@label' => $area_label)));
+  }
+
   // Iterate through the submitted values.
   foreach ($form_state['values']['output'] as $values) {
 
@@ -226,6 +251,7 @@ function farm_area_import_form_create_submit(&$form, &$form_state) {
     $area->name = $values['name'];
     $area->description = $values['description'];
     $area->vid = $vocab->vid;
+    $area->parent = $parent_tid;
     $area->field_farm_area_type[LANGUAGE_NONE][0]['value'] = $values['type'];
     $area->field_farm_geofield[LANGUAGE_NONE][0]['geom'] = $values['geometry'];
     taxonomy_term_save($area);
