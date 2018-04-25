@@ -263,19 +263,24 @@ function farm_area_import_parse_kml_geometries($kml) {
     $root = $xml->Document;
   }
 
-  // Iterate through KML Folders.
-  $folders = $root->Folder;
-  foreach ($folders as $folder) {
+  // If the KML file is organized into folders, iterate through them.
+  if (isset($root->Folder)) {
+    $folders = $folders = $root->Folder;
+    foreach ($folders as $folder) {
 
-    // Iterate through KML Placemarks.
-    $placemarks = $folder->Placemark;
+      // Iterate through the KML Placemarks and parse their geometry info.
+      $placemarks = $folder->Placemark;
+      foreach ($placemarks as $placemark) {
+        $geometries[] = farm_area_import_parse_kml_placemark($placemark);
+      }
+    }
+  }
+
+  // Or, just iterate through the KML placemarks and parse their geometry info.
+  else {
+    $placemarks = $root->Placemark;
     foreach ($placemarks as $placemark) {
-
-      // Parse the geometry information from the Placemark.
-      $geometry = farm_area_import_parse_kml_placemark($placemark);
-
-      // Add it to the geometries array.
-      $geometries[] = $geometry;
+      $geometries[] = farm_area_import_parse_kml_placemark($placemark);
     }
   }
 
