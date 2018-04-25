@@ -92,12 +92,13 @@ function farm_area_import_form($form, &$form_state) {
     return $form;
   }
 
+  // Parse the KML into an array of geometries.
+  $geometries = farm_area_import_parse_kml_geometries($form_state['values']['kml']);
+
   // Make the output wrapper into a fieldset.
   $form['output']['#type'] = 'fieldset';
   $form['output']['#title'] = t('Output');
-
-  // Parse the KML into an array of geometries.
-  $geometries = farm_area_import_parse_kml_geometries($form_state['values']['kml']);
+  $form['output']['#description'] = t('Total geometries: @number', array('@number' => count($geometries)));
 
   // Iterate through the geometries and add form fields for each.
   foreach ($geometries as $i => $geometry) {
