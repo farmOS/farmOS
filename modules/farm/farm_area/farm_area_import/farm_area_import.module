@@ -92,89 +92,68 @@ function farm_area_import_form($form, &$form_state) {
     return $form;
   }
 
+  // Parse the KML into an array of geometries.
+  $geometries = farm_area_import_parse_kml_geometries($form_state['values']['kml']);
+
   // Make the output wrapper into a fieldset.
   $form['output']['#type'] = 'fieldset';
   $form['output']['#title'] = t('Output');
+  $form['output']['#description'] = t('Total geometries: @number', array('@number' => count($geometries)));
 
-  // Load the GeoPHP library.
-  geophp_load();
+  // Iterate through the geometries and add form fields for each.
+  foreach ($geometries as $i => $geometry) {
 
-  // Parse the KML.
-  $kml = simplexml_load_string($form_state['values']['kml']);
+    // Create a simple fieldset for the geometry.
+    $form['output'][$i] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Geometry') . ' ' . ($i + 1),
+    );
 
-  // Maintain an iterator for the geometries.
-  $g = 0;
+    // Get the placemark name and put it in a text field.
+    $form['output'][$i]['name'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Name'),
+      '#default_value' => $geometry['name'],
+    );
 
-  // Determine the root element. Sometimes it is "Document".
-  $root = $kml;
-  if (isset($kml->Document)) {
-    $root = $kml->Document;
+    // Area type select.
+    $form['output'][$i]['type'] = array(
+      '#type' => 'select',
+      '#title' => t('Area type'),
+      '#options' => farm_area_type_options(),
+      '#default_value' => 'field',
+    );
+
+    // Get the placemark description and put it in a text field.
+    $form['output'][$i]['description'] = array(
+      '#type' => 'textarea',
+      '#title' => t('Description'),
+      '#default_value' => $geometry['description'],
+    );
+
+    // Add a text area for the geometry data.
+    $form['output'][$i]['geometry'] = array(
+      '#type' => 'textarea',
+      '#title' => t('Geometry'),
+      '#default_value' => $geometry['wkt'],
+    );
+
+    // Checkbox for creating the area.
+    $form['output'][$i]['confirm'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Create this area'),
+      '#description' => t('Uncheck this if you do not want to create this area in farmOS.'),
+      '#default_value' => TRUE,
+    );
   }
 
-  // Iterate through KML Folders.
-  $folders = $root->Folder;
-  foreach ($folders as $folder) {
-
-    // Iterate through KML Placemarks.
-    $placemarks = $folder->Placemark;
-    foreach ($placemarks as $placemark) {
-
-      // Create a simple fieldset for the geometry.
-      $form['output'][$g] = array(
-        '#type' => 'fieldset',
-        '#title' => t('Geometry') . ' ' . ($g + 1),
-      );
-
-      // Get the placemark name and put it in a text field.
-      $name = (string) $placemark->name;
-      $form['output'][$g]['name'] = array(
-        '#type' => 'textfield',
-        '#title' => t('Name'),
-        '#default_value' => $name,
-      );
-
-      // Area type select.
-      $form['output'][$g]['type'] = array(
-        '#type' => 'select',
-        '#title' => t('Area type'),
-        '#options' => farm_area_type_options(),
-        '#default_value' => 'field',
-      );
-
-      // Get the placemark description and put it in a text field.
-      $description = (string) $placemark->description;
-      $form['output'][$g]['description'] = array(
-        '#type' => 'textarea',
-        '#title' => t('Description'),
-        '#default_value' => $description,
-      );
-
-      // Parse the placemark into a GeoPHP geometry object.
-      $xml = $placemark->asXML();
-      $geom = geoPHP::load($xml, 'kml');
-
-      // Convert the geometry to WKT.
-      $wkt = $geom->out('wkt');
-
-      // Add a text area for the geometry data.
-      $form['output'][$g]['geometry'] = array(
-        '#type' => 'textarea',
-        '#title' => t('Geometry'),
-        '#default_value' => $wkt,
-      );
-
-      // Checkbox for creating the area.
-      $form['output'][$g]['confirm'] = array(
-        '#type' => 'checkbox',
-        '#title' => t('Create this area'),
-        '#description' => t('Uncheck this if you do not want to create this area in farmOS.'),
-        '#default_value' => TRUE,
-      );
-
-      // Increment the geometry iterator.
-      $g++;
-    }
-  }
+  // Parent area name (for optionally creating a new parent area for all the
+  // newly created areas).
+  $form['output']['parent'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Optional parent area'),
+    '#description' => t('If a name is entered here, it will be used to create a new parent area, and all geometries above will be added as child areas of it. This is helpful if you are importing a lot of areas, and want to keep them all organized upon import.')
+  );
 
   // Submit button.
   $form['output']['submit'] = array(
@@ -243,6 +222,23 @@ function farm_area_import_form_create_submit(&$form, &$form_state) {
   // Load the Areas vocabulary.
   $vocab = taxonomy_vocabulary_machine_name_load('farm_areas');
 
+  // If a parent area name was provided, create it and remember it's ID.
+  $parent_tid = 0;
+  if (!empty($form_state['values']['output']['parent'])) {
+    $parent_area = new stdClass();
+    $parent_area->name = $form_state['values']['output']['parent'];
+    $parent_area->vid = $vocab->vid;
+    taxonomy_term_save($parent_area);
+    if (!empty($parent_area->tid)) {
+      $parent_tid = $parent_area->tid;
+    }
+
+    // Display a message with a link to the new area.
+    $area_label = entity_label('taxonomy_term', $parent_area);
+    $area_uri = entity_uri('taxonomy_term', $parent_area);
+    drupal_set_message(t('Area created: <a href="@path">@label</a>', array('@path' => url($area_uri['path']), '@label' => $area_label)));
+  }
+
   // Iterate through the submitted values.
   foreach ($form_state['values']['output'] as $values) {
 
@@ -256,6 +252,7 @@ function farm_area_import_form_create_submit(&$form, &$form_state) {
     $area->name = $values['name'];
     $area->description = $values['description'];
     $area->vid = $vocab->vid;
+    $area->parent = $parent_tid;
     $area->field_farm_area_type[LANGUAGE_NONE][0]['value'] = $values['type'];
     $area->field_farm_geofield[LANGUAGE_NONE][0]['geom'] = $values['geometry'];
     taxonomy_term_save($area);
@@ -265,4 +262,85 @@ function farm_area_import_form_create_submit(&$form, &$form_state) {
     $area_uri = entity_uri('taxonomy_term', $area);
     drupal_set_message(t('Area created: <a href="@path">@label</a>', array('@path' => url($area_uri['path']), '@label' => $area_label)));
   }
+}
+
+/**
+ * Helper function for converting KML to a set of geometries.
+ *
+ * @param string $kml
+ *   The KML string to parse.
+ *
+ * @return array
+ *   Returns an array of geometries, with name, description, and WKT for each.
+ */
+function farm_area_import_parse_kml_geometries($kml) {
+
+  // Start an array to hold the geometries.
+  $geometries = array();
+
+  // Load the GeoPHP library.
+  geophp_load();
+
+  // Parse the KML into an XML object.
+  $xml = simplexml_load_string($kml);
+
+  // Determine the root element. Sometimes it is "Document".
+  $root = $xml;
+  if (isset($xml->Document)) {
+    $root = $xml->Document;
+  }
+
+  // If the KML file is organized into folders, iterate through them.
+  if (isset($root->Folder)) {
+    $folders = $folders = $root->Folder;
+    foreach ($folders as $folder) {
+
+      // Iterate through the KML Placemarks and parse their geometry info.
+      $placemarks = $folder->Placemark;
+      foreach ($placemarks as $placemark) {
+        $geometries[] = farm_area_import_parse_kml_placemark($placemark);
+      }
+    }
+  }
+
+  // Or, just iterate through the KML placemarks and parse their geometry info.
+  else {
+    $placemarks = $root->Placemark;
+    foreach ($placemarks as $placemark) {
+      $geometries[] = farm_area_import_parse_kml_placemark($placemark);
+    }
+  }
+
+  // Return the geometries.
+  return $geometries;
+}
+
+/**
+ * @param $placemark
+ *   A SimpleXML Placemark object.
+ *
+ * @return array
+ *   Returns information about the placemark, including name, description, and
+ *   geometry in Well-Known Text (WKT).
+ */
+function farm_area_import_parse_kml_placemark($placemark) {
+
+  // Start a new array for the geometry info.
+  $geometry = array();
+
+  // Get the placemark name as a string.
+  $geometry['name'] = (string) $placemark->name;
+
+  // Get the placemark description as a string.
+  $geometry['description'] = (string) $placemark->description;
+
+  // Parse the placemark into a GeoPHP geometry object.
+  $placemark_xml = $placemark->asXML();
+  $geophp_geometry = geoPHP::load($placemark_xml, 'kml');
+
+  // Convert the geometry to WKT.
+  $geometry['wkt'] = $geophp_geometry->out('wkt');
+
+  // Return the geometry.
+  return $geometry;
 }
