@@ -12,7 +12,7 @@ function farm_help_help($path, $args) {
 
     // Help for the /farm/help path.
     case 'farm/help':
-      return '<p>' . t('This page contains links to helpful farmOS resources. For more information, visit <a href="http://farmOS.org">farmOS.org</a>.') . '</p>';
+      return '<p>' . t('This page contains links to helpful farmOS resources. For more information, visit <a href="https://farmOS.org">farmOS.org</a>.') . '</p>';
   }
 }
 
@@ -78,12 +78,12 @@ function farm_help_farm_help_page() {
   $output = array();
 
   // Add general text.
-  $output[] = '<p>' . l('farmOS', 'http://farmos.org') . ' is built and maintained
+  $output[] = '<p>' . l('farmOS', 'https://farmos.org') . ' is built and maintained
   by a community of volunteers. Some farmOS community resources are listed
   below.</p>';
 
   // Add a link to the farmOS documentation.
-  $output[] = '<h3>Documentation</h3><p>' . l('http://farmOS.org', 'http://farmOS.org') . '</h3>';
+  $output[] = '<h3>Documentation</h3><p>' . l('https://farmOS.org', 'https://farmOS.org') . '</h3>';
 
   // Add a link to the farmOS chat rooms.
   $chat_rooms = array(

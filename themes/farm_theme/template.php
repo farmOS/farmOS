@@ -421,7 +421,7 @@ function farm_theme_preprocess_page(&$vars) {
   $vars['page']['footer']['farmos'] = array(
     '#type' => 'markup',
     '#prefix' => '<div style="text-align: center;"><small>',
-    '#markup' => t('Powered by') . ' ' . l(t('farmOS'), 'http://farmos.org'),
+    '#markup' => t('Powered by') . ' ' . l(t('farmOS'), 'https://farmos.org'),
     '#suffix' => '</small></div>',
   );
 }

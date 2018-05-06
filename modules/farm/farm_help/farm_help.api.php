@@ -31,7 +31,7 @@ function hook_farm_help_page() {
 
   // Add a link to farmOS.rog
   $output = array(
-    l('farmOS.org', 'http://farmos.org'),
+    l('farmOS.org', 'https://farmos.org'),
   );
   return $output;
 }

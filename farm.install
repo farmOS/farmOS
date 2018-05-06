@@ -99,7 +99,7 @@ function farm_install_configure_form($form, &$form_state) {
   $form['farm_map_google_api_key'] = array(
     '#type' => 'textfield',
     '#title' => t('Google Maps API Key'),
-    '#description' => t('Google Maps layers require that you obtain an API key. Refer to the <a href="@doc">Google Maps API Key</a> documentation on farmOS.org for instructions.', array('@doc' => 'http://farmos.org/hosting/googlemaps')) . ' ' . t('This can also be done after installation. If no key is provided, OpenStreetMaps will be used as the default map base layer.'),
+    '#description' => t('Google Maps layers require that you obtain an API key. Refer to the <a href="@doc">Google Maps API Key</a> documentation on farmOS.org for instructions.', array('@doc' => 'https://farmos.org/hosting/googlemaps')) . ' ' . t('This can also be done after installation. If no key is provided, OpenStreetMaps will be used as the default map base layer.'),
     '#default_value' => variable_get('farm_map_google_api_key', ''),
   );
 

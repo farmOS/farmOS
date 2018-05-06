@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev libpq-dev \
   && docker-php-ext-install bcmath gd mbstring opcache pdo pdo_mysql pdo_pgsql zip
 
 # Set recommended PHP settings for farmOS.
-# See http://farmos.org/hosting/installing/#requirements
+# See https://farmos.org/hosting/installing/#requirements
 RUN { \
     echo 'memory_limit=256M'; \
     echo 'max_execution_time=240'; \

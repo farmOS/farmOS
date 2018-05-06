@@ -1,7 +1,7 @@
 farmOS
 ======
 
-Documentation: http://farmOS.org
+Documentation: https://farmOS.org
 
 Drupal distribution: http://drupal.org/project/farm
 
@@ -21,7 +21,7 @@ INSTALLATION
 For more information on installing farmOS, see the official documentation on
 farmOS.org:
 
-http://farmOS.org/hosting/installing
+https://farmOS.org/hosting/installing
 
 MAINTAINERS
 -----------
