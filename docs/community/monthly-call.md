@@ -24,7 +24,7 @@ March 14th @ 1pm EDT / 5pm UTC
 
 April 11th @ 1pm EDT / 5pm UTC
 
-May 9th @ 1pm EDT / 5pm UTC
+<strike>May 9th @ 1pm EDT / 5pm UTC</strike> ([GOAT Conference](http://goatech.org/conference))
 
 June 13th @ 1pm EDT / 5pm UTC
 
