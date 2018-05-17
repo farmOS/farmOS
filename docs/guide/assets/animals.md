@@ -53,11 +53,21 @@ great way to manage grazing records as you move animals from paddock to
 paddock. For more general information on moving assets in farmOS, read the page
 on [movements and location].
 
-## Medical records
+## Animal logs
 
 In addition to the standard [log types] that all farmOS assets share
 (activities, observations, inputs, and harvests), the livestock module provides
-an additional log type that is specific to animals: medical records.
+two additional log types that are specific to animals:
+
+**Birth** logs can be used to record the birth of one or more animals on the
+farm. Birth logs can optionally reference the mother animal, and when they are
+saved they will automatically update the "Parents" and "Date of birth" fields
+on all referenced child animals. You can view a list of a mother's birth logs
+from her page, as well as add new ones. The "Date of birth" field on animal
+records will automatically link back to their birth log (if one exists). The
+child animal asset records must be created before the birth log, so that they
+can be referenced, but the livestock module also provides a "Birth"
+[quick form] that will create the children and birth log all in one step.
 
 **Medical** logs can be used to record animal health records. This can be a
 veterinary visit, administering medicine/vaccinations, or other medical
@@ -70,4 +80,5 @@ serious events/procedures.
 [movement logs]: /guide/location
 [movements and location]: /guide/location
 [inventory]: /guide/inventory
+[quick form]: /guide/quick
 
