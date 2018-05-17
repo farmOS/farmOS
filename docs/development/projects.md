@@ -72,6 +72,8 @@ These modules are included directly in the farmOS distribution repository:
 * **Farm Movement** - Provides movement field and related asset location code.
 * **Farm People** - A view of people associated with the farm.
 * **Farm Plan** - A farm plan entity type.
+* **Farm Plan Consideration** - Provides features for managing considerations
+  within a farm plan.
 * **Farm Quantity** - Provides a framework for dealing with quantities.
 * **Farm Quantity Log** - Provides helper functions for querying logs with quantity data.
 * **Farm Quantity Report** - Generate reports of quantity measurements.
