@@ -96,6 +96,8 @@ added to extend your farmOS functionality:
 * **[Farm Bee](https://github.com/farmOS/farm_bee)** - Features for beekeeping.
 * **[Farm Eggs](https://github.com/farmOS/farm_eggs)** - Provides a simple UI
   for creating egg harvest logs.
+* **[Farm Grazing](https://github.com/farmOS/farm_grazing)** - Provides a simple UI
+  for creating egg harvest logs.
 * **[Farm Maple](https://github.com/farmOS/farm_maple)** - Features for
   management of maple tapping and production.
 * **[Farm Map: Finland](https://github.com/rkioski/farm_map_fi)** - Finnish map
@@ -106,6 +108,8 @@ added to extend your farmOS functionality:
   managing mushroom production.
 * **[FarmOS NWS](https://github.com/bitsecondal/farmosnws)** - Imports data
   from the National Weather Service into Drupal for use by farmOS.
+* **[Farm Organic](https://github.com/farmOS/farm_organic)** - Provides flags
+  for marking records as "Organic" and "Not Organic" in farmOS.
 * **[Farm Produce Safety](https://github.com/farmOS/farm_produce_safety)** -
   A produce safety record keeping module for farmOS.
 * **[Farm Sensor: Atmospi](https://github.com/mstenta/farm_sensor_atmospi)** -
