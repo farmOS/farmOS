@@ -93,16 +93,16 @@ These modules are included directly in the farmOS distribution repository:
 These modules aren't included with the farmOS distribution, but they can be
 added to extend your farmOS functionality:
 
-* **[Farm Bee](https://drupal.org/project/farm_bee)** - Features for beekeeping.
-* **[Farm Eggs](https://drupal.org/project/farm_eggs)** - Provides a simple UI
+* **[Farm Bee](https://github.com/farmOS/farm_bee)** - Features for beekeeping.
+* **[Farm Eggs](https://github.com/farmOS/farm_eggs)** - Provides a simple UI
   for creating egg harvest logs.
-* **[Farm Maple](https://drupal.org/project/farm_maple)** - Features for
+* **[Farm Maple](https://github.com/farmOS/farm_maple)** - Features for
   management of maple tapping and production.
 * **[Farm Map: Finland](https://github.com/rkioski/farm_map_fi)** - Finnish map
   layers for farmOS maps.
 * **[Farm Map: Norway](https://github.com/farmOS/farm_map_no)** - Norwegian map
   layers for farmOS maps.
-* **[Farm Mushroom](https://drupal.org/project/farm_mushroom)** - Features for
+* **[Farm Mushroom](https://github.com/farmOS/farm_mushroom)** - Features for
   managing mushroom production.
 * **[FarmOS NWS](https://github.com/bitsecondal/farmosnws)** - Imports data
   from the National Weather Service into Drupal for use by FarmOS.
