@@ -77,6 +77,7 @@ These modules are included directly in the farmOS distribution repository:
 * **Farm Quantity** - Provides a framework for dealing with quantities.
 * **Farm Quantity Log** - Provides helper functions for querying logs with quantity data.
 * **Farm Quantity Report** - Generate reports of quantity measurements.
+* **Farm Quick** - Provides a framework for quick forms in farmOS.
 * **Farm Season** -   Provides a taxonomy and fields for organizing assets and logs by season.
 * **Farm Sensor** - Features for managing farm sensors.
 * **Farm Sensor: Listener** - ...

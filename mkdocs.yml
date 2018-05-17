@@ -24,6 +24,7 @@ pages:
     - People: guide/people.md
     - Import: guide/import.md
     - Export: guide/export.md
+    - Quick forms: guide/quick.md
     - Community modules:
         - Introduction: guide/contrib/index.md
         - Eggs: guide/contrib/eggs.md
