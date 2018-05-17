@@ -53,6 +53,7 @@ These modules are included directly in the farmOS distribution repository:
 * **Farm Equipment** - Features for managing farm equipment.
 * **Farm Fields** - Provides common base field definitions for farmOS entity
   types.
+* **Farm Flags** - Provides a general purpose record flagging system.
 * **Farm Group** - Features for managing group assets like herds, flocks, etc.
 * **Farm Help** - Help pages for farmOS.
 * **Farm Import** - Provides a framework for creating CSV importers in farmOS.
@@ -72,6 +73,8 @@ These modules are included directly in the farmOS distribution repository:
 * **Farm People** - A view of people associated with the farm.
 * **Farm Plan** - A farm plan entity type.
 * **Farm Quantity** - Provides a framework for dealing with quantities.
+* **Farm Quantity Log** - Provides helper functions for querying logs with quantity data.
+* **Farm Quantity Report** - Generate reports of quantity measurements.
 * **Farm Season** -   Provides a taxonomy and fields for organizing assets and logs by season.
 * **Farm Sensor** - Features for managing farm sensors.
 * **Farm Sensor: Listener** - ...
