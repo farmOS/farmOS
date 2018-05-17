@@ -7,7 +7,7 @@ keeping.
 
 It is built on [Drupal], which makes it [modular], [extensible], and [secure].
 Both Drupal and farmOS are licensed under the [GNU General Public License],
-which means they are [open source].
+which means they are [free] and [open source].
 
 For more information, read through some of the [Frequently Asked Questions].
 
@@ -82,6 +82,7 @@ The full workshop recording is available on YouTube:
 [NOFA Summer Conference]: http://nofasummerconference.org
 [https://youtu.be/w0ZCu8NsWKE]: https://youtu.be/w0ZCu8NsWKE
 [GNU General Public License]: http://www.gnu.org/copyleft/gpl.html
+[free]: https://en.wikipedia.org/wiki/Free_software
 [open source]: http://en.wikipedia.org/wiki/Open_source
 [groundwork]: /development/architecture
 [contribute]: /contribute
