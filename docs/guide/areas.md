@@ -29,6 +29,10 @@ the fields available to you when you are describing an area:
   and order to your areas. You can edit these fields individually on each area,
   or you can use the drag-and-drop hierarchy editor - which is much easier for
   moving a lot of areas around at once (more details below).
+* **Flags** - Flags can be added to areas (as well as assets and logs) for
+  easier searching/filtering. Some flags are provided by default (eg:
+  "Prioity", "Needs Review", "Monitor"), and modules can provide additional
+  flags (eg: "Organic" and "Not Organic" provided by the [Organic module]).
 
 ## Using geometry fields
 

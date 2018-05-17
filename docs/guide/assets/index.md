@@ -25,6 +25,10 @@ include:
   each asset in further detail. It can be used to take notes, but it is
   recommended that any activities be recorded using logs instead, because they
   have a timestamp associated with them.
+* **Flags** - Flags can be added to assets (as well as logs and areas) for
+  easier searching/filtering. Some flags are provided by default (eg:
+  "Prioity", "Needs Review", "Monitor"), and modules can provide additional
+  flags (eg: "Organic" and "Not Organic" provided by the [Organic module]).
 
 ## Asset cluster maps
 
@@ -60,6 +64,7 @@ can mark it as "archived" to hide it in the list of plantings. Archived records
 can be retrieved using the "Filter/sort" options on asset listing pages.
 
 [Movements and location]: /guide/location
+[Organic module]: /guide/contrib/organic
 [Openlayers mapping library]: http://openlayers.org
 [location of assets in farmOS]: /guide/location
 
