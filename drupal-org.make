@@ -164,9 +164,7 @@ projects[views][subdir] = "contrib"
 projects[views][version] = "3.20"
 
 projects[views_bulk_operations][subdir] = "contrib"
-projects[views_bulk_operations][version] = "3.4"
-; Issue #2473889: rules component with list as parameter creates a notice
-projects[views_bulk_operations][patch][] = "http://www.drupal.org/files/issues/vbo_missing_account_decl-2473889-7.patch"
+projects[views_bulk_operations][version] = "3.5"
 
 projects[views_data_export][subdir] = "contrib"
 projects[views_data_export][version] = "3.2"
