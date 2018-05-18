@@ -226,7 +226,7 @@ function farm_plan_entity_property_info_alter(&$info) {
     'type' => 'token',
     'description' => t('The farm plan type.'),
     'setter callback' => 'entity_property_verbatim_set',
-    'setter permission' => 'administer farm_plan module',
+    'access callback' => 'farm_plan_properties_access',
     'options list' => 'farm_plan_type_get_names',
     'required' => TRUE,
     'schema field' => 'type',
@@ -236,7 +236,7 @@ function farm_plan_entity_property_info_alter(&$info) {
     'type' => 'user',
     'description' => t('The owner of the plan.'),
     'setter callback' => 'entity_property_verbatim_set',
-    'setter permission' => 'administer farm_plan module',
+    'access callback' => 'farm_plan_properties_access',
     'required' => TRUE,
     'schema field' => 'uid',
   );
@@ -245,7 +245,7 @@ function farm_plan_entity_property_info_alter(&$info) {
     'type' => 'date',
     'description' => t('The timestamp when the plan was created.'),
     'setter callback' => 'entity_property_verbatim_set',
-    'setter permission' => 'administer farm_plan module',
+    'access callback' => 'farm_plan_properties_access',
     'required' => TRUE,
     'schema field' => 'created',
   );
@@ -254,7 +254,7 @@ function farm_plan_entity_property_info_alter(&$info) {
     'type' => 'date',
     'description' => t('The timestamp when the plan was last modified.'),
     'setter callback' => 'entity_property_verbatim_set',
-    'setter permission' => 'administer farm_plan module',
+    'access callback' => 'farm_plan_properties_access',
     'required' => TRUE,
     'schema field' => 'changed',
   );
@@ -262,7 +262,7 @@ function farm_plan_entity_property_info_alter(&$info) {
     'label' => t('Active'),
     'description' => t('Whether the plan is active.'),
     'setter callback' => 'entity_property_verbatim_set',
-    'setter permission' => 'administer farm_plan module',
+    'access callback' => 'farm_plan_properties_access',
     'schema field' => 'active',
     'type' => 'boolean',
   );
@@ -449,6 +449,23 @@ function farm_plan_add_access($account = NULL) {
  */
 function farm_plan_type_access($op, FarmPlanType $farm_plan_type = NULL) {
   return user_access('administer farm_plan types');
+}
+
+/**
+ * Access callback for farm_plan properties.
+ */
+function farm_plan_properties_access($op, $property, $entity = NULL, $account = NULL) {
+
+  // Delegate to the general farm_plan access callback, based on the $op.
+  switch ($op) {
+    case 'view':
+      return farm_plan_access('view', $entity, $account);
+    case 'edit':
+      return farm_plan_access('update', $entity, $account);
+  }
+
+  // Otherwise, deny access.
+  return FALSE;
 }
 
 /***************************************************************

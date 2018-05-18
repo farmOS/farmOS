@@ -248,7 +248,7 @@ function farm_asset_entity_property_info_alter(&$info) {
     'type' => 'token',
     'description' => t('The farm asset type.'),
     'setter callback' => 'entity_property_verbatim_set',
-    'setter permission' => 'administer farm_asset module',
+    'access callback' => 'farm_asset_properties_access',
     'options list' => 'farm_asset_type_get_names',
     'required' => TRUE,
     'schema field' => 'type',
@@ -258,7 +258,7 @@ function farm_asset_entity_property_info_alter(&$info) {
     'type' => 'user',
     'description' => t('The author of the asset.'),
     'setter callback' => 'entity_property_verbatim_set',
-    'setter permission' => 'administer farm_asset module',
+    'access callback' => 'farm_asset_properties_access',
     'required' => TRUE,
     'schema field' => 'uid',
   );
@@ -267,7 +267,7 @@ function farm_asset_entity_property_info_alter(&$info) {
     'type' => 'date',
     'description' => t('The timestamp when the asset was created.'),
     'setter callback' => 'entity_property_verbatim_set',
-    'setter permission' => 'administer farm_asset module',
+    'access callback' => 'farm_asset_properties_access',
     'required' => TRUE,
     'schema field' => 'created',
   );
@@ -276,7 +276,7 @@ function farm_asset_entity_property_info_alter(&$info) {
     'type' => 'date',
     'description' => t('The timestamp when the asset was last modified.'),
     'setter callback' => 'entity_property_verbatim_set',
-    'setter permission' => 'administer farm_asset module',
+    'access callback' => 'farm_asset_properties_access',
     'required' => TRUE,
     'schema field' => 'changed',
   );
@@ -285,7 +285,7 @@ function farm_asset_entity_property_info_alter(&$info) {
     'type' => 'date',
     'description' => t('The timestamp when the asset was archived.'),
     'setter callback' => 'entity_property_verbatim_set',
-    'setter permission' => 'administer farm_asset module',
+    'access callback' => 'farm_asset_properties_access',
     'schema field' => 'archived',
   );
 }
@@ -626,6 +626,24 @@ function farm_asset_autocomplete_access($asset_type) {
     return user_access('view farm assets');
   }
   return user_access('view any ' . $asset_type . ' farm assets');
+}
+
+
+/**
+ * Access callback for farm_asset properties.
+ */
+function farm_asset_properties_access($op, $property, $entity = NULL, $account = NULL) {
+
+  // Delegate to the general farm_asset access callback, based on the $op.
+  switch ($op) {
+    case 'view':
+      return farm_asset_access('view', $entity, $account);
+    case 'edit':
+      return farm_asset_access('update', $entity, $account);
+  }
+
+  // Otherwise, deny access.
+  return FALSE;
 }
 
 /***************************************************************
