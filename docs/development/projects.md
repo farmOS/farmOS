@@ -40,6 +40,8 @@ These modules are included directly in the farmOS distribution repository:
 * **Farm Area** - Features for managing farm areas.
 * **Farm Area Generator** - A tool for automatically generating areas. Requires
   GEOS library.
+* **Farm Area Import** - A tool for importing multiple area geometries from a
+  single KML file.
 * **Farm Asset** - A farm asset entity type.
 * **Farm Asset Children** - Provides child asset relationships.
 * **Farm Asset Property** - Provides the ability to assign arbitrary (key-value
