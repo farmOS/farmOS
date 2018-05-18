@@ -1,5 +1,4 @@
-farmOS.org
-==========
+# farmOS.org
 
 This repository contains all the code and content used to build
 [http://farmOS.org](http://farmOS.org).
