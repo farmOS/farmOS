@@ -144,6 +144,14 @@ function farm_sensor_views_default_views() {
       'override_label' => 0,
       'label' => '',
     ),
+    'action::farm_asset_clone_action' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 1,
+      'skip_permission_check' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
     'action::views_bulk_operations_delete_item' => array(
       'selected' => 1,
       'postpone_processing' => 0,

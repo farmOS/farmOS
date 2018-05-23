@@ -189,10 +189,11 @@ function farm_theme_views_bulk_operations_form_alter(&$form, &$form_state, $vbo)
   $end_actions = array(
     'action::farm_flags_action',
     'action::farm_log_assign_action',
-    'action::log_clone_action',
     'action::farm_group_asset_membership_action',
     'action::farm_asset_archive_action',
     'action::farm_asset_unarchive_action',
+    'action::farm_asset_clone_action',
+    'action::log_clone_action',
     'action::views_bulk_operations_delete_item',
   );
   $i = 0;
