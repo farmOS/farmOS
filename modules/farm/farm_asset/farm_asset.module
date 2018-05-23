@@ -450,6 +450,10 @@ function farm_asset_clone_action(FarmAsset $asset, $context = array()) {
   // Clear the asset ID.
   unset($asset->id);
 
+  // Set the created and changed timestamps to now.
+  $asset->created = REQUEST_TIME;
+  $asset->changed = REQUEST_TIME;
+
   // Save the asset.
   farm_asset_save($asset);
 
