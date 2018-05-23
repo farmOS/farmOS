@@ -368,6 +368,12 @@ function farm_asset_action_info() {
       'configurable' => FALSE,
       'triggers' => array('any'),
     ),
+    'farm_asset_clone_action' => array(
+      'type' => 'farm_asset',
+      'label' => t('Clone'),
+      'configurable' => FALSE,
+      'triggers' => array('any'),
+    ),
   );
 }
 
@@ -421,6 +427,37 @@ function farm_asset_unarchive_action(FarmAsset $asset, $context = array()) {
 
   // Save the asset.
   farm_asset_save($asset);
+}
+
+/**
+ * Action function for farm_asset_clone_action.
+ *
+ * Clones an asset.
+ *
+ * @param FarmAsset $asset
+ *   The asset entity object.
+ * @param array $context
+ *   Array with parameters for this action.
+ */
+function farm_asset_clone_action(FarmAsset $asset, $context = array()) {
+
+  // Remember the asset ID.
+  $asset_id = $asset->id;
+
+  // Add "(clone of asset #[asset-id])" to the end of the asset's name.
+  $asset->name = $asset->name . ' ' . t('(clone of asset #@id)', array('@id' => $asset_id));
+
+  // Clear the asset ID.
+  unset($asset->id);
+
+  // Save the asset.
+  farm_asset_save($asset);
+
+  // Set a message with a link to the new asset.
+  $asset_uri = entity_uri('farm_asset', $asset);
+  $asset_label = entity_label('farm_asset', $asset);
+  $message = t('Asset saved: <a href="@uri">%title</a>', array('@uri' => url($asset_uri['path']), '%title' => $asset_label));
+  drupal_set_message($message);
 }
 
 /****************************************************************
