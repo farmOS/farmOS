@@ -266,6 +266,45 @@ function farm_area_page_build(&$page) {
 }
 
 /**
+ * Implements hook_entity_view_alter().
+ */
+function farm_area_entity_view_alter(&$build, $type) {
+
+  // If it's not a taxonomy_term, or if the entity object is not available,
+  // bail.
+  if ($type != 'taxonomy_term' || empty($build['#term'])) {
+    return;
+  }
+
+  // Alias the area variable.
+  $area = $build['#term'];
+
+  // If it isn't a farm_areas term, bail.
+  if ($area->vocabulary_machine_name != 'farm_areas') {
+    return;
+  }
+
+  // Get the area's calculated area.
+  $calculated_area = farm_area_calculate_area($area->tid);
+
+  // If the calculated area isn't available, bail.
+  if (empty($calculated_area)) {
+    return;
+  }
+
+  // Build the calculated area display.
+  $output = '<strong>' . t('Calculated area') . ':</strong> ' . $calculated_area;
+
+  // Add it to the build array.
+  $build['calculated_area'] = array(
+    '#markup' => $output,
+    '#prefix' => '<div class="calculated_area">',
+    '#suffix' => '</div>',
+    '#weight' => 1,
+  );
+}
+
+/**
  * Helper function to extract geometries from areas.
  *
  * @param array $ids
