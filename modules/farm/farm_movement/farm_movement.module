@@ -39,6 +39,36 @@ function farm_movement_farm_ui_entity_views($entity_type, $bundle, $entity) {
 }
 
 /**
+ * Implements hook_farm_map_geometries().
+ */
+function farm_movement_farm_map_entity_geometries($entity_type, $entity) {
+  $geometries = array();
+
+  // If there is no movement field, bail.
+  if (empty($entity->field_farm_movement)) {
+    return;
+  }
+
+  // Load an entity metadata wrapper.
+  $entity_wrapper = entity_metadata_wrapper($entity_type, $entity);
+
+  // If the movement field collection doesn't exist, bail.
+  if (!isset($entity_wrapper->field_farm_movement) || empty($entity_wrapper->field_farm_movement->value())) {
+    return;
+  }
+
+  // If there is no geometry, bail.
+  if (empty($entity_wrapper->field_farm_movement->field_farm_geofield)) {
+    return;
+  }
+
+  // Load movement geometry.
+  $geometries['movement'] = $entity_wrapper->field_farm_movement->field_farm_geofield[0]->value()['geom'];
+
+  return $geometries;
+}
+
+/**
  * Implements hook_entity_presave().
  */
 function farm_movement_entity_presave($entity, $type) {

@@ -971,6 +971,13 @@ function farm_livestock_views_default_views() {
       'override_label' => 0,
       'label' => '',
     ),
+    'action::farm_map_kml_action' => array(
+      'selected' => 1,
+      'skip_confirmation' => 1,
+      'skip_permission_check' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
     'action::log_done_action' => array(
       'selected' => 1,
       'postpone_processing' => 0,
@@ -1493,6 +1500,13 @@ function farm_livestock_views_default_views() {
     'action::farm_flags_action' => array(
       'selected' => 1,
       'postpone_processing' => 0,
+      'skip_confirmation' => 1,
+      'skip_permission_check' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::farm_map_kml_action' => array(
+      'selected' => 1,
       'skip_confirmation' => 1,
       'skip_permission_check' => 0,
       'override_label' => 0,

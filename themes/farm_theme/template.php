@@ -184,9 +184,9 @@ function farm_theme_views_bulk_operations_form_alter(&$form, &$form_state, $vbo)
   // Move VBO buttons to the bottom.
   $form['select']['#weight'] = 100;
 
-  // Move the "Assign", "Clone", "Group", "Archive", "Unarchive", and "Delete"
-  // actions to the end of the list.
+  // Move the certain actions to the end of the list.
   $end_actions = array(
+    'action::farm_map_kml_action',
     'action::farm_flags_action',
     'action::farm_log_assign_action',
     'action::farm_group_asset_membership_action',
@@ -231,6 +231,7 @@ function farm_theme_bootstrap_colorize_text_alter(&$texts) {
 
   // Colorize VBO action buttons.
   $texts['matches'][t('Flag')] = 'info';
+  $texts['matches'][t('KML')] = 'success';
   $texts['matches'][t('Move')] = 'success';
   $texts['matches'][t('Weight')] = 'default';
   $texts['matches'][t('Group')] = 'warning';
@@ -251,6 +252,7 @@ function farm_theme_bootstrap_iconize_text_alter(&$texts) {
 
   // Iconize VBO action buttons.
   $texts['matches'][t('Flag')] = 'flag';
+  $texts['matches'][t('KML')] = 'globe';
   $texts['matches'][t('Move')] = 'globe';
   $texts['matches'][t('Weight')] = 'scale';
   $texts['matches'][t('Group')] = 'bookmark';

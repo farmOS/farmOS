@@ -1,0 +1,213 @@
+<?php
+
+/**
+ * @file
+ * Farm map KML.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function farm_map_kml_theme($existing, $type, $theme, $path) {
+  return array(
+    'farm_map_kml' => array(
+      'variables' => array(
+        'content' => NULL,
+        'placemarks' => array(),
+      ),
+      'template' => 'farm_map_kml',
+      'file' => 'farm_map_kml.theme.inc',
+    ),
+    'farm_map_kml_placemark' => array(
+      'variables' => array(
+        'pid' => NULL,
+        'name' => NULL,
+        'description' => NULL,
+        'geometry' => NULL,
+        'kml' => NULL,
+      ),
+      'template' => 'farm_map_kml_placemark',
+      'file' => 'farm_map_kml.theme.inc',
+    ),
+  );
+}
+
+/**
+ * Implements hook_action_info().
+ */
+function farm_map_kml_action_info() {
+  return array(
+    'farm_map_kml_action' => array(
+      'type' => 'entity',
+      'label' => t('KML'),
+      'triggers' => array('any'),
+      'configurable' => FALSE,
+      'aggregate' => TRUE,
+    ),
+  );
+}
+
+/**
+ * Action function for farm_map_kml_action.
+ *
+ * Creates a KML file containing shapes from selected entities.
+ *
+ * @param array $entities
+ *   An array of entities.
+ * @param array $context
+ *   Array with parameters for this action.
+ */
+function farm_map_kml_action(array $entities, $context = array()) {
+
+  // Iterate through the entities to generate placemarks.
+  $placemarks = array();
+  foreach ($entities as $entity) {
+
+    // Ask modules to extract geometries from this entity.
+    $geometries = farm_map_entity_geometries($context['entity_type'], $entity);
+
+    // Get the entity id and label.
+    list($id, $rid, $bundle) = entity_extract_ids($context['entity_type'], $entity);
+    $label = entity_label($context['entity_type'], $entity);
+
+    // Create a placemark for each geometry.
+    foreach ($geometries as $key => $geometry) {
+
+      // Create a placemark.
+      $placemark = array(
+        'pid' => $id,
+        'name' => $label,
+        'geometry' => $geometry,
+      );
+
+      // If a non-numeric key is set, tag the ID and label with it.
+      if (!is_numeric($key)) {
+        $placemark['pid'] .= '-' . check_plain($key);
+        $placemark['name'] .= ' (' . check_plain($key) . ')';
+      }
+
+      // If this is an area entity (taxonomy_term), add the description.
+      if ($context['entity_type'] == 'taxonomy_term' && $entity->vocabulary_machine_name == 'farm_areas') {
+        if (!empty($entity->description)) {
+          $placemark['description'] = $entity->description;
+        }
+      }
+
+      // Add the placemark to the list.
+      $placemarks[] = $placemark;
+    }
+  }
+
+  // If there are no placemarks, bail with a warning.
+  if (empty($placemarks)) {
+    drupal_set_message(t('No placemarks were found.'), 'warning');
+    return;
+  }
+
+  // Create KML output.
+  $kml = theme('farm_map_kml', array('placemarks' => $placemarks));
+
+  // Ensure that a directory exists to store the KML file in.
+  $directory = 'public://kml';
+  file_prepare_directory($directory, FILE_CREATE_DIRECTORY);
+
+  // Create the temporary KML file.
+  $filename = 'kml_export-' . date('c') . '.kml';
+  $destination = $directory . '/' . $filename;
+  $file = file_save_data($kml, $destination);
+
+  // Make the file temporary.
+  $file->status = 0;
+  file_save($file);
+
+  // Show a link to the file.
+  $message = 'KML file created: <a href="!path">%filename</a>';
+  $args = array(
+    '!path' => file_create_url($file->uri),
+    '%filename' => $file->filename,
+  );
+  drupal_set_message(t($message, $args));
+}
+
+/**
+ * Helper function for converting KML to a set of geometries.
+ *
+ * @param string $kml
+ *   The KML string to parse.
+ *
+ * @return array
+ *   Returns an array of geometries, with name, description, and WKT for each.
+ */
+function farm_map_kml_parse_geometries($kml) {
+
+  // Start an array to hold the geometries.
+  $geometries = array();
+
+  // Load the GeoPHP library.
+  geophp_load();
+
+  // Parse the KML into an XML object.
+  $xml = simplexml_load_string($kml);
+
+  // Determine the root element. Sometimes it is "Document".
+  $root = $xml;
+  if (isset($xml->Document)) {
+    $root = $xml->Document;
+  }
+
+  // If the KML file is organized into folders, iterate through them.
+  if (isset($root->Folder)) {
+    $folders = $folders = $root->Folder;
+    foreach ($folders as $folder) {
+
+      // Iterate through the KML Placemarks and parse their geometry info.
+      $placemarks = $folder->Placemark;
+      foreach ($placemarks as $placemark) {
+        $geometries[] = farm_map_kml_parse_placemark($placemark);
+      }
+    }
+  }
+
+  // Or, just iterate through the KML placemarks and parse their geometry info.
+  else {
+    $placemarks = $root->Placemark;
+    foreach ($placemarks as $placemark) {
+      $geometries[] = farm_map_kml_parse_placemark($placemark);
+    }
+  }
+
+  // Return the geometries.
+  return $geometries;
+}
+
+/**
+ * Helper function for extracting information about a KML placemark.
+ *
+ * @param $placemark
+ *   A SimpleXML Placemark object.
+ *
+ * @return array
+ *   Returns information about the placemark, including name, description, and
+ *   geometry in Well-Known Text (WKT).
+ */
+function farm_map_kml_parse_placemark($placemark) {
+
+  // Start a new array for the geometry info.
+  $geometry = array();
+
+  // Get the placemark name as a string.
+  $geometry['name'] = (string) $placemark->name;
+
+  // Get the placemark description as a string.
+  $geometry['description'] = (string) $placemark->description;
+
+  // Parse the placemark into a GeoPHP geometry object.
+  $placemark_xml = $placemark->asXML();
+  $geophp_geometry = geoPHP::load($placemark_xml, 'kml');
+
+  // Convert the geometry to WKT.
+  $geometry['wkt'] = $geophp_geometry->out('wkt');
+
+  // Return the geometry.
+  return $geometry;
+}

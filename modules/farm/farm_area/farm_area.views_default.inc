@@ -105,6 +105,13 @@ function farm_area_views_default_views() {
       'override_label' => 0,
       'label' => '',
     ),
+    'action::farm_map_kml_action' => array(
+      'selected' => 1,
+      'skip_confirmation' => 1,
+      'skip_permission_check' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
   );
   /* Field: Taxonomy term: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
