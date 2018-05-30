@@ -41,7 +41,7 @@ Here's a basic overview of how the client and native repos make use of the Vue e
 ...
 
 ## Native build process
-The process for building the native applications for iOS and Android can be broken down into 2 main steps: first, Webpack bundles all the HTML, CSS and JavaScript modules into their final form, optimized for [WebView](https://cordova.apache.org/docs/en/latest/guide/hybrid/webviews/); secondly, Cordova, with some help from the Android and iOS SDK's (Android Studio & XCode, respectively), builds the full-blown native packages (.apk and .ipa files, respectively).
+The process for building the native applications for iOS and Android can be broken down into 2 main steps: first, Webpack bundles all the HTML, CSS and JavaScript modules into their final form that will run in [WebView](https://cordova.apache.org/docs/en/latest/guide/hybrid/webviews/); secondly, Cordova, with some help from the Android and iOS SDK's (Android Studio & XCode, respectively), builds the full-blown native packages (.apk and .ipa files, respectively).
 
 Bundling the web assets with Webpack is fairly straight-forward. [Node](https://nodejs.org) (v.6.0.0 or higher) and npm (v.3.0.0 or higher) are the only system requirements. Once Node is installed, you can install the necessary JavaScript dependencies with npm, which is automatically included with Node. The npm script `build-mobile` can then run Webpack to bundle the assets. All this can be done by running the following two commands from the project's root directory:
 
@@ -58,7 +58,7 @@ Everything is now ready for building the final native packages. Both platforms w
 $ npm install -g cordova
 ```
 
-This, however, is where the process diverges into separate iOS and Android builds. This stage will probably comprise the most system configuration, too, since it requires installing each platform's SDK (Software Development Kit), if they aren't installed already. Of course, if you only intend to build for one platform, you only need to install that platform's SDK and corresponding system requirements; building for both platforms will require installing both SDK's.
+This, however, is where the process diverges into separate iOS and Android builds. This next stage will probably comprise the most system configuration, too, since it requires installing each platform's SDK (Software Development Kit), if they aren't installed already. Of course, if you only intend to build for one platform, you only need to install that platform's SDK and corresponding system requirements; building for both platforms will require installing both SDK's.
 
 ### Android Build 
 To configure your system to build the Android app, follow Cordova's ["Android Platform Guide"](https://cordova.apache.org/docs/en/latest/guide/platforms/android/index.html) and the [Android Studio installation guide](https://developer.android.com/studio/install). This will differ depending on your development machine's operating system, but Mac, Windows and Linux are all supported.
