@@ -7,6 +7,7 @@ dependencies[] = ctools
 dependencies[] = farm_fields
 dependencies[] = farm_flags
 dependencies[] = farm_map
+dependencies[] = farm_map_kml
 dependencies[] = farm_quantity
 dependencies[] = features
 dependencies[] = field_group
