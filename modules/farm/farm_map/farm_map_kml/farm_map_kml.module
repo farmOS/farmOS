@@ -63,32 +63,39 @@ function farm_map_kml_action(array $entities, $context = array()) {
   $placemarks = array();
   foreach ($entities as $entity) {
 
-    // Get the geometry. If it is empty, skip the entity.
-    if (empty($entity->field_farm_geofield[LANGUAGE_NONE][0]['geom'])) {
-      continue;
-    }
-    $geometry = $entity->field_farm_geofield[LANGUAGE_NONE][0]['geom'];
+    // Ask modules to extract geometries from this entity.
+    $geometries = farm_map_entity_geometries($context['entity_type'], $entity);
 
     // Get the entity id and label.
     list($id, $rid, $bundle) = entity_extract_ids($context['entity_type'], $entity);
     $label = entity_label($context['entity_type'], $entity);
 
-    // Create a placemark.
-    $placemark = array(
-      'pid' => $id,
-      'name' => $label,
-      'geometry' => $geometry,
-    );
+    // Create a placemark for each geometry.
+    foreach ($geometries as $key => $geometry) {
 
-    // If this is an area entity (taxonomy_term), add the description.
-    if ($context['entity_type'] == 'taxonomy_term' && $entity->vocabulary_machine_name == 'farm_areas') {
-      if (!empty($entity->description)) {
-        $placemark['description'] = $entity->description;
+      // Create a placemark.
+      $placemark = array(
+        'pid' => $id,
+        'name' => $label,
+        'geometry' => $geometry,
+      );
+
+      // If a non-numeric key is set, tag the ID and label with it.
+      if (!is_numeric($key)) {
+        $placemark['pid'] .= '-' . check_plain($key);
+        $placemark['name'] .= ' (' . check_plain($key) . ')';
       }
-    }
 
-    // Add the placemark to the list.
-    $placemarks[] = $placemark;
+      // If this is an area entity (taxonomy_term), add the description.
+      if ($context['entity_type'] == 'taxonomy_term' && $entity->vocabulary_machine_name == 'farm_areas') {
+        if (!empty($entity->description)) {
+          $placemark['description'] = $entity->description;
+        }
+      }
+
+      // Add the placemark to the list.
+      $placemarks[] = $placemark;
+    }
   }
 
   // If there are no placemarks, bail with a warning.
