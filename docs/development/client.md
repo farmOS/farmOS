@@ -73,12 +73,14 @@ Note that Android Studio recommends the official Oracle JDK for Java 8; using Op
 
 [//]: <> (TODO: Determine what versions of Android the app should target and list them here.)
 
-Once Android Studio is installed and configured, make sure Android has been added to Cordova's list of platforms, then you're ready to run the final build command: 
+Once Android Studio is installed and configured, run the `prepare` command so that Cordova loads the settings from `config.xml` and creates the necessary folders and manifest files, and assets for Android. Then you're ready to run the final build command: 
 
 ```bash
-$ cordova platform add android
+$ cordova prepare android
 $ cordova build android
 ```
+
+By default, the `build` command will produce a debugging APK (the same as running `cordova build android --debug`). If you want to build a final release version, you'll need to add the `--release` flag, but you'll also need to use your keys for signing the APK (see ["Signing an App"](https://cordova.apache.org/docs/en/latest/guide/platforms/android/index.html#signing-an-app) in the Cordova docs for more details). 
 
 The .apk can then be found at `path/to/farmos-native//platforms/android/app/build/outputs/apk`
 
