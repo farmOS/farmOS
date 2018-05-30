@@ -69,7 +69,7 @@ To configure your system to build the Android app, follow Cordova's ["Android Pl
 - Android Studio
 - Gradle
 
-Note that Android Studio recommends the official Oracle JDK for Java 8; using OpenJDK may cause errors. Also make sure to follow Cordova's instructions for setting up your system's [environment variables](https://cordova.apache.org/docs/en/latest/guide/platforms/android/index.html#setting-environment-variables) and installing the [SDK packages](https://cordova.apache.org/docs/en/latest/guide/platforms/android/index.html#adding-sdk-packages) for the Android versions the app will target.
+Note that Android Studio recommends the official Oracle JDK for Java 8; using OpenJDK may cause errors. Also make sure to follow Cordova's instructions for setting up your system's [environment variables](https://cordova.apache.org/docs/en/latest/guide/platforms/android/index.html#setting-environment-variables) and installing the [SDK packages](https://cordova.apache.org/docs/en/latest/guide/platforms/android/index.html#adding-sdk-packages) for the Android versions the app will target. As of May 2018, the latest version of Android that Cordova seems to support is 7.1.1, at API Level 25. 
 
 [//]: <> (TODO: Determine what versions of Android the app should target and list them here.)
 
