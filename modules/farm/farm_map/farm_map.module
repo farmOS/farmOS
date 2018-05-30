@@ -177,6 +177,39 @@ function farm_map_openlayers_object_preprocess_alter(&$build, $context) {
 }
 
 /**
+ * Extract geometries from an entity.
+ *
+ * @param $entity_type
+ *   The entity type machine name.
+ * @param $entity
+ *   The entity object.
+ *
+ * @return array
+ *   Return an array of geometry strings in WKT format. An associative array
+ *   is allowed, and the keys can be used to differentiate multiple geometries
+ *   from the same entity.
+ */
+function farm_map_entity_geometries($entity_type, $entity) {
+
+  // Ask modules to extract geometries.
+  return module_invoke_all('farm_map_entity_geometries', $entity_type, $entity);
+}
+
+/**
+ * Implements hook_farm_map_geometries().
+ */
+function farm_map_farm_map_entity_geometries($entity_type, $entity) {
+  $geometries = array();
+
+  // Find geometry in the standard geofield.
+  if (!empty($entity->field_farm_geofield[LANGUAGE_NONE][0]['geom'])) {
+    $geometries[] = $entity->field_farm_geofield[LANGUAGE_NONE][0]['geom'];
+  }
+
+  return $geometries;
+}
+
+/**
  * Implements hook_module_implements_alter().
  */
 function farm_map_module_implements_alter(&$implementations, $hook) {
@@ -205,6 +238,36 @@ function farm_map_geofield_populate(&$entity, $geoms = array()) {
   // If no geometries were found, bail.
   if (empty($geoms)) {
     return;
+  }
+
+  // Combine the WKT geometries into a single GeoPHP geometry.
+  $geometry = farm_map_geofield_geometry_combine($geoms);
+
+  // If that didn't work, bail.
+  if (empty($geometry)) {
+    return;
+  }
+
+  // Save the combined geometry to the movement log.
+  if (!empty($geometry)) {
+    $entity->field_farm_geofield[LANGUAGE_NONE][0] = geofield_get_values_from_geometry($geometry);
+  }
+}
+
+/**
+ * Combine multiple WKT geometries into a single GeoPHP geometry object.
+ *
+ * @param array $geoms
+ *   An array of geometry strings in WKT format.
+ *
+ * @return object|bool
+ *   Returns a GeoPHP object, or FALSE on failure.
+ */
+function farm_map_geofield_geometry_combine($geoms = array()) {
+
+  // If no geometries were found, return an empty geometry.
+  if (empty($geoms)) {
+    return FALSE;
   }
 
   // Load the GeoPHP library.
@@ -265,10 +328,8 @@ function farm_map_geofield_populate(&$entity, $geoms = array()) {
   $geometry = geoPHP::load($wkt, 'wkt');
   $geometry = geoPHP::geometryReduce($geometry);
 
-  // Save the combined geometry to the movement log.
-  if (!empty($geometry)) {
-    $entity->field_farm_geofield[LANGUAGE_NONE][0] = geofield_get_values_from_geometry($geometry);
-  }
+  // Return the geometry.
+  return $geometry;
 }
 
 /**

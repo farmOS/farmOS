@@ -715,6 +715,13 @@ function farm_update_7040(&$sandbox) {
 }
 
 /**
+ * Enable new Farm Map KML module.
+ */
+function farm_update_7041(&$sandbox) {
+  _farm_update_enable_modules(array('farm_map_kml'));
+}
+
+/**
  * Update helper function: enable modules.
  */
 function _farm_update_enable_modules($modules = array()) {

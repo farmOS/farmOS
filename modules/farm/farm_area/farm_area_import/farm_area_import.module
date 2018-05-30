@@ -93,7 +93,7 @@ function farm_area_import_form($form, &$form_state) {
   }
 
   // Parse the KML into an array of geometries.
-  $geometries = farm_area_import_parse_kml_geometries($form_state['values']['kml']);
+  $geometries = farm_map_kml_parse_geometries($form_state['values']['kml']);
 
   // Make the output wrapper into a fieldset.
   $form['output']['#type'] = 'fieldset';
@@ -262,85 +262,4 @@ function farm_area_import_form_create_submit(&$form, &$form_state) {
     $area_uri = entity_uri('taxonomy_term', $area);
     drupal_set_message(t('Area created: <a href="@path">@label</a>', array('@path' => url($area_uri['path']), '@label' => $area_label)));
   }
-}
-
-/**
- * Helper function for converting KML to a set of geometries.
- *
- * @param string $kml
- *   The KML string to parse.
- *
- * @return array
- *   Returns an array of geometries, with name, description, and WKT for each.
- */
-function farm_area_import_parse_kml_geometries($kml) {
-
-  // Start an array to hold the geometries.
-  $geometries = array();
-
-  // Load the GeoPHP library.
-  geophp_load();
-
-  // Parse the KML into an XML object.
-  $xml = simplexml_load_string($kml);
-
-  // Determine the root element. Sometimes it is "Document".
-  $root = $xml;
-  if (isset($xml->Document)) {
-    $root = $xml->Document;
-  }
-
-  // If the KML file is organized into folders, iterate through them.
-  if (isset($root->Folder)) {
-    $folders = $folders = $root->Folder;
-    foreach ($folders as $folder) {
-
-      // Iterate through the KML Placemarks and parse their geometry info.
-      $placemarks = $folder->Placemark;
-      foreach ($placemarks as $placemark) {
-        $geometries[] = farm_area_import_parse_kml_placemark($placemark);
-      }
-    }
-  }
-
-  // Or, just iterate through the KML placemarks and parse their geometry info.
-  else {
-    $placemarks = $root->Placemark;
-    foreach ($placemarks as $placemark) {
-      $geometries[] = farm_area_import_parse_kml_placemark($placemark);
-    }
-  }
-
-  // Return the geometries.
-  return $geometries;
-}
-
-/**
- * @param $placemark
- *   A SimpleXML Placemark object.
- *
- * @return array
- *   Returns information about the placemark, including name, description, and
- *   geometry in Well-Known Text (WKT).
- */
-function farm_area_import_parse_kml_placemark($placemark) {
-
-  // Start a new array for the geometry info.
-  $geometry = array();
-
-  // Get the placemark name as a string.
-  $geometry['name'] = (string) $placemark->name;
-
-  // Get the placemark description as a string.
-  $geometry['description'] = (string) $placemark->description;
-
-  // Parse the placemark into a GeoPHP geometry object.
-  $placemark_xml = $placemark->asXML();
-  $geophp_geometry = geoPHP::load($placemark_xml, 'kml');
-
-  // Convert the geometry to WKT.
-  $geometry['wkt'] = $geophp_geometry->out('wkt');
-
-  // Return the geometry.
-  return $geometry;
 }
