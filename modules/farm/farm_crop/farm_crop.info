@@ -18,6 +18,7 @@ dependencies[] = farm_flags
 dependencies[] = farm_group
 dependencies[] = farm_inventory
 dependencies[] = farm_map
+dependencies[] = farm_map_kml
 dependencies[] = farm_movement
 dependencies[] = farm_quantity
 dependencies[] = farm_season

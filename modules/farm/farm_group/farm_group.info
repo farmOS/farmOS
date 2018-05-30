@@ -12,6 +12,7 @@ dependencies[] = farm_asset_children
 dependencies[] = farm_asset_views
 dependencies[] = farm_fields
 dependencies[] = farm_flags
+dependencies[] = farm_map_kml
 dependencies[] = features
 dependencies[] = field_collection
 dependencies[] = field_group
