@@ -1,0 +1,123 @@
+<?php
+
+/**
+ * @file
+ * Farm map KML.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function farm_map_kml_theme($existing, $type, $theme, $path) {
+  return array(
+    'farm_map_kml' => array(
+      'variables' => array(
+        'content' => NULL,
+        'placemarks' => array(),
+      ),
+      'template' => 'farm_map_kml',
+      'file' => 'farm_map_kml.theme.inc',
+    ),
+    'farm_map_kml_placemark' => array(
+      'variables' => array(
+        'pid' => NULL,
+        'name' => NULL,
+        'description' => NULL,
+        'geometry' => NULL,
+        'kml' => NULL,
+      ),
+      'template' => 'farm_map_kml_placemark',
+      'file' => 'farm_map_kml.theme.inc',
+    ),
+  );
+}
+
+/**
+ * Implements hook_action_info().
+ */
+function farm_map_kml_action_info() {
+  return array(
+    'farm_map_kml_action' => array(
+      'type' => 'entity',
+      'label' => t('KML'),
+      'triggers' => array('any'),
+      'configurable' => FALSE,
+      'aggregate' => TRUE,
+    ),
+  );
+}
+
+/**
+ * Action function for farm_map_kml_action.
+ *
+ * Creates a KML file containing shapes from selected entities.
+ *
+ * @param array $entities
+ *   An array of entities.
+ * @param array $context
+ *   Array with parameters for this action.
+ */
+function farm_map_kml_action(array $entities, $context = array()) {
+
+  // Iterate through the entities to generate placemarks.
+  $placemarks = array();
+  foreach ($entities as $entity) {
+
+    // Get the geometry. If it is empty, skip the entity.
+    if (empty($entity->field_farm_geofield[LANGUAGE_NONE][0]['geom'])) {
+      continue;
+    }
+    $geometry = $entity->field_farm_geofield[LANGUAGE_NONE][0]['geom'];
+
+    // Get the entity id and label.
+    list($id, $rid, $bundle) = entity_extract_ids($context['entity_type'], $entity);
+    $label = entity_label($context['entity_type'], $entity);
+
+    // Create a placemark.
+    $placemark = array(
+      'pid' => $id,
+      'name' => $label,
+      'geometry' => $geometry,
+    );
+
+    // If this is an area entity (taxonomy_term), add the description.
+    if ($context['entity_type'] == 'taxonomy_term' && $entity->vocabulary_machine_name == 'farm_areas') {
+      if (!empty($entity->description)) {
+        $placemark['description'] = $entity->description;
+      }
+    }
+
+    // Add the placemark to the list.
+    $placemarks[] = $placemark;
+  }
+
+  // If there are no placemarks, bail with a warning.
+  if (empty($placemarks)) {
+    drupal_set_message(t('No placemarks were found.'), 'warning');
+    return;
+  }
+
+  // Create KML output.
+  $kml = theme('farm_map_kml', array('placemarks' => $placemarks));
+
+  // Ensure that a directory exists to store the KML file in.
+  $directory = 'public://kml';
+  file_prepare_directory($directory, FILE_CREATE_DIRECTORY);
+
+  // Create the temporary KML file.
+  $filename = 'kml_export-' . date('c') . '.kml';
+  $destination = $directory . '/' . $filename;
+  $file = file_save_data($kml, $destination);
+
+  // Make the file temporary.
+  $file->status = 0;
+  file_save($file);
+
+  // Show a link to the file.
+  $message = 'KML file created: <a href="!path">%filename</a>';
+  $args = array(
+    '!path' => file_create_url($file->uri),
+    '%filename' => $file->filename,
+  );
+  drupal_set_message(t($message, $args));
+}

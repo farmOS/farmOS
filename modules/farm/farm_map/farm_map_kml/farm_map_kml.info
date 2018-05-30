@@ -1,0 +1,6 @@
+name = Farm Map KML
+description = Provides KML features for farm maps.
+core = 7.x
+package = farmOS
+dependencies[] = farm_map
+dependencies[] = geophp
