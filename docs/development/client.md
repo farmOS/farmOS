@@ -33,9 +33,10 @@ Here's a basic overview of how the client and native repos make use of the Vue e
 
 ### Browser
 
-### Android Studio
-
-### XCode
+### Platform SDK's
+- [Cordova docs on running the emulator and debugger in Android Studio](https://cordova.apache.org/docs/en/latest/guide/platforms/android/index.html#debugging)
+- [Cordova docs on running the emulator and debugger in XCode](https://cordova.apache.org/docs/en/latest/guide/platforms/ios/index.html#debugging)
+[//]: <> (TODO: Add a few more details on this once I know more)
 
 ...
 
