@@ -207,6 +207,36 @@ function farm_map_geofield_populate(&$entity, $geoms = array()) {
     return;
   }
 
+  // Combine the WKT geometries into a single GeoPHP geometry.
+  $geometry = farm_map_geofield_geometry_combine($geoms);
+
+  // If that didn't work, bail.
+  if (empty($geometry)) {
+    return;
+  }
+
+  // Save the combined geometry to the movement log.
+  if (!empty($geometry)) {
+    $entity->field_farm_geofield[LANGUAGE_NONE][0] = geofield_get_values_from_geometry($geometry);
+  }
+}
+
+/**
+ * Combine multiple WKT geometries into a single GeoPHP geometry object.
+ *
+ * @param array $geoms
+ *   An array of geometry strings in WKT format.
+ *
+ * @return object|bool
+ *   Returns a GeoPHP object, or FALSE on failure.
+ */
+function farm_map_geofield_geometry_combine($geoms = array()) {
+
+  // If no geometries were found, return an empty geometry.
+  if (empty($geoms)) {
+    return FALSE;
+  }
+
   // Load the GeoPHP library.
   geophp_load();
 
@@ -265,10 +295,8 @@ function farm_map_geofield_populate(&$entity, $geoms = array()) {
   $geometry = geoPHP::load($wkt, 'wkt');
   $geometry = geoPHP::geometryReduce($geometry);
 
-  // Save the combined geometry to the movement log.
-  if (!empty($geometry)) {
-    $entity->field_farm_geofield[LANGUAGE_NONE][0] = geofield_get_values_from_geometry($geometry);
-  }
+  // Return the geometry.
+  return $geometry;
 }
 
 /**
