@@ -43,6 +43,14 @@ Here's a basic overview of how the client and native repos make use of the Vue e
 ## Native build process
 The process for building the native applications for iOS and Android can be broken down into 2 main steps: first, Webpack bundles all the HTML, CSS and JavaScript modules into their final form that will run in [WebView](https://cordova.apache.org/docs/en/latest/guide/hybrid/webviews/); secondly, Cordova, with some help from the Android and iOS SDK's (Android Studio & XCode, respectively), builds the full-blown native packages (.apk and .ipa files, respectively).
 
+To build from source, you'll need to clone the farmOS-native repository from GitHub:
+
+```bash
+$ git clone https://github.com/farmOS/farmOS-native.git
+```
+
+Note that the farmOS-client is a dependency which will be automatically installed as an npm package in the following step, so you do not need to clone that repo.
+
 Bundling the web assets with Webpack is fairly straight-forward. [Node](https://nodejs.org) (v.6.0.0 or higher) and npm (v.3.0.0 or higher) are the only system requirements. Once Node is installed, you can install the necessary JavaScript dependencies with npm, which is automatically included with Node. The npm script `build-mobile` can then run Webpack to bundle the assets. All this can be done by running the following two commands from the project's root directory:
 
 ```bash 
@@ -52,7 +60,7 @@ $ npm run build-mobile
 
 This will generate all the necessary files within the `www` directory, which Webpack will create if it doesn't already exist. Do not alter these files directly. They are optimized for WebView, which is basically a browser that Cordova installs and runs inside the native application itself to render all the HTML, CSS and JavaScript source files. The same files are used by both iOS and Android implementations
 
-Everything is now ready for building the final native packages. Both platforms will require installing Cordova globally, via npm:
+All the web assets are now ready for building the final native packages. Both platforms will require installing Cordova globally, via npm:
 
 ```bash 
 $ npm install -g cordova
@@ -80,9 +88,7 @@ $ cordova prepare android
 $ cordova build android
 ```
 
-By default, the `build` command will produce a debugging APK (the same as running `cordova build android --debug`). If you want to build a final release version, you'll need to add the `--release` flag, but you'll also need to use your keys for signing the APK (see ["Signing an App"](https://cordova.apache.org/docs/en/latest/guide/platforms/android/index.html#signing-an-app) in the Cordova docs for more details). 
-
-The .apk can then be found at `path/to/farmos-native//platforms/android/app/build/outputs/apk`
+By default, the `build` command will produce a debugging APK (equivalent to running `cordova build android --debug`). If you want to build a final release version, you'll need to add the `--release` flag, but you'll also need to use your keys for signing the APK (see ["Signing an App"](https://cordova.apache.org/docs/en/latest/guide/platforms/android/index.html#signing-an-app) in the Cordova docs for more details). Both the debug and release APK's can then be found at `path/to/farmos-native/platforms/android/app/build/outputs/apk` after building.
 
 [//]: <> (TODO: Figure out signing the app for the Play Store and document here.)
 
