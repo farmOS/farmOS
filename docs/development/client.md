@@ -83,10 +83,10 @@ Note that Android Studio recommends the official Oracle JDK for Java 8; using Op
 
 [//]: <> (TODO: Determine what versions of Android the app should target and list them here.)
 
-Once Android Studio is installed and configured, run the `prepare` command so that Cordova loads the settings from `config.xml` and creates the necessary folders and manifest files, and assets for Android. Then you're ready to run the final build command: 
+Once Android Studio is installed and configured, make sure Android has been added to Cordova's list of platforms, then you're ready to run the final build command:
 
 ```bash
-$ cordova prepare android
+$ cordova platform add android
 $ cordova build android
 ```
 
