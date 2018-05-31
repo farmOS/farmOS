@@ -31,6 +31,8 @@ Here's a basic overview of how the client and native repos make use of the Vue e
 
 ## Development environments
 
+See [farmOS/farmOS-native#19](https://github.com/farmOS/farmOS-native/issues/19#issuecomment-382198804) for info on using npm-link in development.
+
 ### Browser
 
 ### Platform SDK's
