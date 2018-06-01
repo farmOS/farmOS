@@ -178,5 +178,5 @@ Cordova's [iOS Platform Guide]
 [SDK packages]: https://cordova.apache.org/docs/en/latest/guide/platforms/android/index.html#adding-sdk-packages
 [Signing an App]: https://cordova.apache.org/docs/en/latest/guide/platforms/android/index.html#signing-an-app
 [Developing an iOS App on Linux]: https://andrewmichaelsmith.com/2017/02/developing-an-ios-app-on-linux-in-2017/
-[iOS Platform Guide]: https://cordova.apache.org/docs/en/latest/guide/platforms/ios/index.htm
+[iOS Platform Guide]: https://cordova.apache.org/docs/en/latest/guide/platforms/ios/index.html
 
