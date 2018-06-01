@@ -165,18 +165,6 @@ workarounds, see "[Developing an iOS App on Linux]"
 
 Cordova's [iOS Platform Guide]
 
-## API requests
-
-...
-
-## Authentication
-
-...
-
-## Coding standards
-
-...
-
 [https://github.com/farmOS/farmOS-client]: https://github.com/farmOS/farmOS-client
 [https://github.com/farmOS/farmOS-native]: https://github.com/farmOS/farmOS-native
 [farmOS/farmOS-native#19]: https://github.com/farmOS/farmOS-native/issues/19#issuecomment-382198804
