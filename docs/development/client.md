@@ -1,6 +1,22 @@
 # farmOS Client / Native app
 
-...
+Work has begun on a simplified farmOS app that works offline in both browser
+and native app form. It will be installable on Android and iOS devices. The
+goal is to create a fast and focused client app for day-to-day and in-the-field
+record keeping that stores data locally for offline use, and syncs back to a
+farmOS server when internet access is available.
+
+The application is divided into two projects:
+
+1. farmOS Client: [https://github.com/farmOS/farmOS-client]
+2. farmOS Native: [https://github.com/farmOS/farmOS-native]
+
+The "client" is where all of the UI and features are built. The "native"
+project wraps that client inside a native app, which can be installed on
+Android/iOS.
+
+**This documentation is not complete. It is intended only for informational
+purposes at this time.**
 
 ## Vue.js Architecture
 
@@ -161,6 +177,8 @@ Cordova's [iOS Platform Guide]
 
 ...
 
+[https://github.com/farmOS/farmOS-client]: https://github.com/farmOS/farmOS-client
+[https://github.com/farmOS/farmOS-native]: https://github.com/farmOS/farmOS-native
 [farmOS/farmOS-native#19]: https://github.com/farmOS/farmOS-native/issues/19#issuecomment-382198804
 [Cordova docs on running the emulator and debugger in Android Studio]: https://cordova.apache.org/docs/en/latest/guide/platforms/android/index.html#debugging
 [Cordova docs on running the emulator and debugger in XCode]: https://cordova.apache.org/docs/en/latest/guide/platforms/ios/index.html#debugging
