@@ -92,9 +92,20 @@ It is now available for free as [open source software].
 
 > Why was farmOS released under an open source license?
 
-farmOS is built from many other open source projects - so it is only natural for
-it to be licensed similarly. Anyone can view the code, contribute features, and
-fix bugs.There is a benefit to working together on software.
+Developing software in an open and collaborative fashion has many benefits.
+
+It encourages curiousity and innovation by allowing anyone to build their own
+ideas on top of it. These improvements can be shared with the rest of the
+community and merged into the core project itself. It allows for an ecosystem
+of organizations, companies, and individuals to work together towards a shared
+goal. Thus the community of people involved in developing and using the tools
+is not constrained to the staff and customers of a single company.
+
+Large companies and organizations around the world use and develop open source
+software every day. [Google's internal open source documentation] summarizes
+the benefits of combining efforts: "cooperating is not a zero sum game and that
+by working together all participants may yield higher returns than the
+investment they make."
 
 > What license is farmOS released under?
 
@@ -161,6 +172,7 @@ language, open an issue in the [issue queues] and let's get started!
 [Eric S. Raymond]: https://en.wikipedia.org/wiki/Eric_S._Raymond
 [The Cathedral and the Bazaar]: http://www.catb.org/~esr/writings/cathedral-bazaar/cathedral-bazaar
 [open source software]: https://en.wikipedia.org/wiki/Open-source_software
+[Google's internal open source documentation]: https://opensource.google.com/docs/why
 [Drupal]: https://drupal.org
 [GNU General Public License (GPL) v2+]: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 [Michael Stenta]: http://mstenta.net
