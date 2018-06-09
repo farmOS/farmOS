@@ -149,36 +149,6 @@ Anyone can contribute translations, and they can be shared with the rest of the
 farmOS community. If you are interested in contributing a translation in your
 language, open an issue in the [issue queues] and let's get started!
 
-> Why isn't this website (farmOS.org) built with Drupal?
-
-The first iteration of the farmOS.org site *was* built in Drupal, and was hosted
-by [Farmier]. Currently, farmOS.org is written in simple [Markdown], built with
-[Mkdocs], and hosted by [GitHub]. We decided to do this for a few reasons:
-
-**1. Keep things simple.**
-
-farmOS.org is not a dynamic website. It serves as a portal into the farmOS
-community and documentation. All project management, discussion, and issue
-tracking takes place on Drupal.org (which *is* powered by Drupal).
-
-Will that change in the future? Maybe! But this works great for now.
-
-**2. Markdown is easy.**
-
-Markdown is basically plain-text, which makes it really easy to read and
-understand, even in its raw form. And because it is stored in simple text files,
-changes can be easily tracked in source control ([Git]).
-
-It also lowers the barrier to contributors who want to help write documentation.
-Anyone can suggest changes to the content of this site, simply by [forking] the
-farmOS.org repository on GitHub, making changes to their fork, and then creating
-a pull request to have them included in the original repository.
-
-**3. Hosting on GitHub is free.**
-
-GitHub provides free hosting of static websites through their [GitHub Pages]
-service. Bonus!
-
 [release notes]: https://drupal.org/project/farm/releases
 [Press]: /community/press
 [Blog]: http://farmier.com/news
@@ -202,10 +172,4 @@ service. Bonus!
 [roles and permissions]: /guide/people
 [internationalization and localization]: https://en.wikipedia.org/wiki/Internationalization_and_localization
 [issue queues]: /development/issue-queues
-[Markdown]: https://en.wikipedia.org/wiki/Markdown
-[Mkdocs]: http://www.mkdocs.org
-[GitHub]: https://github.com
-[GitHub Pages]: https://pages.github.com
-[Git]: https://git-scm.com
-[forking]: https://guides.github.com/activities/forking
 
