@@ -17,6 +17,7 @@ function farm_log_harvest_farm_ui_entities() {
         'label' => t('Harvest'),
         'label_plural' => t('Harvests'),
         'view' => 'farm_log_harvest',
+        'areas' => TRUE,
         'weight' => 80,
       ),
     ),
