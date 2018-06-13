@@ -26,6 +26,7 @@ The farmOS project is made possible by many supporters.
 * [Bionutrient Food Association](http://bionutrient.org)
 * [Globetrotter Foundation](http://globetrotterfoundation.org)
 * [GOAT: Gathering for Open Agricultural Technology](http://goatech.org)
+* [Vermont Vegetable and Berry Growers Association](http://www.uvm.edu/vtvegandberry)
 
 ## Individuals
 
@@ -49,4 +50,6 @@ The farmOS project is made possible by many supporters.
 * [Stephen Woodbridge](http://imaptools.com)
 * Andy Grimley
 * Sallie Calhoun
+* Becky Maden
+* Vern Grubinger
 
