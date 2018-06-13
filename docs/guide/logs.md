@@ -8,7 +8,22 @@ in the future.
   <source src="/demo/logs.mp4" type="video/mp4">
 </video>
 
-## Calendar
+### Planning ahead
+
+Planning ahead in farmOS is exactly the same as recording things that already
+happened. The only difference is that the date is in the future, and the log is
+"not done".
+
+All events in farmOS are entered as logs, and all logs can be marked as "done"
+or "not done".  So to plan an event in the future, create a log with a future
+date, and make sure the "done" box is not checked.
+
+Logs that are in the future and "not done" will appear in your "Upcoming Tasks"
+list on the dashboard. Underneath that is a "Late tasks" list, which shows all
+"not done" logs with a date in the past.  So as time goes by, you can mark your
+logs as done (or not), and it will keep track of what happened and what didn't.
+
+### Calendar
 
 In addition to the standard lists by log type, you can also view all logs in
 a calendar format. This is available via the main menu, next to "My Account",
