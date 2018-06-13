@@ -25,6 +25,7 @@ The farmOS project is made possible by many supporters.
 * [Vermont Housing & Conservation Board](http://www.vhcb.org)
 * [Bionutrient Food Association](http://bionutrient.org)
 * [Globetrotter Foundation](http://globetrotterfoundation.org)
+* [GOAT: Gathering for Open Agricultural Technology](http://goatech.org)
 
 ## Individuals
 
