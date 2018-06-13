@@ -302,6 +302,15 @@ function farm_plan_entity_view($entity, $type, $view_mode, $langcode) {
     return;
   }
 
+  // Add the plan type.
+  $plan_types = farm_plan_type_get_names();
+  if (!empty($plan_types[$entity->type])) {
+    $entity->content['type'] = array(
+      '#markup' => '<div><strong>Plan type:</strong> ' . $plan_types[$entity->type] . '</div>',
+      '#weight' => -101,
+    );
+  }
+
   // Add the plan's "active" status.
   if ($entity->active) {
     $status = 'Yes';

@@ -8,6 +8,26 @@
 include_once 'farm_log.features.inc';
 
 /**
+ * Implements hook_entity_view().
+ */
+function farm_log_entity_view($entity, $type, $view_mode, $langcode) {
+
+  // If the entity is not a log, bail.
+  if ($type != 'log') {
+    return;
+  }
+
+  // Add the log type.
+  $log_types = log_type_get_names();
+  if (!empty($log_types[$entity->type])) {
+    $entity->content['type'] = array(
+      '#markup' => '<div><strong>Log type:</strong> ' . $log_types[$entity->type] . '</div>',
+      '#weight' => -101,
+    );
+  }
+}
+
+/**
  * Implements hook_form_alter().
  */
 function farm_log_form_alter(&$form, &$form_state, $form_id) {

@@ -324,6 +324,15 @@ function farm_asset_entity_view($entity, $type, $view_mode, $langcode) {
     return;
   }
 
+  // Add the asset type.
+  $asset_types = farm_asset_type_get_names();
+  if (!empty($asset_types[$entity->type])) {
+    $entity->content['type'] = array(
+      '#markup' => '<div><strong>Asset type:</strong> ' . $asset_types[$entity->type] . '</div>',
+      '#weight' => -101,
+    );
+  }
+
   // If the asset is archived, display a message and the archived date.
   if (!empty($entity->archived)) {
     drupal_set_message(t('This asset is archived. Archived assets should not be edited or deleted unless they contain information that is incorrect.'), 'warning');
