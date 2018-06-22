@@ -92,7 +92,18 @@ Beyond the load function, the client can be summarized as comprising:
 
 ## Development environments
 
-See [farmOS/farmOS-native#19] for info on using npm-link in development.
+### Linking Repositories with `npm link`
+The somewhat tricky thing is when you want to be working on your local copy of the farmos-client repo. In order to see the effects of your changes, you'll want to be using the farmos-native repo as your "engine", so to speak, running `npm run dev` from your local `/farmos-native` directory, while making changes in your local `/farmos-client` directory. You don't want to have to commit and push every little change you make in the client directory up to GitHub, and then pull it back down to your native directory, just to see what effect it had. Fortunately, there's a nice little npm cli tool for this, [`npm link`](https://docs.npmjs.com/cli/link), so that while you're working in development, you can just uninstall the GitHub version of the client package, then reinstall it as a symbolic link to the local directory where you've cloned the repo. For me, since I have both repos in a parent directory called `Code`, assuming I start from that parent directory, I would do something like this:
+
+    $ cd farmos-client 
+    $ npm link
+    $ cd ../farmos-native
+    $ npm uninstall --no-save farmos-client
+    $ npm link farmos-client
+
+**CAUTION: Make sure to use the `--no-save` flag when you uninstall, and do NOT use the `--save` flag when you install your local client package. These changes should NOT be reflected in `package.json` or saved in version control, because they will break the native repo for anyone else trying to use it.**
+
+I'd like to have a cleaner way of doing it that actually _could_ be version controlled, perhaps with some combination of npm [hook scripts](https://docs.npmjs.com/misc/scripts#hook-scripts) and some rewriting of the Webpack development configuration, but I'm still not sure the best way to do that, and for now, `npm link` is actually pretty easy, all scary warnings aside. And once you set it up, you shouldn't have to worry about it again in your local repo, as long as you run all other subsequent installs with [the link flag](https://docs.npmjs.com/misc/config#link), as `npm install --link`.
 
 ### Browser
 
