@@ -23,12 +23,14 @@ The client essentially represents a UI library; the native repository consumes t
 
 ### farmos-native
 The native repo currently performs two main functions:
+
 - housing the data and login plugins
 - controlling the Cordova build process
 
 The plugins are already quite self-contained. It seems like a forgone conclusion that at some point we'll want to make them into their own independent libraries. They're actually Vue plugins, which is all that's preventing all Vue-related dependencies (and devDependencies) from being removed from the native repo, so that time might need come sooner rather than later. Anticipating that fact, the data and login plugins are outlined separately below.
 
 Putting the plugins aside for now then, the native repo really becomes quite a spare repository, basically comprised of the following:
+
 - the configuration files and build scripts for npm, Webpack and Cordova
 - a mostly empty `index.html`, which just serves as a target for the build scripts
 - a `main.js` file, which only calls the client library and passes it the plugins as arguments
@@ -39,15 +41,16 @@ Being concerned solely with the final build process, it really doesn't contain m
 The data plugin supplies the client with methods for storing farmOS data on local disk with WebSQL, and for sending that data to a farmOS server via AJAX and the farmOS REST API.
 
 Specifically, the data plugin is a [Vue plugin](https://vuejs.org/v2/guide/plugins.html), which implements
+
 - Vuex subscribe methods, which 
-  - listen for UI actions and mutations, then 
-  - dispatch actions to the db and http modules;
+    - listen for UI actions and mutations, then 
+    - dispatch actions to the db and http modules;
 - the db Vuex module, consisting of Vuex actions, which implement
-  - WebSQL transactions, then
-  - dispatches actions to the UI's store (eg, to update `logs`' "cached" status);
+    - WebSQL transactions, then
+    - dispatches actions to the UI's store (eg, to update `logs`' "cached" status);
 - the http Vuex module, consisting of Vuex actions, which implement
-  - AJAX requests, then
-  - dispatches actions to UI's store (eg, to update `logs`' "synced" status).
+    - AJAX requests, then
+    - dispatches actions to UI's store (eg, to update `logs`' "synced" status).
   
 ### login plugin
 I need to finish the login plugin's documentation once I've gone through and figured out the authentication process better, and fixed some issues with the way it currently uses Vue mixins, but structurally it's pretty similar to the data plugin. 
@@ -80,14 +83,14 @@ Note that the login plugin is optional. Crucially, when the plugins are installe
 Beyond the load function, the client can be summarized as comprising:
 
 - Vue components, which implement
-  - Rendering algorithms, based on current state of the Vuex store
-  - Component methods, which dispatch actions/mutations to the store when DOM events are triggered
+    - Rendering algorithms, based on current state of the Vuex store
+    - Component methods, which dispatch actions/mutations to the store when DOM events are triggered
 - The Vuex store, which implements 
-  - a state tree, representing the entire UI state (eg, an array of log objects)
-  - mutations, which transform the UI state (synchronously)
-  - actions, which 
-    - handle asynchronous requests from the data plugin and components, and 
-    - 'commits' mutations to the store at different stages of those requests
+    - a state tree, representing the entire UI state (eg, an array of log objects)
+    - mutations, which transform the UI state (synchronously)
+    - actions, which 
+        - handle asynchronous requests from the data plugin and components, and 
+        - 'commits' mutations to the store at different stages of those requests
 
 
 ## Development environments
