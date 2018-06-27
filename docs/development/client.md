@@ -91,21 +91,26 @@ Beyond the load function, the client can be summarized as comprising:
 
 
 ## Development environments
+Currently, a local clone of the farmOS-native repository is required to run a development environment for both the client and native repos; however, you do not need to clone the client repo separately if you're only planning to work on the native repo. So, follow the steps below to set up the native repo's dev environment first, regardless of which you're planning to work on, then proceed to setting up the client environment only if you wish to work on the client.
 
-### Linking Repositories with `npm link`
-The somewhat tricky thing is when you want to be working on your local copy of the farmos-client repo. In order to see the effects of your changes, you'll want to be using the farmos-native repo as your "engine", so to speak, running `npm run dev` from your local `/farmos-native` directory, while making changes in your local `/farmos-client` directory. You don't want to have to commit and push every little change you make in the client directory up to GitHub, and then pull it back down to your native directory, just to see what effect it had. Fortunately, there's a nice little npm cli tool for this, [`npm link`](https://docs.npmjs.com/cli/link), so that while you're working in development, you can just uninstall the GitHub version of the client package, then reinstall it as a symbolic link to the local directory where you've cloned the repo. For me, since I have both repos in a parent directory called `Code`, assuming I start from that parent directory, I would do something like this:
+The first thing of course is to clone the native repo from GitHub, and install the npm dependencies:
 
-    $ cd farmos-client 
-    $ npm link
-    $ cd ../farmos-native
-    $ npm uninstall --no-save farmos-client
-    $ npm link farmos-client
+```bash
+$ git clone https://github.com/farmOS/farmOS-native.git
+$ cd farmOS-native
+$ npm install
+```
 
-**CAUTION: Make sure to use the `--no-save` flag when you uninstall, and do NOT use the `--save` flag when you install your local client package. These changes should NOT be reflected in `package.json` or saved in version control, because they will break the native repo for anyone else trying to use it.**
-
-I'd like to have a cleaner way of doing it that actually _could_ be version controlled, perhaps with some combination of npm [hook scripts](https://docs.npmjs.com/misc/scripts#hook-scripts) and some rewriting of the Webpack development configuration, but I'm still not sure the best way to do that, and for now, `npm link` is actually pretty easy, all scary warnings aside. And once you set it up, you shouldn't have to worry about it again in your local repo, as long as you run all other subsequent installs with [the link flag](https://docs.npmjs.com/misc/config#link), as `npm install --link`.
+You should now have all the dependencies you need to run the native app, either in the browser or via one of the platform SDK's. If you're main objective is to develop on the client, you'll probably want to do so in the browser. If you only wish to work on the native repo, it will have already downloaded its own copy of the client repo into its `node_modules` directory, along with all its other dependencies, when you ran `npm install`.
 
 ### Browser
+The browser-based development environment can be started by running the following command from the project root:
+
+```bash
+$ npm start
+```
+
+Once the dev server has successfully compiled the dev build, you should be able to open it in a browser from [http://localhost:8080/](http://localhost:8080/). Changes saved to the files in your local repo will be hot reloaded automatically.
 
 ### Platform SDK's
 
@@ -113,6 +118,39 @@ I'd like to have a cleaner way of doing it that actually _could_ be version cont
 * [Cordova docs on running the emulator and debugger in XCode]
 
 [//]: <> (TODO: Add a few more details on this once I know more)
+
+### Linking the farmOS-client repository
+If you wish to work on the client repo in development, the first thing you'll want to do is clone it from GitHub and install its dependencies:
+
+```bash
+$ git clone https://github.com/farmOS/farmOS-native.git
+$ cd farmOS-native
+$ npm install
+```
+
+Next, you'll need to direct the native repo to use this local copy of the client library, instead of the copy it downloaded into its own `node_modules` directory. Fortunately, npm provides a helpful little cli tool for just this sort of occasion, [npm-link](https://docs.npmjs.com/cli/link). It basically just creates a symbolic link in place of the npm package in the consuming repository's `node_modules`. To use it, first navigate to client library to create a reference to your local copy of the client repo:
+
+```bash
+$ cd path/to/farmOS-client 
+$ npm link
+```
+
+Now, navigate to your local copy of the native repo, to point it to your local copy of the client, and start the dev server there, if you haven't already:
+
+```bash
+$ cd path/to/farmOS-native
+$ npm link farmos-client
+$ npm start
+```
+
+Finally, you can navigate back again to the client repo, and run the dev script:
+
+```bash
+$ cd path/to/farmOS-client 
+$ npm run dev
+```
+
+This will set a watcher on the `src/` directory, so that whenever you save a change to the client repo, Webpack will automatically rebuild the `dist/` folder, which will in turn trigger the native repo's dev server to hot reload, so you can see the changes in the browser.
 
 ## Native build process
 
