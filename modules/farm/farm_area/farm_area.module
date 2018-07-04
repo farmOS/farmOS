@@ -423,7 +423,7 @@ function farm_area_format_calculated_area($measurement, $units = TRUE) {
 
   // If the measurement is empty or not a number, return an empty string.
   if (empty($measurement) || !is_numeric($measurement)) {
-    return '';
+    return 0;
   }
 
   // Get the system of measurement.
