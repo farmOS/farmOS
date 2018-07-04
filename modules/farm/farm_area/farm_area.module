@@ -284,8 +284,8 @@ function farm_area_entity_view_alter(&$build, $type) {
     return;
   }
 
-  // Get the area's calculated area.
-  $calculated_area = farm_area_calculate_area($area->tid);
+  // Get the area's calculated area (formatted).
+  $calculated_area = farm_area_calculate_area($area->tid, TRUE);
 
   // If the calculated area isn't available, bail.
   if (empty($calculated_area)) {
@@ -357,11 +357,18 @@ function farm_area_extract_geoms($ids = array()) {
  *
  * @param $area_id
  *   The area id to load.
+ * @param $format
+ *   Boolean indicating whether or not the returned value should be formatted
+ *   based on the unit of measurement
  *
  * @return string
- *   Returns the calculated are of the area as a string, in meters squared.
+ *   Returns the calculated are of the area as a string, in meters squared by
+ *   default. If $format is TRUE it will be converted and formatted using
+ *   farm_area_format_calculated_area().
+ *
+ * @see farm_area_format_calculated_area()
  */
-function farm_area_calculate_area($area_id) {
+function farm_area_calculate_area($area_id, $format = FALSE) {
 
   // Load the area.
   $area = taxonomy_term_load($area_id);
@@ -392,8 +399,12 @@ function farm_area_calculate_area($area_id) {
   // Calculate the area in square meters.
   $measurement = farm_map_polygon_area($polygon);
 
-  // Format the area in the default system of measure, and return it as a string.
-  return farm_area_format_calculated_area($measurement);
+  // Return the area as a string (optionally formatted using the default
+  // system of measure).
+  if (!empty($format)) {
+    return farm_area_format_calculated_area($measurement);
+  }
+  return $measurement;
 }
 
 /**
@@ -401,11 +412,14 @@ function farm_area_calculate_area($area_id) {
  *
  * @param int|float $measurement
  *   The measurement of area to format.
+ * @param bool $units
+ *   Boolean indicating whether or not to include units at the end of the
+ *   string.
  *
  * @return string
  *   Returns a formatted string.
  */
-function farm_area_format_calculated_area($measurement) {
+function farm_area_format_calculated_area($measurement, $units = TRUE) {
 
   // If the measurement is empty or not a number, return an empty string.
   if (empty($measurement) || !is_numeric($measurement)) {
@@ -462,6 +476,12 @@ function farm_area_format_calculated_area($measurement) {
     $measurement = $measurement * $conversion;
   }
 
-  // Format and return.
-  return (string) round($measurement, 2) . ' ' . $unit;
+  // Round to 2 decimal precision.
+  $output = (string) round($measurement, 2);
+
+  // Return (optionally with units).
+  if (!empty($units)) {
+    return $output . ' ' . $unit;
+  }
+  return $output;
 }

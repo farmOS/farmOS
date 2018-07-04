@@ -44,8 +44,8 @@ function farm_area_farm_area_details($id) {
   // Start a render array.
   $output = array();
 
-  // Display the calculated area.
-  $calculated_area = farm_area_calculate_area($id);
+  // Display the calculated area (formatted).
+  $calculated_area = farm_area_calculate_area($id, TRUE);
   if (!empty($calculated_area)) {
     $output['calculated_area'] = array(
       '#type' => 'markup',
