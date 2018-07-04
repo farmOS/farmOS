@@ -429,8 +429,7 @@ function farm_area_format_calculated_area($measurement, $units = TRUE) {
   // Get the system of measurement.
   $unit_system = farm_quantity_system_of_measurement();
 
-  // Switch through available unit systems and generate a formatted string.
-  $conversion = '';
+  // Convert the units based on system of measurement and area size.
   $unit = '';
   switch ($unit_system) {
 
@@ -438,12 +437,10 @@ function farm_area_format_calculated_area($measurement, $units = TRUE) {
     case 'metric':
 
       // Convert to hectares.
-      $conversion = '0.0001';
       $unit = 'hectares';
 
       // If it is less than 0.25 hectares, use square meters instead.
-      if ($measurement * $conversion < 0.25) {
-        $conversion = '1';
+      if (farm_area_convert_area_units($measurement, 'hectares') < 0.25) {
         $unit = 'square meters';
       }
       break;
@@ -452,29 +449,22 @@ function farm_area_format_calculated_area($measurement, $units = TRUE) {
     case 'us':
 
       // Convert to acres.
-      $conversion = '0.000247105';
       $unit = 'acres';
 
       // If it is less than 0.25 acres, use square feet instead.
-      if ($measurement * $conversion < 0.25) {
-        $conversion = '10.7639';
+      if (farm_area_convert_area_units($measurement, 'acres') < 0.25) {
         $unit = 'square feet';
       }
       break;
   }
 
-  // If a unit and conversion were not found, bail.
-  if (empty($unit) || empty($conversion)) {
+  // If a unit was not found, bail.
+  if (empty($unit)) {
     return '0';
   }
 
   // Convert to the desired units.
-  if (function_exists('bcmul')) {
-    $measurement = bcmul($measurement, $conversion);
-  }
-  else {
-    $measurement = $measurement * $conversion;
-  }
+  $measurement = farm_area_convert_area_units($measurement, $unit);
 
   // Round to 2 decimal precision.
   $output = (string) round($measurement, 2);
@@ -483,5 +473,44 @@ function farm_area_format_calculated_area($measurement, $units = TRUE) {
   if (!empty($units)) {
     return $output . ' ' . $unit;
   }
+  return $output;
+}
+
+/**
+ * Convert an area from square meters to another unit.
+ *
+ * @param $input
+ *   The number to convert (assumed to be in square meters).
+ * @param string $unit
+ *   Specify the units to convert to. Must be one of: hectares, acres, or
+ *   square feet.
+ *
+ * @return string
+ *   Returns the converted number as string.
+ */
+function farm_area_convert_area_units($input, $unit) {
+
+  // Define the available conversion units and their coefficients.
+  $conversion = array(
+    'square meters' => '1',
+    'hectares' => '0.0001',
+    'square feet' => '10.7639',
+    'acres' => '0.000247105',
+  );
+
+  // If the unit is not in the list, do nothing.
+  if (!array_key_exists($unit, $conversion)) {
+    return $input;
+  }
+
+  // Convert to the desired units.
+  if (function_exists('bcmul')) {
+    $output = bcmul($input, $conversion[$unit]);
+  }
+  else {
+    $output = $input * $conversion;
+  }
+
+  // Return the result.
   return $output;
 }
