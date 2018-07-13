@@ -113,7 +113,20 @@ The browser-based development environment can be started by running the followin
 $ npm start
 ```
 
-Once the dev server has successfully compiled the dev build, you should be able to open it in a browser from [http://localhost:8080/](http://localhost:8080/). Changes saved to the files in your local repo will be hot reloaded automatically.
+This will start the Webpack devServer, which will compile a development build and serve it from [http://localhost:8080/](http://localhost:8080/). Changes saved to the files in your local repo will be hot reloaded automatically while the devServer is running.
+
+#### Proxying a farmOS Docker container
+By default, when the Webpack devServer starts, it will set up a proxy service, which will route all AJAX requests and responses through `http://localhost:80`, in order to prevent CORS errors. This is assumed to be the address of a local farmOS development server running in a Docker container. This is probably the easiest way to get a development backend up and running, so if you don't already have a sever you can use for testing, see the [full instructions for getting farmOS up and running in a Docker container](/development/docker/).
+
+If you wish to proxy an address other than `http://localhost:80`, you'll need to change the proxy settings in `farmOS-native/config/index.js`. Set `dev.proxy.target` to the address and port of your farmOS testing server. Restart the devServer and it should now be proxying your new address. It may also be necessary to add new endpoints to the `dev.proxy.context` array as new features are developed and new endpoints on the farmOS server need to be reached. See the [Webpack documentation on configuring the proxy middleware](https://webpack.js.org/configuration/dev-server/#devserver-proxy) for more information.
+
+You will also have to install the Drupal [CORS module](https://www.drupal.org/project/cors) on your farmOS server in order to handle the way the client does authentication (hopefully this will no longer be necessary once we implement OAuth). Once it's installed, go to the CORS configuration page and add the following line to the Domains field:
+
+```
+*|http://localhost:8080||Content-Type,Authorization,X-Requested-With|true
+```
+
+Finally, when logging in to the client from the browser, simply leave the URL field blank. The devServer will then interpret all requests as relative links and proxy them accordingly. For some reason login can sometimes fail on the first attempt, but should succeed on all subsequent attempts.
 
 ### Platform SDK's
 
