@@ -30,15 +30,15 @@ June 13th @ 1pm EDT / 5pm UTC
 
 July 11th @ 1pm EDT / 5pm UTC
 
-August 8th @ 1pm EDT / 5pm UTC
+August 8th @ 2pm EDT / 6pm UTC
 
-September 12th @ 1pm EDT / 5pm UTC
+September 12th @ 2pm EDT / 6pm UTC
 
-October 10th @ 1pm EDT / 5pm UTC
+October 10th @ 2pm EDT / 6pm UTC
 
-November 14th @ 1pm EST / 6pm UTC
+November 14th @ 2pm EST / 7pm UTC
 
-December 12th @ 1pm EST / 6pm UTC
+December 12th @ 2pm EST / 7pm UTC
 
 [Join Hangout]: https://hangouts.google.com/hangouts/_/farmier.com/farmos-monthly
 
