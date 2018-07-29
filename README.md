@@ -1,5 +1,9 @@
 # farmOS
 
+[![Licence](https://img.shields.io/badge/Licence-GPL%202.0-blue.svg)](https://opensource.org/licenses/GPL-2.0/)
+[![Docker](https://img.shields.io/docker/pulls/farmos/farmos.svg)](https://hub.docker.com/r/farmos/farmos/)
+[![Twitter](https://img.shields.io/twitter/follow/farmOSorg.svg?label=%40farmOSorg&style=flat)](https://twitter.com/farmOSorg)
+
 Documentation: https://farmOS.org
 
 Drupal distribution: http://drupal.org/project/farm
