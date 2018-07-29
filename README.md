@@ -5,6 +5,7 @@ A web-based farm record keeping application.
 
 [![GPLv2 Licence](https://badges.frapsoft.com/os/gpl/gpl.png?v=103)](https://opensource.org/licenses/GPL-2.0/)
 [![Docker](https://img.shields.io/docker/pulls/farmos/farmos.svg)](https://hub.docker.com/r/farmos/farmos/)
+[![Mentioned in Awesome <awesome-agriculture>](https://awesome.re/mentioned-badge.svg)](https://github.com/beaorn/awesome-agriculture#farm-management-systems-and-record-keeping)
 [![Twitter URL](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/farmOSorg)
 
 Documentation: https://farmOS.org
