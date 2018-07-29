@@ -1,11 +1,15 @@
 farmOS
 ======
+A web-based farm record keeping application.
+
+
+[![GPLv2 Licence](https://badges.frapsoft.com/os/gpl/gpl.png?v=103)](https://opensource.org/licenses/GPL-2.0/)
+[![Docker](https://img.shields.io/docker/pulls/farmos/farmos.svg)](https://hub.docker.com/r/farmos/farmos/)
+[![Twitter URL](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/farmOSorg)
 
 Documentation: https://farmOS.org
 
 Drupal distribution: http://drupal.org/project/farm
-
-A web-based farm record keeping application.
 
 farmOS is a built on top of [Drupal](http://drupal.org). It packages Drupal core
 along with a set of modules and configuration to create a flexible and
