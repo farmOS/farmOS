@@ -205,14 +205,18 @@ function farm_quantity_log_asset_query($asset_id, $measure = NULL, $label = NULL
  *         'label' => 'Foo',
  *       ),
  *     );
+ * @param string $notes
+ *   Notes to add to the log.
+ * @param array $categories
+ *   An array of categories to add to the log.
  *
  * @return \Log
  *   Returns a saved log entity.
  */
-function farm_quantity_log_create($type, $name = '', $timestamp = REQUEST_TIME, $done = TRUE, $assets = array(), $measurements = array()) {
+function farm_quantity_log_create($type, $name = '', $timestamp = REQUEST_TIME, $done = TRUE, $assets = array(), $measurements = array(), $notes = '', $categories = array()) {
 
   // Create a new log entity.
-  $log = farm_log_create($type, $name, $timestamp, $done, $assets);
+  $log = farm_log_create($type, $name, $timestamp, $done, $assets, $notes, $categories);
 
   // Iterate through the measurements.
   foreach ($measurements as $measurement) {
