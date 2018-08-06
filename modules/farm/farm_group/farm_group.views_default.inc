@@ -958,7 +958,7 @@ function farm_group_views_default_views() {
   $view = new view();
   $view->name = 'farm_groups';
   $view->description = '';
-  $view->tag = 'farm_livestock';
+  $view->tag = 'farm_group';
   $view->base_table = 'farm_asset';
   $view->human_name = 'Farm Groups';
   $view->core = 7;
