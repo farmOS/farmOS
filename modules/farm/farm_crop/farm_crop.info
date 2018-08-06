@@ -52,7 +52,6 @@ features[field_base][] = field_farm_companions
 features[field_base][] = field_farm_crop
 features[field_base][] = field_farm_crop_family
 features[field_base][] = field_farm_maturity_days
-features[field_base][] = field_farm_season
 features[field_base][] = field_farm_seed_source
 features[field_base][] = field_farm_transplant_days
 features[field_group][] = group_farm_assignment|log|farm_seeding|form

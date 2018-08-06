@@ -12,6 +12,7 @@ dependencies[] = strongarm
 dependencies[] = taxonomy
 features[ctools][] = strongarm:strongarm:1
 features[features_api][] = api:2
+features[field_base][] = field_farm_season
 features[field_instance][] = taxonomy_term-farm_season-field_farm_date_range
 features[taxonomy][] = farm_season
 features[variable][] = pathauto_taxonomy_term_farm_season_pattern
