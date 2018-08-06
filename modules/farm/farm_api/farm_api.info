@@ -1,0 +1,5 @@
+name = Farm API
+description = Extends the RESTful Web Services module to provide farmOS-specific APIs.
+core = 7.x
+package = farmOS
+dependencies[] = restws
