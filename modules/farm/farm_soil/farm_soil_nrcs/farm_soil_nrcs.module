@@ -12,10 +12,7 @@ include_once 'farm_soil_nrcs.features.inc';
 function farm_soil_nrcs_form_alter(&$form, &$form_state, $form_id) {
 
   // Only act on the soil test log form.
-  if ($form_id != 'log_form') {
-    return;
-  }
-  if ($form['#bundle'] != 'farm_soil_test') {
+  if (!($form_id == 'log_form' && $form['#bundle'] == 'farm_soil_test')) {
     return;
   }
 
