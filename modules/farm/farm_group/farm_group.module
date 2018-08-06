@@ -7,6 +7,15 @@
 include_once 'farm_group.features.inc';
 
 /**
+ * Implements hook_help().
+ */
+function farm_group_help($path, $arg) {
+  if ($path == 'farm/assets/groups') {
+    return t('Groups are a special asset type that can be used to organize other assets. For more information, see the <a href="@groups_doc_url">Groups</a> documentation.', array('@groups_doc_url' => url('https://farmOS.org/guide/assets/groups')));
+  }
+}
+
+/**
  * Implements hook_farm_ui_entities().
  */
 function farm_group_farm_ui_entities() {
