@@ -81,7 +81,7 @@ function farm_quantity_settings_form($form, &$form_state) {
   $form['farm_quantity_unit_system'] = array(
     '#type' => 'radios',
     '#title' => t('System of measurement'),
-    '#description' => t('Select the system of measurement you would like to use in farmOS.'),
+    '#description' => t('Select the system of measurement you would like to use in farmOS. Changing this setting after data has been entered is not recommended.'),
     '#options' => array(
       'metric' => t('Metric'),
       'us' => t('US/Imperial'),
