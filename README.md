@@ -36,3 +36,4 @@ This project has been sponsored by:
  * [Vermont Housing & Conservation Board](http://www.vhcb.org)
  * [UVM Extension](https://www.uvm.edu/extension)
  * [Globetrotter Foundation](http://globetrotterfoundation.org)
+ * [Vermont Vegetable and Berry Growers Association](http://www.uvm.edu/vtvegandberry)
