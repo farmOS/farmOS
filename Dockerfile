@@ -10,7 +10,7 @@ ENV FARMOS_DEV false
 RUN a2enmod rewrite
 
 # Install the PHP extensions that Drupal needs.
-RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev libpq-dev \
+RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev libpq-dev \
   && rm -rf /var/lib/apt/lists/* \
   && docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
   && docker-php-ext-install bcmath gd mbstring opcache pdo pdo_mysql pdo_pgsql zip
