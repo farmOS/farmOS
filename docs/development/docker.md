@@ -250,6 +250,51 @@ To start your containers:
 
     sudo docker-compose start
 
+### Updating farmOS
+
+**Warning**: if you have made any changes to the code inside `.data/www`, they
+will be overwritten by this process. The one exception is the `.data/www/sites`
+directory, which will not be modified. It's a good idea to put extra modules
+that you have downloaded yourself into `.data/www/sites/all/modules` for this
+reason.
+
+First, stop the containers and create a backup of the `.data` directory so that
+you can easily restore if anything goes wrong.
+
+    sudo docker-compose stop
+    sudo tar -czf data-backup.tar.gz .data
+
+Pull the latest version of the farmOS Docker image
+
+    sudo docker pull farmos/farmos:7.x-1.x
+
+**If you are running a development version of farmOS**, delete `farm.info`.
+
+    rm .data/www/profiles/farm/farm.info
+
+Restart the farmOS container.
+
+    sudo docker-compose down
+    sudo docker-compose up -d
+
+Run database updates by going to `/update.php` in your browser and following
+the instructions.
+
+You may also need to revert any overridden features in
+`/admin/structure/features` (if they are not automatically). **Warning**: If
+you have made any modifications to farmOS configuration, reverting features may
+overwrite those changes.
+
+If anything goes wrong during this process, you can restore to the backup you
+created in a few steps:
+
+    sudo docker-compose down
+    sudo rm -rf .data
+    sudo tar -xzf data-backup.tar.gz
+
+For more information about how the Docker update process works, see the
+"Rebuilding the codebase" section above.
+
 [Docker]: https://www.docker.com
 [Wikipedia]: https://en.wikipedia.org/wiki/Docker_(software)
 [Docker Hub]: https://hub.docker.com
