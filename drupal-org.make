@@ -149,7 +149,11 @@ projects[restws][subdir] = "contrib"
 projects[restws][version] = "2.7"
 
 projects[restws_file][subdir] = "contrib"
-projects[restws_file][version] = "1.2"
+projects[restws_file][download][type] = "git"
+projects[restws_file][download][revision] = "0052e281117ebe7356ae4fef638fbf74c0e75e55"
+projects[restws_file][download][branch] = "7.x-1.x"
+; Ensure that files are saved to the correct directory.
+projects[restws_file][patch][] = "http://www.drupal.org/files/issues/2018-08-14/restws_file_field_info_file_directory-2780125-11.patch"
 
 projects[role_delegation][subdir] = "contrib"
 projects[role_delegation][version] = "1.1"
