@@ -148,6 +148,9 @@ projects[registry_autoload][version] = "1.3"
 projects[restws][subdir] = "contrib"
 projects[restws][version] = "2.7"
 
+projects[restws_file][subdir] = "contrib"
+projects[restws_file][version] = "1.2"
+
 projects[role_delegation][subdir] = "contrib"
 projects[role_delegation][version] = "1.1"
 
