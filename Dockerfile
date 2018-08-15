@@ -50,19 +50,20 @@ RUN pecl install uploadprogress \
 RUN apt-get update && apt-get install -y git unzip
 
 # Build and install the GEOS PHP extension.
-RUN apt-get update && apt-get install -y libgeos-dev bzip2 \
-  && curl -fsSL 'http://download.osgeo.org/geos/geos-3.4.2.tar.bz2' -o geos.tar.bz2 \
-  && mkdir -p geos \
-  && tar -xf geos.tar.bz2 -C geos --strip-components=1 \
-  && rm geos.tar.bz2 \
+# See https://git.osgeo.org/gitea/geos/php-geos
+RUN apt-get update && apt-get install -y libgeos-dev
+RUN curl -fsSL 'https://git.osgeo.org/gitea/geos/php-geos/archive/1.0.0.tar.gz' -o php-geos.tar.gz \
+  && tar -xzf php-geos.tar.gz \
+  && rm php-geos.tar.gz \
   && ( \
-    cd geos \
-    && ./configure --enable-php \
+    cd php-geos \
+    && ./autogen.sh \
+    && ./configure \
     && make \
     && make install \
   ) \
-  && rm -r geos \
-  && docker-php-ext-enable geos
+  && rm -r php-geos
+RUN docker-php-ext-enable geos
 
 # Install Drush 8 with the phar file.
 ENV DRUSH_VERSION 8.1.16
