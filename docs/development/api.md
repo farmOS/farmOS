@@ -56,10 +56,17 @@ The endpoint to use depends on the entity type you are requesting:
 
 * Assets: `/farm_asset.json`
 * Logs: `/log.json`
-* Areas*: `/taxonomy_term.json?type=farm_areas`
+* Taxonomy terms: `/taxonomy_term.json`
 
-*Note that areas are currently represented as Drupal taxonomy terms, but may be
+**Areas**
+
+Note that areas are currently represented as Drupal taxonomy terms, but may be
 changed to assets in the future. See [Make "Area" into a type of Farm Asset].
+
+In order to get a list of areas, you first need to get the taxonomy vocabulary
+ID for the `farm_areas` vocabulary. Then, you can filter the taxonomy term
+endpoint by the vocabulary ID ("`[vid]`") to only show areas:
+`/taxonomy_term.json?vocabulary=[vid]`
 
 ## Creating records
 
