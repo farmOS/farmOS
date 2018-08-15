@@ -25,4 +25,3 @@ services:
       - '80:80'
     environment:
       FARMOS_DEV: 'true'
-
