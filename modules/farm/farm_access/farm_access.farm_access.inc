@@ -49,9 +49,6 @@ function farm_asset_farm_access_perms($role) {
   // Grant access to view farm assets.
   $perms[] = 'view farm assets';
 
-  // Grant access to RESTful Web Services resources.
-  $perms[] = 'access resource farm_asset';
-
   return $perms;
 }
 
@@ -119,9 +116,6 @@ function log_farm_access_perms($role) {
 
   // View all logs.
   $perms[] = 'view all logs';
-
-  // Access RESTful Web Services log resources.
-  $perms[] = 'access resource log';
 
   return $perms;
 }
@@ -203,9 +197,6 @@ function taxonomy_farm_access_perms($role) {
   if (in_array($role, array('Farm Manager', 'Farm Worker'))) {
     $perms[] = 'administer taxonomy';
   }
-
-  // Access RESTful Web Services taxonomy_term resources.
-  $perms[] = 'access resource taxonomy_term';
 
   return $perms;
 }
