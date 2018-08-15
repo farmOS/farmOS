@@ -79,6 +79,49 @@ Here is a `curl` command to create that log in farmOS:
 
     curl -X POST --cookie farmOS-cookie.txt -H "X-CSRF-Token: ${TOKEN}" -H 'Content-Type: application/json' -d '{"name": "Test observation via REST", "type": "farm_observation", "timestamp": "1526584271"}' [URL]/log
 
+## Uploading files
+
+Files can be attached to records using the API.
+
+Most record types (areas, assets, logs, etc) have both a "Photo(s)" field (for
+image files) and a "File(s)" field (for other files). The machine names of
+these fields are:
+
+* Photo(s): `field_farm_images`
+* File(s): `field_farm_files`
+
+The API expects an array of base64-encoded strings. Multiple files can be
+included in the array.
+
+For example (replace `[BASE64_CONTENT]` with the base64 encoding of the file):
+
+    {
+      "name": "Test file upload via REST",
+      "type": "farm_observation",
+      "timestamp": "1534261642",
+      "field_farm_images": [
+        "data:image/jpeg;base64,[BASE64_CONTENT]",
+      ],
+    }
+
+Here is an example using `curl` (replace `[filename]` with the path to the
+file). This will create a new observation log with the file attached to the
+"Photo(s)" field of the log.
+
+    # Get the file MIME type.
+    FILE_MIME=`file -b --mime-type [filename]`
+
+    # Encode the file as a base64 string and save it to a variable.
+    FILE_CONTENT=`base64 [filename]`
+
+    # Post a log with the file attached to the photo field.
+    # <<CURL_DATA is used because base64 encoded files are generally longer
+    # the max curl argument length. See:
+    # https://unix.stackexchange.com/questions/174350/curl-argument-list-too-long
+    curl -X POST --cookie farmOS-cookie.txt -H "X-CSRF-Token: ${TOKEN}" -H "Content-Type: application/json" -d @- [URL]/log <<CURL_DATA
+    {"name": "Test file upload via REST", "type": "farm_observation", "timestamp": "1534261642", "field_farm_images": ["data:${FILE_MIME};base64,${FILE_CONTENT}"]}
+    CURL_DATA
+
 ## Troubleshooting
 
 Some common issues and solutions are described below. If these do not help,
