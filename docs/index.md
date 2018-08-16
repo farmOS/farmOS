@@ -87,7 +87,7 @@ The full workshop recording is available on YouTube:
 [free]: https://en.wikipedia.org/wiki/Free_software
 [open source]: http://en.wikipedia.org/wiki/Open_source
 [groundwork]: /development/architecture
-[contribute]: /contribute
+[contribute]: /community/contribute
 [https://drupal.org/project/farm]: https://drupal.org/project/farm
 [https://github.com/farmOS]: https://github.com/farmOS
 [Google Hangout]: https://plus.google.com/hangouts/_/farmier.com/farmos-monthly
