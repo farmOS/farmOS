@@ -24,9 +24,9 @@ now is laying a strong [groundwork], so that others can more easily join in and
 * Monthly call: [Google Hangout] (2nd Wed of the month at 1pm Eastern)
 * Chat:
     * Riot.im:
-        * [#farmOS on Matrix.org]
+        * [#farmOS on Matrix.org] (bridged to #farmOS IRC room on Freenode)
         * [#FIot on Matrix.org] (Farm Internet of Things)
-    * IRC: [#farmOS on Freenode]
+    * IRC: [#farmOS on Freenode] (requires a registered name)
 * Twitter: [@farmOSorg]
 * Twitter: [@getFarmier]
 

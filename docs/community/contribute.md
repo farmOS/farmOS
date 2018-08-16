@@ -30,7 +30,8 @@ is welcome to join.
 
 You can also chat with people any time in the [#farmOS room on Matrix.org] or
 the [#farmOS IRC channel on Freenode] (both platforms are linked, so chats are
-shared between them).
+shared between them). Note that the #farmOS IRC room requires a registered
+Freenode username (to prevent spam).
 
 ## Sponsor Development
 
