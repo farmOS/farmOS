@@ -12,6 +12,7 @@ function farm_api_farm_access_perms($role) {
 
   // Grant access to RESTful Web Services resources.
   $perms[] = 'access resource farm_asset';
+  $perms[] = 'access resource field_collection';
   $perms[] = 'access resource log';
   $perms[] = 'access resource taxonomy_term';
 
