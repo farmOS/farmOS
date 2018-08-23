@@ -19,6 +19,7 @@ function farm_ui_farm_ui_entity_view_groups() {
     'logs_special' => array(
       'title' => t('Logs with special purpose'),
       'weight' => 100,
+      'collapse' => TRUE,
     ),
     'other' => array(
       'weight' => 101,

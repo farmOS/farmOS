@@ -177,6 +177,12 @@ function farm_ui_entity_views($entity_type, $entity_bundle, $entity) {
         $build[$group]['#title'] = $info['title'];
       }
       $build[$group]['#weight'] = $info['weight'];
+
+      // Collapse by default, if desired.
+      if (!empty($info['collapse'])) {
+        $build[$group]['#collapsible'] = TRUE;
+        $build[$group]['#collapsed'] = TRUE;
+      }
     }
   }
 
