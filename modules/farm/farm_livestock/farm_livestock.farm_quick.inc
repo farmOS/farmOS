@@ -336,6 +336,9 @@ function farm_livestock_birth_form_submit($form, &$form_state) {
     // Add it to the array.
     $children[] = $child_asset;
 
+    // Link the asset to this quick form.
+    farm_quick_entity_link('farm_livestock_birth_form', 'farm_asset', $child_asset);
+
     // Set a message.
     $label = entity_label('farm_asset', $child_asset);
     $uri = entity_uri('farm_asset', $child_asset);
@@ -388,6 +391,9 @@ function farm_livestock_birth_form_submit($form, &$form_state) {
 
   // Save the log.
   $log_wrapper->save();
+
+  // Link the log to the quick form.
+  farm_quick_entity_link('farm_livestock_birth_form', 'log', $log);
 
   // Set a message linking to the mother animal.
   $label = entity_label('farm_asset', $parents['mother']);
