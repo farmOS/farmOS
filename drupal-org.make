@@ -61,11 +61,7 @@ projects[field_group_easy_responsive_tabs][subdir] = "contrib"
 projects[field_group_easy_responsive_tabs][version] = "1.2"
 
 projects[fraction][subdir] = "contrib"
-projects[fraction][version] = "1.5"
-; Issue #2918218: Empty decimal widgets always show zero
-projects[fraction][patch][] = "http://www.drupal.org/files/issues/fraction_empty_zero-2918218-2.patch"
-; Issue #2921422: Use scale of 0 in all numerator/denominator BCMath calculations
-projects[fraction][patch][] = "http://www.drupal.org/files/issues/fraction_bcmath_scale-2921422-2.patch"
+projects[fraction][version] = "1.7"
 
 projects[geocoder][subdir] = "contrib"
 projects[geocoder][version] = "1.3"
