@@ -141,6 +141,28 @@ function farm_quantity_log_asset_query($asset_id, $measure = NULL, $label = NULL
    * this function with regard to sanitizing query inputs.
    */
 
+  // Use the farm_log_asset_query() helper function to start a query object.
+  $query = farm_log_asset_query($asset_id, $time, $done);
+
+  // Add quantity filters to the query using a helper function.
+  farm_quantity_log_query_add_filters($query, $measure, $label);
+
+  // Return the query object.
+  return $query;
+}
+
+/**
+ * Helper function for adding joins and filters to a quantity log query.
+ *
+ * @param \SelectQuery $query
+ *   The query object to alter.
+ * @param string $measure
+ *   The quantity measure to search for (ie: weight).
+ * @param string $label
+ *   The quantity label to search for.
+ */
+function farm_quantity_log_query_add_filters(&$query, $measure = NULL, $label = NULL) {
+
   // Ensure that $measure and $label are valid strings, because we use them
   // directly in the query's WHERE statements below. This is defensive code.
   // See note about views_join_subquery in farm_log_asset_query().
@@ -153,9 +175,6 @@ function farm_quantity_log_asset_query($asset_id, $measure = NULL, $label = NULL
   if (!is_null($label)) {
     $label = db_escape_field($label);
   }
-
-  // Use the farm_log_asset_query() helper function to start a query object.
-  $query = farm_log_asset_query($asset_id, $time, $done);
 
   // Add the log ID field.
   $query->addField('ss_log', 'id');
@@ -177,9 +196,6 @@ function farm_quantity_log_asset_query($asset_id, $measure = NULL, $label = NULL
     $query->innerJoin('field_data_field_farm_quantity_label', 'ss_fdffql', "ss_fdffql.entity_id = ss_fdffq.field_farm_quantity_value AND ss_fdffql.deleted = 0");
     $query->where("ss_fdffql.field_farm_quantity_label_value = '" . $label . "'");
   }
-
-  // Return the query object.
-  return $query;
 }
 
 /**
