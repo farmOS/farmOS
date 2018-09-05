@@ -194,3 +194,50 @@ function farm_quick_configure_form($form, &$form_state) {
 function farm_quick_configure_form_submit(&$form, &$form_state) {
   menu_rebuild();
 }
+
+/**
+ * Link an entity to a quick form.
+ *
+ * @param string $quick_form_id
+ *   The quick form ID.
+ * @param string $entity_type
+ *   The entity type.
+ * @param $entity
+ *   The entity.
+ */
+function farm_quick_entity_link($quick_form_id, $entity_type, $entity) {
+
+  // If no quick form ID is provided, bail.
+  if (empty($quick_form_id)) {
+    return;
+  }
+
+  // Get the entity ID.
+  $id = entity_id($entity_type, $entity);
+
+  // If the ID could not be found, bail.
+  if (empty($id)) {
+    return;
+  }
+
+  // Save it to the {farm_quick_entity} table.
+  $record = array(
+    'entity_type' => $entity_type,
+    'entity_id' => $id,
+    'quick_form_id' => $quick_form_id
+  );
+  drupal_write_record('farm_quick_entity', $record);
+}
+
+/**
+ * Implements hook_entity_delete().
+ */
+function farm_quick_entity_delete($entity, $type) {
+
+  // When an entity is deleted, delete associated records in
+  // {farm_quick_entity}.
+  $id = entity_id($type, $entity);
+  if (!empty($id)) {
+    db_query('DELETE FROM {farm_quick_entity} WHERE entity_type = :entity_type AND entity_id = :entity_id', array(':entity_type' => $type, ':entity_id' => $id));
+  }
+}

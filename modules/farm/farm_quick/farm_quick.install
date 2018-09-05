@@ -5,10 +5,82 @@
  */
 
 /**
+ * Implements hook_schema().
+ */
+function farm_quick_schema() {
+  $schema['farm_quick_entity'] = array(
+    'description' => 'Entities created via quick forms.',
+    'fields' => array(
+      'entity_type' => array(
+        'description' => 'Entity type.',
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+      ),
+      'entity_id' => array(
+        'description' => 'Entity ID.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'quick_form_id' => array(
+        'description' => 'Quick form ID.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+    ),
+    'indexes' => array(
+      'entity_type' => array('entity_type'),
+      'entity_id' => array('entity_id'),
+      'quick_form_id' => array('quick_form_id'),
+    ),
+  );
+  return $schema;
+}
+
+/**
  * Implements hook_uninstall().
  */
 function farm_quick_uninstall() {
 
   // Delete variables.
   variable_del('farm_quick_forms_enabled');
+}
+
+/**
+ * Create the {farm_quick_entity} table.
+ */
+function farm_quick_update_7000(&$sandbox) {
+
+  // Create the {farm_quick_entity} table.
+  $schema = array(
+    'description' => 'Entities created via quick forms.',
+    'fields' => array(
+      'entity_type' => array(
+        'description' => 'Entity type.',
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+      ),
+      'entity_id' => array(
+        'description' => 'Entity ID.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'quick_form_id' => array(
+        'description' => 'Quick form ID.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+    ),
+    'indexes' => array(
+      'entity_type' => array('entity_type'),
+      'entity_id' => array('entity_id'),
+      'quick_form_id' => array('quick_form_id'),
+    ),
+  );
+  db_create_table('farm_quick_entity', $schema);
 }
