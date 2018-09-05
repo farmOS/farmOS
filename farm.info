@@ -53,4 +53,5 @@ dependencies[] = farm_log_input
 dependencies[] = farm_log_observation
 dependencies[] = farm_menu
 dependencies[] = farm_people
+dependencies[] = farm_quick
 dependencies[] = farm_ui
