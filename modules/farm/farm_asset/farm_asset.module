@@ -329,6 +329,14 @@ function farm_asset_entity_view($entity, $type, $view_mode, $langcode) {
   if (!empty($asset_types[$entity->type])) {
     $entity->content['type'] = array(
       '#markup' => '<div><strong>Asset type:</strong> ' . $asset_types[$entity->type] . '</div>',
+      '#weight' => -102,
+    );
+  }
+
+  // Add the asset ID.
+  if (!empty($entity->id)) {
+    $entity->content['id'] = array(
+      '#markup' => '<div><strong>Asset ID:</strong> ' . $entity->id . '</div>',
       '#weight' => -101,
     );
   }
