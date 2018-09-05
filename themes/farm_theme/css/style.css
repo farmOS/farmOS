@@ -27,12 +27,15 @@ body.front h1.page-header {
 }
 
 /**
- * Style help glyphicon in page title.
+ * Style help text glyphicons.
  */
 .page-header .glyphicon-question-sign {
   color: #3a87ad;
   cursor: pointer;
   font-size: 0.75em;
+}
+.region-help .glyphicon-remove {
+  cursor: pointer;
 }
 
 /**
