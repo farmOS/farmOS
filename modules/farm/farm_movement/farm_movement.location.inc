@@ -509,7 +509,7 @@ function farm_movement_asset_movement_query($asset_id, $time = REQUEST_TIME, $do
    */
 
   // Use the farm_log_asset_query() helper function to start a query object.
-  $query = farm_log_asset_query($asset_id, $time, $done, $single);
+  $query = farm_log_asset_query($asset_id, $time, $done, NULL, $single);
 
   // Join in the Movement field collection and filter to only include logs with
   // movements. Use an inner join to exclude logs that do not have any
@@ -567,7 +567,7 @@ function farm_movement_area_movement_query($area_id, $time = REQUEST_TIME, $done
   // Use the farm_log_query() helper function to start a query object. Do not
   // limit the results to a single row because by the very nature of this we
   // want to find all assets in the area, which may come from multiple logs.
-  $query = farm_log_query($time, $done, FALSE);
+  $query = farm_log_query($time, $done, NULL, FALSE);
 
   // Join in the Movement field collection and filter to only include logs with
   // movements. Use an inner join to exclude logs that do not have a movement

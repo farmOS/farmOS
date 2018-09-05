@@ -604,7 +604,7 @@ function farm_group_asset_membership_query($asset_id, $time = REQUEST_TIME, $don
    */
 
   // Use the farm_log_asset_query() helper function to start a query object.
-  $query = farm_log_asset_query($asset_id, $time, $done, $single);
+  $query = farm_log_asset_query($asset_id, $time, $done, NULL, $single);
 
   // Join in the Membership field collection. Use an inner join to exclude logs
   // that do not a membership field collection attached.
@@ -717,7 +717,7 @@ function farm_group_members_query($group_id, $time = REQUEST_TIME, $done = TRUE,
   // Do not limit the results to a single row because by the very nature of
   // this we want to find all assets in the group, which may come from multiple
   // logs.
-  $subquery = farm_log_asset_query(NULL, $time, $done, FALSE);
+  $subquery = farm_log_asset_query(NULL, $time, $done, NULL, FALSE);
 
   // Join in the Membership field collection. Use an inner join to exclude logs
   // that do not have a membership field collection attached.
