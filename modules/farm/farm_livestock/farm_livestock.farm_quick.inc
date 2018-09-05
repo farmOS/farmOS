@@ -168,7 +168,6 @@ function farm_livestock_birth_form($form, &$form_state) {
   $form['birth']['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Save birth records'),
-    '#format' => 'farm_format',
   );
 
   // Return the form.
