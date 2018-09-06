@@ -40,7 +40,7 @@ function farm_quantity_log_data(Log $log, $measure = NULL, $label = NULL) {
     }
 
     // If a label is specified, and it doesn't match, skip this one.
-    if (!empty($label) && $quantity->field_farm_quantity_label->value() != $measure) {
+    if (!empty($label) && $quantity->field_farm_quantity_label->value() != $label) {
       continue;
     }
 
