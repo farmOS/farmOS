@@ -5,6 +5,8 @@ about farmOS, [contact m.stenta](http://farmier.com/contact).
 
 ## 2018
 
+**2018 September 6th** [Jamie Gaehring: Local Development](https://jgaehring.com/blog/local-development/)
+
 **2018 March 27th** [Dorn Cox, founder of farmOS, earns new national conservation award](http://www.fosters.com/news/20180327/dorn-cox-founder-of-farmos-earns-new-national-conservation-award)
 
 **2018 February 13th** [Morning Ag Clips: Wolfe’s Neck's Dorn Cox earns national award](https://www.morningagclips.com/wolfes-necks-dorn-cox-earns-national-award)
