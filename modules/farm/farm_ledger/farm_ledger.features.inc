@@ -25,6 +25,15 @@ function farm_ledger_views_api($module = NULL, $api = NULL) {
  */
 function farm_ledger_default_log_type() {
   $items = array();
+  $items['farm_purchase'] = entity_import('log_type', '{
+    "type" : "farm_purchase",
+    "label" : "Purchase",
+    "weight" : 0,
+    "name_pattern" : "[log:field-farm-asset] [log:field-farm-invoice-number]",
+    "name_edit" : "1",
+    "done" : "1",
+    "rdf_mapping" : []
+  }');
   $items['farm_sale'] = entity_import('log_type', '{
     "type" : "farm_sale",
     "label" : "Sale",

@@ -12,6 +12,12 @@ include_once 'farm_ledger.features.inc';
 function farm_ledger_farm_ui_entities() {
   return array(
     'log' => array(
+      'farm_purchase' => array(
+        'label' => t('Purchase'),
+        'label_plural' => t('Purchases'),
+        'view' => 'farm_log_purchase',
+        'weight' => 90,
+      ),
       'farm_sale' => array(
         'label' => t('Sale'),
         'label_plural' => t('Sales'),
