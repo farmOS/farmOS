@@ -13,7 +13,7 @@ function farm_ledger_views_default_views() {
   $view = new view();
   $view->name = 'farm_log_purchase';
   $view->description = '';
-  $view->tag = 'farm_log';
+  $view->tag = 'farm_ledger';
   $view->base_table = 'log';
   $view->human_name = 'Farm Log: Purchases';
   $view->core = 7;
@@ -560,7 +560,7 @@ function farm_ledger_views_default_views() {
   $view = new view();
   $view->name = 'farm_log_sale';
   $view->description = '';
-  $view->tag = 'farm_log';
+  $view->tag = 'farm_ledger';
   $view->base_table = 'log';
   $view->human_name = 'Farm Log: Sales';
   $view->core = 7;
