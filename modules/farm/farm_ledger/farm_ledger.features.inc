@@ -39,7 +39,7 @@ function farm_ledger_default_log_type() {
     "label" : "Sale",
     "weight" : 0,
     "name_pattern" : "[log:field-farm-customer] [log:field-farm-invoice-number] [log:field-farm-asset]",
-    "name_edit" : "0",
+    "name_edit" : "1",
     "done" : "1",
     "rdf_mapping" : []
   }');
