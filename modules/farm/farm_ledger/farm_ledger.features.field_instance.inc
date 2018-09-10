@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * farm_log_sale.features.field_instance.inc
+ * farm_ledger.features.field_instance.inc
  */
 
 /**
  * Implements hook_field_default_field_instances().
  */
-function farm_log_sale_field_default_field_instances() {
+function farm_ledger_field_default_field_instances() {
   $field_instances = array();
 
   // Exported field_instance: 'log-farm_sale-field_farm_asset'.

@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * farm_log_sale.field_group.inc
+ * farm_ledger.field_group.inc
  */
 
 /**
  * Implements hook_field_group_info().
  */
-function farm_log_sale_field_group_info() {
+function farm_ledger_field_group_info() {
   $field_groups = array();
 
   $field_group = new stdClass();

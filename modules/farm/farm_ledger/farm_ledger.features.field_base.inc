@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * farm_log_sale.features.field_base.inc
+ * farm_ledger.features.field_base.inc
  */
 
 /**
  * Implements hook_field_default_field_bases().
  */
-function farm_log_sale_field_default_field_bases() {
+function farm_ledger_field_default_field_bases() {
   $field_bases = array();
 
   // Exported field_base: 'field_farm_customer'.
