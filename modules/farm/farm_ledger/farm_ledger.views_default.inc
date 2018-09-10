@@ -305,7 +305,6 @@ function farm_ledger_views_default_views() {
   $handler->display->display_options['fields']['field_farm_quantity_value']['id'] = 'field_farm_quantity_value';
   $handler->display->display_options['fields']['field_farm_quantity_value']['table'] = 'field_data_field_farm_quantity_value';
   $handler->display->display_options['fields']['field_farm_quantity_value']['field'] = 'field_farm_quantity_value';
-  $handler->display->display_options['fields']['field_farm_quantity_value']['label'] = 'Quantity';
   $handler->display->display_options['fields']['field_farm_quantity_value']['type'] = 'fraction_decimal';
   $handler->display->display_options['fields']['field_farm_quantity_value']['settings'] = array(
     'precision' => '0',
@@ -540,7 +539,6 @@ function farm_ledger_views_default_views() {
     t('Seller'),
     t('Invoice number'),
     t('Purchase lot number'),
-    t('Quantity'),
     t('Units'),
     t('Unit price'),
     t('Total price'),
@@ -852,7 +850,6 @@ function farm_ledger_views_default_views() {
   $handler->display->display_options['fields']['field_farm_quantity_value']['id'] = 'field_farm_quantity_value';
   $handler->display->display_options['fields']['field_farm_quantity_value']['table'] = 'field_data_field_farm_quantity_value';
   $handler->display->display_options['fields']['field_farm_quantity_value']['field'] = 'field_farm_quantity_value';
-  $handler->display->display_options['fields']['field_farm_quantity_value']['label'] = 'Quantity';
   $handler->display->display_options['fields']['field_farm_quantity_value']['type'] = 'fraction_decimal';
   $handler->display->display_options['fields']['field_farm_quantity_value']['settings'] = array(
     'precision' => '0',
@@ -1087,7 +1084,6 @@ function farm_ledger_views_default_views() {
     t('Customer'),
     t('Invoice number'),
     t('Sale lot number'),
-    t('Quantity'),
     t('Units'),
     t('Unit price'),
     t('Total price'),
