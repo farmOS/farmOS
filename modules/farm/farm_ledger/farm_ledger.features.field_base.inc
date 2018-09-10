@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * farm_log_sale.features.field_base.inc
+ * farm_ledger.features.field_base.inc
  */
 
 /**
  * Implements hook_field_default_field_bases().
  */
-function farm_log_sale_field_default_field_bases() {
+function farm_ledger_field_default_field_bases() {
   $field_bases = array();
 
   // Exported field_base: 'field_farm_customer'.
@@ -38,6 +38,27 @@ function farm_log_sale_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_farm_invoice_number',
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'max_length' => 255,
+    ),
+    'translatable' => 0,
+    'type' => 'text',
+  );
+
+  // Exported field_base: 'field_farm_seller'.
+  $field_bases['field_farm_seller'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_farm_seller',
     'indexes' => array(
       'format' => array(
         0 => 'format',

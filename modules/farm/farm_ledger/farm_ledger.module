@@ -1,0 +1,88 @@
+<?php
+/**
+ * @file
+ * Code for the Farm Ledger feature.
+ */
+
+include_once 'farm_ledger.features.inc';
+
+/**
+ * Implements hook_farm_ui_entities().
+ */
+function farm_ledger_farm_ui_entities() {
+  return array(
+    'log' => array(
+      'farm_purchase' => array(
+        'label' => t('Purchase'),
+        'label_plural' => t('Purchases'),
+        'view' => 'farm_log_purchase',
+        'weight' => 90,
+      ),
+      'farm_sale' => array(
+        'label' => t('Sale'),
+        'label_plural' => t('Sales'),
+        'view' => 'farm_log_sale',
+        'weight' => 90,
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_feeds_importer_default_alter().
+ */
+function farm_ledger_feeds_importer_default_alter(&$importers) {
+
+  // Add extra field mappings to sales.
+  $name = 'log_farm_sale';
+  if (!empty($importers[$name])) {
+    $mappings = array(
+      array(
+        'source' => 'Customer',
+        'target' => 'field_farm_customer',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+      array(
+        'source' => 'Invoice number',
+        'target' => 'field_farm_invoice_number',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+      array(
+        'source' => 'Lot number',
+        'target' => 'field_farm_lot_number',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+      array(
+        'source' => 'Quantity',
+        'target' => 'field_farm_quantity_value',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+      array(
+        'source' => 'Units',
+        'target' => 'field_farm_quantity_units',
+        'term_search' => '0',
+        'autocreate' => 1,
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+      array(
+        'source' => 'Unit price',
+        'target' => 'field_farm_unit_price',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+      array(
+        'source' => 'Total price',
+        'target' => 'field_farm_total_price',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+    );
+    $importer_mappings =& $importers[$name]->config['processor']['config']['mappings'];
+    $importer_mappings = array_merge($importer_mappings, $mappings);
+  }
+}

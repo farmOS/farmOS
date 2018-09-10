@@ -59,3 +59,12 @@ function farm_log_sale_update_7000(&$sandbox) {
     ctools_export_crud_delete('field_group', $group);
   }
 }
+
+/**
+ * Enable the Farm Ledger module.
+ */
+function farm_log_sale_update_7001(&$sandbox) {
+  if (!module_exists('farm_ledger')) {
+    module_enable(array('farm_ledger'));
+  }
+}
