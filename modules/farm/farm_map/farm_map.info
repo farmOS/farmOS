@@ -37,3 +37,4 @@ features[openlayers_sources][] = farm_map_source_google_hybrid
 features[openlayers_sources][] = farm_map_source_google_satellite
 features[openlayers_sources][] = farm_map_source_google_terrain
 features[openlayers_sources][] = farm_map_source_openstreetmap
+registry_autoload[] = PSR-4
