@@ -28,6 +28,7 @@ The farmOS project is made possible by many supporters.
 * [GOAT: Gathering for Open Agricultural Technology](http://goatech.org)
 * [Vermont Vegetable and Berry Growers Association](http://www.uvm.edu/vtvegandberry)
 * [PageKite](https://pagekite.net/)
+* [Natural Resources Conservation Service](https://www.nrcs.usda.gov)
 
 ## Individuals
 
