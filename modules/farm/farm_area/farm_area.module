@@ -520,48 +520,18 @@ function farm_area_format_calculated_area($measurement, $units = TRUE) {
     return '0';
   }
 
-  // Get the system of measurement.
-  $unit_system = farm_quantity_system_of_measurement();
+  // Start by converting the square meters measurement to big area units.
+  $unit = farm_area_default_units('area', 'big');
+  $converted = farm_area_convert_area_units($measurement, $unit);
 
-  // Convert the units based on system of measurement and area size.
-  $unit = '';
-  switch ($unit_system) {
-
-    // Metric:
-    case 'metric':
-
-      // Convert to hectares.
-      $unit = 'hectares';
-
-      // If it is less than 0.25 hectares, use square meters instead.
-      if (farm_area_convert_area_units($measurement, 'hectares') < 0.25) {
-        $unit = 'square meters';
-      }
-      break;
-
-    // US/Imperial:
-    case 'us':
-
-      // Convert to acres.
-      $unit = 'acres';
-
-      // If it is less than 0.25 acres, use square feet instead.
-      if (farm_area_convert_area_units($measurement, 'acres') < 0.25) {
-        $unit = 'square feet';
-      }
-      break;
+  // If the converted value is less than 0.25, convert to small units instead.
+  if ($converted < 0.25) {
+    $unit = farm_area_default_units('area', 'small');
+    $converted = farm_area_convert_area_units($measurement, $unit);
   }
-
-  // If a unit was not found, bail.
-  if (empty($unit)) {
-    return '0';
-  }
-
-  // Convert to the desired units.
-  $measurement = farm_area_convert_area_units($measurement, $unit);
 
   // Round to 2 decimal precision.
-  $output = (string) round($measurement, 2);
+  $output = (string) round($converted, 2);
 
   // Return (optionally with units).
   if (!empty($units)) {
@@ -607,4 +577,56 @@ function farm_area_convert_area_units($input, $unit) {
 
   // Return the result.
   return $output;
+}
+
+/**
+ * Return the default units for an area measure, with optional relative size.
+ *
+ * @param string $measure
+ *   The measure to use.
+ *   Possible values are 'area' and 'length'. Defaults to 'area'.
+ * @param string $size
+ *   The relative size of the units to return.
+ *   Possible values are 'big' and 'small'. Defaults to 'big'.
+ *   For example, a $size of 'big' with a 'metric' system of measurement will
+ *   return 'hectares'. A $size of 'small' will return 'square meters'.
+ *
+ * @return string
+ *   Returns the a string representing the default units.
+ */
+function farm_area_default_units($measure = 'area', $size = 'big') {
+
+  // Get the system of measurement.
+  $system = farm_quantity_system_of_measurement();
+
+  // Define the default units for each system of measurement and size.
+  $default_units = array(
+    'metric' => array(
+      'area' => array(
+        'big' => 'hectares',
+        'small' => 'square meters',
+      ),
+      'length' => array(
+        'big' => 'kilometers',
+        'small' => 'meters',
+      ),
+    ),
+    'us' => array(
+      'area' => array(
+        'big' => 'acres',
+        'small' => 'square feet',
+      ),
+      'length' => array(
+        'big' => 'miles',
+        'small' => 'feet',
+      ),
+    ),
+  );
+
+  // Return the units for the given system of measure and size.
+  $units = '';
+  if (!empty($default_units[$system][$measure][$size])) {
+    $units = $default_units[$system][$measure][$size];
+  }
+  return $units;
 }
