@@ -520,15 +520,14 @@ function farm_area_format_calculated_area($measurement, $units = TRUE) {
     return '0';
   }
 
-  // Start by converting the square meters measurement to big area units.
-  $unit = farm_area_default_units('area', 'big');
-  $converted = farm_area_convert_area_units($measurement, $unit);
+  // Determine the relative size of the area.
+  $size = farm_area_relative_size($measurement);
 
-  // If the converted value is less than 0.25, convert to small units instead.
-  if ($converted < 0.25) {
-    $unit = farm_area_default_units('area', 'small');
-    $converted = farm_area_convert_area_units($measurement, $unit);
-  }
+  // Get the default units for the relative size.
+  $unit = farm_area_default_units('area', $size);
+
+  // Convert the measurement to default units.
+  $converted = farm_area_convert_area_units($measurement, $unit);
 
   // Round to 2 decimal precision.
   $output = (string) round($converted, 2);
@@ -577,6 +576,32 @@ function farm_area_convert_area_units($input, $unit) {
 
   // Return the result.
   return $output;
+}
+
+/**
+ * Subjectively define the relative size of an area measurement.
+ *
+ * @param $measurement
+ *   The area measurement value in square meters.
+ *
+ * @return string
+ *   Returns the subjective size of the area ('big' or 'small').
+ */
+function farm_area_relative_size($measurement) {
+
+  // Start with an assumption that the area is big.
+  $size = 'big';
+
+  // Get the default units for the relative area size.
+  $units = farm_area_default_units('area', 'big');
+
+  // If the converted value is less than 0.25, then the relative size is small.
+  if (farm_area_convert_area_units($measurement, $units) < 0.25) {
+    $size = 'small';
+  }
+
+  // Return the relative size.
+  return $size;
 }
 
 /**
