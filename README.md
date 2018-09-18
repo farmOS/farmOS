@@ -1,5 +1,4 @@
-farmOS
-======
+# farmOS
 
 Documentation: https://farmOS.org
 
@@ -15,16 +14,14 @@ Drupal.org is the location of the canonical repository and mainline branch.
 GitHub is also used as a mirror, and for some of the more experimental
 development. See http://github.com/farmOS for a list of related repositories.
 
-INSTALLATION
-------------
+## INSTALLATION
 
 For more information on installing farmOS, see the official documentation on
 farmOS.org:
 
 https://farmOS.org/hosting/installing
 
-MAINTAINERS
------------
+## MAINTAINERS
 
 Current maintainers:
  * Michael Stenta (m.stenta) - https://drupal.org/user/581414
