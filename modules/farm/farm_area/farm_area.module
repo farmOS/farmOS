@@ -459,6 +459,49 @@ function farm_area_calculate_area($area_id, $format = FALSE) {
 }
 
 /**
+ * Calculate the area of multiple farm areas.
+ *
+ * @param array $area_ids
+ *   An array of area IDs.
+ * @param $format
+ *   Boolean indicating whether or not the returned value should be formatted
+ *   based on the unit of measurement
+ *
+ * @return string
+ *   Returns the calculated are of the areas as a string, in meters squared by
+ *   default. If $format is TRUE it will be converted and formatted using
+ *   farm_area_format_calculated_area().
+ *
+ * @see farm_area_format_calculated_area()
+ */
+function farm_area_calculate_area_multiple($area_ids, $format = FALSE) {
+
+  // If there are no area IDs, bail.
+  if (empty($area_ids)) {
+    return '';
+  }
+
+  // Add up the total area.
+  $total_area = '';
+  foreach ($area_ids as $area_id) {
+    $area_area = farm_area_calculate_area($area_id);
+    if (function_exists('bcadd')) {
+      $total_area = bcadd($total_area, $area_area);
+    }
+    else {
+      $total_area += $area_area;
+    }
+  }
+
+  // Return the area as a string (optionally formatted using the default
+  // system of measure).
+  if (!empty($format)) {
+    return farm_area_format_calculated_area($total_area);
+  }
+  return $total_area;
+}
+
+/**
  * Format a calculated area in the default system of measurement.
  *
  * @param int|float $measurement
