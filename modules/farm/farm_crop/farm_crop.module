@@ -120,7 +120,7 @@ function farm_crop_planting_plan_submit(array $form, array &$form_state) {
     // If the location is available, load areas.
     $areas = array();
     if (!empty($form_state['values'][$type . '_location'])) {
-      $areas = farm_movement_parse_areas($form_state['values'][$type . '_location']);
+      $areas = farm_area_parse_names($form_state['values'][$type . '_location'], TRUE);
     }
 
     // Mark the log as done or not done.

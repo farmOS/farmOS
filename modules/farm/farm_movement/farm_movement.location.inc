@@ -140,57 +140,10 @@ function farm_movement_asset_location_submit(array $form, array &$form_state) {
   $asset = $form_state['values']['farm_asset'];
 
   // Load the areas.
-  $areas = farm_movement_parse_areas($form_state['values']['location']['areas']);
+  $areas = farm_area_parse_names($form_state['values']['location']['areas'], TRUE);
 
   // Create an observation log to record the movement.
   farm_movement_create($asset, $areas, REQUEST_TIME);
-}
-
-/**
- * Parse a string of area names and return an array of loaded area entities.
- *
- * @param string $area_names
- *   A comma-separated list of area names.
- *
- * @return array
- *   Returns an array of loaded area entities.
- */
-function farm_movement_parse_areas($area_names) {
-
-  // Start with an empty array.
-  $areas = array();
-
-  // Explode the value into an array and only take the first value.
-  // (Same behavior as taxonomy autocomplete widget.)
-  $values = drupal_explode_tags($area_names);
-
-  // If the value is empty, bail.
-  if (empty($values)) {
-    return $areas;
-  }
-
-  // Iterate through the values and built an array of areas.
-  foreach ($values as $value) {
-
-    // Attempt to look up the area by it's name.
-    $terms = taxonomy_get_term_by_name($value, 'farm_areas');
-    $area = reset($terms);
-
-    // If an area was not found, create a new one.
-    if (empty($area)) {
-      $farm_areas = taxonomy_vocabulary_machine_name_load('farm_areas');
-      $area = new stdClass();
-      $area->name = $value;
-      $area->vid = $farm_areas->vid;
-      taxonomy_term_save($area);
-    }
-
-    // Add to the array of areas.
-    $areas[] = $area;
-  }
-
-  // Return the array of areas.
-  return $areas;
 }
 
 /**
@@ -659,7 +612,7 @@ function farm_movement_asset_move_action_submit(array $form, array $form_state) 
   $context = array();
 
   // Load the areas.
-  $context['areas'] = farm_movement_parse_areas($form_state['values']['areas']);
+  $context['areas'] = farm_area_parse_names($form_state['values']['areas'], TRUE);
 
   // Convert the date to a timestamp.
   $timestamp = strtotime($form_state['values']['date']);

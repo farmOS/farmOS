@@ -132,6 +132,57 @@ function farm_area_type_options() {
 }
 
 /**
+ * Parse a string of area names and return an array of loaded area entities. If
+ * area names do not exist, they can optionally be created.
+ *
+ * @param string $names
+ *   A comma-separated list of area names.
+ * @param bool $create
+ *   Whether or not to create areas that don't exist. Defaults to FALSE.
+ *
+ * @return array
+ *   Returns an array of area objects. If the area names exist, they will be
+ *   loaded from the database. Otherwise, they will be created.
+ */
+function farm_area_parse_names($names, $create = FALSE) {
+
+  // Start with an empty array.
+  $areas = array();
+
+  // Explode the value into an array and only take the first value.
+  // (Same behavior as taxonomy autocomplete widget.)
+  $values = drupal_explode_tags($names);
+
+  // If the value is empty, bail.
+  if (empty($values)) {
+    return $areas;
+  }
+
+  // Iterate through the values and built an array of areas.
+  foreach ($values as $value) {
+
+    // Attempt to look up the area by it's name.
+    $terms = taxonomy_get_term_by_name($value, 'farm_areas');
+    $area = reset($terms);
+
+    // If an area was not found, create a new one.
+    if (empty($area)) {
+      $farm_areas = taxonomy_vocabulary_machine_name_load('farm_areas');
+      $area = new stdClass();
+      $area->name = $value;
+      $area->vid = $farm_areas->vid;
+      taxonomy_term_save($area);
+    }
+
+    // Add to the array of areas.
+    $areas[] = $area;
+  }
+
+  // Return the array of areas.
+  return $areas;
+}
+
+/**
  * Load a list of areas (optionally by type).
  *
  * @param $type
