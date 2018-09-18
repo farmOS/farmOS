@@ -34,3 +34,5 @@ This project has been sponsored by:
  * [UVM Extension](https://www.uvm.edu/extension)
  * [Globetrotter Foundation](http://globetrotterfoundation.org)
  * [Vermont Vegetable and Berry Growers Association](http://www.uvm.edu/vtvegandberry)
+ * [Pennsylvania Association for Sustainable Agriculture](https://pasafarming.org)
+ * [Natural Resources Conservation Service](https://www.nrcs.usda.gov)
