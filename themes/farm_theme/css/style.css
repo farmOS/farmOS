@@ -27,6 +27,19 @@ body.front h1.page-header {
 }
 
 /**
+ * Add bottom margin back to the last items in form groups and panels
+ * (Bootstrap theme overrides default).
+ * Exception: date select fields.
+ */
+.form-group:last-child,
+.panel:last-child {
+  margin-bottom: 18px;
+}
+.container-inline-date .form-group:last-child {
+  margin-bottom: 0;
+}
+
+/**
  * Style help text glyphicons.
  */
 .page-header .glyphicon-question-sign {
