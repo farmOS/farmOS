@@ -4,7 +4,9 @@
 
 The Nutrient module for farmOS provides the ability to store nutrient
 management plans in farmOS. You can link it to specific [areas], and upload
-your planning documents, spreadsheets, and other files for easy reference.
+your planning documents, spreadsheets, and other files for easy reference. A
+Nutrient Management dashboard is also provided, with quick links for managing
+soil tests, nutrient management plans, and soil amendment records.
 
 Development of this module was sponsored by the
 [Vermont Vegetable and Berry Growers Association] and the
