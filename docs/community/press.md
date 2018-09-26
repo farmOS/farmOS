@@ -15,6 +15,10 @@ about farmOS, [contact m.stenta](http://farmier.com/contact).
 
 ## 2017
 
+**2017** [SARE - Progress report: Community benchmarks for productivity and profitability for diversified pastured livestock farmers](https://projects.sare.org/project-reports/one17-294/)
+
+**2017** [SARE - Project overview: Community benchmarks for productivity and profitability for diversified pastured livestock farmers](https://projects.sare.org/sare_project/one17-294/)
+
 **2017 November 21st** [UVM Extension AgEngineering: Produce Tracking and Traceability](http://blog.uvm.edu/cwcallah/produce-tracking-and-traceability)
 
 **2017 August 28th** [PASA Education Event - Pastured Livestock Research Group: Boosting Land and Feed Efficiency](https://pasafarming.org/events/pasa-events/pasa-education-event-pastured-livestock-research-group-boosting-land-and-feed-efficiency)
