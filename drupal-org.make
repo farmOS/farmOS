@@ -64,7 +64,7 @@ projects[fraction][subdir] = "contrib"
 projects[fraction][version] = "1.7"
 
 projects[geocoder][subdir] = "contrib"
-projects[geocoder][version] = "1.3"
+projects[geocoder][version] = "1.4"
 
 projects[geofield][subdir] = "contrib"
 projects[geofield][version] = "2.3"
