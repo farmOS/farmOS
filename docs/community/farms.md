@@ -11,6 +11,10 @@ included in this list, add a comment to [this issue on Github].
 
 * Golden Maple Farm (Victoria, British Columbia)
 
+## Czech Republic
+
+* Hospodářství Jarošovice (Týn nad Vltavou, South Czech)
+
 ## Brazil
 
 * Olivopampa (Santana do Livramento, Rio Grande do Sul)
