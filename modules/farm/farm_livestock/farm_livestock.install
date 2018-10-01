@@ -416,23 +416,9 @@ function _farm_livestock_update_7005_stage4(&$sandbox) {
     $quantity_wrapper->field_farm_quantity_value->numerator->set($value_fraction->getNumerator());
     $quantity_wrapper->field_farm_quantity_value->denominator->set($value_fraction->getDenominator());
 
-    // Look up the units taxonomy term.
+    // Create/load the units taxonomy term.
     $units = t('egg(s)');
-    $units_terms = taxonomy_get_term_by_name($units, 'farm_quantity_units');
-
-    // If terms were found, use the first one.
-    if (!empty($units_terms)) {
-      $units_term = reset($units_terms);
-    }
-
-    // If a term wasn't found, create it.
-    else {
-      $farm_units = taxonomy_vocabulary_machine_name_load('farm_quantity_units');
-      $units_term = new stdClass();
-      $units_term->name = check_plain($units);
-      $units_term->vid = $farm_units->vid;
-      taxonomy_term_save($units_term);
-    }
+    $units_term = farm_term($units, 'farm_quantity_units');
 
     // Set the quantity units.
     $quantity_wrapper->field_farm_quantity_units = $units_term;

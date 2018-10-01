@@ -736,6 +736,13 @@ function farm_update_7043(&$sandbox) {
 }
 
 /**
+ * Enable Farm Term module.
+ */
+function farm_update_7044(&$sandbox) {
+  _farm_update_enable_modules(array('farm_term'));
+}
+
+/**
  * Update helper function: enable modules.
  */
 function _farm_update_enable_modules($modules = array()) {

@@ -9,6 +9,7 @@ dependencies[] = farm_flags
 dependencies[] = farm_map
 dependencies[] = farm_map_kml
 dependencies[] = farm_quantity
+dependencies[] = farm_term
 dependencies[] = features
 dependencies[] = field_group
 dependencies[] = file

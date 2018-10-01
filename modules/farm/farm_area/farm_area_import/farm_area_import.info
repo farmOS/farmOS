@@ -4,4 +4,5 @@ core = 7.x
 package = farmOS (beta)
 dependencies[] = farm_area
 dependencies[] = farm_map_kml
+dependencies[] = farm_term
 dependencies[] = geophp

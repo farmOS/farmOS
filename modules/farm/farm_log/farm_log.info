@@ -12,6 +12,7 @@ dependencies[] = farm_asset
 dependencies[] = farm_fields
 dependencies[] = farm_map
 dependencies[] = farm_map_kml
+dependencies[] = farm_term
 dependencies[] = features
 dependencies[] = views
 dependencies[] = views_data_export
