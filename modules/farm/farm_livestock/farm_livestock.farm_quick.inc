@@ -552,5 +552,10 @@ function farm_livestock_milk_form_submit($form, &$form_state) {
   );
 
   // Create a new farm quantity log.
-  farm_quantity_log_create($log_type, $log_name, REQUEST_TIME, TRUE, $assets, $measurements);
+  $log = farm_quantity_log_create($log_type, $log_name, REQUEST_TIME, TRUE, $assets, $measurements);
+
+  // Link the log to the quick form.
+  if (function_exists('farm_quick_entity_link')) {
+    farm_quick_entity_link('farm_livestock_milk_form', 'log', $log);
+  }
 }
