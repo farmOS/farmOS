@@ -162,7 +162,7 @@ function farm_area_parse_names($names, $create = FALSE) {
   foreach ($values as $value) {
 
     // Create/load the area term.
-    $area = farm_term($value, 'farm_areas');
+    $area = farm_term($value, 'farm_areas', $create);
 
     // Add to the array of areas.
     $areas[] = $area;
