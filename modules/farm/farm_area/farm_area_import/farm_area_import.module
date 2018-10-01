@@ -219,16 +219,10 @@ function farm_area_import_form_create_validate(&$form, &$form_state) {
  */
 function farm_area_import_form_create_submit(&$form, &$form_state) {
 
-  // Load the Areas vocabulary.
-  $vocab = taxonomy_vocabulary_machine_name_load('farm_areas');
-
-  // If a parent area name was provided, create it and remember it's ID.
+  // If a parent area name was provided, load/create it and remember its ID.
   $parent_tid = 0;
   if (!empty($form_state['values']['output']['parent'])) {
-    $parent_area = new stdClass();
-    $parent_area->name = $form_state['values']['output']['parent'];
-    $parent_area->vid = $vocab->vid;
-    taxonomy_term_save($parent_area);
+    $parent_area = farm_term($form_state['values']['output']['parent'], 'farm_areas');
     if (!empty($parent_area->tid)) {
       $parent_tid = $parent_area->tid;
     }
@@ -247,14 +241,16 @@ function farm_area_import_form_create_submit(&$form, &$form_state) {
       continue;
     }
 
-    // Create the new area.
-    $area = new stdClass();
-    $area->name = $values['name'];
+    // Create a new area term object.
+    $area = farm_term($values['name'], 'farm_areas', TRUE, FALSE);
+
+    // Set extra fields
     $area->description = $values['description'];
-    $area->vid = $vocab->vid;
     $area->parent = $parent_tid;
     $area->field_farm_area_type[LANGUAGE_NONE][0]['value'] = $values['type'];
     $area->field_farm_geofield[LANGUAGE_NONE][0]['geom'] = $values['geometry'];
+
+    // Save the area term.
     taxonomy_term_save($area);
 
     // Display a message with a link to the new area.

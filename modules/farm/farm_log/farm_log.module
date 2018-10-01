@@ -350,20 +350,11 @@ function farm_log_categories_create($categories) {
   // Iterate through the categories.
   foreach ($categories as $category) {
 
-    // First, check to see if the term already exists. If it does, skip it.
-    $terms = taxonomy_get_term_by_name($category, $vocabulary_machine_name);
-    if (!empty($terms)) {
-      continue;
-    }
-
     // Translate the category name.
     $term_name = t($category);
 
-    // Create the new term.
-    $term = new stdClass();
-    $term->name = $term_name;
-    $term->vid = $vocabulary->vid;
-    taxonomy_term_save($term);
+    // Create new category term, if one doesn't already exist.
+    farm_term($term_name, $vocabulary_machine_name);
   }
 
   // Always reset the categories to alphabetical order.
@@ -773,22 +764,8 @@ function farm_log_create($type, $name = '', $timestamp = REQUEST_TIME, $done = T
   if (!empty($categories)) {
     foreach ($categories as $category) {
 
-      // Look up the category taxonomy term.
-      $terms = taxonomy_get_term_by_name($category, 'farm_log_categories');
-
-      // If terms were found, use the first one.
-      if (!empty($terms)) {
-        $term = reset($terms);
-      }
-
-      // If a term wasn't found, create it.
-      else {
-        $vocab = taxonomy_vocabulary_machine_name_load('farm_log_categories');
-        $term = new stdClass();
-        $term->name = check_plain($category);
-        $term->vid = $vocab->vid;
-        taxonomy_term_save($term);
-      }
+      // Create/load the category term.
+      $term = farm_term($category, 'farm_log_categories');
 
       // Add the category to the log.
       $log->field_farm_log_category[LANGUAGE_NONE][] = array(

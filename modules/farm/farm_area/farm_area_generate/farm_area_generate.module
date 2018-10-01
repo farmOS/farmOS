@@ -310,16 +310,16 @@ function farm_area_generate_form_submit(&$form, &$form_state) {
   // Generate child geometries.
   $geometries = farm_area_generate_geometries($polygon, $count, $orientation);
 
-  // Load the farm_areas vocabulary.
-  $vocab = taxonomy_vocabulary_machine_name_load('farm_areas');
-
   // Iterate through the geometries and save each one as a new area.
   foreach ($geometries as $key => $geometry) {
 
-    // Create a new area.
-    $new_area = new stdClass();
-    $new_area->vid = $vocab->vid;
-    $new_area->name = $area->name . ' ' . $area_type_label . ' ' . ($key + 1);
+    // Assemble the new area name.
+    $area_name = $area->name . ' ' . $area_type_label . ' ' . ($key + 1);
+
+    // Create a new area term object.
+    $new_area = farm_term($area_name, 'farm_areas', TRUE, FALSE);
+
+    // Set the area type, geofield, parent, and weight.
     $new_area->field_farm_area_type = array(
       LANGUAGE_NONE => array(
         0 => array(

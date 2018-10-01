@@ -373,22 +373,8 @@ function farm_quantity_log_create($type, $name = '', $timestamp = REQUEST_TIME, 
     // Set the units, if available.
     if (!empty($measurement['units'])) {
 
-      // Look up the units taxonomy term.
-      $units_terms = taxonomy_get_term_by_name($measurement['units'], 'farm_quantity_units');
-
-      // If terms were found, use the first one.
-      if (!empty($units_terms)) {
-        $units_term = reset($units_terms);
-      }
-
-      // If a term wasn't found, create it.
-      else {
-        $farm_units = taxonomy_vocabulary_machine_name_load('farm_quantity_units');
-        $units_term = new stdClass();
-        $units_term->name = check_plain($measurement['units']);
-        $units_term->vid = $farm_units->vid;
-        taxonomy_term_save($units_term);
-      }
+      // Load/create units term.
+      $units_term = farm_term($measurement['units'], 'farm_quantity_units');
 
       // Set the quantity units.
       $quantity_wrapper->field_farm_quantity_units = $units_term;

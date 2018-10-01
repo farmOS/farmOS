@@ -161,18 +161,8 @@ function farm_area_parse_names($names, $create = FALSE) {
   // Iterate through the values and built an array of areas.
   foreach ($values as $value) {
 
-    // Attempt to look up the area by it's name.
-    $terms = taxonomy_get_term_by_name($value, 'farm_areas');
-    $area = reset($terms);
-
-    // If an area was not found, create a new one.
-    if (empty($area)) {
-      $farm_areas = taxonomy_vocabulary_machine_name_load('farm_areas');
-      $area = new stdClass();
-      $area->name = $value;
-      $area->vid = $farm_areas->vid;
-      taxonomy_term_save($area);
-    }
+    // Create/load the area term.
+    $area = farm_term($value, 'farm_areas');
 
     // Add to the array of areas.
     $areas[] = $area;
