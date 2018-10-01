@@ -1,0 +1,58 @@
+<?php
+/**
+ * @file
+ * Code for the Farm Term module.
+ */
+
+/**
+ * Create a new taxonomy term or load an existing term by name.
+ *
+ * @param string $name
+ *   The name of the term.
+ * @param string $vocabulary
+ *   The name of the vocabulary.
+ * @param bool $create
+ *   Boolean: If TRUE, a new term will be created if one does not exist.
+ * @param bool $load
+ *   Boolean: If TRUE, attempt to load existing terms first.
+ *
+ * @return object|bool
+ *   Returns a taxonomy term object, or FALSE if none were loaded/created.
+ */
+function farm_term($name, $vocabulary, $create = TRUE, $load = TRUE) {
+
+  // If $load is TRUE, attempt to look up existing terms.
+  $terms = array();
+  if ($load) {
+    $terms = taxonomy_get_term_by_name($name, $vocabulary);
+  }
+
+  // If terms were found, return the first one.
+  if (!empty($terms)) {
+    $term = reset($terms);
+    return $term;
+  }
+
+  // Or, if $create is TRUE, then create a new term.
+  elseif ($create == TRUE) {
+
+    // Attempt to load the vocabulary by machine name. If it can't be loaded,
+    // bail.
+    $vocab = taxonomy_vocabulary_machine_name_load($vocabulary);
+    if (empty($vocab)) {
+      return FALSE;
+    }
+
+    // Create and save the term.
+    $term = new stdClass();
+    $term->name = check_plain($name);
+    $term->vid = $vocab->vid;
+    taxonomy_term_save($term);
+    return $term;
+  }
+
+  // If a term was not found, and $create is FALSE, return NULL.
+  else {
+    return FALSE;
+  }
+}
