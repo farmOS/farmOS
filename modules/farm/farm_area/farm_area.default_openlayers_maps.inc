@@ -39,11 +39,12 @@ function farm_area_default_openlayers_maps() {
       1 => 'openlayers_control_scaleline',
       2 => 'farm_map_control_layer_switcher',
       3 => 'farm_map_control_geolocate',
+      4 => 'farm_map_control_geocoder',
       /**
        * @todo
        * https://www.drupal.org/node/2543186
        */
-//      4 => 'openlayers_control_fullscreen',
+//      5 => 'openlayers_control_fullscreen',
     ),
     'components' => array(
       0 => 'farm_area_component_areas_zoom_to_source',

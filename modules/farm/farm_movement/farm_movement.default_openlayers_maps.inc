@@ -52,6 +52,7 @@ function farm_movement_default_openlayers_maps() {
         1 => 'openlayers_control_scaleline',
         2 => 'farm_map_control_layer_switcher',
         3 => 'farm_map_control_geolocate',
+        4 => 'farm_map_control_geocoder',
       ),
       'interactions' => array(
         0 => 'openlayers_interaction_doubleclickzoom',
