@@ -10,6 +10,7 @@
 function farm_area_farm_dashboard_panes() {
   return array(
     'farm_area_map' => array(
+      'title' => t('Map'),
       'callback' => 'farm_area_dashboard_map',
       'group' => 'map',
     ),

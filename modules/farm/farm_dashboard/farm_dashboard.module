@@ -121,13 +121,26 @@ function farm_dashboard_page_callback() {
       $weight = $pane['weight'];
     }
 
-    // Assemble a markup item and add it to the build array.
-    $item = array(
-      '#type' => 'markup',
-      '#markup' => '<h2 id="' . drupal_html_id($title) . '">' . check_plain($title) . '</h2>' . $output,
+    // Create a container for the pane.
+    $container = array(
+      '#type' => 'container',
       '#weight' => $weight,
     );
-    $build[$group][] = $item;
+
+    // If a title is set, make it a fieldset.
+    if (!empty($title)) {
+      $container['#type'] = 'fieldset';
+      $container['#title'] = check_plain($title);
+    }
+
+    // Assemble a content markup item inside the container.
+    $container['content'] = array(
+      '#type' => 'markup',
+      '#markup' => $output,
+    );
+
+    // Add the container to the build array.
+    $build[$group][] = $container;
   }
 
   // Return the build array.
