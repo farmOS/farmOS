@@ -404,7 +404,7 @@ function farm_theme_preprocess_page(&$vars) {
     drupal_add_js(drupal_get_path('theme', 'farm_theme') . '/js/help.js');
   }
 
-  // Split the farm dashboard into two columns, with the map on the left.
+  // Split the farm dashboard into two columns, with the map on the right.
   $current_path = current_path();
   if ($current_path == 'farm') {
 
@@ -424,15 +424,15 @@ function farm_theme_preprocess_page(&$vars) {
         '#suffix' => '</div>',
       );
 
-      // Move the map to the left column (and remove it from the groups list).
-      $vars['page']['content']['system_main']['left']['map'] = $vars['page']['content']['system_main']['map'];
+      // Move the map to the right column (and remove it from the groups list).
+      $vars['page']['content']['system_main']['right']['map'] = $vars['page']['content']['system_main']['map'];
       unset($vars['page']['content']['system_main']['map']);
       $map_key = array_search('map', $groups);
       unset($groups[$map_key]);
 
-      // Iterate through the remaining groups and move them to the right column.
+      // Iterate through the remaining groups and move them to the left column.
       foreach ($groups as $group) {
-        $vars['page']['content']['system_main']['right'][$group] = $vars['page']['content']['system_main'][$group];
+        $vars['page']['content']['system_main']['left'][$group] = $vars['page']['content']['system_main'][$group];
         unset($vars['page']['content']['system_main'][$group]);
       }
     }
