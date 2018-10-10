@@ -5,6 +5,16 @@
  */
 
 /**
+ * Implements hook_hook_info().
+ */
+function farm_dashboard_hook_info() {
+  $hooks['farm_dashboard_panes'] = array(
+    'group' => 'farm_dashboard',
+  );
+  return $hooks;
+}
+
+/**
  * Implements hook_permission().
  */
 function farm_dashboard_permission() {
@@ -67,26 +77,59 @@ function farm_dashboard_page_callback() {
   // Set the page title.
   drupal_set_title('Dashboard');
 
-  // Start an output string.
-  $output = '';
+  // Start a build array.
+  $build = array();
 
-  // Display the current date.
-  $output .= '<h2>' . t('Today is') . ' ' . l(date('M j Y'), 'farm/calendar/day') . '</h2>';
+  // Ask modules for dashboard panes.
+  $panes = module_invoke_all('farm_dashboard_panes');
 
-  // Render the "Plan" block display.
-  $view = views_get_view('farm_log');
-  $preview = $view->preview('block_upcoming');
-  $title = $title = $view->get_title();
-  $output .= '<h2 id="' . $title . '">' . $title . '</h3>' . $preview;
+  // Iterate through the panes and add them to the dashboard.
+  foreach ($panes as $pane) {
 
-  // Render the "Late tasks" block display (only if there are results).
-  $view = views_get_view('farm_log');
-  $preview = $view->preview('block_late');
-  if (!empty($view->total_rows)) {
-    $title = $title = $view->get_title();
-    $output .= '<h2 id="' . $title . '">' . $title . '</h3>' . $preview;
+    // Set defaults for title, output, group, and weight.
+    $output = '';
+    $title = '';
+    $group = 'general';
+    $weight = 0;
+
+    // Use the provided title, if available.
+    if (!empty($pane['title'])) {
+      $title = $pane['title'];
+    }
+
+    // If a 'view' and 'view_display_id' are provided, load the view, generate
+    // the preview, and set the title automatically.
+    if (!empty($pane['view']) && !empty($pane['view_display_id'])) {
+      $view = views_get_view($pane['view']);
+      $preview = $view->preview($pane['view_display_id']);
+      $title = $view->get_title();
+      $output = $preview;
+    }
+
+    // Or, if a callback function exists, execute it to get output.
+    elseif (!empty($pane['callback']) && function_exists($pane['callback'])) {
+      $output = call_user_func($pane['callback']);
+    }
+
+    // If a group is not provided, assign it to a general default group.
+    if (!empty($pane['group'])) {
+      $group = $pane['group'];
+    }
+
+    // If a weight is not provided, default to 0.
+    if (!empty($pane['weight'])) {
+      $weight = $pane['weight'];
+    }
+
+    // Assemble a markup item and add it to the build array.
+    $item = array(
+      '#type' => 'markup',
+      '#markup' => '<h2 id="' . drupal_html_id($title) . '">' . check_plain($title) . '</h2>' . $output,
+      '#weight' => $weight,
+    );
+    $build[$group][] = $item;
   }
 
-  // Return the output.
-  return $output;
+  // Return the build array.
+  return $build;
 }
