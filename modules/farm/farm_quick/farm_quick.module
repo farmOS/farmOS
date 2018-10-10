@@ -99,8 +99,8 @@ function farm_quick_menu() {
     // Build a menu item definition.
     $menu_item = array(
       'title' => $form['label'],
-      'page callback' => 'drupal_get_form',
-      'page arguments' => array($form['form']),
+      'page callback' => 'farm_quick_form_page',
+      'page arguments' => array($form['label'], $form['form']),
       'access arguments' => array($form['permission']),
       'type' => MENU_LOCAL_TASK,
     );
@@ -139,6 +139,14 @@ function farm_quick_menu() {
 
   // Return menu items.
   return $items;
+}
+
+/**
+ * Quick form page callback.
+ */
+function farm_quick_form_page($title, $form_id) {
+  drupal_set_title(t('Quick form') . ': ' . $title);
+  return drupal_get_form($form_id);
 }
 
 /**
