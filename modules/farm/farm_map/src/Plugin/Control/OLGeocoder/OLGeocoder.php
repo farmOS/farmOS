@@ -7,7 +7,7 @@
 namespace Drupal\farm_map\Plugin\Control\OLGeocoder;
 
 use Drupal\openlayers\Types\Control;
-use Drupal\openlayers\Types\ObjectInterface;
+use Drupal\openlayers\Types\BaseInterface;
 
 /**
  * Class OLGeocoder.
@@ -22,7 +22,7 @@ class OLGeocoder extends Control {
   /**
    * {@inheritdoc}
    */
-  public function preBuild(array &$build, ObjectInterface $context = NULL) {
+  public function preBuild(array &$build, BaseInterface $context = NULL) {
     parent::preBuild($build, $context);
     $options = array(
       'type' => 'external',
