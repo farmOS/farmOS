@@ -193,6 +193,8 @@ projects[module_filter][version] = "2.1"
 ; -----------------------------------------------------------------------------
 
 projects[bootstrap][version] = "3.21"
+; Issue #2999011: PHP 7 - Warning: count(): Parameter must be an array or an object that implements Countable
+projects[bootstrap][patch][] = "http://www.drupal.org/files/issues/2018-09-14/php7-countable-2999011-9.patch"
 
 ; -----------------------------------------------------------------------------
 ; Libraries
