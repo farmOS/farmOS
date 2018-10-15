@@ -124,6 +124,8 @@ projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_g
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_ol4_zoomtosource-2911611-4.patch"
 ; Issue #2946213: Google maps do not support fractional zoom
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_googlemaps_fractional_zoom-2946213-2.patch"
+; Issue #3006751: PHP 7 support
+projects[openlayers][patch][] = "http://www.drupal.org/files/issues/2018-10-30/openlayers-2952602-6-php-72.patch"
 
 projects[openlayers_geolocate_button][subdir] = "contrib"
 projects[openlayers_geolocate_button][version] = "3.2"
