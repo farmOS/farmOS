@@ -1,5 +1,5 @@
-# Inherit from the PHP 5.6 Apache image on Docker Hub.
-FROM php:5.6-apache
+# Inherit from the Drupal 7 image on Docker Hub.
+FROM drupal:7
 
 # Set environment variables.
 ENV FARMOS_VERSION 7.x-1.0-beta18
@@ -9,11 +9,8 @@ ENV FARMOS_DEV false
 # Enable Apache rewrite module.
 RUN a2enmod rewrite
 
-# Install the PHP extensions that Drupal needs.
-RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev libpq-dev \
-  && rm -rf /var/lib/apt/lists/* \
-  && docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
-  && docker-php-ext-install bcmath gd mbstring opcache pdo pdo_mysql pdo_pgsql zip
+# Install the BCMath PHP extension.
+RUN docker-php-ext-install bcmath
 
 # Set recommended PHP settings for farmOS.
 # See https://farmos.org/hosting/installing/#requirements
@@ -30,17 +27,6 @@ RUN { \
     echo 'realpath_cache_size=256K'; \
     echo 'realpath_cache_ttl=3600'; \
   } > /usr/local/etc/php/conf.d/realpath_cache-recommended.ini
-
-# Set recommended opcache settings.
-# See https://secure.php.net/manual/en/opcache.installation.php
-RUN { \
-    echo 'opcache.memory_consumption=128'; \
-    echo 'opcache.interned_strings_buffer=8'; \
-    echo 'opcache.max_accelerated_files=50000'; \
-    echo 'opcache.revalidate_freq=60'; \
-    echo 'opcache.fast_shutdown=1'; \
-    echo 'opcache.enable_cli=1'; \
-  } > /usr/local/etc/php/conf.d/opcache-recommended.ini
 
 # Install PECL Uploadprogress.
 RUN pecl install uploadprogress \
