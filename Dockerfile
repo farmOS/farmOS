@@ -28,9 +28,20 @@ RUN { \
     echo 'realpath_cache_ttl=3600'; \
   } > /usr/local/etc/php/conf.d/realpath_cache-recommended.ini
 
-# Install PECL Uploadprogress.
-RUN pecl install uploadprogress \
-  && echo 'extension=uploadprogress.so' > /usr/local/etc/php/conf.d/uploadprogress.ini
+# Build and install the Uploadprogress PHP extension.
+# See http://git.php.net/?p=pecl/php/uploadprogress.git
+RUN curl -fsSL 'http://git.php.net/?p=pecl/php/uploadprogress.git;a=snapshot;h=95d8a0fd4554e10c215d3ab301e901bd8f99c5d9;sf=tgz' -o php-uploadprogress.tar.gz \
+  && tar -xzf php-uploadprogress.tar.gz \
+  && rm php-uploadprogress.tar.gz \
+  && ( \
+    cd uploadprogress-95d8a0f \
+    && phpize \
+    && ./configure --enable-uploadprogress \
+    && make \
+    && make install \
+  ) \
+  && rm -r uploadprogress-95d8a0f
+RUN docker-php-ext-enable uploadprogress
 
 # Install git and unzip for use by Drush Make.
 RUN apt-get update && apt-get install -y git unzip
