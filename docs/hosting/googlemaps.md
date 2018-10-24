@@ -27,7 +27,7 @@ To create an API key and add it to your farmOS, do the following:
 
 ## 2. Enable Google Maps Javascript API
 
-[https://console.developers.google.com/apis/api/maps_backend/overview](https://console.developers.google.com/apis/api/maps_backend/overview)
+[https://console.developers.google.com/apis/library/maps-backend.googleapis.com](https://console.developers.google.com/apis/library/maps-backend.googleapis.com)
 
 ## 3. Enter the key into the farmOS Map configuration
 
