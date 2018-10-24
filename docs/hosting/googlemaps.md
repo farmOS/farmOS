@@ -29,7 +29,13 @@ To create an API key and add it to your farmOS, do the following:
 
 [https://console.developers.google.com/apis/library/maps-backend.googleapis.com](https://console.developers.google.com/apis/library/maps-backend.googleapis.com)
 
-## 3. Enter the key into the farmOS Map configuration
+## 3. Create Billing Account
+
+The Google Maps JavaScript API is [effectively free for personal use](https://cloud.google.com/maps-platform/pricing/sheet/) (up to tens of thousands of page views per month) but as of July 2018 it does require that you attach a credit card.
+
+Go to [https://console.cloud.google.com/billing/](https://console.cloud.google.com/billing/) and follow the instructions to create a new billing account (or link an existing one)
+
+## 4. Enter the key into the farmOS Map configuration
 
 **a) If you are installing farmOS for the first time**, there is a field for entering
 the Google Maps API key during the "Configure farmOS" step.
@@ -41,4 +47,3 @@ configuration form at `/admin/config/farm/map`.
 API key becomes active.**
 
 [OpenStreetMap]: https://www.openstreetmap.org
-
