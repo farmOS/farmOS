@@ -404,7 +404,42 @@ function farm_theme_preprocess_page(&$vars) {
     drupal_add_js(drupal_get_path('theme', 'farm_theme') . '/js/help.js');
   }
 
-  // When the farm_areas map is displayed on a page...
+  // Split the farm dashboard into two columns, with the map on the right.
+  $current_path = current_path();
+  if ($current_path == 'farm') {
+
+    // Only proceed if the map group exists.
+    if (!empty($vars['page']['content']['system_main']['map'])) {
+
+      // Get a list of groups (element children).
+      $groups = element_children($vars['page']['content']['system_main']);
+
+      // Create left and right columns.
+      $vars['page']['content']['system_main']['left'] = array(
+        '#prefix' => '<div class="col-md-6">',
+        '#suffix' => '</div>',
+      );
+      $vars['page']['content']['system_main']['right'] = array(
+        '#prefix' => '<div class="col-md-6">',
+        '#suffix' => '</div>',
+      );
+
+      // Move the map to the right column (and remove it from the groups list).
+      $vars['page']['content']['system_main']['right']['map'] = $vars['page']['content']['system_main']['map'];
+      unset($vars['page']['content']['system_main']['map']);
+      $map_key = array_search('map', $groups);
+      unset($groups[$map_key]);
+
+      // Iterate through the remaining groups and move them to the left column.
+      foreach ($groups as $group) {
+        $vars['page']['content']['system_main']['left'][$group] = $vars['page']['content']['system_main'][$group];
+        unset($vars['page']['content']['system_main'][$group]);
+      }
+    }
+  }
+
+  // When the farm_areas map is added to a page (via farm_area_page_build()),
+  // split the page into two columns.
   if (!empty($vars['page']['content']['farm_areas'])) {
 
     // Wrap map and content in "col-md-6" class so they display in two columns.
