@@ -21,5 +21,6 @@ function farm_area_farm_dashboard_panes() {
  * Date dashboard callback.
  */
 function farm_area_dashboard_map() {
-  return drupal_render(farm_map_build('farm_areas'));
+  $build = farm_map_build('farm_areas');
+  return drupal_render($build);
 }
