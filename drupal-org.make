@@ -67,7 +67,7 @@ projects[geocoder][subdir] = "contrib"
 projects[geocoder][version] = "1.4"
 
 projects[geofield][subdir] = "contrib"
-projects[geofield][version] = "2.3"
+projects[geofield][version] = "2.4"
 ; Patch to fix deleting map features.
 projects[geofield][patch][] = "http://www.drupal.org/files/issues/geofield-delete_feature_fix-1350320-20.patch"
 
