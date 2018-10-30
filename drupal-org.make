@@ -209,5 +209,8 @@ libraries[easy-responsive-tabs][download][url] = "https://github.com/samsono/Eas
 libraries[modernizr][download][type] = "get"
 libraries[modernizr][download][url] = "http://github.com/Modernizr/Modernizr/archive/v2.8.3.zip"
 
+libraries[openlayers3][download][type] = "get"
+libraries[openlayers3][download][url] = "http://github.com/openlayers/openlayers/releases/download/v4.6.4/v4.6.4.zip"
+
 libraries[underscore][download][type] = "get"
 libraries[underscore][download][url] = "http://github.com/jashkenas/underscore/archive/1.7.0.zip"
