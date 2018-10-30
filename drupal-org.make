@@ -88,9 +88,6 @@ projects[jquery_update][version] = "3.0-alpha5"
 projects[libraries][subdir] = "contrib"
 projects[libraries][version] = "2.5"
 
-projects[libraries_cdn][subdir] = "contrib"
-projects[libraries_cdn][version] = "1.7"
-
 projects[log][subdir] = "contrib"
 projects[log][version] = "1.12"
 

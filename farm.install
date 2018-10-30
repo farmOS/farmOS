@@ -749,6 +749,9 @@ function farm_update_7045(&$sandbox) {
 
   // Set the variant config in the Openlayers module.
   \Drupal\openlayers\Config::set('openlayers.variant', 'local:4.6.4');
+
+  // Uninstall Libraries CDN.
+  db_query("DELETE FROM {system} WHERE name = 'libraries_cdn' AND type = 'module'");
 }
 
 /**
