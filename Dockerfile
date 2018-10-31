@@ -1,5 +1,5 @@
-# Inherit from the PHP 5.6 Apache image on Docker Hub.
-FROM php:5.6-apache
+# Inherit from the Drupal 7 image on Docker Hub.
+FROM drupal:7
 
 # Set environment variables.
 ENV FARMOS_VERSION 7.x-1.0-beta18
@@ -9,45 +9,23 @@ ENV FARMOS_DEV false
 # Enable Apache rewrite module.
 RUN a2enmod rewrite
 
-# Install the PHP extensions that Drupal needs.
-RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev libpq-dev \
-  && rm -rf /var/lib/apt/lists/* \
-  && docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
-  && docker-php-ext-install bcmath gd mbstring opcache pdo pdo_mysql pdo_pgsql zip
+# Install the BCMath PHP extension.
+RUN docker-php-ext-install bcmath
 
-# Set recommended PHP settings for farmOS.
-# See https://farmos.org/hosting/installing/#requirements
-RUN { \
-    echo 'memory_limit=256M'; \
-    echo 'max_execution_time=240'; \
-    echo 'max_input_time=240'; \
-    echo 'max_input_vars=5000'; \
-  } > /usr/local/etc/php/conf.d/farmOS-recommended.ini
-
-# Set recommended realpath_cache settings.
-# See https://www.drupal.org/docs/7/managing-site-performance/tuning-phpini-for-drupal
-RUN { \
-    echo 'realpath_cache_size=256K'; \
-    echo 'realpath_cache_ttl=3600'; \
-  } > /usr/local/etc/php/conf.d/realpath_cache-recommended.ini
-
-# Set recommended opcache settings.
-# See https://secure.php.net/manual/en/opcache.installation.php
-RUN { \
-    echo 'opcache.memory_consumption=128'; \
-    echo 'opcache.interned_strings_buffer=8'; \
-    echo 'opcache.max_accelerated_files=50000'; \
-    echo 'opcache.revalidate_freq=60'; \
-    echo 'opcache.fast_shutdown=1'; \
-    echo 'opcache.enable_cli=1'; \
-  } > /usr/local/etc/php/conf.d/opcache-recommended.ini
-
-# Install PECL Uploadprogress.
-RUN pecl install uploadprogress \
-  && echo 'extension=uploadprogress.so' > /usr/local/etc/php/conf.d/uploadprogress.ini
-
-# Install git and unzip for use by Drush Make.
-RUN apt-get update && apt-get install -y git unzip
+# Build and install the Uploadprogress PHP extension.
+# See http://git.php.net/?p=pecl/php/uploadprogress.git
+RUN curl -fsSL 'http://git.php.net/?p=pecl/php/uploadprogress.git;a=snapshot;h=95d8a0fd4554e10c215d3ab301e901bd8f99c5d9;sf=tgz' -o php-uploadprogress.tar.gz \
+  && tar -xzf php-uploadprogress.tar.gz \
+  && rm php-uploadprogress.tar.gz \
+  && ( \
+    cd uploadprogress-95d8a0f \
+    && phpize \
+    && ./configure --enable-uploadprogress \
+    && make \
+    && make install \
+  ) \
+  && rm -r uploadprogress-95d8a0f
+RUN docker-php-ext-enable uploadprogress
 
 # Build and install the GEOS PHP extension.
 # See https://git.osgeo.org/gitea/geos/php-geos
@@ -65,11 +43,30 @@ RUN curl -fsSL 'https://git.osgeo.org/gitea/geos/php-geos/archive/1.0.0.tar.gz' 
   && rm -r php-geos
 RUN docker-php-ext-enable geos
 
+# Set recommended PHP settings for farmOS.
+# See https://farmos.org/hosting/installing/#requirements
+RUN { \
+    echo 'memory_limit=256M'; \
+    echo 'max_execution_time=240'; \
+    echo 'max_input_time=240'; \
+    echo 'max_input_vars=5000'; \
+  } > /usr/local/etc/php/conf.d/farmOS-recommended.ini
+
+# Set recommended realpath_cache settings.
+# See https://www.drupal.org/docs/7/managing-site-performance/tuning-phpini-for-drupal
+RUN { \
+    echo 'realpath_cache_size=256K'; \
+    echo 'realpath_cache_ttl=3600'; \
+  } > /usr/local/etc/php/conf.d/realpath_cache-recommended.ini
+
 # Install Drush 8 with the phar file.
 ENV DRUSH_VERSION 8.1.16
 RUN curl -fsSL -o /usr/local/bin/drush "https://github.com/drush-ops/drush/releases/download/$DRUSH_VERSION/drush.phar" && \
   chmod +x /usr/local/bin/drush && \
   drush core-status
+
+# Install git and unzip for use by Drush Make.
+RUN apt-get update && apt-get install -y git unzip
 
 # Mount a volume at /var/www/html.
 VOLUME /var/www/html
