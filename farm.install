@@ -26,8 +26,8 @@ function farm_install() {
   // Use the farm menu for primary links (provided by farm_admin).
   variable_set('menu_main_links_source', 'farm');
 
-  // Load Openlayers from CDNJS.
-  \Drupal\openlayers\Config::set('openlayers.variant', 'cdnjs:ol3:4.6.4');
+  // Set the Openlayers library variant to local.
+  \Drupal\openlayers\Config::set('openlayers.variant', 'local:4.6.4');
 }
 
 /**
@@ -740,6 +740,18 @@ function farm_update_7043(&$sandbox) {
  */
 function farm_update_7044(&$sandbox) {
   _farm_update_enable_modules(array('farm_term'));
+}
+
+/**
+ * Use local OpenLayers JS library instead of CDN.
+ */
+function farm_update_7045(&$sandbox) {
+
+  // Set the variant config in the Openlayers module.
+  \Drupal\openlayers\Config::set('openlayers.variant', 'local:4.6.4');
+
+  // Uninstall Libraries CDN.
+  db_query("DELETE FROM {system} WHERE name = 'libraries_cdn' AND type = 'module'");
 }
 
 /**

@@ -32,7 +32,6 @@ dependencies[] = dblog
 
 ; Contrib
 dependencies[] = exif_orientation
-dependencies[] = libraries_cdn
 dependencies[] = jquery_update
 dependencies[] = module_filter
 dependencies[] = navbar
