@@ -113,8 +113,6 @@ projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_e
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_gmap_zoom_switch_type-2680273-1.patch"
 ; Add a jQuery trigger event when popups are displayed.
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_popup_trigger-2687781-1.patch"
-; Fix Google Maps API warning: RetiredVersion
-projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_google_retired_version-2888085-4.patch"
 ; Issue #2644580: Maps with Google layers break when loaded in invisible element
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_googlemaps_refresh-2644580-19.patch"
 ; Issue #2911611: Update ZoomToSource Component: use new view.animate() method.
