@@ -105,8 +105,6 @@ projects[openlayers][download][type] = "git"
 projects[openlayers][download][url] = "https://git.drupal.org/project/openlayers.git"
 projects[openlayers][download][branch] = "7.x-3.x"
 projects[openlayers][download][revision] = "569e90ca74ea1862c9ecfbc16836242e205de778"
-; Remove base layer assignment code.
-projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_base_layer_mechanism-2543130-10.patch"
 ; Move Elements dependency to Openlayers Examples.
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_examples_elements_dependency-2620098-2.patch"
 ; Switch to ROADMAP when zoomed further than Google's max zoom level.
@@ -121,6 +119,8 @@ projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_o
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/openlayers_googlemaps_fractional_zoom-2946213-2.patch"
 ; Issue #3006751: PHP 7 support
 projects[openlayers][patch][] = "http://www.drupal.org/files/issues/2018-10-30/openlayers-2952602-6-php-72.patch"
+; Remove base layer assignment code.
+projects[openlayers][patch][] = "http://www.drupal.org/files/issues/2018-11-01/openlayers_base_layer_mechanism-2543130-12.patch"
 
 projects[openlayers_geolocate_button][subdir] = "contrib"
 projects[openlayers_geolocate_button][version] = "3.2"
