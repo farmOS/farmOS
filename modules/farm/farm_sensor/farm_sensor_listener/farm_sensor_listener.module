@@ -125,23 +125,34 @@ function farm_sensor_listener_page_callback($public_key) {
     return MENU_ACCESS_DENIED;
   }
 
-  // Pull the data from the request.
-  $data = drupal_json_decode(file_get_contents("php://input"));
+  // If this is a POST request, process the data.
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-  // If data was posted, process it.
-  if (!empty($data)) {
-    farm_sensor_listener_process_data($sensor, $data);
+    // Pull the data from the request.
+    $data = drupal_json_decode(file_get_contents("php://input"));
+
+    // If data was posted, process it.
+    if (!empty($data)) {
+      farm_sensor_listener_process_data($sensor, $data);
+    }
+
+    // Return success.
     return MENU_FOUND;
   }
 
-  // Otherwise, return the latest values for each name.
-  else {
+  // If this is a GET request, retrieve sensor data.
+  elseif ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
     // Get the data from the sensor.
     $data = farm_sensor_listener_data($sensor->id);
 
     // Return the latest readings as JSON.
     drupal_json_output($data);
+  }
+
+  // Return success and do nothing on all other request types.
+  else {
+    return MENU_FOUND;
   }
 }
 
