@@ -143,8 +143,14 @@ function farm_sensor_listener_page_callback($public_key) {
   // If this is a GET request, retrieve sensor data.
   elseif ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
+    // If the 'name' parameter is set, filter by name.
+    $name = '';
+    if (!empty($params['name'])) {
+      $name = $params['name'];
+    }
+
     // Get the data from the sensor.
-    $data = farm_sensor_listener_data($sensor->id);
+    $data = farm_sensor_listener_data($sensor->id, $name);
 
     // Return the latest readings as JSON.
     drupal_json_output($data);
@@ -351,18 +357,31 @@ function farm_sensor_listener_process_notifications($sensor, $data_name, $value)
  *
  * @param $id
  *   The sensor asset ID.
+ * @param $name
+ *   The sensor value name.
  *
  * @return array
  *   Returns an array of data.
  */
-function farm_sensor_listener_data($id) {
+function farm_sensor_listener_data($id, $name = '') {
 
-  // Query the database for the latest value from this sensor.
+  // Query the database for data from this sensor.
   $query = db_select('farm_sensor_data', 'fsd');
   $query->fields('fsd', array('timestamp', 'name', 'value_numerator', 'value_denominator'));
   $query->condition('fsd.id', $id);
+
+  // If a name is specified, filter by name.
+  if (!empty($name)) {
+    $query->condition('fsd.name', $name);
+  }
+
+  // Order by timestamp descending.
   $query->orderBy('fsd.timestamp', 'DESC');
+
+  // Only get one value.
   $query->range(0, 1);
+
+  // Run the query.
   $result = $query->execute();
 
   // Build an array of data.
