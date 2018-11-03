@@ -149,8 +149,20 @@ function farm_sensor_listener_page_callback($public_key) {
       $name = $params['name'];
     }
 
+    // If the 'limit' parameter is set, limit the number of results.
+    $limit = 1;
+    if (!empty($params['limit'])) {
+      $limit = $params['limit'];
+    }
+
+    // If the 'offset' parameter is set, offset the results.
+    $offset = 0;
+    if (!empty($params['offset'])) {
+      $offset = $params['offset'];
+    }
+
     // Get the data from the sensor.
-    $data = farm_sensor_listener_data($sensor->id, $name);
+    $data = farm_sensor_listener_data($sensor->id, $name, $limit, $offset);
 
     // Return the latest readings as JSON.
     drupal_json_output($data);
@@ -359,11 +371,15 @@ function farm_sensor_listener_process_notifications($sensor, $data_name, $value)
  *   The sensor asset ID.
  * @param $name
  *   The sensor value name.
+ * @param $limit
+ *   The number of results to return.
+ * @param $offset
+ *   The value to start at.
  *
  * @return array
  *   Returns an array of data.
  */
-function farm_sensor_listener_data($id, $name = '') {
+function farm_sensor_listener_data($id, $name = '', $limit = 1, $offset = 0) {
 
   // Query the database for data from this sensor.
   $query = db_select('farm_sensor_data', 'fsd');
@@ -378,8 +394,8 @@ function farm_sensor_listener_data($id, $name = '') {
   // Order by timestamp descending.
   $query->orderBy('fsd.timestamp', 'DESC');
 
-  // Only get one value.
-  $query->range(0, 1);
+  // Limit the results.
+  $query->range($offset, $limit);
 
   // Run the query.
   $result = $query->execute();
