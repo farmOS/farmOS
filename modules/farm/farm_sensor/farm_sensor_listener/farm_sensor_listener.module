@@ -137,40 +137,11 @@ function farm_sensor_listener_page_callback($public_key) {
   // Otherwise, return the latest values for each name.
   else {
 
-    // Query the database for latest values from this sensor,
-    $query = db_select('farm_sensor_data', 'fsd');
-    $query->fields('fsd', array('timestamp', 'name', 'value_numerator', 'value_denominator'));
-    $subselect = db_select('farm_sensor_data', 'fsd');
-    $subselect->addExpression('MAX(timestamp)', 'timestamp');
-    $subselect->addField('fsd', 'name');
-    $subselect->condition('fsd.id', $sensor->id);
-    $subselect->groupBy('fsd.name');
-    $query->addJoin('LEFT', $subselect, 'fsd2', 'fsd.timestamp = fsd2.timestamp AND fsd.name = fsd2.name');
-    $query->condition('fsd.id', $sensor->id);
-    $query->isNotNull('fsd2.timestamp');
-    $result = $query->execute();
-
-    // Build an array of latest readings.
-    $readings = array();
-    foreach ($result as $row) {
-
-      // If name or timestamp are empty, skip.
-      if (empty($row->timestamp) || empty($row->name)) {
-        continue;
-      }
-
-      // Convert the value numerator and denominator to a decimal.
-      $value = fraction($row->value_numerator, $row->value_denominator)->toDecimal(0, TRUE);
-
-      // Create a data object for the sensor value.
-      $data = new stdClass();
-      $data->timestamp = $row->timestamp;
-      $data->{$row->name} = $value;
-      $readings[] = $data;
-    }
+    // Get the data from the sensor.
+    $data = farm_sensor_listener_data($sensor->id);
 
     // Return the latest readings as JSON.
-    drupal_json_output($readings);
+    drupal_json_output($data);
   }
 }
 
@@ -362,6 +333,52 @@ function farm_sensor_listener_process_notifications($sensor, $data_name, $value)
       watchdog('farm_sensor_listener', 'Sensor id ' . $sensor->id . ' notification email sent. (' . $value . ' ' . $condition . ' ' . $threshold . ')');
     }
   }
+}
+
+/**
+ * Fetch sensor data from the database.
+ *
+ * @param $id
+ *   The sensor asset ID.
+ *
+ * @return array
+ *   Returns an array of data.
+ */
+function farm_sensor_listener_data($id) {
+
+  // Query the database for latest values from this sensor,
+  $query = db_select('farm_sensor_data', 'fsd');
+  $query->fields('fsd', array('timestamp', 'name', 'value_numerator', 'value_denominator'));
+  $subselect = db_select('farm_sensor_data', 'fsd');
+  $subselect->addExpression('MAX(timestamp)', 'timestamp');
+  $subselect->addField('fsd', 'name');
+  $subselect->condition('fsd.id', $id);
+  $subselect->groupBy('fsd.name');
+  $query->addJoin('LEFT', $subselect, 'fsd2', 'fsd.timestamp = fsd2.timestamp AND fsd.name = fsd2.name');
+  $query->condition('fsd.id', $id);
+  $query->isNotNull('fsd2.timestamp');
+  $result = $query->execute();
+
+  // Build an array of latest readings.
+  $readings = array();
+  foreach ($result as $row) {
+
+    // If name or timestamp are empty, skip.
+    if (empty($row->timestamp) || empty($row->name)) {
+      continue;
+    }
+
+    // Convert the value numerator and denominator to a decimal.
+    $value = fraction($row->value_numerator, $row->value_denominator)->toDecimal(0, TRUE);
+
+    // Create a data object for the sensor value.
+    $data = new stdClass();
+    $data->timestamp = $row->timestamp;
+    $data->{$row->name} = $value;
+    $readings[] = $data;
+  }
+
+  return $readings;
 }
 
 /**
