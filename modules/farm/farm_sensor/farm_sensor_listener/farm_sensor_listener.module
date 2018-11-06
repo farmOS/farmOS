@@ -149,6 +149,18 @@ function farm_sensor_listener_page_callback($public_key) {
       $name = $params['name'];
     }
 
+    // If the 'start' parameter is set, limit results to timestamps after it.
+    $start = NULL;
+    if (!empty($params['start'])) {
+      $start = $params['start'];
+    }
+
+    // If the 'end' parameter is set, limit to results before it.
+    $end = NULL;
+    if (!empty($params['end'])) {
+      $end = $params['end'];
+    }
+
     // If the 'limit' parameter is set, limit the number of results.
     $limit = 1;
     if (!empty($params['limit'])) {
@@ -162,7 +174,7 @@ function farm_sensor_listener_page_callback($public_key) {
     }
 
     // Get the data from the sensor.
-    $data = farm_sensor_listener_data($sensor->id, $name, $limit, $offset);
+    $data = farm_sensor_listener_data($sensor->id, $name, $start, $end, $limit, $offset);
 
     // Return the latest readings as JSON.
     drupal_json_output($data);
@@ -371,6 +383,10 @@ function farm_sensor_listener_process_notifications($sensor, $data_name, $value)
  *   The sensor asset ID.
  * @param $name
  *   The sensor value name.
+ * @param $start
+ *   Filter data to timestamps greater than or equal to this start timestamp.
+ * @param $end
+ *   Filter data to timestamps less than or equal to this end timestamp.
  * @param $limit
  *   The number of results to return.
  * @param $offset
@@ -379,7 +395,7 @@ function farm_sensor_listener_process_notifications($sensor, $data_name, $value)
  * @return array
  *   Returns an array of data.
  */
-function farm_sensor_listener_data($id, $name = '', $limit = 1, $offset = 0) {
+function farm_sensor_listener_data($id, $name = '', $start = NULL, $end = NULL, $limit = 1, $offset = 0) {
 
   // Query the database for data from this sensor.
   $query = db_select('farm_sensor_data', 'fsd');
@@ -389,6 +405,16 @@ function farm_sensor_listener_data($id, $name = '', $limit = 1, $offset = 0) {
   // If a name is specified, filter by name.
   if (!empty($name)) {
     $query->condition('fsd.name', $name);
+  }
+
+  // If a start timestamp is specified, filter to data after it (inclusive).
+  if (!is_null($start) && is_numeric($start)) {
+    $query->condition('fsd.timestamp', $start, '>=');
+  }
+
+  // If an end timestamp is specified, filter to data before it (inclusive).
+  if (!is_null($end) && is_numeric($end)) {
+    $query->condition('fsd.timestamp', $end, '<=');
   }
 
   // Order by timestamp descending.
