@@ -649,3 +649,68 @@ function farm_sensor_listener_farm_ui_entity_views($entity_type, $bundle, $entit
   }
   return $views;
 }
+
+/**
+ * Implements hook_entity_view_alter().
+ */
+function farm_sensor_listener_entity_view_alter(&$build, $type) {
+
+  /*
+   * Alter sensor asset page to display graph(s).
+   */
+
+  // If it's not a farm_asset, bail.
+  if ($type != 'farm_asset') {
+    return;
+  }
+
+  // If the entity information isn't available, bail.
+  if (empty($build['#entity'])) {
+    return;
+  }
+  $asset = $build['#entity'];
+
+  // If the sensor is not a listener, bail.
+  if (empty($asset->sensor_type) || $asset->sensor_type != 'listener') {
+    return;
+  }
+
+  // Query all the distinct value names this sensor has stored.
+  $names = array();
+  $result = db_query('SELECT name FROM {farm_sensor_data} WHERE id = :id GROUP BY name', array(':id' => $asset->id));
+  foreach ($result as $row) {
+    $names[] = $row->name;
+  }
+
+  // Iterate through the names, load the most recent 100 values for each,
+  // generate markup DIV ids, and store it all in JS settings.
+  $markup = array();
+  $graphs = array();
+  foreach ($names as $name) {
+    $id = drupal_html_id('sensor-data-' . $name);
+    $markup[] = '<div id="' . $id . '" class="farm-sensor-graph"></div>';
+    $graph = array(
+      'name' => $name,
+      'id' => $id,
+      'data' => farm_sensor_listener_data($asset->id, $name, NULL, NULL,100),
+    );
+    $graphs[] = $graph;
+  }
+
+  // Add Javascript and CSS to build the graphs.
+  $settings = array(
+    'farm_sensor_listener' => array(
+      'graphs' => $graphs,
+    ),
+  );
+  drupal_add_js($settings, 'setting');
+  drupal_add_js(drupal_get_path('module', 'farm_sensor_listener') . '/farm_sensor_listener.js');
+  drupal_add_js('https://cdn.plot.ly/plotly-latest.min.js', 'external');
+  drupal_add_css(drupal_get_path('module', 'farm_sensor_listener') . '/farm_sensor_listener.css');
+
+  // Output the markup.
+  $build['views']['graph'] = array(
+    '#markup' => '<div class="farm-sensor-graphs clearfix">' . implode('', $markup) . '</div>',
+    '#weight' => -1,
+  );
+}
