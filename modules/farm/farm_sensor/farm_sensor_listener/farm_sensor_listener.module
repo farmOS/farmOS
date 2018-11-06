@@ -143,6 +143,14 @@ function farm_sensor_listener_page_callback($public_key) {
   // If this is a GET request, retrieve sensor data.
   elseif ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
+    // Add 'Access-Control-Allow-Origin' header to allow pulling this data into
+    // other domains.
+    /**
+     * @todo
+     * Move this to a more official place, or adopt the CORS module in farmOS.
+     */
+    drupal_add_http_header('Access-Control-Allow-Origin', '*');
+
     // If the 'name' parameter is set, filter by name.
     $name = '';
     if (!empty($params['name'])) {
