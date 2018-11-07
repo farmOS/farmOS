@@ -110,14 +110,6 @@ function farm_sensor_listener_page_callback($public_key) {
   // Load the private key from the URL query string.
   $params = drupal_get_query_parameters();
 
-  // If the private key is not set, bail.
-  if (empty($params['private_key'])) {
-    return MENU_FOUND;
-  }
-
-  // Load the private key.
-  $private_key = $params['private_key'];
-
   // Look up the sensor by it's public key.
   $sensor = farm_sensor_listener_load($public_key);
 
@@ -126,9 +118,12 @@ function farm_sensor_listener_page_callback($public_key) {
     return MENU_NOT_FOUND;
   }
 
-  // Compare the private key.
-  if ($sensor->sensor_settings['private_key'] != $private_key) {
-    return MENU_ACCESS_DENIED;
+  // If this is a GET request, and the sensor allows public API read access,
+  // proceed. Otherwise check the private key.
+  if (!($_SERVER['REQUEST_METHOD'] == 'GET' && !empty($sensor->sensor_settings['public_api']))) {
+    if (empty($params['private_key']) || $params['private_key'] != $sensor->sensor_settings['private_key']) {
+      return MENU_ACCESS_DENIED;
+    }
   }
 
   // If this is a POST request, process the data.
@@ -512,6 +507,14 @@ function farm_sensor_listener_settings_form($sensor, $settings = array()) {
     '#title' => t('Private key'),
     '#description' => t('An automatically generated private key for this sensor.'),
     '#default_value' => $settings['private_key'],
+  );
+
+  // Allow public access to sensor data.
+  $form['public_api'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Allow public API read access'),
+    '#description' => t('Checking this box will allow data from this sensor to be queried publicly via the API endpoint without a private key. See the <a href="@sensor_url">farmOS sensor guide</a> for more information.', array('@sensor_url' => 'https://farmOS.org/guide/assets/sensors')),
+    '#default_value' => isset($settings['public_api']) ? $settings['public_api'] : FALSE,
   );
 
   // Reminder to save the sensor entity before posting data.
