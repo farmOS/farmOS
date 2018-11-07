@@ -66,6 +66,56 @@ curl -H "Content-Type: application/json" -X POST \
 https://myfarm.farmos.net/farm/sensor/listener/xxxxxx?private_key=yyyyyy
 ```
 
+### Pulling data from a listener
+
+Data can also be retrived from the sensor via the same API endpoint, using a
+`GET` request instead of a `POST` request. The URL is the same as the URL for
+posting data.
+
+**URL example:** `https://myfarm.farmos.net/farm/sensor/listener/xxxxxx?private_key=yyyyyy`
+
+The private key must be included, unless public API read access is allowed (see
+below).
+
+Only the most recent data point will be returned, unless additional query
+parameters are provided for limiting/filtering the data. Available parameters
+include:
+
+* `name`: Filter to data with a matching name.
+* `start`: Filter data to timestamps greater than or equal to this start
+  timestamp.
+* `end`: Filter data to timestamps less than or equal to this end timestamp.
+* `limit`: The number of results to return.
+* `offset`: The value to start at.
+
+**Example filtered by name:** `https://myfarm.farmos.net/farm/sensor/listener/xxxxxx?private_key=yyyyyy&name=temperature`
+
+**Allowing public API read access**
+
+Data in farmOS is private by default. A private key is required to push data to
+a sensor, and by default the same key is also required to pull data.
+
+If you want to access your sensor data outside of farmOS, you should be careful
+not to leak your private key, because that would allow anyone to post data to
+your sensor.
+
+One area where this is of particular concern is one in which you want to use a
+client-side language like JavaScript to pull sensor data for display on a
+public web page (eg: in a graph you develop yourself). Doing so runs the risk
+of exposing your private key, if it is included in the client-side code that
+is publicly visible. To allow for this use-case, you can choose to make your
+sensor data itself publicly available.
+
+Listener sensors have an optional configuration setting to "Allow public API
+read access". Enabling this will allow data from the sensor to be queried
+publicly via the API endpoint without a private key.
+
+*This setting will make the data available to anyone who knows the farmOS URL
+and sensor public key.*
+
+If more privacy is needed, it is recommended that the sensor be kept private,
+and server-side API requests are used instead of client-side code.
+
 ### GrovePi + Node Red
 
 If you are looking for a DIY approach to collecting sensor data that doesn't
