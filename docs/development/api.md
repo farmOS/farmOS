@@ -5,6 +5,9 @@ with farmOS programatically. The API provides [CRUD] operations for all of the
 main farmOS [record types] (Drupal entity types). This is accomplished with the
 [RESTful Web Services] module.
 
+**Note for Sensor Data:** If you are looking for documentation about pushing
+and pulling data from sensors in farmOS, see [Sensors](/guide/assets/sensors).
+
 The following documentation provides a brief overview of the farmOS API for
 developers who are interested in using it. For more general information, please
 refer to the [RESTful Web Services module documentation].
