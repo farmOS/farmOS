@@ -77,10 +77,16 @@ function farm_sensor_listener_mail($key, &$message, $params) {
 }
 
 /**
- * Callback function for receiving JSON over HTTP and storing data to the {farm_sensor_data} table.
+ * Callback function for processing GET and POST requests to a listener.
+ * Handles receiving JSON over HTTP and storing data to the {farm_sensor_data}
+ * table. Serves data back via API requests with optional parameters.
  *
  * @param $public_key
  *   The public key of the sensor that is pushing the data.
+ *
+ * The private key should be provided as a URL query string.
+ *
+ * Use HTTPS to encrypt data in transit.
  *
  * JSON should be in the following format:
  *   {
