@@ -1,12 +1,16 @@
 # Sensors
 
 In addition to manually-entered records, farmOS also provides a framework for
-importing data from automated environmental sensors. The *Farm Sensor* module
-adds a **Sensor** asset type, which can be tracked like any other asset.
+receiving data from automated environmental sensors. The *Farm Sensor* module
+adds a **Sensor** [asset](/guide/assets) type, which can be tracked like any
+other asset.
+
 Sub-modules (like *Farm Sensor: Listener*) extend the Sensor asset type by
 providing integration with external devices. Additional modules can be built to
-connect to specific types of sensors. It is also possible to assemble your own
-sensors with inexpensive components and send their data to farmOS.
+connect to specific types of sensors, if necessary.
+
+It is possible to assemble your own sensors with inexpensive components and
+send their data to farmOS without any soldering or programming.
 
 <video width="100%" controls>
   <source src="/demo/sensors.mp4" type="video/mp4">
@@ -17,7 +21,7 @@ sensors with inexpensive components and send their data to farmOS.
 The *Farm Sensor: Listener* module is a general-purpose sensor sub-module that
 provides a simple "Listener" sensor type. Each sensor asset that is denoted as
 a listener receives a unique URL with a public and private key that data can be
-pushed to using standard [HTTP] requests and [JSON]-encoded data. Data is
+pushed to using standard [HTTP] requests with [JSON]-encoded data. Data is
 stored in the database and is displayed in the sensor asset within farmOS.
 
 Specific instructions are provided in the farmOS interface itself when you
