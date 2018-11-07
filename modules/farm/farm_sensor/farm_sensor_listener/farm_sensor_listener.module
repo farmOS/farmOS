@@ -77,10 +77,16 @@ function farm_sensor_listener_mail($key, &$message, $params) {
 }
 
 /**
- * Callback function for receiving JSON over HTTP and storing data to the {farm_sensor_data} table.
+ * Callback function for processing GET and POST requests to a listener.
+ * Handles receiving JSON over HTTP and storing data to the {farm_sensor_data}
+ * table. Serves data back via API requests with optional parameters.
  *
  * @param $public_key
  *   The public key of the sensor that is pushing the data.
+ *
+ * The private key should be provided as a URL query string.
+ *
+ * Use HTTPS to encrypt data in transit.
  *
  * JSON should be in the following format:
  *   {
@@ -125,52 +131,72 @@ function farm_sensor_listener_page_callback($public_key) {
     return MENU_ACCESS_DENIED;
   }
 
-  // Pull the data from the request.
-  $data = drupal_json_decode(file_get_contents("php://input"));
+  // If this is a POST request, process the data.
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-  // If data was posted, process it.
-  if (!empty($data)) {
-    farm_sensor_listener_process_data($sensor, $data);
+    // Pull the data from the request.
+    $data = drupal_json_decode(file_get_contents("php://input"));
+
+    // If data was posted, process it.
+    if (!empty($data)) {
+      farm_sensor_listener_process_data($sensor, $data);
+    }
+
+    // Return success.
     return MENU_FOUND;
   }
 
-  // Otherwise, return the latest values for each name.
-  else {
+  // If this is a GET request, retrieve sensor data.
+  elseif ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
-    // Query the database for latest values from this sensor,
-    $query = db_select('farm_sensor_data', 'fsd');
-    $query->fields('fsd', array('timestamp', 'name', 'value_numerator', 'value_denominator'));
-    $subselect = db_select('farm_sensor_data', 'fsd');
-    $subselect->addExpression('MAX(timestamp)', 'timestamp');
-    $subselect->addField('fsd', 'name');
-    $subselect->condition('fsd.id', $sensor->id);
-    $subselect->groupBy('fsd.name');
-    $query->addJoin('LEFT', $subselect, 'fsd2', 'fsd.timestamp = fsd2.timestamp AND fsd.name = fsd2.name');
-    $query->condition('fsd.id', $sensor->id);
-    $query->isNotNull('fsd2.timestamp');
-    $result = $query->execute();
+    // Add 'Access-Control-Allow-Origin' header to allow pulling this data into
+    // other domains.
+    /**
+     * @todo
+     * Move this to a more official place, or adopt the CORS module in farmOS.
+     */
+    drupal_add_http_header('Access-Control-Allow-Origin', '*');
 
-    // Build an array of latest readings.
-    $readings = array();
-    foreach ($result as $row) {
-
-      // If name or timestamp are empty, skip.
-      if (empty($row->timestamp) || empty($row->name)) {
-        continue;
-      }
-
-      // Convert the value numerator and denominator to a decimal.
-      $value = fraction($row->value_numerator, $row->value_denominator)->toDecimal(0, TRUE);
-
-      // Create a data object for the sensor value.
-      $data = new stdClass();
-      $data->timestamp = $row->timestamp;
-      $data->{$row->name} = $value;
-      $readings[] = $data;
+    // If the 'name' parameter is set, filter by name.
+    $name = '';
+    if (!empty($params['name'])) {
+      $name = $params['name'];
     }
 
+    // If the 'start' parameter is set, limit results to timestamps after it.
+    $start = NULL;
+    if (!empty($params['start'])) {
+      $start = $params['start'];
+    }
+
+    // If the 'end' parameter is set, limit to results before it.
+    $end = NULL;
+    if (!empty($params['end'])) {
+      $end = $params['end'];
+    }
+
+    // If the 'limit' parameter is set, limit the number of results.
+    $limit = 1;
+    if (!empty($params['limit'])) {
+      $limit = $params['limit'];
+    }
+
+    // If the 'offset' parameter is set, offset the results.
+    $offset = 0;
+    if (!empty($params['offset'])) {
+      $offset = $params['offset'];
+    }
+
+    // Get the data from the sensor.
+    $data = farm_sensor_listener_data($sensor->id, $name, $start, $end, $limit, $offset);
+
     // Return the latest readings as JSON.
-    drupal_json_output($readings);
+    drupal_json_output($data);
+  }
+
+  // Return success and do nothing on all other request types.
+  else {
+    return MENU_FOUND;
   }
 }
 
@@ -365,6 +391,79 @@ function farm_sensor_listener_process_notifications($sensor, $data_name, $value)
 }
 
 /**
+ * Fetch sensor data from the database.
+ *
+ * @param $id
+ *   The sensor asset ID.
+ * @param $name
+ *   The sensor value name.
+ * @param $start
+ *   Filter data to timestamps greater than or equal to this start timestamp.
+ * @param $end
+ *   Filter data to timestamps less than or equal to this end timestamp.
+ * @param $limit
+ *   The number of results to return.
+ * @param $offset
+ *   The value to start at.
+ *
+ * @return array
+ *   Returns an array of data.
+ */
+function farm_sensor_listener_data($id, $name = '', $start = NULL, $end = NULL, $limit = 1, $offset = 0) {
+
+  // Query the database for data from this sensor.
+  $query = db_select('farm_sensor_data', 'fsd');
+  $query->fields('fsd', array('timestamp', 'name', 'value_numerator', 'value_denominator'));
+  $query->condition('fsd.id', $id);
+
+  // If a name is specified, filter by name.
+  if (!empty($name)) {
+    $query->condition('fsd.name', $name);
+  }
+
+  // If a start timestamp is specified, filter to data after it (inclusive).
+  if (!is_null($start) && is_numeric($start)) {
+    $query->condition('fsd.timestamp', $start, '>=');
+  }
+
+  // If an end timestamp is specified, filter to data before it (inclusive).
+  if (!is_null($end) && is_numeric($end)) {
+    $query->condition('fsd.timestamp', $end, '<=');
+  }
+
+  // Order by timestamp descending.
+  $query->orderBy('fsd.timestamp', 'DESC');
+
+  // Limit the results.
+  $query->range($offset, $limit);
+
+  // Run the query.
+  $result = $query->execute();
+
+  // Build an array of data.
+  $data = array();
+  foreach ($result as $row) {
+
+    // If name or timestamp are empty, skip.
+    if (empty($row->timestamp) || empty($row->name)) {
+      continue;
+    }
+
+    // Convert the value numerator and denominator to a decimal.
+    $value = fraction($row->value_numerator, $row->value_denominator)->toDecimal(0, TRUE);
+
+    // Create a data object for the sensor value.
+    $point = new stdClass();
+    $point->timestamp = $row->timestamp;
+    $point->{$row->name} = $value;
+    $data[] = $point;
+  }
+
+  // Return the data.
+  return $data;
+}
+
+/**
  * Implements hook_farm_sensor_type_info().
  */
 function farm_sensor_listener_farm_sensor_type_info() {
@@ -428,13 +527,11 @@ function farm_sensor_listener_settings_form($sensor, $settings = array()) {
   $form['info'] = array(
     '#type' => 'fieldset',
     '#title' => t('Developer Information'),
-    '#description' => t('A "listener" sensor allows you to send sensor data to
-    farmOS over standard HTTP in a JSON array. Set up your sensor to post JSON
-    to the URL below. Note that multiple sensor values can be included in each request (if a
-    device has multiple sensors, for example). The name given to each value
-    can be any string of numbers and letters ("timestamp" is reserved). Each
-    value will be stored in a separate row in the database, with the "name"
-    column used for filtering purposes.'),
+    '#description' => t('This sensor type will listen for data posted to it
+    from other web-connected devices. Use the information below to configure your
+    device to begin posting data to this sensor. For more information, refer to
+    the <a href="@sensor_url">farmOS sensor guide</a>.',
+      array('@sensor_url' => 'https://farmOS.org/guide/assets/sensors')),
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
