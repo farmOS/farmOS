@@ -24,12 +24,47 @@ a listener receives a unique URL with a public and private key that data can be
 pushed to using standard [HTTP] requests with [JSON]-encoded data. Data is
 stored in the database and is displayed in the sensor asset within farmOS.
 
-Specific instructions are provided in the farmOS interface itself when you
-create a listener sensor asset. Refer to those instructions for more
-information, as well as sample code and JSON formatting.
-
 The listener module is useful for simple data streams. For more complex data, a
 more customized sub-module may be necessary.
+
+### Posting data to a listener
+
+Data can be posted to the listener using a standard [HTTP] request.
+
+Each sensor will have a unique URL endpoint, which contains both the public key
+(as part of the address), and the private key (as a URL query paramter). This
+can be found in the configuration settings for the sensor asset within farmOS.
+
+*It is recommended that you serve farmOS over an HTTPS connection, so that the
+keys are encrypted in transit.*
+
+**URL example:** `https://myfarm.farmos.net/farm/sensor/listener/xxxxxx?private_key=yyyyyy`
+
+The endpoint expects a JSON object with name/value pairs, and an optional
+timestamp.
+
+**JSON example:** `{ "timestamp": 1541519720, "value": 76.5 }`
+
+If the timestamp is omitted, farmOS will assign the data a timestamp based on
+the time that the request is received.
+
+**JSON without timestamp:** `{ "value": 76.5 }`
+
+Multiple sensor values can be included in each request (if a device measures
+more than one metric, for example). The name given to each value can be any
+string of numbers and letters other than "timestamp", which is reserved. Each
+name/value pair will be stored in a separate row in the database.
+
+**JSON with multiple values:** `{ "timestamp": 1541519720, "temperature": 76.5, "humidity": 60 }`
+
+The following `curl` command demonstrates how to post simple data to a sensor
+from the command-line.
+
+```
+curl -H "Content-Type: application/json" -X POST \
+-d '{ "timestamp": 1541519720, "value": 76.5 }' \
+https://myfarm.farmos.net/farm/sensor/listener/xxxxxx?private_key=yyyyyy
+```
 
 ### GrovePi + Node Red
 
