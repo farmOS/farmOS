@@ -527,13 +527,11 @@ function farm_sensor_listener_settings_form($sensor, $settings = array()) {
   $form['info'] = array(
     '#type' => 'fieldset',
     '#title' => t('Developer Information'),
-    '#description' => t('A "listener" sensor allows you to send sensor data to
-    farmOS over standard HTTP in a JSON array. Set up your sensor to post JSON
-    to the URL below. Note that multiple sensor values can be included in each request (if a
-    device has multiple sensors, for example). The name given to each value
-    can be any string of numbers and letters ("timestamp" is reserved). Each
-    value will be stored in a separate row in the database, with the "name"
-    column used for filtering purposes.'),
+    '#description' => t('This sensor type will listen for data posted to it
+    from other web-connected devices. Use the information below to configure your
+    device to begin posting data to this sensor. For more information, refer to
+    the <a href="@sensor_url">farmOS sensor guide</a>.',
+      array('@sensor_url' => 'https://farmOS.org/guide/assets/sensors')),
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
