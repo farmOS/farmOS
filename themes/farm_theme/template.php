@@ -400,6 +400,22 @@ function farm_theme_page_alter(&$page) {
 function farm_theme_preprocess_page(&$vars) {
 
   // Add JS for adding Bootstrap glyphicons throughout the UI.
+  $glyphicons_text = array(
+    t('Dashboard') => 'dashboard',
+    t('Calendar') => 'calendar',
+    t('Help') => 'question-sign',
+    t('Create new account') =>'user',
+    t('My account') => 'user',
+    t('Log out') => 'log-out',
+    t('Log in') => 'log-in',
+    t('Request new password') => 'lock',
+    t('Areas') => 'globe',
+    t('Assets') => 'grain',
+    t('Logs') => 'list',
+    t('People') => 'user',
+    t('Plans') => 'book',
+  );
+  drupal_add_js(array('farm_theme' => array('glyphicons_text' => $glyphicons_text)), 'setting');
   drupal_add_js(drupal_get_path('theme', 'farm_theme') . '/js/glyphicons.js');
 
   // Add Javascript to automatically collapse the help text.
