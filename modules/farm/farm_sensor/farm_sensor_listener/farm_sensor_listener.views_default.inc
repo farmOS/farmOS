@@ -161,6 +161,7 @@ function farm_sensor_listener_views_default_views() {
     t('Sensor value'),
     t('Value'),
     t('All'),
+  );
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
