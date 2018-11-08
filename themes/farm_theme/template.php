@@ -9,14 +9,17 @@
  */
 function farm_theme_menu_link_alter(&$item) {
 
-  // Expand top-level menu link items by default.
+  // Expand top-level menu link items by default and provide descriptions.
   $paths = array(
-    'farm/assets',
-    'farm/logs',
-    'farm/plans',
+    'farm/areas' => t('Areas are places on/off the farm.'),
+    'farm/assets' => t('Assets are the "things" you want to manage.'),
+    'farm/logs' => t('Logs are the "events" that happen to assets and areas.'),
+    'farm/people' => t('People are who make it happen.'),
+    'farm/plans' => t('Plans provide features for organizing and planning other records.'),
   );
-  if (in_array($item['link_path'], $paths)) {
+  if (array_key_exists($item['link_path'], $paths)) {
     $item['expanded'] = TRUE;
+    $item['options']['attributes']['title'] = $paths[$item['link_path']];
   }
 }
 
