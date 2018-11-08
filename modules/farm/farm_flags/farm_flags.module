@@ -221,12 +221,12 @@ function farm_flags_action_submit(array $form, array $form_state) {
  *
  * Assigns a log to one or more people.
  *
- * @param Entity $entity
+ * @param $entity
  *   The entity object.
  * @param array $context
  *   Array with parameters for this action.
  */
-function farm_flags_action(Entity $entity, $context = array()) {
+function farm_flags_action($entity, $context = array()) {
 
   // If the operation is invalid, bail.
   if (!in_array($context['operation'], array('append', 'replace'))) {
