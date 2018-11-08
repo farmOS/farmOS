@@ -7,6 +7,7 @@ dependencies[] = farm_sensor
 dependencies[] = features
 dependencies[] = fraction
 dependencies[] = views
+dependencies[] = views_data_export
 features[ctools][] = views:views_default:3.0
 features[features_api][] = api:2
 features[views_view][] = farm_sensor_data
