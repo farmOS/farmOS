@@ -104,10 +104,17 @@ function farm_sensor_listener_views_default_views() {
   $handler->display->display_options['arguments']['id']['table'] = 'farm_asset';
   $handler->display->display_options['arguments']['id']['field'] = 'id';
   $handler->display->display_options['arguments']['id']['default_action'] = 'empty';
+  $handler->display->display_options['arguments']['id']['title_enable'] = TRUE;
+  $handler->display->display_options['arguments']['id']['title'] = '%1 data';
   $handler->display->display_options['arguments']['id']['default_argument_type'] = 'fixed';
   $handler->display->display_options['arguments']['id']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['id']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['id']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['id']['specify_validation'] = TRUE;
+  $handler->display->display_options['arguments']['id']['validate']['type'] = 'farm_asset';
+  $handler->display->display_options['arguments']['id']['validate_options']['types'] = array(
+    'sensor' => 'sensor',
+  );
   /* Filter criterion: Farm asset: Farm asset type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'farm_asset';
