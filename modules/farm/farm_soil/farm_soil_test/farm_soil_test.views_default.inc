@@ -51,6 +51,7 @@ function farm_soil_test_views_default_views() {
     'field_farm_flags' => 'field_farm_flags',
     'field_farm_log_category' => 'field_farm_log_category',
     'field_farm_log_owner' => 'field_farm_log_owner',
+    'field_farm_files' => 'field_farm_files',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
@@ -117,6 +118,11 @@ function farm_soil_test_views_default_views() {
       'empty_column' => 0,
     ),
     'field_farm_log_owner' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_files' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -278,6 +284,13 @@ function farm_soil_test_views_default_views() {
     'link' => 0,
   );
   $handler->display->display_options['fields']['field_farm_log_owner']['delta_offset'] = '0';
+  /* Field: Field: Files */
+  $handler->display->display_options['fields']['field_farm_files']['id'] = 'field_farm_files';
+  $handler->display->display_options['fields']['field_farm_files']['table'] = 'field_data_field_farm_files';
+  $handler->display->display_options['fields']['field_farm_files']['field'] = 'field_farm_files';
+  $handler->display->display_options['fields']['field_farm_files']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_farm_files']['delta_offset'] = '0';
+  $handler->display->display_options['fields']['field_farm_files']['multi_type'] = 'ul';
   /* Sort criterion: Log: Timestamp */
   $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
   $handler->display->display_options['sorts']['timestamp']['table'] = 'log';
