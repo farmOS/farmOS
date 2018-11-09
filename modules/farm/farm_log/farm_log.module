@@ -52,8 +52,13 @@ function farm_log_form_alter(&$form, &$form_state, $form_id) {
  */
 function farm_log_entity_presave($entity, $type) {
 
-  // When a log entity is being saved, populate the geometry field from areas.
+  // Perform actions when a log is saved.
   if ($type == 'log') {
+
+    // Fill in the log owner field.
+    farm_log_populate_owner($entity);
+
+    // Populate the geometry field from areas.
     farm_log_populate_geometry($entity);
   }
 }
@@ -374,6 +379,39 @@ function farm_log_categories_create_all() {
   $categories = module_invoke_all('farm_log_categories');
   if (!empty($categories)) {
     farm_log_categories_create($categories);
+  }
+}
+
+/**
+ * Helper function for populating a log's owner field.
+ *
+ * @param Entity $entity
+ *   The entity to act upon.
+ * @param $account
+ *   Optionally the user account to assign the log to.
+ *
+ * @see farm_log_entity_movement_presave().
+ */
+function farm_log_populate_owner($entity, $account = NULL) {
+
+  // If the log already has an owner, bail.
+  if (!empty($entity->field_farm_log_owner[LANGUAGE_NONE][0]['target_id'])) {
+    return;
+  }
+
+  // Get the log owner ID, either from the $account passed in, or from the
+  // currently authenticated user.
+  if (!empty($account->uid)) {
+    $uid = $account->uid;
+  }
+  else {
+    global $user;
+    $uid = $user->uid;
+  }
+
+  // If we have a user id, assign it as the log owner.
+  if (!empty($uid)) {
+    $entity->field_farm_log_owner[LANGUAGE_NONE][] = array('target_id' => $uid);
   }
 }
 
@@ -773,12 +811,6 @@ function farm_log_create($type, $name = '', $timestamp = REQUEST_TIME, $done = T
       );
     }
   }
-
-  // Set the log owner to the currently authenticated user.
-  global $user;
-  $log->field_farm_log_owner[LANGUAGE_NONE][] = array(
-    'target_id' => $user->uid,
-  );
 
   // Save the log.
   log_save($log);
