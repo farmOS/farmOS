@@ -178,7 +178,7 @@ projects[views_tree][version] = "2.0"
 ; -----------------------------------------------------------------------------
 
 projects[diff][subdir] = "dev"
-projects[diff][version] = "3.3"
+projects[diff][version] = "3.4"
 
 projects[module_filter][subdir] = "dev"
 projects[module_filter][version] = "2.1"
