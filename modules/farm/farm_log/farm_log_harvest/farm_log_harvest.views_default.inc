@@ -297,11 +297,10 @@ function farm_log_harvest_views_default_views() {
   $handler->display->display_options['fields']['field_farm_area']['table'] = 'field_data_field_farm_area';
   $handler->display->display_options['fields']['field_farm_area']['field'] = 'field_farm_area';
   $handler->display->display_options['fields']['field_farm_area']['delta_offset'] = '0';
-  /* Field: Log: Sale lot number */
+  /* Field: Log: Harvest lot number */
   $handler->display->display_options['fields']['field_farm_lot_number']['id'] = 'field_farm_lot_number';
   $handler->display->display_options['fields']['field_farm_lot_number']['table'] = 'field_data_field_farm_lot_number';
   $handler->display->display_options['fields']['field_farm_lot_number']['field'] = 'field_farm_lot_number';
-  $handler->display->display_options['fields']['field_farm_lot_number']['label'] = 'Harvest lot number';
   /* Field: Log: Notes */
   $handler->display->display_options['fields']['field_farm_notes']['id'] = 'field_farm_notes';
   $handler->display->display_options['fields']['field_farm_notes']['table'] = 'field_data_field_farm_notes';
@@ -397,7 +396,7 @@ function farm_log_harvest_views_default_views() {
   $handler->display->display_options['filters']['name']['expose']['label'] = 'Log name';
   $handler->display->display_options['filters']['name']['expose']['operator'] = 'name_op';
   $handler->display->display_options['filters']['name']['expose']['identifier'] = 'name';
-  /* Filter criterion: Log: Sale lot number (field_farm_lot_number) */
+  /* Filter criterion: Log: Harvest lot number (field_farm_lot_number) */
   $handler->display->display_options['filters']['field_farm_lot_number_value']['id'] = 'field_farm_lot_number_value';
   $handler->display->display_options['filters']['field_farm_lot_number_value']['table'] = 'field_data_field_farm_lot_number';
   $handler->display->display_options['filters']['field_farm_lot_number_value']['field'] = 'field_farm_lot_number_value';
