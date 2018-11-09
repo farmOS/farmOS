@@ -13,7 +13,7 @@ function farm_fields_filter_default_formats() {
   // Exported format: Farm Format.
   $formats['farm_format'] = array(
     'format' => 'farm_format',
-    'name' => 'Farm Format',
+    'name' => 'Default format',
     'cache' => 1,
     'status' => 1,
     'weight' => -10,
