@@ -36,6 +36,7 @@ features[field_group][] = group_farm_assignment|log|farm_water_test|form
 features[field_group][] = group_farm_category|log|farm_water_test|form
 features[field_group][] = group_farm_files|log|farm_water_test|form
 features[field_group][] = group_farm_general|log|farm_water_test|form
+features[field_group][] = group_farm_geometry|log|farm_water_test|form
 features[field_group][] = group_farm_location|log|farm_water_test|form
 features[field_group][] = group_farm_tabs|log|farm_water_test|form
 features[field_instance][] = log-farm_water_test-field_farm_area

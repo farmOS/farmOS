@@ -170,7 +170,7 @@ function farm_soil_test_field_default_field_instances() {
         'use_geocoder' => 1,
       ),
       'type' => 'openlayers_geofield',
-      'weight' => 7,
+      'weight' => 8,
     ),
   );
 

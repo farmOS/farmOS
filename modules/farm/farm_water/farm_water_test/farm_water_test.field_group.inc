@@ -109,13 +109,13 @@ function farm_water_test_field_group_info() {
     'label' => 'General',
     'weight' => '1',
     'children' => array(
-      0 => 'field_farm_notes',
-      1 => 'field_farm_water_lab',
-      2 => 'field_farm_flags',
+      0 => 'field_farm_flags',
+      1 => 'field_farm_notes',
+      2 => 'field_farm_water_lab',
       3 => 'name',
       4 => 'timestamp',
-      5 => 'group_farm_category',
-      6 => 'group_farm_assignment',
+      5 => 'group_farm_assignment',
+      6 => 'group_farm_category',
     ),
     'format_type' => 'field_group_easy_responsive_tabs_nav_item',
     'format_settings' => array(
@@ -132,6 +132,35 @@ function farm_water_test_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_farm_geometry|log|farm_water_test|form';
+  $field_group->group_name = 'group_farm_geometry';
+  $field_group->entity_type = 'log';
+  $field_group->bundle = 'farm_water_test';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_farm_location';
+  $field_group->data = array(
+    'label' => 'Sample points',
+    'weight' => '8',
+    'children' => array(
+      0 => 'field_farm_geofield',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => 'Sample points',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'group-farm-geometry field-group-fieldset',
+        'description' => '',
+      ),
+      'formatter' => 'collapsed',
+    ),
+  );
+  $field_groups['group_farm_geometry|log|farm_water_test|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_farm_location|log|farm_water_test|form';
   $field_group->group_name = 'group_farm_location';
   $field_group->entity_type = 'log';
@@ -143,7 +172,7 @@ function farm_water_test_field_group_info() {
     'weight' => '2',
     'children' => array(
       0 => 'field_farm_area',
-      1 => 'field_farm_geofield',
+      1 => 'group_farm_geometry',
     ),
     'format_type' => 'field_group_easy_responsive_tabs_nav_item',
     'format_settings' => array(
@@ -200,6 +229,7 @@ function farm_water_test_field_group_info() {
   t('Files');
   t('General');
   t('Location');
+  t('Sample points');
   t('Tabs');
 
   return $field_groups;
