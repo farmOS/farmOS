@@ -17,7 +17,6 @@
         // Iterate through the data and put it into the arrays.
         for (var j = 0; j < data.length; j++) {
           var tzoffset = (new Date()).getTimezoneOffset() * 60000;
-          console.log(tzoffset);
           var date = new Date((data[j].timestamp * 1000) - tzoffset).toISOString();
           dates.push(date);
           values.push(data[j][name]);
