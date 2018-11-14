@@ -7,6 +7,17 @@
 include_once 'farm_soil_test.features.inc';
 
 /**
+ * Implements hook_help().
+ */
+function farm_soil_test_help($path, $arg) {
+  if ($path == 'log/add/farm_soil_test') {
+    $help = '<p>' . t('Use this form to enter information about soil tests you have performed. Use the log date field to record when the soil sample was taken. Test results can be uploaded to the files field as a PDF or other document.') . '</p>';
+    $help .= '<p>' . t('Each sample/test can be entered as a separate log, for easier searching/filtering later. Or, if you have a document from your lab that contains results of multiple tests, you can upload that to a single log for general storage. Give it a relative date based on when the samples were taken so that you can find it by month or year.') . '</p>';
+    return $help;
+  }
+}
+
+/**
  * Implements hook_farm_ui_entities().
  */
 function farm_soil_test_farm_ui_entities() {
