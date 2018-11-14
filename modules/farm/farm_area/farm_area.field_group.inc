@@ -121,7 +121,7 @@ function farm_area_field_group_info() {
         'required_fields' => 1,
         'id' => '',
         'classes' => 'group-farm-geometry field-group-fieldset',
-        'description' => 'Use this field to define the geometry of this area on a map. Points, lines, and polygons can be drawn using the controls below.',
+        'description' => t('Use this field to define the geometry of this area on a map. Points, lines, circles, and polygons (free-form shapes) can be drawn using the controls below. To draw a polygon, add a point at each corner, and double-click on the last one to close the shape. For more information about mapping areas in farmOS, see <a href="@area-doc-url">@area-doc-url</a>', array('@area-doc-url' => 'https://farmos.org/guide/areas')),
       ),
       'formatter' => 'collapsible',
     ),
