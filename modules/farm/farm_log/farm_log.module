@@ -43,6 +43,9 @@ function farm_log_form_log_form_alter(&$form, &$form_state, $form_id) {
   // Attempt to prepopulate name and reference fields.
   farm_log_prepopulate_log_form_name($form);
   farm_log_prepopulate_log_form_references($form);
+
+  // Add help text to the timestamp field.
+  $form['timestamp']['#description'] = t('Enter the date that this event took place. If you do not know the exact date and time, you can estimate. This will determine how logs are sorted in lists and reports.');
 }
 
 /**
