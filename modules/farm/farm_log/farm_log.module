@@ -36,15 +36,13 @@ function farm_log_entity_view($entity, $type, $view_mode, $langcode) {
 }
 
 /**
- * Implements hook_form_alter().
+ * Implements hook_form_FORM_ID_alter().
  */
-function farm_log_form_alter(&$form, &$form_state, $form_id) {
+function farm_log_form_log_form_alter(&$form, &$form_state, $form_id) {
 
-  // If this is a log form, attempt to prepopulate name and reference fields.
-  if ($form_id == 'log_form') {
-    farm_log_prepopulate_log_form_name($form);
-    farm_log_prepopulate_log_form_references($form);
-  }
+  // Attempt to prepopulate name and reference fields.
+  farm_log_prepopulate_log_form_name($form);
+  farm_log_prepopulate_log_form_references($form);
 }
 
 /**
