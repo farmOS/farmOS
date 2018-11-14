@@ -171,6 +171,110 @@ function farm_quantity_measure_options() {
 }
 
 /**
+ * Return an array of standard unit names for given measures.
+ *
+ * @todo
+ *   This is a first step towards more complete unit management in farmOS. It
+ *   is provided as a central helper function for other modules to use as a
+ *   placeholder until then.
+ *
+ * @param string $measure
+ *   An optional measure to filter by.
+ *   See available options in farm_quantity_measures() above.
+ *
+ * @return array
+ *   Returns an array of standard unit strings for a given measure. Or an array
+ *   of all unit strings, organized into sub-arrays keyed by measure.
+ */
+function farm_quantity_units($measure = '') {
+
+  // Load the available measures.
+  $measures = farm_quantity_measures();
+
+  // Build an empty array of quantity unit sub-arrays, keyed by measure.
+  $units = array();
+  foreach ($measures as $name => $info) {
+    $units[$name] = array();
+  }
+
+  // Look up the system of measurement.
+  $system = farm_quantity_system_of_measurement();
+
+  // Depending on the system of measurement, add unit options to measures.
+  if ($system == 'metric') {
+
+    // Length units.
+    $units['length'][] = 'kilometers';
+    $units['length'][] = 'meters';
+    $units['length'][] = 'centimeters';
+
+    // Weight units.
+    $units['weight'][] = 'kilograms';
+    $units['weight'][] = 'grams';
+
+    // Area units.
+    $units['area'][] = 'hectares';
+    $units['area'][] = 'square meters';
+
+    // Volume units.
+    $units['volume'][] = 'kiloliters';
+    $units['volume'][] = 'liters';
+    $units['volume'][] = 'milliliters';
+
+    // Temperature units.
+    $units['temperature'][] = 'C';
+  }
+  elseif ($system == 'us') {
+
+    // Length units.
+    $units['length'][] = 'miles';
+    $units['length'][] = 'feet';
+    $units['length'][] = 'inches';
+
+    // Weight units.
+    $units['weight'][] = 'tons';
+    $units['weight'][] = 'lbs';
+    $units['weight'][] = 'ounces';
+
+    // Area units.
+    $units['area'][] = 'acres';
+    $units['area'][] = 'square feet';
+
+    // Volume units.
+    $units['volume'][] = 'cubic yards';
+    $units['volume'][] = 'cubic feet';
+    $units['volume'][] = 'gallons';
+    $units['volume'][] = 'quarts';
+    $units['volume'][] = 'cups';
+
+    // Temperature units.
+    $units['temperature'][] = 'F';
+  }
+
+  // Time units are independent of system.
+  $units['time'][] = 'years';
+  $units['time'][] = 'months';
+  $units['time'][] = 'weeks';
+  $units['time'][] = 'days';
+  $units['time'][] = 'hours';
+  $units['time'][] = 'minutes';
+  $units['time'][] = 'seconds';
+
+  // If a measure is specified, only return units for that measure.
+  if (!empty($measure)) {
+    if (!empty($units[$measure])) {
+      return $units[$measure];
+    }
+    else {
+      return array();
+    }
+  }
+
+  // Return all quantity units.
+  return $units;
+}
+
+/**
  * Implements hook_preprocess_field().
  */
 function farm_quantity_preprocess_field(&$vars) {

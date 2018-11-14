@@ -608,6 +608,8 @@ function farm_area_default_units($measure = 'area', $size = 'big') {
   $system = farm_quantity_system_of_measurement();
 
   // Define the default units for each system of measurement and size.
+  // The values returned by this function should exist in
+  // farm_quantity_units(), for consistency.
   $default_units = array(
     'metric' => array(
       'area' => array(
