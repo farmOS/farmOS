@@ -37,7 +37,7 @@ function farm_area_generate_menu() {
 
   // Area generator form.
   $items['farm/areas/generate'] = array(
-    'title' => 'Area generator',
+    'title' => 'Bed generator',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('farm_area_generate_form'),
     'access arguments' => array('use farm area generator'),
@@ -91,7 +91,7 @@ function farm_area_generate_page_build(&$page) {
 function farm_area_generate_form($form, &$form_state) {
 
   // Set the page title.
-  drupal_set_title('Area generator');
+  drupal_set_title('Bed generator');
 
   // Add javascript.
   drupal_add_js(drupal_get_path('module', 'farm_area_generate') . '/js/farm_area_generate.js');
@@ -108,7 +108,7 @@ function farm_area_generate_form($form, &$form_state) {
   // Description.
   $form['description'] = array(
     '#type' => 'markup',
-    '#markup' => t('This area generator tool is used to generate multiple child areas within a parent area. Select a parent area, specify how many areas you want in it, and the area orientation. Areas will be generated to fill the parent.'),
+    '#markup' => t('This area generator tool is used to generate multiple parallel child areas within a parent area. This is useful for automatically drawing beds within a field. Select a parent area, specify how many child areas you want in it, and the area orientation. Areas will be generated to fill the parent.'),
   );
 
   // Area select.
@@ -118,15 +118,6 @@ function farm_area_generate_form($form, &$form_state) {
     '#description' => t('Set the parent area that the generated areas will be within. This area must have a single polygon geometry. Click on an area in the map below to auto-fill this field.'),
     '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_area',
     '#required' => TRUE,
-  );
-
-  // Area type.
-  $form['area_type'] = array(
-    '#type' => 'select',
-    '#title' => t('Area type'),
-    '#description' => t('Select the type of areas that will be generated.'),
-    '#options' => farm_area_type_options(),
-    '#requited' => TRUE,
   );
 
   // Number of child areas to generate.
@@ -147,6 +138,33 @@ function farm_area_generate_form($form, &$form_state) {
     '#default_value' => 0,
     '#element_validate' => array('element_validate_integer'),
   );
+
+  // Add a collapsed fieldset containing other options.
+  $form['options'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Options'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+
+  // Area type.
+  $form['options']['area_type'] = array(
+    '#type' => 'select',
+    '#title' => t('Area type'),
+    '#description' => t('Select the type of areas that will be generated.'),
+    '#options' => farm_area_type_options(),
+    '#requited' => TRUE,
+  );
+
+  // Set the area type to "bed" by default.
+  /**
+   * @todo
+   * This was added to make it clear that the area generator can be used to
+   * generate parallel beds, while also maintaining the original flexibility.
+   * In the future, if the area generator expands to be used in other cases,
+   * we may want to remove this default.
+   */
+  $form['more']['area_type']['#default_value'] = 'bed';
 
   // If GEOS is not installed, print a warning and hide the submit button.
   if (!farm_area_generate_geos_exists()) {
