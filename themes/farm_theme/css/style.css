@@ -140,7 +140,7 @@ h2.resp-tab-active,
   display: block;
 }
 .container-inline-date .date-padding {
-  padding-left: 0;
+  float: none;
 }
 
 /**
