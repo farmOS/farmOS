@@ -58,13 +58,21 @@ function farm_install_configure_form($form, &$form_state) {
   // Allow user to choose which high-level farm modules to install.
   // Default modules will be selected by default.
   $default_modules = array(
+    'farm_log_harvest' => st('Harvest logs'),
+    'farm_log_input' => st('Input logs'),
     'farm_crop' => st('Crops'),
     'farm_livestock' => st('Livestock'),
     'farm_equipment' => st('Equipment'),
+    'farm_calendar' => st('Calendar of logs'),
+    'farm_import' => st('CSV importers for assets and logs'),
+    'farm_quick' => st('Quick forms UI'),
     'farm_soil_nrcs' => st('NRCS Soil Survey'),
     'farm_soil_test' => st('Soil test logs'),
     'farm_area_generate' => st('Area generator (for generating parallel beds within an area)'),
+    'farm_access' => st('Default roles: Manager, Worker, Viewer'),
+    'farm_help' => st('farmOS Help Pages'),
     'farm_tour' => st('farmOS Tours'),
+    'farm_api' => st('farmOS API'),
   );
   // Extra modules will not be selected by default.
   $extra_modules = array(
