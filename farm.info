@@ -38,19 +38,11 @@ dependencies[] = navbar
 dependencies[] = pathauto_entity
 
 ; Farm
-dependencies[] = farm_access
-dependencies[] = farm_api
-dependencies[] = farm_calendar
 dependencies[] = farm_constraint
 dependencies[] = farm_dashboard
-dependencies[] = farm_help
-dependencies[] = farm_import
 dependencies[] = farm_log
 dependencies[] = farm_log_activity
-dependencies[] = farm_log_harvest
-dependencies[] = farm_log_input
 dependencies[] = farm_log_observation
 dependencies[] = farm_menu
 dependencies[] = farm_people
-dependencies[] = farm_quick
 dependencies[] = farm_ui

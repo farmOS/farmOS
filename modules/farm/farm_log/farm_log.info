@@ -14,6 +14,7 @@ dependencies[] = farm_map
 dependencies[] = farm_map_kml
 dependencies[] = farm_term
 dependencies[] = features
+dependencies[] = log
 dependencies[] = views
 dependencies[] = views_data_export
 features[ctools][] = views:views_default:3.0
