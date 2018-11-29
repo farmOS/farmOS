@@ -24,6 +24,19 @@ function farm_theme_menu_link_alter(&$item) {
 }
 
 /**
+ * Implements hook_preprocess_menu_link().
+ */
+function farm_theme_preprocess_menu_link(&$vars) {
+
+  // Give each menu item a CSS class according to its title.
+  if (!empty($vars['element']['#title'])) {
+    $title = $vars['element']['#title'];
+    $class = drupal_html_class($title);
+    $vars['element']['#localized_options']['attributes']['class'][] = $class;
+  }
+}
+
+/**
  * Implements hook_preprocess_menu_tree().
  */
 function farm_theme_preprocess_menu_tree(&$variables) {
