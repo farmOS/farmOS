@@ -32,14 +32,37 @@ function farm_crop_planting_quick_form($form, &$form_state) {
     '#required' => TRUE,
   );
 
-  // Crops.
-  $form['planting']['crops'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Crops/varieties'),
-    '#description' => t('What crops/varieties are included in this planting?'),
-    '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_crop',
-    '#required' => TRUE,
+  // Number of crops/varieties.
+  $crop_count_default = 1;
+  $form['planting']['crop_count'] = array(
+    '#type' => 'select',
+    '#title' => t('If this is a mix, how many crops/varieties are included?'),
+    '#options' => drupal_map_assoc(range(1, 15)),
+    '#default_value' => $crop_count_default,
+    '#ajax' => array(
+      'callback' => 'farm_crop_planting_quick_form_crops_ajax',
+      'wrapper' => 'planting-crops',
+    ),
   );
+
+  // Create a field for each crop/variety.
+  $crop_count = $crop_count_default;
+  if (!empty($form_state['values']['planting']['crop_count'])) {
+    $crop_count = $form_state['values']['planting']['crop_count'];
+  }
+  for ($i=0; $i<$crop_count; $i++) {
+    $form['planting']['crops'][$i] = array(
+      '#type' => 'textfield',
+      '#title' => t('Crop/variety') . ' ' . ($i+1),
+      '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_crop',
+      '#required' => TRUE,
+    );
+  }
+
+  // Add the 'planting-crops' wrapper div around the crops field(s), so that it
+  // can be replaced via AJAX.
+  $form['planting']['crops']['#prefix'] = '<div id="planting-crops">';
+  $form['planting']['crops']['#suffix'] = '</div>';
 
   // Submit button.
   $form['planting']['submit'] = array(
@@ -49,6 +72,13 @@ function farm_crop_planting_quick_form($form, &$form_state) {
 
   // Return the form.
   return $form;
+}
+
+/**
+ * Planting quick form crops ajax callback.
+ */
+function farm_crop_planting_quick_form_crops_ajax($form, &$form_state) {
+  return $form['planting']['crops'];
 }
 
 /**
@@ -72,7 +102,7 @@ function farm_crop_planting_quick_form_submit($form, &$form_state) {
 
   // Get the crop(s) and load/create terms for each.
   $crops = array();
-  $crop_tags = drupal_explode_tags($form_state['values']['planting']['crops']);
+  $crop_tags = $form_state['values']['planting']['crops'];
   foreach ($crop_tags as $tag) {
     $term = farm_term($tag, 'farm_crops');
     if (!empty($term)) {
