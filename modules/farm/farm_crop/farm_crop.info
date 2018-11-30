@@ -22,6 +22,7 @@ dependencies[] = farm_map_kml
 dependencies[] = farm_movement
 dependencies[] = farm_quantity
 dependencies[] = farm_season
+dependencies[] = farm_term
 dependencies[] = features
 dependencies[] = field_collection
 dependencies[] = field_group
