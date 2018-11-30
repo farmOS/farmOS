@@ -64,6 +64,100 @@ function farm_crop_planting_quick_form($form, &$form_state) {
   $form['planting']['crops']['#prefix'] = '<div id="planting-crops">';
   $form['planting']['crops']['#suffix'] = '</div>';
 
+  // Define the date format for logs.
+  $date_format = 'Y-m-d';
+
+  // Define an array of logs that can be created for this planting.
+  $logs = array(
+    'seeding' => array(
+      'title' => t('Seeding'),
+      'type' => 'farm_seeding',
+      'enabled' => TRUE,
+      'fields' => array('date', 'location', 'notes', 'done'),
+    ),
+    'transplanting' => array(
+      'title' => t('Transplanting'),
+      'type' => 'farm_transplanting',
+      'enabled' => FALSE,
+      'fields' => array('date', 'location', 'notes', 'done'),
+    ),
+  );
+
+  // Create a container for all log fields.
+  $form['planting']['logs'] = array(
+    '#type' => 'container',
+    '#prefix' => '<div id="planting-logs">',
+    '#suffix' => '</div>',
+  );
+
+  // Create fields for each log.
+  foreach ($logs as $name => $info) {
+
+    // Log checkbox, checked based on $form_state, with default.
+    $enabled = !empty($info['enabled']) ? $info['enabled'] : FALSE;
+    if (isset($form_state['values']['planting']['logs'][$name]['enabled'])) {
+      $enabled = $form_state['values']['planting']['logs'][$name]['enabled'];
+    }
+    $form['planting']['logs'][$name]['enabled'] = array(
+      '#type' => 'checkbox',
+      '#title' => $info['title'],
+      '#default_value' => $enabled,
+      '#ajax' => array(
+        'callback' => 'farm_crop_planting_quick_form_logs_ajax',
+        'wrapper' => 'planting-logs'
+      ),
+    );
+
+    // If the log is not enabled, stop here.
+    if (empty($enabled)) {
+      continue;
+    }
+
+    // Create a fieldset for the log.
+    $form['planting']['logs'][$name]['#type'] = 'fieldset';
+    $form['planting']['logs'][$name]['#collapsible'] = TRUE;
+    $form['planting']['logs'][$name]['#collapsed'] = FALSE;
+
+    // Add a hidden value for the log type.
+    $form['planting']['logs'][$name]['type'] = array(
+      '#type' => 'value',
+      '#value' => $info['type'],
+    );
+
+    // Create fields.
+    $field_info = array(
+      'date' => array(
+        '#type' => 'date_select',
+        '#title' => t('Date'),
+        '#date_format' => $date_format,
+        '#date_label_position' => 'within',
+        '#date_year_range' => '-3:+10',
+        '#default_value' => REQUEST_TIME,
+        '#required' => TRUE,
+      ),
+      'done' => array(
+        '#type' => 'checkbox',
+        '#title' => t('Completed'),
+      ),
+      'location' => array(
+        '#type' => 'textfield',
+        '#title' => t( 'Location'),
+        '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_area',
+        '#required' => TRUE,
+      ),
+      'notes' => array(
+        '#type' => 'text_format',
+        '#title' => $info['title'] . ' ' . t('Notes'),
+        '#format' => 'farm_format',
+      ),
+    );
+    foreach ($info['fields'] as $field) {
+      if (array_key_exists($field, $field_info)) {
+        $form['planting']['logs'][$name][$field] = $field_info[$field];
+      }
+    }
+  }
+
   // Submit button.
   $form['planting']['submit'] = array(
     '#type' => 'submit',
@@ -79,6 +173,13 @@ function farm_crop_planting_quick_form($form, &$form_state) {
  */
 function farm_crop_planting_quick_form_crops_ajax($form, &$form_state) {
   return $form['planting']['crops'];
+}
+
+/**
+ * Planting quick form logs ajax callback.
+ */
+function farm_crop_planting_quick_form_logs_ajax($form, &$form_state) {
+  return $form['planting']['logs'];
 }
 
 /**
@@ -144,4 +245,47 @@ function farm_crop_planting_quick_form_submit($form, &$form_state) {
   $label = entity_label('farm_asset', $planting_asset);
   $uri = entity_uri('farm_asset', $planting_asset);
   drupal_set_message('Planting created: ' . l($label, $uri['path']));
+
+  // Iterate through the logs.
+  foreach ($form_state['values']['planting']['logs'] as $name => $log_values) {
+
+    // If the log is not enabled, skip it.
+    if (empty($log_values['enabled'])) {
+      continue;
+    }
+
+    // Convert the date to a timestamp.
+    $timestamp = strtotime($log_values['date']);
+
+    // If the location is available, load areas.
+    $areas = array();
+    if (!empty($log_values['location'])) {
+      $areas = farm_area_parse_names($log_values['location'], TRUE);
+    }
+
+    // Mark the log as done or not done.
+    $done = FALSE;
+    if (!empty($log_values['done'])) {
+      $done = TRUE;
+    }
+
+    // Create a log.
+    $log = farm_movement_create($planting_asset, $areas, $timestamp, $log_values['type'], $done);
+
+    // Create an entity metadata wrapper for the log.
+    $log_wrapper = entity_metadata_wrapper('log', $log);
+
+    // Set the log notes, if available.
+    if (!empty($log_values['notes']['value'])) {
+      $log_wrapper->field_farm_notes = $log_values['notes'];
+    }
+
+    // Save the log.
+    $log_wrapper->save();
+
+    // Link the log to the quick form.
+    if (function_exists('farm_quick_entity_link')) {
+      farm_quick_entity_link('farm_crop_planting_form', 'log', $log);
+    }
+  }
 }
