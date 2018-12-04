@@ -24,11 +24,6 @@ function farm_area_farm_area_type_info() {
       'style' => 'farm_map_style_orange',
       'weight' => 50,
     ),
-    'water' => array(
-      'label' => t('Water'),
-      'style' => 'farm_map_style_blue',
-      'weight' => 50,
-    ),
     'property' => array(
       'label' => t('Property'),
       'style' => 'farm_map_style_purple',

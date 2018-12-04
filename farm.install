@@ -77,6 +77,7 @@ function farm_install_configure_form($form, &$form_state) {
   );
   // Extra modules will not be selected by default.
   $extra_modules = array(
+    'Water' => st('Water area type'),
     'farm_water_test' => st('Water test logs'),
     'farm_soil_compost' => st('Compost'),
     'farm_sensor' => st('Sensor'),
