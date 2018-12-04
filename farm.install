@@ -70,6 +70,7 @@ function farm_install_configure_form($form, &$form_state) {
     'farm_soil_test' => st('Soil test logs'),
     'farm_area_generate' => st('Area generator (for generating parallel beds within an area)'),
     'farm_area_import' => st('Import areas in bulk from a single KML file'),
+    'farm_area_types' => t('Default area types: Property, Field, Building, etc'),
     'farm_access' => st('Default roles: Manager, Worker, Viewer'),
     'farm_help' => st('farmOS Help Pages'),
     'farm_tour' => st('farmOS Tours'),
