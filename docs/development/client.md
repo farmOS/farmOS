@@ -18,6 +18,13 @@ Android/iOS.
 **This documentation is not complete. It is intended only for informational
 purposes at this time.**
 
+## Releases
+
+Currently, since the project is in early alpha phase, we only have public 
+releases available via Adobe's [Phone Gap Build] service. If you're interested 
+in signing up for beta releases via the Apple and Android app stores, [sign up 
+here].
+
 ## Architecture
 The client essentially represents a UI library; the native repository consumes 
 that library, while also providing the client with the dependencies it needs to 
@@ -351,6 +358,8 @@ Cordova's [iOS Platform Guide]
 
 [https://github.com/farmOS/farmOS-client]: https://github.com/farmOS/farmOS-client
 [https://github.com/farmOS/farmOS-native]: https://github.com/farmOS/farmOS-native
+[Phone Gap Build]: https://build.phonegap.com/apps/3295280
+[sign up here]: https://docs.google.com/forms/d/e/1FAIpQLSf0brjVUEKiwG1iw4D386iKgbpw5xQ-YJ3w-1iBdKXO-RyK0g/viewform?usp=sf_link
 [Vue plugin]: https://vuejs.org/v2/guide/plugins.html
 [http://localhost:8080/]: http://localhost:8080/
 [full instructions for setting up a farmOS Docker container]: /development/docker/
