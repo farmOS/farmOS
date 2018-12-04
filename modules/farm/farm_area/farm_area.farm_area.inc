@@ -1,5 +1,6 @@
 <?php
 /**
+ * @file
  * Farm Area hooks implemented by the Farm Area module.
  */
 
