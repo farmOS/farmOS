@@ -82,3 +82,13 @@ function farm_crop_update_7002(&$sandbox) {
 function farm_crop_update_7003(&$sandbox) {
   features_revert(array('farm_crop' => array('field_instance')));
 }
+
+/**
+ * Install the Farm Crop Area Types module.
+ */
+function farm_crop_update_7004(&$sandbox) {
+  $module = 'farm_crop_area_types';
+  if (!module_exists($module)) {
+    module_enable(array($module));
+  }
+}

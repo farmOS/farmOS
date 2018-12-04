@@ -1,0 +1,5 @@
+name = Farm Crop Area Types
+description = Provides default area types for crop management: Bed, Greenhouse.
+core = 7.x
+package = farmOS
+dependencies[] = farm_area
