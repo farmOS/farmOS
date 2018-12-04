@@ -69,6 +69,15 @@ function farm_area_import_form($form, &$form_state) {
     '#required' => TRUE,
   );
 
+  // Default area type.
+  $form['input']['area_type'] = array(
+    '#type' => 'select',
+    '#title' => t('Default area type'),
+    '#description' => t('Specify the default area type for the ares in this KML. This can be overridden below on a per-area basis before creating the areas.'),
+    '#options' => farm_area_type_options(),
+    '#default_value' => 'field',
+  );
+
   // Parse button.
   $form['input']['parse'] = array(
     '#type' => 'submit',
@@ -121,7 +130,7 @@ function farm_area_import_form($form, &$form_state) {
       '#type' => 'select',
       '#title' => t('Area type'),
       '#options' => farm_area_type_options(),
-      '#default_value' => 'field',
+      '#default_value' => $form_state['values']['area_type'],
     );
 
     // Get the placemark description and put it in a text field.
