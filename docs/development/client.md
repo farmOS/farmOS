@@ -242,17 +242,10 @@ $ npm link farmos-client
 $ npm start
 ```
 
-Finally, you can navigate back again to the client repo, and run the dev script:
-
-```bash
-$ cd path/to/farmOS-client 
-$ npm run dev
-```
-
-This will set a watcher on the `src/` directory, so that whenever you save a 
-change to the client repo, Webpack will automatically rebuild the `dist/` 
-folder, which will in turn trigger the native repo's dev server to hot reload, 
-so you can see the changes in the browser.
+Now whenever you save a change to the client repo, Webpack will automatically 
+detect changes in your local client repository. Changes in the client or the 
+native repo will then trigger the native repo's dev server to hot reload, so you 
+can see the changes in the browser.
 
 ## Native build process
 
@@ -376,4 +369,3 @@ Cordova's [iOS Platform Guide]
 [Signing an App]: https://cordova.apache.org/docs/en/latest/guide/platforms/android/index.html#signing-an-app
 [Developing an iOS App on Linux]: https://andrewmichaelsmith.com/2017/02/developing-an-ios-app-on-linux-in-2017/
 [iOS Platform Guide]: https://cordova.apache.org/docs/en/latest/guide/platforms/ios/index.html
-
