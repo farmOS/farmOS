@@ -72,6 +72,7 @@ function farm_install_configure_form($form, &$form_state) {
     'farm_area_import' => st('Import areas in bulk from a single KML file'),
     'farm_area_types' => t('Default area types: Property, Field, Building, etc'),
     'farm_crop_area_types' => t('Crop area types: Bed and Greenhouse'),
+    'farm_livestock_area_types' => t('Livestock area types: Paddock'),
     'farm_access' => st('Default roles: Manager, Worker, Viewer'),
     'farm_help' => st('farmOS Help Pages'),
     'farm_tour' => st('farmOS Tours'),
