@@ -4,6 +4,12 @@ FROM farmos/farmos:7.x-1.x
 # Set the farmOS version to the development branch.
 ENV FARMOS_VERSION 7.x-1.x
 
+# Install Xdebug.
+RUN yes | pecl install xdebug \
+	  && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
+    && echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
+    && echo "xdebug.remote_autostart=off" >> /usr/local/etc/php/conf.d/xdebug.ini
+
 # Install git and unzip for use by Drush Make.
 RUN apt-get update && apt-get install -y git unzip
 

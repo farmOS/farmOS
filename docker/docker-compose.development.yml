@@ -20,3 +20,5 @@ services:
       - './www:/var/www/html'
     ports:
       - '80:80'
+    environment:
+      XDEBUG_CONFIG: remote_host=172.17.0.1
