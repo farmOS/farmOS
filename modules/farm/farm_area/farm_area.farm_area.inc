@@ -33,6 +33,11 @@ function farm_area_farm_area_type_info() {
       'style' => 'farm_map_style_purple',
       'weight' => 100,
     ),
+    'other' => array(
+      'label' => t('Other'),
+      'style' => 'farm_map_style_blue',
+      'weight' => 150,
+    ),
   );
 }
 
