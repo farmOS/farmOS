@@ -11,7 +11,7 @@ mkdocs and clone this repo:
 
     $ brew install python                # For OSX users
     $ sudo apt-get install python-pip    # For Debian/Ubuntu users
-    $ sudo pip install mkdocs
+    $ sudo pip install mkdocs mkdocs-bootstrap mkdocs-bootswatch
     $ git clone https://github.com/farmOS/farmOS.org.git farmOS.org
     $ cd farmOS.org
     $ git remote add sandbox git@github.com:<username>/farmOS.org.git
