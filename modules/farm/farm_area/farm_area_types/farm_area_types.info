@@ -1,0 +1,5 @@
+name = Farm Area Types
+description = Provides some default area types.
+core = 7.x
+package = farmOS
+dependencies[] = farm_area

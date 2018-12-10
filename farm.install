@@ -70,6 +70,9 @@ function farm_install_configure_form($form, &$form_state) {
     'farm_soil_test' => st('Soil test logs'),
     'farm_area_generate' => st('Area generator (for generating parallel beds within an area)'),
     'farm_area_import' => st('Import areas in bulk from a single KML file'),
+    'farm_area_types' => t('Default area types: Property, Field, Building, etc'),
+    'farm_crop_area_types' => t('Crop area types: Bed and Greenhouse'),
+    'farm_livestock_area_types' => t('Livestock area types: Paddock'),
     'farm_access' => st('Default roles: Manager, Worker, Viewer'),
     'farm_help' => st('farmOS Help Pages'),
     'farm_tour' => st('farmOS Tours'),
@@ -77,6 +80,7 @@ function farm_install_configure_form($form, &$form_state) {
   );
   // Extra modules will not be selected by default.
   $extra_modules = array(
+    'Water' => st('Water area type'),
     'farm_water_test' => st('Water test logs'),
     'farm_soil_compost' => st('Compost'),
     'farm_sensor' => st('Sensor'),

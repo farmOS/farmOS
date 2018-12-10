@@ -487,3 +487,14 @@ function _farm_livestock_update_7005_stage5(&$sandbox) {
   // We are finished!
   $sandbox['#finished'] = 1;
 }
+
+
+/**
+ * Install the Farm Livestock Area Types module.
+ */
+function farm_livestock_update_7006(&$sandbox) {
+  $module = 'farm_livestock_area_types';
+  if (!module_exists($module)) {
+    module_enable(array($module));
+  }
+}

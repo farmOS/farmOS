@@ -21,3 +21,13 @@ function farm_area_update_7000() {
   // Update the field.
   field_update_field($area_type_field);
 }
+
+/**
+ * Install the Farm Area Types module.
+ */
+function farm_area_update_7001(&$sandbox) {
+  $module = 'farm_area_types';
+  if (!module_exists($module)) {
+    module_enable(array($module));
+  }
+}

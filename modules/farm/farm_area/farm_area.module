@@ -117,10 +117,10 @@ function farm_area_type_options() {
   // Start with an empty options array.
   $options = array();
 
-  // Get available types from modules.
-  $area_types = module_invoke_all('farm_area_type_info');
+  // Get available area types.
+  $area_types = farm_area_types();
 
-  // Iterate through the weight index to build the final options list.
+  // Iterate through the area types to build an options list.
   foreach ($area_types as $key => $type) {
     if (!empty($type['label'])) {
       $options[$key] = $type['label'];

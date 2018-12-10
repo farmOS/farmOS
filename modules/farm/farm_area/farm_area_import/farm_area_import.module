@@ -70,12 +70,19 @@ function farm_area_import_form($form, &$form_state) {
   );
 
   // Default area type.
+  // Default to 'field' if available. Otherwise use 'other' because it's the
+  // only one we can depend on.
+  $area_type_options = farm_area_type_options();
+  $default_area_type = 'other';
+  if (array_key_exists('field', $area_type_options)) {
+    $default_area_type = 'field';
+  }
   $form['input']['area_type'] = array(
     '#type' => 'select',
     '#title' => t('Default area type'),
     '#description' => t('Specify the default area type for the ares in this KML. This can be overridden below on a per-area basis before creating the areas.'),
-    '#options' => farm_area_type_options(),
-    '#default_value' => 'field',
+    '#options' => $area_type_options,
+    '#default_value' => $default_area_type,
   );
 
   // Parse button.
@@ -129,7 +136,7 @@ function farm_area_import_form($form, &$form_state) {
     $form['output'][$i]['type'] = array(
       '#type' => 'select',
       '#title' => t('Area type'),
-      '#options' => farm_area_type_options(),
+      '#options' => $area_type_options,
       '#default_value' => $form_state['values']['area_type'],
     );
 

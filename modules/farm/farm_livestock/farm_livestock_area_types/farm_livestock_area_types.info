@@ -1,0 +1,5 @@
+name = Farm Livestock Area Types
+description = Provides default area types for livestock management: Paddock.
+core = 7.x
+package = farmOS
+dependencies[] = farm_area
