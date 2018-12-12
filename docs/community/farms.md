@@ -35,6 +35,10 @@ included in this list, add a comment to [this issue on Github].
 
 * Piotr Małkowski (Dołubowo, Podlasie)
 
+## South Africa
+
+* Canaan (Marina Beach, KwaZulu Natal)
+
 ## United States
 
 * All In Farm (Georgetown, Texas)
