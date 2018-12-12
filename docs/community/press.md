@@ -7,6 +7,8 @@ about farmOS, [contact m.stenta](http://farmier.com/contact).
 
 **2018 November** Better Farming Magazine (November 2018): Open source + open mind = endless opportunities
 
+**2018 November 1st** [Frontiers in Ecology and the Environment: Global citizen science for people](https://esajournals.onlinelibrary.wiley.com/doi/full/10.1002/fee.1969)
+
 **2018 September 6th** [Jamie Gaehring: Local Development](https://jgaehring.com/blog/local-development/)
 
 **2018 March 27th** [Dorn Cox, founder of farmOS, earns new national conservation award](http://www.fosters.com/news/20180327/dorn-cox-founder-of-farmos-earns-new-national-conservation-award)
