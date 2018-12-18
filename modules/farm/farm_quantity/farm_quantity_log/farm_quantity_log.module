@@ -348,6 +348,36 @@ function farm_quantity_log_create($type, $name = '', $timestamp = REQUEST_TIME, 
   // Create a new log entity.
   $log = farm_log_create($type, $name, $timestamp, $done, $assets, $notes, $categories);
 
+  // Add quantity measurements.
+  farm_quantity_log_add_measurements($log, $measurements);
+
+  // Return the log.
+  return $log;
+}
+
+/**
+ * Helper function for adding quantity measurements to a log.
+ *
+ * @param \Log $log
+ *   A log entity.
+ * @param array $measurements
+ *   An array of measurements to add to the log. Example:
+ *     $measurements = array(
+ *       array(
+ *         'measure' => 'weight',
+ *         'value' => 100,
+ *         'units' => 'lbs',
+ *         'label' => 'Foo',
+ *       ),
+ *     );
+ */
+function farm_quantity_log_add_measurements($log, $measurements) {
+
+  // If the log is not valid, or the measurements are empty, bail.
+  if (empty($log->id) || empty($measurements)) {
+    return;
+  }
+
   // Iterate through the measurements.
   foreach ($measurements as $measurement) {
 
@@ -388,7 +418,4 @@ function farm_quantity_log_create($type, $name = '', $timestamp = REQUEST_TIME, 
     // Save the quantity.
     $quantity_wrapper->save();
   }
-
-  // Return the log.
-  return $log;
 }

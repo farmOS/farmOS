@@ -5,6 +5,13 @@
  */
 
 /**
+ * Implements hook_uninstall().
+ */
+function farm_crop_uninstall() {
+  variable_del('farm_crop_planting_season');
+}
+
+/**
  * Implements hook_update_dependencies().
  */
 function farm_crop_update_dependencies() {
