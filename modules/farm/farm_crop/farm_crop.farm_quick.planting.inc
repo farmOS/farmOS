@@ -146,9 +146,15 @@ function farm_crop_planting_quick_form($form, &$form_state) {
         '#required' => TRUE,
       ),
       'notes' => array(
-        '#type' => 'text_format',
-        '#title' => $info['title'] . ' ' . t('Notes'),
-        '#format' => 'farm_format',
+        '#type' => 'fieldset',
+        '#title' => t('Notes'),
+        '#collapsible' => TRUE,
+        '#collapsed' => TRUE,
+        'notes' => array(
+          '#type' => 'text_format',
+          '#title' => $info['title'] . ' ' . t('Notes'),
+          '#format' => 'farm_format',
+        ),
       ),
     );
     foreach ($info['fields'] as $field) {
@@ -276,8 +282,8 @@ function farm_crop_planting_quick_form_submit($form, &$form_state) {
     $log_wrapper = entity_metadata_wrapper('log', $log);
 
     // Set the log notes, if available.
-    if (!empty($log_values['notes']['value'])) {
-      $log_wrapper->field_farm_notes = $log_values['notes'];
+    if (!empty($log_values['notes']['notes']['value'])) {
+      $log_wrapper->field_farm_notes = $log_values['notes']['notes'];
     }
 
     // Save the log.
