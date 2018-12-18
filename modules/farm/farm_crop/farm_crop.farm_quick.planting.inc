@@ -73,13 +73,15 @@ function farm_crop_planting_quick_form($form, &$form_state) {
       'title' => t('Seeding'),
       'type' => 'farm_seeding',
       'enabled' => TRUE,
-      'fields' => array('date', 'location', 'notes', 'done'),
+      'fields' => array('date', 'location', 'quantity', 'notes', 'done'),
+      'quantity_measures' => array('count', 'length', 'weight', 'area', 'volume', 'ratio'),
     ),
     'transplanting' => array(
       'title' => t('Transplanting'),
       'type' => 'farm_transplanting',
       'enabled' => FALSE,
-      'fields' => array('date', 'location', 'notes', 'done'),
+      'fields' => array('date', 'location', 'quantity', 'notes', 'done'),
+      'quantity_measures' => array('count', 'length', 'weight', 'area', 'volume', 'ratio'),
     ),
   );
 
@@ -124,6 +126,18 @@ function farm_crop_planting_quick_form($form, &$form_state) {
       '#value' => $info['type'],
     );
 
+    // Filter the available quantity measures, if desired.
+    $quantity_measure_options = farm_quantity_measure_options();
+    $filtered_quantity_measure_options = $quantity_measure_options;
+    if (!empty($info['quantity_measures'])) {
+      $filtered_quantity_measure_options = array();
+      foreach ($info['quantity_measures'] as $measure) {
+        if (!empty($quantity_measure_options[$measure])) {
+          $filtered_quantity_measure_options[$measure] = $quantity_measure_options[$measure];
+        }
+      }
+    }
+
     // Create fields.
     $field_info = array(
       'date' => array(
@@ -144,6 +158,27 @@ function farm_crop_planting_quick_form($form, &$form_state) {
         '#title' => t( 'Location'),
         '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_area',
         '#required' => TRUE,
+      ),
+      'quantity' => array(
+        '#type' => 'fieldset',
+        '#title' => t('Quantity'),
+        '#collapsible' => TRUE,
+        '#collapsed' => TRUE,
+        'measure' => array(
+          '#type' => 'select',
+          '#title' => t('Measure'),
+          '#options' => $filtered_quantity_measure_options,
+          '#default_value' => 'weight',
+        ),
+        'value' => array(
+          '#type' => 'textfield',
+          '#title' => t('Value'),
+        ),
+        'units' => array(
+          '#type' => 'textfield',
+          '#title' => t('Units'),
+          '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_quantity_units',
+        ),
       ),
       'notes' => array(
         '#type' => 'fieldset',
@@ -269,6 +304,12 @@ function farm_crop_planting_quick_form_submit($form, &$form_state) {
       $areas = farm_area_parse_names($log_values['location'], TRUE);
     }
 
+    // Build quantity measurements.
+    $measurements = array();
+    if (!empty($log_values['quantity']['value'])) {
+      $measurements[] = $log_values['quantity'];
+    }
+
     // Mark the log as done or not done.
     $done = FALSE;
     if (!empty($log_values['done'])) {
@@ -277,6 +318,11 @@ function farm_crop_planting_quick_form_submit($form, &$form_state) {
 
     // Create a log.
     $log = farm_movement_create($planting_asset, $areas, $timestamp, $log_values['type'], $done);
+
+    // If there are quantity measurements, add them to the log.
+    if (!empty($measurements)) {
+      farm_quantity_log_add_measurements($log, $measurements);
+    }
 
     // Create an entity metadata wrapper for the log.
     $log_wrapper = entity_metadata_wrapper('log', $log);
