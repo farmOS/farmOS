@@ -83,6 +83,12 @@ function farm_crop_planting_quick_form($form, &$form_state) {
       'fields' => array('date', 'location', 'quantity', 'notes', 'done'),
       'quantity_measures' => array('count', 'length', 'weight', 'area', 'volume', 'ratio'),
     ),
+    'harvest' => array(
+      'title' => t('Harvest'),
+      'type' => 'farm_harvest',
+      'enabled' => FALSE,
+      'fields' => array('date', 'quantity', 'notes', 'done'),
+    ),
   );
 
   // Create a container for all log fields.
@@ -316,8 +322,15 @@ function farm_crop_planting_quick_form_submit($form, &$form_state) {
       $done = TRUE;
     }
 
-    // Create a log.
-    $log = farm_movement_create($planting_asset, $areas, $timestamp, $log_values['type'], $done);
+    // If there is a location, create a movement log.
+    if (!empty($log_values['location'])) {
+      $log = farm_movement_create($planting_asset, $areas, $timestamp, $log_values['type'], $done);
+    }
+
+    // Otherwise, create a normal log (without movement location).
+    else {
+      $log = farm_log_create($log_values['type'], '', $timestamp, $done, array($planting_asset));
+    }
 
     // If there are quantity measurements, add them to the log.
     if (!empty($measurements)) {
