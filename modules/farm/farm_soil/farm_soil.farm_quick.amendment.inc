@@ -356,13 +356,15 @@ function farm_soil_amendment_form($form, &$form_state) {
     $area_units = $form_values['area']['size']['units'];
 
     // Use BCMath to calculate the rate, where available (round to 2 decimals).
+    $scale = 2;
     if (function_exists('bcdiv') && function_exists('bcmul')) {
-      $rate_value = bcdiv($qty_value, bcmul($area_value, bcdiv($percentage, '100')));
+      $percentage_decimal = bcdiv($percentage, '100', $scale);
+      $actual_area = bcmul($area_value, $percentage_decimal, $scale);
+      $rate_value = bcdiv($qty_value, $actual_area, $scale);
     }
     else {
-      $rate_value = $qty_value / ($area_value * ($percentage / 100));
+      $rate_value = round($qty_value / ($area_value * ($percentage / 100)), $scale);
     }
-    $rate_value = round($rate_value, 2);
 
     // Simply build the rate units from the quantity and area units.
     $rate_units = $qty_units . '/' . $area_units;
