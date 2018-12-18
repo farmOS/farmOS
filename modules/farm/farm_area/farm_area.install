@@ -23,11 +23,16 @@ function farm_area_update_7000() {
 }
 
 /**
- * Install the Farm Area Types module.
+ * Install the Farm Area Types and Farm Water modules.
  */
 function farm_area_update_7001(&$sandbox) {
-  $module = 'farm_area_types';
-  if (!module_exists($module)) {
-    module_enable(array($module));
+  $modules = array(
+    'farm_area_types',
+    'farm_water',
+  );
+  foreach ($modules as $module) {
+    if (!module_exists($module)) {
+      module_enable(array($module));
+    }
   }
 }
