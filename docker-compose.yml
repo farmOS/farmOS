@@ -19,8 +19,6 @@ services:
     image: farmos/farmos:7.x-1.x
     volumes:
       - './.data/www:/var/www/html'
-    links:
-      - db
     ports:
       - '80:80'
     environment:
