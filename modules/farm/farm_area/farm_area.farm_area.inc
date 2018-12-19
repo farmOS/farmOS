@@ -35,6 +35,16 @@ function farm_area_farm_area_details($id) {
     );
   }
 
+  // Load and display the area description.
+  $area = taxonomy_term_load($id);
+  if (!empty($area->description)) {
+    $output['description'] = array(
+      '#type' => 'markup',
+      '#markup' => '<p><small>' . check_markup($area->description, $area->format) . '</small></p>',
+      '#weight' => -99,
+    );
+  }
+
   // Return the render array.
   return $output;
 }
