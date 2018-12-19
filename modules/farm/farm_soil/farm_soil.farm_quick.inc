@@ -15,5 +15,11 @@ function farm_soil_farm_quick_forms() {
       'form' => 'farm_soil_amendment_form',
       'file' => 'farm_soil.farm_quick.amendment.inc',
     ),
+    'disturbance' => array(
+      'label' => t('Soil disturbance'),
+      'permission' => 'create farm_activity log entities',
+      'form' => 'farm_soil_disturbance_form',
+      'file' => 'farm_soil.farm_quick.disturbance.inc',
+    ),
   );
 }
