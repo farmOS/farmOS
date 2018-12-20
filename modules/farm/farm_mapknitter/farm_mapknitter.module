@@ -23,7 +23,7 @@ function farm_mapknitter_farm_access_perms($role) {
   $perms = array();
 
   // Grant administer permission to Farm Managers.
-  if ($role == 'Farm Manager') {
+  if ($role == 'farm_manager') {
     $perms[] = 'administer farm_mapknitter module';
   }
 

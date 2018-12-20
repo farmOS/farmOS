@@ -25,7 +25,7 @@ function farm_map_farm_access_perms($role) {
 
   // If the role is "Farm Manager", grant access to map configuration.
   $perms = array();
-  if ($role == 'Farm Manager') {
+  if ($role == 'farm_manager') {
     $perms[] = 'administer farm_map module';
   }
 

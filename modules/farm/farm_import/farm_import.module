@@ -34,7 +34,7 @@ function farm_import_farm_access_perms($role) {
   $perms = array();
 
   // Grant farm managers access to Feeds importers.
-  if ($role == 'Farm Manager') {
+  if ($role == 'farm_manager') {
 
     // Add permissions for asset importers.
     $asset_types = farm_asset_types();

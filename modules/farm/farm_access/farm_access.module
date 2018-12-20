@@ -41,15 +41,20 @@ function farm_access_roles_create() {
   $roles = farm_access_roles();
 
   // Iterate through the roles.
-  foreach ($roles as $name) {
+  foreach ($roles as $key => $info) {
+
+    // If the name is blank, skip.
+    if (empty($info['name'])) {
+      continue;
+    }
 
     // Load the role by name.
-    $role = user_role_load_by_name($name);
+    $role = user_role_load_by_name($info['name']);
 
     // If the role doesn't exist, create it.
     if (empty($role)) {
       $role = new stdClass();
-      $role->name = $name;
+      $role->name = $info['name'];
       user_role_save($role);
     }
   }
@@ -64,10 +69,10 @@ function farm_access_sync_perms() {
   $roles = farm_access_roles();
 
   // Iterate through the available roles.
-  foreach ($roles as $role) {
+  foreach ($roles as $name => $role) {
 
     // Compare current perms to available perms.
-    $compare = farm_access_compare_perms($role);
+    $compare = farm_access_compare_perms($name);
 
     // Start with a blank array of changes.
     $changes = array();
@@ -90,7 +95,7 @@ function farm_access_sync_perms() {
     if (!empty($changes)) {
 
       // Load the role.
-      $role = user_role_load_by_name($role);
+      $role = user_role_load_by_name($role['name']);
 
       // If the role does not exist, bail.
       if (empty($role)) {
@@ -107,7 +112,7 @@ function farm_access_sync_perms() {
  * Gets a list of all available farm permissions.
  *
  * @param string $role
- *    A role name to get current permissions for.
+ *    A farm role machine name to get current permissions for.
  *
  * @return array
  *   Returns an array of permission strings.
@@ -140,15 +145,23 @@ function farm_access_available_perms($role) {
  * Gets a list of the permissions currently assigned to farm roles.
  *
  * @param string $role
- *   A role name to get current permissions for.
+ *   A farm role machine name to get current permissions for.
  *
  * @return array
  *   Returns an array of permission strings.
  */
 function farm_access_current_perms($role) {
 
+  // Load all farm roles.
+  $roles = farm_access_roles();
+
+  // If the role doesn't have a name, bail.
+  if (empty($roles[$role]['name'])) {
+    return array();
+  }
+
   // Load the role.
-  $role = user_role_load_by_name($role);
+  $role = user_role_load_by_name($roles[$role]['name']);
 
   // If the role does not exist, bail.
   if (empty($role)) {
@@ -166,7 +179,7 @@ function farm_access_current_perms($role) {
  * Compares available permissions to actual permissions.
  *
  * @param string $role
- *   A role name to get current permissions for.
+ *   A farm role machine name to get current permissions for.
  *
  * @return array
  *   Returns an array with two sub-arrays:

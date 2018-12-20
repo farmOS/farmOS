@@ -33,7 +33,7 @@ function farm_quick_farm_access_perms($role) {
   $perms = array();
 
   // Add the "configure farm quick forms" permission to Farm Manager roles.
-  if ($role == 'Farm Manager') {
+  if ($role == 'farm_manager') {
     $perms[] = 'configure farm quick forms';
   }
 

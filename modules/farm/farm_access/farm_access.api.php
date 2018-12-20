@@ -25,15 +25,24 @@
  * Defines farm access roles.
  *
  * @return array
- *   Returns an array of farm access roles.
+ *   Returns an array of farm access roles. The key should be a unique farm
+ *   role machine name, and each should be an array of role information,
+ *   including the following keys:
+ *     name: The human-readable name of the role.
  */
 function hook_farm_access_roles() {
 
   // Build a list of roles.
   $roles = array(
-    'Farm Manager',
-    'Farm Worker',
-    'Farm Viewer',
+    'farm_manager' => array(
+      'name' => 'Farm Manager',
+    ),
+    'farm_worker' => array(
+      'name' => 'Farm Worker',
+    ),
+    'farm_viewer' => array(
+      'name' => 'Farm Viewer',
+    ),
   );
   return $roles;
 }
@@ -75,13 +84,13 @@ function hook_farm_access_perms($role) {
   switch ($role) {
 
     // Farm Manager and Worker
-    case 'Farm Manager':
-    case 'Farm Worker':
+    case 'farm_manager':
+    case 'farm_worker':
       $perms = farm_access_entity_perms($types);
       break;
 
     // Farm Viewer
-    case 'Farm Viewer':
+    case 'farm_viewer':
       $perms = farm_access_entity_perms($types, array('view'));
       break;
   }
@@ -100,7 +109,7 @@ function hook_farm_access_perms($role) {
 function hook_farm_access_perms_alter($role, &$perms) {
 
   // Give Farm Managers permission to administer modules.
-  if ($role == 'Farm Manager') {
+  if ($role == 'farm_manager') {
     $perms[] = 'administer modules';
   }
 }

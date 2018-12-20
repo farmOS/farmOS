@@ -36,13 +36,13 @@ function farm_quantity_farm_access_perms($role) {
   switch ($role) {
 
     // Farm Manager and Worker
-    case 'Farm Manager':
-    case 'Farm Worker':
+    case 'farm_manager':
+    case 'farm_worker':
       $perms = farm_access_entity_perms($types);
       break;
 
     // Farm Viewer
-    case 'Farm Viewer':
+    case 'farm_viewer':
       $perms = farm_access_entity_perms($types, array('view'));
       break;
   }
