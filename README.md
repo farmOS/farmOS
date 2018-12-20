@@ -36,3 +36,5 @@ This project has been sponsored by:
  * [Vermont Vegetable and Berry Growers Association](http://www.uvm.edu/vtvegandberry)
  * [Pennsylvania Association for Sustainable Agriculture](https://pasafarming.org)
  * [Natural Resources Conservation Service](https://www.nrcs.usda.gov)
+ * [The United States Forest Service - International Programs](https://www.fs.fed.us/about-agency/international-programs)
+ * [The National Forestry Authority of Uganda](https://www.nfa.org.ug/)
