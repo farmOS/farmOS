@@ -173,17 +173,15 @@ function taxonomy_farm_access_perms($role) {
 function user_farm_access_perms($role) {
   $perms = array();
 
-  // Allow Farm Managers and Farm Workers to view user profiles.
-  if ($role == 'farm_manager' || $role == 'farm_worker') {
-    $perms[] = 'access user profiles';
-  }
-
   // Allow Farm Managers to administer users.
   if ($role == 'farm_manager') {
 
     // Administer users.
     $perms[] = 'administer users';
   }
+
+  // Allow all roles to view user profiles.
+  $perms[] = 'access user profiles';
 
   return $perms;
 }
