@@ -13,12 +13,24 @@ function farm_access_farm_access_roles() {
   $roles = array(
     'farm_manager' => array(
       'name' => 'Farm Manager',
+      'access' => array(
+        'view' => 'all',
+        'edit' => 'all',
+        'config' => TRUE,
+      ),
     ),
     'farm_worker' => array(
       'name' => 'Farm Worker',
+      'access' => array(
+        'view' => 'all',
+        'edit' => 'all',
+      ),
     ),
     'farm_viewer' => array(
       'name' => 'Farm Viewer',
+      'access' => array(
+        'view' => 'all',
+      ),
     ),
   );
   return $roles;
@@ -26,30 +38,50 @@ function farm_access_farm_access_roles() {
 
 /**
  * Implements hook_farm_access_perms().
+ *
+ * Set up default CRUD permissions for all farm asset entity types.
  */
 function farm_asset_farm_access_perms($role) {
   $perms = array();
 
-  // Set up default CRUD permissions for all farm asset entity types.
+  // Load the list of farm roles.
+  $roles = farm_access_roles();
+
+  // Load asset types.
   $asset_types = farm_asset_types();
-  $access_types = array(
-    'farm_asset' => array(),
+
+  // Grant access to view and edit asset types.
+  $asset_access_ops = array(
+    'view' => array('view'),
+    'edit' => array('create', 'edit', 'delete'),
   );
-  foreach ($asset_types as $type => $data) {
-    $access_types['farm_asset'][] = $type;
-  }
-  switch ($role) {
+  foreach ($asset_access_ops as $access => $ops) {
 
-    // Grant full access to Farm Manager and Worker roles.
-    case 'farm_manager':
-    case 'farm_worker':
-      $perms = farm_access_entity_perms($access_types);
-      break;
+    // If the role has access to these asset operations...
+    if (!empty($roles[$role]['access'][$access])) {
 
-    // Grant read-only access to Farm Viewer role.
-    case 'farm_viewer':
-      $perms = farm_access_entity_perms($access_types, array('view'));
-      break;
+      // Build a list of asset types that they have access to. If 'all' access
+      // is granted, add all permissions. Or, if specific asset types are
+      // provided, add them individually.
+      $access_types['farm_asset'] = array();
+      if ($roles[$role]['access'][$access] == 'all' || !empty($roles[$role]['access'][$access]['farm_asset']) && $roles[$role]['access'][$access]['farm_asset'] == 'all') {
+        foreach ($asset_types as $type => $data) {
+          $access_types['farm_asset'][] = $type;
+        }
+      }
+      elseif (!empty($roles[$role]['access'][$access]['farm_asset'])) {
+        foreach ($roles[$role]['access'][$access]['farm_asset'] as $asset_type) {
+          if (!empty($asset_types[$asset_type])) {
+            $access_types['farm_asset'][] = $asset_type;
+          }
+        }
+      }
+
+      // Build a list of entity permissions for the assets and operations and
+      // merge them into the permissions this function will return.
+      $asset_perms = farm_access_entity_perms($access_types, $ops);
+      $perms = array_merge($perms, $asset_perms);
+    }
   }
 
   // Grant access to view farm assets.

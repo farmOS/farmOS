@@ -29,6 +29,15 @@
  *   role machine name, and each should be an array of role information,
  *   including the following keys:
  *     name: The human-readable name of the role.
+ *     access: An optional array of default access permissions
+ *       view: Specifies what the role has access to view. Set to 'all' to
+ *         allow view access to everything. Or, it can be an array of arrays
+ *         keyed by entity type, with a list of bundles (or 'all').
+ *       edit: Specifies what the role has access to edit. Set to 'all' to
+ *         allow edit access to everything. Or, it can be an array of arrays
+ *         keyed by entity type, with a list of bundles (or 'all').
+ *       config: Boolean that specifies whether or not the role should have
+ *         access to configuration. Only grant this to trusted roles.
  */
 function hook_farm_access_roles() {
 
@@ -36,12 +45,24 @@ function hook_farm_access_roles() {
   $roles = array(
     'farm_manager' => array(
       'name' => 'Farm Manager',
+      'access' => array(
+        'view' => 'all',
+        'edit' => 'all',
+        'config' => TRUE,
+      ),
     ),
     'farm_worker' => array(
       'name' => 'Farm Worker',
+      'access' => array(
+        'view' => 'all',
+        'edit' => 'all',
+      ),
     ),
     'farm_viewer' => array(
       'name' => 'Farm Viewer',
+      'access' => array(
+        'view' => 'all',
+      ),
     ),
   );
   return $roles;
