@@ -1,0 +1,5 @@
+name = Farm Access Roles
+description = Provides default roles: Manager, Worker, Viewer.
+core = 7.x
+package = farmOS
+dependencies[] = farm_access
