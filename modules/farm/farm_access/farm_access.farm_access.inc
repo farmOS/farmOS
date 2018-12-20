@@ -133,34 +133,17 @@ function role_delegation_farm_access_perms($role) {
  * Implements hook_farm_access_perms().
  */
 function taxonomy_farm_access_perms($role) {
-  $perms = array();
 
-  // Assemble a list of all taxonomies.
-  $vocabularies = taxonomy_get_vocabularies();
-  $types = array(
-    'taxonomy' => array(),
-  );
-  foreach ($vocabularies as $vocab) {
-    $types['taxonomy'][] = $vocab->machine_name;
-  }
+  // Use the helper function to generate a list of entity type bundles
+  // permissions for the given role.
+  $perms = farm_access_entity_bundles_role_perms('taxonomy_term', $role);
 
-  // Grant different CRUD permissions based on the role.
-  switch ($role) {
+  // Load the list of farm roles.
+  $roles = farm_access_roles();
 
-    // Farm Manager and Worker
-    case 'farm_manager':
-    case 'farm_worker':
-      $perms = farm_access_entity_perms($types);
-      break;
-
-    // Farm Viewer
-    case 'farm_viewer':
-      $perms = farm_access_entity_perms($types, array('view'));
-      break;
-  }
-
-  // This is needed to add terms.
-  if (in_array($role, array('farm_manager', 'farm_worker'))) {
+  // If the role has high-level 'edit' access of taxonomy terms, give them the
+  // 'administer taxonomy' permission so that they can add terms.
+  if (!empty($roles[$role]['access']['edit'])) {
     $perms[] = 'administer taxonomy';
   }
 
