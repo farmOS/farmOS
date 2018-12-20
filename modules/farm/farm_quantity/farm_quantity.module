@@ -25,8 +25,11 @@ function farm_quantity_permission() {
 function farm_quantity_farm_access_perms($role) {
   $perms = array();
 
-  // If the role is "Farm Manager", grant access to quantity configuration.
-  if ($role == 'Farm Manager') {
+  // Load the list of farm roles.
+  $roles = farm_access_roles();
+
+  // If this role has 'config' access, grant access to quantity configuration.
+  if (!empty($roles[$role]['access']['config'])) {
     $perms[] = 'administer farm_quantity module';
   }
 

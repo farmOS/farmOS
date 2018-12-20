@@ -22,10 +22,13 @@ function farm_map_permission() {
  * Implements hook_farm_access_perms().
  */
 function farm_map_farm_access_perms($role) {
-
-  // If the role is "Farm Manager", grant access to map configuration.
   $perms = array();
-  if ($role == 'farm_manager') {
+
+  // Load the list of farm roles.
+  $roles = farm_access_roles();
+
+  // If this role has 'config' access,grant access to map configuration.
+  if (!empty($roles[$role]['access']['config'])) {
     $perms[] = 'administer farm_map module';
   }
 

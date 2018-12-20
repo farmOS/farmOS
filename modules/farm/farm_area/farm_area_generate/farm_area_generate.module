@@ -21,8 +21,11 @@ function farm_area_generate_permission() {
  */
 function farm_area_generate_farm_access_perms($role) {
 
-  // Grant area generator access to Farm Managers.
-  if ($role == 'farm_manager') {
+  // Load the list of farm roles.
+  $roles = farm_access_roles();
+
+  // If this role has 'config' access, grant area generator access.
+  if (!empty($roles[$role]['access']['config'])) {
     return array('use farm area generator');
   }
   else {
