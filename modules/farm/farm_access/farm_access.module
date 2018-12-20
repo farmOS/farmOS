@@ -337,8 +337,8 @@ function farm_access_entity_perms(array $types, $ops = array()) {
           }
           break;
 
-        // Taxonomy.
-        case 'taxonomy':
+        // Taxonomy term.
+        case 'taxonomy_term':
 
           // Edit.
           if (in_array('edit', $ops)) {
