@@ -28,6 +28,8 @@ The farmOS project is made possible by many supporters.
 * [Vermont Vegetable and Berry Growers Association](http://www.uvm.edu/vtvegandberry)
 * [PageKite](https://pagekite.net/)
 * [Natural Resources Conservation Service](https://www.nrcs.usda.gov)
+* [The United States Forest Service - International Programs](https://www.fs.fed.us/about-agency/international-programs)
+* [The National Forestry Authority of Uganda](https://www.nfa.org.ug/)
 
 ## Individuals
 
@@ -53,4 +55,6 @@ The farmOS project is made possible by many supporters.
 * Sallie Calhoun
 * Becky Maden
 * Vern Grubinger
+* Andrew Williams
+* Deon Nteza
 
