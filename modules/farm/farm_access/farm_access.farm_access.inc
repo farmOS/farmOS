@@ -113,11 +113,11 @@ function system_farm_access_perms($role) {
 function role_delegation_farm_access_perms($role) {
   $perms = array();
 
-  // Allow Farm Managers to delegate roles.
-  if ($role == 'farm_manager') {
+  // Load the list of farm roles.
+  $roles = farm_access_roles();
 
-    // Allow role delegation (add one for each defined role).
-    $roles = module_invoke_all('farm_access_roles');
+  // If this role has 'config' access, allow them to delegate roles.
+  if (!empty($roles[$role]['access']['config'])) {
     foreach ($roles as $role) {
       if (empty($role['name'])) {
         continue;
