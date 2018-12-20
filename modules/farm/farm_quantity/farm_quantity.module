@@ -23,29 +23,7 @@ function farm_quantity_permission() {
  * Implements hook_farm_access_perms().
  */
 function farm_quantity_farm_access_perms($role) {
-
-  // Assemble a list of entity types provided by this module.
-  $types = array(
-    'taxonomy_term' => array(
-      'farm_quantity_units',
-    ),
-  );
-
-  // Grant different CRUD permissions based on the role.
   $perms = array();
-  switch ($role) {
-
-    // Farm Manager and Worker
-    case 'farm_manager':
-    case 'farm_worker':
-      $perms = farm_access_entity_perms($types);
-      break;
-
-    // Farm Viewer
-    case 'farm_viewer':
-      $perms = farm_access_entity_perms($types, array('view'));
-      break;
-  }
 
   // If the role is "Farm Manager", grant access to quantity configuration.
   if ($role == 'Farm Manager') {
