@@ -359,6 +359,73 @@ function farm_access_entity_perms(array $types, $ops = array()) {
 }
 
 /**
+ * Generate permission lists for farm entity bundles for a given role.
+ *
+ * This is a helper function to make the task of generating permission lists
+ * easier. It uses farm_access_entity_perms() above.
+ *
+ * @param $entity_type
+ *   The entity type.
+ * @param $role
+ *   The farm access role that will be receiving the permissions.
+ *
+ * @return array
+ *   Returns a list of permissions for the given entity type, bundles, and role.
+ */
+function farm_access_entity_bundles_role_perms($entity_type, $role) {
+  $perms = array();
+
+  // Get a list of bundles for this entity type.
+  $bundles = array();
+  $entity_type_info = entity_get_info($entity_type);
+  if (!empty($entity_type_info['bundles'])) {
+    foreach ($entity_type_info['bundles'] as $name => $bundle) {
+      $bundles[] = $name;
+    }
+  }
+
+  // Load the list of farm roles.
+  $roles = farm_access_roles();
+
+  // Grant access to view and edit entity type bundles.
+  $access_ops = array(
+    'view' => array('view'),
+    'edit' => array('create', 'edit', 'delete'),
+  );
+  foreach ($access_ops as $access => $ops) {
+
+    // If the role has access to these asset operations...
+    if (!empty($roles[$role]['access'][$access])) {
+
+      // Build a list of entity type bundles that they have access to. If 'all'
+      // access is granted, add all permissions. Or, if specific bundles are
+      // specified, add them individually.
+      $access_types[$entity_type] = array();
+      if ($roles[$role]['access'][$access] == 'all' || !empty($roles[$role]['access'][$access][$entity_type]) && $roles[$role]['access'][$access][$entity_type] == 'all') {
+        foreach ($bundles as $type) {
+          $access_types[$entity_type][] = $type;
+        }
+      }
+      elseif (!empty($roles[$role]['access'][$access][$entity_type])) {
+        foreach ($roles[$role]['access'][$access][$entity_type] as $bundle) {
+          if (!empty($bundles[$bundle])) {
+            $access_types[$entity_type][] = $bundle;
+          }
+        }
+      }
+
+      // Build a list of entity permissions for the assets and operations and
+      // merge them into the permissions this function will return.
+      $entity_perms = farm_access_entity_perms($access_types, $ops);
+      $perms = array_merge($perms, $entity_perms);
+    }
+  }
+
+  // Return the permissions.
+  return $perms;
+}
+
+/**
  * Implements hook_modules_enabled().
  */
 function farm_access_modules_enabled($modules) {

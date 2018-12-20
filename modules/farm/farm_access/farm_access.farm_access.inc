@@ -42,47 +42,10 @@ function farm_access_farm_access_roles() {
  * Set up default CRUD permissions for all farm asset entity types.
  */
 function farm_asset_farm_access_perms($role) {
-  $perms = array();
 
-  // Load the list of farm roles.
-  $roles = farm_access_roles();
-
-  // Load asset types.
-  $asset_types = farm_asset_types();
-
-  // Grant access to view and edit asset types.
-  $asset_access_ops = array(
-    'view' => array('view'),
-    'edit' => array('create', 'edit', 'delete'),
-  );
-  foreach ($asset_access_ops as $access => $ops) {
-
-    // If the role has access to these asset operations...
-    if (!empty($roles[$role]['access'][$access])) {
-
-      // Build a list of asset types that they have access to. If 'all' access
-      // is granted, add all permissions. Or, if specific asset types are
-      // provided, add them individually.
-      $access_types['farm_asset'] = array();
-      if ($roles[$role]['access'][$access] == 'all' || !empty($roles[$role]['access'][$access]['farm_asset']) && $roles[$role]['access'][$access]['farm_asset'] == 'all') {
-        foreach ($asset_types as $type => $data) {
-          $access_types['farm_asset'][] = $type;
-        }
-      }
-      elseif (!empty($roles[$role]['access'][$access]['farm_asset'])) {
-        foreach ($roles[$role]['access'][$access]['farm_asset'] as $asset_type) {
-          if (!empty($asset_types[$asset_type])) {
-            $access_types['farm_asset'][] = $asset_type;
-          }
-        }
-      }
-
-      // Build a list of entity permissions for the assets and operations and
-      // merge them into the permissions this function will return.
-      $asset_perms = farm_access_entity_perms($access_types, $ops);
-      $perms = array_merge($perms, $asset_perms);
-    }
-  }
+  // Use the helper function to generate a list of entity type bundles
+  // permissions for the given role.
+  $perms = farm_access_entity_bundles_role_perms('farm_asset', $role);
 
   // Grant access to view farm assets.
   $perms[] = 'view farm assets';
@@ -94,29 +57,10 @@ function farm_asset_farm_access_perms($role) {
  * Implements hook_farm_access_perms().
  */
 function farm_plan_farm_access_perms($role) {
-  $perms = array();
 
-  // Set up default CRUD permissions for all farm plan entity types.
-  $plan_types = farm_plan_types();
-  $access_types = array(
-    'farm_plan' => array(),
-  );
-  foreach ($plan_types as $type => $data) {
-    $access_types['farm_plan'][] = $type;
-  }
-  switch ($role) {
-
-    // Grant full access to Farm Manager and Worker roles.
-    case 'farm_manager':
-    case 'farm_worker':
-      $perms = farm_access_entity_perms($access_types);
-      break;
-
-    // Grant read-only access to Farm Viewer role.
-    case 'farm_viewer':
-      $perms = farm_access_entity_perms($access_types, array('view'));
-      break;
-  }
+  // Use the helper function to generate a list of entity type bundles
+  // permissions for the given role.
+  $perms = farm_access_entity_bundles_role_perms('farm_plan', $role);
 
   // Grant access to view farm plans.
   $perms[] = 'view farm plans';
@@ -128,29 +72,10 @@ function farm_plan_farm_access_perms($role) {
  * Implements hook_farm_access_perms().
  */
 function log_farm_access_perms($role) {
-  $perms = array();
 
-  // Set up default CRUD permissions for all log entity types.
-  $log_types = log_types();
-  $access_types = array(
-    'log' => array(),
-  );
-  foreach ($log_types as $type => $data) {
-    $access_types['log'][] = $type;
-  }
-  switch ($role) {
-
-    // Grant full access to Farm Manager and Worker roles.
-    case 'farm_manager':
-    case 'farm_worker':
-      $perms = farm_access_entity_perms($access_types);
-      break;
-
-    // Grant read-only access to Farm Viewer role.
-    case 'farm_viewer':
-      $perms = farm_access_entity_perms($access_types, array('view'));
-      break;
-  }
+  // Use the helper function to generate a list of entity type bundles
+  // permissions for the given role.
+  $perms = farm_access_entity_bundles_role_perms('log', $role);
 
   // View all logs.
   $perms[] = 'view all logs';
