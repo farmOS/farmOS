@@ -35,13 +35,13 @@ function farm_plan_consideration_schema() {
         'length' => '255',
         'not null' => TRUE,
       ),
-      'start' => array(
+      'start_time' => array(
         'description' => 'The timestamp when this consideration starts.',
         'type' => 'int',
         'unsigned' => TRUE,
         'not null' => TRUE,
       ),
-      'end' => array(
+      'end_time' => array(
         'description' => 'The timestamp when this consideration ends.',
         'type' => 'int',
         'unsigned' => TRUE,
@@ -52,8 +52,8 @@ function farm_plan_consideration_schema() {
     'indexes' => array(
       'name' => array('name'),
       'type_index' => array('type'),
-      'start' => array('start'),
-      'end' => array('end'),
+      'start_time' => array('start_time'),
+      'end_time' => array('end_time'),
     ),
   );
   $schema['farm_plan_consideration_entity'] = array(
@@ -86,4 +86,42 @@ function farm_plan_consideration_schema() {
     ),
   );
   return $schema;
+}
+
+/**
+ * Rename columns in plan consideration table to avoid reserved SQL words.
+ */
+function farm_plan_consideration_update_7000(&$sandbox) {
+
+  // Drop old indexes.
+  db_drop_index('farm_plan_consideration', 'start');
+  db_drop_index('farm_plan_consideration', 'end');
+
+  // Change start to start_time.
+  $start_time = array(
+    'description' => 'The timestamp when this consideration starts.',
+    'type' => 'int',
+    'unsigned' => TRUE,
+    'not null' => TRUE,
+  );
+  $start_time_keys = array(
+    'indexes' => array(
+      'start_time' => array('start_time'),
+    ),
+  );
+  db_change_field('farm_plan_consideration', 'start', 'start_time', $start_time, $start_time_keys);
+
+  // Change end to end_time.
+  $end_time = array(
+    'description' => 'The timestamp when this consideration ends.',
+    'type' => 'int',
+    'unsigned' => TRUE,
+    'not null' => TRUE,
+  );
+  $end_time_keys = array(
+    'indexes' => array(
+      'end_time' => array('end_time'),
+    ),
+  );
+  db_change_field('farm_plan_consideration', 'end', 'end_time', $end_time, $end_time_keys);
 }

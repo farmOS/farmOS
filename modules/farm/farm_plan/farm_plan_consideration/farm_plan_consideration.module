@@ -98,9 +98,9 @@ function farm_plan_farm_plan_consideration_types() {
  *   The consideration type machine name.
  * @param string $name
  *   The consideration name.
- * @param int $start
+ * @param int $start_time
  *   The start timestamp of the consideration.
- * @param int $end
+ * @param int $end_time
  *   The end timestamp of the consideration.
  * @param int $plan_id
  *   The ID of the plan this consideration is linked to (optional).
@@ -108,14 +108,14 @@ function farm_plan_farm_plan_consideration_types() {
  * @return object
  *   Returns an empty consideration object.
  */
-function farm_plan_consideration_create($type = 'concern', $name = '', $start = 0, $end = 0, $plan_id = NULL) {
+function farm_plan_consideration_create($type = 'concern', $name = '', $start_time = 0, $end_time = 0, $plan_id = NULL) {
   $consideration = new stdClass();
   $consideration->id = NULL;
   $consideration->type = $type;
   $consideration->name = $name;
   $consideration->plan_id = $plan_id;
-  $consideration->start = $start;
-  $consideration->end = $end;
+  $consideration->start_time = $start_time;
+  $consideration->end_time = $end_time;
   $consideration->entities = array();
   return $consideration;
 }
@@ -274,8 +274,8 @@ function farm_plan_consideration_list($plan) {
 
     // Format the start and end dates.
     $date_format = 'M j Y';
-    $start = date($date_format, $consideration->start);
-    $end = date($date_format, $consideration->end);
+    $start_time = date($date_format, $consideration->start_time);
+    $end_time = date($date_format, $consideration->end_time);
 
     // If there are entity associations, build a list.
     $associations = '';
@@ -320,8 +320,8 @@ function farm_plan_consideration_list($plan) {
     $row = array(
       $name,
       $type,
-      $start,
-      $end,
+      $start_time,
+      $end_time,
       $associations,
       $plan_link,
       $actions,
@@ -414,26 +414,26 @@ function farm_plan_consideration_form($form, &$form_state, $plan, $consideration
   $date_format = 'Y-m-d';
 
   // Start date.
-  $default_start = !empty($consideration->start) ? date($date_format, $consideration->start) : '';
-  $form['start'] = array(
+  $default_start_time = !empty($consideration->start_time) ? date($date_format, $consideration->start_time) : '';
+  $form['start_time'] = array(
     '#type' => 'date_select',
     '#title' => t('Start date'),
     '#date_label_position' => 'within',
     '#date_format' => $date_format,
     '#date_year_range' => '-3:+10',
-    '#default_value' => $default_start,
+    '#default_value' => $default_start_time,
     '#required' => TRUE,
   );
 
   // End date.
-  $default_end = !empty($consideration->end) ? date($date_format, $consideration->end) : '';
+  $default_end_time = !empty($consideration->end_time) ? date($date_format, $consideration->end_time) : '';
   $form['end'] = array(
     '#type' => 'date_select',
     '#title' => t('End date'),
     '#date_label_position' => 'within',
     '#date_format' => $date_format,
     '#date_year_range' => '-3:+10',
-    '#default_value' => $default_end,
+    '#default_value' => $default_end_time,
     '#required' => TRUE,
   );
 
@@ -499,8 +499,8 @@ function farm_plan_consideration_form_submit($form, &$form_state) {
   $consideration->name = check_plain($form_state['values']['name']);
 
   // Convert dates to timestamps.
-  $consideration->start = strtotime($form_state['values']['start']);
-  $consideration->end = strtotime($form_state['values']['end']);
+  $consideration->start_time = strtotime($form_state['values']['start_time']);
+  $consideration->end_time = strtotime($form_state['values']['end_time']);
 
   // If this is a new consideration, and it is specific to the plan, save the
   // plan ID.
