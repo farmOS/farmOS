@@ -33,3 +33,13 @@ function farm_access_uninstall() {
     user_role_delete($name);
   }
 }
+
+/**
+ * Enable the Farm Access Roles module.
+ */
+function farm_access_update_7000(&$sandbox) {
+  $module = 'farm_access_roles';
+  if (!module_exists($module)) {
+    module_enable(array($module));
+  }
+}

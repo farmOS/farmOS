@@ -25,15 +25,45 @@
  * Defines farm access roles.
  *
  * @return array
- *   Returns an array of farm access roles.
+ *   Returns an array of farm access roles. The key should be a unique farm
+ *   role machine name, and each should be an array of role information,
+ *   including the following keys:
+ *     name: The human-readable name of the role.
+ *     access: An optional array of default access permissions
+ *       view: Specifies what the role has access to view. Set to 'all' to
+ *         allow view access to everything. Or, it can be an array of arrays
+ *         keyed by entity type, with a list of bundles (or 'all').
+ *       edit: Specifies what the role has access to edit. Set to 'all' to
+ *         allow edit access to everything. Or, it can be an array of arrays
+ *         keyed by entity type, with a list of bundles (or 'all').
+ *       config: Boolean that specifies whether or not the role should have
+ *         access to configuration. Only grant this to trusted roles.
  */
 function hook_farm_access_roles() {
 
   // Build a list of roles.
   $roles = array(
-    'Farm Manager',
-    'Farm Worker',
-    'Farm Viewer',
+    'farm_manager' => array(
+      'name' => 'Farm Manager',
+      'access' => array(
+        'view' => 'all',
+        'edit' => 'all',
+        'config' => TRUE,
+      ),
+    ),
+    'farm_worker' => array(
+      'name' => 'Farm Worker',
+      'access' => array(
+        'view' => 'all',
+        'edit' => 'all',
+      ),
+    ),
+    'farm_viewer' => array(
+      'name' => 'Farm Viewer',
+      'access' => array(
+        'view' => 'all',
+      ),
+    ),
   );
   return $roles;
 }
@@ -53,44 +83,20 @@ function hook_farm_access_roles() {
  */
 function hook_farm_access_perms($role) {
 
-  // Assemble a list of entity types provided by this module.
-  $types = array(
-    'farm_asset' => array(
-      'planting',
-    ),
-    'log' => array(
-      'farm_harvest',
-      'farm_input',
-      'farm_seeding',
-      'farm_transplanting',
-    ),
-    'taxonomy' => array(
-      'farm_crops',
-      'farm_crop_families',
-    ),
-  );
+  // Grant the 'view mymodule records' permission to all roles.
+  $perms[] = 'view mymodule records';
 
-  // Grant different CRUD permissions based on the role.
-  $perms = array();
-  switch ($role) {
-
-    // Farm Manager and Worker
-    case 'Farm Manager':
-    case 'Farm Worker':
-      $perms = farm_access_entity_perms($types);
-      break;
-
-    // Farm Viewer
-    case 'Farm Viewer':
-      $perms = farm_access_entity_perms($types, array('view'));
-      break;
+  // Grant the 'configure mymodule' permission to Farm Managers.
+  if ($role == 'farm_manager') {
+    $perms[] = 'configure mymodule';
   }
 
   return $perms;
 }
 
 /**
- * Alter permissions that were defined by modules using hook_farm_access_perms().
+ * Alter permissions that were defined by modules using
+ * hook_farm_access_perms().
  *
  * @param string $role
  *   The role name that permissions are being built for.
@@ -100,7 +106,7 @@ function hook_farm_access_perms($role) {
 function hook_farm_access_perms_alter($role, &$perms) {
 
   // Give Farm Managers permission to administer modules.
-  if ($role == 'Farm Manager') {
+  if ($role == 'farm_manager') {
     $perms[] = 'administer modules';
   }
 }

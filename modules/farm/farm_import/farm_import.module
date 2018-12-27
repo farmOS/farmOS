@@ -33,8 +33,11 @@ function farm_import_ctools_plugin_directory($owner, $plugin_type) {
 function farm_import_farm_access_perms($role) {
   $perms = array();
 
-  // Grant farm managers access to Feeds importers.
-  if ($role == 'Farm Manager') {
+  // Load the list of farm roles.
+  $roles = farm_access_roles();
+
+  // If this role has 'config' access, grant access to Feeds importers.
+  if (!empty($roles[$role]['access']['config'])) {
 
     // Add permissions for asset importers.
     $asset_types = farm_asset_types();

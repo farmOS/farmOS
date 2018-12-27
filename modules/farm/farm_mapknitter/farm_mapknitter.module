@@ -22,8 +22,11 @@ function farm_mapknitter_permission() {
 function farm_mapknitter_farm_access_perms($role) {
   $perms = array();
 
-  // Grant administer permission to Farm Managers.
-  if ($role == 'Farm Manager') {
+  // Load the list of farm roles.
+  $roles = farm_access_roles();
+
+  // If this role has 'config' access, grant administer permission
+  if (!empty($roles[$role]['access']['config'])) {
     $perms[] = 'administer farm_mapknitter module';
   }
 

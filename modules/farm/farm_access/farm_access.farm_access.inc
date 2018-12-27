@@ -5,46 +5,15 @@
  */
 
 /**
- * Implements hook_farm_access_roles().
- */
-function farm_access_farm_access_roles() {
-
-  // Build a list of roles.
-  $roles = array(
-    'Farm Manager',
-    'Farm Worker',
-    'Farm Viewer',
-  );
-  return $roles;
-}
-
-/**
  * Implements hook_farm_access_perms().
+ *
+ * Set up default CRUD permissions for all farm asset entity types.
  */
 function farm_asset_farm_access_perms($role) {
-  $perms = array();
 
-  // Set up default CRUD permissions for all farm asset entity types.
-  $asset_types = farm_asset_types();
-  $access_types = array(
-    'farm_asset' => array(),
-  );
-  foreach ($asset_types as $type => $data) {
-    $access_types['farm_asset'][] = $type;
-  }
-  switch ($role) {
-
-    // Grant full access to Farm Manager and Worker roles.
-    case 'Farm Manager':
-    case 'Farm Worker':
-      $perms = farm_access_entity_perms($access_types);
-      break;
-
-    // Grant read-only access to Farm Viewer role.
-    case 'Farm Viewer':
-      $perms = farm_access_entity_perms($access_types, array('view'));
-      break;
-  }
+  // Use the helper function to generate a list of entity type bundles
+  // permissions for the given role.
+  $perms = farm_access_entity_bundles_role_perms('farm_asset', $role);
 
   // Grant access to view farm assets.
   $perms[] = 'view farm assets';
@@ -56,29 +25,10 @@ function farm_asset_farm_access_perms($role) {
  * Implements hook_farm_access_perms().
  */
 function farm_plan_farm_access_perms($role) {
-  $perms = array();
 
-  // Set up default CRUD permissions for all farm plan entity types.
-  $plan_types = farm_plan_types();
-  $access_types = array(
-    'farm_plan' => array(),
-  );
-  foreach ($plan_types as $type => $data) {
-    $access_types['farm_plan'][] = $type;
-  }
-  switch ($role) {
-
-    // Grant full access to Farm Manager and Worker roles.
-    case 'Farm Manager':
-    case 'Farm Worker':
-      $perms = farm_access_entity_perms($access_types);
-      break;
-
-    // Grant read-only access to Farm Viewer role.
-    case 'Farm Viewer':
-      $perms = farm_access_entity_perms($access_types, array('view'));
-      break;
-  }
+  // Use the helper function to generate a list of entity type bundles
+  // permissions for the given role.
+  $perms = farm_access_entity_bundles_role_perms('farm_plan', $role);
 
   // Grant access to view farm plans.
   $perms[] = 'view farm plans';
@@ -90,29 +40,10 @@ function farm_plan_farm_access_perms($role) {
  * Implements hook_farm_access_perms().
  */
 function log_farm_access_perms($role) {
-  $perms = array();
 
-  // Set up default CRUD permissions for all log entity types.
-  $log_types = log_types();
-  $access_types = array(
-    'log' => array(),
-  );
-  foreach ($log_types as $type => $data) {
-    $access_types['log'][] = $type;
-  }
-  switch ($role) {
-
-    // Grant full access to Farm Manager and Worker roles.
-    case 'Farm Manager':
-    case 'Farm Worker':
-      $perms = farm_access_entity_perms($access_types);
-      break;
-
-    // Grant read-only access to Farm Viewer role.
-    case 'Farm Viewer':
-      $perms = farm_access_entity_perms($access_types, array('view'));
-      break;
-  }
+  // Use the helper function to generate a list of entity type bundles
+  // permissions for the given role.
+  $perms = farm_access_entity_bundles_role_perms('log', $role);
 
   // View all logs.
   $perms[] = 'view all logs';
@@ -150,13 +81,16 @@ function system_farm_access_perms($role) {
 function role_delegation_farm_access_perms($role) {
   $perms = array();
 
-  // Allow Farm Managers to delegate roles.
-  if ($role == 'Farm Manager') {
+  // Load the list of farm roles.
+  $roles = farm_access_roles();
 
-    // Allow role delegation (add one for each defined role).
-    $roles = module_invoke_all('farm_access_roles');
+  // If this role has 'config' access, allow them to delegate roles.
+  if (!empty($roles[$role]['access']['config'])) {
     foreach ($roles as $role) {
-      $perms[] = 'assign ' . $role . ' role';
+      if (empty($role['name'])) {
+        continue;
+      }
+      $perms[] = 'assign ' . $role['name'] . ' role';
     }
   }
 
@@ -167,34 +101,17 @@ function role_delegation_farm_access_perms($role) {
  * Implements hook_farm_access_perms().
  */
 function taxonomy_farm_access_perms($role) {
-  $perms = array();
 
-  // Assemble a list of all taxonomies.
-  $vocabularies = taxonomy_get_vocabularies();
-  $types = array(
-    'taxonomy' => array(),
-  );
-  foreach ($vocabularies as $vocab) {
-    $types['taxonomy'][] = $vocab->machine_name;
-  }
+  // Use the helper function to generate a list of entity type bundles
+  // permissions for the given role.
+  $perms = farm_access_entity_bundles_role_perms('taxonomy_term', $role);
 
-  // Grant different CRUD permissions based on the role.
-  switch ($role) {
+  // Load the list of farm roles.
+  $roles = farm_access_roles();
 
-    // Farm Manager and Worker
-    case 'Farm Manager':
-    case 'Farm Worker':
-      $perms = farm_access_entity_perms($types);
-      break;
-
-    // Farm Viewer
-    case 'Farm Viewer':
-      $perms = farm_access_entity_perms($types, array('view'));
-      break;
-  }
-
-  // This is needed to add terms.
-  if (in_array($role, array('Farm Manager', 'Farm Worker'))) {
+  // If the role has high-level 'edit' access of taxonomy terms, give them the
+  // 'administer taxonomy' permission so that they can add terms.
+  if (!empty($roles[$role]['access']['edit'])) {
     $perms[] = 'administer taxonomy';
   }
 
@@ -207,17 +124,16 @@ function taxonomy_farm_access_perms($role) {
 function user_farm_access_perms($role) {
   $perms = array();
 
-  // Allow Farm Managers and Farm Workers to view user profiles.
-  if ($role == 'Farm Manager' || $role == 'Farm Worker') {
-    $perms[] = 'access user profiles';
-  }
+  // Load the list of farm roles.
+  $roles = farm_access_roles();
 
-  // Allow Farm Managers to administer users.
-  if ($role == 'Farm Manager') {
-
-    // Administer users.
+  // If this role has 'config' access, allow them to administer users.
+  if (!empty($roles[$role]['access']['config'])) {
     $perms[] = 'administer users';
   }
+
+  // Allow all roles to view user profiles.
+  $perms[] = 'access user profiles';
 
   return $perms;
 }

@@ -191,7 +191,13 @@ function farm_log_assign_action_form(array $context, array $form_state) {
   // Generate a list of users. Only include users with farm roles.
   $user_options = array();
   $roles = farm_access_roles();
-  $query = db_query('SELECT u.uid, u.name FROM {users} u LEFT JOIN {users_roles} ur ON u.uid = ur.uid LEFT JOIN {role} r ON ur.rid = r.rid WHERE r.name IN (:roles)', array(':roles' => $roles));
+  $role_names = array();
+  foreach ($roles as $role) {
+    if (!empty($role['name'])) {
+      $role_names[] = $role['name'];
+    }
+  }
+  $query = db_query('SELECT u.uid, u.name FROM {users} u LEFT JOIN {users_roles} ur ON u.uid = ur.uid LEFT JOIN {role} r ON ur.rid = r.rid WHERE r.name IN (:roles)', array(':roles' => $role_names));
   $records = $query->fetchAll();
   foreach ($records as $record) {
     $user_options[$record->uid] = $record->name;
