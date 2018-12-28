@@ -58,9 +58,19 @@ ID. This will retrieve a log with ID 1:
 The endpoint to use depends on the entity type you are requesting:
 
 * Assets: `/farm_asset.json`
+    * Plantings: `/farm_asset.json?type=planting`
+    * Animals: `/farm_asset.json?type=animal`
+    * Equipment: `/farm_asset.json?type=equipment`
+    * ...
 * Logs: `/log.json`
+    * Activities: `/log.json?type=farm_activity`
+    * Observations: `/log.json?type=farm_observation`
+    * Harvests: `/log.json?type=farm_harvest`
+    * Inputs: `/log.json?type=farm_input`
+    * ...
 * Taxonomy terms: `/taxonomy_term.json`
     * Areas*: `/taxonomy_term.json?bundle=farm_areas`
+    * ...
 
 *Note that areas are currently represented as Drupal taxonomy terms, but may be
 changed to assets in the future. See [Make "Area" into a type of Farm Asset].
