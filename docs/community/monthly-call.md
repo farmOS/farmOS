@@ -16,19 +16,19 @@ actual GMT times for each call.
 
 ### 2019 Schedule
 
-January 9th @ 1pm EST / 6pm UTC
+January 9th @ 2pm EST / 7pm UTC
 
-February 13th @ 1pm EST / 6pm UTC
+February 13th @ 2pm EST / 7pm UTC
 
-March 13th @ 1pm EDT / 5pm UTC
+March 13th @ 2pm EDT / 6pm UTC
 
-April 10th @ 1pm EDT / 5pm UTC
+April 10th @ 2pm EDT / 6pm UTC
 
-May 8th @ 1pm EDT / 5pm UTC
+May 8th @ 2pm EDT / 6pm UTC
 
-June 12th @ 1pm EDT / 5pm UTC
+June 12th @ 2pm EDT / 6pm UTC
 
-July 10th @ 1pm EDT / 5pm UTC
+July 10th @ 2pm EDT / 6pm UTC
 
 August 14th @ 2pm EDT / 6pm UTC
 
