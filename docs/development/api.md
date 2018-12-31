@@ -23,7 +23,8 @@ specific farmOS URL, username, and password.
 
 **Default Authentication**
 
-By default, all CRUD requests must include a cookie and session token in the header.
+By default, all CRUD requests must include a cookie and session token in the
+header.
 
 The following `curl` command will authenticate using the username and password,
 and save the session cookie to a file called farmOS-cookie.txt. Then it will
@@ -32,19 +33,32 @@ and token can be used to make authenticated requests.
 
     curl --cookie-jar farmOS-cookie.txt -d 'name=[USER]&pass=[PASS]&form_id=user_login' [URL]/user/login
     TOKEN="$(curl --cookie farmOS-cookie.txt [URL]/restws/session/token)"
-    
+
 **Basic Authentication**
 
-This option requires sending credentials with every request which means it may not be the best option for a production server. For development, the RESTws Basic Authentication (restws_basic_auth) sub-module may be a good work around. 
+This option requires sending credentials with every request which means it may
+not be the best option for a production server. For development, the RESTws
+Basic Authentication (restws_basic_auth) sub-module may be a good work around.
 
-The Basic authentication login module is included in farmOS but is disabled by default. Simply enabling the module is all you need. **By default the module only tries to authenticate usernames prefixed with 'restws'.** This can be changed by modifying the regex used against usernames - see the module documentation [here](https://cgit.drupalcode.org/restws/tree/restws_basic_auth/README.txt)
+The Basic authentication login module is included in farmOS but is disabled by
+default. Simply enabling the module is all you need.
 
-Using Basic Authentication makes it much easier to test the API with development tools such as Postman or Restlet. It simplifies the curl commands as well.
+**By default the module only tries to authenticate usernames prefixed with 'restws'.**
 
-For Postman/Restlet configuration is just adding Basic Authentication to the request header. The request returns a cookie, which seems to be saved by the application. This means subsequent requests don't need the authentication header, as long as the cookie is saved.
+This can be changed by modifying the regex used against usernames - see the
+module documentation [here](https://cgit.drupalcode.org/restws/tree/restws_basic_auth/README.txt)
+
+Using Basic Authentication makes it much easier to test the API with
+development tools such as Postman or Restlet. It simplifies the curl commands
+as well.
+
+For Postman/Restlet configuration is just adding Basic Authentication to the
+request header. The request returns a cookie, which seems to be saved by the
+application. This means subsequent requests don't need the authentication
+header, as long as the cookie is saved.
 
 For curl, requests just require the -u option.
-    
+
     curl -u [USER]:[PASS] [URL]/log.json
 
 ## Requesting records
