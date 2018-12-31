@@ -46,7 +46,7 @@ default. Simply enabling the module is all you need.
 **By default the module only tries to authenticate usernames prefixed with 'restws'.**
 
 This can be changed by modifying the regex used against usernames - see the
-module documentation [here](https://cgit.drupalcode.org/restws/tree/restws_basic_auth/README.txt)
+[RESTful Web Services Basic Authentication module documentation].
 
 Using Basic Authentication makes it much easier to test the API with
 development tools such as Postman or Restlet. It simplifies the curl commands
@@ -186,6 +186,7 @@ submit a support request on [GitHub] or ask questions in the
 [record types]: /development/architecture
 [RESTful Web Services]: https://www.drupal.org/project/restws
 [RESTful Web Services module documentation]: https://www.drupal.org/node/1860564
+[RESTful Web Services Basic Authentication module documentation]: https://cgit.drupalcode.org/restws/tree/restws_basic_auth/README.txt
 [Make "Area" into a type of Farm Asset]: https://www.drupal.org/project/farm/issues/2363393
 [GitHub]: https://github.com/farmOS/farmOS
 [farmOS chat room]: https://riot.im/app/#/room/#farmOS:matrix.org
