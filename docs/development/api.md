@@ -21,7 +21,7 @@ specific farmOS URL, username, and password.
 
 ## Authentication
 
-**Default Authentication**
+### Cookie and Token
 
 By default, all CRUD requests must include a cookie and session token in the
 header.
@@ -34,7 +34,7 @@ and token can be used to make authenticated requests.
     curl --cookie-jar farmOS-cookie.txt -d 'name=[USER]&pass=[PASS]&form_id=user_login' [URL]/user/login
     TOKEN="$(curl --cookie farmOS-cookie.txt [URL]/restws/session/token)"
 
-**Basic Authentication**
+### Basic Authentication
 
 This option requires sending credentials with every request which means it may
 not be the best option for a production server. For development, the RESTws
