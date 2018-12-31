@@ -65,8 +65,7 @@ expose these credentials. Using SSL will encrypt the credentials with each
 request. Otherwise, they will be sent in plaintext.
 
 Using basic authentication makes it much easier to test the API with
-development tools such as [Postman] or [Restlet]. It simplifies the curl
-commands as well.
+development tools such as [Postman] or [Restlet].
 
 For Postman/Restlet configuration is just adding Basic Authentication to the
 request header. The request returns a cookie, which seems to be saved by the
