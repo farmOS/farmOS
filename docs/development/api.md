@@ -48,17 +48,21 @@ This should be used to replace `[AUTH]` in the `curl` examples that follow.
 
 ### Basic Authentication
 
-This option requires sending credentials with every request which means it may
-not be the best option for a production server. For development, the RESTws
-Basic Authentication (restws_basic_auth) sub-module may be a good work around.
+An alternative approach is to use [HTTP Basic Authentication].
 
-The Basic authentication login module is included in farmOS but is disabled by
-default. Simply enabling the module is all you need.
+The RESTful Web Services module comes with a Basic Authentication sub-module,
+which provides the ability to include the username and password with each
+request using HTTP Basic Authentication. This modules is included with farmOS
+but is disabled by default.
 
 **By default the module only tries to authenticate usernames prefixed with 'restws'.**
-
 This can be changed by modifying the regex used against usernames - see the
 [RESTful Web Services Basic Authentication module documentation].
+
+**SSL encryption is highly recommended.** This option requires sending
+credentials with every request which means extra care must be taken to not
+expose these credentials. Using SSL will encrypt the credentials with each
+request. Otherwise, they will be sent in plaintext.
 
 Using Basic Authentication makes it much easier to test the API with
 development tools such as Postman or Restlet. It simplifies the curl commands
@@ -200,6 +204,7 @@ submit a support request on [GitHub] or ask questions in the
 [record types]: /development/architecture
 [RESTful Web Services]: https://www.drupal.org/project/restws
 [RESTful Web Services module documentation]: https://www.drupal.org/node/1860564
+[HTTP Basic Authentication]: https://en.wikipedia.org/wiki/Basic_access_authentication
 [RESTful Web Services Basic Authentication module documentation]: https://cgit.drupalcode.org/restws/tree/restws_basic_auth/README.txt
 [Make "Area" into a type of Farm Asset]: https://www.drupal.org/project/farm/issues/2363393
 [GitHub]: https://github.com/farmOS/farmOS
