@@ -64,9 +64,9 @@ credentials with every request which means extra care must be taken to not
 expose these credentials. Using SSL will encrypt the credentials with each
 request. Otherwise, they will be sent in plaintext.
 
-Using Basic Authentication makes it much easier to test the API with
-development tools such as Postman or Restlet. It simplifies the curl commands
-as well.
+Using basic authentication makes it much easier to test the API with
+development tools such as [Postman] or [Restlet]. It simplifies the curl
+commands as well.
 
 For Postman/Restlet configuration is just adding Basic Authentication to the
 request header. The request returns a cookie, which seems to be saved by the
@@ -206,6 +206,8 @@ submit a support request on [GitHub] or ask questions in the
 [RESTful Web Services module documentation]: https://www.drupal.org/node/1860564
 [HTTP Basic Authentication]: https://en.wikipedia.org/wiki/Basic_access_authentication
 [RESTful Web Services Basic Authentication module documentation]: https://cgit.drupalcode.org/restws/tree/restws_basic_auth/README.txt
+[Postman]: https://www.getpostman.com/
+[Restlet]: https://restlet.com/
 [Make "Area" into a type of Farm Asset]: https://www.drupal.org/project/farm/issues/2363393
 [GitHub]: https://github.com/farmOS/farmOS
 [farmOS chat room]: https://riot.im/app/#/room/#farmOS:matrix.org
