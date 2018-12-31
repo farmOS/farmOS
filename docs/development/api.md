@@ -18,6 +18,8 @@ specific farmOS URL, username, and password.
 * `[URL]` - Base URL of the farmOS instance, without trailing slash (eg: `https://example.farmos.net`)
 * `[USER]` - User name (eg: `MyUserName`)
 * `[PASS]` - Password (eg: `MyPassword`)
+* `[AUTH]` - Authentication parameters for `curl` commands (this will depend on
+  the authentication method you choose below).
 
 ## Authentication
 
@@ -38,9 +40,11 @@ and token can be used to make authenticated requests.
     TOKEN="$(curl --cookie farmOS-cookie.txt [URL]/restws/session/token)"
 
 After running those two commands, the cookie and token can be included with
-subsequent `curl` requests like so:
+subsequent `curl` requests via the `--cookie` and `-H` parameters:
 
-    curl --cookie farmOS-cookie.txt -H "X-CSRF-Token: ${TOKEN}" [URL]/log.json
+    --cookie farmOS-cookie.txt -H "X-CSRF-Token: ${TOKEN}"
+
+This should be used to replace `[AUTH]` in the `curl` examples that follow.
 
 ### Basic Authentication
 
@@ -65,9 +69,11 @@ request header. The request returns a cookie, which seems to be saved by the
 application. This means subsequent requests don't need the authentication
 header, as long as the cookie is saved.
 
-For curl, requests just require the -u option.
+Basic Authentication can be used in `curl` requests via the `-u` parameter:
 
-    curl -u [USER]:[PASS] [URL]/log.json
+    -u [USER]:[PASS]
+
+This should be used to replace `[AUTH]` in the `curl` examples that follow.
 
 ## Requesting records
 
@@ -79,19 +85,19 @@ file and `$TOKEN` variable generated with the commands above.
 
 This will retrieve a list of harvest logs in JSON format:
 
-    curl --cookie farmOS-cookie.txt -H "X-CSRF-Token: ${TOKEN}" [URL]/log.json?type=farm_harvest
+    curl [AUTH] [URL]/log.json?type=farm_harvest
 
 Records can also be requested in XML format by changing the file extension in
 the URL:
 
-    curl --cookie farmOS-cookie.txt -H "X-CSRF-Token: ${TOKEN}" [URL]/log.xml?type=farm_harvest
+    curl [AUTH] [URL]/log.xml?type=farm_harvest
 
 **Individual records**
 
 Individual records can be retrieved in a similar way, by including their entity
 ID. This will retrieve a log with ID 1:
 
-    curl --cookie farmOS-cookie.txt -H "X-CSRF-Token: ${TOKEN}" [URL]/log/1.json
+    curl [AUTH] [URL]/log/1.json
 
 **Endpoints**
 
@@ -131,7 +137,7 @@ minimum required fields are `name`, `type`, and `timestamp`.
 
 Here is a `curl` command to create that log in farmOS:
 
-    curl -X POST --cookie farmOS-cookie.txt -H "X-CSRF-Token: ${TOKEN}" -H 'Content-Type: application/json' -d '{"name": "Test observation via REST", "type": "farm_observation", "timestamp": "1526584271"}' [URL]/log
+    curl -X POST [AUTH] -H 'Content-Type: application/json' -d '{"name": "Test observation via REST", "type": "farm_observation", "timestamp": "1526584271"}' [URL]/log
 
 ## Uploading files
 
@@ -172,7 +178,7 @@ file). This will create a new observation log with the file attached to the
     # <<CURL_DATA is used because base64 encoded files are generally longer
     # the max curl argument length. See:
     # https://unix.stackexchange.com/questions/174350/curl-argument-list-too-long
-    curl -X POST --cookie farmOS-cookie.txt -H "X-CSRF-Token: ${TOKEN}" -H "Content-Type: application/json" -d @- [URL]/log <<CURL_DATA
+    curl -X POST [AUTH] -H "Content-Type: application/json" -d @- [URL]/log <<CURL_DATA
     {"name": "Test file upload via REST", "type": "farm_observation", "timestamp": "1534261642", "field_farm_images": ["data:${FILE_MIME};base64,${FILE_CONTENT}"]}
     CURL_DATA
 
