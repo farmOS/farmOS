@@ -23,16 +23,24 @@ specific farmOS URL, username, and password.
 
 ### Cookie and Token
 
-By default, all CRUD requests must include a cookie and session token in the
-header.
+The simplest approach is to authenticate via Drupal's `user_login` form and
+save the session cookie provided by Drupal. Then, you can use that to retrieve
+a CSRF token from `[URL]/restws/session/token`, which is provided and required
+by the `restws` module. The cookie and token can then be included with each API
+request.
 
 The following `curl` command will authenticate using the username and password,
-and save the session cookie to a file called farmOS-cookie.txt. Then it will
+and save the session cookie to a file called `farmOS-cookie.txt`. Then it will
 get a session token and save that to a `$TOKEN` variable. Together, the cookie
 and token can be used to make authenticated requests.
 
     curl --cookie-jar farmOS-cookie.txt -d 'name=[USER]&pass=[PASS]&form_id=user_login' [URL]/user/login
     TOKEN="$(curl --cookie farmOS-cookie.txt [URL]/restws/session/token)"
+
+After running those two commands, the cookie and token can be included with
+subsequent `curl` requests like so:
+
+    curl --cookie farmOS-cookie.txt -H "X-CSRF-Token: ${TOKEN}" [URL]/log.json
 
 ### Basic Authentication
 
