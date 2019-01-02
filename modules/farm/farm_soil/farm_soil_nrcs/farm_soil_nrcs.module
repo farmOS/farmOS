@@ -38,6 +38,18 @@ function farm_soil_nrcs_stir_autocomplete($string) {
 /**
  * Implements hook_form_FORM_ID_alter().
  */
+function farm_soil_nrcs_form_farm_soil_disturbance_form_alter(&$form, &$form_state, $form_id) {
+
+  // Add autocomplete to the "Activity" field that shows operations from
+  // the {farm_soil_nrcs_stir} table.
+  if (!empty($form['disturbance']['disturbance']['activity'])) {
+    $form['disturbance']['disturbance']['activity']['#autocomplete_path'] = 'farm/soil/nrcs/stir/autocomplete';
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
 function farm_soil_nrcs_form_log_form_alter(&$form, &$form_state, $form_id) {
 
   // Only act on the soil test log form.
