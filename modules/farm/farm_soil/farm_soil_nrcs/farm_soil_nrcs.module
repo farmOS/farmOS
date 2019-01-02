@@ -7,6 +7,35 @@
 include_once 'farm_soil_nrcs.features.inc';
 
 /**
+ * Implements hook_menu().
+ */
+function farm_soil_nrcs_menu() {
+  $items['farm/soil/nrcs/stir/autocomplete/%'] = array(
+    'page callback' => 'farm_soil_nrcs_stir_autocomplete',
+    'page arguments' => array(5),
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
+ * Autocomplete callback for STIR operations.
+ */
+function farm_soil_nrcs_stir_autocomplete($string) {
+  $matches = array();
+  $query = db_select('farm_soil_nrcs_stir', 'fsns');
+  $query->fields('fsns', array('operation'));
+  $query->condition('fsns.operation', '%' . db_like($string) . '%', 'LIKE');
+  $query->range(0, 10);
+  $result = $query->execute();
+  foreach ($result as $row) {
+    $matches[$row->operation] = check_plain($row->operation);
+  }
+  drupal_json_output($matches);
+}
+
+/**
  * Implements hook_form_FORM_ID_alter().
  */
 function farm_soil_nrcs_form_log_form_alter(&$form, &$form_state, $form_id) {
