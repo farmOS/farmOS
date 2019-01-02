@@ -7,19 +7,18 @@
 include_once 'farm_soil_nrcs.features.inc';
 
 /**
- * Implements hook_form_alter().
+ * Implements hook_form_FORM_ID_alter().
  */
-function farm_soil_nrcs_form_alter(&$form, &$form_state, $form_id) {
+function farm_soil_nrcs_form_log_form_alter(&$form, &$form_state, $form_id) {
 
   // Only act on the soil test log form.
-  if (!($form_id == 'log_form' && $form['#bundle'] == 'farm_soil_test')) {
+  if ($form['#bundle'] != 'farm_soil_test') {
     return;
   }
 
   // Add the Farm Soil NRCS soil name lookup button.
   farm_soil_nrcs_soil_name_lookup_button($form, $form_state);
 }
-
 
 /**
  * Adds a "Look up soil names" button to a form. The form should contain a
