@@ -1,0 +1,63 @@
+<?php
+/**
+ * @file
+ * Farm soil nrcs install.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function farm_soil_nrcs_schema() {
+  $schema['farm_soil_nrcs_stir'] = array(
+    'description' => 'NRCS STIR values',
+    'fields' => array(
+      'operation' => array(
+        'description' => 'STIR operation name',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => TRUE,
+      ),
+      'stir' => array(
+        'description' => 'STIR value',
+        'type' => 'numeric',
+        'unsigned' => TRUE,
+        'precision' => 10,
+        'scale' => 7,
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('operation'),
+  );
+  return $schema;
+}
+
+/**
+ * Create the farm_soil_nrcs_stir table.
+ */
+function farm_soil_nrcs_update_7000(&$sandbox) {
+
+  // Define the schema.
+  $schema = array(
+    'description' => 'NRCS STIR values',
+    'fields' => array(
+      'operation' => array(
+        'description' => 'STIR operation name',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => TRUE,
+      ),
+      'stir' => array(
+        'description' => 'STIR value',
+        'type' => 'numeric',
+        'unsigned' => TRUE,
+        'precision' => 10,
+        'scale' => 7,
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('operation'),
+  );
+
+  // Install it.
+  db_create_table('farm_soil_nrcs_stir', $schema);
+}
