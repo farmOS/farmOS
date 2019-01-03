@@ -190,6 +190,14 @@ function farm_soil_disturbance_form($form, &$form_state) {
     '#title' => t('Disturbance information'),
   );
 
+  // Activity.
+  $form['disturbance']['disturbance']['activity'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Activity'),
+    '#description' => t('What activity was performed?'),
+    '#required' => TRUE,
+  );
+
   // Percentage of area disturbed.
   $form['disturbance']['disturbance']['percentage'] = array(
     '#type' => 'textfield',
@@ -341,7 +349,11 @@ function farm_soil_disturbance_form_submit($form, &$form_state) {
   );
 
   // Set log name.
-  $log_name = t('Soil disturbance: @area', array('@area' => entity_label('taxonomy_term', $area)));
+  $log_name_parts = array(
+    entity_label('taxonomy_term', $area),
+    check_plain($form_values['disturbance']['activity'])
+  );
+  $log_name = t('Soil disturbance') . ': ' . implode(' ', $log_name_parts);
 
   // Add the "Tillage" log category.
   $categories = array('Tillage');
@@ -355,8 +367,11 @@ function farm_soil_disturbance_form_submit($form, &$form_state) {
   // Add the area reference.
   $log_wrapper->field_farm_area[] = $area;
 
-  // Add notes (field condition, crops in field, other notes).
+  // Add notes (activity, field condition, crops in field, other notes).
   $notes = array();
+  if (!empty($form_values['disturbance']['activity'])) {
+    $notes[] = t('Activity') . ': ' . check_plain($form_values['disturbance']['activity']);
+  }
   if (!empty($form_values['notes']['condition'])) {
     $notes[] = t('Field condition') . ': ' . check_plain($form_values['notes']['condition']);
   }
