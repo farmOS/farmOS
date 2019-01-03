@@ -44,6 +44,34 @@ function farm_soil_disturbance_form($form, &$form_state) {
     '#required' => TRUE,
   );
 
+  // Notes fieldset.
+  $form['disturbance']['notes'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Notes'),
+  );
+
+  // Field condition.
+  $form['disturbance']['notes']['condition'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Field condition'),
+    '#description' => t('Briefly describe the field conditions of this area when the action was taken.'),
+  );
+
+  // Crops in field.
+  $form['disturbance']['notes']['crops'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Crops in field'),
+    '#description' => t('List the crops that are in this area, or will be in this area during/after this action.'),
+  );
+
+  // Other notes.
+  $form['disturbance']['notes']['other'] = array(
+    '#type' => 'text_format',
+    '#title' => t('Other notes'),
+    '#description' => t('Include any other notes that are relevant to this soil disturbance for future reference.'),
+    '#format' => 'farm_format',
+  );
+
   // Submit button.
   $form['disturbance']['submit'] = array(
     '#type' => 'submit',
@@ -109,6 +137,21 @@ function farm_soil_disturbance_form_submit($form, &$form_state) {
   // Add the area reference.
   $log_wrapper->field_farm_area[] = $area;
 
+  // Add notes (field condition, crops in field, other notes).
+  $notes = array();
+  if (!empty($form_values['notes']['condition'])) {
+    $notes[] = t('Field condition') . ': ' . check_plain($form_values['notes']['condition']);
+  }
+  if (!empty($form_values['notes']['crops'])) {
+    $notes[] = t('Crops in field') . ': ' . check_plain($form_values['notes']['crops']);
+  }
+  if (!empty($form_values['notes']['other']['value'])) {
+    $notes[] = check_plain($form_values['notes']['other']['value']);
+  }
+  if (!empty($notes)) {
+    $log_wrapper->field_farm_notes->value->set(implode("\n\n", $notes));
+    $log_wrapper->field_farm_notes->format->set($form_values['notes']['other']['format']);
+  }
 
   // Save the log (via its wrapper).
   $log_wrapper->save();
