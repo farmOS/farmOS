@@ -774,6 +774,13 @@ function farm_log_create($type, $name = '', $timestamp = REQUEST_TIME, $done = T
 
   // If a log name is specified, set it.
   if (!empty($name)) {
+
+    // If the name is too long, truncate it.
+    if (strlen($name) > 255) {
+      truncate_utf8($name, 255, TRUE, TRUE);
+    }
+
+    // Set the log name.
     $log->name = $name;
   }
 
