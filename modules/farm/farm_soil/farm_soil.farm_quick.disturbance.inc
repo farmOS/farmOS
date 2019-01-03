@@ -42,6 +42,163 @@ function farm_soil_disturbance_form($form, &$form_state) {
     '#description' => t('Enter the name of the area that was disturbed. A list of existing area options will appear as you type. If the area does not exist, a new one will be created.'),
     '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_area',
     '#required' => TRUE,
+    '#ajax' => array(
+      'callback' => 'farm_soil_disturbance_form_area_size_ajax',
+      'wrapper' => 'area-size',
+    ),
+  );
+
+  // Alias $form_state['values']['disturbance'] for easier use.
+  $form_values = array();
+  if (!empty($form_state['values']['disturbance'])) {
+    $form_values = &$form_state['values']['disturbance'];
+  }
+
+  // If the area name has been entered, attempt to load it.
+  // If multiple areas are entered, only use the first one.
+  $area = FALSE;
+  if (!empty($form_values['area']['name'])) {
+    $area_name = $form_values['area']['name'];
+    $areas = farm_area_parse_names($area_name);
+    $area = reset($areas);
+  }
+
+  // Measurement type.
+  $form['disturbance']['area']['measurement'] = array(
+    '#type' => 'radios',
+    '#title' => t('Measurement type'),
+    '#description' => t('Select how you would like to measure this area.'),
+    '#options' => array(
+      'total' => t('Total area'),
+      'dimensions' => t('Length and width'),
+    ),
+    '#default_value' => 'total',
+    '#ajax' => array(
+      'callback' => 'farm_soil_disturbance_form_area_size_ajax',
+      'wrapper' => 'area-size',
+    ),
+  );
+
+  // Area size wrapper.
+  $form['disturbance']['area']['size'] = array(
+    '#prefix' => '<div id="area-size">',
+    '#suffix' => '</div>',
+  );
+
+  // Display fields depending on the measurement type.
+  // If the measurement type is "dimensions", show length and width fields.
+  if (!empty($form_values['area']['measurement']) && $form_values['area']['measurement'] == 'dimensions') {
+
+    // Load the default area and length units.
+    $size = 'small';
+    $area_units = farm_area_default_units('area', $size);
+    $length_units = farm_area_default_units('length', $size);
+
+    // Area length.
+    $form['disturbance']['area']['size']['length'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Area length'),
+      '#description' => t('How long is the area in @units?', array('@units' => $length_units)),
+      '#input_group' => TRUE,
+      '#field_suffix' => $length_units,
+      '#ajax' => array(
+        'callback' => 'farm_soil_disturbance_form_area_size_ajax',
+        'wrapper' => 'area-size'
+      ),
+    );
+
+    // Area width.
+    $form['disturbance']['area']['size']['width'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Area width'),
+      '#description' => t('How wide is the area in @units?', array('@units' => $length_units)),
+      '#input_group' => TRUE,
+      '#field_suffix' => $length_units,
+      '#ajax' => array(
+        'callback' => 'farm_soil_disturbance_form_area_size_ajax',
+        'wrapper' => 'area-size'
+      ),
+    );
+
+    // Auto-calculate total surface area and store it in a hidden field.
+    $total_area = '';
+    if (!empty($form_values['area']['size']['length']) && !empty($form_values['area']['size']['width'])) {
+      $total_area = $form_values['area']['size']['length'] * $form_values['area']['size']['width'];
+      unset($form_state['input']['disturbance']['area']['size']['total']);
+      unset($form_state['input']['disturbance']['area']['size']['units']);
+    }
+    $form['disturbance']['area']['size']['total'] = array(
+      '#type' => 'hidden',
+      '#value' => $total_area,
+    );
+    $form['disturbance']['area']['size']['units'] = array(
+      '#type' => 'hidden',
+      '#value' => $area_units,
+    );
+  }
+
+  // Otherwise, allow direct entry of the total surface area and units.
+  else {
+
+    // Attempt to auto-calculate the total surface area from the area polygon.
+    $total_area = '';
+    if (!empty($area)) {
+      $total_area = farm_area_calculate_area($area->tid);
+    }
+
+    // If a total area was calculated, prepare the form values.
+    if (!empty($total_area)) {
+
+      // Get the relative area size.
+      $size = farm_area_relative_size($total_area);
+
+      // Determine the default units for the relative area size.
+      $units = farm_area_default_units('area', $size);
+
+      // Convert and format the value.
+      $total_area = farm_area_format_calculated_area($total_area, FALSE);
+
+      // Reset the $form_state input values so they can be overridden.
+      unset($form_state['input']['disturbance']['area']['size']['total']);
+      unset($form_state['input']['disturbance']['area']['size']['units']);
+    }
+
+    // Total surface area.
+    $form['disturbance']['area']['size']['total'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Area size'),
+      '#default_value' => $total_area,
+      '#required' => TRUE,
+    );
+
+    // Units.
+    $form['disturbance']['area']['size']['units'] = array(
+      '#type' => 'select',
+      '#title' => t('Area size units'),
+      '#options' => drupal_map_assoc(array(
+        farm_area_default_units('area', 'big'),
+        farm_area_default_units('area', 'small'),
+      )),
+      '#default_value' => !empty($units) ? $units : NULL,
+      '#required' => TRUE,
+    );
+  }
+
+  // Disturbance information fieldset.
+  $form['disturbance']['disturbance'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Disturbance information'),
+  );
+
+  // Percentage of area disturbed.
+  $form['disturbance']['disturbance']['percentage'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Percentage of area disturbed'),
+    '#description' => t('What percentage of the area was disturbed by this activity?'),
+    '#default_value' => '100',
+    '#required' => TRUE,
+    '#input_group' => TRUE,
+    '#field_suffix' => '%',
   );
 
   // Notes fieldset.
@@ -83,10 +240,39 @@ function farm_soil_disturbance_form($form, &$form_state) {
 }
 
 /**
+ * Soil disturbance quick form area size ajax callback.
+ */
+function farm_soil_disturbance_form_area_size_ajax($form, &$form_state) {
+  return $form['disturbance']['area']['size'];
+}
+
+/**
  * Soil disturbance quick form validate.
  */
 function farm_soil_disturbance_form_validate($form, &$form_state) {
 
+  // Alias $form_state['values']['disturbance'] for easier use.
+  $form_values = array();
+  if (!empty($form_state['values']['disturbance'])) {
+    $form_values = &$form_state['values']['disturbance'];
+  }
+
+  // If the area measurement type is "dimensions", length and width are
+  // required.
+  if (!empty($form_values['area']['measurement']) && $form_values['area']['measurement'] == 'dimensions') {
+    if (empty($form_values['area']['size']['length']) || !is_numeric($form_values['area']['size']['length'])) {
+      form_set_error('disturbance][area][size][length', t('Area length is required.'));
+    }
+    if (empty($form_values['area']['size']['width']) || !is_numeric($form_values['area']['size']['width'])) {
+      form_set_error('disturbance][area][size][width', t('Area width is required.'));
+    }
+  }
+
+  // Ensure that the area percentage is between 1 and 100.
+  $percentage = $form_values['disturbance']['percentage'];
+  if ($percentage < 1 || $percentage > 100) {
+    form_set_error('disturbance][disturbance][percentage', t('Percentage must be between 1 and 100.'));
+  }
 }
 
 /**
@@ -121,6 +307,38 @@ function farm_soil_disturbance_form_submit($form, &$form_state) {
 
   // Initialize an empty measurements array.
   $measurements = array();
+
+  // Add the total area size.
+  $total_area = array(
+    'measure' => 'area',
+    'value' => $form_values['area']['size']['total'],
+    'units' => $form_values['area']['size']['units'],
+    'label' => t('total area size'),
+  );
+  $measurements[] = $total_area;
+
+  // Add the percentage of total area amended.
+  $percentage = $form_values['disturbance']['percentage'];
+  $measurements[] = array(
+    'measure' => 'ratio',
+    'value' => $form_values['disturbance']['percentage'],
+    'units' => '%',
+    'label' => t('percentage of area disturbed'),
+  );
+
+  // Calculate and add the total area disturbed (use BCMath where available).
+  if (function_exists('bcmul') && function_exists('bcdiv')) {
+    $total_area_disturbed = bcmul($total_area['value'], bcdiv($percentage, '100'));
+  }
+  else {
+    $total_area_disturbed = $total_area['value'] * ($percentage / 100);
+  }
+  $measurements[] = array(
+    'measure' => 'area',
+    'value' => round($total_area_disturbed, 2),
+    'units' => $total_area['units'],
+    'label' => t('total area disturbed'),
+  );
 
   // Set log name.
   $log_name = t('Soil disturbance: @area', array('@area' => entity_label('taxonomy_term', $area)));
