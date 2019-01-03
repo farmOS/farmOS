@@ -108,7 +108,7 @@ function farm_crop_planting_quick_form($form, &$form_state) {
     }
     $form['planting']['logs'][$name]['enabled'] = array(
       '#type' => 'checkbox',
-      '#title' => $info['title'],
+      '#title' => t('Add') . ' ' . $info['title'],
       '#default_value' => $enabled,
       '#ajax' => array(
         'callback' => 'farm_crop_planting_quick_form_logs_ajax',
