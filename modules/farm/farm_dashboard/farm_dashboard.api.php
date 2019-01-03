@@ -30,18 +30,23 @@
 function hook_farm_dashboard_panes() {
   return array(
 
-    // Specify a 'view' and 'view_display ID' to automatically load a View.
-    // This will take precedence over 'title' and 'callback' below.
-    'view' => 'my_view',
-    'view_display_id' => 'block_1',
+    // A pane is defined with an associative array, keyed with a unique pane
+    // machine name.
+    'my_pane' => array(
 
-    // Specify the title and callback function that produces output.
-    'title' => t('My pane title'),
-    'callback' => 'my_callback_function',
+      // Specify a 'view' and 'view_display ID' to automatically load a View.
+      // This will take precedence over 'title' and 'callback' below.
+      'view' => 'my_view',
+      'view_display_id' => 'block_1',
 
-    // Optionally specify a group and weight for display sorting.
-    'group' => 'custom_group',
-    'weight' => 100,
+      // Specify the title and callback function that produces output.
+      'title' => t('My pane title'),
+      'callback' => 'my_callback_function',
+
+      // Optionally specify a group and weight for display sorting.
+      'group' => 'custom_group',
+      'weight' => 100,
+    ),
   );
 }
 
