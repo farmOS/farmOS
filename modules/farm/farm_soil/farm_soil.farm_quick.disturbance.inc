@@ -334,16 +334,18 @@ function farm_soil_disturbance_form_submit($form, &$form_state) {
     'label' => t('percentage of area disturbed'),
   );
 
-  // Calculate and add the total area disturbed (use BCMath where available).
+  // Calculate and add the total area disturbed, rounded to 2 decimals (use
+  // BCMath where available).
+  $scale = 2;
   if (function_exists('bcmul') && function_exists('bcdiv')) {
-    $total_area_disturbed = bcmul($total_area['value'], bcdiv($percentage, '100'));
+    $total_area_disturbed = bcmul($total_area['value'], bcdiv($percentage, '100', $scale), $scale);
   }
   else {
-    $total_area_disturbed = $total_area['value'] * ($percentage / 100);
+    $total_area_disturbed = round($total_area['value'] * ($percentage / 100), $scale);
   }
   $measurements[] = array(
     'measure' => 'area',
-    'value' => round($total_area_disturbed, 2),
+    'value' => $total_area_disturbed,
     'units' => $total_area['units'],
     'label' => t('total area disturbed'),
   );
