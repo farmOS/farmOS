@@ -41,10 +41,77 @@ function farm_soil_nrcs_stir_autocomplete($string) {
 function farm_soil_nrcs_form_farm_soil_disturbance_form_alter(&$form, &$form_state, $form_id) {
 
   // Add autocomplete to the "Activity" field that shows operations from
-  // the {farm_soil_nrcs_stir} table.
+  // the {farm_soil_nrcs_stir} table. Also add ajax to regenerate the stir
+  // field below.
   if (!empty($form['disturbance']['disturbance']['activity'])) {
     $form['disturbance']['disturbance']['activity']['#autocomplete_path'] = 'farm/soil/nrcs/stir/autocomplete';
+    $form['disturbance']['disturbance']['activity']['#ajax'] = array(
+      'callback' => 'farm_soil_nrcs_stir_value_ajax',
+      'wrapper' => 'stir-value',
+    );
   }
+
+  // Add a field for the STIR value, auto-populated based on the activity.
+  $stir = '';
+  if (!empty($form_state['values']['disturbance']['disturbance']['activity'])) {
+    $result = db_query('SELECT stir FROM {farm_soil_nrcs_stir} WHERE operation = :operation', array(':operation' => $form_state['values']['disturbance']['disturbance']['activity']))->fetchField();
+    if (!empty($result)) {
+      $stir = $result;
+
+      // Remove trailing zeros by converting to a PHP float.
+      $stir = (float)$stir;
+
+      // Unset the STIR field input value so that it can be replaced via ajax.
+      unset($form_state['input']['disturbance']['disturbance']['stir']);
+    }
+  }
+  $form['disturbance']['disturbance']['stir'] = array(
+    '#type' => 'textfield',
+    '#title' => t('STIR value'),
+    '#element_validate' => array('element_validate_number'),
+    '#default_value' => $stir,
+    '#prefix' => '<div id="stir-value">',
+    '#suffix' => '</div>',
+  );
+
+  // Add a submit function to save the STIR value to the log.
+  $form['#submit'][] = 'farm_soil_nrcs_disturbance_form_stir_submit';
+}
+
+/**
+ * Ajax callback for STIR value lookup.
+ */
+function farm_soil_nrcs_stir_value_ajax($form, &$form_state) {
+  return $form['disturbance']['disturbance']['stir'];
+}
+
+/**
+ * Submit function for saving the STIR value in soil disturbance quick form.
+ */
+function farm_soil_nrcs_disturbance_form_stir_submit($form, &$form_state) {
+
+  // If no STIR value was entered, bail.
+  if (empty($form_state['values']['disturbance']['disturbance']['stir'])) {
+    return;
+  }
+
+  // Get the log that was saved by the quick form. Bail if not found.
+  if (empty($form_state['storage']['log'])) {
+    return;
+  }
+  $log = $form_state['storage']['log'];
+
+  // Create a measurement for the STIR value.
+  $measurements = array();
+  $measurements[] = array(
+    'measure' => 'rating',
+    'value' => $form_state['values']['disturbance']['disturbance']['stir'],
+    'units' => '',
+    'label' => 'STIR',
+  );
+
+  // Add the measurement to the log.
+  farm_quantity_log_add_measurements($log, $measurements);
 }
 
 /**
