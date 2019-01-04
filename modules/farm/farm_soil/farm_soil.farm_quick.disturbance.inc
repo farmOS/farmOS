@@ -393,4 +393,8 @@ function farm_soil_disturbance_form_submit($form, &$form_state) {
   if (function_exists('farm_quick_entity_link')) {
     farm_quick_entity_link('farm_soil_disturbance_form', 'log', $log);
   }
+
+  // Add the log to $form_state['storage'] so that other submit functions
+  // can work with it.
+  $form_state['storage']['log'] = $log;
 }
