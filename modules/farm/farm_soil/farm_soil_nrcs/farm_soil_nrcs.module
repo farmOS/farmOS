@@ -40,11 +40,18 @@ function farm_soil_nrcs_stir_autocomplete($string) {
  */
 function farm_soil_nrcs_form_farm_soil_disturbance_form_alter(&$form, &$form_state, $form_id) {
 
-  // Add autocomplete to the "Activity" field that shows operations from
-  // the {farm_soil_nrcs_stir} table. Also add ajax to regenerate the stir
-  // field below.
+  // Alter the "Activity" field.
   if (!empty($form['disturbance']['disturbance']['activity'])) {
+
+    // Add to the description.
+    $description = t('As you type, a list of pre-defined operations will be available to select from. Click on the operation from the dropdown to select it and the "STIR" field below will be filled in automatically.');
+    $form['disturbance']['disturbance']['activity']['#description'] = $form['disturbance']['disturbance']['activity']['#description'] . ' ' . $description;
+
+    // Add autocomplete to the "Activity" field that shows operations from
+    // the {farm_soil_nrcs_stir} table.
     $form['disturbance']['disturbance']['activity']['#autocomplete_path'] = 'farm/soil/nrcs/stir/autocomplete';
+
+    // Add ajax to regenerate the stir field below.
     $form['disturbance']['disturbance']['activity']['#ajax'] = array(
       'callback' => 'farm_soil_nrcs_stir_value_ajax',
       'wrapper' => 'stir-value',
@@ -68,6 +75,7 @@ function farm_soil_nrcs_form_farm_soil_disturbance_form_alter(&$form, &$form_sta
   $form['disturbance']['disturbance']['stir'] = array(
     '#type' => 'textfield',
     '#title' => t('STIR value'),
+    '#description' => t('Enter the Soil Tillage Intensity Rating (STIR), calculated using the Revised Universal Soil Loss Equation, Version 2 (RUSLE2). This will be automatically populated if you select a pre-determined operation in the activity field above.'),
     '#element_validate' => array('element_validate_number'),
     '#default_value' => $stir,
     '#prefix' => '<div id="stir-value">',
