@@ -184,6 +184,17 @@ function farm_soil_disturbance_form($form, &$form_state) {
     );
   }
 
+  // Percentage of area disturbed.
+  $form['disturbance']['area']['percentage'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Percentage of area disturbed'),
+    '#description' => t('What percentage of the area was disturbed by this activity?'),
+    '#default_value' => '100',
+    '#required' => TRUE,
+    '#input_group' => TRUE,
+    '#field_suffix' => '%',
+  );
+
   // Disturbance information fieldset.
   $form['disturbance']['disturbance'] = array(
     '#type' => 'fieldset',
@@ -196,17 +207,6 @@ function farm_soil_disturbance_form($form, &$form_state) {
     '#title' => t('Activity'),
     '#description' => t('What activity was performed?'),
     '#required' => TRUE,
-  );
-
-  // Percentage of area disturbed.
-  $form['disturbance']['disturbance']['percentage'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Percentage of area disturbed'),
-    '#description' => t('What percentage of the area was disturbed by this activity?'),
-    '#default_value' => '100',
-    '#required' => TRUE,
-    '#input_group' => TRUE,
-    '#field_suffix' => '%',
   );
 
   // Notes fieldset.
@@ -277,9 +277,9 @@ function farm_soil_disturbance_form_validate($form, &$form_state) {
   }
 
   // Ensure that the area percentage is between 1 and 100.
-  $percentage = $form_values['disturbance']['percentage'];
+  $percentage = $form_values['area']['percentage'];
   if ($percentage < 1 || $percentage > 100) {
-    form_set_error('disturbance][disturbance][percentage', t('Percentage must be between 1 and 100.'));
+    form_set_error('disturbance][area][percentage', t('Percentage must be between 1 and 100.'));
   }
 }
 
@@ -326,10 +326,10 @@ function farm_soil_disturbance_form_submit($form, &$form_state) {
   $measurements[] = $total_area;
 
   // Add the percentage of total area amended.
-  $percentage = $form_values['disturbance']['percentage'];
+  $percentage = $form_values['area']['percentage'];
   $measurements[] = array(
     'measure' => 'ratio',
-    'value' => $form_values['disturbance']['percentage'],
+    'value' => $percentage,
     'units' => '%',
     'label' => t('percentage of area disturbed'),
   );
