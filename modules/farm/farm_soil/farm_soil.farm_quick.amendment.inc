@@ -567,16 +567,18 @@ function farm_soil_amendment_form_submit($form, &$form_state) {
     'label' => t('percentage of area amended'),
   );
 
-  // Calculate and add the total area amended (use BCMath where available).
+  // Calculate and add the total area amended, rounded to 2 decimals (use
+  // BCMath where available).
+  $scale = 2;
   if (function_exists('bcmul') && function_exists('bcdiv')) {
-    $total_area_amended = bcmul($total_area['value'], bcdiv($percentage, '100'));
+    $total_area_amended = bcmul($total_area['value'], bcdiv($percentage, '100', $scale), $scale);
   }
   else {
-    $total_area_amended = $total_area['value'] * ($percentage / 100);
+    $total_area_amended = round($total_area['value'] * ($percentage / 100), $scale);
   }
   $measurements[] = array(
     'measure' => 'area',
-    'value' => round($total_area_amended, 2),
+    'value' => $total_area_amended,
     'units' => $total_area['units'],
     'label' => t('total area amended'),
   );

@@ -63,3 +63,10 @@ function farm_soil_update_7000(&$sandbox) {
 function farm_soil_update_7001(&$sandbox) {
   module_enable(array('farm_soil_nrcs'));
 }
+
+/**
+ * Add the "Tillage" log category.
+ */
+function farm_soil_update_7002(&$sandbox) {
+  farm_log_categories_create(array('Tillage'));
+}

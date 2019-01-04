@@ -4,6 +4,7 @@ core = 7.x
 package = farmOS
 dependencies[] = ctools
 dependencies[] = farm_map
+dependencies[] = farm_quantity_log
 dependencies[] = farm_soil
 dependencies[] = features
 dependencies[] = openlayers

@@ -11,6 +11,6 @@ include_once 'farm_soil.features.inc';
  */
 function farm_soil_farm_log_categories() {
 
-  // Provide an "Soil" log category.
-  return array('Soil');
+  // Provide log categories: Soil, Tillage.
+  return array('Soil', 'Tillage');
 }

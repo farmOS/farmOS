@@ -1,0 +1,570 @@
+"operation","stir"
+"Add mulch",0
+"Add PAM",0.15
+"Aerator, field surface, ground driven",11.7
+"Aerator, field surface, ground driven 0 degree offset",7.02
+"Aerator, field surface, ground driven 10 degree offset",23.4
+"Aerator, field surface, ground driven 5 degree offset",11.7
+"Aerator, single drum, lugs, angle 0",11.583
+"Aerator, tandem drum, lugs, angle 10",35.1
+"Aerator, tandem drum, lugs, angle 5",28.08
+"Aerial interseeding",0
+"Aerial seeding",0
+"Bale combine windrows",0.15
+"Bale Corn husk, cob and chaff windrows",0.15
+"Bale Corn stalk strips",0.15
+"Bale corn stover",0.15
+"Bale straw or residue",0.15
+"Bed shaper",19.5
+"Bed shaper high disturbance",26
+"Bed shaper, 12 in",19.5
+"Bed shaper, 12 in, low flattening",19.5
+"Bed shaper, low flattening, high disturbance",26
+"Bedder, hipper, disk hiller",26
+"Bedder, hipper, hiller 12 in high",39
+"Bedder, hipper, hiller 15 in high",45.5
+"Bedder, hipper, hiller 18 in high",52
+"Begin growth",0
+"Begin new growth",0
+"Begin weed growth",0
+"BFM applicaton",0.15
+"Bulldozer, clearing/cutting",16.25
+"Bulldozer, clearing/cutting light",0.82875
+"Bulldozer, filling/leveling",5.2
+"Burn residue",0
+"Burn residue, high intensity",0
+"Burn residue, low intensity",0
+"Burn residue, mod. high intensity",0
+"Burn residue, moderate intensity",0
+"Burn sugarcane",0
+"Burrowing, heavy, Prairie dog",16.38
+"Burrowing, light, Prairie dog",3.51
+"Burrowing, moderate, Prairie dog",10.53
+"Chisel plow, coulter, st. pts.",52.65
+"Chisel plow, coulter, st. pts., cover disks",56.30625
+"Chisel plow, coulter, st. pts., cover disks, rlng basket",70.4925
+"Chisel plow, coulter, sweeps",52.65
+"Chisel plow, coulter, twst. pts.",52.65
+"Chisel plow, coulter, twst. pts., cover disks",56.30625
+"Chisel plow, disk, st. pts.",65
+"Chisel plow, disk, st. pts., cover disks",68.65625
+"Chisel plow, disk, twst. pts.",65
+"Chisel plow, disk, twst. pts., cover disks",68.65625
+"Chisel, 12-16 in. low crown sweep 3 to 4  in. depth",25.025
+"Chisel, st. pt. ",45.5
+"Chisel, st. pt. 12 in deep",62.4
+"Chisel, st. pt. 15 in deep",78
+"Chisel, st. pt. 5 in deep",32.5
+"Chisel, st. pt. 5 in deep, coil tine har",34.9375
+"Chisel, st. pt., coil tine har",47.9375
+"Chisel, sweep shovel ",45.5
+"Chisel, sweep shovel 5 in. depth",32.5
+"Chisel, sweep shovel 5 in. depth, coil tine har",34.9375
+"Chisel, sweep shovel, coil tine har",47.9375
+"Chisel, twisted shovel ",45.5
+"Chisel, twisted shovel, coil tine har",47.9375
+"Chisel, winged with furrow diker",74.1
+"Chop veg. with machete",0.15
+"Continuous disturbance and smoothing",19.175
+"Coulter caddy, dbl gang w/ fluted coulters",15.6
+"Coulter caddy, w/ fluted coulters",8.58
+"Coulter caddy, with smooth coulters",3.4125
+"Coulter tiller and spike harrow",18.525
+"Coulter tiller, 10 degree angle, coiled tine harrow, rolling basket",20.71875
+"Cover crop underseeder",1.625
+"Cultipacker, roller",35.5875
+"Cultivate, manually",3.9
+"Cultivate, manually, low intensity",1.95
+"Cultivate, manually, moderate intensity",2.925
+"Cultivate, rows manually",3.9
+"Cultivator, between beds, add residue",9.75
+"Cultivator, field 6-12 in shovels C",31.2
+"Cultivator, field 6-12 in sweeps",26
+"Cultivator, field 6-12 in sweeps, coil tine har",28.4375
+"Cultivator, field w/ spike points",31.2
+"Cultivator, field w/ spike points, coil tine har",34.125
+"Cultivator, flame",0.15
+"Cultivator, hipper, disk hiller on beds",6.5
+"Cultivator, off bar w/disk hillers on beds",10.5625
+"Cultivator, rotary",6.63
+"Cultivator, rotary on beds",6.63
+"Cultivator, rotary on beds, Bedder, hipper, disk hiller",27.43
+"Cultivator, row - 1st pass ridge till",17.55
+"Cultivator, row - 2nd pass ridge till ",19.5
+"Cultivator, row 1 in ridge ",14.625
+"Cultivator, row 3 in ridge",17.55
+"Cultivator, row between beds",10.5625
+"Cultivator, row, high residue ",8.125
+"default",0.15
+"Detasseler, seed corn",0.15
+"Disk, inter row strips",16.575
+"Disk, offset, heavy",39
+"Disk, offset, heavy 12 in depth",78
+"Disk, offset, heavy 15 in depth",78
+"Disk, offset, heavy, roller, corr packer",40.828125
+"Disk, offset, heavy, roller, smooth",40.21875
+"Disk, oxen, strip 30 pct disturb",3.12
+"Disk, oxen, strip 60 pct disturb",6.24
+"Disk, single gang",19.5
+"Disk, tandem heavy primary op.",39
+"Disk, tandem heavy primary op., roller, smooth",40.21875
+"Disk, tandem light finishing ",19.5
+"Disk, tandem secondary op.",32.5
+"Do all ",53.625
+"Do all, on beds ",26
+"Dozer track walking",0.975
+"Draft Not For Official Use\default",0.15
+"Drill or air seeder single disk openers 7-10 in spac.",2.4375
+"Drill or air seeder single disk openers, + fert. opnrs 7-10 in spac.",5.6875
+"Drill or air seeder tee slot openers 7-10 in spac.",1.95
+"Drill or air seeder, combo field cult, dd openers",28.795
+"Drill or air seeder, combo single disk-hoe openers, 10 in spac",16.38
+"Drill or air seeder, hoe opener in hvy residue",16.9
+"Drill or air seeder, hoe opener in hvy residue w/ fert openers",20.15
+"Drill or air seeder, hoe/chisel openers 12-15 in spac.",20.8
+"Drill or air seeder, hoe/chisel openers 12-15 in spac. w/ fert openers",24.05
+"Drill or air seeder, hoe/chisel openers 6-12 in spac.",23.4
+"Drill or air seeder, hoe/chisel openers 6-12 in spac. w/fert openers",26.65
+"Drill or air seeder, paired, opposing single disk openers 6x9 in spac.",16.64
+"Drill or airseeder, dble disk opnr w/ fluted coult 5x10 paired row",12.1875
+"Drill or airseeder, double disk",6.3375
+"Drill or airseeder, double disk opener, w/ fert openers ",13.8125
+"Drill or airseeder, double disk, w/ fluted coulters",7.15
+"Drill or airseeder, offset double disk openers",4.0625
+"Drill, air seeder, 4 inch stealth openers on 12 in spac",9.75
+"Drill, air seeder, 6 inch stealth openers on 12 in spac",10.4
+"Drill, air seeder, sweep or band opener",9.75
+"Drill, deep furrow  12 to 18 in spacing",23.4
+"Drill, deep furrow  7 to 10 in spacing",24.7
+"Drill, double disk, 7-8 in packer C",11.05
+"Drill, double disk, orchard vineyard cover",39
+"Drill, heavy, direct seed, dbl disk opnr ",16.575
+"Drill, heavy, direct seed, dbl disk opnr w/row cleaners",17.55
+"Drill, range",6.24
+"Drill, semi-deep furrow  12 to 18 in spacing",22.1
+"Drip tape extractor",2.6
+"Drip tape injection shank",2.6
+"Drip tape injection shank on beds",2.6
+"Drip tape injector bed shaper",26
+"Erosion blanket applicaton",0.15
+"Fert applic. anhyd knife 12 in",6.5
+"Fert applic. anhyd knife 12 in, coil tine har",19.5
+"Fert applic. broadcast by hand",0.0121875
+"Fert applic. coulter, high press. inject  12 in",1.95
+"Fert applic. deep plcmt hvy shnk",13
+"Fert applic. shank low disturbance, 12 in",3.25
+"Fert applic. shank low disturbance, 12 in, coil tine har",16.25
+"Fert applic. shank low disturbance, 15 in spacing",2.6
+"Fert applic. side-dress, liquid",0.15
+"Fert applic. surface broadcast",0.0609375
+"Fert applic., aerial",0.15
+"Fert. applic. anhyd knife 15 in spacing",5.2
+"Fert. applic. anhyd knife 15 in spacing high disturbance",35.1
+"Fert. applic. anhyd knife 15 in spacing high disturbance, coil tine har",48.1
+"Fert. applic. anhyd knife 15 in spacing, coil tine har",18.2
+"Fert. applic. anhyd knife 30 in",2.6
+"Fert. applic. anhyd knife 30 in, bedded",2.6
+"Fert. applic. anhyd, liq, dry, minimal dist. precision placmnt, 30 in",0.511875
+"Fert. applic. anhyd, low dist. single disk opener, 30 in",1.95
+"Fert. applic. double shot knife 15 in spacing high disturbance",35.1
+"Fert. applic. shallow anhyd knife 38 in",1.95
+"Fert. applic. single disk opener, low disturbance, 30 inch spac",1.95
+"Fert. applic. sugarcane",1.56
+"Fert. applic., strip-till 30 in",5.3625
+"Furrow diker",7.28
+"Furrow shaper, torpedo",2.19375
+"Germination of dormant seeding",0
+"Graze, continuous ",0.4875
+"Graze, continuous overgrazing",0.4875
+"Graze, continuous, heavy hoof traffic",2.275
+"Graze, continuous, light hoof traffic",1.1375
+"Graze, continuous, moderate hoof traffic",1.82
+"Graze, intensive rotational ",0.4875
+"Graze, rotational ",0.4875
+"Graze, stubble or residue",0.4875
+"Graze, stubble or residue 25 pct",0.4875
+"Graze, stubble or residue 50 pct",0.4875
+"Graze, stubble or residue 75 pct",0.4875
+"Grazing set season, time on, time off, rate",0
+"Grazing, continuous, high traffic, set season, rate",0
+"Grazing, continuous, set season, rate",0
+"Grazing, continuous, severe hoof traffic, set season, rate",0
+"Grazing, continuous, time on, time off, rate",0
+"Grazing, frost kill",0
+"Grazing, set end ht, and rate",0
+"Grazing, set end ht, and time on",0
+"Grazing, set harvest portion and time on",0
+"Grazing, set harvest portion, and removal rate",0
+"Grazing, set season, harvest portion, removal rate and start mass",0
+"Grazing, set season, start ht, end ht, rate",0
+"Grazing, set season, start ht, end ht, rate, then mowed",0.15
+"Grazing, set season, start ht, end ht, time on",0
+"Grazing, set season, start ht, end ht, time on, then mowed",0.15
+"Grazing,set season, harvest portion, start mass, and time on",0
+"Harrow, coiled tine",15.6
+"Harrow, coiled tine weeder",7.8
+"Harrow, disk chain",19.5
+"Harrow, heavy",15.6
+"Harrow, heavy on heavy resdue",0.14625
+"Harrow, rolling",17.225
+"Harrow, rotary",10.2375
+"Harrow, rotary paddle wheel and spike gangs",21.45
+"Harrow, rotary, light, fluff fragile residue",4.43625
+"Harrow, rotary, light, fluff residue",0.73125
+"Harrow, spike tooth",15.6
+"Harrow, spike tooth, cover seed",15.6
+"Harrow, tine, on beds",7.8
+"Harvest, banana",0.15
+"Harvest, banana remove stem",0.15
+"Harvest, broccoli and cauliflower",0.15
+"Harvest, cabbage and head lettuce ",0.15
+"Harvest, cabbage and head lettuce, hand",0.15
+"Harvest, combine windrows",0.15
+"Harvest, corn cobbage or earlage",0.15
+"Harvest, corn grain and 60pct of residue mass",0.15
+"Harvest, corn grain and cobs",0.15
+"Harvest, corn grain and part of stover, 14 inch stubble",0.15
+"Harvest, corn silage with cover crop",0.15
+"Harvest, cotton",0.15
+"Harvest, cotton and shred",0.15
+"Harvest, cranberries",0.15
+"Harvest, cut flowers",0.15
+"Harvest, dig root crops 12 in depth res. buried",47.736
+"Harvest, dig root crops 12 in depth res. on surf",46.9755
+"Harvest, dig root crops res. buried",27.378
+"Harvest, dig root crops res. buried 10in ridge",27.846
+"Harvest, dig root crops res. on surf ",13.752375
+"Harvest, forage sorghum",0.15
+"Harvest, fruit crops",0.15
+"Harvest, grain, grow cover",0.15
+"Harvest, grass or legume seed, burn forage",0.15
+"Harvest, grass or legume seed, leave forage",0.15
+"Harvest, grass or legume seed, remove forage",0.15
+"Harvest, grass seed, remove forage ",0.15
+"Harvest, hand pick",0.15
+"Harvest, hand pick multiple times",0.15
+"Harvest, hand pick vegetables",0.15
+"Harvest, hand pull",2.275
+"Harvest, hay set date",0.15
+"Harvest, hay set season, start and end ht",0.15
+"Harvest, hay, grass",0.15
+"Harvest, hay, legume ",0.15
+"Harvest, hay, no regrowth",0.15
+"Harvest, hops",0.15
+"Harvest, kenaf",0.15
+"Harvest, killing crop 10pct standing stubble",0.15
+"Harvest, killing crop 20pct standing stubble",0.15
+"Harvest, killing crop 20pct standing stubble, release cover crop",0.15
+"Harvest, killing crop 30pct standing stubble",0.15
+"Harvest, killing crop 50pct standing stubble",0.15
+"Harvest, killing crop 50pct standing stubble, release cover crop",0.15
+"Harvest, killing crop 60pct standing stubble",0.15
+"Harvest, killing crop 70pct standing stubble",0.15
+"Harvest, knife, windrow, combine",6.5609375
+"Harvest, lavender bundles",0.15
+"Harvest, leafy veg.",0.15
+"Harvest, leafy veg. mechanical",0.15
+"Harvest, legume seed, remove forage ",0.15
+"Harvest, onions",13
+"Harvest, orchard and nut crops",0.15
+"Harvest, peanut digger ",18.564
+"Harvest, plantains,stalks left",0.15
+"Harvest, plantains,stalks removed",0.15
+"Harvest, residue, forage chopper, complete",0.15
+"Harvest, residue, forage chopper, incomplete",0.15
+"Harvest, residue, forage chopper, intermediate",0.15
+"Harvest, rootcrops, manually ",4.16
+"Harvest, rootcrops, manually, 25pct of field disturbed",2.6
+"Harvest, rootcrops, manually, 33pct of field disturbed",3.432
+"Harvest, rootcrops, manually, 50pct of field disturbed",5.2
+"Harvest, rootcrops, manually, one third",3.12
+"Harvest, seed heads by hand",0.15
+"Harvest, silage ",0.15
+"Harvest, silage 3ft stubble",0.15
+"Harvest, small grain haylage 5 in ht",0.15
+"Harvest, small grain silage with cover crop",0.15
+"Harvest, small grain, release understory",0.15
+"Harvest, snapper header",0.15
+"Harvest, sprig rototiller digger",13.65
+"Harvest, stalk chopping corn header",0.15
+"Harvest, stripper header",0.15
+"Harvest, sugarcane, after burning ",0.15
+"Harvest, sugarcane, after burning, no regrowth",0.15
+"Harvest, sugarcane, modern",0.15
+"Harvest, sugarcane, old type",0.15
+"Harvest, sugarcane, root rake",36.4
+"Harvest, timber remove tops",0.15
+"Harvest, tobacco, burley",0.15
+"Harvest, tobacco, burley, mechanical harvester",0.15
+"Harvest, tobacco, flue cured",0.15
+"Harvest, tobacco, flue cured, 1 pass mechanical",0.15
+"Harvest, tobacco, flue cured, selective mechanical harvest",0.15
+"Harvest, tree buck",0.15
+"Harvest, tree length logs",0.15
+"Harvest, tree pulpwood cut",0.15
+"Harvest, tree, Christmas grow cover ",0.15
+"Harvest, trees, chipper",0.15
+"Harvest, vine crops",0.15
+"Harvest, vine crops, mechanical",2.6
+"Harvest, windrows",0.0609375
+"Harvest, woody biomass",0.15
+"Hilling, manual hoe",3.315
+"Hydro-seeder",0.15
+"Install - Remove Sediment Control Barrier\Install Compost Sock",0.15
+"Install - Remove Sediment Control Barrier\Install Silt Fence",0.15
+"Install - Remove Sediment Control Barrier\Install Straw Bale",0.15
+"Install - Remove Sediment Control Barrier\Remove Compost Sock",0.15
+"Install - Remove Sediment Control Barrier\Remove Silt Fence",0.15
+"Install - Remove Sediment Control Barrier\Remove Straw Bale",0.15
+"Install Compost Sock",0.15
+"Install Silt Fence",0.15
+"Install Straw Bale",0.15
+"Kill crop",0
+"Knife, windrow dry beans",6.5
+"Land plane",10.4
+"Land plane; orchard and vine crops",6.24
+"Laser Land leveler",20.8
+"Lister, 30 in",35.1
+"Lister, 30 in with fert applic.",37.44
+"Lister, 40 in",35.1
+"Lister, 40 in with fert applic.",37.44
+"Log skidder",1.828125
+"Manure injector, liquid high disturb.30 inch",7.8
+"Manure injector, liquid low disturb.15 inch",4.68
+"Manure injector, liquid low disturb.30 inch",2.34
+"Manure injector, low disturb.15 inch",4.68
+"Manure injector, low disturb.30 inch",2.34
+"Manure spreader, liquid",0.2925
+"Manure spreader, slurry",0.2925
+"Manure spreader, solid and semi-solid",0.195
+"Manure, liquid irrigation",0.15
+"Middle buster, digger",52
+"Mow pasture",0.15
+"Mower, swather, on stubble",0.15
+"Mower, swather, on stubble 4in",0.15
+"Mower, swather, windrower",0.15
+"Mulch crimper",1.56
+"Mulch treader",10.4
+"No operation",0
+"Para-plow or para-till",17.55
+"Pasture renovator",5.2
+"Paving",0
+"Permeable weed barrier applicator",1.56
+"Planter, double disk opener on 12 inch high beds",2.4375
+"Planter, double disk opener on 15 inch high beds",2.4375
+"Planter, double disk opener on 18 inch high beds",2.4375
+"Planter, double disk opener on 8 inch high beds",2.4375
+"Planter, double disk opnr ",2.4375
+"Planter, double disk opnr w/fluted coulter ",2.4375
+"Planter, double disk opnr w/fluted coulter with starter fertilizer",3.25
+"Planter, double disk opnr w/fluted coulter, 15 inch row spacing",4.875
+"Planter, double disk opnr with starter fertilizer",3.25
+"Planter, double disk opnr, 15 inch row spacing",4.875
+"Planter, double disk opnr, 18 in rows",4.0625
+"Planter, double disk opnr, 40 in rows",1.625
+"Planter, furrow opener in 4 inch deep furrows",7.8
+"Planter, furrow opener in 6 inch deep furrows",23.4
+"Planter, furrow opener in 8 inch deep furrows",41.6
+"Planter, in-row subsoiler",11.7
+"Planter, in-row subsoiler low disturbace",2.34
+"Planter, in-row subsoiler w/ residue mgr.",5.85
+"Planter, narrow slot w/smooth or rippled coulter ",0.8125
+"Planter, potato, 6 in beds",28.665
+"Planter, RELAY INTERCROP,  double disk opnr w/fluted coulter",2.4375
+"Planter, ridge till",10.5625
+"Planter, runner opener",2.6
+"Planter, small veg seed",0.585
+"Planter, small veg seed on 8 inch high beds",0.585
+"Planter, sprig conventional",13
+"Planter, sprig, no-till",0.52
+"Planter, sprigs on beds",26
+"Planter, strip till",4.875
+"Planter, strip till, 22 inch",8.125
+"Planter, strip till, shallow subsoiler",17.103125
+"Planter, strip till, subsoiler",26.203125
+"Planter, sugarcane ",3.12
+"Planter, transplanter, vegetable ",3.12
+"Planter, transplanter, vegetable on 8 inch high beds",3.12
+"Planter, transplanter, vegetable, no-till ",3.12
+"Planter, tree, mechanical transplanter ",4.68
+"Planting, broadcast interseeder",0.15
+"Planting, broadcast seeder",0.15
+"Planting, hand 10 percent dist.",0.26
+"Planting, hand 5 percent dist.",0.13
+"Planting, manual",0.78
+"Planting, manual on 8 inch high beds",0.78
+"Planting, no-til manually",0.78
+"Plastic hoop tunnel installation 100 percent cover",0.0975
+"Plastic hoop tunnel installation 50 percent cover",0.04875
+"Plastic hoop tunnel installation 75 percent cover",0.073125
+"Plastic hoop tunnel installation on beds 50 percent cover",0.04875
+"Plastic hoop tunnel installation on beds 75 percent cover",0.073125
+"Plastic hoop tunnel removal on beds",0.0975
+"Plastic hoop tunnel, removal",0.0975
+"Plastic mulch applic. 40 inch beds 100 percent cover",1.56
+"Plastic mulch applic. 40 inch beds 75 percent cover",1.56
+"Plastic mulch applic. 48 inch beds 100 percent cover",1.326
+"Plastic mulch applic. 48 inch beds 80 percent cover",1.326
+"Plastic mulch applic. 54 inch beds 100 percent cover",1.17
+"Plastic mulch applic. 54 inch beds 80 percent cover",1.17
+"Plastic mulch applic. 64 inch beds 100 percent cover",1.014
+"Plastic mulch applic. 64 inch beds 85 percent cover",1.014
+"Plastic mulch applicator 100 percent cover",1.56
+"Plastic mulch applicator 40 percent cover",1.56
+"Plastic mulch applicator 50 percent cover",1.56
+"Plastic mulch applicator 75 percent cover",1.56
+"Plastic mulch, 05 percent removal ",0.52
+"Plastic mulch, 10 percent removal ",0.52
+"Plastic mulch, 25 percent removal ",0.52
+"Plastic mulch, 50 percent  removal ",0.52
+"Plastic mulch, remove",0.52
+"Plastic weed barrier 40 inch beds 100 percent cover",1.56
+"Plastic weed barrier 40 inch beds 50 percent cover",1.56
+"Plastic weed barrier 40 inch beds 75 percent cover",1.56
+"Plastic weed barrier applicator 100 percent cover",1.56
+"Plastic weed barrier applicator 50 percent cover",1.56
+"Plastic weed barrier applicator 75 percent cover",1.56
+"Plow, deep, large, moldboard",102.375
+"Plow, disk",39
+"Plow, moldboard",65
+"Plow, moldboard 10 inch depth",81.25
+"Plow, moldboard 6-7 inch depth",48.75
+"Plow, moldboard, conservation",41.6
+"Plow, moldboard, up hill",52
+"Plow, oxen 12 in ridge",18.2
+"Plow, oxen 18 in ridge",20.8
+"Plow, oxen on 6 in ridge",15.6
+"Plow, oxen, strip 30 pct disturb",4.68
+"Plow, oxen, strip 60 pct disturb",9.36
+"Plow, reversable",52
+"Power mulcher bed conditioner",9.945
+"Pruning",0
+"Rake or windrower",1.02375
+"Reel disk vertical tiller",44.9475
+"Regrow",0
+"Remove Compost Sock",0.15
+"Remove Silt Fence",0.15
+"Remove Straw Bale",0.15
+"Residue conditioner, coil tine har, rlng bskt",1.56
+"Residue removal by wind",0
+"Residue, row cleaner",1.1375
+"Rice residue stomper",15.6
+"Ripper, intra row",13.1625
+"Ripper, intra row and furrow diker",21.3525
+"Road grader",5.2
+"Rodweeder",17.0625
+"Rodweeder, harrow, spike tooth",19.5
+"Roller harrow",23.725
+"Roller, corrugated packer ",1.4625
+"Roller, corrugated packer 6 by 16",2.925
+"Roller, crimp, covercrop",0.0975
+"Roller, on beds ",0.39
+"Roller, residue ",0.0975
+"Roller, residue incorporator",1.56
+"Roller, row shaper",0.975
+"Roller, smooth ",0.975
+"Rolling basket incorporator",6.825
+"Root rake",36.4
+"Rotary hoe",16.575
+"Rotary hoe, on  heavy soil",16.575
+"Rotary hoe, residue",2.071875
+"Rototiller, field",18.2
+"Rototiller, field, add residue",18.2
+"Rototiller, on beds",8.19
+"Rototiller, row cult add residue",11.6025
+"Rototiller, row cultivator ",8.701875
+"Sand fighter",19.89
+"Scalper, tree",2.574
+"Scarifier",31.2
+"Scraper/pan/grader, clearing/cutting",13
+"Seedbed conditioner, coil tine har, rlng bskt",14.828125
+"Seedbed conditioner, coulter caddy, coil tine har",16.575
+"Seedbed conditioner, coulter caddy, coil tine har, rlng bskt",20.71875
+"Seedbed conditioner, coulter caddy, field cult, spike harrow",22.425
+"Seedbed conditioner, coulter caddy, rtry har",15.84375
+"Seedbed conditioner, coulter caddy, rtry har, rlng bskt",19.9875
+"Seedbed conditioner, coulter caddy, spk har",16.575
+"Seedbed conditioner, coulter caddy, spk har, rlng bskt",18.76875
+"Seedbed finisher",22.2625
+"Seedbed finisher, fld cult, chop, spk har, rlng bskt",39.24375
+"Seedbed finisher, fld cult, coil tine har, rollng bskt",36.31875
+"Seedbed finisher, fld cult, mlch trdr",22.043125
+"Seedbed finisher, fld cult, rtry har",22.2625
+"Seedbed finisher, sngl disk, fld cult, coil tine har, rollng bskt",37.2125
+"Seedbed finisher, sngl disk, rotry har",17.0625
+"Seedbed finisher, sngl dsk, fld cult, coil tine har",35.75
+"Seeder, corrugated packer ",0.975
+"Seeder, dormant, corrugated packer",0.975
+"Seeder, high density vegetable",0.73125
+"Shred residue, 6 inch stubble",0.15
+"Shred standing residue in live cover crop",0.15
+"Shredder, flail or rotary ",0.15
+"Shredder, flail or rotary, add other cover ",0.15
+"Shredder, flail or rotary, filberts and pecans",0.15
+"Shredder, rotary mower ",0.15
+"Shredder, rotary, regrow veg",0.15
+"Shredder, rotary, remove residue",0.15
+"Slip plow 48 to 60 in. deep",21.06
+"Sod cutter",0.24375
+"Sod installation",0
+"Spader",18.2
+"Spader, shallow depth",11.375
+"Spray, glysophate on resistant growing crop",0.15
+"Sprayer, backpack, kill vegetation",0.15
+"Sprayer, backpack, post emergence",0.15
+"Sprayer, defoliant",0.15
+"Sprayer, fungicide",0.15
+"Sprayer, fungicide and insecticide tank mix",0.15
+"Sprayer, growth regulator",0.15
+"Sprayer, insecticide post emergence",0.15
+"Sprayer, kill cover in growing crop",0.15
+"Sprayer, kill cover in growing vegetables",0.15
+"Sprayer, kill crop",0.15
+"Sprayer, kill strips",0.15
+"Sprayer, post emergence",0.15
+"Sprayer, post emergence and fert. tank mix",0.15
+"Sprayer, pre-emergence",0.15
+"Stalk chopper, rolling",31.2
+"Stalk chopper, rolling, light disturbance",7.02
+"Stalk chopper, rolling, on ridgetill ridges",20.28
+"Stalk chopper, rolling, strip",24.96
+"Stalk chopper, rotary",31.2
+"Stalk chopper, strip rotary",24.96
+"Stalk puller",18.72
+"Stalk puller high disturbance",30.42
+"Stalk slicer",6.63
+"Stop Grazing",0
+"Strip till bed conditioner",4.875
+"Striptiller w/middlebuster on beds",7.02
+"Subsoil disk ripper",58.175
+"Subsoil disk ripper, coulter smooth, rlng bskt",66.8078125
+"Subsoil disk ripper, roller smooth",59.15
+"Subsoiler ",32.90625
+"Subsoiler bedder (ripper/hipper)",45.5
+"Subsoiler leveler",37.7325
+"Subsoiler ripper, 24 to 40 in. deep",21.06
+"Subsoiler, 12 foot spacing",6.58125
+"Subsoiler, in row",11.7
+"Subsoiler, in row strip conditioner",14.259375
+"Subsoiler, in row strip conditioner, 40 in row",10.7371875
+"Subsoiler, inline heavy shanks with coulter caddy",39.4875
+"Subsoiler, inline with coulter caddy",35.1
+"Subsoiler, rlng stlk chpr, roller, mulch treader",59.9625
+"Subsoiler, wide spacing",8.775
+"Subsoiler; Stalk chopper, rolling",35.1
+"Sweep plow 20-40 in wide ",9.75
+"Sweep plow wider  than 40 in w/ mulch treader",2.925
+"Sweep plow, under bed",14.625
+"Sweep plow, wider than 40 in ",7.8
+"Sweep, single under row",4.68
+"Sweep, single under row, regrow perennial",3.9
+"temp",1.4625
+"Tree spade, holes left ",18.72
+"Tree spade, holes plugged",4.68
+"Water mulch; off",0
+"Water mulch; on",0
+"Weed control, hoeing in row",0.585
+"Weed control, manual hoe",3.315
+"Weed control, string trimmer",0.15
+"Weeder, finger weeder",0.4875
+"Winter kill annual crop",0

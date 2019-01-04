@@ -1,0 +1,88 @@
+<?php
+/**
+ * @file
+ * Farm soil nrcs install.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function farm_soil_nrcs_schema() {
+  $schema['farm_soil_nrcs_stir'] = array(
+    'description' => 'NRCS STIR values',
+    'fields' => array(
+      'operation' => array(
+        'description' => 'STIR operation name',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => TRUE,
+      ),
+      'stir' => array(
+        'description' => 'STIR value',
+        'type' => 'numeric',
+        'unsigned' => TRUE,
+        'precision' => 10,
+        'scale' => 7,
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('operation'),
+  );
+  return $schema;
+}
+
+/**
+ * Create the farm_soil_nrcs_stir table.
+ */
+function farm_soil_nrcs_update_7000(&$sandbox) {
+
+  // Define the schema.
+  $schema = array(
+    'description' => 'NRCS STIR values',
+    'fields' => array(
+      'operation' => array(
+        'description' => 'STIR operation name',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => TRUE,
+      ),
+      'stir' => array(
+        'description' => 'STIR value',
+        'type' => 'numeric',
+        'unsigned' => TRUE,
+        'precision' => 10,
+        'scale' => 7,
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('operation'),
+  );
+
+  // Install it.
+  db_create_table('farm_soil_nrcs_stir', $schema);
+}
+
+/**
+ * Populate the farm_soil_nrcs_stir table.
+ */
+function farm_soil_nrcs_update_7001(&$sandbox) {
+
+  // Load the STIR-operations.csv data file into NRCS STIR table.
+  $table = 'farm_soil_nrcs_stir';
+  $datapath = drupal_get_path('module', 'farm_soil_nrcs') . '/data';
+  $filepath = $datapath . '/STIR-operations.csv';
+  $handle = fopen($filepath, 'r');
+  $row = fgetcsv($handle);
+  $columns = array();
+  foreach ($row as $i => $header) {
+    $columns[$i] = trim($header);
+  }
+  while ($row = fgetcsv($handle)) {
+    $record = array();
+    foreach ($row as $i => $field) {
+      $record[$columns[$i]] = $field;
+    }
+    drupal_write_record($table, $record);
+  }
+  fclose($handle);
+}
