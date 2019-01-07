@@ -98,7 +98,11 @@ function farm_soil_nrcs_insert_operations() {
     foreach ($row as $i => $field) {
       $record[$columns[$i]] = $field;
     }
-    drupal_write_record($table, $record);
+    $args = array(
+      ':operation' => $record['operation'],
+      ':stir' => $record['stir'],
+    );
+    db_query('INSERT INTO {' . $table . '} SET operation = :operation, stir = :stir', $args);
   }
   fclose($handle);
 }
