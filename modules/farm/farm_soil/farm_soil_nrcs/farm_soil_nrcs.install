@@ -68,6 +68,13 @@ function farm_soil_nrcs_update_7000(&$sandbox) {
 function farm_soil_nrcs_update_7001(&$sandbox) {
 
   // Load the STIR-operations.csv data file into NRCS STIR table.
+  farm_soil_nrcs_insert_operations();
+}
+
+/**
+ * Load the STIR-operations.csv data file into NRCS STIR table.
+ */
+function farm_soil_nrcs_insert_operations() {
   $table = 'farm_soil_nrcs_stir';
   $datapath = drupal_get_path('module', 'farm_soil_nrcs') . '/data';
   $filepath = $datapath . '/STIR-operations.csv';
