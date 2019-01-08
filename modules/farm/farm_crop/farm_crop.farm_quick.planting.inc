@@ -240,7 +240,8 @@ function farm_crop_planting_quick_form($form, &$form_state) {
   $location = '';
   if (!empty($form_values['logs']['transplanting']['location']) ) {
     $location = $form_values['logs']['transplanting']['location'];
-  } else if (!empty($form_values['logs']['seeding']['location'])) {
+  }
+  elseif (!empty($form_values['logs']['seeding']['location'])) {
     $location = $form_values['logs']['seeding']['location'];
   }
 
