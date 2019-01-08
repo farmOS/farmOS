@@ -220,7 +220,7 @@ function farm_crop_planting_quick_form($form, &$form_state) {
   }
 
   // Get the season
-  $season = '';
+  // $season defaults to last used season, above
   if (!empty($form_values['season']) ) {
     $season = $form_values['season'];
   }
