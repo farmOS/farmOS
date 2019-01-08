@@ -219,13 +219,13 @@ function farm_crop_planting_quick_form($form, &$form_state) {
     }
   }
 
-  // Get the season
-  // $season defaults to last used season, above
+  // Get the season.
+  // $season defaults to last used season, above.
   if (!empty($form_values['season']) ) {
     $season = $form_values['season'];
   }
 
-  // Get Crops
+  // Get the array of crops.
   $crop_tags = array();
   if (!empty($form_values['crops']) ) {
     $crop_tags = $form_values['crops'];
@@ -237,7 +237,7 @@ function farm_crop_planting_quick_form($form, &$form_state) {
     implode(', ', $crop_tags),
   );
 
-  // Cannot change the default value without unsetting form_state input
+  // Unset $form_state['input'] in order to change default value via AJAX.
   unset($form_state['input']['planting']['name']);
 
   // Planting asset name.
