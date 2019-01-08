@@ -244,7 +244,7 @@ function farm_crop_planting_quick_form($form, &$form_state) {
     $location = $form_values['logs']['seeding']['location'];
   }
 
-  // The planting will be named based on the season and crop.
+  // The planting will be named based on the season, location and crop.
   $planting_name_parts = array(
     $season,
     $location,
