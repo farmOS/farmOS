@@ -177,6 +177,10 @@ function farm_crop_planting_quick_form($form, &$form_state) {
         '#type' => 'textfield',
         '#title' => t( 'Location'),
         '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_area',
+        '#ajax' => array(
+          'callback' => 'farm_crop_planting_quick_form_name_ajax',
+          'wrapper' => 'planting-name',
+        ),
         '#required' => TRUE,
       ),
       'quantity' => array(
@@ -231,9 +235,19 @@ function farm_crop_planting_quick_form($form, &$form_state) {
     $crop_tags = $form_values['crops'];
   }
 
+  // Get the location.
+  // Use Transplaing, then default to Seeding.
+  $location = '';
+  if (!empty($form_values['logs']['transplanting']['location']) ) {
+    $location = $form_values['logs']['transplanting']['location'];
+  } else if (!empty($form_values['logs']['seeding']['location'])) {
+    $location = $form_values['logs']['seeding']['location'];
+  }
+
   // The planting will be named based on the season and crop.
   $planting_name_parts = array(
     $season,
+    $location,
     implode(', ', $crop_tags),
   );
 
