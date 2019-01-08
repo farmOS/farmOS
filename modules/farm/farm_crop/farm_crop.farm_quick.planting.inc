@@ -177,6 +177,10 @@ function farm_crop_planting_quick_form($form, &$form_state) {
         '#type' => 'textfield',
         '#title' => t( 'Location'),
         '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_area',
+        '#ajax' => array(
+          'callback' => 'farm_crop_planting_quick_form_name_ajax',
+          'wrapper' => 'planting-name',
+        ),
         '#required' => TRUE,
       ),
       'quantity' => array(
@@ -231,11 +235,25 @@ function farm_crop_planting_quick_form($form, &$form_state) {
     $crop_tags = $form_values['crops'];
   }
 
-  // The planting will be named based on the season and crop.
+  // Get the location.
+  // The "final" location of the planting is assumed to be the transplanting
+  // location. If a transplanting is not being created, but a seeding is, then
+  // use the seeding location.
+  $location = '';
+  if (!empty($form_values['logs']['transplanting']['location']) ) {
+    $location = $form_values['logs']['transplanting']['location'];
+  }
+  elseif (!empty($form_values['logs']['seeding']['location'])) {
+    $location = $form_values['logs']['seeding']['location'];
+  }
+
+  // The planting will be named based on the season, location and crop.
   $planting_name_parts = array(
     $season,
+    $location,
     implode(', ', $crop_tags),
   );
+  $planting_name = implode(' ', $planting_name_parts);
 
   // Unset $form_state['input'] in order to change default value via AJAX.
   unset($form_state['input']['planting']['name']);
@@ -244,7 +262,8 @@ function farm_crop_planting_quick_form($form, &$form_state) {
   $form['planting']['name'] = array(
     '#type' => 'textfield',
     '#title' => t('Planting asset name'),
-    '#default_value' => implode(' ', $planting_name_parts),
+    '#description' => t('The planting asset name will default to "[Season] [Location] [Crop(s)]" but can be modified here. If both a seeding and a transplanting log are created, the transplanting location will be used.'),
+    '#default_value' => $planting_name,
     '#prefix' => '<div id="planting-name">',
     '#suffix' => '</div>',
     '#required' => TRUE,
