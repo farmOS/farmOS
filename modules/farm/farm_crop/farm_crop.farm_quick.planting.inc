@@ -251,6 +251,7 @@ function farm_crop_planting_quick_form($form, &$form_state) {
     $location,
     implode(', ', $crop_tags),
   );
+  $planting_name = implode(' ', $planting_name_parts);
 
   // Unset $form_state['input'] in order to change default value via AJAX.
   unset($form_state['input']['planting']['name']);
@@ -260,7 +261,7 @@ function farm_crop_planting_quick_form($form, &$form_state) {
     '#type' => 'textfield',
     '#title' => t('Planting asset name'),
     '#description' => t('The planing asset name will autofill as [Season][Location][Crop(s)] but can be modified here. The transplanting location is used before defaulting to a seeding location.'),
-    '#default_value' => implode(' ', $planting_name_parts),
+    '#default_value' => $planting_name,
     '#prefix' => '<div id="planting-name">',
     '#suffix' => '</div>',
     '#required' => TRUE,
