@@ -29,6 +29,10 @@ function farm_crop_planting_quick_form($form, &$form_state) {
     '#description' => t('What season will this planting be part of? This is used for organizing plantings for future reference, and can be something like "@year" or "@year Summer". This will be prepended to the planting asset name.', array('@year' => date('Y'))),
     '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_season',
     '#default_value' => $season,
+    '#ajax' => array(
+      'callback' => 'farm_crop_planting_quick_form_name_ajax',
+      'wrapper' => 'planting-name',
+    ),
     '#required' => TRUE,
   );
 
@@ -55,6 +59,10 @@ function farm_crop_planting_quick_form($form, &$form_state) {
       '#type' => 'textfield',
       '#title' => t('Crop/variety') . ' ' . ($i+1),
       '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_crop',
+      '#ajax' => array(
+        'callback' => 'farm_crop_planting_quick_form_name_ajax',
+        'wrapper' => 'planting-name',
+      ),
       '#required' => TRUE,
     );
   }
@@ -205,11 +213,37 @@ function farm_crop_planting_quick_form($form, &$form_state) {
     }
   }
 
+  // Alias $form_state['values']['planting'] for easier use.
+  $form_values = array();
+  if (!empty($form_state['values']['planting'])) {
+    $form_values = &$form_state['values']['planting'];
+  }
+
+  // Get the season
+  $season = '';
+  if (!empty($form_values['season']) ) {
+    $season = $form_values['season'];
+  }
+
+  // Get Crops
+  $crop_tags = array();
+  if (!empty($form_values['crops']) ) {
+    $crop_tags = $form_values['crops'];
+  }
+
+  // The planting will be named based on the season and crop.
+  $planting_name_parts = array(
+    $season,
+    implode(', ', $crop_tags),
+  );
+
   // Planting asset name.
   $form['planting']['name'] = array(
     '#type' => 'textfield',
     '#title' => t('Planting asset name'),
-    '#default_value' => t('Placeholder name'),
+    '#value' => implode(' ', $planting_name_parts),
+    '#prefix' => '<div id="planting-name">',
+    '#suffix' => '</div>',
   );
 
   // Submit button.
@@ -234,6 +268,13 @@ function farm_crop_planting_quick_form_crops_ajax($form, &$form_state) {
  */
 function farm_crop_planting_quick_form_logs_ajax($form, &$form_state) {
   return $form['planting']['logs'];
+}
+
+/**
+ * Planting quick form name ajax callback.
+ */
+function farm_crop_planting_quick_form_name_ajax($form, &$form_state) {
+  return $form['planting']['name'];
 }
 
 /**
