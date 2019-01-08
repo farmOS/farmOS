@@ -237,13 +237,17 @@ function farm_crop_planting_quick_form($form, &$form_state) {
     implode(', ', $crop_tags),
   );
 
+  // Cannot change the default value without unsetting form_state input
+  unset($form_state['input']['planting']['name']);
+
   // Planting asset name.
   $form['planting']['name'] = array(
     '#type' => 'textfield',
     '#title' => t('Planting asset name'),
-    '#value' => implode(' ', $planting_name_parts),
+    '#default_value' => implode(' ', $planting_name_parts),
     '#prefix' => '<div id="planting-name">',
     '#suffix' => '</div>',
+    '#required' => TRUE,
   );
 
   // Submit button.
