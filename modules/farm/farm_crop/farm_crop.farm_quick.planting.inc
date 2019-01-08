@@ -236,7 +236,9 @@ function farm_crop_planting_quick_form($form, &$form_state) {
   }
 
   // Get the location.
-  // Use Transplaing, then default to Seeding.
+  // The "final" location of the planting is assumed to be the transplanting
+  // location. If a transplanting is not being created, but a seeding is, then
+  // use the seeding location.
   $location = '';
   if (!empty($form_values['logs']['transplanting']['location']) ) {
     $location = $form_values['logs']['transplanting']['location'];
@@ -260,7 +262,7 @@ function farm_crop_planting_quick_form($form, &$form_state) {
   $form['planting']['name'] = array(
     '#type' => 'textfield',
     '#title' => t('Planting asset name'),
-    '#description' => t('The planing asset name will autofill as [Season][Location][Crop(s)] but can be modified here. The transplanting location is used before defaulting to a seeding location.'),
+    '#description' => t('The planting asset name will default to "[Season] [Location] [Crop(s)]" but can be modified here. If both a seeding and a transplanting log are created, the transplanting location will be used.'),
     '#default_value' => $planting_name,
     '#prefix' => '<div id="planting-name">',
     '#suffix' => '</div>',
