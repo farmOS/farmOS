@@ -57,4 +57,5 @@ The farmOS project is made possible by many supporters.
 * Vern Grubinger
 * Andrew Williams
 * Deon Nteza
+* Paul Weidner
 
