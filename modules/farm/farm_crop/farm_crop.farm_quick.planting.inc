@@ -258,6 +258,7 @@ function farm_crop_planting_quick_form($form, &$form_state) {
   $form['planting']['name'] = array(
     '#type' => 'textfield',
     '#title' => t('Planting asset name'),
+    '#description' => t('The planing asset name will autofill as [Season][Location][Crop(s)] but can be modified here. The transplanting location is used before defaulting to a seeding location.'),
     '#default_value' => implode(' ', $planting_name_parts),
     '#prefix' => '<div id="planting-name">',
     '#suffix' => '</div>',
