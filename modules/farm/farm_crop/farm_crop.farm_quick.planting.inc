@@ -205,6 +205,13 @@ function farm_crop_planting_quick_form($form, &$form_state) {
     }
   }
 
+  // Planting asset name.
+  $form['planting']['name'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Planting asset name'),
+    '#default_value' => t('Placeholder name'),
+  );
+
   // Submit button.
   $form['planting']['submit'] = array(
     '#type' => 'submit',
