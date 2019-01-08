@@ -10,6 +10,12 @@
  */
 function farm_crop_planting_quick_form($form, &$form_state) {
 
+  // Alias $form_state['values']['planting'] for easier use.
+  $form_values = array();
+  if (!empty($form_state['values']['planting'])) {
+    $form_values = &$form_state['values']['planting'];
+  }
+
   // Wrapper fieldset.
   $form['planting'] = array(
     '#type' => 'fieldset',
@@ -29,6 +35,10 @@ function farm_crop_planting_quick_form($form, &$form_state) {
     '#description' => t('What season will this planting be part of? This is used for organizing plantings for future reference, and can be something like "@year" or "@year Summer". This will be prepended to the planting asset name.', array('@year' => date('Y'))),
     '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_season',
     '#default_value' => $season,
+    '#ajax' => array(
+      'callback' => 'farm_crop_planting_quick_form_name_ajax',
+      'wrapper' => 'planting-name',
+    ),
     '#required' => TRUE,
   );
 
@@ -47,14 +57,18 @@ function farm_crop_planting_quick_form($form, &$form_state) {
 
   // Create a field for each crop/variety.
   $crop_count = $crop_count_default;
-  if (!empty($form_state['values']['planting']['crop_count'])) {
-    $crop_count = $form_state['values']['planting']['crop_count'];
+  if (!empty($form_values['crop_count'])) {
+    $crop_count = $form_values['crop_count'];
   }
   for ($i=0; $i<$crop_count; $i++) {
     $form['planting']['crops'][$i] = array(
       '#type' => 'textfield',
       '#title' => t('Crop/variety') . ' ' . ($i+1),
       '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_crop',
+      '#ajax' => array(
+        'callback' => 'farm_crop_planting_quick_form_name_ajax',
+        'wrapper' => 'planting-name',
+      ),
       '#required' => TRUE,
     );
   }
@@ -103,8 +117,8 @@ function farm_crop_planting_quick_form($form, &$form_state) {
 
     // Log checkbox, checked based on $form_state, with default.
     $enabled = !empty($info['enabled']) ? $info['enabled'] : FALSE;
-    if (isset($form_state['values']['planting']['logs'][$name]['enabled'])) {
-      $enabled = $form_state['values']['planting']['logs'][$name]['enabled'];
+    if (isset($form_values['logs'][$name]['enabled'])) {
+      $enabled = $form_values['logs'][$name]['enabled'];
     }
     $form['planting']['logs'][$name]['enabled'] = array(
       '#type' => 'checkbox',
@@ -205,6 +219,37 @@ function farm_crop_planting_quick_form($form, &$form_state) {
     }
   }
 
+  // Get the season.
+  // $season defaults to last used season, above.
+  if (!empty($form_values['season']) ) {
+    $season = $form_values['season'];
+  }
+
+  // Get the array of crops.
+  $crop_tags = array();
+  if (!empty($form_values['crops']) ) {
+    $crop_tags = $form_values['crops'];
+  }
+
+  // The planting will be named based on the season and crop.
+  $planting_name_parts = array(
+    $season,
+    implode(', ', $crop_tags),
+  );
+
+  // Unset $form_state['input'] in order to change default value via AJAX.
+  unset($form_state['input']['planting']['name']);
+
+  // Planting asset name.
+  $form['planting']['name'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Planting asset name'),
+    '#default_value' => implode(' ', $planting_name_parts),
+    '#prefix' => '<div id="planting-name">',
+    '#suffix' => '</div>',
+    '#required' => TRUE,
+  );
+
   // Submit button.
   $form['planting']['submit'] = array(
     '#type' => 'submit',
@@ -227,6 +272,13 @@ function farm_crop_planting_quick_form_crops_ajax($form, &$form_state) {
  */
 function farm_crop_planting_quick_form_logs_ajax($form, &$form_state) {
   return $form['planting']['logs'];
+}
+
+/**
+ * Planting quick form name ajax callback.
+ */
+function farm_crop_planting_quick_form_name_ajax($form, &$form_state) {
+  return $form['planting']['name'];
 }
 
 /**
@@ -258,16 +310,10 @@ function farm_crop_planting_quick_form_submit($form, &$form_state) {
     }
   }
 
-  // The planting will be named based on the season and crop.
-  $planting_name_parts = array(
-    $season,
-    implode(', ', $crop_tags),
-  );
-
   // Create a new planting asset.
   $values = array(
     'type' => 'planting',
-    'name' => implode(' ', $planting_name_parts),
+    'name' => $form_state['values']['planting']['name'],
   );
   $planting_asset = entity_create('farm_asset', $values);
   $planting_wrapper = entity_metadata_wrapper('farm_asset', $planting_asset);
