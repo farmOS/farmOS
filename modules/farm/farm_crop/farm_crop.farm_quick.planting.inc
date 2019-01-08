@@ -10,6 +10,12 @@
  */
 function farm_crop_planting_quick_form($form, &$form_state) {
 
+  // Alias $form_state['values']['planting'] for easier use.
+  $form_values = array();
+  if (!empty($form_state['values']['planting'])) {
+    $form_values = &$form_state['values']['planting'];
+  }
+
   // Wrapper fieldset.
   $form['planting'] = array(
     '#type' => 'fieldset',
@@ -51,8 +57,8 @@ function farm_crop_planting_quick_form($form, &$form_state) {
 
   // Create a field for each crop/variety.
   $crop_count = $crop_count_default;
-  if (!empty($form_state['values']['planting']['crop_count'])) {
-    $crop_count = $form_state['values']['planting']['crop_count'];
+  if (!empty($form_values['crop_count'])) {
+    $crop_count = $form_values['crop_count'];
   }
   for ($i=0; $i<$crop_count; $i++) {
     $form['planting']['crops'][$i] = array(
@@ -111,8 +117,8 @@ function farm_crop_planting_quick_form($form, &$form_state) {
 
     // Log checkbox, checked based on $form_state, with default.
     $enabled = !empty($info['enabled']) ? $info['enabled'] : FALSE;
-    if (isset($form_state['values']['planting']['logs'][$name]['enabled'])) {
-      $enabled = $form_state['values']['planting']['logs'][$name]['enabled'];
+    if (isset($form_values['logs'][$name]['enabled'])) {
+      $enabled = $form_values['logs'][$name]['enabled'];
     }
     $form['planting']['logs'][$name]['enabled'] = array(
       '#type' => 'checkbox',
@@ -211,12 +217,6 @@ function farm_crop_planting_quick_form($form, &$form_state) {
         $form['planting']['logs'][$name][$field] = $field_info[$field];
       }
     }
-  }
-
-  // Alias $form_state['values']['planting'] for easier use.
-  $form_values = array();
-  if (!empty($form_state['values']['planting'])) {
-    $form_values = &$form_state['values']['planting'];
   }
 
   // Get the season
