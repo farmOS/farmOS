@@ -306,16 +306,10 @@ function farm_crop_planting_quick_form_submit($form, &$form_state) {
     }
   }
 
-  // The planting will be named based on the season and crop.
-  $planting_name_parts = array(
-    $season,
-    implode(', ', $crop_tags),
-  );
-
   // Create a new planting asset.
   $values = array(
     'type' => 'planting',
-    'name' => implode(' ', $planting_name_parts),
+    'name' => $form_state['values']['planting']['name'],
   );
   $planting_asset = entity_create('farm_asset', $values);
   $planting_wrapper = entity_metadata_wrapper('farm_asset', $planting_asset);
