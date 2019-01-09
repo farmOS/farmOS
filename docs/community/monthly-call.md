@@ -7,7 +7,7 @@ Refer to the schedule below, and use the "Join Hangout" link to join the call.
 
 ## [Join Hangout]
 
-Calls are currently held on the second Wednesday of the month, at 1pm Eastern
+Calls are currently held on the second Wednesday of the month, at 2pm Eastern
 US time.
 
 Note that Daylight Savings Time is observed in the US, so the time relative to

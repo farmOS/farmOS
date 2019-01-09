@@ -21,7 +21,7 @@ now is laying a strong [groundwork], so that others can more easily join in and
 
 * Drupal.org: [https://drupal.org/project/farm]
 * Github: [https://github.com/farmOS]
-* Monthly call: [Google Hangout] (2nd Wed of the month at 1pm Eastern)
+* Monthly call: [Google Hangout] (2nd Wed of the month at 2pm Eastern)
 * Chat:
     * Riot.im:
         * [#farmOS on Matrix.org] (bridged to #farmOS IRC room on Freenode)
