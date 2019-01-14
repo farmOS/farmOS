@@ -1,0 +1,25 @@
+<?php
+/**
+ * @file
+ * Farm term install.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function farm_term_install() {
+
+  // Override the taxonomy_terms_per_page_admin variable that is used by Drupal
+  // internally to split the /admin/structure/taxonomy/[vocab] form up across
+  // multiple pages. This makes it difficult to rearrange the hierarchy of
+  // terms across pages. So we are just setting this to a very large number to
+  // prevent pagination entirely.
+  variable_set('taxonomy_terms_per_page_admin', 1000000000);
+}
+
+/**
+ * Set the taxonomy_terms_per_page_admin variable to a large number.
+ */
+function farm_term_update_7000(&$sandbox) {
+  variable_set('taxonomy_terms_per_page_admin', 1000000000);
+}
