@@ -5,6 +5,20 @@
  */
 
 /**
+ * Implements hook_init().
+ */
+function farm_term_init() {
+
+  // Override the taxonomy_terms_per_page_admin variable that is used by Drupal
+  // internally to split the /admin/structure/taxonomy/[vocab] form up across
+  // multiple pages. This makes it difficult to rearrange the hierarchy of
+  // terms across pages. So we are just setting this to a very large number to
+  // prevent pagination entirely.
+  global $conf;
+  $conf['taxonomy_terms_per_page_admin'] = 1000000000;
+}
+
+/**
  * Create a new taxonomy term or load an existing term by name.
  *
  * @param string $name
