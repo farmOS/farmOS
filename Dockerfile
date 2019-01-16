@@ -2,7 +2,7 @@
 FROM drupal:7
 
 # Set environment variables.
-ENV FARMOS_VERSION 7.x-1.0-rc1
+ENV FARMOS_VERSION 7.x-1.0-rc2
 ENV FARMOS_DEV_BRANCH 7.x-1.x
 ENV FARMOS_DEV false
 
