@@ -12,7 +12,7 @@ includes[] = drupal-org-core.make
 ; -----------------------------------------------------------------------------
 
 projects[farm][type] = profile
-projects[farm][version] = 1.0-rc2
-;projects[farm][download][type] = git
-;projects[farm][download][url] = http://git.drupal.org/project/farm.git
-;projects[farm][download][branch] = 7.x-1.x
+;projects[farm][version] = 1.0-rc2
+projects[farm][download][type] = git
+projects[farm][download][url] = http://git.drupal.org/project/farm.git
+projects[farm][download][branch] = 7.x-1.x
