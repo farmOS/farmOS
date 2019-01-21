@@ -58,7 +58,7 @@ class farm_asset_handler_relationship_entity_reverse extends views_handler_relat
         0 => array(
           'field' => 'archived',
           'operator' => 'IS',
-          'value' => NULL,
+          'value' => 0,
           'numeric' => TRUE,
         ),
       );

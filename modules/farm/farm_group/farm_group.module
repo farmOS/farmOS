@@ -463,7 +463,7 @@ function farm_group_options($archived = FALSE) {
 
   // Limit to non-archived groups.
   if (empty($archived)) {
-    $query->propertyCondition('archived', NULL);
+    $query->propertyCondition('archived', 0);
   }
 
   // Execute the query and build a list of options.
@@ -751,7 +751,7 @@ function farm_group_members_query($group_id, $time = REQUEST_TIME, $done = TRUE,
   // Exclude archived assets, if requested.
   if (empty($archived)) {
     $query->join('farm_asset', 'ss_current_log_fa', "ss_asset_current_log.field_farm_asset_target_id = ss_current_log_fa.id");
-    $query->where('ss_current_log_fa.archived IS NULL');
+    $query->where('ss_current_log_fa.archived = 0');
   }
 
   // Add the asset ID field.

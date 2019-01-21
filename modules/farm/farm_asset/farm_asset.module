@@ -440,7 +440,7 @@ function farm_asset_unarchive_action(FarmAsset $asset, $context = array()) {
   }
 
   // Un-archive the asset..
-  $asset->archived = NULL;
+  $asset->archived = 0;
 
   // Save the asset.
   farm_asset_save($asset);

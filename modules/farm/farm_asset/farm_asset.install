@@ -68,6 +68,8 @@ function farm_asset_schema() {
       'archived' => array(
         'description' => 'Timestamp when the asset was archived',
         'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
       ),
     ),
     'primary key' => array('id'),
@@ -186,4 +188,30 @@ function farm_asset_update_7003(&$sandbox) {
 
   // Drop the active field.
   db_drop_field('farm_asset', 'active');
+}
+
+/**
+ * Change default value of asset archived property to 0 instead of null.
+ */
+function farm_asset_update_7004(&$sandbox) {
+
+  // Drop the index.
+  db_drop_index('farm_asset', 'archived');
+
+  // Set all NULL values to 0.
+  db_query('UPDATE {farm_asset} SET archived = 0 WHERE archived IS NULL');
+
+  // Change the field.
+  $archived = array(
+    'description' => 'Timestamp when the asset was archived',
+    'type' => 'int',
+    'not null' => TRUE,
+    'default' => 0,
+  );
+  $archived_keys = array(
+    'indexes' => array(
+      'archived' => array('archived'),
+    ),
+  );
+  db_change_field('farm_asset', 'archived', 'archived', $archived, $archived_keys);
 }

@@ -23,7 +23,7 @@ class farm_group_handler_filter_asset_group extends farm_fields_handler_filter_e
     $query = db_select('farm_asset', 'fa');
     $query->addField('fa', 'id');
     $query->condition('fa.type', 'group');
-    $query->condition('fa.archived', NULL);
+    $query->condition('fa.archived', 0);
     $query->orderby('fa.name');
 
     // Execute the query.

@@ -185,9 +185,9 @@ function farm_asset_form_validate(array $form, array &$form_state) {
       $form_state['values']['archived'] = REQUEST_TIME;
     }
 
-    // Otherwise, set the asset's archived date to NULL.
+    // Otherwise, set the asset's archived date to 0.
     else {
-      $form_state['values']['archived'] = NULL;
+      $form_state['values']['archived'] = 0;
     }
   }
 }
