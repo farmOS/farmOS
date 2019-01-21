@@ -49,6 +49,7 @@ function farm_quantity_report_views_default_views() {
     'type' => 'type',
     'name' => 'name',
     'field_farm_asset' => 'field_farm_asset',
+    'field_farm_area' => 'field_farm_area',
     'field_farm_flags' => 'field_farm_flags',
     'field_farm_log_category' => 'field_farm_log_category',
     'field_farm_quantity_measure' => 'field_farm_quantity_measure',
@@ -101,6 +102,11 @@ function farm_quantity_report_views_default_views() {
       'empty_column' => 0,
     ),
     'field_farm_asset' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_area' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -212,6 +218,12 @@ function farm_quantity_report_views_default_views() {
     'link' => 1,
   );
   $handler->display->display_options['fields']['field_farm_asset']['delta_offset'] = '0';
+  /* Field: Log: Areas */
+  $handler->display->display_options['fields']['field_farm_area']['id'] = 'field_farm_area';
+  $handler->display->display_options['fields']['field_farm_area']['table'] = 'field_data_field_farm_area';
+  $handler->display->display_options['fields']['field_farm_area']['field'] = 'field_farm_area';
+  $handler->display->display_options['fields']['field_farm_area']['relationship'] = 'field_farm_quantity_log';
+  $handler->display->display_options['fields']['field_farm_area']['delta_offset'] = '0';
   /* Field: Field: Flags */
   $handler->display->display_options['fields']['field_farm_flags']['id'] = 'field_farm_flags';
   $handler->display->display_options['fields']['field_farm_flags']['table'] = 'field_data_field_farm_flags';
@@ -368,6 +380,21 @@ function farm_quantity_report_views_default_views() {
   $handler->display->display_options['filters']['field_farm_log_category_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_farm_log_category_tid']['vocabulary'] = 'farm_log_categories';
   $handler->display->display_options['filters']['field_farm_log_category_tid']['hierarchy'] = 1;
+  /* Filter criterion: Log: Areas (field_farm_area) */
+  $handler->display->display_options['filters']['field_farm_area_tid']['id'] = 'field_farm_area_tid';
+  $handler->display->display_options['filters']['field_farm_area_tid']['table'] = 'field_data_field_farm_area';
+  $handler->display->display_options['filters']['field_farm_area_tid']['field'] = 'field_farm_area_tid';
+  $handler->display->display_options['filters']['field_farm_area_tid']['relationship'] = 'field_farm_quantity_log';
+  $handler->display->display_options['filters']['field_farm_area_tid']['group'] = 1;
+  $handler->display->display_options['filters']['field_farm_area_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_area_tid']['expose']['operator_id'] = 'field_farm_area_tid_op';
+  $handler->display->display_options['filters']['field_farm_area_tid']['expose']['label'] = 'Areas';
+  $handler->display->display_options['filters']['field_farm_area_tid']['expose']['operator'] = 'field_farm_area_tid_op';
+  $handler->display->display_options['filters']['field_farm_area_tid']['expose']['identifier'] = 'field_farm_area_tid';
+  $handler->display->display_options['filters']['field_farm_area_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_area_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_farm_area_tid']['vocabulary'] = 'farm_areas';
+  $handler->display->display_options['filters']['field_farm_area_tid']['hierarchy'] = 1;
   /* Filter criterion: Field collection item: Measure (field_farm_quantity_measure) */
   $handler->display->display_options['filters']['field_farm_quantity_measure_value']['id'] = 'field_farm_quantity_measure_value';
   $handler->display->display_options['filters']['field_farm_quantity_measure_value']['table'] = 'field_data_field_farm_quantity_measure';
@@ -487,6 +514,7 @@ function farm_quantity_report_views_default_views() {
     t('Log type'),
     t('Log name'),
     t('Assets'),
+    t('Areas'),
     t('Flags'),
     t('Log category'),
     t('Measure'),
