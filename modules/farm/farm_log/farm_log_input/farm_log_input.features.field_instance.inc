@@ -597,7 +597,7 @@ function farm_log_input_field_default_field_instances() {
     'bundle' => 'farm_input',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'What material is being applied? As you type, you will have the option of selecting from materials that you\'ve entered in the past.',
+    'description' => 'What materials are being applied? As you type, you will have the option of selecting from materials that you\'ve entered in the past. Separate multiple materials with a comma.',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -615,7 +615,7 @@ function farm_log_input_field_default_field_instances() {
     ),
     'entity_type' => 'log',
     'field_name' => 'field_farm_material',
-    'label' => 'Material',
+    'label' => 'Materials',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -761,7 +761,7 @@ function farm_log_input_field_default_field_instances() {
   t('Input lot number');
   t('Inventory adjustments');
   t('Log category');
-  t('Material');
+  t('Materials');
   t('Movement');
   t('Notes');
   t('Optionally assign this task to one or more people.');
@@ -775,7 +775,7 @@ function farm_log_input_field_default_field_instances() {
   t('Use this to set or adjust asset inventory levels along with this log.');
   t('What areas is this input being applied to?');
   t('What assets do this input log pertain to?');
-  t('What material is being applied? As you type, you will have the option of selecting from materials that you\'ve entered in the past.');
+  t('What materials are being applied? As you type, you will have the option of selecting from materials that you\'ve entered in the past. Separate multiple materials with a comma.');
   t('What was the purpose of this input?');
   t('When was this input purchased (if applicable)?');
   t('Where was this input obtained? Who manufactured it?');
