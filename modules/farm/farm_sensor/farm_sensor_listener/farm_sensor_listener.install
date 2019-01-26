@@ -22,6 +22,8 @@ function farm_sensor_listener_schema() {
       'timestamp' => array(
         'description' => 'Timestamp of the sensor reading',
         'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
       ),
       'name' => array(
         'description' => 'Sensor reading name',
@@ -51,4 +53,30 @@ function farm_sensor_listener_schema() {
     ),
   );
   return $schema;
+}
+
+/**
+ * Do not allow null timestamp values in sensor data table.
+ */
+function farm_sensor_listener_update_7000(&$sandbox) {
+
+  // Drop the index.
+  db_drop_index('farm_sensor_data', 'timestamp');
+
+  // Set all NULL values to 0.
+  db_query('UPDATE {farm_sensor_data} SET timestamp = 0 WHERE timestamp IS NULL');
+
+  // Change the field.
+  $timestamp = array(
+    'description' => 'Timestamp of the sensor reading',
+    'type' => 'int',
+    'not null' => TRUE,
+    'default' => 0,
+  );
+  $timestamp_keys = array(
+    'indexes' => array(
+      'timestamp' => array('timestamp'),
+    ),
+  );
+  db_change_field('farm_sensor_data', 'timestamp', 'timestamp', $timestamp, $timestamp_keys);
 }
