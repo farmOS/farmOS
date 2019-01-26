@@ -61,6 +61,7 @@ included in this list, add a comment to [this issue on Github].
 * Tuckaway Farm (Lee, New Hampshire)
 * University of New Hampshire (Durham, New Hampshire)
 * Walden Creek Farm (Elgin, Texas)
+* Wild Art Farm (Weed, Kentucky)
 * Wolfe's Neck Farm (Freeport, Maine)
 
 [this issue on Github]: https://github.com/farmOS/farmOS.org/issues/12
