@@ -4,3 +4,42 @@
  * @file
  * Farm API module.
  */
+
+/**
+ * Implements hook_permission().
+ */
+function farm_api_permission() {
+  $perms = array(
+    'access farm api info' => array(
+      'title' => t('Access the farmOS API info endpoint'),
+    ),
+  );
+  return $perms;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function farm_api_menu() {
+
+  // General farm information JSON endpoint.
+  $items['farm.json'] = array(
+    'page callback' => 'farm_api_info',
+    'access arguments' => array('access farm api info'),
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+/**
+ * Farm info API callback.
+ */
+function farm_api_info() {
+  global $conf, $base_url;
+  $info = array(
+    'name' => $conf['site_name'],
+    'url' => $base_url,
+  );
+  drupal_json_output($info);
+}
