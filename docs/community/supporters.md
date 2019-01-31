@@ -33,7 +33,7 @@ The farmOS project is made possible by many supporters.
 
 ## Individuals
 
-* [Michael Stenta](http://mstenta.net)
+* Michael Stenta
 * Dorn Cox
 * RJ Steinert
 * Bruce Dawson
@@ -50,7 +50,7 @@ The farmOS project is made possible by many supporters.
 * Brooks Miller
 * Franklin Egan
 * Chris Callahan
-* [Stephen Woodbridge](http://imaptools.com)
+* Stephen Woodbridge
 * Andy Grimley
 * Sallie Calhoun
 * Becky Maden
