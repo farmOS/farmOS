@@ -10,8 +10,9 @@ It is built on [Drupal], which makes it [modular], [extensible], and [secure].
 Both Drupal and farmOS are licensed under the [GNU General Public License],
 which means they are [free] and [open source].
 
-For more information, read through some of the [Frequently Asked Questions].
+To learn how to use farmOS, refer to the [User Guide].
 
+For more information, read the [Frequently Asked Questions].
 
 ## Quick Links
 
@@ -70,6 +71,7 @@ The full workshop recording is available on YouTube:
 [modular]: http://en.wikipedia.org/wiki/Modular_programming
 [extensible]: https://www.drupal.org/download
 [secure]: http://www.drupal.org/documentation/is-drupal-secure
+[User Guide]: /guide
 [Frequently Asked Questions]: /faq
 [UVM Extension]: https://www.uvm.edu/extension
 [Agricultural Engineering Program]: https://www.uvm.edu/extension/agriculture/agricultural_engineering
