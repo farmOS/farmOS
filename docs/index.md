@@ -30,7 +30,9 @@ For more information, read the [Frequently Asked Questions].
 * Twitter: [@farmOSorg]
 * Twitter: [@getFarmier]
 
-## Motivations
+## Media
+
+### Motivations
 
 In this video by Chris Callahan at [UVM Extension]'s
 [Agricultural Engineering Program], Michael Stenta provides an overview of the
@@ -40,21 +42,21 @@ the development framework and why it is open-source. Available on YouTube:
 
 <iframe width="640" height="360" src="https://www.youtube.com/embed/ATUEWrlDbWw?rel=0" frameborder="0" allowfullscreen></iframe>
 
-## GODAN Documentary Web Series
+### GODAN Documentary Web Series
 
 farmOS was featured in the [GODAN Documentary Web Series: "OPEN FARMS"],
 available on YouTube: [https://youtu.be/bCOqg5iH6fM]
 
 <iframe width="640" height="360" src="https://www.youtube.com/embed/bCOqg5iH6fM?rel=0" frameborder="0" allowfullscreen></iframe>
 
-## CNBC Special
+### CNBC Special
 
 farmOS was featured in a CNBC special:
 [CNBC: The Future Of Farming Is Utilizing Data In An Open Source Network Of Farmers].
 
 <iframe width="640" height="360" src="https://www.youtube.com/embed/zua1y-hBcGc?rel=0" frameborder="0" allowfullscreen></iframe>
 
-## 2017 NOFA Summer Conference
+### 2017 NOFA Summer Conference
 
 Michael Stenta presented a farmOS workshop at the 2017 [NOFA Summer Conference].
 It covers the core features of farmOS, how to get started, where to find help,
