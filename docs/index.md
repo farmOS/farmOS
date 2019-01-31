@@ -1,9 +1,10 @@
 ![farmOS](/img/farmOS.png)
 
-# Overview
-
+**
 farmOS is a web-based application for farm management, planning, and record
-keeping.
+keeping. It is developed by a community of volunteers and aims to provide a
+standard platform for farmers, developers, and researchers to build upon.
+**
 
 It is built on [Drupal], which makes it [modular], [extensible], and [secure].
 Both Drupal and farmOS are licensed under the [GNU General Public License],
