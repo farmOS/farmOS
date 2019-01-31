@@ -17,7 +17,7 @@ For more information, read the [Frequently Asked Questions].
 
 ## Quick Links
 
-* Monthly call: [Google Hangout] (2nd Wed of the month at 2pm Eastern)
+* [Monthly call]
 * Chat:
     * Riot.im:
         * [#farmOS on Matrix.org] (bridged to #farmOS IRC room on Freenode)
@@ -92,7 +92,7 @@ The full workshop recording is available on YouTube:
 [contribute]: /community/contribute
 [https://drupal.org/project/farm]: https://drupal.org/project/farm
 [https://github.com/farmOS]: https://github.com/farmOS
-[Google Hangout]: https://plus.google.com/hangouts/_/farmier.com/farmos-monthly
+[Monthly call]: /community/monthly-call
 [#farmOS on Matrix.org]: https://riot.im/app/#/room/#farmOS:matrix.org
 [#FIot on Matrix.org]: https://riot.im/app/#/room/#fiot:matrix.org
 [#farmOS on Freenode]: http://webchat.freenode.net/?channels=#farmOS
