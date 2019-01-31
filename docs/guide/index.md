@@ -73,7 +73,7 @@ them easier.
 
 [Hosting farmOS]: /hosting
 [Contributing to farmOS]: /community/contribute
-[Farmier]: http://farmier.com
+[Farmier]: https://farmier.com
 [Areas]: /guide/areas
 [Assets]: /guide/assets
 [Logs]: /guide/logs

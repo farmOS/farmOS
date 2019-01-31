@@ -56,7 +56,7 @@ some free time this winter? Consider getting involved in the farmOS development
 process. There's a lot to do! And the more folks who can get involved, the more
 we'll get done! Feel free to jump into the [issue queues] to get started!
 
-[Farmier]: http://farmier.com
+[Farmier]: https://farmier.com
 [issue queues]: /development/issue-queues
 [farmOS Monthly Call]: /community/monthly-call
 [#farmOS room on Matrix.org]: https://riot.im/app/#/room/#farmOS:matrix.org

@@ -68,7 +68,7 @@ them different [levels of permission].
 
 [UVM Extension]: https://www.uvm.edu/extension
 [Agricultural Engineering Program]: https://www.uvm.edu/extension/agriculture/agricultural_engineering
-[Farmier]: http://farmier.com
+[Farmier]: https://farmier.com
 [https://youtu.be/1wXD_K7Y_aI]: https://youtu.be/1wXD_K7Y_aI
 [An Introduction to Entities]: http://www.drupal.org/node/1261744
 [core set of log types]: /guide/logs

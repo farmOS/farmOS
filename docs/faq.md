@@ -166,7 +166,7 @@ language, open an issue in the [issue queues] and let's get started!
 [Twitter]: https://twitter.com/getfarmier
 [Farms using farmOS]: /community/farms
 [Drupal.org Usage Statistics]: https://drupal.org/project/usage/farm
-[Farmier]: http://farmier.com
+[Farmier]: https://farmier.com
 [User Guide]: /guide
 [Bootstrap framework]: http://getbootstrap.com
 [Eric S. Raymond]: https://en.wikipedia.org/wiki/Eric_S._Raymond

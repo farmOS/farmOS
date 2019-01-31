@@ -34,5 +34,5 @@ and are an easy way to get up and running with farmOS quickly.
 
 [Drupal]: http://drupal.org
 [farmOS Installation Documentation]: /hosting/installing
-[Farmier]: http://farmier.com
+[Farmier]: https://farmier.com
 

@@ -4,7 +4,7 @@ The farmOS project is made possible by many supporters.
 
 ## Organizations
 
-* [Farmier](http://farmier.com)
+* [Farmier](https://farmier.com)
 * [Farm Hack](http://farmhack.org)
 * [Green Start](http://www.greenstartnh.org)
 * [Cornell Soil Health](http://soilhealth.cals.cornell.edu)

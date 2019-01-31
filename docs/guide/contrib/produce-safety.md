@@ -152,7 +152,7 @@ activity log with the "Produce Safety" category applied.
 [Food Safety Modernization Act]: https://www.fda.gov/food/guidanceregulation/fsma
 [FSMA Final Rule on Produce Safety]: https://www.fda.gov/Food/GuidanceRegulation/FSMA/ucm334114.htm
 [Produce Safety Alliance]: https://producesafetyalliance.cornell.edu
-[Farmier]: http://farmier.com
+[Farmier]: https://farmier.com
 [Introduction]: /guide
 [Areas]: /guide/areas
 [Logs]: /guide/logs
