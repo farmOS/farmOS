@@ -69,7 +69,7 @@ and community discussions.
 
 When farmOS is mentioned in the media, a link is added to the [Press] page.
 
-Updates on farmOS development are also available on the Farmier [Blog] and
+Updates on farmOS development are also available on the Farmier newsleter and
 [Twitter] account. [Farmier] is run by the lead developer of farmOS.
 
 ## Why farmOS?
@@ -162,7 +162,6 @@ language, open an issue in the [issue queues] and let's get started!
 
 [release notes]: https://drupal.org/project/farm/releases
 [Press]: /community/press
-[Blog]: http://farmier.com/news
 [Twitter]: https://twitter.com/getfarmier
 [Farms using farmOS]: /community/farms
 [Drupal.org Usage Statistics]: https://drupal.org/project/usage/farm
