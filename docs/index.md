@@ -12,11 +12,6 @@ which means they are [free] and [open source].
 
 For more information, read through some of the [Frequently Asked Questions].
 
-## Status
-
-farmOS is under active development, but is still relatively new. The focus right
-now is laying a strong [groundwork], so that others can more easily join in and
-[contribute].
 
 ## Quick Links
 
