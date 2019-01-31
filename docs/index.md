@@ -6,9 +6,10 @@ keeping. It is developed by a community of volunteers and aims to provide a
 standard platform for farmers, developers, and researchers to build upon.
 **
 
-It is built on [Drupal], which makes it [modular], [extensible], and [secure].
-Both Drupal and farmOS are licensed under the [GNU General Public License],
-which means they are [free] and [open source].
+The farmOS server is built on top of [Drupal], which makes it [modular],
+[extensible], and [secure]. A [client app] is also in the works to provide
+native (Android/iOS) and offline functionality. Both are licensed under the
+[GNU General Public License], which means they are [free] and [open source].
 
 To learn how to use farmOS, refer to the [User Guide].
 
@@ -16,14 +17,16 @@ For more information, read the [Frequently Asked Questions].
 
 ## Quick Links
 
-* Drupal.org: [https://drupal.org/project/farm]
-* Github: [https://github.com/farmOS]
 * Monthly call: [Google Hangout] (2nd Wed of the month at 2pm Eastern)
 * Chat:
     * Riot.im:
         * [#farmOS on Matrix.org] (bridged to #farmOS IRC room on Freenode)
         * [#FIot on Matrix.org] (Farm Internet of Things)
     * IRC: [#farmOS on Freenode] (requires a registered name)
+* Code repositories:
+    * Drupal.org: [https://drupal.org/project/farm]
+    * GitHub: [https://github.com/farmOS/farmOS]
+    * Client app: [https://github.com/farmOS/farmOS-client]
 * Twitter: [@farmOSorg]
 * Twitter: [@getFarmier]
 
@@ -71,6 +74,7 @@ The full workshop recording is available on YouTube:
 [modular]: http://en.wikipedia.org/wiki/Modular_programming
 [extensible]: https://www.drupal.org/download
 [secure]: http://www.drupal.org/documentation/is-drupal-secure
+[client app]: https://github.com/farmOS/farmOS-client
 [User Guide]: /guide
 [Frequently Asked Questions]: /faq
 [UVM Extension]: https://www.uvm.edu/extension
