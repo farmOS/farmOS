@@ -9,6 +9,8 @@ about farmOS, [contact m.stenta](https://farmier.com/contact).
 
 **2018 November 1st** [Frontiers in Ecology and the Environment: Global citizen science for people](https://esajournals.onlinelibrary.wiley.com/doi/full/10.1002/fee.1969)
 
+**2018 October 31st** [H2S Media: 7 Open source and Free Farm management software](https://www.how2shout.com/tools/open-source-free-farm-management-software.html)
+
 **2018 September 6th** [Jamie Gaehring: Local Development](https://jgaehring.com/blog/local-development/)
 
 **2018 March 27th** [Dorn Cox, founder of farmOS, earns new national conservation award](http://www.fosters.com/news/20180327/dorn-cox-founder-of-farmos-earns-new-national-conservation-award)
