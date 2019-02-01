@@ -7,19 +7,11 @@
 [![Twitter](https://img.shields.io/twitter/follow/farmOSorg.svg?label=%40farmOSorg&style=flat)](https://twitter.com/farmOSorg)
 [![Chat](https://img.shields.io/matrix/farmOS:matrix.org.svg)](https://riot.im/app/#/room/#farmOS:matrix.org)
 
-Documentation: https://farmOS.org
+farmOS is a web-based application for farm management, planning, and record
+keeping. It is developed by a community of volunteers and aims to provide a
+standard platform for farmers, developers, and researchers to build upon.
 
-Drupal distribution: http://drupal.org/project/farm
-
-A web-based farm record keeping application.
-
-farmOS is a built on top of [Drupal](http://drupal.org). It packages Drupal core
-along with a set of modules and configuration to create a flexible and
-extensible farm management interface.
-
-Drupal.org is the location of the canonical repository and mainline branch.
-GitHub is also used as a mirror, and for some of the more experimental
-development. See http://github.com/farmOS for a list of related repositories.
+Official website: [farmOS.org](https://farmOS.org)
 
 ## INSTALLATION
 
