@@ -13,12 +13,13 @@ standard platform for farmers, developers, and researchers to build upon.
 
 Official website: [farmOS.org](https://farmOS.org)
 
-## INSTALLATION
+## GETTING STARTED
 
-For more information on installing farmOS, see the official documentation on
-farmOS.org:
+If you would like to install and host farmOS yourself, see the official
+documentation on farmOS.org: https://farmOS.org/hosting/installing
 
-https://farmOS.org/hosting/installing
+If you would like to pay for hosting, [Farmier](https://farmier.com) provides
+affordable options for individual farms and organizations.
 
 ## MAINTAINERS
 
