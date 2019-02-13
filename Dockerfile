@@ -69,10 +69,10 @@ RUN curl -fsSL -o /usr/local/bin/drush "https://github.com/drush-ops/drush/relea
 RUN apt-get update && apt-get install -y git unzip
 
 # Mount a volume at /var/www/html.
-VOLUME /var/www/html
+VOLUME /var/www/html/sites/default
 
 # Set the entrypoint.
-COPY docker-entrypoint.sh /usr/local/bin/
-RUN chmod u+x /usr/local/bin/docker-entrypoint.sh
-ENTRYPOINT ["docker-entrypoint.sh"]
+COPY build-farmos.sh /tmp
+RUN chmod u+x /tmp/build-farmos.sh
+RUN /tmp/build-farmos.sh
 CMD ["apache2-foreground"]
