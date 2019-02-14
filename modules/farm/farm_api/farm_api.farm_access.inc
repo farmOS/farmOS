@@ -14,6 +14,7 @@ function farm_api_farm_access_perms($role) {
   $perms[] = 'access farm api info';
   $perms[] = 'access resource farm_asset';
   $perms[] = 'access resource field_collection_item';
+  $perms[] = 'access resource file';
   $perms[] = 'access resource log';
   $perms[] = 'access resource taxonomy_term';
   $perms[] = 'access resource taxonomy_vocabulary';
