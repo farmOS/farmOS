@@ -785,6 +785,15 @@ function farm_update_7045(&$sandbox) {
 }
 
 /**
+ * Uninstall Role Delegation
+ */
+function farm_update_7046(&$sandbox) {
+
+  // Uninstall Role Delegation.
+  db_query("DELETE FROM {system} WHERE name = 'role_delegation' AND type = 'module'");
+}
+
+/**
  * Update helper function: enable modules.
  */
 function _farm_update_enable_modules($modules = array()) {

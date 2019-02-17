@@ -148,9 +148,6 @@ projects[restws_file][download][branch] = "7.x-1.x"
 ; Ensure that files are saved to the correct directory.
 projects[restws_file][patch][] = "http://www.drupal.org/files/issues/2018-08-14/restws_file_field_info_file_directory-2780125-11.patch"
 
-projects[role_delegation][subdir] = "contrib"
-projects[role_delegation][version] = "1.1"
-
 projects[service_container][subdir] = "contrib"
 projects[service_container][version] = "1.0-beta5"
 
