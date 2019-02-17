@@ -44,7 +44,9 @@ function _farm_ui_menu_local_tasks_alter(&$data, $router_item, $root_path) {
       $link = farm_ui_action_link($actions[$name]['title'], $actions[$name]['href'], array('destination' => 'farm/asset/' . $asset_id, 'farm_asset' => $asset_id));
 
       // Add the action link to the output.
-      $data['actions']['output'][] = $link;
+      if (!empty($link)) {
+        $data['actions']['output'][] = $link;
+      }
     }
   }
 
@@ -71,7 +73,9 @@ function _farm_ui_menu_local_tasks_alter(&$data, $router_item, $root_path) {
       $link = farm_ui_action_link($actions[$name]['title'], $actions[$name]['href'], array('destination' => $root_path));
 
       // Add the action link to the output.
-      $data['actions']['output'][] = $link;
+      if (!empty($link)) {
+        $data['actions']['output'][] = $link;
+      }
     }
   }
 
@@ -110,7 +114,9 @@ function _farm_ui_menu_local_tasks_alter(&$data, $router_item, $root_path) {
       }
 
       // Add the action link to the output.
-      $data['actions']['output'][] = $link;
+      if (!empty($link)) {
+        $data['actions']['output'][] = $link;
+      }
     }
   }
 }
@@ -120,22 +126,25 @@ function _farm_ui_menu_local_tasks_alter(&$data, $router_item, $root_path) {
  *
  * @param string $title
  *   The title of the action link.
- * @param string $href
- *   The href path of the action link.
+ * @param string $path
+ *   The path of the action link.
  * @param array $query
  *   An array of additional query parameters to add.
  *
  * @return array
- *   Returns an action link.
+ *   Returns an action link if the path is valid.
  *
  * @see farm_ui_menu_local_tasks_alter()
  */
-function farm_ui_action_link($title, $href, $query = array()) {
+function farm_ui_action_link($title, $path, $query = array()) {
+  if (!drupal_valid_path($path)) {
+    return array();
+  }
   $action_link = array(
     '#theme' => 'menu_local_action',
     '#link' => array(
       'title' => $title,
-      'href' => $href,
+      'href' => $path,
       'localized_options' => array(
         'query' => $query,
       ),
