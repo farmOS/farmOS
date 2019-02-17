@@ -102,14 +102,6 @@ function taxonomy_farm_access_perms($role) {
 function user_farm_access_perms($role) {
   $perms = array();
 
-  // Load the list of farm roles.
-  $roles = farm_access_roles();
-
-  // If this role has 'config' access, allow them to administer users.
-  if (!empty($roles[$role]['access']['config'])) {
-    $perms[] = 'administer users';
-  }
-
   // Allow all roles to view user profiles.
   $perms[] = 'access user profiles';
 
