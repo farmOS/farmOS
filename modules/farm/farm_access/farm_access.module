@@ -450,12 +450,10 @@ function farm_access_modules_enabled($modules) {
  */
 function farm_access_form_alter(&$form, &$form_state, $form_id) {
 
-  // Add our submit function to the core permissions form.
+  // Add our submit function to the core permissions form if farm roles exist.
   if ($form_id == 'user_admin_permissions') {
-
-    // Only if the role exists...
-    $role = user_role_load_by_name('Farm Manager');
-    if (!empty($role)) {
+    $roles = farm_access_roles();
+    if (!empty($roles)) {
       $form['#submit'][] = 'farm_access_permissions_form_submit';
     }
   }
