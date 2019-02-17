@@ -78,28 +78,6 @@ function system_farm_access_perms($role) {
 /**
  * Implements hook_farm_access_perms().
  */
-function role_delegation_farm_access_perms($role) {
-  $perms = array();
-
-  // Load the list of farm roles.
-  $roles = farm_access_roles();
-
-  // If this role has 'config' access, allow them to delegate roles.
-  if (!empty($roles[$role]['access']['config'])) {
-    foreach ($roles as $role) {
-      if (empty($role['name'])) {
-        continue;
-      }
-      $perms[] = 'assign ' . $role['name'] . ' role';
-    }
-  }
-
-  return $perms;
-}
-
-/**
- * Implements hook_farm_access_perms().
- */
 function taxonomy_farm_access_perms($role) {
 
   // Use the helper function to generate a list of entity type bundles
