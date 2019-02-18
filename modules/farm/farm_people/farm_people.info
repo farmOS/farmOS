@@ -6,7 +6,6 @@ dependencies[] = ctools
 dependencies[] = entityreference
 dependencies[] = farm_log
 dependencies[] = features
-dependencies[] = role_delegation
 dependencies[] = views
 dependencies[] = views_bulk_operations
 features[ctools][] = views:views_default:3.0

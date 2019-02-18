@@ -39,7 +39,6 @@ function farm_people_views_default_views() {
   $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all'] = TRUE;
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
-    'views_bulk_operations' => 'views_bulk_operations',
     'uid' => 'uid',
     'name' => 'name',
     'mail' => 'mail',
@@ -48,15 +47,9 @@ function farm_people_views_default_views() {
     'access' => 'access',
     'status' => 'status',
     'nothing' => 'nothing',
-    'edit_node' => 'edit_node',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
-    'views_bulk_operations' => array(
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
     'uid' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
@@ -109,11 +102,6 @@ function farm_people_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
-    'edit_node' => array(
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 1,
-    ),
   );
   $handler->display->display_options['style_options']['empty_table'] = TRUE;
   /* No results behavior: Global: Unfiltered text */
@@ -122,31 +110,6 @@ function farm_people_views_default_views() {
   $handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
   $handler->display->display_options['empty']['area_text_custom']['content'] = 'No people found.';
-  /* Field: Bulk operations: User */
-  $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
-  $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'views_entity_user';
-  $handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_type'] = '0';
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['enable_select_all_pages'] = 1;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['row_clickable'] = 1;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['force_single'] = 0;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['entity_load_capacity'] = '10';
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo_operations'] = array(
-    'action::user_block_user_action' => array(
-      'selected' => 1,
-      'postpone_processing' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
-    'action::role_delegation_delegate_roles_action' => array(
-      'selected' => 1,
-      'postpone_processing' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
-  );
   /* Field: User: Uid */
   $handler->display->display_options['fields']['uid']['id'] = 'uid';
   $handler->display->display_options['fields']['uid']['table'] = 'users';
@@ -194,11 +157,6 @@ function farm_people_views_default_views() {
   $handler->display->display_options['fields']['nothing']['alter']['text'] = 'Assigned logs';
   $handler->display->display_options['fields']['nothing']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['nothing']['alter']['path'] = 'user/[uid]/logs';
-  /* Field: User: Edit link */
-  $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
-  $handler->display->display_options['fields']['edit_node']['table'] = 'users';
-  $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
-  $handler->display->display_options['fields']['edit_node']['label'] = 'Edit';
   /* Sort criterion: User: Created date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'users';
@@ -302,8 +260,6 @@ function farm_people_views_default_views() {
     t('next ›'),
     t('last »'),
     t('No people found.'),
-    t('User'),
-    t('- Choose an operation -'),
     t('Uid'),
     t('Name'),
     t('E-mail'),
@@ -312,7 +268,6 @@ function farm_people_views_default_views() {
     t('Last access'),
     t('Active'),
     t('Assigned logs'),
-    t('Edit'),
     t('Page'),
     t('Entity Reference'),
   );
