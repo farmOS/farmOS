@@ -41,7 +41,6 @@ function farm_people_views_default_views() {
   $handler->display->display_options['style_options']['columns'] = array(
     'uid' => 'uid',
     'name' => 'name',
-    'mail' => 'mail',
     'rid' => 'rid',
     'created' => 'created',
     'access' => 'access',
@@ -58,13 +57,6 @@ function farm_people_views_default_views() {
       'empty_column' => 0,
     ),
     'name' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'mail' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -122,10 +114,6 @@ function farm_people_views_default_views() {
   $handler->display->display_options['fields']['name']['field'] = 'name';
   $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
-  /* Field: User: E-mail */
-  $handler->display->display_options['fields']['mail']['id'] = 'mail';
-  $handler->display->display_options['fields']['mail']['table'] = 'users';
-  $handler->display->display_options['fields']['mail']['field'] = 'mail';
   /* Field: User: Roles */
   $handler->display->display_options['fields']['rid']['id'] = 'rid';
   $handler->display->display_options['fields']['rid']['table'] = 'users_roles';
@@ -214,13 +202,6 @@ function farm_people_views_default_views() {
   $handler->display->display_options['style_plugin'] = 'entityreference_style';
   $handler->display->display_options['style_options']['search_fields'] = array(
     'name' => 'name',
-    'mail' => 'mail',
-    'views_bulk_operations' => 0,
-    'rid' => 0,
-    'created' => 0,
-    'login' => 0,
-    'status' => 0,
-    'edit_node' => 0,
   );
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
@@ -236,13 +217,6 @@ function farm_people_views_default_views() {
   $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
   $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['name']['link_to_user'] = FALSE;
-  /* Field: User: E-mail */
-  $handler->display->display_options['fields']['mail']['id'] = 'mail';
-  $handler->display->display_options['fields']['mail']['table'] = 'users';
-  $handler->display->display_options['fields']['mail']['field'] = 'mail';
-  $handler->display->display_options['fields']['mail']['label'] = '';
-  $handler->display->display_options['fields']['mail']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['mail']['link_to_user'] = '0';
   $translatables['farm_people'] = array(
     t('Master'),
     t('People'),
@@ -262,7 +236,6 @@ function farm_people_views_default_views() {
     t('No people found.'),
     t('Uid'),
     t('Name'),
-    t('E-mail'),
     t('Roles'),
     t('Created date'),
     t('Last access'),
