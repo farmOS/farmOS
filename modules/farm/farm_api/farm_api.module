@@ -36,10 +36,17 @@ function farm_api_menu() {
  * Farm info API callback.
  */
 function farm_api_info() {
-  global $conf, $base_url;
+  global $base_url, $conf, $user;
   $info = array(
     'name' => $conf['site_name'],
     'url' => $base_url,
   );
+  if (!empty($user->uid)) {
+    $info['user'] = array(
+      'uid' => $user->uid,
+      'name' => $user->name,
+      'mail' => $user->mail,
+    );
+  }
   drupal_json_output($info);
 }
