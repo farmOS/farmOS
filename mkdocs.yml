@@ -42,7 +42,7 @@ nav:
     - Update Safety: development/update-safety.md
     - Docker: development/docker.md
     - API: development/api.md
-    - Client/Native: development/client.md
+    - Client: development/client.md
 - Community:
     - Contribute: community/contribute.md
     - Monthly Call: community/monthly-call.md
