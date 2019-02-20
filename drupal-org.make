@@ -137,7 +137,7 @@ projects[registry_autoload][subdir] = "contrib"
 projects[registry_autoload][version] = "1.3"
 
 projects[restws][subdir] = "contrib"
-projects[restws][version] = "2.7"
+projects[restws][version] = "2.8"
 ; Add ability to filter by entity bundle.
 projects[restws][patch][] = "http://www.drupal.org/files/issues/restws-2857490-2-Filter-by-bundle.patch"
 
