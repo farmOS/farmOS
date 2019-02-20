@@ -35,7 +35,7 @@ the npm dependencies:
 
 ```bash
 $ git clone https://github.com/farmOS/farmOS-client.git
-$ cd farmOS-native
+$ cd farmOS-client
 $ npm install
 ```
 
