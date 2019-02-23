@@ -124,8 +124,8 @@ changed to assets in the future. See [Make "Area" into a type of Farm Asset].
 
 ## Creating records
 
-Records can be created by POSTing JSON/XML objects to the endpoint for the
-entity type you would like to create.
+Records can be created with a `POST` request of JSON/XML objects to the endpoint
+for the entity type you would like to create.
 
 First, here is a very simple example of an observation log in JSON. The bare
 minimum required fields are `name`, `type`, and `timestamp`.
