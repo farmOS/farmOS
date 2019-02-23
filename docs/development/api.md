@@ -140,6 +140,20 @@ Here is a `curl` command to create that log in farmOS:
 
     curl -X POST [AUTH] -H 'Content-Type: application/json' -d '{"name": "Test observation via REST", "type": "farm_observation", "timestamp": "1526584271"}' [URL]/log
 
+## Updating records
+
+Records can be updated with a `PUT` request of JSON/XML objects to the record's
+endpoint (with ID). Only include the fields you want to update - everything
+else will be left unchanged.
+
+Do not add `.json` or `.xml` to the endpoint's URL. Instead, add a
+`Content-Type` header that specifies either `application/json` or
+`application/xml`.
+
+For example, to change the name of log 1:
+
+    curl -X PUT [AUTH] -H 'Content-Type: application/json' -d '{"name": "Change the log name"}' [URL]/log/1
+
 ## Uploading files
 
 Files can be attached to records using the API.
