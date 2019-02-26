@@ -35,13 +35,12 @@ Freenode username (to prevent spam).
 
 ## Sponsor Development
 
-If you would like to see a specific feature in farmOS, consider sponsoring its
-development. Create a new support or feature request in the [issue queues] to
-get started.
+The farmOS project accepts [donations] through [Open Source Collective], a
+501c(6) Non-Profit.
 
-All development thusfar has been done by volunteers in their free time. Showing
-support with a donation or other financial contribution is a great way to help
-the project move forward.
+For more information, see: **[Donate to farmOS]**
+
+Custom feature development is also available through [Farmier].
 
 ## Documentation
 
@@ -61,6 +60,10 @@ we'll get done! Feel free to jump into the [issue queues] to get started!
 [farmOS Monthly Call]: /community/monthly-call
 [#farmOS room on Matrix.org]: https://riot.im/app/#/room/#farmOS:matrix.org
 [#farmOS IRC channel on Freenode]: http://webchat.freenode.net/?channels=#farmOS
+[donations]: /donate
+[Open Source Collective]: https://opencollective.com/opensourcecollective
+[Donate to farmOS]: /donate
+[Farmier]: https://farmier.com
 [Github issue queue]: https://github.com/farmOS/farmOS.org/issues
 [farmOS.org repository]: https://github.com/farmOS/farmOS.org
 
