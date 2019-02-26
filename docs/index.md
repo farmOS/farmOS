@@ -13,6 +13,9 @@ native (Android/iOS) and offline functionality. Both are licensed under the
 
 To learn how to use farmOS, refer to the [User Guide].
 
+You can contribute to the project by [making a donation] or [contributing] in
+other ways.
+
 For more information, read the [Frequently Asked Questions].
 
 ## Quick Links
@@ -78,6 +81,8 @@ The full workshop recording is available on YouTube:
 [secure]: http://www.drupal.org/documentation/is-drupal-secure
 [client app]: https://github.com/farmOS/farmOS-client
 [User Guide]: /guide
+[making a donation]: /donate
+[contributing]: /community/contribute
 [Frequently Asked Questions]: /faq
 [UVM Extension]: https://www.uvm.edu/extension
 [Agricultural Engineering Program]: https://www.uvm.edu/extension/agriculture/agricultural_engineering
