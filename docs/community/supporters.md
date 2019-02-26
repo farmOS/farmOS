@@ -61,5 +61,31 @@ If you would like to support farmOS, consider [making a donation].
 * Deon Nteza
 * Paul Weidner
 
+## Contributors
+
+This project exists thanks to all the people who contribute.
+<a href="https://github.com/farmOS/farmOS/graphs/contributors"><img src="https://opencollective.com/farmOS/contributors.svg?width=890&button=false" /></a>
+
+## OpenCollective Backers
+
+Thank you to all our OpenCollective backers! [[Become a backer](https://opencollective.com/farmOS#backer)]
+
+<a href="https://opencollective.com/farmOS#backers" target="_blank"><img src="https://opencollective.com/farmOS/backers.svg?width=890"></a>
+
+## OpenCollective Sponsors
+
+Support this project by becoming an OpenCollective sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/farmOS#sponsor)]
+
+<a href="https://opencollective.com/farmOS/sponsor/0/website" target="_blank"><img src="https://opencollective.com/farmOS/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/farmOS/sponsor/1/website" target="_blank"><img src="https://opencollective.com/farmOS/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/farmOS/sponsor/2/website" target="_blank"><img src="https://opencollective.com/farmOS/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/farmOS/sponsor/3/website" target="_blank"><img src="https://opencollective.com/farmOS/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/farmOS/sponsor/4/website" target="_blank"><img src="https://opencollective.com/farmOS/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/farmOS/sponsor/5/website" target="_blank"><img src="https://opencollective.com/farmOS/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/farmOS/sponsor/6/website" target="_blank"><img src="https://opencollective.com/farmOS/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/farmOS/sponsor/7/website" target="_blank"><img src="https://opencollective.com/farmOS/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/farmOS/sponsor/8/website" target="_blank"><img src="https://opencollective.com/farmOS/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/farmOS/sponsor/9/website" target="_blank"><img src="https://opencollective.com/farmOS/sponsor/9/avatar.svg"></a>
+
 [making a donation]: /donate
 
