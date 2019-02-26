@@ -2,6 +2,8 @@
 
 The farmOS project is made possible by many supporters.
 
+If you would like to support farmOS, consider [making a donation].
+
 ## Organizations
 
 * [Farmier](https://farmier.com)
@@ -58,4 +60,6 @@ The farmOS project is made possible by many supporters.
 * Andrew Williams
 * Deon Nteza
 * Paul Weidner
+
+[making a donation]: /donate
 
