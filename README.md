@@ -41,22 +41,20 @@ This project has been sponsored by:
  * [The United States Forest Service - International Programs](https://www.fs.fed.us/about-agency/international-programs)
  * [The National Forestry Authority of Uganda](https://www.nfa.org.ug/)
 
-## Contributors
+## CONTRIBUTORS
 
-This project exists thanks to all the people who contribute. 
+This project exists thanks to all the people who contribute.
 <a href="https://github.com/farmOS/farmOS/graphs/contributors"><img src="https://opencollective.com/farmOS/contributors.svg?width=890&button=false" /></a>
 
+## OPENCOLLECTIVE BACKERS
 
-## Backers
-
-Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/farmOS#backer)]
+Thank you to all our OpenCollective backers! [[Become a backer](https://opencollective.com/farmOS#backer)]
 
 <a href="https://opencollective.com/farmOS#backers" target="_blank"><img src="https://opencollective.com/farmOS/backers.svg?width=890"></a>
 
+## OPENCOLLECTIVE SPONSORS
 
-## Sponsors
-
-Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/farmOS#sponsor)]
+Support this project by becoming an OpenCollective sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/farmOS#sponsor)]
 
 <a href="https://opencollective.com/farmOS/sponsor/0/website" target="_blank"><img src="https://opencollective.com/farmOS/sponsor/0/avatar.svg"></a>
 <a href="https://opencollective.com/farmOS/sponsor/1/website" target="_blank"><img src="https://opencollective.com/farmOS/sponsor/1/avatar.svg"></a>
@@ -68,5 +66,3 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 <a href="https://opencollective.com/farmOS/sponsor/7/website" target="_blank"><img src="https://opencollective.com/farmOS/sponsor/7/avatar.svg"></a>
 <a href="https://opencollective.com/farmOS/sponsor/8/website" target="_blank"><img src="https://opencollective.com/farmOS/sponsor/8/avatar.svg"></a>
 <a href="https://opencollective.com/farmOS/sponsor/9/website" target="_blank"><img src="https://opencollective.com/farmOS/sponsor/9/avatar.svg"></a>
-
-
