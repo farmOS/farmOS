@@ -38,6 +38,7 @@ If you would like to support farmOS, consider [making a donation].
 * Michael Stenta
 * Dorn Cox
 * RJ Steinert
+* Don Blair
 * Bruce Dawson
 * Pol Dellaiera
 * Phil Anzel
