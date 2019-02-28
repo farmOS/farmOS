@@ -7,6 +7,10 @@ included in this list, add a comment to [this issue on Github].
 
 * Eagle View Farm (Buckley, Victoria)
 
+## Brazil
+
+* Olivopampa (Santana do Livramento, Rio Grande do Sul)
+
 ## Canada
 
 * Golden Maple Farm (Victoria, British Columbia)
@@ -14,10 +18,6 @@ included in this list, add a comment to [this issue on Github].
 ## Czech Republic
 
 * Hospodářství Jarošovice (Týn nad Vltavou, South Czech)
-
-## Brazil
-
-* Olivopampa (Santana do Livramento, Rio Grande do Sul)
 
 ## Fiji
 
