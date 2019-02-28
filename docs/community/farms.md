@@ -23,6 +23,10 @@ included in this list, add a comment to [this issue on Github].
 
 * Naitauba Gardens (Naitauba Island, Northern Lau Group)
 
+## France
+
+* Ferme des Ours (Boofzheim, Grand-Est)
+
 ## Jamaica
 
 * Grierfield Farms (Grierfield, St Ann)
