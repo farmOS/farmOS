@@ -24,7 +24,8 @@ here].
 
 ## Architecture
 The client is made with [Vue.js] and [Apache Cordova]. It's native plugins are
-actually [Vue plugins]. Initially, the client and its native implementation were maintained as separate libraries. This was done with the aim of being able to
+actually [Vue plugins]. Initially, the client and its native implementation were
+maintained as separate libraries. This was done with the aim of being able to
 isolate native functionality in plugins that could be swapped out for
 browser-based plugins. This may not be strictly necessary in the future, but it
 does at least make for good separation of concerns.
@@ -90,6 +91,17 @@ first attempt, but should succeed on all subsequent attempts.
 
 [//]: <> (TODO: Add a few more details on this once I know more)
 
+## Web build process
+
+To build the client for the web, you just need to run the build script:
+
+```bash
+$ npm run build:web
+```
+
+The output of this script will be found in the `dist` directory and can be
+deployed using web server.
+
 ## Native build process
 
 The process for building the native applications for iOS and Android can be
@@ -114,13 +126,13 @@ Bundling the web assets with Webpack is fairly straight-forward. [Node]
 (v.6.0.0 or higher) and npm (v.3.0.0 or higher) are the only system
 requirements. Once Node is installed, you can install the necessary JavaScript
 dependencies with npm, which is automatically included with Node. The npm
-script `build-mobile` can then run Webpack to bundle the assets. All this can
+script `build:native` can then run Webpack to bundle the assets. All this can
 be done by running the following two commands from the project's root
 directory:
 
 ```bash
 $ npm install
-$ npm run build-mobile
+$ npm run build:native
 ```
 
 This will generate all the necessary files within the `www` directory, which
