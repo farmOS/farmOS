@@ -141,6 +141,9 @@ projects[restws][version] = "2.8"
 ; Add ability to filter by entity bundle.
 projects[restws][patch][] = "http://www.drupal.org/files/issues/restws-2857490-2-Filter-by-bundle.patch"
 
+projects[restws_field_collection][subdir] = "contrib"
+projects[restws_field_collection][version] = "1.1"
+
 projects[restws_file][subdir] = "contrib"
 projects[restws_file][download][type] = "git"
 projects[restws_file][download][revision] = "0052e281117ebe7356ae4fef638fbf74c0e75e55"
