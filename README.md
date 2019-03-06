@@ -40,6 +40,9 @@ This project has been sponsored by:
  * [Natural Resources Conservation Service](https://www.nrcs.usda.gov)
  * [The United States Forest Service - International Programs](https://www.fs.fed.us/about-agency/international-programs)
  * [The National Forestry Authority of Uganda](https://www.nfa.org.ug/)
+ * [Our Sci](http://our-sci.net)
+ * [Bionutrient Food Association](https://bionutrient.org)
+ * [Foundation for Food and Agriculture Research](https://foundationfar.org/)
 
 ## CONTRIBUTORS
 
