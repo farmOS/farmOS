@@ -68,6 +68,39 @@ function farm_livestock_farm_log_categories_populate($log) {
 }
 
 /**
+ * Implements hook_restws_field_collection_info().
+ */
+function farm_livestock_restws_field_collection_info() {
+  return array(
+    'field_farm_animal_tag' => array(
+      'alias' => 'tag',
+      'label' => t('ID tags'),
+      'multiple' => TRUE,
+      'fields' => array(
+        'id' => array(
+          'field_name' => 'field_farm_animal_tag_id',
+          'field_label' => t('Tag ID'),
+          'field_type' => 'text',
+          'field_value' => 'value',
+        ),
+        'location' => array(
+          'field_name' => 'field_farm_animal_tag_location',
+          'field_label' => t('Tag location'),
+          'field_type' => 'text',
+          'field_value' => 'value',
+        ),
+        'type' => array(
+          'field_name' => 'field_farm_animal_tag_type',
+          'field_label' => t('Tag type'),
+          'field_type' => 'text',
+          'field_value' => 'value',
+        ),
+      ),
+    ),
+  );
+}
+
+/**
  * Implements hook_farm_log_prepopulate_reference_fields().
  */
 function farm_livestock_farm_log_prepopulate_reference_fields($log_type) {
