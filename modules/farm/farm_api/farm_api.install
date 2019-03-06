@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @file
+ * Farm API install file.
+ */
+
+/**
+ * Enable the RESTful Web Services Field Collection module.
+ */
+function farm_api_update_7000(&$sandbox) {
+  $module = 'restws_field_collection';
+  if (!module_exists($module)) {
+    module_enable(array($module));
+  }
+}
