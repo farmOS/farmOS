@@ -61,7 +61,7 @@ projects[field_group_easy_responsive_tabs][subdir] = "contrib"
 projects[field_group_easy_responsive_tabs][version] = "1.2"
 
 projects[fraction][subdir] = "contrib"
-projects[fraction][version] = "1.7"
+projects[fraction][version] = "1.8"
 
 projects[geocoder][subdir] = "contrib"
 projects[geocoder][version] = "1.4"
