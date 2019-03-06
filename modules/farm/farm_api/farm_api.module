@@ -5,6 +5,8 @@
  * Farm API module.
  */
 
+define('FARM_API_VERSION', '1.0');
+
 /**
  * Implements hook_permission().
  */
@@ -40,6 +42,7 @@ function farm_api_info() {
   $info = array(
     'name' => $conf['site_name'],
     'url' => $base_url,
+    'api_version' => FARM_API_VERSION,
   );
   if (!empty($user->uid)) {
     $info['user'] = array(
