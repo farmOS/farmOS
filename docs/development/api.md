@@ -154,6 +154,147 @@ For example, to change the name of log 1:
 
     curl -X PUT [AUTH] -H 'Content-Type: application/json' -d '{"name": "Change the log name"}' [URL]/log/1
 
+## Field collections
+
+Some fields are stored within [Field Collections] in farmOS, which are
+technically separate entities attached to the host entity. farmOS uses the
+[RESTful Web Services Field Collection] module to hide the fact that these are
+separate entities, so that their fields can be accessed and modified in the
+same request as the host entity.
+
+In farmOS Field Collections are used for the following:
+
+### Quantity measurements
+
+[Quantity] measurements are recorded on logs, and can each include a measure
+(eg: count, weight, volume, etc), a value (decimal number), a unit (a reference
+to a Units taxonomy term, and a label (a free-form text field).
+
+A log with a quantity measurement looks like this:
+
+    {
+      "name": "Example quantity measurement log",
+      "type": "farm_observation",
+      "timestamp": "1551983893",
+      "quantity": [
+        {
+          "measure": "weight",
+          "value": "100",
+          "unit": {"id": "15"},
+          "label": "My label",
+        },
+      ],
+    }
+
+All measurement properties are optional. The label is useful if you have more
+than one measurement of the same measure (eg: two weight measurements) in the
+same log. Use the label to add more specific information about what each
+measurement is for.
+
+### Movements
+
+[Movements] are defined on logs, and include an area reference (where the
+asset(s) are moving to), and optionally a geometry (if you need to define a more
+specific location than the area reference itself).
+
+A log with a movement looks like this:
+
+    {
+      "name": "Example movement log",
+      "type": "farm_activity",
+      "timestamp": "1551983893",
+      "assets": [
+        {"id": "123"},
+      ],
+      "movement": {
+        "area": [
+          {"id": "5"},
+        ],
+        "geometry": "POINT(-31.04003861546518 39.592143995003994)",
+      },
+    }
+
+Within the `movement` structure, the area ID should be an area term ID (`tid` on
+the area object). The geometry should be in [Well-Known Text]. It is possible to
+reference multiple areas, indicating that the asset is moved to multiple areas
+(eg: a planting in multiple beds).
+
+### Group membership
+
+[Group] membership changes are defined on logs, and include one or more group
+asset IDs. This indicates that any referenced asset(s) were moved to the
+group(s) specified at the time of the log.
+
+A log with a group membership change looks like this:
+
+    {
+      "name": "Example group membership change log",
+      "type": "farm_activity",
+      "timestamp": "1551983893",
+      "assets": [
+        {"id": "123"},
+      ],
+      "membership": {
+        "group": [
+          {"id": "456"},
+        ],
+      },
+    }
+
+Groups are a type of asset in farmOS, so the group ID is actually an asset ID.
+
+### Inventory adjustments
+
+[Inventory] adjustments are defined on logs, and include one or more pairs of
+asset IDs (the asset for which inventory is being adjusted) and an adjustment
+value (postitive or negative number, to indicate an increase or decrease in the
+inventory level).
+
+A log with an inventory adjustment looks like this:
+
+    {
+      "name": "Example group membership change log",
+      "type": "farm_activity",
+      "timestamp": "1551983893",
+      "inventory": [
+        {
+          "asset": {"id": "123"},
+          "value": "-10",
+        },
+      ],
+    }
+
+### Animal ID Tags
+
+Animal ID Tags can be added to [animal] assets, and include a Tag ID, Tag Type,
+and Tag Location.
+
+An animal asset with an ID tag looks like this:
+
+    {
+      "name": "Betsy",
+      "type": "animal",
+      "animal_type": {"id": "10"},
+      "tag": [
+        {
+          "id": "123456",
+          "location": "Left ear",
+          "type": "Ear tag",
+        },
+      ],
+    }
+
+The ID and Location fields can be anything you want.
+
+Available tag types are:
+
+* `Brand`
+* `Ear tag`
+* `Tattoo`
+* `Leg band`
+* `Chip`
+* `Other`
+
 ## Uploading files
 
 Files can be attached to records using the API.
@@ -220,6 +361,14 @@ submit a support request on [GitHub] or ask questions in the
 [Postman]: https://www.getpostman.com/
 [Restlet]: https://restlet.com/
 [Make "Area" into a type of Farm Asset]: https://www.drupal.org/project/farm/issues/2363393
+[Field Collections]: https://drupal.org/project/field_collection
+[RESTful Web Services Field Collection]: https://drupal.org/project/restws_field_collection
+[Quantity]: /guide/quantity
+[Movements]: /guide/location
+[Well-Known Text]: https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry
+[Group]: /guide/assets/groups
+[Inventory]: /guide/inventory
+[animal]: /guide/assets/animals
 [GitHub]: https://github.com/farmOS/farmOS
 [farmOS chat room]: https://riot.im/app/#/room/#farmOS:matrix.org
 [Unix timestamp]: https://en.wikipedia.org/wiki/Unix_time
