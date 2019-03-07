@@ -303,8 +303,8 @@ Most record types (areas, assets, logs, etc) have both a "Photo(s)" field (for
 image files) and a "File(s)" field (for other files). The machine names of
 these fields are:
 
-* Photo(s): `field_farm_images`
-* File(s): `field_farm_files`
+* Photo(s): `images`
+* File(s): `files`
 
 The API expects an array of base64-encoded strings. Multiple files can be
 included in the array.
@@ -315,7 +315,7 @@ For example (replace `[BASE64_CONTENT]` with the base64 encoding of the file):
       "name": "Test file upload via REST",
       "type": "farm_observation",
       "timestamp": "1534261642",
-      "field_farm_images": [
+      "images": [
         "data:image/jpeg;base64,[BASE64_CONTENT]",
       ],
     }
@@ -335,7 +335,7 @@ file). This will create a new observation log with the file attached to the
     # the max curl argument length. See:
     # https://unix.stackexchange.com/questions/174350/curl-argument-list-too-long
     curl -X POST [AUTH] -H "Content-Type: application/json" -d @- [URL]/log <<CURL_DATA
-    {"name": "Test file upload via REST", "type": "farm_observation", "timestamp": "1534261642", "field_farm_images": ["data:${FILE_MIME};base64,${FILE_CONTENT}"]}
+    {"name": "Test file upload via REST", "type": "farm_observation", "timestamp": "1534261642", "images": ["data:${FILE_MIME};base64,${FILE_CONTENT}"]}
     CURL_DATA
 
 ## Troubleshooting
