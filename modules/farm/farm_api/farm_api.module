@@ -5,6 +5,8 @@
  * Farm API module.
  */
 
+define('FARM_API_VERSION', '1.0');
+
 /**
  * Implements hook_permission().
  */
@@ -40,6 +42,7 @@ function farm_api_info() {
   $info = array(
     'name' => $conf['site_name'],
     'url' => $base_url,
+    'api_version' => FARM_API_VERSION,
   );
   if (!empty($user->uid)) {
     $info['user'] = array(
@@ -49,4 +52,157 @@ function farm_api_info() {
     );
   }
   drupal_json_output($info);
+}
+
+/**
+ * Implements hook_restws_request_alter().
+ */
+function farm_api_restws_request_alter(array &$request) {
+
+  // If the format is not JSON, bail.
+  if ($request['format']->getName() != 'json') {
+    return;
+  }
+
+  // Build a field alias map to remove the 'field_farm_' prefix.
+  $prefix = 'field_farm_';
+  $alias_map = farm_api_field_alias_map($prefix);
+
+  // In order to handle URL query string filters, we need to perform the alias
+  // translation on all GET parameters. The restws module filters based on the
+  // output of drupal_get_query_parameters(), which uses the $_GET global.
+  foreach ($_GET as $name => &$value) {
+    if (array_key_exists($name, $alias_map)) {
+      $_GET[$alias_map[$name]] = $_GET[$name];
+      unset($_GET[$name]);
+    }
+  }
+
+  // If the payload is empty, bail.
+  if (empty($request['payload'])) {
+    return;
+  }
+
+  // Decode the payload JSON.
+  $payload = drupal_json_decode($request['payload']);
+
+  // If the payload could not be decoded, bail.
+  if (empty($payload)) {
+    return;
+  }
+
+  // Iterate through the fields in the payload. If any match a mapped alias,
+  // translate it to use the real field name. Keep track of whether or not any
+  // changes were made.
+  $changed = FALSE;
+  foreach ($payload as $key => $value) {
+    if (array_key_exists($key, $alias_map)) {
+      $payload[$alias_map[$key]] = $payload[$key];
+      unset($payload[$key]);
+      $changed = TRUE;
+    }
+  }
+
+  // If we changed the payload, re-encode it as JSON.
+  if ($changed) {
+    $request['payload'] = drupal_json_encode($payload);
+  }
+}
+
+/**
+ * Implements hook_restws_response_alter().
+ */
+function farm_api_restws_response_alter(&$response, $function, $formatName, $resourceController) {
+
+  // If the format is not JSON, bail.
+  if ($formatName != 'json') {
+    return;
+  }
+
+  // If the response contains a list of entities, iterate through them and
+  // pass each to farm_api_restws_response_alter_item().
+  if (!empty($response['list'])) {
+    foreach ($response['list'] as &$item) {
+      farm_api_restws_response_alter_item($item);
+    }
+  }
+
+  // Otherwise, process the response directly.
+  else {
+    farm_api_restws_response_alter_item($response);
+  }
+}
+
+/**
+ * Helper function for altering a restws response item.
+ *
+ * @param $item
+ *   The restws response item, passed by reference.
+ */
+function farm_api_restws_response_alter_item(&$item) {
+
+  // Build a field alias map to remove the 'field_farm_' prefix.
+  $prefix = 'field_farm_';
+  $alias_map = farm_api_field_alias_map($prefix);
+
+  // Flip the alias map so that it is keyed by actual field name.
+  $field_aliases = array_flip($alias_map);
+
+  // Iterate through the item properties.
+  foreach (array_keys($item) as $key) {
+
+    // If the field name exists in the alias map, replace it with the alias.
+    if (array_key_exists($key, $field_aliases)) {
+      $item[$field_aliases[$key]] = $item[$key];
+      unset($item[$key]);
+    }
+
+    // Remove Feeds properties.
+    $feeds_prefixes = array(
+      'feed_',
+      'feeds_',
+    );
+    foreach ($feeds_prefixes as $prefix) {
+      if (strpos($key, $prefix) === 0) {
+        unset($item[$key]);
+      }
+    }
+  }
+}
+
+/**
+ * Build a field alias map for restws requests and responses.
+ *
+ * @param string $prefix
+ *   The field name prefix to remove from fields.
+ *
+ * @return array
+ *   Returns an array of field names with the alias as the key, and the actual
+ *   field name as the value.
+ */
+function farm_api_field_alias_map($prefix) {
+
+  // Start an empty map array.
+  $alias_map = array();
+
+  // Load a list of all fields.
+  $fields = field_info_field_map();
+
+  // Iterate through the fields to build an alias map.
+  foreach ($fields as $field_name => $field_info) {
+
+    // If the field is a field_collection, skip it. Field collection alias are a
+    // special case that are currently handled by the restws_field_collection
+    // module in farmOS.
+    if ($field_info['type'] == 'field_collection') {
+      continue;
+    }
+
+    // If the field name starts with the prefix, add it to the map.
+    $alias = str_replace($prefix, '', $field_name);
+    $alias_map[$alias] = $field_name;
+  }
+
+  // Return the alias map.
+  return $alias_map;
 }

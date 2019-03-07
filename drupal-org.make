@@ -61,7 +61,7 @@ projects[field_group_easy_responsive_tabs][subdir] = "contrib"
 projects[field_group_easy_responsive_tabs][version] = "1.2"
 
 projects[fraction][subdir] = "contrib"
-projects[fraction][version] = "1.7"
+projects[fraction][version] = "1.8"
 
 projects[geocoder][subdir] = "contrib"
 projects[geocoder][version] = "1.4"
@@ -140,6 +140,9 @@ projects[restws][subdir] = "contrib"
 projects[restws][version] = "2.8"
 ; Add ability to filter by entity bundle.
 projects[restws][patch][] = "http://www.drupal.org/files/issues/restws-2857490-2-Filter-by-bundle.patch"
+
+projects[restws_field_collection][subdir] = "contrib"
+projects[restws_field_collection][version] = "1.1"
 
 projects[restws_file][subdir] = "contrib"
 projects[restws_file][download][type] = "git"

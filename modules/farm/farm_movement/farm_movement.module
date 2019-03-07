@@ -39,6 +39,33 @@ function farm_movement_farm_ui_entity_views($entity_type, $bundle, $entity) {
 }
 
 /**
+ * Implements hook_restws_field_collection_info().
+ */
+function farm_movement_restws_field_collection_info() {
+  return array(
+    'field_farm_movement' => array(
+      'alias' => 'movement',
+      'label' => t('Movement'),
+      'fields' => array(
+        'area' => array(
+          'field_name' => 'field_farm_move_to',
+          'field_label' => t('Area'),
+          'field_type' => 'taxonomy_term',
+          'field_value' => 'tid',
+          'multiple' => TRUE,
+        ),
+        'geometry' => array(
+          'field_name' => 'field_farm_geofield',
+          'field_label' => t('Geometry'),
+          'field_type' => 'text',
+          'field_value' => 'geom',
+        ),
+      ),
+    ),
+  );
+}
+
+/**
  * Implements hook_farm_map_geometries().
  */
 function farm_movement_farm_map_entity_geometries($entity_type, $entity) {

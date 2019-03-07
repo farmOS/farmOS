@@ -8,6 +8,33 @@
 include_once 'farm_inventory.features.inc';
 
 /**
+ * Implements hook_restws_field_collection_info().
+ */
+function farm_inventory_restws_field_collection_info() {
+  return array(
+    'field_farm_inventory' => array(
+      'alias' => 'inventory',
+      'label' => t('Inventory'),
+      'multiple' => TRUE,
+      'fields' => array(
+        'asset' => array(
+          'field_name' => 'field_farm_inventory_asset',
+          'field_label' => t('Asset'),
+          'field_type' => 'farm_asset',
+          'field_value' => 'target_id',
+        ),
+        'value' => array(
+          'field_name' => 'field_farm_inventory_value',
+          'field_label' => t('Value'),
+          'field_type' => 'decimal',
+          'field_value' => 'decimal',
+        ),
+      ),
+    ),
+  );
+}
+
+/**
  * Implements hook_farm_ui_entity_views().
  */
 function farm_inventory_farm_ui_entity_views($entity_type, $bundle, $entity) {

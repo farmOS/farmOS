@@ -31,6 +31,27 @@ function farm_group_farm_ui_entities() {
 }
 
 /**
+ * Implements hook_restws_field_collection_info().
+ */
+function farm_group_restws_field_collection_info() {
+  return array(
+    'field_farm_membership' => array(
+      'alias' => 'membership',
+      'label' => t('Group membership'),
+      'fields' => array(
+        'group' => array(
+          'field_name' => 'field_farm_group',
+          'field_label' => t('Group'),
+          'field_type' => 'farm_asset',
+          'field_value' => 'target_id',
+          'multiple' => TRUE,
+        ),
+      ),
+    ),
+  );
+}
+
+/**
  * Implements hook_farm_ui_entity_views().
  */
 function farm_group_farm_ui_entity_views($entity_type, $bundle, $entity) {

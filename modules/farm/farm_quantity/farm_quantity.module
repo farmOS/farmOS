@@ -8,6 +8,45 @@
 include_once 'farm_quantity.features.inc';
 
 /**
+ * Implements hook_restws_field_collection_info().
+ */
+function farm_quantity_restws_field_collection_info() {
+  return array(
+    'field_farm_quantity' => array(
+      'alias' => 'quantity',
+      'label' => t('Quantity'),
+      'multiple' => TRUE,
+      'fields' => array(
+        'measure' => array(
+          'field_name' => 'field_farm_quantity_measure',
+          'field_label' => t('Measure'),
+          'field_type' => 'text',
+          'field_value' => 'value',
+        ),
+        'value' => array(
+          'field_name' => 'field_farm_quantity_value',
+          'field_label' => t('Value'),
+          'field_type' => 'decimal',
+          'field_value' => 'decimal',
+        ),
+        'unit' => array(
+          'field_name' => 'field_farm_quantity_units',
+          'field_label' => t('Unit'),
+          'field_type' => 'taxonomy_term',
+          'field_value' => 'tid',
+        ),
+        'label' => array(
+          'field_name' => 'field_farm_quantity_label',
+          'field_label' => t('Label'),
+          'field_type' => 'text',
+          'field_value' => 'value',
+        ),
+      ),
+    ),
+  );
+}
+
+/**
  * Implements hook_permission().
  */
 function farm_quantity_permission() {
