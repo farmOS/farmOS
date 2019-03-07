@@ -58,18 +58,17 @@ transplanting log. If you are starting your plantings in a greenhouse and then
 planting them out in the field, you may use both a seeding and transplanting
 log.
 
-## Planting plan
+## Planting quick form
 
-When you add a new planting, you will see a special "Plan" fieldset, which lets
-you specify seeding and transplanting dates and locations. By filling in these
-fields when you create a planting, you can let farmOS automatically create a
-seeding and/or transplanting log for you.
-
-You can optionally mark the logs as "done" immediately, which is useful if you
-are adding information about past plantings. If you have not performed the
-seeding or transplanting yet, do not mark it as "done" so that it will appear
-in your todo list.
+A [quick form] is provided for quickly creating a planting along with associated
+seeding and/or transplanting logs. This is the fastest way to create all of
+those records in a single step. You simply enter the season, crop/variety, and
+seeding/transplanting date+location, and all the records are created and linked
+together for you behind the scenes. This is helpful for adding your planned
+plantings at the beginning of the season, or for entering information about
+your past plantings at the end of the season.
 
 [log types]: /guide/logs
 [movement fields]: /guide/location
+[quick form]: /guide/quick
 
