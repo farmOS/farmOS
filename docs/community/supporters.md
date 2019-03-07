@@ -63,6 +63,11 @@ If you would like to support farmOS, consider [making a donation].
 * Andrew Williams
 * Deon Nteza
 * Paul Weidner
+* Megan Stanton
+* Ankita Raturi
+* Juliet Norton
+* Philipp Kuecuekyan
+* Michael Parker
 
 ## Contributors
 
