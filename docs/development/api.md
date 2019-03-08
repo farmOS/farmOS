@@ -203,7 +203,7 @@ A log with a movement looks like this:
       "name": "Example movement log",
       "type": "farm_activity",
       "timestamp": "1551983893",
-      "assets": [
+      "asset": [
         {"id": "123"},
       ],
       "movement": {
@@ -231,7 +231,7 @@ A log with a group membership change looks like this:
       "name": "Example group membership change log",
       "type": "farm_activity",
       "timestamp": "1551983893",
-      "assets": [
+      "asset": [
         {"id": "123"},
       ],
       "membership": {
