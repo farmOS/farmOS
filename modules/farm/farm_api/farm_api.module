@@ -55,6 +55,32 @@ function farm_api_info() {
 }
 
 /**
+ * Implements hook_module_implements_alter().
+ */
+function farm_api_module_implements_alter(&$implementations, $hook) {
+
+  // We only want to alter hook_restws_request_alter() implementations.
+  if ($hook != 'restws_request_alter') {
+    return;
+  }
+
+  // If either restws_file or farm_api don't implement the hook, bail.
+  $modules = array(
+    'restws_file',
+    'farm_api',
+  );
+  foreach ($modules as $module) {
+    if (!array_key_exists($module, $implementations)) {
+      return;
+    }
+  }
+
+  // Put farm_api's hook above restws_file's hook, so that our field aliasing
+  // happens first.
+  $implementations = array('farm_api' => $implementations['farm_api']) + $implementations;
+}
+
+/**
  * Implements hook_restws_request_alter().
  */
 function farm_api_restws_request_alter(array &$request) {
