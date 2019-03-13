@@ -34,6 +34,7 @@ If you would like to support farmOS, consider [making a donation].
 * [The National Forestry Authority of Uganda](https://www.nfa.org.ug/)
 * [Our Sci](http://our-sci.net/)
 * [Foundation for Food and Agriculture Research](https://foundationfar.org/)
+* [Savory Institute](https://savory.global)
 
 ## Individuals
 
@@ -68,6 +69,8 @@ If you would like to support farmOS, consider [making a donation].
 * Juliet Norton
 * Philipp Kuecuekyan
 * Michael Parker
+* Mike Brunt
+* Mary and Frank Stenta
 
 ## Contributors
 
