@@ -99,6 +99,8 @@ These modules aren't included with the farmOS distribution, but they can be
 added to extend your farmOS functionality:
 
 * **[Farm Bee](https://github.com/farmOS/farm_bee)** - Features for beekeeping.
+* **[Farm Biodynamic](https://github.com/farmOS/farm_biodynamic)** - Provides a
+  flag for marking records as "Biodynamic" in farmOS.
 * **[Farm Eggs](https://github.com/farmOS/farm_eggs)** - Provides a simple UI
   for creating egg harvest logs.
 * **[Farm Forest](https://github.com/mstenta/farm_forest)** - Forest management
