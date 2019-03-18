@@ -47,7 +47,7 @@ function farm_crop_default_log_type() {
     "label" : "Seeding",
     "weight" : 0,
     "name_pattern" : "Seed [log:field-farm-asset]",
-    "name_edit" : "0",
+    "name_edit" : "1",
     "done" : "1",
     "rdf_mapping" : []
   }');
@@ -56,7 +56,7 @@ function farm_crop_default_log_type() {
     "label" : "Transplanting",
     "weight" : 0,
     "name_pattern" : "Transplant [log:field-farm-asset]",
-    "name_edit" : "0",
+    "name_edit" : "1",
     "done" : "1",
     "rdf_mapping" : []
   }');

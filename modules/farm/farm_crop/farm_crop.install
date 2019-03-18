@@ -99,3 +99,10 @@ function farm_crop_update_7004(&$sandbox) {
     module_enable(array($module));
   }
 }
+
+/**
+ * Allow editing of seeding and transplanting log names.
+ */
+function farm_crop_update_7005(&$sandbox) {
+  db_query("UPDATE {log_type} SET name_edit = 1 WHERE type IN ('farm_seeding', 'farm_transplanting')");
+}
