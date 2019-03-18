@@ -113,6 +113,8 @@ added to extend your farmOS functionality:
   managing mushroom production.
 * **[FarmOS NWS](https://github.com/bitsecondal/farmosnws)** - Imports data
   from the National Weather Service into Drupal for use by farmOS.
+* **[Farm Nutrient](https://github.com/farmOS/farm_nutrient)** - Nutrient
+  management planning module for farmOS.
 * **[Farm Organic](https://github.com/farmOS/farm_organic)** - Provides flags
   for marking records as "Organic" and "Not Organic" in farmOS.
 * **[Farm Produce Safety](https://github.com/farmOS/farm_produce_safety)** -
