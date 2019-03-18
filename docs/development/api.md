@@ -209,6 +209,46 @@ the term should be added to):
 
     curl [AUTH] -X POST -H 'Content-Type: application/json' -d '{"name": "Broccoli", "vocabulary": "[VID]"}' [URL]/taxonomy_term
 
+**Creating an area**
+
+Areas are taxonomy terms in farmOS, but they have some additional fields on them
+for mapping purposes. In order for an area to show up on a map, it must have an
+`area_type` set, and a geometry in the `geofield`.
+
+A very basic area record looks like this:
+
+    {
+      "name": "North field",
+      "description": "",
+      "area_type": "field",
+      "geofield": [
+        {
+          "geom": "POINT(-31.04003861546518 39.592143995003994)",
+        },
+      ],
+    }
+
+The geometry should be in [Well-Known Text].
+
+Some available area types include:
+
+* `field`
+* `bed`
+* `building`
+* `greenhouse`
+* `property`
+* `paddock`
+* `water`
+* `landmark`
+* `other`
+
+Note that area types are defined by modules (eg: `paddock` is provided by the
+`farm_livestock` module), so the area types available on your farmOS may vary.
+
+You can fetch all areas of a particular type (eg: `field`) like this:
+
+    curl [AUTH] [URL]/taxonomy_term.json?bundle=farm_areas&area_type=field
+
 ## Updating records
 
 Records can be updated with a `PUT` request of JSON/XML objects to the record's
