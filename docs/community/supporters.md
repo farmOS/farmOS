@@ -71,6 +71,8 @@ If you would like to support farmOS, consider [making a donation].
 * Michael Parker
 * Mike Brunt
 * Mary and Frank Stenta
+* Mary and John Stanton
+* Vinayak Kumbhakern
 
 ## Contributors
 
