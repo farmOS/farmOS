@@ -117,6 +117,11 @@ The endpoint to use depends on the entity type you are requesting:
     * ...
 * Taxonomy terms: `/taxonomy_term.json`
     * Areas*: `/taxonomy_term.json?bundle=farm_areas`
+    * Quantity Units: `/taxonomy_term.json?bundle=farm_quantity_units`
+    * Crops/varieties: `/taxonomy_term.json?bundle=farm_crops`
+    * Animal species/breeds: `/taxonomy_term.json?bundle=farm_animal_types`
+    * Log categories: `/taxonomy_term.json?bundle=farm_log_categories`
+    * Seasons: `/taxonomy_term.json?bundle=farm_season`
     * ...
 
 *Note that areas are currently represented as Drupal taxonomy terms, but may be
@@ -139,6 +144,70 @@ minimum required fields are `name`, `type`, and `timestamp`.
 Here is a `curl` command to create that log in farmOS:
 
     curl -X POST [AUTH] -H 'Content-Type: application/json' -d '{"name": "Test observation via REST", "type": "farm_observation", "timestamp": "1526584271"}' [URL]/log
+
+### Creating taxonomy terms
+
+farmOS allows farmers to build vocabularies of terms for various categorization
+purposes. These are referred to as "taxonomies" in farmOS (and Drupal), although
+"vocabulary" is sometimes used interchangeably.
+
+Some things that are represented as taxonomy terms include quantity units,
+crops/varieties, animal species/breeds, input materials, and log categories.
+See "Endpoints" above for specific API endpoints URLs.
+
+A very basic taxonomy term JSON structure looks like this:
+
+    {
+      "tid": "3",
+      "name": "Cabbage",
+      "description": "",
+      "vocabulary": {
+        "id": "7",
+        "resource": "taxonomy_vocabulary",
+      },
+      "parent": [
+        {
+          "id": "10",
+          "resource": "taxonomy_term",
+        },
+      ],
+      "weight": "5",
+    }
+
+The `tid` is the unique ID of the term (database primary key). When creating a
+new term, the only required fields are `name` and `vocabulary`. The vocabulary
+is an ID that corresponds to the specific vocabulary the term will be a part of
+(eg: quantity units, crops/varieties, log categories, etc). The fields `parent`
+and `weight` control term hierarchy and ordering (a heavier `weight` will sort
+it lower in the list).
+
+When fetching a list of terms from farmOS, you can filter by the vocabulary's
+"machine name" (or "bundle") like so:
+
+    curl [AUTH] [URL]/taxonomy_term.json?bundle=farm_crops
+
+When creating a new term, however, you need to provide the vocabulary ID in the
+term object, not the machine name/bundle. In order to get the vocabulary ID, you
+can look it up using the `/taxonomy_vocabulary` endpoint, which lists all
+available vocabularies.
+
+The vocabulary ID may be different from one farmOS system to another, so if you
+save it internally in your application, just know that it may not correspond to
+the same vocabulary on another farmOS. Therefore it is recommended that you look
+it up each time you need it.
+
+For example, to get the `vid` that corresponds to the `farm_crops` vocabulary:
+
+    curl [AUTH] [URL]taxonomy_vocabulary.json?machine_name=farm_crops
+
+Before you create a new term, you should check to see if it already exists:
+
+    curl [AUTH] [URL]/taxonomy_term.json?bundle=farm_crops&name=Broccoli
+
+Then, you can create a new term (replace `[VID]` with the ID of the vocabulary
+the term should be added to):
+
+    curl [AUTH] -X POST -H 'Content-Type: application/json' -d '{"name": "Broccoli", "vocabulary": "[VID]"}' [URL]/taxonomy_term
 
 ## Updating records
 
