@@ -101,6 +101,8 @@ added to extend your farmOS functionality:
 * **[Farm Bee](https://github.com/farmOS/farm_bee)** - Features for beekeeping.
 * **[Farm Eggs](https://github.com/farmOS/farm_eggs)** - Provides a simple UI
   for creating egg harvest logs.
+* **[Farm Forest](https://github.com/mstenta/farm_forest)** - Forest management
+  module for farmOS.
 * **[Farm Grazing](https://github.com/farmOS/farm_grazing)** - Provides a simple UI
   for creating egg harvest logs.
 * **[Farm Maple](https://github.com/farmOS/farm_maple)** - Features for
