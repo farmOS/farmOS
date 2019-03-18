@@ -8,9 +8,13 @@ here, you can fork the [farmOS.org repository on Github] and create a pull
 request.
 
 * [Eggs]
+* [Nutrient management]
+* [Organic]
 * [Produce Safety]
 
 [farmOS.org repository on Github]: https://github.com/farmOS/farmOS.org
 [Eggs]: /guide/contrib/eggs
+[Nutrient management]: /guide/contrib/nutrient
+[Organic]: /guide/contrib/organic
 [Produce Safety]: /guide/contrib/produce-safety
 
