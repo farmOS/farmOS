@@ -145,7 +145,7 @@ The endpoint to use depends on the entity type you are requesting:
     * Inputs: `/log.json?type=farm_input`
     * ...
 * Taxonomy terms: `/taxonomy_term.json`
-    * Areas*: `/taxonomy_term.json?bundle=farm_areas`
+    * Areas&ast;: `/taxonomy_term.json?bundle=farm_areas`
     * Quantity Units: `/taxonomy_term.json?bundle=farm_quantity_units`
     * Crops/varieties: `/taxonomy_term.json?bundle=farm_crops`
     * Animal species/breeds: `/taxonomy_term.json?bundle=farm_animal_types`
@@ -153,7 +153,7 @@ The endpoint to use depends on the entity type you are requesting:
     * Seasons: `/taxonomy_term.json?bundle=farm_season`
     * ...
 
-*Note that areas are currently represented as Drupal taxonomy terms, but may be
+&ast; Note that areas are currently represented as Drupal taxonomy terms, but may be
 changed to assets in the future. See [Make "Area" into a type of Farm Asset].
 
 ## Creating records
