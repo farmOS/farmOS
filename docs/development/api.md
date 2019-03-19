@@ -510,4 +510,3 @@ submit a support request on [GitHub] or ask questions in the
 [GitHub]: https://github.com/farmOS/farmOS
 [farmOS chat room]: https://riot.im/app/#/room/#farmOS:matrix.org
 [Unix timestamp]: https://en.wikipedia.org/wiki/Unix_time
-
