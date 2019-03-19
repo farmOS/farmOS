@@ -214,6 +214,37 @@ differ slightly. The following are standard fields available on most log types:
 * `changed`: A timestamp representing when the log was last updated.
 * `uid`: A reference to the user who created the log.
 
+#### Input logs
+
+Additional fields on input logs (all optional):
+
+* `material`: Reference(s) to material(s) that were applied.
+* `input_purpose`: A description of the purpose of the input.
+* `input_method`: A description of how the input was applied.
+* `input_source`: A description of where the input was obtained.
+* `date_purchase`: A timestamp representing when the input material was
+  purchased.
+* `lot_number`: The lot number(s) of the input material, if available.
+
+#### Harvest logs
+
+Additional fields on harvest logs (all optional):
+
+* `lot_number`: The harvest lot number.
+
+#### Seeding and transplanting logs
+
+Seeding and transplanting logs are log types that are specific to Planting
+assets (to indicate when seedings/transplantings took place, along with quantity
+and location information). They have some key differences from other log types:
+
+* The `asset` field is required and must reference an asset of type `planting`.
+* They do not have the `areas` or `geofield` fields, and instead expect to have
+  a `movement` field collection with information about where it took place. This
+  is used to set the location of the planting at a given point in time.
+* Seeding logs also have a `seed_source` field which can be used to specify
+  where seeds came from (free-form text field).
+
 ### Creating assets
 
 Assets must have a `name` and a `type`, and some asset types have additional
