@@ -198,7 +198,7 @@ it up each time you need it.
 
 For example, to get the `vid` that corresponds to the `farm_crops` vocabulary:
 
-    curl [AUTH] [URL]taxonomy_vocabulary.json?machine_name=farm_crops
+    curl [AUTH] [URL]/taxonomy_vocabulary.json?machine_name=farm_crops
 
 Before you create a new term, you should check to see if it already exists:
 
