@@ -76,6 +76,35 @@ Basic Authentication can be used in `curl` requests via the `-u` parameter:
 
 This should be used to replace `[AUTH]` in the `curl` examples that follow.
 
+## /farm.json
+
+farmOS provides an informational API endpoint at `/farm.json`, which includes
+the farm name, URL, API version, and the currently authenticated user's name,
+ID, and email address.
+
+For example:
+
+    {
+      "name": "My Farm",
+      "url": "https://myfarm.mydomain.com",
+      "api_version": "1.0",
+      "user": {
+        "uid": "3",
+        "name": "My Username",
+        "mail": "myemail@mydomain.com",
+      },
+    }
+
+### API Version
+
+**Current API version: 1.0**
+
+It is *highly* recommended that you check the API version of the farmOS system
+you are communicating with, to be sure that your code is using the same version.
+If any changes are made that are not backwards compatible, the API version will
+change. So by checking it in your code, you can prevent unexpected things from
+happening if you try to use unsupported API features.
+
 ## Requesting records
 
 The following `curl` command examples demonstrate how to get lists of records
