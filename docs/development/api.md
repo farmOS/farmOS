@@ -268,6 +268,31 @@ Here is a `curl` command to create that asset in farmOS:
 
     curl -X POST [AUTH] -H 'Content-Type: application/json' -d '{"name": "Tractor", "type": "equipment", "manufacturer": "Allis-Chambers", "model": "G", "serial_number": "1234567890"}' [URL]/farm_asset
 
+Most asset types have the same set of standard fields. Some specific asset types
+differ slightly. The following are standard fields available on most log types:
+
+* `id`: The asset ID (unique database primary key).
+* `name`: The asset name.
+* `type`: The asset type. Some types that are included in farmOS are:
+    * `planting`
+    * `animal`
+    * `equipment`
+    * `group`
+* `description`: A free-form text field for an asset description.
+    * Note that this should be a JSON object with a `value` property and a
+      `format` property set to `farm_format`.
+* `archived`: A timestamp representing when the asset was archived. If this is
+  `0` then the asset is not archived.
+* `images`: Image files attached to the asset.
+* `files`: Other files attached to the asset.
+* `flags`: Flags associated with the log. Examples:
+    * `priority`
+    * `monitor`
+    * `review`
+* `created`: A timestamp representing when the asset was created.
+* `changed`: A timestamp representing when the asset was last changed.
+* `uid`: A reference to the user who created the asset.
+
 ### Creating taxonomy terms
 
 farmOS allows farmers to build vocabularies of terms for various categorization
