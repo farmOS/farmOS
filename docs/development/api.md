@@ -475,6 +475,20 @@ A log with a quantity measurement looks like this:
       ],
     }
 
+Available `measure` options are:
+
+* `count`
+* `length`
+* `weight`
+* `area`
+* `volume`
+* `time`
+* `temperature`
+* `value`
+* `rating`
+* `ratio`
+* `probability`
+
 All measurement properties are optional. The label is useful if you have more
 than one measurement of the same measure (eg: two weight measurements) in the
 same log. Use the label to add more specific information about what each
