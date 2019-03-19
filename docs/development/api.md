@@ -174,6 +174,29 @@ Here is a `curl` command to create that log in farmOS:
 
     curl -X POST [AUTH] -H 'Content-Type: application/json' -d '{"name": "Test observation via REST", "type": "farm_observation", "timestamp": "1526584271"}' [URL]/log
 
+### Creating assets
+
+Assets must have a `name` and a `type`, and some asset types have additional
+required fields. For example `planting` assets require a `crop` reference (for
+crop/variety), `animal` assets require an `animal_type` reference (for
+species/breed), and other types may have other requirements. A quick way to find
+out which fields are required is to open the "Add asset" form in farmOS and look
+for the red asterisk that indicates a required field.
+
+A very basic "Equipment" asset looks like this:
+
+    {
+      "name": "Tractor",
+      "type": "equipment",
+      "manufacturer": "Allis-Chambers",
+      "model": "G",
+      "serial_number": "1234567890",
+    }
+
+Here is a `curl` command to create that asset in farmOS:
+
+    curl -X POST [AUTH] -H 'Content-Type: application/json' -d '{"name": "Tractor", "type": "equipment", "manufacturer": "Allis-Chambers", "model": "G", "serial_number": "1234567890"}' [URL]/farm_asset
+
 ### Creating taxonomy terms
 
 farmOS allows farmers to build vocabularies of terms for various categorization
