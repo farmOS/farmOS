@@ -293,6 +293,38 @@ differ slightly. The following are standard fields available on most log types:
 * `changed`: A timestamp representing when the asset was last changed.
 * `uid`: A reference to the user who created the asset.
 
+#### Planting assets
+
+Additional fields on animal assets:
+
+* `crop`: Reference(s) to the crops/varieties this is a planting of.
+   **Required.**
+* `parent`: Reference(s) to assets that this planting is derived from.
+
+#### Animal assets
+
+Additional fields on animal assets:
+
+* `animal_type`: Reference to the animal's species/breed. **Required.**
+* `animal_nicknames`: Nickname(s) for the animal.
+* `animal_castrated`: Boolean indicating whether or not this animal has been
+  castrated.
+* `animal_sex`: The sex of the animal. Available options:
+    * `F` (female)
+    * `M` (male)
+* `tag`: ID Tag(s) that are assigned to the animal (see "Field collections"
+  below).
+* `parent`: Reference(s) to the animal's parent(s).
+* `date`: A timestamp representing the birth date of the animal.
+
+#### Equipment assets
+
+Additional fields on equipment assets (all optional):
+
+* `manufacturer`: The equipment manufacturer.
+* `model`: The equipment model.
+* `serial_number`: The equipment serial number.
+
 ### Creating taxonomy terms
 
 farmOS allows farmers to build vocabularies of terms for various categorization
