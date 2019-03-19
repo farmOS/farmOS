@@ -176,6 +176,44 @@ Here is a `curl` command to create that log in farmOS:
 
     curl -X POST [AUTH] -H 'Content-Type: application/json' -d '{"name": "Test observation via REST", "type": "farm_observation", "timestamp": "1526584271"}' [URL]/log
 
+Most log types have the same set of standard fields. Some specific log types
+differ slightly. The following are standard fields available on most log types:
+
+* `id`: The log ID (unique database primary key).
+* `name`: The log name.
+* `type`: The log type. Some types that are included in farmOS are:
+    * `farm_activity`: General activity logs.
+    * `farm_observation`: General observation logs.
+    * `farm_input`: An input to one or more assets/areas.
+    * `farm_harvest`: A harvest from one or more assets/areas.
+    * `farm_seeding`: A seeding log (specific to Planting assets).
+    * `farm_transplanting`: A transplanting log (specific to Planting assets).
+    * `farm_maintenance`: A maintenance log (specific to Equipment assets).
+* `timestamp`: A timestamp representing when the logged event took place.
+* `done`: Boolean value indicating whether the log is "done" or not.
+* `notes`: A free-form text field for log notes.
+    * Note that this should be a JSON object with a `value` property and a
+      `format` property set to `farm_format`.
+* `asset`: Reference(s) to asset(s) that the log is associated with.
+* `area`: Reference(s) to area(s) that the log is associated with.
+* `geofield`: Geometry specific to the logged event.
+* `movement`: Movement information (see "Field collections" below).
+* `membership`: Group membership information (see "Field collections" below).
+* `quantity`: Quantity measurements (see "Field collections" below).
+* `images`: Image files attached to the log.
+* `files`: Other files attached to the log.
+* `flags`: Flags associated with the log. Examples:
+    * `priority`
+    * `monitor`
+    * `review`
+* `log_category`: A reference to one or more log categories.
+* `log_owner`: A reference to one or more users that the log is assigned to.
+    * Note that this is different from `uid`, which is the user who created the
+      log.
+* `created`: A timestamp representing when the log was created.
+* `changed`: A timestamp representing when the log was last updated.
+* `uid`: A reference to the user who created the log.
+
 ### Creating assets
 
 Assets must have a `name` and a `type`, and some asset types have additional
