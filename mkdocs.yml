@@ -54,4 +54,6 @@ nav:
 - FAQ: faq.md
 - Donate: donate.md
 theme: yeti
-
+markdown_extensions:
+    - toc:
+        permalink: true
