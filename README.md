@@ -43,6 +43,7 @@ This project has been sponsored by:
  * [Our Sci](http://our-sci.net)
  * [Bionutrient Food Association](https://bionutrient.org)
  * [Foundation for Food and Agriculture Research](https://foundationfar.org/)
+ * [PVAMU College of Agriculture and Human Sciences](https://www.pvamu.edu/cahs/)
 
 ## CONTRIBUTORS
 
