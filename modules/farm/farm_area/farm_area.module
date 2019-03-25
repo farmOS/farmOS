@@ -485,6 +485,49 @@ function farm_area_calculate_area_multiple($area_ids, $format = FALSE) {
 }
 
 /**
+ * Calculate the area of all areas of a particular type.
+ *
+ * @param $area_type
+ *   The area type (machine name).
+ * @param $format
+ *   Boolean indicating whether or not the returned value should be formatted
+ *   based on the unit of measurement
+ *
+ * @return string
+ *   Returns the calculated are of the areas as a string, in meters squared by
+ *   default. If $format is TRUE it will be converted and formatted using
+ *   farm_area_format_calculated_area().
+ */
+function farm_area_calculate_area_type($area_type, $format = FALSE) {
+
+  // Use an entity field query to get the list of matching terms.
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'taxonomy_term');
+  $query->entityCondition('bundle', 'farm_areas');
+  $query->fieldCondition('field_farm_area_type', 'value', $area_type);
+  $result = $query->execute();
+
+  // If no terms exist, bail.
+  if (empty($result['taxonomy_term'])) {
+    return '';
+  }
+
+  // Get the term IDs
+  $tids = array_keys($result['taxonomy_term']);
+
+  // Generate a total area.
+  $total_area = farm_area_calculate_area_multiple($tids, $format);
+
+  // If a total area wasn't available, bail.
+  if (empty($total_area)) {
+    return '';
+  }
+
+  // Return the total area.
+  return $total_area;
+}
+
+/**
  * Format a calculated area in the default system of measurement.
  *
  * @param int|float $measurement
