@@ -456,11 +456,20 @@ function farm_theme_preprocess_page(&$vars) {
         '#suffix' => '</div>',
       );
 
-      // Move the map to the right column (and remove it from the groups list).
-      $vars['page']['content']['system_main']['right']['map'] = $vars['page']['content']['system_main']['map'];
-      unset($vars['page']['content']['system_main']['map']);
-      $map_key = array_search('map', $groups);
-      unset($groups[$map_key]);
+      // Move the map and metrics panes to the right column (and remove them
+      // from the groups list).
+      $right_panes = array(
+        'map',
+        'metrics',
+      );
+      foreach ($right_panes as $pane) {
+        if (!empty($vars['page']['content']['system_main'][$pane])) {
+          $vars['page']['content']['system_main']['right'][$pane] = $vars['page']['content']['system_main'][$pane];
+          unset($vars['page']['content']['system_main'][$pane]);
+          $map_key = array_search($pane, $groups);
+          unset($groups[$map_key]);
+        }
+      }
 
       // Iterate through the remaining groups and move them to the left column.
       foreach ($groups as $group) {
