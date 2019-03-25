@@ -19,6 +19,7 @@ function farm_area_types_farm_area_type_info() {
       'label' => t('Field'),
       'style' => 'farm_map_style_yellow',
       'weight' => 10,
+      'dashboard_metric' => TRUE,
     ),
     'landmark' => array(
       'label' => t('Landmark'),

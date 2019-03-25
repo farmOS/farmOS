@@ -14,6 +14,7 @@ function farm_livestock_area_types_farm_area_type_info() {
       'label' => t('Paddock'),
       'style' => 'farm_map_style_dark_green',
       'weight' => 5,
+      'dashboard_metric' => TRUE,
     ),
   );
 }
