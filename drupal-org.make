@@ -185,7 +185,7 @@ projects[diff][subdir] = "dev"
 projects[diff][version] = "3.4"
 
 projects[module_filter][subdir] = "dev"
-projects[module_filter][version] = "2.1"
+projects[module_filter][version] = "2.2"
 
 ; -----------------------------------------------------------------------------
 ; Themes
