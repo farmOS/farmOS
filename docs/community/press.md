@@ -3,6 +3,12 @@
 farmOS has been featured in the following articles. If you would like to write
 about farmOS, [contact m.stenta](https://farmier.com/contact).
 
+## 2019
+
+**2019 March 21st** [Acquia Drupal Stories: Farmer First, Drupalist Always: Michael Stenta](https://www.acquia.com/blog/farmer-first-drupalist-always-michael-stenta)
+
+**2019 March 20th** [Farmier: farmOS 1.0 - A long journey for a small number](https://farmier.com/post/2019/farmOS-1.0/)
+
 ## 2018
 
 **2018 November** Better Farming Magazine (November 2018): Open source + open mind = endless opportunities
