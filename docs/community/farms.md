@@ -7,6 +7,10 @@ included in this list, add a comment to [this issue on Github].
 
 * Eagle View Farm (Buckley, Victoria)
 
+## Belgium
+
+* Sheep Solution (Ernage, Namur)
+
 ## Brazil
 
 * Olivopampa (Santana do Livramento, Rio Grande do Sul)
