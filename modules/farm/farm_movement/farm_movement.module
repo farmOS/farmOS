@@ -11,6 +11,37 @@ include_once 'farm_movement.features.inc';
 include_once 'farm_movement.location.inc';
 
 /**
+ * Implements hook_entity_property_info_alter().
+ */
+function farm_movement_entity_property_info_alter(&$info) {
+
+  // Add a location property to assets.
+  $info['farm_asset']['properties']['location'] = array(
+    'type' => 'list<taxonomy_term>',
+    'description' => t('Asset location'),
+    'getter callback' => 'farm_movement_asset_location_property_get',
+    'computed' => TRUE,
+  );
+}
+
+/**
+ * Getter callback for the location asset property.
+ */
+function farm_movement_asset_location_property_get($data, array $options, $name, $type, $info) {
+
+  // If the asset doesn't have an ID, bail.
+  if (empty($data->id)) {
+    return array();
+  }
+
+  // Look up the asset location.
+  $areas = farm_movement_asset_location($data);
+
+  // Return the areas.
+  return $areas;
+}
+
+/**
  * Implements hook_farm_ui_entity_views().
  */
 function farm_movement_farm_ui_entity_views($entity_type, $bundle, $entity) {
