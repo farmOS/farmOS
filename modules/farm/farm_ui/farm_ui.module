@@ -28,6 +28,51 @@ function farm_ui_hook_info() {
 }
 
 /**
+ * Implements hook_farm_info().
+ */
+function farm_ui_farm_info() {
+
+  /**
+   * @todo
+   * Move this out of farm_ui.
+   * Currently it depends on farm_ui_entities() function, which should be moved
+   * to a new general-purpose farm_entity module.
+   */
+
+  // Load information about farmOS entities.
+  $entities = farm_ui_entities();
+
+  // Add information about entity type bundles.
+  $info = array();
+  foreach ($entities as $entity_type => $bundles) {
+    foreach ($bundles as $bundle => $bundle_info) {
+
+      // Only copy certain information, since some things are farmOS internals
+      // that have no purpose in external API surface.
+      $fields = array(
+        'label',
+        'label_plural'
+      );
+      foreach ($fields as $field) {
+        $info['resources'][$entity_type][$bundle][$field] = $bundle_info[$field];
+      }
+    }
+  }
+
+  // Add information about taxonomy vocabularies.
+  $vocabs = taxonomy_vocabulary_get_names();
+  foreach ($vocabs as $vocab) {
+    $info['resources']['taxonomy_vocabulary'][$vocab->machine_name] = array(
+      'vid' => $vocab->vid,
+      'label' => $vocab->name,
+    );
+  }
+
+  // Return the farm info.
+  return $info;
+}
+
+/**
  * Implements hook_menu_alter().
  */
 function farm_ui_menu_alter(&$items) {
