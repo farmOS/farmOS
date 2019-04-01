@@ -485,6 +485,9 @@ function farm_inventory_query($asset_id, $time = REQUEST_TIME, $done = TRUE) {
   // Use the farm_log_asset_query() helper function to start a query object.
   $query = farm_log_query($time, $done);
 
+  // Add a query tag to identify where this came from.
+  $query->addTag('farm_inventory_query');
+
   // Join in the Inventory field collection. Use an inner join to exclude logs
   // that do not have an inventory field collection attached.
   $query->innerJoin('field_data_field_farm_inventory', 'ss_fdffi', "ss_fdffi.entity_type = 'log' AND ss_fdffi.entity_id = ss_log.id AND ss_fdffi.deleted = 0");

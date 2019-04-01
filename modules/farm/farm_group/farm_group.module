@@ -627,6 +627,9 @@ function farm_group_asset_membership_query($asset_id, $time = REQUEST_TIME, $don
   // Use the farm_log_asset_query() helper function to start a query object.
   $query = farm_log_asset_query($asset_id, $time, $done, NULL, $single);
 
+  // Add a query tag to identify where this came from.
+  $query->addTag('farm_group_asset_membership_query');
+
   // Join in the Membership field collection. Use an inner join to exclude logs
   // that do not a membership field collection attached.
   $query->innerJoin('field_data_field_farm_membership', 'ss_fdffm', "ss_fdffm.entity_type = 'log' AND ss_fdffm.entity_id = ss_log.id AND ss_fdffm.deleted = 0");
@@ -739,6 +742,9 @@ function farm_group_members_query($group_id, $time = REQUEST_TIME, $done = TRUE,
   // this we want to find all assets in the group, which may come from multiple
   // logs.
   $subquery = farm_log_asset_query(NULL, $time, $done, NULL, FALSE);
+
+  // Add a query tag to identify where this came from.
+  $subquery->addTag('farm_group_members_query');
 
   // Join in the Membership field collection. Use an inner join to exclude logs
   // that do not have a membership field collection attached.

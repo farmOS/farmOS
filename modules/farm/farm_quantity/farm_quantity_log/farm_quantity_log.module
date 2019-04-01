@@ -144,6 +144,9 @@ function farm_quantity_log_asset_query($asset_id, $measure = NULL, $label = NULL
   // Use the farm_log_asset_query() helper function to start a query object.
   $query = farm_log_asset_query($asset_id, $time, $done);
 
+  // Add a query tag to identify where this came from.
+  $query->addTag('farm_quantity_log_asset_query');
+
   // Add quantity filters to the query using a helper function.
   farm_quantity_log_query_add_filters($query, $measure, $label);
 
@@ -230,6 +233,9 @@ function farm_quantity_log_query($measure = NULL, $label = NULL, $start_time = 0
 
   // Use the farm_log_query() helper function to start a query object.
   $query = farm_log_query($end_time, $done, $type, FALSE);
+
+  // Add a query tag to identify where this came from.
+  $query->addTag('farm_quantity_log_query');
 
   // Add quantity filters to the query using a helper function.
   farm_quantity_log_query_add_filters($query, $measure, $label);

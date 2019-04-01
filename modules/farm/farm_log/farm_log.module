@@ -643,6 +643,9 @@ function farm_log_asset_query($asset_id = NULL, $time = REQUEST_TIME, $done = TR
   // Start with a query from the farm_log_query() helper function.
   $query = farm_log_query($time, $done, $type, $single);
 
+  // Add a query tag to identify where this came from.
+  $query->addTag('farm_log_asset_query');
+
   // Ensure $asset_id is valid, because it will be used directly in the query
   // string. This is defensive code. See note about farm_log_query() above.
   if (!is_numeric($asset_id) || $asset_id < 0) {
@@ -716,6 +719,9 @@ function farm_log_query($time = REQUEST_TIME, $done = TRUE, $type = NULL, $singl
 
   // Build a query to find a log that references an asset.
   $query = db_select('log', 'ss_log');
+
+  // Add a query tag to identify where this came from.
+  $query->addTag('farm_log_query');
 
   // If $type is not empty, filter to logs of that type.
   if (!empty($type)) {
