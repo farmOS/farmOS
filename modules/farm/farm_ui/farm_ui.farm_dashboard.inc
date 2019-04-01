@@ -10,6 +10,13 @@
  */
 function farm_ui_farm_dashboard_metrics() {
 
+  /**
+   * @todo
+   * Move this out of farm_ui.
+   * Currently it depends on farm_ui_entities() function, which should be moved
+   * to a new general-purpose farm_entity module.
+   */
+
   // Start an empty metrics array.
   $metrics = array();
 
