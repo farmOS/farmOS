@@ -42,6 +42,7 @@ features[ctools][] = strongarm:strongarm:1
 features[ctools][] = views:views_default:3.0
 features[farm_asset_type][] = equipment
 features[features_api][] = api:2
+features[field_base][] = field_farm_equipment
 features[field_base][] = field_farm_manufacturer
 features[field_base][] = field_farm_model
 features[field_base][] = field_farm_serial_number
