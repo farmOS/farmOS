@@ -22,6 +22,14 @@ function farm_movement_entity_property_info_alter(&$info) {
     'getter callback' => 'farm_movement_asset_location_property_get',
     'computed' => TRUE,
   );
+
+  // Add an assets property to areas.
+  $info['taxonomy_term']['bundles']['farm_areas']['properties']['assets'] = array(
+    'type' => 'list<farm_asset>',
+    'description' => t('Assets in area'),
+    'getter callback' => 'farm_movement_area_assets_property_get',
+    'computed' => TRUE,
+  );
 }
 
 /**
@@ -39,6 +47,26 @@ function farm_movement_asset_location_property_get($data, array $options, $name,
 
   // Return the areas.
   return $areas;
+}
+
+/**
+ * Getter callback for the area assets property.
+ */
+function farm_movement_area_assets_property_get($data, array $options, $name, $type, $info) {
+
+  // If the area doesn't have an ID, bail.
+  if (empty($data->tid)) {
+    return array();
+  }
+
+  // Load assets in this area.
+  $assets = farm_movement_area_assets($data);
+
+  // Strip the array keys.
+  $assets = array_values($assets);
+
+  // Return the assets.
+  return $assets;
 }
 
 /**
