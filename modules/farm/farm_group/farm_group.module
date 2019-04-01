@@ -671,6 +671,11 @@ function farm_group_asset_membership_query($asset_id, $time = REQUEST_TIME, $don
  */
 function farm_group_members(FarmAsset $group, $time = REQUEST_TIME, $done = TRUE, $archived = FALSE) {
 
+  /**
+   * @todo
+   * Merge/abstract with farm_movement_area_assets().
+   */
+
   // Start an empty array of members.
   $members = array();
 
@@ -724,6 +729,11 @@ function farm_group_members(FarmAsset $group, $time = REQUEST_TIME, $done = TRUE
  *   Returns a SelectQuery object.
  */
 function farm_group_members_query($group_id, $time = REQUEST_TIME, $done = TRUE, $archived = TRUE) {
+
+  /**
+   * @todo
+   * Merge/abstract with farm_movement_area_assets_query().
+   */
 
   /**
    * Please read the comments in farm_log_asset_query() to understand how this

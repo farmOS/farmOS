@@ -544,6 +544,152 @@ function farm_movement_area_movement_query($area_id, $time = REQUEST_TIME, $done
 }
 
 /**
+ * Load all assets in an area.
+ *
+ * @param $area
+ *   The area to load assets from.
+ * @param int $time
+ *   Unix timestamp limiter. Only logs before this time will be included.
+ *   Defaults to the current time. Set to 0 to load the absolute last.
+ * @param bool $done
+ *   Whether or not to only show logs that are marked as "done".
+ *   Defaults to TRUE.
+ * @param bool $archived
+ *   Whether or not to include archived assets. Defaults to FALSE.
+ *
+ * @return array
+ *   Returns an array of the area's assets, keyed by asset ID.
+ */
+function farm_movement_area_assets($area, $time = REQUEST_TIME, $done = TRUE, $archived = FALSE) {
+
+  /**
+   * @todo
+   * Merge/abstract with farm_group_members().
+   */
+
+  // Start an empty array of assets.
+  $assets = array();
+
+  // If the area doesn't have an id, bail.
+  if (empty($area->tid)) {
+    return $assets;
+  }
+
+  // Build a query to find all assets in the area.
+  $query = farm_movement_area_assets_query($area->tid, $time, $done, $archived);
+
+  // Execute the query to get a list of asset IDs.
+  $result = $query->execute();
+
+  // Iterate through the results.
+  foreach ($result as $row) {
+
+    // If the asset ID is empty, skip it.
+    if (empty($row->asset_id)) {
+      continue;
+    }
+
+    // If the asset has already been loaded, skip it.
+    if (array_key_exists($row->asset_id, $assets)) {
+      continue;
+    }
+
+    // Load the asset.
+    $assets[$row->asset_id] = farm_asset_load($row->asset_id);
+  }
+
+  // Return the array of assets.
+  return $assets;
+}
+
+/**
+ * Build a query to find assets in a given area.
+ *
+ * @param int $area_id
+ *   The area's taxonomy term id to search for.
+ * @param int $time
+ *   Unix timestamp limiter. Only logs before this time will be included.
+ *   Defaults to the current time. Set to 0 to load the absolute last.
+ * @param bool $done
+ *   Whether or not to only show logs that are marked as "done". Defaults to
+ *   TRUE.
+ * @param bool $archived
+ *   Whether or not to include archived assets. Defaults to FALSE.
+ *
+ * @return \SelectQuery
+ *   Returns a SelectQuery object.
+ */
+function farm_movement_area_assets_query($area_id, $time = REQUEST_TIME, $done = TRUE, $archived = FALSE) {
+
+  /**
+   * @todo
+   * Merge/abstract with farm_group_members_query().
+   */
+
+  /**
+   * Please read the comments in farm_log_asset_query() to understand how this
+   * works, and to be aware of the limitations and responsibilities we have in
+   * this function with regard to sanitizing query inputs.
+   */
+
+  // Ensure $area_id is valid, because it will be used directly in the query
+  // string. This is defensive code. See note about farm_log_query() above.
+  if (!is_numeric($area_id) || $area_id < 0) {
+    $area_id = db_escape_field($area_id);
+  }
+
+  // Use the farm_log_asset_query() helper function to start a subquery object.
+  // Do not limit the results to a single row because by the very nature of
+  // this we want to find all assets in the area, which may come from multiple
+  // logs.
+  $subquery = farm_log_asset_query(NULL, $time, $done, NULL, FALSE);
+
+  // Add a query tag to identify where this came from.
+  $subquery->addTag('farm_movement_area_assets_query');
+
+  // Join in the Movement field collection. Use an inner join to exclude logs
+  // that do not have a movement field collection attached.
+  $subquery->innerJoin('field_data_field_farm_movement', 'ss_fdffm', "ss_fdffm.entity_type = 'log' AND ss_fdffm.entity_id = ss_log.id AND ss_fdffm.deleted = 0");
+
+  // Add the asset ID field.
+  $subquery->addField('ss_fdffa', 'field_farm_asset_target_id');
+
+  // Add an expression to extract the assets most recent movement log ID.
+  $subquery->addExpression("SUBSTRING_INDEX(GROUP_CONCAT(ss_log.id ORDER BY ss_log.timestamp DESC, ss_log.id DESC SEPARATOR ','), ',', 1)", 'ss_current_log_id');
+
+  // Group by asset ID.
+  $subquery->groupBy('ss_fdffa.field_farm_asset_target_id');
+
+  // Create a query that selects from the subquery.
+  $query = db_select($subquery, 'ss_asset_current_log');
+
+  // Join in the asset's current log.
+  $query->join('log', 'ss_current_log', 'ss_current_log.id = ss_asset_current_log.ss_current_log_id');
+
+  // Join in the Movement field collection. Use an inner join to exclude logs
+  // that do not have a movement field collection attached.
+  $query->innerJoin('field_data_field_farm_movement', 'ss_current_log_fdffm', "ss_current_log_fdffm.entity_type = 'log' AND ss_current_log_fdffm.entity_id = ss_current_log.id AND ss_current_log_fdffm.deleted = 0");
+
+  // Join in the movement's "move to" field, and filter to only include logs
+  // that have a movement that references the specified area. Use an inner
+  // join to exclude logs that do not have an area reference.
+  $query->innerJoin('field_data_field_farm_move_to', 'ss_current_log_fdffmt', "ss_current_log_fdffmt.entity_type = 'field_collection_item' AND ss_current_log_fdffmt.bundle = 'field_farm_movement' AND ss_current_log_fdffmt.entity_id = ss_current_log_fdffm.field_farm_movement_value AND ss_current_log_fdffmt.deleted = 0");
+  $query->where('ss_current_log_fdffmt.field_farm_move_to_tid = ' . $area_id);
+
+  // Exclude archived assets, if requested.
+  if (empty($archived)) {
+    $query->join('farm_asset', 'ss_current_log_fa', "ss_asset_current_log.field_farm_asset_target_id = ss_current_log_fa.id");
+    $query->where('ss_current_log_fa.archived = 0');
+  }
+
+  // Add the asset ID field.
+  $query->addField('ss_asset_current_log', 'field_farm_asset_target_id', 'asset_id');
+
+  // Return the query object.
+  return $query;
+}
+
+/**
  * Implements hook_action_info().
  */
 function farm_movement_action_info() {
