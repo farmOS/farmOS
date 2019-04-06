@@ -1,0 +1,82 @@
+<?php
+/**
+ * @file
+ * Farm fields install file.
+ */
+
+/**
+ * Add data field to logs.
+ */
+function farm_fields_update_7000(&$sandbox) {
+
+  // Load field types.
+  $field_types = field_info_fields();
+
+  // Create the data field base, if it doesn't already exist.
+  if (empty($field_types['field_farm_data'])) {
+    $field_base = array(
+      'active' => 1,
+      'cardinality' => 1,
+      'deleted' => 0,
+      'entity_types' => array(),
+      'field_name' => 'field_farm_data',
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'locked' => 0,
+      'module' => 'text',
+      'settings' => array(),
+      'translatable' => 0,
+      'type' => 'text_long',
+    );
+    field_create_field($field_base);
+  }
+
+  // Load field instances.
+  $field_instances = field_info_instances();
+
+  // Create new field instances on log types.
+  $log_types = log_type_get_names();
+  foreach ($log_types as $bundle => $bundle_info) {
+
+    // If the instance already exists, skip it.
+    if (!empty($field_instances['log'][$bundle]['field_farm_data'])) {
+      continue;
+    }
+
+    // Create a field instance.
+    $field_instance = array(
+      'bundle' => $bundle,
+      'default_value' => NULL,
+      'deleted' => 0,
+      'description' => t('The data field can be used to store arbitrary data on the log.'),
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'log',
+      'field_name' => 'field_farm_data',
+      'label' => t('Data'),
+      'required' => 0,
+      'settings' => array(
+        'text_processing' => 0,
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'text',
+        'settings' => array(
+          'rows' => 5,
+        ),
+        'type' => 'text_textarea',
+        'weight' => 0,
+      ),
+    );
+    field_create_instance($field_instance);
+  }
+}
