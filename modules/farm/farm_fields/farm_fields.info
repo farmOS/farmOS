@@ -18,6 +18,7 @@ dependencies[] = text
 features[ctools][] = strongarm:strongarm:1
 features[features_api][] = api:2
 features[field_base][] = field_farm_asset
+features[field_base][] = field_farm_data
 features[field_base][] = field_farm_date
 features[field_base][] = field_farm_date_range
 features[field_base][] = field_farm_description
