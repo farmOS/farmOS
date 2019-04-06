@@ -32,7 +32,7 @@ function farm_log_input_default_log_type() {
     "type" : "farm_input",
     "label" : "Input",
     "weight" : 0,
-    "name_pattern" : "Input: [log:field-farm-material] [log:field-farm-area] [log:field-farm-asset]",
+    "name_pattern" : "Input [log:timestamp:short] [log:field-farm-material] [log:field-farm-area] [log:field-farm-asset]",
     "name_edit" : "1",
     "done" : "1",
     "rdf_mapping" : []

@@ -29,7 +29,7 @@ function farm_water_test_default_log_type() {
     "type" : "farm_water_test",
     "label" : "Water Test",
     "weight" : 0,
-    "name_pattern" : "Water test: [log:field-farm-area]",
+    "name_pattern" : "Water test [log:timestamp:short] [log:field-farm-area]",
     "name_edit" : "1",
     "done" : "1",
     "rdf_mapping" : []
