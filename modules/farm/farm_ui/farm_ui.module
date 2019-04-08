@@ -59,13 +59,12 @@ function farm_ui_farm_info() {
     }
   }
 
-  // Add information about taxonomy vocabularies.
+  // Add vocabulary IDs to taxonomy_term bundles.
   $vocabs = taxonomy_vocabulary_get_names();
   foreach ($vocabs as $vocab) {
-    $info['resources']['taxonomy_vocabulary'][$vocab->machine_name] = array(
-      'vid' => $vocab->vid,
-      'label' => $vocab->name,
-    );
+    if (!empty($info['resources']['taxonomy_term'][$vocab->machine_name])) {
+      $info['resources']['taxonomy_term'][$vocab->machine_name]['vid'] = $vocab->vid;
+    }
   }
 
   // Return the farm info.
