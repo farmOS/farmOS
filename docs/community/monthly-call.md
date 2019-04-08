@@ -11,8 +11,9 @@ Calls are currently held on the second Wednesday of the month, at 2pm Eastern
 US time.
 
 Note that Daylight Savings Time is observed in the US, so the time relative to
-UTC (Universal Time Coordinated) will change twice a year. The schedule below shows that, along with the
-actual UTC times for each call. UTC is for most purposes the same as GMT.
+UTC (Universal Time Coordinated) will change twice a year. The schedule below
+shows that, along with the actual UTC times for each call. UTC is for most
+purposes the same as GMT.
 
 ### 2019 Schedule
 
