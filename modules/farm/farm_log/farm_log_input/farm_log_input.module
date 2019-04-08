@@ -21,6 +21,12 @@ function farm_log_input_farm_ui_entities() {
         'weight' => 0,
       ),
     ),
+    'taxonomy_term' => array(
+      'farm_materials' => array(
+        'label' => t('Material'),
+        'label_plural' => t('Materials'),
+      ),
+    ),
   );
 }
 

@@ -8,6 +8,20 @@
 include_once 'farm_quantity.features.inc';
 
 /**
+ * Implements hook_farm_ui_entities().
+ */
+function farm_quantity_farm_ui_entities() {
+  return array(
+    'taxonomy_term' => array(
+      'farm_quantity_units' => array(
+        'label' => t('Quantity unit'),
+        'label_plural' => t('Quantity units'),
+      ),
+    ),
+  );
+}
+
+/**
  * Implements hook_restws_field_collection_info().
  */
 function farm_quantity_restws_field_collection_info() {

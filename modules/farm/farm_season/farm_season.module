@@ -5,3 +5,17 @@
  */
 
 include_once 'farm_season.features.inc';
+
+/**
+ * Implements hook_farm_ui_entities().
+ */
+function farm_season_farm_ui_entities() {
+  return array(
+    'taxonomy_term' => array(
+      'farm_season' => array(
+        'label' => t('Season'),
+        'label_plural' => t('Seasons'),
+      ),
+    ),
+  );
+}
