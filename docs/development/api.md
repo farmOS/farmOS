@@ -210,6 +210,7 @@ differ slightly. The following are standard fields available on most log types:
     * Note that this should be a JSON object with a `value` property and a
       `format` property set to `farm_format`.
 * `asset`: Reference(s) to asset(s) that the log is associated with.
+* `equipment`: Reference(s) to equipment assets that were used in the process.
 * `area`: Reference(s) to area(s) that the log is associated with.
 * `geofield`: Geometry specific to the logged event.
 * `movement`: Movement information (see "Field collections" below).
@@ -510,6 +511,7 @@ Available `measure` options are:
 * `time`
 * `temperature`
 * `value`
+* `rate`
 * `rating`
 * `ratio`
 * `probability`
