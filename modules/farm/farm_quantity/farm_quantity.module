@@ -172,6 +172,9 @@ function farm_quantity_measures() {
     'value' => array(
       'label' => t('Value'),
     ),
+    'rate' => array(
+      'label' => t('Rate'),
+    ),
     'rating' => array(
       'label' => t('Rating'),
     ),
