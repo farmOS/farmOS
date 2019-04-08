@@ -107,6 +107,8 @@ For example:
 The `resources` section contains a list of entity types (aka "resource types")
 that are available. Within each is a list of bundles (eg: "log types", "asset
 types", etc). Each bundle contains information such as its translated `label`.
+The `taxonomy_term` bundles also contain their `vid` (vocabulary ID), which is
+necessary when creating new terms (see [Creating taxonomy terms]).
 
 ### API Version
 
@@ -382,7 +384,7 @@ When fetching a list of terms from farmOS, you can filter by the vocabulary's
 When creating a new term, however, you need to provide the vocabulary ID in the
 term object, not the machine name/bundle. In order to get the vocabulary ID, you
 can look it up using the `/taxonomy_vocabulary` endpoint, which lists all
-available vocabularies.
+available vocabularies. Or, you can find it in `farm.json` (described above).
 
 The vocabulary ID may be different from one farmOS system to another, so if you
 save it internally in your application, just know that it may not correspond to
@@ -392,6 +394,10 @@ it up each time you need it.
 For example, to get the `vid` that corresponds to the `farm_crops` vocabulary:
 
     curl [AUTH] [URL]/taxonomy_vocabulary.json?machine_name=farm_crops
+
+Or, by loading the information in `farm.json` and parsing out the vocabulary ID:
+
+    curl [AUTH] [URL]/farm.json
 
 Before you create a new term, you should check to see if it already exists:
 
@@ -676,6 +682,7 @@ submit a support request on [GitHub] or ask questions in the
 [RESTful Web Services Basic Authentication module documentation]: https://cgit.drupalcode.org/restws/tree/restws_basic_auth/README.txt
 [Postman]: https://www.getpostman.com/
 [Restlet]: https://restlet.com/
+[Creating taxonomy terms]: #creating-taxonomy-terms
 [Make "Area" into a type of Farm Asset]: https://www.drupal.org/project/farm/issues/2363393
 [Field Collections]: https://drupal.org/project/field_collection
 [RESTful Web Services Field Collection]: https://drupal.org/project/restws_field_collection
