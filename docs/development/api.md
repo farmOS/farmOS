@@ -110,7 +110,7 @@ types", etc). Each bundle contains information such as its translated `label`.
 
 ### API Version
 
-**Current API version: 1.0**
+**Current API version: 1.1**
 
 It is *highly* recommended that you check the API version of the farmOS system
 you are communicating with, to be sure that your code is using the same version.
