@@ -228,6 +228,9 @@ differ slightly. The following are standard fields available on most log types:
 * `created`: A timestamp representing when the log was created.
 * `changed`: A timestamp representing when the log was last updated.
 * `uid`: A reference to the user who created the log.
+* `data`: An arbitrary string of data. This can be used to store additional data
+  on the log as JSON, XML, YAML, etc. **It is the resposibility of the API user
+  to respect data format that is already in the log.**
 
 #### Input logs
 
@@ -307,6 +310,9 @@ differ slightly. The following are standard fields available on most log types:
 * `created`: A timestamp representing when the asset was created.
 * `changed`: A timestamp representing when the asset was last changed.
 * `uid`: A reference to the user who created the asset.
+* `data`: An arbitrary string of data. This can be used to store additional data
+  on the asset as JSON, XML, YAML, etc. **It is the resposibility of the API
+  user to respect data format that is already in the log.**
 
 #### Planting assets
 
