@@ -370,8 +370,8 @@ function farm_sensor_views_default_views() {
   $handler->display->display_options['style_options']['keep_html'] = 0;
   $handler->display->display_options['path'] = 'farm/assets/sensors/csv';
   $handler->display->display_options['displays'] = array(
+    'default' => 'default',
     'page' => 'page',
-    'default' => 0,
   );
   $translatables['farm_sensors'] = array(
     t('Master'),
