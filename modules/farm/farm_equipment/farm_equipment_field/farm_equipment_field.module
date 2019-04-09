@@ -1,0 +1,8 @@
+<?php
+
+/**
+ * @file
+ * Farm equipment field module.
+ */
+
+include_once 'farm_equipment_field.features.inc';
