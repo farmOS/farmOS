@@ -29,7 +29,7 @@ function farm_log_observation_default_log_type() {
     "type" : "farm_observation",
     "label" : "Observation",
     "weight" : 0,
-    "name_pattern" : "Observation: [log:field-farm-asset] [log:field-farm-area] [log:timestamp:short]",
+    "name_pattern" : "Observation [log:timestamp:short] [log:field-farm-asset] [log:field-farm-area]",
     "name_edit" : "1",
     "done" : "1",
     "rdf_mapping" : []

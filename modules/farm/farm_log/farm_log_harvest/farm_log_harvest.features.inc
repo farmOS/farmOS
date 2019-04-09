@@ -29,7 +29,7 @@ function farm_log_harvest_default_log_type() {
     "type" : "farm_harvest",
     "label" : "Harvest",
     "weight" : 0,
-    "name_pattern" : "Harvest [log:field-farm-asset]",
+    "name_pattern" : "Harvest [log:timestamp:short] [log:field-farm-asset]",
     "name_edit" : "1",
     "done" : "1",
     "rdf_mapping" : []
