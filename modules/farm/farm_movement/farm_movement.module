@@ -18,7 +18,8 @@ function farm_movement_entity_property_info_alter(&$info) {
   // Add a location property to assets.
   $info['farm_asset']['properties']['location'] = array(
     'type' => 'list<taxonomy_term>',
-    'description' => t('Asset location'),
+    'label' => t('Asset location'),
+    'description' => t('The area(s) where the asset is currently located.'),
     'getter callback' => 'farm_movement_asset_location_property_get',
     'computed' => TRUE,
   );
@@ -26,7 +27,8 @@ function farm_movement_entity_property_info_alter(&$info) {
   // Add an assets property to areas.
   $info['taxonomy_term']['bundles']['farm_areas']['properties']['assets'] = array(
     'type' => 'list<farm_asset>',
-    'description' => t('Assets in area'),
+    'label' => t('Assets in area'),
+    'description' => t('A list of assets currently located in the area.'),
     'getter callback' => 'farm_movement_area_assets_property_get',
     'computed' => TRUE,
   );
