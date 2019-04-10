@@ -32,6 +32,7 @@ function farm_modules() {
       'farm_crop_area_types' => t('Crop area types: Bed and Greenhouse'),
       'farm_livestock_area_types' => t('Livestock area types: Paddock'),
       'farm_water' => st('Water area type'),
+      'farm_data_field' => st('Add an arbitrary "data" field to logs and assets'),
       'farm_access_roles' => st('Default roles: Manager, Worker, Viewer'),
       'farm_help' => st('farmOS Help Pages'),
       'farm_tour' => st('farmOS Tours'),
@@ -791,6 +792,13 @@ function farm_update_7046(&$sandbox) {
 
   // Uninstall Role Delegation.
   db_query("DELETE FROM {system} WHERE name = 'role_delegation' AND type = 'module'");
+}
+
+/**
+ * Add an arbitrary data field to logs and assets.
+ */
+function farm_update_7047(&$sandbox) {
+  _farm_update_enable_modules(array('farm_data_field'));
 }
 
 /**
