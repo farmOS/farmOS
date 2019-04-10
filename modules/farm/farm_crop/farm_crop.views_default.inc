@@ -461,7 +461,6 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['field_farm_quantity_value']['table'] = 'field_data_field_farm_quantity_value';
   $handler->display->display_options['fields']['field_farm_quantity_value']['field'] = 'field_farm_quantity_value';
   $handler->display->display_options['fields']['field_farm_quantity_value']['relationship'] = 'field_farm_quantity_value';
-  $handler->display->display_options['fields']['field_farm_quantity_value']['label'] = 'Quantity';
   $handler->display->display_options['fields']['field_farm_quantity_value']['type'] = 'fraction_decimal';
   $handler->display->display_options['fields']['field_farm_quantity_value']['settings'] = array(
     'precision' => '0',
@@ -1036,7 +1035,6 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['field_farm_quantity_value']['table'] = 'field_data_field_farm_quantity_value';
   $handler->display->display_options['fields']['field_farm_quantity_value']['field'] = 'field_farm_quantity_value';
   $handler->display->display_options['fields']['field_farm_quantity_value']['relationship'] = 'field_farm_quantity_value';
-  $handler->display->display_options['fields']['field_farm_quantity_value']['label'] = 'Quantity';
   $handler->display->display_options['fields']['field_farm_quantity_value']['type'] = 'fraction_decimal';
   $handler->display->display_options['fields']['field_farm_quantity_value']['settings'] = array(
     'precision' => '0',
