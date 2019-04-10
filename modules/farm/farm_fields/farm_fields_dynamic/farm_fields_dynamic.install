@@ -1,0 +1,94 @@
+<?php
+
+/**
+ * @file
+ * Farm fields dynamic install.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function farm_fields_dynamic_install() {
+
+  // When this module is installed, create dynamic field bases and instances (if
+  // necessary).
+  farm_fields_dynamic_base_create();
+  farm_fields_dynamic_instances_create();
+}
+
+/**
+ * Implements hook_modules_installed().
+ */
+function farm_fields_dynamic_modules_installed() {
+
+  // When another module is installed, create dynamic field bases and instances
+  // (if necessary).
+  farm_fields_dynamic_base_create();
+  farm_fields_dynamic_instances_create();
+}
+
+/**
+ * Create data field base.
+ */
+function farm_fields_dynamic_base_create() {
+
+  // Load field types.
+  $field_types = field_info_fields();
+
+  // Get dynamic field base definitions.
+  $dynamic_field_bases = module_invoke_all('farm_fields_dynamic_bases');
+
+  // Iterate through the field base definitions.
+  foreach ($dynamic_field_bases as $field_base) {
+
+    // If the field name is not available, skip it.
+    if (!empty($field_base['field_name'])) {
+      $field_name = $field_base['field_name'];
+    }
+    else {
+      continue;
+    }
+
+    // If the field base already exists, skip it.
+    if (!empty($field_types[$field_name])) {
+      continue;
+    }
+
+    // Create the field base.
+    field_create_field($field_base);
+  }
+}
+
+/**
+ * Create data field instances.
+ */
+function farm_fields_dynamic_instances_create() {
+
+  // Load existing field instances.
+  $field_instances = field_info_instances();
+
+  // Get dynamic field instance definitions.
+  $dynamic_field_instances = module_invoke_all('farm_fields_dynamic_instances');
+
+  // Iterate through the dynamic field instances.
+  foreach ($dynamic_field_instances as $field_instance) {
+
+    // If the entity type, bundle, or field name are not available, bail.
+    if (!empty($field_instance['entity_type']) && !empty($field_instance['bundle']) && !empty($field_instance['field_name'])) {
+      $entity_type = $field_instance['entity_type'];
+      $bundle = $field_instance['bundle'];
+      $field_name = $field_instance['field_name'];
+    }
+    else {
+      continue;
+    }
+
+    // If the instance already exists, skip it.
+    if (!empty($field_instances[$entity_type][$bundle][$field_name])) {
+      continue;
+    }
+
+    // Create the field instance.
+    field_create_instance($field_instance);
+  }
+}
