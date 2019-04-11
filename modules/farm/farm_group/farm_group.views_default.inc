@@ -221,7 +221,7 @@ function farm_group_views_default_views() {
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Logs of group membership';
+  $handler->display->display_options['title'] = 'Group membership logs';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['access']['perm'] = 'view all logs';
@@ -335,7 +335,7 @@ function farm_group_views_default_views() {
   $handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
   $handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
-  $handler->display->display_options['empty']['area_text_custom']['content'] = 'No logs of group membership found.';
+  $handler->display->display_options['empty']['area_text_custom']['content'] = 'No group membership logs found.';
   /* Relationship: Log: Group membership (field_farm_membership) */
   $handler->display->display_options['relationships']['field_farm_membership_value']['id'] = 'field_farm_membership_value';
   $handler->display->display_options['relationships']['field_farm_membership_value']['table'] = 'field_data_field_farm_membership';
@@ -611,7 +611,7 @@ function farm_group_views_default_views() {
   $handler = $view->new_display('page', 'Page', 'page');
   $handler->display->display_options['path'] = 'farm/logs/group';
   $handler->display->display_options['menu']['type'] = 'normal';
-  $handler->display->display_options['menu']['title'] = 'Logs of group membership';
+  $handler->display->display_options['menu']['title'] = 'Group membership logs';
   $handler->display->display_options['menu']['weight'] = '100';
   $handler->display->display_options['menu']['name'] = 'farm';
   $handler->display->display_options['menu']['context'] = 0;
@@ -638,7 +638,7 @@ function farm_group_views_default_views() {
   );
   $translatables['farm_group_log'] = array(
     t('Master'),
-    t('Logs of group membership'),
+    t('Group membership logs'),
     t('more'),
     t('Apply'),
     t('Reset'),
@@ -654,7 +654,7 @@ function farm_group_views_default_views() {
     t('last »'),
     t('This lists all logs that assign assets as members of a group. Multiple log types are included in this list, and are specified in the "Log type" column.'),
     t('Displaying @start - @end of @total'),
-    t('No logs of group membership found.'),
+    t('No group membership logs found.'),
     t('field collection item from field_farm_membership'),
     t('Log'),
     t('- Choose an operation -'),
