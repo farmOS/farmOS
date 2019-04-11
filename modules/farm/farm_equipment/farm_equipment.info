@@ -79,4 +79,5 @@ features[field_instance][] = log-farm_maintenance-field_farm_notes
 features[log_type][] = farm_maintenance
 features[variable][] = pathauto_farm_asset_equipment_pattern
 features[views_view][] = farm_equipment
+features[views_view][] = farm_equipment_entityreference_view
 features[views_view][] = farm_log_maintenance

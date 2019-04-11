@@ -1,0 +1,12 @@
+name = Farm Equipment Field
+description = Adds an "Equipment used" field to logs.
+core = 7.x
+package = farmOS
+dependencies[] = ctools
+dependencies[] = entity
+dependencies[] = entityreference
+dependencies[] = entityreference_view_widget
+dependencies[] = farm_asset
+dependencies[] = farm_fields_dynamic
+dependencies[] = field_group
+dependencies[] = log

@@ -21,6 +21,7 @@ function farm_modules() {
       'farm_crop' => st('Crops'),
       'farm_livestock' => st('Livestock'),
       'farm_equipment' => st('Equipment'),
+      'farm_equipment_field' => st('Add "Equipment used" field to logs'),
       'farm_calendar' => st('Calendar of logs'),
       'farm_import' => st('CSV importers for assets and logs'),
       'farm_quick' => st('Quick forms UI'),
@@ -799,6 +800,15 @@ function farm_update_7046(&$sandbox) {
  */
 function farm_update_7047(&$sandbox) {
   _farm_update_enable_modules(array('farm_data_field'));
+}
+
+/**
+ * Add "Equipment used" field to logs (if Equipment module is enabled).
+ */
+function farm_update_7048(&$sandbox) {
+  if (module_exists('farm_equipment')) {
+    _farm_update_enable_modules(array('farm_equipment_field'));
+  }
 }
 
 /**
