@@ -5,6 +5,8 @@
  * Farm equipment field module.
  */
 
+include_once 'farm_equipment_field.features.inc';
+
 /**
  * Implements hook_farm_fields_dynamic_bases().
  */
