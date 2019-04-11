@@ -33,28 +33,6 @@ function farm_fields_farm_access_perms($role) {
 }
 
 /**
- * Implements hook_form_FORM_ID_alter().
- */
-function farm_fields_form_log_form_alter(&$form, &$form_state, $form_id) {
-
-  // Hide the data field in log forms.
-  if (!empty($form['field_farm_data'])) {
-    $form['field_farm_data']['#access'] = FALSE;
-  }
-}
-
-/**
- * Implements hook_form_FORM_ID_alter().
- */
-function farm_fields_form_farm_asset_form_alter(&$form, &$form_state, $form_id) {
-
-  // Hide the data field in asset forms.
-  if (!empty($form['field_farm_data'])) {
-    $form['field_farm_data']['#access'] = FALSE;
-  }
-}
-
-/**
  * Implements hook_field_default_field_instances_alter().
  */
 function farm_fields_field_default_field_instances_alter(&$fields) {

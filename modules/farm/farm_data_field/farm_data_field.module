@@ -93,3 +93,25 @@ function farm_data_field_farm_fields_dynamic_instances() {
   // Return the array of field instance definitions.
   return $field_instances;
 }
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function farm_data_field_form_log_form_alter(&$form, &$form_state, $form_id) {
+
+  // Hide the data field in log forms.
+  if (!empty($form['field_farm_data'])) {
+    $form['field_farm_data']['#access'] = FALSE;
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function farm_data_field_form_farm_asset_form_alter(&$form, &$form_state, $form_id) {
+
+  // Hide the data field in asset forms.
+  if (!empty($form['field_farm_data'])) {
+    $form['field_farm_data']['#access'] = FALSE;
+  }
+}
