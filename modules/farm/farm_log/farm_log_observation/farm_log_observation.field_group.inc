@@ -50,7 +50,7 @@ function farm_log_observation_field_group_info() {
   $field_group->parent_name = 'group_farm_tabs';
   $field_group->data = array(
     'label' => 'Assets',
-    'weight' => '7',
+    'weight' => '1',
     'children' => array(
       0 => 'field_farm_asset',
       1 => 'field_farm_movement',
@@ -166,7 +166,7 @@ function farm_log_observation_field_group_info() {
   $field_group->parent_name = 'group_farm_tabs';
   $field_group->data = array(
     'label' => 'General',
-    'weight' => '6',
+    'weight' => '0',
     'children' => array(
       0 => 'field_farm_notes',
       1 => 'field_farm_flags',

@@ -137,7 +137,7 @@ function farm_livestock_field_group_info() {
   $field_group->parent_name = 'group_farm_tabs';
   $field_group->data = array(
     'label' => 'Children',
-    'weight' => '6',
+    'weight' => '2',
     'children' => array(
       0 => 'field_farm_asset',
       1 => 'field_farm_movement',
@@ -248,7 +248,7 @@ function farm_livestock_field_group_info() {
   $field_group->parent_name = 'group_farm_tabs';
   $field_group->data = array(
     'label' => 'General',
-    'weight' => '1',
+    'weight' => '0',
     'children' => array(
       0 => 'field_farm_animal_type',
       1 => 'field_farm_description',
@@ -279,7 +279,7 @@ function farm_livestock_field_group_info() {
   $field_group->parent_name = 'group_farm_tabs';
   $field_group->data = array(
     'label' => 'General',
-    'weight' => '4',
+    'weight' => '0',
     'children' => array(
       0 => 'field_farm_notes',
       1 => 'field_farm_flags',
@@ -309,7 +309,7 @@ function farm_livestock_field_group_info() {
   $field_group->parent_name = 'group_farm_tabs';
   $field_group->data = array(
     'label' => 'General',
-    'weight' => '1',
+    'weight' => '0',
     'children' => array(
       0 => 'field_farm_asset',
       1 => 'field_farm_notes',
@@ -562,7 +562,7 @@ function farm_livestock_field_group_info() {
   $field_group->parent_name = 'group_farm_tabs';
   $field_group->data = array(
     'label' => 'Mother',
-    'weight' => '5',
+    'weight' => '1',
     'children' => array(
       0 => 'field_farm_mother',
     ),
