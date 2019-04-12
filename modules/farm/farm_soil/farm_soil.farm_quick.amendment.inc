@@ -653,7 +653,7 @@ function farm_soil_amendment_form_submit($form, &$form_state) {
     $log_wrapper->field_farm_notes->format->set($form_values['notes']['other']['format']);
   }
 
-  // Save the log (via its wrapper).s
+  // Save the log (via its wrapper).
   $log_wrapper->save();
 
   // Link the log to the quick form.
