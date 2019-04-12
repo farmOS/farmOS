@@ -613,7 +613,7 @@ function farm_soil_amendment_form_submit($form, &$form_state) {
 
   // Create/load amendment material and add it to the log.
   $material_term = farm_term($material, 'farm_materials');
-  $log_wrapper->field_farm_material = $material_term;
+  $log_wrapper->field_farm_material[] = $material_term;
 
   // Set the purpose to "Soil amendment".
   $log_wrapper->field_farm_input_purpose->set(t('Soil amendment'));
