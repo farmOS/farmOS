@@ -45,7 +45,7 @@ function farm_api_info() {
 /**
  * Implements hook_farm_api_farm_info().
  */
-function farm_api_farm_info($id) {
+function farm_api_farm_info() {
   global $base_url, $conf, $user;
   $info = array(
     'name' => $conf['site_name'],
