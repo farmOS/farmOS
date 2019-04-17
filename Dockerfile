@@ -59,6 +59,9 @@ RUN { \
     echo 'realpath_cache_ttl=3600'; \
   } > /usr/local/etc/php/conf.d/realpath_cache-recommended.ini
 
+# Install mysql-client (for Drush).
+RUN apt-get update && apt-get install -y mysql-client
+
 # Install Drush 8 with the phar file.
 ENV DRUSH_VERSION 8.2.1
 RUN curl -fsSL -o /usr/local/bin/drush "https://github.com/drush-ops/drush/releases/download/$DRUSH_VERSION/drush.phar" && \
