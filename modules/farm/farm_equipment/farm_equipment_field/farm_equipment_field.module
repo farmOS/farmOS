@@ -5,6 +5,8 @@
  * Farm equipment field module.
  */
 
+include_once 'farm_equipment_field.features.inc';
+
 /**
  * Implements hook_farm_fields_dynamic_bases().
  */
@@ -190,4 +192,35 @@ function farm_equipment_field_field_group_info_alter(&$groups) {
     // Add the "Equipment" group.
     $groups[$key]->data['children'][] = 'group_farm_equipment';
   }
+}
+
+/**
+ * Implements hook_farm_ui_entity_view_groups().
+ */
+function farm_equipment_field_farm_ui_entity_view_groups() {
+  $groups = array(
+    'equipment' => array(
+      'title' => t('Equipment'),
+      'weight' => 90,
+    ),
+  );
+  return $groups;
+}
+
+/**
+ * Implements hook_farm_ui_entity_views().
+ */
+function farm_equipment_field_farm_ui_entity_views($entity_type, $bundle, $entity) {
+  $views = array();
+
+  // If the entity is an equipment asset, add equipment use logs.
+  if ($entity_type == 'farm_asset' && $bundle == 'equipment') {
+    $views[] = array(
+      'name' => 'farm_equipment_log',
+      'group' => 'equipment',
+      'always' => TRUE,
+    );
+  }
+
+  return $views;
 }
