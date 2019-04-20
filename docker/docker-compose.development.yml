@@ -20,5 +20,3 @@ services:
       - './.data/www:/var/www/html'
     ports:
       - '80:80'
-    environment:
-      FARMOS_DEV: 'true'

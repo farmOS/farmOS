@@ -1,10 +1,8 @@
 # Inherit from the Drupal 7 image on Docker Hub.
 FROM drupal:7
 
-# Set environment variables.
-ENV FARMOS_VERSION 7.x-1.1
-ENV FARMOS_DEV_BRANCH 7.x-1.x
-ENV FARMOS_DEV false
+# Set the farmOS version in an environment variable.
+ENV FARMOS_VERSION 7.x-1.x-dev
 
 # Enable Apache rewrite module.
 RUN a2enmod rewrite
@@ -71,8 +69,17 @@ RUN curl -fsSL -o /usr/local/bin/drush "https://github.com/drush-ops/drush/relea
 # Install git and unzip for use by Drush Make.
 RUN apt-get update && apt-get install -y git unzip
 
-# Mount a volume at /var/www/html.
-VOLUME /var/www/html
+# Download the packaged release of farmOS from drupal.org.
+RUN curl -SL "http://ftp.drupal.org/files/projects/farm-${FARMOS_VERSION}-core.tar.gz" -o /tmp/farm-${FARMOS_VERSION}-core.tar.gz && \
+  tar -xvzf /tmp/farm-${FARMOS_VERSION}-core.tar.gz -C /var/www/html/ --strip-components=1 && \
+  chown -R www-data:www-data /var/www/html
+
+# Create an archive of the sites directory in /tmp/sites.tar.gz, so that it can
+# be restored after the volume is mounted via docker-entrypoint.sh.
+RUN tar -cvzf /tmp/sites.tar.gz /var/www/html/sites/
+
+# Mount a volume at /var/www/html/sites.
+VOLUME /var/www/html/sites
 
 # Set the entrypoint.
 COPY docker-entrypoint.sh /usr/local/bin/

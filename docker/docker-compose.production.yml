@@ -3,6 +3,6 @@ services:
   www:
     image: farmos/farmos:7.x-1.1
     volumes:
-      - './.data/www:/var/www/html'
+      - './sites:/var/www/html/sites'
     ports:
       - '80:80'
