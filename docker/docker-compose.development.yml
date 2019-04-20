@@ -3,7 +3,7 @@ services:
   db:
     image: mariadb:latest
     volumes:
-      - './.data/db:/var/lib/mysql'
+      - './db:/var/lib/mysql'
     ports:
       - '3306:3306'
     environment:
@@ -17,6 +17,6 @@ services:
       - db
     image: farmos/farmos:7.x-1.x
     volumes:
-      - './.data/www:/var/www/html'
+      - './www:/var/www/html'
     ports:
       - '80:80'
