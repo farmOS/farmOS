@@ -15,7 +15,6 @@ services:
   www:
     depends_on:
       - db
-#    image: farmos/farmos:7.x-1.1
     image: farmos/farmos:7.x-1.x
     volumes:
       - './.data/www:/var/www/html'
