@@ -57,18 +57,6 @@ RUN { \
     echo 'realpath_cache_ttl=3600'; \
   } > /usr/local/etc/php/conf.d/realpath_cache-recommended.ini
 
-# Install mysql-client (for Drush).
-RUN apt-get update && apt-get install -y mysql-client
-
-# Install Drush 8 with the phar file.
-ENV DRUSH_VERSION 8.2.1
-RUN curl -fsSL -o /usr/local/bin/drush "https://github.com/drush-ops/drush/releases/download/$DRUSH_VERSION/drush.phar" && \
-  chmod +x /usr/local/bin/drush && \
-  drush core-status
-
-# Install git and unzip for use by Drush Make.
-RUN apt-get update && apt-get install -y git unzip
-
 # Download the packaged release of farmOS from drupal.org.
 RUN curl -SL "http://ftp.drupal.org/files/projects/farm-${FARMOS_VERSION}-core.tar.gz" -o /tmp/farm-${FARMOS_VERSION}-core.tar.gz && \
   tar -xvzf /tmp/farm-${FARMOS_VERSION}-core.tar.gz -C /var/www/html/ --strip-components=1 && \
