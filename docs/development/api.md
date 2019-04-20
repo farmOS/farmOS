@@ -79,8 +79,8 @@ This should be used to replace `[AUTH]` in the `curl` examples that follow.
 ## /farm.json
 
 farmOS provides an informational API endpoint at `/farm.json`, which includes
-the farm name, URL, API version, and the currently authenticated user's name,
-ID, and email address.
+the farm name, URL, API version, information about the currently authenticated
+user, and information about available entity types and bundles.
 
 For example:
 
@@ -93,11 +93,26 @@ For example:
         "name": "My Username",
         "mail": "myemail@mydomain.com",
       },
+      "resources": {
+        "log": {
+          "farm_activity": {
+            "label": "Activity",
+            "label_plural": "Activities",
+          }
+        },
+        ...
+      }
     }
+
+The `resources` section contains a list of entity types (aka "resource types")
+that are available. Within each is a list of bundles (eg: "log types", "asset
+types", etc). Each bundle contains information such as its translated `label`.
+The `taxonomy_term` bundles also contain their `vid` (vocabulary ID), which is
+necessary when creating new terms (see [Creating taxonomy terms]).
 
 ### API Version
 
-**Current API version: 1.0**
+**Current API version: 1.1**
 
 It is *highly* recommended that you check the API version of the farmOS system
 you are communicating with, to be sure that your code is using the same version.
@@ -195,6 +210,7 @@ differ slightly. The following are standard fields available on most log types:
     * Note that this should be a JSON object with a `value` property and a
       `format` property set to `farm_format`.
 * `asset`: Reference(s) to asset(s) that the log is associated with.
+* `equipment`: Reference(s) to equipment assets that were used in the process.
 * `area`: Reference(s) to area(s) that the log is associated with.
 * `geofield`: Geometry specific to the logged event.
 * `movement`: Movement information (see "Field collections" below).
@@ -213,6 +229,9 @@ differ slightly. The following are standard fields available on most log types:
 * `created`: A timestamp representing when the log was created.
 * `changed`: A timestamp representing when the log was last updated.
 * `uid`: A reference to the user who created the log.
+* `data`: An arbitrary string of data. This can be used to store additional data
+  on the log as JSON, XML, YAML, etc. **It is the resposibility of the API user
+  to respect data format that is already in the log.**
 
 #### Input logs
 
@@ -292,6 +311,9 @@ differ slightly. The following are standard fields available on most log types:
 * `created`: A timestamp representing when the asset was created.
 * `changed`: A timestamp representing when the asset was last changed.
 * `uid`: A reference to the user who created the asset.
+* `data`: An arbitrary string of data. This can be used to store additional data
+  on the asset as JSON, XML, YAML, etc. **It is the resposibility of the API
+  user to respect data format that is already in the log.**
 
 #### Planting assets
 
@@ -369,7 +391,7 @@ When fetching a list of terms from farmOS, you can filter by the vocabulary's
 When creating a new term, however, you need to provide the vocabulary ID in the
 term object, not the machine name/bundle. In order to get the vocabulary ID, you
 can look it up using the `/taxonomy_vocabulary` endpoint, which lists all
-available vocabularies.
+available vocabularies. Or, you can find it in `farm.json` (described above).
 
 The vocabulary ID may be different from one farmOS system to another, so if you
 save it internally in your application, just know that it may not correspond to
@@ -379,6 +401,10 @@ it up each time you need it.
 For example, to get the `vid` that corresponds to the `farm_crops` vocabulary:
 
     curl [AUTH] [URL]/taxonomy_vocabulary.json?machine_name=farm_crops
+
+Or, by loading the information in `farm.json` and parsing out the vocabulary ID:
+
+    curl [AUTH] [URL]/farm.json
 
 Before you create a new term, you should check to see if it already exists:
 
@@ -485,6 +511,7 @@ Available `measure` options are:
 * `time`
 * `temperature`
 * `value`
+* `rate`
 * `rating`
 * `ratio`
 * `probability`
@@ -663,6 +690,7 @@ submit a support request on [GitHub] or ask questions in the
 [RESTful Web Services Basic Authentication module documentation]: https://cgit.drupalcode.org/restws/tree/restws_basic_auth/README.txt
 [Postman]: https://www.getpostman.com/
 [Restlet]: https://restlet.com/
+[Creating taxonomy terms]: #creating-taxonomy-terms
 [Make "Area" into a type of Farm Asset]: https://www.drupal.org/project/farm/issues/2363393
 [Field Collections]: https://drupal.org/project/field_collection
 [RESTful Web Services Field Collection]: https://drupal.org/project/restws_field_collection
