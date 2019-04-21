@@ -66,9 +66,6 @@ RUN curl -SL "http://ftp.drupal.org/files/projects/farm-${FARMOS_VERSION}-core.t
 # volume is mounted, if necessary.
 RUN cp -rp /var/www/html/sites /tmp/sites
 
-# Mount a volume at /var/www/html/sites.
-VOLUME /var/www/html/sites
-
 # Set the entrypoint.
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod u+x /usr/local/bin/docker-entrypoint.sh
