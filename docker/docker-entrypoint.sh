@@ -1,9 +1,9 @@
 #!/bin/bash
 set -e
 
-# If the sites directory is empty, unpack /tmp/sites.tar.gz.
+# If the sites directory is empty, copy from /tmp/sites.
 if ! [ "$(ls -A /var/www/html/sites/)" ]; then
-  tar -xvzf /tmp/sites.tar.gz -C /var/www/html/sites/ --strip-components=4
+  cp -rp /tmp/sites/. /var/www/html/sites
 fi
 
 # Execute the arguments passed into this script.

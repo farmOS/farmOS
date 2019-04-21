@@ -62,9 +62,9 @@ RUN curl -SL "http://ftp.drupal.org/files/projects/farm-${FARMOS_VERSION}-core.t
   tar -xvzf /tmp/farm-${FARMOS_VERSION}-core.tar.gz -C /var/www/html/ --strip-components=1 && \
   chown -R www-data:www-data /var/www/html
 
-# Create an archive of the sites directory in /tmp/sites.tar.gz, so that it can
-# be restored after the volume is mounted via docker-entrypoint.sh.
-RUN tar -cvzf /tmp/sites.tar.gz /var/www/html/sites/
+# Copy the sites directory to /tmp/sites, so that it can be restored after a
+# volume is mounted, if necessary.
+RUN cp -rp /var/www/html/sites /tmp/sites
 
 # Mount a volume at /var/www/html/sites.
 VOLUME /var/www/html/sites
