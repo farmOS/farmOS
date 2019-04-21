@@ -7,5 +7,5 @@ services:
     ports:
       - '5432:5432'
     environment:
-      POSTGRES_USER: farmos
-      POSTGRES_PASSWORD: farmos
+      POSTGRES_USER: farm
+      POSTGRES_PASSWORD: farm

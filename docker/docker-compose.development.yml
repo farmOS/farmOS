@@ -7,10 +7,10 @@ services:
     ports:
       - '3306:3306'
     environment:
-      MYSQL_ROOT_PASSWORD: farmos
-      MYSQL_DATABASE: farmos
-      MYSQL_USER: farmos
-      MYSQL_PASSWORD: farmos
+      MYSQL_ROOT_PASSWORD: farm
+      MYSQL_DATABASE: farm
+      MYSQL_USER: farm
+      MYSQL_PASSWORD: farm
 
   www:
     depends_on:
