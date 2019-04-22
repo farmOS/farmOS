@@ -124,9 +124,9 @@ Visit the IP address in a browser - you should see the Drupal/farmOS installer.
 
 In the "Set up database" step of installation, use the following values:
 
-* Database name: `farmos`
-* Database username: `farmos`
-* Database password: `farmos`
+* Database name: `farm`
+* Database username: `farm`
+* Database password: `farm`
 * Under "Advanced options", change "Database host" to: `db`
 
 Follow the instructions to continue with the installation and you should be left
