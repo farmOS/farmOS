@@ -91,26 +91,6 @@ This is where you will be able to access the code for development purposes. It
 is also how your database and files are persisted when the containers are
 destroyed and rebuilt.
 
-#### Backup/restore during development
-
-During development, you can create quick snapshots of the database and/or
-codebase from these volume directories. Simply shut down the running containers
-and create tarball(s).
-
-**Backup**:
-
-    sudo docker-compose down
-    tar -czf backup.tar.gz db www
-    sudo docker-compose up -d
-
-**Restore**
-
-    sudo docker-compose down
-    sudo rm -rf db
-    sudo rm -rf www
-    tar -xzf backup.tar.gz
-    sudo docker-compose up -d
-
 #### File ownership
 
 On a Linux host, all the files in `www` will have an owner and group of
@@ -202,7 +182,7 @@ that you have downloaded/developed yourself into `www/sites/all/modules` for
 this reason.
 
 First, stop the containers and create a backup snapshot so that you can easily
-restore if anything goes wrong. See "Backup/restore during development" above.
+restore if anything goes wrong. See "Backup/restore during development" below.
 
 Pull the latest version of the farmOS Docker `dev` image:
 
@@ -241,7 +221,27 @@ you have made any modifications to farmOS configuration, reverting features may
 overwrite those changes.
 
 If anything goes wrong during this process, you can restore to the backup you
-created. See "Backup/restore during development" above.
+created. See "Backup/restore during development" below.
+
+### Backup/restore during development
+
+During development, you can create quick snapshots of the database and/or
+codebase from these volume directories. Simply shut down the running containers
+and create tarball(s).
+
+**Backup**:
+
+    sudo docker-compose down
+    tar -czf backup.tar.gz db www
+    sudo docker-compose up -d
+
+**Restore**
+
+    sudo docker-compose down
+    sudo rm -rf db
+    sudo rm -rf www
+    tar -xzf backup.tar.gz
+    sudo docker-compose up -d
 
 [Hosting farmOS with Docker]: /hosting/docker
 [Docker Compose]: https://docs.docker.com/compose
