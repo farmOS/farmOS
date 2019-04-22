@@ -90,6 +90,26 @@ This is where you will be able to access the code for development purposes. It
 is also how your database and files are persisted when the containers are
 destroyed and rebuilt.
 
+#### Backup/restore during development
+
+During development, you can create quick snapshots of the database and/or
+codebase from these volume directories. Simply shut down the running containers
+and create tarball(s).
+
+**Backup**:
+
+    sudo docker-compose down
+    tar -czf backup.tar.gz db www
+    sudo docker-compose up -d
+
+**Restore**
+
+    sudo docker-compose down
+    sudo rm -rf db
+    sudo rm -rf www
+    tar -xzf backup.tar.gz
+    sudo docker-compose up -d
+
 #### File ownership
 
 On a Linux host, all the files in `www` will have an owner and group of
