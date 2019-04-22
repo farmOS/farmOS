@@ -13,31 +13,10 @@ on your local host.
 First, install Docker and Docker Compose:
 
 * [Install Docker]
-    * On Mac OS X, use "dlite" (not "Docker for Mac" or "Docker Toolbox")
+    * On Mac OS X, use "Docker for Mac" (not "Docker Toolbox")
     * On Windows, use "Docker for Windows" (not "Docker Toolbox")
     * On Linux, follow the directions on docker.com
 * [Install Docker Compose]
-
-#### Mac Specific Instructions
-Due to [performance issues] with shared volumes in Docker for Mac, [dlite] is
-currently the suggested way to host Docker images. The following sections
-describe how to install dlite and start/stop containers:
-
-##### Installing
-1. Download the latest release from [dlite releases] on GitHub
-2. Extract dlite from the tarball and copy it to `/usr/local/bin/dlite`
-3. Run: `chmod +x /usr/local/bin/dlite`
-4. Initialize dlite by running: `dlite init`
-5. Start dlite host by running: `dlite start`
-
-##### Starting
-1. Proceed with [Create Containers](#create-containers)
-2. Fix networking by running `docker network connect bridge farmos_www_1`
-3. Proceed with [Install farmOS](#install-farmos) at [http://farmos\_www\_1.docker](http://farmos_www_1.docker)
-
-##### Stopping
-1. Run: `docker-compose stop`
-2. Remove networking: `docker network disconnect bridge farmos_www_1`
 
 ### Create containers
 
@@ -73,7 +52,29 @@ Then you can shut them down and remove the containers with:
 
     sudo docker-compose down
 
-### Persistent volumes
+#### Mac Specific Instructions
+
+Due to [performance issues] with shared volumes in Docker for Mac, it is
+recommended that you add `:delegated` to your volume definitions in
+`docker-compose.yml`.
+
+For example, instead of:
+
+```
+volumes:
+  - './db:/var/lib/mysql'
+```
+
+Replace with:
+
+```
+volumes:
+  - './db:/var/lib/mysql:delegated'
+```
+
+Do this for both the `db` and `www` container volumes.
+
+#### Persistent volumes
 
 The `docker-compose.development.yml` file defines two Docker volumes that will
 be mounted into the containers from your host directory:
