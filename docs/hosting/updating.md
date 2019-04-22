@@ -32,6 +32,9 @@ updates are included.
 Updating farmOS is basically the same process as [updating Drupal core]. The
 following procedure will ensure that your update goes smoothly.
 
+**Docker note**: if you are hosting farmOS in Docker, see
+[Hosting farmOS with Docker] for Docker-specific update instructions.
+
 1. Backup your code and database! Always do this before making big changes. Be
    ready and able to roll-back in the event that something goes wrong.
 2. Download the new recommended release of farmOS from
@@ -51,6 +54,7 @@ Optionally:
     `drush fra`
 
 [updating Drupal core]: https://drupal.org/node/1223018
+[Hosting farmOS with Docker]: /hosting/docker
 [https://drupal.org/project/farm]: https://drupal.org/project/farm
 [build it yourself with Drush]: /hosting/installing
 [farmOS on Docker]: /development/docker

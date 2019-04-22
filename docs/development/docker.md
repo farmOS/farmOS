@@ -164,6 +164,36 @@ To start your containers:
 
 ### Updating farmOS
 
+**Important**: these instructions are for updating a *development* environment
+hosted with Docker. If you are running a production environment, see
+[Hosting farmOS with Docker].
+
+There are two ways to update your development codebase: incremental vs complete.
+
+#### Incremental update
+
+An incremental update can be done if the changes are relatively simple. This
+includes commits to the farmOS repository that do not include any of the
+following:
+
+* Updates to Drupal core
+* Updates to contrib modules
+* New contrib modules
+* New patches to Drupal core or contrib modules
+
+These things are handled by Drush Make, which is run during a complete update
+(see below). If you are familiar with Drupal and Drush Make, it is possible to
+make these updates incrementally as well, but if you are not then follow the
+"Complete update" instructions below.
+
+To perform an incremental update, run `git pull origin 7.x-1.x` in the farmOS
+installation profile repository, which is inside `www/profiles/farm`:
+
+    cd www/profiles/farm
+    git pull origin 7.x-1.x
+
+#### Complete update
+
 **Warning**: if you have made any changes to the code inside `www`, they
 will be overwritten by this process. The one exception is the `www/sites`
 directory, which will not be modified. It's a good idea to put extra modules
