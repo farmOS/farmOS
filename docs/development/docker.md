@@ -133,16 +133,6 @@ In the "Set up database" step of installation, use the following values:
 Follow the instructions to continue with the installation and you should be left
 with a fully-functioning farmOS instance running in a Docker container!
 
-### Stop/start containers
-
-To stop your running containers:
-
-    sudo docker-compose stop
-
-To start your containers:
-
-    sudo docker-compose start
-
 ### Updating farmOS
 
 **Important**: these instructions are for updating a *development* environment
