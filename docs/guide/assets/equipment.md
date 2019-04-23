@@ -22,11 +22,19 @@ or anything thing else that is maintenance related to the proper use and
 functioning of the equipment. All your maintenance records can be organized,
 categorized, and filtered like other log types in farmOS.
 
+### Equipment use logs
+
+When you are creating logs, you can also reference the equipment that was used.
+In combination with the "assets" field on logs, you can specify which assets
+**received** the action, and which equipment assets **performed** it. You will
+then see a list of "Equipment use logs" on each equipment record, so you can
+track when it was used.
+
 ## Suggested uses
 
-* Keep track of equipment location via movement logs.
-* Record oil changes, repairs, and inspections with maintenance logs.
 * Use activity logs to record equipment use.
+* Keep track of equipment location with [movements].
+* Record oil changes, repairs, and inspections with maintenance logs.
 * Track fuel usage with input logs.
 
 [movements]: /guide/location
