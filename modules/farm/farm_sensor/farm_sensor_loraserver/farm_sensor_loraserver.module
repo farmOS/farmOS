@@ -505,9 +505,9 @@ function farm_sensor_loraserver_data($id, $name = '', $start = NULL, $end = NULL
 function farm_sensor_loraserver_farm_sensor_type_info() {
   return array(
     'loraserver' => array(
-      'label' => t('Listener'),
-      'description' => t('Open up a data loraserver that accepts data from
-      external sources over HTTP'),
+      'label' => t('Loraserver'),
+      'description' => t('Open up a listener that accepts data from
+      loraserver.io over HTTP'),
       'form' => 'farm_sensor_loraserver_settings_form',
     ),
   );
