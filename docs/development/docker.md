@@ -222,7 +222,7 @@ and create tarball(s).
 **Backup**:
 
     sudo docker-compose down
-    tar -czf backup.tar.gz db www
+    sudo tar -czf backup.tar.gz db www
     sudo docker-compose up -d
 
 **Restore**
@@ -230,7 +230,7 @@ and create tarball(s).
     sudo docker-compose down
     sudo rm -rf db
     sudo rm -rf www
-    tar -xzf backup.tar.gz
+    sudo tar -xzf backup.tar.gz
     sudo docker-compose up -d
 
 [Hosting farmOS with Docker]: /hosting/docker
