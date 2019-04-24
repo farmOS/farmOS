@@ -1,0 +1,82 @@
+<?php
+
+/**
+ * @file
+ * Farm sensor loraserver install.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function farm_sensor_loraserver_schema() {
+  $schema['farm_sensor_data'] = array(
+    'description' => 'Farm sensor data storage',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Farm sensor asset ID',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'timestamp' => array(
+        'description' => 'Timestamp of the sensor reading',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'name' => array(
+        'description' => 'Sensor reading name',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ),
+      'value_numerator' => array(
+        'description' => 'Value numerator',
+        'type' => 'int',
+        'size' => 'big',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'value_denominator' => array(
+        'description' => 'Value denominator',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 1,
+      ),
+    ),
+    'indexes' => array(
+      'id' => array('id'),
+      'name' => array('name'),
+      'timestamp' => array('timestamp'),
+    ),
+  );
+  return $schema;
+}
+
+/**
+ * Do not allow null timestamp values in sensor data table.
+ */
+function farm_sensor_loraserver_update_7000(&$sandbox) {
+
+  // Drop the index.
+  db_drop_index('farm_sensor_data', 'timestamp');
+
+  // Set all NULL values to 0.
+  db_query('UPDATE {farm_sensor_data} SET timestamp = 0 WHERE timestamp IS NULL');
+
+  // Change the field.
+  $timestamp = array(
+    'description' => 'Timestamp of the sensor reading',
+    'type' => 'int',
+    'not null' => TRUE,
+    'default' => 0,
+  );
+  $timestamp_keys = array(
+    'indexes' => array(
+      'timestamp' => array('timestamp'),
+    ),
+  );
+  db_change_field('farm_sensor_data', 'timestamp', 'timestamp', $timestamp, $timestamp_keys);
+}

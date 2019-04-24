@@ -1,0 +1,760 @@
+<?php
+/**
+ * @file
+ * Code for the Farm Sensor Listener module.
+ */
+
+include_once 'farm_sensor_loraserver.features.inc';
+
+/**
+ * Implements hook_menu().
+ */
+function farm_sensor_loraserver_menu() {
+  $items = array();
+  $items['farm/sensor/loraserver/%'] = array(
+    'page callback' => 'farm_sensor_loraserver_page_callback',
+    'page arguments' => array(3),
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_entity_delete().
+ */
+function farm_sensor_loraserver_entity_delete($entity, $type) {
+
+  // Only act on farm asset entities.
+  if ($type != 'farm_asset') {
+    return;
+  }
+
+  // Only act on sensor assets.
+  if ($entity->type != 'sensor') {
+    return;
+  }
+
+  // Only act on "loraserver" type sensors.
+  if ($entity->sensor_type != 'loraserver') {
+    return;
+  }
+
+  // Delete data from the {farm_sensor_data} table.
+  db_delete('farm_sensor_data')->condition('id', $entity->id)->execute();
+}
+
+/**
+ * Implements hook_mail().
+ */
+function farm_sensor_loraserver_mail($key, &$message, $params) {
+
+  // Assemble the notification email.
+  if ($key == 'loraserver_notification') {
+
+    // Build the email subject.
+    $message['subject'] = t('Sensor notification from @sensor', array('@sensor' => $params['sensor']->name));
+
+    // Build the email body.
+    $condition = '';
+    switch ($params['condition']) {
+      case '>':
+        $condition = 'greater than';
+        break;
+      case '<':
+        $condition = 'less than';
+        break;
+    }
+    $message['body'][] = t('The latest sensor reading "@name" is !condition @threshold. Actual value: @value', array(
+      '@name' => $params['name'],
+      '!condition' => $condition,
+      '@threshold' => $params['threshold'],
+      '@value' => $params['value'],
+    ));
+    $uri = entity_uri('farm_asset', $params['sensor']);
+    $message['body'][] = entity_label('farm_asset', $params['sensor']) . ': ' . url($uri['path'], array('absolute' => TRUE));
+  }
+}
+
+/**
+ * Callback function for processing GET and POST requests to a loraserver.
+ * Handles receiving JSON over HTTP and storing data to the {farm_sensor_data}
+ * table. Serves data back via API requests with optional parameters.
+ *
+ * @param $public_key
+ *   The public key of the sensor that is pushing the data.
+ *
+ * The private key should be provided as a URL query string.
+ *
+ * Use HTTPS to encrypt data in transit.
+ *
+ * JSON should be in the following format:
+ *   {
+ *     "timestamp": 1234567890,
+ *     "sensor1": 76.5,
+ *     "sensor2": 55,
+ *   }
+ * Where:
+ *   "timestamp" is an optional Unix timestamp of the sensor reading. If it's
+ *   omitted, the time that the request is received will be used instead.
+ *   The rest of the JSON properties will be considered sensor readings, and
+ *   should be in the form "[name]": [value]. The value should be a decimal or
+ *   integer, and will be stored as a fraction (numerator and denominator) in
+ *   the database, for accurate precision.
+ *
+ * @return int
+ *   Returns MENU_FOUND or MENU_NOT_FOUND.
+ */
+function farm_sensor_loraserver_page_callback($public_key) {
+
+  // Load the private key from the URL query string.
+  $params = drupal_get_query_parameters();
+
+  // If this is a GET request, and the sensor allows public API read access,
+  // proceed. Otherwise check the private key.
+  if (!($_SERVER['REQUEST_METHOD'] == 'GET' && !empty($sensor->sensor_settings['public_api']))) {
+    if (empty($params['private_key']) || $params['private_key'] != $sensor->sensor_settings['private_key']) {
+      return MENU_ACCESS_DENIED;
+    }
+  }
+
+  // If this is a POST request, process the data.
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  /* The request data will look like this:
+   *
+   *
+   * {
+   *  "applicationID": "6",
+   *  "applicationName": "MBC-ELSYS-Sensor-Test",
+   *  "deviceName": "ELSYS-ELT2-HP-DEMO",
+   *  "devEUI": "deadbeefdeadbeef",
+   *  "rxInfo": [
+   *    {
+   *      "gatewayID": "beefbeefdeaddead",
+   *      "name": "TestGateway",
+   *      "rssi": -49,
+   *      "loRaSNR": 9.2,
+   *      "location": {
+   *        "latitude": 51.1,
+   *        "longitude": -27.1,
+   *        "altitude": 12
+   *      }
+   *    }
+   *  ],
+   *  "txInfo": {
+   *    "frequency": 868500000,
+   *    "dr": 5
+   *  },
+   *  "adr": true,
+   *  "fCnt": 18192,
+   *  "fPort": 5,
+   *  "data": "AQB2AjkHDhwUAA8qeQ==",
+   *  "object": {
+   *    "air_pressure": 993.913,
+   *    "humidity_percent": 57,
+   *    "temp_degrees_c": 11.8,
+   *    "vdd": 3612
+   *  }
+   *}
+   *
+   *
+   */
+
+    // Pull the data from the request.
+    $data = drupal_json_decode(file_get_contents("php://input"));
+    // Look up the sensor by it's loraserver name
+    $sensor = farm_sensor_loraserver_load($data['deviceName']);
+
+    // If no asset was found, bail.
+    if (empty($sensor)) {
+      return MENU_NOT_FOUND;
+    }
+
+
+    // If data was posted, process it.
+    if (!empty($data)) {
+      farm_sensor_loraserver_process_data($sensor, $data);
+    }
+
+    // Return success.
+    return MENU_FOUND;
+  }
+
+  // If this is a GET request, retrieve sensor data.
+  elseif ($_SERVER['REQUEST_METHOD'] == 'GET') {
+
+    // Add 'Access-Control-Allow-Origin' header to allow pulling this data into
+    // other domains.
+    /**
+     * @todo
+     * Move this to a more official place, or adopt the CORS module in farmOS.
+     */
+    drupal_add_http_header('Access-Control-Allow-Origin', '*');
+
+    // If the 'name' parameter is set, filter by name.
+    $name = '';
+    if (!empty($params['name'])) {
+      $name = $params['name'];
+    }
+
+    // If the 'start' parameter is set, limit results to timestamps after it.
+    $start = NULL;
+    if (!empty($params['start'])) {
+      $start = $params['start'];
+    }
+
+    // If the 'end' parameter is set, limit to results before it.
+    $end = NULL;
+    if (!empty($params['end'])) {
+      $end = $params['end'];
+    }
+
+    // If the 'limit' parameter is set, limit the number of results.
+    $limit = 1;
+    if (!empty($params['limit'])) {
+      $limit = $params['limit'];
+    }
+
+    // If the 'offset' parameter is set, offset the results.
+    $offset = 0;
+    if (!empty($params['offset'])) {
+      $offset = $params['offset'];
+    }
+
+    // Get the data from the sensor.
+    $data = farm_sensor_loraserver_data($sensor->id, $name, $start, $end, $limit, $offset);
+
+    // Return the latest readings as JSON.
+    drupal_json_output($data);
+  }
+
+  // Return success and do nothing on all other request types.
+  else {
+    return MENU_FOUND;
+  }
+}
+
+/**
+ * Process data posted to a sensor.
+ */
+function farm_sensor_loraserver_process_data($sensor, $data) {
+
+  // If the data is an array of multiple data points, iterate over each and
+  // recursively process.
+  if (is_array(reset($data))) {
+    foreach ($data as $point) {
+        foreach ($point['object'] as $objdata){
+            farm_sensor_loraserver_process_data($sensor, $objdata);
+        }
+    }
+    return;
+  }
+
+  // Generate a timestamp from the request time. This will only be used if a
+  // timestamp is not provided in the JSON data.
+  $timestamp = REQUEST_TIME;
+
+  // If a timestamp is provided, ensure that it is in UNIX timestamp format.
+  if (!empty($data['time'])) {
+
+    // If the timestamp is numeric, we're good!
+    if (is_numeric($data['time'])) {
+      $timestamp = $data['time'];
+    }
+
+    // Otherwise, try converting it from a string. If that doesn't work, we
+    // throw it out and fall back on REQUEST_TIME set above.
+    else {
+      $strtotime = strtotime($data['time']);
+      if (!empty($strtotime)) {
+        $timestamp = $strtotime;
+      }
+    }
+  }
+
+  // Iterate over the JSON properties.
+  foreach ($data as $key => $value) {
+
+    // If the key is "timestamp", skip to the next property in the JSON.
+    if ($key == 'time') {
+      continue;
+    }
+
+    // If the value is not numeric, skip it.
+    if (!is_numeric($value)) {
+      continue;
+    }
+
+    // Process notifications.
+    farm_sensor_loraserver_process_notifications($sensor, $key, $value);
+
+    // Create a row to store in the database;
+    $row = array(
+      'id' => $sensor->id,
+      'timestamp' => $time,
+      'name' => $key,
+    );
+
+    // Convert the value to a fraction.
+    $fraction = fraction_from_decimal($value);
+    $row['value_numerator'] = $fraction->getNumerator();
+    $row['value_denominator'] = $fraction->getDenominator();
+
+    // Enter the reading into the {farm_sensor_data} table.
+    drupal_write_record('farm_sensor_data', $row);
+
+    // Invoke hook_farm_sensor_loraserver_data().
+    module_invoke_all('farm_sensor_loraserver_data', $sensor, $key, $value);
+  }
+}
+
+/**
+ * Threshold condition check.
+ *
+ * @param $value
+ *   The value being checked.
+ * @param $condition
+ *   The condition (< or >).
+ * @param $threshold
+ *   The threshold to compare against.
+ *
+ * @return bool
+ *   Returns TRUE if the condition passes, FALSE otherwise.
+ */
+function farm_sensor_loraserver_check_condition($value, $condition, $threshold) {
+
+  // Start with an assumption that the condition does not pass.
+  $pass = FALSE;
+
+  // Switch through available conditions.
+  switch ($condition) {
+
+    // Greater than threshold.
+    case '>':
+      if ((float) $value > (float) $threshold) {
+        $pass = TRUE;
+      }
+      break;
+
+    // Less than threshold.
+    case '<':
+      if ((float) $value < (float) $threshold) {
+        $pass = TRUE;
+      }
+      break;
+  }
+
+  // Return the result.
+  return $pass;
+}
+
+/**
+ * Process sensor notifications.
+ *
+ * @param FarmAsset $sensor
+ *   The sensor entity.
+ * @param string $data_name
+ *   The name assigned to the data.
+ * @param $value
+ *   The data value.
+ */
+function farm_sensor_loraserver_process_notifications($sensor, $data_name, $value) {
+
+  // Send notifications, if the conditions are met.
+  if (!empty($sensor->sensor_settings['notifications'][0]['name']) && !empty($sensor->sensor_settings['notifications'][0]['condition']) && !empty($sensor->sensor_settings['notifications'][0]['threshold']) && !empty($sensor->sensor_settings['notifications'][0]['email'])) {
+
+    // Get all the variables.
+    $name = $sensor->sensor_settings['notifications'][0]['name'];
+    $condition = $sensor->sensor_settings['notifications'][0]['condition'];
+    $threshold = $sensor->sensor_settings['notifications'][0]['threshold'];
+    $email = $sensor->sensor_settings['notifications'][0]['email'];
+
+    // Only proceed if the name matches.
+    if ($name != $data_name) {
+      return;
+    }
+
+    // Check to see if the condition was met.
+    $pass = farm_sensor_loraserver_check_condition($value, $condition, $threshold);
+
+    // If the condition didn't match, bail.
+    if (!$pass) {
+      return;
+    }
+
+    // Perform a check to see if the condition had already been met by the
+    // previous data point that came in, and prevent the email from being sent
+    // if that is the case.
+    if ($pass) {
+
+      // Load the last recorded data point.
+      $query = db_select('farm_sensor_data', 'fsd');
+      $query->fields('fsd', array('value_numerator', 'value_denominator'));
+      $query->condition('fsd.id', $sensor->id);
+      $query->condition('fsd.name', $name);
+      $query->orderBy('fsd.timestamp', 'DESC');
+      $query->range(0, 1);
+      $row = $query->execute()->fetchAssoc();
+
+      // If a numerator and denominator were returned...
+      if (isset($row['value_numerator']) && isset($row['value_denominator'])) {
+
+        // Calculate the decimal value and check if it passes the condition.
+        $last_value = fraction($row['value_numerator'], $row['value_denominator'])->toDecimal(0, TRUE);
+        if (farm_sensor_loraserver_check_condition($last_value, $condition, $threshold)) {
+
+          // If the condition passes, it means the last data point already
+          // sent an alert, so don't send it again.
+          $pass = FALSE;
+        }
+      }
+    }
+
+    // Send the email.
+    if ($pass) {
+      $params = array(
+        'sensor' => $sensor,
+        'name' => $name,
+        'value' => $value,
+        'condition' => $condition,
+        'threshold' => $threshold,
+        'email' => $email,
+      );
+      drupal_mail('farm_sensor_loraserver', 'loraserver_notification', $email, language_default(), $params);
+      watchdog('farm_sensor_loraserver', 'Sensor id ' . $sensor->id . ' notification email sent. (' . $value . ' ' . $condition . ' ' . $threshold . ')');
+    }
+  }
+}
+
+/**
+ * Fetch sensor data from the database.
+ *
+ * @param $id
+ *   The sensor asset ID.
+ * @param $name
+ *   The sensor value name.
+ * @param $start
+ *   Filter data to timestamps greater than or equal to this start timestamp.
+ * @param $end
+ *   Filter data to timestamps less than or equal to this end timestamp.
+ * @param $limit
+ *   The number of results to return.
+ * @param $offset
+ *   The value to start at.
+ *
+ * @return array
+ *   Returns an array of data.
+ */
+function farm_sensor_loraserver_data($id, $name = '', $start = NULL, $end = NULL, $limit = 1, $offset = 0) {
+
+  // Query the database for data from this sensor.
+  $query = db_select('farm_sensor_data', 'fsd');
+  $query->fields('fsd', array('timestamp', 'name', 'value_numerator', 'value_denominator'));
+  $query->condition('fsd.id', $id);
+
+  // If a name is specified, filter by name.
+  if (!empty($name)) {
+    $query->condition('fsd.name', $name);
+  }
+
+  // If a start timestamp is specified, filter to data after it (inclusive).
+  if (!is_null($start) && is_numeric($start)) {
+    $query->condition('fsd.timestamp', $start, '>=');
+  }
+
+  // If an end timestamp is specified, filter to data before it (inclusive).
+  if (!is_null($end) && is_numeric($end)) {
+    $query->condition('fsd.timestamp', $end, '<=');
+  }
+
+  // Order by timestamp descending.
+  $query->orderBy('fsd.timestamp', 'DESC');
+
+  // Limit the results.
+  $query->range($offset, $limit);
+
+  // Run the query.
+  $result = $query->execute();
+
+  // Build an array of data.
+  $data = array();
+  foreach ($result as $row) {
+
+    // If name or timestamp are empty, skip.
+    if (empty($row->timestamp) || empty($row->name)) {
+      continue;
+    }
+
+    // Convert the value numerator and denominator to a decimal.
+    $value = fraction($row->value_numerator, $row->value_denominator)->toDecimal(0, TRUE);
+
+    // Create a data object for the sensor value.
+    $point = new stdClass();
+    $point->timestamp = $row->timestamp;
+    $point->{$row->name} = $value;
+    $data[] = $point;
+  }
+
+  // Return the data.
+  return $data;
+}
+
+/**
+ * Implements hook_farm_sensor_type_info().
+ */
+function farm_sensor_loraserver_farm_sensor_type_info() {
+  return array(
+    'loraserver' => array(
+      'label' => t('Listener'),
+      'description' => t('Open up a data loraserver that accepts data from
+      external sources over HTTP'),
+      'form' => 'farm_sensor_loraserver_settings_form',
+    ),
+  );
+}
+
+/**
+ * Settings form for loraserver sensor.
+ *
+ * @param FarmAsset $sensor
+ *   The sensor asset entity.
+ * @param array $settings
+ *   The farm sensor settings.
+ *
+ * @return array
+ *   Returns a form with settings for this  Listener sensor.
+ */
+function farm_sensor_loraserver_settings_form($sensor, $settings = array()) {
+
+  // If a public/private key haven't been set yet, generate them.
+  if (empty($settings['public_key'])) {
+    $settings['public_key'] = hash('md5', mt_rand());
+  }
+  if (empty($settings['private_key'])) {
+    $settings['private_key'] = hash('md5', mt_rand());
+  }
+
+  // Automatically generated public key.
+  $form['public_key'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Public key'),
+    '#description' => t('An automatically generated public key for this sensor.'),
+    '#default_value' => $settings['public_key'],
+  );
+
+  // Automatically generated private key.
+  $form['private_key'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Private key'),
+    '#description' => t('An automatically generated private key for this sensor.'),
+    '#default_value' => $settings['private_key'],
+  );
+
+  // Allow public access to sensor data.
+  $form['public_api'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Allow public API read access'),
+    '#description' => t('Checking this box will allow data from this sensor to be queried publicly via the API endpoint without a private key. See the <a href="@sensor_url">farmOS sensor guide</a> for more information.', array('@sensor_url' => 'https://farmOS.org/guide/assets/sensors')),
+    '#default_value' => isset($settings['public_api']) ? $settings['public_api'] : FALSE,
+  );
+
+  // Reminder to save the sensor entity before posting data.
+  if (empty($sensor->id)) {
+    $form['reminder'] = array(
+      '#type' => 'markup',
+      '#markup' => '<p><strong>Remember to save your sensor before attempting to send data to it!</strong></p>',
+    );
+  }
+
+  // Display some information about how to stream data to the loraserver.
+  global $base_url;
+  $form['info'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Developer Information'),
+    '#description' => t('This sensor type will listen for data posted to it
+    from other web-connected devices. Use the information below to configure your
+    device to begin posting data to this sensor. For more information, refer to
+    the <a href="@sensor_url">farmOS sensor guide</a>.',
+      array('@sensor_url' => 'https://farmOS.org/guide/assets/sensors')),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+
+  // URL to post data to.
+  $url = $base_url . '/farm/sensor/loraserver/' . $settings['public_key'] . '?private_key=' . $settings['private_key'];
+  $form['info']['url'] = array(
+    '#type' => 'markup',
+    '#markup' => '<p><strong>URL:</strong> ' . $url . '</p>',
+  );
+
+  // Example JSON objects.
+  $json_example1 = '{ "timestamp": ' . REQUEST_TIME . ', "value": 76.5 }';
+  $json_example2 = '{ "timestamp": ' . REQUEST_TIME . ', "sensor1": 76.5, "sensor2": 60 }';
+  $form['info']['json'] = array(
+    '#type' => 'markup',
+    '#markup' => '<p><strong>JSON Example:</strong> ' . $json_example1 . '</p><p><strong>JSON Example (multiple values):</strong> ' . $json_example2 . '</p>',
+  );
+
+  // Example CURL command.
+  $curl_example = 'curl -H "Content-Type: application/json" -X POST -d \'' . $json_example1 . '\' ' . $url;
+  $form['info']['curl'] = array(
+    '#type' => 'markup',
+    '#markup' => '<p><strong>Example CURL command:</strong> ' . $curl_example . '</p>',
+  );
+
+  // Provide configuration for generating notifications.
+  $form['notifications'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Notifications'),
+    '#description' => t('Configure automatic email notifications when values
+    are above/below a certain value. Notifications will be sent each time that
+    the threshold condition defined below is crossed.'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $form['notifications'][0]['name'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Name'),
+    '#description' => t('The name given to the data point in the JSON array.'),
+    '#default_value' => !empty($settings['notifications'][0]['name']) ? $settings['notifications'][0]['name'] : 'value',
+  );
+  $form['notifications'][0]['condition'] = array(
+    '#type' => 'select',
+    '#title' => t('Condition'),
+    '#options' => array(
+      '>' => 'is greater than',
+      '<' => 'is less than',
+    ),
+    '#default_value' => !empty($settings['notifications'][0]['condition']) ? $settings['notifications'][0]['condition'] : '>',
+  );
+  $form['notifications'][0]['threshold'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Value threshold'),
+    '#description' => t('If the data value is above/below this threshold, a notification will be sent.'),
+    '#default_value' => !empty($settings['notifications'][0]['threshold']) ? $settings['notifications'][0]['threshold'] : '',
+  );
+  $form['notifications'][0]['email'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Email address'),
+    '#description' => t('Email address(es) to send notification to. Separate multiple addresses with a comma.'),
+    '#default_value' => !empty($settings['notifications'][0]['email']) ? $settings['notifications'][0]['email'] : '',
+    '#maxlength' => 256,
+  );
+
+  return $form;
+}
+
+/**
+ * Helper function for loading a sensor asset from it's public/private key.
+ *
+ * @param $key
+ *   The sensor public/private key.
+ *
+ * @return FarmAsset|bool
+ *   Returns a farm sensor asset, or FALSE if not found.
+ */
+function farm_sensor_loraserver_load($key) {
+
+  // Query the {farm_sensor} table to look for a sensor with a matching key.
+  $sql = 'SELECT id FROM {farm_sensor} WHERE settings LIKE :settings';
+  $result = db_query($sql, array(':settings' => '%' . db_like($key) . '%'));
+  $asset_id = $result->fetchField();
+
+  // If no asset id was found, bail.
+  if (empty($asset_id)) {
+    return FALSE;
+  }
+
+  // Attempt to load the sensor asset.
+  $asset = farm_asset_load($asset_id);
+
+  // If a sensor wasn't loaded, bail.
+  if (empty($asset)) {
+    return FALSE;
+  }
+
+  // Return the sensor asset.
+  return $asset;
+}
+
+/**
+ * Implements hook_farm_ui_entity_views().
+ */
+function farm_sensor_loraserver_farm_ui_entity_views($entity_type, $bundle, $entity) {
+
+  // Show sensor data View on loraserver sensors.
+  $views = array();
+  if ($entity_type == 'farm_asset' && $bundle == 'sensor' && $entity->sensor_type == 'loraserver') {
+    $views[] = array(
+      'name' => 'farm_sensor_data',
+      'group' => 'sensor_data',
+      'always' => TRUE,
+    );
+  }
+  return $views;
+}
+
+/**
+ * Implements hook_entity_view_alter().
+ */
+function farm_sensor_loraserver_entity_view_alter(&$build, $type) {
+
+  /*
+   * Alter sensor asset page to display graph(s).
+   */
+
+  // If it's not a farm_asset, bail.
+  if ($type != 'farm_asset') {
+    return;
+  }
+
+  // If the entity information isn't available, bail.
+  if (empty($build['#entity'])) {
+    return;
+  }
+  $asset = $build['#entity'];
+
+  // If the sensor is not a loraserver, bail.
+  if (empty($asset->sensor_type) || $asset->sensor_type != 'loraserver') {
+    return;
+  }
+
+  // Query all the distinct value names this sensor has stored.
+  $names = array();
+  $result = db_query('SELECT name FROM {farm_sensor_data} WHERE id = :id GROUP BY name', array(':id' => $asset->id));
+  foreach ($result as $row) {
+    $names[] = $row->name;
+  }
+
+  // Iterate through the names, load the most recent 100 values for each,
+  // generate markup DIV ids, and store it all in JS settings.
+  $markup = array();
+  $graphs = array();
+  foreach ($names as $name) {
+    $id = drupal_html_id('sensor-data-' . $name);
+    $markup[] = '<div id="' . $id . '" class="farm-sensor-graph"></div>';
+    $graph = array(
+      'name' => $name,
+      'id' => $id,
+      'data' => farm_sensor_loraserver_data($asset->id, $name, NULL, NULL,100),
+    );
+    $graphs[] = $graph;
+  }
+
+  // Add Javascript and CSS to build the graphs.
+  $settings = array(
+    'farm_sensor_loraserver' => array(
+      'graphs' => $graphs,
+    ),
+  );
+  drupal_add_js($settings, 'setting');
+  drupal_add_js(drupal_get_path('module', 'farm_sensor_loraserver') . '/farm_sensor_loraserver.js');
+  drupal_add_js('https://cdn.plot.ly/plotly-latest.min.js', 'external');
+  drupal_add_css(drupal_get_path('module', 'farm_sensor_loraserver') . '/farm_sensor_loraserver.css');
+
+  // Output the markup.
+  $build['views']['graph'] = array(
+    '#markup' => '<div class="farm-sensor-graphs clearfix">' . implode('', $markup) . '</div>',
+    '#weight' => -1,
+  );
+}

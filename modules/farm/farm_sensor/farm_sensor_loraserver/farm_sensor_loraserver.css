@@ -1,0 +1,6 @@
+@media (min-width: 992px) {
+  .farm-sensor-graph {
+    width: 50%;
+    float: left;
+  }
+}
