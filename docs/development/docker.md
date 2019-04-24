@@ -188,7 +188,7 @@ Move the `sites` directory out of the webroot:
 
 Delete everthing in `www`:
 
-    sudo rm -r www/*
+    sudo rm -r www/{*,.*}
 
 Restart the farmOS containers:
 
