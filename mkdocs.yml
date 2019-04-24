@@ -44,6 +44,7 @@ nav:
     - Docker: development/docker.md
     - API: development/api.md
     - Client: development/client.md
+    - Release procedure: development/release.md
 - Community:
     - Contribute: community/contribute.md
     - Monthly Call: community/monthly-call.md
