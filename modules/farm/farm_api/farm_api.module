@@ -102,6 +102,18 @@ function farm_api_restws_request_alter(array &$request) {
   $prefix = 'field_farm_';
   $alias_map = farm_api_field_alias_map($prefix);
 
+  // Get the entity type.
+  $entity_type = NULL;
+  if (!empty($request['resource']->resource())) {
+    $entity_type = $request['resource']->resource();
+  }
+
+  // If we are dealing with a taxonomy term, do not alias description or parent.
+  if ($entity_type == 'taxonomy_term') {
+    unset($alias_map['description']);
+    unset($alias_map['parent']);
+  }
+
   // In order to handle URL query string filters, we need to perform the alias
   // translation on all GET parameters. The restws module filters based on the
   // output of drupal_get_query_parameters(), which uses the $_GET global.
