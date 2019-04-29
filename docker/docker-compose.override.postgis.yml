@@ -3,7 +3,7 @@ services:
   db:
     image: mdillon/postgis:latest
     volumes:
-      - './.data/db:/var/lib/postgresql/data'
+      - './db:/var/lib/postgresql/data'
     ports:
       - '5432:5432'
     environment:
