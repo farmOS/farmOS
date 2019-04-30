@@ -445,7 +445,7 @@ function farm_quantity_report_views_default_views() {
   $handler->display->display_options['filters']['done']['table'] = 'log';
   $handler->display->display_options['filters']['done']['field'] = 'done';
   $handler->display->display_options['filters']['done']['relationship'] = 'field_farm_quantity_log';
-  $handler->display->display_options['filters']['done']['value'] = '1';
+  $handler->display->display_options['filters']['done']['value'] = 'All';
   $handler->display->display_options['filters']['done']['group'] = 1;
   $handler->display->display_options['filters']['done']['exposed'] = TRUE;
   $handler->display->display_options['filters']['done']['expose']['operator_id'] = '';
