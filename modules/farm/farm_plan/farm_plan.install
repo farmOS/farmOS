@@ -113,5 +113,159 @@ function farm_plan_schema() {
       'type' => array('type'),
     ),
   );
+  $schema['farm_plan_area'] = array(
+    'description' => 'Areas that are linked to a plan.',
+    'fields' => array(
+      'plan_id' => array(
+        'description' => 'Plan ID',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'area_id' => array(
+        'description' => 'Area ID',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('plan_id', 'area_id'),
+  );
+  $schema['farm_plan_asset'] = array(
+    'description' => 'Assets that are linked to a plan.',
+    'fields' => array(
+      'plan_id' => array(
+        'description' => 'Plan ID',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'asset_id' => array(
+        'description' => 'Asset ID',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('plan_id', 'asset_id'),
+  );
+  $schema['farm_plan_log'] = array(
+    'description' => 'Logs that are linked to a plan.',
+    'fields' => array(
+      'plan_id' => array(
+        'description' => 'Plan ID',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'log_id' => array(
+        'description' => 'Log ID',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('plan_id', 'log_id'),
+  );
+  $schema['farm_plan_user'] = array(
+    'description' => 'People that are linked to a plan.',
+    'fields' => array(
+      'plan_id' => array(
+        'description' => 'Plan ID',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'user_id' => array(
+        'description' => 'User ID',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('plan_id', 'user_id'),
+  );
   return $schema;
+}
+
+/**
+ * Add new database schemas for maintaining links between plans and other farmOS
+ * records (areas, assets, logs, and people).
+ */
+function farm_plan_update_7000(&$sandbox) {
+  $schema['farm_plan_area'] = array(
+    'description' => 'Areas that are linked to a plan.',
+    'fields' => array(
+      'plan_id' => array(
+        'description' => 'Plan ID',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'area_id' => array(
+        'description' => 'Area ID',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('plan_id', 'area_id'),
+  );
+  $schema['farm_plan_asset'] = array(
+    'description' => 'Assets that are linked to a plan.',
+    'fields' => array(
+      'plan_id' => array(
+        'description' => 'Plan ID',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'asset_id' => array(
+        'description' => 'Asset ID',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('plan_id', 'asset_id'),
+  );
+  $schema['farm_plan_log'] = array(
+    'description' => 'Logs that are linked to a plan.',
+    'fields' => array(
+      'plan_id' => array(
+        'description' => 'Plan ID',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'log_id' => array(
+        'description' => 'Log ID',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('plan_id', 'log_id'),
+  );
+  $schema['farm_plan_user'] = array(
+    'description' => 'People that are linked to a plan.',
+    'fields' => array(
+      'plan_id' => array(
+        'description' => 'Plan ID',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'user_id' => array(
+        'description' => 'User ID',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('plan_id', 'user_id'),
+  );
+  foreach ($schema as $table => $data) {
+    db_create_table($table, $data);
+  }
 }

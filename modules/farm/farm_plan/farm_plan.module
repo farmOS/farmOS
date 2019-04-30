@@ -619,3 +619,105 @@ function farm_plan_type_get_names() {
   }
   return $names;
 }
+
+/***************************************************************
+ * Functions for linking/unlinking plans with other records.
+ * *************************************************************/
+
+/**
+ * Link a plan to a record.
+ *
+ * @param string $record_type
+ *   The record type (area, asset, log, or user).
+ * @param int $plan_id
+ *   The plan ID.
+ * @param int $record_id
+ *   The record ID.
+ */
+function farm_plan_link_record($record_type, $plan_id, $record_id) {
+
+  // First, delete any existing link.
+  farm_plan_unlink_record($record_type, $plan_id, $record_id);
+
+  // Get available relationships between plans and other record types.
+  $relationships = farm_plan_record_relationships();
+
+  // If a database table and field are not available, bail.
+  if (empty($relationships[$record_type]['table']) || empty($relationships[$record_type]['field'])) {
+    return;
+  }
+
+  // Get the table and field.
+  $table = $relationships[$record_type]['table'];
+  $field = $relationships[$record_type]['field'];
+
+  // Create a new relationship record.
+  $record = array(
+    'plan_id' => $plan_id,
+    $field => $record_id,
+  );
+  drupal_write_record($table, $record);
+}
+
+/**
+ * Unlink a plan from an area.
+ *
+ * @param string $record_type
+ *   The record type (area, asset, log, or user).
+ * @param int $plan_id
+ *   The plan ID.
+ * @param int $record_id
+ *   The record ID.
+ */
+function farm_plan_unlink_record($record_type, $plan_id, $record_id) {
+
+  // Get available relationships between plans and other record types.
+  $relationships = farm_plan_record_relationships();
+
+  // If a database table and field are not available, bail.
+  if (empty($relationships[$record_type]['table']) || empty($relationships[$record_type]['field'])) {
+    return;
+  }
+
+  // Get the table and field.
+  $table = $relationships[$record_type]['table'];
+  $field = $relationships[$record_type]['field'];
+
+  // Delete the relationship.
+  $query = db_delete($table);
+  $query->condition('plan_id', $plan_id);
+  $query->condition($field, $record_id);
+  $query->execute();
+}
+
+/**
+ * Defines available relationships between plans and other record types.
+ *
+ * @return array
+ *   Returns an array of record types with the database table and field names
+ *   used to store relationships.
+ */
+function farm_plan_record_relationships() {
+  return array(
+    'area' => array(
+      'entity_type' => 'taxonomy_term',
+      'table' => 'farm_plan_area',
+      'field' => 'area_id',
+    ),
+    'asset' => array(
+      'entity_type' => 'farm_asset',
+      'table' => 'farm_plan_asset',
+      'field' => 'asset_id',
+    ),
+    'log' => array(
+      'entity_type' => 'log',
+      'table' => 'farm_plan_log',
+      'field' => 'log_id',
+    ),
+    'user' => array(
+      'entity_type' => 'user',
+      'table' => 'farm_plan_user',
+      'field' => 'user_id',
+    ),
+  );
+}

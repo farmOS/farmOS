@@ -44,6 +44,69 @@ function farm_constraint_exists($type, $bundle, $id) {
 }
 
 /**
+ * Helper function for checking to see if an entity reference exists in a
+ * database table.
+ *
+ * @param $references
+ *   An array of information about entity references. For example:
+ *     $references = array(
+ *       'herd' => array(
+ *         'type' => 'farm_asset',
+ *         'bundle' => 'group',
+ *         'tables' => array(
+ *           'farm_grazing_rotations' => 'herd_id',
+ *           'farm_grazing_herds' => 'herd_id',
+ *         ),
+ *       ),
+ *     );
+ * @param $type
+ *   The entity type.
+ * @param $bundle
+ *   The entity bundle.
+ * @param $id
+ *   The entity ID.
+ *
+ * @return bool
+ *   Returns TRUE if a constraint was found, FALSE otherwise.
+ */
+function farm_constraint_table_references_exist($references, $type, $bundle, $id) {
+
+  // Iterate through the references.
+  foreach ($references as $info) {
+
+    // If the entity type doesn't match, skip it.
+    if ($type != $info['type']) {
+      continue;
+    }
+
+    // If a the referenced bundle matters, check it.
+    if (!empty($info['bundle']) && $bundle != $info['bundle']) {
+      continue;
+    }
+
+    // If there is no table information defined, skip it.
+    if (empty($info['tables'])) {
+      continue;
+    }
+
+    // Iterate through the tables.
+    foreach ($info['tables'] as $table => $column) {
+
+      // Query for a matching entity reference in the table.
+      $exists = db_query('SELECT COUNT(*) FROM {' . $table . '} WHERE ' . $column . ' = :id', array(':id' => $id))->fetchField();
+
+      // If one exists, a constraint exists. Return TRUE.
+      if (!empty($exists)) {
+        return TRUE;
+      }
+    }
+  }
+
+  // No constraint was found. Return FALSE.
+  return FALSE;
+}
+
+/**
  * Implements hook_form_alter().
  */
 function farm_constraint_form_alter(&$form, &$form_state, $form_id) {
