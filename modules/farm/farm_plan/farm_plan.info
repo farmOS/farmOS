@@ -4,6 +4,7 @@ core = 7.x
 package = farmOS (beta)
 dependencies[] = ctools
 dependencies[] = entity
+dependencies[] = farm_constraint
 dependencies[] = features
 dependencies[] = views
 dependencies[] = views_bulk_operations
