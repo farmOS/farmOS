@@ -10,34 +10,20 @@
  */
 function farm_plan_farm_constraint($type, $bundle, $id) {
 
+  // Get available relationships between plans and other record types.
+  $relationships = farm_plan_record_relationships();
+
   // Define plan references to check for
   // (see farm_constraint_table_references_exist()).
-  $plan_references = array(
-    'area' => array(
-      'type' => 'taxonomy_term',
+  $plan_references = array();
+  foreach ($relationships as $record_type => $info) {
+    $plan_references[$record_type] = array(
+      'type' => $info['entity_type'],
       'tables' => array(
-        'farm_plan_area' => 'area_id',
+        $info['table'] => $info['field'],
       ),
-    ),
-    'asset' => array(
-      'type' => 'farm_asset',
-      'tables' => array(
-        'farm_plan_asset' => 'asset_id',
-      ),
-    ),
-    'log' => array(
-      'type' => 'log',
-      'tables' => array(
-        'farm_plan_log' => 'log_id',
-      ),
-    ),
-    'user' => array(
-      'type' => 'user',
-      'tables' => array(
-        'farm_plan_user' => 'user_id',
-      ),
-    ),
-  );
+    );
+  }
 
   // Check to see if references exist.
   return farm_constraint_table_references_exist($plan_references, $type, $bundle, $id);
