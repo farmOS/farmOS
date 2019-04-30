@@ -749,21 +749,25 @@ function farm_plan_record_relationships() {
   return array(
     'area' => array(
       'entity_type' => 'taxonomy_term',
+      'entity_pk' => 'tid',
       'table' => 'farm_plan_area',
       'field' => 'area_id',
     ),
     'asset' => array(
       'entity_type' => 'farm_asset',
+      'entity_pk' => 'id',
       'table' => 'farm_plan_asset',
       'field' => 'asset_id',
     ),
     'log' => array(
       'entity_type' => 'log',
+      'entity_pk' => 'id',
       'table' => 'farm_plan_log',
       'field' => 'log_id',
     ),
     'user' => array(
       'entity_type' => 'user',
+      'entity_pk' => 'uid',
       'table' => 'farm_plan_user',
       'field' => 'user_id',
     ),
