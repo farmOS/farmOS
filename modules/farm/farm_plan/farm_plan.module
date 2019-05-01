@@ -625,6 +625,54 @@ function farm_plan_type_get_names() {
  * *************************************************************/
 
 /**
+ * Load a list of records associated with a plan.
+ *
+ * @param string $record_type
+ *   The record type (see farm_plan_record_relationships()).
+ * @param int $plan_id
+ *   The plan ID.
+ *
+ * @return array
+ *   Returns an array of record IDs associated with the plan ID.
+ */
+function farm_plan_linked_records($record_type, $plan_id) {
+
+  // Start an empty records array.
+  $records = array();
+
+  // If the plan ID is empty, bail.
+  if (empty($plan_id)) {
+    return;
+  }
+
+  // Get available relationships between plans and other record types.
+  $relationships = farm_plan_record_relationships();
+
+  // If a database table and field are not available, bail.
+  if (empty($relationships[$record_type]['table']) || empty($relationships[$record_type]['field'])) {
+    return;
+  }
+
+  // Get the table and field.
+  $table = $relationships[$record_type]['table'];
+  $field = $relationships[$record_type]['field'];
+
+  // Query for record IDs.
+  $query = db_select($table, 'r');
+  $query->addField('r', $field);
+  $query->condition('plan_id', $plan_id);
+  $result = $query->execute();
+  foreach ($result as $row) {
+    if (!empty($row->{$field})) {
+      $records[] = $row->{$field};
+    }
+  }
+
+  // Return the record IDs.
+  return $records;
+}
+
+/**
  * Link a plan to a record.
  *
  * @param string $record_type
