@@ -13,6 +13,58 @@ function farm_ledger_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_farm_area|log|farm_purchase|form';
+  $field_group->group_name = 'group_farm_area';
+  $field_group->entity_type = 'log';
+  $field_group->bundle = 'farm_purchase';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_farm_tabs';
+  $field_group->data = array(
+    'label' => 'Areas',
+    'weight' => '3',
+    'children' => array(
+      0 => 'field_farm_area',
+    ),
+    'format_type' => 'field_group_easy_responsive_tabs_nav_item',
+    'format_settings' => array(
+      'formatter' => '',
+      'instance_settings' => array(
+        'classes' => '',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $field_groups['group_farm_area|log|farm_purchase|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_farm_area|log|farm_sale|form';
+  $field_group->group_name = 'group_farm_area';
+  $field_group->entity_type = 'log';
+  $field_group->bundle = 'farm_sale';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_farm_tabs';
+  $field_group->data = array(
+    'label' => 'Areas',
+    'weight' => '3',
+    'children' => array(
+      0 => 'field_farm_area',
+    ),
+    'format_type' => 'field_group_easy_responsive_tabs_nav_item',
+    'format_settings' => array(
+      'formatter' => '',
+      'instance_settings' => array(
+        'classes' => '',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $field_groups['group_farm_area|log|farm_sale|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_farm_assets|log|farm_purchase|form';
   $field_group->group_name = 'group_farm_assets';
   $field_group->entity_type = 'log';
@@ -131,7 +183,7 @@ function farm_ledger_field_group_info() {
   $field_group->parent_name = 'group_farm_tabs';
   $field_group->data = array(
     'label' => 'Files',
-    'weight' => '5',
+    'weight' => '6',
     'children' => array(
       0 => 'field_farm_files',
       1 => 'field_farm_images',
@@ -159,7 +211,7 @@ function farm_ledger_field_group_info() {
   $field_group->parent_name = 'group_farm_tabs';
   $field_group->data = array(
     'label' => 'Files',
-    'weight' => '5',
+    'weight' => '6',
     'children' => array(
       0 => 'field_farm_files',
       1 => 'field_farm_images',
@@ -323,7 +375,7 @@ function farm_ledger_field_group_info() {
   $field_group->parent_name = 'group_farm_tabs';
   $field_group->data = array(
     'label' => 'Inventory',
-    'weight' => '4',
+    'weight' => '5',
     'children' => array(
       0 => 'field_farm_inventory',
     ),
@@ -349,7 +401,7 @@ function farm_ledger_field_group_info() {
   $field_group->parent_name = 'group_farm_tabs';
   $field_group->data = array(
     'label' => 'Inventory',
-    'weight' => '4',
+    'weight' => '5',
     'children' => array(
       0 => 'field_farm_inventory',
     ),
@@ -377,10 +429,11 @@ function farm_ledger_field_group_info() {
     'label' => 'Tabs',
     'weight' => '0',
     'children' => array(
-      0 => 'group_farm_assets',
-      1 => 'group_farm_attachments',
-      2 => 'group_farm_general',
-      3 => 'group_farm_inventory',
+      0 => 'group_farm_area',
+      1 => 'group_farm_assets',
+      2 => 'group_farm_attachments',
+      3 => 'group_farm_general',
+      4 => 'group_farm_inventory',
     ),
     'format_type' => 'field_group_easy_responsive_tabs_nav',
     'format_settings' => array(
@@ -415,10 +468,11 @@ function farm_ledger_field_group_info() {
     'label' => 'Tabs',
     'weight' => '0',
     'children' => array(
-      0 => 'group_farm_assets',
-      1 => 'group_farm_attachments',
-      2 => 'group_farm_general',
-      3 => 'group_farm_inventory',
+      0 => 'group_farm_area',
+      1 => 'group_farm_assets',
+      2 => 'group_farm_attachments',
+      3 => 'group_farm_general',
+      4 => 'group_farm_inventory',
     ),
     'format_type' => 'field_group_easy_responsive_tabs_nav',
     'format_settings' => array(
@@ -442,6 +496,7 @@ function farm_ledger_field_group_info() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Areas');
   t('Assets');
   t('Assignment');
   t('Category');

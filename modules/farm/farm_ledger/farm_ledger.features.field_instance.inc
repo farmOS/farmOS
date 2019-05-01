@@ -10,6 +10,37 @@
 function farm_ledger_field_default_field_instances() {
   $field_instances = array();
 
+  // Exported field_instance: 'log-farm_purchase-field_farm_area'.
+  $field_instances['log-farm_purchase-field_farm_area'] = array(
+    'bundle' => 'farm_purchase',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'What areas do this purchase pertain to?',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_area',
+    'label' => 'Areas',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 14,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_purchase-field_farm_asset'.
   $field_instances['log-farm_purchase-field_farm_asset'] = array(
     'bundle' => 'farm_purchase',
@@ -62,7 +93,7 @@ function farm_ledger_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_table',
-        'weight' => 14,
+        'weight' => 16,
       ),
     ),
     'entity_type' => 'log',
@@ -99,7 +130,7 @@ function farm_ledger_field_default_field_instances() {
         'module' => 'list',
         'settings' => array(),
         'type' => 'list_default',
-        'weight' => 10,
+        'weight' => 12,
       ),
     ),
     'entity_type' => 'log',
@@ -138,7 +169,7 @@ function farm_ledger_field_default_field_instances() {
           'colorbox_node_style_first' => 'large',
         ),
         'type' => 'colorbox',
-        'weight' => 13,
+        'weight' => 15,
       ),
     ),
     'entity_type' => 'log',
@@ -182,7 +213,7 @@ function farm_ledger_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 8,
+        'weight' => 10,
       ),
     ),
     'entity_type' => 'log',
@@ -213,7 +244,7 @@ function farm_ledger_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 2,
+        'weight' => 4,
       ),
     ),
     'entity_type' => 'log',
@@ -247,7 +278,7 @@ function farm_ledger_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_plain',
-        'weight' => 11,
+        'weight' => 13,
       ),
     ),
     'entity_type' => 'log',
@@ -281,7 +312,7 @@ function farm_ledger_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 12,
+        'weight' => 14,
       ),
     ),
     'entity_type' => 'log',
@@ -312,7 +343,7 @@ function farm_ledger_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 3,
+        'weight' => 5,
       ),
     ),
     'entity_type' => 'log',
@@ -346,7 +377,7 @@ function farm_ledger_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 9,
+        'weight' => 11,
       ),
     ),
     'entity_type' => 'log',
@@ -380,7 +411,7 @@ function farm_ledger_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 5,
+        'weight' => 7,
       ),
     ),
     'entity_type' => 'log',
@@ -418,7 +449,7 @@ function farm_ledger_field_default_field_instances() {
           'prefix_suffix' => TRUE,
         ),
         'type' => 'fraction_decimal',
-        'weight' => 4,
+        'weight' => 6,
       ),
     ),
     'entity_type' => 'log',
@@ -456,7 +487,7 @@ function farm_ledger_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 1,
+        'weight' => 3,
       ),
     ),
     'entity_type' => 'log',
@@ -494,7 +525,7 @@ function farm_ledger_field_default_field_instances() {
           'prefix_suffix' => TRUE,
         ),
         'type' => 'fraction_decimal',
-        'weight' => 7,
+        'weight' => 9,
       ),
     ),
     'entity_type' => 'log',
@@ -536,7 +567,7 @@ function farm_ledger_field_default_field_instances() {
           'prefix_suffix' => TRUE,
         ),
         'type' => 'fraction_decimal',
-        'weight' => 6,
+        'weight' => 8,
       ),
     ),
     'entity_type' => 'log',
@@ -559,6 +590,37 @@ function farm_ledger_field_default_field_instances() {
       ),
       'type' => 'fraction_decimal',
       'weight' => 6,
+    ),
+  );
+
+  // Exported field_instance: 'log-farm_sale-field_farm_area'.
+  $field_instances['log-farm_sale-field_farm_area'] = array(
+    'bundle' => 'farm_sale',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'What areas do this sale pertain to?',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_area',
+    'label' => 'Areas',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 14,
     ),
   );
 
@@ -615,7 +677,7 @@ function farm_ledger_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 1,
+        'weight' => 3,
       ),
     ),
     'entity_type' => 'log',
@@ -648,7 +710,7 @@ function farm_ledger_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_table',
-        'weight' => 14,
+        'weight' => 16,
       ),
     ),
     'entity_type' => 'log',
@@ -685,7 +747,7 @@ function farm_ledger_field_default_field_instances() {
         'module' => 'list',
         'settings' => array(),
         'type' => 'list_default',
-        'weight' => 10,
+        'weight' => 12,
       ),
     ),
     'entity_type' => 'log',
@@ -724,7 +786,7 @@ function farm_ledger_field_default_field_instances() {
           'colorbox_node_style_first' => 'large',
         ),
         'type' => 'colorbox',
-        'weight' => 13,
+        'weight' => 15,
       ),
     ),
     'entity_type' => 'log',
@@ -768,7 +830,7 @@ function farm_ledger_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 8,
+        'weight' => 10,
       ),
     ),
     'entity_type' => 'log',
@@ -799,7 +861,7 @@ function farm_ledger_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 2,
+        'weight' => 4,
       ),
     ),
     'entity_type' => 'log',
@@ -833,7 +895,7 @@ function farm_ledger_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_plain',
-        'weight' => 11,
+        'weight' => 13,
       ),
     ),
     'entity_type' => 'log',
@@ -867,7 +929,7 @@ function farm_ledger_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 12,
+        'weight' => 14,
       ),
     ),
     'entity_type' => 'log',
@@ -898,7 +960,7 @@ function farm_ledger_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 3,
+        'weight' => 5,
       ),
     ),
     'entity_type' => 'log',
@@ -932,7 +994,7 @@ function farm_ledger_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 9,
+        'weight' => 11,
       ),
     ),
     'entity_type' => 'log',
@@ -966,7 +1028,7 @@ function farm_ledger_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 5,
+        'weight' => 7,
       ),
     ),
     'entity_type' => 'log',
@@ -1004,7 +1066,7 @@ function farm_ledger_field_default_field_instances() {
           'prefix_suffix' => TRUE,
         ),
         'type' => 'fraction_decimal',
-        'weight' => 4,
+        'weight' => 6,
       ),
     ),
     'entity_type' => 'log',
@@ -1046,7 +1108,7 @@ function farm_ledger_field_default_field_instances() {
           'prefix_suffix' => TRUE,
         ),
         'type' => 'fraction_decimal',
-        'weight' => 7,
+        'weight' => 9,
       ),
     ),
     'entity_type' => 'log',
@@ -1088,7 +1150,7 @@ function farm_ledger_field_default_field_instances() {
           'prefix_suffix' => TRUE,
         ),
         'type' => 'fraction_decimal',
-        'weight' => 6,
+        'weight' => 8,
       ),
     ),
     'entity_type' => 'log',
@@ -1117,6 +1179,7 @@ function farm_ledger_field_default_field_instances() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Add flags to this log to enable better sorting and filtering of records.');
+  t('Areas');
   t('Assets');
   t('Assigned to');
   t('Customer');
@@ -1141,6 +1204,8 @@ function farm_ledger_field_default_field_instances() {
   t('Units');
   t('Use this to organize your logs into categories for easier searching and filtering later.');
   t('Use this to set or adjust asset inventory levels along with this log.');
+  t('What areas do this purchase pertain to?');
+  t('What areas do this sale pertain to?');
   t('What assets do this purchase log pertain to?');
   t('What assets do this sale log pertain to?');
   t('What is the unit of measurement for the quantity entered?');

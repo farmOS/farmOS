@@ -46,6 +46,7 @@ function farm_ledger_views_default_views() {
     'timestamp' => 'timestamp',
     'name' => 'name',
     'field_farm_asset' => 'field_farm_asset',
+    'field_farm_area' => 'field_farm_area',
     'field_farm_seller' => 'field_farm_seller',
     'field_farm_invoice_number' => 'field_farm_invoice_number',
     'field_farm_lot_number' => 'field_farm_lot_number',
@@ -94,6 +95,11 @@ function farm_ledger_views_default_views() {
       'empty_column' => 0,
     ),
     'field_farm_asset' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_area' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -289,6 +295,11 @@ function farm_ledger_views_default_views() {
     'link' => 1,
   );
   $handler->display->display_options['fields']['field_farm_asset']['delta_offset'] = '0';
+  /* Field: Log: Areas */
+  $handler->display->display_options['fields']['field_farm_area']['id'] = 'field_farm_area';
+  $handler->display->display_options['fields']['field_farm_area']['table'] = 'field_data_field_farm_area';
+  $handler->display->display_options['fields']['field_farm_area']['field'] = 'field_farm_area';
+  $handler->display->display_options['fields']['field_farm_area']['delta_offset'] = '0';
   /* Field: Log: Seller */
   $handler->display->display_options['fields']['field_farm_seller']['id'] = 'field_farm_seller';
   $handler->display->display_options['fields']['field_farm_seller']['table'] = 'field_data_field_farm_seller';
@@ -393,6 +404,21 @@ function farm_ledger_views_default_views() {
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['specify_validation'] = TRUE;
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['validate']['type'] = 'farm_asset';
+  /* Contextual filter: Log: Areas (field_farm_area) */
+  $handler->display->display_options['arguments']['field_farm_area_tid']['id'] = 'field_farm_area_tid';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['table'] = 'field_data_field_farm_area';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['field'] = 'field_farm_area_tid';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['title_enable'] = TRUE;
+  $handler->display->display_options['arguments']['field_farm_area_tid']['title'] = 'Sales related to %2';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['specify_validation'] = TRUE;
+  $handler->display->display_options['arguments']['field_farm_area_tid']['validate']['type'] = 'taxonomy_term';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['validate_options']['vocabularies'] = array(
+    'farm_areas' => 'farm_areas',
+  );
   /* Filter criterion: Log: Log type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'log';
@@ -536,6 +562,7 @@ function farm_ledger_views_default_views() {
     t('Date'),
     t('Log name'),
     t('Assets'),
+    t('Areas'),
     t('Seller'),
     t('Invoice number'),
     t('Purchase lot number'),
@@ -548,6 +575,7 @@ function farm_ledger_views_default_views() {
     t('Assigned to'),
     t('All'),
     t('%1\'s purchases'),
+    t('Sales related to %2'),
     t('Start date'),
     t('End date'),
     t('Page'),
@@ -591,6 +619,7 @@ function farm_ledger_views_default_views() {
     'timestamp' => 'timestamp',
     'name' => 'name',
     'field_farm_asset' => 'field_farm_asset',
+    'field_farm_area' => 'field_farm_area',
     'field_farm_customer' => 'field_farm_customer',
     'field_farm_invoice_number' => 'field_farm_invoice_number',
     'field_farm_lot_number' => 'field_farm_lot_number',
@@ -639,6 +668,11 @@ function farm_ledger_views_default_views() {
       'empty_column' => 0,
     ),
     'field_farm_asset' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_area' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -834,6 +868,11 @@ function farm_ledger_views_default_views() {
     'link' => 1,
   );
   $handler->display->display_options['fields']['field_farm_asset']['delta_offset'] = '0';
+  /* Field: Log: Areas */
+  $handler->display->display_options['fields']['field_farm_area']['id'] = 'field_farm_area';
+  $handler->display->display_options['fields']['field_farm_area']['table'] = 'field_data_field_farm_area';
+  $handler->display->display_options['fields']['field_farm_area']['field'] = 'field_farm_area';
+  $handler->display->display_options['fields']['field_farm_area']['delta_offset'] = '0';
   /* Field: Log: Customer */
   $handler->display->display_options['fields']['field_farm_customer']['id'] = 'field_farm_customer';
   $handler->display->display_options['fields']['field_farm_customer']['table'] = 'field_data_field_farm_customer';
@@ -938,6 +977,21 @@ function farm_ledger_views_default_views() {
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['specify_validation'] = TRUE;
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['validate']['type'] = 'farm_asset';
+  /* Contextual filter: Log: Areas (field_farm_area) */
+  $handler->display->display_options['arguments']['field_farm_area_tid']['id'] = 'field_farm_area_tid';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['table'] = 'field_data_field_farm_area';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['field'] = 'field_farm_area_tid';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['title_enable'] = TRUE;
+  $handler->display->display_options['arguments']['field_farm_area_tid']['title'] = 'Purchases related to %2';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['specify_validation'] = TRUE;
+  $handler->display->display_options['arguments']['field_farm_area_tid']['validate']['type'] = 'taxonomy_term';
+  $handler->display->display_options['arguments']['field_farm_area_tid']['validate_options']['vocabularies'] = array(
+    'farm_areas' => 'farm_areas',
+  );
   /* Filter criterion: Log: Log type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'log';
@@ -1081,6 +1135,7 @@ function farm_ledger_views_default_views() {
     t('Date'),
     t('Log name'),
     t('Assets'),
+    t('Areas'),
     t('Customer'),
     t('Invoice number'),
     t('Sale lot number'),
@@ -1093,6 +1148,7 @@ function farm_ledger_views_default_views() {
     t('Assigned to'),
     t('All'),
     t('%1\'s sales'),
+    t('Purchases related to %2'),
     t('Start date'),
     t('End date'),
     t('Page'),
