@@ -7,6 +7,27 @@
 include_once 'farm_crop.features.inc';
 
 /**
+ * Implements hook_help().
+ */
+function farm_crop_help($path, $arg) {
+
+  // View of Plantings.
+  if ($path == 'farm/assets/plantings') {
+    return t('Plantings can be used to represent groups of plants (eg: a field of corn, or a group of seedlings), or they can be used to represent individual plants (eg: in the case of nurseries). For more information, see the <a href="@plantings_doc_url">Plantings</a> documentation.', array('@plantings_doc_url' => url('https://farmOS.org/guide/assets/plantings')));
+  }
+
+  // View of Seedings.
+  elseif ($path == 'farm/logs/seedings') {
+    return t('Seeding logs represent when <a href="@plantings_url">Planting assets</a> are seeded directly into the ground (or into containers). For more information, see the <a href="@plantings_doc_url">Plantings</a> documentation.', array('@plantings_url' => url('farm/assets/plantings'), '@plantings_doc_url' => url('https://farmOS.org/guide/assets/plantings')));
+  }
+
+  // View of Transplantings.
+  elseif ($path == 'farm/logs/transplantings') {
+    return t('Transplanting logs represent when <a href="@plantings_url">Planting assets</a> are transplanted from one place to another. For more information, see the <a href="@plantings_doc_url">Plantings</a> documentation.', array('@plantings_url' => url('farm/assets/plantings'), '@plantings_doc_url' => url('https://farmOS.org/guide/assets/plantings')));
+  }
+}
+
+/**
  * Implements hook_form_FORM_ID_alter().
  */
 function farm_crop_form_farm_asset_form_alter(&$form, &$form_state, $form_id) {
