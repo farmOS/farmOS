@@ -97,6 +97,9 @@ function farm_ui_entity_views($entity_type, $entity_bundle, $entity) {
     case 'farm_asset':
       $id = 'id';
       break;
+    case 'farm_plan':
+      $id = 'id';
+      break;
     case 'taxonomy_term':
       $id = 'tid';
       break;

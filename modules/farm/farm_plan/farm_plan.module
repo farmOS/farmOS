@@ -325,6 +325,22 @@ function farm_plan_entity_view($entity, $type, $view_mode, $langcode) {
   );
 }
 
+/**
+ * Implements hook_farm_ui_entity_views().
+ */
+function farm_plan_farm_ui_entity_views($entity_type, $bundle, $entity) {
+
+  // If the entity is not a plantation plan, bail.
+  if (!($entity_type == 'farm_plan' && $bundle == 'forest_plantation')) {
+    return array();
+  }
+
+  // Display a View of logs associated with the plan.
+  return array(
+    'farm_plan_logs',
+  );
+}
+
 /***************************************************************
  * Access functions
  * *************************************************************/
