@@ -5,6 +5,8 @@ about farmOS, [contact m.stenta](https://farmier.com/contact).
 
 ## 2019
 
+**2019 May 8th** [Red Hat Open Source Stories: Farming for the Future](https://www.redhat.com/en/open-source-stories/farming-for-the-future)
+
 **2019 March 21st** [Acquia Drupal Stories: Farmer First, Drupalist Always: Michael Stenta](https://www.acquia.com/blog/farmer-first-drupalist-always-michael-stenta)
 
 **2019 March 20th** [Farmier: farmOS 1.0 - A long journey for a small number](https://farmier.com/post/2019/farmOS-1.0/)
