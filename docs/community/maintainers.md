@@ -20,3 +20,13 @@ and [farmOS.js](https://github.com/farmOS/farmOS.js)
 
 * Github: [jgaehring](https://github.com/jgaehring)
 
+![Paul Weidner](/img/maintainers/paul121.jpg)
+
+### Paul Weidner
+
+Frontend/backend developer, maintainer of
+[farmOS Aggregator](https://github.com/farmOS/farmOS-aggregator) and
+[farmOS.py](https://github.com/farmOS/farmOS.py)
+
+* Github: [paul121](https://github.com/paul121)
+
