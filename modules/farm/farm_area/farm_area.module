@@ -597,7 +597,7 @@ function farm_area_convert_area_units($input, $unit) {
     $output = bcmul($input, $conversion[$unit]);
   }
   else {
-    $output = $input * $conversion;
+    $output = $input * $conversion[$unit];
   }
 
   // Return the result.
