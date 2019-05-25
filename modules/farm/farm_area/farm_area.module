@@ -465,7 +465,7 @@ function farm_area_calculate_area_multiple($area_ids, $format = FALSE) {
   }
 
   // Add up the total area.
-  $total_area = '';
+  $total_area = 0;
   foreach ($area_ids as $area_id) {
     $area_area = farm_area_calculate_area($area_id);
     if (function_exists('bcadd')) {
