@@ -472,6 +472,9 @@ function farm_area_calculate_area_multiple($area_ids, $format = FALSE) {
       $total_area = bcadd($total_area, $area_area);
     }
     else {
+      if (empty($total_area)) {
+        $total_area = 0;
+      }
       $total_area += $area_area;
     }
   }
