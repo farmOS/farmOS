@@ -106,9 +106,48 @@ function farm_movement_form_farm_asset_form_alter(&$form, &$form_state, $form_id
     '#title' => t('Current location'),
     '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_area',
     '#default_value' => $location,
+    '#maxlength' => NULL,
   );
+
+  // Add validation function to validate location input.
+  $form['actions']['submit']['#validate'][] = 'farm_movement_asset_location_validate';
+
+  // Add submit function to process the location.
   $form['actions']['submit']['#submit'][] = 'farm_movement_asset_location_submit';
+
+  // Put the location fieldset into the "General" field group.
   $form['#group_children']['location'] = 'group_farm_general';
+}
+
+/**
+ * Validation handler for processing the asset location field.
+ *
+ * @param array $form
+ *   The form array.
+ * @param array $form_state
+ *   The form state array.
+ */
+function farm_movement_asset_location_validate(array $form, array &$form_state) {
+
+  // Only proceed if current location field has a value.
+  if (empty($form_state['values']['location']['areas'])) {
+    return;
+  }
+
+  // Explode the value into an array and only take the first value.
+  // (Same behavior as taxonomy autocomplete widget.)
+  $values = drupal_explode_tags($form_state['values']['location']['areas']);
+
+  // Iterate over the values.
+  foreach ($values as $value) {
+
+    // If the area name is over 255 characters long, throw a form validation
+    // error.
+    if (strlen($value) > 255) {
+      $message = t('The area name "%name" is too long. It must be under 255 characters.', array('%name' => $value));
+      form_set_error('location][areas', $message);
+    }
+  }
 }
 
 /**
