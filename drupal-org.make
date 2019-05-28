@@ -89,7 +89,7 @@ projects[libraries][subdir] = "contrib"
 projects[libraries][version] = "2.5"
 
 projects[log][subdir] = "contrib"
-projects[log][version] = "1.12"
+projects[log][version] = "1.13"
 
 projects[multiupload_filefield_widget][subdir] = "contrib"
 projects[multiupload_filefield_widget][version] = "1.13"
