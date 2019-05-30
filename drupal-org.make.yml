@@ -5,12 +5,12 @@ projects:
   # Config Update and Features.
   config_update:
     type: module
-    version: 1.3
+    version: 1.6
   features:
     type: module
-    version: 3.5
+    version: 3.8
 
   # Bootstrap base theme.
   bootstrap:
     type: theme
-    version: 3.3
+    version: 3.19

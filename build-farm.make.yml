@@ -5,7 +5,7 @@ projects:
   # Drupal core.
   drupal:
     type: core
-    version: 8.3.2
+    version: 8.7.2
 
   # farmOS.
   farm:
