@@ -425,3 +425,45 @@ function farm_quantity_log_add_measurements($log, $measurements) {
     $quantity_wrapper->save();
   }
 }
+
+/**
+ * Helper function for updating the value of a quantity measurement on a log,
+ * based on its label.
+ *
+ * @param \Log $log
+ *   A log entity.
+ * @param string $label
+ *   The label of the quantity measurement that needs updating.
+ * @param string|float $value
+ *   The new quantity measurement value.
+ */
+function farm_quantity_log_update_measurement_by_label($log, $label, $value) {
+
+  // Load the log entity metadata wrapper.
+  $log_wrapper = entity_metadata_wrapper('log', $log);
+
+  // If there are no quantities, bail.
+  if (empty($log_wrapper->field_farm_quantity)) {
+    return;
+  }
+
+  // Iterate over the quantities.
+  foreach ($log_wrapper->field_farm_quantity as $quantity) {
+
+    // If a label doesn't match, skip it.
+    if ($quantity->field_farm_quantity_label->value() != $label) {
+      continue;
+    }
+
+    // Clear the old value.
+    $quantity->field_farm_quantity_value = array();
+
+    // Add the new value.
+    $value_fraction = fraction_from_decimal($value);
+    $quantity->field_farm_quantity_value->numerator->set($value_fraction->getNumerator());
+    $quantity->field_farm_quantity_value->denominator->set($value_fraction->getDenominator());
+
+    // Save the quantity.
+    $quantity->save();
+  }
+}
