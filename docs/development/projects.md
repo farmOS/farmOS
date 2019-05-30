@@ -115,7 +115,7 @@ added to extend your farmOS functionality:
   layers for farmOS maps.
 * **[Farm Mushroom](https://github.com/farmOS/farm_mushroom)** - Features for
   managing mushroom production.
-* **[FarmOS NWS](https://github.com/bitsecondal/farmosnws)** - Imports data
+* **[FarmOS NWS](https://github.com/almostengr/farmosnws)** - Imports data
   from the National Weather Service into Drupal for use by farmOS.
 * **[Farm Nutrient](https://github.com/farmOS/farm_nutrient)** - Nutrient
   management planning module for farmOS.
