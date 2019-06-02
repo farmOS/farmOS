@@ -26,6 +26,7 @@ If you would like to support farmOS, consider [making a donation].
 * [Vermont Housing & Conservation Board](http://www.vhcb.org)
 * [Bionutrient Food Association](http://bionutrient.org)
 * [Globetrotter Foundation](http://globetrotterfoundation.org)
+* [Paicines Ranch](https://paicinesranch.com)
 * [GOAT: Gathering for Open Agricultural Technology](http://goatech.org)
 * [Vermont Vegetable and Berry Growers Association](http://www.uvm.edu/vtvegandberry)
 * [PageKite](https://pagekite.net/)
