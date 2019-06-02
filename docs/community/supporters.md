@@ -75,6 +75,7 @@ If you would like to support farmOS, consider [making a donation].
 * Mary and John Stanton
 * Vinayak Kumbhakern
 * David Caplin
+* Marty Van Diest
 
 ## Contributors
 
