@@ -47,6 +47,11 @@ In addition to Drupal's basic requirements, farmOS also needs the following:
     * `max_execution_time=240`
     * `max_input_time=240`
     * `max_input_vars=5000`
+* **Drupal configuration** - Clean URLs must be enabled in Drupal. Check the 
+  configuration on the Drupal configuration page 
+  *(Administration > Configuration > Search and metadata > Clean URLs)* and 
+  enable Clean URLs. If running Apache web-server, `mod_rewrite` must be enabled. 
+  For additional instructions, see the [Enable clean URLs] page in Drupal Documentation.
 
 ### Optional dependencies
 
@@ -86,4 +91,5 @@ enhancements if they are available.
 [PostgreSQL]: https://www.postgresql.org
 [PostGIS]: http://postgis.net
 [GitHub issue #43]: https://github.com/farmOS/farmOS/issues/43
+[Enable clean URLs]: https://www.drupal.org/docs/7/configuring-clean-urls/enable-clean-urls
 
