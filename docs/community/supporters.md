@@ -79,6 +79,7 @@ If you would like to support farmOS, consider [making a donation].
 * David Caplin
 * Marty Van Diest
 * Karl-Jon Sparrman
+* Henry Luciano
 
 ## Contributors
 
