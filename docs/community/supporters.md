@@ -13,6 +13,7 @@ If you would like to support farmOS, consider [making a donation].
 * [Public Lab](https://publiclab.org)
 * [MapKnitter](https://mapknitter.org)
 * [USDA/NRCS Soil Survey](http://sdmdataaccess.nrcs.usda.gov)
+* [Wolfe's Neck Center for Agriculture and the Environment](https://www.wolfesneck.org)
 * [GODAN](http://www.godan.info)
 * [The Agroecology Lab](http://open-seeds.org)
 * [Strafford County Conservation District](http://straffordccd.org)
