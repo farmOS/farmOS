@@ -81,6 +81,7 @@ If you would like to support farmOS, consider [making a donation].
 * Karl-Jon Sparrman
 * Henry Luciano
 * Mattias Sandström
+* Clément Gandon
 
 ## Contributors
 
