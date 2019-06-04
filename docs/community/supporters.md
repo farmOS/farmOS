@@ -80,6 +80,7 @@ If you would like to support farmOS, consider [making a donation].
 * Marty Van Diest
 * Karl-Jon Sparrman
 * Henry Luciano
+* Mattias Sandström
 
 ## Contributors
 
