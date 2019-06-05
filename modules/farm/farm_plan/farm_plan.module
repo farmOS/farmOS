@@ -789,3 +789,67 @@ function farm_plan_record_relationships() {
     ),
   );
 }
+
+/**
+ * Implements hook_entity_view_alter().
+ */
+function farm_plan_entity_view_alter(&$build, $type) {
+
+  // Get the entity ID. Bail if not found.
+  $entity_id = NULL;
+  if (!empty($build['#entity'])) {
+    list($entity_id, $vid, $bundle) = entity_extract_ids($type, $build['#entity']);
+  }
+  if (empty($entity_id)) {
+    return;
+  }
+
+  // Get available relationships between plans and other record types.
+  $relationships = farm_plan_record_relationships();
+
+  // Iterate through the relationships to find a matching record type.
+  $record_type = '';
+  foreach ($relationships as $relationship => $info) {
+    if ($type == $info['entity_type']) {
+      $record_type = $relationship;
+      break;
+    }
+  }
+
+  // If a record type wasn't found, bail.
+  if (empty($record_type)) {
+    return;
+  }
+
+  // Find plan(s) that this entity is associated with.
+  $query = 'SELECT plan_id FROM {' . $relationships[$record_type]['table'] . '} WHERE ' . $relationships[$record_type]['field'] . ' = :entity_id';
+  $args = array(':entity_id' => $entity_id);
+  $result = db_query($query, $args);
+  $plan_ids = array();
+  foreach ($result as $row) {
+    if (!empty($row->plan_id)) {
+      $plan_ids[] = $row->plan_id;
+    }
+  }
+
+  // Iterate through the plans.
+  foreach ($plan_ids as $plan_id) {
+
+    // Load the plan.
+    $plan = farm_plan_load($plan_id);
+
+    // Get the plan URL and name.
+    $plan_uri = entity_uri('farm_plan', $plan);
+    $plan_path = $plan_uri['path'];
+    $plan_name = entity_label('farm_plan', $plan);
+
+    // Set a message pointing to the plan.
+    $args = array(
+      '@record_type' => $record_type,
+      '!plan_path' => $plan_path,
+      '%plan_name' => $plan_name,
+    );
+    $message = t('This @record_type is part of the plan: <a href="!plan_url">%plan_name</a>', $args);
+    drupal_set_message($message);
+  }
+}
