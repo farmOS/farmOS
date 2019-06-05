@@ -1,0 +1,114 @@
+<?php
+
+/**
+ * @file
+ * Farm fields autocomplete module.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function farm_fields_autocomplete_menu() {
+  $items = array();
+
+  // Log name autocomplete callback.
+  $items['farm/fields/autocomplete/%/%/%/%'] = array(
+    'title' => 'Autocomplete for farmOS text fields',
+    'page callback' => 'farm_fields_autocomplete',
+    'page arguments' => array(3, 4, 5, 6),
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+/**
+ * Page callback for the farm fields autocomplete callback.
+ *
+ * @param string $entity_type
+ *   The entity type.
+ * @param string $bundle
+ *   The entity bundle.
+ * @param $field_name
+ *   The field name.
+ * @param string $string
+ *   The string to search for.
+ */
+function farm_fields_autocomplete($entity_type, $bundle, $field_name, $string) {
+
+  // Create an entity field query to find matching entities.
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', $entity_type);
+  $query->entityCondition('bundle', $bundle);
+  $query->fieldCondition($field_name, 'value', '%' . $string . '%', 'LIKE');
+  $query->fieldOrderBy($field_name, 'value', 'ASC');
+  $query->range(0, 10);
+
+  // Execute the query to get entity IDs.
+  $result = $query->execute();
+  if (isset($result[$entity_type])) {
+    $entity_ids = array_keys($result[$entity_type]);
+  }
+
+  // Only include entities that the user has access to.
+  $entities = array();
+  foreach ($entity_ids as $id) {
+    $entity_load = entity_load($entity_type, array($id));
+    $entity = reset($entity_load);
+    if (!entity_access('view', $entity_type, $entity)) {
+      continue;
+    }
+    $entities[] = $entity;
+  }
+
+  // If there are entities, iterate through them and build a list of matches.
+  $matches = array();
+  if (!empty($entities)) {
+    foreach ($entities as $entity) {
+      if (!empty($entity->{$field_name}[LANGUAGE_NONE])) {
+        foreach ($entity->{$field_name}[LANGUAGE_NONE] as $item) {
+          if (!empty($item['value']) && strpos(strtolower($item['value']), strtolower($string)) !== FALSE) {
+            if (!in_array($item['value'], $matches)) {
+              $matches[] = $item['value'];
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Map to an associative array.
+  $matches = drupal_map_assoc($matches);
+
+  // Return the matches as JSON.
+  drupal_json_output($matches);
+}
+
+/**
+ * Implements hook_field_widget_form_alter().
+ */
+function farm_fields_autocomplete_field_widget_form_alter(&$element, &$form_state, $context) {
+
+  // If this isn't a text field, bail.
+  if (empty($context['field']['type']) || $context['field']['type'] != 'text') {
+    return;
+  }
+
+  // If an element value textfield is not available, bail.
+  if (empty($element['value']['#type']) || $element['value']['#type'] != 'textfield') {
+    return;
+  }
+
+  // If an autocomplete path is already defined for whatever reason, we will not
+  // override it, so bail.
+  if (!empty($element['value']['#autocomplete_path'])) {
+    return;
+  }
+
+  // Add our autocomplete path.
+  $entity_type = $element['#entity_type'];
+  $bundle = $element['#bundle'];
+  $field_name = $element['#field_name'];
+  $element['value']['#autocomplete_path'] = 'farm/fields/autocomplete/' . $entity_type . '/' . $bundle . '/' . $field_name;
+}
