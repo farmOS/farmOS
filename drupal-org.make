@@ -143,7 +143,7 @@ projects[restws][patch][] = "http://www.drupal.org/files/issues/restws-2857490-2
 ; Fix Issue #2090177: Possible misuse of "bundle keys"
 projects[restws][patch][] = "http://www.drupal.org/files/issues/restws-bundleKeyTerms-2090177-12.patch"
 ; Fix Issue #1084144: Respond to CORS preflight requests
-projects[restws][patch][] = "http://www.drupal.org/files/issues/restws-support_options_request-1084144-11-7.patch"
+projects[restws][patch][] = "http://www.drupal.org/files/issues/restws-support_options_request-1084144-11-18.patch"
 
 projects[restws_field_collection][subdir] = "contrib"
 projects[restws_field_collection][version] = "1.1"
