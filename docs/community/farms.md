@@ -57,6 +57,7 @@ included in this list, add a comment to [this issue on Github].
 * Golden Avenue Urban Permaculture Farm (Eugene, Oregon)
 * Grocholl and Sons Farms (Harrison, Illinois)
 * Hampton Plantation (Owings, Maryland)
+* Heniscity Farm (Pegram, Tennessee)
 * Lokoea Farms (Haleiwa, Hawai&#699;i)
 * Miles Smith Farm (Loudon, New Hampshire)
 * Moonstone Farm (Saranac Lake, New York)
