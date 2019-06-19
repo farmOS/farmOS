@@ -849,7 +849,7 @@ function farm_plan_entity_view_alter(&$build, $type) {
       '!plan_path' => $plan_path,
       '%plan_name' => $plan_name,
     );
-    $message = t('This @record_type is part of the plan: <a href="!plan_url">%plan_name</a>', $args);
+    $message = t('This @record_type is part of the plan: <a href="!plan_path">%plan_name</a>', $args);
     drupal_set_message($message);
   }
 }
