@@ -217,10 +217,47 @@ function farm_plan_delete_form(array $form, array &$form_state, FarmPlan $farm_p
     '#value' => $farm_plan,
   );
   // Always provide entity id in the same form key as in the entity edit form.
+  $plan_id = entity_id('farm_plan', $farm_plan);
   $form['farm_plan_type_id'] = array(
     '#type' => 'value',
-    '#value' => entity_id('farm_plan', $farm_plan),
+    '#value' => $plan_id,
   );
+
+  // List the entities that are currently linked to the plan, and make it clear
+  // that they will only be unlinked, not deleted.
+  $relationships = farm_plan_record_relationships();
+  $entities = array();
+  foreach ($relationships as $name => $info) {
+    $records = farm_plan_linked_records($name, $plan_id);
+    if (!empty($records)) {
+      foreach ($records as $record) {
+        $entities[$info['entity_type']][] = $record;
+      }
+    }
+  }
+  if (!empty($entities)) {
+
+    // Create an array of links to the entities, with their entity type.
+    $links = array();
+    foreach ($entities as $entity_type => $ids) {
+      $loaded_entities = entity_load($entity_type, $ids);
+      foreach ($loaded_entities as $id => $entity) {
+        $entity_label = entity_label($entity_type, $entity);
+        $entity_uri = entity_uri($entity_type, $entity);
+        $links[] = l($entity_label, $entity_uri['path']);
+      }
+    }
+    $item_list = theme('item_list', array('items' => $links));
+
+    // Assemble a message.
+    $message = '<p>';
+    $message .= t('The following records are currently linked to this plan. Deleting the plan will not delete these records, but they will no longer be linked to the plan.');
+    $message .= '</p>';
+    $message .= $item_list;
+    drupal_set_message($message, 'warning');
+  }
+
+  // Return a Drupal confirmation form.
   $farm_plan_uri = entity_uri('farm_plan', $farm_plan);
   return confirm_form($form,
     t('Are you sure you want to delete %title?', array('%title' => entity_label('farm_plan', $farm_plan))),
