@@ -59,6 +59,11 @@ your data. You also have full access to the code that is storing and using that
 data! Why? Because farmOS is free open source software developed by a community
 of farmOS users.
 
+> Where do I get support if I have questions?
+
+The [farmOS Community Forum] is a great place to ask questions and learn from
+others who are using farmOS.
+
 ## How can I contribute to the project?
 
 > Can I donate to the project.
@@ -179,6 +184,7 @@ language, open an issue in the [issue queues] and let's get started!
 [Farmier]: https://farmier.com
 [User Guide]: /guide
 [Bootstrap framework]: http://getbootstrap.com
+[farmOS Community Forum]: https://farmOS.discourse.group
 [Donate to farmOS]: /donate
 [many ways to contribute]: /community/contribute
 [Eric S. Raymond]: https://en.wikipedia.org/wiki/Eric_S._Raymond

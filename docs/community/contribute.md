@@ -28,6 +28,9 @@ if you find bugs, add them to the [issue queues].
 The farmOS community hosts a [farmOS Monthly Call] via Google Hangouts. Anyone
 is welcome to join.
 
+The [farmOS Forum] is a great place for discussions, support requests, sharing
+workflow ideas, etc.
+
 You can also chat with people any time in the [#farmOS room on Matrix.org] or
 the [#farmOS IRC channel on Freenode] (both platforms are linked, so chats are
 shared between them). Note that the #farmOS IRC room requires a registered
@@ -58,6 +61,7 @@ we'll get done! Feel free to jump into the [issue queues] to get started!
 [Farmier]: https://farmier.com
 [issue queues]: /development/issue-queues
 [farmOS Monthly Call]: /community/monthly-call
+[farmOS Forum]: https://farmOS.discourse.group
 [#farmOS room on Matrix.org]: https://riot.im/app/#/room/#farmOS:matrix.org
 [#farmOS IRC channel on Freenode]: http://webchat.freenode.net/?channels=#farmOS
 [donations]: /donate

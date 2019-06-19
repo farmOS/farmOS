@@ -21,6 +21,7 @@ For more information, read the [Frequently Asked Questions].
 ## Quick Links
 
 * [Monthly call]
+* Forum: [https://farmOS.discourse.group]
 * Chat:
     * Riot.im:
         * [#farmOS on Matrix.org] (bridged to #farmOS IRC room on Freenode)
@@ -100,6 +101,7 @@ The full workshop recording is available on YouTube:
 [https://drupal.org/project/farm]: https://drupal.org/project/farm
 [https://github.com/farmOS]: https://github.com/farmOS
 [Monthly call]: /community/monthly-call
+[https://farmOS.discourse.group]: https://farmOS.discourse.group
 [#farmOS on Matrix.org]: https://riot.im/app/#/room/#farmOS:matrix.org
 [#FIot on Matrix.org]: https://riot.im/app/#/room/#fiot:matrix.org
 [#farmOS on Freenode]: http://webchat.freenode.net/?channels=#farmOS
