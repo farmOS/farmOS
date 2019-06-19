@@ -853,3 +853,62 @@ function farm_plan_entity_view_alter(&$build, $type) {
     drupal_set_message($message);
   }
 }
+
+/**
+ * Implements hook_entity_delete().
+ */
+function farm_plan_entity_delete($entity, $type) {
+
+  // Get the entity ID, and skip if it couldn't be found.
+  $entity_id = entity_id($type, $entity);
+  if (empty($entity_id)) {
+    return;
+  }
+
+  // Get available relationships between plans and other record types.
+  $relationships = farm_plan_record_relationships();
+
+  // Make a list of relationships indexed by entity type.
+  $entity_types = array();
+  foreach ($relationships as $relationship => $info) {
+    if (!empty($info['entity_type'])) {
+      $entity_types[$info['entity_type']][] = $relationship;
+    }
+  }
+
+  // If a related entity type is being deleted, delete any references to that
+  // entity in the relationship table.
+  // In theory, this shouldn't happen because farm_constraint prevents entities
+  // from being deleted that are linked to plans. But, it could still happen via
+  // an uninformed call to entity_delete(), so we have this logic here to
+  // handle cleanup regardless.
+  if (array_key_exists($type, $entity_types)) {
+    foreach ($entity_types[$type] as $relationship) {
+
+      // Get information about the relationship.
+      $info = $relationships[$relationship];
+
+      // If it doesn't have a table, or a field, skip it.
+      if (empty($info['table']) || empty($info['field'])) {
+        continue;
+      }
+
+      // Delete all references to this plan in the table.
+      db_query('DELETE FROM {' . $info['table'] . '} WHERE ' . $info['field'] . ' = :entity_id', array(':entity_id' => $entity_id));
+    }
+  }
+
+  // If a plan is being deleted, remove references from all relationship tables.
+  elseif ($type == 'farm_plan') {
+    foreach ($relationships as $relationship => $info) {
+
+      // If it doesn't have a table, skip it.
+      if (empty($info['table'])) {
+        continue;
+      }
+
+      // Delete all references to this plan in the table.
+      db_query('DELETE FROM {' . $info['table'] . '} WHERE plan_id = :plan_id', array(':plan_id' => $entity_id));
+    }
+  }
+}
