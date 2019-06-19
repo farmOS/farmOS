@@ -798,7 +798,7 @@ function farm_plan_entity_view_alter(&$build, $type) {
   // Get the entity ID. Bail if not found.
   $entity_id = NULL;
   if (!empty($build['#entity'])) {
-    list($entity_id, $vid, $bundle) = entity_extract_ids($type, $build['#entity']);
+    $entity_id = entity_id($type, $build['#entity']);
   }
   if (empty($entity_id)) {
     return;
