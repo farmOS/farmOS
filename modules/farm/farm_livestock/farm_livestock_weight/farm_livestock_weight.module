@@ -135,8 +135,39 @@ function farm_livestock_weight_report(FarmAsset $farm_asset) {
     $weight_string = '<p> Current Weight: ' . $current_weight['value'] . ' ' . $current_weight['units'] . '</p>';
   };
 
+  // Get all 'weight' logs associated with the asset.
+  $logs = farm_quantity_log_asset($farm_asset, 'weight', $label = NULL, $time = REQUEST_TIME, $done = TRUE, $type = NULL, $single = FALSE);
 
-  return $id_string . $weight_string;
+  // Simple html table of weights.
+  $weights_string = '<h3> All Weights </h3>';
+  $weights_string .= '<table BORDER>
+    <tr>
+    <th>Date</th>
+    <th>Value</th>
+    <th>Units</th>
+    </tr>';
+
+  // Ensure there are weight logs.
+  if (!empty($logs)) {
+    foreach ($logs as $log) {
+      // Extract quantity data from the log.
+      $data = farm_quantity_log_data($log, 'weight');
+
+      // Iterate through the data and return the first one with a value.
+      foreach ($data as $quantity) {
+        if (!empty($quantity['value'])) {
+          $value = $quantity['value'];
+          $units = $quantity['units'];
+        }
+      }
+
+      // Append the string.
+      $weights_string .= '<tr><td>'. format_date($log->timestamp) . '</td><td>' . $value . '</td><td>' . $units . '</td></tr>';
+    }
+  }
+  $weights_string .= "</table>";
+
+  return $id_string . $weight_string . $weights_string;
 }
 
 /**
