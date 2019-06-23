@@ -88,6 +88,56 @@ function farm_livestock_weight_set($assets, $weight, $units, $timestamp = REQUES
   return $log;
 }
 
+/**
+ * Implements hook_menu().
+ */
+function farm_livestock_weight_menu() {
+  $items = array();
+
+  // Farm asset uri for the view path
+  $farm_asset_uri = 'farm/asset/%farm_asset';
+  $farm_asset_uri_argument_position = 2;
+
+  $items[$farm_asset_uri . '/report'] = array(
+    'title' => 'Report',
+    'page callback' => 'farm_livestock_weight_report',
+    'page arguments' => array($farm_asset_uri_argument_position),
+    'access callback' => 'farm_asset_access',
+    'access arguments' => array('view', $farm_asset_uri_argument_position),
+    'type' => MENU_LOCAL_TASK,
+    'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
+  );
+
+  return $items;
+};
+
+/**
+ * Asset Report view callback.
+ *
+ * @param FarmAsset $farm_asset
+ *   The farm asset entity.
+ *
+ * @return
+ *   Returns the page content.
+ */
+function farm_livestock_weight_report(FarmAsset $farm_asset) {
+  // Get the asset ID.
+  $farm_asset_id = entity_id('farm_asset', $farm_asset);
+  $id_string = '<p>' . 'Livestock ID: ' . $farm_asset_id . '</p>' ;
+
+  // Get the assets current weight.
+  $current_weight = farm_livestock_weight($farm_asset);
+
+  // Check if the asset has a weight recorded.
+  if (empty($current_weight)) {
+    $weight_string = 'No weight recorded for asset';
+  } else {
+    $weight_string = '<p> Current Weight: ' . $current_weight['value'] . ' ' . $current_weight['units'] . '</p>';
+  };
+
+
+  return $id_string . $weight_string;
+}
 
 /**
  * Implements hook_entity_view_alter().
