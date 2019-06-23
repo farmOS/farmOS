@@ -272,6 +272,7 @@ function farm_livestock_entity_view_alter(&$build, $type) {
 
   // Alias the asset variable.
   $asset = $build['#entity'];
+  $asset_uri = entity_uri('farm_asset', $asset);
 
   // If it isn't an animal asset, bail.
   if ($asset->type != 'animal') {
@@ -291,7 +292,7 @@ function farm_livestock_entity_view_alter(&$build, $type) {
   $units = !empty($weight['units']) ? $weight['units'] : '';
 
   // Build the weight display.
-  $output = '<strong>' . t('Weight') . ':</strong> ' . $value . ' ' . $units;
+  $output = '<strong>' . t('Weight') . ':</strong> ' . $value . ' ' . $units . '<a href="' . url($asset_uri['path'] . '/report') . '"> (weight report) </a>';
 
   // If the animal has an inventory greater than 1, add "(average)".
   $inventory = farm_inventory($asset);
