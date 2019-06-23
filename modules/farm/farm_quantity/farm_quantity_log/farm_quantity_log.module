@@ -74,7 +74,7 @@ function farm_quantity_log_data(Log $log, $measure = NULL, $label = NULL) {
 }
 
 /**
- * Load an asset's latest log with a given quantity measure and/or label.
+ * Load logs for an asset with a given quantity measure and/or label.
  *
  * @param FarmAsset $asset
  *   The farm_asset object to look for.
@@ -89,11 +89,15 @@ function farm_quantity_log_data(Log $log, $measure = NULL, $label = NULL) {
  *   Whether or not to only show logs that are marked as "done". TRUE will limit
  *   to logs that are done, and FALSE will limit to logs that are not done. If
  *   this is set to NULL, no filtering will be applied. Defaults to TRUE.
+ * @param string $type
+ *   The log type to filter by. If empty, no filtering will be applied.
+ * @param bool $single
+ *   Whether or not to limit the query to a single result. Defaults to TRUE.
  *
  * @return Log|bool
  *   Returns a log entity. FALSE if something goes wrong.
  */
-function farm_quantity_log_asset(FarmAsset $asset, $measure = NULL, $label = NULL, $time = REQUEST_TIME, $done = TRUE) {
+function farm_quantity_log_asset(FarmAsset $asset, $measure = NULL, $label = NULL, $time = REQUEST_TIME, $done = TRUE, $type = NULL, $single = TRUE) {
 
   // If the asset doesn't have an ID (for instance if it is new and hasn't been
   // saved yet), bail.
@@ -102,15 +106,30 @@ function farm_quantity_log_asset(FarmAsset $asset, $measure = NULL, $label = NUL
   }
 
   // Make a query for loading the latest quantity log.
-  $query = farm_quantity_log_asset_query($asset->id, $measure, $label, $time, $done);
+  $query = farm_quantity_log_asset_query($asset->id, $measure, $label, $time, $done, $type, $single);
 
   // Execute the query and gather the log id.
   $result = $query->execute();
-  $log_id = $result->fetchField();
 
-  // If a log id exists, load and return it.
-  if (!empty($log_id)) {
-    return log_load($log_id);
+  // Return one log object. $single = TRUE
+  if (!empty($single)) {
+    $log_id = $result->fetchField();
+
+    // If a log id exists, load and return it.
+    if (!empty($log_id)) {
+      return log_load($log_id);
+    };
+  };
+
+  // Return array of log objects. $single = FALSE
+  if (empty($single)) {
+    $logs = array();
+
+    foreach ($result as $record) {
+      $log = log_load($record->id);
+      array_push($logs, $log);
+    }
+    return $logs;
   }
   return FALSE;
 }
