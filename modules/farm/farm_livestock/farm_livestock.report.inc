@@ -33,6 +33,9 @@ function farm_livestock_report(FarmAsset $farm_asset) {
   // Get all 'weight' logs associated with the asset.
   $logs = farm_quantity_log_asset($farm_asset, 'weight', $label = NULL, $time = REQUEST_TIME, $done = TRUE, $type = NULL, $single = FALSE);
 
+  // Store all log weight data
+  $log_weights = array();
+
   // Ensure there are weight logs.
   if (!empty($logs)) {
     // Simple html table of weights.
@@ -53,6 +56,12 @@ function farm_livestock_report(FarmAsset $farm_asset) {
         if (!empty($quantity['value'])) {
           $value = $quantity['value'];
           $units = $quantity['units'];
+
+          // Save the timestamp with data for the graph.
+          $quantity['timestamp'] = $log->timestamp;
+
+          // Add to $log_weights array.
+          $log_weights[] = $quantity;
         }
       }
 
@@ -60,6 +69,36 @@ function farm_livestock_report(FarmAsset $farm_asset) {
       $output .= '<tr><td>'. format_date($log->timestamp) . '</td><td>' . $value . '</td><td>' . $units . '</td></tr>';
     }
     $output .= "</table>";
+
+    // Create the div to hold report graphs.
+    $graph_markup = array();
+
+    // Create a graph object to pass to JS.
+    $graphs = array();
+
+    // Create a Weight Report Graph
+    $graph = array(
+      'name' => $farm_asset->name . ' Weight Report',
+      'id' => 'farm-report-weight-graph',
+      'data' => $log_weights,
+    );
+    $graph_markup[] = '<div id="farm-report-weight-graph" class="farm-report-graph"></div>';
+    $graphs[] = $graph;
+
+    $settings = array(
+      'farm_livestock_report' => array(
+        'graphs' => $graphs,
+      ),
+    );
+
+    // Add graphs to output.
+    $output .= '<div class="farm-report-graphs">' . implode('', $graph_markup) . '</div>';
+
+    // Add JS and CSS to build the graphs.
+    drupal_add_js($settings, 'setting');
+    drupal_add_js(drupal_get_path('module', 'farm_livestock') . '/farm_livestock.js');
+    drupal_add_js('https://cdn.plot.ly/plotly-latest.min.js', 'external');
+    drupal_add_css(drupal_get_path('module', 'farm_livestock') . '/farm_livestock.css');
   }
 
   return $output;
