@@ -15,34 +15,35 @@
  *   Returns the page content.
  */
 function farm_livestock_weight_report(FarmAsset $farm_asset) {
+  $output = '';
   // Get the asset ID.
   $farm_asset_id = entity_id('farm_asset', $farm_asset);
-  $id_string = '<p>' . 'Livestock ID: ' . $farm_asset_id . '</p>' ;
+  $output .= '<p>' . 'Livestock ID: ' . $farm_asset_id . '</p>' ;
 
   // Get the assets current weight.
   $current_weight = farm_livestock_weight($farm_asset);
 
   // Check if the asset has a weight recorded.
   if (empty($current_weight)) {
-    $weight_string = 'No weight recorded for asset';
+    $output .= '<p>No weight recorded for asset</p>';
   } else {
-    $weight_string = '<p> Current Weight: ' . $current_weight['value'] . ' ' . $current_weight['units'] . '</p>';
+    $output .= '<p> Current Weight: ' . $current_weight['value'] . ' ' . $current_weight['units'] . '</p>';
   };
 
   // Get all 'weight' logs associated with the asset.
   $logs = farm_quantity_log_asset($farm_asset, 'weight', $label = NULL, $time = REQUEST_TIME, $done = TRUE, $type = NULL, $single = FALSE);
 
-  // Simple html table of weights.
-  $weights_string = '<h3> All Weights </h3>';
-  $weights_string .= '<table BORDER>
-    <tr>
-    <th>Date</th>
-    <th>Value</th>
-    <th>Units</th>
-    </tr>';
-
   // Ensure there are weight logs.
   if (!empty($logs)) {
+    // Simple html table of weights.
+    $output .= '<h3> All Weights </h3>';
+    $output .= '<table BORDER>
+      <tr>
+      <th>Date</th>
+      <th>Value</th>
+      <th>Units</th>
+      </tr>';
+
     foreach ($logs as $log) {
       // Extract quantity data from the log.
       $data = farm_quantity_log_data($log, 'weight');
@@ -56,10 +57,10 @@ function farm_livestock_weight_report(FarmAsset $farm_asset) {
       }
 
       // Append the string.
-      $weights_string .= '<tr><td>'. format_date($log->timestamp) . '</td><td>' . $value . '</td><td>' . $units . '</td></tr>';
+      $output .= '<tr><td>'. format_date($log->timestamp) . '</td><td>' . $value . '</td><td>' . $units . '</td></tr>';
     }
+    $output .= "</table>";
   }
-  $weights_string .= "</table>";
 
-  return $id_string . $weight_string . $weights_string;
+  return $output;
 }
