@@ -625,8 +625,8 @@ function farm_log_prepopulate_log_form_references(&$form) {
  *   Whether or not to only show logs that are marked as "done". TRUE will limit
  *   to logs that are done, and FALSE will limit to logs that are not done. If
  *   this is set to NULL, no filtering will be applied. Defaults to TRUE.
- * @param string $type
- *   The log type to filter by. If empty, no filtering will be applied.
+ * @param string|null $type
+ *   The log type to filter by. If this is NULL, no filtering will be applied.
  * @param bool $single
  *   Whether or not to limit the query to a single result. Defaults to TRUE.
  *
@@ -682,8 +682,8 @@ function farm_log_asset_query($asset_id = NULL, $time = REQUEST_TIME, $done = TR
  *   Whether or not to only show logs that are marked as "done". TRUE will limit
  *   to logs that are done, and FALSE will limit to logs that are not done. If
  *   any other value is used, no filtering will be applied. Defaults to TRUE.
- * @param string $type
- *   The log type to filter by. If empty, no filtering will be applied.
+ * @param string|null $type
+ *   The log type to filter by. If this is NULL, no filtering will be applied.
  * @param bool $single
  *   Whether or not to limit the query to a single result. Defaults to TRUE.
  *

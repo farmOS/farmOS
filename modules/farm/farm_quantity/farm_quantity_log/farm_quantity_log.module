@@ -173,8 +173,8 @@ function farm_quantity_log_asset_query($asset_id, $measure = NULL, $label = NULL
  *   Whether or not to only show logs that are marked as "done". TRUE will limit
  *   to logs that are done, and FALSE will limit to logs that are not done. If
  *   this is set to NULL, no filtering will be applied. Defaults to TRUE.
- * @param string $type
- *   The log type to filter by. If empty, no filtering will be applied.
+ * @param string|null $type
+ *   The log type to filter by. If this is NULL, no filtering will be applied.
  * @param string $category
  *   The log category to search for.
  *
@@ -219,8 +219,8 @@ function farm_quantity_log($measure = NULL, $label = NULL, $start_time = 0, $end
  *   Whether or not to only show logs that are marked as "done". TRUE will limit
  *   to logs that are done, and FALSE will limit to logs that are not done. If
  *   any other value is used, no filtering will be applied. Defaults to TRUE.
- * @param string $type
- *   The log type to filter by. If empty, no filtering will be applied.
+ * @param string|null $type
+ *   The log type to filter by. If this is NULL, no filtering will be applied.
  * @param string $category
  *   The log category to search for.
  *
