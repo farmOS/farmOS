@@ -85,9 +85,10 @@ function farm_quantity_log_data(Log $log, $measure = NULL, $label = NULL) {
  * @param int $time
  *   Unix timestamp limiter. Only logs before this time will be included.
  *   Defaults to the current time. Set to 0 to load the absolute last.
- * @param bool $done
- *   Whether or not to only show logs that are marked as "done". Defaults to
- *   TRUE.
+ * @param bool|null $done
+ *   Whether or not to only show logs that are marked as "done". TRUE will limit
+ *   to logs that are done, and FALSE will limit to logs that are not done. If
+ *   this is set to NULL, no filtering will be applied. Defaults to TRUE.
  *
  * @return Log|bool
  *   Returns a log entity. FALSE if something goes wrong.
@@ -126,9 +127,10 @@ function farm_quantity_log_asset(FarmAsset $asset, $measure = NULL, $label = NUL
  * @param int $time
  *   Unix timestamp limiter. Only logs before this time will be included.
  *   Defaults to the current time. Set to 0 to load the absolute last.
- * @param bool $done
- *   Whether or not to only show logs that are marked as "done". Defaults to
- *   TRUE.
+ * @param $done
+ *   Whether or not to only show logs that are marked as "done". TRUE will limit
+ *   to logs that are done, and FALSE will limit to logs that are not done. If
+ *   any other value is used, no filtering will be applied. Defaults to TRUE.
  *
  * @return \SelectQuery
  *   Returns a SelectQuery object.
@@ -167,9 +169,10 @@ function farm_quantity_log_asset_query($asset_id, $measure = NULL, $label = NULL
  * @param int $end_time
  *   Unix timestamp limiter. Only logs before this time will be included.
  *   Defaults to the current time. Set to 0 to load the absolute last.
- * @param bool $done
- *   Whether or not to only show logs that are marked as "done". Defaults to
- *   TRUE.
+ * @param bool|null $done
+ *   Whether or not to only show logs that are marked as "done". TRUE will limit
+ *   to logs that are done, and FALSE will limit to logs that are not done. If
+ *   this is set to NULL, no filtering will be applied. Defaults to TRUE.
  * @param string $type
  *   The log type to filter by. If empty, no filtering will be applied.
  * @param string $category
@@ -212,9 +215,10 @@ function farm_quantity_log($measure = NULL, $label = NULL, $start_time = 0, $end
  * @param int $end_time
  *   Unix timestamp limiter. Only logs before this time will be included.
  *   Defaults to the current time. Set to 0 to load the absolute last.
- * @param bool $done
- *   Whether or not to only show logs that are marked as "done". Defaults to
- *   TRUE.
+ * @param $done
+ *   Whether or not to only show logs that are marked as "done". TRUE will limit
+ *   to logs that are done, and FALSE will limit to logs that are not done. If
+ *   any other value is used, no filtering will be applied. Defaults to TRUE.
  * @param string $type
  *   The log type to filter by. If empty, no filtering will be applied.
  * @param string $category
