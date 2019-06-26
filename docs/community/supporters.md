@@ -38,6 +38,7 @@ If you would like to support farmOS, consider [making a donation].
 * [Foundation for Food and Agriculture Research](https://foundationfar.org/)
 * [Savory Institute](https://savory.global)
 * [Heniscity Farm](https://www.facebook.com/HeniscityFarm)
+* [Echo Farm](https://www.echofarmct.com)
 
 ## Individuals
 
