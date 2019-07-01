@@ -31,6 +31,10 @@ included in this list, add a comment to [this issue on Github].
 
 * Ferme des Ours (Boofzheim, Grand-Est)
 
+## Italy
+
+* Riso Corbetta (Rovasenda, Vercelli)
+
 ## Jamaica
 
 * Grierfield Farms (Grierfield, St Ann)
