@@ -25,8 +25,7 @@ if you find bugs, add them to the [issue queues].
 
 ## Planning and General Discussion
 
-The farmOS community hosts a [farmOS Monthly Call] via Google Hangouts. Anyone
-is welcome to join.
+The farmOS community hosts a [farmOS Monthly Call]. Anyone is welcome to join.
 
 The [farmOS Forum] is a great place for discussions, support requests, sharing
 workflow ideas, etc.

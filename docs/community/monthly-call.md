@@ -1,11 +1,11 @@
 # Monthly Call
 
-The farmOS community hosts a monthly call via Google Hangouts. Anyone is
-welcome to join. Ask questions, brainstorm ideas, or just talk farming.
+The farmOS community hosts a monthly call via [Zoom]. Anyone is welcome to join.
+Ask questions, brainstorm ideas, or just talk farming.
 
-Refer to the schedule below, and use the "Join Hangout" link to join the call.
+Refer to the schedule below, and use the "Join Call" link to join the call.
 
-## [Join Hangout]
+## [Join Call]
 
 Calls are currently held on the second Wednesday of the month, at 2pm Eastern
 US time.
@@ -41,5 +41,6 @@ November 13th @ 2pm EST / 7pm UTC
 
 December 11th @ 2pm EST / 7pm UTC
 
-[Join Hangout]: https://hangouts.google.com/hangouts/_/farmier.com/farmos-monthly
+[Zoom]: https://zoom.us
+[Join Call]: https://zoom.us/j/736535257
 
