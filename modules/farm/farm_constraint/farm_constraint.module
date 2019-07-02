@@ -21,6 +21,8 @@ function farm_constraint_hook_info() {
  *
  * @param $type
  *   The entity type.
+ * @param $bundle
+ *   The entity bundle.
  * @param $id
  *   The entity id.
  *
