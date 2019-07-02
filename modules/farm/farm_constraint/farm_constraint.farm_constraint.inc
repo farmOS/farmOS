@@ -10,25 +10,27 @@
  */
 function farm_constraint_farm_constraint($type, $bundle, $id) {
 
-  // Check to see if there are any field references to this entity.
-  $references = farm_constraint_field_references($type, $id);
+  // Start an empty array of constraints.
+  $constraints = array();
 
-  // If references were found, a constraint was detected! Return TRUE.
+  // Check to see if there are any field references to this entity and add them
+  // to the constraints.
+  $references = farm_constraint_field_references($type, $id);
   if (!empty($references)) {
-    return TRUE;
+    $constraints += $references;
   }
 
-  // If this is a taxonomy term, check to see if it has any children. If so,
-  // prevent deletion.
+  // If this is a taxonomy term, check to see if it has any children and add
+  // them to the constraints.
   if ($type == 'taxonomy_term') {
-    $children = db_query('SELECT COUNT(tid) FROM {taxonomy_term_hierarchy} WHERE parent = :id', array(':id' => $id))->fetchField();
+    $children = farm_constraint_taxonomy_term_children($id);
     if (!empty($children)) {
-      return TRUE;
+      $constraints += $children;
     }
   }
 
-  // Otherwise, return FALSE.
-  return FALSE;
+  // Return constraints.
+  return $constraints;
 }
 
 /**
@@ -116,6 +118,7 @@ function farm_constraint_field_references($type, $id) {
     foreach ($result as $row) {
       if (!empty($row)) {
         $references[] = array(
+          'constraint' => 'field_reference',
           'entity_type' => $row->entity_type,
           'entity_id' => $row->entity_id,
           'field' => $field_name,
@@ -128,4 +131,36 @@ function farm_constraint_field_references($type, $id) {
 
   // Return the references array.
   return $references;
+}
+
+/**
+ * Find taxonomy term child constraints.
+ *
+ * @param $tid
+ *   The taxonomy term ID.
+ *
+ * @return array
+ *   Returns an array of references to the entity.
+ */
+function farm_constraint_taxonomy_term_children($tid) {
+
+  // Start an empty children array.
+  $children = array();
+
+  // Query the term hierarchy table to find child terms.
+  $result = db_query('SELECT tid FROM {taxonomy_term_hierarchy} WHERE parent = :id', array(':id' => $tid));
+
+  // Iterate through the results and add the reference to the array.
+  foreach ($result as $row) {
+    if (!empty($row)) {
+      $children[] = array(
+        'constraint' => 'taxonomy_term_child',
+        'entity_type' => 'taxonomy_term',
+        'entity_id' => $row->tid,
+      );
+    }
+  }
+
+  // Return the children array.
+  return $children;
 }

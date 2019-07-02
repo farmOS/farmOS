@@ -34,6 +34,8 @@
  * @return array|bool
  *   This can either return an array of information about the constraint (see
  *   example below), or it can return a simple boolean TRUE/FALSE.
+ *
+ * @see farm_constraint_farm_constraint()
  */
 function hook_farm_constraint($type, $bundle, $id) {
 
