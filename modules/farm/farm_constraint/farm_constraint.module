@@ -291,6 +291,11 @@ function farm_constraint_restws_request_alter(array &$request) {
   // This is a heavy-handed approach, and doesn't provide more nuanced options
   // for dealing with referenced data, but it works to stop the deletion from
   // occurring.
+  /**
+   * @todo
+   * This is a very hacky way to do this, and doesn't provide any feedback to
+   * the API user as to why their request fails.
+   */
 
   // If an operation, resource, and ID are not available, bail.
   if (empty($request['op']) || empty($request['resource']) || empty($request['id'])) {
