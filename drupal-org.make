@@ -24,7 +24,7 @@ projects[ctools][version] = "1.15"
 projects[ctools][patch][] = "http://www.drupal.org/files/issues/ctools-fix_modal_position_after_ajax-1803104-25.patch"
 
 projects[date][subdir] = "contrib"
-projects[date][version] = "2.10"
+projects[date][version] = "2.11-beta2"
 
 projects[entity][subdir] = "contrib"
 projects[entity][version] = "1.9"
