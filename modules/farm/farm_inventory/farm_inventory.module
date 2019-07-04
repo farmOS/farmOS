@@ -507,6 +507,14 @@ function farm_inventory_query($asset_id, $time = REQUEST_TIME, $done = TRUE) {
   // Add an expression that calculates the SUM of all values.
   $query->addExpression('SUM(ss_fdffiv.field_farm_inventory_value_numerator / ss_fdffiv.field_farm_inventory_value_denominator)', 'inventory');
 
+  // Remove the order by fields that were added by default in farm_log_query().
+  // Since we are only adding an expression, and no other fields, we can't have
+  // any order by fields, otherwise proper databases (like PostgreSQL) require
+  // the order by fields to also be included in an aggregate function or in a
+  // group by clause.
+  $order_by_fields = &$query->getOrderBy();
+  $order_by_fields = array();
+
   // Return the query object.
   return $query;
 }
