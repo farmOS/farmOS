@@ -16,8 +16,8 @@ function farm_plan_views_data_alter(&$data) {
   // Iterate through the relationships.
   foreach ($relationships as $record_type => $info) {
 
-    // If a database table and field are not available, skip it.
-    if (empty($info['table']) || empty($info['field'])) {
+    // If a database table, field, or entity type are not available, skip it.
+    if (empty($info['table']) || empty($info['field']) || empty($info['entity_type'])) {
       continue;
     }
 
@@ -25,8 +25,13 @@ function farm_plan_views_data_alter(&$data) {
     $data[$info['table']]['table']['group'] = t('Farm plan records');
 
     // Create an implicit relationship with the entity type table.
+    // Sometimes the entity type table name is not the same as the entity type
+    // machine name (for example: taxonomy_term entities are in a table named
+    // taxonomy_term_data), so we allow for the entity type table name to be
+    // defined explicitly. If it isn't, then we use the machine name.
+    $entity_type_table = !empty($info['entity_type_table']) ? $info['entity_type_table'] : $info['entity_type'];
     $data[$info['table']]['table']['join'] = array(
-      $info['entity_type'] => array(
+      $entity_type_table => array(
         'left_field' => $info['entity_pk'],
         'field' => $info['field'],
       ),

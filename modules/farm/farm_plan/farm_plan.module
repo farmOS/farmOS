@@ -791,6 +791,7 @@ function farm_plan_record_relationships() {
   return array(
     'area' => array(
       'entity_type' => 'taxonomy_term',
+      'entity_type_table' => 'taxonomy_term_data',
       'entity_pk' => 'tid',
       'table' => 'farm_plan_area',
       'field' => 'area_id',
