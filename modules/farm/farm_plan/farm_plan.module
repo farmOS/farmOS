@@ -905,7 +905,7 @@ function farm_plan_entity_view_alter(&$build, $type) {
     // Set a message pointing to the plan.
     $args = array(
       '@record_type' => $record_type,
-      '!plan_path' => $plan_path,
+      '!plan_path' => url($plan_path),
       '%plan_name' => $plan_name,
     );
     $message = t('This @record_type is part of the plan: <a href="!plan_path">%plan_name</a>', $args);
