@@ -121,6 +121,32 @@ function farm_plan_menu() {
     'weight' => 100,
   );
 
+  // Form for removing a record from a plan.
+  // This is the same as the form for deleting records (below), but it will not
+  // delete records. It will only unlink them from the plan.
+  $items[$farm_plan_uri . '/%/%/remove'] = array(
+    'title' => 'Remove record',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('farm_plan_record_remove_form', $farm_plan_uri_argument_position, 3, 4),
+    'access callback' => 'farm_plan_access',
+    'access arguments' => array('update', $farm_plan_uri_argument_position),
+    'file' => 'farm_plan.pages.inc',
+    'type' => MENU_CALLBACK,
+  );
+
+  // Form for deleting a record from a plan.
+  // This is the same as the form for removing records (above), but it also
+  // gives the option to delete the record.
+  $items[$farm_plan_uri . '/%/%/delete'] = array(
+    'title' => 'Remove record',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('farm_plan_record_delete_form', $farm_plan_uri_argument_position, 3, 4),
+    'access callback' => 'farm_plan_access',
+    'access arguments' => array('update', $farm_plan_uri_argument_position),
+    'file' => 'farm_plan.pages.inc',
+    'type' => MENU_CALLBACK,
+  );
+
   // Plan type delete form.
   $items['admin/config/farm/plan-types/%farm_plan_type/delete'] = array(
     'title' => 'Delete',
