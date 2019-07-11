@@ -349,6 +349,35 @@ function farm_plan_entity_view($entity, $type, $view_mode, $langcode) {
     '#markup' => '<div><strong>Active plan:</strong> ' . $status . '</div>',
     '#weight' => -100,
   );
+
+  // Summarize areas and assets associated with the plan (logs will be added via
+  // Views in hook_farm_ui_entity_views() below.
+  $plan_areas = farm_plan_linked_records('area', $entity->id);
+  if (!empty($plan_areas)) {
+    $plan_area_links = array();
+    foreach ($plan_areas as $area_id) {
+      $area = taxonomy_term_load($area_id);
+      $entity_label = entity_label('taxonomy_term', $area);
+      $entity_uri = entity_uri('taxonomy_term', $area);
+      $plan_area_links[] = l($entity_label, $entity_uri['path']);
+    }
+    $entity->content['farm_plan_areas'] = array(
+      '#markup' => '<div><strong>Areas:</strong> ' . implode(', ', $plan_area_links) . '</div>',
+    );
+  }
+  $plan_assets = farm_plan_linked_records('asset', $entity->id);
+  if (!empty($plan_assets)) {
+    $plan_asset_links = array();
+    foreach ($plan_assets as $asset_id) {
+      $asset = farm_asset_load($asset_id);
+      $entity_label = entity_label('farm_asset', $asset);
+      $entity_uri = entity_uri('farm_asset', $asset);
+      $plan_asset_links[] = l($entity_label, $entity_uri['path']);
+    }
+    $entity->content['farm_plan_assets'] = array(
+      '#markup' => '<div><strong>Assets:</strong> ' . implode(', ', $plan_asset_links) . '</div>',
+    );
+  }
 }
 
 /**
