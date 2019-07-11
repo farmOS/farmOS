@@ -827,6 +827,9 @@ function farm_plan_entity_view_alter(&$build, $type) {
   if (!empty($build['#entity'])) {
     $entity_id = entity_id($type, $build['#entity']);
   }
+  elseif (!empty($build['#term'])) {
+    $entity_id = entity_id($type, $build['#term']);
+  }
   if (empty($entity_id)) {
     return;
   }
