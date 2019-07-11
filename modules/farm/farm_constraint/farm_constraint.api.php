@@ -31,16 +31,33 @@
  * @param $id
  *   The entity id.
  *
- * @return bool
- *   Return TRUE if a constraint exists. FALSE otherwise.
+ * @return array|bool
+ *   This can either return an array of information about the constraint (see
+ *   example below), or it can return a simple boolean TRUE/FALSE.
+ *
+ * @see farm_constraint_farm_constraint()
  */
 function hook_farm_constraint($type, $bundle, $id) {
 
   // Check to see if any other records reference this entity.
   // ...
 
-  // Constraint exists!
-  return TRUE;
+  // Return information about the constraint. This should include a 'constraint'
+  // key that is a unique constraint type. It can can include a simple
+  // description message, information about entities that reference the entity,
+  // and any other information you want to include. Each constraint should be an
+  // array of information, so that multiple constraints can be included.
+  return array(
+    array(
+      'constraint' => 'foo_constraint',
+      'description' => t('You cannot delete this because I said so!'),
+    ),
+    array(
+      'constraint' => 'bar_constraint',
+      'entity_type' => 'log',
+      'entity_id' => 1234,
+    ),
+  );
 }
 
 /**
