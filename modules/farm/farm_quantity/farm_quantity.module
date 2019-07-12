@@ -8,6 +8,15 @@
 include_once 'farm_quantity.features.inc';
 
 /**
+ * Implements hook_farm_info().
+ */
+function farm_quantity_farm_info() {
+  return array(
+    'system_of_measurement' => farm_quantity_system_of_measurement(),
+  );
+}
+
+/**
  * Implements hook_farm_ui_entities().
  */
 function farm_quantity_farm_ui_entities() {
