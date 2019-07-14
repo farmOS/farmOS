@@ -15,12 +15,10 @@ The source code can be found here: [https://github.com/farmOS/farmOS-client]
 **This documentation is not complete. It is intended only for informational
 purposes at this time.**
 
-## Releases
+## User's Guide
 
-Currently, since the project is in early alpha phase, we only have public
-releases available via Adobe's [Phone Gap Build] service. If you're interested
-in signing up for beta releases via the Apple and Android app stores, [sign up
-here].
+Please see the [User's Guide] for more information on how to install and use
+the client on your devices.
 
 ## Architecture
 The client is made with [Vue.js] and [Apache Cordova]. It's native plugins are
@@ -206,8 +204,7 @@ Cordova's [iOS Platform Guide]
 
 [https://github.com/farmOS/farmOS-client]: https://github.com/farmOS/farmOS-client
 [https://github.com/farmOS/farmOS-native]: https://github.com/farmOS/farmOS-native
-[Phone Gap Build]: https://build.phonegap.com/apps/3295280
-[sign up here]: https://docs.google.com/forms/d/e/1FAIpQLSf0brjVUEKiwG1iw4D386iKgbpw5xQ-YJ3w-1iBdKXO-RyK0g/viewform?usp=sf_link
+[User's Guide]: /guide/app
 [Vue.js]: https://vuejs.org/
 [Apache Cordova]: https://cordova.apache.org/
 [Vue plugins]: https://vuejs.org/v2/guide/plugins.html

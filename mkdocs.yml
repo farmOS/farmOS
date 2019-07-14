@@ -23,6 +23,7 @@ nav:
     - Import: guide/import.md
     - Export: guide/export.md
     - Quick forms: guide/quick.md
+    - Field Kit: guide/app.md
     - Community modules:
         - Introduction: guide/contrib/index.md
         - Eggs: guide/contrib/eggs.md

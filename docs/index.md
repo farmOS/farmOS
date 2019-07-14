@@ -80,7 +80,7 @@ The full workshop recording is available on YouTube:
 [modular]: http://en.wikipedia.org/wiki/Modular_programming
 [extensible]: https://www.drupal.org/download
 [secure]: http://www.drupal.org/documentation/is-drupal-secure
-[client app]: https://github.com/farmOS/farmOS-client
+[client app]: /guide/app
 [User Guide]: /guide
 [making a donation]: /donate
 [contributing]: /community/contribute
