@@ -1,0 +1,446 @@
+<?php
+/**
+ * @file
+ * Farm livestock weight module.
+ */
+
+/**
+ * Helper function for retrieving the weight of an animal.
+ *
+ * @param FarmAsset $asset
+ *   The animal asset to get weight for.
+ *
+ * @return array
+ *   Returns an array of quantity information about the asset's weight, based
+ *   on its latest weight quantity log. Returns an empty array if nothing is
+ *   found.
+ */
+function farm_livestock_weight($asset) {
+
+  // Load the latest log with a 'weight' quantity measurement for this asset.
+  $log = farm_quantity_log_asset($asset, 'weight');
+
+  // if no weight observation log exists for asset
+  if (empty($log)) {
+    return array();
+  }
+
+  // Extract quantity data from the log.
+  $data = farm_quantity_log_data($log, 'weight');
+
+  // Iterate through the data and return the first one with a value.
+  foreach ($data as $quantity) {
+    if (!empty($quantity['value'])) {
+      return $quantity;
+    }
+  }
+
+  // If nothing was returned, return an empty array.
+  return array();
+}
+
+/**
+ * Create a weight measurement log associated with an animal.
+ *
+ * @param array $assets
+ *   The assets to add a weight measurement to.
+ * @param string $weight
+ *   The animal's current weight.
+ * @param string $units
+ *   The units of measurement.
+ * @param int $timestamp
+ *   The timestamp of the measurement. Defaults to the current time.
+ * @param bool $done
+ *   Boolean indicating whether or not the log should be marked "done".
+ *   Defaults to TRUE.
+ *
+ * @return \Log
+ *   Returns the log that was created.
+ */
+function farm_livestock_weight_set($assets, $weight, $units, $timestamp = REQUEST_TIME, $done = TRUE) {
+
+  // The log will be an observation.
+  $log_type = 'farm_observation';
+
+  // Set the name to: "Weight of [assets] is [weight] [units]".
+  $assets_summary = farm_log_entity_label_summary('farm_asset', $assets);
+  $log_name = t('Weight of !assets is @weight @units', array('!assets' => $assets_summary, '@weight' => $weight, '@units' => $units));
+
+  // If $assets isn't an array, wrap it.
+  if (!is_array($assets)) {
+    $assets = array($assets);
+  }
+
+  // Assemble an array of measurements.
+  $measurements = array(
+    array(
+      'measure' => 'weight',
+      'value' => $weight,
+      'units' => $units,
+      'label' => '',
+    ),
+  );
+
+  // Create a new log entity.
+  $log = farm_quantity_log_create($log_type, $log_name, $timestamp, $done, $assets, $measurements);
+
+  // Return the log.
+  return $log;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function farm_livestock_weight_menu() {
+  $items = array();
+
+  // Farm asset uri for the view path
+  $farm_asset_uri = 'farm/asset/%farm_asset';
+  $farm_asset_uri_argument_position = 2;
+
+  $items[$farm_asset_uri . '/report'] = array(
+    'title' => 'Report',
+    'page callback' => 'farm_livestock_weight_report',
+    'page arguments' => array($farm_asset_uri_argument_position),
+    'access callback' => 'farm_asset_access',
+    'access arguments' => array('view', $farm_asset_uri_argument_position),
+    'file' => 'farm_livestock_weight.report.inc',
+    'type' => MENU_LOCAL_TASK,
+    'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
+  );
+
+  return $items;
+};
+
+/**
+ * Implements hook_entity_view_alter().
+ */
+function farm_livestock_weight_entity_view_alter(&$build, $type) {
+
+  // If it's not a farm_asset, or if the entity object is not available, bail.
+  if ($type != 'farm_asset' || empty($build['#entity'])) {
+    return;
+  }
+
+  // Alias the asset variable.
+  $asset = $build['#entity'];
+
+  // If it isn't an animal asset, bail.
+  if ($asset->type != 'animal') {
+    return;
+  }
+
+  // Get the animal's current weight.
+  $weight = farm_livestock_weight($asset);
+
+  // If a weight measurement isn't available, bail.
+  if (empty($weight)) {
+    return;
+  }
+
+  // Get the value and the units.
+  $value = !empty($weight['value']) ? $weight['value'] : '';
+  $units = !empty($weight['units']) ? $weight['units'] : '';
+
+  // Build the weight display.
+  $output = '<strong>' . t('Weight') . ':</strong> ' . $value . ' ' . $units;
+
+  // If the animal has an inventory greater than 1, add "(average)".
+  $inventory = farm_inventory($asset);
+  if ($inventory > 1) {
+    $output .= ' (' . t('average') . ')';
+  }
+
+  // Add it to the build array.
+  $build['weight'] = array(
+    '#markup' => $output,
+    '#prefix' => '<div class="weight">',
+    '#suffix' => '</div>',
+    '#weight' => -120,
+  );
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function farm_livestock_weight_form_farm_asset_form_alter(&$form, &$form_state, $form_id) {
+
+  // Get the farm asset entity from the form.
+  $asset = $form['farm_asset']['#value'];
+
+  // If the asset is not an animal, bail.
+  if ($asset->type != 'animal') {
+    return;
+  }
+
+  // Get the animal's current weight.
+  $weight = farm_livestock_weight($asset);
+
+  // Add a field for setting the animal's current weight.
+  $form['weight'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Weight'),
+    '#description' => t('Set the current weight for this animal. If this record is used to represent multiple animals, enter their average weight. An observation log will be created automatically to record the weight.'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#weight' => 100,
+    '#tree' => TRUE,
+  );
+  $form['weight']['value'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Weight'),
+    '#default_value' => !empty($weight['value']) ? $weight['value'] : '',
+    '#element_validate' => array('element_validate_number'),
+  );
+  $form['weight']['units'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Units'),
+    '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_quantity_units',
+    '#default_value' => !empty($weight['units']) ? $weight['units'] : '',
+  );
+  $form['actions']['submit']['#validate'][] = 'farm_livestock_weight_asset_form_validate';
+  $form['actions']['submit']['#submit'][] = 'farm_livestock_weight_asset_form_submit';
+  $form['#group_children']['weight'] = 'group_farm_general';
+}
+
+/**
+ * Validate handler for processing the animal weight field.
+ *
+ * @param array $form
+ *   The form array.
+ * @param array $form_state
+ *   The form state array.
+ */
+function farm_livestock_weight_asset_form_validate(array $form, array &$form_state) {
+
+  // If units are set, but not weight, show an error.
+  if (empty($form_state['values']['weight']['value']) && !empty($form_state['values']['weight']['units'])) {
+    form_set_error('weight][value', t('Both weight and units must be specified.'));
+  }
+}
+
+/**
+ * Submit handler for processing the animal weight field.
+ *
+ * @param array $form
+ *   The form array.
+ * @param array $form_state
+ *   The form state array.
+ */
+function farm_livestock_weight_asset_form_submit(array $form, array &$form_state) {
+
+  // Only proceed if weight has a value.
+  if (empty($form_state['values']['weight']['value'])) {
+    return;
+  }
+
+  // Only proceed if the value is not the default value.
+  if ($form_state['values']['weight']['value'] == $form['weight']['value']['#default_value']) {
+    return;
+  }
+
+  // If an asset doesn't exist, bail.
+  if (empty($form_state['values']['farm_asset'])) {
+    return;
+  }
+
+  // Grab the asset, weight, and units.
+  $asset = $form_state['values']['farm_asset'];
+  $weight = $form_state['values']['weight']['value'];
+  $units = $form_state['values']['weight']['units'];
+
+  // Create an observation log to set the weight.
+  farm_livestock_weight_set($asset, $weight, $units);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function farm_livestock_weight_form_farm_livestock_birth_form_alter(&$form, &$form_state, $form_id) {
+
+  // Add birth weight fields to children fieldsets in birth quick form.
+  $child_fieldsets = element_children($form['birth']['child']);
+  if (!empty($child_fieldsets)) {
+    foreach ($child_fieldsets as $i) {
+      $form['birth']['child'][$i]['weight'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Birth weight'),
+        '#element_validate' => array('element_validate_number'),
+        '#weight' => 20,
+      );
+      $form['birth']['child'][$i]['units'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Weight units'),
+        '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_quantity_units',
+        '#weight' => 21,
+      );
+    }
+  }
+
+  // Add submit function.
+  $form['#submit'][] = 'farm_livestock_weight_form_farm_livestock_birth_form_submit';
+}
+
+/**
+ * Submit function for livestock birth form to set child birth weights.
+ */
+function farm_livestock_weight_form_farm_livestock_birth_form_submit($form, &$form_state) {
+
+  // Iterate through child animal assets that were created during form
+  // submission and create weight measurement logs..
+  if (!empty($form_state['storage']['children'])) {
+    foreach ($form_state['storage']['children'] as $delta => $child_asset) {
+      if (!empty($form_state['values']['birth']['child'][$delta]['weight'])) {
+        $weight = $form_state['values']['birth']['child'][$delta]['weight'];
+        $units = $form_state['values']['birth']['child'][$delta]['units'];
+        $timestamp = strtotime($form_state['values']['birth']['timestamp']);
+        farm_livestock_weight_set($child_asset, $weight, $units, $timestamp);
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_action_info().
+ */
+function farm_livestock_weight_action_info() {
+  return array(
+    'farm_livestock_weight_action' => array(
+      'type' => 'farm_asset',
+      'label' => t('Weight'),
+      'configurable' => TRUE,
+      'triggers' => array('any'),
+      'aggregate' => TRUE,
+    ),
+  );
+}
+
+/**
+ * Configuration form for farm_livestock_weight_action.
+ *
+ * @param array $context
+ *   The context passed into the action form function.
+ * @param array $form_state
+ *   The form state passed into the action form function.
+ *
+ * @return array
+ *   Returns a form array.
+ */
+function farm_livestock_weight_action_form(array $context, array $form_state) {
+
+  // Date field.
+  $form['date'] = array(
+    '#type' => 'date_select',
+    '#title' => t('Date'),
+    '#date_format' => 'M j Y',
+    '#date_type' => DATE_FORMAT_UNIX,
+    '#date_year_range' => '-10:+3',
+    '#default_value' => date('Y-m-d H:i', REQUEST_TIME),
+    '#required' => TRUE,
+  );
+
+  // Weight.
+  $form['weight'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Weight'),
+    '#element_validate' => array('element_validate_number'),
+    '#required' => TRUE,
+  );
+
+  // Units.
+  $form['units'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Units'),
+    '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_quantity_units',
+    '#required' => TRUE,
+  );
+
+  // Return the form.
+  return $form;
+}
+
+/**
+ * Submit handler for farm_livestock_weight_action configuration form.
+ *
+ * @param array $form
+ *   The form array.
+ * @param array $form_state
+ *   The form state array.
+ *
+ * @return array
+ *   Returns an array that will end up in the action's context.
+ */
+function farm_livestock_weight_action_submit(array $form, array $form_state) {
+
+  // Start to build the context array.
+  $context = array();
+
+  // Convert the date to a timestamp.
+  $timestamp = strtotime($form_state['values']['date']);
+
+  // The action form only includes month, day, and year. If the measurement is
+  // today, then we assume that the current time should also be included.
+  if (date('Ymd', $timestamp) == date('Ymd', REQUEST_TIME)) {
+    $context['timestamp'] = REQUEST_TIME;
+  }
+
+  // Otherwise, the measurement is in the past/future, so don't include a time.
+  else {
+    $context['timestamp'] = $timestamp;
+  }
+
+  // Add the weight and units fields.
+  $context['weight'] = $form_state['values']['weight'];
+  $context['units'] = $form_state['values']['units'];
+
+  // Return the context array.
+  return $context;
+}
+
+/**
+ * Action function for farm_livestock_weight_action.
+ *
+ * Creates a new weight observation log for the specified assets.
+ *
+ * @param array $assets
+ *   An array of asset entities.
+ * @param array $context
+ *   Array with parameters for this action.
+ */
+function farm_livestock_weight_action(array $assets, $context = array()) {
+
+  // If we're missing assets, weight, units, or a timestamp, bail.
+  if (empty($assets) || empty($context['weight']) || empty($context['units']) || empty($context['timestamp'])) {
+    drupal_set_message('Could not set weights because required information was missing.', 'error');
+    return;
+  }
+
+  // Set the animal weights.
+  farm_livestock_weight_set($assets, $context['weight'], $context['units'], $context['timestamp']);
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function farm_livestock_weight_views_api($module = NULL, $api = NULL) {
+  return array("api" => "3.0");
+}
+
+/**
+ * Implements hook_views_default_views_alter().
+ */
+function farm_livestock_weight_views_default_views_alter(&$views) {
+
+  // Add the Weight VBO operation to the animals view.
+  if (!empty($views['farm_animals'])) {
+    $views['farm_animals']->display['default']->display_options['fields']['views_bulk_operations']['vbo_operations'] += [
+      'action::farm_livestock_weight_action' => [
+        'selected' => 1,
+        'skip_confirmation' => 0,
+        'skip_permission_check' => 1,
+        'override_label' => 0,
+        'label' => '',
+      ],
+    ];
+  }
+}

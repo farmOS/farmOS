@@ -21,6 +21,8 @@ function farm_constraint_hook_info() {
  *
  * @param $type
  *   The entity type.
+ * @param $bundle
+ *   The entity bundle.
  * @param $id
  *   The entity id.
  *
@@ -29,8 +31,8 @@ function farm_constraint_hook_info() {
  */
 function farm_constraint_exists($type, $bundle, $id) {
 
-  // Ask other modules if they are aware of any constraints.
-  $constraints = module_invoke_all('farm_constraint', $type, $bundle, $id);
+  // Get a list of constraints.
+  $constraints = farm_constraint_list($type, $bundle, $id);
 
   // Iterate through the constraints and return TRUE if any were detected.
   foreach ($constraints as $constraint) {
@@ -44,8 +46,57 @@ function farm_constraint_exists($type, $bundle, $id) {
 }
 
 /**
+ * Function for generating a list of constraints for a given entity.
+ *
+ * @param $type
+ *   The entity type.
+ * @param $bundle
+ *   The entity bundle.
+ * @param $id
+ *   The entity id.
+ *
+ * @return array
+ *   Returns an array of constraints preventing an entity from being deleted.
+ */
+function farm_constraint_list($type, $bundle, $id) {
+
+  // Ask other modules if they are aware of any constraints.
+  $constraints = module_invoke_all('farm_constraint', $type, $bundle, $id);
+
+  // Return the constraints.
+  return $constraints;
+}
+
+/**
  * Helper function for checking to see if an entity reference exists in a
  * database table.
+ *
+ * @param $references
+ *   See farm_constraint_table_references() below.
+ * @param $type
+ *   The entity type.
+ * @param $bundle
+ *   The entity bundle.
+ * @param $id
+ *   The entity ID.
+ *
+ * @return bool
+ *   Returns TRUE if a constraint was found, FALSE otherwise.
+ */
+function farm_constraint_table_references_exist($references, $type, $bundle, $id) {
+
+  // Get a list of matching records.
+  $records = farm_constraint_table_references($references, $type, $bundle, $id);
+
+  // If records were found, return TRUE. Otherwise, return FALSE.
+  if (!empty($records)) {
+    return TRUE;
+  }
+  return FALSE;
+}
+
+/**
+ * Helper function for finding references to entities in tables.
  *
  * @param $references
  *   An array of information about entity references. For example:
@@ -66,10 +117,13 @@ function farm_constraint_exists($type, $bundle, $id) {
  * @param $id
  *   The entity ID.
  *
- * @return bool
- *   Returns TRUE if a constraint was found, FALSE otherwise.
+ * @return array
+ *   Returns an array of matching records.
  */
-function farm_constraint_table_references_exist($references, $type, $bundle, $id) {
+function farm_constraint_table_references($references, $type, $bundle, $id) {
+
+  // Start an empty records array.
+  $records = array();
 
   // Iterate through the references.
   foreach ($references as $info) {
@@ -97,13 +151,19 @@ function farm_constraint_table_references_exist($references, $type, $bundle, $id
 
       // If one exists, a constraint exists. Return TRUE.
       if (!empty($exists)) {
-        return TRUE;
+        $records[] = array(
+          'constraint' => 'table_reference',
+          'table' => $table,
+          'column' => $column,
+          'entity_type' => $type,
+          'entity_id' => $id,
+        );
       }
     }
   }
 
-  // No constraint was found. Return FALSE.
-  return FALSE;
+  // Return matching records.
+  return $records;
 }
 
 /**
@@ -267,6 +327,11 @@ function farm_constraint_restws_request_alter(array &$request) {
   // This is a heavy-handed approach, and doesn't provide more nuanced options
   // for dealing with referenced data, but it works to stop the deletion from
   // occurring.
+  /**
+   * @todo
+   * This is a very hacky way to do this, and doesn't provide any feedback to
+   * the API user as to why their request fails.
+   */
 
   // If an operation, resource, and ID are not available, bail.
   if (empty($request['op']) || empty($request['resource']) || empty($request['id'])) {

@@ -498,3 +498,13 @@ function farm_livestock_update_7006(&$sandbox) {
     module_enable(array($module));
   }
 }
+
+/**
+ * Install the Farm Livestock Weight module.
+ */
+function farm_livestock_update_7007(&$sandbox) {
+  $module = 'farm_livestock_weight';
+  if (!module_exists($module)) {
+    module_enable(array($module));
+  }
+}

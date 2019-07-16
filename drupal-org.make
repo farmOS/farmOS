@@ -24,7 +24,7 @@ projects[ctools][version] = "1.15"
 projects[ctools][patch][] = "http://www.drupal.org/files/issues/ctools-fix_modal_position_after_ajax-1803104-25.patch"
 
 projects[date][subdir] = "contrib"
-projects[date][version] = "2.10"
+projects[date][version] = "2.11-beta2"
 
 projects[entity][subdir] = "contrib"
 projects[entity][version] = "1.9"
@@ -143,7 +143,7 @@ projects[restws][patch][] = "http://www.drupal.org/files/issues/restws-2857490-2
 ; Fix Issue #2090177: Possible misuse of "bundle keys"
 projects[restws][patch][] = "http://www.drupal.org/files/issues/restws-bundleKeyTerms-2090177-12.patch"
 ; Fix Issue #1084144: Respond to CORS preflight requests
-projects[restws][patch][] = "http://www.drupal.org/files/issues/restws-support_options_request-1084144-11-18.patch"
+projects[restws][patch][] = "http://www.drupal.org/files/issues/2019-06-17/restws-support_options_request-1084144-11-18.patch"
 
 projects[restws_field_collection][subdir] = "contrib"
 projects[restws_field_collection][version] = "1.1"
@@ -166,6 +166,8 @@ projects[token][version] = "1.7"
 
 projects[views][subdir] = "contrib"
 projects[views][version] = "3.23"
+; Fix PHP Notice: Undefined variable: options in views_handler_filter_term_node_tid->value_form()
+projects[views][patch][] = "http://www.drupal.org/files/issues/2019-07-03/views-3065777-2.patch"
 
 projects[views_bulk_operations][subdir] = "contrib"
 projects[views_bulk_operations][version] = "3.5"
@@ -193,7 +195,7 @@ projects[module_filter][version] = "2.2"
 ; Themes
 ; -----------------------------------------------------------------------------
 
-projects[bootstrap][version] = "3.25"
+projects[bootstrap][version] = "3.26"
 
 ; -----------------------------------------------------------------------------
 ; Libraries

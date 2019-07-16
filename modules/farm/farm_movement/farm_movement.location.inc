@@ -193,9 +193,10 @@ function farm_movement_asset_location_submit(array $form, array &$form_state) {
  * @param int $time
  *   Unix timestamp limiter. Only logs before this time will be included.
  *   Defaults to the current time. Set to 0 to load the absolute last.
- * @param bool $done
- *   Whether or not to only show logs that are marked as "done".
- *   Defaults to TRUE.
+ * @param bool|null $done
+ *   Whether or not to only show logs that are marked as "done". TRUE will limit
+ *   to logs that are done, and FALSE will limit to logs that are not done. If
+ *   this is set to NULL, no filtering will be applied. Defaults to TRUE.
  *
  * @return array
  *   Returns an array of areas that the asset is in.
@@ -369,9 +370,10 @@ function farm_movement_area_history($area, $asset_types = array(), $start_time =
  * @param int $time
  *   Unix timestamp limiter. Only logs before this time will be included.
  *   Defaults to the current time. Set to 0 to load the absolute last.
- * @param bool $done
- *   Whether or not to only show logs that are marked as "done". Defaults to
- *   TRUE.
+ * @param $done
+ *   Whether or not to only show logs that are marked as "done". TRUE will limit
+ *   to logs that are done, and FALSE will limit to logs that are not done. If
+ *   any other value is used, no filtering will be applied. Defaults to TRUE.
  *
  * @return Log|bool
  *   Returns a log entity. FALSE if something goes wrong.
@@ -413,10 +415,12 @@ function farm_movement_asset_latest_movement(FarmAsset $asset, $time = REQUEST_T
  * @param int $time
  *   Unix timestamp limiter. Only logs after this time will be included.
  *   Defaults to the current time. Set to 0 to load the absolute first.
- * @param bool $done
- *   Whether or not to only show logs that are marked as "done". Defaults to
- *   FALSE because the default $time is now, and future logs are generally not
- *   done yet.
+ * @param bool|null $done
+ *   Whether or not to only show logs that are marked as "done". TRUE will limit
+ *   to logs that are done, and FALSE will limit to logs that are not done. If
+ *   this is set to NULL, no filtering will be applied. Defaults to FALSE
+ *   because the default $time is now, and future logs are generally not done
+ *   yet.
  *
  * @return Log|bool
  *   Returns a log entity. FALSE if something goes wrong.
@@ -480,9 +484,10 @@ function farm_movement_asset_next_movement(FarmAsset $asset, $time = REQUEST_TIM
  * @param int $time
  *   Unix timestamp limiter. Only logs before this time will be included.
  *   Defaults to the current time. Set to 0 to load the absolute last.
- * @param bool $done
- *   Whether or not to only show logs that are marked as "done". Defaults to
- *   TRUE.
+ * @param $done
+ *   Whether or not to only show logs that are marked as "done". TRUE will limit
+ *   to logs that are done, and FALSE will limit to logs that are not done. If
+ *   any other value is used, no filtering will be applied. Defaults to TRUE.
  * @param bool $single
  *   Whether or not to limit the query to a single result. Defaults to TRUE.
  * @param string $field
@@ -538,9 +543,10 @@ function farm_movement_asset_movement_query($asset_id, $time = REQUEST_TIME, $do
  * @param int $time
  *   Unix timestamp limiter. Only logs before this time will be included.
  *   Defaults to the current time. Set to 0 to load the absolute last.
- * @param bool $done
- *   Whether or not to only show logs that are marked as "done". Defaults to
- *   TRUE.
+ * @param $done
+ *   Whether or not to only show logs that are marked as "done". TRUE will limit
+ *   to logs that are done, and FALSE will limit to logs that are not done. If
+ *   any other value is used, no filtering will be applied. Defaults to TRUE.
  *
  * @return \SelectQuery
  *   Returns a SelectQuery object.
@@ -590,9 +596,10 @@ function farm_movement_area_movement_query($area_id, $time = REQUEST_TIME, $done
  * @param int $time
  *   Unix timestamp limiter. Only logs before this time will be included.
  *   Defaults to the current time. Set to 0 to load the absolute last.
- * @param bool $done
- *   Whether or not to only show logs that are marked as "done".
- *   Defaults to TRUE.
+ * @param bool|null $done
+ *   Whether or not to only show logs that are marked as "done". TRUE will limit
+ *   to logs that are done, and FALSE will limit to logs that are not done. If
+ *   this is set to NULL, no filtering will be applied. Defaults to TRUE.
  * @param bool $archived
  *   Whether or not to include archived assets. Defaults to FALSE.
  *
@@ -649,9 +656,10 @@ function farm_movement_area_assets($area, $time = REQUEST_TIME, $done = TRUE, $a
  * @param int $time
  *   Unix timestamp limiter. Only logs before this time will be included.
  *   Defaults to the current time. Set to 0 to load the absolute last.
- * @param bool $done
- *   Whether or not to only show logs that are marked as "done". Defaults to
- *   TRUE.
+ * @param $done
+ *   Whether or not to only show logs that are marked as "done". TRUE will limit
+ *   to logs that are done, and FALSE will limit to logs that are not done. If
+ *   any other value is used, no filtering will be applied. Defaults to TRUE.
  * @param bool $archived
  *   Whether or not to include archived assets. Defaults to FALSE.
  *

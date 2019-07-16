@@ -121,6 +121,32 @@ function farm_plan_menu() {
     'weight' => 100,
   );
 
+  // Form for removing a record from a plan.
+  // This is the same as the form for deleting records (below), but it will not
+  // delete records. It will only unlink them from the plan.
+  $items[$farm_plan_uri . '/%/%/remove'] = array(
+    'title' => 'Remove record',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('farm_plan_record_remove_form', $farm_plan_uri_argument_position, 3, 4),
+    'access callback' => 'farm_plan_access',
+    'access arguments' => array('update', $farm_plan_uri_argument_position),
+    'file' => 'farm_plan.pages.inc',
+    'type' => MENU_CALLBACK,
+  );
+
+  // Form for deleting a record from a plan.
+  // This is the same as the form for removing records (above), but it also
+  // gives the option to delete the record.
+  $items[$farm_plan_uri . '/%/%/delete'] = array(
+    'title' => 'Remove record',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('farm_plan_record_delete_form', $farm_plan_uri_argument_position, 3, 4),
+    'access callback' => 'farm_plan_access',
+    'access arguments' => array('update', $farm_plan_uri_argument_position),
+    'file' => 'farm_plan.pages.inc',
+    'type' => MENU_CALLBACK,
+  );
+
   // Plan type delete form.
   $items['admin/config/farm/plan-types/%farm_plan_type/delete'] = array(
     'title' => 'Delete',
@@ -323,6 +349,35 @@ function farm_plan_entity_view($entity, $type, $view_mode, $langcode) {
     '#markup' => '<div><strong>Active plan:</strong> ' . $status . '</div>',
     '#weight' => -100,
   );
+
+  // Summarize areas and assets associated with the plan (logs will be added via
+  // Views in hook_farm_ui_entity_views() below.
+  $plan_areas = farm_plan_linked_records('area', $entity->id);
+  if (!empty($plan_areas)) {
+    $plan_area_links = array();
+    foreach ($plan_areas as $area_id) {
+      $area = taxonomy_term_load($area_id);
+      $entity_label = entity_label('taxonomy_term', $area);
+      $entity_uri = entity_uri('taxonomy_term', $area);
+      $plan_area_links[] = l($entity_label, $entity_uri['path']);
+    }
+    $entity->content['farm_plan_areas'] = array(
+      '#markup' => '<div><strong>Areas:</strong> ' . implode(', ', $plan_area_links) . '</div>',
+    );
+  }
+  $plan_assets = farm_plan_linked_records('asset', $entity->id);
+  if (!empty($plan_assets)) {
+    $plan_asset_links = array();
+    foreach ($plan_assets as $asset_id) {
+      $asset = farm_asset_load($asset_id);
+      $entity_label = entity_label('farm_asset', $asset);
+      $entity_uri = entity_uri('farm_asset', $asset);
+      $plan_asset_links[] = l($entity_label, $entity_uri['path']);
+    }
+    $entity->content['farm_plan_assets'] = array(
+      '#markup' => '<div><strong>Assets:</strong> ' . implode(', ', $plan_asset_links) . '</div>',
+    );
+  }
 }
 
 /**
@@ -765,6 +820,7 @@ function farm_plan_record_relationships() {
   return array(
     'area' => array(
       'entity_type' => 'taxonomy_term',
+      'entity_type_table' => 'taxonomy_term_data',
       'entity_pk' => 'tid',
       'table' => 'farm_plan_area',
       'field' => 'area_id',
@@ -799,6 +855,9 @@ function farm_plan_entity_view_alter(&$build, $type) {
   $entity_id = NULL;
   if (!empty($build['#entity'])) {
     $entity_id = entity_id($type, $build['#entity']);
+  }
+  elseif (!empty($build['#term'])) {
+    $entity_id = entity_id($type, $build['#term']);
   }
   if (empty($entity_id)) {
     return;
@@ -846,7 +905,7 @@ function farm_plan_entity_view_alter(&$build, $type) {
     // Set a message pointing to the plan.
     $args = array(
       '@record_type' => $record_type,
-      '!plan_path' => $plan_path,
+      '!plan_path' => url($plan_path),
       '%plan_name' => $plan_name,
     );
     $message = t('This @record_type is part of the plan: <a href="!plan_path">%plan_name</a>', $args);

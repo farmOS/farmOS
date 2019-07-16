@@ -323,8 +323,8 @@ function farm_movement_preprocess_field(&$vars) {
     // movement BEFORE this one.
     $previous_timestamp = $log->timestamp - 1;
 
-    // Include movements that have not been marked "done".
-    $done = FALSE;
+    // Include done and not done movements.
+    $done = NULL;
 
     // Look up the previous location(s) of the asset(s) and build a list of
     // unique area links.

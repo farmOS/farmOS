@@ -20,6 +20,7 @@ function farm_modules() {
       'farm_log_input' => st('Input logs'),
       'farm_crop' => st('Crops'),
       'farm_livestock' => st('Livestock'),
+      'farm_livestock_weight' => st('Livestock weight tracking'),
       'farm_equipment' => st('Equipment'),
       'farm_equipment_field' => st('Add "Equipment used" field to logs'),
       'farm_calendar' => st('Calendar of logs'),

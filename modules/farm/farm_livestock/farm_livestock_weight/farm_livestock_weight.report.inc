@@ -14,7 +14,7 @@
  * @return
  *   Returns the page content.
  */
-function farm_livestock_report(FarmAsset $farm_asset) {
+function farm_livestock_weight_report(FarmAsset $farm_asset) {
   $output = '';
   // Get the asset ID.
   $farm_asset_id = entity_id('farm_asset', $farm_asset);
@@ -96,9 +96,9 @@ function farm_livestock_report(FarmAsset $farm_asset) {
 
     // Add JS and CSS to build the graphs.
     drupal_add_js($settings, 'setting');
-    drupal_add_js(drupal_get_path('module', 'farm_livestock') . '/farm_livestock.js');
+    drupal_add_js(drupal_get_path('module', 'farm_livestock_weight') . '/farm_livestock_weight.js');
     drupal_add_js('https://cdn.plot.ly/plotly-latest.min.js', 'external');
-    drupal_add_css(drupal_get_path('module', 'farm_livestock') . '/farm_livestock.css');
+    drupal_add_css(drupal_get_path('module', 'farm_livestock_weight') . '/farm_livestock_weight.css');
   }
 
   return $output;
