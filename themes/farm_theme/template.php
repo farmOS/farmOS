@@ -324,6 +324,7 @@ function farm_theme_entity_view_alter(&$build, $type) {
     'weight',
     'group',
     'location',
+    'farm_plan_map',
   );
   $right_elements_exist = FALSE;
   foreach ($right_elements as $name) {
