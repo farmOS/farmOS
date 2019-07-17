@@ -12,7 +12,6 @@ include_once 'farm_plan_map.features.inc';
  * Implements hook_entity_view_alter().
  */
 function farm_plan_map_entity_view_alter(&$build, $type) {
-  $debug = TRUE;
 
   // Alter farm_plan entity view pages.
   if ($type != 'farm_plan' || empty($build['#entity'])) {
