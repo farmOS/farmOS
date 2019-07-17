@@ -312,8 +312,8 @@ function farm_theme_farm_flags_classes_alter($flag, &$classes) {
  */
 function farm_theme_entity_view_alter(&$build, $type) {
 
-  // If the entity is not a farm_asset, bail.
-  if ($type != 'farm_asset') {
+  // If the entity is not a farm_asset or farm_plan, bail.
+  if (!in_array($type, array('farm_asset', 'farm_plan'))) {
     return;
   }
 
