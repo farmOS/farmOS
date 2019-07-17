@@ -1,7 +1,7 @@
 # farmOS Client
 
 Work has begun on a simplified farmOS app that works offline in both browser
-and native app form. It will be installable on Android and iOS devices. The
+and native app form. It is installable on Android and iOS devices. The
 goal is to create a fast and focused client app for day-to-day and in-the-field
 record keeping that stores data locally for offline use, and syncs back to a
 farmOS server when internet access is available.
@@ -21,15 +21,15 @@ Please see the [User's Guide] for more information on how to install and use
 the client on your devices.
 
 ## Architecture
-The client is made with [Vue.js] and [Apache Cordova]. It's native plugins are
-actually [Vue plugins]. Initially, the client and its native implementation were
-maintained as separate libraries. This was done with the aim of being able to
-isolate native functionality in plugins that could be swapped out for
-browser-based plugins. This may not be strictly necessary in the future, but it
-does at least make for good separation of concerns.
+The client is built with [Vue.js] and [Apache Cordova]. Initially, the client 
+and its native implementation were maintained as separate libraries. This was 
+done with the aim of being able to isolate native functionality in [Vue plugins] 
+that could be swapped out for browser-based plugins. This may not be strictly 
+necessary in the future, but it does at least make for good separation of 
+concerns.
 
 ## Development environments
-The first thing of course is to clone the native repo from GitHub, and install
+The first thing of course is to clone the client repo from GitHub, and install
 the npm dependencies:
 
 ```bash
@@ -109,16 +109,12 @@ Cordova, with some help from the Android and iOS SDK's (Android Studio & XCode,
 respectively), builds the full-blown native packages (.apk and .ipa files,
 respectively).
 
-To build from source, you'll need to clone the farmOS-native repository from
+To build from source, you'll need to clone the client repository from
 GitHub:
 
 ```bash
-$ git clone https://github.com/farmOS/farmOS-native.git
+$ git clone https://github.com/farmOS/farmOS-client.git
 ```
-
-Note that the farmOS-client is a dependency which will be automatically
-installed as an npm package in the following step, so you do not need to clone
-that repo.
 
 Bundling the web assets with Webpack is fairly straight-forward. [Node]
 (v.6.0.0 or higher) and npm (v.3.0.0 or higher) are the only system
