@@ -71,6 +71,17 @@ associated with, and the log will appear there as well.
 All your records can be connected and related in this way to make navigating
 them easier.
 
+## farmOS + Field Kit
+
+When farmOS logs are  marked as not "done" and assigned to one of the farm's
+users, those logs will be synced to that user's Field Kit app under the 
+"My Logs" screen. This way, you can assign tasks to different people and they 
+can update the log as the task is completed.
+
+To learn more about installing farmOS for your farm, visit the [Hosting] page.
+For information on how to download and use the Field Kit app, visit the
+[Field Kit] page.
+
 [Hosting farmOS]: /hosting
 [Contributing to farmOS]: /community/contribute
 [Farmier]: https://farmier.com
@@ -78,4 +89,5 @@ them easier.
 [Assets]: /guide/assets
 [Logs]: /guide/logs
 [People]: /guide/people
-
+[Hosting]: /hosting
+[Field Kit]: /guide/app
