@@ -6,6 +6,7 @@ dependencies[] = ctools
 dependencies[] = date
 dependencies[] = entityreference
 dependencies[] = farm_asset
+dependencies[] = farm_fields_autocomplete
 dependencies[] = features
 dependencies[] = file
 dependencies[] = filter

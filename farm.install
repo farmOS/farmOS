@@ -813,6 +813,13 @@ function farm_update_7048(&$sandbox) {
 }
 
 /**
+ * Enable Farm Fields Autocomplete module.
+ */
+function farm_update_7049(&$sandbox) {
+  _farm_update_enable_modules(array('farm_fields_autocomplete'));
+}
+
+/**
  * Update helper function: enable modules.
  */
 function _farm_update_enable_modules($modules = array()) {
