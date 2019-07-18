@@ -1,0 +1,26 @@
+<?php
+/**
+ * @file
+ * Farm report module.
+ */
+
+ /**
+ * Implements hook_menu().
+ */
+function farm_report_menu() {
+  $items = array();
+
+  $items['farm/report'] = array(
+    'title' => 'Reports',
+    'page callback' => 'farm_report_view',
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+    'menu_name' => 'farm',
+  );
+
+  return $items;
+};
+
+function farm_report_view() {
+  return t('Welcome to reports.');
+};
