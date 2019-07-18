@@ -98,6 +98,7 @@ function farm_livestock_weight_menu() {
   $farm_asset_uri = 'farm/asset/%farm_asset';
   $farm_asset_uri_argument_position = 2;
 
+  // Animal asset report tab.
   $items[$farm_asset_uri . '/report'] = array(
     'title' => 'Report',
     'page callback' => 'farm_livestock_weight_report',
@@ -109,8 +110,75 @@ function farm_livestock_weight_menu() {
     'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
   );
 
+  // Animal group report form.
+  $items['farm/report/weight'] = array(
+    'title' => 'Animal Weights',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('farm_livestock_weight_report_form'),
+    'access arguments' => array('view farm reports'),
+    'type' => MENU_LOCAL_ACTION,
+  );
+
   return $items;
 };
+
+/**
+ * Animal group report form.
+ */
+function farm_livestock_weight_report_form($form, &$form_state) {
+
+  // Set the page title.
+  drupal_set_title('Animal Weights');
+
+  // Build an entity field query of group assets.
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'farm_asset');
+  $query->entityCondition('bundle', 'group');
+  $query->propertyOrderBy('name', 'ASC');
+
+  // Limit to non-archived groups.
+  $query->propertyCondition('archived', 0);
+
+  // Execute the query and build a list of options.
+  $result = $query->execute();
+  if (isset($result['farm_asset'])) {
+    $group_ids = array_keys($result['farm_asset']);
+    $groups = farm_asset_load_multiple($group_ids);
+    if (!empty($groups)) {
+      foreach ($groups as $group) {
+        if (!empty($group->id)) {
+          $options[$group->id] = entity_label('farm_asset', $group) . $group->id;
+        }
+      }
+    }
+  }
+
+  // Create a select field for the groups.
+  $form['group'] = array(
+    '#type' => 'select',
+    '#title' => t('Animal Group'),
+    '#description' => t('Select the group(s) of animals to include in the weight report.'),
+    '#options' => $options,
+    '#required' => TRUE,
+    '#multiple' => TRUE,
+  );
+
+  // Add submit button to generate report.
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Submit'),
+  );
+
+  return $form;
+}
+
+/**
+ * Submit handler for the weight report form
+ */
+function farm_livestock_weight_report_form_submit($form, &$form_state) {
+  $value = $form['group']['#options'][$form_state['values']['group']];
+  drupal_set_message($value);
+}
 
 /**
  * Implements hook_entity_view_alter().
