@@ -42,6 +42,7 @@ are taken.
       excluded).
     * **Drupal core updates** - Link(s) to core release notes.
     * **Contrib updates** - Link(s) to project release notes.
+    * **Patches** - List any new patches that were applied to core or contrib.
     * **Docker updates** - Any updates that are relevant to hosting farmOS in
       Docker.
     * **Bug fixes** - Brief descriptions of bugs that were fixed.
