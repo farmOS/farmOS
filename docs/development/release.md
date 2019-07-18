@@ -57,6 +57,8 @@ are taken.
 
 ## Announce
 
+* [farmOS Forum] (eg:
+  [https://farmos.discourse.group/t/farmos-1-2-has-been-released/50])
 * [Twitter @farmOSorg] (eg:
   [https://twitter.com/farmOSorg/status/1118981883101052929])
 * [OpenCollective farmOS] (eg:
@@ -71,6 +73,8 @@ are taken.
 [7.x-1.1]: https://www.drupal.org/project/farm/releases/7.x-1.1
 [farmOS project page]: https://drupal.org/project/farm
 [7.x-1.1 tag]: https://github.com/farmOS/farmOS/releases/tag/7.x-1.1
+[farmOS Forum]: https://farmOS.discourse.group
+[https://farmos.discourse.group/t/farmos-1-2-has-been-released/50]: https://farmos.discourse.group/t/farmos-1-2-has-been-released/50
 [Twitter @farmOSorg]: https://twitter.com/farmOSorg
 [https://twitter.com/farmOSorg/status/1118981883101052929]: https://twitter.com/farmOSorg/status/1118981883101052929
 [https://opencollective.com/farmos/updates/farmos-1-1-has-been-released]: https://opencollective.com/farmos/updates/farmos-1-1-has-been-released
