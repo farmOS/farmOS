@@ -49,8 +49,8 @@ function farm_report_menu() {
     'title' => 'Reports',
     'page callback' => 'farm_report_view',
     'access arguments' => array('view farm reports'),
-    'type' => MENU_NORMAL_ITEM,
-    'menu_name' => 'farm',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 150,
   );
 
   return $items;
