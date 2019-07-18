@@ -21,7 +21,7 @@ function farm_livestock_weight_report(FarmAsset $farm_asset) {
   $output .= '<p>' . 'Livestock ID: ' . $farm_asset_id . '</p>' ;
 
   // Get the assets current weight.
-  $current_weight = farm_livestock_animal_weight($farm_asset);
+  $current_weight = farm_livestock_weight($farm_asset);
 
   // Check if the asset has a weight recorded.
   if (empty($current_weight)) {
