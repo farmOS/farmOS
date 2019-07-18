@@ -475,7 +475,7 @@ function farm_area_calculate_area_multiple($area_ids, $format = FALSE) {
       if (empty($total_area)) {
         $total_area = 0;
       }
-      $total_area += $area_area;
+      $total_area += floatval($area_area);
     }
   }
 
@@ -600,7 +600,7 @@ function farm_area_convert_area_units($input, $unit) {
     $output = bcmul($input, $conversion[$unit]);
   }
   else {
-    $output = $input * $conversion[$unit];
+    $output = floatval($input) * $conversion[$unit];
   }
 
   // Return the result.
