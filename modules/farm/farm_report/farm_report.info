@@ -1,0 +1,6 @@
+name = Farm Report
+description = Features for viewing reports of assets.
+core = 7.x
+package = farmOS
+dependencies[] = farm_asset
+dependencies[] = log
