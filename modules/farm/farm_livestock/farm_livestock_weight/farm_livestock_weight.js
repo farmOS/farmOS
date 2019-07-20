@@ -1,5 +1,5 @@
 (function ($) {
-  Drupal.behaviors.farm_area_generate = {
+  Drupal.behaviors.farm_livestock_weight_graph = {
     attach: function (context, settings) {
 
       // Calculate the timezone offset in milliseconds.
