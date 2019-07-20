@@ -40,12 +40,8 @@ function farm_livestock_weight_report(FarmAsset $farm_asset) {
   if (!empty($logs)) {
     // Simple html table of weights.
     $output .= '<h3> All Weights </h3>';
-    $output .= '<table BORDER>
-      <tr>
-      <th>Date</th>
-      <th>Value</th>
-      <th>Units</th>
-      </tr>';
+    $header = array('Date', 'Value', 'Units');
+    $table_data = array();
 
     foreach ($logs as $log) {
       // Extract quantity data from the log.
@@ -61,14 +57,11 @@ function farm_livestock_weight_report(FarmAsset $farm_asset) {
           $quantity['timestamp'] = $log->timestamp;
 
           // Add to $log_weights array.
-          $log_weights[] = $quantity;
+          $table_data[] = array(format_date($log->timestamp), $value, $units);
         }
       }
-
-      // Append the string.
-      $output .= '<tr><td>'. format_date($log->timestamp) . '</td><td>' . $value . '</td><td>' . $units . '</td></tr>';
     }
-    $output .= "</table>";
+    $output .= theme('table', array('header' => $header, 'rows' => $table_data));
 
     // Create the div to hold report graphs.
     $graph_markup = array();
