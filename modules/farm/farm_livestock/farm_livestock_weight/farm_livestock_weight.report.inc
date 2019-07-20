@@ -96,3 +96,16 @@ function farm_livestock_weight_report(FarmAsset $farm_asset) {
 
   return $output;
 }
+
+/**
+ * Report view access
+ */
+function farm_lviestock_weight_report_access($op, $farm_asset) {
+  // If the asset is not an animal, deny access.
+  if ($farm_asset->type != 'animal') {
+    return FALSE;
+  }
+
+  // Finally, check to see if the user has access to the asset.
+  return farm_asset_access($op, $farm_asset);
+}
