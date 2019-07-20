@@ -99,8 +99,8 @@ function farm_livestock_weight_menu() {
   $farm_asset_uri_argument_position = 2;
 
   // Animal asset report tab.
-  $items[$farm_asset_uri . '/report'] = array(
-    'title' => 'Report',
+  $items[$farm_asset_uri . '/weight'] = array(
+    'title' => 'Weight',
     'page callback' => 'farm_livestock_weight_report',
     'page arguments' => array($farm_asset_uri_argument_position),
     'access callback' => 'farm_asset_access',
@@ -294,7 +294,7 @@ function farm_livestock_weight_entity_view_alter(&$build, $type) {
   $units = !empty($weight['units']) ? $weight['units'] : '';
 
   // Build the weight display.
-  $output = '<strong>' . t('Weight') . ':</strong> ' . $value . ' ' . $units . '<a href="' . url($asset_uri['path'] . '/report') . '"> (weight report) </a>';
+  $output = '<strong>' . t('Weight') . ':</strong> ' . $value . ' ' . $units . '<a href="' . url($asset_uri['path'] . '/weight') . '"> (weight report) </a>';
 
   // If the animal has an inventory greater than 1, add "(average)".
   $inventory = farm_inventory($asset);
