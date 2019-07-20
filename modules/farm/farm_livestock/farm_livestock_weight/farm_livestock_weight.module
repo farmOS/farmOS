@@ -163,6 +163,28 @@ function farm_livestock_weight_report_form($form, &$form_state) {
     '#multiple' => TRUE,
   );
 
+  // Provide a default date in the format YYYY-MM-DD HH:MM:SS.
+  $current_date = format_date(strtotime('now'), 'custom', 'Y-m-d', 'UTC');
+  $format = 'Y-m-d';
+
+  $form['start-date'] = array(
+     '#type' => 'date_select', // types 'date_text' and 'date_timezone' are also supported. See .inc file.
+     '#title' => t('Start date'),
+     '#description' => t('First recorded date of animal weights to include..'),
+     '#default_value' => $current_date,
+     '#date_format' => $format,
+     '#date_label_position' => 'within', // See other available attributes and what they do in date_api_elements.inc
+  );
+
+  $form['end-date'] = array(
+     '#type' => 'date_select', // types 'date_text' and 'date_timezone' are also supported. See .inc file.
+     '#title' => t('End date'),
+     '#description' => t('Last recorded date of animal weights to include..'),
+     '#default_value' => $current_date,
+     '#date_format' => $format,
+     '#date_label_position' => 'within', // See other available attributes and what they do in date_api_elements.inc
+  );
+
   // Add submit button to generate report.
   $form['submit'] = array(
     '#type' => 'submit',
@@ -178,6 +200,9 @@ function farm_livestock_weight_report_form($form, &$form_state) {
 function farm_livestock_weight_report_form_submit($form, &$form_state) {
   // Get the submitted group IDs to include in the report.
   $group_ids = $form_state['values']['group'];
+
+  $start_date = strtotime($form_state['values']['start-date']);
+  $end_date = strtotime($form_state['values']['end-date']);
 
   // Prepare CSV file.
   drupal_add_http_header('Content-Type', 'text/csv');
@@ -205,6 +230,11 @@ function farm_livestock_weight_report_form_submit($form, &$form_state) {
 
       // Loop through weight logs.
       foreach ($logs as $log) {
+        // Check that the log timestamp fits the date parameters.
+        if ($log->timestamp < $start_date || $log->timestamp > $end_date) {
+          continue;
+        }
+
         // Extract quantity data from the log.
         $data = farm_quantity_log_data($log, 'weight');
 
