@@ -1,0 +1,5 @@
+name = Farm Fields Autocomplete
+description = Adds autocomplete to text fields.
+core = 7.x
+package = farmOS
+dependencies[] = text

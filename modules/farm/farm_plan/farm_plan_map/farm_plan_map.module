@@ -9,26 +9,17 @@
 include_once 'farm_plan_map.features.inc';
 
 /**
- * Implements hook_page_build().
+ * Implements hook_entity_view_alter().
  */
-function farm_plan_map_page_build(&$page) {
+function farm_plan_map_entity_view_alter(&$build, $type) {
 
-  // Get the current path.
-  $path = current_path();
-
-  // Break it up into parts.
-  $path_parts = explode('/', $path);
-
-  // If this is not a plan path, bail.
-  if (count($path_parts) < 3 || !($path_parts[0] == 'farm' && $path_parts[1] == 'plan' && empty($path_parts[3]))) {
+  // Alter farm_plan entity view pages.
+  if ($type != 'farm_plan' || empty($build['#entity'])) {
     return;
   }
 
-  // Attempt to load the plan. Bail if unsuccessful.
-  $plan = menu_get_object('farm_plan', 2);
-  if (empty($plan)) {
-    return;
-  }
+  // Get the plan entity.
+  $plan = $build['#entity'];
 
   // Check to see if there are areas and/or assets associated with the plan.
   // If there are none, bail - we won't show a map.
@@ -43,11 +34,5 @@ function farm_plan_map_page_build(&$page) {
   drupal_add_js(array('farm_plan_map' => array('plan_id' => $plan->id)), 'setting');
 
   // Build the areas map and add it to the page content.
-  $page['content']['farm_areas'] = farm_map_build('farm_plan_map');
-
-  // Set the weight to 100 so that it appears on bottom.
-  $page['content']['farm_areas']['#weight'] = 100;
-
-  // Set the content region #sorted flag to FALSE so that it resorts.
-  $page['content']['#sorted'] = FALSE;
+  $build['farm_plan_map'] = farm_map_build('farm_plan_map');
 }

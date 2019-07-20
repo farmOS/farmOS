@@ -25,6 +25,8 @@ projects[ctools][patch][] = "http://www.drupal.org/files/issues/ctools-fix_modal
 
 projects[date][subdir] = "contrib"
 projects[date][version] = "2.11-beta2"
+; Patch to fix Issue #3067396: Date CSS not added for date_select Form API elements
+projects[date][patch][] = "http://www.drupal.org/files/issues/2019-07-16/date-select-css-3067396-3.patch"
 
 projects[entity][subdir] = "contrib"
 projects[entity][version] = "1.9"
