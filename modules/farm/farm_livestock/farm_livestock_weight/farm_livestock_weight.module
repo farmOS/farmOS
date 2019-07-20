@@ -176,8 +176,60 @@ function farm_livestock_weight_report_form($form, &$form_state) {
  * Submit handler for the weight report form
  */
 function farm_livestock_weight_report_form_submit($form, &$form_state) {
-  $value = $form['group']['#options'][$form_state['values']['group']];
-  drupal_set_message($value);
+  // Get the submitted group IDs to include in the report.
+  $group_ids = $form_state['values']['group'];
+
+  // Prepare CSV file.
+  drupal_add_http_header('Content-Type', 'text/csv');
+  drupal_add_http_header('Content-Disposition', 'attachment; filename=animal_weights.csv');
+  $csvdata = 'AssetID, AssetName, Weight, Units, Timestamp, GroupName' . PHP_EOL;
+
+  // Loop through each group, its members, and all weight logs.
+  foreach ($group_ids as $id) {
+    // Load the farm group asset.
+    $group = farm_asset_load($id);
+    $group_name = $group->name;
+
+    // Load the farm group members.
+    $members = farm_group_members($group);
+
+    // Loop through members.
+    foreach ($members as $asset) {
+      // If member is not an animal, bail.
+      if ($asset->type != 'animal') {
+        return;
+      }
+
+      // Load the group member's weights
+      $logs = farm_quantity_log_asset($asset, 'weight', $label = NULL, $time = REQUEST_TIME, $done = TRUE, $type = NULL, $single = FALSE);
+
+      // Loop through weight logs.
+      foreach ($logs as $log) {
+        // Extract quantity data from the log.
+        $data = farm_quantity_log_data($log, 'weight');
+
+        // Iterate through the data and return the first one with a value.
+        foreach ($data as $quantity) {
+          if (!empty($quantity['value'])) {
+            $value = $quantity['value'];
+            $units = $quantity['units'];
+
+            // Add a row of data.
+            $row = array();
+            $row[] = $asset->id;
+            $row[] = $asset->name;
+            $row[] = $value;
+            $row[] = $units;
+            $row[] = $log->timestamp;
+            $row[] = $group_name;
+          }
+        }
+        $csvdata .= implode(',', $row) . PHP_EOL;
+      }
+    }
+  }
+  print $csvdata;
+  drupal_exit();
 }
 
 /**
