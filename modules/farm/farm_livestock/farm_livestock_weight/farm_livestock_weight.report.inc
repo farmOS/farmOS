@@ -57,6 +57,7 @@ function farm_livestock_weight_report(FarmAsset $farm_asset) {
           $quantity['timestamp'] = $log->timestamp;
 
           // Add to $log_weights array.
+          $log_weights[] = $quantity;
           $table_data[] = array(format_date($log->timestamp), $value, $units);
         }
       }
