@@ -111,25 +111,23 @@ function farm_quantity_log_asset(FarmAsset $asset, $measure = NULL, $label = NUL
   // Execute the query and gather the log id.
   $result = $query->execute();
 
-  // Return one log object. $single = TRUE
-  if (!empty($single)) {
-    $log_id = $result->fetchField();
-
-    // If a log id exists, load and return it.
-    if (!empty($log_id)) {
-      return log_load($log_id);
-    };
-  };
-
   // Return array of log objects. $single = FALSE
   if (empty($single)) {
-    $logs = array();
+    // Load logs.
+    $log_item_ids = $result->fetchCol();
+    $logs = entity_load('log', $log_item_ids);
 
-    foreach ($result as $record) {
-      $log = log_load($record->id);
-      array_push($logs, $log);
-    }
     return $logs;
+  } else {
+    // Return one log object. $single = TRUE
+    if (!empty($single)) {
+      $log_id = $result->fetchField();
+
+      // If a log id exists, load and return it.
+      if (!empty($log_id)) {
+        return log_load($log_id);
+      };
+    };
   }
   return FALSE;
 }
