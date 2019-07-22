@@ -173,16 +173,11 @@ function farm_map_build($map_name, $fieldset = FALSE, $title = '', $collapsed = 
     return $build;
   }
 
-  // Load the map.
-  $map = \Drupal\openlayers\Openlayers::load('Map', $map_name);
-
-  // If the map didn't load, bail.
-  if (empty($map)) {
-    return $build;
-  }
-
   // Build the map.
-  $build = $map->build();
+  $build = array(
+    '#type' => 'farm_map',
+    '#map_name' => $map_name,
+  );
 
   // Wrap the map in a fieldset, if desired.
   if (!empty($fieldset)) {
