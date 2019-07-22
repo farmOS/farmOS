@@ -74,6 +74,81 @@ function farm_map_libraries_info() {
 }
 
 /**
+ * Implements hook_theme().
+ */
+function farm_map_theme($existing, $type, $theme, $path) {
+  return array(
+    'farm_map' => array(
+      'render element' => 'element',
+    ),
+  );
+}
+
+/**
+ * Returns HTML that wraps the farm map..
+ */
+function theme_farm_map(&$vars) {
+
+  // Get the element.
+  $element = $vars['element'];
+
+  // Load the farmOS-map.js library.
+  libraries_load('farmOS-map');
+
+  // Get the map name (default to 'farm_map').
+  if (empty($element['#map_name'])) {
+    $element['#map_name'] = 'farm_map';
+  }
+  $map_name = $element['#map_name'];
+
+  // Generate a map div ID, if one wasn't provided.
+  $id = drupal_html_id($map_name);
+  if (!empty($element['#attributes']['id'])) {
+    $id = $element['#attributes']['id'];
+  }
+  else {
+    $element['#attributes']['id'] = $id;
+  }
+
+  // Add 'farm-map' CSS class.
+  if (empty($element['#attributes']['class']) || !in_array('farm-map', $element['#attributes']['class'])) {
+    $element['#attributes']['class'][] = 'farm-map';
+  }
+
+  // Create a settings array to be passed to JavaScript.
+  $settings = array(
+    'farm_map' => array(),
+  );
+
+  // Add the map ID to the Drupal.settings.farm_map.maps JavaScript array.
+  $settings['farm_map']['maps'] = array($id);
+
+  // Add the JavaScript settings.
+  drupal_add_js($settings, 'setting');
+
+  // Add farm_map.js, which will iterate over the map IDs and run
+  // farmOS.map.create() on them.
+  drupal_add_js(drupal_get_path('module', 'farm_map') . '/js/farm_map.js');
+
+  // Add farm_map.css.
+  drupal_add_css(drupal_get_path('module', 'farm_map') . '/css/farm_map.css');
+
+  // Return a simple div with attributes.
+  return '<div' . drupal_attributes($element['#attributes']) . '></div>';
+}
+
+/**
+ * Implements hook_element_info().
+ */
+function farm_map_element_info() {
+  return array(
+    'farm_map' => array(
+      '#theme' => 'farm_map',
+    ),
+  );
+}
+
+/**
  * Build a map render array.
  *
  * @param string $map_name
