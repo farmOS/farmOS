@@ -54,6 +54,26 @@ function farm_map_menu() {
 }
 
 /**
+ * Implements hook_libraries_info().
+ */
+function farm_map_libraries_info() {
+  $libraries['farmOS-map'] = array(
+    'name' => 'farmOS Map',
+    'vendor url' => 'https://github.com/farmOS/farmOS-map',
+    'download url' => 'https://github.com/farmOS/farmOS-map/releases',
+    'version arguments' => array(
+      'file' => 'farmOS-map.js',
+      'pattern' => '/farmOS-map v([0-9\.]+)/',
+      'lines' => 1,
+    ),
+    'files' => array(
+      'js' => array('farmOS-map.js'),
+    ),
+  );
+  return $libraries;
+}
+
+/**
  * Build a map render array.
  *
  * @param string $map_name
