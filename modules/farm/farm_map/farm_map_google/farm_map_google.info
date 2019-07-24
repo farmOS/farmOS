@@ -1,0 +1,5 @@
+name = Farm Map Google
+description = Adds Google layers to farm maps.
+core = 7.x
+package = farmOS
+dependencies[] = farm_map

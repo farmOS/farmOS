@@ -11,7 +11,6 @@ function farm_map_uninstall() {
 
   // Delete variables.
   variable_del('farm_map_show');
-  variable_del('farm_map_google_api_key');
 }
 
 /**
@@ -34,4 +33,14 @@ function farm_map_update_7000(&$sandbox) {
  */
 function farm_map_update_7001(&$sandbox) {
   variable_del('farm_map_default_base_layer');
+}
+
+/**
+ * Install new Google Maps module if an API key is saved.
+ */
+function farm_map_update_7002(&$sandbox) {
+  $module = 'farm_map_google';
+  if (variable_get('farm_map_google_api_key', FALSE) && !module_exists($module)) {
+    module_enable(array($module));
+  }
 }
