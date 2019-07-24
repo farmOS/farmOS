@@ -133,7 +133,7 @@ function farm_quantity_log_asset(FarmAsset $asset, $measure = NULL, $label = NUL
 }
 
 /**
- * Build a query to find the latest log of an asset that defines a quantity.
+ * Build a query to find logs of an asset that defines a quantity.
  *
  * @param int $asset_id
  *   The asset id to search for.
@@ -144,10 +144,14 @@ function farm_quantity_log_asset(FarmAsset $asset, $measure = NULL, $label = NUL
  * @param int $time
  *   Unix timestamp limiter. Only logs before this time will be included.
  *   Defaults to the current time. Set to 0 to load the absolute last.
- * @param $done
+ * @param bool|null $done
  *   Whether or not to only show logs that are marked as "done". TRUE will limit
  *   to logs that are done, and FALSE will limit to logs that are not done. If
- *   any other value is used, no filtering will be applied. Defaults to TRUE.
+ *   this is set to NULL, no filtering will be applied. Defaults to TRUE.
+ * @param string|null $type
+ *   The log type to filter by. If this is NULL, no filtering will be applied.
+ * @param bool $single
+ *   Whether or not to limit the query to a single result. Defaults to TRUE.
  *
  * @return \SelectQuery
  *   Returns a SelectQuery object.
