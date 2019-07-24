@@ -29,10 +29,9 @@ function farm_plan_map_entity_view_alter(&$build, $type) {
     return;
   }
 
-  // Add the plan ID as a Javascript setting, so that the farm_plan_map_layers
-  // InlineJS component can add it to the GeoJSON URLs.
-  drupal_add_js(array('farm_plan_map' => array('plan_id' => $plan->id)), 'setting');
-
   // Build the areas map and add it to the page content.
   $build['farm_plan_map'] = farm_map_build('farm_plan_map');
+
+  // Add the plan ID to the element.
+  $build['farm_plan_map']['#plan_id'] = $plan->id;
 }
