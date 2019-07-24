@@ -4,8 +4,6 @@
  * Code for the Farm Soil NRCS feature.
  */
 
-include_once 'farm_soil_nrcs.features.inc';
-
 /**
  * Implements hook_menu().
  */
