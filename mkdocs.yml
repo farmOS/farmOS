@@ -37,6 +37,7 @@ nav:
     - Updating: hosting/updating.md
     - Google Maps: hosting/googlemaps.md
     - Docker: hosting/docker.md
+    - Localization: hosting/localization.md
 - Development:
     - Drupal: development/drupal.md
     - Projects: development/projects.md
