@@ -94,8 +94,8 @@ function farm_quantity_log_data(Log $log, $measure = NULL, $label = NULL) {
  * @param bool $single
  *   Whether or not to limit the query to a single result. Defaults to TRUE.
  *
- * @return Log|bool
- *   Returns a log entity. FALSE if something goes wrong.
+ * @return Log|array|bool
+ *   Returns a log entity, or an array of them. FALSE if something goes wrong.
  */
 function farm_quantity_log_asset(FarmAsset $asset, $measure = NULL, $label = NULL, $time = REQUEST_TIME, $done = TRUE, $type = NULL, $single = TRUE) {
 
