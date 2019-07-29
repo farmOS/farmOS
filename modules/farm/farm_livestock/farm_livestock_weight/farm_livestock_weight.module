@@ -163,9 +163,9 @@ function farm_livestock_weight_report_form($form, &$form_state) {
     '#multiple' => TRUE,
   );
 
-  // Provide a default date in the format YYYY-MM-DD HH:MM:SS.
-  $current_date = format_date(strtotime('now'), 'custom', 'Y-m-d', 'UTC');
+  // Provide a default date in the format YYYY-MM-DD.
   $format = 'Y-m-d';
+  $current_date = date($format, REQUEST_TIME);
 
   $form['start_date'] = array(
      '#type' => 'date_select',
