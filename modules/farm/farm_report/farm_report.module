@@ -12,7 +12,6 @@
      'view farm reports' => array(
        'title' => t('View farm reports'),
      ),
-
      'configure farm reports' => array(
        'title' => t('Configure farm reports'),
      ),
