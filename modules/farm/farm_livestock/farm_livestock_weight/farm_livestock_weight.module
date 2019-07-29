@@ -230,7 +230,7 @@ function farm_livestock_weight_report_form_submit($form, &$form_state) {
       }
 
       // Load the group member's weights
-      $logs = farm_quantity_log_asset($asset, 'weight', $label = NULL, $time = REQUEST_TIME, $done = TRUE, $type = NULL, $single = FALSE);
+      $logs = farm_quantity_log_asset($asset, 'weight', NULL, REQUEST_TIME, TRUE, NULL, FALSE);
 
       // Loop through weight logs.
       foreach ($logs as $log) {
