@@ -116,7 +116,7 @@ function farm_livestock_weight_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('farm_livestock_weight_report_form'),
     'access arguments' => array('view farm reports'),
-    'type' => MENU_LOCAL_ACTION,
+    'type' => MENU_LOCAL_TASK,
   );
 
   return $items;
