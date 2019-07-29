@@ -16,9 +16,6 @@
  */
 function farm_livestock_weight_report(FarmAsset $farm_asset) {
   $output = '';
-  // Get the asset ID.
-  $farm_asset_id = entity_id('farm_asset', $farm_asset);
-  $output .= '<p>' . 'Livestock ID: ' . $farm_asset_id . '</p>' ;
 
   // Get the assets current weight.
   $current_weight = farm_livestock_weight($farm_asset);
@@ -27,7 +24,7 @@ function farm_livestock_weight_report(FarmAsset $farm_asset) {
   if (empty($current_weight)) {
     $output .= '<p>No weight recorded for asset</p>';
   } else {
-    $output .= '<p> Current Weight: ' . $current_weight['value'] . ' ' . $current_weight['units'] . '</p>';
+    $output .= '<p><strong>Current Weight:</strong> ' . $current_weight['value'] . ' ' . $current_weight['units'] . '</p>';
   };
 
   // Get all 'weight' logs associated with the asset.
