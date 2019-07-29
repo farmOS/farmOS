@@ -226,7 +226,7 @@ function farm_livestock_weight_report_form_submit($form, &$form_state) {
 
       // If member is not an animal, bail.
       if ($asset->type != 'animal') {
-        return;
+        continue;
       }
 
       // Load the group member's weights
