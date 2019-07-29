@@ -230,13 +230,19 @@ function farm_livestock_weight_report_form_submit($form, &$form_state) {
       }
 
       // Load the group member's weights
-      $logs = farm_quantity_log_asset($asset, 'weight', NULL, REQUEST_TIME, TRUE, NULL, FALSE);
+      $time = REQUEST_TIME;
+      if (!empty($end_date)) {
+        $time = $end_date;
+      }
+      $logs = farm_quantity_log_asset($asset, 'weight', NULL, $time, TRUE, NULL, FALSE);
 
       // Loop through weight logs.
       foreach ($logs as $log) {
 
-        // Check that the log timestamp fits the date parameters.
-        if ($log->timestamp < $start_date || $log->timestamp > $end_date) {
+        // Check that the log timestamp fits the date parameters. Note that we
+        // only need to check the start date bound, because end date is already
+        // filtered by farm_quantity_log_asset().
+        if ($log->timestamp < $start_date) {
           continue;
         }
 
