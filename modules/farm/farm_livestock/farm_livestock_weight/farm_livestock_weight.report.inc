@@ -86,7 +86,7 @@ function farm_livestock_weight_report(FarmAsset $farm_asset) {
     );
 
     // Add graphs to output.
-    $output .= '<div class="farm-report-graphs">' . implode('', $graph_markup) . '</div>';
+    $output = '<div class="farm-report-graphs">' . implode('', $graph_markup) . '</div>' . $output;
 
     // Add JS and CSS to build the graphs.
     drupal_add_js($settings, 'setting');
