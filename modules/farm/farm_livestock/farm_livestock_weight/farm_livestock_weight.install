@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @file
+ * Farm livestock weight install.
+ */
+
+/**
+ * Install the Farm Report module (dependency of Livestock Weight Report).
+ */
+function farm_livestock_weight_update_7000(&$sandbox) {
+  $module = 'farm_report';
+  if (!module_exists($module)) {
+    module_enable(array($module));
+  }
+}
