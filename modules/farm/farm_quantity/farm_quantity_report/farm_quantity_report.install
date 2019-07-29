@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @file
+ * Farm quantity report install.
+ */
+
+/**
+ * Install the Farm Report module (dependency of Quantity Report).
+ */
+function farm_quantity_report_update_7000(&$sandbox) {
+  $module = 'farm_report';
+  if (!module_exists($module)) {
+    module_enable(array($module));
+  }
+}
