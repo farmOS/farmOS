@@ -1,6 +1,7 @@
 @media (min-width: 992px) {
   .farm-report-graph {
+    float: right;
+    margin-left: 1em;
     width: 50%;
-    float: left;
   }
 }
