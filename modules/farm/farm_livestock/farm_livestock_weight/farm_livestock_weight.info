@@ -6,3 +6,4 @@ dependencies[] = farm_livestock
 dependencies[] = farm_inventory
 dependencies[] = farm_quantity
 dependencies[] = farm_quantity_log
+dependencies[] = farm_report
