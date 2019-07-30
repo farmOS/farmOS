@@ -39,6 +39,7 @@ If you would like to support farmOS, consider [making a donation].
 * [Savory Institute](https://savory.global)
 * [Heniscity Farm](https://www.facebook.com/HeniscityFarm)
 * [Echo Farm](https://www.echofarmct.com)
+* [Rothamsted Research](https://www.rothamsted.ac.uk)
 
 ## Individuals
 
