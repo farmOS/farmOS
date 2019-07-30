@@ -86,6 +86,9 @@ function farm_fields_file_types($type = '', $separator = ' ') {
       'zip',
       'tar',
       'gz',
+	  'mp3',
+	  'wav',
+	  'ogg',
     ),
   );
   if ($type == 'image') {
