@@ -456,7 +456,7 @@ function farm_quantity_report_views_default_views() {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'farm/quantity';
+  $handler->display->display_options['path'] = 'farm/report/quantity';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Quantity';
   $handler->display->display_options['menu']['weight'] = '0';

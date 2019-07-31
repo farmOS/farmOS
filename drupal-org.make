@@ -204,7 +204,7 @@ projects[bootstrap][version] = "3.26"
 ; -----------------------------------------------------------------------------
 
 libraries[backbone][download][type] = "get"
-libraries[backbone][download][url] = "http://github.com/jashkenas/backbone/archive/1.1.2.zip"
+libraries[backbone][download][url] = "http://github.com/jashkenas/backbone/archive/1.4.0.zip"
 
 libraries[easy-responsive-tabs][download][type] = "get"
 libraries[easy-responsive-tabs][download][url] = "https://github.com/samsono/Easy-Responsive-Tabs-to-Accordion/archive/1.2.2.zip"
@@ -216,4 +216,4 @@ libraries[openlayers3][download][type] = "get"
 libraries[openlayers3][download][url] = "http://github.com/openlayers/openlayers/releases/download/v4.6.4/v4.6.4.zip"
 
 libraries[underscore][download][type] = "get"
-libraries[underscore][download][url] = "http://github.com/jashkenas/underscore/archive/1.7.0.zip"
+libraries[underscore][download][url] = "http://github.com/jashkenas/underscore/archive/1.9.1.zip"

@@ -6,6 +6,7 @@ dependencies[] = ctools
 dependencies[] = farm_asset
 dependencies[] = farm_log
 dependencies[] = farm_quantity
+dependencies[] = farm_report
 dependencies[] = views
 dependencies[] = views_data_export
 features[ctools][] = views:views_default:3.0

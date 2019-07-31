@@ -12,7 +12,6 @@
      'view farm reports' => array(
        'title' => t('View farm reports'),
      ),
-
      'configure farm reports' => array(
        'title' => t('Configure farm reports'),
      ),
@@ -50,12 +49,16 @@ function farm_report_menu() {
     'page callback' => 'farm_report_view',
     'access arguments' => array('view farm reports'),
     'type' => MENU_LOCAL_TASK,
-    'weight' => 150,
+  );
+  $items['farm/report/info'] = array(
+    'title' => 'Info',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -100,
   );
 
   return $items;
 };
 
 function farm_report_view() {
-  return t('Welcome to reports.');
+  return t('Select a report from the menu above.');
 };

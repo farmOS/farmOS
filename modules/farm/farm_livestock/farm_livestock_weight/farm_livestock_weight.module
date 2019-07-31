@@ -103,8 +103,8 @@ function farm_livestock_weight_menu() {
     'title' => 'Weight',
     'page callback' => 'farm_livestock_weight_report',
     'page arguments' => array($farm_asset_uri_argument_position),
-    'access callback' => 'farm_asset_access',
-    'access arguments' => array('view', $farm_asset_uri_argument_position),
+    'access callback' => 'farm_livestock_weight_report_access',
+    'access arguments' => array($farm_asset_uri_argument_position),
     'file' => 'farm_livestock_weight.report.inc',
     'type' => MENU_LOCAL_TASK,
     'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
@@ -116,7 +116,7 @@ function farm_livestock_weight_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('farm_livestock_weight_report_form'),
     'access arguments' => array('view farm reports'),
-    'type' => MENU_LOCAL_ACTION,
+    'type' => MENU_LOCAL_TASK,
   );
 
   return $items;
@@ -163,26 +163,26 @@ function farm_livestock_weight_report_form($form, &$form_state) {
     '#multiple' => TRUE,
   );
 
-  // Provide a default date in the format YYYY-MM-DD HH:MM:SS.
-  $current_date = format_date(strtotime('now'), 'custom', 'Y-m-d', 'UTC');
+  // Provide a default date in the format YYYY-MM-DD.
   $format = 'Y-m-d';
+  $current_date = date($format, REQUEST_TIME);
 
-  $form['start-date'] = array(
-     '#type' => 'date_select', // types 'date_text' and 'date_timezone' are also supported. See .inc file.
+  $form['start_date'] = array(
+     '#type' => 'date_select',
      '#title' => t('Start date'),
      '#description' => t('First recorded date of animal weights to include..'),
      '#default_value' => $current_date,
      '#date_format' => $format,
-     '#date_label_position' => 'within', // See other available attributes and what they do in date_api_elements.inc
+     '#date_label_position' => 'within',
   );
 
-  $form['end-date'] = array(
-     '#type' => 'date_select', // types 'date_text' and 'date_timezone' are also supported. See .inc file.
+  $form['end_date'] = array(
+     '#type' => 'date_select',
      '#title' => t('End date'),
      '#description' => t('Last recorded date of animal weights to include..'),
      '#default_value' => $current_date,
      '#date_format' => $format,
-     '#date_label_position' => 'within', // See other available attributes and what they do in date_api_elements.inc
+     '#date_label_position' => 'within',
   );
 
   // Add submit button to generate report.
@@ -198,11 +198,13 @@ function farm_livestock_weight_report_form($form, &$form_state) {
  * Submit handler for the weight report form
  */
 function farm_livestock_weight_report_form_submit($form, &$form_state) {
+
   // Get the submitted group IDs to include in the report.
   $group_ids = $form_state['values']['group'];
 
-  $start_date = strtotime($form_state['values']['start-date']);
-  $end_date = strtotime($form_state['values']['end-date']);
+  // Get the start and end dates.
+  $start_date = strtotime($form_state['values']['start_date']);
+  $end_date = strtotime($form_state['values']['end_date']);
 
   // Prepare CSV file.
   drupal_add_http_header('Content-Type', 'text/csv');
@@ -211,6 +213,7 @@ function farm_livestock_weight_report_form_submit($form, &$form_state) {
 
   // Loop through each group, its members, and all weight logs.
   foreach ($group_ids as $id) {
+
     // Load the farm group asset.
     $group = farm_asset_load($id);
     $group_name = $group->name;
@@ -220,18 +223,26 @@ function farm_livestock_weight_report_form_submit($form, &$form_state) {
 
     // Loop through members.
     foreach ($members as $asset) {
+
       // If member is not an animal, bail.
       if ($asset->type != 'animal') {
-        return;
+        continue;
       }
 
       // Load the group member's weights
-      $logs = farm_quantity_log_asset($asset, 'weight', $label = NULL, $time = REQUEST_TIME, $done = TRUE, $type = NULL, $single = FALSE);
+      $time = REQUEST_TIME;
+      if (!empty($end_date)) {
+        $time = $end_date;
+      }
+      $logs = farm_quantity_log_asset($asset, 'weight', NULL, $time, TRUE, NULL, FALSE);
 
       // Loop through weight logs.
       foreach ($logs as $log) {
-        // Check that the log timestamp fits the date parameters.
-        if ($log->timestamp < $start_date || $log->timestamp > $end_date) {
+
+        // Check that the log timestamp fits the date parameters. Note that we
+        // only need to check the start date bound, because end date is already
+        // filtered by farm_quantity_log_asset().
+        if ($log->timestamp < $start_date) {
           continue;
         }
 
@@ -274,6 +285,7 @@ function farm_livestock_weight_entity_view_alter(&$build, $type) {
 
   // Alias the asset variable.
   $asset = $build['#entity'];
+  $asset_uri = entity_uri('farm_asset', $asset);
 
   // If it isn't an animal asset, bail.
   if ($asset->type != 'animal') {
@@ -293,7 +305,7 @@ function farm_livestock_weight_entity_view_alter(&$build, $type) {
   $units = !empty($weight['units']) ? $weight['units'] : '';
 
   // Build the weight display.
-  $output = '<strong>' . t('Weight') . ':</strong> ' . $value . ' ' . $units;
+  $output = '<strong>' . t('Weight') . ':</strong> ' . $value . ' ' . $units . '<a href="' . url($asset_uri['path'] . '/weight') . '"> (weight report) </a>';
 
   // If the animal has an inventory greater than 1, add "(average)".
   $inventory = farm_inventory($asset);
