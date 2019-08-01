@@ -63,6 +63,12 @@ want to see them. So for example, when you are done harvesting a planting, you
 can mark it as "archived" to hide it in the list of plantings. Archived records
 can be retrieved using the "Filter/sort" options on asset listing pages.
 
+## Cloning assets
+
+Assets can be cloned by selecting one or more in a list and clicking the "Clone"
+button that appears at the bottom. This will clone the asset record(s), but will
+not clone the logs that are associated with them.
+
 [Movements and location]: /guide/location
 [Organic module]: /guide/contrib/organic
 [Openlayers mapping library]: http://openlayers.org
