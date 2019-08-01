@@ -38,6 +38,8 @@ On the right is the farm map, where you will see any areas that you have
 mapped. You can use this to navigate to records within farmOS by clicking on
 an area and then clicking on the available links within the area popup.
 
+Under the map you will see a set of metrics for the farm, including total mapped
+area, total assets, etc. Additional metrics can be added via modules.
 
 <video width="100%" controls>
   <source src="/demo/dashboard.mp4" type="video/mp4">
