@@ -96,9 +96,11 @@ There are three buttons for modifying shapes:
 KML files are special shape files that define a geometry on a map. They can be
 created with various GIS/mapping software. If you already have your farm mapped
 in another software (like [Google Earth]), you can export KML files for each
-area and then import them into farmOS's geometry fields.
+area and then import them into farmOS's geometry fields. Alternatively, you can
+use the *Farm Area Import* module to import a single KML file and break it up
+into multiple areas.
 
-To import a KML file, follow these steps:
+To import a KML file of an individual area, follow these steps:
 
 1. Create a new area (or edit an existing one).
 2. Scroll down to the Files field and upload your KML file.
@@ -109,6 +111,22 @@ To import a KML file, follow these steps:
 <video width="100%" controls>
   <source src="/demo/kml-import.mp4" type="video/mp4">
 </video>
+
+To import a KML file with multiple areas, follow these steps:
+
+1. Enable the *Farm Area Import* module (if it isn't already).
+2. Click "Areas" in the main menu and then click the "Import" tab.
+3. Copy and paste the contents of your KML file into the text area, and click
+   "Parse".
+4. If geometries are found in the KML file, a fieldset will be shown for each
+   of them, letting you customize the area name, type, and whether or not it
+   should be imported.
+5. At the bottom of the form, there is an option to create a new area that will
+   contain all the imported areas. It is a good idea to use this so that you
+   can easily review the areas that were imported, without having them mixed in
+   with your existing areas right away. If you find that the import didn't work
+   properly, you can select all the areas under this parent area and delete them
+   in bulk.
 
 ### Exporting a KML file
 
