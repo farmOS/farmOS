@@ -116,5 +116,12 @@ are provided by farmOS, and more can be added by users. Log categories enable
 you to organize, sort, and filter your logs in ways that make sense to you, so
 you can find the logs you need easily in the future.
 
+### Bulk asset association
+
+If you want to create a log that references multiple assets, you can either
+create the log and then add each asset to it individually, or you can select
+multiple assets in a list and click the "Log" button that appears at the bottom.
+This will open up a new log form with the assets pre-selected.
+
 [asset types]: /guide/assets
 
