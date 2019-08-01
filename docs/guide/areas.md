@@ -141,21 +141,20 @@ There are two ways to arrange areas hierarchically in farmOS:
 
 ## Generate beds
 
-farmOS includes a special "Area Generator" module that makes it easy to
+farmOS includes a special "Bed Generator" module that makes it easy to
 automatically generate a whole bunch of areas in bulk. The original goal was to
 make it easier to generate parallel beds within a field, but it may provide
 additional possibilities in the future.
 
-To use the area generator to generate beds, follow these steps:
+To use the bed generator to generate beds, follow these steps:
 
-1. Go to the "Areas" page (from the main menu) and click the "Area generator"
+1. Go to the "Areas" page (from the main menu) and click the "Bed generator"
    tab.
 2. Select the field that the beds will be created within.
-3. Set the "Area type" to "Bed".
-4. Enter the number of beds that should be generated within the field.
-5. Set the orientation of the beds, and use the "Preview" button to see how
+3. Enter the number of beds that should be generated within the field.
+4. Set the orientation of the beds, and use the "Preview" button to see how
    they look.
-6. When you are satisfied with the preview, click the "Generate" button to
+5. When you are satisfied with the preview, click the "Generate" button to
    generate the beds.
 
 Beds will be numbered and labeled using the parent area's name.
