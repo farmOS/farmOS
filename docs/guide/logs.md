@@ -75,6 +75,12 @@ on a map where samples were taken from. Integration is also provided with the
 US NRCS Soil Survey API, which allows you to view soil type map overlays, as
 well as look up soil name for the specific sample points in your soil tests.
 
+### Sales and purchases
+
+Sale and purchase logs can be used to record a sales/purchases, optionally
+associated with assets and/or areas. These can be enabled with the farmOS Ledger
+module.
+
 <video width="100%" controls>
   <source src="/demo/soil.mp4" type="video/mp4">
 </video>
