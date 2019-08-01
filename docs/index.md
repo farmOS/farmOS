@@ -7,16 +7,18 @@ standard platform for farmers, developers, and researchers to build upon.
 **
 
 The farmOS server is built on top of [Drupal], which makes it [modular],
-[extensible], and [secure]. A [client app] is also in the works to provide
-native (Android/iOS) and offline functionality. Both are licensed under the
-[GNU General Public License], which means they are [free] and [open source].
+[extensible], and [secure]. The [farmOS Field Kit] app provides offline data
+entry in a native Android/iOS app, and as a progressive web app (PWA) at
+[https://farmOS.app].
 
-To learn how to use farmOS, refer to the [User Guide].
+Both are licensed under the [GNU General Public License], which means they are
+[free] and [open source].
+
+To learn how to use farmOS, refer to the [User Guide]. For more information,
+visit the [farmOS Community Forum] and read the [Frequently Asked Questions].
 
 You can contribute to the project by [making a donation] or [contributing] in
 other ways.
-
-For more information, read the [Frequently Asked Questions].
 
 ## Quick Links
 
@@ -94,8 +96,10 @@ The full workshop recording is available on YouTube:
 [modular]: http://en.wikipedia.org/wiki/Modular_programming
 [extensible]: https://www.drupal.org/download
 [secure]: http://www.drupal.org/documentation/is-drupal-secure
-[client app]: /guide/app
+[farmOS Field Kit]: /guide/app
+[https://farmOS.app]: https://farmOS.app
 [User Guide]: /guide
+[farmOS Community Forum]: https://farmOS.discourse.group
 [making a donation]: /donate
 [contributing]: /community/contribute
 [Frequently Asked Questions]: /faq
