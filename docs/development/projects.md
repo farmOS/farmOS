@@ -37,11 +37,15 @@ These modules are included directly in the farmOS distribution repository:
 
 * **Farm Access** - Provides mechanisms for managing farmOS user access
   permissions.
+* **Farm Access Roles** - Provides default roles: Manager, Worker, Viewer.
+* **Farm API** - Extends the RESTful Web Services module to provide
+  farmOS-specific APIs.
 * **Farm Area** - Features for managing farm areas.
 * **Farm Area Generator** - A tool for automatically generating areas. Requires
   GEOS library.
 * **Farm Area Import** - A tool for importing multiple area geometries from a
   single KML file.
+* **Farm Area Types** - Provides some default area types.
 * **Farm Asset** - A farm asset entity type.
 * **Farm Asset Children** - Provides child asset relationships.
 * **Farm Asset Property** - Provides the ability to assign arbitrary (key-value
@@ -51,24 +55,36 @@ These modules are included directly in the farmOS distribution repository:
 * **Farm Constraint** - Provides a framework for managing foreign key
   constraints between farmOS entities.
 * **Farm Crop** - Features for managing farm crops.
+* **Farm Crop Area Types** - Provides default area types for crop management:
+  Bed, Greenhouse.
 * **Farm Dashboard** - Provides a farmOS dashboard at /farm.
+* **Farm Data Field** - Adds an arbitrary data field to logs and assets.
 * **Farm Equipment** - Features for managing farm equipment.
+* **Farm Equipment Field** - Adds an "Equipment used" field to logs.
 * **Farm Fields** - Provides common base field definitions for farmOS entity
   types.
+* **Farm Fields Autocomplete** - Adds autocomplete to text fields.
+* **Farm Fields Dynamic** - Provides the ability for modules to define fields
+  dynamically.
 * **Farm Flags** - Provides a general purpose record flagging system.
 * **Farm Group** - Features for managing group assets like herds, flocks, etc.
 * **Farm Help** - Help pages for farmOS.
 * **Farm Import** - Provides a framework for creating CSV importers in farmOS.
 * **Farm Inventory** - Provides inventory management functionality for farm
   assets.
+* **Farm Ledger** - Provides sale and purchase log types.
 * **Farm Livestock** - Features for managing farm livestock.
+* **Farm Livestock Area Types** - Provides default area types for livestock
+  management: Paddock.
+* **Farm Livestock Weight** - Features for tracking weight of animals with
+  observation logs.
 * **Farm Log** - Provides integration with the Log module.
 * **Farm Log: Activity** - Provides an activity log type.
 * **Farm Log: Harvest** - Provides a harvest log type.
 * **Farm Log: Input** - Provides an input log type.
 * **Farm Log: Observation** - Provides an observation log type
-* **Farm Log: Sale** - Provides a sale log type.
 * **Farm Map** - Provides OpenLayers configuration for farm maps.
+* **Farm Map KML** - Provides KML features for farm maps.
 * **Farm MapKnitter** - Provides integration with Public Lab's MapKnitter.org.
 * **Farm Menu** - Provides a menu for farm pages.
 * **Farm Movement** - Provides movement field and related asset location code.
@@ -76,17 +92,22 @@ These modules are included directly in the farmOS distribution repository:
 * **Farm Plan** - A farm plan entity type.
 * **Farm Plan Consideration** - Provides features for managing considerations
   within a farm plan.
+* **Farm Plan Map** - Adds a map of areas and assets in a plan.
 * **Farm Quantity** - Provides a framework for dealing with quantities.
-* **Farm Quantity Log** - Provides helper functions for querying logs with quantity data.
+* **Farm Quantity Log** - Provides helper functions for querying logs with
+  quantity data.
 * **Farm Quantity Report** - Generate reports of quantity measurements.
 * **Farm Quick** - Provides a framework for quick forms in farmOS.
-* **Farm Season** -   Provides a taxonomy and fields for organizing assets and logs by season.
+* **Farm Report** - Features for viewing reports.
+* **Farm Season** -   Provides a taxonomy and fields for organizing assets and
+  logs by season.
 * **Farm Sensor** - Features for managing farm sensors.
 * **Farm Sensor: Listener** - ...
 * **Farm Soil** - Provides features for soil health management.
 * **Farm Soil NRCS** - Provides integration with NRCS Soil Survey data.
 * **Farm Soil Test** - .Features for managing soil tests.
 * **Farm Soil: Compost** - Features for managing compost.
+* **Farm Term** - Provides helper functions for working with taxonomy terms.
 * **Farm Tour** - Provides tours of the farmOS system using the Bootstrap Tour
   module.
 * **Farm UI** - Provides standardized user interface support to farmOS modules.
