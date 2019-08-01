@@ -5,6 +5,8 @@ about farmOS, [contact m.stenta](https://farmier.com/contact).
 
 ## 2019
 
+**2019 July 31st** [Foundation for Food and Agriculture Research: Global Collaborative Launches OpenTEAM™](https://foundationfar.org/2019/07/31/global-collaborative-launches-openteam-the-first-open-source-technology-ecosystem-in-the-world-to-address-soil-health-and-mitigate-climate-change)
+
 **2019 July 23rd** [Red Hat Open Source Stories: Farming for the Future - The Open Farmer](https://www.redhat.com/en/open-source-stories/farming-for-the-future/open-farme)
 
 **2019 May 8th** [Red Hat Open Source Stories: Farming for the Future](https://www.redhat.com/en/open-source-stories/farming-for-the-future)
