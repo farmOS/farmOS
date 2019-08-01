@@ -30,13 +30,14 @@ to begin using farmOS.
 
 The first thing you will see when you log in is the farmOS dashboard.
 
-On the left is the farm map, where you will see any areas that you have
+On the left are the todo lists. The "Plan" shows all upcoming tasks that need
+to be done. If you miss a task, a "Late tasks" list will also be displayed
+underneath.
+
+On the right is the farm map, where you will see any areas that you have
 mapped. You can use this to navigate to records within farmOS by clicking on
 an area and then clicking on the available links within the area popup.
 
-On the right are the todo lists. The "Plan" shows all upcoming tasks that need
-to be done. If you miss a task, a "Late tasks" list will also be displayed
-underneath.
 
 <video width="100%" controls>
   <source src="/demo/dashboard.mp4" type="video/mp4">
