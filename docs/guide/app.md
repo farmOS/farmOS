@@ -42,7 +42,7 @@ The source code can be viewed on [GitHub]
 
 [Play Store]: https://play.google.com/store/apps/details?id=org.farmos.app
 [Test Flight]: https://developer.apple.com/testflight/
-[sign up here]: https://docs.google.com/forms/d/e/1FAIpQLSf0brjVUEKiwG1iw4D386iKgbpw5xQ-YJ3w-1iBdKXO-RyK0g/viewform?usp=sf_link
+[sign up here]: https://testflight.apple.com/join/A35xRBwE
 [farmos.app]: https://farmos.app
 [Progressive Web App]: https://developers.google.com/web/progressive-web-apps/
 [Development Section]: /development/client
