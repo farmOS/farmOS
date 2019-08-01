@@ -22,7 +22,9 @@ The *Farm Sensor: Listener* module is a general-purpose sensor sub-module that
 provides a simple "Listener" sensor type. Each sensor asset that is denoted as
 a listener receives a unique URL with a public and private key that data can be
 pushed to using standard [HTTP] requests with [JSON]-encoded data. Data is
-stored in the database and is displayed in the sensor asset within farmOS.
+stored in the database and is displayed in graphs and in table format in the
+sensor asset within farmOS. Data can be exported to CSV, or queried via the API
+(see below).
 
 The listener module is useful for simple data streams. For more complex data, a
 more customized sub-module may be necessary.
