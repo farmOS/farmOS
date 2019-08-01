@@ -97,6 +97,12 @@ To import a KML file, follow these steps:
   <source src="/demo/kml-import.mp4" type="video/mp4">
 </video>
 
+### Exporting a KML file
+
+KML files can be exported from both areas and logs. Open the main Areas list, or
+any list of logs, select one or more, and click the "KML" button that appears at
+the bottom.
+
 ## Remember to save!
 
 When you're done modifying your area, remember to click the Save button at the
