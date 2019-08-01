@@ -49,6 +49,19 @@ There are four ways to zoom in/out:
    will automatically zoom in to your current location. On a computer this will
    use your IP address, and on a mobile device it will use your GPS.
 
+### Geolocating
+
+A "Geolocate" button is available in the top left of the map. This will use your
+device's GPS (if available) and/or IP-based geolocation service to try to find
+your current location and center the map on that point.
+
+### Address search
+
+A search button is available in the left of the map (under the zoom buttons) for
+performing an address search. As you type into the search box, matching
+addresses will be displayed in a dropdown. Select the address that you want from
+that list and the map will be automatically re-centered on that location.
+
 ### Drawing
 
 There are four buttons for drawing shapes:
