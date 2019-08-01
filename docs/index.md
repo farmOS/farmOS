@@ -53,6 +53,12 @@ available on YouTube: [https://youtu.be/6L0is9gUowY]
 
 <iframe width="640" height="360" src="https://www.youtube.com/embed/6L0is9gUowY?rel=0" frameborder="0" allowfullscreen></iframe>
 
+### OpenTEAM (Open Technology Ecosystem for Agricultural Management)
+
+farmOS is part of [OpenTEAM], which is summarized in a video by [Stonyfield],
+available on YouTube: [https://youtu.be/U9YZ4H10ves]
+
+<iframe width="640" height="360" src="https://www.youtube.com/embed/U9YZ4H10ves?rel=0" frameborder="0" allowfullscreen></iframe>
 
 ### GODAN Documentary Web Series
 
@@ -98,6 +104,9 @@ The full workshop recording is available on YouTube:
 [https://youtu.be/ATUEWrlDbWw]: https://youtu.be/ATUEWrlDbWw
 [Red Hat Open Source Stories - Farming for the Future Series: "The Open Farmer"]: https://www.redhat.com/en/open-source-stories/farming-for-the-future/open-farmer
 [https://youtu.be/6L0is9gUowY]: https://youtu.be/6L0is9gUowY
+[OpenTEAM]: https://wolfesneck.org/openteam
+[Stonyfield]: https://www.stonyfield.com
+[https://youtu.be/U9YZ4H10ves]: https://youtu.be/U9YZ4H10ves
 [CNBC: The Future Of Farming Is Utilizing Data In An Open Source Network Of Farmers]: https://youtu.be/zua1y-hBcGc
 [GODAN Documentary Web Series: "OPEN FARMS"]: http://www.godan.info/news/open-farms-godan-documentary-web-series-episode-3
 [https://youtu.be/bCOqg5iH6fM]: https://youtu.be/bCOqg5iH6fM
