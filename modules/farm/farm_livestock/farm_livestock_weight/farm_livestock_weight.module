@@ -171,7 +171,8 @@ function farm_livestock_weight_report_form($form, &$form_state) {
      '#type' => 'date_select',
      '#title' => t('Start date'),
      '#description' => t('First recorded date of animal weights to include..'),
-     '#default_value' => $current_date,
+     '#default_value' => '',
+     '#date_year_range' => '-10:+1',
      '#date_format' => $format,
      '#date_label_position' => 'within',
   );
@@ -181,6 +182,7 @@ function farm_livestock_weight_report_form($form, &$form_state) {
      '#title' => t('End date'),
      '#description' => t('Last recorded date of animal weights to include..'),
      '#default_value' => $current_date,
+     '#date_year_range' => '-10:+1',
      '#date_format' => $format,
      '#date_label_position' => 'within',
   );
