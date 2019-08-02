@@ -312,7 +312,8 @@ function farm_ledger_views_default_views() {
   $handler->display->display_options['fields']['field_farm_lot_number']['id'] = 'field_farm_lot_number';
   $handler->display->display_options['fields']['field_farm_lot_number']['table'] = 'field_data_field_farm_lot_number';
   $handler->display->display_options['fields']['field_farm_lot_number']['field'] = 'field_farm_lot_number';
-  /* Field: Field: Value */
+  $handler->display->display_options['fields']['field_farm_lot_number']['label'] = 'Lot number';
+  /* Field: Field: Quantity */
   $handler->display->display_options['fields']['field_farm_quantity_value']['id'] = 'field_farm_quantity_value';
   $handler->display->display_options['fields']['field_farm_quantity_value']['table'] = 'field_data_field_farm_quantity_value';
   $handler->display->display_options['fields']['field_farm_quantity_value']['field'] = 'field_farm_quantity_value';
@@ -565,7 +566,7 @@ function farm_ledger_views_default_views() {
     t('Areas'),
     t('Seller'),
     t('Invoice number'),
-    t('Purchase lot number'),
+    t('Lot number'),
     t('Quantity'),
     t('Units'),
     t('Unit price'),
@@ -886,7 +887,8 @@ function farm_ledger_views_default_views() {
   $handler->display->display_options['fields']['field_farm_lot_number']['id'] = 'field_farm_lot_number';
   $handler->display->display_options['fields']['field_farm_lot_number']['table'] = 'field_data_field_farm_lot_number';
   $handler->display->display_options['fields']['field_farm_lot_number']['field'] = 'field_farm_lot_number';
-  /* Field: Field: Value */
+  $handler->display->display_options['fields']['field_farm_lot_number']['label'] = 'Lot number';
+  /* Field: Field: Quantity */
   $handler->display->display_options['fields']['field_farm_quantity_value']['id'] = 'field_farm_quantity_value';
   $handler->display->display_options['fields']['field_farm_quantity_value']['table'] = 'field_data_field_farm_quantity_value';
   $handler->display->display_options['fields']['field_farm_quantity_value']['field'] = 'field_farm_quantity_value';
@@ -1139,7 +1141,7 @@ function farm_ledger_views_default_views() {
     t('Areas'),
     t('Customer'),
     t('Invoice number'),
-    t('Sale lot number'),
+    t('Lot number'),
     t('Quantity'),
     t('Units'),
     t('Unit price'),
