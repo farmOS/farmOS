@@ -309,8 +309,8 @@ function farm_livestock_weight_report_form_submit($form, &$form_state) {
   $csvdata = 'AssetID, AssetName, Group, ';
 
   // Add columns for each date collected.
-  foreach ($log_dates as $date) {
-    $csvdata .= 'Date ' . $date . ', Weight, Units,';
+  foreach ($all_log_dates as $date) {
+    $csvdata .= 'Date - ' . $date . ',Weight,Units,';
   }
   $csvdata .= PHP_EOL;
 
