@@ -210,7 +210,7 @@ function farm_livestock_weight_report_form_submit($form, &$form_state) {
 
   // Array to store dates of animal weight logs for CSV export.
   $date_format = 'Y-m-d';
-  $log_dates = array();
+  $all_log_dates = array();
 
   // Array to store animals and log data
   $animals = array();
@@ -243,6 +243,9 @@ function farm_livestock_weight_report_form_submit($form, &$form_state) {
       }
       $logs = farm_quantity_log_asset($asset, 'weight', NULL, $time, TRUE, NULL, FALSE);
 
+      // Array to save log dates for this one animal.
+      $log_dates = array();
+
       // Array to save data from animal logs.
       $all_log_data = array();
 
@@ -261,6 +264,8 @@ function farm_livestock_weight_report_form_submit($form, &$form_state) {
         // Add the log date to the array if not already included.
         if (!in_array($log_date, $log_dates)){
           $log_dates[] = $log_date;
+        } else {
+          continue;
         }
 
         // Extract quantity data from the log.
@@ -282,6 +287,9 @@ function farm_livestock_weight_report_form_submit($form, &$form_state) {
           }
         }
       }
+      // Merge animal's log dates with all_log_dates.
+      $all_log_dates = array_unique( array_merge( $all_log_dates, $log_dates));
+
       // Save all log data with the animal.
       $asset->all_log_data = $all_log_data;
 
@@ -291,7 +299,7 @@ function farm_livestock_weight_report_form_submit($form, &$form_state) {
   }
 
   // Sort all collected log_dates.
-  asort($log_dates);
+  sort($all_log_dates);
 
   // Prepare CSV file.
   drupal_add_http_header('Content-Type', 'text/csv');
