@@ -334,15 +334,19 @@ function farm_livestock_weight_report_form_submit($form, &$form_state) {
     // Sort the logs by date.
     usort($logs, "farm_livestock_weight_log_array_sort_date");
 
-    // Save a counter for which column to check against the log date.
+    // Save a counter for which log to compare.
     $curr_log_index = 0;
 
-    // Loop through each column and add log data if log date == column date.
+    // Save a counter for which column to compare.
+    $curr_column_index = 0;
+
+    // Walk through each column and add log data if log date == column date.
     // Note that each date requires 3 columns in the CSV file to display the
     // date, value and units of recorded log weights.
-    foreach($log_dates as $column_date) {
+    while($curr_log_index < sizeof($logs) && $curr_column_index < sizeof($all_log_dates)) {
+
       // Conert the dates to times for easier comparison.
-      $column_time = strtotime($column_date);
+      $column_time = strtotime($all_log_dates[$curr_column_index]);
       $log_time = strtotime($logs[$curr_log_index]['date']);
 
       // If the log_time is less than column_time, then there are multiple logs
@@ -352,22 +356,21 @@ function farm_livestock_weight_report_form_submit($form, &$form_state) {
         $curr_log_index += 1;
 
       // Set empty values if the times don't match.
+      // Move to next column
       } else if ($column_time != $log_time) {
         $row[] = '';
         $row[] = '';
         $row[] = '';
+        $curr_column_index += 1;
 
       // Save the log date, value and units if the times match.
+      // Move to next column, and next log.
       } else {
         $row[] = $logs[$curr_log_index]['date'];
         $row[] = $logs[$curr_log_index]['value'];
         $row[] = $logs[$curr_log_index]['units'];
+        $curr_column_index += 1;
         $curr_log_index += 1;
-      }
-
-      // Exit if there are no more logs to check.
-      if ($curr_log_index >= sizeof($logs)) {
-        break;
       }
     }
 
