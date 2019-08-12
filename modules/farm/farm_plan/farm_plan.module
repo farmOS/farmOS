@@ -914,6 +914,46 @@ function farm_plan_entity_view_alter(&$build, $type) {
 }
 
 /**
+ * Implements hook_entity_update().
+ */
+function farm_plan_entity_update($entity, $type) {
+
+  // If a plan is made inactive, archive all assets linked to it, and vice
+  // versa.
+  if ($type != 'farm_plan') {
+    return;
+  }
+  if (!(isset($entity->original) && isset($entity->original->active))) {
+    return;
+  }
+  if ($entity->active == $entity->original->active) {
+    return;
+  }
+  if (empty($entity->active)) {
+    $archived = REQUEST_TIME;
+  }
+  else {
+    $archived = FALSE;
+  }
+  $asset_ids = farm_plan_linked_records('asset', $entity->id);
+  foreach ($asset_ids as $asset_id) {
+    $asset = farm_asset_load($asset_id);
+    if ($asset->archived != $archived) {
+      $asset->archived = $archived;
+      farm_asset_save($asset);
+
+      // If the asset was archived, set a message.
+      if (!empty($archived)) {
+        $asset_label = entity_label('farm_asset', $asset);
+        $asset_uri = entity_uri('farm_asset', $asset);
+        $message = t('The asset <a href="!asset_path">%asset_label</a> has been archived.', array('!asset_path' => url($asset_uri['path']), '%asset_label' => $asset_label));
+        drupal_set_message($message);
+      }
+    }
+  }
+}
+
+/**
  * Implements hook_entity_delete().
  */
 function farm_plan_entity_delete($entity, $type) {
