@@ -103,7 +103,7 @@ function farm_livestock_weight_menu() {
     'title' => 'Weight',
     'page callback' => 'farm_livestock_weight_report',
     'page arguments' => array($farm_asset_uri_argument_position),
-    'access callback' => 'farm_livestock_weight_report_access',
+    'access callback' => 'farm_livestock_weight_individual_report_access',
     'access arguments' => array($farm_asset_uri_argument_position),
     'file' => 'farm_livestock_weight.report.inc',
     'type' => MENU_LOCAL_TASK,
@@ -121,6 +121,26 @@ function farm_livestock_weight_menu() {
 
   return $items;
 };
+
+/**
+ * Individual report view access callback.
+ *
+ * @param $farm_asset
+ *   The asset to check access for.
+ *
+ * @return bool
+ *   Returns boolean value indicating whether or not access is granted.
+ */
+function farm_livestock_weight_individual_report_access($farm_asset) {
+
+  // If the asset is not an animal, deny access.
+  if ($farm_asset->type != 'animal') {
+    return FALSE;
+  }
+
+  // Finally, check to see if the user has access to the asset.
+  return farm_asset_access('view', $farm_asset);
+}
 
 /**
  * Animal group report form.
