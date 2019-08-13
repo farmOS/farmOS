@@ -165,6 +165,21 @@ function farm_map_settings_form_submit($form, $form_state) {
 }
 
 /**
+ * Implements hook_farm_info().
+ */
+function farm_map_farm_info() {
+  $info = array();
+
+  // Add the Google Maps API key to /farm.json.
+  $google_maps_api_key = variable_get('farm_map_google_api_key', '');
+  if (!empty($google_maps_api_key)) {
+    $info['google_maps_api_key'] = $google_maps_api_key;
+  }
+
+  return $info;
+}
+
+/**
  * Implements hook_openlayers_object_preprocess_alter().
  */
 function farm_map_openlayers_object_preprocess_alter(&$build, $context) {
