@@ -385,8 +385,8 @@ function farm_plan_entity_view($entity, $type, $view_mode, $langcode) {
  */
 function farm_plan_farm_ui_entity_views($entity_type, $bundle, $entity) {
 
-  // If the entity is not a plantation plan, bail.
-  if (!($entity_type == 'farm_plan' && $bundle == 'forest_plantation')) {
+  // If the entity is not a plan, bail.
+  if (!($entity_type == 'farm_plan')) {
     return array();
   }
 
