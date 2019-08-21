@@ -5,6 +5,18 @@
  */
 
 /**
+ * Implements hook_init().
+ */
+function farm_access_init() {
+
+  // Allow API access from https://farmOS.app.
+  drupal_add_http_header('Access-Control-Allow-Origin', 'https://farmos.app');
+  drupal_add_http_header('Access-Control-Allow-Credentials', 'true');
+  drupal_add_http_header('Access-Control-Allow-Headers', 'Content-Type,Authorization,X-CSRF-Token');
+  drupal_add_http_header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,HEAD,OPTIONS');
+}
+
+/**
  * Implements hook_hook_info().
  */
 function farm_access_hook_info() {
