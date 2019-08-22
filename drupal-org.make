@@ -30,8 +30,6 @@ projects[date][patch][] = "http://www.drupal.org/files/issues/2019-07-16/date-se
 
 projects[entity][subdir] = "contrib"
 projects[entity][version] = "1.9"
-; Patch to fix Issue #3076175: PostgreSQL: PDOException:Invalid text representation when attempting to load an entity with a string or non-scalar ID
-projects[entity][patch][] = "http://www.drupal.org/files/issues/2019-08-21/entity_postgresql_cleanids-3076175-7.patch"
 
 projects[entityreference][subdir] = "contrib"
 projects[entityreference][version] = "1.5"
