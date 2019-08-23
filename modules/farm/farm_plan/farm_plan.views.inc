@@ -47,6 +47,22 @@ function farm_plan_views_data_alter(&$data) {
       ),
     );
 
+    // Describe the entity ID column.
+    $data[$info['table']][$info['field']] = array(
+      'title' => $info['field'],
+      'help' => t('The @record_type ID that this plan is associated with.', array('@record_type' => $record_type)),
+      'relationship' => array(
+        'base' => $entity_type_table,
+        'field' => $info['field'],
+        'left field' => $info['entity_pk'],
+        'label' => $record_type,
+      ),
+      'argument' => array(
+        'help' => t('The plan associated with the @record_type.', array('@record_type' => $record_type)),
+        'handler' => 'views_handler_argument_numeric',
+      ),
+    );
+
     // Describe the Plan ID column.
     $data[$info['table']]['plan_id'] = array(
       'title' => t('Plan ID'),
