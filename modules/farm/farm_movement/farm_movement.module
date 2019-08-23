@@ -24,6 +24,15 @@ function farm_movement_entity_property_info_alter(&$info) {
     'computed' => TRUE,
   );
 
+  // Add a geometry property to assets.
+  $info['farm_asset']['properties']['geometry'] = array(
+    'type' => 'text',
+    'label' => t('Asset geometry'),
+    'description' => t('The current geometry of the asset'),
+    'getter callback' => 'farm_movement_asset_geometry_property_get',
+    'computed' => TRUE,
+  );
+
   // Add an assets property to areas.
   $info['taxonomy_term']['bundles']['farm_areas']['properties']['assets'] = array(
     'type' => 'list<farm_asset>',
@@ -49,6 +58,23 @@ function farm_movement_asset_location_property_get($data, array $options, $name,
 
   // Return the areas.
   return $areas;
+}
+
+/**
+ * Getter callback for the geometry asset property.
+ */
+function farm_movement_asset_geometry_property_get($data, array $options, $name, $type, $info) {
+
+  // If the asset doesn't have an ID, bail.
+  if (empty($data->id)) {
+    return array();
+  }
+
+  // Look up the asset geometry.
+  $geometry = farm_movement_asset_geometry($data);
+
+  // Return the geometry.
+  return $geometry;
 }
 
 /**

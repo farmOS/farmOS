@@ -186,7 +186,7 @@ function farm_movement_asset_location_submit(array $form, array &$form_state) {
 }
 
 /**
- * Find the location of an asset.
+ * Find the location of an asset, based on movement logs.
  *
  * @param FarmAsset $asset
  *   The farm_asset object to look for.
@@ -215,6 +215,7 @@ function farm_movement_asset_location(FarmAsset $asset, $time = REQUEST_TIME, $d
   // Load the log's movement field
   $movement = field_collection_item_load($log->field_farm_movement[LANGUAGE_NONE][0]['value']);
 
+  // Load the areas referenced in the "Move to" field.
   if (!empty($movement->field_farm_move_to[LANGUAGE_NONE])) {
     foreach ($movement->field_farm_move_to[LANGUAGE_NONE] as $area_reference) {
       if (!empty($area_reference['tid'])) {
@@ -226,6 +227,43 @@ function farm_movement_asset_location(FarmAsset $asset, $time = REQUEST_TIME, $d
     }
   }
   return $areas;
+}
+
+/**
+ * Find the geometry of an asset, based on movement logs.
+ *
+ * @param FarmAsset $asset
+ *   The farm_asset object to look for.
+ * @param int $time
+ *   Unix timestamp limiter. Only logs before this time will be included.
+ *   Defaults to the current time. Set to 0 to load the absolute last.
+ * @param bool|null $done
+ *   Whether or not to only show logs that are marked as "done". TRUE will limit
+ *   to logs that are done, and FALSE will limit to logs that are not done. If
+ *   this is set to NULL, no filtering will be applied. Defaults to TRUE.
+ *
+ * @return string
+ *   Returns the asset's current geometry, in WKT (well-known text).
+ */
+function farm_movement_asset_geometry(FarmAsset $asset, $time = REQUEST_TIME, $done = TRUE) {
+  $geometry = '';
+
+  // Load the log using our helper function.
+  $log = farm_movement_asset_latest_movement($asset, $time, $done);
+
+  // If a movement field doesn't exist, bail.
+  if (empty($log->field_farm_movement[LANGUAGE_NONE][0]['value'])) {
+    return $geometry;
+  }
+
+  // Load the log's movement field
+  $movement = field_collection_item_load($log->field_farm_movement[LANGUAGE_NONE][0]['value']);
+
+  // Load the movement geometry.
+  if (!empty($movement->field_farm_geofield[LANGUAGE_NONE][0]['geom'])) {
+    $geometry = $movement->field_farm_geofield[LANGUAGE_NONE][0]['geom'];
+  }
+  return $geometry;
 }
 
 /**
