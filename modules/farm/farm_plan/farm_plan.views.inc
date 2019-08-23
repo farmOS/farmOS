@@ -31,16 +31,13 @@ function farm_plan_views_data_alter(&$data) {
     // defined explicitly. If it isn't, then we use the machine name.
     $entity_type_table = !empty($info['entity_type_table']) ? $info['entity_type_table'] : $info['entity_type'];
 
-    // Create an implicit relationship with the entity type table.
+    // Create implicit relationships between the plan record table and the plan
+    // and record entity tables.
     $data[$info['table']]['table']['join'] = array(
       $entity_type_table => array(
         'left_field' => $info['entity_pk'],
         'field' => $info['field'],
       ),
-    );
-
-    // Create an implicit relationship with the {farm_plan} table.
-    $data[$info['table']]['table']['join'] = array(
       'farm_plan' => array(
         'left_field' => 'id',
         'field' => 'plan_id',
