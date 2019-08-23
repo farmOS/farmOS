@@ -319,6 +319,15 @@ differ slightly. The following are standard fields available on most log types:
   on the asset as JSON, XML, YAML, etc. **It is the resposibility of the API
   user to respect data format that is already in the log.**
 
+Assets will also have the following special-purpose fields, which are computed
+based on the asset's log history. These fields cannot be written to directly,
+they can only be changed via logs.
+
+* `location`: An array of references to areas that the asset is currently
+  located in, based on its most recent completed movement log.
+* `geometry`: The current geometry of the asset, based on its most recent
+  completed movement log.
+
 #### Planting assets
 
 Additional fields on animal assets:
@@ -472,6 +481,13 @@ Do not add `.json` or `.xml` to the endpoint's URL. Instead, add a
 For example, to change the name of log 1:
 
     curl -X PUT [AUTH] -H 'Content-Type: application/json' -d '{"name": "Change the log name"}' [URL]/log/1
+
+Areas will also have the following special-purpose fields, which are computed
+based on log history. These fields cannot be written to directly, they can only
+be changed via logs.
+
+* `assets`: An array of references to assets that are currently located in the
+  area, based on asset movement logs.
 
 ## Field collections
 
