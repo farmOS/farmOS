@@ -24,16 +24,26 @@ function farm_plan_views_data_alter(&$data) {
     // Describe the database table to Views.
     $data[$info['table']]['table']['group'] = t('Farm plan records');
 
-    // Create an implicit relationship with the entity type table.
+    // Figure out the entity type table.
     // Sometimes the entity type table name is not the same as the entity type
     // machine name (for example: taxonomy_term entities are in a table named
     // taxonomy_term_data), so we allow for the entity type table name to be
     // defined explicitly. If it isn't, then we use the machine name.
     $entity_type_table = !empty($info['entity_type_table']) ? $info['entity_type_table'] : $info['entity_type'];
+
+    // Create an implicit relationship with the entity type table.
     $data[$info['table']]['table']['join'] = array(
       $entity_type_table => array(
         'left_field' => $info['entity_pk'],
         'field' => $info['field'],
+      ),
+    );
+
+    // Create an implicit relationship with the {farm_plan} table.
+    $data[$info['table']]['table']['join'] = array(
+      'farm_plan' => array(
+        'left_field' => 'id',
+        'field' => 'plan_id',
       ),
     );
 
