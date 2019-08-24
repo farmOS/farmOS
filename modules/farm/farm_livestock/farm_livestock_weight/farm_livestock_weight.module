@@ -114,7 +114,7 @@ function farm_livestock_weight_menu() {
   $items['farm/report/weight'] = array(
     'title' => 'Animal Weights',
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('farm_livestock_weight_report_form'),
+    'page arguments' => array('farm_livestock_weight_group_report_form'),
     'access arguments' => array('view farm reports'),
     'type' => MENU_LOCAL_TASK,
   );
@@ -145,7 +145,7 @@ function farm_livestock_weight_individual_report_access($farm_asset) {
 /**
  * Animal group report form.
  */
-function farm_livestock_weight_report_form($form, &$form_state) {
+function farm_livestock_weight_group_report_form($form, &$form_state) {
 
   // Set the page title.
   drupal_set_title('Animal Weights');
@@ -173,8 +173,16 @@ function farm_livestock_weight_report_form($form, &$form_state) {
     }
   }
 
+  // Define the input fieldset
+  $form['input'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Input Form'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+
   // Create a select field for the groups.
-  $form['group'] = array(
+  $form['input']['group'] = array(
     '#type' => 'select',
     '#title' => t('Animal Group'),
     '#description' => t('Select the group(s) of animals to include in the weight report.'),
@@ -187,7 +195,7 @@ function farm_livestock_weight_report_form($form, &$form_state) {
   $format = 'Y-m-d';
   $current_date = date($format, REQUEST_TIME);
 
-  $form['start_date'] = array(
+  $form['input']['start_date'] = array(
      '#type' => 'date_select',
      '#title' => t('Start date'),
      '#description' => t('First recorded date of animal weights to include..'),
@@ -197,7 +205,7 @@ function farm_livestock_weight_report_form($form, &$form_state) {
      '#date_label_position' => 'within',
   );
 
-  $form['end_date'] = array(
+  $form['input']['end_date'] = array(
      '#type' => 'date_select',
      '#title' => t('End date'),
      '#description' => t('Last recorded date of animal weights to include..'),
@@ -208,10 +216,35 @@ function farm_livestock_weight_report_form($form, &$form_state) {
   );
 
   // Add submit button to generate report.
-  $form['submit'] = array(
+  $form['input']['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Submit'),
+    '#submit' => array('farm_livestock_weight_group_report_form_submit'),
   );
+
+  // Add submit button to download CSV.
+  $form['input']['csv'] = array(
+    '#type' => 'submit',
+    '#value' => t('CSV'),
+    '#submit' => array('farm_livestock_weight_group_report_csv'),
+  );
+
+  // Display results from the form.
+  if (!empty($form_state['results_table'])) {
+    // Hide the input fieldset
+    $form['input']['#collapsed'] = TRUE;
+
+    // Create a results fieldset.
+    $form['results'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Results'),
+      '#collapsible' => TRUE,
+      '#collapsed' => FALSE,
+    );
+
+    // Display the HTML Table.
+    $form['results']['results_table'] = array('#markup' => $form_state['results_table']);
+  }
 
   return $form;
 }
@@ -219,7 +252,16 @@ function farm_livestock_weight_report_form($form, &$form_state) {
 /**
  * Submit handler for the weight report form
  */
-function farm_livestock_weight_report_form_submit($form, &$form_state) {
+function farm_livestock_weight_group_report_form_submit($form, &$form_state) {
+  $results = farm_livestock_weight_group_report($form_state);
+  $form_state['results_table'] = $results['table'];
+  $form_state['rebuild'] = TRUE;
+}
+
+/**
+ * Generate Animal Weight Group Report
+ */
+function farm_livestock_weight_group_report(&$form_state) {
 
   // Get the submitted group IDs to include in the report.
   $group_ids = $form_state['values']['group'];
@@ -321,18 +363,18 @@ function farm_livestock_weight_report_form_submit($form, &$form_state) {
   // Sort all collected log_dates.
   sort($all_log_dates);
 
-  // Prepare CSV file.
-  drupal_add_http_header('Content-Type', 'text/csv');
-  drupal_add_http_header('Content-Disposition', 'attachment; filename=animal_weights.csv');
-
-  // Add the CSV header.
-  $csvdata = 'AssetID, AssetName, Group, ';
+  // Create a header for CSV and HTML Table
+  $header = array('AssetID', 'AssetName', 'Group');
 
   // Add columns for each date collected.
   foreach ($all_log_dates as $date) {
-    $csvdata .= 'Date - ' . $date . ',Weight,Units,';
+    $header[] = 'Date - ' . $date ;
+    $header[] = 'Weight';
+    $header[] = 'Units';
   }
-  $csvdata .= PHP_EOL;
+
+  // Add the CSV header.
+  $csvdata = implode(',', $header) . PHP_EOL;
 
   foreach ($animals as $animal) {
     // Add a row of data.
@@ -346,7 +388,8 @@ function farm_livestock_weight_report_form_submit($form, &$form_state) {
 
     // Skip adding logs if the animal has no logs
     if (sizeof($logs) == 0) {
-      // Add to Animal info to CSV string.
+      // Add Animal info to results.
+      $table_data[] = $row;
       $csvdata .= implode(',', $row) . PHP_EOL;
       continue;
     }
@@ -375,29 +418,57 @@ function farm_livestock_weight_report_form_submit($form, &$form_state) {
       if ($column_time > $log_time) {
         $curr_log_index += 1;
 
-      // Set empty values if the times don't match.
-      // Move to next column
+        // Set empty values if the times don't match.
+        // Move to next column
       } else if ($column_time != $log_time) {
         $row[] = '';
         $row[] = '';
         $row[] = '';
         $curr_column_index += 1;
 
-      // Save the log date, value and units if the times match.
-      // Move to next column, and next log.
+
       } else {
-        $row[] = $logs[$curr_log_index]['date'];
-        $row[] = $logs[$curr_log_index]['value'];
-        $row[] = $logs[$curr_log_index]['units'];
+        $log_date = $logs[$curr_log_index]['date'];
+        $log_value = $logs[$curr_log_index]['value'];
+        $log_units = $logs[$curr_log_index]['units'];
+
+        // Save the log date, value and units if the times match.
+        $row[] = $log_date;
+        $row[] = $log_value;
+        $row[] = $log_units;
+
+        // Move to next column, and next log.
         $curr_column_index += 1;
         $curr_log_index += 1;
       }
     }
 
+    // Add row to HTML Table
+    $table_data[] = $row;
+
     // Add to CSV string
     $csvdata .= implode(',', $row) . PHP_EOL;
   }
-  print $csvdata;
+
+  // Create HTML Table
+  $table = theme('table', array('header' => $header, 'rows' => $table_data));
+
+  return array(
+    'table' => $table,
+    'csv' => $csvdata,
+  );
+}
+
+/**
+ * Animal Weight Group Report CSV Export
+ */
+function farm_livestock_weight_group_report_csv($form, &$form_state){
+  $results = farm_livestock_weight_group_report($form_state);
+
+  drupal_add_http_header('Content-Type', 'text/csv');
+  drupal_add_http_header('Content-Disposition', 'attachment; filename=animal_weights.csv');
+  print $results['csv'];
+
   drupal_exit();
 }
 
