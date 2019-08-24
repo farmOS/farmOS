@@ -101,7 +101,7 @@ function farm_livestock_weight_menu() {
   // Animal asset report tab.
   $items[$farm_asset_uri . '/weight'] = array(
     'title' => 'Weight',
-    'page callback' => 'farm_livestock_weight_report',
+    'page callback' => 'farm_livestock_weight_individual_report',
     'page arguments' => array($farm_asset_uri_argument_position),
     'access callback' => 'farm_livestock_weight_individual_report_access',
     'access arguments' => array($farm_asset_uri_argument_position),

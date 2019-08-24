@@ -14,7 +14,7 @@
  * @return
  *   Returns the page content.
  */
-function farm_livestock_weight_report(FarmAsset $farm_asset) {
+function farm_livestock_weight_individual_report(FarmAsset $farm_asset) {
   $output = '';
 
   // Get the assets current weight.
