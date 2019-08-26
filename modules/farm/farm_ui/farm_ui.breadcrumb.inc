@@ -8,18 +8,19 @@
  */
 function _farm_ui_menu_breadcrumb_alter(&$active_trail, $item) {
 
-  // If the current path contains /farm, and there are more than 2 trail items:
-  if (strpos($item['path'], 'farm') === 0 && count($active_trail) > 2) {
+  // If the current path is the front page, and there are more than 2 items:
+  $front = variable_get('site_frontpage', 'farm');
+  if (strpos($item['path'], $front) === 0 && count($active_trail) > 2) {
 
-    // If the link to /farm already exists in the second position, bail.
-    if (!empty($active_trail[1]['link_path']) && $active_trail[1]['link_path'] == 'farm') {
+    // If a link to the front page already exists in the second position, bail.
+    if (!empty($active_trail[1]['link_path']) && $active_trail[1]['link_path'] == $front) {
       return;
     }
 
-    // Add an item for /farm.
+    // Add an item for the front page.
     $start = array_shift($active_trail);
-    $farm_item = menu_get_item('farm');
-    array_unshift($active_trail, $farm_item);
+    $front_item = menu_get_item($front);
+    array_unshift($active_trail, $front_item);
     array_unshift($active_trail, $start);
   }
 }
@@ -41,9 +42,11 @@ function farm_ui_entity_set_breadcrumb($entity_type, $bundle) {
   $breadcrumb = farm_ui_entity_type_breadcrumb($entity_type, $bundle);
 
   // Add base breadcrumb items to the front.
+  $front = variable_get('site_frontpage', 'farm');
+  $front_item = menu_get_item($front);
   $base = array(
     l(t('Home'), '<front>'),
-    l(t('Farm'), 'farm'),
+    l($front_item['title'], $front),
   );
   $breadcrumb = array_merge($base, $breadcrumb);
 
