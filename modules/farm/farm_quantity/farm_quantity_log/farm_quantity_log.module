@@ -454,20 +454,19 @@ function farm_quantity_log_update_measurement_by_label($log, $label, $value) {
   // Iterate over the quantities.
   foreach ($log_wrapper->field_farm_quantity as $quantity) {
 
-    // If a label doesn't match, skip it.
-    if ($quantity->field_farm_quantity_label->value() != $label) {
-      continue;
+    // If a label matches, update it.
+    if ($quantity->field_farm_quantity_label->value() == $label) {
+
+      // Clear the old value.
+      $quantity->field_farm_quantity_value = array();
+
+      // Add the new value.
+      $value_fraction = fraction_from_decimal($value);
+      $quantity->field_farm_quantity_value->numerator->set($value_fraction->getNumerator());
+      $quantity->field_farm_quantity_value->denominator->set($value_fraction->getDenominator());
+
+      // Save the quantity.
+      $quantity->save();
     }
-
-    // Clear the old value.
-    $quantity->field_farm_quantity_value = array();
-
-    // Add the new value.
-    $value_fraction = fraction_from_decimal($value);
-    $quantity->field_farm_quantity_value->numerator->set($value_fraction->getNumerator());
-    $quantity->field_farm_quantity_value->denominator->set($value_fraction->getDenominator());
-
-    // Save the quantity.
-    $quantity->save();
   }
 }
