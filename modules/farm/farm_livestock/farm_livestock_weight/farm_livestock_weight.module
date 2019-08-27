@@ -496,20 +496,21 @@ function farm_livestock_weight_group_report(&$form_state) {
   // Create a graph object to pass to JS.
   $graphs = array();
 
+  // Create graphs for each group
   foreach($group_date_averages as $group){
     $group_name = $group['group']->name;
 
     // Sort the array by date
     ksort($group['dates']);
 
-    // Create a Weight Report Graph
+    // Create Average Weight Graph
     $graph = array(
-      'name' => $group_name,
-      'id' => 'farm-livestock-weight-group-' . $group_name . '-graph',
+      'name' => 'Average Weight - ' . $group_name,
+      'id' => 'farm-livestock-average-weight-' . $group_name . '-graph',
       'data' => $group['dates'],
     );
     $graphs[] = $graph;
-    $graph_markup[] = '<div id="farm-livestock-weight-group-' . $group_name . '-graph" class="farm-report-graph"></div>';
+    $graph_markup[] = '<div id="farm-livestock-average-weight-' . $group_name . '-graph" class="farm-report-graph"></div>';
   }
 
   $graph_settings = array(
