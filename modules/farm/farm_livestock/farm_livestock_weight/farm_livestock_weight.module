@@ -503,6 +503,32 @@ function farm_livestock_weight_group_report(&$form_state) {
     // Sort the array by date
     ksort($group['dates']);
 
+    $dates = array_keys($group['dates']);
+    for($i = 0; $i < count($group['dates']); $i++){
+      $date = $dates[$i];
+
+      // Calculate average weight.
+      $date_average = $group['dates'][$date]['total_weight'] / $group['dates'][$date]['animal_count'];
+      $group['dates'][$date]['average_weight'] = $date_average;
+
+      // Calculate Average Daily Gain after the first date.
+      if ($i > 0) {
+        $previous_date = $dates[$i -1];
+        $previous_average = $group['dates'][$previous_date]['average_weight'];
+
+        // Calculate gain between the two dates.
+        $gain = $date_average - $previous_average;
+
+        // Calculate days elapsed.
+        $dStart = new DateTime($previous_date);
+        $dEnd = new DateTime($date);
+        $days_elapsed = (int) $dStart->diff($dEnd)->format("%a");
+
+        // Save the daily gain value within the 'date' array.
+        $group['dates'][$date]['gain'] = $gain / $days_elapsed;
+      }
+    }
+
     // Create Average Weight Graph
     $graph = array(
       'name' => 'Average Weight - ' . $group_name,
