@@ -31,7 +31,7 @@
           }
           var date = new Date(d).toISOString();
           average_dates.push(date);
-          average_values.push(data[d].total_weight/data[d].animal_count);
+          average_values.push(data[d].average_weight);
           average_value_text.push(data[d].animal_count + " animals weighed");
 
           if (data[d].hasOwnProperty('gain')) {
