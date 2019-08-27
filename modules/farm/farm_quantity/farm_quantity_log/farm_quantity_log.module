@@ -470,3 +470,34 @@ function farm_quantity_log_update_measurement_by_label($log, $label, $value) {
     }
   }
 }
+
+/**
+ * Helper function for deleting a quantity measurement from a log, based on its
+ * label.
+ *
+ * @param \Log $log
+ *   A log entity.
+ * @param string $label
+ *   The label of the quantity measurement that should be deleted.
+ */
+function farm_quantity_log_delete_measurement_by_label($log, $label) {
+
+  // Load the log entity metadata wrapper.
+  $log_wrapper = entity_metadata_wrapper('log', $log);
+
+  // If there are no quantities, bail.
+  if (empty($log_wrapper->field_farm_quantity)) {
+    return;
+  }
+
+  // Iterate over the quantities.
+  foreach ($log_wrapper->field_farm_quantity as $key => $quantity) {
+
+    // If the label matches, delete it.
+    if ($quantity->field_farm_quantity_label->value() == $label) {
+      entity_delete('field_collection_item', $quantity->item_id->value());
+      unset($log->field_farm_quantity[LANGUAGE_NONE][$key]);
+      log_save($log);
+    }
+  }
+}
