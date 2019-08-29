@@ -124,7 +124,7 @@ added to extend your farmOS functionality:
   flag for marking records as "Biodynamic" in farmOS.
 * **[Farm Eggs](https://github.com/farmOS/farm_eggs)** - Provides a simple UI
   for creating egg harvest logs.
-* **[Farm Forest](https://github.com/mstenta/farm_forest)** - Forest management
+* **[Farm Forest](https://github.com/farmOS/farm_forest)** - Forest management
   module for farmOS.
 * **[Farm Grazing](https://github.com/farmOS/farm_grazing)** - Provides a simple UI
   for creating egg harvest logs.
