@@ -28,6 +28,7 @@ nav:
     - Community modules:
         - Introduction: guide/contrib/index.md
         - Eggs: guide/contrib/eggs.md
+        - Forest: guide/contrib/forest.md
         - Nutrient: guide/contrib/nutrient.md
         - Organic: guide/contrib/organic.md
         - Produce Safety: guide/contrib/produce-safety.md
