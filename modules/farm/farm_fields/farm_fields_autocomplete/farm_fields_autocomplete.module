@@ -46,6 +46,7 @@ function farm_fields_autocomplete($entity_type, $bundle, $field_name, $string) {
   $query->range(0, 10);
 
   // Execute the query to get entity IDs.
+  $entity_ids = array();
   $result = $query->execute();
   if (isset($result[$entity_type])) {
     $entity_ids = array_keys($result[$entity_type]);
