@@ -51,6 +51,10 @@ included in this list, add a comment to [this issue on Github].
 
 * Canaan (Marina Beach, KwaZulu Natal)
 
+## United Kingdon
+
+* Vale Head Farm (Stourbridge, West Midlands)
+
 ## United States
 
 * All In Farm (Georgetown, Texas)
