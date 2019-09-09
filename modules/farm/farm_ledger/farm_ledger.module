@@ -35,56 +35,79 @@ function farm_ledger_farm_ui_entities() {
  */
 function farm_ledger_feeds_importer_default_alter(&$importers) {
 
-  // Add extra field mappings to sales.
-  $name = 'log_farm_sale';
-  if (!empty($importers[$name])) {
-    $mappings = array(
-      array(
-        'source' => 'Customer',
-        'target' => 'field_farm_customer',
-        'unique' => FALSE,
-        'language' => 'und',
-      ),
-      array(
-        'source' => 'Invoice number',
-        'target' => 'field_farm_invoice_number',
-        'unique' => FALSE,
-        'language' => 'und',
-      ),
-      array(
-        'source' => 'Lot number',
-        'target' => 'field_farm_lot_number',
-        'unique' => FALSE,
-        'language' => 'und',
-      ),
-      array(
-        'source' => 'Quantity',
-        'target' => 'field_farm_quantity_value',
-        'unique' => FALSE,
-        'language' => 'und',
-      ),
-      array(
-        'source' => 'Units',
-        'target' => 'field_farm_quantity_units',
-        'term_search' => '0',
-        'autocreate' => 1,
-        'unique' => FALSE,
-        'language' => 'und',
-      ),
-      array(
-        'source' => 'Unit price',
-        'target' => 'field_farm_unit_price',
-        'unique' => FALSE,
-        'language' => 'und',
-      ),
-      array(
-        'source' => 'Total price',
-        'target' => 'field_farm_total_price',
-        'unique' => FALSE,
-        'language' => 'und',
-      ),
-    );
-    $importer_mappings =& $importers[$name]->config['processor']['config']['mappings'];
-    $importer_mappings = array_merge($importer_mappings, $mappings);
+  // Add extra field mappings to sale and purchase log importers.
+  $names = array(
+    'log_farm_sale',
+    'log_farm_purchase',
+  );
+  foreach ($names as $name) {
+    if (!empty($importers[$name])) {
+
+      // Build an array of common mappings shared by both sales and purchases.
+      $mappings = array(
+        array(
+          'source' => 'Invoice number',
+          'target' => 'field_farm_invoice_number',
+          'unique' => FALSE,
+          'language' => 'und',
+        ),
+        array(
+          'source' => 'Lot number',
+          'target' => 'field_farm_lot_number',
+          'unique' => FALSE,
+          'language' => 'und',
+        ),
+        array(
+          'source' => 'Quantity',
+          'target' => 'field_farm_quantity_value',
+          'unique' => FALSE,
+          'language' => 'und',
+        ),
+        array(
+          'source' => 'Units',
+          'target' => 'field_farm_quantity_units',
+          'term_search' => '0',
+          'autocreate' => 1,
+          'unique' => FALSE,
+          'language' => 'und',
+        ),
+        array(
+          'source' => 'Unit price',
+          'target' => 'field_farm_unit_price',
+          'unique' => FALSE,
+          'language' => 'und',
+        ),
+        array(
+          'source' => 'Total price',
+          'target' => 'field_farm_total_price',
+          'unique' => FALSE,
+          'language' => 'und',
+        ),
+      );
+
+      // Sale logs also have a customer field.
+      if ($name == 'log_farm_sale') {
+        $mappings[] = array(
+          'source' => 'Customer',
+          'target' => 'field_farm_customer',
+          'unique' => FALSE,
+          'language' => 'und',
+        );
+      }
+
+      // Purchase logs also have a seller field.
+      elseif ($name == 'log_farm_purchase') {
+        $mappings[] = array(
+          'source' => 'Seller',
+          'target' => 'field_farm_seller',
+          'unique' => FALSE,
+          'language' => 'und',
+        );
+      }
+
+      // Merge the extra mappings into the importer.
+      $importer_mappings =& $importers[$name]->config['processor']['config']['mappings'];
+      $importer_mappings = array_merge($importer_mappings, $mappings);
+    }
   }
 }
