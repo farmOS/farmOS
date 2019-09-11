@@ -12,23 +12,23 @@ function farm_area_types_farm_area_type_info() {
   return array(
     'building' => array(
       'label' => t('Building'),
-      'style' => 'farm_map_style_red',
+      'style' => 'red',
       'weight' => 0,
     ),
     'field' => array(
       'label' => t('Field'),
-      'style' => 'farm_map_style_yellow',
+      'style' => 'yellow',
       'weight' => 10,
       'dashboard_metric' => TRUE,
     ),
     'landmark' => array(
       'label' => t('Landmark'),
-      'style' => 'farm_map_style_orange',
+      'style' => 'orange',
       'weight' => 50,
     ),
     'property' => array(
       'label' => t('Property'),
-      'style' => 'farm_map_style_purple',
+      'style' => 'purple',
       'weight' => 100,
     ),
   );

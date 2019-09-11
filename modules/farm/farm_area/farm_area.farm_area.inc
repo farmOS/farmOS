@@ -11,7 +11,7 @@ function farm_area_farm_area_type_info() {
   return array(
     'other' => array(
       'label' => t('Other'),
-      'style' => 'farm_map_style_blue',
+      'style' => 'blue',
       'weight' => 150,
     ),
   );

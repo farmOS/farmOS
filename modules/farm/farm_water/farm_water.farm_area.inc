@@ -12,7 +12,7 @@ function farm_water_farm_area_type_info() {
   return array(
     'water' => array(
       'label' => t('Water'),
-      'style' => 'farm_map_style_blue',
+      'style' => 'blue',
       'weight' => 50,
     ),
   );
