@@ -84,6 +84,7 @@ If you would like to support farmOS, consider [making a donation].
 * Henry Luciano
 * Mattias Sandström
 * Clément Gandon
+* Allen Tucker
 
 ## Contributors
 
