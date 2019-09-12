@@ -1,0 +1,4 @@
+name = Farm Setup
+description = Provides a setup wizard for farmOS configuration options.
+core = 7.x
+package = farmOS
