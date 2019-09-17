@@ -5,6 +5,16 @@
  */
 
 /**
+ * Implements hook_hook_info().
+ */
+function farm_setup_hook_info() {
+  $hooks['farm_setup_forms'] = array(
+    'group' => 'farm_setup',
+  );
+  return $hooks;
+}
+
+/**
  * Implements hook_permission().
  */
 function farm_setup_permission() {
@@ -35,6 +45,40 @@ function farm_setup_menu() {
     'weight' => 90,
   );
 
+  // Create a default menu tab.
+  $items['farm/setup/start'] = array(
+    'title' => 'Start',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -100,
+  );
+
+  // Ask for setup forms from modules.
+  $forms = farm_setup_forms();
+
+  // Add a menu item for each form.
+  foreach ($forms as $name => $form) {
+
+    // Build a menu item definition.
+    $menu_item = array(
+      'title' => $form['label'],
+      'page callback' => 'farm_setup_form_page',
+      'page arguments' => array($form['label'], $form['form']),
+      'access arguments' => array('access farm setup'),
+      'type' => MENU_LOCAL_TASK,
+      'weight' => !empty($form['weight']) ? $form['weight'] : 0,
+    );
+
+    // If the setup form code is in a separate file, add that information
+    // to the menu item so Drupal knows where to look.
+    if (!empty($form['file']) && !empty($form['module'])) {
+      $menu_item['file'] = $form['file'];
+      $menu_item['file path'] = drupal_get_path('module', $form['module']);
+    }
+
+    // Add a menu item.
+    $items['farm/setup/' . $name] = $menu_item;
+  }
+
   // Return menu items.
   return $items;
 }
@@ -48,4 +92,45 @@ function farm_setup_page() {
     '#type' => 'markup',
     '#markup' => '<p>' . t('This setup wizard will guide you through the process of configuring your farmOS.') . '</p>',
   );
+}
+
+/**
+ * Setup form page callback.
+ */
+function farm_setup_form_page($title, $form_id) {
+  drupal_set_title(t('Setup') . ': ' . $title);
+  return drupal_get_form($form_id);
+}
+
+/**
+ * Load information about all setup forms provided by other modules.
+ */
+function farm_setup_forms() {
+
+  // Ask modules for setup forms.
+  $forms = array();
+  $modules = module_implements('farm_setup_forms');
+  foreach ($modules as $module) {
+    $module_forms = module_invoke($module, 'farm_setup_forms');
+    foreach ($module_forms as &$form) {
+      $form['module'] = $module;
+    }
+    $forms = array_merge($forms, $module_forms);
+  }
+
+  // Sort the setup forms.
+  uasort($forms, 'farm_setup_forms_sort');
+
+  // Return the array of setup forms.
+  return $forms;
+}
+
+/**
+ * Sort function for setup form definitions.
+ */
+function farm_setup_forms_sort($a, $b) {
+  if ($a['weight'] == $b['weight']) {
+    return 0;
+  }
+  return ($a['weight'] < $b['weight']) ? -1 : 1;
 }
