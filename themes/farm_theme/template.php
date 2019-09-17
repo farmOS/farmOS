@@ -477,6 +477,7 @@ function farm_theme_preprocess_page(&$vars) {
     t('Dashboard') => 'dashboard',
     t('Calendar') => 'calendar',
     t('Help') => 'question-sign',
+    t('Setup') => 'cog',
     t('Create new account') =>'user',
     t('My account') => 'user',
     t('Log out') => 'log-out',
