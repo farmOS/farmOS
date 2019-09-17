@@ -158,7 +158,7 @@ function farm_quantity_measures() {
       'label' => t('Count'),
     ),
     'length' => array(
-      'label' => t('Length'),
+      'label' => t('Length/depth'),
     ),
     'weight' => array(
       'label' => t('Weight'),
