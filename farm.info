@@ -46,4 +46,5 @@ dependencies[] = farm_log_activity
 dependencies[] = farm_log_observation
 dependencies[] = farm_menu
 dependencies[] = farm_people
+dependencies[] = farm_setup
 dependencies[] = farm_ui
