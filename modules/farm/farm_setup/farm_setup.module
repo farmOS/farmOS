@@ -3,3 +3,49 @@
  * @file
  * Farm setup module.
  */
+
+/**
+ * Implements hook_permission().
+ */
+function farm_setup_permission() {
+  return array(
+    'access farm setup' => array(
+      'title' => t('Access farm setup'),
+      'description' => t('Change farmOS configurations via the farm setup wizard.'),
+      'restrict access' => TRUE,
+    ),
+  );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function farm_setup_menu() {
+
+  // Start with an empty menu items array.
+  $items = array();
+
+  // Create the root setup page callback.
+  $items['farm/setup'] = array(
+    'title' => 'Setup',
+    'page callback' => 'farm_setup_page',
+    'access arguments' => array('access farm setup'),
+    'type' => MENU_NORMAL_ITEM,
+    'menu_name' => 'user-menu',
+    'weight' => 90,
+  );
+
+  // Return menu items.
+  return $items;
+}
+
+/**
+ * Setup start page callback.
+ */
+function farm_setup_page() {
+  drupal_set_title(t('farmOS Setup'));
+  return array(
+    '#type' => 'markup',
+    '#markup' => '<p>' . t('This setup wizard will guide you through the process of configuring your farmOS.') . '</p>',
+  );
+}
