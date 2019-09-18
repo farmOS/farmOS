@@ -63,6 +63,7 @@ function farm_area_farm_map_view($name, $element) {
 
   // Add a farmOS map behavior that adds all area layers to the areas map.
   if ($name == 'farm_areas') {
+    farm_map_add_behavior('popup');
     farm_map_add_behavior('areas', array('zoom' => TRUE));
   }
 }
