@@ -10,6 +10,7 @@
             title: layers[i].label,
             url: layers[i].url,
             color: layers[i].style,
+            group: 'Areas',
           };
           var layer = instance.addLayer('geojson', opts);
 
