@@ -206,7 +206,7 @@ libraries[easy-responsive-tabs][download][type] = "get"
 libraries[easy-responsive-tabs][download][url] = "https://github.com/samsono/Easy-Responsive-Tabs-to-Accordion/archive/1.2.2.zip"
 
 libraries[farmOS-map][download][type] = "get"
-libraries[farmOS-map][download][url] = "https://github.com/farmOS/farmOS-map/releases/download/v0.2.0/v0.2.0-dist.zip"
+libraries[farmOS-map][download][url] = "https://github.com/farmOS/farmOS-map/releases/download/v0.3.0/v0.3.0-dist.zip"
 
 libraries[modernizr][download][type] = "get"
 libraries[modernizr][download][url] = "http://github.com/Modernizr/Modernizr/archive/v2.8.3.zip"
