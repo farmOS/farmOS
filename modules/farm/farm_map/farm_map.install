@@ -44,3 +44,13 @@ function farm_map_update_7002(&$sandbox) {
     module_enable(array($module));
   }
 }
+
+/**
+ * Install new Mapbox module if an API key is saved.
+ */
+function farm_map_update_7003(&$sandbox) {
+  $module = 'farm_map_mapbox';
+  if (variable_get('farm_map_mapbox_api_key', FALSE) && !module_exists($module)) {
+    module_enable(array($module));
+  }
+}

@@ -136,6 +136,14 @@ function farm_install_configure_form($form, &$form_state) {
     '#default_value' => variable_get('farm_map_google_api_key', ''),
   );
 
+  // Allow the user to enter a Mapbox API key.
+  $form['farm_map_mapbox_api_key'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Mapbox API Key'),
+    '#description' => t('Enter your Mapbox API key.') . ' ' . t('This can also be done after installation.'),
+    '#default_value' => variable_get('farm_map_mapbox_api_key', ''),
+  );
+
   // Form actions.
   $form['actions'] = array('#type' => 'actions');
   $form['actions']['submit'] = array(
@@ -167,6 +175,14 @@ function farm_install_configure_form_submit($form, &$form_state) {
     variable_set('farm_map_google_api_key', $form_state['values']['farm_map_google_api_key']);
     if (!module_exists('farm_map_google')) {
       module_enable(array('farm_map_google'));
+    }
+  }
+
+  // If a Mapbox API key was provided, save it and enable the module.
+  if (!empty($form_state['values']['farm_map_mapbox_api_key'])) {
+    variable_set('farm_map_mapbox_api_key', $form_state['values']['farm_map_mapbox_api_key']);
+    if (!module_exists('farm_map_mapbox')) {
+      module_enable(array('farm_map_mapbox'));
     }
   }
 }
