@@ -1,0 +1,64 @@
+<?php
+/**
+ * @file
+ * Farm report module.
+ */
+
+ /**
+  * Implements hook_permission().
+  */
+ function farm_report_permission() {
+   return array(
+     'view farm reports' => array(
+       'title' => t('View farm reports'),
+     ),
+     'configure farm reports' => array(
+       'title' => t('Configure farm reports'),
+     ),
+   );
+ }
+
+ /**
+  * Implements hook_farm_access_perms().
+  */
+ function farm_report_farm_access_perms($role) {
+   $perms = array();
+
+   // Add the "view farm reports" permission to all roles.
+   $perms[] = 'view farm reports';
+
+   // Load the list of farm roles.
+   $roles = farm_access_roles();
+
+   // If this role has 'config' access, allow them to configure farm reports.
+   if (!empty($roles[$role]['access']['config'])) {
+     $perms[] = 'configure farm reports';
+   }
+
+   return $perms;
+ }
+
+ /**
+ * Implements hook_menu().
+ */
+function farm_report_menu() {
+  $items = array();
+
+  $items['farm/report'] = array(
+    'title' => 'Reports',
+    'page callback' => 'farm_report_view',
+    'access arguments' => array('view farm reports'),
+    'type' => MENU_LOCAL_TASK,
+  );
+  $items['farm/report/info'] = array(
+    'title' => 'Info',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -100,
+  );
+
+  return $items;
+};
+
+function farm_report_view() {
+  return t('Select a report from the menu above.');
+};

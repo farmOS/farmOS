@@ -1,0 +1,4 @@
+name = Farm Report
+description = Features for viewing reports.
+core = 7.x
+package = farmOS
