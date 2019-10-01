@@ -54,6 +54,42 @@ farmOS migrates to Drupal 8 and can use the [simple_oauth] module.
 
 #### Authorization Code Grant
 
+The Authorization Code Grant is most popular for 3rd party client authorization.
+
+Requesting resources is a four step process:
+
+1. First, the client sends a request to the farmOS server `/oauth2/authorize`
+endpoint requesting an `Authorization Code`. The user logs in and authorizes
+the client to have the OAuth Scopes it is requesting.
+    
+        Copy this link to browser -
+        http://localhost/oauth2/authorize?response_type=code&client_id=farmos_api_client&redirect_uri=http://localhost/api/authorized&state=p4W8P5f7gJCIDbC1Mv78zHhlpJOidy
+   
+2. After the user accepts, the server redirects
+to the `redirect_uri` with an authorization `code` and `state` in the query
+parameters.
+
+        Example redirect url from server:
+        http://localhost/api/authorized?code=9eb9442c7a2b011fd59617635cca5421cd089943&state=p4W8P5f7gJCIDbC1Mv78zHhlpJOidy
+        
+3. Copy the `code` and `state` from the URL into the body of a POST request.
+The `grant_type`, `client_id`, `client_secret` and `redirect_uri` must also be
+included in the POST body. The client makes a POST request to the
+`/oauth2/token` endpoint to retrieve an `access_token` and `refresh_token`.
+
+    ```console
+    foo@bar:~$ curl -X POST -d "grant_type=authorization_code&code=ae4d1381cc67def1c10dc88a19af6ac30d7b5959&client_id=farmos_api_client&client_secret=client_secret&redirect_uri=http://localhost/api/authorized" http://localhost/oauth2/token
+    {"access_token":"3f9212c4a6656f1cd1304e47307927a7c224abb0","expires_in":"10","token_type":"Bearer","scope":"farmos_restws_access","refresh_token":"292810b04d688bfb5c3cee28e45637ec8ef1dd9e"}
+    ```
+4. The client sends the access token in the request header to access protected
+resources. The header is an Authorization header with a Bearer token: 
+ `Authorization: Bearer access_token`
+    
+   ```console
+   foo@bar:~$ curl --header "Authorization: Bearer b872daf5827a75495c8194c6bfa4f90cf46c143e" http://localhost/farm.json
+   {"name":"farmos-server","url":"http:\/\/localhost","api_version":"1.1","user":{"uid":"1","name":"admin", .... 
+   ```
+
 #### Implicit Grant
 
 #### Password Credentials Grant
