@@ -124,6 +124,35 @@ resources. The header is an Authorization header with a Bearer token:
 
 #### Password Credentials Grant
 
+**NOTE:** Only use the **Password Grant** if the client can be trusted with a
+farmOS username and password (this is considered *1st party*).
+
+The Password Credentials Grant uses a farmOS `username` and `password` to 
+retrieve an `access_token` and `refresh_token` in one step. For the user, this
+is the simplest type of *authorization.* Because the client can be trusted with
+their farmOS Credentials, a users `username` and `password` can be collected
+directly into a login form within the client application. These credentials are
+then used (not stored) to request tokens which are used for *authentication* 
+with the farmOS server and retrieving data.
+
+Requesting protected resources is a two step process:
+
+1. First the client sends a POST request to the farmOS server `/oauth2/token`
+endpoint with `grant_type` set to `password` and a `username` and `password`
+included in the request body.
+
+        $ curl -X POST -d "grant_type=password&username=paul&password=test&client_id=farmos_api_client&client_secret=client_secret" http://localhost/oauth2/token
+        {"access_token":"e69c60dea3f5c59c95863928fa6fb860d3506fe9","expires_in":"300","token_type":"Bearer","scope":"farmos_restws_access","refresh_token":"cead7d46d18d74daea83f114bc0b512ec4cc31c3"}
+
+2. The client sends the `access_token` in the request header to access protected
+resources. The header is an Authorization header with a Bearer token: 
+ `Authorization: Bearer access_token`
+    
+    ```console
+    foo@bar:~$ curl --header "Authorization: Bearer e69c60dea3f5c59c95863928fa6fb860d3506fe9" http://localhost/farm.json
+    {"name":"farmos-server","url":"http:\/\/localhost","api_version":"1.1","user":{"uid":"1","name":"admin", .... 
+    ```
+
 #### Refreshing Tokens
 
 ### OAuth2 Authorization with the farmOS API
