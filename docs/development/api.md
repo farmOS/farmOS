@@ -155,6 +155,24 @@ resources. The header is an Authorization header with a Bearer token:
 
 #### Refreshing Tokens
 
+The `refresh_token` can be used to retrieve a new `access_token` if the token
+has expired.
+
+It is a one step process:
+
+1. The client sends an authenticated request to the `/oauth2/token`endpoint with
+`grant_type` set to `refresh_token` and includes the `refresh_token`,
+`client_id` and `client_secret` in the request body.
+
+    ```console
+    foo@bar:~$ curl -X POST -H 'Authorization: Bearer ad52c04d26c1002084501d28b59196996f0bd93f' -d 'refresh_token=52e7a0e12e8ddd08b155b3b3ee385687fef01664&grant_type=refresh_token&client_id=farmos_api_client&client_secret=client_secret' http://localhost/oauth2/token
+    {"access_token":"acdbfabb736e42aa301b50fdda95d6b7fd3e7e14","expires_in":"300","token_type":"Bearer","scope":"farmos_restws_access","refresh_token":"b73f4744840498a26f43447d8cf755238bfd391a"} 
+    ```
+   
+   The server responds with an `access_token` and `refresh_token` that can be
+   used in future requests. The previous `access_token` and `refresh_token` will
+   no longer work.
+
 ### OAuth2 Authorization with the farmOS API
 
 #### Authorization in farmOS.py
