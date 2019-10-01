@@ -21,6 +21,26 @@ specific farmOS URL, username, and password.
 * `[AUTH]` - Authentication parameters for `curl` commands (this will depend on
   the authentication method you choose below).
 
+## OAuth2 Authorization
+
+farmOS includes an OAuth2 Authorization server for providing 3rd party clients 
+access to the farmOS API. Rather than using a user's username and password to
+authenticate, OAuth2 uses access tokens to authenticate users. The access tokens
+are provided to both 1st and 3rd party clients who wish to access a user's 
+protected resources from a server. Clients store the access token instead of the
+user's credentials, which makes it a more secure authentication method.
+
+Read more about the [OAuth 2.0 standards]
+
+### Authorization Flows
+
+### OAuth2 Authorization with the farmOS API
+
+#### Authorization in farmOS.py
+
+#### Authorization in farmOS.js
+
+
 ## Authentication
 
 ### Cookie and Token
@@ -732,3 +752,7 @@ submit a support request on [GitHub] or ask questions in the
 [GitHub]: https://github.com/farmOS/farmOS
 [farmOS chat room]: https://riot.im/app/#/room/#farmOS:matrix.org
 [Unix timestamp]: https://en.wikipedia.org/wiki/Unix_time
+[OAuth 2.0 standards]: https://oauth.net/2/
+[OAuth2 Grant Types]: https://oauth.net/2/grant-types/
+[oauth2_server]: https://www.drupal.org/project/oauth2_server
+[simple_oauth]: https://www.drupal.org/project/simple_oauth/
