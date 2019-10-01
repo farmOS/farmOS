@@ -34,6 +34,32 @@ Read more about the [OAuth 2.0 standards]
 
 ### Authorization Flows
 
+The [OAuth 2.0 standards] outline 4 [Oauth2 Grant Types] to be used in an OAuth2
+Authorization Flow - They are the *Authorization Code, Implicit, Password
+Credentials* and *Client Credentials* Grants. Currently, the farmOS API
+supports all of these grant types except for the **Client Credentials** 
+grant. The **Authorization Code Grant** and **Implicit Grant** are the only
+Authorization Flows recommended by farmOS for use with 3rd party clients. See
+**Refreshing Tokens** for documentation on how to retrieve new `access_tokens`
+after expiration.
+
+**NOTE:** Only use the **Password Grant** if the client can be trusted with a
+farmOS username and password (this is considered *1st party*). The
+**Client Credentials Grant** is often used for machine authentication not
+associated with a user account. Due to limitations with the Drupal 7
+[oauth2_server] module, access tokens provided via the Client Credentials Grant
+cannot be associated with the Drupal Permissions system to access protected
+resources. farmOS will hopefully support the Client Credentials Grant when
+farmOS migrates to Drupal 8 and can use the [simple_oauth] module.
+
+#### Authorization Code Grant
+
+#### Implicit Grant
+
+#### Password Credentials Grant
+
+#### Refreshing Tokens
+
 ### OAuth2 Authorization with the farmOS API
 
 #### Authorization in farmOS.py
