@@ -5,6 +5,8 @@ about farmOS, [contact m.stenta](https://farmier.com/contact).
 
 ## 2019
 
+**2019 September 27th** [GreenBiz: From the farm to the restaurant, how people are investing in regenerative agriculture](https://www.greenbiz.com/article/farm-restaurant-how-people-are-investing-regenerative-agriculture)
+
 **2019 September 17th** [Civil Eats: Investment in Regenerative Agriculture Connects the Dots Between Soil and Plate](https://civileats.com/2019/09/17/investment-in-regenerative-agriculture-connects-the-dots-between-soil-and-plate)
 
 **2019 July 31st** [Foundation for Food and Agriculture Research: Global Collaborative Launches OpenTEAM™](https://foundationfar.org/2019/07/31/global-collaborative-launches-openteam-the-first-open-source-technology-ecosystem-in-the-world-to-address-soil-health-and-mitigate-climate-change)
