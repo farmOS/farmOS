@@ -97,7 +97,9 @@ function farm_log_input_feeds_tamper_default_alter(&$feeds_tampers) {
   $feeds_tamper = farm_import_feeds_tamper_plugin('log', 'farm_input', 'Date purchased', 'strtotime');
   $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
 
-  // Explode the "Material" target into an array.
+  // Explode the "Material" target into an array and trim whitespace.
   $feeds_tamper = farm_import_feeds_tamper_plugin('log', 'farm_input', 'Material', 'explode');
+  $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
+  $feeds_tamper = farm_import_feeds_tamper_plugin('log', 'farm_input', 'Material', 'trim');
   $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
 }

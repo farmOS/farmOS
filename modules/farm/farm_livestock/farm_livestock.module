@@ -268,14 +268,19 @@ function farm_livestock_feeds_tamper_default_alter(&$feeds_tampers) {
   $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', 'animal', 'Date of birth', 'strtotime');
   $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
 
-  // Explode nicknames to allow multiple values.
+  // Explode nicknames to allow multiple values, and trim whitespace.
   $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', 'animal', 'Nicknames', 'explode');
   $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
+  $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', 'animal', 'Nicknames', 'trim');
+  $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
 
-  // Explode birth children IDs and names to allow multiple values.
+  // Explode birth children IDs and names to allow multiple values, and trim
+  // whitespace from names.
   $feeds_tamper = farm_import_feeds_tamper_plugin('log', 'farm_birth', 'Children IDs', 'explode');
   $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
   $feeds_tamper = farm_import_feeds_tamper_plugin('log', 'farm_birth', 'Children names', 'explode');
+  $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
+  $feeds_tamper = farm_import_feeds_tamper_plugin('log', 'farm_birth', 'Children names', 'trim');
   $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
 }
 

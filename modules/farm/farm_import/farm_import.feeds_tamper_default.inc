@@ -25,11 +25,13 @@ function farm_import_feeds_tamper_default() {
     $export[$feeds_tamper->id] = $feeds_tamper;
 
     // If a parent asset field exists, explode "Parent IDs" and "Parent names"
-    // into arrays of IDs and names.
+    // into arrays of IDs and names. Trim whitespace from parent names.
     if (!empty(field_info_instance('farm_asset', 'field_farm_parent', $bundle))) {
       $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', $bundle, 'Parent IDs', 'explode');
       $export[$feeds_tamper->id] = $feeds_tamper;
       $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', $bundle, 'Parent names', 'explode');
+      $export[$feeds_tamper->id] = $feeds_tamper;
+      $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', $bundle, 'Parent names', 'trim');
       $export[$feeds_tamper->id] = $feeds_tamper;
     }
   }
@@ -54,24 +56,32 @@ function farm_import_feeds_tamper_default() {
     $export[$feeds_tamper->id] = $feeds_tamper;
 
     // If an asset reference field exists, explode the "Asset IDs" and "Asset
-    // names" targets into arrays of IDs and names.
+    // names" targets into arrays of IDs and names. Trim whitespace from asset
+    // names.
     if (!empty(field_info_instance('log', 'field_farm_asset', $bundle))) {
       $feeds_tamper = farm_import_feeds_tamper_plugin('log', $bundle, 'Asset IDs', 'explode');
       $export[$feeds_tamper->id] = $feeds_tamper;
       $feeds_tamper = farm_import_feeds_tamper_plugin('log', $bundle, 'Asset names', 'explode');
       $export[$feeds_tamper->id] = $feeds_tamper;
+      $feeds_tamper = farm_import_feeds_tamper_plugin('log', $bundle, 'Asset names', 'trim');
+      $export[$feeds_tamper->id] = $feeds_tamper;
     }
 
-    // If an "Areas" field exists, explode it into an array of area names.
+    // If an "Areas" field exists, explode it into an array of area names and
+    // trim whitespace.
     if (!empty(field_info_instance('log', 'field_farm_area', $bundle))) {
       $feeds_tamper = farm_import_feeds_tamper_plugin('log', $bundle, 'Areas', 'explode');
+      $export[$feeds_tamper->id] = $feeds_tamper;
+      $feeds_tamper = farm_import_feeds_tamper_plugin('log', $bundle, 'Areas', 'trim');
       $export[$feeds_tamper->id] = $feeds_tamper;
     }
 
     // If a "Categories" field exists, explode it into an array of category
-    // names.
+    // names and trim whitespace.
     if (!empty(field_info_instance('log', 'field_farm_log_category', $bundle))) {
       $feeds_tamper = farm_import_feeds_tamper_plugin('log', $bundle, 'Categories', 'explode');
+      $export[$feeds_tamper->id] = $feeds_tamper;
+      $feeds_tamper = farm_import_feeds_tamper_plugin('log', $bundle, 'Categories', 'trim');
       $export[$feeds_tamper->id] = $feeds_tamper;
     }
   }
