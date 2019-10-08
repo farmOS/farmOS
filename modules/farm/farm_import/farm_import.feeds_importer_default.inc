@@ -214,6 +214,9 @@ function farm_import_add_importer_fields($type, $bundle, $importer) {
 
   // Add fields, if they exist on the bundle.
   foreach ($mappings as $field => $mapping) {
+    if (!empty($mapping['real_field'])) {
+      $field = $mapping['real_field'];
+    }
     if (!empty(field_info_instance($type, $field, $bundle))) {
       $importer->config['processor']['config']['mappings'][] = $mapping;
     }
@@ -271,6 +274,13 @@ function farm_import_asset_field_mappings() {
       'unique' => FALSE,
       'language' => 'und',
     ),
+    'field_farm_parent_name' => array(
+      'source' => 'Parent names',
+      'target' => 'field_farm_parent:label',
+      'unique' => FALSE,
+      'language' => 'und',
+      'real_field' => 'field_farm_parent',
+    ),
   );
 }
 
@@ -288,6 +298,13 @@ function farm_import_log_field_mappings() {
       'target' => 'field_farm_asset:etid',
       'unique' => FALSE,
       'language' => 'und',
+    ),
+    'field_farm_asset_name' => array(
+      'source' => 'Asset names',
+      'target' => 'field_farm_asset:label',
+      'unique' => FALSE,
+      'language' => 'und',
+      'real_field' => 'field_farm_asset',
     ),
     'field_farm_area' => array(
       'source' => 'Areas',

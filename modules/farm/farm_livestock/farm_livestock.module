@@ -200,11 +200,17 @@ function farm_livestock_feeds_importer_default_alter($importers) {
   $name = 'log_farm_birth';
   if (!empty($importers[$name])) {
 
-    // Add Mother ID mapping.
+    // Add Mother ID and name mappings.
     $mappings = array(
       array(
         'source' => 'Mother ID',
         'target' => 'field_farm_mother:etid',
+        'unique' => FALSE,
+        'language' => 'und',
+      ),
+      array(
+        'source' => 'Mother name',
+        'target' => 'field_farm_mother:label',
         'unique' => FALSE,
         'language' => 'und',
       ),
@@ -216,6 +222,13 @@ function farm_livestock_feeds_importer_default_alter($importers) {
     foreach ($importer_mappings as &$mapping) {
       if ($mapping['source'] == 'Asset IDs') {
         $mapping['source'] = 'Children IDs';
+      }
+    }
+
+    // Change "Asset names" to "Children names".
+    foreach ($importer_mappings as &$mapping) {
+      if ($mapping['source'] == 'Asset names') {
+        $mapping['source'] = 'Children names';
       }
     }
   }
@@ -257,6 +270,12 @@ function farm_livestock_feeds_tamper_default_alter(&$feeds_tampers) {
 
   // Explode nicknames to allow multiple values.
   $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', 'animal', 'Nicknames', 'explode');
+  $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
+
+  // Explode birth children IDs and names to allow multiple values.
+  $feeds_tamper = farm_import_feeds_tamper_plugin('log', 'farm_birth', 'Children IDs', 'explode');
+  $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
+  $feeds_tamper = farm_import_feeds_tamper_plugin('log', 'farm_birth', 'Children names', 'explode');
   $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
 }
 

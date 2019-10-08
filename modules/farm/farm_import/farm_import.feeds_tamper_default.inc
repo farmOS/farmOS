@@ -24,9 +24,12 @@ function farm_import_feeds_tamper_default() {
     $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', $bundle, 'Archived', 'boolean_default_false');
     $export[$feeds_tamper->id] = $feeds_tamper;
 
-    // If a "Parent IDs" field exists, explode it into an array of IDs.
+    // If a parent asset field exists, explode "Parent IDs" and "Parent names"
+    // into arrays of IDs and names.
     if (!empty(field_info_instance('farm_asset', 'field_farm_parent', $bundle))) {
       $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', $bundle, 'Parent IDs', 'explode');
+      $export[$feeds_tamper->id] = $feeds_tamper;
+      $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', $bundle, 'Parent names', 'explode');
       $export[$feeds_tamper->id] = $feeds_tamper;
     }
   }
@@ -50,9 +53,12 @@ function farm_import_feeds_tamper_default() {
     $feeds_tamper = farm_import_feeds_tamper_plugin('log', $bundle, 'Done', 'boolean_default_true');
     $export[$feeds_tamper->id] = $feeds_tamper;
 
-    // If an "Asset IDs" field exists, explode it into an array of IDs.
+    // If an asset reference field exists, explode the "Asset IDs" and "Asset
+    // names" targets into arrays of IDs and names.
     if (!empty(field_info_instance('log', 'field_farm_asset', $bundle))) {
       $feeds_tamper = farm_import_feeds_tamper_plugin('log', $bundle, 'Asset IDs', 'explode');
+      $export[$feeds_tamper->id] = $feeds_tamper;
+      $feeds_tamper = farm_import_feeds_tamper_plugin('log', $bundle, 'Asset names', 'explode');
       $export[$feeds_tamper->id] = $feeds_tamper;
     }
 
