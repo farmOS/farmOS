@@ -204,7 +204,7 @@ function farm_livestock_feeds_importer_default_alter($importers) {
     $mappings = array(
       array(
         'source' => 'Mother ID',
-        'target' => 'field_farm_mother',
+        'target' => 'field_farm_mother:etid',
         'unique' => FALSE,
         'language' => 'und',
       ),
