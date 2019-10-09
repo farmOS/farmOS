@@ -189,7 +189,9 @@ function farm_crop_feeds_tamper_default_alter(&$feeds_tampers) {
   $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', 'animal', 'Crop/variety', 'required');
   $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
 
-  // Explode crop/variety so it supports multiple values.
+  // Explode crop/variety so it supports multiple values, and trim whitespace.
   $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', 'planting', 'Crop/variety', 'explode');
+  $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
+  $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', 'planting', 'Crop/variety', 'trim');
   $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
 }

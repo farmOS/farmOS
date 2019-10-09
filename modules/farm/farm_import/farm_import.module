@@ -185,6 +185,15 @@ function farm_import_feeds_tamper_plugin($entity_type, $bundle, $source, $plugin
       );
       break;
 
+    // Trim whitespace.
+    case 'trim':
+      $description = 'Trim';
+      $settings = array(
+        'mask' => '',
+        'side' => 'trim',
+      );
+      break;
+
     // Empty defaults.
     default:
       $description = '';
