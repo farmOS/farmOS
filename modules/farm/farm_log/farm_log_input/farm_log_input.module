@@ -42,6 +42,8 @@ function farm_log_input_feeds_importer_default_alter(&$importers) {
       array(
         'source' => 'Material',
         'target' => 'field_farm_material',
+        'term_search' => '0',
+        'autocreate' => 1,
         'unique' => FALSE,
         'language' => 'und',
       ),
