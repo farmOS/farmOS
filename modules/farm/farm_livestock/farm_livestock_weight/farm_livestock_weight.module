@@ -18,7 +18,7 @@
 function farm_livestock_weight($asset) {
 
   // Load the latest log with a 'weight' quantity measurement for this asset.
-  $log = farm_quantity_log_asset($asset, 'weight');
+  $log = farm_quantity_log_asset($asset, 'weight', NULL, REQUEST_TIME, TRUE, 'farm_observation');
 
   // if no weight observation log exists for asset
   if (empty($log)) {
@@ -316,7 +316,7 @@ function farm_livestock_weight_group_report(&$form_state) {
       if (!empty($end_date)) {
         $time = $end_date;
       }
-      $logs = farm_quantity_log_asset($asset, 'weight', NULL, $time, TRUE, NULL, FALSE);
+      $logs = farm_quantity_log_asset($asset, 'weight', NULL, $time, TRUE, 'farm_observation', FALSE);
 
       // Array to save log dates for this one animal.
       $log_dates = array();

@@ -28,7 +28,7 @@ function farm_livestock_weight_individual_report(FarmAsset $farm_asset) {
   };
 
   // Get all 'weight' logs associated with the asset.
-  $logs = farm_quantity_log_asset($farm_asset, 'weight', $label = NULL, $time = REQUEST_TIME, $done = TRUE, $type = NULL, $single = FALSE);
+  $logs = farm_quantity_log_asset($farm_asset, 'weight', $label = NULL, $time = REQUEST_TIME, $done = TRUE, $type = 'farm_observation', $single = FALSE);
 
   // Store all log weight data
   $log_weights = array();
