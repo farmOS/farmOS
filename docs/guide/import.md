@@ -8,7 +8,9 @@ This video by Chris Callahan at [UVM Extension]'s
 export of FarmOS data from and to spreadsheet applications. This may be
 especially helpful for offline use.
 
-<iframe width="640" height="360" src="https://www.youtube.com/embed/NoOuNZRNjRo?rel=0" frameborder="0" allowfullscreen></iframe>
+<div class="embed-responsive embed-responsive-16by9">
+  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/NoOuNZRNjRo?rel=0" allowfullscreen></iframe>
+</div>
 
 Links to each importer can be found at the top of each primary asset or log
 listing page (accessible via the [main menu] of farmOS). For example, if you

@@ -1,6 +1,8 @@
 # Getting Started
 
-<iframe width="640" height="360" src="https://www.youtube.com/embed/vT3y-4dwVAc?rel=0" frameborder="0" allowfullscreen></iframe>
+<div class="embed-responsive embed-responsive-16by9">
+  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/vT3y-4dwVAc?rel=0" allowfullscreen></iframe>
+</div>
 
 This video provides an overview of the download and hosting options for farmOS
 by Michael Stenta at [Farmier], how to get deeply involved with the open-source

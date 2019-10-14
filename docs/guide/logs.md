@@ -4,9 +4,11 @@ Logs are records of all kinds of events. You can be as granular as you want: the
 more information you're recording, the more you can look back on and learn from
 in the future.
 
-<video width="100%" controls>
-  <source src="/demo/logs.mp4" type="video/mp4">
-</video>
+<div class="embed-responsive embed-responsive-16by9">
+  <video class="embed-responsive-item" width="100%" controls>
+    <source src="/demo/logs.mp4" type="video/mp4">
+  </video>
+</div>
 
 ### Planning ahead
 

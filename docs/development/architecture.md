@@ -8,7 +8,9 @@ management approach. Learn about how these features interact to provide a
 flexible platform for farm record keeping and management. Available on YouTube:
 [https://youtu.be/1wXD_K7Y_aI]
 
-<iframe width="640" height="360" src="https://www.youtube.com/embed/1wXD_K7Y_aI?rel=0" frameborder="0" allowfullscreen></iframe>
+<div class="embed-responsive embed-responsive-16by9">
+  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/1wXD_K7Y_aI?rel=0" allowfullscreen></iframe>
+</div>
 
 ## Entity types
 

@@ -6,9 +6,11 @@ Equipment [movements] and activities can be recorded via standard [log types],
 and a special **Maintenance** log type is provided specifically for keeping
 equipment maintenance records.
 
-<video width="100%" controls>
-  <source src="/demo/equipment.mp4" type="video/mp4">
-</video>
+<div class="embed-responsive embed-responsive-16by9">
+  <video class="embed-responsive-item" width="100%" controls>
+    <source src="/demo/equipment.mp4" type="video/mp4">
+  </video>
+</div>
 
 ## Equipment logs
 

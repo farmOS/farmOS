@@ -26,7 +26,9 @@ The following video walkthrough was produced by Chris Callahan at the
 [University of Vermont Extension]'s [Agricultural Engineering Program] and
 Michael Stenta at [Farmier].
 
-<iframe width="640" height="360" src="https://www.youtube.com/embed/DHlsT8pGC0Y?rel=0" frameborder="0" allowfullscreen></iframe>
+<div class="embed-responsive embed-responsive-16by9">
+  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/DHlsT8pGC0Y?rel=0" allowfullscreen></iframe>
+</div>
 
 ## Overview
 

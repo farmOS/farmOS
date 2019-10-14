@@ -7,9 +7,11 @@ Assets are organized into different sections in the farmOS interface, and can
 be accessed from the main menu. You can add assets from within each asset type's
 dashboard.
 
-<video width="100%" controls>
-  <source src="/demo/assets.mp4" type="video/mp4">
-</video>
+<div class="embed-responsive embed-responsive-16by9">
+  <video class="embed-responsive-item" width="100%" controls>
+    <source src="/demo/assets.mp4" type="video/mp4">
+  </video>
+</div>
 
 ## Asset fields
 

@@ -46,35 +46,45 @@ motivations behind farmOS.  Why he started the project, why he uses Drupal as
 the development framework and why it is open-source. Available on YouTube:
 [https://youtu.be/ATUEWrlDbWw]
 
-<iframe width="640" height="360" src="https://www.youtube.com/embed/ATUEWrlDbWw?rel=0" frameborder="0" allowfullscreen></iframe>
+<div class="embed-responsive embed-responsive-4by3">
+  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/ATUEWrlDbWw?rel=0" allowfullscreen></iframe>
+</div>
 
 ### Open Source Stories: The Open Farmer
 
 farmOS was featured in the [Red Hat Open Source Stories - Farming for the Future Series: "The Open Farmer"],
 available on YouTube: [https://youtu.be/6L0is9gUowY]
 
-<iframe width="640" height="360" src="https://www.youtube.com/embed/6L0is9gUowY?rel=0" frameborder="0" allowfullscreen></iframe>
+<div class="embed-responsive embed-responsive-16by9">
+  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/6L0is9gUowY?rel=0" allowfullscreen></iframe>
+</div>
 
 ### OpenTEAM (Open Technology Ecosystem for Agricultural Management)
 
 farmOS is part of [OpenTEAM], which is summarized in a video by [Stonyfield],
 available on YouTube: [https://youtu.be/U9YZ4H10ves]
 
-<iframe width="640" height="360" src="https://www.youtube.com/embed/U9YZ4H10ves?rel=0" frameborder="0" allowfullscreen></iframe>
+<div class="embed-responsive embed-responsive-16by9">
+  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/U9YZ4H10ves?rel=0" allowfullscreen></iframe>
+</div>
 
 ### GODAN Documentary Web Series
 
 farmOS was featured in the [GODAN Documentary Web Series: "OPEN FARMS"],
 available on YouTube: [https://youtu.be/bCOqg5iH6fM]
 
-<iframe width="640" height="360" src="https://www.youtube.com/embed/bCOqg5iH6fM?rel=0" frameborder="0" allowfullscreen></iframe>
+<div class="embed-responsive embed-responsive-16by9">
+  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/bCOqg5iH6fM?rel=0" allowfullscreen></iframe>
+</div>
 
 ### CNBC Special
 
 farmOS was featured in a CNBC special:
 [CNBC: The Future Of Farming Is Utilizing Data In An Open Source Network Of Farmers].
 
-<iframe width="640" height="360" src="https://www.youtube.com/embed/zua1y-hBcGc?rel=0" frameborder="0" allowfullscreen></iframe>
+<div class="embed-responsive embed-responsive-16by9">
+  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zua1y-hBcGc?rel=0" allowfullscreen></iframe>
+</div>
 
 ### 2017 NOFA Summer Conference
 
@@ -85,7 +95,9 @@ and how to contribute back to the project.
 The full workshop recording is available on YouTube:
 [https://youtu.be/B8ouL9Et98o]
 
-<iframe width="640" height="360" src="https://www.youtube.com/embed/B8ouL9Et98o?rel=0" frameborder="0" allowfullscreen></iframe>
+<div class="embed-responsive embed-responsive-16by9">
+  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/B8ouL9Et98o?rel=0" allowfullscreen></iframe>
+</div>
 
 ## @farmOSorg on Twitter
 

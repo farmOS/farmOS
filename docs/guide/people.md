@@ -4,9 +4,11 @@ farmOS allows a farm to have multiple "users" accessing it, and each of those
 users is assigned one or more "roles" to grant them different levels of
 permission.
 
-<video width="100%" controls>
-  <source src="/demo/people.mp4" type="video/mp4">
-</video>
+<div class="embed-responsive embed-responsive-16by9">
+  <video class="embed-responsive-item" width="100%" controls>
+    <source src="/demo/people.mp4" type="video/mp4">
+  </video>
+</div>
 
 ## Roles
 

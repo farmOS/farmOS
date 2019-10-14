@@ -12,9 +12,11 @@ connect to specific types of sensors, if necessary.
 It is possible to assemble your own sensors with inexpensive components and
 send their data to farmOS without any soldering or programming.
 
-<video width="100%" controls>
-  <source src="/demo/sensors.mp4" type="video/mp4">
-</video>
+<div class="embed-responsive embed-responsive-16by9">
+  <video class="embed-responsive-item" width="100%" controls>
+    <source src="/demo/sensors.mp4" type="video/mp4">
+  </video>
+</div>
 
 ## Farm Sensor: Listener
 
@@ -125,7 +127,9 @@ require soldering or coding check out this guide to
 [Collecting sensor data in farmOS using GrovePi and Node-RED](http://farmhack.org/tools/collecting-sensor-data-farmos-using-grovepi-and-node-red)
 on [Farm Hack](http://farmhack.org).
 
-<iframe width="100%" height="480" src="https://www.youtube.com/embed/rCl06YBb4cM" frameborder="0" allowfullscreen></iframe>
+<div class="embed-responsive embed-responsive-16by9">
+  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/rCl06YBb4cM" allowfullscreen></iframe>
+</div>
 
 ### Open Pipe Kit
 
@@ -136,7 +140,9 @@ about Open Pipe Kit, refer to: [http://openpipekit.github.io](http://openpipekit
 
 Open Pipe Kit farmOS CLI: [https://github.com/openpipekit/farmos-cli](https://github.com/openpipekit/farmos-cli)
 
-<iframe width="100%" height="480" src="https://www.youtube.com/embed/fCflGeOpTqk" frameborder="0" allowfullscreen></iframe>
+<div class="embed-responsive embed-responsive-16by9">
+  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/fCflGeOpTqk" allowfullscreen></iframe>
+</div>
 
 ### Notifications
 
