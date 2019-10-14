@@ -62,5 +62,6 @@ nav:
 - Donate: donate.md
 theme: yeti
 markdown_extensions:
-    - toc:
-        permalink: true
+  - toc:
+      permalink: true
+
