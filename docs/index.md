@@ -127,7 +127,7 @@ The full workshop recording is available on YouTube:
 [GODAN Documentary Web Series: "OPEN FARMS"]: http://www.godan.info/news/open-farms-godan-documentary-web-series-episode-3
 [https://youtu.be/bCOqg5iH6fM]: https://youtu.be/bCOqg5iH6fM
 [NOFA Summer Conference]: http://nofasummerconference.org
-[https://youtu.be/w0ZCu8NsWKE]: https://youtu.be/w0ZCu8NsWKE
+[https://youtu.be/B8ouL9Et98o]: https://youtu.be/B8ouL9Et98o
 [GNU General Public License]: http://www.gnu.org/copyleft/gpl.html
 [free]: https://en.wikipedia.org/wiki/Free_software
 [open source]: http://en.wikipedia.org/wiki/Open_source
