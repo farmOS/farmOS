@@ -1,4 +1,13 @@
 /**
+ * Word break long <a> tag content for mobile browsers (eg: to prevent links
+ * that use a long URL as their clickable text from stretching the site layout
+ * on small screens).
+ */
+a {
+  overflow-wrap: break-word;
+}
+
+/**
  * Replicate Bootstrap's embed-responsive classes since mkdocs-bootswatch is
  * using an old version of Bootstrap.
  */
