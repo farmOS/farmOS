@@ -10,7 +10,7 @@ include_once 'farm_soil_nrcs.features.inc';
  * Implements hook_menu().
  */
 function farm_soil_nrcs_menu() {
-  $items['farm/soil/nrcs/stir/autocomplete/%'] = array(
+  $items['farm/soil/nrcs/stir/autocomplete'] = array(
     'page callback' => 'farm_soil_nrcs_stir_autocomplete',
     'page arguments' => array(5),
     'access callback' => TRUE,
