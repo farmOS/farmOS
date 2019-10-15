@@ -964,6 +964,11 @@ function farm_plan_entity_delete($entity, $type) {
     return;
   }
 
+  // If the entity ID is not numeric, bail.
+  if (!is_numeric($entity_id)) {
+    return;
+  }
+
   // Get available relationships between plans and other record types.
   $relationships = farm_plan_record_relationships();
 
