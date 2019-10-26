@@ -150,6 +150,8 @@ projects[restws_field_collection][version] = "1.1"
 
 projects[restws_file][subdir] = "contrib"
 projects[restws_file][version] = "1.3"
+; Fix Issue #3019850: Notice: Trying to get property of non-object in restws_file_restws_request_alter() (line 30 of restws_file.module).
+projects[restws_file][patch][] = "http://www.drupal.org/files/issues/2019-10-26/restws_file-bundlenotice-3019850-3.patch"
 
 projects[service_container][subdir] = "contrib"
 projects[service_container][version] = "1.0-beta5"
