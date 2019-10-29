@@ -31,7 +31,7 @@ other ways.
     * IRC: [#farmOS on Freenode] (requires a registered name)
 * Code repositories:
     * Drupal.org: [https://drupal.org/project/farm]
-    * GitHub: [https://github.com/farmOS/farmOS]
+    * GitHub: [https://github.com/farmOS]
     * Client app: [https://github.com/farmOS/farmOS-client]
 * Twitter: [@farmOSorg]
 * Twitter: [@getFarmier]
@@ -135,6 +135,7 @@ The full workshop recording is available on YouTube:
 [contribute]: /community/contribute
 [https://drupal.org/project/farm]: https://drupal.org/project/farm
 [https://github.com/farmOS]: https://github.com/farmOS
+[https://github.com/farmOS/farmOS-client]: https://github.com/farmOS/farmOS-client
 [Monthly call]: /community/monthly-call
 [https://farmOS.discourse.group]: https://farmOS.discourse.group
 [#farmOS on Matrix.org]: https://riot.im/app/#/room/#farmOS:matrix.org
