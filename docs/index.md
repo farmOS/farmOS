@@ -4,8 +4,9 @@
 
 **
 farmOS is a web-based application for farm management, planning, and record
-keeping. It is developed by a community of volunteers and aims to provide a
-standard platform for farmers, developers, and researchers to build upon.
+keeping. It is developed by a community of farmers, developers, researchers, and
+organizations with the aim of providing a standard platform for agricultural
+data collection and management.
 **
 
 The farmOS server is built on top of [Drupal], which makes it [modular],
