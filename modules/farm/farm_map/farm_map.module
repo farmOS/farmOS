@@ -289,18 +289,6 @@ function farm_map_settings_form($form, &$form_state) {
     '#default_value' => variable_get('farm_map_show', TRUE),
   );
 
-  // Specify the default base layer.
-  $form['farm_map_default_base_layer'] = array(
-    '#type' => 'radios',
-    '#title' => t('Default base layer'),
-    '#description' => t('Select the default base layer for maps.'),
-    '#options' => array(
-      'farm_map_layer_google_hybrid' => t('Google Hybrid'),
-      'farm_map_layer_openstreetmap' => t('OpenStreetMap'),
-    ),
-    '#default_value' => variable_get('farm_map_default_base_layer', 'farm_map_layer_google_hybrid'),
-  );
-
   // Google Maps API key.
   $form['farm_map_google_api_key'] = array(
     '#type' => 'textfield',
@@ -309,21 +297,8 @@ function farm_map_settings_form($form, &$form_state) {
     '#default_value' => variable_get('farm_map_google_api_key', ''),
   );
 
-  // Add a custom submit function to clear the Drupal cache on submission.
-  $form['#submit'][] = 'farm_map_settings_form_submit';
-
   // Return it as a system settings form.
   return system_settings_form($form);
-}
-
-/**
- * Submit function for the farm map settings form.
- */
-function farm_map_settings_form_submit($form, $form_state) {
-
-  // Clear the Drupal cache so that changes to the default map base layer
-  // are picked up by Openlayers in farm_map_default_openlayers_layers_alter().
-  drupal_flush_all_caches();
 }
 
 /**

@@ -11,7 +11,6 @@ function farm_map_uninstall() {
 
   // Delete variables.
   variable_del('farm_map_show');
-  variable_del('farm_map_default_base_layer');
   variable_del('farm_map_google_api_key');
 }
 
@@ -28,4 +27,11 @@ function farm_map_update_7000(&$sandbox) {
   if (!empty($key)) {
     variable_set('farm_map_google_api_key', $key);
   }
+}
+
+/**
+ * Delete the old farm_map_default_base_layer variable.
+ */
+function farm_map_update_7001(&$sandbox) {
+  variable_del('farm_map_default_base_layer');
 }
