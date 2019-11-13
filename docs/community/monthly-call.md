@@ -5,6 +5,9 @@ Ask questions, brainstorm ideas, or just talk farming.
 
 Refer to the schedule below, and use the "Join Call" link to join the call.
 
+**NOTE:** In case you have problems joining a call, check the Riot.im [chat room].
+Last minute updates or changes will be communicated there!
+
 ## [Join Call]
 
 Calls are currently held on the second Wednesday of the month, at 2pm Eastern
@@ -43,4 +46,5 @@ December 11th @ 2pm EST / 7pm UTC
 
 [Zoom]: https://zoom.us
 [Join Call]: https://zoom.us/j/736535257
+[chat room]:https://riot.im/app/#/room/#farmOS:matrix.org
 
