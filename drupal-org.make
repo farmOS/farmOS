@@ -52,7 +52,7 @@ projects[feeds_tamper][subdir] = "contrib"
 projects[feeds_tamper][version] = "1.2"
 
 projects[field_collection][subdir] = "contrib"
-projects[field_collection][version] = "1.0"
+projects[field_collection][version] = "1.1"
 
 projects[field_group][subdir] = "contrib"
 projects[field_group][version] = "1.6"
