@@ -77,7 +77,7 @@ projects[geophp][version] = "1.x-dev"
 projects[geophp][patch][] = "http://www.drupal.org/files/issues/geophp_bcmath-2625348-1.patch"
 
 projects[inline_entity_form][subdir] = "contrib"
-projects[inline_entity_form][version] = "1.8"
+projects[inline_entity_form][version] = "1.9"
 
 projects[job_scheduler][subdir] = "contrib"
 projects[job_scheduler][version] = "2.0"
