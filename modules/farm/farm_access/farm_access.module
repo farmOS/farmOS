@@ -33,6 +33,69 @@ function farm_access_hook_info() {
 }
 
 /**
+ * Implements hook_permission().
+ */
+function farm_access_permission() {
+  $perms = array(
+    'administer farm_access module' => array(
+      'title' => t('Administer farm access module'),
+    ),
+  );
+  return $perms;
+}
+
+/**
+ * Implements hook_farm_access_perms().
+ */
+function farm_access_farm_access_perms($role) {
+  $perms = array();
+
+  // Load the list of farm roles.
+  $roles = farm_access_roles();
+
+  // If this role has 'config' access, grant access to farm_access configuration.
+  if (!empty($roles[$role]['access']['config'])) {
+    $perms[] = 'administer farm_access module';
+  }
+
+  return $perms;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function farm_access_menu() {
+
+  // Access configuration form.
+  $items['admin/config/farm/access'] = array(
+    'title' => 'Access',
+    'description' => 'Access configuration settings.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('farm_access_settings_form'),
+    'access arguments' => array('administer farm_access module'),
+  );
+
+  return $items;
+}
+
+/**
+ * Access settings form.
+ */
+function farm_access_settings_form($form, &$form_state) {
+
+  // Metric or US/Imperial.
+  $form['farm_access_allow_origin'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Access-Control-Allow-Origin'),
+    '#description' => t('This will be put in the Access-Control-Allow-Origin header, which is necessary for third-party client-side applications to access farmOS data via the API. Defaults to "https://farmos.app" to work with the farmOS Field Kit application.'),
+    '#default_value' => variable_get('farm_access_allow_origin', 'https://farmos.app'),
+  );
+
+  // Return it as a system settings form.
+  return system_settings_form($form);
+}
+
+/**
  * Load a list of farm roles.
  *
  * @return array
