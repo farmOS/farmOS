@@ -32,6 +32,9 @@ function farm_access_uninstall() {
   foreach ($roles as $name) {
     user_role_delete($name);
   }
+
+  // Clean up variables.
+  variable_del('farm_access_allow_origin');
 }
 
 /**
