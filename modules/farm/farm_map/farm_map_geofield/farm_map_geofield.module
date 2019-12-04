@@ -3,3 +3,69 @@
  * @file
  * Farm Map Geofield integration.
  */
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function farm_map_geofield_field_formatter_info() {
+  return array(
+    'farm_map_geofield' => array(
+      'label' => t('farmOS Map'),
+      'field types' => array('geofield'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function farm_map_geofield_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+
+  // First check to see if we have any value and remove any unset deltas.
+  foreach ($items as $delta => $item) {
+    if (empty($item['geom'])) {
+      unset($items[$delta]);
+    }
+  }
+
+  // If there are no items, stop here. We won't show anything.
+  if (empty($items)) {
+    return $element;
+  }
+
+  // Ensure GeoPHP is available.
+  geophp_load();
+
+  // Create array of features.
+  $features = array();
+  foreach ($items as $delta) {
+    if (array_key_exists('geom', $delta)) {
+      $geometry = geoPHP::load($delta['geom']);
+    }
+    else {
+      $geometry = geoPHP::load($delta);
+    }
+    $features[] = array(
+      'wkt' => $geometry->out('wkt'),
+      'projection' => 'EPSG:4326',
+    );
+  }
+
+  // If there are no features at this point, bail.
+  if (empty($features)) {
+    return $element;
+  }
+
+  // Build a map for each item.
+  $map_name = 'farm_map_geofield';
+  foreach ($features as $delta => $feature) {
+    $element[$delta] = array(
+      '#type' => 'farm_map',
+      '#map_name' => $map_name,
+      '#wkt' => $feature['wkt'],
+    );
+  }
+
+  return $element;
+}
