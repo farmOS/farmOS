@@ -69,3 +69,69 @@ function farm_map_geofield_field_formatter_view($entity_type, $entity, $field, $
 
   return $element;
 }
+
+/**
+ * Implements hook_field_widget_info().
+ */
+function farm_map_geofield_field_widget_info() {
+  return array(
+    'farm_map_geofield' => array(
+      'label' => t('farmOS Map'),
+      'field types' => array('geofield'),
+      'behaviors' => array(
+        'multiple values' => FIELD_BEHAVIOR_CUSTOM,
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_widget_form().
+ */
+function farm_map_geofield_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
+
+  // Start with the Geofield WKT widget.
+  $instance['widget']['type'] = 'geofield_wkt';
+  $element = geofield_field_widget_form($form, $form_state, $field, $instance, $langcode, $items, $delta, $element);
+
+  // Get the geometry (as WKT).
+  $wkt = '';
+  if (!empty($items[$delta]['geom'])) {
+    $wkt = $items[$delta]['geom'];
+  }
+
+  // Add a farmOS map instance with the WKT and drawing controls.
+  $element['map'] = array(
+    '#type' => 'farm_map',
+    '#map_name' => 'farm_map_geofield_widget',
+    '#wkt' => $wkt,
+    '#edit' => TRUE,
+  );
+
+  // Move the geometry field below the map.
+  $element['geom']['#weight'] = 100;
+
+  // Add the element to an array, because it's the format that
+  // FIELD_BEHAVIOR_CUSTOM expects.
+  /**
+   * @todo
+   * This is necessary due to a legacy decision that was made in early farmOS
+   * development, when we were using the OpenLayers module. The farmOS Geofield
+   * (field_farm_geofield) was set up with a cardinality of -1 (allowing
+   * unlimited values), and the OpenLayers Geofield widget was configured to
+   * save all features as a combined geometry. So, even though the field was
+   * configured to allow unlimited values, only one value was ever saved. And
+   * only one value was/is ever needed. So in the future, when we move to Drupal
+   * 8, we should plan to change the cardinality to 1. The decision was made to
+   * leave it as -1 in 7.x-1.x, because changing it would cause a change to the
+   * REST API (which expects an array of geometries, even though only one should
+   * ever be provided).
+   *
+   * Using FIELD_BEHAVIOR_CUSTOM and wrapping the element in an array is the
+   * same approach that the openlayers_geofield module takes.
+   */
+  $full_element = array($element);
+
+  // Return the widget element.
+  return $full_element;
+}

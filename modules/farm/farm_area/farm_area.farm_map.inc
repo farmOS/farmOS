@@ -71,7 +71,7 @@ function farm_area_farm_map_view($name, $element) {
   }
 
   // Show "all areas" layer in geofield maps.
-  if ($name == 'farm_map_geofield') {
+  if (in_array($name,  array('farm_map_geofield', 'farm_map_geofield_widget'))) {
     farm_map_add_behavior('areas_combined', array('zoom' => FALSE));
   }
 }
