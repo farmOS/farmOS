@@ -35,17 +35,10 @@ function farm_movement_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'openlayers_geofield',
+      'module' => 'farm_map_geofield',
       'settings' => array(
-        'allow_edit' => 1,
-        'data_storage' => 'collection',
         'delta_handling' => 'default',
-        'feature_types' => array(
-          'path' => 'path',
-          'point' => 'point',
-          'polygon' => 'polygon',
-        ),
-        'geocoder_field' => 'field_farm_animal_tag_location',
+        'geocoder_field' => 'field_farm_move_to',
         'geocoder_handler' => 'bing',
         'handler_settings' => array(
           'google' => array(
@@ -64,11 +57,10 @@ function farm_movement_field_default_field_instances() {
             ),
           ),
         ),
-        'openlayers_map' => 'farm_map_geofield',
-        'showInputField' => 1,
+        'latlng_override' => 0,
         'use_geocoder' => 0,
       ),
-      'type' => 'openlayers_geofield',
+      'type' => 'farm_map_geofield',
       'weight' => 3,
     ),
   );

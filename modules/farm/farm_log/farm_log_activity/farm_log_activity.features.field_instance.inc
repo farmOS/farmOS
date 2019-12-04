@@ -175,16 +175,9 @@ function farm_log_activity_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'openlayers_geofield',
+      'module' => 'farm_map_geofield',
       'settings' => array(
-        'allow_edit' => 1,
-        'data_storage' => 'collection',
         'delta_handling' => 'default',
-        'feature_types' => array(
-          'path' => 'path',
-          'point' => 'point',
-          'polygon' => 'polygon',
-        ),
         'geocoder_field' => 'field_farm_files',
         'geocoder_handler' => 'kml',
         'handler_settings' => array(
@@ -204,11 +197,9 @@ function farm_log_activity_field_default_field_instances() {
             ),
           ),
         ),
-        'openlayers_map' => 'farm_map_geofield',
-        'showInputField' => 1,
         'use_geocoder' => 1,
       ),
-      'type' => 'openlayers_geofield',
+      'type' => 'farm_map_geofield',
       'weight' => 3,
     ),
   );
