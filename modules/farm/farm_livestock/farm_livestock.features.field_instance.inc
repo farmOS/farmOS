@@ -674,12 +674,9 @@ function farm_livestock_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'openlayers_geofield',
-        'settings' => array(
-          'data' => 'full',
-          'map_layer_preset' => 'farm_map_geofield_formatter:openlayers_geofield_layer_formatter',
-        ),
-        'type' => 'openlayers_geofield',
+        'module' => 'farm_map_geofield',
+        'settings' => array(),
+        'type' => 'farm_map_geofield',
         'weight' => 12,
       ),
     ),
