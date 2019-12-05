@@ -142,6 +142,10 @@ function theme_farm_map(&$vars) {
   // URLs are enabled.
   $settings['farm_map']['base_path'] = url('<front>');
 
+  // Load the system of measurement, and save it to settings.
+  $system_of_measurement = farm_quantity_system_of_measurement();
+  $settings['farm_map']['units'] = $system_of_measurement;
+
   // Add the map ID to the Drupal.settings.farm_map.maps JavaScript array.
   $settings['farm_map']['maps'] = array($id);
 

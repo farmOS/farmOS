@@ -3,6 +3,7 @@ description = Provides OpenLayers configuration for farm maps.
 core = 7.x
 package = farmOS
 dependencies[] = ctools
+dependencies[] = farm_quantity
 dependencies[] = features
 dependencies[] = geofield
 dependencies[] = geophp
