@@ -8,6 +8,16 @@ include_once 'farm_map.features.inc';
 include_once 'farm_map.geo.inc';
 
 /**
+ * Implements hook_hook_info().
+ */
+function farm_map_hook_info() {
+  $hooks['farm_map_view'] = array(
+    'group' => 'farm_map',
+  );
+  return $hooks;
+}
+
+/**
  * Implements hook_permission().
  */
 function farm_map_permission() {
@@ -132,6 +142,9 @@ function theme_farm_map(&$vars) {
 
   // Add farm_map.css.
   drupal_add_css(drupal_get_path('module', 'farm_map') . '/css/farm_map.css');
+
+  // Allow other modules to perform logic.
+  module_invoke_all('farm_map_view', $map_name, $element);
 
   // Return a simple div with attributes.
   return '<div' . drupal_attributes($element['#attributes']) . '></div>';

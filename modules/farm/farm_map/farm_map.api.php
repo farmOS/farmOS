@@ -22,6 +22,20 @@
  */
 
 /**
+ * Perform logic when a map is viewed.
+ *
+ * @param $name
+ *   The map name.
+ * @param $element
+ *   The map element.
+ */
+function hook_farm_map_view($name, $element) {
+
+  // Add a farmOS map behavior JS file.
+  drupal_add_js(drupal_get_path('module', 'mymodule'), 'mymodule.mybehavior.js');
+}
+
+/**
  * Extract geometries from an entity.
  *
  * @param $entity_type
