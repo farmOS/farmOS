@@ -5,6 +5,8 @@ about farmOS, [contact m.stenta](https://farmier.com/contact).
 
 ## 2019
 
+**2019 December 4th** [LWDW: Old MacTorvalds Had A Farm](https://youtu.be/NpqLOp-FUwk?t=858)
+
 **2019 December 2nd** [Civil Eats: Open Source Technology Could Be a Boon to Farmers](https://civileats.com/2019/12/02/open-source-technology-could-be-a-boon-to-farmers)
 
 **2019 September 27th** [GreenBiz: From the farm to the restaurant, how people are investing in regenerative agriculture](https://www.greenbiz.com/article/farm-restaurant-how-people-are-investing-regenerative-agriculture)
