@@ -136,6 +136,12 @@ function theme_farm_map(&$vars) {
     'farm_map' => array(),
   );
 
+  // Add a setting that defines the base path of the site.
+  // We do this instead of using Drupal.settings.basePath in Javascript
+  // because that variable does not take into account whether or not clean
+  // URLs are enabled.
+  $settings['farm_map']['base_path'] = url('<front>');
+
   // Add the map ID to the Drupal.settings.farm_map.maps JavaScript array.
   $settings['farm_map']['maps'] = array($id);
 
