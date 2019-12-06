@@ -11,6 +11,12 @@ include_once 'farm_map.geo.inc';
  * Implements hook_hook_info().
  */
 function farm_map_hook_info() {
+  $hooks['farm_map_behaviors'] = array(
+    'group' => 'farm_map',
+  );
+  $hooks['farm_map_behavior_settings'] = array(
+    'group' => 'farm_map',
+  );
   $hooks['farm_map_view'] = array(
     'group' => 'farm_map',
   );
@@ -214,6 +220,52 @@ function farm_map_build($map_name, $fieldset = FALSE, $title = '', $collapsed = 
 
   // Return the build.
   return $build;
+}
+
+/**
+ * Add a farmOS-map behavior to the page.
+ *
+ * @param string $behavior
+ *   The behavior name.
+ * @param array $settings
+ *   Optionally provide settings to override defaults.
+ */
+function farm_map_add_behavior($behavior, $settings = array()) {
+
+  // Ask modules for behaviors.
+  $hook = 'farm_map_behaviors';
+  $modules = module_implements($hook);
+  foreach ($modules as $module) {
+
+    // Get the module's behaviors.
+    $behaviors = module_invoke($module, $hook);
+
+    // If the desired behavior isn't defined, skip.
+    if (!(array_key_exists($behavior, $behaviors) && !empty($behaviors[$behavior]['js']))) {
+      continue;
+    }
+
+    // If the module defines settings for the behavior, add them as JS settings.
+    $settings_hook = 'farm_map_behavior_settings';
+    $default_settings = array();
+    if (function_exists($module . '_' . $settings_hook)) {
+      $default_settings = module_invoke($module, $settings_hook, $behavior);
+    }
+    $settings = array_merge($default_settings, $settings);
+    if (!empty($settings)) {
+      drupal_add_js(array(
+        'farm_map' => array(
+          'behaviors' => array(
+            $behavior => $settings,
+          ),
+        ),
+      ), array('type' => 'setting'));
+    }
+
+    // Add the behavior JS to the page.
+    $path = drupal_get_path('module', $module) . '/' . $behaviors[$behavior]['js'];
+    drupal_add_js($path);
+  }
 }
 
 /**
