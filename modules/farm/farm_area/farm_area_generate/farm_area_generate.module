@@ -73,11 +73,16 @@ function farm_area_generate_geos_exists() {
  */
 function farm_area_generate_page_build(&$page) {
 
+  // If the user does not have access to use the area generator, bail.
+  if (!user_access('use farm area generator')) {
+    return;
+  }
+
   // If this is the area generator form page, add the areas map.
   if (current_path() == 'farm/areas/generate') {
 
     // Build the map and add it to the page content.
-    $page['content']['farm_areas'] = farm_map_build('farm_areas');
+    $page['content']['farm_areas'] = farm_map_build('farm_area_generate');
 
     // Set the weight to 100 so that it appears on bottom.
     $page['content']['farm_areas']['#weight'] = 100;
