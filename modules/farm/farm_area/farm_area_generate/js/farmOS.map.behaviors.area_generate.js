@@ -3,6 +3,11 @@
     attach: function (instance) {
 
       // Save the instance to this for reference in other methods.
+      /**
+       * @todo
+       * This assumes that there is only one map on the page. It will apply the
+       * preview layer to the last map.
+       */
       this.instance = instance;
 
       // When an area popup is displayed, copy the area to the area generator
