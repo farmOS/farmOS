@@ -12,6 +12,9 @@ function farm_area_farm_map_behaviors() {
     'areas' => array(
       'js' => 'js/farmOS.map.behaviors.areas.js',
     ),
+    'areas_combined' => array(
+      'js' => 'js/farmOS.map.behaviors.areas_combined.js',
+    ),
   );
 }
 
@@ -65,5 +68,10 @@ function farm_area_farm_map_view($name, $element) {
   if ($name == 'farm_areas') {
     farm_map_add_behavior('popup');
     farm_map_add_behavior('areas', array('zoom' => TRUE));
+  }
+
+  // Show "all areas" layer in geofield maps.
+  if ($name == 'farm_map_geofield') {
+    farm_map_add_behavior('areas_combined', array('zoom' => FALSE));
   }
 }
