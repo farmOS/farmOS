@@ -5,15 +5,6 @@
  */
 
 /**
- * Implements hook_uninstall().
- */
-function farm_map_uninstall() {
-
-  // Delete variables.
-  variable_del('farm_map_show');
-}
-
-/**
  * Copy the Google Maps API key into the new configuration variable.
  */
 function farm_map_update_7000(&$sandbox) {
@@ -53,4 +44,11 @@ function farm_map_update_7003(&$sandbox) {
   if (variable_get('farm_map_mapbox_api_key', FALSE) && !module_exists($module)) {
     module_enable(array($module));
   }
+}
+
+/**
+ * Delete the old farm_map_show variable.
+ */
+function farm_map_update_7004(&$sandbox) {
+  variable_del('farm_map_show');
 }

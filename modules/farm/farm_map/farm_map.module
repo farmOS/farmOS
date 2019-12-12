@@ -200,14 +200,6 @@ function farm_map_element_info() {
  */
 function farm_map_build($map_name, $fieldset = FALSE, $title = '', $collapsed = FALSE) {
 
-  // Start with an empty build.
-  $build = array();
-
-  // If maps are disabled, bail.
-  if (!variable_get('farm_map_show', TRUE)) {
-    return $build;
-  }
-
   // Build the map.
   $build = array(
     '#type' => 'farm_map',
@@ -288,18 +280,7 @@ function farm_map_add_behavior($behavior, $settings = array()) {
  * Map settings form.
  */
 function farm_map_settings_form($form, &$form_state) {
-
-  // Show/hide the dashboard maps.
-  // This provides a central variable that other modules can use to determine
-  // whether or not to display a dashboard map.
-  $form['farm_map_show'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('Show dashboard maps'),
-    '#description' => t('If unchecked, this setting will disable the display of dashboard maps in farmOS. This may be helpful for farms that do not want to use the mapping features (for instance, if they are in a part of the world that has limited map imagery coverage).'),
-    '#default_value' => variable_get('farm_map_show', TRUE),
-  );
-
-  // Return it as a system settings form.
+  $form = array();
   return system_settings_form($form);
 }
 
