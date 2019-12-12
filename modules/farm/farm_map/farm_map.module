@@ -149,6 +149,11 @@ function theme_farm_map(&$vars) {
   // Add the map ID to the Drupal.settings.farm_map.maps JavaScript array.
   $settings['farm_map']['maps'] = array($id);
 
+  // If WKT is set, add it to the settings associated with the element ID.
+  if (isset($element['#wkt'])) {
+    $settings['farm_map']['wkt'][$id] = $element['#wkt'];
+  }
+
   // Add the JavaScript settings.
   drupal_add_js($settings, 'setting');
 
