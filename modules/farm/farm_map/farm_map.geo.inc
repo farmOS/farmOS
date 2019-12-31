@@ -14,7 +14,7 @@
  * @return object|bool
  *   Returns a GeoPHP object, or FALSE on failure.
  */
-function farm_map_geofield_geometry_combine($geoms = array()) {
+function farm_map_combine_geoms($geoms = array()) {
 
   // If no geometries were found, return an empty geometry.
   if (empty($geoms)) {

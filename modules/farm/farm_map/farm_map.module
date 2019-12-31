@@ -260,7 +260,7 @@ function farm_map_geofield_populate(&$entity, $geoms = array()) {
   }
 
   // Combine the WKT geometries into a single GeoPHP geometry.
-  $geometry = farm_map_geofield_geometry_combine($geoms);
+  $geometry = farm_map_combine_geoms($geoms);
 
   // If that didn't work, bail.
   if (empty($geometry)) {
