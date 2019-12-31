@@ -522,6 +522,9 @@ function farm_map_line_length($line) {
  */
 function farm_map_polygon_area($polygon) {
 
+  // Load GeoPHP.
+  geophp_load();
+
   // If the geometry is not a polygon, bail.
   if ($polygon->geometryType() != 'Polygon' || $polygon->components[0]->geometryType() != 'LineString') {
     return $polygon;
