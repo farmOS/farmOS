@@ -6,6 +6,47 @@
  */
 
 /**
+ * Helper function for setting BCMath scale. We use this (along with
+ * farm_map_reset_bcscale()) in geometry functions below to consistently call
+ * bcscale() with a high precision, so that small latitude/longitude geometries
+ * can have their length/area calculated with maximum precision.
+ *
+ * @see https://github.com/phayes/geoPHP/issues/114#issuecomment-160463523
+ */
+function farm_map_set_bcscale($reset = FALSE) {
+
+  // The first time this function is called, we will save the current bcscale()
+  // value in a static variable, so that it can be reset in the future.
+  static $scale;
+
+  // Reset the scale, if desired.
+  if (!empty($reset)) {
+
+    // If the scale has not been set, bail.
+    // This prevents farm_map_reset_bcscale() being called before this function.
+    if (!isset($scale)) {
+      return;
+    }
+
+    // Otherwise, reset.
+    bcscale($scale);
+    return;
+  }
+
+  // Set the scale, if it has not been already.
+  if (!isset($scale)) {
+    $scale = bcscale(24);
+  }
+}
+
+/**
+ * Helper function for resetting BCMath scale.
+ */
+function farm_map_reset_bcscale() {
+  farm_map_set_bcscale(TRUE);
+}
+
+/**
  * Combine multiple WKT geometries into a single GeoPHP geometry object.
  *
  * @param array $geoms
@@ -99,6 +140,9 @@ function farm_map_lat_deg_len($lat) {
   // Load GeoPHP.
   geophp_load();
 
+  // Set BCMath scale.
+  farm_map_set_bcscale();
+
   // Convert degrees to radians.
   $lat = deg2rad($lat);
 
@@ -117,6 +161,9 @@ function farm_map_lat_deg_len($lat) {
   else {
     $length = $m1 - ($m2 * cos(2 * $lat)) + ($m3 * cos(4 * $lat)) - ($m4 * cos(6 * $lat));
   }
+
+  // Reset BCMath scale.
+  farm_map_reset_bcscale();
 
   // Return the length.
   return (string) $length;
@@ -139,6 +186,9 @@ function farm_map_lon_deg_len($lat) {
   // Load GeoPHP.
   geophp_load();
 
+  // Set BCMath scale.
+  farm_map_set_bcscale();
+
   // Convert degrees to radians.
   $lat = deg2rad($lat);
 
@@ -156,6 +206,9 @@ function farm_map_lon_deg_len($lat) {
   else {
     $length = ($p1 * cos($lat)) - ($p2 * cos(3 * $lat)) - ($p3 * cos(5 * $lat));
   }
+
+  // Reset BCMath scale.
+  farm_map_reset_bcscale();
 
   // Return the length.
   return (string) $length;
@@ -176,6 +229,9 @@ function farm_map_distance($p1, $p2) {
 
   // Load GeoPHP.
   geophp_load();
+
+  // Set BCMath scale.
+  farm_map_set_bcscale();
 
   // Build a LineString and calculate the center point.
   $line = new LineString(array($p1, $p2));
@@ -199,6 +255,9 @@ function farm_map_distance($p1, $p2) {
     $length = sqrt(pow((($p1->getX() - $p2->getX()) * $lon_deg_len), 2) + pow((($p1->getY() - $p2->getY()) * $lat_deg_len), 2));
   }
 
+  // Reset BCMath scale.
+  farm_map_reset_bcscale();
+
   // Return the length as a string.
   return (string) $length;
 }
@@ -216,6 +275,9 @@ function farm_map_line_length($line) {
 
   // Load GeoPHP.
   geophp_load();
+
+  // Set BCMath scale.
+  farm_map_set_bcscale();
 
   // Start with a length of zero.
   $length = 0;
@@ -240,6 +302,9 @@ function farm_map_line_length($line) {
     }
   }
 
+  // Reset BCMath scale.
+  farm_map_reset_bcscale();
+
   // Return the length as a string.
   return (string) $length;
 }
@@ -262,6 +327,9 @@ function farm_map_polygon_area($polygon) {
   if ($polygon->geometryType() != 'Polygon' || $polygon->components[0]->geometryType() != 'LineString') {
     return $polygon;
   }
+
+  // Set BCMath scale.
+  farm_map_set_bcscale();
 
   // We're going to do a pseudo-projection of the polygon into a coordinate
   // system that is measured in meters, and then run a standard area calculation
@@ -305,6 +373,9 @@ function farm_map_polygon_area($polygon) {
 
   // Calculate the area of the new polygon.
   $area = $new_polygon->area();
+
+  // Reset BCMath scale.
+  farm_map_reset_bcscale();
 
   // Return the area as a string.
   return (string) $area;
