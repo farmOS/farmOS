@@ -268,6 +268,10 @@ Run the following to start a bash session with the new alias and test the
 
 This should display the same list of drush commands.
 
+### (Optional) Configure a Local Https Reverse Proxy
+
+See [Configuring a Local Https Reverse Proxy].
+
 [Hosting farmOS with Docker]: /hosting/docker
 [Docker Compose]: https://docs.docker.com/compose
 [Install Docker]: https://docs.docker.com/engine/installation
@@ -276,4 +280,5 @@ This should display the same list of drush commands.
 [dlite]: https://github.com/nlf/dlite
 [dlite releases]: https://github.com/nlf/dlite/releases
 [Drush]: https://www.drush.org
+[Configuring a Local Https Reverse Proxy]: /development/configure-local-https-reverse-proxy
 
