@@ -67,6 +67,13 @@ http {
   error_log /etc/nginx/error_logs/error_log.log warn;
   client_max_body_size 20m;
 
+  map $http_origin $cors_allow_origin {
+    '~*^https://(.*\.)?farmos\.app(:[0-9]+)?$' $http_origin;
+  }
+  map $http_origin $cors_allow_credentials {
+    '~*^https://(.*\.)?farmos\.app(:[0-9]+)?$' 'true';
+  }
+
   server {
       listen 80;
       server_name farmos.local;
@@ -80,10 +87,19 @@ http {
     location / {
       proxy_pass http://farmos:80;
 
-      # Allow logins through farmos.app
-      if ($http_origin ~ '^https://(.*\.)?farmos\.app(:[0-9]+)?$') {
-        add_header 'Access-Control-Allow-Origin' $http_origin;
-        add_header 'Access-Control-Allow-Credentials' 'true';
+      add_header 'Access-Control-Allow-Origin' "$cors_allow_origin" always;
+      add_header 'Access-Control-Allow-Credentials' "$cors_allow_credentials" always;
+
+      # Preflighted requests
+      if ($request_method = 'OPTIONS') {
+        add_header 'Access-Control-Allow-Origin' "$cors_allow_origin" always;
+        add_header 'Access-Control-Allow-Credentials' "$cors_allow_credentials" always;
+        add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS' always;
+        add_header 'Access-Control-Allow-Headers' 'Accept,Authorization,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Origin,User-Agent,X-Requested-With,X-CSRF-Token' always;
+
+        add_header 'Content-Type' 'text/plain charset=UTF-8';
+        add_header 'Content-Length' 0;
+        return 204;
       }
 
       # proxy_redirect off;
