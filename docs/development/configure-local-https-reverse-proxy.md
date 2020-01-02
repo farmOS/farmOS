@@ -80,6 +80,12 @@ http {
     location / {
       proxy_pass http://farmos:80;
 
+      # Allow logins through farmos.app
+      if ($http_origin ~ '^https://(.*\.)?farmos\.app(:[0-9]+)?$') {
+        add_header 'Access-Control-Allow-Origin' $http_origin;
+        add_header 'Access-Control-Allow-Credentials' 'true';
+      }
+
       # proxy_redirect off;
       proxy_set_header Host $host;
       proxy_set_header X-Real-IP $remote_addr;
