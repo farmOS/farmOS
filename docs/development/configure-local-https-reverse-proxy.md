@@ -22,38 +22,30 @@ services:
       MYSQL_DATABASE: farm
       MYSQL_USER: farm
       MYSQL_PASSWORD: farm
-    networks:
-      farmos-dev-net:
 
-  farmos:
+  www:
     depends_on:
       - db
-    image: farmos/farmos:7.x-1.2
+    image: farmos/farmos:dev
     volumes:
-      - './sites:/var/www/html/sites'
+      - './www:/var/www/html'
     expose:
       - '80'
     environment:
-      FARMOS_DEV: 'true'
-    networks:
-      farmos-dev-net:
+      XDEBUG_CONFIG: remote_host=172.17.0.1
 
   proxy:
     depends_on:
-      - farmos
+      - www
     image: nginx:latest
     volumes:
       - './nginx.conf:/etc/nginx/nginx.conf'
       - './nginx/error_logs:/etc/nginx/error_logs'
       - './devcerts:/etc/nginx/certs'
     ports:
-      - 80:80
-      - 443:443
-    networks:
-      farmos-dev-net:
+      - '80:80'
+      - '443:443'
 
-networks:
-  farmos-dev-net:
 ```
 
 **nginx.conf**
@@ -67,13 +59,6 @@ http {
   error_log /etc/nginx/error_logs/error_log.log warn;
   client_max_body_size 20m;
 
-  map $http_origin $cors_allow_origin {
-    '~*^https://(.*\.)?farmos\.app(:[0-9]+)?$' $http_origin;
-  }
-  map $http_origin $cors_allow_credentials {
-    '~*^https://(.*\.)?farmos\.app(:[0-9]+)?$' 'true';
-  }
-
   server {
       listen 80;
       server_name farmos.local;
@@ -85,24 +70,8 @@ http {
     server_name farmos.local;
 
     location / {
-      proxy_pass http://farmos:80;
+      proxy_pass http://www:80;
 
-      add_header 'Access-Control-Allow-Origin' "$cors_allow_origin" always;
-      add_header 'Access-Control-Allow-Credentials' "$cors_allow_credentials" always;
-
-      # Preflighted requests
-      if ($request_method = 'OPTIONS') {
-        add_header 'Access-Control-Allow-Origin' "$cors_allow_origin" always;
-        add_header 'Access-Control-Allow-Credentials' "$cors_allow_credentials" always;
-        add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS' always;
-        add_header 'Access-Control-Allow-Headers' 'Accept,Authorization,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Origin,User-Agent,X-Requested-With,X-CSRF-Token' always;
-
-        add_header 'Content-Type' 'text/plain charset=UTF-8';
-        add_header 'Content-Length' 0;
-        return 204;
-      }
-
-      # proxy_redirect off;
       proxy_set_header Host $host;
       proxy_set_header X-Real-IP $remote_addr;
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -117,29 +86,41 @@ http {
     ssl_certificate_key /etc/nginx/certs/key.pem;
   }
 }
+
 ```
 
-Additions to **sites/default/settings.php (simplified from [this SO answer](https://drupal.stackexchange.com/a/257399))**
-
-```php
-$conf['reverse_proxy'] = TRUE;
-$conf['reverse_proxy_addresses'] = [@$_SERVER['REMOTE_ADDR']];
-$base_url = $_SERVER['HTTP_X_FORWARDED_PROTO'] . '://' . $_SERVER['SERVER_NAME'];
-```
-
-**Certificates generated with [mkcert]**
+**Generate certificates with [mkcert]**
 
 ```sh
 mkdir devcerts && mkcert -key-file devcerts/key.pem -cert-file devcerts/cert.pem farmos.local *.farmos.local
 ```
 
-**Fake domain added to /etc/hosts**
+**Start containers**
+
+```sh
+docker-compose up
+```
+
+**Add fake domain to /etc/hosts**
 
 ```sh
 echo "127.0.0.1 farmos.local" >> /etc/hosts
 ```
 
-This yields a FarmOS installation which can be accessed via https://farmos.local
+```sh
+alias drush="docker-compose exec www drush"
+drush site-install farm --locale=us --db-url=mysql://farm:farm@db/farm --site-name=Test0 --account-name=root --account-pass=test install_configure_form.update_status_module='array(FALSE,FALSE)'
+```
+
+*Note: It is advisable to update the command above with a better password than 'test' before running it.*
+
+**Enable reverse proxy settings in sites/default/settings.php (simplified from [this SO answer](https://drupal.stackexchange.com/a/257399))**
+
+```sh
+sudo sh -c "printf \"\n\n\\\$conf['reverse_proxy'] = TRUE;\n\\\$conf['reverse_proxy_addresses'] = [@\\\$_SERVER['REMOTE_ADDR']];\n\\\$base_url = \\\$_SERVER['HTTP_X_FORWARDED_PROTO'] . '://' . \\\$_SERVER['SERVER_NAME'];\n\" >> www/sites/default/settings.php"
+```
+
+This yields a FarmOS installation which can be accessed via https://farmos.local with a user named 'root' and a password of 'test' - or the better password that you wisely substituted above.
 
 ![image](https://user-images.githubusercontent.com/30754460/71647994-35b45400-2cb3-11ea-8702-b44c2fcebe66.png)
 
