@@ -166,7 +166,7 @@ function farm_crop_planting_quick_form($form, &$form_state) {
         '#title' => t('Date'),
         '#date_format' => $date_format,
         '#date_label_position' => 'within',
-        '#date_year_range' => '-3:+10',
+        '#date_year_range' => '-10:+3',
         '#default_value' => REQUEST_TIME,
         '#required' => TRUE,
       ),
