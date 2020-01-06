@@ -64,6 +64,7 @@ function farm_crop_planting_quick_form($form, &$form_state) {
     $form['planting']['crops'][$i] = array(
       '#type' => 'textfield',
       '#title' => t('Crop/variety') . ' ' . ($i+1),
+      '#description' => t('Enter the crop/variety that this is a planting of. As you type, you will have the option of selecting from crops/varieties that you\'ve entered in the past.'),
       '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_crop',
       '#ajax' => array(
         'callback' => 'farm_crop_planting_quick_form_name_ajax',
@@ -176,6 +177,7 @@ function farm_crop_planting_quick_form($form, &$form_state) {
       'location' => array(
         '#type' => 'textfield',
         '#title' => t( 'Location'),
+        '#description' => t('Set the ' . $info['title'] . ' areas(s) for this asset. Separate multiple areas with commas.'),
         '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_area',
         '#maxlength' => NULL,
         '#ajax' => array(
