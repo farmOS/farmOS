@@ -262,6 +262,7 @@ function farm_crop_planting_quick_form($form, &$form_state) {
   $form['planting']['name'] = array(
     '#type' => 'textfield',
     '#title' => t('Planting asset name'),
+    '#maxlength' => 255,
     '#description' => t('The planting asset name will default to "[Season] [Location] [Crop(s)]" but can be modified here. If both a seeding and a transplanting log are created, the transplanting location will be used.'),
     '#default_value' => $planting_name,
     '#prefix' => '<div id="planting-name">',
