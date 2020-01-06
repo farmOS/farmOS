@@ -177,6 +177,7 @@ function farm_crop_planting_quick_form($form, &$form_state) {
         '#type' => 'textfield',
         '#title' => t( 'Location'),
         '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_area',
+        '#maxlength' => NULL,
         '#ajax' => array(
           'callback' => 'farm_crop_planting_quick_form_name_ajax',
           'wrapper' => 'planting-name',
