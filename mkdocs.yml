@@ -53,6 +53,7 @@ nav:
 - Community:
     - Contribute: community/contribute.md
     - Monthly Call: community/monthly-call.md
+    - Chat: https://riot.im/app/#/room/#farmOS:matrix.org
     - Forum: https://farmOS.discourse.group/
     - Farms: community/farms.md
     - Maintainers: community/maintainers.md
