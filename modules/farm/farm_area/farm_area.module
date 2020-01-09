@@ -423,7 +423,17 @@ function farm_area_calculate_area($area_id, $format = FALSE) {
   // Load the WKT into a GeoPHP Geometry object and reduce it.
   geophp_load();
   $polygon = geoPHP::load($geom, 'wkt');
+
+  // If the geometry is empty, bail.
+  if ($polygon->isEmpty()) {
+    return '';
+  }
+
+  // Reduce the geometry. If this returns FALSE, bail.
   $polygon = geoPHP::geometryReduce($polygon);
+  if (empty($polygon)) {
+    return '';
+  }
 
   // Ensure that it is a simple polygon.
   if ($polygon->geometryType() != 'Polygon') {
