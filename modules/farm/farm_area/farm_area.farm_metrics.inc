@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * Farm dashboard hooks implemented by farm calendar module.
+ * Farm metrics hooks implemented by farm calendar module.
  */
 
 /**
- * Implements hook_farm_dashboard_metrics().
+ * Implements hook_farm_metrics().
  */
-function farm_area_farm_dashboard_metrics() {
+function farm_area_farm_metrics() {
 
   // Start with empty metrics.
   $metrics = array();
