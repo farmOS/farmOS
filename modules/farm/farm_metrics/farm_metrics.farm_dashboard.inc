@@ -1,17 +1,17 @@
 <?php
 /**
  * @file
- * Farm dashboard hooks implemented by farm_dashboard module.
+ * Farm dashboard hooks implemented by farm_metrics module.
  */
 
 /**
  * Implements hook_farm_dashboard_panes().
  */
-function farm_dashboard_farm_dashboard_panes() {
+function farm_metrics_farm_dashboard_panes() {
   return array(
-    'farm_dashboard_metrics' => array(
+    'farm_metrics' => array(
       'title' => t('Metrics'),
-      'callback' => 'farm_dashboard_metrics',
+      'callback' => 'farm_metrics_dashboard_pane',
       'group' => 'metrics',
     ),
   );
@@ -20,10 +20,10 @@ function farm_dashboard_farm_dashboard_panes() {
 /**
  * Metrics dashboard callback.
  */
-function farm_dashboard_metrics() {
+function farm_metrics_dashboard_pane() {
 
   // Ask modules for metrics.
-  $metrics = module_invoke_all('farm_dashboard_metrics');
+  $metrics = module_invoke_all('farm_metrics');
   if (empty($metrics)) {
     return '';
   }
