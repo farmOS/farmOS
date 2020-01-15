@@ -13,3 +13,53 @@ function farm_metrics_hook_info() {
   );
   return $hooks;
 }
+
+/**
+ * Implements hook_permission().
+ */
+function farm_metrics_permission() {
+  $perms = array(
+    'access farm metrics' => array(
+      'title' => t('Access the farmOS metrics endpoint'),
+    ),
+  );
+  return $perms;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function farm_metrics_menu() {
+
+  // General farm metrics JSON endpoint.
+  $items['farm_metrics.json'] = array(
+    'page callback' => 'farm_metrics_info',
+    'access arguments' => array('access farm metrics'),
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+/**
+ * Farm metrics API callback.
+ */
+function farm_metrics_info() {
+
+  // Ask modules for metrics.
+  $metrics = module_invoke_all('farm_metrics');
+
+  // Make sure all metrics have defaults set.
+  $defaults = array(
+    'label' => '',
+    'value' => '0',
+    'link' => 'farm',
+    'weight' => 0,
+  );
+  foreach ($metrics as $key => $metric) {
+    $label = $metric['label'];
+    $metrics[$key] = array_merge($defaults, $metric);
+  }
+
+  drupal_json_output($metrics);
+}
