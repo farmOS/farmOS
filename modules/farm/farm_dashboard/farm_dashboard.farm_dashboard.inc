@@ -51,7 +51,7 @@ function farm_dashboard_metrics() {
   // Iterate through the metrics and build rendered metrics.
   $rendered_metrics = array();
   foreach ($metrics as $metric) {
-    $rendered_metrics[] = '<li role="presentation"><a href="' . $metric['link'] . '">' . $metric['label'] . ' <span class="badge">' . $metric['value'] . '</span></a></li>';
+    $rendered_metrics[] = '<li role="presentation"><a href="' . url($metric['link']) . '">' . $metric['label'] . ' <span class="badge">' . $metric['value'] . '</span></a></li>';
   }
 
   // Build and return the final output.
