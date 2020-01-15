@@ -8,9 +8,6 @@
  * Implements hook_hook_info().
  */
 function farm_dashboard_hook_info() {
-  $hooks['farm_dashboard_metrics'] = array(
-    'group' => 'farm_dashboard',
-  );
   $hooks['farm_dashboard_panes'] = array(
     'group' => 'farm_dashboard',
   );
