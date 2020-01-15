@@ -15,7 +15,7 @@ function farm_area_farm_metrics() {
   // Count the number of areas.
   $areas = db_query("SELECT COUNT(tid) FROM {taxonomy_term_data} t LEFT JOIN {taxonomy_vocabulary} v ON t.vid = v.vid WHERE v.machine_name = 'farm_areas'")->fetchField();
   if (!empty($areas)) {
-    $metrics[] = array(
+    $metrics['areas'] = array(
       'label' => t('Areas'),
       'value' => $areas,
       'link' => 'farm/areas',
@@ -51,7 +51,7 @@ function farm_area_farm_metrics() {
     }
 
     // Add a metric.
-    $metrics[] = array(
+    $metrics[$area_type] = array(
       'label' => t('@area_type area', array('@area_type' => $label)),
       'value' => $total_area,
       'link' => 'farm/areas',

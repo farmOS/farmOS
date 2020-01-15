@@ -25,22 +25,25 @@
  * Defines farm metrics.
  *
  * @return array
- *   Returns an array of metrics. Each should
- *   be an array containing the following keys:
+ *   Returns an array of farm metrics. The key should be a unique metric
+ *   name, and each should be an array of metric values including the
+ *   following keys:
  *     - label: Translated metric label.
  *     - value: The metric's value.
  *     - link: A path to link the value to.
  *     - weight: Weight for ordering (optional - defaults to alphabetical).
  */
 function hook_farm_metrics() {
-  return array(
-    array(
-      'label' => t('Example'),
-      'value' => '100',
-      'link' => 'farm/example',
-      'weight' => -10,
-    ),
+  $metrics = array();
+
+  $metrics['example'] = array(
+    'label' => t('Example'),
+    'value' => '100',
+    'link' => 'farm/example',
+    'weight' => -10,
   );
+
+  return $metrics;
 }
 
 /**
