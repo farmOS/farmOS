@@ -51,27 +51,5 @@ function hook_farm_dashboard_panes() {
 }
 
 /**
- * Defines farm dashboard metrics.
- *
- * @return array
- *   Returns an array of metrics to be displays on the dashboard. Each should
- *   be an array containing the following keys:
- *     - label: Translated metric label.
- *     - value: The metric's value.
- *     - link: A path to link the value to.
- *     - weight: Weight for ordering (optional - defaults to alphabetical).
- */
-function hook_farm_dashboard_metrics() {
-  return array(
-    array(
-      'label' => t('Example'),
-      'value' => '100',
-      'link' => 'farm/example',
-      'weight' => -10,
-    ),
-  );
-}
-
-/**
  * @}
  */
