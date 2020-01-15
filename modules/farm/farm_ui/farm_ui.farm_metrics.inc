@@ -35,7 +35,7 @@ function farm_ui_farm_metrics() {
     }
 
     // Build a metric.
-    $metrics[] = array(
+    $metrics[$type] = array(
       'label' => $info['label_plural'],
       'value' => $count,
       'link' => farm_ui_view_page_path($info['view']),
