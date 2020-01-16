@@ -27,7 +27,7 @@ function farm_api_menu() {
   // General farm information JSON endpoint.
   $items['farm.json'] = array(
     'page callback' => 'farm_api_info',
-    'access arguments' => array('access farm api info'),
+    'access callback' => TRUE,
     'type' => MENU_CALLBACK,
   );
 
@@ -38,7 +38,63 @@ function farm_api_menu() {
  * Farm info API callback.
  */
 function farm_api_info() {
-  $info = module_invoke_all('farm_info');
+
+  // Start with an empty info array.
+  $info = array();
+
+  // Check for an authenticated user with access to farmOS API info.
+  $access = user_access('access farm api info');
+
+  // Iterate through all the modules that implement hook_farm_info.
+  $hook = 'farm_info';
+  $modules = module_implements($hook);
+  foreach($modules as $module) {
+
+    // Invoke the hook to get info.
+    $module_info = module_invoke($module, $hook);
+
+    // If the info is empty, skip it.
+    if (!is_array($module_info)) {
+      continue;
+    }
+
+    // Iterate through the info items.
+    foreach ($module_info as $key => $item) {
+
+      // If the item is an array with an 'info' key, that is what we will
+      // include.
+      if (is_array($item) && !empty($item['info'])) {
+
+        // If the user is authenticated with permission OR if an OAuth2 scope is
+        // authorized for this request, add the item to the info array.
+        if ($access || (!empty($item['scope']) && farm_api_check_scope($item['scope']))) {
+
+          // Add the key to an array before merging.
+          $item = array(
+            $key => $item['info'],
+          );
+
+          // Include in info.
+          $info = array_merge($info, $item);
+        }
+      }
+
+      // If item does not have an 'info' include if the user has access.
+      // This is simple info that does not require a check for OAuth scope.
+      elseif ($access) {
+
+        // Add the key to an array before merging.
+        $item = array(
+          $key => $item,
+        );
+
+        // Include in info.
+        $info = array_merge($info, $item);
+      }
+    }
+  }
+
+  // Output as JSON.
   drupal_json_output($info);
 }
 
@@ -60,6 +116,41 @@ function farm_api_farm_info() {
     );
   }
   return $info;
+}
+
+/**
+ * Helper function to allow modules to check for an
+ * authorized scope in the current request before
+ * providing info in an API endpoint.
+ *
+ * @param string $scope
+ *    A single OAuth Scope to check.
+ *
+ * @return bool
+ */
+function farm_api_check_scope($scope){
+
+  // Return False if `farm_api_oauth` is not enabled.
+  if (!module_exists('farm_api_oauth')) {
+    return FALSE;
+  }
+
+  // Load the OAuth2 Server name
+  $server_name = variable_get('restws_oauth2_server_name', FALSE);
+  if (!$server_name) {
+    return FALSE;
+  }
+
+  // Check OAuth scope.
+  $result = oauth2_server_check_access($server_name, $scope);
+
+  // Check if a Token was returned, or an error Response.
+  if ($result instanceof \OAuth2\Response) {
+    return FALSE;
+  }
+
+  // Return True if request is authorized with specified scope.
+  return TRUE;
 }
 
 /**
