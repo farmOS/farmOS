@@ -103,11 +103,24 @@ function farm_api_info() {
  */
 function farm_api_farm_info() {
   global $base_url, $conf, $user;
+
+  // Include info that requires the farm_info scope.
   $info = array(
-    'name' => $conf['site_name'],
-    'url' => $base_url,
-    'api_version' => FARM_API_VERSION,
+    'name' => array(
+      'info' => $conf['site_name'],
+      'scope' => 'farm_info',
+    ),
+    'url' => array(
+      'info' => $base_url,
+      'scope' => 'farm_info',
+    ),
+    'api_version' => array(
+      'info' => FARM_API_VERSION,
+      'scope' => 'farm_info',
+    ),
   );
+
+  // Include user info if logged in.
   if (!empty($user->uid)) {
     $info['user'] = array(
       'uid' => $user->uid,
