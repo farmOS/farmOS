@@ -1,0 +1,203 @@
+<?php
+
+/**
+ * @file
+ * Farm API OAuth Module.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function farm_api_oauth_menu(){
+  $items = array();
+  $items['api/authorized'] = [
+    'title'            => 'farmOS API Client Authorized',
+    'description'      => 'Callback page for authorized farmOS API Clients.',
+    'page callback'    => 'drupal_get_form',
+    'page arguments'   => array('farm_api_oauth_authorized_form'),
+    'access arguments' => array('use oauth2 server'),
+  ];
+
+  return $items;
+}
+
+/**
+ * Implements hook_form().
+ * Callback page after authorizing OAuth2 farmOS API Clients.
+ */
+function farm_api_oauth_authorized_form($form, &$form_state){
+  global $base_root;
+  $request_url = $base_root . request_uri();
+
+  $params = drupal_get_query_parameters();
+
+  // Load JS to load data from URL Fragments that aren't sent to the server into the form fields
+  $form['#attached']['js'][] = drupal_get_path('module', 'farm_api_oauth') . '/api_callback.js';
+
+  $form['redirect_url'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Redirect URI'),
+    '#description' => t('Copy this link which includes the following values:'),
+    '#default_value' => $request_url,
+    '#attributes' => array('readonly' => 'readonly'),
+  );
+
+  // Only display authorization_code if 'code' is in the query parameters.
+  $form['authorization_code'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Authorization Code'),
+    '#description' => t('Use the Authorization Code to get an Access Token.'),
+    '#default_value' => isset($params['code']) ? $params['code'] : '',
+    '#attributes' => array('readonly' => 'readonly'),
+    '#access' => isset($params['code']),
+  );
+
+  // Only display auth_code_state if 'code' is in the query parameters.
+  // This displays the same 'state' parameter as below - but is an additional
+  // form element to make updaing input values with JS easier.
+  $form['auth_code_state'] = array(
+    '#type' => 'textfield',
+    '#title' => t('State'),
+    '#description' => t('Include this in your header to maintain CORS.'),
+    '#default_value' => isset($params['state']) ? $params['state'] : '',
+    '#attributes' => array('readonly' => 'readonly'),
+    '#access' => isset($params['code']),
+  );
+
+  // Only display the following input fields if 'code' is not in the query parameters.
+  // That means is is not an Authorization Code Flow, so these values exist.
+  // The following fields are populated with JS in /api_callback.js
+  $form['access_token'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Access Token'),
+    '#description' => t('Include this Token in an HTTP \'Bearer Authentication\' Header to access
+      protected resources.'),
+    '#attributes' => array('readonly' => 'readonly'),
+    '#access' => !isset($params['code']),
+  );
+
+  $form['expires_in'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Expires In'),
+    '#description' => t('Seconds until expiration.'),
+    '#attributes' => array('readonly' => 'readonly'),
+    '#access' => !isset($params['code']),
+  );
+
+  $form['token_type'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Token Type'),
+    '#description' => t('Bearer by default.'),
+    '#attributes' => array('readonly' => 'readonly'),
+    '#access' => !isset($params['code']),
+  );
+
+  $form['scope'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Scope'),
+    '#description' => t('Authorized OAuth2 Scopes'),
+    '#attributes' => array('readonly' => 'readonly'),
+    '#access' => !isset($params['code']),
+  );
+
+  $form['state'] = array(
+    '#type' => 'textfield',
+    '#title' => t('State'),
+    '#description' => t('Include this in your header to maintain CORS.'),
+    '#attributes' => array('readonly' => 'readonly'),
+    '#access' => !isset($params['code']),
+  );
+
+  return $form;
+}
+
+/**
+ * Implements hook_enable().
+ */
+function farm_api_oauth_enable(){
+  // Grant oauth2 server permissions to all users.
+  // Permission is needed for clients to access the
+  // /oauth2/authorize and oauth2/token endpoints anonymously,
+  // and as an authenticated user.
+  $permissions = array('use oauth2 server');
+  user_role_grant_permissions(DRUPAL_ANONYMOUS_RID, $permissions);
+  user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, $permissions);
+
+  // Set variable for restws_oauth2_server configuration.
+  $server_name = 'farmos_oauth';
+  variable_set('restws_oauth2_server_name', $server_name);
+
+  // Set variable so other modules can use the oauth2_server.
+  variable_set('farmos_oauth2_server_name', $server_name);
+
+  // Create an OAuth2 Server.
+  $server = entity_create('oauth2_server', array());
+  $server->name = $server_name;
+  $server->label = 'Farm OAuth Server';
+  $server->settings = array(
+    'enforce_state' => TRUE,
+    'allow_implicit' => TRUE,
+    'use_openid_connect' => FALSE,
+    'use_crypto_tokens' => FALSE,
+    'store_encrypted_token_string' => FALSE,
+    'require_exact_redirect_uri' => TRUE,
+    'grant_types' => array(
+      'authorization_code' => 'authorization_code',
+      'client_credentials' => 'client_credentials',
+      'refresh_token' => 'refresh_token',
+      'password' => 'password',
+    ),
+    'always_issue_new_refresh_token' => TRUE,
+    'access_lifetime' => 3600,
+    'id_lifetime' => 3600,
+    'refresh_token_lifetime' => 1209600,
+  );
+  $server->save();
+
+  // Create an OAuth2 Scope for restws access.
+  $scope = entity_create('oauth2_server_scope', array());
+  $scope->server = $server->name;
+  $scope->name = 'user_access';
+  $scope->description = 'Allow full user access to farmOS records.';
+  $scope->save();
+
+  // Create an OAuth2 Scope for farm info.
+  $scope = entity_create('oauth2_server_scope', array());
+  $scope->server = $server->name;
+  $scope->name = 'farm_info';
+  $scope->description = 'Allow access to farmOS server info.';
+  $scope->save();
+
+  // Create an OAuth2 Client for general Farm API access.
+  $client = entity_create('oauth2_server_client', array());
+  $client->server = $server->name;
+  $client->label = 'farmOS API';
+  $client->client_key = 'farmos_api_client';
+  $client->client_secret = oauth2_server_hash_client_secret('client_secret');
+  // The module supports entering multiple redirect uris separated by a
+  // newline. Both a dummy and the real uri are specified to confirm that
+  // validation passes.
+  $client->redirect_uri = url('api/authorized', array('absolute' => TRUE));
+  $client->automatic_authorization = FALSE;
+  $client->save();
+}
+
+/**
+ * Implements hook_disable().
+ */
+function farm_api_oauth_disable(){
+  // Assume that the user does not change the OAuth2 Server or Scope
+  // because they are using this module with farmOS. Otherwise this could
+  // potentially delete other configured OAuth2 Servers and Scopes.
+  $server_name = variable_get('restws_oauth2_server_name', 'farmos_oauth');
+
+  // Delete OAuth2 Entities.
+  entity_delete('oauth2_server_client', 'farmos_api_client');
+  entity_delete('oauth2_server_scope', 'user_access');
+  entity_delete('oauth2_server_scope', 'farm_info');
+  entity_delete('oauth2_server', $server_name);
+
+  // Delete variables
+  variable_del('restws_oauth2_server_name');
+  variable_del('farmos_oauth2_server_name');
+}

@@ -1,0 +1,10 @@
+name = Farm API OAuth
+description = Configuration for the OAuth2 Server and restws modules to provide OAuth2 Authorization for farmOS.
+core = 7.x
+package = farmOS
+dependencies[] = farm_api
+dependencies[] = oauth2_server
+dependencies[] = restws
+dependencies[] = restws_oauth2_server
+
+
