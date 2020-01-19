@@ -155,6 +155,12 @@ For more information and documentation about these modules, see
 The official farmOS theme ("Farm Theme") that is included with farmOS is a
 Drupal theme based off of [Bootstrap].
 
+## External Tools
+
+* **[farmOS Area Feature Proxy][farm-os-area-feature-proxy]** - Exposes FarmOS
+  areas as a [Web Feature Service (WFS)][WFS] enabling bi-directional access
+  through full-fledged GIS tools like [Quantum GIS][QGIS].
+
 [farmOS]: http://farmos.org
 [Drupal]: https://drupal.org
 [farm-focused Drupal distribution]: https://drupal.org/project/farm
@@ -166,4 +172,7 @@ Drupal theme based off of [Bootstrap].
 [Docker]: /development/docker
 [farmOS community modules]: /guide/contrib
 [Bootstrap]: https://drupal.org/project/bootstrap
+[farm-os-area-feature-proxy]: https://github.com/symbioquine/farm-os-area-feature-proxy
+[WFS]: https://www.opengeospatial.org/standards/wfs
+[QGIS]: https://qgis.org/
 
