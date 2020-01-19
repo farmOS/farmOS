@@ -352,6 +352,11 @@ function farm_constraint_restws_request_alter(array &$request) {
   // Get the entity.
   $entity = $request['resource']->read($id);
 
+  // If the entity doesn't exist it cannot have constraints
+  if (empty($entity)) {
+    return;
+  }
+
   // Get the entity bundle.
   list($entity_id, $revision_id, $bundle) = entity_extract_ids($type, $entity);
 
