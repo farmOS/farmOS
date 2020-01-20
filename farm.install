@@ -34,6 +34,7 @@ function farm_modules() {
       'farm_crop_area_types' => t('Crop area types: Bed and Greenhouse'),
       'farm_livestock_area_types' => t('Livestock area types: Paddock'),
       'farm_water' => st('Water area type'),
+      'farm_quantity_report' => st('Quantity report generator'),
       'farm_data_field' => st('Add an arbitrary "data" field to logs and assets'),
       'farm_access_roles' => st('Default roles: Manager, Worker, Viewer'),
       'farm_help' => st('farmOS Help Pages'),
@@ -46,7 +47,6 @@ function farm_modules() {
       'farm_sensor' => st('Sensor'),
       'farm_sensor_listener' => st('Sensor: Listener'),
       'farm_ledger' => st('Sale and purchase logs (beta)'),
-      'farm_quantity_report' => st('Quantity report generator (beta)'),
     ),
   );
 }
