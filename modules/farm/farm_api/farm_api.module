@@ -5,7 +5,7 @@
  * Farm API module.
  */
 
-define('FARM_API_VERSION', '1.1');
+define('FARM_API_VERSION', '1.2');
 
 /**
  * Implements hook_permission().
