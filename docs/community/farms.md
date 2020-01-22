@@ -6,6 +6,7 @@ included in this list, add a comment to [this issue on Github].
 ## Australia
 
 * Eagle View Farm (Buckley, Victoria)
+* Rosewood Farm (Lara, Victoria)
 
 ## Belgium
 
