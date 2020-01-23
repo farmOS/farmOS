@@ -191,10 +191,27 @@ function farm_api_oauth_disable(){
   // potentially delete other configured OAuth2 Servers and Scopes.
   $server_name = variable_get('restws_oauth2_server_name', 'farmos_oauth');
 
-  // Delete OAuth2 Entities.
-  entity_delete('oauth2_server_client', 'farmos_api_client');
-  entity_delete('oauth2_server_scope', 'user_access');
-  entity_delete('oauth2_server_scope', 'farm_info');
+  // Delete farmOS OAuth Client.
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'oauth2_server_client')
+      ->entityCondition('client_key', 'farmos_api_client');
+  $result = $query->execute();
+  if (isset($result['oauth2_server_client'])) {
+      $client_id = array_keys($result['oauth2_server_client']);
+      entity_delete('oauth2_server_client', $client_id);
+  }
+
+  // Delete farmOS OAuth Scopes.
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'oauth2_server_scope')
+      ->entityCondition('server', $server_name);
+  $result = $query->execute();
+  if (isset($result['oauth2_server_scope'])) {
+      $scope_ids = array_keys($result['oauth2_server_scope']);
+      entity_delete('oauth2_server_scope', $scope_ids);
+  }
+
+  // Delete farmOS OAuth2 Server.
   entity_delete('oauth2_server', $server_name);
 
   // Delete variables
