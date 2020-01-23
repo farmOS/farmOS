@@ -180,3 +180,6 @@ libraries[modernizr][download][url] = "http://github.com/Modernizr/Modernizr/arc
 
 libraries[underscore][download][type] = "get"
 libraries[underscore][download][url] = "http://github.com/jashkenas/underscore/archive/1.9.1.zip"
+
+libraries[oauth2-server-php][download][type] = "get"
+libraries[oauth2-server-php][download][url] = "http://github.com/bshaffer/oauth2-server-php/archive/v1.11.1.zip"
