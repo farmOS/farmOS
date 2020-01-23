@@ -146,6 +146,15 @@ projects[views_geojson][version] = "1.0-beta3"
 projects[views_tree][subdir] = "contrib"
 projects[views_tree][version] = "2.0"
 
+projects[xautoload][subdir] = "contrib"
+projects[xautoload][version] = "5.7"
+
+projects[oauth2_server][subdir] = "contrib"
+projects[oauth2_server][version] = "1.7"
+
+projects[restws_oauth2_server][subdir] = "contrib"
+projects[restws_oauth2_server][version] = "1.x-dev"
+
 ; -----------------------------------------------------------------------------
 ; Modules (Development)
 ; -----------------------------------------------------------------------------
