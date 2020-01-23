@@ -143,7 +143,6 @@ function farm_api_oauth_enable(){
     'require_exact_redirect_uri' => TRUE,
     'grant_types' => array(
       'authorization_code' => 'authorization_code',
-      'client_credentials' => 'client_credentials',
       'refresh_token' => 'refresh_token',
       'password' => 'password',
     ),
@@ -173,7 +172,6 @@ function farm_api_oauth_enable(){
   $client->server = $server->name;
   $client->label = 'farmOS API';
   $client->client_key = 'farmos_api_client';
-  $client->client_secret = oauth2_server_hash_client_secret('client_secret');
   // The module supports entering multiple redirect uris separated by a
   // newline. Both a dummy and the real uri are specified to confirm that
   // validation passes.
