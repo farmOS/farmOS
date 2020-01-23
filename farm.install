@@ -47,6 +47,7 @@ function farm_modules() {
       'farm_sensor' => st('Sensor'),
       'farm_sensor_listener' => st('Sensor: Listener'),
       'farm_ledger' => st('Sale and purchase logs (beta)'),
+      'farm_quantity_report' => st('Quantity report generator (beta)'),
     ),
   );
 }
@@ -924,6 +925,13 @@ function farm_update_7051(&$sandbox) {
   foreach ($tables as $table) {
     db_query("DROP TABLE {$table}");
   }
+}
+
+/**
+ * Enable farm_api_oauth module.
+ */
+function farm_update_7052(&$sandbox) {
+  _farm_update_enable_modules(array('farm_api_oauth'));
 }
 
 /**
