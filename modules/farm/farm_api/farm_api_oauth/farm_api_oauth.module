@@ -136,7 +136,7 @@ function farm_api_oauth_enable(){
   $server->label = 'Farm OAuth Server';
   $server->settings = array(
     'enforce_state' => TRUE,
-    'allow_implicit' => TRUE,
+    'allow_implicit' => FALSE,
     'use_openid_connect' => FALSE,
     'use_crypto_tokens' => FALSE,
     'store_encrypted_token_string' => FALSE,
