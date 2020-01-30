@@ -474,6 +474,9 @@ function farm_area_calculate_area_multiple($area_ids, $format = FALSE) {
     return '';
   }
 
+  // Set BCMath scale.
+  farm_map_set_bcscale();
+
   // Add up the total area.
   $total_area = '';
   foreach ($area_ids as $area_id) {
@@ -488,6 +491,9 @@ function farm_area_calculate_area_multiple($area_ids, $format = FALSE) {
       $total_area += floatval($area_area);
     }
   }
+
+  // Reset BCMath scale.
+  farm_map_reset_bcscale();
 
   // Return the area as a string (optionally formatted using the default
   // system of measure).
@@ -605,6 +611,9 @@ function farm_area_convert_area_units($input, $unit) {
     return $input;
   }
 
+  // Set BCMath scale.
+  farm_map_set_bcscale();
+
   // Convert to the desired units.
   if (function_exists('bcmul')) {
     $output = bcmul($input, $conversion[$unit]);
@@ -612,6 +621,9 @@ function farm_area_convert_area_units($input, $unit) {
   else {
     $output = floatval($input) * $conversion[$unit];
   }
+
+  // Reset BCMath scale.
+  farm_map_reset_bcscale();
 
   // Return the result.
   return $output;

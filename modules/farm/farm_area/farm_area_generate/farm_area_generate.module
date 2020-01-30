@@ -387,6 +387,9 @@ function farm_area_generate_form_submit(&$form, &$form_state) {
  */
 function farm_area_generate_geometries($polygon, $count, $orientation = 0) {
 
+  // Set BCMath scale.
+  farm_map_set_bcscale();
+
   // If the orientation isn't within an acceptable range, bail.
   if ($orientation < 0 || $orientation > 360) {
     return array();
@@ -417,6 +420,9 @@ function farm_area_generate_geometries($polygon, $count, $orientation = 0) {
     $final_geometries[] = $trimmed;
   }
 
+  // Reset BCMath scale.
+  farm_map_reset_bcscale();
+
   return $final_geometries;
 }
 
@@ -437,6 +443,9 @@ function farm_area_generate_bbox_geometries($bbox, $count) {
 
   // Load GeoPHP.
   geophp_load();
+
+  // Set BCMath scale.
+  farm_map_set_bcscale();
 
   // Calculate how wide each rectangle needs to be.
   if (geoPHP::bcmathInstalled()) {
@@ -468,6 +477,9 @@ function farm_area_generate_bbox_geometries($bbox, $count) {
     $geometries[] = new Polygon(array(new LineString($points)));
     $starting_point = $points[3];
   }
+
+  // Reset BCMath scale.
+  farm_map_reset_bcscale();
 
   // Return the geometries.
   return $geometries;
@@ -527,6 +539,9 @@ function farm_area_generate_rotate_point($point, $origin, $angle) {
   // Load GeoPHP.
   geophp_load();
 
+  // Set BCMath scale.
+  farm_map_set_bcscale();
+
   // If $point and $origin are not points, or $angle is not an integer between
   // 0 and 359, bail.
   if ($point->geometryType() != 'Point' || $origin->geometryType() != 'Point' || $angle < 0 || $angle > 359) {
@@ -545,6 +560,9 @@ function farm_area_generate_rotate_point($point, $origin, $angle) {
     $x = $origin->x() + (($point->x() - $origin->x()) * cos($angle)) - (($point->y() - $origin->y()) * sin($angle));
     $y = $origin->y() + (($point->x() - $origin->x()) * sin($angle)) + (($point->y() - $origin->y()) * cos($angle));
   }
+
+  // Reset BCMath scale.
+  farm_map_reset_bcscale();
 
   // Return a new Point object.
   return new Point($x, $y);
