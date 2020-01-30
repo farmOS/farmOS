@@ -86,6 +86,75 @@ function farm_map_geofield_field_widget_info() {
 }
 
 /**
+ * Implements hook_field_widget_settings_form().
+ */
+function farm_map_geofield_field_widget_settings_form($field, $instance) {
+  $widget = $instance['widget'];
+  $settings = $widget['settings'];
+  $form = array();
+
+  // Add Geocoder support.
+  $use_geocoder = isset($settings['use_geocoder']) ? $settings['use_geocoder'] : 0;
+  $geocoder_form = array(
+    '#type' => 'fieldset',
+    '#title' => t('Geocoder settings'),
+  );
+  $geocoder_form['use_geocoder'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable geocoding of location data'),
+    '#default_value' => $use_geocoder,
+    // Can't nest this in a fieldset element without affecting data storage so
+    // instead hardcode one.
+    '#prefix' => '<fieldset><legend><span="fieldset-legend">' . t('Geocoder settings') . '</span></legend><div class="fieldset-wrapper">',
+  );
+
+  // Load the Geocoder widget settings.
+  module_load_include('inc', 'geocoder', 'geocoder.widget');
+  $new = geocoder_field_widget_settings_form($field, $instance);
+  $new['geocoder_field']['#options'][$field['field_name']] = t('Add extra field');
+  // If there are no options available search by ourselves to ensure the text
+  // field type was taken in account.
+  if (empty($new['geocoder_handler']['#options'])) {
+    $supported_field_types = geocoder_supported_field_types();
+    if (isset($supported_field_types['text'])) {
+      $processors = geocoder_handler_info();
+      foreach ($supported_field_types['text'] as $handler) {
+        $new['geocoder_handler']['#options'][$handler] = $processors[$handler]['title'];
+      }
+    }
+  }
+
+  // Show the geocoder fields only if geocoder is selected.
+  farm_map_geofield_widget_add_states($new, ':input[name="instance[widget][settings][use_geocoder]"]');
+
+  // Close the fieldset we opened in the #prefix to use_geocoder.
+  $element_children = element_children($new);
+  $new[end($element_children)]['#suffix'] = '</div></fieldset>';
+  $geocoder_form += $new;
+  $form += $geocoder_form;
+  return $form;
+}
+
+/**
+ * Recurse through form elements adding a visibility #states selector
+ * and removing #required flags.
+ */
+function farm_map_geofield_widget_add_states(&$element, $selector) {
+  foreach (element_children($element) as $key) {
+    $element[$key]['#required'] = FALSE;
+    // Don't override any existing #states settings.
+    if (!isset($element[$key]['#states'])) {
+      $element[$key]['#states'] = array();
+    }
+    if (!isset($element[$key]['#states']['visible'])) {
+      $element[$key]['#states']['visible'] = array();
+    }
+    $element[$key]['#states']['visible'][$selector] = array('checked' => TRUE);
+    farm_map_geofield_widget_add_states($element[$key], $selector);
+  }
+}
+
+/**
  * Implements hook_field_widget_form().
  */
 function farm_map_geofield_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
@@ -111,6 +180,63 @@ function farm_map_geofield_field_widget_form(&$form, &$form_state, $field, $inst
   // Move the geometry field below the map.
   $element['geom']['#weight'] = 100;
 
+  // Time to deal with optional geocoder integration
+  // Conditionally add geocoder button.
+  $parents = array_merge($element['#field_parents'], array($element['#field_name'], $langcode, $delta));
+  $field_name = $field['field_name'];
+  $id_prefix = implode('-', array_merge($parents, array($field_name, $delta)));
+  $wrapper_id = drupal_html_id($id_prefix . '-use-geocoder-wrapper');
+  $is_settings_form = isset($form['#title']) && $form['#title'] == t('Default value');
+  $settings = $instance['widget']['settings'];
+  if (!$is_settings_form && !empty($settings['use_geocoder']) && !empty($settings['geocoder_field'])) {
+    if ($settings['geocoder_field'] == $element['#field_name']) {
+      // Extra field.
+      $element['geocoder_input'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Geocode'),
+        '#description' => t('Enter the place to geocode.'),
+      );
+      $label = $element['geocoder_input']['#title'];
+    }
+    elseif ($field = field_info_instance($instance['entity_type'], $settings['geocoder_field'], $instance['bundle'])) {
+      $label = $field['label'];
+    }
+    else {
+      switch ($settings['geocoder_field']) {
+        case 'title':
+          $label = t('Title');
+          break;
+
+        case 'name':
+          $label = t('Name');
+          break;
+
+        default:
+          $label = $settings['geocoder_field'];
+      }
+    }
+
+    $element['#prefix'] = '<div id="' . $wrapper_id . '">';
+    $element['#suffix'] = '</div>';
+
+    $element['use_geocoder'] = array(
+      '#type' => 'submit',
+      '#name' => strtr($id_prefix, '-', '_') . '_use_geocoder',
+      '#value' => t('Find using @field field', array('@field' => $label)),
+      '#attributes' => array('class' => array('field-use-geocoder-submit')),
+      // Avoid validation errors for e.g. required fields but do pass the value
+      // of the geocoder field.
+      '#limit_validation_errors' => array(),
+      '#ajax' => array(
+        'callback' => 'farm_map_geofield_geocode_ajax_callback',
+        'wrapper' => $wrapper_id,
+        'effect' => 'fade',
+      ),
+      '#submit' => array('farm_map_geofield_use_geocoder_submit'),
+      '#weight' => 101,
+    );
+  }
+
   // Add the element to an array, because it's the format that
   // FIELD_BEHAVIOR_CUSTOM expects.
   /**
@@ -134,4 +260,78 @@ function farm_map_geofield_field_widget_form(&$form, &$form_state, $field, $inst
 
   // Return the widget element.
   return $full_element;
+}
+
+/**
+ * Submit handler for the geocoder integration.
+ */
+function farm_map_geofield_use_geocoder_submit($form, &$form_state) {
+  $button = $form_state['triggering_element'];
+
+  // Go one level up in the form, to the widgets container.
+  $element = drupal_array_get_nested_value($form, array_slice($button['#array_parents'], 0, -1));
+  $field_name = $element['#field_name'];
+  $langcode = $element['#language'];
+  $delta = $element['#delta'];
+  $parents = $element['#field_parents'];
+
+  // Set the widget value based on geocoding results.
+  $field_state = field_form_get_state($parents, $field_name, $langcode, $form_state);
+  $geocoder_field = $field_state['instance']['widget']['settings']['geocoder_field'];
+  $geocoder_field_parents = array_merge(array_slice($button['#array_parents'], 0, -4), array($geocoder_field, $langcode));
+  // Since all validation errors are disabled we need to fetch the values for
+  // the geocoding as only validate values are sent to the values array of the
+  // form state.
+  $values = drupal_array_get_nested_value($form_state['input'], $geocoder_field_parents);
+  // Inject the values into the values array to ensure the geofield module is
+  // able to handle the data.
+  drupal_array_set_nested_value($form_state['values'], $geocoder_field_parents, $values);
+
+  if ($field_value = geocoder_widget_get_field_value($element['#entity_type'], $field_state['instance'], NULL, $values)) {
+    geophp_load();
+    $geometry = geoPHP::load($field_value[$langcode][$delta]['geom']);
+    // Openlayers can only use WKT, so translate.
+    $field_value[$langcode][$delta]['geom'] = $geometry->out('wkt');
+    $field_value[$langcode][$delta]['input_format'] = 'wkt';
+    // Override the field's value in the 'input' array to substitute the new
+    // field value for the one that was submitted.
+    drupal_array_set_nested_value($form_state, array_merge(array('input'), array_slice($button['#array_parents'], 0, -4), array($field_name)), $field_value);
+  }
+
+  // Rebuild the form to ensure that the map is recreated from scratch.
+  // See field_add_more_submit() in core field.form.inc for similar usage.
+  $form_state['rebuild'] = TRUE;
+}
+
+/**
+ * Return the altered form element from an AJAX request.
+ *
+ * @see farm_map_geofield_field_widget_form()
+ */
+function farm_map_geofield_geocode_ajax_callback($form, $form_state) {
+  $button = $form_state['triggering_element'];
+
+  // Go one level up in the form, to the widgets container.
+  $element = drupal_array_get_nested_value($form, array_slice($button['#array_parents'], 0, -1));
+
+  // Return the map, but remove the '_weight' element inserted
+  // by the field API.
+  unset($element['_weight']);
+  return $element;
+}
+
+/**
+ * Implements hook_geocoder_geocode_values_alter().
+ */
+function farm_map_geofield_geocoder_geocode_values_alter(&$source_field_values, &$field_info, $handler_settings, $field_instance) {
+  // If this is a farm_map_geofield pointing to its extra field adjust the
+  // field values and mock a text field.
+  if (isset($field_instance['widget']['settings']['geocoder_field']) && $field_instance['widget']['type'] == 'farm_map_geofield' && $field_instance['widget']['settings']['geocoder_field'] == $field_info['field_name']) {
+    if (isset($source_field_values[0]['geocoder_input'])) {
+      $source_field_values = array(
+        array('value' => $source_field_values[0]['geocoder_input']),
+      );
+      $field_info = array('type' => 'text');
+    }
+  }
 }
