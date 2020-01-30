@@ -19,12 +19,23 @@ function farm_map_set_bcscale($reset = FALSE) {
   // value in a static variable, so that it can be reset in the future.
   static $scale;
 
+  // We will also keep track of how deep we are in nested functions, to ensure
+  // that the scale is not reset before it should be.
+  static $depth = 0;
+
   // Reset the scale, if desired.
   if (!empty($reset)) {
 
     // If the scale has not been set, bail.
     // This prevents farm_map_reset_bcscale() being called before this function.
     if (!isset($scale)) {
+      return;
+    }
+
+    // If the scale has been set again in a nested function, before it was reset
+    // in the outer function, decrease the levels.
+    if ($depth > 1) {
+      $depth--;
       return;
     }
 
@@ -37,6 +48,9 @@ function farm_map_set_bcscale($reset = FALSE) {
   if (!isset($scale)) {
     $scale = bcscale(24);
   }
+
+  // Remember how deep we are in nested functions.
+  $depth++;
 }
 
 /**
