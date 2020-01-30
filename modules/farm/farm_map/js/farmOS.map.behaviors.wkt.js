@@ -17,6 +17,15 @@
         var layer = instance.addLayer(type, opts);
       }
 
+      // If edit is true, enable drawing controls.
+      if (Drupal.settings.farm_map.behaviors.wkt.edit) {
+        if (layer !== undefined) {
+          instance.addBehavior('edit', { layer: layer });
+        } else {
+          instance.addBehavior('edit');
+        }
+      }
+
       // If zoom is true and the layer has features, zoom to them.
       // Otherwise, zoom to all vectors.
       if (Drupal.settings.farm_map.behaviors.wkt.zoom) {

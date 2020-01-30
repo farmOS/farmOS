@@ -28,6 +28,9 @@ function farm_map_farm_map_view($name, $element) {
     $settings = array(
       'zoom' => TRUE,
     );
+    if (!empty($element['#edit'])) {
+      $settings['edit'] = TRUE;
+    }
     farm_map_add_behavior('wkt', $settings);
   }
 }
