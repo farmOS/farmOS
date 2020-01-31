@@ -6,5 +6,7 @@ dependencies[] = farm_api
 dependencies[] = oauth2_server
 dependencies[] = restws
 dependencies[] = restws_oauth2_server
-
+dependencies[] = entity
+features[features_api][] = api:2
+features[oauth2_server][] = farmos_oauth
 
