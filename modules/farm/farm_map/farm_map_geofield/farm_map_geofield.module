@@ -163,9 +163,13 @@ function farm_map_geofield_field_widget_form(&$form, &$form_state, $field, $inst
   $instance['widget']['type'] = 'geofield_wkt';
   $element = geofield_field_widget_form($form, $form_state, $field, $instance, $langcode, $items, $delta, $element);
 
-  // Get the geometry (as WKT).
+  // Get the geometry (as WKT), from form state input (if available), or from
+  // the saved field value.
   $wkt = '';
-  if (!empty($items[$delta]['geom'])) {
+  if (!empty($form_state['input'][$field['field_name']][$langcode][$delta]['geom'])) {
+    $wkt = $form_state['input'][$field['field_name']][$langcode][$delta]['geom'];
+  }
+  elseif (!empty($items[$delta]['geom'])) {
     $wkt = $items[$delta]['geom'];
   }
 
