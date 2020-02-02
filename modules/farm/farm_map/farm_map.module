@@ -147,9 +147,6 @@ function theme_farm_map(&$vars) {
   $system_of_measurement = farm_quantity_system_of_measurement();
   $settings['farm_map']['units'] = $system_of_measurement;
 
-  // Add the map ID to the Drupal.settings.farm_map.maps JavaScript array.
-  $settings['farm_map']['maps'] = array($id);
-
   // If WKT is set, add it to the settings associated with the element ID.
   if (isset($element['#wkt'])) {
     $settings['farm_map']['wkt'][$id] = $element['#wkt'];
@@ -158,8 +155,7 @@ function theme_farm_map(&$vars) {
   // Add the JavaScript settings.
   drupal_add_js($settings, 'setting');
 
-  // Add farm_map.js, which will iterate over the map IDs and run
-  // farmOS.map.create() on them.
+  // Add farm_map.js, which will run farmOS.map.create().
   drupal_add_js(drupal_get_path('module', 'farm_map') . '/js/farm_map.js');
 
   // Add farm_map.css.
