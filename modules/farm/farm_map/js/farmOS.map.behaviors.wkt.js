@@ -35,6 +35,7 @@
       if (Drupal.settings.farm_map.behaviors.wkt.zoom && layer !== undefined) {
         instance.zoomToLayer(layer);
       }
-    }
+    },
+    weight: 100,
   };
 }());

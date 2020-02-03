@@ -11,6 +11,7 @@
         visible: false,
       };
       instance.addLayer('wms', options);
-    }
+    },
+    weight: -100,
   };
 }());

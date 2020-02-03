@@ -5,5 +5,6 @@
         $('#' + instance.target).parents('.field-widget-farm-map-geofield').find('textarea').val(wkt);
       });
     },
+    weight: 100,
   };
 }(jQuery));

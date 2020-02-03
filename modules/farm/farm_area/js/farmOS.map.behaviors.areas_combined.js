@@ -17,6 +17,7 @@
           instance.zoomToLayer(layer);
         });
       };
-    }
+    },
+    weight: -50,
   };
 }());
