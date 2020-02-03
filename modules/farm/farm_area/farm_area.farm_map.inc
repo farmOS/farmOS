@@ -70,8 +70,9 @@ function farm_area_farm_map_view($name, $element) {
     farm_map_add_behavior('areas', array('zoom' => TRUE));
   }
 
-  // Show "all areas" layer in geofield maps.
+  // Show "all areas" layer in geofield maps, and zoom to them if no WKT is set.
   if (in_array($name,  array('farm_map_geofield', 'farm_map_geofield_widget'))) {
-    farm_map_add_behavior('areas_combined', array('zoom' => FALSE));
+    $zoom = empty($element['#wkt']) || $element['#wkt'] == 'GEOMETRYCOLLECTION EMPTY';
+    farm_map_add_behavior('areas_combined', array('zoom' => $zoom));
   }
 }

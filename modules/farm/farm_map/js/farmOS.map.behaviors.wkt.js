@@ -32,13 +32,8 @@
 
       // If zoom is true and the layer has features, zoom to them.
       // Otherwise, zoom to all vectors.
-      if (Drupal.settings.farm_map.behaviors.wkt.zoom) {
-        if (layer !== undefined) {
-          instance.zoomToLayer(layer);
-        }
-        else {
-          instance.zoomToVectors();
-        }
+      if (Drupal.settings.farm_map.behaviors.wkt.zoom && layer !== undefined) {
+        instance.zoomToLayer(layer);
       }
     }
   };
