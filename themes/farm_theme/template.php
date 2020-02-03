@@ -391,6 +391,13 @@ function farm_theme_entityreference_view_widget_rows_alter(&$rows, $entities, $s
 }
 
 /**
+ * Implements hook_preprocess_bootstrap_panel().
+ */
+function farm_theme_preprocess_bootstrap_panel(&$vars) {
+  drupal_add_js(drupal_get_path('theme', 'farm_theme') . '/js/map_panel.js');
+}
+
+/**
  * Implements hook_page_alter().
  */
 function farm_theme_page_alter(&$page) {
