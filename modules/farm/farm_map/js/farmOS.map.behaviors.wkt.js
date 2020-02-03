@@ -15,19 +15,20 @@
           opts.wkt = wkt;
         }
         var layer = instance.addLayer(type, opts);
-        instance.addBehavior('measure', { layer: layer });
       }
 
       // If edit is true, enable drawing controls.
       if (Drupal.settings.farm_map.behaviors.wkt.edit) {
         if (layer !== undefined) {
           instance.addBehavior('edit', { layer: layer });
-          instance.addBehavior('measure', { layer: layer });
         } else {
           instance.addBehavior('edit');
-          instance.addBehavior('measure', { layer: instance.edit.layer });
+          var layer = instance.edit.layer;
         }
       }
+
+      // Enable the line/polygon measure behavior.
+      instance.addBehavior('measure', { layer: layer });
 
       // If zoom is true and the layer has features, zoom to them.
       // Otherwise, zoom to all vectors.
