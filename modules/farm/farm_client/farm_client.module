@@ -26,7 +26,7 @@ function farm_client_farm_api_oauth2_client() {
 function farm_client_farm_info() {
 
   // Ask modules for client module info.
-  $client_modules = module_invoke_all('farm_client_modules');
+  $client_modules = module_invoke_all('farm_client_module_info');
 
   // Add the client module info to /farm.json.
   $info = array();

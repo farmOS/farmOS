@@ -27,9 +27,9 @@
  * @return array
  *   Returns an array of client module information.
  */
-function hook_farm_client_modules() {
+function hook_farm_client_module_info() {
   return array(
-    array(
+    'weather' => array(
       'name' => 'weather',
       'label' => t('Weather'),
       'js' => drupal_get_path('module', 'farm_weather') . '/src/FieldModule/Weather/weather.js',
