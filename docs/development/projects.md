@@ -164,6 +164,8 @@ Drupal theme based off of [Bootstrap].
 * **[farmOS Area Feature Proxy][farm-os-area-feature-proxy]** - Exposes FarmOS
   areas as a [Web Feature Service (WFS)][WFS] enabling bi-directional access
   through full-fledged GIS tools like [Quantum GIS][QGIS].
+* **[Ansible farmOS]** - Ansible playbooks for provisioning a farmOS server on
+  Debian 9.
 
 [farmOS]: http://farmos.org
 [Drupal]: https://drupal.org
@@ -179,4 +181,5 @@ Drupal theme based off of [Bootstrap].
 [farm-os-area-feature-proxy]: https://github.com/symbioquine/farm-os-area-feature-proxy
 [WFS]: https://www.opengeospatial.org/standards/wfs
 [QGIS]: https://qgis.org/
+[Ansible farmOS]: https://github.com/komatek21/Ansible_FarmOS
 
