@@ -481,8 +481,8 @@ function farm_theme_preprocess_page(&$vars) {
   $current_path = current_path();
   if ($current_path == 'farm') {
 
-    // Only proceed if the map group exists.
-    if (!empty($vars['page']['content']['system_main']['map'])) {
+    // Only proceed if the metrics group exists.
+    if (!empty($vars['page']['content']['system_main']['metrics'])) {
 
       // Get a list of groups (element children).
       $groups = element_children($vars['page']['content']['system_main']);
@@ -500,7 +500,6 @@ function farm_theme_preprocess_page(&$vars) {
       // Move the map and metrics panes to the right column (and remove them
       // from the groups list).
       $right_panes = array(
-        'map',
         'metrics',
       );
       foreach ($right_panes as $pane) {
