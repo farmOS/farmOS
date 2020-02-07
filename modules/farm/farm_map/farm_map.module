@@ -4,6 +4,7 @@
  * Code for the Farm Maps feature.
  */
 
+include_once 'farm_map.block.inc';
 include_once 'farm_map.features.inc';
 include_once 'farm_map.geo.inc';
 
