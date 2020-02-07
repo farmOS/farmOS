@@ -869,6 +869,64 @@ function farm_update_7050(&$sandbox) {
 }
 
 /**
+ * Uninstall Openlayers modules and dependencies.
+ */
+function farm_update_7051(&$sandbox) {
+  global $conf;
+  foreach (array_keys($conf) as $key) {
+    if (strpos($key, 'openlayers_') === 0) {
+      variable_del($key);
+    }
+  }
+  $modules = array(
+    'openlayers',
+    'openlayers_block',
+    'openlayers_block_switcher',
+    'openlayers_boxes',
+    'openlayers_cesium',
+    'openlayers_content_types',
+    'openlayers_contextual_links',
+    'openlayers_examples',
+    'openlayers_field',
+    'openlayers_geofield',
+    'openlayers_geolocate_button',
+    'openlayers_library',
+    'openlayers_quicktabs',
+    'openlayers_services',
+    'openlayers_ui',
+    'openlayers_views',
+    'registry_autoload',
+    'registry_autoload_test',
+    'service_container',
+    'service_container_annotation_discovery',
+    'service_container_annotation_discovery_subtest',
+    'service_container_annotation_discovery_test',
+    'service_container_block',
+    'service_container_symfony',
+    'service_container_symfony_subtest',
+    'service_container_symfony_test',
+    'service_container_test',
+    'service_container_test_ctools',
+  );
+  foreach ($modules as $module) {
+    db_query("DELETE FROM {system} WHERE name = '$module' AND type = 'module'");
+  }
+  $tables = array(
+    'openlayers_components',
+    'openlayers_controls',
+    'openlayers_interactions',
+    'openlayers_layers',
+    'openlayers_maps',
+    'openlayers_projections',
+    'openlayers_sources',
+    'openlayers_styles',
+  );
+  foreach ($tables as $table) {
+    db_query("DROP TABLE {$table}");
+  }
+}
+
+/**
  * Update helper function: enable modules.
  */
 function _farm_update_enable_modules($modules = array()) {
