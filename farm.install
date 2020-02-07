@@ -820,6 +820,49 @@ function farm_update_7049(&$sandbox) {
 }
 
 /**
+ * Install the new Farm Map Geofield module and update Geofield instance settings.
+ */
+function farm_update_7050(&$sandbox) {
+
+  // Enable farm_map_geofield.
+  _farm_update_enable_modules(array('farm_map_geofield'));
+
+  // Update all instances of field_farm_geofield.
+  $instances_info = field_info_instances();
+  foreach ($instances_info as $entity_type => $bundles) {
+    foreach ($bundles as $bundle => $instances) {
+      foreach ($instances as $field_name => $instance) {
+
+        // If the field name is not field_farm_geofield, skip.
+        if ($field_name != 'field_farm_geofield') {
+          continue;
+        }
+
+        // Update widget settings.
+        if (!empty($instance['widget'])) {
+          $instance['widget']['module'] = 'farm_map_geofield';
+          $remove_settings = array('allow_edit', 'data_storage', 'feature_types', 'openlayers_map', 'showInputField');
+          foreach ($remove_settings as $name) {
+            unset($instance['widget']['settings'][$name]);
+          }
+          $instance['widget']['type'] = 'farm_map_geofield';
+        }
+
+        // Update display settings.
+        if (!empty($instance['display']['default'])) {
+          $instance['display']['default']['module'] = 'farm_map_geofield';
+          $instance['display']['default']['settings'] = array();
+          $instance['display']['default']['type'] = 'farm_map_geofield';
+        }
+
+        // Update the instance.
+        field_update_instance($instance);
+      }
+    }
+  }
+}
+
+/**
  * Update helper function: enable modules.
  */
 function _farm_update_enable_modules($modules = array()) {
