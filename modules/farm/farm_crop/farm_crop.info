@@ -35,7 +35,6 @@ dependencies[] = log
 dependencies[] = multiupload_filefield_widget
 dependencies[] = multiupload_imagefield_widget
 dependencies[] = number
-dependencies[] = openlayers
 dependencies[] = options
 dependencies[] = pathauto
 dependencies[] = strongarm

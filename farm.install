@@ -71,9 +71,6 @@ function farm_install() {
 
   // Use the farm menu for primary links (provided by farm_admin).
   variable_set('menu_main_links_source', 'farm');
-
-  // Set the Openlayers library variant to local.
-  \Drupal\openlayers\Config::set('openlayers.variant', 'local:4.6.4');
 }
 
 /**
@@ -286,7 +283,7 @@ function farm_update_7001(&$sandbox) {
 
   // Enable new module dependencies.
   $modules = array(
-    'openlayers_geofield',
+    // 'openlayers_geofield',  // Removed.
     'views_geojson',
   );
   _farm_update_enable_modules($modules);
@@ -322,12 +319,7 @@ function farm_update_7004(&$sandbox) {
  * Load Openlayers via CDN.
  */
 function farm_update_7005(&$sandbox) {
-
-  // Enable the Libraries CDN module.
-  _farm_update_enable_modules(array('libraries_cdn'));
-
-  // Load Openlayers 3.8.2 from JSDelivr CDN.
-  \Drupal\openlayers\Config::set('openlayers.variant', 'jsdelivr:ol3:3.8.2');
+  // Removed.
 }
 
 /**
@@ -469,14 +461,14 @@ function farm_update_7010(&$sandbox) {
  * Load Openlayers 3.10.1 from CDNJS.
  */
 function farm_update_7011(&$sandbox) {
-  \Drupal\openlayers\Config::set('openlayers.variant', 'cdnjs:ol3:3.10.1');
+  // Removed.
 }
 
 /**
  * Load Openlayers 3.11.2 from CDNJS.
  */
 function farm_update_7012(&$sandbox) {
-  \Drupal\openlayers\Config::set('openlayers.variant', 'cdnjs:ol3:3.11.2');
+  // Removed.
 }
 
 /**
@@ -656,7 +648,7 @@ function farm_update_7027(&$sandbox) {
  * Update Openlayers JS library to 4.3.3.
  */
 function farm_update_7028(&$sandbox) {
-  \Drupal\openlayers\Config::set('openlayers.variant', 'cdnjs:ol3:4.3.3');
+  // Removed.
 }
 
 /**
@@ -744,7 +736,7 @@ function farm_update_7037(&$sandbox) {
  * Update Openlayers JS library to 4.6.4.
  */
 function farm_update_7038(&$sandbox) {
-  \Drupal\openlayers\Config::set('openlayers.variant', 'cdnjs:ol3:4.6.4');
+  // Removed.
 }
 
 /**
@@ -795,7 +787,7 @@ function farm_update_7044(&$sandbox) {
 function farm_update_7045(&$sandbox) {
 
   // Set the variant config in the Openlayers module.
-  \Drupal\openlayers\Config::set('openlayers.variant', 'local:4.6.4');
+  // Removed.
 
   // Uninstall Libraries CDN.
   db_query("DELETE FROM {system} WHERE name = 'libraries_cdn' AND type = 'module'");

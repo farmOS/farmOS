@@ -5,7 +5,6 @@
  */
 
 include_once 'farm_map.block.inc';
-include_once 'farm_map.features.inc';
 include_once 'farm_map.geo.inc';
 
 /**
@@ -281,21 +280,6 @@ function farm_map_settings_form($form, &$form_state) {
 }
 
 /**
- * Implements hook_openlayers_object_preprocess_alter().
- */
-function farm_map_openlayers_object_preprocess_alter(&$build, $context) {
-
-  // If the object is a Map...
-  if ($context instanceof Drupal\openlayers\Types\MapInterface) {
-
-    // If the map machine name starts with "farm_", add farm map CSS.
-    if (substr($context->getMachineName(), 0, 5) == 'farm_') {
-      drupal_add_css(drupal_get_path('module', 'farm_map') . '/css/farm_map.css');
-    }
-  }
-}
-
-/**
  * Extract geometries from an entity.
  *
  * @param $entity_type
@@ -326,22 +310,6 @@ function farm_map_farm_map_entity_geometries($entity_type, $entity) {
   }
 
   return $geometries;
-}
-
-/**
- * Implements hook_module_implements_alter().
- */
-function farm_map_module_implements_alter(&$implementations, $hook) {
-
-  // Ensure that this module's implementation of
-  // hook_default_openlayers_maps_alter() always runs last, so that it can add
-  // the "base layers" group to the bottom of the layers list on all farm maps.
-  // @see farm_map_default_openlayers_maps_alter()
-  if ($hook == 'default_openlayers_maps_alter' && array_key_exists('farm_map', $implementations)) {
-    $group = $implementations['farm_map'];
-    unset($implementations['farm_map']);
-    $implementations['farm_map'] = $group;
-  }
 }
 
 /**

@@ -33,7 +33,6 @@ dependencies[] = list
 dependencies[] = log
 dependencies[] = multiupload_filefield_widget
 dependencies[] = multiupload_imagefield_widget
-dependencies[] = openlayers_geofield
 dependencies[] = options
 dependencies[] = taxonomy
 dependencies[] = text

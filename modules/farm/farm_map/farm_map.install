@@ -8,15 +8,7 @@
  * Copy the Google Maps API key into the new configuration variable.
  */
 function farm_map_update_7000(&$sandbox) {
-
-  // Load the Google Hybrid source.
-  $source = \Drupal\openlayers\Openlayers::load('Source', 'farm_map_source_google_hybrid');
-
-  // If an API key is set, copy it to the variable.
-  $key = $source->getOption('key');
-  if (!empty($key)) {
-    variable_set('farm_map_google_api_key', $key);
-  }
+  // Removed.
 }
 
 /**

@@ -22,7 +22,6 @@ dependencies[] = field_group
 dependencies[] = geofield
 dependencies[] = geophp
 dependencies[] = log
-dependencies[] = openlayers_geofield
 dependencies[] = options
 dependencies[] = taxonomy
 dependencies[] = views
