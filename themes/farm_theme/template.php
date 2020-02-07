@@ -424,7 +424,7 @@ function farm_theme_block_info_alter(&$blocks, $theme, $code_blocks) {
     $blocks['farm_map']['farm_map']['region'] = 'page_top';
     $blocks['farm_map']['farm_map']['status'] = TRUE;
     $blocks['farm_map']['farm_map']['visibility'] = BLOCK_VISIBILITY_LISTED;
-    $blocks['farm_map']['farm_map']['pages'] = '<front>';
+    $blocks['farm_map']['farm_map']['pages'] = "<front>\nfarm/assets/*";
   }
 }
 
@@ -447,6 +447,11 @@ function farm_theme_block_view_alter(&$data, $block) {
     // If the block is being displayed on the homepage, show the farm_areas map.
     if (drupal_is_front_page()) {
       $data['content']['#map_name'] = 'farm_areas';
+    }
+
+    // Or, if the block is on an asset listing page, show the farm_assets map.
+    elseif (strpos(current_path(), 'farm/assets/') === 0) {
+      $data['content']['#map_name'] = 'farm_assets';
     }
   }
 }
