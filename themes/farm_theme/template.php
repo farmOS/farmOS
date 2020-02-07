@@ -439,6 +439,9 @@ function farm_theme_block_view_alter(&$data, $block) {
       'css' => array(
         drupal_get_path('theme', 'farm_theme') . '/css/map_header.css',
       ),
+      'js' => array(
+        drupal_get_path('theme', 'farm_theme') . '/js/map_header.js',
+      ),
     );
 
     // If the block is being displayed on the homepage, show the farm_areas map.
