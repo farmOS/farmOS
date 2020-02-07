@@ -1,0 +1,12 @@
+/* Tighten up the map in the top region. */
+body.navbar-is-fixed-top {
+  padding-top: 40px;
+}
+body.navbar-is-fixed-top.navbar-administration.front,
+body.navbar-is-fixed-top.navbar-administration.not-front {
+  padding-top: 78px !important;
+}
+body.navbar-is-fixed-top .region-page-top .farm-map,
+body.navbar-is-fixed-top.navbar-administration .region-page-top .farm-map {
+  height: 300px;
+}

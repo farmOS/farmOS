@@ -409,6 +409,46 @@ function farm_theme_page_alter(&$page) {
 }
 
 /**
+ * Implements hook_block_info_alter().
+ */
+function farm_theme_block_info_alter(&$blocks, $theme, $code_blocks) {
+
+  // Only affect the farmOS theme.
+  if ($theme != 'farm_theme') {
+    return;
+  }
+
+  // Add farm map block to the page_top region on the front page and
+  // farm/assets/*.
+  if (!empty($blocks['farm_map']['farm_map'])) {
+    $blocks['farm_map']['farm_map']['region'] = 'page_top';
+    $blocks['farm_map']['farm_map']['status'] = TRUE;
+    $blocks['farm_map']['farm_map']['visibility'] = BLOCK_VISIBILITY_LISTED;
+    $blocks['farm_map']['farm_map']['pages'] = '<front>';
+  }
+}
+
+/**
+ * Implements hook_block_view_alter().
+ */
+function farm_theme_block_view_alter(&$data, $block) {
+  if ($block->delta == 'farm_map' && is_array($data['content'])) {
+
+    // Add CSS and JS when farm_map block is displayed.
+    $data['content']['#attached'] = array(
+      'css' => array(
+        drupal_get_path('theme', 'farm_theme') . '/css/map_header.css',
+      ),
+    );
+
+    // If the block is being displayed on the homepage, show the farm_areas map.
+    if (drupal_is_front_page()) {
+      $data['content']['#map_name'] = 'farm_areas';
+    }
+  }
+}
+
+/**
  * Implements hook_preprocess_page().
  */
 function farm_theme_preprocess_page(&$vars) {
