@@ -58,7 +58,7 @@ function farm_livestock_milk_form($form, &$form_state) {
     '#type' => 'textfield',
     '#title' => t('Quantity'),
     '#required' => TRUE,
-    '#element_validate' => array('element_validate_integer_positive'),
+    '#element_validate' => array('element_validate_number'),
   );
 
   // Quantity units.
