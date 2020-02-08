@@ -25,7 +25,7 @@ function farm_dashboard_metrics() {
   // Ask modules for metrics.
   $metrics = module_invoke_all('farm_dashboard_metrics');
   if (empty($metrics)) {
-    return '';
+    return 'No metrics available.';
   }
 
   // Make sure all metrics have defaults set.
