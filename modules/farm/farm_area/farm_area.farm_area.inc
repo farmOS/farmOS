@@ -25,16 +25,6 @@ function farm_area_farm_area_details($id) {
   // Start a render array.
   $output = array();
 
-  // Display the calculated area (formatted).
-  $calculated_area = farm_area_calculate_area($id, TRUE);
-  if (!empty($calculated_area)) {
-    $output['calculated_area'] = array(
-      '#type' => 'markup',
-      '#markup' => '<p><small>Calculated area: ' . $calculated_area . '</small></p>',
-      '#weight' => -100,
-    );
-  }
-
   // Load and display the area description.
   $area = taxonomy_term_load($id);
   if (!empty($area->description)) {
