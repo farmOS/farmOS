@@ -213,3 +213,12 @@ function farm_movement_update_7004(&$sandbox) {
     field_delete_instance($field);
   }
 }
+
+/**
+ * Fix Movement Geometry field settings.
+ */
+function farm_movement_update_7005(&$sandbox) {
+  $field = field_info_instance('field_collection_item', 'field_farm_geofield', 'field_farm_movement');
+  $field['widget']['settings']['geocoder_field'] = 'field_farm_move_to';
+  field_update_instance($field);
+}
