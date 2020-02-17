@@ -11,6 +11,9 @@
         $(element).once('farm-map', function () {
           $(element).attr('tabIndex', 0);
           farmOS.map.create($(element).attr('id'), options);
+          $('.ol-popup-closer', context).click(function () {
+            $(element).focus();
+          });
         });
       });
     },
