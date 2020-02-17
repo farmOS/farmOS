@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * Farm map Google install.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function farm_map_google_uninstall() {
+
+  // Delete variable.
+  variable_del('farm_map_google_api_key');
+}

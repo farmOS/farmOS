@@ -391,6 +391,13 @@ function farm_theme_entityreference_view_widget_rows_alter(&$rows, $entities, $s
 }
 
 /**
+ * Implements hook_preprocess_bootstrap_panel().
+ */
+function farm_theme_preprocess_bootstrap_panel(&$vars) {
+  drupal_add_js(drupal_get_path('theme', 'farm_theme') . '/js/map_panel.js');
+}
+
+/**
  * Implements hook_page_alter().
  */
 function farm_theme_page_alter(&$page) {
@@ -405,6 +412,58 @@ function farm_theme_page_alter(&$page) {
       '#type' => 'markup',
       '#markup' => '<p>' . l('Login to farmOS', 'user', array('query' => array('destination' => current_path()))) . '</p>',
     );
+  }
+}
+
+/**
+ * Implements hook_block_info_alter().
+ */
+function farm_theme_block_info_alter(&$blocks, $theme, $code_blocks) {
+
+  // Only affect the farmOS theme.
+  if ($theme != 'farm_theme') {
+    return;
+  }
+
+  // Add farm map block to the page_top region on the front page and
+  // farm/assets/*.
+  if (!empty($blocks['farm_map']['farm_map'])) {
+    $blocks['farm_map']['farm_map']['region'] = 'page_top';
+    $blocks['farm_map']['farm_map']['status'] = TRUE;
+    $blocks['farm_map']['farm_map']['visibility'] = BLOCK_VISIBILITY_LISTED;
+    $blocks['farm_map']['farm_map']['pages'] = "<front>\nfarm/assets/*";
+  }
+}
+
+/**
+ * Implements hook_block_view_alter().
+ */
+function farm_theme_block_view_alter(&$data, $block) {
+  if ($block->delta == 'farm_map' && is_array($data['content'])) {
+
+    // Add CSS and JS when farm_map block is displayed.
+    $data['content']['#attached'] = array(
+      'css' => array(
+        drupal_get_path('theme', 'farm_theme') . '/css/map_header.css',
+      ),
+      'js' => array(
+        drupal_get_path('theme', 'farm_theme') . '/js/map_header.js',
+      ),
+    );
+
+    // If the block is being displayed on the homepage, show the farm_areas map.
+    // Only allow access with the 'access farm dashboard' permission.
+    if (drupal_is_front_page()) {
+      $data['content']['#map_name'] = 'farm_areas';
+      $data['content']['#access'] = user_access('access farm dashboard');
+    }
+
+    // Or, if the block is on an asset listing page, show the farm_assets map.
+    // Only allow access with the 'view farm assets' permission.
+    elseif (strpos(current_path(), 'farm/assets/') === 0) {
+      $data['content']['#map_name'] = 'farm_assets';
+      $data['content']['#access'] = user_access('view farm assets');
+    }
   }
 }
 
@@ -441,8 +500,8 @@ function farm_theme_preprocess_page(&$vars) {
   $current_path = current_path();
   if ($current_path == 'farm') {
 
-    // Only proceed if the map group exists.
-    if (!empty($vars['page']['content']['system_main']['map'])) {
+    // Only proceed if the metrics group exists.
+    if (!empty($vars['page']['content']['system_main']['metrics'])) {
 
       // Get a list of groups (element children).
       $groups = element_children($vars['page']['content']['system_main']);
@@ -460,7 +519,6 @@ function farm_theme_preprocess_page(&$vars) {
       // Move the map and metrics panes to the right column (and remove them
       // from the groups list).
       $right_panes = array(
-        'map',
         'metrics',
       );
       foreach ($right_panes as $pane) {

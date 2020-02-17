@@ -1,0 +1,8 @@
+name = Farm Map Geofield
+description = Farm Map Geofield integration
+core = 7.x
+package = farmOS
+dependencies[] = farm_map
+dependencies[] = geocoder
+dependencies[] = geofield
+dependencies[] = geophp

@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * @file
+ * Farm map google.
+ */
+
+/**
+ * Implements hook_farm_info().
+ */
+function farm_map_google_farm_info() {
+  $info = array();
+
+  // Add the Google Maps API key to /farm.json.
+  $api_key = variable_get('farm_map_google_api_key', '');
+  if (!empty($api_key)) {
+    $info['google_maps_api_key'] = $api_key;
+  }
+
+  return $info;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function farm_map_google_form_farm_map_settings_form_alter(&$form, &$form_state, $form_id) {
+
+  // Add a field for setting the Google API key in the farm_map settings form.
+  $form['farm_map_google_api_key'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Google Maps API Key'),
+    '#description' => t('Google Maps layers require that you obtain an API key. Refer to the <a href="@doc">Google Maps API Key</a> documentation on farmOS.org for instructions.', array('@doc' => 'https://farmos.org/hosting/googlemaps')),
+    '#default_value' => variable_get('farm_map_google_api_key', ''),
+  );
+}

@@ -214,21 +214,6 @@ h2.resp-tab-active,
 }
 
 /**
- * Increase the default font size within maps to create larger buttons.
- */
-.openlayers-map-container .gm-style {
-  font-size: 16px;
-}
-
-/**
- * Set max-height and overflow styles for layerswitcher.
- */
-.openlayers-map-container .layer-switcher .panel {
-  max-height: 400px;
-  overflow-y: auto;
-}
-
-/**
  * Fix Modal popup close button (x).
  * See https://www.drupal.org/node/2563967
  */

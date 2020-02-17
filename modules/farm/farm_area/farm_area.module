@@ -246,36 +246,6 @@ function farm_area_details_json($aid) {
 }
 
 /**
- * Implements hook_openlayers_object_preprocess_alter().
- */
-function farm_area_openlayers_object_preprocess_alter(&$build, $context) {
-
-  // If the object is not a Map, bail.
-  if (!$context instanceof Drupal\openlayers\Types\MapInterface) {
-    return;
-  }
-
-  // If this is the farm_areas map, add area details javascript.
-  if ($context->getMachineName() == 'farm_areas') {
-
-    // Add a Javascript setting that defines the base path of the site.
-    // We do this instead of using Drupal.settings.basePath in Javascript
-    // because that variable does not take into account whether or not clean
-    // URLs are enabled.
-    $setting = array(
-      'farm_area' => array(
-        'base_path' => url('farm/area'),
-      ),
-    );
-    drupal_add_js($setting, 'setting');
-
-    // Add the Javascript for lazy loading area details.
-    $path = drupal_get_path('module', 'farm_area');
-    drupal_add_js($path . '/js/farm_area.openlayers.popup.js');
-  }
-}
-
-/**
  * Implements hook_page_build().
  */
 function farm_area_page_build(&$page) {
@@ -297,45 +267,6 @@ function farm_area_page_build(&$page) {
     // Set the content region #sorted flag to FALSE so that it resorts.
     $page['content']['#sorted'] = FALSE;
   }
-}
-
-/**
- * Implements hook_entity_view_alter().
- */
-function farm_area_entity_view_alter(&$build, $type) {
-
-  // If it's not a taxonomy_term, or if the entity object is not available,
-  // bail.
-  if ($type != 'taxonomy_term' || empty($build['#term'])) {
-    return;
-  }
-
-  // Alias the area variable.
-  $area = $build['#term'];
-
-  // If it isn't a farm_areas term, bail.
-  if ($area->vocabulary_machine_name != 'farm_areas') {
-    return;
-  }
-
-  // Get the area's calculated area (formatted).
-  $calculated_area = farm_area_calculate_area($area->tid, TRUE);
-
-  // If the calculated area isn't available, bail.
-  if (empty($calculated_area)) {
-    return;
-  }
-
-  // Build the calculated area display.
-  $output = '<strong>' . t('Calculated area') . ':</strong> ' . $calculated_area;
-
-  // Add it to the build array.
-  $build['calculated_area'] = array(
-    '#markup' => $output,
-    '#prefix' => '<div class="calculated_area">',
-    '#suffix' => '</div>',
-    '#weight' => 1,
-  );
 }
 
 /**
