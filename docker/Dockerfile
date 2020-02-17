@@ -2,7 +2,7 @@
 FROM drupal:7
 
 # Set the farmOS version in an environment variable.
-#ENV FARMOS_VERSION 7.x-1.2
+#ENV FARMOS_VERSION 7.x-1.3
 ENV FARMOS_VERSION 7.x-1.x-dev
 
 # Enable Apache rewrite module.
