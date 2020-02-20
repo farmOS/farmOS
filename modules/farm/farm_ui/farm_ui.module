@@ -71,8 +71,10 @@ function farm_ui_farm_info() {
           'label' => $field_instance['label'],
           'type' => $field['type'],
           'required' => $field_instance['required'],
-          'default_value' => $field_instance['default_value'],
         );
+        if (array_key_exists('default_value', $field_instance)) {
+          $field_info['default_value'] = $field_instance['default_value'];
+        }
         $field_name = str_replace('field_farm_', '', $field_instance['field_name']);
         $info['resources'][$entity_type][$bundle]['fields'][$field_name] = $field_info;
       }
