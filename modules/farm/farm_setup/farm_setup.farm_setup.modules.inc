@@ -72,8 +72,15 @@ function farm_setup_modules_form($form, &$form_state) {
     }
   }
 
+  // Create a fieldset for the entire form
+  $form['module_form'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Customize Modules'),
+    '#collapsible' => TRUE,
+  );
+
   // Module checkboxes.
-  $form['modules'] = array(
+  $form['module_form']['modules'] = array(
     '#type' => 'checkboxes',
     '#title' => t('Modules'),
     '#description' => t('Select the farmOS modules that you would like to be enabled.'),
@@ -83,11 +90,11 @@ function farm_setup_modules_form($form, &$form_state) {
 
   // Disable checkboxes for modules that are already enabled.
   foreach ($enabled_modules as $module) {
-    $form['modules'][$module]['#disabled'] = TRUE;
+    $form['module_form']['modules'][$module]['#disabled'] = TRUE;
   }
 
   // Submit button.
-  $form['submit'] = array(
+  $form['module_form']['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Submit'),
   );
