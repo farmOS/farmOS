@@ -6,52 +6,6 @@
  */
 
 /**
- * Define farmOS modules that will be available to enable during installation.
- *
- * @return array
- *   Returns an array with two sub-arrays:
- *     'default': an array of modules that will be checked by default.
- *     'optional': an array of modules that will be unchecked by default.
- */
-function farm_modules() {
-  return array(
-    'default' => array(
-      'farm_log_harvest' => st('Harvest logs'),
-      'farm_log_input' => st('Input logs'),
-      'farm_crop' => st('Crops'),
-      'farm_livestock' => st('Livestock'),
-      'farm_livestock_weight' => st('Livestock weight tracking'),
-      'farm_equipment' => st('Equipment'),
-      'farm_equipment_field' => st('Add "Equipment used" field to logs'),
-      'farm_calendar' => st('Calendar of logs'),
-      'farm_import' => st('CSV importers for assets and logs'),
-      'farm_quick' => st('Quick forms UI'),
-      'farm_soil_nrcs' => st('NRCS Soil Survey'),
-      'farm_soil_test' => st('Soil test logs'),
-      'farm_area_generate' => st('Area generator (for generating parallel beds within an area)'),
-      'farm_area_import' => st('Import areas in bulk from a single KML file'),
-      'farm_area_types' => t('Default area types: Property, Field, Building, etc'),
-      'farm_crop_area_types' => t('Crop area types: Bed and Greenhouse'),
-      'farm_livestock_area_types' => t('Livestock area types: Paddock'),
-      'farm_water' => st('Water area type'),
-      'farm_quantity_report' => st('Quantity report generator'),
-      'farm_data_field' => st('Add an arbitrary "data" field to logs and assets'),
-      'farm_access_roles' => st('Default roles: Manager, Worker, Viewer'),
-      'farm_help' => st('farmOS Help Pages'),
-      'farm_tour' => st('farmOS Tours'),
-      'farm_api' => st('farmOS API'),
-    ),
-    'optional' => array(
-      'farm_water_test' => st('Water test logs'),
-      'farm_soil_compost' => st('Compost'),
-      'farm_sensor' => st('Sensor'),
-      'farm_sensor_listener' => st('Sensor: Listener'),
-      'farm_ledger' => st('Sale and purchase logs (beta)'),
-    ),
-  );
-}
-
-/**
  * Implements hook_install().
  */
 function farm_install() {
@@ -98,8 +52,9 @@ function farm_install_configure_form($form, &$form_state) {
   // Set the page title.
   drupal_set_title(st('Configure farmOS'));
 
-  // Load the list of available modules.
-  $modules = farm_modules();
+  // Load the list of available modules (defined in the farm_setup module).
+  module_load_include('inc', 'farm_setup', 'farm_setup.farm_setup.modules');
+  $modules = farm_setup_modules();
 
   // Allow user to choose which high-level farm modules to install.
   $module_options = array_merge($modules['default'], $modules['optional']);
