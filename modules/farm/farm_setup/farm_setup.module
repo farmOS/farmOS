@@ -28,6 +28,23 @@ function farm_setup_permission() {
 }
 
 /**
+ * Implements hook_farm_access_perms().
+ */
+function farm_setup_farm_access_perms($role) {
+  $perms = array();
+
+  // Load the list of farm roles.
+  $roles = farm_access_roles();
+
+  // If this role has 'config' access, allow them to use the setup wizard.
+  if (!empty($roles[$role]['access']['config'])) {
+    $perms[] = 'access farm setup';
+  }
+
+  return $perms;
+}
+
+/**
  * Implements hook_menu().
  */
 function farm_setup_menu() {
