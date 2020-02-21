@@ -104,6 +104,7 @@ function farm_setup_modules_form_submit($form, &$form_state) {
   // Assemble the Batch API.
   $batch = array(
     'title' => t('Installing optional modules'),
+    'file' => drupal_get_path('module', 'farm_setup') . '/farm_setup.farm_setup.modules.inc',
     'operations' => $operations,
   );
   batch_set($batch);
