@@ -100,6 +100,14 @@ For example:
           "farm_activity": {
             "label": "Activity",
             "label_plural": "Activities",
+            "fields" {
+              "area": {
+                "label": "Areas",
+                "type": "taxonomy_term_reference",
+                "required": 0,
+              },
+              ...
+            },
           }
         },
         ...
@@ -110,13 +118,14 @@ The `system_of_measurement` with be either `metric` or `us`.
 
 The `resources` section contains a list of entity types (aka "resource types")
 that are available. Within each is a list of bundles (eg: "log types", "asset
-types", etc). Each bundle contains information such as its translated `label`.
+types", etc). Each bundle contains information such as its translated `label`,
+and a list of available `fields` and their metadata (`label`, `required`, etc).
 The `taxonomy_term` bundles also contain their `vid` (vocabulary ID), which is
 necessary when creating new terms (see [Creating taxonomy terms]).
 
 ### API Version
 
-**Current API version: 1.1**
+**Current API version: 1.2**
 
 It is *highly* recommended that you check the API version of the farmOS system
 you are communicating with, to be sure that your code is using the same version.

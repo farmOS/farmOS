@@ -37,7 +37,10 @@ Common asset fields include:
 * **Description** - A longer description of the asset.
 * **Parent IDs** - A comma-separated list of asset IDs that represent parents
   of the asset being imported. These parent assets must already exist in farmOS
-  in order for the link to be created.
+  in order for the link to be created. **See notes below.**
+* **Parent names** - A comma-separated list of asset names that represent
+  parents of the asset being imported. These parent assets must already exist in
+  farmOS in order for the link to be created. **See notes below.**
 
 Common log fields include:
 
@@ -50,16 +53,39 @@ Common log fields include:
 * **Notes** - A longer description of the logged event.
 * **Asset IDs** - A comma-separated list of asset IDs that this log is related
   to. These assets must already exist in farmOS in order for the link to be
-  created.
-* **Area names** - A comma-separated list of areas that this log is related to.
+  created. **See notes below.**
+* **Asset names** - A comma-separated list of asset names that this log is
+  related to. These assets must already exist in farmOS in order for the link to
+  be created. **See notes below.**
+* **Areas** - A comma-separated list of areas that this log is related to.
   Areas will be matched on their name, and new areas will be created if they do
   not exist.
-* **Category names** - A comma-separated list of log categories that should be
+* **Categories** - A comma-separated list of log categories that should be
   applied to the log. The categories must already exist in farmOS in order for
   the assignment to take place.
 
 Common fields that are required are noted above. Specific asset/log type
 importers may have additional required fields.
+
+### Asset names vs IDs
+
+In some importers, it is possible to reference assets by either their names or
+their IDs. For example, with the "Asset names" and "Asset IDs" columns in log
+importers, or the "Parent names" and "Parent IDs" in asset importers.
+
+**Do not use both of these columns at the same time.**
+
+There is currently a [known issue] with merging the two columns together. It is
+OK to use IDs in one row, and names in another row. Do not use both in a single
+row.
+
+**If two assets with the same name exist, the one with the higher asset ID will
+be selected.**
+
+This is based on the assumption that you want to import records associated with
+recent assets. If you are trying to import old records, and you have duplicate
+asset names in your system, you must use the "Asset IDs" column and reference
+the assets explicitly with their IDs.
 
 ## Boolean values
 
@@ -94,4 +120,5 @@ CSV importers are only available to users with the Farm Manager [role].
 [Agricultural Engineering Program]: https://www.uvm.edu/extension/agriculture/agricultural_engineering
 [main menu]: /guide#navigation
 [role]: /guide/people
+[known issue]: https://www.drupal.org/project/farm/issues/3086844
 
