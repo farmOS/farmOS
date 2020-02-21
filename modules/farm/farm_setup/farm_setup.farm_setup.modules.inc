@@ -104,6 +104,11 @@ function farm_setup_modules_form_submit($form, &$form_state) {
   // Assemble the Batch API.
   $batch = array(
     'title' => t('Installing optional modules'),
+    // Provide an init_message to display when the batch starts.
+    // This is better than the default 'initializing...' message that displays before
+    // the first task has completed. Enabling modules can take some time so it is
+    // good to tell the user to wait.
+    'init_message' => t('Installing modules, please wait..'),
     'file' => drupal_get_path('module', 'farm_setup') . '/farm_setup.farm_setup.modules.inc',
     'operations' => $operations,
   );
