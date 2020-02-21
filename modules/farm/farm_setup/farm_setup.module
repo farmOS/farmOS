@@ -131,6 +131,9 @@ function farm_setup_forms() {
     $module_forms = module_invoke($module, 'farm_setup_forms');
     foreach ($module_forms as &$form) {
       $form['module'] = $module;
+      // Default to the module_name.farm_setup.inc file
+      // This is used when adding the menu item.
+      $form['file'] = !empty($form['file']) ? $form['file'] : $module . '.farm_setup.inc';
       $form['weight'] = !empty($form['weight']) ? $form['weight'] : 0;
     }
     $forms = array_merge($forms, $module_forms);
