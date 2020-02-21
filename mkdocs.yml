@@ -38,6 +38,7 @@ nav:
     - Installing: hosting/installing.md
     - Updating: hosting/updating.md
     - Google Maps: hosting/googlemaps.md
+    - API Keys: hosting/apikeys.md
     - Docker: hosting/docker.md
     - Localization: hosting/localization.md
 - Development:
