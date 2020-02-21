@@ -86,7 +86,7 @@ function farm_setup_modules_form($form, &$form_state) {
 function farm_setup_modules_form_submit($form, &$form_state) {
 
   // Get the selected modules.
-  $modules = array_filter($form_state['modules']);
+  $modules = array_filter($form_state['values']['modules']);
 
   // Load list of module names from the system.
   $files = system_rebuild_module_data();
