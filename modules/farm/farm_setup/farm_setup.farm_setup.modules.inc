@@ -119,5 +119,5 @@ function farm_setup_enable_module($module, $module_name, &$context) {
   if (!module_exists($module)) {
     module_enable(array($module));
   }
-  $context['message'] = st('Installed %module module.', array('%module' => $module_name));
+  $context['message'] = t('Installed %module module.', array('%module' => $module_name));
 }
