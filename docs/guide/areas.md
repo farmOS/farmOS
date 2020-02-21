@@ -40,20 +40,20 @@ Here are some common things you will do with the geometry fields in farmOS:
 
 ### Zooming
 
-There are four ways to zoom in/out:
+There are three ways to zoom in/out:
 
 1. On touch screens, you can "pinch zoom" using two fingers.
 2. With a computer mouse, you can use the scroll wheel to zoom in/out.
 3. The plus (+) and minus (+) buttons in the top left of the map control zoom.
-4. There is a "Geolocate" button in the upper left (looks like a bullseye) that
-   will automatically zoom in to your current location. On a computer this will
-   use your IP address, and on a mobile device it will use your GPS.
 
 ### Geolocating
 
 A "Geolocate" button is available in the top left of the map. This will use your
 device's GPS (if available) and/or IP-based geolocation service to try to find
-your current location and center the map on that point.
+your current location and center the map on that point. While geolocation is
+turned on, your position will automatically update as you move around. In
+addition to the point, a circle will also be displayed around the point with an
+accuracy radius to tell you how confident the geolocated position is.
 
 ### Address search
 
@@ -84,14 +84,14 @@ There are four buttons for drawing shapes:
 
 There are three buttons for modifying shapes:
 
-1. **Edit**: Click the edit button, and then click a shape to select it. You can
-   click and drag any of the vertices to modify the overall shape.
-2. **Move**: Click the edit button, and then click a shape to select it. Then
+1. **Modify**: Click the modify button, and then click a shape to select it. You
+   can click and drag any of the vertices to modify the overall shape.
+2. **Move**: Click the move button, and then click a shape to select it. Then
    click and drag the shape to move it to a different position.
-3. **Clear**: The clear button will clear ALL shapes from the map. If you do
-   accidentally click this, refresh the page WITHOUT saving, and you will revert
-   to the previously saved shapes. Note that this will also revert any other
-   changes to your area that you haven't saved.
+3. **Delete**: The delete button will clear any selected shapes from the map. If
+   you accidentally click this, refresh the page WITHOUT saving, and you will
+   revert to the previously saved shapes. Note that this will also revert any
+   other changes to your area that you haven't saved.
 
 ### Importing a KML file
 
