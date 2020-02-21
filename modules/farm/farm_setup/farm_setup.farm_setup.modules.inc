@@ -61,14 +61,24 @@ function farm_setup_modules_form($form, &$form_state) {
 
   // Allow user to choose which high-level farm modules to install.
   $module_options = array_merge($modules['default'], $modules['optional']);
-  // Default modules will be selected by default.
-  $module_defaults = array_keys($modules['default']);
+
+  // Check which modules are already enabled.
+  // These will be pre-selected and disabled
+  // so they cannot be disabled.
+  $enabled_modules = array();
+  foreach ($module_options as $module => $module_name) {
+    if (module_exists($module)) {
+      $enabled_modules[] = $module;
+    }
+  }
+
+  // Module checkboxes.
   $form['modules'] = array(
     '#type' => 'checkboxes',
     '#title' => t('Modules'),
     '#description' => t('Select the farmOS modules that you would like to be enabled.'),
     '#options' => $module_options,
-    '#default_value' => $module_defaults,
+    '#default_value' => $enabled_modules,
   );
 
   // Submit button.
