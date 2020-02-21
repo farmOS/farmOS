@@ -81,6 +81,11 @@ function farm_setup_modules_form($form, &$form_state) {
     '#default_value' => $enabled_modules,
   );
 
+  // Disable checkboxes for modules that are already enabled.
+  foreach ($enabled_modules as $module) {
+    $form['modules'][$module]['#disabled'] = TRUE;
+  }
+
   // Submit button.
   $form['submit'] = array(
     '#type' => 'submit',
