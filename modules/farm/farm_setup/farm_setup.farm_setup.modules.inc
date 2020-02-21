@@ -139,6 +139,10 @@ function farm_setup_modules_form_submit($form, &$form_state) {
     batch_set($batch);
   }
 
+  // Display a success message on every form submit.
+  drupal_set_message('Module settings saved.');
+}
+
 /**
  * BatchAPI callback: enable a module.
  *
