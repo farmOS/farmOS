@@ -82,7 +82,7 @@ function farm_setup_menu() {
       'page arguments' => array($form['label'], $form['form']),
       'access arguments' => array('access farm setup'),
       'type' => MENU_LOCAL_TASK,
-      'weight' => !empty($form['weight']) ? $form['weight'] : 0,
+      'weight' => $form['weight'],
     );
 
     // If the setup form code is in a separate file, add that information
@@ -131,6 +131,7 @@ function farm_setup_forms() {
     $module_forms = module_invoke($module, 'farm_setup_forms');
     foreach ($module_forms as &$form) {
       $form['module'] = $module;
+      $form['weight'] = !empty($form['weight']) ? $form['weight'] : 0;
     }
     $forms = array_merge($forms, $module_forms);
   }
