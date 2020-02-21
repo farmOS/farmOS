@@ -1,0 +1,40 @@
+<?php
+
+/**
+ * @file
+ * Farm Setup hooks implemented by the Farm Quantity module.
+ */
+
+/**
+ * Implements hook_farm_setup_forms().
+ */
+function farm_quantity_farm_setup_forms() {
+  return array(
+    'quantity' => array(
+      'label' => t('Quantity'),
+      'form' => 'farm_quantity_settings_form',
+    ),
+  );
+}
+
+/**
+ * Quantity settings form.
+ */
+function farm_quantity_settings_form($form, &$form_state) {
+  $form = array();
+
+  // Metric or US/Imperial.
+  $form['farm_quantity_unit_system'] = array(
+    '#type' => 'radios',
+    '#title' => t('System of measurement'),
+    '#description' => t('Select the system of measurement you would like to use in farmOS. Changing this setting after data has been entered is not recommended.'),
+    '#options' => array(
+      'metric' => t('Metric'),
+      'us' => t('US/Imperial'),
+    ),
+    '#default_value' => farm_quantity_system_of_measurement(),
+  );
+
+  // Return it as a system settings form.
+  return system_settings_form($form);
+}
