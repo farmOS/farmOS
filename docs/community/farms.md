@@ -71,6 +71,7 @@ included in this list, add a comment to [this issue on Github].
 * Heniscity Farm (Pegram, Tennessee)
 * Lokoea Farms (Haleiwa, Hawai&#699;i)
 * Miles Smith Farm (Loudon, New Hampshire)
+* Monarca Farm (Lajas, Puerto Rico)
 * Moonstone Farm (Saranac Lake, New York)
 * North Mountain Pastures (Newport, Pennsylvania)
 * Patroon Land Farm (Voorheesville, New York)
