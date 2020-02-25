@@ -5,6 +5,8 @@ about farmOS, [contact m.stenta](https://farmier.com/contact).
 
 ## 2019
 
+**2019 December 13th** [Mashable: This open source farming technology aims to combat climate change via soil health](https://mashable.com/video/open-source-farming-technology-aims-to-combat-climate-change)
+
 **2019 December 8th** [Salon: Open source technology could be a boon to farmers](https://www.salon.com/2019/12/08/open-source-technology-could-be-a-boon-to-farmers_partner)
 
 **2019 December 4th** [LWDW: Old MacTorvalds Had A Farm](https://youtu.be/NpqLOp-FUwk?t=858)
