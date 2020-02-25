@@ -38,6 +38,17 @@ function hook_farm_setup_forms() {
       // specify the name of the file WIHTOUT the .inc ending.
       'include_file' => 'mymodule.farm_setup',
 
+      // Specify where to display the setup form. All locations are TRUE
+      // by default. Thus this attribute is only required if you want to
+      // hide a setup form from any display location.
+      // Possible displays:
+      //   'wizard' = The step-by-step setup wizard run on first install.
+      //   'setup page' = The setup page available at /farm/setup.
+      'display' => array(
+        'wizard' => FALSE,
+        'setup page' => FALSE,
+      ),
+
       // The weight of the form that will be used in determining where it falls
       // in the multi-step setup process. A lower weight will appear earlier.
       'weight' => 10,

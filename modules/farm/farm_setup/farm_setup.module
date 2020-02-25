@@ -77,7 +77,7 @@ function farm_setup_menu() {
   );
 
   // Ask for setup forms from modules.
-  $forms = farm_setup_forms();
+  $forms = farm_setup_forms('setup page');
 
   // Add a menu item for each form.
   foreach ($forms as $name => $form) {
@@ -118,7 +118,7 @@ function farm_setup_wizard_form($form, &$form_state) {
     $form_state['setup_wizard']['step'] = 0;
 
     // Load all the setup forms.
-    $forms = array_values(farm_setup_forms());
+    $forms = array_values(farm_setup_forms('wizard'));
     $form_state['setup_wizard']['step_information'] = $forms;
   }
 
@@ -234,15 +234,18 @@ function farm_setup_wizard_page() {
 
 /**
  * Load information about all setup forms provided by other modules.
+ * @param $display
+ *    Optional, only load forms visible to a certain display type, 'wizard' or 'setup page'.
+ * @return array
  */
-function farm_setup_forms() {
+function farm_setup_forms($display = NULL) {
 
   // Ask modules for setup forms.
   $forms = array();
   $modules = module_implements('farm_setup_forms');
   foreach ($modules as $module) {
     $module_forms = module_invoke($module, 'farm_setup_forms');
-    foreach ($module_forms as &$form) {
+    foreach ($module_forms as $name => &$form) {
       $form['module'] = $module;
       // Set the file key if the form is defined in an include file.
       // This is used when adding the form to the menu.
@@ -250,6 +253,22 @@ function farm_setup_forms() {
         $form['file'] = $form['include_file'] . '.inc';
       }
       $form['weight'] = !empty($form['weight']) ? $form['weight'] : 0;
+
+      // Set default display values.
+      // Initialize a display array if not provided.
+      $form['display'] = !empty($form['display']) ? $form['display'] : array();
+      // Set the wizard display option, defaults to TRUE
+      $form['display']['wizard'] = isset($form['display']['wizard']) ? $form['display']['wizard'] : TRUE;
+      // Set the setup page display option, defaults to TRUE
+      $form['display']['setup page'] = isset($form['display']['setup page']) ? $form['display']['setup page'] : TRUE;
+
+      // If forms for a specific display were requested,
+      // only merge forms with that display type enabled.
+      if ($display != NULL) {
+        if (isset($form['display'][$display]) && !$form['display'][$display]) {
+          unset($module_forms[$name]);
+        }
+      }
     }
     $forms = array_merge($forms, $module_forms);
   }
