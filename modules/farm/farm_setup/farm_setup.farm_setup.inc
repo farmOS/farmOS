@@ -13,7 +13,8 @@ function farm_setup_farm_setup_forms() {
     'modules' => array(
       'label' => t('Modules'),
       'form' => 'farm_setup_modules_form',
-      'file' => 'farm_setup.farm_setup.modules.inc',
+      'include_file' => 'farm_setup.farm_setup.modules',
+      'weight' => 0,
     ),
   );
 }

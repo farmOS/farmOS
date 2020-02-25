@@ -34,9 +34,9 @@ function hook_farm_setup_forms() {
       // The form callback function.
       'form' => 'my_setup_form',
 
-      // If the setup form functions are stored in a separate PHP file, specify
-      // that as follows (relative to the module's directory).
-      'file' => 'mymodule.farm_setup.inc',
+      // If the setup form functions are stored in a separate include file,
+      // specify the name of the file WIHTOUT the .inc ending.
+      'include_file' => 'mymodule.farm_setup',
 
       // The weight of the form that will be used in determining where it falls
       // in the multi-step setup process. A lower weight will appear earlier.

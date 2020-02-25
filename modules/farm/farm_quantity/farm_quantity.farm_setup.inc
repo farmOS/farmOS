@@ -13,6 +13,8 @@ function farm_quantity_farm_setup_forms() {
     'quantity' => array(
       'label' => t('Quantity'),
       'form' => 'farm_quantity_settings_form',
+      'include_file' => 'farm_quantity.farm_setup',
+      'weight' => 1,
     ),
   );
 }

@@ -52,10 +52,17 @@ function farm_setup_menu() {
   // Start with an empty menu items array.
   $items = array();
 
+  $items['farm/setup/wizard'] = array(
+    'title' => 'Setup Wizard',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('farm_setup_wizard_form'),
+    'access arguments' => array('access farm setup'),
+  );
+
   // Create the root setup page callback.
   $items['farm/setup'] = array(
     'title' => 'Setup',
-    'page callback' => 'farm_setup_page',
+    'page callback' => 'farm_setup_wizard_page',
     'access arguments' => array('access farm setup'),
     'type' => MENU_NORMAL_ITEM,
     'menu_name' => 'user-menu',
@@ -64,7 +71,7 @@ function farm_setup_menu() {
 
   // Create a default menu tab.
   $items['farm/setup/start'] = array(
-    'title' => 'Start',
+    'title' => 'Wizard',
     'type' => MENU_DEFAULT_LOCAL_TASK,
     'weight' => -100,
   );
@@ -101,14 +108,108 @@ function farm_setup_menu() {
 }
 
 /**
- * Setup start page callback.
+ * Setup start form callback.
  */
-function farm_setup_page() {
-  drupal_set_title(t('farmOS Setup'));
-  return array(
-    '#type' => 'markup',
-    '#markup' => '<p>' . t('This setup wizard will guide you through the process of configuring your farmOS.') . '</p>',
-  );
+function farm_setup_wizard_form($form, &$form_state) {
+  drupal_set_title(t('farmOS Setup Wizard'));
+
+  // Initialize a description of the steps for the wizard.
+  if (empty($form_state['setup_wizard'])) {
+    $form_state['setup_wizard']['step'] = 0;
+
+    // Load all the setup forms.
+    $forms = array_values(farm_setup_forms());
+    $form_state['setup_wizard']['step_information'] = $forms;
+  }
+
+  $step = &$form_state['setup_wizard']['step'];
+
+   // Get info about the next step
+  $step_info = $form_state['setup_wizard']['step_information'][$step];
+
+  // Load include files if required.
+  if (isset($step_info['include_file'])) {
+    form_load_include($form_state, 'inc', $step_info['module'], $step_info['include_file']);
+  }
+
+  // Call the custom form function.
+  $form = $step_info['form']($form, $form_state);
+
+
+
+  // Add a control fieldset and back button to all pages but
+  // the first and last. Note that #submit is set to
+  // a special submit handler, and that we use #limit_validation_errors to
+  // skip all complaints about validation when using the back button. The
+  // values entered will be discarded, but they will not be validated, which
+  // would be annoying in a "back" button.
+  if ($step > 0 && $step < count($form_state['setup_wizard']['step_information']) - 1) {
+    $form['controls'] = array(
+      '#type' => 'fieldset',
+    );
+
+    $form['controls']['back'] = array(
+      '#type' => 'submit',
+      '#value' => t('Back'),
+      '#name' => 'back',
+      '#submit' => array('farm_setup_wizard_form_back_submit'),
+      '#limit_validation_errors' => array(),
+    );
+  }
+
+  // Show the Next button only if there are more steps defined.
+  // Don't show the Next button on the start page, a Start button is provided.
+  if ($step > 0 && $step < count($form_state['setup_wizard']['step_information']) - 1) {
+    // The Next button should be included on every step.
+    $form['controls']['next'] = array(
+      '#type' => 'submit',
+      '#value' => t('Next'),
+      '#name' => 'next',
+      '#submit' => array('farm_setup_wizard_form_next_submit'),
+    );
+  }
+
+  // Include each validation function defined for the different steps.
+  if (function_exists($form_state['setup_wizard']['step_information'][$step]['form'] . '_validate')) {
+    $form['controls']['next']['#validate'] = array($form_state['setup_wizard']['step_information'][$step]['form'] . '_validate');
+  }
+
+  // Include submit functions defined for the different steps.
+  if (function_exists($form_state['setup_wizard']['step_information'][$step]['form'] . '_submit')) {
+    $form['controls']['next']['#submit'][] = $form_state['setup_wizard']['step_information'][$step]['form'] . '_submit';
+  }
+
+  return $form;
+}
+
+/**
+ * Form back submit callback for loading the previous module step.
+ */
+function farm_setup_wizard_form_back_submit($form, &$form_state) {
+  $current_step = &$form_state['setup_wizard']['step'];
+
+  if ($current_step > 0) {
+    $current_step--;
+
+    // Force rebuild with next step.
+    $form_state['rebuild'] = TRUE;
+    return;
+  }
+}
+
+/**
+ * Form submit callback for loading the next module step.
+ */
+function farm_setup_wizard_form_next_submit($form, &$form_state) {
+  $current_step = &$form_state['setup_wizard']['step'];
+
+  if ($current_step < count($form_state['setup_wizard']['step_information'])) {
+    $current_step++;
+
+    // Force rebuild with next step.
+    $form_state['rebuild'] = TRUE;
+    return;
+  }
 }
 
 /**
@@ -117,6 +218,18 @@ function farm_setup_page() {
 function farm_setup_form_page($title, $form_id) {
   drupal_set_title(t('Setup') . ': ' . $title);
   return drupal_get_form($form_id);
+}
+
+/**
+ * Setup wizard page callback.
+ */
+function farm_setup_wizard_page() {
+  drupal_set_title(t('farmOS Setup'));
+
+  return array(
+    '#type' => 'markup',
+    '#markup' => '<p>' . t('The setup wizard will guide you through the process of configuring your farmOS.') . '</p><p>' . l('Go to the wizard', '/farm/setup/wizard' ) . '</p>',
+  );
 }
 
 /**
@@ -131,9 +244,11 @@ function farm_setup_forms() {
     $module_forms = module_invoke($module, 'farm_setup_forms');
     foreach ($module_forms as &$form) {
       $form['module'] = $module;
-      // Default to the module_name.farm_setup.inc file
-      // This is used when adding the menu item.
-      $form['file'] = !empty($form['file']) ? $form['file'] : $module . '.farm_setup.inc';
+      // Set the file key if the form is defined in an include file.
+      // This is used when adding the form to the menu.
+      if (isset($form['include_file'])) {
+        $form['file'] = $form['include_file'] . '.inc';
+      }
       $form['weight'] = !empty($form['weight']) ? $form['weight'] : 0;
     }
     $forms = array_merge($forms, $module_forms);
