@@ -93,12 +93,6 @@ function farm_setup_modules_form($form, &$form_state) {
     $form['module_form']['modules'][$module]['#disabled'] = TRUE;
   }
 
-  // Submit button.
-  $form['module_form']['submit'] = array(
-    '#type' => 'submit',
-    '#value' => t('Submit'),
-  );
-
   return $form;
 }
 

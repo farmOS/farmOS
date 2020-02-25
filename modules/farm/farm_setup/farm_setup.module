@@ -85,8 +85,8 @@ function farm_setup_menu() {
     // Build a menu item definition.
     $menu_item = array(
       'title' => $form['label'],
-      'page callback' => 'farm_setup_form_page',
-      'page arguments' => array($form['label'], $form['form']),
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('farm_setup_form', $form),
       'access arguments' => array('access farm setup'),
       'type' => MENU_LOCAL_TASK,
       'weight' => $form['weight'],
@@ -213,11 +213,37 @@ function farm_setup_wizard_form_next_submit($form, &$form_state) {
 }
 
 /**
- * Setup form page callback.
+ * Setup form callback.
  */
-function farm_setup_form_page($title, $form_id) {
-  drupal_set_title(t('Setup') . ': ' . $title);
-  return drupal_get_form($form_id);
+function farm_setup_form($form, &$form_state, $form_info) {
+  drupal_set_title(t('Setup') . ': ' . $form_info['label']);
+
+  // Call the custom form function.
+  $form = $form_info['form']($form, $form_state);
+
+  // Add a Submit button to all forms except for the finished form.
+  if ($form_info['form'] != 'farm_setup_finish_form') {
+    $form['controls'] = array(
+      '#type' => 'fieldset',
+    );
+
+    $form['controls']['submit'] = array(
+      '#type' => 'submit',
+      '#value' => t('Submit'),
+    );
+
+    // Include each validation function defined for the different steps.
+    if (function_exists($form_info['form'] . '_validate')) {
+      $form['controls']['submit']['#validate'] = array($form_info['form'] . '_validate');
+    }
+
+    // Include submit functions defined for the different steps.
+    if (function_exists($form_info['form'] . '_submit')) {
+      $form['controls']['submit']['#submit'][] = $form_info['form'] . '_submit';
+    }
+  }
+
+  return $form;
 }
 
 /**
