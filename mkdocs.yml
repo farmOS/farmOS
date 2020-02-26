@@ -62,7 +62,7 @@ nav:
     - Trademark: community/trademark.md
 - FAQ: faq.md
 - Donate: donate.md
-theme: yeti
+theme: sandstone
 extra_css:
   - extra.css
 markdown_extensions:
