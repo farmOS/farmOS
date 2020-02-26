@@ -2,13 +2,13 @@
 
 /**
  * @file
- * Farm dashboard hooks implemented by farm_ui module.
+ * Farm metrics hooks implemented by farm_ui module.
  */
 
 /**
- * Implements hook_farm_dashboard_metrics().
+ * Implements hook_farm_metrics().
  */
-function farm_ui_farm_dashboard_metrics() {
+function farm_ui_farm_metrics() {
 
   /**
    * @todo
@@ -35,7 +35,7 @@ function farm_ui_farm_dashboard_metrics() {
     }
 
     // Build a metric.
-    $metrics[] = array(
+    $metrics[$type] = array(
       'label' => $info['label_plural'],
       'value' => $count,
       'link' => farm_ui_view_page_path($info['view']),
