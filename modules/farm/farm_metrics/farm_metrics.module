@@ -39,26 +39,14 @@ function farm_metrics_farm_access_perms($role) {
 }
 
 /**
- * Implements hook_menu().
+ * Implements hook_farm_info().
  */
-function farm_metrics_menu() {
-
-  // General farm metrics JSON endpoint.
-  $items['farm_metrics.json'] = array(
-    'page callback' => 'farm_metrics_info',
-    'access arguments' => array('access farm metrics'),
-    'type' => MENU_CALLBACK,
-  );
-
-  return $items;
-}
-
-/**
- * Farm metrics API callback.
- */
-function farm_metrics_info() {
-  $metrics = farm_metrics();
-  drupal_json_output($metrics);
+function farm_metrics_farm_info() {
+  if (user_access('access farm metrics')) {
+    return array(
+      'metrics' => farm_metrics(),
+    );
+  }
 }
 
 /**
