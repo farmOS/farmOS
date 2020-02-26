@@ -69,7 +69,6 @@ function farm_metrics_info() {
     'weight' => 0,
   );
   foreach ($metrics as $key => $metric) {
-    $label = $metric['label'];
     $metrics[$key] = array_merge($defaults, $metric);
   }
 
