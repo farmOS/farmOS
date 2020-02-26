@@ -20,7 +20,7 @@ function farm_metrics_hook_info() {
 function farm_metrics_permission() {
   $perms = array(
     'access farm metrics' => array(
-      'title' => t('Access the farmOS metrics endpoint'),
+      'title' => t('Access farm metrics'),
     ),
   );
   return $perms;

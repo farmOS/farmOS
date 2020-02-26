@@ -8,13 +8,15 @@
  * Implements hook_farm_dashboard_panes().
  */
 function farm_metrics_farm_dashboard_panes() {
-  return array(
-    'farm_metrics' => array(
+  $panes = array();
+  if (user_access('access farm metrics')) {
+    $panes['farm_metrics'] = array(
       'title' => t('Metrics'),
       'callback' => 'farm_metrics_dashboard_pane',
       'group' => 'metrics',
-    ),
-  );
+    );
+  }
+  return $panes;
 }
 
 /**
