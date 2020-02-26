@@ -24,31 +24,13 @@ function farm_metrics_farm_dashboard_panes() {
  */
 function farm_metrics_dashboard_pane() {
 
-  // Ask modules for metrics.
-  $metrics = module_invoke_all('farm_metrics');
+  // Load metrics.
+  $metrics = farm_metrics();
+
+  // If no metrics are available, show a message.
   if (empty($metrics)) {
     return 'No metrics available.';
   }
-
-  // Make sure all metrics have defaults set.
-  $defaults = array(
-    'label' => '',
-    'value' => '0',
-    'link' => 'farm',
-    'weight' => 0,
-  );
-  foreach ($metrics as $key => $metric) {
-    $metrics[$key] = array_merge($defaults, $metric);
-  }
-
-  // Sort the metrics by weight ascending, value descending.
-  $weight_index = array();
-  $value_index = array();
-  foreach ($metrics as $key => $row) {
-    $weight_index[$key]  = $row['weight'];
-    $value_index[$key] = $row['value'];
-  }
-  array_multisort($weight_index, SORT_ASC, $value_index, SORT_DESC, $metrics);
 
   // Iterate through the metrics and build rendered metrics.
   $rendered_metrics = array();
