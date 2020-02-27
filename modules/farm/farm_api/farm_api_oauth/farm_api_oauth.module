@@ -45,23 +45,6 @@ function farm_api_oauth_menu(){
 }
 
 /**
- * Implements hook_farm_oauth_client
- */
-function farm_api_oauth_farm_oauth_client() {
-  $clients = array();
-
-  // Provide default farmos_api_client
-  $clients['farmos_api_client'] = array(
-    'label' => "farmOS API",
-    'description' => "A built in OAuth Client for interfacing with the farmOS API.",
-    'client_key' => "farmos_api_client",
-    'redirect_uri' => url('api/authorized', array('absolute'=>TRUE)),
-  );
-
-  return $clients;
-}
-
-/**
  * OAuth client configuration form.
  */
 function farm_api_oauth_settings_form($form, &$form_state) {
@@ -305,19 +288,8 @@ function farm_api_oauth_enable(){
   // Set variable so other modules can use the oauth2_server.
   variable_set('farmos_oauth2_server_name', $server_name);
 
-  // Add community-trusted OAuth Clients.
-  $enabled_clients = array(
-    'farmos_api_client'=>'farmos_api_client',
-  );
-  variable_set('farm_api_oauth_enabled_clients', $enabled_clients);
-
-  // Enable oauth clients.
-  // Prepare a form_state with values to submit.
-  $form_state = array();
-  $form_state['values']['farm_api_oauth_enabled_clients'] = $enabled_clients;
-
-  // Submit the oauth config form to enable clients.
-  drupal_form_submit('farm_api_oauth_settings_form', $form_state);
+  // Initialize enabled clients to an empty array.
+  variable_set('farm_api_oauth_enabled_clients', array());
 }
 
 /**
