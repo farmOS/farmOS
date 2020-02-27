@@ -1,0 +1,21 @@
+.wizard-progress {
+  display: inline-block;
+  width: 60%;
+  max-width: 800px;
+}
+
+.wizard-step-status {
+  margin-top: 0;
+}
+
+.wizard-button {
+  margin: 0 10px;
+}
+
+.wizard-next-button {
+  float: right;
+}
+
+.wizard-back-button {
+  float: left;
+}

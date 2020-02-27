@@ -111,6 +111,7 @@ function farm_setup_menu() {
  * Setup start form callback.
  */
 function farm_setup_wizard_form($form, &$form_state) {
+  drupal_add_css(drupal_get_path('module', 'farm_setup') . '/farm_setup.css');
   drupal_set_title(t('farmOS Setup Wizard'));
 
   // Initialize a description of the steps for the wizard.
@@ -135,25 +136,63 @@ function farm_setup_wizard_form($form, &$form_state) {
   // Call the custom form function.
   $form = $step_info['form']($form, $form_state);
 
+  // Add a progress bar and control field set to all pages
+  // but the first and last.
+  if ($step > 0 && $step < count($form_state['setup_wizard']['step_information'])) {
 
+    // Calculate progress bar values.
+    $total_steps = count($form_state['setup_wizard']['step_information']) - 1;
+    $progress = ($step / $total_steps) *100;
 
-  // Add a control fieldset and back button to all pages but
-  // the first and last. Note that #submit is set to
+    // Create control fieldset.
+    $form['controls'] = array(
+      '#type' => 'fieldset',
+      '#attributes' => array(
+        'style' => array('text-align: center;'),
+      )
+    );
+
+    // Add a progress bar that displays with 100% width on smalls screens.
+    $form['controls']['progress-small'] = array(
+      '#prefix' => '<div class="progress hidden-sm hidden-md hidden-lg">',
+      '#markup' => '<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="' . $progress . '" aria-valuemin="0" aria-valuemax="100" style="width: ' . $progress . '%">',
+      '#suffix' => '</div></div>',
+    );
+
+    // Add a centered progress bar that displays on large screens. 60% width.
+    $form['controls']['progress-large'] = array(
+      '#prefix' => '<div class="wizard-progress progress hidden-xs" style="display: inline-block;"><div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="' . $progress . '" aria-valuemin="0" aria-valuemax="100" style="width: ' . $progress . '%">',
+      '#suffix' => '</div></div>',
+    );
+
+    // Create a container to hold inline elements.
+    $form['controls']['inline'] = array(
+      '#type' => 'container',
+      '#prefix' => '<span class="container-inline">',
+      '#suffix' => '</span>',
+    );
+
+    // Display the current step.
+    $form['controls']['step'] = array(
+      '#markup' => '<h4 class="wizard-step-status">Step ' . $step . '/' . $total_steps . '</h4>',
+    );
+  }
+
+  // Add buttons to control fieldset. Note that #submit is set to
   // a special submit handler, and that we use #limit_validation_errors to
   // skip all complaints about validation when using the back button. The
   // values entered will be discarded, but they will not be validated, which
   // would be annoying in a "back" button.
-  if ($step > 0 && $step < count($form_state['setup_wizard']['step_information']) - 1) {
-    $form['controls'] = array(
-      '#type' => 'fieldset',
-    );
 
-    $form['controls']['back'] = array(
+  // Add back button on all but the first and last page.
+  if ($step > 0 && $step < count($form_state['setup_wizard']['step_information']) - 1) {
+    $form['controls']['inline']['back'] = array(
       '#type' => 'submit',
       '#value' => t('Back'),
       '#name' => 'back',
       '#submit' => array('farm_setup_wizard_form_back_submit'),
       '#limit_validation_errors' => array(),
+      '#attributes' => array('class' => array('wizard-button', 'wizard-back-button')),
     );
   }
 
@@ -161,22 +200,23 @@ function farm_setup_wizard_form($form, &$form_state) {
   // Don't show the Next button on the start page, a Start button is provided.
   if ($step > 0 && $step < count($form_state['setup_wizard']['step_information']) - 1) {
     // The Next button should be included on every step.
-    $form['controls']['next'] = array(
+    $form['controls']['inline']['next'] = array(
       '#type' => 'submit',
       '#value' => t('Next'),
       '#name' => 'next',
       '#submit' => array('farm_setup_wizard_form_next_submit'),
+      '#attributes' => array('class' => array('wizard-button', 'wizard-next-button')),
     );
   }
 
   // Include each validation function defined for the different steps.
   if (function_exists($form_state['setup_wizard']['step_information'][$step]['form'] . '_validate')) {
-    $form['controls']['next']['#validate'] = array($form_state['setup_wizard']['step_information'][$step]['form'] . '_validate');
+    $form['controls']['inline']['next']['#validate'] = array($form_state['setup_wizard']['step_information'][$step]['form'] . '_validate');
   }
 
   // Include submit functions defined for the different steps.
   if (function_exists($form_state['setup_wizard']['step_information'][$step]['form'] . '_submit')) {
-    $form['controls']['next']['#submit'][] = $form_state['setup_wizard']['step_information'][$step]['form'] . '_submit';
+    $form['controls']['inline']['next']['#submit'][] = $form_state['setup_wizard']['step_information'][$step]['form'] . '_submit';
   }
 
   return $form;
