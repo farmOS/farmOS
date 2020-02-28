@@ -20,13 +20,4 @@ window.onload = function() {
       console.error(error);
     }
   }
-
-  // If this page was opened in a popup window,
-  // send a message back to the window opener with
-  // the url query parameters. This is used for
-  // completing the OAuth Authorization Code flow.
-  if (window.opener) {
-    window.opener.postMessage(window.location.search, "*");
-    window.close();
-  }
 };

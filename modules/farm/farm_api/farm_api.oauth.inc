@@ -1,48 +1,8 @@
 <?php
-
 /**
  * @file
- * Farm API OAuth Module.
+ * Farm api form for configuring OAuth Clients.
  */
-
-include_once 'farm_api_oauth.features.inc';
-
-/**
- * Implements hook_permission().
- */
-function farm_api_oauth_permission() {
-  $perms = array(
-    'administer oauth clients' => array(
-      'title' => t('Administer farmOS OAuth Clients.'),
-    ),
-  );
-  return $perms;
-}
-
-/**
- * Implements hook_menu().
- */
-function farm_api_oauth_menu(){
-  $items = array();
-  $items['api/authorized'] = [
-    'title'            => 'farmOS API Client Authorized',
-    'description'      => 'Callback page for authorized farmOS API Clients.',
-    'page callback'    => 'drupal_get_form',
-    'page arguments'   => array('farm_api_oauth_authorized_form'),
-    'access arguments' => array('use oauth2 server'),
-  ];
-
-  // OAuth client configuration form.
-  $items['admin/config/farm/oauth'] = array(
-    'title' => 'OAuth',
-    'description' => 'OAuth Client settings.',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('farm_api_oauth_settings_form'),
-    'access arguments' => array('administer oauth clients'),
-  );
-
-  return $items;
-}
 
 /**
  * OAuth client configuration form.
@@ -68,10 +28,10 @@ function farm_api_oauth_settings_form($form, &$form_state) {
   }
 
   // Load the list of enabled quick forms from a variable.
-  $enabled_oauth_clients = variable_get('farm_api_oauth_enabled_clients', array());
+  $enabled_oauth_clients = variable_get('farm_api_enabled_clients', array());
 
   // Display as a list of checkboxes.
-  $form['farm_api_oauth_enabled_clients'] = array(
+  $form['farm_api_enabled_clients'] = array(
     '#type' => 'checkboxes',
     '#title' => t('Enable or disable OAuth Clients.'),
     '#options' => $options,
@@ -93,7 +53,7 @@ function farm_api_oauth_settings_form($form, &$form_state) {
 function farm_api_oauth_settings_form_submit(array $form, array &$form_state) {
 
   // Save the submitted form values.
-  $submitted = $form_state['values']['farm_api_oauth_enabled_clients'];
+  $submitted = $form_state['values']['farm_api_enabled_clients'];
 
   // Filter only the enabled clients.
   $submitted_enabled = array_filter($submitted);
@@ -190,7 +150,7 @@ function farm_api_oauth_authorized_form($form, &$form_state){
   $params = drupal_get_query_parameters();
 
   // Load JS to load data from URL Fragments that aren't sent to the server into the form fields
-  $form['#attached']['js'][] = drupal_get_path('module', 'farm_api_oauth') . '/api_callback.js';
+  $form['#attached']['js'][] = drupal_get_path('module', 'farm_api') . '/api_callback.js';
 
   $form['redirect_url'] = array(
     '#type' => 'textfield',
@@ -267,69 +227,4 @@ function farm_api_oauth_authorized_form($form, &$form_state){
   );
 
   return $form;
-}
-
-/**
- * Implements hook_enable().
- */
-function farm_api_oauth_enable(){
-  // Grant oauth2 server permissions to all users.
-  // Permission is needed for clients to access the
-  // /oauth2/authorize and oauth2/token endpoints anonymously,
-  // and as an authenticated user.
-  $permissions = array('use oauth2 server');
-  user_role_grant_permissions(DRUPAL_ANONYMOUS_RID, $permissions);
-  user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, $permissions);
-
-  // Set variable for restws_oauth2_server configuration.
-  $server_name = 'farmos_oauth';
-  variable_set('restws_oauth2_server_name', $server_name);
-
-  // Set variable so other modules can use the oauth2_server.
-  variable_set('farmos_oauth2_server_name', $server_name);
-
-  // Initialize enabled clients to an empty array.
-  variable_set('farm_api_oauth_enabled_clients', array());
-}
-
-/**
- * Implements hook_disable().
- */
-function farm_api_oauth_disable(){
-  // Assume that the user does not change the OAuth2 Server or Scope
-  // because they are using this module with farmOS. Otherwise this could
-  // potentially delete other configured OAuth2 Servers and Scopes.
-  $server_name = variable_get('restws_oauth2_server_name', 'farmos_oauth');
-
-  // Get enabled OAuth Clients.
-  $enabled_clients = variable_get('farm_api_oauth_enabled_clients', array());
-
-  foreach ($enabled_clients as $client_key) {
-
-    // Delete OAuth Client.
-    $query = new EntityFieldQuery();
-    $query->entityCondition('entity_type', 'oauth2_server_client')
-      ->entityCondition('client_key', $client_key);
-    $result = $query->execute();
-    if (isset($result['oauth2_server_client'])) {
-      $client_id = array_keys($result['oauth2_server_client']);
-      entity_delete('oauth2_server_client', $client_id);
-    }
-  }
-
-  // Features will delete the OAuth2 Server entity.
-  // Features does not delete the existing OAuth Scopes.
-  // Delete farmOS OAuth Scopes.
-  $query = new EntityFieldQuery();
-  $query->entityCondition('entity_type', 'oauth2_server_scope')
-      ->entityCondition('server', $server_name);
-  $result = $query->execute();
-  if (isset($result['oauth2_server_scope'])) {
-      $scope_ids = array_keys($result['oauth2_server_scope']);
-      entity_delete('oauth2_server_scope', $scope_ids);
-  }
-
-  // Delete variables
-  variable_del('restws_oauth2_server_name');
-  variable_del('farmos_oauth2_server_name');
 }
