@@ -9,7 +9,7 @@
  */
 function farm_api_oauth_settings_form($form, &$form_state) {
   // Ask modules for oauth client rediect uri.
-  $clients = module_invoke_all('farm_oauth_client');
+  $clients = module_invoke_all('farm_api_oauth2_client');
 
   if (empty($clients)) {
     $form['empty'] = array(
@@ -107,7 +107,7 @@ function farm_api_oauth_settings_form_submit(array $form, array &$form_state) {
   }
 
   // Ask modules for oauth clients.
-  $clients = module_invoke_all('farm_oauth_client');
+  $clients = module_invoke_all('farm_api_oauth2_client');
   foreach($clients as $client) {
 
     // Save the client key.
