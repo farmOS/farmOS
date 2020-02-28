@@ -59,5 +59,42 @@ function hook_farm_info() {
 }
 
 /**
+ * Provide a client to the farmOS OAuth2 Server.
+ *
+ * @return array
+ *   Returns an array of oauth2 clients.
+ */
+function hook_farm_api_oauth2_client() {
+  $clients = array();
+
+  // Define an array of redirect uri's used by the third party for the
+  // OAuth Authorization Flow.
+  $redirect_uris = array(
+    'https://authorize.domain.com',
+    'https://third.party.com/authorize',
+  );
+
+  $clients['third_party_name'] = array(
+    // A name for the OAuth2 Client that will be displayed to farmOS Admins.
+    'label' => 'Third Party Feature Integration',
+
+    // Unique client machine name.
+    'client_key' => 'third_party_machine_name',
+
+    // Optional. OAuth Clients can require a client_secret to authorize with
+    // that client. Most 3rd parties won't need this because the code
+    // implementing this hook will likely be open source.
+    // 'client_secret' => 'secret',
+
+    // The oauth2_server module supports multiple redirect uris separated by a
+    // newline. Both a dummy and the real uri are specified to confirm that
+    // validation passes.
+    'redirect_uri' => implode("\n", $redirect_uris),
+  );
+
+  return $clients;
+}
+
+/**
  * @}
  */
