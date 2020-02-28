@@ -53,7 +53,7 @@ function farm_api_development_oauth_authorized_form($form, &$form_state){
   $params = drupal_get_query_parameters();
 
   // Load JS to load data from URL Fragments that aren't sent to the server into the form fields
-  $form['#attached']['js'][] = drupal_get_path('module', 'farm_api') . '/api_callback.js';
+  $form['#attached']['js'][] = drupal_get_path('module', 'farm_api_development') . '/authorized_callback.js';
 
   $form['redirect_url'] = array(
     '#type' => 'textfield',
