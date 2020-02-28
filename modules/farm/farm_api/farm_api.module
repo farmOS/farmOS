@@ -47,17 +47,6 @@ function farm_api_menu() {
     'file path' => drupal_get_path('module', 'farm_api'),
   );
 
-  // Callback page for debugging OAuth flows.
-  $items['api/authorized'] = [
-    'title' => 'farmOS API Client Authorized',
-    'description' => 'Callback page for authorized farmOS API Clients.',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('farm_api_oauth_authorized_form'),
-    'access arguments' => array('use oauth2 server'),
-    'file' => 'farm_api.oauth.inc',
-    'file path' => drupal_get_path('module', 'farm_api'),
-  ];
-
   return $items;
 }
 

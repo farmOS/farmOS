@@ -1,0 +1,133 @@
+<?php
+
+/**
+ * @file
+ * Farm API Development modules.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function farm_api_development_menu() {
+  $items = array();
+
+  // Callback page for debugging OAuth flows.
+  $items['api/authorized'] = [
+    'title' => 'farmOS API Client Authorized',
+    'description' => 'Callback page for authorized farmOS API Clients.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('farm_api_development_oauth_authorized_form'),
+    'access arguments' => array('use oauth2 server'),
+  ];
+
+  return $items;
+}
+
+/**
+ * Implements hook_farm_api_oauth2_client().
+ */
+function farm_api_development_farm_api_oauth2_client() {
+  $clients = array();
+
+  // Define default redirect uris for the dev client.
+  $redirect_uris = array(
+    url('api/authorized', array('absolute'=>TRUE)),
+  );
+  $clients['farmos_development'] = array(
+    'label' => 'farmOS Development',
+    'client_key' => 'farmos_development',
+    'redirect_uri' => implode("\n", $redirect_uris),
+  );
+
+  return $clients;
+}
+
+/**
+ * Implements hook_form().
+ * Callback page after authorizing OAuth2 farmOS API Clients.
+ */
+function farm_api_development_oauth_authorized_form($form, &$form_state){
+  global $base_root;
+  $request_url = $base_root . request_uri();
+
+  $params = drupal_get_query_parameters();
+
+  // Load JS to load data from URL Fragments that aren't sent to the server into the form fields
+  $form['#attached']['js'][] = drupal_get_path('module', 'farm_api') . '/api_callback.js';
+
+  $form['redirect_url'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Redirect URI'),
+    '#description' => t('Copy this link which includes the following values:'),
+    '#default_value' => $request_url,
+    '#attributes' => array('readonly' => 'readonly'),
+  );
+
+  // Only display authorization_code if 'code' is in the query parameters.
+  $form['authorization_code'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Authorization Code'),
+    '#description' => t('Use the Authorization Code to get an Access Token.'),
+    '#default_value' => isset($params['code']) ? $params['code'] : '',
+    '#attributes' => array('readonly' => 'readonly'),
+    '#access' => isset($params['code']),
+  );
+
+  // Only display auth_code_state if 'code' is in the query parameters.
+  // This displays the same 'state' parameter as below - but is an additional
+  // form element to make updaing input values with JS easier.
+  $form['auth_code_state'] = array(
+    '#type' => 'textfield',
+    '#title' => t('State'),
+    '#description' => t('Include this in your header to maintain CORS.'),
+    '#default_value' => isset($params['state']) ? $params['state'] : '',
+    '#attributes' => array('readonly' => 'readonly'),
+    '#access' => isset($params['code']),
+  );
+
+  // Only display the following input fields if 'code' is not in the query parameters.
+  // That means is is not an Authorization Code Flow, so these values exist.
+  // The following fields are populated with JS in /api_callback.js
+  $form['access_token'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Access Token'),
+    '#description' => t('Include this Token in an HTTP \'Bearer Authentication\' Header to access
+      protected resources.'),
+    '#attributes' => array('readonly' => 'readonly'),
+    '#access' => !isset($params['code']),
+  );
+
+  $form['expires_in'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Expires In'),
+    '#description' => t('Seconds until expiration.'),
+    '#attributes' => array('readonly' => 'readonly'),
+    '#access' => !isset($params['code']),
+  );
+
+  $form['token_type'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Token Type'),
+    '#description' => t('Bearer by default.'),
+    '#attributes' => array('readonly' => 'readonly'),
+    '#access' => !isset($params['code']),
+  );
+
+  $form['scope'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Scope'),
+    '#description' => t('Authorized OAuth2 Scopes'),
+    '#attributes' => array('readonly' => 'readonly'),
+    '#access' => !isset($params['code']),
+  );
+
+  $form['state'] = array(
+    '#type' => 'textfield',
+    '#title' => t('State'),
+    '#description' => t('Include this in your header to maintain CORS.'),
+    '#attributes' => array('readonly' => 'readonly'),
+    '#access' => !isset($params['code']),
+  );
+
+  return $form;
+}

@@ -1,0 +1,5 @@
+name = Farm API Development
+description = Adds an OAuth Client for development purposes.
+core = 7.x
+package = farmOS
+dependencies[] = farm_api
