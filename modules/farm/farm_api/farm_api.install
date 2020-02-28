@@ -16,6 +16,13 @@ function farm_api_update_7000(&$sandbox) {
 }
 
 /**
+ * Enable the farmOS OAuth2 Server on existing sites.
+ */
+function farm_api_update_7001(&$sandbox) {
+  farm_api_install();
+}
+
+/**
  * Implements hook_install().
  */
 function farm_api_install(){
