@@ -2,13 +2,13 @@
 
 /**
  * @file
- * farm_api_oauth.features.inc
+ * farm_api.features.inc
  */
 
 /**
  * Implements hook_default_oauth2_server().
  */
-function farm_api_oauth_default_oauth2_server() {
+function farm_api_default_oauth2_server() {
   $items = array();
   $items['farmos_oauth'] = entity_import('oauth2_server', '{
     "name" : "farmos_oauth",
