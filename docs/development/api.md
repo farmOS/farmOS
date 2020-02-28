@@ -50,14 +50,14 @@ Authorization Code Grant)
 
 ### Authorization Flows
 
-The [OAuth 2.0 standards] outline 4 [Oauth2 Grant Types] to be used in an OAuth2
+The [OAuth 2.0 standards] outline 5 [Oauth2 Grant Types] to be used in an OAuth2
 Authorization Flow - They are the *Authorization Code, Implicit, Password
-Credentials* and *Client Credentials* Grants. Currently, the farmOS API
-supports all of these grant types except for the **Client Credentials** 
-grant. The **Authorization Code Grant** and **Implicit Grant** are the only
-Authorization Flows recommended by farmOS for use with 3rd party clients. See
-**Refreshing Tokens** for documentation on how to retrieve new `access_tokens`
-after expiration.
+Credentials, Client Credentials* and *Refresh Token* Grants. Currently, the
+farmOS OAuth Server only supports the **Authorization Code**,
+**Password Credentials** and **Refresh Token** grants. The 
+[Authorization Code](#authorization-code-grant) and
+[Refresh Token](#refreshing-tokens) grants are the only Authorization Flows
+recommended by farmOS for use with 3rd party clients.
 
 **NOTE:** Only use the **Password Grant** if the client can be trusted with a
 farmOS username and password (this is considered *1st party*). The
@@ -105,39 +105,7 @@ resources. The header is an Authorization header with a Bearer token:
    foo@bar:~$ curl --header "Authorization: Bearer b872daf5827a75495c8194c6bfa4f90cf46c143e" http://localhost/farm.json
    {"name":"farmos-server","url":"http:\/\/localhost","api_version":"1.1","user":{"uid":"1","name":"admin", .... 
    ```
-
-#### Implicit Grant
-
-The Implicit Grant is similar to the Authorization Code Grant but only requires
-two steps. The downside is that it does not provide a `refresh_token` to
-generate new `access_tokens` after their expiration. The entire Authorization
-process must be completed again.
-
-Requesting protected resources is a three step process:
-
-1. First, the client sends a request to the farmOS server `/oauth2/authorize`
-endpoint with `response_type` set to `token`. The server redirects the client to
-an`Authorization` page where the user logs in an authorizes the client access to
-the OAuth Scopes it is requesting.
-        
-        Copy this link to browser:
-        http://localhost/oauth2/authorize?response_type=token&client_id=farmos_api_client&redirect_uri=http://localhost/api/authorized&state=sample_state
-
-2. After the user accepts, the server
-redirects with an `access_token` in the URL Fragment.
-
-        Example redirect url from server:
-        http://localhost/api/authorized#access_token=decf13e124664570ae7d4300990280ac43aeb313&expires_in=300&token_type=Bearer&scope=farmos_restws_access&state=akdsfjalsdfjasdfkk
-
-3. The client sends the `access_token` in the request header to access protected
-resources. The header is an Authorization header with a Bearer token: 
- `Authorization: Bearer access_token`
-    
-    ```console
-    foo@bar:~$ curl --header "Authorization: Bearer decf13e124664570ae7d4300990280ac43aeb313" http://localhost/farm.json
-    {"name":"farmos-server","url":"http:\/\/localhost","api_version":"1.1","user":{"uid":"1","name":"admin", .... 
-    ```
-
+   
 #### Password Credentials Grant
 
 **NOTE:** Only use the **Password Grant** if the client can be trusted with a
