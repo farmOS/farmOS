@@ -126,6 +126,12 @@ function farm_api_oauth_settings_form_submit(array $form, array &$form_state) {
       $new_client->server = $server_name;
       $new_client->label = $client['label'];
       $new_client->client_key = $client['client_key'];
+
+      // Add an optional client secret.
+      if (!empty($client['client_secret'])) {
+        $new_client->client_secret = $client['client_secret'];
+      }
+
       // The module supports entering multiple redirect uris separated by a
       // newline. Both a dummy and the real uri are specified to confirm that
       // validation passes.
