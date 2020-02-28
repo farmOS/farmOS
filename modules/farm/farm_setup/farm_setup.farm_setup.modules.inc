@@ -80,9 +80,9 @@ function farm_setup_modules_form($form, &$form_state) {
   );
 
   // Module checkboxes.
-  $form['module_form']['modules'] = array(
+  $form['module_form']['core_modules'] = array(
     '#type' => 'checkboxes',
-    '#title' => t('Modules'),
+    '#title' => t('Core farmOS Modules'),
     '#description' => t('Select the farmOS modules that you would like to be enabled.'),
     '#options' => $module_options,
     '#default_value' => $enabled_modules,
@@ -90,7 +90,42 @@ function farm_setup_modules_form($form, &$form_state) {
 
   // Disable checkboxes for modules that are already enabled.
   foreach ($enabled_modules as $module) {
-    $form['module_form']['modules'][$module]['#disabled'] = TRUE;
+    $form['module_form']['core_modules'][$module]['#disabled'] = TRUE;
+  }
+
+  // Load all modules.
+  $files = system_rebuild_module_data();
+
+  // Start arrays for farmOS Contrib modules.
+  $module_options = array();
+  $enabled_modules = array();
+
+  // Check for farmOS Contrib modules.
+  foreach ($files as $module) {
+    // Only load modules in the farmOS Contrib package.
+    if ($module->info['package'] == 'farmOS Contrib') {
+      // Add to list of checkboxes.
+      $module_options[$module->name] = $module->info['name'];
+
+      // Check if the module is already enabled.
+      if (module_exists($module->name)) {
+        $enabled_modules[] = $module->name;
+      }
+    }
+  }
+
+  // farmOS Contrib Module checkboxes.
+  $form['module_form']['contrib_modules'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('farmOS Contrib Modules'),
+    '#description' => t('Select the farmOS Contrib modules that you would like to be enabled.'),
+    '#options' => $module_options,
+    '#default_value' => $enabled_modules,
+  );
+
+  // Disable checkboxes for contrib modules that are already enabled.
+  foreach ($enabled_modules as $module) {
+    $form['module_form']['contrib_modules'][$module]['#disabled'] = TRUE;
   }
 
   return $form;
@@ -102,7 +137,9 @@ function farm_setup_modules_form($form, &$form_state) {
 function farm_setup_modules_form_submit($form, &$form_state) {
 
   // Get the selected modules.
-  $modules = array_filter($form_state['values']['modules']);
+  $core_modules = array_filter($form_state['values']['core_modules']);
+  $contrib_modules = array_filter($form_state['values']['contrib_modules']);
+  $modules = array_merge($core_modules, $contrib_modules);
 
   // Load list of module names from the system.
   $files = system_rebuild_module_data();
