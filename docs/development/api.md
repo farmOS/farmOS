@@ -161,6 +161,81 @@ It is a one step process:
 
 #### Authorization in farmOS.py
 
+Support for OAuth was added to [farmOS.py] starting with v0.1.6. To authorize
+and authenticate via OAuth, just supply the required parameters when creating
+a client. The library will know to use an OAuth Password Credentials or 
+Authorization Code flow.
+
+##### Password Credentials Flow:
+
+```python
+farm_client = farmOS(
+    hostname=url,
+    username=farmos_username,
+    password=farmos_password,
+    client_id="farmos_development",
+    scope="user_access",
+    # Supply a profile name so the tokens are saved to config
+    profile_name="farm"
+)
+```
+Running from a Python Console, the `password` can also be omitted and entered
+at runtime. This allows testing without saving a password in plaintext:
+
+```
+>>> from farmOS import farmOS
+>>> farm_client = farmOS(hostname="http://localhost", username=farmos_username, client_id="farmos_development", scope="user_access")
+>>> Warning: Password input may be echoed.
+>>> Enter password: >? MY_PASSWORD
+>>> farm_client.info()
+'name': 'server-name', 'url': 'http://localhost', 'api_version': '1.2', 'user': ....
+```
+
+##### Authorization Code Flow:
+
+It's also possible to run the Authorization Code Flow from the Python console.
+This is great way to test the Authorization process users will go through. The
+console will print a link to navigate to where you sign in to farmOS and 
+complete the authorization process. You then copy the `link` from the page you
+are redirected to back into the console. This supplies the `farm_client` with
+an an authorization `code` that it uses to request an OAuth `token`. 
+
+```python
+>>> farm_client = farmOS(hostname="http://localhost", client_id="farmos_development", scope="user_access")
+Please go here and authorize, http://localhost/oauth2/authorize?response_type=code&client_id=farmos_development&redirect_uri=http%3A%2F%2Flocalhost%2Fapi%2Fauthorized&scope=user_access&state=V9RCDd4yrSWZP8iGXt6qW51sYxsFZs&access_type=offline&prompt=select_account
+Paste the full redirect URL here:>? http://localhost/api/authorized?code=33429f3530e36f4bdf3c2adbbfcd5b7d73e89d5c&state=V9RCDd4yrSWZP8iGXt6qW51sYxsFZs
+
+>>> farm_client.info()
+'name': 'server-name', 'url': 'http://localhost', 'api_version': '1.2', 'user': ....
+```
+
+##### Supplying an existing token:
+
+It can also be useful to create a client with an existing OAuth Token. This is
+possible by supplying the `token` parameter:
+
+```python
+token = {
+    'access_token': "token",
+    'refresh_token': "token",
+}
+
+farm_client = farmOS(
+    hostname=url,
+    client_id=client_id,
+    client_secret=client_secret,
+    scope=scope,
+    token=token,
+)
+```
+
+This is how the [farmOS Aggregator] uses [farmOS.py] to communicate with farmOS
+servers. OAuth tokens are stored in the Aggregator's database instead of
+usernames and passwords. See how this is implemented in code 
+[here](https://github.com/farmOS/farmOS-aggregator/blob/master/backend/app/app/api/utils/farms.py#L195)
+
+
+
 #### Authorization in farmOS.js
 
 
@@ -853,6 +928,8 @@ submit a support request on [GitHub] or ask questions in the
   Most frameworks/languages provide functions for generating/converting
   dates/times to this format. Only Unix timestamps will be accepted by the API.
 
+[farmOS.py]: https://github.com/farmOS/farmOS.py
+[farmOS Aggregator]: https://github.com/farmOS/farmOS-aggregator
 [REST API]: https://en.wikipedia.org/wiki/Representational_state_transfer
 [CRUD]: https://en.wikipedia.org/wiki/Create,_read,_update_and_delete
 [record types]: /development/architecture
