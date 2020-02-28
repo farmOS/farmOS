@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * @file
+ * Farm Setup install file.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function farm_setup_install(){
+  // Display the setup wizard after install.
+  variable_set('farm_setup_setup_wizard_run', TRUE);
+}

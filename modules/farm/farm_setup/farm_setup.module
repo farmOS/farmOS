@@ -108,6 +108,18 @@ function farm_setup_menu() {
 }
 
 /**
+ * Implements hook_init.
+ */
+function farm_setup_init() {
+  $setup_run = variable_get('farm_setup_setup_wizard_run', FALSE);
+
+  // Redirect users if the setup wizard has not been run.
+  if (current_path() != 'farm/setup/wizard' && $setup_run) {
+    drupal_goto(url('/farm/setup/wizard', array('absolute' => TRUE)));
+  }
+}
+
+/**
  * Setup start form callback.
  */
 function farm_setup_wizard_form($form, &$form_state) {
@@ -243,8 +255,14 @@ function farm_setup_wizard_form_back_submit($form, &$form_state) {
 function farm_setup_wizard_form_next_submit($form, &$form_state) {
   $current_step = &$form_state['setup_wizard']['step'];
 
-  if ($current_step < count($form_state['setup_wizard']['step_information'])) {
+  if ($current_step < count($form_state['setup_wizard']['step_information']) - 1) {
     $current_step++;
+
+    // Mark the setup process as completed if we are displaying the "finished" step.
+    if ($current_step == count($form_state['setup_wizard']['step_information']) - 1) {
+      variable_set('farm_setup_setup_wizard_run', FALSE);
+      drupal_set_message(t('farmOS Setup Wizard complete! You can modify these settings anytime from the "Setup" menu.'));
+    }
 
     // Force rebuild with next step.
     $form_state['rebuild'] = TRUE;
