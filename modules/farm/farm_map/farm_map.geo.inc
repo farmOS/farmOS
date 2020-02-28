@@ -15,6 +15,11 @@
  */
 function farm_map_set_bcscale($reset = FALSE) {
 
+  // If BCMath is not installed, bail.
+  if (!function_exists('bcscale')) {
+    return;
+  }
+
   // The first time this function is called, we will save the current bcscale()
   // value in a static variable, so that it can be reset in the future.
   static $scale;
