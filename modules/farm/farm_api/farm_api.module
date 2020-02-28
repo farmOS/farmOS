@@ -395,9 +395,6 @@ function farm_api_enable(){
   $server_name = 'farmos_oauth';
   variable_set('restws_oauth2_server_name', $server_name);
 
-  // Set variable so other modules can use the oauth2_server.
-  variable_set('farmos_oauth2_server_name', $server_name);
-
   // Initialize enabled clients to an empty array.
   variable_set('farm_api_oauth_enabled_clients', array());
 }
@@ -441,5 +438,4 @@ function farm_api_disable(){
 
   // Delete variables
   variable_del('restws_oauth2_server_name');
-  variable_del('farmos_oauth2_server_name');
 }

@@ -119,7 +119,7 @@ function farm_api_oauth_settings_form_submit(array $form, array &$form_state) {
     // Enable the client if not already enabled.
     if ($enabled && !in_array($client_key, $enabled_clients)) {
 
-      $server_name = variable_get('farmos_oauth2_server_name', 'farmos_oauth');
+      $server_name = variable_get('restws_oauth2_server_name', 'farmos_oauth');
 
       // Create OAuth2 Server Client Entity
       $new_client = entity_create('oauth2_server_client', array());
