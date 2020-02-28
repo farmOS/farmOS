@@ -3,6 +3,10 @@
 farmOS has been featured in the following articles. If you would like to write
 about farmOS, [contact m.stenta](https://farmier.com/contact).
 
+## 2020
+
+**2020 February 26th** [CountryGuide: The open source farmer](https://www.country-guide.ca/guide-business/the-open-source-farmer)
+
 ## 2019
 
 **2019 December 13th** [Mashable: This open source farming technology aims to combat climate change via soil health](https://mashable.com/video/open-source-farming-technology-aims-to-combat-climate-change)
