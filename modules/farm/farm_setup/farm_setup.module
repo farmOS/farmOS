@@ -114,7 +114,10 @@ function farm_setup_init() {
   $setup_run = variable_get('farm_setup_setup_wizard_run', FALSE);
 
   // Redirect users if the setup wizard has not been run.
-  if (current_path() != 'farm/setup/wizard' && $setup_run) {
+  // Only redirect users if they are logged in and trying to load the
+  // dashboard. This way the setup wizard will not break the installation
+  // process or redirect API requests.
+  if (current_path() == 'farm' && user_is_logged_in() && $setup_run) {
     drupal_goto(url('/farm/setup/wizard', array('absolute' => TRUE)));
   }
 }
