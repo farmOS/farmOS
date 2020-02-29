@@ -68,14 +68,9 @@ features are developed and new endpoints on the farmOS server need to be
 reached. For more information, see the [Webpack documentation on configuring the
 proxy middleware].
 
-You will also have to install the Drupal [CORS module] on your farmOS server in
-order to handle the way the client does authentication (hopefully this will no
-longer be necessary once we implement OAuth). Once it's installed, go to the
-[CORS configuration page] and add the following line to the Domains field:
-
-```
-*|http://localhost:8080||Content-Type,Authorization,X-Requested-With|true
-```
+You will also need to configure the server to enable CORS requests. Go to
+[http://localhost/admin/config/farm/access] and enter `http://localhost:8080`
+as the Access-Control-Allow-Origin.
 
 Finally, when logging in to the client from the browser, simply leave the URL
 field blank. The devServer will then interpret all requests as relative links
@@ -207,8 +202,7 @@ Cordova's [iOS Platform Guide]
 [http://localhost:8080/]: http://localhost:8080/
 [full instructions for setting up a farmOS Docker container]: /development/docker/
 [Webpack documentation on configuring the proxy middleware]: https://webpack.js.org/configuration/dev-server/#devserver-proxy
-[CORS module]: https://www.drupal.org/project/cors
-[CORS configuration page]: http://localhost/admin/config/services/cors
+[http://localhost/admin/config/farm/access]: http://localhost/admin/config/farm/access
 [Cordova docs on running the emulator and debugger in Android Studio]: https://cordova.apache.org/docs/en/latest/guide/platforms/android/index.html#debugging
 [Cordova docs on running the emulator and debugger in XCode]: https://cordova.apache.org/docs/en/latest/guide/platforms/ios/index.html#debugging
 [WebView]: https://cordova.apache.org/docs/en/latest/guide/hybrid/webviews/
