@@ -111,14 +111,24 @@ function farm_setup_menu() {
  * Implements hook_init.
  */
 function farm_setup_init() {
+  // Check if the setup wizard needs to be run.
   $setup_run = variable_get('farm_setup_setup_wizard_run', FALSE);
 
-  // Redirect users if the setup wizard has not been run.
-  // Only redirect users if they are logged in and trying to load the
-  // dashboard. This way the setup wizard will not break the installation
-  // process or redirect API requests.
-  if (current_path() == 'farm' && user_is_logged_in() && $setup_run) {
-    drupal_goto(url('/farm/setup/wizard', array('absolute' => TRUE)));
+  // Only redirect users if the setup wizard has not been run.
+  if ($setup_run) {
+
+    // Check if the drupal installation is finished.
+    $install_finished = variable_get('install_task', '') == 'done';
+
+    // Only redirect users if:
+    // 1. Drupal installation is finished.
+    // 2. User is logged in.
+    // 3. User has 'access farm setup' permission.
+    // 4. The user is attempting to load the dashboard.
+    // This way the setup wizard will not break the installation process or redirect API requests.
+    if ($install_finished && user_is_logged_in() && user_access('access farm setup') && current_path() == 'farm') {
+      drupal_goto(url('/farm/setup/wizard', array('absolute' => TRUE)));
+    }
   }
 }
 
