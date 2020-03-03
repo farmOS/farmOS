@@ -127,7 +127,7 @@ function farm_setup_init() {
     // 4. The user is attempting to load the dashboard.
     // This way the setup wizard will not break the installation process or redirect API requests.
     if ($install_finished && user_is_logged_in() && user_access('access farm setup') && current_path() == 'farm') {
-      drupal_goto(url('/farm/setup/wizard', array('absolute' => TRUE)));
+      drupal_goto('farm/setup/wizard');
     }
   }
 }
