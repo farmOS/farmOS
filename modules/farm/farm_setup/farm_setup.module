@@ -113,22 +113,24 @@ function farm_setup_menu() {
 function farm_setup_init() {
   // Check if the setup wizard needs to be run.
   $setup_run = variable_get('farm_setup_setup_wizard_run', FALSE);
+  // If setup wizard doesn't need to run, bail.
+  if (!$setup_run) {
+    return;
+  }
 
-  // Only redirect users if the setup wizard has not been run.
-  if ($setup_run) {
+  // If Drupal install is not complete, bail.
+  $install_finished = variable_get('install_task', '') == 'done';
+  if (!$install_finished) {
+    return;
+  }
 
-    // Check if the drupal installation is finished.
-    $install_finished = variable_get('install_task', '') == 'done';
-
-    // Only redirect users if:
-    // 1. Drupal installation is finished.
-    // 2. User is logged in.
-    // 3. User has 'access farm setup' permission.
-    // 4. The user is attempting to load the dashboard.
-    // This way the setup wizard will not break the installation process or redirect API requests.
-    if ($install_finished && user_is_logged_in() && user_access('access farm setup') && current_path() == 'farm') {
-      drupal_goto('farm/setup/wizard');
-    }
+  // Only redirect users if:
+  // 1. The user is attempting to load the dashboard.
+  // 2. User is logged in.
+  // 3. User has 'access farm setup' permission.
+  // This way the setup wizard will not break the installation process or redirect API requests.
+  if (current_path() == 'farm' && user_is_logged_in() && user_access('access farm setup')) {
+    drupal_goto('farm/setup/wizard');
   }
 }
 
