@@ -37,6 +37,15 @@ function farm_quantity_settings_form($form, &$form_state) {
     '#default_value' => farm_quantity_system_of_measurement(),
   );
 
-  // Return it as a system settings form.
-  return system_settings_form($form);
+  return $form;
+}
+
+/**
+ * Quantity settings form submit handler.
+ */
+function farm_quantity_settings_form_submit($form, &$form_state) {
+  $value = $form_state['values']['farm_quantity_unit_system'];
+
+  variable_set('farm_quantity_unit_system', $value);
+  drupal_set_message('Quantity settings saved.');
 }
