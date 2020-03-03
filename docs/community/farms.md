@@ -48,6 +48,10 @@ included in this list, add a comment to [this issue on Github].
 
 * Piotr Małkowski (Dołubowo, Podlasie)
 
+## Portugal
+
+* Quinta Vale da Lama (Lagos, Algarve)
+
 ## South Africa
 
 * Canaan (Marina Beach, KwaZulu Natal)
