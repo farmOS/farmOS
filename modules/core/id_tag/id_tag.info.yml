@@ -1,0 +1,6 @@
+name: ID Tag
+type: module
+description: Provides a field for FarmOS ID Tags
+core: 8.x
+core_version_requirement: ^8 || ^9
+package: FarmOS
