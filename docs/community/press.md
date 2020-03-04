@@ -5,6 +5,8 @@ about farmOS, [contact m.stenta](https://farmier.com/contact).
 
 ## 2020
 
+**2020 March 4th** [Future of Agriculture Podcast: FOA 195: Hacking the Farm with Open Source Technology](https://overcast.fm/+G9jiQFojQ)
+
 **2020 February 26th** [CountryGuide: The open source farmer](https://www.country-guide.ca/guide-business/the-open-source-farmer)
 
 ## 2019
