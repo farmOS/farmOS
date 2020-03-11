@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+name: Units
+vid: farm_units
+description: 'FarmOS Units for quantity/inventory tracking.'
+weight: 0

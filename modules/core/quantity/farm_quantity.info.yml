@@ -1,0 +1,15 @@
+name: Quantity
+type: module
+description: Provides a entity to store quantity and inventory.
+core: 8.x
+core_version_requirement: ^8 || ^9
+package: FarmOS
+dependencies:
+  - entity:entity
+  - drupal:system (>=8.7.0)
+  - drupal:datetime
+  - drupal:taxonomy
+  - drupal:user
+  - fraction:fraction
+  - inline_entity_form:inline_entity_form
+  - log:log
