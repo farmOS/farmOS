@@ -21,6 +21,12 @@ function farm_log_farm_dashboard_panes() {
       'group' => 'logs',
       'weight' => 11,
     ),
+     'farm_log_flag' => array(
+      'view' => 'farm_log',
+      'view_display_id' => 'block_flags',
+      'group' => 'logs',
+      'weight' => 12,
+    ),
   );
 }
 
