@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\id_tag\Plugin\Field\FieldFormatter;
+namespace Drupal\farm_id_tag\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
@@ -9,14 +9,14 @@ use Drupal\Core\Field\FormatterBase;
  * Plugin implementation of the 'id tag' formatter.
  *
  * @FieldFormatter(
- *   id = "id_tag",
- *   label = @Translation("Id Tag"),
+ *   id = "farm_id_tag",
+ *   label = @Translation("Farm Id Tag"),
  *   field_types = {
- *     "id_tag"
+ *     "farm_id_tag"
  *   }
  * )
  */
-class IdTagFormatter extends FormatterBase {
+class FarmIdTagFormatter extends FormatterBase {
 
   /**
    * {@inheritdoc}

@@ -1,25 +1,24 @@
 <?php
 
-namespace Drupal\id_tag\Plugin\Field\FieldType;
+namespace Drupal\farm_id_tag\Plugin\Field\FieldType;
 
 use Drupal\Core\Field\FieldItemBase;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\TypedData\DataDefinition;
 
 /**
  * Plugin implementation of the 'id tag' field type.
  *
  * @FieldType(
- *   id = "id_tag",
- *   label = @Translation("Id tag"),
+ *   id = "farm_id_tag",
+ *   label = @Translation("Farm Id tag"),
  *   description = @Translation("This field stores a combination of id, tag type and body location."),
  *   category = @Translation("FarmOS"),
- *   default_widget = "id_tag",
- *   default_formatter = "id_tag"
+ *   default_widget = "farm_id_tag",
+ *   default_formatter = "farm_id_tag"
  * )
  */
-class IdTagItem extends FieldItemBase {
+class FarmIdTagItem extends FieldItemBase {
 
   /**
    * {@inheritdoc}

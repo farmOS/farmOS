@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\id_tag\Plugin\Field\FieldWidget;
+namespace Drupal\farm_id_tag\Plugin\Field\FieldWidget;
 
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
@@ -10,14 +10,14 @@ use Drupal\Core\Form\FormStateInterface;
  * Plugin implementation of the 'id tag' widget.
  *
  * @FieldWidget(
- *   id = "id_tag",
- *   label = @Translation("Id Tag"),
+ *   id = "farm_id_tag",
+ *   label = @Translation("Farm Id Tag"),
  *   field_types = {
- *     "id_tag"
+ *     "farm_id_tag"
  *   }
  * )
  */
-class IdTagWidget extends WidgetBase {
+class FarmIdTagWidget extends WidgetBase {
 
   /**
    * {@inheritdoc}
