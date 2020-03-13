@@ -86,7 +86,7 @@ function farm_group_views_default_views() {
   $handler->display->display_options['fields']['entityreference_view_widget']['field'] = 'entityreference_view_widget';
   $handler->display->display_options['fields']['entityreference_view_widget']['label'] = '';
   $handler->display->display_options['fields']['entityreference_view_widget']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['entityreference_view_widget']['ervw']['force_single'] = 1;
+  $handler->display->display_options['fields']['entityreference_view_widget']['ervw']['force_single'] = 0;
   $handler->display->display_options['fields']['entityreference_view_widget']['ervw']['label_display'] = 'after';
   /* Field: Field collection item: Movement to */
   $handler->display->display_options['fields']['field_farm_move_to']['id'] = 'field_farm_move_to';
