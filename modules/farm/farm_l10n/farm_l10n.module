@@ -1,0 +1,8 @@
+<?php
+
+/**
+ * @file
+ * Code for the Farm Localization feature.
+ */
+
+include_once 'farm_l10n.features.inc';

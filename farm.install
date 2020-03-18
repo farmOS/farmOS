@@ -47,6 +47,7 @@ function farm_modules() {
       'farm_sensor' => st('Sensor'),
       'farm_sensor_listener' => st('Sensor: Listener'),
       'farm_ledger' => st('Sale and purchase logs (beta)'),
+      'farm_l10n' => st('Localization/translation'),
     ),
   );
 }
