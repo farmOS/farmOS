@@ -13,7 +13,6 @@ function farm_crop_area_types_farm_area_type_info() {
     'bed' => array(
       'label' => t('Bed'),
       'style' => 'green',
-      'zoom_levels' => array(18, 19, 20, 21, 22, 23, 24),
       'weight' => -5,
       'dashboard_metric' => TRUE,
     ),
