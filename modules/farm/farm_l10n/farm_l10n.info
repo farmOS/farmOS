@@ -1,7 +1,7 @@
 name = Farm Localization
 description = Provides configuration for translating the farmOS UI.
 core = 7.x
-package = farmOS
+package = farmOS (beta)
 dependencies[] = ctools
 dependencies[] = locale
 dependencies[] = l10n_update
