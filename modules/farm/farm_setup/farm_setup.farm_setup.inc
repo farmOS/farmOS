@@ -31,6 +31,15 @@ function farm_setup_farm_setup_forms() {
       'include_file' => 'farm_setup.farm_setup.modules',
       'weight' => 0,
     ),
+    'timezone' => array(
+      'label' => t('Default Timezone'),
+      'form' => 'farm_setup_timezone_form',
+      'include_file' => 'farm_setup.farm_setup.timezone',
+      'display' => array(
+        'setup page' => FALSE,
+      ),
+      'weight' => 0,
+    ),
   );
 }
 
