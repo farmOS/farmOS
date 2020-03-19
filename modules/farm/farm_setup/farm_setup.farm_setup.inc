@@ -29,7 +29,7 @@ function farm_setup_farm_setup_forms() {
       'label' => t('Modules'),
       'form' => 'farm_setup_modules_form',
       'include_file' => 'farm_setup.farm_setup.modules',
-      'weight' => 0,
+      'weight' => 1,
     ),
     'timezone' => array(
       'label' => t('Default Timezone'),

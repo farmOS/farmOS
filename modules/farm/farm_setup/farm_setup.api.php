@@ -51,7 +51,8 @@ function hook_farm_setup_forms() {
 
       // The weight of the form that will be used in determining where it falls
       // in the multi-step setup process. A lower weight will appear earlier.
-      'weight' => 10,
+      //  Weights 0-10 are reserved for forms supplied via the Farm Setup module.
+      'weight' => 11,
     ),
   );
 }
