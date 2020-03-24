@@ -15,7 +15,7 @@ function farm_api_farm_access_perms($role) {
 
   // Add permission for admins to administer oauth clients.
   if (!empty($roles[$role]['access']['config'])) {
-    $perms[] = 'administer oauth clients';
+    $perms[] = 'administer farm api oauth clients';
   }
 
   // Grant access to RESTful Web Services resources.
