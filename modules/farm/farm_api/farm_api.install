@@ -79,5 +79,11 @@ function farm_api_update_7000(&$sandbox) {
  * Enable the farmOS OAuth2 Server on existing sites.
  */
 function farm_api_update_7001(&$sandbox) {
-  farm_api_install();
+
+  // Perform the tasks in farm_api_install() as of the time of this writing.
+  $permissions = array('use oauth2 server');
+  user_role_grant_permissions(DRUPAL_ANONYMOUS_RID, $permissions);
+  user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, $permissions);
+  $server_name = 'farmos_oauth';
+  variable_set('restws_oauth2_server_name', $server_name);
 }
