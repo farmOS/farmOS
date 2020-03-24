@@ -38,6 +38,12 @@ $ cd farmOS-client
 $ npm install
 ```
 
+Note that the default branch for this repository is `develop`, not `master`;
+`develop` should represent the most current set of complete features that
+are only awaiting further testing before release. You should branch or fork
+off `develop` and submit pull requests to be merged back into it. The 
+`deploy` branch respresents the latest tagged release.
+
 ### Browser
 The browser-based development environment can be started by running the
 following command from the project root:
