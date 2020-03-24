@@ -28,7 +28,7 @@ function farm_api_oauth_settings_form($form, &$form_state) {
     }
   }
 
-  // Load the list of enabled quick forms from a variable.
+  // Load the list of enabled clients from a variable.
   $enabled_oauth_clients = variable_get('farm_api_enabled_clients', array());
 
   // Display as a list of checkboxes.
