@@ -40,7 +40,6 @@ function farm_modules() {
       'farm_help' => st('farmOS Help Pages'),
       'farm_tour' => st('farmOS Tours'),
       'farm_api' => st('farmOS API'),
-      'farm_api_oauth' => st('farmOS API OAuth2 Server'),
     ),
     'optional' => array(
       'farm_water_test' => st('Water test logs'),
@@ -933,13 +932,6 @@ function farm_update_7051(&$sandbox) {
  */
 function farm_update_7052(&$sandbox) {
   _farm_update_enable_modules(array('farm_metrics'));
-}
-
-/**
- * Enable farm_api_oauth module.
- */
-function farm_update_7053(&$sandbox) {
-  _farm_update_enable_modules(array('farm_api_oauth'));
 }
 
 /**
