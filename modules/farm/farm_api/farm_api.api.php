@@ -36,7 +36,7 @@ function hook_farm_info() {
     'url' => $base_url,
   );
 
-  //  Or an entire array of info can be added simply:
+  // Or an entire array of info can be added simply:
   if (!empty($user->uid)) {
     $info['user'] = array(
       'uid' => $user->uid,
@@ -75,6 +75,7 @@ function hook_farm_api_oauth2_client() {
   );
 
   $clients['third_party_name'] = array(
+
     // A name for the OAuth2 Client that will be displayed to farmOS Admins.
     'label' => 'Third Party Feature Integration',
 

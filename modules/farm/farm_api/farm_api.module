@@ -6,6 +6,7 @@
  */
 
 define('FARM_API_VERSION', '1.2');
+
 include_once 'farm_api.features.inc';
 
 /**
@@ -148,16 +149,15 @@ function farm_api_farm_info() {
 }
 
 /**
- * Helper function to allow modules to check for an
- * authorized scope in the current request before
- * providing info in an API endpoint.
+ * Helper function to allow modules to check for an authorized scope in the
+ * current request before providing info in an API endpoint.
  *
  * @param string $scope
  *    A single OAuth Scope to check.
  *
  * @return bool
  */
-function farm_api_check_scope($scope){
+function farm_api_check_scope($scope) {
 
   // Load the OAuth2 Server name
   $server_name = variable_get('restws_oauth2_server_name', FALSE);

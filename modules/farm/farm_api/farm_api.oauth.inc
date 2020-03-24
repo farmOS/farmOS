@@ -8,6 +8,7 @@
  * OAuth client configuration form.
  */
 function farm_api_oauth_settings_form($form, &$form_state) {
+
   // Ask modules for oauth client rediect uri.
   $clients = module_invoke_all('farm_api_oauth2_client');
 
@@ -77,6 +78,7 @@ function farm_api_oauth_settings_form_submit(array $form, array &$form_state) {
 
     // Check for the "client_key" in supplied hooks.
     foreach ($active_clients as $active_client) {
+
       // Load the client key.
       $client_wrapper = entity_metadata_wrapper('oauth2_server_client', $active_client);
       $client_key = $client_wrapper->client_key->value();
@@ -97,7 +99,9 @@ function farm_api_oauth_settings_form_submit(array $form, array &$form_state) {
 
           // Notify that client was disabled.
           drupal_set_message('Disabled OAuth Client: ' . $client_label);
-        } else {
+        }
+
+        else {
 
           // This client is still enabled. Add to enabled list.
           $enabled_clients[] = $client_key;

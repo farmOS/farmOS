@@ -25,7 +25,8 @@ function farm_api_update_7001(&$sandbox) {
 /**
  * Implements hook_install().
  */
-function farm_api_install(){
+function farm_api_install() {
+
   // Grant oauth2 server permissions to all users.
   // Permission is needed for clients to access the
   // /oauth2/authorize and oauth2/token endpoints anonymously,
@@ -42,7 +43,8 @@ function farm_api_install(){
 /**
  * Implements hook_uninstall().
  */
-function farm_api_uninstall(){
+function farm_api_uninstall() {
+
   // Assume that the user does not change the OAuth2 Server or Scope
   // because they are using this module with farmOS. Otherwise this could
   // potentially delete other configured OAuth2 Servers and Scopes.
