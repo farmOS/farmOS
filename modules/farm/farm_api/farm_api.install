@@ -6,23 +6,6 @@
  */
 
 /**
- * Enable the RESTful Web Services Field Collection module.
- */
-function farm_api_update_7000(&$sandbox) {
-  $module = 'restws_field_collection';
-  if (!module_exists($module)) {
-    module_enable(array($module));
-  }
-}
-
-/**
- * Enable the farmOS OAuth2 Server on existing sites.
- */
-function farm_api_update_7001(&$sandbox) {
-  farm_api_install();
-}
-
-/**
  * Implements hook_install().
  */
 function farm_api_install() {
@@ -80,4 +63,21 @@ function farm_api_uninstall() {
 
   // Delete variables
   variable_del('restws_oauth2_server_name');
+}
+
+/**
+ * Enable the RESTful Web Services Field Collection module.
+ */
+function farm_api_update_7000(&$sandbox) {
+  $module = 'restws_field_collection';
+  if (!module_exists($module)) {
+    module_enable(array($module));
+  }
+}
+
+/**
+ * Enable the farmOS OAuth2 Server on existing sites.
+ */
+function farm_api_update_7001(&$sandbox) {
+  farm_api_install();
 }
