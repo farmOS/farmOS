@@ -67,7 +67,7 @@ function hook_farm_info() {
 function hook_farm_api_oauth2_client() {
   $clients = array();
 
-  // Define an array of redirect uri's used by the third party for the
+  // Define an array of redirect URI's used by the third party for the
   // OAuth Authorization Flow.
   $redirect_uris = array(
     'https://authorize.domain.com',
@@ -87,7 +87,7 @@ function hook_farm_api_oauth2_client() {
     // implementing this hook will likely be open source.
     // 'client_secret' => 'secret',
 
-    // The oauth2_server module supports multiple redirect uris separated by a
+    // The oauth2_server module supports multiple redirect URIs separated by a
     // newline. Both a dummy and the real uri are specified to confirm that
     // validation passes.
     'redirect_uri' => implode("\n", $redirect_uris),
