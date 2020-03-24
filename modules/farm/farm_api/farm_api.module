@@ -39,8 +39,8 @@ function farm_api_menu() {
 
   // OAuth client configuration form.
   $items['admin/config/farm/oauth'] = array(
-    'title' => 'OAuth',
-    'description' => 'OAuth Client settings.',
+    'title' => 'farmOS OAuth',
+    'description' => 'farmOS OAuth Client settings.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('farm_api_oauth_settings_form'),
     'access arguments' => array('administer farm api oauth clients'),
