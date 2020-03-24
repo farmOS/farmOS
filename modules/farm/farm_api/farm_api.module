@@ -155,6 +155,7 @@ function farm_api_farm_info() {
  *    A single OAuth Scope to check.
  *
  * @return bool
+ *   Return TRUE if request is authorized with specified scope. FALSE otherwise.
  */
 function farm_api_check_scope($scope) {
 
