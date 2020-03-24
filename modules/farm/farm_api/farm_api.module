@@ -45,7 +45,6 @@ function farm_api_menu() {
     'page arguments' => array('farm_api_oauth_settings_form'),
     'access arguments' => array('administer farm api oauth clients'),
     'file' => 'farm_api.oauth.inc',
-    'file path' => drupal_get_path('module', 'farm_api'),
   );
 
   return $items;
