@@ -80,6 +80,17 @@ function farm_api_update_7000(&$sandbox) {
  */
 function farm_api_update_7001(&$sandbox) {
 
+  // Install new dependencies.
+  $modules = array(
+    'oauth2_server',
+    'restws_oauth2_server',
+  );
+  foreach ($modules as $module) {
+    if (!module_exists($module)) {
+      module_enable(array($module));
+    }
+  }
+
   // Perform the tasks in farm_api_install() as of the time of this writing.
   $permissions = array('use oauth2 server');
   user_role_grant_permissions(DRUPAL_ANONYMOUS_RID, $permissions);
