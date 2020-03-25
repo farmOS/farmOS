@@ -202,6 +202,27 @@ function farm_api_modules_enabled($modules) {
 }
 
 /**
+ * Implements hook_modules_disabled().
+ */
+function farm_api_modules_disabled($modules) {
+
+  // If the modules provided OAuth2 clients, disable them.
+  $hook = 'farm_api_oauth2_client';
+  foreach ($modules as $module) {
+    $function = $module . '_' . $hook;
+    if (function_exists($function)) {
+      $clients = $function();
+      foreach ($clients as $client) {
+        $client_id = db_query('SELECT client_id FROM {oauth2_server_client} WHERE client_key = :client_key', array(':client_key' => $client['client_key']))->fetchField();
+        if (!empty($client_id)) {
+          entity_delete('oauth2_server_client', $client_id);
+        }
+      }
+    }
+  }
+}
+
+/**
  * Helper function for enabling a farmOS OAuth2 Client.
  *
  * @param string $label
