@@ -101,6 +101,9 @@ projects[multiupload_imagefield_widget][version] = "1.3"
 projects[navbar][subdir] = "contrib"
 projects[navbar][version] = "1.7"
 
+projects[oauth2_server][subdir] = "contrib"
+projects[oauth2_server][version] = "1.7"
+
 projects[pathauto][subdir] = "contrib"
 projects[pathauto][version] = "1.3"
 ; Fix SQLite3 issue.
@@ -126,6 +129,9 @@ projects[restws_file][version] = "1.3"
 ; Fix Issue #3019850: Notice: Trying to get property of non-object in restws_file_restws_request_alter() (line 30 of restws_file.module).
 projects[restws_file][patch][] = "http://www.drupal.org/files/issues/2019-10-26/restws_file-bundlenotice-3019850-3.patch"
 
+projects[restws_oauth2_server][subdir] = "contrib"
+projects[restws_oauth2_server][version] = "1.0-beta1"
+
 projects[strongarm][subdir] = "contrib"
 projects[strongarm][version] = "2.0"
 
@@ -148,6 +154,9 @@ projects[views_geojson][version] = "1.0-beta3"
 
 projects[views_tree][subdir] = "contrib"
 projects[views_tree][version] = "2.0"
+
+projects[xautoload][subdir] = "contrib"
+projects[xautoload][version] = "5.7"
 
 ; -----------------------------------------------------------------------------
 ; Modules (Development)
@@ -180,6 +189,9 @@ libraries[farmOS-map][download][url] = "http://github.com/farmOS/farmOS-map/rele
 
 libraries[modernizr][download][type] = "get"
 libraries[modernizr][download][url] = "http://github.com/Modernizr/Modernizr/archive/v2.8.3.zip"
+
+libraries[oauth2-server-php][download][type] = "get"
+libraries[oauth2-server-php][download][url] = "http://github.com/bshaffer/oauth2-server-php/archive/v1.11.1.zip"
 
 libraries[underscore][download][type] = "get"
 libraries[underscore][download][url] = "http://github.com/jashkenas/underscore/archive/1.9.1.zip"

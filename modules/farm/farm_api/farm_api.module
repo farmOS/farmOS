@@ -7,6 +7,8 @@
 
 define('FARM_API_VERSION', '1.2');
 
+include_once 'farm_api.features.inc';
+
 /**
  * Implements hook_permission().
  */
@@ -14,6 +16,9 @@ function farm_api_permission() {
   $perms = array(
     'access farm api info' => array(
       'title' => t('Access the farmOS API info endpoint'),
+    ),
+    'administer farm api oauth clients' => array(
+      'title' => t('Administer farmOS OAuth Clients.'),
     ),
   );
   return $perms;
@@ -23,12 +28,23 @@ function farm_api_permission() {
  * Implements hook_menu().
  */
 function farm_api_menu() {
+  $items = array();
 
   // General farm information JSON endpoint.
   $items['farm.json'] = array(
     'page callback' => 'farm_api_info',
-    'access arguments' => array('access farm api info'),
+    'access callback' => TRUE,
     'type' => MENU_CALLBACK,
+  );
+
+  // OAuth client configuration form.
+  $items['admin/config/farm/oauth'] = array(
+    'title' => 'farmOS OAuth',
+    'description' => 'farmOS OAuth Client settings.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('farm_api_oauth_settings_form'),
+    'access arguments' => array('administer farm api oauth clients'),
+    'file' => 'farm_api.oauth.inc',
   );
 
   return $items;
@@ -38,7 +54,63 @@ function farm_api_menu() {
  * Farm info API callback.
  */
 function farm_api_info() {
-  $info = module_invoke_all('farm_info');
+
+  // Start with an empty info array.
+  $info = array();
+
+  // Check for an authenticated user with access to farmOS API info.
+  $access = user_access('access farm api info');
+
+  // Iterate through all the modules that implement hook_farm_info.
+  $hook = 'farm_info';
+  $modules = module_implements($hook);
+  foreach($modules as $module) {
+
+    // Invoke the hook to get info.
+    $module_info = module_invoke($module, $hook);
+
+    // If the info is empty, skip it.
+    if (!is_array($module_info)) {
+      continue;
+    }
+
+    // Iterate through the info items.
+    foreach ($module_info as $key => $item) {
+
+      // If the item is an array with an 'info' key, that is what we will
+      // include.
+      if (is_array($item) && !empty($item['info'])) {
+
+        // If the user is authenticated with permission OR if an OAuth2 scope is
+        // authorized for this request, add the item to the info array.
+        if ($access || (!empty($item['scope']) && farm_api_check_scope($item['scope']))) {
+
+          // Add the key to an array before merging.
+          $item = array(
+            $key => $item['info'],
+          );
+
+          // Include in info.
+          $info = array_merge($info, $item);
+        }
+      }
+
+      // If item does not have an 'info' include if the user has access.
+      // This is simple info that does not require a check for OAuth scope.
+      elseif ($access) {
+
+        // Add the key to an array before merging.
+        $item = array(
+          $key => $item,
+        );
+
+        // Include in info.
+        $info = array_merge($info, $item);
+      }
+    }
+  }
+
+  // Output as JSON.
   drupal_json_output($info);
 }
 
@@ -47,11 +119,24 @@ function farm_api_info() {
  */
 function farm_api_farm_info() {
   global $base_url, $conf, $user;
+
+  // Include info that requires the farm_info scope.
   $info = array(
-    'name' => $conf['site_name'],
-    'url' => $base_url,
-    'api_version' => FARM_API_VERSION,
+    'name' => array(
+      'info' => $conf['site_name'],
+      'scope' => 'farm_info',
+    ),
+    'url' => array(
+      'info' => $base_url,
+      'scope' => 'farm_info',
+    ),
+    'api_version' => array(
+      'info' => FARM_API_VERSION,
+      'scope' => 'farm_info',
+    ),
   );
+
+  // Include user info if logged in.
   if (!empty($user->uid)) {
     $info['user'] = array(
       'uid' => $user->uid,
@@ -60,6 +145,115 @@ function farm_api_farm_info() {
     );
   }
   return $info;
+}
+
+/**
+ * Helper function to allow modules to check for an authorized scope in the
+ * current request before providing info in an API endpoint.
+ *
+ * @param string $scope
+ *    A single OAuth Scope to check.
+ *
+ * @return bool
+ *   Return TRUE if request is authorized with specified scope. FALSE otherwise.
+ */
+function farm_api_check_scope($scope) {
+
+  // Load the OAuth2 Server name
+  $server_name = variable_get('restws_oauth2_server_name', FALSE);
+  if (!$server_name) {
+    return FALSE;
+  }
+
+  // Check OAuth scope.
+  $result = oauth2_server_check_access($server_name, $scope);
+
+  // Check if a Token was returned, or an error Response.
+  if ($result instanceof \OAuth2\Response) {
+    return FALSE;
+  }
+
+  // Return True if request is authorized with specified scope.
+  return TRUE;
+}
+
+/**
+ * Implements hook_modules_enabled().
+ */
+function farm_api_modules_enabled($modules) {
+
+  // If the modules provide OAuth2 clients, enable them.
+  $hook = 'farm_api_oauth2_client';
+  foreach ($modules as $module) {
+    $function = $module . '_' . $hook;
+    if (function_exists($function)) {
+      $clients = $function();
+      foreach ($clients as $client) {
+        $label = !empty($client['label']) ? $client['label'] : '';
+        $client_key = !empty($client['client_key']) ? $client['client_key'] : '';
+        $client_secret = !empty($client['client_secret']) ? $client['client_secret'] : '';
+        $redirect_uri = !empty($client['redirect_uri']) ? $client['redirect_uri'] : '';
+        if (!empty($label) && !empty($client_key)) {
+          farm_api_enable_oauth_client($label, $client_key, $client_secret, $redirect_uri);
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_modules_disabled().
+ */
+function farm_api_modules_disabled($modules) {
+
+  // If the modules provided OAuth2 clients, disable them.
+  $hook = 'farm_api_oauth2_client';
+  foreach ($modules as $module) {
+    $function = $module . '_' . $hook;
+    if (function_exists($function)) {
+      $clients = $function();
+      foreach ($clients as $client) {
+        $client_id = db_query('SELECT client_id FROM {oauth2_server_client} WHERE client_key = :client_key', array(':client_key' => $client['client_key']))->fetchField();
+        if (!empty($client_id)) {
+          entity_delete('oauth2_server_client', $client_id);
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Helper function for enabling a farmOS OAuth2 Client.
+ *
+ * @param string $label
+ *   The human-readable label for the client.
+ * @param string $client_key
+ *   The machine name of the client to enable.
+ * @param string $client_secret
+ *   Optional client secret.
+ * @param string $redirect_uri
+ *   Optional redirect URIs (separated by newlines).
+ */
+function farm_api_enable_oauth_client($label, $client_key, $client_secret = '', $redirect_uri = '') {
+  $server_name = variable_get('restws_oauth2_server_name', 'farmos_oauth');
+
+  // Create OAuth2 Server Client Entity
+  $new_client = entity_create('oauth2_server_client', array());
+  $new_client->server = $server_name;
+  $new_client->client_key = $client_key;
+  $new_client->label = $label;
+
+  // Add an optional client secret.
+  if (!empty($client_secret)) {
+    $new_client->client_secret = $client_secret;
+  }
+
+  // The module supports entering multiple redirect uris separated by a
+  // newline. Both a dummy and the real uri are specified to confirm that
+  // validation passes.
+  $new_client->redirect_uri = $redirect_uri;
+  $new_client->automatic_authorization = FALSE;
+  $new_client->save();
 }
 
 /**
