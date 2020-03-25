@@ -178,6 +178,30 @@ function farm_api_check_scope($scope) {
 }
 
 /**
+ * Implements hook_modules_enabled().
+ */
+function farm_api_modules_enabled($modules) {
+
+  // If the modules provide OAuth2 clients, enable them.
+  $hook = 'farm_api_oauth2_client';
+  foreach ($modules as $module) {
+    $function = $module . '_' . $hook;
+    if (function_exists($function)) {
+      $clients = $function();
+      foreach ($clients as $client) {
+        $label = !empty($client['label']) ? $client['label'] : '';
+        $client_key = !empty($client['client_key']) ? $client['client_key'] : '';
+        $client_secret = !empty($client['client_secret']) ? $client['client_secret'] : '';
+        $redirect_uri = !empty($client['redirect_uri']) ? $client['redirect_uri'] : '';
+        if (!empty($label) && !empty($client_key)) {
+          farm_api_enable_oauth_client($label, $client_key, $client_secret, $redirect_uri);
+        }
+      }
+    }
+  }
+}
+
+/**
  * Helper function for enabling a farmOS OAuth2 Client.
  *
  * @param string $label
