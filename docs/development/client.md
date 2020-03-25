@@ -172,11 +172,8 @@ setting up your system's [environment variables] and installing the
 the latest version of Android that Cordova seems to support is 7.1.1, at API
 Level 25.
 
-[//]: <> (TODO: Determine what versions of Android the app should target and list them here.)
-
 Once Android Studio is installed and configured, make sure Android has been
-added to Cordova's list of platforms, then you're ready to run the final build
-command:
+added to Cordova's list of platforms, then you're try out the build command:
 
 ```bash
 $ cordova platform add android
@@ -187,17 +184,50 @@ By default, the `build` command will produce a debugging APK (equivalent to
 running `cordova build android --debug`). If you want to build a final release
 version, you'll need to add the `--release` flag, but you'll also need to use
 your keys for signing the APK (see "[Signing an App]" in the Cordova docs for
-more details). Both the debug and release APK's can then be found at
-`path/to/farmos-native/platforms/android/app/build/outputs/apk` after building.
+more details). For reference, the official farmOS Field Kit app is built using
+the following flags:
 
-[//]: <> (TODO: Figure out signing the app for the Play Store and document here.)
+```bash
+cordova build android --release -- \
+--keystore=/path/to//your-key.keystore \
+--storePassword=xxxxxxxx \
+--alias=yyyy --password=zzzzzzzz
+```
+
+Both the debug and release APK's can then be found at
+`path/to/farmOS-client/platforms/android/app/build/outputs/apk` after building.
 
 ### iOS Build
 
 Only available on Apple OS X. Windows and Linux are not supported. For some
 workarounds, see "[Developing an iOS App on Linux]"
 
-Cordova's [iOS Platform Guide]
+You'll need Xcode installed in order to run the Cordova build commands. See
+Cordova's [iOS Platform Guide] for more info.
+
+Once you have the environment set up, you'll want to add the iOS platform with
+Cordova (we recommend version 5.0.0 or higher), then you can run a debugging
+build:
+
+```bash
+cordova platform add ios@5.0.0
+cordova build ios
+```
+
+Using the `build` command without the `--release` flag triggers a debug build
+by default. To build a signed app for the App Store, you'll need to follow
+Cordova's [app signing guidelines], but for reference, we use the following
+command and flags:
+
+```bash
+cordova build ios --release --device \
+--codeSignIdentity="iPhone Distribution" \
+--developmentTeam="ABCD1234" \
+--packageType="app-store" \
+--provisioningProfile="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+```
+
+Signed .ipa files will be found at `path/to/farmOS-client/platforms/ios/build/device/`
 
 [https://github.com/farmOS/farmOS-client]: https://github.com/farmOS/farmOS-client
 [https://github.com/farmOS/farmOS-native]: https://github.com/farmOS/farmOS-native
@@ -220,3 +250,4 @@ Cordova's [iOS Platform Guide]
 [Signing an App]: https://cordova.apache.org/docs/en/latest/guide/platforms/android/index.html#signing-an-app
 [Developing an iOS App on Linux]: https://andrewmichaelsmith.com/2017/02/developing-an-ios-app-on-linux-in-2017/
 [iOS Platform Guide]: https://cordova.apache.org/docs/en/latest/guide/platforms/ios/index.html
+[app signing guidelines]: https://cordova.apache.org/docs/en/latest/guide/platforms/ios/index.html#signing-an-app
