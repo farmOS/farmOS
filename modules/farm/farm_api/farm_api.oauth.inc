@@ -123,25 +123,8 @@ function farm_api_oauth_settings_form_submit(array $form, array &$form_state) {
     // Enable the client if not already enabled.
     if ($enabled && !in_array($client_key, $enabled_clients)) {
 
-      $server_name = variable_get('restws_oauth2_server_name', 'farmos_oauth');
-
-      // Create OAuth2 Server Client Entity
-      $new_client = entity_create('oauth2_server_client', array());
-      $new_client->server = $server_name;
-      $new_client->label = $client['label'];
-      $new_client->client_key = $client['client_key'];
-
-      // Add an optional client secret.
-      if (!empty($client['client_secret'])) {
-        $new_client->client_secret = $client['client_secret'];
-      }
-
-      // The module supports entering multiple redirect uris separated by a
-      // newline. Both a dummy and the real uri are specified to confirm that
-      // validation passes.
-      $new_client->redirect_uri = $client['redirect_uri'];
-      $new_client->automatic_authorization = FALSE;
-      $new_client->save();
+      // Use the helper function.
+      farm_api_enable_oauth_client($client['label'], $client_key, $client['client_secret'], $client['redirect_uri']);
 
       // Notify that client was created.
       drupal_set_message('Created OAuth Client for ' . $client['label']);
