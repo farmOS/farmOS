@@ -63,7 +63,6 @@ function farm_api_uninstall() {
 
   // Delete variables
   variable_del('restws_oauth2_server_name');
-  variable_del('farm_api_enabled_clients');
 }
 
 /**

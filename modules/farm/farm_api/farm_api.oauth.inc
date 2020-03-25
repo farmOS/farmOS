@@ -28,20 +28,32 @@ function farm_api_oauth_settings_form($form, &$form_state) {
     }
   }
 
-  // Load the list of enabled clients from a variable.
-  $enabled_oauth_clients = variable_get('farm_api_enabled_clients', array());
+  // Load the list of enabled clients.
+  $default_value = array();
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'oauth2_server_client');
+  $result = $query->execute();
+  if (isset($result['oauth2_server_client'])) {
+    $client_ids = array_keys($result['oauth2_server_client']);
+    $active_clients = entity_load('oauth2_server_client', $client_ids);
+    foreach ($active_clients as $client) {
+      $default_value[] = $client->client_key;
+    }
+  }
 
   // Display as a list of checkboxes.
   $form['farm_api_enabled_clients'] = array(
     '#type' => 'checkboxes',
     '#title' => t('Enable or disable OAuth Clients.'),
     '#options' => $options,
-    '#default_value' => $enabled_oauth_clients,
+    '#default_value' => $default_value,
   );
 
-  // Wrap it in a system settings form.
-  $form = system_settings_form($form);
-  $form['#submit'][] = 'farm_api_oauth_settings_form_submit';
+  // Submit.
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Save configuration'),
+  );
 
   // Return the form.
   return $form;
