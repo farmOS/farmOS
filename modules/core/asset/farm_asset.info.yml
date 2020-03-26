@@ -1,0 +1,12 @@
+name: Farm Asset
+type: module
+description: Provides a farm asset entity type.
+core: 8.x
+core_version_requirement: ^8 || ^9
+package: FarmOS
+dependencies:
+  - entity:entity
+  - state_machine:state_machine
+  - drupal:system (>=8.8.0)
+  - drupal:user
+  - drupal:views

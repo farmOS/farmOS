@@ -1,0 +1,18 @@
+farm_asset_default:
+  id: farm_asset_default
+  group: farm_asset
+  label: 'Default'
+  states:
+    pending:
+      label: Pending
+    archived:
+      label: Archived
+  transitions:
+    done:
+      label: 'Archive'
+      from: [pending]
+      to: archived
+    to_pending:
+      label: 'Move to Pending'
+      from: [archived]
+      to: pending

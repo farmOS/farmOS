@@ -1,0 +1,22 @@
+{#
+/**
+ * @file farm_asset.html.twig
+ * Default theme implementation to present farm_asset data.
+ *
+ * This template is used when viewing farm_asset pages.
+ *
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ * - attributes: HTML attributes for the container element.
+ *
+ * @see template_preprocess_farm_asset()
+ *
+ * @ingroup themeable
+ */
+#}
+<div{{ attributes.addClass('farm_asset') }}>
+  {% if content %}
+    {{- content -}}
+  {% endif %}
+</div>

@@ -1,0 +1,6 @@
+id: default
+label: default
+description: 'Test farm asset type'
+langcode: en
+workflow: farm_asset_default
+new_revision: TRUE

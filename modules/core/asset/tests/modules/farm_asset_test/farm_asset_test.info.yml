@@ -1,0 +1,7 @@
+name: 'Farm Asset module tests'
+type: module
+description: 'Support module for farm asset testing.'
+package: Testing
+core: 8.x
+dependencies:
+  - farm_asset:farm_asset

@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - farm_asset
+id: farm_asset_delete_action
+label: 'Delete farm asset'
+type: farm_asset
+plugin: entity:delete_action:farm_asset
+configuration: {  }
