@@ -41,19 +41,21 @@ user's credentials, which makes it a more secure authentication method.
 Read more about the [OAuth 2.0 standards]
 
 OAuth Scopes included with farmOS:
-- `user_access`: This allows full user access to the farmOS server. With this
-scope, a third party can do anything the farmOS user account has permission to
-do.
-- `farm_info`: Allows access to data at `/farm.json`
+
+* `user_access`: This allows full user access to the farmOS server. With this
+  scope, a third party can do anything the farmOS user account has permission to
+  do.
+* `farm_info`: Allows access to data at `/farm.json`
 
 The core `farm_api` module comes with a `farm_api_development` module that can
 be enabled for testing different OAuth authorization flows. For the purposes
 of documentation, this client is used in below examples. This module defines
 an OAuth client with the following parameters:
-- `client_id` = `farmos_development`
-- `client_secret` = None. This client does not require a `client_secret`
-- `redirect_uri` = `http://localhost/api/authorized` (This is required for the
-Authorization Code Grant)
+
+* `client_id` = `farmos_development`
+* `client_secret` = None. This client does not require a `client_secret`
+* `redirect_uri` = `http://localhost/api/authorized` (This is required for the
+  Authorization Code Grant)
 
 ### Authorization Flows
 
@@ -81,37 +83,34 @@ The Authorization Code Grant is most popular for 3rd party client authorization.
 
 Requesting resources is a four step process:
 
-1. First, the client sends a request to the farmOS server `/oauth2/authorize`
+**First**: the client sends a request to the farmOS server `/oauth2/authorize`
 endpoint requesting an `Authorization Code`. The user logs in and authorizes
 the client to have the OAuth Scopes it is requesting.
     
-        Copy this link to browser -
-        http://localhost/oauth2/authorize?response_type=code&client_id=farmos_development&scope=user_access&redirect_uri=http://localhost/api/authorized&state=p4W8P5f7gJCIDbC1Mv78zHhlpJOidy
+    Copy this link to browser -
+    http://localhost/oauth2/authorize?response_type=code&client_id=farmos_development&scope=user_access&redirect_uri=http://localhost/api/authorized&state=p4W8P5f7gJCIDbC1Mv78zHhlpJOidy
    
-2. After the user accepts, the server redirects
+**Second**: after the user accepts, the server redirects
 to the `redirect_uri` with an authorization `code` and `state` in the query
 parameters.
 
-        Example redirect url from server:
-        http://localhost/api/authorized?code=9eb9442c7a2b011fd59617635cca5421cd089943&state=p4W8P5f7gJCIDbC1Mv78zHhlpJOidy
+    Example redirect url from server:
+    http://localhost/api/authorized?code=9eb9442c7a2b011fd59617635cca5421cd089943&state=p4W8P5f7gJCIDbC1Mv78zHhlpJOidy
         
-3. Copy the `code` and `state` from the URL into the body of a POST request.
+**Third**: copy the `code` and `state` from the URL into the body of a POST request.
 The `grant_type`, `client_id`, `client_secret` and `redirect_uri` must also be
 included in the POST body. The client makes a POST request to the
 `/oauth2/token` endpoint to retrieve an `access_token` and `refresh_token`.
 
-    ```console
     foo@bar:~$ curl -X POST -d "grant_type=authorization_code&code=ae4d1381cc67def1c10dc88a19af6ac30d7b5959&client_id=farmos_development&redirect_uri=http://localhost/api/authorized" http://localhost/oauth2/token
     {"access_token":"3f9212c4a6656f1cd1304e47307927a7c224abb0","expires_in":"10","token_type":"Bearer","scope":"user_access","refresh_token":"292810b04d688bfb5c3cee28e45637ec8ef1dd9e"}
-    ```
-4. The client sends the access token in the request header to access protected
+
+**Fourth**: the client sends the access token in the request header to access protected
 resources. The header is an Authorization header with a Bearer token: 
  `Authorization: Bearer access_token`
     
-   ```console
-   foo@bar:~$ curl --header "Authorization: Bearer b872daf5827a75495c8194c6bfa4f90cf46c143e" http://localhost/farm.json
-   {"name":"farmos-server","url":"http:\/\/localhost","api_version":"1.1","user":{"uid":"1","name":"admin", .... 
-   ```
+    foo@bar:~$ curl --header "Authorization: Bearer b872daf5827a75495c8194c6bfa4f90cf46c143e" http://localhost/farm.json
+    {"name":"farmos-server","url":"http:\/\/localhost","api_version":"1.1","user":{"uid":"1","name":"admin", .... 
    
 #### Password Credentials Grant
 
@@ -128,21 +127,19 @@ with the farmOS server and retrieving data.
 
 Requesting protected resources is a two step process:
 
-1. First the client sends a POST request to the farmOS server `/oauth2/token`
+**First**, the client sends a POST request to the farmOS server `/oauth2/token`
 endpoint with `grant_type` set to `password` and a `username` and `password`
 included in the request body.
 
-        $ curl -X POST -d "grant_type=password&username=username&password=test&client_id=farmos_development&scope=user_access" http://localhost/oauth2/token
-        {"access_token":"e69c60dea3f5c59c95863928fa6fb860d3506fe9","expires_in":"300","token_type":"Bearer","scope":"user_access","refresh_token":"cead7d46d18d74daea83f114bc0b512ec4cc31c3"}
+    $ curl -X POST -d "grant_type=password&username=username&password=test&client_id=farmos_development&scope=user_access" http://localhost/oauth2/token
+    {"access_token":"e69c60dea3f5c59c95863928fa6fb860d3506fe9","expires_in":"300","token_type":"Bearer","scope":"user_access","refresh_token":"cead7d46d18d74daea83f114bc0b512ec4cc31c3"}
 
-2. The client sends the `access_token` in the request header to access protected
+**second**, the client sends the `access_token` in the request header to access protected
 resources. The header is an Authorization header with a Bearer token: 
  `Authorization: Bearer access_token`
     
-    ```console
     foo@bar:~$ curl --header "Authorization: Bearer e69c60dea3f5c59c95863928fa6fb860d3506fe9" http://localhost/farm.json
     {"name":"farmos-server","url":"http:\/\/localhost","api_version":"1.1","user":{"uid":"1","name":"admin", .... 
-    ```
 
 #### Refreshing Tokens
 
@@ -151,18 +148,16 @@ has expired.
 
 It is a one step process:
 
-1. The client sends an authenticated request to the `/oauth2/token`endpoint with
+The client sends an authenticated request to the `/oauth2/token`endpoint with
 `grant_type` set to `refresh_token` and includes the `refresh_token`,
 `client_id` and `client_secret` in the request body.
 
-    ```console
     foo@bar:~$ curl -X POST -H 'Authorization: Bearer ad52c04d26c1002084501d28b59196996f0bd93f' -d 'refresh_token=52e7a0e12e8ddd08b155b3b3ee385687fef01664&grant_type=refresh_token&client_id=farmos_api_client&client_secret=client_secret' http://localhost/oauth2/token
     {"access_token":"acdbfabb736e42aa301b50fdda95d6b7fd3e7e14","expires_in":"300","token_type":"Bearer","scope":"user_access","refresh_token":"b73f4744840498a26f43447d8cf755238bfd391a"} 
-    ```
    
-   The server responds with an `access_token` and `refresh_token` that can be
-   used in future requests. The previous `access_token` and `refresh_token` will
-   no longer work.
+The server responds with an `access_token` and `refresh_token` that can be used
+in future requests. The previous `access_token` and `refresh_token` will no
+longer work.
 
 ### OAuth2 Authorization with the farmOS API
 
@@ -175,28 +170,25 @@ Authorization Code flow.
 
 ##### Password Credentials Flow:
 
-```python
-farm_client = farmOS(
-    hostname=url,
-    username=farmos_username,
-    password=farmos_password,
-    client_id="farmos_development",
-    scope="user_access",
-    # Supply a profile name so the tokens are saved to config
-    profile_name="farm"
-)
-```
+    farm_client = farmOS(
+        hostname=url,
+        username=farmos_username,
+        password=farmos_password,
+        client_id="farmos_development",
+        scope="user_access",
+        # Supply a profile name so the tokens are saved to config
+        profile_name="farm"
+    )
+
 Running from a Python Console, the `password` can also be omitted and entered
 at runtime. This allows testing without saving a password in plaintext:
 
-```
->>> from farmOS import farmOS
->>> farm_client = farmOS(hostname="http://localhost", username=farmos_username, client_id="farmos_development", scope="user_access")
->>> Warning: Password input may be echoed.
->>> Enter password: >? MY_PASSWORD
->>> farm_client.info()
-'name': 'server-name', 'url': 'http://localhost', 'api_version': '1.2', 'user': ....
-```
+    >>> from farmOS import farmOS
+    >>> farm_client = farmOS(hostname="http://localhost", username=farmos_username, client_id="farmos_development", scope="user_access")
+    >>> Warning: Password input may be echoed.
+    >>> Enter password: >? MY_PASSWORD
+    >>> farm_client.info()
+    'name': 'server-name', 'url': 'http://localhost', 'api_version': '1.2', 'user': ....
 
 ##### Authorization Code Flow:
 
@@ -207,34 +199,30 @@ complete the authorization process. You then copy the `link` from the page you
 are redirected to back into the console. This supplies the `farm_client` with
 an an authorization `code` that it uses to request an OAuth `token`. 
 
-```python
->>> farm_client = farmOS(hostname="http://localhost", client_id="farmos_development", scope="user_access")
-Please go here and authorize, http://localhost/oauth2/authorize?response_type=code&client_id=farmos_development&redirect_uri=http%3A%2F%2Flocalhost%2Fapi%2Fauthorized&scope=user_access&state=V9RCDd4yrSWZP8iGXt6qW51sYxsFZs&access_type=offline&prompt=select_account
-Paste the full redirect URL here:>? http://localhost/api/authorized?code=33429f3530e36f4bdf3c2adbbfcd5b7d73e89d5c&state=V9RCDd4yrSWZP8iGXt6qW51sYxsFZs
+    >>> farm_client = farmOS(hostname="http://localhost", client_id="farmos_development", scope="user_access")
+    Please go here and authorize, http://localhost/oauth2/authorize?response_type=code&client_id=farmos_development&redirect_uri=http%3A%2F%2Flocalhost%2Fapi%2Fauthorized&scope=user_access&state=V9RCDd4yrSWZP8iGXt6qW51sYxsFZs&access_type=offline&prompt=select_account
+    Paste the full redirect URL here:>? http://localhost/api/authorized?code=33429f3530e36f4bdf3c2adbbfcd5b7d73e89d5c&state=V9RCDd4yrSWZP8iGXt6qW51sYxsFZs
 
->>> farm_client.info()
-'name': 'server-name', 'url': 'http://localhost', 'api_version': '1.2', 'user': ....
-```
+    >>> farm_client.info()
+    'name': 'server-name', 'url': 'http://localhost', 'api_version': '1.2', 'user': ....
 
 ##### Supplying an existing token:
 
 It can also be useful to create a client with an existing OAuth Token. This is
 possible by supplying the `token` parameter:
 
-```python
-token = {
-    'access_token': "token",
-    'refresh_token': "token",
-}
+    token = {
+        'access_token': "token",
+        'refresh_token': "token",
+    }
 
-farm_client = farmOS(
-    hostname=url,
-    client_id=client_id,
-    client_secret=client_secret,
-    scope=scope,
-    token=token,
-)
-```
+    farm_client = farmOS(
+        hostname=url,
+        client_id=client_id,
+        client_secret=client_secret,
+        scope=scope,
+        token=token,
+    )
 
 This is how the [farmOS Aggregator] uses [farmOS.py] to communicate with farmOS
 servers. OAuth tokens are stored in the Aggregator's database instead of
