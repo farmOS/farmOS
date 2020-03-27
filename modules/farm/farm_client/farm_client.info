@@ -2,3 +2,4 @@ name = Farm Client
 description = Integrates the farmOS server and client.
 core = 7.x
 package = farmOS
+dependencies[] = farm_api
