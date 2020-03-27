@@ -135,8 +135,11 @@ function farm_api_oauth_settings_form_submit(array $form, array &$form_state) {
     // Enable the client if not already enabled.
     if ($enabled && !in_array($client_key, $enabled_clients)) {
 
+      // Check if optional client_secret was supplied.
+      $client_secret = !empty($client['client_secret']) ? $client['client_secret'] : '';
+
       // Use the helper function.
-      farm_api_enable_oauth_client($client['label'], $client_key, $client['client_secret'], $client['redirect_uri']);
+      farm_api_enable_oauth_client($client['label'], $client_key, $client_secret, $client['redirect_uri']);
 
       // Notify that client was created.
       drupal_set_message('Created OAuth Client for ' . $client['label']);
