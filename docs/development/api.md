@@ -47,7 +47,6 @@ an OAuth client with the following parameters:
 - `redirect_uri` = `http://localhost/api/authorized` (This is required for the
 Authorization Code Grant)
 
-
 ### Authorization Flows
 
 The [OAuth 2.0 standards] outline 5 [Oauth2 Grant Types] to be used in an OAuth2
@@ -233,11 +232,6 @@ This is how the [farmOS Aggregator] uses [farmOS.py] to communicate with farmOS
 servers. OAuth tokens are stored in the Aggregator's database instead of
 usernames and passwords. See how this is implemented in code 
 [here](https://github.com/farmOS/farmOS-aggregator/blob/master/backend/app/app/api/utils/farms.py#L195)
-
-
-
-#### Authorization in farmOS.js
-
 
 ## Authentication
 
