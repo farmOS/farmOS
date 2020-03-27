@@ -23,7 +23,13 @@ specific farmOS URL, username, and password.
 
 ## Authentication
 
-### OAuth2 Authorization Tokens
+There are three ways to authenticate with a farmOS server:
+
+1. OAuth2 Authorization Tokens (recommended)
+2. Session Cookie and Token
+3. Basic Authentication
+
+### 1. OAuth2 Authorization Tokens
 
 farmOS includes an OAuth2 Authorization server for providing 3rd party clients 
 access to the farmOS API. Rather than using a user's username and password to
@@ -235,13 +241,13 @@ servers. OAuth tokens are stored in the Aggregator's database instead of
 usernames and passwords. See how this is implemented in code 
 [here](https://github.com/farmOS/farmOS-aggregator/blob/master/backend/app/app/api/utils/farms.py#L195)
 
-### Cookie and Token
+### 2. Session Cookie and Token
 
-The simplest approach is to authenticate via Drupal's `user_login` form and
-save the session cookie provided by Drupal. Then, you can use that to retrieve
-a CSRF token from `[URL]/restws/session/token`, which is provided and required
-by the `restws` module. The cookie and token can then be included with each API
-request.
+The old approach (before OAuth2 was introduced in farmOS 7.x-1.4), was to
+authenticate via Drupal's `user_login` form and save the session cookie provided
+by Drupal. Then, you can use that to retrieve a CSRF token from
+`[URL]/restws/session/token`, which is provided and required by the `restws`
+module. The cookie and token can then be included with each API request.
 
 The following `curl` command will authenticate using the username and password,
 and save the session cookie to a file called `farmOS-cookie.txt`. Then it will
@@ -258,7 +264,7 @@ subsequent `curl` requests via the `--cookie` and `-H` parameters:
 
 This should be used to replace `[AUTH]` in the `curl` examples that follow.
 
-### Basic Authentication
+### 3. Basic Authentication
 
 An alternative approach is to use [HTTP Basic Authentication].
 
