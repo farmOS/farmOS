@@ -21,7 +21,9 @@ specific farmOS URL, username, and password.
 * `[AUTH]` - Authentication parameters for `curl` commands (this will depend on
   the authentication method you choose below).
 
-## OAuth2 Authorization
+## Authentication
+
+### OAuth2 Authorization Tokens
 
 farmOS includes an OAuth2 Authorization server for providing 3rd party clients 
 access to the farmOS API. Rather than using a user's username and password to
@@ -232,8 +234,6 @@ This is how the [farmOS Aggregator] uses [farmOS.py] to communicate with farmOS
 servers. OAuth tokens are stored in the Aggregator's database instead of
 usernames and passwords. See how this is implemented in code 
 [here](https://github.com/farmOS/farmOS-aggregator/blob/master/backend/app/app/api/utils/farms.py#L195)
-
-## Authentication
 
 ### Cookie and Token
 
