@@ -748,6 +748,32 @@ an OAuth client with the following parameters:
 * `redirect_uri` = `http://localhost/api/authorized` (This is required for the
   Authorization Code Grant)
 
+A client can be added via a farmOS module by implementing
+`hook_farm_api_oauth2_client()`. The following example defines a client for a
+fictional farmOS Aggregator called "My Aggregator":
+
+    <?php
+
+    /**
+     * Implements hook_farm_api_oauth2_client().
+     */
+    function myaggregator_farm_api_oauth2_client() {
+      $clients = array();
+
+      // Define an OAuth2 client for My Aggregator.
+      $redirect_uris = array(
+        'https://myfarmosaggregator.com/register-farm',
+        'https://myfarmosaggregator.com/authorize-farm',
+      );
+      $clients['my_aggregator'] = array(
+        'label' => 'My Aggregator',
+        'client_key' => 'my_farmos_client',
+        'redirect_uri' => implode("\n", $aggregator_redirect_uris),
+      );
+
+      return $clients;
+    }
+
 ### Authorization Flows
 
 The [OAuth 2.0 standards] outline 5 [Oauth2 Grant Types] to be used in an OAuth2
