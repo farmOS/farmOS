@@ -722,12 +722,21 @@ file). This will create a new observation log with the file attached to the
 The following describes more of the details necessary for using OAuth2 for
 authentication with a farmOS server.
 
-OAuth Scopes included with farmOS:
+### Scopes
+
+OAuth Scopes define different levels of permission. Two scopes are included with
+farmOS:
 
 * `user_access`: This allows full user access to the farmOS server. With this
   scope, a third party can do anything the farmOS user account has permission to
   do.
 * `farm_info`: Allows access to data at `/farm.json`
+
+### Clients
+
+In order to connect to farmOS via OAuth2, there must be a "client" configured on
+the server that corresponds to the client that will be making the requests. This
+is necessary so that tokens can be revoked from specific clients.
 
 The core `farm_api` module comes with a `farm_api_development` module that can
 be enabled for testing different OAuth authorization flows. For the purposes
