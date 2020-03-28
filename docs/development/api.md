@@ -43,6 +43,22 @@ Read more about the [OAuth 2.0 standards]
 For more information about authenticating with OAuth2, see the
 [OAuth2 Details](#oauth2-details) section below.
 
+Once you have an OAuth2 token, you can pass it to farmOS with an
+`Authorization: Bearer` header.
+
+    -H "Authorization: Bearer [OAUTH-TOKEN]"
+
+In order to perform `POST` or `PUT` requests, you also need to get an CSRF token
+from `/restws/session/token`:
+
+    TOKEN="$(curl -H "Authorization: Bearer [OAUTH-TOKEN]" [URL]/restws/session/token)"
+
+Then both tokens can be included with subsequent `curl` via `-H` parameters:
+
+    -H "Authorization: Bearer [OAUTH-TOKEN]" -H "X-CSRF-Token: ${TOKEN}"
+
+This should be used to replace `[AUTH]` in the `curl` examples that follow.
+
 ### 2. Session Cookie and Token
 
 The old approach (before OAuth2 was introduced in farmOS 7.x-1.4), was to
