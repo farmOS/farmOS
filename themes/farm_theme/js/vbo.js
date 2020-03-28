@@ -27,7 +27,8 @@
         $('.region-content > :not(' + selector + ')', context).hide();
         $(selector, context).appendTo('.region-content');
 
-        // Hide breadcrumbs, tabs, and action links as well.
+        // Hide page-top map, breadcrumbs, tabs, and action links as well.
+        $('.region-page-top .farm-map', context).hide();
         $('.breadcrumb', context).hide();
         $('.tabs--primary', context).hide();
         $('.action-links', context).hide();
