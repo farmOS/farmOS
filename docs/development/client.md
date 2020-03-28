@@ -206,11 +206,11 @@ You'll need Xcode installed in order to run the Cordova build commands. See
 Cordova's [iOS Platform Guide] for more info.
 
 Once you have the environment set up, you'll want to add the iOS platform with
-Cordova (we recommend version 5.0.0 or higher), then you can run a debugging
+Cordova (we recommend version 5.1.1 or higher), then you can run a debugging
 build:
 
 ```bash
-cordova platform add ios@5.0.0
+cordova platform add ios@5.1.1
 cordova build ios
 ```
 
