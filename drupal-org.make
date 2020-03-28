@@ -5,11 +5,6 @@ core = 7.x
 ; Modules (contrib)
 ; -----------------------------------------------------------------------------
 
-projects[bootstrap_tour][subdir] = "contrib"
-projects[bootstrap_tour][version] = "2.5"
-; Patch to fix secondary tours not running after you end the first one.
-projects[bootstrap_tour][patch][] = "http://www.drupal.org/files/issues/add_unique_tour_name_to_avoid_local_storage_collisions-2533524-9.patch"
-
 projects[calendar][subdir] = "contrib"
 projects[calendar][version] = "3.5"
 ; Patch to fix Issue #2160183: Undefined index: groupby_times
@@ -74,9 +69,6 @@ projects[geophp][version] = "1.x-dev"
 ; Patch to use BCMath for arithmetic.
 projects[geophp][patch][] = "http://www.drupal.org/files/issues/2019-12-31/geophp_bcmath-2625348-5.patch"
 
-projects[inline_entity_form][subdir] = "contrib"
-projects[inline_entity_form][version] = "1.9"
-
 projects[job_scheduler][subdir] = "contrib"
 projects[job_scheduler][version] = "2.0"
 
@@ -130,7 +122,7 @@ projects[restws_file][version] = "1.3"
 projects[restws_file][patch][] = "http://www.drupal.org/files/issues/2019-10-26/restws_file-bundlenotice-3019850-3.patch"
 
 projects[restws_oauth2_server][subdir] = "contrib"
-projects[restws_oauth2_server][version] = "1.0-beta1"
+projects[restws_oauth2_server][version] = "1.0-beta2"
 
 projects[strongarm][subdir] = "contrib"
 projects[strongarm][version] = "2.0"

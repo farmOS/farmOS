@@ -38,7 +38,6 @@ function farm_modules() {
       'farm_data_field' => st('Add an arbitrary "data" field to logs and assets'),
       'farm_access_roles' => st('Default roles: Manager, Worker, Viewer'),
       'farm_help' => st('farmOS Help Pages'),
-      'farm_tour' => st('farmOS Tours'),
       'farm_api' => st('farmOS API'),
     ),
     'optional' => array(
@@ -352,9 +351,7 @@ function farm_update_7007(&$sandbox) {
  * Install Farm Tour.
  */
 function farm_update_7008(&$sandbox) {
-
-  // Enable the Farm Access and Role Delegation modules.
-  _farm_update_enable_modules(array('farm_tour'));
+  // Removed.
 }
 
 /**
@@ -932,6 +929,32 @@ function farm_update_7051(&$sandbox) {
  */
 function farm_update_7052(&$sandbox) {
   _farm_update_enable_modules(array('farm_metrics'));
+}
+
+/**
+ * Remove farm tours.
+ */
+function farm_update_7053(&$sandbox) {
+
+  // Perform the tasks from bootstrap_tour_uninstall().
+  field_attach_delete_bundle('bootstrap_tour', 'bootstrap_tour');
+
+  // Uninstall bootstrap_tour, farm_tour, and inline_entity_form modules.
+  $modules = array(
+    'bootstrap_tour',
+    'farm_tour',
+    'inline_entity_form',
+  );
+  foreach ($modules as $module) {
+    db_query("DELETE FROM {system} WHERE name = '$module' AND type = 'module'");
+  }
+  $tables = array(
+    'bootstrap_tour_step',
+    'bootstrap_tour_tour'
+  );
+  foreach ($tables as $table) {
+    db_query("DROP TABLE {$table}");
+  }
 }
 
 /**
