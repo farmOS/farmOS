@@ -39,6 +39,7 @@ function farm_modules() {
       'farm_access_roles' => st('Default roles: Manager, Worker, Viewer'),
       'farm_help' => st('farmOS Help Pages'),
       'farm_api' => st('farmOS API'),
+      'farm_client' => st('farmOS Client (Field Kit) integration'),
     ),
     'optional' => array(
       'farm_water_test' => st('Water test logs'),
