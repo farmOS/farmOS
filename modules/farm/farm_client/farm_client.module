@@ -11,9 +11,9 @@
 function farm_client_farm_api_oauth2_client() {
   $clients = array();
 
-  $clients['farmos_field_kit'] = array(
-    'label' => 'farmOS Field Kit',
-    'client_key' => 'farmos_field_kit',
+  $clients['farm_client'] = array(
+    'label' => 'farmOS Client (Field Kit)',
+    'client_key' => 'farm_client',
     'redirect_uri' => '',
   );
 
