@@ -113,7 +113,7 @@ projects[restws][patch][] = "http://www.drupal.org/files/issues/restws-bundleKey
 ; Fix Issue #1084144: Respond to CORS preflight requests
 projects[restws][patch][] = "http://www.drupal.org/files/issues/2019-06-17/restws-support_options_request-1084144-11-18.patch"
 ; Fix Issue #2490416 (restws_basic_auth module conflicts with restws_oauth2_server)
-projects[restws][patch][] = "http://www.drupal.org/files/issues/2020-03-27/restws-auth-check-2490416-9.patch"
+projects[restws][patch][] = "http://www.drupal.org/files/issues/2020-03-29/restws-auth-check-2490416-12.patch"
 
 projects[restws_field_collection][subdir] = "contrib"
 projects[restws_field_collection][version] = "1.1"
