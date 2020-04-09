@@ -15,7 +15,7 @@
       });
 
       // Generate a link for expanding/collapsing the map.
-      var link = '<a href="#' + id + '" data-toggle="collapse" aria-expanded="' + (collapsed ? 'false' : 'true') + '" aria-controls="' + id + '" style="float: right; margin: 0.5em 1em 0 0;"><span class="glyphicon glyphicon-globe"></span> Toggle map</a>';
+      var link = '<div class="clearfix"><a href="#' + id + '" data-toggle="collapse" aria-expanded="' + (collapsed ? 'false' : 'true') + '" aria-controls="' + id + '" style="float: right; margin: 0.5em 1em 0 0;"><span class="glyphicon glyphicon-globe"></span> Toggle map</a></div>';
       $('#' + id, context).after(link);
 
       // When the map is expanded/collapsed, toggle the link text and update
