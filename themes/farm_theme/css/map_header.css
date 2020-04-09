@@ -1,6 +1,6 @@
 /* Tighten up the map in the top region. */
 body.navbar-is-fixed-top {
-  padding-top: 40px;
+  padding-top: 40px !important;
 }
 body.navbar-is-fixed-top.navbar-administration.front,
 body.navbar-is-fixed-top.navbar-administration.not-front {
