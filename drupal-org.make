@@ -133,9 +133,7 @@ projects[token][subdir] = "contrib"
 projects[token][version] = "1.7"
 
 projects[views][subdir] = "contrib"
-projects[views][version] = "3.23"
-; Fix PHP Notice: Undefined variable: options in views_handler_filter_term_node_tid->value_form()
-projects[views][patch][] = "http://www.drupal.org/files/issues/2019-07-03/views-3065777-2.patch"
+projects[views][version] = "3.24"
 
 projects[views_bulk_operations][subdir] = "contrib"
 projects[views_bulk_operations][version] = "3.5"
