@@ -130,6 +130,8 @@ added to extend your farmOS functionality:
   for creating egg harvest logs.
 * **[Farm Maple](https://github.com/farmOS/farm_maple)** - Features for
   management of maple tapping and production.
+* **[Farm Map: Emilia-Romagna](https://github.com/bonushenricus/farm_map_emrom)** -
+  Emilia-Romagna map layers for farmOS maps.
 * **[Farm Map: Finland](https://github.com/rkioski/farm_map_fi)** - Finnish map
   layers for farmOS maps.
 * **[Farm Map: Norway](https://github.com/farmOS/farm_map_no)** - Norwegian map
