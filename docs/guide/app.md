@@ -33,6 +33,13 @@ The web app can be found at [farmos.app] and can be installed as a
 will be stored in between uses. You can even add the app to your device's home
 screen, so it can be launched just like a native app.
 
+## Server requirements
+
+All versions of Field Kit require that your farmOS server have an SSL certificate,
+which enables network traffic to be served via `https` rather than `http`. You
+should also keep your server updated with the most recent version of farmOS
+to ensure compatibility with the latest version of Field Kit.
+
 ## Development
 
 For technical information on the project, please see the [Development section].
