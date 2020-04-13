@@ -70,9 +70,10 @@ enhancements if they are available.
   together provide advanced geographic query capabilities. See
   [GitHub issue #43] for more information.
 * **SSL** Although not strictly a requirement, some features (like the
-  "Geolocate" button on maps) will only work when over a secure connection. SSL
-  is also recommended if you are using the Sensor Listener module to keep your
-  sensor's private key a secret.
+  "Geolocate" button on maps) will only work when over a secure connection.
+  [Field Kit] requires SSL on your farmOS instance in order to connect to it.
+  SSL is also recommended if you are using the Sensor Listener module to keep
+  your sensor's private key a secret.
 
 [Drupal distribution]: https://drupal.org/documentation/build/distributions
 [Drupal]: https://drupal.org
@@ -92,4 +93,5 @@ enhancements if they are available.
 [PostGIS]: http://postgis.net
 [GitHub issue #43]: https://github.com/farmOS/farmOS/issues/43
 [Enable clean URLs]: https://www.drupal.org/docs/7/configuring-clean-urls/enable-clean-urls
+[Field Kit]: /guide/app
 
