@@ -56,6 +56,10 @@ function farm_modules() {
  */
 function farm_install() {
 
+  // Set the installation profile to farm.
+  // @see https://github.com/farmOS/farmOS/issues/272
+  variable_set('install_profile', 'farm');
+
   // Only admins can create new accounts.
   variable_set('user_register', USER_REGISTER_ADMINISTRATORS_ONLY);
 
