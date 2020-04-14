@@ -969,6 +969,16 @@ function farm_update_7053(&$sandbox) {
 }
 
 /**
+ * Make sure the farmOS theme is enabled.
+ * See https://github.com/farmOS/farmOS/issues/272
+ */
+function farm_update_7054(&$sandbox) {
+  if (variable_set('theme_default', '') == 'farm_theme') {
+    db_query('UPDATE {system} SET status = 1 WHERE type = "theme" AND name = "farm_theme" AND status = 0');
+  }
+}
+
+/**
  * Update helper function: enable modules.
  */
 function _farm_update_enable_modules($modules = array()) {
