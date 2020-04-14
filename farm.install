@@ -84,6 +84,7 @@ function farm_install_tasks(&$install_state) {
       'type' => 'batch',
     ),
     'farm_install_theme' => array(),
+    'farm_install_blocks' => array(),
   );
   return $tasks;
 }
@@ -234,6 +235,26 @@ function farm_install_theme() {
 
   // Disable the default Bartik theme
   theme_disable(array('bartik'));
+}
+
+/**
+ * Callback for farmOS blocks install task.
+ */
+function farm_install_blocks() {
+
+  // Update blocks for the farmOS theme.
+  // We need to run _block_rehash() so that hook_block_info_alter() in
+  // farm_theme has a chance to alter blocks provided by other farmOS modules
+  // (eg: to enable/insert them into regions).
+  // We need to override the global $theme variable and manually include the
+  // theme's template.php file so that drupal_alter() runs its alter hooks.
+  // @see https://github.com/farmOS/farmOS/issues/273
+  global $theme;
+  $old_theme = $theme;
+  $theme = 'farm_theme';
+  include_once drupal_get_path('theme', $theme) . '/template.php';
+  _block_rehash($theme);
+  $theme = $old_theme;
 }
 
 /**
