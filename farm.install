@@ -56,17 +56,14 @@ function farm_modules() {
  */
 function farm_install() {
 
+  // Set the installation profile to farm.
+  // @see https://github.com/farmOS/farmOS/issues/272
+  variable_set('install_profile', 'farm');
+
   // Only admins can create new accounts.
   variable_set('user_register', USER_REGISTER_ADMINISTRATORS_ONLY);
 
-  // Enable farm theme and set as default.
-  theme_enable(array('farm_theme'));
-  variable_set('theme_default', 'farm_theme');
-
-  // Disable the default Bartik theme
-  theme_disable(array('bartik'));
-
-  // Set the front page to the farm dashboard (provided by the farm_admin).
+  // Set the front page to the farm dashboard.
   variable_set('site_frontpage', 'farm');
 
   // Use the farm menu for primary links (provided by farm_admin).
@@ -86,6 +83,7 @@ function farm_install_tasks(&$install_state) {
       'display_name' => st('Install optional modules'),
       'type' => 'batch',
     ),
+    'farm_install_theme' => array(),
   );
   return $tasks;
 }
@@ -223,6 +221,19 @@ function farm_install_optional_modules() {
 function _farm_install_enable_module($module, $module_name, &$context) {
   module_enable(array($module));
   $context['message'] = st('Installed %module module.', array('%module' => $module_name));
+}
+
+/**
+ * Callback for farmOS theme install task.
+ */
+function farm_install_theme() {
+
+  // Enable farm theme and set as default.
+  theme_enable(array('farm_theme'));
+  variable_set('theme_default', 'farm_theme');
+
+  // Disable the default Bartik theme
+  theme_disable(array('bartik'));
 }
 
 /**
@@ -954,6 +965,16 @@ function farm_update_7053(&$sandbox) {
   );
   foreach ($tables as $table) {
     db_query("DROP TABLE {$table}");
+  }
+}
+
+/**
+ * Make sure the farmOS theme is enabled.
+ * See https://github.com/farmOS/farmOS/issues/272
+ */
+function farm_update_7054(&$sandbox) {
+  if (variable_set('theme_default', '') == 'farm_theme') {
+    db_query('UPDATE {system} SET status = 1 WHERE type = "theme" AND name = "farm_theme" AND status = 0');
   }
 }
 
