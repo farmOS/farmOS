@@ -11,7 +11,7 @@ projects[calendar][version] = "3.5"
 projects[calendar][patch][] = "http://www.drupal.org/files/issues/calendar-2160183-18.patch"
 
 projects[colorbox][subdir] = "contrib"
-projects[colorbox][version] = "2.13"
+projects[colorbox][version] = "2.15"
 
 projects[ctools][subdir] = "contrib"
 projects[ctools][version] = "1.15"
