@@ -15,7 +15,7 @@
       if (glyphicons_text[link_text] !== undefined) {
         icon = glyphicons_text[link_text]
       }
-      if (icon) {
+      if (icon && !$(element).find('span.glyphicon').length) {
         $(element).prepend('<span class="icon glyphicon glyphicon-' + icon + '"></span> ');
       }
     }
