@@ -36,6 +36,7 @@ function farm_area_views_default_views() {
   $handler->display->display_options['style_plugin'] = 'tree';
   $handler->display->display_options['style_options']['main_field'] = 'tid';
   $handler->display->display_options['style_options']['parent_field'] = 'tid_1';
+  $handler->display->display_options['style_options']['collapsible_tree'] = 'collapsed';
   $handler->display->display_options['row_plugin'] = 'fields';
   $handler->display->display_options['row_options']['inline'] = array(
     'views_bulk_operations' => 'views_bulk_operations',

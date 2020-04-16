@@ -145,7 +145,9 @@ projects[views_geojson][subdir] = "contrib"
 projects[views_geojson][version] = "1.0-beta3"
 
 projects[views_tree][subdir] = "contrib"
-projects[views_tree][version] = "2.0"
+projects[views_tree][version] = "2.x-dev"
+; Fix Issue #3128036: Allow collapse for bootstrap based themes
+projects[views_tree][patch][] = "http://www.drupal.org/files/issues/2020-04-15/3128036-2.patch"
 
 projects[xautoload][subdir] = "contrib"
 projects[xautoload][version] = "5.7"
