@@ -1,0 +1,15 @@
+name: Test Docker and Drush Make builds
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  build:
+    name: Test Docker and Drush Make builds
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+      - name: Build farmOS Docker image
+        run: docker build -t farmos-dev --build-arg FARMOS_REPO=https://github.com/${GITHUB_REPOSITORY} --build-arg FARMOS_BRANCH=${GITHUB_REF:11} docker/dev
