@@ -17,8 +17,10 @@ jobs:
         run: docker build -t farmos-dev --build-arg FARMOS_REPO=https://github.com/${GITHUB_REPOSITORY} --build-arg FARMOS_BRANCH=${FARMOS_BRANCH} docker/dev
       - name: Run farmOS Docker container
         run: docker run --rm -v /tmp/farmOS:/var/www/html farmos-dev true
+      - name: Create artifact
+        run: cd /tmp && tar -czf farmOS.tar.gz farmOS
       - name: Upload artifact
         uses: actions/upload-artifact@v1
         with:
           name: farmOS-${{ env.FARMOS_BRANCH }}
-          path: /tmp/farmOS
+          path: /tmp/farmOS.tar.gz
