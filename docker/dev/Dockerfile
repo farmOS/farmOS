@@ -2,7 +2,7 @@
 FROM farmos/farmos:7.x-1.x
 
 # Set the farmOS version to the development branch.
-ENV FARMOS_VERSION 7.x-1.x
+ARG FARMOS_VERSION=7.x-1.x
 
 # Install Xdebug.
 RUN yes | pecl install xdebug \
