@@ -2,10 +2,10 @@
   Drupal.behaviors.farm_theme_glyphicons = {
     attach: function(context, settings) {
       var glyphicons_text = settings['farm_theme']['glyphicons_text'];
-      $('#navbar ul li a', context).each(function(index) {
+      $('#navbar ul li a', context).once('glyphicons').each(function(index) {
         Drupal.behaviors.farm_theme_glyphicons.glyphicon(this, glyphicons_text);
       });
-      $('ul.tabs--primary li a', context).each(function(index) {
+      $('ul.tabs--primary li a', context).once('glyphicons').each(function(index) {
         Drupal.behaviors.farm_theme_glyphicons.glyphicon(this, glyphicons_text);
       });
     },
