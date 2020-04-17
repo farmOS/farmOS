@@ -1,6 +1,9 @@
 # Inherit from the farmOS 7.x-1.x image.
 FROM farmos/farmos:7.x-1.x
 
+# Set the farmOS repository URL.
+ARG FARMOS_REPO=https://git.drupal.org/project/farm.git
+
 # Set the farmOS branch to git clone.
 ARG FARMOS_BRANCH=7.x-1.x
 
@@ -24,7 +27,7 @@ RUN curl -fsSL -o /usr/local/bin/drush.phar "https://github.com/drush-ops/drush/
 RUN apt-get update && apt-get install -y mariadb-client
 
 # Build the farmOS repository in /tmp/farmOS.
-RUN git clone --branch ${FARMOS_BRANCH} https://git.drupal.org/project/farm.git /tmp/farmOS && \
+RUN git clone --branch ${FARMOS_BRANCH} ${FARMOS_REPO} /tmp/farmOS && \
   drush make --working-copy --no-gitinfofile /tmp/farmOS/build-farm.make /tmp/www && \
   chown -R www-data:www-data /tmp/www
 
