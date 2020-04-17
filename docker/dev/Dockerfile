@@ -28,6 +28,8 @@ RUN apt-get update && apt-get install -y mariadb-client
 
 # Build the farmOS repository in /tmp/farmOS.
 RUN git clone --branch ${FARMOS_BRANCH} ${FARMOS_REPO} /tmp/farmOS && \
+  sed -i 's@http://git.drupal.org/project/farm.git@'"${FARMOS_REPO}"'@g' /tmp/farmOS/build-farm.make && \
+  sed -i 's/7.x-1.x/'"${FARMOS_BRANCH}"'/g' /tmp/farmOS/build-farm.make && \
   drush make --working-copy --no-gitinfofile /tmp/farmOS/build-farm.make /tmp/www && \
   chown -R www-data:www-data /tmp/www
 
