@@ -1,0 +1,16 @@
+{
+    "name": "farmos/farmos",
+    "description": "A web-based farm record keeping application.",
+    "type": "drupal-profile",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Michael Stenta",
+            "email": "mike@farmier.com"
+        }
+    ],
+    "require": {
+        "drupal/core": "9.0.0-beta2"
+    },
+    "minimum-stability": "dev"
+}
