@@ -54,6 +54,13 @@ RUN { \
     echo 'realpath_cache_ttl=3600'; \
   } > /usr/local/etc/php/conf.d/realpath_cache-recommended.ini
 
+# Install postgresql-client so Drush can connect to the database.
+RUN apt-get update \
+  # See https://stackoverflow.com/questions/51033689/how-to-fix-error-on-postgres-install-ubuntu
+  && mkdir -p /usr/share/man/man1 \
+  && mkdir -p /usr/share/man/man7 \
+  && apt-get install -y postgresql-client
+
 # Install Composer.
 RUN curl -sS https://getcomposer.org/installer | \
     php -- --install-dir=/usr/bin/ --filename=composer
