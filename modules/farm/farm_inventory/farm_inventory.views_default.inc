@@ -192,7 +192,6 @@ function farm_inventory_views_default_views() {
   $handler->display->display_options['filters']['field_farm_group_target_id']['expose']['label'] = 'Group';
   $handler->display->display_options['filters']['field_farm_group_target_id']['expose']['operator'] = 'field_farm_group_target_id_op';
   $handler->display->display_options['filters']['field_farm_group_target_id']['expose']['identifier'] = 'field_farm_group_target_id';
-  $handler->display->display_options['filters']['field_farm_group_target_id']['expose']['multiple'] = TRUE;
   /* Filter criterion: Farm asset: Archived (boolean) */
   $handler->display->display_options['filters']['archived_boolean']['id'] = 'archived_boolean';
   $handler->display->display_options['filters']['archived_boolean']['table'] = 'farm_asset';

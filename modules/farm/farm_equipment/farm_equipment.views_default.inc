@@ -356,7 +356,6 @@ function farm_equipment_views_default_views() {
   $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['label'] = 'Location';
   $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['operator'] = 'field_farm_move_to_tid_op';
   $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['identifier'] = 'field_farm_move_to_tid';
-  $handler->display->display_options['filters']['field_farm_move_to_tid']['expose']['multiple'] = TRUE;
   $handler->display->display_options['filters']['field_farm_move_to_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_farm_move_to_tid']['vocabulary'] = 'farm_areas';
   $handler->display->display_options['filters']['field_farm_move_to_tid']['hierarchy'] = 1;
@@ -371,7 +370,6 @@ function farm_equipment_views_default_views() {
   $handler->display->display_options['filters']['field_farm_group_target_id']['expose']['label'] = 'Group';
   $handler->display->display_options['filters']['field_farm_group_target_id']['expose']['operator'] = 'field_farm_group_target_id_op';
   $handler->display->display_options['filters']['field_farm_group_target_id']['expose']['identifier'] = 'field_farm_group_target_id';
-  $handler->display->display_options['filters']['field_farm_group_target_id']['expose']['multiple'] = TRUE;
   /* Filter criterion: Field: Flags (field_farm_flags) */
   $handler->display->display_options['filters']['field_farm_flags_value']['id'] = 'field_farm_flags_value';
   $handler->display->display_options['filters']['field_farm_flags_value']['table'] = 'field_data_field_farm_flags';
@@ -645,7 +643,6 @@ function farm_equipment_views_default_views() {
   $handler->display->display_options['filters']['field_farm_group_target_id']['expose']['label'] = 'Group';
   $handler->display->display_options['filters']['field_farm_group_target_id']['expose']['operator'] = 'field_farm_group_target_id_op';
   $handler->display->display_options['filters']['field_farm_group_target_id']['expose']['identifier'] = 'field_farm_group_target_id';
-  $handler->display->display_options['filters']['field_farm_group_target_id']['expose']['multiple'] = TRUE;
   /* Filter criterion: Farm asset: Archived (boolean) */
   $handler->display->display_options['filters']['archived_boolean']['id'] = 'archived_boolean';
   $handler->display->display_options['filters']['archived_boolean']['table'] = 'farm_asset';
