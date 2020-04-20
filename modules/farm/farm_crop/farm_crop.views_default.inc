@@ -98,14 +98,7 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['sorts']['name']['id'] = 'name';
   $handler->display->display_options['sorts']['name']['table'] = 'taxonomy_term_data';
   $handler->display->display_options['sorts']['name']['field'] = 'name';
-  $handler->display->display_options['sorts']['name']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['name']['expose']['label'] = 'Name';
-  /* Sort criterion: Taxonomy term: Crop family (field_farm_crop_family) */
-  $handler->display->display_options['sorts']['field_farm_crop_family_tid']['id'] = 'field_farm_crop_family_tid';
-  $handler->display->display_options['sorts']['field_farm_crop_family_tid']['table'] = 'field_data_field_farm_crop_family';
-  $handler->display->display_options['sorts']['field_farm_crop_family_tid']['field'] = 'field_farm_crop_family_tid';
-  $handler->display->display_options['sorts']['field_farm_crop_family_tid']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['field_farm_crop_family_tid']['expose']['label'] = 'Family';
   /* Contextual filter: Taxonomy term: Crop family (field_farm_crop_family) */
   $handler->display->display_options['arguments']['field_farm_crop_family_tid']['id'] = 'field_farm_crop_family_tid';
   $handler->display->display_options['arguments']['field_farm_crop_family_tid']['table'] = 'field_data_field_farm_crop_family';
@@ -181,7 +174,6 @@ function farm_crop_views_default_views() {
     t('('),
     t(')'),
     t('Name'),
-    t('Family'),
     t('All'),
     t('Crops in %1'),
     t('Crop family'),
@@ -233,7 +225,8 @@ function farm_crop_views_default_views() {
     'field_farm_log_category' => 'field_farm_log_category',
     'field_farm_log_owner' => 'field_farm_log_owner',
   );
-  $handler->display->display_options['style_options']['default'] = '-1';
+  $handler->display->display_options['style_options']['class'] = '';
+  $handler->display->display_options['style_options']['default'] = 'timestamp';
   $handler->display->display_options['style_options']['info'] = array(
     'views_bulk_operations' => array(
       'align' => '',
@@ -241,28 +234,28 @@ function farm_crop_views_default_views() {
       'empty_column' => 0,
     ),
     'done' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'id' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
+      'sortable' => 1,
+      'default_sort_order' => 'desc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'timestamp' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
+      'sortable' => 1,
+      'default_sort_order' => 'desc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'name_1' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
@@ -274,14 +267,14 @@ function farm_crop_views_default_views() {
       'empty_column' => 0,
     ),
     'field_farm_quantity_value' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'field_farm_quantity_units' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
@@ -293,7 +286,7 @@ function farm_crop_views_default_views() {
       'empty_column' => 0,
     ),
     'field_farm_notes' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
@@ -507,26 +500,6 @@ function farm_crop_views_default_views() {
     'link' => 0,
   );
   $handler->display->display_options['fields']['field_farm_log_owner']['delta_offset'] = '0';
-  /* Sort criterion: Log: Timestamp */
-  $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
-  $handler->display->display_options['sorts']['timestamp']['table'] = 'log';
-  $handler->display->display_options['sorts']['timestamp']['field'] = 'timestamp';
-  $handler->display->display_options['sorts']['timestamp']['order'] = 'DESC';
-  $handler->display->display_options['sorts']['timestamp']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['timestamp']['expose']['label'] = 'Date';
-  /* Sort criterion: Log: Name */
-  $handler->display->display_options['sorts']['name_1']['id'] = 'name_1';
-  $handler->display->display_options['sorts']['name_1']['table'] = 'log';
-  $handler->display->display_options['sorts']['name_1']['field'] = 'name';
-  $handler->display->display_options['sorts']['name_1']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['name_1']['expose']['label'] = 'Log name';
-  /* Sort criterion: Log: Log ID */
-  $handler->display->display_options['sorts']['id']['id'] = 'id';
-  $handler->display->display_options['sorts']['id']['table'] = 'log';
-  $handler->display->display_options['sorts']['id']['field'] = 'id';
-  $handler->display->display_options['sorts']['id']['order'] = 'DESC';
-  $handler->display->display_options['sorts']['id']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['id']['expose']['label'] = 'Log ID';
   /* Contextual filter: Log: Assets (field_farm_asset) */
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['id'] = 'field_farm_asset_target_id';
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['table'] = 'field_data_field_farm_asset';
@@ -807,7 +780,8 @@ function farm_crop_views_default_views() {
     'field_farm_log_category' => 'field_farm_log_category',
     'field_farm_log_owner' => 'field_farm_log_owner',
   );
-  $handler->display->display_options['style_options']['default'] = '-1';
+  $handler->display->display_options['style_options']['class'] = '';
+  $handler->display->display_options['style_options']['default'] = 'timestamp';
   $handler->display->display_options['style_options']['info'] = array(
     'views_bulk_operations' => array(
       'align' => '',
@@ -815,28 +789,28 @@ function farm_crop_views_default_views() {
       'empty_column' => 0,
     ),
     'done' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'id' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
+      'sortable' => 1,
+      'default_sort_order' => 'desc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'timestamp' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
+      'sortable' => 1,
+      'default_sort_order' => 'desc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'name_1' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
@@ -848,14 +822,14 @@ function farm_crop_views_default_views() {
       'empty_column' => 0,
     ),
     'field_farm_quantity_value' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'field_farm_quantity_units' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
@@ -867,7 +841,7 @@ function farm_crop_views_default_views() {
       'empty_column' => 0,
     ),
     'field_farm_notes' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
@@ -1081,26 +1055,6 @@ function farm_crop_views_default_views() {
     'link' => 0,
   );
   $handler->display->display_options['fields']['field_farm_log_owner']['delta_offset'] = '0';
-  /* Sort criterion: Log: Timestamp */
-  $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
-  $handler->display->display_options['sorts']['timestamp']['table'] = 'log';
-  $handler->display->display_options['sorts']['timestamp']['field'] = 'timestamp';
-  $handler->display->display_options['sorts']['timestamp']['order'] = 'DESC';
-  $handler->display->display_options['sorts']['timestamp']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['timestamp']['expose']['label'] = 'Date';
-  /* Sort criterion: Log: Name */
-  $handler->display->display_options['sorts']['name_1']['id'] = 'name_1';
-  $handler->display->display_options['sorts']['name_1']['table'] = 'log';
-  $handler->display->display_options['sorts']['name_1']['field'] = 'name';
-  $handler->display->display_options['sorts']['name_1']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['name_1']['expose']['label'] = 'Log name';
-  /* Sort criterion: Log: Log ID */
-  $handler->display->display_options['sorts']['id']['id'] = 'id';
-  $handler->display->display_options['sorts']['id']['table'] = 'log';
-  $handler->display->display_options['sorts']['id']['field'] = 'id';
-  $handler->display->display_options['sorts']['id']['order'] = 'DESC';
-  $handler->display->display_options['sorts']['id']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['id']['expose']['label'] = 'Log ID';
   /* Contextual filter: Log: Assets (field_farm_asset) */
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['id'] = 'field_farm_asset_target_id';
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['table'] = 'field_data_field_farm_asset';
@@ -1379,7 +1333,8 @@ function farm_crop_views_default_views() {
     'field_farm_move_to' => 'field_farm_move_to',
     'archived' => 'archived',
   );
-  $handler->display->display_options['style_options']['default'] = '-1';
+  $handler->display->display_options['style_options']['class'] = '';
+  $handler->display->display_options['style_options']['default'] = 'name';
   $handler->display->display_options['style_options']['info'] = array(
     'views_bulk_operations' => array(
       'align' => '',
@@ -1387,8 +1342,8 @@ function farm_crop_views_default_views() {
       'empty_column' => 0,
     ),
     'id' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
+      'sortable' => 1,
+      'default_sort_order' => 'desc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -1399,7 +1354,7 @@ function farm_crop_views_default_views() {
       'empty_column' => 0,
     ),
     'name' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
@@ -1411,14 +1366,14 @@ function farm_crop_views_default_views() {
       'empty_column' => 0,
     ),
     'field_farm_season' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'field_farm_description' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
@@ -1440,8 +1395,8 @@ function farm_crop_views_default_views() {
       'empty_column' => 0,
     ),
     'archived' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
+      'sortable' => 1,
+      'default_sort_order' => 'desc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -1612,25 +1567,6 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['archived']['date_format'] = 'custom';
   $handler->display->display_options['fields']['archived']['custom_date_format'] = 'M j Y';
   $handler->display->display_options['fields']['archived']['second_date_format'] = 'long';
-  /* Sort criterion: Farm asset: Name */
-  $handler->display->display_options['sorts']['name']['id'] = 'name';
-  $handler->display->display_options['sorts']['name']['table'] = 'farm_asset';
-  $handler->display->display_options['sorts']['name']['field'] = 'name';
-  $handler->display->display_options['sorts']['name']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['name']['expose']['label'] = 'Name';
-  /* Sort criterion: Farm asset: Season (field_farm_season) */
-  $handler->display->display_options['sorts']['field_farm_season_tid']['id'] = 'field_farm_season_tid';
-  $handler->display->display_options['sorts']['field_farm_season_tid']['table'] = 'field_data_field_farm_season';
-  $handler->display->display_options['sorts']['field_farm_season_tid']['field'] = 'field_farm_season_tid';
-  $handler->display->display_options['sorts']['field_farm_season_tid']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['field_farm_season_tid']['expose']['label'] = 'Season';
-  /* Sort criterion: Farm asset: Farm asset ID */
-  $handler->display->display_options['sorts']['id']['id'] = 'id';
-  $handler->display->display_options['sorts']['id']['table'] = 'farm_asset';
-  $handler->display->display_options['sorts']['id']['field'] = 'id';
-  $handler->display->display_options['sorts']['id']['order'] = 'DESC';
-  $handler->display->display_options['sorts']['id']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['id']['expose']['label'] = 'Asset ID';
   /* Contextual filter: Field collection item: Movement to (field_farm_move_to) */
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['id'] = 'field_farm_move_to_tid';
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['table'] = 'field_data_field_farm_move_to';

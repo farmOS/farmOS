@@ -137,12 +137,6 @@ function farm_theme_form_views_exposed_form_alter(&$form, &$form_state, $form_id
   // Collapse by default.
   $collapse = TRUE;
 
-  // If the form was submitted (if there are values in $_GET other than 'q'),
-  // do not collapse the form.
-  if (count($_GET) > 1) {
-    $collapse = FALSE;
-  }
-
   // Set attributes depending on the collapsed state (used in HTML below).
   if ($collapse) {
     $collapse_class = '';
@@ -158,7 +152,7 @@ function farm_theme_form_views_exposed_form_alter(&$form, &$form_state, $form_id
 <fieldset class="panel panel-default collapsible">
 <legend class="panel-heading" role="tab" id="' . $panel_head_id . '">
   <a class="panel-title fieldset-legend collapsed" data-toggle="collapse" href="#' . $panel_body_id . '" aria-expanded="' . $aria_expanded . '" aria-controls="' . $panel_body_id . '">
-    Filter/Sort
+    Filters
   </a>
 </legend>
 <div id="' . $panel_body_id . '" class="panel-collapse collapse' . $collapse_class . '" role="tabpanel" aria-labelledby="' . $panel_head_id . '">

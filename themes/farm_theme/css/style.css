@@ -186,7 +186,7 @@ h2.resp-tab-active,
 }
 
 /**
- * Fix Views exposed filter/sort.
+ * Fix Views exposed filters.
  */
 .views-exposed-form .views-exposed-widget .form-submit {
   margin-top: 1.6em;

@@ -183,7 +183,8 @@ function farm_livestock_views_default_views() {
     'field_farm_move_to' => 'field_farm_move_to',
     'archived' => 'archived',
   );
-  $handler->display->display_options['style_options']['default'] = '-1';
+  $handler->display->display_options['style_options']['class'] = '';
+  $handler->display->display_options['style_options']['default'] = 'name';
   $handler->display->display_options['style_options']['info'] = array(
     'views_bulk_operations' => array(
       'align' => '',
@@ -191,7 +192,7 @@ function farm_livestock_views_default_views() {
       'empty_column' => 0,
     ),
     'id' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
@@ -203,70 +204,70 @@ function farm_livestock_views_default_views() {
       'empty_column' => 0,
     ),
     'name' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'field_farm_animal_type' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'inventory' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'field_farm_date' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
+      'sortable' => 1,
+      'default_sort_order' => 'desc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'field_farm_animal_sex' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'field_farm_animal_castrated' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'field_farm_animal_tag_id' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'field_farm_animal_tag_type' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'field_farm_animal_tag_location' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'field_farm_description' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
@@ -288,8 +289,8 @@ function farm_livestock_views_default_views() {
       'empty_column' => 0,
     ),
     'archived' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
+      'sortable' => 1,
+      'default_sort_order' => 'desc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -510,43 +511,6 @@ function farm_livestock_views_default_views() {
   $handler->display->display_options['fields']['archived']['date_format'] = 'custom';
   $handler->display->display_options['fields']['archived']['custom_date_format'] = 'M j Y';
   $handler->display->display_options['fields']['archived']['second_date_format'] = 'long';
-  /* Sort criterion: Farm asset: Name */
-  $handler->display->display_options['sorts']['name']['id'] = 'name';
-  $handler->display->display_options['sorts']['name']['table'] = 'farm_asset';
-  $handler->display->display_options['sorts']['name']['field'] = 'name';
-  $handler->display->display_options['sorts']['name']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['name']['expose']['label'] = 'Name';
-  /* Sort criterion: Farm asset: Date of birth (field_farm_date) */
-  $handler->display->display_options['sorts']['field_farm_date_value']['id'] = 'field_farm_date_value';
-  $handler->display->display_options['sorts']['field_farm_date_value']['table'] = 'field_data_field_farm_date';
-  $handler->display->display_options['sorts']['field_farm_date_value']['field'] = 'field_farm_date_value';
-  $handler->display->display_options['sorts']['field_farm_date_value']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['field_farm_date_value']['expose']['label'] = 'Date of birth';
-  /* Sort criterion: Farm asset: Species/breed (field_farm_animal_type) */
-  $handler->display->display_options['sorts']['field_farm_animal_type_tid']['id'] = 'field_farm_animal_type_tid';
-  $handler->display->display_options['sorts']['field_farm_animal_type_tid']['table'] = 'field_data_field_farm_animal_type';
-  $handler->display->display_options['sorts']['field_farm_animal_type_tid']['field'] = 'field_farm_animal_type_tid';
-  $handler->display->display_options['sorts']['field_farm_animal_type_tid']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['field_farm_animal_type_tid']['expose']['label'] = 'Species/Breed';
-  /* Sort criterion: Farm asset: Sex (field_farm_animal_sex) */
-  $handler->display->display_options['sorts']['field_farm_animal_sex_value']['id'] = 'field_farm_animal_sex_value';
-  $handler->display->display_options['sorts']['field_farm_animal_sex_value']['table'] = 'field_data_field_farm_animal_sex';
-  $handler->display->display_options['sorts']['field_farm_animal_sex_value']['field'] = 'field_farm_animal_sex_value';
-  $handler->display->display_options['sorts']['field_farm_animal_sex_value']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['field_farm_animal_sex_value']['expose']['label'] = 'Sex';
-  /* Sort criterion: Field collection item: ID (field_farm_animal_tag_id) */
-  $handler->display->display_options['sorts']['field_farm_animal_tag_id_value']['id'] = 'field_farm_animal_tag_id_value';
-  $handler->display->display_options['sorts']['field_farm_animal_tag_id_value']['table'] = 'field_data_field_farm_animal_tag_id';
-  $handler->display->display_options['sorts']['field_farm_animal_tag_id_value']['field'] = 'field_farm_animal_tag_id_value';
-  $handler->display->display_options['sorts']['field_farm_animal_tag_id_value']['relationship'] = 'field_farm_animal_tag_value';
-  $handler->display->display_options['sorts']['field_farm_animal_tag_id_value']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['field_farm_animal_tag_id_value']['expose']['label'] = 'ID Tag';
-  /* Sort criterion: Farm asset: Farm asset ID */
-  $handler->display->display_options['sorts']['id']['id'] = 'id';
-  $handler->display->display_options['sorts']['id']['table'] = 'farm_asset';
-  $handler->display->display_options['sorts']['id']['field'] = 'id';
-  $handler->display->display_options['sorts']['id']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['id']['expose']['label'] = 'Asset ID';
   /* Contextual filter: Field collection item: Movement to (field_farm_move_to) */
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['id'] = 'field_farm_move_to_tid';
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['table'] = 'field_data_field_farm_move_to';
@@ -777,11 +741,10 @@ function farm_livestock_views_default_views() {
     t('Group'),
     t('Location'),
     t('Archived'),
-    t('Species/Breed'),
-    t('ID Tag'),
     t('All'),
     t('Animals in %1'),
     t('Animals of type %2'),
+    t('ID Tag'),
     t('If there are multiple ID tags on an animal, this filter will only look at the first one.'),
     t('Type'),
     t('Date of birth (range)'),
@@ -833,7 +796,8 @@ function farm_livestock_views_default_views() {
     'field_farm_log_category' => 'field_farm_log_category',
     'field_farm_log_owner' => 'field_farm_log_owner',
   );
-  $handler->display->display_options['style_options']['default'] = '-1';
+  $handler->display->display_options['style_options']['class'] = '';
+  $handler->display->display_options['style_options']['default'] = 'timestamp';
   $handler->display->display_options['style_options']['info'] = array(
     'views_bulk_operations' => array(
       'align' => '',
@@ -841,35 +805,35 @@ function farm_livestock_views_default_views() {
       'empty_column' => 0,
     ),
     'done' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'id' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
+      'sortable' => 1,
+      'default_sort_order' => 'desc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'timestamp' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
+      'sortable' => 1,
+      'default_sort_order' => 'desc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'name' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'field_farm_mother' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
@@ -886,7 +850,7 @@ function farm_livestock_views_default_views() {
       'empty_column' => 0,
     ),
     'field_farm_notes' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
@@ -1081,26 +1045,6 @@ function farm_livestock_views_default_views() {
     'link' => 0,
   );
   $handler->display->display_options['fields']['field_farm_log_owner']['delta_offset'] = '0';
-  /* Sort criterion: Log: Timestamp */
-  $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
-  $handler->display->display_options['sorts']['timestamp']['table'] = 'log';
-  $handler->display->display_options['sorts']['timestamp']['field'] = 'timestamp';
-  $handler->display->display_options['sorts']['timestamp']['order'] = 'DESC';
-  $handler->display->display_options['sorts']['timestamp']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['timestamp']['expose']['label'] = 'Date';
-  /* Sort criterion: Log: Name */
-  $handler->display->display_options['sorts']['name_1']['id'] = 'name_1';
-  $handler->display->display_options['sorts']['name_1']['table'] = 'log';
-  $handler->display->display_options['sorts']['name_1']['field'] = 'name';
-  $handler->display->display_options['sorts']['name_1']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['name_1']['expose']['label'] = 'Log name';
-  /* Sort criterion: Log: Log ID */
-  $handler->display->display_options['sorts']['id']['id'] = 'id';
-  $handler->display->display_options['sorts']['id']['table'] = 'log';
-  $handler->display->display_options['sorts']['id']['field'] = 'id';
-  $handler->display->display_options['sorts']['id']['order'] = 'DESC';
-  $handler->display->display_options['sorts']['id']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['id']['expose']['label'] = 'Log ID';
   /* Contextual filter: Log: Assets (field_farm_asset) */
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['id'] = 'field_farm_asset_target_id';
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['table'] = 'field_data_field_farm_asset';
@@ -1383,7 +1327,8 @@ function farm_livestock_views_default_views() {
     'field_farm_log_category' => 'field_farm_log_category',
     'field_farm_log_owner' => 'field_farm_log_owner',
   );
-  $handler->display->display_options['style_options']['default'] = '-1';
+  $handler->display->display_options['style_options']['class'] = '';
+  $handler->display->display_options['style_options']['default'] = 'timestamp';
   $handler->display->display_options['style_options']['info'] = array(
     'views_bulk_operations' => array(
       'align' => '',
@@ -1391,28 +1336,28 @@ function farm_livestock_views_default_views() {
       'empty_column' => 0,
     ),
     'done' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'id' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
+      'sortable' => 1,
+      'default_sort_order' => 'desc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'timestamp' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
+      'sortable' => 1,
+      'default_sort_order' => 'desc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'name' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
@@ -1424,7 +1369,7 @@ function farm_livestock_views_default_views() {
       'empty_column' => 0,
     ),
     'field_farm_notes' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
@@ -1601,26 +1546,6 @@ function farm_livestock_views_default_views() {
     'link' => 0,
   );
   $handler->display->display_options['fields']['field_farm_log_owner']['delta_offset'] = '0';
-  /* Sort criterion: Log: Timestamp */
-  $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
-  $handler->display->display_options['sorts']['timestamp']['table'] = 'log';
-  $handler->display->display_options['sorts']['timestamp']['field'] = 'timestamp';
-  $handler->display->display_options['sorts']['timestamp']['order'] = 'DESC';
-  $handler->display->display_options['sorts']['timestamp']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['timestamp']['expose']['label'] = 'Date';
-  /* Sort criterion: Log: Name */
-  $handler->display->display_options['sorts']['name_1']['id'] = 'name_1';
-  $handler->display->display_options['sorts']['name_1']['table'] = 'log';
-  $handler->display->display_options['sorts']['name_1']['field'] = 'name';
-  $handler->display->display_options['sorts']['name_1']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['name_1']['expose']['label'] = 'Log name';
-  /* Sort criterion: Log: Log ID */
-  $handler->display->display_options['sorts']['id']['id'] = 'id';
-  $handler->display->display_options['sorts']['id']['table'] = 'log';
-  $handler->display->display_options['sorts']['id']['field'] = 'id';
-  $handler->display->display_options['sorts']['id']['order'] = 'DESC';
-  $handler->display->display_options['sorts']['id']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['id']['expose']['label'] = 'Log ID';
   /* Contextual filter: Log: Assets (field_farm_asset) */
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['id'] = 'field_farm_asset_target_id';
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['table'] = 'field_data_field_farm_asset';
