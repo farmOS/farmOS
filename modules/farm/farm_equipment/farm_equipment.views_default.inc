@@ -697,6 +697,37 @@ function farm_equipment_views_default_views() {
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $translatables['farm_equipment_entityreference_view'] = array(
+    t('Master'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('Select the equipment asset(s) you would like to reference and click "Submit". Use the filters to narrow down the list.'),
+    t('Displaying @start - @end of @total'),
+    t('No assets found.'),
+    t('Latest movement'),
+    t('Group membership'),
+    t('Asset name'),
+    t('Location'),
+    t('Group'),
+    t('Name'),
+    t('Asset ID'),
+    t('All'),
+    t('Asset type'),
+    t('Archived'),
+    t('Entity Reference View Widget'),
+    t('Select equipment'),
+  );
   $export['farm_equipment_entityreference_view'] = $view;
 
   $view = new view();
