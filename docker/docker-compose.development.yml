@@ -1,0 +1,23 @@
+version: '3'
+services:
+  db:
+    image: postgres:12
+    volumes:
+      - './db:/var/lib/postgresql/data'
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: farm
+      POSTGRES_PASSWORD: farm
+      POSTGRES_DB: farm
+
+  www:
+    depends_on:
+      - db
+    image: farmos/farmos:2.0.x-dev
+    volumes:
+      - './www:/var/www/html'
+    ports:
+      - '80:80'
+    environment:
+      XDEBUG_CONFIG: remote_host=172.17.0.1
