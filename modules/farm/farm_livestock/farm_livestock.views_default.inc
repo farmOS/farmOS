@@ -393,6 +393,13 @@ function farm_livestock_views_default_views() {
       'override_label' => 0,
       'label' => '',
     ),
+    'action::farm_livestock_weight_action' => array(
+      'selected' => 1,
+      'skip_confirmation' => 0,
+      'skip_permission_check' => 1,
+      'override_label' => 0,
+      'label' => '',
+    ),
   );
   /* Field: Farm asset: Farm asset ID */
   $handler->display->display_options['fields']['id']['id'] = 'id';
