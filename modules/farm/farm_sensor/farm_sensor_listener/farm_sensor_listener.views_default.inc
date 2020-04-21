@@ -136,30 +136,6 @@ function farm_sensor_listener_views_default_views() {
   $handler->display->display_options['filters']['name_1']['expose']['label'] = 'Name';
   $handler->display->display_options['filters']['name_1']['expose']['operator'] = 'name_1_op';
   $handler->display->display_options['filters']['name_1']['expose']['identifier'] = 'name_1';
-  $translatables['farm_sensor_data'] = array(
-    t('Master'),
-    t('Sensor Data'),
-    t('more'),
-    t('Apply'),
-    t('Reset'),
-    t('Sort by'),
-    t('Asc'),
-    t('Desc'),
-    t('Items per page'),
-    t('- All -'),
-    t('Offset'),
-    t('« first'),
-    t('‹ previous'),
-    t('next ›'),
-    t('last »'),
-    t('Displaying @start - @end of @total'),
-    t('No data found for this sensor.'),
-    t('Timestamp'),
-    t('Name'),
-    t('Sensor value'),
-    t('Value'),
-    t('All'),
-  );
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
@@ -186,6 +162,32 @@ function farm_sensor_listener_views_default_views() {
   );
   $handler->display->display_options['use_batch'] = 'batch';
   $handler->display->display_options['segment_size'] = '500';
+  $translatables['farm_sensor_data'] = array(
+    t('Master'),
+    t('Sensor Data'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('Displaying @start - @end of @total'),
+    t('No data found for this sensor.'),
+    t('Timestamp'),
+    t('Name'),
+    t('Sensor value'),
+    t('All'),
+    t('%1 data'),
+    t('Page'),
+    t('Data export'),
+  );
   $export['farm_sensor_data'] = $view;
 
   return $export;
