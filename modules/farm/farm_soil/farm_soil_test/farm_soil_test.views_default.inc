@@ -481,6 +481,7 @@ function farm_soil_test_views_default_views() {
     t('Flags'),
     t('Categories'),
     t('Assigned to'),
+    t('Files'),
     t('All'),
     t('Soil tests in %1'),
     t('Start date'),
