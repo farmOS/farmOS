@@ -50,7 +50,7 @@ function farm_livestock_field_group_info() {
   $field_group->parent_name = 'group_farm_general';
   $field_group->data = array(
     'label' => 'Assignment',
-    'weight' => '5',
+    'weight' => '-3',
     'children' => array(
       0 => 'field_farm_log_owner',
     ),
@@ -108,7 +108,7 @@ function farm_livestock_field_group_info() {
   $field_group->parent_name = 'group_farm_general';
   $field_group->data = array(
     'label' => 'Category',
-    'weight' => '4',
+    'weight' => '-4',
     'children' => array(
       0 => 'field_farm_log_category',
     ),
@@ -220,7 +220,7 @@ function farm_livestock_field_group_info() {
   $field_group->parent_name = 'group_farm_tabs';
   $field_group->data = array(
     'label' => 'Files',
-    'weight' => '5',
+    'weight' => '6',
     'children' => array(
       0 => 'field_farm_files',
       1 => 'field_farm_images',
@@ -458,7 +458,7 @@ function farm_livestock_field_group_info() {
   $field_group->parent_name = 'group_farm_tabs';
   $field_group->data = array(
     'label' => 'Inventory',
-    'weight' => '4',
+    'weight' => '5',
     'children' => array(
       0 => 'field_farm_inventory',
     ),
@@ -537,7 +537,7 @@ function farm_livestock_field_group_info() {
   $field_group->parent_name = 'group_farm_tabs';
   $field_group->data = array(
     'label' => 'Location',
-    'weight' => '2',
+    'weight' => '1',
     'children' => array(
       0 => 'field_farm_movement',
     ),
@@ -577,6 +577,34 @@ function farm_livestock_field_group_info() {
     ),
   );
   $field_groups['group_farm_mother|log|farm_birth|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_farm_quantity|log|farm_medical|form';
+  $field_group->group_name = 'group_farm_quantity';
+  $field_group->entity_type = 'log';
+  $field_group->bundle = 'farm_medical';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_farm_tabs';
+  $field_group->data = array(
+    'label' => 'Quantity',
+    'weight' => '4',
+    'children' => array(
+      0 => 'field_farm_quantity',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-farm-quantity field-group-fieldset',
+        'required_fields' => 1,
+        'id' => '',
+      ),
+    ),
+  );
+  $field_groups['group_farm_quantity|log|farm_medical|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -673,6 +701,7 @@ function farm_livestock_field_group_info() {
       1 => 'group_farm_general',
       2 => 'group_farm_inventory',
       3 => 'group_farm_location',
+      4 => 'group_farm_quantity',
     ),
     'format_type' => 'field_group_easy_responsive_tabs_nav',
     'format_settings' => array(
@@ -708,6 +737,7 @@ function farm_livestock_field_group_info() {
   t('Lineage');
   t('Location');
   t('Mother');
+  t('Quantity');
   t('Tabs');
 
   return $field_groups;

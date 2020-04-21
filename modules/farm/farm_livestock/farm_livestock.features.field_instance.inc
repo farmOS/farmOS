@@ -1061,7 +1061,7 @@ function farm_livestock_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_table',
-        'weight' => 8,
+        'weight' => 10,
       ),
     ),
     'entity_type' => 'log',
@@ -1138,7 +1138,7 @@ function farm_livestock_field_default_field_instances() {
           'colorbox_node_style_first' => 'large',
         ),
         'type' => 'colorbox',
-        'weight' => 7,
+        'weight' => 9,
       ),
     ),
     'entity_type' => 'log',
@@ -1182,7 +1182,7 @@ function farm_livestock_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 2,
+        'weight' => 4,
       ),
     ),
     'entity_type' => 'log',
@@ -1280,7 +1280,7 @@ function farm_livestock_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 1,
+        'weight' => 2,
       ),
     ),
     'entity_type' => 'log',
@@ -1329,7 +1329,40 @@ function farm_livestock_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 2,
+      'weight' => -6,
+    ),
+  );
+
+  // Exported field_instance: 'log-farm_medical-field_farm_quantity'.
+  $field_instances['log-farm_medical-field_farm_quantity'] = array(
+    'bundle' => 'farm_medical',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Optionally, use this quantity field to record an observed quantity.',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'field_collection',
+        'settings' => array(
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_fields',
+        'weight' => 3,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_quantity',
+    'label' => 'Quantity',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 14,
     ),
   );
 
@@ -1398,8 +1431,10 @@ function farm_livestock_field_default_field_instances() {
   t('Nickname(s)');
   t('Notes');
   t('Optionally assign this task to one or more people.');
+  t('Optionally, use this quantity field to record an observed quantity.');
   t('Parent(s)');
   t('Photos');
+  t('Quantity');
   t('Reference the animals that were born. Alternatively, if you just want to increase the head count of another animal record, add an inventory adjustment below.');
   t('Sex');
   t('Species/breed');
