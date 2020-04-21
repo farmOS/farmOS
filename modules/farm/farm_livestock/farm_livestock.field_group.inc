@@ -316,8 +316,9 @@ function farm_livestock_field_group_info() {
       2 => 'field_farm_flags',
       3 => 'name',
       4 => 'timestamp',
-      5 => 'group_farm_assignment',
-      6 => 'group_farm_category',
+      5 => 'field_farm_vet',
+      6 => 'group_farm_assignment',
+      7 => 'group_farm_category',
     ),
     'format_type' => 'field_group_easy_responsive_tabs_nav_item',
     'format_settings' => array(
