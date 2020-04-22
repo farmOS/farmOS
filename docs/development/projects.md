@@ -136,6 +136,8 @@ added to extend your farmOS functionality:
   layers for farmOS maps.
 * **[Farm Map: Norway](https://github.com/farmOS/farm_map_no)** - Norwegian map
   layers for farmOS maps.
+* **[Farm Map: SJC](https://github.com/symbioquine/farm_map_sjc)** - San Juan
+  County, WA, USA map layers for farmOS maps.
 * **[Farm Mushroom](https://github.com/farmOS/farm_mushroom)** - Features for
   managing mushroom production.
 * **[FarmOS NWS](https://github.com/almostengr/farmosnws)** - Imports data
