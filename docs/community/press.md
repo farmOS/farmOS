@@ -37,6 +37,8 @@ would like to write about farmOS, [contact m.stenta](https://farmier.com/contact
 
 **2019 July 23rd** [Red Hat Open Source Stories: Farming for the Future - The Open Farmer](https://www.redhat.com/en/open-source-stories/farming-for-the-future/open-farme)
 
+**2019 May 21st** [RFC Lab: Ramping up for 2019 RFC Food/Soil survey](https://lab.realfoodcampaign.org/ramping-up-for-2019-rfc-food-soil-survey)
+
 **2019 May 8th** [Red Hat Open Source Stories: Farming for the Future](https://www.redhat.com/en/open-source-stories/farming-for-the-future)
 
 **2019 March 21st** [Acquia Drupal Stories: Farmer First, Drupalist Always: Michael Stenta](https://www.acquia.com/blog/farmer-first-drupalist-always-michael-stenta)
