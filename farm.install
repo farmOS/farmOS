@@ -995,7 +995,7 @@ function farm_update_7053(&$sandbox) {
 function farm_update_7054(&$sandbox) {
   // @see https://github.com/farmOS/farmOS/issues/272
   if (variable_get('theme_default', '') == 'farm_theme') {
-    db_query('UPDATE {system} SET status = 1 WHERE type = "theme" AND name = "farm_theme" AND status = 0');
+    db_query("UPDATE {system} SET status = 1 WHERE type = 'theme' AND name = 'farm_theme' AND status = 0");
   }
 }
 
