@@ -90,6 +90,54 @@ function farm_import_farm_ui_actions() {
 }
 
 /**
+ * Implements hook_feeds_processor_targets_alter().
+ */
+function farm_import_feeds_processor_targets_alter(&$targets, $type, $bundle) {
+
+  // Add a target for the "Archive assets" column on logs.
+  if ($type == 'log') {
+    $targets['farm_import_log_archive_assets'] = array(
+      'name' => t('Archive assets'),
+      'description' => t('Archives the assets referenced on the log.'),
+      'callback' => 'farm_import_log_archive_assets',
+    );
+  }
+}
+
+/**
+ * Callback for 'farm_import_log_archive_assets' target.
+ */
+function farm_import_log_archive_assets($source, $entity, $target, $value, $mapping) {
+
+  // Don't do anything if we weren't given any data.
+  if (empty($value)) {
+    return;
+  }
+
+  // In case the value arrives as an array.
+  if (is_array($value)) {
+    $value = reset($value);
+  }
+
+  // Do nothing if the archiving is set to any of the FALSE values.
+  if (empty($value)) {
+    return;
+  }
+
+  // Load log entity metadata wrapper.
+  $log_wrapper = entity_metadata_wrapper('log', $entity);
+
+  // Iterate through the assets and archive them (if they aren't already).
+  foreach ($log_wrapper->field_farm_asset as $asset_wrapper) {
+    $asset = $asset_wrapper->value();
+    if (empty($asset->archived)) {
+      $asset->archived = REQUEST_TIME;
+      farm_asset_save($asset);
+    }
+  }
+}
+
+/**
  * Helper function for generating standardized tamper plugin definitions.
  *
  * @param string $entity_type

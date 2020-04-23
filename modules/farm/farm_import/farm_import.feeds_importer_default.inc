@@ -212,12 +212,12 @@ function farm_import_add_importer_fields($type, $bundle, $importer) {
       $mappings = array();
   }
 
-  // Add fields, if they exist on the bundle.
+  // Add fields, if they exist on the bundle, or if they are "custom".
   foreach ($mappings as $field => $mapping) {
     if (!empty($mapping['real_field'])) {
       $field = $mapping['real_field'];
     }
-    if (!empty(field_info_instance($type, $field, $bundle))) {
+    if (!empty($mapping['custom']) || !empty(field_info_instance($type, $field, $bundle))) {
       $importer->config['processor']['config']['mappings'][] = $mapping;
     }
   }
@@ -305,6 +305,13 @@ function farm_import_log_field_mappings() {
       'unique' => FALSE,
       'language' => 'und',
       'real_field' => 'field_farm_asset',
+    ),
+    'farm_import_log_archive_assets' => array(
+      'source' => 'Archive assets',
+      'target' => 'farm_import_log_archive_assets',
+      'unique' => FALSE,
+      'language' => 'und',
+      'custom' => TRUE,
     ),
     'field_farm_area' => array(
       'source' => 'Areas',

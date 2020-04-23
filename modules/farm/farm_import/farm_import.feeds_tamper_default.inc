@@ -68,6 +68,10 @@ function farm_import_feeds_tamper_default() {
       $export[$feeds_tamper->id] = $feeds_tamper;
     }
 
+    // Convert "Archive assets" to boolean (defaults to False).
+    $feeds_tamper = farm_import_feeds_tamper_plugin('log', $bundle, 'Archive assets', 'boolean_default_false');
+    $export[$feeds_tamper->id] = $feeds_tamper;
+
     // If an "Areas" field exists, explode it into an array of area names and
     // trim whitespace.
     if (!empty(field_info_instance('log', 'field_farm_area', $bundle))) {
