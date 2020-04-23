@@ -855,6 +855,9 @@ function farm_log_create($type, $name = '', $timestamp = REQUEST_TIME, $done = T
  * Helper function for generating a summary of entity labels for use in a
  * log name.
  *
+ * Note that this function does NOT sanitize the entity labels. This is the
+ * responsibility of downstream code, if it is printing the text to the page.
+ *
  * @param string $entity_type
  *   The entity type.
  * @param Entity|array $entities
