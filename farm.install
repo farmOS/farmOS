@@ -1001,6 +1001,13 @@ function farm_update_7054(&$sandbox) {
 }
 
 /**
+ * Install the Farm Client module.
+ */
+function farm_update_7055(&$sandbox) {
+  _farm_update_enable_modules(array('farm_client'));
+}
+
+/**
  * Update helper function: enable modules.
  */
 function _farm_update_enable_modules($modules = array()) {
