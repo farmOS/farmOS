@@ -71,7 +71,9 @@ function farm_fields_autocomplete($entity_type, $bundle, $field_name, $string) {
         foreach ($entity->{$field_name}[LANGUAGE_NONE] as $item) {
           if (!empty($item['value']) && strpos(strtolower($item['value']), strtolower($string)) !== FALSE) {
             if (!in_array($item['value'], $matches)) {
-              $matches[] = $item['value'];
+              // We use htmlspecialchars() instead of check_plain() to preserve
+              // single quotes (apostrophes).
+              $matches[] = htmlspecialchars($item['value']);
             }
           }
         }

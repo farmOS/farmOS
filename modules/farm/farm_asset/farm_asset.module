@@ -748,7 +748,9 @@ function farm_asset_autocomplete($asset_type, $string) {
   // Save matches to an array, including the asset name and ID.
   $matches = array();
   foreach ($result as $row) {
-    $match = t('@asset_name [id: @asset_id]', array('@asset_name' => $row->name, '@asset_id' => $row->id));
+    // We use htmlspecialchars() instead of check_plain() to preserve single
+    // quotes (apostrophes) in asset names.
+    $match = htmlspecialchars($row->name) . ' [id: ' . $row->id . ']';
     if (!empty($row->archived)) {
       $match .= ' (' . t('archived') . ')';
     }
