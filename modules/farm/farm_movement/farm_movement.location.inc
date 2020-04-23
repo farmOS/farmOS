@@ -886,7 +886,7 @@ function farm_movement_asset_move_action(array $assets, $context = array()) {
 
   // If we're missing assets, areas, or a timestamp, bail.
   if (empty($assets) || empty($context['areas']) || empty($context['timestamp'])) {
-    drupal_set_message('Could not perform movement because required information was missing.', 'error');
+    drupal_set_message(t('Could not perform movement because required information was missing.'), 'error');
     return;
   }
 

@@ -874,7 +874,7 @@ function farm_livestock_weight_action(array $assets, $context = array()) {
 
   // If we're missing assets, weight, units, or a timestamp, bail.
   if (empty($assets) || empty($context['weight']) || empty($context['units']) || empty($context['timestamp'])) {
-    drupal_set_message('Could not set weights because required information was missing.', 'error');
+    drupal_set_message(t('Could not set weights because required information was missing.'), 'error');
     return;
   }
 

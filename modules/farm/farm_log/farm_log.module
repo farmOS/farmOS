@@ -260,7 +260,7 @@ function farm_log_assign_action(Log $log, $context = array()) {
 
   // If the operation is invalid, bail.
   if (!in_array($context['operation'], array('append', 'replace'))) {
-    drupal_set_message('Invalid operation.');
+    drupal_set_message(t('Invalid operation.'));
     return;
   }
 
@@ -845,7 +845,7 @@ function farm_log_create($type, $name = '', $timestamp = REQUEST_TIME, $done = T
   // Set a message.
   $label = entity_label('log', $log);
   $uri = entity_uri('log', $log);
-  drupal_set_message('Log created: ' . l($label, $uri['path']));
+  drupal_set_message(t('Log created') . ': ' . l($label, $uri['path']));
 
   // Return the log.
   return $log;

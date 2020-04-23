@@ -214,7 +214,7 @@ function farm_soil_nrcs_soil_name_lookup_submit($form, &$form_state) {
 
   // If no soil names were returned, print a message.
   if (empty($soil_names)) {
-    drupal_set_message('Soil names could not be found. Add points to the "Sample points" map above and try again.', 'warning');
+    drupal_set_message(t('Soil names could not be found. Add points to the "Sample points" map above and try again.'), 'warning');
   }
 
   // If any of the soil names contain commas, wrap them in double-quotes.

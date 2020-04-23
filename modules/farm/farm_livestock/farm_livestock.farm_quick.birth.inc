@@ -309,7 +309,7 @@ function farm_livestock_birth_form_submit($form, &$form_state) {
     // Set a message.
     $label = entity_label('farm_asset', $child_asset);
     $uri = entity_uri('farm_asset', $child_asset);
-    drupal_set_message('Child animal created: ' . l($label, $uri['path']));
+    drupal_set_message(t('Child animal created') . ': ' . l($label, $uri['path']));
   }
 
   // Create a birth log. Leave the name blank so that it is auto-generated.
@@ -362,7 +362,7 @@ function farm_livestock_birth_form_submit($form, &$form_state) {
   // Set a message linking to the mother animal.
   $label = entity_label('farm_asset', $parents['mother']);
   $uri = entity_uri('farm_asset', $parents['mother']);
-  drupal_set_message("View the mother's animal record: " . l($label, $uri['path']));
+  drupal_set_message(t("View the mother's animal record") . ': ' . l($label, $uri['path']));
 
   // Add the children to $form_state['storage'] so that other submit functions
   // can work with them.

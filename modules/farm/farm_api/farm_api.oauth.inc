@@ -110,7 +110,7 @@ function farm_api_oauth_settings_form_submit(array $form, array &$form_state) {
           entity_delete('oauth2_server_client', $client_id);
 
           // Notify that client was disabled.
-          drupal_set_message('Disabled OAuth Client: ' . $client_label);
+          drupal_set_message(t('Disabled OAuth Client: @client_label', array('@client_label' => $client_label)));
         }
 
         else {
@@ -142,7 +142,7 @@ function farm_api_oauth_settings_form_submit(array $form, array &$form_state) {
       farm_api_enable_oauth_client($client['label'], $client_key, $client_secret, $client['redirect_uri']);
 
       // Notify that client was created.
-      drupal_set_message('Created OAuth Client for ' . $client['label']);
+      drupal_set_message(t('Created OAuth Client for @client_label', array('@client_label' => $client['label'])));
     }
   }
 }

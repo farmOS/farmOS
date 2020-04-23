@@ -182,7 +182,7 @@ function farm_area_generate_form($form, &$form_state) {
 
   // If GEOS is not installed, print a warning and hide the submit button.
   if (!farm_area_generate_geos_exists()) {
-    drupal_set_message('This area generator tool requires the GEOS libary: ' . l('http://trac.osgeo.org/geos', 'http://trac.osgeo.org/geos'), 'warning');
+    drupal_set_message(t('This area generator tool requires the GEOS libary') . ': ' . l('http://trac.osgeo.org/geos', 'http://trac.osgeo.org/geos'), 'warning');
   }
   else {
     $form['actions']['preview'] = array(
@@ -372,7 +372,7 @@ function farm_area_generate_form_submit(&$form, &$form_state) {
   }
 
   // Announce how many areas were generated.
-  drupal_set_message(count($geometries) . ' areas were generated.');
+  drupal_set_message(t('@count areas were generated.', array('@count' => count($geometries))));
 }
 
 /**

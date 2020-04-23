@@ -356,7 +356,7 @@ function farm_crop_planting_quick_form_submit($form, &$form_state) {
   // Set a message.
   $label = entity_label('farm_asset', $planting_asset);
   $uri = entity_uri('farm_asset', $planting_asset);
-  drupal_set_message('Planting created: ' . l($label, $uri['path']));
+  drupal_set_message(t('Planting created') . ': ' . l($label, $uri['path']));
 
   // Iterate through the logs.
   foreach ($form_state['values']['planting']['logs'] as $name => $log_values) {
