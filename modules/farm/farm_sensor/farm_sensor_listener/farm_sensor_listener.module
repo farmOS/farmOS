@@ -72,7 +72,9 @@ function farm_sensor_listener_mail($key, &$message, $params) {
       '@value' => $params['value'],
     ));
     $uri = entity_uri('farm_asset', $params['sensor']);
-    $message['body'][] = entity_label('farm_asset', $params['sensor']) . ': ' . url($uri['path'], array('absolute' => TRUE));
+    // We use htmlspecialchars() so that apostrophes are not escaped.
+    $entity_label = htmlspecialchars(entity_label('farm_asset', $params['sensor']));
+    $message['body'][] = $entity_label . ': ' . url($uri['path'], array('absolute' => TRUE));
   }
 }
 

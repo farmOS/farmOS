@@ -76,7 +76,8 @@ function farm_map_kml_action(array $entities, $context = array()) {
       // Create a placemark.
       $placemark = array(
         'pid' => $id,
-        'name' => $label,
+        // We use htmlspecialchars() so that apostrophes are not escaped.
+        'name' => htmlspecialchars($label),
         'geometry' => $geometry,
       );
 

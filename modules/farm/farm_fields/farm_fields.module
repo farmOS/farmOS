@@ -202,7 +202,8 @@ function farm_fields_prepopulate_entityreference(&$form, $entity_type, $field_na
     // For "autocomplete tags", implode them all into one comma-separated list.
     elseif ($field_instance['widget']['type'] == 'entityreference_autocomplete_tags') {
       if (empty($form[$field_name][LANGUAGE_NONE]['#default_value'])) {
-        $form[$field_name][LANGUAGE_NONE]['#default_value'] = implode(', ', $labels);
+        // We use htmlspecialchars() so that apostrophe's are not escaped.
+        $form[$field_name][LANGUAGE_NONE]['#default_value'] = htmlspecialchars(implode(', ', $labels));
       }
     }
   }
@@ -231,7 +232,7 @@ function farm_fields_prepopulate_entityreference(&$form, $entity_type, $field_na
         '#attributes' => array(
           'checked' => 'checked',
         ),
-        '#title' => entity_label($entity_type, $entity),
+        '#title' => check_plain(entity_label($entity_type, $entity)),
       );
     }
   }
