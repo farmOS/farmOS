@@ -102,10 +102,12 @@ function farm_log_harvest_archive_assets($source, $entity, $target, $value, $map
   // Load log entity metadata wrapper.
   $log_wrapper = entity_metadata_wrapper('log', $entity);
 
-  // Iterate through the assets and archive them.
+  // Iterate through the assets and archive them (if they aren't already).
   foreach ($log_wrapper->field_farm_asset as $asset_wrapper) {
     $asset = $asset_wrapper->value();
-    $asset->archived = REQUEST_TIME;
-    farm_asset_save($asset);
+    if (empty($asset->archived)) {
+      $asset->archived = REQUEST_TIME;
+      farm_asset_save($asset);
+    }
   }
 }
