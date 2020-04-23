@@ -92,7 +92,7 @@ function farm_livestock_milk_form_validate($form, &$form_state) {
     // Extract asset ID.
     $id = 0;
     $matches = array();
-    $result = preg_match('/\\[id: ([0-9]+)\\]$/', $form_state['values']['asset'], $matches);
+    $result = preg_match('/\\[id: ([0-9]+)\\]/', $form_state['values']['asset'], $matches);
     if (!empty($matches[$result])) {
       $id = $matches[$result];
     }

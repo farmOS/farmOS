@@ -163,7 +163,7 @@ function farm_livestock_birth_form_validate($form, &$form_state) {
       // Extract asset ID.
       $id = 0;
       $matches = array();
-      $result = preg_match('/\\[id: ([0-9]+)\\]$/', $form_state['values']['birth'][$parent], $matches);
+      $result = preg_match('/\\[id: ([0-9]+)\\]/', $form_state['values']['birth'][$parent], $matches);
       if (!empty($matches[$result])) {
         $id = $matches[$result];
       }
