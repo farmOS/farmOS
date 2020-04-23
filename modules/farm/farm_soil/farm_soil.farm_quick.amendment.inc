@@ -600,7 +600,7 @@ function farm_soil_amendment_form_submit($form, &$form_state) {
   $material = $form_values['amendment']['material'];
 
   // Set log name.
-  $log_name = t('Soil amendment: @qty @units @material into @area', array('@qty' => $total_amendment['value'], '@units' => $total_amendment['units'], '@material' => $material, '@area' => entity_label('taxonomy_term', $area)));
+  $log_name = t('Soil amendment: !qty !units !material into !area', array('!qty' => $total_amendment['value'], '!units' => $total_amendment['units'], '!material' => $material, '!area' => entity_label('taxonomy_term', $area)));
 
   // Create a new farm quantity log.
   $log = farm_quantity_log_create($log_type, $log_name, $timestamp, TRUE, array(), $measurements);

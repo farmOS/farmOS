@@ -64,7 +64,7 @@ function farm_livestock_weight_set($assets, $weight, $units, $timestamp = REQUES
 
   // Set the name to: "Weight of [assets] is [weight] [units]".
   $assets_summary = farm_log_entity_label_summary('farm_asset', $assets);
-  $log_name = t('Weight of !assets is @weight @units', array('!assets' => $assets_summary, '@weight' => $weight, '@units' => $units));
+  $log_name = t('Weight of !assets is !weight !units', array('!assets' => $assets_summary, '!weight' => $weight, '!units' => $units));
 
   // If $assets isn't an array, wrap it.
   if (!is_array($assets)) {

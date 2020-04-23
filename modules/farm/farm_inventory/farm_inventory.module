@@ -572,7 +572,7 @@ function farm_inventory_set($asset, $inventory, $timestamp = REQUEST_TIME, $log_
   $log_name = '';
   if ($log_type == 'farm_observation') {
     $assets_summary = farm_log_entity_label_summary('farm_asset', $asset);
-    $log_name = t('Inventory of !assets is @inventory', array('!assets' => $assets_summary, '@inventory' => $inventory));
+    $log_name = t('Inventory of !assets is !inventory', array('!assets' => $assets_summary, '!inventory' => $inventory));
   }
 
   // Create a new farm log entity.
