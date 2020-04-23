@@ -56,10 +56,11 @@ function farm_import_feeds_tamper_default() {
     $export[$feeds_tamper->id] = $feeds_tamper;
 
     // If an asset reference field exists, explode the "Asset IDs" and "Asset
-    // names" targets into arrays of IDs and names. Trim whitespace from asset
-    // names.
+    // names" targets into arrays of IDs and names and trim whitespace.
     if (!empty(field_info_instance('log', 'field_farm_asset', $bundle))) {
       $feeds_tamper = farm_import_feeds_tamper_plugin('log', $bundle, 'Asset IDs', 'explode');
+      $export[$feeds_tamper->id] = $feeds_tamper;
+      $feeds_tamper = farm_import_feeds_tamper_plugin('log', $bundle, 'Asset IDs', 'trim');
       $export[$feeds_tamper->id] = $feeds_tamper;
       $feeds_tamper = farm_import_feeds_tamper_plugin('log', $bundle, 'Asset names', 'explode');
       $export[$feeds_tamper->id] = $feeds_tamper;
