@@ -135,7 +135,7 @@ function farm_livestock_milk_form_submit($form, &$form_state) {
   $log_type = 'farm_harvest';
 
   // Set log name.
-  $log_name = t('Milk @asset: @qty @units', array('@asset' => entity_label('farm_asset', $asset), '@qty' => $form_state['values']['quantity'], '@units' => $form_state['values']['units']));
+  $log_name = t('Milk') . ' ' . format_string('!asset: !qty !units', array('!asset' => entity_label('farm_asset', $asset), '!qty' => $form_state['values']['quantity'], '!units' => $form_state['values']['units']));
 
   // Assemble an array of measurements.
   $measurements = array(
