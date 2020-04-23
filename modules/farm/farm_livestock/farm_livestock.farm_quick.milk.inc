@@ -122,10 +122,8 @@ function farm_livestock_milk_form_submit($form, &$form_state) {
 
   // Remember what was entered for measure and units. This will be used as the
   // default the next time the form is loaded.
-  $measure = check_plain($form_state['values']['measure']);
-  $units = check_plain($form_state['values']['units']);
-  variable_set('farm_livestock_milk_measure', $measure);
-  variable_set('farm_livestock_milk_units', $units);
+  variable_set('farm_livestock_milk_measure', $form_state['values']['measure']);
+  variable_set('farm_livestock_milk_units', $form_state['values']['units']);
 
   // Get the asset and wrap it in an array.
   $asset = $form_state['storage']['asset'];
@@ -140,9 +138,9 @@ function farm_livestock_milk_form_submit($form, &$form_state) {
   // Assemble an array of measurements.
   $measurements = array(
     array(
-      'measure' => $measure,
+      'measure' => $form_state['values']['measure'],
       'value' => $form_state['values']['quantity'],
-      'units' => $units,
+      'units' => $form_state['values']['units'],
       'label' => t('milk'),
     ),
   );
