@@ -148,9 +148,9 @@ function farm_movement_views_default_views() {
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['table'] = 'field_data_field_farm_move_to';
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['field'] = 'field_farm_move_to_tid';
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['relationship'] = 'field_farm_movement_value';
-  $handler->display->display_options['arguments']['field_farm_move_to_tid']['default_action'] = 'empty';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['default_action'] = 'not found';
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['title_enable'] = TRUE;
-  $handler->display->display_options['arguments']['field_farm_move_to_tid']['title'] = 'Assets in %1';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['title'] = 'History of assets in %1';
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['default_argument_type'] = 'fixed';
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['summary']['format'] = 'default_summary';
@@ -208,6 +208,14 @@ function farm_movement_views_default_views() {
   $handler->display->display_options['filters']['date_filter_1']['date_fields'] = array(
     'log.timestamp' => 'log.timestamp',
   );
+
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page_1');
+  $handler->display->display_options['path'] = 'taxonomy/term/%/history';
+  $handler->display->display_options['menu']['title'] = 'Asset history';
+  $handler->display->display_options['menu']['weight'] = '100';
+  $handler->display->display_options['menu']['context'] = 0;
+  $handler->display->display_options['menu']['context_only_inline'] = 0;
   $translatables['farm_area_assets'] = array(
     t('Master'),
     t('History of Assets'),
@@ -235,10 +243,11 @@ function farm_movement_views_default_views() {
     t('Archived'),
     t('Arrived'),
     t('All'),
-    t('Assets in %1'),
+    t('History of assets in %1'),
     t('Asset type'),
     t('Arrived after'),
     t('Arrived before'),
+    t('Page'),
   );
   $export['farm_area_assets'] = $view;
 
