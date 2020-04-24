@@ -172,6 +172,11 @@ function farm_quantity_report_views_default_views() {
   $handler->display->display_options['relationships']['field_farm_asset_target_id']['table'] = 'field_data_field_farm_asset';
   $handler->display->display_options['relationships']['field_farm_asset_target_id']['field'] = 'field_farm_asset_target_id';
   $handler->display->display_options['relationships']['field_farm_asset_target_id']['relationship'] = 'field_farm_quantity_log';
+  /* Relationship: Farm asset: Group membership */
+  $handler->display->display_options['relationships']['membership']['id'] = 'membership';
+  $handler->display->display_options['relationships']['membership']['table'] = 'farm_asset';
+  $handler->display->display_options['relationships']['membership']['field'] = 'membership';
+  $handler->display->display_options['relationships']['membership']['relationship'] = 'field_farm_asset_target_id';
   /* Field: Field collection item: Field collection item ID */
   $handler->display->display_options['fields']['item_id']['id'] = 'item_id';
   $handler->display->display_options['fields']['item_id']['table'] = 'field_collection_item';
@@ -296,6 +301,17 @@ function farm_quantity_report_views_default_views() {
   $handler->display->display_options['filters']['type_1']['expose']['label'] = 'Asset type';
   $handler->display->display_options['filters']['type_1']['expose']['operator'] = 'type_1_op';
   $handler->display->display_options['filters']['type_1']['expose']['identifier'] = 'type_1';
+  /* Filter criterion: Field collection item: Group (field_farm_group) */
+  $handler->display->display_options['filters']['field_farm_group_target_id']['id'] = 'field_farm_group_target_id';
+  $handler->display->display_options['filters']['field_farm_group_target_id']['table'] = 'field_data_field_farm_group';
+  $handler->display->display_options['filters']['field_farm_group_target_id']['field'] = 'field_farm_group_target_id';
+  $handler->display->display_options['filters']['field_farm_group_target_id']['relationship'] = 'membership';
+  $handler->display->display_options['filters']['field_farm_group_target_id']['group'] = 1;
+  $handler->display->display_options['filters']['field_farm_group_target_id']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_group_target_id']['expose']['operator_id'] = 'field_farm_group_target_id_op';
+  $handler->display->display_options['filters']['field_farm_group_target_id']['expose']['label'] = 'Group';
+  $handler->display->display_options['filters']['field_farm_group_target_id']['expose']['operator'] = 'field_farm_group_target_id_op';
+  $handler->display->display_options['filters']['field_farm_group_target_id']['expose']['identifier'] = 'field_farm_group_target_id';
   /* Filter criterion: Log: Name */
   $handler->display->display_options['filters']['name']['id'] = 'name';
   $handler->display->display_options['filters']['name']['table'] = 'log';
@@ -502,6 +518,7 @@ function farm_quantity_report_views_default_views() {
     t('No quantity measurements found.'),
     t('log'),
     t('Farm asset entity referenced from field_farm_asset'),
+    t('Group membership'),
     t('Field collection item ID'),
     t('.'),
     t(','),
@@ -521,6 +538,7 @@ function farm_quantity_report_views_default_views() {
     t('Label'),
     t('Asset name'),
     t('Asset type'),
+    t('Group'),
     t('Value'),
     t('Start date'),
     t('End date'),
