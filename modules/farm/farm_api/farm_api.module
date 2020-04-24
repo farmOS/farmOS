@@ -193,8 +193,9 @@ function farm_api_modules_enabled($modules) {
         $client_key = !empty($client['client_key']) ? $client['client_key'] : '';
         $client_secret = !empty($client['client_secret']) ? $client['client_secret'] : '';
         $redirect_uri = !empty($client['redirect_uri']) ? $client['redirect_uri'] : '';
+        $settings = !empty($client['settings']) ? $client['settings'] : array();
         if (!empty($label) && !empty($client_key)) {
-          farm_api_enable_oauth_client($label, $client_key, $client_secret, $redirect_uri);
+          farm_api_enable_oauth_client($label, $client_key, $client_secret, $redirect_uri, $settings);
         }
       }
     }
@@ -233,8 +234,10 @@ function farm_api_modules_disabled($modules) {
  *   Optional client secret.
  * @param string $redirect_uri
  *   Optional redirect URIs (separated by newlines).
+ * @param array $settings
+ *   Optional array of client settings to override server-level defaults.
  */
-function farm_api_enable_oauth_client($label, $client_key, $client_secret = '', $redirect_uri = '') {
+function farm_api_enable_oauth_client($label, $client_key, $client_secret = '', $redirect_uri = '', $settings = array()) {
   $server_name = variable_get('restws_oauth2_server_name', 'farmos_oauth');
 
   // Create OAuth2 Server Client Entity
@@ -246,6 +249,12 @@ function farm_api_enable_oauth_client($label, $client_key, $client_secret = '', 
   // Add an optional client secret.
   if (!empty($client_secret)) {
     $new_client->client_secret = $client_secret;
+  }
+
+  // Add optional OAuth Client settings used to override OAuth2
+  // server-level settings. Do not set this value as an empty array.
+  if (!empty($settings)) {
+    $new_client->settings = $settings;
   }
 
   // The module supports entering multiple redirect uris separated by a
