@@ -50,6 +50,32 @@ function farm_api_menu() {
   return $items;
 }
 
+/*
+ * Implements hook_farm_api_oauth2_client()
+ * Provide default farmOS OAuth Client for general use.
+ */
+function farm_api_farm_api_oauth2_client() {
+  $clients = array();
+
+  $clients['farm'] = array(
+    'label' => 'farmOS (Default)',
+    'client_key' => 'farm',
+    'redirect_uri' => '',
+    'settings' => array(
+      'override_grant_types' => TRUE,
+      'allow_implicit' => FALSE,
+      'grant_types' => array(
+        'password' => 'password',
+        'refresh_token' => 'refresh_token',
+      ),
+      'always_issue_new_refresh_token' => TRUE,
+      'unset_refresh_token_after_use' => TRUE,
+    )
+  );
+
+  return $clients;
+}
+
 /**
  * Farm info API callback.
  */
