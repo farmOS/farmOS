@@ -5,6 +5,8 @@ would like to write about farmOS, [contact m.stenta](https://farmier.com/contact
 
 ## 2020
 
+**2020 March 14th** [LibrePlanet: Stewarding technological freedom in agriculture](https://media.libreplanet.org/u/libreplanet/m/stewarding-technological-freedom-in-agriculture)
+
 **2020 March 4th** [Future of Agriculture Podcast: FOA 195: Hacking the Farm with Open Source Technology](https://aggrad.libsyn.com/foa-195-hacking-the-farm-with-open-source-technology)
 
 **2020 February 26th** [CountryGuide: The open source farmer](https://www.country-guide.ca/guide-business/the-open-source-farmer)
