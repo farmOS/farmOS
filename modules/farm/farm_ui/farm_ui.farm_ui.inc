@@ -10,19 +10,19 @@ function farm_ui_farm_ui_entity_view_groups() {
   $groups = array(
     'assets' => array(
       'title' => t('Assets'),
-      'weight' => 98,
+      'weight' => 100,
     ),
     'logs' => array(
       'title' => t('Logs by type'),
-      'weight' => 99,
+      'weight' => 110,
     ),
     'logs_special' => array(
       'title' => t('Logs with special purpose'),
-      'weight' => 100,
+      'weight' => 111,
       'collapse' => TRUE,
     ),
     'other' => array(
-      'weight' => 101,
+      'weight' => 200,
     ),
   );
   return $groups;
