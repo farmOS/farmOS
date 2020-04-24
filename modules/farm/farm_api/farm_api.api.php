@@ -91,6 +91,28 @@ function hook_farm_api_oauth2_client() {
     // newline. Both a dummy and the real uri are specified to confirm that
     // validation passes.
     'redirect_uri' => implode("\n", $redirect_uris),
+
+    // Optional. OAuth Clients can override some server-level OAuth settings.
+    // Only supply these settings if overriding grant types.
+    'settings' => array(
+      'override_grant_types' => TRUE,
+
+      // Allow the Implicit Grant type.
+      'allow_implicit' => FALSE,
+
+      // List of grant types the client will support.
+      'grant_types' => array(
+        'authorization_code' => 'authorization_code',
+        'client_credentials' => 'client_credentials',
+        'password' => 'password',
+        'refresh_token' => 'refresh_token',
+      ),
+
+      // These do not default to the server default. Set these
+      // settings when overriding server-level settings.
+      'always_issue_new_refresh_token' => TRUE,
+      'unset_refresh_token_after_use' => TRUE,
+    )
   );
 
   return $clients;
