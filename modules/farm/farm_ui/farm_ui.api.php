@@ -155,6 +155,7 @@ function hook_farm_ui_entities() {
  *     'title' - The title of the group. This is optional. If it not provided
  *       then the Views will not be wrapped in a fieldset.
  *     'weight' - The weight of the group relative to others.
+ *     'collapse' - Boolean that will cause the group fieldset to be collapsed.
  */
 function hook_farm_ui_entity_view_groups() {
   $groups = array(
@@ -166,6 +167,7 @@ function hook_farm_ui_entity_view_groups() {
     ),
     'other' => array(
       'weight' => 100,
+      'collapse' => TRUE,
     ),
   );
   return $groups;
