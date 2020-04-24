@@ -97,6 +97,17 @@ function farm_movement_area_assets_property_get($data, array $options, $name, $t
   return $assets;
 }
 
+function farm_movement_farm_ui_entity_view_groups() {
+  $groups = array(
+    'assets_history' => array(
+      'title' => t('History of Assets'),
+      'weight' => 101,
+      'collapse' => TRUE,
+    ),
+  );
+  return $groups;
+}
+
 /**
  * Implements hook_farm_ui_entity_views().
  */
@@ -116,7 +127,7 @@ function farm_movement_farm_ui_entity_views($entity_type, $bundle, $entity) {
   elseif ($entity_type == 'taxonomy_term' && $entity->vocabulary_machine_name == 'farm_areas') {
     $views[] = array(
       'name' => 'farm_area_assets',
-      'group' => 'assets',
+      'group' => 'assets_history',
       'weight' => 100,
       'always' => TRUE,
     );
