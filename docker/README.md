@@ -10,11 +10,21 @@ To run a farmOS development environment, copy `docker-compose.development.yml`
 into a new directory on your server, rename it to `docker-compose.yml` and run
 `docker-compose up`.
 
+This example mounts a local `www` directory on the host as a volume in the
+container at `/var/www/html`, which allows for local development with an IDE.
+
 ## Production environment
 
 To run a farmOS production environment, use `docker-compose.production.yml` as
 an example for building your own configuration. Note that this example does not
 include a database. It is assumed that in production environments the database
 will be managed outside of Docker.
+
+This example mounts a local `sites` directory on the host as a volume in the
+container at `/var/www/html/sites`, which contains the site-specific settings
+and uploaded files. This allows a production farmOS instance to be updated by
+simply pulling a new image (and then manually running database updates via Drush
+or `/update.php`). Everything outside of the `sites` directory will not be
+preserved and will be replaced with the new official farmOS files.
 
 For more information, see farmOS.org/hosting/docker.
