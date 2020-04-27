@@ -10,6 +10,8 @@ distribution:
   name: farmOS
 exclusive: true
 
-# Install theme.
+# Install modules and theme.
+install:
+  - dblog
 themes:
   - claro
