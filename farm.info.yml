@@ -9,3 +9,7 @@ core_version_requirement: ^9
 distribution:
   name: farmOS
 exclusive: true
+
+# Install theme.
+themes:
+  - claro
