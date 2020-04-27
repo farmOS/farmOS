@@ -9,14 +9,20 @@ RUN apt-get update -y \
 RUN curl -sS https://getcomposer.org/installer | \
     php -- --install-dir=/usr/bin/ --filename=composer
 
+# Create a Composer config directory for the www-data user.
+RUN mkdir /var/www/.composer && chown www-data:www-data /var/www/.composer
+
+# Switch to the www-data user.
+USER www-data
+
 # Generate an empty project from farmos/project.
 RUN composer create-project --stability=dev farmos/project /var/www/farmOS
 
-# Change ownership of /var/www/farmOS to www-data:www-data and copy it into
-# /var/www/html.
-RUN chown -R www-data:www-data /var/www/farmOS \
-  && rm -r /var/www/html \
-  && cp -r /var/www/farmOS /var/www/html
+# Switch back to the root user.
+USER root
+
+# Copy /var/www/farmOS to /var/www/html.
+RUN rm -r /var/www/html && cp -r /var/www/farmOS /var/www/html
 
 # Install and configure XDebug.
 RUN yes | pecl install xdebug \
