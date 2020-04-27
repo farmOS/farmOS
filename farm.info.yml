@@ -13,5 +13,6 @@ exclusive: true
 # Install modules and theme.
 install:
   - dblog
+  - toolbar
 themes:
   - claro
