@@ -1,0 +1,50 @@
+<?php
+
+/**
+ * @file
+ * Farm Trait module.
+ */
+
+// Include Features code.
+include_once 'farm_trait.features.inc';
+
+/**
+ * Implements hook_restws_field_collection_info().
+ */
+function farm_trait_restws_field_collection_info() {
+    return array(
+        'field_farm_trait' => array(
+            'alias' => 'trait',
+            'label' => t('Trait'),
+            'multiple' => TRUE,
+            'fields' => array(
+                'field_farm_trait_type' => array(
+                    'field_name' => 'field_farm_trait_type',
+                    'field_label' => t('Trait ID'),
+                    'field_type' => 'text',
+                    'field_value' => 'value',
+                ),
+                'value' => array(
+                    'field_name' => 'field_farm_trait_value',
+                    'field_label' => t('Value'),
+                    'field_type' => 'text',
+                    'field_value' => 'value',
+                ),
+            ),
+        ),
+    );
+}
+
+/**
+ * Implements hook_farm_ui_entities().
+ */
+function farm_trait_farm_ui_entities() {
+    return array(
+        'taxonomy_term' => array(
+            'farm_trait_types' => array(
+                'label' => t('Trait type'),
+                'label_plural' => t('Trait types'),
+            ),
+        ),
+    );
+}
