@@ -19,6 +19,16 @@ USER www-data
 # Generate an empty project from farmos/project.
 RUN composer create-project --stability=dev farmos/project .
 
+# Configure PHPUnit.
+RUN cp web/core/phpunit.xml.dist phpunit.xml \
+  && sed -i 's|bootstrap="tests/bootstrap.php"|bootstrap="web/core/tests/bootstrap.php"|g' phpunit.xml \
+  && sed -i 's|name="SIMPLETEST_BASE_URL" value=""|name="SIMPLETEST_BASE_URL" value="http://localhost"|g' phpunit.xml \
+  && sed -i 's|name="SIMPLETEST_DB" value=""|name="SIMPLETEST_DB" value="pgsql://farm:farm@db/farm"|g' phpunit.xml \
+  && sed -i 's|name="BROWSERTEST_OUTPUT_DIRECTORY" value=""|name="BROWSERTEST_OUTPUT_DIRECTORY" value="/var/www/html/web/sites/simpletest/browser_output"|g' phpunit.xml \
+  && sed -i 's|\./|\./web/core/|g' phpunit.xml \
+  && sed -i 's|\.\./web/core/|\./web/|g' phpunit.xml \
+  && mkdir -p /var/www/farmOS/web/sites/simpletest/browser_output
+
 # Switch back to the /var/www/html directory as the root user.
 WORKDIR /var/www/html
 USER root
