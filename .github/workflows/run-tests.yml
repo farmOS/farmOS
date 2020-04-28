@@ -1,0 +1,19 @@
+name: Run 2.0.x PHPUnit tests
+on:
+  push:
+    branches:
+      - '2.0.x'
+
+jobs:
+  build:
+    name: Run PHPUnit tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create docker-compose.yml
+        run: curl https://raw.githubusercontent.com/mstenta/farmOS/2.0.x/docker/docker-compose.development.yml -o docker-compose.yml
+      - name: Start containers
+        run: sudo docker-compose up -d
+      - name: Wait 10 seconds
+        run: sleep 10
+      - name: Run tests
+        run: sudo docker exec -i -u www-data farmos_www_1 vendor/bin/phpunit --verbose --debug --group farm
