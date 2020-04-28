@@ -12,6 +12,7 @@ exclusive: true
 
 # Install modules and theme.
 install:
+  - block
   - dblog
   - toolbar
 themes:

@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - farm
+  theme:
+    - claro
+id: farm_powered
+theme: claro
+region: content
+weight: 1000
+provider: null
+plugin: farm_powered_by_block
+settings:
+  id: farm_powered_by_block
+  label: 'Powered by farmOS'
+  provider: farm
+  label_display: '0'
+visibility: {  }

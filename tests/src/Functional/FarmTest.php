@@ -23,6 +23,9 @@ class FarmTest extends BrowserTestBase {
 
     // Test that the profile was installed.
     $this->assertSame($this->profile, $this->container->getParameter('install_profile'));
+
+    // Test that the "Powered by farmOS" block is visible.
+    $this->assertText('Powered by farmOS');
   }
 
 }
