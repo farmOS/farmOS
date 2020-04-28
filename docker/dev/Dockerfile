@@ -12,13 +12,15 @@ RUN curl -sS https://getcomposer.org/installer | \
 # Create a Composer config directory for the www-data user.
 RUN mkdir /var/www/.composer && chown www-data:www-data /var/www/.composer
 
-# Switch to the www-data user.
+# Switch to the /var/www/farmOS directory as the www-data user.
+WORKDIR /var/www/farmOS
 USER www-data
 
 # Generate an empty project from farmos/project.
-RUN composer create-project --stability=dev farmos/project /var/www/farmOS
+RUN composer create-project --stability=dev farmos/project .
 
-# Switch back to the root user.
+# Switch back to the /var/www/html directory as the root user.
+WORKDIR /var/www/html
 USER root
 
 # Copy /var/www/farmOS to /var/www/html.
