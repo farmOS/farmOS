@@ -1,0 +1,8 @@
+version: '3'
+services:
+  www:
+    image: farmos/farmos:2.0.x
+    volumes:
+      - './sites:/var/www/html/web/sites'
+    ports:
+      - '80:80'
