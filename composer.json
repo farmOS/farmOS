@@ -17,7 +17,8 @@
     ],
     "require": {
         "drupal/core": "^9.0.0",
-        "drupal/log": "2.x-dev"
+        "drupal/log": "2.x-dev",
+        "drupal/token": "^1.7"
     },
     "minimum-stability": "dev"
 }
