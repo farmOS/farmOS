@@ -1,2 +1,10 @@
 site_name: farmOS 2.0.x
+nav:
+  - farmOS: index.md
+  - Development:
+    - Getting started: development/index.md
+    - Drush: development/drush.md
+    - Composer: development/composer.md
+    - Debugging: development/debug.md
+    - Automated tests: development/tests.md
 theme: readthedocs
