@@ -8,11 +8,11 @@ The farmOS development Docker image comes pre-installed with
 In order to run the `composer` command, you must use `docker exec` to run the
 command inside the farmOS container.
 
-    sudo docker exec -it -e COMPOSER_MEMORY_LIMIT=-1 farmos_www_1 composer
+    sudo docker exec -it -u www-data -e COMPOSER_MEMORY_LIMIT=-1 farmos_www_1 composer
 
 For example, the following will run the `composer update` command:
 
-    sudo docker exec -it -e COMPOSER_MEMORY_LIMIT=-1 farmos_www_1 composer update
+    sudo docker exec -it -u www-data -e COMPOSER_MEMORY_LIMIT=-1 farmos_www_1 composer update
 
 ## Common tasks
 
