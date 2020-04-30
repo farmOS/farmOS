@@ -32,3 +32,5 @@ it to the root `composer.json` file.
 If the module is being added to the farmOS installation profile itself, you
 need to manually move the `require` line from the root `composer.json` to
 `web/profiles/farm/composer.json` and commit it to that repository.
+
+To install the module, use [Drush](/development/drush).
