@@ -71,6 +71,7 @@ included in this list, add a comment to [this issue on Github].
 * FoodScaping Permaculture Farm (Cheshire, Oregon)
 * Golden Avenue Urban Permaculture Farm (Eugene, Oregon)
 * Grocholl and Sons Farms (Harrison, Illinois)
+* Guard Well Farm (Holualoa, Hawai&#699;i)
 * Hampton Plantation (Owings, Maryland)
 * Heniscity Farm (Pegram, Tennessee)
 * Hesselridge Farm (Rochester, Washington)
