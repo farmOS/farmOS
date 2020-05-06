@@ -814,9 +814,16 @@ function farm_plan_unlink_record($record_type, $plan_id, $record_id) {
  *
  * @return array
  *   Returns an array of record types with the database table and field names
- *   used to store relationships.
+ *   used to store relationships. See farm_plan.api.php.
  */
 function farm_plan_record_relationships() {
+  return module_invoke_all('farm_plan_record_relationships');
+}
+
+/**
+ * Implements hook_farm_plan_record_relationships().
+ */
+function farm_plan_farm_plan_record_relationships() {
   return array(
     'area' => array(
       'entity_type' => 'taxonomy_term',
