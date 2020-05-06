@@ -826,6 +826,7 @@ function farm_plan_record_relationships() {
 function farm_plan_farm_plan_record_relationships() {
   return array(
     'area' => array(
+      'label' => t('Area'),
       'entity_type' => 'taxonomy_term',
       'entity_type_table' => 'taxonomy_term_data',
       'entity_pk' => 'tid',
@@ -833,18 +834,21 @@ function farm_plan_farm_plan_record_relationships() {
       'field' => 'area_id',
     ),
     'asset' => array(
+      'label' => t('Asset'),
       'entity_type' => 'farm_asset',
       'entity_pk' => 'id',
       'table' => 'farm_plan_asset',
       'field' => 'asset_id',
     ),
     'log' => array(
+      'label' => t('Log'),
       'entity_type' => 'log',
       'entity_pk' => 'id',
       'table' => 'farm_plan_log',
       'field' => 'log_id',
     ),
     'user' => array(
+      'label' => t('User'),
       'entity_type' => 'user',
       'entity_pk' => 'uid',
       'table' => 'farm_plan_user',
@@ -911,7 +915,7 @@ function farm_plan_entity_view_alter(&$build, $type) {
 
     // Set a message pointing to the plan.
     $args = array(
-      '@record_type' => $record_type,
+      '@record_type' => $relationships[$record_type]['label'],
       '!plan_path' => url($plan_path),
       '%plan_name' => $plan_name,
     );
