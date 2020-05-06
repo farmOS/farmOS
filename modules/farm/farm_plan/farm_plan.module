@@ -752,8 +752,12 @@ function farm_plan_linked_records($record_type, $plan_id) {
  *   The plan ID.
  * @param int $record_id
  *   The record ID.
+ * @param array $primary_record
+ *   If this is not the primary/required record type in the table, the primary
+ *   record key/value to needed for updating the existing record.
+ *   For example: array('asset_id' => 5)
  */
-function farm_plan_link_record($record_type, $plan_id, $record_id) {
+function farm_plan_link_record($record_type, $plan_id, $record_id, $primary_record = array()) {
 
   // First, delete any existing link.
   farm_plan_unlink_record($record_type, $plan_id, $record_id);
@@ -770,12 +774,31 @@ function farm_plan_link_record($record_type, $plan_id, $record_id) {
   $table = $relationships[$record_type]['table'];
   $field = $relationships[$record_type]['field'];
 
-  // Create a new relationship record.
-  $record = array(
-    'plan_id' => $plan_id,
-    $field => $record_id,
-  );
-  drupal_write_record($table, $record);
+  // If this record type is not required, and a primary key/value is provided,
+  // then update the existing relationship row.
+  if ($relationships[$record_type]['required'] === FALSE && !empty($primary_record)) {
+    $primary_record_key = key($primary_record);
+    $primary_record_id = current($primary_record);
+    $record = array(
+      'plan_id' => $plan_id,
+      $primary_record_key => $primary_record_id,
+      $field => $record_id,
+    );
+    $primary_keys = array(
+      'plan_id',
+      $primary_record_key,
+    );
+    drupal_write_record($table, $record, $primary_keys);
+  }
+
+  // Otherwise create a new relationship row.
+  else {
+    $record = array(
+      'plan_id' => $plan_id,
+      $field => $record_id,
+    );
+    drupal_write_record($table, $record);
+  }
 }
 
 /**
@@ -802,11 +825,25 @@ function farm_plan_unlink_record($record_type, $plan_id, $record_id) {
   $table = $relationships[$record_type]['table'];
   $field = $relationships[$record_type]['field'];
 
-  // Delete the relationship.
-  $query = db_delete($table);
-  $query->condition('plan_id', $plan_id);
-  $query->condition($field, $record_id);
-  $query->execute();
+  // If this record type is not required, simply update the relationship row in
+  // the database to remove reference to the record.
+  if ($relationships[$record_type]['required'] === FALSE) {
+    $query = db_update($table);
+    $query->fields(array(
+      $field => NULL,
+    ));
+    $query->condition('plan_id', $plan_id);
+    $query->condition($field, $record_id);
+    $query->execute();
+  }
+
+  // Otherwise, delete the whole relationship row.
+  else {
+    $query = db_delete($table);
+    $query->condition('plan_id', $plan_id);
+    $query->condition($field, $record_id);
+    $query->execute();
+  }
 }
 
 /**
@@ -817,7 +854,19 @@ function farm_plan_unlink_record($record_type, $plan_id, $record_id) {
  *   used to store relationships. See farm_plan.api.php.
  */
 function farm_plan_record_relationships() {
-  return module_invoke_all('farm_plan_record_relationships');
+
+  // Ask modules for relationships.
+  $relationships = module_invoke_all('farm_plan_record_relationships');
+
+  // Set default values.
+  foreach ($relationships as &$relationship) {
+    if (!isset($relationship['required'])) {
+      $relationship['required'] = TRUE;
+    }
+  }
+
+  // Return the relationships.
+  return $relationships;
 }
 
 /**

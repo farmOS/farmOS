@@ -437,10 +437,10 @@ function farm_plan_record_unlink_form($form, &$form_state, $plan, $record_type, 
         }
       }
 
-      // If the constraint type is "table_reference" and the table is
-      // "farm_plan_asset", skip it.
+      // If the constraint type is "table_reference" and it's the table that
+      // defines the relationship between the plan and asset, skip it.
       if (!empty($constraint['constraint']) && !empty($constraint['table'])) {
-        if ($constraint['constraint'] == 'table_reference' && $constraint['table'] == 'farm_plan_asset') {
+        if ($constraint['constraint'] == 'table_reference' && $constraint['table'] == $relationships[$record_type]['table']) {
           continue;
         }
       }
@@ -457,9 +457,11 @@ function farm_plan_record_unlink_form($form, &$form_state, $plan, $record_type, 
       foreach ($log_constraints as $constraint) {
 
         // If the constraint type is "table_reference" and the table is
-        // "farm_plan_log", skip it.
+        // "farm_plan_log" OR the same table as the asset relationship table
+        // (indicating that it is a single table that references multiple
+        // different types of records), skip it.
         if (!empty($constraint['constraint']) && !empty($constraint['table'])) {
-          if ($constraint['constraint'] == 'table_reference' && $constraint['table'] == 'farm_plan_log') {
+          if ($constraint['constraint'] == 'table_reference' && in_array($constraint['table'], array('farm_plan_log', $relationships[$record_type]['table']))) {
             continue;
           }
         }

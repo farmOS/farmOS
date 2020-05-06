@@ -35,15 +35,30 @@
  *     - entity_pk: The column name of the entity type's primary key.
  *     - table: The table that links the record to the plan.
  *     - field: The column name in the table that links to the record's PK.
+ *     - required: It's possible for one table to maintain multiple
+ *         relationships so this key indicates that this relationship is
+ *         required. This defaults to TRUE, so generally you only need to set it
+ *         to FALSE if you are adding an optional relationship to an existing
+ *         table. This affects how the farm_plan_link_record() and
+ *         farm_plan_link_record() functions work, and whether they will
+ *         insert/delete rows or update them instead.
  */
 function hook_farm_plan_record_relationships() {
   return array(
+    'my_plan_asset' => array(
+      'label' => t('Asset'),
+      'entity_type' => 'farm_asset',
+      'entity_pk' => 'id',
+      'table' => 'my_plan_asset',
+      'field' => 'asset_id',
+    ),
     'my_plan_log' => array(
       'label' => t('Log'),
       'entity_type' => 'log',
       'entity_pk' => 'id',
-      'table' => 'my_plan_log',
+      'table' => 'my_plan_asset',
       'field' => 'log_id',
+      'required' => FALSE,
     ),
   );
 }
