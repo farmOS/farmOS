@@ -181,9 +181,11 @@ function farm_ui_entity_views($entity_type, $entity_bundle, $entity) {
       }
       $build[$group]['#weight'] = $info['weight'];
 
+      // Make groups collapsible.
+      $build[$group]['#collapsible'] = TRUE;
+
       // Collapse by default, if desired.
       if (!empty($info['collapse'])) {
-        $build[$group]['#collapsible'] = TRUE;
         $build[$group]['#collapsed'] = TRUE;
       }
     }
