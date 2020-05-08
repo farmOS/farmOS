@@ -32,6 +32,10 @@ included in this list, add a comment to [this issue on Github].
 
 * Ferme des Ours (Boofzheim, Grand-Est)
 
+## Germany
+
+* Landw. Betrieb Fischer (Arberg, Bavaria)
+
 ## Italy
 
 * Riso Corbetta (Rovasenda, Vercelli)
