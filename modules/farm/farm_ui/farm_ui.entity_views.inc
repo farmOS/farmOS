@@ -184,6 +184,11 @@ function farm_ui_entity_views($entity_type, $entity_bundle, $entity) {
       // Make groups collapsible.
       $build[$group]['#collapsible'] = TRUE;
 
+      // Add 'collapsible' class.
+      // This is necessary when rendering the fieldset outside of a form.
+      // See: https://www.drupal.org/node/1099132
+      $build[$group]['#attributes']['class'][] = 'collapsible';
+
       // Collapse by default, if desired.
       if (!empty($info['collapse'])) {
         $build[$group]['#collapsed'] = TRUE;
