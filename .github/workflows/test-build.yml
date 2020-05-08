@@ -1,8 +1,8 @@
-name: Test Docker and Drush Make builds
+name: Test 7.x-1.x Docker and Drush Make builds
 on:
   push:
     branches:
-      - '*'
+      - '7.x-1.x'
 
 jobs:
   build:
