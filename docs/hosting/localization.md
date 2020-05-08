@@ -2,15 +2,16 @@
 
 * Enable **Locale** module
 
+* * Download and enable **Localization_update** module (https://www.drupal.org/project/l10n_update), For example, using drush:
+
+    ```drush en l10n_update```
+
 * Add your language at */admin/config/regional/language*
     * Set this new language as default language, if desired.
     * Set the Detection and Selection options at */admin/config/regional/language/configure*
 
-* Download and enable **Localization_update** module (https://www.drupal.org/project/l10n_update), For example, using drush:
 
-    ```drush en l10n_update```
-
-* Configure it at */admin/config/regional/language/update*
+* Configure the Localization_update Module at */admin/config/regional/language/update*
 
    * Suggested:
 
