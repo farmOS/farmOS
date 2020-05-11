@@ -253,12 +253,18 @@ function farm_crop_planting_quick_form($form, &$form_state) {
   // The planting will be named based on the season, location and crop.
   // The location string may be trimmed to 253 char (accounting for spaces)
   // to ensure that the asset name is less than 255 characters.
+  $planting_name_parts = array();
+  if (!empty($season)) {
+    $planting_name_parts[] = $season;
+  }
   $crop_string = implode(',', $crop_tags);
-  $planting_name_parts = array(
-    $season,
-    substr($location, 0, (253 - strlen($season) - strlen($crop_string)) ),
-    $crop_string,
-  );
+  $location_string = substr($location, 0, (253 - strlen($season) - strlen($crop_string)));
+  if (!empty($location_string)) {
+    $planting_name_parts[] = $location_string;
+  }
+  if (!empty($crop_string)) {
+    $planting_name_parts[] = $crop_string;
+  }
   $planting_name = implode(' ', $planting_name_parts);
 
   // Unset $form_state['input'] in order to change default value via AJAX.
