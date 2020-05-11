@@ -52,6 +52,7 @@ These modules are included directly in the farmOS distribution repository:
   pairs) properties to assets.
 * **Farm Asset Views** - Default Views of farm assets.
 * **Farm Calendar** - Provides a calendar view of farmOS logs.
+* **Farm Client** - Integrates the farmOS server and client.
 * **Farm Constraint** - Provides a framework for managing foreign key
   constraints between farmOS entities.
 * **Farm Crop** - Features for managing farm crops.
@@ -87,6 +88,7 @@ These modules are included directly in the farmOS distribution repository:
 * **Farm Map KML** - Provides KML features for farm maps.
 * **Farm MapKnitter** - Provides integration with Public Lab's MapKnitter.org.
 * **Farm Menu** - Provides a menu for farm pages.
+* **Farm Metrics** - Allow modules to define high level metrics.
 * **Farm Movement** - Provides movement field and related asset location code.
 * **Farm People** - A view of people associated with the farm.
 * **Farm Plan** - A farm plan entity type.
