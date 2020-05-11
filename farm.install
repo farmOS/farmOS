@@ -39,6 +39,7 @@ function farm_modules() {
       'farm_access_roles' => st('Default roles: Manager, Worker, Viewer'),
       'farm_help' => st('farmOS Help Pages'),
       'farm_api' => st('farmOS API'),
+      'farm_client' => st('farmOS Client (Field Kit) integration'),
     ),
     'optional' => array(
       'farm_water_test' => st('Water test logs'),
@@ -997,6 +998,13 @@ function farm_update_7054(&$sandbox) {
   if (variable_get('theme_default', '') == 'farm_theme') {
     db_query("UPDATE {system} SET status = 1 WHERE type = 'theme' AND name = 'farm_theme' AND status = 0");
   }
+}
+
+/**
+ * Install the Farm Client module.
+ */
+function farm_update_7055(&$sandbox) {
+  _farm_update_enable_modules(array('farm_client'));
 }
 
 /**

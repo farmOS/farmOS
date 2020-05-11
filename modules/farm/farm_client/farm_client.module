@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * Farm Client module.
+ */
+
+/**
+ * Implements hook_farm_api_oauth2_client().
+ */
+function farm_client_farm_api_oauth2_client() {
+  $clients = array();
+
+  $clients['farm_client'] = array(
+    'label' => 'farmOS Client (Field Kit)',
+    'client_key' => 'farm_client',
+    'redirect_uri' => '',
+  );
+
+  return $clients;
+}
