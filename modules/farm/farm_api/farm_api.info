@@ -3,6 +3,7 @@ description = Extends the RESTful Web Services module to provide farmOS-specific
 core = 7.x
 package = farmOS
 dependencies[] = entity
+dependencies[] = farm_term
 dependencies[] = oauth2_server
 dependencies[] = restws
 dependencies[] = restws_field_collection
