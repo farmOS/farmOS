@@ -220,6 +220,30 @@ The endpoint to use depends on the entity type you are requesting:
 &ast; Note that areas are currently represented as Drupal taxonomy terms, but may be
 changed to assets in the future. See [Make "Area" into a type of Farm Asset].
 
+**Filtering**
+
+Filters can be applied via query parameters tacked on to the end of the URL. For
+example, to show only "done" logs:
+
+    /log.json?done=1
+
+Refer to lists of fields under "Creating records" below for available filters.
+
+When a record references other records (for example, a log that references an
+asset), you must filter by the referenced record's ID. For example, to find logs
+that reference asset ID 5:
+
+    /log.json?asset=5
+
+Taxonomy term references are an exception to this rule. It is possible to filter
+using the name of the term, rather than the ID. For example, to show logs with
+a category of "Tillage":
+
+    /log.json?log_category=Tillage
+
+The term name is also included in the returned JSON structure, alongside the
+term ID, so that extra requests to look up term names are not necessary.
+
 ## Creating records
 
 Records can be created with a `POST` request of JSON/XML objects to the endpoint
