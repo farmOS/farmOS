@@ -404,17 +404,28 @@ function farm_api_restws_request_alter(array &$request) {
 
   // If a taxonomy term name is provided, look up its term ID. If it does not
   // exist, create it.
-  foreach ($payload as $field_name => &$field_values) {
+  foreach ($payload as $field_name => $field_values) {
     $field_info = field_info_field($field_name);
     if (empty($field_info)) {
       continue;
     }
     if ($vocabulary = drupal_array_get_nested_value($field_info, array('settings', 'allowed_values', '0', 'vocabulary'))) {
+      $single = FALSE;
+      if (!is_array($field_values[0])) {
+        $field_values = array($field_values);
+        $single = TRUE;
+      }
       foreach ($field_values as $delta => $field_value) {
         if (!empty($field_value['name'])) {
           $term = farm_term($field_value['name'], $vocabulary);
-          unset($field_values[$delta]['name']);
-          $field_values[$delta]['id'] = $term->tid;
+          if ($single) {
+            unset($payload[$field_name]['name']);
+            $payload[$field_name]['id'] = $term->tid;
+          }
+          else {
+            unset($payload[$field_name][$delta]['name']);
+            $payload[$field_name][$delta]['id'] = $term->tid;
+          }
           $changed = TRUE;
         }
       }
