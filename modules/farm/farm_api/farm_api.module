@@ -318,6 +318,18 @@ function farm_api_restws_request_alter(array &$request) {
     }
   }
 
+  // Allow filtering by term name in taxonomy term reference fields.
+  // eg: /log.json?log_category=Tillage
+  foreach ($_GET as $field_name => &$filter_value) {
+    $field_info = field_info_field($field_name);
+    if ($field_info['type'] == 'taxonomy_term_reference' && !is_numeric($filter_value)) {
+      if ($term = taxonomy_get_term_by_name($filter_value)) {
+        $term = reset($term);
+        $_GET[$field_name] = $term->tid;
+      }
+    }
+  }
+
   // If the payload is empty, bail.
   if (empty($request['payload'])) {
     return;
