@@ -57,6 +57,11 @@ Common log fields include:
 * **Asset names** - A comma-separated list of asset names that this log is
   related to. These assets must already exist in farmOS in order for the link to
   be created. **See notes below.**
+* **Archive assets** - If this is set to "Y", then any assets referenced on the
+  log will be archived. This can be used to archive assets at the same time as
+  recording their harvest logs, for example. See "Boolean options" below
+  for allowed values. If omitted, assets will not be archived. Note that this
+  will archive assets even if the log is not marked "Done" during import.
 * **Areas** - A comma-separated list of areas that this log is related to.
   Areas will be matched on their name, and new areas will be created if they do
   not exist.
