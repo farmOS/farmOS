@@ -754,8 +754,14 @@ In order to connect to farmOS via OAuth2, there must be a "client" configured on
 the server that corresponds to the client that will be making the requests. This
 is necessary so that tokens can be revoked from specific clients.
 
-The core `farm_api` module comes with a `farm_api_development` module that can
-be enabled for testing different OAuth authorization flows. For the purposes
+The core `farm_api` module provides a default client called `farm`, which
+supports the **Password Credentials** and **Refresh Token** grants (more info in
+"Authorization Flows" below). If you are writing a custom script that
+communicates with farmOS via the API, this is the recommended approach for
+authenticating with username and password.
+
+The core `farm_api` module also comes with a `farm_api_development` module that
+can be enabled for testing different OAuth authorization flows. For the purposes
 of documentation, this client is used in below examples. This module defines
 an OAuth client with the following parameters:
 
@@ -864,7 +870,7 @@ Requesting protected resources is a two step process:
 endpoint with `grant_type` set to `password` and a `username` and `password`
 included in the request body.
 
-    $ curl -X POST -d "grant_type=password&username=username&password=test&client_id=farmos_development&scope=user_access" http://localhost/oauth2/token
+    $ curl -X POST -d "grant_type=password&username=username&password=test&client_id=farm&scope=user_access" http://localhost/oauth2/token
     {"access_token":"e69c60dea3f5c59c95863928fa6fb860d3506fe9","expires_in":"300","token_type":"Bearer","scope":"user_access","refresh_token":"cead7d46d18d74daea83f114bc0b512ec4cc31c3"}
 
 **second**, the client sends the `access_token` in the request header to access protected
@@ -907,7 +913,7 @@ Authorization Code flow.
         hostname=url,
         username=farmos_username,
         password=farmos_password,
-        client_id="farmos_development",
+        client_id="farm",
         scope="user_access",
         # Supply a profile name so the tokens are saved to config
         profile_name="farm"
@@ -917,7 +923,7 @@ Running from a Python Console, the `password` can also be omitted and entered
 at runtime. This allows testing without saving a password in plaintext:
 
     >>> from farmOS import farmOS
-    >>> farm_client = farmOS(hostname="http://localhost", username=farmos_username, client_id="farmos_development", scope="user_access")
+    >>> farm_client = farmOS(hostname="http://localhost", username=farmos_username, client_id="farm", scope="user_access")
     >>> Warning: Password input may be echoed.
     >>> Enter password: >? MY_PASSWORD
     >>> farm_client.info()
