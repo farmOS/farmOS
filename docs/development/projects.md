@@ -108,8 +108,6 @@ These modules are included directly in the farmOS distribution repository:
 * **Farm Soil Test** - .Features for managing soil tests.
 * **Farm Soil: Compost** - Features for managing compost.
 * **Farm Term** - Provides helper functions for working with taxonomy terms.
-* **Farm Tour** - Provides tours of the farmOS system using the Bootstrap Tour
-  module.
 * **Farm UI** - Provides standardized user interface support to farmOS modules.
 * **Farm Water** - Provides features for water management.
 * **Farm Water Test** - Features for managing water tests.
