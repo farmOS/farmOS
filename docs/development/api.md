@@ -161,7 +161,7 @@ necessary when creating new terms (see [Creating taxonomy terms]).
 
 ### API Version
 
-**Current API version: 1.2**
+**Current API version: 1.3**
 
 It is *highly* recommended that you check the API version of the farmOS system
 you are communicating with, to be sure that your code is using the same version.
