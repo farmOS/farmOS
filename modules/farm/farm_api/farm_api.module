@@ -356,15 +356,35 @@ function farm_api_restws_request_alter(array &$request) {
     return;
   }
 
-  // Iterate through the fields in the payload. If any match a mapped alias,
-  // translate it to use the real field name. Keep track of whether or not any
-  // changes were made.
+  // Keep track of whether or not any changes were made to the payload.
   $changed = FALSE;
+
+  // Iterate through the fields in the payload. If any match a mapped alias,
+  // translate it to use the real field name.
   foreach ($payload as $key => $value) {
     if (array_key_exists($key, $alias_map)) {
       $payload[$alias_map[$key]] = $payload[$key];
       unset($payload[$key]);
       $changed = TRUE;
+    }
+  }
+
+  // If a taxonomy term name is provided, look up its term ID. If it does not
+  // exist, create it.
+  foreach ($payload as $field_name => &$field_values) {
+    $field_info = field_info_field($field_name);
+    if (empty($field_info)) {
+      continue;
+    }
+    if ($vocabulary = drupal_array_get_nested_value($field_info, array('settings', 'allowed_values', '0', 'vocabulary'))) {
+      foreach ($field_values as $delta => $field_value) {
+        if (!empty($field_value['name'])) {
+          $term = farm_term($field_value['name'], $vocabulary);
+          unset($field_values[$delta]['name']);
+          $field_values[$delta]['id'] = $term->tid;
+          $changed = TRUE;
+        }
+      }
     }
   }
 
