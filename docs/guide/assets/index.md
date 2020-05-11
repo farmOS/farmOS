@@ -63,7 +63,7 @@ overview of exactly where assets are on your farm. Pretty cool huh?
 Assets can be archived so they do not show in farmOS unless you specifically
 want to see them. So for example, when you are done harvesting a planting, you
 can mark it as "archived" to hide it in the list of plantings. Archived records
-can be retrieved using the "Filter/sort" options on asset listing pages.
+can be retrieved using the "Filters" options on asset listing pages.
 
 ## Cloning assets
 
