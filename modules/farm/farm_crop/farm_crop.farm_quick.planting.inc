@@ -177,7 +177,7 @@ function farm_crop_planting_quick_form($form, &$form_state) {
       'location' => array(
         '#type' => 'textfield',
         '#title' => t( 'Location'),
-        '#description' => t('Set the ' . $info['title'] . ' areas(s) for this asset. Separate multiple areas with commas.'),
+        '#description' => t('Enter the name of the area that this will take place in. A list of existing area options will appear as you type. If the area does not exist, a new one will be created.'),
         '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_area',
         '#maxlength' => NULL,
         '#ajax' => array(
