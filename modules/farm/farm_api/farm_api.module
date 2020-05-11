@@ -323,7 +323,11 @@ function farm_api_restws_request_alter(array &$request) {
   foreach ($_GET as $field_name => &$filter_value) {
     $field_info = field_info_field($field_name);
     if ($field_info['type'] == 'taxonomy_term_reference' && !is_numeric($filter_value)) {
-      if ($term = taxonomy_get_term_by_name($filter_value)) {
+      $vocabulary = NULL;
+      if (!empty($field_info['settings']['allowed_values'][0]['vocabulary'])) {
+        $vocabulary = $field_info['settings']['allowed_values'][0]['vocabulary'];
+      }
+      if ($term = taxonomy_get_term_by_name($filter_value, $vocabulary)) {
         $term = reset($term);
         $_GET[$field_name] = $term->tid;
       }
