@@ -497,6 +497,21 @@ the term should be added to):
 
     curl [AUTH] -X POST -H 'Content-Type: application/json' -d '{"name": "Broccoli", "vocabulary": "[VID]"}' [URL]/taxonomy_term
 
+For convenience, it is possible to create terms on-the-fly when creating or 
+updating other records that reference them. Simply provide the `name` of the
+term instead of the `tid`, and farmOS will attempt to look up the existing term,
+or create a new one.
+
+For example, to create a "2020 Spinach" planting asset, a "Spinach" crop term,
+and a "2020" season term all at the same time:
+
+    {
+      "name": "2020 Spinach",
+      "type": "planting",
+      "crop": [{"name": "Spinach"}],
+      "season": {"name": "2020"},
+    }
+
 **Creating an area**
 
 Areas are taxonomy terms in farmOS, but they have some additional fields on them
