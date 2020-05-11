@@ -8,5 +8,6 @@ dependencies[] = restws
 dependencies[] = restws_field_collection
 dependencies[] = restws_file
 dependencies[] = restws_oauth2_server
+dependencies[] = xautoload (>= 7.x-5.0)
 features[features_api][] = api:2
 features[oauth2_server][] = farmos_oauth

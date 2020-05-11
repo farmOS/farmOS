@@ -283,6 +283,15 @@ function farm_api_module_implements_alter(&$implementations, $hook) {
 }
 
 /**
+ * Implements hook_restws_format_info_alter().
+ *
+ * Overrides the default JSON handler from restws with our own.
+ */
+function farm_api_restws_format_info_alter(&$format_info) {
+  $format_info['json']['class'] = '\Drupal\farm_api\RestWS\Format\FarmFormatJSON';
+}
+
+/**
  * Implements hook_restws_request_alter().
  */
 function farm_api_restws_request_alter(array &$request) {
