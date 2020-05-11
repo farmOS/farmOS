@@ -98,3 +98,24 @@ function farm_api_update_7001(&$sandbox) {
   $server_name = 'farmos_oauth';
   variable_set('restws_oauth2_server_name', $server_name);
 }
+
+/**
+ * Enable default farmOS OAuth client.
+ */
+function farm_api_update_7002(&$sandbox) {
+  $label = 'farmOS (Default)';
+  $client_key = 'farm';
+  $client_secret = '';
+  $redirect_uri = '';
+  $settings = array(
+    'override_grant_types' => TRUE,
+    'allow_implicit' => FALSE,
+    'grant_types' => array(
+      'password' => 'password',
+      'refresh_token' => 'refresh_token',
+    ),
+    'always_issue_new_refresh_token' => TRUE,
+    'unset_refresh_token_after_use' => TRUE,
+  );
+  farm_api_enable_oauth_client($label, $client_key, $client_secret, $redirect_uri, $settings);
+}
