@@ -568,6 +568,63 @@ function farm_theme_preprocess_field(&$vars) {
   if ($vars['element']['#field_name'] == 'field_farm_images') {
     $vars['classes_array'][] = 'clearfix';
   }
+
+  // Customize the quantity measurement field collection display.
+  if($vars['element']['#field_name'] == 'field_farm_quantity') {
+
+    // Add a custom template suggestion: field--field-farm-quantity--full.tpl.php
+    // @see https://www.drupal.org/node/1137024
+    $vars['theme_hook_suggestions'][] = 'field__field_farm_quantity__' . $vars['element']['#view_mode'];
+
+    // Remove the "field-label-inline" class.
+    // @todo Change all quantity field instance display settings to show the
+    // label "Above" instead of doing this here.
+    $class_key = array_search('field-label-inline', $vars['classes_array']);
+    if ($class_key !== FALSE) {
+      unset($vars['classes_array'][$class_key]);
+    }
+
+    // Iterate through the quantities and prepare variables for the template.
+    $vars['quantities'] = array();
+    foreach ($vars['items'] as $delta => $item) {
+
+      // Grab the values from the item.
+      $values = reset($item['entity']['field_collection_item']);
+
+      // Prepare a blank quantity.
+      $qty = array(
+        'label' => '',
+        'measure' => '',
+        'value' => '',
+        'units' => '',
+      );
+
+      // Populate the values that are not empty.
+      foreach ($qty as $key => &$value) {
+        if ($values['field_farm_quantity_' . $key][0]['#markup'] != '') {
+          $value = $values['field_farm_quantity_' . $key][0]['#markup'];
+        }
+      }
+
+      // If the value is an empty string, show N/A.
+      if ($qty['value'] === '') {
+        $qty['value'] = 'N/A';
+      }
+
+      // If there is a label, make it bold.
+      if (!empty($qty['label'])) {
+        $qty['label'] = '<strong>' . $qty['label'] . '</strong>';
+      }
+
+      // If there is a label and a measure, wrap the measure in parentheses.
+      if (!empty($qty['label']) && !empty($qty['measure'])) {
+        $qty['measure'] = '(' . $qty['measure'] . ')';
+      }
+
+      // Add the quantity.
+      $vars['quantities'][] = $qty;
+    }
+  }
 }
 
 /**
