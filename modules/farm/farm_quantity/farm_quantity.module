@@ -175,6 +175,9 @@ function farm_quantity_measures() {
     'temperature' => array(
       'label' => t('Temperature'),
     ),
+    'pressure' => array(
+      'label' => t('Pressure'),
+    ),
     'water_content' => array(
       'label' => t('Water content'),
     ),
