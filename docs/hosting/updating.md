@@ -1,5 +1,7 @@
 # Updating farmOS
 
+**ALWAYS BACKUP YOUR DATABASE, CODE, AND FILES BEFORE ATTEMPTING AN UPDATE!**
+
 New versions of farmOS will be released on a regular basis, and it's important
 to stay up-to-date so that you can receive new features, bug fixes, and security
 patches when they become available.
@@ -35,7 +37,7 @@ following procedure will ensure that your update goes smoothly.
 **Docker note**: if you are hosting farmOS in Docker, see
 [Hosting farmOS with Docker] for Docker-specific update instructions.
 
-1. Backup your code and database! Always do this before making big changes. Be
+1. **Backup your database, code, and files!** Always do this before updating. Be
    ready and able to roll-back in the event that something goes wrong.
 2. Download the new recommended release of farmOS from
    [https://drupal.org/project/farm]
