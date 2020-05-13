@@ -6,28 +6,13 @@ New versions of farmOS will be released on a regular basis, and it's important
 to stay up-to-date so that you can receive new features, bug fixes, and security
 patches when they become available.
 
-## Do not use Drupal's automatic update feature
+It is recommended that you either download the officially packaged releases of
+farmOS from [https://drupal.org/project/farm] or run [farmOS on Docker]. This
+will ensure that the necessary patches are applied, and that the farmOS
+distribution updates are included.
 
-Drupal provides an interface for downloading and updating contributed modules
-automatically.
-
-**This process may break your farmOS system.**
-
-farmOS is a Drupal distribution, and includes patches to some contributed
-Drupal modules that are necessary for proper functioning. Drupal's automatic
-update feature will not apply the necessary patches when it downloads the new
-version of a module.
-
-It also does not support updating Drupal distributions (only modules and
-themes). farmOS is a Drupal distribution, and new versions often include
-automated update code to ensure a smooth update from one version of farmOS to
-the next.
-
-Therefore, it is recommended that you either download the officially packaged
-releases of farmOS from [https://drupal.org/project/farm],
-[build it yourself with Drush], or run [farmOS on Docker]. This will ensure
-that the necessary patches are applied, and that the farmOS distribution
-updates are included.
+**Note that automatic updates through Drupal's UI are disabled by farmOS** See
+[https://drupal.org/node/3136140] for more information.
 
 ## Update procedure
 
@@ -55,13 +40,11 @@ Optionally:
 
     `drush fra`
 
+[https://drupal.org/project/farm]: https://drupal.org/project/farm
+[farmOS on Docker]: /development/docker
+[https://drupal.org/node/3136140]: https://drupal.org/node/3136140
 [updating Drupal core]: https://drupal.org/node/1223018
 [Hosting farmOS with Docker]: /hosting/docker
-[https://drupal.org/project/farm]: https://drupal.org/project/farm
-[build it yourself with Drush]: /hosting/installing
-[farmOS on Docker]: /development/docker
-[Drush]: https://github.com/drush-ops/drush
-[Drush Registry Rebuild]: https://drupal.org/project/registry_rebuild
 [Run database updates]: https://drupal.org/upgrade/running-update-php
 [developing with updates in mind]: /development/update-safety
 
