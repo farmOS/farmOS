@@ -21,7 +21,9 @@ class FarmFormatJSON extends RestWSFormatJSON {
     // If the resource is a taxonomy term, show the term name alongside its ID.
     if ($resource == 'taxonomy_term') {
       $term = taxonomy_term_load($id);
-      $return['name'] = $term->name;
+      if (!empty($term)) {
+        $return['name'] = $term->name;
+      }
     }
 
     return $return;
