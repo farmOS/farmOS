@@ -601,7 +601,7 @@ function farm_theme_preprocess_field(&$vars) {
 
       // Populate the values that are not empty.
       foreach ($qty as $key => &$value) {
-        if ($values['field_farm_quantity_' . $key][0]['#markup'] != '') {
+        if (isset($values['field_farm_quantity_' . $key][0]['#markup']) && $values['field_farm_quantity_' . $key][0]['#markup'] != '') {
           $value = $values['field_farm_quantity_' . $key][0]['#markup'];
         }
       }
