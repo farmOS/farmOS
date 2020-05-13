@@ -509,7 +509,7 @@ and a "2020" season term all at the same time:
       "name": "2020 Spinach",
       "type": "planting",
       "crop": [{"name": "Spinach"}],
-      "season": {"name": "2020"},
+      "season": [{"name": "2020"}],
     }
 
 **Creating an area**
