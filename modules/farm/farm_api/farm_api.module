@@ -405,6 +405,37 @@ function farm_api_restws_request_alter(array &$request) {
   // If a taxonomy term name is provided, look up its term ID. If it does not
   // exist, create it.
   foreach ($payload as $field_name => $field_values) {
+
+    // Add special logic for the "unit" field in "Quantity" field collections.
+    // Field collections are handled by the restws_field_collection module, and
+    // they are skipped inside farm_api_field_alias_map(), so we just look for a
+    // $field_name of "quantity", process any provided "name" through
+    // farm_term(), set the term ID, and then let restws_field_collection do the
+    // rest.
+    if ($field_name == 'quantity') {
+
+      // Set the vocabulary machine name.
+      $vocabulary = 'farm_quantity_units';
+
+      // Iterate through field collection values and convert unit names to tids.
+      if (!empty($field_values)) {
+        foreach ($field_values as $delta => $field_value) {
+          if (!empty($field_value['unit']['name'])) {
+            $term = farm_term($field_value['unit']['name'], $vocabulary);
+            if (!empty($term->tid)) {
+              $payload[$field_name][$delta]['unit']['id'] = $term->tid;
+              unset($payload[$field_name][$delta]['unit']['name']);
+            }
+            $changed = TRUE;
+          }
+        }
+      }
+
+      // We don't need to go any farther than this, so end this iteration.
+      continue;
+    }
+
+    // Look up the field information and process taxonomy term names.
     $field_info = field_info_field($field_name);
     if (empty($field_info)) {
       continue;
