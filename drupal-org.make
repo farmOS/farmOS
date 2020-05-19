@@ -95,6 +95,8 @@ projects[navbar][version] = "1.7"
 
 projects[oauth2_server][subdir] = "contrib"
 projects[oauth2_server][version] = "1.7"
+; Fix Issue #2859214: Serialization/Deadlock issue under high load
+projects[oauth2_server][patch][] = "http://www.drupal.org/files/issues/oauth2-deadlock-d7.patch"
 
 projects[pathauto][subdir] = "contrib"
 projects[pathauto][version] = "1.3"
