@@ -26,7 +26,7 @@ specific farmOS URL, username, and password.
 There are three ways to authenticate with a farmOS server:
 
 1. OAuth2 Authorization Tokens (recommended)
-2. Session Cookie and Token
+2. Session Cookie and CSRF Token
 3. Basic Authentication
 
 ### 1. OAuth2 Authorization Tokens
@@ -48,18 +48,9 @@ Once you have an OAuth2 token, you can pass it to farmOS with an
 
     -H "Authorization: Bearer [OAUTH-TOKEN]"
 
-In order to perform `POST` or `PUT` requests, you also need to get an CSRF token
-from `/restws/session/token`:
-
-    TOKEN="$(curl -H "Authorization: Bearer [OAUTH-TOKEN]" [URL]/restws/session/token)"
-
-Then both tokens can be included with subsequent `curl` via `-H` parameters:
-
-    -H "Authorization: Bearer [OAUTH-TOKEN]" -H "X-CSRF-Token: ${TOKEN}"
-
 This should be used to replace `[AUTH]` in the `curl` examples that follow.
 
-### 2. Session Cookie and Token
+### 2. Session Cookie and CSRF Token
 
 The old approach (before OAuth2 was introduced in farmOS 7.x-1.4), was to
 authenticate via Drupal's `user_login` form and save the session cookie provided
