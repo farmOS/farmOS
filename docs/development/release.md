@@ -12,6 +12,7 @@ are taken.
 * Make sure all contrib modules are up-to-date (e.g. [farmOS/farmOS@d831fef])
     * If any updated contrib modules are patched in farmOS, evaluate whether or
       not the patch is still necessary (e.g. [farmOS/farmOS@7d2e30a])
+* Ensure that the [7.x-1.x Build Test GitHub Action] is building successfully.
 * Ensure that the [7.x-1.x Docker Hub image] is building successfully.
 * Test all update hooks
 * Test fresh Drush make build and installation
@@ -70,6 +71,7 @@ are taken.
 [farmOS/farmOS@028dc18]: https://github.com/farmOS/farmOS/commit/028dc18af52fb137617db6bd8df5006238ca9fb6
 [farmOS/farmOS@d831fef]: https://github.com/farmOS/farmOS/commit/d831fef9900a75050a4b18e1c8ed9599ef4d82c9
 [farmOS/farmOS@7d2e30a]: https://github.com/farmOS/farmOS/commit/7d2e30a9d9e69baa508c3dddb4d79c68b0fc7120
+[7.x-1.x Build Test GitHub Action]: https://github.com/farmOS/farmOS/actions
 [7.x-1.x Docker Hub image]: https://hub.docker.com/r/farmos/farmos/builds
 [7.x-1.1]: https://www.drupal.org/project/farm/releases/7.x-1.1
 [farmOS project page]: https://drupal.org/project/farm
