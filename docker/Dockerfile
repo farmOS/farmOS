@@ -2,8 +2,8 @@
 FROM drupal:7
 
 # Set the farmOS version to download.
-ARG FARMOS_VERSION=7.x-1.4
-#ARG FARMOS_VERSION=7.x-1.x-dev
+#ARG FARMOS_VERSION=7.x-1.4
+ARG FARMOS_VERSION=7.x-1.x-dev
 
 # Enable Apache rewrite module.
 RUN a2enmod rewrite
