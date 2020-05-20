@@ -126,7 +126,7 @@ projects[restws_file][version] = "1.3"
 projects[restws_file][patch][] = "http://www.drupal.org/files/issues/2019-10-26/restws_file-bundlenotice-3019850-3.patch"
 
 projects[restws_oauth2_server][subdir] = "contrib"
-projects[restws_oauth2_server][version] = "1.0-beta2"
+projects[restws_oauth2_server][version] = "1.0-beta3"
 
 projects[strongarm][subdir] = "contrib"
 projects[strongarm][version] = "2.0"
