@@ -23,13 +23,40 @@ specific farmOS URL, username, and password.
 
 ## Authentication
 
-### Cookie and Token
+There are three ways to authenticate with a farmOS server:
 
-The simplest approach is to authenticate via Drupal's `user_login` form and
-save the session cookie provided by Drupal. Then, you can use that to retrieve
-a CSRF token from `[URL]/restws/session/token`, which is provided and required
-by the `restws` module. The cookie and token can then be included with each API
-request.
+1. OAuth2 Authorization Tokens (recommended)
+2. Session Cookie and CSRF Token
+3. Basic Authentication
+
+### 1. OAuth2 Authorization Tokens
+
+farmOS includes an OAuth2 Authorization server for providing 3rd party clients 
+access to the farmOS API. Rather than using a user's username and password to
+authenticate, OAuth2 uses access tokens to authenticate users. The access tokens
+are provided to both 1st and 3rd party clients who wish to access a user's 
+protected resources from a server. Clients store the access token instead of the
+user's credentials, which makes it a more secure authentication method.
+
+Read more about the [OAuth 2.0 standards]
+
+For more information about authenticating with OAuth2, see the
+[OAuth2 Details](#oauth2-details) section below.
+
+Once you have an OAuth2 token, you can pass it to farmOS with an
+`Authorization: Bearer` header.
+
+    -H "Authorization: Bearer [OAUTH-TOKEN]"
+
+This should be used to replace `[AUTH]` in the `curl` examples that follow.
+
+### 2. Session Cookie and CSRF Token
+
+The old approach (before OAuth2 was introduced in farmOS 7.x-1.4), was to
+authenticate via Drupal's `user_login` form and save the session cookie provided
+by Drupal. Then, you can use that to retrieve a CSRF token from
+`[URL]/restws/session/token`, which is provided and required by the `restws`
+module. The cookie and token can then be included with each API request.
 
 The following `curl` command will authenticate using the username and password,
 and save the session cookie to a file called `farmOS-cookie.txt`. Then it will
@@ -46,7 +73,7 @@ subsequent `curl` requests via the `--cookie` and `-H` parameters:
 
 This should be used to replace `[AUTH]` in the `curl` examples that follow.
 
-### Basic Authentication
+### 3. Basic Authentication
 
 An alternative approach is to use [HTTP Basic Authentication].
 
@@ -125,7 +152,7 @@ necessary when creating new terms (see [Creating taxonomy terms]).
 
 ### API Version
 
-**Current API version: 1.2**
+**Current API version: 1.3**
 
 It is *highly* recommended that you check the API version of the farmOS system
 you are communicating with, to be sure that your code is using the same version.
@@ -183,6 +210,30 @@ The endpoint to use depends on the entity type you are requesting:
 
 &ast; Note that areas are currently represented as Drupal taxonomy terms, but may be
 changed to assets in the future. See [Make "Area" into a type of Farm Asset].
+
+**Filtering**
+
+Filters can be applied via query parameters tacked on to the end of the URL. For
+example, to show only "done" logs:
+
+    /log.json?done=1
+
+Refer to lists of fields under "Creating records" below for available filters.
+
+When a record references other records (for example, a log that references an
+asset), you must filter by the referenced record's ID. For example, to find logs
+that reference asset ID 5:
+
+    /log.json?asset=5
+
+Taxonomy term references are an exception to this rule. It is possible to filter
+using the name of the term, rather than the ID. For example, to show logs with
+a category of "Tillage":
+
+    /log.json?log_category=Tillage
+
+The term name is also included in the returned JSON structure, alongside the
+term ID, so that extra requests to look up term names are not necessary.
 
 ## Creating records
 
@@ -436,6 +487,21 @@ Then, you can create a new term (replace `[VID]` with the ID of the vocabulary
 the term should be added to):
 
     curl [AUTH] -X POST -H 'Content-Type: application/json' -d '{"name": "Broccoli", "vocabulary": "[VID]"}' [URL]/taxonomy_term
+
+For convenience, it is possible to create terms on-the-fly when creating or 
+updating other records that reference them. Simply provide the `name` of the
+term instead of the `tid`, and farmOS will attempt to look up the existing term,
+or create a new one.
+
+For example, to create a "2020 Spinach" planting asset, a "Spinach" crop term,
+and a "2020" season term all at the same time:
+
+    {
+      "name": "2020 Spinach",
+      "type": "planting",
+      "crop": [{"name": "Spinach"}],
+      "season": [{"name": "2020"}],
+    }
 
 **Creating an area**
 
@@ -697,6 +763,241 @@ file). This will create a new observation log with the file attached to the
     {"name": "Test file upload via REST", "type": "farm_observation", "timestamp": "1534261642", "images": ["data:${FILE_MIME};base64,${FILE_CONTENT}"]}
     CURL_DATA
 
+## OAuth2 Details
+
+The following describes more of the details necessary for using OAuth2 for
+authentication with a farmOS server.
+
+### Scopes
+
+OAuth Scopes define different levels of permission. Two scopes are included with
+farmOS:
+
+* `user_access`: This allows full user access to the farmOS server. With this
+  scope, a third party can do anything the farmOS user account has permission to
+  do.
+* `farm_info`: Allows access to data at `/farm.json`
+
+### Clients
+
+In order to connect to farmOS via OAuth2, there must be a "client" configured on
+the server that corresponds to the client that will be making the requests. This
+is necessary so that tokens can be revoked from specific clients.
+
+The core `farm_api` module provides a default client called `farm`, which
+supports the **Password Credentials** and **Refresh Token** grants (more info in
+"Authorization Flows" below). If you are writing a custom script that
+communicates with farmOS via the API, this is the recommended approach for
+authenticating with username and password.
+
+The core `farm_api` module also comes with a `farm_api_development` module that
+can be enabled for testing different OAuth authorization flows. For the purposes
+of documentation, this client is used in below examples. This module defines
+an OAuth client with the following parameters:
+
+* `client_id` = `farmos_development`
+* `client_secret` = None. This client does not require a `client_secret`
+* `redirect_uri` = `http://localhost/api/authorized` (This is required for the
+  Authorization Code Grant)
+
+A client can be added via a farmOS module by implementing
+`hook_farm_api_oauth2_client()`. The following example defines a client for a
+fictional farmOS Aggregator called "My Aggregator":
+
+    <?php
+
+    /**
+     * Implements hook_farm_api_oauth2_client().
+     */
+    function myaggregator_farm_api_oauth2_client() {
+      $clients = array();
+
+      // Define an OAuth2 client for My Aggregator.
+      $redirect_uris = array(
+        'https://myfarmosaggregator.com/register-farm',
+        'https://myfarmosaggregator.com/authorize-farm',
+      );
+      $clients['my_aggregator'] = array(
+        'label' => 'My Aggregator',
+        'client_key' => 'my_farmos_client',
+        'redirect_uri' => implode("\n", $aggregator_redirect_uris),
+      );
+
+      return $clients;
+    }
+
+### Authorization Flows
+
+The [OAuth 2.0 standards] outline 5 [Oauth2 Grant Types] to be used in an OAuth2
+Authorization Flow - They are the *Authorization Code, Implicit, Password
+Credentials, Client Credentials* and *Refresh Token* Grants. Currently, the
+farmOS OAuth Server only supports the **Authorization Code**,
+**Password Credentials** and **Refresh Token** grants. The 
+[Authorization Code](#authorization-code-grant) and
+[Refresh Token](#refreshing-tokens) grants are the only Authorization Flows
+recommended by farmOS for use with 3rd party clients.
+
+**NOTE:** Only use the **Password Grant** if the client can be trusted with a
+farmOS username and password (this is considered *1st party*). The
+**Client Credentials Grant** is often used for machine authentication not
+associated with a user account. Due to limitations with the Drupal 7
+[oauth2_server] module, access tokens provided via the Client Credentials Grant
+cannot be associated with the Drupal Permissions system to access protected
+resources. farmOS will hopefully support the Client Credentials Grant when
+farmOS migrates to Drupal 8 and can use the [simple_oauth] module.
+
+#### Authorization Code Grant
+
+The Authorization Code Grant is most popular for 3rd party client authorization.
+
+Requesting resources is a four step process:
+
+**First**: the client sends a request to the farmOS server `/oauth2/authorize`
+endpoint requesting an `Authorization Code`. The user logs in and authorizes
+the client to have the OAuth Scopes it is requesting.
+    
+    Copy this link to browser -
+    http://localhost/oauth2/authorize?response_type=code&client_id=farmos_development&scope=user_access&redirect_uri=http://localhost/api/authorized&state=p4W8P5f7gJCIDbC1Mv78zHhlpJOidy
+   
+**Second**: after the user accepts, the server redirects
+to the `redirect_uri` with an authorization `code` and `state` in the query
+parameters.
+
+    Example redirect url from server:
+    http://localhost/api/authorized?code=9eb9442c7a2b011fd59617635cca5421cd089943&state=p4W8P5f7gJCIDbC1Mv78zHhlpJOidy
+        
+**Third**: copy the `code` and `state` from the URL into the body of a POST request.
+The `grant_type`, `client_id`, `client_secret` and `redirect_uri` must also be
+included in the POST body. The client makes a POST request to the
+`/oauth2/token` endpoint to retrieve an `access_token` and `refresh_token`.
+
+    foo@bar:~$ curl -X POST -d "grant_type=authorization_code&code=ae4d1381cc67def1c10dc88a19af6ac30d7b5959&client_id=farmos_development&redirect_uri=http://localhost/api/authorized" http://localhost/oauth2/token
+    {"access_token":"3f9212c4a6656f1cd1304e47307927a7c224abb0","expires_in":"10","token_type":"Bearer","scope":"user_access","refresh_token":"292810b04d688bfb5c3cee28e45637ec8ef1dd9e"}
+
+**Fourth**: the client sends the access token in the request header to access protected
+resources. The header is an Authorization header with a Bearer token: 
+ `Authorization: Bearer access_token`
+    
+    foo@bar:~$ curl --header "Authorization: Bearer b872daf5827a75495c8194c6bfa4f90cf46c143e" http://localhost/farm.json
+    {"name":"farmos-server","url":"http:\/\/localhost","api_version":"1.1","user":{"uid":"1","name":"admin", .... 
+   
+#### Password Credentials Grant
+
+**NOTE:** Only use the **Password Grant** if the client can be trusted with a
+farmOS username and password (this is considered *1st party*).
+
+The Password Credentials Grant uses a farmOS `username` and `password` to 
+retrieve an `access_token` and `refresh_token` in one step. For the user, this
+is the simplest type of *authorization.* Because the client can be trusted with
+their farmOS Credentials, a users `username` and `password` can be collected
+directly into a login form within the client application. These credentials are
+then used (not stored) to request tokens which are used for *authentication* 
+with the farmOS server and retrieving data.
+
+Requesting protected resources is a two step process:
+
+**First**, the client sends a POST request to the farmOS server `/oauth2/token`
+endpoint with `grant_type` set to `password` and a `username` and `password`
+included in the request body.
+
+    $ curl -X POST -d "grant_type=password&username=username&password=test&client_id=farm&scope=user_access" http://localhost/oauth2/token
+    {"access_token":"e69c60dea3f5c59c95863928fa6fb860d3506fe9","expires_in":"300","token_type":"Bearer","scope":"user_access","refresh_token":"cead7d46d18d74daea83f114bc0b512ec4cc31c3"}
+
+**second**, the client sends the `access_token` in the request header to access protected
+resources. The header is an Authorization header with a Bearer token: 
+ `Authorization: Bearer access_token`
+    
+    foo@bar:~$ curl --header "Authorization: Bearer e69c60dea3f5c59c95863928fa6fb860d3506fe9" http://localhost/farm.json
+    {"name":"farmos-server","url":"http:\/\/localhost","api_version":"1.1","user":{"uid":"1","name":"admin", .... 
+
+#### Refreshing Tokens
+
+The `refresh_token` can be used to retrieve a new `access_token` if the token
+has expired.
+
+It is a one step process:
+
+The client sends an authenticated request to the `/oauth2/token`endpoint with
+`grant_type` set to `refresh_token` and includes the `refresh_token`,
+`client_id` and `client_secret` in the request body.
+
+    foo@bar:~$ curl -X POST -H 'Authorization: Bearer ad52c04d26c1002084501d28b59196996f0bd93f' -d 'refresh_token=52e7a0e12e8ddd08b155b3b3ee385687fef01664&grant_type=refresh_token&client_id=farmos_api_client&client_secret=client_secret' http://localhost/oauth2/token
+    {"access_token":"acdbfabb736e42aa301b50fdda95d6b7fd3e7e14","expires_in":"300","token_type":"Bearer","scope":"user_access","refresh_token":"b73f4744840498a26f43447d8cf755238bfd391a"} 
+   
+The server responds with an `access_token` and `refresh_token` that can be used
+in future requests. The previous `access_token` and `refresh_token` will no
+longer work.
+
+### OAuth2 Authorization with the farmOS API
+
+#### Authorization in farmOS.py
+
+Support for OAuth was added to [farmOS.py] starting with v0.1.6. To authorize
+and authenticate via OAuth, just supply the required parameters when creating
+a client. The library will know to use an OAuth Password Credentials or 
+Authorization Code flow.
+
+##### Password Credentials Flow:
+
+    farm_client = farmOS(
+        hostname=url,
+        username=farmos_username,
+        password=farmos_password,
+        client_id="farm",
+        scope="user_access",
+        # Supply a profile name so the tokens are saved to config
+        profile_name="farm"
+    )
+
+Running from a Python Console, the `password` can also be omitted and entered
+at runtime. This allows testing without saving a password in plaintext:
+
+    >>> from farmOS import farmOS
+    >>> farm_client = farmOS(hostname="http://localhost", username=farmos_username, client_id="farm", scope="user_access")
+    >>> Warning: Password input may be echoed.
+    >>> Enter password: >? MY_PASSWORD
+    >>> farm_client.info()
+    'name': 'server-name', 'url': 'http://localhost', 'api_version': '1.2', 'user': ....
+
+##### Authorization Code Flow:
+
+It's also possible to run the Authorization Code Flow from the Python console.
+This is great way to test the Authorization process users will go through. The
+console will print a link to navigate to where you sign in to farmOS and 
+complete the authorization process. You then copy the `link` from the page you
+are redirected to back into the console. This supplies the `farm_client` with
+an an authorization `code` that it uses to request an OAuth `token`. 
+
+    >>> farm_client = farmOS(hostname="http://localhost", client_id="farmos_development", scope="user_access")
+    Please go here and authorize, http://localhost/oauth2/authorize?response_type=code&client_id=farmos_development&redirect_uri=http%3A%2F%2Flocalhost%2Fapi%2Fauthorized&scope=user_access&state=V9RCDd4yrSWZP8iGXt6qW51sYxsFZs&access_type=offline&prompt=select_account
+    Paste the full redirect URL here:>? http://localhost/api/authorized?code=33429f3530e36f4bdf3c2adbbfcd5b7d73e89d5c&state=V9RCDd4yrSWZP8iGXt6qW51sYxsFZs
+
+    >>> farm_client.info()
+    'name': 'server-name', 'url': 'http://localhost', 'api_version': '1.2', 'user': ....
+
+##### Supplying an existing token:
+
+It can also be useful to create a client with an existing OAuth Token. This is
+possible by supplying the `token` parameter:
+
+    token = {
+        'access_token': "token",
+        'refresh_token': "token",
+    }
+
+    farm_client = farmOS(
+        hostname=url,
+        client_id=client_id,
+        client_secret=client_secret,
+        scope=scope,
+        token=token,
+    )
+
+This is how the [farmOS Aggregator] uses [farmOS.py] to communicate with farmOS
+servers. OAuth tokens are stored in the Aggregator's database instead of
+usernames and passwords. See how this is implemented in code 
+[here](https://github.com/farmOS/farmOS-aggregator/blob/master/backend/app/app/api/utils/farms.py#L195)
+
 ## Troubleshooting
 
 Some common issues and solutions are described below. If these do not help,
@@ -710,6 +1011,8 @@ submit a support request on [GitHub] or ask questions in the
   Most frameworks/languages provide functions for generating/converting
   dates/times to this format. Only Unix timestamps will be accepted by the API.
 
+[farmOS.py]: https://github.com/farmOS/farmOS.py
+[farmOS Aggregator]: https://github.com/farmOS/farmOS-aggregator
 [REST API]: https://en.wikipedia.org/wiki/Representational_state_transfer
 [CRUD]: https://en.wikipedia.org/wiki/Create,_read,_update_and_delete
 [record types]: /development/architecture
@@ -732,3 +1035,7 @@ submit a support request on [GitHub] or ask questions in the
 [GitHub]: https://github.com/farmOS/farmOS
 [farmOS chat room]: https://riot.im/app/#/room/#farmOS:matrix.org
 [Unix timestamp]: https://en.wikipedia.org/wiki/Unix_time
+[OAuth 2.0 standards]: https://oauth.net/2/
+[OAuth2 Grant Types]: https://oauth.net/2/grant-types/
+[oauth2_server]: https://www.drupal.org/project/oauth2_server
+[simple_oauth]: https://www.drupal.org/project/simple_oauth/
