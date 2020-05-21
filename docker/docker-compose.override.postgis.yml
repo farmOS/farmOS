@@ -1,7 +1,7 @@
 version: '2'
 services:
   db:
-    image: mdillon/postgis:latest
+    image: postgis/postgis:latest
     volumes:
       - './db:/var/lib/postgresql/data'
     ports:
@@ -9,3 +9,4 @@ services:
     environment:
       POSTGRES_USER: farm
       POSTGRES_PASSWORD: farm
+    restart: unless-stopped
