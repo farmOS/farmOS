@@ -387,7 +387,7 @@ function farm_livestock_weight_group_report(&$form_state) {
   sort($all_log_dates);
 
   // Create a header for CSV and HTML Table
-  $header = array('AssetID', 'AssetName', 'Group');
+  $header = array('Asset ID', 'Asset Name', 'Group');
 
   // Add columns for each date collected.
   foreach ($all_log_dates as $date) {
