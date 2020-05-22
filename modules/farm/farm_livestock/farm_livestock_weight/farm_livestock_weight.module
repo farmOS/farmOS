@@ -156,9 +156,6 @@ function farm_livestock_weight_group_report_form($form, &$form_state) {
   $query->entityCondition('bundle', 'group');
   $query->propertyOrderBy('name', 'ASC');
 
-  // Limit to non-archived groups.
-  $query->propertyCondition('archived', 0);
-
   // Execute the query and build a list of options.
   $options = array();
   $result = $query->execute();
@@ -168,7 +165,11 @@ function farm_livestock_weight_group_report_form($form, &$form_state) {
     if (!empty($groups)) {
       foreach ($groups as $group) {
         if (!empty($group->id)) {
-          $options[$group->id] = entity_label('farm_asset', $group);
+          $label = entity_label('farm_asset', $group);
+          if ($group->archived) {
+            $label = $label . ' (' . t('archived') . ')';
+          }
+          $options[$group->id] = $label;
         }
       }
     }
