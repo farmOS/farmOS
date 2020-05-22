@@ -411,8 +411,12 @@ function farm_livestock_weight_group_report(&$form_state) {
   foreach ($animals as $animal) {
     // Add a row of data.
     $row = array();
+    $name_label = $animal->name;
+    if ($animal->archived) {
+      $name_label = $name_label . ' (' . t('archived') . ')';
+    }
     $row[] = $animal->id;
-    $row[] = $animal->name;
+    $row[] = $name_label;
     $row[] = $animal->group->name;
 
     // Save the logs.
