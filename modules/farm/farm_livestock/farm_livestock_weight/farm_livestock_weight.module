@@ -193,6 +193,11 @@ function farm_livestock_weight_group_report_form($form, &$form_state) {
     '#multiple' => TRUE,
   );
 
+  $form['input']['archived'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Include archived animals'),
+  );
+
   // Provide a default date in the format YYYY-MM-DD.
   $format = 'Y-m-d';
   $current_date = date($format, REQUEST_TIME);
@@ -281,6 +286,9 @@ function farm_livestock_weight_group_report(&$form_state) {
   // Get the submitted group IDs to include in the report.
   $group_ids = $form_state['values']['group'];
 
+  // Check if we should include archived assets.
+  $archived = $form_state['values']['archived'];
+
   // Get the start and end dates.
   $start_date = strtotime($form_state['values']['start_date']);
   $end_date = strtotime($form_state['values']['end_date']);
@@ -300,7 +308,7 @@ function farm_livestock_weight_group_report(&$form_state) {
     $group_name = $group->name;
 
     // Load the farm group members.
-    $members = farm_group_members($group);
+    $members = farm_group_members($group, REQUEST_TIME, TRUE, $archived);
 
     // Loop through members.
     foreach ($members as $asset) {
