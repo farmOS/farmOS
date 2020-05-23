@@ -351,7 +351,7 @@ function farm_crop_planting_quick_form_submit($form, &$form_state) {
   $planting_wrapper = entity_metadata_wrapper('farm_asset', $planting_asset);
 
   // Add the season.
-  $planting_wrapper->field_farm_season = $season_term;
+  $planting_wrapper->field_farm_season[] = $season_term;
 
   // Add the crop(s).
   foreach ($crops as $crop) {
