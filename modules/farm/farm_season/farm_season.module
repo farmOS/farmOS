@@ -19,3 +19,44 @@ function farm_season_farm_ui_entities() {
     ),
   );
 }
+
+/**
+ * Parse a string of season names and return an array of loaded season entities. If
+ * season names do not exist, they can optionally be created.
+ *
+ * @param string $names
+ *   A comma-separated list of season names.
+ * @param bool $create
+ *   Whether or not to create seasons that don't exist. Defaults to FALSE.
+ *
+ * @return array
+ *   Returns an array of season objects. If the season names exist, they will be
+ *   loaded from the database. Otherwise, they will be created.
+ */
+function farm_season_parse_names($names, $create = FALSE) {
+
+  // Start with an empty array.
+  $seasons = array();
+
+  // Explode the value into an array and only take the first value.
+  // (Same behavior as taxonomy autocomplete widget.)
+  $values = drupal_explode_tags($names);
+
+  // If the value is empty, bail.
+  if (empty($values)) {
+    return $seasons;
+  }
+
+  // Iterate through the values and build an array of seasons.
+  foreach ($values as $value) {
+
+    // Create/load the season term.
+    $season = farm_term($value, 'farm_season', $create);
+
+    // Add to the array of seasons.
+    $seasons[] = $season;
+  }
+
+  // Return the array of seasons.
+  return $seasons;
+}
