@@ -32,7 +32,7 @@ function farm_crop_planting_quick_form($form, &$form_state) {
   $form['planting']['season'] = array(
     '#type' => 'textfield',
     '#title' => t('Season'),
-    '#description' => t('What season will this planting be part of? This is used for organizing plantings for future reference, and can be something like "@year" or "@year Summer". This will be prepended to the planting asset name.', array('@year' => date('Y'))),
+    '#description' => t('What season(s) will this planting be part of? This is used for organizing plantings for future reference, and can be something like "@year" or "@year Summer". This will be prepended to the planting asset name.', array('@year' => date('Y'))),
     '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_season',
     '#default_value' => $season,
     '#ajax' => array(
@@ -330,7 +330,7 @@ function farm_crop_planting_quick_form_submit($form, &$form_state) {
   variable_set('farm_crop_planting_season', $season);
 
   // Load/create the season term.
-  $season_term = farm_term($season, 'farm_season');
+  $seasons = farm_season_parse_names($season, TRUE);
 
   // Get the crop(s) and load/create terms for each.
   $crops = array();
@@ -350,8 +350,10 @@ function farm_crop_planting_quick_form_submit($form, &$form_state) {
   $planting_asset = entity_create('farm_asset', $values);
   $planting_wrapper = entity_metadata_wrapper('farm_asset', $planting_asset);
 
-  // Add the season.
-  $planting_wrapper->field_farm_season[] = $season_term;
+  // Add each season.
+  foreach ($seasons as $season) {
+    $planting_wrapper->field_farm_season[] = $season;
+  }
 
   // Add the crop(s).
   foreach ($crops as $crop) {
