@@ -56,3 +56,44 @@ function farm_term($name, $vocabulary, $create = TRUE, $load = TRUE) {
     return FALSE;
   }
 }
+
+/**
+ * Parse a string of term names and return an array of loaded term entities. If
+ * term names do not exist, they can optionally be created.
+ *
+ * @param string $names
+ *   A comma-separated list of term names.
+ * @param bool $create
+ *   Whether or not to create terms that don't exist. Defaults to FALSE.
+ *
+ * @return array
+ *   Returns an array of term objects. If the term names exist, they will be
+ *   loaded from the database. Otherwise, they will be created.
+ */
+function farm_term_parse_names($names, $vocabulary, $create = FALSE) {
+
+  // Start with an empty array.
+  $terms = array();
+
+  // Explode the value into an array and only take the first value.
+  // (Same behavior as taxonomy autocomplete widget.)
+  $values = drupal_explode_tags($names);
+
+  // If the value is empty, bail.
+  if (empty($values)) {
+    return $terms;
+  }
+
+  // Iterate through the values and built an array of terms.
+  foreach ($values as $value) {
+
+    // Create/load the term.
+    $term = farm_term($value, $vocabulary, $create);
+
+    // Add to the array of terms.
+    $terms[] = $term;
+  }
+
+  // Return the array of terms.
+  return $terms;
+}

@@ -143,33 +143,11 @@ function farm_area_type_options() {
  * @return array
  *   Returns an array of area objects. If the area names exist, they will be
  *   loaded from the database. Otherwise, they will be created.
+ *
+ * @see farm_term_parse_names()
  */
 function farm_area_parse_names($names, $create = FALSE) {
-
-  // Start with an empty array.
-  $areas = array();
-
-  // Explode the value into an array and only take the first value.
-  // (Same behavior as taxonomy autocomplete widget.)
-  $values = drupal_explode_tags($names);
-
-  // If the value is empty, bail.
-  if (empty($values)) {
-    return $areas;
-  }
-
-  // Iterate through the values and built an array of areas.
-  foreach ($values as $value) {
-
-    // Create/load the area term.
-    $area = farm_term($value, 'farm_areas', $create);
-
-    // Add to the array of areas.
-    $areas[] = $area;
-  }
-
-  // Return the array of areas.
-  return $areas;
+  return farm_term_parse_names($names, 'farm_areas', $create);
 }
 
 /**
