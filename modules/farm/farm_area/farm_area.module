@@ -145,6 +145,8 @@ function farm_area_type_options() {
  *   loaded from the database. Otherwise, they will be created.
  *
  * @see farm_term_parse_names()
+ *
+ * @deprecated Use farm_term_parse_names() instead.
  */
 function farm_area_parse_names($names, $create = FALSE) {
   return farm_term_parse_names($names, 'farm_areas', $create);

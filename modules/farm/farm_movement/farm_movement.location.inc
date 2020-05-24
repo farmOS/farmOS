@@ -179,7 +179,7 @@ function farm_movement_asset_location_submit(array $form, array &$form_state) {
   $asset = $form_state['values']['farm_asset'];
 
   // Load the areas.
-  $areas = farm_area_parse_names($form_state['values']['location']['areas'], TRUE);
+  $areas = farm_term_parse_names($form_state['values']['location']['areas'], 'farm_areas', TRUE);
 
   // Create an observation log to record the movement.
   farm_movement_create($asset, $areas, REQUEST_TIME);
@@ -849,7 +849,7 @@ function farm_movement_asset_move_action_submit(array $form, array $form_state) 
   $context = array();
 
   // Load the areas.
-  $context['areas'] = farm_area_parse_names($form_state['values']['areas'], TRUE);
+  $context['areas'] = farm_term_parse_names($form_state['values']['areas'], 'farm_areas', TRUE);
 
   // Convert the date to a timestamp.
   $timestamp = strtotime($form_state['values']['date']);

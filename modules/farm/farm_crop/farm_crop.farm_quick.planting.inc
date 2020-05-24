@@ -387,7 +387,7 @@ function farm_crop_planting_quick_form_submit($form, &$form_state) {
     // If the location is available, load areas.
     $areas = array();
     if (!empty($log_values['location'])) {
-      $areas = farm_area_parse_names($log_values['location'], TRUE);
+      $areas = farm_term_parse_names($log_values['location'], 'farm_areas', TRUE);
     }
 
     // Build quantity measurements.
