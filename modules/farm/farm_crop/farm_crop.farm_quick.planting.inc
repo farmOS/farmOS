@@ -330,7 +330,7 @@ function farm_crop_planting_quick_form_submit($form, &$form_state) {
   variable_set('farm_crop_planting_season', $season);
 
   // Load/create the season term.
-  $seasons = farm_season_parse_names($season, TRUE);
+  $seasons = farm_term_parse_names($season, 'farm_season', TRUE);
 
   // Get the crop(s) and load/create terms for each.
   $crops = array();
