@@ -441,12 +441,17 @@ function farm_api_restws_request_alter(array &$request) {
       continue;
     }
     if ($vocabulary = drupal_array_get_nested_value($field_info, array('settings', 'allowed_values', '0', 'vocabulary'))) {
+
+      // If the field values contains a "name" property, we assume that it is a
+      // single value field, so we convert it to an array and remember to
+      // convert it back at the end.
       $single = FALSE;
-      // Check if this is a single value term reference field.
       if (isset($field_values['name'])) {
         $field_values = array($field_values);
         $single = TRUE;
       }
+
+      // Iterate through the field values and process term names.
       foreach ($field_values as $delta => $field_value) {
         if (!empty($field_value['name'])) {
           $term = farm_term($field_value['name'], $vocabulary);
