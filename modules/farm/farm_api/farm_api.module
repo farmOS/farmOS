@@ -442,7 +442,8 @@ function farm_api_restws_request_alter(array &$request) {
     }
     if ($vocabulary = drupal_array_get_nested_value($field_info, array('settings', 'allowed_values', '0', 'vocabulary'))) {
       $single = FALSE;
-      if (!is_array($field_values)) {
+      // Check if this is a single value term reference field.
+      if (isset($field_values['name'])) {
         $field_values = array($field_values);
         $single = TRUE;
       }
