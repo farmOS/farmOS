@@ -73,7 +73,13 @@ enhancements if they are available.
   "Geolocate" button on maps) will only work when over a secure connection.
   [Field Kit] requires SSL on your farmOS instance in order to connect to it.
   SSL is also recommended if you are using the Sensor Listener module to keep
-  your sensor's private key a secret.
+  your sensor's private key a secret. These resources may be helpful for 
+  configuring SSL:
+    * [Drupal HTTPS Information]
+    * [Reverse Proxy Forum Post] - Includes links to related GitHub issues and 
+    examples of how others have configured reverse proxies forcing HTTPS.
+    * [Configuring a Local Https Reverse Proxy] - Documentation on configuring
+    SSL for local development.
 
 [Drupal distribution]: https://drupal.org/documentation/build/distributions
 [Drupal]: https://drupal.org
@@ -94,4 +100,6 @@ enhancements if they are available.
 [GitHub issue #43]: https://github.com/farmOS/farmOS/issues/43
 [Enable clean URLs]: https://www.drupal.org/docs/7/configuring-clean-urls/enable-clean-urls
 [Field Kit]: /guide/app
-
+[Drupal HTTPS Information]: https://www.drupal.org/https-information
+[Reverse Proxy Forum Post]: https://farmos.discourse.group/t/running-behind-reverse-proxy/108
+[Configuring a Local Https Reverse Proxy]: /development/configure-local-https-reverse-proxy
