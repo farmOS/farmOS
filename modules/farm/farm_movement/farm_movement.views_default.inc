@@ -101,7 +101,7 @@ function farm_movement_views_default_views() {
   $handler->display->display_options['relationships']['field_farm_movement_value']['table'] = 'field_data_field_farm_movement';
   $handler->display->display_options['relationships']['field_farm_movement_value']['field'] = 'field_farm_movement_value';
   $handler->display->display_options['relationships']['field_farm_movement_value']['required'] = TRUE;
-  $handler->display->display_options['relationships']['field_farm_movement_value']['delta'] = '0';
+  $handler->display->display_options['relationships']['field_farm_movement_value']['delta'] = '-1';
   /* Relationship: Entity Reference: Referenced Entity */
   $handler->display->display_options['relationships']['field_farm_asset_target_id']['id'] = 'field_farm_asset_target_id';
   $handler->display->display_options['relationships']['field_farm_asset_target_id']['table'] = 'field_data_field_farm_asset';
@@ -522,7 +522,7 @@ function farm_movement_views_default_views() {
   $handler->display->display_options['relationships']['field_farm_movement_value']['table'] = 'field_data_field_farm_movement';
   $handler->display->display_options['relationships']['field_farm_movement_value']['field'] = 'field_farm_movement_value';
   $handler->display->display_options['relationships']['field_farm_movement_value']['required'] = TRUE;
-  $handler->display->display_options['relationships']['field_farm_movement_value']['delta'] = '0';
+  $handler->display->display_options['relationships']['field_farm_movement_value']['delta'] = '-1';
   /* Field: Bulk operations: Log */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
   $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'views_entity_log';
