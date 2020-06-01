@@ -16,11 +16,6 @@
           });
         });
       });
-    },
-    detach: function (context, settings) {
-      $('.farm-map', context).each(function (index, element) {
-        farmOS.map.destroy($(element).attr('id'));
-      });
     }
   };
 }(jQuery));
