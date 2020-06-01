@@ -42,20 +42,6 @@ function _farm_ui_views_post_render(&$view, &$output, &$cache) {
     return;
   }
 
-  // If there are no results in the View, bail.
-  if (empty($view->result)) {
-    return;
-  }
-
-  // If there are any arguments, bail.
-  /**
-   * @todo
-   * Display a map that is filtered by the same arguments.
-   */
-  if (!empty($view->args)) {
-    return;
-  }
-
   // Add JS setting to set the bundle.
   $settings = array(
     'farm_map' => array(
@@ -70,6 +56,20 @@ function _farm_ui_views_post_render(&$view, &$output, &$cache) {
     ),
   );
   drupal_add_js($settings, array('type' => 'setting'));
+
+  // If there are no results in the View, bail.
+  if (empty($view->result)) {
+    return;
+  }
+
+  // If there are any arguments, bail.
+  /**
+   * @todo
+   * Display a map that is filtered by the same arguments.
+   */
+  if (!empty($view->args)) {
+    return;
+  }
 }
 
 /**
