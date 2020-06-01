@@ -202,6 +202,9 @@ function farm_soil_nrcs_soil_name_lookup_ajax($form, $form_state) {
  */
 function farm_soil_nrcs_soil_name_lookup_submit($form, &$form_state) {
 
+  // Start with an empty array of soil names.
+  $soil_names = array();
+
   // Grab the geometry from the geofield input.
   if (!empty($form_state['input']['field_farm_geofield'][LANGUAGE_NONE][0]['geom'])) {
     $wkt = $form_state['input']['field_farm_geofield'][LANGUAGE_NONE][0]['geom'];
