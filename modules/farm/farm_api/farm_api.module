@@ -565,8 +565,10 @@ function farm_api_field_alias_map($prefix) {
     }
 
     // If the field name starts with the prefix, add it to the map.
-    $alias = str_replace($prefix, '', $field_name);
-    $alias_map[$alias] = $field_name;
+    if (strpos($field_name, $prefix) === 0) {
+      $alias = str_replace($prefix, '', $field_name);
+      $alias_map[$alias] = $field_name;
+    }
   }
 
   // Return the alias map.
