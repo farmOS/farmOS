@@ -156,9 +156,6 @@ function farm_livestock_weight_group_report_form($form, &$form_state) {
   $query->entityCondition('bundle', 'group');
   $query->propertyOrderBy('name', 'ASC');
 
-  // Limit to non-archived groups.
-  $query->propertyCondition('archived', 0);
-
   // Execute the query and build a list of options.
   $options = array();
   $result = $query->execute();
@@ -168,7 +165,11 @@ function farm_livestock_weight_group_report_form($form, &$form_state) {
     if (!empty($groups)) {
       foreach ($groups as $group) {
         if (!empty($group->id)) {
-          $options[$group->id] = entity_label('farm_asset', $group);
+          $label = entity_label('farm_asset', $group);
+          if ($group->archived) {
+            $label = $label . ' (' . t('archived') . ')';
+          }
+          $options[$group->id] = $label;
         }
       }
     }
@@ -190,6 +191,11 @@ function farm_livestock_weight_group_report_form($form, &$form_state) {
     '#options' => $options,
     '#required' => TRUE,
     '#multiple' => TRUE,
+  );
+
+  $form['input']['archived'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Include archived animals'),
   );
 
   // Provide a default date in the format YYYY-MM-DD.
@@ -280,6 +286,9 @@ function farm_livestock_weight_group_report(&$form_state) {
   // Get the submitted group IDs to include in the report.
   $group_ids = $form_state['values']['group'];
 
+  // Check if we should include archived assets.
+  $archived = $form_state['values']['archived'];
+
   // Get the start and end dates.
   $start_date = strtotime($form_state['values']['start_date']);
   $end_date = strtotime($form_state['values']['end_date']);
@@ -299,7 +308,7 @@ function farm_livestock_weight_group_report(&$form_state) {
     $group_name = $group->name;
 
     // Load the farm group members.
-    $members = farm_group_members($group);
+    $members = farm_group_members($group, REQUEST_TIME, TRUE, $archived);
 
     // Loop through members.
     foreach ($members as $asset) {
@@ -378,7 +387,7 @@ function farm_livestock_weight_group_report(&$form_state) {
   sort($all_log_dates);
 
   // Create a header for CSV and HTML Table
-  $header = array('AssetID', 'AssetName', 'Group');
+  $header = array('Asset ID', 'Asset Name', 'Group');
 
   // Add columns for each date collected.
   foreach ($all_log_dates as $date) {
@@ -402,8 +411,12 @@ function farm_livestock_weight_group_report(&$form_state) {
   foreach ($animals as $animal) {
     // Add a row of data.
     $row = array();
+    $name_label = $animal->name;
+    if ($animal->archived) {
+      $name_label = $name_label . ' (' . t('archived') . ')';
+    }
     $row[] = $animal->id;
-    $row[] = $animal->name;
+    $row[] = $name_label;
     $row[] = $animal->group->name;
 
     // Save the logs.
