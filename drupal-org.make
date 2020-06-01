@@ -116,6 +116,8 @@ projects[restws][patch][] = "http://www.drupal.org/files/issues/restws-bundleKey
 projects[restws][patch][] = "http://www.drupal.org/files/issues/2019-06-17/restws-support_options_request-1084144-11-18.patch"
 ; Fix Issue #2490416 (restws_basic_auth module conflicts with restws_oauth2_server)
 projects[restws][patch][] = "http://www.drupal.org/files/issues/2020-03-29/restws-auth-check-2490416-12.patch"
+; Fix Issue #2301237: Allow creating nodes with multi-value fields
+projects[restws][patch][] = "https://www.drupal.org/files/issues/2020-05-31/2301237-34.patch"
 
 projects[restws_field_collection][subdir] = "contrib"
 projects[restws_field_collection][version] = "1.1"
