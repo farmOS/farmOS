@@ -284,8 +284,7 @@ function farm_quantity_log_query($measure = NULL, $label = NULL, $start_time = 0
   // If $category is not empty, load the category ID, then join in the log
   // category field data and limit the query to logs with a matching category.
   if (!empty($category)) {
-    $category_terms = taxonomy_get_term_by_name($category, 'farm_log_categories');
-    $category_term = reset($category_terms);
+    $category_term = farm_term($category, 'farm_log_categories', FALSE);
     if (!empty($category_term->tid)) {
       $query->innerJoin('field_data_field_farm_log_category', 'ss_fdfflc', "ss_fdfflc.entity_type = 'log' AND ss_fdfflc.entity_id = ss_log.id AND ss_fdfflc.deleted = 0");
       $query->where("ss_fdfflc.field_farm_log_category_tid = '" . $category_term->tid . "'");

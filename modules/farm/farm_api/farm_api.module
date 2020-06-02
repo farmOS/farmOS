@@ -368,8 +368,7 @@ function farm_api_restws_request_alter(array &$request) {
     $field_info = field_info_field($field_name);
     if ($field_info['type'] == 'taxonomy_term_reference') {
       if ($vocabulary = drupal_array_get_nested_value($field_info, array('settings', 'allowed_values', '0', 'vocabulary'))) {
-        if ($term = taxonomy_get_term_by_name($filter_value, $vocabulary)) {
-          $term = reset($term);
+        if ($term = farm_term($filter_value, $vocabulary, FALSE)) {
           $_GET[$field_name] = $term->tid;
         }
       }

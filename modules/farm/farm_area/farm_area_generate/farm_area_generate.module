@@ -239,8 +239,7 @@ function farm_area_generate_form_validate(&$form, &$form_state) {
   }
 
   // Load the area and store it in the form state.
-  $areas = taxonomy_get_term_by_name($form_state['values']['area'], 'farm_areas');
-  $area = reset($areas);
+  $area = farm_term($form_state['values']['area'], 'farm_areas', FALSE);
   $form_state['storage']['area'] = $area;
 
   // Ensure the area exists.

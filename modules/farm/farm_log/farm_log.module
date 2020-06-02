@@ -591,8 +591,7 @@ function farm_log_prepopulate_log_form_references(&$form) {
       $term_names = $ids;
       $ids = array();
       foreach ($term_names as $name) {
-        $terms = taxonomy_get_term_by_name($name, $info['vocabulary']);
-        $term = reset($terms);
+        $term = farm_term($name, $info['vocabulary'], FALSE);
         if (!empty($term->tid)) {
           $ids[] = $term->tid;
         }
