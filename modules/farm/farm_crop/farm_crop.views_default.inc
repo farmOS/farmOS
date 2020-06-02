@@ -515,6 +515,22 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['validate_options']['types'] = array(
     'planting' => 'planting',
   );
+  /* Contextual filter: Field collection item: Movement to (field_farm_move_to) */
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['id'] = 'field_farm_move_to_tid';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['table'] = 'field_data_field_farm_move_to';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['field'] = 'field_farm_move_to_tid';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['relationship'] = 'field_farm_movement_value';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['title_enable'] = TRUE;
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['title'] = 'Seedings in %2';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['specify_validation'] = TRUE;
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['validate']['type'] = 'taxonomy_term';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['validate_options']['vocabularies'] = array(
+    'farm_areas' => 'farm_areas',
+  );
   /* Filter criterion: Log: Log type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'log';
@@ -727,6 +743,7 @@ function farm_crop_views_default_views() {
     t('Assigned to'),
     t('All'),
     t('Seedings of %1'),
+    t('Seedings in %2'),
     t('Crop/variety'),
     t('Season'),
     t('Start date'),
@@ -1070,6 +1087,22 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['validate_options']['types'] = array(
     'planting' => 'planting',
   );
+  /* Contextual filter: Field collection item: Movement to (field_farm_move_to) */
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['id'] = 'field_farm_move_to_tid';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['table'] = 'field_data_field_farm_move_to';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['field'] = 'field_farm_move_to_tid';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['relationship'] = 'field_farm_movement_value';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['title_enable'] = TRUE;
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['title'] = 'Transplantings in %2';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['specify_validation'] = TRUE;
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['validate']['type'] = 'taxonomy_term';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['validate_options']['vocabularies'] = array(
+    'farm_areas' => 'farm_areas',
+  );
   /* Filter criterion: Log: Log type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'log';
@@ -1282,6 +1315,7 @@ function farm_crop_views_default_views() {
     t('Assigned to'),
     t('All'),
     t('Transplantings of %1'),
+    t('Transplantings in %2'),
     t('Crop/variety'),
     t('Season'),
     t('Start date'),
