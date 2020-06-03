@@ -109,7 +109,8 @@ function farm_map_kml_action(array $entities, $context = array()) {
   $kml = theme('farm_map_kml', array('placemarks' => $placemarks));
 
   // Ensure that a directory exists to store the KML file in.
-  $directory = 'public://kml';
+  $scheme = variable_get('file_default_scheme', 'public');
+  $directory = $scheme . '://kml';
   file_prepare_directory($directory, FILE_CREATE_DIRECTORY);
 
   // Create the temporary KML file.
