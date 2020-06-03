@@ -25,10 +25,6 @@ database credentials:
 - Database password: `farm`
 - Advanced options > Host: `db`
 
-## 3. Set up IDE
-
-Make the codebase writeable:
-
-    sudo chown -R ${USER} www
+## 3. Develop
 
 Open the `www` directory in your favorite IDE.
