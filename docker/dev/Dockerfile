@@ -16,6 +16,9 @@ RUN mkdir /var/www/.composer && chown www-data:www-data /var/www/.composer
 WORKDIR /var/www/farmOS
 USER www-data
 
+# Set the COMPOSER_MEMORY_LIMIT environment variable to unlimited.
+ENV COMPOSER_MEMORY_LIMIT=-1
+
 # Generate an empty project from farmos/project.
 RUN composer create-project --stability=dev farmos/project .
 
