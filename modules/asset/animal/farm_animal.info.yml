@@ -1,0 +1,7 @@
+name: Animal asset
+description: Adds an Animal asset type.
+type: module
+package: farmOS Assets
+core_version_requirement: ^9
+dependencies:
+  - farm:asset

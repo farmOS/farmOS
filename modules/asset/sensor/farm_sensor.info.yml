@@ -1,0 +1,7 @@
+name: Sensor asset
+description: Adds a Sensor asset type.
+type: module
+package: farmOS Assets
+core_version_requirement: ^9
+dependencies:
+  - farm:asset
