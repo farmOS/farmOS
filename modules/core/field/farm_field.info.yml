@@ -1,0 +1,9 @@
+name: farmOS Fields
+description: Provides common field storage definitions for farmOS entity types.
+type: module
+package: farmOS
+core_version_requirement: ^9
+dependencies:
+  - drupal:field
+  - drupal:text
+  - log:log
