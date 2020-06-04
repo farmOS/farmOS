@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {  }
+id: input
+label: Input
+description: ''
+name_pattern: ''
+workflow: log_default
+new_revision: true

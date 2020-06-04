@@ -1,0 +1,7 @@
+name: Activity log
+description: Adds an Activity log type.
+type: module
+package: farmOS
+core_version_requirement: ^9
+dependencies:
+  - log:log
