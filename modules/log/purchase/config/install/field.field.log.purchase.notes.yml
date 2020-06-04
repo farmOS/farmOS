@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.log.notes
+    - log.type.purchase
+  module:
+    - text
+id: log.purchase.notes
+field_name: notes
+entity_type: log
+bundle: purchase
+label: Notes
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
