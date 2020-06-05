@@ -12,6 +12,9 @@ exclusive: true
 
 # Required modules.
 dependencies:
+  # Depend on the options module until State Machine does.
+  # @see https://www.drupal.org/project/state_machine/issues/3144828
+  - options
 
 # Install modules and theme.
 install:
