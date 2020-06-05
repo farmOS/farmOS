@@ -14,7 +14,7 @@ services:
   www:
     depends_on:
       - db
-    image: farmos/farmos:2.0.x-dev
+    image: farmos/farmos:2.x-dev
     volumes:
       - './www:/var/www/html'
     ports:

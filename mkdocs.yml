@@ -1,4 +1,4 @@
-site_name: farmOS 2.0.x
+site_name: farmOS 2.x
 nav:
   - farmOS: index.md
   - Development:

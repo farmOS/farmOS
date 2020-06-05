@@ -1,8 +1,8 @@
-name: Run 2.0.x PHPUnit tests
+name: Run 2.x PHPUnit tests
 on:
   push:
     branches:
-      - '2.0.x'
+      - '2.x'
 
 jobs:
   build:
@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Create docker-compose.yml
-        run: curl https://raw.githubusercontent.com/mstenta/farmOS/2.0.x/docker/docker-compose.development.yml -o docker-compose.yml
+        run: curl https://raw.githubusercontent.com/farmOS/farmOS/2.x/docker/docker-compose.development.yml -o docker-compose.yml
       - name: Start containers
         run: sudo docker-compose up -d
       - name: Wait 10 seconds

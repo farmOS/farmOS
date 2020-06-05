@@ -1,8 +1,8 @@
-name: Publish 2.0.x docs to GitHub Pages
+name: Publish 2.x docs to GitHub Pages
 on:
   push:
     branches:
-      - '2.0.x'
+      - '2.x'
 
 jobs:
   deploy:

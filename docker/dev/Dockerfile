@@ -1,5 +1,5 @@
-# Inherit from the farmOS 2.0.x base image.
-FROM farmos/farmos:2.0.x-base
+# Inherit from the farmOS 2.x base image.
+FROM farmos/farmos:2.x-base
 
 # Change the user/group IDs of www-data to 1000, based on the assumption that
 # the developer is running as UID 1000 on the host machine. This will make
