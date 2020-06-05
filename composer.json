@@ -21,5 +21,15 @@
         "drupal/log": "2.x-dev",
         "drupal/token": "^1.7"
     },
+    "extra": {
+        "patchLevel": {
+            "drupal/core": "-p2"
+        },
+        "patches": {
+            "drupal/core": {
+                "Issue #2339235: Remove taxonomy hard dependency on node module": "https://www.drupal.org/files/issues/2020-08-10/2339235-55.patch"
+            }
+        }
+    },
     "minimum-stability": "dev"
 }
