@@ -16,6 +16,7 @@
         }
     ],
     "require": {
+        "cweagans/composer-patches": "^1.6",
         "drupal/core": "^9.0.0",
         "drupal/log": "2.x-dev",
         "drupal/token": "^1.7"
