@@ -10,6 +10,9 @@ distribution:
   name: farmOS
 exclusive: true
 
+# Required modules.
+dependencies:
+
 # Install modules and theme.
 install:
   - block
