@@ -20,6 +20,7 @@ function farm_modules() {
       'farm_observation' => t('Observation logs'),
       'farm_input' => t('Input logs'),
       'farm_harvest' => t('Harvest logs'),
+      'farm_api' => t('farmOS API'),
     ],
     'optional' => [
       'farm_seeding' => t('Seeding logs'),
