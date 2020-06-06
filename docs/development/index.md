@@ -28,3 +28,12 @@ database credentials:
 ## 3. Develop
 
 Open the `www` directory in your favorite IDE.
+
+## Optional
+
+### Configure private filesystem
+
+In order to upload files, the following line must be added to
+`www/web/sites/default/settings.php`:
+
+    $settings['file_private_path'] = 'sites/default/private/files';
