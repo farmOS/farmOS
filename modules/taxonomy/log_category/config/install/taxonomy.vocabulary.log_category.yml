@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+name: Log Categories
+vid: log_category
+description: 'A list of farm log categories.'
+weight: 0
