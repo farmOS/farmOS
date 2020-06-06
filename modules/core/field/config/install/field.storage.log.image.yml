@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - file
+    - image
+    - log
+id: log.image
+field_name: image
+entity_type: log
+type: image
+settings:
+  uri_scheme: private
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+  target_type: file
+  display_field: false
+  display_default: false
+module: image
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
