@@ -1,0 +1,7 @@
+name: Seasons vocabulary
+description: Provides a Seasons vocabulary.
+type: module
+package: farmOS Taxonomies
+core_version_requirement: ^9
+dependencies:
+  - drupal:taxonomy
