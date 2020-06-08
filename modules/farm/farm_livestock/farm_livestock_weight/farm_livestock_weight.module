@@ -39,6 +39,90 @@ function farm_livestock_weight($asset) {
   return array();
 }
 
+
+/**
+ * Helper function for retrieving all weight logs of an animal.
+ *
+ * @param FarmAsset $asset
+ *   The animal asset to get weight for.
+ *
+ * @return array
+ *   Returns an array of arrays with the following information from each weight log ('weight', value, units, label, timestamp)
+ *  Newest is the first, oldest last.
+ */
+function farm_livestock_weight_all($asset) {
+
+  // Load the logs with a 'weight' quantity measurement for this asset.
+  $logs = farm_quantity_log_asset($asset, 'weight', NULL, REQUEST_TIME, TRUE, 'farm_observation', $single=FALSE);
+
+
+
+  // Check that there are some logs!
+  if (!empty($logs)) {
+    $log_weights = array();
+    foreach ($logs as $log) {
+      // Quantity data from log.
+      $data = farm_quantity_log_data($log, 'weight');
+
+      foreach ($data as $quantity){
+        if (!empty($quantity['value'])){
+          $quantity['timestamp'] = $log->timestamp;
+
+          $log_weights[] = $quantity;
+
+        }
+      }
+    }
+
+    return $log_weights;
+  }
+
+
+  // If nothing was returned, return an empty array.
+  return array();
+}
+
+
+/**
+ * Helper function for retrieving the latest daily liveweight gain for an animal
+ *
+ * @param FarmAsset $asset
+ *   The animal asset to get daily liveweight for.
+ *
+ * @return array
+ *   Returns an array of information around the daily liveweight gain:
+ *  "most_recent" - Timestamp of most recent weight logs
+ *  "previous_record" - timestamp of the record before the most recent.
+ *  "value" - The daily liveweight gain values
+ *  "units" - The unit of measure (eg kg)
+ */
+ 
+function farm_livestock_weight_dlwg($asset) {
+  // This function returns an array[4] of (date of most recent weight, date of previous weight, daily liveweight gain, and the units)
+  $logs = farm_livestock_weight_all($asset);
+
+  $dailyliveweightgain = array();
+  if (count($logs)>1){
+
+    if (($logs[0]['units']) == ($logs[1]['units'])){
+
+      $most_recent = $logs[0]['timestamp'];
+      $prevous_record = $logs[1]['timestamp'];
+      $weight_difference = $logs[0]['value']-$logs[1]['value'];
+
+      $timediff = $most_recent- $prevous_record;
+      $timediff_days = round($timediff/86400,2);
+
+      $dlwg = round($weight_difference/$timediff_days,3);
+
+      $dailyliveweightgain = array("most_recent" => $most_recent, "previous_record" => $prevous_record, "value" => $dlwg, "units" => $logs[0]['units']);
+    }
+  }
+
+  return $dailyliveweightgain;
+}
+
+
 /**
  * Create a weight measurement log associated with an animal.
  *
@@ -100,7 +184,7 @@ function farm_livestock_weight_menu() {
 
   // Animal asset report tab.
   $items[$farm_asset_uri . '/weight'] = array(
-    'title' => 'Weight',
+    'title' => t('Weight'),
     'page callback' => 'farm_livestock_weight_individual_report',
     'page arguments' => array($farm_asset_uri_argument_position),
     'access callback' => 'farm_livestock_weight_individual_report_access',
@@ -112,7 +196,7 @@ function farm_livestock_weight_menu() {
 
   // Animal group report form.
   $items['farm/report/weight'] = array(
-    'title' => 'Animal Weights',
+    'title' => t('Animal Weights'),
     'page callback' => 'drupal_get_form',
     'page arguments' => array('farm_livestock_weight_group_report_form'),
     'access arguments' => array('view farm reports'),
@@ -148,7 +232,7 @@ function farm_livestock_weight_individual_report_access($farm_asset) {
 function farm_livestock_weight_group_report_form($form, &$form_state) {
 
   // Set the page title.
-  drupal_set_title('Animal Weights');
+  drupal_set_title(t('Animal Weights'));
 
   // Build an entity field query of group assets.
   $query = new EntityFieldQuery();
@@ -387,13 +471,13 @@ function farm_livestock_weight_group_report(&$form_state) {
   sort($all_log_dates);
 
   // Create a header for CSV and HTML Table
-  $header = array('Asset ID', 'Asset Name', 'Group');
+  $header = array(t('Asset ID'), t('Asset Name'), t('Group'));
 
   // Add columns for each date collected.
   foreach ($all_log_dates as $date) {
-    $header[] = 'Date - ' . $date ;
-    $header[] = 'Weight';
-    $header[] = 'Units';
+    $header[] = t('Date - ') . $date ;
+    $header[] = t('Weight');
+    $header[] = t('Units');
   }
 
   // Add the CSV header.
@@ -545,7 +629,7 @@ function farm_livestock_weight_group_report(&$form_state) {
 
     // Create Average Weight Graph
     $graph = array(
-      'name' => 'Average Weight - ' . $group_name,
+      'name' => t('Average Weight - ') . $group_name,
       'id' => 'farm-livestock-average-weight-' . $group_name . '-graph',
       'data' => $group['dates'],
     );
@@ -594,6 +678,7 @@ function farm_livestock_weight_entity_view_alter(&$build, $type) {
 
   // If it's not a farm_asset, or if the entity object is not available, bail.
   if ($type != 'farm_asset' || empty($build['#entity'])) {
+
     return;
   }
 
@@ -619,8 +704,14 @@ function farm_livestock_weight_entity_view_alter(&$build, $type) {
   $units = !empty($weight['units']) ? $weight['units'] : '';
 
   // Build the weight display.
-  $output = '<strong>' . t('Weight') . ':</strong> ' . $value . ' ' . $units . '<a href="' . url($asset_uri['path'] . '/weight') . '"> (weight report) </a>';
+  $output = '<strong>' . t('Weight') . ':</strong> ' . $value . ' ' . $units . '<a href="' . url($asset_uri['path'] . '/weight') . t('"> (weight report) </a>');
 
+	// Get the daily liveweight gains for the animal - if there is none - it will not put the title in.
+  $dlwg = farm_livestock_weight_dlwg($asset);
+  if (!empty($dlwg)){
+
+    $output .= t('<p><strong>Daily Liveweight Gain since @date : </strong>', array('@date' => date('d/m/Y',$dlwg['previous_record']))) . $dlwg['value'] . ' ' .$dlwg['units'] . t('/day');
+	}
   // If the animal has an inventory greater than 1, add "(average)".
   $inventory = farm_inventory($asset);
   if ($inventory > 1) {
