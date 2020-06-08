@@ -5,27 +5,42 @@
  */
 
 /**
- * Implements hook_uninstall().
- */
-function farm_map_uninstall() {
-
-  // Delete variables.
-  variable_del('farm_map_show');
-  variable_del('farm_map_default_base_layer');
-  variable_del('farm_map_google_api_key');
-}
-
-/**
  * Copy the Google Maps API key into the new configuration variable.
  */
 function farm_map_update_7000(&$sandbox) {
+  // Removed.
+}
 
-  // Load the Google Hybrid source.
-  $source = \Drupal\openlayers\Openlayers::load('Source', 'farm_map_source_google_hybrid');
+/**
+ * Delete the old farm_map_default_base_layer variable.
+ */
+function farm_map_update_7001(&$sandbox) {
+  variable_del('farm_map_default_base_layer');
+}
 
-  // If an API key is set, copy it to the variable.
-  $key = $source->getOption('key');
-  if (!empty($key)) {
-    variable_set('farm_map_google_api_key', $key);
+/**
+ * Install new Google Maps module if an API key is saved.
+ */
+function farm_map_update_7002(&$sandbox) {
+  $module = 'farm_map_google';
+  if (variable_get('farm_map_google_api_key', FALSE) && !module_exists($module)) {
+    module_enable(array($module));
   }
+}
+
+/**
+ * Install new Mapbox module if an API key is saved.
+ */
+function farm_map_update_7003(&$sandbox) {
+  $module = 'farm_map_mapbox';
+  if (variable_get('farm_map_mapbox_api_key', FALSE) && !module_exists($module)) {
+    module_enable(array($module));
+  }
+}
+
+/**
+ * Delete the old farm_map_show variable.
+ */
+function farm_map_update_7004(&$sandbox) {
+  variable_del('farm_map_show');
 }

@@ -59,7 +59,7 @@ function farm_soil_amendment_form($form, &$form_state) {
   $area = FALSE;
   if (!empty($form_values['area']['name'])) {
     $area_name = $form_values['area']['name'];
-    $areas = farm_area_parse_names($area_name);
+    $areas = farm_term_parse_names($area_name, 'farm_areas');
     $area = reset($areas);
   }
 
@@ -523,7 +523,7 @@ function farm_soil_amendment_form_submit($form, &$form_state) {
 
   // Parse the area name, create new one if it doesn't exist.
   $area_name = $form_values['area']['name'];
-  $areas = farm_area_parse_names($area_name, TRUE);
+  $areas = farm_term_parse_names($area_name, 'farm_areas', TRUE);
 
   // If no areas were found/created, bail with an error.
   if (empty($areas)) {
@@ -600,7 +600,7 @@ function farm_soil_amendment_form_submit($form, &$form_state) {
   $material = $form_values['amendment']['material'];
 
   // Set log name.
-  $log_name = t('Soil amendment: @qty @units @material into @area', array('@qty' => $total_amendment['value'], '@units' => $total_amendment['units'], '@material' => $material, '@area' => entity_label('taxonomy_term', $area)));
+  $log_name = t('Soil amendment: !qty !units !material into !area', array('!qty' => $total_amendment['value'], '!units' => $total_amendment['units'], '!material' => $material, '!area' => entity_label('taxonomy_term', $area)));
 
   // Create a new farm quantity log.
   $log = farm_quantity_log_create($log_type, $log_name, $timestamp, TRUE, array(), $measurements);

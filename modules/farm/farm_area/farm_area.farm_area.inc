@@ -11,7 +11,7 @@ function farm_area_farm_area_type_info() {
   return array(
     'other' => array(
       'label' => t('Other'),
-      'style' => 'farm_map_style_blue',
+      'style' => 'blue',
       'weight' => 150,
     ),
   );
@@ -24,16 +24,6 @@ function farm_area_farm_area_details($id) {
 
   // Start a render array.
   $output = array();
-
-  // Display the calculated area (formatted).
-  $calculated_area = farm_area_calculate_area($id, TRUE);
-  if (!empty($calculated_area)) {
-    $output['calculated_area'] = array(
-      '#type' => 'markup',
-      '#markup' => '<p><small>Calculated area: ' . $calculated_area . '</small></p>',
-      '#weight' => -100,
-    );
-  }
 
   // Load and display the area description.
   $area = taxonomy_term_load($id);

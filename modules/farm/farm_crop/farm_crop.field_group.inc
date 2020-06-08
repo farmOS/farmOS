@@ -21,7 +21,7 @@ function farm_crop_field_group_info() {
   $field_group->parent_name = 'group_farm_general';
   $field_group->data = array(
     'label' => 'Assignment',
-    'weight' => '6',
+    'weight' => '-2',
     'children' => array(
       0 => 'field_farm_log_owner',
     ),
@@ -79,7 +79,7 @@ function farm_crop_field_group_info() {
   $field_group->parent_name = 'group_farm_general';
   $field_group->data = array(
     'label' => 'Category',
-    'weight' => '5',
+    'weight' => '-3',
     'children' => array(
       0 => 'field_farm_log_category',
     ),
@@ -165,7 +165,7 @@ function farm_crop_field_group_info() {
   $field_group->parent_name = 'group_farm_tabs';
   $field_group->data = array(
     'label' => 'Files',
-    'weight' => '6',
+    'weight' => '7',
     'children' => array(
       0 => 'field_farm_files',
       1 => 'field_farm_images',
@@ -255,12 +255,14 @@ function farm_crop_field_group_info() {
     'weight' => '1',
     'children' => array(
       0 => 'field_farm_asset',
-      1 => 'field_farm_notes',
-      2 => 'field_farm_seed_source',
-      3 => 'field_farm_flags',
-      4 => 'timestamp',
-      5 => 'group_farm_assignment',
-      6 => 'group_farm_category',
+      1 => 'field_farm_flags',
+      2 => 'field_farm_notes',
+      3 => 'field_farm_seed_source',
+      4 => 'field_farm_lot_number',
+      5 => 'name',
+      6 => 'timestamp',
+      7 => 'group_farm_assignment',
+      8 => 'group_farm_category',
     ),
     'format_type' => 'field_group_easy_responsive_tabs_nav_item',
     'format_settings' => array(
@@ -317,7 +319,7 @@ function farm_crop_field_group_info() {
   $field_group->parent_name = 'group_farm_tabs';
   $field_group->data = array(
     'label' => 'Inventory',
-    'weight' => '5',
+    'weight' => '6',
     'children' => array(
       0 => 'field_farm_inventory',
     ),
@@ -447,7 +449,7 @@ function farm_crop_field_group_info() {
   $field_group->parent_name = 'group_farm_tabs';
   $field_group->data = array(
     'label' => 'Quantity',
-    'weight' => '3',
+    'weight' => '5',
     'children' => array(
       0 => 'field_farm_quantity',
     ),

@@ -20,6 +20,7 @@ function farm_modules() {
       'farm_log_input' => st('Input logs'),
       'farm_crop' => st('Crops'),
       'farm_livestock' => st('Livestock'),
+      'farm_livestock_weight' => st('Livestock weight tracking'),
       'farm_equipment' => st('Equipment'),
       'farm_equipment_field' => st('Add "Equipment used" field to logs'),
       'farm_calendar' => st('Calendar of logs'),
@@ -33,11 +34,12 @@ function farm_modules() {
       'farm_crop_area_types' => t('Crop area types: Bed and Greenhouse'),
       'farm_livestock_area_types' => t('Livestock area types: Paddock'),
       'farm_water' => st('Water area type'),
+      'farm_quantity_report' => st('Quantity report generator'),
       'farm_data_field' => st('Add an arbitrary "data" field to logs and assets'),
       'farm_access_roles' => st('Default roles: Manager, Worker, Viewer'),
       'farm_help' => st('farmOS Help Pages'),
-      'farm_tour' => st('farmOS Tours'),
       'farm_api' => st('farmOS API'),
+      'farm_client' => st('farmOS Client (Field Kit) integration'),
     ),
     'optional' => array(
       'farm_water_test' => st('Water test logs'),
@@ -45,7 +47,7 @@ function farm_modules() {
       'farm_sensor' => st('Sensor'),
       'farm_sensor_listener' => st('Sensor: Listener'),
       'farm_ledger' => st('Sale and purchase logs (beta)'),
-      'farm_quantity_report' => st('Quantity report generator (beta)'),
+      'farm_l10n' => st('Localization/translation'),
     ),
   );
 }
@@ -55,24 +57,18 @@ function farm_modules() {
  */
 function farm_install() {
 
+  // Set the installation profile to farm.
+  // @see https://github.com/farmOS/farmOS/issues/272
+  variable_set('install_profile', 'farm');
+
   // Only admins can create new accounts.
   variable_set('user_register', USER_REGISTER_ADMINISTRATORS_ONLY);
 
-  // Enable farm theme and set as default.
-  theme_enable(array('farm_theme'));
-  variable_set('theme_default', 'farm_theme');
-
-  // Disable the default Bartik theme
-  theme_disable(array('bartik'));
-
-  // Set the front page to the farm dashboard (provided by the farm_admin).
+  // Set the front page to the farm dashboard.
   variable_set('site_frontpage', 'farm');
 
   // Use the farm menu for primary links (provided by farm_admin).
   variable_set('menu_main_links_source', 'farm');
-
-  // Set the Openlayers library variant to local.
-  \Drupal\openlayers\Config::set('openlayers.variant', 'local:4.6.4');
 }
 
 /**
@@ -88,6 +84,8 @@ function farm_install_tasks(&$install_state) {
       'display_name' => st('Install optional modules'),
       'type' => 'batch',
     ),
+    'farm_install_theme' => array(),
+    'farm_install_blocks' => array(),
   );
   return $tasks;
 }
@@ -131,8 +129,16 @@ function farm_install_configure_form($form, &$form_state) {
   $form['farm_map_google_api_key'] = array(
     '#type' => 'textfield',
     '#title' => t('Google Maps API Key'),
-    '#description' => t('Google Maps layers require that you obtain an API key. Refer to the <a href="@doc">Google Maps API Key</a> documentation on farmOS.org for instructions.', array('@doc' => 'https://farmos.org/hosting/googlemaps')) . ' ' . t('This can also be done after installation. If no key is provided, OpenStreetMaps will be used as the default map base layer.'),
+    '#description' => t('Google Maps layers require that you obtain an API key. Refer to the <a href="@doc">Google Maps API Key</a> documentation on farmOS.org for instructions.', array('@doc' => 'https://farmos.org/hosting/googlemaps')) . ' ' . t('This can also be done after installation.'),
     '#default_value' => variable_get('farm_map_google_api_key', ''),
+  );
+
+  // Allow the user to enter a Mapbox API key.
+  $form['farm_map_mapbox_api_key'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Mapbox API Key'),
+    '#description' => t('Enter your Mapbox API key.') . ' ' . t('This can also be done after installation.'),
+    '#default_value' => variable_get('farm_map_mapbox_api_key', ''),
   );
 
   // Form actions.
@@ -161,14 +167,20 @@ function farm_install_configure_form_submit($form, &$form_state) {
     variable_set('farm_quantity_unit_system', $form_state['values']['farm_quantity_unit_system']);
   }
 
-  // Save the Google Maps API key, and make Google Hybrid the default.
-  // If a Google Maps API key was not provided, make OpenStreetMap the default.
+  // If a Google Maps API key was provided, save it and enable the module.
   if (!empty($form_state['values']['farm_map_google_api_key'])) {
     variable_set('farm_map_google_api_key', $form_state['values']['farm_map_google_api_key']);
-    variable_set('farm_map_default_base_layer', 'farm_map_layer_google_hybrid');
+    if (!module_exists('farm_map_google')) {
+      module_enable(array('farm_map_google'));
+    }
   }
-  else {
-    variable_set('farm_map_default_base_layer', 'farm_map_layer_openstreetmap');
+
+  // If a Mapbox API key was provided, save it and enable the module.
+  if (!empty($form_state['values']['farm_map_mapbox_api_key'])) {
+    variable_set('farm_map_mapbox_api_key', $form_state['values']['farm_map_mapbox_api_key']);
+    if (!module_exists('farm_map_mapbox')) {
+      module_enable(array('farm_map_mapbox'));
+    }
   }
 }
 
@@ -211,6 +223,39 @@ function farm_install_optional_modules() {
 function _farm_install_enable_module($module, $module_name, &$context) {
   module_enable(array($module));
   $context['message'] = st('Installed %module module.', array('%module' => $module_name));
+}
+
+/**
+ * Callback for farmOS theme install task.
+ */
+function farm_install_theme() {
+
+  // Enable farm theme and set as default.
+  theme_enable(array('farm_theme'));
+  variable_set('theme_default', 'farm_theme');
+
+  // Disable the default Bartik theme
+  theme_disable(array('bartik'));
+}
+
+/**
+ * Callback for farmOS blocks install task.
+ */
+function farm_install_blocks() {
+
+  // Update blocks for the farmOS theme.
+  // We need to run _block_rehash() so that hook_block_info_alter() in
+  // farm_theme has a chance to alter blocks provided by other farmOS modules
+  // (eg: to enable/insert them into regions).
+  // We need to override the global $theme variable and manually include the
+  // theme's template.php file so that drupal_alter() runs its alter hooks.
+  // @see https://github.com/farmOS/farmOS/issues/273
+  global $theme;
+  $old_theme = $theme;
+  $theme = 'farm_theme';
+  include_once drupal_get_path('theme', $theme) . '/template.php';
+  _block_rehash($theme);
+  $theme = $old_theme;
 }
 
 /**
@@ -271,7 +316,7 @@ function farm_update_7001(&$sandbox) {
 
   // Enable new module dependencies.
   $modules = array(
-    'openlayers_geofield',
+    // 'openlayers_geofield',  // Removed.
     'views_geojson',
   );
   _farm_update_enable_modules($modules);
@@ -307,12 +352,7 @@ function farm_update_7004(&$sandbox) {
  * Load Openlayers via CDN.
  */
 function farm_update_7005(&$sandbox) {
-
-  // Enable the Libraries CDN module.
-  _farm_update_enable_modules(array('libraries_cdn'));
-
-  // Load Openlayers 3.8.2 from JSDelivr CDN.
-  \Drupal\openlayers\Config::set('openlayers.variant', 'jsdelivr:ol3:3.8.2');
+  // Removed.
 }
 
 /**
@@ -344,9 +384,7 @@ function farm_update_7007(&$sandbox) {
  * Install Farm Tour.
  */
 function farm_update_7008(&$sandbox) {
-
-  // Enable the Farm Access and Role Delegation modules.
-  _farm_update_enable_modules(array('farm_tour'));
+  // Removed.
 }
 
 /**
@@ -454,14 +492,14 @@ function farm_update_7010(&$sandbox) {
  * Load Openlayers 3.10.1 from CDNJS.
  */
 function farm_update_7011(&$sandbox) {
-  \Drupal\openlayers\Config::set('openlayers.variant', 'cdnjs:ol3:3.10.1');
+  // Removed.
 }
 
 /**
  * Load Openlayers 3.11.2 from CDNJS.
  */
 function farm_update_7012(&$sandbox) {
-  \Drupal\openlayers\Config::set('openlayers.variant', 'cdnjs:ol3:3.11.2');
+  // Removed.
 }
 
 /**
@@ -641,7 +679,7 @@ function farm_update_7027(&$sandbox) {
  * Update Openlayers JS library to 4.3.3.
  */
 function farm_update_7028(&$sandbox) {
-  \Drupal\openlayers\Config::set('openlayers.variant', 'cdnjs:ol3:4.3.3');
+  // Removed.
 }
 
 /**
@@ -729,7 +767,7 @@ function farm_update_7037(&$sandbox) {
  * Update Openlayers JS library to 4.6.4.
  */
 function farm_update_7038(&$sandbox) {
-  \Drupal\openlayers\Config::set('openlayers.variant', 'cdnjs:ol3:4.6.4');
+  // Removed.
 }
 
 /**
@@ -780,7 +818,7 @@ function farm_update_7044(&$sandbox) {
 function farm_update_7045(&$sandbox) {
 
   // Set the variant config in the Openlayers module.
-  \Drupal\openlayers\Config::set('openlayers.variant', 'local:4.6.4');
+  // Removed.
 
   // Uninstall Libraries CDN.
   db_query("DELETE FROM {system} WHERE name = 'libraries_cdn' AND type = 'module'");
@@ -809,6 +847,164 @@ function farm_update_7048(&$sandbox) {
   if (module_exists('farm_equipment')) {
     _farm_update_enable_modules(array('farm_equipment_field'));
   }
+}
+
+/**
+ * Enable Farm Fields Autocomplete module.
+ */
+function farm_update_7049(&$sandbox) {
+  _farm_update_enable_modules(array('farm_fields_autocomplete'));
+}
+
+/**
+ * Install the new Farm Map Geofield module and update Geofield instance settings.
+ */
+function farm_update_7050(&$sandbox) {
+
+  // Enable farm_map_geofield.
+  _farm_update_enable_modules(array('farm_map_geofield'));
+
+  // Update all instances of field_farm_geofield.
+  $instances_info = field_info_instances();
+  foreach ($instances_info as $entity_type => $bundles) {
+    foreach ($bundles as $bundle => $instances) {
+      foreach ($instances as $field_name => $instance) {
+
+        // If the field name is not field_farm_geofield, skip.
+        if ($field_name != 'field_farm_geofield') {
+          continue;
+        }
+
+        // Update widget settings.
+        if (!empty($instance['widget'])) {
+          $instance['widget']['module'] = 'farm_map_geofield';
+          $remove_settings = array('allow_edit', 'data_storage', 'feature_types', 'openlayers_map', 'showInputField');
+          foreach ($remove_settings as $name) {
+            unset($instance['widget']['settings'][$name]);
+          }
+          $instance['widget']['type'] = 'farm_map_geofield';
+        }
+
+        // Update display settings.
+        if (!empty($instance['display']['default'])) {
+          $instance['display']['default']['module'] = 'farm_map_geofield';
+          $instance['display']['default']['settings'] = array();
+          $instance['display']['default']['type'] = 'farm_map_geofield';
+        }
+
+        // Update the instance.
+        field_update_instance($instance);
+      }
+    }
+  }
+}
+
+/**
+ * Uninstall Openlayers modules and dependencies.
+ */
+function farm_update_7051(&$sandbox) {
+  global $conf;
+  foreach (array_keys($conf) as $key) {
+    if (strpos($key, 'openlayers_') === 0) {
+      variable_del($key);
+    }
+  }
+  $modules = array(
+    'openlayers',
+    'openlayers_block',
+    'openlayers_block_switcher',
+    'openlayers_boxes',
+    'openlayers_cesium',
+    'openlayers_content_types',
+    'openlayers_contextual_links',
+    'openlayers_examples',
+    'openlayers_field',
+    'openlayers_geofield',
+    'openlayers_geolocate_button',
+    'openlayers_library',
+    'openlayers_quicktabs',
+    'openlayers_services',
+    'openlayers_ui',
+    'openlayers_views',
+    'registry_autoload',
+    'registry_autoload_test',
+    'service_container',
+    'service_container_annotation_discovery',
+    'service_container_annotation_discovery_subtest',
+    'service_container_annotation_discovery_test',
+    'service_container_block',
+    'service_container_symfony',
+    'service_container_symfony_subtest',
+    'service_container_symfony_test',
+    'service_container_test',
+    'service_container_test_ctools',
+  );
+  foreach ($modules as $module) {
+    db_query("DELETE FROM {system} WHERE name = '$module' AND type = 'module'");
+  }
+  $tables = array(
+    'openlayers_components',
+    'openlayers_controls',
+    'openlayers_interactions',
+    'openlayers_layers',
+    'openlayers_maps',
+    'openlayers_projections',
+    'openlayers_sources',
+    'openlayers_styles',
+  );
+  foreach ($tables as $table) {
+    db_query("DROP TABLE {$table}");
+  }
+}
+
+/**
+ * Install the Farm Metrics module.
+ */
+function farm_update_7052(&$sandbox) {
+  _farm_update_enable_modules(array('farm_metrics'));
+}
+
+/**
+ * Remove farm tours.
+ */
+function farm_update_7053(&$sandbox) {
+
+  // Perform the tasks from bootstrap_tour_uninstall().
+  field_attach_delete_bundle('bootstrap_tour', 'bootstrap_tour');
+
+  // Uninstall bootstrap_tour, farm_tour, and inline_entity_form modules.
+  $modules = array(
+    'bootstrap_tour',
+    'farm_tour',
+    'inline_entity_form',
+  );
+  foreach ($modules as $module) {
+    db_query("DELETE FROM {system} WHERE name = '$module' AND type = 'module'");
+  }
+  $tables = array(
+    'bootstrap_tour_step',
+    'bootstrap_tour_tour'
+  );
+  foreach ($tables as $table) {
+    db_query("DROP TABLE {$table}");
+  }
+}
+
+/**
+ * Make sure the farmOS theme is enabled.
+ */
+function farm_update_7054(&$sandbox) {
+  // @see https://github.com/farmOS/farmOS/issues/272
+  if (variable_get('theme_default', '') == 'farm_theme') {
+    db_query("UPDATE {system} SET status = 1 WHERE type = 'theme' AND name = 'farm_theme' AND status = 0");
+  }
+}
+
+/**
+ * Install the Farm Client module.
+ */
+function farm_update_7055(&$sandbox) {
+  _farm_update_enable_modules(array('farm_client'));
 }
 
 /**

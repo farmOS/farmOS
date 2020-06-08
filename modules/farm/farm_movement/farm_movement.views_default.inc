@@ -43,42 +43,43 @@ function farm_movement_views_default_views() {
     'id' => 'id',
     'name' => 'name',
     'type' => 'type',
-    'active' => 'active',
+    'archived' => 'archived',
     'timestamp' => 'timestamp',
   );
-  $handler->display->display_options['style_options']['default'] = '-1';
+  $handler->display->display_options['style_options']['class'] = '';
+  $handler->display->display_options['style_options']['default'] = 'timestamp';
   $handler->display->display_options['style_options']['info'] = array(
     'id' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
+      'sortable' => 1,
+      'default_sort_order' => 'desc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'name' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'type' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
-    'active' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
+    'archived' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'desc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'timestamp' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
+      'sortable' => 1,
+      'default_sort_order' => 'desc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -100,7 +101,7 @@ function farm_movement_views_default_views() {
   $handler->display->display_options['relationships']['field_farm_movement_value']['table'] = 'field_data_field_farm_movement';
   $handler->display->display_options['relationships']['field_farm_movement_value']['field'] = 'field_farm_movement_value';
   $handler->display->display_options['relationships']['field_farm_movement_value']['required'] = TRUE;
-  $handler->display->display_options['relationships']['field_farm_movement_value']['delta'] = '0';
+  $handler->display->display_options['relationships']['field_farm_movement_value']['delta'] = '-1';
   /* Relationship: Entity Reference: Referenced Entity */
   $handler->display->display_options['relationships']['field_farm_asset_target_id']['id'] = 'field_farm_asset_target_id';
   $handler->display->display_options['relationships']['field_farm_asset_target_id']['table'] = 'field_data_field_farm_asset';
@@ -142,19 +143,14 @@ function farm_movement_views_default_views() {
   $handler->display->display_options['fields']['timestamp']['date_format'] = 'custom';
   $handler->display->display_options['fields']['timestamp']['custom_date_format'] = 'M j Y';
   $handler->display->display_options['fields']['timestamp']['second_date_format'] = 'long';
-  /* Sort criterion: Log: Timestamp */
-  $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
-  $handler->display->display_options['sorts']['timestamp']['table'] = 'log';
-  $handler->display->display_options['sorts']['timestamp']['field'] = 'timestamp';
-  $handler->display->display_options['sorts']['timestamp']['order'] = 'DESC';
   /* Contextual filter: Field collection item: Movement to (field_farm_move_to) */
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['id'] = 'field_farm_move_to_tid';
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['table'] = 'field_data_field_farm_move_to';
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['field'] = 'field_farm_move_to_tid';
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['relationship'] = 'field_farm_movement_value';
-  $handler->display->display_options['arguments']['field_farm_move_to_tid']['default_action'] = 'empty';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['default_action'] = 'not found';
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['title_enable'] = TRUE;
-  $handler->display->display_options['arguments']['field_farm_move_to_tid']['title'] = 'Assets in %1';
+  $handler->display->display_options['arguments']['field_farm_move_to_tid']['title'] = 'History of assets in %1';
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['default_argument_type'] = 'fixed';
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['field_farm_move_to_tid']['summary']['format'] = 'default_summary';
@@ -212,6 +208,14 @@ function farm_movement_views_default_views() {
   $handler->display->display_options['filters']['date_filter_1']['date_fields'] = array(
     'log.timestamp' => 'log.timestamp',
   );
+
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page_1');
+  $handler->display->display_options['path'] = 'taxonomy/term/%/history';
+  $handler->display->display_options['menu']['title'] = 'Asset history';
+  $handler->display->display_options['menu']['weight'] = '100';
+  $handler->display->display_options['menu']['context'] = 0;
+  $handler->display->display_options['menu']['context_only_inline'] = 0;
   $translatables['farm_area_assets'] = array(
     t('Master'),
     t('History of Assets'),
@@ -239,10 +243,11 @@ function farm_movement_views_default_views() {
     t('Archived'),
     t('Arrived'),
     t('All'),
-    t('Assets in %1'),
+    t('History of assets in %1'),
     t('Asset type'),
     t('Arrived after'),
     t('Arrived before'),
+    t('Page'),
   );
   $export['farm_area_assets'] = $view;
 
@@ -426,7 +431,8 @@ function farm_movement_views_default_views() {
     'field_farm_log_category' => 'field_farm_log_category',
     'field_farm_log_owner' => 'field_farm_log_owner',
   );
-  $handler->display->display_options['style_options']['default'] = '-1';
+  $handler->display->display_options['style_options']['class'] = '';
+  $handler->display->display_options['style_options']['default'] = 'timestamp';
   $handler->display->display_options['style_options']['info'] = array(
     'views_bulk_operations' => array(
       'align' => '',
@@ -434,22 +440,22 @@ function farm_movement_views_default_views() {
       'empty_column' => 0,
     ),
     'done' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'id' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
+      'sortable' => 1,
+      'default_sort_order' => 'desc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'timestamp' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
+      'sortable' => 1,
+      'default_sort_order' => 'desc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -465,14 +471,14 @@ function farm_movement_views_default_views() {
       'empty_column' => 0,
     ),
     'name' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'type' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
@@ -516,7 +522,7 @@ function farm_movement_views_default_views() {
   $handler->display->display_options['relationships']['field_farm_movement_value']['table'] = 'field_data_field_farm_movement';
   $handler->display->display_options['relationships']['field_farm_movement_value']['field'] = 'field_farm_movement_value';
   $handler->display->display_options['relationships']['field_farm_movement_value']['required'] = TRUE;
-  $handler->display->display_options['relationships']['field_farm_movement_value']['delta'] = '0';
+  $handler->display->display_options['relationships']['field_farm_movement_value']['delta'] = '-1';
   /* Field: Bulk operations: Log */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
   $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'views_entity_log';
@@ -662,32 +668,6 @@ function farm_movement_views_default_views() {
     'link' => 0,
   );
   $handler->display->display_options['fields']['field_farm_log_owner']['delta_offset'] = '0';
-  /* Sort criterion: Log: Timestamp */
-  $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
-  $handler->display->display_options['sorts']['timestamp']['table'] = 'log';
-  $handler->display->display_options['sorts']['timestamp']['field'] = 'timestamp';
-  $handler->display->display_options['sorts']['timestamp']['order'] = 'DESC';
-  $handler->display->display_options['sorts']['timestamp']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['timestamp']['expose']['label'] = 'Date';
-  /* Sort criterion: Log: Name */
-  $handler->display->display_options['sorts']['name']['id'] = 'name';
-  $handler->display->display_options['sorts']['name']['table'] = 'log';
-  $handler->display->display_options['sorts']['name']['field'] = 'name';
-  $handler->display->display_options['sorts']['name']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['name']['expose']['label'] = 'Log name';
-  /* Sort criterion: Log: Log type */
-  $handler->display->display_options['sorts']['type']['id'] = 'type';
-  $handler->display->display_options['sorts']['type']['table'] = 'log';
-  $handler->display->display_options['sorts']['type']['field'] = 'type';
-  $handler->display->display_options['sorts']['type']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['type']['expose']['label'] = 'Log type';
-  /* Sort criterion: Log: Log ID */
-  $handler->display->display_options['sorts']['id']['id'] = 'id';
-  $handler->display->display_options['sorts']['id']['table'] = 'log';
-  $handler->display->display_options['sorts']['id']['field'] = 'id';
-  $handler->display->display_options['sorts']['id']['order'] = 'DESC';
-  $handler->display->display_options['sorts']['id']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['id']['expose']['label'] = 'Log ID';
   /* Contextual filter: Log: Assets (field_farm_asset) */
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['id'] = 'field_farm_asset_target_id';
   $handler->display->display_options['arguments']['field_farm_asset_target_id']['table'] = 'field_data_field_farm_asset';

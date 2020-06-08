@@ -106,9 +106,48 @@ function farm_movement_form_farm_asset_form_alter(&$form, &$form_state, $form_id
     '#title' => t('Current location'),
     '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_area',
     '#default_value' => $location,
+    '#maxlength' => NULL,
   );
+
+  // Add validation function to validate location input.
+  $form['actions']['submit']['#validate'][] = 'farm_movement_asset_location_validate';
+
+  // Add submit function to process the location.
   $form['actions']['submit']['#submit'][] = 'farm_movement_asset_location_submit';
+
+  // Put the location fieldset into the "General" field group.
   $form['#group_children']['location'] = 'group_farm_general';
+}
+
+/**
+ * Validation handler for processing the asset location field.
+ *
+ * @param array $form
+ *   The form array.
+ * @param array $form_state
+ *   The form state array.
+ */
+function farm_movement_asset_location_validate(array $form, array &$form_state) {
+
+  // Only proceed if current location field has a value.
+  if (empty($form_state['values']['location']['areas'])) {
+    return;
+  }
+
+  // Explode the value into an array and only take the first value.
+  // (Same behavior as taxonomy autocomplete widget.)
+  $values = drupal_explode_tags($form_state['values']['location']['areas']);
+
+  // Iterate over the values.
+  foreach ($values as $value) {
+
+    // If the area name is over 255 characters long, throw a form validation
+    // error.
+    if (strlen($value) > 255) {
+      $message = t('The area name "%name" is too long. It must be under 255 characters.', array('%name' => $value));
+      form_set_error('location][areas', $message);
+    }
+  }
 }
 
 /**
@@ -140,23 +179,24 @@ function farm_movement_asset_location_submit(array $form, array &$form_state) {
   $asset = $form_state['values']['farm_asset'];
 
   // Load the areas.
-  $areas = farm_area_parse_names($form_state['values']['location']['areas'], TRUE);
+  $areas = farm_term_parse_names($form_state['values']['location']['areas'], 'farm_areas', TRUE);
 
   // Create an observation log to record the movement.
   farm_movement_create($asset, $areas, REQUEST_TIME);
 }
 
 /**
- * Find the location of an asset.
+ * Find the location of an asset, based on movement logs.
  *
  * @param FarmAsset $asset
  *   The farm_asset object to look for.
  * @param int $time
  *   Unix timestamp limiter. Only logs before this time will be included.
  *   Defaults to the current time. Set to 0 to load the absolute last.
- * @param bool $done
- *   Whether or not to only show logs that are marked as "done".
- *   Defaults to TRUE.
+ * @param bool|null $done
+ *   Whether or not to only show logs that are marked as "done". TRUE will limit
+ *   to logs that are done, and FALSE will limit to logs that are not done. If
+ *   this is set to NULL, no filtering will be applied. Defaults to TRUE.
  *
  * @return array
  *   Returns an array of areas that the asset is in.
@@ -175,6 +215,7 @@ function farm_movement_asset_location(FarmAsset $asset, $time = REQUEST_TIME, $d
   // Load the log's movement field
   $movement = field_collection_item_load($log->field_farm_movement[LANGUAGE_NONE][0]['value']);
 
+  // Load the areas referenced in the "Move to" field.
   if (!empty($movement->field_farm_move_to[LANGUAGE_NONE])) {
     foreach ($movement->field_farm_move_to[LANGUAGE_NONE] as $area_reference) {
       if (!empty($area_reference['tid'])) {
@@ -186,6 +227,43 @@ function farm_movement_asset_location(FarmAsset $asset, $time = REQUEST_TIME, $d
     }
   }
   return $areas;
+}
+
+/**
+ * Find the geometry of an asset, based on movement logs.
+ *
+ * @param FarmAsset $asset
+ *   The farm_asset object to look for.
+ * @param int $time
+ *   Unix timestamp limiter. Only logs before this time will be included.
+ *   Defaults to the current time. Set to 0 to load the absolute last.
+ * @param bool|null $done
+ *   Whether or not to only show logs that are marked as "done". TRUE will limit
+ *   to logs that are done, and FALSE will limit to logs that are not done. If
+ *   this is set to NULL, no filtering will be applied. Defaults to TRUE.
+ *
+ * @return string
+ *   Returns the asset's current geometry, in WKT (well-known text).
+ */
+function farm_movement_asset_geometry(FarmAsset $asset, $time = REQUEST_TIME, $done = TRUE) {
+  $geometry = '';
+
+  // Load the log using our helper function.
+  $log = farm_movement_asset_latest_movement($asset, $time, $done);
+
+  // If a movement field doesn't exist, bail.
+  if (empty($log->field_farm_movement[LANGUAGE_NONE][0]['value'])) {
+    return $geometry;
+  }
+
+  // Load the log's movement field
+  $movement = field_collection_item_load($log->field_farm_movement[LANGUAGE_NONE][0]['value']);
+
+  // Load the movement geometry.
+  if (!empty($movement->field_farm_geofield[LANGUAGE_NONE][0]['geom'])) {
+    $geometry = $movement->field_farm_geofield[LANGUAGE_NONE][0]['geom'];
+  }
+  return $geometry;
 }
 
 /**
@@ -330,9 +408,10 @@ function farm_movement_area_history($area, $asset_types = array(), $start_time =
  * @param int $time
  *   Unix timestamp limiter. Only logs before this time will be included.
  *   Defaults to the current time. Set to 0 to load the absolute last.
- * @param bool $done
- *   Whether or not to only show logs that are marked as "done". Defaults to
- *   TRUE.
+ * @param $done
+ *   Whether or not to only show logs that are marked as "done". TRUE will limit
+ *   to logs that are done, and FALSE will limit to logs that are not done. If
+ *   any other value is used, no filtering will be applied. Defaults to TRUE.
  *
  * @return Log|bool
  *   Returns a log entity. FALSE if something goes wrong.
@@ -374,10 +453,12 @@ function farm_movement_asset_latest_movement(FarmAsset $asset, $time = REQUEST_T
  * @param int $time
  *   Unix timestamp limiter. Only logs after this time will be included.
  *   Defaults to the current time. Set to 0 to load the absolute first.
- * @param bool $done
- *   Whether or not to only show logs that are marked as "done". Defaults to
- *   FALSE because the default $time is now, and future logs are generally not
- *   done yet.
+ * @param bool|null $done
+ *   Whether or not to only show logs that are marked as "done". TRUE will limit
+ *   to logs that are done, and FALSE will limit to logs that are not done. If
+ *   this is set to NULL, no filtering will be applied. Defaults to FALSE
+ *   because the default $time is now, and future logs are generally not done
+ *   yet.
  *
  * @return Log|bool
  *   Returns a log entity. FALSE if something goes wrong.
@@ -441,9 +522,10 @@ function farm_movement_asset_next_movement(FarmAsset $asset, $time = REQUEST_TIM
  * @param int $time
  *   Unix timestamp limiter. Only logs before this time will be included.
  *   Defaults to the current time. Set to 0 to load the absolute last.
- * @param bool $done
- *   Whether or not to only show logs that are marked as "done". Defaults to
- *   TRUE.
+ * @param $done
+ *   Whether or not to only show logs that are marked as "done". TRUE will limit
+ *   to logs that are done, and FALSE will limit to logs that are not done. If
+ *   any other value is used, no filtering will be applied. Defaults to TRUE.
  * @param bool $single
  *   Whether or not to limit the query to a single result. Defaults to TRUE.
  * @param string $field
@@ -499,9 +581,10 @@ function farm_movement_asset_movement_query($asset_id, $time = REQUEST_TIME, $do
  * @param int $time
  *   Unix timestamp limiter. Only logs before this time will be included.
  *   Defaults to the current time. Set to 0 to load the absolute last.
- * @param bool $done
- *   Whether or not to only show logs that are marked as "done". Defaults to
- *   TRUE.
+ * @param $done
+ *   Whether or not to only show logs that are marked as "done". TRUE will limit
+ *   to logs that are done, and FALSE will limit to logs that are not done. If
+ *   any other value is used, no filtering will be applied. Defaults to TRUE.
  *
  * @return \SelectQuery
  *   Returns a SelectQuery object.
@@ -551,9 +634,10 @@ function farm_movement_area_movement_query($area_id, $time = REQUEST_TIME, $done
  * @param int $time
  *   Unix timestamp limiter. Only logs before this time will be included.
  *   Defaults to the current time. Set to 0 to load the absolute last.
- * @param bool $done
- *   Whether or not to only show logs that are marked as "done".
- *   Defaults to TRUE.
+ * @param bool|null $done
+ *   Whether or not to only show logs that are marked as "done". TRUE will limit
+ *   to logs that are done, and FALSE will limit to logs that are not done. If
+ *   this is set to NULL, no filtering will be applied. Defaults to TRUE.
  * @param bool $archived
  *   Whether or not to include archived assets. Defaults to FALSE.
  *
@@ -610,9 +694,10 @@ function farm_movement_area_assets($area, $time = REQUEST_TIME, $done = TRUE, $a
  * @param int $time
  *   Unix timestamp limiter. Only logs before this time will be included.
  *   Defaults to the current time. Set to 0 to load the absolute last.
- * @param bool $done
- *   Whether or not to only show logs that are marked as "done". Defaults to
- *   TRUE.
+ * @param $done
+ *   Whether or not to only show logs that are marked as "done". TRUE will limit
+ *   to logs that are done, and FALSE will limit to logs that are not done. If
+ *   any other value is used, no filtering will be applied. Defaults to TRUE.
  * @param bool $archived
  *   Whether or not to include archived assets. Defaults to FALSE.
  *
@@ -764,7 +849,7 @@ function farm_movement_asset_move_action_submit(array $form, array $form_state) 
   $context = array();
 
   // Load the areas.
-  $context['areas'] = farm_area_parse_names($form_state['values']['areas'], TRUE);
+  $context['areas'] = farm_term_parse_names($form_state['values']['areas'], 'farm_areas', TRUE);
 
   // Convert the date to a timestamp.
   $timestamp = strtotime($form_state['values']['date']);
@@ -801,7 +886,7 @@ function farm_movement_asset_move_action(array $assets, $context = array()) {
 
   // If we're missing assets, areas, or a timestamp, bail.
   if (empty($assets) || empty($context['areas']) || empty($context['timestamp'])) {
-    drupal_set_message('Could not perform movement because required information was missing.', 'error');
+    drupal_set_message(t('Could not perform movement because required information was missing.'), 'error');
     return;
   }
 

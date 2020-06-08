@@ -42,6 +42,21 @@ function _farm_ui_views_post_render(&$view, &$output, &$cache) {
     return;
   }
 
+  // Add JS setting to set the bundle.
+  $settings = array(
+    'farm_map' => array(
+      'behaviors' => array(
+        'assets_full' => array(
+          'type' => $bundle,
+        ),
+        'assets_cluster' => array(
+          'type' => $bundle,
+        ),
+      ),
+    ),
+  );
+  drupal_add_js($settings, array('type' => 'setting'));
+
   // If there are no results in the View, bail.
   if (empty($view->result)) {
     return;
@@ -55,17 +70,6 @@ function _farm_ui_views_post_render(&$view, &$output, &$cache) {
   if (!empty($view->args)) {
     return;
   }
-
-  // Add the asset cluster map to the top of the View.
-  $title = t('Asset cluster map');
-  if (!empty($view->display['default']->display_options['title'])) {
-    $asset_type_label = $view->display['default']->display_options['title'];
-    $title = t('@asset_type cluster map', array('@asset_type' => $asset_type_label));
-  }
-  $fieldset = TRUE;
-  $collapsed = TRUE;
-  $map_build = farm_map_build('farm_assets_' . $bundle, $fieldset, $title, $collapsed);
-  $output = drupal_render($map_build) . $output;
 }
 
 /**

@@ -14,7 +14,7 @@ function farm_plan_farm_constraint($type, $bundle, $id) {
   $relationships = farm_plan_record_relationships();
 
   // Define plan references to check for
-  // (see farm_constraint_table_references_exist()).
+  // (see farm_constraint_table_references()).
   $plan_references = array();
   foreach ($relationships as $record_type => $info) {
     $plan_references[$record_type] = array(
@@ -26,5 +26,5 @@ function farm_plan_farm_constraint($type, $bundle, $id) {
   }
 
   // Check to see if references exist.
-  return farm_constraint_table_references_exist($plan_references, $type, $bundle, $id);
+  return farm_constraint_table_references($plan_references, $type, $bundle, $id);
 }

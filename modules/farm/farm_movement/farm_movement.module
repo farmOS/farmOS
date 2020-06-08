@@ -24,6 +24,15 @@ function farm_movement_entity_property_info_alter(&$info) {
     'computed' => TRUE,
   );
 
+  // Add a geometry property to assets.
+  $info['farm_asset']['properties']['geometry'] = array(
+    'type' => 'text',
+    'label' => t('Asset geometry'),
+    'description' => t('The current geometry of the asset'),
+    'getter callback' => 'farm_movement_asset_geometry_property_get',
+    'computed' => TRUE,
+  );
+
   // Add an assets property to areas.
   $info['taxonomy_term']['bundles']['farm_areas']['properties']['assets'] = array(
     'type' => 'list<farm_asset>',
@@ -52,6 +61,23 @@ function farm_movement_asset_location_property_get($data, array $options, $name,
 }
 
 /**
+ * Getter callback for the geometry asset property.
+ */
+function farm_movement_asset_geometry_property_get($data, array $options, $name, $type, $info) {
+
+  // If the asset doesn't have an ID, bail.
+  if (empty($data->id)) {
+    return array();
+  }
+
+  // Look up the asset geometry.
+  $geometry = farm_movement_asset_geometry($data);
+
+  // Return the geometry.
+  return $geometry;
+}
+
+/**
  * Getter callback for the area assets property.
  */
 function farm_movement_area_assets_property_get($data, array $options, $name, $type, $info) {
@@ -69,6 +95,17 @@ function farm_movement_area_assets_property_get($data, array $options, $name, $t
 
   // Return the assets.
   return $assets;
+}
+
+function farm_movement_farm_ui_entity_view_groups() {
+  $groups = array(
+    'assets_history' => array(
+      'title' => t('History of Assets'),
+      'weight' => 101,
+      'collapse' => TRUE,
+    ),
+  );
+  return $groups;
 }
 
 /**
@@ -90,7 +127,7 @@ function farm_movement_farm_ui_entity_views($entity_type, $bundle, $entity) {
   elseif ($entity_type == 'taxonomy_term' && $entity->vocabulary_machine_name == 'farm_areas') {
     $views[] = array(
       'name' => 'farm_area_assets',
-      'group' => 'assets',
+      'group' => 'assets_history',
       'weight' => 100,
       'always' => TRUE,
     );
@@ -323,8 +360,8 @@ function farm_movement_preprocess_field(&$vars) {
     // movement BEFORE this one.
     $previous_timestamp = $log->timestamp - 1;
 
-    // Include movements that have not been marked "done".
-    $done = FALSE;
+    // Include done and not done movements.
+    $done = NULL;
 
     // Look up the previous location(s) of the asset(s) and build a list of
     // unique area links.

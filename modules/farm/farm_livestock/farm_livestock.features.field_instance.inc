@@ -190,6 +190,7 @@ function farm_livestock_field_default_field_instances() {
         'label' => 'inline',
         'module' => 'date',
         'settings' => array(
+          'custom_date_format' => '',
           'format_type' => 'long',
           'fromto' => 'both',
           'multiple_from' => '',
@@ -674,12 +675,9 @@ function farm_livestock_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'openlayers_geofield',
-        'settings' => array(
-          'data' => 'full',
-          'map_layer_preset' => 'farm_map_geofield_formatter:openlayers_geofield_layer_formatter',
-        ),
-        'type' => 'openlayers_geofield',
+        'module' => 'farm_map_geofield',
+        'settings' => array(),
+        'type' => 'farm_map_geofield',
         'weight' => 12,
       ),
     ),
@@ -692,16 +690,9 @@ function farm_livestock_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'openlayers_geofield',
+      'module' => 'farm_map_geofield',
       'settings' => array(
-        'allow_edit' => 1,
-        'data_storage' => 'collection',
         'delta_handling' => 'default',
-        'feature_types' => array(
-          'path' => 'path',
-          'point' => 'point',
-          'polygon' => 'polygon',
-        ),
         'geocoder_field' => 'field_farm_files',
         'geocoder_handler' => 'kml',
         'handler_settings' => array(
@@ -721,11 +712,9 @@ function farm_livestock_field_default_field_instances() {
             ),
           ),
         ),
-        'openlayers_map' => 'farm_map_geofield',
-        'showInputField' => 1,
         'use_geocoder' => 1,
       ),
-      'type' => 'openlayers_geofield',
+      'type' => 'farm_map_geofield',
       'weight' => 22,
     ),
   );
@@ -1056,7 +1045,7 @@ function farm_livestock_field_default_field_instances() {
         'view_mode' => 'full',
       ),
       'type' => 'entityreference_view_widget',
-      'weight' => 1,
+      'weight' => -8,
     ),
   );
 
@@ -1072,7 +1061,7 @@ function farm_livestock_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_table',
-        'weight' => 8,
+        'weight' => 10,
       ),
     ),
     'entity_type' => 'log',
@@ -1109,7 +1098,7 @@ function farm_livestock_field_default_field_instances() {
         'module' => 'list',
         'settings' => array(),
         'type' => 'list_default',
-        'weight' => 4,
+        'weight' => 6,
       ),
     ),
     'entity_type' => 'log',
@@ -1124,7 +1113,7 @@ function farm_livestock_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 3,
+      'weight' => -5,
     ),
   );
 
@@ -1149,7 +1138,7 @@ function farm_livestock_field_default_field_instances() {
           'colorbox_node_style_first' => 'large',
         ),
         'type' => 'colorbox',
-        'weight' => 7,
+        'weight' => 9,
       ),
     ),
     'entity_type' => 'log',
@@ -1193,7 +1182,7 @@ function farm_livestock_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 2,
+        'weight' => 4,
       ),
     ),
     'entity_type' => 'log',
@@ -1224,7 +1213,7 @@ function farm_livestock_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 5,
+        'weight' => 7,
       ),
     ),
     'entity_type' => 'log',
@@ -1258,7 +1247,7 @@ function farm_livestock_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 6,
+        'weight' => 8,
       ),
     ),
     'entity_type' => 'log',
@@ -1291,7 +1280,7 @@ function farm_livestock_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 1,
+        'weight' => 2,
       ),
     ),
     'entity_type' => 'log',
@@ -1322,7 +1311,7 @@ function farm_livestock_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 3,
+        'weight' => 5,
       ),
     ),
     'entity_type' => 'log',
@@ -1340,7 +1329,74 @@ function farm_livestock_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 2,
+      'weight' => -6,
+    ),
+  );
+
+  // Exported field_instance: 'log-farm_medical-field_farm_quantity'.
+  $field_instances['log-farm_medical-field_farm_quantity'] = array(
+    'bundle' => 'farm_medical',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Optionally, use this quantity field to record an observed quantity.',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'field_collection',
+        'settings' => array(
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_fields',
+        'weight' => 3,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_quantity',
+    'label' => 'Quantity',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 14,
+    ),
+  );
+
+  // Exported field_instance: 'log-farm_medical-field_farm_vet'.
+  $field_instances['log-farm_medical-field_farm_vet'] = array(
+    'bundle' => 'farm_medical',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'If a veterinarian was involved, enter their name here.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 12,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_vet',
+    'label' => 'Veterinarian',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => -7,
     ),
   );
 
@@ -1364,6 +1420,7 @@ function farm_livestock_field_default_field_instances() {
   t('Has this animal been castrated?');
   t('ID');
   t('ID Tag(s)');
+  t('If a veterinarian was involved, enter their name here.');
   t('Inventory adjustments');
   t('Link this birth log to a mother animal so that you can easily see all birth logs for that animal on their record.');
   t('List any identification tags that this animal has. These can be ear tags, tattoos, leg bands, etc. Use the fields below to describe the type, location, and ID of each.');
@@ -1374,8 +1431,10 @@ function farm_livestock_field_default_field_instances() {
   t('Nickname(s)');
   t('Notes');
   t('Optionally assign this task to one or more people.');
+  t('Optionally, use this quantity field to record an observed quantity.');
   t('Parent(s)');
   t('Photos');
+  t('Quantity');
   t('Reference the animals that were born. Alternatively, if you just want to increase the head count of another animal record, add an inventory adjustment below.');
   t('Sex');
   t('Species/breed');
@@ -1386,6 +1445,7 @@ function farm_livestock_field_default_field_instances() {
   t('Use this field to set the group membership of any asset(s) referenced by this log.');
   t('Use this to organize your logs into categories for easier searching and filtering later.');
   t('Use this to set or adjust asset inventory levels along with this log.');
+  t('Veterinarian');
   t('What animals do this medical log pertain to?');
   t('What area(s) did this birth take place in?');
 

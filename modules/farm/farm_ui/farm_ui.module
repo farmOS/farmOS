@@ -42,6 +42,36 @@ function farm_ui_farm_info() {
   // Load information about farmOS entities.
   $entities = farm_ui_entities();
 
+  // Define default data schemas by field type.
+  // We hard-code this information because it's relatively stable, and easier
+  // than trying to figure out what the RestWS module is going to produce for
+  // each field type. This information is useful to clients like Field Kit.
+  $field_type_schemas = array(
+    'list_text' => '""',
+    'file' => '{"id": null}',
+    'geofield' => '{"geom": ""}',
+    'image' => '{"id": null}',
+    'taxonomy_term_reference' => '{"id": null}',
+    'number_integer' => 'null',
+    'datestamp' => 'null',
+    'text_long' => '{"value": "", "format": "farm_format"}',
+    'entityreference' => '{"id": null}',
+    'text' => '""',
+    'field_collection' => 'null',  // See $field_collection_schemas logic below.
+    'list_boolean' => 'null',
+    'fraction' => 'null',
+  );
+  $field_type_schema_exceptions = array(
+    'field_farm_data' => '""',
+  );
+  $field_collection_schemas = array(
+    'field_farm_movement' => '{"area": [{"id": null}], "geometry": ""}',
+    'field_farm_membership' => '{"group": [{"id": null}]}',
+    'field_farm_quantity' => '{"measure": "", "value": null, "unit": {"id": null}, "label": ""}',
+    'field_farm_inventory' => '{"asset": {"id": null}, "value": null}',
+    'field_farm_animal_tag' => '{"id": "", "location": "", "type": ""}',
+  );
+
   // Add information about entity type bundles.
   $info = array();
   foreach ($entities as $entity_type => $bundles) {
@@ -55,6 +85,46 @@ function farm_ui_farm_info() {
       );
       foreach ($fields as $field) {
         $info['resources'][$entity_type][$bundle][$field] = $bundle_info[$field];
+      }
+
+      // Load the fields on this bundle and some basic information about them:
+      // label, required, type, and data schema information.
+      /**
+       * @todo
+       * This is removing the `field_farm_` prefix, so that it is consistent
+       * with the prefix handling in farm_api.module.
+       */
+      $fields = field_info_instances($entity_type, $bundle);
+      foreach ($fields as $field_instance) {
+        $field = field_info_field($field_instance['field_name']);
+        $field_info = array(
+          'label' => $field_instance['label'],
+          'type' => $field['type'],
+          'required' => $field_instance['required'],
+        );
+        /**
+         * @deprecated
+         * The 'default_value' is not reliable, and will be removed from farmOS
+         * in 7.x-1.5.
+         */
+        if (array_key_exists('default_value', $field_instance)) {
+          $field_info['default_value'] = $field_instance['default_value'];
+        }
+        if (array_key_exists($field['type'], $field_type_schemas)) {
+          $data_schema = $field_type_schemas[$field['type']];
+          if (array_key_exists($field_instance['field_name'], $field_type_schema_exceptions)) {
+            $data_schema = $field_type_schema_exceptions[$field_instance['field_name']];
+          }
+          if ($field['type'] == 'field_collection' && array_key_exists($field_instance['field_name'], $field_collection_schemas)) {
+            $data_schema = $field_collection_schemas[$field_instance['field_name']];
+          }
+          if (isset($field['cardinality']) && $field['cardinality'] != 1) {
+            $data_schema = '[' . $data_schema . ']';
+          }
+          $field_info['data_schema'] = drupal_json_decode($data_schema);
+        }
+        $field_name = str_replace('field_farm_', '', $field_instance['field_name']);
+        $info['resources'][$entity_type][$bundle]['fields'][$field_name] = $field_info;
       }
     }
   }

@@ -1,0 +1,4 @@
+name = Farm Metrics
+description = Allow modules to define high level metrics.
+core = 7.x
+package = farmOS

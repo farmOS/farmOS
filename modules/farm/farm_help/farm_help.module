@@ -85,6 +85,9 @@ function farm_help_farm_help_page() {
   // Add a link to the farmOS documentation.
   $output[] = '<h3>Documentation</h3><p>' . l('https://farmOS.org', 'https://farmOS.org') . '</h3>';
 
+  // Add a link to the farmOS forum.
+  $output[] = '<h3>Community Forum</h3><p>' . l('https://farmOS.discourse.group', 'https://farmOS.discourse.group') . '</p>';
+
   // Add a link to the farmOS chat rooms.
   $chat_rooms = array(
     l('#farmOS Riot.im channel on Matrix.org', 'https://riot.im/app/#/room/#farmOS:matrix.org'),

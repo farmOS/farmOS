@@ -105,20 +105,6 @@ function farm_livestock_birth_form($form, &$form_state) {
       '#weight' => 10,
     );
 
-    // Birth weight.
-    $form['birth']['child'][$i]['weight'] = array(
-      '#type' => 'textfield',
-      '#title' => t('Birth weight'),
-      '#element_validate' => array('element_validate_number'),
-      '#weight' => 20,
-    );
-    $form['birth']['child'][$i]['units'] = array(
-      '#type' => 'textfield',
-      '#title' => t('Weight units'),
-      '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_quantity_units',
-      '#weight' => 21,
-    );
-
     // Animal description.
     $form['birth']['child'][$i]['description'] = array(
       '#type' => 'text_format',
@@ -177,7 +163,7 @@ function farm_livestock_birth_form_validate($form, &$form_state) {
       // Extract asset ID.
       $id = 0;
       $matches = array();
-      $result = preg_match('/\\[id: ([0-9]+)\\]$/', $form_state['values']['birth'][$parent], $matches);
+      $result = preg_match('/\\[id: ([0-9]+)\\]/', $form_state['values']['birth'][$parent], $matches);
       if (!empty($matches[$result])) {
         $id = $matches[$result];
       }
@@ -323,12 +309,7 @@ function farm_livestock_birth_form_submit($form, &$form_state) {
     // Set a message.
     $label = entity_label('farm_asset', $child_asset);
     $uri = entity_uri('farm_asset', $child_asset);
-    drupal_set_message('Child animal created: ' . l($label, $uri['path']));
-
-    // If the animal's weight was specified, create a weight measurement log.
-    if (!empty($child['weight'])) {
-      farm_livestock_weight_set($child_asset, $child['weight'], $child['units'], $timestamp);
-    }
+    drupal_set_message(t('Child animal created') . ': ' . l($label, $uri['path']));
   }
 
   // Create a birth log. Leave the name blank so that it is auto-generated.
@@ -381,7 +362,7 @@ function farm_livestock_birth_form_submit($form, &$form_state) {
   // Set a message linking to the mother animal.
   $label = entity_label('farm_asset', $parents['mother']);
   $uri = entity_uri('farm_asset', $parents['mother']);
-  drupal_set_message("View the mother's animal record: " . l($label, $uri['path']));
+  drupal_set_message(t("View the mother's animal record") . ': ' . l($label, $uri['path']));
 
   // Add the children to $form_state['storage'] so that other submit functions
   // can work with them.

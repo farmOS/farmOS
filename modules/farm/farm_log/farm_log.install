@@ -474,8 +474,7 @@ function farm_log_update_7008(&$sandbox) {
     foreach ($categories as $category) {
 
       // Load the term.
-      $terms = taxonomy_get_term_by_name($category, 'farm_log_categories');
-      $term = reset($terms);
+      $term = farm_term($category, 'farm_log_categories', FALSE);
 
       // If the term already exists on the log, skip it.
       if (in_array($term->tid, $tids)) {

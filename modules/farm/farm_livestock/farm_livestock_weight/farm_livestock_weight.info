@@ -1,0 +1,9 @@
+name = Farm Livestock Weight
+description = Features for tracking weight of animals with observation logs.
+core = 7.x
+package = farmOS
+dependencies[] = farm_livestock
+dependencies[] = farm_inventory
+dependencies[] = farm_quantity
+dependencies[] = farm_quantity_log
+dependencies[] = farm_report

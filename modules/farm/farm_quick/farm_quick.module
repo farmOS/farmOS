@@ -248,7 +248,7 @@ function farm_quick_entity_delete($entity, $type) {
   // When an entity is deleted, delete associated records in
   // {farm_quick_entity}.
   $id = entity_id($type, $entity);
-  if (!empty($id)) {
+  if (!empty($id) && is_numeric($id)) {
     db_query('DELETE FROM {farm_quick_entity} WHERE entity_type = :entity_type AND entity_id = :entity_id', array(':entity_type' => $type, ':entity_id' => $id));
   }
 }

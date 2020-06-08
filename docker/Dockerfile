@@ -1,9 +1,9 @@
 # Inherit from the Drupal 7 image on Docker Hub.
 FROM drupal:7
 
-# Set the farmOS version in an environment variable.
-#ENV FARMOS_VERSION 7.x-1.1
-ENV FARMOS_VERSION 7.x-1.x-dev
+# Set the farmOS version to download.
+#ARG FARMOS_VERSION=7.x-1.4
+ARG FARMOS_VERSION=7.x-1.x-dev
 
 # Enable Apache rewrite module.
 RUN a2enmod rewrite

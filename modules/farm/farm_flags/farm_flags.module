@@ -230,7 +230,7 @@ function farm_flags_action($entity, $context = array()) {
 
   // If the operation is invalid, bail.
   if (!in_array($context['operation'], array('append', 'replace'))) {
-    drupal_set_message('Invalid operation.');
+    drupal_set_message(t('Invalid operation.'));
     return;
   }
 

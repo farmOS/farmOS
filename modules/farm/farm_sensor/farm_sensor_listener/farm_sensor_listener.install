@@ -41,7 +41,6 @@ function farm_sensor_listener_schema() {
       'value_denominator' => array(
         'description' => 'Value denominator',
         'type' => 'int',
-        'unsigned' => TRUE,
         'not null' => TRUE,
         'default' => 1,
       ),
@@ -79,4 +78,34 @@ function farm_sensor_listener_update_7000(&$sandbox) {
     ),
   );
   db_change_field('farm_sensor_data', 'timestamp', 'timestamp', $timestamp, $timestamp_keys);
+}
+
+/**
+ * Alter sensor data schema to make denominator signed.
+ *
+ * This is done so the field is leveled between MySQL and Postgres and migration
+ * is possible between the two. When an integer is unsigned in Postges, Drupal
+ * will create a bigint for it, while with MySQL, it would create a regular int.
+ *
+ * @see https://www.drupal.org/project/fraction/issues/2729315
+ */
+function farm_sensor_listener_update_7001(&$sandbox) {
+
+  // Max value on signed int for MySQL or int in PostgreSQL is 2147483648. If
+  // the max value is bigger than the limits for MySQL/Postgres, warn the user.
+  $max_denominator = db_query('SELECT MAX(value_denominator) FROM {farm_sensor_data}')->fetchField();
+  if ($max_denominator >= 2147483648) {
+    throw new DrupalUpdateException('Fraction works with signed integer schema fields for denominator, some of your values in the database exceed this limit, please check the farm_sensor_data table and review the data before running this update. See https://www.drupal.org/project/fraction/issues/2729315 for further details.');
+  }
+
+  // Alter schema to make denominator signed.
+  db_change_field('farm_sensor_data', 'value_denominator', 'value_denominator', array(
+    'description' => 'Fraction denominator value',
+    'type' => 'int',
+    'not null' => TRUE,
+    'default' => 1,
+  ));
+
+  // Return a message.
+  return 'Sensor data table schema updated.';
 }

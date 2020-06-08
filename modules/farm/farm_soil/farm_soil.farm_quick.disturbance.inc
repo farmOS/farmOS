@@ -59,7 +59,7 @@ function farm_soil_disturbance_form($form, &$form_state) {
   $area = FALSE;
   if (!empty($form_values['area']['name'])) {
     $area_name = $form_values['area']['name'];
-    $areas = farm_area_parse_names($area_name);
+    $areas = farm_term_parse_names($area_name, 'farm_areas');
     $area = reset($areas);
   }
 
@@ -299,7 +299,7 @@ function farm_soil_disturbance_form_submit($form, &$form_state) {
 
   // Parse the area name, create new one if it doesn't exist.
   $area_name = $form_values['area']['name'];
-  $areas = farm_area_parse_names($area_name, TRUE);
+  $areas = farm_term_parse_names($area_name, 'farm_areas', TRUE);
 
   // If no areas were found/created, bail with an error.
   if (empty($areas)) {

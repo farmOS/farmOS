@@ -1,8 +1,11 @@
 # Inherit from the farmOS 7.x-1.x image.
 FROM farmos/farmos:7.x-1.x
 
-# Set the farmOS version to the development branch.
-ENV FARMOS_VERSION 7.x-1.x
+# Set the farmOS repository URL.
+ARG FARMOS_REPO=https://git.drupal.org/project/farm.git
+
+# Set the farmOS branch to git clone.
+ARG FARMOS_BRANCH=7.x-1.x
 
 # Install Xdebug.
 RUN yes | pecl install xdebug \
@@ -15,15 +18,18 @@ RUN apt-get update && apt-get install -y git unzip
 
 # Install Drush 8 with the phar file.
 ENV DRUSH_VERSION 8.2.1
-RUN curl -fsSL -o /usr/local/bin/drush "https://github.com/drush-ops/drush/releases/download/${DRUSH_VERSION}/drush.phar" && \
-  chmod +x /usr/local/bin/drush && \
-  drush core-status
+RUN curl -fsSL -o /usr/local/bin/drush.phar "https://github.com/drush-ops/drush/releases/download/${DRUSH_VERSION}/drush.phar" \
+  && chmod +x /usr/local/bin/drush.phar \
+  && ln -s /usr/local/bin/drush.phar /usr/local/bin/drush \
+  && drush core-status
 
 # Install mariadb-client so Drush can connect to the database.
 RUN apt-get update && apt-get install -y mariadb-client
 
 # Build the farmOS repository in /tmp/farmOS.
-RUN git clone --branch ${FARMOS_VERSION} https://git.drupal.org/project/farm.git /tmp/farmOS && \
+RUN git clone --branch ${FARMOS_BRANCH} ${FARMOS_REPO} /tmp/farmOS && \
+  sed -i 's@http://git.drupal.org/project/farm.git@'"${FARMOS_REPO}"'@g' /tmp/farmOS/build-farm.make && \
+  sed -i 's/7.x-1.x/'"${FARMOS_BRANCH}"'/g' /tmp/farmOS/build-farm.make && \
   drush make --working-copy --no-gitinfofile /tmp/farmOS/build-farm.make /tmp/www && \
   chown -R www-data:www-data /tmp/www
 

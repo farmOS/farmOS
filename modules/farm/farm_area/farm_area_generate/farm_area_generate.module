@@ -73,11 +73,16 @@ function farm_area_generate_geos_exists() {
  */
 function farm_area_generate_page_build(&$page) {
 
+  // If the user does not have access to use the area generator, bail.
+  if (!user_access('use farm area generator')) {
+    return;
+  }
+
   // If this is the area generator form page, add the areas map.
   if (current_path() == 'farm/areas/generate') {
 
     // Build the map and add it to the page content.
-    $page['content']['farm_areas'] = farm_map_build('farm_areas');
+    $page['content']['farm_areas'] = farm_map_build('farm_area_generate');
 
     // Set the weight to 100 so that it appears on bottom.
     $page['content']['farm_areas']['#weight'] = 100;
@@ -177,7 +182,7 @@ function farm_area_generate_form($form, &$form_state) {
 
   // If GEOS is not installed, print a warning and hide the submit button.
   if (!farm_area_generate_geos_exists()) {
-    drupal_set_message('This area generator tool requires the GEOS libary: ' . l('http://trac.osgeo.org/geos', 'http://trac.osgeo.org/geos'), 'warning');
+    drupal_set_message(t('This area generator tool requires the GEOS libary') . ': ' . l('http://trac.osgeo.org/geos', 'http://trac.osgeo.org/geos'), 'warning');
   }
   else {
     $form['actions']['preview'] = array(
@@ -234,8 +239,7 @@ function farm_area_generate_form_validate(&$form, &$form_state) {
   }
 
   // Load the area and store it in the form state.
-  $areas = taxonomy_get_term_by_name($form_state['values']['area'], 'farm_areas');
-  $area = reset($areas);
+  $area = farm_term($form_state['values']['area'], 'farm_areas', FALSE);
   $form_state['storage']['area'] = $area;
 
   // Ensure the area exists.
@@ -367,7 +371,7 @@ function farm_area_generate_form_submit(&$form, &$form_state) {
   }
 
   // Announce how many areas were generated.
-  drupal_set_message(count($geometries) . ' areas were generated.');
+  drupal_set_message(t('@count areas were generated.', array('@count' => count($geometries))));
 }
 
 /**
@@ -386,6 +390,9 @@ function farm_area_generate_form_submit(&$form, &$form_state) {
  *   Returns an array of child geometries.
  */
 function farm_area_generate_geometries($polygon, $count, $orientation = 0) {
+
+  // Set BCMath scale.
+  farm_map_set_bcscale();
 
   // If the orientation isn't within an acceptable range, bail.
   if ($orientation < 0 || $orientation > 360) {
@@ -417,6 +424,9 @@ function farm_area_generate_geometries($polygon, $count, $orientation = 0) {
     $final_geometries[] = $trimmed;
   }
 
+  // Reset BCMath scale.
+  farm_map_reset_bcscale();
+
   return $final_geometries;
 }
 
@@ -437,6 +447,9 @@ function farm_area_generate_bbox_geometries($bbox, $count) {
 
   // Load GeoPHP.
   geophp_load();
+
+  // Set BCMath scale.
+  farm_map_set_bcscale();
 
   // Calculate how wide each rectangle needs to be.
   if (geoPHP::bcmathInstalled()) {
@@ -468,6 +481,9 @@ function farm_area_generate_bbox_geometries($bbox, $count) {
     $geometries[] = new Polygon(array(new LineString($points)));
     $starting_point = $points[3];
   }
+
+  // Reset BCMath scale.
+  farm_map_reset_bcscale();
 
   // Return the geometries.
   return $geometries;
@@ -527,6 +543,9 @@ function farm_area_generate_rotate_point($point, $origin, $angle) {
   // Load GeoPHP.
   geophp_load();
 
+  // Set BCMath scale.
+  farm_map_set_bcscale();
+
   // If $point and $origin are not points, or $angle is not an integer between
   // 0 and 359, bail.
   if ($point->geometryType() != 'Point' || $origin->geometryType() != 'Point' || $angle < 0 || $angle > 359) {
@@ -545,6 +564,9 @@ function farm_area_generate_rotate_point($point, $origin, $angle) {
     $x = $origin->x() + (($point->x() - $origin->x()) * cos($angle)) - (($point->y() - $origin->y()) * sin($angle));
     $y = $origin->y() + (($point->x() - $origin->x()) * sin($angle)) + (($point->y() - $origin->y()) * cos($angle));
   }
+
+  // Reset BCMath scale.
+  farm_map_reset_bcscale();
 
   // Return a new Point object.
   return new Point($x, $y);

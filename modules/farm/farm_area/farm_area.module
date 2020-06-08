@@ -143,33 +143,13 @@ function farm_area_type_options() {
  * @return array
  *   Returns an array of area objects. If the area names exist, they will be
  *   loaded from the database. Otherwise, they will be created.
+ *
+ * @see farm_term_parse_names()
+ *
+ * @deprecated Use farm_term_parse_names() instead.
  */
 function farm_area_parse_names($names, $create = FALSE) {
-
-  // Start with an empty array.
-  $areas = array();
-
-  // Explode the value into an array and only take the first value.
-  // (Same behavior as taxonomy autocomplete widget.)
-  $values = drupal_explode_tags($names);
-
-  // If the value is empty, bail.
-  if (empty($values)) {
-    return $areas;
-  }
-
-  // Iterate through the values and built an array of areas.
-  foreach ($values as $value) {
-
-    // Create/load the area term.
-    $area = farm_term($value, 'farm_areas', $create);
-
-    // Add to the array of areas.
-    $areas[] = $area;
-  }
-
-  // Return the array of areas.
-  return $areas;
+  return farm_term_parse_names($names, 'farm_areas', $create);
 }
 
 /**
@@ -246,36 +226,6 @@ function farm_area_details_json($aid) {
 }
 
 /**
- * Implements hook_openlayers_object_preprocess_alter().
- */
-function farm_area_openlayers_object_preprocess_alter(&$build, $context) {
-
-  // If the object is not a Map, bail.
-  if (!$context instanceof Drupal\openlayers\Types\MapInterface) {
-    return;
-  }
-
-  // If this is the farm_areas map, add area details javascript.
-  if ($context->getMachineName() == 'farm_areas') {
-
-    // Add a Javascript setting that defines the base path of the site.
-    // We do this instead of using Drupal.settings.basePath in Javascript
-    // because that variable does not take into account whether or not clean
-    // URLs are enabled.
-    $setting = array(
-      'farm_area' => array(
-        'base_path' => url('farm/area'),
-      ),
-    );
-    drupal_add_js($setting, 'setting');
-
-    // Add the Javascript for lazy loading area details.
-    $path = drupal_get_path('module', 'farm_area');
-    drupal_add_js($path . '/js/farm_area.openlayers.popup.js');
-  }
-}
-
-/**
  * Implements hook_page_build().
  */
 function farm_area_page_build(&$page) {
@@ -297,45 +247,6 @@ function farm_area_page_build(&$page) {
     // Set the content region #sorted flag to FALSE so that it resorts.
     $page['content']['#sorted'] = FALSE;
   }
-}
-
-/**
- * Implements hook_entity_view_alter().
- */
-function farm_area_entity_view_alter(&$build, $type) {
-
-  // If it's not a taxonomy_term, or if the entity object is not available,
-  // bail.
-  if ($type != 'taxonomy_term' || empty($build['#term'])) {
-    return;
-  }
-
-  // Alias the area variable.
-  $area = $build['#term'];
-
-  // If it isn't a farm_areas term, bail.
-  if ($area->vocabulary_machine_name != 'farm_areas') {
-    return;
-  }
-
-  // Get the area's calculated area (formatted).
-  $calculated_area = farm_area_calculate_area($area->tid, TRUE);
-
-  // If the calculated area isn't available, bail.
-  if (empty($calculated_area)) {
-    return;
-  }
-
-  // Build the calculated area display.
-  $output = '<strong>' . t('Calculated area') . ':</strong> ' . $calculated_area;
-
-  // Add it to the build array.
-  $build['calculated_area'] = array(
-    '#markup' => $output,
-    '#prefix' => '<div class="calculated_area">',
-    '#suffix' => '</div>',
-    '#weight' => 1,
-  );
 }
 
 /**
@@ -423,7 +334,17 @@ function farm_area_calculate_area($area_id, $format = FALSE) {
   // Load the WKT into a GeoPHP Geometry object and reduce it.
   geophp_load();
   $polygon = geoPHP::load($geom, 'wkt');
+
+  // If the geometry is empty, bail.
+  if ($polygon->isEmpty()) {
+    return '';
+  }
+
+  // Reduce the geometry. If this returns FALSE, bail.
   $polygon = geoPHP::geometryReduce($polygon);
+  if (empty($polygon)) {
+    return '';
+  }
 
   // Ensure that it is a simple polygon.
   if ($polygon->geometryType() != 'Polygon') {
@@ -464,6 +385,9 @@ function farm_area_calculate_area_multiple($area_ids, $format = FALSE) {
     return '';
   }
 
+  // Set BCMath scale.
+  farm_map_set_bcscale();
+
   // Add up the total area.
   $total_area = '';
   foreach ($area_ids as $area_id) {
@@ -472,9 +396,15 @@ function farm_area_calculate_area_multiple($area_ids, $format = FALSE) {
       $total_area = bcadd($total_area, $area_area);
     }
     else {
-      $total_area += $area_area;
+      if (empty($total_area)) {
+        $total_area = 0;
+      }
+      $total_area += floatval($area_area);
     }
   }
+
+  // Reset BCMath scale.
+  farm_map_reset_bcscale();
 
   // Return the area as a string (optionally formatted using the default
   // system of measure).
@@ -592,13 +522,19 @@ function farm_area_convert_area_units($input, $unit) {
     return $input;
   }
 
+  // Set BCMath scale.
+  farm_map_set_bcscale();
+
   // Convert to the desired units.
   if (function_exists('bcmul')) {
     $output = bcmul($input, $conversion[$unit]);
   }
   else {
-    $output = $input * $conversion;
+    $output = floatval($input) * $conversion[$unit];
   }
+
+  // Reset BCMath scale.
+  farm_map_reset_bcscale();
 
   // Return the result.
   return $output;

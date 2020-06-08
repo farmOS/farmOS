@@ -1,0 +1,37 @@
+<?php
+
+/**
+ * @file
+ * Farm plan map module.
+ */
+
+// Include Features code.
+include_once 'farm_plan_map.features.inc';
+
+/**
+ * Implements hook_entity_view_alter().
+ */
+function farm_plan_map_entity_view_alter(&$build, $type) {
+
+  // Alter farm_plan entity view pages.
+  if ($type != 'farm_plan' || empty($build['#entity'])) {
+    return;
+  }
+
+  // Get the plan entity.
+  $plan = $build['#entity'];
+
+  // Check to see if there are areas and/or assets associated with the plan.
+  // If there are none, bail - we won't show a map.
+  $plan_areas = farm_plan_linked_records('area', $plan->id);
+  $plan_assets = farm_plan_linked_records('asset', $plan->id);
+  if (empty($plan_areas) && empty($plan_assets)) {
+    return;
+  }
+
+  // Build the areas map and add it to the page content.
+  $build['farm_plan_map'] = farm_map_build('farm_plan_map');
+
+  // Add the plan ID to the element.
+  $build['farm_plan_map']['#plan_id'] = $plan->id;
+}

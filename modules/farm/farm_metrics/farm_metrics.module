@@ -1,0 +1,87 @@
+<?php
+/**
+ * @file
+ * Farm metrics module.
+ */
+
+/**
+ * Implements hook_hook_info().
+ */
+function farm_metrics_hook_info() {
+  $hooks['farm_metrics'] = array(
+    'group' => 'farm_metrics',
+  );
+  return $hooks;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function farm_metrics_permission() {
+  $perms = array(
+    'access farm metrics' => array(
+      'title' => t('Access farm metrics'),
+    ),
+  );
+  return $perms;
+}
+
+/**
+ * Implements hook_farm_access_perms().
+ */
+function farm_metrics_farm_access_perms($role) {
+  $perms = array();
+
+  // Access farm metrics.
+  $perms[] = 'access farm metrics';
+
+  return $perms;
+}
+
+/**
+ * Implements hook_farm_info().
+ */
+function farm_metrics_farm_info() {
+  if (user_access('access farm metrics')) {
+    return array(
+      'metrics' => farm_metrics(),
+    );
+  }
+}
+
+/**
+ * Returns a sorted array of all metrics.
+ */
+function farm_metrics() {
+
+  // Ask modules for metrics.
+  $metrics = module_invoke_all('farm_metrics');
+
+  // If no metrics are available, return an empty array.
+  if (empty($metrics)) {
+    return array();
+  }
+
+  // Make sure all metrics have defaults set.
+  $defaults = array(
+    'label' => '',
+    'value' => '0',
+    'link' => 'farm',
+    'weight' => 0,
+  );
+  foreach ($metrics as $key => $metric) {
+    $metrics[$key] = array_merge($defaults, $metric);
+  }
+
+  // Sort the metrics by weight ascending, value descending.
+  $weight_index = array();
+  $value_index = array();
+  foreach ($metrics as $key => $row) {
+    $weight_index[$key]  = $row['weight'];
+    $value_index[$key] = $row['value'];
+  }
+  array_multisort($weight_index, SORT_ASC, $value_index, SORT_DESC, $metrics);
+
+  // Return metrics.
+  return $metrics;
+}

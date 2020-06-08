@@ -79,7 +79,7 @@ function farm_soil_test_field_group_info() {
   $field_group->parent_name = 'group_farm_tabs';
   $field_group->data = array(
     'label' => 'Files',
-    'weight' => '4',
+    'weight' => '5',
     'children' => array(
       0 => 'field_farm_files',
       1 => 'field_farm_images',
@@ -189,6 +189,32 @@ function farm_soil_test_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_farm_quantity|log|farm_soil_test|form';
+  $field_group->group_name = 'group_farm_quantity';
+  $field_group->entity_type = 'log';
+  $field_group->bundle = 'farm_soil_test';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_farm_tabs';
+  $field_group->data = array(
+    'label' => 'Quantity',
+    'weight' => '4',
+    'children' => array(
+      0 => 'field_farm_quantity',
+    ),
+    'format_type' => 'field_group_easy_responsive_tabs_nav_item',
+    'format_settings' => array(
+      'formatter' => '',
+      'instance_settings' => array(
+        'classes' => 'group-farm-quantity field-group-field_group_easy_responsive_tabs_nav_item',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $field_groups['group_farm_quantity|log|farm_soil_test|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_farm_tabs|log|farm_soil_test|form';
   $field_group->group_name = 'group_farm_tabs';
   $field_group->entity_type = 'log';
@@ -202,6 +228,7 @@ function farm_soil_test_field_group_info() {
       0 => 'group_farm_files',
       1 => 'group_farm_general',
       2 => 'group_farm_location',
+      3 => 'group_farm_quantity',
     ),
     'format_type' => 'field_group_easy_responsive_tabs_nav',
     'format_settings' => array(
@@ -230,6 +257,7 @@ function farm_soil_test_field_group_info() {
   t('Files');
   t('General');
   t('Location');
+  t('Quantity');
   t('Sample points');
   t('Tabs');
 

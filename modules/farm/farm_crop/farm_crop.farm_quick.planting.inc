@@ -32,7 +32,7 @@ function farm_crop_planting_quick_form($form, &$form_state) {
   $form['planting']['season'] = array(
     '#type' => 'textfield',
     '#title' => t('Season'),
-    '#description' => t('What season will this planting be part of? This is used for organizing plantings for future reference, and can be something like "@year" or "@year Summer". This will be prepended to the planting asset name.', array('@year' => date('Y'))),
+    '#description' => t('What season(s) will this planting be part of? This is used for organizing plantings for future reference, and can be something like "@year" or "@year Summer". This will be prepended to the planting asset name.', array('@year' => date('Y'))),
     '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_season',
     '#default_value' => $season,
     '#ajax' => array(
@@ -64,6 +64,7 @@ function farm_crop_planting_quick_form($form, &$form_state) {
     $form['planting']['crops'][$i] = array(
       '#type' => 'textfield',
       '#title' => t('Crop/variety') . ' ' . ($i+1),
+      '#description' => t('Enter the crop/variety that this is a planting of. As you type, you will have the option of selecting from crops/varieties that you\'ve entered in the past.'),
       '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_crop',
       '#ajax' => array(
         'callback' => 'farm_crop_planting_quick_form_name_ajax',
@@ -165,7 +166,7 @@ function farm_crop_planting_quick_form($form, &$form_state) {
         '#title' => t('Date'),
         '#date_format' => $date_format,
         '#date_label_position' => 'within',
-        '#date_year_range' => '-3:+10',
+        '#date_year_range' => '-10:+3',
         '#default_value' => REQUEST_TIME,
         '#required' => TRUE,
       ),
@@ -176,7 +177,9 @@ function farm_crop_planting_quick_form($form, &$form_state) {
       'location' => array(
         '#type' => 'textfield',
         '#title' => t( 'Location'),
+        '#description' => t('Enter the name of the area that this will take place in. A list of existing area options will appear as you type. If the area does not exist, a new one will be created.'),
         '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_area',
+        '#maxlength' => NULL,
         '#ajax' => array(
           'callback' => 'farm_crop_planting_quick_form_name_ajax',
           'wrapper' => 'planting-name',
@@ -248,11 +251,20 @@ function farm_crop_planting_quick_form($form, &$form_state) {
   }
 
   // The planting will be named based on the season, location and crop.
-  $planting_name_parts = array(
-    $season,
-    $location,
-    implode(', ', $crop_tags),
-  );
+  // The location string may be trimmed to 253 char (accounting for spaces)
+  // to ensure that the asset name is less than 255 characters.
+  $planting_name_parts = array();
+  if (!empty($season)) {
+    $planting_name_parts[] = $season;
+  }
+  $crop_string = implode(',', $crop_tags);
+  $location_string = substr($location, 0, (253 - strlen($season) - strlen($crop_string)));
+  if (!empty($location_string)) {
+    $planting_name_parts[] = $location_string;
+  }
+  if (!empty($crop_string)) {
+    $planting_name_parts[] = $crop_string;
+  }
   $planting_name = implode(' ', $planting_name_parts);
 
   // Unset $form_state['input'] in order to change default value via AJAX.
@@ -262,6 +274,7 @@ function farm_crop_planting_quick_form($form, &$form_state) {
   $form['planting']['name'] = array(
     '#type' => 'textfield',
     '#title' => t('Planting asset name'),
+    '#maxlength' => 255,
     '#description' => t('The planting asset name will default to "[Season] [Location] [Crop(s)]" but can be modified here. If both a seeding and a transplanting log are created, the transplanting location will be used.'),
     '#default_value' => $planting_name,
     '#prefix' => '<div id="planting-name">',
@@ -317,7 +330,7 @@ function farm_crop_planting_quick_form_submit($form, &$form_state) {
   variable_set('farm_crop_planting_season', $season);
 
   // Load/create the season term.
-  $season_term = farm_term($season, 'farm_season');
+  $seasons = farm_term_parse_names($season, 'farm_season', TRUE);
 
   // Get the crop(s) and load/create terms for each.
   $crops = array();
@@ -337,8 +350,10 @@ function farm_crop_planting_quick_form_submit($form, &$form_state) {
   $planting_asset = entity_create('farm_asset', $values);
   $planting_wrapper = entity_metadata_wrapper('farm_asset', $planting_asset);
 
-  // Add the season.
-  $planting_wrapper->field_farm_season = $season_term;
+  // Add each season.
+  foreach ($seasons as $season) {
+    $planting_wrapper->field_farm_season[] = $season;
+  }
 
   // Add the crop(s).
   foreach ($crops as $crop) {
@@ -356,7 +371,7 @@ function farm_crop_planting_quick_form_submit($form, &$form_state) {
   // Set a message.
   $label = entity_label('farm_asset', $planting_asset);
   $uri = entity_uri('farm_asset', $planting_asset);
-  drupal_set_message('Planting created: ' . l($label, $uri['path']));
+  drupal_set_message(t('Planting created') . ': ' . l($label, $uri['path']));
 
   // Iterate through the logs.
   foreach ($form_state['values']['planting']['logs'] as $name => $log_values) {
@@ -372,7 +387,7 @@ function farm_crop_planting_quick_form_submit($form, &$form_state) {
     // If the location is available, load areas.
     $areas = array();
     if (!empty($log_values['location'])) {
-      $areas = farm_area_parse_names($log_values['location'], TRUE);
+      $areas = farm_term_parse_names($log_values['location'], 'farm_areas', TRUE);
     }
 
     // Build quantity measurements.

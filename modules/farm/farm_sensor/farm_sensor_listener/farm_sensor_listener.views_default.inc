@@ -41,12 +41,29 @@ function farm_sensor_listener_views_default_views() {
   $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all'] = TRUE;
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
-    'id' => 'id',
+    'timestamp' => 'timestamp',
+    'name' => 'name',
+    'value_decimal' => 'value_decimal',
   );
-  $handler->display->display_options['style_options']['default'] = '-1';
+  $handler->display->display_options['style_options']['class'] = '';
+  $handler->display->display_options['style_options']['default'] = 'timestamp';
   $handler->display->display_options['style_options']['info'] = array(
-    'id' => array(
-      'sortable' => 0,
+    'timestamp' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'desc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'name' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'value_decimal' => array(
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
@@ -80,25 +97,6 @@ function farm_sensor_listener_views_default_views() {
   $handler->display->display_options['fields']['value_decimal']['field'] = 'value_decimal';
   $handler->display->display_options['fields']['value_decimal']['label'] = 'Sensor value';
   $handler->display->display_options['fields']['value_decimal']['precision'] = '0';
-  /* Sort criterion: Sensor data: Timestamp */
-  $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
-  $handler->display->display_options['sorts']['timestamp']['table'] = 'farm_sensor_data';
-  $handler->display->display_options['sorts']['timestamp']['field'] = 'timestamp';
-  $handler->display->display_options['sorts']['timestamp']['order'] = 'DESC';
-  $handler->display->display_options['sorts']['timestamp']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['timestamp']['expose']['label'] = 'Timestamp';
-  /* Sort criterion: Sensor data: Sensor reading name */
-  $handler->display->display_options['sorts']['name']['id'] = 'name';
-  $handler->display->display_options['sorts']['name']['table'] = 'farm_sensor_data';
-  $handler->display->display_options['sorts']['name']['field'] = 'name';
-  $handler->display->display_options['sorts']['name']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['name']['expose']['label'] = 'Name';
-  /* Sort criterion: Sensor data: Sensor value (decimal) */
-  $handler->display->display_options['sorts']['value_decimal']['id'] = 'value_decimal';
-  $handler->display->display_options['sorts']['value_decimal']['table'] = 'farm_sensor_data';
-  $handler->display->display_options['sorts']['value_decimal']['field'] = 'value_decimal';
-  $handler->display->display_options['sorts']['value_decimal']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['value_decimal']['expose']['label'] = 'Value';
   /* Contextual filter: Farm asset: Farm asset ID */
   $handler->display->display_options['arguments']['id']['id'] = 'id';
   $handler->display->display_options['arguments']['id']['table'] = 'farm_asset';
@@ -138,30 +136,6 @@ function farm_sensor_listener_views_default_views() {
   $handler->display->display_options['filters']['name_1']['expose']['label'] = 'Name';
   $handler->display->display_options['filters']['name_1']['expose']['operator'] = 'name_1_op';
   $handler->display->display_options['filters']['name_1']['expose']['identifier'] = 'name_1';
-  $translatables['farm_sensor_data'] = array(
-    t('Master'),
-    t('Sensor Data'),
-    t('more'),
-    t('Apply'),
-    t('Reset'),
-    t('Sort by'),
-    t('Asc'),
-    t('Desc'),
-    t('Items per page'),
-    t('- All -'),
-    t('Offset'),
-    t('« first'),
-    t('‹ previous'),
-    t('next ›'),
-    t('last »'),
-    t('Displaying @start - @end of @total'),
-    t('No data found for this sensor.'),
-    t('Timestamp'),
-    t('Name'),
-    t('Sensor value'),
-    t('Value'),
-    t('All'),
-  );
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
@@ -188,6 +162,32 @@ function farm_sensor_listener_views_default_views() {
   );
   $handler->display->display_options['use_batch'] = 'batch';
   $handler->display->display_options['segment_size'] = '500';
+  $translatables['farm_sensor_data'] = array(
+    t('Master'),
+    t('Sensor Data'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('Displaying @start - @end of @total'),
+    t('No data found for this sensor.'),
+    t('Timestamp'),
+    t('Name'),
+    t('Sensor value'),
+    t('All'),
+    t('%1 data'),
+    t('Page'),
+    t('Data export'),
+  );
   $export['farm_sensor_data'] = $view;
 
   return $export;

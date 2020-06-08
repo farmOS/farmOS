@@ -453,7 +453,7 @@ function farm_group_asset_membership_action(array $assets, $context = array()) {
 
   // If we're missing assets, areas, or a timestamp, bail.
   if (empty($assets) || empty($context['groups']) || empty($context['timestamp'])) {
-    drupal_set_message('Could not perform membership change because required information was missing.', 'error');
+    drupal_set_message(t('Could not perform membership change because required information was missing.'), 'error');
     return;
   }
 
@@ -513,9 +513,10 @@ function farm_group_options($archived = FALSE) {
  * @param int $time
  *   Unix timestamp limiter. Only logs before this time will be included.
  *   Defaults to the current time. Set to 0 to load the absolute last.
- * @param bool $done
- *   Whether or not to only show logs that are marked as "done".
- *   Defaults to TRUE.
+ * @param bool|null $done
+ *   Whether or not to only show logs that are marked as "done". TRUE will limit
+ *   to logs that are done, and FALSE will limit to logs that are not done. If
+ *   this is set to NULL, no filtering will be applied. Defaults to TRUE.
  *
  * @return array
  *   Returns an array of groups that the asset is a member of.
@@ -557,9 +558,10 @@ function farm_group_asset_membership(FarmAsset $asset, $time = REQUEST_TIME, $do
  * @param int $time
  *   Unix timestamp limiter. Only logs before this time will be included.
  *   Defaults to the current time. Set to 0 to load the absolute last.
- * @param bool $done
- *   Whether or not to only show logs that are marked as "done". Defaults to
- *   TRUE.
+ * @param bool|null $done
+ *   Whether or not to only show logs that are marked as "done". TRUE will limit
+ *   to logs that are done, and FALSE will limit to logs that are not done. If
+ *   this is set to NULL, no filtering will be applied. Defaults to TRUE.
  *
  * @return Log|bool
  *   Returns a log entity. FALSE if something goes wrong.
@@ -604,9 +606,10 @@ function farm_group_asset_latest_membership(FarmAsset $asset, $time = REQUEST_TI
  * @param int $time
  *   Unix timestamp limiter. Only logs before this time will be included.
  *   Defaults to the current time. Set to 0 to load the absolute last.
- * @param bool $done
- *   Whether or not to only show logs that are marked as "done". Defaults to
- *   TRUE.
+ * @param bool|null $done
+ *   Whether or not to only show logs that are marked as "done". TRUE will limit
+ *   to logs that are done, and FALSE will limit to logs that are not done. If
+ *   this is set to NULL, no filtering will be applied. Defaults to TRUE.
  * @param bool $single
  *   Whether or not to limit the query to a single result. Defaults to TRUE.
  * @param string $field
@@ -660,9 +663,10 @@ function farm_group_asset_membership_query($asset_id, $time = REQUEST_TIME, $don
  * @param int $time
  *   Unix timestamp limiter. Only logs before this time will be included.
  *   Defaults to the current time. Set to 0 to load the absolute last.
- * @param bool $done
- *   Whether or not to only show logs that are marked as "done".
- *   Defaults to TRUE.
+ * @param bool|null $done
+ *   Whether or not to only show logs that are marked as "done". TRUE will limit
+ *   to logs that are done, and FALSE will limit to logs that are not done. If
+ *   this is set to NULL, no filtering will be applied. Defaults to TRUE.
  * @param bool $archived
  *   Whether or not to include archived member assets. Defaults to FALSE.
  *
@@ -719,9 +723,10 @@ function farm_group_members(FarmAsset $group, $time = REQUEST_TIME, $done = TRUE
  * @param int $time
  *   Unix timestamp limiter. Only logs before this time will be included.
  *   Defaults to the current time. Set to 0 to load the absolute last.
- * @param bool $done
- *   Whether or not to only show logs that are marked as "done". Defaults to
- *   TRUE.
+ * @param $done
+ *   Whether or not to only show logs that are marked as "done". TRUE will limit
+ *   to logs that are done, and FALSE will limit to logs that are not done. If
+ *   any other value is used, no filtering will be applied. Defaults to TRUE.
  * @param bool $archived
  *   Whether or not to include archived member assets. Defaults to FALSE.
  *

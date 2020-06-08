@@ -58,7 +58,7 @@ function farm_livestock_milk_form($form, &$form_state) {
     '#type' => 'textfield',
     '#title' => t('Quantity'),
     '#required' => TRUE,
-    '#element_validate' => array('element_validate_integer_positive'),
+    '#element_validate' => array('element_validate_number'),
   );
 
   // Quantity units.
@@ -92,7 +92,7 @@ function farm_livestock_milk_form_validate($form, &$form_state) {
     // Extract asset ID.
     $id = 0;
     $matches = array();
-    $result = preg_match('/\\[id: ([0-9]+)\\]$/', $form_state['values']['asset'], $matches);
+    $result = preg_match('/\\[id: ([0-9]+)\\]/', $form_state['values']['asset'], $matches);
     if (!empty($matches[$result])) {
       $id = $matches[$result];
     }
@@ -122,10 +122,8 @@ function farm_livestock_milk_form_submit($form, &$form_state) {
 
   // Remember what was entered for measure and units. This will be used as the
   // default the next time the form is loaded.
-  $measure = check_plain($form_state['values']['measure']);
-  $units = check_plain($form_state['values']['units']);
-  variable_set('farm_livestock_milk_measure', $measure);
-  variable_set('farm_livestock_milk_units', $units);
+  variable_set('farm_livestock_milk_measure', $form_state['values']['measure']);
+  variable_set('farm_livestock_milk_units', $form_state['values']['units']);
 
   // Get the asset and wrap it in an array.
   $asset = $form_state['storage']['asset'];
@@ -135,14 +133,14 @@ function farm_livestock_milk_form_submit($form, &$form_state) {
   $log_type = 'farm_harvest';
 
   // Set log name.
-  $log_name = t('Milk @asset: @qty @units', array('@asset' => entity_label('farm_asset', $asset), '@qty' => $form_state['values']['quantity'], '@units' => $form_state['values']['units']));
+  $log_name = t('Milk') . ' ' . format_string('!asset: !qty !units', array('!asset' => entity_label('farm_asset', $asset), '!qty' => $form_state['values']['quantity'], '!units' => $form_state['values']['units']));
 
   // Assemble an array of measurements.
   $measurements = array(
     array(
-      'measure' => $measure,
+      'measure' => $form_state['values']['measure'],
       'value' => $form_state['values']['quantity'],
-      'units' => $units,
+      'units' => $form_state['values']['units'],
       'label' => t('milk'),
     ),
   );

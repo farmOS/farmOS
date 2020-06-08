@@ -1,7 +1,7 @@
 version: '2'
 services:
   db:
-    image: mdillon/postgis:latest
+    image: postgis/postgis:latest
     volumes:
       - './db:/var/lib/postgresql/data'
     ports:

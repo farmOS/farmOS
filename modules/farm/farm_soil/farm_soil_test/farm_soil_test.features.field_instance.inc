@@ -22,7 +22,7 @@ function farm_soil_test_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 0,
+        'weight' => 1,
       ),
     ),
     'entity_type' => 'log',
@@ -53,7 +53,7 @@ function farm_soil_test_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_table',
-        'weight' => 9,
+        'weight' => 11,
       ),
     ),
     'entity_type' => 'log',
@@ -90,7 +90,7 @@ function farm_soil_test_field_default_field_instances() {
         'module' => 'list',
         'settings' => array(),
         'type' => 'list_default',
-        'weight' => 5,
+        'weight' => 7,
       ),
     ),
     'entity_type' => 'log',
@@ -118,13 +118,10 @@ function farm_soil_test_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'openlayers_geofield',
-        'settings' => array(
-          'data' => 'full',
-          'map_layer_preset' => 'farm_map_geofield_formatter:openlayers_geofield_layer_formatter',
-        ),
-        'type' => 'openlayers_geofield',
-        'weight' => 1,
+        'module' => 'farm_map_geofield',
+        'settings' => array(),
+        'type' => 'farm_map_geofield',
+        'weight' => 2,
       ),
     ),
     'entity_type' => 'log',
@@ -136,16 +133,9 @@ function farm_soil_test_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'openlayers_geofield',
+      'module' => 'farm_map_geofield',
       'settings' => array(
-        'allow_edit' => 1,
-        'data_storage' => 'collection',
         'delta_handling' => 'default',
-        'feature_types' => array(
-          'path' => 0,
-          'point' => 'point',
-          'polygon' => 0,
-        ),
         'geocoder_field' => 'field_farm_files',
         'geocoder_handler' => 'kml',
         'handler_settings' => array(
@@ -165,11 +155,9 @@ function farm_soil_test_field_default_field_instances() {
             ),
           ),
         ),
-        'openlayers_map' => 'farm_map_geofield',
-        'showInputField' => 1,
         'use_geocoder' => 1,
       ),
-      'type' => 'openlayers_geofield',
+      'type' => 'farm_map_geofield',
       'weight' => 8,
     ),
   );
@@ -195,7 +183,7 @@ function farm_soil_test_field_default_field_instances() {
           'colorbox_node_style_first' => 'large',
         ),
         'type' => 'colorbox',
-        'weight' => 8,
+        'weight' => 10,
       ),
     ),
     'entity_type' => 'log',
@@ -237,7 +225,7 @@ function farm_soil_test_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 6,
+        'weight' => 8,
       ),
     ),
     'entity_type' => 'log',
@@ -271,7 +259,7 @@ function farm_soil_test_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 7,
+        'weight' => 9,
       ),
     ),
     'entity_type' => 'log',
@@ -302,7 +290,7 @@ function farm_soil_test_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 4,
+        'weight' => 6,
       ),
     ),
     'entity_type' => 'log',
@@ -324,6 +312,39 @@ function farm_soil_test_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_soil_test-field_farm_quantity'.
+  $field_instances['log-farm_soil_test-field_farm_quantity'] = array(
+    'bundle' => 'farm_soil_test',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Optionally, use this quantity field to record an observed quantity.',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'field_collection',
+        'settings' => array(
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_fields',
+        'weight' => 5,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_quantity',
+    'label' => 'Quantity',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 13,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_soil_test-field_farm_soil_lab'.
   $field_instances['log-farm_soil_test-field_farm_soil_lab'] = array(
     'bundle' => 'farm_soil_test',
@@ -336,7 +357,7 @@ function farm_soil_test_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 3,
+        'weight' => 4,
       ),
     ),
     'entity_type' => 'log',
@@ -370,7 +391,7 @@ function farm_soil_test_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 2,
+        'weight' => 3,
       ),
     ),
     'entity_type' => 'log',
@@ -404,7 +425,9 @@ function farm_soil_test_field_default_field_instances() {
   t('Log category');
   t('Notes');
   t('Optionally assign this task to one or more people.');
+  t('Optionally, use this quantity field to record an observed quantity.');
   t('Photos');
+  t('Quantity');
   t('Sample points');
   t('Soil Names');
   t('Use the map to pinpoint the location(s) from which this sample is taken. If you are preparing a soil test, you may be sampling multiple points within a given area. All the points that comprise this sample should be included.');

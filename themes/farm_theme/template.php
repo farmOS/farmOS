@@ -137,12 +137,6 @@ function farm_theme_form_views_exposed_form_alter(&$form, &$form_state, $form_id
   // Collapse by default.
   $collapse = TRUE;
 
-  // If the form was submitted (if there are values in $_GET other than 'q'),
-  // do not collapse the form.
-  if (count($_GET) > 1) {
-    $collapse = FALSE;
-  }
-
   // Set attributes depending on the collapsed state (used in HTML below).
   if ($collapse) {
     $collapse_class = '';
@@ -158,7 +152,7 @@ function farm_theme_form_views_exposed_form_alter(&$form, &$form_state, $form_id
 <fieldset class="panel panel-default collapsible">
 <legend class="panel-heading" role="tab" id="' . $panel_head_id . '">
   <a class="panel-title fieldset-legend collapsed" data-toggle="collapse" href="#' . $panel_body_id . '" aria-expanded="' . $aria_expanded . '" aria-controls="' . $panel_body_id . '">
-    Filter/Sort
+    Filters
   </a>
 </legend>
 <div id="' . $panel_body_id . '" class="panel-collapse collapse' . $collapse_class . '" role="tabpanel" aria-labelledby="' . $panel_head_id . '">
@@ -312,8 +306,8 @@ function farm_theme_farm_flags_classes_alter($flag, &$classes) {
  */
 function farm_theme_entity_view_alter(&$build, $type) {
 
-  // If the entity is not a farm_asset, bail.
-  if ($type != 'farm_asset') {
+  // If the entity is not a farm_asset or farm_plan, bail.
+  if (!in_array($type, array('farm_asset', 'farm_plan'))) {
     return;
   }
 
@@ -324,6 +318,7 @@ function farm_theme_entity_view_alter(&$build, $type) {
     'weight',
     'group',
     'location',
+    'farm_plan_map',
   );
   $right_elements_exist = FALSE;
   foreach ($right_elements as $name) {
@@ -390,6 +385,13 @@ function farm_theme_entityreference_view_widget_rows_alter(&$rows, $entities, $s
 }
 
 /**
+ * Implements hook_preprocess_bootstrap_panel().
+ */
+function farm_theme_preprocess_bootstrap_panel(&$vars) {
+  drupal_add_js(drupal_get_path('theme', 'farm_theme') . '/js/map_panel.js');
+}
+
+/**
  * Implements hook_page_alter().
  */
 function farm_theme_page_alter(&$page) {
@@ -404,6 +406,58 @@ function farm_theme_page_alter(&$page) {
       '#type' => 'markup',
       '#markup' => '<p>' . l('Login to farmOS', 'user', array('query' => array('destination' => current_path()))) . '</p>',
     );
+  }
+}
+
+/**
+ * Implements hook_block_info_alter().
+ */
+function farm_theme_block_info_alter(&$blocks, $theme, $code_blocks) {
+
+  // Only affect the farmOS theme.
+  if ($theme != 'farm_theme') {
+    return;
+  }
+
+  // Add farm map block to the page_top region on the front page and
+  // farm/assets/*.
+  if (!empty($blocks['farm_map']['farm_map'])) {
+    $blocks['farm_map']['farm_map']['region'] = 'page_top';
+    $blocks['farm_map']['farm_map']['status'] = TRUE;
+    $blocks['farm_map']['farm_map']['visibility'] = BLOCK_VISIBILITY_LISTED;
+    $blocks['farm_map']['farm_map']['pages'] = "<front>\nfarm/assets/*";
+  }
+}
+
+/**
+ * Implements hook_block_view_alter().
+ */
+function farm_theme_block_view_alter(&$data, $block) {
+  if ($block->delta == 'farm_map' && is_array($data['content'])) {
+
+    // Add CSS and JS when farm_map block is displayed.
+    $data['content']['#attached'] = array(
+      'css' => array(
+        drupal_get_path('theme', 'farm_theme') . '/css/map_header.css',
+      ),
+      'js' => array(
+        drupal_get_path('theme', 'farm_theme') . '/js/map_header.js',
+      ),
+    );
+
+    // If the block is being displayed on the homepage, show the farm_areas map.
+    // Only allow access with the 'access farm dashboard' permission.
+    if (drupal_is_front_page()) {
+      $data['content']['#map_name'] = 'farm_areas';
+      $data['content']['#access'] = user_access('access farm dashboard');
+    }
+
+    // Or, if the block is on an asset listing page, show the farm_assets map.
+    // Only allow access with the 'view farm assets' permission.
+    elseif (strpos(current_path(), 'farm/assets/') === 0) {
+      $data['content']['#map_name'] = 'farm_assets';
+      $data['content']['#access'] = user_access('view farm assets');
+    }
   }
 }
 
@@ -440,8 +494,8 @@ function farm_theme_preprocess_page(&$vars) {
   $current_path = current_path();
   if ($current_path == 'farm') {
 
-    // Only proceed if the map group exists.
-    if (!empty($vars['page']['content']['system_main']['map'])) {
+    // Only proceed if the metrics group exists.
+    if (!empty($vars['page']['content']['system_main']['metrics'])) {
 
       // Get a list of groups (element children).
       $groups = element_children($vars['page']['content']['system_main']);
@@ -459,7 +513,6 @@ function farm_theme_preprocess_page(&$vars) {
       // Move the map and metrics panes to the right column (and remove them
       // from the groups list).
       $right_panes = array(
-        'map',
         'metrics',
       );
       foreach ($right_panes as $pane) {
@@ -514,6 +567,63 @@ function farm_theme_preprocess_field(&$vars) {
   // @see .field-name-field-farm-images .field-item in styles.css.
   if ($vars['element']['#field_name'] == 'field_farm_images') {
     $vars['classes_array'][] = 'clearfix';
+  }
+
+  // Customize the quantity measurement field collection display.
+  if($vars['element']['#field_name'] == 'field_farm_quantity') {
+
+    // Add a custom template suggestion: field--field-farm-quantity--full.tpl.php
+    // @see https://www.drupal.org/node/1137024
+    $vars['theme_hook_suggestions'][] = 'field__field_farm_quantity__' . $vars['element']['#view_mode'];
+
+    // Remove the "field-label-inline" class.
+    // @todo Change all quantity field instance display settings to show the
+    // label "Above" instead of doing this here.
+    $class_key = array_search('field-label-inline', $vars['classes_array']);
+    if ($class_key !== FALSE) {
+      unset($vars['classes_array'][$class_key]);
+    }
+
+    // Iterate through the quantities and prepare variables for the template.
+    $vars['quantities'] = array();
+    foreach ($vars['items'] as $delta => $item) {
+
+      // Grab the values from the item.
+      $values = reset($item['entity']['field_collection_item']);
+
+      // Prepare a blank quantity.
+      $qty = array(
+        'label' => '',
+        'measure' => '',
+        'value' => '',
+        'units' => '',
+      );
+
+      // Populate the values that are not empty.
+      foreach ($qty as $key => &$value) {
+        if (isset($values['field_farm_quantity_' . $key][0]['#markup']) && $values['field_farm_quantity_' . $key][0]['#markup'] != '') {
+          $value = $values['field_farm_quantity_' . $key][0]['#markup'];
+        }
+      }
+
+      // If the value is an empty string, show N/A.
+      if ($qty['value'] === '') {
+        $qty['value'] = 'N/A';
+      }
+
+      // If there is a label, make it bold.
+      if (!empty($qty['label'])) {
+        $qty['label'] = '<strong>' . $qty['label'] . '</strong>';
+      }
+
+      // If there is a label and a measure, wrap the measure in parentheses.
+      if (!empty($qty['label']) && !empty($qty['measure'])) {
+        $qty['measure'] = '(' . $qty['measure'] . ')';
+      }
+
+      // Add the quantity.
+      $vars['quantities'][] = $qty;
+    }
   }
 }
 

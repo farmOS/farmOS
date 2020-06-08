@@ -5,7 +5,9 @@
  * Farm API module.
  */
 
-define('FARM_API_VERSION', '1.1');
+define('FARM_API_VERSION', '1.3');
+
+include_once 'farm_api.features.inc';
 
 /**
  * Implements hook_permission().
@@ -15,6 +17,9 @@ function farm_api_permission() {
     'access farm api info' => array(
       'title' => t('Access the farmOS API info endpoint'),
     ),
+    'administer farm api oauth clients' => array(
+      'title' => t('Administer farmOS OAuth Clients.'),
+    ),
   );
   return $perms;
 }
@@ -23,22 +28,115 @@ function farm_api_permission() {
  * Implements hook_menu().
  */
 function farm_api_menu() {
+  $items = array();
 
   // General farm information JSON endpoint.
   $items['farm.json'] = array(
     'page callback' => 'farm_api_info',
-    'access arguments' => array('access farm api info'),
+    'access callback' => TRUE,
     'type' => MENU_CALLBACK,
   );
 
+  // OAuth client configuration form.
+  $items['admin/config/farm/oauth'] = array(
+    'title' => 'farmOS OAuth',
+    'description' => 'farmOS OAuth Client settings.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('farm_api_oauth_settings_form'),
+    'access arguments' => array('administer farm api oauth clients'),
+    'file' => 'farm_api.oauth.inc',
+  );
+
   return $items;
+}
+
+/*
+ * Implements hook_farm_api_oauth2_client()
+ */
+function farm_api_farm_api_oauth2_client() {
+  $clients = array();
+
+  // Provide default farmOS OAuth Client for general use.
+  $clients['farm'] = array(
+    'label' => 'farmOS (Default)',
+    'client_key' => 'farm',
+    'redirect_uri' => '',
+    'settings' => array(
+      'override_grant_types' => TRUE,
+      'allow_implicit' => FALSE,
+      'grant_types' => array(
+        'password' => 'password',
+        'refresh_token' => 'refresh_token',
+      ),
+      'always_issue_new_refresh_token' => TRUE,
+      'unset_refresh_token_after_use' => TRUE,
+    )
+  );
+
+  return $clients;
 }
 
 /**
  * Farm info API callback.
  */
 function farm_api_info() {
-  $info = module_invoke_all('farm_info');
+
+  // Start with an empty info array.
+  $info = array();
+
+  // Check for an authenticated user with access to farmOS API info.
+  $access = user_access('access farm api info');
+
+  // Iterate through all the modules that implement hook_farm_info.
+  $hook = 'farm_info';
+  $modules = module_implements($hook);
+  foreach($modules as $module) {
+
+    // Invoke the hook to get info.
+    $module_info = module_invoke($module, $hook);
+
+    // If the info is empty, skip it.
+    if (!is_array($module_info)) {
+      continue;
+    }
+
+    // Iterate through the info items.
+    foreach ($module_info as $key => $item) {
+
+      // If the item is an array with an 'info' key, that is what we will
+      // include.
+      if (is_array($item) && !empty($item['info'])) {
+
+        // If the user is authenticated with permission OR if an OAuth2 scope is
+        // authorized for this request, add the item to the info array.
+        if ($access || (!empty($item['scope']) && farm_api_check_scope($item['scope']))) {
+
+          // Add the key to an array before merging.
+          $item = array(
+            $key => $item['info'],
+          );
+
+          // Include in info.
+          $info = array_merge($info, $item);
+        }
+      }
+
+      // If item does not have an 'info' include if the user has access.
+      // This is simple info that does not require a check for OAuth scope.
+      elseif ($access) {
+
+        // Add the key to an array before merging.
+        $item = array(
+          $key => $item,
+        );
+
+        // Include in info.
+        $info = array_merge($info, $item);
+      }
+    }
+  }
+
+  // Output as JSON.
   drupal_json_output($info);
 }
 
@@ -47,11 +145,24 @@ function farm_api_info() {
  */
 function farm_api_farm_info() {
   global $base_url, $conf, $user;
+
+  // Include info that requires the farm_info scope.
   $info = array(
-    'name' => $conf['site_name'],
-    'url' => $base_url,
-    'api_version' => FARM_API_VERSION,
+    'name' => array(
+      'info' => $conf['site_name'],
+      'scope' => 'farm_info',
+    ),
+    'url' => array(
+      'info' => $base_url,
+      'scope' => 'farm_info',
+    ),
+    'api_version' => array(
+      'info' => FARM_API_VERSION,
+      'scope' => 'farm_info',
+    ),
   );
+
+  // Include user info if logged in.
   if (!empty($user->uid)) {
     $info['user'] = array(
       'uid' => $user->uid,
@@ -60,6 +171,124 @@ function farm_api_farm_info() {
     );
   }
   return $info;
+}
+
+/**
+ * Helper function to allow modules to check for an authorized scope in the
+ * current request before providing info in an API endpoint.
+ *
+ * @param string $scope
+ *    A single OAuth Scope to check.
+ *
+ * @return bool
+ *   Return TRUE if request is authorized with specified scope. FALSE otherwise.
+ */
+function farm_api_check_scope($scope) {
+
+  // Load the OAuth2 Server name
+  $server_name = variable_get('restws_oauth2_server_name', FALSE);
+  if (!$server_name) {
+    return FALSE;
+  }
+
+  // Check OAuth scope.
+  $result = oauth2_server_check_access($server_name, $scope);
+
+  // Check if a Token was returned, or an error Response.
+  if ($result instanceof \OAuth2\Response) {
+    return FALSE;
+  }
+
+  // Return True if request is authorized with specified scope.
+  return TRUE;
+}
+
+/**
+ * Implements hook_modules_enabled().
+ */
+function farm_api_modules_enabled($modules) {
+
+  // If the modules provide OAuth2 clients, enable them.
+  $hook = 'farm_api_oauth2_client';
+  foreach ($modules as $module) {
+    $function = $module . '_' . $hook;
+    if (function_exists($function)) {
+      $clients = $function();
+      foreach ($clients as $client) {
+        $label = !empty($client['label']) ? $client['label'] : '';
+        $client_key = !empty($client['client_key']) ? $client['client_key'] : '';
+        $client_secret = !empty($client['client_secret']) ? $client['client_secret'] : '';
+        $redirect_uri = !empty($client['redirect_uri']) ? $client['redirect_uri'] : '';
+        $settings = !empty($client['settings']) ? $client['settings'] : array();
+        if (!empty($label) && !empty($client_key)) {
+          farm_api_enable_oauth_client($label, $client_key, $client_secret, $redirect_uri, $settings);
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_modules_disabled().
+ */
+function farm_api_modules_disabled($modules) {
+
+  // If the modules provided OAuth2 clients, disable them.
+  $hook = 'farm_api_oauth2_client';
+  foreach ($modules as $module) {
+    $function = $module . '_' . $hook;
+    if (function_exists($function)) {
+      $clients = $function();
+      foreach ($clients as $client) {
+        $client_id = db_query('SELECT client_id FROM {oauth2_server_client} WHERE client_key = :client_key', array(':client_key' => $client['client_key']))->fetchField();
+        if (!empty($client_id)) {
+          entity_delete('oauth2_server_client', $client_id);
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Helper function for enabling a farmOS OAuth2 Client.
+ *
+ * @param string $label
+ *   The human-readable label for the client.
+ * @param string $client_key
+ *   The machine name of the client to enable.
+ * @param string $client_secret
+ *   Optional client secret.
+ * @param string $redirect_uri
+ *   Optional redirect URIs (separated by newlines).
+ * @param array $settings
+ *   Optional array of client settings to override server-level defaults.
+ */
+function farm_api_enable_oauth_client($label, $client_key, $client_secret = '', $redirect_uri = '', $settings = array()) {
+  $server_name = variable_get('restws_oauth2_server_name', 'farmos_oauth');
+
+  // Create OAuth2 Server Client Entity
+  $new_client = entity_create('oauth2_server_client', array());
+  $new_client->server = $server_name;
+  $new_client->client_key = $client_key;
+  $new_client->label = $label;
+
+  // Add an optional client secret.
+  if (!empty($client_secret)) {
+    $new_client->client_secret = $client_secret;
+  }
+
+  // Add optional OAuth Client settings used to override OAuth2
+  // server-level settings. Do not set this value as an empty array.
+  if (!empty($settings)) {
+    $new_client->settings = $settings;
+  }
+
+  // The module supports entering multiple redirect uris separated by a
+  // newline. Both a dummy and the real uri are specified to confirm that
+  // validation passes.
+  $new_client->redirect_uri = $redirect_uri;
+  $new_client->automatic_authorization = FALSE;
+  $new_client->save();
 }
 
 /**
@@ -86,6 +315,15 @@ function farm_api_module_implements_alter(&$implementations, $hook) {
   // Put farm_api's hook above restws_file's hook, so that our field aliasing
   // happens first.
   $implementations = array('farm_api' => $implementations['farm_api']) + $implementations;
+}
+
+/**
+ * Implements hook_restws_format_info_alter().
+ *
+ * Overrides the default JSON handler from restws with our own.
+ */
+function farm_api_restws_format_info_alter(&$format_info) {
+  $format_info['json']['class'] = '\Drupal\farm_api\RestWS\Format\FarmFormatJSON';
 }
 
 /**
@@ -124,6 +362,19 @@ function farm_api_restws_request_alter(array &$request) {
     }
   }
 
+  // Allow filtering by term name in taxonomy term reference fields.
+  // eg: /log.json?log_category=Tillage
+  foreach ($_GET as $field_name => &$filter_value) {
+    $field_info = field_info_field($field_name);
+    if ($field_info['type'] == 'taxonomy_term_reference') {
+      if ($vocabulary = drupal_array_get_nested_value($field_info, array('settings', 'allowed_values', '0', 'vocabulary'))) {
+        if ($term = farm_term($filter_value, $vocabulary, FALSE)) {
+          $_GET[$field_name] = $term->tid;
+        }
+      }
+    }
+  }
+
   // If the payload is empty, bail.
   if (empty($request['payload'])) {
     return;
@@ -137,15 +388,83 @@ function farm_api_restws_request_alter(array &$request) {
     return;
   }
 
-  // Iterate through the fields in the payload. If any match a mapped alias,
-  // translate it to use the real field name. Keep track of whether or not any
-  // changes were made.
+  // Keep track of whether or not any changes were made to the payload.
   $changed = FALSE;
+
+  // Iterate through the fields in the payload. If any match a mapped alias,
+  // translate it to use the real field name.
   foreach ($payload as $key => $value) {
     if (array_key_exists($key, $alias_map)) {
       $payload[$alias_map[$key]] = $payload[$key];
       unset($payload[$key]);
       $changed = TRUE;
+    }
+  }
+
+  // If a taxonomy term name is provided, look up its term ID. If it does not
+  // exist, create it.
+  foreach ($payload as $field_name => $field_values) {
+
+    // Add special logic for the "unit" field in "Quantity" field collections.
+    // Field collections are handled by the restws_field_collection module, and
+    // they are skipped inside farm_api_field_alias_map(), so we just look for a
+    // $field_name of "quantity", process any provided "name" through
+    // farm_term(), set the term ID, and then let restws_field_collection do the
+    // rest.
+    if ($field_name == 'quantity') {
+
+      // Set the vocabulary machine name.
+      $vocabulary = 'farm_quantity_units';
+
+      // Iterate through field collection values and convert unit names to tids.
+      if (!empty($field_values)) {
+        foreach ($field_values as $delta => $field_value) {
+          if (!empty($field_value['unit']['name'])) {
+            $term = farm_term($field_value['unit']['name'], $vocabulary);
+            if (!empty($term->tid)) {
+              $payload[$field_name][$delta]['unit']['id'] = $term->tid;
+              unset($payload[$field_name][$delta]['unit']['name']);
+            }
+            $changed = TRUE;
+          }
+        }
+      }
+
+      // We don't need to go any farther than this, so end this iteration.
+      continue;
+    }
+
+    // Look up the field information and process taxonomy term names.
+    $field_info = field_info_field($field_name);
+    if (empty($field_info)) {
+      continue;
+    }
+    if ($vocabulary = drupal_array_get_nested_value($field_info, array('settings', 'allowed_values', '0', 'vocabulary'))) {
+
+      // If the field values contains a "name" property, we assume that it is a
+      // single value field, so we convert it to an array and remember to
+      // convert it back at the end.
+      $single = FALSE;
+      if (isset($field_values['name'])) {
+        $field_values = array($field_values);
+        $single = TRUE;
+      }
+
+      // Iterate through the field values and process term names.
+      foreach ($field_values as $delta => $field_value) {
+        if (!empty($field_value['name'])) {
+          $term = farm_term($field_value['name'], $vocabulary);
+          if ($single) {
+            unset($payload[$field_name]['name']);
+            $payload[$field_name]['id'] = $term->tid;
+          }
+          else {
+            unset($payload[$field_name][$delta]['name']);
+            $payload[$field_name][$delta]['id'] = $term->tid;
+          }
+          $changed = TRUE;
+        }
+      }
     }
   }
 
@@ -245,8 +564,10 @@ function farm_api_field_alias_map($prefix) {
     }
 
     // If the field name starts with the prefix, add it to the map.
-    $alias = str_replace($prefix, '', $field_name);
-    $alias_map[$alias] = $field_name;
+    if (strpos($field_name, $prefix) === 0) {
+      $alias = str_replace($prefix, '', $field_name);
+      $alias_map[$alias] = $field_name;
+    }
   }
 
   // Return the alias map.

@@ -44,6 +44,7 @@ This project has been sponsored by:
  * [Bionutrient Food Association](https://bionutrient.org)
  * [Foundation for Food and Agriculture Research](https://foundationfar.org/)
  * [PVAMU College of Agriculture and Human Sciences](https://www.pvamu.edu/cahs/)
+ * [Rothamsted Research](https://www.rothamsted.ac.uk/)
 
 ## CONTRIBUTORS
 

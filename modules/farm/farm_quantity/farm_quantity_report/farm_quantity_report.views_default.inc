@@ -57,45 +57,46 @@ function farm_quantity_report_views_default_views() {
     'field_farm_quantity_units' => 'field_farm_quantity_units',
     'field_farm_quantity_label' => 'field_farm_quantity_label',
   );
-  $handler->display->display_options['style_options']['default'] = '-1';
+  $handler->display->display_options['style_options']['class'] = '';
+  $handler->display->display_options['style_options']['default'] = 'timestamp';
   $handler->display->display_options['style_options']['info'] = array(
     'item_id' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'done' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'id' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
+      'sortable' => 1,
+      'default_sort_order' => 'desc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'timestamp' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
+      'sortable' => 1,
+      'default_sort_order' => 'desc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'type' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'name' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
@@ -122,34 +123,38 @@ function farm_quantity_report_views_default_views() {
       'empty_column' => 0,
     ),
     'field_farm_quantity_measure' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'field_farm_quantity_value' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'field_farm_quantity_units' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'field_farm_quantity_label' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
   );
+  /* Footer: Global: Result summary */
+  $handler->display->display_options['footer']['result']['id'] = 'result';
+  $handler->display->display_options['footer']['result']['table'] = 'views';
+  $handler->display->display_options['footer']['result']['field'] = 'result';
   /* No results behavior: Global: Unfiltered text */
   $handler->display->display_options['empty']['area_text_custom']['id'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
@@ -167,6 +172,11 @@ function farm_quantity_report_views_default_views() {
   $handler->display->display_options['relationships']['field_farm_asset_target_id']['table'] = 'field_data_field_farm_asset';
   $handler->display->display_options['relationships']['field_farm_asset_target_id']['field'] = 'field_farm_asset_target_id';
   $handler->display->display_options['relationships']['field_farm_asset_target_id']['relationship'] = 'field_farm_quantity_log';
+  /* Relationship: Farm asset: Group membership */
+  $handler->display->display_options['relationships']['membership']['id'] = 'membership';
+  $handler->display->display_options['relationships']['membership']['table'] = 'farm_asset';
+  $handler->display->display_options['relationships']['membership']['field'] = 'membership';
+  $handler->display->display_options['relationships']['membership']['relationship'] = 'field_farm_asset_target_id';
   /* Field: Field collection item: Field collection item ID */
   $handler->display->display_options['fields']['item_id']['id'] = 'item_id';
   $handler->display->display_options['fields']['item_id']['table'] = 'field_collection_item';
@@ -260,46 +270,6 @@ function farm_quantity_report_views_default_views() {
   $handler->display->display_options['fields']['field_farm_quantity_label']['id'] = 'field_farm_quantity_label';
   $handler->display->display_options['fields']['field_farm_quantity_label']['table'] = 'field_data_field_farm_quantity_label';
   $handler->display->display_options['fields']['field_farm_quantity_label']['field'] = 'field_farm_quantity_label';
-  /* Sort criterion: Log: Timestamp */
-  $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
-  $handler->display->display_options['sorts']['timestamp']['table'] = 'log';
-  $handler->display->display_options['sorts']['timestamp']['field'] = 'timestamp';
-  $handler->display->display_options['sorts']['timestamp']['relationship'] = 'field_farm_quantity_log';
-  $handler->display->display_options['sorts']['timestamp']['order'] = 'DESC';
-  $handler->display->display_options['sorts']['timestamp']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['timestamp']['expose']['label'] = 'Date';
-  /* Sort criterion: Field collection item: Measure (field_farm_quantity_measure) */
-  $handler->display->display_options['sorts']['field_farm_quantity_measure_value']['id'] = 'field_farm_quantity_measure_value';
-  $handler->display->display_options['sorts']['field_farm_quantity_measure_value']['table'] = 'field_data_field_farm_quantity_measure';
-  $handler->display->display_options['sorts']['field_farm_quantity_measure_value']['field'] = 'field_farm_quantity_measure_value';
-  $handler->display->display_options['sorts']['field_farm_quantity_measure_value']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['field_farm_quantity_measure_value']['expose']['label'] = 'Measure';
-  /* Sort criterion: Field: Value (decimal) */
-  $handler->display->display_options['sorts']['field_farm_quantity_value_decimal']['id'] = 'field_farm_quantity_value_decimal';
-  $handler->display->display_options['sorts']['field_farm_quantity_value_decimal']['table'] = 'field_data_field_farm_quantity_value';
-  $handler->display->display_options['sorts']['field_farm_quantity_value_decimal']['field'] = 'field_farm_quantity_value_decimal';
-  $handler->display->display_options['sorts']['field_farm_quantity_value_decimal']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['field_farm_quantity_value_decimal']['expose']['label'] = 'Quantity value';
-  /* Sort criterion: Field: Units (field_farm_quantity_units) */
-  $handler->display->display_options['sorts']['field_farm_quantity_units_tid']['id'] = 'field_farm_quantity_units_tid';
-  $handler->display->display_options['sorts']['field_farm_quantity_units_tid']['table'] = 'field_data_field_farm_quantity_units';
-  $handler->display->display_options['sorts']['field_farm_quantity_units_tid']['field'] = 'field_farm_quantity_units_tid';
-  $handler->display->display_options['sorts']['field_farm_quantity_units_tid']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['field_farm_quantity_units_tid']['expose']['label'] = 'Units';
-  /* Sort criterion: Field collection item: Label (field_farm_quantity_label) */
-  $handler->display->display_options['sorts']['field_farm_quantity_label_value']['id'] = 'field_farm_quantity_label_value';
-  $handler->display->display_options['sorts']['field_farm_quantity_label_value']['table'] = 'field_data_field_farm_quantity_label';
-  $handler->display->display_options['sorts']['field_farm_quantity_label_value']['field'] = 'field_farm_quantity_label_value';
-  $handler->display->display_options['sorts']['field_farm_quantity_label_value']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['field_farm_quantity_label_value']['expose']['label'] = 'Label';
-  /* Sort criterion: Log: Log ID */
-  $handler->display->display_options['sorts']['id']['id'] = 'id';
-  $handler->display->display_options['sorts']['id']['table'] = 'log';
-  $handler->display->display_options['sorts']['id']['field'] = 'id';
-  $handler->display->display_options['sorts']['id']['relationship'] = 'field_farm_quantity_log';
-  $handler->display->display_options['sorts']['id']['order'] = 'DESC';
-  $handler->display->display_options['sorts']['id']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['id']['expose']['label'] = 'Log ID';
   /* Filter criterion: Field collection item: Field name */
   $handler->display->display_options['filters']['field_name']['id'] = 'field_name';
   $handler->display->display_options['filters']['field_name']['table'] = 'field_collection_item';
@@ -331,6 +301,17 @@ function farm_quantity_report_views_default_views() {
   $handler->display->display_options['filters']['type_1']['expose']['label'] = 'Asset type';
   $handler->display->display_options['filters']['type_1']['expose']['operator'] = 'type_1_op';
   $handler->display->display_options['filters']['type_1']['expose']['identifier'] = 'type_1';
+  /* Filter criterion: Field collection item: Group (field_farm_group) */
+  $handler->display->display_options['filters']['field_farm_group_target_id']['id'] = 'field_farm_group_target_id';
+  $handler->display->display_options['filters']['field_farm_group_target_id']['table'] = 'field_data_field_farm_group';
+  $handler->display->display_options['filters']['field_farm_group_target_id']['field'] = 'field_farm_group_target_id';
+  $handler->display->display_options['filters']['field_farm_group_target_id']['relationship'] = 'membership';
+  $handler->display->display_options['filters']['field_farm_group_target_id']['group'] = 1;
+  $handler->display->display_options['filters']['field_farm_group_target_id']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_group_target_id']['expose']['operator_id'] = 'field_farm_group_target_id_op';
+  $handler->display->display_options['filters']['field_farm_group_target_id']['expose']['label'] = 'Group';
+  $handler->display->display_options['filters']['field_farm_group_target_id']['expose']['operator'] = 'field_farm_group_target_id_op';
+  $handler->display->display_options['filters']['field_farm_group_target_id']['expose']['identifier'] = 'field_farm_group_target_id';
   /* Filter criterion: Log: Name */
   $handler->display->display_options['filters']['name']['id'] = 'name';
   $handler->display->display_options['filters']['name']['table'] = 'log';
@@ -440,6 +421,38 @@ function farm_quantity_report_views_default_views() {
   $handler->display->display_options['filters']['field_farm_quantity_label_value']['expose']['label'] = 'Label';
   $handler->display->display_options['filters']['field_farm_quantity_label_value']['expose']['operator'] = 'field_farm_quantity_label_value_op';
   $handler->display->display_options['filters']['field_farm_quantity_label_value']['expose']['identifier'] = 'field_farm_quantity_label_value';
+  /* Filter criterion: Date: Date (log) */
+  $handler->display->display_options['filters']['date_filter']['id'] = 'date_filter';
+  $handler->display->display_options['filters']['date_filter']['table'] = 'log';
+  $handler->display->display_options['filters']['date_filter']['field'] = 'date_filter';
+  $handler->display->display_options['filters']['date_filter']['relationship'] = 'field_farm_quantity_log';
+  $handler->display->display_options['filters']['date_filter']['operator'] = '>=';
+  $handler->display->display_options['filters']['date_filter']['group'] = 1;
+  $handler->display->display_options['filters']['date_filter']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['date_filter']['expose']['operator_id'] = 'date_filter_op';
+  $handler->display->display_options['filters']['date_filter']['expose']['label'] = 'Start date';
+  $handler->display->display_options['filters']['date_filter']['expose']['operator'] = 'date_filter_op';
+  $handler->display->display_options['filters']['date_filter']['expose']['identifier'] = 'date_filter';
+  $handler->display->display_options['filters']['date_filter']['year_range'] = '-10:+3';
+  $handler->display->display_options['filters']['date_filter']['date_fields'] = array(
+    'log.timestamp' => 'log.timestamp',
+  );
+  /* Filter criterion: Date: Date (log) */
+  $handler->display->display_options['filters']['date_filter_1']['id'] = 'date_filter_1';
+  $handler->display->display_options['filters']['date_filter_1']['table'] = 'log';
+  $handler->display->display_options['filters']['date_filter_1']['field'] = 'date_filter';
+  $handler->display->display_options['filters']['date_filter_1']['relationship'] = 'field_farm_quantity_log';
+  $handler->display->display_options['filters']['date_filter_1']['operator'] = '<=';
+  $handler->display->display_options['filters']['date_filter_1']['group'] = 1;
+  $handler->display->display_options['filters']['date_filter_1']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['date_filter_1']['expose']['operator_id'] = 'date_filter_1_op';
+  $handler->display->display_options['filters']['date_filter_1']['expose']['label'] = 'End date';
+  $handler->display->display_options['filters']['date_filter_1']['expose']['operator'] = 'date_filter_1_op';
+  $handler->display->display_options['filters']['date_filter_1']['expose']['identifier'] = 'date_filter_1';
+  $handler->display->display_options['filters']['date_filter_1']['year_range'] = '-10:+3';
+  $handler->display->display_options['filters']['date_filter_1']['date_fields'] = array(
+    'log.timestamp' => 'log.timestamp',
+  );
   /* Filter criterion: Log: Done */
   $handler->display->display_options['filters']['done']['id'] = 'done';
   $handler->display->display_options['filters']['done']['table'] = 'log';
@@ -456,7 +469,7 @@ function farm_quantity_report_views_default_views() {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'farm/quantity';
+  $handler->display->display_options['path'] = 'farm/report/quantity';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Quantity';
   $handler->display->display_options['menu']['weight'] = '0';
@@ -501,9 +514,11 @@ function farm_quantity_report_views_default_views() {
     t('‹ previous'),
     t('next ›'),
     t('last »'),
+    t('Displaying @start - @end of @total'),
     t('No quantity measurements found.'),
     t('log'),
     t('Farm asset entity referenced from field_farm_asset'),
+    t('Group membership'),
     t('Field collection item ID'),
     t('.'),
     t(','),
@@ -521,10 +536,12 @@ function farm_quantity_report_views_default_views() {
     t('Quantity'),
     t('Units'),
     t('Label'),
-    t('Quantity value'),
     t('Asset name'),
     t('Asset type'),
+    t('Group'),
     t('Value'),
+    t('Start date'),
+    t('End date'),
     t('Log done'),
     t('Page'),
     t('Data export'),

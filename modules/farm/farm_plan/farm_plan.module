@@ -121,6 +121,32 @@ function farm_plan_menu() {
     'weight' => 100,
   );
 
+  // Form for removing a record from a plan.
+  // This is the same as the form for deleting records (below), but it will not
+  // delete records. It will only unlink them from the plan.
+  $items[$farm_plan_uri . '/%/%/remove'] = array(
+    'title' => 'Remove record',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('farm_plan_record_remove_form', $farm_plan_uri_argument_position, 3, 4),
+    'access callback' => 'farm_plan_access',
+    'access arguments' => array('update', $farm_plan_uri_argument_position),
+    'file' => 'farm_plan.pages.inc',
+    'type' => MENU_CALLBACK,
+  );
+
+  // Form for deleting a record from a plan.
+  // This is the same as the form for removing records (above), but it also
+  // gives the option to delete the record.
+  $items[$farm_plan_uri . '/%/%/delete'] = array(
+    'title' => 'Remove record',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('farm_plan_record_delete_form', $farm_plan_uri_argument_position, 3, 4),
+    'access callback' => 'farm_plan_access',
+    'access arguments' => array('update', $farm_plan_uri_argument_position),
+    'file' => 'farm_plan.pages.inc',
+    'type' => MENU_CALLBACK,
+  );
+
   // Plan type delete form.
   $items['admin/config/farm/plan-types/%farm_plan_type/delete'] = array(
     'title' => 'Delete',
@@ -322,6 +348,51 @@ function farm_plan_entity_view($entity, $type, $view_mode, $langcode) {
   $entity->content['active'] = array(
     '#markup' => '<div><strong>Active plan:</strong> ' . $status . '</div>',
     '#weight' => -100,
+  );
+
+  // Summarize areas and assets associated with the plan (logs will be added via
+  // Views in hook_farm_ui_entity_views() below.
+  $plan_areas = farm_plan_linked_records('area', $entity->id);
+  if (!empty($plan_areas)) {
+    $plan_area_links = array();
+    foreach ($plan_areas as $area_id) {
+      $area = taxonomy_term_load($area_id);
+      $entity_label = entity_label('taxonomy_term', $area);
+      $entity_uri = entity_uri('taxonomy_term', $area);
+      $plan_area_links[] = l($entity_label, $entity_uri['path']);
+    }
+    $entity->content['farm_plan_areas'] = array(
+      '#markup' => '<div><strong>Areas:</strong> ' . implode(', ', $plan_area_links) . '</div>',
+    );
+  }
+  $plan_assets = farm_plan_linked_records('asset', $entity->id);
+  if (!empty($plan_assets)) {
+    $plan_asset_links = array();
+    foreach ($plan_assets as $asset_id) {
+      $asset = farm_asset_load($asset_id);
+      $entity_label = entity_label('farm_asset', $asset);
+      $entity_uri = entity_uri('farm_asset', $asset);
+      $plan_asset_links[] = l($entity_label, $entity_uri['path']);
+    }
+    $entity->content['farm_plan_assets'] = array(
+      '#markup' => '<div><strong>Assets:</strong> ' . implode(', ', $plan_asset_links) . '</div>',
+    );
+  }
+}
+
+/**
+ * Implements hook_farm_ui_entity_views().
+ */
+function farm_plan_farm_ui_entity_views($entity_type, $bundle, $entity) {
+
+  // If the entity is not a plan, bail.
+  if (!($entity_type == 'farm_plan')) {
+    return array();
+  }
+
+  // Display a View of logs associated with the plan.
+  return array(
+    'farm_plan_logs',
   );
 }
 
@@ -681,8 +752,12 @@ function farm_plan_linked_records($record_type, $plan_id) {
  *   The plan ID.
  * @param int $record_id
  *   The record ID.
+ * @param array $primary_record
+ *   If this is not the primary/required record type in the table, the primary
+ *   record key/value to needed for updating the existing record.
+ *   For example: array('asset_id' => 5)
  */
-function farm_plan_link_record($record_type, $plan_id, $record_id) {
+function farm_plan_link_record($record_type, $plan_id, $record_id, $primary_record = array()) {
 
   // First, delete any existing link.
   farm_plan_unlink_record($record_type, $plan_id, $record_id);
@@ -699,12 +774,31 @@ function farm_plan_link_record($record_type, $plan_id, $record_id) {
   $table = $relationships[$record_type]['table'];
   $field = $relationships[$record_type]['field'];
 
-  // Create a new relationship record.
-  $record = array(
-    'plan_id' => $plan_id,
-    $field => $record_id,
-  );
-  drupal_write_record($table, $record);
+  // If this record type is not required, and a primary key/value is provided,
+  // then update the existing relationship row.
+  if ($relationships[$record_type]['required'] === FALSE && !empty($primary_record)) {
+    $primary_record_key = key($primary_record);
+    $primary_record_id = current($primary_record);
+    $record = array(
+      'plan_id' => $plan_id,
+      $primary_record_key => $primary_record_id,
+      $field => $record_id,
+    );
+    $primary_keys = array(
+      'plan_id',
+      $primary_record_key,
+    );
+    drupal_write_record($table, $record, $primary_keys);
+  }
+
+  // Otherwise create a new relationship row.
+  else {
+    $record = array(
+      'plan_id' => $plan_id,
+      $field => $record_id,
+    );
+    drupal_write_record($table, $record);
+  }
 }
 
 /**
@@ -731,11 +825,25 @@ function farm_plan_unlink_record($record_type, $plan_id, $record_id) {
   $table = $relationships[$record_type]['table'];
   $field = $relationships[$record_type]['field'];
 
-  // Delete the relationship.
-  $query = db_delete($table);
-  $query->condition('plan_id', $plan_id);
-  $query->condition($field, $record_id);
-  $query->execute();
+  // If this record type is not required, simply update the relationship row in
+  // the database to remove reference to the record.
+  if ($relationships[$record_type]['required'] === FALSE) {
+    $query = db_update($table);
+    $query->fields(array(
+      $field => NULL,
+    ));
+    $query->condition('plan_id', $plan_id);
+    $query->condition($field, $record_id);
+    $query->execute();
+  }
+
+  // Otherwise, delete the whole relationship row.
+  else {
+    $query = db_delete($table);
+    $query->condition('plan_id', $plan_id);
+    $query->condition($field, $record_id);
+    $query->execute();
+  }
 }
 
 /**
@@ -743,29 +851,228 @@ function farm_plan_unlink_record($record_type, $plan_id, $record_id) {
  *
  * @return array
  *   Returns an array of record types with the database table and field names
- *   used to store relationships.
+ *   used to store relationships. See farm_plan.api.php.
  */
 function farm_plan_record_relationships() {
+
+  // Ask modules for relationships.
+  $relationships = module_invoke_all('farm_plan_record_relationships');
+
+  // Set default values.
+  foreach ($relationships as &$relationship) {
+    if (!isset($relationship['required'])) {
+      $relationship['required'] = TRUE;
+    }
+  }
+
+  // Return the relationships.
+  return $relationships;
+}
+
+/**
+ * Implements hook_farm_plan_record_relationships().
+ */
+function farm_plan_farm_plan_record_relationships() {
   return array(
     'area' => array(
+      'label' => t('Area'),
       'entity_type' => 'taxonomy_term',
+      'entity_type_table' => 'taxonomy_term_data',
+      'entity_pk' => 'tid',
       'table' => 'farm_plan_area',
       'field' => 'area_id',
     ),
     'asset' => array(
+      'label' => t('Asset'),
       'entity_type' => 'farm_asset',
+      'entity_pk' => 'id',
       'table' => 'farm_plan_asset',
       'field' => 'asset_id',
     ),
     'log' => array(
+      'label' => t('Log'),
       'entity_type' => 'log',
+      'entity_pk' => 'id',
       'table' => 'farm_plan_log',
       'field' => 'log_id',
     ),
     'user' => array(
+      'label' => t('User'),
       'entity_type' => 'user',
+      'entity_pk' => 'uid',
       'table' => 'farm_plan_user',
       'field' => 'user_id',
     ),
   );
+}
+
+/**
+ * Implements hook_entity_view_alter().
+ */
+function farm_plan_entity_view_alter(&$build, $type) {
+
+  // Get the entity ID. Bail if not found.
+  $entity_id = NULL;
+  if (!empty($build['#entity'])) {
+    $entity_id = entity_id($type, $build['#entity']);
+  }
+  elseif (!empty($build['#term'])) {
+    $entity_id = entity_id($type, $build['#term']);
+  }
+  if (empty($entity_id)) {
+    return;
+  }
+
+  // Get available relationships between plans and other record types.
+  $relationships = farm_plan_record_relationships();
+
+  // Iterate through the relationships to find a matching record type.
+  $record_type = '';
+  foreach ($relationships as $relationship => $info) {
+    if ($type == $info['entity_type']) {
+      $record_type = $relationship;
+      break;
+    }
+  }
+
+  // If a record type wasn't found, bail.
+  if (empty($record_type)) {
+    return;
+  }
+
+  // Find plan(s) that this entity is associated with.
+  $query = 'SELECT plan_id FROM {' . $relationships[$record_type]['table'] . '} WHERE ' . $relationships[$record_type]['field'] . ' = :entity_id';
+  $args = array(':entity_id' => $entity_id);
+  $result = db_query($query, $args);
+  $plan_ids = array();
+  foreach ($result as $row) {
+    if (!empty($row->plan_id)) {
+      $plan_ids[] = $row->plan_id;
+    }
+  }
+
+  // Iterate through the plans.
+  foreach ($plan_ids as $plan_id) {
+
+    // Load the plan.
+    $plan = farm_plan_load($plan_id);
+
+    // Get the plan URL and name.
+    $plan_uri = entity_uri('farm_plan', $plan);
+    $plan_path = $plan_uri['path'];
+    $plan_name = entity_label('farm_plan', $plan);
+
+    // Set a message pointing to the plan.
+    $args = array(
+      '@record_type' => $relationships[$record_type]['label'],
+      '!plan_path' => url($plan_path),
+      '%plan_name' => $plan_name,
+    );
+    $message = t('This @record_type is part of the plan: <a href="!plan_path">%plan_name</a>', $args);
+    drupal_set_message($message);
+  }
+}
+
+/**
+ * Implements hook_entity_update().
+ */
+function farm_plan_entity_update($entity, $type) {
+
+  // If a plan is made inactive, archive all assets linked to it, and vice
+  // versa.
+  if ($type != 'farm_plan') {
+    return;
+  }
+  if (!(isset($entity->original) && isset($entity->original->active))) {
+    return;
+  }
+  if ($entity->active == $entity->original->active) {
+    return;
+  }
+  if (empty($entity->active)) {
+    $archived = REQUEST_TIME;
+  }
+  else {
+    $archived = FALSE;
+  }
+  $asset_ids = farm_plan_linked_records('asset', $entity->id);
+  foreach ($asset_ids as $asset_id) {
+    $asset = farm_asset_load($asset_id);
+    if ($asset->archived != $archived) {
+      $asset->archived = $archived;
+      farm_asset_save($asset);
+
+      // If the asset was archived, set a message.
+      if (!empty($archived)) {
+        $asset_label = entity_label('farm_asset', $asset);
+        $asset_uri = entity_uri('farm_asset', $asset);
+        $message = t('The asset <a href="!asset_path">%asset_label</a> has been archived.', array('!asset_path' => url($asset_uri['path']), '%asset_label' => $asset_label));
+        drupal_set_message($message);
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_delete().
+ */
+function farm_plan_entity_delete($entity, $type) {
+
+  // Get the entity ID, and skip if it couldn't be found.
+  $entity_id = entity_id($type, $entity);
+  if (empty($entity_id)) {
+    return;
+  }
+
+  // If the entity ID is not numeric, bail.
+  if (!is_numeric($entity_id)) {
+    return;
+  }
+
+  // Get available relationships between plans and other record types.
+  $relationships = farm_plan_record_relationships();
+
+  // Make a list of relationships indexed by entity type.
+  $entity_types = array();
+  foreach ($relationships as $relationship => $info) {
+    if (!empty($info['entity_type'])) {
+      $entity_types[$info['entity_type']][] = $relationship;
+    }
+  }
+
+  // If a related entity type is being deleted, delete any references to that
+  // entity in the relationship table.
+  // In theory, this shouldn't happen because farm_constraint prevents entities
+  // from being deleted that are linked to plans. But, it could still happen via
+  // an uninformed call to entity_delete(), so we have this logic here to
+  // handle cleanup regardless.
+  if (array_key_exists($type, $entity_types)) {
+    foreach ($entity_types[$type] as $relationship) {
+
+      // Get information about the relationship.
+      $info = $relationships[$relationship];
+
+      // If it doesn't have a table, or a field, skip it.
+      if (empty($info['table']) || empty($info['field'])) {
+        continue;
+      }
+
+      // Delete all references to this plan in the table.
+      db_query('DELETE FROM {' . $info['table'] . '} WHERE ' . $info['field'] . ' = :entity_id', array(':entity_id' => $entity_id));
+    }
+  }
+
+  // If a plan is being deleted, remove references from all relationship tables.
+  elseif ($type == 'farm_plan') {
+    foreach ($relationships as $relationship => $info) {
+
+      // If it doesn't have a table, skip it.
+      if (empty($info['table'])) {
+        continue;
+      }
+
+      // Delete all references to this plan in the table.
+      db_query('DELETE FROM {' . $info['table'] . '} WHERE plan_id = :plan_id', array(':plan_id' => $entity_id));
+    }
+  }
 }
