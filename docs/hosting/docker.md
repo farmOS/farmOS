@@ -55,9 +55,33 @@ With `/var/www/html/sites` mounted as a volume, you can simply update to a new
 version of the farmOS Docker image itself and then run `update.php` to update
 farmOS.
 
+### Customizing php.ini settings
+
+It is common to need to customize certain PHP settings - such as the max upload
+size limit. This can be easily accomplished via a custom php.ini file mounted in
+the farmOS docker container.
+
+**docker-compose.yml**
+
+```yaml
+volumes:
+  - './php-custom.ini:/usr/local/etc/php/conf.d/php-custom.ini'
+```
+
+**php-custom.ini**
+
+```ini
+upload_max_filesize = 10M
+post_max_size = 10M
+```
+
+*See the [PHP configuration file] documentation for more details on php.ini
+files.*
+
 [Docker]: https://www.docker.com
 [Wikipedia]: https://en.wikipedia.org/wiki/Docker_(software)
 [Docker Hub]: https://hub.docker.com
 [Developing farmOS with Docker]: /development/docker
 [Updating farmOS]: /hosting/updating
+[PHP configuration file]: https://www.php.net/manual/en/configuration.file.php
 
