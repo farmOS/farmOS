@@ -34,6 +34,28 @@ function farm_livestock_move_form($form, &$form_state) {
     '#required' => TRUE,
   );
 
+  // Geometry
+  // Add a farmOS map instance with the WKT and drawing controls.
+  $wkt = '';
+  $form['move']['area']['geometry'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Geometry'),
+    '#description' => t('This field allows you to optionally specify a more precise geometry for the new location of assets. If you leave it blank, the geometry will be copied from the areas that assets are moving to (if available).'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $form['move']['area']['geometry']['map'] = array(
+    '#type' => 'farm_map',
+    '#map_name' => 'farm_movement',
+    '#wkt' => $wkt,
+    '#edit' => TRUE,
+  );
+  $form['move']['area']['geometry']['data'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Data'),
+    '#default_value' => $wkt,
+  );
+
   // Submit button.
   $form['move']['submit'] = array(
     '#type' => 'submit',
