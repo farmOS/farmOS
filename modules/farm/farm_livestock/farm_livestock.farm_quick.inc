@@ -24,5 +24,13 @@ function farm_livestock_farm_quick_forms() {
       'form' => 'farm_livestock_milk_form',
       'file' => 'farm_livestock.farm_quick.milk.inc',
     ),
+    'animal_move' => array(
+      'label' => t('Move Animals'),
+      'permission' => array(
+        'create farm_activity log entities',
+      ),
+      'form' => 'farm_livestock_move_form',
+      'file' => 'farm_livestock.farm_quick.move.inc',
+    ),
   );
 }
