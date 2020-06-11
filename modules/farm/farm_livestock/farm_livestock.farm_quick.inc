@@ -11,7 +11,10 @@ function farm_livestock_farm_quick_forms() {
   return array(
     'birth' => array(
       'label' => t('Birth'),
-      'permission' => 'create farm_birth log entities',
+      'permission' => array(
+        'create farm_birth log entities',
+        'create animal farm_asset entities',
+      ),
       'form' => 'farm_livestock_birth_form',
       'file' => 'farm_livestock.farm_quick.birth.inc',
     ),
