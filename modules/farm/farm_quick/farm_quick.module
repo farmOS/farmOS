@@ -99,12 +99,23 @@ function farm_quick_menu() {
   // Add a menu item for each form.
   foreach ($forms as $name => $form) {
 
+    // Get access permissions for the quick form.
+    // Convert it to an array if it isn't already.
+    $permissions = array();
+    if (isset($form['permission'])) {
+      if (!is_array($form['permission'])) {
+        $form['permission'] = array($form['permission']);
+      }
+      $permissions = $form['permission'];
+    }
+
     // Build a menu item definition.
     $menu_item = array(
       'title' => $form['label'],
       'page callback' => 'farm_quick_form_page',
       'page arguments' => array($form['label'], $form['form']),
-      'access arguments' => array($form['permission']),
+      'access callback' => 'farm_quick_access',
+      'access arguments' => $permissions,
       'type' => MENU_LOCAL_TASK,
     );
 
@@ -142,6 +153,28 @@ function farm_quick_menu() {
 
   // Return menu items.
   return $items;
+}
+
+/**
+ * Quick form access callback.
+ *
+ * @param $permissions
+ *   An array of permissions, such as "administer nodes", being checked for.
+ * @param $account
+ *   (optional) The account to check, if not given use currently logged in user.
+ *
+ * @return bool
+ *   Boolean TRUE if the user has ALL the requested permissions.
+ */
+function farm_quick_access($permissions, $account = NULL) {
+  $grant = TRUE;
+  foreach ($permissions as $permission) {
+    if (!user_access($permission, $account)) {
+      $grant = FALSE;
+      break;
+    }
+  }
+  return $grant;
 }
 
 /**
