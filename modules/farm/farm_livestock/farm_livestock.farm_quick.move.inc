@@ -56,6 +56,53 @@ function farm_livestock_move_form($form, &$form_state) {
     '#default_value' => $wkt,
   );
 
+  // Observations
+  $form['move']['observations'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Observations'),
+    '#description' => t('Optionally provide information about the area(s) that animals are moving out of, as well as the area(s) they are moving into.'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+
+  // Post grazing.
+  $form['move']['observations']['post'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Post grazing in last area'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $form['move']['observations']['post']['pasture_height'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Pasture height'),
+    '#input_group' => TRUE,
+    '#field_suffix' => 'inches',
+  );
+  $form['move']['observations']['post']['forage_quality'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Relative forage quality'),
+    '#description' => t('Give the forage quality a rating. This can be any number, but using a consistent scale (eg: 1-10) helps in future comparisons.'),
+  );
+
+  // Pre grazing
+  $form['move']['observations']['pre'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Pre grazing in next area'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $form['move']['observations']['pre']['pasture_height'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Pasture height'),
+    '#input_group' => TRUE,
+    '#field_suffix' => 'inches',
+  );
+  $form['move']['observations']['pre']['forage_quality'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Relative forage quality'),
+    '#description' => t('Give the forage quality a rating. This can be any number, but using a consistent scale (eg: 1-10) helps in future comparisons.'),
+  );
+
   // Submit button.
   $form['move']['submit'] = array(
     '#type' => 'submit',

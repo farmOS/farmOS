@@ -28,6 +28,7 @@ function farm_livestock_farm_quick_forms() {
       'label' => t('Move Animals'),
       'permission' => array(
         'create farm_activity log entities',
+        'create farm_observation log entities',
       ),
       'form' => 'farm_livestock_move_form',
       'file' => 'farm_livestock.farm_quick.move.inc',
