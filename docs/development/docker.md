@@ -74,35 +74,6 @@ volumes:
 
 Do this for both the `db` and `www` container volumes.
 
-#### Persistent volumes
-
-The `docker-compose.development.yml` file defines two Docker volumes that will
-be mounted into the containers from your host directory:
-
-* `./www` - `/var/html/www` from the farmOS application container, which
-  includes the entire farmOS codebase, `settings.php` file (for connecting to
-  the database), and any files that are uploaded/created in farmOS.
-* `./db` - `/var/lib/mysql` from the MariaDB database container, which contains
-  the farmOS database.
-
-Both will be made available within the `farmOS` directory you created initially.
-
-This is where you will be able to access the code for development purposes. It
-is also how your database and files are persisted when the containers are
-destroyed and rebuilt.
-
-#### File ownership
-
-On a Linux host, all the files in `www` will have an owner and group of
-`www-data`. For development purposes, it is recommended that you change the
-owner of everything in the `www` container to your local user. This can be done
-with the following command:
-
-    sudo chown -R ${USER} www
-
-This changes the owner of *everything* in /var/www/html to the currently logged
-in user on the host. But it leaves the group alone (`www-data`).
-
 ### Install farmOS
 
 Once the containers are up and running, you can install farmOS using the Drupal
@@ -132,6 +103,38 @@ In the "Set up database" step of installation, use the following values:
 
 Follow the instructions to continue with the installation and you should be left
 with a fully-functioning farmOS instance running in a Docker container!
+
+### Development workflow
+
+#### Persistent volumes
+
+The `docker-compose.development.yml` file defines two Docker volumes that will
+be mounted into the containers from your host directory:
+
+* `./www` - `/var/html/www` from the farmOS application container, which
+  includes the entire farmOS codebase, `settings.php` file (for connecting to
+  the database), and any files that are uploaded/created in farmOS.
+* `./db` - `/var/lib/mysql` from the MariaDB database container, which contains
+  the farmOS database.
+
+Both will be made available within the `farmOS` directory you created initially.
+
+This is where you will be able to access the code for development purposes. It
+is also how your database and files are persisted when the containers are
+destroyed and rebuilt.
+
+#### File ownership
+
+On a Linux host, all the files in `www` will have an owner and group of
+`www-data`. For development purposes, it is recommended that you change the
+owner of everything in the `www` container to your local user. This can be done
+with the following command:
+
+    sudo chown -R ${USER} www
+
+This changes the owner of *everything* in /var/www/html to the currently logged
+in user on the host. But it leaves the group alone (`www-data`). Just make sure
+to do this _after_ installation has completed.
 
 ### Updating farmOS
 
