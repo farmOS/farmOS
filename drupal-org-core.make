@@ -6,7 +6,7 @@ core = 7.x
 ; -----------------------------------------------------------------------------
 
 projects[drupal][type] = core
-projects[drupal][version] = 7.71
+projects[drupal][version] = 7.72
 
 ; Patch core to fix Issue #995156: Use vocabulary machine name for permissions
 projects[drupal][patch][995156] = http://drupal.org/files/issues/995156-5_portable_taxonomy_permissions_0.patch
