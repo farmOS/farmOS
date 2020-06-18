@@ -149,6 +149,54 @@ function farm_plan_views_default_views() {
   $handler->display->display_options['menu']['name'] = 'farm';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
+
+  /* Display: Block Active Plans */
+  $handler = $view->new_display('block', 'Block Active Plans', 'block_active_plans');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Active Plans';
+  $handler->display->display_options['defaults']['use_more'] = FALSE;
+  $handler->display->display_options['use_more'] = TRUE;
+  $handler->display->display_options['defaults']['use_more_always'] = FALSE;
+  $handler->display->display_options['defaults']['use_more_always'] = FALSE;
+  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['defaults']['use_more_text'] = FALSE;
+  $handler->display->display_options['defaults']['link_display'] = FALSE;
+  $handler->display->display_options['link_display'] = 'page';
+  $handler->display->display_options['defaults']['pager'] = FALSE;
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '5';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Farm plan: Farm plan ID */
+  $handler->display->display_options['fields']['id']['id'] = 'id';
+  $handler->display->display_options['fields']['id']['table'] = 'farm_plan';
+  $handler->display->display_options['fields']['id']['field'] = 'id';
+  $handler->display->display_options['fields']['id']['label'] = 'Plan ID';
+  $handler->display->display_options['fields']['id']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['id']['separator'] = '';
+  /* Field: Farm plan: Name */
+  $handler->display->display_options['fields']['name']['id'] = 'name';
+  $handler->display->display_options['fields']['name']['table'] = 'farm_plan';
+  $handler->display->display_options['fields']['name']['field'] = 'name';
+  $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['name']['alter']['path'] = 'farm/plan/[id]';
+  /* Field: Farm plan: Farm plan type */
+  $handler->display->display_options['fields']['type']['id'] = 'type';
+  $handler->display->display_options['fields']['type']['table'] = 'farm_plan';
+  $handler->display->display_options['fields']['type']['field'] = 'type';
+  $handler->display->display_options['fields']['type']['label'] = 'Plan type';
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Farm plan: Active */
+  $handler->display->display_options['filters']['active']['id'] = 'active';
+  $handler->display->display_options['filters']['active']['table'] = 'farm_plan';
+  $handler->display->display_options['filters']['active']['field'] = 'active';
+  $handler->display->display_options['filters']['active']['value'] = '1';
+  $handler->display->display_options['filters']['active']['group'] = 1;
+  $handler->display->display_options['filters']['active']['expose']['operator_id'] = '';
+  $handler->display->display_options['filters']['active']['expose']['label'] = 'Active';
+  $handler->display->display_options['filters']['active']['expose']['operator'] = 'active_op';
+  $handler->display->display_options['filters']['active']['expose']['identifier'] = 'active';
   $translatables['farm_plan'] = array(
     t('Master'),
     t('Plans'),
@@ -172,6 +220,8 @@ function farm_plan_views_default_views() {
     t('Plan type'),
     t('Active'),
     t('Page'),
+    t('Block Active Plans'),
+    t('Active Plans'),
   );
   $export['farm_plan'] = $view;
 
