@@ -17,7 +17,7 @@ RUN yes | pecl install xdebug \
 RUN apt-get update && apt-get install -y git unzip
 
 # Install Drush 8 with the phar file.
-ENV DRUSH_VERSION 8.2.1
+ENV DRUSH_VERSION 8.3.5
 RUN curl -fsSL -o /usr/local/bin/drush.phar "https://github.com/drush-ops/drush/releases/download/${DRUSH_VERSION}/drush.phar" \
   && chmod +x /usr/local/bin/drush.phar \
   && ln -s /usr/local/bin/drush.phar /usr/local/bin/drush \
