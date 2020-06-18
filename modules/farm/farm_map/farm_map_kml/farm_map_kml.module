@@ -90,7 +90,7 @@ function farm_map_kml_action(array $entities, $context = array()) {
       // If this is an area entity (taxonomy_term), add the description.
       if ($context['entity_type'] == 'taxonomy_term' && $entity->vocabulary_machine_name == 'farm_areas') {
         if (!empty($entity->description)) {
-          $placemark['description'] = $entity->description;
+          $placemark['description'] = check_plain($entity->description);
         }
       }
 
