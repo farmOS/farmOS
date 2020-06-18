@@ -513,6 +513,7 @@ function farm_theme_preprocess_page(&$vars) {
       // Move the map and metrics panes to the right column (and remove them
       // from the groups list).
       $right_panes = array(
+        'plans',
         'metrics',
       );
       foreach ($right_panes as $pane) {
