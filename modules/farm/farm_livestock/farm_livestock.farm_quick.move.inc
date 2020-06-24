@@ -162,8 +162,34 @@ function farm_livestock_move_form_validate($form, &$form_state) {
 }
 
 /**
- * Submit function for milk quick form.
+ * Submit function for movement quick form.
  */
-function farm_livestock_milk_form_submit($form, &$form_state) {
-  drupal_set_message('Submission not implemented yet.');
+function farm_livestock_move_form_submit($form, &$form_state) {
+
+  // Get the movement timestamp.
+  $timestamp = strtotime($form_state['values']['move']['date']);
+
+  // Load the asset.
+  $asset = $form_state['storage']['asset'];
+  if (empty($asset)) {
+    return;
+  }
+
+  // If the location is available, load areas.
+  $areas = array();
+  if (!empty($form_state['values']['move']['area']['name'])) {
+    $areas = farm_term_parse_names($form_state['values']['move']['area']['name'], 'farm_areas', TRUE);
+  }
+
+  // Create activity log with asset movement to areas.
+  $movement_log = farm_movement_create($asset, $areas, $timestamp, 'farm_activity', TRUE);
+
+  // Add special geometry if provided.
+  if (!empty($form_state['values']['move']['area']['geometry']['data'])) {
+    $geom = $form_state['values']['move']['area']['geometry']['data'];
+    farm_map_geofield_populate($movement_log, array($geom));
+  }
+
+  // Save the movement log.
+  $movement_log->save();
 }
