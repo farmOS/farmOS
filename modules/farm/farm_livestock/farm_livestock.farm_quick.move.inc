@@ -108,11 +108,13 @@ function farm_livestock_move_form($form, &$form_state) {
     '#title' => t('Pasture height'),
     '#input_group' => TRUE,
     '#field_suffix' => $unit,
+    '#element_validate' => array('element_validate_number'),
   );
   $form['move']['observations']['post']['forage_quality'] = array(
     '#type' => 'textfield',
     '#title' => t('Relative forage quality'),
     '#description' => t('Give the forage quality a rating. This can be any number, but using a consistent scale (eg: 1-10) helps in future comparisons.'),
+    '#element_validate' => array('element_validate_number'),
   );
 
   // Pre grazing
@@ -127,11 +129,13 @@ function farm_livestock_move_form($form, &$form_state) {
     '#title' => t('Pasture height'),
     '#input_group' => TRUE,
     '#field_suffix' => $unit,
+    '#element_validate' => array('element_validate_number'),
   );
   $form['move']['observations']['pre']['forage_quality'] = array(
     '#type' => 'textfield',
     '#title' => t('Relative forage quality'),
     '#description' => t('Give the forage quality a rating. This can be any number, but using a consistent scale (eg: 1-10) helps in future comparisons.'),
+    '#element_validate' => array('element_validate_number'),
   );
 
   // Submit button.
