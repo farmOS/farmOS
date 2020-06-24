@@ -16,6 +16,9 @@ function farm_livestock_move_form($form, &$form_state) {
     '#description' => t('Use this form to record the movement of animals to an area. An activity log will be created with standard details filled in. You can also specify before/after observations of the area(s) that the animals are moving to/from.'),
   );
 
+  // Make the form a tree.
+  $form['move']['#tree'] = TRUE;
+
   // Define the date format for logs.
   $date_format = 'Y-m-d';
 
