@@ -131,10 +131,34 @@ function farm_livestock_move_form($form, &$form_state) {
 }
 
 /**
- * Validate callback for milk quick form.
+ * Validate callback for movement quick form.
  */
-function farm_livestock_milk_form_validate($form, &$form_state) {
-  drupal_set_message('Validation not implemented yet.');
+function farm_livestock_move_form_validate($form, &$form_state) {
+
+  // Validate animal or group asset.
+  // Extract asset ID.
+  $id = 0;
+  $matches = array();
+  $result = preg_match('/\\[id: ([0-9]+)\\]/', $form_state['values']['move']['asset'], $matches);
+  if (!empty($matches[$result])) {
+    $id = $matches[$result];
+  }
+
+  // If an ID couldn't be extracted, throw an error.
+  if (empty($id)) {
+    form_set_error('move][asset', t('Could not load the animal asset. Make sure the animal asset ID is included. For example: "My animal [id: 123]"'));
+  }
+
+  // Load the asset.
+  $asset = farm_asset_load($id);
+
+  // If the asset didn't load, throw an error.
+  if (empty($asset)) {
+    form_set_error('move][asset', t('Could not load the animal asset. Make sure the animal name and ID are correct.'));
+  }
+
+  // Save the asset to the form state.
+  $form_state['storage']['asset'] = $asset;
 }
 
 /**
