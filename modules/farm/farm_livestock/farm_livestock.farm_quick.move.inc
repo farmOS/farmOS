@@ -210,4 +210,61 @@ function farm_livestock_move_form_submit($form, &$form_state) {
 
   // Save the movement log.
   $movement_log->save();
+
+  // Save the pasture height units.
+  $pasture_height_units = $form_state['values']['move']['observations']['pasture_height_units'];
+
+  // Build post grazing measurements.
+  $post_grazing_measurements = array();
+
+  // Add post grazing pasture height measurement.
+  if (!empty($form_state['values']['move']['observations']['post']['pasture_height'])) {
+    $post_grazing_measurements[] = array(
+      'measure' => 'length',
+      'value' => $form_state['values']['move']['observations']['post']['pasture_height'],
+      'units' => $pasture_height_units,
+      'label' => 'Pasture Height',
+    );
+  }
+
+  // Add post grazing forage quality measurement.
+  if (!empty($form_state['values']['move']['observations']['post']['forage_quality'])) {
+    $post_grazing_measurements[] = array(
+      'measure' => 'rating',
+      'value' => $form_state['values']['move']['observations']['post']['forage_quality'],
+      'label' => 'Forage Quality',
+    );
+  }
+
+  // Create post grazing observation log if measurements are provided.
+  if (!empty($post_grazing_measurements)) {
+    farm_quantity_log_create('farm_observation', 'Post grazing observation', $timestamp, TRUE, array($asset), $post_grazing_measurements);
+  }
+
+  // Build pre grazing measurements.
+  $pre_grazing_measurements = array();
+
+  // Add pre grazing pasture height measurement.
+  if (!empty($form_state['values']['move']['observations']['pre']['pasture_height'])) {
+    $pre_grazing_measurements[] = array(
+      'measure' => 'length',
+      'value' => $form_state['values']['move']['observations']['pre']['pasture_height'],
+      'units' => $pasture_height_units,
+      'label' => 'Pasture Height',
+    );
+  }
+
+  // Add pre grazing forage quality measurement.
+  if (!empty($form_state['values']['move']['observations']['pre']['forage_quality'])) {
+    $pre_grazing_measurements[] = array(
+      'measure' => 'rating',
+      'value' => $form_state['values']['move']['observations']['pre']['forage_quality'],
+      'label' => 'Forage Quality',
+    );
+  }
+
+  // Create pre grazing observation log if measurements are provided.
+  if (!empty($pre_grazing_measurements)) {
+    farm_quantity_log_create('farm_observation', 'Pre grazing observation', $timestamp, TRUE, array($asset), $pre_grazing_measurements);
+  }
 }
