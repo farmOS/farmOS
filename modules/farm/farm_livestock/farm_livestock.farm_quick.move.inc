@@ -265,6 +265,20 @@ function farm_livestock_move_form_submit($form, &$form_state) {
 
   // Create pre grazing observation log if measurements are provided.
   if (!empty($pre_grazing_measurements)) {
-    farm_quantity_log_create('farm_observation', 'Pre grazing observation', $timestamp, TRUE, array($asset), $pre_grazing_measurements);
+    $pre_grazing_log = farm_quantity_log_create('farm_observation', 'Pre grazing observation', $timestamp, TRUE, array($asset), $pre_grazing_measurements);
+
+    // Link pre grazing logs to the area animals are moving to.
+    if (!empty($areas)) {
+      // Create an entity metadata wrapper for the log.
+      $log_wrapper = entity_metadata_wrapper('log', $pre_grazing_log);
+
+      // Add areas to log.
+      foreach($areas as $area) {
+        $log_wrapper->field_farm_area[] = $area;
+      }
+
+      // Save the log.
+      $log_wrapper->save();
+    }
   }
 }
