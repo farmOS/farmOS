@@ -82,6 +82,20 @@ function farm_livestock_move_form($form, &$form_state) {
     '#collapsed' => TRUE,
   );
 
+  // Determine the unit based on the system of measurement.
+  // (inches for US/Imperial, cm for Metric).
+  $system = farm_quantity_system_of_measurement();
+  $unit = 'cm';
+  if ($system == 'us') {
+    $unit = 'inches';
+  }
+
+  // Save the unit for later.
+  $form['move']['observations']['pasture_height_units'] = array(
+    '#type' => 'value',
+    '#value' => $unit,
+  );
+
   // Post grazing.
   $form['move']['observations']['post'] = array(
     '#type' => 'fieldset',
@@ -93,7 +107,7 @@ function farm_livestock_move_form($form, &$form_state) {
     '#type' => 'textfield',
     '#title' => t('Pasture height'),
     '#input_group' => TRUE,
-    '#field_suffix' => 'inches',
+    '#field_suffix' => $unit,
   );
   $form['move']['observations']['post']['forage_quality'] = array(
     '#type' => 'textfield',
@@ -112,7 +126,7 @@ function farm_livestock_move_form($form, &$form_state) {
     '#type' => 'textfield',
     '#title' => t('Pasture height'),
     '#input_group' => TRUE,
-    '#field_suffix' => 'inches',
+    '#field_suffix' => $unit,
   );
   $form['move']['observations']['pre']['forage_quality'] = array(
     '#type' => 'textfield',
