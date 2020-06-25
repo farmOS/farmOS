@@ -39,7 +39,17 @@ function farm_livestock_move_form($form, &$form_state) {
     '#title' => t('Group/animal'),
     '#description' => t('Select the group/animal that is being moved.'),
     '#autocomplete_path' => 'farm_asset/autocomplete/animal+group',
+    '#ajax' => array(
+      'callback' => 'farm_livestock_move_form_animal_location_ajax',
+    ),
     '#required' => TRUE,
+  );
+
+  $form['move']['current_location'] = array(
+    '#type' => 'hidden',
+    '#value' => '',
+    '#prefix' => '<div id="current-location">',
+    '#suffix' => '</div>',
   );
 
   // Area reference.
@@ -144,6 +154,9 @@ function farm_livestock_move_form($form, &$form_state) {
     '#value' => t('Save'),
   );
 
+  // Add javascript.
+  drupal_add_js(drupal_get_path('module', 'farm_livestock') . '/js/farm_livestock.farm_quick.move.js');
+
   // Return the form.
   return $form;
 }
@@ -177,6 +190,55 @@ function farm_livestock_move_form_validate($form, &$form_state) {
 
   // Save the asset to the form state.
   $form_state['storage']['asset'] = $asset;
+}
+
+/**
+ * Ajax callback for farm_livestock_move_form().
+ */
+function farm_livestock_move_form_animal_location_ajax($form, $form_state) {
+
+  // Validate animal or group asset.
+  // Extract asset ID.
+  $id = 0;
+  $matches = array();
+  $result = preg_match('/\\[id: ([0-9]+)\\]/', $form_state['values']['move']['asset'], $matches);
+  if (!empty($matches[$result])) {
+    $id = $matches[$result];
+  }
+
+  // If an ID couldn't be extracted, throw an error.
+  if (empty($id)) {
+    return array();
+  }
+
+  // Load the asset.
+  $asset = farm_asset_load($id);
+
+  $areas = farm_movement_asset_location($asset);
+
+  // Get the "wkt" form element and CSS selector.
+  $element = $form['move']['current_location'];
+  $selector = '#current-location';
+
+  // Update hidden wkt.
+  $area_ids = array();
+  foreach($areas as $area) {
+    $area_ids[] = $area->tid;
+  }
+  $geom = farm_area_extract_geoms($area_ids);
+  $element['#value'] = $geom;
+
+  // Assemble commands...
+  $commands = array();
+
+  // Replace the hidden field.
+  $commands[] = ajax_command_replace($selector, render($element));
+
+  // Execute Javascript to add WKT to the map.
+  $commands[] = array('command' => 'previewCurrentLocation');
+
+  // Return ajax commands.
+  return array('#type' => 'ajax', '#commands' => $commands);
 }
 
 /**
