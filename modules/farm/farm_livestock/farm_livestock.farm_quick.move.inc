@@ -193,24 +193,6 @@ function farm_livestock_move_form_submit($form, &$form_state) {
     return;
   }
 
-  // If the location is available, load areas.
-  $areas = array();
-  if (!empty($form_state['values']['move']['area']['name'])) {
-    $areas = farm_term_parse_names($form_state['values']['move']['area']['name'], 'farm_areas', TRUE);
-  }
-
-  // Create activity log with asset movement to areas.
-  $movement_log = farm_movement_create($asset, $areas, $timestamp, 'farm_activity', TRUE);
-
-  // Add special geometry if provided.
-  if (!empty($form_state['values']['move']['area']['geometry']['data'])) {
-    $geom = $form_state['values']['move']['area']['geometry']['data'];
-    farm_map_geofield_populate($movement_log, array($geom));
-  }
-
-  // Save the movement log.
-  $movement_log->save();
-
   // Save the pasture height units.
   $pasture_height_units = $form_state['values']['move']['observations']['pasture_height_units'];
 
@@ -237,9 +219,28 @@ function farm_livestock_move_form_submit($form, &$form_state) {
   }
 
   // Create post grazing observation log if measurements are provided.
+  // Do this before creating a movement log for the asset.
   if (!empty($post_grazing_measurements)) {
-    farm_quantity_log_create('farm_observation', 'Post grazing observation', $timestamp, TRUE, array($asset), $post_grazing_measurements);
+    $post_grazing_log = farm_quantity_log_create('farm_observation', 'Post grazing observation', $timestamp, TRUE, array($asset), $post_grazing_measurements);
   }
+
+  // If the location is available, load areas.
+  $areas = array();
+  if (!empty($form_state['values']['move']['area']['name'])) {
+    $areas = farm_term_parse_names($form_state['values']['move']['area']['name'], 'farm_areas', TRUE);
+  }
+
+  // Create activity log with asset movement to areas.
+  $movement_log = farm_movement_create($asset, $areas, $timestamp, 'farm_activity', TRUE);
+
+  // Add special geometry if provided.
+  if (!empty($form_state['values']['move']['area']['geometry']['data'])) {
+    $geom = $form_state['values']['move']['area']['geometry']['data'];
+    farm_map_geofield_populate($movement_log, array($geom));
+  }
+
+  // Save the movement log.
+  $movement_log->save();
 
   // Build pre grazing measurements.
   $pre_grazing_measurements = array();
