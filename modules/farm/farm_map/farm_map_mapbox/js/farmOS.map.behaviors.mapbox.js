@@ -2,8 +2,8 @@
   farmOS.map.behaviors.mapbox = {
     attach: function (instance) {
       var key = Drupal.settings.farm_map.behaviors.mapbox.api_key;
-      this.addMapboxLayer(instance, 'Mapbox Outdoors', 'mapbox.outdoors', key);
-      this.addMapboxLayer(instance, 'Mapbox Satellite', 'mapbox.satellite', key, true);
+      this.addMapboxLayer(instance, 'Mapbox Outdoors', 'mapbox/outdoors-v11', key);
+      this.addMapboxLayer(instance, 'Mapbox Satellite', 'mapbox/satellite-v9', key, true);
     },
     addMapboxLayer: function (instance, title, tileset, key, visible = false) {
 
@@ -17,7 +17,7 @@
       // Add the layer.
       var opts = {
         title: title,
-        url: 'https://api.mapbox.com/v4/' + tileset + '/{z}/{x}/{y}.png?access_token=' + key,
+        url: 'https://api.mapbox.com/styles/v1/' + tileset + '/tiles/256/{z}/{x}/{y}?access_token=' + key,
         attribution: attribution,
         group: 'Base layers',
         base: true,
