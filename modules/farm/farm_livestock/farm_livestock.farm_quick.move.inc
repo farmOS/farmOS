@@ -222,6 +222,22 @@ function farm_livestock_move_form_submit($form, &$form_state) {
   // Do this before creating a movement log for the asset.
   if (!empty($post_grazing_measurements)) {
     $post_grazing_log = farm_quantity_log_create('farm_observation', 'Post grazing observation', $timestamp, TRUE, array($asset), $post_grazing_measurements);
+
+    // Link post grazing logs to the area(s) animals are moving from.
+    $previous_areas = farm_movement_asset_location($asset);
+    if (!empty($previous_areas)) {
+
+      // Create an entity metadata wrapper for the log.
+      $log_wrapper = entity_metadata_wrapper('log', $post_grazing_log);
+
+      // Add areas to log.
+      foreach($previous_areas as $area) {
+        $log_wrapper->field_farm_area[] = $area;
+      }
+
+      // Save the log.
+      $log_wrapper->save();
+    }
   }
 
   // If the location is available, load areas.
