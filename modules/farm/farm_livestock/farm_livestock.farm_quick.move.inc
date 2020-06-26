@@ -58,12 +58,22 @@ function farm_livestock_move_form($form, &$form_state) {
     '#title' => t('Moving to'),
     '#description' => t('Enter the name of the area that animals are moving to. A list of existing area options will appear as you type. If the area does not exist, a new one will be created.'),
     '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_area',
+    '#ajax' => array(
+      'callback' => 'farm_livestock_move_form_next_location_ajax',
+    ),
     '#required' => TRUE,
   );
 
+  // Load the Moving To location geom in a hidden text field.
+  $form['move']['area']['next_location'] = array(
+    '#type' => 'hidden',
+    '#value' => '',
+    '#prefix' => '<div id="next-location">',
+    '#suffix' => '</div>',
+  );
+
   // Geometry
-  // Add a farmOS map instance with the WKT and drawing controls.
-  $wkt = '';
+  // Add a farmOS map instance.
   $form['move']['area']['geometry'] = array(
     '#type' => 'fieldset',
     '#title' => t('Geometry'),
@@ -74,13 +84,11 @@ function farm_livestock_move_form($form, &$form_state) {
   $form['move']['area']['geometry']['map'] = array(
     '#type' => 'farm_map',
     '#map_name' => 'farm_movement',
-    '#wkt' => $wkt,
-    '#edit' => TRUE,
   );
   $form['move']['area']['geometry']['data'] = array(
     '#type' => 'textarea',
     '#title' => t('Data'),
-    '#default_value' => $wkt,
+    '#default_value' => '',
   );
 
   // Observations
@@ -236,6 +244,42 @@ function farm_livestock_move_form_animal_location_ajax($form, $form_state) {
 
   // Execute Javascript to add WKT to the map.
   $commands[] = array('command' => 'previewCurrentLocation');
+
+  // Return ajax commands.
+  return array('#type' => 'ajax', '#commands' => $commands);
+}
+
+/**
+ * Ajax callback for farm_livestock_move_form().
+ */
+function farm_livestock_move_form_next_location_ajax($form, $form_state) {
+
+  // If the location is available, load areas.
+  $areas = array();
+  if (!empty($form_state['values']['move']['area']['name'])) {
+    $areas = farm_term_parse_names($form_state['values']['move']['area']['name'], 'farm_areas', FALSE);
+  }
+
+  // Get the "wkt" form element and CSS selector.
+  $element = $form['move']['area']['next_location'];
+  $selector = '#next-location';
+
+  // Update hidden wkt with area geometry.
+  $area_ids = array();
+  foreach($areas as $area) {
+    $area_ids[] = $area->tid;
+  }
+  $geom = farm_area_extract_geoms($area_ids);
+  $element['#value'] = $geom;
+
+  // Assemble commands...
+  $commands = array();
+
+  // Replace the hidden field.
+  $commands[] = ajax_command_replace($selector, render($element));
+
+  // Execute Javascript to add WKT to the map.
+  $commands[] = array('command' => 'updateMovementLayer');
 
   // Return ajax commands.
   return array('#type' => 'ajax', '#commands' => $commands);
