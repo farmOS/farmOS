@@ -171,6 +171,8 @@ projects[module_filter][version] = "2.2"
 ; -----------------------------------------------------------------------------
 
 projects[bootstrap][version] = "3.26"
+; Fix Issue #3155198: Nested collapsed fieldsets scroll to parent when expanded
+projects[bootstrap][patch][] = "http://www.drupal.org/files/issues/2020-06-26/3155198-2.patch"
 
 ; -----------------------------------------------------------------------------
 ; Libraries
