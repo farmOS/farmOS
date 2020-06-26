@@ -41,7 +41,7 @@
         wkt: wkt,
       };
       this.currentLocationLayer = this.instance.addLayer('wkt', opts);
-      this.instance.zoomToLayer(this.currentLocationLayer);
+      this.instance.zoomToVectors();
     },
 
     // Recreate the Movement map layer.
@@ -66,8 +66,8 @@
       // Make the layer editable.
       this.instance.addBehavior('edit', { layer: this.movementLayer });
 
-      // Zoom to the new layer.
-      this.instance.zoomToLayer(this.movementLayer);
+      // Zoom to all vector layers.
+      this.instance.zoomToVectors();
 
       // Save the map instance ID.
       const target = this.instance.target;
