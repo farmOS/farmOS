@@ -3,7 +3,7 @@
   // wkt from the hidden input field and preview it on the map.
   Drupal.ajax.prototype.commands.previewCurrentLocation = function() {
     var wkt = $('#current-location input[name="move[current_location]"]').val();
-    if (wkt) {
+    if (wkt !== 'undefined') {
       farmOS.map.behaviors.move.previewCurrentLocation(wkt);
     }
   }

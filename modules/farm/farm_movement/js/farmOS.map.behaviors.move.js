@@ -32,16 +32,20 @@
         this.currentLocationLayer = null;
       }
 
-      // Create current location layer with the WKT.
-      // Do not put the layer inside a group, because map.removeLayer() (used
-      // above) does not recurse into layer groups.
-      var opts = {
-        title: 'Current Location',
-        color: 'blue',
-        wkt: wkt,
-      };
-      this.currentLocationLayer = this.instance.addLayer('wkt', opts);
-      this.instance.zoomToVectors();
+      // Only add a layer if WKT is not an empty string.
+      if (wkt.length > 0) {
+
+        // Create current location layer with the WKT.
+        // Do not put the layer inside a group, because map.removeLayer() (used
+        // above) does not recurse into layer groups.
+        var opts = {
+          title: 'Current Location',
+          color: 'blue',
+          wkt: wkt,
+        };
+        this.currentLocationLayer = this.instance.addLayer('wkt', opts);
+        this.instance.zoomToVectors();
+      }
     },
 
     // Recreate the Movement map layer.
