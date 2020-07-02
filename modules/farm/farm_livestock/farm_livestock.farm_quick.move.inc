@@ -99,14 +99,6 @@ function farm_livestock_move_form($form, &$form_state) {
     '#required' => TRUE,
   );
 
-  // Load the Moving To location geom in a hidden text field.
-  $form['move']['area']['next_location'] = array(
-    '#type' => 'hidden',
-    '#value' => '',
-    '#prefix' => '<div id="next-location">',
-    '#suffix' => '</div>',
-  );
-
   // Geometry
   // Add a farmOS map instance.
   $form['move']['area']['geometry'] = array(
@@ -121,10 +113,32 @@ function farm_livestock_move_form($form, &$form_state) {
     '#map_name' => 'farm_movement',
   );
   $form['move']['area']['geometry']['data'] = array(
+    '#prefix' => '<div id="movement-geometry">',
+    '#suffix' => '</div>',
     '#type' => 'textarea',
     '#title' => t('Data'),
     '#default_value' => '',
   );
+
+  // If provided, load the next location WKT
+  // and update the geometry textarea.
+  if (!empty($form_state['values']['move']['area']['name'])) {
+    $areas = farm_term_parse_names($form_state['values']['move']['area']['name'], 'farm_areas', FALSE);
+
+    // Load WKT geometry.
+    $area_ids = array();
+    foreach($areas as $area) {
+      $area_ids[] = $area->tid;
+    }
+    $geom = farm_area_extract_geoms($area_ids);
+
+    // Update geometry textarea with WKT.
+    // Because textarea values cannot be an array we
+    // use the first index as the string to display.
+    if (!empty($geom[0])) {
+      $form['move']['area']['geometry']['data']['#value'] = $geom[0];
+    }
+  }
 
   // Observations
   $form['move']['observations'] = array(
@@ -262,23 +276,9 @@ function farm_livestock_move_form_current_location_ajax($form, $form_state) {
  */
 function farm_livestock_move_form_next_location_ajax($form, $form_state) {
 
-  // If the location is available, load areas.
-  $areas = array();
-  if (!empty($form_state['values']['move']['area']['name'])) {
-    $areas = farm_term_parse_names($form_state['values']['move']['area']['name'], 'farm_areas', FALSE);
-  }
-
   // Get the "wkt" form element and CSS selector.
-  $element = $form['move']['area']['next_location'];
-  $selector = '#next-location';
-
-  // Update hidden wkt with area geometry.
-  $area_ids = array();
-  foreach($areas as $area) {
-    $area_ids[] = $area->tid;
-  }
-  $geom = farm_area_extract_geoms($area_ids);
-  $element['#value'] = $geom;
+  $element = $form['move']['area']['geometry']['data'];
+  $selector = '#movement-geometry';
 
   // Assemble commands...
   $commands = array();
