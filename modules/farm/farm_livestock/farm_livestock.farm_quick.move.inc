@@ -362,7 +362,7 @@ function farm_livestock_move_form_submit($form, &$form_state) {
   }
 
   // Save the movement log.
-  $movement_log->save();
+  log_save($movement_log);
 
   // Build pre grazing measurements.
   $pre_grazing_measurements = array();
