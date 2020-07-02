@@ -15,7 +15,7 @@
       // as an editable WKT layer later.
       var opts = {
         title: 'Movement',
-        color: 'blue',
+        color: 'orange',
       };
       this.movementLayer = this.instance.addLayer('vector', opts);
 
@@ -58,7 +58,7 @@
       // above) does not recurse into layer groups.
       var opts = {
         title: 'Movement',
-        color: 'blue',
+        color: 'orange',
         wkt: wkt,
       };
       this.movementLayer = this.instance.addLayer('wkt', opts);
