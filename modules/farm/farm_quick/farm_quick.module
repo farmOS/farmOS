@@ -115,7 +115,7 @@ function farm_quick_menu() {
       'page callback' => 'farm_quick_form_page',
       'page arguments' => array($form['label'], $form['form']),
       'access callback' => 'farm_quick_access',
-      'access arguments' => $permissions,
+      'access arguments' => array($permissions),
       'type' => MENU_LOCAL_TASK,
     );
 
