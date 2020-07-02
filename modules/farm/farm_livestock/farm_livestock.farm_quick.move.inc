@@ -40,7 +40,7 @@ function farm_livestock_move_form($form, &$form_state) {
     '#description' => t('Select the group/animal that is being moved.'),
     '#autocomplete_path' => 'farm_asset/autocomplete/animal+group',
     '#ajax' => array(
-      'callback' => 'farm_livestock_move_form_animal_location_ajax',
+      'callback' => 'farm_livestock_move_form_current_location_ajax',
     ),
     '#required' => TRUE,
   );
@@ -203,7 +203,7 @@ function farm_livestock_move_form_validate($form, &$form_state) {
 /**
  * Ajax callback for farm_livestock_move_form().
  */
-function farm_livestock_move_form_animal_location_ajax($form, $form_state) {
+function farm_livestock_move_form_current_location_ajax($form, $form_state) {
 
   // Validate animal or group asset.
   // Extract asset ID.
