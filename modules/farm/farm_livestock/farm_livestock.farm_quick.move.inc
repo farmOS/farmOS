@@ -45,12 +45,47 @@ function farm_livestock_move_form($form, &$form_state) {
     '#required' => TRUE,
   );
 
+  // Load the animal or group asset
+  // if an asset name has been entered.
+  if (!empty($form_state['values']['move']['asset'])) {
+
+    // Extract an ID from the text field.
+    $asset_id = 0;
+    $matches = array();
+    $result = preg_match('/\\[id: ([0-9]+)\\]/', $form_state['values']['move']['asset'], $matches);
+    if (!empty($matches[$result])) {
+      $asset_id = $matches[$result];
+    }
+  }
+
+  // If an asset ID was found, load the asset.
+  $asset = NULL;
+  if (!empty($asset_id)) {
+    $asset = farm_asset_load($asset_id);
+  }
+
   $form['move']['current_location'] = array(
     '#type' => 'hidden',
     '#value' => '',
     '#prefix' => '<div id="current-location">',
     '#suffix' => '</div>',
   );
+
+  // If a valid asset was supplied load its
+  // current location and save WKT to hidden field.
+  if (!empty($asset)) {
+    $areas = farm_movement_asset_location($asset);
+
+    // Get WKT geometry.
+    $area_ids = array();
+    foreach($areas as $area) {
+      $area_ids[] = $area->tid;
+    }
+    $geom = farm_area_extract_geoms($area_ids);
+
+    // Update current location field with WKT.
+    $form['move']['current_location']['#value'] = $geom;
+  }
 
   // Area reference.
   $form['move']['area']['name'] = array(
@@ -205,36 +240,9 @@ function farm_livestock_move_form_validate($form, &$form_state) {
  */
 function farm_livestock_move_form_current_location_ajax($form, $form_state) {
 
-  // Validate animal or group asset.
-  // Extract asset ID.
-  $id = 0;
-  $matches = array();
-  $result = preg_match('/\\[id: ([0-9]+)\\]/', $form_state['values']['move']['asset'], $matches);
-  if (!empty($matches[$result])) {
-    $id = $matches[$result];
-  }
-
-  // If an ID couldn't be extracted, throw an error.
-  if (empty($id)) {
-    return array();
-  }
-
-  // Load the asset.
-  $asset = farm_asset_load($id);
-
-  $areas = farm_movement_asset_location($asset);
-
   // Get the "wkt" form element and CSS selector.
   $element = $form['move']['current_location'];
   $selector = '#current-location';
-
-  // Update hidden wkt.
-  $area_ids = array();
-  foreach($areas as $area) {
-    $area_ids[] = $area->tid;
-  }
-  $geom = farm_area_extract_geoms($area_ids);
-  $element['#value'] = $geom;
 
   // Assemble commands...
   $commands = array();
