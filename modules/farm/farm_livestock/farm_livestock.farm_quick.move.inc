@@ -360,14 +360,14 @@ function farm_livestock_move_form_submit($form, &$form_state) {
     $areas = farm_term_parse_names($form_state['values']['move']['area']['name'], 'farm_areas', TRUE);
   }
 
-  // Create activity log with asset movement to areas.
-  $movement_log = farm_movement_create($asset, $areas, $timestamp, 'farm_activity', TRUE);
-
-  // Add special geometry if provided.
+  // Get the geometry.
+  $geom = '';
   if (!empty($form_state['values']['move']['area']['geometry']['data'])) {
     $geom = $form_state['values']['move']['area']['geometry']['data'];
-    farm_map_geofield_populate($movement_log, array($geom));
   }
+
+  // Create activity log with asset movement to areas and specific geometry.
+  $movement_log = farm_movement_create($asset, $areas, $timestamp, 'farm_activity', TRUE, $geom);
 
   // Save the movement log.
   log_save($movement_log);
