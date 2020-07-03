@@ -32,7 +32,12 @@ function hook_farm_quick_forms() {
       'label' => t('My form'),
 
       // This permission will be required to access the form.
-      'permission' => 'create farm_harvest log entities',
+      // This can either be a single permission string OR an array of permission
+      // strings.
+      'permission' => array(
+        'create farm_birth log entities',
+        'create animal farm_asset entities',
+      ),
 
       // The form callback function.
       'form' => 'my_quick_form',

@@ -11,7 +11,10 @@ function farm_livestock_farm_quick_forms() {
   return array(
     'birth' => array(
       'label' => t('Birth'),
-      'permission' => 'create farm_birth log entities',
+      'permission' => array(
+        'create farm_birth log entities',
+        'create animal farm_asset entities',
+      ),
       'form' => 'farm_livestock_birth_form',
       'file' => 'farm_livestock.farm_quick.birth.inc',
     ),
@@ -20,6 +23,15 @@ function farm_livestock_farm_quick_forms() {
       'permission' => 'create farm_harvest log entities',
       'form' => 'farm_livestock_milk_form',
       'file' => 'farm_livestock.farm_quick.milk.inc',
+    ),
+    'animal_move' => array(
+      'label' => t('Move Animals'),
+      'permission' => array(
+        'create farm_activity log entities',
+        'create farm_observation log entities',
+      ),
+      'form' => 'farm_livestock_move_form',
+      'file' => 'farm_livestock.farm_quick.move.inc',
     ),
   );
 }

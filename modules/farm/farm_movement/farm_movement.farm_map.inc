@@ -15,6 +15,9 @@ function farm_movement_farm_map_behaviors() {
     'assets_cluster' => array(
       'js' => 'js/farmOS.map.behaviors.assets_cluster.js',
     ),
+    'move' => array(
+      'js' => 'js/farmOS.map.behaviors.move.js',
+    ),
   );
 }
 
@@ -73,5 +76,10 @@ function farm_movement_farm_map_view($name, $element) {
     farm_map_add_behavior('assets_full', array('zoom' => TRUE));
     farm_map_add_behavior('assets_cluster');
     farm_map_add_behavior('popup');
+  }
+
+  // Add move behavior to movement maps.
+  if ($name == 'farm_movement') {
+    farm_map_add_behavior('move');
   }
 }

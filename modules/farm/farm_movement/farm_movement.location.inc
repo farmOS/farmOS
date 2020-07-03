@@ -908,11 +908,14 @@ function farm_movement_asset_move_action(array $assets, $context = array()) {
  * @param bool $done
  *   Boolean indicating whether or not the log should be marked "done". Defaults
  *   to TRUE.
+ * @param string $geom
+ *   Optionally provide a movement geometry in WKT format. If this is empty, the
+ *   geometry will be copied from the referenced area(s).
  *
  * @return \Log
  *   Returns the log that was created.
  */
-function farm_movement_create($assets, $areas = array(), $timestamp = REQUEST_TIME, $log_type = 'farm_observation', $done = TRUE) {
+function farm_movement_create($assets, $areas = array(), $timestamp = REQUEST_TIME, $log_type = 'farm_observation', $done = TRUE, $geom = '') {
 
   // If no areas are defined, bail.
   if (empty($areas)) {
@@ -953,6 +956,11 @@ function farm_movement_create($assets, $areas = array(), $timestamp = REQUEST_TI
   // Iterate through the areas and add each to the "Move to" field.
   foreach ($areas as $area) {
     $movement_wrapper->field_farm_move_to[] = $area;
+  }
+
+  // Add geometry, if provided.
+  if (!empty($geom)) {
+    $movement_wrapper->field_farm_geofield->set(array(array('geom' => $geom)));
   }
 
   // Save the movement.
