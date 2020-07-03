@@ -184,6 +184,12 @@ function farm_livestock_move_form($form, &$form_state) {
     '#description' => t('Give the forage quality a rating. This can be any number, but using a consistent scale (eg: 1-10) helps in future comparisons.'),
     '#element_validate' => array('element_validate_number'),
   );
+  $form['move']['observations']['post']['photos'] = array(
+    '#type' => 'file',
+    '#title' => t('Photos'),
+    '#name' => 'files[]',
+    '#attributes' => array('multiple' => 'multiple'),
+  );
 
   // Pre grazing
   $form['move']['observations']['pre'] = array(
@@ -204,6 +210,12 @@ function farm_livestock_move_form($form, &$form_state) {
     '#title' => t('Relative forage quality'),
     '#description' => t('Give the forage quality a rating. This can be any number, but using a consistent scale (eg: 1-10) helps in future comparisons.'),
     '#element_validate' => array('element_validate_number'),
+  );
+  $form['move']['observations']['pre']['photos'] = array(
+    '#type' => 'file',
+    '#title' => t('Photos'),
+    '#name' => 'files[]',
+    '#attributes' => array('multiple' => 'multiple'),
   );
 
   // Submit button.
