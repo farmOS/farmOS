@@ -136,7 +136,8 @@ function farm_livestock_move_form($form, &$form_state) {
     // Because textarea values cannot be an array we
     // use the first index as the string to display.
     if (!empty($geom[0])) {
-      $form['move']['area']['geometry']['data']['#value'] = $geom[0];
+      $form['move']['area']['geometry']['data']['#default_value'] = $geom[0];
+      unset($form_state['input']['move']['area']['geometry']['data']);
     }
   }
 
