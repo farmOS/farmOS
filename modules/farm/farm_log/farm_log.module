@@ -884,7 +884,7 @@ function farm_log_entity_label_summary($entity_type, $entities, $cutoff = 3) {
   }
   $count = count($labels);
   if ($cutoff == 0 || count($labels) <= $cutoff) {
-    $output = implode($labels, ', ');
+    $output = implode(', ', $labels);
   }
   else {
     $output = $labels[0] . ' (+' . ($count - 1) . ' ' . t('more') . ')';
