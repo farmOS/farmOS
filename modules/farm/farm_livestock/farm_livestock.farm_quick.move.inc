@@ -184,11 +184,27 @@ function farm_livestock_move_form($form, &$form_state) {
     '#description' => t('Give the forage quality a rating. This can be any number, but using a consistent scale (eg: 1-10) helps in future comparisons.'),
     '#element_validate' => array('element_validate_number'),
   );
+
+  // Load Observation Log field file directory from field info.
+  $config = field_info_instance('log', 'field_farm_images', 'farm_observation');
+  $file_directory = $config['settings']['file_directory'];
+
+  // Load supported image file extensions.
+  $extensions = farm_fields_file_types('image');
+
+  // Build an upload location path.
+  $scheme = variable_get('file_default_scheme', 'public');
+  $upload_location = $scheme . '://' . $file_directory;
+
   $form['move']['observations']['post']['photos'] = array(
-    '#type' => 'file',
+    '#type' => 'managed_file',
     '#title' => t('Photos'),
     '#name' => 'files[]',
-    '#attributes' => array('multiple' => 'multiple'),
+    '#progress_indicator' => 'bar',
+    '#upload_validators' => array(
+      'file_validate_extensions' => array($extensions),
+    ),
+    '#upload_location' => $upload_location,
   );
 
   // Pre grazing
@@ -212,10 +228,14 @@ function farm_livestock_move_form($form, &$form_state) {
     '#element_validate' => array('element_validate_number'),
   );
   $form['move']['observations']['pre']['photos'] = array(
-    '#type' => 'file',
+    '#type' => 'managed_file',
     '#title' => t('Photos'),
     '#name' => 'files[]',
-    '#attributes' => array('multiple' => 'multiple'),
+    '#progress_indicator' => 'bar',
+    '#upload_validators' => array(
+      'file_validate_extensions' => array($extensions),
+    ),
+    '#upload_location' => $upload_location,
   );
 
   // Submit button.
@@ -345,9 +365,12 @@ function farm_livestock_move_form_submit($form, &$form_state) {
     );
   }
 
-  // Create post grazing observation log if measurements are provided.
+  // Save the photo file id.
+  $post_grazing_file_id = $form_state['values']['move']['observations']['post']['photos'];
+
+  // Create post grazing observation log if measurements or photos are provided.
   // Do this before creating a movement log for the asset.
-  if (!empty($post_grazing_measurements)) {
+  if (!empty($post_grazing_measurements) || !empty($post_grazing_file_id)) {
     $post_grazing_log = farm_quantity_log_create('farm_observation', 'Post grazing observation', $timestamp, TRUE, array($asset), $post_grazing_measurements);
 
     // Link the post grazing log to the quick form.
@@ -355,12 +378,28 @@ function farm_livestock_move_form_submit($form, &$form_state) {
       farm_quick_entity_link('farm_livestock_move_form', 'log', $post_grazing_log);
     }
 
+    // Create an entity metadata wrapper for the log.
+    $log_wrapper = entity_metadata_wrapper('log', $post_grazing_log);
+
+    // Check if a file was uploaded.
+    if (!empty($post_grazing_file_id)) {
+
+      // Load file.
+      $file = file_load($post_grazing_file_id);
+
+      // Make the storage of the file permanent.
+      $file->status = FILE_STATUS_PERMANENT;
+
+      // Save the file information.
+      file_save($file);
+
+      // Save the image with the log.
+      $log_wrapper->field_farm_images[] = array('fid' => $post_grazing_file_id);
+    }
+
     // Link post grazing logs to the area(s) animals are moving from.
     $previous_areas = farm_movement_asset_location($asset);
     if (!empty($previous_areas)) {
-
-      // Create an entity metadata wrapper for the log.
-      $log_wrapper = entity_metadata_wrapper('log', $post_grazing_log);
 
       // Add areas to log.
       foreach($previous_areas as $area) {
@@ -417,8 +456,11 @@ function farm_livestock_move_form_submit($form, &$form_state) {
     );
   }
 
-  // Create pre grazing observation log if measurements are provided.
-  if (!empty($pre_grazing_measurements)) {
+  // Save the photo file id.
+  $pre_grazing_file_id = $form_state['values']['move']['observations']['pre']['photos'];
+
+  // Create pre grazing observation log if measurements or photos are provided.
+  if (!empty($pre_grazing_measurements) || !empty($pre_grazing_file_id)) {
     $pre_grazing_log = farm_quantity_log_create('farm_observation', 'Pre grazing observation', $timestamp, TRUE, array($asset), $pre_grazing_measurements);
 
     // Link the pre grazing log to the quick form.
@@ -426,10 +468,27 @@ function farm_livestock_move_form_submit($form, &$form_state) {
       farm_quick_entity_link('farm_livestock_move_form', 'log', $pre_grazing_log);
     }
 
+    // Create an entity metadata wrapper for the log.
+    $log_wrapper = entity_metadata_wrapper('log', $pre_grazing_log);
+
+    // Check if a file was uploaded.
+    if (!empty($pre_grazing_file_id)) {
+
+      // Load file.
+      $file = file_load($pre_grazing_file_id);
+
+      // Make the storage of the file permanent.
+      $file->status = FILE_STATUS_PERMANENT;
+
+      // Save the file information.
+      file_save($file);
+
+      // Save the image with the log.
+      $log_wrapper->field_farm_images[] = array('fid' => $pre_grazing_file_id);
+    }
+
     // Link pre grazing logs to the area animals are moving to.
     if (!empty($areas)) {
-      // Create an entity metadata wrapper for the log.
-      $log_wrapper = entity_metadata_wrapper('log', $pre_grazing_log);
 
       // Add areas to log.
       foreach($areas as $area) {
