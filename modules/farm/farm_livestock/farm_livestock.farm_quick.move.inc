@@ -338,6 +338,11 @@ function farm_livestock_move_form_submit($form, &$form_state) {
   if (!empty($post_grazing_measurements)) {
     $post_grazing_log = farm_quantity_log_create('farm_observation', 'Post grazing observation', $timestamp, TRUE, array($asset), $post_grazing_measurements);
 
+    // Link the post grazing log to the quick form.
+    if (function_exists('farm_quick_entity_link')) {
+      farm_quick_entity_link('farm_livestock_move_form', 'log', $post_grazing_log);
+    }
+
     // Link post grazing logs to the area(s) animals are moving from.
     $previous_areas = farm_movement_asset_location($asset);
     if (!empty($previous_areas)) {
@@ -373,6 +378,11 @@ function farm_livestock_move_form_submit($form, &$form_state) {
   // Save the movement log.
   log_save($movement_log);
 
+  // Link the movement log to the quick form.
+  if (function_exists('farm_quick_entity_link')) {
+    farm_quick_entity_link('farm_livestock_move_form', 'log', $movement_log);
+  }
+
   // Build pre grazing measurements.
   $pre_grazing_measurements = array();
 
@@ -398,6 +408,11 @@ function farm_livestock_move_form_submit($form, &$form_state) {
   // Create pre grazing observation log if measurements are provided.
   if (!empty($pre_grazing_measurements)) {
     $pre_grazing_log = farm_quantity_log_create('farm_observation', 'Pre grazing observation', $timestamp, TRUE, array($asset), $pre_grazing_measurements);
+
+    // Link the pre grazing log to the quick form.
+    if (function_exists('farm_quick_entity_link')) {
+      farm_quick_entity_link('farm_livestock_move_form', 'log', $pre_grazing_log);
+    }
 
     // Link pre grazing logs to the area animals are moving to.
     if (!empty($areas)) {
