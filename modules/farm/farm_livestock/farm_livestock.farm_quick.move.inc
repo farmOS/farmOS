@@ -19,6 +19,13 @@ function farm_livestock_move_form($form, &$form_state) {
   // Make the form a tree.
   $form['move']['#tree'] = TRUE;
 
+  // Movement status.
+  $form['move']['done'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Completed'),
+    '#default_value' => TRUE,
+  );
+
   // Define the date format for logs.
   $date_format = 'Y-m-d';
 
@@ -331,6 +338,9 @@ function farm_livestock_move_form_next_location_ajax($form, $form_state) {
  */
 function farm_livestock_move_form_submit($form, &$form_state) {
 
+  // Get the movement status.
+  $done = $form_state['values']['move']['done'];
+
   // Get the movement timestamp.
   $timestamp = strtotime($form_state['values']['move']['date']);
 
@@ -424,7 +434,7 @@ function farm_livestock_move_form_submit($form, &$form_state) {
   }
 
   // Create activity log with asset movement to areas and specific geometry.
-  $movement_log = farm_movement_create($asset, $areas, $timestamp, 'farm_activity', TRUE, $geom);
+  $movement_log = farm_movement_create($asset, $areas, $timestamp, 'farm_activity', $done, $geom);
 
   // Save the movement log.
   log_save($movement_log);
