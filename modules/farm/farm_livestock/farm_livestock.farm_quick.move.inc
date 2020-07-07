@@ -19,11 +19,18 @@ function farm_livestock_move_form($form, &$form_state) {
   // Make the form a tree.
   $form['move']['#tree'] = TRUE;
 
+  // Load movement status from form state, default to TRUE.
+  $done = isset($form_state['values']['move']['done']) ? $form_state['values']['move']['done'] : TRUE;
+
   // Movement status.
   $form['move']['done'] = array(
     '#type' => 'checkbox',
     '#title' => t('Completed'),
-    '#default_value' => TRUE,
+    '#default_value' => $done,
+    '#ajax' => array(
+      'callback' => 'farm_livestock_move_form_movement_status_ajax',
+      'wrapper' => 'observations',
+    ),
   );
 
   // Define the date format for logs.
@@ -150,100 +157,109 @@ function farm_livestock_move_form($form, &$form_state) {
 
   // Observations
   $form['move']['observations'] = array(
+    '#prefix' => '<div id="observations">',
+    '#suffix' => '</div>',
     '#type' => 'fieldset',
     '#title' => t('Observations'),
-    '#description' => t('Optionally provide information about the area(s) that animals are moving out of, as well as the area(s) they are moving into.'),
+    '#description' => t('Movement must be marked as completed to record observations.'),
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
 
-  // Determine the unit based on the system of measurement.
-  // (inches for US/Imperial, cm for Metric).
-  $system = farm_quantity_system_of_measurement();
-  $unit = 'cm';
-  if ($system == 'us') {
-    $unit = 'inches';
+  // Only display observation fields if the movement is marked as done.
+  if ($done) {
+
+    // Update description text.
+    $form['move']['observations']['#description'] = t('Optionally provide information about the area(s) that animals are moving out of, as well as the area(s) they are moving into.');
+
+    // Determine the unit based on the system of measurement.
+    // (inches for US/Imperial, cm for Metric).
+    $system = farm_quantity_system_of_measurement();
+    $unit = 'cm';
+    if ($system == 'us') {
+      $unit = 'inches';
+    }
+
+    // Save the unit for later.
+    $form['move']['observations']['pasture_height_units'] = array(
+      '#type' => 'value',
+      '#value' => $unit,
+    );
+
+    // Post grazing.
+    $form['move']['observations']['post'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Post grazing in last area'),
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+    );
+    $form['move']['observations']['post']['pasture_height'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Pasture height'),
+      '#input_group' => TRUE,
+      '#field_suffix' => $unit,
+      '#element_validate' => array('element_validate_number'),
+    );
+    $form['move']['observations']['post']['forage_quality'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Relative forage quality'),
+      '#description' => t('Give the forage quality a rating. This can be any number, but using a consistent scale (eg: 1-10) helps in future comparisons.'),
+      '#element_validate' => array('element_validate_number'),
+    );
+
+    // Load Observation Log field file directory from field info.
+    $config = field_info_instance('log', 'field_farm_images', 'farm_observation');
+    $file_directory = $config['settings']['file_directory'];
+
+    // Load supported image file extensions.
+    $extensions = farm_fields_file_types('image');
+
+    // Build an upload location path.
+    $scheme = variable_get('file_default_scheme', 'public');
+    $upload_location = $scheme . '://' . $file_directory;
+
+    $form['move']['observations']['post']['photos'] = array(
+      '#type' => 'managed_file',
+      '#title' => t('Photos'),
+      '#name' => 'files[]',
+      '#progress_indicator' => 'bar',
+      '#upload_validators' => array(
+        'file_validate_extensions' => array($extensions),
+      ),
+      '#upload_location' => $upload_location,
+    );
+
+    // Pre grazing
+    $form['move']['observations']['pre'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Pre grazing in next area'),
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+    );
+    $form['move']['observations']['pre']['pasture_height'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Pasture height'),
+      '#input_group' => TRUE,
+      '#field_suffix' => $unit,
+      '#element_validate' => array('element_validate_number'),
+    );
+    $form['move']['observations']['pre']['forage_quality'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Relative forage quality'),
+      '#description' => t('Give the forage quality a rating. This can be any number, but using a consistent scale (eg: 1-10) helps in future comparisons.'),
+      '#element_validate' => array('element_validate_number'),
+    );
+    $form['move']['observations']['pre']['photos'] = array(
+      '#type' => 'managed_file',
+      '#title' => t('Photos'),
+      '#name' => 'files[]',
+      '#progress_indicator' => 'bar',
+      '#upload_validators' => array(
+        'file_validate_extensions' => array($extensions),
+      ),
+      '#upload_location' => $upload_location,
+    );
   }
-
-  // Save the unit for later.
-  $form['move']['observations']['pasture_height_units'] = array(
-    '#type' => 'value',
-    '#value' => $unit,
-  );
-
-  // Post grazing.
-  $form['move']['observations']['post'] = array(
-    '#type' => 'fieldset',
-    '#title' => t('Post grazing in last area'),
-    '#collapsible' => TRUE,
-    '#collapsed' => TRUE,
-  );
-  $form['move']['observations']['post']['pasture_height'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Pasture height'),
-    '#input_group' => TRUE,
-    '#field_suffix' => $unit,
-    '#element_validate' => array('element_validate_number'),
-  );
-  $form['move']['observations']['post']['forage_quality'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Relative forage quality'),
-    '#description' => t('Give the forage quality a rating. This can be any number, but using a consistent scale (eg: 1-10) helps in future comparisons.'),
-    '#element_validate' => array('element_validate_number'),
-  );
-
-  // Load Observation Log field file directory from field info.
-  $config = field_info_instance('log', 'field_farm_images', 'farm_observation');
-  $file_directory = $config['settings']['file_directory'];
-
-  // Load supported image file extensions.
-  $extensions = farm_fields_file_types('image');
-
-  // Build an upload location path.
-  $scheme = variable_get('file_default_scheme', 'public');
-  $upload_location = $scheme . '://' . $file_directory;
-
-  $form['move']['observations']['post']['photos'] = array(
-    '#type' => 'managed_file',
-    '#title' => t('Photos'),
-    '#name' => 'files[]',
-    '#progress_indicator' => 'bar',
-    '#upload_validators' => array(
-      'file_validate_extensions' => array($extensions),
-    ),
-    '#upload_location' => $upload_location,
-  );
-
-  // Pre grazing
-  $form['move']['observations']['pre'] = array(
-    '#type' => 'fieldset',
-    '#title' => t('Pre grazing in next area'),
-    '#collapsible' => TRUE,
-    '#collapsed' => TRUE,
-  );
-  $form['move']['observations']['pre']['pasture_height'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Pasture height'),
-    '#input_group' => TRUE,
-    '#field_suffix' => $unit,
-    '#element_validate' => array('element_validate_number'),
-  );
-  $form['move']['observations']['pre']['forage_quality'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Relative forage quality'),
-    '#description' => t('Give the forage quality a rating. This can be any number, but using a consistent scale (eg: 1-10) helps in future comparisons.'),
-    '#element_validate' => array('element_validate_number'),
-  );
-  $form['move']['observations']['pre']['photos'] = array(
-    '#type' => 'managed_file',
-    '#title' => t('Photos'),
-    '#name' => 'files[]',
-    '#progress_indicator' => 'bar',
-    '#upload_validators' => array(
-      'file_validate_extensions' => array($extensions),
-    ),
-    '#upload_location' => $upload_location,
-  );
 
   // Submit button.
   $form['move']['submit'] = array(
@@ -287,6 +303,13 @@ function farm_livestock_move_form_validate($form, &$form_state) {
 
   // Save the asset to the form state.
   $form_state['storage']['asset'] = $asset;
+}
+
+/**
+ * Ajax callback for farm_livestock_move_form().
+ */
+function farm_livestock_move_form_movement_status_ajax($form, $form_state) {
+  return $form['move']['observations'];
 }
 
 /**
@@ -350,74 +373,78 @@ function farm_livestock_move_form_submit($form, &$form_state) {
     return;
   }
 
-  // Save the pasture height units.
-  $pasture_height_units = $form_state['values']['move']['observations']['pasture_height_units'];
+  // Create post grazing observation log if values were submitted.
+  if (isset($form_state['values']['move']['observations']['post'])) {
 
-  // Build post grazing measurements.
-  $post_grazing_measurements = array();
+    // Save the pasture height units.
+    $pasture_height_units = $form_state['values']['move']['observations']['pasture_height_units'];
 
-  // Add post grazing pasture height measurement.
-  if (!empty($form_state['values']['move']['observations']['post']['pasture_height'])) {
-    $post_grazing_measurements[] = array(
-      'measure' => 'length',
-      'value' => $form_state['values']['move']['observations']['post']['pasture_height'],
-      'units' => $pasture_height_units,
-      'label' => 'Pasture Height',
-    );
-  }
+    // Build post grazing measurements.
+    $post_grazing_measurements = array();
 
-  // Add post grazing forage quality measurement.
-  if (!empty($form_state['values']['move']['observations']['post']['forage_quality'])) {
-    $post_grazing_measurements[] = array(
-      'measure' => 'rating',
-      'value' => $form_state['values']['move']['observations']['post']['forage_quality'],
-      'label' => 'Forage Quality',
-    );
-  }
-
-  // Save the photo file id.
-  $post_grazing_file_id = $form_state['values']['move']['observations']['post']['photos'];
-
-  // Create post grazing observation log if measurements or photos are provided.
-  // Do this before creating a movement log for the asset.
-  if (!empty($post_grazing_measurements) || !empty($post_grazing_file_id)) {
-    $post_grazing_log = farm_quantity_log_create('farm_observation', 'Post grazing observation', $timestamp, TRUE, array($asset), $post_grazing_measurements);
-
-    // Link the post grazing log to the quick form.
-    if (function_exists('farm_quick_entity_link')) {
-      farm_quick_entity_link('farm_livestock_move_form', 'log', $post_grazing_log);
+    // Add post grazing pasture height measurement.
+    if (!empty($form_state['values']['move']['observations']['post']['pasture_height'])) {
+      $post_grazing_measurements[] = array(
+        'measure' => 'length',
+        'value' => $form_state['values']['move']['observations']['post']['pasture_height'],
+        'units' => $pasture_height_units,
+        'label' => 'Pasture Height',
+      );
     }
 
-    // Create an entity metadata wrapper for the log.
-    $log_wrapper = entity_metadata_wrapper('log', $post_grazing_log);
-
-    // Check if a file was uploaded.
-    if (!empty($post_grazing_file_id)) {
-
-      // Load file.
-      $file = file_load($post_grazing_file_id);
-
-      // Make the storage of the file permanent.
-      $file->status = FILE_STATUS_PERMANENT;
-
-      // Save the file information.
-      file_save($file);
-
-      // Save the image with the log.
-      $log_wrapper->field_farm_images[] = array('fid' => $post_grazing_file_id);
+    // Add post grazing forage quality measurement.
+    if (!empty($form_state['values']['move']['observations']['post']['forage_quality'])) {
+      $post_grazing_measurements[] = array(
+        'measure' => 'rating',
+        'value' => $form_state['values']['move']['observations']['post']['forage_quality'],
+        'label' => 'Forage Quality',
+      );
     }
 
-    // Link post grazing logs to the area(s) animals are moving from.
-    $previous_areas = farm_movement_asset_location($asset);
-    if (!empty($previous_areas)) {
+    // Save the photo file id.
+    $post_grazing_file_id = $form_state['values']['move']['observations']['post']['photos'];
 
-      // Add areas to log.
-      foreach($previous_areas as $area) {
-        $log_wrapper->field_farm_area[] = $area;
+    // Create post grazing observation log if measurements or photos are provided.
+    // Do this before creating a movement log for the asset.
+    if (!empty($post_grazing_measurements) || !empty($post_grazing_file_id)) {
+      $post_grazing_log = farm_quantity_log_create('farm_observation', 'Post grazing observation', $timestamp, TRUE, array($asset), $post_grazing_measurements);
+
+      // Link the post grazing log to the quick form.
+      if (function_exists('farm_quick_entity_link')) {
+        farm_quick_entity_link('farm_livestock_move_form', 'log', $post_grazing_log);
       }
 
-      // Save the log.
-      $log_wrapper->save();
+      // Create an entity metadata wrapper for the log.
+      $log_wrapper = entity_metadata_wrapper('log', $post_grazing_log);
+
+      // Check if a file was uploaded.
+      if (!empty($post_grazing_file_id)) {
+
+        // Load file.
+        $file = file_load($post_grazing_file_id);
+
+        // Make the storage of the file permanent.
+        $file->status = FILE_STATUS_PERMANENT;
+
+        // Save the file information.
+        file_save($file);
+
+        // Save the image with the log.
+        $log_wrapper->field_farm_images[] = array('fid' => $post_grazing_file_id);
+      }
+
+      // Link post grazing logs to the area(s) animals are moving from.
+      $previous_areas = farm_movement_asset_location($asset);
+      if (!empty($previous_areas)) {
+
+        // Add areas to log.
+        foreach ($previous_areas as $area) {
+          $log_wrapper->field_farm_area[] = $area;
+        }
+
+        // Save the log.
+        $log_wrapper->save();
+      }
     }
   }
 
@@ -444,69 +471,76 @@ function farm_livestock_move_form_submit($form, &$form_state) {
     farm_quick_entity_link('farm_livestock_move_form', 'log', $movement_log);
   }
 
-  // Build pre grazing measurements.
-  $pre_grazing_measurements = array();
+  // Create pre grazing observation log if values were submitted.
+  if (isset($form_state['values']['move']['observations']['pre'])) {
 
-  // Add pre grazing pasture height measurement.
-  if (!empty($form_state['values']['move']['observations']['pre']['pasture_height'])) {
-    $pre_grazing_measurements[] = array(
-      'measure' => 'length',
-      'value' => $form_state['values']['move']['observations']['pre']['pasture_height'],
-      'units' => $pasture_height_units,
-      'label' => 'Pasture Height',
-    );
-  }
+    // Save the pasture height units.
+    $pasture_height_units = $form_state['values']['move']['observations']['pasture_height_units'];
 
-  // Add pre grazing forage quality measurement.
-  if (!empty($form_state['values']['move']['observations']['pre']['forage_quality'])) {
-    $pre_grazing_measurements[] = array(
-      'measure' => 'rating',
-      'value' => $form_state['values']['move']['observations']['pre']['forage_quality'],
-      'label' => 'Forage Quality',
-    );
-  }
+    // Build pre grazing measurements.
+    $pre_grazing_measurements = array();
 
-  // Save the photo file id.
-  $pre_grazing_file_id = $form_state['values']['move']['observations']['pre']['photos'];
-
-  // Create pre grazing observation log if measurements or photos are provided.
-  if (!empty($pre_grazing_measurements) || !empty($pre_grazing_file_id)) {
-    $pre_grazing_log = farm_quantity_log_create('farm_observation', 'Pre grazing observation', $timestamp, TRUE, array($asset), $pre_grazing_measurements);
-
-    // Link the pre grazing log to the quick form.
-    if (function_exists('farm_quick_entity_link')) {
-      farm_quick_entity_link('farm_livestock_move_form', 'log', $pre_grazing_log);
+    // Add pre grazing pasture height measurement.
+    if (!empty($form_state['values']['move']['observations']['pre']['pasture_height'])) {
+      $pre_grazing_measurements[] = array(
+        'measure' => 'length',
+        'value' => $form_state['values']['move']['observations']['pre']['pasture_height'],
+        'units' => $pasture_height_units,
+        'label' => 'Pasture Height',
+      );
     }
 
-    // Create an entity metadata wrapper for the log.
-    $log_wrapper = entity_metadata_wrapper('log', $pre_grazing_log);
-
-    // Check if a file was uploaded.
-    if (!empty($pre_grazing_file_id)) {
-
-      // Load file.
-      $file = file_load($pre_grazing_file_id);
-
-      // Make the storage of the file permanent.
-      $file->status = FILE_STATUS_PERMANENT;
-
-      // Save the file information.
-      file_save($file);
-
-      // Save the image with the log.
-      $log_wrapper->field_farm_images[] = array('fid' => $pre_grazing_file_id);
+    // Add pre grazing forage quality measurement.
+    if (!empty($form_state['values']['move']['observations']['pre']['forage_quality'])) {
+      $pre_grazing_measurements[] = array(
+        'measure' => 'rating',
+        'value' => $form_state['values']['move']['observations']['pre']['forage_quality'],
+        'label' => 'Forage Quality',
+      );
     }
 
-    // Link pre grazing logs to the area animals are moving to.
-    if (!empty($areas)) {
+    // Save the photo file id.
+    $pre_grazing_file_id = $form_state['values']['move']['observations']['pre']['photos'];
 
-      // Add areas to log.
-      foreach($areas as $area) {
-        $log_wrapper->field_farm_area[] = $area;
+    // Create pre grazing observation log if measurements or photos are provided.
+    if (!empty($pre_grazing_measurements) || !empty($pre_grazing_file_id)) {
+      $pre_grazing_log = farm_quantity_log_create('farm_observation', 'Pre grazing observation', $timestamp, TRUE, array($asset), $pre_grazing_measurements);
+
+      // Link the pre grazing log to the quick form.
+      if (function_exists('farm_quick_entity_link')) {
+        farm_quick_entity_link('farm_livestock_move_form', 'log', $pre_grazing_log);
       }
 
-      // Save the log.
-      $log_wrapper->save();
+      // Create an entity metadata wrapper for the log.
+      $log_wrapper = entity_metadata_wrapper('log', $pre_grazing_log);
+
+      // Check if a file was uploaded.
+      if (!empty($pre_grazing_file_id)) {
+
+        // Load file.
+        $file = file_load($pre_grazing_file_id);
+
+        // Make the storage of the file permanent.
+        $file->status = FILE_STATUS_PERMANENT;
+
+        // Save the file information.
+        file_save($file);
+
+        // Save the image with the log.
+        $log_wrapper->field_farm_images[] = array('fid' => $pre_grazing_file_id);
+      }
+
+      // Link pre grazing logs to the area animals are moving to.
+      if (!empty($areas)) {
+
+        // Add areas to log.
+        foreach ($areas as $area) {
+          $log_wrapper->field_farm_area[] = $area;
+        }
+
+        // Save the log.
+        $log_wrapper->save();
+      }
     }
   }
 }
