@@ -9,8 +9,55 @@
  */
 function farm_livestock_move_form($form, &$form_state) {
 
-  // Wrapper fieldset.
+  // Planned log fieldset.
+  $form['planned'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Planned Movements'),
+    '#description' => t('Modify future movements that have been created with this quick form.'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+
+  // Query logs linked to this quick form.
+  $query = db_select('farm_quick_entity', 'fqe');
+  $query->addField('fqe', 'entity_id');
+  $query->condition('fqe.entity_type', 'log');
+  $query->condition('fqe.quick_form_id', 'farm_livestock_move_form');
+  $log_ids = $query->execute()->fetchCol();
+
+  // Load logs.
+  $logs = log_load_multiple($log_ids);
+
+  // Build array of planned movement logs.
+  $planned_movements = array();
+
+  // Filter to only include activity logs that are not done.
+  foreach($logs as $log) {
+    if ($log->type == 'farm_activity' && !$log->done) {
+
+      // Build label for select options.
+      $timestamp = $log->timestamp;
+      $label = $log->name . ' (Planned for ' . strftime('%m/%d/%Y', $timestamp) . ')';
+      $planned_movements[$log->id] = $label;
+    }
+  }
+
+  $form['planned']['movement_log'] = array(
+    '#type' => 'select',
+    '#title' => t('Planned Logs'),
+    '#options' => $planned_movements,
+    '#empty_option' => '',
+    '#empty_value' => '',
+    '#ajax' => array(
+      'callback' => 'farm_livestock_move_form_planned_movement_ajax',
+      'wrapper' => 'movement',
+    ),
+  );
+
+  // Movement fieldset.
   $form['move'] = array(
+    '#prefix' => '<div id="movement">',
+    '#suffix' => '</div>',
     '#type' => 'fieldset',
     '#title' => t('Record animal move'),
     '#description' => t('Use this form to record the movement of animals to an area. An activity log will be created with standard details filled in. You can also specify before/after observations of the area(s) that the animals are moving to/from.'),
@@ -19,14 +66,77 @@ function farm_livestock_move_form($form, &$form_state) {
   // Make the form a tree.
   $form['move']['#tree'] = TRUE;
 
-  // Load movement status from form state, default to TRUE.
-  $done = isset($form_state['values']['move']['done']) ? $form_state['values']['move']['done'] : TRUE;
+  // Start array of defaults to populate form fields.
+  $defaults = array(
+    'done' => TRUE,
+    'date' => REQUEST_TIME,
+    'asset' => NULL,
+    'area' => NULL,
+    'geom' => NULL,
+  );
+
+  // Load a planned movement log.
+  $movement_log = NULL;
+  if(!empty($form_state['values']['movement_log'])) {
+
+    // Load the log.
+    $log_id = $form_state['values']['movement_log'];
+    $movement_log = log_load($log_id);
+  }
+
+  $form['move']['log'] = array(
+    '#value' => $movement_log,
+  );
+
+  // If a planned log was just selected, update the form with values from the log.
+  if(!empty($movement_log) && isset($form_state['triggering_element']) && $form_state['triggering_element']['#name'] == 'movement_log') {
+
+    // Update movement status.
+    $defaults['done'] = $movement_log->done;
+    unset($form_state['input']['move']['done']);
+
+    // Update movement date.
+    $defaults['date'] = strftime('%Y-%m-%d', $movement_log->timestamp);
+    unset($form_state['input']['move']['date']);
+
+    $log_wrapper = entity_metadata_wrapper('log', $movement_log);
+
+    // Update default asset.
+    $assets = $log_wrapper->field_farm_asset->value();
+    if(isset($assets[0])) {
+      $asset = $assets[0];
+      $asset_value = $asset->name . ' [id: ' . $asset->id . ']';
+      $defaults['asset'] = $asset_value;
+      $form_state['values']['move']['asset'] = $asset_value;
+      unset($form_state['input']['move']['asset']);
+    }
+
+    // Update the movement info.
+    if (!empty($log_wrapper->field_farm_movement)) {
+
+      $movement_wrapper = $log_wrapper->field_farm_movement;
+
+      // Update movement areas.
+      $areas = $movement_wrapper->field_farm_move_to->value();
+      if(isset($areas[0])) {
+        $defaults['area'] = $areas[0]->name;
+        unset($form_state['input']['move']['area']['name']);
+      }
+
+      // Update movement geometry.
+      $geom = $movement_wrapper->field_farm_geofield->value();
+      if(isset($geom[0])) {
+        $defaults['geom'] = $geom[0]['geom'];
+        unset($form_state['input']['move']['area']['geometry']['data']);
+      }
+    }
+  }
 
   // Movement status.
   $form['move']['done'] = array(
     '#type' => 'checkbox',
     '#title' => t('Completed'),
-    '#default_value' => $done,
+    '#default_value' => $defaults['done'],
     '#ajax' => array(
       'callback' => 'farm_livestock_move_form_movement_status_ajax',
       'wrapper' => 'observations',
@@ -43,7 +153,7 @@ function farm_livestock_move_form($form, &$form_state) {
     '#date_format' => $date_format,
     '#date_label_position' => 'within',
     '#date_year_range' => '-10:+3',
-    '#default_value' => REQUEST_TIME,
+    '#default_value' => $defaults['date'],
     '#required' => TRUE,
   );
 
@@ -53,6 +163,7 @@ function farm_livestock_move_form($form, &$form_state) {
     '#title' => t('Group/animal'),
     '#description' => t('Select the group/animal that is being moved.'),
     '#autocomplete_path' => 'farm_asset/autocomplete/animal+group',
+    '#default_value' => $defaults['asset'],
     '#ajax' => array(
       'callback' => 'farm_livestock_move_form_current_location_ajax',
     ),
@@ -107,6 +218,7 @@ function farm_livestock_move_form($form, &$form_state) {
     '#title' => t('Moving to'),
     '#description' => t('Enter the name of the area that animals are moving to. A list of existing area options will appear as you type. If the area does not exist, a new one will be created.'),
     '#autocomplete_path' => 'taxonomy/autocomplete/field_farm_area',
+    '#default_value' => $defaults['area'],
     '#ajax' => array(
       'callback' => 'farm_livestock_move_form_next_location_ajax',
     ),
@@ -131,7 +243,7 @@ function farm_livestock_move_form($form, &$form_state) {
     '#suffix' => '</div>',
     '#type' => 'textarea',
     '#title' => t('Data'),
-    '#default_value' => '',
+    '#default_value' => $defaults['geom'],
   );
 
   // If provided, load the next location WKT
@@ -167,7 +279,7 @@ function farm_livestock_move_form($form, &$form_state) {
   );
 
   // Only display observation fields if the movement is marked as done.
-  if ($done) {
+  if ($defaults['done']) {
 
     // Update description text.
     $form['move']['observations']['#description'] = t('Optionally provide information about the area(s) that animals are moving out of, as well as the area(s) they are moving into.');
@@ -303,6 +415,13 @@ function farm_livestock_move_form_validate($form, &$form_state) {
 
   // Save the asset to the form state.
   $form_state['storage']['asset'] = $asset;
+}
+
+/**
+ * Ajax callback for farm_livestock_move_form().
+ */
+function farm_livestock_move_form_planned_movement_ajax($form, $form_state) {
+  return $form['move'];
 }
 
 /**
@@ -460,8 +579,57 @@ function farm_livestock_move_form_submit($form, &$form_state) {
     $geom = $form_state['values']['move']['area']['geometry']['data'];
   }
 
-  // Create activity log with asset movement to areas and specific geometry.
-  $movement_log = farm_movement_create($asset, $areas, $timestamp, 'farm_activity', $done, $geom);
+  // Edit planned movement log.
+  if (!empty($form['move']['log']['#value'])) {
+
+    // Get the movement log.
+    $movement_log = $form['move']['log']['#value'];
+
+    // Update status.
+    $movement_log->done = $done;
+
+    // Update timestamp.
+    $movement_log->timestamp = $timestamp;
+
+    // Update asset reference.
+    $movement_log->field_farm_asset[LANGUAGE_NONE] = array(
+      array('target_id' => $asset->id),
+    );
+
+    // Update the movement info.
+    $log_wrapper = entity_metadata_wrapper('log', $movement_log);
+    if (!empty($log_wrapper->field_farm_movement)) {
+
+      // Get the movement wrapper.
+      $movement_wrapper = $log_wrapper->field_farm_movement;
+
+      // Update values.
+      $movement_wrapper->field_farm_move_to->set($areas);
+      $movement_wrapper->field_farm_geofield->set(array(array('geom' => $geom)));
+      $movement_wrapper->save();
+    }
+
+    // Save the wrapper.
+    $log_wrapper->save();
+
+    // Update log name.
+    $movement_log->name = '';
+    farm_movement_populate_name($movement_log);
+
+    // Display "Updated log" status message.
+    $log_name = entity_label('log', $movement_log);
+    $log_uri = entity_uri('log', $movement_log);
+    $log_url = url($log_uri['path']);
+    drupal_set_message(
+      t('Log updated: <a href="@log_url">@log_name</a>',
+        array('@log_url' => $log_url, '@log_name' => $log_name))
+    );
+
+  } else {
+
+    // Create activity log with asset movement to areas and specific geometry.
+    $movement_log = farm_movement_create($asset, $areas, $timestamp, 'farm_activity', $done, $geom);
+  }
 
   // Save the movement log.
   log_save($movement_log);
