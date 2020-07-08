@@ -231,7 +231,7 @@ function farm_livestock_move_form($form, &$form_state) {
     '#title' => t('Geometry'),
     '#description' => t('This field allows you to optionally specify a more precise geometry for the new location of assets. If you leave it blank, the geometry will be copied from the areas that assets are moving to (if available).'),
     '#collapsible' => TRUE,
-    '#collapsed' => TRUE,
+    '#collapsed' => empty($defaults['geom']),
   );
   $form['move']['area']['geometry']['map'] = array(
     '#type' => 'farm_map',
