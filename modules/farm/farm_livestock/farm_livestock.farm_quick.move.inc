@@ -436,6 +436,30 @@ function farm_livestock_move_form_movement_status_ajax($form, $form_state) {
  */
 function farm_livestock_move_form_current_location_ajax($form, $form_state) {
 
+  // Load the current location commands.
+  $commands = farm_livestock_move_form_current_location_commands($form, $form_state);
+
+  // Return ajax commands.
+  return array('#type' => 'ajax', '#commands' => $commands);
+}
+
+/**
+ * Ajax callback for farm_livestock_move_form().
+ */
+function farm_livestock_move_form_next_location_ajax($form, $form_state) {
+
+  // Load the update movement commands.
+  $commands = farm_livestock_move_form_update_movement_commands($form, $form_state);
+
+  // Return ajax commands.
+  return array('#type' => 'ajax', '#commands' => $commands);
+}
+
+/**
+ * Helper function to build current location ajax commands.
+ */
+function farm_livestock_move_form_current_location_commands($form, $form_state) {
+
   // Get the "wkt" form element and CSS selector.
   $element = $form['move']['current_location'];
   $selector = '#current-location';
@@ -449,14 +473,13 @@ function farm_livestock_move_form_current_location_ajax($form, $form_state) {
   // Execute Javascript to add WKT to the map.
   $commands[] = array('command' => 'previewCurrentLocation');
 
-  // Return ajax commands.
-  return array('#type' => 'ajax', '#commands' => $commands);
+  return $commands;
 }
 
 /**
- * Ajax callback for farm_livestock_move_form().
+ * Helper function to build update movement ajax commands.
  */
-function farm_livestock_move_form_next_location_ajax($form, $form_state) {
+function farm_livestock_move_form_update_movement_commands($form, $form_state) {
 
   // Get the "wkt" form element and CSS selector.
   $element = $form['move']['area']['geometry']['data'];
@@ -471,8 +494,7 @@ function farm_livestock_move_form_next_location_ajax($form, $form_state) {
   // Execute Javascript to add WKT to the map.
   $commands[] = array('command' => 'updateMovementLayer');
 
-  // Return ajax commands.
-  return array('#type' => 'ajax', '#commands' => $commands);
+  return $commands;
 }
 
 /**
