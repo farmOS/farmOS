@@ -50,7 +50,6 @@ function farm_livestock_move_form($form, &$form_state) {
     '#empty_value' => '',
     '#ajax' => array(
       'callback' => 'farm_livestock_move_form_planned_movement_ajax',
-      'wrapper' => 'movement',
     ),
   );
 
@@ -421,7 +420,25 @@ function farm_livestock_move_form_validate($form, &$form_state) {
  * Ajax callback for farm_livestock_move_form().
  */
 function farm_livestock_move_form_planned_movement_ajax($form, $form_state) {
-  return $form['move'];
+
+  // Get the movement form element and CSS selector.
+  $element = $form['move'];
+  $selector = '#movement';
+
+  // Build list of commands.
+  $commands = array();
+
+  // Replace the hidden field.
+  $commands[] = ajax_command_replace($selector, render($element));
+
+  // Add current location commands
+  $commands = array_merge($commands, farm_livestock_move_form_current_location_commands($form, $form_state));
+
+  // Add update movement commands
+  $commands = array_merge($commands, farm_livestock_move_form_update_movement_commands($form, $form_state));
+
+  // Return ajax commands.
+  return array('#type' => 'ajax', '#commands' => $commands);
 }
 
 /**
