@@ -629,10 +629,24 @@ function farm_livestock_move_form_submit($form, &$form_state) {
         foreach ($previous_areas as $area) {
           $log_wrapper->field_farm_area[] = $area;
         }
-
-        // Save the log.
-        $log_wrapper->save();
       }
+
+      // Load current location geometry of all assets.
+      $geoms = array();
+      foreach($assets as $asset) {
+        $geoms[] = farm_movement_asset_geometry($asset);
+      }
+
+      // Combine geometries.
+      $combined_geometry = farm_map_combine_geoms($geoms);
+
+      // Add to log.
+      if (!empty($combined_geometry)) {
+        $log_wrapper->field_farm_geofield->set(array(array('geom' => $combined_geometry->out('wkt'))));
+      }
+
+      // Save the log.
+      $log_wrapper->save();
     }
   }
 
