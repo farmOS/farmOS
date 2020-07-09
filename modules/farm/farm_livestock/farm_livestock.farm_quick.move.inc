@@ -744,10 +744,15 @@ function farm_livestock_move_form_submit($form, &$form_state) {
         foreach ($areas as $area) {
           $log_wrapper->field_farm_area[] = $area;
         }
-
-        // Save the log.
-        $log_wrapper->save();
       }
+
+      // Save custom geometry to pre-grazing logs.
+      if (!empty($geom)) {
+        $log_wrapper->field_farm_geofield->set(array(array('geom' => $geom)));
+      }
+
+      // Save the log wrapper.
+      $log_wrapper->save();
     }
   }
 }
