@@ -212,24 +212,19 @@ function farm_livestock_move_form($form, &$form_state) {
   // current location and save WKT to hidden field.
   if (!empty($assets)) {
 
-    // Load current location of all assets.
-    $previous_areas = array();
+    // Load current location geometry of all assets.
+    $geoms = array();
     foreach($assets as $asset) {
-      $previous_areas = array_merge($previous_areas, farm_movement_asset_location($asset));
+      $geoms[] = farm_movement_asset_geometry($asset);
     }
-
-    // Get WKT geometry for each area.
-    $area_ids = array();
-    foreach($previous_areas as $area) {
-      $area_ids[] = $area->tid;
-    }
-    $geoms = farm_area_extract_geoms($area_ids);
 
     // Combine geometries.
     $combined_geometry = farm_map_combine_geoms($geoms);
 
     // Update current location field with WKT.
-    $form['move']['current_location']['#value'] = $combined_geometry->out('wkt');
+    if (!empty($combined_geometry)) {
+      $form['move']['current_location']['#value'] = $combined_geometry->out('wkt');
+    }
   }
 
   // Area reference.
