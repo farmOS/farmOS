@@ -716,17 +716,21 @@ function farm_asset_properties_access($op, $property, $entity = NULL, $account =
  *   will be performed. Multiple asset types can be specified as a single
  *   string, separated by plus characters (+). ie: "animal+group"
  * @param string $string
- *   The string to search for.
+ *   The text field asset name(s) to search for.
  *
  * @return array
  *   Returns an array of matching assets in JSON form.
  */
 function farm_asset_autocomplete($asset_type, $string) {
 
+  // The user enters a comma-separated list of tags. We only autocomplete the last tag.
+  $tags_typed = drupal_explode_tags($string);
+  $tag_last = drupal_strtolower(array_pop($tags_typed));
+
   // Search the database for assets with matching names
   $query = db_select('farm_asset', 'fa')
     ->fields('fa', array('id', 'name', 'archived'))
-    ->condition('name', '%' . db_like($string) . '%', 'LIKE')
+    ->condition('name', '%' . db_like($tag_last) . '%', 'LIKE')
     ->orderBy('name', 'ASC')
     ->range(0, 10);
 
@@ -748,17 +752,20 @@ function farm_asset_autocomplete($asset_type, $string) {
   // Save matches to an array, including the asset name and ID.
   $matches = array();
   foreach ($result as $row) {
+
+    // Generate a prefix of previously matched tags.
+    $prefix = count($tags_typed) ? drupal_implode_tags($tags_typed) . ', ' : '';
+
     // We use htmlspecialchars() instead of check_plain() to preserve single
     // quotes (apostrophes) in asset names.
     $match = htmlspecialchars($row->name) . ' [id: ' . $row->id . ']';
     if (!empty($row->archived)) {
       $match .= ' (' . t('archived') . ')';
     }
-    $matches[] = $match;
-  }
 
-  // Map to an associative array.
-  $matches = drupal_map_assoc($matches);
+    // Add match to list of matches.
+    $matches[$prefix . $match] = $match;
+  }
 
   // Return the matches as JSON.
   drupal_json_output($matches);
