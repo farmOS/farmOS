@@ -150,7 +150,7 @@ function farm_livestock_move_form($form, &$form_state) {
   );
 
   // Define the date format for logs.
-  $date_format = 'Y-m-d';
+  $date_format = 'Y-m-d H:i';
 
   // Movement date.
   $form['move']['date'] = array(
