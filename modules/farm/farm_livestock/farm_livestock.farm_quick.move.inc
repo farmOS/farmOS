@@ -69,7 +69,7 @@ function farm_livestock_move_form($form, &$form_state) {
   $defaults = array(
     'done' => TRUE,
     'date' => REQUEST_TIME,
-    'asset' => NULL,
+    'assets' => NULL,
     'area' => NULL,
     'geom' => NULL,
   );
@@ -100,15 +100,22 @@ function farm_livestock_move_form($form, &$form_state) {
 
     $log_wrapper = entity_metadata_wrapper('log', $movement_log);
 
-    // Update default asset.
+    // Update default assets.
     $assets = $log_wrapper->field_farm_asset->value();
-    if(isset($assets[0])) {
-      $asset = $assets[0];
+
+    // Build list of asset names with ids
+    // eg "Name [id: 5]"
+    $asset_names = array();
+    foreach($assets as $asset) {
       $asset_value = $asset->name . ' [id: ' . $asset->id . ']';
-      $defaults['asset'] = $asset_value;
-      $form_state['values']['move']['asset'] = $asset_value;
-      unset($form_state['input']['move']['asset']);
+      $asset_names[] = $asset_value;
     }
+    $asset_string = implode(', ', $asset_names);
+
+    // Update form asset name textfield.
+    $defaults['assets'] = $asset_string;
+    $form_state['values']['move']['assets'] = $asset_string;
+    unset($form_state['input']['move']['assets']);
 
     // Update the movement info.
     if (!empty($log_wrapper->field_farm_movement)) {
@@ -157,12 +164,12 @@ function farm_livestock_move_form($form, &$form_state) {
   );
 
   // Animal/group select.
-  $form['move']['asset'] = array(
+  $form['move']['assets'] = array(
     '#type' => 'textfield',
     '#title' => t('Group/animal'),
     '#description' => t('Select the group/animal that is being moved.'),
     '#autocomplete_path' => 'farm_asset/autocomplete/animal+group',
-    '#default_value' => $defaults['asset'],
+    '#default_value' => $defaults['assets'],
     '#ajax' => array(
       'callback' => 'farm_livestock_move_form_current_location_ajax',
     ),
@@ -171,21 +178,27 @@ function farm_livestock_move_form($form, &$form_state) {
 
   // Load the animal or group asset
   // if an asset name has been entered.
-  if (!empty($form_state['values']['move']['asset'])) {
+  $assets = array();
+  if (!empty($form_state['values']['move']['assets'])) {
 
-    // Extract an ID from the text field.
-    $asset_id = 0;
-    $matches = array();
-    $result = preg_match('/\\[id: ([0-9]+)\\]/', $form_state['values']['move']['asset'], $matches);
-    if (!empty($matches[$result])) {
-      $asset_id = $matches[$result];
+    // Extract asset IDs and load assets.
+    $asset_names = drupal_explode_tags($form_state['values']['move']['assets']);
+    foreach($asset_names as $asset_name) {
+      $id = 0;
+      $matches = array();
+      $result = preg_match('/\\[id: ([0-9]+)\\]/', $asset_name, $matches);
+      if (!empty($matches[$result])) {
+        $id = $matches[$result];
+      }
+
+      // Load the asset.
+      $asset = farm_asset_load($id);
+
+      // If asset was loaded add to list of assets to save.
+      if (!empty($asset)) {
+        $assets[$id] = $asset;
+      }
     }
-  }
-
-  // If an asset ID was found, load the asset.
-  $asset = NULL;
-  if (!empty($asset_id)) {
-    $asset = farm_asset_load($asset_id);
   }
 
   $form['move']['current_location'] = array(
@@ -197,18 +210,26 @@ function farm_livestock_move_form($form, &$form_state) {
 
   // If a valid asset was supplied load its
   // current location and save WKT to hidden field.
-  if (!empty($asset)) {
-    $areas = farm_movement_asset_location($asset);
+  if (!empty($assets)) {
 
-    // Get WKT geometry.
+    // Load current location of all assets.
+    $previous_areas = array();
+    foreach($assets as $asset) {
+      $previous_areas = array_merge($previous_areas, farm_movement_asset_location($asset));
+    }
+
+    // Get WKT geometry for each area.
     $area_ids = array();
-    foreach($areas as $area) {
+    foreach($previous_areas as $area) {
       $area_ids[] = $area->tid;
     }
-    $geom = farm_area_extract_geoms($area_ids);
+    $geoms = farm_area_extract_geoms($area_ids);
+
+    // Combine geometries.
+    $combined_geometry = farm_map_combine_geoms($geoms);
 
     // Update current location field with WKT.
-    $form['move']['current_location']['#value'] = $geom;
+    $form['move']['current_location']['#value'] = $combined_geometry->out('wkt');
   }
 
   // Area reference.
@@ -391,29 +412,38 @@ function farm_livestock_move_form($form, &$form_state) {
 function farm_livestock_move_form_validate($form, &$form_state) {
 
   // Validate animal or group asset.
-  // Extract asset ID.
-  $id = 0;
-  $matches = array();
-  $result = preg_match('/\\[id: ([0-9]+)\\]/', $form_state['values']['move']['asset'], $matches);
-  if (!empty($matches[$result])) {
-    $id = $matches[$result];
-  }
+  // Extract asset IDs and load assets.
+  $assets = array();
+  $asset_names = drupal_explode_tags($form_state['values']['move']['assets']);
+  foreach($asset_names as $asset_name) {
+    $id = 0;
+    $matches = array();
+    $result = preg_match('/\\[id: ([0-9]+)\\]/', $asset_name, $matches);
+    if (!empty($matches[$result])) {
+      $id = $matches[$result];
+    }
 
-  // If an ID couldn't be extracted, throw an error.
-  if (empty($id)) {
-    form_set_error('move][asset', t('Could not load the animal asset. Make sure the animal asset ID is included. For example: "My animal [id: 123]"'));
-  }
+    // If an ID couldn't be extracted, throw an error.
+    if (empty($id)) {
+      form_set_error('move][asset', t('Could not load the animal asset. Make sure the animal asset ID is included. For example: "My animal [id: 123]"'));
+    }
 
-  // Load the asset.
-  $asset = farm_asset_load($id);
+    // Load the asset.
+    $asset = farm_asset_load($id);
 
-  // If the asset didn't load, throw an error.
-  if (empty($asset)) {
-    form_set_error('move][asset', t('Could not load the animal asset. Make sure the animal name and ID are correct.'));
+    // If asset was loaded add to list of assets to save.
+    if (!empty($asset)) {
+      $assets[$id] = $asset;
+    }
+
+    // If the asset didn't load, throw an error.
+    if (empty($asset)) {
+      form_set_error('move][asset', t('Could not load the animal asset. Make sure the animal name and ID are correct.'));
+    }
   }
 
   // Save the asset to the form state.
-  $form_state['storage']['asset'] = $asset;
+  $form_state['storage']['assets'] = $assets;
 }
 
 /**
@@ -526,8 +556,8 @@ function farm_livestock_move_form_submit($form, &$form_state) {
   $timestamp = strtotime($form_state['values']['move']['date']);
 
   // Load the asset.
-  $asset = $form_state['storage']['asset'];
-  if (empty($asset)) {
+  $assets = $form_state['storage']['assets'];
+  if (empty($assets)) {
     return;
   }
 
@@ -565,7 +595,7 @@ function farm_livestock_move_form_submit($form, &$form_state) {
     // Create post grazing observation log if measurements or photos are provided.
     // Do this before creating a movement log for the asset.
     if (!empty($post_grazing_measurements) || !empty($post_grazing_file_id)) {
-      $post_grazing_log = farm_quantity_log_create('farm_observation', 'Post grazing observation', $timestamp, TRUE, array($asset), $post_grazing_measurements);
+      $post_grazing_log = farm_quantity_log_create('farm_observation', 'Post grazing observation', $timestamp, TRUE, $assets, $post_grazing_measurements);
 
       // Link the post grazing log to the quick form.
       if (function_exists('farm_quick_entity_link')) {
@@ -591,8 +621,13 @@ function farm_livestock_move_form_submit($form, &$form_state) {
         $log_wrapper->field_farm_images[] = array('fid' => $post_grazing_file_id);
       }
 
+      // Load current locations of all assets.
+      $previous_areas = array();
+      foreach($assets as $asset) {
+        $previous_areas = array_merge($previous_areas, farm_movement_asset_location($asset));
+      }
+
       // Link post grazing logs to the area(s) animals are moving from.
-      $previous_areas = farm_movement_asset_location($asset);
       if (!empty($previous_areas)) {
 
         // Add areas to log.
@@ -630,10 +665,11 @@ function farm_livestock_move_form_submit($form, &$form_state) {
     // Update timestamp.
     $movement_log->timestamp = $timestamp;
 
-    // Update asset reference.
-    $movement_log->field_farm_asset[LANGUAGE_NONE] = array(
-      array('target_id' => $asset->id),
-    );
+    // Update asset references.
+    $movement_log->field_farm_asset[LANGUAGE_NONE] = array();
+    foreach($assets as $asset) {
+      $movement_log->field_farm_asset[LANGUAGE_NONE][] = array('target_id' => $asset->id);
+    }
 
     // Update the movement info.
     $log_wrapper = entity_metadata_wrapper('log', $movement_log);
@@ -667,7 +703,7 @@ function farm_livestock_move_form_submit($form, &$form_state) {
   } else {
 
     // Create activity log with asset movement to areas and specific geometry.
-    $movement_log = farm_movement_create($asset, $areas, $timestamp, 'farm_activity', $done, $geom);
+    $movement_log = farm_movement_create($assets, $areas, $timestamp, 'farm_activity', $done, $geom);
   }
 
   // Save the movement log.
@@ -711,7 +747,7 @@ function farm_livestock_move_form_submit($form, &$form_state) {
 
     // Create pre grazing observation log if measurements or photos are provided.
     if (!empty($pre_grazing_measurements) || !empty($pre_grazing_file_id)) {
-      $pre_grazing_log = farm_quantity_log_create('farm_observation', 'Pre grazing observation', $timestamp, TRUE, array($asset), $pre_grazing_measurements);
+      $pre_grazing_log = farm_quantity_log_create('farm_observation', 'Pre grazing observation', $timestamp, TRUE, $assets, $pre_grazing_measurements);
 
       // Link the pre grazing log to the quick form.
       if (function_exists('farm_quick_entity_link')) {
