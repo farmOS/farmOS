@@ -36,9 +36,10 @@ screen, so it can be launched just like a native app.
 ## Server requirements
 
 All versions of Field Kit require that your farmOS server have an SSL certificate,
-which enables network traffic to be served via `https` rather than `http`. You
-should also keep your server updated with the most recent version of farmOS
-to ensure compatibility with the latest version of Field Kit.
+which enables network traffic to be served via `https` rather than `http`. Also,
+make sure that [clean URL's] are enabled. Finally, you should keep your server
+updated with the most recent version of farmOS to ensure compatibility with the
+the latest version of Field Kit.
 
 ## Development
 
@@ -52,5 +53,6 @@ The source code can be viewed on [GitHub]
 [sign up here]: https://testflight.apple.com/join/A35xRBwE
 [farmos.app]: https://farmos.app
 [Progressive Web App]: https://developers.google.com/web/progressive-web-apps/
+[clean URL's]: https://www.drupal.org/docs/7/configuring-clean-urls/enable-clean-urls
 [Development Section]: /development/client
 [GitHub]: https://github.com/farmOS/farmOS-client
