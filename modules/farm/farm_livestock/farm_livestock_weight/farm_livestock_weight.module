@@ -819,6 +819,7 @@ function farm_livestock_weight_action_form(array $context, array $form_state) {
   $form['weight'] = array(
     '#type' => 'textfield',
     '#title' => t('Weight'),
+    '#description' => t('Enter the weight of the animal(s). If multiple animals are selected, enter the average animal weight.'),
     '#element_validate' => array('element_validate_number'),
     '#required' => TRUE,
   );
