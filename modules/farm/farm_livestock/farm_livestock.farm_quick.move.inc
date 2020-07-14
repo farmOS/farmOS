@@ -38,7 +38,7 @@ function farm_livestock_move_form($form, &$form_state) {
   foreach($logs as $log) {
     $timestamp = $log->timestamp;
     $label = entity_label('log', $log);
-    $option = $label . ' (Planned for ' . strftime('%m/%d/%Y', $timestamp) . ')';
+    $option = $label . ' (' . t('Planned for @date', array('@date' => strftime('%m/%d/%Y', $timestamp))) . ')';
     $planned_movements[$log->id] = check_plain($option);
   }
 
