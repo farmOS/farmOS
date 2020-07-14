@@ -37,8 +37,9 @@ function farm_livestock_move_form($form, &$form_state) {
   // Build select options.
   foreach($logs as $log) {
     $timestamp = $log->timestamp;
-    $label = $log->name . ' (Planned for ' . strftime('%m/%d/%Y', $timestamp) . ')';
-    $planned_movements[$log->id] = $label;
+    $label = entity_label('log', $log);
+    $option = $label . ' (Planned for ' . strftime('%m/%d/%Y', $timestamp) . ')';
+    $planned_movements[$log->id] = check_plain($option);
   }
 
   $form['planned']['movement_log'] = array(
@@ -106,8 +107,9 @@ function farm_livestock_move_form($form, &$form_state) {
     // eg "Name [id: 5]"
     $asset_names = array();
     foreach($assets as $asset) {
-      $asset_value = $asset->name . ' [id: ' . $asset->id . ']';
-      $asset_names[] = $asset_value;
+      $asset_label = entity_label('farm_asset', $asset);
+      $asset_value = $asset_label . ' [id: ' . $asset->id . ']';
+      $asset_names[] = check_plain($asset_value);
     }
     $asset_string = implode(', ', $asset_names);
 
