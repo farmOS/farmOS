@@ -18,11 +18,14 @@ function farm_livestock_move_form($form, &$form_state) {
     '#collapsed' => TRUE,
   );
 
-  // Query logs linked to this quick form.
+  // Query pending activity logs linked to this quick form.
   $query = db_select('farm_quick_entity', 'fqe');
   $query->addField('fqe', 'entity_id');
   $query->condition('fqe.entity_type', 'log');
   $query->condition('fqe.quick_form_id', 'farm_livestock_move_form');
+  $log_alias = $query->join('log', 'l', 'fqe.entity_id = l.id');
+  $query->condition($log_alias . '.type', 'farm_activity');
+  $query->condition($log_alias . '.done', 0);
   $log_ids = $query->execute()->fetchCol();
 
   // Load logs.
@@ -31,15 +34,11 @@ function farm_livestock_move_form($form, &$form_state) {
   // Build array of planned movement logs.
   $planned_movements = array();
 
-  // Filter to only include activity logs that are not done.
+  // Build select options.
   foreach($logs as $log) {
-    if ($log->type == 'farm_activity' && !$log->done) {
-
-      // Build label for select options.
-      $timestamp = $log->timestamp;
-      $label = $log->name . ' (Planned for ' . strftime('%m/%d/%Y', $timestamp) . ')';
-      $planned_movements[$log->id] = $label;
-    }
+    $timestamp = $log->timestamp;
+    $label = $log->name . ' (Planned for ' . strftime('%m/%d/%Y', $timestamp) . ')';
+    $planned_movements[$log->id] = $label;
   }
 
   $form['planned']['movement_log'] = array(
