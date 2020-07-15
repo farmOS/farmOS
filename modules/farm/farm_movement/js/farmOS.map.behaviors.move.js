@@ -48,6 +48,9 @@
         };
         this.currentLocationLayer = this.instance.addLayer('wkt', opts);
         this.instance.zoomToVectors();
+
+        // Add measure behavior.
+        this.instance.addBehavior('measure', { layer: this.currentLocationLayer });
       }
     },
 
