@@ -349,6 +349,7 @@ function farm_livestock_move_form($form, &$form_state) {
     $form['move']['observations']['post']['photos'] = array(
       '#type' => 'managed_file',
       '#title' => t('Photos'),
+      '#description' => t('Optionally attach a photo to this observation log. If multiple photos need to be attached, edit the log that is created by this form.'),
       '#name' => 'files[]',
       '#progress_indicator' => 'bar',
       '#upload_validators' => array(
@@ -380,6 +381,7 @@ function farm_livestock_move_form($form, &$form_state) {
     $form['move']['observations']['pre']['photos'] = array(
       '#type' => 'managed_file',
       '#title' => t('Photos'),
+      '#description' => t('Optionally attach a photo to this observation log. If multiple photos need to be attached, edit the log that is created by this form.'),
       '#name' => 'files[]',
       '#progress_indicator' => 'bar',
       '#upload_validators' => array(
