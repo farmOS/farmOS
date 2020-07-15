@@ -140,7 +140,7 @@ function theme_farm_map(&$vars) {
   // We do this instead of using Drupal.settings.basePath in Javascript
   // because that variable does not take into account whether or not clean
   // URLs are enabled.
-  $settings['farm_map']['base_path'] = url('<front>');
+  $settings['farm_map']['base_path'] = str_replace('farm', '', url('farm'));
 
   // Load the system of measurement, and save it to settings.
   $system_of_measurement = farm_quantity_system_of_measurement();
