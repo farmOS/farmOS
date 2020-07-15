@@ -95,6 +95,11 @@ function farm_map_combine_geoms($geoms = array()) {
   $wkt_strings = array();
   foreach ($geoms as &$geom) {
 
+    // If the geometry is empty, skip it.
+    if (empty($geom)) {
+      continue;
+    }
+
     // Convert to a GeoPHP geometry object.
     $geometry = geoPHP::load($geom, 'wkt');
 
@@ -129,6 +134,11 @@ function farm_map_combine_geoms($geoms = array()) {
 
   // Combine all the WKT strings together into one.
   $wkt = implode(',', $wkt_strings);
+
+  // If the WKT is empty, bail.
+  if (empty($wkt)) {
+    return FALSE;
+  }
 
   // If there is more than one geometry, wrap them all in a geometry collection.
   if ($geometrycollection) {
