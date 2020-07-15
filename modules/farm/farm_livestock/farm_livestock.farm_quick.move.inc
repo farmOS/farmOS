@@ -89,6 +89,7 @@ function farm_livestock_move_form($form, &$form_state) {
   }
 
   $form['move']['log'] = array(
+    '#type' => 'value',
     '#value' => $movement_log,
   );
 
@@ -671,10 +672,10 @@ function farm_livestock_move_form_submit($form, &$form_state) {
   }
 
   // Edit planned movement log.
-  if (!empty($form['move']['log']['#value'])) {
+  if (!empty($form_state['values']['move']['log'])) {
 
     // Get the movement log.
-    $movement_log = $form['move']['log']['#value'];
+    $movement_log = $form_state['values']['move']['log'];
 
     // Update status.
     $movement_log->done = $done;
