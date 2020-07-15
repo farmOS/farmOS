@@ -35,7 +35,7 @@ function farm_livestock_move_form($form, &$form_state) {
   $planned_movements = array();
 
   // Build select options.
-  foreach($logs as $log) {
+  foreach ($logs as $log) {
     $timestamp = $log->timestamp;
     $label = entity_label('log', $log);
     $option = $label . ' (' . t('Planned for @date', array('@date' => strftime('%m/%d/%Y', $timestamp))) . ')';
@@ -75,13 +75,13 @@ function farm_livestock_move_form($form, &$form_state) {
   );
 
   // Update default done value to match form state.
-  if(isset($form_state['values']['move']['done'])) {
+  if (isset($form_state['values']['move']['done'])) {
     $defaults['done'] = $form_state['values']['move']['done'];
   }
 
   // Load a planned movement log.
   $movement_log = NULL;
-  if(!empty($form_state['values']['movement_log'])) {
+  if (!empty($form_state['values']['movement_log'])) {
 
     // Load the log.
     $log_id = $form_state['values']['movement_log'];
@@ -93,7 +93,7 @@ function farm_livestock_move_form($form, &$form_state) {
   );
 
   // If a planned log was just selected, update the form with values from the log.
-  if(!empty($movement_log) && isset($form_state['triggering_element']) && $form_state['triggering_element']['#name'] == 'movement_log') {
+  if (!empty($movement_log) && isset($form_state['triggering_element']) && $form_state['triggering_element']['#name'] == 'movement_log') {
 
     // Update movement status.
     $defaults['done'] = $movement_log->done;
@@ -111,7 +111,7 @@ function farm_livestock_move_form($form, &$form_state) {
     // Build list of asset names with ids
     // eg "Name [id: 5]"
     $asset_names = array();
-    foreach($assets as $asset) {
+    foreach ($assets as $asset) {
       $asset_label = entity_label('farm_asset', $asset);
       $asset_value = $asset_label . ' [id: ' . $asset->id . ']';
       $asset_names[] = check_plain($asset_value);
@@ -130,14 +130,14 @@ function farm_livestock_move_form($form, &$form_state) {
 
       // Update movement areas.
       $areas = $movement_wrapper->field_farm_move_to->value();
-      if(isset($areas[0])) {
+      if (isset($areas[0])) {
         $defaults['area'] = $areas[0]->name;
         unset($form_state['input']['move']['area']['name']);
       }
 
       // Update movement geometry.
       $geom = $movement_wrapper->field_farm_geofield->value();
-      if(isset($geom[0])) {
+      if (isset($geom[0])) {
         $defaults['geom'] = $geom[0]['geom'];
         unset($form_state['input']['move']['area']['geometry']['data']);
       }
@@ -189,7 +189,7 @@ function farm_livestock_move_form($form, &$form_state) {
 
     // Extract asset IDs and load assets.
     $asset_names = drupal_explode_tags($form_state['values']['move']['assets']);
-    foreach($asset_names as $asset_name) {
+    foreach ($asset_names as $asset_name) {
       $id = 0;
       $matches = array();
       $result = preg_match('/\\[id: ([0-9]+)\\]/', $asset_name, $matches);
@@ -220,7 +220,7 @@ function farm_livestock_move_form($form, &$form_state) {
 
     // Load current location geometry of all assets.
     $geoms = array();
-    foreach($assets as $asset) {
+    foreach ($assets as $asset) {
       $geoms[] = farm_movement_asset_geometry($asset);
     }
 
@@ -418,7 +418,7 @@ function farm_livestock_move_form_validate($form, &$form_state) {
   // Extract asset IDs and load assets.
   $assets = array();
   $asset_names = drupal_explode_tags($form_state['values']['move']['assets']);
-  foreach($asset_names as $asset_name) {
+  foreach ($asset_names as $asset_name) {
     $id = 0;
     $matches = array();
     $result = preg_match('/\\[id: ([0-9]+)\\]/', $asset_name, $matches);
@@ -626,7 +626,7 @@ function farm_livestock_move_form_submit($form, &$form_state) {
 
       // Load current locations of all assets.
       $previous_areas = array();
-      foreach($assets as $asset) {
+      foreach ($assets as $asset) {
         $previous_areas = array_merge($previous_areas, farm_movement_asset_location($asset));
       }
 
@@ -641,7 +641,7 @@ function farm_livestock_move_form_submit($form, &$form_state) {
 
       // Load current location geometry of all assets.
       $geoms = array();
-      foreach($assets as $asset) {
+      foreach ($assets as $asset) {
         $geoms[] = farm_movement_asset_geometry($asset);
       }
 
@@ -684,7 +684,7 @@ function farm_livestock_move_form_submit($form, &$form_state) {
 
     // Update asset references.
     $movement_log->field_farm_asset[LANGUAGE_NONE] = array();
-    foreach($assets as $asset) {
+    foreach ($assets as $asset) {
       $movement_log->field_farm_asset[LANGUAGE_NONE][] = array('target_id' => $asset->id);
     }
 
@@ -717,7 +717,8 @@ function farm_livestock_move_form_submit($form, &$form_state) {
         array('@log_url' => $log_url, '@log_name' => $log_name))
     );
 
-  } else {
+  }
+  else {
 
     // Create activity log with asset movement to areas and specific geometry.
     $movement_log = farm_movement_create($assets, $areas, $timestamp, 'farm_activity', $done, $geom);
