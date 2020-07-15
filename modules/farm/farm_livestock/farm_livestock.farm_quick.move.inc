@@ -74,6 +74,11 @@ function farm_livestock_move_form($form, &$form_state) {
     'geom' => NULL,
   );
 
+  // Update default done value to match form state.
+  if(isset($form_state['values']['move']['done'])) {
+    $defaults['done'] = $form_state['values']['move']['done'];
+  }
+
   // Load a planned movement log.
   $movement_log = NULL;
   if(!empty($form_state['values']['movement_log'])) {
