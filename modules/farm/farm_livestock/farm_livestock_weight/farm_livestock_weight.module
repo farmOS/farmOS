@@ -167,7 +167,8 @@ function farm_livestock_weight_group_report_form($form, &$form_state) {
         if (!empty($group->id)) {
           $label = entity_label('farm_asset', $group);
           if ($group->archived) {
-            $label = $label . ' (' . t('archived') . ')';
+            $date = strftime('%Y-%m-%d', $group->archived);
+            $label = $label . ' (' . t('archived') . ' ' . $date . ')';
           }
           $options[$group->id] = $label;
         }
@@ -413,7 +414,8 @@ function farm_livestock_weight_group_report(&$form_state) {
     $row = array();
     $name_label = $animal->name;
     if ($animal->archived) {
-      $name_label = $name_label . ' (' . t('archived') . ')';
+      $date = strftime('%Y-%m-%d', $animal->archived);
+      $name_label = $name_label . ' (' . t('archived') . ' ' . $date . ')';
     }
     $row[] = $animal->id;
     $row[] = $name_label;
