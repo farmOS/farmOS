@@ -201,6 +201,13 @@ function farm_livestock_weight_group_report_form($form, &$form_state) {
     '#default_value' => 0,
   );
 
+  $form['input']['flags'] = array(
+    '#type' => 'select',
+    '#title' => t('Flags'),
+    '#options' => farm_flags_field_allowed_values(),
+    '#multiple' => TRUE,
+  );
+
   // Provide a default date in the format YYYY-MM-DD.
   $format = 'Y-m-d';
   $current_date = date($format, REQUEST_TIME);
@@ -293,6 +300,9 @@ function farm_livestock_weight_group_report(&$form_state) {
   $include_archived = (bool) $form_state['values']['archived'];
   $only_archived = $form_state['values']['archived'] == 1;
 
+  // Get list of flags to filter by.
+  $flags = $form_state['values']['flags'];
+
   // Get the start and end dates.
   $start_date = strtotime($form_state['values']['start_date']);
   $end_date = strtotime($form_state['values']['end_date']);
@@ -325,6 +335,19 @@ function farm_livestock_weight_group_report(&$form_state) {
       // Skip non-archived assets if only displaying archived assets.
       if ($only_archived && !$asset->archived) {
         continue;
+      }
+
+      // Check if asset has required flags.
+      if (!empty($flags)) {
+
+        // Compare asset flags to required flags.
+        $asset_flags = farm_flags_load($asset);
+        $diff = array_diff($flags, $asset_flags);
+
+        // Skip the asset if it doesn't have required flags.
+        if (!empty($diff)) {
+          continue;
+        }
       }
 
       // Save the animal info
