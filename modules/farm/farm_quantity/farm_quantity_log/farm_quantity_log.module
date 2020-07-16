@@ -424,7 +424,7 @@ function farm_quantity_log_add_measurements($log, $measurements) {
     }
 
     // Set the quantity value, if available.
-    if (!empty($measurement['value'])) {
+    if (isset($measurement['value'])) {
       $value_fraction = fraction_from_decimal($measurement['value']);
       $quantity_wrapper->field_farm_quantity_value->numerator->set($value_fraction->getNumerator());
       $quantity_wrapper->field_farm_quantity_value->denominator->set($value_fraction->getDenominator());
