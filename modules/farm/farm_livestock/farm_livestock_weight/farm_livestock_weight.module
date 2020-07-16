@@ -212,6 +212,31 @@ function farm_livestock_weight_group_report_form($form, &$form_state) {
   $format = 'Y-m-d';
   $current_date = date($format, REQUEST_TIME);
 
+  $form['input']['birth'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Birth Date'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+
+  $form['input']['birth']['earliest_birth'] = array(
+    '#type' => 'date_select',
+    '#title' => t('Earliest Birth'),
+    '#default_value' => '',
+    '#date_year_range' => '-10:+1',
+    '#date_format' => $format,
+    '#date_label_position' => 'within',
+  );
+
+  $form['input']['birth']['latest_birth'] = array(
+    '#type' => 'date_select',
+    '#title' => t('Latest Birth'),
+    '#default_value' => '',
+    '#date_year_range' => '-10:+1',
+    '#date_format' => $format,
+    '#date_label_position' => 'within',
+  );
+
   $form['input']['start_date'] = array(
      '#type' => 'date_select',
      '#title' => t('Start date'),
@@ -303,6 +328,10 @@ function farm_livestock_weight_group_report(&$form_state) {
   // Get list of flags to filter by.
   $flags = $form_state['values']['flags'];
 
+  // Get date of birth filters.
+  $earliest_birth = strtotime($form_state['values']['earliest_birth']);
+  $latest_birth = strtotime($form_state['values']['latest_birth']);
+
   // Get the start and end dates.
   $start_date = strtotime($form_state['values']['start_date']);
   $end_date = strtotime($form_state['values']['end_date']);
@@ -348,6 +377,36 @@ function farm_livestock_weight_group_report(&$form_state) {
         if (!empty($diff)) {
           continue;
         }
+      }
+
+      // Check if a birth date filter is specified.
+      if ($earliest_birth || $latest_birth) {
+
+        // Get the assets birth date.
+        $birth_date = NULL;
+        if (!empty($asset->field_farm_date[LANGUAGE_NONE][0]['value'])) {
+          $birth_date = $asset->field_farm_date[LANGUAGE_NONE][0]['value'];
+        }
+
+        // Skip assets without a birth date.
+        if (empty($birth_date)) {
+          continue;
+        }
+
+        // Skip assets born before earliest birth date.
+        if ($earliest_birth) {
+          if ($birth_date < $earliest_birth) {
+            continue;
+          }
+        }
+
+        // Skip assets born after latest birth date.
+        if ($latest_birth) {
+          if ($birth_date > $latest_birth) {
+            continue;
+          }
+        }
+
       }
 
       // Save the animal info
