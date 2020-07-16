@@ -593,8 +593,12 @@ function farm_livestock_weight_group_report(&$form_state) {
     $csvdata .= implode(',', $row) . PHP_EOL;
   }
 
-  // Create HTML Table
-  $table = theme('table', array('header' => $header, 'rows' => $table_data));
+  $table = '<div class="alert alert-danger">' . t('No animal assets match the above criteria.') . '</div>';
+  if (!empty($table_data)) {
+
+    // Create HTML Table
+    $table = theme('table', array('header' => $header, 'rows' => $table_data));
+  }
 
   // Create the div to hold report graphs.
   $graph_markup = array();
