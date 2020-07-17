@@ -79,6 +79,63 @@ function farm_access_menu() {
 }
 
 /**
+ * Implements hook_module_implements_alter().
+ */
+function farm_access_module_implements_alter(&$implementations, $hook) {
+
+  // Ensure that our hook_menu_alter() runs last, so that we can alter paths
+  // provided by Views (which are defined in views_menu_alter()).
+  if ($hook == 'menu_alter') {
+    $module = 'farm_access';
+    $group = $implementations[$module];
+    unset($implementations[$module]);
+    $implementations[$module] = $group;
+  }
+}
+
+/**
+ * Implements hook_menu_alter().
+ */
+function farm_access_menu_alter(&$items) {
+
+  // Define a list of paths that will need to respond to OPTIONS requests
+  // (eg: from Field Kit). Override their access callback to return TRUE for
+  // OPTIONS requests, otherwise delegate to the original access callback.
+  $paths = array(
+    'farm/areas/geojson',
+  );
+  foreach ($paths as $path) {
+    if (array_key_exists($path, $items)) {
+      array_unshift($items[$path]['access arguments'], $items[$path]['access callback']);
+      $items[$path]['access callback'] = 'farm_access_options_access_callback';
+    }
+  }
+}
+
+/**
+ * Access callback for paths that need to respond to OPTIONS requests. This will
+ * receive the original access callback as the first argument, and any other
+ * arguments after that.
+ *
+ * @param $callback
+ *   The access callback to delegate to for non-OPTIONS requests.
+ *
+ * @return bool
+ */
+function farm_access_options_access_callback($callback) {
+
+  // If this is an OPTIONS request, allow access.
+  if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    return TRUE;
+  }
+
+  // Otherwise, delegate to the original access callback.
+  $args = func_get_args();
+  array_shift($args);
+  return call_user_func_array($callback, $args);
+}
+
+/**
  * Access settings form.
  */
 function farm_access_settings_form($form, &$form_state) {
