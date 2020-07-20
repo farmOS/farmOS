@@ -139,6 +139,15 @@ function farm_calendar_views_default_views() {
   $handler->display->display_options['filters']['field_farm_log_owner_target_id']['expose']['operator'] = 'field_farm_log_owner_target_id_op';
   $handler->display->display_options['filters']['field_farm_log_owner_target_id']['expose']['identifier'] = 'field_farm_log_owner_target_id';
   $handler->display->display_options['filters']['field_farm_log_owner_target_id']['expose']['multiple'] = TRUE;
+  /* Filter criterion: Log: Done */
+  $handler->display->display_options['filters']['done']['id'] = 'done';
+  $handler->display->display_options['filters']['done']['table'] = 'log';
+  $handler->display->display_options['filters']['done']['field'] = 'done';
+  $handler->display->display_options['filters']['done']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['done']['expose']['operator_id'] = '';
+  $handler->display->display_options['filters']['done']['expose']['label'] = 'Done';
+  $handler->display->display_options['filters']['done']['expose']['operator'] = 'done_op';
+  $handler->display->display_options['filters']['done']['expose']['identifier'] = 'done';
 
   /* Display: Month */
   $handler = $view->new_display('page', 'Month', 'page_month');
@@ -328,6 +337,7 @@ function farm_calendar_views_default_views() {
     t('Category'),
     t('Flags'),
     t('Assigned to'),
+    t('Done'),
     t('Month'),
     t('All'),
     t('Week'),
