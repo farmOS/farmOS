@@ -21,6 +21,7 @@ function farm_access_init() {
       drupal_add_http_header('Access-Control-Allow-Credentials', 'true');
       drupal_add_http_header('Access-Control-Allow-Headers', 'Content-Type,Authorization,X-CSRF-Token');
       drupal_add_http_header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,HEAD,OPTIONS');
+      drupal_add_http_header('Vary', 'Origin');
     }
   }
 }
