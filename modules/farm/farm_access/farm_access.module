@@ -12,6 +12,9 @@ function farm_access_init() {
   // Allow API access from approved origins (defaults to https://farmos.app).
   $allowed_origins = explode("\n", variable_get('farm_access_allow_origin', 'https://farmos.app'));
   $headers = getallheaders();
+  foreach ($allowed_origins as &$value) {
+    $value = trim($value);
+  }
   if (!empty($headers['Origin'])) {
     if (in_array($headers['Origin'], $allowed_origins)) {
       drupal_add_http_header('Access-Control-Allow-Origin', $headers['Origin']);
