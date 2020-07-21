@@ -143,6 +143,7 @@ function farm_calendar_views_default_views() {
   $handler->display->display_options['filters']['done']['id'] = 'done';
   $handler->display->display_options['filters']['done']['table'] = 'log';
   $handler->display->display_options['filters']['done']['field'] = 'done';
+  $handler->display->display_options['filters']['done']['value'] = 'All';
   $handler->display->display_options['filters']['done']['exposed'] = TRUE;
   $handler->display->display_options['filters']['done']['expose']['operator_id'] = '';
   $handler->display->display_options['filters']['done']['expose']['label'] = 'Done';
