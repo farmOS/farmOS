@@ -656,28 +656,16 @@ function farm_sensor_listener_farm_ui_entity_views($entity_type, $bundle, $entit
 }
 
 /**
- * Implements hook_entity_view_alter().
+ * Implements hook_farm_sensor_view.
  */
-function farm_sensor_listener_entity_view_alter(&$build, $type) {
+function farm_sensor_listener_farm_sensor_view($asset) {
 
-  /*
-   * Alter sensor asset page to display graph(s).
-   */
-
-  // If it's not a farm_asset, bail.
-  if ($type != 'farm_asset') {
-    return;
-  }
-
-  // If the entity information isn't available, bail.
-  if (empty($build['#entity'])) {
-    return;
-  }
-  $asset = $build['#entity'];
+  // Start build array.
+  $build = array();
 
   // If the sensor is not a listener, bail.
   if (empty($asset->sensor_type) || $asset->sensor_type != 'listener') {
-    return;
+    return array();
   }
 
   // Query all the distinct value names this sensor has stored.
@@ -718,4 +706,7 @@ function farm_sensor_listener_entity_view_alter(&$build, $type) {
     '#markup' => '<div class="farm-sensor-graphs clearfix">' . implode('', $markup) . '</div>',
     '#weight' => -1,
   );
+
+  // Return build array.
+  return $build;
 }
