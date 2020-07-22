@@ -186,7 +186,7 @@ function farm_sensor_entity_view_alter(&$build, $type) {
 
   // Merge the asset view content into the build array.
   if (!empty($module_content)) {
-    $build = array_merge($build, $module_content);
+    $build = array_merge_recursive($build, $module_content);
   }
 }
 
