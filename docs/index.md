@@ -28,7 +28,7 @@ other ways.
 * [Monthly call]
 * Forum: [https://farmOS.discourse.group]
 * Chat:
-    * Riot.im:
+    * Matrix:
         * [#farmOS on Matrix.org] (bridged to #farmOS IRC room on Freenode)
         * [#FIot on Matrix.org] (Farm Internet of Things)
     * IRC: [#farmOS on Freenode] (requires a registered name)
@@ -141,8 +141,8 @@ The full workshop recording is available on YouTube:
 [https://github.com/farmOS/farmOS-client]: https://github.com/farmOS/farmOS-client
 [Monthly call]: /community/monthly-call
 [https://farmOS.discourse.group]: https://farmOS.discourse.group
-[#farmOS on Matrix.org]: https://riot.im/app/#/room/#farmOS:matrix.org
-[#FIot on Matrix.org]: https://riot.im/app/#/room/#fiot:matrix.org
+[#farmOS on Matrix.org]: https://matrix.to/#/#farmOS:matrix.org
+[#FIot on Matrix.org]: https://matrix.to/#/#fiot:matrix.org
 [#farmOS on Freenode]: http://webchat.freenode.net/?channels=#farmOS
 [@farmOSorg]: https://twitter.com/farmOSorg
 [@getFarmier]: https://twitter.com/getFarmier
