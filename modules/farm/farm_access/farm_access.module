@@ -9,11 +9,40 @@
  */
 function farm_access_init() {
 
-  // Allow API access from approved origin (defaults to https://farmos.app).
-  drupal_add_http_header('Access-Control-Allow-Origin', variable_get('farm_access_allow_origin', 'https://farmos.app'));
-  drupal_add_http_header('Access-Control-Allow-Credentials', 'true');
-  drupal_add_http_header('Access-Control-Allow-Headers', 'Content-Type,Authorization,X-CSRF-Token');
-  drupal_add_http_header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,HEAD,OPTIONS');
+  // Allow API access from approved origins (defaults to https://farmos.app).
+  $allowed_origins = explode("\n", variable_get('farm_access_allow_origin', 'https://farmos.app'));
+  $headers = getallheaders();
+  foreach ($allowed_origins as &$value) {
+    $value = trim($value);
+  }
+  if (!empty($headers['Origin'])) {
+    if (in_array($headers['Origin'], $allowed_origins)) {
+      drupal_add_http_header('Access-Control-Allow-Origin', $headers['Origin']);
+      drupal_add_http_header('Access-Control-Allow-Credentials', 'true');
+      drupal_add_http_header('Access-Control-Allow-Headers', 'Content-Type,Authorization,X-CSRF-Token');
+      drupal_add_http_header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,HEAD,OPTIONS');
+      drupal_add_http_header('Vary', 'Origin');
+    }
+  }
+}
+
+/**
+ * If getallheaders() is not available, implement it ourselves.
+ *
+ * This is necessary in PHP CLI and Nginx contexts.
+ * See https://github.com/farmOS/farmOS/issues/271#issuecomment-663543706
+ *
+ * Code is taken from http://php.net/manual/en/function.getallheaders.php
+ */
+if (!function_exists('getallheaders')) {
+  function getallheaders() {
+    foreach ($_SERVER as $name => $value) {
+      if (substr($name, 0, 5) == 'HTTP_') {
+        $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
+      }
+    }
+    return $headers;
+  }
 }
 
 /**
@@ -142,9 +171,9 @@ function farm_access_settings_form($form, &$form_state) {
 
   // Metric or US/Imperial.
   $form['farm_access_allow_origin'] = array(
-    '#type' => 'textfield',
+    '#type' => 'textarea',
     '#title' => t('Access-Control-Allow-Origin'),
-    '#description' => t('This will be put in the Access-Control-Allow-Origin header, which is necessary for third-party client-side applications to access farmOS data via the API. Defaults to "https://farmos.app" to work with the farmOS Field Kit application.'),
+    '#description' => t('This will be put in the Access-Control-Allow-Origin header, which is necessary for third-party client-side applications to access farmOS data via the API. Defaults to "https://farmos.app" to work with the farmOS Field Kit application. Multiple origins can be specified (one per line) and they will be matched automatically.'),
     '#default_value' => variable_get('farm_access_allow_origin', 'https://farmos.app'),
   );
 
