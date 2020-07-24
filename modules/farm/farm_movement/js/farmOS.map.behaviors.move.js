@@ -21,6 +21,9 @@
 
       // Make the layer editable.
       this.instance.addBehavior('edit', { layer: this.movementLayer });
+
+      // Add measure behavior.
+      this.instance.addBehavior('measure', { layer: this.movementLayer});
     },
 
     // Update the assets current location map layer.
@@ -45,6 +48,9 @@
         };
         this.currentLocationLayer = this.instance.addLayer('wkt', opts);
         this.instance.zoomToVectors();
+
+        // Add measure behavior.
+        this.instance.addBehavior('measure', { layer: this.currentLocationLayer });
       }
     },
 
@@ -69,6 +75,9 @@
 
       // Make the layer editable.
       this.instance.addBehavior('edit', { layer: this.movementLayer });
+
+      // Add measure behavior.
+      this.instance.addBehavior('measure', { layer: this.movementLayer});
 
       // Zoom to all vector layers.
       this.instance.zoomToVectors();
