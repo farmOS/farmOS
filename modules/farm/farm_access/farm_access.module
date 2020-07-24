@@ -27,6 +27,25 @@ function farm_access_init() {
 }
 
 /**
+ * If getallheaders() is not available, implement it ourselves.
+ *
+ * This is necessary in PHP CLI and Nginx contexts.
+ * See https://github.com/farmOS/farmOS/issues/271#issuecomment-663543706
+ *
+ * Code is taken from http://php.net/manual/en/function.getallheaders.php
+ */
+if (!function_exists('getallheaders')) {
+  function getallheaders() {
+    foreach ($_SERVER as $name => $value) {
+      if (substr($name, 0, 5) == 'HTTP_') {
+        $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
+      }
+    }
+    return $headers;
+  }
+}
+
+/**
  * Implements hook_hook_info().
  */
 function farm_access_hook_info() {
