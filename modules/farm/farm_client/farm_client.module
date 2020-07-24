@@ -19,3 +19,78 @@ function farm_client_farm_api_oauth2_client() {
 
   return $clients;
 }
+
+/**
+ * Implements hook_menu().
+ */
+function farm_client_menu() {
+  $items = array();
+
+  // Serve client JavaScript files.
+  $items['farm/client/js/%/index.js'] = array(
+    'title' => 'Deliver client module JS',
+    'page callback' => 'farm_client_js_deliver',
+    'page arguments' => array(3),
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_farm_info().
+ */
+function farm_client_farm_info() {
+
+  // Ask modules for client module info.
+  $client_modules = module_invoke_all('farm_client_module_info');
+
+  // Replace the JavaScript file path with the one that is served by Drupal.
+  foreach ($client_modules as $name => &$client_module) {
+    if (!empty($client_module['js'])) {
+      $client_module['js'] = 'farm/client/js/' . $name . '/index.js';
+    }
+  }
+
+  // Add the client module info to /farm.json.
+  $info = array();
+  if (!empty($client_modules)) {
+    $info['client'] = array(
+      'modules' => $client_modules,
+    );
+  }
+  return $info;
+}
+
+/**
+ * Page callback for delivering client JS.
+ *
+ * This will load the JavaScript file for a client module and output the content
+ * as if it were being loaded directly from the web server. This allows the
+ * response to include receive the Access-Control-Allow-Origin and other headers
+ * added by farm_access_init().
+ *
+ * @param string $module
+ *   The machine name of the client module.
+ *
+ * @return NULL|int
+ *   This function will print the contents of the JavaScript file, if found, and
+ *   will not return anything. Otherwise, it will return MENU_NOT_FOUND.
+ */
+function farm_client_js_deliver($module) {
+
+  // Ask modules for client module info.
+  $client_modules = module_invoke_all('farm_client_module_info');
+
+  // If the requested module doesn't exist, or if it doesn't provide JS, bail
+  // with a 404.
+  if (!(array_key_exists($module, $client_modules) && !empty($client_modules[$module]['js']) && file_exists($client_modules[$module]['js']))) {
+    return MENU_NOT_FOUND;
+  }
+
+  // Print the contents of the Javascript file and exit.
+  drupal_add_http_header('Content-Type', 'application/javascript; utf-8');
+  print file_get_contents($client_modules[$module]['js']);
+  drupal_exit();
+}
