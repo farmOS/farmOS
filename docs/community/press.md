@@ -5,6 +5,8 @@ would like to write about farmOS, [contact m.stenta](https://farmier.com/contact
 
 ## 2020
 
+**2020 July 23rd** [Free Software Foundation: People everywhere are standing up for free software](https://www.fsf.org/blogs/community/people-everywhere-are-standing-up-for-free-software)
+
 **2020 July 7th** [OpenTEAM News: Growing community and capacity for interoperability](https://mailchi.mp/119ed19b5c3b/openteam-news-growing-community-and-capacity-for-interoperability)
 
 **2020 May 22nd** [GOAT/OpenTEAM In-Depth Web Series: farmOS Aggregator Update](https://youtu.be/aAz223-HZDo)
