@@ -34,6 +34,28 @@ function farm_sensor_farm_ui_entity_view_groups() {
 }
 
 /**
+ * Implements hook_entity_property_info_alter().
+ */
+function farm_sensor_entity_property_info_alter(&$info) {
+
+  // Add a sensor type property to sensor assets.
+  $info['farm_asset']['bundles']['sensor']['properties']['sensor_type'] = array(
+    'type' => 'text',
+    'label' => t('Sensor Type'),
+    'description' => t('The type of sensor.'),
+    'setter callback' => 'entity_property_verbatim_set',
+  );
+
+  // Add a sensor settings property to sensor assets.
+  $info['farm_asset']['bundles']['sensor']['properties']['sensor_settings'] = array(
+    'type' => 'unknown',
+    'label' => t('Sensor Settings'),
+    'description' => t('Settings for this sensor.'),
+    'setter callback' => 'entity_property_verbatim_set',
+  );
+}
+
+/**
  * Implements hook_entity_load().
  */
 function farm_sensor_entity_load($entities, $type) {
