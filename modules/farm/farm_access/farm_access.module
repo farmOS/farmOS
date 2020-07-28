@@ -9,18 +9,40 @@
  */
 function farm_access_init() {
 
-  // Allow API access from approved origins (defaults to https://farmos.app).
+  // Add CORS headers to allow API access from approved origins.
+  farm_access_add_cors_headers();
+}
+
+/**
+ * Add CORS headers.
+ */
+function farm_access_add_cors_headers() {
+
+  // Load the list of allowed origins (default to https://farmos.app).
   $allowed_origins = explode("\n", variable_get('farm_access_allow_origin', 'https://farmos.app'));
-  $headers = getallheaders();
+
+  // Trim whitespace from each item.
   foreach ($allowed_origins as &$value) {
     $value = trim($value);
   }
+
+  // Get the request headers.
+  $headers = getallheaders();
+
+  // If the "Origin" header is set, check to see if it is in the allowed list.
   if (!empty($headers['Origin'])) {
     if (in_array($headers['Origin'], $allowed_origins)) {
+
+      // Add headers to allow CORS requests.
       drupal_add_http_header('Access-Control-Allow-Origin', $headers['Origin']);
       drupal_add_http_header('Access-Control-Allow-Credentials', 'true');
       drupal_add_http_header('Access-Control-Allow-Headers', 'Content-Type,Authorization,X-CSRF-Token');
       drupal_add_http_header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,HEAD,OPTIONS');
+
+      // Add a "Vary: Origin" header to indicate to clients that server
+      // responses will differ based on the value of the "Origin" request
+      // header.
+      // See https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
       drupal_add_http_header('Vary', 'Origin');
     }
   }
