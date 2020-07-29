@@ -17,7 +17,8 @@
       // Add the layer.
       var opts = {
         title: title,
-        url: 'https://api.mapbox.com/styles/v1/' + tileset + '/tiles/256/{z}/{x}/{y}?access_token=' + key,
+        url: 'https://api.mapbox.com/styles/v1/' + tileset + '/tiles/512/{z}/{x}/{y}?access_token=' + key,
+        tileSize: 512,
         attribution: attribution,
         group: 'Base layers',
         base: true,
