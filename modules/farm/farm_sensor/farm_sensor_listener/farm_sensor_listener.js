@@ -37,10 +37,13 @@
           xaxis: { title: 'date' },
           yaxis: { title: name }
         };
+        var config = {
+          responsive: true
+        };
 
         // Draw the graph to the element.
         element = document.getElementById(id);
-        Plotly.newPlot(element, graph_data, layout);
+        Plotly.newPlot(element, graph_data, layout, config);
       }
     }
   };
