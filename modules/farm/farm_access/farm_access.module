@@ -26,6 +26,10 @@ function farm_access_add_cors_headers() {
     $value = trim($value);
   }
 
+  // Add "app://localhost" to the list of allowed origins, so that requests from
+  // Field Kit on iOS native (WKWebView) are accepted.
+  $allowed_origins[] = 'app://localhost';
+
   // Get the request headers.
   $headers = getallheaders();
 
