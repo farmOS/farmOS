@@ -348,7 +348,6 @@ function farm_livestock_weight_group_report(&$form_state) {
 
     // Load the farm group asset.
     $group = farm_asset_load($id);
-    $group_name = $group->name;
 
     // Load the farm group members.
     $members = farm_group_members($group, REQUEST_TIME, TRUE, $include_archived);
@@ -502,14 +501,14 @@ function farm_livestock_weight_group_report(&$form_state) {
   foreach ($animals as $animal) {
     // Add a row of data.
     $row = array();
-    $name_label = $animal->name;
+    $name_label = htmlspecialchars(entity_label('farm_asset', $animal));
     if ($animal->archived) {
       $date = strftime('%Y-%m-%d', $animal->archived);
       $name_label = $name_label . ' (' . t('archived') . ' ' . $date . ')';
     }
     $row[] = $animal->id;
     $row[] = $name_label;
-    $row[] = $animal->group->name;
+    $row[] = htmlspecialchars(entity_label('farm_asset', $animal->group));
 
     // Save the logs.
     $logs = $animal->all_log_data;
