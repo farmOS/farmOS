@@ -7,11 +7,15 @@ ARG FARMOS_VERSION=2.x
 ARG PROJECT_REPO=https://github.com/farmOS/composer-project.git
 ARG PROJECT_VERSION=2.x
 
-# Change the user/group IDs of www-data to 1000, based on the assumption that
-# the developer is running as UID 1000 on the host machine. This will make
-# everything that Composer creates owned by them outside of the container,
-# and inside the container it will be owned by www-data.
-RUN usermod -u 1000 www-data && groupmod -g 1000 www-data
+# Change the user/group IDs of www-data inside the image to match the ID of the
+# developer's user on the host machine. This allows Composer to create files
+# owned by www-data inside the container, while keeping those files editable by
+# the developer outside of the container.
+# This defaults to 1000, based on the assumption that the developer is running
+# as UID 1000 on the host machine. It can be overridden at image build time with:
+# --build-arg WWW_DATA_ID=$(id -u)
+ARG WWW_DATA_ID=1000
+RUN usermod -u ${WWW_DATA_ID} www-data && groupmod -g ${WWW_DATA_ID} www-data
 
 # Install git and unzip (needed by Composer).
 RUN apt-get update -y \

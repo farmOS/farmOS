@@ -16,3 +16,10 @@ Available arguments and their default values are described below:
 - `PROJECT_VERSION` - The farmOS Composer project Git branch/tag/commit to
   check out.
     - Default: `2.x`
+- `WWW_DATA_ID` - The ID to use for the `www-data` user and group inside the
+   image. Setting this to the ID of the developer's user on the host machine
+   allows Composer to create files owned by www-data inside the container,
+   while keeping those files editable by the developer outside of the
+   container. If your user ID is not `1000`, build the image with:
+   `--build-arg WWW_DATA_ID=$(id -u)`
+    - Default: `1000`
