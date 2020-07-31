@@ -68,7 +68,7 @@ function farm_livestock_weight_individual_report(FarmAsset $farm_asset) {
 
     // Create a Weight Report Graph
     $graph = array(
-      'name' => $farm_asset->name . t(' Weight Report'),
+      'name' => htmlspecialchars(entity_label('farm_asset', $farm_asset)) . t(' Weight Report'),
       'id' => 'farm-report-weight-graph',
       'data' => $weights,
     );
