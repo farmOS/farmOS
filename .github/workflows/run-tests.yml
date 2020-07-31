@@ -9,6 +9,14 @@ jobs:
     name: Run PHPUnit tests
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+      - name: Set FARMOS_VERSION environment variable
+        run: echo ::set-env name=FARMOS_VERSION::${GITHUB_REF:11}
+      - name: Build base Docker image
+        run: docker build -t farmos/farmos:2.x-base docker/base
+      - name: Build dev Docker image
+        run: docker build --build-arg FARMOS_REPO=https://github.com/${GITHUB_REPOSITORY} --build-arg FARMOS_VERSION=${FARMOS_VERSION} -t farmos/farmos:2.x-dev docker/dev
       - name: Create docker-compose.yml
         run: curl https://raw.githubusercontent.com/farmOS/farmOS/2.x/docker/docker-compose.development.yml -o docker-compose.yml
       - name: Start containers
