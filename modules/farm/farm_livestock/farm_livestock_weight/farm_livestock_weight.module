@@ -841,8 +841,15 @@ function farm_livestock_weight_entity_view_alter(&$build, $type) {
   $value = !empty($weight['value']) ? $weight['value'] : '';
   $units = !empty($weight['units']) ? $weight['units'] : '';
 
+  // If the animal has an inventory greater than 1, add "(average)".
+  $inventory = farm_inventory($asset);
+  $average_text = '';
+  if ($inventory > 1) {
+    $average_text .= ' (' . t('average') . ')';
+  }
+
   // Build the weight display.
-  $output = '<strong>' . t('Weight') . ':</strong> ' . $value . ' ' . $units . '<a href="' . url($asset_uri['path'] . '/weight') . t('"> (weight report) </a>');
+  $output = '<strong>' . t('Weight') . ':</strong> ' . $value . ' ' . $units . $average_text . '<a href="' . url($asset_uri['path'] . '/weight') . t('"> (weight report) </a>');
 
   // Load the daily live weight gain.
   $dlwg = farm_livestock_weight_dlwg($asset);
@@ -850,11 +857,6 @@ function farm_livestock_weight_entity_view_alter(&$build, $type) {
     // Add the dlwg markup.
     $output .= $dlwg['markup'];
 	}
-  // If the animal has an inventory greater than 1, add "(average)".
-  $inventory = farm_inventory($asset);
-  if ($inventory > 1) {
-    $output .= ' (' . t('average') . ')';
-  }
 
   // Add it to the build array.
   $build['weight'] = array(
