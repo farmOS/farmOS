@@ -1,11 +1,21 @@
 # Inherit from the farmOS 2.x base image.
 FROM farmos/farmos:2.x-base
 
-# Change the user/group IDs of www-data to 1000, based on the assumption that
-# the developer is running as UID 1000 on the host machine. This will make
-# everything that Composer creates owned by them outside of the container,
-# and inside the container it will be owned by www-data.
-RUN usermod -u 1000 www-data && groupmod -g 1000 www-data
+# Set the farmOS and composer project repository URLs and versions.
+ARG FARMOS_REPO=https://github.com/farmOS/farmOS.git
+ARG FARMOS_VERSION=2.x
+ARG PROJECT_REPO=https://github.com/farmOS/composer-project.git
+ARG PROJECT_VERSION=2.x
+
+# Change the user/group IDs of www-data inside the image to match the ID of the
+# developer's user on the host machine. This allows Composer to create files
+# owned by www-data inside the container, while keeping those files editable by
+# the developer outside of the container.
+# This defaults to 1000, based on the assumption that the developer is running
+# as UID 1000 on the host machine. It can be overridden at image build time with:
+# --build-arg WWW_DATA_ID=$(id -u)
+ARG WWW_DATA_ID=1000
+RUN usermod -u ${WWW_DATA_ID} www-data && groupmod -g ${WWW_DATA_ID} www-data
 
 # Install git and unzip (needed by Composer).
 RUN apt-get update -y \
@@ -26,7 +36,12 @@ USER www-data
 ENV COMPOSER_MEMORY_LIMIT=-1
 
 # Generate an empty project from farmos/project.
-RUN composer create-project --stability=dev farmos/project .
+# Clone the composer-project from a specific repo+revision, replace the farmOS
+# repo+revision within composer.json, and run composer install.
+RUN git clone ${PROJECT_REPO} project && mv project/.git ./.git && rm -rf project && git checkout ${PROJECT_VERSION} && git reset --hard \
+  && sed -i 's|"repositories": \[|"repositories": \[ {"type": "git", "url": "'"${FARMOS_REPO}"'"},|g' composer.json \
+  && sed -i 's|"farmos/farmos": "2.x-dev"|"farmos/farmos": "2.x-dev#'"${FARMOS_VERSION}"'"|g' composer.json \
+  && composer install
 
 # Configure PHPUnit.
 RUN cp web/core/phpunit.xml.dist phpunit.xml \
