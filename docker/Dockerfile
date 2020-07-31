@@ -1,8 +1,8 @@
 # Inherit from the farmOS 2.x-dev image.
 # @todo
 # In the future, once we have a tagged release, we can inherit directly from the
-# farmos/farmos:2.x-base image, and run our own composer install without the
-# --stability=dev flag below this line.
+# farmos/farmos:2.x-base image, and run our own composer install with the
+# --no-dev flag below this line.
 #FROM farmos/farmos:2.x-base as build
 FROM farmos/farmos:2.x-dev as build
 
