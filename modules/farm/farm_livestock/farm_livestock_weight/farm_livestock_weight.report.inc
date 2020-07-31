@@ -33,24 +33,29 @@ function farm_livestock_weight_individual_report(FarmAsset $farm_asset) {
   };
 
   // Get all 'weight' logs associated with the asset.
-  $logs = farm_livestock_weight_all($farm_asset);
-
-
-  // Store all log weight data
-  $log_weights = array();
+  $weights = farm_livestock_weight_all($farm_asset);
 
   // Ensure there are weight logs.
-  if (!empty($logs)) {
+  if (!empty($weights)) {
+
     // Simple html table of weights.
     $output .= t('<h3> All Weights </h3>');
     $header = array(t('Date'), t('Value'), t('Units'));
     $table_data = array();
 
-    foreach($logs as $log){
-      $table_data[] = array(format_date($log['timestamp']),$log['value'],$log['units']);
+    foreach($weights as $key => $weight){
 
+      // Save the log.
+      $log = $weight['log'];
+
+      // Save the timestamp to the weights array for graphing.
+      $weights[$key]['timestamp'] = $log->timestamp;
+
+      // Add to table data.
+      $table_data[] = array(format_date($log->timestamp), $weight['value'], $weight['units']);
     }
 
+    // Output the table.
     $output .= theme('table', array('header' => $header, 'rows' => $table_data));
 
     // Create the div to hold report graphs.
@@ -63,7 +68,7 @@ function farm_livestock_weight_individual_report(FarmAsset $farm_asset) {
     $graph = array(
       'name' => $farm_asset->name . t(' Weight Report'),
       'id' => 'farm-report-weight-graph',
-      'data' => $logs,
+      'data' => $weights,
     );
     $graph_markup[] = '<div id="farm-report-weight-graph" class="farm-report-graph"></div>';
     $graphs[] = $graph;

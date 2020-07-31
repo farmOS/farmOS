@@ -47,7 +47,7 @@ function farm_livestock_weight($asset) {
  *   The animal asset to get weight for.
  *
  * @return array
- *   Returns an array of arrays with the following information from each weight log ('weight', value, units, label, timestamp)
+ *   Returns an array of arrays with the following information from each weight log ('weight', value, units, label, log)
  *  Newest is the first, oldest last.
  */
 function farm_livestock_weight_all($asset) {
@@ -66,7 +66,7 @@ function farm_livestock_weight_all($asset) {
 
       foreach ($data as $quantity){
         if (!empty($quantity['value'])){
-          $quantity['timestamp'] = $log->timestamp;
+          $quantity['log'] = $log;
 
           $log_weights[] = $quantity;
 
@@ -91,35 +91,47 @@ function farm_livestock_weight_all($asset) {
  *
  * @return array
  *   Returns an array of information around the daily liveweight gain:
- *  "most_recent" - Timestamp of most recent weight logs
- *  "previous_record" - timestamp of the record before the most recent.
- *  "value" - The daily liveweight gain values
- *  "units" - The unit of measure (eg kg)
+ *  "latest_log" - The latest weight log.
+ *  "previous_log" - The weight log recorded before the latest.
+ *  "value" - The daily liveweight gain value.
+ *  "units" - The unit of measure (eg kg).
  */
  
 function farm_livestock_weight_dlwg($asset) {
-  // This function returns an array[4] of (date of most recent weight, date of previous weight, daily liveweight gain, and the units)
-  $logs = farm_livestock_weight_all($asset);
 
-  $dailyliveweightgain = array();
-  if (count($logs)>1){
+  // Get weight data for the asset.
+  $weights = farm_livestock_weight_all($asset);
 
-    if (($logs[0]['units']) == ($logs[1]['units'])){
+  // Build array of Daily Liveweight Gain information.
+  $dlwg = array();
 
-      $most_recent = $logs[0]['timestamp'];
-      $prevous_record = $logs[1]['timestamp'];
-      $weight_difference = $logs[0]['value']-$logs[1]['value'];
+  // At least 2 weights must be recorded to calculate Daily Liveweight gain.
+  if (count($weights)>1){
 
-      $timediff = $most_recent- $prevous_record;
+    // Make sure logs use the same units.
+    if (($weights[0]['units']) == ($weights[1]['units'])){
+
+      $latest_weight = $weights[0];
+      $latest_log = $latest_weight['log'];
+
+      $previous_weight = $weights[1];
+      $previous_log = $previous_weight['log'];
+
+      // Calculate weight difference.
+      $weight_difference = $latest_weight['value'] - $previous_weight['value'];
+
+      // Calculate time difference.
+      $timediff = $latest_log->timestamp - $previous_log->timestamp;
       $timediff_days = round($timediff/86400,2);
 
-      $dlwg = round($weight_difference/$timediff_days,3);
+      // Calculate dlwg.
+      $dlwg_value = round($weight_difference/$timediff_days,3);
 
-      $dailyliveweightgain = array("most_recent" => $most_recent, "previous_record" => $prevous_record, "value" => $dlwg, "units" => $logs[0]['units']);
+      $dlwg = array("latest_log" => $latest_log, "previous_log" => $previous_log, "value" => $dlwg_value, "units" => $latest_weight['units']);
     }
   }
 
-  return $dailyliveweightgain;
+  return $dlwg;
 }
 
 
