@@ -3,6 +3,12 @@
     "description": "A web-based farm record keeping application.",
     "type": "drupal-profile",
     "license": "GPL-2.0-or-later",
+    "homepage": "https://farmOS.org",
+    "support": {
+        "docs": "https://farmOS.org/guide",
+        "forum": "https://farmOS.discourse.group",
+        "chat": "https://matrix.to/#/#farmOS:matrix.org"
+    },
     "authors": [
         {
             "name": "Michael Stenta",
