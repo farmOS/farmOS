@@ -25,6 +25,9 @@
           instance.addBehavior('edit');
           var layer = instance.edit.layer;
         }
+
+        // Add the snappingGrid behavior.
+        instance.addBehavior('snappingGrid');
       }
 
       // Enable the line/polygon measure behavior.

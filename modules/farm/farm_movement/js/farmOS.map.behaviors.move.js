@@ -19,11 +19,7 @@
       };
       this.movementLayer = this.instance.addLayer('vector', opts);
 
-      // Make the layer editable.
-      this.instance.addBehavior('edit', { layer: this.movementLayer });
-
-      // Add measure behavior.
-      this.instance.addBehavior('measure', { layer: this.movementLayer});
+      this.addEditBehaviors();
     },
 
     // Update the assets current location map layer.
@@ -73,11 +69,7 @@
       };
       this.movementLayer = this.instance.addLayer('wkt', opts);
 
-      // Make the layer editable.
-      this.instance.addBehavior('edit', { layer: this.movementLayer });
-
-      // Add measure behavior.
-      this.instance.addBehavior('measure', { layer: this.movementLayer});
+      this.addEditBehaviors();
 
       // Zoom to all vector layers.
       this.instance.zoomToVectors();
@@ -92,6 +84,18 @@
       this.instance.edit.wktOn('featurechange', function(wkt) {
         $('#' + target).parent().find('textarea').val(wkt);
       });
+    },
+
+    // Adds behaviors for editing movements
+    addEditBehaviors() {
+      // Make the layer editable.
+      this.instance.addBehavior('edit', { layer: this.movementLayer });
+
+      // Add the snappingGrid behavior.
+      this.instance.addBehavior('snappingGrid');
+
+      // Add measure behavior.
+      this.instance.addBehavior('measure', { layer: this.movementLayer});
     },
 
     // Make sure this runs after farmOS.map.behaviors.wkt.
