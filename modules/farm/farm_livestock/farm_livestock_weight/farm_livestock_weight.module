@@ -55,11 +55,12 @@ function farm_livestock_weight_all($asset) {
   // Load the logs with a 'weight' quantity measurement for this asset.
   $logs = farm_quantity_log_asset($asset, 'weight', NULL, REQUEST_TIME, TRUE, 'farm_observation', $single=FALSE);
 
-
+  // Start array of log weights.
+  $log_weights = array();
 
   // Check that there are some logs!
   if (!empty($logs)) {
-    $log_weights = array();
+
     foreach ($logs as $log) {
       // Quantity data from log.
       $data = farm_quantity_log_data($log, 'weight');
@@ -73,13 +74,10 @@ function farm_livestock_weight_all($asset) {
         }
       }
     }
-
-    return $log_weights;
   }
 
-
-  // If nothing was returned, return an empty array.
-  return array();
+  // Return log weights.
+  return $log_weights;
 }
 
 
@@ -97,7 +95,6 @@ function farm_livestock_weight_all($asset) {
  *  "units" - The unit of measure (eg kg).
  *  "markup" - HTML markup of the dlwg.
  */
- 
 function farm_livestock_weight_dlwg($asset) {
 
   // Get weight data for the asset.
