@@ -39,7 +39,6 @@ function farm_livestock_weight($asset) {
   return array();
 }
 
-
 /**
  * Helper function for retrieving all weight logs of an animal.
  *
@@ -62,15 +61,16 @@ function farm_livestock_weight_all($asset) {
   if (!empty($logs)) {
 
     foreach ($logs as $log) {
-      // Quantity data from log.
+      // Get weight quantity data from log.
       $data = farm_quantity_log_data($log, 'weight');
-
       foreach ($data as $quantity){
         if (!empty($quantity['value'])){
+
+          // Save the log with the quantity info.
           $quantity['log'] = $log;
 
+          // Add quantity to log weights.
           $log_weights[] = $quantity;
-
         }
       }
     }
@@ -109,9 +109,11 @@ function farm_livestock_weight_dlwg($asset) {
     // Make sure logs use the same units.
     if (($weights[0]['units']) == ($weights[1]['units'])){
 
+      // Save latest weight info.
       $latest_weight = $weights[0];
       $latest_log = $latest_weight['log'];
 
+      // Save previous weight info.
       $previous_weight = $weights[1];
       $previous_log = $previous_weight['log'];
 
@@ -164,7 +166,6 @@ function farm_livestock_weight_dlwg($asset) {
 
   return $dlwg;
 }
-
 
 /**
  * Create a weight measurement log associated with an animal.
