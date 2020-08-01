@@ -1,0 +1,48 @@
+name: Create 2.x release
+on:
+  push:
+    tags:
+      - '2.*'
+
+jobs:
+  build:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+      - name: Set FARMOS_VERSION environment variable
+        run: echo ::set-env name=FARMOS_VERSION::${GITHUB_REF:10}
+      # This builds the dev Docker image using the specified FARMOS_VERSION,
+      # but notably it does NOT override the default PROJECT_VERSION, so the
+      # farmOS Composer project 2.x branch is always used.
+      - name: Build farmOS base Docker image
+        run: docker build -t farmos/farmos:2.x-base docker/base
+      - name: Build farmOS 2.x Docker image
+        run: docker build --build-arg FARMOS_REPO=https://github.com/${GITHUB_REPOSITORY} --build-arg FARMOS_VERSION=${FARMOS_VERSION} -t farmos/farmos:2.x docker
+      - name: Run farmOS Docker container
+        run: docker run --rm -v /tmp/farmOS:/var/www/html farmos/farmos:2.x true
+      - name: Create artifact
+        run: cd /tmp && tar -czf farmOS-${FARMOS_VERSION}.tar.gz farmOS
+      - name: Create GitHub release
+        id: create_release
+        uses: actions/create-release@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          body: |
+            ...
+          draft: true
+          prerelease: false
+      - name: Upload release asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: /tmp/farmOS-${{ env.FARMOS_VERSION }}.tar.gz
+          asset_name: farmOS-${{ env.FARMOS_VERSION }}.tar.gz
+          asset_content_type: application/gzip
