@@ -18,23 +18,9 @@ ARG WWW_DATA_ID=1000
 RUN usermod -u ${WWW_DATA_ID} www-data && groupmod -g ${WWW_DATA_ID} www-data \
   && chown www-data:www-data /var/farmOS
 
-# Install git and unzip (needed by Composer).
-RUN apt-get update -y \
-  && apt-get install -y git unzip
-
-# Install Composer.
-RUN curl -sS https://getcomposer.org/installer | \
-    php -- --install-dir=/usr/bin/ --filename=composer
-
-# Create a Composer config directory for the www-data user.
-RUN mkdir /var/www/.composer && chown www-data:www-data /var/www/.composer
-
 # Switch to the /var/farmOS directory as the www-data user.
 WORKDIR /var/farmOS
 USER www-data
-
-# Set the COMPOSER_MEMORY_LIMIT environment variable to unlimited.
-ENV COMPOSER_MEMORY_LIMIT=-1
 
 # Generate an empty project from farmos/project.
 # Clone the composer-project from a specific repo+revision, replace the farmOS
@@ -44,7 +30,9 @@ RUN git clone ${PROJECT_REPO} project && mv project/.git ./.git && rm -rf projec
   && if ! [ "${FARMOS_VERSION}" = "2.x" ]; then \
     sed -i 's|"farmos/farmos": "2.x-dev"|"farmos/farmos": "dev-'"${FARMOS_VERSION}"'"|g' composer.json; \
   fi \
-  && composer install
+  && export COMPOSER_HOME="$(mktemp -d)" \
+  && composer install \
+  && rm -rf "$COMPOSER_HOME"
 
 # Configure PHPUnit.
 RUN cp web/core/phpunit.xml.dist phpunit.xml \
@@ -56,8 +44,8 @@ RUN cp web/core/phpunit.xml.dist phpunit.xml \
   && sed -i 's|\.\./web/core/|\./web/|g' phpunit.xml \
   && mkdir -p /var/farmOS/web/sites/simpletest/browser_output
 
-# Switch back to the /var/www/html directory as the root user.
-WORKDIR /var/www/html
+# Switch back to the /opt/drupal directory as the root user.
+WORKDIR /opt/drupal
 USER root
 
 # Copy /var/farmOS to /opt/drupal.

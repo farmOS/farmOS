@@ -2,8 +2,15 @@
 # the farmOS development image. This base image is not intended to be run by
 # itself. It simply builds an image with all of farmOS's dependencies.
 
-# Inherit from the Drupal 8 image on Docker Hub.
-FROM drupal:8
+# Inherit from the Drupal 9 image on Docker Hub.
+FROM drupal:9
+
+# Install git and unzip (needed by Composer).
+RUN apt-get update -y \
+  && apt-get install -y git unzip
+
+# Set the COMPOSER_MEMORY_LIMIT environment variable to unlimited.
+ENV COMPOSER_MEMORY_LIMIT=-1
 
 # Install the BCMath PHP extension.
 RUN docker-php-ext-install bcmath
@@ -64,10 +71,6 @@ RUN apt-get update \
 
 # Create a directory for the farmOS codebase.
 RUN mkdir /var/farmOS && chown www-data:www-data /var/farmOS
-
-# Create /opt/drupal and symlink /var/www/html to /opt/drupal/web
-# (to mimic upstream drupal:9 image).
-RUN mkdir /opt/drupal && rm -r /var/www/html && ln -s /opt/drupal/web /var/www/html
 
 # Set the entrypoint.
 COPY docker-entrypoint.sh /usr/local/bin/
