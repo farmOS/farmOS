@@ -117,7 +117,7 @@ projects[restws][patch][] = "http://www.drupal.org/files/issues/2019-06-17/restw
 ; Fix Issue #2490416 (restws_basic_auth module conflicts with restws_oauth2_server)
 projects[restws][patch][] = "http://www.drupal.org/files/issues/2020-03-29/restws-auth-check-2490416-12.patch"
 ; Fix Issue #2301237: Allow creating nodes with multi-value fields
-projects[restws][patch][] = "https://www.drupal.org/files/issues/2020-05-31/2301237-34.patch"
+projects[restws][patch][] = "http://www.drupal.org/files/issues/2020-05-31/2301237-34.patch"
 ; Fix Issue #3161113: Support fields with unknown data type.
 projects[restws][patch][] = "http://www.drupal.org/files/issues/2020-07-23/3161113-6.patch"
 ; Fix Issue #3161965: Don't perform CSRF validation if Bearer token is provided.
@@ -186,7 +186,7 @@ libraries[backbone][download][type] = "get"
 libraries[backbone][download][url] = "http://github.com/jashkenas/backbone/archive/1.4.0.zip"
 
 libraries[easy-responsive-tabs][download][type] = "get"
-libraries[easy-responsive-tabs][download][url] = "https://github.com/samsono/Easy-Responsive-Tabs-to-Accordion/archive/1.2.2.zip"
+libraries[easy-responsive-tabs][download][url] = "http://github.com/samsono/Easy-Responsive-Tabs-to-Accordion/archive/1.2.2.zip"
 
 libraries[farmOS-map][download][type] = "get"
 libraries[farmOS-map][download][url] = "http://github.com/farmOS/farmOS-map/releases/download/v1.2.0/v1.2.0-dist.zip"
