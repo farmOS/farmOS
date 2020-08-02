@@ -120,6 +120,8 @@ projects[restws][patch][] = "http://www.drupal.org/files/issues/2020-03-29/restw
 projects[restws][patch][] = "https://www.drupal.org/files/issues/2020-05-31/2301237-34.patch"
 ; Fix Issue #3161113: Support fields with unknown data type.
 projects[restws][patch][] = "http://www.drupal.org/files/issues/2020-07-23/3161113-6.patch"
+; Fix Issue #3161965: Don't perform CSRF validation if Bearer token is provided.
+projects[restws][patch][] = "http://www.drupal.org/files/issues/2020-07-28/3161965-2.patch"
 
 projects[restws_field_collection][subdir] = "contrib"
 projects[restws_field_collection][version] = "1.1"
