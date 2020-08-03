@@ -59,6 +59,11 @@ your data. You also have full access to the code that is storing and using that
 data! Why? Because farmOS is free open source software developed by a community
 of farmOS users.
 
+> I see a security update warning. What should I do?
+
+Please follow the instructions in [Updating farmOS](/hosting/updating/)
+
+
 > Where do I get support if I have questions?
 
 The [farmOS Community Forum] is a great place to ask questions and learn from

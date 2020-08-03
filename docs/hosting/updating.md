@@ -14,6 +14,19 @@ distribution updates are included.
 **Note that automatic updates through Drupal's UI are disabled by farmOS** See
 [https://drupal.org/node/3136140] for more information.
 
+**Security Updates**
+Some security updates can't wait till the next main release of farmOS. 
+So if you got a security warning in your farmOS or 
+read about a important drupal update, you should check if there is a 
+development update for farmOS available (normally released on the same day).
+You can find the development updates at the bottom of 
+[https://drupal.org/project/farm] (the same page as the normal updates) 
+by the headline "Downloads". 
+
+
+**Checking your version**
+You can see your installed version under '/admin/reports/status'. 
+
 ## Update procedure
 
 Updating farmOS is basically the same process as [updating Drupal core]. The
