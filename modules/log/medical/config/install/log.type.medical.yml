@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {  }
+id: medical
+label: Medical
+description: ''
+name_pattern: 'Medical log [log:id]'
+workflow: log_default
+new_revision: true
