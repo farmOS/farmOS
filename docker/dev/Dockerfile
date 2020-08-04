@@ -40,7 +40,7 @@ ENV COMPOSER_MEMORY_LIMIT=-1
 # repo+revision within composer.json, and run composer install.
 RUN git clone ${PROJECT_REPO} project && mv project/.git ./.git && rm -rf project && git checkout ${PROJECT_VERSION} && git reset --hard \
   && sed -i 's|"repositories": \[|"repositories": \[ {"type": "git", "url": "'"${FARMOS_REPO}"'"},|g' composer.json \
-  && sed -i 's|"farmos/farmos": "2.x-dev"|"farmos/farmos": "2.x-dev#'"${FARMOS_VERSION}"'"|g' composer.json \
+  && sed -i 's|"farmos/farmos": "2.x-dev"|"farmos/farmos": "dev-'"${FARMOS_VERSION}"'"|g' composer.json \
   && composer install
 
 # Configure PHPUnit.
