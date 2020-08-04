@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {  }
+id: sale
+label: Sale
+description: ''
+name_pattern: 'Sale log [log:id]'
+workflow: log_default
+new_revision: true

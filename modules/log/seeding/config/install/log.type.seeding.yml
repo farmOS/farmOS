@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {  }
+id: seeding
+label: Seeding
+description: ''
+name_pattern: 'Seeding log [log:id]'
+workflow: log_default
+new_revision: true

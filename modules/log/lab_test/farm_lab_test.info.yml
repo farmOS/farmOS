@@ -1,0 +1,8 @@
+name: Lab test log
+description: Adds a Lab test log type.
+type: module
+package: farmOS
+core_version_requirement: ^9
+dependencies:
+  - log:log
+  - token:token

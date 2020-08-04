@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {  }
+id: transplanting
+label: Transplanting
+description: ''
+name_pattern: 'Transplanting log [log:id]'
+workflow: log_default
+new_revision: true

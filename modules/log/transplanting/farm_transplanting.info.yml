@@ -1,0 +1,8 @@
+name: Transplanting log
+description: Adds a Transplanting log type.
+type: module
+package: farmOS
+core_version_requirement: ^9
+dependencies:
+  - log:log
+  - token:token
