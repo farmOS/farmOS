@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {  }
+id: maintenance
+label: Maintenance
+description: ''
+name_pattern: 'Maintenance log [log:id]'
+workflow: log_default
+new_revision: true

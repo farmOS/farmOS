@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {  }
+id: observation
+label: Observation
+description: ''
+name_pattern: 'Observation log [log:id]'
+workflow: log_default
+new_revision: true

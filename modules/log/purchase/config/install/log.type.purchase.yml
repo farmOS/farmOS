@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {  }
+id: purchase
+label: Purchase
+description: ''
+name_pattern: 'Purchase log [log:id]'
+workflow: log_default
+new_revision: true

@@ -1,0 +1,9 @@
+name: Sale log
+description: Adds a Sale log type.
+type: module
+package: farmOS
+core_version_requirement: ^9
+dependencies:
+  - farm:farm_field
+  - log:log
+  - token:token

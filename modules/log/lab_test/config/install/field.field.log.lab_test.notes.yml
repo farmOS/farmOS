@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.log.notes
+    - log.type.lab_test
+  module:
+    - text
+id: log.lab_test.notes
+field_name: notes
+entity_type: log
+bundle: lab_test
+label: Notes
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
