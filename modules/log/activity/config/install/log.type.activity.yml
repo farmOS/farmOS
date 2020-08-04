@@ -4,6 +4,6 @@ dependencies: {  }
 id: activity
 label: Activity
 description: ''
-name_pattern: ''
+name_pattern: 'Activity log [log:id]'
 workflow: log_default
 new_revision: true
