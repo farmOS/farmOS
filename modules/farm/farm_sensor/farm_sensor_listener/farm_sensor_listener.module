@@ -695,11 +695,24 @@ function farm_sensor_listener_data_graphs_form($form, &$form_state, $asset) {
   $graphs = array();
   foreach ($filters['values'] as $name) {
     $id = drupal_html_id('sensor-data-' . $name);
+
+    // Load data.
+    $data = farm_sensor_listener_data($asset->id, $name, strtotime($filters['start_date']), strtotime($filters['end_date']), NULL, NULL);
+
+    // Don't render a graph if there is no data to display.
+    if (empty($data)) {
+      $markup[] = '<div class="farm-sensor-graph alert alert-warning"><p>' . t('No data for "@value" in this date range.', array('@value' => $name)) . '</p></div>';
+      continue;
+    }
+
+    // Build graph markup.
     $markup[] = '<div id="' . $id . '" class="farm-sensor-graph"></div>';
+
+    // Build graph settings.
     $graph = array(
       'name' => $name,
       'id' => $id,
-      'data' => farm_sensor_listener_data($asset->id, $name, strtotime($filters['start_date']), strtotime($filters['end_date']), NULL, NULL),
+      'data' => $data,
     );
     $graphs[] = $graph;
   }
