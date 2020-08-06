@@ -201,6 +201,11 @@ function farm_sensor_views_default_views() {
   $handler->display->display_options['fields']['id']['field'] = 'id';
   $handler->display->display_options['fields']['id']['label'] = 'Asset ID';
   $handler->display->display_options['fields']['id']['separator'] = '';
+  /* Field: Sensor: Sensor type */
+  $handler->display->display_options['fields']['type']['id'] = 'type';
+  $handler->display->display_options['fields']['type']['table'] = 'farm_sensor';
+  $handler->display->display_options['fields']['type']['field'] = 'type';
+  $handler->display->display_options['fields']['type']['label'] = 'Sensor Type';
   /* Field: Farm asset: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
   $handler->display->display_options['fields']['name']['table'] = 'farm_asset';
@@ -325,6 +330,19 @@ function farm_sensor_views_default_views() {
   $handler->display->display_options['filters']['archived_boolean']['expose']['label'] = 'Archived';
   $handler->display->display_options['filters']['archived_boolean']['expose']['operator'] = 'archived_boolean_op';
   $handler->display->display_options['filters']['archived_boolean']['expose']['identifier'] = 'archived_boolean';
+  /* Filter criterion: Sensor: Sensor type */
+  $handler->display->display_options['filters']['type_1']['id'] = 'type_1';
+  $handler->display->display_options['filters']['type_1']['table'] = 'farm_sensor';
+  $handler->display->display_options['filters']['type_1']['field'] = 'type';
+  $handler->display->display_options['filters']['type_1']['operator'] = 'contains';
+  $handler->display->display_options['filters']['type_1']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['type_1']['expose']['operator_id'] = 'type_1_op';
+  $handler->display->display_options['filters']['type_1']['expose']['label'] = 'Sensor Type';
+  $handler->display->display_options['filters']['type_1']['expose']['operator'] = 'type_1_op';
+  $handler->display->display_options['filters']['type_1']['expose']['identifier'] = 'sensor_type';
+  $handler->display->display_options['filters']['type_1']['expose']['remember_roles'] = array(
+    2 => '2',
+  );
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
@@ -384,6 +402,7 @@ function farm_sensor_views_default_views() {
     t('Delete'),
     t('Asset ID'),
     t('.'),
+    t('Sensor Type'),
     t('Name'),
     t('Description'),
     t('Flags'),
