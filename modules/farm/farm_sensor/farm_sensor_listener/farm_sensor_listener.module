@@ -432,7 +432,10 @@ function farm_sensor_listener_data($id, $name = '', $start = NULL, $end = NULL, 
   $query->orderBy('fsd.timestamp', 'DESC');
 
   // Limit the results.
-  $query->range($offset, $limit);
+  // Don't apply a range if both offset and limit are NULL.
+  if (!empty($offset) && !empty($limit)) {
+    $query->range($offset, $limit);
+  }
 
   // Run the query.
   $result = $query->execute();
