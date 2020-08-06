@@ -42,6 +42,7 @@ function farm_sensor_views_default_views() {
   $handler->display->display_options['style_options']['columns'] = array(
     'views_bulk_operations' => 'views_bulk_operations',
     'id' => 'id',
+    'type' => 'type',
     'name' => 'name',
     'field_farm_description' => 'field_farm_description',
     'field_farm_flags' => 'field_farm_flags',
@@ -60,6 +61,13 @@ function farm_sensor_views_default_views() {
     'id' => array(
       'sortable' => 1,
       'default_sort_order' => 'desc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'type' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
