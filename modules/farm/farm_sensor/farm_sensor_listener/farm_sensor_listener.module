@@ -609,6 +609,129 @@ function farm_sensor_listener_settings_form($sensor, $settings = array()) {
 }
 
 /**
+ * Farm Sensor Listener Data Graphs Form.
+ */
+function farm_sensor_listener_data_graphs_form($form, &$form_state, $asset) {
+
+  // Bail if not a sensor asset.
+  if ($asset->type != 'sensor') {
+    return array();
+  }
+
+  // Fieldset to display sensor data.
+  $form['data'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Sensor Graphs'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+
+  // Fieldset for query filters.
+  $form['data']['filters'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Filters'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+
+  // Query all the distinct value names this sensor has stored.
+  $names = array();
+  $result = db_query('SELECT name FROM {farm_sensor_data} WHERE id = :id GROUP BY name', array(':id' => $asset->id));
+  foreach ($result as $row) {
+    $names[] = $row->name;
+  }
+
+  // Sensor values to display.
+  // Default to all distinct values the sensor has stored.
+  $form['data']['filters']['values'] = array(
+    '#type' => 'select',
+    '#title' => t('Sensor Values'),
+    '#options' => drupal_map_assoc($names),
+    '#multiple' => TRUE,
+    '#default_value' => $names,
+  );
+
+  // Provide a default date in the format YYYY-MM-DD.
+  $format = 'Y-m-d';
+  $current_date = date($format, REQUEST_TIME);
+
+  // Start date. Defaults to 1 week ago.
+  $past_week_date = date($format, strtotime('- 7 days', REQUEST_TIME));
+  $form['data']['filters']['start_date'] = array(
+    '#type' => 'date_select',
+    '#title' => t('Start date'),
+    '#default_value' => $past_week_date,
+    '#date_year_range' => '-10:+1',
+    '#date_format' => $format,
+    '#date_label_position' => 'within',
+  );
+
+  // End date. Defaults to current time.
+  $form['data']['filters']['end_date'] = array(
+    '#type' => 'date_select',
+    '#title' => t('End date'),
+    '#default_value' => $current_date,
+    '#date_year_range' => '-10:+1',
+    '#date_format' => $format,
+    '#date_label_position' => 'within',
+  );
+
+  // Submit button.
+  $form['data']['filters']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Submit'),
+  );
+
+  // Load filter values from form state or form field #default_value.
+  $filters = array(
+    'values' => isset($form_state['values']['values']) ? $form_state['values']['values'] : $form['data']['filters']['values']['#default_value'],
+    'start_date' => isset($form_state['values']['start_date']) ? $form_state['values']['start_date'] : $form['data']['filters']['start_date']['#default_value'],
+    'end_date' => isset($form_state['values']['end_date']) ? $form_state['values']['end_date'] : $form['data']['filters']['end_date']['#default_value'],
+  );
+
+  // Iterate through the names, load the data values for each,
+  // generate markup DIV ids, and store it all in JS settings.
+  $markup = array();
+  $graphs = array();
+  foreach ($filters['values'] as $name) {
+    $id = drupal_html_id('sensor-data-' . $name);
+    $markup[] = '<div id="' . $id . '" class="farm-sensor-graph"></div>';
+    $graph = array(
+      'name' => $name,
+      'id' => $id,
+      'data' => farm_sensor_listener_data($asset->id, $name, strtotime($filters['start_date']), strtotime($filters['end_date']), NULL, NULL),
+    );
+    $graphs[] = $graph;
+  }
+
+  // Add Javascript and CSS to build the graphs.
+  $settings = array(
+    'farm_sensor_listener' => array(
+      'graphs' => $graphs,
+    ),
+  );
+  drupal_add_js($settings, 'setting');
+  drupal_add_js(drupal_get_path('module', 'farm_sensor_listener') . '/farm_sensor_listener.js');
+  drupal_add_js('https://cdn.plot.ly/plotly-latest.min.js', 'external');
+  drupal_add_css(drupal_get_path('module', 'farm_sensor_listener') . '/farm_sensor_listener.css');
+
+  // Output graphs.
+  $form['data']['graphs'] = array(
+    '#markup' => '<div class="farm-sensor-graphs clearfix">' . implode('', $markup) . '</div>',
+  );
+
+  return $form;
+}
+
+/**
+ * Submit callback for farm_sensor_listener_data_form_submit.
+ */
+function farm_sensor_listener_data_graphs_form_submit($form, &$form_state) {
+  // Rebuild the form in order to keep filter values.
+  $form_state['rebuild'] = TRUE;
+}
+
+/**
  * Helper function for loading a sensor asset from it's public/private key.
  *
  * @param $key
@@ -671,44 +794,8 @@ function farm_sensor_listener_farm_sensor_view($asset) {
     return array();
   }
 
-  // Query all the distinct value names this sensor has stored.
-  $names = array();
-  $result = db_query('SELECT name FROM {farm_sensor_data} WHERE id = :id GROUP BY name', array(':id' => $asset->id));
-  foreach ($result as $row) {
-    $names[] = $row->name;
-  }
-
-  // Iterate through the names, load the most recent 100 values for each,
-  // generate markup DIV ids, and store it all in JS settings.
-  $markup = array();
-  $graphs = array();
-  foreach ($names as $name) {
-    $id = drupal_html_id('sensor-data-' . $name);
-    $markup[] = '<div id="' . $id . '" class="farm-sensor-graph"></div>';
-    $graph = array(
-      'name' => $name,
-      'id' => $id,
-      'data' => farm_sensor_listener_data($asset->id, $name, NULL, NULL,100),
-    );
-    $graphs[] = $graph;
-  }
-
-  // Add Javascript and CSS to build the graphs.
-  $settings = array(
-    'farm_sensor_listener' => array(
-      'graphs' => $graphs,
-    ),
-  );
-  drupal_add_js($settings, 'setting');
-  drupal_add_js(drupal_get_path('module', 'farm_sensor_listener') . '/farm_sensor_listener.js');
-  drupal_add_js('https://cdn.plot.ly/plotly-latest.min.js', 'external');
-  drupal_add_css(drupal_get_path('module', 'farm_sensor_listener') . '/farm_sensor_listener.css');
-
-  // Output the markup.
-  $build['views']['graph'] = array(
-    '#markup' => '<div class="farm-sensor-graphs clearfix">' . implode('', $markup) . '</div>',
-    '#weight' => -1,
-  );
+  // Load the sensor data graph form.
+  $build['views']['data'] = drupal_get_form('farm_sensor_listener_data_graphs_form', $asset);
 
   // Return build array.
   return $build;
