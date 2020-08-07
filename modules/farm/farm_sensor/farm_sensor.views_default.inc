@@ -213,7 +213,6 @@ function farm_sensor_views_default_views() {
   $handler->display->display_options['fields']['type']['id'] = 'type';
   $handler->display->display_options['fields']['type']['table'] = 'farm_sensor';
   $handler->display->display_options['fields']['type']['field'] = 'type';
-  $handler->display->display_options['fields']['type']['label'] = 'Sensor Type';
   /* Field: Farm asset: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
   $handler->display->display_options['fields']['name']['table'] = 'farm_asset';
@@ -408,7 +407,7 @@ function farm_sensor_views_default_views() {
     t('Delete'),
     t('Asset ID'),
     t('.'),
-    t('Sensor Type'),
+    t('Sensor type'),
     t('Name'),
     t('Description'),
     t('Flags'),
