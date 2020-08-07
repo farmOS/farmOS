@@ -348,9 +348,6 @@ function farm_sensor_views_default_views() {
   $handler->display->display_options['filters']['type_1']['expose']['label'] = 'Sensor Type';
   $handler->display->display_options['filters']['type_1']['expose']['operator'] = 'type_1_op';
   $handler->display->display_options['filters']['type_1']['expose']['identifier'] = 'sensor_type';
-  $handler->display->display_options['filters']['type_1']['expose']['remember_roles'] = array(
-    2 => '2',
-  );
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
