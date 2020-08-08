@@ -63,7 +63,7 @@ RUN apt-get update \
   && apt-get install -y postgresql-client
 
 # Create a directory for the farmOS codebase.
-RUN mkdir /var/www/farmOS && chown www-data:www-data /var/www/farmOS
+RUN mkdir /var/farmOS && chown www-data:www-data /var/farmOS
 
 # Configure Apache to use /var/www/html/web as the document root.
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/web

@@ -13,7 +13,7 @@ FROM farmos/farmos:2.x-dev as build
 FROM farmos/farmos:2.x-base
 
 # Copy prebuilt codebase into the container.
-# We copy both /var/www/farmOS and /var/www/html so that docker-entrypoint.sh
+# We copy both /var/farmOS and /var/www/html so that docker-entrypoint.sh
 # can replace files in mounted volumes as necessary.
-COPY --from=build /var/www/farmOS/ /var/www/farmOS/
+COPY --from=build /var/farmOS/ /var/farmOS/
 COPY --from=build /var/www/html/ /var/www/html/

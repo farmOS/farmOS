@@ -15,7 +15,8 @@ ARG PROJECT_VERSION=2.x
 # as UID 1000 on the host machine. It can be overridden at image build time with:
 # --build-arg WWW_DATA_ID=$(id -u)
 ARG WWW_DATA_ID=1000
-RUN usermod -u ${WWW_DATA_ID} www-data && groupmod -g ${WWW_DATA_ID} www-data
+RUN usermod -u ${WWW_DATA_ID} www-data && groupmod -g ${WWW_DATA_ID} www-data \
+  && chown www-data:www-data /var/farmOS
 
 # Install git and unzip (needed by Composer).
 RUN apt-get update -y \
@@ -28,8 +29,8 @@ RUN curl -sS https://getcomposer.org/installer | \
 # Create a Composer config directory for the www-data user.
 RUN mkdir /var/www/.composer && chown www-data:www-data /var/www/.composer
 
-# Switch to the /var/www/farmOS directory as the www-data user.
-WORKDIR /var/www/farmOS
+# Switch to the /var/farmOS directory as the www-data user.
+WORKDIR /var/farmOS
 USER www-data
 
 # Set the COMPOSER_MEMORY_LIMIT environment variable to unlimited.
@@ -51,14 +52,14 @@ RUN cp web/core/phpunit.xml.dist phpunit.xml \
   && sed -i 's|name="BROWSERTEST_OUTPUT_DIRECTORY" value=""|name="BROWSERTEST_OUTPUT_DIRECTORY" value="/var/www/html/web/sites/simpletest/browser_output"|g' phpunit.xml \
   && sed -i 's|\./|\./web/core/|g' phpunit.xml \
   && sed -i 's|\.\./web/core/|\./web/|g' phpunit.xml \
-  && mkdir -p /var/www/farmOS/web/sites/simpletest/browser_output
+  && mkdir -p /var/farmOS/web/sites/simpletest/browser_output
 
 # Switch back to the /var/www/html directory as the root user.
 WORKDIR /var/www/html
 USER root
 
-# Copy /var/www/farmOS to /var/www/html.
-RUN rm -r /var/www/html && cp -r /var/www/farmOS /var/www/html
+# Copy /var/farmOS to /var/www/html.
+RUN rm -r /var/www/html && cp -r /var/farmOS /var/www/html
 
 # Install and configure XDebug.
 RUN yes | pecl install xdebug \
