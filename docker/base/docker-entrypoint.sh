@@ -2,9 +2,9 @@
 set -e
 
 ###
-# This entrypoint script will check to see if certain directories were mounted
-# as volumes (and are therefore empty), and will copy files from the pre-built
-# farmOS codebase in /var/farmOS to populate them.
+# This entrypoint script will check to see if certain directories are empty
+# (as is the case when a directory is bind-mounted from the host), and will
+# populate them from the pre-built farmOS codebase in the image.
 ###
 
 # If the /var/www/html directory is empty, populate it from pre-built files.
