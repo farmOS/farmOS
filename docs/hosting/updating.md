@@ -14,18 +14,21 @@ distribution updates are included.
 **Note that automatic updates through Drupal's UI are disabled by farmOS** See
 [https://drupal.org/node/3136140] for more information.
 
-**Security Updates**
-Some security updates can't wait till the next main release of farmOS. 
-So if you got a security warning in your farmOS or 
-read about a important drupal update, you should check if there is a 
-development update for farmOS available (normally released on the same day).
-You can find the development updates at the bottom of 
-[https://drupal.org/project/farm] (the same page as the normal updates) 
-by the headline "Downloads". 
+**Security updates**
 
+Occassionally there will be security updates to Drupal core and contributed
+modules, which will cause the following message to show in farmOS:
 
-**Checking your version**
-You can see your installed version under '/admin/reports/status'. 
+> There is a security update available for your version of Drupal. To ensure the
+> security of your server, you should update immediately! See the
+> **available updates** page for more information.
+
+When these upstream security updates are released, we update them in the
+development branches of farmOS as soon as possible. If the vulnerabilities are
+serious, we will also tag a new version release of farmOS. In many cases, a new
+release is not urgent because the vulnerability does not directly affect farmOS.
+If you would like to update before a new release is available, you can download
+a "[development snapshot]" from Drupal.org.
 
 ## Update procedure
 
@@ -56,6 +59,7 @@ Optionally:
 [https://drupal.org/project/farm]: https://drupal.org/project/farm
 [farmOS on Docker]: /development/docker
 [https://drupal.org/node/3136140]: https://drupal.org/node/3136140
+[development snapshot]: https://www.drupal.org/project/farm/releases/7.x-1.x-dev
 [updating Drupal core]: https://drupal.org/node/1223018
 [Hosting farmOS with Docker]: /hosting/docker
 [Run database updates]: https://drupal.org/upgrade/running-update-php
