@@ -11,6 +11,16 @@ include_once 'farm_sensor_listener.features.inc';
  */
 function farm_sensor_listener_menu() {
   $items = array();
+
+  // Callback for returning a list of sensor value info.
+  $items['farm/sensor/listener/values/%'] = array(
+    'page callback' => 'farm_sensor_listener_values_page_callback',
+    'page arguments' => array(4),
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+
+  // Callback for returning data.
   $items['farm/sensor/listener/%'] = array(
     'page callback' => 'farm_sensor_listener_page_callback',
     'page arguments' => array(3),
@@ -76,6 +86,63 @@ function farm_sensor_listener_mail($key, &$message, $params) {
     $entity_label = htmlspecialchars(entity_label('farm_asset', $params['sensor']));
     $message['body'][] = $entity_label . ': ' . url($uri['path'], array('absolute' => TRUE));
   }
+}
+
+/**
+ * Callback function for returning listener sensor value names via API requests.
+ *
+ * @param $public_key
+ *   The public key of the sensor that is pushing the data.
+ *
+ * The private key should be provided as a URL query string.
+ *
+ * Use HTTPS to encrypt data in transit.
+ *
+ * @return int
+ *   Returns MENU_FOUND or MENU_NOT_FOUND.
+ */
+function farm_sensor_listener_values_page_callback($public_key) {
+
+  // Load the private key from the URL query string.
+  $params = drupal_get_query_parameters();
+
+  // Look up the sensor by it's public key.
+  $sensor = farm_sensor_listener_load($public_key);
+
+  // If no asset was found, bail.
+  if (empty($sensor)) {
+    return MENU_NOT_FOUND;
+  }
+
+  // Bail if not a GET request.
+  if ($_SERVER['REQUEST_METHOD'] != 'GET') {
+    return MENU_ACCESS_DENIED;
+  }
+
+  // If the sensor allows public API read access, proceed.
+  // Otherwise check the private key.
+  if (empty($sensor->sensor_settings['public_api'])) {
+    if (empty($params['private_key']) || $params['private_key'] != $sensor->sensor_settings['private_key']) {
+      return MENU_ACCESS_DENIED;
+    }
+  }
+
+  // Add 'Access-Control-Allow-Origin' header to allow pulling this data into
+  // other domains.
+  /**
+   * @todo
+   * Move this to a more official place, or adopt the CORS module in farmOS.
+   */
+  drupal_add_http_header('Access-Control-Allow-Origin', '*');
+
+  // Get values from the sensor.
+  $data = farm_sensor_listener_values($sensor->id);
+
+  // Return the values as JSON.
+  drupal_json_output($data);
+
+  // Return success.
+  return MENU_FOUND;
 }
 
 /**
