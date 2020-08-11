@@ -45,6 +45,8 @@ This project has been sponsored by:
  * [Foundation for Food and Agriculture Research](https://foundationfar.org/)
  * [PVAMU College of Agriculture and Human Sciences](https://www.pvamu.edu/cahs/)
  * [Rothamsted Research](https://www.rothamsted.ac.uk/)
+ * [OpenTEAM](https://openteam.community)
+ * [Wolfe's Neck Center for Agriculture and the Environment](https://www.wolfesneck.org)
 
 ## CONTRIBUTORS
 
