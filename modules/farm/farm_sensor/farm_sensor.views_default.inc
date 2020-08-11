@@ -42,6 +42,7 @@ function farm_sensor_views_default_views() {
   $handler->display->display_options['style_options']['columns'] = array(
     'views_bulk_operations' => 'views_bulk_operations',
     'id' => 'id',
+    'type' => 'type',
     'name' => 'name',
     'field_farm_description' => 'field_farm_description',
     'field_farm_flags' => 'field_farm_flags',
@@ -60,6 +61,13 @@ function farm_sensor_views_default_views() {
     'id' => array(
       'sortable' => 1,
       'default_sort_order' => 'desc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'type' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -201,6 +209,10 @@ function farm_sensor_views_default_views() {
   $handler->display->display_options['fields']['id']['field'] = 'id';
   $handler->display->display_options['fields']['id']['label'] = 'Asset ID';
   $handler->display->display_options['fields']['id']['separator'] = '';
+  /* Field: Sensor: Sensor type */
+  $handler->display->display_options['fields']['type']['id'] = 'type';
+  $handler->display->display_options['fields']['type']['table'] = 'farm_sensor';
+  $handler->display->display_options['fields']['type']['field'] = 'type';
   /* Field: Farm asset: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
   $handler->display->display_options['fields']['name']['table'] = 'farm_asset';
@@ -278,6 +290,17 @@ function farm_sensor_views_default_views() {
   $handler->display->display_options['filters']['name']['expose']['label'] = 'Name';
   $handler->display->display_options['filters']['name']['expose']['operator'] = 'name_op';
   $handler->display->display_options['filters']['name']['expose']['identifier'] = 'name';
+  /* Filter criterion: Sensor: Sensor type */
+  $handler->display->display_options['filters']['type_1']['id'] = 'type_1';
+  $handler->display->display_options['filters']['type_1']['table'] = 'farm_sensor';
+  $handler->display->display_options['filters']['type_1']['field'] = 'type';
+  $handler->display->display_options['filters']['type_1']['operator'] = 'contains';
+  $handler->display->display_options['filters']['type_1']['group'] = 1;
+  $handler->display->display_options['filters']['type_1']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['type_1']['expose']['operator_id'] = 'type_1_op';
+  $handler->display->display_options['filters']['type_1']['expose']['label'] = 'Sensor type';
+  $handler->display->display_options['filters']['type_1']['expose']['operator'] = 'type_1_op';
+  $handler->display->display_options['filters']['type_1']['expose']['identifier'] = 'sensor_type';
   /* Filter criterion: Field collection item: Movement to (field_farm_move_to) */
   $handler->display->display_options['filters']['field_farm_move_to_tid']['id'] = 'field_farm_move_to_tid';
   $handler->display->display_options['filters']['field_farm_move_to_tid']['table'] = 'field_data_field_farm_move_to';
@@ -384,6 +407,7 @@ function farm_sensor_views_default_views() {
     t('Delete'),
     t('Asset ID'),
     t('.'),
+    t('Sensor type'),
     t('Name'),
     t('Description'),
     t('Flags'),
