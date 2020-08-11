@@ -464,6 +464,49 @@ function farm_sensor_listener_data($id, $name = '', $start = NULL, $end = NULL, 
 }
 
 /**
+ * Fetch distinct info for sensor values from the database.
+ *
+ * @param $id
+ *  The sensor asset id.
+ *
+ * @return array
+ *  Returns an array of info for each distinct value keyed by value name.
+ *    'first': timestamp of data first recorded for this value on the sensor.
+ *    'last': timestamp of data last recorded for this value on the sensor.
+ */
+function farm_sensor_listener_values($id) {
+
+  // Build array of values.
+  $values = array();
+
+  // Query all the distinct value names this sensor has stored.
+  $query = db_select('farm_sensor_data')
+    ->fields('farm_sensor_data', array('name'))
+    ->condition('farm_sensor_data.id', $id)
+    ->groupBy('farm_sensor_data.name');
+
+  // Select the max timestamp for each value name.
+  $query->addExpression('MAX(farm_sensor_data.timestamp)', 'last');
+
+  // Select the min timestamp for each value name.
+  $query->addExpression('MIN(farm_sensor_data.timestamp)', 'first');
+
+  // Execute query.
+  $result = $query->execute();
+
+  // Add each value's info keyed by value name.
+  foreach ($result as $row) {
+    $values[$row->name] = array(
+      'first' => $row->first,
+      'last' => $row->last,
+    );
+  }
+
+  // Return values.
+  return $values;
+}
+
+/**
  * Implements hook_farm_sensor_type_info().
  */
 function farm_sensor_listener_farm_sensor_type_info() {
@@ -634,12 +677,11 @@ function farm_sensor_listener_data_graphs_form($form, &$form_state, $asset) {
     '#collapsed' => TRUE,
   );
 
-  // Query all the distinct value names this sensor has stored.
-  $names = array();
-  $result = db_query('SELECT name FROM {farm_sensor_data} WHERE id = :id GROUP BY name', array(':id' => $asset->id));
-  foreach ($result as $row) {
-    $names[] = $row->name;
-  }
+  // Load distinct sensor value info.
+  $values = farm_sensor_listener_values($asset->id);
+
+  // Load the distinct value names this sensor has stored.
+  $names = array_keys($values);
 
   // Sensor values to display.
   // Default to all distinct values the sensor has stored.
