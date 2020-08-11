@@ -753,7 +753,7 @@ function farm_sensor_listener_data_graphs_form($form, &$form_state, $asset) {
 
     // Don't render a graph if there is no data to display.
     if (empty($data)) {
-      $markup[] = '<div class="farm-sensor-graph alert alert-warning"><p>' . t('No data for "@value" in this date range.', array('@value' => $name)) . '</p></div>';
+      $markup[] = '<div class="farm-sensor-graph"><p>' . t('No data for "@value" in this date range.', array('@value' => $name)) . '</p></div>';
       continue;
     }
 
