@@ -5,9 +5,6 @@
 # Inherit from the Drupal 8 image on Docker Hub.
 FROM drupal:8
 
-# Enable Apache rewrite module.
-RUN a2enmod rewrite
-
 # Install the BCMath PHP extension.
 RUN docker-php-ext-install bcmath
 
