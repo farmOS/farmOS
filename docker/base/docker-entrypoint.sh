@@ -7,16 +7,16 @@ set -e
 # populate them from the pre-built farmOS codebase in the image.
 ###
 
-# If the /var/www/html directory is empty, populate it from pre-built files.
-if [ -d /var/www/html ] && ! [ "$(ls -A /var/www/html/)" ]; then
+# If the Drupal directory is empty, populate it from pre-built files.
+if [ -d /opt/drupal ] && ! [ "$(ls -A /opt/drupal/)" ]; then
   echo "farmOS codebase not detected. Copying from pre-built files in the Docker image."
-  cp -rp /var/farmOS/. /var/www/html
+  cp -rp /var/farmOS/. /opt/drupal
 fi
 
 # If the sites directory is empty, populate it from pre-built files.
-if [ -d /var/www/html/web/sites ] && ! [ "$(ls -A /var/www/html/web/sites/)" ]; then
+if [ -d /opt/drupal/web/sites ] && ! [ "$(ls -A /opt/drupal/web/sites/)" ]; then
   echo "farmOS sites directory not detected. Copying from pre-built files in the Docker image."
-  cp -rp /var/farmOS/web/sites/. /var/www/html/web/sites
+  cp -rp /var/farmOS/web/sites/. /opt/drupal/web/sites
 fi
 
 # Execute the arguments passed into this script.

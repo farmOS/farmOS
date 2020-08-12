@@ -3,6 +3,6 @@ services:
   www:
     image: farmos/farmos:2.x
     volumes:
-      - './sites:/var/www/html/web/sites'
+      - './sites:/opt/drupal/web/sites'
     ports:
       - '80:80'

@@ -65,10 +65,9 @@ RUN apt-get update \
 # Create a directory for the farmOS codebase.
 RUN mkdir /var/farmOS && chown www-data:www-data /var/farmOS
 
-# Configure Apache to use /var/www/html/web as the document root.
-ENV APACHE_DOCUMENT_ROOT=/var/www/html/web
-RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf \
-  && sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+# Create /opt/drupal and symlink /var/www/html to /opt/drupal/web
+# (to mimic upstream drupal:9 image).
+RUN mkdir /opt/drupal && rm -r /var/www/html && ln -s /opt/drupal/web /var/www/html
 
 # Set the entrypoint.
 COPY docker-entrypoint.sh /usr/local/bin/

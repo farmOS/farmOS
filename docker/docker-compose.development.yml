@@ -16,7 +16,7 @@ services:
       - db
     image: farmos/farmos:2.x-dev
     volumes:
-      - './www:/var/www/html'
+      - './www:/opt/drupal'
     ports:
       - '80:80'
     environment:
