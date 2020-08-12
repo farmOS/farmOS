@@ -71,22 +71,15 @@ RUN apt-get update \
 # Set the COMPOSER_MEMORY_LIMIT environment variable to unlimited.
 ENV COMPOSER_MEMORY_LIMIT=-1
 
-# Build the farmOS codebase in /var/farmoS.
-# Generate an empty project from farmos/project, clone the composer-project
-# from a specific repo+revision, replace the farmOS repo+revision within
-# composer.json, and run composer install with --no-dev. Finally, change the
-# ownership of the sites directory and copy the farmOS codebase into
-# /opt/drupal.
-RUN mkdir /var/farmOS && cd /var/farmOS \
-  && git clone ${PROJECT_REPO} project && mv project/.git ./.git && rm -rf project && git checkout ${PROJECT_VERSION} && git reset --hard \
-  && sed -i 's|"repositories": \[|"repositories": \[ {"type": "git", "url": "'"${FARMOS_REPO}"'"},|g' composer.json \
-  && if ! [ "${FARMOS_VERSION}" = "2.x" ]; then \
-    sed -i 's|"farmos/farmos": "2.x-dev"|"farmos/farmos": "dev-'"${FARMOS_VERSION}"'"|g' composer.json; \
-  fi \
-  && export COMPOSER_HOME="$(mktemp -d)" \
-  && composer install --no-dev \
-  && rm -rf "$COMPOSER_HOME" \
-  && chown -R www-data:www-data web/sites \
+# Add the build-farmOS.sh script.
+COPY build-farmOS.sh /usr/local/bin/
+RUN chmod a+x /usr/local/bin/build-farmOS.sh
+
+# Build the farmOS codebase in /var/farmoS with the --no-dev flag.
+# Change the ownership of the sites directory and copy the farmOS codebase into /opt/drupal.
+RUN mkdir /var/farmOS \
+  && /usr/local/bin/build-farmOS.sh --no-dev \
+  && chown -R www-data:www-data /var/farmOS/web/sites \
   && rm -r /opt/drupal && cp -rp /var/farmOS /opt/drupal
 
 # Set the entrypoint.
