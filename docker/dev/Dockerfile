@@ -1,5 +1,5 @@
-# Inherit from the farmOS 2.x base image.
-FROM farmos/farmos:2.x-base
+# Inherit from the farmOS 2.x image.
+FROM farmos/farmos:2.x
 
 # Set the farmOS and composer project repository URLs and versions.
 ARG FARMOS_REPO=https://github.com/farmOS/farmOS.git

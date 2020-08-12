@@ -13,11 +13,9 @@ jobs:
         uses: actions/checkout@master
       - name: Set FARMOS_VERSION environment variable
         run: echo ::set-env name=FARMOS_VERSION::${GITHUB_REF:10}
-      # This builds the dev Docker image using the specified FARMOS_VERSION,
+      # This builds the Docker image using the specified FARMOS_VERSION,
       # but notably it does NOT override the default PROJECT_VERSION, so the
       # farmOS Composer project 2.x branch is always used.
-      - name: Build farmOS base Docker image
-        run: docker build -t farmos/farmos:2.x-base docker/base
       - name: Build farmOS 2.x Docker image
         run: docker build --build-arg FARMOS_REPO=https://github.com/${GITHUB_REPOSITORY} --build-arg FARMOS_VERSION=${FARMOS_VERSION} -t farmos/farmos:2.x docker
       - name: Run farmOS Docker container
