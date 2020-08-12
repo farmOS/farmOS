@@ -9,11 +9,11 @@ a Drupal installation.
 In order to run the `drush` command, you must use `docker exec` to run the
 command inside the farmOS container.
 
-    sudo docker exec -it -u www-data farmos_www_1 vendor/bin/drush
+    sudo docker exec -it -u www-data farmos_www_1 drush
 
 For example, the following will run the `drush cr` command to rebuild caches:
 
-    sudo docker exec -it -u www-data farmos_www_1 vendor/bin/drush cr
+    sudo docker exec -it -u www-data farmos_www_1 drush cr
 
 ## Useful commands
 

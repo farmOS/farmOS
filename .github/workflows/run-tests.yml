@@ -27,4 +27,4 @@ jobs:
       - name: Wait 10 seconds
         run: sleep 10
       - name: Run tests
-        run: sudo docker exec -i -u www-data farmos_www_1 vendor/bin/phpunit --verbose --debug --group farm
+        run: sudo docker exec -i -u www-data farmos_www_1 phpunit --verbose --debug --group farm
