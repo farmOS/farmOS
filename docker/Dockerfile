@@ -71,31 +71,23 @@ RUN apt-get update \
 # Set the COMPOSER_MEMORY_LIMIT environment variable to unlimited.
 ENV COMPOSER_MEMORY_LIMIT=-1
 
-# Create a directory for the farmOS codebase.
-RUN mkdir /var/farmOS && chown www-data:www-data /var/farmOS
-
-# Switch to the /var/farmOS directory as the www-data user.
-WORKDIR /var/farmOS
-USER www-data
-
-# Generate an empty project from farmos/project.
-# Clone the composer-project from a specific repo+revision, replace the farmOS
-# repo+revision within composer.json, and run composer install with --no-dev.
-RUN git clone ${PROJECT_REPO} project && mv project/.git ./.git && rm -rf project && git checkout ${PROJECT_VERSION} && git reset --hard \
+# Build the farmOS codebase in /var/farmoS.
+# Generate an empty project from farmos/project, clone the composer-project
+# from a specific repo+revision, replace the farmOS repo+revision within
+# composer.json, and run composer install with --no-dev. Finally, change the
+# ownership of the sites directory and copy the farmOS codebase into
+# /opt/drupal.
+RUN mkdir /var/farmOS && cd /var/farmOS \
+  && git clone ${PROJECT_REPO} project && mv project/.git ./.git && rm -rf project && git checkout ${PROJECT_VERSION} && git reset --hard \
   && sed -i 's|"repositories": \[|"repositories": \[ {"type": "git", "url": "'"${FARMOS_REPO}"'"},|g' composer.json \
   && if ! [ "${FARMOS_VERSION}" = "2.x" ]; then \
     sed -i 's|"farmos/farmos": "2.x-dev"|"farmos/farmos": "dev-'"${FARMOS_VERSION}"'"|g' composer.json; \
   fi \
   && export COMPOSER_HOME="$(mktemp -d)" \
   && composer install --no-dev \
-  && rm -rf "$COMPOSER_HOME"
-
-# Switch back to the /opt/drupal directory as the root user.
-WORKDIR /opt/drupal
-USER root
-
-# Copy /var/farmOS to /opt/drupal.
-RUN rm -r /opt/drupal && cp -rp /var/farmOS /opt/drupal
+  && rm -rf "$COMPOSER_HOME" \
+  && chown -R www-data:www-data web/sites \
+  && rm -r /opt/drupal && cp -rp /var/farmOS /opt/drupal
 
 # Set the entrypoint.
 COPY docker-entrypoint.sh /usr/local/bin/

@@ -15,41 +15,35 @@ ARG PROJECT_VERSION=2.x
 # as UID 1000 on the host machine. It can be overridden at image build time with:
 # --build-arg WWW_DATA_ID=$(id -u)
 ARG WWW_DATA_ID=1000
-RUN usermod -u ${WWW_DATA_ID} www-data && groupmod -g ${WWW_DATA_ID} www-data \
-  && chown www-data:www-data /var/farmOS
+RUN usermod -u ${WWW_DATA_ID} www-data && groupmod -g ${WWW_DATA_ID} www-data
 
-# Switch to the /var/farmOS directory as the www-data user.
-WORKDIR /var/farmOS
-USER www-data
-
-# Generate an empty project from farmos/project.
-# Clone the composer-project from a specific repo+revision, replace the farmOS
-# repo+revision within composer.json, and run composer install.
-RUN git clone ${PROJECT_REPO} project && mv project/.git ./.git && rm -rf project && git checkout ${PROJECT_VERSION} && git reset --hard \
+# Build the farmOS codebase in /var/farmOS.
+# Generate an empty project from farmos/project, clone the composer-project
+# from a specific repo+revision, replace the farmOS repo+revision within
+# composer.json, and run composer install. Finally, change the ownership of the
+# entier farmOS codebase and copy it into /opt/drupal.
+RUN rm -r /var/farmOS && mkdir /var/farmOS && cd /var/farmOS \
+  && git clone ${PROJECT_REPO} project && mv project/.git ./.git && rm -rf project && git checkout ${PROJECT_VERSION} && git reset --hard \
   && sed -i 's|"repositories": \[|"repositories": \[ {"type": "git", "url": "'"${FARMOS_REPO}"'"},|g' composer.json \
   && if ! [ "${FARMOS_VERSION}" = "2.x" ]; then \
     sed -i 's|"farmos/farmos": "2.x-dev"|"farmos/farmos": "dev-'"${FARMOS_VERSION}"'"|g' composer.json; \
   fi \
   && export COMPOSER_HOME="$(mktemp -d)" \
   && composer install \
-  && rm -rf "$COMPOSER_HOME"
+  && rm -rf "$COMPOSER_HOME" \
+  && chown -R www-data:www-data . \
+  && rm -r /opt/drupal && cp -rp /var/farmOS /opt/drupal
 
 # Configure PHPUnit.
-RUN cp web/core/phpunit.xml.dist phpunit.xml \
+RUN cp -p web/core/phpunit.xml.dist phpunit.xml \
   && sed -i 's|bootstrap="tests/bootstrap.php"|bootstrap="web/core/tests/bootstrap.php"|g' phpunit.xml \
   && sed -i 's|name="SIMPLETEST_BASE_URL" value=""|name="SIMPLETEST_BASE_URL" value="http://localhost"|g' phpunit.xml \
   && sed -i 's|name="SIMPLETEST_DB" value=""|name="SIMPLETEST_DB" value="pgsql://farm:farm@db/farm"|g' phpunit.xml \
   && sed -i 's|name="BROWSERTEST_OUTPUT_DIRECTORY" value=""|name="BROWSERTEST_OUTPUT_DIRECTORY" value="/var/www/html/sites/simpletest/browser_output"|g' phpunit.xml \
   && sed -i 's|\./|\./web/core/|g' phpunit.xml \
   && sed -i 's|\.\./web/core/|\./web/|g' phpunit.xml \
-  && mkdir -p /var/farmOS/web/sites/simpletest/browser_output
-
-# Switch back to the /opt/drupal directory as the root user.
-WORKDIR /opt/drupal
-USER root
-
-# Copy /var/farmOS to /opt/drupal.
-RUN rm -r /opt/drupal && cp -rp /var/farmOS /opt/drupal
+  && mkdir -p /var/farmOS/web/sites/simpletest/browser_output \
+  && chown -R www-data:www-data /var/farmOS/web/sites/simpletest
 
 # Install and configure XDebug.
 RUN yes | pecl install xdebug \
