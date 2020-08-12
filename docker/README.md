@@ -11,7 +11,7 @@ into a new directory on your server, rename it to `docker-compose.yml` and run
 `docker-compose up`.
 
 This example mounts a local `www` directory on the host as a volume in the
-container at `/var/www/html`, which allows for local development with an IDE.
+container at `/opt/drupal`, which allows for local development with an IDE.
 
 ## Production environment
 
@@ -21,7 +21,7 @@ include a database. It is assumed that in production environments the database
 will be managed outside of Docker.
 
 This example mounts a local `sites` directory on the host as a volume in the
-container at `/var/www/html/sites`, which contains the site-specific settings
+container at `/opt/drupal/web/sites`, which contains the site-specific settings
 and uploaded files. This allows a production farmOS instance to be updated by
 simply pulling a new image (and then manually running database updates via Drush
 or `/update.php`). Everything outside of the `sites` directory will not be
