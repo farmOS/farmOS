@@ -59,7 +59,7 @@ WORKDIR /var/www/html
 USER root
 
 # Copy /var/farmOS to /var/www/html.
-RUN rm -r /var/www/html && cp -r /var/farmOS /var/www/html
+RUN rm -r /var/www/html && cp -rp /var/farmOS /var/www/html
 
 # Install and configure XDebug.
 RUN yes | pecl install xdebug \
