@@ -17,6 +17,15 @@ ARG PROJECT_VERSION=2.x
 ARG WWW_DATA_ID=1000
 RUN usermod -u ${WWW_DATA_ID} www-data && groupmod -g ${WWW_DATA_ID} www-data
 
+# Install and configure XDebug.
+RUN yes | pecl install xdebug \
+	&& echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
+  && echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
+  && echo "xdebug.remote_autostart=off" >> /usr/local/etc/php/conf.d/xdebug.ini
+
+# Create a fresh /var/farmOS directory owned by www-data.
+RUN rm -r /var/farmOS && mkdir /var/farmOS && chown www-data:www-data /var/farmOS
+
 # Build the farmOS codebase in /var/farmOS.
 RUN /usr/local/bin/build-farmOS.sh
 
@@ -33,9 +42,3 @@ RUN cp -p /var/farmOS/web/core/phpunit.xml.dist /var/farmOS/phpunit.xml \
 # Change the ownership of the entire farmOS codebase and copy it into /opt/drupal.
 RUN chown -R www-data:www-data /var/farmOS \
   && rm -r /opt/drupal && cp -rp /var/farmOS /opt/drupal
-
-# Install and configure XDebug.
-RUN yes | pecl install xdebug \
-	&& echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
-  && echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
-  && echo "xdebug.remote_autostart=off" >> /usr/local/etc/php/conf.d/xdebug.ini
