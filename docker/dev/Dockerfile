@@ -47,3 +47,6 @@ USER root
 
 # Copy the farmOS codebase into /opt/drupal.
 RUN rm -r /opt/drupal && cp -rp /var/farmOS /opt/drupal
+
+# Create a Composer config directory for the www-data user.
+RUN mkdir /var/www/.composer && chown www-data:www-data /var/www/.composer
