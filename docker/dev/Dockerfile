@@ -26,6 +26,9 @@ RUN yes | pecl install xdebug \
 # Create a fresh /var/farmOS directory owned by www-data.
 RUN rm -r /var/farmOS && mkdir /var/farmOS && chown www-data:www-data /var/farmOS
 
+# Change to the www-data user.
+USER www-data
+
 # Build the farmOS codebase in /var/farmOS.
 RUN /usr/local/bin/build-farmOS.sh
 
@@ -39,6 +42,8 @@ RUN cp -p /var/farmOS/web/core/phpunit.xml.dist /var/farmOS/phpunit.xml \
   && sed -i 's|\.\./web/core/|\./web/|g' /var/farmOS/phpunit.xml \
   && mkdir -p /var/farmOS/web/sites/simpletest/browser_output
 
-# Change the ownership of the entire farmOS codebase and copy it into /opt/drupal.
-RUN chown -R www-data:www-data /var/farmOS \
-  && rm -r /opt/drupal && cp -rp /var/farmOS /opt/drupal
+# Change back to the root user.
+USER root
+
+# Copy the farmOS codebase into /opt/drupal.
+RUN rm -r /opt/drupal && cp -rp /var/farmOS /opt/drupal
