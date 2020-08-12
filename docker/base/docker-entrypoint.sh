@@ -7,14 +7,14 @@ set -e
 # farmOS codebase in /var/farmOS to populate them.
 ###
 
-# If the /var/www/html directory is empty, copy from /var/farmOS.
-if ! [ "$(ls -A /var/www/html/)" ]; then
+# If the /var/www/html directory is empty, populate it from pre-built files.
+if [ -d /var/www/html ] && ! [ "$(ls -A /var/www/html/)" ]; then
   echo "farmOS codebase not detected. Copying from pre-built files in the Docker image."
   cp -rp /var/farmOS/. /var/www/html
 fi
 
-# If the sites directory is empty, copy from /var/farmOS/web/sites.
-if ! [ "$(ls -A /var/www/html/web/sites/)" ]; then
+# If the sites directory is empty, populate it from pre-built files.
+if [ -d /var/www/html/web/sites ] && ! [ "$(ls -A /var/www/html/web/sites/)" ]; then
   echo "farmOS sites directory not detected. Copying from pre-built files in the Docker image."
   cp -rp /var/farmOS/web/sites/. /var/www/html/web/sites
 fi
