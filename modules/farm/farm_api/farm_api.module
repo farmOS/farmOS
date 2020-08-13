@@ -144,7 +144,7 @@ function farm_api_info() {
  * Implements hook_farm_api_farm_info().
  */
 function farm_api_farm_info() {
-  global $base_url, $conf, $user;
+  global $base_url, $conf, $user, $language;
 
   // Include info that requires the farm_info scope.
   $info = array(
@@ -168,6 +168,7 @@ function farm_api_farm_info() {
       'uid' => $user->uid,
       'name' => $user->name,
       'mail' => $user->mail,
+      'language' => $language->language,
     );
   }
   return $info;
