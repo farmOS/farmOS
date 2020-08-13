@@ -72,7 +72,7 @@ enhancements if they are available.
 [requirements of Drupal]: https://drupal.org/requirements
 [Openlayers module]: https://drupal.org/project/openlayers
 [Docker]: /development/docker
-[Google Maps API Key]: /hosting/googlemaps
+[API keys]: /hosting/apikeys
 [OpenStreetMap]: https://www.openstreetmap.org
 [PHP BCMath extension]: http://php.net/manual/en/book.bc.php
 [GEOS - Geometry Engine, Open Source]: https://trac.osgeo.org/geos
