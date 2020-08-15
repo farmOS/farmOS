@@ -24,6 +24,23 @@ function farm_install_tasks(&$install_state) {
 }
 
 /**
+ * Implements hook_install_tasks_alter().
+ */
+function farm_install_tasks_alter(&$tasks, $install_state) {
+
+  // Override install task display names to replace "site" with "farmOS"
+  $alter_display_names = [
+    'install_profile_modules' => t('Install farmOS'),
+    'install_configure_form' => t('Configure farmOS'),
+  ];
+  foreach ($alter_display_names as $task => $display_name) {
+    if (!empty($tasks[$task]['display_name'])) {
+      $tasks[$task]['display_name'] = $display_name;
+    }
+  }
+}
+
+/**
  * Installs farmOS modules via a batch process.
  *
  * @param $install_state
