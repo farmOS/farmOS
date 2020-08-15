@@ -1,0 +1,66 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the farmOS installation profile.
+ */
+
+/**
+ * Implements hook_install_tasks().
+ */
+function farm_install_tasks(&$install_state) {
+
+  // Add tasks for enabling farmOS modules.
+  $tasks = [
+    '\Drupal\farm\Form\FarmModulesForm' => [
+      'display_name' => t('Install modules'),
+      'type' => 'form',
+    ],
+    'farm_install_modules' => [
+      'type' => 'batch',
+    ],
+  ];
+  return $tasks;
+}
+
+/**
+ * Installs farmOS modules via a batch process.
+ *
+ * @param $install_state
+ *   An array of information about the current installation state.
+ *
+ * @return array
+ *   The batch definition.
+ */
+function farm_install_modules(&$install_state) {
+
+  // Load the list of modules that should be installed. This state is set by
+  // the \Drupal\farm\Form\FarmModulesForm submit method.
+  $modules = \Drupal::state()->get('farm.install_modules') ?: [];
+
+  // Load a list of all available modules, so that we can display their names.
+  $files = \Drupal::service('extension.list.module')->getList();
+
+  // Assemble the batch operation for installing modules.
+  $operations = [];
+  foreach ($modules as $module => $weight) {
+    $operations[] = ['_farm_install_module_batch', [$module, $files[$module]->info['name']]];
+  }
+  $batch = [
+    'operations' => $operations,
+    'title' => t('Installing @drupal modules', ['@drupal' => drupal_install_profile_distribution_name()]),
+    'error_message' => t('The installation has encountered an error.'),
+  ];
+  return $batch;
+}
+
+/**
+ * Implements callback_batch_operation().
+ *
+ * Performs batch installation of farmOS modules.
+ */
+function _farm_install_module_batch($module, $module_name, &$context) {
+  \Drupal::service('module_installer')->install([$module], TRUE);
+  $context['results'][] = $module;
+  $context['message'] = t('Installed %module module.', ['%module' => $module_name]);
+}
