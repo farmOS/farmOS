@@ -1,7 +1,7 @@
 name: Medical log
 description: Adds a Medical log type.
 type: module
-package: farmOS
+package: farmOS Logs
 core_version_requirement: ^9
 dependencies:
   - farm:farm_field
