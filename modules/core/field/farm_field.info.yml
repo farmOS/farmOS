@@ -6,4 +6,5 @@ core_version_requirement: ^9
 dependencies:
   - drupal:field
   - drupal:text
+  - farm:farm_log_category
   - log:log
