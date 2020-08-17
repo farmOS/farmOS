@@ -20,7 +20,11 @@ Some common Composer tasks are documented here.
 
 ### Updating dependencies
 
-    composer update
+    composer update [package-name]
+
+**Warning**: If `composer update farmos/farmos` is run, it will replace the
+Git repository in `web/profiles/farm`, discarding all
+changes/branches/remotes/etc.
 
 ### Adding a module
 
