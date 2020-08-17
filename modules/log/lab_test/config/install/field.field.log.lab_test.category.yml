@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.log.category
+    - log.type.lab_test
+    - taxonomy.vocabulary.log_category
+id: log.lab_test.category
+field_name: category
+entity_type: log
+bundle: lab_test
+label: 'Log category'
+description: 'Use this to organize your logs into categories for easier searching and filtering later.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      log_category: log_category
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
