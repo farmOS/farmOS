@@ -38,3 +38,9 @@ need to manually move the `require` line from the root `composer.json` to
 `web/profiles/farm/composer.json` and commit it to that repository.
 
 To install the module, use [Drush](/development/drush).
+
+## Notes
+
+- `Could not delete /var/www/html/web/sites/default/default.settings.php`
+  See https://www.drupal.org/docs/develop/using-composer/starting-a-site-using-drupal-composer-project-templates#s-troubleshooting-permission-issues-prevent-running-composer
+
