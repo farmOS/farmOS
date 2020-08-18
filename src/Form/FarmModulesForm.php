@@ -38,10 +38,10 @@ class FarmModulesForm extends FormBase {
 
     // Module checkboxes.
     $form['modules'] = [
-      '#title' => t('farmOS Modules'),
+      '#title' => $this->t('farmOS Modules'),
       '#title_display' => 'invisible',
       '#type' => 'checkboxes',
-      '#description' => t('Select the farmOS modules that you would like installed by default.'),
+      '#description' => $this->t('Select the farmOS modules that you would like installed by default.'),
       '#options' => $module_options,
       '#default_value' => $module_defaults,
     ];
