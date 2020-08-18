@@ -43,13 +43,13 @@ function farm_install_tasks_alter(&$tasks, $install_state) {
 /**
  * Installs farmOS modules via a batch process.
  *
- * @param $install_state
+ * @param array $install_state
  *   An array of information about the current installation state.
  *
  * @return array
  *   The batch definition.
  */
-function farm_install_modules(&$install_state) {
+function farm_install_modules(array &$install_state) {
 
   // Load the list of modules that should be installed. This state is set by
   // the \Drupal\farm\Form\FarmModulesForm submit method.
