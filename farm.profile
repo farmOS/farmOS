@@ -2,7 +2,7 @@
 
 /**
  * @file
- * farmOS installation profile.
+ * General functions for the farmOS installation profile.
  */
 
 /**

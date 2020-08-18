@@ -6,7 +6,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * farmOS modules form.
+ * Form for selecting farmOS modules to install.
  *
  * @ingroup farm
  */

@@ -28,7 +28,7 @@ function farm_install_tasks(&$install_state) {
  */
 function farm_install_tasks_alter(&$tasks, $install_state) {
 
-  // Override install task display names to replace "site" with "farmOS"
+  // Override install task display names to replace "site" with "farmOS".
   $alter_display_names = [
     'install_profile_modules' => t('Install farmOS'),
     'install_configure_form' => t('Configure farmOS'),
