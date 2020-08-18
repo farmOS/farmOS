@@ -26,5 +26,7 @@ jobs:
         run: sudo docker-compose up -d
       - name: Wait 10 seconds
         run: sleep 10
-      - name: Run tests
+      - name: Run PHPUnit tests
         run: sudo docker exec -i -u www-data farmos_www_1 phpunit --verbose --debug --group farm
+      - name: Run PHP CodeSniffer
+        run: sudo docker exec -i -u www-data farmos_www_1 phpcs /opt/drupal/web/profiles/farm
