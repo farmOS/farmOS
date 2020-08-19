@@ -5,6 +5,10 @@ would like to write about farmOS, [contact m.stenta](https://farmier.com/contact
 
 ## 2020
 
+**2020 August 17th** [North Queensland Register: Agtech companies told to adopt 'sharing attitude' to their technology](https://www.northqueenslandregister.com.au/story/6881602/pull-down-the-walls-around-agtech-says-nuffield-scholar)
+
+**2020 August** [Nuffield Australia Report: If you want to go far, go together - The future of open source agtech](https://nuffieldinternational.org/live/Report/AU/2019/andrew-sargent)
+
 **2020 July 23rd** [Free Software Foundation: People everywhere are standing up for free software](https://www.fsf.org/blogs/community/people-everywhere-are-standing-up-for-free-software)
 
 **2020 July 7th** [OpenTEAM News: Growing community and capacity for interoperability](https://mailchi.mp/119ed19b5c3b/openteam-news-growing-community-and-capacity-for-interoperability)
