@@ -4,13 +4,41 @@ namespace Drupal\farm\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\State\StateInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * farmOS modules form.
+ * Form for selecting farmOS modules to install.
  *
  * @ingroup farm
  */
 class FarmModulesForm extends FormBase {
+
+  /**
+   * The state keyvalue collection.
+   *
+   * @var \Drupal\Core\State\StateInterface
+   */
+  protected $state;
+
+  /**
+   * Constructs a new FarmModulesForm.
+   *
+   * @param \Drupal\Core\State\StateInterface $state
+   *   The state keyvalue collection to use.
+   */
+  public function __construct(StateInterface $state) {
+    $this->state = $state;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('state'),
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -38,10 +66,10 @@ class FarmModulesForm extends FormBase {
 
     // Module checkboxes.
     $form['modules'] = [
-      '#title' => t('farmOS Modules'),
+      '#title' => $this->t('farmOS Modules'),
       '#title_display' => 'invisible',
       '#type' => 'checkboxes',
-      '#description' => t('Select the farmOS modules that you would like installed by default.'),
+      '#description' => $this->t('Select the farmOS modules that you would like installed by default.'),
       '#options' => $module_options,
       '#default_value' => $module_defaults,
     ];
@@ -62,7 +90,7 @@ class FarmModulesForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $modules = array_filter($form_state->getValue('modules'));
-    \Drupal::state()->set('farm.install_modules', $modules);
+    $this->state->set('farm.install_modules', $modules);
   }
 
 }

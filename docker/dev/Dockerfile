@@ -32,6 +32,22 @@ USER www-data
 # Build the farmOS codebase in /var/farmOS.
 RUN /usr/local/bin/build-farmOS.sh
 
+# Configure PHP CodeSniffer.
+RUN { \
+    echo '<?xml version="1.0" encoding="UTF-8"?>'; \
+    echo '<ruleset name="farmOS">'; \
+    echo '  <description>PHP CodeSniffer configuration for farmOS development.</description>'; \
+    echo '  <file>.</file>'; \
+    echo '  <arg name="extensions" value="php,module,inc,install,test,profile,theme,css,info,txt,yml"/>'; \
+    echo '  <config name="drupal_core_version" value="9"/>'; \
+    echo '  <rule ref="Drupal">'; \
+    echo '    <exclude name="Drupal.InfoFiles.AutoAddedKeys.Version"/>'; \
+    echo '  </rule>'; \
+    echo '  <rule ref="DrupalPractice"/>'; \
+    echo '</ruleset>'; \
+  } > /var/farmOS/phpcs.xml \
+  && /var/farmOS/vendor/bin/phpcs --config-set installed_paths /var/farmOS/vendor/drupal/coder/coder_sniffer
+
 # Configure PHPUnit.
 RUN cp -p /var/farmOS/web/core/phpunit.xml.dist /var/farmOS/phpunit.xml \
   && sed -i 's|bootstrap="tests/bootstrap.php"|bootstrap="web/core/tests/bootstrap.php"|g' /var/farmOS/phpunit.xml \
