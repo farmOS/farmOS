@@ -21,9 +21,14 @@ git checkout ${PROJECT_VERSION}
 git reset --hard
 
 # Replace the farmOS repository and version in composer.json.
-# If the farmOS version is not "2.x", then prepend it with "dev-".
+# If FARMOS_VERSION is a valid semantic versioning string, we assume that it is
+# a tagged version, and replace the entire version string in composer.json.
+# Or, if FARMOS_VERSION is not "2.x", we assume that it is a branch, and
+# prepend it with "dev-". Otherwise (FARMOS_VERSION is "2.x"), do nothing.
 sed -i 's|"repositories": \[|"repositories": \[ {"type": "git", "url": "'"${FARMOS_REPO}"'"},|g' composer.json
-if ! [ "${FARMOS_VERSION}" = "2.x" ]; then
+if [[ "${FARMOS_VERSION}" =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-((0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*))*))?(\+([0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*))?$ ]]; then
+  sed -i 's|"farmos/farmos": "2.x-dev"|"farmos/farmos": "'"${FARMOS_VERSION}"'"|g' composer.json
+elif ! [ "${FARMOS_VERSION}" = "2.x" ]; then
   sed -i 's|"farmos/farmos": "2.x-dev"|"farmos/farmos": "dev-'"${FARMOS_VERSION}"'"|g' composer.json
 fi
 
