@@ -57,6 +57,13 @@ RUN { \
     echo 'realpath_cache_ttl=3600'; \
   } > /usr/local/etc/php/conf.d/realpath_cache-recommended.ini
 
+# Set recommended OPcache for maximum performance in Symfony applications.
+# See https://symfony.com/doc/current/performance.html#configure-opcache-for-maximum-performance
+# @todo
+# Remove this when https://github.com/docker-library/drupal/pull/156 is merged.
+RUN sed -i 's|opcache.memory_consumption=128|opcache.memory_consumption=256|g' /usr/local/etc/php/conf.d/opcache-recommended.ini \
+  && sed -i 's|opcache.max_accelerated_files=4000|opcache.max_accelerated_files=20000|g' /usr/local/etc/php/conf.d/opcache-recommended.ini
+
 # Install postgresql-client so Drush can connect to the database.
 RUN apt-get update \
   # See https://stackoverflow.com/questions/51033689/how-to-fix-error-on-postgres-install-ubuntu
