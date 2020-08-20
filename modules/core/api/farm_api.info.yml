@@ -6,3 +6,4 @@ core_version_requirement: ^9
 dependencies:
   - config_rewrite:config_rewrite
   - drupal:jsonapi
+  - jsonapi_extras:jsonapi_extras
