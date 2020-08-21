@@ -231,7 +231,7 @@ function farm_soil_compost_views_default_views() {
   $handler->display->display_options['fields']['field_farm_description']['table'] = 'field_data_field_farm_description';
   $handler->display->display_options['fields']['field_farm_description']['field'] = 'field_farm_description';
   $handler->display->display_options['fields']['field_farm_description']['alter']['trim_whitespace'] = TRUE;
-  $handler->display->display_options['fields']['field_farm_description']['alter']['max_length'] = '140';
+  $handler->display->display_options['fields']['field_farm_description']['alter']['max_length'] = '280';
   $handler->display->display_options['fields']['field_farm_description']['alter']['strip_tags'] = TRUE;
   $handler->display->display_options['fields']['field_farm_description']['alter']['trim'] = TRUE;
   /* Field: Field: Flags */

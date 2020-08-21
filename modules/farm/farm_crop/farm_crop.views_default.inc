@@ -476,7 +476,7 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['field_farm_notes']['table'] = 'field_data_field_farm_notes';
   $handler->display->display_options['fields']['field_farm_notes']['field'] = 'field_farm_notes';
   $handler->display->display_options['fields']['field_farm_notes']['alter']['trim_whitespace'] = TRUE;
-  $handler->display->display_options['fields']['field_farm_notes']['alter']['max_length'] = '140';
+  $handler->display->display_options['fields']['field_farm_notes']['alter']['max_length'] = '280';
   $handler->display->display_options['fields']['field_farm_notes']['alter']['strip_tags'] = TRUE;
   $handler->display->display_options['fields']['field_farm_notes']['alter']['trim'] = TRUE;
   /* Field: Field: Flags */
@@ -1048,7 +1048,7 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['field_farm_notes']['table'] = 'field_data_field_farm_notes';
   $handler->display->display_options['fields']['field_farm_notes']['field'] = 'field_farm_notes';
   $handler->display->display_options['fields']['field_farm_notes']['alter']['trim_whitespace'] = TRUE;
-  $handler->display->display_options['fields']['field_farm_notes']['alter']['max_length'] = '140';
+  $handler->display->display_options['fields']['field_farm_notes']['alter']['max_length'] = '280';
   $handler->display->display_options['fields']['field_farm_notes']['alter']['strip_tags'] = TRUE;
   $handler->display->display_options['fields']['field_farm_notes']['alter']['trim'] = TRUE;
   /* Field: Field: Flags */
@@ -1570,7 +1570,7 @@ function farm_crop_views_default_views() {
   $handler->display->display_options['fields']['field_farm_description']['table'] = 'field_data_field_farm_description';
   $handler->display->display_options['fields']['field_farm_description']['field'] = 'field_farm_description';
   $handler->display->display_options['fields']['field_farm_description']['alter']['trim_whitespace'] = TRUE;
-  $handler->display->display_options['fields']['field_farm_description']['alter']['max_length'] = '140';
+  $handler->display->display_options['fields']['field_farm_description']['alter']['max_length'] = '280';
   $handler->display->display_options['fields']['field_farm_description']['alter']['strip_tags'] = TRUE;
   $handler->display->display_options['fields']['field_farm_description']['alter']['trim'] = TRUE;
   /* Field: Field: Flags */
