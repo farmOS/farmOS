@@ -41,6 +41,47 @@ function farm_soil_test_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-farm_soil_test-field_farm_asset'.
+  $field_instances['log-farm_soil_test-field_farm_asset'] = array(
+    'bundle' => 'farm_soil_test',
+    'deleted' => 0,
+    'description' => 'What assets do this soil test log pertain to?',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'entityreference',
+        'settings' => array(
+          'bypass_access' => 0,
+          'link' => 1,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 4,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_farm_asset',
+    'label' => 'Assets',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference_view_widget',
+      'settings' => array(
+        'allow_duplicates' => 0,
+        'close_modal' => 1,
+        'pass_argument' => 1,
+        'pass_arguments' => '',
+        'rendered_entity' => 0,
+        'view' => 'farm_asset_entityreference_view|entityreference_view_widget',
+        'view_mode' => 'full',
+      ),
+      'type' => 'entityreference_view_widget',
+      'weight' => 15,
+    ),
+  );
+
   // Exported field_instance: 'log-farm_soil_test-field_farm_files'.
   $field_instances['log-farm_soil_test-field_farm_files'] = array(
     'bundle' => 'farm_soil_test',
@@ -53,7 +94,7 @@ function farm_soil_test_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_table',
-        'weight' => 11,
+        'weight' => 12,
       ),
     ),
     'entity_type' => 'log',
@@ -74,7 +115,7 @@ function farm_soil_test_field_default_field_instances() {
         'progress_indicator' => 'bar',
       ),
       'type' => 'file_mfw',
-      'weight' => 7,
+      'weight' => 18,
     ),
   );
 
@@ -90,7 +131,7 @@ function farm_soil_test_field_default_field_instances() {
         'module' => 'list',
         'settings' => array(),
         'type' => 'list_default',
-        'weight' => 7,
+        'weight' => 8,
       ),
     ),
     'entity_type' => 'log',
@@ -183,7 +224,7 @@ function farm_soil_test_field_default_field_instances() {
           'colorbox_node_style_first' => 'large',
         ),
         'type' => 'colorbox',
-        'weight' => 10,
+        'weight' => 11,
       ),
     ),
     'entity_type' => 'log',
@@ -209,7 +250,7 @@ function farm_soil_test_field_default_field_instances() {
         'progress_indicator' => 'bar',
       ),
       'type' => 'image_miw',
-      'weight' => 6,
+      'weight' => 17,
     ),
   );
 
@@ -225,7 +266,7 @@ function farm_soil_test_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 8,
+        'weight' => 9,
       ),
     ),
     'entity_type' => 'log',
@@ -259,7 +300,7 @@ function farm_soil_test_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 9,
+        'weight' => 10,
       ),
     ),
     'entity_type' => 'log',
@@ -290,7 +331,7 @@ function farm_soil_test_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 6,
+        'weight' => 7,
       ),
     ),
     'entity_type' => 'log',
@@ -326,7 +367,7 @@ function farm_soil_test_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 5,
+        'weight' => 6,
       ),
     ),
     'entity_type' => 'log',
@@ -357,7 +398,7 @@ function farm_soil_test_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 4,
+        'weight' => 5,
       ),
     ),
     'entity_type' => 'log',
@@ -417,6 +458,7 @@ function farm_soil_test_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Add flags to this log to enable better sorting and filtering of records.');
   t('Areas');
+  t('Assets');
   t('Assigned to');
   t('Files');
   t('Flags');
@@ -433,6 +475,7 @@ function farm_soil_test_field_default_field_instances() {
   t('Use the map to pinpoint the location(s) from which this sample is taken. If you are preparing a soil test, you may be sampling multiple points within a given area. All the points that comprise this sample should be included.');
   t('Use this to organize your logs into categories for easier searching and filtering later.');
   t('What areas is this sample being taken from?');
+  t('What assets do this soil test log pertain to?');
   t('What laboratory performed the soil test?');
 
   return $field_instances;
