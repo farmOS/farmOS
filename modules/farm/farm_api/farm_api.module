@@ -171,6 +171,20 @@ function farm_api_farm_info() {
       'language' => $language->language,
     );
   }
+
+  // Include list of installed languages.
+  $languages = language_list();
+  foreach ($languages as $langcode => $language) {
+    if (!empty($language->enabled)) {
+      $info['languages'][$langcode] = array(
+        'language' => $language->language,
+        'name' => $language->name,
+        'native' => $language->native,
+        'direction' => $language->direction,
+      );
+    }
+  }
+
   return $info;
 }
 
