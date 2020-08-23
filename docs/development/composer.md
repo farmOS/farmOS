@@ -10,9 +10,9 @@ command inside the farmOS container.
 
     sudo docker exec -it -u www-data farmos_www_1 composer
 
-For example, the following will run the `composer update` command:
+For example, the following will run the `composer help` command:
 
-    sudo docker exec -it -u www-data farmos_www_1 composer update
+    sudo docker exec -it -u www-data farmos_www_1 composer help
 
 ## Common tasks
 
