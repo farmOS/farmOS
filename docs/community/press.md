@@ -82,6 +82,8 @@ Global Collaborative Launches OpenTEAM to Address Soil Health and Mitigate Clima
 
 **2018 February 6th** [Wolfe's Neck Center: Research Director, Dorn Cox, Receives Bennett Award](https://www.wolfesneck.org/blog/research-director-dorn-cox-receives-bennett-award)
 
+**2018 January 22nd** [High Mowing Organic Seeds: Crop Planning and Adaptation: How to Plan for Change to Achieve Success](https://www.highmowingseeds.com/blog/crop-planning-and-adaptation)
+
 ## 2017
 
 **2017** [SARE - Progress report: Community benchmarks for productivity and profitability for diversified pastured livestock farmers](https://projects.sare.org/project-reports/one17-294/)
