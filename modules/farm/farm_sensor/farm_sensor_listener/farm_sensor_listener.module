@@ -221,6 +221,13 @@ function farm_sensor_listener_page_callback($public_key) {
      */
     drupal_add_http_header('Access-Control-Allow-Origin', '*');
 
+    // If value summary info is requested, output it and return success.
+    if (!empty($params['summary'])) {
+      $data = farm_sensor_listener_values_info($sensor->id);
+      drupal_json_output($data);
+      return MENU_FOUND;
+    }
+
     // If the 'name' parameter is set, filter by name.
     $name = '';
     if (!empty($params['name'])) {
