@@ -185,7 +185,7 @@ function farm_sensor_listener_page_callback($public_key) {
 
     // If the 'limit' parameter is set, limit the number of results.
     $limit = 1;
-    if (!empty($params['limit'])) {
+    if (!is_null($params['limit'])) {
       $limit = $params['limit'];
     }
 
