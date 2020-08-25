@@ -122,6 +122,8 @@ projects[restws][patch][] = "http://www.drupal.org/files/issues/2020-05-31/23012
 projects[restws][patch][] = "http://www.drupal.org/files/issues/2020-07-23/3161113-6.patch"
 ; Fix Issue #3161965: Don't perform CSRF validation if Bearer token is provided.
 projects[restws][patch][] = "http://www.drupal.org/files/issues/2020-07-28/3161965-2.patch"
+; Fix Issue #3167072: Deprecated function: implode(): Passing glue string after array is deprecated. Swap the parameters in _restws_determine_router_item()
+projects[restws][patch][] = "http://www.drupal.org/files/issues/2020-08-24/3167072-2.patch"
 
 projects[restws_field_collection][subdir] = "contrib"
 projects[restws_field_collection][version] = "1.1"
