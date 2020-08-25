@@ -172,7 +172,7 @@ function farm_sensor_listener_values_page_callback($public_key) {
  *   the database, for accurate precision.
  *
  * @return int
- *   Returns MENU_FOUND or MENU_NOT_FOUND.
+ *   Returns MENU_FOUND, MENU_ACCESS_DENIED, or MENU_NOT_FOUND.
  */
 function farm_sensor_listener_page_callback($public_key) {
 
@@ -256,6 +256,9 @@ function farm_sensor_listener_page_callback($public_key) {
 
     // Return the latest readings as JSON.
     drupal_json_output($data);
+
+    // Return success.
+    return MENU_FOUND;
   }
 
   // Return success and do nothing on all other request types.
