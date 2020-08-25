@@ -712,8 +712,8 @@ function farm_sensor_listener_data_graphs_form($form, &$form_state, $asset) {
     '#default_value' => $names,
   );
 
-  // Provide a default date in the format YYYY-MM-DD.
-  $format = 'Y-m-d';
+  // Provide a default date in the format YYYY-MM-DD HH-MM-SS.
+  $format = 'Y-m-d H:i:s';
 
   // Get the latest timestamp data from saved data
   // or default to current time.
