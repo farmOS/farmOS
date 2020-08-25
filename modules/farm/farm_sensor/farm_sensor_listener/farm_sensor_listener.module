@@ -135,8 +135,8 @@ function farm_sensor_listener_values_page_callback($public_key) {
    */
   drupal_add_http_header('Access-Control-Allow-Origin', '*');
 
-  // Get values from the sensor.
-  $data = farm_sensor_listener_values($sensor->id);
+  // Get values summary info from the sensor.
+  $data = farm_sensor_listener_values_info($sensor->id);
 
   // Return the values as JSON.
   drupal_json_output($data);
@@ -534,7 +534,7 @@ function farm_sensor_listener_data($id, $name = '', $start = NULL, $end = NULL, 
 }
 
 /**
- * Fetch distinct info for sensor values from the database.
+ * Fetch summary info about sensor values from the database.
  *
  * @param $id
  *  The sensor asset id.
@@ -544,7 +544,7 @@ function farm_sensor_listener_data($id, $name = '', $start = NULL, $end = NULL, 
  *    'first': timestamp of data first recorded for this value on the sensor.
  *    'last': timestamp of data last recorded for this value on the sensor.
  */
-function farm_sensor_listener_values($id) {
+function farm_sensor_listener_values_info($id) {
 
   // Build array of values.
   $values = array();
@@ -748,7 +748,7 @@ function farm_sensor_listener_data_graphs_form($form, &$form_state, $asset) {
   );
 
   // Load distinct sensor value info.
-  $values = farm_sensor_listener_values($asset->id);
+  $values = farm_sensor_listener_values_info($asset->id);
 
   // Load the distinct value names this sensor has stored.
   $names = array_keys($values);
