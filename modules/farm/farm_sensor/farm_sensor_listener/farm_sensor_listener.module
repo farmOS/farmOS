@@ -466,9 +466,10 @@ function farm_sensor_listener_process_notifications($sensor, $data_name, $value)
  * @param $end
  *   Filter data to timestamps less than or equal to this end timestamp.
  * @param $limit
- *   The number of results to return.
+ *   The number of results to return. Defaults to 1. If this is 0, no limit will
+ *   be applied.
  * @param $offset
- *   The value to start at.
+ *   The value to start at, used in combination with $limit.
  *
  * @return array
  *   Returns an array of data.
@@ -498,9 +499,8 @@ function farm_sensor_listener_data($id, $name = '', $start = NULL, $end = NULL, 
   // Order by timestamp descending.
   $query->orderBy('fsd.timestamp', 'DESC');
 
-  // Limit the results.
-  // Don't apply a range if both offset and limit are NULL.
-  if (!empty($offset) && !empty($limit)) {
+  // Limit the results, if $limit is not empty.
+  if (!empty($limit)) {
     $query->range($offset, $limit);
   }
 
@@ -816,7 +816,7 @@ function farm_sensor_listener_data_graphs_form($form, &$form_state, $asset) {
     $id = drupal_html_id('sensor-data-' . $name);
 
     // Load data.
-    $data = farm_sensor_listener_data($asset->id, $name, strtotime($filters['start_date']), strtotime($filters['end_date']), NULL, NULL);
+    $data = farm_sensor_listener_data($asset->id, $name, strtotime($filters['start_date']), strtotime($filters['end_date']), 0);
 
     // Don't render a graph if there is no data to display.
     if (empty($data)) {
