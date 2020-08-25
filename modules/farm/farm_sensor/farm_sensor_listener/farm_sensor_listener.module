@@ -694,6 +694,11 @@ function farm_sensor_listener_data_graphs_form($form, &$form_state, $asset) {
   // Load distinct sensor value info.
   $values = farm_sensor_listener_values_info($asset->id);
 
+  // Don't display the graph fieldset if the sensor has no data.
+  if (empty($values)) {
+    return array();
+  }
+
   // Load the distinct value names this sensor has stored.
   $names = array_keys($values);
 
