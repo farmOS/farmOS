@@ -156,8 +156,10 @@ function farm_sensor_listener_page_callback($public_key) {
      */
     drupal_add_http_header('Access-Control-Allow-Origin', '*');
 
-    // If value summary info is requested, output it and return success.
-    if (!empty($params['summary'])) {
+    // If the path includes "/summary" after the public key, output value
+    // summary info and return success.
+    $args = func_get_args();
+    if (!empty($args[1]) && $args[1] == 'summary') {
       $data = farm_sensor_listener_values_info($sensor->id);
       drupal_json_output($data);
       return MENU_FOUND;
