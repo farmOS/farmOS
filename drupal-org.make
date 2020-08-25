@@ -39,7 +39,7 @@ projects[features][subdir] = "contrib"
 projects[features][version] = "2.11"
 
 projects[feeds][subdir] = "contrib"
-projects[feeds][version] = "2.0-beta4"
+projects[feeds][version] = "2.0-beta5"
 ; Issue #1428096: Import using label of list field succeeds, but item not selected in list field
 projects[feeds][patch][] = "http://www.drupal.org/files/issues/feeds-map-to-allowed-value-1428096-8.patch"
 
@@ -144,7 +144,7 @@ projects[views][subdir] = "contrib"
 projects[views][version] = "3.24"
 
 projects[views_bulk_operations][subdir] = "contrib"
-projects[views_bulk_operations][version] = "3.5"
+projects[views_bulk_operations][version] = "3.6"
 
 projects[views_data_export][subdir] = "contrib"
 projects[views_data_export][version] = "3.2"
@@ -158,7 +158,7 @@ projects[views_tree][version] = "2.x-dev"
 projects[views_tree][patch][] = "http://www.drupal.org/files/issues/2020-04-15/3128036-2.patch"
 
 projects[xautoload][subdir] = "contrib"
-projects[xautoload][version] = "5.7"
+projects[xautoload][version] = "5.8"
 
 ; -----------------------------------------------------------------------------
 ; Modules (Development)
