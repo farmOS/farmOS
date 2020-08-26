@@ -86,8 +86,11 @@ function hook_farm_access_perms($role) {
   // Grant the 'view mymodule records' permission to all roles.
   $perms[] = 'view mymodule records';
 
-  // Grant the 'configure mymodule' permission to Farm Managers.
-  if ($role == 'farm_manager') {
+  // Load the list of farm roles.
+  $roles = farm_access_roles();
+
+  // Grant the 'configure mymodule' permission to roles with config access.
+  if (!empty($roles[$role]['access']['config'])) {
     $perms[] = 'configure mymodule';
   }
 
