@@ -512,6 +512,9 @@ function farm_sensor_listener_values_info($id) {
     ->condition('farm_sensor_data.id', $id)
     ->groupBy('farm_sensor_data.name');
 
+  // Select the total record count for each value name.
+  $query->addExpression('COUNT(farm_sensor_data.timestamp)', 'count');
+
   // Select the max timestamp for each value name.
   $query->addExpression('MAX(farm_sensor_data.timestamp)', 'last');
 
@@ -524,6 +527,7 @@ function farm_sensor_listener_values_info($id) {
   // Add each value's info keyed by value name.
   foreach ($result as $row) {
     $values[$row->name] = array(
+      'count' => $row->count,
       'first' => $row->first,
       'last' => $row->last,
     );
