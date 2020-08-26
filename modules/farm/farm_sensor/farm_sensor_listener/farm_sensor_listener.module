@@ -187,6 +187,19 @@ function farm_sensor_listener_page_callback($public_key) {
     $limit = 1;
     if (isset($params['limit'])) {
       $limit = $params['limit'];
+
+      // On second thought... only allow 100k max data points. Otherwise, it's
+      // possible to exhaust PHP's memory, which is a potential DDoS vector.
+      // If the requested limit is 0, set it to the max automatically.
+      // If more than the max is specified, return a 422 error code.
+      $max = 100000;
+      if ($limit == 0) {
+        $limit = $max;
+      }
+      elseif ($limit > $max) {
+        drupal_add_http_header('Status', '422 Unprocessable Entity: exceeds max limit of ' . $max);
+        return MENU_FOUND;
+      }
     }
 
     // If the 'offset' parameter is set, offset the results.
