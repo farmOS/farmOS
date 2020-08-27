@@ -11,6 +11,8 @@ include_once 'farm_sensor_listener.features.inc';
  */
 function farm_sensor_listener_menu() {
   $items = array();
+
+  // Callback for returning data.
   $items['farm/sensor/listener/%'] = array(
     'page callback' => 'farm_sensor_listener_page_callback',
     'page arguments' => array(3),
@@ -105,7 +107,7 @@ function farm_sensor_listener_mail($key, &$message, $params) {
  *   the database, for accurate precision.
  *
  * @return int
- *   Returns MENU_FOUND or MENU_NOT_FOUND.
+ *   Returns MENU_FOUND, MENU_ACCESS_DENIED, or MENU_NOT_FOUND.
  */
 function farm_sensor_listener_page_callback($public_key) {
 
@@ -154,33 +156,55 @@ function farm_sensor_listener_page_callback($public_key) {
      */
     drupal_add_http_header('Access-Control-Allow-Origin', '*');
 
+    // If the path includes "/summary" after the public key, output value
+    // summary info and return success.
+    $args = func_get_args();
+    if (isset($args[1]) && $args[1] == 'summary') {
+      $data = farm_sensor_listener_values_info($sensor->id);
+      drupal_json_output($data);
+      return MENU_FOUND;
+    }
+
     // If the 'name' parameter is set, filter by name.
     $name = '';
-    if (!empty($params['name'])) {
+    if (isset($params['name'])) {
       $name = $params['name'];
     }
 
     // If the 'start' parameter is set, limit results to timestamps after it.
     $start = NULL;
-    if (!empty($params['start'])) {
+    if (isset($params['start'])) {
       $start = $params['start'];
     }
 
     // If the 'end' parameter is set, limit to results before it.
     $end = NULL;
-    if (!empty($params['end'])) {
+    if (isset($params['end'])) {
       $end = $params['end'];
     }
 
     // If the 'limit' parameter is set, limit the number of results.
     $limit = 1;
-    if (!empty($params['limit'])) {
+    if (isset($params['limit'])) {
       $limit = $params['limit'];
+
+      // On second thought... only allow 100k max data points. Otherwise, it's
+      // possible to exhaust PHP's memory, which is a potential DDoS vector.
+      // If the requested limit is 0, set it to the max automatically.
+      // If more than the max is specified, return a 422 error code.
+      $max = 100000;
+      if ($limit == 0) {
+        $limit = $max;
+      }
+      elseif ($limit > $max) {
+        drupal_add_http_header('Status', '422 Unprocessable Entity: exceeds max limit of ' . $max);
+        return MENU_FOUND;
+      }
     }
 
     // If the 'offset' parameter is set, offset the results.
     $offset = 0;
-    if (!empty($params['offset'])) {
+    if (isset($params['offset'])) {
       $offset = $params['offset'];
     }
 
@@ -189,6 +213,9 @@ function farm_sensor_listener_page_callback($public_key) {
 
     // Return the latest readings as JSON.
     drupal_json_output($data);
+
+    // Return success.
+    return MENU_FOUND;
   }
 
   // Return success and do nothing on all other request types.
@@ -399,9 +426,10 @@ function farm_sensor_listener_process_notifications($sensor, $data_name, $value)
  * @param $end
  *   Filter data to timestamps less than or equal to this end timestamp.
  * @param $limit
- *   The number of results to return.
+ *   The number of results to return. Defaults to 1. If this is 0, no limit will
+ *   be applied.
  * @param $offset
- *   The value to start at.
+ *   The value to start at, used in combination with $limit.
  *
  * @return array
  *   Returns an array of data.
@@ -431,8 +459,10 @@ function farm_sensor_listener_data($id, $name = '', $start = NULL, $end = NULL, 
   // Order by timestamp descending.
   $query->orderBy('fsd.timestamp', 'DESC');
 
-  // Limit the results.
-  $query->range($offset, $limit);
+  // Limit the results, if $limit is not empty.
+  if (!empty($limit)) {
+    $query->range($offset, $limit);
+  }
 
   // Run the query.
   $result = $query->execute();
@@ -458,6 +488,53 @@ function farm_sensor_listener_data($id, $name = '', $start = NULL, $end = NULL, 
 
   // Return the data.
   return $data;
+}
+
+/**
+ * Fetch summary info about sensor values from the database.
+ *
+ * @param $id
+ *  The sensor asset id.
+ *
+ * @return array
+ *  Returns an array of info for each distinct value keyed by value name.
+ *    'first': timestamp of data first recorded for this value on the sensor.
+ *    'last': timestamp of data last recorded for this value on the sensor.
+ */
+function farm_sensor_listener_values_info($id) {
+
+  // Build array of values.
+  $values = array();
+
+  // Query all the distinct value names this sensor has stored.
+  $query = db_select('farm_sensor_data')
+    ->fields('farm_sensor_data', array('name'))
+    ->condition('farm_sensor_data.id', $id)
+    ->groupBy('farm_sensor_data.name');
+
+  // Select the total record count for each value name.
+  $query->addExpression('COUNT(farm_sensor_data.timestamp)', 'count');
+
+  // Select the max timestamp for each value name.
+  $query->addExpression('MAX(farm_sensor_data.timestamp)', 'last');
+
+  // Select the min timestamp for each value name.
+  $query->addExpression('MIN(farm_sensor_data.timestamp)', 'first');
+
+  // Execute query.
+  $result = $query->execute();
+
+  // Add each value's info keyed by value name.
+  foreach ($result as $row) {
+    $values[$row->name] = array(
+      'count' => $row->count,
+      'first' => $row->first,
+      'last' => $row->last,
+    );
+  }
+
+  // Return values.
+  return $values;
 }
 
 /**
@@ -606,6 +683,156 @@ function farm_sensor_listener_settings_form($sensor, $settings = array()) {
 }
 
 /**
+ * Farm Sensor Listener Data Graphs Form.
+ */
+function farm_sensor_listener_data_graphs_form($form, &$form_state, $asset) {
+
+  // Bail if not a sensor asset.
+  if ($asset->type != 'sensor') {
+    return array();
+  }
+
+  // Fieldset to display sensor data.
+  $form['data'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Sensor graphs'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+
+  // Fieldset for query filters.
+  $form['data']['filters'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Filters'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+
+  // Load distinct sensor value info.
+  $values = farm_sensor_listener_values_info($asset->id);
+
+  // Don't display the graph fieldset if the sensor has no data.
+  if (empty($values)) {
+    return array();
+  }
+
+  // Load the distinct value names this sensor has stored.
+  $names = array_keys($values);
+
+  // Sensor values to display.
+  // Default to all distinct values the sensor has stored.
+  $form['data']['filters']['values'] = array(
+    '#type' => 'select',
+    '#title' => t('Sensor Values'),
+    '#options' => drupal_map_assoc($names),
+    '#multiple' => TRUE,
+    '#default_value' => $names,
+  );
+
+  // Provide a default date in the format YYYY-MM-DD HH-MM-SS.
+  $format = 'Y-m-d H:i:s';
+
+  // Get the latest timestamp data from saved data
+  // or default to current time.
+  $latest = REQUEST_TIME;
+  if (!empty($values)) {
+    $latest = max(array_column($values, 'last'));
+  }
+
+  // Build latest date.
+  $latest_date = date($format, $latest);
+
+  // Start date. Defaults to 1 week before latest date..
+  $past_week_date = date($format, strtotime('- 7 days', $latest));
+
+  $form['data']['filters']['start_date'] = array(
+    '#type' => 'date_select',
+    '#title' => t('Start date'),
+    '#default_value' => $past_week_date,
+    '#date_year_range' => '-10:+1',
+    '#date_format' => $format,
+    '#date_label_position' => 'within',
+  );
+
+  // End date. Defaults to current time.
+  $form['data']['filters']['end_date'] = array(
+    '#type' => 'date_select',
+    '#title' => t('End date'),
+    '#default_value' => $latest_date,
+    '#date_year_range' => '-10:+1',
+    '#date_format' => $format,
+    '#date_label_position' => 'within',
+  );
+
+  // Submit button.
+  $form['data']['filters']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Submit'),
+  );
+
+  // Load filter values from form state or form field #default_value.
+  $filters = array(
+    'values' => isset($form_state['values']['values']) ? $form_state['values']['values'] : $form['data']['filters']['values']['#default_value'],
+    'start_date' => isset($form_state['values']['start_date']) ? $form_state['values']['start_date'] : $form['data']['filters']['start_date']['#default_value'],
+    'end_date' => isset($form_state['values']['end_date']) ? $form_state['values']['end_date'] : $form['data']['filters']['end_date']['#default_value'],
+  );
+
+  // Iterate through the names, load the data values for each,
+  // generate markup DIV ids, and store it all in JS settings.
+  $markup = array();
+  $graphs = array();
+  foreach ($filters['values'] as $name) {
+    $id = drupal_html_id('sensor-data-' . $name);
+
+    // Load data.
+    $data = farm_sensor_listener_data($asset->id, $name, strtotime($filters['start_date']), strtotime($filters['end_date']), 0);
+
+    // Don't render a graph if there is no data to display.
+    if (empty($data)) {
+      $markup[] = '<div class="farm-sensor-graph"><p>' . t('No data for "@value" in this date range.', array('@value' => $name)) . '</p></div>';
+      continue;
+    }
+
+    // Build graph markup.
+    $markup[] = '<div id="' . $id . '" class="farm-sensor-graph"></div>';
+
+    // Build graph settings.
+    $graph = array(
+      'name' => $name,
+      'id' => $id,
+      'data' => $data,
+    );
+    $graphs[] = $graph;
+  }
+
+  // Add Javascript and CSS to build the graphs.
+  $settings = array(
+    'farm_sensor_listener' => array(
+      'graphs' => $graphs,
+    ),
+  );
+  drupal_add_js($settings, 'setting');
+  drupal_add_js(drupal_get_path('module', 'farm_sensor_listener') . '/farm_sensor_listener.js');
+  drupal_add_js('https://cdn.plot.ly/plotly-latest.min.js', 'external');
+  drupal_add_css(drupal_get_path('module', 'farm_sensor_listener') . '/farm_sensor_listener.css');
+
+  // Output graphs.
+  $form['data']['graphs'] = array(
+    '#markup' => '<div class="farm-sensor-graphs clearfix">' . implode('', $markup) . '</div>',
+  );
+
+  return $form;
+}
+
+/**
+ * Submit callback for farm_sensor_listener_data_form_submit.
+ */
+function farm_sensor_listener_data_graphs_form_submit($form, &$form_state) {
+  // Rebuild the form in order to keep filter values.
+  $form_state['rebuild'] = TRUE;
+}
+
+/**
  * Helper function for loading a sensor asset from it's public/private key.
  *
  * @param $key
@@ -668,44 +895,8 @@ function farm_sensor_listener_farm_sensor_view($asset) {
     return array();
   }
 
-  // Query all the distinct value names this sensor has stored.
-  $names = array();
-  $result = db_query('SELECT name FROM {farm_sensor_data} WHERE id = :id GROUP BY name', array(':id' => $asset->id));
-  foreach ($result as $row) {
-    $names[] = $row->name;
-  }
-
-  // Iterate through the names, load the most recent 100 values for each,
-  // generate markup DIV ids, and store it all in JS settings.
-  $markup = array();
-  $graphs = array();
-  foreach ($names as $name) {
-    $id = drupal_html_id('sensor-data-' . $name);
-    $markup[] = '<div id="' . $id . '" class="farm-sensor-graph"></div>';
-    $graph = array(
-      'name' => $name,
-      'id' => $id,
-      'data' => farm_sensor_listener_data($asset->id, $name, NULL, NULL,100),
-    );
-    $graphs[] = $graph;
-  }
-
-  // Add Javascript and CSS to build the graphs.
-  $settings = array(
-    'farm_sensor_listener' => array(
-      'graphs' => $graphs,
-    ),
-  );
-  drupal_add_js($settings, 'setting');
-  drupal_add_js(drupal_get_path('module', 'farm_sensor_listener') . '/farm_sensor_listener.js');
-  drupal_add_js('https://cdn.plot.ly/plotly-latest.min.js', 'external');
-  drupal_add_css(drupal_get_path('module', 'farm_sensor_listener') . '/farm_sensor_listener.css');
-
-  // Output the markup.
-  $build['views']['graph'] = array(
-    '#markup' => '<div class="farm-sensor-graphs clearfix">' . implode('', $markup) . '</div>',
-    '#weight' => -1,
-  );
+  // Load the sensor data graph form.
+  $build['views']['data'] = drupal_get_form('farm_sensor_listener_data_graphs_form', $asset);
 
   // Return build array.
   return $build;
