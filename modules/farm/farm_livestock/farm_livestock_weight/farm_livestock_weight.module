@@ -157,7 +157,7 @@ function farm_livestock_weight_dlwg($asset) {
       );
 
       // Assemble markup.
-      $markup = t('<p><strong>Daily Liveweight Gain: </strong>') . $dlwg_text . ' (' . $observed_text . ')';
+      $markup = '<p><strong>' . t('Daily liveweight gain') . ':</strong> ' . $dlwg_text . ' (' . $observed_text . ')</p>';
 
       // Build array to return.
       $dlwg = array("latest_log" => $latest_log, "previous_log" => $previous_log, "value" => $dlwg_value, "units" => $units, 'markup' => $markup);
