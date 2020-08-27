@@ -46,8 +46,9 @@ function farm_livestock_weight($asset) {
  *   The animal asset to get weight for.
  *
  * @return array
- *   Returns an array of arrays with the following information from each weight log ('weight', value, units, label, log)
- *  Newest is the first, oldest last.
+ *   Returns an array of arrays with the following information from each weight log:
+ *     weight, value, units, label, log
+ *   Newest is the first, oldest last.
  */
 function farm_livestock_weight_all($asset) {
 
@@ -64,12 +65,12 @@ function farm_livestock_weight_all($asset) {
 
   // Check that there are some logs!
   if (!empty($logs)) {
-
     foreach ($logs as $log) {
+
       // Get weight quantity data from log.
       $data = farm_quantity_log_data($log, 'weight');
-      foreach ($data as $quantity){
-        if (!empty($quantity['value'])){
+      foreach ($data as $quantity) {
+        if (!empty($quantity['value'])) {
 
           // Save the log with the quantity info.
           $quantity['log'] = $log;
@@ -94,11 +95,11 @@ function farm_livestock_weight_all($asset) {
  *
  * @return array
  *   Returns an array of information around the daily liveweight gain:
- *  "latest_log" - The latest weight log.
- *  "previous_log" - The weight log recorded before the latest.
- *  "value" - The daily liveweight gain value.
- *  "units" - The unit of measure (eg kg).
- *  "markup" - HTML markup of the dlwg.
+ *   "latest_log" - The latest weight log.
+ *   "previous_log" - The weight log recorded before the latest.
+ *   "value" - The daily liveweight gain value.
+ *   "units" - The unit of measure (eg kg).
+ *   "markup" - HTML markup of the dlwg.
  */
 function farm_livestock_weight_dlwg($asset) {
 
@@ -109,10 +110,10 @@ function farm_livestock_weight_dlwg($asset) {
   $dlwg = array();
 
   // At least 2 weights must be recorded to calculate Daily Liveweight gain.
-  if (count($weights)>1){
+  if (count($weights) > 1) {
 
     // Make sure logs use the same units.
-    if (($weights[0]['units']) == ($weights[1]['units'])){
+    if ($weights[0]['units'] == $weights[1]['units']) {
 
       // Save latest weight info.
       $latest_weight = $weights[0];

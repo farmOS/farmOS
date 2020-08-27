@@ -23,12 +23,13 @@ function farm_livestock_weight_individual_report(FarmAsset $farm_asset) {
   // Check if the asset has a weight recorded.
   if (empty($current_weight)) {
     $output .= '<p>' . t('No weight recorded for asset') . '</p>';
-  } else {
+  }
+  else {
     $output .= '<p><strong>' . t('Current weight') . ':</strong> ' . $current_weight['value'] . ' ' . $current_weight['units'] . '</p>';
 
     // Load the daily live weight gain.
     $dlwg = farm_livestock_weight_dlwg($farm_asset);
-    if (!empty($dlwg)){
+    if (!empty($dlwg)) {
       // Add the dlwg markup.
       $output .= $dlwg['markup'];
     }
@@ -45,7 +46,7 @@ function farm_livestock_weight_individual_report(FarmAsset $farm_asset) {
     $header = array(t('Date'), t('Value'), t('Units'));
     $table_data = array();
 
-    foreach($weights as $key => $weight){
+    foreach($weights as $key => $weight) {
 
       // Save the log.
       $log = $weight['log'];
