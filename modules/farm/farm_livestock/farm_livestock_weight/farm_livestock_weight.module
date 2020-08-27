@@ -54,6 +54,11 @@ function farm_livestock_weight_all($asset) {
   // Load the logs with a 'weight' quantity measurement for this asset.
   $logs = farm_quantity_log_asset($asset, 'weight', NULL, REQUEST_TIME, TRUE, 'farm_observation', FALSE);
 
+  // If only a single log was returned, wrap it in an array.
+  if (!is_array($logs)) {
+    $logs = array($logs);
+  }
+
   // Start array of log weights.
   $log_weights = array();
 
