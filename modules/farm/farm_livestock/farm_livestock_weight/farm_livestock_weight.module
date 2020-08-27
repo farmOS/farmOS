@@ -148,11 +148,11 @@ function farm_livestock_weight_dlwg($asset) {
 
       // Build "observed between" text.
       $observed_text = t(
-        'observed between <a href="@previous_log_link">@previous_log_date</a> and <a href="@latest_log_link">@latest_log_date</a>',
+        'observed between <a href="!previous_log_link">@previous_log_date</a> and <a href="!latest_log_link">@latest_log_date</a>',
         array(
-          '@previous_log_link' => url($previous_log_uri['path']),
+          '!previous_log_link' => url($previous_log_uri['path']),
           '@previous_log_date' => $previous_log_date,
-          '@latest_log_link' => url($latest_log_uri['path']),
+          '!latest_log_link' => url($latest_log_uri['path']),
           '@latest_log_date' => $latest_log_date)
       );
 
