@@ -159,6 +159,8 @@ and a list of available `fields` and their metadata (`label`, `required`, etc).
 The `taxonomy_term` bundles also contain their `vid` (vocabulary ID), which is
 necessary when creating new terms (see [Creating taxonomy terms]).
 
+Other modules can add information to `/farm.json` with `hook_farm_info()`.
+
 ### API Version
 
 **Current API version: 1.3**
