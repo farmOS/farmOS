@@ -22,9 +22,9 @@ function farm_livestock_weight_individual_report(FarmAsset $farm_asset) {
 
   // Check if the asset has a weight recorded.
   if (empty($current_weight)) {
-    $output .= t('<p>No weight recorded for asset</p>');
+    $output .= '<p>' . t('No weight recorded for asset') . '</p>';
   } else {
-    $output .= t('<p><strong>Current Weight:</strong> ') . $current_weight['value'] . ' ' . $current_weight['units'] . '</p>';
+    $output .= '<p><strong>' . t('Current weight') . ':</strong> ' . $current_weight['value'] . ' ' . $current_weight['units'] . '</p>';
 
     // Load the daily live weight gain.
     $dlwg = farm_livestock_weight_dlwg($farm_asset);
@@ -41,7 +41,7 @@ function farm_livestock_weight_individual_report(FarmAsset $farm_asset) {
   if (!empty($weights)) {
 
     // Simple html table of weights.
-    $output .= t('<h3> All Weights </h3>');
+    $output .= '<h3>' . t('All weights') . '</h3>';
     $header = array(t('Date'), t('Value'), t('Units'));
     $table_data = array();
 
@@ -68,7 +68,7 @@ function farm_livestock_weight_individual_report(FarmAsset $farm_asset) {
 
     // Create a Weight Report Graph
     $graph = array(
-      'name' => htmlspecialchars(entity_label('farm_asset', $farm_asset)) . t(' Weight Report'),
+      'name' => htmlspecialchars(entity_label('farm_asset', $farm_asset)) . ' ' . t('Weight report'),
       'id' => 'farm-report-weight-graph',
       'data' => $weights,
     );
