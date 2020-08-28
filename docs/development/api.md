@@ -107,8 +107,8 @@ This should be used to replace `[AUTH]` in the `curl` examples that follow.
 
 farmOS provides an informational API endpoint at `/farm.json`, which includes
 the farm name, URL, API version, the system of measurement used by the farm,
-information about the currently authenticated user, and information about
-available entity types and bundles.
+information about the currently authenticated user, installed languages, and
+information about available entity types and bundles.
 
 For example:
 
@@ -121,6 +121,15 @@ For example:
         "uid": "3",
         "name": "My Username",
         "mail": "myemail@mydomain.com",
+        "language": "en",
+      },
+      "languages": {
+        "en": {
+          "language": "en",
+          "name": "English",
+          "native": "English",
+          "direction": 0,
+        },
       },
       "resources": {
         "log": {
