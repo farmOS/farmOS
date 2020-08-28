@@ -36,6 +36,7 @@ function farm_modules() {
       'farm_water' => st('Water area type'),
       'farm_quantity_report' => st('Quantity report generator'),
       'farm_data_field' => st('Add an arbitrary "data" field to logs and assets'),
+      'farm_fields_autocomplete' => st('Adds autocomplete to text fields'),
       'farm_access_roles' => st('Default roles: Manager, Worker, Viewer'),
       'farm_help' => st('farmOS Help Pages'),
       'farm_api' => st('farmOS API'),
