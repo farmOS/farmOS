@@ -91,10 +91,45 @@ include:
 * `start`: Filter data to timestamps greater than or equal to this start
   timestamp.
 * `end`: Filter data to timestamps less than or equal to this end timestamp.
-* `limit`: The number of results to return.
+* `limit`: The number of results to return. See "Limits" below for details.
 * `offset`: The value to start at.
 
 **Example filtered by name:** `https://myfarm.farmos.net/farm/sensor/listener/xxxxxx?private_key=yyyyyy&name=temperature`
+
+**Limits**
+
+The `limit` parameter can be used to specify how many data points should be
+returned. Setting `limit` to `0` will return the maximum number of points, which
+is capped at `100000` (to prevent memory exhaustion). If more data is desired,
+multiple requests should be made using the `offset` parameter. Setting `limit`
+to a value greater than the max will result in a response code of
+`422 Unprocessable Entity: exceeds max limit of 100000`.
+
+**Data summary info**
+
+It's also possible to retrieve summary information about the data stored for a
+particular sensor by adding `/summary` to the end of the sensor's URL. This will
+list each unique `name` used in the data, along with the total `count` of values
+and the `first` and `last` timestamp for each. For example:
+
+`https://myfarm.farmos.net/farm/sensor/listener/xxxxxx/summary?private_key=yyyyyy`
+
+Example JSON response:
+
+```
+{
+    "humid": {
+        "count": 100,
+        "first": "1541117473",
+        "last": "1594911898"
+    },
+    "temp": {
+        "count": 100,
+        "first":"1541117473",
+        "last":"1594911898"
+    }
+}
+```
 
 **Allowing public API read access**
 

@@ -189,6 +189,31 @@ Beds will be numbered and labeled using the parent area's name.
   </video>
 </div>
 
+## Use the Snapping Grid
+
+FarmOS includes a "snapping grid" tool to aid in creating regular/aligned
+geometries. By default when drawing, the cursor will only snap to existing
+areas. However, the snapping grid adds a grid of evenly spaced points to which
+the cursor will snap preferentially.
+
+![snapping_grid_demo](https://user-images.githubusercontent.com/30754460/88995756-5cb22300-d2a0-11ea-88a1-50edac1c0168.gif)
+
+To activate the grid, click the '#' icon in the bottom left corner above the
+scale line, then select two points. The first point is the "origin" of the grid
+while the second point we will call a "rotation anchor" and describes how the
+grid should be rotated around the origin point.
+
+In addition to controlling the origin/rotation of the grid, its dimensions can
+be specified. To do so, hovor your mouse over the '#' icon then enter the `x` and
+`y` dimensions in the controls which appear.Since the grid can be rotated the
+dimensions are independent of the compass directions on the map. Instead, the `x`
+dimension represents the distances between the grid points on lines parallel with
+the line formed by the origin and rotation anchor points. Similarly, the `y` dimension
+represents distances perpendicular to that line.
+
+![farmOS Snapping Grid dimensions screenshot](/img/snapping_grid_dimension_explanation.png)
+
+
 [logging events]: /guide/logs
 [setting location of assets]: /guide/location
 [Google Earth]: https://www.google.com/earth
