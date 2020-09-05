@@ -18,7 +18,6 @@ request.
 [Eggs]: /guide/contrib/eggs
 [Forest]: /guide/contrib/forest
 [Grazing]: /guide/contrib/grazing
-[Nutrient management]: /guide/contrib/nutrient
+[Nutrient]: /guide/contrib/nutrient
 [Organic]: /guide/contrib/organic
 [Produce Safety]: /guide/contrib/produce-safety
-
