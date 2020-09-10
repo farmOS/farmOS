@@ -1,0 +1,7 @@
+farm_settings.settings_page:
+  path: '/farm/settings'
+  defaults:
+    _title: 'farmOS Settings'
+    _form: 'Drupal\farm_settings\Form\FarmSettingsFarmInfoForm'
+  requirements:
+    _permission: 'access content'
