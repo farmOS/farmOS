@@ -56,6 +56,11 @@ class FarmSettingsModulesForm extends FarmModulesForm {
     // Load the list of modules that should be installed from form_state.
     $modules = array_filter($form_state->getValue('modules'));
 
+    // Bail if no modules need to be installed.
+    if (empty($modules)) {
+      return;
+    }
+
     // Load a list of all available modules, so that we can display their names.
     $files = \Drupal::service('extension.list.module')->getList();
 
