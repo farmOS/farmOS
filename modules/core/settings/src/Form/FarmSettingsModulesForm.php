@@ -91,15 +91,12 @@ class FarmSettingsModulesForm extends FarmModulesForm {
       return;
     }
 
-    // Load a list of all available modules, so that we can display their names.
-    $files = \Drupal::service('extension.list.module')->getList();
-
     // Assemble the batch operation for installing modules.
     $operations = [];
     foreach ($modules as $module => $weight) {
       $operations[] = [
         [__NAMESPACE__ . '\FarmSettingsModulesForm', 'farmInstallModuleBatch'],
-        [$module, $files[$module]->info['name']],
+        [$module, $this->moduleHandler->getName($module)],
       ];
     }
     $batch = [
