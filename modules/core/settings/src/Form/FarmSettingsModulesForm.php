@@ -2,8 +2,11 @@
 
 namespace Drupal\farm_settings\Form;
 
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\State\StateInterface;
 use Drupal\farm\Form\FarmModulesForm;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Form for installing farmOS modules.
@@ -13,10 +16,40 @@ use Drupal\farm\Form\FarmModulesForm;
 class FarmSettingsModulesForm extends FarmModulesForm {
 
   /**
+   * Module handler service.
+   *
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   */
+  protected $moduleHandler;
+
+  /**
    * {@inheritdoc}
    */
   public function getFormId() {
     return 'farm_settings_modules_form';
+  }
+
+  /**
+   * Constructs a new FarmModulesForm.
+   *
+   * @param \Drupal\Core\State\StateInterface $state
+   *   The state keyvalue collection to use.
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
+   *   Module handler service.
+   */
+  public function __construct(StateInterface $state, ModuleHandlerInterface $module_handler) {
+    parent::__construct($state);
+    $this->moduleHandler = $module_handler;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('state'),
+      $container->get('module_handler')
+    );
   }
 
   /**
@@ -30,13 +63,10 @@ class FarmSettingsModulesForm extends FarmModulesForm {
     // Allow user to choose which high-level farm modules to install.
     $module_options = array_merge($modules['default'], $modules['optional']);
 
-    // Get a module handler.
-    $module_handler = \Drupal::service('module_handler');
-
     // Check for enabled modules.
     $enabled_modules = [];
     foreach (array_keys($module_options) as $name) {
-      if ($module_handler->moduleExists($name)) {
+      if ($this->moduleHandler->moduleExists($name)) {
         $enabled_modules[] = $name;
       }
     }
