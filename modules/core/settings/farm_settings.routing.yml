@@ -5,3 +5,11 @@ farm_settings.settings_page:
     _form: 'Drupal\farm_settings\Form\FarmSettingsFarmInfoForm'
   requirements:
     _permission: 'access content'
+
+farm_settings.modules_form:
+  path: '/farm/settings/modules'
+  defaults:
+    _title: 'Modules'
+    _form: 'Drupal\farm_settings\Form\FarmSettingsModulesForm'
+  requirements:
+    _permission: 'access content'
