@@ -55,14 +55,8 @@ class FarmModulesForm extends FormBase {
     // Set the form title.
     $form['#title'] = $this->t('Enable modules');
 
-    // Load the list of available modules.
-    $modules = farm_modules();
-
-    // Allow user to choose which high-level farm modules to install.
-    $module_options = array_merge($modules['default'], $modules['optional']);
-
-    // Default modules will be selected by default.
-    $module_defaults = array_keys($modules['default']);
+    // Load module options.
+    $modules = $this->moduleOptions();
 
     // Module checkboxes.
     $form['modules'] = [
@@ -70,9 +64,14 @@ class FarmModulesForm extends FormBase {
       '#title_display' => 'invisible',
       '#type' => 'checkboxes',
       '#description' => $this->t('Select the farmOS modules that you would like installed by default.'),
-      '#options' => $module_options,
-      '#default_value' => $module_defaults,
+      '#options' => $modules['options'],
+      '#default_value' => $modules['default'],
     ];
+
+    // Disable checkboxes for modules marked as disabled.
+    foreach ($modules['disabled'] as $name) {
+      $form['modules'][$name]['#disabled'] = TRUE;
+    }
 
     // Submit button.
     $form['actions'] = ['#type' => 'actions'];
@@ -83,6 +82,33 @@ class FarmModulesForm extends FormBase {
     ];
 
     return $form;
+  }
+
+  /**
+   * Helper function for building a list of modules to install.
+   *
+   * @return array
+   *   Returns an array with three sub-arrays: 'options', 'default' and
+   *   'disabled'. All modules should be included in the 'options' array.
+   *   Default modules will be selected for installation by default, and
+   *   disabled modules cannot have their checkbox changed by users.
+   */
+  protected function moduleOptions() {
+
+    // Load the list of available modules.
+    $modules = farm_modules();
+
+    // Allow user to choose which high-level farm modules to install.
+    $module_options = array_merge($modules['default'], $modules['optional']);
+
+    // Default modules will be selected by default.
+    $module_defaults = array_keys($modules['default']);
+
+    return [
+      'options' => $module_options,
+      'default' => $module_defaults,
+      'disabled' => [],
+    ];
   }
 
   /**
