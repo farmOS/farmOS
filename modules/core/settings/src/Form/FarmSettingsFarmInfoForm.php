@@ -76,8 +76,8 @@ class FarmSettingsFarmInfoForm extends ConfigFormBase {
       ->set('timezone.default', $default_timezone)
       ->save();
 
-    // Add message.
-    $this->messenger()->addMessage($this->t('Default timezone set to') . ' "' . $default_timezone . '".');
+    // Display message from parent submitForm.
+    parent::submitForm($form, $form_state);
   }
 
 }
