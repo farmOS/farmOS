@@ -25,6 +25,7 @@ class FarmSettingsFarmInfoForm extends ConfigFormBase {
   protected function getEditableConfigNames() {
     return [
       'system.date',
+      'system.site',
     ];
   }
 
@@ -35,6 +36,18 @@ class FarmSettingsFarmInfoForm extends ConfigFormBase {
 
     // Set the form title.
     $form['#title'] = $this->t('Configure Farm Info');
+
+    // Get the system.site config.
+    $site = $this->config('system.site');
+
+    // Textfield to edit site name.
+    $form['site_name'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Site name'),
+      '#default_value' => $site->get('name'),
+      '#maxlength' => 128,
+      '#required' => TRUE,
+    ];
 
     // Get list of timezones.
     $timezones = system_time_zones();
@@ -67,6 +80,14 @@ class FarmSettingsFarmInfoForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+
+    // Get the submitted site name.
+    $site_name = $form_state->getvalue('site_name');
+
+    // Update system.site config.
+    $this->configFactory->getEditable('system.site')
+      ->set('name', $site_name)
+      ->save();
 
     // Get the submitted timezone.
     $default_timezone = $form_state->getValue('default_timezone');
