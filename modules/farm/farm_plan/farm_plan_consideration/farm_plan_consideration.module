@@ -427,7 +427,7 @@ function farm_plan_consideration_form($form, &$form_state, $plan, $consideration
 
   // End date.
   $default_end_time = !empty($consideration->end_time) ? date($date_format, $consideration->end_time) : '';
-  $form['end'] = array(
+  $form['end_time'] = array(
     '#type' => 'date_select',
     '#title' => t('End date'),
     '#date_label_position' => 'within',
