@@ -101,17 +101,13 @@ class FarmSettingsFarmInfoForm extends ConfigFormBase {
     // Get list of timezones.
     $timezones = system_time_zones();
 
-    // Get the current default timezone.
-    $date = $this->config('system.date');
-    $default_timezone = $date->get('timezone')['default'];
-
     // Dropdown to select default timezone.
     $form['default_timezone'] = [
       '#type' => 'select',
       '#title' => $this->t('Default timezone'),
       '#description' => $this->t('The default timezone of the farmOS server. Note that users can configure individual timezones later.'),
       '#options' => $timezones,
-      '#default_value' => $default_timezone,
+      '#default_value' => $system_date->get('timezone.default'),
       '#required' => TRUE,
     ];
 
