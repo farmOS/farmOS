@@ -173,7 +173,8 @@ function farm_plan_form(array $form, array &$form_state, FarmPlan $farm_plan) {
  *   The form state array.
  */
 function farm_plan_form_validate(array $form, array &$form_state) {
-
+  $farm_plan = (object) $form_state['values']['farm_plan'];
+  field_attach_form_validate('farm_plan', $farm_plan, $form, $form_state);
 }
 
 /**

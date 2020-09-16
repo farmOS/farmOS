@@ -176,6 +176,8 @@ function farm_asset_form(array $form, array &$form_state, FarmAsset $farm_asset)
  *   The form state array.
  */
 function farm_asset_form_validate(array $form, array &$form_state) {
+  $farm_asset = (object) $form_state['values']['farm_asset'];
+  field_attach_form_validate('farm_asset', $farm_asset, $form, $form_state);
 
   // If the 'archived_boolean' checkbox has changed, update the asset.
   if ($form_state['values']['archived_boolean'] != $form['asset_status']['archived_boolean']['#default_value']) {
