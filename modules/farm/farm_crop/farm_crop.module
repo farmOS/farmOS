@@ -197,3 +197,23 @@ function farm_crop_feeds_tamper_default_alter(&$feeds_tampers) {
   $feeds_tamper = farm_import_feeds_tamper_plugin('farm_asset', 'planting', 'Crop/variety', 'trim');
   $feeds_tampers[$feeds_tamper->id] = $feeds_tamper;
 }
+
+/**
+ * Load Crop Family terms.
+ */
+function farm_crop_families() {
+
+  // Start empty array.
+  $families = array();
+
+  // Load the vocabulary.
+  $vocabulary = taxonomy_vocabulary_machine_name_load('farm_crop_families');
+
+  // Return empty array if vocabulary is not found.
+  if (empty($vocabulary) || !isset($vocabulary->vid)) {
+    return $families;
+  }
+
+  // Load all terms in the farm_crop_families vocabulary.
+  return taxonomy_get_tree($vocabulary->vid);
+}
