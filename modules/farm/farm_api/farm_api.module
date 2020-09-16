@@ -381,7 +381,7 @@ function farm_api_restws_request_alter(array &$request) {
   // eg: /log.json?log_category=Tillage
   foreach ($_GET as $field_name => &$filter_value) {
     $field_info = field_info_field($field_name);
-    if ($field_info['type'] == 'taxonomy_term_reference') {
+    if (!empty($field_info['type']) && $field_info['type'] == 'taxonomy_term_reference') {
       if ($vocabulary = drupal_array_get_nested_value($field_info, array('settings', 'allowed_values', '0', 'vocabulary'))) {
         if ($term = farm_term($filter_value, $vocabulary, FALSE)) {
           $_GET[$field_name] = $term->tid;
