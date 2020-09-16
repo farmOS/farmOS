@@ -110,7 +110,7 @@ function farm_ui_entity_views($entity_type, $entity_bundle, $entity) {
 
     // Load the View, and bail if it isn't found.
     $view = views_get_view($data['name']);
-    if (empty($view)) {
+    if (empty($view) || $view->disabled) {
       continue;
     }
 
