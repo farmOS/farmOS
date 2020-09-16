@@ -79,7 +79,7 @@ projects[libraries][subdir] = "contrib"
 projects[libraries][version] = "2.5"
 
 projects[log][subdir] = "contrib"
-projects[log][version] = "1.13"
+projects[log][version] = "1.14"
 
 projects[l10n_update][subdir] = "contrib"
 projects[l10n_update][version] = "2.4"
