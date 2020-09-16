@@ -65,7 +65,7 @@ projects[geofield][subdir] = "contrib"
 projects[geofield][version] = "2.4"
 
 projects[geophp][subdir] = "contrib"
-projects[geophp][version] = "1.x-dev"
+projects[geophp][version] = "1.8"
 ; Patch to use BCMath for arithmetic.
 projects[geophp][patch][] = "http://www.drupal.org/files/issues/2019-12-31/geophp_bcmath-2625348-5.patch"
 
