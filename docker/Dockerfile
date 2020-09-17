@@ -5,9 +5,6 @@ FROM drupal:7
 #ARG FARMOS_VERSION=7.x-1.5
 ARG FARMOS_VERSION=7.x-1.x-dev
 
-# Enable Apache rewrite module.
-RUN a2enmod rewrite
-
 # Install the BCMath PHP extension.
 RUN docker-php-ext-install bcmath
 
