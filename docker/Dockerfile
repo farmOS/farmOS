@@ -9,18 +9,18 @@ ARG FARMOS_VERSION=7.x-1.x-dev
 RUN docker-php-ext-install bcmath
 
 # Build and install the Uploadprogress PHP extension.
-# See http://git.php.net/?p=pecl/php/uploadprogress.git
-RUN curl -fsSL 'http://git.php.net/?p=pecl/php/uploadprogress.git;a=snapshot;h=95d8a0fd4554e10c215d3ab301e901bd8f99c5d9;sf=tgz' -o php-uploadprogress.tar.gz \
+# See https://github.com/php/pecl-php-uploadprogress
+RUN curl -fsSL 'https://github.com/php/pecl-php-uploadprogress/archive/uploadprogress-1.1.3.tar.gz' -o php-uploadprogress.tar.gz \
   && tar -xzf php-uploadprogress.tar.gz \
   && rm php-uploadprogress.tar.gz \
   && ( \
-    cd uploadprogress-95d8a0f \
+    cd pecl-php-uploadprogress-uploadprogress-1.1.3 \
     && phpize \
     && ./configure --enable-uploadprogress \
     && make \
     && make install \
   ) \
-  && rm -r uploadprogress-95d8a0f
+  && rm -r pecl-php-uploadprogress-uploadprogress-1.1.3
 RUN docker-php-ext-enable uploadprogress
 
 # Build and install the GEOS PHP extension.
