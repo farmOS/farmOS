@@ -20,13 +20,13 @@ RUN curl -fsSL 'https://github.com/php/pecl-php-uploadprogress/archive/uploadpro
     && make \
     && make install \
   ) \
-  && rm -r pecl-php-uploadprogress-uploadprogress-1.1.3
-RUN docker-php-ext-enable uploadprogress
+  && rm -r pecl-php-uploadprogress-uploadprogress-1.1.3 \
+  && docker-php-ext-enable uploadprogress
 
 # Build and install the GEOS PHP extension.
 # See https://git.osgeo.org/gitea/geos/php-geos
-RUN apt-get update && apt-get install -y libgeos-dev
-RUN curl -fsSL 'https://git.osgeo.org/gitea/geos/php-geos/archive/1.0.0.tar.gz' -o php-geos.tar.gz \
+RUN apt-get update && apt-get install -y libgeos-dev \
+  && curl -fsSL 'https://git.osgeo.org/gitea/geos/php-geos/archive/1.0.0.tar.gz' -o php-geos.tar.gz \
   && tar -xzf php-geos.tar.gz \
   && rm php-geos.tar.gz \
   && ( \
@@ -36,8 +36,8 @@ RUN curl -fsSL 'https://git.osgeo.org/gitea/geos/php-geos/archive/1.0.0.tar.gz' 
     && make \
     && make install \
   ) \
-  && rm -r php-geos
-RUN docker-php-ext-enable geos
+  && rm -r php-geos \
+  && docker-php-ext-enable geos
 
 # Set recommended PHP settings for farmOS.
 # See https://farmos.org/hosting/installing/#requirements
