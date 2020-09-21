@@ -217,3 +217,61 @@ function farm_crop_families() {
   // Load all terms in the farm_crop_families vocabulary.
   return taxonomy_get_tree($vocabulary->vid);
 }
+
+/**
+ * Load Farm Crop terms. Can optionally limit crops by Crop Family.
+ *
+ * @param array|int|bool $crop_family_tids
+ *   The Crop Family term ID(s) to include in the query or FALSE to load all
+ *   crop terms. Can be an array of terms, a single term, or FALSE. Defaults to
+ *   FALSE to load all crops.
+ *
+ * @return array
+ *   Array of Crop/Variety terms that are in the specified Crop Families.
+ */
+function farm_crop_family_crops($crop_family_tids = FALSE) {
+
+  // Start empty array.
+  $crops = array();
+
+  // Check if crop_family_tids are provided.
+  if ($crop_family_tids != FALSE) {
+
+    // If crop_family_tids is not an array, wrap it.
+    if (!is_array($crop_family_tids)) {
+      $crop_family_tids = array($crop_family_tids);
+    }
+  }
+
+  // Load the farm_crops vocabulary.
+  $farm_crops = taxonomy_vocabulary_machine_name_load('farm_crops');
+
+  // Return empty array if vocabulary is not found.
+  if (empty($farm_crops) || !isset($farm_crops->vid)) {
+    return $crops;
+  }
+
+  // Build an EntityFieldQuery to load terms referencing the crop family term.
+  // Order terms by the crop_family tid to improve display.
+  $query = new EntityFieldQuery();
+  $query
+    ->entityCondition('entity_type', 'taxonomy_term')
+    ->propertyCondition('vid', $farm_crops->vid)
+    ->fieldOrderBy('field_farm_crop_family', 'tid');
+
+  // Limit crops by crop_family_tids if provided.
+  if (is_array($crop_family_tids)) {
+    $query->fieldCondition('field_farm_crop_family', 'tid', $crop_family_tids, 'IN');
+  }
+
+  // Execute query.
+  $results = $query->execute();
+
+  // Load taxonomy terms from returned tids.
+  if (!empty($results['taxonomy_term'])) {
+    $term_ids = array_keys($results['taxonomy_term']);
+    $crops = taxonomy_term_load_multiple($term_ids);
+  }
+
+  return $crops;
+}
