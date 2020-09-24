@@ -76,7 +76,7 @@ class FarmSettingsFarmInfoForm extends ConfigFormBase {
     // Textfield to edit site name.
     $form['site_name'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Site name'),
+      '#title' => $this->t('Farm name'),
       '#default_value' => $site->get('name'),
       '#maxlength' => 128,
       '#required' => TRUE,
