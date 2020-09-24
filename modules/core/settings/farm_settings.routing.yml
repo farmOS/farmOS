@@ -4,7 +4,7 @@ farm_settings.settings_page:
     _title: 'farmOS Settings'
     _form: 'Drupal\farm_settings\Form\FarmSettingsFarmInfoForm'
   requirements:
-    _permission: 'access content'
+    _permission: 'administer farm settings'
 
 farm_settings.modules_form:
   path: '/farm/settings/modules'
@@ -12,4 +12,4 @@ farm_settings.modules_form:
     _title: 'Modules'
     _form: 'Drupal\farm_settings\Form\FarmSettingsModulesForm'
   requirements:
-    _permission: 'access content'
+    _permission: 'administer farm settings'
