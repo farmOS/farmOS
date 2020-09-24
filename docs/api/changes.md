@@ -112,6 +112,17 @@ The same record in farmOS 2.x looks like:
 }
 ```
 
+### Filtering
+
+The URL query parameters for filtering results have a different syntax in 2.x.
+Refer to the [Drupal.org JSON:API Filtering documentation](https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/filtering)
+for more information.
+
+To illustrate, this is how to filter activity logs by their completed status:
+
+- farmOS 1.x: `/log.json?type=activity&done=1`
+- farmOS 2.x: `/api/log/activity?filter[status]=complete`
+
 ### Logs
 
 #### Type names
