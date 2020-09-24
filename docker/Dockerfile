@@ -12,17 +12,17 @@ RUN docker-php-ext-install bcmath
 
 # Build and install the Uploadprogress PHP extension.
 # See http://git.php.net/?p=pecl/php/uploadprogress.git
-RUN curl -fsSL 'https://git.php.net/?p=pecl/php/uploadprogress.git;a=snapshot;h=be300078bbd457d341753a9fa7edf6b4a95c9765;sf=tgz' -o php-uploadprogress.tar.gz \
+RUN curl -fsSL 'https://github.com/php/pecl-php-uploadprogress/archive/uploadprogress-1.1.3.tar.gz' -o php-uploadprogress.tar.gz \
   && tar -xzf php-uploadprogress.tar.gz \
   && rm php-uploadprogress.tar.gz \
   && ( \
-    cd uploadprogress-be30007 \
+    cd pecl-php-uploadprogress-uploadprogress-1.1.3 \
     && phpize \
     && ./configure --enable-uploadprogress \
     && make \
     && make install \
   ) \
-  && rm -r uploadprogress-be30007 \
+  && rm -r pecl-php-uploadprogress-uploadprogress-1.1.3 \
   && docker-php-ext-enable uploadprogress
 
 # Build and install the GEOS PHP extension.
