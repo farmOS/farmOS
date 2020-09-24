@@ -1,0 +1,11 @@
+farm_settings.settings_page:
+  base_route: farm_settings.settings_page
+  route_name: farm_settings.settings_page
+  title: 'Farm Info'
+  weight: -1
+
+farm_settings.modules_form:
+  base_route: farm_settings.settings_page
+  route_name: farm_settings.modules_form
+  title: 'Modules'
+  weight: 0
