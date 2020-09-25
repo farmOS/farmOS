@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * The farmOS Flags module.
+ */
+
+/**
+ * Allowed values callback function for the flags field.
+ */
+function farm_flag_field_allowed_values() {
+  /** @var \Drupal\farm_flag\Entity\FarmFlagInterface[] $flags */
+  $flags = \Drupal::entityTypeManager()->getStorage('farm_flag')->loadMultiple();
+  $allowed_values = [];
+  foreach ($flags as $id => $flag) {
+    $allowed_values[$id] = $flag->getLabel();
+  }
+  return $allowed_values;
+}

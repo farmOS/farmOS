@@ -1,0 +1,11 @@
+# Schema for farm_flag config entity.
+farm_flag.farm_flag.*:
+  type: config_entity
+  label: 'Flag'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
