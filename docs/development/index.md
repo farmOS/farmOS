@@ -37,3 +37,7 @@ In order to upload files, the following line must be added to
 `www/web/sites/default/settings.php`:
 
     $settings['file_private_path'] = 'sites/default/private/files';
+
+### Configure debugger
+
+See [Debugging](/development/debug).
