@@ -3,9 +3,9 @@ nav:
   - farmOS: index.md
   - Development:
     - Getting started: development/index.md
+    - Docker: development/docker.md
     - Drush: development/drush.md
     - Composer: development/composer.md
     - Debugging: development/debug.md
     - Automated tests: development/tests.md
-    - Notes: development/notes.md
 theme: readthedocs

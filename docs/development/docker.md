@@ -1,8 +1,8 @@
-# Development notes
+# Docker
 
 ## Docker build arguments
 
-The farmOS `dev` Docker image allows certain variables to be overridden at
+The farmOS Docker images allow certain variables to be overridden at
 image build time using the `--build-arg` parameter of `docker build`.
 
 Available arguments and their default values are described below:
@@ -16,6 +16,9 @@ Available arguments and their default values are described below:
 - `PROJECT_VERSION` - The farmOS Composer project Git branch/tag/commit to
   check out.
     - Default: `2.x`
+
+The `2.x-dev` image also provides the following:
+
 - `WWW_DATA_ID` - The ID to use for the `www-data` user and group inside the
    image. Setting this to the ID of the developer's user on the host machine
    allows Composer to create files owned by www-data inside the container,
