@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.log.data
+    - log.type.lab_test
+id: log.lab_test.data
+field_name: data
+entity_type: log
+bundle: lab_test
+label: Data
+description: 'The data field can be used to store arbitrary data on the log.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long
