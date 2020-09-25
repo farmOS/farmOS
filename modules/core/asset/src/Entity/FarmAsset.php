@@ -46,6 +46,7 @@ use Drupal\user\EntityOwnerTrait;
  *     },
  *   },
  *   base_table = "farm_asset",
+ *   data_table = "farm_asset_field_data",
  *   revision_table = "farm_asset_revision",
  *   translatable = TRUE,
  *   revisionable = TRUE,
