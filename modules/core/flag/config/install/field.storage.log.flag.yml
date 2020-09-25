@@ -10,7 +10,7 @@ entity_type: log
 type: list_string
 settings:
   allowed_values: {  }
-  allowed_values_function: ''
+  allowed_values_function: 'farm_flag_field_allowed_values'
 module: options
 locked: false
 cardinality: -1
