@@ -6,6 +6,7 @@ core_version_requirement: ^9
 dependencies:
   - drupal:field
   - drupal:file
+  - drupal:geofield
   - drupal:image
   - drupal:text
   - drupal:user
