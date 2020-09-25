@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.log.source
+    - log.type.seeding
+id: log.seeding.source
+field_name: source
+entity_type: log
+bundle: seeding
+label: Source
+description: 'Where were the seeds obtained?'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.log.source
+    - log.type.input
+id: log.input.source
+field_name: source
+entity_type: log
+bundle: input
+label: Source
+description: 'Where was this input obtained? Who manufactured it?'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
