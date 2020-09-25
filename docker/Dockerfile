@@ -10,21 +10,6 @@ ARG PROJECT_VERSION=2.x
 # Install the BCMath PHP extension.
 RUN docker-php-ext-install bcmath
 
-# Build and install the Uploadprogress PHP extension.
-# See http://git.php.net/?p=pecl/php/uploadprogress.git
-RUN curl -fsSL 'https://github.com/php/pecl-php-uploadprogress/archive/uploadprogress-1.1.3.tar.gz' -o php-uploadprogress.tar.gz \
-  && tar -xzf php-uploadprogress.tar.gz \
-  && rm php-uploadprogress.tar.gz \
-  && ( \
-    cd pecl-php-uploadprogress-uploadprogress-1.1.3 \
-    && phpize \
-    && ./configure --enable-uploadprogress \
-    && make \
-    && make install \
-  ) \
-  && rm -r pecl-php-uploadprogress-uploadprogress-1.1.3 \
-  && docker-php-ext-enable uploadprogress
-
 # Build and install the GEOS PHP extension.
 # See https://git.osgeo.org/gitea/geos/php-geos
 RUN apt-get update && apt-get install -y libgeos-dev \
