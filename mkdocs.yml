@@ -8,4 +8,5 @@ nav:
     - Composer: development/composer.md
     - Debugging: development/debug.md
     - Automated tests: development/tests.md
+    - Coding standards: development/code.md
 theme: readthedocs
