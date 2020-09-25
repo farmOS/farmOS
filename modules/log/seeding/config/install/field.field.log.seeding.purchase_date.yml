@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.log.purchase_date
+    - log.type.seeding
+id: log.seeding.purchase_date
+field_name: purchase_date
+entity_type: log
+bundle: seeding
+label: 'Purchase date'
+description: 'When was the seed purchased (if applicable)?'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: timestamp
