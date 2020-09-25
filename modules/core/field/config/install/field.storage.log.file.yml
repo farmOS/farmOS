@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - file
+    - log
+id: log.file
+field_name: file
+entity_type: log
+type: file
+settings:
+  display_field: false
+  display_default: false
+  uri_scheme: private
+  target_type: file
+module: file
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
