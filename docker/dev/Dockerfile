@@ -46,6 +46,7 @@ RUN { \
     echo '  <config name="drupal_core_version" value="9"/>'; \
     echo '  <rule ref="Drupal">'; \
     echo '    <exclude name="Drupal.InfoFiles.AutoAddedKeys.Version"/>'; \
+    echo '    <exclude name="Drupal.Arrays.Array.LongLineDeclaration"/>'; \
     echo '  </rule>'; \
     echo '  <rule ref="DrupalPractice"/>'; \
     echo '</ruleset>'; \
