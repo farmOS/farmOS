@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.log.seller
+    - log.type.purchase
+id: log.purchase.seller
+field_name: seller
+entity_type: log
+bundle: purchase
+label: Seller
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
