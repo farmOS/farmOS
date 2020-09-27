@@ -51,7 +51,7 @@ use Drupal\user\EntityOwnerTrait;
  *   translatable = TRUE,
  *   revisionable = TRUE,
  *   show_revision_ui = TRUE,
- *   admin_permission = "administer farm_asset",
+ *   admin_permission = "administer farm_assets",
  *   entity_keys = {
  *     "id" = "id",
  *     "revision" = "revision_id",

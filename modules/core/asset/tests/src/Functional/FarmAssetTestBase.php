@@ -49,7 +49,7 @@ abstract class FarmAssetTestBase extends BrowserTestBase {
   protected function getAdministratorPermissions() {
     return [
       'access administration pages',
-      'administer farm_asset',
+      'administer farm_assets',
       'view any farm_asset',
       'create default farm_asset',
       'view any default farm_asset',

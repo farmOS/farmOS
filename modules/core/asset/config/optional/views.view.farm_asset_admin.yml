@@ -22,7 +22,7 @@ display:
       access:
         type: perm
         options:
-          perm: 'administer farm_asset'
+          perm: 'administer farm_assets'
       cache:
         type: tag
         options: {  }
