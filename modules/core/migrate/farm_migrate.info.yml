@@ -1,0 +1,7 @@
+name: farmOS Migrate
+description: farmOS 1.x to 2.x migration tool.
+type: module
+package: farmOS
+core_version_requirement: ^9
+dependencies:
+  - drupal:migrate
