@@ -8,7 +8,7 @@ use Drupal\state_machine\WorkflowManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Class AssetTypeForm.
+ * Form controller for asset type entities.
  *
  * @package Drupal\asset\Form
  */

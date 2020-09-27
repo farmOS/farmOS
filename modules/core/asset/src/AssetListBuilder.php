@@ -26,7 +26,7 @@ class AssetListBuilder extends BulkFormEntityListBuilder {
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
-    /* @var $entity \Drupal\farm_asset\Entity\AssetInterface */
+    /** @var \Drupal\asset\Entity\AssetInterface $entity */
     $row['id'] = ['#markup' => $entity->id()];
     $row['name'] = $entity->toLink($entity->label(), 'canonical')->toRenderable();
     $row['type'] = ['#markup' => $entity->getBundleLabel()];

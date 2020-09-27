@@ -22,8 +22,6 @@ use Drupal\Core\Url;
  *   - attributes: HTML attributes for the containing element.
  */
 function template_preprocess_asset(array &$variables) {
-  // Fetch asset Entity Object.
-  $asset = $variables['elements']['#asset'];
 
   // Helpful $content variable for templates.
   foreach (Element::children($variables['elements']) as $key) {
