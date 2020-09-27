@@ -1,7 +1,7 @@
-name: 'Farm Asset module tests'
+name: Asset module tests
+description: Support module for asset testing.
 type: module
-description: 'Support module for farm asset testing.'
 package: Testing
-core: 8.x
+core_version_requirement: ^9
 dependencies:
-  - farm_asset:farm_asset
+  - farm:farm_asset

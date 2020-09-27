@@ -1,12 +1,11 @@
-name: Farm Asset
+name: farmOS Asset
+description: Provides an asset entity type for farm record keeping.
 type: module
-description: Provides a farm asset entity type.
-core: 8.x
-core_version_requirement: ^8 || ^9
-package: FarmOS
+package: farmOS
+core_version_requirement: ^9
 dependencies:
-  - entity:entity
-  - state_machine:state_machine
   - drupal:system (>=8.8.0)
   - drupal:user
   - drupal:views
+  - entity:entity
+  - state_machine:state_machine
