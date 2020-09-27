@@ -3,6 +3,7 @@
 namespace Drupal\Tests\asset\Functional;
 
 use Drupal\asset\Entity\Asset;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
  * Tests the asset CRUD.
@@ -10,6 +11,8 @@ use Drupal\asset\Entity\Asset;
  * @group farm
  */
 class AssetCRUDTest extends AssetTestBase {
+
+  use StringTranslationTrait;
 
   /**
    * {@inheritdoc}
@@ -41,7 +44,7 @@ class AssetCRUDTest extends AssetTestBase {
       'name[0][value]' => $name,
     ];
 
-    $this->drupalPostForm('asset/add/default', $edit, t('Save'));
+    $this->drupalPostForm('asset/add/default', $edit, $this->t('Save'));
 
     $result = \Drupal::entityTypeManager()
       ->getStorage('asset')
@@ -85,7 +88,7 @@ class AssetCRUDTest extends AssetTestBase {
     $edit = [
       'name[0][value]' => $this->randomMachineName(),
     ];
-    $this->drupalPostForm($asset->toUrl('edit-form'), $edit, t('Save'));
+    $this->drupalPostForm($asset->toUrl('edit-form'), $edit, $this->t('Save'));
 
     $this->assertText($edit['name[0][value]']);
   }
@@ -100,8 +103,8 @@ class AssetCRUDTest extends AssetTestBase {
     $label = $asset->getName();
     $asset_id = $asset->id();
 
-    $this->drupalPostForm($asset->toUrl('delete-form'), [], t('Delete'));
-    $this->assertRaw(t('The @entity-type %label has been deleted.', [
+    $this->drupalPostForm($asset->toUrl('delete-form'), [], $this->t('Delete'));
+    $this->assertRaw($this->t('The @entity-type %label has been deleted.', [
       '@entity-type' => $asset->getEntityType()->getSingularLabel(),
       '%label' => $label,
     ]));
