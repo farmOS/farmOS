@@ -1,0 +1,19 @@
+uuid: f14b8cc1-df36-458d-aa89-07c72f233cdc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.log.purchase_date
+    - log.type.input
+id: log.input.purchase_date
+field_name: purchase_date
+entity_type: log
+bundle: input
+label: 'Purchase date'
+description: 'When was this input purchased (if applicable)?'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: timestamp

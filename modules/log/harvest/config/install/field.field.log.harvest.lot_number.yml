@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.log.lot_number
+    - log.type.harvest
+id: log.harvest.lot_number
+field_name: lot_number
+entity_type: log
+bundle: harvest
+label: 'Lot number'
+description: 'If this harvest is part of a batch or lot, enter the lot number here.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.log.invoice_number
+    - log.type.purchase
+id: log.purchase.invoice_number
+field_name: invoice_number
+entity_type: log
+bundle: purchase
+label: 'Invoice number'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
