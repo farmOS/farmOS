@@ -3,16 +3,16 @@ farm_asset_default:
   group: farm_asset
   label: 'Default'
   states:
-    pending:
-      label: Pending
+    active:
+      label: Active
     archived:
       label: Archived
   transitions:
-    done:
+    archive:
       label: 'Archive'
-      from: [pending]
+      from: [active]
       to: archived
-    to_pending:
-      label: 'Move to Pending'
+    to_active:
+      label: 'Make active'
       from: [archived]
-      to: pending
+      to: active
