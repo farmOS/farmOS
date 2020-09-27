@@ -13,4 +13,6 @@ nav:
     - Debugging: development/debug.md
     - Automated tests: development/tests.md
     - Coding standards: development/code.md
+  - Migration:
+    - Overview: migration/index.md
 theme: readthedocs
