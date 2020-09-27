@@ -1,0 +1,5 @@
+entity.asset_type.collection:
+  title: 'Asset types'
+  route_name: entity.asset_type.collection
+  description: 'List of asset types'
+  parent: system.admin_structure

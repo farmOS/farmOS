@@ -1,5 +1,0 @@
-entity.farm_asset_type.collection:
-  title: 'Farm Asset types'
-  route_name: entity.farm_asset_type.collection
-  description: 'List of Farm Asset types'
-  parent: system.admin_structure

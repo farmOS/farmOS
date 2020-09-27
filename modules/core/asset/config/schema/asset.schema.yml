@@ -1,7 +1,7 @@
-# Schema for the configuration files of the farm_asset module.
-farm_asset.type.*:
+# Schema for the configuration files of the asset module.
+asset.type.*:
   type: config_entity
-  label: 'farm asset type'
+  label: 'Asset type'
   mapping:
     id:
       type: string
@@ -19,7 +19,7 @@ farm_asset.type.*:
       type: boolean
       label: 'Create new revision'
 
-condition.plugin.farm_asset_type:
+condition.plugin.asset_type:
   type: condition.plugin
   mapping:
     bundles:

@@ -1,48 +1,48 @@
 <?php
 
-namespace Drupal\farm_asset\Entity;
+namespace Drupal\asset\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
 use Drupal\Core\Entity\EntityStorageInterface;
 
 /**
- * Defines the farm asset type entity.
+ * Defines the asset type entity.
  *
  * @ConfigEntityType(
- *   id = "farm_asset_type",
- *   label = @Translation("farm asset type"),
- *   label_collection = @Translation("farm asset types"),
- *   label_singular = @Translation("farm asset type"),
- *   label_plural = @Translation("farm asset types"),
+ *   id = "asset_type",
+ *   label = @Translation("Asset type"),
+ *   label_collection = @Translation("Asset types"),
+ *   label_singular = @Translation("Asset type"),
+ *   label_plural = @Translation("Asset types"),
  *   label_count = @PluralTranslation(
- *     singular = "@count farm asset type",
- *     plural = "@count farm asset types",
+ *     singular = "@count asset type",
+ *     plural = "@count asset types",
  *   ),
  *   handlers = {
- *     "list_builder" = "Drupal\farm_asset\FarmAssetTypeListBuilder",
+ *     "list_builder" = "Drupal\asset\AssetTypeListBuilder",
  *     "form" = {
- *       "add" = "Drupal\farm_asset\Form\FarmAssetTypeForm",
- *       "edit" = "Drupal\farm_asset\Form\FarmAssetTypeForm",
+ *       "add" = "Drupal\asset\Form\AssetTypeForm",
+ *       "edit" = "Drupal\asset\Form\AssetTypeForm",
  *       "delete" = "\Drupal\Core\Entity\EntityDeleteForm",
  *     },
  *     "route_provider" = {
  *       "default" = "Drupal\entity\Routing\DefaultHtmlRouteProvider",
  *     },
  *   },
- *   admin_permission = "administer farm_asset types",
+ *   admin_permission = "administer asset types",
  *   config_prefix = "type",
- *   bundle_of = "farm_asset",
+ *   bundle_of = "asset",
  *   entity_keys = {
  *     "id" = "id",
  *     "label" = "label",
  *     "uuid" = "uuid"
  *   },
  *   links = {
- *     "canonical" = "/admin/structure/farm-asset-type/{farm_asset_type}",
- *     "add-form" = "/admin/structure/farm-asset-type/add",
- *     "edit-form" = "/admin/structure/farm-asset-type/{farm_asset_type}/edit",
- *     "delete-form" = "/admin/structure/farm-asset-type/{farm_asset_type}/delete",
- *     "collection" = "/admin/structure/farm-asset-type"
+ *     "canonical" = "/admin/structure/asset-type/{asset_type}",
+ *     "add-form" = "/admin/structure/asset-type/add",
+ *     "edit-form" = "/admin/structure/asset-type/{asset_type}/edit",
+ *     "delete-form" = "/admin/structure/asset-type/{asset_type}/delete",
+ *     "collection" = "/admin/structure/asset-type"
  *   },
  *   config_export = {
  *     "id",
@@ -53,38 +53,38 @@ use Drupal\Core\Entity\EntityStorageInterface;
  *   }
  * )
  */
-class FarmAssetType extends ConfigEntityBundleBase implements FarmAssetTypeInterface {
+class AssetType extends ConfigEntityBundleBase implements AssetTypeInterface {
 
   /**
-   * The farm_asset type ID.
+   * The asset type ID.
    *
    * @var string
    */
   protected $id;
 
   /**
-   * The farm_asset type label.
+   * The asset type label.
    *
    * @var string
    */
   protected $label;
 
   /**
-   * A brief description of this farm_asset type.
+   * A brief description of this asset type.
    *
    * @var string
    */
   protected $description;
 
   /**
-   * The farm_asset type workflow ID.
+   * The asset type workflow ID.
    *
    * @var string
    */
   protected $workflow;
 
   /**
-   * Default value of the 'Create new revision' checkbox of the farm_asset type.
+   * Default value of the 'Create new revision' checkbox of the asset type.
    *
    * @var bool
    */
@@ -110,14 +110,13 @@ class FarmAssetType extends ConfigEntityBundleBase implements FarmAssetTypeInter
   public function postSave(EntityStorageInterface $storage, $update = TRUE) {
     parent::postSave($storage, $update);
 
-    // If the farm_asset type id changed, update all existing farm_assets of
-    // that type.
+    // If the asset type id changed, update all existing assets of that type.
     if ($update && $this->getOriginalId() != $this->id()) {
-      $update_count = \Drupal::entityTypeManager()->getStorage('farm_asset')->updateType($this->getOriginalId(), $this->id());
+      $update_count = \Drupal::entityTypeManager()->getStorage('asset')->updateType($this->getOriginalId(), $this->id());
       if ($update_count) {
         \Drupal::messenger()->addMessage(\Drupal::translation()->formatPlural($update_count,
-          'Changed the farm_asset type of 1 post from %old-type to %type.',
-          'Changed the farm_asset type of @count posts from %old-type to %type.',
+          'Changed the asset type of 1 post from %old-type to %type.',
+          'Changed the asset type of @count posts from %old-type to %type.',
           [
             '%old-type' => $this->getOriginalId(),
             '%type' => $this->id(),
@@ -153,7 +152,7 @@ class FarmAssetType extends ConfigEntityBundleBase implements FarmAssetTypeInter
   public function calculateDependencies() {
     parent::calculateDependencies();
 
-    // The farm_asset type must depend on the module that provides the workflow.
+    // The asset type must depend on the module that provides the workflow.
     $workflow_manager = \Drupal::service('plugin.manager.workflow');
     $workflow = $workflow_manager->createInstance($this->getWorkflowId());
     $this->calculatePluginDependencies($workflow);

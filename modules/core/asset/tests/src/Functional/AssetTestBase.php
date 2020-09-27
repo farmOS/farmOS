@@ -1,13 +1,13 @@
 <?php
 
-namespace Drupal\Tests\farm_asset\Functional;
+namespace Drupal\Tests\asset\Functional;
 
 use Drupal\Tests\BrowserTestBase;
 
 /**
- * Tests the farm_asset CRUD.
+ * Tests the asset CRUD.
  */
-abstract class FarmAssetTestBase extends BrowserTestBase {
+abstract class AssetTestBase extends BrowserTestBase {
 
   /**
    * Modules to install.
@@ -15,10 +15,10 @@ abstract class FarmAssetTestBase extends BrowserTestBase {
    * @var array
    */
   public static $modules = [
+    'asset',
+    'asset_test',
     'entity',
     'user',
-    'farm_asset',
-    'farm_asset_test',
     'field',
     'text',
   ];
@@ -49,28 +49,28 @@ abstract class FarmAssetTestBase extends BrowserTestBase {
   protected function getAdministratorPermissions() {
     return [
       'access administration pages',
-      'administer farm_assets',
-      'view any farm_asset',
-      'create default farm_asset',
-      'view any default farm_asset',
-      'update own default farm_asset',
-      'update any default farm_asset',
-      'delete own default farm_asset',
-      'delete any default farm_asset',
+      'administer assets',
+      'view any asset',
+      'create default asset',
+      'view any default asset',
+      'update own default asset',
+      'update any default asset',
+      'delete own default asset',
+      'delete any default asset',
     ];
   }
 
   /**
-   * Creates a farm_asset entity.
+   * Creates a asset entity.
    *
    * @param array $values
    *   Array of values to feed the entity.
    *
-   * @return \Drupal\farm_asset\Entity\FarmAssetInterface
-   *   The farm_asset entity.
+   * @return \Drupal\asset\Entity\AssetInterface
+   *   The asset entity.
    */
-  protected function createFarmAssetEntity(array $values = []) {
-    $storage = \Drupal::service('entity_type.manager')->getStorage('farm_asset');
+  protected function createAssetEntity(array $values = []) {
+    $storage = \Drupal::service('entity_type.manager')->getStorage('asset');
     $entity = $storage->create($values + [
       'name' => $this->randomMachineName(),
       'created' => \Drupal::time()->getRequestTime(),

@@ -1,4 +1,0 @@
-entity.farm_asset.collection:
-  route_name: entity.farm_asset.collection
-  title: 'Farm Assets'
-  base_route: system.admin_content

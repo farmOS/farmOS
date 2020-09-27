@@ -2,16 +2,16 @@ langcode: en
 status: true
 dependencies:
   module:
+    - asset
     - datetime
-    - farm_asset
     - options
     - user
-id: farm_asset_test_view
-label: 'farm_asset test view'
+id: asset_test_view
+label: 'asset test view'
 module: views
 description: ''
 tag: ''
-base_table: farm_asset_field_data
+base_table: asset_field_data
 base_field: id
 display:
   default:
@@ -25,18 +25,18 @@ display:
       fields:
         id:
           id: id
-          table: farm_asset_field_data
+          table: asset_field_data
           field: id
           relationship: none
-          entity_type: farm_asset
+          entity_type: asset
           entity_field: id
           plugin_id: field
         name:
           id: name
-          table: farm_asset_field_data
+          table: asset_field_data
           field: name
           relationship: none
-          entity_type: farm_asset
+          entity_type: asset
           entity_field: name
           plugin_id: field
       sorts: {  }

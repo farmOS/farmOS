@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\farm_asset\Entity;
+namespace Drupal\asset\Entity;
 
 use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\RevisionLogEntityTrait;
@@ -10,30 +10,30 @@ use Drupal\entity\Revision\RevisionableContentEntityBase;
 use Drupal\user\EntityOwnerTrait;
 
 /**
- * Defines the farm_asset entity.
+ * Defines the asset entity.
  *
- * @ingroup farm_asset
+ * @ingroup asset
  *
  * @ContentEntityType(
- *   id = "farm_asset",
- *   label = @Translation("farm_asset"),
- *   bundle_label = @Translation("farm asset type"),
- *   label_collection = @Translation("farm assets"),
- *   label_singular = @Translation("farm asset"),
- *   label_plural = @Translation("farm assets"),
+ *   id = "asset",
+ *   label = @Translation("Asset"),
+ *   bundle_label = @Translation("Asset type"),
+ *   label_collection = @Translation("Assets"),
+ *   label_singular = @Translation("Asset"),
+ *   label_plural = @Translation("Assets"),
  *   label_count = @PluralTranslation(
- *     singular = "@count farm asset",
- *     plural = "@count farm assets",
+ *     singular = "@count asset",
+ *     plural = "@count assets",
  *   ),
  *   handlers = {
  *     "access" = "\Drupal\entity\UncacheableEntityAccessControlHandler",
- *     "list_builder" = "\Drupal\farm_asset\FarmAssetListBuilder",
+ *     "list_builder" = "\Drupal\asset\AssetListBuilder",
  *     "permission_provider" = "\Drupal\entity\UncacheableEntityPermissionProvider",
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
  *     "views_data" = "Drupal\views\EntityViewsData",
  *     "form" = {
- *       "add" = "Drupal\farm_asset\Form\FarmAssetForm",
- *       "edit" = "Drupal\farm_asset\Form\FarmAssetForm",
+ *       "add" = "Drupal\asset\Form\AssetForm",
+ *       "edit" = "Drupal\asset\Form\AssetForm",
  *       "delete" = "Drupal\Core\Entity\ContentEntityDeleteForm",
  *     },
  *     "route_provider" = {
@@ -45,13 +45,13 @@ use Drupal\user\EntityOwnerTrait;
  *       "default" = "\Drupal\entity\Menu\DefaultEntityLocalTaskProvider",
  *     },
  *   },
- *   base_table = "farm_asset",
- *   data_table = "farm_asset_field_data",
- *   revision_table = "farm_asset_revision",
+ *   base_table = "asset",
+ *   data_table = "asset_field_data",
+ *   revision_table = "asset_revision",
  *   translatable = TRUE,
  *   revisionable = TRUE,
  *   show_revision_ui = TRUE,
- *   admin_permission = "administer farm_assets",
+ *   admin_permission = "administer assets",
  *   entity_keys = {
  *     "id" = "id",
  *     "revision" = "revision_id",
@@ -61,21 +61,21 @@ use Drupal\user\EntityOwnerTrait;
  *     "uuid" = "uuid",
  *     "langcode" = "langcode",
  *   },
- *   bundle_entity_type = "farm_asset_type",
- *   field_ui_base_route = "entity.farm_asset_type.edit_form",
+ *   bundle_entity_type = "asset_type",
+ *   field_ui_base_route = "entity.asset_type.edit_form",
  *   common_reference_target = TRUE,
  *   permission_granularity = "bundle",
  *   links = {
- *     "canonical" = "/farm-asset/{farm_asset}",
- *     "add-page" = "/farm-asset/add",
- *     "add-form" = "/farm-asset/add/{farm_asset_type}",
- *     "collection" = "/admin/content/farm-asset",
- *     "delete-form" = "/farm-asset/{farm_asset}/delete",
- *     "delete-multiple-form" = "/farm-asset/delete",
- *     "edit-form" = "/farm-asset/{farm_asset}/edit",
- *     "revision" = "/farm-asset/{farm_asset}/revisions/{farm_asset_revision}/view",
- *     "revision-revert-form" = "/farm-asset/{farm_asset}/revisions/{farm_asset_revision}/revert",
- *     "version-history" = "/farm-asset/{farm_asset}/revisions",
+ *     "canonical" = "/asset/{asset}",
+ *     "add-page" = "/asset/add",
+ *     "add-form" = "/asset/add/{asset_type}",
+ *     "collection" = "/admin/content/asset",
+ *     "delete-form" = "/asset/{asset}/delete",
+ *     "delete-multiple-form" = "/asset/delete",
+ *     "edit-form" = "/asset/{asset}/edit",
+ *     "revision" = "/asset/{asset}/revisions/{asset_revision}/view",
+ *     "revision-revert-form" = "/asset/{asset}/revisions/{asset_revision}/revert",
+ *     "version-history" = "/asset/{asset}/revisions",
  *   },
  *   revision_metadata_keys = {
  *     "revision_user" = "revision_user",
@@ -84,7 +84,7 @@ use Drupal\user\EntityOwnerTrait;
  *   },
  * )
  */
-class FarmAsset extends RevisionableContentEntityBase implements FarmAssetInterface {
+class Asset extends RevisionableContentEntityBase implements AssetInterface {
 
   use EntityChangedTrait;
   use EntityOwnerTrait;
@@ -131,9 +131,9 @@ class FarmAsset extends RevisionableContentEntityBase implements FarmAssetInterf
    * {@inheritdoc}
    */
   public function getTypeNamePattern() {
-    /** @var \Drupal\farm_asset\Entity\FarmAssetTypeInterface $type */
+    /** @var \Drupal\asset\Entity\AssetTypeInterface $type */
     $type = \Drupal::entityTypeManager()
-      ->getStorage('farm_asset_type')
+      ->getStorage('asset_type')
       ->load($this->bundle());
     $name_pattern = $type->getNamePattern();
     return $name_pattern ?? '';
@@ -143,9 +143,9 @@ class FarmAsset extends RevisionableContentEntityBase implements FarmAssetInterf
    * {@inheritdoc}
    */
   public function getBundleLabel() {
-    /** @var \Drupal\farm_asset\Entity\FarmAssetTypeInterface $type */
+    /** @var \Drupal\asset\Entity\AssetTypeInterface $type */
     $type = \Drupal::entityTypeManager()
-      ->getStorage('farm_asset_type')
+      ->getStorage('asset_type')
       ->load($this->bundle());
     return $type->label();
   }
@@ -208,7 +208,7 @@ class FarmAsset extends RevisionableContentEntityBase implements FarmAssetInterf
       ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE)
-      ->setSetting('workflow_callback', ['\Drupal\farm_asset\Entity\FarmAsset', 'getWorkflowId']);
+      ->setSetting('workflow_callback', ['\Drupal\asset\Entity\Asset', 'getWorkflowId']);
 
     $fields['uid'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Authored by'))
@@ -216,7 +216,7 @@ class FarmAsset extends RevisionableContentEntityBase implements FarmAssetInterf
       ->setRevisionable(TRUE)
       ->setSetting('target_type', 'user')
       ->setSetting('handler', 'default')
-      ->setDefaultValueCallback('Drupal\farm_asset\Entity\FarmAsset::getCurrentUserId')
+      ->setDefaultValueCallback('Drupal\asset\Entity\Asset::getCurrentUserId')
       ->setDisplayOptions('view', [
         'label' => 'hidden',
         'type' => 'author',
@@ -252,7 +252,7 @@ class FarmAsset extends RevisionableContentEntityBase implements FarmAssetInterf
 
     $fields['changed'] = BaseFieldDefinition::create('changed')
       ->setLabel(t('Changed'))
-      ->setDescription(t('The time the farm_asset was last edited.'))
+      ->setDescription(t('The time the asset was last edited.'))
       ->setRevisionable(TRUE);
 
     return $fields;
@@ -261,14 +261,14 @@ class FarmAsset extends RevisionableContentEntityBase implements FarmAssetInterf
   /**
    * Gets the workflow ID for the state field.
    *
-   * @param \Drupal\farm_asset\Entity\FarmAssetInterface $farm_asset
-   *   The farm_asset entity.
+   * @param \Drupal\asset\Entity\AssetInterface $asset
+   *   The asset entity.
    *
    * @return string
    *   The workflow ID.
    */
-  public static function getWorkflowId(FarmAssetInterface $farm_asset) {
-    $workflow = FarmAssetType::load($farm_asset->bundle())->getWorkflowId();
+  public static function getWorkflowId(AssetInterface $asset) {
+    $workflow = AssetType::load($asset->bundle())->getWorkflowId();
     return $workflow;
   }
 

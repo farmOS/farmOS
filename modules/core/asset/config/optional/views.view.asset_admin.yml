@@ -2,15 +2,15 @@ langcode: en
 status: true
 dependencies:
   module:
-    - farm_asset
+    - asset
     - options
     - user
-id: farm_asset_admin
-label: 'Farm Asset admin'
+id: asset_admin
+label: 'Asset admin'
 module: views
-description: 'Find and manage farm asset entities.'
+description: 'Find and manage asset entities.'
 tag: default
-base_table: farm_asset_field_data
+base_table: asset_field_data
 base_field: id
 display:
   default:
@@ -22,7 +22,7 @@ display:
       access:
         type: perm
         options:
-          perm: 'administer farm_assets'
+          perm: 'administer assets'
       cache:
         type: tag
         options: {  }
@@ -77,7 +77,7 @@ display:
           summary: ''
           description: ''
           columns:
-            farm_asset_bulk_form: farm_asset_bulk_form
+            asset_bulk_form: asset_bulk_form
             status: status
             id: id
             name: name
@@ -85,7 +85,7 @@ display:
             uid: uid
             operations: operations
           info:
-            farm_asset_bulk_form:
+            asset_bulk_form:
               align: ''
               separator: ''
               empty_column: false
@@ -135,10 +135,10 @@ display:
       row:
         type: fields
       fields:
-        farm_asset_bulk_form:
-          id: farm_asset_bulk_form
-          table: farm_asset
-          field: farm_asset_bulk_form
+        asset_bulk_form:
+          id: asset_bulk_form
+          table: asset
+          field: asset_bulk_form
           relationship: none
           group_type: group
           admin_label: ''
@@ -186,11 +186,11 @@ display:
           action_title: 'With selection'
           include_exclude: exclude
           selected_actions: {  }
-          entity_type: farm_asset
+          entity_type: asset
           plugin_id: bulk_form
         status:
           id: status
-          table: farm_asset_field_data
+          table: asset_field_data
           field: status
           relationship: none
           group_type: group
@@ -249,12 +249,12 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: farm_asset
+          entity_type: asset
           entity_field: status
           plugin_id: field
         id:
           id: id
-          table: farm_asset_field_data
+          table: asset_field_data
           field: id
           relationship: none
           group_type: group
@@ -315,12 +315,12 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: farm_asset
+          entity_type: asset
           entity_field: id
           plugin_id: field
         name:
           id: name
-          table: farm_asset_field_data
+          table: asset_field_data
           field: name
           relationship: none
           group_type: group
@@ -380,17 +380,17 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: farm_asset
+          entity_type: asset
           entity_field: name
           plugin_id: field
         type:
           id: type
-          table: farm_asset_field_data
+          table: asset_field_data
           field: type
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'farm_asset type'
+          label: 'Asset type'
           exclude: false
           alter:
             alter_text: false
@@ -445,12 +445,12 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: farm_asset
+          entity_type: asset
           entity_field: type
           plugin_id: field
         uid:
           id: uid
-          table: farm_asset_field_data
+          table: asset_field_data
           field: uid
           relationship: none
           group_type: group
@@ -510,11 +510,11 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: farm_asset
+          entity_type: asset
           entity_field: uid
           plugin_id: field
         operations:
-          table: farm_asset
+          table: asset
           field: operations
           id: operations
           entity_type: null
@@ -568,7 +568,7 @@ display:
       filters:
         name:
           id: name
-          table: farm_asset_field_data
+          table: asset_field_data
           field: name
           relationship: none
           group_type: group
@@ -606,12 +606,12 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: farm_asset
+          entity_type: asset
           entity_field: name
           plugin_id: string
         type:
           id: type
-          table: farm_asset_field_data
+          table: asset_field_data
           field: type
           relationship: none
           group_type: group
@@ -622,7 +622,7 @@ display:
           exposed: true
           expose:
             operator_id: type_op
-            label: 'farm_asset type'
+            label: 'Asset type'
             description: ''
             use_operator: false
             operator: type_op
@@ -649,13 +649,13 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: farm_asset
+          entity_type: asset
           entity_field: type
           plugin_id: bundle
       sorts:
         created:
           id: created
-          table: farm_asset_field_data
+          table: asset_field_data
           field: created
           relationship: none
           group_type: group
@@ -665,10 +665,10 @@ display:
           expose:
             label: ''
           granularity: second
-          entity_type: farm_asset
+          entity_type: asset
           entity_field: created
           plugin_id: date
-      title: 'Farm Assets'
+      title: 'Assets'
       header: {  }
       footer: {  }
       empty:
@@ -681,7 +681,7 @@ display:
           admin_label: ''
           empty: true
           tokenize: false
-          content: 'No Farm Assets available.'
+          content: 'No assets available.'
           plugin_id: text_custom
       relationships: {  }
       arguments: {  }
@@ -706,10 +706,10 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: admin/content/farm-asset
+      path: admin/content/asset
       menu:
         type: tab
-        title: 'Farm Assets'
+        title: 'Assets'
         description: ''
         expanded: false
         parent: ''
@@ -718,7 +718,7 @@ display:
         menu_name: admin
       tab_options:
         type: normal
-        title: farm_asset
+        title: asset
         description: ''
         weight: 0
     cache_metadata:

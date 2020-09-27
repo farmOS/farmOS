@@ -1,22 +1,22 @@
 <?php
 
-namespace Drupal\farm_asset;
+namespace Drupal\asset;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\entity\BulkFormEntityListBuilder;
 
 /**
- * Defines a class to build a listing of farm_asset entities.
+ * Defines a class to build a listing of asset entities.
  *
- * @ingroup farm_asset
+ * @ingroup asset
  */
-class FarmAssetListBuilder extends BulkFormEntityListBuilder {
+class AssetListBuilder extends BulkFormEntityListBuilder {
 
   /**
    * {@inheritdoc}
    */
   public function buildHeader() {
-    $header['id'] = $this->t('Farm Asset ID');
+    $header['id'] = $this->t('Asset ID');
     $header['label'] = $this->t('Label');
     $header['type'] = $this->t('Type');
     return $header + parent::buildHeader();
@@ -26,7 +26,7 @@ class FarmAssetListBuilder extends BulkFormEntityListBuilder {
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
-    /* @var $entity \Drupal\farm_asset\Entity\FarmAssetInterface */
+    /* @var $entity \Drupal\farm_asset\Entity\AssetInterface */
     $row['id'] = ['#markup' => $entity->id()];
     $row['name'] = $entity->toLink($entity->label(), 'canonical')->toRenderable();
     $row['type'] = ['#markup' => $entity->getBundleLabel()];

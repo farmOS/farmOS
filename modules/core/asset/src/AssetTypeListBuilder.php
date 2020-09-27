@@ -1,21 +1,21 @@
 <?php
 
-namespace Drupal\farm_asset;
+namespace Drupal\asset;
 
 use Drupal\Core\Config\Entity\ConfigEntityListBuilder;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Url;
 
 /**
- * Provides a listing of farm_asset type entities.
+ * Provides a listing of asset type entities.
  */
-class FarmAssetTypeListBuilder extends ConfigEntityListBuilder {
+class AssetTypeListBuilder extends ConfigEntityListBuilder {
 
   /**
    * {@inheritdoc}
    */
   public function buildHeader() {
-    $header['label'] = $this->t('Farm Asset type');
+    $header['label'] = $this->t('Asset type');
     $header['id'] = $this->t('Machine name');
     return $header + parent::buildHeader();
   }
@@ -48,8 +48,8 @@ class FarmAssetTypeListBuilder extends ConfigEntityListBuilder {
    */
   public function render() {
     $build = parent::render();
-    $build['table']['#empty'] = $this->t('No farm asset types available. <a href=":link">Add Farm Asset type</a>.', [
-      ':link' => Url::fromRoute('entity.farm_asset_type.add_form')->toString(),
+    $build['table']['#empty'] = $this->t('No asset types available. <a href=":link">Add asset type</a>.', [
+      ':link' => Url::fromRoute('entity.asset_type.add_form')->toString(),
     ]);
     return $build;
   }

@@ -1,25 +1,25 @@
 <?php
 
-namespace Drupal\farm_asset\Form;
+namespace Drupal\asset\Form;
 
 use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Form controller for farm_asset entities.
+ * Form controller for asset entities.
  *
- * @ingroup farm_asset
+ * @ingroup asset
  */
-class FarmAssetForm extends ContentEntityForm {
+class AssetForm extends ContentEntityForm {
 
   /**
    * {@inheritdoc}
    */
   public function save(array $form, FormStateInterface $form_state) {
     parent::save($form, $form_state);
-    $this->messenger()->addMessage($this->t('Saved the %label farm asset.', ['%label' => $this->entity->label()]));
+    $this->messenger()->addMessage($this->t('Saved the %label asset.', ['%label' => $this->entity->label()]));
     $account = $this->currentUser();
-    if ($account->hasPermission('access farm_asset overview')) {
+    if ($account->hasPermission('administer assets')) {
       $form_state->setRedirectUrl($this->entity->toUrl('collection'));
     }
     else {

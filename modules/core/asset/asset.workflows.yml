@@ -1,6 +1,6 @@
-farm_asset_default:
-  id: farm_asset_default
-  group: farm_asset
+asset_default:
+  id: asset_default
+  group: asset
   label: 'Default'
   states:
     active:
