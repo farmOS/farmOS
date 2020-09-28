@@ -46,3 +46,20 @@ function farm_access_update_7000(&$sandbox) {
     module_enable(array($module));
   }
 }
+
+/**
+ * Add aliases for OAuth2 endpoints.
+ *
+ * https://www.drupal.org/project/farm/issues/3172818
+ */
+function farm_access_update_7001(&$sandbox) {
+  $path_aliases = array(
+    'oauth2/authorize' => 'oauth/authorize',
+    'oauth2/revoke' => 'oauth/revoke',
+    'oauth2/token' => 'oauth/token',
+  );
+  foreach ($path_aliases as $source => $alias) {
+    $path = array('source' => $source, 'alias' => $alias);
+    path_save($path);
+  }
+}
