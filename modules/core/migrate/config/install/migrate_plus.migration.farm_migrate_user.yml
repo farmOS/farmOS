@@ -60,7 +60,13 @@ process:
   init:
     plugin: get
     source: init
+  roles:
+    plugin: migration_lookup
+    migration: farm_migrate_role
+    source: roles
+    no_stub: true
 migration_dependencies:
-  required: {  }
+  required:
+    - farm_migrate_role
   optional:
     - farm_migrate_system_date

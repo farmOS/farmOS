@@ -1,0 +1,39 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_migrate
+id: farm_migrate_role
+label: 'Roles'
+migration_group: farm_migrate
+migration_tags:
+  - 'Drupal 7'
+  - 'farmOS 1.x'
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: null
+cck_plugin_method: null
+source:
+  plugin: d7_user_role
+destination:
+  plugin: 'entity:user_role'
+process:
+  id:
+    -
+      plugin: static_map
+      source: name
+      map:
+        Farm Manager: farm_manager
+        Farm Worker: farm_worker
+        Farm Viewer: farm_viewer
+    -
+      plugin: entity_lookup
+      value_key: id
+      entity_type: user_role
+      ignore_case: true
+    -
+      plugin: skip_on_empty
+      method: row
+migration_dependencies:
+  required: {  }
+  optional: {  }
