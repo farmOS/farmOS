@@ -5,4 +5,5 @@ package: farmOS
 core_version_requirement: ^9
 dependencies:
   - drupal:migrate
+  - drupal:migrate_drupal
   - migrate_plus:migrate_plus
