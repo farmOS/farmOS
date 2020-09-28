@@ -857,6 +857,10 @@ cannot be associated with the Drupal Permissions system to access protected
 resources. farmOS will hopefully support the Client Credentials Grant when
 farmOS migrates to Drupal 8 and can use the [simple_oauth] module.
 
+**NOTE:** The `oauth2/token` and `oauth2/authorize` endpoints are deprecated and
+will be removed in farmOS 2.x. Starting with farmOS 1.6 it is recommended to use
+the new `oauth/token` and `oauth/authorize` endpoints.
+
 #### Authorization Code Grant
 
 The Authorization Code Grant is most popular for 3rd party client authorization.
