@@ -50,6 +50,25 @@ function farm_api_menu() {
   return $items;
 }
 
+/**
+ * Implements hook_menu_alter().
+ */
+function farm_api_menu_alter(&$items) {
+
+  // Make OAuth2 token endpoints available at both oauth2/* and oauth/*.
+  // See https://www.drupal.org/project/farm/issues/3172818
+  $oauth_aliases = array(
+    'oauth2/authorize' => 'oauth/authorize',
+    'oauth2/revoke' => 'oauth/revoke',
+    'oauth2/token' => 'oauth/token',
+  );
+  foreach ($oauth_aliases as $source => $alias) {
+    if (!empty($items[$source])) {
+      $items[$alias] = $items[$source];
+    }
+  }
+}
+
 /*
  * Implements hook_farm_api_oauth2_client()
  */
