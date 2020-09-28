@@ -1,0 +1,64 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_migrate
+id: farm_migrate_file
+label: 'Public files'
+migration_group: farm_migrate
+migration_tags:
+  - 'Drupal 7'
+  - 'farmOS 1.x'
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: null
+cck_plugin_method: null
+source:
+  plugin: d7_file
+  scheme: public
+  constants:
+    source_base_path: '/'
+destination:
+  plugin: 'entity:file'
+process:
+  fid:
+    plugin: get
+    source: fid
+  filename:
+    plugin: get
+    source: filename
+  source_full_path:
+    plugin: str_replace
+    source: uri
+    search: 'public://'
+    replace: 'public://migrate/'
+  uri:
+    plugin: file_copy
+    source:
+      - '@source_full_path'
+      - uri
+  filemime:
+    plugin: get
+    source: filemime
+  status:
+    plugin: get
+    source: status
+  created:
+    plugin: get
+    source: timestamp
+  changed:
+    plugin: get
+    source: timestamp
+  uid:
+    -
+      plugin: skip_on_empty
+      method: process
+      source: uid
+    -
+      plugin: migration_lookup
+      migration: farm_migrate_user
+      source: uid
+migration_dependencies:
+  required:
+    - farm_migrate_user
+  optional: {  }

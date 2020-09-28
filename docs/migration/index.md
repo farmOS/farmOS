@@ -16,10 +16,41 @@
           'driver' => 'mysql',
         ];
 
-4. Install the farmOS Migrate (`farm_migrate`) module.
-5. Run the farmOS 1.x Migration via Drush:
+4. Copy user-uploaded files to the new directory (see "Uploaded files" below).
+5. Install the farmOS Migrate (`farm_migrate`) module.
+6. Run the farmOS 1.x Migration via Drush:
 
         drush migrate:import --group=farm_migrate
+
+## Uploaded files
+
+farmOS allows files to be uploaded/attached to records. In order to migrate
+these files, they need to be copied into new site's files/private directories.
+
+The farmOS migration code will look for files in the following locations:
+
+- Public files: `public://migrate`
+- Private files: `private://migrate`
+
+The `public://` and `private://` prefixes map to the "Public file system path"
+and "Private file system path" configured in farmOS 1.x and 2.x at:
+`/admin/config/media/file-system`. This may vary for each installation.
+
+For example, if you have farmOS 1.x installed in `/var/www/farmOS_1.x` and
+farmOS 2.x in `/var/www/farmOS_2.x`, and both are configured to use
+`sites/default/files` for public files, and `sites/default/private` for private
+files, then copy the files as follows:
+
+    cp -rp /var/www/farmOS_1.x/sites/default/files /var/www/farmOS_2.x/sites/default/files/migrate
+
+    cp -rp /var/www/farmOS_1.x/sites/default/private/files /var/www/farmOS_2.x/sites/default/private/files/migrate
+
+The farmOS migration code will automatically move files from `files/migrate/*`
+to `files/*`. Only the files that it finds in the `{file_managed}` table will
+be moved, leaving behind various temporary files in the `migrate` directory
+that are no longer needed after the migration. This `migrate` directory can be
+deleted after the migration, once it has been confirmed that everything was
+migrated successfully.
 
 ## Limitations
 
