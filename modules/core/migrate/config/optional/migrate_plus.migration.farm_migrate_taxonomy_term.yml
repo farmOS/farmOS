@@ -1,0 +1,72 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_migrate
+id: farm_migrate_taxonomy_term
+label: 'Taxonomy terms'
+migration_group: farm_migrate
+migration_tags:
+  - 'Drupal 7'
+  - 'farmOS 1.x'
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: null
+cck_plugin_method: null
+source:
+  plugin: d7_taxonomy_term
+destination:
+  plugin: 'entity:taxonomy_term'
+process:
+  # Static map old vocabulary IDs to new.
+  # This only handles known vocabularies provided by farmOS core.
+  # If the vocabulary is not found in this map, then the term will be skipped.
+  # Contrib farmOS modules are responsible for migrating their own
+  # vocabularies.
+  vid:
+    plugin: static_map
+    source: machine_name
+    map:
+      farm_log_categories: log_category
+    bypass: FALSE
+  tid:
+    plugin: get
+    source: tid
+  name:
+    plugin: get
+    source: name
+  description/value:
+    plugin: get
+    source: description
+  description/format:
+    plugin: default_value
+    default_value: default
+  weight:
+    plugin: get
+    source: weight
+  parent_id:
+    -
+      plugin: skip_on_empty
+      method: process
+      source: parent
+    -
+      plugin: migration_lookup
+      migration: farm_migrate_taxonomy_term
+      source: tid
+  parent:
+    plugin: default_value
+    default_value: 0
+    source: '@parent_id'
+  forum_container:
+    plugin: get
+    source: is_container
+  changed:
+    plugin: get
+    source: timestamp
+  langcode:
+    plugin: get
+    source: language
+migration_dependencies:
+  required: {  }
+  optional:
+    - farm_migrate_taxonomy_term
