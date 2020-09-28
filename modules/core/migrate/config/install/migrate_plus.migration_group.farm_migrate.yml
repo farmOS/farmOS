@@ -1,0 +1,12 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_migrate
+id: farm_migrate
+label: 'farmOS 1.x Migration'
+description: 'Migrates a farmOS 1.x database to farmOS 2.x'
+source_type: 'farmOS 1.x'
+module: null
+shared_configuration: null
