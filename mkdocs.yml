@@ -1,6 +1,9 @@
 site_name: farmOS 2.x
 nav:
   - farmOS: index.md
+  - API:
+    - Introduction: api/index.md
+    - Changes: api/changes.md
   - Development:
     - Getting started: development/index.md
     - Docker: development/docker.md
