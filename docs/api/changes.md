@@ -2,21 +2,33 @@
 
 ## 2.x vs 1.x
 
-### Endpoints
-
 farmOS 1.x used the [RESTful Web Services](https://drupal.org/project/restws)
-module. This provided API endpoints for each entity type at
-`/[entity_type].json`.
+module, which provided API endpoints for each entity type (asset, log, taxonomy
+term, etc).
 
 farmOS 2.x uses the new JSON:API module included with Drupal core, which
 follows the [JSON:API](https://jsonapi.org/) specification for defining API
-resources. The root endpoint is now `/api`.
+resources.
 
-Within the `/api` endpoint is a `links` object with information about all
-the available resource types and their endpoints. Typically these follow a URL
-pattern of `/[entity-type]/[bundle]`.
+### Endpoints
 
-For example, to access a list of Activity logs:
+In farmOS 1.x, API endpoints for each entity type were available at
+`/[entity_type].json`.
+
+For example: `/log.json`
+
+In farmOS 1.x, a root `/api` endpoint is provided, with a `links` object that
+describes all the available resource types and their endpoints. These follow
+a URL pattern of `/api/[entity-type]/[bundle]`.
+
+For example: `/api/log/activity`
+
+"Bundles" are "sub-types" that can have different sets (bundles) of fields on
+them. For example, a "Seeding Log" and a "Harvest Log" will collect different
+information, but both are "Logs" (events).
+
+To illustrate the difference between 1.x and 2.x, here are the endpoints for
+retrieving all Activity logs.
 
 - farmOS 1.x: `/log.json?type=farm_activity`
 - farmOS 2.x: `/api/log/activity`
