@@ -33,9 +33,14 @@ retrieving all Activity logs.
 - farmOS 1.x: `/log.json?type=farm_activity`
 - farmOS 2.x: `/api/log/activity`
 
+### JSON:Schema
+
 farmOS 2.x also provides [JSON Schema](https://json-schema.org/) information
 about all available resources. The root endpoint for schema information is
 `/api/schema`.
+
+In farmOS 1.x, the `/farm.json` endpoint provided similar information in the
+`resources` property. This has been removed in favor of JSON Schema.
 
 ### IDs
 
