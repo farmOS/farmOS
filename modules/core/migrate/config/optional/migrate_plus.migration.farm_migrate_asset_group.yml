@@ -1,0 +1,51 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_migrate
+      - farm_group
+id: farm_migrate_asset_group
+label: 'Assets (Groups)'
+migration_group: farm_migrate
+migration_tags:
+  - 'Drupal 7'
+  - 'farmOS 1.x'
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: null
+cck_plugin_method: null
+source:
+  plugin: d7_asset
+  bundle: group
+destination:
+  plugin: 'entity:asset'
+process:
+  # Hardcode the destination asset type (bundle).
+  type:
+    plugin: default_value
+    default_value: group
+  id:
+    plugin: get
+    source: id
+  name:
+    plugin: get
+    source: name
+  uid:
+    -
+      plugin: skip_on_empty
+      method: process
+      source: uid
+    -
+      plugin: migration_lookup
+      migration: farm_migrate_user
+      source: uid
+  created:
+    plugin: get
+    source: created
+  changed:
+    plugin: get
+    source: changed
+migration_dependencies:
+  required:
+    - farm_migrate_user
+  optional: {  }
