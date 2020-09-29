@@ -1,0 +1,5 @@
+services:
+  farm_api.repositories.client:
+    class: Drupal\farm_api\Repositories\FarmClientRepository
+    decorates: simple_oauth.repositories.client
+    arguments: [ '@entity_type.manager', '@password' ]
