@@ -45,6 +45,13 @@ process:
   changed:
     plugin: get
     source: changed
+  # @todo this needs to be able to handle the archived timestamp
+  status:
+    plugin: static_map
+    source: archived
+    map:
+      0: active
+      1: archived
 migration_dependencies:
   required:
     - farm_migrate_user

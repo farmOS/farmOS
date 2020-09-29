@@ -111,4 +111,27 @@ class AssetCRUDTest extends AssetTestBase {
     $this->assertNull(Asset::load($asset_id));
   }
 
+  /**
+   * Asset archiving.
+   */
+  public function testArchiveAsset() {
+    $asset = $this->createAssetEntity();
+    $asset->save();
+
+    $this->assertEquals($asset->get('status')->first()->getString(), 'active', 'New assets are active by default');
+    $this->assertNull($asset->getArchivedTime(), 'Archived timestamp is null by default');
+
+    $asset->get('status')->first()->applyTransitionById('archive');
+    $asset->save();
+
+    $this->assertEquals($asset->get('status')->first()->getString(), 'archived', 'Assets can be archived');
+    $this->assertNotNull($asset->getArchivedTime(), 'Archived timestamp is saved');
+
+    $asset->get('status')->first()->applyTransitionById('to_active');
+    $asset->save();
+
+    $this->assertEquals($asset->get('status')->first()->getString(), 'active', 'Assets can be made active');
+    $this->assertNull($asset->getArchivedTime(), 'Asset made active has a null timestamp');
+  }
+
 }

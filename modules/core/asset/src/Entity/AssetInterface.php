@@ -53,6 +53,25 @@ interface AssetInterface extends ContentEntityInterface, EntityChangedInterface,
   public function setCreatedTime($timestamp);
 
   /**
+   * Gets the asset archived timestamp.
+   *
+   * @return int
+   *   Archived timestamp of the asset.
+   */
+  public function getArchivedTime();
+
+  /**
+   * Sets the asset archived timestamp.
+   *
+   * @param int $timestamp
+   *   Archived timestamp of the asset.
+   *
+   * @return \Drupal\asset\Entity\AssetInterface
+   *   The asset entity.
+   */
+  public function setArchivedTime($timestamp);
+
+  /**
    * Gets the label of the the asset type.
    *
    * @return string

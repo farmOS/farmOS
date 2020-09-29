@@ -26,6 +26,7 @@ use Drupal\user\EntityOwnerTrait;
  *     plural = "@count assets",
  *   ),
  *   handlers = {
+ *     "storage" = "Drupal\asset\AssetStorage",
  *     "access" = "\Drupal\entity\UncacheableEntityAccessControlHandler",
  *     "list_builder" = "\Drupal\asset\AssetListBuilder",
  *     "permission_provider" = "\Drupal\entity\UncacheableEntityPermissionProvider",
@@ -124,6 +125,21 @@ class Asset extends RevisionableContentEntityBase implements AssetInterface {
    */
   public function setCreatedTime($timestamp) {
     $this->set('created', $timestamp);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getArchivedTime() {
+    return $this->get('archived')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setArchivedTime($timestamp) {
+    $this->set('archived', $timestamp);
     return $this;
   }
 
@@ -241,6 +257,11 @@ class Asset extends RevisionableContentEntityBase implements AssetInterface {
     $fields['changed'] = BaseFieldDefinition::create('changed')
       ->setLabel(t('Changed'))
       ->setDescription(t('The time the asset was last edited.'))
+      ->setRevisionable(TRUE);
+
+    $fields['archived'] = BaseFieldDefinition::create('timestamp')
+      ->setLabel(t('Timestamp'))
+      ->setDescription(t('The time the asset was archived.'))
       ->setRevisionable(TRUE);
 
     return $fields;
