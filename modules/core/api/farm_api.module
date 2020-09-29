@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * @file
+ * Contains farm_api.module.
+ */
+
+/**
+ * Implements hook_consumers_list_alter().
+ *
+ * Display the client_id in the list of consumers.
+ */
+function farm_api_consumers_list_alter(&$data, $context) {
+  if ($context['type'] === 'header') {
+    $data['client_id'] = t('Client ID');
+  }
+  elseif ($context['type'] === 'row') {
+    $entity = $context['entity'];
+
+    $data['client_id'] = NULL;
+    if ($client_id = $entity->get('client_id')->value) {
+      $data['client_id'] = $client_id;
+    }
+  }
+}
