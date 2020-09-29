@@ -1,0 +1,24 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.consumer.consumer.client_id
+  module:
+    - text
+  enforced:
+    module:
+      - farm_api
+id: consumer.client_id.default
+targetEntityType: consumer
+bundle: consumer
+mode: default
+content:
+  client_id:
+    title: 'Client ID'
+    weight: -4
+    settings:
+      size: 255
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+hidden: {  }
