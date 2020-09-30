@@ -16,6 +16,9 @@
 function farm_modules() {
   return [
     'default' => [
+      'farm_plant' => t('Plant assets'),
+      'farm_animal' => t('Animal assets'),
+      'farm_equipment' => t('Equipment assets'),
       'farm_activity' => t('Activity logs'),
       'farm_observation' => t('Observation logs'),
       'farm_input' => t('Input logs'),
@@ -23,6 +26,9 @@ function farm_modules() {
       'farm_api' => t('farmOS API'),
     ],
     'optional' => [
+      'farm_sensor' => t('Sensor assets'),
+      'farm_compost' => t('Compost assets'),
+      'farm_group' => t('Group assets'),
       'farm_seeding' => t('Seeding logs'),
       'farm_transplanting' => t('Transplanting logs'),
       'farm_lab_test' => t('Lab test logs'),
