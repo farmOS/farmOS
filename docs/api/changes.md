@@ -61,6 +61,57 @@ integrate should use the new UUIDs instead.
 Also note that the migration from farmOS 1.x to 2.x does not preserve the
 internal integer IDs, so they may be different after migrating to 2.x.
 
+### Record structure
+
+JSON:API has some rules about how records are structured that differ from
+farmOS 1.x. These rules make the API more explicit.
+
+In farmOS 1.x, all the fields/properties of a record were on the same level.
+
+For example, a simple observation log looked like this:
+
+```
+{
+    "id": "5"
+    "type": "farm_observation",
+    "name": "Test observation",
+    "timestamp": "1526584271",
+    "asset": [
+      {
+        "resource": "farm_asset",
+        "id": "123"
+      }
+    ]
+}
+```
+
+In farmOS 2.x, JSON:API dictates that the "attributes" and "relationships" of a
+record be explicitly declared under `attributes` and `relationships` properties
+in the JSON.
+
+The same record in farmOS 2.x looks like:
+
+```
+{
+  "id": "9bc49ffd-76e8-4f86-b811-b721cb771327"
+  "type": "log--observation",
+  "attributes": {
+    "name": "Test observation",
+    "timestamp": "1526584271",
+  },
+  "relationships": {
+    "asset": {
+      "data": [
+        {
+          "type": "asset--animal",
+          "id": "75116e3e-c45e-431d-8b58-1fce6bb315cf",
+        }
+      ]
+    }
+  }
+}
+```
+
 ### Logs
 
 #### Type names
