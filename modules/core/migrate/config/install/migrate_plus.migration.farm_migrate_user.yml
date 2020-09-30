@@ -62,4 +62,5 @@ process:
     source: init
 migration_dependencies:
   required: {  }
-  optional: {  }
+  optional:
+    - farm_migrate_system_date
