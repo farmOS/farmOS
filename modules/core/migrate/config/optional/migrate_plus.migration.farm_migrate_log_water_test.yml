@@ -31,9 +31,14 @@ process:
     plugin: get
     source: name
   uid:
-    plugin: migration_lookup
-    migration: farm_migrate_user
-    source: uid
+    -
+      plugin: skip_on_empty
+      method: process
+      source: uid
+    -
+      plugin: migration_lookup
+      migration: farm_migrate_user
+      source: uid
   timestamp:
     plugin: get
     source: timestamp
