@@ -20,3 +20,18 @@
 5. Run the farmOS 1.x Migration via Drush:
 
         drush migrate:import --group=farm_migrate
+
+## Limitations
+
+The farmOS migration code is designed to migrate a *default* farmOS 1.x
+database to 2.x. If any customizations have been made on top of the defaults,
+they will not be migrated.
+
+This includes (but is not limited to):
+
+- Custom asset, entity, taxonomies, and log types
+- Custom fields
+- Custom roles
+
+If you maintain a contrib/custom module for farmOS 1.x, it is your
+responsibility to update the modules for 2.x and provide migration logic.
