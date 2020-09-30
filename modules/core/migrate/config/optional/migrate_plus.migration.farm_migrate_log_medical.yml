@@ -1,0 +1,55 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_migrate
+      - farm_medical
+id: farm_migrate_log_medical
+label: 'Logs (Medical)'
+migration_group: farm_migrate
+migration_tags:
+  - 'Drupal 7'
+  - 'farmOS 1.x'
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: null
+cck_plugin_method: null
+source:
+  plugin: d7_log
+  bundle: farm_medical
+destination:
+  plugin: 'entity:log'
+process:
+  # Hardcode the destination log type (bundle).
+  type:
+    plugin: default_value
+    default_value: medical
+  id:
+    plugin: get
+    source: id
+  name:
+    plugin: get
+    source: name
+  uid:
+    plugin: migration_lookup
+    migration: farm_migrate_user
+    source: uid
+  timestamp:
+    plugin: get
+    source: timestamp
+  created:
+    plugin: get
+    source: created
+  changed:
+    plugin: get
+    source: changed
+  status:
+    plugin: static_map
+    source: done
+    map:
+      0: pending
+      1: complete
+migration_dependencies:
+  required:
+    - farm_migrate_user
+  optional: {  }

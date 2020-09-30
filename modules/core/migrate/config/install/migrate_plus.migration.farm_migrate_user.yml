@@ -1,0 +1,65 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_migrate
+id: farm_migrate_user
+label: 'User accounts'
+migration_group: farm_migrate
+migration_tags:
+  - 'Drupal 7'
+  - 'farmOS 1.x'
+class: Drupal\user\Plugin\migrate\User
+field_plugin_method: null
+cck_plugin_method: null
+source:
+  plugin: d7_user
+destination:
+  plugin: 'entity:user'
+process:
+  uid:
+    plugin: get
+    source: uid
+  name:
+    plugin: get
+    source: name
+  pass:
+    plugin: get
+    source: pass
+  mail:
+    plugin: get
+    source: mail
+  created:
+    plugin: get
+    source: created
+  access:
+    plugin: get
+    source: access
+  login:
+    plugin: get
+    source: login
+  status:
+    plugin: get
+    source: status
+  timezone:
+    plugin: get
+    source: timezone
+  langcode:
+    plugin: user_langcode
+    source: entity_language
+    fallback_to_site_default: false
+  preferred_langcode:
+    plugin: user_langcode
+    source: language
+    fallback_to_site_default: true
+  preferred_admin_langcode:
+    plugin: user_langcode
+    source: language
+    fallback_to_site_default: true
+  init:
+    plugin: get
+    source: init
+migration_dependencies:
+  required: {  }
+  optional: {  }
