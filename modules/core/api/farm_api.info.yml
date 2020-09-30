@@ -7,3 +7,4 @@ dependencies:
   - config_rewrite:config_rewrite
   - drupal:jsonapi
   - jsonapi_extras:jsonapi_extras
+  - jsonapi_schema:jsonapi_schema
