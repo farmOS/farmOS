@@ -23,7 +23,7 @@
         "drupal/jsonapi_extras": "^3.15",
         "drupal/jsonapi_schema": "^1.0@beta",
         "drupal/log": "2.x-dev",
-        "drupal/migrate_plus": "^3.2",
+        "drupal/migrate_plus": "^5.1",
         "drupal/migrate_tools": "^5.0",
         "drupal/token": "^1.7"
     },
