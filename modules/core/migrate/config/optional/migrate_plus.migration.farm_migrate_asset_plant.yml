@@ -45,13 +45,22 @@ process:
   changed:
     plugin: get
     source: changed
-  # @todo this needs to be able to handle the archived timestamp
+  # Map the old archived value to both an archived timestamp and a status.
+  # If the old value is 0, status is active. Otherwise, it is archived.
+  archived:
+    -
+      plugin: skip_on_empty
+      method: process
+      source: archived
+    -
+      plugin: get
+      source: archived
   status:
     plugin: static_map
     source: archived
     map:
       0: active
-      1: archived
+    default_value: archived
 migration_dependencies:
   required:
     - farm_migrate_user
