@@ -8,13 +8,12 @@ dependencies:
   enforced:
     module:
       - farm_api
-id: consumer.client_id.default
+id: consumer.consumer.default
 targetEntityType: consumer
 bundle: consumer
 mode: default
 content:
   client_id:
-    title: 'Client ID'
     weight: -4
     settings:
       size: 255
