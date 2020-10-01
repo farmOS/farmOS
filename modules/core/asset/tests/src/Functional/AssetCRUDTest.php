@@ -7,7 +7,7 @@ use Drupal\asset\Entity\Asset;
 /**
  * Tests the asset CRUD.
  *
- * @group asset
+ * @group farm
  */
 class AssetCRUDTest extends AssetTestBase {
 
