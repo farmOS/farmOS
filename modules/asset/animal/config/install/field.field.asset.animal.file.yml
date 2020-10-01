@@ -1,0 +1,26 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - asset.type.animal
+    - field.storage.asset.file
+  module:
+    - file
+id: asset.animal.file
+field_name: file
+entity_type: asset
+bundle: animal
+label: Files
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: 'farm/asset/animal/[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'csv doc docx gz kml kmz logz mp3 odp ods odt ogg pdf ppt pptx tar txt wav xls xlsx zip'
+  max_filesize: ''
+  description_field: true
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: file

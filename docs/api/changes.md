@@ -202,6 +202,8 @@ fields are not listed here):
 
 - `archived` -> `status` and `archived` (see "Asset status" below)
 - `flags` -> `flag`
+- `files` -> `file`
+- `images` -> `image`
 - `description` -> `notes`
 
 #### Asset status
