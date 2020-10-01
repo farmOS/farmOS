@@ -21,3 +21,26 @@ Restart the Docker containers for this change to take affect.
 
 **Note**: If the Docker containers are removed and recreated, the IP address
 may change, and you will need to repeat these steps to reconfigure it.
+
+## PHPStorm
+
+If you are using the PHPStorm IDE, with the configuration above in place,
+enable the "Start listening for PHP Debug Connections" option. Add a
+breakpoint in your code, load the page in your browser, and you should see
+a prompt appear in PHPStorm that will begin the debugging session and pause
+execution at your breakpoint.
+
+### Drush + PHPStorm
+
+Debugging code that is run via [Drush](/development/drush) commands requires
+additional configuration. Add `idekey=PHPSTORM` to the `XDEBUG_CONFIG`
+environment variable, and add a `PHP_IDE_CONFIG` environment variable with
+`serverName=localhost`, as follows:
+
+    environment:
+      XDEBUG_CONFIG: remote_host=192.168.128.1 idekey=PHPSTORM
+      PHP_IDE_CONFIG: serverName=localhost
+
+Run a `drush` command and a prompt should appear in PHPStorm. You will need to
+map the path to Drush (`vendor/drush`) in the PHPStorm debugger config. Then
+you can set breakpoints in the Drush code you want to test.
