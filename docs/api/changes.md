@@ -175,3 +175,41 @@ In farmOS 1.x, logs had a boolean property called `done` which was either `1`
 
 In 2.x, the `done` property has changed to `status`, and can be set to either
 `done` or `pending`. Additional states may be added in the future.
+
+### Assets
+
+Asset records in farmOS 1.x had an entity type of `farm_asset`. In farmOS 2.x,
+the `farm_` prefix has been dropped. The entity type is now simply `asset`.
+
+#### Asset types
+
+Asset type names are largely unchanged, with one notable exception: the
+"Planting" asset type has been renamed to "Plant".
+
+Below is the full list of asset types in farmOS 1.x and their new names in 2.x:
+
+- `animal` (unchanged)
+- `compost` (unchanged)
+- `equipment` (unchanged)
+- `group` (unchanged)
+- `planting` -> `plant`
+- `sensor` (unchanged)
+
+#### Asset fields
+
+Asset field names are largely unchanged, with a few exceptions (note that *new*
+fields are not listed here):
+
+- `archived` -> `status` and `archived` (see "Asset status" below)
+
+#### Asset status
+
+In farmOS 1.x, assets had a property called `archived` which was either `0`,
+which indicated that the asset was active, or a timestamp that recorded when
+the asset was archived.
+
+In farmOS 2.x, these have been split into two separate fields:
+
+- `status` - The status of the asset (either `active` or `archived`).
+- `archived` - The timestamp when the asset was archived. This will be empty
+  if the asset is active.
