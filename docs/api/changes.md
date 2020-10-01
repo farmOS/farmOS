@@ -125,7 +125,7 @@ To illustrate, this is how to filter activity logs by their completed status:
 
 ### Logs
 
-#### Type names
+#### Log types
 
 The `farm_` prefix has been dropped from all log type names. For example, in
 farmOS 1.x an Activity log was `farm_activity`, and in farmOS 2.x it is simply
@@ -149,13 +149,13 @@ Below is the full list of log types in farmOS 1.x and their new names in 2.x:
 - `farm_transplanting` -> `transplanting`
 - `farm_water_test` -> `lab_test`
 
-#### Field names
+#### Log fields
 
 Log field names are largely unchanged, with a few exceptions (note that *new*
 fields are not listed here):
 
 - `date_purchase` -> `purchase_date`
-- `done` -> `status` (see "Status" below)
+- `done` -> `status` (see "Log status" below)
 - `files` -> `file`
 - `flags` -> `flag`
 - `geofield` -> `geometry`
@@ -168,7 +168,7 @@ fields are not listed here):
 - `soil_lab` -> `lab`
 - `water_lab` -> `lab`
 
-#### Status
+#### Log status
 
 In farmOS 1.x, logs had a boolean property called `done` which was either `1`
 (done) or `0` (not done).
