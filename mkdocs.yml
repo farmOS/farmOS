@@ -17,4 +17,6 @@ nav:
       - Debugging: development/environment/debug.md
       - Automated tests: development/environment/tests.md
       - Coding standards: development/environment/code.md
+    - Module:
+      - OAuth: development/module/oauth.md
 theme: readthedocs
