@@ -201,6 +201,7 @@ Asset field names are largely unchanged, with a few exceptions (note that *new*
 fields are not listed here):
 
 - `archived` -> `status` and `archived` (see "Asset status" below)
+- `flags` -> `flag`
 
 #### Asset status
 
