@@ -10,6 +10,11 @@ use Drupal\Tests\BrowserTestBase;
 abstract class AssetTestBase extends BrowserTestBase {
 
   /**
+   * {@inheritdoc}
+   */
+  protected $profile = 'farm';
+
+  /**
    * Modules to install.
    *
    * @var array
