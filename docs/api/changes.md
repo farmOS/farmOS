@@ -202,6 +202,7 @@ fields are not listed here):
 
 - `archived` -> `status` and `archived` (see "Asset status" below)
 - `flags` -> `flag`
+- `description` -> `notes`
 
 #### Asset status
 

@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - asset.type.compost
+    - field.storage.asset.notes
+  module:
+    - text
+id: asset.compost.notes
+field_name: notes
+entity_type: asset
+bundle: compost
+label: Notes
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
