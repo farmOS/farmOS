@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - asset.type.sensor
+    - field.storage.asset.data
+id: asset.sensor.data
+field_name: data
+entity_type: asset
+bundle: sensor
+label: Data
+description: 'The data field can be used to store arbitrary data on the asset.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long
