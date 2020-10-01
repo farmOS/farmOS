@@ -130,18 +130,6 @@ class Asset extends RevisionableContentEntityBase implements AssetInterface {
   /**
    * {@inheritdoc}
    */
-  public function getTypeNamePattern() {
-    /** @var \Drupal\asset\Entity\AssetTypeInterface $type */
-    $type = \Drupal::entityTypeManager()
-      ->getStorage('asset_type')
-      ->load($this->bundle());
-    $name_pattern = $type->getNamePattern();
-    return $name_pattern ?? '';
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function getBundleLabel() {
     /** @var \Drupal\asset\Entity\AssetTypeInterface $type */
     $type = \Drupal::entityTypeManager()
