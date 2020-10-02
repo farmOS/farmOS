@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - asset.type.group
+    - field.storage.asset.notes
+  module:
+    - text
+id: asset.group.notes
+field_name: notes
+entity_type: asset
+bundle: group
+label: Notes
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

@@ -1,0 +1,18 @@
+asset_default:
+  id: asset_default
+  group: asset
+  label: 'Default'
+  states:
+    active:
+      label: Active
+    archived:
+      label: Archived
+  transitions:
+    archive:
+      label: 'Archive'
+      from: [active]
+      to: archived
+    to_active:
+      label: 'Make active'
+      from: [archived]
+      to: active

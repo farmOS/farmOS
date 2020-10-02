@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - asset.type.plant
+    - field.storage.log.asset
+    - log.type.transplanting
+id: log.transplanting.asset
+field_name: asset
+entity_type: log
+bundle: transplanting
+label: Assets
+description: 'What assets do this log pertain to?'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:asset'
+  handler_settings:
+    target_bundles:
+      plant: plant
+    sort:
+      field: name
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

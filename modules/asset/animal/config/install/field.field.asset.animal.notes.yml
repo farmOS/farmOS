@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - asset.type.animal
+    - field.storage.asset.notes
+  module:
+    - text
+id: asset.animal.notes
+field_name: notes
+entity_type: asset
+bundle: animal
+label: Notes
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

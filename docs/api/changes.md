@@ -125,7 +125,7 @@ To illustrate, this is how to filter activity logs by their completed status:
 
 ### Logs
 
-#### Type names
+#### Log types
 
 The `farm_` prefix has been dropped from all log type names. For example, in
 farmOS 1.x an Activity log was `farm_activity`, and in farmOS 2.x it is simply
@@ -149,13 +149,13 @@ Below is the full list of log types in farmOS 1.x and their new names in 2.x:
 - `farm_transplanting` -> `transplanting`
 - `farm_water_test` -> `lab_test`
 
-#### Field names
+#### Log fields
 
 Log field names are largely unchanged, with a few exceptions (note that *new*
 fields are not listed here):
 
 - `date_purchase` -> `purchase_date`
-- `done` -> `status` (see "Status" below)
+- `done` -> `status` (see "Log status" below)
 - `files` -> `file`
 - `flags` -> `flag`
 - `geofield` -> `geometry`
@@ -168,10 +168,52 @@ fields are not listed here):
 - `soil_lab` -> `lab`
 - `water_lab` -> `lab`
 
-#### Status
+#### Log status
 
 In farmOS 1.x, logs had a boolean property called `done` which was either `1`
 (done) or `0` (not done).
 
 In 2.x, the `done` property has changed to `status`, and can be set to either
 `done` or `pending`. Additional states may be added in the future.
+
+### Assets
+
+Asset records in farmOS 1.x had an entity type of `farm_asset`. In farmOS 2.x,
+the `farm_` prefix has been dropped. The entity type is now simply `asset`.
+
+#### Asset types
+
+Asset type names are largely unchanged, with one notable exception: the
+"Planting" asset type has been renamed to "Plant".
+
+Below is the full list of asset types in farmOS 1.x and their new names in 2.x:
+
+- `animal` (unchanged)
+- `compost` (unchanged)
+- `equipment` (unchanged)
+- `group` (unchanged)
+- `planting` -> `plant`
+- `sensor` (unchanged)
+
+#### Asset fields
+
+Asset field names are largely unchanged, with a few exceptions (note that *new*
+fields are not listed here):
+
+- `archived` -> `status` and `archived` (see "Asset status" below)
+- `flags` -> `flag`
+- `files` -> `file`
+- `images` -> `image`
+- `description` -> `notes`
+
+#### Asset status
+
+In farmOS 1.x, assets had a property called `archived` which was either `0`,
+which indicated that the asset was active, or a timestamp that recorded when
+the asset was archived.
+
+In farmOS 2.x, these have been split into two separate fields:
+
+- `status` - The status of the asset (either `active` or `archived`).
+- `archived` - The timestamp when the asset was archived. This will be empty
+  if the asset is active.

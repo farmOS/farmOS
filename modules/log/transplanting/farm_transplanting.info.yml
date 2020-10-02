@@ -1,10 +1,11 @@
 name: Transplanting log
-description: Adds a Transplanting log type.
+description: Adds a Transplanting log type for Plant assets.
 type: module
 package: farmOS Logs
 core_version_requirement: ^9
 dependencies:
   - farm:farm_field
   - farm:farm_flag
+  - farm:farm_plant
   - log:log
   - token:token

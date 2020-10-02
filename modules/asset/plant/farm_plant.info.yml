@@ -1,0 +1,9 @@
+name: Plant asset
+description: Adds a Plant asset type.
+type: module
+package: farmOS Assets
+core_version_requirement: ^9
+dependencies:
+  - farm:asset
+  - farm:farm_field
+  - farm:farm_flag

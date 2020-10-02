@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_sensor
+id: sensor
+label: Sensor
+description: ''
+workflow: asset_default
+new_revision: true

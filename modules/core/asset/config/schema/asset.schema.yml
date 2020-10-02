@@ -1,0 +1,28 @@
+# Schema for the configuration files of the asset module.
+asset.type.*:
+  type: config_entity
+  label: 'Asset type'
+  mapping:
+    id:
+      type: string
+      label: 'Machine-readable name'
+    label:
+      type: label
+      label: 'Type'
+    description:
+      type: text
+      label: 'Description'
+    workflow:
+      type: string
+      label: 'Workflow'
+    new_revision:
+      type: boolean
+      label: 'Create new revision'
+
+condition.plugin.asset_type:
+  type: condition.plugin
+  mapping:
+    bundles:
+      type: sequence
+      sequence:
+        type: string

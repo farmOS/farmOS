@@ -1,0 +1,9 @@
+administer assets:
+  title: 'Administer assets'
+  description: 'Admin access to all asset entities.'
+  restrict access: true
+
+administer asset types:
+  title: 'Administer asset types'
+  description: 'Maintain the types of content available and the fields that are associated with those types.'
+  restrict access: true

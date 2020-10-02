@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - asset.type.sensor
+    - field.storage.asset.flag
+  module:
+    - options
+id: asset.sensor.flag
+field_name: flag
+entity_type: asset
+bundle: sensor
+label: Flags
+description: 'Add flags to this asset to enable better sorting and filtering of records.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

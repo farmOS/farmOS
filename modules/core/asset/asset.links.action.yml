@@ -1,0 +1,11 @@
+entity.asset.add_page:
+  route_name: 'entity.asset.add_page'
+  title: 'Add asset'
+  appears_on:
+    - entity.asset.collection
+
+entity.asset_type.add_form:
+  route_name: 'entity.asset_type.add_form'
+  title: 'Add asset type'
+  appears_on:
+    - entity.asset_type.collection

@@ -1,0 +1,4 @@
+entity.asset.collection:
+  route_name: entity.asset.collection
+  title: 'Assets'
+  base_route: system.admin_content
