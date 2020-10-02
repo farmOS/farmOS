@@ -4,6 +4,9 @@ dependencies:
   module:
     - log
     - options
+  enforced:
+    module:
+      - farm_flag
 id: log.flag
 field_name: flag
 entity_type: log

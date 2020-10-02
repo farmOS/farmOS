@@ -4,6 +4,9 @@ dependencies:
   module:
     - asset
     - options
+  enforced:
+    module:
+      - farm_flag
 id: asset.flag
 field_name: flag
 entity_type: asset
