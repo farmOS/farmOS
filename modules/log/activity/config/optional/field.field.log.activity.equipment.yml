@@ -12,7 +12,7 @@ id: log.activity.equipment
 field_name: equipment
 entity_type: log
 bundle: activity
-label: Equipment
+label: Equipment used
 description: 'What equipment was used?'
 required: false
 translatable: false

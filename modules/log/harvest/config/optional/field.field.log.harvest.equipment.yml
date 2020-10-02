@@ -12,7 +12,7 @@ id: log.harvest.equipment
 field_name: equipment
 entity_type: log
 bundle: harvest
-label: Equipment
+label: Equipment used
 description: 'What equipment was used?'
 required: false
 translatable: false
