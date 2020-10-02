@@ -1,6 +1,9 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  enforced:
+    module:
+      - farm_transplanting
 id: transplanting
 label: Transplanting
 description: ''

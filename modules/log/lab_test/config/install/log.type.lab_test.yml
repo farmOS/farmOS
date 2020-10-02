@@ -1,6 +1,9 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  enforced:
+    module:
+      - farm_lab_test
 id: lab_test
 label: 'Lab test'
 description: ''

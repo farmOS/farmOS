@@ -1,6 +1,9 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  enforced:
+    module:
+      - farm_maintenance
 id: maintenance
 label: Maintenance
 description: ''
