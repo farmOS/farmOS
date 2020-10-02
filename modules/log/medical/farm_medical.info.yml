@@ -1,9 +1,10 @@
 name: Medical log
-description: Adds a Medical log type.
+description: Adds a Medical log type for Animal assets.
 type: module
 package: farmOS Logs
 core_version_requirement: ^9
 dependencies:
+  - farm:farm_animal
   - farm:farm_field
   - farm:farm_flag
   - log:log

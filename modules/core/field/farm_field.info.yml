@@ -4,6 +4,7 @@ type: module
 package: farmOS
 core_version_requirement: ^9
 dependencies:
+  - asset:asset
   - drupal:field
   - drupal:file
   - drupal:geofield
