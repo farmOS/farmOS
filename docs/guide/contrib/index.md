@@ -13,6 +13,7 @@ request.
 * [Nutrient]
 * [Organic]
 * [Produce Safety]
+* [Weight Quick Form]
 
 [farmOS.org repository on Github]: https://github.com/farmOS/farmOS.org
 [Eggs]: /guide/contrib/eggs
@@ -21,3 +22,4 @@ request.
 [Nutrient]: /guide/contrib/nutrient
 [Organic]: /guide/contrib/organic
 [Produce Safety]: /guide/contrib/produce-safety
+[Weight Quick Form]: /guide/contrib/quick-weight
