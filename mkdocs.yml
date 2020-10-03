@@ -33,6 +33,7 @@ nav:
         - Nutrient: guide/contrib/nutrient.md
         - Organic: guide/contrib/organic.md
         - Produce Safety: guide/contrib/produce-safety.md
+        - Quick Weight Form: guide/contrib/quick-weight.md
 - Hosting:
     - Getting started: hosting/index.md
     - Installing: hosting/installing.md
