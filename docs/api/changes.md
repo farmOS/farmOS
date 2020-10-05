@@ -28,7 +28,7 @@ In farmOS 1.x, API endpoints for each entity type were available at
 
 For example: `/log.json`
 
-In farmOS 1.x, a root `/api` endpoint is provided, with a `links` object that
+In farmOS 2.x, a root `/api` endpoint is provided, with a `links` object that
 describes all the available resource types and their endpoints. These follow
 a URL pattern of `/api/[entity-type]/[bundle]`.
 
