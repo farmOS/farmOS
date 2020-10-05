@@ -59,6 +59,9 @@ class FarmEntryPoint extends EntryPoint {
    */
   public function index() {
 
+    // Get the base url.
+    global $base_url;
+
     // Get normal response cache and data.
     $response = parent::index();
     $cacheability = $response->getCacheableMetadata();
@@ -71,6 +74,7 @@ class FarmEntryPoint extends EntryPoint {
     // Add a "farm" object to meta.
     $meta['farm'] = [
       'name' => $this->config('system.site')->get('name'),
+      'url' => $base_url,
       'version' => $this->farmProfileInfo['version'],
     ];
 
