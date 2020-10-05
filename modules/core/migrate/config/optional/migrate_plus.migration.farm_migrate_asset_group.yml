@@ -61,6 +61,42 @@ process:
     map:
       0: active
     default_value: archived
+  file:
+    plugin: sub_process
+    source: field_farm_files
+    process:
+      target_id:
+        -
+          plugin: migration_lookup
+          migration: farm_migrate_file
+          no_stub: true
+          source: fid
+        -
+          plugin: migration_lookup
+          migration: farm_migrate_file_private
+          no_stub: true
+          source: fid
+      display: display
+      description: description
+  image:
+    plugin: sub_process
+    source: field_farm_images
+    process:
+      target_id:
+        -
+          plugin: migration_lookup
+          migration: farm_migrate_file
+          no_stub: true
+          source: fid
+        -
+          plugin: migration_lookup
+          migration: farm_migrate_file_private
+          no_stub: true
+          source: fid
+      alt: alt
+      title: title
+      width: width
+      height: height
 migration_dependencies:
   required:
     - farm_migrate_user
