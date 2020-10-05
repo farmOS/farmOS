@@ -1,0 +1,76 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - simple_oauth.oauth2_token.bundle.refresh_token
+id: oauth2_token--refresh_token
+disabled: true
+path: oauth2_token/refresh_token
+resourceType: oauth2_token--refresh_token
+resourceFields:
+  id:
+    fieldName: id
+    publicName: id
+    enhancer:
+      id: ''
+    disabled: false
+  uuid:
+    fieldName: uuid
+    publicName: uuid
+    enhancer:
+      id: ''
+    disabled: false
+  bundle:
+    fieldName: bundle
+    publicName: bundle
+    enhancer:
+      id: ''
+    disabled: false
+  auth_user_id:
+    fieldName: auth_user_id
+    publicName: auth_user_id
+    enhancer:
+      id: ''
+    disabled: false
+  client:
+    fieldName: client
+    publicName: client
+    enhancer:
+      id: ''
+    disabled: false
+  scopes:
+    fieldName: scopes
+    publicName: scopes
+    enhancer:
+      id: ''
+    disabled: false
+  value:
+    fieldName: value
+    publicName: value
+    enhancer:
+      id: ''
+    disabled: false
+  created:
+    fieldName: created
+    publicName: created
+    enhancer:
+      id: ''
+    disabled: false
+  changed:
+    fieldName: changed
+    publicName: changed
+    enhancer:
+      id: ''
+    disabled: false
+  expire:
+    fieldName: expire
+    publicName: expire
+    enhancer:
+      id: ''
+    disabled: false
+  status:
+    fieldName: status
+    publicName: status
+    enhancer:
+      id: ''
+    disabled: false
