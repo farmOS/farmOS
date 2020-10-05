@@ -1,0 +1,94 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - block
+id: block--block
+disabled: true
+path: block/block
+resourceType: block--block
+resourceFields:
+  uuid:
+    fieldName: uuid
+    publicName: uuid
+    enhancer:
+      id: ''
+    disabled: false
+  langcode:
+    fieldName: langcode
+    publicName: langcode
+    enhancer:
+      id: ''
+    disabled: false
+  status:
+    fieldName: status
+    publicName: status
+    enhancer:
+      id: ''
+    disabled: false
+  dependencies:
+    fieldName: dependencies
+    publicName: dependencies
+    enhancer:
+      id: ''
+    disabled: false
+  third_party_settings:
+    fieldName: third_party_settings
+    publicName: third_party_settings
+    enhancer:
+      id: ''
+    disabled: false
+  _core:
+    fieldName: _core
+    publicName: _core
+    enhancer:
+      id: ''
+    disabled: false
+  id:
+    fieldName: id
+    publicName: id
+    enhancer:
+      id: ''
+    disabled: false
+  theme:
+    fieldName: theme
+    publicName: theme
+    enhancer:
+      id: ''
+    disabled: false
+  region:
+    fieldName: region
+    publicName: region
+    enhancer:
+      id: ''
+    disabled: false
+  weight:
+    fieldName: weight
+    publicName: weight
+    enhancer:
+      id: ''
+    disabled: false
+  provider:
+    fieldName: provider
+    publicName: provider
+    enhancer:
+      id: ''
+    disabled: false
+  plugin:
+    fieldName: plugin
+    publicName: plugin
+    enhancer:
+      id: ''
+    disabled: false
+  settings:
+    fieldName: settings
+    publicName: settings
+    enhancer:
+      id: ''
+    disabled: false
+  visibility:
+    fieldName: visibility
+    publicName: visibility
+    enhancer:
+      id: ''
+    disabled: false

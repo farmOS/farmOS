@@ -1,0 +1,94 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - views
+id: view--view
+disabled: true
+path: view/view
+resourceType: view--view
+resourceFields:
+  uuid:
+    fieldName: uuid
+    publicName: uuid
+    enhancer:
+      id: ''
+    disabled: false
+  langcode:
+    fieldName: langcode
+    publicName: langcode
+    enhancer:
+      id: ''
+    disabled: false
+  status:
+    fieldName: status
+    publicName: status
+    enhancer:
+      id: ''
+    disabled: false
+  dependencies:
+    fieldName: dependencies
+    publicName: dependencies
+    enhancer:
+      id: ''
+    disabled: false
+  third_party_settings:
+    fieldName: third_party_settings
+    publicName: third_party_settings
+    enhancer:
+      id: ''
+    disabled: false
+  _core:
+    fieldName: _core
+    publicName: _core
+    enhancer:
+      id: ''
+    disabled: false
+  id:
+    fieldName: id
+    publicName: id
+    enhancer:
+      id: ''
+    disabled: false
+  label:
+    fieldName: label
+    publicName: label
+    enhancer:
+      id: ''
+    disabled: false
+  module:
+    fieldName: module
+    publicName: module
+    enhancer:
+      id: ''
+    disabled: false
+  description:
+    fieldName: description
+    publicName: description
+    enhancer:
+      id: ''
+    disabled: false
+  tag:
+    fieldName: tag
+    publicName: tag
+    enhancer:
+      id: ''
+    disabled: false
+  base_table:
+    fieldName: base_table
+    publicName: base_table
+    enhancer:
+      id: ''
+    disabled: false
+  base_field:
+    fieldName: base_field
+    publicName: base_field
+    enhancer:
+      id: ''
+    disabled: false
+  display:
+    fieldName: display
+    publicName: display
+    enhancer:
+      id: ''
+    disabled: false
