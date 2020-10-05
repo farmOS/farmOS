@@ -3,6 +3,9 @@ status: true
 dependencies:
   module:
     - filter
+  enforced:
+    module:
+      - farm_api
 id: filter_format--filter_format
 disabled: true
 path: filter_format/filter_format

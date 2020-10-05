@@ -3,6 +3,9 @@ status: true
 dependencies:
   module:
     - system
+  enforced:
+    module:
+     - farm_api
 id: action--action
 disabled: true
 path: action/action

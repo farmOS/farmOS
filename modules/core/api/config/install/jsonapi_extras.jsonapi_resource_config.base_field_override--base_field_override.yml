@@ -1,6 +1,9 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  enforced:
+    module:
+      - farm_api
 id: base_field_override--base_field_override
 disabled: true
 path: base_field_override/base_field_override

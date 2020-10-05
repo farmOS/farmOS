@@ -3,6 +3,9 @@ status: true
 dependencies:
   module:
     - system
+  enforced:
+    module:
+      - farm_api
 id: menu--menu
 disabled: true
 path: menu/menu

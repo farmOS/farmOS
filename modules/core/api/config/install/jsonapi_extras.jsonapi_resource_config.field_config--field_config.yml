@@ -3,6 +3,9 @@ status: true
 dependencies:
   module:
     - field
+  enforced:
+    module:
+      - farm_api
 id: field_config--field_config
 disabled: true
 path: field_config/field_config

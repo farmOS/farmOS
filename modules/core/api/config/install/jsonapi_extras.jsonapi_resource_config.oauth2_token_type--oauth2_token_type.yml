@@ -3,6 +3,9 @@ status: true
 dependencies:
   module:
     - simple_oauth
+  enforced:
+    module:
+      - farm_api
 id: oauth2_token_type--oauth2_token_type
 disabled: true
 path: oauth2_token_type/oauth2_token_type

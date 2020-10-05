@@ -3,6 +3,9 @@ status: true
 dependencies:
   module:
     - views
+  enforced:
+    module:
+      - farm_api
 id: view--view
 disabled: true
 path: view/view

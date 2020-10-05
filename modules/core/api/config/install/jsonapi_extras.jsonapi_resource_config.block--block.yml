@@ -3,6 +3,9 @@ status: true
 dependencies:
   module:
     - block
+  enforced:
+    module:
+      - farm_api
 id: block--block
 disabled: true
 path: block/block

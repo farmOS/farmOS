@@ -3,6 +3,9 @@ status: true
 dependencies:
   config:
     - simple_oauth.oauth2_token.bundle.access_token
+  enforced:
+    module:
+      - farm_api
 id: oauth2_token--access_token
 disabled: true
 path: oauth2_token/access_token

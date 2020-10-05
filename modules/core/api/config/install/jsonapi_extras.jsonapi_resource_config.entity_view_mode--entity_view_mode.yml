@@ -1,6 +1,9 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  enforced:
+    module:
+      - farm_api
 id: entity_view_mode--entity_view_mode
 disabled: true
 path: entity_view_mode/entity_view_mode
