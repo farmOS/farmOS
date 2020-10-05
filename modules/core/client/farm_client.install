@@ -1,0 +1,44 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall function for the farm_client module.
+ */
+
+use Drupal\consumers\Entity\Consumer;
+
+/**
+ * Implements hook_install().
+ */
+function farm_client_install() {
+
+  // Create a consumer for the farmOS Field Kit client.
+  $fk_consumer = Consumer::create([
+    'label' => 'farmOS Client (Field Kit)',
+    'client_id' => 'farm_client',
+    'owner_id' => '',
+    'secret' => '',
+    'confidential' => FALSE,
+    'third_party' => FALSE,
+    'grant_user_access' => TRUE,
+    'limit_user_access' => TRUE,
+    'limit_requested_access' => FALSE,
+  ]);
+  $fk_consumer->save();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function farm_client_uninstall() {
+
+  // Load the default farm consumer.
+  $consumers = \Drupal::entityTypeManager()->getStorage('consumer')
+    ->loadByProperties(['client_id' => 'farm_client']);
+
+  // If found, delete the consumer.
+  if (!empty($consumers)) {
+    $client_consumer = reset($consumers);
+    $client_consumer->delete();
+  }
+}
