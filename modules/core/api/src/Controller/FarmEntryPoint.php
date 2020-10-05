@@ -32,7 +32,9 @@ class FarmEntryPoint extends EntryPoint {
     $meta = $data->getMeta();
 
     // Add a "farm" object to meta.
-    $meta['farm'] = [];
+    $meta['farm'] = [
+      'name' => $this->config('system.site')->get('name'),
+    ];
 
     // Build a new response.
     $new_response = new ResourceResponse(new JsonApiDocumentTopLevel(new ResourceObjectData([]), new NullIncludedData(), $urls, $meta));
