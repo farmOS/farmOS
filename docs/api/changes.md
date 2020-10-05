@@ -21,7 +21,68 @@ about all available resources. The root endpoint for schema information is
 In farmOS 1.x, the `/farm.json` endpoint provided similar information in the
 `resources` property. This has been removed in favor of JSON Schema.
 
-### Endpoints
+### Farm info endpoint
+
+In farmOS 1.x, an informational API endpoint was provided at `/farm.json`. This
+included various information describing the farmOS server configuration,
+authenticated user, installed languages and available entity types and bundles.
+This information was provided as either a simple value or a JSON object:
+
+```json
+{
+  "name": "My Farm",
+  "url": "https://myfarm.mydomain.com",
+  "api_version": "1.0",
+  "system_of_measurement": "metric",
+  "user": { ... },
+  "languages": { ... },
+  "resources": { ... },
+  "metrics": { ... }
+}
+```
+
+In farmOS 2.x, a root `/api` endpoint either provides this information, or is a
+gateway to this information.
+
+The simple values previously available from
+`/farm.json` are now provided in the `meta.farm` object at `/api`:
+
+```json
+{
+   "jsonapi":{ ... },
+   "data":[],
+   "meta":{
+      "links":{
+         "me":{
+            "meta":{
+               "id":"7b2af019-3191-40ca-b221-616f9a365722"
+            },
+            "href":"http://localhost/api/user/user/7b2af019-3191-40ca-b221-616f9a365722"
+         }
+      },
+      "farm":{
+         "name":"My farm name",
+         "url":"http://localhost",
+         "version":"2.x",
+         "system_of_measurement": "metric"
+      }
+   },
+   "links":{ ... }
+}
+```
+
+The `resources` object has been replaced with the `links` object that
+describes all the available resource types and their endpoints. Information
+previously provided in the other JSON objects are now available as standalone
+resources at their respective endpoints:
+
+- `user` - `/api/user/user`
+    - The authenticated user's ID is included in the `meta.links.me` object
+      with a link to the user's resource. The user's attributes, such as name
+      and language, can be retrieved from that endpoint.
+- `languages` -  `/api/configurable_language/configurable_language`
+
+### Resource endpoints
 
 In farmOS 1.x, API endpoints for each entity type were available at
 `/[entity_type].json`.
