@@ -71,6 +71,14 @@ process:
     map:
       0: active
     default_value: archived
+  parent:
+    plugin: sub_process
+    source: field_farm_parent
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: farm_migrate_asset
+        source: target_id
   file:
     plugin: sub_process
     source: field_farm_files
@@ -104,4 +112,5 @@ migration_dependencies:
     - farm_migrate_file
     - farm_migrate_file_private
     - farm_migrate_user
-  optional: {  }
+  optional:
+    - farm_migrate_asset
