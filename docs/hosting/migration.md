@@ -23,6 +23,7 @@
         drush migrate:import --group=farm_migrate
         drush migrate:import --group=farm_migrate_taxonomy
         drush migrate:import --group=farm_migrate_asset
+        drush migrate:import --group=farm_migrate_area
         drush migrate:import --group=farm_migrate_log
         drush migrate:import --group=farm_migrate_reference
 

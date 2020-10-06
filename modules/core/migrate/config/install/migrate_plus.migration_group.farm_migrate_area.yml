@@ -1,0 +1,75 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_migrate
+id: farm_migrate_area
+label: 'farmOS 1.x Area Migration'
+description: 'Migrates areas from farmOS 1.x to farmOS 2.x'
+source_type: 'farmOS 1.x'
+module: null
+shared_configuration:
+  process:
+    name:
+      plugin: get
+      source: name
+    status:
+      plugin: default_value
+      default_value: active
+    notes:
+      plugin: sub_process
+      source: description
+      process:
+        value:
+          plugin: get
+          source: value
+        format:
+          plugin: static_map
+          source: format
+          map:
+            farm_format: default
+            plain_text: plain_text
+          default_value: default
+    geometry:
+      plugin: geofield_d7d8
+      source: field_farm_geofield
+    location:
+      plugin: default_value
+      default_value: 1
+    flag:
+      plugin: get
+      source: field_farm_flags
+    file:
+      plugin: sub_process
+      source: field_farm_files
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration:
+            - farm_migrate_file
+            - farm_migrate_file_private
+          no_stub: true
+          source: fid
+        display: display
+        description: description
+    image:
+      plugin: sub_process
+      source: field_farm_images
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration:
+            - farm_migrate_file
+            - farm_migrate_file_private
+          no_stub: true
+          source: fid
+        alt: alt
+        title: title
+        width: width
+        height: height
+  migration_dependencies:
+    required:
+      - farm_migrate_file
+      - farm_migrate_file_private
+    optional: {  }
