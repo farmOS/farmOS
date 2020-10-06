@@ -2,6 +2,7 @@
 
 namespace Drupal\asset\Plugin\migrate\source\d7;
 
+use Drupal\migrate\Row;
 use Drupal\migrate_drupal\Plugin\migrate\source\d7\FieldableEntity;
 
 /**
@@ -44,6 +45,21 @@ class Asset extends FieldableEntity {
       'archived' => $this->t('Timestamp when the asset was archived'),
     ];
     return $fields;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function prepareRow(Row $row) {
+    $id = $row->getSourceProperty('id');
+    $type = $row->getSourceProperty('type');
+
+    // Get Field API field values.
+    foreach ($this->getFields('farm_asset', $type) as $field_name => $field) {
+      $row->setSourceProperty($field_name, $this->getFieldValues('farm_asset', $field_name, $id));
+    }
+
+    return parent::prepareRow($row);
   }
 
   /**
