@@ -1,0 +1,24 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - asset.type.group
+    - field.storage.asset.parent
+id: asset.group.parent
+field_name: parent
+entity_type: asset
+bundle: group
+label: Parents
+description: 'If this asset descends from other assets, they can referenced here to create a lineage relationship.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: farm_asset_reference
+      display_name: entity_reference
+      arguments: {  }
+field_type: entity_reference
