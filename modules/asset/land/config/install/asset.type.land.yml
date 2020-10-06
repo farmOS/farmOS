@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_land
+id: land
+label: Land
+description: ''
+workflow: asset_default
+new_revision: true

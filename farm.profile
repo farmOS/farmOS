@@ -16,9 +16,12 @@
 function farm_modules() {
   return [
     'default' => [
+      'farm_land' => t('Land assets'),
       'farm_plant' => t('Plant assets'),
       'farm_animal' => t('Animal assets'),
       'farm_equipment' => t('Equipment assets'),
+      'farm_structure' => t('Structure assets'),
+      'farm_water' => t('Water assets'),
       'farm_activity' => t('Activity logs'),
       'farm_observation' => t('Observation logs'),
       'farm_seeding' => t('Seeding logs'),

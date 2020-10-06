@@ -1,0 +1,7 @@
+name: Water asset
+description: Adds a Water asset type.
+type: module
+package: farmOS Assets
+core_version_requirement: ^9
+dependencies:
+  - farm:farm_entity
