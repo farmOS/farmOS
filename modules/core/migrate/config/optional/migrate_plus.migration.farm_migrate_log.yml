@@ -98,6 +98,9 @@ process:
         plugin: migration_lookup
         migration: farm_migrate_taxonomy_term_log_category
         source: tid
+  flag:
+    plugin: get
+    source: field_farm_flags
   owner:
     plugin: sub_process
     source: field_farm_log_owner

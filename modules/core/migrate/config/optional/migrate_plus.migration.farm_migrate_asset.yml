@@ -88,6 +88,9 @@ process:
   data:
     plugin: get
     source: field_farm_data
+  flag:
+    plugin: get
+    source: field_farm_flags
   parent:
     plugin: sub_process
     source: field_farm_parent
