@@ -28,6 +28,7 @@ process:
     source: machine_name
     map:
       farm_log_categories: log_category
+      farm_materials: material
       farm_season: season
     bypass: FALSE
   tid:
