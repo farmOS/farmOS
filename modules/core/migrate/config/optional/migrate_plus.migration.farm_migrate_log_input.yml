@@ -36,7 +36,16 @@ process:
   purchase_date:
     plugin: get
     source: field_farm_date_purchase
+  material:
+    plugin: sub_process
+    source: field_farm_material
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: farm_migrate_taxonomy_term
+        source: tid
 migration_dependencies:
   required:
     - farm_migrate_log
+    - farm_migrate_taxonomy_term
   optional: {  }
