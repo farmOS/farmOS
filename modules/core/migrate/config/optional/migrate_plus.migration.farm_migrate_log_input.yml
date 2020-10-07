@@ -30,6 +30,12 @@ process:
   method:
     plugin: get
     source: field_farm_input_method
+  source:
+    plugin: get
+    source: field_farm_input_source
+  purchase_date:
+    plugin: get
+    source: field_farm_date_purchase
 migration_dependencies:
   required:
     - farm_migrate_log
