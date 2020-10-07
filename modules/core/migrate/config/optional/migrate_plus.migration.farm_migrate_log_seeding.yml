@@ -24,6 +24,9 @@ process:
     plugin: migration_lookup
     migration: farm_migrate_log
     source: id
+  lot_number:
+    plugin: get
+    source: field_farm_lot_number
 migration_dependencies:
   required:
     - farm_migrate_log
