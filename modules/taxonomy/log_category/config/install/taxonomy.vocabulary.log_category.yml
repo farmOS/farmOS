@@ -4,7 +4,7 @@ dependencies:
   enforced:
     module:
       - farm_log_category
-name: Log Categories
+name: Log categories
 vid: log_category
-description: 'A list of farm log categories.'
+description: 'A list of log categories.'
 weight: 0

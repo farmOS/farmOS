@@ -1,5 +1,5 @@
-name: farmOS Log Categories
-description: Provides a Log Categories vocabulary.
+name: Log categories vocabulary
+description: Provides a Log categories vocabulary.
 type: module
 package: farmOS Taxonomies
 core_version_requirement: ^9
