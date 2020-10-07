@@ -110,6 +110,14 @@ process:
         migration: farm_migrate_user
         source: target_id
         no_stub: true
+  asset:
+    plugin: sub_process
+    source: field_farm_asset
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: farm_migrate_asset
+        source: target_id
   file:
     plugin: sub_process
     source: field_farm_files
@@ -140,6 +148,7 @@ process:
       height: height
 migration_dependencies:
   required:
+    - farm_migrate_asset
     - farm_migrate_file
     - farm_migrate_file_private
     - farm_migrate_user
