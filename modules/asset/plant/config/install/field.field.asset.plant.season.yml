@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - asset.type.plant
+    - field.storage.asset.season
+    - taxonomy.vocabulary.season
+id: asset.plant.season
+field_name: season
+entity_type: asset
+bundle: plant
+label: Season
+description: 'Assign this plant to a season for easier searching/filtering later.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      season: season
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
