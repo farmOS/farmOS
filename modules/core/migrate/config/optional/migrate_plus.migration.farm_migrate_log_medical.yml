@@ -6,7 +6,7 @@ dependencies:
       - farm_migrate
       - farm_medical
 id: farm_migrate_log_medical
-label: 'Logs (Medical)'
+label: 'Logs (Medical specific fields)'
 migration_group: farm_migrate
 migration_tags:
   - 'Drupal 7'

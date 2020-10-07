@@ -6,7 +6,7 @@ dependencies:
       - farm_migrate
       - farm_plant
 id: farm_migrate_asset_plant
-label: 'Assets (Plantings -> Plants)'
+label: 'Assets (Plant specific fields)'
 migration_group: farm_migrate
 migration_tags:
   - 'Drupal 7'

@@ -6,7 +6,7 @@ dependencies:
       - farm_migrate
       - farm_seeding
 id: farm_migrate_log_seeding
-label: 'Logs (Seedings)'
+label: 'Logs (Seeding specific fields)'
 migration_group: farm_migrate
 migration_tags:
   - 'Drupal 7'

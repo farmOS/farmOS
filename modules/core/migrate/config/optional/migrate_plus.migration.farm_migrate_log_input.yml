@@ -6,7 +6,7 @@ dependencies:
       - farm_migrate
       - farm_input
 id: farm_migrate_log_input
-label: 'Logs (Inputs)'
+label: 'Logs (Input specific fields)'
 migration_group: farm_migrate
 migration_tags:
   - 'Drupal 7'

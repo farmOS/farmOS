@@ -6,7 +6,7 @@ dependencies:
       - farm_migrate
       - farm_equipment
 id: farm_migrate_asset_equipment
-label: 'Assets (Equipment)'
+label: 'Assets (Equipment specific fields)'
 migration_group: farm_migrate
 migration_tags:
   - 'Drupal 7'
