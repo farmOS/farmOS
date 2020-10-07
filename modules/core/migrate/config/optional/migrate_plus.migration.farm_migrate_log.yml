@@ -1,0 +1,106 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - log
+      - farm_migrate
+id: farm_migrate_log
+label: 'Logs'
+migration_group: farm_migrate
+migration_tags:
+  - 'Drupal 7'
+  - 'farmOS 1.x'
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: null
+cck_plugin_method: null
+source:
+  plugin: d7_log
+destination:
+  plugin: 'entity:log'
+process:
+  # Static map old log types to new.
+  # This only handles known log types provided by farmOS core.
+  # If the log type is not found in this map, then the log will be skipped.
+  # Contrib farmOS modules are responsible for migrating their own log types.
+  type:
+    plugin: static_map
+    source: type
+    map:
+      farm_activity: activity
+      farm_harvest: harvest
+      farm_input: input
+      farm_maintenance: maintenance
+      farm_medical: medical
+      farm_observation: observation
+      farm_purchase: purchase
+      farm_sale: sale
+      farm_seeding: seeding
+      farm_soil_test: lab_test
+      farm_transplanting: transplanting
+      farm_water_test: lab_test
+    bypass: FALSE
+  id:
+    plugin: get
+    source: id
+  name:
+    plugin: get
+    source: name
+  uid:
+    -
+      plugin: skip_on_empty
+      method: process
+      source: uid
+    -
+      plugin: migration_lookup
+      migration: farm_migrate_user
+      source: uid
+  timestamp:
+    plugin: get
+    source: timestamp
+  created:
+    plugin: get
+    source: created
+  changed:
+    plugin: get
+    source: changed
+  status:
+    plugin: static_map
+    source: done
+    map:
+      0: pending
+      1: complete
+  file:
+    plugin: sub_process
+    source: field_farm_files
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration:
+          - farm_migrate_file
+          - farm_migrate_file_private
+        no_stub: true
+        source: fid
+      display: display
+      description: description
+  image:
+    plugin: sub_process
+    source: field_farm_images
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration:
+          - farm_migrate_file
+          - farm_migrate_file_private
+        no_stub: true
+        source: fid
+      alt: alt
+      title: title
+      width: width
+      height: height
+migration_dependencies:
+  required:
+    - farm_migrate_file
+    - farm_migrate_file_private
+    - farm_migrate_user
+  optional: {  }

@@ -20,86 +20,11 @@ source:
 destination:
   plugin: 'entity:asset'
 process:
-  # Hardcode the destination asset type (bundle).
-  type:
-    plugin: default_value
-    default_value: animal
   id:
-    plugin: get
+    plugin: migration_lookup
+    migration: farm_migrate_asset
     source: id
-  name:
-    plugin: get
-    source: name
-  uid:
-    -
-      plugin: skip_on_empty
-      method: process
-      source: uid
-    -
-      plugin: migration_lookup
-      migration: farm_migrate_user
-      source: uid
-  created:
-    plugin: get
-    source: created
-  changed:
-    plugin: get
-    source: changed
-  # Map the old archived value to both an archived timestamp and a status.
-  # If the old value is 0, status is active. Otherwise, it is archived.
-  archived:
-    -
-      plugin: skip_on_empty
-      method: process
-      source: archived
-    -
-      plugin: get
-      source: archived
-  status:
-    plugin: static_map
-    source: archived
-    map:
-      0: active
-    default_value: archived
-  file:
-    plugin: sub_process
-    source: field_farm_files
-    process:
-      target_id:
-        -
-          plugin: migration_lookup
-          migration: farm_migrate_file
-          no_stub: true
-          source: fid
-        -
-          plugin: migration_lookup
-          migration: farm_migrate_file_private
-          no_stub: true
-          source: fid
-      display: display
-      description: description
-  image:
-    plugin: sub_process
-    source: field_farm_images
-    process:
-      target_id:
-        -
-          plugin: migration_lookup
-          migration: farm_migrate_file
-          no_stub: true
-          source: fid
-        -
-          plugin: migration_lookup
-          migration: farm_migrate_file_private
-          no_stub: true
-          source: fid
-      alt: alt
-      title: title
-      width: width
-      height: height
 migration_dependencies:
   required:
-    - farm_migrate_user
-    - farm_migrate_file
-    - farm_migrate_file_private
+    - farm_migrate_asset
   optional: {  }
