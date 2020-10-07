@@ -27,6 +27,9 @@ process:
   lot_number:
     plugin: get
     source: field_farm_lot_number
+  method:
+    plugin: get
+    source: field_farm_input_method
 migration_dependencies:
   required:
     - farm_migrate_log
