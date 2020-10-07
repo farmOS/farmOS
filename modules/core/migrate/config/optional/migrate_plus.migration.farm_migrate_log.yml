@@ -90,6 +90,14 @@ process:
   geometry:
     plugin: geofield_d7d8
     source: field_farm_geofield
+  log_category:
+    plugin: sub_process
+    source: field_farm_log_category
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: farm_migrate_taxonomy_term_log_category
+        source: tid
   owner:
     plugin: sub_process
     source: field_farm_log_owner
