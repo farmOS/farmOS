@@ -70,6 +70,20 @@ process:
     map:
       0: pending
       1: complete
+  notes:
+    plugin: sub_process
+    source: field_farm_notes
+    process:
+      value:
+        plugin: get
+        source: value
+      format:
+        plugin: static_map
+        source: format
+        map:
+          farm_format: default
+          plain_text: plain_text
+        default_value: default
   file:
     plugin: sub_process
     source: field_farm_files
