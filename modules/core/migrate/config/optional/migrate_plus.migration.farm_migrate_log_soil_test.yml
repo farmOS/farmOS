@@ -24,6 +24,9 @@ process:
     plugin: migration_lookup
     migration: farm_migrate_log
     source: id
+  lab:
+    plugin: get
+    source: field_farm_soil_lab
 migration_dependencies:
   required:
     - farm_migrate_log
