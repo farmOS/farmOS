@@ -215,6 +215,7 @@ Asset field names are largely unchanged, with a few exceptions (note that *new*
 fields are not listed here):
 
 - `archived` -> `status` and `archived` (see "Asset status" below)
+- `date` -> `birthdate` (on `animal` assets)
 - `description` -> `notes` (see also "Text format" above)
 - `flags` -> `flag`
 - `files` -> `file`

@@ -24,6 +24,9 @@ process:
     plugin: migration_lookup
     migration: farm_migrate_asset
     source: id
+  birthdate:
+    plugin: get
+    source: field_farm_date
   nickname:
     plugin: get
     source: field_farm_animal_nicknames

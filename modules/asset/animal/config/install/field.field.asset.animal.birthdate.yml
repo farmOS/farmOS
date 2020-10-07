@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - asset.type.animal
+    - field.storage.asset.birthdate
+id: asset.animal.birthdate
+field_name: birthdate
+entity_type: asset
+bundle: animal
+label: Birthdate
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: timestamp
