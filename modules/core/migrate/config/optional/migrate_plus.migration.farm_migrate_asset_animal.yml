@@ -30,6 +30,9 @@ process:
   sex:
     plugin: get
     source: field_farm_animal_sex
+  castrated:
+    plugin: get
+    source: field_farm_animal_castrated
 migration_dependencies:
   required:
     - farm_migrate_asset
