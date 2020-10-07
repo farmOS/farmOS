@@ -27,6 +27,9 @@ process:
   invoice_number:
     plugin: get
     source: field_farm_invoice_number
+  seller:
+    plugin: get
+    source: field_farm_seller
 migration_dependencies:
   required:
     - farm_migrate_log
