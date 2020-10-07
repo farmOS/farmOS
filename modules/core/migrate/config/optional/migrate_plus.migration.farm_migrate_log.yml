@@ -87,6 +87,9 @@ process:
   data:
     plugin: get
     source: field_farm_data
+  geometry:
+    plugin: geofield_d7d8
+    source: field_farm_geofield
   file:
     plugin: sub_process
     source: field_farm_files
