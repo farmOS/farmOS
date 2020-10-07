@@ -27,6 +27,9 @@ process:
   nickname:
     plugin: get
     source: field_farm_animal_nicknames
+  sex:
+    plugin: get
+    source: field_farm_animal_sex
 migration_dependencies:
   required:
     - farm_migrate_asset

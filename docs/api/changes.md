@@ -220,6 +220,7 @@ fields are not listed here):
 - `files` -> `file`
 - `images` -> `image`
 - `animal_nicknames` -> `nickname`
+- `animal_sex` -> `sex`
 
 #### Asset status
 
