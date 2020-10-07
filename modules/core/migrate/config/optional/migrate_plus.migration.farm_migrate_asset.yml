@@ -85,6 +85,9 @@ process:
           farm_format: default
           plain_text: plain_text
         default_value: default
+  data:
+    plugin: get
+    source: field_farm_data
   parent:
     plugin: sub_process
     source: field_farm_parent
