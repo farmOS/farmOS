@@ -123,6 +123,17 @@ To illustrate, this is how to filter activity logs by their completed status:
 - farmOS 1.x: `/log.json?type=activity&done=1`
 - farmOS 2.x: `/api/log/activity?filter[status]=complete`
 
+### Text format
+
+Long text fields (like `notes`) include `value` and `format` sub-properties,
+where `value` is the text value, and `format` is the "Text format" to use when
+displaying the text. This is used to filter user-supplied text, to only allow
+certain HTML tags (filtering out potential XSS vulnerabilities), convert URLs
+to links, etc.
+
+This works the same in farmOS 2.x, but the default `format` has changed from
+`farm_format` to `default`.
+
 ### Logs
 
 #### Log types
@@ -168,6 +179,9 @@ fields are not listed here):
 - `soil_lab` -> `lab`
 - `water_lab` -> `lab`
 
+See also "Text format" above for information about the changes to the `format`
+parameter of long text fields.
+
 #### Log status
 
 In farmOS 1.x, logs had a boolean property called `done` which was either `1`
@@ -201,10 +215,10 @@ Asset field names are largely unchanged, with a few exceptions (note that *new*
 fields are not listed here):
 
 - `archived` -> `status` and `archived` (see "Asset status" below)
+- `description` -> `notes` (see also "Text format" above)
 - `flags` -> `flag`
 - `files` -> `file`
 - `images` -> `image`
-- `description` -> `notes`
 
 #### Asset status
 
