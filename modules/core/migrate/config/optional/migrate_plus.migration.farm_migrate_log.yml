@@ -90,6 +90,15 @@ process:
   geometry:
     plugin: geofield_d7d8
     source: field_farm_geofield
+  owner:
+    plugin: sub_process
+    source: field_farm_log_owner
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: farm_migrate_user
+        source: target_id
+        no_stub: true
   file:
     plugin: sub_process
     source: field_farm_files
