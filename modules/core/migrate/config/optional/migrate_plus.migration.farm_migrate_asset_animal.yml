@@ -24,6 +24,9 @@ process:
     plugin: migration_lookup
     migration: farm_migrate_asset
     source: id
+  nickname:
+    plugin: get
+    source: field_farm_animal_nicknames
 migration_dependencies:
   required:
     - farm_migrate_asset

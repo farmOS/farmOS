@@ -219,6 +219,7 @@ fields are not listed here):
 - `flags` -> `flag`
 - `files` -> `file`
 - `images` -> `image`
+- `animal_nicknames` -> `nickname`
 
 #### Asset status
 
