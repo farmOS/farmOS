@@ -8,6 +8,7 @@ dependencies:
   enforced:
     module:
       - farm_equipment
+      - farm_medical
 id: log.medical.equipment
 field_name: equipment
 entity_type: log

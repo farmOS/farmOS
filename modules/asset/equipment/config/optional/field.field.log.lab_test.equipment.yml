@@ -4,14 +4,15 @@ dependencies:
   config:
     - asset.type.equipment
     - field.storage.log.equipment
-    - log.type.input
+    - log.type.lab_test
   enforced:
     module:
       - farm_equipment
-id: log.input.equipment
+      - farm_lab_test
+id: log.lab_test.equipment
 field_name: equipment
 entity_type: log
-bundle: input
+bundle: lab_test
 label: Equipment used
 description: 'What equipment was used?'
 required: false

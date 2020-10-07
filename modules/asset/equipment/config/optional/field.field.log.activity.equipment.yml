@@ -4,14 +4,15 @@ dependencies:
   config:
     - asset.type.equipment
     - field.storage.log.equipment
-    - log.type.seeding
+    - log.type.activity
   enforced:
     module:
+      - farm_activity
       - farm_equipment
-id: log.seeding.equipment
+id: log.activity.equipment
 field_name: equipment
 entity_type: log
-bundle: seeding
+bundle: activity
 label: Equipment used
 description: 'What equipment was used?'
 required: false

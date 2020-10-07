@@ -4,14 +4,15 @@ dependencies:
   config:
     - asset.type.equipment
     - field.storage.log.equipment
-    - log.type.observation
+    - log.type.maintenance
   enforced:
     module:
       - farm_equipment
-id: log.observation.equipment
+      - farm_maintenance
+id: log.maintenance.equipment
 field_name: equipment
 entity_type: log
-bundle: observation
+bundle: maintenance
 label: Equipment used
 description: 'What equipment was used?'
 required: false
