@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_access_roles
+id: farm_manager
+label: 'Farm manager'
+weight: 1
+is_admin: false
+permissions: { }
+third_party_settings:
+  farm_access:
+    access:
+      config: true
+      entity:
+        view all: true
+        create all: true
+        update all: true
+        delete all: true
