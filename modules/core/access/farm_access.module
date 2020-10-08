@@ -10,7 +10,7 @@
  */
 function farm_access_entity_type_alter(array &$entity_types) {
 
-  /** @var $entity_types \Drupal\Core\Entity\EntityTypeInterface[] */
+  /** @var \Drupal\Core\Entity\EntityTypeInterface[] $entity_types */
 
   // Replace the storage handler class for Roles.
   $entity_types['user_role']
