@@ -1,0 +1,4 @@
+services:
+  plugin.manager.managed_role_permissions:
+    class: Drupal\farm_access\ManagedRolePermissionsManager
+    arguments: ['@container.namespaces', '@cache.discovery', '@module_handler', '@controller_resolver', '@entity_type.bundle.info']
