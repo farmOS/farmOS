@@ -1,0 +1,7 @@
+id: harvest
+label: harvest
+description: 'Test harvest log type'
+name_pattern: ''
+langcode: en
+workflow: log_default
+new_revision: TRUE

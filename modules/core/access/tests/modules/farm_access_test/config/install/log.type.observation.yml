@@ -1,0 +1,7 @@
+id: observation
+label: observation
+description: 'Test observation log type'
+name_pattern: ''
+langcode: en
+workflow: log_default
+new_revision: TRUE

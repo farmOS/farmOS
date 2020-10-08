@@ -1,0 +1,17 @@
+# Test role that has typical manger access.
+langcode: en
+status: true
+id: farm_test_manager
+label: 'Test manager role for farm_access'
+weight: 1
+is_admin: false
+permissions: { }
+third_party_settings:
+  farm_access:
+    access:
+      config: true
+      entity:
+        view all: true
+        create all: true
+        update all: true
+        delete all: true
