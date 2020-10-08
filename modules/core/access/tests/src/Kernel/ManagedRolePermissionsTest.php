@@ -62,7 +62,7 @@ class ManagedRolePermissionsTest extends KernelTestBase {
    */
   public function testManagedRoleConfigAccess() {
 
-    /* @var \Drupal\user\RoleInterface $role */
+    /** @var \Drupal\user\RoleInterface $role */
     $role = Role::load('farm_test_manager');
 
     // Test that the role's config setting is TRUE.
@@ -114,7 +114,7 @@ class ManagedRolePermissionsTest extends KernelTestBase {
    */
   public function testManagedRoleHighLevelOperations() {
 
-    /* @var \Drupal\user\RoleInterface $role */
+    /** @var \Drupal\user\RoleInterface $role */
     $role = Role::load('farm_test_manager');
 
     // Get the roles entity access settings.
@@ -173,7 +173,7 @@ class ManagedRolePermissionsTest extends KernelTestBase {
    */
   public function testManagedRoleGranularPermissions() {
 
-    /* @var \Drupal\user\RoleInterface $role */
+    /** @var \Drupal\user\RoleInterface $role */
     $role = Role::load('farm_test');
 
     // Get the roles entity type access settings.
