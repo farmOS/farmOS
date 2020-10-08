@@ -25,3 +25,15 @@ user.role.*.third_party.farm_access:
             delete all:
               type: boolean
               label: 'Grant delete permissions for all entities.'
+            type:
+              type: sequence
+              label: 'Entity types'
+              sequence:
+                type: sequence
+                label: 'Entity type'
+                sequence:
+                  type: sequence
+                  label: 'Operation'
+                  sequence:
+                    type: string
+                    label: 'Bundle'
