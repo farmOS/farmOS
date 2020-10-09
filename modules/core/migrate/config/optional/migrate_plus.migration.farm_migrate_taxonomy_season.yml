@@ -7,7 +7,7 @@ dependencies:
       - farm_season
 id: farm_migrate_taxonomy_season
 label: 'Taxonomy terms (Seasons)'
-migration_group: farm_migrate
+migration_group: farm_migrate_taxonomy
 migration_tags:
   - 'Drupal 7'
   - 'farmOS 1.x'

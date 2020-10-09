@@ -1,0 +1,113 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_migrate
+id: farm_migrate_log
+label: 'farmOS 1.x Log Migration'
+description: 'Migrates logs from farmOS 1.x to farmOS 2.x'
+source_type: 'farmOS 1.x'
+module: null
+shared_configuration:
+  process:
+    name:
+      plugin: get
+      source: name
+    uid:
+      - plugin: skip_on_empty
+        method: process
+        source: uid
+      - plugin: migration_lookup
+        migration: farm_migrate_user
+        source: uid
+    timestamp:
+      plugin: get
+      source: timestamp
+    created:
+      plugin: get
+      source: created
+    changed:
+      plugin: get
+      source: changed
+    status:
+      plugin: static_map
+      source: done
+      map:
+        0: pending
+        1: complete
+    notes:
+      plugin: sub_process
+      source: field_farm_notes
+      process:
+        value:
+          plugin: get
+          source: value
+        format:
+          plugin: static_map
+          source: format
+          map:
+            farm_format: default
+            plain_text: plain_text
+          default_value: default
+    data:
+      plugin: get
+      source: field_farm_data
+    geometry:
+      plugin: geofield_d7d8
+      source: field_farm_geofield
+    log_category:
+      plugin: sub_process
+      source: field_farm_log_category
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration: farm_migrate_taxonomy_log_category
+          source: tid
+    flag:
+      plugin: get
+      source: field_farm_flags
+    owner:
+      plugin: sub_process
+      source: field_farm_log_owner
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration: farm_migrate_user
+          source: target_id
+          no_stub: true
+    file:
+      plugin: sub_process
+      source: field_farm_files
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration:
+            - farm_migrate_file
+            - farm_migrate_file_private
+          no_stub: true
+          source: fid
+        display: display
+        description: description
+    image:
+      plugin: sub_process
+      source: field_farm_images
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration:
+            - farm_migrate_file
+            - farm_migrate_file_private
+          no_stub: true
+          source: fid
+        alt: alt
+        title: title
+        width: width
+        height: height
+  migration_dependencies:
+    required:
+      - farm_migrate_file
+      - farm_migrate_file_private
+      - farm_migrate_user
+      - farm_migrate_taxonomy_log_category
+    optional: {  }

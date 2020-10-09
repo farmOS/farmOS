@@ -1,0 +1,37 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_migrate
+id: farm_migrate_taxonomy
+label: 'farmOS 1.x Taxonomy Migration'
+description: 'Migrates taxonomy terms from farmOS 1.x to farmOS 2.x'
+source_type: 'farmOS 1.x'
+module: null
+shared_configuration:
+  process:
+    name:
+      plugin: get
+      source: name
+    description/value:
+      plugin: get
+      source: description
+    description/format:
+      plugin: default_value
+      default_value: default
+    weight:
+      plugin: get
+      source: weight
+    forum_container:
+      plugin: get
+      source: is_container
+    changed:
+      plugin: get
+      source: timestamp
+    langcode:
+      plugin: get
+      source: language
+  migration_dependencies:
+    required: {  }
+    optional: {  }
