@@ -127,6 +127,41 @@ process:
       title: title
       width: width
       height: height
+
+  # Animal specific fields.
+  birthdate:
+    plugin: get
+    source: field_farm_date
+  nickname:
+    plugin: get
+    source: field_farm_animal_nicknames
+  sex:
+    plugin: get
+    source: field_farm_animal_sex
+  castrated:
+    plugin: get
+    source: field_farm_animal_castrated
+
+  # Equipment specific fields.
+  manufacturer:
+    plugin: get
+    source: field_farm_manufacturer
+  model:
+    plugin: get
+    source: field_farm_model
+  serial_number:
+    plugin: get
+    source: field_farm_serial_number
+
+  # Plant specific fields.
+  season:
+    plugin: sub_process
+    source: field_farm_season
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: farm_migrate_taxonomy_term
+        source: tid
 migration_dependencies:
   required:
     - farm_migrate_file

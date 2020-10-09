@@ -146,6 +146,70 @@ process:
       title: title
       width: width
       height: height
+
+  # Equipment used field.
+  # This is added by the farm_equipment_field module in farmOS 1.x, and the
+  # farm_equipment field in farmOS 2.x.
+  equipment:
+    plugin: sub_process
+    source: field_farm_equipment
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: farm_migrate_asset
+        source: target_id
+
+  # Source field (seeding and input logs).
+  source:
+    plugin: get
+    source:
+      - field_farm_input_source
+      - field_farm_seed_source
+
+  # Lot number field (harvest, input, and seeding logs).
+  lot_number:
+    plugin: get
+    source: field_farm_lot_number
+
+  # Input specific fields.
+  method:
+    plugin: get
+    source: field_farm_input_method
+  purchase_date:
+    plugin: get
+    source: field_farm_date_purchase
+  material:
+    plugin: sub_process
+    source: field_farm_material
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: farm_migrate_taxonomy_term
+        source: tid
+
+  # Medical specific fields.
+  vet:
+    plugin: get
+    source: field_farm_vet
+
+  # Invoice number field (sale and purchase logs).
+  invoice_number:
+    plugin: get
+    source: field_farm_invoice_number
+
+  # Purchase specific fields.
+  seller:
+    plugin: get
+    source: field_farm_seller
+
+  # Sale specific fields.
+  customer:
+    plugin: get
+    source: field_farm_customer
+
+  # Lab field (lab test logs).
+  lab:
+    plugin: get_lab
 migration_dependencies:
   required:
     - farm_migrate_asset
