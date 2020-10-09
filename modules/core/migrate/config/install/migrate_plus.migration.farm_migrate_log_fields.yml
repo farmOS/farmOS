@@ -103,15 +103,6 @@ process:
         migration: farm_migrate_user
         source: target_id
         no_stub: true
-  asset:
-    plugin: sub_process
-    source: field_farm_asset
-    process:
-      target_id:
-        plugin: migration_lookup
-        migration: farm_migrate_asset_fields
-        source: target_id
-        no_stub: true
   file:
     plugin: sub_process
     source: field_farm_files
@@ -140,26 +131,12 @@ process:
       title: title
       width: width
       height: height
-  # Equipment used field.
-  # This is added by the farm_equipment_field module in farmOS 1.x, and the
-  # farm_equipment field in farmOS 2.x.
-  equipment:
-    plugin: sub_process
-    source: field_farm_equipment
-    process:
-      target_id:
-        plugin: migration_lookup
-        migration: farm_migrate_asset_equipment
-        source: target_id
-        no_stub: true
 migration_dependencies:
   required:
-    - farm_migrate_asset_fields
     - farm_migrate_file
     - farm_migrate_file_private
     - farm_migrate_user
   optional:
-    - farm_migrate_asset_equipment
     - farm_migrate_log_activity
     - farm_migrate_log_harvest
     - farm_migrate_log_input
