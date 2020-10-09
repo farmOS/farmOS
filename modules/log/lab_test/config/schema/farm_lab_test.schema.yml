@@ -1,0 +1,11 @@
+# Schema for lab_test_type config entity.
+farm_lab_test.lab_test_type.*:
+  type: config_entity
+  label: 'Lab test type'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'

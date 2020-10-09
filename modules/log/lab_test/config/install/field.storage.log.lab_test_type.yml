@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - log
+    - options
+  enforced:
+    module:
+      - farm_lab_test
+id: log.lab_test_type
+field_name: lab_test_type
+entity_type: log
+type: list_string
+settings:
+  allowed_values: {  }
+  allowed_values_function: 'farm_lab_test_type_field_allowed_values'
+module: options
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

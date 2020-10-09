@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_lab_test
+id: soil
+label: Soil test

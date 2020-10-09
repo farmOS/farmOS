@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.log.lab_test_type
+    - log.type.lab_test
+  module:
+    - options
+id: log.lab_test.lab_test_type
+field_name: lab_test_type
+entity_type: log
+bundle: lab_test
+label: Test type
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string
