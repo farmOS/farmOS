@@ -4,6 +4,7 @@ dependencies:
   enforced:
     module:
       - farm_migrate
+      - taxonomy
 id: farm_migrate_taxonomy_term
 label: 'Taxonomy terms'
 migration_group: farm_migrate
