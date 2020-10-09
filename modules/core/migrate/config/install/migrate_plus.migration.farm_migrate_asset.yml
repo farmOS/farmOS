@@ -34,6 +34,45 @@ process:
       planting: plant
       sensor: sensor
     bypass: FALSE
+    # Hmm. This default_value is at odds with our overlapping needs.
+    # - Without this default_value, the parent field migration tries to create
+    #   a stub but fails at this process because the type source is not set
+    #   during stub creation.
+    # - With this default_value, `bypass: FALSE` has no effect. Which means
+    #   all assets will be imported, and wl have a type of `stub` if their
+    #   source type is not in this map.
+    # - Alternatively, we could set `bypass: TRUE` and omit `default_value`,
+    #   which would result in the creation of assets even if their asset type
+    #   does not exist.
+    #     - On one hand, this would make contrib asset type migrations easier.
+    #     - On the other hand, it means our current approach of "only enable
+    #       modules for the data you want to migrate" is no longer true. All
+    #       data will be migrated.
+    #         - Come to think of it, we're already breaking this promise by
+    #           not having separate migrations for each asset type. There may
+    #           be asset types in this map that were not enabled. They would
+    #           still be migrated, simply because they are in this map.
+    #
+    # With all the above in mind, we have two choices:
+    # - Accept that we can't promise "only the modules you enable will be
+    #   migrated". Migrate all data regardless.
+    #     - This may be OK for core asset/log types, but what about contrib? If
+    #       a contrib module is not ready for 2.x, then data will be migrated
+    #       for it, but it will be orphaned in the db as an unknown bundle.
+    # - Take a different approach. Flip this on its head: create separate
+    #   migrations for each bundle, and a general migration for common fields,
+    #   but run the bundle migrations first, and fill in the common fields
+    #   second, only on the entities that were imported by the bundle
+    #   migrations.
+    #     - How do we set the dependencies on the migrations to accomplish
+    #       this?
+    #     - The common fields migration can't explicitly list the bundle
+    #       migrations as required dependencies, because then all the bundles
+    #       would be required.
+    #     - Optional dependencies could work, but only for the bundle
+    #       migrations we know about in core. Contrib bundles would also need
+    #       some way of ensuring that they run first.
+    default_value: stub
   id:
     plugin: get
     source: id
