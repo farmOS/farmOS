@@ -28,6 +28,18 @@ process:
   tid:
     plugin: get
     source: tid
+  # Term parent.
+  parent_id:
+    - plugin: skip_on_empty
+      method: process
+      source: parent
+    - plugin: migration_lookup
+      source: tid
+      migration: farm_migrate_taxonomy_material
+  parent:
+    plugin: default_value
+    default_value: 0
+    source: '@parent_id'
 migration_dependencies:
   required: {  }
   optional: {  }

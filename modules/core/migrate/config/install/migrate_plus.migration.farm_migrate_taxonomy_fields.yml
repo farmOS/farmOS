@@ -40,23 +40,6 @@ process:
   weight:
     plugin: get
     source: weight
-  parent_id:
-    -
-      plugin: skip_on_empty
-      method: process
-      source: parent
-    -
-      plugin: migration_lookup
-      source: tid
-      migration:
-        - farm_migrate_taxonomy_log_category
-        - farm_migrate_taxonomy_material
-        - farm_migrate_taxonomy_season
-      no_stub: true
-  parent:
-    plugin: default_value
-    default_value: 0
-    source: '@parent_id'
   forum_container:
     plugin: get
     source: is_container
