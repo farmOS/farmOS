@@ -85,21 +85,6 @@ process:
   flag:
     plugin: get
     source: field_farm_flags
-  parent:
-    plugin: sub_process
-    source: field_farm_parent
-    process:
-      target_id:
-        plugin: migration_lookup
-        source: target_id
-        migration:
-          - farm_migrate_asset_animal
-          - farm_migrate_asset_compost
-          - farm_migrate_asset_equipment
-          - farm_migrate_asset_group
-          - farm_migrate_asset_plant
-          - farm_migrate_asset_sensor
-        no_stub: true
   file:
     plugin: sub_process
     source: field_farm_files
