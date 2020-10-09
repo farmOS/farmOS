@@ -1,0 +1,37 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_medical
+      - farm_migrate
+id: farm_migrate_log_medical
+label: 'Logs (Medical)'
+migration_group: farm_migrate
+migration_tags:
+  - 'Drupal 7'
+  - 'farmOS 1.x'
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: null
+cck_plugin_method: null
+source:
+  plugin: d7_log
+  bundle: farm_medical
+destination:
+  plugin: 'entity:log'
+process:
+  # Hard-code the bundle.
+  type:
+    plugin: default_value
+    default_value: medical
+  # Maintain the asset ID.
+  id:
+    plugin: get
+    source: id
+  # Medical specific fields.
+  vet:
+    plugin: get
+    source: field_farm_vet
+migration_dependencies:
+  required: {  }
+  optional: {  }

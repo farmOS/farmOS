@@ -1,0 +1,33 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_log_category
+      - farm_migrate
+id: farm_migrate_taxonomy_log_category
+label: 'Taxonomy terms (Log categories)'
+migration_group: farm_migrate
+migration_tags:
+  - 'Drupal 7'
+  - 'farmOS 1.x'
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: null
+cck_plugin_method: null
+source:
+  plugin: d7_taxonomy_term
+  bundle: farm_log_categories
+destination:
+  plugin: 'entity:taxonomy_term'
+process:
+  # Hard-code the vocabulary.
+  vid:
+    plugin: default_value
+    default_value: log_category
+  # Maintain the term ID.
+  tid:
+    plugin: get
+    source: tid
+migration_dependencies:
+  required: {  }
+  optional: {  }

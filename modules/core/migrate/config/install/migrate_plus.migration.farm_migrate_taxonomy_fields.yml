@@ -5,8 +5,8 @@ dependencies:
     module:
       - farm_migrate
       - taxonomy
-id: farm_migrate_taxonomy_term
-label: 'Taxonomy terms'
+id: farm_migrate_taxonomy_fields
+label: 'Common taxonomy term fields'
 migration_group: farm_migrate
 migration_tags:
   - 'Drupal 7'
@@ -19,22 +19,15 @@ source:
 destination:
   plugin: 'entity:taxonomy_term'
 process:
-  # Static map old vocabulary IDs to new.
-  # This only handles known vocabularies provided by farmOS core.
-  # If the vocabulary is not found in this map, then the term will be skipped.
-  # Contrib farmOS modules are responsible for migrating their own
-  # vocabularies.
-  vid:
-    plugin: static_map
-    source: machine_name
-    map:
-      farm_log_categories: log_category
-      farm_materials: material
-      farm_season: season
-    bypass: FALSE
+  # Look up logs created by type-specific migrations.
   tid:
-    plugin: get
+    plugin: migration_lookup
     source: tid
+    migration:
+      - farm_migrate_taxonomy_log_category
+      - farm_migrate_taxonomy_material
+      - farm_migrate_taxonomy_season
+    no_stub: true
   name:
     plugin: get
     source: name
@@ -54,8 +47,12 @@ process:
       source: parent
     -
       plugin: migration_lookup
-      migration: farm_migrate_taxonomy_term
       source: tid
+      migration:
+        - farm_migrate_taxonomy_log_category
+        - farm_migrate_taxonomy_material
+        - farm_migrate_taxonomy_season
+      no_stub: true
   parent:
     plugin: default_value
     default_value: 0
@@ -72,4 +69,6 @@ process:
 migration_dependencies:
   required: {  }
   optional:
-    - farm_migrate_taxonomy_term
+    - farm_migrate_taxonomy_log_category
+    - farm_migrate_taxonomy_material
+    - farm_migrate_taxonomy_season

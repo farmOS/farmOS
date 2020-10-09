@@ -1,0 +1,33 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_migrate
+      - farm_transplanting
+id: farm_migrate_log_transplanting
+label: 'Logs (Transplantings)'
+migration_group: farm_migrate
+migration_tags:
+  - 'Drupal 7'
+  - 'farmOS 1.x'
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: null
+cck_plugin_method: null
+source:
+  plugin: d7_log
+  bundle: farm_transplanting
+destination:
+  plugin: 'entity:log'
+process:
+  # Hard-code the bundle.
+  type:
+    plugin: default_value
+    default_value: transplanting
+  # Maintain the asset ID.
+  id:
+    plugin: get
+    source: id
+migration_dependencies:
+  required: {  }
+  optional: {  }

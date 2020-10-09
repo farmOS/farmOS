@@ -1,0 +1,33 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_migrate
+      - farm_sensor
+id: farm_migrate_asset_sensor
+label: 'Assets (Sensors)'
+migration_group: farm_migrate
+migration_tags:
+  - 'Drupal 7'
+  - 'farmOS 1.x'
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: null
+cck_plugin_method: null
+source:
+  plugin: d7_asset
+  bundle: sensor
+destination:
+  plugin: 'entity:asset'
+process:
+  # Hard-code the bundle.
+  type:
+    plugin: default_value
+    default_value: sensor
+  # Maintain the asset ID.
+  id:
+    plugin: get
+    source: id
+migration_dependencies:
+  required: {  }
+  optional: {  }

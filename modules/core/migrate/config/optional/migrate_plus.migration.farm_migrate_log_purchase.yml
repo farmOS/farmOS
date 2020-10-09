@@ -1,0 +1,40 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_migrate
+      - farm_purchase
+id: farm_migrate_log_purchase
+label: 'Logs (Purchases)'
+migration_group: farm_migrate
+migration_tags:
+  - 'Drupal 7'
+  - 'farmOS 1.x'
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: null
+cck_plugin_method: null
+source:
+  plugin: d7_log
+  bundle: farm_purchase
+destination:
+  plugin: 'entity:log'
+process:
+  # Hard-code the bundle.
+  type:
+    plugin: default_value
+    default_value: purchase
+  # Maintain the asset ID.
+  id:
+    plugin: get
+    source: id
+  # Purchase specific fields.
+  invoice_number:
+    plugin: get
+    source: field_farm_invoice_number
+  seller:
+    plugin: get
+    source: field_farm_seller
+migration_dependencies:
+  required: {  }
+  optional: {  }

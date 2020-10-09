@@ -5,8 +5,8 @@ dependencies:
     module:
       - log
       - farm_migrate
-id: farm_migrate_log
-label: 'Logs'
+id: farm_migrate_log_fields
+label: 'Common log fields'
 migration_group: farm_migrate
 migration_tags:
   - 'Drupal 7'
@@ -19,30 +19,23 @@ source:
 destination:
   plugin: 'entity:log'
 process:
-  # Static map old log types to new.
-  # This only handles known log types provided by farmOS core.
-  # If the log type is not found in this map, then the log will be skipped.
-  # Contrib farmOS modules are responsible for migrating their own log types.
-  type:
-    plugin: static_map
-    source: type
-    map:
-      farm_activity: activity
-      farm_harvest: harvest
-      farm_input: input
-      farm_maintenance: maintenance
-      farm_medical: medical
-      farm_observation: observation
-      farm_purchase: purchase
-      farm_sale: sale
-      farm_seeding: seeding
-      farm_soil_test: lab_test
-      farm_transplanting: transplanting
-      farm_water_test: lab_test
-    bypass: FALSE
+  # Look up logs created by type-specific migrations.
   id:
-    plugin: get
+    plugin: migration_lookup
     source: id
+    migration:
+      - farm_migrate_log_activity
+      - farm_migrate_log_harvest
+      - farm_migrate_log_input
+      - farm_migrate_log_lab_test
+      - farm_migrate_log_maintenance
+      - farm_migrate_log_medical
+      - farm_migrate_log_observation
+      - farm_migrate_log_purchase
+      - farm_migrate_log_sale
+      - farm_migrate_log_seeding
+      - farm_migrate_log_transplanting
+    no_stub: true
   name:
     plugin: get
     source: name
@@ -96,7 +89,7 @@ process:
     process:
       target_id:
         plugin: migration_lookup
-        migration: farm_migrate_taxonomy_term_log_category
+        migration: farm_migrate_taxonomy_log_category
         source: tid
   flag:
     plugin: get
@@ -116,8 +109,9 @@ process:
     process:
       target_id:
         plugin: migration_lookup
-        migration: farm_migrate_asset
+        migration: farm_migrate_asset_fields
         source: target_id
+        no_stub: true
   file:
     plugin: sub_process
     source: field_farm_files
@@ -146,7 +140,6 @@ process:
       title: title
       width: width
       height: height
-
   # Equipment used field.
   # This is added by the farm_equipment_field module in farmOS 1.x, and the
   # farm_equipment field in farmOS 2.x.
@@ -156,64 +149,26 @@ process:
     process:
       target_id:
         plugin: migration_lookup
-        migration: farm_migrate_asset
+        migration: farm_migrate_asset_equipment
         source: target_id
-
-  # Source field (seeding and input logs).
-  source:
-    plugin: get
-    source:
-      - field_farm_input_source
-      - field_farm_seed_source
-
-  # Lot number field (harvest, input, and seeding logs).
-  lot_number:
-    plugin: get
-    source: field_farm_lot_number
-
-  # Input specific fields.
-  method:
-    plugin: get
-    source: field_farm_input_method
-  purchase_date:
-    plugin: get
-    source: field_farm_date_purchase
-  material:
-    plugin: sub_process
-    source: field_farm_material
-    process:
-      target_id:
-        plugin: migration_lookup
-        migration: farm_migrate_taxonomy_term
-        source: tid
-
-  # Medical specific fields.
-  vet:
-    plugin: get
-    source: field_farm_vet
-
-  # Invoice number field (sale and purchase logs).
-  invoice_number:
-    plugin: get
-    source: field_farm_invoice_number
-
-  # Purchase specific fields.
-  seller:
-    plugin: get
-    source: field_farm_seller
-
-  # Sale specific fields.
-  customer:
-    plugin: get
-    source: field_farm_customer
-
-  # Lab field (lab test logs).
-  lab:
-    plugin: get_lab
+        no_stub: true
 migration_dependencies:
   required:
-    - farm_migrate_asset
+    - farm_migrate_asset_fields
     - farm_migrate_file
     - farm_migrate_file_private
     - farm_migrate_user
-  optional: {  }
+  optional:
+    - farm_migrate_asset_equipment
+    - farm_migrate_log_activity
+    - farm_migrate_log_harvest
+    - farm_migrate_log_input
+    - farm_migrate_log_lab_test
+    - farm_migrate_log_maintenance
+    - farm_migrate_log_medical
+    - farm_migrate_log_observation
+    - farm_migrate_log_purchase
+    - farm_migrate_log_sale
+    - farm_migrate_log_seeding
+    - farm_migrate_log_transplanting
+    - farm_migrate_taxonomy_log_category

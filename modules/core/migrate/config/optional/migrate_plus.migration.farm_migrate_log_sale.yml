@@ -1,0 +1,40 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_migrate
+      - farm_sale
+id: farm_migrate_log_sale
+label: 'Logs (Sales)'
+migration_group: farm_migrate
+migration_tags:
+  - 'Drupal 7'
+  - 'farmOS 1.x'
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: null
+cck_plugin_method: null
+source:
+  plugin: d7_log
+  bundle: farm_sale
+destination:
+  plugin: 'entity:log'
+process:
+  # Hard-code the bundle.
+  type:
+    plugin: default_value
+    default_value: sale
+  # Maintain the asset ID.
+  id:
+    plugin: get
+    source: id
+  # Sale specific fields.
+  customer:
+    plugin: get
+    source: field_farm_customer
+  invoice_number:
+    plugin: get
+    source: field_farm_invoice_number
+migration_dependencies:
+  required: {  }
+  optional: {  }

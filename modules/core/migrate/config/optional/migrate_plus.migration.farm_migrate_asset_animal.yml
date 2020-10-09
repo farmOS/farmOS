@@ -1,0 +1,46 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_animal
+      - farm_migrate
+id: farm_migrate_asset_animal
+label: 'Assets (Animals)'
+migration_group: farm_migrate
+migration_tags:
+  - 'Drupal 7'
+  - 'farmOS 1.x'
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: null
+cck_plugin_method: null
+source:
+  plugin: d7_asset
+  bundle: animal
+destination:
+  plugin: 'entity:asset'
+process:
+  # Hard-code the bundle.
+  type:
+    plugin: default_value
+    default_value: animal
+  # Maintain the asset ID.
+  id:
+    plugin: get
+    source: id
+  # Animal specific fields.
+  birthdate:
+    plugin: get
+    source: field_farm_date
+  nickname:
+    plugin: get
+    source: field_farm_animal_nicknames
+  sex:
+    plugin: get
+    source: field_farm_animal_sex
+  castrated:
+    plugin: get
+    source: field_farm_animal_castrated
+migration_dependencies:
+  required: {  }
+  optional: {  }
