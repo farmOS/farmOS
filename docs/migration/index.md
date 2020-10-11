@@ -26,6 +26,10 @@
         drush migrate:import --group=farm_migrate_log
         drush migrate:import --group=farm_migrate_reference
 
+To view the status of all farmOS 1.x migrations:
+
+    drush migrate:status --tag="farmOS 1.x"
+
 ## Uploaded files
 
 farmOS allows files to be uploaded/attached to records. In order to migrate
