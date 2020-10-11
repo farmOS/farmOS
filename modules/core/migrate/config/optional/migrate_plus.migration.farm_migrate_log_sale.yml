@@ -20,41 +20,17 @@ source:
 destination:
   plugin: 'entity:log'
 process:
-  # Hardcode the destination log type (bundle).
-  type:
-    plugin: default_value
-    default_value: sale
   id:
-    plugin: get
+    plugin: migration_lookup
+    migration: farm_migrate_log
     source: id
-  name:
+  invoice_number:
     plugin: get
-    source: name
-  uid:
-    -
-      plugin: skip_on_empty
-      method: process
-      source: uid
-    -
-      plugin: migration_lookup
-      migration: farm_migrate_user
-      source: uid
-  timestamp:
+    source: field_farm_invoice_number
+  customer:
     plugin: get
-    source: timestamp
-  created:
-    plugin: get
-    source: created
-  changed:
-    plugin: get
-    source: changed
-  status:
-    plugin: static_map
-    source: done
-    map:
-      0: pending
-      1: complete
+    source: field_farm_customer
 migration_dependencies:
   required:
-    - farm_migrate_user
+    - farm_migrate_log
   optional: {  }

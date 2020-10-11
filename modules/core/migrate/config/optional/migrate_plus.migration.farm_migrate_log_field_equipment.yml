@@ -4,9 +4,9 @@ dependencies:
   enforced:
     module:
       - farm_migrate
-      - farm_animal
-id: farm_migrate_asset_animal
-label: 'Assets (Animals)'
+      - farm_equipment
+id: farm_migrate_log_field_equipment
+label: 'Equipment reference field on Logs'
 migration_group: farm_migrate
 migration_tags:
   - 'Drupal 7'
@@ -15,15 +15,23 @@ class: Drupal\migrate\Plugin\Migration
 field_plugin_method: null
 cck_plugin_method: null
 source:
-  plugin: d7_asset
-  bundle: animal
+  plugin: d7_log
 destination:
-  plugin: 'entity:asset'
+  plugin: 'entity:log'
 process:
   id:
     plugin: migration_lookup
-    migration: farm_migrate_asset
+    migration: farm_migrate_log
     source: id
+    no_stub: true
+  equipment:
+    plugin: sub_process
+    source: field_farm_equipment
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: farm_migrate_asset
+        source: target_id
 migration_dependencies:
   required:
     - farm_migrate_asset
