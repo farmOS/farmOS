@@ -13,7 +13,7 @@ use Drupal\migrate\Row;
  *   id = "get_lab"
  * )
  */
-class Get extends ProcessPluginBase {
+class FarmMigrateGetLab extends ProcessPluginBase {
 
   /**
    * {@inheritdoc}
