@@ -3,11 +3,11 @@ status: true
 dependencies:
   enforced:
     module:
-      - farm_migrate
       - farm_animal
+      - farm_migrate
 id: farm_migrate_asset_animal
-label: 'Assets (Animal specific fields)'
-migration_group: farm_migrate
+label: 'Assets (Animals)'
+migration_group: farm_migrate_asset
 migration_tags:
   - 'Drupal 7'
   - 'farmOS 1.x'
@@ -20,10 +20,15 @@ source:
 destination:
   plugin: 'entity:asset'
 process:
+  # Hard-code the bundle.
+  type:
+    plugin: default_value
+    default_value: animal
+  # Maintain the asset ID.
   id:
-    plugin: migration_lookup
-    migration: farm_migrate_asset
+    plugin: get
     source: id
+  # Animal specific fields.
   birthdate:
     plugin: get
     source: field_farm_date
@@ -37,6 +42,5 @@ process:
     plugin: get
     source: field_farm_animal_castrated
 migration_dependencies:
-  required:
-    - farm_migrate_asset
+  required: {  }
   optional: {  }

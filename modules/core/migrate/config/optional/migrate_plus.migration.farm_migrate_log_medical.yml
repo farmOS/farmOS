@@ -3,11 +3,11 @@ status: true
 dependencies:
   enforced:
     module:
-      - farm_migrate
       - farm_medical
+      - farm_migrate
 id: farm_migrate_log_medical
-label: 'Logs (Medical specific fields)'
-migration_group: farm_migrate
+label: 'Logs (Medical)'
+migration_group: farm_migrate_log
 migration_tags:
   - 'Drupal 7'
   - 'farmOS 1.x'
@@ -20,14 +20,18 @@ source:
 destination:
   plugin: 'entity:log'
 process:
+  # Hard-code the bundle.
+  type:
+    plugin: default_value
+    default_value: medical
+  # Maintain the asset ID.
   id:
-    plugin: migration_lookup
-    migration: farm_migrate_log
+    plugin: get
     source: id
+  # Medical specific fields.
   vet:
     plugin: get
     source: field_farm_vet
 migration_dependencies:
-  required:
-    - farm_migrate_log
+  required: {  }
   optional: {  }

@@ -3,11 +3,11 @@ status: true
 dependencies:
   enforced:
     module:
-      - farm_harvest
+      - farm_compost
       - farm_migrate
-id: farm_migrate_log_harvest
-label: 'Logs (Harvests)'
-migration_group: farm_migrate_log
+id: farm_migrate_asset_compost
+label: 'Assets (Compost)'
+migration_group: farm_migrate_asset
 migration_tags:
   - 'Drupal 7'
   - 'farmOS 1.x'
@@ -15,23 +15,19 @@ class: Drupal\migrate\Plugin\Migration
 field_plugin_method: null
 cck_plugin_method: null
 source:
-  plugin: d7_log
-  bundle: farm_harvest
+  plugin: d7_asset
+  bundle: compost
 destination:
-  plugin: 'entity:log'
+  plugin: 'entity:asset'
 process:
   # Hard-code the bundle.
   type:
     plugin: default_value
-    default_value: harvest
+    default_value: compost
   # Maintain the asset ID.
   id:
     plugin: get
     source: id
-  # Harvest specific fields.
-  lot_number:
-    plugin: get
-    source: field_farm_lot_number
 migration_dependencies:
   required: {  }
   optional: {  }

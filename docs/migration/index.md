@@ -18,9 +18,17 @@
 
 4. Copy user-uploaded files to the new directory (see "Uploaded files" below).
 5. Install the farmOS Migrate (`farm_migrate`) module.
-6. Run the farmOS 1.x Migration via Drush:
+6. Run the farmOS 1.x Migrations via Drush (in this order):
 
         drush migrate:import --group=farm_migrate
+        drush migrate:import --group=farm_migrate_taxonomy
+        drush migrate:import --group=farm_migrate_asset
+        drush migrate:import --group=farm_migrate_log
+        drush migrate:import --group=farm_migrate_reference
+
+To view the status of all farmOS 1.x migrations:
+
+    drush migrate:status --tag="farmOS 1.x"
 
 ## Uploaded files
 

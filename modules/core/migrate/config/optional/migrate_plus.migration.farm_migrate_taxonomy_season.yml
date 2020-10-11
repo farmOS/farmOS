@@ -1,0 +1,45 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_migrate
+      - farm_season
+id: farm_migrate_taxonomy_season
+label: 'Taxonomy terms (Seasons)'
+migration_group: farm_migrate_taxonomy
+migration_tags:
+  - 'Drupal 7'
+  - 'farmOS 1.x'
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: null
+cck_plugin_method: null
+source:
+  plugin: d7_taxonomy_term
+  bundle: farm_season
+destination:
+  plugin: 'entity:taxonomy_term'
+process:
+  # Hard-code the vocabulary.
+  vid:
+    plugin: default_value
+    default_value: season
+  # Maintain the term ID.
+  tid:
+    plugin: get
+    source: tid
+  # Term parent.
+  parent_id:
+    - plugin: skip_on_empty
+      method: process
+      source: parent
+    - plugin: migration_lookup
+      source: tid
+      migration: farm_migrate_taxonomy_season
+  parent:
+    plugin: default_value
+    default_value: 0
+    source: '@parent_id'
+migration_dependencies:
+  required: {  }
+  optional: {  }

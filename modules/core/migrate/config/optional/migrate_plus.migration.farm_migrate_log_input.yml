@@ -3,11 +3,11 @@ status: true
 dependencies:
   enforced:
     module:
-      - farm_migrate
       - farm_input
+      - farm_migrate
 id: farm_migrate_log_input
-label: 'Logs (Input specific fields)'
-migration_group: farm_migrate
+label: 'Logs (Inputs)'
+migration_group: farm_migrate_log
 migration_tags:
   - 'Drupal 7'
   - 'farmOS 1.x'
@@ -20,32 +20,36 @@ source:
 destination:
   plugin: 'entity:log'
 process:
+  # Hard-code the bundle.
+  type:
+    plugin: default_value
+    default_value: input
+  # Maintain the asset ID.
   id:
-    plugin: migration_lookup
-    migration: farm_migrate_log
+    plugin: get
     source: id
+  # Input specific fields.
   lot_number:
     plugin: get
     source: field_farm_lot_number
-  method:
-    plugin: get
-    source: field_farm_input_method
-  source:
-    plugin: get
-    source: field_farm_input_source
-  purchase_date:
-    plugin: get
-    source: field_farm_date_purchase
   material:
     plugin: sub_process
     source: field_farm_material
     process:
       target_id:
         plugin: migration_lookup
-        migration: farm_migrate_taxonomy_term
+        migration: farm_migrate_taxonomy_material
         source: tid
+  method:
+    plugin: get
+    source: field_farm_input_method
+  purchase_date:
+    plugin: get
+    source: field_farm_date_purchase
+  source:
+    plugin: get
+    source: field_farm_input_source
 migration_dependencies:
   required:
-    - farm_migrate_log
-    - farm_migrate_taxonomy_term
+    - farm_migrate_taxonomy_material
   optional: {  }

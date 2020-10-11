@@ -3,11 +3,11 @@ status: true
 dependencies:
   enforced:
     module:
+      - farm_activity
       - farm_migrate
-      - farm_lab_test
-id: farm_migrate_log_soil_test
-label: 'Logs (Soil test specific fields)'
-migration_group: farm_migrate
+id: farm_migrate_log_activity
+label: 'Logs (Activities)'
+migration_group: farm_migrate_log
 migration_tags:
   - 'Drupal 7'
   - 'farmOS 1.x'
@@ -16,18 +16,18 @@ field_plugin_method: null
 cck_plugin_method: null
 source:
   plugin: d7_log
-  bundle: farm_soil_test
+  bundle: farm_activity
 destination:
   plugin: 'entity:log'
 process:
+  # Hard-code the bundle.
+  type:
+    plugin: default_value
+    default_value: activity
+  # Maintain the asset ID.
   id:
-    plugin: migration_lookup
-    migration: farm_migrate_log
-    source: id
-  lab:
     plugin: get
-    source: field_farm_soil_lab
+    source: id
 migration_dependencies:
-  required:
-    - farm_migrate_log
+  required: {  }
   optional: {  }

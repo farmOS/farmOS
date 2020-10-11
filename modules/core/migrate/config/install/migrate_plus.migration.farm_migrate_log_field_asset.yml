@@ -1,0 +1,57 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - log
+      - farm_migrate
+id: farm_migrate_log_field_asset
+label: 'Log asset references'
+migration_group: farm_migrate_reference
+migration_tags:
+  - 'Drupal 7'
+  - 'farmOS 1.x'
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: null
+cck_plugin_method: null
+source:
+  plugin: d7_log
+destination:
+  plugin: 'entity:log'
+process:
+  # Look up logs created by type-specific migrations.
+  id:
+    -
+      plugin: farm_migration_group_lookup
+      migration_group: farm_migrate_log
+      source: id
+      no_stub: true
+    # If no log was found in previous migrations, skip the row.
+    -
+      plugin: skip_on_empty
+      method: row
+  asset:
+    plugin: sub_process
+    source: field_farm_asset
+    process:
+      target_id:
+        plugin: farm_migration_group_lookup
+        migration_group: farm_migrate_asset
+        source: target_id
+        no_stub: true
+  # Equipment used field.
+  # This is added by the farm_equipment_field module in farmOS 1.x, and the
+  # farm_equipment field in farmOS 2.x.
+  equipment:
+    plugin: sub_process
+    source: field_farm_equipment
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: farm_migrate_asset_equipment
+        source: target_id
+        no_stub: true
+migration_dependencies:
+  required: {  }
+  optional:
+    - farm_migrate_asset_equipment

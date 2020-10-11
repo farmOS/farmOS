@@ -4,10 +4,10 @@ dependencies:
   enforced:
     module:
       - farm_migrate
-      - farm_lab_test
-id: farm_migrate_log_water_test
-label: 'Logs (Water test specific fields)'
-migration_group: farm_migrate
+      - farm_transplanting
+id: farm_migrate_log_transplanting
+label: 'Logs (Transplantings)'
+migration_group: farm_migrate_log
 migration_tags:
   - 'Drupal 7'
   - 'farmOS 1.x'
@@ -16,18 +16,18 @@ field_plugin_method: null
 cck_plugin_method: null
 source:
   plugin: d7_log
-  bundle: farm_water_test
+  bundle: farm_transplanting
 destination:
   plugin: 'entity:log'
 process:
+  # Hard-code the bundle.
+  type:
+    plugin: default_value
+    default_value: transplanting
+  # Maintain the asset ID.
   id:
-    plugin: migration_lookup
-    migration: farm_migrate_log
-    source: id
-  lab:
     plugin: get
-    source: field_farm_water_lab
+    source: id
 migration_dependencies:
-  required:
-    - farm_migrate_log
+  required: {  }
   optional: {  }

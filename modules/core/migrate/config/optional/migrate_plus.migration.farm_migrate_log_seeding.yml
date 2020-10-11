@@ -6,8 +6,8 @@ dependencies:
       - farm_migrate
       - farm_seeding
 id: farm_migrate_log_seeding
-label: 'Logs (Seeding specific fields)'
-migration_group: farm_migrate
+label: 'Logs (Seedings)'
+migration_group: farm_migrate_log
 migration_tags:
   - 'Drupal 7'
   - 'farmOS 1.x'
@@ -20,10 +20,15 @@ source:
 destination:
   plugin: 'entity:log'
 process:
+  # Hard-code the bundle.
+  type:
+    plugin: default_value
+    default_value: seeding
+  # Maintain the asset ID.
   id:
-    plugin: migration_lookup
-    migration: farm_migrate_log
+    plugin: get
     source: id
+  # Seeding specific fields.
   lot_number:
     plugin: get
     source: field_farm_lot_number
@@ -31,6 +36,5 @@ process:
     plugin: get
     source: field_farm_seed_source
 migration_dependencies:
-  required:
-    - farm_migrate_log
+  required: {  }
   optional: {  }

@@ -6,8 +6,8 @@ dependencies:
       - farm_migrate
       - farm_plant
 id: farm_migrate_asset_plant
-label: 'Assets (Plant specific fields)'
-migration_group: farm_migrate
+label: 'Assets (Plants)'
+migration_group: farm_migrate_asset
 migration_tags:
   - 'Drupal 7'
   - 'farmOS 1.x'
@@ -20,20 +20,24 @@ source:
 destination:
   plugin: 'entity:asset'
 process:
+  # Hard-code the bundle.
+  type:
+    plugin: default_value
+    default_value: plant
+  # Maintain the asset ID.
   id:
-    plugin: migration_lookup
-    migration: farm_migrate_asset
+    plugin: get
     source: id
+  # Plant specific fields.
   season:
     plugin: sub_process
     source: field_farm_season
     process:
       target_id:
         plugin: migration_lookup
-        migration: farm_migrate_taxonomy_term
+        migration: farm_migrate_taxonomy_season
         source: tid
 migration_dependencies:
   required:
-    - farm_migrate_asset
-    - farm_migrate_taxonomy_term
+    - farm_migrate_taxonomy_season
   optional: {  }

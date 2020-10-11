@@ -3,11 +3,11 @@ status: true
 dependencies:
   enforced:
     module:
-      - farm_migrate
       - farm_equipment
+      - farm_migrate
 id: farm_migrate_asset_equipment
-label: 'Assets (Equipment specific fields)'
-migration_group: farm_migrate
+label: 'Assets (Equipment)'
+migration_group: farm_migrate_asset
 migration_tags:
   - 'Drupal 7'
   - 'farmOS 1.x'
@@ -20,10 +20,15 @@ source:
 destination:
   plugin: 'entity:asset'
 process:
+  # Hard-code the bundle.
+  type:
+    plugin: default_value
+    default_value: equipment
+  # Maintain the asset ID.
   id:
-    plugin: migration_lookup
-    migration: farm_migrate_asset
+    plugin: get
     source: id
+  # Equipment specific fields.
   manufacturer:
     plugin: get
     source: field_farm_manufacturer
@@ -34,6 +39,5 @@ process:
     plugin: get
     source: field_farm_serial_number
 migration_dependencies:
-  required:
-    - farm_migrate_asset
+  required: {  }
   optional: {  }

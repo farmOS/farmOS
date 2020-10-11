@@ -1,0 +1,101 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_migrate
+id: farm_migrate_asset
+label: 'farmOS 1.x Asset Migration'
+description: 'Migrates assets from farmOS 1.x to farmOS 2.x'
+source_type: 'farmOS 1.x'
+module: null
+shared_configuration:
+  process:
+    name:
+      plugin: get
+      source: name
+    uid:
+      -
+        plugin: skip_on_empty
+        method: process
+        source: uid
+      -
+        plugin: migration_lookup
+        migration: farm_migrate_user
+        source: uid
+    created:
+      plugin: get
+      source: created
+    changed:
+      plugin: get
+      source: changed
+    # Map the old archived value to both an archived timestamp and a status.
+    # If the old value is 0, status is active. Otherwise, it is archived.
+    archived:
+      -
+        plugin: skip_on_empty
+        method: process
+        source: archived
+      -
+        plugin: get
+        source: archived
+    status:
+      plugin: static_map
+      source: archived
+      map:
+        0: active
+      default_value: archived
+    notes:
+      plugin: sub_process
+      source: field_farm_description
+      process:
+        value:
+          plugin: get
+          source: value
+        format:
+          plugin: static_map
+          source: format
+          map:
+            farm_format: default
+            plain_text: plain_text
+          default_value: default
+    data:
+      plugin: get
+      source: field_farm_data
+    flag:
+      plugin: get
+      source: field_farm_flags
+    file:
+      plugin: sub_process
+      source: field_farm_files
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration:
+            - farm_migrate_file
+            - farm_migrate_file_private
+          no_stub: true
+          source: fid
+        display: display
+        description: description
+    image:
+      plugin: sub_process
+      source: field_farm_images
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration:
+            - farm_migrate_file
+            - farm_migrate_file_private
+          no_stub: true
+          source: fid
+        alt: alt
+        title: title
+        width: width
+        height: height
+  migration_dependencies:
+    required:
+      - farm_migrate_file
+      - farm_migrate_file_private
+      - farm_migrate_user
+    optional: {  }

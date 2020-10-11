@@ -1,0 +1,44 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - asset
+      - farm_migrate
+id: farm_migrate_asset_field_parent
+label: 'Asset parent references'
+migration_group: farm_migrate_reference
+migration_tags:
+  - 'Drupal 7'
+  - 'farmOS 1.x'
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: null
+cck_plugin_method: null
+source:
+  plugin: d7_asset
+destination:
+  plugin: 'entity:asset'
+process:
+  # Look up assets created by type-specific migrations.
+  id:
+    -
+      plugin: farm_migration_group_lookup
+      migration_group: farm_migrate_asset
+      source: id
+      no_stub: true
+    # If no asset was found in previous migrations, skip the row.
+    -
+      plugin: skip_on_empty
+      method: row
+  parent:
+    plugin: sub_process
+    source: field_farm_parent
+    process:
+      target_id:
+        plugin: farm_migration_group_lookup
+        migration_group: farm_migrate_asset
+        source: target_id
+        no_stub: true
+migration_dependencies:
+  required: {  }
+  optional: {  }
