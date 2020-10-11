@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_season
+name: Seasons
+vid: season
+description: 'A list of seasons.'
+weight: 0

@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.log.material
+    - log.type.input
+    - taxonomy.vocabulary.material
+id: log.input.material
+field_name: material
+entity_type: log
+bundle: input
+label: Material
+description: 'What materials are being applied?'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      material: material
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,5 +1,5 @@
-name: Log categories vocabulary
-description: Provides a Log categories vocabulary.
+name: Seasons vocabulary
+description: Provides a Seasons vocabulary.
 type: module
 package: farmOS Taxonomies
 core_version_requirement: ^9
