@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - asset.type.equipment
+    - field.storage.asset.manufacturer
+id: asset.equipment.manufacturer
+field_name: manufacturer
+entity_type: asset
+bundle: equipment
+label: Manufacturer
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

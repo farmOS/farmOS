@@ -24,6 +24,18 @@ process:
     plugin: migration_lookup
     migration: farm_migrate_asset
     source: id
+  birthdate:
+    plugin: get
+    source: field_farm_date
+  nickname:
+    plugin: get
+    source: field_farm_animal_nicknames
+  sex:
+    plugin: get
+    source: field_farm_animal_sex
+  castrated:
+    plugin: get
+    source: field_farm_animal_castrated
 migration_dependencies:
   required:
     - farm_migrate_asset

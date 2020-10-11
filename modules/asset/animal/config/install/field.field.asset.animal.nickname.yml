@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - asset.type.animal
+    - field.storage.asset.nickname
+id: asset.animal.nickname
+field_name: nickname
+entity_type: asset
+bundle: animal
+label: Nicknames
+description: 'List any nicknames of this animal.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

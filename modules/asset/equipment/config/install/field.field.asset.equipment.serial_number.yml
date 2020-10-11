@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - asset.type.equipment
+    - field.storage.asset.serial_number
+id: asset.equipment.serial_number
+field_name: serial_number
+entity_type: asset
+bundle: equipment
+label: 'Serial number'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

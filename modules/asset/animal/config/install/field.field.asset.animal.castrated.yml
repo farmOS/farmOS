@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - asset.type.animal
+    - field.storage.asset.castrated
+id: asset.animal.castrated
+field_name: castrated
+entity_type: asset
+bundle: animal
+label: Castrated
+description: 'Has this animal been castrated?'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean
