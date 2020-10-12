@@ -1,0 +1,14 @@
+services:
+  # Alter the root /api endpoint to include a meta.farm object.
+  farm_api.route_subscriber:
+    class: Drupal\farm_api\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }
+  farm_api.repositories.client:
+    class: Drupal\farm_api\Repositories\FarmClientRepository
+    decorates: simple_oauth.repositories.client
+    arguments: [ '@entity_type.manager', '@password' ]
+  farm_api.repositories.scope:
+    class: Drupal\farm_api\Repositories\FarmScopeRepository
+    decorates: simple_oauth.repositories.scope
+    arguments: [ '@entity_type.manager' ]

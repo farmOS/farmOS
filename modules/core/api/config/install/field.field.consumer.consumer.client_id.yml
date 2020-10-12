@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.consumer.client_id
+  enforced:
+    module:
+      - farm_api
+id: consumer.client_id
+field_name: client_id
+entity_type: consumer
+bundle: consumer
+label: Client ID
+description: 'OAuth client_id associated with this consumer.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

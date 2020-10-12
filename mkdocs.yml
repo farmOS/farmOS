@@ -5,6 +5,7 @@ nav:
       - 1.x Migration: hosting/migration.md
   - API:
     - Introduction: api/index.md
+    - Authentication: api/authentication.md
     - Changes: api/changes.md
   - Development:
     - Environment:
@@ -16,4 +17,6 @@ nav:
       - Debugging: development/environment/debug.md
       - Automated tests: development/environment/tests.md
       - Coding standards: development/environment/code.md
+    - Module:
+      - OAuth: development/module/oauth.md
 theme: readthedocs

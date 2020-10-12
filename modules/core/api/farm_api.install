@@ -1,0 +1,93 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the farm_api module.
+ */
+
+use Drupal\consumers\Entity\Consumer;
+
+/**
+ * Implements hook_install().
+ */
+function farm_api_install() {
+
+  // Generate key files for simple_oauth module.
+  // Code adapted from the contenta_jsonapi profile install tasks:
+  // https://github.com/contentacms/contenta_jsonapi/blob/8.x-3.x/contenta_jsonapi.profile
+  // Build all the dependencies manually to avoid having to rely on the
+  // container to be ready.
+  $dir_name = 'keys';
+  /** @var \Drupal\simple_oauth\Service\KeyGeneratorService $key_gen */
+  $key_gen = \Drupal::service('simple_oauth.key.generator');
+  /** @var \Drupal\simple_oauth\Service\Filesystem\FileSystemChecker $file_system_checker */
+  $file_system_checker = \Drupal::service('simple_oauth.filesystem_checker');
+  /** @var \Drupal\Core\File\FileSystem $file_system */
+  $file_system = \Drupal::service('file_system');
+
+  // Save keys in the "keys" directory outside of the webroot.
+  $relative_path = DRUPAL_ROOT . '/../' . $dir_name;
+  if (!$file_system_checker->isDirectory($relative_path)) {
+    $file_system->mkdir($relative_path);
+  }
+  $keys_path = $file_system->realpath($relative_path);
+  $pub_filename = sprintf('%s/public.key', $keys_path);
+  $pri_filename = sprintf('%s/private.key', $keys_path);
+
+  if ($file_system_checker->fileExist($pub_filename) && $file_system_checker->fileExist($pri_filename)) {
+    // 1. If the file already exists, then just set the correct permissions.
+    $file_system->chmod($pub_filename, 0600);
+    $file_system->chmod($pri_filename, 0600);
+  }
+  else {
+    // 2. Generate the pair in the selected directory.
+    try {
+      $key_gen->generateKeys($keys_path);
+    }
+    catch (\Exception $e) {
+      // Unable to generate files after all.
+      return;
+    }
+
+  }
+
+  // Delete the "Default Consumer" created by the consumers module.
+  $default_consumer = \Drupal::entityTypeManager()->getStorage('consumer')
+    ->loadByProperties(['label' => 'Default Consumer']);
+  if (!empty($default_consumer)) {
+    $default_consumer = reset($default_consumer);
+    $default_consumer->delete();
+  }
+
+  // Create a "Farm default" consumer.
+  $farm_consumer = Consumer::create([
+    'label' => 'Farm default',
+    'client_id' => 'farm',
+    'is_default' => TRUE,
+    'owner_id' => '',
+    'secret' => '',
+    'confidential' => FALSE,
+    'third_party' => FALSE,
+    'grant_user_access' => TRUE,
+    'limit_user_access' => TRUE,
+    'limit_requested_access' => FALSE,
+  ]);
+  $farm_consumer->save();
+
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function farm_api_uninstall() {
+
+  // Load the default farm consumer.
+  $consumers = \Drupal::entityTypeManager()->getStorage('consumer')
+    ->loadByProperties(['client_id' => 'farm']);
+
+  // If found, delete the consumer.
+  if (!empty($consumers)) {
+    $farm_consumer = reset($consumers);
+    $farm_consumer->delete();
+  }
+}

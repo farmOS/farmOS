@@ -1,0 +1,41 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.consumer.consumer.client_id
+    - field.field.consumer.consumer.grant_user_access
+    - field.field.consumer.consumer.limit_requested_access
+    - field.field.consumer.consumer.limit_user_access
+  module:
+    - text
+  enforced:
+    module:
+      - farm_api
+id: consumer.consumer.default
+targetEntityType: consumer
+bundle: consumer
+mode: default
+content:
+  client_id:
+    weight: -4
+    settings:
+      size: 255
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  grant_user_access:
+    weight: 4
+    settings: { }
+    third_party_settings: { }
+    type: boolean_checkbox
+  limit_requested_access:
+    weight: 4
+    settings: { }
+    third_party_settings: { }
+    type: boolean_checkbox
+  limit_user_access:
+    weight: 4
+    settings: { }
+    third_party_settings: { }
+    type: boolean_checkbox
+hidden: {  }

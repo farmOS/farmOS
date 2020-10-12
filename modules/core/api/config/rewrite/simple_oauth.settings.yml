@@ -1,0 +1,8 @@
+access_token_expiration: 3600
+authorization_code_expiration: 300
+refresh_token_expiration: 1209600
+token_cron_batch_size: 0
+public_key: "../keys/public.key"
+private_key: "../keys/private.key"
+remember_clients: true
+use_implicit: false
