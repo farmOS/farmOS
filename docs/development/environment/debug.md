@@ -32,7 +32,7 @@ execution at your breakpoint.
 
 ### Drush + PHPStorm
 
-Debugging code that is run via [Drush](/development/drush) commands requires
+Debugging code that is run via [Drush](/development/environment/drush) commands requires
 additional configuration. Add `idekey=PHPSTORM` to the `XDEBUG_CONFIG`
 environment variable, and add a `PHP_IDE_CONFIG` environment variable with
 `serverName=localhost`, as follows:

@@ -7,12 +7,13 @@ nav:
     - Introduction: api/index.md
     - Changes: api/changes.md
   - Development:
-    - Getting started: development/index.md
-    - Docker: development/docker.md
-    - PostgreSQL: development/postgresql.md
-    - Drush: development/drush.md
-    - Composer: development/composer.md
-    - Debugging: development/debug.md
-    - Automated tests: development/tests.md
-    - Coding standards: development/code.md
+    - Environment:
+      - Getting started: development/environment/index.md
+      - Docker: development/environment/docker.md
+      - PostgreSQL: development/environment/postgresql.md
+      - Drush: development/environment/drush.md
+      - Composer: development/environment/composer.md
+      - Debugging: development/environment/debug.md
+      - Automated tests: development/environment/tests.md
+      - Coding standards: development/environment/code.md
 theme: readthedocs

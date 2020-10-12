@@ -40,4 +40,4 @@ In order to upload files, the following line must be added to
 
 ### Configure debugger
 
-See [Debugging](/development/debug).
+See [Debugging](/development/environment/debug).
