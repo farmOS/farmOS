@@ -27,7 +27,7 @@ class IdTagWidget extends WidgetBase {
     $element['#type'] = 'fieldset';
 
     $element['id'] = [
-      '#type' => 'textarea',
+      '#type' => 'textfield',
       '#title' => $this->t('Tag ID'),
       '#default_value' => isset($items[$delta]->id) ? $items[$delta]->id : NULL,
     ];
@@ -39,7 +39,7 @@ class IdTagWidget extends WidgetBase {
     ];
 
     $element['location'] = [
-      '#type' => 'textarea',
+      '#type' => 'textfield',
       '#title' => $this->t('Tag location'),
       '#default_value' => isset($items[$delta]->location) ? $items[$delta]->location : NULL,
     ];
