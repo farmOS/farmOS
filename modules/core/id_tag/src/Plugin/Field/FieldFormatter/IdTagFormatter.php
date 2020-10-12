@@ -9,14 +9,14 @@ use Drupal\Core\Field\FormatterBase;
  * Plugin implementation of the 'id tag' formatter.
  *
  * @FieldFormatter(
- *   id = "farm_id_tag",
- *   label = @Translation("Farm Id Tag"),
+ *   id = "id_tag",
+ *   label = @Translation("ID tag"),
  *   field_types = {
- *     "farm_id_tag"
+ *     "id_tag"
  *   }
  * )
  */
-class FarmIdTagFormatter extends FormatterBase {
+class IdTagFormatter extends FormatterBase {
 
   /**
    * {@inheritdoc}

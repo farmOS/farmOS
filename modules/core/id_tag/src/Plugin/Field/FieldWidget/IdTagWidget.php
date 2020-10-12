@@ -10,14 +10,14 @@ use Drupal\Core\Form\FormStateInterface;
  * Plugin implementation of the 'id tag' widget.
  *
  * @FieldWidget(
- *   id = "farm_id_tag",
- *   label = @Translation("Farm Id Tag"),
+ *   id = "id_tag",
+ *   label = @Translation("ID tag"),
  *   field_types = {
- *     "farm_id_tag"
+ *     "id_tag"
  *   }
  * )
  */
-class FarmIdTagWidget extends WidgetBase {
+class IdTagWidget extends WidgetBase {
 
   /**
    * {@inheritdoc}
@@ -28,13 +28,13 @@ class FarmIdTagWidget extends WidgetBase {
 
     $element['id'] = [
       '#type' => 'textarea',
-      '#title' => $this->t('Tag Id'),
+      '#title' => $this->t('Tag ID'),
       '#default_value' => isset($items[$delta]->id) ? $items[$delta]->id : NULL,
     ];
 
     $element['type'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Tag Type'),
+      '#title' => $this->t('Tag type'),
       '#default_value' => isset($items[$delta]->type) ? $items[$delta]->type : NULL,
     ];
 

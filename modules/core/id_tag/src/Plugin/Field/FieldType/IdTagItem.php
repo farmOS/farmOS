@@ -7,18 +7,18 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\TypedData\DataDefinition;
 
 /**
- * Plugin implementation of the 'id tag' field type.
+ * Plugin implementation of the 'ID tag' field type.
  *
  * @FieldType(
- *   id = "farm_id_tag",
- *   label = @Translation("Farm Id tag"),
- *   description = @Translation("This field stores a combination of id, tag type and body location."),
- *   category = @Translation("FarmOS"),
- *   default_widget = "farm_id_tag",
- *   default_formatter = "farm_id_tag"
+ *   id = "id_tag",
+ *   label = @Translation("ID tag"),
+ *   description = @Translation("This field stores a combination of id, tag type and location."),
+ *   category = @Translation("farmOS"),
+ *   default_widget = "id_tag",
+ *   default_formatter = "id_tag"
  * )
  */
-class FarmIdTagItem extends FieldItemBase {
+class IdTagItem extends FieldItemBase {
 
   /**
    * {@inheritdoc}
@@ -53,7 +53,7 @@ class FarmIdTagItem extends FieldItemBase {
    */
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
     $properties['id'] = DataDefinition::create('string')
-      ->setLabel(t('Id of the tag'));
+      ->setLabel(t('ID of the tag'));
     $properties['type'] = DataDefinition::create('string')
       ->setLabel(t('Type of the tag'));
     $properties['location'] = DataDefinition::create('string')
