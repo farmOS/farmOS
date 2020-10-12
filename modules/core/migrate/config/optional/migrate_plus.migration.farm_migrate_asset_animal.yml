@@ -15,7 +15,7 @@ class: Drupal\migrate\Plugin\Migration
 field_plugin_method: null
 cck_plugin_method: null
 source:
-  plugin: d7_asset
+  plugin: d7_animal_asset
   bundle: animal
 destination:
   plugin: 'entity:asset'
@@ -41,6 +41,19 @@ process:
   castrated:
     plugin: get
     source: field_farm_animal_castrated
+  id_tag:
+    plugin: sub_process
+    source: animal_tags
+    process:
+      id:
+        plugin: get
+        source: id
+      type:
+        plugin: get
+        source: type
+      location:
+        plugin: get
+        source: location
 migration_dependencies:
   required: {  }
   optional: {  }
