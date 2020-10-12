@@ -1,6 +1,8 @@
 site_name: farmOS 2.x
 nav:
   - farmOS: index.md
+  - Hosting:
+      - 1.x Migration: hosting/migration.md
   - API:
     - Introduction: api/index.md
     - Changes: api/changes.md
@@ -13,6 +15,4 @@ nav:
     - Debugging: development/debug.md
     - Automated tests: development/tests.md
     - Coding standards: development/code.md
-  - Migration:
-    - Overview: migration/index.md
 theme: readthedocs
