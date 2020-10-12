@@ -27,7 +27,7 @@ class FarmIdTagFormatter extends FormatterBase {
     foreach ($items as $delta => $item) {
       $elements[$delta]['id'] = ['#markup' => $item->id];
       $elements[$delta]['type'] = ['#markup' => $item->type];
-      $elements[$delta]['body_location'] = ['#markup' => $item->body_location];
+      $elements[$delta]['location'] = ['#markup' => $item->location];
     }
 
     return $elements;

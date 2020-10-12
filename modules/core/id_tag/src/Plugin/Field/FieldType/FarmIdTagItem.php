@@ -38,7 +38,7 @@ class FarmIdTagItem extends FieldItemBase {
           'length' => 255,
           'not null' => TRUE,
         ],
-        'body_location' => [
+        'location' => [
           'description' => 'The location of the tag.',
           'type' => 'varchar',
           'length' => 1024,
@@ -56,7 +56,7 @@ class FarmIdTagItem extends FieldItemBase {
       ->setLabel(t('Id of the tag'));
     $properties['type'] = DataDefinition::create('string')
       ->setLabel(t('Type of the tag'));
-    $properties['body_location'] = DataDefinition::create('string')
+    $properties['location'] = DataDefinition::create('string')
       ->setLabel(t('Location of the tag'));
     return $properties;
   }
@@ -65,7 +65,7 @@ class FarmIdTagItem extends FieldItemBase {
    * {@inheritdoc}
    */
   public function isEmpty() {
-    return ($this->id === NULL || $this->id === '') && ($this->type === NULL || $this->type === '') && ($this->body_location === NULL || $this->body_location === '');
+    return ($this->id === NULL || $this->id === '') && ($this->type === NULL || $this->type === '') && ($this->location === NULL || $this->location === '');
   }
 
   /**

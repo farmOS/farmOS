@@ -38,10 +38,10 @@ class FarmIdTagWidget extends WidgetBase {
       '#default_value' => isset($items[$delta]->type) ? $items[$delta]->type : NULL,
     ];
 
-    $element['body_location'] = [
+    $element['location'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Tag location'),
-      '#default_value' => isset($items[$delta]->body_location) ? $items[$delta]->body_location : NULL,
+      '#default_value' => isset($items[$delta]->location) ? $items[$delta]->location : NULL,
     ];
 
     return $element;
