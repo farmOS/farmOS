@@ -13,6 +13,22 @@ use Drupal\Core\Entity\EntityTypeInterface;
 function farm_location_entity_base_field_info(EntityTypeInterface $entity_type) {
   $fields = [];
 
+  // Add fields to assets.
+  if ($entity_type->id() == 'asset') {
+
+    // Location boolean field.
+    $options = [
+      'type' => 'boolean',
+      'label' => t('Location'),
+      'description' => t('If this asset is a location, then other assets can be moved to it.'),
+      'weight' => [
+        'form' => 95,
+        'view' => 95,
+      ],
+    ];
+    $fields['location'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
+  }
+
   // Add fields to logs.
   if ($entity_type->id() == 'log') {
 
