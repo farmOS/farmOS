@@ -8,11 +8,10 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  * Defines the FarmLabTestType entity.
  *
  * @ConfigEntityType(
- *   id = "farm_lab_test_type",
+ *   id = "lab_test_type",
  *   label = @Translation("Lab test type"),
  *   label_collection = @Translation("Lab test type"),
  *   handlers = { },
- *   config_prefix = "farm_lab_test_type",
  *   admin_permission = "administer site configuration",
  *   entity_keys = {
  *     "id" = "id",

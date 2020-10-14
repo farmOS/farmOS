@@ -10,7 +10,7 @@
  */
 function farm_lab_test_type_field_allowed_values() {
   /** @var \Drupal\farm_lab_test\Entity\FarmLabTestTypeInterface[] $lab_test_types */
-  $lab_test_types = \Drupal::entityTypeManager()->getStorage('farm_lab_test_type')->loadMultiple();
+  $lab_test_types = \Drupal::entityTypeManager()->getStorage('lab_test_type')->loadMultiple();
   $allowed_values = [];
   foreach ($lab_test_types as $id => $lab_test_type) {
     $allowed_values[$id] = $lab_test_type->getLabel();
