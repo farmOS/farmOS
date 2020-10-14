@@ -98,6 +98,13 @@ These include:
     - Monitor (`monitor`)
     - Needs review (`needs_review`)
     - Priority (`priority`)
+- **Land types** (on Land assets)
+    - Property (`property`)
+    - Field (`field`)
+    - Bed (`bed`)
+    - Paddock (`paddock`)
+    - Landmark (`landmark`)
+    - Other (`other`)
 - **Lab test type** (on Lab test logs)
     - Soil test (`soil`)
     - Water test (`water`)
@@ -141,6 +148,23 @@ will be shown in the select field and other parts of the UI.
 The `langcode` and `status` and `dependencies` are standard configuration
 entity properties. By putting the module's name in "enforced modules" it will
 ensure that the flag is removed when the module is uninstalled.
+
+#### Land type
+
+The "Land" module in farmOS provides a "Field" type like this:
+
+`land/config/install/farm_land.land_type.field.yml`
+
+```yaml
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_land
+id: field
+label: Field
+```
 
 #### Lab test type
 
