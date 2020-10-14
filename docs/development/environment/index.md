@@ -33,10 +33,10 @@ Open the `www` directory in your favorite IDE.
 
 ### Configure private filesystem
 
-In order to upload files, the following line must be added to
-`www/web/sites/default/settings.php`:
+In order to upload files, a private file path must be configured. The following
+line must be added to `www/web/sites/default/settings.php`:
 
-    $settings['file_private_path'] = 'sites/default/private/files';
+    $settings['file_private_path'] = '/opt/drupal/web/sites/default/private/files';
 
 ### Configure debugger
 
