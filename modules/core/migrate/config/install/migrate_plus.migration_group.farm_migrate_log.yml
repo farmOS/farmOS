@@ -35,7 +35,7 @@ shared_configuration:
       source: done
       map:
         0: pending
-        1: complete
+        1: done
     notes:
       plugin: sub_process
       source: field_farm_notes
