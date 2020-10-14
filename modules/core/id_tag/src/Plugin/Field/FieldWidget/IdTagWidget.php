@@ -32,11 +32,25 @@ class IdTagWidget extends WidgetBase {
       '#default_value' => isset($items[$delta]->id) ? $items[$delta]->id : NULL,
     ];
 
+    // Load the saved tag type, if any.
+    $tag_type = isset($items[$delta]->type) ? $items[$delta]->type : NULL;
+
+    // Load allowed tag types.
+    $tag_types = farm_id_tag_type_allowed_values();
+
     $element['type'] = [
-      '#type' => 'textfield',
+      '#type' => 'select',
       '#title' => $this->t('Tag type'),
-      '#default_value' => isset($items[$delta]->type) ? $items[$delta]->type : NULL,
+      '#options' => [NULL => ''] + $tag_types,
+      '#default_value' => $tag_type,
     ];
+
+    // If the tag type is not in the list of allowed values, change to a
+    // text field so that it is still editable.
+    if (!empty($tag_type) && !array_key_exists($tag_type, $tag_types)) {
+      $element['type']['#type'] = 'select';
+      unset($element['type']['#options']);
+    }
 
     $element['location'] = [
       '#type' => 'textfield',
