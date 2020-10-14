@@ -49,6 +49,28 @@ function farm_location_entity_base_field_info(EntityTypeInterface $entity_type) 
       ],
     ];
     $fields['geometry'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
+
+    // Location asset reference field.
+    $options = [
+      'type' => 'entity_reference',
+      'label' => t('Location'),
+      'description' => t('Where does this take place?'),
+      'target_type' => 'asset',
+      'multiple' => TRUE,
+      'weight' => [
+        'form' => 90,
+        'view' => 90,
+      ],
+    ];
+    $field = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
+    $field->setSetting('handler', 'views');
+    $field->setSetting('handler_settings', [
+      'view' => [
+        'view_name' => 'farm_location_reference',
+        'display_name' => 'entity_reference',
+      ],
+    ]);
+    $fields['location'] = $field;
   }
 
   return $fields;
