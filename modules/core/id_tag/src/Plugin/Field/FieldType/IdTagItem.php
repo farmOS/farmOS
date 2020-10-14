@@ -68,10 +68,4 @@ class IdTagItem extends FieldItemBase {
     return ($this->id === NULL || $this->id === '') && ($this->type === NULL || $this->type === '') && ($this->location === NULL || $this->location === '');
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  // @TODO
-  //  public static function generateSampleValue(FieldDefinitionInterface $field_definition) {}
-
 }
