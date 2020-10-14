@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_structure_types
+id: greenhouse
+label: Greenhouse
