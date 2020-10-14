@@ -4,9 +4,6 @@ dependencies:
   module:
     - asset
     - log
-  enforced:
-    module:
-      - farm_equipment
 id: log.equipment
 field_name: equipment
 entity_type: log
