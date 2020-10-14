@@ -18,7 +18,11 @@ shared_configuration:
       plugin: get
       source: description
     description/format:
-      plugin: default_value
+      plugin: static_map
+      source: format
+      map:
+        farm_format: default
+        plain_text: plain_text
       default_value: default
     weight:
       plugin: get
