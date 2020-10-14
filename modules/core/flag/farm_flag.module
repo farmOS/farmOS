@@ -10,7 +10,7 @@
  */
 function farm_flag_field_allowed_values() {
   /** @var \Drupal\farm_flag\Entity\FarmFlagInterface[] $flags */
-  $flags = \Drupal::entityTypeManager()->getStorage('farm_flag')->loadMultiple();
+  $flags = \Drupal::entityTypeManager()->getStorage('flag')->loadMultiple();
   $allowed_values = [];
   foreach ($flags as $id => $flag) {
     $allowed_values[$id] = $flag->getLabel();

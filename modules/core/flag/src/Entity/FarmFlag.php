@@ -8,11 +8,10 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  * Defines the FarmFlag entity.
  *
  * @ConfigEntityType(
- *   id = "farm_flag",
+ *   id = "flag",
  *   label = @Translation("Flag"),
  *   label_collection = @Translation("Flags"),
  *   handlers = { },
- *   config_prefix = "farm_flag",
  *   admin_permission = "administer site configuration",
  *   entity_keys = {
  *     "id" = "id",
