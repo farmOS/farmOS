@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * ID tag module.
+ */
+
+/**
+ * Allowed values callback function for the ID tag type field.
+ */
+function farm_id_tag_type_field_allowed_values() {
+  /** @var \Drupal\farm_id_tag\Entity\FarmIDTagTypeInterface[] $types */
+  $types = \Drupal::entityTypeManager()->getStorage('tag_type')->loadMultiple();
+  $allowed_values = [];
+  foreach ($types as $id => $type) {
+    $allowed_values[$id] = $type->getLabel();
+  }
+  return $allowed_values;
+}
