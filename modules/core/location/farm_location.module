@@ -18,6 +18,21 @@ function farm_location_entity_base_field_info(EntityTypeInterface $entity_type) 
   // Add fields to assets.
   if ($entity_type->id() == 'asset') {
 
+    // Geometry field.
+    // This is added as a bundle field definition to all asset types rather than
+    // a base field definition so that data is stored in a dedicated database
+    // table.
+    $options = [
+      'type' => 'geofield',
+      'label' => t('Geometry'),
+      'description' => t('Add geometry data to this asset to describe its intrinsic location.'),
+      'weight' => [
+        'form' => 95,
+        'view' => 95,
+      ],
+    ];
+    $fields['geometry'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
+
     // Location boolean field.
     $options = [
       'type' => 'boolean',
