@@ -49,8 +49,21 @@ process:
         plugin: get
         source: id
       type:
-        plugin: get
-        source: type
+        -
+          plugin: skip_on_empty
+          source: type
+          method: process
+        -
+          plugin: static_map
+          source: type
+          map:
+            Brand: brand
+            Ear tag: ear_tag
+            Tattoo: tattoo
+            Leg band: leg_band
+            Chip: eid
+            Other: other
+          default_value: other
       location:
         plugin: get
         source: location
