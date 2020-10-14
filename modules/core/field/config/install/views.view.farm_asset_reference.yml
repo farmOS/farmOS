@@ -1,6 +1,9 @@
 langcode: en
 status: true
 dependencies:
+  enforced:
+    module:
+      - farm_field
   module:
     - asset
 id: farm_asset_reference
