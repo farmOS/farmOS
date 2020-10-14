@@ -105,6 +105,9 @@ These include:
     - Paddock (`paddock`)
     - Landmark (`landmark`)
     - Other (`other`)
+- **Structure types** (on Structure assets)
+    - Building (`building`)
+    - Greenhouse (`greenhouse`)
 - **Lab test type** (on Lab test logs)
     - Soil test (`soil`)
     - Water test (`water`)
@@ -164,6 +167,23 @@ dependencies:
       - farm_land
 id: field
 label: Field
+```
+
+#### Structure type
+
+The "Structure" module in farmOS provides a "Building" type like this:
+
+`structure/config/install/farm_structure.structure_type.building.yml`
+
+```yaml
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_structure
+id: building
+label: Building
 ```
 
 #### Lab test type

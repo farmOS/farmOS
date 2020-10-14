@@ -1,0 +1,11 @@
+# Schema for structure_type config entity.
+farm_structure.structure_type.*:
+  type: config_entity
+  label: 'Structure type'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
