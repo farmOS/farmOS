@@ -178,10 +178,10 @@ class Asset extends RevisionableContentEntityBase implements AssetInterface {
 
     $fields['name'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Name'))
-      ->setDescription(t('The name of the asset. Leave this blank to automatically generate a name.'))
+      ->setDescription(t('The name of the asset.'))
       ->setRevisionable(TRUE)
       ->setTranslatable(TRUE)
-      ->setDefaultValue('')
+      ->setRequired(TRUE)
       ->setSetting('max_length', 255)
       ->setSetting('text_processing', 0)
       ->setDisplayOptions('view', [
