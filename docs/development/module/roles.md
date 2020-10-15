@@ -1,6 +1,11 @@
-# Farm Access
+# Roles
 
-Provides mechanisms for managing farmOS user access permissions.
+Roles are groups of permissions that can be assigned to users to grant them
+granular access to data and features in farmOS.
+
+Module developers can define new roles, and specify which permissions they
+should include. farmOS also builds on top of Drupal's role and permission
+system to provide a concept of "Managed Roles".
 
 ## Managed Roles
 

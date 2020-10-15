@@ -19,4 +19,5 @@ nav:
       - Coding standards: development/environment/code.md
     - Module:
       - OAuth: development/module/oauth.md
+      - Roles: development/module/roles.md
 theme: readthedocs
