@@ -36,7 +36,7 @@ defines the structure of these settings.
     - `delete all`: Boolean that specifies the role should have access to
     delete all bundles of all entity types.
     - `type`: Access permissions for specific entity types.
-      - `{entity_type}`: The id of the entity type. eg: `log`,`farm_asset`,
+      - `{entity_type}`: The id of the entity type. eg: `log`,`asset`,
       `taxonomy_term`, etc.
         - `{operation}`: The operation to grant bundles of this entity type
         . Eg: `create`, `view any`, `view own`, `delete any`, `delete own`, etc.
@@ -62,7 +62,7 @@ to configuration):
 Example settings to define a "Farm Harvester" role with these limitations:
 * View all log entities.
 * Only create harvest logs, update harvest logs, and delete own harvest logs.
-* View all farm_asset entities.
+* View all asset entities.
 * Only update planting assets.
 * View, edit and delete any taxonomy_term entity.
 
@@ -82,7 +82,7 @@ Example settings to define a "Farm Harvester" role with these limitations:
                   - harvest
                 delete own:
                   - harvest
-              farm_asset:
+              asset:
                 update any:
                   - planting
               taxonomy_term:
