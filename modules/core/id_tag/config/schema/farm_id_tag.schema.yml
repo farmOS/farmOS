@@ -12,6 +12,7 @@ farm_id_tag.tag_type.*:
     bundles:
       type: sequence
       label: 'Bundles'
+      nullable: true
       sequence:
         type: string
         label: 'Bundle'
