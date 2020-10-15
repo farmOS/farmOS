@@ -7,6 +7,9 @@
 
 /**
  * Allowed values callback function for the flags field.
+ *
+ * @return array
+ *   Returns an array of allowed values for use in form select options.
  */
 function farm_flag_field_allowed_values() {
   /** @var \Drupal\farm_flag\Entity\FarmFlagInterface[] $flags */
