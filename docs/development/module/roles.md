@@ -9,7 +9,7 @@ system to provide a concept of "Managed Roles".
 
 ## Managed Roles
 
-The Farm Access module provides methods to create user roles with permissions
+The farmOS Access module provides methods to create user roles with permissions
 that are managed for the purposes of farmOS. These roles cannot be modified
 from the Admin Permissions UI. Instead, these roles allow permissions to be
 provided by other modules that want to provide sensible defaults for common
@@ -19,7 +19,7 @@ farmOS roles.
 
 User roles are provided as config entities in Drupal 9. Managed roles are
 provided in the same way the only difference being that they include
-additional `third party settings` the Farm Access module uses to build
+additional `third party settings` the farmOS Access module uses to build
 managed permissions. The `user.role.*.third_party.farm_acccess` schema
 defines the structure of these settings.
 
