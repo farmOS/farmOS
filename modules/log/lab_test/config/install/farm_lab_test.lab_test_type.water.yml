@@ -5,4 +5,4 @@ dependencies:
     module:
       - farm_lab_test
 id: water
-label: Water
+label: Water test
