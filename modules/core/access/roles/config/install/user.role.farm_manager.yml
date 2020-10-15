@@ -5,7 +5,7 @@ dependencies:
     module:
       - farm_access_roles
 id: farm_manager
-label: 'Farm manager'
+label: 'Manager'
 weight: 1
 is_admin: false
 permissions: { }

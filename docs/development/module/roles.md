@@ -45,8 +45,8 @@ defines the structure of these settings.
                     grant the operation permission to all bundles of the entity
                     type.
 
-Settings used for the Farm Manager role (full access to all entities + access
-to configuration):
+Settings used for the Manager role (full access to all entities + access to
+configuration):
 
 ```yaml
 # user.role.farm_manager.yml
@@ -62,7 +62,7 @@ third_party_settings:
         delete all: true
 ```
 
-Example settings to define a "Farm Harvester" role with these limitations:
+Example settings to define a "Harvester" role with these limitations:
 
 * View all log entities.
 * Only create harvest logs, update harvest logs, and delete own harvest logs.
