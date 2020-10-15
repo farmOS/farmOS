@@ -1,0 +1,17 @@
+# Schema for tag_type config entity.
+farm_id_tag.tag_type.*:
+  type: config_entity
+  label: 'Tag type'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    bundles:
+      type: sequence
+      label: 'Bundles'
+      sequence:
+        type: string
+        label: 'Bundle'

@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_animal
+      - farm_id_tag
+id: ear_tag
+label: Ear tag
+bundles:
+  - animal

@@ -284,6 +284,7 @@ fields are not listed here):
 - `animal_castrated` -> `castrated`
 - `animal_nicknames` -> `nickname`
 - `animal_sex` -> `sex`
+- `animal_tag` -> `id_tag`
 
 #### Asset status
 

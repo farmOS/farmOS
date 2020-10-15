@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_animal
+      - farm_id_tag
+id: tattoo
+label: Tattoo
+bundles:
+  - animal

@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - asset
+    - farm_id_tag
+id: asset.id_tag
+field_name: id_tag
+entity_type: asset
+type: id_tag
+settings: {  }
+module: farm_id_tag
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
