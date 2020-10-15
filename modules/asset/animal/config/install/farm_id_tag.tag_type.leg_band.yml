@@ -7,3 +7,5 @@ dependencies:
       - farm_id_tag
 id: leg_band
 label: Leg band
+bundles:
+  - animal

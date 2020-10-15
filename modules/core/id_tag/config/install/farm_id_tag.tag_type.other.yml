@@ -6,3 +6,4 @@ dependencies:
       - farm_id_tag
 id: other
 label: Other
+bundles: null

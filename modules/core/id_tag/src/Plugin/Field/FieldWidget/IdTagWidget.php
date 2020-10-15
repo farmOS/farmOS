@@ -35,8 +35,11 @@ class IdTagWidget extends WidgetBase {
     // Load the saved tag type, if any.
     $tag_type = isset($items[$delta]->type) ? $items[$delta]->type : NULL;
 
+    // Get the current asset bundle.
+    $bundle = $form_state->getStorage()['form_display']->get('bundle');
+
     // Load allowed tag types.
-    $tag_types = farm_id_tag_type_allowed_values();
+    $tag_types = farm_id_tag_type_allowed_values($bundle);
 
     $element['type'] = [
       '#type' => 'select',

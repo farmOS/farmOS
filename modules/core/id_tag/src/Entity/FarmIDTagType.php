@@ -20,6 +20,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *   config_export = {
  *     "id",
  *     "label",
+ *     "bundles",
  *   },
  * )
  *
@@ -42,10 +43,24 @@ class FarmIDTagType extends ConfigEntityBase implements FarmIDTagTypeInterface {
   protected $label;
 
   /**
+   * The bundles that this tag type applies to.
+   *
+   * @var array
+   */
+  protected $bundles;
+
+  /**
    * {@inheritdoc}
    */
   public function getLabel() {
     return $this->label;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getBundles() {
+    return $this->bundles;
   }
 
 }

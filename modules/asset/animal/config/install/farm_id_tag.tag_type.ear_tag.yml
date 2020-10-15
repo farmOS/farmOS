@@ -7,3 +7,5 @@ dependencies:
       - farm_id_tag
 id: ear_tag
 label: Ear tag
+bundles:
+  - animal

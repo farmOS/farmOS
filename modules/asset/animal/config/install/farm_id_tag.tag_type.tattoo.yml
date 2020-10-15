@@ -7,3 +7,5 @@ dependencies:
       - farm_id_tag
 id: tattoo
 label: Tattoo
+bundles:
+  - animal

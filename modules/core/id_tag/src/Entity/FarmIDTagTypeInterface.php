@@ -19,4 +19,12 @@ interface FarmIDTagTypeInterface extends ConfigEntityInterface {
    */
   public function getLabel();
 
+  /**
+   * Returns the bundles that this type applies to.
+   *
+   * @return array
+   *   An array of bundle machine names.
+   */
+  public function getBundles();
+
 }

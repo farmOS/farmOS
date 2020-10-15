@@ -8,15 +8,21 @@
 /**
  * Allowed values callback function for the ID tag type field.
  *
+ * @param string $bundle
+ *   The asset bundle to get allowed values for.
+ *
  * @return array
  *   Returns an array of allowed values for use in form select options.
  */
-function farm_id_tag_type_allowed_values() {
+function farm_id_tag_type_allowed_values($bundle) {
   /** @var \Drupal\farm_id_tag\Entity\FarmIDTagTypeInterface[] $types */
   $types = \Drupal::entityTypeManager()->getStorage('tag_type')->loadMultiple();
   $allowed_values = [];
   foreach ($types as $id => $type) {
-    $allowed_values[$id] = $type->getLabel();
+    $bundles = $type->getBundles();
+    if (empty($bundles) || in_array($bundle, $bundles)) {
+      $allowed_values[$id] = $type->getLabel();
+    }
   }
   return $allowed_values;
 }

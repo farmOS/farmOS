@@ -9,3 +9,9 @@ farm_id_tag.tag_type.*:
     label:
       type: label
       label: 'Label'
+    bundles:
+      type: sequence
+      label: 'Bundles'
+      sequence:
+        type: string
+        label: 'Bundle'
