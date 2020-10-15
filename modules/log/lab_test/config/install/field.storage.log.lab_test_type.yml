@@ -16,7 +16,7 @@ settings:
   allowed_values_function: 'farm_lab_test_type_field_allowed_values'
 module: options
 locked: false
-cardinality: -1
+cardinality: 1
 translatable: true
 indexes: {  }
 persist_with_no_fields: false
