@@ -1,0 +1,6 @@
+id: default
+label: default
+description: 'Test plan type'
+langcode: en
+workflow: plan_default
+new_revision: TRUE

@@ -1,0 +1,137 @@
+<?php
+
+namespace Drupal\Tests\plan\Functional;
+
+use Drupal\plan\Entity\Plan;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
+
+/**
+ * Tests the plan CRUD.
+ *
+ * @group farm
+ */
+class PlanCRUDTest extends PlanTestBase {
+
+  use StringTranslationTrait;
+
+  /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
+   * Fields are displayed correctly.
+   */
+  public function testFieldsVisibility() {
+    $this->drupalGet('plan/add/default');
+    $assert_session = $this->assertSession();
+    $assert_session->statusCodeEquals(200);
+    $assert_session->fieldExists('name[0][value]');
+    $assert_session->fieldExists('status');
+    $assert_session->fieldExists('revision_log_message[0][value]');
+    $assert_session->fieldExists('uid[0][target_id]');
+    $assert_session->fieldExists('created[0][value][date]');
+    $assert_session->fieldExists('created[0][value][time]');
+  }
+
+  /**
+   * Create plan entity.
+   */
+  public function testCreatePlan() {
+    $assert_session = $this->assertSession();
+    $name = $this->randomMachineName();
+    $edit = [
+      'name[0][value]' => $name,
+    ];
+
+    $this->drupalPostForm('plan/add/default', $edit, $this->t('Save'));
+
+    $result = \Drupal::entityTypeManager()
+      ->getStorage('plan')
+      ->getQuery()
+      ->range(0, 1)
+      ->execute();
+    $plan_id = reset($result);
+    $plan = Plan::load($plan_id);
+    $this->assertEquals($plan->get('name')->value, $name, 'plan has been saved.');
+
+    $assert_session->pageTextContains("Saved the $name plan.");
+    $assert_session->pageTextContains($name);
+  }
+
+  /**
+   * Display plan entity.
+   */
+  public function testViewPlan() {
+    $edit = [
+      'name' => $this->randomMachineName(),
+      'created' => \Drupal::time()->getRequestTime(),
+      'done' => TRUE,
+    ];
+    $plan = $this->createPlanEntity($edit);
+    $plan->save();
+
+    $this->drupalGet($plan->toUrl('canonical'));
+    $this->assertSession()->statusCodeEquals(200);
+
+    $this->assertText($edit['name']);
+    $this->assertRaw(\Drupal::service('date.formatter')->format(\Drupal::time()->getRequestTime()));
+  }
+
+  /**
+   * Edit plan entity.
+   */
+  public function testEditPlan() {
+    $plan = $this->createPlanEntity();
+    $plan->save();
+
+    $edit = [
+      'name[0][value]' => $this->randomMachineName(),
+    ];
+    $this->drupalPostForm($plan->toUrl('edit-form'), $edit, $this->t('Save'));
+
+    $this->assertText($edit['name[0][value]']);
+  }
+
+  /**
+   * Delete plan entity.
+   */
+  public function testDeletePlan() {
+    $plan = $this->createPlanEntity();
+    $plan->save();
+
+    $label = $plan->getName();
+    $plan_id = $plan->id();
+
+    $this->drupalPostForm($plan->toUrl('delete-form'), [], $this->t('Delete'));
+    $this->assertRaw($this->t('The @entity-type %label has been deleted.', [
+      '@entity-type' => $plan->getEntityType()->getSingularLabel(),
+      '%label' => $label,
+    ]));
+    $this->assertNull(Plan::load($plan_id));
+  }
+
+  /**
+   * Plan archiving.
+   */
+  public function testArchivePlan() {
+    $plan = $this->createPlanEntity();
+    $plan->save();
+
+    $this->assertEquals($plan->get('status')->first()->getString(), 'active', 'New plans are active by default');
+    $this->assertNull($plan->getArchivedTime(), 'Archived timestamp is null by default');
+
+    $plan->get('status')->first()->applyTransitionById('archive');
+    $plan->save();
+
+    $this->assertEquals($plan->get('status')->first()->getString(), 'archived', 'Plans can be archived');
+    $this->assertNotNull($plan->getArchivedTime(), 'Archived timestamp is saved');
+
+    $plan->get('status')->first()->applyTransitionById('to_active');
+    $plan->save();
+
+    $this->assertEquals($plan->get('status')->first()->getString(), 'active', 'Plans can be made active');
+    $this->assertNull($plan->getArchivedTime(), 'Plan made active has a null timestamp');
+  }
+
+}

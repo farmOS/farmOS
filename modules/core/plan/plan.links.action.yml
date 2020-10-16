@@ -1,0 +1,11 @@
+entity.plan.add_page:
+  route_name: 'entity.plan.add_page'
+  title: 'Add plan'
+  appears_on:
+    - entity.plan.collection
+
+entity.plan_type.add_form:
+  route_name: 'entity.plan_type.add_form'
+  title: 'Add plan type'
+  appears_on:
+    - entity.plan_type.collection

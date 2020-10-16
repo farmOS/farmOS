@@ -1,0 +1,11 @@
+name: Plan
+description: Provides an plan entity type for real world record keeping.
+type: module
+package: Plan
+core_version_requirement: ^9
+dependencies:
+  - drupal:system (>=8.8.0)
+  - drupal:user
+  - drupal:views
+  - entity:entity
+  - state_machine:state_machine

@@ -1,0 +1,9 @@
+administer plans:
+  title: 'Administer plans'
+  description: 'Admin access to all plan entities.'
+  restrict access: true
+
+administer plan types:
+  title: 'Administer plan types'
+  description: 'Maintain the types of content available and the fields that are associated with those types.'
+  restrict access: true
