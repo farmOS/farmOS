@@ -1,0 +1,7 @@
+farm_dashboard.dashboard:
+  path: '/dashboard'
+  defaults:
+    _title: 'Dashboard'
+    _controller: '\Drupal\farm_dashboard\Controller\DashboardController::dashboard'
+  requirements:
+    _permission: 'access farm dashboard'
