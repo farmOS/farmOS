@@ -1,0 +1,7 @@
+name: farmOS Logs
+description: Provides integration with the Log module.
+type: module
+package: farmOS
+core_version_requirement: ^9
+dependencies:
+  - log:log
