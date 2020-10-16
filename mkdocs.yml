@@ -18,6 +18,7 @@ nav:
       - Automated tests: development/environment/tests.md
       - Coding standards: development/environment/code.md
     - Module:
+      - Fields: development/module/fields.md
       - OAuth: development/module/oauth.md
       - Roles: development/module/roles.md
 theme: readthedocs
