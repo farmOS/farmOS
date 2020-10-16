@@ -4,6 +4,5 @@ farm_role:
     - access user profiles
     - change own username
   config_permissions:
-    - administer taxonomy
     - access administration pages
     - access taxonomy overview
