@@ -1,0 +1,8 @@
+name: 'Farm Access module tests'
+type: module
+description: 'Support module for farm_role testing.'
+package: Testing
+core_version_requirement: ^8.8 || ^9
+
+dependencies:
+  - farm_role:farm_role

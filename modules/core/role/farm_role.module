@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * @file
+ * Hooks implemented by the Farm Access module.
+ */
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+function farm_role_entity_type_alter(array &$entity_types) {
+
+  /** @var \Drupal\Core\Entity\EntityTypeInterface[] $entity_types */
+
+  // Replace the storage handler class for Roles.
+  $entity_types['user_role']
+    ->setHandlerClass('storage', 'Drupal\farm_role\FarmRoleStorage');
+}

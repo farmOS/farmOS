@@ -1,0 +1,8 @@
+# Simple test permissions to add to managed roles.
+test:
+  default_permissions:
+    - test default permission
+  config_permissions:
+    - test config access permission
+  permission_callbacks:
+    - Drupal\farm_role_test\CustomTestPermissions::permissions
