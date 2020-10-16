@@ -1,0 +1,30 @@
+# Test role that only has granular entity permissions.
+langcode: en
+status: true
+dependencies: {  }
+id: farm_test
+label: 'Test role for farm_role'
+weight: 1
+is_admin: false
+permissions: { }
+third_party_settings:
+  farm_role:
+    access:
+      config: false
+      entity:
+        view all: false
+        create all: false
+        update all: false
+        delete all: false
+        type:
+          log:
+            view any:
+              - all
+            create:
+              - observation
+            update any:
+              - observation
+            update own:
+              - all
+            delete own:
+              - all

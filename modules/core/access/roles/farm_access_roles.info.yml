@@ -1,7 +1,0 @@
-name: farmOS Access Roles
-description: 'Provides default roles: Manager, Worker, Viewer.'
-type: module
-package: farmOS
-core_version_requirement: ^9
-dependencies:
-  - farm:farm_access

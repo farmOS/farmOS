@@ -1,0 +1,8 @@
+farm_role:
+  default_permissions:
+    - access content
+    - access administration pages
+    - access user profiles
+    - access taxonomy overview
+  config_permissions:
+    - administer taxonomy

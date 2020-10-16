@@ -52,7 +52,7 @@ configuration):
 # user.role.farm_manager.yml
 ... standard role config ...
 third_party_settings:
-  farm_access:
+  farm_role:
     access:
       config: true
       entity:
@@ -74,7 +74,7 @@ Example settings to define a "Harvester" role with these limitations:
 # user.role.farm_harvester.yml
 ... standard role config ...
 third_party_settings:
-  farm_access:
+  farm_role:
     access:
       entity:
         view all: true
@@ -111,11 +111,11 @@ are provided by creating a `ManagedRolePermissions` plugin in the
   provided a `Role` object so that permissions can be applied conditionally
   based on the managed role's settings.
 
-As an example, the `farm_access` module provides the following permissions:
+As an example, the `farm_role` module provides the following permissions:
 
 ```yaml
-# farm_access.managed_role_permissions.yml
-farm_access:
+# farm_role.managed_role_permissions.yml
+farm_role:
   default_permissions:
     - access content
     - access administration pages
@@ -164,8 +164,8 @@ class CustomPermissions {
       $perms = 'my manager permission';
     }
 
-    // Get the farm_access third party settings from the Role entity.
-    $access_settings = $role->getThirdPartySetting('farm_access', 'access');
+    // Get the farm_role third party settings from the Role entity.
+    $access_settings = $role->getThirdPartySetting('farm_role', 'access');
     $entity_settings = $access_settings['entity'] ?: [];
 
     // Only add permissions if `update all` and `delete all` are true.
