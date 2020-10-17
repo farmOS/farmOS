@@ -25,10 +25,17 @@ class FarmArea extends Term {
     // Get the parent class query.
     $query = parent::query();
 
+    // Join the "area type" field.
+    $query->leftJoin('field_data_field_farm_area_type', 'fdffat', 'td.tid = fdffat.entity_id AND fdffat.deleted = 0');
+
     // If "area_type" is defined, filter by field_farm_area_type.
     if (!empty($this->configuration['area_type'])) {
-      $query->leftJoin('field_data_field_farm_area_type', 'fdffat', 'td.id = fdffat.entity_id AND fdffat.deleted = 0');
-      $query->condition('fdffat.field_farm_area_value', (array) $this->configuration['area_type'], 'IN');
+      $query->condition('fdffat.field_farm_area_type_value', (array) $this->configuration['area_type'], 'IN');
+    }
+
+    // Otherwise, filter by field_farm_area_type IS NULL.
+    else {
+      $query->isNull('fdffat.field_farm_area_type_value');
     }
 
     return $query;
