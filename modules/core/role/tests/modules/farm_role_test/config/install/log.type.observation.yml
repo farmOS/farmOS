@@ -1,7 +1,8 @@
-id: observation
-label: observation
-description: 'Test observation log type'
-name_pattern: ''
 langcode: en
+status: true
+id: observation
+label: Observation
+description: ''
+name_pattern: 'Observation log [log:id]'
 workflow: log_default
-new_revision: TRUE
+new_revision: true

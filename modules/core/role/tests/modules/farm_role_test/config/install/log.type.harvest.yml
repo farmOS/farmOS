@@ -1,7 +1,8 @@
-id: harvest
-label: harvest
-description: 'Test harvest log type'
-name_pattern: ''
 langcode: en
+status: true
+id: harvest
+label: Harvest
+description: ''
+name_pattern: 'Harvest log [log:id]'
 workflow: log_default
-new_revision: TRUE
+new_revision: true
