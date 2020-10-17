@@ -4,6 +4,8 @@ dependencies:
   enforced:
     module:
       - farm_role_roles
+  module:
+    - farm_role
 id: farm_viewer
 label: 'Viewer'
 weight: 1
