@@ -77,6 +77,7 @@ function farm_location_entity_base_field_info(EntityTypeInterface $entity_type) 
       'type' => 'boolean',
       'label' => t('Movement'),
       'description' => t('If this log is a movement, then all assets referenced by it will be located in the referenced locations and/or geometry at the time the log takes place. The log must be complete in order for the movement to take effect.'),
+      'default_value_callback' => 'farm_location_movement_default_value',
       'weight' => [
         'form' => 95,
         'view' => 95,
@@ -106,6 +107,32 @@ function farm_location_default_value(ContentEntityInterface $entity, FieldDefini
 
   // Land, structure, and water assets are locations by default.
   if (in_array($entity->bundle(), ['land', 'structure', 'water'])) {
+    $default = TRUE;
+  }
+
+  return [
+    ['value' => $default],
+  ];
+}
+
+/**
+ * Sets the default value for log movement boolean field.
+ *
+ * @param \Drupal\Core\Entity\ContentEntityInterface $entity
+ *   The entity being created.
+ * @param \Drupal\Core\Field\FieldDefinitionInterface $definition
+ *   The field definition.
+ *
+ * @return array
+ *   An array of default value keys with each entry keyed with the “value” key.
+ *
+ * @see \Drupal\Core\Field\FieldConfigBase::getDefaultValue()
+ */
+function farm_location_movement_default_value(ContentEntityInterface $entity, FieldDefinitionInterface $definition): array {
+  $default = FALSE;
+
+  // Seeding and transplanting logs are movements by default.
+  if (in_array($entity->bundle(), ['seeding', 'transplanting'])) {
     $default = TRUE;
   }
 
