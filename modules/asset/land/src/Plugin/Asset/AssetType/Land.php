@@ -28,6 +28,7 @@ class Land extends FarmAssetType {
       'type' => 'list_string',
       'label' => $this->t('Land type'),
       'allowed_values_function' => 'farm_land_type_field_allowed_values',
+      'required' => TRUE,
       'weight' => [
         'form' => -50,
         'view' => -50,
