@@ -30,7 +30,11 @@ class FarmArea extends Term {
 
     // If "area_type" is defined, filter by field_farm_area_type.
     if (!empty($this->configuration['area_type'])) {
-      $query->condition('fdffat.field_farm_area_type_value', (array) $this->configuration['area_type'], 'IN');
+
+      // If "area_type" is "any", don't filter.
+      if ($this->configuration['area_type'] != 'any') {
+        $query->condition('fdffat.field_farm_area_type_value', (array) $this->configuration['area_type'], 'IN');
+      }
     }
 
     // Otherwise, filter by field_farm_area_type IS NULL.
