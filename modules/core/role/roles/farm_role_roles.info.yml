@@ -1,4 +1,4 @@
-name: farmOS Access Roles
+name: farmOS Default Roles
 description: 'Provides default roles: Manager, Worker, Viewer.'
 type: module
 package: farmOS

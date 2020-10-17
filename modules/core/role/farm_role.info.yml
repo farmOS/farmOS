@@ -1,5 +1,5 @@
-name: farmOS Access
-description: Provides mechanisms for managing farmOS user access permissions.
+name: farmOS Role
+description: Provides a framework for managed roles and permissions.
 type: module
 package: farmOS
 core_version_requirement: ^9

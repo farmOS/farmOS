@@ -1,6 +1,6 @@
 user.role.*.third_party.farm_role:
   type: mapping
-  label: 'Farm Access'
+  label: 'Farm Role'
   mapping:
     access:
       type: mapping

@@ -25,7 +25,7 @@ function farm_modules() {
       'farm_input' => t('Input logs'),
       'farm_harvest' => t('Harvest logs'),
       'farm_maintenance' => t('Maintenance logs'),
-      'farm_role_roles' => t('Manager, Worker, Viewer roles'),
+      'farm_role_roles' => t('Default roles: Manager, Worker, Viewer'),
       'farm_api' => t('farmOS API'),
     ],
     'optional' => [

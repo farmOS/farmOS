@@ -1,4 +1,4 @@
-name: 'Farm Access module tests'
+name: 'Farm Role module tests'
 type: module
 description: 'Support module for farm_role testing.'
 package: Testing
