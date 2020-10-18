@@ -34,7 +34,6 @@ process:
       method: process
       source: parent
     - plugin: migration_lookup
-      source: tid
       migration: farm_migrate_taxonomy_material
   parent:
     plugin: default_value
