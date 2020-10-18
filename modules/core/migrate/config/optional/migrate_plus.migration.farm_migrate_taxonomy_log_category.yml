@@ -30,10 +30,12 @@ process:
     source: tid
   # Term parent.
   parent_id:
-    - plugin: skip_on_empty
+    -
+      plugin: skip_on_empty
       method: process
       source: parent
-    - plugin: migration_lookup
+    -
+      plugin: migration_lookup
       migration: farm_migrate_taxonomy_log_category
   parent:
     plugin: default_value
