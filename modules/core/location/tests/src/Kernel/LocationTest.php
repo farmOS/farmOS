@@ -24,6 +24,20 @@ class LocationTest extends KernelTestBase {
   protected $wktGenerator;
 
   /**
+   * Asset location service.
+   *
+   * @var \Drupal\farm_location\AssetLocationInterface
+   */
+  protected $assetLocation;
+
+  /**
+   * Log location service.
+   *
+   * @var \Drupal\farm_location\LogLocationInterface
+   */
+  protected $logLocation;
+
+  /**
    * Array of polygon WKT strings.
    *
    * @var string[]
@@ -47,6 +61,7 @@ class LocationTest extends KernelTestBase {
     'farm_field',
     'farm_location',
     'farm_location_test',
+    'farm_log',
     'state_machine',
     'user',
   ];
@@ -57,6 +72,8 @@ class LocationTest extends KernelTestBase {
   protected function setUp(): void {
     parent::setUp();
     $this->wktGenerator = \Drupal::service('geofield.wkt_generator');
+    $this->assetLocation = \Drupal::service('asset.location');
+    $this->logLocation = \Drupal::service('log.location');
     $this->installEntitySchema('asset');
     $this->installEntitySchema('log');
     $this->installEntitySchema('user');
@@ -125,6 +142,89 @@ class LocationTest extends KernelTestBase {
     $log->location = ['target_id' => $this->locations[0]->id()];
     $log->save();
     $this->assertEquals($this->polygons[2], $log->get('geometry')->value, 'Custom geometry is not overwritten when locations change.');
+  }
+
+  /**
+   * Test asset location.
+   */
+  public function testAssetLocation() {
+
+    // Create a new asset.
+    /** @var \Drupal\asset\Entity\AssetInterface $asset */
+    $asset = Asset::create([
+      'type' => 'object',
+      'name' => $this->randomMachineName(),
+      'status' => 'active',
+    ]);
+    $asset->save();
+
+    // When an asset has no movement logs, it has no location or geometry.
+    $this->assertFalse($this->assetLocation->hasLocation($asset), 'New assets do not have location.');
+    $this->assertFalse($this->assetLocation->hasGeometry($asset), 'New assets do not have geometry.');
+
+    // Create a "done" movement log that references the asset.
+    /** @var \Drupal\log\Entity\LogInterface $first_log */
+    $first_log = Log::create([
+      'type' => 'movement',
+      'status' => 'done',
+      'asset' => ['target_id' => $asset->id()],
+      'location' => ['target_id' => $this->locations[0]->id()],
+      'movement' => TRUE,
+    ]);
+    $first_log->save();
+
+    // When a movement log is created and marked as "done", the asset has
+    // the same location and geometry as the log.
+    $this->assertTrue($this->assetLocation->hasLocation($asset), 'Asset with movement log has location.');
+    $this->assertTrue($this->assetLocation->hasGeometry($asset), 'Asset with movement log has geometry.');
+    $this->assertEquals($this->logLocation->getLocation($first_log), $this->assetLocation->getLocation($asset), 'Asset with movement log has same location as log.');
+    $this->assertEquals($this->logLocation->getGeometry($first_log), $this->assetLocation->getGeometry($asset), 'Asset with movement log has same geometry as log.');
+
+    // When a movement log's locations are changed, the asset location changes.
+    $first_log->location = ['target_id' => $this->locations[1]->id()];
+    $first_log->save();
+    $this->assertEquals($this->logLocation->getLocation($first_log), $this->assetLocation->getLocation($asset), 'Asset with changed movement log has same location as log.');
+    $this->assertEquals($this->logLocation->getGeometry($first_log), $this->assetLocation->getGeometry($asset), 'Asset with changed movement log has same geometry as log.');
+
+    // Create a "pending" movement log that references the asset.
+    /** @var \Drupal\log\Entity\LogInterface $second_log */
+    $second_log = Log::create([
+      'type' => 'movement',
+      'status' => 'pending',
+      'asset' => ['target_id' => $asset->id()],
+      'location' => ['target_id' => $this->locations[2]->id()],
+      'movement' => TRUE,
+    ]);
+    $second_log->save();
+
+    // When an asset has a "pending" movement log, the asset location and
+    // geometry remain the same as the previous "done" movement log.
+    $this->assertEquals($this->logLocation->getLocation($first_log), $this->assetLocation->getLocation($asset), 'Asset with pending movement log has original location');
+    $this->assertEquals($this->logLocation->getGeometry($first_log), $this->assetLocation->getGeometry($asset), 'Asset with pending movement log has original geometry.');
+
+    // When the log is marked as "done", the asset location is updated.
+    $second_log->status = 'done';
+    $second_log->save();
+    $this->assertEquals($this->logLocation->getLocation($second_log), $this->assetLocation->getLocation($asset), 'Asset with second movement log has new location');
+    $this->assertEquals($this->logLocation->getGeometry($second_log), $this->assetLocation->getGeometry($asset), 'Asset with second movement log has new geometry.');
+
+    // Create a third "done" movement log in the future.
+    /** @var \Drupal\log\Entity\LogInterface $third_log */
+    $third_log = Log::create([
+      'type' => 'movement',
+      'timestamp' => \Drupal::time()->getRequestTime() + 86400,
+      'status' => 'done',
+      'asset' => ['target_id' => $asset->id()],
+      'location' => ['target_id' => $this->locations[0]->id()],
+      'movement' => TRUE,
+    ]);
+    $third_log->save();
+
+    // When an asset has a "done" movement log in the future, the asset
+    // location and geometry remain the same as the previous "done" movement
+    // log.
+    $this->assertEquals($this->logLocation->getLocation($second_log), $this->assetLocation->getLocation($asset), 'Asset with future movement log has current location');
+    $this->assertEquals($this->logLocation->getGeometry($second_log), $this->assetLocation->getGeometry($asset), 'Asset with future movement log has current geometry.');
   }
 
 }
