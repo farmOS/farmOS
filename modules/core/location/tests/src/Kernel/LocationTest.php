@@ -98,6 +98,12 @@ class LocationTest extends KernelTestBase {
     $combined = $this->combineWkt([$geom1, $geom2]);
     $this->assertEquals($combined, $log->get('geometry')->value, 'Geometries from multiple locations are combined.');
 
+    // When a log's locations change, and the geometry is not customized, the
+    // geometry is updated.
+    $log->location = ['target_id' => $location2->id()];
+    $log->save();
+    $this->assertEquals($location2->get('geometry')->value, $log->get('geometry')->value, 'Geometry is updated when locations are changed.');
+
     // When a log's geometry is set, it is saved.
     $log->geometry->value = $geom3;
     $log->save();
