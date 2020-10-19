@@ -8,6 +8,14 @@
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\log\Entity\LogInterface;
+
+/**
+ * Implements hook_ENTITY_TYPE_presave().
+ */
+function farm_location_log_presave(LogInterface $log) {
+  \Drupal::service('log.location')->populateGeometry($log);
+}
 
 /**
  * Implements hook_entity_base_field_info().
