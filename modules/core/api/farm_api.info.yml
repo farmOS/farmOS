@@ -8,4 +8,4 @@ dependencies:
   - drupal:jsonapi
   - jsonapi_extras:jsonapi_extras
   - jsonapi_schema:jsonapi_schema
-  - drupal:simple_oauth
+  - simple_oauth:simple_oauth
