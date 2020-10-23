@@ -1,0 +1,4 @@
+services:
+  plugin.manager.data_stream:
+    class: Drupal\data_stream\DataStreamPluginManager
+    parent: default_plugin_manager
