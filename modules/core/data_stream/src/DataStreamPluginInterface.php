@@ -2,9 +2,11 @@
 
 namespace Drupal\data_stream;
 
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+
 /**
  * An interface for DataStream Plugins.
  */
-interface DataStreamPluginInterface {
+interface DataStreamPluginInterface extends ContainerFactoryPluginInterface {
 
 }
