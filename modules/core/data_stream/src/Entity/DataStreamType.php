@@ -18,6 +18,9 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
  *     plural = "@count data stream types",
  *   ),
  *   handlers = {
+ *   "route_provider" = {
+ *       "default" = "Drupal\entity\Routing\DefaultHtmlRouteProvider",
+ *     },
  *   },
  *   admin_permission = "administer data stream types",
  *   config_prefix = "type",
@@ -26,6 +29,9 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
  *     "id" = "id",
  *     "label" = "label",
  *     "uuid" = "uuid",
+ *   },
+ *   links = {
+ *     "add-form" = "/admin/structure/data_stream_type/add",
  *   },
  *   config_export = {
  *     "id",

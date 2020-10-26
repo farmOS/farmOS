@@ -72,4 +72,12 @@ interface DataStreamInterface extends ContentEntityInterface, EntityChangedInter
    */
   public function isPublic();
 
+  /**
+   * Gets the label of the the asset type.
+   *
+   * @return string
+   *   The label of the asset type.
+   */
+  public function getBundleLabel();
+
 }

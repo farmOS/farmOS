@@ -1,0 +1,4 @@
+entity.data_stream.collection:
+  route_name: entity.data_stream.collection
+  title: 'Data Streams'
+  base_route: system.admin_content

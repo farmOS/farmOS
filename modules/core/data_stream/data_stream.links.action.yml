@@ -1,0 +1,5 @@
+entity.data_stream.add_page:
+  route_name: 'entity.data_stream.add_page'
+  title: 'Add data stream'
+  appears_on:
+    - entity.data_stream.collection

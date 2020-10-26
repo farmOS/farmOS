@@ -23,7 +23,22 @@ use Drupal\Core\Field\BaseFieldDefinition;
  *   ),
  *   handlers = {
  *     "access" = "\Drupal\entity\UncacheableEntityAccessControlHandler",
+ *     "list_builder" = "\Drupal\data_stream\DataStreamListBuilder",
  *     "permission_provider" = "\Drupal\entity\UncacheableEntityPermissionProvider",
+ *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
+ *     "views_data" = "Drupal\views\EntityViewsData",
+ *     "form" = {
+ *       "add" = "Drupal\data_stream\Form\DataStreamForm",
+ *       "edit" = "Drupal\data_stream\Form\DataStreamForm",
+ *       "delete" = "Drupal\Core\Entity\ContentEntityDeleteForm",
+ *     },
+ *     "route_provider" = {
+ *       "default" = "Drupal\entity\Routing\AdminHtmlRouteProvider",
+ *       "delete-multiple" = "\Drupal\entity\Routing\DeleteMultipleRouteProvider",
+ *     },
+ *     "local_task_provider" = {
+ *       "default" = "\Drupal\entity\Menu\DefaultEntityLocalTaskProvider",
+ *     },
  *   },
  *   base_table = "data_stream",
  *   data_table = "data_stream_data",
@@ -38,6 +53,15 @@ use Drupal\Core\Field\BaseFieldDefinition;
  *   },
  *   bundle_entity_type = "data_stream_type",
  *   permission_granularity = "bundle",
+ *   links = {
+ *     "canonical" = "/data_stream/{data_stream}",
+ *     "add-page" = "/data_stream/add",
+ *     "add-form" = "/data_stream/add/{data_stream_type}",
+ *     "collection" = "/admin/content/data_stream",
+ *     "delete-form" = "/data_stream/{data_stream}/delete",
+ *     "delete-multiple-form" = "/data_stream/delete",
+ *     "edit-form" = "/data_stream/{data_stream}/edit",
+ *   },
  * )
  */
 class DataStream extends ContentEntityBase implements DataStreamInterface {
@@ -107,6 +131,17 @@ class DataStream extends ContentEntityBase implements DataStreamInterface {
   /**
    * {@inheritdoc}
    */
+  public function getBundleLabel() {
+    /** @var \Drupal\data_stream\Entity\DataStreamTypeInterface $type */
+    $type = \Drupal::entityTypeManager()
+      ->getStorage('data_stream_type')
+      ->load($this->bundle());
+    return $type->label();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public static function getRequestTime() {
     return \Drupal::time()->getRequestTime();
   }
@@ -149,7 +184,7 @@ class DataStream extends ContentEntityBase implements DataStreamInterface {
       ])
       ->setDisplayOptions('form', [
         'type' => 'string_textfield',
-        'weight' => -5,
+        'weight' => 3,
       ])
       ->setDisplayConfigurable('form', TRUE);
 
@@ -159,7 +194,7 @@ class DataStream extends ContentEntityBase implements DataStreamInterface {
       ->setDefaultValue(FALSE)
       ->setDisplayOptions('form', [
         'type' => 'boolean_checkbox',
-        'weight' => -6,
+        'weight' => 5,
       ]);
 
     $fields['created'] = BaseFieldDefinition::create('created')
