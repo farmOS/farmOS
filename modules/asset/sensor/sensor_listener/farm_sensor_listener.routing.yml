@@ -1,0 +1,8 @@
+farm_sensor_listener.data_stream:
+  path: '/farm/sensor/listener/{pub_key}'
+  defaults:
+    _controller: '\Drupal\farm_sensor_listener\Controller\LegacyListenerController::handle'
+  requirements:
+    # There is no access restriction to this endpoint.
+    _access: 'TRUE'
+  methods: [GET, POST]
