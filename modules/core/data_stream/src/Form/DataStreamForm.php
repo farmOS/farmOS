@@ -13,6 +13,23 @@ class DataStreamForm extends ContentEntityForm {
   /**
    * {@inheritdoc}
    */
+  public function form(array $form, FormStateInterface $form_state) {
+
+    // Build the parent form.
+    $form = parent::form($form, $form_state);
+
+    // Generate a new private key if creating a new data stream.
+    if ($this->operation == 'add') {
+      $new = hash('md5', mt_rand());
+      $form['private_key']['widget'][0]['value']['#default_value'] = $new;
+    }
+
+    return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function save(array $form, FormStateInterface $form_state) {
     parent::save($form, $form_state);
     $this->messenger()->addMessage($this->t('Saved the %label data stream.', ['%label' => $this->entity->label()]));
