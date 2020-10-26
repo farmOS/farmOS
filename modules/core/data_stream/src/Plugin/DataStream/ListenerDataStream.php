@@ -86,9 +86,8 @@ class ListenerDataStream extends DataStreamPluginBase implements DataStreamStora
     // Handle GET request.
     if ($method == Request::METHOD_GET) {
 
-      // TODO: Allow stream to be public.
-      // Bail if private_key is not specified.
-      if (!$this->requestHasValidPrivateKey($stream, $request)) {
+      // Bail if the sensor is not public and no private_key is provided.
+      if (!$stream->isPublic() && !$this->requestHasValidPrivateKey($stream, $request)) {
         throw new AccessDeniedHttpException();
       }
 
