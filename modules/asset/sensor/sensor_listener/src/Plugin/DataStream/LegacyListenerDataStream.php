@@ -4,6 +4,7 @@ namespace Drupal\farm_sensor_listener\Plugin\DataStream;
 
 use Drupal\Component\Serialization\Json;
 use Drupal\Core\Database\Connection;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\data_stream\DataStreamStorageInterface;
 use Drupal\data_stream\DataStreamPluginBase;
 use Drupal\data_stream\Entity\DataStreamInterface;
@@ -73,6 +74,56 @@ class LegacyListenerDataStream extends DataStreamPluginBase implements DataStrea
       $plugin_definition,
       $container->get('database'),
     );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
+    $form = parent::buildConfigurationForm($form, $form_state);
+
+    // Get the data stream entity.
+    $form_object = $form_state->getFormObject();
+    /** @var \Drupal\data_stream\Entity\DataStreamInterface  $entity */
+    $entity = $form_object->getEntity();
+
+    // Get the existing public_key.
+    if (!empty($entity)) {
+      $public_key = $entity->get('public_key')->value;
+    }
+
+    // Create new public_key.
+    if (empty($public_key)) {
+      $public_key = hash('md5', mt_rand());
+    }
+
+    // Field to configure the public_key.
+    $form[$this->getPluginId()]['public_key'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Public key'),
+      '#description' => $this->t('The public key used to identify this data stream.'),
+      '#default_value' => $public_key,
+    ];
+    return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
+    parent::submitConfigurationForm($form, $form_state);
+
+    // Get the data stream entity.
+    $form_object = $form_state->getFormObject();
+    /** @var \Drupal\data_stream\Entity\DataStreamInterface  $entity */
+    $entity = $form_object->getEntity();
+
+    // If the entity is set, save the public_key value.
+    if (!empty($entity)) {
+      $public_key = $form_state->getValues()['public_key'];
+      $entity->set('public_key', $public_key);
+    }
+
   }
 
   /**
