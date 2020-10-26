@@ -52,6 +52,7 @@ use Drupal\Core\Field\BaseFieldDefinition;
  *     "langcode" = "langcode",
  *   },
  *   bundle_entity_type = "data_stream_type",
+ *   common_reference_target = TRUE,
  *   permission_granularity = "bundle",
  *   links = {
  *     "canonical" = "/data_stream/{data_stream}",
