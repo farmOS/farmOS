@@ -3,11 +3,12 @@
 namespace Drupal\data_stream\Entity;
 
 use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Entity\EntityChangedInterface;
 
 /**
  * Interface for the DataStream entity type.
  */
-interface DataStreamInterface extends ContentEntityInterface {
+interface DataStreamInterface extends ContentEntityInterface, EntityChangedInterface {
 
   /**
    * Returns an instance of the data stream plugin.
@@ -35,6 +36,25 @@ interface DataStreamInterface extends ContentEntityInterface {
    *   The data stream entity.
    */
   public function setName(string $name);
+
+  /**
+   * Gets the data stream creation timestamp.
+   *
+   * @return int
+   *   Creation timestamp of the data stream.
+   */
+  public function getCreatedTime();
+
+  /**
+   * Sets the data_stream creation timestamp.
+   *
+   * @param int $timestamp
+   *   Creation timestamp of the data stream.
+   *
+   * @return \Drupal\data_stream\Entity\DataStreamInterface
+   *   The data_stream entity.
+   */
+  public function setCreatedTime($timestamp);
 
   /**
    * Gets the data stream private key.

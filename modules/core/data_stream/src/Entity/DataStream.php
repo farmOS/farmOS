@@ -3,6 +3,7 @@
 namespace Drupal\data_stream\Entity;
 
 use Drupal\Core\Entity\ContentEntityBase;
+use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 
@@ -41,6 +42,8 @@ use Drupal\Core\Field\BaseFieldDefinition;
  */
 class DataStream extends ContentEntityBase implements DataStreamInterface {
 
+  use EntityChangedTrait;
+
   /**
    * {@inheritdoc}
    */
@@ -75,8 +78,30 @@ class DataStream extends ContentEntityBase implements DataStreamInterface {
   /**
    * {@inheritdoc}
    */
+  public function getCreatedTime() {
+    return $this->get('created')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setCreatedTime($timestamp) {
+    $this->set('created', $timestamp);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getPrivateKey() {
     return $this->get('private_key')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function getRequestTime() {
+    return \Drupal::time()->getRequestTime();
   }
 
   /**
@@ -120,6 +145,28 @@ class DataStream extends ContentEntityBase implements DataStreamInterface {
         'weight' => -5,
       ])
       ->setDisplayConfigurable('form', TRUE);
+
+    $fields['created'] = BaseFieldDefinition::create('created')
+      ->setLabel(t('Created on'))
+      ->setDescription(t('The time that the data_stream was created.'))
+      ->setRevisionable(TRUE)
+      ->setDefaultValueCallback(static::class . '::getRequestTime')
+      ->setDisplayOptions('view', [
+        'label' => 'hidden',
+        'type' => 'timestamp',
+        'weight' => 0,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'datetime_timestamp',
+        'weight' => 13,
+      ])
+      ->setDisplayConfigurable('form', TRUE);
+
+    $fields['changed'] = BaseFieldDefinition::create('changed')
+      ->setLabel(t('Changed'))
+      ->setDescription(t('The time the data_stream was last edited.'))
+      ->setRevisionable(TRUE);
+
     return $fields;
   }
 
