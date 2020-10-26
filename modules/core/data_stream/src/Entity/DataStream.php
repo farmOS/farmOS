@@ -6,6 +6,7 @@ use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\Core\Field\FieldStorageDefinitionInterface;
 
 /**
  * Defines the Data Stream entity.
@@ -196,6 +197,17 @@ class DataStream extends ContentEntityBase implements DataStreamInterface {
       ->setDisplayOptions('form', [
         'type' => 'boolean_checkbox',
         'weight' => 5,
+      ]);
+
+    $fields['asset'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Asset'))
+      ->setDescription(t('Associate this data stream with any assets it describes.'))
+      ->setTranslatable(FALSE)
+      ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED)
+      ->setSetting('target_type', 'asset')
+      ->setDisplayOptions('form', [
+        'type' => 'entity_reference',
+        'weight' => 12,
       ]);
 
     $fields['created'] = BaseFieldDefinition::create('created')
