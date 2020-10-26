@@ -24,7 +24,31 @@ class DataStreamForm extends ContentEntityForm {
       $form['private_key']['widget'][0]['value']['#default_value'] = $new;
     }
 
+    if ($plugin = $this->entity->getPlugin()) {
+      $form += $plugin->buildConfigurationForm($form, $form_state);
+    }
+
     return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+    parent::validateForm($form, $form_state);
+    if ($plugin = $this->entity->getPlugin()) {
+      $plugin->validateConfigurationForm($form, $form_state);
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+    parent::submitForm($form, $form_state);
+    if ($plugin = $this->entity->getPlugin()) {
+      $plugin->submitConfigurationForm($form, $form_state);
+    }
   }
 
   /**
