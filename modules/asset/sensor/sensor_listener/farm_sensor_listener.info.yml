@@ -1,0 +1,9 @@
+name: Sensor listener
+description: Provides a legacy listener data stream type.
+type: module
+package: farmOS
+core_version_requirement: ^9
+dependencies:
+  - farm:farm_sensor
+  - farm:data_stream
+  - fraction:fraction

@@ -1,0 +1,55 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the farm sensor listener module.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function farm_sensor_listener_schema() {
+  $schema['data_stream_data_legacy'] = [
+    'description' => 'Numerical storage for data streams.',
+    'fields' => [
+      'id' => [
+        'description' => 'Data stream entity ID',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'name' => [
+        'description' => 'Reading name',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ],
+      'timestamp' => [
+        'description' => 'Timestamp of the sensor reading',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'value_numerator' => [
+        'description' => 'Value numerator',
+        'type' => 'int',
+        'size' => 'big',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'value_denominator' => [
+        'description' => 'Value denominator',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 1,
+      ],
+    ],
+    'indexes' => [
+      'id' => ['id'],
+      'name' => ['name'],
+      'timestamp' => ['timestamp'],
+    ],
+  ];
+  return $schema;
+}
