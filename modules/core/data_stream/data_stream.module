@@ -1,0 +1,33 @@
+<?php
+
+/**
+ * @file
+ * The data stream module.
+ */
+
+use Drupal\Core\Entity\EntityTypeInterface;
+
+/**
+ * Implements hook_farm_entity_bundle_field_info().
+ */
+function data_stream_farm_entity_bundle_field_info(EntityTypeInterface $entity_type, string $bundle) {
+  $fields = [];
+
+  // Add an asset.data_stream field to sensor and equipment assets.
+  if ($entity_type->id() == 'asset' && in_array($bundle, ['sensor', 'equipment'])) {
+    $options = [
+      'type' => 'entity_reference',
+      'label' => t('Data stream'),
+      'description' => t('Data streams provided by this asset.'),
+      'target_type' => 'data_stream',
+      'multiple' => TRUE,
+      'weight' => [
+        'form' => 55,
+        'view' => -5,
+      ],
+    ];
+    $fields['data_stream'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
+  }
+
+  return $fields;
+}
