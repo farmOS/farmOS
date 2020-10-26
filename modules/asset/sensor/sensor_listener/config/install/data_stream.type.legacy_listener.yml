@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - data_stream
+id: legacy_listener
+label: Legacy listener
+description: 'Legacy Listener stream'
