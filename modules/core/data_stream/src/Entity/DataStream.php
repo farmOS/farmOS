@@ -100,6 +100,13 @@ class DataStream extends ContentEntityBase implements DataStreamInterface {
   /**
    * {@inheritdoc}
    */
+  public function isPublic() {
+    return $this->get('public')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public static function getRequestTime() {
     return \Drupal::time()->getRequestTime();
   }
@@ -145,6 +152,15 @@ class DataStream extends ContentEntityBase implements DataStreamInterface {
         'weight' => -5,
       ])
       ->setDisplayConfigurable('form', TRUE);
+
+    $fields['public'] = BaseFieldDefinition::create('boolean')
+      ->setLabel(t('Public'))
+      ->setDescription(t('If the data stream has public access via API.'))
+      ->setDefaultValue(FALSE)
+      ->setDisplayOptions('form', [
+        'type' => 'boolean_checkbox',
+        'weight' => -6,
+      ]);
 
     $fields['created'] = BaseFieldDefinition::create('created')
       ->setLabel(t('Created on'))

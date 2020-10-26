@@ -64,4 +64,12 @@ interface DataStreamInterface extends ContentEntityInterface, EntityChangedInter
    */
   public function getPrivateKey();
 
+  /**
+   * Returns the data stream public property.
+   *
+   * @return bool
+   *   If the data stream is public.
+   */
+  public function isPublic();
+
 }
