@@ -26,7 +26,7 @@ use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
  *
  * @DataStream(
  *   id = "legacy_listener",
- *   label = @Translation("Legacy Listener data stream"),
+ *   label = @Translation("Legacy listener"),
  * )
  */
 class LegacyListenerDataStream extends DataStreamPluginBase implements DataStreamStorageInterface, LegacySensorApiInterface {

@@ -24,7 +24,7 @@ use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
  *
  * @DataStream(
  *   id = "listener",
- *   label = @Translation("Listener data stream"),
+ *   label = @Translation("Listener"),
  * )
  */
 class ListenerDataStream extends DataStreamPluginBase implements DataStreamStorageInterface, DataStreamApiInterface {
