@@ -631,6 +631,9 @@ function farm_livestock_move_form_submit($form, &$form_state) {
         $previous_areas = array_merge($previous_areas, farm_movement_asset_location($asset));
       }
 
+      // Remove any duplicate areas.
+      $previous_areas = array_unique($previous_areas, SORT_REGULAR);
+
       // Link post grazing logs to the area(s) animals are moving from.
       if (!empty($previous_areas)) {
 
