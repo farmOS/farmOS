@@ -508,3 +508,54 @@ function farm_livestock_update_7007(&$sandbox) {
     module_enable(array($module));
   }
 }
+
+/**
+ * Remove duplicate area references from movement quickform logs.
+ */
+function farm_livestock_update_7008(&$sandbox) {
+
+  // Setup. Find observation logs associated with the farm_livestock_move_form
+  // that need to be updated.
+  if (!isset($sandbox['progress'])) {
+    $sandbox['progress'] = 0;
+
+    // Query observation logs linked to this quick form.
+    $query = db_select('farm_quick_entity', 'fqe');
+    $query->addField('fqe', 'entity_id');
+    $query->condition('fqe.entity_type', 'log');
+    $query->condition('fqe.quick_form_id', 'farm_livestock_move_form');
+    $log_alias = $query->join('log', 'l', 'fqe.entity_id = l.id');
+    $query->condition($log_alias . '.type', 'farm_observation');
+    $log_ids = $query->execute()->fetchCol();
+
+    // Finish the update if there are no logs to update.
+    if (empty($log_ids)) {
+      $sandbox['#finished'] = 1;
+      return;
+    }
+
+    $sandbox['log_ids'] = $log_ids;
+    $sandbox['total'] = count($log_ids);
+  }
+
+  // Load the Nth log we need to process.
+  $log = log_load($sandbox['log_ids'][$sandbox['progress']]);
+
+  // Load areas that each log references.
+  $log_wrapper = entity_metadata_wrapper('log', $log);
+  $areas = $log_wrapper->field_farm_area->value();
+
+  // Only update areas if some exist.
+  if (!empty($areas)) {
+
+    // Get the unique areas.
+    $new_areas = array_unique($areas, SORT_REGULAR);
+
+    // Update the log.
+    $log_wrapper->field_farm_area->set($new_areas);
+    $log_wrapper->save();
+  }
+
+  $sandbox['progress']++;
+  $sandbox['#finished'] = $sandbox['progress'] / $sandbox['total'];
+}
