@@ -222,7 +222,8 @@ function farm_livestock_move_form($form, &$form_state) {
     // Load current location geometry of all assets.
     $geoms = array();
     foreach ($assets as $asset) {
-      $geoms[] = farm_movement_asset_geometry($asset);
+      $timestamp = strtotime($form_state['values']['move']['date'] ?: $defaults['date']);
+      $geoms[] = farm_movement_asset_geometry($asset, $timestamp);
     }
 
     // Combine geometries.
@@ -628,7 +629,7 @@ function farm_livestock_move_form_submit($form, &$form_state) {
       // Load current locations of all assets.
       $previous_areas = array();
       foreach ($assets as $asset) {
-        $previous_areas = array_merge($previous_areas, farm_movement_asset_location($asset));
+        $previous_areas = array_merge($previous_areas, farm_movement_asset_location($asset, $timestamp));
       }
 
       // Remove any duplicate areas.
@@ -646,7 +647,7 @@ function farm_livestock_move_form_submit($form, &$form_state) {
       // Load current location geometry of all assets.
       $geoms = array();
       foreach ($assets as $asset) {
-        $geoms[] = farm_movement_asset_geometry($asset);
+        $geoms[] = farm_movement_asset_geometry($asset, $timestamp);
       }
 
       // Combine geometries.
