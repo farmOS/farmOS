@@ -167,6 +167,9 @@ function farm_livestock_move_form($form, &$form_state) {
     '#date_label_position' => 'within',
     '#date_year_range' => '-10:+3',
     '#default_value' => $defaults['date'],
+    '#ajax' => array(
+      'callback' => 'farm_livestock_move_form_date_ajax',
+    ),
     '#required' => TRUE,
   );
 
@@ -449,6 +452,18 @@ function farm_livestock_move_form_validate($form, &$form_state) {
 
   // Save the asset to the form state.
   $form_state['storage']['assets'] = $assets;
+}
+
+/**
+ * Ajax callback for farm_livestock_move_form().
+ */
+function farm_livestock_move_form_date_ajax($form, $form_state) {
+
+  // Load the current location commands.
+  $commands = farm_livestock_move_form_current_location_commands($form, $form_state);
+
+  // Return ajax commands.
+  return array('#type' => 'ajax', '#commands' => $commands);
 }
 
 /**
