@@ -545,15 +545,17 @@ function farm_livestock_update_7008(&$sandbox) {
   $log_wrapper = entity_metadata_wrapper('log', $log);
   $areas = $log_wrapper->field_farm_area->value();
 
-  // Only update areas if some exist.
-  if (!empty($areas)) {
+  // Only update areas if more than 1 exists.
+  if (!empty($areas) && count($areas) > 1) {
 
     // Get the unique areas.
     $new_areas = array_unique($areas, SORT_REGULAR);
 
     // Update the log.
-    $log_wrapper->field_farm_area->set($new_areas);
-    $log_wrapper->save();
+    if (count($areas) > count($new_areas)) {
+      $log_wrapper->field_farm_area->set($new_areas);
+      $log_wrapper->save();
+    }
   }
 
   $sandbox['progress']++;
