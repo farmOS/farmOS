@@ -46,6 +46,9 @@ function farm_map_set_bcscale($reset = FALSE) {
 
     // Otherwise, reset.
     bcscale($scale);
+    // Unset the $scale variable so that a new bcscale can later be set.
+    // Note that we can't use unset() because this is a static variable.
+    $scale = NULL;
     return;
   }
 
