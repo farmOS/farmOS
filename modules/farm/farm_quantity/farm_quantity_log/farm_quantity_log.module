@@ -317,7 +317,7 @@ function farm_quantity_log_query_add_filters(&$query, $measure = NULL, $label = 
     }
   }
   if (!is_null($label)) {
-    $label = db_escape_field($label);
+    $label = db_like($label);
   }
 
   // Add the log ID field.
