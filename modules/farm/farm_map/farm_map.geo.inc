@@ -55,6 +55,8 @@ function farm_map_set_bcscale($reset = FALSE) {
   }
 
   // Set the scale, if it has not been already.
+  // bcscale() sets the scale globally, and returns the previous scale, which we
+  // save in the static $scale variable, so that we can reset later.
   if (!isset($scale)) {
     $scale = bcscale(24);
   }
