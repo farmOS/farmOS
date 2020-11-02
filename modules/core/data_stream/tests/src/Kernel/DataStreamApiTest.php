@@ -163,17 +163,4 @@ class DataStreamApiTest extends DataStreamTestBase {
     $this->assertTrue(in_array($test_point, $data));
   }
 
-  /**
-   * Process a request.
-   *
-   * @param \Symfony\Component\HttpFoundation\Request $request
-   *   The request.
-   *
-   * @return \Symfony\Component\HttpFoundation\Response
-   *   The response.
-   */
-  protected function processRequest(Request $request) {
-    return $this->container->get('http_kernel')->handle($request);
-  }
-
 }
