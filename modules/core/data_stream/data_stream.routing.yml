@@ -1,5 +1,5 @@
 data_stream.data_stream:
-  path: '/data_stream/{uuid}'
+  path: '/api/data_stream/listener/{uuid}/data'
   defaults:
     _controller: '\Drupal\data_stream\Controller\DataStreamController::dataStream'
   requirements:

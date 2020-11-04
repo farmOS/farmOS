@@ -46,7 +46,7 @@ class DataStreamApiTest extends DataStreamTestBase {
   public function testApiInvalidMethods() {
 
     // Build the path.
-    $uri = $this->streamApiPath . '/' . $this->listener->uuid();
+    $uri = $this->buildPath($this->listener->uuid());
 
     $invalid_methods = [
       Request::METHOD_PUT => 405,
@@ -68,7 +68,7 @@ class DataStreamApiTest extends DataStreamTestBase {
   public function testApiGet() {
 
     // Build the path.
-    $uri = $this->streamApiPath . '/' . $this->listener->uuid();
+    $uri = $this->buildPath($this->listener->uuid());
 
     // Make a request.
     $request = Request::create($uri, 'GET');
@@ -131,7 +131,7 @@ class DataStreamApiTest extends DataStreamTestBase {
   public function testApiPost() {
 
     // Build the path.
-    $uri = $this->streamApiPath . '/' . $this->listener->uuid();
+    $uri = $this->buildPath($this->listener->uuid());
 
     // Make the stream public. This should not matter for posting data.
     $this->listener->set('public', TRUE)->save();
@@ -161,6 +161,19 @@ class DataStreamApiTest extends DataStreamTestBase {
     $data = $plugin->storageGet($this->listener, ['limit' => 1, 'end' => $timestamp]);
     $this->assertEqual(1, count($data));
     $this->assertTrue(in_array($test_point, $data));
+  }
+
+  /**
+   * Helper function to build the path to data stream data.
+   *
+   * @param string $uuid
+   *   The UUID to include.
+   *
+   * @return string
+   *   The path.
+   */
+  protected function buildPath(string $uuid) {
+    return '/api/data_stream/listener/' . $uuid . '/data';
   }
 
 }

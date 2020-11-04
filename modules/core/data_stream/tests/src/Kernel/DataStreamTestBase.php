@@ -13,13 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
 abstract class DataStreamTestBase extends KernelTestBase {
 
   /**
-   * Data stream API path.
-   *
-   * @var string
-   */
-  protected $streamApiPath = '/data_stream';
-
-  /**
    * {@inheritdoc}
    */
   public static $modules = [
