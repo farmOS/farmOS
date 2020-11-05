@@ -5,6 +5,8 @@
  * The data stream module.
  */
 
+use Drupal\data_stream\Entity\DataStreamInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 
 /**
@@ -30,4 +32,23 @@ function data_stream_farm_entity_bundle_field_info(EntityTypeInterface $entity_t
   }
 
   return $fields;
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_view_alter().
+ */
+function data_stream_data_stream_view_alter(array &$build, DataStreamInterface $data_stream, EntityViewDisplayInterface $display) {
+
+  // Bail if there is no entity.
+  if (empty($data_stream)) {
+    return;
+  }
+
+  // Bail if not the listener type.
+  if ($data_stream->bundle() != 'listener') {
+    return;
+  }
+
+  // Add the listener data block view.
+  $build['views']['data'] = views_embed_view('data_stream_listener_data', 'block', $data_stream->id());
 }
