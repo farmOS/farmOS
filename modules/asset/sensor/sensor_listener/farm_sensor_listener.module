@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * The farm_sensor_listener module.
+ */
+
+use Drupal\data_stream\Entity\DataStreamInterface;
+
+/**
+ * Implements hook_ENTITY_TYPE_delete().
+ */
+function farm_sensor_listener_data_stream_delete(DataStreamInterface $data_stream) {
+
+  // Remove all legacy listener data provided by the data stream.
+  if ($data_stream->bundle() == 'legacy_listener') {
+    \Drupal::database()->delete('data_stream_data_legacy')
+      ->condition('id', $data_stream->id())
+      ->execute();
+  }
+}
