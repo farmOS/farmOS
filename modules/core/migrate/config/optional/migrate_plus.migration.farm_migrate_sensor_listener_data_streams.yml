@@ -1,0 +1,64 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_migrate
+      - data_stream
+      - farm_sensor
+      - farm_sensor_listener
+id: farm_migrate_sensor_listener_data_streams
+label: 'Listener sensor data streams'
+migration_group: farm_migrate_sensor_data
+migration_tags:
+  - 'Drupal 7'
+  - 'farmOS 1.x'
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: null
+cck_plugin_method: null
+source:
+  plugin: d7_sensor_asset
+  constants:
+    name_suffix: ' data stream'
+destination:
+  plugin: data_stream
+process:
+  # Skip if not a "listener" sensor type.
+  sensor_type:
+    plugin: skip_on_value
+    not_equals: true
+    source: sensor_type
+    method: row
+    value: 'listener'
+  # Hard-code the data stream bundle.
+  type:
+    plugin: default_value
+    default_value: legacy_listener
+  # Include the sensor asset ID that is providing the data stream.
+  providing_asset:
+    plugin: get
+    source: id
+  # Build a name for the data stream.
+  name:
+    plugin: concat
+    source:
+      - name
+      - constants/name_suffix
+  # Extract the private_key from sensor settings.
+  private_key:
+    plugin: extract
+    source: sensor_settings
+    default: ''
+    index:
+      - private_key
+  # Extract the public_key from sensor settings.
+  public_key:
+    plugin: extract
+    source: sensor_settings
+    default: ''
+    index:
+      - public_key
+migration_dependencies:
+  required:
+    - farm_migrate_asset_sensor
+  optional: {  }
