@@ -1,0 +1,64 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_migrate
+      - data_stream
+      - farm_sensor
+      - farm_sensor_listener
+id: farm_migrate_sensor_listener_data
+label: 'Listener sensor data'
+migration_group: farm_migrate_sensor_data
+migration_tags:
+  - 'Drupal 7'
+  - 'farmOS 1.x'
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: null
+cck_plugin_method: null
+source:
+  batch_size: 10000
+  plugin: d7_sensor_listener_data
+destination:
+  plugin: table
+  table_name: data_stream_data_legacy
+  id_fields:
+    id:
+      type: integer
+    name:
+      type: string
+    timestamp:
+      type: integer
+  fields:
+    id: id
+    name: name
+    timestamp: timestamp
+    value_numerator: value_numerator
+    value_denominator: value_denominator
+process:
+  # Use the old sensor ID to find the migrated sensor ID.
+  asset_id:
+    -
+      plugin: farm_migration_group_lookup
+      migration_group: farm_migrate_asset
+      source: id
+      no_stub: true
+    -
+      plugin: skip_on_empty
+      method: row
+  # Get the data stream that was created for the new sensor.
+  id:
+    -
+      plugin: data_stream_from_asset
+      asset_id: asset_id
+    -
+      plugin: skip_on_empty
+      method: row
+  timestamp: timestamp
+  name: name
+  value_numerator: value_numerator
+  value_denominator: value_denominator
+migration_dependencies:
+  required:
+    - farm_migrate_sensor_listener_data_streams
+  optional: {  }
