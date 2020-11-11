@@ -119,20 +119,21 @@ class FarmQuantity extends RevisionableContentEntityBase implements FarmQuantity
     $fields += static::ownerBaseFieldDefinitions($entity_type);
     $fields += static::revisionLogBaseFieldDefinitions($entity_type);
 
-    $fields['measure'] = BaseFieldDefinition::create('string')
+    $fields['measure'] = BaseFieldDefinition::create('list_string')
       ->setLabel(t('Measure'))
       ->setDescription(t('The measure of the quantity.'))
       ->setRevisionable(TRUE)
       ->setDefaultValue('')
-      ->setSetting('max_length', 255)
-      ->setSetting('text_processing', 0)
+      ->setSettings([
+        'allowed_values_function' => 'farm_quantity_measure_options',
+      ])
       ->setDisplayOptions('view', [
         'label' => 'hidden',
         'type' => 'string',
         'weight' => 0,
       ])
       ->setDisplayOptions('form', [
-        'type' => 'string_textfield',
+        'type' => 'options_select',
         'weight' => 0,
       ])
       ->setDisplayConfigurable('form', FALSE)
