@@ -27,8 +27,7 @@ use Drupal\migrate\Row;
  *     source: author
  * @endcode
  *
- * @todo
- * Remove if migrate_plus incorporates this plugin upstream.
+ * @todo Remove if migrate_plus incorporates this plugin upstream.
  * See: https://gitlab.com/drupalspoons/migrate_plus/-/issues/240
  */
 class FarmMigrationGroupLookup extends MigrationLookup {
