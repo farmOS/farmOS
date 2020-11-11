@@ -40,6 +40,13 @@ function farm_field_asset_base_fields() {
       'description' => t('If this asset descends from other assets, they can referenced here to create a lineage relationship.'),
       'target_type' => 'asset',
       'multiple' => TRUE,
+      'third_party_settings' => [
+        'entity_reference_validators' => [
+          'circular_reference' => TRUE,
+          'circular_reference_deep' => TRUE,
+          'duplicate_reference' => TRUE,
+        ],
+      ],
     ],
   ];
   $fields = [];
@@ -156,6 +163,11 @@ function farm_field_base_field_definition(array $options = []) {
   }
   else {
     $field->setTranslatable(TRUE);
+  }
+
+  // Add third-party settings, if specified.
+  if (!empty($options['third_party_settings'])) {
+    $field->setSetting('third_party_settings', $options['third_party_settings']);
   }
 
   // Delegate to per-type helper functions to fill in more details.

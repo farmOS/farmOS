@@ -11,5 +11,6 @@ dependencies:
   - drupal:image
   - drupal:text
   - drupal:user
+  - entity_reference_validators:entity_reference_validators
   - farm:farm_log_category
   - log:log
