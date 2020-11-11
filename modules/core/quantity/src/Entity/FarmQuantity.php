@@ -40,6 +40,7 @@ use Drupal\user\EntityOwnerTrait;
  *     },
  *     "route_provider" = {
  *       "default" = "Drupal\entity\Routing\AdminHtmlRouteProvider",
+ *       "revision" = "\Drupal\entity\Routing\RevisionRouteProvider",
  *       "delete-multiple" = "Drupal\entity\Routing\DeleteMultipleRouteProvider",
  *     },
  *     "local_task_provider" = {
@@ -55,11 +56,17 @@ use Drupal\user\EntityOwnerTrait;
  *   admin_permission = "administer farm_quantity",
  *   entity_keys = {
  *     "id" = "id",
+ *     "revision" = "revision_id",
  *     "label" = "name",
  *     "owner" = "uid",
  *     "uuid" = "uuid",
  *   },
  *   common_reference_target = TRUE,
+ *   revision_metadata_keys = {
+ *     "revision_user" = "revision_user",
+ *     "revision_created" = "revision_created",
+ *     "revision_log_message" = "revision_log_message"
+ *   },
  * )
  */
 class FarmQuantity extends RevisionableContentEntityBase implements FarmQuantityInterface {
