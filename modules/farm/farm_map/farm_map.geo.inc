@@ -37,10 +37,10 @@ function farm_map_set_bcscale($reset = FALSE) {
       return;
     }
 
-    // If the scale has been set again in a nested function, before it was reset
-    // in the outer function, decrease the levels.
-    if ($depth > 1) {
-      $depth--;
+    // Decrement the depth, and if the depth is still greater than 0, return so
+    // that we do not reset yet.
+    $depth--;
+    if ($depth > 0) {
       return;
     }
 
