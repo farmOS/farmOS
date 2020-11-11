@@ -48,7 +48,12 @@ function farm_map_set_bcscale($reset = FALSE) {
     }
 
     // Otherwise, reset.
+    // bcscale() sets the scale globally back to whatever it was originally when
+    // farm_map_set_bcscale() was first run, which we saved in the static $scale
+    // variable. We also unset the static $scale variable so that it can be set
+    // again later in the request, if necessary.
     bcscale($scale);
+    drupal_static_reset(__FUNCTION__ . 'scale');
     return;
   }
 
