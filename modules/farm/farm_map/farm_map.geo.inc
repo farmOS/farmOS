@@ -22,11 +22,14 @@ function farm_map_set_bcscale($reset = FALSE) {
 
   // The first time this function is called, we will save the current bcscale()
   // value in a static variable, so that it can be reset in the future.
-  static $scale;
+  $scale = &drupal_static(__FUNCTION__ . 'scale');
 
   // We will also keep track of how deep we are in nested functions, to ensure
   // that the scale is not reset before it should be.
-  static $depth = 0;
+  $depth = &drupal_static(__FUNCTION__ . 'depth');
+  if (!isset($depth)) {
+    $depth = 0;
+  }
 
   // Reset the scale, if desired.
   if (!empty($reset)) {
