@@ -1,0 +1,79 @@
+<?php
+
+/**
+ * @file
+ * Farm Quantity module.
+ */
+
+/**
+ * Define information about available quantity measures.
+ *
+ * @return array
+ *   Returns an array of measure information.
+ */
+function farm_quantity_measures() {
+  return [
+    'count' => [
+      'label' => t('Count'),
+    ],
+    'length' => [
+      'label' => t('Length/depth'),
+    ],
+    'weight' => [
+      'label' => t('Weight'),
+    ],
+    'area' => [
+      'label' => t('Area'),
+    ],
+    'volume' => [
+      'label' => t('Volume'),
+    ],
+    'time' => [
+      'label' => t('Time'),
+    ],
+    'temperature' => [
+      'label' => t('Temperature'),
+    ],
+    'pressure' => [
+      'label' => t('Pressure'),
+    ],
+    'water_content' => [
+      'label' => t('Water content'),
+    ],
+    'value' => [
+      'label' => t('Value'),
+    ],
+    'rate' => [
+      'label' => t('Rate'),
+    ],
+    'rating' => [
+      'label' => t('Rating'),
+    ],
+    'ratio' => [
+      'label' => t('Ratio'),
+    ],
+    'probability' => [
+      'label' => t('Probability'),
+    ],
+  ];
+}
+
+/**
+ * Define available options for the Measure field.
+ */
+function farm_quantity_measure_options() {
+
+  // Start an empty options array.
+  $options = [];
+
+  // Load information about measures.
+  $measures = farm_quantity_measures();
+
+  // Iterate through the measures and build a list of options.
+  foreach ($measures as $measure => $data) {
+    $options[$measure] = $data['label'];
+  }
+
+  // Return the array of options.
+  return $options;
+}
