@@ -5,7 +5,7 @@ package: farmOS
 core_version_requirement: ^9
 dependencies:
   - entity:entity
-  - drupal:taxonomy
   - drupal:text
   - drupal:user
+  - farm:farm_unit
   - fraction:fraction
