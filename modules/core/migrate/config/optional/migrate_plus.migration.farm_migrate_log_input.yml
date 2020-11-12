@@ -28,6 +28,26 @@ process:
   id:
     plugin: get
     source: id
+  # Create a quantity for each quantity field collection.
+  quantity:
+    plugin: sub_process
+    source: log_quantities
+    process:
+      # Save the units term as a pseudo value.
+      _units:
+        plugin: migration_lookup
+        migration: farm_migrate_taxonomy_unit
+        source: units
+        no_stub: true
+      # Create a quantity and save the ID.
+      target_id:
+        plugin: create_quantity
+        values:
+          units: '@_units'
+          label: label
+          measure: measure
+          value/numerator: value_numerator
+          value/denominator: value_denominator
   # Input specific fields.
   lot_number:
     plugin: get
@@ -52,4 +72,5 @@ process:
 migration_dependencies:
   required:
     - farm_migrate_taxonomy_material
+    - farm_migrate_taxonomy_unit
   optional: {  }
