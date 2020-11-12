@@ -8,6 +8,7 @@
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
+use Drupal\log\Entity\LogInterface;
 
 /**
  * Implements hook_entity_base_field_info().
@@ -40,6 +41,26 @@ function farm_quantity_entity_base_field_info(EntityTypeInterface $entity_type) 
   }
 
   return $fields;
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_delete().
+ */
+function farm_quantity_log_delete(LogInterface $log) {
+
+  // If the log doesn't have a quantity field, bail.
+  if (!$log->hasField('quantity')) {
+    return;
+  }
+
+  // Get any quantities the log references.
+  $quantities = $log->quantity->referencedEntities();
+
+  // Delete quantity entities.
+  if (!empty($quantities)) {
+    \Drupal::entityTypeManager()->getStorage('farm_quantity')->delete($quantities);
+  }
+
 }
 
 /**
