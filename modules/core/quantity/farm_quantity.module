@@ -5,6 +5,43 @@
  * Farm Quantity module.
  */
 
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\Core\Field\FieldStorageDefinitionInterface;
+
+/**
+ * Implements hook_entity_base_field_info().
+ */
+function farm_quantity_entity_base_field_info(EntityTypeInterface $entity_type) {
+
+  // Start array of fields.
+  $fields = [];
+
+  // Add fields to all log types.
+  if ($entity_type->id() == 'log') {
+
+    // Add quantity field.
+    $fields['quantity'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Quantities'))
+      ->setDescription(t('Does this log provide any quantities?'))
+      ->setSetting('target_type', 'farm_quantity')
+      ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED)
+      ->setRevisionable(TRUE)
+      ->setDisplayOptions('view', [
+        'type' => 'string',
+        'weight' => 0,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'inline_entity_form_complex',
+        'weight' => 0,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+  }
+
+  return $fields;
+}
+
 /**
  * Define information about available quantity measures.
  *
