@@ -17,6 +17,7 @@ nav:
       - Debugging: development/environment/debug.md
       - Automated tests: development/environment/tests.md
       - Coding standards: development/environment/code.md
+      - Documentation: development/environment/documentation.md
     - Module:
       - Fields: development/module/fields.md
       - OAuth: development/module/oauth.md
