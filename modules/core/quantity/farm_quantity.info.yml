@@ -9,3 +9,4 @@ dependencies:
   - drupal:user
   - farm:farm_unit
   - fraction:fraction
+  - inline_entity_form:inline_entity_form
