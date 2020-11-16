@@ -33,6 +33,12 @@ process:
     plugin: sub_process
     source: log_quantities
     process:
+      # Save the uid as a pseudo value.
+      _uid:
+        plugin: migration_lookup
+        migration: farm_migrate_user
+        source: uid
+        no_stub: true
       # Save the units term as a pseudo value.
       _units:
         plugin: migration_lookup
@@ -43,6 +49,9 @@ process:
       target_id:
         plugin: create_quantity
         values:
+          uid: '@_uid'
+          created: created
+          changed: changed
           units: '@_units'
           label: label
           measure: measure

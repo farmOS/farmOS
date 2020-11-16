@@ -47,8 +47,6 @@ class CreateQuantity extends ProcessPluginBase implements ContainerFactoryPlugin
    */
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
 
-    // TODO: Do the quantity UID, created/changed timestamps need to be
-    // inherited from the log?
     // Start array of entity values.
     $entity_values = [];
 

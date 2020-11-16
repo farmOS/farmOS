@@ -141,6 +141,11 @@ class FarmLog extends Log {
     // Set the "is_movement" property for use in migrations.
     $row->setSourceProperty('is_movement', $is_movement);
 
+    // Get values from the log that will be inherited to created quantities.
+    $log_uid = $row->getSourceProperty('uid');
+    $log_created = $row->getSourceProperty('created');
+    $log_changed = $row->getSourceProperty('changed');
+
     // Get quantity log field value.
     $quantity_values = $this->getFieldvalues('log', 'field_farm_quantity', $id);
 
@@ -177,7 +182,15 @@ class FarmLog extends Log {
       $query->addField('fdffqv', 'field_farm_quantity_value_denominator', 'value_denominator');
 
       // Execute the query.
-      $log_quantities[] = $query->execute()->fetchAssoc();
+      $quantity_data = $query->execute()->fetchAssoc();
+
+      // Add values to inherit from the log.
+      $quantity_data['uid'] = $log_uid;
+      $quantity_data['created'] = $log_created;
+      $quantity_data['changed'] = $log_changed;
+
+      // Save the quantity to be created later.
+      $log_quantities[] = $quantity_data;
     }
 
     // Add the quantity logs to the row for future processing.
