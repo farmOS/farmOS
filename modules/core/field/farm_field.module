@@ -25,3 +25,49 @@ function farm_field_entity_base_field_info(EntityTypeInterface $entity_type) {
     return farm_field_log_base_fields();
   }
 }
+
+/**
+ * Implements hook_entity_base_field_info_alter().
+ */
+function farm_field_entity_base_field_info_alter(&$fields, EntityTypeInterface $entity_type) {
+
+  // Only alter asset and log fields.
+  if (!in_array($entity_type->id(), ['asset', 'log'])) {
+    return;
+  }
+
+  $alter_fields = [
+    'name' => [
+      'weight' => -100,
+    ],
+    'timestamp' => [
+      'weight' => -90,
+    ],
+    'status' => [
+      'weight' => -80,
+    ],
+    'created' => [
+      'weight' => 120,
+    ],
+  ];
+  foreach ($alter_fields as $name => $options) {
+
+    // If the field does not exist on this entity type, skip it.
+    if (empty($fields[$name])) {
+      continue;
+    }
+
+    // Load the form and view display options.
+    $form_display_options = $fields[$name]->getDisplayOptions('form');
+    $view_display_options = $fields[$name]->getDisplayOptions('view');
+
+    // Set the field weight.
+    if (!empty($options['weight'])) {
+      $form_display_options['weight'] = $view_display_options['weight'] = $options['weight'];
+    }
+
+    // Save the options.
+    $fields[$name]->setDisplayOptions('form', $form_display_options);
+    $fields[$name]->setDisplayOptions('view', $view_display_options);
+  }
+}
