@@ -90,6 +90,9 @@ function farm_field_base_field_definition(array $options = []) {
     case 'list_string':
       farm_field_base_field_definition_list_string($field, $options);
       break;
+    case 'text_long':
+      farm_field_base_field_definition_text($field, $options);
+      break;
     default:
       throw new FieldException('Unsupported field type.');
   }
@@ -280,6 +283,32 @@ function farm_field_base_field_definition_list_string(BaseFieldDefinition &$fiel
   $field->setDisplayOptions('view', [
     'label' => 'inline',
     'type' => 'list_default',
+    'weight' => $options['weight']['view'] ?? 0,
+  ]);
+}
+
+/**
+ * Text base field modifier.
+ *
+ * @param \Drupal\Core\Field\BaseFieldDefinition &$field
+ *   A base field definition object.
+ * @param array $options
+ *   An array of options.
+ */
+function farm_field_base_field_definition_text(BaseFieldDefinition $field, array $options = []) {
+
+  // Build form and view display settings.
+  $field->setDisplayOptions('form', [
+    'type' => 'text_textarea',
+    'settings' => [
+      'rows' => '5',
+      'placeholder' => '',
+    ],
+    'weight' => $options['weight']['form'] ?? 0,
+  ]);
+  $field->setDisplayOptions('view', [
+    'label' => 'inline',
+    'type' => 'text_default',
     'weight' => $options['weight']['view'] ?? 0,
   ]);
 }
