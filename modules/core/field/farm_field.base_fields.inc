@@ -83,6 +83,10 @@ function farm_field_base_field_definition(array $options = []) {
     case 'entity_reference':
       farm_field_base_field_definition_entity_reference($field, $options);
       break;
+    case 'string':
+    case 'string_long':
+      farm_field_base_field_definition_string($field, $options);
+      break;
     default:
       throw new FieldException('Unsupported field type.');
   }
@@ -221,4 +225,26 @@ function farm_field_base_field_definition_entity_reference(BaseFieldDefinition &
   // Set form and view display options.
   $field->setDisplayOptions('form', $form_display_options);
   $field->setDisplayOptions('view', $view_display_options);
+}
+
+/**
+ * String base field modifier.
+ *
+ * @param \Drupal\Core\Field\BaseFieldDefinition &$field
+ *   A base field definition object.
+ * @param array $options
+ *   An array of options.
+ */
+function farm_field_base_field_definition_string(BaseFieldDefinition $field, array $options = []) {
+
+  // Build form and view display settings.
+  $field->setDisplayOptions('form', [
+    'type' => $options['type'],
+    'weight' => $options['weight']['form'] ?? 0,
+  ]);
+  $field->setDisplayOptions('view', [
+    'label' => 'inline',
+    'type' => $options['type'],
+    'weight' => $options['weight']['view'] ?? 0,
+  ]);
 }
