@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * @file
+ * Contains farm_field.module.
+ */
+
+use Drupal\Core\Entity\EntityTypeInterface;
+
+/**
+ * Implements hook_entity_base_field_info().
+ */
+function farm_field_entity_base_field_info(EntityTypeInterface $entity_type) {
+
+  // Include helper functions.
+  module_load_include('inc', 'farm_field', 'farm_field.base_fields');
+
+  // Add common base fields to all asset types.
+  if ($entity_type->id() == 'asset') {
+    return farm_field_asset_base_fields();
+  }
+
+  // Add common base fields to all log types.
+  elseif ($entity_type->id() == 'log') {
+    return farm_field_log_base_fields();
+  }
+}
