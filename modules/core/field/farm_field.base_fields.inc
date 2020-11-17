@@ -80,6 +80,9 @@ function farm_field_base_field_definition(array $options = []) {
 
   // Delegate to per-type helper functions to fill in more details.
   switch ($options['type']) {
+    case 'entity_reference':
+      farm_field_base_field_definition_entity_reference($field, $options);
+      break;
     default:
       throw new FieldException('Unsupported field type.');
   }
@@ -98,4 +101,124 @@ function farm_field_base_field_definition(array $options = []) {
   $field->setDisplayConfigurable('view', TRUE);
 
   return $field;
+}
+
+/**
+ * Entity reference base field modifier.
+ *
+ * @param \Drupal\Core\Field\BaseFieldDefinition &$field
+ *   A base field definition object.
+ * @param array $options
+ *   An array of options.
+ */
+function farm_field_base_field_definition_entity_reference(BaseFieldDefinition &$field, array $options = []) {
+
+  // If a target type is not specified, throw an exception.
+  if (empty($options['target_type'])) {
+    throw new FieldException('No target_type was specified.');
+  }
+
+  // Set the target type.
+  $field->setSetting('target_type', $options['target_type']);
+
+  // Build additional settings based on the target type.
+  switch ($options['target_type']) {
+
+    // Asset reference.
+    case 'asset':
+      $handler = 'views';
+      $handler_settings = [
+        'view' => [
+          'view_name' => 'farm_asset_reference',
+          'display_name' => 'entity_reference',
+        ],
+      ];
+      $form_display_options = [
+        'type' => 'entity_reference_autocomplete',
+        'weight' => $options['weight']['form'] ?? 0,
+        'settings' => [
+          'match_operator' => 'CONTAINS',
+          'match_limit' => '10',
+          'size' => '60',
+          'placeholder' => '',
+        ],
+      ];
+      $view_display_options = [
+        'label' => 'inline',
+        'type' => 'entity_reference_label',
+        'weight' => $options['weight']['view'] ?? 0,
+        'settings' => [
+          'link' => TRUE,
+        ],
+      ];
+      break;
+
+    // Term reference.
+    case 'taxonomy_term':
+      $handler = 'default:taxonomy_term';
+      $handler_settings = [
+        'target_bundles' => [
+          'log_category' => 'log_category',
+        ],
+        'sort' => [
+          'field' => 'name',
+          'direction' => 'asc',
+        ],
+        'auto_create' => FALSE,
+        'auto_create_bundle' => '',
+      ];
+      $form_display_options = [
+        'type' => 'entity_reference_autocomplete',
+        'weight' => $options['weight']['form'] ?? 0,
+      ];
+      $view_display_options = [
+        'label' => 'inline',
+        'type' => 'entity_reference_label',
+        'weight' => $options['weight']['view'] ?? 0,
+        'settings' => [
+          'link' => FALSE,
+        ],
+      ];
+      break;
+
+    // User reference.
+    case 'user':
+      $handler = 'default:user';
+      $handler_settings = [
+        'include_anonymous' => FALSE,
+        'filter' => [
+          'type' => '_none',
+        ],
+        'target_bundles' => NULL,
+        'sort' => [
+          'field' => '_none',
+        ],
+        'auto_create' => FALSE,
+      ];
+      $form_display_options = [
+        'type' => 'options_select',
+        'weight' => $options['weight']['form'] ?? 0,
+      ];
+      $view_display_options = [
+        'label' => 'inline',
+        'type' => 'entity_reference_label',
+        'weight' => $options['weight']['view'] ?? 0,
+        'settings' => [
+          'link' => TRUE,
+        ],
+      ];
+      break;
+
+    // Otherwise, throw an exception.
+    default:
+      throw new FieldException('Unsupported target_type.');
+  }
+
+  // Set the handler and handler settings.
+  $field->setSetting('handler', $handler);
+  $field->setSetting('handler_settings', $handler_settings);
+
+  // Set form and view display options.
+  $field->setDisplayOptions('form', $form_display_options);
+  $field->setDisplayOptions('view', $view_display_options);
 }
