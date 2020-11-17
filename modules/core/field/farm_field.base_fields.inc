@@ -82,6 +82,17 @@ function farm_field_log_base_fields() {
         'view' => -10,
       ],
     ],
+    'category' => [
+      'type' => 'entity_reference',
+      'label' => t('Log category'),
+      'description' => t('Use this to organize your logs into categories for easier searching and filtering later.'),
+      'target_type' => 'taxonomy_term',
+      'multiple' => TRUE,
+      'weight' => [
+        'form' => 10,
+        'view' => 80,
+      ],
+    ],
     'data' => [
       'type' => 'string_long',
       'label' => t('Data'),
