@@ -19,6 +19,26 @@ function farm_field_asset_base_fields() {
       'label' => t('Data'),
       'hidden' => TRUE,
     ],
+    'file' => [
+      'type' => 'file',
+      'label' => t('Files'),
+      'file_directory' => 'farm/asset/[date:custom:Y]-[date:custom:m]',
+      'multiple' => TRUE,
+      'weight' => [
+        'form' => 90,
+        'view' => 90,
+      ],
+    ],
+    'image' => [
+      'type' => 'image',
+      'label' => t('Images'),
+      'file_directory' => 'farm/asset/[date:custom:Y]-[date:custom:m]',
+      'multiple' => TRUE,
+      'weight' => [
+        'form' => 89,
+        'view' => 89,
+      ],
+    ],
     'notes' => [
       'type' => 'text_long',
       'label' => t('Notes'),
@@ -44,6 +64,26 @@ function farm_field_log_base_fields() {
       'type' => 'string_long',
       'label' => t('Data'),
       'hidden' => TRUE,
+    ],
+    'file' => [
+      'type' => 'file',
+      'label' => t('Files'),
+      'file_directory' => 'farm/log/[date:custom:Y]-[date:custom:m]',
+      'multiple' => TRUE,
+      'weight' => [
+        'form' => 90,
+        'view' => 90,
+      ],
+    ],
+    'image' => [
+      'type' => 'image',
+      'label' => t('Images'),
+      'file_directory' => 'farm/log/[date:custom:Y]-[date:custom:m]',
+      'multiple' => TRUE,
+      'weight' => [
+        'form' => 89,
+        'view' => 89,
+      ],
     ],
     'notes' => [
       'type' => 'text_long',
