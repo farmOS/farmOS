@@ -124,6 +124,17 @@ function farm_field_log_base_fields() {
         'view' => 0,
       ],
     ],
+    'owner' => [
+      'type' => 'entity_reference',
+      'label' => t('Assigned to'),
+      'description' => t('Optionally assign this task to one or more people.'),
+      'target_type' => 'user',
+      'multiple' => TRUE,
+      'weight' => [
+        'form' => -70,
+        'view' => -70,
+      ],
+    ],
   ];
   $fields = [];
   foreach ($field_info as $name => $info) {
