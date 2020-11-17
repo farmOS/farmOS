@@ -19,6 +19,14 @@ function farm_field_asset_base_fields() {
       'label' => t('Data'),
       'hidden' => TRUE,
     ],
+    'notes' => [
+      'type' => 'text_long',
+      'label' => t('Notes'),
+      'weight' => [
+        'form' => 0,
+        'view' => 0,
+      ],
+    ],
   ];
   $fields = [];
   foreach ($field_info as $name => $info) {
@@ -36,6 +44,14 @@ function farm_field_log_base_fields() {
       'type' => 'string_long',
       'label' => t('Data'),
       'hidden' => TRUE,
+    ],
+    'notes' => [
+      'type' => 'text_long',
+      'label' => t('Notes'),
+      'weight' => [
+        'form' => 0,
+        'view' => 0,
+      ],
     ],
   ];
   $fields = [];
