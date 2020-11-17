@@ -13,14 +13,36 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
  * Define common asset base fields.
  */
 function farm_field_asset_base_fields() {
-  return [];
+  $field_info = [
+    'data' => [
+      'type' => 'string_long',
+      'label' => t('Data'),
+      'hidden' => TRUE,
+    ],
+  ];
+  $fields = [];
+  foreach ($field_info as $name => $info) {
+    $fields[$name] = farm_field_base_field_definition($info);
+  }
+  return $fields;
 }
 
 /**
  * Define common log base fields.
  */
 function farm_field_log_base_fields() {
-  return [];
+  $field_info = [
+    'data' => [
+      'type' => 'string_long',
+      'label' => t('Data'),
+      'hidden' => TRUE,
+    ],
+  ];
+  $fields = [];
+  foreach ($field_info as $name => $info) {
+    $fields[$name] = farm_field_base_field_definition($info);
+  }
+  return $fields;
 }
 
 /**
