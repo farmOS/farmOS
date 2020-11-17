@@ -93,6 +93,10 @@ function farm_field_base_field_definition(array $options = []) {
     case 'text_long':
       farm_field_base_field_definition_text($field, $options);
       break;
+    case 'file':
+    case 'image':
+      farm_field_base_field_definition_file($field, $options);
+      break;
     default:
       throw new FieldException('Unsupported field type.');
   }
@@ -311,4 +315,97 @@ function farm_field_base_field_definition_text(BaseFieldDefinition $field, array
     'type' => 'text_default',
     'weight' => $options['weight']['view'] ?? 0,
   ]);
+}
+
+/**
+ * File base field modifier.
+ *
+ * @param \Drupal\Core\Field\BaseFieldDefinition &$field
+ *   A base field definition object.
+ * @param array $options
+ *   An array of options.
+ */
+function farm_field_base_field_definition_file(BaseFieldDefinition &$field, array $options = []) {
+
+  // Determine the upload directory.
+  $file_directory = 'farm/[date:custom:Y]-[date:custom:m]';
+  if (!empty($options['file_directory'])) {
+    $file_directory = $options['file_directory'];
+  }
+
+  // Set field settings.
+  $settings = [
+    'file_directory' => $file_directory,
+    'max_filesize' => '',
+    'handler' => 'file',
+    'handler_settings' => [],
+  ];
+  switch ($options['type']) {
+
+    case 'file':
+      $settings['file_extensions'] = 'csv doc docx gz kml kmz logz mp3 odp ods odt ogg pdf ppt pptx tar txt wav xls xlsx zip';
+      $settings['description_field'] = TRUE;
+      break;
+
+    case 'image':
+      $settings['file_extensions'] = 'png gif jpg jpeg';
+      $settings['max_resolution'] = '';
+      $settings['min_resolution'] = '';
+      $settings['alt_field'] = FALSE;
+      $settings['alt_field_required'] = FALSE;
+      $settings['title_field'] = FALSE;
+      $settings['title_field_required'] = FALSE;
+      $settings['default_image'] = [
+        'uuid' => '',
+        'alt' => '',
+        'title' => '',
+        'width' => NULL,
+        'height' => NULL,
+      ];
+      break;
+
+  }
+  $field->setSettings($settings);
+
+  // Build form and view display settings.
+  switch ($options['type']) {
+    case 'file':
+      $form_display_options = [
+        'type' => 'file_generic',
+        'settings' => [
+          'progress_indicator' => 'throbber',
+        ],
+        'weight' => $options['weight']['form'] ?? 0,
+      ];
+      $view_display_options = [
+        'type' => 'file_table',
+        'label' => 'visually_hidden',
+        'settings' => [
+          'use_description_as_link_text' => TRUE,
+        ],
+        'weight' => $options['weight']['view'] ?? 0,
+      ];
+      break;
+    case 'image':
+      $form_display_options = [
+        'type' => 'image_image',
+        'settings' => [
+          'preview_image_style' => 'medium',
+          'progress_indicator' => 'throbber',
+        ],
+        'weight' => $options['weight']['form'] ?? 0,
+      ];
+      $view_display_options = [
+        'type' => 'image',
+        'label' => 'visually_hidden',
+        'settings' => [
+          'image_style' => 'large',
+          'image_link' => 'file',
+        ],
+        'weight' => $options['weight']['view'] ?? 0,
+      ];
+      break;
+  }
+  $field->setDisplayOptions('form', $form_display_options);
+  $field->setDisplayOptions('view', $view_display_options);
 }
