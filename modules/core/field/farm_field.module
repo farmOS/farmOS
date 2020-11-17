@@ -38,6 +38,7 @@ function farm_field_entity_base_field_info_alter(&$fields, EntityTypeInterface $
 
   $alter_fields = [
     'name' => [
+      'label' => 'hidden',
       'weight' => -100,
     ],
     'timestamp' => [
@@ -47,7 +48,10 @@ function farm_field_entity_base_field_info_alter(&$fields, EntityTypeInterface $
       'weight' => -80,
     ],
     'created' => [
-      'weight' => 120,
+      'hidden' => TRUE,
+    ],
+    'uid' => [
+      'hidden' => TRUE,
     ],
   ];
   foreach ($alter_fields as $name => $options) {
@@ -64,6 +68,27 @@ function farm_field_entity_base_field_info_alter(&$fields, EntityTypeInterface $
     // Set the field weight.
     if (!empty($options['weight'])) {
       $form_display_options['weight'] = $view_display_options['weight'] = $options['weight'];
+    }
+
+    // Hide the field, if desired.
+    if (!empty($options['hidden'])) {
+      $form_display_options = ['region' => 'hidden'];
+      $view_display_options = ['region' => 'hidden'];
+    }
+
+    // Or, hide the label, if desired.
+    elseif (!empty($options['label']) && $options['label'] == 'hidden') {
+      $view_display_options['label'] = 'hidden';
+    }
+
+    // Otherwise, set the label to inline.
+    else {
+      $view_display_options['label'] = 'inline';
+    }
+
+    // Change state field from transition form to default.
+    if ($name == 'status') {
+      $view_display_options['type'] = 'list_default';
     }
 
     // Save the options.
