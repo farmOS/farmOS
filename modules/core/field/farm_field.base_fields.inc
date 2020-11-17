@@ -47,6 +47,17 @@ function farm_field_asset_base_fields() {
         'view' => 0,
       ],
     ],
+    'parent' => [
+      'type' => 'entity_reference',
+      'label' => t('Parents'),
+      'description' => t('If this asset descends from other assets, they can referenced here to create a lineage relationship.'),
+      'target_type' => 'asset',
+      'multiple' => TRUE,
+      'weight' => [
+        'form' => 40,
+        'view' => 40,
+      ],
+    ],
   ];
   $fields = [];
   foreach ($field_info as $name => $info) {
@@ -60,6 +71,17 @@ function farm_field_asset_base_fields() {
  */
 function farm_field_log_base_fields() {
   $field_info = [
+    'asset' => [
+      'type' => 'entity_reference',
+      'label' => t('Assets'),
+      'description' => t('What assets do this log pertain to?'),
+      'target_type' => 'asset',
+      'multiple' => TRUE,
+      'weight' => [
+        'form' => 50,
+        'view' => -10,
+      ],
+    ],
     'data' => [
       'type' => 'string_long',
       'label' => t('Data'),
