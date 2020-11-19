@@ -1,0 +1,5 @@
+name: farmOS Inventory
+description: Adds inventory features to quantities.
+type: module
+package: farmOS
+core_version_requirement: ^9
