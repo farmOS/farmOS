@@ -236,6 +236,7 @@ class Asset extends RevisionableContentEntityBase implements AssetInterface {
           'placeholder' => '',
         ],
       ])
+      ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
     $fields['created'] = BaseFieldDefinition::create('created')
