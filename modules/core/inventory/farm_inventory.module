@@ -31,9 +31,18 @@ function farm_inventory_entity_base_field_info(EntityTypeInterface $entity_type)
         'weight' => 0,
       ])
       ->setDisplayOptions('form', [
-        // TODO: Limit to only asset types with inventory enabled.
-        'type' => 'entity_reference_autocomplete',
+        'type' => 'entity_browser_entity_reference',
         'weight' => 0,
+        'region' => 'content',
+        'settings' => [
+          'entity_browser' => 'inventory_assets',
+          'field_widget_display' => 'label',
+          'field_widget_remove' => 'true',
+          'field_widget_replace' => 'true',
+          'selection_mode' => 'selection_append',
+          'field_widget_edit' => 'false',
+          'open' => 'false',
+        ],
       ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
