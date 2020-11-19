@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.log.geometry
+    - log.type.purchase
+  module:
+    - geofield
+id: log.purchase.geometry
+field_name: geometry
+entity_type: log
+bundle: purchase
+label: Geometry
+description: 'Add geometry data to this log to describe where it took place.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  backend: geofield_backend_default
+field_type: geofield
