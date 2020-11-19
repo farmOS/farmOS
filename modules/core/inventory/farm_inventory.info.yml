@@ -3,3 +3,7 @@ description: Adds inventory features to quantities.
 type: module
 package: farmOS
 core_version_requirement: ^9
+dependencies:
+  - drupal:field
+  - farm:asset
+  - farm:farm_quantity

@@ -1,0 +1,68 @@
+<?php
+
+/**
+ * @file
+ * Farm Inventory module.
+ */
+
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Field\BaseFieldDefinition;
+
+/**
+ * Implements hook_entity_base_field_info().
+ */
+function farm_inventory_entity_base_field_info(EntityTypeInterface $entity_type) {
+
+  // Start array of fields.
+  $fields = [];
+
+  // Add fields to the farm_quantity entity.
+  if ($entity_type->id() == 'farm_quantity') {
+
+    // Add asset field.
+    $fields['asset'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Asset'))
+      ->setDescription(t('Which asset do you want to adjust the inventory of?'))
+      ->setSetting('target_type', 'asset')
+      ->setCardinality(1)
+      ->setRevisionable(TRUE)
+      ->setDisplayOptions('view', [
+        'type' => 'string',
+        'weight' => 0,
+      ])
+      ->setDisplayOptions('form', [
+        // TODO: Limit to only asset types with inventory enabled.
+        'type' => 'entity_reference_autocomplete',
+        'weight' => 0,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    // Add adjustment field.
+    $fields['adjustment'] = BaseFieldDefinition::create('list_string')
+      ->setLabel(t('Adjustment'))
+      ->setDescription(t('Inventory adjustment.'))
+      ->setRevisionable(TRUE)
+      ->setDefaultValue(NULL)
+      ->setSettings([
+        'allowed_values' => [
+          'increment' => t('Increment'),
+          'decrement' => t('Decrement'),
+          'reset' => t('Reset'),
+        ],
+      ])
+      ->setDisplayOptions('view', [
+        'label' => 'hidden',
+        'type' => 'string',
+        'weight' => 0,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'options_select',
+        'weight' => 0,
+      ])
+      ->setDisplayConfigurable('form', FALSE)
+      ->setDisplayConfigurable('view', FALSE);
+  }
+
+  return $fields;
+}
