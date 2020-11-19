@@ -12,7 +12,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@master
       - name: Set FARMOS_VERSION environment variable
-        run: echo ::set-env name=FARMOS_VERSION::${GITHUB_REF:10}
+        run: echo "FARMOS_VERSION=${GITHUB_REF:10}" >> $GITHUB_ENV
       # This builds the Docker image using the specified FARMOS_VERSION,
       # but notably it does NOT override the default PROJECT_VERSION, so the
       # farmOS Composer project 2.x branch is always used.
