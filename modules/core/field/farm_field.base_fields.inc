@@ -160,22 +160,28 @@ function farm_field_base_field_definition(array $options = []) {
 
   // Delegate to per-type helper functions to fill in more details.
   switch ($options['type']) {
+
     case 'entity_reference':
       farm_field_base_field_definition_entity_reference($field, $options);
       break;
+
     case 'list_string':
       farm_field_base_field_definition_list_string($field, $options);
       break;
+
     case 'file':
     case 'image':
       farm_field_base_field_definition_file($field, $options);
       break;
+
     case 'string':
     case 'string_long':
     case 'text_long':
       break;
+
     default:
       throw new FieldException('Unsupported field type.');
+
   }
 
   // Make the form and view displays configurable.
