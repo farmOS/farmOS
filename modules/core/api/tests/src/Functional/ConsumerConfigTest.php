@@ -23,7 +23,7 @@ class ConsumerConfigTest extends OauthTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
 
     parent::setUp();
 
