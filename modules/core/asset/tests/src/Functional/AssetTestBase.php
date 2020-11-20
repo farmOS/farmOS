@@ -2,17 +2,12 @@
 
 namespace Drupal\Tests\asset\Functional;
 
-use Drupal\Tests\BrowserTestBase;
+use Drupal\Tests\farm\Functional\FarmBrowserTestBase;
 
 /**
  * Tests the asset CRUD.
  */
-abstract class AssetTestBase extends BrowserTestBase {
-
-  /**
-   * {@inheritdoc}
-   */
-  protected $profile = 'farm';
+abstract class AssetTestBase extends FarmBrowserTestBase {
 
   /**
    * Modules to install.
