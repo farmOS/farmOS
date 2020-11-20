@@ -34,7 +34,7 @@ projects[exif_orientation][subdir] = "contrib"
 projects[exif_orientation][version] = "1.2"
 
 projects[features][subdir] = "contrib"
-projects[features][version] = "2.12"
+projects[features][version] = "2.13"
 
 projects[feeds][subdir] = "contrib"
 projects[feeds][version] = "2.0-beta5"
