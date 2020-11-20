@@ -20,6 +20,9 @@ class InstallTest extends FarmBrowserTestBase {
   public static $modules = [
     'simple_oauth',
     'farm_api',
+
+    // @todo Investigate why Views is needed.
+    'views',
   ];
 
   /**
