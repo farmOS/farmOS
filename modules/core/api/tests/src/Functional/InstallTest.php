@@ -2,7 +2,7 @@
 
 namespace Drupal\Tests\farm_api\Functional;
 
-use Drupal\Tests\BrowserTestBase;
+use Drupal\Tests\farm\Functional\FarmBrowserTestBase;
 
 /**
  * Tests hook_install functionality of farm_api module.
@@ -12,12 +12,7 @@ use Drupal\Tests\BrowserTestBase;
  *
  * @group farm
  */
-class InstallTest extends BrowserTestBase {
-
-  /**
-   * {@inheritdoc}
-   */
-  protected $profile = 'farm';
+class InstallTest extends FarmBrowserTestBase {
 
   /**
    * {@inheritdoc}

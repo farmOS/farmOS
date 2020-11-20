@@ -32,7 +32,7 @@ class OauthTestBase extends TokenBearerFunctionalTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
 
     parent::setUp();
 

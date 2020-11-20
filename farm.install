@@ -55,6 +55,14 @@ function farm_install_modules(array &$install_state) {
   // the \Drupal\farm\Form\FarmModulesForm submit method.
   $modules = \Drupal::state()->get('farm.install_modules') ?: [];
 
+  // If this is running in the context of a functional test, do not install any
+  // additional modules. This is a temporary hack.
+  // @see Drupal\Tests\farm\Functional\FarmBrowserTestBase::setUp()
+  // @todo https://www.drupal.org/project/farm/issues/3183739
+  if (!empty($GLOBALS['farm_test'])) {
+    $modules = [];
+  }
+
   // Load a list of all available modules, so that we can display their names.
   $module_handler = \Drupal::service('module_handler');
 

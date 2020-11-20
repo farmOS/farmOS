@@ -2,19 +2,12 @@
 
 namespace Drupal\Tests\farm\Functional;
 
-use Drupal\Tests\BrowserTestBase;
-
 /**
  * Tests integrated functionality of the farmOS profile.
  *
  * @group farm
  */
-class FarmTest extends BrowserTestBase {
-
-  /**
-   * {@inheritdoc}
-   */
-  protected $profile = 'farm';
+class FarmTest extends FarmBrowserTestBase {
 
   /**
    * Tests integrated functionality of the farmOS profile.
