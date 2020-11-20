@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * @file
+ * The farmOS Equipment module.
+ */
+
+use Drupal\Core\Entity\EntityTypeInterface;
+
+/**
+ * Implements hook_entity_base_field_info().
+ */
+function farm_equipment_entity_base_field_info(EntityTypeInterface $entity_type) {
+  $fields = [];
+
+  // Add equipment reference field to logs.
+  if ($entity_type->id() == 'log') {
+    $options = [
+      'type' => 'entity_reference',
+      'label' => t('Equipment used'),
+      'description' => t('What equipment was used?'),
+      'target_type' => 'asset',
+      'multiple' => TRUE,
+    ];
+    $field = farm_field_base_field_definition($options);
+    $field->setSetting('handler', 'default:asset');
+    $field->setSetting('handler_settings', [
+      'target_bundles' => [
+        'equipment' => 'equipment',
+      ],
+      'sort' => [
+        'field' => '_none',
+      ],
+      'auto_create' => FALSE,
+      'auto_create_bundle' => '',
+    ]);
+    $fields['equipment'] = $field;
+  }
+
+  return $fields;
+}

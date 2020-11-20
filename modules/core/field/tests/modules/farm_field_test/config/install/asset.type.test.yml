@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+id: test
+label: Test
+description: ''
+workflow: asset_default
+new_revision: true

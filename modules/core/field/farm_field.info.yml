@@ -1,5 +1,5 @@
 name: farmOS Fields
-description: Provides common field storage definitions for farmOS entity types.
+description: Provides common field configuration for farmOS entity types.
 type: module
 package: farmOS
 core_version_requirement: ^9

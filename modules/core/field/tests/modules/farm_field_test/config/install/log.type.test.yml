@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {  }
+id: test
+label: Test
+description: ''
+name_pattern: 'Test log [log:id]'
+workflow: log_default
+new_revision: true

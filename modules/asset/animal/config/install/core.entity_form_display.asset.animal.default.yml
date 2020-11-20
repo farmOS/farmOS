@@ -1,0 +1,110 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - asset.type.animal
+    - field.field.asset.animal.birthdate
+    - field.field.asset.animal.castrated
+    - field.field.asset.animal.nickname
+    - field.field.asset.animal.sex
+    - image.style.medium
+  module:
+    - farm_id_tag
+    - file
+    - image
+    - text
+id: asset.animal.default
+targetEntityType: asset
+bundle: animal
+mode: default
+content:
+  birthdate:
+    type: datetime_timestamp
+    weight: 15
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  castrated:
+    type: boolean_checkbox
+    weight: 26
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  file:
+    type: file_generic
+    settings:
+      progress_indicator: throbber
+    weight: 90
+    region: content
+    third_party_settings: {  }
+  flag:
+    type: options_buttons
+    weight: -75
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  id_tag:
+    type: id_tag
+    weight: 50
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  image:
+    type: image_image
+    settings:
+      preview_image_style: medium
+      progress_indicator: throbber
+    weight: 89
+    region: content
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: -100
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  nickname:
+    type: string_textfield
+    weight: 10
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  notes:
+    type: text_textarea
+    settings:
+      rows: 5
+      placeholder: ''
+    weight: 0
+    region: content
+    third_party_settings: {  }
+  parent:
+    type: entity_reference_autocomplete
+    weight: 40
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    region: content
+    third_party_settings: {  }
+  sex:
+    type: options_select
+    weight: 20
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    type: options_select
+    weight: -80
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  data: true
+  uid: true
