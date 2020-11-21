@@ -2,19 +2,25 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.consumer.client_id
+    - field.storage.consumer.grant_user_access
   enforced:
     module:
       - farm_api
-id: consumer.grant_user_access
+  module:
+    - consumers
+_core:
+  default_config_hash: eu1An6ouEXCy4FmaTJf7Yw3IaFx1Y68F05oZqqDw0UE
+id: consumer.consumer.grant_user_access
 field_name: grant_user_access
 entity_type: consumer
 bundle: consumer
-label: Grant user access
-description: "Always grant the authorizing user's access to this consumer."
+label: 'Grant user access'
+description: 'Always grant the authorizing user''s access to this consumer.'
 required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
-settings: {  }
+settings:
+  on_label: 'On'
+  off_label: 'Off'
 field_type: boolean

@@ -2,16 +2,15 @@ langcode: en
 status: true
 dependencies:
   module:
-    - simple_oauth
-    - farm_api
+    - consumers
   enforced:
     module:
       - farm_api
-id: consumer.limit_requested_scopes
+id: consumer.limit_requested_access
 field_name: limit_requested_access
 entity_type: consumer
 type: boolean
-settings: { }
+settings: {  }
 module: core
 locked: false
 cardinality: 1

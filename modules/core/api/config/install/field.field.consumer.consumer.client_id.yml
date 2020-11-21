@@ -6,11 +6,15 @@ dependencies:
   enforced:
     module:
       - farm_api
-id: consumer.client_id
+  module:
+    - consumers
+_core:
+  default_config_hash: Uz9BW_rPXGFknQkEypFCBd5af6HXJeTpk5sMPjG8hfY
+id: consumer.consumer.client_id
 field_name: client_id
 entity_type: consumer
 bundle: consumer
-label: Client ID
+label: 'Client ID'
 description: 'OAuth client_id associated with this consumer.'
 required: false
 translatable: false

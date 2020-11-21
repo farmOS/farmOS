@@ -2,8 +2,7 @@ langcode: en
 status: true
 dependencies:
   module:
-    - simple_oauth
-    - farm_api
+    - consumers
   enforced:
     module:
       - farm_api
