@@ -58,6 +58,8 @@ projects[fraction][version] = "1.11"
 
 projects[geocoder][subdir] = "contrib"
 projects[geocoder][version] = "1.6"
+; Patch to fix Issue #3181471: No geocoding with empty cache
+projects[geocoder][patch][] = "http://www.drupal.org/files/issues/2020-11-09/no_geocoding_with_empty_cache-3181471-1.patch"
 
 projects[geofield][subdir] = "contrib"
 projects[geofield][version] = "2.4"
