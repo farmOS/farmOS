@@ -13,8 +13,6 @@ dependencies:
   module:
     - consumers
     - image
-_core:
-  default_config_hash: 44kZBsExI7E8xevb2xTkLirs1cIRVmxbmdIDE_zOW1Y
 id: consumer.consumer.default
 targetEntityType: consumer
 bundle: consumer

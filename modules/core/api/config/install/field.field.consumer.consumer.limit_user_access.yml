@@ -8,8 +8,6 @@ dependencies:
       - farm_api
   module:
     - consumers
-_core:
-  default_config_hash: amVANnnQP8u9U8fSXNPnLvokY_jVEAcAZM9g8ZrNFl4
 id: consumer.consumer.limit_user_access
 field_name: limit_user_access
 entity_type: consumer

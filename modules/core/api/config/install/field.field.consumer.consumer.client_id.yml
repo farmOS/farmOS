@@ -8,8 +8,6 @@ dependencies:
       - farm_api
   module:
     - consumers
-_core:
-  default_config_hash: Uz9BW_rPXGFknQkEypFCBd5af6HXJeTpk5sMPjG8hfY
 id: consumer.consumer.client_id
 field_name: client_id
 entity_type: consumer
