@@ -488,3 +488,62 @@ function farm_livestock_birth_log_form_validate(array $form, array &$form_state)
     }
   }
 }
+
+/**
+ * Calculate the inventory for a given animal or group asset.
+ *
+ * This will recursively calculate the inventory of animal assets that are
+ * members of a group at the given timestamp.
+ *
+ * @param \FarmAsset $asset
+ *   The animal or group asset.
+ * @param int $time
+ *   Unix timestamp limiter. Only inventory and group membership logs before
+ *   this time will be included. Defaults to the current time. Set to 0 to load
+ *   the absolute last.
+ * @param bool $done
+ *   Whether or not to only show logs that are marked as "done". TRUE will limit
+ *   to logs that are done, and FALSE will limit to logs that are not done. If
+ *   this is set to NULL, no filtering will be applied. Defaults to TRUE.
+ * @param false $archived
+ *   Whether or not to include archived member assets. Defaults to FALSE.
+ *
+ * @return int
+ *   Returns the total inventory of animal assets, including group members.
+ */
+function farm_livestock_asset_inventory(FarmAsset $asset, $time = REQUEST_TIME, $done = TRUE, $archived = FALSE) {
+
+  // Start count at 0.
+  $count = 0;
+
+  // Calculate inventory of a single animal asset.
+  if ($asset->type == 'animal') {
+
+    // Get inventory at the specified time.
+    $inventory = farm_inventory($asset, $time, $done);
+
+    // Use the inventory if valid.
+    if (!empty($inventory) && is_numeric($inventory)) {
+      $count += $inventory;
+    }
+    // Else increment count by 1.
+    else {
+      $count++;
+    }
+  }
+
+  // Recursively calculate inventory of group assets.
+  if ($asset->type == 'group') {
+
+    // Get group members.
+    $members = farm_group_members($asset, $time, $done, $archived);
+
+    // Get inventory of each member.
+    foreach ($members as $member) {
+      $count += farm_livestock_asset_inventory($member, $time, $done, $archived);
+    }
+  }
+
+  // Return total inventory count.
+  return $count;
+}
