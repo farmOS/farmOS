@@ -33,7 +33,9 @@ jobs:
       # so waiting for that lets us know it is safe to start the tests
         run: until [ -f ./www/test-runner-container-fs-ready ]; do sleep 0.1; done
       - name: Run PHPUnit tests
-        run: docker-compose exec -u www-data -T test-runner phpunit --verbose --debug /opt/drupal/web/profiles/farm
+      # The overridden result printer is needed until Drupal 9.2 when the updated version of HtmlOutputPrinter will be available
+      # https://github.com/drupal/drupal/blob/74fbb0aabdee3e1a5da7b8e489a725afdc5824fd/core/tests/Drupal/Tests/Listeners/HtmlOutputPrinter.php
+        run: docker-compose exec -u www-data -T test-runner paratest --functional --passthru='--printer=PHPUnit\\TextUI\\DefaultResultPrinter' --verbose=1 /opt/drupal/web/profiles/farm
       - name: Run PHP CodeSniffer
         run: docker-compose exec -u www-data -T www phpcs /opt/drupal/web/profiles/farm
       - name: Test Drush site install
