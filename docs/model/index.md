@@ -1,0 +1,36 @@
+# farmOS Data Model
+
+## Goals
+
+The goal of the farmOS data model is to represent and organize a wide variety
+of agricultural and ecological systems to allow for easy access and analysis.
+This ranges from small-scale garden records to industrial agriculture to
+national forestry management.
+
+farmOS can model data that was recorded via manual data entry, as well as data
+streams from sensors or other applications.
+
+## Data types
+
+Data is organized into high-level data types called entities. The two primary
+record keeping entity types are **Assets** and **Logs**. Other entity types
+include **Quantities**, **Terms**, **Plans**, and **Users**.
+
+- [Assets](/model/type/asset)
+- [Logs](/model/type/log)
+- [Quantities](/model/type/quantity)
+- [Terms](/model/type/term)
+- [Plans](/model/type/plan)
+- [Users](/model/type/user)
+
+## Logic
+
+- [Location](/model/logic/location)
+- [Group membership](/model/logic/group)
+
+## Conventions
+
+Beyond the data types that farmOS provides, it is helpful to develop
+conventions around how they are used.
+
+[farmOS Data Conventions](/model/convention)

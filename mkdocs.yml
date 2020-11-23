@@ -1,5 +1,18 @@
 site_name: farmOS 2.x Docs
 nav:
+  - Data model:
+    - Introduction: model/index.md
+    - Data types:
+      - Assets: model/type/asset.md
+      - Logs: model/type/log.md
+      - Quantities: model/type/quantity.md
+      - Terms: model/type/term.md
+      - Plans: model/type/plan.md
+      - Users: model/type/user.md
+    - Logic:
+      - Location: model/logic/location.md
+      - Group membership: model/logic/group.md
+    - Conventions: model/convention/index.md
   - Development:
     - API:
       - Introduction: development/api/index.md
