@@ -297,3 +297,13 @@ In farmOS 2.x, these have been split into two separate fields:
 - `status` - The status of the asset (either `active` or `archived`).
 - `archived` - The timestamp when the asset was archived. This will be empty
   if the asset is active.
+
+### Taxonomies
+
+farmOS 2.x continues to use Drupal's core `taxonomy_term` entities to represent
+vocabularies of terms. The vocabulary machine names have changed, to drop the
+`farm_` prefix, and to standardize plurality.
+
+- `farm_log_categories` -> `log_category`
+- `farm_materials` -> `material`
+- `farm_season` -> `season`
