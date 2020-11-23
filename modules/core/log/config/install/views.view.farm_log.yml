@@ -5,6 +5,9 @@ dependencies:
     - log
     - options
     - user
+  enforced:
+    module:
+      - farm_log
 id: farm_log
 label: farm_log
 module: views
