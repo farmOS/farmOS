@@ -5,7 +5,7 @@ namespace Drupal\farm_dashboard_test\Plugin\Block;
 use Drupal\Core\Block\BlockBase;
 
 /**
- * Provides a 'Powered by farmOS' block.
+ * Provides a dashboard test block.
  *
  * @Block(
  *   id = "dashboard_test_block",
