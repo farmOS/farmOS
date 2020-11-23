@@ -7,7 +7,7 @@ use Drupal\KernelTests\KernelTestBase;
 /**
  * Tests the bundle plugin API.
  *
- * @group farm_field
+ * @group farm
  */
 class FarmFieldTest extends KernelTestBase {
 
