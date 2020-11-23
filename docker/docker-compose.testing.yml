@@ -1,0 +1,28 @@
+version: '3'
+services:
+  db:
+    image: postgres:12
+    volumes:
+      - './db:/var/lib/postgresql/data'
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: farm
+      POSTGRES_PASSWORD: farm
+      POSTGRES_DB: farm
+
+  www:
+    depends_on:
+      - db
+    image: farmos/farmos:2.x-dev
+    volumes:
+      - './www:/opt/drupal'
+
+  test-runner:
+    depends_on:
+      - www
+    image: farmos/farmos:2.x
+    entrypoint: /bin/sh
+    command: -c 'sleep 10 && exec docker-entrypoint.sh apache2-foreground'
+    volumes:
+      - './www:/opt/drupal'
