@@ -45,8 +45,8 @@ class DashboardTest extends FarmBrowserTestBase {
     $this->assertResponse(200);
 
     // Assert that the test block was added.
-    $this->assertText('Dashboard test block label');
-    $this->assertText('This is the dashboard test block.');
+    $this->assertSession()->pageTextContains('Dashboard test block label');
+    $this->assertSession()->pageTextContains('This is the dashboard test block.');
   }
 
   /**
