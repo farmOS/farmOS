@@ -2,19 +2,14 @@
 
 namespace Drupal\Tests\farm_dashboard\Functional;
 
-use Drupal\Tests\BrowserTestBase;
+use Drupal\Tests\farm\Functional\FarmBrowserTestBase;
 
 /**
  * Tests the farmOS dashboard functionality.
  *
  * @group farm
  */
-class DashboardTest extends BrowserTestBase {
-
-  /**
-   * {@inheritdoc}
-   */
-  protected $profile = 'farm';
+class DashboardTest extends FarmBrowserTestBase {
 
   /**
    * Test user.
@@ -27,9 +22,6 @@ class DashboardTest extends BrowserTestBase {
    * {@inheritdoc}
    */
   public static $modules = [
-    'system',
-    'block',
-    'views',
     'farm_dashboard',
     'farm_dashboard_test',
   ];
@@ -37,7 +29,7 @@ class DashboardTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
 
     // Create and login a user with necessary permissions.
