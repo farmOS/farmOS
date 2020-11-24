@@ -23,3 +23,6 @@ nav:
   - Hosting:
     - 1.x Migration: hosting/migration.md
 theme: material
+markdown_extensions:
+  - toc:
+      permalink: true
