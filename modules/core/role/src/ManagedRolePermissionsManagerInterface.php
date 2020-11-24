@@ -12,6 +12,17 @@ use Drupal\user\RoleInterface;
 interface ManagedRolePermissionsManagerInterface {
 
   /**
+   * Checks if the role is a managed role.
+   *
+   * @param \Drupal\user\RoleInterface $role
+   *   The Role to check.
+   *
+   * @return bool
+   *   If the role is a managed role.
+   */
+  public function isManagedRole(RoleInterface $role);
+
+  /**
    * Checks if the role has a specified permission.
    *
    * @param string $permission
