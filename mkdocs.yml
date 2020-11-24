@@ -2,7 +2,7 @@ site_name: farmOS 2.x
 nav:
   - farmOS: index.md
   - Hosting:
-      - 1.x Migration: hosting/migration.md
+    - 1.x Migration: hosting/migration.md
   - API:
     - Introduction: api/index.md
     - Authentication: api/authentication.md
