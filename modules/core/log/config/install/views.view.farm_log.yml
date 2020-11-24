@@ -13,7 +13,7 @@ label: farm_log
 module: views
 description: ''
 tag: ''
-base_table: log_data
+base_table: log_field_data
 base_field: id
 display:
   default:
@@ -165,7 +165,7 @@ display:
           plugin_id: entity_link
         status:
           id: status
-          table: log_data
+          table: log_field_data
           field: status
           relationship: none
           group_type: group
@@ -229,7 +229,7 @@ display:
           plugin_id: field
         timestamp:
           id: timestamp
-          table: log_data
+          table: log_field_data
           field: timestamp
           relationship: none
           group_type: group
@@ -296,7 +296,7 @@ display:
           plugin_id: field
         name:
           id: name
-          table: log_data
+          table: log_field_data
           field: name
           relationship: none
           group_type: group
@@ -361,7 +361,7 @@ display:
           plugin_id: field
         type:
           id: type
-          table: log_data
+          table: log_field_data
           field: type
           relationship: none
           group_type: group
@@ -427,7 +427,7 @@ display:
       filters:
         timestamp:
           id: timestamp
-          table: log_data
+          table: log_field_data
           field: timestamp
           relationship: none
           group_type: group
@@ -474,7 +474,7 @@ display:
           plugin_id: date
         status:
           id: status
-          table: log_data
+          table: log_field_data
           field: status
           relationship: none
           group_type: group
@@ -587,7 +587,7 @@ display:
       filters:
         timestamp:
           id: timestamp
-          table: log_data
+          table: log_field_data
           field: timestamp
           relationship: none
           group_type: group
@@ -634,7 +634,7 @@ display:
           plugin_id: date
         status:
           id: status
-          table: log_data
+          table: log_field_data
           field: status
           relationship: none
           group_type: group
