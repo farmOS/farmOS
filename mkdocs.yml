@@ -27,6 +27,7 @@ theme:
   palette:
     primary: green
     accent: orange
+  favicon: favicon.ico
 markdown_extensions:
   - toc:
       permalink: true
