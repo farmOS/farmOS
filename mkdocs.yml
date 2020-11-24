@@ -22,7 +22,11 @@ nav:
       - Documentation: development/environment/documentation.md
   - Hosting:
     - 1.x Migration: hosting/migration.md
-theme: material
+theme:
+  name: material
+  palette:
+    primary: green
+    accent: orange
 markdown_extensions:
   - toc:
       permalink: true
