@@ -27,6 +27,8 @@ theme:
   palette:
     primary: green
     accent: orange
+  icon:
+    logo: material/leaf
   favicon: favicon.ico
 markdown_extensions:
   - toc:
