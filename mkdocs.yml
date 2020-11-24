@@ -1,12 +1,15 @@
 site_name: farmOS 2.x Docs
 nav:
-  - Hosting:
-    - 1.x Migration: hosting/migration.md
-  - API:
-    - Introduction: api/index.md
-    - Authentication: api/authentication.md
-    - Changes: api/changes.md
   - Development:
+    - API:
+      - Introduction: development/api/index.md
+      - Authentication: development/api/authentication.md
+      - Changes: development/api/changes.md
+    - Module:
+      - Getting started: development/module/index.md
+      - Fields: development/module/fields.md
+      - OAuth: development/module/oauth.md
+      - Roles: development/module/roles.md
     - Environment:
       - Getting started: development/environment/index.md
       - Docker: development/environment/docker.md
@@ -17,11 +20,8 @@ nav:
       - Automated tests: development/environment/tests.md
       - Coding standards: development/environment/code.md
       - Documentation: development/environment/documentation.md
-    - Module:
-      - Getting started: development/module/index.md
-      - Fields: development/module/fields.md
-      - OAuth: development/module/oauth.md
-      - Roles: development/module/roles.md
+  - Hosting:
+    - 1.x Migration: hosting/migration.md
 theme:
   name: mkdocs
   nav_style: light
