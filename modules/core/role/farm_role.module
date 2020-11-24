@@ -40,8 +40,27 @@ function farm_role_form_user_admin_permissions_alter(&$form, FormStateInterface 
   $managed_roles = [];
   foreach ($roles as $role) {
     if ($managed_role_manager->isManagedRole($role)) {
-      $managed_roles[] = $role->id();
+
+      // Calculate the index of the role as displayed in the form.
+      $index = array_search($role->id(), $role_names);
+
+      // Save the role name.
+      $managed_roles[$index] = $role->id();
     }
+  }
+
+  // Append '(managed)' to managed role labels in the table header.
+  foreach ($managed_roles as $index => $role) {
+
+    // Offset by 1 for the first table column.
+    $offset = $index + 1;
+
+    // Build new label.
+    $label = $form['permissions']['#header'][$offset]['data'];
+    $new = $label . ' (' . t('managed') . ')';
+
+    // Set new label.
+    $form['permissions']['#header'][$offset]['data'] = $new;
   }
 
   // Get a list of permissions.
