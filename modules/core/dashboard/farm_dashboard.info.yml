@@ -3,3 +3,6 @@ description: Provides a farmOS dashboard.
 type: module
 package: farmOS
 core_version_requirement: ^9
+dependencies:
+  - drupal:views
+  - drupal:block
