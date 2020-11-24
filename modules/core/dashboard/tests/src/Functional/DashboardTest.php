@@ -7,7 +7,7 @@ use Drupal\Tests\BrowserTestBase;
 /**
  * Tests the farmOS dashboard functionality.
  *
- * @group testing
+ * @group farm
  */
 class DashboardTest extends BrowserTestBase {
 
