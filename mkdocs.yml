@@ -1,6 +1,5 @@
-site_name: farmOS 2.x
+site_name: farmOS 2.x Docs
 nav:
-  - farmOS: index.md
   - Hosting:
     - 1.x Migration: hosting/migration.md
   - API:
@@ -23,4 +22,6 @@ nav:
       - Fields: development/module/fields.md
       - OAuth: development/module/oauth.md
       - Roles: development/module/roles.md
-theme: readthedocs
+theme:
+  name: mkdocs
+  nav_style: light
