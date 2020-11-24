@@ -27,6 +27,7 @@ function farm_modules() {
       'farm_maintenance' => t('Maintenance logs'),
       'farm_role_roles' => t('Default roles: Manager, Worker, Viewer'),
       'farm_api' => t('farmOS API'),
+      'farm_dashboard' => t('farmOS Dashboard'),
     ],
     'optional' => [
       'farm_sensor' => t('Sensor assets'),
