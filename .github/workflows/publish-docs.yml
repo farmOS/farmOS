@@ -20,6 +20,7 @@ jobs:
         run: |
           python3 -m pip install --upgrade pip
           python3 -m pip install mkdocs
+          python3 -m pip install mkdocs-material
       - name: Build static files
         run: mkdocs build
       - name: Deploy to gh-pages

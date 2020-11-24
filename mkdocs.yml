@@ -22,6 +22,4 @@ nav:
       - Documentation: development/environment/documentation.md
   - Hosting:
     - 1.x Migration: hosting/migration.md
-theme:
-  name: mkdocs
-  nav_style: light
+theme: material

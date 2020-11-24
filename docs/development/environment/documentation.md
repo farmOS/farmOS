@@ -6,13 +6,13 @@ documentation which is hosted at [http://2x.farmos.org](http://2x.farmos.org).
 It uses [mkdocs](http://www.mkdocs.org) to convert simple markdown files into
 static HTML files.
 
-To get started contributing to the farmOS 2.x documentation, fork 
+To get started contributing to the farmOS 2.x documentation, fork
 [farmOS](https://github.com/farmOS/farmOS/tree/2.x) on Github. Then install mkdocs and
 clone this repo:
 
     $ brew install python                # For OSX users
     $ sudo apt-get install python-pip    # For Debian/Ubuntu users
-    $ sudo pip install mkdocs mkdocs-bootstrap mkdocs-bootswatch
+    $ sudo pip install mkdocs mkdocs-material
     $ git clone https://github.com/farmOS/farmOS.git farmOS
     $ cd farmOS
     $ git checkout 2.x
