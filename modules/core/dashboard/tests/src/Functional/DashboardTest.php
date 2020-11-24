@@ -66,7 +66,7 @@ class DashboardTest extends FarmBrowserTestBase {
     $this->drupalGet('/dashboard');
     $this->assertResponse(200);
 
-    // Assert that the test view was not added to the dashboard.
+    // Assert that the test view was added to the dashboard.
     $this->assertSession()->pageTextContains('User list');
     $this->assertSession()->pageTextContains($user->getAccountName());
   }
