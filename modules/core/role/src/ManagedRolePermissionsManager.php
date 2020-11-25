@@ -92,6 +92,13 @@ class ManagedRolePermissionsManager extends DefaultPluginManager implements Mana
   /**
    * {@inheritdoc}
    */
+  public function isManagedRole(RoleInterface $role) {
+    return $role->getThirdPartySetting('farm_role', 'access', FALSE);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function isPermissionInRole($permission, RoleInterface $role) {
 
     // Check if permissions have been built for the specified role.
@@ -121,7 +128,7 @@ class ManagedRolePermissionsManager extends DefaultPluginManager implements Mana
     $perms = [];
 
     // If the role does not have farm_role settings, bail.
-    if (!$role->getThirdPartySetting('farm_role', 'access', FALSE)) {
+    if (!$this->isManagedRole($role)) {
       return $perms;
     }
 
