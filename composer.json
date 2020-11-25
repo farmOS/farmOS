@@ -27,7 +27,11 @@
         "drupal/log": "2.x-dev",
         "drupal/migrate_plus": "^5.1",
         "drupal/migrate_tools": "^5.0",
-        "drupal/token": "^1.7"
+        "drupal/token": "^1.7",
+        "lcobucci/jwt": "3.3.3"
+    },
+    "_comments": {
+        "lcobucci/jwt": "Required to fix deprecations in farm_api tests until simple_oauth bumps thephpleague/oauth2_server version. See https://github.com/thephpleague/oauth2-server/issues/1156"
     },
     "require-dev": {
         "drupal/config_update": "^1.7"
