@@ -6,6 +6,6 @@ the command line.
 
 ## Open PostgreSQL prompt
 
-    sudo docker exec -it farmos_www_1 psql -h db -d farm -U farm
+    docker exec -it farmos_www_1 psql -h db -d farm -U farm
 
 Enter `farm` as the password.

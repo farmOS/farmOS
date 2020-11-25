@@ -8,11 +8,11 @@ code standard violations.
 
 The following command will run PHP CodeSniffer on all farmOS code:
 
-    sudo docker exec -it -u www-data farmos_www_1 phpcs /opt/drupal/web/profiles/farm
+    docker exec -it -u www-data farmos_www_1 phpcs /opt/drupal/web/profiles/farm
 
 If you see no output, then there are no issues.
 
 In some cases, code standard violations can be fixed automatically with
 `phpcbf`:
 
-    sudo docker exec -it -u www-data farmos_www_1 phpcbf /opt/drupal/web/profiles/farm
+    docker exec -it -u www-data farmos_www_1 phpcbf /opt/drupal/web/profiles/farm
