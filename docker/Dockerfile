@@ -2,7 +2,7 @@
 FROM drupal:7
 
 # Set the farmOS version to download.
-#ARG FARMOS_VERSION=7.x-1.5
+#ARG FARMOS_VERSION=7.x-1.6
 ARG FARMOS_VERSION=7.x-1.x-dev
 
 # Install the BCMath PHP extension.
