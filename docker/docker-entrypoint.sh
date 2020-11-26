@@ -19,6 +19,10 @@ if [ -d /opt/drupal/web/sites ] && ! [ "$(ls -A /opt/drupal/web/sites/)" ]; then
   cp -rp /var/farmOS/web/sites/. /opt/drupal/web/sites
 fi
 
+if [ -n "$FARMOS_FS_READY_SENTINEL_FILENAME" ]; then
+  echo "ready" > "$FARMOS_FS_READY_SENTINEL_FILENAME"
+fi
+
 # Execute the arguments passed into this script.
 echo "Attempting: $@"
 exec "$@"
