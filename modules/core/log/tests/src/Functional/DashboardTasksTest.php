@@ -85,7 +85,7 @@ class DashboardTasksTest extends FarmBrowserTestBase {
     $this->assertSession()->pageTextContains('Upcoming tasks');
 
     // Assert that the log is not displayed.
-    $this->assertSession()->pageTextContains('No tasks are currently planned.');
+    $this->assertSession()->pageTextContains('No logs found.');
 
     // Mark the log as pending in the future.
     $this->log->status = 'pending';
