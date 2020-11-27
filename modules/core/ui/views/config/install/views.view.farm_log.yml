@@ -5,8 +5,11 @@ dependencies:
     module:
       - farm_ui_views
   module:
+    - csv_serialization
     - log
     - options
+    - rest
+    - serialization
     - user
 id: farm_log
 label: 'Farm Logs'
@@ -1875,6 +1878,70 @@ display:
         - url.query_args
         - user.permissions
       tags: {  }
+  csv:
+    display_plugin: rest_export
+    id: csv
+    display_title: 'CSV export (rest)'
+    position: 7
+    display_options:
+      display_extenders: {  }
+      path: logs.csv
+      style:
+        type: serializer
+        options:
+          uses_fields: false
+          formats:
+            csv: csv
+      auth:
+        - cookie
+      row:
+        type: data_field
+        options:
+          field_options:
+            log_bulk_form:
+              alias: ''
+              raw_output: false
+            status:
+              alias: ''
+              raw_output: false
+            id:
+              alias: ''
+              raw_output: false
+            timestamp:
+              alias: ''
+              raw_output: false
+            name:
+              alias: ''
+              raw_output: false
+            type:
+              alias: ''
+              raw_output: false
+            asset_target_id:
+              alias: ''
+              raw_output: false
+            flag_value:
+              alias: ''
+              raw_output: false
+            category_target_id:
+              alias: ''
+              raw_output: false
+            owner_target_id:
+              alias: ''
+              raw_output: false
+      pager:
+        type: none
+        options:
+          offset: 0
+      display_description: ''
+    cache_metadata:
+      max-age: 0
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - request_format
+        - url
+        - user.permissions
+      tags: {  }
   page_1:
     display_plugin: page
     id: page_1
@@ -1884,6 +1951,30 @@ display:
       display_extenders: {  }
       path: logs
       display_description: ''
+      footer:
+        result:
+          id: result
+          table: views
+          field: result
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          content: 'Displaying @start - @end of @total'
+          plugin_id: result
+        display_link:
+          id: display_link
+          table: views
+          field: display_link
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          display_id: csv
+          label: 'Export CSV'
+          plugin_id: display_link
+      defaults:
+        footer: false
     cache_metadata:
       max-age: 0
       contexts:

@@ -4,6 +4,8 @@ type: module
 package: farmOS UI
 core_version_requirement: ^9
 dependencies:
+  - csv_serialization:csv_serialization
   - date_popup:date_popup
+  - drupal:rest
   - farm:asset
   - log:log

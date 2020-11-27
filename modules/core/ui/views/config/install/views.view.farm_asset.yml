@@ -8,8 +8,11 @@ dependencies:
       - farm_ui_views
   module:
     - asset
+    - csv_serialization
     - image
     - options
+    - rest
+    - serialization
     - user
 id: farm_asset
 label: 'Farm Assets'
@@ -691,6 +694,17 @@ display:
           empty: false
           content: 'Displaying @start - @end of @total'
           plugin_id: result
+        display_link:
+          id: display_link
+          table: views
+          field: display_link
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          display_id: csv
+          label: 'Export CSV'
+          plugin_id: display_link
       empty:
         area_text_custom:
           id: area_text_custom
@@ -718,6 +732,61 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user.permissions
+      tags: {  }
+  csv:
+    display_plugin: rest_export
+    id: csv
+    display_title: 'CSV export (rest)'
+    position: 2
+    display_options:
+      display_extenders: {  }
+      style:
+        type: serializer
+        options:
+          uses_fields: false
+          formats:
+            csv: csv
+      path: assets.csv
+      auth:
+        - cookie
+      pager:
+        type: none
+        options:
+          offset: 0
+      display_description: ''
+      row:
+        type: data_field
+        options:
+          field_options:
+            asset_bulk_form:
+              alias: ''
+              raw_output: false
+            image_target_id:
+              alias: ''
+              raw_output: false
+            id:
+              alias: ''
+              raw_output: false
+            name:
+              alias: ''
+              raw_output: false
+            type:
+              alias: ''
+              raw_output: false
+            flag_value:
+              alias: ''
+              raw_output: false
+            status:
+              alias: ''
+              raw_output: false
+    cache_metadata:
+      max-age: 0
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - request_format
+        - url
         - user.permissions
       tags: {  }
   page:
