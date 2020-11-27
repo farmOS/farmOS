@@ -1,0 +1,8 @@
+name: farmOS Logs UI
+description: Provides default Views of farmOS Logs.
+type: module
+package: farmOS UI
+core_version_requirement: ^9
+dependencies:
+  - date_popup:date_popup
+  - log:log

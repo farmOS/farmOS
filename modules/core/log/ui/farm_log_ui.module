@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * @file
+ * The farmOS Logs UI module.
+ */
+
+/**
+ * Implements hook_farm_dashboard_panes().
+ */
+function farm_log_ui_farm_dashboard_panes() {
+  return [
+    'upcoming_tasks' => [
+      'view' => 'farm_log',
+      'view_display_id' => 'block_upcoming',
+      'group' => 'logs',
+      'weight' => 10,
+    ],
+    'late_tasks' => [
+      'view' => 'farm_log',
+      'view_display_id' => 'block_late',
+      'group' => 'logs',
+      'weight' => 11,
+    ],
+  ];
+}
