@@ -5,4 +5,5 @@ package: farmOS UI
 core_version_requirement: ^9
 dependencies:
   - date_popup:date_popup
+  - farm:asset
   - log:log
