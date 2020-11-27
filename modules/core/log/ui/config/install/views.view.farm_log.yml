@@ -3,7 +3,7 @@ status: true
 dependencies:
   enforced:
     module:
-      - farm_log
+      - farm_log_ui
   module:
     - log
     - options

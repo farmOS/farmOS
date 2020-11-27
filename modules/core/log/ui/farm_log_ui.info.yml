@@ -1,5 +1,5 @@
-name: farmOS Logs
-description: Provides integration with the Log module.
+name: farmOS Logs UI
+description: Provides default Views of farmOS Logs.
 type: module
 package: farmOS
 core_version_requirement: ^9
