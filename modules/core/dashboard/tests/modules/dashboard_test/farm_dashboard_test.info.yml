@@ -1,0 +1,7 @@
+name: Farm Dashboard module tests
+description: Support module for dashboard.
+type: module
+package: Testing
+core_version_requirement: ^9
+dependencies:
+  - farm:farm_dashboard

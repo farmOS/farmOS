@@ -1,0 +1,12 @@
+langcode: en
+status: true
+id: dashboard_test
+theme: claro
+weight: 1000
+provider: null
+plugin: dashboard_test_block
+settings:
+  label: 'Dashboard test block label'
+  provider: farm_dashboard_test
+  label_display: '1'
+visibility: {  }
