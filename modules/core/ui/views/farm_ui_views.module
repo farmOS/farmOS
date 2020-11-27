@@ -2,13 +2,13 @@
 
 /**
  * @file
- * The farmOS Logs UI module.
+ * The farmOS UI Views module.
  */
 
 /**
  * Implements hook_farm_dashboard_panes().
  */
-function farm_log_ui_farm_dashboard_panes() {
+function farm_ui_views_farm_dashboard_panes() {
   return [
     'upcoming_tasks' => [
       'view' => 'farm_log',

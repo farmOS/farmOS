@@ -1,12 +1,12 @@
 <?php
 
-namespace Drupal\Tests\farm_log_ui\Functional;
+namespace Drupal\Tests\farm_ui_views\Functional;
 
 use Drupal\log\Entity\Log;
 use Drupal\Tests\farm\Functional\FarmBrowserTestBase;
 
 /**
- * Tests the farm_log_ui dashboard panes.
+ * Tests the farm_ui_views dashboard panes.
  *
  * @group farm
  */
@@ -39,7 +39,7 @@ class DashboardTasksTest extends FarmBrowserTestBase {
   public static $modules = [
     'farm_observation',
     'farm_dashboard',
-    'farm_log_ui',
+    'farm_ui_views',
   ];
 
   /**

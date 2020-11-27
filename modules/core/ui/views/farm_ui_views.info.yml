@@ -1,5 +1,5 @@
-name: farmOS Logs UI
-description: Provides default Views of farmOS Logs.
+name: farmOS UI Views
+description: Provides default Views of farmOS entities.
 type: module
 package: farmOS UI
 core_version_requirement: ^9
