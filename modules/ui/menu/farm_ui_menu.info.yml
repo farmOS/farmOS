@@ -4,4 +4,5 @@ type: module
 package: farmOS UI
 core_version_requirement: ^9
 dependencies:
+  - admin_toolbar:admin_toolbar
   - drupal:toolbar
