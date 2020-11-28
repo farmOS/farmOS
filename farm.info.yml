@@ -21,6 +21,5 @@ install:
   - block
   - dblog
   - farm_settings
-  - toolbar
 themes:
   - claro
