@@ -48,6 +48,28 @@ function farm_flag_entity_base_field_info(EntityTypeInterface $entity_type) {
 }
 
 /**
+ * Implements hook_views_data_alter().
+ */
+function farm_flag_views_data_alter(array &$data) {
+
+  // Because Drupal core does not provide full Views integration for base fields
+  // we must manually specify the list_field views filter for the flag field.
+  // Define the views filter settings.
+  $flag_filter = [
+    'id' => 'list_field',
+    'field_name' => 'flag',
+    'allow_empty' => TRUE,
+  ];
+
+  // Add the filter settings to all flag fields.
+  // @todo Add filter for the plan entity flag field.
+  $data['log__flag']['flag_value']['filter'] = $flag_filter;
+  $data['log_revision_flag']['flag_value']['filter'] = $flag_filter;
+  $data['asset__flag']['flag_value']['filter'] = $flag_filter;
+  $data['asset_revision_flag']['flag_value']['filter'] = $flag_filter;
+}
+
+/**
  * Allowed values callback function for the flags field.
  *
  * @return array
