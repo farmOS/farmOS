@@ -682,6 +682,52 @@ display:
           entity_type: asset
           entity_field: type
           plugin_id: bundle
+        flag_value:
+          id: flag_value
+          table: asset__flag
+          field: flag_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: flag_value_op
+            label: Flags
+            description: ''
+            use_operator: false
+            operator: flag_value_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: flag_value
+            required: false
+            remember: false
+            multiple: true
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              farm_manager: '0'
+              farm_viewer: '0'
+              farm_worker: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          entity_type: asset
+          entity_field: flag
+          plugin_id: list_field
       sorts: {  }
       header: {  }
       footer:
