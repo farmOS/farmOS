@@ -154,6 +154,15 @@ use Drupal\user\RoleInterface;
  */
 class CustomPermissions {
 
+  /**
+   * Return an array of permission strings that will be added to the role.
+   *
+   * @param \Drupal\user\RoleInterface $role
+   *   The role to add permissions to.
+   *
+   * @return array
+   *   An array of permission strings.
+   */
   public function permissions(RoleInterface $role) {
 
     // Array of permissions to return.
