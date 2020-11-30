@@ -21,6 +21,18 @@ about all available resources. The root endpoint for schema information is
 In farmOS 1.x, the `/farm.json` endpoint provided similar information in the
 `resources` property. This has been removed in favor of JSON Schema.
 
+### Authentication
+
+See [API Authentication](/development/api/authentication) for more information
+about authorizing and authenticating farmOS 2.x API requests.
+
+Notable changes from 1.x include:
+
+- The new authorization URL is `/oauth/authorize` (was `/oauth2/authorize`).
+- The new token URL is `/oauth/token` (was `/oauth2/token`).
+- Requests should use `Content-Type: application/vnd.api+json` (was
+  `Content-Type: application/json`).
+
 ### Farm info endpoint
 
 In farmOS 1.x, an informational API endpoint was provided at `/farm.json`. This
