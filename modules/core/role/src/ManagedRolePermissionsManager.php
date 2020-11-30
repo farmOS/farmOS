@@ -204,6 +204,8 @@ class ManagedRolePermissionsManager extends DefaultPluginManager implements Mana
 
           // View.
           if (!empty($entity_settings['view all'])) {
+            $perms[] = 'view any ' . $entity_type;
+            $perms[] = 'view own ' . $entity_type;
             $permission_rules[$entity_type]['view any'] = ['all'];
             $permission_rules[$entity_type]['view own'] = ['all'];
           }
