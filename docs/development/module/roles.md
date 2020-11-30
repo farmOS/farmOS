@@ -48,9 +48,10 @@ defines the structure of these settings.
 Settings used for the Manager role (full access to all entities + access to
 configuration):
 
+`user.role.farm_manager.yml`
+
 ```yaml
-# user.role.farm_manager.yml
-... standard role config ...
+# (standard role config goes here)
 third_party_settings:
   farm_role:
     access:
@@ -70,9 +71,10 @@ Example settings to define a "Harvester" role with these limitations:
 * Only update planting assets.
 * View, edit and delete any taxonomy_term entity.
 
+`user.role.farm_harvester.yml`
+
 ```yaml
-# user.role.farm_harvester.yml
-... standard role config ...
+# (standard role config goes here)
 third_party_settings:
   farm_role:
     access:
@@ -113,8 +115,9 @@ are provided by creating a `ManagedRolePermissions` plugin in the
 
 As an example, the `farm_role` module provides the following permissions:
 
+`farm_role.managed_role_permissions.yml`
+
 ```yaml
-# farm_role.managed_role_permissions.yml
 farm_role:
   default_permissions:
     - access content
@@ -131,8 +134,9 @@ Example that adds permissions conditionally based on the role name and settings:
 
 Plugin definition:
 
+`my_module.managed_role_permissions.yml`
+
 ```yaml
-# my_module.managed_role_permissions.yml
 my_module:
   permission_callbacks:
     - Drupal\my_module\CustomPermissions::permissions
@@ -140,10 +144,10 @@ my_module:
 
 Example implementation of a `permission_callback`:
 
+`my_module/src/CustomPermissions.php`
+
 ```php
 <?php
-
-# my_module/src/CustomPermissions.php
 
 namespace Drupal\my_module;
 
