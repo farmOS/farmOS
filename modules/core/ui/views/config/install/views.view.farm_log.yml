@@ -1942,9 +1942,9 @@ display:
         - url
         - user.permissions
       tags: {  }
-  page_1:
+  page:
     display_plugin: page
-    id: page_1
+    id: page
     display_title: 'All logs (page)'
     position: 1
     display_options:
