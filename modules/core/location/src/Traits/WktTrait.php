@@ -8,6 +8,21 @@ namespace Drupal\farm_location\Traits;
 trait WktTrait {
 
   /**
+   * Reduce a WKT geometry.
+   *
+   * @param string $wkt
+   *   The geometry in WKT format.
+   *
+   * @return string
+   *   The reduced geometry in WKT format.
+   */
+  public function reduceWkt(string $wkt) {
+    $geometry = \geoPHP::load($wkt, 'wkt');
+    $geometry = \geoPHP::geometryReduce($geometry);
+    return $geometry->out('wkt');
+  }
+
+  /**
    * Combine WKT geometries.
    *
    * This does not use Geometry::union(), which is only available when GEOS is
@@ -88,12 +103,8 @@ trait WktTrait {
       $wkt = 'GEOMETRYCOLLECTION (' . $wkt . ')';
     }
 
-    // Convert to a final GeoPHP geometry object and reduce the geometry.
-    $geometry = \geoPHP::load($wkt, 'wkt');
-    $geometry = \geoPHP::geometryReduce($geometry);
-
-    // Convert back to WKT.
-    $wkt = $geometry->out('wkt');
+    // Reduce the geometry.
+    $wkt = $this->reduceWkt($wkt);
 
     // Return the combined WKT.
     return $wkt;
