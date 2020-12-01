@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_plant_type
+name: Crop family
+vid: crop_family
+description: 'A list of crop families.'
+weight: 0
