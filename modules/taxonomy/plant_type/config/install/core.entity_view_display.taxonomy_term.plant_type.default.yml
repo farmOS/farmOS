@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.plant_type.crop_family
+    - taxonomy.vocabulary.plant_type
+  module:
+    - text
+id: taxonomy_term.plant_type.default
+targetEntityType: taxonomy_term
+bundle: plant_type
+mode: default
+content:
+  crop_family:
+    type: entity_reference_label
+    weight: 1
+    region: content
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+  description:
+    label: hidden
+    type: text_default
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }
