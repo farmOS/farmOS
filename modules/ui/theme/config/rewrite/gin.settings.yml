@@ -1,3 +1,8 @@
 classic_toolbar: vertical
 preset_accent_color: green
 preset_focus_color: orange
+icon_default: false
+icon_path: 'profiles/farm/modules/ui/theme/logo.png'
+favicon:
+  use_default: false
+  path: 'profiles/farm/modules/ui/theme/favicon.ico'
