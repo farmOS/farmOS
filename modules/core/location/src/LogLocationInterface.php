@@ -32,6 +32,21 @@ interface LogLocationInterface {
   public function hasGeometry(LogInterface $log): bool;
 
   /**
+   * Check if a log has a custom geometry.
+   *
+   * This is determined by checking to see if the log's geometry matches that
+   * of the location assets it references. If it does not, and it is not empty,
+   * them we assume it has a custom geometry.
+   *
+   * @param \Drupal\log\Entity\LogInterface $log
+   *   The Log entity.
+   *
+   * @return bool
+   *   Returns TRUE if it matches, FALSE otherwise.
+   */
+  public function hasCustomGeometry(LogInterface $log): bool;
+
+  /**
    * Populate a log's geometry based on its location.
    *
    * @param \Drupal\log\Entity\LogInterface $log

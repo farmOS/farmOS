@@ -50,6 +50,29 @@ class LogLocation implements LogLocationInterface {
   /**
    * {@inheritdoc}
    */
+  public function hasCustomGeometry(LogInterface $log): bool {
+
+    // If the log's geometry is empty, then it does not have a custom geometry.
+    if (!$this->hasGeometry($log)) {
+      return FALSE;
+    }
+
+    // Load location assets referenced by the log.
+    $locations = $log->{static::LOG_FIELD_LOCATION}->referencedEntities();
+
+    // Get the combined location asset geometry.
+    $location_geometry = $this->getCombinedAssetGeometry($locations);
+
+    // Get the log geometry.
+    $log_geometry = $log->get(static::LOG_FIELD_GEOMETRY)->getValue();
+
+    // Compare the log and location geometries.
+    return $log_geometry != $location_geometry;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function populateGeometry(LogInterface $log): void {
 
     // Load location assets referenced by the log.
