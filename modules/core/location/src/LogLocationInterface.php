@@ -74,6 +74,6 @@ interface LogLocationInterface {
    * @param \Drupal\log\Entity\LogInterface $log
    *   The Log entity.
    */
-  public function populateGeometry(LogInterface $log): void;
+  public function populateGeometryFromLocation(LogInterface $log): void;
 
 }

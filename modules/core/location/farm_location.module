@@ -49,7 +49,7 @@ function farm_location_log_presave(LogInterface $log) {
   }
 
   // Populate the log geometry from the location geometry.
-  $log_location->populateGeometry($log);
+  $log_location->populateGeometryFromLocation($log);
 }
 
 /**

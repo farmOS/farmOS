@@ -87,7 +87,7 @@ class LogLocation implements LogLocationInterface {
   /**
    * {@inheritdoc}
    */
-  public function populateGeometry(LogInterface $log): void {
+  public function populateGeometryFromLocation(LogInterface $log): void {
 
     // Load location assets referenced by the log.
     $assets = $this->getLocation($log);
