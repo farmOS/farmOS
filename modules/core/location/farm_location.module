@@ -14,7 +14,12 @@ use Drupal\log\Entity\LogInterface;
  * Implements hook_ENTITY_TYPE_presave().
  */
 function farm_location_log_presave(LogInterface $log) {
-  \Drupal::service('log.location')->populateGeometry($log);
+
+  // If the log's geometry is empty, but it references location assets, then
+  // populate the log geometry from the location geometry.
+  if (empty($log->geometry->value) && !empty($log->location->value)) {
+    \Drupal::service('log.location')->populateGeometry($log);
+  }
 }
 
 /**

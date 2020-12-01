@@ -38,11 +38,6 @@ class LogLocation implements LogLocationInterface {
    */
   public function populateGeometry(LogInterface $log): void {
 
-    // If a geometry is already defined, bail.
-    if (!empty($log->{static::LOG_FIELD_GEOMETRY}->value)) {
-      return;
-    }
-
     // Load location assets referenced by the log.
     $locations = $log->{static::LOG_FIELD_LOCATION}->referencedEntities();
 
