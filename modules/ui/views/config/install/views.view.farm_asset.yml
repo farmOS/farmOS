@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - image.style.thumbnail
+    - system.menu.admin
   enforced:
     module:
       - farm_ui_views
@@ -798,6 +799,15 @@ display:
       display_extenders: {  }
       path: assets
       display_description: ''
+      menu:
+        type: normal
+        title: Assets
+        description: ''
+        expanded: true
+        parent: farm.records
+        weight: 0
+        context: '0'
+        menu_name: admin
     cache_metadata:
       max-age: 0
       contexts:
