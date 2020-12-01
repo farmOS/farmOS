@@ -15,10 +15,14 @@ use Drupal\log\Entity\LogInterface;
  */
 function farm_location_log_presave(LogInterface $log) {
 
+  // Load the log.location service.
+  /** @var Drupal\farm_location\LogLocationInterface $log_location */
+  $log_location = \Drupal::service('log.location');
+
   // If the log's geometry is empty, but it references location assets, then
   // populate the log geometry from the location geometry.
-  if (empty($log->geometry->value) && !empty($log->location->value)) {
-    \Drupal::service('log.location')->populateGeometry($log);
+  if (!$log_location->hasGeometry($log) && $log_location->hasLocation($log)) {
+    $log_location->populateGeometry($log);
   }
 }
 

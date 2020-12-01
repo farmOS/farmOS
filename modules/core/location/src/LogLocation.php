@@ -36,6 +36,20 @@ class LogLocation implements LogLocationInterface {
   /**
    * {@inheritdoc}
    */
+  public function hasLocation(LogInterface $log): bool {
+    return !$log->get(static::LOG_FIELD_LOCATION)->isEmpty();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function hasGeometry(LogInterface $log): bool {
+    return !$log->get(static::LOG_FIELD_GEOMETRY)->isEmpty();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function populateGeometry(LogInterface $log): void {
 
     // Load location assets referenced by the log.
