@@ -1,0 +1,10 @@
+/**
+ * @file
+ * Styling for farmOS toolbar.
+ */
+
+/* Logo size and spacing. */
+.toolbar .toolbar-bar #toolbar-item-administration-tray .toolbar-logo img.toolbar-icon-home {
+  max-width: 100px;
+  margin: 40px auto;
+}
