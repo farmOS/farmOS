@@ -56,10 +56,10 @@ class LocationTest extends KernelTestBase {
    */
   public function testPopulateLogGeometry() {
 
-    // Generate random WKT geometries.
-    $geom1 = $this->reduceWkt($this->wktGenerator->WktGenerateGeometry());
-    $geom2 = $this->reduceWkt($this->wktGenerator->WktGenerateGeometry());
-    $geom3 = $this->reduceWkt($this->wktGenerator->WktGenerateGeometry());
+    // Generate random WKT polygons.
+    $geom1 = $this->reduceWkt($this->wktGenerator->wktGeneratePolygon(NULL, 3));
+    $geom2 = $this->reduceWkt($this->wktGenerator->wktGeneratePolygon(NULL, 5));
+    $geom3 = $this->reduceWkt($this->wktGenerator->wktGeneratePolygon(NULL, 7));
 
     // Create two location assets.
     $location1 = Asset::create([
