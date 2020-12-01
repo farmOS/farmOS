@@ -55,21 +55,38 @@ class LogLocation implements LogLocationInterface {
     // Load location assets referenced by the log.
     $locations = $log->{static::LOG_FIELD_LOCATION}->referencedEntities();
 
+    // Get the combined location asset geometry.
+    $wkt = $this->getCombinedAssetGeometry($locations);
+
+    // If the WKT is not empty, set the log geometry.
+    if (!empty($wkt)) {
+      $log->{static::LOG_FIELD_GEOMETRY}->value = $wkt;
+    }
+  }
+
+  /**
+   * Load a combined set of location asset geometries.
+   *
+   * @param \Drupal\asset\Entity\AssetInterface[] $assets
+   *   An array of location assets.
+   *
+   * @return string
+   *   Returns a WKT string of the combined asset geometries.
+   */
+  protected function getCombinedAssetGeometry(array $assets) {
+
     // Collect all the location geometries.
     $geoms = [];
-    foreach ($locations as $location) {
-      if (!empty($location->{static::ASSET_FIELD_GEOMETRY}->value)) {
-        $geoms[] = $location->{static::ASSET_FIELD_GEOMETRY}->value;
+    foreach ($assets as $asset) {
+      if (!empty($asset->{static::ASSET_FIELD_GEOMETRY}->value)) {
+        $geoms[] = $asset->{static::ASSET_FIELD_GEOMETRY}->value;
       }
     }
 
     // Combine the geometries into a single WKT string.
     $wkt = $this->combineWkt($geoms);
 
-    // If the WKT is not empty, set the log geometry.
-    if (!empty($wkt)) {
-      $log->{static::LOG_FIELD_GEOMETRY}->value = $wkt;
-    }
+    return $wkt;
   }
 
 }
