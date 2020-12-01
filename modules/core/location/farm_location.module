@@ -19,11 +19,37 @@ function farm_location_log_presave(LogInterface $log) {
   /** @var Drupal\farm_location\LogLocationInterface $log_location */
   $log_location = \Drupal::service('log.location');
 
-  // If the log's geometry is empty, but it references location assets, then
-  // populate the log geometry from the location geometry.
-  if (!$log_location->hasGeometry($log) && $log_location->hasLocation($log)) {
-    $log_location->populateGeometry($log);
+  // If the log does not reference any location assets, we will have nothing
+  // to copy from, so do nothing.
+  if (!$log_location->hasLocation($log)) {
+    return;
   }
+
+  // If this is a new log and it has a geometry, do nothing.
+  if (empty($log->original) && $log_location->hasGeometry($log)) {
+    return;
+  }
+
+  // If this is an update to an existing log...
+  if (!empty($log->original)) {
+
+    // If the original log has a custom geometry, do nothing.
+    if ($log_location->hasCustomGeometry($log->original)) {
+      return;
+    }
+
+    // If the geometry has changed (and it has not been made empty), do nothing.
+    $old_geometry = $log_location->getGeometry($log->original);
+    $new_geometry = $log_location->getGeometry($log);
+
+    // If the new geometry is not empty, do nothing.
+    if ($old_geometry != $new_geometry && !empty($new_geometry)) {
+      return;
+    }
+  }
+
+  // Populate the log geometry from the location geometry.
+  $log_location->populateGeometry($log);
 }
 
 /**
