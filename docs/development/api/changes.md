@@ -343,3 +343,17 @@ whether or not it is "fixed":
 - `location` - The asset's current location (an asset reference). This will
   always be empty for "fixed" assets. Otherwise, it will mirror the location
   reference field of the asset's most recent movement log.
+
+### Quantities
+
+In farmOS 1.x, log quantities were saved within separate field collection
+entities. farmOS used the RESTful Web Services Field Collection module to
+hide the fact that these were separate entities, allowing their field to be
+accessed and modified in the same request to the host entity.
+
+In farmOS 2.x, log quantities are separate `farm_quantity` entities. This means
+that they are a separate JSONAPI resource `farm_quantity--farm-quantity` and are
+included in the `relationships` property on `logs`. This means that
+adding quantities to a new or existing log, they must be created in a
+separate API request before they can be referenced by the log. Quantities
+still have `measure`, `value`, `unit` and `label` fields.
