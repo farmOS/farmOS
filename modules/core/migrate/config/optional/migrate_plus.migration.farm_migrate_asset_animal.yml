@@ -29,6 +29,14 @@ process:
     plugin: get
     source: id
   # Animal specific fields.
+  animal_type:
+    plugin: sub_process
+    source: field_farm_animal_type
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: farm_migrate_taxonomy_animal_type
+        source: tid
   birthdate:
     plugin: get
     source: field_farm_date
@@ -68,5 +76,6 @@ process:
         plugin: get
         source: location
 migration_dependencies:
-  required: {  }
+  required:
+    - farm_migrate_taxonomy_animal_type
   optional: {  }
