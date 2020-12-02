@@ -304,6 +304,7 @@ farmOS 2.x continues to use Drupal's core `taxonomy_term` entities to represent
 vocabularies of terms. The vocabulary machine names have changed, to drop the
 `farm_` prefix, and to standardize plurality.
 
+- `farm_animal_types` -> `animal_type`
 - `farm_log_categories` -> `log_category`
 - `farm_materials` -> `material`
 - `farm_season` -> `season`
