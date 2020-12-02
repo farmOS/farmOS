@@ -170,7 +170,7 @@ class FarmQuantity extends RevisionableContentEntityBase implements FarmQuantity
       ->setLabel(t('Units'))
       ->setDescription(t('Units of the quantity.'))
       ->setSetting('target_type', 'taxonomy_term')
-      ->setSetting('handler_settings', ['farm_units' => ['farm_units']])
+      ->setSetting('handler_settings', ['target_bundles' => ['unit' => 'unit']])
       ->setSetting('handler', 'default')
       ->setRevisionable(TRUE)
       ->setDisplayOptions('view', [
