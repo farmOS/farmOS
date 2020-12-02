@@ -20,6 +20,17 @@ class Animal extends FarmAssetType {
   public function buildFieldDefinitions() {
     $fields = parent::buildFieldDefinitions();
     $field_info = [
+      'animal_type' => [
+        'type' => 'entity_reference',
+        'label' => $this->t('Species/breed'),
+        'description' => $this->t("Enter this animal asset's species/breed."),
+        'target_type' => 'taxonomy_term',
+        'target_bundle' => 'animal_type',
+        'weight' => [
+          'form' => -90,
+          'view' => 5,
+        ],
+      ],
       'birthdate' => [
         'type' => 'timestamp',
         'label' => $this->t('Birthdate'),
