@@ -42,7 +42,7 @@ class DashboardTest extends FarmBrowserTestBase {
    */
   public function testDashboardBlock() {
     $this->drupalGet('/dashboard');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
 
     // Assert that the test block was added.
     $this->assertSession()->pageTextContains('Dashboard test block label');
@@ -54,7 +54,7 @@ class DashboardTest extends FarmBrowserTestBase {
    */
   public function testDashboardView() {
     $this->drupalGet('/dashboard');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
 
     // Assert that the test view was not added to the dashboard.
     $this->assertSession()->pageTextNotContains('User list');
@@ -64,7 +64,7 @@ class DashboardTest extends FarmBrowserTestBase {
     $this->drupalLogin($user);
 
     $this->drupalGet('/dashboard');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
 
     // Assert that the test view was added to the dashboard.
     $this->assertSession()->pageTextContains('User list');

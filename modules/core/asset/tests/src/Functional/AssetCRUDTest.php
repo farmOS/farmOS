@@ -24,8 +24,8 @@ class AssetCRUDTest extends AssetTestBase {
    */
   public function testFieldsVisibility() {
     $this->drupalGet('asset/add/default');
-    $this->assertResponse('200');
     $assert_session = $this->assertSession();
+    $assert_session->statusCodeEquals(200);
     $assert_session->fieldExists('name[0][value]');
     $assert_session->fieldExists('status');
     $assert_session->fieldExists('revision_log_message[0][value]');
@@ -72,7 +72,7 @@ class AssetCRUDTest extends AssetTestBase {
     $asset->save();
 
     $this->drupalGet($asset->toUrl('canonical'));
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
 
     $this->assertText($edit['name']);
     $this->assertRaw(\Drupal::service('date.formatter')->format(\Drupal::time()->getRequestTime()));

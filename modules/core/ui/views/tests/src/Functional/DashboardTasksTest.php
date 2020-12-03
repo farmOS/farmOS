@@ -70,7 +70,7 @@ class DashboardTasksTest extends FarmBrowserTestBase {
    */
   public function testUpcomingTasks() {
     $this->drupalGet('/dashboard');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
 
     // Assert that the upcoming tasks view was not added.
     $this->assertSession()->pageTextNotContains('Upcoming tasks');
@@ -81,7 +81,7 @@ class DashboardTasksTest extends FarmBrowserTestBase {
 
     // Assert that the upcoming tasks view is added.
     $this->drupalGet('/dashboard');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     $this->assertSession()->pageTextContains('Upcoming tasks');
 
     // Assert that the log is not displayed.
@@ -94,7 +94,7 @@ class DashboardTasksTest extends FarmBrowserTestBase {
 
     // Assert that the upcoming tasks view is added.
     $this->drupalGet('/dashboard');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     $this->assertSession()->pageTextContains('Upcoming tasks');
 
     // Assert that the log is displayed.
@@ -106,7 +106,7 @@ class DashboardTasksTest extends FarmBrowserTestBase {
    */
   public function testLateTasks() {
     $this->drupalGet('/dashboard');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
 
     // Assert that the upcoming tasks view was not added.
     $this->assertSession()->pageTextNotContains('Late tasks');
@@ -117,7 +117,7 @@ class DashboardTasksTest extends FarmBrowserTestBase {
 
     // Assert that the upcoming tasks view is added.
     $this->drupalGet('/dashboard');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     $this->assertSession()->pageTextContains('Late tasks');
 
     // Assert that the log is not displayed.
@@ -130,7 +130,7 @@ class DashboardTasksTest extends FarmBrowserTestBase {
 
     // Assert that the upcoming tasks view is added.
     $this->drupalGet('/dashboard');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     $this->assertSession()->pageTextContains('Late tasks');
 
     // Assert that the log is displayed.
