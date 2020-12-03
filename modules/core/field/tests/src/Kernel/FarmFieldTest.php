@@ -19,7 +19,7 @@ class FarmFieldTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'asset',
     'log',
     'farm_field',

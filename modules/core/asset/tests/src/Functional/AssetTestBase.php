@@ -14,7 +14,7 @@ abstract class AssetTestBase extends FarmBrowserTestBase {
    *
    * @var array
    */
-  public static $modules = [
+  protected static $modules = [
     'asset',
     'asset_test',
     'entity',

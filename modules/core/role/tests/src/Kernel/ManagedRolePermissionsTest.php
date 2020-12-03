@@ -18,7 +18,7 @@ class ManagedRolePermissionsTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'system',
     'user',
     'log',

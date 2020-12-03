@@ -17,7 +17,7 @@ class InstallTest extends FarmBrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'simple_oauth',
     'farm_api',
 

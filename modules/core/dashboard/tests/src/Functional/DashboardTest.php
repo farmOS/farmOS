@@ -21,7 +21,7 @@ class DashboardTest extends FarmBrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'farm_dashboard',
     'farm_dashboard_test',
   ];

@@ -19,7 +19,7 @@ class OauthTestBase extends TokenBearerFunctionalTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'image',
     'node',
     'serialization',

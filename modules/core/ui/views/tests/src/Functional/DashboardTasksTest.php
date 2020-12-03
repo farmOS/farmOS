@@ -36,7 +36,7 @@ class DashboardTasksTest extends FarmBrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'farm_observation',
     'farm_dashboard',
     'farm_ui_views',
