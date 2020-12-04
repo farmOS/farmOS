@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * The farm_map module.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function farm_map_theme($existing, $type, $theme, $path) {
+  return [
+    'farm_map' => [
+      'variables' => [
+        'attributes' => [],
+      ],
+    ],
+  ];
+}
