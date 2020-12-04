@@ -1,0 +1,4 @@
+farm.base:
+  title: farmOS
+  menu_name: admin
+  route_name: '<nolink>'
