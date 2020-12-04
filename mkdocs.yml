@@ -12,6 +12,7 @@ nav:
       - Roles: development/module/roles.md
     - Environment:
       - Getting started: development/environment/index.md
+      - Updating: development/environment/update.md
       - Docker: development/environment/docker.md
       - PostgreSQL: development/environment/postgresql.md
       - Drush: development/environment/drush.md
