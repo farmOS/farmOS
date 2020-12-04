@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * @file
+ * The farmOS UI Menu module.
+ */
+
+/**
+ * Implements hook_menu_links_discovered_alter().
+ */
+function farm_ui_menu_menu_links_discovered_alter(&$links) {
+
+  // Move the root system.admin menu link to the farm.base parent.
+  if (!empty($links['system.admin'])) {
+    $links['system.admin']['parent'] = 'farm.base';
+  }
+}
