@@ -214,7 +214,7 @@ class ManagedRolePermissionsTest extends KernelTestBase {
           $should_have_permission = TRUE;
         }
         $has_permission = $user->hasPermission($operation . ' ' . $bundle . ' log');
-        $this->assertEqual($has_permission, $should_have_permission);
+        $this->assertEquals($should_have_permission, $has_permission);
       }
     }
   }
