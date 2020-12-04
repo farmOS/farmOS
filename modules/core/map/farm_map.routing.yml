@@ -1,0 +1,7 @@
+farm_map.settings:
+  path: 'farm/settings/map'
+  defaults:
+    _form: '\Drupal\farm_map\Form\MapSettingsForm'
+    _title: 'Map settings'
+  requirements:
+    _permission: 'administer farm map module'
