@@ -25,7 +25,8 @@ function farm_map_google_farm_map_view($name, $element) {
   if (!empty($google_api_key)) {
 
     // Add remote Google Maps JavaScript library, with the API key.
-    $url = 'https://maps.googleapis.com/maps/api/js?v=3&key=' . $google_api_key;
+    // See https://developers.google.com/maps/documentation/javascript/versions
+    $url = 'https://maps.googleapis.com/maps/api/js?v=weekly&key=' . $google_api_key;
     drupal_add_js($url, array('type' => 'external', 'weight' => -100));
 
     // Add a farmOS map behavior that will enable Google Maps.
