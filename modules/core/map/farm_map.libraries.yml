@@ -11,6 +11,7 @@ farmOS-map:
   dependencies:
     - core/jquery
     - core/jquery.once
+    - core/drupalSettings
 
 farm_map:
   css:
