@@ -20,4 +20,8 @@ services:
     ports:
       - '80:80'
     environment:
-      XDEBUG_CONFIG: remote_host=172.17.0.1
+      XDEBUG_MODE: debug
+      XDEBUG_CONFIG: client_host=172.17.0.1
+      # Enable these for PHPStorm:
+      #XDEBUG_SESSION: PHPSTORM
+      #PHP_IDE_CONFIG: serverName=localhost

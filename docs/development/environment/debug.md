@@ -1,9 +1,11 @@
 # Debugging
 
 The farmOS development Docker image comes pre-installed with
-[XDebug](https://xdebug.org). In order to connect to it, the `XDEBUG_CONFIG`
-environment variable must be used to configure XDebug's `remote_host` setting
-with the Docker container's "Gateway" IP address.
+[XDebug](https://xdebug.org) 3, which allows debugger connections on port 9003.
+
+In order to connect to it, the `XDEBUG_CONFIG` environment variable must be
+used to configure XDebug's `client_host` setting  with the Docker container's
+"Gateway" IP address.
 
 With the containers running, this command will print the gateway IP:
 
@@ -13,7 +15,8 @@ Edit `docker-compose.yml` and enter the gateway IP in the `XDEBUG_CONFIG`
 environment variable. For example:
 
     environment:
-      XDEBUG_CONFIG: remote_host=192.168.128.1
+      XDEBUG_MODE: debug
+      XDEBUG_CONFIG: client_host=192.168.128.1
 
 Restart the Docker containers for this change to take affect.
 
@@ -32,13 +35,15 @@ execution at your breakpoint.
 
 ### Drush + PHPStorm
 
-Debugging code that is run via [Drush](/development/environment/drush) commands requires
-additional configuration. Add `idekey=PHPSTORM` to the `XDEBUG_CONFIG`
-environment variable, and add a `PHP_IDE_CONFIG` environment variable with
-`serverName=localhost`, as follows:
+Debugging code that is run via [Drush](/development/environment/drush) commands
+requires additional configuration. Add an `XDEBUG_SESSION` environment variable
+with a value of `PHPSTORM`, and a `PHP_IDE_CONFIG` environment variable with a
+value of `serverName=localhost`, as follows:
 
     environment:
-      XDEBUG_CONFIG: remote_host=192.168.128.1 idekey=PHPSTORM
+      XDEBUG_MODE: debug
+      XDEBUG_CONFIG: client_host=192.168.128.1
+      XDEBUG_SESSION: PHPSTORM
       PHP_IDE_CONFIG: serverName=localhost
 
 Run a `drush` command and a prompt should appear in PHPStorm. You will need to
