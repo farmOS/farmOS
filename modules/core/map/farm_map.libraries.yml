@@ -11,3 +11,12 @@ farmOS-map:
   dependencies:
     - core/jquery
     - core/jquery.once
+
+farm_map:
+  css:
+    theme:
+      css/farm_map.css: { }
+  js:
+    js/farm_map.js: { }
+  dependencies:
+    - farm_map/farmOS-map
