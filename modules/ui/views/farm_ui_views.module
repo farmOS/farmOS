@@ -44,3 +44,24 @@ function farm_ui_views_views_pre_view(ViewExecutable $view, $display_id, array &
     $view->removeHandler($display_id, 'filter', 'type');
   }
 }
+
+/**
+ * Implements hook_views_pre_render().
+ */
+function farm_ui_views_views_pre_render(ViewExecutable $view) {
+
+  // We only want to alter the Views we provide.
+  if (!in_array($view->id(), ['farm_asset', 'farm_log'])) {
+    return;
+  }
+
+  // If this is the "By type" display and a bundle argument is specified, load
+  // the bundle label and set the title.
+  if ($view->current_display == 'page_type' && !empty($view->args[0])) {
+    $bundles = \Drupal::service('entity_type.bundle.info')->getBundleInfo($view->getBaseEntityType()->id());
+    $bundle = $view->args[0];
+    if (!empty($bundles[$bundle])) {
+      $view->setTitle($bundles[$bundle]['label'] . ' ' . $view->getBaseEntityType()->getPluralLabel());
+    }
+  }
+}
