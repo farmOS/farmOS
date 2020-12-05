@@ -1,0 +1,8 @@
+farm.asset.type:
+  class: Drupal\Core\Menu\MenuLinkDefault
+  deriver: Drupal\farm_ui_views\Plugin\Derivative\FarmAssetViewsMenuLink
+  parent: views_view:views.farm_asset.page
+farm.log.type:
+  class: Drupal\Core\Menu\MenuLinkDefault
+  deriver: Drupal\farm_ui_views\Plugin\Derivative\FarmLogViewsMenuLink
+  parent: views_view:views.farm_log.page
