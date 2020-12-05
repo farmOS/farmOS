@@ -22,4 +22,4 @@ install:
   - dblog
   - farm_settings
 themes:
-  - claro
+  - gin

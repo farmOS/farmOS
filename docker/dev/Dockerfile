@@ -47,6 +47,7 @@ RUN { \
     echo '    <exclude name="Drupal.Arrays.Array.LongLineDeclaration"/>'; \
     echo '  </rule>'; \
     echo '  <rule ref="DrupalPractice"/>'; \
+    echo '  <rule ref="Internal.Tokenizer.Exception"><severity>0</severity></rule>'; \
     echo '</ruleset>'; \
   } > /var/farmOS/phpcs.xml \
   && /var/farmOS/vendor/bin/phpcs --config-set installed_paths /var/farmOS/vendor/drupal/coder/coder_sniffer

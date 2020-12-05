@@ -29,6 +29,7 @@ function farm_modules() {
       'farm_api' => t('farmOS API'),
       'farm_dashboard' => t('farmOS Dashboard'),
       'farm_ui_views' => t('farmOS UI Views'),
+      'farm_ui_theme' => t('farmOS UI Theme'),
     ],
     'optional' => [
       'farm_sensor' => t('Sensor assets'),

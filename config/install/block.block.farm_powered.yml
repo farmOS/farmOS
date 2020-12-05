@@ -4,9 +4,9 @@ dependencies:
   module:
     - farm
   theme:
-    - claro
+    - gin
 id: farm_powered
-theme: claro
+theme: gin
 region: content
 weight: 1000
 provider: null
