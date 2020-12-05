@@ -19,8 +19,8 @@ use Drupal\user\EntityOwnerTrait;
  *   label = @Translation("Asset"),
  *   bundle_label = @Translation("Asset type"),
  *   label_collection = @Translation("Assets"),
- *   label_singular = @Translation("Asset"),
- *   label_plural = @Translation("Assets"),
+ *   label_singular = @Translation("asset"),
+ *   label_plural = @Translation("assets"),
  *   label_count = @PluralTranslation(
  *     singular = "@count asset",
  *     plural = "@count assets",
