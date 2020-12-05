@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the farm_ui_menu module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function farm_ui_menu_install() {
+
+  // Delete system menus.
+  \Drupal::configFactory()->getEditable('system.menu.footer')->delete();
+  \Drupal::configFactory()->getEditable('system.menu.main')->delete();
+  \Drupal::configFactory()->getEditable('system.menu.tools')->delete();
+}

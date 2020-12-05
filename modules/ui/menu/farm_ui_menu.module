@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * @file
+ * The farmOS UI Menu module.
+ */
+
+use Drupal\farm_ui_menu\Render\Element\FarmAdminToolbar;
+
+/**
+ * Implements hook_menu_links_discovered_alter().
+ */
+function farm_ui_menu_menu_links_discovered_alter(&$links) {
+
+  // Move the root system.admin menu link to the farm.base parent.
+  if (!empty($links['system.admin'])) {
+    $links['system.admin']['parent'] = 'farm.base';
+  }
+}
+
+/**
+ * Implements hook_toolbar_alter().
+ */
+function farm_ui_menu_toolbar_alter(&$items) {
+
+  // Override the toolbar tray prerender method to use farm.base root.
+  $items['administration']['tray']['toolbar_administration']['#pre_render'] = [[FarmAdminToolbar::class, 'preRenderTray']];
+}

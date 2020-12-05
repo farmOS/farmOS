@@ -1,0 +1,3 @@
+farm_ui_menu:
+  default_permissions:
+    - access toolbar

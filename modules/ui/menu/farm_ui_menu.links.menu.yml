@@ -1,0 +1,9 @@
+farm.base:
+  title: farmOS
+  menu_name: admin
+  route_name: '<nolink>'
+farm.records:
+  title: Records
+  parent: farm.base
+  route_name: '<front>'
+  weight: 0

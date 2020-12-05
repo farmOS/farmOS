@@ -1,6 +1,8 @@
 langcode: en
 status: true
 dependencies:
+  config:
+    - system.menu.admin
   enforced:
     module:
       - farm_ui_views
@@ -1975,6 +1977,15 @@ display:
           plugin_id: display_link
       defaults:
         footer: false
+      menu:
+        type: normal
+        title: Logs
+        description: ''
+        expanded: true
+        parent: farm.records
+        weight: 0
+        context: '0'
+        menu_name: admin
     cache_metadata:
       max-age: 0
       contexts:
