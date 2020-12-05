@@ -5,6 +5,8 @@
  * The farmOS UI Views module.
  */
 
+use Drupal\views\ViewExecutable;
+
 /**
  * Implements hook_farm_dashboard_panes().
  */
@@ -23,4 +25,22 @@ function farm_ui_views_farm_dashboard_panes() {
       'weight' => 11,
     ],
   ];
+}
+
+/**
+ * Implements hook_views_pre_view().
+ */
+function farm_ui_views_views_pre_view(ViewExecutable $view, $display_id, array &$args) {
+
+  // We only want to alter the Views we provide.
+  if (!in_array($view->id(), ['farm_asset', 'farm_log'])) {
+    return;
+  }
+
+  // If this is the "By type" display and a type is specified, remove the type
+  // field and filter handlers.
+  if ($display_id == 'page_type' && !empty($args[0])) {
+    $view->removeHandler($display_id, 'field', 'type');
+    $view->removeHandler($display_id, 'filter', 'type');
+  }
 }
