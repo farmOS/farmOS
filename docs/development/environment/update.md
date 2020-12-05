@@ -11,6 +11,12 @@ farmOS Git repository (inside `profiles/farm`) will not be touched. If you
 are developing a custom module, make sure that it is in `sites/all/modules`,
 otherwise it will be deleted.
 
+**PHPStorm**: If you are using PHPStorm, you will also want to make sure the
+`.idea` folder is not destroyed during this process. If it is in the `www`
+directory, be sure to move that out before running `rm -r www` below, and
+restore it afterwards. It is recommended that you close PHPStorm during this
+process to avoid any project settings corruption.
+
 ```
 # Run these commands from the local directory that contains docker-compose.yml.
 # The Docker containers should be running.
