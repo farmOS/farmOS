@@ -96,3 +96,25 @@ function farm_field_entity_base_field_info_alter(&$fields, EntityTypeInterface $
     $fields[$name]->setDisplayOptions('view', $view_display_options);
   }
 }
+
+/**
+ * Implements hook_views_data_alter().
+ */
+function farm_field_views_data_alter(array &$data) {
+
+  // Because Drupal core does not provide full Views integration for base fields
+  // we must manually specify the state_machine_state views filter for the
+  // status field.
+  // Define the views filter settings.
+  $status_filter = [
+    'id' => 'state_machine_state',
+    'field_name' => 'status',
+  ];
+
+  // Add the filter settings to all status fields.
+  // @todo Add filter for the plan entity status field.
+  $data['log_field_data']['status']['filter'] = $status_filter;
+  $data['log_field_revision']['status']['filter'] = $status_filter;
+  $data['asset_field_data']['status']['filter'] = $status_filter;
+  $data['asset_field_revision']['status']['filter'] = $status_filter;
+}
