@@ -13,6 +13,16 @@ use Drupal\views\ViewExecutable;
 function farm_ui_views_farm_dashboard_panes() {
   $panes = [];
 
+  // If the plan module is enabled, add active plans pane.
+  if (\Drupal::service('module_handler')->moduleExists('plan')) {
+    $panes['active_plans'] = [
+      'view' => 'farm_plan',
+      'view_display_id' => 'block_active',
+      'group' => 'plans',
+      'weight' => 0,
+    ];
+  }
+
   // Add upcoming and late logs panes.
   $panes['upcoming_tasks'] = [
     'view' => 'farm_log',
