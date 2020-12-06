@@ -33,7 +33,7 @@ function farm_ui_views_farm_dashboard_panes() {
 function farm_ui_views_views_pre_view(ViewExecutable $view, $display_id, array &$args) {
 
   // We only want to alter the Views we provide.
-  if (!in_array($view->id(), ['farm_asset', 'farm_log'])) {
+  if (!in_array($view->id(), ['farm_asset', 'farm_log', 'farm_plan'])) {
     return;
   }
 
@@ -44,9 +44,9 @@ function farm_ui_views_views_pre_view(ViewExecutable $view, $display_id, array &
     $view->removeHandler($display_id, 'filter', 'type');
   }
 
-  // If this is the "Upcoming" or "Late" block display, add a "more" link that
-  // points to the default page display with appropriate filters.
-  if (in_array($display_id, ['block_upcoming', 'block_late'])) {
+  // If this is the "Upcoming" or "Late" Logs block display, add a "more" link
+  // that points to the default page display with appropriate filters.
+  if ($view->id() == 'farm_log' && in_array($display_id, ['block_upcoming', 'block_late'])) {
     $view->display_handler->setOption('use_more', TRUE);
     $view->display_handler->setOption('use_more_always', TRUE);
     $view->display_handler->setOption('link_display', 'custom_url');
@@ -68,7 +68,7 @@ function farm_ui_views_views_pre_view(ViewExecutable $view, $display_id, array &
 function farm_ui_views_views_pre_render(ViewExecutable $view) {
 
   // We only want to alter the Views we provide.
-  if (!in_array($view->id(), ['farm_asset', 'farm_log'])) {
+  if (!in_array($view->id(), ['farm_asset', 'farm_log', 'farm_plan'])) {
     return;
   }
 
