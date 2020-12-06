@@ -23,24 +23,14 @@ function farm_flag_entity_base_field_info(EntityTypeInterface $entity_type) {
     $options = [
       'type' => 'list_string',
       'label' => t('Flags'),
+      'description' => t('Add flags to enable better sorting and filtering of records.'),
       'multiple' => TRUE,
       'weight' => [
         'form' => -75,
         'view' => -75,
       ],
+      'allowed_values_function' => 'farm_flag_field_allowed_values',
     ];
-    switch ($entity_type->id()) {
-
-      case 'asset':
-        $options['description'] = t('Add flags to this asset to enable better sorting and filtering of records.');
-        break;
-
-      case 'log':
-        $options['description'] = t('Add flags to this log to enable better sorting and filtering of records.');
-        break;
-
-    }
-    $options['allowed_values_function'] = 'farm_flag_field_allowed_values';
     $fields['flag'] = farm_field_base_field_definition($options);
   }
 
