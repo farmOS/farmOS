@@ -4,6 +4,6 @@ type: module
 package: Testing
 core_version_requirement: ^9
 dependencies:
-  - asset:asset
-  - log:log
+  - farm:asset
   - farm:farm_field
+  - log:log
