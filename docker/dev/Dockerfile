@@ -7,6 +7,16 @@ ARG FARMOS_REPO=https://git.drupal.org/project/farm.git
 # Set the farmOS branch to git clone.
 ARG FARMOS_BRANCH=7.x-1.x
 
+# Change the user/group IDs of www-data inside the image to match the ID of the
+# developer's user on the host machine. This allows Composer to create files
+# owned by www-data inside the container, while keeping those files editable by
+# the developer outside of the container.
+# This defaults to 1000, based on the assumption that the developer is running
+# as UID 1000 on the host machine. It can be overridden at image build time with:
+# --build-arg WWW_DATA_ID=$(id -u)
+ARG WWW_DATA_ID=1000
+RUN usermod -u ${WWW_DATA_ID} www-data && groupmod -g ${WWW_DATA_ID} www-data
+
 # Install Xdebug.
 RUN yes | pecl install xdebug-2.9.8 \
 	  && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
