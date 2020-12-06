@@ -2586,7 +2586,7 @@ display:
   page_user:
     display_plugin: page
     id: page_user
-    display_title: 'User logs (page)'
+    display_title: 'Assigned (page)'
     position: 3
     display_options:
       display_extenders: {  }
