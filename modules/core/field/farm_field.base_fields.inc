@@ -111,6 +111,39 @@ function farm_field_log_base_fields() {
 }
 
 /**
+ * Define common plan base fields.
+ */
+function farm_field_plan_base_fields() {
+  $field_info = [
+    'data' => [
+      'type' => 'string_long',
+      'label' => t('Data'),
+    ],
+    'file' => [
+      'type' => 'file',
+      'label' => t('Files'),
+      'file_directory' => 'farm/plan/[date:custom:Y]-[date:custom:m]',
+      'multiple' => TRUE,
+    ],
+    'image' => [
+      'type' => 'image',
+      'label' => t('Images'),
+      'file_directory' => 'farm/plan/[date:custom:Y]-[date:custom:m]',
+      'multiple' => TRUE,
+    ],
+    'notes' => [
+      'type' => 'text_long',
+      'label' => t('Notes'),
+    ],
+  ];
+  $fields = [];
+  foreach ($field_info as $name => $info) {
+    $fields[$name] = farm_field_base_field_definition($info);
+  }
+  return $fields;
+}
+
+/**
  * Helper function for generating a base field definition with farmOS opinions.
  *
  * @param array $options
