@@ -60,13 +60,17 @@ function farm_flag_views_data_alter(array &$data) {
     'field_name' => 'flag',
     'allow_empty' => TRUE,
   ];
-
-  // Add the filter settings to all flag fields.
-  // @todo Add filter for the plan entity flag field.
-  $data['log__flag']['flag_value']['filter'] = $flag_filter;
-  $data['log_revision_flag']['flag_value']['filter'] = $flag_filter;
-  $data['asset__flag']['flag_value']['filter'] = $flag_filter;
-  $data['asset_revision_flag']['flag_value']['filter'] = $flag_filter;
+  $tables = [
+    'asset__flag',
+    'asset_revision__flag',
+    'log__flag',
+    'log_revision__flag',
+  ];
+  foreach ($tables as $table) {
+    if (!empty($data[$table]['flag_value'])) {
+      $data[$table]['flag_value']['filter'] = $flag_filter;
+    }
+  }
 }
 
 /**

@@ -110,11 +110,15 @@ function farm_field_views_data_alter(array &$data) {
     'id' => 'state_machine_state',
     'field_name' => 'status',
   ];
-
-  // Add the filter settings to all status fields.
-  // @todo Add filter for the plan entity status field.
-  $data['log_field_data']['status']['filter'] = $status_filter;
-  $data['log_field_revision']['status']['filter'] = $status_filter;
-  $data['asset_field_data']['status']['filter'] = $status_filter;
-  $data['asset_field_revision']['status']['filter'] = $status_filter;
+  $tables = [
+    'asset_field_data',
+    'asset_field_revision',
+    'log_field_data',
+    'log_field_revision',
+  ];
+  foreach ($tables as $table) {
+    if (!empty($data[$table]['status'])) {
+      $data[$table]['status']['filter'] = $status_filter;
+    }
+  }
 }
