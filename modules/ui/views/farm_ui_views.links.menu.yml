@@ -6,3 +6,7 @@ farm.log.type:
   class: Drupal\Core\Menu\MenuLinkDefault
   deriver: Drupal\farm_ui_views\Plugin\Derivative\FarmLogViewsMenuLink
   parent: views_view:views.farm_log.page
+farm.plan.type:
+  class: Drupal\Core\Menu\MenuLinkDefault
+  deriver: Drupal\farm_ui_views\Plugin\Derivative\FarmPlanViewsMenuLink
+  parent: views_view:views.farm_plan.page
