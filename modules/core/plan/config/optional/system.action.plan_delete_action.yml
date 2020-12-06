@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - plan
+id: plan_delete_action
+label: 'Delete plan'
+type: plan
+plugin: entity:delete_action:plan
+configuration: {  }

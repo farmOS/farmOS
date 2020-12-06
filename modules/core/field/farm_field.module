@@ -24,6 +24,11 @@ function farm_field_entity_base_field_info(EntityTypeInterface $entity_type) {
   elseif ($entity_type->id() == 'log') {
     return farm_field_log_base_fields();
   }
+
+  // Add common base fields to all plan types.
+  elseif ($entity_type->id() == 'plan') {
+    return farm_field_plan_base_fields();
+  }
 }
 
 /**
@@ -31,8 +36,8 @@ function farm_field_entity_base_field_info(EntityTypeInterface $entity_type) {
  */
 function farm_field_entity_base_field_info_alter(&$fields, EntityTypeInterface $entity_type) {
 
-  // Only alter asset and log fields.
-  if (!in_array($entity_type->id(), ['asset', 'log'])) {
+  // Only alter asset, log, and plan fields.
+  if (!in_array($entity_type->id(), ['asset', 'log', 'plan'])) {
     return;
   }
 
@@ -115,6 +120,8 @@ function farm_field_views_data_alter(array &$data) {
     'asset_field_revision',
     'log_field_data',
     'log_field_revision',
+    'plan_field_data',
+    'plan_field_revision',
   ];
   foreach ($tables as $table) {
     if (!empty($data[$table]['status'])) {

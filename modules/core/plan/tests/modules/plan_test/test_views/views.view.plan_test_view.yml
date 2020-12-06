@@ -1,0 +1,46 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - plan
+    - datetime
+    - options
+    - user
+id: plan_test_view
+label: 'plan test view'
+module: views
+description: ''
+tag: ''
+base_table: plan_field_data
+base_field: id
+display:
+  default:
+    display_options:
+      defaults:
+        fields: false
+        pager: false
+        sorts: false
+      row:
+        type: fields
+      fields:
+        id:
+          id: id
+          table: plan_field_data
+          field: id
+          relationship: none
+          entity_type: plan
+          entity_field: id
+          plugin_id: field
+        name:
+          id: name
+          table: plan_field_data
+          field: name
+          relationship: none
+          entity_type: plan
+          entity_field: name
+          plugin_id: field
+      sorts: {  }
+    display_plugin: default
+    display_title: Master
+    id: default
+    position: 0

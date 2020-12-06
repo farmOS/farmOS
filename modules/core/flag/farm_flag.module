@@ -13,8 +13,8 @@ use Drupal\Core\Entity\EntityTypeInterface;
 function farm_flag_entity_base_field_info(EntityTypeInterface $entity_type) {
   $fields = [];
 
-  // Add flag field to assets and logs.
-  if (in_array($entity_type->id(), ['asset', 'log'])) {
+  // Add flag field to assets, logs, and plans.
+  if (in_array($entity_type->id(), ['asset', 'log', 'plan'])) {
 
     // Include helper functions.
     module_load_include('inc', 'farm_field', 'farm_field.base_fields');
@@ -55,6 +55,8 @@ function farm_flag_views_data_alter(array &$data) {
     'asset_revision__flag',
     'log__flag',
     'log_revision__flag',
+    'plan__flag',
+    'plan_revision__flag',
   ];
   foreach ($tables as $table) {
     if (!empty($data[$table]['flag_value'])) {

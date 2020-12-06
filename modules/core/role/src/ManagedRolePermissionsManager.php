@@ -172,7 +172,7 @@ class ManagedRolePermissionsManager extends DefaultPluginManager implements Mana
     $entity_settings = $access_settings['entity'] ? $access_settings['entity'] : [];
 
     // Managed entity types.
-    $managed_entity_types = ['asset', 'log', 'taxonomy_term'];
+    $managed_entity_types = ['asset', 'log', 'plan', 'taxonomy_term'];
 
     // Start an array of permission rules. This will be a multi-dimensional
     // array that ultimately defines which permission strings will be given to
@@ -193,9 +193,10 @@ class ManagedRolePermissionsManager extends DefaultPluginManager implements Mana
       // 'delete_all' operations to their specific operations.
       switch ($entity_type) {
 
-        // Asset and Log entities.
+        // Asset, Log, and Plan entities.
         case 'asset':
         case 'log':
+        case 'plan':
 
           // Create.
           if (!empty($entity_settings['create all'])) {
@@ -275,9 +276,10 @@ class ManagedRolePermissionsManager extends DefaultPluginManager implements Mana
           // specifies 'all' bundles.
           switch ($entity_type) {
 
-            // Asset and Log entities.
+            // Asset, Log, and Plan entities.
             case 'asset':
             case 'log':
+            case 'plan':
               if (array_intersect(['all', $bundle], $allowed_bundles)) {
                 $perms[] = $operation . ' ' . $bundle . ' ' . $entity_type;
               }
