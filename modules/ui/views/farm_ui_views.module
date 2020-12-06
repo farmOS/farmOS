@@ -43,6 +43,23 @@ function farm_ui_views_views_pre_view(ViewExecutable $view, $display_id, array &
     $view->removeHandler($display_id, 'field', 'type');
     $view->removeHandler($display_id, 'filter', 'type');
   }
+
+  // If this is the "Upcoming" or "Late" block display, add a "more" link that
+  // points to the default page display with appropriate filters.
+  if (in_array($display_id, ['block_upcoming', 'block_late'])) {
+    $view->display_handler->setOption('use_more', TRUE);
+    $view->display_handler->setOption('use_more_always', TRUE);
+    $view->display_handler->setOption('link_display', 'custom_url');
+    $today = date('Y-m-d', \Drupal::time()->getRequestTime());
+    if ($display_id == 'block_upcoming') {
+      $view->display_handler->setOption('use_more_text', t('View all upcoming logs'));
+      $view->display_handler->setOption('link_url', 'logs?status[]=pending&start=' . $today);
+    }
+    elseif ($display_id == 'block_late') {
+      $view->display_handler->setOption('use_more_text', t('View all late logs'));
+      $view->display_handler->setOption('link_url', 'logs?status[]=pending&end=' . $today);
+    }
+  }
 }
 
 /**
