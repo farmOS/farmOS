@@ -1,0 +1,6 @@
+enabled_entity_type_ids:
+  - asset: asset
+  - file: file
+  - log: log
+  - taxonomy_term: taxonomy_term
+  - user: user
