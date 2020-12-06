@@ -55,6 +55,8 @@ function farm_flag_views_data_alter(array &$data) {
     'asset_revision__flag',
     'log__flag',
     'log_revision__flag',
+    'plan__flag',
+    'plan_revision__flag',
   ];
   foreach ($tables as $table) {
     if (!empty($data[$table]['flag_value'])) {
