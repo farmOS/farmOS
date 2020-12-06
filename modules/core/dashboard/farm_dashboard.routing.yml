@@ -1,4 +1,4 @@
-farm_dashboard.dashboard:
+farm.dashboard:
   path: '/dashboard'
   defaults:
     _title: 'Dashboard'
