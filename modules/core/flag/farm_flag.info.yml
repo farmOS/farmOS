@@ -7,4 +7,3 @@ dependencies:
   - drupal:field
   - drupal:text
   - farm:farm_field
-  - log:log
