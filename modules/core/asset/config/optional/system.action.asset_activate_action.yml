@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - asset
+id: asset_activate_action
+label: 'Unarchive asset'
+type: asset
+plugin: 'asset_activate_action'
+configuration: {  }

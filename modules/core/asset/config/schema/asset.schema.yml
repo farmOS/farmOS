@@ -26,3 +26,11 @@ condition.plugin.asset_type:
       type: sequence
       sequence:
         type: string
+
+action.configuration.asset_activate_action:
+  type: action_configuration_default
+  label: 'Configuration for the asset activate action'
+
+action.configuration.asset_archive_action:
+  type: action_configuration_default
+  label: 'Configuration for the asset archive action'

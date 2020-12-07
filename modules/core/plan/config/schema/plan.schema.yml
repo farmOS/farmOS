@@ -26,3 +26,11 @@ condition.plugin.plan_type:
       type: sequence
       sequence:
         type: string
+
+action.configuration.plan_activate_action:
+  type: action_configuration_default
+  label: 'Configuration for the plan activate action'
+
+action.configuration.plan_archive_action:
+  type: action_configuration_default
+  label: 'Configuration for the plan archive action'
