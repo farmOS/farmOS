@@ -4,6 +4,7 @@ type: module
 package: farmOS
 core_version_requirement: ^9
 dependencies:
+  - config_rewrite:config_rewrite
   - drupal:field
   - drupal:file
   - drupal:geofield
