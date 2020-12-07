@@ -5,3 +5,4 @@ package: farmOS UI
 core_version_requirement: ^9
 dependencies:
   - config_rewrite:config_rewrite
+  - drupal:block

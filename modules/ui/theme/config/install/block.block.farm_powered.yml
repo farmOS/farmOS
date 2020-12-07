@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   module:
-    - farm
+    - farm_ui_theme
   theme:
     - gin
 id: farm_powered

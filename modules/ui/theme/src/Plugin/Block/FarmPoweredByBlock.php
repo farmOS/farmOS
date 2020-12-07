@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\farm\Plugin\Block;
+namespace Drupal\farm_ui_theme\Plugin\Block;
 
 use Drupal\system\Plugin\Block\SystemPoweredByBlock;
 

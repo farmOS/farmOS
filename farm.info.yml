@@ -15,7 +15,6 @@ dependencies: {  }
 
 # Install modules and theme.
 install:
-  - block
   - dblog
   - farm_settings
 themes:
