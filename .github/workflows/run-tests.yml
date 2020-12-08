@@ -33,3 +33,5 @@ jobs:
         run: docker-compose exec -u www-data -T test-runner phpunit --verbose --debug --group farm
       - name: Run PHP CodeSniffer
         run: docker-compose exec -u www-data -T www phpcs /opt/drupal/web/profiles/farm
+      - name: Test Drush site install
+        run: docker-compose exec -u www-data -T www drush site-install --db-url=pgsql://farm:farm@db/farm
