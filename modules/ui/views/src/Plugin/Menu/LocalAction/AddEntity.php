@@ -3,7 +3,10 @@
 namespace Drupal\farm_ui_views\Plugin\Menu\LocalAction;
 
 use Drupal\Core\Menu\LocalActionDefault;
+use Drupal\Core\Routing\RouteMatch;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Creates an action link to add entities.
@@ -11,6 +14,28 @@ use Drupal\Core\Routing\RouteMatchInterface;
  * The 'entity_type' must be set in the action link configuration.
  */
 class AddEntity extends LocalActionDefault {
+
+  use StringTranslationTrait;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getTitle(Request $request = NULL) {
+
+    // Get the entity type.
+    /** @var \Drupal\Core\Entity\EntityTypeInterface $entity_type */
+    $entity_type = \Drupal::entityTypeManager()->getDefinition($this->pluginDefinition['entity_type']);
+
+    // Get the bundle machine name.
+    $route_match = RouteMatch::createFromRequest($request);
+    $bundle = $route_match->getparameter('arg_0');
+
+    // Get the bundle label.
+    $bundle_label = \Drupal::entityTypeManager()->getStorage($entity_type->getBundleEntityType())->load($bundle)->label();
+
+    // Build the link title.
+    return $this->t('Add @bundle', ['@bundle' => $bundle_label]);
+  }
 
   /**
    * {@inheritdoc}
