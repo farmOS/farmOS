@@ -9,12 +9,17 @@
  * Define farmOS modules that can be installed.
  *
  * @return array
- *   Returns an array with two sub-arrays: 'default' and 'optional'. Default
- *   modules will be selected for installation by default, and optional modules
- *   will require the user to select them for installation.
+ *   Returns an array with three sub-arrays: 'base', 'default' and 'optional'.
+ *   Base modules will always be installed, but can be uninstalled. Default and
+ *   optional modules will appear as options during farmOS installation and in
+ *   a form available to admins. During initial farmOS installation, default
+ *   modules will be selected by default, and optional modules will require the
+ *   user to select them for installation.
  */
 function farm_modules() {
   return [
+    'base' => [
+    ],
     'default' => [
       'farm_land' => t('Land assets'),
       'farm_plant' => t('Plant assets'),

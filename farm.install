@@ -53,6 +53,9 @@ function farm_install_tasks_alter(&$tasks, $install_state) {
  */
 function farm_install_modules(array &$install_state) {
 
+  // Load the list of farmOS core modules.
+  $all = farm_modules();
+
   // Load the list of modules that should be installed.
   // If provided, use the modules defined in farm_install_modules.module
   // profile arguments. We assume this is an array of module machine names,
@@ -62,7 +65,7 @@ function farm_install_modules(array &$install_state) {
     $modules_arg = $install_state['forms']['farm']['modules'];
     if ($modules_arg === 'all') {
       $all = farm_modules();
-      $modules = array_merge(array_keys($all['default']), array_keys($all['optional']));
+      $modules = array_merge(array_keys($all['base']), array_keys($all['default']), array_keys($all['optional']));
     }
     else {
       $modules = Json::decode($modules_arg);
@@ -70,8 +73,10 @@ function farm_install_modules(array &$install_state) {
   }
 
   // Use the state set by the \Drupal\farm\Form\FarmModulesForm submit method.
+  // Merge base modules into it.
   else {
     $modules = \Drupal::state()->get('farm.install_modules') ?: [];
+    $modules = array_merge(array_keys($all['base']), $modules);
   }
 
   // If this is running in the context of a functional test, do not install any
