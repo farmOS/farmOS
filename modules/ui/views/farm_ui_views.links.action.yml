@@ -1,0 +1,16 @@
+log.add_page:
+  route_name: entity.log.add_page
+  title: 'Add log'
+  appears_on:
+    - view.farm_log.page
+    - view.farm_log.page_user
+asset.add_page:
+  route_name: entity.asset.add_page
+  title: 'Add asset'
+  appears_on:
+    - view.farm_asset.page
+plan.add_page:
+  route_name: entity.plan.add_page
+  title: 'Add plan'
+  appears_on:
+    - view.farm_plan.page
