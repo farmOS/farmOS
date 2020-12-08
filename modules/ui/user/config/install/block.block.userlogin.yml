@@ -1,0 +1,19 @@
+langcode: en
+status: false
+dependencies:
+  module:
+    - user
+  theme:
+    - gin
+id: userlogin
+theme: gin
+region: content
+weight: 0
+provider: null
+plugin: user_login_block
+settings:
+  id: user_login_block
+  label: 'User login'
+  provider: user
+  label_display: visible
+visibility: {  }
