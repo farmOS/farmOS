@@ -1233,7 +1233,7 @@ display:
         title: Plans
         description: ''
         expanded: true
-        parent: farm.records
+        parent: farm.base
         weight: 0
         context: '0'
         menu_name: admin
