@@ -7,3 +7,8 @@ farm.records:
   parent: farm.base
   route_name: '<front>'
   weight: 0
+farm.people:
+  title: People
+  parent: farm.base
+  route_name: view.farm_people.page
+  weight: 90
