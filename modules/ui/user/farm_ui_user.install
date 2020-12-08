@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the farm_ui_user module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function farm_ui_user_install() {
+
+  // Set the default 403 page to /403.
+  // We cannot set this with config_rewrite because it breaks the config. See:
+  // https://www.drupal.org/project/config_rewrite/issues/3085330
+  \Drupal::configFactory()->getEditable('system.site')->set('page.403', '/403')->save();
+}
