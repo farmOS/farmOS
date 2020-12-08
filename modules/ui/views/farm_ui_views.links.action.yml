@@ -4,13 +4,34 @@ log.add_page:
   appears_on:
     - view.farm_log.page
     - view.farm_log.page_user
+log.add_form:
+  route_name: entity.log.add_form
+  title: 'Add log'
+  class: Drupal\farm_ui_views\Plugin\Menu\LocalAction\AddEntity
+  appears_on:
+    - view.farm_log.page_type
+  entity_type: 'log'
 asset.add_page:
   route_name: entity.asset.add_page
   title: 'Add asset'
   appears_on:
     - view.farm_asset.page
+asset.add_form:
+  route_name: entity.asset.add_form
+  title: 'Add asset'
+  class: Drupal\farm_ui_views\Plugin\Menu\LocalAction\AddEntity
+  appears_on:
+    - view.farm_asset.page_type
+  entity_type: 'asset'
 plan.add_page:
   route_name: entity.plan.add_page
   title: 'Add plan'
   appears_on:
     - view.farm_plan.page
+plan.add_form:
+  route_name: entity.plan.add_form
+  title: 'Add plan'
+  class: Drupal\farm_ui_views\Plugin\Menu\LocalAction\AddEntity
+  appears_on:
+    - view.farm_plan.page_type
+  entity_type: 'plan'
