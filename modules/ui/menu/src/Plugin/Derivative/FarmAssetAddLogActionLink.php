@@ -26,6 +26,9 @@ class FarmAssetAddLogActionLink extends DeriverBase {
           'entity.asset.canonical',
         ],
         'route_parameters' => ['log_type' => $type],
+        'cache_tags' => [
+          'entity_bundles',
+        ],
         'prepopulate' => [
           'asset' => [
             'route_parameter' => 'asset',
