@@ -47,6 +47,28 @@ interface LogLocationInterface {
   public function hasCustomGeometry(LogInterface $log): bool;
 
   /**
+   * Get location assets referenced by a log.
+   *
+   * @param \Drupal\log\Entity\LogInterface $log
+   *   The Log entity.
+   *
+   * @return array
+   *   Returns an array of assets.
+   */
+  public function getLocation(LogInterface $log): array;
+
+  /**
+   * Get a log's geometry.
+   *
+   * @param \Drupal\log\Entity\LogInterface $log
+   *   The Log entity.
+   *
+   * @return string
+   *   Returns a WKT string.
+   */
+  public function getGeometry(LogInterface $log): string;
+
+  /**
    * Populate a log's geometry based on its location.
    *
    * @param \Drupal\log\Entity\LogInterface $log

@@ -58,13 +58,13 @@ class LogLocation implements LogLocationInterface {
     }
 
     // Load location assets referenced by the log.
-    $locations = $log->{static::LOG_FIELD_LOCATION}->referencedEntities();
+    $assets = $this->getLocation($log);
 
     // Get the combined location asset geometry.
-    $location_geometry = $this->getCombinedAssetGeometry($locations);
+    $location_geometry = $this->getCombinedAssetGeometry($assets);
 
     // Get the log geometry.
-    $log_geometry = $log->get(static::LOG_FIELD_GEOMETRY)->getValue();
+    $log_geometry = $this->getGeometry($log);
 
     // Compare the log and location geometries.
     return $log_geometry != $location_geometry;
@@ -73,13 +73,27 @@ class LogLocation implements LogLocationInterface {
   /**
    * {@inheritdoc}
    */
+  public function getLocation(LogInterface $log): array {
+    return $log->{static::LOG_FIELD_LOCATION}->referencedEntities() ?? [];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getGeometry(LogInterface $log): string {
+    return $log->get(static::LOG_FIELD_GEOMETRY)->value ?? '';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function populateGeometry(LogInterface $log): void {
 
     // Load location assets referenced by the log.
-    $locations = $log->{static::LOG_FIELD_LOCATION}->referencedEntities();
+    $assets = $this->getLocation($log);
 
     // Get the combined location asset geometry.
-    $wkt = $this->getCombinedAssetGeometry($locations);
+    $wkt = $this->getCombinedAssetGeometry($assets);
 
     // If the WKT is not empty, set the log geometry.
     if (!empty($wkt)) {
