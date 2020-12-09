@@ -1,0 +1,3 @@
+farm.asset.add_log.type:
+  class: Drupal\Core\Menu\LocalActionDefault
+  deriver: Drupal\farm_ui_menu\Plugin\Derivative\FarmAssetAddLogActionLink
