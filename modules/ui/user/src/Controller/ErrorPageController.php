@@ -2,17 +2,18 @@
 
 namespace Drupal\farm_ui_user\Controller;
 
-use Drupal\Core\Controller\ControllerBase;
+use Drupal\system\Controller\Http4xxController;
 
 /**
  * Provides a controller for error pages.
  */
-class ErrorPageController extends ControllerBase {
+class ErrorPageController extends Http4xxController {
 
   /**
-   * Returns an Access Denied page.
+   * {@inheritdoc}
    */
-  public function accessDenied() {
+  public function on403() {
+    $output = parent::on403();
 
     /** @var \Drupal\block\Entity\Block $block */
     $block = $this->entityTypeManager()->getStorage('block')->load('userlogin');
