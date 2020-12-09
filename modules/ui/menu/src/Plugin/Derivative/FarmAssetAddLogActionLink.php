@@ -21,10 +21,16 @@ class FarmAssetAddLogActionLink extends DeriverBase {
       $links['farm.asset.add_log.' . $type] = [
         'title' => 'Add ' . $info['label'],
         'route_name' => 'entity.log.add_form',
+        'class' => '\Drupal\farm_ui_menu\Plugin\Menu\LocalAction\FarmAddLogPrepopulate',
         'appears_on' => [
           'entity.asset.canonical',
         ],
         'route_parameters' => ['log_type' => $type],
+        'prepopulate' => [
+          'asset' => [
+            'route_parameter' => 'asset',
+          ],
+        ],
       ] + $base_plugin_definition;
     }
 
