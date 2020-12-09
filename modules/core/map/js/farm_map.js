@@ -1,4 +1,4 @@
-(function ($, Drupal) {
+(function (Drupal) {
   Drupal.behaviors.farm_map = {
     attach: function (context, settings) {
       var options = {
@@ -8,15 +8,13 @@
           onFocusOnly: true
         },
       };
-      $('.farm-map', context).each(function (index, element) {
-        $(element).once('farm-map').each(function () {
-          $(element).attr('tabIndex', 0);
-          farmOS.map.create($(element).attr('id'), options);
-          $('.ol-popup-closer', context).click(function () {
-            $(element).focus();
-          });
+      context.querySelectorAll('.farm-map').forEach(function (element) {
+        element.setAttribute('tabIndex', 0);
+        farmOS.map.create(element.getAttribute('id'), options);
+        context.querySelectorAll('.ol-popup-closer').forEach(function (element) {
+          element.onClick = function (element) { element.focus() };
         });
       });
     }
   };
-}(jQuery, Drupal));
+}(Drupal));

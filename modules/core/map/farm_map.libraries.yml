@@ -9,8 +9,6 @@ farmOS-map:
     /libraries/farmOS-map/farmOS-map.js:
       minified: true
   dependencies:
-    - core/jquery
-    - core/jquery.once
     - core/drupalSettings
 
 farm_map:
