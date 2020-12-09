@@ -1,6 +1,9 @@
 langcode: en
 status: false
 dependencies:
+  enforced:
+    module:
+      - farm_ui_user
   module:
     - user
   theme:
