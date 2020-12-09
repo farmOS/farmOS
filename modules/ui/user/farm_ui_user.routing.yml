@@ -1,0 +1,8 @@
+farm_ui_user.access_denied:
+  path: '/403'
+  defaults:
+    _title: 'Access denied'
+    _controller: 'Drupal\farm_ui_user\Controller\ErrorPageController::on403'
+  requirements:
+    # No access restriction for the 403 error page.
+    _access: 'TRUE'
