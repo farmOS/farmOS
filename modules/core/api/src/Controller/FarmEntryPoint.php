@@ -4,11 +4,11 @@ namespace Drupal\farm_api\Controller;
 
 use Drupal\Core\Extension\ProfileExtensionList;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\jsonapi\CacheableResourceResponse;
 use Drupal\jsonapi\Controller\EntryPoint;
 use Drupal\jsonapi\JsonApiResource\JsonApiDocumentTopLevel;
 use Drupal\jsonapi\JsonApiResource\NullIncludedData;
 use Drupal\jsonapi\JsonApiResource\ResourceObjectData;
-use Drupal\jsonapi\ResourceResponse;
 use Drupal\jsonapi\ResourceType\ResourceTypeRepositoryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -63,6 +63,7 @@ class FarmEntryPoint extends EntryPoint {
     global $base_url;
 
     // Get normal response cache and data.
+    /** @var \Drupal\jsonapi\CacheableResourceResponse $response */
     $response = parent::index();
     $cacheability = $response->getCacheableMetadata();
     $data = $response->getResponseData();
@@ -79,7 +80,7 @@ class FarmEntryPoint extends EntryPoint {
     ];
 
     // Build a new response.
-    $new_response = new ResourceResponse(new JsonApiDocumentTopLevel(new ResourceObjectData([]), new NullIncludedData(), $urls, $meta));
+    $new_response = new CacheableResourceResponse(new JsonApiDocumentTopLevel(new ResourceObjectData([]), new NullIncludedData(), $urls, $meta));
 
     // Add the original response's cacheability.
     $new_response->addCacheableDependency($cacheability);
