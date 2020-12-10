@@ -283,6 +283,10 @@ function farm_field_base_field_definition(array $options = []) {
       farm_field_base_field_definition_file($field, $options);
       break;
 
+    case 'geofield':
+      farm_field_base_field_definition_geofield($field, $options);
+      break;
+
     default:
       throw new FieldException('Unsupported field type.');
 
@@ -597,4 +601,33 @@ function farm_field_base_field_definition_file(BaseFieldDefinition &$field, arra
   }
   $field->setDisplayOptions('form', $form_display_options);
   $field->setDisplayOptions('view', $view_display_options);
+}
+
+/**
+ * Geofield base field modifier.
+ *
+ * @param \Drupal\Core\Field\BaseFieldDefinition &$field
+ *   A base field definition object.
+ * @param array $options
+ *   An array of options.
+ */
+function farm_field_base_field_definition_geofield(BaseFieldDefinition &$field, array $options = []) {
+
+  // Set the geofield backend.
+  $field->setSetting('backend', 'geofield_backend_default');
+
+  // Build form and view display settings.
+  $field->setDisplayOptions('form', [
+    'type' => 'geofield_default',
+    'weight' => $options['weight']['form'] ?? 0,
+  ]);
+  $field->setDisplayOptions('view', [
+    'label' => 'visually_hidden',
+    'type' => 'geofield_default',
+    'settings' => [
+      'output_format' => 'wkt',
+      'output_escape' => TRUE,
+    ],
+    'weight' => $options['weight']['view'] ?? 0,
+  ]);
 }
