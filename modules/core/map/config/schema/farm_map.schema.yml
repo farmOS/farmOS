@@ -18,3 +18,10 @@ farm_map.map_type.*:
       sequence:
         type: ignore
         label: 'Option name'
+block.settings.map_block:
+  type: block_settings
+  label: 'map block settings'
+  mapping:
+    map_name:
+      type: string
+      label: 'Map name'
