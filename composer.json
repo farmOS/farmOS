@@ -51,7 +51,6 @@
             },
             "drupal/core": {
                 "Issue #3186443: PHPUnit 9.5 Call to undefined method ::getAnnotations()": "https://www.drupal.org/files/issues/2020-12-04/3186443-1.patch",
-                "Issue #3183359: Allow single-value base fields to be saved to dedicated database tables": "https://www.drupal.org/files/issues/2020-11-18/3183359-5.patch",
                 "Issue #2339235: Remove taxonomy hard dependency on node module": "https://www.drupal.org/files/issues/2020-10-12/2339235_60.patch"
             },
             "drupal/simple_oauth": {
