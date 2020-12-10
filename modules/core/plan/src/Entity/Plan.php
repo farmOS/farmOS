@@ -17,6 +17,7 @@ use Drupal\user\EntityOwnerTrait;
  * @ContentEntityType(
  *   id = "plan",
  *   label = @Translation("Plan"),
+ *   bundle_plugin_type = "plan_type",
  *   bundle_label = @Translation("Plan type"),
  *   label_collection = @Translation("Plans"),
  *   label_singular = @Translation("plan"),
