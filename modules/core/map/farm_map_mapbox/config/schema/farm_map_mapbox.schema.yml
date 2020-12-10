@@ -1,0 +1,8 @@
+farm_map_mapbox.settings:
+  type: config_object
+  label: 'Mapbox Settings'
+  mapping:
+    api_key:
+      type: string
+      label: 'Mapbox API Key'
+      description: 'The API key used to request Mapbox imagery layers.'
