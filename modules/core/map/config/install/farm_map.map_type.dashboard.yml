@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_map
+id: dashboard
+label: Dashboard
+description: 'The farmOS dashboard map.'
+options: { }
