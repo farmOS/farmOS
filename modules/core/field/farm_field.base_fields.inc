@@ -300,6 +300,10 @@ function farm_field_base_field_definition(array $options = []) {
       farm_field_base_field_definition_timestamp($field, $options);
       break;
 
+    case 'boolean':
+      farm_field_base_field_definition_boolean($field, $options);
+      break;
+
     default:
       throw new FieldException('Unsupported field type.');
 
@@ -679,6 +683,40 @@ function farm_field_base_field_definition_timestamp(BaseFieldDefinition &$field,
       'date_format' => 'medium',
       'custom_date_format' => '',
       'timezone' => '',
+    ],
+    'weight' => $options['weight']['view'] ?? 0,
+  ]);
+}
+
+/**
+ * Boolean field modifier.
+ *
+ * @param \Drupal\Core\Field\BaseFieldDefinition &$field
+ *   A base field definition object.
+ * @param array $options
+ *   An array of options.
+ */
+function farm_field_base_field_definition_boolean(BaseFieldDefinition &$field, array $options = []) {
+
+  // Set the on/off labels.
+  $field->setSetting('on_label', 'Yes');
+  $field->setSetting('off_label', 'No');
+
+  // Build form and view display settings.
+  $field->setDisplayOptions('form', [
+    'type' => 'boolean_checkbox',
+    'settings' => [
+      'display_label' => TRUE,
+    ],
+    'weight' => $options['weight']['form'] ?? 0,
+  ]);
+  $field->setDisplayOptions('view', [
+    'label' => 'inline',
+    'type' => 'boolean',
+    'settings' => [
+      'format' => 'default',
+      'format_custom_false' => '',
+      'format_custom_true' => '',
     ],
     'weight' => $options['weight']['view'] ?? 0,
   ]);
