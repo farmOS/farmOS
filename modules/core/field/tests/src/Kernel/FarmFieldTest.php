@@ -54,7 +54,6 @@ class FarmFieldTest extends KernelTestBase {
     $this->assertArrayHasKey('category', $fields);
     $this->assertArrayHasKey('data', $fields);
     $this->assertArrayHasKey('file', $fields);
-    $this->assertArrayHasKey('geometry', $fields);
     $this->assertArrayHasKey('image', $fields);
     $this->assertArrayHasKey('notes', $fields);
     $this->assertArrayHasKey('owner', $fields);
