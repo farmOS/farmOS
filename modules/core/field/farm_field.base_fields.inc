@@ -94,6 +94,7 @@ function farm_field_log_base_fields() {
       'label' => t('Log category'),
       'description' => t('Use this to organize your logs into categories for easier searching and filtering later.'),
       'target_type' => 'taxonomy_term',
+      'target_bundle' => 'log_category',
       'multiple' => TRUE,
       'weight' => [
         'form' => 10,
@@ -380,7 +381,7 @@ function farm_field_base_field_definition_entity_reference(BaseFieldDefinition &
       $handler = 'default:taxonomy_term';
       $handler_settings = [
         'target_bundles' => [
-          'log_category' => 'log_category',
+          $options['target_bundle'] => $options['target_bundle'],
         ],
         'sort' => [
           'field' => 'name',
