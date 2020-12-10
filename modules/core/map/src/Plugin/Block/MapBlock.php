@@ -32,13 +32,13 @@ class MapBlock extends BlockBase {
    */
   public function mapName() {
 
-    // Use the ID from the block configuration.
+    // Use the map_name from the block configuration.
     if (!empty($this->configuration['map_name'])) {
       return $this->configuration['map_name'];
     }
 
-    // Else default to 'farm_map'.
-    return 'farm_map';
+    // Else default to 'default'.
+    return 'default';
   }
 
 }
