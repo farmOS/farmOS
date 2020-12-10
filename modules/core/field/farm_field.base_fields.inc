@@ -115,6 +115,15 @@ function farm_field_log_base_fields() {
         'view' => 90,
       ],
     ],
+    'geometry' => [
+      'type' => 'geofield',
+      'label' => 'Geometry',
+      'description' => 'Add geometry data to this log to describe where it took place.',
+      'weight' => [
+        'form' => 95,
+        'view' => 95,
+      ],
+    ],
     'image' => [
       'type' => 'image',
       'label' => t('Images'),
