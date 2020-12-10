@@ -6,8 +6,10 @@
  */
 
 use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldException;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
+use Drupal\entity\BundleFieldDefinition;
 
 /**
  * Define common asset base fields.
@@ -215,7 +217,7 @@ function farm_field_plan_base_fields() {
 }
 
 /**
- * Helper function for generating a base field definition with farmOS opinions.
+ * Helper function for generating a base field definition.
  *
  * @param array $options
  *   An array of options.
@@ -224,9 +226,35 @@ function farm_field_plan_base_fields() {
  *   Returns a base field definition.
  */
 function farm_field_base_field_definition(array $options = []) {
-
-  // Create a new base field definition.
   $field = BaseFieldDefinition::create($options['type']);
+  farm_field_build_field_options($field, $options);
+  return $field;
+}
+
+/**
+ * Helper function for generating a bundle field definition.
+ *
+ * @param array $options
+ *   An array of options.
+ *
+ * @return \Drupal\entity\BundleFieldDefinition
+ *   Returns a base field definition.
+ */
+function farm_field_bundle_field_definition(array $options = []) {
+  $field = BundleFieldDefinition::create($options['type']);
+  farm_field_build_field_options($field, $options);
+  return $field;
+}
+
+/**
+ * Helper function for building field options with farmOS opinions.
+ *
+ * @param \Drupal\Core\Field\FieldDefinitionInterface &$field
+ *   A base field definition object.
+ * @param array $options
+ *   An array of options.
+ */
+function farm_field_build_field_options(FieldDefinitionInterface &$field, array $options = []) {
 
   // Set label.
   if (!empty($options['label'])) {
@@ -333,19 +361,17 @@ function farm_field_base_field_definition(array $options = []) {
   if (!empty($options['dedicated_table'])) {
     $field->setDedicatedTable(TRUE);
   }
-
-  return $field;
 }
 
 /**
  * Entity reference base field modifier.
  *
- * @param \Drupal\Core\Field\BaseFieldDefinition &$field
+ * @param \Drupal\Core\Field\FieldDefinitionInterface &$field
  *   A base field definition object.
  * @param array $options
  *   An array of options.
  */
-function farm_field_base_field_definition_entity_reference(BaseFieldDefinition &$field, array $options = []) {
+function farm_field_base_field_definition_entity_reference(FieldDefinitionInterface &$field, array $options = []) {
 
   // If a target type is not specified, throw an exception.
   if (empty($options['target_type'])) {
@@ -460,12 +486,12 @@ function farm_field_base_field_definition_entity_reference(BaseFieldDefinition &
 /**
  * String base field modifier.
  *
- * @param \Drupal\Core\Field\BaseFieldDefinition &$field
+ * @param \Drupal\Core\Field\FieldDefinitionInterface &$field
  *   A base field definition object.
  * @param array $options
  *   An array of options.
  */
-function farm_field_base_field_definition_string(BaseFieldDefinition &$field, array $options = []) {
+function farm_field_base_field_definition_string(FieldDefinitionInterface &$field, array $options = []) {
 
   // Set default settings.
   $field->setSetting('max_length', 255);
@@ -491,12 +517,12 @@ function farm_field_base_field_definition_string(BaseFieldDefinition &$field, ar
 /**
  * List string base field modifier.
  *
- * @param \Drupal\Core\Field\BaseFieldDefinition &$field
+ * @param \Drupal\Core\Field\FieldDefinitionInterface &$field
  *   A base field definition object.
  * @param array $options
  *   An array of options.
  */
-function farm_field_base_field_definition_list_string(BaseFieldDefinition &$field, array $options = []) {
+function farm_field_base_field_definition_list_string(FieldDefinitionInterface &$field, array $options = []) {
 
   // Set the allowed values, if specified.
   if (!empty($options['allowed_values'])) {
@@ -523,12 +549,12 @@ function farm_field_base_field_definition_list_string(BaseFieldDefinition &$fiel
 /**
  * Text base field modifier.
  *
- * @param \Drupal\Core\Field\BaseFieldDefinition &$field
+ * @param \Drupal\Core\Field\FieldDefinitionInterface &$field
  *   A base field definition object.
  * @param array $options
  *   An array of options.
  */
-function farm_field_base_field_definition_text(BaseFieldDefinition &$field, array $options = []) {
+function farm_field_base_field_definition_text(FieldDefinitionInterface &$field, array $options = []) {
 
   // Build form and view display settings.
   $field->setDisplayOptions('form', [
@@ -549,12 +575,12 @@ function farm_field_base_field_definition_text(BaseFieldDefinition &$field, arra
 /**
  * File base field modifier.
  *
- * @param \Drupal\Core\Field\BaseFieldDefinition &$field
+ * @param \Drupal\Core\Field\FieldDefinitionInterface &$field
  *   A base field definition object.
  * @param array $options
  *   An array of options.
  */
-function farm_field_base_field_definition_file(BaseFieldDefinition &$field, array $options = []) {
+function farm_field_base_field_definition_file(FieldDefinitionInterface &$field, array $options = []) {
 
   // Determine the upload directory.
   $file_directory = 'farm/[date:custom:Y]-[date:custom:m]';
@@ -644,12 +670,12 @@ function farm_field_base_field_definition_file(BaseFieldDefinition &$field, arra
 /**
  * Geofield base field modifier.
  *
- * @param \Drupal\Core\Field\BaseFieldDefinition &$field
+ * @param \Drupal\Core\Field\FieldDefinitionInterface &$field
  *   A base field definition object.
  * @param array $options
  *   An array of options.
  */
-function farm_field_base_field_definition_geofield(BaseFieldDefinition &$field, array $options = []) {
+function farm_field_base_field_definition_geofield(FieldDefinitionInterface &$field, array $options = []) {
 
   // Set the geofield backend.
   $field->setSetting('backend', 'geofield_backend_default');
@@ -673,12 +699,12 @@ function farm_field_base_field_definition_geofield(BaseFieldDefinition &$field, 
 /**
  * Timestamp field modifier.
  *
- * @param \Drupal\Core\Field\BaseFieldDefinition &$field
+ * @param \Drupal\Core\Field\FieldDefinitionInterface &$field
  *   A base field definition object.
  * @param array $options
  *   An array of options.
  */
-function farm_field_base_field_definition_timestamp(BaseFieldDefinition &$field, array $options = []) {
+function farm_field_base_field_definition_timestamp(FieldDefinitionInterface &$field, array $options = []) {
 
   // Build form and view display settings.
   $field->setDisplayOptions('form', [
@@ -700,12 +726,12 @@ function farm_field_base_field_definition_timestamp(BaseFieldDefinition &$field,
 /**
  * Boolean field modifier.
  *
- * @param \Drupal\Core\Field\BaseFieldDefinition &$field
+ * @param \Drupal\Core\Field\FieldDefinitionInterface &$field
  *   A base field definition object.
  * @param array $options
  *   An array of options.
  */
-function farm_field_base_field_definition_boolean(BaseFieldDefinition &$field, array $options = []) {
+function farm_field_base_field_definition_boolean(FieldDefinitionInterface &$field, array $options = []) {
 
   // Set the on/off labels.
   $field->setSetting('on_label', 'Yes');

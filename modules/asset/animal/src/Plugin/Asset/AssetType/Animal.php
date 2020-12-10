@@ -70,7 +70,7 @@ class Animal extends AssetTypeBase {
       ],
     ];
     foreach ($field_info as $name => $info) {
-      $fields[$name] = farm_field_base_field_definition($info);
+      $fields[$name] = farm_field_bundle_field_definition($info);
     }
     return $fields;
   }
