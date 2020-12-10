@@ -625,6 +625,9 @@ function farm_field_base_field_definition_geofield(BaseFieldDefinition &$field, 
   // Set the geofield backend.
   $field->setSetting('backend', 'geofield_backend_default');
 
+  // Store Geofield data in dedicated database tables.
+  $field->setDedicatedTable(TRUE);
+
   // Build form and view display settings.
   $field->setDisplayOptions('form', [
     'type' => 'geofield_default',
