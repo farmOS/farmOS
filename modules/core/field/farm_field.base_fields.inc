@@ -18,6 +18,7 @@ function farm_field_asset_base_fields() {
       'type' => 'string_long',
       'label' => t('Data'),
       'hidden' => TRUE,
+      'dedicated_table' => FALSE,
     ],
     'file' => [
       'type' => 'file',
@@ -42,6 +43,7 @@ function farm_field_asset_base_fields() {
     'notes' => [
       'type' => 'text_long',
       'label' => t('Notes'),
+      'dedicated_table' => FALSE,
       'weight' => [
         'form' => 0,
         'view' => 0,
@@ -105,6 +107,7 @@ function farm_field_log_base_fields() {
       'type' => 'string_long',
       'label' => t('Data'),
       'hidden' => TRUE,
+      'dedicated_table' => FALSE,
     ],
     'file' => [
       'type' => 'file',
@@ -138,6 +141,7 @@ function farm_field_log_base_fields() {
     'notes' => [
       'type' => 'text_long',
       'label' => t('Notes'),
+      'dedicated_table' => FALSE,
       'weight' => [
         'form' => 0,
         'view' => 0,
@@ -171,6 +175,7 @@ function farm_field_plan_base_fields() {
       'type' => 'string_long',
       'label' => t('Data'),
       'hidden' => TRUE,
+      'dedicated_table' => FALSE,
     ],
     'file' => [
       'type' => 'file',
@@ -195,6 +200,7 @@ function farm_field_plan_base_fields() {
     'notes' => [
       'type' => 'text_long',
       'label' => t('Notes'),
+      'dedicated_table' => FALSE,
       'weight' => [
         'form' => 0,
         'view' => 0,
@@ -322,6 +328,11 @@ function farm_field_base_field_definition(array $options = []) {
   // Make the form and view displays configurable.
   $field->setDisplayConfigurable('form', TRUE);
   $field->setDisplayConfigurable('view', TRUE);
+
+  // Store in a dedicated table, unless told otherwise.
+  if (!empty($options['dedicated_table'])) {
+    $field->setDedicatedTable(TRUE);
+  }
 
   return $field;
 }
@@ -642,9 +653,6 @@ function farm_field_base_field_definition_geofield(BaseFieldDefinition &$field, 
 
   // Set the geofield backend.
   $field->setSetting('backend', 'geofield_backend_default');
-
-  // Store Geofield data in dedicated database tables.
-  $field->setDedicatedTable(TRUE);
 
   // Build form and view display settings.
   $field->setDisplayOptions('form', [
