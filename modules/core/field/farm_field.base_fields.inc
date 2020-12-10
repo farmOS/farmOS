@@ -17,22 +17,35 @@ function farm_field_asset_base_fields() {
     'data' => [
       'type' => 'string_long',
       'label' => t('Data'),
+      'hidden' => TRUE,
     ],
     'file' => [
       'type' => 'file',
       'label' => t('Files'),
       'file_directory' => 'farm/asset/[date:custom:Y]-[date:custom:m]',
       'multiple' => TRUE,
+      'weight' => [
+        'form' => 90,
+        'view' => 90,
+      ],
     ],
     'image' => [
       'type' => 'image',
       'label' => t('Images'),
       'file_directory' => 'farm/asset/[date:custom:Y]-[date:custom:m]',
       'multiple' => TRUE,
+      'weight' => [
+        'form' => 89,
+        'view' => 89,
+      ],
     ],
     'notes' => [
       'type' => 'text_long',
       'label' => t('Notes'),
+      'weight' => [
+        'form' => 0,
+        'view' => 0,
+      ],
     ],
     'parent' => [
       'type' => 'entity_reference',
@@ -40,6 +53,10 @@ function farm_field_asset_base_fields() {
       'description' => t('If this asset descends from other assets, they can referenced here to create a lineage relationship.'),
       'target_type' => 'asset',
       'multiple' => TRUE,
+      'weight' => [
+        'form' => 40,
+        'view' => 40,
+      ],
       'third_party_settings' => [
         'entity_reference_validators' => [
           'circular_reference' => TRUE,
@@ -67,6 +84,10 @@ function farm_field_log_base_fields() {
       'description' => t('What assets do this log pertain to?'),
       'target_type' => 'asset',
       'multiple' => TRUE,
+      'weight' => [
+        'form' => 50,
+        'view' => -10,
+      ],
     ],
     'category' => [
       'type' => 'entity_reference',
@@ -74,26 +95,43 @@ function farm_field_log_base_fields() {
       'description' => t('Use this to organize your logs into categories for easier searching and filtering later.'),
       'target_type' => 'taxonomy_term',
       'multiple' => TRUE,
+      'weight' => [
+        'form' => 10,
+        'view' => 80,
+      ],
     ],
     'data' => [
       'type' => 'string_long',
       'label' => t('Data'),
+      'hidden' => TRUE,
     ],
     'file' => [
       'type' => 'file',
       'label' => t('Files'),
       'file_directory' => 'farm/log/[date:custom:Y]-[date:custom:m]',
       'multiple' => TRUE,
+      'weight' => [
+        'form' => 90,
+        'view' => 90,
+      ],
     ],
     'image' => [
       'type' => 'image',
       'label' => t('Images'),
       'file_directory' => 'farm/log/[date:custom:Y]-[date:custom:m]',
       'multiple' => TRUE,
+      'weight' => [
+        'form' => 89,
+        'view' => 89,
+      ],
     ],
     'notes' => [
       'type' => 'text_long',
       'label' => t('Notes'),
+      'weight' => [
+        'form' => 0,
+        'view' => 0,
+      ],
     ],
     'owner' => [
       'type' => 'entity_reference',
@@ -101,6 +139,10 @@ function farm_field_log_base_fields() {
       'description' => t('Optionally assign this task to one or more people.'),
       'target_type' => 'user',
       'multiple' => TRUE,
+      'weight' => [
+        'form' => -70,
+        'view' => -70,
+      ],
     ],
   ];
   $fields = [];
@@ -118,22 +160,35 @@ function farm_field_plan_base_fields() {
     'data' => [
       'type' => 'string_long',
       'label' => t('Data'),
+      'hidden' => TRUE,
     ],
     'file' => [
       'type' => 'file',
       'label' => t('Files'),
       'file_directory' => 'farm/plan/[date:custom:Y]-[date:custom:m]',
       'multiple' => TRUE,
+      'weight' => [
+        'form' => 90,
+        'view' => 90,
+      ],
     ],
     'image' => [
       'type' => 'image',
       'label' => t('Images'),
       'file_directory' => 'farm/plan/[date:custom:Y]-[date:custom:m]',
       'multiple' => TRUE,
+      'weight' => [
+        'form' => 89,
+        'view' => 89,
+      ],
     ],
     'notes' => [
       'type' => 'text_long',
       'label' => t('Notes'),
+      'weight' => [
+        'form' => 0,
+        'view' => 0,
+      ],
     ],
   ];
   $fields = [];
@@ -214,19 +269,32 @@ function farm_field_base_field_definition(array $options = []) {
       farm_field_base_field_definition_list_string($field, $options);
       break;
 
+    case 'string':
+    case 'string_long':
+      farm_field_base_field_definition_string($field, $options);
+      break;
+
+    case 'text_long':
+      farm_field_base_field_definition_text($field, $options);
+      break;
+
     case 'file':
     case 'image':
       farm_field_base_field_definition_file($field, $options);
       break;
 
-    case 'string':
-    case 'string_long':
-    case 'text_long':
-      break;
-
     default:
       throw new FieldException('Unsupported field type.');
 
+  }
+
+  // Hide the field in form and view displays, if specified.
+  if (!empty($options['hidden'])) {
+    $display_options = [
+      'region' => 'hidden',
+    ];
+    $field->setDisplayOptions('form', $display_options);
+    $field->setDisplayOptions('view', $display_options);
   }
 
   // Make the form and view displays configurable.
@@ -266,6 +334,24 @@ function farm_field_base_field_definition_entity_reference(BaseFieldDefinition &
           'display_name' => 'entity_reference',
         ],
       ];
+      $form_display_options = [
+        'type' => 'entity_reference_autocomplete',
+        'weight' => $options['weight']['form'] ?? 0,
+        'settings' => [
+          'match_operator' => 'CONTAINS',
+          'match_limit' => '10',
+          'size' => '60',
+          'placeholder' => '',
+        ],
+      ];
+      $view_display_options = [
+        'label' => 'inline',
+        'type' => 'entity_reference_label',
+        'weight' => $options['weight']['view'] ?? 0,
+        'settings' => [
+          'link' => TRUE,
+        ],
+      ];
       break;
 
     // Term reference.
@@ -281,6 +367,18 @@ function farm_field_base_field_definition_entity_reference(BaseFieldDefinition &
         ],
         'auto_create' => FALSE,
         'auto_create_bundle' => '',
+      ];
+      $form_display_options = [
+        'type' => 'entity_reference_autocomplete',
+        'weight' => $options['weight']['form'] ?? 0,
+      ];
+      $view_display_options = [
+        'label' => 'inline',
+        'type' => 'entity_reference_label',
+        'weight' => $options['weight']['view'] ?? 0,
+        'settings' => [
+          'link' => FALSE,
+        ],
       ];
       break;
 
@@ -298,6 +396,18 @@ function farm_field_base_field_definition_entity_reference(BaseFieldDefinition &
         ],
         'auto_create' => FALSE,
       ];
+      $form_display_options = [
+        'type' => 'options_select',
+        'weight' => $options['weight']['form'] ?? 0,
+      ];
+      $view_display_options = [
+        'label' => 'inline',
+        'type' => 'entity_reference_label',
+        'weight' => $options['weight']['view'] ?? 0,
+        'settings' => [
+          'link' => TRUE,
+        ],
+      ];
       break;
 
     // Otherwise, throw an exception.
@@ -308,6 +418,32 @@ function farm_field_base_field_definition_entity_reference(BaseFieldDefinition &
   // Set the handler and handler settings.
   $field->setSetting('handler', $handler);
   $field->setSetting('handler_settings', $handler_settings);
+
+  // Set form and view display options.
+  $field->setDisplayOptions('form', $form_display_options);
+  $field->setDisplayOptions('view', $view_display_options);
+}
+
+/**
+ * String base field modifier.
+ *
+ * @param \Drupal\Core\Field\BaseFieldDefinition &$field
+ *   A base field definition object.
+ * @param array $options
+ *   An array of options.
+ */
+function farm_field_base_field_definition_string(BaseFieldDefinition &$field, array $options = []) {
+
+  // Build form and view display settings.
+  $field->setDisplayOptions('form', [
+    'type' => $options['type'],
+    'weight' => $options['weight']['form'] ?? 0,
+  ]);
+  $field->setDisplayOptions('view', [
+    'label' => 'inline',
+    'type' => $options['type'],
+    'weight' => $options['weight']['view'] ?? 0,
+  ]);
 }
 
 /**
@@ -329,6 +465,43 @@ function farm_field_base_field_definition_list_string(BaseFieldDefinition &$fiel
   if (!empty($options['allowed_values_function'])) {
     $field->setSetting('allowed_values_function', $options['allowed_values_function']);
   }
+
+  // Build form and view display settings.
+  $field->setDisplayOptions('form', [
+    'type' => 'options_buttons',
+    'weight' => $options['weight']['form'] ?? 0,
+  ]);
+  $field->setDisplayOptions('view', [
+    'label' => 'inline',
+    'type' => 'list_default',
+    'weight' => $options['weight']['view'] ?? 0,
+  ]);
+}
+
+/**
+ * Text base field modifier.
+ *
+ * @param \Drupal\Core\Field\BaseFieldDefinition &$field
+ *   A base field definition object.
+ * @param array $options
+ *   An array of options.
+ */
+function farm_field_base_field_definition_text(BaseFieldDefinition &$field, array $options = []) {
+
+  // Build form and view display settings.
+  $field->setDisplayOptions('form', [
+    'type' => 'text_textarea',
+    'settings' => [
+      'rows' => '5',
+      'placeholder' => '',
+    ],
+    'weight' => $options['weight']['form'] ?? 0,
+  ]);
+  $field->setDisplayOptions('view', [
+    'label' => 'inline',
+    'type' => 'text_default',
+    'weight' => $options['weight']['view'] ?? 0,
+  ]);
 }
 
 /**
@@ -380,4 +553,48 @@ function farm_field_base_field_definition_file(BaseFieldDefinition &$field, arra
 
   }
   $field->setSettings($settings);
+
+  // Build form and view display settings.
+  switch ($options['type']) {
+
+    case 'file':
+      $form_display_options = [
+        'type' => 'file_generic',
+        'settings' => [
+          'progress_indicator' => 'throbber',
+        ],
+        'weight' => $options['weight']['form'] ?? 0,
+      ];
+      $view_display_options = [
+        'type' => 'file_table',
+        'label' => 'visually_hidden',
+        'settings' => [
+          'use_description_as_link_text' => TRUE,
+        ],
+        'weight' => $options['weight']['view'] ?? 0,
+      ];
+      break;
+
+    case 'image':
+      $form_display_options = [
+        'type' => 'image_image',
+        'settings' => [
+          'preview_image_style' => 'medium',
+          'progress_indicator' => 'throbber',
+        ],
+        'weight' => $options['weight']['form'] ?? 0,
+      ];
+      $view_display_options = [
+        'type' => 'image',
+        'label' => 'visually_hidden',
+        'settings' => [
+          'image_style' => 'large',
+          'image_link' => 'file',
+        ],
+        'weight' => $options['weight']['view'] ?? 0,
+      ];
+      break;
+  }
+  $field->setDisplayOptions('form', $form_display_options);
+  $field->setDisplayOptions('view', $view_display_options);
 }
