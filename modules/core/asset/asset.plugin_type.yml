@@ -1,0 +1,5 @@
+asset.asset_type:
+  label: Asset type
+  provider: asset
+  plugin_manager_service_id: plugin.manager.asset_type
+  plugin_definition_decorator_class: Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
