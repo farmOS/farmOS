@@ -1,7 +1,7 @@
 (function (Drupal) {
   Drupal.behaviors.farm_map = {
     attach: function (context, settings) {
-      var options = {
+      const defaultOptions = {
         // TODO: Set the map units.
         //units: drupalSettings.farm_map.units,
         interactions: {
@@ -10,7 +10,9 @@
       };
       context.querySelectorAll('.farm-map').forEach(function (element) {
         element.setAttribute('tabIndex', 0);
-        farmOS.map.create(element.getAttribute('id'), options);
+        const mapId = element.getAttribute('id');
+        const mapOptions = { ...defaultOptions, ...drupalSettings.farm_map[mapId].options};
+        farmOS.map.create(mapId, mapOptions);
         context.querySelectorAll('.ol-popup-closer').forEach(function (element) {
           element.onClick = function (element) { element.focus() };
         });

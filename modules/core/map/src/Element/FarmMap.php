@@ -40,7 +40,12 @@ class FarmMap extends RenderElement {
   public static function preRenderMap(array $element) {
 
     // Set the id to the map name.
-    $element['#attributes']['id'] = Html::getUniqueId($element['#map_name']);
+    $map_id = Html::getUniqueId($element['#map_name']);
+    $element['#attributes']['id'] = $map_id;
+
+    // Get the map type.
+    /** @var \Drupal\farm_map\Entity\MapTypeInterface $map */
+    $map = \Drupal::entityTypeManager()->getStorage('map_type')->load($element['#map_name']);
 
     // Add the farm-map class.
     $element['#attributes']['class'][] = 'farm-map';
@@ -48,6 +53,11 @@ class FarmMap extends RenderElement {
     // Attach the farmOS-map and farm_map libraries.
     $element['#attached']['library'][] = 'farm_map/farmOS-map';
     $element['#attached']['library'][] = 'farm_map/farm_map';
+
+    // Include the map options.
+    $map_options = $map->getMapOptions();
+    $element['#attached']['drupalSettings']['farm_map'][$map_id]['options'] = $map_options;
+
     return $element;
   }
 

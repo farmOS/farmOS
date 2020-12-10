@@ -1,0 +1,20 @@
+# Schema for the configuration files of the farm_map module.
+farm_map.map_type.*:
+  type: config_entity
+  label: 'Map'
+  mapping:
+    id:
+      type: string
+      label: 'Machine-readable name'
+    label:
+      type: label
+      label: 'Type'
+    description:
+      type: text
+      label: 'Description'
+    options:
+      type: sequence
+      label: 'farmOS-map options'
+      sequence:
+        type: ignore
+        label: 'Option name'
