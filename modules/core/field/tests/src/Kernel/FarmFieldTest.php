@@ -1,11 +1,11 @@
 <?php
 
-namespace Drupal\Tests\entity\Kernel;
+namespace Drupal\Tests\farm_field\Kernel;
 
 use Drupal\KernelTests\KernelTestBase;
 
 /**
- * Tests the bundle plugin API.
+ * Tests farmOS base fields.
  *
  * @group farm
  */
@@ -30,7 +30,7 @@ class FarmFieldTest extends KernelTestBase {
   /**
    * Tests the farmOS base fields are added to entities.
    */
-  public function testPluginBundles() {
+  public function testFarmBaseFields() {
 
     // Load the entity field manager.
     /** @var \Drupal\Core\Entity\EntityFieldManagerInterface $entity_field_manager */
