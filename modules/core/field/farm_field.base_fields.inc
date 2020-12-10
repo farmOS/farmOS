@@ -447,14 +447,23 @@ function farm_field_base_field_definition_entity_reference(BaseFieldDefinition &
  */
 function farm_field_base_field_definition_string(BaseFieldDefinition &$field, array $options = []) {
 
+  // Set default settings.
+  $field->setSetting('max_length', 255);
+  $field->setSetting('is_ascii', FALSE);
+  $field->setSetting('case_sensitive', FALSE);
+
   // Build form and view display settings.
   $field->setDisplayOptions('form', [
-    'type' => $options['type'],
+    'type' => 'string_textfield',
+    'settings' => [
+      'size' => 60,
+      'placeholder' => '',
+    ],
     'weight' => $options['weight']['form'] ?? 0,
   ]);
   $field->setDisplayOptions('view', [
     'label' => 'inline',
-    'type' => $options['type'],
+    'type' => 'string',
     'weight' => $options['weight']['view'] ?? 0,
   ]);
 }
