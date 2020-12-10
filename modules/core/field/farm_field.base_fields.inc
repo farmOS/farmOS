@@ -296,6 +296,10 @@ function farm_field_base_field_definition(array $options = []) {
       farm_field_base_field_definition_geofield($field, $options);
       break;
 
+    case 'timestamp':
+      farm_field_base_field_definition_timestamp($field, $options);
+      break;
+
     default:
       throw new FieldException('Unsupported field type.');
 
@@ -648,6 +652,33 @@ function farm_field_base_field_definition_geofield(BaseFieldDefinition &$field, 
     'settings' => [
       'output_format' => 'wkt',
       'output_escape' => TRUE,
+    ],
+    'weight' => $options['weight']['view'] ?? 0,
+  ]);
+}
+
+/**
+ * Timestamp field modifier.
+ *
+ * @param \Drupal\Core\Field\BaseFieldDefinition &$field
+ *   A base field definition object.
+ * @param array $options
+ *   An array of options.
+ */
+function farm_field_base_field_definition_timestamp(BaseFieldDefinition &$field, array $options = []) {
+
+  // Build form and view display settings.
+  $field->setDisplayOptions('form', [
+    'type' => 'datetime_timestamp',
+    'weight' => $options['weight']['form'] ?? 0,
+  ]);
+  $field->setDisplayOptions('view', [
+    'label' => 'inline',
+    'type' => 'timestamp',
+    'settings' => [
+      'date_format' => 'medium',
+      'custom_date_format' => '',
+      'timezone' => '',
     ],
     'weight' => $options['weight']['view'] ?? 0,
   ]);
