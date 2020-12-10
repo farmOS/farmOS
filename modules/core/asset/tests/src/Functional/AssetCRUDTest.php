@@ -66,7 +66,6 @@ class AssetCRUDTest extends AssetTestBase {
     $edit = [
       'name' => $this->randomMachineName(),
       'created' => \Drupal::time()->getRequestTime(),
-      'done' => TRUE,
     ];
     $asset = $this->createAssetEntity($edit);
     $asset->save();

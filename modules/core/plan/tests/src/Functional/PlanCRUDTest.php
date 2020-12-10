@@ -66,7 +66,6 @@ class PlanCRUDTest extends PlanTestBase {
     $edit = [
       'name' => $this->randomMachineName(),
       'created' => \Drupal::time()->getRequestTime(),
-      'done' => TRUE,
     ];
     $plan = $this->createPlanEntity($edit);
     $plan->save();
