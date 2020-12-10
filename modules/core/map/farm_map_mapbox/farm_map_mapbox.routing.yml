@@ -1,0 +1,7 @@
+farm_map_mapbox.settings:
+  path: 'farm/settings/map/mapbox'
+  defaults:
+    _form: '\Drupal\farm_map_mapbox\Form\MapboxSettingsForm'
+    _title: 'Mapbox settings'
+  requirements:
+    _permission: 'administer farm map'
