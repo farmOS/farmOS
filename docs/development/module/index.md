@@ -61,3 +61,27 @@ Other common files and directories in a module include:
   installed if certain dependencies are met.
 - `src/*` - PHP classes organized using the PSR-4 autoloading specification.
 - `tests/*` - Automated tests for the module.
+
+## Publishing
+
+If you want to share your module, consider publishing the repository so that it
+can be downloaded and installed by other farmOS users.
+
+[farmOS.org](https://farmOS.org) maintains a list of community modules, and
+accepts new additions via
+[pull requests](https://github.com/farmOS/farmOS.org/pulls).
+
+It is recommended that "contributed" farmOS modules be made available as a
+"project" on [Drupal.org](https://drupal.org). This has two benefits:
+
+- Projects can be included via Composer with: `composer require drupal/mymodule`
+- Translations can be automatically managed and downloaded from Drupal's
+  centralized localization server:
+  [localize.drupal.org](https://localize.drupal.org)
+
+### License
+
+farmOS modules that are distributed to others must be licensed under the
+[GNU General Public License, version 2 or later](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html).
+For more information about farmOS and Drupal module licensing requirements,
+refer to [Drupal.org Licensing](https://www.drupal.org/about/licensing).
