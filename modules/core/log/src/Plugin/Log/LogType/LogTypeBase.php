@@ -42,7 +42,7 @@ abstract class LogTypeBase extends PluginBase implements LogTypeInterface {
         'view' => 95,
       ],
     ];
-    $fields['geometry'] = farm_field_bundle_field_definition($options);
+    $fields['geometry'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
 
     return $fields;
   }

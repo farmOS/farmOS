@@ -31,7 +31,7 @@ function farm_equipment_entity_base_field_info(EntityTypeInterface $entity_type)
         'view' => -5,
       ],
     ];
-    $field = farm_field_base_field_definition($options);
+    $field = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
     $field->setSetting('handler', 'default:asset');
     $field->setSetting('handler_settings', [
       'target_bundles' => [

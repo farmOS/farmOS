@@ -31,7 +31,7 @@ function farm_flag_entity_base_field_info(EntityTypeInterface $entity_type) {
       ],
       'allowed_values_function' => 'farm_flag_field_allowed_values',
     ];
-    $fields['flag'] = farm_field_base_field_definition($options);
+    $fields['flag'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
   }
 
   return $fields;
