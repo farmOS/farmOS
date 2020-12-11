@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * @file
+ * The farmOS Log module.
+ */
+
+/**
+ * Implements hook_module_implements_alter().
+ */
+function farm_log_module_implements_alter(&$implementations, $hook) {
+
+  // Make sure this module's hook_entity_type_build() runs before the
+  // entity module's implementation, so that we can set the Log entity type's
+  // bundle_plugin_type.
+  $module = 'farm_log';
+  if ($hook == 'entity_type_build') {
+    $implementation = [$module => $implementations[$module]];
+    unset($implementations[$module]);
+    $implementations = array_merge($implementation, $implementations);
+  }
+}
+
+/**
+ * Implements hook_entity_type_build().
+ */
+function farm_log_entity_type_build(array &$entity_types) {
+
+  // Enable the use of bundle plugins for log entities.
+  /** @var \Drupal\Core\Entity\EntityTypeInterface[] $entity_types */
+  if (!empty($entity_types['log'])) {
+    $entity_types['log']->set('bundle_plugin_type', 'log_type');
+  }
+}

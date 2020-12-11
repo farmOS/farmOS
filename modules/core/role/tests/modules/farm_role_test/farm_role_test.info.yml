@@ -5,4 +5,5 @@ package: Testing
 core_version_requirement: ^8.8 || ^9
 
 dependencies:
-  - farm_role:farm_role
+  - log:log
+  - farm:farm_role

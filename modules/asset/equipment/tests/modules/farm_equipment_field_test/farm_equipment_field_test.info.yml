@@ -5,4 +5,4 @@ package: Testing
 core_version_requirement: ^9
 dependencies:
   - farm:farm_field
-  - log:log
+  - farm:farm_log

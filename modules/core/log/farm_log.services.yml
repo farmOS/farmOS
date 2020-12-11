@@ -1,0 +1,4 @@
+services:
+  plugin.manager.log_type:
+    class: Drupal\farm_log\LogTypeManager
+    parent: default_plugin_manager

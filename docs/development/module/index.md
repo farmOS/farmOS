@@ -49,7 +49,7 @@ type: module
 package: farmOS Contrib
 core_version_requirement: ^9
 dependencies:
-  - log:log
+  - farm:farm_log
 ```
 
 Other common files and directories in a module include:

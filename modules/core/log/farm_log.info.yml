@@ -1,0 +1,7 @@
+name: farmOS Log
+description: Extends the Log entity type for farmOS.
+type: module
+package: farmOS
+core_version_requirement: ^9
+dependencies:
+  - log:log
