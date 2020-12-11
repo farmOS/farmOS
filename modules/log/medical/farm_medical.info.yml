@@ -7,5 +7,5 @@ dependencies:
   - farm:farm_animal
   - farm:farm_field
   - farm:farm_flag
-  - log:log
+  - farm:farm_log
   - token:token
