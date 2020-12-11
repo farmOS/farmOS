@@ -12,6 +12,7 @@ dependencies:
   - drupal:text
   - drupal:user
   - farm:asset
+  - entity:entity
   - entity_reference_integrity:entity_reference_integrity_enforce
   - entity_reference_validators:entity_reference_validators
   - farm:farm_log_category
