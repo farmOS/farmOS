@@ -12,19 +12,15 @@ command inside the farmOS container.
 
 For example, the following will run the `composer help` command:
 
-    docker exec -it -u www-data farmos_www_1 composer help
-
-## Common tasks
-
-Some common Composer tasks are documented here.
-
-### Updating dependencies
-
-    composer update [package-name]
+    docker exec -it -u www-data farmos_www_1 composer help'
 
 **Warning**: If `composer update farmos/farmos` is run, it will replace the
 Git repository in `web/profiles/farm`, discarding all
 changes/branches/remotes/etc.
+
+## Common tasks
+
+Some common Composer tasks are documented here.
 
 ### Adding a module
 
