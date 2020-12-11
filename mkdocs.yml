@@ -7,6 +7,7 @@ nav:
       - Changes: development/api/changes.md
     - Module:
       - Getting started: development/module/index.md
+      - Entities: development/module/entities.md
       - Fields: development/module/fields.md
       - OAuth: development/module/oauth.md
       - Roles: development/module/roles.md
