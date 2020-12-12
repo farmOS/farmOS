@@ -1,0 +1,7 @@
+name: farmOS Text Format
+description: Provides a default text format
+type: module
+package: farmOS
+core_version_requirement: ^9
+dependencies:
+  - drupal:filter
