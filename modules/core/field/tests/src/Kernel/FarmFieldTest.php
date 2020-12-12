@@ -20,6 +20,7 @@ class FarmFieldTest extends KernelTestBase {
    * {@inheritdoc}
    */
   protected static $modules = [
+    'entity',
     'asset',
     'log',
     'plan',
@@ -61,6 +62,10 @@ class FarmFieldTest extends KernelTestBase {
     // Load field definitions for test logs.
     $fields = $entity_field_manager->getFieldDefinitions('log', 'test');
 
+    // Confirm that all fields defined in FarmLogType::buildFieldDefinitions()
+    // exist.
+    $this->assertArrayHasKey('geometry', $fields);
+
     // Confirm that fields defined in hook_farm_entity_bundle_field_info()
     // exist.
     $this->assertArrayHasKey('test_base_field', $fields);
@@ -74,6 +79,14 @@ class FarmFieldTest extends KernelTestBase {
     $this->assertArrayHasKey('file', $fields);
     $this->assertArrayHasKey('image', $fields);
     $this->assertArrayHasKey('notes', $fields);
+
+    // Load field definitions for test plans.
+    $fields = $entity_field_manager->getFieldDefinitions('plan', 'test');
+
+    // Confirm that all fields defined in FarmPlanType::buildFieldDefinitions()
+    // exist.
+    $this->assertArrayHasKey('asset', $fields);
+    $this->assertArrayHasKey('log', $fields);
   }
 
 }
