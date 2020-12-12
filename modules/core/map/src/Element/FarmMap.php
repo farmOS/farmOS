@@ -4,6 +4,7 @@ namespace Drupal\farm_map\Element;
 
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Render\Element\RenderElement;
+use Drupal\farm_map\Event\MapRenderEvent;
 
 /**
  * Provides a farm_map render element.
@@ -58,7 +59,12 @@ class FarmMap extends RenderElement {
     $map_options = $map->getMapOptions();
     $element['#attached']['drupalSettings']['farm_map'][$map_id]['options'] = $map_options;
 
-    return $element;
+    // Create and dispatch a MapRenderEvent.
+    $event = new MapRenderEvent($map, $element);
+    \Drupal::service('event_dispatcher')->dispatch(MapRenderEvent::EVENT_NAME, $event);
+
+    // Return the element.
+    return $event->element;
   }
 
 }
