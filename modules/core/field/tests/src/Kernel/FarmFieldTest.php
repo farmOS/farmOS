@@ -28,9 +28,9 @@ class FarmFieldTest extends KernelTestBase {
   ];
 
   /**
-   * Tests the farmOS base fields are added to entities.
+   * Tests the farmOS fields are added to entities.
    */
-  public function testFarmBaseFields() {
+  public function testFarmFields() {
 
     // Load the entity field manager.
     /** @var \Drupal\Core\Entity\EntityFieldManagerInterface $entity_field_manager */
@@ -57,6 +57,14 @@ class FarmFieldTest extends KernelTestBase {
     $this->assertArrayHasKey('image', $fields);
     $this->assertArrayHasKey('notes', $fields);
     $this->assertArrayHasKey('owner', $fields);
+
+    // Load field definitions for test logs.
+    $fields = $entity_field_manager->getFieldDefinitions('log', 'test');
+
+    // Confirm that fields defined in hook_farm_entity_bundle_field_info()
+    // exist.
+    $this->assertArrayHasKey('test_base_field', $fields);
+    $this->assertArrayHasKey('test_bundle_field', $fields);
 
     // Load plan field storage definitions.
     $fields = $entity_field_manager->getFieldStorageDefinitions('plan');

@@ -6,6 +6,37 @@
  */
 
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\farm_field\BundlePlugin\FarmFieldBundlePluginHandler;
+
+/**
+ * Implements hook_module_implements_alter().
+ */
+function farm_field_module_implements_alter(&$implementations, $hook) {
+
+  // Make sure this module's hook_entity_type_build() runs before the
+  // entity module's implementation, so that we can override the bundle plugin
+  // handler.
+  $module = 'farm_field';
+  if ($hook == 'entity_type_build') {
+    $implementation = [$module => $implementations[$module]];
+    unset($implementations[$module]);
+    $implementations = array_merge($implementation, $implementations);
+  }
+}
+
+/**
+ * Implements hook_entity_type_build().
+ */
+function farm_field_entity_type_build(array &$entity_types) {
+
+  // Override the bundle plugin handler for asset, log, and plan entity types.
+  /** @var \Drupal\Core\Entity\EntityTypeInterface[] $entity_types */
+  foreach (['asset', 'log', 'plan'] as $entity_type) {
+    if (!empty($entity_types[$entity_type])) {
+      $entity_types[$entity_type]->setHandlerClass('bundle_plugin', FarmFieldBundlePluginHandler::class);
+    }
+  }
+}
 
 /**
  * Implements hook_entity_base_field_info().

@@ -16,4 +16,4 @@ dependencies:
   - entity_reference_validators:entity_reference_validators
   - farm:asset
   - farm:farm_log_category
-  - log:log
+  - farm:farm_log
