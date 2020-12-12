@@ -10,6 +10,7 @@ nav:
       - Fields: development/module/fields.md
       - OAuth: development/module/oauth.md
       - Roles: development/module/roles.md
+      - Updates: development/module/updates.md
     - Environment:
       - Getting started: development/environment/index.md
       - Updating: development/environment/update.md
