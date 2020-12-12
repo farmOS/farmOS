@@ -2,7 +2,7 @@
 
 namespace Drupal\farm_sale\Plugin\Log\LogType;
 
-use Drupal\farm_log\Plugin\Log\LogType\LogTypeBase;
+use Drupal\farm_field\Plugin\Log\LogType\FarmLogType;
 
 /**
  * Provides the sale log type.
@@ -12,7 +12,7 @@ use Drupal\farm_log\Plugin\Log\LogType\LogTypeBase;
  *   label = @Translation("Sale"),
  * )
  */
-class Sale extends LogTypeBase {
+class Sale extends FarmLogType {
 
   /**
    * {@inheritdoc}

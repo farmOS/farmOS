@@ -2,7 +2,7 @@
 
 namespace Drupal\farm_harvest\Plugin\Log\LogType;
 
-use Drupal\farm_log\Plugin\Log\LogType\LogTypeBase;
+use Drupal\farm_field\Plugin\Log\LogType\FarmLogType;
 
 /**
  * Provides the harvest log type.
@@ -12,7 +12,7 @@ use Drupal\farm_log\Plugin\Log\LogType\LogTypeBase;
  *   label = @Translation("Harvest"),
  * )
  */
-class Harvest extends LogTypeBase {
+class Harvest extends FarmLogType {
 
   /**
    * {@inheritdoc}

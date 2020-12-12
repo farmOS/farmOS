@@ -2,7 +2,7 @@
 
 namespace Drupal\farm_seeding\Plugin\Log\LogType;
 
-use Drupal\farm_log\Plugin\Log\LogType\LogTypeBase;
+use Drupal\farm_field\Plugin\Log\LogType\FarmLogType;
 
 /**
  * Provides the seeding log type.
@@ -12,7 +12,7 @@ use Drupal\farm_log\Plugin\Log\LogType\LogTypeBase;
  *   label = @Translation("Seeding"),
  * )
  */
-class Seeding extends LogTypeBase {
+class Seeding extends FarmLogType {
 
   /**
    * {@inheritdoc}

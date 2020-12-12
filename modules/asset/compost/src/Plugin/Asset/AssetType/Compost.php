@@ -2,7 +2,7 @@
 
 namespace Drupal\farm_compost\Plugin\Asset\AssetType;
 
-use Drupal\asset\Plugin\Asset\AssetType\AssetTypeBase;
+use Drupal\farm_field\Plugin\Asset\AssetType\FarmAssetType;
 
 /**
  * Provides the compost asset type.
@@ -12,6 +12,6 @@ use Drupal\asset\Plugin\Asset\AssetType\AssetTypeBase;
  *   label = @Translation("Compost"),
  * )
  */
-class Compost extends AssetTypeBase {
+class Compost extends FarmAssetType {
 
 }

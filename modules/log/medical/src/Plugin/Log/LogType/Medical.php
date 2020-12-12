@@ -2,7 +2,7 @@
 
 namespace Drupal\farm_medical\Plugin\Log\LogType;
 
-use Drupal\farm_log\Plugin\Log\LogType\LogTypeBase;
+use Drupal\farm_field\Plugin\Log\LogType\FarmLogType;
 
 /**
  * Provides the medical log type.
@@ -12,7 +12,7 @@ use Drupal\farm_log\Plugin\Log\LogType\LogTypeBase;
  *   label = @Translation("Medical"),
  * )
  */
-class Medical extends LogTypeBase {
+class Medical extends FarmLogType {
 
   /**
    * {@inheritdoc}

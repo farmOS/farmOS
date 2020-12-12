@@ -2,7 +2,7 @@
 
 namespace Drupal\farm_field_test\Plugin\Asset\AssetType;
 
-use Drupal\asset\Plugin\Asset\AssetType\AssetTypeBase;
+use Drupal\farm_field\Plugin\Asset\AssetType\FarmAssetType;
 
 /**
  * Provides the test asset type.
@@ -12,6 +12,6 @@ use Drupal\asset\Plugin\Asset\AssetType\AssetTypeBase;
  *   label = @Translation("Test"),
  * )
  */
-class Test extends AssetTypeBase {
+class Test extends FarmAssetType {
 
 }

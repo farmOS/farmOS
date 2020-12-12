@@ -2,7 +2,7 @@
 
 namespace Drupal\farm_sensor\Plugin\Asset\AssetType;
 
-use Drupal\asset\Plugin\Asset\AssetType\AssetTypeBase;
+use Drupal\farm_field\Plugin\Asset\AssetType\FarmAssetType;
 
 /**
  * Provides the sensor asset type.
@@ -12,6 +12,6 @@ use Drupal\asset\Plugin\Asset\AssetType\AssetTypeBase;
  *   label = @Translation("Sensor"),
  * )
  */
-class Sensor extends AssetTypeBase {
+class Sensor extends FarmAssetType {
 
 }

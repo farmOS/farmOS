@@ -2,7 +2,7 @@
 
 namespace Drupal\farm_maintenance\Plugin\Log\LogType;
 
-use Drupal\farm_log\Plugin\Log\LogType\LogTypeBase;
+use Drupal\farm_field\Plugin\Log\LogType\FarmLogType;
 
 /**
  * Provides the maintenance log type.
@@ -12,6 +12,6 @@ use Drupal\farm_log\Plugin\Log\LogType\LogTypeBase;
  *   label = @Translation("Maintenance"),
  * )
  */
-class Maintenance extends LogTypeBase {
+class Maintenance extends FarmLogType {
 
 }

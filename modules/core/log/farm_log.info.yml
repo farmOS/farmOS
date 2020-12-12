@@ -5,3 +5,4 @@ package: farmOS
 core_version_requirement: ^9
 dependencies:
   - log:log
+  - token:token

@@ -2,7 +2,7 @@
 
 namespace Drupal\farm_field_test\Plugin\Log\LogType;
 
-use Drupal\farm_log\Plugin\Log\LogType\LogTypeBase;
+use Drupal\farm_field\Plugin\Log\LogType\FarmLogType;
 
 /**
  * Provides the test log type.
@@ -12,6 +12,6 @@ use Drupal\farm_log\Plugin\Log\LogType\LogTypeBase;
  *   label = @Translation("Test"),
  * )
  */
-class Test extends LogTypeBase {
+class Test extends FarmLogType {
 
 }

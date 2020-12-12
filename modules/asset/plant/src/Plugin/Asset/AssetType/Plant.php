@@ -2,7 +2,7 @@
 
 namespace Drupal\farm_plant\Plugin\Asset\AssetType;
 
-use Drupal\asset\Plugin\Asset\AssetType\AssetTypeBase;
+use Drupal\farm_field\Plugin\Asset\AssetType\FarmAssetType;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
@@ -13,7 +13,7 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
  *   label = @Translation("Plant"),
  * )
  */
-class Plant extends AssetTypeBase {
+class Plant extends FarmAssetType {
 
   use StringTranslationTrait;
 

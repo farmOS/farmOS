@@ -2,7 +2,7 @@
 
 namespace Drupal\farm_input\Plugin\Log\LogType;
 
-use Drupal\farm_log\Plugin\Log\LogType\LogTypeBase;
+use Drupal\farm_field\Plugin\Log\LogType\FarmLogType;
 
 /**
  * Provides the input log type.
@@ -12,7 +12,7 @@ use Drupal\farm_log\Plugin\Log\LogType\LogTypeBase;
  *   label = @Translation("Input"),
  * )
  */
-class Input extends LogTypeBase {
+class Input extends FarmLogType {
 
   /**
    * {@inheritdoc}

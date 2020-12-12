@@ -2,7 +2,7 @@
 
 namespace Drupal\farm_group\Plugin\Asset\AssetType;
 
-use Drupal\asset\Plugin\Asset\AssetType\AssetTypeBase;
+use Drupal\farm_field\Plugin\Asset\AssetType\FarmAssetType;
 
 /**
  * Provides the group asset type.
@@ -12,6 +12,6 @@ use Drupal\asset\Plugin\Asset\AssetType\AssetTypeBase;
  *   label = @Translation("Group"),
  * )
  */
-class Group extends AssetTypeBase {
+class Group extends FarmAssetType {
 
 }

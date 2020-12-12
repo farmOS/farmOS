@@ -2,7 +2,7 @@
 
 namespace Drupal\farm_observation\Plugin\Log\LogType;
 
-use Drupal\farm_log\Plugin\Log\LogType\LogTypeBase;
+use Drupal\farm_field\Plugin\Log\LogType\FarmLogType;
 
 /**
  * Provides the observation log type.
@@ -12,6 +12,6 @@ use Drupal\farm_log\Plugin\Log\LogType\LogTypeBase;
  *   label = @Translation("Observation"),
  * )
  */
-class Observation extends LogTypeBase {
+class Observation extends FarmLogType {
 
 }

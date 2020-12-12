@@ -2,8 +2,8 @@
 
 namespace Drupal\farm_animal\Plugin\Asset\AssetType;
 
-use Drupal\asset\Plugin\Asset\AssetType\AssetTypeBase;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\farm_field\Plugin\Asset\AssetType\FarmAssetType;
 
 /**
  * Provides the animal asset type.
@@ -13,7 +13,7 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
  *   label = @Translation("Animal"),
  * )
  */
-class Animal extends AssetTypeBase {
+class Animal extends FarmAssetType {
 
   use StringTranslationTrait;
 

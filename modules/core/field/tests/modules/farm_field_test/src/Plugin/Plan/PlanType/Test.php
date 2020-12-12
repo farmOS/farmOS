@@ -2,7 +2,7 @@
 
 namespace Drupal\farm_field_test\Plugin\Plan\PlanType;
 
-use Drupal\plan\Plugin\Plan\PlanType\PlanTypeBase;
+use Drupal\farm_entity\Plugin\Plan\PlanType\FarmPlanType;
 
 /**
  * Provides the test plan type.
@@ -12,6 +12,6 @@ use Drupal\plan\Plugin\Plan\PlanType\PlanTypeBase;
  *   label = @Translation("Test"),
  * )
  */
-class Test extends PlanTypeBase {
+class Test extends FarmPlanType {
 
 }
