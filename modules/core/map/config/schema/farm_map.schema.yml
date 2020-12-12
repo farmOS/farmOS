@@ -18,6 +18,28 @@ farm_map.map_type.*:
       sequence:
         type: ignore
         label: 'Option name'
+farm_map.map_behavior.*:
+  type: config_entity
+  label: 'Map behavior'
+  mapping:
+    id:
+      type: string
+      label: 'Machine-readable name'
+    label:
+      type: label
+      label: 'Behavior'
+    description:
+      type: text
+      label: 'Description'
+    library:
+      type: string
+      label: 'Library name'
+    settings:
+      type: sequence
+      label: 'Behavior settings'
+      sequence:
+        type: ignore
+        label: 'Behavior setting'
 block.settings.map_block:
   type: block_settings
   label: 'map block settings'
