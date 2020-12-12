@@ -15,6 +15,17 @@ function farm_field_asset_base_fields() {
       'label' => t('Data'),
       'hidden' => TRUE,
     ],
+    'flag' => [
+      'type' => 'list_string',
+      'label' => t('Flags'),
+      'description' => t('Add flags to enable better sorting and filtering of records.'),
+      'allowed_values_function' => 'farm_flag_field_allowed_values',
+      'multiple' => TRUE,
+      'weight' => [
+        'form' => -75,
+        'view' => -75,
+      ],
+    ],
     'file' => [
       'type' => 'file',
       'label' => t('Files'),
@@ -102,6 +113,17 @@ function farm_field_log_base_fields() {
       'label' => t('Data'),
       'hidden' => TRUE,
     ],
+    'flag' => [
+      'type' => 'list_string',
+      'label' => t('Flags'),
+      'description' => t('Add flags to enable better sorting and filtering of records.'),
+      'allowed_values_function' => 'farm_flag_field_allowed_values',
+      'multiple' => TRUE,
+      'weight' => [
+        'form' => -75,
+        'view' => -75,
+      ],
+    ],
     'file' => [
       'type' => 'file',
       'label' => t('Files'),
@@ -158,6 +180,17 @@ function farm_field_plan_base_fields() {
       'type' => 'string_long',
       'label' => t('Data'),
       'hidden' => TRUE,
+    ],
+    'flag' => [
+      'type' => 'list_string',
+      'label' => t('Flags'),
+      'description' => t('Add flags to enable better sorting and filtering of records.'),
+      'allowed_values_function' => 'farm_flag_field_allowed_values',
+      'multiple' => TRUE,
+      'weight' => [
+        'form' => -75,
+        'view' => -75,
+      ],
     ],
     'file' => [
       'type' => 'file',

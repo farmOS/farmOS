@@ -15,6 +15,7 @@ dependencies:
   - entity_reference_integrity:entity_reference_integrity_enforce
   - entity_reference_validators:entity_reference_validators
   - farm:asset
+  - farm:farm_flag
   - farm:farm_format
   - farm:farm_log_category
   - farm:farm_log

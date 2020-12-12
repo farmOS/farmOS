@@ -42,6 +42,7 @@ class FarmFieldTest extends KernelTestBase {
 
     // Confirm that all fields defined in farm_field_asset_base_fields() exist.
     $this->assertArrayHasKey('data', $fields);
+    $this->assertArrayHasKey('flag', $fields);
     $this->assertArrayHasKey('file', $fields);
     $this->assertArrayHasKey('image', $fields);
     $this->assertArrayHasKey('notes', $fields);
@@ -54,6 +55,7 @@ class FarmFieldTest extends KernelTestBase {
     $this->assertArrayHasKey('asset', $fields);
     $this->assertArrayHasKey('category', $fields);
     $this->assertArrayHasKey('data', $fields);
+    $this->assertArrayHasKey('flag', $fields);
     $this->assertArrayHasKey('file', $fields);
     $this->assertArrayHasKey('image', $fields);
     $this->assertArrayHasKey('notes', $fields);
@@ -76,6 +78,7 @@ class FarmFieldTest extends KernelTestBase {
 
     // Confirm that all fields defined in farm_field_plan_base_fields() exist.
     $this->assertArrayHasKey('data', $fields);
+    $this->assertArrayHasKey('flag', $fields);
     $this->assertArrayHasKey('file', $fields);
     $this->assertArrayHasKey('image', $fields);
     $this->assertArrayHasKey('notes', $fields);
