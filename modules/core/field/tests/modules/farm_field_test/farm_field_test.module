@@ -32,7 +32,7 @@ function farm_field_test_farm_entity_bundle_field_info(EntityTypeInterface $enti
   $fields = [];
 
   // Add a new bundle field to test logs.
-  if ($entity_type->id() == 'log' && $bundle == 'test') {
+  if ($entity_type->id() == 'log' && in_array($bundle, ['test', 'test_override'])) {
     $options = [
       'type' => 'string',
       'label' => t('Test bundle field'),
