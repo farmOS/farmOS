@@ -2,7 +2,7 @@
 
 namespace Drupal\farm_equipment\Plugin\Asset\AssetType;
 
-use Drupal\farm_field\Plugin\Asset\AssetType\FarmAssetType;
+use Drupal\farm_entity\Plugin\Asset\AssetType\FarmAssetType;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**

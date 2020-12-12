@@ -3,7 +3,7 @@
 namespace Drupal\farm_animal\Plugin\Asset\AssetType;
 
 use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\farm_field\Plugin\Asset\AssetType\FarmAssetType;
+use Drupal\farm_entity\Plugin\Asset\AssetType\FarmAssetType;
 
 /**
  * Provides the animal asset type.

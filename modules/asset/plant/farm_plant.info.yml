@@ -4,8 +4,5 @@ type: module
 package: farmOS Assets
 core_version_requirement: ^9
 dependencies:
-  - farm:asset
-  - farm:farm_field
-  - farm:farm_flag
-  - farm:farm_id_tag
+  - farm:farm_entity
   - farm:farm_season

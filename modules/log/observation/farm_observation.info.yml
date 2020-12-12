@@ -4,7 +4,4 @@ type: module
 package: farmOS Logs
 core_version_requirement: ^9
 dependencies:
-  - farm:farm_field
-  - farm:farm_flag
-  - farm:farm_log
-  - token:token
+  - farm:farm_entity

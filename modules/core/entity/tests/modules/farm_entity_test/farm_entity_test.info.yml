@@ -1,0 +1,8 @@
+name: farmOS Fields Test
+description: Module for testing farmOS fields.
+type: module
+package: Testing
+core_version_requirement: ^9
+dependencies:
+  - farm:farm_entity
+  - farm:plan

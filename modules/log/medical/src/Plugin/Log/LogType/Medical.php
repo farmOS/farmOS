@@ -2,7 +2,7 @@
 
 namespace Drupal\farm_medical\Plugin\Log\LogType;
 
-use Drupal\farm_field\Plugin\Log\LogType\FarmLogType;
+use Drupal\farm_entity\Plugin\Log\LogType\FarmLogType;
 
 /**
  * Provides the medical log type.

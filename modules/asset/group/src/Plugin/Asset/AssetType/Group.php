@@ -2,7 +2,7 @@
 
 namespace Drupal\farm_group\Plugin\Asset\AssetType;
 
-use Drupal\farm_field\Plugin\Asset\AssetType\FarmAssetType;
+use Drupal\farm_entity\Plugin\Asset\AssetType\FarmAssetType;
 
 /**
  * Provides the group asset type.
