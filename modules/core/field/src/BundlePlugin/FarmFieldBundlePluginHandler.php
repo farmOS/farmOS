@@ -13,13 +13,11 @@ class FarmFieldBundlePluginHandler extends BundlePluginHandler {
    * {@inheritdoc}
    */
   public function getFieldStorageDefinitions() {
-
-    // Get definitions from the parent method.
-    $definitions = parent::getFieldStorageDefinitions();
+    $definitions = [];
 
     // Allow modules to add definitions.
     foreach (array_keys($this->pluginManager->getDefinitions()) as $plugin_id) {
-      $definitions += \Drupal::moduleHandler()->invokeAll('farm_entity_bundle_field_info', [$this->entityType, $plugin_id]);
+      $definitions = \Drupal::moduleHandler()->invokeAll('farm_entity_bundle_field_info', [$this->entityType, $plugin_id]);
     }
 
     // Ensure the presence of required keys which aren't set by the plugin.
@@ -29,6 +27,9 @@ class FarmFieldBundlePluginHandler extends BundlePluginHandler {
       $definition->setTargetEntityTypeId($this->entityType->id());
       $definitions[$field_name] = $definition;
     }
+
+    // Get definitions from the parent method.
+    $definitions += parent::getFieldStorageDefinitions();
 
     return $definitions;
   }
@@ -38,11 +39,8 @@ class FarmFieldBundlePluginHandler extends BundlePluginHandler {
    */
   public function getFieldDefinitions($bundle) {
 
-    // Get definitions from the parent method.
-    $definitions = parent::getFieldDefinitions($bundle);
-
     // Allow modules to add definitions.
-    $definitions += \Drupal::moduleHandler()->invokeAll('farm_entity_bundle_field_info', [$this->entityType, $bundle]);
+    $definitions = \Drupal::moduleHandler()->invokeAll('farm_entity_bundle_field_info', [$this->entityType, $bundle]);
 
     // Ensure the presence of required keys which aren't set by the plugin.
     // This is copied directly from the parent method for consistency.
@@ -52,6 +50,9 @@ class FarmFieldBundlePluginHandler extends BundlePluginHandler {
       $definition->setTargetBundle($bundle);
       $definitions[$field_name] = $definition;
     }
+
+    // Get definitions from the parent method.
+    $definitions += parent::getFieldDefinitions($bundle);
 
     return $definitions;
   }

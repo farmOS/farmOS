@@ -93,4 +93,21 @@ class FarmFieldTest extends KernelTestBase {
     $this->assertArrayHasKey('log', $fields);
   }
 
+  /**
+   * Tests the farmOS base fields can be overridden.
+   */
+  public function testFarmFieldsOverride() {
+
+    // Load the entity field manager.
+    /** @var \Drupal\Core\Entity\EntityFieldManagerInterface $entity_field_manager */
+    $entity_field_manager = $this->container->get('entity_field.manager');
+
+    // Load field definitions for test_override logs.
+    $fields = $entity_field_manager->getFieldDefinitions('log', 'test_override');
+
+    // Test that a module extending FarmLogType can remove default bundle fields
+    // that were provided in parent plugin classes.
+    $this->assertArrayNotHasKey('geometry', $fields);
+  }
+
 }
