@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\farm_log;
+namespace Drupal\farm_entity;
 
 use Drupal\Component\Plugin\Exception\PluginException;
 use Drupal\Core\Cache\CacheBackendInterface;
@@ -10,7 +10,7 @@ use Drupal\Core\Plugin\DefaultPluginManager;
 /**
  * Manages discovery and instantiation of log type plugins.
  *
- * @see \Drupal\log\Annotation\LogType
+ * @see \Drupal\farm_entity\Annotation\LogType
  * @see plugin_api
  */
 class LogTypeManager extends DefaultPluginManager {
@@ -27,7 +27,7 @@ class LogTypeManager extends DefaultPluginManager {
    *   The module handler.
    */
   public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, ModuleHandlerInterface $module_handler) {
-    parent::__construct('Plugin/Log/LogType', $namespaces, $module_handler, 'Drupal\farm_log\Plugin\Log\LogType\LogTypeInterface', 'Drupal\farm_log\Annotation\LogType');
+    parent::__construct('Plugin/Log/LogType', $namespaces, $module_handler, 'Drupal\farm_entity\Plugin\Log\LogType\LogTypeInterface', 'Drupal\farm_entity\Annotation\LogType');
 
     $this->alterInfo('log_type_info');
     $this->setCacheBackend($cache_backend, 'log_type_plugins');

@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\farm_log\Annotation;
+namespace Drupal\farm_entity\Annotation;
 
 use Drupal\Component\Annotation\Plugin;
 

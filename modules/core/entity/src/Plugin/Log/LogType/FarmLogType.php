@@ -2,8 +2,6 @@
 
 namespace Drupal\farm_entity\Plugin\Log\LogType;
 
-use Drupal\farm_log\Plugin\Log\LogType\LogTypeBase;
-
 /**
  * Provides a farmOS log type base class.
  */

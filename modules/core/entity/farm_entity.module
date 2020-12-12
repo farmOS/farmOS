@@ -15,7 +15,7 @@ function farm_entity_module_implements_alter(&$implementations, $hook) {
 
   // Make sure this module's hook_entity_type_build() runs before the
   // entity module's implementation, so that we can override the bundle plugin
-  // handler.
+  // handler, and so that we can set the Log entity type's bundle_plugin_type.
   $module = 'farm_entity';
   if ($hook == 'entity_type_build') {
     $implementation = [$module => $implementations[$module]];
@@ -28,6 +28,12 @@ function farm_entity_module_implements_alter(&$implementations, $hook) {
  * Implements hook_entity_type_build().
  */
 function farm_entity_entity_type_build(array &$entity_types) {
+
+  // Enable the use of bundle plugins for log entities.
+  /** @var \Drupal\Core\Entity\EntityTypeInterface[] $entity_types */
+  if (!empty($entity_types['log'])) {
+    $entity_types['log']->set('bundle_plugin_type', 'log_type');
+  }
 
   // Override the bundle plugin handler for asset, log, and plan entity types.
   /** @var \Drupal\Core\Entity\EntityTypeInterface[] $entity_types */

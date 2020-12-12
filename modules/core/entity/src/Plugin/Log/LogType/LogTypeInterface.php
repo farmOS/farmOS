@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\farm_log\Plugin\Log\LogType;
+namespace Drupal\farm_entity\Plugin\Log\LogType;
 
 use Drupal\entity\BundlePlugin\BundlePluginInterface;
 
