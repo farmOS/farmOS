@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\farm_equipment\Functional;
+namespace Drupal\Tests\farm_field\Functional;
 
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Tests\farm\Functional\FarmBrowserTestBase;
@@ -26,7 +26,8 @@ class EquipmentFieldTest extends FarmBrowserTestBase {
    */
   protected static $modules = [
     'farm_equipment',
-    'farm_equipment_field_test',
+    'farm_field',
+    'farm_field_test',
   ];
 
   /**

@@ -1,8 +1,0 @@
-name: farmOS Equipment Field Test
-description: Module for testing farmOS Equipment field.
-type: module
-package: Testing
-core_version_requirement: ^9
-dependencies:
-  - farm:farm_field
-  - farm:farm_log

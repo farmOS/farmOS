@@ -30,6 +30,34 @@ class FarmLogType extends LogTypeBase {
     ];
     $fields['geometry'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
 
+    // Add an Equipment reference field if the Equipment module is enabled.
+    if (\Drupal::moduleHandler()->moduleExists('farm_equipment')) {
+      $options = [
+        'type' => 'entity_reference',
+        'label' => t('Equipment used'),
+        'description' => t('What equipment was used?'),
+        'target_type' => 'asset',
+        'multiple' => TRUE,
+        'weight' => [
+          'form' => 55,
+          'view' => -5,
+        ],
+      ];
+      $field = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
+      $field->setSetting('handler', 'default:asset');
+      $field->setSetting('handler_settings', [
+        'target_bundles' => [
+          'equipment' => 'equipment',
+        ],
+        'sort' => [
+          'field' => '_none',
+        ],
+        'auto_create' => FALSE,
+        'auto_create_bundle' => '',
+      ]);
+      $fields['equipment'] = $field;
+    }
+
     return $fields;
   }
 
