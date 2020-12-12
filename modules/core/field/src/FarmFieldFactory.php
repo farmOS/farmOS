@@ -119,6 +119,10 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
         $this->modifyGeofieldField($field, $options);
         break;
 
+      case 'id_tag':
+        $this->modifyIdTagField($field, $options);
+        break;
+
       case 'list_string':
         $this->modifyListStringField($field, $options);
         break;
@@ -455,6 +459,28 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
         'output_format' => 'wkt',
         'output_escape' => TRUE,
       ],
+      'weight' => $options['weight']['view'] ?? 0,
+    ]);
+  }
+
+  /**
+   * ID tag field modifier.
+   *
+   * @param \Drupal\Core\Field\FieldDefinitionInterface &$field
+   *   A field definition object.
+   * @param array $options
+   *   An array of options.
+   */
+  protected function modifyIdTagField(FieldDefinitionInterface &$field, array $options = []) {
+
+    // Build form and view display settings.
+    $field->setDisplayOptions('form', [
+      'type' => 'id_tag',
+      'weight' => $options['weight']['form'] ?? 0,
+    ]);
+    $field->setDisplayOptions('view', [
+      'label' => 'inline',
+      'type' => 'id_tag',
       'weight' => $options['weight']['view'] ?? 0,
     ]);
   }

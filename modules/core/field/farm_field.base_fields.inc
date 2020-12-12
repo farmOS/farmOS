@@ -36,6 +36,16 @@ function farm_field_asset_base_fields() {
         'view' => 90,
       ],
     ],
+    'id_tag' => [
+      'type' => 'id_tag',
+      'label' => t('ID tags'),
+      'description' => t('List any identification tags that this asset has. Use the fields below to describe the type, location, and ID of each.'),
+      'multiple' => TRUE,
+      'weight' => [
+        'form' => 50,
+        'view' => 50,
+      ],
+    ],
     'image' => [
       'type' => 'image',
       'label' => t('Images'),
