@@ -1,0 +1,3 @@
+services:
+  farm_field.factory:
+    class: Drupal\farm_field\FarmFieldFactory

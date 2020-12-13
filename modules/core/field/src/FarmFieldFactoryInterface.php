@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\farm_entity;
+namespace Drupal\farm_field;
 
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\entity\BundleFieldDefinition;
