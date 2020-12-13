@@ -17,7 +17,6 @@ use Drupal\user\EntityOwnerTrait;
  * @ContentEntityType(
  *   id = "asset",
  *   label = @Translation("Asset"),
- *   bundle_plugin_type = "asset_type",
  *   bundle_label = @Translation("Asset type"),
  *   label_collection = @Translation("Assets"),
  *   label_singular = @Translation("asset"),

@@ -1,4 +1,0 @@
-services:
-  plugin.manager.asset_type:
-    class: Drupal\asset\AssetTypeManager
-    parent: default_plugin_manager

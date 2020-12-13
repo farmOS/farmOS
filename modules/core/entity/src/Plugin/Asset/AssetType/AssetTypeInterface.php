@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\asset\Plugin\Asset\AssetType;
+namespace Drupal\farm_entity\Plugin\Asset\AssetType;
 
 use Drupal\entity\BundlePlugin\BundlePluginInterface;
 

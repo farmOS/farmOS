@@ -1,6 +1,12 @@
 services:
   farm_field.factory:
     class: Drupal\farm_entity\FarmFieldFactory
+  plugin.manager.asset_type:
+    class: Drupal\farm_entity\AssetTypeManager
+    parent: default_plugin_manager
   plugin.manager.log_type:
     class: Drupal\farm_entity\LogTypeManager
+    parent: default_plugin_manager
+  plugin.manager.plan_type:
+    class: Drupal\farm_entity\PlanTypeManager
     parent: default_plugin_manager

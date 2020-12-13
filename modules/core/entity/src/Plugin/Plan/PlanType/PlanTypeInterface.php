@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\plan\Plugin\Plan\PlanType;
+namespace Drupal\farm_entity\Plugin\Plan\PlanType;
 
 use Drupal\entity\BundlePlugin\BundlePluginInterface;
 

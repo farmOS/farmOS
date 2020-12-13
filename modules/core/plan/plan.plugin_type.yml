@@ -1,5 +1,0 @@
-plan.plan_type:
-  label: Plan type
-  provider: plan
-  plugin_manager_service_id: plugin.manager.plan_type
-  plugin_definition_decorator_class: Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator

@@ -29,16 +29,11 @@ function farm_entity_module_implements_alter(&$implementations, $hook) {
  */
 function farm_entity_entity_type_build(array &$entity_types) {
 
-  // Enable the use of bundle plugins for log entities.
-  /** @var \Drupal\Core\Entity\EntityTypeInterface[] $entity_types */
-  if (!empty($entity_types['log'])) {
-    $entity_types['log']->set('bundle_plugin_type', 'log_type');
-  }
-
-  // Override the bundle plugin handler for asset, log, and plan entity types.
+  // Enable the use of bundle plugins for asset, log, and plan entity types.
   /** @var \Drupal\Core\Entity\EntityTypeInterface[] $entity_types */
   foreach (['asset', 'log', 'plan'] as $entity_type) {
     if (!empty($entity_types[$entity_type])) {
+      $entity_types[$entity_type]->set('bundle_plugin_type', $entity_type . '_type');
       $entity_types[$entity_type]->setHandlerClass('bundle_plugin', FarmEntityBundlePluginHandler::class);
     }
   }

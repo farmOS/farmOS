@@ -1,19 +1,19 @@
 <?php
 
-namespace Drupal\asset\Annotation;
+namespace Drupal\farm_entity\Annotation;
 
 use Drupal\Component\Annotation\Plugin;
 
 /**
- * Defines the asset type plugin annotation object.
+ * Defines the plan type plugin annotation object.
  *
- * Plugin namespace: Plugin\Asset\AssetType.
+ * Plugin namespace: Plugin\Plan\PlanType.
  *
  * @see plugin_api
  *
  * @Annotation
  */
-class AssetType extends Plugin {
+class PlanType extends Plugin {
 
   /**
    * The plugin ID.
@@ -23,7 +23,7 @@ class AssetType extends Plugin {
   public $id;
 
   /**
-   * The asset type label.
+   * The plan type label.
    *
    * @var \Drupal\Core\Annotation\Translation
    *

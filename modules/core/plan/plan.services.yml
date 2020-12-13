@@ -1,4 +1,0 @@
-services:
-  plugin.manager.plan_type:
-    class: Drupal\plan\PlanTypeManager
-    parent: default_plugin_manager

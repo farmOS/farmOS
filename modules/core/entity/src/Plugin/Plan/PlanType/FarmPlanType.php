@@ -2,8 +2,6 @@
 
 namespace Drupal\farm_entity\Plugin\Plan\PlanType;
 
-use Drupal\plan\Plugin\Plan\PlanType\PlanTypeBase;
-
 /**
  * Provides a farmOS plan type base class.
  */

@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\plan;
+namespace Drupal\farm_entity;
 
 use Drupal\Component\Plugin\Exception\PluginException;
 use Drupal\Core\Cache\CacheBackendInterface;
@@ -8,15 +8,15 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
 
 /**
- * Manages discovery and instantiation of plan type plugins.
+ * Manages discovery and instantiation of asset type plugins.
  *
- * @see \Drupal\plan\Annotation\PlanType
+ * @see \Drupal\farm_entity\Annotation\AssetType
  * @see plugin_api
  */
-class PlanTypeManager extends DefaultPluginManager {
+class AssetTypeManager extends DefaultPluginManager {
 
   /**
-   * Constructs a new PlanTypeManager object.
+   * Constructs a new AssetTypeManager object.
    *
    * @param \Traversable $namespaces
    *   An object that implements \Traversable which contains the root paths
@@ -27,10 +27,10 @@ class PlanTypeManager extends DefaultPluginManager {
    *   The module handler.
    */
   public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, ModuleHandlerInterface $module_handler) {
-    parent::__construct('Plugin/Plan/PlanType', $namespaces, $module_handler, 'Drupal\plan\Plugin\Plan\PlanType\PlanTypeInterface', 'Drupal\plan\Annotation\PlanType');
+    parent::__construct('Plugin/Asset/AssetType', $namespaces, $module_handler, 'Drupal\farm_entity\Plugin\Asset\AssetType\AssetTypeInterface', 'Drupal\farm_entity\Annotation\AssetType');
 
-    $this->alterInfo('plan_type_info');
-    $this->setCacheBackend($cache_backend, 'plan_type_plugins');
+    $this->alterInfo('asset_type_info');
+    $this->setCacheBackend($cache_backend, 'asset_type_plugins');
   }
 
   /**
@@ -41,7 +41,7 @@ class PlanTypeManager extends DefaultPluginManager {
 
     foreach (['id', 'label'] as $required_property) {
       if (empty($definition[$required_property])) {
-        throw new PluginException(sprintf('The plan type %s must define the %s property.', $plugin_id, $required_property));
+        throw new PluginException(sprintf('The asset type %s must define the %s property.', $plugin_id, $required_property));
       }
     }
   }
