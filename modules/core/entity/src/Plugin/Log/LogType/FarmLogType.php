@@ -2,10 +2,14 @@
 
 namespace Drupal\farm_entity\Plugin\Log\LogType;
 
+use Drupal\Core\StringTranslation\StringTranslationTrait;
+
 /**
  * Provides a farmOS log type base class.
  */
 class FarmLogType extends LogTypeBase {
+
+  use StringTranslationTrait;
 
   /**
    * {@inheritdoc}
@@ -19,8 +23,8 @@ class FarmLogType extends LogTypeBase {
     // table.
     $options = [
       'type' => 'geofield',
-      'label' => 'Geometry',
-      'description' => 'Add geometry data to this log to describe where it took place.',
+      'label' => $this->t('Geometry'),
+      'description' => $this->t('Add geometry data to this log to describe where it took place.'),
       'weight' => [
         'form' => 95,
         'view' => 95,
@@ -32,8 +36,8 @@ class FarmLogType extends LogTypeBase {
     if (\Drupal::moduleHandler()->moduleExists('farm_equipment')) {
       $options = [
         'type' => 'entity_reference',
-        'label' => t('Equipment used'),
-        'description' => t('What equipment was used?'),
+        'label' => $this->t('Equipment used'),
+        'description' => $this->t('What equipment was used?'),
         'target_type' => 'asset',
         'multiple' => TRUE,
         'weight' => [

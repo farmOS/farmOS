@@ -2,10 +2,14 @@
 
 namespace Drupal\farm_entity\Plugin\Plan\PlanType;
 
+use Drupal\Core\StringTranslation\StringTranslationTrait;
+
 /**
  * Provides a farmOS plan type base class.
  */
 class FarmPlanType extends PlanTypeBase {
+
+  use StringTranslationTrait;
 
   /**
    * {@inheritdoc}
@@ -16,7 +20,7 @@ class FarmPlanType extends PlanTypeBase {
     // Assets in the plan.
     $options = [
       'type' => 'entity_reference',
-      'label' => 'Assets',
+      'label' => $this->t('Assets'),
       'target_type' => 'asset',
       'multiple' => TRUE,
       'hidden' => TRUE,
@@ -26,7 +30,7 @@ class FarmPlanType extends PlanTypeBase {
     // Logs in the plan.
     $options = [
       'type' => 'entity_reference',
-      'label' => 'Logs',
+      'label' => $this->t('Logs'),
       'target_type' => 'log',
       'multiple' => TRUE,
       'hidden' => TRUE,
