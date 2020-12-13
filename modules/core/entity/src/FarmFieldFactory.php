@@ -94,6 +94,11 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
       $field->setTranslatable(TRUE);
     }
 
+    // Set the default value callback, if specified.
+    if (!empty($options['default_value_callback'])) {
+      $field->setDefaultValueCallback($options['default_value_callback']);
+    }
+
     // Add third-party settings, if specified.
     if (!empty($options['third_party_settings'])) {
       $field->setSetting('third_party_settings', $options['third_party_settings']);
