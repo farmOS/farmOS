@@ -239,6 +239,32 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
         ];
         break;
 
+      // Log.
+      case 'log':
+        $handler = 'default:log';
+        $handler_settings = [
+          'target_bundles' => NULL,
+          'sort' => [
+            'field' => 'name',
+            'direction' => 'asc',
+          ],
+          'auto_create' => FALSE,
+          'auto_create_bundle' => '',
+        ];
+        $form_display_options = [
+          'type' => 'entity_reference_autocomplete',
+          'weight' => $options['weight']['form'] ?? 0,
+        ];
+        $view_display_options = [
+          'label' => 'inline',
+          'type' => 'entity_reference_label',
+          'weight' => $options['weight']['view'] ?? 0,
+          'settings' => [
+            'link' => FALSE,
+          ],
+        ];
+        break;
+
       // Term reference.
       case 'taxonomy_term':
         $handler = 'default:taxonomy_term';
