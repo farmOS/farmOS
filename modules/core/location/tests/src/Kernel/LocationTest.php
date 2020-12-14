@@ -24,6 +24,20 @@ class LocationTest extends KernelTestBase {
   protected $wktGenerator;
 
   /**
+   * Array of polygon WKT strings.
+   *
+   * @var string[]
+   */
+  protected $polygons = [];
+
+  /**
+   * Array of location assets.
+   *
+   * @var \Drupal\asset\Entity\AssetInterface[]
+   */
+  protected $locations = [];
+
+  /**
    * {@inheritdoc}
    */
   protected static $modules = [
@@ -49,6 +63,24 @@ class LocationTest extends KernelTestBase {
     $this->installConfig([
       'farm_location_test',
     ]);
+
+    // Generate random WKT polygons.
+    for ($i = 0; $i < 3; $i++) {
+      $segments = rand(3, 7);
+      $this->polygons[] = $this->reduceWkt($this->wktGenerator->wktGeneratePolygon(NULL, $segments));
+    }
+
+    // Generate location assets.
+    for ($i = 0; $i < 3; $i++) {
+      $location = Asset::create([
+        'type' => 'location',
+        'name' => $this->randomMachineName(),
+        'status' => 'active',
+        'geometry' => $this->polygons[$i],
+      ]);
+      $location->save();
+      $this->locations[] = $location;
+    }
   }
 
   /**
@@ -56,64 +88,43 @@ class LocationTest extends KernelTestBase {
    */
   public function testPopulateLogGeometry() {
 
-    // Generate random WKT polygons.
-    $geom1 = $this->reduceWkt($this->wktGenerator->wktGeneratePolygon(NULL, 3));
-    $geom2 = $this->reduceWkt($this->wktGenerator->wktGeneratePolygon(NULL, 5));
-    $geom3 = $this->reduceWkt($this->wktGenerator->wktGeneratePolygon(NULL, 7));
-
-    // Create two location assets.
-    $location1 = Asset::create([
-      'type' => 'location',
-      'name' => $this->randomMachineName(),
-      'status' => 'active',
-      'geometry' => $geom1,
-    ]);
-    $location1->save();
-
-    $location2 = Asset::create([
-      'type' => 'location',
-      'name' => $this->randomMachineName(),
-      'status' => 'active',
-      'geometry' => $geom2,
-    ]);
-    $location2->save();
-
     // When a log is saved with a location and without a geometry, the geometry
     // is copied from the location.
+    /** @var \Drupal\log\Entity\LogInterface $log */
     $log = Log::create([
       'type' => 'movement',
       'status' => 'pending',
-      'location' => ['target_id' => $location1->id()],
+      'location' => ['target_id' => $this->locations[0]->id()],
     ]);
     $log->save();
-    $this->assertEquals($location1->get('geometry')->value, $log->get('geometry')->value, 'Empty geometry is populated from location.');
+    $this->assertEquals($this->locations[0]->get('geometry')->value, $log->get('geometry')->value, 'Empty geometry is populated from location.');
 
     // When multiple locations are added, all of their geometries are combined.
     $log->location = [
-      ['target_id' => $location1->id()],
-      ['target_id' => $location2->id()],
+      ['target_id' => $this->locations[0]->id()],
+      ['target_id' => $this->locations[1]->id()],
     ];
     $log->geometry->value = '';
     $log->save();
-    $combined = $this->combineWkt([$geom1, $geom2]);
+    $combined = $this->combineWkt([$this->polygons[0], $this->polygons[1]]);
     $this->assertEquals($combined, $log->get('geometry')->value, 'Geometries from multiple locations are combined.');
 
     // When a log's locations change, and the geometry is not customized, the
     // geometry is updated.
-    $log->location = ['target_id' => $location2->id()];
+    $log->location = ['target_id' => $this->locations[1]->id()];
     $log->save();
-    $this->assertEquals($location2->get('geometry')->value, $log->get('geometry')->value, 'Geometry is updated when locations are changed.');
+    $this->assertEquals($this->locations[1]->get('geometry')->value, $log->get('geometry')->value, 'Geometry is updated when locations are changed.');
 
     // When a log's geometry is set, it is saved.
-    $log->geometry->value = $geom3;
+    $log->geometry->value = $this->polygons[2];
     $log->save();
-    $this->assertEquals($geom3, $log->get('geometry')->value, 'Custom geometry can be saved.');
+    $this->assertEquals($this->polygons[2], $log->get('geometry')->value, 'Custom geometry can be saved.');
 
     // When a log's locations change, and the geometry is customized, the
     // geometry is not updated.
-    $log->location = ['target_id' => $location1->id()];
+    $log->location = ['target_id' => $this->locations[0]->id()];
     $log->save();
-    $this->assertEquals($geom3, $log->get('geometry')->value, 'Custom geometry is not overwritten when locations change.');
+    $this->assertEquals($this->polygons[2], $log->get('geometry')->value, 'Custom geometry is not overwritten when locations change.');
   }
 
 }
