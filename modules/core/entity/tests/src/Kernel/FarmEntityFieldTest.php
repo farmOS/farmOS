@@ -108,7 +108,7 @@ class FarmEntityFieldTest extends KernelTestBase {
 
     // Test that a module extending FarmLogType can remove default bundle fields
     // that were provided in parent plugin classes.
-    $this->assertArrayNotHasKey('geometry', $fields);
+    $this->assertArrayNotHasKey('test_default_bundle_field', $fields);
 
     // But also confirm that a module extending a base log type can NOT remove
     // bundle fields that were provided by hook_farm_entity_bundle_field_info().

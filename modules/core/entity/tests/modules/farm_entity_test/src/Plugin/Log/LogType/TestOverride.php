@@ -2,8 +2,6 @@
 
 namespace Drupal\farm_entity_test\Plugin\Log\LogType;
 
-use Drupal\farm_entity\Plugin\Log\LogType\FarmLogType;
-
 /**
  * Provides the test_override log type.
  *
@@ -12,16 +10,16 @@ use Drupal\farm_entity\Plugin\Log\LogType\FarmLogType;
  *   label = @Translation("Test Override"),
  * )
  */
-class TestOverride extends FarmLogType {
+class TestOverride extends Test {
 
   /**
    * {@inheritdoc}
    */
   public function buildFieldDefinitions() {
 
-    // We are inheriting from FarmLogType, which adds default bundle fields to
-    // all log types. We are going to return an empty array to show that we can
-    // disable those default fields on specific log types.
+    // We are inheriting from the Test log type, which adds a bundle field. We
+    // are going to return an empty array to show that we can disable those
+    // default fields on specific log types.
     return [];
   }
 

@@ -14,4 +14,20 @@ use Drupal\farm_entity\Plugin\Log\LogType\FarmLogType;
  */
 class Test extends FarmLogType {
 
+  /**
+   * {@inheritdoc}
+   */
+  public function buildFieldDefinitions() {
+    $fields = parent::buildFieldDefinitions();
+
+    // Add a test field to all Log bundles.
+    $options = [
+      'type' => 'string',
+      'label' => $this->t('Test default bundle field'),
+    ];
+    $fields['test_default_bundle_field'] = $this->farmFieldFactory->bundleFieldDefinition($options);
+
+    return $fields;
+  }
+
 }
