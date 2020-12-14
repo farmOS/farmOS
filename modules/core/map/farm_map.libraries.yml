@@ -25,3 +25,8 @@ behavior_wkt:
   dependencies:
     - core/drupalSettings
     - farm_map/farm_map
+behavior_geofield:
+  js:
+    js/farmOS.map.behaviors.geofield.js: { }
+  dependencies:
+    - farm_map/farm_map
