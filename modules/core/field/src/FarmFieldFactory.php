@@ -63,6 +63,11 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
       $field->setDescription($options['description']);
     }
 
+    // Make the field required, if specified.
+    if (!empty($options['required'])) {
+      $field->setRequired(TRUE);
+    }
+
     // Make the field revisionable, unless told otherwise.
     if (empty($options['revisionable'])) {
       $field->setRevisionable(TRUE);
