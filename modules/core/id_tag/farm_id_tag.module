@@ -5,40 +5,6 @@
  * ID tag module.
  */
 
-use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\Core\Field\BaseFieldDefinition;
-use Drupal\Core\Field\FieldStorageDefinitionInterface;
-
-/**
- * Implements hook_entity_base_field_info().
- */
-function farm_id_tag_entity_base_field_info(EntityTypeInterface $entity_type) {
-  $fields = [];
-
-  // Add id tag field to assets.
-  if ($entity_type->id() == 'asset') {
-    $fields['id_tag'] = BaseFieldDefinition::create('id_tag')
-      ->setLabel(t('ID tags'))
-      ->setDescription(t('List any identification tags that this asset has. Use the fields below to describe the type, location, and ID of each.'))
-      ->setTranslatable(FALSE)
-      ->setRevisionable(TRUE)
-      ->setDisplayOptions('form', [
-        'type' => 'id_tag',
-        'weight' => 50,
-      ])
-      ->setDisplayOptions('view', [
-        'label' => 'inline',
-        'type' => 'id_tag',
-        'weight' => 50,
-      ])
-      ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayConfigurable('view', TRUE)
-      ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED);
-  }
-
-  return $fields;
-}
-
 /**
  * Allowed values callback function for the ID tag type field.
  *

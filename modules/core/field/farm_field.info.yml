@@ -1,17 +1,8 @@
-name: farmOS Fields
-description: Provides common field configuration for farmOS entity types.
+name: farmOS Field
+description: Provides a service for generating farmOS field definitions.
 type: module
 package: farmOS
 core_version_requirement: ^9
 dependencies:
   - drupal:field
-  - drupal:file
-  - drupal:geofield
-  - drupal:image
-  - drupal:text
-  - drupal:user
-  - farm:asset
-  - entity_reference_integrity:entity_reference_integrity_enforce
-  - entity_reference_validators:entity_reference_validators
-  - farm:farm_log_category
-  - log:log
+  - entity:entity

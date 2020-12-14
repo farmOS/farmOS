@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {  }
+id: test_override
+label: Test Override
+description: ''
+name_pattern: 'Test override log [log:id]'
+workflow: log_default
+new_revision: true
