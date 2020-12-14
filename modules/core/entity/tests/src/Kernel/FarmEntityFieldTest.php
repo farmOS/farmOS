@@ -12,6 +12,13 @@ use Drupal\KernelTests\KernelTestBase;
 class FarmEntityFieldTest extends KernelTestBase {
 
   /**
+   * The entity field manager.
+   *
+   * @var \Drupal\Core\Entity\EntityFieldManagerInterface
+   */
+  protected $entityFieldManager;
+
+  /**
    * {@inheritdoc}
    */
   protected $profile = 'farm';
@@ -30,18 +37,20 @@ class FarmEntityFieldTest extends KernelTestBase {
   ];
 
   /**
-   * Tests the farmOS fields are added to entities.
+   * {@inheritdoc}
    */
-  public function testFarmFields() {
+  protected function setUp():void {
+    parent::setUp();
+    $this->entityFieldManager = $this->container->get('entity_field.manager');
+  }
 
-    // Load the entity field manager.
-    /** @var \Drupal\Core\Entity\EntityFieldManagerInterface $entity_field_manager */
-    $entity_field_manager = $this->container->get('entity_field.manager');
+  /**
+   * Test farmOS fields defined in hook_entity_base_field_info().
+   */
+  public function testHookEntityBaseFieldInfo() {
 
-    // Load asset field storage definitions.
-    $fields = $entity_field_manager->getFieldStorageDefinitions('asset');
-
-    // Confirm that all fields defined in farm_entity_asset_base_fields() exist.
+    // Test asset field storage definitions.
+    $fields = $this->entityFieldManager->getFieldStorageDefinitions('asset');
     $this->assertArrayHasKey('data', $fields);
     $this->assertArrayHasKey('flag', $fields);
     $this->assertArrayHasKey('file', $fields);
@@ -50,10 +59,8 @@ class FarmEntityFieldTest extends KernelTestBase {
     $this->assertArrayHasKey('notes', $fields);
     $this->assertArrayHasKey('parent', $fields);
 
-    // Load log field storage definitions.
-    $fields = $entity_field_manager->getFieldStorageDefinitions('log');
-
-    // Confirm that all fields defined in farm_entity_log_base_fields() exist.
+    // Test log field storage definitions.
+    $fields = $this->entityFieldManager->getFieldStorageDefinitions('log');
     $this->assertArrayHasKey('asset', $fields);
     $this->assertArrayHasKey('category', $fields);
     $this->assertArrayHasKey('data', $fields);
@@ -63,48 +70,48 @@ class FarmEntityFieldTest extends KernelTestBase {
     $this->assertArrayHasKey('notes', $fields);
     $this->assertArrayHasKey('owner', $fields);
 
-    // Load field definitions for test logs.
-    $fields = $entity_field_manager->getFieldDefinitions('log', 'test');
-
-    // Confirm that all fields defined in FarmLogType::buildFieldDefinitions()
-    // exist.
-    $this->assertArrayHasKey('geometry', $fields);
-
-    // Confirm that fields defined in hook_farm_entity_bundle_field_info()
-    // exist.
-    $this->assertArrayHasKey('test_hook_base_field', $fields);
-    $this->assertArrayHasKey('test_hook_bundle_field', $fields);
-
-    // Load plan field storage definitions.
-    $fields = $entity_field_manager->getFieldStorageDefinitions('plan');
-
-    // Confirm that all fields defined in farm_entity_plan_base_fields() exist.
+    // Test plan field storage definitions.
+    $fields = $this->entityFieldManager->getFieldStorageDefinitions('plan');
     $this->assertArrayHasKey('data', $fields);
     $this->assertArrayHasKey('flag', $fields);
     $this->assertArrayHasKey('file', $fields);
     $this->assertArrayHasKey('image', $fields);
     $this->assertArrayHasKey('notes', $fields);
+  }
 
-    // Load field definitions for test plans.
-    $fields = $entity_field_manager->getFieldDefinitions('plan', 'test');
+  /**
+   * Test farmOS fields defined in hook_farm_entity_bundle_field_info().
+   */
+  public function testHookFarmEntityBundleFieldInfo() {
 
-    // Confirm that all fields defined in FarmPlanType::buildFieldDefinitions()
-    // exist.
+    // Test log field definitions.
+    $fields = $this->entityFieldManager->getFieldDefinitions('log', 'test');
+    $this->assertArrayHasKey('test_hook_base_field', $fields);
+    $this->assertArrayHasKey('test_hook_bundle_field', $fields);
+  }
+
+  /**
+   * Test farmOS fields defined in buildFieldDefinitions().
+   */
+  public function testBuildFieldDefinitions() {
+
+    // Test log field definitions.
+    $fields = $this->entityFieldManager->getFieldDefinitions('log', 'test');
+    $this->assertArrayHasKey('geometry', $fields);
+
+    // Test plan field definitions.
+    $fields = $this->entityFieldManager->getFieldDefinitions('plan', 'test');
     $this->assertArrayHasKey('asset', $fields);
     $this->assertArrayHasKey('log', $fields);
   }
 
   /**
-   * Tests the farmOS base fields can be overridden.
+   * Test that farmOS base fields can be overridden.
    */
   public function testFarmFieldsOverride() {
 
-    // Load the entity field manager.
-    /** @var \Drupal\Core\Entity\EntityFieldManagerInterface $entity_field_manager */
-    $entity_field_manager = $this->container->get('entity_field.manager');
-
     // Load field definitions for test_override logs.
-    $fields = $entity_field_manager->getFieldDefinitions('log', 'test_override');
+    $fields = $this->entityFieldManager->getFieldDefinitions('log', 'test_override');
 
     // Test that a module extending FarmLogType can remove default bundle fields
     // that were provided in parent plugin classes.
