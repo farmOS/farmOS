@@ -55,9 +55,15 @@ class FarmMap extends RenderElement {
     $element['#attached']['library'][] = 'farm_map/farmOS-map';
     $element['#attached']['library'][] = 'farm_map/farm_map';
 
+    // Include map settings.
+    $map_settings = !empty($element['#map_settings']) ? $element['#map_settings'] : [];
+
     // Include the map options.
     $map_options = $map->getMapOptions();
-    $element['#attached']['drupalSettings']['farm_map'][$map_id]['options'] = $map_options;
+
+    // Add the instance settings under the map id key.
+    $instance_settings = array_merge_recursive($map_settings, $map_options);
+    $element['#attached']['drupalSettings']['farm_map'][$map_id] = $instance_settings;
 
     // Create and dispatch a MapRenderEvent.
     $event = new MapRenderEvent($map, $element);
