@@ -20,21 +20,21 @@ class MapBlock extends BlockBase {
   public function build() {
     return [
       '#type' => 'farm_map',
-      '#map_name' => $this->mapName(),
+      '#map_type' => $this->mapType(),
     ];
   }
 
   /**
-   * Function that returns the map name.
+   * Function that returns the map type.
    *
    * @return string
-   *   The map ID.
+   *   The map type.
    */
-  public function mapName() {
+  public function mapType() {
 
-    // Use the map_name from the block configuration.
-    if (!empty($this->configuration['map_name'])) {
-      return $this->configuration['map_name'];
+    // Use the map_type from the block configuration.
+    if (!empty($this->configuration['map_type'])) {
+      return $this->configuration['map_type'];
     }
 
     // Else default to 'default'.

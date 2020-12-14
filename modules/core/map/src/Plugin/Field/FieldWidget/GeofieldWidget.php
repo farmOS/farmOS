@@ -35,7 +35,7 @@ class GeofieldWidget extends GeofieldBaseWidget {
     // Define the map render array.
     $element['map'] = [
       '#type' => 'farm_map',
-      '#map_name' => 'geofield_widget',
+      '#map_type' => 'geofield_widget',
       '#map_settings' => [
         'wkt' => $current_value,
         'behaviors' => [

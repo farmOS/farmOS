@@ -44,6 +44,6 @@ block.settings.map_block:
   type: block_settings
   label: 'map block settings'
   mapping:
-    map_name:
+    map_type:
       type: string
-      label: 'Map name'
+      label: 'Map type'

@@ -111,7 +111,7 @@ class GeofieldFormatter extends FormatterBase {
     foreach ($features as $delta => $feature) {
       $element[$delta] = [
         '#type' => 'farm_map',
-        '#map_name' => 'geofield',
+        '#map_type' => 'geofield',
         '#map_settings' => [
           'wkt' => $feature,
           'behaviors' => [

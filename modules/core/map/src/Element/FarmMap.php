@@ -18,13 +18,12 @@ class FarmMap extends RenderElement {
    */
   public function getInfo() {
     $class = get_class($this);
-    $default_name = 'default';
     return [
       '#pre_render' => [
         [$class, 'preRenderMap'],
       ],
       '#theme' => 'farm_map',
-      '#map_name' => $default_name,
+      '#map_type' => 'default',
     ];
   }
 
@@ -32,8 +31,8 @@ class FarmMap extends RenderElement {
    * Pre-render callback for the map render array.
    *
    * @param array $element
-   *   A renderable array containing a #map_name property, which will be used
-   *   as the map div ID.
+   *   A renderable array containing a #map_type property, which will be
+   *   appended to 'farm-map-' as the map element ID.
    *
    * @return array
    *   A renderable array representing the map.
@@ -41,12 +40,12 @@ class FarmMap extends RenderElement {
   public static function preRenderMap(array $element) {
 
     // Set the id to the map name.
-    $map_id = Html::getUniqueId('farm-map-' . $element['#map_name']);
+    $map_id = Html::getUniqueId('farm-map-' . $element['#map_type']);
     $element['#attributes']['id'] = $map_id;
 
     // Get the map type.
     /** @var \Drupal\farm_map\Entity\MapTypeInterface $map */
-    $map = \Drupal::entityTypeManager()->getStorage('map_type')->load($element['#map_name']);
+    $map = \Drupal::entityTypeManager()->getStorage('map_type')->load($element['#map_type']);
 
     // Add the farm-map class.
     $element['#attributes']['class'][] = 'farm-map';

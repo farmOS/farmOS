@@ -13,7 +13,7 @@ provider: null
 plugin: map_block
 settings:
   id: dashboard_map
-  map_name: dashboard
+  map_type: dashboard
   label: 'Dashboard map'
   provider: farm_map
   label_display: '0'
