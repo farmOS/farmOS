@@ -54,14 +54,8 @@ class Animal extends FarmAssetType {
         'type' => 'list_string',
         'label' => $this->t('Sex'),
         'allowed_values' => [
-          [
-            'value' => 'F',
-            'label' => 'Female',
-          ],
-          [
-            'value' => 'M',
-            'label' => 'Male',
-          ],
+          'F' => $this->t('Female'),
+          'M' => $this->t('Male'),
         ],
         'weight' => [
           'form' => 20,
