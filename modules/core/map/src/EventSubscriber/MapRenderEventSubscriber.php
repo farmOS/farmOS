@@ -33,6 +33,11 @@ class MapRenderEventSubscriber implements EventSubscriberInterface {
     if (!empty($event->element['#map_settings']['wkt'])) {
       $event->addBehavior('wkt');
     }
+
+    // Add the geofield behavior to the geofield_widget map.
+    if (in_array($event->getMapType()->id(), ['geofield_widget'])) {
+      $event->addBehavior('geofield');
+    }
   }
 
 }
