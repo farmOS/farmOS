@@ -72,8 +72,8 @@ class FarmEntityFieldTest extends KernelTestBase {
 
     // Confirm that fields defined in hook_farm_entity_bundle_field_info()
     // exist.
-    $this->assertArrayHasKey('test_base_field', $fields);
-    $this->assertArrayHasKey('test_bundle_field', $fields);
+    $this->assertArrayHasKey('test_hook_base_field', $fields);
+    $this->assertArrayHasKey('test_hook_bundle_field', $fields);
 
     // Load plan field storage definitions.
     $fields = $entity_field_manager->getFieldStorageDefinitions('plan');
@@ -110,9 +110,9 @@ class FarmEntityFieldTest extends KernelTestBase {
     // that were provided in parent plugin classes.
     $this->assertArrayNotHasKey('geometry', $fields);
 
-    // But also confirm that a module extending FarmLogType can NOT remove
+    // But also confirm that a module extending a base log type can NOT remove
     // bundle fields that were provided by hook_farm_entity_bundle_field_info().
-    $this->assertArrayHasKey('test_bundle_field', $fields);
+    $this->assertArrayHasKey('test_hook_bundle_field', $fields);
   }
 
 }

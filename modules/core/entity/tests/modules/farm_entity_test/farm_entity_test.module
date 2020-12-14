@@ -17,9 +17,9 @@ function farm_entity_test_entity_base_field_info(EntityTypeInterface $entity_typ
   if ($entity_type->id() == 'log') {
     $options = [
       'type' => 'string',
-      'label' => t('Test base field'),
+      'label' => t('Test hook base field'),
     ];
-    $fields['test_base_field'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
+    $fields['test_hook_base_field'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
   }
 
   return $fields;
@@ -35,9 +35,9 @@ function farm_entity_test_farm_entity_bundle_field_info(EntityTypeInterface $ent
   if ($entity_type->id() == 'log' && in_array($bundle, ['test', 'test_override'])) {
     $options = [
       'type' => 'string',
-      'label' => t('Test bundle field'),
+      'label' => t('Test hook bundle field'),
     ];
-    $fields['test_bundle_field'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
+    $fields['test_hook_bundle_field'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
   }
 
   return $fields;
