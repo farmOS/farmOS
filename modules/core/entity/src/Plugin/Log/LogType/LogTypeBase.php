@@ -2,12 +2,12 @@
 
 namespace Drupal\farm_entity\Plugin\Log\LogType;
 
-use Drupal\Core\Plugin\PluginBase;
+use Drupal\farm_entity\FarmEntityTypeBase;
 
 /**
  * Provides the base log type class.
  */
-abstract class LogTypeBase extends PluginBase implements LogTypeInterface {
+abstract class LogTypeBase extends FarmEntityTypeBase implements LogTypeInterface {
 
   /**
    * {@inheritdoc}

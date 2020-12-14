@@ -61,7 +61,7 @@ class Animal extends FarmAssetType {
       ],
     ];
     foreach ($field_info as $name => $info) {
-      $fields[$name] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($info);
+      $fields[$name] = $this->farmFieldFactory->bundleFieldDefinition($info);
     }
     return $fields;
   }

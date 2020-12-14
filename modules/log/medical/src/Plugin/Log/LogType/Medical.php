@@ -30,7 +30,7 @@ class Medical extends FarmLogType {
         'view' => -40,
       ],
     ];
-    $fields['vet'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
+    $fields['vet'] = $this->farmFieldFactory->bundleFieldDefinition($options);
 
     return $fields;
   }

@@ -30,7 +30,7 @@ class LabTest extends FarmLogType {
         'view' => -40,
       ],
     ];
-    $fields['lab'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
+    $fields['lab'] = $this->farmFieldFactory->bundleFieldDefinition($options);
 
     // Lab test type.
     $options = [
@@ -42,7 +42,7 @@ class LabTest extends FarmLogType {
         'view' => -50,
       ],
     ];
-    $fields['lab_test_type'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
+    $fields['lab_test_type'] = $this->farmFieldFactory->bundleFieldDefinition($options);
 
     return $fields;
   }

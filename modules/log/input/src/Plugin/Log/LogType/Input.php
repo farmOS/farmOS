@@ -30,7 +30,7 @@ class Input extends FarmLogType {
         'view' => -45,
       ],
     ];
-    $fields['lot_number'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
+    $fields['lot_number'] = $this->farmFieldFactory->bundleFieldDefinition($options);
 
     // Material.
     $options = [
@@ -45,7 +45,7 @@ class Input extends FarmLogType {
         'view' => -50,
       ],
     ];
-    $fields['material'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
+    $fields['material'] = $this->farmFieldFactory->bundleFieldDefinition($options);
 
     // Method.
     $options = [
@@ -57,7 +57,7 @@ class Input extends FarmLogType {
         'view' => -30,
       ],
     ];
-    $fields['method'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
+    $fields['method'] = $this->farmFieldFactory->bundleFieldDefinition($options);
 
     // Purchase date.
     $options = [
@@ -69,7 +69,7 @@ class Input extends FarmLogType {
         'view' => -35,
       ],
     ];
-    $fields['purchase_date'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
+    $fields['purchase_date'] = $this->farmFieldFactory->bundleFieldDefinition($options);
 
     // Source.
     $options = [
@@ -81,7 +81,7 @@ class Input extends FarmLogType {
         'view' => -40,
       ],
     ];
-    $fields['source'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
+    $fields['source'] = $this->farmFieldFactory->bundleFieldDefinition($options);
 
     return $fields;
   }

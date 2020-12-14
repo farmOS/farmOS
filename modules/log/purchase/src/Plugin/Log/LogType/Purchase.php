@@ -29,7 +29,7 @@ class Purchase extends FarmLogType {
         'view' => 20,
       ],
     ];
-    $fields['invoice_number'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
+    $fields['invoice_number'] = $this->farmFieldFactory->bundleFieldDefinition($options);
 
     // Seller.
     $options = [
@@ -40,7 +40,7 @@ class Purchase extends FarmLogType {
         'view' => 20,
       ],
     ];
-    $fields['seller'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
+    $fields['seller'] = $this->farmFieldFactory->bundleFieldDefinition($options);
 
     return $fields;
   }

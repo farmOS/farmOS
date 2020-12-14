@@ -2,12 +2,12 @@
 
 namespace Drupal\farm_entity\Plugin\Asset\AssetType;
 
-use Drupal\Core\Plugin\PluginBase;
+use Drupal\farm_entity\FarmEntityTypeBase;
 
 /**
  * Provides the base asset type class.
  */
-abstract class AssetTypeBase extends PluginBase implements AssetTypeInterface {
+abstract class AssetTypeBase extends FarmEntityTypeBase implements AssetTypeInterface {
 
   /**
    * {@inheritdoc}

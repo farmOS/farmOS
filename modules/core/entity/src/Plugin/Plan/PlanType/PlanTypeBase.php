@@ -2,12 +2,12 @@
 
 namespace Drupal\farm_entity\Plugin\Plan\PlanType;
 
-use Drupal\Core\Plugin\PluginBase;
+use Drupal\farm_entity\FarmEntityTypeBase;
 
 /**
  * Provides the base plan type class.
  */
-abstract class PlanTypeBase extends PluginBase implements PlanTypeInterface {
+abstract class PlanTypeBase extends FarmEntityTypeBase implements PlanTypeInterface {
 
   /**
    * {@inheritdoc}
