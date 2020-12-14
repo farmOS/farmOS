@@ -30,3 +30,8 @@ behavior_geofield:
     js/farmOS.map.behaviors.geofield.js: { }
   dependencies:
     - farm_map/farm_map
+behavior_popup:
+  js:
+    js/farmOS.map.behaviors.popup.js: { }
+  dependencies:
+    - farm_map/farm_map
