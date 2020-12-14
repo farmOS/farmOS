@@ -23,7 +23,7 @@ class Sale extends FarmLogType {
     // Customer.
     $options = [
       'type' => 'string',
-      'label' => 'Customer',
+      'label' => $this->t('Customer'),
       'weight' => [
         'form' => 20,
         'view' => 20,
@@ -34,7 +34,7 @@ class Sale extends FarmLogType {
     // Invoice number.
     $options = [
       'type' => 'string',
-      'label' => 'Invoice number',
+      'label' => $this->t('Invoice number'),
       'weight' => [
         'form' => 20,
         'view' => 20,

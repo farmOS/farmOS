@@ -23,8 +23,8 @@ class Medical extends FarmLogType {
     // Veterinarian.
     $options = [
       'type' => 'string',
-      'label' => 'Veterinarian',
-      'description' => 'If a veterinarian was involved, enter their name here.',
+      'label' => $this->t('Veterinarian'),
+      'description' => $this->t('If a veterinarian was involved, enter their name here.'),
       'weight' => [
         'form' => -40,
         'view' => -40,

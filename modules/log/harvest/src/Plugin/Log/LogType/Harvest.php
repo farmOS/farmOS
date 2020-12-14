@@ -23,8 +23,8 @@ class Harvest extends FarmLogType {
     // Lot number.
     $options = [
       'type' => 'string',
-      'label' => 'Lot number',
-      'description' => 'If this harvest is part of a batch or lot, enter the lot number here.',
+      'label' => $this->t('Lot number'),
+      'description' => $this->t('If this harvest is part of a batch or lot, enter the lot number here.'),
       'weight' => [
         'form' => 20,
         'view' => 20,

@@ -23,8 +23,8 @@ class LabTest extends FarmLogType {
     // Lab.
     $options = [
       'type' => 'string',
-      'label' => 'Laboratory',
-      'description' => 'What laboratory performed this test?',
+      'label' => $this->t('Laboratory'),
+      'description' => $this->t('What laboratory performed this test?'),
       'weight' => [
         'form' => -40,
         'view' => -40,
@@ -35,7 +35,7 @@ class LabTest extends FarmLogType {
     // Lab test type.
     $options = [
       'type' => 'list_string',
-      'label' => 'Test type',
+      'label' => $this->t('Test type'),
       'allowed_values_function' => 'farm_lab_test_type_field_allowed_values',
       'weight' => [
         'form' => -50,

@@ -23,8 +23,8 @@ class Input extends FarmLogType {
     // Lot number.
     $options = [
       'type' => 'string',
-      'label' => 'Lot number',
-      'description' => 'If this harvest is part of a batch or lot, enter the lot number here.',
+      'label' => $this->t('Lot number'),
+      'description' => $this->t('If this harvest is part of a batch or lot, enter the lot number here.'),
       'weight' => [
         'form' => -45,
         'view' => -45,
@@ -35,8 +35,8 @@ class Input extends FarmLogType {
     // Material.
     $options = [
       'type' => 'entity_reference',
-      'label' => 'Material',
-      'description' => 'What materials are being applied?',
+      'label' => $this->t('Material'),
+      'description' => $this->t('What materials are being applied?'),
       'target_type' => 'taxonomy_term',
       'target_bundle' => 'material',
       'multiple' => TRUE,
@@ -50,8 +50,8 @@ class Input extends FarmLogType {
     // Method.
     $options = [
       'type' => 'string',
-      'label' => 'Method',
-      'description' => 'How was this input applied?',
+      'label' => $this->t('Method'),
+      'description' => $this->t('How was this input applied?'),
       'weight' => [
         'form' => -30,
         'view' => -30,
@@ -62,8 +62,8 @@ class Input extends FarmLogType {
     // Purchase date.
     $options = [
       'type' => 'timestamp',
-      'label' => 'Purchase date',
-      'description' => 'When was this input purchased (if applicable)?',
+      'label' => $this->t('Purchase date'),
+      'description' => $this->t('When was this input purchased (if applicable)?'),
       'weight' => [
         'form' => -35,
         'view' => -35,
@@ -74,8 +74,8 @@ class Input extends FarmLogType {
     // Source.
     $options = [
       'type' => 'string',
-      'label' => 'Source',
-      'description' => 'Where was this input obtained? Who manufactured it?',
+      'label' => $this->t('Source'),
+      'description' => $this->t('Where was this input obtained? Who manufactured it?'),
       'weight' => [
         'form' => -40,
         'view' => -40,
