@@ -34,8 +34,9 @@ class MapRenderEventSubscriber implements EventSubscriberInterface {
       $event->addBehavior('wkt');
     }
 
-    // Add the geofield behavior to the geofield_widget map.
+    // Add the wkt and geofield behavior to the geofield_widget map.
     if (in_array($event->getMapType()->id(), ['geofield_widget'])) {
+      $event->addBehavior('wkt');
       $event->addBehavior('geofield');
     }
   }
