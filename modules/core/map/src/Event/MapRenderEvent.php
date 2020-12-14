@@ -26,7 +26,7 @@ class MapRenderEvent extends Event {
    *
    * @var \Drupal\farm_map\Entity\MapTypeInterface
    */
-  public $mapType;
+  private $mapType;
 
   /**
    * MapRenderEvent constructor.
@@ -39,6 +39,16 @@ class MapRenderEvent extends Event {
   public function __construct(MapTypeInterface $map_type, array $element) {
     $this->element = $element;
     $this->mapType = $map_type;
+  }
+
+  /**
+   * Getter method to get the map type being rendered.
+   *
+   * @return \Drupal\farm_map\Entity\MapTypeInterface
+   *   The map type config entity.
+   */
+  public function getMapType() {
+    return $this->mapType;
   }
 
   /**
