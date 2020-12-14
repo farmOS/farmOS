@@ -3,7 +3,6 @@
 namespace Drupal\farm_plant\Plugin\Asset\AssetType;
 
 use Drupal\farm_entity\Plugin\Asset\AssetType\FarmAssetType;
-use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
  * Provides the plant asset type.
@@ -14,8 +13,6 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
  * )
  */
 class Plant extends FarmAssetType {
-
-  use StringTranslationTrait;
 
   /**
    * {@inheritdoc}
