@@ -41,7 +41,7 @@ class FarmMap extends RenderElement {
   public static function preRenderMap(array $element) {
 
     // Set the id to the map name.
-    $map_id = Html::getUniqueId($element['#map_name']);
+    $map_id = Html::getUniqueId('farm-map-' . $element['#map_name']);
     $element['#attributes']['id'] = $map_id;
 
     // Get the map type.
