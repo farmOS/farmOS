@@ -47,7 +47,8 @@ class DashboardController extends ControllerBase {
   public function dashboard() {
 
     // Start a build array.
-    $build = [];
+    // Ask modules for dashboard groups.
+    $build = $this->moduleHandler()->invokeAll('farm_dashboard_groups');
 
     // Ask modules for dashboard panes.
     $panes = $this->moduleHandler()->invokeAll('farm_dashboard_panes');
