@@ -63,12 +63,14 @@ function farm_ui_views_farm_dashboard_panes() {
     'view' => 'farm_log',
     'view_display_id' => 'block_upcoming',
     'group' => 'logs',
+    'region'  => 'first',
     'weight' => 10,
   ];
   $panes['late_tasks'] = [
     'view' => 'farm_log',
     'view_display_id' => 'block_late',
     'group' => 'logs',
+    'region'  => 'first',
     'weight' => 11,
   ];
 
