@@ -25,7 +25,7 @@ class FarmPlanType extends PlanTypeBase {
       'multiple' => TRUE,
       'hidden' => TRUE,
     ];
-    $fields['asset'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
+    $fields['asset'] = $this->farmFieldFactory->bundleFieldDefinition($options);
 
     // Logs in the plan.
     $options = [
@@ -35,7 +35,7 @@ class FarmPlanType extends PlanTypeBase {
       'multiple' => TRUE,
       'hidden' => TRUE,
     ];
-    $fields['log'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
+    $fields['log'] = $this->farmFieldFactory->bundleFieldDefinition($options);
 
     return $fields;
   }
