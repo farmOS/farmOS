@@ -43,6 +43,27 @@ function farm_ui_views_local_tasks_alter(&$local_tasks) {
 }
 
 /**
+ * Implements hook_farm_dashboard_groups().
+ */
+function farm_ui_views_farm_dashboard_groups() {
+  $groups = [];
+
+  // If the plan module is enabled, add a plans group.
+  if (\Drupal::service('module_handler')->moduleExists('plan')) {
+    $groups['second']['plans'] = [
+      '#weight' => 10,
+    ];
+  }
+
+  // Add a logs group.
+  $groups['first']['logs'] = [
+    '#weight' => 10,
+  ];
+
+  return $groups;
+}
+
+/**
  * Implements hook_farm_dashboard_panes().
  */
 function farm_ui_views_farm_dashboard_panes() {
