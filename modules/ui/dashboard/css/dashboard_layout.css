@@ -1,0 +1,7 @@
+.layout--twocol .layout__region {
+  box-sizing: border-box;
+}
+
+.layout--twocol .layout__region--first {
+  padding-right: 1.5em;
+}

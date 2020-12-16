@@ -164,7 +164,11 @@ class DashboardController extends ControllerBase {
     }
 
     // Build the layout.
-    return $layoutInstance->build($regions);
+    $render = $layoutInstance->build($regions);
+
+    // Add the dashboard_layout styles.
+    $render['#attached']['library'][] = 'farm_ui_dashboard/dashboard_layout';
+    return $render;
   }
 
 }
