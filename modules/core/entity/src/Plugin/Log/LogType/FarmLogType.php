@@ -45,7 +45,7 @@ class FarmLogType extends LogTypeBase {
           'view' => -5,
         ],
       ];
-      $field = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
+      $field = $this->farmFieldFactory->bundleFieldDefinition($options);
       $field->setSetting('handler', 'default:asset');
       $field->setSetting('handler_settings', [
         'target_bundles' => [
