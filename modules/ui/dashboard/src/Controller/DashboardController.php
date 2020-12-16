@@ -3,7 +3,9 @@
 namespace Drupal\farm_ui_dashboard\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Layout\LayoutPluginManagerInterface;
 use Drupal\views\Views;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Dashboard controller.
@@ -11,6 +13,27 @@ use Drupal\views\Views;
  * @ingroup farm
  */
 class DashboardController extends ControllerBase {
+
+  /**
+   * The layout plugin manager.
+   *
+   * @var \Drupal\Core\Layout\LayoutPluginManagerInterface
+   */
+  protected $layoutPluginManager;
+
+  /**
+   * Class constructor.
+   */
+  public function __construct(LayoutPluginManagerInterface $layout_plugin_manager) {
+    $this->layoutPluginManager = $layout_plugin_manager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static($container->get('plugin.manager.core.layout'));
+  }
 
   /**
    * Builds the farm dashboard page.
@@ -36,6 +59,7 @@ class DashboardController extends ControllerBase {
       $args = [];
       $output = '';
       $title = '';
+      $region = 'first';
       $group = 'default';
       $weight = 0;
 
@@ -95,6 +119,11 @@ class DashboardController extends ControllerBase {
         $title = $pane['title'];
       }
 
+      // If a region was provided, use it.
+      if (!empty($pane['region'])) {
+        $region = $pane['region'];
+      }
+
       // If a group was provided, use it.
       if (!empty($pane['group'])) {
         $group = $pane['group'];
@@ -121,10 +150,21 @@ class DashboardController extends ControllerBase {
       $container[] = $output;
 
       // Add the container to the build array.
-      $build[$group][$id] = $container;
+      $build[$region][$group][$id] = $container;
     }
 
-    return $build;
+    // Get the layout.
+    $layoutInstance = $this->layoutPluginManager->createInstance('layout_twocol', []);
+
+    // Define the regions.
+    $region_names = ['top', 'first', 'second', 'bottom'];
+    $regions = [];
+    foreach ($region_names as $name) {
+      $regions[$name] = !empty($build[$name]) ? $build[$name] : [];
+    }
+
+    // Build the layout.
+    return $layoutInstance->build($regions);
   }
 
 }
