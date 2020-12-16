@@ -46,6 +46,10 @@ function hook_farm_dashboard_panes() {
       // label will be used.
       'title' => t('My pane title'),
 
+      // Optionally specify a layout region. Defaults to 'first'.
+      // Options are: top, first, second or bottom.
+      'region' => 'top',
+
       // Optionally specify a group and weight for display sorting.
       'group' => 'custom_group',
       'weight' => 100,
