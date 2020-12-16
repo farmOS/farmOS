@@ -242,4 +242,55 @@ class LocationTest extends KernelTestBase {
     $this->assertFalse($this->assetLocation->hasGeometry($asset), 'Asset geometry can be unset.');
   }
 
+  /**
+   * Test fixed asset location.
+   */
+  public function testFixedAssetLocation() {
+
+    // Create a new "fixed" asset.
+    /** @var \Drupal\asset\Entity\AssetInterface $asset */
+    $asset = Asset::create([
+      'type' => 'object',
+      'name' => $this->randomMachineName(),
+      'status' => 'active',
+      'fixed' => TRUE,
+    ]);
+    $asset->save();
+
+    // When a new asset is saved, it does not have a geometry.
+    $this->assertFalse($this->assetLocation->hasGeometry($asset), 'New assets do not have geometry.');
+
+    // When an asset is fixed, and has intrinsic geometry, it is the asset's
+    // geometry.
+    $asset->geometry = $this->polygons[0];
+    $asset->save();
+    $this->assertTrue($this->assetLocation->hasGeometry($asset), 'Assets with intrinsic geometry have geometry.');
+    $this->assertEquals($this->polygons[0], $this->assetLocation->getGeometry($asset), 'Asset intrinsic geometry is asset geometry.');
+
+    // Create a "done" movement log that references the asset.
+    /** @var \Drupal\log\Entity\LogInterface $log */
+    $log = Log::create([
+      'type' => 'movement',
+      'status' => 'done',
+      'asset' => ['target_id' => $asset->id()],
+      'location' => ['target_id' => $this->locations[0]->id()],
+      'movement' => TRUE,
+    ]);
+    $log->save();
+
+    // Movement logs of a fixed asset do not affect that asset's location or
+    // geometry.
+    $this->assertEquals([], $this->assetLocation->getLocation($asset), 'Movement logs of a fixed asset do not affect location.');
+    $this->assertEquals($this->polygons[0], $this->assetLocation->getGeometry($asset), 'Movement logs of a fixed asset do not affect geometry.');
+
+    // Set fixed to FALSE on the asset.
+    $asset->fixed = FALSE;
+    $asset->save();
+
+    // If an asset has a movement log and is no longer fixed, it's location and
+    // geometry equal location and geometry of the log.
+    $this->assertEquals($this->logLocation->getLocation($log), $this->assetLocation->getLocation($asset), 'Movement logs of a not fixed asset do affect location.');
+    $this->assertEquals($this->logLocation->getGeometry($log), $this->assetLocation->getGeometry($asset), 'Movement logs of a not fixed asset do affect geometry.');
+  }
+
 }
