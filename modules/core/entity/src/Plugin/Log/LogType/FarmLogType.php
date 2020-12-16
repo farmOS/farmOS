@@ -39,25 +39,14 @@ class FarmLogType extends LogTypeBase {
         'label' => $this->t('Equipment used'),
         'description' => $this->t('What equipment was used?'),
         'target_type' => 'asset',
+        'target_bundle' => 'equipment',
         'multiple' => TRUE,
         'weight' => [
           'form' => 55,
           'view' => -5,
         ],
       ];
-      $field = $this->farmFieldFactory->bundleFieldDefinition($options);
-      $field->setSetting('handler', 'default:asset');
-      $field->setSetting('handler_settings', [
-        'target_bundles' => [
-          'equipment' => 'equipment',
-        ],
-        'sort' => [
-          'field' => '_none',
-        ],
-        'auto_create' => FALSE,
-        'auto_create_bundle' => '',
-      ]);
-      $fields['equipment'] = $field;
+      $fields['equipment'] = $this->farmFieldFactory->bundleFieldDefinition($options);
     }
 
     return $fields;

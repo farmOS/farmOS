@@ -221,13 +221,28 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
 
       // Asset reference.
       case 'asset':
-        $handler = 'views';
-        $handler_settings = [
-          'view' => [
-            'view_name' => 'farm_asset_reference',
-            'display_name' => 'entity_reference',
-          ],
-        ];
+        if (!empty($options['target_bundle'])) {
+          $handler = 'default:asset';
+          $handler_settings = [
+            'target_bundles' => [
+              $options['target_bundle'] => $options['target_bundle'],
+            ],
+            'sort' => [
+              'field' => '_none',
+            ],
+            'auto_create' => FALSE,
+            'auto_create_bundle' => '',
+          ];
+        }
+        else {
+          $handler = 'views';
+          $handler_settings = [
+            'view' => [
+              'view_name' => 'farm_asset_reference',
+              'display_name' => 'entity_reference',
+            ],
+          ];
+        }
         $form_display_options = [
           'type' => 'entity_reference_autocomplete',
           'weight' => $options['weight']['form'] ?? 0,
