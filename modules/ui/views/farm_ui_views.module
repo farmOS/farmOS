@@ -54,6 +54,7 @@ function farm_ui_views_farm_dashboard_panes() {
       'view' => 'farm_plan',
       'view_display_id' => 'block_active',
       'group' => 'plans',
+      'region'  => 'second',
       'weight' => 0,
     ];
   }
