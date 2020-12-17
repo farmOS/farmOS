@@ -141,6 +141,12 @@ function farm_entity_entity_base_field_info_alter(&$fields, EntityTypeInterface 
  */
 function farm_entity_views_data_alter(array &$data) {
 
+  // Specify views plugins for improved sorting of the log.timestamp field.
+  if (!empty($data['log_field_data'])) {
+    $data['log_field_data']['timestamp']['sort']['id'] = 'log_standard';
+    $data['log_field_data']['timestamp']['field']['id'] = 'log_field';
+  }
+
   // Because Drupal core does not provide full Views integration for base fields
   // we must manually specify the state_machine_state views filter for the
   // status field.
