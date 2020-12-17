@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\entity\EntityViewsData;
 use Drupal\farm_entity\BundlePlugin\FarmEntityBundlePluginHandler;
 
 /**
@@ -35,6 +36,7 @@ function farm_entity_entity_type_build(array &$entity_types) {
     if (!empty($entity_types[$entity_type])) {
       $entity_types[$entity_type]->set('bundle_plugin_type', $entity_type . '_type');
       $entity_types[$entity_type]->setHandlerClass('bundle_plugin', FarmEntityBundlePluginHandler::class);
+      $entity_types[$entity_type]->setHandlerClass('views_data', EntityViewsData::class);
     }
   }
 }
