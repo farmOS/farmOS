@@ -6,8 +6,8 @@
  */
 
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\entity\EntityViewsData;
 use Drupal\farm_entity\BundlePlugin\FarmEntityBundlePluginHandler;
+use Drupal\farm_entity\FarmEntityViewsData;
 
 /**
  * Implements hook_module_implements_alter().
@@ -36,7 +36,7 @@ function farm_entity_entity_type_build(array &$entity_types) {
     if (!empty($entity_types[$entity_type])) {
       $entity_types[$entity_type]->set('bundle_plugin_type', $entity_type . '_type');
       $entity_types[$entity_type]->setHandlerClass('bundle_plugin', FarmEntityBundlePluginHandler::class);
-      $entity_types[$entity_type]->setHandlerClass('views_data', EntityViewsData::class);
+      $entity_types[$entity_type]->setHandlerClass('views_data', FarmEntityViewsData::class);
     }
   }
 }
@@ -140,12 +140,6 @@ function farm_entity_entity_base_field_info_alter(&$fields, EntityTypeInterface 
  * Implements hook_views_data_alter().
  */
 function farm_entity_views_data_alter(array &$data) {
-
-  // Specify views plugins for improved sorting of the log.timestamp field.
-  if (!empty($data['log_field_data'])) {
-    $data['log_field_data']['timestamp']['sort']['id'] = 'log_standard';
-    $data['log_field_data']['timestamp']['field']['id'] = 'log_field';
-  }
 
   // Because Drupal core does not provide full Views integration for base fields
   // we must manually specify the state_machine_state views filter for the
