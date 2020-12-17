@@ -308,3 +308,5 @@ vocabularies of terms. The vocabulary machine names have changed, to drop the
 - `farm_log_categories` -> `log_category`
 - `farm_materials` -> `material`
 - `farm_season` -> `season`
+- `farm_crops` -> `plant_type`
+- `farm_crop_families` -> `crop_family`
