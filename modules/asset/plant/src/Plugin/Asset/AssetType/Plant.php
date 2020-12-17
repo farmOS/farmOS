@@ -20,6 +20,18 @@ class Plant extends FarmAssetType {
   public function buildFieldDefinitions() {
     $fields = parent::buildFieldDefinitions();
     $field_info = [
+      'plant_type' => [
+        'type' => 'entity_reference',
+        'label' => $this->t('Crop'),
+        'description' => 'Enter the crop/variety that this is a planting of. As you type, you will have the option of selecting from crops/varieties that you\'ve entered in the past.',
+        'target_type' => 'taxonomy_term',
+        'target_bundle' => 'plant_type',
+        'auto_create' => TRUE,
+        'weight' => [
+          'form' => -90,
+          'view' => -90,
+        ],
+      ],
       'season' => [
         'type' => 'entity_reference',
         'label' => $this->t('Season'),
