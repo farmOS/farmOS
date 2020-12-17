@@ -50,6 +50,15 @@ class DashboardController extends ControllerBase {
     // Ask modules for dashboard groups.
     $build = $this->moduleHandler()->invokeAll('farm_dashboard_groups');
 
+    // Default the group #type to container if none was provided.
+    foreach ($build as $region => $groups) {
+      foreach ($groups as $name => $group) {
+        if (!empty($group) && empty($group['#type'])) {
+          $build[$region][$name]['#type'] = 'container';
+        }
+      }
+    }
+
     // Ask modules for dashboard panes.
     $panes = $this->moduleHandler()->invokeAll('farm_dashboard_panes');
 
