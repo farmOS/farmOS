@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains farm_log_query_test.module.
+ */
+
+use Drupal\Core\Entity\EntityTypeInterface;
+
+/**
+ * Implements hook_entity_base_field_info().
+ */
+function farm_log_query_test_entity_base_field_info(EntityTypeInterface $entity_type) {
+  $fields = [];
+  if ($entity_type->id() == 'log') {
+    $options = [
+      'type' => 'entity_reference',
+      'label' => t('Asset'),
+      'target_type' => 'asset',
+    ];
+    $fields['asset'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
+  }
+  return $fields;
+}

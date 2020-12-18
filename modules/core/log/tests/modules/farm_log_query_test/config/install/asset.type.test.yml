@@ -1,0 +1,7 @@
+langcode: en
+status: true
+id: test
+label: Test
+description: ''
+workflow: asset_default
+new_revision: true

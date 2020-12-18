@@ -1,0 +1,8 @@
+langcode: en
+status: true
+id: bar
+label: Bar
+description: ''
+name_pattern: 'Bar log [log:id]'
+workflow: log_default
+new_revision: true
