@@ -68,6 +68,11 @@ class LogQueryFactory implements LogQueryFactoryInterface {
     $query->sort('timestamp', 'DESC');
     $query->sort('id', 'DESC');
 
+    // If a limit is specified, limit the results.
+    if (isset($options['limit'])) {
+      $query->range(0, $options['limit']);
+    }
+
     // Return the query.
     return $query;
   }
