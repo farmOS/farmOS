@@ -48,6 +48,22 @@ class LogQueryFactory implements LogQueryFactoryInterface {
     // Add a tag.
     $query->addTag('farm.log_query');
 
+    // If a type is specified, only include logs of that type.
+    if (isset($options['type'])) {
+      $query->condition('type', $options['type']);
+    }
+
+    // If a timestamp is specified, only include logs with a timestamp less than
+    // or equal to it.
+    if (isset($options['timestamp'])) {
+      $query->condition('timestamp', $options['timestamp'], '<=');
+    }
+
+    // If a status is specified, only include logs with that status.
+    if (isset($options['status'])) {
+      $query->condition('status', $options['status']);
+    }
+
     // Sort by timestamp and then log ID, descending.
     $query->sort('timestamp', 'DESC');
     $query->sort('id', 'DESC');
