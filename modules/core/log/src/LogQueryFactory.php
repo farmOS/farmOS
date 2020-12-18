@@ -40,7 +40,7 @@ class LogQueryFactory implements LogQueryFactoryInterface {
   /**
    * {@inheritdoc}
    */
-  public function getQuery(): QueryInterface {
+  public function getQuery(array $options = []): QueryInterface {
 
     // Start with a standard log entity query.
     $query = $this->entityTypeManager->getStorage('log')->getQuery();
