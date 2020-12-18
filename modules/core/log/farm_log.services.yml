@@ -1,0 +1,5 @@
+services:
+  farm.log_query:
+    class: Drupal\farm_log\LogQueryFactory
+    arguments:
+      [ '@entity_type.manager' ]
