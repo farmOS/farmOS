@@ -64,6 +64,11 @@ class LogQueryFactory implements LogQueryFactoryInterface {
       $query->condition('status', $options['status']);
     }
 
+    // If an asset is provided, only include logs that reference it.
+    if (isset($options['asset']) && !empty($options['asset']->id())) {
+      $query->condition('asset.entity.id', $options['asset']->id());
+    }
+
     // Sort by timestamp and then log ID, descending.
     $query->sort('timestamp', 'DESC');
     $query->sort('id', 'DESC');
