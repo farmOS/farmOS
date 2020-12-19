@@ -9,6 +9,7 @@ use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\farm_location\Field\AssetGeometryItemList;
+use Drupal\farm_location\Field\AssetLocationItemList;
 use Drupal\log\Entity\LogInterface;
 
 /**
@@ -103,6 +104,21 @@ function farm_location_entity_base_field_info(EntityTypeInterface $entity_type) 
       ],
     ];
     $fields['location'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
+
+    // Current location field.
+    // This is computed based on an asset's movements.
+    $options = [
+      'type' => 'entity_reference',
+      'label' => t('Current location'),
+      'target_type' => 'asset',
+      'multiple' => TRUE,
+      'computed' => AssetLocationItemList::class,
+      'hidden' => 'form',
+      'weight' => [
+        'view' => 95,
+      ],
+    ];
+    $fields['current_location'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
   }
 
   // Add fields to logs.
