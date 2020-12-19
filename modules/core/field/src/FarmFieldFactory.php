@@ -484,7 +484,7 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
       'weight' => $options['weight']['form'] ?? 0,
     ]);
     $field->setDisplayOptions('view', [
-      'label' => 'visually_hidden',
+      'label' => 'inline',
       'type' => 'geofield_default',
       'settings' => [
         'output_format' => 'wkt',
