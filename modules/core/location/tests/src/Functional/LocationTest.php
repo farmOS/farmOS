@@ -106,4 +106,40 @@ class LocationTest extends FarmBrowserTestBase {
     $this->assertEquals($this->location->get('geometry')->value, $this->asset->get('current_geometry')->value, 'Computed asset geometry is the location asset geometry.');
   }
 
+  /**
+   * Test geometry and location field visibility.
+   */
+  public function testLocationFieldVisibility() {
+
+    // Go to the asset edit form.
+    $this->drupalGet('asset/' . $this->asset->id() . '/edit');
+    $this->assertSession()->statusCodeEquals(200);
+
+    // Test that current geometry and current location fields are hidden.
+    $this->assertSession()->fieldNotExists('current_geometry[0][value]');
+    $this->assertSession()->fieldNotExists('current_location[0][target_id]');
+
+    // Go to the asset view page.
+    $this->drupalGet('asset/' . $this->asset->id());
+    $this->assertSession()->statusCodeEquals(200);
+
+    // Test that current geometry and location fields are visible.
+    $this->assertSession()->pageTextContains("Current geometry");
+    $this->assertSession()->pageTextContains("Current location");
+
+    // Test that the intrinsic geometry field is hidden.
+    $this->assertSession()->pageTextNotContains("Intrinsic geometry");
+
+    // Make the asset fixed.
+    $this->asset->fixed = TRUE;
+    $this->asset->save();
+
+    // Go back to the edit form.
+    $this->drupalGet('asset/' . $this->asset->id() . '/edit');
+    $this->assertSession()->statusCodeEquals(200);
+
+    // Test that the intrinsic geometry field is visible.
+    $this->assertSession()->fieldExists('geometry[0][value]');
+  }
+
 }
