@@ -8,6 +8,7 @@
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\farm_location\AssetGeometryItemList;
 use Drupal\log\Entity\LogInterface;
 
 /**
@@ -76,6 +77,19 @@ function farm_location_entity_base_field_info(EntityTypeInterface $entity_type) 
       ],
     ];
     $fields['geometry'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
+
+    // Current geometry field.
+    // This is computed based on an asset's movements or its intrinsic geometry.
+    $options = [
+      'type' => 'geofield',
+      'label' => t('Current geometry'),
+      'computed' => AssetGeometryItemList::class,
+      'hidden' => 'form',
+      'weight' => [
+        'view' => 95,
+      ],
+    ];
+    $fields['current_geometry'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
 
     // Location boolean field.
     $options = [
