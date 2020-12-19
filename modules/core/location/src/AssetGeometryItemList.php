@@ -8,7 +8,7 @@ use Drupal\Core\TypedData\ComputedItemListTrait;
 /**
  * Computes the current_geometry value for assets.
  */
-class AssetGeofieldItemList extends FieldItemList {
+class AssetGeometryItemList extends FieldItemList {
 
   use ComputedItemListTrait;
 

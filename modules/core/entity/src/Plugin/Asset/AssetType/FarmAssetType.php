@@ -3,7 +3,7 @@
 namespace Drupal\farm_entity\Plugin\Asset\AssetType;
 
 use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\farm_location\AssetGeofieldItemList;
+use Drupal\farm_location\AssetGeometryItemList;
 
 /**
  * Provides a farmOS asset type base class.
@@ -24,7 +24,7 @@ class FarmAssetType extends AssetTypeBase {
       'type' => 'geofield',
       'label' => $this->t('Current geometry'),
       'description' => $this->t('The assets current location geometry.'),
-      'computed' => AssetGeofieldItemList::class,
+      'computed' => AssetGeometryItemList::class,
       'weight' => [
         'form' => 95,
         'view' => 95,
