@@ -226,6 +226,7 @@ Below is the full list of log types in farmOS 1.x and their new names in 2.x:
 Log field names are largely unchanged, with a few exceptions (note that *new*
 fields are not listed here):
 
+- `area` -> `location` (See "Areas" below)
 - `date_purchase` -> `purchase_date`
 - `done` -> `status` (see "Log status" below)
 - `files` -> `file`
@@ -306,8 +307,39 @@ vocabularies of terms. The vocabulary machine names have changed, to drop the
 `farm_` prefix, and to standardize plurality.
 
 - `farm_animal_types` -> `animal_type`
+- `farm_areas` has been removed (see "Areas" below)
 - `farm_log_categories` -> `log_category`
 - `farm_materials` -> `material`
 - `farm_season` -> `season`
 - `farm_crops` -> `plant_type`
 - `farm_crop_families` -> `crop_family`
+
+### Areas
+
+farmOS 2.x had the concept of "Areas" for representing places/locations. These
+were taxonomy terms in the `farm_areas` vocabulary. In farmOS 2.x, these areas
+are migrated to new asset types, and any asset can now be designated as a
+"location". New asset types are provided, including "Land", "Structure", and
+"Water", which have the "location" designation by default. Additional types can
+be provided by modules.
+
+Because any asset can be a location, some new fields are available on assets,
+including:
+
+- `is_location` - Boolean indicating whether or not other assets can be moved
+  to this asset.
+- `is_fixed` - Boolean indicating that the asset has a fixed geometry and
+  therefore does not move.
+- `intrinsic_geometry` - A geofield representing the intrinsic geometry of
+  "fixed" assets.
+
+Additionally, two "computed" fields are available on all assets, which provide
+quick access to the asset's current location and geometry, regardless of
+whether or not it is "fixed":
+
+- `geometry` - The asset's current geometry. This will be the same as the
+  `intrinsic_geometry` for "fixed" assets. Otherwise, it will mirror the
+  geometry of the asset's most recent movement log.
+- `location` - The asset's current location (an asset reference). This will
+  always be empty for "fixed" assets. Otherwise, it will mirror the location
+  reference field of the asset's most recent movement log.
