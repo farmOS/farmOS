@@ -119,6 +119,19 @@ function farm_location_entity_base_field_info(EntityTypeInterface $entity_type) 
       ],
     ];
     $fields['current_location'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
+
+    // Fixed boolean field.
+    $options = [
+      'type' => 'boolean',
+      'label' => t('Fixed'),
+      'description' => t('If this asset is fixed, then it can have an intrinsic geometry. If the asset will move around, then it is not fixed and geometry will be determined by movement logs.'),
+      'default_value_callback' => 'farm_location_default_value',
+      'weight' => [
+        'form' => 96,
+        'view' => 96,
+      ],
+    ];
+    $fields['fixed'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
   }
 
   // Add fields to logs.
@@ -179,7 +192,7 @@ function farm_location_entity_base_field_info(EntityTypeInterface $entity_type) 
 }
 
 /**
- * Sets the default value for asset location boolean field.
+ * Sets the default value for asset location and fixed boolean fields.
  *
  * @param \Drupal\Core\Entity\ContentEntityInterface $entity
  *   The entity being created.
@@ -194,7 +207,7 @@ function farm_location_entity_base_field_info(EntityTypeInterface $entity_type) 
 function farm_location_default_value(ContentEntityInterface $entity, FieldDefinitionInterface $definition): array {
   $default = FALSE;
 
-  // Land, structure, and water assets are locations by default.
+  // Land, structure, and water assets are fixed locations by default.
   if (in_array($entity->bundle(), ['land', 'structure', 'water'])) {
     $default = TRUE;
   }
