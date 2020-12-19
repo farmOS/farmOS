@@ -65,6 +65,7 @@ function farm_location_entity_base_field_info(EntityTypeInterface $entity_type) 
     // This is added as a bundle field definition to all asset types rather than
     // a base field definition so that data is stored in a dedicated database
     // table.
+    // @todo Hide this from the entity display, use current_geometry instead?
     $options = [
       'type' => 'geofield',
       'label' => t('Geometry'),
