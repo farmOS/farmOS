@@ -63,6 +63,12 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
       $field->setDescription($options['description']);
     }
 
+    // Set computed.
+    if (!empty($options['computed'])) {
+      $field->setComputed(TRUE);
+      $field->setClass($options['computed']);
+    }
+
     // Make the field required, if specified.
     if (!empty($options['required'])) {
       $field->setRequired(TRUE);
