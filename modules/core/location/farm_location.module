@@ -8,7 +8,7 @@
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
-use Drupal\farm_location\AssetGeometryItemList;
+use Drupal\farm_location\Field\AssetGeometryItemList;
 use Drupal\log\Entity\LogInterface;
 
 /**

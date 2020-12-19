@@ -1,26 +1,26 @@
 <?php
 
-namespace Drupal\farm_location;
+namespace Drupal\farm_location\Field;
 
 use Drupal\Core\Field\FieldItemList;
 use Drupal\Core\TypedData\ComputedItemListTrait;
 
 /**
- * Computes the current_geometry value for assets.
+ * Computes the current geometry value for assets.
  */
 class AssetGeometryItemList extends FieldItemList {
 
   use ComputedItemListTrait;
 
   /**
-   * Computes the current_geometry value for the asset.
+   * Computes the current geometry value for the asset.
    */
   protected function computeValue() {
 
     // Get the asset entity.
     $entity = $this->getEntity();
 
-    // If its a location, copy its geometry to current_geometry.
+    // If its a location, copy its intrinsic geometry.
     // @todo Should this be checking 'fixed' instead?
     if ($entity->get('location')->value) {
       $geom = $entity->get('geometry')->value ?? '';
