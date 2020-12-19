@@ -30,7 +30,8 @@ class FarmAssetType extends AssetTypeBase {
         'view' => 95,
       ],
     ];
-    $fields['current_geometry'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
+    $fields['current_geometry'] = $this->farmFieldFactory->bundleFieldDefinition($options);
+
     return $fields;
   }
 
