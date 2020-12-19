@@ -19,14 +19,12 @@ class FarmAssetType extends AssetTypeBase {
     $fields = [];
 
     // Current geometry computed field.
-    // @todo Make it possible to hide this from the entity edit form?
     $options = [
       'type' => 'geofield',
       'label' => $this->t('Current geometry'),
-      'description' => $this->t('The assets current location geometry.'),
       'computed' => AssetGeometryItemList::class,
+      'hidden' => 'form',
       'weight' => [
-        'form' => 95,
         'view' => 95,
       ],
     ];
