@@ -8,7 +8,7 @@ ARG FARMOS_REPO=https://git.drupal.org/project/farm.git
 ARG FARMOS_BRANCH=7.x-1.x
 
 # Install Xdebug.
-RUN yes | pecl install xdebug \
+RUN yes | pecl install xdebug-2.9.8 \
 	  && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.remote_autostart=off" >> /usr/local/etc/php/conf.d/xdebug.ini
