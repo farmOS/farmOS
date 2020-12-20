@@ -93,7 +93,7 @@ class LocationTest extends KernelTestBase {
         'type' => 'location',
         'name' => $this->randomMachineName(),
         'status' => 'active',
-        'geometry' => $this->polygons[$i],
+        'intrinsic_geometry' => $this->polygons[$i],
         'fixed' => TRUE,
       ]);
       $location->save();
@@ -115,7 +115,7 @@ class LocationTest extends KernelTestBase {
       'location' => ['target_id' => $this->locations[0]->id()],
     ]);
     $log->save();
-    $this->assertEquals($this->locations[0]->get('geometry')->value, $log->get('geometry')->value, 'Empty geometry is populated from location.');
+    $this->assertEquals($this->locations[0]->get('intrinsic_geometry')->value, $log->get('geometry')->value, 'Empty geometry is populated from location.');
 
     // When multiple locations are added, all of their geometries are combined.
     $log->location = [
@@ -131,7 +131,7 @@ class LocationTest extends KernelTestBase {
     // geometry is updated.
     $log->location = ['target_id' => $this->locations[1]->id()];
     $log->save();
-    $this->assertEquals($this->locations[1]->get('geometry')->value, $log->get('geometry')->value, 'Geometry is updated when locations are changed.');
+    $this->assertEquals($this->locations[1]->get('intrinsic_geometry')->value, $log->get('geometry')->value, 'Geometry is updated when locations are changed.');
 
     // When a log's geometry is set, it is saved.
     $log->geometry->value = $this->polygons[2];

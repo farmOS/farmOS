@@ -71,7 +71,7 @@ class LocationTest extends FarmBrowserTestBase {
     $this->location = $asset_storage->create([
       'type' => 'location',
       'name' => $this->randomMachineName(),
-      'geometry' => $this->reduceWkt(\Drupal::service('geofield.wkt_generator')->wktGeneratePolygon(NULL, 5)),
+      'intrinsic_geometry' => $this->reduceWkt(\Drupal::service('geofield.wkt_generator')->wktGeneratePolygon(NULL, 5)),
     ]);
     $this->location->save();
 
@@ -103,7 +103,7 @@ class LocationTest extends FarmBrowserTestBase {
     $this->assertEquals($this->location->id(), $current_location[0]->id(), 'Computed asset location is the location asset.');
 
     // The computed geometry of the asset is the location asset geometry.
-    $this->assertEquals($this->location->get('geometry')->value, $this->asset->get('current_geometry')->value, 'Computed asset geometry is the location asset geometry.');
+    $this->assertEquals($this->location->get('intrinsic_geometry')->value, $this->asset->get('current_geometry')->value, 'Computed asset geometry is the location asset geometry.');
   }
 
   /**
@@ -117,7 +117,7 @@ class LocationTest extends FarmBrowserTestBase {
 
     // Test that intrinsic geometry, current geometry, and current location
     // fields are all hidden.
-    $this->assertSession()->fieldNotExists('geometry[0][value]');
+    $this->assertSession()->fieldNotExists('intrinsic_geometry[0][value]');
     $this->assertSession()->fieldNotExists('current_geometry[0][value]');
     $this->assertSession()->fieldNotExists('current_location[0][target_id]');
 
@@ -141,7 +141,7 @@ class LocationTest extends FarmBrowserTestBase {
     $this->assertSession()->statusCodeEquals(200);
 
     // Test that the intrinsic geometry field is visible.
-    $this->assertSession()->fieldExists('geometry[0][value]');
+    $this->assertSession()->fieldExists('intrinsic_geometry[0][value]');
   }
 
 }

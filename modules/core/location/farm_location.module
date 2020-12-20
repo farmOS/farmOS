@@ -22,7 +22,7 @@ function farm_location_field_widget_geofield_default_form_alter(&$element, FormS
   $field_name = $context['items']->getName();
 
   // If this is not the geometry field on asset entities, bail.
-  if (!($field_name == 'geometry' && $entity->getEntityTypeId() == 'asset')) {
+  if (!($field_name == 'intrinsic_geometry' && $entity->getEntityTypeId() == 'asset')) {
     return;
   }
 
@@ -41,20 +41,20 @@ function farm_location_entity_base_field_info(EntityTypeInterface $entity_type) 
   // Add fields to assets.
   if ($entity_type->id() == 'asset') {
 
-    // Geometry field.
+    // Intrinsic geometry field.
     // This is added as a bundle field definition to all asset types rather than
     // a base field definition so that data is stored in a dedicated database
     // table.
     $options = [
       'type' => 'geofield',
-      'label' => t('Geometry'),
-      'description' => t('Add geometry data to this asset to describe its intrinsic location.'),
+      'label' => t('Intrinsic geometry'),
+      'description' => t('Add geometry data to this asset to describe its intrinsic location. This will only be used if the asset is fixed.'),
       'weight' => [
         'form' => 95,
       ],
       'hidden' => 'view',
     ];
-    $fields['geometry'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
+    $fields['intrinsic_geometry'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
 
     // Current geometry field.
     // This is computed based on an asset's movements or its intrinsic geometry.

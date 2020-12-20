@@ -15,11 +15,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class AssetLocation implements AssetLocationInterface {
 
   /**
-   * The name of the asset geometry field.
+   * The name of the asset intrinsic geometry field.
    *
    * @var string
    */
-  const ASSET_FIELD_GEOMETRY = 'geometry';
+  const ASSET_FIELD_GEOMETRY = 'intrinsic_geometry';
 
   /**
    * The name of the asset boolean fixed field.
