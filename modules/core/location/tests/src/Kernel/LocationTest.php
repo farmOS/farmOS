@@ -225,6 +225,21 @@ class LocationTest extends KernelTestBase {
     // log.
     $this->assertEquals($this->logLocation->getLocation($second_log), $this->assetLocation->getLocation($asset), 'Asset with future movement log has current location');
     $this->assertEquals($this->logLocation->getGeometry($second_log), $this->assetLocation->getGeometry($asset), 'Asset with future movement log has current geometry.');
+
+    // Create a fourth "done" movement log without location.
+    /** @var \Drupal\log\Entity\LogInterface $fourth_log */
+    $fourth_log = Log::create([
+      'type' => 'movement',
+      'status' => 'done',
+      'asset' => ['target_id' => $asset->id()],
+      'movement' => TRUE,
+    ]);
+    $fourth_log->save();
+
+    // When a movement log is created with no location/geometry, it effectively
+    // "unsets" the asset's location/geometry.
+    $this->assertFalse($this->assetLocation->hasLocation($asset), 'Asset location can be unset.');
+    $this->assertFalse($this->assetLocation->hasGeometry($asset), 'Asset geometry can be unset.');
   }
 
 }
