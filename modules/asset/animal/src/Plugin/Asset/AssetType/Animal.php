@@ -28,7 +28,7 @@ class Animal extends FarmAssetType {
           'view' => 15,
         ],
       ],
-      'castrated' => [
+      'is_castrated' => [
         'type' => 'boolean',
         'label' => $this->t('Castrated'),
         'description' => $this->t('Has this animal been castrated?'),
