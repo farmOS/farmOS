@@ -263,7 +263,7 @@ class LocationTest extends KernelTestBase {
 
     // When an asset is fixed, and has intrinsic geometry, it is the asset's
     // geometry.
-    $asset->geometry = $this->polygons[0];
+    $this->assetLocation->setIntrinsicGeometry($asset, $this->polygons[0]);
     $asset->save();
     $this->assertTrue($this->assetLocation->hasGeometry($asset), 'Assets with intrinsic geometry have geometry.');
     $this->assertEquals($this->polygons[0], $this->assetLocation->getGeometry($asset), 'Asset intrinsic geometry is asset geometry.');

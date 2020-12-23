@@ -76,4 +76,14 @@ interface AssetLocationInterface {
    */
   public function getMovementLog(AssetInterface $asset): ?LogInterface;
 
+  /**
+   * Set an asset's intrinsic geometry.
+   *
+   * @param \Drupal\asset\Entity\AssetInterface $asset
+   *   The Asset entity.
+   * @param string $wkt
+   *   Geometry as a WKT string.
+   */
+  public function setIntrinsicGeometry(AssetInterface $asset, string $wkt): void;
+
 }

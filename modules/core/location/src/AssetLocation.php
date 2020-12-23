@@ -184,4 +184,11 @@ class AssetLocation implements AssetLocationInterface {
     return NULL;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function setIntrinsicGeometry(AssetInterface $asset, string $wkt): void {
+    $asset->{static::ASSET_FIELD_GEOMETRY} = $wkt;
+  }
+
 }
