@@ -41,6 +41,13 @@ process:
     plugin: default_value
     default_value: 0
     source: '@parent_id'
+  # Plant type specific fields.
+  transplant_days:
+    plugin: get
+    source: field_farm_transplant_days
+  maturity_days:
+    plugin: get
+    source: field_farm_maturity_days
 migration_dependencies:
   required: {  }
   optional: {  }
