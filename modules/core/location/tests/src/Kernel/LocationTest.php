@@ -94,7 +94,7 @@ class LocationTest extends KernelTestBase {
         'name' => $this->randomMachineName(),
         'status' => 'active',
         'intrinsic_geometry' => $this->polygons[$i],
-        'fixed' => TRUE,
+        'is_fixed' => TRUE,
       ]);
       $location->save();
       $this->locations[] = $location;
@@ -254,7 +254,7 @@ class LocationTest extends KernelTestBase {
       'type' => 'object',
       'name' => $this->randomMachineName(),
       'status' => 'active',
-      'fixed' => TRUE,
+      'is_fixed' => TRUE,
     ]);
     $asset->save();
 
@@ -284,8 +284,8 @@ class LocationTest extends KernelTestBase {
     $this->assertEquals([], $this->assetLocation->getLocation($asset), 'Movement logs of a fixed asset do not affect location.');
     $this->assertEquals($this->polygons[0], $this->assetLocation->getGeometry($asset), 'Movement logs of a fixed asset do not affect geometry.');
 
-    // Set fixed to FALSE on the asset.
-    $asset->fixed = FALSE;
+    // Set is_fixed to FALSE on the asset.
+    $asset->is_fixed = FALSE;
     $asset->save();
 
     // If an asset has a movement log and is no longer fixed, it's location and

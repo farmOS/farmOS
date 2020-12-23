@@ -37,7 +37,7 @@ shared_configuration:
     location:
       plugin: default_value
       default_value: 1
-    fixed:
+    is_fixed:
       plugin: default_value
       default_value: 1
     flag:

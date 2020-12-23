@@ -27,7 +27,7 @@ function farm_location_field_widget_geofield_default_form_alter(&$element, FormS
   }
 
   // If the asset is not fixed, hide the geometry field.
-  if (!$entity->get('fixed')->value) {
+  if (!$entity->get('is_fixed')->value) {
     $element['#access'] = FALSE;
   }
 }
@@ -100,7 +100,7 @@ function farm_location_entity_base_field_info(EntityTypeInterface $entity_type) 
     // Fixed boolean field.
     $options = [
       'type' => 'boolean',
-      'label' => t('Fixed'),
+      'label' => t('Is fixed'),
       'description' => t('If this asset is fixed, then it can have an intrinsic geometry. If the asset will move around, then it is not fixed and geometry will be determined by movement logs.'),
       'default_value_callback' => 'farm_location_default_value',
       'weight' => [
@@ -108,7 +108,7 @@ function farm_location_entity_base_field_info(EntityTypeInterface $entity_type) 
         'view' => 96,
       ],
     ];
-    $fields['fixed'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
+    $fields['is_fixed'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
   }
 
   // Add fields to logs.

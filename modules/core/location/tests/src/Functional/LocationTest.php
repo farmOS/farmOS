@@ -72,6 +72,7 @@ class LocationTest extends FarmBrowserTestBase {
       'type' => 'location',
       'name' => $this->randomMachineName(),
       'intrinsic_geometry' => $this->reduceWkt(\Drupal::service('geofield.wkt_generator')->wktGeneratePolygon(NULL, 5)),
+      'is_fixed' => TRUE,
     ]);
     $this->location->save();
 
@@ -133,7 +134,7 @@ class LocationTest extends FarmBrowserTestBase {
     $this->assertSession()->pageTextNotContains("Intrinsic geometry");
 
     // Make the asset fixed.
-    $this->asset->fixed = TRUE;
+    $this->asset->is_fixed = TRUE;
     $this->asset->save();
 
     // Go back to the edit form.

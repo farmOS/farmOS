@@ -26,7 +26,7 @@ class AssetLocation implements AssetLocationInterface {
    *
    * @var string
    */
-  const ASSET_FIELD_FIXED = 'fixed';
+  const ASSET_FIELD_FIXED = 'is_fixed';
 
   /**
    * Log location service.
