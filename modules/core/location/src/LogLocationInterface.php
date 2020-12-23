@@ -76,4 +76,24 @@ interface LogLocationInterface {
    */
   public function populateGeometryFromLocation(LogInterface $log): void;
 
+  /**
+   * Set a log's location.
+   *
+   * @param \Drupal\log\Entity\LogInterface $log
+   *   The Log entity.
+   * @param \Drupal\asset\Entity\AssetInterface[] $assets
+   *   An array of location asset entities.
+   */
+  public function setLocation(LogInterface $log, array $assets): void;
+
+  /**
+   * Set a log's geometry.
+   *
+   * @param \Drupal\log\Entity\LogInterface $log
+   *   The Log entity.
+   * @param string $wkt
+   *   The geometry as a WKT string.
+   */
+  public function setGeometry(LogInterface $log, string $wkt): void;
+
 }

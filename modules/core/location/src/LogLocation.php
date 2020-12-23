@@ -126,4 +126,20 @@ class LogLocation implements LogLocationInterface {
     return $wkt;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function setLocation(LogInterface $log, array $assets): void {
+    foreach ($assets as $asset) {
+      $log->{static::LOG_FIELD_LOCATION}[] = ['target_id' => $asset->id()];
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setGeometry(LogInterface $log, string $wkt): void {
+    $log->{static::LOG_FIELD_GEOMETRY}->value = $wkt;
+  }
+
 }
