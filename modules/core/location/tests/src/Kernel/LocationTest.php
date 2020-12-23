@@ -170,7 +170,7 @@ class LocationTest extends KernelTestBase {
       'status' => 'done',
       'asset' => ['target_id' => $asset->id()],
       'location' => ['target_id' => $this->locations[0]->id()],
-      'movement' => TRUE,
+      'is_movement' => TRUE,
     ]);
     $first_log->save();
 
@@ -194,7 +194,7 @@ class LocationTest extends KernelTestBase {
       'status' => 'pending',
       'asset' => ['target_id' => $asset->id()],
       'location' => ['target_id' => $this->locations[2]->id()],
-      'movement' => TRUE,
+      'is_movement' => TRUE,
     ]);
     $second_log->save();
 
@@ -217,7 +217,7 @@ class LocationTest extends KernelTestBase {
       'status' => 'done',
       'asset' => ['target_id' => $asset->id()],
       'location' => ['target_id' => $this->locations[0]->id()],
-      'movement' => TRUE,
+      'is_movement' => TRUE,
     ]);
     $third_log->save();
 
@@ -233,7 +233,7 @@ class LocationTest extends KernelTestBase {
       'type' => 'movement',
       'status' => 'done',
       'asset' => ['target_id' => $asset->id()],
-      'movement' => TRUE,
+      'is_movement' => TRUE,
     ]);
     $fourth_log->save();
 
@@ -275,7 +275,7 @@ class LocationTest extends KernelTestBase {
       'status' => 'done',
       'asset' => ['target_id' => $asset->id()],
       'location' => ['target_id' => $this->locations[0]->id()],
-      'movement' => TRUE,
+      'is_movement' => TRUE,
     ]);
     $log->save();
 

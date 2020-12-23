@@ -163,7 +163,7 @@ class AssetLocation implements AssetLocationInterface {
       'limit' => 1,
     ];
     $query = $this->logQueryFactory->getQuery($options);
-    $query->condition('movement', TRUE);
+    $query->condition('is_movement', TRUE);
     $log_ids = $query->execute();
 
     // Bail if no logs are found.

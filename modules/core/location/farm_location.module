@@ -154,7 +154,7 @@ function farm_location_entity_base_field_info(EntityTypeInterface $entity_type) 
     // Movement boolean field.
     $options = [
       'type' => 'boolean',
-      'label' => t('Movement'),
+      'label' => t('Is movement'),
       'description' => t('If this log is a movement, then all assets referenced by it will be located in the referenced locations and/or geometry at the time the log takes place. The log must be complete in order for the movement to take effect.'),
       'default_value_callback' => 'farm_location_movement_default_value',
       'weight' => [
@@ -162,7 +162,7 @@ function farm_location_entity_base_field_info(EntityTypeInterface $entity_type) 
         'view' => 95,
       ],
     ];
-    $fields['movement'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
+    $fields['is_movement'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
   }
 
   return $fields;

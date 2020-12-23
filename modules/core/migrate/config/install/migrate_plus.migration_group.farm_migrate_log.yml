@@ -85,7 +85,7 @@ shared_configuration:
     geometry:
       plugin: geofield_d7d8
       source: field_farm_geofield
-    movement:
+    is_movement:
       plugin: get
       source: movement
     log_category:

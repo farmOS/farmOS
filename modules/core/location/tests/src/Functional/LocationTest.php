@@ -89,7 +89,7 @@ class LocationTest extends FarmBrowserTestBase {
       'status' => 'done',
       'asset' => ['target_id' => $this->asset->id()],
       'location' => ['target_id' => $this->location->id()],
-      'movement' => TRUE,
+      'is_movement' => TRUE,
     ]);
     $this->log->save();
   }
