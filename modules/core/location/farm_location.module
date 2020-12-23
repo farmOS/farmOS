@@ -67,7 +67,7 @@ function farm_location_entity_base_field_info(EntityTypeInterface $entity_type) 
         'view' => 95,
       ],
     ];
-    $fields['current_geometry'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
+    $fields['geometry'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
 
     // Location boolean field.
     $options = [
@@ -95,7 +95,7 @@ function farm_location_entity_base_field_info(EntityTypeInterface $entity_type) 
         'view' => 95,
       ],
     ];
-    $fields['current_location'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
+    $fields['location'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
 
     // Fixed boolean field.
     $options = [
