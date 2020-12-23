@@ -72,7 +72,7 @@ function farm_location_entity_base_field_info(EntityTypeInterface $entity_type) 
     // Location boolean field.
     $options = [
       'type' => 'boolean',
-      'label' => t('Location'),
+      'label' => t('Is location'),
       'description' => t('If this asset is a location, then other assets can be moved to it.'),
       'default_value_callback' => 'farm_location_default_value',
       'weight' => [
@@ -80,7 +80,7 @@ function farm_location_entity_base_field_info(EntityTypeInterface $entity_type) 
         'view' => 95,
       ],
     ];
-    $fields['location'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
+    $fields['is_location'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
 
     // Current location field.
     // This is computed based on an asset's movements.
