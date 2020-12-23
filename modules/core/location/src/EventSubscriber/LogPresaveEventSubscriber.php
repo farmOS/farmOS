@@ -2,6 +2,7 @@
 
 namespace Drupal\farm_location\EventSubscriber;
 
+use Drupal\farm_location\AssetLocationInterface;
 use Drupal\farm_location\LogLocationInterface;
 use Drupal\farm_location\Traits\WktTrait;
 use Drupal\farm_log\Event\LogPresaveEvent;
@@ -23,21 +24,24 @@ class LogPresaveEventSubscriber implements EventSubscriberInterface {
   protected LogLocationInterface $logLocation;
 
   /**
+   * Asset location service.
+   *
+   * @var \Drupal\farm_location\AssetLocationInterface
+   */
+  private AssetLocationInterface $assetLocation;
+
+  /**
    * LogPresaveEventSubscriber Constructor.
    *
    * @param \Drupal\farm_location\LogLocationInterface $log_location
    *   Log location service.
+   * @param \Drupal\farm_location\AssetLocationInterface $asset_locaiton
+   *   Asset location service.
    */
-  public function __construct(LogLocationInterface $log_location) {
+  public function __construct(LogLocationInterface $log_location, AssetLocationInterface $asset_locaiton) {
     $this->logLocation = $log_location;
+    $this->assetLocation = $asset_locaiton;
   }
-
-  /**
-   * The name of the asset geometry field.
-   *
-   * @var string
-   */
-  const ASSET_FIELD_GEOMETRY = 'geometry';
 
   /**
    * {@inheritdoc}
@@ -162,8 +166,8 @@ class LogPresaveEventSubscriber implements EventSubscriberInterface {
     // Collect all the location geometries.
     $geoms = [];
     foreach ($assets as $asset) {
-      if (!empty($asset->{static::ASSET_FIELD_GEOMETRY}->value)) {
-        $geoms[] = $asset->{static::ASSET_FIELD_GEOMETRY}->value;
+      if ($this->assetLocation->hasGeometry($asset)) {
+        $geoms[] = $this->assetLocation->getGeometry($asset);
       }
     }
 

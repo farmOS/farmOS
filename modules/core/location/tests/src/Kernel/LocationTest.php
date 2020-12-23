@@ -94,6 +94,7 @@ class LocationTest extends KernelTestBase {
         'name' => $this->randomMachineName(),
         'status' => 'active',
         'geometry' => $this->polygons[$i],
+        'fixed' => TRUE,
       ]);
       $location->save();
       $this->locations[] = $location;
