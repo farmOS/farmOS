@@ -51,6 +51,23 @@ function farm_location_entity_base_field_info(EntityTypeInterface $entity_type) 
 }
 
 /**
+ * Implements hook_views_data_alter().
+ */
+function farm_location_views_data_alter(array &$data) {
+
+  // Add the current asset location computed field to Views.
+  if (isset($data['asset'])) {
+    $data['asset']['location'] = [
+      'title' => t('Current location'),
+      'field' => [
+        'id' => 'asset_location',
+        'field_name' => 'location',
+      ],
+    ];
+  }
+}
+
+/**
  * Sets the default value for asset location and fixed boolean fields.
  *
  * @param \Drupal\Core\Entity\ContentEntityInterface $entity
