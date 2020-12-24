@@ -29,6 +29,14 @@ process:
     plugin: get
     source: id
   # Plant specific fields.
+  plant_type:
+    plugin: sub_process
+    source: field_farm_crop
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: farm_migrate_taxonomy_plant_type
+        source: tid
   season:
     plugin: sub_process
     source: field_farm_season
@@ -39,5 +47,6 @@ process:
         source: tid
 migration_dependencies:
   required:
+    - farm_migrate_taxonomy_plant_type
     - farm_migrate_taxonomy_season
   optional: {  }
