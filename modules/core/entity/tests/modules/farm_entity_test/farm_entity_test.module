@@ -40,5 +40,15 @@ function farm_entity_test_farm_entity_bundle_field_info(EntityTypeInterface $ent
     $fields['test_hook_bundle_field'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
   }
 
+  // Add bundle specific fields to all log types.
+  if ($entity_type->id() == 'log') {
+    $options = [
+      'type' => 'string',
+      'label' => t('Test bundle specific field for: @bundle', ['@bundle' => $bundle]),
+    ];
+    $field_name = 'test_hook_bundle_' . $bundle . '_specific_field';
+    $fields[$field_name] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
+  }
+
   return $fields;
 }

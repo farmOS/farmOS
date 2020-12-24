@@ -84,10 +84,26 @@ class FarmEntityFieldTest extends KernelTestBase {
    */
   public function testHookFarmEntityBundleFieldInfo() {
 
-    // Test log field definitions.
+    // Test log field storage definitions.
+    $fields = $this->entityFieldManager->getFieldStorageDefinitions('log');
+    $this->assertArrayHasKey('test_hook_base_field', $fields);
+    $this->assertArrayHasKey('test_hook_bundle_field', $fields);
+    $this->assertArrayHasKey('test_hook_bundle_test_specific_field', $fields);
+    $this->assertArrayHasKey('test_hook_bundle_test_override_specific_field', $fields);
+
+    // Test log field definitions for test logs.
     $fields = $this->entityFieldManager->getFieldDefinitions('log', 'test');
     $this->assertArrayHasKey('test_hook_base_field', $fields);
     $this->assertArrayHasKey('test_hook_bundle_field', $fields);
+    $this->assertArrayHasKey('test_hook_bundle_test_specific_field', $fields);
+    $this->assertArrayNotHasKey('test_hook_bundle_test_override_specific_field', $fields);
+
+    // Test log field definitions for test_override logs.
+    $fields = $this->entityFieldManager->getFieldDefinitions('log', 'test_override');
+    $this->assertArrayHasKey('test_hook_base_field', $fields);
+    $this->assertArrayHasKey('test_hook_bundle_field', $fields);
+    $this->assertArrayHasKey('test_hook_bundle_test_override_specific_field', $fields);
+    $this->assertArrayNotHasKey('test_hook_bundle_test_specific_field', $fields);
   }
 
   /**
