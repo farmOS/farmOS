@@ -150,6 +150,9 @@ added to extend your farmOS functionality:
   A produce safety record keeping module for farmOS.
 * **[Farm Sensor: Atmospi](https://github.com/mstenta/farm_sensor_atmospi)** -
   Integrates farmOS and [Atmospi](https://github.com/mstenta/atmospi) sensors.
+* **[FarmOS WFS](https://github.com/symbioquine/farmOS_wfs)** -
+  Exposes FarmOS areas as a [Web Feature Service (WFS)][WFS] enabling bi-directional
+  access through full-fledged GIS tools like [Quantum GIS][QGIS].
 
 For more information and documentation about these modules, see
 [farmOS community modules].
@@ -161,9 +164,6 @@ Drupal theme based off of [Bootstrap].
 
 ## External Tools
 
-* **[farmOS Area Feature Proxy][farm-os-area-feature-proxy]** - Exposes FarmOS
-  areas as a [Web Feature Service (WFS)][WFS] enabling bi-directional access
-  through full-fledged GIS tools like [Quantum GIS][QGIS].
 * **[Ansible farmOS]** - Ansible playbooks for provisioning a farmOS server on
   Debian 9.
 
@@ -178,7 +178,6 @@ Drupal theme based off of [Bootstrap].
 [Docker]: /development/docker
 [farmOS community modules]: /guide/contrib
 [Bootstrap]: https://drupal.org/project/bootstrap
-[farm-os-area-feature-proxy]: https://github.com/symbioquine/farm-os-area-feature-proxy
 [WFS]: https://www.opengeospatial.org/standards/wfs
 [QGIS]: https://qgis.org/
 [Ansible farmOS]: https://github.com/komatek21/Ansible_FarmOS
