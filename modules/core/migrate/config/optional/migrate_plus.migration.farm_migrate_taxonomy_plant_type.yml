@@ -57,6 +57,21 @@ process:
   maturity_days:
     plugin: get
     source: field_farm_maturity_days
+  image:
+    plugin: sub_process
+    source: field_farm_images
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration:
+          - farm_migrate_file
+          - farm_migrate_file_private
+        no_stub: true
+        source: fid
+      alt: alt
+      title: title
+      width: width
+      height: height
 migration_dependencies:
   required:
     - farm_migrate_taxonomy_crop_family
