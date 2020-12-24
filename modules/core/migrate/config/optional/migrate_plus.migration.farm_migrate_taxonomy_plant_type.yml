@@ -42,6 +42,15 @@ process:
     default_value: 0
     source: '@parent_id'
   # Plant type specific fields.
+  crop_family:
+    plugin: sub_process
+    source: field_farm_crop_family
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: farm_migrate_taxonomy_crop_family
+        source: tid
+        no_stub: true
   transplant_days:
     plugin: get
     source: field_farm_transplant_days
@@ -49,5 +58,6 @@ process:
     plugin: get
     source: field_farm_maturity_days
 migration_dependencies:
-  required: {  }
+  required:
+    - farm_migrate_taxonomy_crop_family
   optional: {  }
