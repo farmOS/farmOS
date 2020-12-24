@@ -17,7 +17,7 @@ class FarmEntityBundlePluginHandler extends BundlePluginHandler {
 
     // Allow modules to add definitions.
     foreach (array_keys($this->pluginManager->getDefinitions()) as $plugin_id) {
-      $definitions = \Drupal::moduleHandler()->invokeAll('farm_entity_bundle_field_info', [$this->entityType, $plugin_id]);
+      $definitions += \Drupal::moduleHandler()->invokeAll('farm_entity_bundle_field_info', [$this->entityType, $plugin_id]);
     }
 
     // Ensure the presence of required keys which aren't set by the plugin.
