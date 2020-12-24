@@ -122,15 +122,41 @@ destroyed and rebuilt.
 ### File ownership
 
 On a Linux host, all the files in `www` will have an owner and group of
-`www-data`. For development purposes, it is recommended that you change the
-owner of everything in the `www` container to your local user. This can be done
-with the following command:
+`www-data`. As of farmOS 7.x-1.7 the `www-data` user and group id of the dev docker
+image are set to `1000` by default. On most single-user systems this matches the
+user and group ID of the primary user and everything should just work - the docker
+container and your user will both have normal read/write access to the files.
+
+If you encounter permissions issues, you can check your user/group ids with the
+following commands;
+
+    id -u
+    id -g
+
+If those don't return a value of `1000`, there are two main strategies.
+
+#### One-off ownership modification
+
+You can change the owner of everything in the `www` container to your local user.
+This can be done with the following command:
 
     sudo chown -R ${USER} www
 
 This changes the owner of *everything* in /var/www/html to the currently logged
 in user on the host. But it leaves the group alone (`www-data`). Just make sure
 to do this _after_ installation has completed.
+
+#### Building a custom dev docker image
+
+The dev image also accepts the `WWW_DATA_ID` build parameter which the build
+process will use as the ID of the www-data user and group inside the image.
+
+Setting this to the ID of the developer's user on the host machine allows files
+created and/or owned by www-data inside the container be editable by the developer
+outside of the container.
+
+If your user ID is not `1000` (as determined above), build the image with: 
+`--build-arg WWW_DATA_ID=$(id -u)`.
 
 ## Updating farmOS
 
