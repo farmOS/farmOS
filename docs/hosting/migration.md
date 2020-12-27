@@ -31,6 +31,14 @@ To view the status of all farmOS 1.x migrations:
 
     drush migrate:status --tag="farmOS 1.x"
 
+After all migrations are complete, perform a thorough examination of data to
+confirm that nothing is missing or incorrect. The original 1.x database will
+not be touched during the migration, so if issues are discovered it can
+continue to be used as the canonical farmOS database until further testing and
+debugging can be performed. See "Troubleshooting" below for known issues.
+
+Please open bug reports in the farmOS issue queue if new issues are discovered.
+
 ## Uploaded files
 
 farmOS allows files to be uploaded/attached to records. In order to migrate
@@ -75,3 +83,38 @@ This includes (but is not limited to):
 
 If you maintain a contrib/custom module for farmOS 1.x, it is your
 responsibility to update the modules for 2.x and provide migration logic.
+
+## Troubleshooting
+
+If an error occurs during migration, the status of the broken migration may be
+stuck as "Importing". In order to rerun the migration, first reset the status
+and then roll back the migration. Replace `[migration_id]` with ID of the
+migration that is stuck.
+
+    drush migrate:reset-status [migration_id]
+    drush migrate:rollback [migration_id]
+
+### Movement logs
+
+farmOS 2.x changes the way asset movements are described via logs. There is a
+single "Location reference" and "Geometry" field on logs now, as opposed to
+the separate "Move to" and "Movement geometry" fields that existed in 1.x. The
+migration will use the movement area references and geometry if they are
+present, and will automatically mark the log as a movement.
+
+However, if the log has additional area references and geometry data, then the
+migration logic will detect the conflict and one of the following errors will
+be thrown:
+
+> Log 123 has both area references and movement area references.
+
+> Log 123 has both a geometry and a movement geometry.
+
+If these errors are encountered, the migration will halt and can not be
+completed until the logs in the old database are cleaned up.
+
+Manual clean up involves reviewing the logs that cause errors in the old
+database, deleting either the log location/geometry or the movement
+location/geometry, and retrying the migration. In some cases it may make sense
+to split the log into two separate logs, in order to retain meaning and
+information.
