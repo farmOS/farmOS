@@ -55,6 +55,25 @@ shared_configuration:
     data:
       plugin: get
       source: field_farm_data
+    asset:
+      plugin: sub_process
+      source: field_farm_asset
+      process:
+        target_id:
+          plugin: farm_migration_group_lookup
+          migration_group: farm_migrate_asset
+          source: target_id
+    # Equipment used field.
+    # This is added by the farm_equipment_field module in farmOS 1.x, and the
+    # farm_equipment module in farmOS 2.x.
+    equipment:
+      plugin: sub_process
+      source: field_farm_equipment
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration: farm_migrate_asset_equipment
+          source: target_id
     geometry:
       plugin: geofield_d7d8
       source: field_farm_geofield
@@ -112,4 +131,5 @@ shared_configuration:
       - farm_migrate_file_private
       - farm_migrate_user
       - farm_migrate_taxonomy_log_category
-    optional: {  }
+    optional:
+      - farm_migrate_asset_equipment
