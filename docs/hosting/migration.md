@@ -133,3 +133,8 @@ to `settings.php`:
 **Beware that this may result in loss of data/context if the separate fields
 were being used intentionally. It is recommended that logs be reviewed manually to
 understand whether or not the data is needed.**
+
+After running the migration with this setting, warnings for each log will be
+stored, and can be viewed with:
+
+    drush migrate:messages [migration_id]

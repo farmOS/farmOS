@@ -5,6 +5,7 @@ namespace Drupal\farm_migrate\Plugin\migrate\source\d7;
 use Drupal\Core\Site\Settings;
 use Drupal\log\Plugin\migrate\source\d7\Log;
 use Drupal\migrate\MigrateException;
+use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\migrate\Row;
 
 /**
@@ -93,16 +94,30 @@ class FarmLog extends Log {
         throw new MigrateException('Movement has a geometry but no areas (log ' . $id . ').');
       }
 
-      // If we are not allowing overwriting, the log has area references and
-      // movement areas, and they are different, throw an exception.
-      if (!$allow_overwrite && !empty($log_areas) && !empty($movement_areas) && $log_areas != $movement_areas) {
-        throw new MigrateException('Log ' . $id . ' has both area references and movement area references.');
+      // If the log has area references and movement areas, and they are
+      // different, throw an exception or print a warning, depending on whether
+      // or not we are allowing overwrites.
+      if (!empty($log_areas) && !empty($movement_areas) && $log_areas != $movement_areas) {
+        $message = 'Log ' . $id . ' has both area references and movement area references.';
+        if (!$allow_overwrite) {
+          throw new MigrateException($message);
+        }
+        else {
+          $this->idMap->saveMessage(['id' => $id], $message, MigrationInterface::MESSAGE_WARNING);
+        }
       }
 
-      // If we are not allowing overwriting, the log has a geometry and a
-      // movement geometry, and they are different, throw an exception.
-      if (!$allow_overwrite && !empty($log_geometry[0]['geom']) && !empty($movement_geometry[0]['geom']) && $log_geometry[0]['geom'] != $movement_geometry[0]['geom']) {
-        throw new MigrateException('Log ' . $id .  ' has both a geometry and a movement geometry.');
+      // If the log has a geometry and a movement geometry, and they are
+      // different, throw an exception or print a warning, depending on whether
+      // or not we are allowing overwrites.
+      if (!empty($log_geometry[0]['geom']) && !empty($movement_geometry[0]['geom']) && $log_geometry[0]['geom'] != $movement_geometry[0]['geom']) {
+        $message = 'Log ' . $id . ' has both a geometry and a movement geometry.';
+        if (!$allow_overwrite) {
+          throw new MigrateException($message);
+        }
+        else {
+          $this->idMap->saveMessage(['id' => $id], $message, MigrationInterface::MESSAGE_WARNING);
+        }
       }
 
       // If the log has movement areas, copy them to the log itself.
