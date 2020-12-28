@@ -17,12 +17,20 @@
         element.setAttribute('tabIndex', 0);
         const mapId = element.getAttribute('id');
         const mapOptions = { ...defaultOptions, ...drupalSettings.farm_map[mapId].instance};
-        farmOS.map.create(mapId, mapOptions);
+        const instance = farmOS.map.create(mapId, mapOptions);
         context.querySelectorAll('.ol-popup-closer').forEach(function (element) {
           element.onClick = function (element) {
             element.focus();
           };
         });
+        // If the map is inside a details element, update the map size when
+        // the details element is toggled.
+        const details = element.closest('details');
+        if (details != null) {
+          details.addEventListener('toggle', function() {
+            instance.map.updateSize();
+          });
+        }
       });
 
       // Add an event listener to update the map size when the Gin toolbar is toggled.
