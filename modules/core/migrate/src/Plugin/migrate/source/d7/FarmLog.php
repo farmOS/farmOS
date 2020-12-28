@@ -2,6 +2,7 @@
 
 namespace Drupal\farm_migrate\Plugin\migrate\source\d7;
 
+use Drupal\Core\Site\Settings;
 use Drupal\log\Plugin\migrate\source\d7\Log;
 use Drupal\migrate\MigrateException;
 use Drupal\migrate\Row;
@@ -21,6 +22,10 @@ class FarmLog extends Log {
    */
   public function prepareRow(Row $row) {
     $id = $row->getSourceProperty('id');
+
+    // Determine if we will allow overwriting "Areas" and "Geometry" fields on
+    // the log with "Move to" and "Movement geometry" fields.
+    $allow_overwrite = Settings::get('farm_migrate_allow_movement_overwrite', FALSE);
 
     // By default, logs are not movements.
     $is_movement = FALSE;
@@ -88,28 +93,28 @@ class FarmLog extends Log {
         throw new MigrateException('Movement has a geometry but no areas (log ' . $id . ').');
       }
 
-      // If the log has area references and movement areas, and they are
-      // different, throw an exception.
-      if (!empty($log_areas) && !empty($movement_areas) && $log_areas != $movement_areas) {
+      // If we are not allowing overwriting, the log has area references and
+      // movement areas, and they are different, throw an exception.
+      if (!$allow_overwrite && !empty($log_areas) && !empty($movement_areas) && $log_areas != $movement_areas) {
         throw new MigrateException('Log ' . $id . ' has both area references and movement area references.');
       }
 
-      // If the log has a geometry and a movement geometry, and they are
-      // different, throw an exception.
-      if (!empty($log_geometry[0]['geom']) && !empty($movement_geometry[0]['geom']) && $log_geometry[0]['geom'] != $movement_geometry[0]['geom']) {
+      // If we are not allowing overwriting, the log has a geometry and a
+      // movement geometry, and they are different, throw an exception.
+      if (!$allow_overwrite && !empty($log_geometry[0]['geom']) && !empty($movement_geometry[0]['geom']) && $log_geometry[0]['geom'] != $movement_geometry[0]['geom']) {
         throw new MigrateException('Log ' . $id .  ' has both a geometry and a movement geometry.');
       }
 
       // If the log has movement areas, copy them to the log itself.
-      // This will overwrite existing area references, but they should be
-      // identical, otherwise a MigrateException will be thrown above.
+      // This will overwrite existing area references, but an exception should
+      // be thrown above unless overwriting is explicitly allowed.
       if (!empty($movement_areas)) {
         $row->setSourceProperty('field_farm_area', $movement_areas);
       }
 
       // If the log has a movement geometry, copy it to the log itself.
-      // This will overwrite an existing geometry, but it should be identical,
-      // otherwise a MigrateException will be thrown above.
+      // This will overwrite an existing geometry, but an exception should
+      // be thrown above unless overwriting is explicitly allowed.
       if (!empty($movement_geometry)) {
         $row->setSourceProperty('field_farm_geofield', $movement_geometry);
       }

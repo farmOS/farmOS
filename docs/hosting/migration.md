@@ -111,10 +111,25 @@ be thrown:
 > Log 123 has both a geometry and a movement geometry.
 
 If these errors are encountered, the migration will halt and can not be
-completed until the logs in the old database are cleaned up.
+completed until either:
+
+1. the logs in the old database are cleaned up, or
+2. the migration script is explicitly allowed to overwrite non-movement area
+   references and geometry
 
 Manual clean up involves reviewing the logs that cause errors in the old
-database, deleting either the log location/geometry or the movement
-location/geometry, and retrying the migration. In some cases it may make sense
-to split the log into two separate logs, in order to retain meaning and
-information.
+database, deleting the "Areas" and "Geometry" fields (or copying them into the
+"Move to" and "Movement geometry" fields), and retrying the migration. In some
+cases it may make sense to split the log into two separate logs, in order to
+retain information.
+
+Alternatively, the migration script can be allowed to automatically overwrite
+the "Areas" and "Geometry" data from the log, and only keep the "Move to" and
+"Movement geometry" data. This can be configured by  adding the following line
+to `settings.php`:
+
+    $settings['farm_migrate_allow_movement_overwrite'] = TRUE;
+
+**Beware that this may result in loss of data/context if the separate fields
+were being used intentionally. It is recommended that logs be reviewed manually to
+understand whether or not the data is needed.**
