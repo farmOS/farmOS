@@ -8,5 +8,6 @@ dependencies:
   - date_popup:date_popup
   - drupal:rest
   - farm:asset
+  - farm:farm_location
   - farm:farm_ui_menu
   - log:log

@@ -1,0 +1,4 @@
+# Schema for the asset location views field handler.
+views.field.asset_location:
+  type: views.field.field
+  label: 'Asset location field handler'
