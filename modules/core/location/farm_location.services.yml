@@ -1,3 +1,7 @@
 services:
+  asset.location:
+    class: Drupal\farm_location\AssetLocation
+    arguments:
+      [ '@log.location', '@farm.log_query', '@entity_type.manager', '@datetime.time' ]
   log.location:
     class: Drupal\farm_location\LogLocation
