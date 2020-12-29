@@ -63,6 +63,12 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
       $field->setDescription($options['description']);
     }
 
+    // Set computed.
+    if (!empty($options['computed'])) {
+      $field->setComputed(TRUE);
+      $field->setClass($options['computed']);
+    }
+
     // Make the field required, if specified.
     if (!empty($options['required'])) {
       $field->setRequired(TRUE);
@@ -156,12 +162,19 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
     }
 
     // Hide the field in form and view displays, if specified.
+    // The hidden option can either be set to TRUE, which will hide it in both
+    // form and view displays, or it can be set to "form" or "view", which will
+    // only hide it in the form or view display.
     if (!empty($options['hidden'])) {
       $display_options = [
         'region' => 'hidden',
       ];
-      $field->setDisplayOptions('form', $display_options);
-      $field->setDisplayOptions('view', $display_options);
+      if ($options['hidden'] === TRUE || $options['hidden'] === 'form') {
+        $field->setDisplayOptions('form', $display_options);
+      }
+      if ($options['hidden'] === TRUE || $options['hidden'] === 'view') {
+        $field->setDisplayOptions('view', $display_options);
+      }
     }
 
     // Make the form and view displays configurable.
@@ -478,7 +491,7 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
       'weight' => $options['weight']['form'] ?? 0,
     ]);
     $field->setDisplayOptions('view', [
-      'label' => 'visually_hidden',
+      'label' => 'inline',
       'type' => 'geofield_default',
       'settings' => [
         'output_format' => 'wkt',

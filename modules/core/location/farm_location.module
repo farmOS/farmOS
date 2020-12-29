@@ -8,6 +8,8 @@
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\farm_location\Field\AssetGeometryItemList;
+use Drupal\farm_location\Field\AssetLocationItemList;
 use Drupal\log\Entity\LogInterface;
 
 /**
@@ -65,6 +67,7 @@ function farm_location_entity_base_field_info(EntityTypeInterface $entity_type) 
     // This is added as a bundle field definition to all asset types rather than
     // a base field definition so that data is stored in a dedicated database
     // table.
+    // @todo Hide this from the entity display, use current_geometry instead?
     $options = [
       'type' => 'geofield',
       'label' => t('Geometry'),
@@ -75,6 +78,19 @@ function farm_location_entity_base_field_info(EntityTypeInterface $entity_type) 
       ],
     ];
     $fields['geometry'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
+
+    // Current geometry field.
+    // This is computed based on an asset's movements or its intrinsic geometry.
+    $options = [
+      'type' => 'geofield',
+      'label' => t('Current geometry'),
+      'computed' => AssetGeometryItemList::class,
+      'hidden' => 'form',
+      'weight' => [
+        'view' => 95,
+      ],
+    ];
+    $fields['current_geometry'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
 
     // Location boolean field.
     $options = [
@@ -88,6 +104,21 @@ function farm_location_entity_base_field_info(EntityTypeInterface $entity_type) 
       ],
     ];
     $fields['location'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
+
+    // Current location field.
+    // This is computed based on an asset's movements.
+    $options = [
+      'type' => 'entity_reference',
+      'label' => t('Current location'),
+      'target_type' => 'asset',
+      'multiple' => TRUE,
+      'computed' => AssetLocationItemList::class,
+      'hidden' => 'form',
+      'weight' => [
+        'view' => 95,
+      ],
+    ];
+    $fields['current_location'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
   }
 
   // Add fields to logs.
