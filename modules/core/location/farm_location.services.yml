@@ -8,6 +8,6 @@ services:
   log.presave:
     class: Drupal\farm_location\EventSubscriber\LogPresaveEventSubscriber
     arguments:
-      [ '@log.location', '@asset.location' ]
+      [ '@log.location', '@asset.location', '@cache_tags.invalidator' ]
     tags:
       - { name: 'event_subscriber' }
