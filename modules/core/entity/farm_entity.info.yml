@@ -18,6 +18,7 @@ dependencies:
   - farm:farm_flag
   - farm:farm_format
   - farm:farm_id_tag
+  - farm:farm_location
   - farm:farm_log_category
   - log:log
   - token:token

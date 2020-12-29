@@ -16,9 +16,12 @@
 function farm_modules() {
   return [
     'default' => [
+      'farm_land' => t('Land assets'),
       'farm_plant' => t('Plant assets'),
       'farm_animal' => t('Animal assets'),
       'farm_equipment' => t('Equipment assets'),
+      'farm_structure' => t('Structure assets'),
+      'farm_water' => t('Water assets'),
       'farm_activity' => t('Activity logs'),
       'farm_observation' => t('Observation logs'),
       'farm_seeding' => t('Seeding logs'),
@@ -26,6 +29,8 @@ function farm_modules() {
       'farm_harvest' => t('Harvest logs'),
       'farm_maintenance' => t('Maintenance logs'),
       'farm_role_roles' => t('Default roles: Manager, Worker, Viewer'),
+      'farm_land_types' => t('Default land types: Property, Field, Bed, Paddock, Landmark, Other'),
+      'farm_structure_types' => t('Default structure types: Building, Greenhouse'),
       'farm_api' => t('farmOS API'),
       'farm_dashboard' => t('farmOS Dashboard'),
       'farm_ui_views' => t('farmOS UI Views'),

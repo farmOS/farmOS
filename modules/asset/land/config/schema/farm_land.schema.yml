@@ -1,0 +1,11 @@
+# Schema for land_type config entity.
+farm_land.land_type.*:
+  type: config_entity
+  label: 'Land type'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'

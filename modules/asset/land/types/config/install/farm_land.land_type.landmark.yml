@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_land_types
+id: landmark
+label: Landmark

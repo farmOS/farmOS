@@ -34,6 +34,7 @@ class FarmEntityFieldTest extends KernelTestBase {
     'farm_field',
     'farm_entity',
     'farm_entity_test',
+    'farm_location',
   ];
 
   /**
@@ -54,8 +55,10 @@ class FarmEntityFieldTest extends KernelTestBase {
     $this->assertArrayHasKey('data', $fields);
     $this->assertArrayHasKey('flag', $fields);
     $this->assertArrayHasKey('file', $fields);
+    $this->assertArrayHasKey('geometry', $fields);
     $this->assertArrayHasKey('id_tag', $fields);
     $this->assertArrayHasKey('image', $fields);
+    $this->assertArrayHasKey('location', $fields);
     $this->assertArrayHasKey('notes', $fields);
     $this->assertArrayHasKey('parent', $fields);
 
@@ -66,7 +69,10 @@ class FarmEntityFieldTest extends KernelTestBase {
     $this->assertArrayHasKey('data', $fields);
     $this->assertArrayHasKey('flag', $fields);
     $this->assertArrayHasKey('file', $fields);
+    $this->assertArrayHasKey('geometry', $fields);
     $this->assertArrayHasKey('image', $fields);
+    $this->assertArrayHasKey('location', $fields);
+    $this->assertArrayHasKey('movement', $fields);
     $this->assertArrayHasKey('notes', $fields);
     $this->assertArrayHasKey('owner', $fields);
 
@@ -110,10 +116,6 @@ class FarmEntityFieldTest extends KernelTestBase {
    * Test farmOS fields defined in buildFieldDefinitions().
    */
   public function testBuildFieldDefinitions() {
-
-    // Test log field definitions.
-    $fields = $this->entityFieldManager->getFieldDefinitions('log', 'test');
-    $this->assertArrayHasKey('geometry', $fields);
 
     // Test plan field definitions.
     $fields = $this->entityFieldManager->getFieldDefinitions('plan', 'test');
