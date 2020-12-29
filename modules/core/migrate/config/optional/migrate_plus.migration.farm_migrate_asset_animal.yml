@@ -38,7 +38,7 @@ process:
   sex:
     plugin: get
     source: field_farm_animal_sex
-  castrated:
+  is_castrated:
     plugin: get
     source: field_farm_animal_castrated
   id_tag:

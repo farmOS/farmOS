@@ -32,21 +32,6 @@ interface LogLocationInterface {
   public function hasGeometry(LogInterface $log): bool;
 
   /**
-   * Check if a log has a custom geometry.
-   *
-   * This is determined by checking to see if the log's geometry matches that
-   * of the location assets it references. If it does not, and it is not empty,
-   * them we assume it has a custom geometry.
-   *
-   * @param \Drupal\log\Entity\LogInterface $log
-   *   The Log entity.
-   *
-   * @return bool
-   *   Returns TRUE if it matches, FALSE otherwise.
-   */
-  public function hasCustomGeometry(LogInterface $log): bool;
-
-  /**
    * Get location assets referenced by a log.
    *
    * @param \Drupal\log\Entity\LogInterface $log
@@ -69,11 +54,23 @@ interface LogLocationInterface {
   public function getGeometry(LogInterface $log): string;
 
   /**
-   * Populate a log's geometry based on its location.
+   * Set a log's location.
    *
    * @param \Drupal\log\Entity\LogInterface $log
    *   The Log entity.
+   * @param \Drupal\asset\Entity\AssetInterface[] $assets
+   *   An array of location asset entities.
    */
-  public function populateGeometryFromLocation(LogInterface $log): void;
+  public function setLocation(LogInterface $log, array $assets): void;
+
+  /**
+   * Set a log's geometry.
+   *
+   * @param \Drupal\log\Entity\LogInterface $log
+   *   The Log entity.
+   * @param string $wkt
+   *   The geometry as a WKT string.
+   */
+  public function setGeometry(LogInterface $log, string $wkt): void;
 
 }

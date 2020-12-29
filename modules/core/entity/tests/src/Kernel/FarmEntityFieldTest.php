@@ -56,10 +56,11 @@ class FarmEntityFieldTest extends KernelTestBase {
     $this->assertArrayHasKey('data', $fields);
     $this->assertArrayHasKey('flag', $fields);
     $this->assertArrayHasKey('file', $fields);
-    $this->assertArrayHasKey('geometry', $fields);
     $this->assertArrayHasKey('id_tag', $fields);
     $this->assertArrayHasKey('image', $fields);
-    $this->assertArrayHasKey('location', $fields);
+    $this->assertArrayHasKey('intrinsic_geometry', $fields);
+    $this->assertArrayHasKey('is_fixed', $fields);
+    $this->assertArrayHasKey('is_location', $fields);
     $this->assertArrayHasKey('notes', $fields);
     $this->assertArrayHasKey('parent', $fields);
 
@@ -72,8 +73,8 @@ class FarmEntityFieldTest extends KernelTestBase {
     $this->assertArrayHasKey('file', $fields);
     $this->assertArrayHasKey('geometry', $fields);
     $this->assertArrayHasKey('image', $fields);
+    $this->assertArrayHasKey('is_movement', $fields);
     $this->assertArrayHasKey('location', $fields);
-    $this->assertArrayHasKey('movement', $fields);
     $this->assertArrayHasKey('notes', $fields);
     $this->assertArrayHasKey('owner', $fields);
 

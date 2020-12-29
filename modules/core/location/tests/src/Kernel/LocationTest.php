@@ -93,7 +93,8 @@ class LocationTest extends KernelTestBase {
         'type' => 'location',
         'name' => $this->randomMachineName(),
         'status' => 'active',
-        'geometry' => $this->polygons[$i],
+        'intrinsic_geometry' => $this->polygons[$i],
+        'is_fixed' => TRUE,
       ]);
       $location->save();
       $this->locations[] = $location;
@@ -114,7 +115,7 @@ class LocationTest extends KernelTestBase {
       'location' => ['target_id' => $this->locations[0]->id()],
     ]);
     $log->save();
-    $this->assertEquals($this->locations[0]->get('geometry')->value, $log->get('geometry')->value, 'Empty geometry is populated from location.');
+    $this->assertEquals($this->locations[0]->get('intrinsic_geometry')->value, $log->get('geometry')->value, 'Empty geometry is populated from location.');
 
     // When multiple locations are added, all of their geometries are combined.
     $log->location = [
@@ -130,7 +131,7 @@ class LocationTest extends KernelTestBase {
     // geometry is updated.
     $log->location = ['target_id' => $this->locations[1]->id()];
     $log->save();
-    $this->assertEquals($this->locations[1]->get('geometry')->value, $log->get('geometry')->value, 'Geometry is updated when locations are changed.');
+    $this->assertEquals($this->locations[1]->get('intrinsic_geometry')->value, $log->get('geometry')->value, 'Geometry is updated when locations are changed.');
 
     // When a log's geometry is set, it is saved.
     $log->geometry->value = $this->polygons[2];
@@ -169,7 +170,7 @@ class LocationTest extends KernelTestBase {
       'status' => 'done',
       'asset' => ['target_id' => $asset->id()],
       'location' => ['target_id' => $this->locations[0]->id()],
-      'movement' => TRUE,
+      'is_movement' => TRUE,
     ]);
     $first_log->save();
 
@@ -193,7 +194,7 @@ class LocationTest extends KernelTestBase {
       'status' => 'pending',
       'asset' => ['target_id' => $asset->id()],
       'location' => ['target_id' => $this->locations[2]->id()],
-      'movement' => TRUE,
+      'is_movement' => TRUE,
     ]);
     $second_log->save();
 
@@ -216,7 +217,7 @@ class LocationTest extends KernelTestBase {
       'status' => 'done',
       'asset' => ['target_id' => $asset->id()],
       'location' => ['target_id' => $this->locations[0]->id()],
-      'movement' => TRUE,
+      'is_movement' => TRUE,
     ]);
     $third_log->save();
 
@@ -232,7 +233,7 @@ class LocationTest extends KernelTestBase {
       'type' => 'movement',
       'status' => 'done',
       'asset' => ['target_id' => $asset->id()],
-      'movement' => TRUE,
+      'is_movement' => TRUE,
     ]);
     $fourth_log->save();
 
@@ -253,7 +254,7 @@ class LocationTest extends KernelTestBase {
       'type' => 'object',
       'name' => $this->randomMachineName(),
       'status' => 'active',
-      'fixed' => TRUE,
+      'is_fixed' => TRUE,
     ]);
     $asset->save();
 
@@ -262,7 +263,7 @@ class LocationTest extends KernelTestBase {
 
     // When an asset is fixed, and has intrinsic geometry, it is the asset's
     // geometry.
-    $asset->geometry = $this->polygons[0];
+    $this->assetLocation->setIntrinsicGeometry($asset, $this->polygons[0]);
     $asset->save();
     $this->assertTrue($this->assetLocation->hasGeometry($asset), 'Assets with intrinsic geometry have geometry.');
     $this->assertEquals($this->polygons[0], $this->assetLocation->getGeometry($asset), 'Asset intrinsic geometry is asset geometry.');
@@ -274,7 +275,7 @@ class LocationTest extends KernelTestBase {
       'status' => 'done',
       'asset' => ['target_id' => $asset->id()],
       'location' => ['target_id' => $this->locations[0]->id()],
-      'movement' => TRUE,
+      'is_movement' => TRUE,
     ]);
     $log->save();
 
@@ -283,8 +284,8 @@ class LocationTest extends KernelTestBase {
     $this->assertEquals([], $this->assetLocation->getLocation($asset), 'Movement logs of a fixed asset do not affect location.');
     $this->assertEquals($this->polygons[0], $this->assetLocation->getGeometry($asset), 'Movement logs of a fixed asset do not affect geometry.');
 
-    // Set fixed to FALSE on the asset.
-    $asset->fixed = FALSE;
+    // Set is_fixed to FALSE on the asset.
+    $asset->is_fixed = FALSE;
     $asset->save();
 
     // If an asset has a movement log and is no longer fixed, it's location and

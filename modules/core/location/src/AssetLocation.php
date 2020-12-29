@@ -15,18 +15,18 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class AssetLocation implements AssetLocationInterface {
 
   /**
-   * The name of the asset geometry field.
+   * The name of the asset intrinsic geometry field.
    *
    * @var string
    */
-  const ASSET_FIELD_GEOMETRY = 'geometry';
+  const ASSET_FIELD_GEOMETRY = 'intrinsic_geometry';
 
   /**
    * The name of the asset boolean fixed field.
    *
    * @var string
    */
-  const ASSET_FIELD_FIXED = 'fixed';
+  const ASSET_FIELD_FIXED = 'is_fixed';
 
   /**
    * Log location service.
@@ -163,7 +163,7 @@ class AssetLocation implements AssetLocationInterface {
       'limit' => 1,
     ];
     $query = $this->logQueryFactory->getQuery($options);
-    $query->condition('movement', TRUE);
+    $query->condition('is_movement', TRUE);
     $log_ids = $query->execute();
 
     // Bail if no logs are found.
@@ -182,6 +182,13 @@ class AssetLocation implements AssetLocationInterface {
 
     // Otherwise, return NULL.
     return NULL;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setIntrinsicGeometry(AssetInterface $asset, string $wkt): void {
+    $asset->{static::ASSET_FIELD_GEOMETRY} = $wkt;
   }
 
 }

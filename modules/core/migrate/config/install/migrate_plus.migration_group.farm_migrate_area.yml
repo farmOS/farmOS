@@ -34,10 +34,10 @@ shared_configuration:
     geometry:
       plugin: geofield_d7d8
       source: field_farm_geofield
-    location:
+    is_location:
       plugin: default_value
       default_value: 1
-    fixed:
+    is_fixed:
       plugin: default_value
       default_value: 1
     flag:

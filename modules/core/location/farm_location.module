@@ -9,51 +9,6 @@ use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\farm_location\Field\AssetGeometryItemList;
-use Drupal\farm_location\Field\AssetLocationItemList;
-use Drupal\log\Entity\LogInterface;
-
-/**
- * Implements hook_ENTITY_TYPE_presave().
- */
-function farm_location_log_presave(LogInterface $log) {
-
-  // Load the log.location service.
-  /** @var Drupal\farm_location\LogLocationInterface $log_location */
-  $log_location = \Drupal::service('log.location');
-
-  // If the log does not reference any location assets, we will have nothing
-  // to copy from, so do nothing.
-  if (!$log_location->hasLocation($log)) {
-    return;
-  }
-
-  // If this is a new log and it has a geometry, do nothing.
-  if (empty($log->original) && $log_location->hasGeometry($log)) {
-    return;
-  }
-
-  // If this is an update to an existing log...
-  if (!empty($log->original)) {
-
-    // If the original log has a custom geometry, do nothing.
-    if ($log_location->hasCustomGeometry($log->original)) {
-      return;
-    }
-
-    // If the geometry has changed (and it has not been made empty), do nothing.
-    $old_geometry = $log_location->getGeometry($log->original);
-    $new_geometry = $log_location->getGeometry($log);
-
-    // If the new geometry is not empty, do nothing.
-    if ($old_geometry != $new_geometry && !empty($new_geometry)) {
-      return;
-    }
-  }
-
-  // Populate the log geometry from the location geometry.
-  $log_location->populateGeometryFromLocation($log);
-}
 
 /**
  * Implements hook_field_widget_WIDGET_TYPE_form_alter().
@@ -65,12 +20,12 @@ function farm_location_field_widget_geofield_default_form_alter(&$element, FormS
   $field_name = $context['items']->getName();
 
   // If this is not the geometry field on asset entities, bail.
-  if (!($field_name == 'geometry' && $entity->getEntityTypeId() == 'asset')) {
+  if (!($field_name == 'intrinsic_geometry' && $entity->getEntityTypeId() == 'asset')) {
     return;
   }
 
   // If the asset is not fixed, hide the geometry field.
-  if (!$entity->get('fixed')->value) {
+  if (!$entity->get('is_fixed')->value) {
     $element['#access'] = FALSE;
   }
 }
@@ -79,136 +34,20 @@ function farm_location_field_widget_geofield_default_form_alter(&$element, FormS
  * Implements hook_entity_base_field_info().
  */
 function farm_location_entity_base_field_info(EntityTypeInterface $entity_type) {
-  $fields = [];
+  module_load_include('inc', 'farm_location', 'farm_location.base_fields');
+  switch ($entity_type->id()) {
 
-  // Add fields to assets.
-  if ($entity_type->id() == 'asset') {
+    // Build asset base fields.
+    case 'asset':
+      return farm_location_asset_base_fields();
 
-    // Geometry field.
-    // This is added as a bundle field definition to all asset types rather than
-    // a base field definition so that data is stored in a dedicated database
-    // table.
-    $options = [
-      'type' => 'geofield',
-      'label' => t('Geometry'),
-      'description' => t('Add geometry data to this asset to describe its intrinsic location.'),
-      'weight' => [
-        'form' => 95,
-      ],
-      'hidden' => 'view',
-    ];
-    $fields['geometry'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
+    // Build log base fields.
+    case 'log':
+      return farm_location_log_base_fields();
 
-    // Current geometry field.
-    // This is computed based on an asset's movements or its intrinsic geometry.
-    $options = [
-      'type' => 'geofield',
-      'label' => t('Current geometry'),
-      'computed' => AssetGeometryItemList::class,
-      'hidden' => 'form',
-      'weight' => [
-        'view' => 95,
-      ],
-    ];
-    $fields['current_geometry'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
-
-    // Location boolean field.
-    $options = [
-      'type' => 'boolean',
-      'label' => t('Location'),
-      'description' => t('If this asset is a location, then other assets can be moved to it.'),
-      'default_value_callback' => 'farm_location_default_value',
-      'weight' => [
-        'form' => 95,
-        'view' => 95,
-      ],
-    ];
-    $fields['location'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
-
-    // Current location field.
-    // This is computed based on an asset's movements.
-    $options = [
-      'type' => 'entity_reference',
-      'label' => t('Current location'),
-      'target_type' => 'asset',
-      'multiple' => TRUE,
-      'computed' => AssetLocationItemList::class,
-      'hidden' => 'form',
-      'weight' => [
-        'view' => 95,
-      ],
-    ];
-    $fields['current_location'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
-
-    // Fixed boolean field.
-    $options = [
-      'type' => 'boolean',
-      'label' => t('Fixed'),
-      'description' => t('If this asset is fixed, then it can have an intrinsic geometry. If the asset will move around, then it is not fixed and geometry will be determined by movement logs.'),
-      'default_value_callback' => 'farm_location_default_value',
-      'weight' => [
-        'form' => 96,
-        'view' => 96,
-      ],
-    ];
-    $fields['fixed'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
+    default:
+      return [];
   }
-
-  // Add fields to logs.
-  if ($entity_type->id() == 'log') {
-
-    // Geometry field.
-    // This is added as a bundle field definition to all log types rather than
-    // a base field definition so that data is stored in a dedicated database
-    // table.
-    $options = [
-      'type' => 'geofield',
-      'label' => t('Geometry'),
-      'description' => t('Add geometry data to this log to describe where it took place.'),
-      'weight' => [
-        'form' => 95,
-        'view' => 95,
-      ],
-    ];
-    $fields['geometry'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
-
-    // Location asset reference field.
-    $options = [
-      'type' => 'entity_reference',
-      'label' => t('Location'),
-      'description' => t('Where does this take place?'),
-      'target_type' => 'asset',
-      'multiple' => TRUE,
-      'weight' => [
-        'form' => 90,
-        'view' => 90,
-      ],
-    ];
-    $field = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
-    $field->setSetting('handler', 'views');
-    $field->setSetting('handler_settings', [
-      'view' => [
-        'view_name' => 'farm_location_reference',
-        'display_name' => 'entity_reference',
-      ],
-    ]);
-    $fields['location'] = $field;
-
-    // Movement boolean field.
-    $options = [
-      'type' => 'boolean',
-      'label' => t('Movement'),
-      'description' => t('If this log is a movement, then all assets referenced by it will be located in the referenced locations and/or geometry at the time the log takes place. The log must be complete in order for the movement to take effect.'),
-      'default_value_callback' => 'farm_location_movement_default_value',
-      'weight' => [
-        'form' => 95,
-        'view' => 95,
-      ],
-    ];
-    $fields['movement'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
-  }
-
-  return $fields;
 }
 
 /**

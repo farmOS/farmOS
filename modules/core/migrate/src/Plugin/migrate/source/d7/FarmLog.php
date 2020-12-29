@@ -135,8 +135,8 @@ class FarmLog extends Log {
       }
     }
 
-    // Set the "movement" property for use in migrations.
-    $row->setSourceProperty('movement', $is_movement);
+    // Set the "is_movement" property for use in migrations.
+    $row->setSourceProperty('is_movement', $is_movement);
 
     return parent::prepareRow($row);
   }
