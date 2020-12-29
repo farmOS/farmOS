@@ -37,6 +37,9 @@ shared_configuration:
     location:
       plugin: default_value
       default_value: 1
+    fixed:
+      plugin: default_value
+      default_value: 1
     flag:
       plugin: get
       source: field_farm_flags

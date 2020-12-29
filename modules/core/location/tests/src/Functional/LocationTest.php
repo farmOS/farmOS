@@ -115,7 +115,9 @@ class LocationTest extends FarmBrowserTestBase {
     $this->drupalGet('asset/' . $this->asset->id() . '/edit');
     $this->assertSession()->statusCodeEquals(200);
 
-    // Test that current geometry and current location fields are hidden.
+    // Test that intrinsic geometry, current geometry, and current location
+    // fields are all hidden.
+    $this->assertSession()->fieldNotExists('geometry[0][value]');
     $this->assertSession()->fieldNotExists('current_geometry[0][value]');
     $this->assertSession()->fieldNotExists('current_location[0][target_id]');
 

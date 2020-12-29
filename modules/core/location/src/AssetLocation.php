@@ -15,6 +15,20 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class AssetLocation implements AssetLocationInterface {
 
   /**
+   * The name of the asset geometry field.
+   *
+   * @var string
+   */
+  const ASSET_FIELD_GEOMETRY = 'geometry';
+
+  /**
+   * The name of the asset boolean fixed field.
+   *
+   * @var string
+   */
+  const ASSET_FIELD_FIXED = 'fixed';
+
+  /**
    * Log location service.
    *
    * @var \Drupal\farm_location\LogLocationInterface
@@ -76,7 +90,17 @@ class AssetLocation implements AssetLocationInterface {
   /**
    * {@inheritdoc}
    */
+  public function isFixed(AssetInterface $asset): bool {
+    return !empty($asset->{static::ASSET_FIELD_FIXED}->value);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function hasLocation(AssetInterface $asset): bool {
+    if ($this->isFixed($asset)) {
+      return FALSE;
+    }
     $log = $this->getMovementLog($asset);
     if (empty($log)) {
       return FALSE;
@@ -88,6 +112,9 @@ class AssetLocation implements AssetLocationInterface {
    * {@inheritdoc}
    */
   public function hasGeometry(AssetInterface $asset): bool {
+    if ($this->isFixed($asset)) {
+      return !$asset->get(static::ASSET_FIELD_GEOMETRY)->isEmpty();
+    }
     $log = $this->getMovementLog($asset);
     if (empty($log)) {
       return FALSE;
@@ -99,6 +126,9 @@ class AssetLocation implements AssetLocationInterface {
    * {@inheritdoc}
    */
   public function getLocation(AssetInterface $asset): array {
+    if ($this->isFixed($asset)) {
+      return [];
+    }
     $log = $this->getMovementLog($asset);
     if (empty($log)) {
       return [];
@@ -110,6 +140,9 @@ class AssetLocation implements AssetLocationInterface {
    * {@inheritdoc}
    */
   public function getGeometry(AssetInterface $asset): string {
+    if ($this->isFixed($asset)) {
+      return $asset->get(static::ASSET_FIELD_GEOMETRY)->value ?? '';
+    }
     $log = $this->getMovementLog($asset);
     if (empty($log)) {
       return '';

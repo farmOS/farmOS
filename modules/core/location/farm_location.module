@@ -8,6 +8,7 @@
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\farm_location\Field\AssetGeometryItemList;
 use Drupal\farm_location\Field\AssetLocationItemList;
 use Drupal\log\Entity\LogInterface;
@@ -55,6 +56,26 @@ function farm_location_log_presave(LogInterface $log) {
 }
 
 /**
+ * Implements hook_field_widget_WIDGET_TYPE_form_alter().
+ */
+function farm_location_field_widget_geofield_default_form_alter(&$element, FormStateInterface $form_state, $context) {
+
+  // Get the entity and field name.
+  $entity = $context['items']->getEntity();
+  $field_name = $context['items']->getName();
+
+  // If this is not the geometry field on asset entities, bail.
+  if (!($field_name == 'geometry' && $entity->getEntityTypeId() == 'asset')) {
+    return;
+  }
+
+  // If the asset is not fixed, hide the geometry field.
+  if (!$entity->get('fixed')->value) {
+    $element['#access'] = FALSE;
+  }
+}
+
+/**
  * Implements hook_entity_base_field_info().
  */
 function farm_location_entity_base_field_info(EntityTypeInterface $entity_type) {
@@ -67,15 +88,14 @@ function farm_location_entity_base_field_info(EntityTypeInterface $entity_type) 
     // This is added as a bundle field definition to all asset types rather than
     // a base field definition so that data is stored in a dedicated database
     // table.
-    // @todo Hide this from the entity display, use current_geometry instead?
     $options = [
       'type' => 'geofield',
       'label' => t('Geometry'),
       'description' => t('Add geometry data to this asset to describe its intrinsic location.'),
       'weight' => [
         'form' => 95,
-        'view' => 95,
       ],
+      'hidden' => 'view',
     ];
     $fields['geometry'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
 
@@ -119,6 +139,19 @@ function farm_location_entity_base_field_info(EntityTypeInterface $entity_type) 
       ],
     ];
     $fields['current_location'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
+
+    // Fixed boolean field.
+    $options = [
+      'type' => 'boolean',
+      'label' => t('Fixed'),
+      'description' => t('If this asset is fixed, then it can have an intrinsic geometry. If the asset will move around, then it is not fixed and geometry will be determined by movement logs.'),
+      'default_value_callback' => 'farm_location_default_value',
+      'weight' => [
+        'form' => 96,
+        'view' => 96,
+      ],
+    ];
+    $fields['fixed'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
   }
 
   // Add fields to logs.
@@ -179,7 +212,7 @@ function farm_location_entity_base_field_info(EntityTypeInterface $entity_type) 
 }
 
 /**
- * Sets the default value for asset location boolean field.
+ * Sets the default value for asset location and fixed boolean fields.
  *
  * @param \Drupal\Core\Entity\ContentEntityInterface $entity
  *   The entity being created.
@@ -194,7 +227,7 @@ function farm_location_entity_base_field_info(EntityTypeInterface $entity_type) 
 function farm_location_default_value(ContentEntityInterface $entity, FieldDefinitionInterface $definition): array {
   $default = FALSE;
 
-  // Land, structure, and water assets are locations by default.
+  // Land, structure, and water assets are fixed locations by default.
   if (in_array($entity->bundle(), ['land', 'structure', 'water'])) {
     $default = TRUE;
   }
