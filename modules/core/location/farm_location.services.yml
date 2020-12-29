@@ -1,0 +1,3 @@
+services:
+  log.location:
+    class: Drupal\farm_location\LogLocation

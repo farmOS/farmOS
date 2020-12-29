@@ -1,0 +1,7 @@
+langcode: en
+status: true
+id: object
+label: Object
+description: ''
+workflow: asset_default
+new_revision: true
