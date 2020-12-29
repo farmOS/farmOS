@@ -92,26 +92,36 @@ class FarmEntityFieldTest extends KernelTestBase {
    */
   public function testHookFarmEntityBundleFieldInfo() {
 
-    // Test log field storage definitions.
-    $fields = $this->entityFieldManager->getFieldStorageDefinitions('log');
-    $this->assertArrayHasKey('test_hook_base_field', $fields);
-    $this->assertArrayHasKey('test_hook_bundle_field', $fields);
-    $this->assertArrayHasKey('test_hook_bundle_test_specific_field', $fields);
-    $this->assertArrayHasKey('test_hook_bundle_test_override_specific_field', $fields);
+    // Get the log field storage definitions.
+    $log_storage_definitions = $this->entityFieldManager->getFieldStorageDefinitions('log');
 
-    // Test log field definitions for test logs.
+    // Test that 'test_hook_bundle_field' has a storage definition.
+    $this->assertArrayHasKey('test_hook_bundle_field', $log_storage_definitions);
+
+    // Test fields definitions for the 'test' log type.
     $fields = $this->entityFieldManager->getFieldDefinitions('log', 'test');
-    $this->assertArrayHasKey('test_hook_base_field', $fields);
     $this->assertArrayHasKey('test_hook_bundle_field', $fields);
-    $this->assertArrayHasKey('test_hook_bundle_test_specific_field', $fields);
-    $this->assertArrayNotHasKey('test_hook_bundle_test_override_specific_field', $fields);
 
-    // Test log field definitions for test_override logs.
+    // Test fields definitions for the 'test_override' log type.
     $fields = $this->entityFieldManager->getFieldDefinitions('log', 'test_override');
-    $this->assertArrayHasKey('test_hook_base_field', $fields);
     $this->assertArrayHasKey('test_hook_bundle_field', $fields);
-    $this->assertArrayHasKey('test_hook_bundle_test_override_specific_field', $fields);
-    $this->assertArrayNotHasKey('test_hook_bundle_test_specific_field', $fields);
+
+    // Get all log bundles.
+    /** @var \Drupal\Core\Entity\EntityTypeBundleInfoInterface $entity_type_bundle_info */
+    $entity_type_bundle_info = $this->container->get('entity_type.bundle.info');
+    $bundles = $entity_type_bundle_info->getBundleInfo('log');
+
+    // Test that all log types have a bundle specific field.
+    foreach (array_keys($bundles) as $bundle) {
+      $fields = $this->entityFieldManager->getFieldDefinitions('log', $bundle);
+      $field_name = 'test_hook_bundle_' . $bundle . '_specific_field';
+
+      // Assert field storage definition exists.
+      $this->assertArrayHasKey($field_name, $log_storage_definitions);
+
+      // Assert field definition for the bundle.
+      $this->assertArrayHasKey($field_name, $fields);
+    }
   }
 
   /**
