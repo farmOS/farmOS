@@ -45,6 +45,7 @@ function farm_log_input_views_default_views() {
     'id' => 'id',
     'timestamp' => 'timestamp',
     'name' => 'name',
+    'field_farm_material' => 'field_farm_material',
     'field_farm_quantity_value' => 'field_farm_quantity_value',
     'field_farm_quantity_units' => 'field_farm_quantity_units',
     'field_farm_asset' => 'field_farm_asset',
@@ -86,6 +87,11 @@ function farm_log_input_views_default_views() {
     'name' => array(
       'sortable' => 1,
       'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_farm_material' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -260,7 +266,13 @@ function farm_log_input_views_default_views() {
   $handler->display->display_options['fields']['name']['label'] = 'Log name';
   $handler->display->display_options['fields']['name']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['name']['alter']['path'] = 'log/[id]';
-  /* Field: Field collection item: Value */
+  /* Field: Log: Materials */
+  $handler->display->display_options['fields']['field_farm_material']['id'] = 'field_farm_material';
+  $handler->display->display_options['fields']['field_farm_material']['table'] = 'field_data_field_farm_material';
+  $handler->display->display_options['fields']['field_farm_material']['field'] = 'field_farm_material';
+  $handler->display->display_options['fields']['field_farm_material']['type'] = 'taxonomy_term_reference_plain';
+  $handler->display->display_options['fields']['field_farm_material']['delta_offset'] = '0';
+  /* Field: Field: Quantity */
   $handler->display->display_options['fields']['field_farm_quantity_value']['id'] = 'field_farm_quantity_value';
   $handler->display->display_options['fields']['field_farm_quantity_value']['table'] = 'field_data_field_farm_quantity_value';
   $handler->display->display_options['fields']['field_farm_quantity_value']['field'] = 'field_farm_quantity_value';
@@ -364,6 +376,23 @@ function farm_log_input_views_default_views() {
   $handler->display->display_options['filters']['name']['expose']['label'] = 'Log name';
   $handler->display->display_options['filters']['name']['expose']['operator'] = 'name_op';
   $handler->display->display_options['filters']['name']['expose']['identifier'] = 'name';
+  /* Filter criterion: Log: Materials (field_farm_material) */
+  $handler->display->display_options['filters']['field_farm_material_tid']['id'] = 'field_farm_material_tid';
+  $handler->display->display_options['filters']['field_farm_material_tid']['table'] = 'field_data_field_farm_material';
+  $handler->display->display_options['filters']['field_farm_material_tid']['field'] = 'field_farm_material_tid';
+  $handler->display->display_options['filters']['field_farm_material_tid']['group'] = 1;
+  $handler->display->display_options['filters']['field_farm_material_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_material_tid']['expose']['operator_id'] = 'field_farm_material_tid_op';
+  $handler->display->display_options['filters']['field_farm_material_tid']['expose']['label'] = 'Materials';
+  $handler->display->display_options['filters']['field_farm_material_tid']['expose']['operator'] = 'field_farm_material_tid_op';
+  $handler->display->display_options['filters']['field_farm_material_tid']['expose']['identifier'] = 'field_farm_material_tid';
+  $handler->display->display_options['filters']['field_farm_material_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_farm_material_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+  );
+  $handler->display->display_options['filters']['field_farm_material_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_farm_material_tid']['vocabulary'] = 'farm_materials';
+  $handler->display->display_options['filters']['field_farm_material_tid']['hierarchy'] = 1;
   /* Filter criterion: Log: Areas (field_farm_area) */
   $handler->display->display_options['filters']['field_farm_area_tid']['id'] = 'field_farm_area_tid';
   $handler->display->display_options['filters']['field_farm_area_tid']['table'] = 'field_data_field_farm_area';
@@ -514,6 +543,7 @@ function farm_log_input_views_default_views() {
     t('.'),
     t('Date'),
     t('Log name'),
+    t('Materials'),
     t('Quantity'),
     t('Units'),
     t('Assets'),
