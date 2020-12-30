@@ -6,8 +6,8 @@
  */
 
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\entity\EntityViewsData;
 use Drupal\farm_entity\BundlePlugin\FarmEntityBundlePluginHandler;
-use Drupal\farm_entity\FarmEntityViewsData;
 
 /**
  * Implements hook_module_implements_alter().
@@ -29,14 +29,21 @@ function farm_entity_module_implements_alter(&$implementations, $hook) {
  * Implements hook_entity_type_build().
  */
 function farm_entity_entity_type_build(array &$entity_types) {
+  /** @var \Drupal\Core\Entity\EntityTypeInterface[] $entity_types */
 
   // Enable the use of bundle plugins for asset, log, and plan entity types.
-  /** @var \Drupal\Core\Entity\EntityTypeInterface[] $entity_types */
   foreach (['asset', 'log', 'plan'] as $entity_type) {
     if (!empty($entity_types[$entity_type])) {
       $entity_types[$entity_type]->set('bundle_plugin_type', $entity_type . '_type');
       $entity_types[$entity_type]->setHandlerClass('bundle_plugin', FarmEntityBundlePluginHandler::class);
-      $entity_types[$entity_type]->setHandlerClass('views_data', FarmEntityViewsData::class);
+    }
+  }
+
+  // Set the views data handler class for asset and plan entity types.
+  // We don't need to do this for logs because the Log module already does.
+  foreach (['asset', 'plan'] as $entity_type) {
+    if (!empty($entity_types[$entity_type])) {
+      $entity_types[$entity_type]->setHandlerClass('views_data', EntityViewsData::class);
     }
   }
 }
