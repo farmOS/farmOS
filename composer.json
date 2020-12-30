@@ -53,6 +53,9 @@
                 "Issue #3186443: PHPUnit 9.5 Call to undefined method ::getAnnotations()": "https://www.drupal.org/files/issues/2020-12-04/3186443-1.patch",
                 "Issue #2339235: Remove taxonomy hard dependency on node module": "https://www.drupal.org/files/issues/2020-10-12/2339235_60.patch"
             },
+            "drupal/entity": {
+                "Issue #3190436: EntityViewsData Column information not available for computed entity reference fields": "https://www.drupal.org/files/issues/2020-12-30/3190436-2.patch"
+            },
             "drupal/simple_oauth": {
                 "Issue #3173947: Cannot authorize non-confidential clients": "https://www.drupal.org/files/issues/2020-09-29/3173947-2.patch",
                 "Issue #3167287: Always load clients through the Client Repository service": "https://www.drupal.org/files/issues/2020-09-29/3167287-9.patch",
