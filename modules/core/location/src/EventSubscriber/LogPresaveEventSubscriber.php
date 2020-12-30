@@ -77,43 +77,20 @@ class LogPresaveEventSubscriber implements EventSubscriberInterface {
     // Get the log entity from the event.
     $log = $event->log;
 
-    // Keep track if we need to invalidate the cache of referenced assets so
-    // the computed 'location' and 'geometry' fields are updated.
-    $update_asset_cache = FALSE;
+    // Populate the log geometry from the location geometry.
+    $this->populateGeometryFromLocation($log);
 
-    // If the log is a 'done' movement log, invalidate the cache.
-    if ($log->get('status')->value == 'done' && $log->get('is_movement')->value) {
-      $update_asset_cache = TRUE;
-    }
+    // Invalidate asset caches when assets are moved.
+    $this->invalidateAssetCacheOnMovement($log);
+  }
 
-    // If updating an existing 'done' movement log, invalidate the cache.
-    // This catches any movement logs changing from done to pending.
-    if (!empty($log->original) && $log->original->get('status')->value == 'done' && $log->original->get('is_movement')->value) {
-      $update_asset_cache = TRUE;
-    }
-
-    // Update asset cache if needed.
-    if ($update_asset_cache) {
-
-      // Build a list of cache tags.
-      // @todo Only invalidate cache if the movement log changes the asset's current location. This might be different for each asset.
-      $tags = [];
-
-      // Include assets that were previously referenced.
-      if (!empty($log->original)) {
-        foreach ($log->original->get('asset')->referencedEntities() as $asset) {
-          array_push($tags, ...$asset->getCacheTags());
-        }
-      }
-
-      // Include assets currently referenced by the log.
-      foreach ($log->get('asset')->referencedEntities() as $asset) {
-        array_push($tags, ...$asset->getCacheTags());
-      }
-
-      // Invalidate the cache tags.
-      $this->cacheTagsInvalidator->invalidateTags($tags);
-    }
+  /**
+   * Populate a log's geometry based on its location.
+   *
+   * @param \Drupal\log\Entity\LogInterface $log
+   *   The Log entity.
+   */
+  protected function populateGeometryFromLocation(LogInterface $log): void {
 
     // If the log does not reference any location assets, we will have nothing
     // to copy from, so do nothing.
@@ -144,8 +121,16 @@ class LogPresaveEventSubscriber implements EventSubscriberInterface {
       }
     }
 
-    // Populate the log geometry from the location geometry.
-    $this->populateGeometryFromLocation($log);
+    // Load location assets referenced by the log.
+    $assets = $this->logLocation->getLocation($log);
+
+    // Get the combined location asset geometry.
+    $wkt = $this->getCombinedAssetGeometry($assets);
+
+    // If the WKT is not empty, set the log geometry.
+    if (!empty($wkt)) {
+      $this->logLocation->setGeometry($log, $wkt);
+    }
   }
 
   /**
@@ -182,26 +167,6 @@ class LogPresaveEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Populate a log's geometry based on its location.
-   *
-   * @param \Drupal\log\Entity\LogInterface $log
-   *   The Log entity.
-   */
-  protected function populateGeometryFromLocation(LogInterface $log): void {
-
-    // Load location assets referenced by the log.
-    $assets = $this->logLocation->getLocation($log);
-
-    // Get the combined location asset geometry.
-    $wkt = $this->getCombinedAssetGeometry($assets);
-
-    // If the WKT is not empty, set the log geometry.
-    if (!empty($wkt)) {
-      $this->logLocation->setGeometry($log, $wkt);
-    }
-  }
-
-  /**
    * Load a combined set of location asset geometries.
    *
    * @param \Drupal\asset\Entity\AssetInterface[] $assets
@@ -224,6 +189,54 @@ class LogPresaveEventSubscriber implements EventSubscriberInterface {
     $wkt = $this->combineWkt($geoms);
 
     return $wkt;
+  }
+
+  /**
+   * Invalidate asset caches when assets are moved.
+   *
+   * @param \Drupal\log\Entity\LogInterface $log
+   *   The Log entity.
+   */
+  protected function invalidateAssetCacheOnMovement(LogInterface $log): void {
+
+    // Keep track if we need to invalidate the cache of referenced assets so
+    // the computed 'location' and 'geometry' fields are updated.
+    $update_asset_cache = FALSE;
+
+    // If the log is a 'done' movement log, invalidate the cache.
+    if ($log->get('status')->value == 'done' && $log->get('is_movement')->value) {
+      $update_asset_cache = TRUE;
+    }
+
+    // If updating an existing 'done' movement log, invalidate the cache.
+    // This catches any movement logs changing from done to pending.
+    if (!empty($log->original) && $log->original->get('status')->value == 'done' && $log->original->get('is_movement')->value) {
+      $update_asset_cache = TRUE;
+    }
+
+    // If an update is not necessary, bail.
+    if (!$update_asset_cache) {
+      return;
+    }
+
+    // Build a list of cache tags.
+    // @todo Only invalidate cache if the movement log changes the asset's current location. This might be different for each asset.
+    $tags = [];
+
+    // Include assets that were previously referenced.
+    if (!empty($log->original)) {
+      foreach ($log->original->get('asset')->referencedEntities() as $asset) {
+        array_push($tags, ...$asset->getCacheTags());
+      }
+    }
+
+    // Include assets currently referenced by the log.
+    foreach ($log->get('asset')->referencedEntities() as $asset) {
+      array_push($tags, ...$asset->getCacheTags());
+    }
+
+    // Invalidate the cache tags.
+    $this->cacheTagsInvalidator->invalidateTags($tags);
   }
 
 }
