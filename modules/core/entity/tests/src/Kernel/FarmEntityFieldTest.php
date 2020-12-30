@@ -77,6 +77,7 @@ class FarmEntityFieldTest extends KernelTestBase {
     $this->assertArrayHasKey('location', $fields);
     $this->assertArrayHasKey('notes', $fields);
     $this->assertArrayHasKey('owner', $fields);
+    $this->assertArrayHasKey('test_hook_base_field', $fields);
 
     // Test plan field storage definitions.
     $fields = $this->entityFieldManager->getFieldStorageDefinitions('plan');
