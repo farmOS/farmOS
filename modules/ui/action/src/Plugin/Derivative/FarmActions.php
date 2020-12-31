@@ -49,6 +49,11 @@ class FarmActions extends DeriverBase {
         }
       }
 
+      // Add it to farm.dashboard, if the farm_dashboard module is enabled.
+      if (\Drupal::moduleHandler()->moduleExists('farm_dashboard')) {
+        $this->derivatives[$name]['appears_on'][] = 'farm.dashboard';
+      }
+
       // Generate a link to [entity-type]/add/[bundle].
       $name = 'farm.add.' . $type . '.bundle';
       $this->derivatives[$name] = $base_plugin_definition;
