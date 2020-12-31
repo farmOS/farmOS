@@ -3,7 +3,7 @@ status: true
 dependencies:
   enforced:
     module:
-      - farm_animal_type
+      - farm_animal
 name: Animal species/breeds
 vid: animal_type
 description: 'A list of animal species/breeds.'
