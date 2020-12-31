@@ -1,0 +1,5 @@
+name: farmOS UI Action
+description: Provides default action links for farmOS entities.
+type: module
+package: farmOS UI
+core_version_requirement: ^9
