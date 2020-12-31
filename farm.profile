@@ -33,6 +33,7 @@ function farm_modules() {
       'farm_structure_types' => t('Default structure types: Building, Greenhouse'),
       'farm_api' => t('farmOS API'),
       'farm_dashboard' => t('farmOS Dashboard'),
+      'farm_ui_action' => t('Farm UI Action'),
       'farm_ui_views' => t('farmOS UI Views'),
       'farm_ui_theme' => t('farmOS UI Theme'),
       'farm_ui_user' => t('farmOS UI User'),

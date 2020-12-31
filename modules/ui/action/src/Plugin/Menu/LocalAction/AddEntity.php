@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\farm_ui_views\Plugin\Menu\LocalAction;
+namespace Drupal\farm_ui_action\Plugin\Menu\LocalAction;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Menu\LocalActionDefault;
