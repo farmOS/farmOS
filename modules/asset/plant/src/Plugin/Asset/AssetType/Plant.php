@@ -22,8 +22,8 @@ class Plant extends FarmAssetType {
     $field_info = [
       'plant_type' => [
         'type' => 'entity_reference',
-        'label' => $this->t('Crop'),
-        'description' => 'Enter the crop/variety that this is a planting of. As you type, you will have the option of selecting from crops/varieties that you\'ve entered in the past.',
+        'label' => $this->t('Crop/variety'),
+        'description' => "Enter this plant asset's crop/variety.",
         'target_type' => 'taxonomy_term',
         'target_bundle' => 'plant_type',
         'auto_create' => TRUE,
