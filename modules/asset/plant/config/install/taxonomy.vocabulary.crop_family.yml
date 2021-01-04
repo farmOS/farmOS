@@ -3,7 +3,7 @@ status: true
 dependencies:
   enforced:
     module:
-      - farm_plant_type
+      - farm_plant
 name: Crop family
 vid: crop_family
 description: 'A list of crop families.'

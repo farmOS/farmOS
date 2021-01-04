@@ -1,7 +1,0 @@
-name: Plant type vocabularies
-description: Provides a Crop family and Crops/Varieties vocabulary for farmOS.
-type: module
-package: farmOS Taxonomies
-core_version_requirement: ^9
-dependencies:
-  - drupal:taxonomy

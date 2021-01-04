@@ -3,7 +3,7 @@ status: true
 dependencies:
   enforced:
     module:
-      - farm_plant_type
+      - farm_plant
 name: Crops/Varieties
 vid: plant_type
 description: 'A list of crops/varieties.'

@@ -4,7 +4,7 @@ dependencies:
   enforced:
     module:
       - farm_migrate
-      - farm_plant_type
+      - farm_plant
 id: farm_migrate_taxonomy_crop_family
 label: 'Taxonomy terms (Crop family)'
 migration_group: farm_migrate_taxonomy
