@@ -27,6 +27,7 @@ class Plant extends FarmAssetType {
         'target_type' => 'taxonomy_term',
         'target_bundle' => 'plant_type',
         'auto_create' => TRUE,
+        'multiple' => TRUE,
         'weight' => [
           'form' => -90,
           'view' => -90,
