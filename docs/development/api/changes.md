@@ -280,6 +280,7 @@ fields are not listed here):
 - `animal_sex` -> `sex`
 - `animal_tag` -> `id_tag`
 - `archived` -> `status` and `archived` (see "Asset status" below)
+- `crop` -> `plant_type`
 - `date` -> `birthdate` (on `animal` assets)
 - `description` -> `notes` (see also "Text format" above)
 - `flags` -> `flag`
