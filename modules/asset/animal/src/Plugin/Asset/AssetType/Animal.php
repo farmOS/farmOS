@@ -26,6 +26,7 @@ class Animal extends FarmAssetType {
         'description' => $this->t("Enter this animal asset's species/breed."),
         'target_type' => 'taxonomy_term',
         'target_bundle' => 'animal_type',
+        'required' => TRUE,
         'weight' => [
           'form' => -90,
           'view' => 5,
