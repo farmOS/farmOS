@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_animal
+name: Animal species/breeds
+vid: animal_type
+description: 'A list of animal species/breeds.'
+weight: 0
