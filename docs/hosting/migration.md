@@ -25,6 +25,12 @@
         drush migrate:import --group=farm_migrate_asset
         drush migrate:import --group=farm_migrate_area
         drush migrate:import --group=farm_migrate_log
+
+7. Confirm that all the above migrations were successful before running the
+   final migration, which focuses only on populating the "Parents" field of
+   assets. This migration cannot be rolled back (see
+   [Issue #3189740](https://www.drupal.org/project/farm/issues/3189740)):
+
         drush migrate:import --group=farm_migrate_reference
 
 To view the status of all farmOS 1.x migrations:
