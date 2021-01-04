@@ -42,6 +42,14 @@ process:
     default_value: 0
     source: '@parent_id'
   # Plant type specific fields.
+  companions:
+    plugin: sub_process
+    source: field_farm_companions
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: farm_migrate_taxonomy_plant_type
+        source: tid
   crop_family:
     plugin: sub_process
     source: field_farm_crop_family
