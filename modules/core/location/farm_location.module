@@ -55,15 +55,29 @@ function farm_location_entity_base_field_info(EntityTypeInterface $entity_type) 
  */
 function farm_location_views_data_alter(array &$data) {
 
-  // Add the current asset location computed field to Views.
-  if (isset($data['asset'])) {
-    $data['asset']['location'] = [
+  // Define the asset computed fields.
+  $asset_computed_fields = [
+    'geometry' => [
+      'title' => t('Geometry'),
+      'field' => [
+        'id' => 'asset_geometry',
+        'field_name' => 'geometry',
+      ],
+    ],
+    'location' => [
       'title' => t('Current location'),
       'field' => [
         'id' => 'asset_location',
         'field_name' => 'location',
       ],
-    ];
+    ],
+  ];
+
+  // Add asset computed fields.
+  if (isset($data['asset'])) {
+    foreach ($asset_computed_fields as $field_id => $field_data) {
+      $data['asset'][$field_id] = $field_data;
+    }
   }
 }
 
