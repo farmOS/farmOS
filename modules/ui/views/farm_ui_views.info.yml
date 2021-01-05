@@ -14,5 +14,6 @@ dependencies:
   - farm:farm_ui_menu
   - farm:quantity
   - fraction:fraction
+  - geofield:geofield
   - log:log
   - views_geojson:views_geojson
