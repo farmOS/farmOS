@@ -11,6 +11,7 @@ use Symfony\Contracts\EventDispatcher\Event;
 class LogEvent extends Event {
 
   const PRESAVE = 'farm_log_presave';
+  const DELETE = 'farm_log_delete';
 
   /**
    * The Log entity.
