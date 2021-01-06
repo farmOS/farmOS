@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Url;
 use Drupal\views\ViewExecutable;
 use Drupal\views\Views;
 
@@ -183,13 +184,71 @@ function farm_ui_views_views_pre_render(ViewExecutable $view) {
     return;
   }
 
+  // Get all asset bundles.
+  $asset_bundles = \Drupal::service('entity_type.bundle.info')->getBundleInfo($view->getBaseEntityType()->id());
+
   // If this is the "By type" display and a bundle argument is specified, load
   // the bundle label and set the title.
   if ($view->current_display == 'page_type' && !empty($view->args[0])) {
-    $bundles = \Drupal::service('entity_type.bundle.info')->getBundleInfo($view->getBaseEntityType()->id());
     $bundle = $view->args[0];
-    if (!empty($bundles[$bundle])) {
-      $view->setTitle($bundles[$bundle]['label'] . ' ' . $view->getBaseEntityType()->getPluralLabel());
+    if (!empty($asset_bundles[$bundle])) {
+      $view->setTitle($asset_bundles[$bundle]['label'] . ' ' . $view->getBaseEntityType()->getPluralLabel());
     }
+  }
+
+  // Render a map attachment above views of assets.
+  if ($view->id() == 'farm_asset' && in_array($view->current_display, ['page', 'page_type'])) {
+
+    // Get exposed filters.
+    $exposed_filters = $view->getExposedInput();
+
+    // Start array of filtered bundles.
+    $filtered_bundles = $asset_bundles;
+
+    // Start array of asset layers to add.
+    $asset_layers = [];
+
+    // Add multiple asset layers to the page of all assets.
+    if ($view->current_display == 'page') {
+
+      // Limit to filtered asset types.
+      if (!empty($exposed_filters['type'])) {
+        $filtered_bundles = array_intersect_key($asset_bundles, array_flip($exposed_filters['type']));
+      }
+    }
+
+    // If this is the page_type display, only map this asset type.
+    if ($view->current_display == 'page_type' && !empty($view->args[0])) {
+      $bundle = $view->args[0];
+      $filtered_bundles = [
+        $bundle => $asset_bundles[$bundle],
+      ];
+    }
+
+    // Add an asset type map layer for each filtered bundle.
+    foreach ($filtered_bundles as $bundle => $bundle_info) {
+
+      // Build url to geojson.
+      $url = Url::fromRoute('view.farm_asset.geojson', ['arg_0' => $bundle], ['query' => $exposed_filters]);
+
+      // Add an asset layer.
+      $asset_layers[$bundle] = [
+        'label' => $bundle_info['label'],
+        'url' => $url->toString(),
+        // @todo Color each asset type differently. This was previously provided with hook_farm_area_type_info.
+        'color' => 'orange',
+        'zoom' => TRUE,
+      ];
+    }
+
+    // Build the map render array.
+    $map = [
+      '#type' => 'farm_map',
+      '#map_type' => 'asset_list',
+    ];
+    $map['#map_settings']['asset_type_layers'] = $asset_layers;
+
+    // Render the map.
+    $view->attachment_before['asset_map'] = $map;
   }
 }

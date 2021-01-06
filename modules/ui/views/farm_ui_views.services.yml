@@ -1,0 +1,5 @@
+services:
+  farm_ui_views.map_render_event_subscriber:
+    class: '\Drupal\farm_ui_views\EventSubscriber\MapRenderEventSubscriber'
+    tags:
+      - { name: 'event_subscriber' }
