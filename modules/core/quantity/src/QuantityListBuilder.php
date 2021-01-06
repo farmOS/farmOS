@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\farm_quantity;
+namespace Drupal\quantity;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\entity\BulkFormEntityListBuilder;
@@ -8,9 +8,9 @@ use Drupal\entity\BulkFormEntityListBuilder;
 /**
  * Defines a class to build a listing of Quantity entities.
  *
- * @ingroup farm_quantity
+ * @ingroup quantity
  */
-class FarmQuantityListBuilder extends BulkFormEntityListBuilder {
+class QuantityListBuilder extends BulkFormEntityListBuilder {
 
   /**
    * {@inheritdoc}
@@ -25,7 +25,7 @@ class FarmQuantityListBuilder extends BulkFormEntityListBuilder {
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
-    /* @var $entity \Drupal\log\Entity\LogInterface */
+    /** @var \Drupal\quantity\Entity\QuantityInterface $entity */
     $row['id'] = ['#markup' => $entity->id()];
     $row['name'] = $entity->toLink($entity->label(), 'canonical')->toRenderable();
     return $row + parent::buildRow($entity);

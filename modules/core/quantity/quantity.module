@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Farm Quantity module.
+ * Quantity module.
  */
 
 use Drupal\Core\Entity\EntityTypeInterface;
@@ -13,7 +13,7 @@ use Drupal\log\Entity\LogInterface;
 /**
  * Implements hook_entity_base_field_info().
  */
-function farm_quantity_entity_base_field_info(EntityTypeInterface $entity_type) {
+function quantity_entity_base_field_info(EntityTypeInterface $entity_type) {
 
   // Start array of fields.
   $fields = [];
@@ -25,7 +25,7 @@ function farm_quantity_entity_base_field_info(EntityTypeInterface $entity_type) 
     $fields['quantity'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Quantities'))
       ->setDescription(t('Does this log provide any quantities?'))
-      ->setSetting('target_type', 'farm_quantity')
+      ->setSetting('target_type', 'quantity')
       ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED)
       ->setRevisionable(TRUE)
       ->setDisplayOptions('view', [
@@ -46,7 +46,7 @@ function farm_quantity_entity_base_field_info(EntityTypeInterface $entity_type) 
 /**
  * Implements hook_ENTITY_TYPE_delete().
  */
-function farm_quantity_log_delete(LogInterface $log) {
+function quantity_log_delete(LogInterface $log) {
 
   // If the log doesn't have a quantity field, bail.
   if (!$log->hasField('quantity')) {
@@ -58,7 +58,7 @@ function farm_quantity_log_delete(LogInterface $log) {
 
   // Delete quantity entities.
   if (!empty($quantities)) {
-    \Drupal::entityTypeManager()->getStorage('farm_quantity')->delete($quantities);
+    \Drupal::entityTypeManager()->getStorage('quantity')->delete($quantities);
   }
 
 }
@@ -69,7 +69,7 @@ function farm_quantity_log_delete(LogInterface $log) {
  * @return array
  *   Returns an array of measure information.
  */
-function farm_quantity_measures() {
+function quantity_measures() {
   return [
     'count' => [
       'label' => t('Count'),
@@ -119,13 +119,13 @@ function farm_quantity_measures() {
 /**
  * Define available options for the Measure field.
  */
-function farm_quantity_measure_options() {
+function quantity_measure_options() {
 
   // Start an empty options array.
   $options = [];
 
   // Load information about measures.
-  $measures = farm_quantity_measures();
+  $measures = quantity_measures();
 
   // Iterate through the measures and build a list of options.
   foreach ($measures as $measure => $data) {

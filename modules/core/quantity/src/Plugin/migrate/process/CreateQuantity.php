@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\farm_quantity\Plugin\migrate\process;
+namespace Drupal\quantity\Plugin\migrate\process;
 
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
@@ -10,7 +10,7 @@ use Drupal\migrate\Row;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Create farm_quantity entities.
+ * Create quantity entities.
  *
  * This is an alternative to using the entity_generate process plugin which
  * requires a "lookup" to happen before creating the entity. Since the quantity
@@ -23,7 +23,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class CreateQuantity extends ProcessPluginBase implements ContainerFactoryPluginInterface {
 
   /**
-   * Farm quantity entity storage.
+   * Quantity entity storage.
    *
    * @var \Drupal\Core\Entity\EntityStorageInterface
    */
@@ -38,7 +38,7 @@ class CreateQuantity extends ProcessPluginBase implements ContainerFactoryPlugin
       $plugin_id,
       $plugin_definition
     );
-    $instance->quantityStorage = $container->get('entity_type.manager')->getStorage('farm_quantity');
+    $instance->quantityStorage = $container->get('entity_type.manager')->getStorage('quantity');
     return $instance;
   }
 

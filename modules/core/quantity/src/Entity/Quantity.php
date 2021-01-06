@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\farm_quantity\Entity;
+namespace Drupal\quantity\Entity;
 
 use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\RevisionLogEntityTrait;
@@ -10,12 +10,12 @@ use Drupal\entity\Revision\RevisionableContentEntityBase;
 use Drupal\user\EntityOwnerTrait;
 
 /**
- * Defines the FarmQuantity entity.
+ * Defines the Quantity entity.
  *
- * @ingroup farm_quantity
+ * @ingroup quantity
  *
  * @ContentEntityType(
- *   id = "farm_quantity",
+ *   id = "quantity",
  *   label = @Translation("Quantity"),
  *   label_collection = @Translation("Quantities"),
  *   label_singular = @Translation("quantity"),
@@ -27,7 +27,7 @@ use Drupal\user\EntityOwnerTrait;
  *   handlers = {
  *     "storage" = "Drupal\Core\Entity\Sql\SqlContentEntityStorage",
  *     "access" = "\Drupal\entity\UncacheableEntityAccessControlHandler",
- *     "list_builder" = "\Drupal\farm_quantity\FarmQuantityListBuilder",
+ *     "list_builder" = "\Drupal\quantity\QuantityListBuilder",
  *     "permission_provider" = "\Drupal\entity\UncacheableEntityPermissionProvider",
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
  *     "views_data" = "\Drupal\views\EntityViewsData",
@@ -47,13 +47,13 @@ use Drupal\user\EntityOwnerTrait;
  *       "default" = "Drupal\entity\Menu\DefaultEntityLocalTaskProvider",
  *     },
  *   },
- *   base_table = "farm_quantity",
- *   revision_table = "farm_quantity_revision",
+ *   base_table = "quantity",
+ *   revision_table = "quantity_revision",
  *   translatable = FALSE,
  *   revisionable = TRUE,
  *   fieldable = FALSE,
  *   show_revision_ui = FALSE,
- *   admin_permission = "administer farm_quantity",
+ *   admin_permission = "administer quantity",
  *   entity_keys = {
  *     "id" = "id",
  *     "revision" = "revision_id",
@@ -69,7 +69,7 @@ use Drupal\user\EntityOwnerTrait;
  *   },
  * )
  */
-class FarmQuantity extends RevisionableContentEntityBase implements FarmQuantityInterface {
+class Quantity extends RevisionableContentEntityBase implements QuantityInterface {
 
   use EntityChangedTrait;
   use EntityOwnerTrait;
@@ -125,7 +125,7 @@ class FarmQuantity extends RevisionableContentEntityBase implements FarmQuantity
       ->setRevisionable(TRUE)
       ->setDefaultValue('')
       ->setSettings([
-        'allowed_values_function' => 'farm_quantity_measure_options',
+        'allowed_values_function' => 'quantity_measure_options',
       ])
       ->setDisplayOptions('view', [
         'label' => 'hidden',
@@ -209,7 +209,7 @@ class FarmQuantity extends RevisionableContentEntityBase implements FarmQuantity
       ->setRevisionable(TRUE)
       ->setSetting('target_type', 'user')
       ->setSetting('handler', 'default')
-      ->setDefaultValueCallback('Drupal\farm_quantity\Entity\FarmQuantity::getCurrentUserId')
+      ->setDefaultValueCallback('Drupal\quantity\Entity\Quantity::getCurrentUserId')
       ->setDisplayOptions('view', [
         'region' => 'hidden',
       ])
