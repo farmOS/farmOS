@@ -275,16 +275,17 @@ Below is the full list of asset types in farmOS 1.x and their new names in 2.x:
 Asset field names are largely unchanged, with a few exceptions (note that *new*
 fields are not listed here):
 
+- `animal_castrated` -> `is_castrated`
+- `animal_nicknames` -> `nickname`
+- `animal_sex` -> `sex`
+- `animal_tag` -> `id_tag`
 - `archived` -> `status` and `archived` (see "Asset status" below)
+- `crop` -> `plant_type`
 - `date` -> `birthdate` (on `animal` assets)
 - `description` -> `notes` (see also "Text format" above)
 - `flags` -> `flag`
 - `files` -> `file`
 - `images` -> `image`
-- `animal_castrated` -> `is_castrated`
-- `animal_nicknames` -> `nickname`
-- `animal_sex` -> `sex`
-- `animal_tag` -> `id_tag`
 
 #### Asset status
 
@@ -308,3 +309,5 @@ vocabularies of terms. The vocabulary machine names have changed, to drop the
 - `farm_log_categories` -> `log_category`
 - `farm_materials` -> `material`
 - `farm_season` -> `season`
+- `farm_crops` -> `plant_type`
+- `farm_crop_families` -> `crop_family`

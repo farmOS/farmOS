@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.crop_family
+    - taxonomy.vocabulary.crop_family
+    - taxonomy.vocabulary.plant_type
+id: taxonomy_term.plant_type.crop_family
+field_name: crop_family
+entity_type: taxonomy_term
+bundle: plant_type
+label: 'Crop family'
+description: 'What crop family is this a member of?'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      crop_family: crop_family
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
