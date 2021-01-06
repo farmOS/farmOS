@@ -5,7 +5,7 @@
  * Contains farm_log.module.
  */
 
-use Drupal\farm_log\Event\LogPresaveEvent;
+use Drupal\farm_log\Event\LogEvent;
 use Drupal\log\Entity\LogInterface;
 
 /**
@@ -15,7 +15,7 @@ function farm_log_log_presave(LogInterface $log) {
 
   // Dispatch an event on log presave.
   // @todo Replace this with core event via https://www.drupal.org/node/2551893.
-  $event = new LogPresaveEvent($log);
+  $event = new LogEvent($log);
   $event_dispatcher = \Drupal::service('event_dispatcher');
-  $event_dispatcher->dispatch(LogPresaveEvent::PRESAVE, $event);
+  $event_dispatcher->dispatch(LogEvent::PRESAVE, $event);
 }

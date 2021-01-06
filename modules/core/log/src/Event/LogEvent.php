@@ -6,14 +6,14 @@ use Drupal\log\Entity\LogInterface;
 use Symfony\Contracts\EventDispatcher\Event;
 
 /**
- * Event that is fired by hook_entity_log_presave().
+ * Event that is fired by hook_log_OPERATION().
  */
-class LogPresaveEvent extends Event {
+class LogEvent extends Event {
 
   const PRESAVE = 'farm_log_presave';
 
   /**
-   * The Log entity that is being saved.
+   * The Log entity.
    *
    * @var \Drupal\log\Entity\LogInterface
    */
@@ -23,7 +23,7 @@ class LogPresaveEvent extends Event {
    * Constructs the object.
    *
    * @param \Drupal\log\Entity\LogInterface $log
-   *   The Log entity that is being saved.
+   *   The Log entity.
    */
   public function __construct(LogInterface $log) {
     $this->log = $log;
