@@ -12,6 +12,7 @@ dependencies:
   - farm:farm_entity
   - farm:farm_location
   - farm:farm_ui_menu
+  - farm:farm_map
   - farm:quantity
   - fraction:fraction
   - geofield:geofield
