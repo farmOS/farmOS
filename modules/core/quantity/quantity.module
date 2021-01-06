@@ -5,28 +5,6 @@
  * Quantity module.
  */
 
-use Drupal\log\Entity\LogInterface;
-
-/**
- * Implements hook_ENTITY_TYPE_delete().
- */
-function quantity_log_delete(LogInterface $log) {
-
-  // If the log doesn't have a quantity field, bail.
-  if (!$log->hasField('quantity')) {
-    return;
-  }
-
-  // Get any quantities the log references.
-  $quantities = $log->quantity->referencedEntities();
-
-  // Delete quantity entities.
-  if (!empty($quantities)) {
-    \Drupal::entityTypeManager()->getStorage('quantity')->delete($quantities);
-  }
-
-}
-
 /**
  * Define information about available quantity measures.
  *
