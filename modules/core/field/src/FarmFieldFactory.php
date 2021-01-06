@@ -306,6 +306,29 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
         ];
         break;
 
+      // Quantity reference.
+      case 'quantity':
+        $handler = 'default:quantity';
+        $handler_settings = [
+          'target_bundles' => NULL,
+          'sort' => [
+            'field' => 'label',
+            'direction' => 'asc',
+          ],
+          'auto_create' => FALSE,
+          'auto_create_bundle' => '',
+        ];
+        $form_display_options = [
+          'type' => 'inline_entity_form_complex',
+          'weight' => $options['weight']['form'] ?? 0,
+        ];
+        $view_display_options = [
+          'label' => 'inline',
+          'type' => 'string',
+          'weight' => $options['weight']['view'] ?? 0,
+        ];
+        break;
+
       // Term reference.
       case 'taxonomy_term':
         $handler = 'default:taxonomy_term';
