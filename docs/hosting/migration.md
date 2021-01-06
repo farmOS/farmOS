@@ -1,5 +1,12 @@
 # Migrating from farmOS 1.x to 2.x
 
+**Attention**: Migrations are designed to pull data from a farmOS 1.x database
+into an empty farmOS 2.x database. This is to ensure that the IDs of records
+are maintained. Do not run these migrations if records have already been
+created in the 2.x database.
+
+Follow the steps below to migrate your farmOS 1.x data to farmOS 2.x:
+
 1. Install farmOS 2.x.
 2. Install the farmOS modules you intend to use (this will determine what
    data is migrated).
