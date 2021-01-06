@@ -24,7 +24,7 @@ function quantity_entity_base_field_info(EntityTypeInterface $entity_type) {
     // Add quantity field.
     $fields['quantity'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Quantities'))
-      ->setDescription(t('Does this log provide any quantities?'))
+      ->setDescription(t('Add quantity measurements to this log.'))
       ->setSetting('target_type', 'quantity')
       ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED)
       ->setRevisionable(TRUE)
