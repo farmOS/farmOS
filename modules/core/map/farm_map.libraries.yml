@@ -35,3 +35,9 @@ behavior_popup:
     js/farmOS.map.behaviors.popup.js: { }
   dependencies:
     - farm_map/farm_map
+behavior_asset_type_layers:
+  js:
+    js/farmOS.map.behaviors.asset_type_layers.js: { }
+  dependencies:
+    - farm_map/farm_map
+    - farm_map/behavior_popup
