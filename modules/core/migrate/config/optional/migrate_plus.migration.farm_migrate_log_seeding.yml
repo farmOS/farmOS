@@ -28,35 +28,6 @@ process:
   id:
     plugin: get
     source: id
-  # Create a quantity for each quantity field collection.
-  quantity:
-    plugin: sub_process
-    source: log_quantities
-    process:
-      # Save the uid as a pseudo value.
-      _uid:
-        plugin: migration_lookup
-        migration: farm_migrate_user
-        source: uid
-        no_stub: true
-      # Save the units term as a pseudo value.
-      _units:
-        plugin: migration_lookup
-        migration: farm_migrate_taxonomy_unit
-        source: units
-        no_stub: true
-      # Create a quantity and save the ID.
-      target_id:
-        plugin: create_quantity
-        values:
-          uid: '@_uid'
-          created: created
-          changed: changed
-          units: '@_units'
-          label: label
-          measure: measure
-          value/numerator: value_numerator
-          value/denominator: value_denominator
   # Seeding specific fields.
   lot_number:
     plugin: get
@@ -65,6 +36,5 @@ process:
     plugin: get
     source: field_farm_seed_source
 migration_dependencies:
-  required:
-    - farm_migrate_taxonomy_unit
+  required: {  }
   optional: {  }
