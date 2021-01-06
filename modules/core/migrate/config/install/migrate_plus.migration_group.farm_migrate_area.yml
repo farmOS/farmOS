@@ -31,7 +31,7 @@ shared_configuration:
             farm_format: default
             plain_text: plain_text
           default_value: default
-    geometry:
+    intrinsic_geometry:
       plugin: geofield_d7d8
       source: field_farm_geofield
     is_location:
