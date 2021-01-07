@@ -29,6 +29,12 @@ class MapRenderEventSubscriber implements EventSubscriberInterface {
    */
   public function onMapRender(MapRenderEvent $event) {
 
+    // Include map behaviors defined by the map type.
+    $map_behaviors = $event->getMapType()->getMapBehaviors();
+    foreach ($map_behaviors as $behavior) {
+      $event->addBehavior($behavior);
+    }
+
     // Add the WKT behavior if the render element has WKT.
     if (!empty($event->element['#map_settings']['wkt'])) {
       $event->addBehavior('wkt');

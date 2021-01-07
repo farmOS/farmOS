@@ -12,6 +12,13 @@ farm_map.map_type.*:
     description:
       type: text
       label: 'Description'
+    behaviors:
+      type: sequence
+      label: 'Map behaviors'
+      nullable: true
+      sequence:
+        type: string
+        label: 'Map behavior id'
     options:
       type: sequence
       label: 'farmOS-map options'
