@@ -50,7 +50,6 @@
                 "Issue #3166694: Make config_rewrite/tests/modules compatible with Drupal 9": "https://www.drupal.org/files/issues/2020-08-22/3166694-2.patch"
             },
             "drupal/core": {
-                "Issue #3186443: PHPUnit 9.5 Call to undefined method ::getAnnotations()": "https://www.drupal.org/files/issues/2020-12-04/3186443-1.patch",
                 "Issue #2339235: Remove taxonomy hard dependency on node module": "https://www.drupal.org/files/issues/2020-10-12/2339235_60.patch"
             },
             "drupal/entity": {
