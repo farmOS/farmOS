@@ -18,12 +18,15 @@
             url.searchParams.append(key, value);
           });
 
+          // Default to the 'Assets' group.
+          const group = layer.group ?? 'Assets';
+
           // Build the layer.
           var opts = {
             title: layer.label,
             url,
             color: layer.color,
-            group: 'Assets',
+            group,
           };
           var newLayer = instance.addLayer('geojson', opts);
 
