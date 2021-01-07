@@ -29,14 +29,14 @@ class LogPresaveEventSubscriber implements EventSubscriberInterface {
    *
    * @var \Drupal\farm_location\AssetLocationInterface
    */
-  private AssetLocationInterface $assetLocation;
+  protected AssetLocationInterface $assetLocation;
 
   /**
    * Cache tag invalidator service.
    *
    * @var \Drupal\Core\Cache\CacheTagsInvalidatorInterface
    */
-  private CacheTagsInvalidatorInterface $cacheTagsInvalidator;
+  protected CacheTagsInvalidatorInterface $cacheTagsInvalidator;
 
   /**
    * LogPresaveEventSubscriber Constructor.

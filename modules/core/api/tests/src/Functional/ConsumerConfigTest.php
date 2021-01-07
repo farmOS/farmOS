@@ -211,7 +211,7 @@ class ConsumerConfigTest extends OauthTestBase {
    * @return mixed
    *   The JSON parsed response.
    */
-  private function getTokenInfo($access_token) {
+  protected function getTokenInfo($access_token) {
     $response = $this->get(
       $this->tokenDebugUrl,
       [
@@ -230,7 +230,7 @@ class ConsumerConfigTest extends OauthTestBase {
    * @return array
    *   Array of role IDs.
    */
-  private function getClientRoleIds() {
+  protected function getClientRoleIds() {
     return array_map(function ($role) {
       return $role['target_id'];
     }, $this->client->get('roles')->getValue());
@@ -244,7 +244,7 @@ class ConsumerConfigTest extends OauthTestBase {
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  private function grantClientRoles(array $role_ids) {
+  protected function grantClientRoles(array $role_ids) {
     $roles = [];
     foreach ($role_ids as $id) {
       $roles[] = ['target_id' => $id];
@@ -262,7 +262,7 @@ class ConsumerConfigTest extends OauthTestBase {
    * @return string
    *   The access token.
    */
-  private function getAccessToken(array $scopes = []) {
+  protected function getAccessToken(array $scopes = []) {
     $valid_payload = [
       'grant_type' => 'password',
       'client_id' => $this->client->get('client_id')->value,

@@ -25,7 +25,7 @@ class AddEntity extends LocalActionDefault {
    *
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
-  private $entityTypeManager;
+  protected $entityTypeManager;
 
   /**
    * Constructs an AddEntity object.

@@ -201,7 +201,7 @@ class LocationTest extends FarmBrowserTestBase {
    * @param string|null $geometry
    *   The expected geometry.
    */
-  private function assertApiAssetLocationEquals($location_uuid, $geometry) {
+  protected function assertApiAssetLocationEquals($location_uuid, $geometry) {
 
     // Fetch the asset from the API.
     $response = $this->requestApiEntity($this->asset);
@@ -245,7 +245,7 @@ class LocationTest extends FarmBrowserTestBase {
    * @return array
    *   The json-decoded response.
    */
-  private function requestApiEntity(EntityInterface $entity) {
+  protected function requestApiEntity(EntityInterface $entity) {
     $request_options[RequestOptions::HEADERS]['Accept'] = 'application/vnd.api+json';
     $asset_uri = "base://api/{$entity->getEntityType()->id()}/{$entity->bundle()}/{$entity->uuid()}";
     $response = $this->request('GET', Url::fromUri($asset_uri), $request_options);
