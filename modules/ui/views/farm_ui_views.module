@@ -224,11 +224,53 @@ function farm_ui_views_views_pre_render(ViewExecutable $view) {
       ];
     }
 
+    // Save the translated assets label.
+    $assets_label = $view->getBaseEntityType()->getCollectionLabel();
+
     // Add an asset type map layer for each filtered bundle.
     foreach ($filtered_bundles as $bundle => $bundle_info) {
 
+      // The default layer group should be "Assets".
+      $layer_group = $assets_label;
+
+      // Create individual layers for land types and structure types.
+      // @todo Abstract this to detect types other than land/structure?
+      if (in_array($bundle, ['land', 'structure'])) {
+
+        // Get fields for the bundle.
+        $entity_manager = \Drupal::service('entity_field.manager');
+        $fields = $entity_manager->getFieldStorageDefinitions('asset', $bundle);
+        $type_field_name = $bundle . '_type';
+
+        // Create a group for the asset bundle.
+        $bundle_group = t('@bundle assets', ['@bundle' => $bundle_info['label']]);
+
+        // Get valid options for the bundle_type field.
+        $options = options_allowed_values($fields[$type_field_name]);
+        foreach ($options as $option => $label) {
+
+          // Add an exposed filter for the bundle_type field.
+          $exposed_filters[$type_field_name . '[]'] = $option;
+
+          // Add layer for the bundle type.
+          $asset_layers[$bundle . '_' . $option] = [
+            'group' => $bundle_group,
+            'label' => $label,
+            'asset_type' => $bundle,
+            'filters' => $exposed_filters,
+            // @todo Color each asset type differently.
+            // This was previously provided with hook_farm_area_type_info.
+            'color' => 'orange',
+            'zoom' => TRUE,
+          ];
+        }
+
+        continue;
+      }
+
       // Add an asset layer.
       $asset_layers[$bundle] = [
+        'group' => $layer_group,
         'label' => $bundle_info['label'],
         'asset_type' => $bundle,
         'filters' => $exposed_filters,
