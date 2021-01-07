@@ -6,7 +6,6 @@
  */
 
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\Core\Url;
 use Drupal\views\ViewExecutable;
 use Drupal\views\Views;
 
@@ -228,14 +227,13 @@ function farm_ui_views_views_pre_render(ViewExecutable $view) {
     // Add an asset type map layer for each filtered bundle.
     foreach ($filtered_bundles as $bundle => $bundle_info) {
 
-      // Build url to geojson.
-      $url = Url::fromRoute('view.farm_asset.geojson', ['arg_0' => $bundle], ['query' => $exposed_filters]);
-
       // Add an asset layer.
       $asset_layers[$bundle] = [
         'label' => $bundle_info['label'],
-        'url' => $url->toString(),
-        // @todo Color each asset type differently. This was previously provided with hook_farm_area_type_info.
+        'asset_type' => $bundle,
+        'filters' => $exposed_filters,
+        // @todo Color each asset type differently.
+        // This was previously provided with hook_farm_area_type_info.
         'color' => 'orange',
         'zoom' => TRUE,
       ];
