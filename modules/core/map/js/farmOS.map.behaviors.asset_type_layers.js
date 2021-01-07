@@ -7,7 +7,7 @@
 
         // Add layers for each area type.
         var layers = drupalSettings.farm_map[instance.target].asset_type_layers;
-        Object.values(layers).forEach( layer => {
+        Object.values(layers).reverse().forEach( layer => {
 
           // Build a url to the asset type geojson.
           const url = new URL(window.location.origin + '/assets/' + layer.asset_type + '/geojson');
