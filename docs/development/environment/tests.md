@@ -7,14 +7,14 @@ dependencies necessary for running automated tests via
 The following command will run all automated tests provided by farmOS:
 
 ```sh
-docker exec -it -u www-data farmos_www_1 phpunit --verbose --debug --group farm
+docker exec -it -u www-data farmos_www_1 phpunit --verbose --debug /opt/drupal/web/profiles/farm
 ```
 
 Tests from other projects/dependencies can be run in a similar fashion. For
 example, the following command will run all tests in the Log module:
 
 ```sh
-docker exec -it -u www-data farmos_www_1 phpunit --verbose --debug --group Log
+docker exec -it -u www-data farmos_www_1 phpunit --verbose --debug /opt/drupal/web/modules/log
 ```
 
 ## Faster testing without XDebug
@@ -42,7 +42,7 @@ In a docker-compose.yml based off [docker-compose.development.yml], this might l
 The tests could then be run via `docker-compose exec` as follows;
 
 ```sh
-docker-compose exec -u www-data -T test-runner phpunit --verbose --debug --group farm
+docker-compose exec -u www-data -T test-runner phpunit --verbose --debug /opt/drupal/web/profiles/farm
 ```
 
 *Note: As described in the [farmOS docker documentation](/development/environment/docker),
@@ -51,7 +51,7 @@ Since that id differs from the default `www-data` user id for the prod image - 3
 of the files mounted to `/opt/drupal` will cause tests to fail. Solutions to this will be specific
 to a developers environment, but some approaches are outlined below;*
 
-* Build a docker image derived from `farmos/farmos:2.x` which sets the id of the `www-data` user 
+* Build a docker image derived from `farmos/farmos:2.x` which sets the id of the `www-data` user
 to match that of the dev image by including `RUN usermod -u ${WWW_DATA_ID} www-data && groupmod -g ${WWW_DATA_ID} www-data`
 and passing `WWW_DATA_ID` as a build build-arg
 * Before launching the tests, use `chmod`/`chown`/`setfacl` to modify the permissions of the files

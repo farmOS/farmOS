@@ -33,7 +33,7 @@ jobs:
       # so waiting for that lets us know it is safe to start the tests
         run: until [ -f ./www/test-runner-container-fs-ready ]; do sleep 0.1; done
       - name: Run PHPUnit tests
-        run: docker-compose exec -u www-data -T test-runner phpunit --verbose --debug --group farm
+        run: docker-compose exec -u www-data -T test-runner phpunit --verbose --debug /opt/drupal/web/profiles/farm
       - name: Run PHP CodeSniffer
         run: docker-compose exec -u www-data -T www phpcs /opt/drupal/web/profiles/farm
       - name: Test Drush site install
