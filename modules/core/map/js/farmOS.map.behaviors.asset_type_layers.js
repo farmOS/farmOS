@@ -9,9 +9,17 @@
         var layers = drupalSettings.farm_map[instance.target].asset_type_layers;
         Object.values(layers).reverse().forEach( layer => {
 
+          // Determine if the layer should display full geometry or centroids.
+          let geomType = 'full';
+          let layerType = 'geojson';
+          if (!!layer.cluster && layer.cluster) {
+            geomType = 'centroid';
+            layerType = 'cluster';
+          }
+
           // Build a url to the asset type geojson, default to all.
           const assetType = layer.asset_type ?? 'all';
-          const url = new URL('/assets/geojson/' + assetType, window.location.origin + drupalSettings.path.baseUrl);
+          const url = new URL('/assets/geojson/' + geomType + '/' + assetType, window.location.origin + drupalSettings.path.baseUrl);
 
           // Include provided filters.
           const filters = layer.filters ?? {};
@@ -31,10 +39,11 @@
             opts.group = layer.group;
           }
 
-          var newLayer = instance.addLayer('geojson', opts);
+          var newLayer = instance.addLayer(layerType, opts);
 
           // If zoom is true, zoom to the layer vectors.
-          if (layer.zoom !== undefined && layer.zoom) {
+          // Do not zoom to cluster layers.
+          if (layerType !== 'cluster' && layer.zoom !== undefined && layer.zoom) {
             var source = newLayer.getSource();
             source.on('change', function () {
               instance.zoomToVectors();
