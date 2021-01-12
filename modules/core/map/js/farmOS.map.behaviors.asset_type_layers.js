@@ -19,16 +19,18 @@
             url.searchParams.append(key, value);
           });
 
-          // Default to the 'Assets' group.
-          const group = layer.group ?? 'Assets';
-
           // Build the layer.
           var opts = {
             title: layer.label,
             url,
             color: layer.color,
-            group,
           };
+
+          // Add the group if specified.
+          if (!!layer.group) {
+            opts.group = layer.group;
+          }
+
           var newLayer = instance.addLayer('geojson', opts);
 
           // If zoom is true, zoom to the layer vectors.

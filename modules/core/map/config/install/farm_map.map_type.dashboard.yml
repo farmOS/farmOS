@@ -15,14 +15,17 @@ options:
       label: Land
       asset_type: land
       color: orange
+      group: Assets
       zoom: true
     water:
       label: Water
       asset_type: water
       color: blue
+      group: Assets
       zoom: true
     structure:
       label: Structure
       asset_type: structure
       color: red
+      group: Assets
       zoom: true
