@@ -42,6 +42,15 @@ class MapRenderEvent extends Event {
   }
 
   /**
+   * Getter method to get the map target ID.
+   *
+   * @return String
+   */
+  public function getMapTargetId() {
+    return $this->element['#attributes']['id'];
+  }
+
+  /**
    * Getter method to get the map type being rendered.
    *
    * @return \Drupal\farm_map\Entity\MapTypeInterface
