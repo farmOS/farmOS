@@ -54,3 +54,10 @@ block.settings.map_block:
     map_type:
       type: string
       label: 'Map type'
+field.formatter.settings.geofield_centroid:
+  type: mapping
+  label: 'Geofield centroid display format settings'
+  mapping:
+    output_format:
+      type: string
+      label: 'Output format'
