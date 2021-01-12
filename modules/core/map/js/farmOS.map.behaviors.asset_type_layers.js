@@ -9,8 +9,9 @@
         var layers = drupalSettings.farm_map[instance.target].asset_type_layers;
         Object.values(layers).reverse().forEach( layer => {
 
-          // Build a url to the asset type geojson.
-          const url = new URL(window.location.origin + '/assets/' + layer.asset_type + '/geojson');
+          // Build a url to the asset type geojson, default to all.
+          const assetType = layer.asset_type ?? 'all';
+          const url = new URL('/assets/geojson/' + assetType, window.location.origin + drupalSettings.path.baseUrl);
 
           // Include provided filters.
           const filters = layer.filters ?? {};
