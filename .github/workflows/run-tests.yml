@@ -12,6 +12,19 @@ jobs:
   build:
     name: Run PHPUnit tests
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dbms:
+         - pgsql
+         - mariadb
+         - sqlite
+        include:
+          - node: pgsql
+            DB_URL: pgsql://farm:farm@db/farm
+          - node: mariadb
+            DB_URL: mysql://farm:farm@db/farm
+          - node: sqlite
+            DB_URL: sqlite://localhost/sites/default/files/db.sqlite
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v2
@@ -25,8 +38,10 @@ jobs:
       - name: Build farmOS 2.x-dev Docker image
         run: docker build --build-arg FARMOS_REPO=https://github.com/${GITHUB_REPOSITORY} --build-arg FARMOS_VERSION=${FARMOS_VERSION} --build-arg WWW_DATA_ID=33 -t farmos/farmos:2.x-dev docker/dev
       - name: Create docker-compose.yml
-        run: cp docker/docker-compose.testing.yml docker-compose.yml
+        run: cp docker/docker-compose.testing.${{ matrix.dbms }}.yml docker-compose.yml
       - name: Start containers
+        env:
+          DB_URL: ${{ matrix.DB_URL }}
         run: docker-compose up -d
       - name: Wait until test-runner container is ready
       # The test-runner-container-fs-ready file is only created once we expect the containers to be online
@@ -39,4 +54,4 @@ jobs:
       - name: Run PHP CodeSniffer
         run: docker-compose exec -u www-data -T www phpcs /opt/drupal/web/profiles/farm
       - name: Test Drush site install
-        run: docker-compose exec -u www-data -T www drush site-install --db-url=pgsql://farm:farm@db/farm
+        run: docker-compose exec -u www-data -T www drush site-install --db-url=${{ matrix.DB_URL }}
