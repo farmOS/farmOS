@@ -1,19 +1,6 @@
 version: '3'
 services:
-  db:
-    image: postgres:12
-    volumes:
-      - './db:/var/lib/postgresql/data'
-    ports:
-      - '5432:5432'
-    environment:
-      POSTGRES_USER: farm
-      POSTGRES_PASSWORD: farm
-      POSTGRES_DB: farm
-
   www:
-    depends_on:
-      - db
     image: farmos/farmos:2.x-dev
     volumes:
       - './www:/opt/drupal'
@@ -31,8 +18,6 @@ services:
         set -e
         # Wait until the dev farmOS container has finished copying its files
         until [ -f /opt/drupal/www-container-fs-ready ]; do sleep 0.1; done
-        # Wait until Postgres is online listening to its socket
-        while { ! exec 3<>/dev/tcp/db/5432; } > /dev/null 2>&1; do sleep 0.1; done
         # Run normal entrypoint and apache - only at this point is the test-runner-container-fs-ready
         # file created, allowing the Github action to also wait for the above conditions on the basis
         # of that file's creation.
@@ -41,3 +26,4 @@ services:
       - './www:/opt/drupal'
     environment:
       FARMOS_FS_READY_SENTINEL_FILENAME: /opt/drupal/test-runner-container-fs-ready
+      SIMPLETEST_DB: $DB_URL

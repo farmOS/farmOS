@@ -24,7 +24,9 @@ for [debugging](/development/environment/debug), but is also slower. One way to 
 XDebug is to run the tests via the prod farmOS image.
 
 The automated tests which run upon Github check-in follow this strategy which is
-orchestrated via [run-tests.yml] and [docker-compose.testing.yml].
+orchestrated via [run-tests.yml] and a docker-compose file like
+[docker-compose.testing.pgsql.yml] - corresponding files also exist for [MariaDB] and
+[SQLite].
 
 Something similar can be accomplished locally by adding an additional container to one's
 dev environment using the `farmos/farmos:2.x` image and mounting the same volume from the
@@ -59,6 +61,8 @@ mounted to `/opt/drupal` such that user id 33 can access them
 * Rebuild the dev docker image to also use 33 as the user id of the `www-data` user
 
 [run-tests.yml]: https://raw.githubusercontent.com/farmOS/farmOS/2.x/.github/workflows/run-tests.yml
-[docker-compose.testing.yml]: https://raw.githubusercontent.com/farmOS/farmOS/2.x/docker/docker-compose.testing.yml
+[docker-compose.testing.pgsql.yml]: https://raw.githubusercontent.com/farmOS/farmOS/2.x/docker/docker-compose.testing.pgsql.yml
+[MariaDB]: https://raw.githubusercontent.com/farmOS/farmOS/2.x/docker/docker-compose.testing.mariadb.yml
+[SQLite]: https://raw.githubusercontent.com/farmOS/farmOS/2.x/docker/docker-compose.testing.sqlite.yml
 [docker-compose.development.yml]: https://raw.githubusercontent.com/farmOS/farmOS/2.x/docker/docker-compose.development.yml
 
