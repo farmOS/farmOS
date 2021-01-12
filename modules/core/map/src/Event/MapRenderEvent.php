@@ -44,7 +44,8 @@ class MapRenderEvent extends Event {
   /**
    * Getter method to get the map target ID.
    *
-   * @return String
+   * @return string
+   *   The map target ID.
    */
   public function getMapTargetId() {
     return $this->element['#attributes']['id'];

@@ -7,25 +7,5 @@ dependencies:
 id: dashboard
 label: Dashboard
 description: 'The farmOS dashboard map.'
-behaviors:
-  - asset_type_layers
-options:
-  asset_type_layers:
-    land:
-      label: Land
-      asset_type: land
-      color: orange
-      group: Assets
-      zoom: true
-    water:
-      label: Water
-      asset_type: water
-      color: blue
-      group: Assets
-      zoom: true
-    structure:
-      label: Structure
-      asset_type: structure
-      color: red
-      group: Assets
-      zoom: true
+behaviors: { }
+options: { }

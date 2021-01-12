@@ -1,5 +1,7 @@
 services:
   farm_map.map_render_event_subscriber:
     class: Drupal\farm_map\EventSubscriber\MapRenderEventSubscriber
+    arguments:
+      [ '@entity_type.bundle.info' ]
     tags:
       - { name: 'event_subscriber' }
