@@ -102,7 +102,7 @@ class MapRenderEvent extends Event {
     if (!empty($this->element['#attached']['drupalSettings']['farm_map'])) {
       $existing = $this->element['#attached']['drupalSettings']['farm_map'];
     }
-    $this->element['#attached']['drupalSettings']['farm_map'] = array_merge_recursive($settings, $existing);
+    $this->element['#attached']['drupalSettings']['farm_map'] = array_replace_recursive($existing, $settings);
   }
 
   /**
