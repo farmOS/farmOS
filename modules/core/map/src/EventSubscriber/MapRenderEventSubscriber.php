@@ -59,6 +59,10 @@ class MapRenderEventSubscriber implements EventSubscriberInterface {
     // Add the WKT behavior if the render element has WKT.
     if (!empty($event->element['#map_settings']['wkt'])) {
       $event->addBehavior('wkt');
+
+      // Prevent zooming to the "All locations" layer if WKT is provided.
+      $settings[$event->getMapTargetId()]['asset_type_layers']['all_locations']['zoom'] = FALSE;
+      $event->addSettings($settings);
     }
 
     // Add the wkt and geofield behavior to the geofield_widget map.

@@ -33,10 +33,12 @@
       // Enable the line/polygon measure behavior.
       instance.addBehavior('measure', { layer: layer });
 
-      // If zoom is true and the layer has features, zoom to them.
+      // If the layer has features, zoom to them.
       // Otherwise, zoom to all vectors.
-      if (drupalSettings.farm_map[instance.target].behaviors.wkt.zoom && layer !== undefined) {
+      if (layer !== undefined) {
         instance.zoomToLayer(layer);
+      } else {
+        instance.zoomToVectors();
       }
     },
     weight: 100,
