@@ -144,6 +144,43 @@ function farm_entity_entity_base_field_info_alter(&$fields, EntityTypeInterface 
 }
 
 /**
+ * Implements hook_entity_field_storage_info_alter().
+ */
+function farm_entity_entity_field_storage_info_alter(&$fields, EntityTypeInterface $entity_type) {
+
+  // Bail if not a farm entity type that allows bundle plugins.
+  if (!in_array($entity_type->id(), ['log', 'asset', 'plan'])) {
+    return;
+  }
+
+  // Get all bundles of the entity type.
+  $bundles = \Drupal::service('entity_type.bundle.info')->getBundleInfo($entity_type->id());
+
+  // Get all modules that provide bundle fields.
+  $modules = \Drupal::moduleHandler()->getImplementations('farm_entity_bundle_field_info');
+
+  // Invoke the hook for each module with each bundle.
+  foreach ($modules as $module) {
+    foreach (array_keys($bundles) as $bundle) {
+      $definitions = \Drupal::moduleHandler()
+        ->invoke($module, 'farm_entity_bundle_field_info', [
+          $entity_type,
+          $bundle,
+        ]);
+
+      // Set the provider for each field the module provided.
+      // This is required so that field storage definitions are created in the
+      // database when the module is installed.
+      foreach (array_keys($definitions) as $field) {
+        if (isset($fields[$field])) {
+          $fields[$field]->setProvider($module);
+        }
+      }
+    }
+  }
+}
+
+/**
  * Implements hook_views_data_alter().
  */
 function farm_entity_views_data_alter(array &$data) {
