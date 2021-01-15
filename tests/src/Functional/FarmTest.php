@@ -14,6 +14,9 @@ class FarmTest extends FarmBrowserTestBase {
    */
   public function testFarm() {
 
+    // Testing GH action. This should break.
+    $this->assertEquals(0, 1);
+
     // Test that the profile was installed.
     $this->assertSame($this->profile, $this->container->getParameter('install_profile'));
 
