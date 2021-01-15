@@ -28,15 +28,23 @@ jobs:
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v2
-      - name: Set FARMOS_VERSION environment variable
-        run: echo "FARMOS_VERSION=${GITHUB_REF:11}" >> $GITHUB_ENV
+      - name: Set FARMOS_VERSION for push event.
+        if: ${{ !github.event.pull_request }}
+        run: |
+          echo "FARMOS_VERSION=${GITHUB_REF:11}" >> $GITHUB_ENV
+          echo "FARMOS_REPO=${GITHUB_REPOSITORY}" >> $GITHUB_ENV
+      - name: Set FARMOS_VERSION for pull request event.
+        if: ${{ github.event.pull_request }}
+        run: |
+          echo "FARMOS_VERSION=${GITHUB_HEAD_REF}" >> $GITHUB_ENV
+          echo "FARMOS_REPO=${{ github.event.pull_request.head.repo.full_name }}" >> $GITHUB_ENV
       - name: Build farmOS 2.x Docker image
-        run: docker build --build-arg FARMOS_REPO=https://github.com/${GITHUB_REPOSITORY} --build-arg FARMOS_VERSION=${FARMOS_VERSION} -t farmos/farmos:2.x docker
+        run: docker build --build-arg FARMOS_REPO=https://github.com/${FARMOS_REPO} --build-arg FARMOS_VERSION=${FARMOS_VERSION} -t farmos/farmos:2.x docker
       # This builds the dev Docker image using the specified FARMOS_VERSION,
       # but notably it does NOT override the default PROJECT_VERSION, so the
       # farmOS Composer project 2.x branch is always used.
       - name: Build farmOS 2.x-dev Docker image
-        run: docker build --build-arg FARMOS_REPO=https://github.com/${GITHUB_REPOSITORY} --build-arg FARMOS_VERSION=${FARMOS_VERSION} --build-arg WWW_DATA_ID=33 -t farmos/farmos:2.x-dev docker/dev
+        run: docker build --build-arg FARMOS_REPO=https://github.com/${FARMOS_REPO} --build-arg FARMOS_VERSION=${FARMOS_VERSION} --build-arg WWW_DATA_ID=33 -t farmos/farmos:2.x-dev docker/dev
       - name: Create docker-compose.yml
         run: cp docker/docker-compose.testing.${{ matrix.dbms }}.yml docker-compose.yml
       - name: Start containers
