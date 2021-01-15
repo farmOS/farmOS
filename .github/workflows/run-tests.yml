@@ -31,12 +31,12 @@ jobs:
       - name: Set FARMOS_VERSION for push event.
         if: ${{ !github.event.pull_request }}
         run: |
-          echo "FARMOS_VERSION=${GITHUB_REF:11}" >> $GITHUB_ENV
+          echo "FARMOS_VERSION=${GITHUB_REF:11}#${GITHUB_SHA}" >> $GITHUB_ENV
           echo "FARMOS_REPO=${GITHUB_REPOSITORY}" >> $GITHUB_ENV
       - name: Set FARMOS_VERSION for pull request event.
         if: ${{ github.event.pull_request }}
         run: |
-          echo "FARMOS_VERSION=${GITHUB_HEAD_REF}" >> $GITHUB_ENV
+          echo "FARMOS_VERSION=${GITHUB_HEAD_REF}#${{ github.event.pull_request.head.sha }}" >> $GITHUB_ENV
           echo "FARMOS_REPO=${{ github.event.pull_request.head.repo.full_name }}" >> $GITHUB_ENV
       - name: Build farmOS 2.x Docker image
         run: docker build --build-arg FARMOS_REPO=https://github.com/${FARMOS_REPO} --build-arg FARMOS_VERSION=${FARMOS_VERSION} -t farmos/farmos:2.x docker
