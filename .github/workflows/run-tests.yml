@@ -19,13 +19,15 @@ jobs:
          - mariadb
          - sqlite
         include:
-          - node: pgsql
+          - dbms: pgsql
             DB_URL: pgsql://farm:farm@db/farm
-          - node: mariadb
+          - dbms: mariadb
             DB_URL: mysql://farm:farm@db/farm
-          - node: sqlite
+          - dbms: sqlite
             DB_URL: sqlite://localhost/sites/default/files/db.sqlite
     steps:
+      - name: Print test matrix variables
+        run: echo "matrix.dbms=${{ matrix.dbms }}, matrix.DB_URL=${{ matrix.DB_URL }}"
       - name: Checkout the repository
         uses: actions/checkout@v2
       - name: Set FARMOS_VERSION for push event.
