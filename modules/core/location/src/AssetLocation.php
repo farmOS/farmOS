@@ -155,6 +155,11 @@ class AssetLocation implements AssetLocationInterface {
    */
   public function getMovementLog(AssetInterface $asset): ?LogInterface {
 
+    // If the asset is new, no movement logs will reference it.
+    if ($asset->isNew()) {
+      return NULL;
+    }
+
     // Query for movement logs that reference the asset.
     $options = [
       'asset' => $asset,
