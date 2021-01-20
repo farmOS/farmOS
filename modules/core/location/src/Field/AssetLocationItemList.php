@@ -24,7 +24,6 @@ class AssetLocationItemList extends EntityReferenceFieldItemList {
     $locations = \Drupal::service('asset.location')->getLocation($entity);
 
     // Update the assets current location values to match.
-    // @todo Invalidate/disable the entity cache for JSONAPI.
     // @todo Cache this field computation.
     foreach ($locations as $delta => $location) {
       if (!empty($location->id())) {

@@ -24,7 +24,6 @@ class AssetGeometryItemList extends FieldItemList {
     $geometry = \Drupal::service('asset.location')->getGeometry($entity);
 
     // Update the assets current geometry value to match.
-    // @todo Invalidate/disable the entity cache for JSONAPI.
     // @todo Cache this field computation.
     $this->list[0] = $this->createItem(0, $geometry);
   }
