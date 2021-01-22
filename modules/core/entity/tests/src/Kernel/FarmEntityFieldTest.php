@@ -96,8 +96,10 @@ class FarmEntityFieldTest extends KernelTestBase {
     // Get the log field storage definitions.
     $log_storage_definitions = $this->entityFieldManager->getFieldStorageDefinitions('log');
 
-    // Test that 'test_hook_bundle_field' has a storage definition.
+    // Test that 'test_hook_bundle_field' has a storage definition with the
+    // correct provider.
     $this->assertArrayHasKey('test_hook_bundle_field', $log_storage_definitions);
+    $this->assertEquals('farm_entity_test', $log_storage_definitions['test_hook_bundle_field']->getProvider());
 
     // Test fields definitions for the 'test' log type.
     $fields = $this->entityFieldManager->getFieldDefinitions('log', 'test');
@@ -117,8 +119,9 @@ class FarmEntityFieldTest extends KernelTestBase {
       $fields = $this->entityFieldManager->getFieldDefinitions('log', $bundle);
       $field_name = 'test_hook_bundle_' . $bundle . '_specific_field';
 
-      // Assert field storage definition exists.
+      // Assert field storage definition exists and has the correct provider.
       $this->assertArrayHasKey($field_name, $log_storage_definitions);
+      $this->assertEquals('farm_entity_test', $log_storage_definitions[$field_name]->getProvider());
 
       // Assert field definition for the bundle.
       $this->assertArrayHasKey($field_name, $fields);
