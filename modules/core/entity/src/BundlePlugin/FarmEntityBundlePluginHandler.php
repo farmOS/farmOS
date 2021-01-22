@@ -6,6 +6,8 @@ use Drupal\entity\BundlePlugin\BundlePluginHandler;
 
 /**
  * Extends BundlePluginHandler to invoke hook_farm_entity_bundle_field_info().
+ *
+ * @todo https://www.drupal.org/project/farm/issues/3194206
  */
 class FarmEntityBundlePluginHandler extends BundlePluginHandler {
 

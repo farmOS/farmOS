@@ -17,6 +17,8 @@
 /**
  * Allows modules to add field definitions to asset, log, and plan bundles.
  *
+ * @todo https://www.drupal.org/project/farm/issues/3194206
+ *
  * @param \Drupal\Core\Entity\EntityTypeInterface $entity_type
  *   The entity type object.
  * @param string $bundle

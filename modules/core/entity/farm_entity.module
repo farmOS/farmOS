@@ -145,6 +145,8 @@ function farm_entity_entity_base_field_info_alter(&$fields, EntityTypeInterface 
 
 /**
  * Implements hook_entity_field_storage_info_alter().
+ *
+ * @todo https://www.drupal.org/project/farm/issues/3194206
  */
 function farm_entity_entity_field_storage_info_alter(&$fields, EntityTypeInterface $entity_type) {
 
