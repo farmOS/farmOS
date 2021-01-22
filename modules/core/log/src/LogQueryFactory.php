@@ -65,7 +65,7 @@ class LogQueryFactory implements LogQueryFactoryInterface {
     }
 
     // If an asset is provided, only include logs that reference it.
-    if (isset($options['asset']) && !empty($options['asset']->id())) {
+    if (isset($options['asset'])) {
       $query->condition('asset.entity.id', $options['asset']->id());
     }
 
