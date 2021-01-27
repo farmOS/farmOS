@@ -165,7 +165,7 @@ function farm_crop_views_default_views() {
     t('Sort by'),
     t('Asc'),
     t('Desc'),
-    t('<h4>Hierarchy <small><a href="/admin/structure/taxonomy/farm_crops?destination=farm/assets/plantings/crops">(change)</a></small></h4>'),
+    t('<h4>Hierarchy <small>' . l('(change)', 'admin/structure/taxonomy/farm_crops', array('query' => array('destination' => 'farm/assets/plantings/crops'))) . '</small></h4>'),
     t('No crops/varieties found.'),
     t('Parent'),
     t('field_farm_crop'),
