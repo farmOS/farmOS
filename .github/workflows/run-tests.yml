@@ -1,5 +1,7 @@
 name: Run 2.x PHPUnit tests
 on:
+  schedule:
+    - cron: '0 8 * * *' # Run at 8AM UTC.
   push:
     branches:
       - '2.x'
