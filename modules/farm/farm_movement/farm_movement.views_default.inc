@@ -350,6 +350,7 @@ function farm_movement_views_default_views() {
   $handler->display->display_options['fields']['id']['table'] = 'farm_asset';
   $handler->display->display_options['fields']['id']['field'] = 'id';
   $handler->display->display_options['fields']['id']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['id']['separator'] = '';
   /* Field: Field: Geometry */
   $handler->display->display_options['fields']['field_farm_geofield']['id'] = 'field_farm_geofield';
   $handler->display->display_options['fields']['field_farm_geofield']['table'] = 'field_data_field_farm_geofield';
