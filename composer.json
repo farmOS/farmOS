@@ -23,6 +23,7 @@
         "drupal/csv_serialization": "^2.0@beta",
         "drupal/date_popup": "^1.1",
         "drupal/entity_reference_integrity": "^1.0@RC",
+        "drupal/entity_reference_revisions": "^1.8",
         "drupal/entity_reference_validators": "^1.0@alpha",
         "drupal/fraction": "2.x-dev",
         "drupal/geofield": "^1.15",

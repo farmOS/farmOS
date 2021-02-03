@@ -174,7 +174,7 @@ function farm_entity_log_base_fields() {
       ],
     ],
     'quantity' => [
-      'type' => 'entity_reference',
+      'type' => 'entity_reference_revisions',
       'label' => t('Quantity'),
       'description' => t('Add quantity measurements to this log.'),
       'target_type' => 'quantity',

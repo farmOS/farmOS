@@ -16,7 +16,7 @@ cck_plugin_method: null
 source:
   plugin: d7_farm_quantity
 destination:
-  plugin: 'entity:quantity'
+  plugin: 'entity_reference_revisions:quantity'
 process:
   measure: measure
   value/numerator: value_numerator
