@@ -1,0 +1,5 @@
+services:
+  farm_login.user.auth:
+    class: Drupal\farm_login\UserAuth
+    decorates: user.auth
+    arguments: ['@entity_type.manager', '@password']
