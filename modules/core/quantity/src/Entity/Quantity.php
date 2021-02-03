@@ -129,7 +129,7 @@ class Quantity extends RevisionableContentEntityBase implements QuantityInterfac
       ])
       ->setDisplayOptions('view', [
         'label' => 'hidden',
-        'type' => 'string',
+        'type' => 'list_default',
         'weight' => 0,
       ])
       ->setDisplayOptions('form', [
@@ -180,7 +180,11 @@ class Quantity extends RevisionableContentEntityBase implements QuantityInterfac
       ->setSetting('handler', 'default')
       ->setRevisionable(TRUE)
       ->setDisplayOptions('view', [
-        'type' => 'string',
+        'label' => 'hidden',
+        'type' => 'entity_reference_label',
+        'settings' => [
+          'link' => FALSE,
+        ],
         'weight' => 2,
       ])
       ->setDisplayOptions('form', [
