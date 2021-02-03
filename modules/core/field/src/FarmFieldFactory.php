@@ -320,11 +320,28 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
         ];
         $form_display_options = [
           'type' => 'inline_entity_form_complex',
+          'settings' => [
+            'form_mode' => 'default',
+            'revision' => FALSE,
+            'override_labels' => FALSE,
+            'label_singular' => '',
+            'label_plural' => '',
+            'collapsible' => FALSE,
+            'collapsed' => FALSE,
+            'allow_new' => TRUE,
+            'allow_existing' => FALSE,
+            'match_operator' => 'CONTAINS',
+            'allow_duplicate' => FALSE,
+          ],
           'weight' => $options['weight']['form'] ?? 0,
         ];
         $view_display_options = [
           'label' => 'inline',
-          'type' => 'string',
+          'type' => 'entity_reference_entity_view',
+          'settings' => [
+            'view_mode' => 'default',
+            'link' => FALSE,
+          ],
           'weight' => $options['weight']['view'] ?? 0,
         ];
         break;
