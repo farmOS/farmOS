@@ -6,3 +6,4 @@ core_version_requirement: ^9
 dependencies:
   - drupal:field
   - entity:entity
+  - inline_entity_form:inline_entity_form
