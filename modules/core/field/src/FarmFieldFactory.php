@@ -322,7 +322,7 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
           'type' => 'inline_entity_form_complex',
           'settings' => [
             'form_mode' => 'default',
-            'revision' => FALSE,
+            'revision' => TRUE,
             'override_labels' => FALSE,
             'label_singular' => '',
             'label_plural' => '',
