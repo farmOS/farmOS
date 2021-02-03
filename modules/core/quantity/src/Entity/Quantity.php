@@ -170,7 +170,13 @@ class Quantity extends RevisionableContentEntityBase implements QuantityInterfac
       ->setLabel(t('Units'))
       ->setDescription(t('Units of the quantity.'))
       ->setSetting('target_type', 'taxonomy_term')
-      ->setSetting('handler_settings', ['target_bundles' => ['unit' => 'unit']])
+      ->setSetting('handler_settings', [
+        'target_bundles' => [
+          'unit' => 'unit',
+        ],
+        'auto_create' => TRUE,
+        'auto_create_bundle' => 'unit',
+      ])
       ->setSetting('handler', 'default')
       ->setRevisionable(TRUE)
       ->setDisplayOptions('view', [
