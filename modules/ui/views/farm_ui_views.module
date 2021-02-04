@@ -7,6 +7,7 @@
 
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\views\ViewExecutable;
+use Drupal\views\Views;
 
 /**
  * Implements hook_farm_dashboard_panes().
@@ -90,11 +91,47 @@ function farm_ui_views_views_pre_view(ViewExecutable $view, $display_id, array &
     return;
   }
 
-  // If this is the "By type" display and a type is specified, remove the type
-  // field and filter handlers.
+  // Only alter the "By type" display if a type is provided.
   if ($display_id == 'page_type' && !empty($args[0])) {
+
+    // Remove the type field and filter handlers.
     $view->removeHandler($display_id, 'field', 'type');
     $view->removeHandler($display_id, 'filter', 'type');
+
+    // Get the entity and bundle.
+    $base_entity = $view->getBaseEntityType();
+    $bundle = $args[0];
+
+    /** @var \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager */
+    $entity_type_manager = \Drupal::entityTypeManager();
+
+    // If the entity type has a bundle_plugin manager, add all of its
+    // bundle fields to the page_type view.
+    if ($entity_type_manager->hasHandler($base_entity->id(), 'bundle_plugin')) {
+
+      /** @var \Drupal\Core\Entity\Sql\DefaultTableMapping $table_mapping */
+      $table_mapping = \Drupal::entityTypeManager()->getStorage($base_entity->id())->getTableMapping();
+
+      // Load bundle fields.
+      $bundle_fields = $entity_type_manager->getHandler($base_entity->id(), 'bundle_plugin')->getFieldDefinitions($bundle);
+      foreach ($bundle_fields as $field_name => $field_definition) {
+
+        // Get the field's table column (main property name).
+        $table = $table_mapping->getFieldTableName($field_name);
+        $property_name = $field_definition->getFieldStorageDefinition()->getMainPropertyName();
+
+        // Build the column and table names.
+        $column_name = $field_name . '_' . $property_name;
+        $views_option_name = $table . '.' . $column_name;
+
+        // Add a field handler if a views data field definition exists.
+        $field_options = Views::viewsDataHelper()->fetchFields($table, 'field');
+        if (isset($field_options[$views_option_name])) {
+          // Add bundle fields to the view.
+          $view->addHandler('page_type', 'field', $table, $column_name);
+        }
+      }
+    }
   }
 
   // If this is the "Upcoming" or "Late" Logs block display, add a "more" link
