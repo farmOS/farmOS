@@ -179,6 +179,14 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
     // Make the form and view displays configurable.
     $field->setDisplayConfigurable('form', TRUE);
     $field->setDisplayConfigurable('view', TRUE);
+
+    // Override form and view display options, if specified.
+    foreach (['form', 'view'] as $display_type) {
+      $key = $display_type . '_display_options';
+      if (isset($options[$key])) {
+        $field->setDisplayOptions($display_type, $options[$key]);
+      }
+    }
   }
 
   /**
