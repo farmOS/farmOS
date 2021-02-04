@@ -324,6 +324,13 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
           'auto_create' => FALSE,
           'auto_create_bundle' => '',
         ];
+
+        // Auto create term reference if auto_create_bundle is provided.
+        if (!empty($options['auto_create_bundle'])) {
+          $handler_settings['auto_create'] = TRUE;
+          $handler_settings['auto_create_bundle'] = $options['auto_create_bundle'];
+        }
+
         $form_display_options = [
           'type' => 'entity_reference_autocomplete',
           'weight' => $options['weight']['form'] ?? 0,
