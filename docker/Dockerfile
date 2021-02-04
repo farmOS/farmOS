@@ -2,8 +2,8 @@
 FROM drupal:7
 
 # Set the farmOS version to download.
-#ARG FARMOS_VERSION=7.x-1.7
-ARG FARMOS_VERSION=7.x-1.x-dev
+ARG FARMOS_VERSION=7.x-1.7
+#ARG FARMOS_VERSION=7.x-1.x-dev
 
 # Install the BCMath PHP extension.
 RUN docker-php-ext-install bcmath
