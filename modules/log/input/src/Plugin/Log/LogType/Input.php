@@ -39,6 +39,7 @@ class Input extends FarmLogType {
       'description' => $this->t('What materials are being applied?'),
       'target_type' => 'taxonomy_term',
       'target_bundle' => 'material',
+      'auto_create_bundle' => 'material',
       'multiple' => TRUE,
       'weight' => [
         'form' => -50,
