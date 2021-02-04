@@ -26,7 +26,7 @@ class Plant extends FarmAssetType {
         'description' => "Enter this plant asset's crop/variety.",
         'target_type' => 'taxonomy_term',
         'target_bundle' => 'plant_type',
-        'auto_create' => TRUE,
+        'auto_create_bundle' => 'plant_type',
         'required' => TRUE,
         'multiple' => TRUE,
         'weight' => [
@@ -40,7 +40,7 @@ class Plant extends FarmAssetType {
         'description' => $this->t('Assign this to a season for easier searching later.'),
         'target_type' => 'taxonomy_term',
         'target_bundle' => 'season',
-        'auto_create' => TRUE,
+        'auto_create_bundle' => 'season',
         'multiple' => TRUE,
         'weight' => [
           'form' => -50,
