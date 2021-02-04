@@ -240,6 +240,7 @@ fields are not listed here):
 - `seed_source` -> `source`
 - `soil_lab` -> `lab`
 - `water_lab` -> `lab`
+- `quantity` (see "Quantities" below)
 
 See also "Text format" above for information about the changes to the `format`
 parameter of long text fields.
@@ -313,6 +314,7 @@ vocabularies of terms. The vocabulary machine names have changed, to drop the
 - `farm_season` -> `season`
 - `farm_crops` -> `plant_type`
 - `farm_crop_families` -> `crop_family`
+- `farm_quantity_units` -> `unit`
 
 ### Areas
 
@@ -346,14 +348,14 @@ whether or not it is "fixed":
 
 ### Quantities
 
-In farmOS 1.x, log quantities were saved within separate field collection
-entities. farmOS used the RESTful Web Services Field Collection module to
-hide the fact that these were separate entities, allowing their field to be
-accessed and modified in the same request to the host entity.
+In farmOS 1.x, log quantities were saved within separate Field Collection
+entities. farmOS used the [RESTful Web Services Field Collection](https://drupal.org/project/restws_field_collection)
+module to  hide the fact that these were separate entities, allowing their
+field to be accessed and modified in the same request to the host entity.
 
-In farmOS 2.x, log quantities are separate `quantity` entities. This means that
-they are a separate JSONAPI resource `quantity--quantity` and are included in
-the `relationships` property on `logs`. This means that adding quantities to a
-new or existing log, they must be created in a separate API request before they
-can be referenced by the log. Quantities still have `measure`, `value`, `unit`
-and `label` fields.
+In farmOS 2.x, quantities are represented as `quantity` entities. These are
+referenced under a log's `relationships` in JSON:API, and have a JSON:API
+resource name of `quantity--quantity`. In order to add a quantity to a new or
+existing log, they must be created in a separate API request before they can be
+referenced by the log. Quantities still have `measure`, `value`, `unit` and
+`label` fields.
