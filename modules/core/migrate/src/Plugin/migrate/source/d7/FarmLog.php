@@ -141,60 +141,19 @@ class FarmLog extends Log {
     // Set the "is_movement" property for use in migrations.
     $row->setSourceProperty('is_movement', $is_movement);
 
-    // Get values from the log that will be inherited to created quantities.
-    $log_uid = $row->getSourceProperty('uid');
-    $log_created = $row->getSourceProperty('created');
-    $log_changed = $row->getSourceProperty('changed');
-
     // Get quantity log field value.
     $quantity_values = $this->getFieldvalues('log', 'field_farm_quantity', $id);
 
     // Iterate through quantity field values to collect field collection IDs.
-    $quantity_field_collection_item_ids = [];
+    $quantity_ids = [];
     foreach ($quantity_values as $quantity_value) {
       if (!empty($quantity_value['value'])) {
-        $quantity_field_collection_item_ids[] = $quantity_value['value'];
+        $quantity_ids[] = $quantity_value['value'];
       }
     }
 
-    // Iterate through the field collection IDs and load values.
-    $log_quantities = [];
-    foreach ($quantity_field_collection_item_ids as $item_id) {
-      $query = $this->select('field_collection_item', 'fci')
-        ->condition('fci.item_id', $item_id)
-        ->condition('fci.field_name', 'field_farm_quantity');
-
-      // Join the quantity label field.
-      $query->leftJoin('field_data_field_farm_quantity_label', 'fdffql', 'fdffql.entity_id = fci.item_id AND fdffql.deleted = 0');
-      $query->addField('fdffql', 'field_farm_quantity_label_value', 'label');
-
-      // Join the quantity measure field.
-      $query->leftJoin('field_data_field_farm_quantity_measure', 'fdffqm', 'fdffqm.entity_id = fci.item_id AND fdffqm.deleted = 0');
-      $query->addField('fdffqm', 'field_farm_quantity_measure_value', 'measure');
-
-      // Join the quantity units field.
-      $query->leftJoin('field_data_field_farm_quantity_units', 'fdffqu', 'fdffqu.entity_id = fci.item_id AND fdffqu.deleted = 0');
-      $query->addField('fdffqu', 'field_farm_quantity_units_tid', 'units');
-
-      // Join the quantity value field.
-      $query->leftJoin('field_data_field_farm_quantity_value', 'fdffqv', 'fdffqv.entity_id = fci.item_id AND fdffqv.deleted = 0');
-      $query->addField('fdffqv', 'field_farm_quantity_value_numerator', 'value_numerator');
-      $query->addField('fdffqv', 'field_farm_quantity_value_denominator', 'value_denominator');
-
-      // Execute the query.
-      $quantity_data = $query->execute()->fetchAssoc();
-
-      // Add values to inherit from the log.
-      $quantity_data['uid'] = $log_uid;
-      $quantity_data['created'] = $log_created;
-      $quantity_data['changed'] = $log_changed;
-
-      // Save the quantity to be created later.
-      $log_quantities[] = $quantity_data;
-    }
-
-    // Add the quantity logs to the row for future processing.
-    $row->setSourceProperty('log_quantities', $log_quantities);
+    // Add the quantity IDs to the row for future processing.
+    $row->setSourceProperty('log_quantities', $quantity_ids);
 
     return parent::prepareRow($row);
   }

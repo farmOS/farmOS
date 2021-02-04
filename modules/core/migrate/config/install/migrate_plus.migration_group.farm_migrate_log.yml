@@ -136,41 +136,16 @@ shared_configuration:
         title: title
         width: width
         height: height
-    # Create a quantity for each quantity field collection.
     quantity:
-      plugin: sub_process
-      source: log_quantities
-      process:
-        # Save the uid as a pseudo value.
-        _uid:
-          plugin: migration_lookup
-          migration: farm_migrate_user
-          source: uid
-          no_stub: true
-        # Save the units term as a pseudo value.
-        _units:
-          plugin: migration_lookup
-          migration: farm_migrate_taxonomy_unit
-          source: units
-          no_stub: true
-        # Create a quantity and save the ID.
-        target_id:
-          plugin: create_quantity
-          values:
-            uid: '@_uid'
-            created: created
-            changed: changed
-            units: '@_units'
-            label: label
-            measure: measure
-            value/numerator: value_numerator
-            value/denominator: value_denominator
+      plugin: migration_lookup
+      migration: farm_migrate_quantity
+      source: field_farm_quantity
   migration_dependencies:
     required:
       - farm_migrate_file
       - farm_migrate_file_private
       - farm_migrate_user
       - farm_migrate_taxonomy_log_category
-      - farm_migrate_taxonomy_unit
+      - farm_migrate_quantity
     optional:
       - farm_migrate_asset_equipment
