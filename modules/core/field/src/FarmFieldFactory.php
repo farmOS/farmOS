@@ -333,10 +333,10 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
           'auto_create_bundle' => '',
         ];
 
-        // Auto create term reference if auto_create_bundle is provided.
-        if (!empty($options['auto_create_bundle'])) {
+        // Auto create term reference if auto_create is enabled.
+        if (!empty($options['auto_create'])) {
           $handler_settings['auto_create'] = TRUE;
-          $handler_settings['auto_create_bundle'] = $options['auto_create_bundle'];
+          $handler_settings['auto_create_bundle'] = $options['target_bundle'];
         }
 
         $form_display_options = [
