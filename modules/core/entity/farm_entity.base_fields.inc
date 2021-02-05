@@ -114,8 +114,11 @@ function farm_entity_log_base_fields() {
       'target_bundle' => 'log_category',
       'multiple' => TRUE,
       'weight' => [
-        'form' => 10,
         'view' => 80,
+      ],
+      'form_display_options' => [
+        'type' => 'options_select',
+        'weight' => 10,
       ],
     ],
     'data' => [

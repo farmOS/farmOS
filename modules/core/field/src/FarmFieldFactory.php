@@ -183,6 +183,14 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
     // Make the form and view displays configurable.
     $field->setDisplayConfigurable('form', TRUE);
     $field->setDisplayConfigurable('view', TRUE);
+
+    // Override form and view display options, if specified.
+    foreach (['form', 'view'] as $display_type) {
+      $key = $display_type . '_display_options';
+      if (isset($options[$key])) {
+        $field->setDisplayOptions($display_type, $options[$key]);
+      }
+    }
   }
 
   /**
@@ -324,6 +332,13 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
           'auto_create' => FALSE,
           'auto_create_bundle' => '',
         ];
+
+        // Auto create term reference if auto_create is enabled.
+        if (!empty($options['auto_create'])) {
+          $handler_settings['auto_create'] = TRUE;
+          $handler_settings['auto_create_bundle'] = $options['target_bundle'];
+        }
+
         $form_display_options = [
           'type' => 'entity_reference_autocomplete',
           'weight' => $options['weight']['form'] ?? 0,
