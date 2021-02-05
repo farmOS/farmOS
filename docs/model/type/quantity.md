@@ -10,7 +10,14 @@ relation to [Assets](/model/type/asset), etc.
 
 ## Type
 
-Currently there is only one type of Quantity.
+Each Quantity must have a type. All Quantity types have a common set of
+attributes and relationships. Specific Quantity types (also called "bundles")
+may also add additional attributes and relationships (collectively referred to
+as "fields"). Quantity types are defined by modules, and are only available if
+their module is enabled. The modules included with farmOS define the following
+Quantity types:
+
+- Standard
 
 ## ID
 
@@ -79,3 +86,12 @@ Relationships that are common to all Quantity types include:
 
 The Unit of measurement is stored as a [Term](/model/type/term) in the Units
 vocabulary.
+
+## Type-specific fields
+
+In addition to the fields that are common to all Quantity types described
+above, some types add additional type-specific fields. These include:
+
+#### Standard Quantities
+
+Standard Quantities do not define any type-specific fields.
