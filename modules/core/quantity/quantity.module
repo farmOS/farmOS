@@ -77,3 +77,18 @@ function quantity_measure_options() {
   // Return the array of options.
   return $options;
 }
+
+/**
+ * Implements hook_theme().
+ */
+function quantity_theme() {
+  return [
+    'quantity' => [
+      'render element' => 'elements',
+    ],
+    'field__quantity__quantity' => [
+      'template' => 'field--quantity--quantity',
+      'base hook' => 'field',
+    ],
+  ];
+}
