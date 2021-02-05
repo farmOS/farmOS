@@ -6,14 +6,14 @@ use Drupal\Core\Cache\CacheTagsInvalidatorInterface;
 use Drupal\farm_location\AssetLocationInterface;
 use Drupal\farm_location\LogLocationInterface;
 use Drupal\farm_location\Traits\WktTrait;
-use Drupal\farm_log\Event\LogPresaveEvent;
+use Drupal\farm_log\Event\LogEvent;
 use Drupal\log\Entity\LogInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Perform actions on log presave.
  */
-class LogPresaveEventSubscriber implements EventSubscriberInterface {
+class LogEventSubscriber implements EventSubscriberInterface {
 
   use WktTrait;
 
@@ -39,7 +39,7 @@ class LogPresaveEventSubscriber implements EventSubscriberInterface {
   protected CacheTagsInvalidatorInterface $cacheTagsInvalidator;
 
   /**
-   * LogPresaveEventSubscriber Constructor.
+   * LogEventSubscriber Constructor.
    *
    * @param \Drupal\farm_location\LogLocationInterface $log_location
    *   Log location service.
@@ -62,17 +62,17 @@ class LogPresaveEventSubscriber implements EventSubscriberInterface {
    */
   public static function getSubscribedEvents() {
     return [
-      LogPresaveEvent::PRESAVE => 'logPresave',
+      LogEvent::PRESAVE => 'logPresave',
     ];
   }
 
   /**
    * Perform actions on log presave.
    *
-   * @param \Drupal\farm_log\Event\LogPresaveEvent $event
+   * @param \Drupal\farm_log\Event\LogEvent $event
    *   Config crud event.
    */
-  public function logPresave(LogPresaveEvent $event) {
+  public function logPresave(LogEvent $event) {
 
     // Get the log entity from the event.
     $log = $event->log;

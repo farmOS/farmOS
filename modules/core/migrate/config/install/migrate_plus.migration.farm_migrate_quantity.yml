@@ -1,0 +1,37 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_migrate
+id: farm_migrate_quantity
+label: 'Quantities'
+migration_group: farm_migrate_quantity
+migration_tags:
+  - 'Drupal 7'
+  - 'farmOS 1.x'
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: null
+cck_plugin_method: null
+source:
+  plugin: d7_farm_quantity
+destination:
+  plugin: 'entity_reference_revisions:quantity'
+process:
+  measure: measure
+  value/numerator: value_numerator
+  value/denominator: value_denominator
+  units:
+    plugin: migration_lookup
+    migration: farm_migrate_taxonomy_unit
+    source: units
+  label: label
+  uid:
+    plugin: migration_lookup
+    migration: farm_migrate_user
+    source: uid
+migration_dependencies:
+  required:
+    - farm_migrate_user
+    - farm_migrate_taxonomy_unit
+  optional: {  }

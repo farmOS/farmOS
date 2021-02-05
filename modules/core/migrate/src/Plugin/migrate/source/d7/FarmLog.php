@@ -11,6 +11,9 @@ use Drupal\migrate\Row;
 /**
  * Log source from database.
  *
+ * Extends the Log source plugin to include source properties needed for the
+ * farmOS migration.
+ *
  * @MigrateSource(
  *   id = "d7_farm_log",
  *   source_module = "log"
@@ -137,6 +140,20 @@ class FarmLog extends Log {
 
     // Set the "is_movement" property for use in migrations.
     $row->setSourceProperty('is_movement', $is_movement);
+
+    // Get quantity log field value.
+    $quantity_values = $this->getFieldvalues('log', 'field_farm_quantity', $id);
+
+    // Iterate through quantity field values to collect field collection IDs.
+    $quantity_ids = [];
+    foreach ($quantity_values as $quantity_value) {
+      if (!empty($quantity_value['value'])) {
+        $quantity_ids[] = $quantity_value['value'];
+      }
+    }
+
+    // Add the quantity IDs to the row for future processing.
+    $row->setSourceProperty('log_quantities', $quantity_ids);
 
     return parent::prepareRow($row);
   }

@@ -173,6 +173,17 @@ function farm_entity_log_base_fields() {
         'view' => -70,
       ],
     ],
+    'quantity' => [
+      'type' => 'entity_reference_revisions',
+      'label' => t('Quantity'),
+      'description' => t('Add quantity measurements to this log.'),
+      'target_type' => 'quantity',
+      'multiple' => TRUE,
+      'weight' => [
+        'form' => 0,
+        'view' => 0,
+      ],
+    ],
   ];
   $fields = [];
   foreach ($field_info as $name => $info) {

@@ -1,0 +1,5 @@
+<div{{ attributes.addClass('quantity') }}>
+  {% if elements.label %}<strong>{{ elements.label }}</strong>{% endif %}
+  {% if elements.measure %}({{ elements.measure }}){% endif %}
+  {{ elements.value }} {{ elements.units }}
+</div>

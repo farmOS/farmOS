@@ -125,6 +125,10 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
         $this->modifyEntityReferenceField($field, $options);
         break;
 
+      case 'entity_reference_revisions':
+        $this->modifyEntityReferenceRevisionsField($field, $options);
+        break;
+
       case 'file':
       case 'image':
         $this->modifyFileField($field, $options);
@@ -359,6 +363,81 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
           'settings' => [
             'link' => TRUE,
           ],
+        ];
+        break;
+
+      // Otherwise, throw an exception.
+      default:
+        throw new FieldException('Unsupported target_type.');
+    }
+
+    // Set the handler and handler settings.
+    $field->setSetting('handler', $handler);
+    $field->setSetting('handler_settings', $handler_settings);
+
+    // Set form and view display options.
+    $field->setDisplayOptions('form', $form_display_options);
+    $field->setDisplayOptions('view', $view_display_options);
+  }
+
+  /**
+   * Entity reference revisions field modifier.
+   *
+   * @param \Drupal\Core\Field\BaseFieldDefinition &$field
+   *   A base field definition object.
+   * @param array $options
+   *   An array of options.
+   */
+  protected function modifyEntityReferenceRevisionsField(BaseFieldDefinition &$field, array $options = []) {
+
+    // If a target type is not specified, throw an exception.
+    if (empty($options['target_type'])) {
+      throw new FieldException('No target_type was specified.');
+    }
+
+    // Set the target type.
+    $field->setSetting('target_type', $options['target_type']);
+
+    // Build additional settings based on the target type.
+    switch ($options['target_type']) {
+
+      // Quantity reference.
+      case 'quantity':
+        $handler = 'default:quantity';
+        $handler_settings = [
+          'target_bundles' => NULL,
+          'sort' => [
+            'field' => 'label',
+            'direction' => 'asc',
+          ],
+          'auto_create' => FALSE,
+          'auto_create_bundle' => '',
+        ];
+        $form_display_options = [
+          'type' => 'inline_entity_form_complex',
+          'settings' => [
+            'form_mode' => 'default',
+            'revision' => TRUE,
+            'override_labels' => FALSE,
+            'label_singular' => '',
+            'label_plural' => '',
+            'collapsible' => FALSE,
+            'collapsed' => FALSE,
+            'allow_new' => TRUE,
+            'allow_existing' => FALSE,
+            'match_operator' => 'CONTAINS',
+            'allow_duplicate' => FALSE,
+          ],
+          'weight' => $options['weight']['form'] ?? 0,
+        ];
+        $view_display_options = [
+          'label' => 'inline',
+          'type' => 'entity_reference_revisions_entity_view',
+          'settings' => [
+            'view_mode' => 'default',
+            'link' => FALSE,
+          ],
+          'weight' => $options['weight']['view'] ?? 0,
         ];
         break;
 

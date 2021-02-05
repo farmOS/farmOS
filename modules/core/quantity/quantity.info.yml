@@ -1,0 +1,11 @@
+name: Quantity
+description: Provides an entity to store quantity measurements.
+type: module
+package: farmOS
+core_version_requirement: ^9
+dependencies:
+  - entity:entity
+  - drupal:text
+  - drupal:user
+  - farm:farm_unit
+  - fraction:fraction

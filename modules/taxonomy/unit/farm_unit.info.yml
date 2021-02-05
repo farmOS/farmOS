@@ -1,0 +1,7 @@
+name: Units vocabulary
+description: Provides a Units vocabulary.
+type: module
+package: farmOS Taxonomies
+core_version_requirement: ^9
+dependencies:
+  - drupal:taxonomy

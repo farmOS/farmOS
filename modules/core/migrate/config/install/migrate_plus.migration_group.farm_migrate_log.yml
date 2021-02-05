@@ -136,11 +136,23 @@ shared_configuration:
         title: title
         width: width
         height: height
+    quantity:
+      -
+        plugin: migration_lookup
+        migration: farm_migrate_quantity
+        source: log_quantities
+        no_stub: true
+      -
+        plugin: sub_process
+        process:
+          target_id: '0'
+          target_revision_id: '1'
   migration_dependencies:
     required:
       - farm_migrate_file
       - farm_migrate_file_private
       - farm_migrate_user
       - farm_migrate_taxonomy_log_category
+      - farm_migrate_quantity
     optional:
       - farm_migrate_asset_equipment
