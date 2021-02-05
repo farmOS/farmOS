@@ -5,6 +5,7 @@
  * Hooks and customizations for the asset module.
  */
 
+use Drupal\Core\Render\Element;
 use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
@@ -21,4 +22,52 @@ function asset_help($route_name, RouteMatchInterface $route_match) {
   }
 
   return $output;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function asset_theme() {
+  return [
+    'asset' => [
+      'render element' => 'elements',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function asset_theme_suggestions_asset(array $variables) {
+  $suggestions = [];
+  $asset = $variables['elements']['#asset'];
+  $sanitized_view_mode = strtr($variables['elements']['#view_mode'], '.', '_');
+
+  $suggestions[] = 'asset__' . $sanitized_view_mode;
+  $suggestions[] = 'asset__' . $asset->bundle();
+  $suggestions[] = 'asset__' . $asset->bundle() . '__' . $sanitized_view_mode;
+  $suggestions[] = 'asset__' . $asset->id();
+  $suggestions[] = 'asset__' . $asset->id() . '__' . $sanitized_view_mode;
+
+  return $suggestions;
+}
+
+/**
+ * Prepares variables for asset templates.
+ *
+ * Default template: asset.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An associative array containing the asset information and any
+ *     fields attached to the asset. Properties used:
+ *     - #asset: A \Drupal\asset\Entity\Asset object. The asset entity.
+ *   - attributes: HTML attributes for the containing element.
+ */
+function template_preprocess_asset(array &$variables) {
+  $variables['asset'] = $variables['elements']['#asset'];
+  // Helpful $content variable for templates.
+  foreach (Element::children($variables['elements']) as $key) {
+    $variables['content'][$key] = $variables['elements'][$key];
+  }
 }
