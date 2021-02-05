@@ -1,0 +1,7 @@
+name: farmOS Login
+description: Allows users to login via username and email.
+type: module
+package: farmOS
+core_version_requirement: ^9
+dependencies:
+  - drupal:user
