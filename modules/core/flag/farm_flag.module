@@ -48,3 +48,42 @@ function farm_flag_field_allowed_values() {
   }
   return $allowed_values;
 }
+
+/**
+ * Implements hook_theme().
+ */
+function farm_flag_theme() {
+  return [
+    'field__flag' => [
+      'base hook' => 'field',
+    ],
+  ];
+}
+
+/**
+ * Prepares variables for field--flag templates.
+ *
+ * Adds classes to each flag wrapper.
+ *
+ * Default template: field--flag.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - element: An associative array containing render arrays for the list of
+ *     flags.
+ */
+function template_preprocess_field__flag(array &$variables) {
+
+  // Preprocess list_string flag fields.
+  if ($variables['element']['#field_type'] == 'list_string') {
+
+    /** @var \Drupal\Core\Field\FieldItemListInterface $items */
+    $items = $variables['element']['#items'];
+
+    // Add classes to each flag.
+    foreach ($items as $key => $list_item) {
+      $classes = ['flag', 'flag--' . $list_item->getString()];
+      $variables['items'][$key]['attributes']->addClass($classes);
+    }
+  }
+}
