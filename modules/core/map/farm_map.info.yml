@@ -1,5 +1,5 @@
 name: farmOS Map
-description: Provides farm map features.
+description: Provides farmOS map features.
 type: module
 package: farmOS
 core_version_requirement: ^9
