@@ -9,6 +9,11 @@
         },
       };
       context.querySelectorAll('.farm-map').forEach(function (element) {
+
+        // Only create a map once per element.
+        if (element.getAttribute('processed')) return;
+        element.setAttribute('processed', true);
+
         element.setAttribute('tabIndex', 0);
         const mapId = element.getAttribute('id');
         const mapOptions = { ...defaultOptions, ...drupalSettings.farm_map[mapId].instance};
