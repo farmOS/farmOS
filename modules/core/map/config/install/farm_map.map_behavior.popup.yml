@@ -8,4 +8,4 @@ id: popup
 label: Popup
 description: 'Creates popups on the map when features are selected.'
 library: 'farm_map/behavior_popup'
-settings: { }
+settings: {  }

@@ -7,4 +7,4 @@ dependencies:
 id: dashboard
 label: Dashboard
 description: 'The farmOS dashboard map.'
-options: { }
+options: {  }

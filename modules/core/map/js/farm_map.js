@@ -14,7 +14,9 @@
         const mapOptions = { ...defaultOptions, ...drupalSettings.farm_map[mapId].instance};
         farmOS.map.create(mapId, mapOptions);
         context.querySelectorAll('.ol-popup-closer').forEach(function (element) {
-          element.onClick = function (element) { element.focus() };
+          element.onClick = function (element) {
+            element.focus();
+          };
         });
       });
     }
