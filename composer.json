@@ -56,6 +56,9 @@
             "drupal/entity": {
                 "Issue #3190436: EntityViewsData Column information not available for computed entity reference fields": "https://www.drupal.org/files/issues/2020-12-30/3190436-2.patch"
             },
+            "drupal/gin": {
+                "Issue #3197363: Dispatch event when the toolbar is toggled": "https://git.drupalcode.org/project/gin/-/merge_requests/15.patch"
+            },
             "drupal/simple_oauth": {
                 "Issue #3173947: Cannot authorize non-confidential clients": "https://www.drupal.org/files/issues/2020-09-29/3173947-2.patch",
                 "Issue #3167287: Always load clients through the Client Repository service": "https://www.drupal.org/files/issues/2020-09-29/3167287-9.patch",
