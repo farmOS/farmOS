@@ -7,4 +7,5 @@ dependencies:
   - drupal:field
   - entity:entity
   - entity_reference_revisions:entity_reference_revisions
+  - farm:farm_map
   - inline_entity_form:inline_entity_form
