@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_map
+id: geofield
+label: Geofield
+description: 'Copies map layer data into a form textarea.'
+library: 'farm_map/behavior_geofield'
+settings: {  }

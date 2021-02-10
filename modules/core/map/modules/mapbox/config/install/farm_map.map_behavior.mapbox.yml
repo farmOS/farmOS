@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_map_mapbox
+id: mapbox
+label: Mapbox
+description: 'Displays Mapbox layers.'
+library: 'farm_map_mapbox/mapbox'
+settings: {  }

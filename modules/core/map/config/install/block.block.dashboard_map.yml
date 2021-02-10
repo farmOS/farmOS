@@ -1,0 +1,20 @@
+langcode: en
+status: false
+dependencies:
+  module:
+    - farm_map
+  theme:
+    - claro
+id: dashboard_map
+theme: claro
+region: content
+weight: -100
+provider: null
+plugin: map_block
+settings:
+  id: dashboard_map
+  map_type: dashboard
+  label: 'Dashboard map'
+  provider: farm_map
+  label_display: '0'
+visibility: {  }

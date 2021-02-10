@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_map
+id: wkt
+label: WKT
+description: 'Displays WKT as a map layer.'
+library: 'farm_map/behavior_wkt'
+settings: {  }

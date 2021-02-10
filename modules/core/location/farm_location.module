@@ -13,7 +13,7 @@ use Drupal\Core\Form\FormStateInterface;
 /**
  * Implements hook_field_widget_WIDGET_TYPE_form_alter().
  */
-function farm_location_field_widget_geofield_default_form_alter(&$element, FormStateInterface $form_state, $context) {
+function farm_location_field_widget_farm_map_geofield_form_alter(&$element, FormStateInterface $form_state, $context) {
 
   // Get the entity and field name.
   $entity = $context['items']->getEntity();

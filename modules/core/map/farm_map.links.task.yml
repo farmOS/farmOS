@@ -1,0 +1,12 @@
+farm_map.settings:
+  base_route: farm_settings.settings_page
+  route_name: farm_map.settings
+  title: 'Map'
+  weight: 5
+
+# Provide a default sub tab.
+farm_map.settings_sub:
+  title: 'Map'
+  route_name: farm_map.settings
+  parent_id: farm_map.settings
+  weight: -5

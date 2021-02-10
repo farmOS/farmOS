@@ -34,7 +34,7 @@ function farm_modules() {
       'farm_login' => t('Login with username or email.'),
       'farm_api' => t('farmOS API'),
       'farm_dashboard' => t('farmOS Dashboard'),
-      'farm_ui' => t('Farm UI'),
+      'farm_ui' => t('farmOS UI'),
     ],
     'optional' => [
       'farm_sensor' => t('Sensor assets'),

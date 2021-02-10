@@ -580,12 +580,12 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
 
     // Build form and view display settings.
     $field->setDisplayOptions('form', [
-      'type' => 'geofield_default',
+      'type' => 'farm_map_geofield',
       'weight' => $options['weight']['form'] ?? 0,
     ]);
     $field->setDisplayOptions('view', [
       'label' => 'inline',
-      'type' => 'geofield_default',
+      'type' => 'farm_map_geofield',
       'settings' => [
         'output_format' => 'wkt',
         'output_escape' => TRUE,

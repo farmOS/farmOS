@@ -1,0 +1,4 @@
+farm_map_mapbox.settings:
+  title: 'Mapbox'
+  route_name: farm_map_mapbox.settings
+  parent_id: farm_map.settings

@@ -1,0 +1,37 @@
+farmOS-map:
+  version: 1.4.1
+  remote: https://github.com/farmOS/farmOS-map
+  license:
+    name: MIT
+    url: https://github.com/farmOS/farmOS-map/blob/master/LICENSE
+    gpl-compatible: true
+  js:
+    /libraries/farmOS-map/dist/farmOS-map.js:
+      minified: true
+  dependencies:
+    - core/drupalSettings
+
+farm_map:
+  css:
+    theme:
+      css/farm_map.css: { }
+  js:
+    js/farm_map.js: { }
+  dependencies:
+    - farm_map/farmOS-map
+behavior_wkt:
+  js:
+    js/farmOS.map.behaviors.wkt.js: { }
+  dependencies:
+    - core/drupalSettings
+    - farm_map/farm_map
+behavior_geofield:
+  js:
+    js/farmOS.map.behaviors.geofield.js: { }
+  dependencies:
+    - farm_map/farm_map
+behavior_popup:
+  js:
+    js/farmOS.map.behaviors.popup.js: { }
+  dependencies:
+    - farm_map/farm_map

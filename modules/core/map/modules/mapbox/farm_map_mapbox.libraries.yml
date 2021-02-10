@@ -1,0 +1,6 @@
+mapbox:
+  js:
+    js/farmOS.map.behaviors.mapbox.js: { }
+  dependencies:
+    - core/drupalSettings
+    - farm_map/farmOS-map

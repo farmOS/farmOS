@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_map
+id: geofield
+label: Geofield
+description: 'Renders geofield using farmOS-map.'
+options: {  }

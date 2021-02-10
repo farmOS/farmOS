@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_map
+id: default
+label: Default
+description: 'The default farmOS map.'
+options: {  }
