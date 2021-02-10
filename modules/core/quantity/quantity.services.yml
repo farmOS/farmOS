@@ -1,0 +1,7 @@
+services:
+  quantity_event_subscriber:
+    class: '\Drupal\quantity\EventSubscriber\MapRenderEventSubscriber'
+    arguments:
+      - '@config.factory'
+    tags:
+      - { name: 'event_subscriber' }
