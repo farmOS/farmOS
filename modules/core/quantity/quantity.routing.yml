@@ -1,0 +1,7 @@
+quantity.settings:
+  path: 'farm/settings/quantity'
+  defaults:
+    _form: '\Drupal\quantity\Form\QuantitySettingsForm'
+    _title: 'Quantity settings'
+  requirements:
+    _permission: 'administer quantity'
