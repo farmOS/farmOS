@@ -25,6 +25,8 @@
         });
         // If the map is inside a details element, update the map size when
         // the details element is toggled.
+        // @todo This is specific to the patched Gin theme.
+        // See https://www.drupal.org/project/gin/issues/3197363
         const details = element.closest('details');
         if (details != null) {
           details.addEventListener('toggle', function() {
