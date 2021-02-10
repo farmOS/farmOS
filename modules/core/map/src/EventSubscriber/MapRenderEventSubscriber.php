@@ -50,6 +50,9 @@ class MapRenderEventSubscriber implements EventSubscriberInterface {
    */
   public function onMapRender(MapRenderEvent $event) {
 
+    // Add the map type cache tags.
+    $event->addCacheTags($event->getMapType()->getCacheTags());
+
     // Include map behaviors defined by the map type.
     $map_behaviors = $event->getMapType()->getMapBehaviors();
     foreach ($map_behaviors as $behavior) {
