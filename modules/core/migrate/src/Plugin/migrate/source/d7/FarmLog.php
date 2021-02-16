@@ -25,6 +25,11 @@ class FarmLog extends Log {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
+    $result = parent::prepareRow($row);
+    if (!$result) {
+      return FALSE;
+    }
+
     $id = $row->getSourceProperty('id');
 
     // Determine if we will allow overwriting "Areas" and "Geometry" fields on
@@ -153,7 +158,8 @@ class FarmLog extends Log {
     // Add the quantity IDs to the row for future processing.
     $row->setSourceProperty('log_quantities', $quantity_ids);
 
-    return parent::prepareRow($row);
+    // Return success.
+    return TRUE;
   }
 
 }
