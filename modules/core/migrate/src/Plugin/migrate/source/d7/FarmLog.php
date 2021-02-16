@@ -34,14 +34,11 @@ class FarmLog extends Log {
     // By default, logs are not movements.
     $is_movement = FALSE;
 
-    // Get movement field value.
-    $movement_value = $this->getFieldValues('log', 'field_farm_movement', $id);
+    // Get movement field values.
+    $movement_values = $this->getFieldValues('log', 'field_farm_movement', $id);
 
     // If the log has a movement, load the Field Collection.
-    if (!empty($movement_value)) {
-
-      // Get movement field collection values.
-      $movement_values = $this->getFieldValues('log', 'field_farm_movement', $id);
+    if (!empty($movement_values)) {
 
       // Iterate through movement field values to collect field collection item
       // IDs.
