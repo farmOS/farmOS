@@ -58,24 +58,24 @@ class FarmLog extends Log {
 
       // Query the movement area references.
       $query = $this->select('field_collection_item', 'fci');
-      $query->leftJoin('field_data_field_farm_move_to', 'fdffmt', 'fdffmt.entity_id = fci.item_id AND fdffmt.deleted = 0');
+      $query->leftJoin('field_data_field_farm_move_to', 'fdffmt', "fdffmt.entity_id = fci.item_id AND fdffmt.entity_type = 'field_collection_item' AND fdffmt.bundle = 'field_farm_movement' AND fdffmt.deleted = 0");
       $query->addField('fdffmt', 'field_farm_move_to_tid', 'tid');
       $query->condition('fci.item_id', $fcid);
-      $query->condition('fci.field_name', 'field_farm_movement');
       $result = $query->execute()->fetchCol();
       $movement_areas = FALSE;
       if (!empty($result)) {
         foreach ($result as $col) {
-          $movement_areas[] = ['tid' => $col];
+          if (!empty($col)) {
+            $movement_areas[] = ['tid' => $col];
+          }
         }
       }
 
       // Query the movement geometry.
       $query = $this->select('field_collection_item', 'fci');
-      $query->leftJoin('field_data_field_farm_geofield', 'fdffg', 'fdffg.entity_id = fci.item_id AND fdffg.deleted = 0');
+      $query->leftJoin('field_data_field_farm_geofield', 'fdffg', "fdffg.entity_id = fci.item_id AND fdffg.entity_type = 'field_collection_item' AND fdffg.bundle = 'field_farm_movement' AND fdffg.deleted = 0");
       $query->addField('fdffg', 'field_farm_geofield_geom', 'geom');
       $query->condition('fci.item_id', $fcid);
-      $query->condition('fci.field_name', 'field_farm_movement');
       $result = $query->execute()->fetchField();
       $movement_geometry = FALSE;
       if (!empty($result)) {
