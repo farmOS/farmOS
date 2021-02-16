@@ -91,7 +91,8 @@ class FarmLog extends Log {
       // If the log has a movement geometry, but no movement areas, throw an
       // exception.
       if (empty($movement_areas) && !empty($movement_geometry)) {
-        throw new MigrateException('Movement has a geometry but no areas (log ' . $id . ').');
+        $message = 'Movement has a geometry but no areas (log ' . $id . ').';
+        $this->idMap->saveMessage(['id' => $id], $message, MigrationInterface::MESSAGE_WARNING);
       }
 
       // If the log has area references and movement areas, and they are
