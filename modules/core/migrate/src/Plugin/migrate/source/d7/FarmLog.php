@@ -101,7 +101,7 @@ class FarmLog extends Log {
       // different, throw an exception or print a warning, depending on whether
       // or not we are allowing overwrites.
       if (!empty($log_areas) && !empty($movement_areas) && $log_areas != $movement_areas) {
-        $message = 'Log ' . $id . ' has both area references and movement area references.';
+        $message = 'Log ' . $id . ' has both area references and movement area references. See https://github.com/farmOS/farmOS/blob/2.x/docs/hosting/migration.md#movement-logs';
         if (!$allow_overwrite) {
           throw new MigrateException($message);
         }
@@ -114,7 +114,7 @@ class FarmLog extends Log {
       // different, throw an exception or print a warning, depending on whether
       // or not we are allowing overwrites.
       if (!empty($log_geometry[0]['geom']) && !empty($movement_geometry[0]['geom']) && $log_geometry[0]['geom'] != $movement_geometry[0]['geom']) {
-        $message = 'Log ' . $id . ' has both a geometry and a movement geometry.';
+        $message = 'Log ' . $id . ' has both a geometry and a movement geometry. See https://github.com/farmOS/farmOS/blob/2.x/docs/hosting/migration.md#movement-logs';
         if (!$allow_overwrite) {
           throw new MigrateException($message);
         }
