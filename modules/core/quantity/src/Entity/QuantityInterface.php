@@ -33,4 +33,12 @@ interface QuantityInterface extends ContentEntityInterface, EntityChangedInterfa
    */
   public function setCreatedTime($timestamp);
 
+  /**
+   * Gets the label of the the quantity type.
+   *
+   * @return string
+   *   The label of the quantity type.
+   */
+  public function getBundleLabel();
+
 }

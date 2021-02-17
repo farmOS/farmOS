@@ -51,16 +51,18 @@ use Drupal\user\EntityOwnerTrait;
  *   revision_table = "quantity_revision",
  *   translatable = FALSE,
  *   revisionable = TRUE,
- *   fieldable = FALSE,
  *   show_revision_ui = FALSE,
  *   admin_permission = "administer quantity",
  *   entity_keys = {
  *     "id" = "id",
  *     "revision" = "revision_id",
+ *     "bundle" = "type",
  *     "label" = "label",
  *     "owner" = "uid",
  *     "uuid" = "uuid",
  *   },
+ *   bundle_entity_type = "quantity_type",
+ *   field_ui_base_route = "entity.quantity_type.edit_form",
  *   common_reference_target = TRUE,
  *   revision_metadata_keys = {
  *     "revision_user" = "revision_user",
@@ -109,6 +111,17 @@ class Quantity extends RevisionableContentEntityBase implements QuantityInterfac
    */
   public static function getRequestTime() {
     return \Drupal::time()->getRequestTime();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getBundleLabel() {
+    /** @var \Drupal\quantity\Entity\QuantityTypeInterface $type */
+    $type = \Drupal::entityTypeManager()
+      ->getStorage('quantity_type')
+      ->load($this->bundle());
+    return $type->label();
   }
 
   /**
