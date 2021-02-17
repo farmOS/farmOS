@@ -8,6 +8,7 @@
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\entity\EntityViewsData;
 use Drupal\farm_entity\BundlePlugin\FarmEntityBundlePluginHandler;
+use Drupal\farm_entity\Routing\DefaultHtmlRouteProvider;
 
 /**
  * Implements hook_module_implements_alter().
@@ -36,6 +37,14 @@ function farm_entity_entity_type_build(array &$entity_types) {
     if (!empty($entity_types[$entity_type])) {
       $entity_types[$entity_type]->set('bundle_plugin_type', $entity_type . '_type');
       $entity_types[$entity_type]->setHandlerClass('bundle_plugin', FarmEntityBundlePluginHandler::class);
+
+      // Deny access to the entity type add form. New entity types of entities
+      // with bundle plugins cannot be created in the UI.
+      // See https://www.drupal.org/project/farm/issues/3196423
+      $bundle_entity_type = $entity_types[$entity_type]->getBundleEntityType();
+      $route_providers = $entity_types[$bundle_entity_type]->getRouteProviderClasses();
+      $route_providers['default'] = DefaultHtmlRouteProvider::class;
+      $entity_types[$bundle_entity_type]->setHandlerClass('route_provider', $route_providers);
     }
   }
 
