@@ -21,5 +21,6 @@
     {% if content.label %}<strong>{{ content.label }}</strong>{% endif %}
     {% if content.measure %}({{ content.measure }}){% endif %}
     {{ content.value }} {{ content.units }}
+    {{ content|without('label', 'measure', 'value', 'units') }}
   {% endif %}
 </div>
