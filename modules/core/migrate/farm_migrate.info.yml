@@ -6,7 +6,6 @@ core_version_requirement: ^9
 dependencies:
   - drupal:migrate
   - drupal:migrate_drupal
-  - farm:asset
-  - log:log
+  - farm:farm_entity
   - migrate_plus:migrate_plus
   - migrate_tools:migrate_tools
