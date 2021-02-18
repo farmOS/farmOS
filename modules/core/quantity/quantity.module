@@ -97,11 +97,26 @@ function quantity_theme() {
     'quantity' => [
       'render element' => 'elements',
     ],
-    'field__quantity__quantity' => [
-      'template' => 'field--quantity--quantity',
+    'field__quantity__field' => [
+      'template' => 'field--quantity--field',
       'base hook' => 'field',
     ],
   ];
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function quantity_theme_suggestions_field(array $variables) {
+  $suggestions = [];
+
+  // Add a theme hook suggestion for theming all fields on quantity entities.
+  // Note that the field__quantity theme hook is used for any entity with
+  // a field called "quantity", such as the log.quantity entity reference.
+  if ($variables['element']['#entity_type'] == 'quantity') {
+    $suggestions[] = 'field__quantity__field';
+  }
+  return $suggestions;
 }
 
 /**
