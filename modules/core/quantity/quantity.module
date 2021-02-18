@@ -5,6 +5,8 @@
  * Quantity module.
  */
 
+use Drupal\Core\Render\Element;
+
 /**
  * Define information about available quantity measures.
  *
@@ -100,4 +102,41 @@ function quantity_theme() {
       'base hook' => 'field',
     ],
   ];
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function quantity_theme_suggestions_quantity(array $variables) {
+  $suggestions = [];
+  $quantity = $variables['elements']['#quantity'];
+  $sanitized_view_mode = strtr($variables['elements']['#view_mode'], '.', '_');
+
+  $suggestions[] = 'quantity__' . $sanitized_view_mode;
+  $suggestions[] = 'quantity__' . $quantity->bundle();
+  $suggestions[] = 'quantity__' . $quantity->bundle() . '__' . $sanitized_view_mode;
+  $suggestions[] = 'quantity__' . $quantity->id();
+  $suggestions[] = 'quantity__' . $quantity->id() . '__' . $sanitized_view_mode;
+
+  return $suggestions;
+}
+
+/**
+ * Prepares variables for quantity templates.
+ *
+ * Default template: quantity.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An associative array containing the quantity information and
+ *     any fields attached to the quantity. Properties used:
+ *     - #quantity: A \Drupal\quantity\Entity\Quantity object. Quantity entity.
+ *   - attributes: HTML attributes for the containing element.
+ */
+function template_preprocess_quantity(array &$variables) {
+  $variables['quantity'] = $variables['elements']['#quantity'];
+  // Helpful $content variable for templates.
+  foreach (Element::children($variables['elements']) as $key) {
+    $variables['content'][$key] = $variables['elements'][$key];
+  }
 }

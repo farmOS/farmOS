@@ -1,5 +1,25 @@
+{#
+/**
+ * @file quantity.html.twig
+ * Default theme implementation to present quantity data.
+ *
+ * This template is used when viewing quantity entities.
+ *
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ * - attributes: HTML attributes for the container element.
+ *
+ * @see template_preprocess_quantity()
+ *
+ * @ingroup themeable
+ */
+#}
+{{  devel_breakpoint() }}
 <div{{ attributes.addClass('quantity') }}>
-  {% if elements.label %}<strong>{{ elements.label }}</strong>{% endif %}
-  {% if elements.measure %}({{ elements.measure }}){% endif %}
-  {{ elements.value }} {{ elements.units }}
+  {% if content %}
+    {% if content.label %}<strong>{{ content.label }}</strong>{% endif %}
+    {% if content.measure %}({{ content.measure }}){% endif %}
+    {{ content.value }} {{ content.units }}
+  {% endif %}
 </div>
