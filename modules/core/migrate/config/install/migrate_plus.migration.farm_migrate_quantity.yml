@@ -18,6 +18,10 @@ source:
 destination:
   plugin: 'entity_reference_revisions:quantity'
 process:
+  # Hard-code the bundle.
+  type:
+    plugin: default_value
+    default_value: standard
   measure: measure
   value/numerator: value_numerator
   value/denominator: value_denominator
