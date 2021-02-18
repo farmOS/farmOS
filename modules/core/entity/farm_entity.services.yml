@@ -8,6 +8,9 @@ services:
   plugin.manager.plan_type:
     class: Drupal\farm_entity\PlanTypeManager
     parent: default_plugin_manager
+  plugin.manager.quantity_type:
+    class: Drupal\farm_entity\QuantityTypeManager
+    parent: default_plugin_manager
   farm_entity.log_delete:
     class: Drupal\farm_entity\EventSubscriber\LogEventSubscriber
     arguments:
