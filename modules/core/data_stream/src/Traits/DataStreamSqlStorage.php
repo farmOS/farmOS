@@ -4,7 +4,6 @@ namespace Drupal\data_stream\Traits;
 
 use Drupal\data_stream\Entity\DataStreamInterface;
 use Drupal\fraction\Fraction;
-use stdClass;
 
 /**
  * A trait for using the DataStreamSimpleData storage.
@@ -71,7 +70,7 @@ trait DataStreamSqlStorage {
       $value = $fraction->toDecimal(0, TRUE);
 
       // Create a data object for the sensor value.
-      $point = new stdClass();
+      $point = new \stdClass();
       $point->timestamp = $row->timestamp;
       $point->value = $value;
       $data[] = $point;

@@ -12,7 +12,6 @@ use Drupal\data_stream\Traits\DataStreamPrivateKeyAccess;
 use Drupal\farm_sensor_listener\LegacySensorApiInterface;
 use Drupal\fraction\Fraction;
 use Drupal\jsonapi\Exception\UnprocessableHttpEntityException;
-use stdClass;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -264,7 +263,7 @@ class LegacyListenerDataStream extends DataStreamPluginBase implements DataStrea
       $value = $fraction->toDecimal(0, TRUE);
 
       // Create a data object for the sensor value.
-      $point = new stdClass();
+      $point = new \stdClass();
       $point->timestamp = $row->timestamp;
       $point->{$row->name} = $value;
       $data[] = $point;

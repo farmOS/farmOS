@@ -78,7 +78,7 @@ function farm_sensor_listener_views_data() {
       'id' => 'standard',
     ],
     'filter' => [
-      // TODO: Use/create a filter that displays available "names".
+      // @todo Use/create a filter that displays available "names".
       'id' => 'standard',
     ],
   ];

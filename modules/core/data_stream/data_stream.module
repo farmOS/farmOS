@@ -58,7 +58,7 @@ function data_stream_data_stream_view_alter(array &$build, DataStreamInterface $
  */
 function data_stream_data_stream_delete(DataStreamInterface $data_stream) {
 
-  // TODO: Considerations for improved entity reference integrity?
+  // @todo Considerations for improved entity reference integrity?
   // Remove any references to this data stream from the asset.data_stream field.
   \Drupal::database()->delete('asset__data_stream')
     ->condition('data_stream_target_id', $data_stream->id())

@@ -5,7 +5,6 @@ namespace Drupal\Tests\farm_sensor_listener\Kernel;
 use Drupal\Component\Serialization\Json;
 use Drupal\Tests\data_stream\Kernel\DataStreamTestBase;
 use Drupal\Tests\data_stream\Traits\DataStreamCreationTrait;
-use stdClass;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -185,7 +184,7 @@ class LegacyApiTest extends DataStreamTestBase {
     $request_time = \Drupal::time()->getRequestTime();
     $timestamp = $request_time - 86400;
     $test_data = ['timestamp' => $timestamp, 'value' => 200];
-    $test_point = new stdClass();
+    $test_point = new \stdClass();
     $test_point->timestamp = $test_data['timestamp'];
     $test_point->value = $test_data['value'];
 

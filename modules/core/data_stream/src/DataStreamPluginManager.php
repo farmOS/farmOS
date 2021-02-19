@@ -7,7 +7,7 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
 
 /**
- * DataStreamPluginManager.
+ * The DataStreamPluginManager service.
  */
 class DataStreamPluginManager extends DefaultPluginManager {
 
