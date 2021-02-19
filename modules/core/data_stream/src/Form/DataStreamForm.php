@@ -18,12 +18,6 @@ class DataStreamForm extends ContentEntityForm {
     // Build the parent form.
     $form = parent::form($form, $form_state);
 
-    // Generate a new private key if creating a new data stream.
-    if ($this->operation == 'add') {
-      $new = hash('md5', mt_rand());
-      $form['private_key']['widget'][0]['value']['#default_value'] = $new;
-    }
-
     if ($plugin = $this->entity->getPlugin()) {
       $form += $plugin->buildConfigurationForm($form, $form_state);
     }

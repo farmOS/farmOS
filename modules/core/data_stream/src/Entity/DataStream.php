@@ -149,6 +149,16 @@ class DataStream extends ContentEntityBase implements DataStreamInterface {
   }
 
   /**
+   * Create a private key.
+   *
+   * @return string
+   *   A new private key.
+   */
+  public static function createPrivateKey() {
+    return hash('md5', mt_rand());
+  }
+
+  /**
    * {@inheritdoc}
    */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
@@ -176,7 +186,7 @@ class DataStream extends ContentEntityBase implements DataStreamInterface {
       ->setLabel(t('Private Key'))
       ->setDescription(t('Private key for the data stream.'))
       ->setTranslatable(TRUE)
-      ->setDefaultValue('')
+      ->setDefaultValueCallback('Drupal\data_stream\Entity\DataStream::createPrivateKey')
       ->setSetting('max_length', 255)
       ->setSetting('text_processing', 0)
       ->setDisplayOptions('view', [
