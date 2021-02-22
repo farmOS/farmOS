@@ -34,7 +34,7 @@
 %}
 
 <span{{ attributes.addClass(classes) }}>
-  {% if field_name not in standard_quantity_fields %}
+  {% if label_display != 'hidden' and field_name not in standard_quantity_fields %}
     <span><strong>{{ label }}</strong></span>
   {% endif %}
 
