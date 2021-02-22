@@ -20,6 +20,7 @@
         "drupal/admin_toolbar": "^2.4",
         "drupal/core": "~9.1.2",
         "drupal/config_rewrite": "^1.4",
+        "drupal/config_update": "^1.7",
         "drupal/csv_serialization": "^2.0@beta",
         "drupal/date_popup": "^1.1",
         "drupal/entity_reference_integrity": "^1.0@RC",
@@ -41,9 +42,6 @@
     },
     "_comments": {
         "lcobucci/jwt": "Required to fix deprecations in farm_api tests until simple_oauth bumps thephpleague/oauth2_server version. See https://github.com/thephpleague/oauth2-server/issues/1156"
-    },
-    "require-dev": {
-        "drupal/config_update": "^1.7"
     },
     "extra": {
         "patchLevel": {
