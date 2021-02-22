@@ -15,6 +15,11 @@ class ErrorPageController extends Http4xxController {
   public function on403() {
     $output = parent::on403();
 
+    // If the user is already logged in, return.
+    if (!\Drupal::currentUser()->isAnonymous()) {
+      return $output;
+    }
+
     /** @var \Drupal\block\Entity\Block $block */
     $block = $this->entityTypeManager()->getStorage('block')->load('userlogin');
 
