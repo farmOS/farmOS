@@ -79,6 +79,9 @@ class FarmEntryPoint extends EntryPoint {
       'version' => $this->farmProfileInfo['version'],
     ];
 
+    // Allow modules to add additional meta information.
+    \Drupal::moduleHandler()->alter('farm_api_meta', $meta['farm']);
+
     // Build a new response.
     $new_response = new CacheableResourceResponse(new JsonApiDocumentTopLevel(new ResourceObjectData([]), new NullIncludedData(), $urls, $meta));
 
