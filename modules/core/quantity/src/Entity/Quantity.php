@@ -217,11 +217,11 @@ class Quantity extends RevisionableContentEntityBase implements QuantityInterfac
       ->setDisplayOptions('view', [
         'label' => 'hidden',
         'type' => 'string',
-        'weight' => 3,
+        'weight' => 10,
       ])
       ->setDisplayOptions('form', [
         'type' => 'string_textfield',
-        'weight' => 3,
+        'weight' => 10,
       ])
       ->setDisplayConfigurable('form', FALSE)
       ->setDisplayConfigurable('view', FALSE);
