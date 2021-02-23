@@ -684,7 +684,7 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-          field_api_classes: false
+          field_api_classes: true
           entity_type: log
           entity_field: flag
           plugin_id: field
