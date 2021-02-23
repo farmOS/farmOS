@@ -6,3 +6,7 @@ footer:
   css:
     theme:
       css/footer.css: {}
+flag:
+  css:
+    theme:
+      css/flag.css: {}
