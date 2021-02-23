@@ -36,3 +36,8 @@
   background-color: var(--colorGinWarning);
   border-color: var(--colorGinWarning);
 }
+
+/* Hide the "Flags" label from views table rows. */
+td.views-field-flag-value .field__label {
+  display: none;
+}
