@@ -1,0 +1,5 @@
+quantity.settings:
+  base_route: farm_settings.settings_page
+  route_name: quantity.settings
+  title: 'Quantity'
+  weight: 3

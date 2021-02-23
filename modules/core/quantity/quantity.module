@@ -79,6 +79,15 @@ function quantity_measure_options() {
 }
 
 /**
+ * Implements hook_farm_api_meta_alter().
+ */
+function quantity_farm_api_meta_alter(&$data) {
+
+  // Add the quantity system of measurement.
+  $data['system_of_measurement'] = \Drupal::config('quantity.settings')->get('system_of_measurement');
+}
+
+/**
  * Implements hook_theme().
  */
 function quantity_theme() {

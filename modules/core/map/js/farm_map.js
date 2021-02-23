@@ -1,9 +1,16 @@
 (function (Drupal) {
   Drupal.behaviors.farm_map = {
     attach: function (context, settings) {
+
+      // Get the units.
+      let units = 'metric';
+      if (!!drupalSettings.farm_map.units) {
+        units = drupalSettings.farm_map.units;
+      }
+
+      // Build default options.
       const defaultOptions = {
-        // TODO: Set the map units.
-        //units: drupalSettings.farm_map.units,
+        units,
         interactions: {
           onFocusOnly: true
         },
