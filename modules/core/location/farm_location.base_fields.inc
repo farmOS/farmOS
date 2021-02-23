@@ -65,7 +65,17 @@ function farm_location_asset_base_fields() {
     'default_value_callback' => 'farm_location_default_value',
     'weight' => [
       'form' => 95,
-      'view' => 95,
+    ],
+    'view_display_options' => [
+      'label' => 'inline',
+      'type' => 'hideable_boolean',
+      'settings' => [
+        'format' => 'default',
+        'format_custom_false' => '',
+        'format_custom_true' => '',
+        'hide_if_false' => TRUE,
+      ],
+      'weight' => 95,
     ],
   ];
   $fields['is_location'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
@@ -78,7 +88,17 @@ function farm_location_asset_base_fields() {
     'default_value_callback' => 'farm_location_default_value',
     'weight' => [
       'form' => 96,
-      'view' => 96,
+    ],
+    'view_display_options' => [
+      'label' => 'inline',
+      'type' => 'hideable_boolean',
+      'settings' => [
+        'format' => 'default',
+        'format_custom_false' => '',
+        'format_custom_true' => '',
+        'hide_if_false' => TRUE,
+      ],
+      'weight' => 96,
     ],
   ];
   $fields['is_fixed'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
@@ -137,7 +157,17 @@ function farm_location_log_base_fields() {
     'default_value_callback' => 'farm_location_movement_default_value',
     'weight' => [
       'form' => 95,
-      'view' => 95,
+    ],
+    'view_display_options' => [
+      'label' => 'inline',
+      'type' => 'hideable_boolean',
+      'settings' => [
+        'format' => 'default',
+        'format_custom_false' => '',
+        'format_custom_true' => '',
+        'hide_if_false' => TRUE,
+      ],
+      'weight' => 95,
     ],
   ];
   $fields['is_movement'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);

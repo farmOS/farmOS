@@ -47,7 +47,17 @@ class Animal extends FarmAssetType {
         'description' => $this->t('Has this animal been castrated?'),
         'weight' => [
           'form' => 26,
-          'view' => 25,
+        ],
+        'view_display_options' => [
+          'label' => 'inline',
+          'type' => 'hideable_boolean',
+          'settings' => [
+            'format' => 'default',
+            'format_custom_false' => '',
+            'format_custom_true' => '',
+            'hide_if_false' => TRUE,
+          ],
+          'weight' => 25,
         ],
       ],
       'nickname' => [
