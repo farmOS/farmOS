@@ -25,6 +25,7 @@ nav:
       - Coding standards: development/environment/code.md
       - Documentation: development/environment/documentation.md
   - Hosting:
+    - Introduction: hosting/index.md
     - 1.x Migration: hosting/migration.md
 theme:
   name: material
