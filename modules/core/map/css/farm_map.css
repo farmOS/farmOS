@@ -1,3 +1,8 @@
 .farm-map {
   height: 400px;
 }
+
+/* Inline labels cause the map to cover other fields. */
+.field--label-inline .farm-map {
+  clear: both;
+}
