@@ -28,6 +28,25 @@ process:
   id:
     plugin: get
     source: id
+  # Get the price quantity units.
+  _units:
+    plugin: migration_lookup
+    migration: farm_migrate_taxonomy_unit
+    source: field_farm_quantity_units
+  # Create a price quantity.
+  quantity/0:
+    plugin: create_quantity
+    default_values:
+      type: 'price'
+      measure: 'count'
+    values:
+      uid: '@uid'
+      created: '@created'
+      changed: '@changed'
+      value: field_farm_total_price
+      units: '@_units'
+      unit_quantity: field_farm_quantity_value
+      unit_price: field_farm_unit_price
   # Purchase specific fields.
   invoice_number:
     plugin: get
