@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * @file
+ * The farm_quantity_standard module.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function farm_quantity_standard_theme() {
+  return [
+    'quantity__standard' => [
+      'render element' => 'elements',
+      'base hook' => 'quantity',
+    ],
+  ];
+}

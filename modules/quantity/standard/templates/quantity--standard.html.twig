@@ -1,0 +1,25 @@
+{#
+/**
+ * @file quantity--standard.html.twig
+ *
+ * This template is used when viewing standard quantity entities.
+ * It is a good default template to use for other quantity types.
+ *
+ * Available variables:
+ * - quantity: The quantity entity.
+ * - content: A list of content items. Use 'content' to print all content, or
+ * - attributes: HTML attributes for the container element.
+ *
+ * @see template_preprocess_quantity()
+ *
+ * @ingroup themeable
+ */
+#}
+<div{{ attributes.addClass('quantity') }}>
+  {% if content %}
+    {% if content.label %}<strong>{{ content.label }}</strong>{% endif %}
+    {% if content.measure %}({{ content.measure }}){% endif %}
+    {{ content.value }} {{ content.units }}
+    {{ content|without('label', 'measure', 'value', 'units') }}
+  {% endif %}
+</div>
