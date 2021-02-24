@@ -16,10 +16,9 @@
  * @ingroup themeable
  */
 #}
-{{  devel_breakpoint() }}
 <div{{ attributes.addClass('quantity') }}>
   {% if content %}
-    {% if quantity.type.entity.id != 'standard' %}({{quantity.type.entity.label}}){% endif %}
+    ({{quantity.type.entity.label}})
     {% if content.label %}<strong>{{ content.label }}</strong>{% endif %}
     {% if content.measure %}({{ content.measure }}){% endif %}
     {{ content.value }} {{ content.units }}
