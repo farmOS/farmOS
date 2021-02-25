@@ -6,7 +6,7 @@ dependencies:
       - farm_migrate
 id: farm_migrate_user
 label: 'User accounts'
-migration_group: farm_migrate
+migration_group: farm_migrate_user
 migration_tags:
   - 'Drupal 7'
   - 'farmOS 1.x'
@@ -61,12 +61,11 @@ process:
     plugin: get
     source: init
   roles:
-    plugin: migration_lookup
-    migration: farm_migrate_role
+    plugin: farm_migration_group_lookup
+    migration_group: farm_migrate_role
     source: roles
     no_stub: true
 migration_dependencies:
-  required:
-    - farm_migrate_role
+  required: {  }
   optional:
     - farm_migrate_system_date
