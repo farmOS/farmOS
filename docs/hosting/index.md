@@ -13,6 +13,9 @@ farmOS is [free software](https://en.wikipedia.org/wiki/Free_software), which
 means you are free to download the code and host it yourself. You are also free
 to modify and extend it to fit your needs.
 
+For more information, including server requirements, refer to
+[Installing farmOS](/hosting/install).
+
 ## Subscription hosting
 
 If you are not comfortable hosting and maintaining your own server,
