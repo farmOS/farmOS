@@ -28,6 +28,7 @@ nav:
     - Introduction: hosting/index.md
     - Installing: hosting/install.md
     - Updating: hosting/update.md
+    - Email: hosting/email.md
     - 1.x Migration: hosting/migration.md
 theme:
   name: material
