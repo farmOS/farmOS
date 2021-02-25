@@ -48,3 +48,15 @@ function farm_modules() {
     ],
   ];
 }
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function farm_form_update_manager_update_form_alter(&$form, &$form_state, $form_id) {
+
+  // Disable updating through the UI.
+  // @see https://www.drupal.org/project/farm/issues/3136140
+  $message = t('Performing updates through this interface is disabled by farmOS. To update modules, use a packaged release of farmOS to ensure that any necessary patches are applied to dependencies.');
+  \Drupal::messenger()->addError($message);
+  $form['actions']['#access'] = FALSE;
+}
