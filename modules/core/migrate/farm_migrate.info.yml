@@ -7,6 +7,5 @@ dependencies:
   - drupal:migrate
   - drupal:migrate_drupal
   - farm:farm_entity
-  - farm:farm_quantity_standard
   - migrate_plus:migrate_plus
   - migrate_tools:migrate_tools
