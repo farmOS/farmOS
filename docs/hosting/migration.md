@@ -1,9 +1,20 @@
 # Migrating from farmOS 1.x to 2.x
 
-**Attention**: Migrations are designed to pull data from a farmOS 1.x database
-into an empty farmOS 2.x database. This is to ensure that the IDs of records
-are maintained. Do not run these migrations if records have already been
-created in the 2.x database.
+The upgrade path from farmOS 1.x to 2.x is performed via a database migration.
+farmOS 2.x includes a **farmOS Migrate** module that leverage's Drupal core's
+[Migrate API](https://drupal.org/docs/drupal-apis/migrate-api) to provide
+migrations for each asset type, log type, etc. These migrations are defined in
+YML configuration files included with the farmOS Migrate module.
+
+## Important considerations
+
+* Do not migrate into a farmOS 2.x instance that already has records. This is
+  to ensure that the internal auto-incrementing IDs of records are maintained.
+* Uploaded photos/files must be copied to the destination filesystem before
+  migrating. See [Migrating files](#migrating-files) below.
+* See [Limitations](#limitations) below.
+
+## Running the migration
 
 Follow the steps below to migrate your farmOS 1.x data to farmOS 2.x:
 
@@ -23,7 +34,8 @@ Follow the steps below to migrate your farmOS 1.x data to farmOS 2.x:
           'driver' => 'mysql',
         ];
 
-4. Copy user-uploaded files to the new directory (see "Uploaded files" below).
+4. Copy user-uploaded files to the new directory (see
+   [Migrating files](#migrating-files) below).
 5. Install the farmOS Migrate (`farm_migrate`) module.
 6. Run the farmOS 1.x Migrations via Drush (in this order):
 
@@ -52,11 +64,12 @@ After all migrations are complete, perform a thorough examination of data to
 confirm that nothing is missing or incorrect. The original 1.x database will
 not be touched during the migration, so if issues are discovered it can
 continue to be used as the canonical farmOS database until further testing and
-debugging can be performed. See "Troubleshooting" below for known issues.
+debugging can be performed. See [Troubleshooting](#troubleshooting) below for
+known issues.
 
 Please open bug reports in the farmOS issue queue if new issues are discovered.
 
-## Uploaded files
+## Migrating files
 
 farmOS allows files to be uploaded/attached to records. In order to migrate
 these files, they need to be copied into new site's files/private directories.
