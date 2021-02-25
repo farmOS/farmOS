@@ -140,11 +140,15 @@ function farm_location_is_fixed_default_value(ContentEntityInterface $entity, Fi
  *
  * @see \Drupal\Core\Field\FieldConfigBase::getDefaultValue()
  */
-function farm_location_movement_default_value(ContentEntityInterface $entity, FieldDefinitionInterface $definition): array {
+function farm_location_is_movement_default_value(ContentEntityInterface $entity, FieldDefinitionInterface $definition): array {
   $default = FALSE;
 
-  // Seeding and transplanting logs are movements by default.
-  if (in_array($entity->bundle(), ['seeding', 'transplanting'])) {
+  // Load the entity bundle.
+  $bundle = \Drupal::service('entity_type.manager')->getStorage('log_type')->load($entity->bundle());
+
+  // Use the bundle's is_movement third-party setting as a default.
+  $is_movement = $bundle->getThirdPartySetting('farm_location', 'is_movement');
+  if (!empty($is_movement)) {
     $default = TRUE;
   }
 

@@ -14,3 +14,12 @@ asset.type.*.third_party.farm_location:
     is_fixed:
       type: boolean
       label: 'Is fixed'
+
+# Schema for the log location third party settings.
+log.type.*.third_party.farm_location:
+  type: mapping
+  label: 'Location settings'
+  mapping:
+    is_movement:
+      type: boolean
+      label: 'Is a movement'

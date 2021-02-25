@@ -1,6 +1,8 @@
 langcode: en
 status: true
 dependencies:
+  module:
+    - farm_location
   enforced:
     module:
       - farm_seeding
@@ -10,3 +12,6 @@ description: ''
 name_pattern: 'Seeding log [log:id]'
 workflow: log_default
 new_revision: true
+third_party_settings:
+  farm_location:
+    is_movement: true

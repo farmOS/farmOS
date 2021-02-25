@@ -154,7 +154,7 @@ function farm_location_log_base_fields() {
     'type' => 'boolean',
     'label' => t('Is movement'),
     'description' => t('If this log is a movement, then all assets referenced by it will be located in the referenced locations and/or geometry at the time the log takes place. The log must be complete in order for the movement to take effect.'),
-    'default_value_callback' => 'farm_location_movement_default_value',
+    'default_value_callback' => 'farm_location_is_movement_default_value',
     'weight' => [
       'form' => 95,
     ],
