@@ -16,6 +16,9 @@ to modify and extend it to fit your needs.
 For more information, including server requirements, refer to
 [Installing farmOS](/hosting/install).
 
+To understand how to update farmOS when a new version is released, refer to
+[Updating farmOS](/hosting/update).
+
 ## Subscription hosting
 
 If you are not comfortable hosting and maintaining your own server,
