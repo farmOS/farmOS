@@ -6,3 +6,4 @@ services:
       - './sites:/opt/drupal/web/sites'
     ports:
       - '80:80'
+    restart: always
