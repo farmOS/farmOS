@@ -115,7 +115,8 @@ class FarmModulesForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $modules = array_filter($form_state->getValue('modules'));
+    // Build array of module names to install.
+    $modules = array_values(array_filter($form_state->getValue('modules')));
     $this->state->set('farm.install_modules', $modules);
   }
 
