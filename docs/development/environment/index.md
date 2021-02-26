@@ -41,3 +41,7 @@ line must be added to `www/web/sites/default/settings.php`:
 ### Configure debugger
 
 See [Debugging](/development/environment/debug).
+
+### Enable HTTPS
+
+See [HTTPS](/development/environment/https).
