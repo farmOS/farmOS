@@ -68,7 +68,7 @@ function farm_install_modules(array &$install_state) {
 
   // Assemble the batch operation for installing modules.
   $operations = [];
-  foreach ($modules as $module => $weight) {
+  foreach ($modules as $module) {
     $operations[] = [
       '_farm_install_module_batch',
       [
