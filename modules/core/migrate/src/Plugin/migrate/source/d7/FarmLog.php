@@ -33,6 +33,9 @@ class FarmLog extends Log {
     // Prepare movement information.
     $this->prepareMovement($row);
 
+    // Prepare group assignment information.
+    $this->prepareGroup($row);
+
     // Prepare quantity information.
     $this->prepareQuantity($row);
 
@@ -160,6 +163,68 @@ class FarmLog extends Log {
 
     // Set the "is_movement" property for use in migrations.
     $row->setSourceProperty('is_movement', $is_movement);
+  }
+
+  /**
+   * Prepare a log's group assignment information.
+   *
+   * @param \Drupal\migrate\Row $row
+   *   The row object.
+   */
+  protected function prepareGroup(Row $row) {
+    $id = $row->getSourceProperty('id');
+
+    // By default, logs are not group assignments.
+    $is_group_assignment = FALSE;
+
+    // Get membership field values.
+    $membership_values = $this->getFieldValues('log', 'field_farm_membership', $id);
+
+    // If the log has a membership assignment, load the Field Collection.
+    if (!empty($membership_values)) {
+
+      // Iterate through membership field values to collect field collection
+      // item IDs.
+      $field_collection_item_ids = [];
+      foreach ($membership_values as $membership_value) {
+        if (!empty($membership_value['value'])) {
+          $field_collection_item_ids[] = $membership_value['value'];
+        }
+      }
+
+      // There should only be one membership field collection associated with a
+      // log, so take the first.
+      $fcid = reset($field_collection_item_ids);
+
+      // Query the membership group references.
+      $query = $this->select('field_collection_item', 'fci');
+      $query->leftJoin('field_data_field_farm_group', 'fdffg', "fdffg.entity_id = fci.item_id AND fdffg.entity_type = 'field_collection_item' AND fdffg.bundle = 'field_farm_membership' AND fdffg.deleted = 0");
+      $query->addField('fdffg', 'field_farm_group_target_id', 'target_id');
+      $query->condition('fci.item_id', $fcid);
+      $result = $query->execute()->fetchCol();
+      $membership_groups = FALSE;
+      if (!empty($result)) {
+        foreach ($result as $col) {
+          if (!empty($col)) {
+            $membership_groups[] = ['target_id' => $col];
+          }
+        }
+      }
+
+      // If the log has membership groups, then the log is a group assignment.
+      if (!empty($membership_groups)) {
+        $is_group_assignment = TRUE;
+      }
+
+      // If the log has membership groups, store them in property on the log so
+      // they can be processed during migration.
+      if (!empty($membership_groups)) {
+        $row->setSourceProperty('log_groups', $membership_groups);
+      }
+    }
+
+    // Set the "is_group_assignment" property for use in migrations.
+    $row->setSourceProperty('is_group_assignment', $is_group_assignment);
   }
 
   /**
