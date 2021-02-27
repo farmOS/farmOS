@@ -30,6 +30,23 @@ class FarmLog extends Log {
       return FALSE;
     }
 
+    // Prepare movement information.
+    $this->prepareMovement($row);
+
+    // Prepare quantity information.
+    $this->prepareQuantity($row);
+
+    // Return success.
+    return TRUE;
+  }
+
+  /**
+   * Prepare a log's movement information.
+   *
+   * @param \Drupal\migrate\Row $row
+   *   The row object.
+   */
+  protected function prepareMovement(Row $row) {
     $id = $row->getSourceProperty('id');
 
     // Determine if we will allow overwriting "Areas" and "Geometry" fields on
@@ -143,6 +160,16 @@ class FarmLog extends Log {
 
     // Set the "is_movement" property for use in migrations.
     $row->setSourceProperty('is_movement', $is_movement);
+  }
+
+  /**
+   * Prepare a log's quantity information.
+   *
+   * @param \Drupal\migrate\Row $row
+   *   The row object.
+   */
+  protected function prepareQuantity(Row $row) {
+    $id = $row->getSourceProperty('id');
 
     // Get quantity log field value.
     $quantity_values = $this->getFieldvalues('log', 'field_farm_quantity', $id);
@@ -157,9 +184,6 @@ class FarmLog extends Log {
 
     // Add the quantity IDs to the row for future processing.
     $row->setSourceProperty('log_quantities', $quantity_ids);
-
-    // Return success.
-    return TRUE;
   }
 
 }
