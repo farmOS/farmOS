@@ -1,0 +1,54 @@
+<?php
+
+/**
+ * @file
+ * Contains farm_group.module.
+ */
+
+use Drupal\Core\Entity\EntityTypeInterface;
+
+/**
+ * Implements hook_farm_entity_bundle_field_info().
+ */
+function farm_group_farm_entity_bundle_field_info(EntityTypeInterface $entity_type, string $bundle) {
+  $fields = [];
+
+  // Add an "Is group assignment" and a Group reference field to logs.
+  if ($entity_type->id() == 'log') {
+    $options = [
+      'type' => 'boolean',
+      'label' => t('Is group assignment'),
+      'description' => t('If this log is a group assignment, any referenced assets will become members of the groups referenced below.'),
+      'weight' => [
+        'form' => 96,
+      ],
+      'view_display_options' => [
+        'label' => 'inline',
+        'type' => 'hideable_boolean',
+        'settings' => [
+          'format' => 'default',
+          'format_custom_false' => '',
+          'format_custom_true' => '',
+          'hide_if_false' => TRUE,
+        ],
+        'weight' => 96,
+      ],
+    ];
+    $fields['is_group_assignment'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
+    $options = [
+      'type' => 'entity_reference',
+      'label' => t('Groups'),
+      'description' => t('If this is a group assignment log, which groups should the referenced assets be assigned to?'),
+      'target_type' => 'asset',
+      'target_bundle' => 'group',
+      'multiple' => TRUE,
+      'weight' => [
+        'form' => 97,
+        'view' => 97,
+      ],
+    ];
+    $fields['group'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
+  }
+
+  return $fields;
+}
