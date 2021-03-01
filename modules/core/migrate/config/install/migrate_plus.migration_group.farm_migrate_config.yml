@@ -4,9 +4,9 @@ dependencies:
   enforced:
     module:
       - farm_migrate
-id: farm_migrate
-label: 'farmOS 1.x Migration'
-description: 'Migrates a farmOS 1.x database to farmOS 2.x'
+id: farm_migrate_config
+label: 'farmOS 1.x Config Migration'
+description: 'Migrate config from farmOS 1.x to 2.x'
 source_type: 'farmOS 1.x'
 module: null
 shared_configuration: null

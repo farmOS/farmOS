@@ -39,7 +39,7 @@ Follow the steps below to migrate your farmOS 1.x data to farmOS 2.x:
 5. Install the farmOS Migrate (`farm_migrate`) module.
 6. Run the farmOS 1.x Migrations via Drush (in this order):
 
-        drush migrate:import --group=farm_migrate
+        drush migrate:import --group=farm_migrate_config
         drush migrate:import --group=farm_migrate_role
         drush migrate:import --group=farm_migrate_user
         drush migrate:import --group=farm_migrate_file
