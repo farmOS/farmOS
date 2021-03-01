@@ -61,6 +61,5 @@
                 "Issue #3186301: Make $modules variable protected in tests": "https://www.drupal.org/files/issues/2020-12-03/3186301-2.patch"
             }
         }
-    },
-    "minimum-stability": "dev"
+    }
 }
