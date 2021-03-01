@@ -2,7 +2,7 @@
 
 namespace Drupal\farm_map\EventSubscriber;
 
-use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\farm_map\Event\MapRenderEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -17,20 +17,20 @@ class MapRenderEventSubscriber implements EventSubscriberInterface {
   use StringTranslationTrait;
 
   /**
-   * The entity type bundle info service.
+   * Asset types.
    *
-   * @var \Drupal\Core\Entity\EntityTypeBundleInfoInterface
+   * @var \Drupal\asset\Entity\AssetTypeInterface[]
    */
-  protected $entityTypeBundleInfo;
+  protected $assetTypes;
 
   /**
    * MapRenderEventSubscriber Constructor.
    *
-   * @param \Drupal\Core\Entity\EntityTypeBundleInfoInterface $entity_type_bundle_info
-   *   The entity type bundle info service.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager service.
    */
-  public function __construct(EntityTypeBundleInfoInterface $entity_type_bundle_info) {
-    $this->entityTypeBundleInfo = $entity_type_bundle_info;
+  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
+    $this->assetTypes = $entity_type_manager->getStorage('asset_type')->loadMultiple();
   }
 
   /**
@@ -85,19 +85,17 @@ class MapRenderEventSubscriber implements EventSubscriberInterface {
         'is_location' => 1,
       ];
 
-      // @todo Make these types configurable.
-      $dashboard_asset_types = ['land', 'structure', 'water'];
-      $asset_types = $this->entityTypeBundleInfo->getBundleInfo('asset');
-      foreach ($dashboard_asset_types as $type) {
+      // Add layer for all asset types are locations by default.
+      foreach ($this->assetTypes as $type) {
 
-        // Add layer for each asset type that exists.
-        if (isset($asset_types[$type])) {
+        // Only add a layer if the asset type is a location by default.
+        if ($type->getThirdPartySetting('farm_location', 'is_location', FALSE)) {
 
           // Add layer for the asset type.
-          $layers[$type] = [
+          $layers[$type->id()] = [
             'group' => $group,
-            'label' => $asset_types[$type]['label'],
-            'asset_type' => $type,
+            'label' => $type->label(),
+            'asset_type' => $type->id(),
             'filters' => $filters,
             // @todo Color each asset type differently.
             // This was previously provided with hook_farm_area_type_info.
