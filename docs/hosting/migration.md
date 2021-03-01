@@ -169,3 +169,11 @@ After running the migration with this setting, warnings for each log will be
 stored, and can be viewed with:
 
     drush migrate:messages [migration_id]
+
+### Quantities
+
+The farmOS 2.x migration creates all Quantity entities before it creates the
+Log entities that reference them. This means that it is possible to end up with
+orphaned quantities, if for instance you do not migrate all of your log types
+from farmOS 1.x. There is no built-in way to clean these up currently, so it is
+recommended that all log types be migrated.
