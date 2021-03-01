@@ -105,6 +105,20 @@ class MapRenderEventSubscriber implements EventSubscriberInterface {
         }
       }
 
+      // Add other locations layer to the dashboard.
+      // @todo Limit this layer to only the non-location asset types.
+      // The current view doesn't allow the "type" filter to override the
+      // contextual filter that defaults to "all" asset types.
+      $layers['other_locations'] = [
+        'group' => $group,
+        'label' => $this->t('Other locations'),
+        'filters' => [
+          'is_location' => 1,
+        ],
+        'color' => 'grey',
+        'zoom' => TRUE,
+      ];
+
       // Add the asset_type_layers behavior.
       $event->addBehavior('asset_type_layers');
 
