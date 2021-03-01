@@ -1,0 +1,22 @@
+<?php
+
+namespace Drupal\farm_group;
+
+use Drupal\Core\DependencyInjection\ContainerBuilder;
+use Drupal\Core\DependencyInjection\ServiceProviderBase;
+use Drupal\Core\DependencyInjection\ServiceProviderInterface;
+
+/**
+ * Override the asset.location service with our own class.
+ */
+class FarmGroupServiceProvider extends ServiceProviderBase implements ServiceProviderInterface {
+
+  /**
+   * {@inheritdoc}
+   */
+  public function alter(ContainerBuilder $container) {
+    $definition = $container->getDefinition('asset.location');
+    $definition->setClass('Drupal\farm_group\GroupAssetLocation');
+  }
+
+}
