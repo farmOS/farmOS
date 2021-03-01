@@ -1,0 +1,17 @@
+# Schema for the configuration files of the farm_client module.
+farm_client.client_module.*:
+  type: config_entity
+  label: 'Client module'
+  mapping:
+    id:
+      type: string
+      label: 'Machine-readable name'
+    label:
+      type: label
+      label: 'Type'
+    description:
+      type: text
+      label: 'Description'
+    library:
+      type: string
+      label: 'Library name'
