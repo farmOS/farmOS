@@ -1,0 +1,12 @@
+farm_client.client_module_js:
+  path: 'farm/client/js/{client_module}/index.js'
+  defaults:
+    _controller: '\Drupal\farm_client\Controller\ClientModuleController::index'
+  requirements:
+    # This endpoint is public.
+    _access: 'TRUE'
+  methods: [GET]
+  options:
+    parameters:
+      client_module:
+        type: entity:client_module
