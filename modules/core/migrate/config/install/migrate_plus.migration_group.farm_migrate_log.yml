@@ -88,6 +88,20 @@ shared_configuration:
           plugin: migration_lookup
           migration: farm_migrate_asset_equipment
           source: target_id
+    # Group reference field.
+    # This is added by the farm_group module in farmOS, which is required in
+    # 1.x and optional in 2.x.
+    group:
+      plugin: sub_process
+      source: log_groups
+      process:
+        target_id:
+          plugin: migration_lookup
+          migration: farm_migrate_asset_group
+          source: target_id
+    is_group_assignment:
+      plugin: get
+      source: is_group_assignment
     log_category:
       plugin: sub_process
       source: field_farm_log_category
