@@ -74,6 +74,19 @@ integers (numerator and denominator).
 A Quantity may have a label assigned to it. This helps to distinguish multiple
 Quantities of the same measure within a Log.
 
+### Additional attributes
+
+Quantities *may* contain additional attributes:
+
+- Inventory adjustment
+
+#### Inventory adjustment
+
+A Quantity can be designated as an "inventory adjustment" to reset, increment,
+or decrement the inventory of Assets referenced (see "Inventory asset" below).
+
+For more information, see [farmOS Inventory Logic](/model/logic/inventory).
+
 ## Relationships
 
 All Quantities have the same standard set of relationships. Modules can add
@@ -89,6 +102,22 @@ Relationships that are common to all Quantity types include:
 
 The Unit of measurement is stored as a [Term](/model/type/term) in the Units
 vocabulary.
+
+### Additional relationships
+
+Quantities *may* contain additional relationships:
+
+- Inventory asset
+
+#### Inventory asset
+
+Quantities can reference Assets, along with the "Inventory adjustment"
+attribute (above) to record adjustments to the Asset's inventory.
+
+This field is added to all Quantity types by default only if the Inventory
+module is enabled.
+
+For more information, see [farmOS Inventory Logic](/model/logic/inventory).
 
 ## Type-specific fields
 

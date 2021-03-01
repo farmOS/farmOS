@@ -27,6 +27,7 @@ keeping data types are **Assets** and **Logs**. Other types include
 
 - [Location](/model/logic/location)
 - [Group membership](/model/logic/group)
+- [Inventory](/model/logic/inventory)
 
 ## Conventions
 
