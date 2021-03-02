@@ -35,18 +35,38 @@ process:
     source: field_farm_quantity_units
   # Create a price quantity.
   quantity/0:
-    plugin: create_quantity
-    default_values:
-      type: 'price'
-      measure: 'count'
-    values:
-      uid: '@uid'
-      created: '@created'
-      changed: '@changed'
-      value: field_farm_total_price
-      units: '@_units'
-      unit_quantity: field_farm_quantity_value
-      unit_price: field_farm_unit_price
+    # First collect all of the price data.
+    -
+      plugin: get
+      source:
+        - field_farm_quantity_units
+        - field_farm_total_price
+        - field_farm_quantity_value
+        - field_farm_unit_price
+    # Flatten the arrays to one dimension.
+    -
+      plugin: flatten
+    # Check if any values were provided.
+    -
+      plugin: null_coalesce
+    # Skip if no price data was provided.
+    -
+      plugin: skip_on_empty
+      method: process
+    # Create a single price quantity.
+    -
+      plugin: create_quantity
+      default_values:
+        type: 'price'
+        measure: 'count'
+      values:
+        uid: '@uid'
+        created: '@created'
+        changed: '@changed'
+        value: field_farm_total_price
+        units: '@_units'
+        unit_quantity: field_farm_quantity_value
+        unit_price: field_farm_unit_price
   # Sale specific fields.
   customer:
     plugin: get
