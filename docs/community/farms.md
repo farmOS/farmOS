@@ -67,6 +67,7 @@ included in this list, add a comment to [this issue on Github].
 
 ## United Kingdon
 
+* Corran Farm (St.Austell, Cornwall)
 * Vale Head Farm (Stourbridge, West Midlands)
 
 ## United States
