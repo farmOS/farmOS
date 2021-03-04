@@ -7,10 +7,9 @@ logic for Assets and Logs that are managed by them.
 ## Type
 
 Each Plan must have a type. All Plan types have a common set of attributes and
-relationships. Specific Plan types (also called "bundles") may also add
-additional attributes and relationships (collectively referred to as "fields").
-Plan types are defined by modules, and are only available if their module is
-enabled.
+relationships. Specific Plan types may also add additional attributes and
+relationships (collectively referred to as "fields"). Plan types are defined by
+modules, and are only available if their module is enabled.
 
 *farmOS core does not currently provide any Plan types.*
 

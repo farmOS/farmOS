@@ -6,10 +6,10 @@ inputs are all types of Logs. Modules can provide additional Log types.
 ## Type
 
 Each Log must have a type. All Log types have a common set of attributes and
-relationships. Specific Log types (also called "bundles") may also add
-additional attributes and relationships (collectively referred to as "fields").
-Log types are defined by modules, and are only available if their module is
-enabled. The modules included with farmOS define the following Log types:
+relationships. Specific Log types may also add additional attributes and
+relationships (collectively referred to as "fields"). Log types are defined by
+modules, and are only available if their module is enabled. The modules
+included with farmOS define the following Log types:
 
 - Activity
 - Observation

@@ -10,11 +10,11 @@ reference it.
 
 ## Type
 
-Each Asset must have a type. All Asset types have a common set of attributes and
-relationships. Specific Asset types (also called "bundles") may also add
-additional attributes and relationships (collectively referred to as "fields").
-Asset types are defined by modules, and are only available if their module is
-enabled. The modules included with farmOS define the following Asset types:
+Each Asset must have a type. All Asset types have a common set of attributes
+and relationships. Specific Asset types may also add additional attributes and
+relationships (collectively referred to as "fields"). Asset types are defined
+by modules, and are only available if their module is enabled. The modules
+included with farmOS define the following Asset types:
 
 - Land
 - Plant
