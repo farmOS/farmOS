@@ -135,10 +135,10 @@ have quantitative data via related **Quantities**. They can be assigned to the
 **Users** who are responsible for them. And they can be organized using
 **Terms** and other metadata.
 
-These relationships are stored as entity reference fields on Log entities.
-References are uni-directional, meaning that Logs reference Assets, but Assets
-do not reference Logs. It is possible to retrieve all Logs that reference a
-particular Asset, as well as retrieve all Assets referenced by a Log.
+These relationships are stored as reference fields on Logs. References are
+uni-directional, meaning that Logs reference Assets, but Assets do not
+reference Logs. It is possible to retrieve all Logs that reference a particular
+Asset, as well as retrieve all Assets referenced by a Log.
 
 All Logs have the same standard set of relationships. Modules can add
 additional relationships.
@@ -174,7 +174,7 @@ For more information, see [farmOS Location Logic](/model/logic/location).
 
 #### Quantities
 
-Quantities are entities that contain quantitative data. These are used to
+Quantities are records that contain quantitative data. These are used to
 represent things like input amounts, harvest totals, time tracking, etc. For
 more information, see: [Quantities](/model/type/quantity).
 

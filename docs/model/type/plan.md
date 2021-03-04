@@ -1,6 +1,6 @@
 # Plans
 
-Plans are higher-level entities that organize Assets and Logs around a
+Plans are higher-level records that organize Assets and Logs around a
 particular goal. Modules can provide Plan types, along with additional UI and
 logic for Assets and Logs that are managed by them.
 
@@ -73,7 +73,7 @@ into the standard Plan attributes.
 
 ## Relationships
 
-Plans can reference other entity types (like Assets and Logs) that are "part of
+Plans can reference other record types (like Assets and Logs) that are "part of
 the Plan". These relationships can be simple (referencing the Asset/Log ID), or
 a Plan-type providing module can define more complex relationships by including
 other metadata alongside it.
@@ -118,14 +118,14 @@ Relationships that are common to all Plan types include:
 Images can be attached to Plans. This provides a place to store photos that can
 be displayed alongside the Plan in farmOS. If the photos pertain to specific
 Assets or Logs within the Plan, it may be better to attach them to those
-entities instead of the Plan.
+records instead of the Plan.
 
 #### Files
 
 Files can be attached to Plans. This provides a place to put documents such as
 Shapefiles, PDFs, CSVs, or other files associated with the Plan. If the files
 pertain to specific Assets or Logs within the Plan, it may be better to attach
-them to those entities instead of the Plan.
+them to those records instead of the Plan.
 
 ### Additional relationships
 

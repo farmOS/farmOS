@@ -140,8 +140,8 @@ into the standard Asset attributes.
 
 ## Relationships
 
-Assets can be related to other entities in farmOS These relationships are
-stored as entity reference fields on Asset entities.
+Assets can be related to other records in farmOS These relationships are
+stored as reference fields on Asset records.
 
 All Assets have the same standard set of relationships. Modules can add
 additional relationships.

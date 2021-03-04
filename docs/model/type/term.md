@@ -2,7 +2,7 @@
 
 Vocabularies (also referred to as taxonomies or ontologies) are used to
 organize and manage Terms used in various contexts throughout farmOS. These can
-be used for flagging, categorization, and organization of other entity types.
+be used for flagging, categorization, and organization of other record types.
 
 Most Terms in farmOS are user-defined, and the vocabularies are empty when
 farmOS is first installed. As [Logs](/model/type/log) and

@@ -12,9 +12,9 @@ streams from sensors or other applications.
 
 ## Data types
 
-Data is organized into high-level data types called entities. The two primary
-record keeping entity types are **Assets** and **Logs**. Other entity types
-include **Quantities**, **Terms**, **Plans**, and **Users**.
+Data is organized into a set of high-level data types. The two primary record
+keeping data types are **Assets** and **Logs**. Other types include
+**Quantities**, **Terms**, **Plans**, and **Users**.
 
 - [Assets](/model/type/asset)
 - [Logs](/model/type/log)
