@@ -21,6 +21,20 @@ class GroupTest extends KernelTestBase {
   protected $groupMembership;
 
   /**
+   * Asset location service.
+   *
+   * @var \Drupal\farm_location\AssetLocationInterface
+   */
+  protected $assetLocation;
+
+  /**
+   * Log location service.
+   *
+   * @var \Drupal\farm_location\LogLocationInterface
+   */
+  protected $logLocation;
+
+  /**
    * {@inheritdoc}
    */
   protected static $modules = [
@@ -29,6 +43,7 @@ class GroupTest extends KernelTestBase {
     'farm_field',
     'farm_group',
     'farm_group_test',
+    'farm_location',
     'farm_log',
     'geofield',
     'state_machine',
@@ -41,6 +56,8 @@ class GroupTest extends KernelTestBase {
   protected function setUp(): void {
     parent::setUp();
     $this->groupMembership = \Drupal::service('group.membership');
+    $this->assetLocation = \Drupal::service('asset.location');
+    $this->logLocation = \Drupal::service('log.location');
     $this->installEntitySchema('asset');
     $this->installEntitySchema('log');
     $this->installEntitySchema('user');
@@ -152,6 +169,118 @@ class GroupTest extends KernelTestBase {
     // effectively "unsets" the asset's group membership.
     $this->assertFalse($this->groupMembership->hasGroup($animal), 'Asset group membership can be unset.');
     $this->assertEmpty($this->groupMembership->getGroup($animal), 'Unset group membership does not reference any groups.');
+  }
+
+  /**
+   * Test asset location with group membership.
+   */
+  public function testAssetLocation() {
+
+    // Create an animal asset.
+    /** @var \Drupal\asset\Entity\AssetInterface $animal */
+    $animal = Asset::create([
+      'type' => 'animal',
+      'name' => $this->randomMachineName(),
+      'status' => 'active',
+    ]);
+    $animal->save();
+
+    // Create a group asset.
+    /** @var \Drupal\asset\Entity\AssetInterface $group */
+    $group = Asset::create([
+      'type' => 'group',
+      'name' => $this->randomMachineName(),
+      'status' => 'active',
+    ]);
+    $group->save();
+
+    // Create a log that assigns the animal to the group.
+    /** @var \Drupal\log\Entity\LogInterface $first_log */
+    $first_log = Log::create([
+      'type' => 'test',
+      'status' => 'done',
+      'is_group_assignment' => TRUE,
+      'group' => ['target_id' => $group->id()],
+      'asset' => ['target_id' => $animal->id()],
+    ]);
+    $first_log->save();
+
+    // Create two pasture assets.
+    /** @var \Drupal\asset\Entity\AssetInterface $first_pasture */
+    $first_pasture = Asset::create([
+      'type' => 'pasture',
+      'name' => $this->randomMachineName(),
+      'status' => 'active',
+    ]);
+    $first_pasture->save();
+    /** @var \Drupal\asset\Entity\AssetInterface $second_pasture */
+    $second_pasture = Asset::create([
+      'type' => 'pasture',
+      'name' => $this->randomMachineName(),
+      'status' => 'active',
+    ]);
+    $second_pasture->save();
+
+    // Create a log that moves the animal to the first pasture.
+    /** @var \Drupal\log\Entity\LogInterface $second_log */
+    $second_log = Log::create([
+      'type' => 'test',
+      'status' => 'done',
+      'is_movement' => TRUE,
+      'location' => ['target_id' => $first_pasture->id()],
+      'asset' => ['target_id' => $animal->id()],
+    ]);
+    $second_log->save();
+
+    // Confirm that the animal is located in the first pasture.
+    $this->assertEquals($this->logLocation->getLocation($second_log), $this->assetLocation->getLocation($animal), 'Asset location is determined by asset membership log.');
+    $this->assertEquals($this->logLocation->getGeometry($second_log), $this->assetLocation->getGeometry($animal), 'Asset geometry is determined by asset membership log.');
+
+    // Create a log that moves the group to the second pasture.
+    /** @var \Drupal\log\Entity\LogInterface $third_log */
+    $third_log = Log::create([
+      'type' => 'test',
+      'status' => 'done',
+      'is_movement' => TRUE,
+      'location' => ['target_id' => $second_pasture->id()],
+      'asset' => ['target_id' => $group->id()],
+    ]);
+    $third_log->save();
+
+    // Confirm that the animal is located in the second pasture.
+    $this->assertEquals($this->logLocation->getLocation($third_log), $this->assetLocation->getLocation($animal), 'Asset location is determined by group membership log.');
+    $this->assertEquals($this->logLocation->getGeometry($third_log), $this->assetLocation->getGeometry($animal), 'Asset geometry is determined by group membership log.');
+
+    // Create a log that unsets the group location.
+    /** @var \Drupal\log\Entity\LogInterface $fourth_log */
+    $fourth_log = Log::create([
+      'type' => 'test',
+      'status' => 'done',
+      'is_movement' => TRUE,
+      'location' => [],
+      'asset' => ['target_id' => $group->id()],
+    ]);
+    $fourth_log->save();
+
+    // Confirm that the animal location was unset.
+    $this->assertEquals($this->logLocation->getLocation($fourth_log), $this->assetLocation->getLocation($animal), 'Asset location can be unset by group membership log.');
+    $this->assertEquals($this->logLocation->getGeometry($fourth_log), $this->assetLocation->getGeometry($animal), 'Asset geometry can be unset by group membership log.');
+
+    // Create a log that unsets the animal's group membership.
+    /** @var \Drupal\log\Entity\LogInterface $fifth_log */
+    $fifth_log = Log::create([
+      'type' => 'test',
+      'status' => 'done',
+      'is_group_assignment' => TRUE,
+      'group' => [],
+      'asset' => ['target_id' => $animal->id()],
+    ]);
+    $fifth_log->save();
+
+    // Confirm that the animal's location is determined by its own movement
+    // logs now.
+    $this->assertEquals($this->logLocation->getLocation($second_log), $this->assetLocation->getLocation($animal), 'Asset location is determined by asset membership log.');
+    $this->assertEquals($this->logLocation->getGeometry($second_log), $this->assetLocation->getGeometry($animal), 'Asset geometry is determined by asset membership log.');
   }
 
 }

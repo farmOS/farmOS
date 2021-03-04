@@ -1,0 +1,7 @@
+langcode: en
+status: true
+id: pasture
+label: Pasture
+description: ''
+workflow: asset_default
+new_revision: true
