@@ -5,6 +5,33 @@
  * Code for creating farmOS group membership base field definitions.
  */
 
+use Drupal\farm_group\Field\AssetGroupItemList;
+
+/**
+ * Define asset group base fields.
+ */
+function farm_group_asset_base_fields() {
+  $fields = [];
+
+  // Group membership field.
+  // This is computed based on an asset's group assignment logs.
+  $options = [
+    'type' => 'entity_reference',
+    'label' => t('Group membership'),
+    'target_type' => 'asset',
+    'target_bundle' => 'group',
+    'multiple' => TRUE,
+    'computed' => AssetGroupItemList::class,
+    'hidden' => 'form',
+    'weight' => [
+      'view' => 94,
+    ],
+  ];
+  $fields['group'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
+
+  return $fields;
+}
+
 /**
  * Define log group base fields.
  */

@@ -14,6 +14,10 @@ function farm_group_entity_base_field_info(EntityTypeInterface $entity_type) {
   module_load_include('inc', 'farm_group', 'farm_group.base_fields');
   switch ($entity_type->id()) {
 
+    // Build asset base fields.
+    case 'asset':
+      return farm_group_asset_base_fields();
+
     // Build log base fields.
     case 'log':
       return farm_group_log_base_fields();
