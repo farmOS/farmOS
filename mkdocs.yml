@@ -2,7 +2,7 @@ site_name: farmOS 2.x Docs
 nav:
   - Data model:
     - Introduction: model/index.md
-    - Data types:
+    - Record types:
       - Assets: model/type/asset.md
       - Logs: model/type/log.md
       - Quantities: model/type/quantity.md

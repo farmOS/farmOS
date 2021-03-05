@@ -10,9 +10,9 @@ national forestry management.
 farmOS can model data that was recorded via manual data entry, as well as data
 streams from sensors or other applications.
 
-## Data types
+## Record types
 
-Data is organized into a set of high-level data types. The two primary record
+Data is organized into a set of high-level record types. The two primary record
 keeping data types are **Assets** and **Logs**. Other types include
 **Quantities**, **Terms**, **Plans**, and **Users**.
 
@@ -30,7 +30,7 @@ keeping data types are **Assets** and **Logs**. Other types include
 
 ## Conventions
 
-Beyond the data types that farmOS provides, it is helpful to develop
+Beyond the record types that farmOS provides, it is helpful to develop
 conventions around how they are used.
 
 [farmOS Data Conventions](/model/convention)

@@ -2,9 +2,9 @@
 
 ## In theory
 
-The farmOS data model describes basic data types that can be used to represent
-a farming system, but *how* those data types are used is left up to the user in
-large part.
+The farmOS data model describes basic record types that can be used to
+represent a farming system, but *how* those record types are used is left up to
+the user in large part.
 
 It is not the data model's responsibility to enforce an opinionated standard
 for all data that it stores. Instead, it aims to provide the flexibility for
