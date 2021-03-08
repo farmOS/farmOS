@@ -18,7 +18,6 @@
 #}
 <div{{ attributes.addClass('quantity') }}>
   {% if content %}
-    ({{quantity.type.entity.label}})
     {% if content.label %}<strong>{{ content.label }}</strong>{% endif %}
     {% if content.measure %}({{ content.measure }}){% endif %}
     {{ content.value }} {{ content.units }}
