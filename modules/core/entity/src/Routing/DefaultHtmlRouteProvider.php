@@ -19,7 +19,9 @@ class DefaultHtmlRouteProvider extends EntityDefaultHtmlRouteProvider {
    */
   protected function getAddFormRoute(EntityTypeInterface $entity_type) {
     $route = parent::getAddFormRoute($entity_type);
-    $route->setRequirement('_access', 'FALSE');
+    if (!empty($route)) {
+      $route->setRequirement('_access', 'FALSE');
+    }
     return $route;
   }
 
