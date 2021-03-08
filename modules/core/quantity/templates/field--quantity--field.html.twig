@@ -30,11 +30,11 @@
 %}
 
 {%
-  set standard_quantity_fields = ['label', 'measure', 'value', 'units']
+  set quantity_base_fields = ['label', 'measure', 'value', 'units']
 %}
 
 <span{{ attributes.addClass(classes) }}>
-  {% if label_display != 'hidden' and field_name not in standard_quantity_fields %}
+  {% if label_display != 'hidden' and field_name not in quantity_base_fields %}
     <span><strong>{{ label }}</strong></span>
   {% endif %}
 
