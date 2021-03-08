@@ -17,31 +17,12 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
  *     singular = "@count quantity type",
  *     plural = "@count quantity types",
  *   ),
- *   handlers = {
- *     "list_builder" = "Drupal\quantity\QuantityTypeListBuilder",
- *     "form" = {
- *       "add" = "Drupal\quantity\Form\QuantityTypeForm",
- *       "edit" = "Drupal\quantity\Form\QuantityTypeForm",
- *       "delete" = "\Drupal\Core\Entity\EntityDeleteForm",
- *     },
- *     "route_provider" = {
- *       "default" = "Drupal\entity\Routing\DefaultHtmlRouteProvider",
- *     },
- *   },
- *   admin_permission = "administer quantity types",
  *   config_prefix = "type",
  *   bundle_of = "quantity",
  *   entity_keys = {
  *     "id" = "id",
  *     "label" = "label",
  *     "uuid" = "uuid"
- *   },
- *   links = {
- *     "canonical" = "/admin/structure/quantity-type/{quantity_type}",
- *     "add-form" = "/admin/structure/quantity-type/add",
- *     "edit-form" = "/admin/structure/quantity-type/{quantity_type}/edit",
- *     "delete-form" = "/admin/structure/quantity-type/{quantity_type}/delete",
- *     "collection" = "/admin/structure/quantity-type"
  *   },
  *   config_export = {
  *     "id",
