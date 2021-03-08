@@ -1,0 +1,44 @@
+{#
+/**
+ * @file
+ * Theme override for quantity entity fields.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the containing element.
+ * - label_hidden: Whether to show the field label or not.
+ * - title_attributes: HTML attributes for the title.
+ * - label: The label for the field.
+ * - multiple: TRUE if a field can contain multiple items.
+ * - items: List of all the field items. Each item contains:
+ *   - attributes: List of HTML attributes for each item.
+ *   - content: The field item's content.
+ * - entity_type: The entity type to which the field belongs.
+ * - field_name: The name of the field.
+ * - field_type: The type of the field.
+ * - label_display: The display settings for the label.
+ *
+ */
+#}
+{%
+  set classes = [
+  'field',
+  'field--name-' ~ field_name|clean_class,
+  'field--type-' ~ field_type|clean_class,
+  'field--label-' ~ label_display,
+  'inline',
+]
+%}
+
+{%
+  set quantity_base_fields = ['label', 'measure', 'value', 'units']
+%}
+
+<span{{ attributes.addClass(classes) }}>
+  {% if label_display != 'hidden' and field_name not in quantity_base_fields %}
+    <span><strong>{{ label }}</strong></span>
+  {% endif %}
+
+  {%- for item in items -%}
+    {{ item.content }}
+  {%- endfor -%}
+</span>

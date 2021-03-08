@@ -153,7 +153,7 @@ shared_configuration:
     quantity:
       -
         plugin: migration_lookup
-        migration: farm_migrate_quantity
+        migration: farm_migrate_quantity_standard
         source: log_quantities
         no_stub: true
       -
@@ -167,7 +167,7 @@ shared_configuration:
       - farm_migrate_file_private
       - farm_migrate_user
       - farm_migrate_taxonomy_log_category
-      - farm_migrate_quantity
+      - farm_migrate_quantity_standard
     optional:
       - farm_migrate_asset_equipment
       - farm_migrate_asset_group

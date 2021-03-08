@@ -32,8 +32,8 @@ function farm_entity_module_implements_alter(&$implementations, $hook) {
 function farm_entity_entity_type_build(array &$entity_types) {
   /** @var \Drupal\Core\Entity\EntityTypeInterface[] $entity_types */
 
-  // Enable the use of bundle plugins for asset, log, and plan entity types.
-  foreach (['asset', 'log', 'plan'] as $entity_type) {
+  // Enable the use of bundle plugins on specific entity types.
+  foreach (['asset', 'log', 'plan', 'quantity'] as $entity_type) {
     if (!empty($entity_types[$entity_type])) {
       $entity_types[$entity_type]->set('bundle_plugin_type', $entity_type . '_type');
       $entity_types[$entity_type]->setHandlerClass('bundle_plugin', FarmEntityBundlePluginHandler::class);
@@ -50,7 +50,7 @@ function farm_entity_entity_type_build(array &$entity_types) {
 
   // Set the views data handler class for asset and plan entity types.
   // We don't need to do this for logs because the Log module already does.
-  foreach (['asset', 'plan'] as $entity_type) {
+  foreach (['asset', 'plan', 'quantity'] as $entity_type) {
     if (!empty($entity_types[$entity_type])) {
       $entity_types[$entity_type]->setHandlerClass('views_data', EntityViewsData::class);
     }
@@ -160,7 +160,7 @@ function farm_entity_entity_base_field_info_alter(&$fields, EntityTypeInterface 
 function farm_entity_entity_field_storage_info_alter(&$fields, EntityTypeInterface $entity_type) {
 
   // Bail if not a farm entity type that allows bundle plugins.
-  if (!in_array($entity_type->id(), ['log', 'asset', 'plan'])) {
+  if (!in_array($entity_type->id(), ['log', 'asset', 'plan', 'quantity'])) {
     return;
   }
 

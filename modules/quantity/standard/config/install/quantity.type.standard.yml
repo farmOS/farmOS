@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_quantity_standard
+id: standard
+label: Standard
+description: 'Standard quantity type.'
+new_revision: true

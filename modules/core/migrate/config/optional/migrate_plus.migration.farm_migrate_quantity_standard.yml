@@ -4,8 +4,9 @@ dependencies:
   enforced:
     module:
       - farm_migrate
-id: farm_migrate_quantity
-label: 'Quantities'
+      - farm_quantity_standard
+id: farm_migrate_quantity_standard
+label: 'Quantities (Standard)'
 migration_group: farm_migrate_quantity
 migration_tags:
   - 'Drupal 7'
@@ -18,6 +19,10 @@ source:
 destination:
   plugin: 'entity_reference_revisions:quantity'
 process:
+  # Hard-code the bundle.
+  type:
+    plugin: default_value
+    default_value: standard
   measure: measure
   value/numerator: value_numerator
   value/denominator: value_denominator

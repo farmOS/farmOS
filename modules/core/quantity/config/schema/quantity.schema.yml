@@ -5,3 +5,19 @@ quantity.settings:
     system_of_measurement:
       type: string
       label: 'System of measurement'
+quantity.type.*:
+  type: config_entity
+  label: 'Quantity type'
+  mapping:
+    id:
+      type: string
+      label: 'Machine-readable name'
+    label:
+      type: label
+      label: 'Type'
+    description:
+      type: text
+      label: 'Description'
+    new_revision:
+      type: boolean
+      label: 'Create new revision'
