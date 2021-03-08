@@ -55,9 +55,18 @@ function farm_install_modules(array &$install_state) {
 
   // Load the list of modules that should be installed.
   // If provided, use the modules defined in farm_install_modules.module
-  // profile arguments.
+  // profile arguments. We assume this is an array of module machine names,
+  // unless it is simply the string "all", which is a shortcut for installing
+  // all modules.
   if (!empty($install_state['forms']['farm_install_modules']['modules'])) {
-    $modules = Json::decode($install_state['forms']['farm_install_modules']['modules']);
+    $modules_arg = $install_state['forms']['farm_install_modules']['modules'];
+    if ($modules_arg === 'all') {
+      $all = farm_modules();
+      $modules = array_merge(array_keys($all['default']), array_keys($all['optional']));
+    }
+    else {
+      $modules = Json::decode($modules_arg);
+    }
   }
 
   // Use the state set by the \Drupal\farm\Form\FarmModulesForm submit method.
