@@ -1,0 +1,115 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - asset.type.animal
+    - core.entity_view_mode.asset.map_popup
+  module:
+    - farm_field
+    - farm_id_tag
+    - options
+    - text
+id: asset.animal.map_popup
+targetEntityType: asset
+bundle: animal
+mode: map_popup
+content:
+  animal_type:
+    label: inline
+    type: entity_reference_label
+    weight: 3
+    settings:
+      link: false
+    region: content
+    third_party_settings: {  }
+  birthdate:
+    label: inline
+    type: timestamp
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    weight: 5
+    region: content
+    third_party_settings: {  }
+  flag:
+    label: inline
+    type: list_default
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  group:
+    label: inline
+    type: entity_reference_label
+    weight: 10
+    settings:
+      link: true
+    region: content
+    third_party_settings: { }
+  id_tag:
+    label: inline
+    type: id_tag
+    weight: 9
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  is_castrated:
+    label: inline
+    type: hideable_boolean
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+      hide_if_false: true
+      hide_if_true: false
+    weight: 7
+    region: content
+    third_party_settings: {  }
+  nickname:
+    label: inline
+    type: string
+    weight: 4
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  notes:
+    label: inline
+    type: text_default
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  parent:
+    label: inline
+    type: entity_reference_label
+    weight: 8
+    settings:
+      link: true
+    region: content
+    third_party_settings: {  }
+  sex:
+    label: inline
+    type: list_default
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    label: inline
+    type: list_default
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  data: true
+  file: true
+  geometry: true
+  image: true
+  intrinsic_geometry: true
+  is_fixed: true
+  is_location: true
+  location: true
+  uid: true

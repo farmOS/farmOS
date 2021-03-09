@@ -1,0 +1,69 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - asset.type.water
+    - core.entity_view_mode.asset.map_popup
+  module:
+    - farm_id_tag
+    - options
+    - text
+id: asset.water.map_popup
+targetEntityType: asset
+bundle: water
+mode: map_popup
+content:
+  flag:
+    label: inline
+    type: list_default
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  group:
+    label: inline
+    type: entity_reference_label
+    weight: 5
+    settings:
+      link: true
+    region: content
+    third_party_settings: {  }
+  id_tag:
+    label: inline
+    type: id_tag
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  notes:
+    label: inline
+    type: text_default
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  parent:
+    label: inline
+    type: entity_reference_label
+    weight: 3
+    settings:
+      link: true
+    region: content
+    third_party_settings: {  }
+  status:
+    label: inline
+    type: list_default
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  data: true
+  file: true
+  geometry: true
+  image: true
+  intrinsic_geometry: true
+  is_fixed: true
+  is_location: true
+  location: true
+  uid: true
