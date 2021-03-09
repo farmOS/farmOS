@@ -17,6 +17,14 @@ class QuantityInlineForm extends EntityInlineForm {
    * {@inheritdoc}
    */
   public function getTableFields($bundles) {
+
+    // Trick IEF into thinking there are two bundles.
+    // This will always render the "Quantity type" field in the table.
+    if (count($bundles) == 1) {
+      $bundles[] = $bundles[0];
+    }
+
+    // Get parent fields.
     $fields = parent::getTableFields($bundles);
 
     // Remove the label field.
