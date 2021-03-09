@@ -17,6 +17,9 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
  *     singular = "@count quantity type",
  *     plural = "@count quantity types",
  *   ),
+ *   handlers = {
+ *     "access" = "\Drupal\entity\BundleEntityAccessControlHandler",
+ *   },
  *   config_prefix = "type",
  *   bundle_of = "quantity",
  *   entity_keys = {
