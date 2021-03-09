@@ -27,6 +27,7 @@ use Drupal\user\EntityOwnerTrait;
  *   handlers = {
  *     "storage" = "Drupal\Core\Entity\Sql\SqlContentEntityStorage",
  *     "access" = "\Drupal\entity\UncacheableEntityAccessControlHandler",
+ *     "inline_form" = "\Drupal\quantity\Form\QuantityInlineForm",
  *     "list_builder" = "\Drupal\quantity\QuantityListBuilder",
  *     "permission_provider" = "\Drupal\entity\UncacheableEntityPermissionProvider",
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
