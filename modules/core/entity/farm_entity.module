@@ -48,9 +48,10 @@ function farm_entity_entity_type_build(array &$entity_types) {
     }
   }
 
-  // Set the views data handler class for asset and plan entity types.
-  // We don't need to do this for logs because the Log module already does.
-  foreach (['asset', 'plan', 'quantity'] as $entity_type) {
+  // Set the views data handler class to EntityViewsData for assets and plans.
+  // We don't need to do this for logs or quantities because their modules
+  // already do this.
+  foreach (['asset', 'plan'] as $entity_type) {
     if (!empty($entity_types[$entity_type])) {
       $entity_types[$entity_type]->setHandlerClass('views_data', EntityViewsData::class);
     }

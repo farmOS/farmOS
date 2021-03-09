@@ -31,7 +31,7 @@ use Drupal\user\EntityOwnerTrait;
  *     "list_builder" = "\Drupal\quantity\QuantityListBuilder",
  *     "permission_provider" = "\Drupal\entity\UncacheableEntityPermissionProvider",
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
- *     "views_data" = "\Drupal\views\EntityViewsData",
+ *     "views_data" = "Drupal\quantity\QuantityViewsData",
  *     "form" = {
  *       "default" = "Drupal\Core\Entity\ContentEntityForm",
  *       "add" = "Drupal\Core\Entity\ContentEntityForm",
