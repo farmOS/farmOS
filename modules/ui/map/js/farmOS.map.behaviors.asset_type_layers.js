@@ -59,30 +59,22 @@
         });
       }
 
-      // @todo: Display area details in popup.
       // Load area details via AJAX when an area popup is displayed.
-      // instance.popup.on('farmOS-map.popup', function (event) {
-      //   var area_details = jQuery('.ol-popup-description .area-details');
-      //   if (area_details.attr('id') === undefined) {
-      //     return;
-      //   }
-      //   area_details.html('test!');
-      //   var area_id = area_details.attr('id').replace('area-details-', '');
-      //   if (area_id) {
-      //     area_details.html('Loading area details...');
-      //     jQuery.getJSON(Drupal.settings.farm_map.base_path + 'farm/area/' + area_id + '/details', function(data) {
-      //       if (data) {
-      //         area_details.html(data);
-      //         var position = event.target.getPosition();
-      //         event.target.setPosition();
-      //         event.target.setPosition(position);
-      //       }
-      //       else {
-      //         area_details.html('');
-      //       }
-      //     });
-      //   }
-      // });
+      instance.popup.on('farmOS-map.popup', function (event) {
+        var link = event.target.element.querySelector('.ol-popup-name a');
+        if (link) {
+          var assetLink = link.getAttribute('href')
+          var description = event.target.element.querySelector('.ol-popup-description');
+          description.innerHTML = 'Loading asset details...';
+          fetch(assetLink + '/map_popup')
+            .then((response) => {
+              return response.text();
+            })
+            .then((html) => {
+              description.innerHTML = html;
+            });
+        }
+      });
     }
   };
 }());
