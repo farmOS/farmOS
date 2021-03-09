@@ -8,6 +8,7 @@
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\entity\EntityViewsData;
 use Drupal\farm_entity\BundlePlugin\FarmEntityBundlePluginHandler;
+use Drupal\farm_entity\FarmLogViewsData;
 use Drupal\farm_entity\Routing\DefaultHtmlRouteProvider;
 
 /**
@@ -55,6 +56,12 @@ function farm_entity_entity_type_build(array &$entity_types) {
     if (!empty($entity_types[$entity_type])) {
       $entity_types[$entity_type]->setHandlerClass('views_data', EntityViewsData::class);
     }
+  }
+
+  // With logs specifically, set the views data handler class to
+  // FarmLogViewsData (provided by us).
+  if (!empty($entity_types['log'])) {
+    $entity_types['log']->setHandlerClass('views_data', FarmLogViewsData::class);
   }
 }
 
