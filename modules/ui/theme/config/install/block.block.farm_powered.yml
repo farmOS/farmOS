@@ -14,6 +14,6 @@ plugin: farm_powered_by_block
 settings:
   id: farm_powered_by_block
   label: 'Powered by farmOS'
-  provider: farm
+  provider: farm_ui_theme
   label_display: '0'
 visibility: {  }
