@@ -1,0 +1,6 @@
+farm_ui_map.asset.map_popup:
+  path: '/asset/{asset}/map_popup'
+  defaults:
+    _entity_view: 'asset.map_popup'
+  requirements:
+    _entity_access: asset.view
