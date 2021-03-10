@@ -11,10 +11,10 @@ use Drupal\Core\Entity\EntityChangedInterface;
 interface DataStreamInterface extends ContentEntityInterface, EntityChangedInterface {
 
   /**
-   * Returns an instance of the data stream plugin.
+   * Returns an instance of the data stream bundle plugin.
    *
-   * @return \Drupal\data_stream\DataStreamPluginInterface
-   *   The data stream plugin.
+   * @return \Drupal\data_stream\Plugin\DataStream\DataStreamType\DataStreamTypeInterface
+   *   The data stream bundle plugin.
    */
   public function getPlugin();
 

@@ -1,14 +1,15 @@
 <?php
 
-namespace Drupal\farm_sensor_listener\Plugin\DataStream;
+namespace Drupal\farm_sensor_listener\Plugin\DataStream\DataStreamType;
 
 use Drupal\Component\Serialization\Json;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\data_stream\DataStreamStorageInterface;
-use Drupal\data_stream\DataStreamPluginBase;
 use Drupal\data_stream\Entity\DataStreamInterface;
+use Drupal\data_stream\Plugin\DataStream\DataStreamType\DataStreamTypeBase;
 use Drupal\data_stream\Traits\DataStreamPrivateKeyAccess;
+use Drupal\entity\BundleFieldDefinition;
 use Drupal\farm_sensor_listener\LegacySensorApiInterface;
 use Drupal\fraction\Fraction;
 use Drupal\jsonapi\Exception\UnprocessableHttpEntityException;
@@ -21,14 +22,14 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
 /**
- * DataStream plugin that provides legacy listener behavior.
+ * Provides the legacy listener data stream type.
  *
- * @DataStream(
+ * @DataStreamType(
  *   id = "legacy_listener",
  *   label = @Translation("Legacy listener"),
  * )
  */
-class LegacyListenerDataStream extends DataStreamPluginBase implements DataStreamStorageInterface, LegacySensorApiInterface {
+class LegacyListener extends DataStreamTypeBase implements DataStreamStorageInterface, LegacySensorApiInterface {
 
   use DataStreamPrivateKeyAccess;
 
@@ -73,6 +74,37 @@ class LegacyListenerDataStream extends DataStreamPluginBase implements DataStrea
       $plugin_definition,
       $container->get('database'),
     );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function buildFieldDefinitions() {
+    $fields = [];
+
+    // Define the public_key field.
+    $field = BundleFieldDefinition::create('string')
+      ->setLabel($this->t('Public key'))
+      ->setDescription($this->t('Public key used to identify this data stream in the legacy listener endpoint.'))
+      ->setSetting('max_length', 255)
+      ->setSetting('is_ascii', FALSE)
+      ->setSetting('case_sensitive', FALSE)
+      ->setDisplayOptions('form', [
+        'type' => 'string_textfield',
+        'settings' => [
+          'size' => 60,
+          'placeholder' => '',
+        ],
+        'weight' => $options['weight']['form'] ?? 0,
+      ])
+      ->setDisplayOptions('view', [
+        'label' => 'inline',
+        'type' => 'string',
+        'weight' => $options['weight']['view'] ?? 0,
+      ]);
+    $fields['public_key'] = $field;
+
+    return $fields;
   }
 
   /**

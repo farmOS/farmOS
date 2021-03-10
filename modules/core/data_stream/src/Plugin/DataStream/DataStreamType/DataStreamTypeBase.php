@@ -1,25 +1,28 @@
 <?php
 
-namespace Drupal\data_stream;
+namespace Drupal\data_stream\Plugin\DataStream\DataStreamType;
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Plugin\PluginBase;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Base class for DataStream plugins.
+ * Provides the base data stream type class.
  */
-class DataStreamPluginBase extends PluginBase implements DataStreamPluginInterface {
+abstract class DataStreamTypeBase extends PluginBase implements ContainerFactoryPluginInterface, DataStreamTypeInterface {
 
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    return new static(
-      $configuration,
-      $plugin_id,
-      $plugin_definition,
-    );
+  public function getLabel() {
+    return $this->pluginDefinition['label'];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function buildFieldDefinitions() {
+    return [];
   }
 
   /**
@@ -28,15 +31,14 @@ class DataStreamPluginBase extends PluginBase implements DataStreamPluginInterfa
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
 
     // Get the plugin label.
-    $definition = $this->getPluginDefinition();
-    $label = $definition['label'];
+    $label = $this->getLabel();
 
     // Render a fieldset for the plugin specific settings.
     $form[$this->getPluginId()] = [
-      '#type' => 'fieldset',
-      '#title' => $label,
+      '#type'        => 'fieldset',
+      '#title'       => $label,
       '#description' => $this->t('Settings for the %type data stream type.', ['%type' => $label]),
-      '#weight' => 10,
+      '#weight'      => 10,
     ];
     return $form;
   }

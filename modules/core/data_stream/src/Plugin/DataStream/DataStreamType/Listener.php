@@ -1,12 +1,11 @@
 <?php
 
-namespace Drupal\data_stream\Plugin\DataStream;
+namespace Drupal\data_stream\Plugin\DataStream\DataStreamType;
 
 use Drupal\Component\Serialization\Json;
 use Drupal\Core\Database\Connection;
 use Drupal\data_stream\DataStreamApiInterface;
 use Drupal\data_stream\DataStreamStorageInterface;
-use Drupal\data_stream\DataStreamPluginBase;
 use Drupal\data_stream\Entity\DataStreamInterface;
 use Drupal\data_stream\Traits\DataStreamSqlStorage;
 use Drupal\data_stream\Traits\DataStreamPrivateKeyAccess;
@@ -20,14 +19,14 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
 /**
- * DataStream plugin that provides listener behavior.
+ * Provides the listener data stream type.
  *
- * @DataStream(
+ * @DataStreamType(
  *   id = "listener",
  *   label = @Translation("Listener"),
  * )
  */
-class ListenerDataStream extends DataStreamPluginBase implements DataStreamStorageInterface, DataStreamApiInterface {
+class Listener extends DataStreamTypeBase implements DataStreamStorageInterface, DataStreamApiInterface {
 
   use DataStreamSqlStorage;
   use DataStreamPrivateKeyAccess;

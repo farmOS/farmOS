@@ -53,6 +53,7 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
  *     "langcode" = "langcode",
  *   },
  *   bundle_entity_type = "data_stream_type",
+ *   bundle_plugin_type = "data_stream_type",
  *   common_reference_target = TRUE,
  *   permission_granularity = "bundle",
  *   links = {
@@ -81,9 +82,8 @@ class DataStream extends ContentEntityBase implements DataStreamInterface {
    * {@inheritdoc}
    */
   public function getPlugin() {
-    /** @var \Drupal\data_stream\Entity\DataStreamTypeInterface $plugin */
-    $plugin = \Drupal::service('plugin.manager.data_stream')->createInstance($this->bundle());
-    return $plugin;
+    /** @var \Drupal\data_stream\Plugin\DataStream\DataStreamType\DataStreamTypeInterface $plugin */
+    return \Drupal::service('plugin.manager.data_stream_type')->createInstance($this->bundle());
   }
 
   /**
