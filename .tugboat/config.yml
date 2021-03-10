@@ -1,0 +1,55 @@
+services:
+  php:
+    image: farmos/farmos:2.x-dev
+    default: true
+    depends: mysql
+    commands:
+      update: |
+        set -eux
+
+        # Check out a branch using the unique Tugboat ID for this repository, to
+        # ensure we don't clobber an existing branch.
+        git checkout -b $TUGBOAT_REPO_ID
+
+        # Composer is hungry. You need a Tugboat project with a pretty sizeable
+        # chunk of memory.
+        export COMPOSER_MEMORY_LIMIT=-1
+        cd /opt/drupal
+
+        # We configure the Drupal project to use the checkout of the module as a
+        # Composer package repository.
+        composer config repositories.farmos vcs $TUGBOAT_ROOT
+
+        # Now we can require this module, specifing the branch name we created
+        # above that uses the $TUGBOAT_REPO_ID environment variable.
+        composer require farmos/farmos:dev-$TUGBOAT_REPO_ID -vvv
+
+        # Install Drupal on the site.
+        vendor/bin/drush \
+          --yes \
+          --db-url=mysql://tugboat:tugboat@mysql:3306/tugboat \
+          --site-name='This is a live preview' \
+          --account-pass=admin \
+          site:install farm \
+          farm.modules="all"
+
+        # Set up the files directory permissions.
+        mkdir -p /opt/drupal/web/sites/default/files
+        chgrp -R www-data /opt/drupal/web/sites/default/files
+        chmod 2775 /opt/drupal/web/sites/default/files
+        chmod -R g+w /opt/drupal/web/sites/default/files
+      build: |
+        set -eux
+
+        # Delete and re-check out this branch in case this is built from a Base Preview.
+        git branch -D $TUGBOAT_REPO_ID && git checkout -b $TUGBOAT_REPO_ID || true
+
+        # Update this module, including all dependencies.
+        export COMPOSER_MEMORY_LIMIT=-1
+        cd /opt/drupal
+        composer update farmos/farmos --with-all-dependencies
+        
+        vendor/bin/drush --yes updb
+        vendor/bin/drush cache:rebuild
+  mysql:
+    image: tugboatqa/mariadb
