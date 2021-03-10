@@ -2,6 +2,7 @@
 
 namespace Drupal\farm_entity;
 
+use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\log\LogViewsData;
 
 /**
@@ -14,6 +15,19 @@ class FarmLogViewsData extends LogViewsData {
    */
   public function getViewsData() {
     $data = parent::getViewsData();
+
+    // Provide a reverse entity reference relationship from quantities to logs
+    // that reference them.
+    // Workaround for core issue #2706431.
+    // Copied from Entity API module's EntityViewsData, modified to support
+    // Entity Reference Revisions field.
+    // @todo Patch Entity to support Entity Reference Revisions instead?
+    $entity_type_id = $this->entityType->id();
+    $base_fields = $this->getEntityFieldManager()->getBaseFieldDefinitions($entity_type_id);
+    $entity_reference_fields = array_filter($base_fields, function (BaseFieldDefinition $field) {
+      return !$field->isComputed() && $field->getType() == 'entity_reference_revisions';
+    });
+    $this->addReverseRelationships($data, $entity_reference_fields);
 
     return $data;
   }
