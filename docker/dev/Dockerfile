@@ -45,8 +45,13 @@ RUN { \
     echo '  <rule ref="Drupal">'; \
     echo '    <exclude name="Drupal.InfoFiles.AutoAddedKeys.Version"/>'; \
     echo '    <exclude name="Drupal.Arrays.Array.LongLineDeclaration"/>'; \
+    # @todo https://www.drupal.org/project/coder/issues/2159253
+    echo '    <exclude name="Drupal.Commenting.InlineComment.SpacingAfter"/>'; \
     echo '  </rule>'; \
-    echo '  <rule ref="DrupalPractice"/>'; \
+    echo '  <rule ref="DrupalPractice">'; \
+    # @todo https://www.drupal.org/project/coder/issues/2159253
+    echo '    <exclude name="DrupalPractice.Commenting.CommentEmptyLine.SpacingAfter"/>'; \
+    echo '  </rule>'; \
     echo '  <rule ref="Internal.Tokenizer.Exception"><severity>0</severity></rule>'; \
     echo '</ruleset>'; \
   } > /var/farmOS/phpcs.xml \
