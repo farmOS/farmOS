@@ -149,12 +149,12 @@ class DataStream extends ContentEntityBase implements DataStreamInterface {
   }
 
   /**
-   * Create a private key.
+   * Create a unique key.
    *
    * @return string
-   *   A new private key.
+   *   A new unique key.
    */
-  public static function createPrivateKey() {
+  public static function createUniqueKey() {
     return hash('md5', mt_rand());
   }
 
@@ -186,7 +186,7 @@ class DataStream extends ContentEntityBase implements DataStreamInterface {
       ->setLabel(t('Private Key'))
       ->setDescription(t('Private key for the data stream.'))
       ->setTranslatable(TRUE)
-      ->setDefaultValueCallback('Drupal\data_stream\Entity\DataStream::createPrivateKey')
+      ->setDefaultValueCallback(static::class . '::createUniqueKey')
       ->setSetting('max_length', 255)
       ->setSetting('text_processing', 0)
       ->setDisplayOptions('view', [

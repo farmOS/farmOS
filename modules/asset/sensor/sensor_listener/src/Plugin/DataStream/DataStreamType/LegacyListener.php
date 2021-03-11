@@ -6,6 +6,7 @@ use Drupal\Component\Serialization\Json;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\data_stream\DataStreamStorageInterface;
+use Drupal\data_stream\Entity\DataStream;
 use Drupal\data_stream\Entity\DataStreamInterface;
 use Drupal\data_stream\Plugin\DataStream\DataStreamType\DataStreamTypeBase;
 use Drupal\data_stream\Traits\DataStreamPrivateKeyAccess;
@@ -86,6 +87,7 @@ class LegacyListener extends DataStreamTypeBase implements DataStreamStorageInte
     $field = BundleFieldDefinition::create('string')
       ->setLabel($this->t('Public key'))
       ->setDescription($this->t('Public key used to identify this data stream in the legacy listener endpoint.'))
+      ->setDefaultValueCallback(DataStream::class . '::createUniqueKey')
       ->setSetting('max_length', 255)
       ->setSetting('is_ascii', FALSE)
       ->setSetting('case_sensitive', FALSE)
@@ -118,22 +120,12 @@ class LegacyListener extends DataStreamTypeBase implements DataStreamStorageInte
     /** @var \Drupal\data_stream\Entity\DataStreamInterface  $entity */
     $entity = $form_object->getEntity();
 
-    // Get the existing public_key.
-    if (!empty($entity)) {
-      $public_key = $entity->get('public_key')->value;
-    }
-
-    // Create new public_key.
-    if (empty($public_key)) {
-      $public_key = hash('md5', mt_rand());
-    }
-
     // Field to configure the public_key.
     $form[$this->getPluginId()]['public_key'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Public key'),
       '#description' => $this->t('The public key used to identify this data stream.'),
-      '#default_value' => $public_key,
+      '#default_value' => $entity->get('public_key')->value,
     ];
     return $form;
   }
