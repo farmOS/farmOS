@@ -10,3 +10,7 @@ farm.plan.type:
   class: Drupal\Core\Menu\MenuLinkDefault
   deriver: Drupal\farm_ui_views\Plugin\Derivative\FarmPlanViewsMenuLink
   parent: views_view:views.farm_plan.page
+farm.quantity.type:
+  class: Drupal\Core\Menu\MenuLinkDefault
+  deriver: Drupal\farm_ui_views\Plugin\Derivative\FarmQuantityViewsMenuLink
+  parent: views_view:views.farm_quantity.page

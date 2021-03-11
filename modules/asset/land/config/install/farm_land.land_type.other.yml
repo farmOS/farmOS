@@ -3,6 +3,6 @@ status: true
 dependencies:
   enforced:
     module:
-      - farm_land_types
+      - farm_land
 id: other
 label: Other

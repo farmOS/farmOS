@@ -31,7 +31,7 @@ use Drupal\user\EntityOwnerTrait;
  *     "list_builder" = "\Drupal\quantity\QuantityListBuilder",
  *     "permission_provider" = "\Drupal\entity\UncacheableEntityPermissionProvider",
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
- *     "views_data" = "\Drupal\views\EntityViewsData",
+ *     "views_data" = "Drupal\quantity\QuantityViewsData",
  *     "form" = {
  *       "default" = "Drupal\Core\Entity\ContentEntityForm",
  *       "add" = "Drupal\Core\Entity\ContentEntityForm",
@@ -157,7 +157,6 @@ class Quantity extends RevisionableContentEntityBase implements QuantityInterfac
       ->setLabel(t('Value'))
       ->setDescription(t('Value of the quantity.'))
       ->setRevisionable(TRUE)
-      ->setRequired(TRUE)
       ->setDisplayOptions('view', [
         'label' => 'hidden',
         'type' => 'fraction_decimal',
