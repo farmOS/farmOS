@@ -3,7 +3,7 @@ status: true
 dependencies:
   enforced:
     module:
-      - data_stream
+      - farm_sensor_listener
 id: legacy_listener
 label: Legacy listener
 description: 'Legacy Listener stream'
