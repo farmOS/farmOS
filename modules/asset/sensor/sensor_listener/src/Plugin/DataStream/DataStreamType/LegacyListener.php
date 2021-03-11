@@ -89,20 +89,11 @@ class LegacyListener extends DataStreamTypeBase implements DataStreamStorageInte
       ->setDescription($this->t('Public key used to identify this data stream in the legacy listener endpoint.'))
       ->setDefaultValueCallback(DataStream::class . '::createUniqueKey')
       ->setSetting('max_length', 255)
-      ->setSetting('is_ascii', FALSE)
-      ->setSetting('case_sensitive', FALSE)
-      ->setDisplayOptions('form', [
-        'type' => 'string_textfield',
-        'settings' => [
-          'size' => 60,
-          'placeholder' => '',
-        ],
-        'weight' => $options['weight']['form'] ?? 0,
-      ])
+      ->setSetting('text_processing', 0)
       ->setDisplayOptions('view', [
         'label' => 'inline',
         'type' => 'string',
-        'weight' => $options['weight']['view'] ?? 0,
+        'weight' => -10,
       ]);
     $fields['public_key'] = $field;
 

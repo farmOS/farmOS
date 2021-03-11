@@ -190,7 +190,7 @@ class DataStream extends ContentEntityBase implements DataStreamInterface {
       ->setSetting('max_length', 255)
       ->setSetting('text_processing', 0)
       ->setDisplayOptions('view', [
-        'label' => 'hidden',
+        'label' => 'inline',
         'type' => 'string',
         'weight' => -5,
       ])
