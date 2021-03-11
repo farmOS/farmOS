@@ -205,9 +205,10 @@ function farm_entity_entity_field_storage_info_alter(&$fields, EntityTypeInterfa
 function farm_entity_views_data_alter(array &$data) {
 
   // Because Drupal core does not provide full Views integration for base fields
-  // we must manually specify the state_machine_state views filter for the
-  // status field.
-  // Define the views filter settings.
+  // we must manually add support for certain fields.
+  // Workaround for core issue #2489476.
+
+  // Add support for state_machine filters.
   $status_filter = [
     'id' => 'state_machine_state',
     'field_name' => 'status',
@@ -223,6 +224,19 @@ function farm_entity_views_data_alter(array &$data) {
   foreach ($tables as $table) {
     if (!empty($data[$table]['status'])) {
       $data[$table]['status']['filter'] = $status_filter;
+    }
+  }
+
+  // Add support for taxonomy term reference filters.
+  $vocabularies = [
+    'unit' => [
+      'quantity' => 'units',
+    ],
+  ];
+  foreach ($vocabularies as $vocabulary => $table_fields) {
+    foreach ($table_fields as $table => $field) {
+      $data[$table][$field]['filter']['id'] = 'taxonomy_index_tid';
+      $data[$table][$field]['filter']['vocabulary'] = $vocabulary;
     }
   }
 }
