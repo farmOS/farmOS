@@ -152,6 +152,8 @@ function template_preprocess_quantity(array &$variables) {
   $variables['quantity'] = $variables['elements']['#quantity'];
   // Helpful $content variable for templates.
   foreach (Element::children($variables['elements']) as $key) {
-    $variables['content'][$key] = $variables['elements'][$key];
+    if (!empty($variables['elements'][$key]['#items'])) {
+      $variables['content'][$key] = $variables['elements'][$key];
+    }
   }
 }
