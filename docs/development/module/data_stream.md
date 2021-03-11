@@ -4,18 +4,18 @@ The data stream module provides a custom data stream entity for farmOS. Each
 data stream entity represents a time-series stream of data provided by a
 farmOS asset, such as Sensor or Equipment assets. Data streams can also specify
 any assets which their data is describing, such as a Plant, Animal or
-Area asset. Data streams are identified by a `UUID`, and have `private_key` and
-`public` attributes to limit access to their data.
+Land assets. Data streams are identified by a `UUID`, and have `private_key` and
+`public` fields to limit access to their data.
 
 Further functionality is provided by data stream types. Each type can provide a
 custom settings form, methods to retrieve and save data, methods for handling
-API requests, and custom display options. A data stream type can save data
-to the farmOS DB or request data from a third party API.
+API requests, and custom display options. This allows custom data stream types
+to save data to the farmOS DB or request data from a third party API.
 
 ## Using data stream types
 
-The data stream plugin, which defines additional behavior for the data stream
-type, can be accessed from a data stream entity with the `getPlugin()` method:
+The data stream bundle plugin class can be accessed from a data stream entity
+with the `getPlugin()` method:
 
 ```php
 // Load the data stream.
@@ -69,68 +69,43 @@ Custom data stream types can be created to integrate with data stored outside
 of farmOS (such as time-series databases or 3rd party APIs), provide advanced
 views of data, and other custom behavior.
 
-Two things are required to provide a custom data stream type:
+Data stream types can be provided by adding two files to a module:
 
-- A config entity that defines a bundle of the `data_stream` entity.
-- A data stream plugin that provides custom behavior for the data stream type.
+1. An entity type config file (YAML), and:
+2. A bundle plugin class (PHP).
 
-The data stream bundle and plugin must both have the same `id`.
+For more information see [Entity Types](/development/module/entities).
 
-### Data stream bundle
+### Data stream bundle plugin
 
-A data stream bundle can be defined in a `data_stream.type.ID.yml` file
-inside the `config/install` directory of a custom module. The following defines
-the `listener` data stream bundle:
-
-```yaml
-langcode: en
-status: true
-dependencies:
-  enforced:
-    module:
-      - data_stream
-id: listener
-label: Listener
-description: 'Listener stream'
-```
-
-With a bundle of the `data_stream` entity defined, additional fields can be
-added to the bundle. Fields should be added to save any additional data
-necessary to configure individual data streams of the custom type such as
-: API keys, external ID, display options, etc.
-
-### Data stream plugin
-
-Data stream plugins are discovered using Annotation discovery in the `src
-/plugin/DataStream` directory of a custom module. Plugins must implement the
-`DataStreamPluginInterface`, and the `DataStreamPluginBase` class
-can be used as starting point.
+Data stream bundle plugins must implement the `DataStreamTypeInterface`. The
+`DataStreamTypeBase` class can be used as starting point.
 
 Plugins can optionally implement the `DataStreamStorageInterface` and the
 `DataStreamApiInterface` to adhere to a common interface other data stream
 types might use.
 
-The following defines the `listener` data stream plugin class:
+The following defines the `listener` data stream bundle plugin:
 
 ```php
 <?php
 
-namespace Drupal\data_stream\Plugin\DataStream;
+namespace Drupal\data_stream\Plugin\DataStream\DataStreamType;
 
 use Drupal\data_stream\DataStreamApiInterface;
 use Drupal\data_stream\DataStreamStorageInterface;
-use Drupal\data_stream\DataStreamPluginBase;
-
+use Drupal\data_stream\Traits\DataStreamSqlStorage;
+use Drupal\data_stream\Traits\DataStreamPrivateKeyAccess;
 
 /**
- * DataStream plugin that provides listener behavior.
+ * Provides the listener data stream type.
  *
- * @DataStream(
+ * @DataStreamType(
  *   id = "listener",
  *   label = @Translation("Listener"),
  * )
  */
-class ListenerDataStream extends DataStreamPluginBase implements DataStreamStorageInterface, DataStreamApiInterface {
-  ...
+class Listener extends DataStreamTypeBase implements DataStreamStorageInterface, DataStreamApiInterface {
+
 }
 ```
