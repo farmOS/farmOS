@@ -157,7 +157,6 @@ class Quantity extends RevisionableContentEntityBase implements QuantityInterfac
       ->setLabel(t('Value'))
       ->setDescription(t('Value of the quantity.'))
       ->setRevisionable(TRUE)
-      ->setRequired(TRUE)
       ->setDisplayOptions('view', [
         'label' => 'hidden',
         'type' => 'fraction_decimal',
