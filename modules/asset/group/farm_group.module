@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\views\ViewExecutable;
 
 /**
  * Implements hook_entity_base_field_info().
@@ -25,4 +26,41 @@ function farm_group_entity_base_field_info(EntityTypeInterface $entity_type) {
     default:
       return [];
   }
+}
+
+/**
+ * Implements hook_views_pre_view().
+ */
+function farm_group_views_pre_view(ViewExecutable $view, $display_id, array &$args) {
+
+  // Only alter the farm_log page and CSV export views.
+  if ($view->id() != 'farm_log' || in_array($display_id, ['block_upcoming', 'block_late'])) {
+    return;
+  }
+
+  // Make sure the is_group_assignment field exists.
+  /** @var \Drupal\Core\Field\BaseFieldDefinition[] $definitions */
+  $definitions = \Drupal::service('entity_field.manager')->getBaseFieldDefinitions('log');
+  if (isset($definitions['is_group_assignment'])) {
+
+    // Get field name and table name.
+    $definition = $definitions['is_group_assignment'];
+    $field_name = $definition->getName();
+    /** @var \Drupal\Core\Entity\Sql\DefaultTableMapping $table_mapping */
+    $table_mapping = \Drupal::entityTypeManager()->getStorage('log')->getTableMapping();
+    $table = $table_mapping->getFieldTableName($definition->getName());
+
+    // Define filter options.
+    $opts = [
+      'operator' => '=',
+      'value' => 'All',
+      'exposed' => TRUE,
+      'expose' => [
+        'label' => t('Is group assignment'),
+        'identifier' => 'is_group_assignment',
+      ],
+    ];
+    $view->addHandler($view->current_display, 'filter', $table, $field_name, $opts);
+  }
+
 }
