@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\views\ViewExecutable;
 
 /**
@@ -76,4 +77,18 @@ function farm_group_views_pre_view(ViewExecutable $view, $display_id, array &$ar
     $view->getDisplay()->setOption('filters', $filters);
   }
 
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function farm_group_form_log_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+  // Check if the form has the required group fields.
+  if (isset($form['group']) && isset($form['is_group_assignment'])) {
+
+    // Set the visible state of the log.group field.
+    // Only display if is_group_assignment is checked.
+    $form['group']['#states']['visible'] = [':input[name="is_group_assignment[value]"]' => ['checked' => TRUE]];
+  }
 }
