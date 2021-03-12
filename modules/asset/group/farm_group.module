@@ -60,7 +60,20 @@ function farm_group_views_pre_view(ViewExecutable $view, $display_id, array &$ar
         'identifier' => 'is_group_assignment',
       ],
     ];
-    $view->addHandler($view->current_display, 'filter', $table, $field_name, $opts);
+    // Add the filter.
+    $filter_id = $view->addHandler($view->current_display, 'filter', $table, $field_name, $opts);
+
+    // Move the is_group_assignment filter to render before the status filter.
+    $filters = $view->getDisplay()->getOption('filters');
+    if ($index = array_search('status', array_keys($filters))) {
+      $filter = $filters[$filter_id];
+      unset($filters[$filter_id]);
+      // Use array_merge + array_splice instead of array_splice so we can
+      // preserve the array keys.
+      $filters = array_merge(array_slice($filters, 0, $index), [$filter_id => $filter], array_slice($filters, $index));
+    }
+    // Set the new sorted filters array.
+    $view->getDisplay()->setOption('filters', $filters);
   }
 
 }
