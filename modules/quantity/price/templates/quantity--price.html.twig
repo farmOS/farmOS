@@ -17,7 +17,6 @@
 #}
 <div{{ attributes.addClass('quantity') }}>
   {% if content %}
-    <span>({{ quantity.type.entity.label }})</span>
     {% if content.label %}<strong>{{ content.label }}</strong>{% endif %}
     <span>{{ content.value }}</span>
     <span>({{ content.unit_quantity }} {{ content.units }} x {{ content.unit_price }})</span>
