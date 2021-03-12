@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\quantity\Plugin\migrate\process;
+namespace Drupal\farm_migrate\Plugin\migrate\process;
 
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
@@ -23,7 +23,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class CreateQuantity extends ProcessPluginBase implements ContainerFactoryPluginInterface {
 
   /**
-   * Farm quantity entity storage.
+   * Quantity entity storage.
    *
    * @var \Drupal\Core\Entity\EntityStorageInterface
    */
