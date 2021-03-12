@@ -7,7 +7,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Url;
 use Drupal\farm_location\Traits\WktTrait;
-use Drupal\Tests\farm\Functional\FarmBrowserTestBase;
+use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
 use Drupal\Tests\jsonapi\Functional\JsonApiRequestTestTrait;
 use GuzzleHttp\RequestOptions;
 
@@ -16,7 +16,7 @@ use GuzzleHttp\RequestOptions;
  *
  * @group farm
  */
-class LocationTest extends FarmBrowserTestBase {
+class LocationTest extends WebDriverTestBase {
 
   use StringTranslationTrait;
   use WktTrait;
@@ -53,6 +53,11 @@ class LocationTest extends FarmBrowserTestBase {
   /**
    * {@inheritdoc}
    */
+  protected $profile = 'farm';
+
+  /**
+   * {@inheritdoc}
+   */
   protected static $modules = [
     'basic_auth',
     'farm_location',
@@ -65,6 +70,7 @@ class LocationTest extends FarmBrowserTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
+    $GLOBALS['farm_test'] = TRUE;
 
     // Load asset and log storage.
     $entity_type_manager = $this->container->get('entity_type.manager');
@@ -124,11 +130,15 @@ class LocationTest extends FarmBrowserTestBase {
     $this->drupalGet('asset/' . $this->asset->id() . '/edit');
     $this->assertSession()->statusCodeEquals(200);
 
-    // Test that intrinsic geometry, current geometry, and current location
-    // fields are all hidden.
-    $this->assertSession()->fieldNotExists('intrinsic_geometry[0][value]');
+    // Test that current geometry and current location fields are all hidden.
     $this->assertSession()->fieldNotExists('geometry[0][value]');
     $this->assertSession()->fieldNotExists('location[0][target_id]');
+
+    // Test that intrinsic_geometry field is hidden.
+    $page = $this->getSession()->getPage();
+    $intrinsic_geometry_field = $page->findField('intrinsic_geometry');
+    $this->assertNotEmpty($intrinsic_geometry_field);
+    $this->assertFalse($intrinsic_geometry_field->isVisible());
 
     // Go to the asset view page.
     $this->drupalGet('asset/' . $this->asset->id());
@@ -150,7 +160,10 @@ class LocationTest extends FarmBrowserTestBase {
     $this->assertSession()->statusCodeEquals(200);
 
     // Test that the intrinsic geometry field is visible.
-    $this->assertSession()->fieldExists('intrinsic_geometry[0][value]');
+    $page = $this->getSession()->getPage();
+    $intrinsic_geometry_field = $page->findField('intrinsic_geometry');
+    $this->assertNotEmpty($intrinsic_geometry_field);
+    $this->assertTrue($intrinsic_geometry_field->isVisible());
   }
 
   /**

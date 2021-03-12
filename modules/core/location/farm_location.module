@@ -11,22 +11,16 @@ use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Implements hook_field_widget_WIDGET_TYPE_form_alter().
+ * Implements hook_form_BASE_FORM_ID_alter().
  */
-function farm_location_field_widget_farm_map_geofield_form_alter(&$element, FormStateInterface $form_state, $context) {
+function farm_location_form_asset_form_alter(&$form, FormStateInterface $form_state, $form_id) {
 
-  // Get the entity and field name.
-  $entity = $context['items']->getEntity();
-  $field_name = $context['items']->getName();
+  // Check if the form has the required location fields.
+  if (isset($form['intrinsic_geometry']) && isset($form['is_fixed'])) {
 
-  // If this is not the geometry field on asset entities, bail.
-  if (!($field_name == 'intrinsic_geometry' && $entity->getEntityTypeId() == 'asset')) {
-    return;
-  }
-
-  // If the asset is not fixed, hide the geometry field.
-  if (!$entity->get('is_fixed')->value) {
-    $element['#access'] = FALSE;
+    // Set the visible state of the asset.intrinsic_geometry field.
+    // Only display if is_fixed is checked.
+    $form['intrinsic_geometry']['#states']['visible'] = [':input[name="is_fixed[value]"]' => ['checked' => TRUE]];
   }
 }
 
