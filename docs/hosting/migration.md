@@ -10,6 +10,11 @@ YML configuration files included with the farmOS Migrate module.
 
 * Do not migrate into a farmOS 2.x instance that already has records. This is
   to ensure that the internal auto-incrementing IDs of records are maintained.
+* Execute the migrations in the *exact* order they are shown below. It is
+  especially important that all assets are migrated *before* any areas, because
+  areas are converted to assets during the migration, which can cause ID
+  conflicts/collisions.
+  See [Issue #3203228](https://www.drupal.org/project/farm/issues/3203228)
 * Uploaded photos/files must be copied to the destination filesystem before
   migrating. See [Migrating files](#migrating-files) below.
 * See [Limitations](#limitations) below.
