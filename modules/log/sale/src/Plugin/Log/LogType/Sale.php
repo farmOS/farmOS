@@ -42,6 +42,17 @@ class Sale extends FarmLogType {
     ];
     $fields['invoice_number'] = $this->farmFieldFactory->bundleFieldDefinition($options);
 
+    // Lot number.
+    $options = [
+      'type' => 'string',
+      'label' => $this->t('Lot number'),
+      'weight' => [
+        'form' => 20,
+        'view' => 20,
+      ],
+    ];
+    $fields['lot_number'] = $this->farmFieldFactory->bundleFieldDefinition($options);
+
     return $fields;
   }
 
