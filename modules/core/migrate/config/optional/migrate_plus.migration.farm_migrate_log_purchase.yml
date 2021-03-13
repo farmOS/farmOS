@@ -58,7 +58,7 @@ process:
       plugin: create_quantity
       default_values:
         type: 'price'
-        measure: 'count'
+        measure: 'value'
       values:
         uid: '@uid'
         created: '@created'
