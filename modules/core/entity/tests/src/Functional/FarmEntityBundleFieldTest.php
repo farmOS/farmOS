@@ -9,7 +9,7 @@ use Drupal\Tests\farm\Functional\FarmBrowserTestBase;
  *
  * @group farm
  */
-class EntityBundleFieldPostponedInstallTest extends FarmBrowserTestBase {
+class FarmEntityBundleFieldTest extends FarmBrowserTestBase {
 
   /**
    * The entity field manager.
