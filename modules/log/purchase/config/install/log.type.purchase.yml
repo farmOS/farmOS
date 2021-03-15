@@ -1,6 +1,8 @@
 langcode: en
 status: true
 dependencies:
+  module:
+    - farm_entity
   enforced:
     module:
       - farm_purchase
@@ -10,3 +12,6 @@ description: ''
 name_pattern: 'Purchase log [log:id]'
 workflow: log_default
 new_revision: true
+third_party_settings:
+  farm_entity:
+    default_quantity_type: price

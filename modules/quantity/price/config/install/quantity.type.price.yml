@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_quantity_price
+id: price
+label: Price
+description: 'Price quantity type.'
+new_revision: true

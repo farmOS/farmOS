@@ -8,4 +8,5 @@ dependencies:
   - entity:entity
   - entity_reference_revisions:entity_reference_revisions
   - farm:farm_map
+  - fraction:fraction
   - inline_entity_form:inline_entity_form

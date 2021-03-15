@@ -134,6 +134,10 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
         $this->modifyFileField($field, $options);
         break;
 
+      case 'fraction':
+        $this->modifyFractionField($field, $options);
+        break;
+
       case 'geofield':
         $this->modifyGeofieldField($field, $options);
         break;
@@ -563,6 +567,38 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
     }
     $field->setDisplayOptions('form', $form_display_options);
     $field->setDisplayOptions('view', $view_display_options);
+  }
+
+  /**
+   * Fraction field modifier.
+   *
+   * @param \Drupal\Core\Field\BaseFieldDefinition &$field
+   *   A base field definition object.
+   * @param array $options
+   *   An array of options.
+   */
+  protected function modifyFractionField(BaseFieldDefinition &$field, array $options = []) {
+
+    // Build form and view display settings.
+    $field->setDisplayOptions('form', [
+      'type' => 'fraction_decimal',
+      'weight' => $options['weight']['form'] ?? 0,
+      'settings' => [
+        'precision' => 0,
+        'auto_precision' => TRUE,
+      ],
+    ]);
+    $field->setDisplayOptions('view', [
+      'label' => 'inline',
+      'type' => 'fraction_decimal',
+      'settings' => [
+        'precision' => 0,
+        'auto_precision' => TRUE,
+        'separator' => '/',
+        'prefix_suffix' => FALSE,
+      ],
+      'weight' => $options['weight']['view'] ?? 0,
+    ]);
   }
 
   /**

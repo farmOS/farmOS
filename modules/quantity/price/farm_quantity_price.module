@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * @file
+ * Farm_quantity_price module.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function farm_quantity_price_theme() {
+  return [
+    'quantity__price' => [
+      'render element' => 'elements',
+      'base hook' => 'quantity',
+    ],
+  ];
+}
