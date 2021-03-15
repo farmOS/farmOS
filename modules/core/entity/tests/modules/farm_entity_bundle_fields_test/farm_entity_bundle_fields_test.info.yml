@@ -1,0 +1,8 @@
+name: farmOS Bundle Fields Test
+description: Module for testing farmOS bundle fields behavior.
+type: module
+package: Testing
+core_version_requirement: ^9
+dependencies:
+  - farm:farm_entity
+  - farm:farm_entity_test
