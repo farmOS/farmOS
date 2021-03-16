@@ -132,6 +132,8 @@ added to extend your farmOS functionality:
   management of maple tapping and production.
 * **[Farm Map: Emilia-Romagna](https://github.com/bonushenricus/farm_map_emrom)** -
   Emilia-Romagna map layers for farmOS maps.
+* **[Farm Map: PDOK](https://github.com/Sidiox/farm_map_pdok)** -
+  Dutch PDOK map layers for farmOS maps.
 * **[Farm Map: Finland](https://github.com/rkioski/farm_map_fi)** - Finnish map
   layers for farmOS maps.
 * **[Farm Map: Norway](https://github.com/farmOS/farm_map_no)** - Norwegian map
