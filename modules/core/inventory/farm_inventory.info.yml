@@ -8,4 +8,4 @@ dependencies:
   - drupal:views
   - entity_browser:entity_browser
   - farm:asset
-  - farm:farm_quantity
+  - farm:quantity

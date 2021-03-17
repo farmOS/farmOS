@@ -16,8 +16,8 @@ function farm_inventory_entity_base_field_info(EntityTypeInterface $entity_type)
   // Start array of fields.
   $fields = [];
 
-  // Add fields to the farm_quantity entity.
-  if ($entity_type->id() == 'farm_quantity') {
+  // Add fields to the quantity entity.
+  if ($entity_type->id() == 'quantity') {
 
     // Add asset field.
     $fields['asset'] = BaseFieldDefinition::create('entity_reference')
