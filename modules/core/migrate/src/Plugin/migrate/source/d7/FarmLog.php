@@ -39,6 +39,9 @@ class FarmLog extends Log {
     // Prepare quantity information.
     $this->prepareQuantity($row);
 
+    // Prepare soil test information (only applicable to soil test logs).
+    $this->prepareSoilTest($row);
+
     // Return success.
     return TRUE;
   }
@@ -249,6 +252,68 @@ class FarmLog extends Log {
 
     // Add the quantity IDs to the row for future processing.
     $row->setSourceProperty('log_quantities', $quantity_ids);
+  }
+
+  /**
+   * Prepare a log's soil test information.
+   *
+   * @param \Drupal\migrate\Row $row
+   *   The row object.
+   */
+  protected function prepareSoilTest(Row $row) {
+    $id = $row->getSourceProperty('id');
+
+    // Get referenced soil name term IDs.
+    $soil_name_tids = [];
+    foreach ($this->getFieldvalues('log', 'field_farm_soil_names', $id) as $value) {
+      if (!empty($value['tid'])) {
+        $soil_name_tids[] = $value['tid'];
+      }
+    }
+
+    // If no soil names are referenced, bail.
+    if (empty($soil_name_tids)) {
+      return;
+    }
+
+    // Look up the term names.
+    $query = $this->select('taxonomy_term_data', 't');
+    $query->addField('t', 'name');
+    $query->condition('t.tid', $soil_name_tids, 'IN');
+    $result = $query->execute()->fetchCol();
+    $soil_names = [];
+    if (!empty($result)) {
+      foreach ($result as $col) {
+        if (!empty($col)) {
+          $soil_names[] = $col;
+        }
+      }
+    }
+
+    // If there are no names, bail.
+    if (empty($soil_names)) {
+      return;
+    }
+
+    // Create a string that summarizes the soil names. If there are multiple,
+    // separate with newlines.
+    if (count($soil_names) == 1) {
+      $summary = $this->t('Soil name: @name', ['@name' => $soil_names[0]]);
+    }
+    else {
+      $summary = $this->t("Soil names:\n@names", ['@names' => implode("\n", $soil_names)]);
+    }
+
+    // The names are going to be appended to the log's Notes field, but we want
+    // to make sure that whitespace is added if there is already data in the
+    // Notes field.
+    $notes = $this->getFieldvalues('log', 'field_farm_notes', $id);
+    if (!empty($notes)) {
+      $summary = "\n\n" . $summary;
+    }
+
+    // Add the soil name summary to the row for future processing.
+    $row->setSourceProperty('soil_name_summary', $summary);
   }
 
 }

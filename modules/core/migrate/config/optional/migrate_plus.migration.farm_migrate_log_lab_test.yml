@@ -39,6 +39,19 @@ process:
     map:
       farm_soil_test: soil
       farm_water_test: water
+  # Concatenate the 1.x "Soil names" field summary into Notes.
+  notes/0/value:
+    plugin: concat
+    source:
+      - field_farm_notes/0/value
+      - soil_name_summary
+  notes/0/format:
+    plugin: static_map
+    source: field_farm_notes/0/format
+    map:
+      farm_format: default
+      plain_text: plain_text
+    default_value: default
 migration_dependencies:
   required: {  }
   optional: {  }
