@@ -2,14 +2,11 @@ langcode: en
 status: true
 dependencies:
   module:
-    - filter
-  enforced:
-    module:
-      - farm_api
-id: filter_format--filter_format
+    - system
+id: action--action
 disabled: true
-path: filter_format/filter_format
-resourceType: filter_format--filter_format
+path: action/action
+resourceType: action--action
 resourceFields:
   uuid:
     fieldName: uuid
@@ -47,33 +44,33 @@ resourceFields:
     enhancer:
       id: ''
     disabled: false
-  name:
-    fieldName: name
-    publicName: name
+  id:
+    fieldName: id
+    publicName: id
     enhancer:
       id: ''
     disabled: false
-  format:
-    fieldName: format
-    publicName: format
+  label:
+    fieldName: label
+    publicName: label
     enhancer:
       id: ''
     disabled: false
-  weight:
-    fieldName: weight
-    publicName: weight
+  type:
+    fieldName: type
+    publicName: type
     enhancer:
       id: ''
     disabled: false
-  roles:
-    fieldName: roles
-    publicName: roles
+  plugin:
+    fieldName: plugin
+    publicName: plugin
     enhancer:
       id: ''
     disabled: false
-  filters:
-    fieldName: filters
-    publicName: filters
+  configuration:
+    fieldName: configuration
+    publicName: configuration
     enhancer:
       id: ''
     disabled: false

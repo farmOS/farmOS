@@ -1,9 +1,6 @@
 langcode: en
 status: true
-dependencies:
-  enforced:
-    module:
-      - farm_api
+dependencies: {  }
 id: entity_form_mode--entity_form_mode
 disabled: true
 path: entity_form_mode/entity_form_mode

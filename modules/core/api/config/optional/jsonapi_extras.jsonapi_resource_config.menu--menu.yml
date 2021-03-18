@@ -1,13 +1,12 @@
 langcode: en
 status: true
 dependencies:
-  enforced:
-    module:
-      - farm_api
-id: jsonapi_resource_config--jsonapi_resource_config
+  module:
+    - system
+id: menu--menu
 disabled: true
-path: jsonapi_resource_config/jsonapi_resource_config
-resourceType: jsonapi_resource_config--jsonapi_resource_config
+path: menu/menu
+resourceType: menu--menu
 resourceFields:
   uuid:
     fieldName: uuid
@@ -51,27 +50,21 @@ resourceFields:
     enhancer:
       id: ''
     disabled: false
-  disabled:
-    fieldName: disabled
-    publicName: disabled
+  label:
+    fieldName: label
+    publicName: label
     enhancer:
       id: ''
     disabled: false
-  path:
-    fieldName: path
-    publicName: path
+  description:
+    fieldName: description
+    publicName: description
     enhancer:
       id: ''
     disabled: false
-  resourceType:
-    fieldName: resourceType
-    publicName: resourceType
-    enhancer:
-      id: ''
-    disabled: false
-  resourceFields:
-    fieldName: resourceFields
-    publicName: resourceFields
+  locked:
+    fieldName: locked
+    publicName: locked
     enhancer:
       id: ''
     disabled: false

@@ -2,14 +2,11 @@ langcode: en
 status: true
 dependencies:
   module:
-    - system
-  enforced:
-    module:
-     - farm_api
-id: action--action
+    - views
+id: view--view
 disabled: true
-path: action/action
-resourceType: action--action
+path: view/view
+resourceType: view--view
 resourceFields:
   uuid:
     fieldName: uuid
@@ -59,21 +56,39 @@ resourceFields:
     enhancer:
       id: ''
     disabled: false
-  type:
-    fieldName: type
-    publicName: type
+  module:
+    fieldName: module
+    publicName: module
     enhancer:
       id: ''
     disabled: false
-  plugin:
-    fieldName: plugin
-    publicName: plugin
+  description:
+    fieldName: description
+    publicName: description
     enhancer:
       id: ''
     disabled: false
-  configuration:
-    fieldName: configuration
-    publicName: configuration
+  tag:
+    fieldName: tag
+    publicName: tag
+    enhancer:
+      id: ''
+    disabled: false
+  base_table:
+    fieldName: base_table
+    publicName: base_table
+    enhancer:
+      id: ''
+    disabled: false
+  base_field:
+    fieldName: base_field
+    publicName: base_field
+    enhancer:
+      id: ''
+    disabled: false
+  display:
+    fieldName: display
+    publicName: display
     enhancer:
       id: ''
     disabled: false

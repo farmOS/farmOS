@@ -3,13 +3,10 @@ status: true
 dependencies:
   module:
     - field
-  enforced:
-    module:
-      - farm_api
-id: field_storage_config--field_storage_config
+id: field_config--field_config
 disabled: true
-path: field_storage_config/field_storage_config
-resourceType: field_storage_config--field_storage_config
+path: field_config/field_config
+resourceType: field_config--field_config
 resourceFields:
   uuid:
     fieldName: uuid
@@ -65,33 +62,27 @@ resourceFields:
     enhancer:
       id: ''
     disabled: false
-  type:
-    fieldName: type
-    publicName: type
+  bundle:
+    fieldName: bundle
+    publicName: bundle
     enhancer:
       id: ''
     disabled: false
-  settings:
-    fieldName: settings
-    publicName: settings
+  label:
+    fieldName: label
+    publicName: label
     enhancer:
       id: ''
     disabled: false
-  module:
-    fieldName: module
-    publicName: module
+  description:
+    fieldName: description
+    publicName: description
     enhancer:
       id: ''
     disabled: false
-  locked:
-    fieldName: locked
-    publicName: locked
-    enhancer:
-      id: ''
-    disabled: false
-  cardinality:
-    fieldName: cardinality
-    publicName: cardinality
+  required:
+    fieldName: required
+    publicName: required
     enhancer:
       id: ''
     disabled: false
@@ -101,21 +92,27 @@ resourceFields:
     enhancer:
       id: ''
     disabled: false
-  indexes:
-    fieldName: indexes
-    publicName: indexes
+  default_value:
+    fieldName: default_value
+    publicName: default_value
     enhancer:
       id: ''
     disabled: false
-  persist_with_no_fields:
-    fieldName: persist_with_no_fields
-    publicName: persist_with_no_fields
+  default_value_callback:
+    fieldName: default_value_callback
+    publicName: default_value_callback
     enhancer:
       id: ''
     disabled: false
-  custom_storage:
-    fieldName: custom_storage
-    publicName: custom_storage
+  settings:
+    fieldName: settings
+    publicName: settings
+    enhancer:
+      id: ''
+    disabled: false
+  field_type:
+    fieldName: field_type
+    publicName: field_type
     enhancer:
       id: ''
     disabled: false

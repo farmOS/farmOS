@@ -1,13 +1,12 @@
 langcode: en
 status: true
 dependencies:
-  enforced:
-    module:
-      - farm_api
-id: entity_view_mode--entity_view_mode
+  module:
+    - simple_oauth
+id: oauth2_token_type--oauth2_token_type
 disabled: true
-path: entity_view_mode/entity_view_mode
-resourceType: entity_view_mode--entity_view_mode
+path: oauth2_token_type/oauth2_token_type
+resourceType: oauth2_token_type--oauth2_token_type
 resourceFields:
   uuid:
     fieldName: uuid
@@ -57,15 +56,15 @@ resourceFields:
     enhancer:
       id: ''
     disabled: false
-  targetEntityType:
-    fieldName: targetEntityType
-    publicName: targetEntityType
+  description:
+    fieldName: description
+    publicName: description
     enhancer:
       id: ''
     disabled: false
-  cache:
-    fieldName: cache
-    publicName: cache
+  locked:
+    fieldName: locked
+    publicName: locked
     enhancer:
       id: ''
     disabled: false

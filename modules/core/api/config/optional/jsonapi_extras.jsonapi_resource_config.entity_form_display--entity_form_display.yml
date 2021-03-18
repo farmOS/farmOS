@@ -1,15 +1,10 @@
 langcode: en
 status: true
-dependencies:
-  module:
-    - block
-  enforced:
-    module:
-      - farm_api
-id: block--block
+dependencies: {  }
+id: entity_form_display--entity_form_display
 disabled: true
-path: block/block
-resourceType: block--block
+path: entity_form_display/entity_form_display
+resourceType: entity_form_display--entity_form_display
 resourceFields:
   uuid:
     fieldName: uuid
@@ -53,45 +48,33 @@ resourceFields:
     enhancer:
       id: ''
     disabled: false
-  theme:
-    fieldName: theme
-    publicName: theme
+  targetEntityType:
+    fieldName: targetEntityType
+    publicName: targetEntityType
     enhancer:
       id: ''
     disabled: false
-  region:
-    fieldName: region
-    publicName: region
+  bundle:
+    fieldName: bundle
+    publicName: bundle
     enhancer:
       id: ''
     disabled: false
-  weight:
-    fieldName: weight
-    publicName: weight
+  mode:
+    fieldName: mode
+    publicName: mode
     enhancer:
       id: ''
     disabled: false
-  provider:
-    fieldName: provider
-    publicName: provider
+  content:
+    fieldName: content
+    publicName: content
     enhancer:
       id: ''
     disabled: false
-  plugin:
-    fieldName: plugin
-    publicName: plugin
-    enhancer:
-      id: ''
-    disabled: false
-  settings:
-    fieldName: settings
-    publicName: settings
-    enhancer:
-      id: ''
-    disabled: false
-  visibility:
-    fieldName: visibility
-    publicName: visibility
+  hidden:
+    fieldName: hidden
+    publicName: hidden
     enhancer:
       id: ''
     disabled: false

@@ -2,14 +2,11 @@ langcode: en
 status: true
 dependencies:
   module:
-    - system
-  enforced:
-    module:
-      - farm_api
-id: menu--menu
+    - block
+id: block--block
 disabled: true
-path: menu/menu
-resourceType: menu--menu
+path: block/block
+resourceType: block--block
 resourceFields:
   uuid:
     fieldName: uuid
@@ -53,21 +50,45 @@ resourceFields:
     enhancer:
       id: ''
     disabled: false
-  label:
-    fieldName: label
-    publicName: label
+  theme:
+    fieldName: theme
+    publicName: theme
     enhancer:
       id: ''
     disabled: false
-  description:
-    fieldName: description
-    publicName: description
+  region:
+    fieldName: region
+    publicName: region
     enhancer:
       id: ''
     disabled: false
-  locked:
-    fieldName: locked
-    publicName: locked
+  weight:
+    fieldName: weight
+    publicName: weight
+    enhancer:
+      id: ''
+    disabled: false
+  provider:
+    fieldName: provider
+    publicName: provider
+    enhancer:
+      id: ''
+    disabled: false
+  plugin:
+    fieldName: plugin
+    publicName: plugin
+    enhancer:
+      id: ''
+    disabled: false
+  settings:
+    fieldName: settings
+    publicName: settings
+    enhancer:
+      id: ''
+    disabled: false
+  visibility:
+    fieldName: visibility
+    publicName: visibility
     enhancer:
       id: ''
     disabled: false

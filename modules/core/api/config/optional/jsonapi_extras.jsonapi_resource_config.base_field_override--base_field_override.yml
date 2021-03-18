@@ -1,15 +1,10 @@
 langcode: en
 status: true
-dependencies:
-  module:
-    - field
-  enforced:
-    module:
-      - farm_api
-id: field_config--field_config
+dependencies: {  }
+id: base_field_override--base_field_override
 disabled: true
-path: field_config/field_config
-resourceType: field_config--field_config
+path: base_field_override/base_field_override
+resourceType: base_field_override--base_field_override
 resourceFields:
   uuid:
     fieldName: uuid

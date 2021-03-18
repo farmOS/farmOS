@@ -1,13 +1,10 @@
 langcode: en
 status: true
-dependencies:
-  enforced:
-    module:
-      - farm_api
-id: entity_view_display--entity_view_display
+dependencies: {  }
+id: jsonapi_resource_config--jsonapi_resource_config
 disabled: true
-path: entity_view_display/entity_view_display
-resourceType: entity_view_display--entity_view_display
+path: jsonapi_resource_config/jsonapi_resource_config
+resourceType: jsonapi_resource_config--jsonapi_resource_config
 resourceFields:
   uuid:
     fieldName: uuid
@@ -51,33 +48,27 @@ resourceFields:
     enhancer:
       id: ''
     disabled: false
-  targetEntityType:
-    fieldName: targetEntityType
-    publicName: targetEntityType
+  disabled:
+    fieldName: disabled
+    publicName: disabled
     enhancer:
       id: ''
     disabled: false
-  bundle:
-    fieldName: bundle
-    publicName: bundle
+  path:
+    fieldName: path
+    publicName: path
     enhancer:
       id: ''
     disabled: false
-  mode:
-    fieldName: mode
-    publicName: mode
+  resourceType:
+    fieldName: resourceType
+    publicName: resourceType
     enhancer:
       id: ''
     disabled: false
-  content:
-    fieldName: content
-    publicName: content
-    enhancer:
-      id: ''
-    disabled: false
-  hidden:
-    fieldName: hidden
-    publicName: hidden
+  resourceFields:
+    fieldName: resourceFields
+    publicName: resourceFields
     enhancer:
       id: ''
     disabled: false
