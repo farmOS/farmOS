@@ -1,0 +1,68 @@
+langcode: en
+status: true
+dependencies: {  }
+id: date_format--date_format
+disabled: true
+path: date_format/date_format
+resourceType: date_format--date_format
+resourceFields:
+  uuid:
+    fieldName: uuid
+    publicName: uuid
+    enhancer:
+      id: ''
+    disabled: false
+  langcode:
+    fieldName: langcode
+    publicName: langcode
+    enhancer:
+      id: ''
+    disabled: false
+  status:
+    fieldName: status
+    publicName: status
+    enhancer:
+      id: ''
+    disabled: false
+  dependencies:
+    fieldName: dependencies
+    publicName: dependencies
+    enhancer:
+      id: ''
+    disabled: false
+  third_party_settings:
+    fieldName: third_party_settings
+    publicName: third_party_settings
+    enhancer:
+      id: ''
+    disabled: false
+  _core:
+    fieldName: _core
+    publicName: _core
+    enhancer:
+      id: ''
+    disabled: false
+  id:
+    fieldName: id
+    publicName: id
+    enhancer:
+      id: ''
+    disabled: false
+  label:
+    fieldName: label
+    publicName: label
+    enhancer:
+      id: ''
+    disabled: false
+  locked:
+    fieldName: locked
+    publicName: locked
+    enhancer:
+      id: ''
+    disabled: false
+  pattern:
+    fieldName: pattern
+    publicName: pattern
+    enhancer:
+      id: ''
+    disabled: false
