@@ -1,0 +1,130 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - consumers
+id: consumer--consumer
+disabled: true
+path: consumer/consumer
+resourceType: consumer--consumer
+resourceFields:
+  id:
+    fieldName: id
+    publicName: id
+    enhancer:
+      id: ''
+    disabled: false
+  uuid:
+    fieldName: uuid
+    publicName: uuid
+    enhancer:
+      id: ''
+    disabled: false
+  langcode:
+    fieldName: langcode
+    publicName: langcode
+    enhancer:
+      id: ''
+    disabled: false
+  owner_id:
+    fieldName: owner_id
+    publicName: owner_id
+    enhancer:
+      id: ''
+    disabled: false
+  label:
+    fieldName: label
+    publicName: label
+    enhancer:
+      id: ''
+    disabled: false
+  description:
+    fieldName: description
+    publicName: description
+    enhancer:
+      id: ''
+    disabled: false
+  image:
+    fieldName: image
+    publicName: image
+    enhancer:
+      id: ''
+    disabled: false
+  third_party:
+    fieldName: third_party
+    publicName: third_party
+    enhancer:
+      id: ''
+    disabled: false
+  is_default:
+    fieldName: is_default
+    publicName: is_default
+    enhancer:
+      id: ''
+    disabled: false
+  default_langcode:
+    fieldName: default_langcode
+    publicName: default_langcode
+    enhancer:
+      id: ''
+    disabled: false
+  secret:
+    fieldName: secret
+    publicName: secret
+    enhancer:
+      id: ''
+    disabled: false
+  confidential:
+    fieldName: confidential
+    publicName: confidential
+    enhancer:
+      id: ''
+    disabled: false
+  roles:
+    fieldName: roles
+    publicName: roles
+    enhancer:
+      id: ''
+    disabled: false
+  redirect:
+    fieldName: redirect
+    publicName: redirect
+    enhancer:
+      id: ''
+    disabled: false
+  user_id:
+    fieldName: user_id
+    publicName: user_id
+    enhancer:
+      id: ''
+    disabled: false
+  pkce:
+    fieldName: pkce
+    publicName: pkce
+    enhancer:
+      id: ''
+    disabled: false
+  client_id:
+    fieldName: client_id
+    publicName: client_id
+    enhancer:
+      id: ''
+    disabled: false
+  grant_user_access:
+    fieldName: grant_user_access
+    publicName: grant_user_access
+    enhancer:
+      id: ''
+    disabled: false
+  limit_requested_access:
+    fieldName: limit_requested_access
+    publicName: limit_requested_access
+    enhancer:
+      id: ''
+    disabled: false
+  limit_user_access:
+    fieldName: limit_user_access
+    publicName: limit_user_access
+    enhancer:
+      id: ''
+    disabled: false
