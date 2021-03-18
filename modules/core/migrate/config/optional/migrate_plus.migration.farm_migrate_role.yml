@@ -4,6 +4,7 @@ dependencies:
   enforced:
     module:
       - farm_migrate
+      - farm_role_roles
 id: farm_migrate_role
 label: 'Roles'
 migration_group: farm_migrate_role
@@ -18,22 +19,14 @@ source:
 destination:
   plugin: 'entity:user_role'
 process:
-  id:
-    -
-      plugin: static_map
-      source: name
-      map:
-        Farm Manager: farm_manager
-        Farm Worker: farm_worker
-        Farm Viewer: farm_viewer
-    -
-      plugin: entity_lookup
-      value_key: id
-      entity_type: user_role
-      ignore_case: true
-    -
-      plugin: skip_on_empty
-      method: row
+  role:
+    plugin: static_map
+    source: name
+    map:
+      Farm Manager: farm_manager
+      Farm Worker: farm_worker
+      Farm Viewer: farm_viewer
+    bypass: true
 migration_dependencies:
   required: {  }
   optional: {  }

@@ -9,4 +9,24 @@ label: 'farmOS 1.x Role Migration'
 description: 'Migrates roles from farmOS 1.x to farmOS 2.x'
 source_type: 'farmOS 1.x'
 module: null
-shared_configuration: null
+shared_configuration:
+  process:
+    # This role field is a placeholder, and should be replaced in the specific
+    # migration process configuration. This makes it easier for custom/contrib
+    # modules to provide role migrations. See the farm_migrate_user migration
+    # for an example that can be copied.
+    role:
+      - plugin: default_value
+        default_value: false
+    id:
+      -
+        plugin: get
+        source: '@role'
+      -
+        plugin: entity_lookup
+        value_key: id
+        entity_type: user_role
+        ignore_case: true
+      -
+        plugin: skip_map_on_empty
+        method: row
