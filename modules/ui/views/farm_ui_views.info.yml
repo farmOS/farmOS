@@ -7,6 +7,7 @@ dependencies:
   - csv_serialization:csv_serialization
   - date_popup:date_popup
   - drupal:rest
+  - entity_browser:entity_browser
   - farm:asset
   - farm:farm_entity
   - farm:farm_location
