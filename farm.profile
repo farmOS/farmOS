@@ -44,6 +44,7 @@ function farm_modules() {
       'farm_structure_types' => t('Default structure types: Building, Greenhouse'),
     ],
     'optional' => [
+      'farm_inventory' => t('Inventory management'),
       'farm_sensor' => t('Sensor assets'),
       'farm_compost' => t('Compost assets'),
       'farm_group' => t('Group assets'),
