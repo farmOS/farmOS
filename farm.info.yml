@@ -16,6 +16,5 @@ dependencies: {  }
 # Install modules and theme.
 install:
   - dblog
-  - farm_settings
 themes:
   - gin

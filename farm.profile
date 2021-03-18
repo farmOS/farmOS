@@ -9,12 +9,22 @@
  * Define farmOS modules that can be installed.
  *
  * @return array
- *   Returns an array with two sub-arrays: 'default' and 'optional'. Default
- *   modules will be selected for installation by default, and optional modules
- *   will require the user to select them for installation.
+ *   Returns an array with three sub-arrays: 'base', 'default' and 'optional'.
+ *   Base modules will always be installed, but can be uninstalled. Default and
+ *   optional modules will appear as options during farmOS installation and in
+ *   a form available to admins. During initial farmOS installation, default
+ *   modules will be selected by default, and optional modules will require the
+ *   user to select them for installation.
  */
 function farm_modules() {
   return [
+    'base' => [
+      'farm_api' => t('farmOS API'),
+      'farm_dashboard' => t('farmOS Dashboard'),
+      'farm_login' => t('Login with username or email.'),
+      'farm_settings' => t('farmOS Settings forms'),
+      'farm_ui' => t('farmOS UI'),
+    ],
     'default' => [
       'farm_land' => t('Land assets'),
       'farm_plant' => t('Plant assets'),
@@ -32,10 +42,6 @@ function farm_modules() {
       'farm_role_roles' => t('Default roles: Manager, Worker, Viewer'),
       'farm_land_types' => t('Default land types: Property, Field, Bed, Paddock, Landmark, Other'),
       'farm_structure_types' => t('Default structure types: Building, Greenhouse'),
-      'farm_login' => t('Login with username or email.'),
-      'farm_api' => t('farmOS API'),
-      'farm_dashboard' => t('farmOS Dashboard'),
-      'farm_ui' => t('farmOS UI'),
     ],
     'optional' => [
       'farm_sensor' => t('Sensor assets'),
