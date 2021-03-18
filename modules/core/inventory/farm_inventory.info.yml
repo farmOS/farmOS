@@ -4,8 +4,7 @@ type: module
 package: farmOS
 core_version_requirement: ^9
 dependencies:
-  - drupal:field
-  - drupal:views
-  - entity_browser:entity_browser
+  - drupal:options
   - farm:asset
+  - farm:farm_field
   - farm:quantity

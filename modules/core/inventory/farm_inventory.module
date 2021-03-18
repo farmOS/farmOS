@@ -6,72 +6,19 @@
  */
 
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\Core\Field\BaseFieldDefinition;
 
 /**
  * Implements hook_entity_base_field_info().
  */
 function farm_inventory_entity_base_field_info(EntityTypeInterface $entity_type) {
+  module_load_include('inc', 'farm_inventory', 'farm_inventory.base_fields');
+  switch ($entity_type->id()) {
 
-  // Start array of fields.
-  $fields = [];
+    // Build quantity base fields.
+    case 'quantity':
+      return farm_inventory_quantity_base_fields();
 
-  // Add fields to the quantity entity.
-  if ($entity_type->id() == 'quantity') {
-
-    // Add asset field.
-    $fields['asset'] = BaseFieldDefinition::create('entity_reference')
-      ->setLabel(t('Asset'))
-      ->setDescription(t('Which asset do you want to adjust the inventory of?'))
-      ->setSetting('target_type', 'asset')
-      ->setCardinality(1)
-      ->setRevisionable(TRUE)
-      ->setDisplayOptions('view', [
-        'type' => 'string',
-        'weight' => 0,
-      ])
-      ->setDisplayOptions('form', [
-        'type' => 'entity_browser_entity_reference',
-        'weight' => 0,
-        'region' => 'content',
-        'settings' => [
-          'entity_browser' => 'inventory_assets',
-          'field_widget_display' => 'label',
-          'field_widget_remove' => 'true',
-          'field_widget_replace' => 'true',
-          'selection_mode' => 'selection_append',
-          'field_widget_edit' => 'false',
-          'open' => 'false',
-        ],
-      ])
-      ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayConfigurable('view', TRUE);
-
-    // Add adjustment field.
-    $fields['adjustment'] = BaseFieldDefinition::create('list_string')
-      ->setLabel(t('Adjustment'))
-      ->setDescription(t('Inventory adjustment.'))
-      ->setRevisionable(TRUE)
-      ->setDefaultValue(NULL)
-      ->setSettings([
-        'allowed_values' => [
-          'increment' => t('Increment'),
-          'decrement' => t('Decrement'),
-          'reset' => t('Reset'),
-        ],
-      ])
-      ->setDisplayOptions('view', [
-        'label' => 'hidden',
-        'type' => 'string',
-        'weight' => 0,
-      ])
-      ->setDisplayOptions('form', [
-        'type' => 'options_select',
-        'weight' => 0,
-      ])
-      ->setDisplayConfigurable('form', FALSE)
-      ->setDisplayConfigurable('view', FALSE);
+    default:
+      return [];
   }
-
-  return $fields;
 }
