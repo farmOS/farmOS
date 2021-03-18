@@ -66,4 +66,4 @@ jobs:
       # https://github.com/drupal/drupal/blob/74fbb0aabdee3e1a5da7b8e489a725afdc5824fd/core/tests/Drupal/Tests/Listeners/HtmlOutputPrinter.php
         run: docker-compose exec -u www-data -T test-runner paratest --functional --passthru='--printer=PHPUnit\\TextUI\\DefaultResultPrinter' --verbose=1 /opt/drupal/web/profiles/farm
       - name: Test Drush site install with all modules
-        run: docker-compose exec -u www-data -T www drush site-install --db-url=${{ matrix.DB_URL }} farm farm_install_modules.modules='all'
+        run: docker-compose exec -u www-data -T www drush site-install --db-url=${{ matrix.DB_URL }} farm farm.modules='all'

@@ -58,8 +58,8 @@ function farm_install_modules(array &$install_state) {
   // profile arguments. We assume this is an array of module machine names,
   // unless it is simply the string "all", which is a shortcut for installing
   // all modules.
-  if (!empty($install_state['forms']['farm_install_modules']['modules'])) {
-    $modules_arg = $install_state['forms']['farm_install_modules']['modules'];
+  if (!empty($install_state['forms']['farm']['modules'])) {
+    $modules_arg = $install_state['forms']['farm']['modules'];
     if ($modules_arg === 'all') {
       $all = farm_modules();
       $modules = array_merge(array_keys($all['default']), array_keys($all['optional']));
