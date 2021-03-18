@@ -5,6 +5,7 @@
  * The farmOS UI Views module.
  */
 
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\views\ViewExecutable;
 
 /**
@@ -38,6 +39,42 @@ function farm_ui_views_farm_dashboard_panes() {
   ];
 
   return $panes;
+}
+
+/**
+ * Implements hook_entity_base_field_info_alter().
+ */
+function farm_ui_views_entity_base_field_info_alter(&$fields, EntityTypeInterface $entity_type) {
+
+  // Use Entity Browser widget for certain asset reference fields.
+  $alter_fields = [
+    'log' => [
+      'asset',
+    ],
+  ];
+  foreach ($alter_fields as $entity_type_id => $field_names) {
+    if ($entity_type->id() != $entity_type_id) {
+      continue;
+    }
+    foreach ($field_names as $field_name) {
+      if (!empty($fields[$field_name])) {
+        /** @var \Drupal\Core\Field\BaseFieldDefinition[] $fields */
+        $form_display_options = $fields[$field_name]->getDisplayOptions('form');
+        $form_display_options['type'] = 'entity_browser_entity_reference';
+        $form_display_options['settings'] = [
+          'entity_browser' => 'farm_asset',
+          'field_widget_display' => 'label',
+          'field_widget_remove' => TRUE,
+          'open' => TRUE,
+          'selection_mode' => 'selection_append',
+          'field_widget_edit' => FALSE,
+          'field_widget_replace' => FALSE,
+          'field_widget_display_settings' => [],
+        ];
+        $fields[$field_name]->setDisplayOptions('form', $form_display_options);
+      }
+    }
+  }
 }
 
 /**
