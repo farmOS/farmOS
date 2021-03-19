@@ -1,0 +1,33 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.farm_asset
+  enforced:
+    module:
+      - farm_ui_views
+  module:
+    - views
+name: farm_asset
+label: 'Farm Asset'
+display: modal
+display_configuration:
+  width: ''
+  height: ''
+  link_text: 'Select assets'
+  auto_open: false
+selection_display: no_display
+selection_display_configuration: {  }
+widget_selector: single
+widget_selector_configuration: {  }
+widgets:
+  ceea0626-02bb-4cea-92f4-adca2561835d:
+    settings:
+      view: farm_asset
+      view_display: entity_browser
+      submit_text: 'Select assets'
+      auto_select: false
+    uuid: ceea0626-02bb-4cea-92f4-adca2561835d
+    weight: 1
+    label: View
+    id: view
