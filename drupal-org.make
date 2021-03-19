@@ -138,7 +138,7 @@ projects[strongarm][subdir] = "contrib"
 projects[strongarm][version] = "2.0"
 
 projects[token][subdir] = "contrib"
-projects[token][version] = "1.7"
+projects[token][version] = "1.8"
 
 projects[views][subdir] = "contrib"
 projects[views][version] = "3.24"
