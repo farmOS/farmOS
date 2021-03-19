@@ -8,3 +8,4 @@ dependencies:
   - farm:asset
   - farm:farm_field
   - farm:quantity
+  - fraction:fraction

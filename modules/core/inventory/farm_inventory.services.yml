@@ -1,0 +1,5 @@
+services:
+  asset.inventory:
+    class: Drupal\farm_inventory\AssetInventory
+    arguments:
+      [ '@datetime.time' ]
