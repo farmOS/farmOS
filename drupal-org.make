@@ -17,7 +17,7 @@ projects[ctools][version] = "1.19"
 projects[ctools][patch][] = "http://www.drupal.org/files/issues/2021-02-03/ctools-fix_modal_position_after_ajax-1803104-28.patch"
 
 projects[date][subdir] = "contrib"
-projects[date][version] = "2.11-rc1"
+projects[date][version] = "2.11"
 ; Patch to fix Issue #3067396: Date CSS not added for date_select Form API elements
 projects[date][patch][] = "http://www.drupal.org/files/issues/2019-07-16/date-select-css-3067396-3.patch"
 
