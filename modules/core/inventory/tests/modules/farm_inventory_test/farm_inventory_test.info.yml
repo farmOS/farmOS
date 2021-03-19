@@ -1,0 +1,10 @@
+name: farmOS Inventory Tests
+description: 'Support module for inventory testing.'
+type: module
+package: Testing
+core_version_requirement: ^9
+dependencies:
+  - entity_reference_revisions:entity_reference_revisions
+  - farm:asset
+  - farm:farm_inventory
+  - log:log

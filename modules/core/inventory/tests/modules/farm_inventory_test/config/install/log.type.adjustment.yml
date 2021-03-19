@@ -1,0 +1,8 @@
+langcode: en
+status: true
+id: adjustment
+label: Adjustment
+description: ''
+name_pattern: 'Adjustment log [log:id]'
+workflow: log_default
+new_revision: true
