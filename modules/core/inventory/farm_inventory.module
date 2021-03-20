@@ -14,6 +14,10 @@ function farm_inventory_entity_base_field_info(EntityTypeInterface $entity_type)
   module_load_include('inc', 'farm_inventory', 'farm_inventory.base_fields');
   switch ($entity_type->id()) {
 
+    // Build asset base fields.
+    case 'asset':
+      return farm_inventory_asset_base_fields();
+
     // Build quantity base fields.
     case 'quantity':
       return farm_inventory_quantity_base_fields();
