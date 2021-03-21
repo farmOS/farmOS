@@ -146,6 +146,10 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
         $this->modifyIdTagField($field, $options);
         break;
 
+      case 'inventory':
+        $this->modifyInventoryField($field, $options);
+        break;
+
       case 'list_string':
         $this->modifyListStringField($field, $options);
         break;
@@ -650,6 +654,18 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
       'type' => 'id_tag',
       'weight' => $options['weight']['view'] ?? 0,
     ]);
+  }
+
+  /**
+   * Inventory field modifier.
+   *
+   * @param \Drupal\Core\Field\BaseFieldDefinition &$field
+   *   A base field definition object.
+   * @param array $options
+   *   An array of options.
+   */
+  protected function modifyInventoryField(BaseFieldDefinition &$field, array $options = []) {
+
   }
 
   /**
