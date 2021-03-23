@@ -31,7 +31,9 @@ composer config repositories.farmos git ${FARMOS_REPO}
 # it is a branch, and prepend it with "dev-".
 # Otherwise FARMOS_VERSION is a valid semantic versioning string. We assume
 # that it is a tagged version and require that version.
-if [[ ! "${FARMOS_VERSION}" =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-((0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*))*))?(\+([0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*))?$ ]]; then
+if [ "${FARMOS_VERSION}" = "2.x" ]; then
+  FARMOS_VERSION="2.x-dev"
+elif [[ ! "${FARMOS_VERSION}" =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-((0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*))*))?(\+([0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*))?$ ]]; then
   FARMOS_VERSION="dev-${FARMOS_VERSION}"
 fi
 composer require farmos/farmos ${FARMOS_VERSION} --no-install
