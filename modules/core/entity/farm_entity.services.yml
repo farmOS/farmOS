@@ -1,4 +1,8 @@
 services:
+  farm_entity.bundle_plugin_installer:
+    class: Drupal\farm_entity\BundlePlugin\BundlePluginInstaller
+    decorates: entity.bundle_plugin_installer
+    arguments: [ '@entity_type.manager', '@entity_bundle.listener', '@field_storage_definition.listener', '@field_definition.listener']
   plugin.manager.asset_type:
     class: Drupal\farm_entity\AssetTypeManager
     parent: default_plugin_manager
