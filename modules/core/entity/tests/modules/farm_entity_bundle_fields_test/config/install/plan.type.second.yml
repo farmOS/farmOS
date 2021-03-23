@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {  }
+id: second
+label: Second
+description: ''
+name_pattern: 'Second plan [plan:id]'
+workflow: plan_default
+new_revision: true
