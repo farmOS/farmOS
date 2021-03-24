@@ -20,22 +20,23 @@ rm -rf project
 git checkout ${PROJECT_VERSION}
 git reset --hard
 
+# Create a temporary Composer cache directory.
+export COMPOSER_HOME="$(mktemp -d)"
+
 # Add the farmOS repository to composer.json.
 composer config repositories.farmos git ${FARMOS_REPO}
 
-# Replace the farmOS version in composer.json.
-# If FARMOS_VERSION is a valid semantic versioning string, we assume that it is
-# a tagged version, and replace the entire version string in composer.json.
-# Or, if FARMOS_VERSION is not "2.x", we assume that it is a branch, and
-# prepend it with "dev-". Otherwise (FARMOS_VERSION is "2.x"), do nothing.
-if [[ "${FARMOS_VERSION}" =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-((0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*))*))?(\+([0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*))?$ ]]; then
-  sed -i 's|"farmos/farmos": "2.x-dev"|"farmos/farmos": "'"${FARMOS_VERSION}"'"|g' composer.json
-elif ! [ "${FARMOS_VERSION}" = "2.x" ]; then
-  sed -i 's|"farmos/farmos": "2.x-dev"|"farmos/farmos": "dev-'"${FARMOS_VERSION}"'"|g' composer.json
+# Require the correct farmOS version in composer.json. Defaults to 2.x.
+# If FARMOS_VERSION is not a valid semantic versioning string, we assume that
+# it is a branch, and prepend it with "dev-".
+# Otherwise FARMOS_VERSION is a valid semantic versioning string. We assume
+# that it is a tagged version and require that version.
+if [ "${FARMOS_VERSION}" = "2.x" ]; then
+  FARMOS_VERSION="2.x-dev"
+elif [[ ! "${FARMOS_VERSION}" =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-((0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*))*))?(\+([0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*))?$ ]]; then
+  FARMOS_VERSION="dev-${FARMOS_VERSION}"
 fi
-
-# Create a temporary Composer cache directory.
-export COMPOSER_HOME="$(mktemp -d)"
+composer require farmos/farmos ${FARMOS_VERSION} --no-install
 
 # Run composer install with optional arguments passed into this script.
 if [ $# -eq 0 ]; then
