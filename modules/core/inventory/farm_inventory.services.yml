@@ -3,3 +3,9 @@ services:
     class: Drupal\farm_inventory\AssetInventory
     arguments:
       [ '@entity_type.manager', '@datetime.time' ]
+  farm_inventory.quantity_subscriber:
+    class: Drupal\farm_inventory\EventSubscriber\QuantityEventSubscriber
+    arguments:
+      [ '@cache_tags.invalidator' ]
+    tags:
+      - { name: 'event_subscriber' }
