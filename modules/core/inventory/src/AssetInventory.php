@@ -53,6 +53,11 @@ class AssetInventory implements AssetInventoryInterface {
    */
   public function getInventory(AssetInterface $asset, string $measure = '', int $units = 0): array {
 
+    // If the asset is new, it won't have inventory.
+    if ($asset->isNew()) {
+      return [];
+    }
+
     // Get a list of the measure+units pairs we will calculate inventory for.
     $measure_units_pairs = $this->getMeasureUnitsPairs($asset, $measure, $units);
 
