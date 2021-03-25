@@ -17,8 +17,9 @@ function farm_log_query_test_entity_base_field_info(EntityTypeInterface $entity_
       'type' => 'entity_reference',
       'label' => t('Asset'),
       'target_type' => 'asset',
+      'multiple' => TRUE,
     ];
-    $fields['asset'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
+    $fields['asset'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
   }
   return $fields;
 }
