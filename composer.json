@@ -39,6 +39,7 @@
         "drupal/simple_oauth": "^5.0",
         "drupal/state_machine": "^1.0",
         "drupal/token": "^1.7",
+        "drush/drush": "^10.0",
         "npm-asset/farmos.org--farmos-map": "^1.4"
     },
     "extra": {
