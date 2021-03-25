@@ -36,6 +36,8 @@ Quantities have a number of attributes that serve to describe their meta
 information. All Quantities have the same standard set of attributes. Modules
 can add additional attributes.
 
+### Standard attributes
+
 Attributes that are common to all Quantity types include:
 
 - Measure

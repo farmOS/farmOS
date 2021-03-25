@@ -29,6 +29,8 @@ Plans have a number of attributes that serve to describe their meta information.
 All Plans have the same standard set of attributes. Modules can add additional
 attributes.
 
+### Standard attributes
+
 Attributes that are common to all Plan types include:
 
 - Name
