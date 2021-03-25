@@ -173,7 +173,7 @@ class InventoryTest extends KernelTestBase {
     $inventory = $this->assetInventory->getInventory($asset);
     $this->assertEquals(1, count($inventory), 'Asset has a single inventory.');
     $this->assertEquals('volume', $inventory[0]['measure'], 'Asset inventory has a measure of volume.');
-    $this->assertEquals($unit1->id(), $inventory[0]['units'], 'Asset inventory has units in liters.');
+    $this->assertEquals('liters', $inventory[0]['units'], 'Asset inventory has units in liters.');
     $this->assertEquals('1', $inventory[0]['value'], 'Asset inventory is 1.');
 
     // Reset the asset's time (hours) inventory to 2.
@@ -186,13 +186,13 @@ class InventoryTest extends KernelTestBase {
     // Load the time (hours) inventory and confirm that it is 2.
     $inventory = $this->assetInventory->getInventory($asset, 'time', $unit2->id());
     $this->assertEquals('time', $inventory[0]['measure'], 'Asset inventory has a measure of time.');
-    $this->assertEquals($unit2->id(), $inventory[0]['units'], 'Asset inventory has units in hours.');
+    $this->assertEquals('hours', $inventory[0]['units'], 'Asset inventory has units in hours.');
     $this->assertEquals('2', $inventory[0]['value'], 'Asset inventory is 2.');
 
     // Load the volume (liters) inventory and confirm that it is still 1.
     $inventory = $this->assetInventory->getInventory($asset, 'volume', $unit1->id());
     $this->assertEquals('volume', $inventory[0]['measure'], 'Asset inventory has a measure of volume.');
-    $this->assertEquals($unit1->id(), $inventory[0]['units'], 'Asset inventory has units in liters.');
+    $this->assertEquals('liters', $inventory[0]['units'], 'Asset inventory has units in liters.');
     $this->assertEquals('1', $inventory[0]['value'], 'Asset inventory is 1.');
 
     // Load all volume inventories (without specifying units) and confirm that

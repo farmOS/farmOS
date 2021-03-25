@@ -5,6 +5,7 @@ namespace Drupal\farm_inventory;
 use Drupal\asset\Entity\AssetInterface;
 use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Database\Database;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\fraction\Fraction;
 
 /**
@@ -27,13 +28,23 @@ class AssetInventory implements AssetInventoryInterface {
   protected $time;
 
   /**
+   * Entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected EntityTypeManagerInterface $entityTypeManager;
+
+  /**
    * Class constructor.
    *
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   Entity type manager.
    * @param \Drupal\Component\Datetime\TimeInterface $time
    *   The time service.
    */
-  public function __construct(TimeInterface $time) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, TimeInterface $time) {
     $this->database = Database::getConnection();
+    $this->entityTypeManager = $entity_type_manager;
     $this->time = $time;
   }
 
@@ -49,10 +60,17 @@ class AssetInventory implements AssetInventoryInterface {
     $inventories = [];
     foreach ($measure_units_pairs as $pair) {
       $total = $this->calculateInventory($asset, $pair['measure'], $pair['units']);
+      $units_label = '';
+      if (!empty($pair['units'])) {
+        $term = $this->entityTypeManager->getStorage('taxonomy_term')->load($pair['units']);
+        if (!empty($term)) {
+          $units_label = $term->label();
+        }
+      }
       $inventories[] = [
         'measure' => $pair['measure'] ? $pair['measure'] : '',
         'value' => $total->toDecimal(0, TRUE),
-        'units' => $pair['units'] ? $pair['units'] : NULL,
+        'units' => $units_label,
       ];
     }
 

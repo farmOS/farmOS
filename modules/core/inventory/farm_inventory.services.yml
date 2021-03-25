@@ -2,4 +2,4 @@ services:
   asset.inventory:
     class: Drupal\farm_inventory\AssetInventory
     arguments:
-      [ '@datetime.time' ]
+      [ '@entity_type.manager', '@datetime.time' ]
