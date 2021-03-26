@@ -5,7 +5,7 @@ namespace Drupal\farm_migrate\Plugin\migrate\source\d7;
 use Drupal\migrate_drupal\Plugin\migrate\source\d7\FieldableEntity;
 
 /**
- * Asset source from database.
+ * Log quantity source from database.
  *
  * @MigrateSource(
  *   id = "d7_farm_quantity",
