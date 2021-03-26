@@ -1,0 +1,56 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_migrate
+      - farm_inventory
+id: farm_migrate_inventory
+label: 'Inventories'
+migration_group: farm_migrate_quantity
+migration_tags:
+  - 'Drupal 7'
+  - 'farmOS 1.x'
+class: Drupal\migrate\Plugin\Migration
+field_plugin_method: null
+cck_plugin_method: null
+source:
+  plugin: d7_farm_inventory
+destination:
+  plugin: 'entity_reference_revisions:quantity'
+process:
+  # Hard-code the bundle.
+  type:
+    plugin: default_value
+    default_value: standard
+  # Hard-code the measure.
+  measure:
+    plugin: default_value
+    default_value: count
+  # The inventory value should always be positive because we only
+  # migrate increment or decrement adjustments.
+  value/numerator:
+    plugin: callback
+    callable: abs
+    source: value_numerator
+  value/denominator: value_denominator
+  uid:
+    plugin: migration_lookup
+    migration: farm_migrate_user
+    source: uid
+  inventory_asset:
+    plugin: farm_migration_group_lookup
+    migration_group: farm_migrate_asset
+    source: inventory_asset
+  inventory_adjustment:
+    plugin: static_map
+    source: inventory_value_sign
+    map:
+      -1: decrement
+      0: increment
+      1: increment
+migration_dependencies:
+  required:
+    - farm_migrate_user
+    - farm_migrate_taxonomy_unit
+  optional: {  }

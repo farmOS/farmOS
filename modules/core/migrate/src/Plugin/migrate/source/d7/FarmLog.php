@@ -239,14 +239,15 @@ class FarmLog extends Log {
   protected function prepareQuantity(Row $row) {
     $id = $row->getSourceProperty('id');
 
-    // Get quantity log field value.
-    $quantity_values = $this->getFieldvalues('log', 'field_farm_quantity', $id);
+    // Get field collections to migrate to log quantities.
+    $log_quantities = $this->getFieldvalues('log', 'field_farm_quantity', $id);
+    $log_inventories = $this->getFieldvalues('log', 'field_farm_inventory', $id);
 
-    // Iterate through quantity field values to collect field collection IDs.
+    // Iterate through field collection values to collect field collection IDs.
     $quantity_ids = [];
-    foreach ($quantity_values as $quantity_value) {
-      if (!empty($quantity_value['value'])) {
-        $quantity_ids[] = $quantity_value['value'];
+    foreach (array_merge($log_quantities, $log_inventories) as $field_collection) {
+      if (!empty($field_collection['value'])) {
+        $quantity_ids[] = $field_collection['value'];
       }
     }
 
