@@ -39,6 +39,29 @@ a string in Well-Known Text format.
 $geometry = \Drupal::service('asset.location')->getGeometry($asset);
 ```
 
+## Asset inventory service
+
+**Service name**: `asset.inventory`
+
+The asset inventory service provides methods that encapsulate the logic for
+determining an asset's inventory.
+
+**Methods**:
+
+`getInventory($asset, $measure = '', $units = '')` - Get inventory summaries
+for an asset. Returns an array of arrays with the following keys: `measure`,
+`value`, `units`. This can be optionally filtered by `$measure` and `$units`.
+
+**Example usage**:
+
+```php
+// Get summaries of all inventories for an asset.
+$all_inventory = \Drupal::service('asset.inventory')->getInventory($asset);
+
+// Get the current inventory for a given measure and units.
+$gallons_of_fertilizer = \Drupal::service('asset.inventory')->getInventory($asset, 'volume', 'gallons');
+```
+
 ## Group membership service
 
 **Service name**: `group.membership`

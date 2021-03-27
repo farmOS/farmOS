@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * @file
+ * Contains farm_location_test.module.
+ */
+
+use Drupal\Core\Entity\EntityTypeInterface;
+
+/**
+ * Implements hook_entity_base_field_info().
+ */
+function farm_inventory_test_entity_base_field_info(EntityTypeInterface $entity_type) {
+  $fields = [];
+  if ($entity_type->id() == 'log') {
+    $options = [
+      'type' => 'entity_reference_revisions',
+      'label' => t('Quantity'),
+      'target_type' => 'quantity',
+      'multiple' => TRUE,
+    ];
+    $fields['quantity'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
+  }
+  return $fields;
+}

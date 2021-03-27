@@ -51,6 +51,9 @@ function farm_ui_views_entity_base_field_info_alter(&$fields, EntityTypeInterfac
     'log' => [
       'asset',
     ],
+    'quantity' => [
+      'inventory_asset',
+    ],
   ];
   foreach ($alter_fields as $entity_type_id => $field_names) {
     if ($entity_type->id() != $entity_type_id) {

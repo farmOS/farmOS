@@ -247,6 +247,7 @@ fields are not listed here):
 - `images` -> `image`
 - `input_method` -> `method`
 - `input_source` -> `source`
+- `inventory` (merged into `quantity` entities)
 - `log_category` -> `category`
 - `log_owner` -> `owner`
 - `seed_source` -> `source`

@@ -6,6 +6,8 @@
  */
 
 use Drupal\Core\Render\Element;
+use Drupal\quantity\Entity\QuantityInterface;
+use Drupal\quantity\Event\QuantityEvent;
 
 /**
  * Define information about available quantity measures.
@@ -87,6 +89,30 @@ function quantity_farm_api_meta_alter(&$data) {
 
   // Add the quantity system of measurement.
   $data['system_of_measurement'] = \Drupal::config('quantity.settings')->get('system_of_measurement');
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_presave().
+ */
+function quantity_quantity_presave(QuantityInterface $quantity) {
+
+  // Dispatch an event on quantity presave.
+  // @todo Replace this with core event via https://www.drupal.org/node/2551893.
+  $event = new QuantityEvent($quantity);
+  $event_dispatcher = \Drupal::service('event_dispatcher');
+  $event_dispatcher->dispatch(QuantityEvent::PRESAVE, $event);
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_delete().
+ */
+function quantity_quantity_delete(QuantityInterface $quantity) {
+
+  // Dispatch an event on quantity delete.
+  // @todo Replace this with core event via https://www.drupal.org/node/2551893.
+  $event = new QuantityEvent($quantity);
+  $event_dispatcher = \Drupal::service('event_dispatcher');
+  $event_dispatcher->dispatch(QuantityEvent::DELETE, $event);
 }
 
 /**

@@ -50,6 +50,8 @@ Assets have a number of attributes that serve to describe their meta information
 All Assets have the same standard set of attributes. Modules can add additional
 attributes.
 
+### Standard attributes
+
 Attributes that are common to all Asset types include:
 
 - Name
@@ -137,6 +139,23 @@ store remote system IDs that correspond to the Asset. So if the Asset is
 created or managed by software outside of farmOS, it can be identified easily.
 It can also be used to store additional structured metadata that does not fit
 into the standard Asset attributes.
+
+### Additional attributes
+
+Assets *may* contain additional attributes:
+
+- Inventory
+
+#### Inventory
+
+The inventory attribute summarizes current Asset inventory levels. This field
+is not editable itself, but is rather computed based on "inventory adjustment"
+logs. Each inventory can have a "measure", "value", and "units".
+
+For more information, see [farmOS Inventory Logic](/model/logic/inventory).
+
+This field is added to all Asset types by default only if the Inventory module
+is enabled.
 
 ## Relationships
 

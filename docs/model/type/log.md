@@ -39,6 +39,8 @@ Logs have a number of attributes that serve to describe their meta information.
 All Logs have the same standard set of attributes. Modules can add additional
 attributes.
 
+### Standard attributes
+
 Attributes that are common to all Log types include:
 
 - Name
