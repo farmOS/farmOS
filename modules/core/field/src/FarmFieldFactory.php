@@ -666,6 +666,12 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
    */
   protected function modifyInventoryField(BaseFieldDefinition &$field, array $options = []) {
 
+    // Build view display settings.
+    $field->setDisplayOptions('view', [
+      'label' => 'inline',
+      'type' => 'inventory',
+      'weight' => $options['weight']['view'] ?? 0,
+    ]);
   }
 
   /**
