@@ -34,13 +34,13 @@ class Inventory extends FieldableEntity {
     $query->addField('fdffia', 'field_farm_inventory_asset_target_id', 'inventory_asset');
 
     // Join in the log table to get the uid.
-    $query->leftJoin('field_data_field_farm_inventory', 'fdffq', 'fci.item_id = fdffq.field_farm_inventory_value');
-    $query->leftJoin('log', 'l', "fdffq.entity_type = 'log' AND fdffq.entity_id = l.id");
+    $query->leftJoin('field_data_field_farm_inventory', 'fdffi', 'fci.item_id = fdffi.field_farm_inventory_value');
+    $query->leftJoin('log', 'l', "fdffi.entity_type = 'log' AND fdffi.entity_id = l.id");
     $query->addField('l', 'uid');
 
     // Ensure we don't include archived/deleted fields.
     $query->condition('fci.archived', '0');
-    $query->condition('fdffq.deleted', '0');
+    $query->condition('fdffi.deleted', '0');
 
     // Distinct items only.
     $query->distinct();
