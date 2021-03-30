@@ -4,4 +4,5 @@ type: module
 package: farmOS Assets
 core_version_requirement: ^9
 dependencies:
+  - farm:data_stream
   - farm:farm_entity
