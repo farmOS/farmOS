@@ -11,12 +11,12 @@
 function farm_sensor_listener_views_data_alter(array &$data) {
 
   // Add a legacy_listener_data field to the data_stream_data table in views
-  // that references the data_stream_data_legacy table.
+  // that references the data_stream_legacy table.
   $data['data_stream_data']['legacy_listener_data'] = [
     'title' => t('Legacy listener data'),
     'help' => t('Legacy listener data stream data.'),
     'relationship' => [
-      'base' => 'data_stream_data_legacy',
+      'base' => 'data_stream_legacy',
       'base field' => 'id',
       'field' => 'id',
       'id' => 'standard',
@@ -33,7 +33,7 @@ function farm_sensor_listener_views_data_alter(array &$data) {
 function farm_sensor_listener_views_data() {
 
   // Save the table name.
-  $data_table = 'data_stream_data_legacy';
+  $data_table = 'data_stream_legacy';
 
   // Describe the {data_stream_data_storage} table.
   $data[$data_table]['table']['group'] = t('Legacy listener data stream data');

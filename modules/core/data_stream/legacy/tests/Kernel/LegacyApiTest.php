@@ -51,7 +51,7 @@ class LegacyApiTest extends DataStreamTestBase {
     parent::setUp();
 
     $this->installConfig(['farm_sensor_listener']);
-    $this->installSchema('farm_sensor_listener', 'data_stream_data_legacy');
+    $this->installSchema('farm_sensor_listener', 'data_stream_legacy');
 
     // Create a listener data stream for testing.
     $this->listener = $this->createDataStreamEntity([

@@ -34,7 +34,7 @@ function farm_sensor_listener_data_stream_delete(DataStreamInterface $data_strea
 
   // Remove all legacy listener data provided by the data stream.
   if ($data_stream->bundle() == 'legacy_listener') {
-    \Drupal::database()->delete('data_stream_data_legacy')
+    \Drupal::database()->delete('data_stream_legacy')
       ->condition('id', $data_stream->id())
       ->execute();
   }

@@ -21,7 +21,7 @@ source:
   plugin: d7_sensor_listener_data
 destination:
   plugin: table
-  table_name: data_stream_data_legacy
+  table_name: data_stream_legacy
   id_fields:
     id:
       type: integer

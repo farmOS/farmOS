@@ -9,7 +9,7 @@
  * Implements hook_schema().
  */
 function farm_sensor_listener_schema() {
-  $schema['data_stream_data_legacy'] = [
+  $schema['data_stream_legacy'] = [
     'description' => 'Numerical storage for data streams.',
     'fields' => [
       'id' => [

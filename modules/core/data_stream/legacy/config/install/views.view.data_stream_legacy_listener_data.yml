@@ -104,7 +104,7 @@ display:
       fields:
         timestamp_1:
           id: timestamp_1
-          table: data_stream_data_legacy
+          table: data_stream_legacy
           field: timestamp
           relationship: legacy_listener_data
           group_type: group
@@ -156,7 +156,7 @@ display:
           plugin_id: date
         name:
           id: name
-          table: data_stream_data_legacy
+          table: data_stream_legacy
           field: name
           relationship: legacy_listener_data
           group_type: group
@@ -205,7 +205,7 @@ display:
           plugin_id: standard
         value_decimal_1:
           id: value_decimal_1
-          table: data_stream_data_legacy
+          table: data_stream_legacy
           field: value_decimal
           relationship: legacy_listener_data
           group_type: group
@@ -299,7 +299,7 @@ display:
           plugin_id: bundle
         timestamp:
           id: timestamp
-          table: data_stream_data_legacy
+          table: data_stream_legacy
           field: timestamp
           relationship: legacy_listener_data
           group_type: group
@@ -348,7 +348,7 @@ display:
           plugin_id: date
         timestamp_1:
           id: timestamp_1
-          table: data_stream_data_legacy
+          table: data_stream_legacy
           field: timestamp
           relationship: legacy_listener_data
           group_type: group
@@ -538,7 +538,7 @@ display:
       fields:
         timestamp_1:
           id: timestamp_1
-          table: data_stream_data_legacy
+          table: data_stream_legacy
           field: timestamp
           relationship: legacy_listener_data
           group_type: group
@@ -590,7 +590,7 @@ display:
           plugin_id: date
         name:
           id: name
-          table: data_stream_data_legacy
+          table: data_stream_legacy
           field: name
           relationship: legacy_listener_data
           group_type: group
@@ -639,7 +639,7 @@ display:
           plugin_id: standard
         value_decimal_1:
           id: value_decimal_1
-          table: data_stream_data_legacy
+          table: data_stream_legacy
           field: value_decimal
           relationship: legacy_listener_data
           group_type: group

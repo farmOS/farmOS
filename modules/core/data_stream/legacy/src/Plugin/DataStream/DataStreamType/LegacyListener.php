@@ -39,7 +39,7 @@ class LegacyListener extends DataStreamTypeBase implements DataStreamStorageInte
    *
    * @var string
    */
-  protected $tableName = 'data_stream_data_legacy';
+  protected $tableName = 'data_stream_legacy';
 
   /**
    * A database connection.
