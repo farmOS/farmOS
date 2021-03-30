@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Provide Views data for the Listener data stream.
+ * Provide Views data for the basic data stream.
  */
 
 /**
@@ -10,17 +10,17 @@
  */
 function data_stream_views_data_alter(array &$data) {
 
-  // Add a listener_data field to the data_stream_data table in views
+  // Add a basic_data field to the data_stream_data table in views
   // that references the data_stream_data_storage table.
-  $data['data_stream_data']['listener_data'] = [
-    'title' => t('Listener data'),
-    'help' => t('Listener data stream data.'),
+  $data['data_stream_data']['basic_data'] = [
+    'title' => t('Basic data'),
+    'help' => t('Basic data stream data.'),
     'relationship' => [
       'base' => 'data_stream_data_storage',
       'base field' => 'id',
       'field' => 'id',
       'id' => 'standard',
-      'label' => t('Listener data'),
+      'label' => t('Basic data'),
     ],
   ];
 }
@@ -28,7 +28,7 @@ function data_stream_views_data_alter(array &$data) {
 /**
  * Implements hook_views_data().
  *
- * Views integration for data stream listener data.
+ * Views integration for basic data stream data.
  */
 function data_stream_views_data() {
 
@@ -36,7 +36,7 @@ function data_stream_views_data() {
   $data_table = 'data_stream_data_storage';
 
   // Describe the {data_stream_data_storage} table.
-  $data[$data_table]['table']['group'] = t('Listener data stream data');
+  $data[$data_table]['table']['group'] = t('Basic data stream data');
 
   // Data stream ID.
   $data[$data_table]['id'] = [

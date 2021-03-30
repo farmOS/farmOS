@@ -34,7 +34,7 @@ trait DataStreamCreationTrait {
   }
 
   /**
-   * Helper function to generate data for a listener data stream.
+   * Helper function to generate data for a basic data stream.
    *
    * @param \Drupal\data_stream\Entity\DataStreamInterface $stream
    *   The data stream entity.
@@ -43,7 +43,7 @@ trait DataStreamCreationTrait {
    * @param string|null $start_time
    *   The start timestamp.
    */
-  protected function mockListenerData(DataStreamInterface $stream, $count = 1, $start_time = NULL) {
+  protected function mockBasicData(DataStreamInterface $stream, $count = 1, $start_time = NULL) {
 
     $plugin = $stream->getPlugin();
 

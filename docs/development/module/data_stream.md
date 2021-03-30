@@ -41,21 +41,21 @@ $data = $plugin->storageGet();
 
 ## Core data stream types
 
-### Listener data stream
+### Basic data stream
 
-The data stream module provides a `listener` data stream type. Listeners
+The data stream module provides a `basic` data stream type. Basic data streams
 receive data via the farmOS API and save data to the farmOS SQL database. Each
-listener data stream represents a single "value"; a sensor that records
+basic data stream represents a single "value"; a sensor that records
 temperature and humidity would provide two data streams. Data can be accessed
 via the API with the `private_key`, or by anyone if the data stream is set to
-`public`. Listener data streams also provide simple ways to view data in a
+`public`. Basic data streams also provide simple ways to view data in a
 table or graph, and export as CSV.
 
 ### Legacy listener data stream
 
 The `farm_sensor_listener` module provides a `legacy_listener` data stream type
 that is compatible with the Listener sensor type from farmOS 1.x. It is
-similar to the `listener` type but has a few differences:
+similar to the `basic` type but has a few differences:
 
 - Each data stream saves multiple values (eg: temperature and humidity are
   saved to the same data stream)
@@ -85,7 +85,7 @@ Plugins can optionally implement the `DataStreamStorageInterface` and the
 `DataStreamApiInterface` to adhere to a common interface other data stream
 types might use.
 
-The following defines the `listener` data stream bundle plugin:
+The following defines the `basic` data stream bundle plugin:
 
 ```php
 <?php
@@ -98,14 +98,15 @@ use Drupal\data_stream\Traits\DataStreamSqlStorage;
 use Drupal\data_stream\Traits\DataStreamPrivateKeyAccess;
 
 /**
- * Provides the listener data stream type.
+ * Provides the basic data stream type.
  *
  * @DataStreamType(
- *   id = "listener",
- *   label = @Translation("Listener"),
+ *   id = "basic",
+ *   label = @Translation("Basic"),
  * )
  */
-class Listener extends DataStreamTypeBase implements DataStreamStorageInterface, DataStreamApiInterface {
+class Basic extends DataStreamTypeBase implements DataStreamStorageInterface,
+DataStreamApiInterface {
 
 }
 ```

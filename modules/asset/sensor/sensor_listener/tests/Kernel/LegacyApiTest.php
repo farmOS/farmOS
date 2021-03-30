@@ -62,7 +62,7 @@ class LegacyApiTest extends DataStreamTestBase {
     ]);
 
     // Create 100 data points over the next 100 days.
-    $this->mockListenerData($this->listener, 100, \Drupal::time()->getRequestTime());
+    $this->mockBasicData($this->listener, 100, \Drupal::time()->getRequestTime());
   }
 
   /**

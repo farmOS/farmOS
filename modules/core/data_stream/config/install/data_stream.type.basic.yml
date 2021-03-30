@@ -4,6 +4,6 @@ dependencies:
   enforced:
     module:
       - data_stream
-id: listener
-label: Listener
-description: 'Listener stream'
+id: basic
+label: Basic
+description: 'Basic data stream'

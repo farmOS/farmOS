@@ -19,14 +19,14 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
 /**
- * Provides the listener data stream type.
+ * Provides the basic data stream type.
  *
  * @DataStreamType(
- *   id = "listener",
- *   label = @Translation("Listener"),
+ *   id = "basic",
+ *   label = @Translation("Basic"),
  * )
  */
-class Listener extends DataStreamTypeBase implements DataStreamStorageInterface, DataStreamApiInterface {
+class Basic extends DataStreamTypeBase implements DataStreamStorageInterface, DataStreamApiInterface {
 
   use DataStreamSqlStorage;
   use DataStreamPrivateKeyAccess;

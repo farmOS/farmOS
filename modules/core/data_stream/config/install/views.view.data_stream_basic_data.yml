@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - data_stream.type.listener
+    - data_stream.type.basic
   module:
     - csv_serialization
     - data_stream
@@ -10,8 +10,8 @@ dependencies:
     - rest
     - serialization
     - user
-id: data_stream_listener_data
-label: 'Data stream: listener data'
+id: data_stream_basic_data
+label: 'Data stream: basic data'
 module: views
 description: ''
 tag: ''
@@ -105,7 +105,7 @@ display:
           id: timestamp
           table: data_stream_data_storage
           field: timestamp
-          relationship: listener_data
+          relationship: basic_data
           group_type: group
           admin_label: ''
           label: Timestamp
@@ -157,7 +157,7 @@ display:
           id: value_decimal
           table: data_stream_data_storage
           field: value_decimal
-          relationship: listener_data
+          relationship: basic_data
           group_type: group
           admin_label: ''
           label: Value
@@ -210,7 +210,7 @@ display:
           table: data_stream_data
           field: type
           value:
-            listener: listener
+            basic: basic
           entity_type: data_stream
           entity_field: type
           plugin_id: bundle
@@ -221,7 +221,7 @@ display:
           id: timestamp
           table: data_stream_data_storage
           field: timestamp
-          relationship: listener_data
+          relationship: basic_data
           group_type: group
           admin_label: ''
           operator: '>='
@@ -273,7 +273,7 @@ display:
           id: timestamp_1
           table: data_stream_data_storage
           field: timestamp
-          relationship: listener_data
+          relationship: basic_data
           group_type: group
           admin_label: ''
           operator: '<='
@@ -323,7 +323,7 @@ display:
           id: timestamp
           table: data_stream_data_storage
           field: timestamp
-          relationship: listener_data
+          relationship: basic_data
           group_type: group
           admin_label: ''
           order: ASC
@@ -350,13 +350,13 @@ display:
             format: default
           plugin_id: text
       relationships:
-        listener_data:
-          id: listener_data
+        basic_data:
+          id: basic_data
           table: data_stream_data
-          field: listener_data
+          field: basic_data
           relationship: none
           group_type: group
-          admin_label: 'Listener data'
+          admin_label: 'Basic data stream data'
           required: true
           entity_type: data_stream
           plugin_id: standard
@@ -476,7 +476,7 @@ display:
           id: timestamp
           table: data_stream_data_storage
           field: timestamp
-          relationship: listener_data
+          relationship: basic_data
           group_type: group
           admin_label: ''
           label: timestamp
@@ -528,7 +528,7 @@ display:
           id: value_decimal
           table: data_stream_data_storage
           field: value_decimal
-          relationship: listener_data
+          relationship: basic_data
           group_type: group
           admin_label: ''
           label: value

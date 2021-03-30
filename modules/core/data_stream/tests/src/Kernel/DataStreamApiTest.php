@@ -7,7 +7,7 @@ use Drupal\Tests\data_stream\Traits\DataStreamCreationTrait;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Test the Listener data stream type.
+ * Test the basic data stream type.
  *
  * @group farm
  */
@@ -16,11 +16,11 @@ class DataStreamApiTest extends DataStreamTestBase {
   use DataStreamCreationTrait;
 
   /**
-   * A Listener data stream.
+   * A basic data stream.
    *
    * @var \Drupal\data_stream\Entity\DataStreamInterface
    */
-  protected $listener;
+  protected $dataStream;
 
   /**
    * {@inheritdoc}
@@ -28,15 +28,15 @@ class DataStreamApiTest extends DataStreamTestBase {
   protected function setUp() {
     parent::setUp();
 
-    // Create a listener data stream for testing.
-    $this->listener = $this->createDataStreamEntity([
-      'type' => 'listener',
+    // Create a basic data stream for testing.
+    $this->dataStream = $this->createDataStreamEntity([
+      'type' => 'basic',
       'private_key' => hash('md5', mt_rand()),
       'public' => FALSE,
     ]);
 
     // Create 100 data points over the next 100 days.
-    $this->mockListenerData($this->listener, 100, \Drupal::time()->getRequestTime());
+    $this->mockBasicData($this->dataStream, 100, \Drupal::time()->getRequestTime());
   }
 
   /**
@@ -45,7 +45,7 @@ class DataStreamApiTest extends DataStreamTestBase {
   public function testApiInvalidMethods() {
 
     // Build the path.
-    $uri = $this->buildPath($this->listener->uuid());
+    $uri = $this->buildPath($this->dataStream->uuid());
 
     $invalid_methods = [
       Request::METHOD_PUT => 405,
@@ -55,7 +55,7 @@ class DataStreamApiTest extends DataStreamTestBase {
 
     // Assert each method is rejected.
     foreach ($invalid_methods as $method => $response_code) {
-      $request = Request::create($uri, $method, ['private_key' => $this->listener->getPrivateKey()]);
+      $request = Request::create($uri, $method, ['private_key' => $this->dataStream->getPrivateKey()]);
       $response = $this->processRequest($request);
       $this->assertEqual($response_code, $response->getStatusCode());
     }
@@ -67,7 +67,7 @@ class DataStreamApiTest extends DataStreamTestBase {
   public function testApiGet() {
 
     // Build the path.
-    $uri = $this->buildPath($this->listener->uuid());
+    $uri = $this->buildPath($this->dataStream->uuid());
 
     // Make a request.
     $request = Request::create($uri, 'GET');
@@ -77,7 +77,7 @@ class DataStreamApiTest extends DataStreamTestBase {
     $this->assertEqual(403, $response->getStatusCode());
 
     // Make a request with the private key.
-    $request = Request::create($uri, 'GET', ['private_key' => $this->listener->getPrivateKey()]);
+    $request = Request::create($uri, 'GET', ['private_key' => $this->dataStream->getPrivateKey()]);
     $response = $this->processRequest($request);
 
     // Assert valid response.
@@ -87,7 +87,7 @@ class DataStreamApiTest extends DataStreamTestBase {
 
     // Test the limit param.
     $request = Request::create($uri, 'GET',
-      ['private_key' => $this->listener->getPrivateKey(), 'limit' => 10]
+      ['private_key' => $this->dataStream->getPrivateKey(), 'limit' => 10]
     );
     $response = $this->processRequest($request);
     $data = Json::decode($response->getContent());
@@ -100,7 +100,7 @@ class DataStreamApiTest extends DataStreamTestBase {
     $end_time = $request_time + (86400 * 20);
     $request = Request::create($uri, 'GET',
       [
-        'private_key' => $this->listener->getPrivateKey(),
+        'private_key' => $this->dataStream->getPrivateKey(),
         'start' => $start_time,
         'end' => $end_time,
       ],
@@ -114,7 +114,7 @@ class DataStreamApiTest extends DataStreamTestBase {
     }
 
     // Make the sensor public.
-    $this->listener->set('public', TRUE)->save();
+    $this->dataStream->set('public', TRUE)->save();
 
     // Test that data can be accessed without the private key.
     $request = Request::create($uri, 'GET');
@@ -130,10 +130,10 @@ class DataStreamApiTest extends DataStreamTestBase {
   public function testApiPost() {
 
     // Build the path.
-    $uri = $this->buildPath($this->listener->uuid());
+    $uri = $this->buildPath($this->dataStream->uuid());
 
     // Make the stream public. This should not matter for posting data.
-    $this->listener->set('public', TRUE)->save();
+    $this->dataStream->set('public', TRUE)->save();
 
     // Test data.
     $request_time = \Drupal::time()->getRequestTime();
@@ -150,14 +150,14 @@ class DataStreamApiTest extends DataStreamTestBase {
     $this->assertEqual(403, $response->getStatusCode());
 
     // Post data with a private key.
-    $request = $request->duplicate(['private_key' => $this->listener->getPrivateKey()]);
+    $request = $request->duplicate(['private_key' => $this->dataStream->getPrivateKey()]);
     $response = $this->processRequest($request);
     // Assert success.
     $this->assertEqual(201, $response->getStatusCode());
 
     // Assert that new data was saved in DB.
-    $plugin = $this->listener->getPlugin();
-    $data = $plugin->storageGet($this->listener, ['limit' => 1, 'end' => $timestamp]);
+    $plugin = $this->dataStream->getPlugin();
+    $data = $plugin->storageGet($this->dataStream, ['limit' => 1, 'end' => $timestamp]);
     $this->assertEqual(1, count($data));
     $this->assertTrue(in_array($test_point, $data));
   }
