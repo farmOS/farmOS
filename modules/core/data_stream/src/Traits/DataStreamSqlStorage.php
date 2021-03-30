@@ -24,7 +24,7 @@ trait DataStreamSqlStorage {
    *
    * @var string
    */
-  protected $tableName = 'data_stream_data_storage';
+  protected $tableName = 'data_stream_basic';
 
   /**
    * {@inheritdoc}
@@ -145,7 +145,7 @@ trait DataStreamSqlStorage {
       $row['value_numerator'] = $fraction->getNumerator();
       $row['value_denominator'] = $fraction->getDenominator();
 
-      // Enter the reading into the {data_stream_data_storage} table.
+      // Enter the reading into the {data_stream_basic} table.
       $this->connection->insert($this->tableName)
         ->fields($row)
         ->execute();

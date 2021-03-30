@@ -103,7 +103,7 @@ display:
       fields:
         timestamp:
           id: timestamp
-          table: data_stream_data_storage
+          table: data_stream_basic
           field: timestamp
           relationship: basic_data
           group_type: group
@@ -155,7 +155,7 @@ display:
           plugin_id: date
         value_decimal:
           id: value_decimal
-          table: data_stream_data_storage
+          table: data_stream_basic
           field: value_decimal
           relationship: basic_data
           group_type: group
@@ -219,7 +219,7 @@ display:
             operator_list: {  }
         timestamp:
           id: timestamp
-          table: data_stream_data_storage
+          table: data_stream_basic
           field: timestamp
           relationship: basic_data
           group_type: group
@@ -271,7 +271,7 @@ display:
           plugin_id: date
         timestamp_1:
           id: timestamp_1
-          table: data_stream_data_storage
+          table: data_stream_basic
           field: timestamp
           relationship: basic_data
           group_type: group
@@ -321,7 +321,7 @@ display:
       sorts:
         timestamp:
           id: timestamp
-          table: data_stream_data_storage
+          table: data_stream_basic
           field: timestamp
           relationship: basic_data
           group_type: group
@@ -474,7 +474,7 @@ display:
       fields:
         timestamp:
           id: timestamp
-          table: data_stream_data_storage
+          table: data_stream_basic
           field: timestamp
           relationship: basic_data
           group_type: group
@@ -526,7 +526,7 @@ display:
           plugin_id: date
         value_decimal:
           id: value_decimal
-          table: data_stream_data_storage
+          table: data_stream_basic
           field: value_decimal
           relationship: basic_data
           group_type: group

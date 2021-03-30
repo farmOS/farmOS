@@ -32,7 +32,7 @@ abstract class DataStreamTestBase extends KernelTestBase {
 
     $this->installEntitySchema('data_stream');
     $this->installConfig(['data_stream']);
-    $this->installSchema('data_stream', 'data_stream_data_storage');
+    $this->installSchema('data_stream', 'data_stream_basic');
   }
 
   /**

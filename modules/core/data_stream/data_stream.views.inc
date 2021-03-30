@@ -10,13 +10,13 @@
  */
 function data_stream_views_data_alter(array &$data) {
 
-  // Add a basic_data field to the data_stream_data table in views
-  // that references the data_stream_data_storage table.
+  // Add a basic_data field to the data_stream_basic table in views
+  // that references the data_stream_basic table.
   $data['data_stream_data']['basic_data'] = [
     'title' => t('Basic data'),
     'help' => t('Basic data stream data.'),
     'relationship' => [
-      'base' => 'data_stream_data_storage',
+      'base' => 'data_stream_basic',
       'base field' => 'id',
       'field' => 'id',
       'id' => 'standard',
@@ -33,9 +33,9 @@ function data_stream_views_data_alter(array &$data) {
 function data_stream_views_data() {
 
   // Save the table name.
-  $data_table = 'data_stream_data_storage';
+  $data_table = 'data_stream_basic';
 
-  // Describe the {data_stream_data_storage} table.
+  // Describe the {data_stream_basic} table.
   $data[$data_table]['table']['group'] = t('Basic data stream data');
 
   // Data stream ID.

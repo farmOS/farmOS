@@ -9,7 +9,7 @@
  * Implements hook_schema().
  */
 function data_stream_schema() {
-  $schema['data_stream_data_storage'] = [
+  $schema['data_stream_basic'] = [
     'description' => 'Numerical storage for data streams.',
     'fields' => [
       'id' => [
