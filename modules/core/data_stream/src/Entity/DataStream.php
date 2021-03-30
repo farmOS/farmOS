@@ -27,7 +27,7 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
  *     "list_builder" = "\Drupal\data_stream\DataStreamListBuilder",
  *     "permission_provider" = "\Drupal\entity\UncacheableEntityPermissionProvider",
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
- *     "views_data" = "Drupal\views\EntityViewsData",
+ *     "views_data" = "Drupal\entity\EntityViewsData",
  *     "form" = {
  *       "add" = "Drupal\data_stream\Form\DataStreamForm",
  *       "edit" = "Drupal\data_stream\Form\DataStreamForm",
