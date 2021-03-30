@@ -15,8 +15,8 @@ use Drupal\Core\Entity\EntityTypeInterface;
 function data_stream_farm_entity_bundle_field_info(EntityTypeInterface $entity_type, string $bundle) {
   $fields = [];
 
-  // Add an asset.data_stream field to sensor and equipment assets.
-  if ($entity_type->id() == 'asset' && in_array($bundle, ['sensor', 'equipment'])) {
+  // Add an asset.data_stream field to sensor assets.
+  if ($entity_type->id() == 'asset' && in_array($bundle, ['sensor'])) {
     $options = [
       'type' => 'entity_reference',
       'label' => t('Data stream'),
