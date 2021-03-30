@@ -18,4 +18,14 @@ interface DataStreamTypeInterface extends BundlePluginInterface, PluginFormInter
    */
   public function getLabel();
 
+  /**
+   * Returns views data for the data stream type.
+   *
+   * @see \Drupal\views\EntityViewsData::getViewsData()
+   *
+   * @return array
+   *   Views data in the format of hook_views_data().
+   */
+  public function getViewsData();
+
 }

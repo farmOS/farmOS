@@ -28,6 +28,13 @@ abstract class DataStreamTypeBase extends PluginBase implements ContainerFactory
   /**
    * {@inheritdoc}
    */
+  public function getViewsData() {
+    return [];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
 
     // Get the plugin label.

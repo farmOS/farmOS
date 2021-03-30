@@ -145,7 +145,7 @@ trait DataStreamSqlStorage {
       $row['value_numerator'] = $fraction->getNumerator();
       $row['value_denominator'] = $fraction->getDenominator();
 
-      // Enter the reading into the {data_stream_basic} table.
+      // Enter the reading into the database.
       $this->connection->insert($this->tableName)
         ->fields($row)
         ->execute();
