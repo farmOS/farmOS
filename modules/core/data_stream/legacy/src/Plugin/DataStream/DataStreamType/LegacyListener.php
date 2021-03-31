@@ -6,7 +6,6 @@ use Drupal\data_stream\DataStreamStorageInterface;
 use Drupal\data_stream\Entity\DataStream;
 use Drupal\data_stream\Entity\DataStreamInterface;
 use Drupal\data_stream\Plugin\DataStream\DataStreamType\Basic;
-use Drupal\data_stream\Traits\DataStreamPrivateKeyAccess;
 use Drupal\entity\BundleFieldDefinition;
 use Drupal\farm_sensor_listener\LegacySensorApiInterface;
 use Drupal\fraction\Fraction;
@@ -21,8 +20,6 @@ use Symfony\Component\HttpFoundation\Request;
  * )
  */
 class LegacyListener extends Basic implements DataStreamStorageInterface, LegacySensorApiInterface {
-
-  use DataStreamPrivateKeyAccess;
 
   /**
    * {@inheritdoc}
