@@ -2,17 +2,19 @@ langcode: en
 status: true
 dependencies:
   config:
-    - data_stream.type.legacy_listener
+    - data_stream.type.basic
+  enforced:
+    module:
+      - data_stream
   module:
     - csv_serialization
     - data_stream
-    - farm_sensor_listener
     - fraction
     - rest
     - serialization
     - user
-id: data_stream_legacy_listener_data
-label: 'Data stream: legacy listener data'
+id: data_stream_basic_data
+label: 'Data stream: basic data'
 module: views
 description: ''
 tag: ''
@@ -102,11 +104,11 @@ display:
       row:
         type: fields
       fields:
-        timestamp_1:
-          id: timestamp_1
-          table: data_stream_legacy
+        timestamp:
+          id: timestamp
+          table: data_stream_basic
           field: timestamp
-          relationship: legacy_listener_data
+          relationship: basic_data
           group_type: group
           admin_label: ''
           label: Timestamp
@@ -142,7 +144,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -154,63 +156,14 @@ display:
           custom_date_format: ''
           timezone: ''
           plugin_id: date
-        name:
-          id: name
-          table: data_stream_legacy
-          field: name
-          relationship: legacy_listener_data
-          group_type: group
-          admin_label: ''
-          label: Name
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          plugin_id: standard
-        value_decimal_1:
-          id: value_decimal_1
-          table: data_stream_legacy
+        value_decimal:
+          id: value_decimal
+          table: data_stream_basic
           field: value_decimal
-          relationship: legacy_listener_data
+          relationship: basic_data
           group_type: group
           admin_label: ''
-          label: 'Sensor value (decimal)'
+          label: Value
           exclude: false
           alter:
             alter_text: false
@@ -243,7 +196,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -259,49 +212,19 @@ display:
           id: type
           table: data_stream_data
           field: type
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: in
           value:
-            legacy_listener: legacy_listener
-          group: 1
-          exposed: false
-          expose:
-            operator_id: ''
-            label: ''
-            description: ''
-            use_operator: false
-            operator: ''
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: ''
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
+            basic: basic
           entity_type: data_stream
           entity_field: type
           plugin_id: bundle
+          expose:
+            operator_limit_selection: false
+            operator_list: {  }
         timestamp:
           id: timestamp
-          table: data_stream_legacy
+          table: data_stream_basic
           field: timestamp
-          relationship: legacy_listener_data
+          relationship: basic_data
           group_type: group
           admin_label: ''
           operator: '>='
@@ -335,22 +258,25 @@ display:
             max_placeholder: ''
           is_grouped: false
           group_info:
-            label: ''
-            description: ''
-            identifier: ''
+            label: Timestamp
+            description: null
+            identifier: timestamp
             optional: true
             widget: select
             multiple: false
             remember: false
             default_group: All
             default_group_multiple: {  }
-            group_items: {  }
+            group_items:
+              1: {  }
+              2: {  }
+              3: {  }
           plugin_id: date
         timestamp_1:
           id: timestamp_1
-          table: data_stream_legacy
+          table: data_stream_basic
           field: timestamp
-          relationship: legacy_listener_data
+          relationship: basic_data
           group_type: group
           admin_label: ''
           operator: '<='
@@ -395,7 +321,20 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           plugin_id: date
-      sorts: {  }
+      sorts:
+        timestamp:
+          id: timestamp
+          table: data_stream_basic
+          field: timestamp
+          relationship: basic_data
+          group_type: group
+          admin_label: ''
+          order: ASC
+          exposed: false
+          expose:
+            label: ''
+          granularity: second
+          plugin_id: date
       title: Data
       header: {  }
       footer: {  }
@@ -414,13 +353,13 @@ display:
             format: default
           plugin_id: text
       relationships:
-        legacy_listener_data:
-          id: legacy_listener_data
+        basic_data:
+          id: basic_data
           table: data_stream_data
-          field: legacy_listener_data
+          field: basic_data
           relationship: none
           group_type: group
-          admin_label: 'Legacy listener data'
+          admin_label: 'Basic data stream data'
           required: true
           entity_type: data_stream
           plugin_id: standard
@@ -536,14 +475,14 @@ display:
               alias: ''
               raw_output: true
       fields:
-        timestamp_1:
-          id: timestamp_1
-          table: data_stream_legacy
+        timestamp:
+          id: timestamp
+          table: data_stream_basic
           field: timestamp
-          relationship: legacy_listener_data
+          relationship: basic_data
           group_type: group
           admin_label: ''
-          label: Timestamp
+          label: timestamp
           exclude: false
           alter:
             alter_text: false
@@ -588,14 +527,14 @@ display:
           custom_date_format: U
           timezone: ''
           plugin_id: date
-        name:
-          id: name
-          table: data_stream_legacy
-          field: name
-          relationship: legacy_listener_data
+        value_decimal:
+          id: value_decimal
+          table: data_stream_basic
+          field: value_decimal
+          relationship: basic_data
           group_type: group
           admin_label: ''
-          label: Name
+          label: value
           exclude: false
           alter:
             alter_text: false
@@ -629,55 +568,6 @@ display:
           element_label_type: ''
           element_label_class: ''
           element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          plugin_id: standard
-        value_decimal_1:
-          id: value_decimal_1
-          table: data_stream_legacy
-          field: value_decimal
-          relationship: legacy_listener_data
-          group_type: group
-          admin_label: ''
-          label: Value
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
