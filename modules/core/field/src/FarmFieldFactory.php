@@ -403,7 +403,20 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
           'auto_create' => FALSE,
         ];
         $form_display_options = [
-          'type' => 'options_select',
+          'type' => 'inline_entity_form_complex',
+          'settings' => [
+            'form_mode' => 'default',
+            'revision' => TRUE,
+            'override_labels' => FALSE,
+            'label_singular' => '',
+            'label_plural' => '',
+            'collapsible' => FALSE,
+            'collapsed' => FALSE,
+            'allow_new' => TRUE,
+            'allow_existing' => FALSE,
+            'match_operator' => 'CONTAINS',
+            'allow_duplicate' => FALSE,
+          ],
           'weight' => $options['weight']['form'] ?? 0,
         ];
         $view_display_options = [
