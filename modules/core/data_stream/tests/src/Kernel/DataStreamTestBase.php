@@ -2,7 +2,7 @@
 
 namespace Drupal\Tests\data_stream\Kernel;
 
-use Drupal\Tests\token\Kernel\KernelTestBase;
+use Drupal\KernelTests\KernelTestBase;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
