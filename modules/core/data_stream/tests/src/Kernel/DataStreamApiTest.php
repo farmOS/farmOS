@@ -179,7 +179,7 @@ class DataStreamApiTest extends DataStreamTestBase {
    *   The path.
    */
   protected function buildPath(string $uuid) {
-    return '/api/data_stream/listener/' . $uuid . '/data';
+    return '/api/data_stream/' . $uuid . '/data';
   }
 
 }
