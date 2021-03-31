@@ -35,8 +35,8 @@ Docker container), or it can be on a separate server.
 
 Although not strictly a requirement, some features (like the "Geolocate" button
 on maps) will only work over a secure connection. [Field Kit](https://farmOS.app)
-requires SSL in order to connect to it. SSL is also recommended if you are using
-the Sensor Listener module to keep your sensor's private key a secret.
+requires SSL in order to connect to it. SSL is also recommended if you are
+streaming sensor data into farmOS, to keep your sensor's private key a secret.
 
 A common strategy is to use [Nginx](https://nginx.org) as a reverse proxy with
 SSL termination, which listens on port 443 and forwards to farmOS on port 80.
