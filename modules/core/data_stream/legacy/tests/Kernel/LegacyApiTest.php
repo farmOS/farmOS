@@ -19,7 +19,7 @@ class LegacyApiTest extends DataStreamTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'system',
     'field',
     'fraction',
