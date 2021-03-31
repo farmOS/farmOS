@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\farm_sensor\Plugin\migrate\source\d7;
+namespace Drupal\farm_migrate\Plugin\migrate\source\d7;
 
 use Drupal\asset\Plugin\migrate\source\d7\Asset;
 use Drupal\migrate\Row;
