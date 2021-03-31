@@ -2,13 +2,12 @@
 
 namespace Drupal\data_stream\Plugin\DataStream\DataStreamType;
 
-use Drupal\Core\Plugin\PluginFormInterface;
 use Drupal\entity\BundlePlugin\BundlePluginInterface;
 
 /**
  * Defines the interface for data stream types.
  */
-interface DataStreamTypeInterface extends BundlePluginInterface, PluginFormInterface {
+interface DataStreamTypeInterface extends BundlePluginInterface {
 
   /**
    * Gets the data stream type label.

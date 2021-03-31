@@ -2,7 +2,6 @@
 
 namespace Drupal\farm_sensor_listener\Plugin\DataStream\DataStreamType;
 
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\data_stream\DataStreamStorageInterface;
 use Drupal\data_stream\Entity\DataStream;
 use Drupal\data_stream\Entity\DataStreamInterface;
@@ -43,10 +42,18 @@ class LegacyListener extends Basic implements DataStreamStorageInterface, Legacy
       ->setDefaultValueCallback(DataStream::class . '::createUniqueKey')
       ->setSetting('max_length', 255)
       ->setSetting('text_processing', 0)
+      ->setDisplayOptions('form', [
+        'type' => 'string_textfield',
+        'settings' => [
+          'size' => 100,
+          'placeholder' => '',
+        ],
+        'weight' => -6,
+      ])
       ->setDisplayOptions('view', [
         'label' => 'inline',
         'type' => 'string',
-        'weight' => -10,
+        'weight' => -6,
       ]);
     $fields['public_key'] = $field;
 
@@ -95,46 +102,6 @@ class LegacyListener extends Basic implements DataStreamStorageInterface, Legacy
     ];
 
     return $data;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
-    $form = parent::buildConfigurationForm($form, $form_state);
-
-    // Get the data stream entity.
-    $form_object = $form_state->getFormObject();
-    /** @var \Drupal\data_stream\Entity\DataStreamInterface  $entity */
-    $entity = $form_object->getEntity();
-
-    // Field to configure the public_key.
-    $form[$this->getPluginId()]['public_key'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Public key'),
-      '#description' => $this->t('The public key used to identify this data stream.'),
-      '#default_value' => $entity->get('public_key')->value,
-    ];
-    return $form;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
-    parent::submitConfigurationForm($form, $form_state);
-
-    // Get the data stream entity.
-    $form_object = $form_state->getFormObject();
-    /** @var \Drupal\data_stream\Entity\DataStreamInterface  $entity */
-    $entity = $form_object->getEntity();
-
-    // If the entity is set, save the public_key value.
-    if (!empty($entity)) {
-      $public_key = $form_state->getValues()['public_key'];
-      $entity->set('public_key', $public_key);
-    }
-
   }
 
   /**
