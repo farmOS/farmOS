@@ -21,6 +21,7 @@ class LegacyApiTest extends DataStreamTestBase {
    */
   protected static $modules = [
     'system',
+    'entity',
     'field',
     'fraction',
     'state_machine',
