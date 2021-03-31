@@ -35,8 +35,19 @@ class Basic extends DataStreamTypeBase implements DataStreamStorageInterface, Da
    * A database connection.
    *
    * @var \Drupal\Core\Database\Connection
+   *
+   * @see DataStreamSqlStorage
    */
   protected $connection;
+
+  /**
+   * Database table.
+   *
+   * @var string
+   *
+   * @see DataStreamSqlStorage
+   */
+  protected $tableName = 'data_stream_basic';
 
   /**
    * Constructs a \Drupal\Component\Plugin\PluginBase object.

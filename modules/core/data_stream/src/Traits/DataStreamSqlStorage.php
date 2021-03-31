@@ -8,23 +8,14 @@ use Drupal\fraction\Fraction;
 /**
  * A trait for using the DataStreamSimpleData storage.
  *
+ * Classes using this trait must define two properties:
+ *  A $connection property that is an instance of
+ *    \Drupal\Core\Database\Connection.
+ *  A $tableName property that defines the table name used to save data.
+ *
  * @see DataStreamStorageInterface
  */
 trait DataStreamSqlStorage {
-
-  /**
-   * A database connection.
-   *
-   * @var \Drupal\Core\Database\Connection
-   */
-  protected $connection;
-
-  /**
-   * Database table.
-   *
-   * @var string
-   */
-  protected $tableName = 'data_stream_basic';
 
   /**
    * {@inheritdoc}

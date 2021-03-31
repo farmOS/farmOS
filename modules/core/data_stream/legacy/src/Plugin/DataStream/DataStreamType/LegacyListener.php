@@ -26,9 +26,7 @@ class LegacyListener extends Basic implements DataStreamStorageInterface, Legacy
   use DataStreamPrivateKeyAccess;
 
   /**
-   * Database table for legacy data.
-   *
-   * @var string
+   * {@inheritdoc}
    */
   protected $tableName = 'data_stream_legacy';
 
