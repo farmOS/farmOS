@@ -47,7 +47,7 @@ class LegacyApiTest extends DataStreamTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
 
     $this->installConfig(['farm_sensor_listener']);

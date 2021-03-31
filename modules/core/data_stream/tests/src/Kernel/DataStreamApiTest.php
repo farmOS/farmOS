@@ -25,7 +25,7 @@ class DataStreamApiTest extends DataStreamTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
 
     // Create a basic data stream for testing.
