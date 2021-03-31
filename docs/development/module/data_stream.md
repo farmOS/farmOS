@@ -85,28 +85,5 @@ Plugins can optionally implement the `DataStreamStorageInterface` and the
 `DataStreamApiInterface` to adhere to a common interface other data stream
 types might use.
 
-The following defines the `basic` data stream bundle plugin:
-
-```php
-<?php
-
-namespace Drupal\data_stream\Plugin\DataStream\DataStreamType;
-
-use Drupal\data_stream\DataStreamApiInterface;
-use Drupal\data_stream\DataStreamStorageInterface;
-use Drupal\data_stream\Traits\DataStreamSqlStorage;
-use Drupal\data_stream\Traits\DataStreamPrivateKeyAccess;
-
-/**
- * Provides the basic data stream type.
- *
- * @DataStreamType(
- *   id = "basic",
- *   label = @Translation("Basic"),
- * )
- */
-class Basic extends DataStreamTypeBase implements DataStreamStorageInterface,
-DataStreamApiInterface {
-
-}
-```
+See the "Basic" data stream bundle plugin as an example
+(`Drupal\data_stream\Plugin\DataStream\DataStreamType\Basic`).
