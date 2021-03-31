@@ -175,6 +175,7 @@ class LegacyApiTest extends DataStreamTestBase {
     $response = $this->processRequest($request);
     $data = Json::decode($response->getContent());
     $this->assertEquals(1, count($data));
+    $this->assertEquals('300', $data[0]['value2']);
   }
 
   /**
