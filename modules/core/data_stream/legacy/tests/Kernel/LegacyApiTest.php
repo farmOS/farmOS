@@ -39,6 +39,13 @@ class LegacyApiTest extends DataStreamTestBase {
   protected $legacyApiPath = '/farm/sensor/listener';
 
   /**
+   * Start time of sensor data.
+   *
+   * @var int
+   */
+  protected $startTime;
+
+  /**
    * A legacy Listener data stream.
    *
    * @var \Drupal\data_stream\Entity\DataStreamInterface
@@ -54,6 +61,9 @@ class LegacyApiTest extends DataStreamTestBase {
     $this->installConfig(['farm_sensor_listener']);
     $this->installSchema('farm_sensor_listener', 'data_stream_legacy');
 
+    // Save the start time.
+    $this->startTime = \Drupal::time()->getRequestTime();
+
     // Create a listener data stream for testing.
     $this->listener = $this->createDataStreamEntity([
       'type' => 'legacy_listener',
@@ -63,7 +73,7 @@ class LegacyApiTest extends DataStreamTestBase {
     ]);
 
     // Create 100 data points over the next 100 days.
-    $this->mockBasicData($this->listener, 100, \Drupal::time()->getRequestTime());
+    $this->mockBasicData($this->listener, 100, $this->startTime);
   }
 
   /**
@@ -128,13 +138,11 @@ class LegacyApiTest extends DataStreamTestBase {
 
     // Test the start and end params.
     // Limit to 15 days of data, which should return 15 results.
-    $request_time = \Drupal::time()->getRequestTime();
-    $start_time = $request_time + (86400 * 5);
-    $end_time = $request_time + (86400 * 20);
+    $end_time = $this->startTime + (86400 * 14);
     $request = Request::create($uri, 'GET',
       [
         'private_key' => $this->listener->getPrivateKey(),
-        'start' => $start_time,
+        'start' => $this->startTime,
         'end' => $end_time,
       ],
     );
@@ -142,7 +150,7 @@ class LegacyApiTest extends DataStreamTestBase {
     $data = Json::decode($response->getContent());
     $this->assertEquals(15, count($data));
     foreach ($data as $point) {
-      $this->assertGreaterThanOrEqual($start_time, $point['timestamp']);
+      $this->assertGreaterThanOrEqual($this->startTime, $point['timestamp']);
       $this->assertLessThanOrEqual($end_time, $point['timestamp']);
     }
 
@@ -182,8 +190,7 @@ class LegacyApiTest extends DataStreamTestBase {
     $this->listener->set('public', TRUE)->save();
 
     // Test data.
-    $request_time = \Drupal::time()->getRequestTime();
-    $timestamp = $request_time - 86400;
+    $timestamp = $this->startTime - 86400;
     $test_data = ['timestamp' => $timestamp, 'value' => 200];
     $test_point = new \stdClass();
     $test_point->timestamp = $test_data['timestamp'];

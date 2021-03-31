@@ -16,6 +16,13 @@ class DataStreamApiTest extends DataStreamTestBase {
   use DataStreamCreationTrait;
 
   /**
+   * Start time of sensor data.
+   *
+   * @var int
+   */
+  protected $startTime;
+
+  /**
    * A basic data stream.
    *
    * @var \Drupal\data_stream\Entity\DataStreamInterface
@@ -28,6 +35,9 @@ class DataStreamApiTest extends DataStreamTestBase {
   protected function setUp(): void {
     parent::setUp();
 
+    // Save the start time.
+    $this->startTime = \Drupal::time()->getRequestTime();
+
     // Create a basic data stream for testing.
     $this->dataStream = $this->createDataStreamEntity([
       'type' => 'basic',
@@ -36,7 +46,7 @@ class DataStreamApiTest extends DataStreamTestBase {
     ]);
 
     // Create 100 data points over the next 100 days.
-    $this->mockBasicData($this->dataStream, 100, \Drupal::time()->getRequestTime());
+    $this->mockBasicData($this->dataStream, 100, $this->startTime);
   }
 
   /**
@@ -95,13 +105,11 @@ class DataStreamApiTest extends DataStreamTestBase {
 
     // Test the start and end params.
     // Limit to 15 days of data, which should return 15 results.
-    $request_time = \Drupal::time()->getRequestTime();
-    $start_time = $request_time + (86400 * 5);
-    $end_time = $request_time + (86400 * 20);
+    $end_time = $this->startTime + (86400 * 14);
     $request = Request::create($uri, 'GET',
       [
         'private_key' => $this->dataStream->getPrivateKey(),
-        'start' => $start_time,
+        'start' => $this->startTime,
         'end' => $end_time,
       ],
     );
@@ -109,7 +117,7 @@ class DataStreamApiTest extends DataStreamTestBase {
     $data = Json::decode($response->getContent());
     $this->assertEquals(15, count($data));
     foreach ($data as $point) {
-      $this->assertGreaterThanOrEqual($start_time, $point['timestamp']);
+      $this->assertGreaterThanOrEqual($this->startTime, $point['timestamp']);
       $this->assertLessThanOrEqual($end_time, $point['timestamp']);
     }
 
@@ -136,8 +144,7 @@ class DataStreamApiTest extends DataStreamTestBase {
     $this->dataStream->set('public', TRUE)->save();
 
     // Test data.
-    $request_time = \Drupal::time()->getRequestTime();
-    $timestamp = $request_time - 86400;
+    $timestamp = $this->startTime - 86400;
     $test_data = ['timestamp' => $timestamp, 'value' => 200];
     $test_point = new \stdClass();
     $test_point->timestamp = $test_data['timestamp'];
