@@ -75,3 +75,21 @@ Relationships that are common to all Term types include:
 
 Terms can specify "Parent" Terms to create a hierarchy. See related "Weight"
 attribute above for ordering Terms within the hierarchy.
+
+## Type-specific fields
+
+In addition to the fields that are common to all Term types described
+above, some types add additional type-specific fields. These include:
+
+#### Plant Type Terms
+
+Terms in the "Plant type" vocabulary have the following additional attributes:
+
+- Days to maturity (Integer)
+- Days to transplant (Integer)
+
+And the following additional relationships:
+
+- Companions (references other Terms in the "Plant type" vocabulary)
+- Crop family (references a Term in the "Crop Family" vocabulary)
+- Images (references uploaded image files)

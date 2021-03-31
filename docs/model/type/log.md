@@ -248,3 +248,64 @@ This field is added to all Log types by default only if the Group module is
 enabled.
 
 For more information, see [farmOS Membership Logic](/model/logic/group).
+
+## Type-specific fields
+
+In addition to the fields that are common to all Log types described
+above, some types add additional type-specific fields. These include:
+
+#### Harvest Logs
+
+Harvest Logs have the following additional attributes:
+
+- Lot number (string)
+
+#### Input Logs
+
+Input Logs have the following additional attributes:
+
+- Lot number (string)
+- Method (string)
+- Purchase date (timestamp)
+- Source (string)
+
+And the following additional relationships:
+
+- Material (References Terms in the "Material" vocabulary)
+
+#### Lab Test Logs
+
+Lab Test Logs have the following additional attributes:
+
+- Laboratory (string)
+- Test type (string)
+
+#### Medical Logs
+
+Medical Logs have the following additional attributes:
+
+- Veterinarian (string)
+
+#### Purchase Logs
+
+Purchase Logs have the following additional attributes:
+
+- Invoice number (string)
+- Seller (string)
+- Lot number (string)
+
+#### Sale Logs
+
+Sale Logs have the following additional attributes:
+
+- Customer (string)
+- Invoice number (string)
+- Lot number (string)
+
+#### Seeding Logs
+
+Seeding Logs have the following additional attributes:
+
+- Lot number (string)
+- Purchase date (timestamp)
+- Source (string)

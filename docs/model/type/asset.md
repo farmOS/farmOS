@@ -220,3 +220,48 @@ For more information, see [farmOS Group Membership Logic](/model/logic/group).
 
 This field is added to all Log types by default only if the Group module is
 enabled.
+
+## Type-specific fields
+
+In addition to the fields that are common to all Asset types described
+above, some types add additional type-specific fields. These include:
+
+#### Animal Assets
+
+Animal Assets have the following additional attributes:
+
+- Birthdate (timestamp)
+- Is castrated (boolean)
+- Nicknames (multiple strings)
+- Sex ("F" or "M" string)
+
+And the following additional relationships:
+
+- Animal type (References a Term in the "Animal type" vocabulary)
+
+#### Equipment Assets
+
+Equipment Assets have the following additional attributes:
+
+- Manufacturer (string)
+- Model (string)
+- Serial number (string)
+
+#### Land Assets
+
+Land Assets have the following additional attributes:
+
+- Land type (string)
+
+#### Plant Assets
+
+Plant Assets have the following additional relationships:
+
+- Plant type (references a Term in the "Plant type" vocabulary)
+- Season (references a Term in the "Season" vocabulary)
+
+#### Structure Assets
+
+Structure Assets have the following additional attributes:
+
+- Structure type (string)
