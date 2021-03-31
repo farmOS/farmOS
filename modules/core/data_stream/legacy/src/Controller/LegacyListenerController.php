@@ -3,9 +3,7 @@
 namespace Drupal\farm_sensor_listener\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\farm_sensor_listener\LegacySensorApiInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -46,12 +44,7 @@ class LegacyListenerController extends ControllerBase {
     // Get the data stream plugin.
     $plugin = $data_stream->getPlugin();
 
-    // Bail if the plugin does not handle API requests.
-    if (!$plugin instanceof LegacySensorApiInterface) {
-      throw new MethodNotAllowedHttpException([]);
-    }
-
-    return $plugin->apiHandleLegacyRequest($data_stream, $request);
+    return $plugin->apiHandleRequest($data_stream, $request);
   }
 
 }

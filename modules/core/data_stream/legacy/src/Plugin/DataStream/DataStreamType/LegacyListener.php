@@ -2,14 +2,11 @@
 
 namespace Drupal\farm_sensor_listener\Plugin\DataStream\DataStreamType;
 
-use Drupal\data_stream\DataStreamStorageInterface;
 use Drupal\data_stream\Entity\DataStream;
 use Drupal\data_stream\Entity\DataStreamInterface;
 use Drupal\data_stream\Plugin\DataStream\DataStreamType\Basic;
 use Drupal\entity\BundleFieldDefinition;
-use Drupal\farm_sensor_listener\LegacySensorApiInterface;
 use Drupal\fraction\Fraction;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Provides the legacy listener data stream type.
@@ -19,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
  *   label = @Translation("Listener (Legacy)"),
  * )
  */
-class LegacyListener extends Basic implements DataStreamStorageInterface, LegacySensorApiInterface {
+class LegacyListener extends Basic {
 
   /**
    * {@inheritdoc}
@@ -99,13 +96,6 @@ class LegacyListener extends Basic implements DataStreamStorageInterface, Legacy
     ];
 
     return $data;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function apiHandleLegacyRequest(DataStreamInterface $stream, Request $request) {
-    return $this->apiHandleRequest($stream, $request);
   }
 
   /**
