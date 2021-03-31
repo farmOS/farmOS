@@ -85,7 +85,7 @@ class LegacyApiTest extends DataStreamTestBase {
     foreach ($invalid_methods as $method => $response_code) {
       $request = Request::create($uri, $method, ['private_key' => $this->listener->getPrivateKey()]);
       $response = $this->processRequest($request);
-      $this->assertEqual($response_code, $response->getStatusCode());
+      $this->assertEquals($response_code, $response->getStatusCode());
     }
   }
 
@@ -99,7 +99,7 @@ class LegacyApiTest extends DataStreamTestBase {
     $uri = $this->legacyApiPath . '/' . hash('md5', mt_rand());
     $request = Request::create($uri, 'GET');
     $response = $this->processRequest($request);
-    $this->assertEqual(404, $response->getStatusCode());
+    $this->assertEquals(404, $response->getStatusCode());
 
     // Make a request without private key.
     // Assert 403.
@@ -107,16 +107,16 @@ class LegacyApiTest extends DataStreamTestBase {
     $uri = $this->legacyApiPath . '/' . $public_key;
     $request = Request::create($uri, 'GET');
     $response = $this->processRequest($request);
-    $this->assertEqual(403, $response->getStatusCode());
+    $this->assertEquals(403, $response->getStatusCode());
 
     // Make a request with the private key.
     $request = Request::create($uri, 'GET', ['private_key' => $this->listener->getPrivateKey()]);
     $response = $this->processRequest($request);
 
     // Assert valid response.
-    $this->assertEqual(200, $response->getStatusCode());
+    $this->assertEquals(200, $response->getStatusCode());
     $data = Json::decode($response->getContent());
-    $this->assertEqual(100, count($data));
+    $this->assertEquals(100, count($data));
 
     // Test the limit param.
     $request = Request::create($uri, 'GET',
@@ -124,7 +124,7 @@ class LegacyApiTest extends DataStreamTestBase {
     );
     $response = $this->processRequest($request);
     $data = Json::decode($response->getContent());
-    $this->assertEqual(10, count($data));
+    $this->assertEquals(10, count($data));
 
     // Test the start and end params.
     // Limit to 15 days of data, which should return 15 results.
@@ -140,7 +140,7 @@ class LegacyApiTest extends DataStreamTestBase {
     );
     $response = $this->processRequest($request);
     $data = Json::decode($response->getContent());
-    $this->assertEqual(15, count($data));
+    $this->assertEquals(15, count($data));
     foreach ($data as $point) {
       $this->assertGreaterThanOrEqual($start_time, $point['timestamp']);
       $this->assertLessThanOrEqual($end_time, $point['timestamp']);
@@ -152,9 +152,9 @@ class LegacyApiTest extends DataStreamTestBase {
     // Test that data can be accessed without the private key.
     $request = Request::create($uri, 'GET');
     $response = $this->processRequest($request);
-    $this->assertEqual(200, $response->getStatusCode());
+    $this->assertEquals(200, $response->getStatusCode());
     $data = Json::decode($response->getContent());
-    $this->assertEqual(100, count($data));
+    $this->assertEquals(100, count($data));
 
     // Add a data point with another name.
     $request_time = \Drupal::time()->getRequestTime();
@@ -166,7 +166,7 @@ class LegacyApiTest extends DataStreamTestBase {
     $request = Request::create($uri, 'GET', ['name' => 'value2']);
     $response = $this->processRequest($request);
     $data = Json::decode($response->getContent());
-    $this->assertEqual(1, count($data));
+    $this->assertEquals(1, count($data));
   }
 
   /**
@@ -193,18 +193,18 @@ class LegacyApiTest extends DataStreamTestBase {
     $request = Request::create($uri, 'POST', [], [], [], [], Json::encode($test_data));
     $response = $this->processRequest($request);
     // Assert that access is denied.
-    $this->assertEqual(403, $response->getStatusCode());
+    $this->assertEquals(403, $response->getStatusCode());
 
     // Post data with a private key.
     $request = $request->duplicate(['private_key' => $this->listener->getPrivateKey()]);
     $response = $this->processRequest($request);
     // Assert success.
-    $this->assertEqual(201, $response->getStatusCode());
+    $this->assertEquals(201, $response->getStatusCode());
 
     // Assert that new data was saved in DB.
     $plugin = $this->listener->getPlugin();
     $data = $plugin->storageGet($this->listener, ['limit' => 1, 'end' => $timestamp]);
-    $this->assertEqual(1, count($data));
+    $this->assertEquals(1, count($data));
     $this->assertTrue(in_array($test_point, $data));
   }
 
