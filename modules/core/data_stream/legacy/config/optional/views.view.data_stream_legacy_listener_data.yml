@@ -14,7 +14,7 @@ dependencies:
     - serialization
     - user
 id: data_stream_legacy_listener_data
-label: 'Data stream: legacy listener data'
+label: 'Data stream: Listener (Legacy) data'
 module: views
 description: ''
 tag: ''
@@ -422,7 +422,7 @@ display:
           field: legacy_listener_data
           relationship: none
           group_type: group
-          admin_label: 'Legacy listener data'
+          admin_label: 'Listener (Legacy) data'
           required: true
           entity_type: data_stream
           plugin_id: standard

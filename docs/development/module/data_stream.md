@@ -51,7 +51,7 @@ via the API with the `private_key`, or by anyone if the data stream is set to
 `public`. Basic data streams also provide simple ways to view data in a
 table or graph, and export as CSV.
 
-### Legacy listener data stream
+### Listener (Legacy) data stream
 
 The `farm_sensor_listener` module provides a `legacy_listener` data stream type
 that is compatible with the Listener sensor type from farmOS 1.x. It is

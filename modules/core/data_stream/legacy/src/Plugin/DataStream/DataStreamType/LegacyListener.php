@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
  *
  * @DataStreamType(
  *   id = "legacy_listener",
- *   label = @Translation("Legacy listener"),
+ *   label = @Translation("Listener (Legacy)"),
  * )
  */
 class LegacyListener extends Basic implements DataStreamStorageInterface, LegacySensorApiInterface {
@@ -38,7 +38,7 @@ class LegacyListener extends Basic implements DataStreamStorageInterface, Legacy
     // Define the public_key field.
     $field = BundleFieldDefinition::create('string')
       ->setLabel($this->t('Public key'))
-      ->setDescription($this->t('Public key used to identify this data stream in the legacy listener endpoint.'))
+      ->setDescription($this->t('Public key used to identify this data stream in the Listener (Legacy) endpoint.'))
       ->setDefaultValueCallback(DataStream::class . '::createUniqueKey')
       ->setSetting('max_length', 255)
       ->setSetting('text_processing', 0)
@@ -90,14 +90,14 @@ class LegacyListener extends Basic implements DataStreamStorageInterface, Legacy
     // Add a legacy_listener_data relationship to the data_stream_data table
     // that references the data_stream_legacy table.
     $data['data_stream_data']['legacy_listener_data'] = [
-      'title' => $this->t('Legacy listener data'),
-      'help' => $this->t('Legacy listener data stream data.'),
+      'title' => $this->t('Listener (Legacy) data'),
+      'help' => $this->t('Listener (Legacy) data stream data.'),
       'relationship' => [
         'base' => 'data_stream_legacy',
         'base field' => 'id',
         'field' => 'id',
         'id' => 'standard',
-        'label' => $this->t('Legacy listener data'),
+        'label' => $this->t('Listener (Legacy) data'),
       ],
     ];
 

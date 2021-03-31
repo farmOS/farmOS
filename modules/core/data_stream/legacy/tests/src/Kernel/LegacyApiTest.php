@@ -8,7 +8,7 @@ use Drupal\Tests\data_stream\Traits\DataStreamCreationTrait;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Test the Legacy Listener data stream type.
+ * Test the Listener (Legacy) data stream type.
  *
  * @group farm
  */
@@ -46,7 +46,7 @@ class LegacyApiTest extends DataStreamTestBase {
   protected $startTime;
 
   /**
-   * A legacy Listener data stream.
+   * A Listener (Legacy) data stream.
    *
    * @var \Drupal\data_stream\Entity\DataStreamInterface
    */
