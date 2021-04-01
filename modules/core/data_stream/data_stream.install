@@ -1,0 +1,48 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the data_stream module.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function data_stream_schema() {
+  $schema['data_stream_basic'] = [
+    'description' => 'Numerical storage for data streams.',
+    'fields' => [
+      'id' => [
+        'description' => 'Data stream entity ID',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'timestamp' => [
+        'description' => 'Timestamp of the sensor reading',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'value_numerator' => [
+        'description' => 'Value numerator',
+        'type' => 'int',
+        'size' => 'big',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'value_denominator' => [
+        'description' => 'Value denominator',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 1,
+      ],
+    ],
+    'indexes' => [
+      'id' => ['id'],
+      'timestamp' => ['timestamp'],
+    ],
+  ];
+  return $schema;
+}

@@ -1,0 +1,14 @@
+# Schema for the configuration files of the data_stream module.
+data_stream.type.*:
+  type: config_entity
+  label: 'Data stream type'
+  mapping:
+    id:
+      type: string
+      label: 'Machine-readable name'
+    label:
+      type: label
+      label: 'Type'
+    description:
+      type: text
+      label: 'Description'

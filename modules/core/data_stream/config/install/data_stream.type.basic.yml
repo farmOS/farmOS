@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - data_stream
+id: basic
+label: Basic
+description: 'Basic data stream'

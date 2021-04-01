@@ -1,0 +1,7 @@
+data_stream.data:
+  path: '/api/data_stream/{uuid}/data'
+  defaults:
+    _controller: '\Drupal\data_stream\Controller\DataStreamController::dataStream'
+  requirements:
+    # There is no access restriction to this endpoint.
+    _access: 'TRUE'

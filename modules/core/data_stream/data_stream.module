@@ -1,0 +1,40 @@
+<?php
+
+/**
+ * @file
+ * The data stream module.
+ */
+
+use Drupal\data_stream\Entity\DataStreamInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+
+/**
+ * Implements hook_ENTITY_TYPE_view_alter().
+ */
+function data_stream_data_stream_view_alter(array &$build, DataStreamInterface $data_stream, EntityViewDisplayInterface $display) {
+
+  // Bail if there is no entity.
+  if (empty($data_stream)) {
+    return;
+  }
+
+  // Bail if not the basic type.
+  if ($data_stream->bundle() != 'basic') {
+    return;
+  }
+
+  // Add the basic data block view.
+  $build['views']['data'] = views_embed_view('data_stream_basic_data', 'block', $data_stream->id());
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_delete().
+ */
+function data_stream_data_stream_delete(DataStreamInterface $data_stream) {
+
+  // @todo Considerations for improved entity reference integrity?
+  // Remove any references to this data stream from the asset.data_stream field.
+  \Drupal::database()->delete('asset__data_stream')
+    ->condition('data_stream_target_id', $data_stream->id())
+    ->execute();
+}

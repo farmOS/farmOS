@@ -1,0 +1,12 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_migrate
+id: farm_migrate_sensor_data
+label: 'farmOS 1.x Sensor Data Migration'
+description: 'Migrates sensor data from farmOS 1.x to farmOS 2.x'
+source_type: 'farmOS 1.x'
+module: null
+shared_configuration: null

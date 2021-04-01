@@ -260,6 +260,11 @@ Plant Assets have the following additional relationships:
 - Plant type (references a Term in the "Plant type" vocabulary)
 - Season (references a Term in the "Season" vocabulary)
 
+#### Sensor Assets
+
+Sensor Assets have an additional "Data streams" relationship, which is used to
+reference [Data Streams](/model/type/data-stream) associated with the sensor.
+
 #### Structure Assets
 
 Structure Assets have the following additional attributes:

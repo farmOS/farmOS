@@ -389,6 +389,46 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
         ];
         break;
 
+      // Data stream reference.
+      case 'data_stream':
+        $handler = 'default:data_stream';
+        $handler_settings = [
+          'filter' => [
+            'type' => '_none',
+          ],
+          'target_bundles' => NULL,
+          'sort' => [
+            'field' => '_none',
+          ],
+          'auto_create' => FALSE,
+        ];
+        $form_display_options = [
+          'type' => 'inline_entity_form_complex',
+          'settings' => [
+            'form_mode' => 'default',
+            'revision' => TRUE,
+            'override_labels' => FALSE,
+            'label_singular' => '',
+            'label_plural' => '',
+            'collapsible' => FALSE,
+            'collapsed' => FALSE,
+            'allow_new' => TRUE,
+            'allow_existing' => FALSE,
+            'match_operator' => 'CONTAINS',
+            'allow_duplicate' => FALSE,
+          ],
+          'weight' => $options['weight']['form'] ?? 0,
+        ];
+        $view_display_options = [
+          'label' => 'inline',
+          'type' => 'entity_reference_label',
+          'weight' => $options['weight']['view'] ?? 0,
+          'settings' => [
+            'link' => TRUE,
+          ],
+        ];
+        break;
+
       // Otherwise, throw an exception.
       default:
         throw new FieldException('Unsupported target_type.');
