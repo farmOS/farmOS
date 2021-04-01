@@ -21,7 +21,7 @@ function data_stream_views_data() {
   foreach (array_keys($data_stream_types) as $plugin_id) {
     /** @var \Drupal\data_stream\Plugin\DataStream\DataStreamType\DataStreamTypeInterface $plugin */
     $plugin = $manager->createInstance($plugin_id);
-    $data = array_merge_recursive($data, $plugin->getViewsData());
+    $data = array_replace_recursive($data, $plugin->getViewsData());
   }
 
   return $data;

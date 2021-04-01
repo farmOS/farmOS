@@ -62,7 +62,6 @@ class LegacyListener extends Basic {
 
     // Inherit the data_stream_basic views data config.
     $data[$this->tableName] = $data['data_stream_basic'];
-    unset($data['data_stream_basic']);
 
     // Add the additional name field.
     $data[$this->tableName]['name'] = [
