@@ -20,18 +20,19 @@ all on the fly.
 and are not considered stable. If you use them, make sure to backup your data
 regularly to your farmOS server to avoid data loss.**
 
-Field Kit is available as a web app and as native apps for Android and iOS.
+Field Kit is currently available as a web app, which can be found at [farmos.app]
+and can be installed as a [Progressive Web App] (PWA). As a PWA, the app will work
+offline and your logs will be stored in between uses. You can even add the app to
+your device's home screen, so it can be launched just like a native app.
 
-The Android app can be installed now from the [Play Store].
-
-The iOS app is only available right now via [Test Flight] and you will need an
-invite in order to install it. If you'd like to request and invite, you can
-[sign up here].
-
-The web app can be found at [farmos.app] and can be installed as a
-[Progressive Web App] (PWA). As a PWA, the app will work offline and your logs
-will be stored in between uses. You can even add the app to your device's home
-screen, so it can be launched just like a native app.
+Previously, and perhaps again in the future, Field Kit was available as native
+apps for Android and iOS. The Android app can still be installed now from the
+[Play Store], but is currently not receiving regular updates. The iOS app was
+previously available on [Test Flight], but at the time of writing this (Apr 2020)
+all builds have expired and are no longer available for download; previous
+installs will not be updated for the foreseeable future. We encourage all users
+to migrate to the PWA, which shares the same features as the native apps. For
+more details on this decision, see the related [forum post].
 
 ## Server requirements
 
@@ -50,6 +51,7 @@ The source code can be viewed on [GitHub]
 
 [Play Store]: https://play.google.com/store/apps/details?id=org.farmos.app
 [Test Flight]: https://developer.apple.com/testflight/
+[forum post]: https://farmos.discourse.group/t/field-kit-a-platform-dilemma/433
 [sign up here]: https://testflight.apple.com/join/A35xRBwE
 [farmos.app]: https://farmos.app
 [Progressive Web App]: https://developers.google.com/web/progressive-web-apps/
