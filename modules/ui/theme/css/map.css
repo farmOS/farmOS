@@ -2,3 +2,11 @@
 .farm-map .ol-control button {
   color: var(--colorGinPrimary);
 }
+
+/* Override the geocoder input to work with Gin :focus bos-shadow. */
+.farm-map input#gcd-input-query {
+  height: 1.75em;
+  top: 0.5em;
+  box-shadow: 0 0 0 2px var(--colorGinLayerBackground), 0 0 0 4px var(--colorGinFocus);
+  -webkit-box-shadow: 0 0 0 2px var(--colorGinLayerBackground), 0 0 0 4px var(--colorGinFocus);
+}
