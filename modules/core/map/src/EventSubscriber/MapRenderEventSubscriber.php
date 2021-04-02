@@ -72,6 +72,16 @@ class MapRenderEventSubscriber implements EventSubscriberInterface {
     if (in_array($event->getMapType()->id(), ['geofield_widget'])) {
       $event->addBehavior('wkt');
       $event->addBehavior('geofield');
+
+      // Disable popups for the geofield_widget map.
+      // @todo Allow this to be set on the map type config entity.
+      // This should be a proper instance specific setting.
+      // In the map type config, it should be possible to add behavior specific
+      // settings in the top-level "behaviors" list (right now it just accepts
+      // behavior IDs). Each behavior could provide schema for its valid
+      // setting options.
+      $settings[$event->getMapTargetId()]['behaviors']['popup']['enabled'] = FALSE;
+      $event->addSettings($settings);
     }
 
     // Add asset layers to dashbaord map.

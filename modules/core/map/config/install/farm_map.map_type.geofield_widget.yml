@@ -10,6 +10,9 @@ description: 'Renders a geofield widget using farmOS-map.'
 behaviors:
   - asset_type_layers
 options:
+  behaviors:
+    popup:
+      enabled: false
   asset_type_layers:
     all_locations:
       label: All locations
