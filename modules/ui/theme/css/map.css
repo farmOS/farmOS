@@ -3,6 +3,13 @@
   color: var(--colorGinPrimary);
 }
 
+/* Move map buttons to the top when focused. Prevents surrounding control
+buttons from covering up the :focus box-shadow. A position is required. */
+.farm-map button:focus {
+  position: relative;
+  z-index: 1000;
+}
+
 /* Override the geocoder input to work with Gin :focus bos-shadow. */
 .farm-map input#gcd-input-query {
   height: 1.75em;
