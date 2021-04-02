@@ -10,3 +10,7 @@ flag:
   css:
     theme:
       css/flag.css: {}
+map:
+  css:
+    theme:
+      css/map.css: {}
