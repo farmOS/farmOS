@@ -7,6 +7,7 @@ nav:
       - Logs: model/type/log.md
       - Quantities: model/type/quantity.md
       - Data streams: model/type/data_stream.md
+      - Files: model/type/file.md
       - Terms: model/type/term.md
       - Plans: model/type/plan.md
       - Users: model/type/user.md
