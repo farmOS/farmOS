@@ -57,6 +57,9 @@
             "drupal/entity_browser": {
                 "Issue #3160482: Error with UntrustedCallbackException": "https://www.drupal.org/files/issues/2021-03-02/error-with-untrustedcallbackexception-3160482-5.patch"
             },
+            "drupal/geofield": {
+                "Issue #3207078: Add support for centroid WKT in LatLon formatter": "https://www.drupal.org/files/issues/2021-04-03/3207078-4.patch"
+            },
             "drupal/state_machine": {
                 "Issue #3144828: Declare dependency on core options module": "https://www.drupal.org/files/issues/2021-03-01/3144828-11-DO_NOT_TEST_OR_COMMIT.patch"
             },
