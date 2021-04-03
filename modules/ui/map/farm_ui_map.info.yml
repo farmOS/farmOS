@@ -1,0 +1,9 @@
+name: farmOS UI Map
+description: Provides default maps of farmOS entities.
+type: module
+package: farmOS UI
+core_version_requirement: ^9
+dependencies:
+  - farm:farm_location
+  - farm:farm_map
+  - farm:farm_ui_views

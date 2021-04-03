@@ -1,0 +1,133 @@
+<?php
+
+/**
+ * @file
+ * The farmOS UI Map module.
+ */
+
+use Drupal\views\ViewExecutable;
+
+/**
+ * Implements hook_views_pre_render().
+ */
+function farm_ui_map_views_pre_render(ViewExecutable $view) {
+
+  // Render a map attachment above views of assets.
+  if ($view->id() == 'farm_asset' && in_array($view->current_display, ['page', 'page_type'])) {
+
+    // Get all asset bundles.
+    $asset_bundles = \Drupal::service('entity_type.bundle.info')->getBundleInfo($view->getBaseEntityType()->id());
+
+    // Start array of filtered bundles.
+    $filtered_bundles = $asset_bundles;
+
+    // Start array of asset layers to add.
+    $asset_layers = [
+      'full' => [],
+      'cluster' => [],
+    ];
+
+    // Save the translated cluster string.
+    $cluster_string = ' (' . t('clusters') . ')';
+
+    // Save the group labels.
+    $layer_group = $view->getBaseEntityType()->getCollectionLabel();
+    $cluster_group = $layer_group . $cluster_string;
+
+    // Add multiple asset layers to the page of all assets.
+    if ($view->current_display == 'page') {
+
+      // Limit to filtered asset types.
+      if (!empty($exposed_filters['type'])) {
+        $filtered_bundles = array_intersect_key($asset_bundles, array_flip($exposed_filters['type']));
+      }
+    }
+
+    // If this is the page_type display, only map this asset type.
+    if ($view->current_display == 'page_type' && !empty($view->args[0])) {
+
+      // Don't use a separate group for cluster layers.
+      $cluster_group = $layer_group;
+
+      $bundle = $view->args[0];
+      $filtered_bundles = [
+        $bundle => $asset_bundles[$bundle],
+      ];
+    }
+
+    // Add an asset type map layer for each filtered bundle.
+    foreach ($filtered_bundles as $bundle => $bundle_info) {
+
+      // Get exposed filters.
+      $exposed_filters = $view->getExposedInput();
+
+      // Add a cluster layer for all asset types.
+      $asset_layers['cluster']['cluster_' . $bundle] = [
+        'group' => $cluster_group,
+        'label' => $bundle_info['label'] . $cluster_string,
+        'cluster' => TRUE,
+        'asset_type' => $bundle,
+        'filters' => $exposed_filters,
+        // @todo Color each asset type cluster differently.
+      ];
+
+      // Create individual layers for land types and structure types.
+      // @todo Abstract this to detect types other than land/structure?
+      if (in_array($bundle, ['land', 'structure'])) {
+
+        // Get fields for the bundle.
+        $entity_manager = \Drupal::service('entity_field.manager');
+        $fields = $entity_manager->getFieldStorageDefinitions('asset', $bundle);
+        $type_field_name = $bundle . '_type';
+
+        // Create a group for the asset bundle.
+        $bundle_group = t('@bundle assets', ['@bundle' => $bundle_info['label']]);
+
+        // Get valid options for the bundle_type field.
+        $options = options_allowed_values($fields[$type_field_name]);
+        foreach ($options as $option => $label) {
+
+          // Add an exposed filter for the bundle_type field.
+          $exposed_filters[$type_field_name . '[]'] = $option;
+
+          // Add layer for the bundle type.
+          $asset_layers['full'][$bundle . '_' . $option] = [
+            'group' => $bundle_group,
+            'label' => $label,
+            'asset_type' => $bundle,
+            'filters' => $exposed_filters,
+            // @todo Color each asset type differently.
+            // This was previously provided with hook_farm_area_type_info.
+            'color' => 'orange',
+            'zoom' => TRUE,
+          ];
+        }
+
+      }
+      else {
+        // Add full geometry layers for the other asset types.
+        $asset_layers['full']['full_' . $bundle] = [
+          'group' => $layer_group,
+          'label' => $bundle_info['label'],
+          'asset_type' => $bundle,
+          'filters' => $exposed_filters,
+          // @todo Color each asset type differently.
+          // This was previously provided with hook_farm_area_type_info.
+          'color' => 'orange',
+          'zoom' => TRUE,
+        ];
+      }
+    }
+
+    // Build the map render array.
+    $map = [
+      '#type' => 'farm_map',
+      '#map_type' => 'asset_list',
+    ];
+    $all_layers = array_merge($asset_layers['cluster'], $asset_layers['full']);
+    $map['#map_settings']['asset_type_layers'] = $all_layers;
+
+    // Render the map.
+    $view->attachment_before['asset_map'] = $map;
+  }
+}
