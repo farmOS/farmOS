@@ -21,6 +21,10 @@ included in this list, add a comment to [this issue on Github].
 
 * Golden Maple Farm (Victoria, British Columbia)
 
+## Chile
+
+* Agribas (Melipilla, Region Metropolitana)
+
 ## Czech Republic
 
 * Hospodářství Jarošovice (Týn nad Vltavou, South Czech)
