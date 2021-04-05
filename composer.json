@@ -28,7 +28,7 @@
         "drupal/entity_reference_revisions": "^1.8",
         "drupal/entity_reference_validators": "^1.0@alpha",
         "drupal/fraction": "2.x-dev",
-        "drupal/geofield": "^1.15",
+        "drupal/geofield": "^1.22",
         "drupal/gin": "3.x-dev",
         "drupal/inline_entity_form": "^1.0@RC",
         "drupal/jsonapi_extras": "^3.15",
@@ -56,10 +56,6 @@
             },
             "drupal/entity_browser": {
                 "Issue #3160482: Error with UntrustedCallbackException": "https://www.drupal.org/files/issues/2021-03-02/error-with-untrustedcallbackexception-3160482-5.patch"
-            },
-            "drupal/geofield": {
-                "Issue #3207216: LatLon schema error: settings.output_escape missing schema": "https://www.drupal.org/files/issues/2021-04-05/3207216-5.patch",
-                "Issue #3207078: Add support for centroid WKT in LatLon formatter": "https://www.drupal.org/files/issues/2021-04-03/3207078-4.patch"
             },
             "drupal/state_machine": {
                 "Issue #3144828: Declare dependency on core options module": "https://www.drupal.org/files/issues/2021-03-01/3144828-11-DO_NOT_TEST_OR_COMMIT.patch"
