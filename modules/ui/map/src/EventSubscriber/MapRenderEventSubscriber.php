@@ -50,8 +50,25 @@ class MapRenderEventSubscriber implements EventSubscriberInterface {
    */
   public function onMapRender(MapRenderEvent $event) {
 
+    // Get the map ID.
+    $map_id = $event->getmapType()->id();
+
+    // Add "all locations" layers to default and geofield maps.
+    if (in_array($map_id, ['default', 'geofield', 'geofield_widget'])) {
+      $event->addBehavior('asset_type_layers');
+      $settings[$event->getMapTargetId()]['asset_type_layers']['all_locations'] = [
+        'label' => $this->t('All locations'),
+        'filters' => [
+          'is_location' => 1,
+        ],
+        'color' => 'grey',
+        'zoom' => TRUE,
+      ];
+      $event->addSettings($settings);
+    }
+
     // Add asset layers to dashboard map.
-    if ($event->getmapType()->id() == 'dashboard') {
+    elseif ($map_id == 'dashboard') {
 
       $layers = [];
 

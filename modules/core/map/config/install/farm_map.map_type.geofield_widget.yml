@@ -7,16 +7,8 @@ dependencies:
 id: geofield_widget
 label: Geofield widget
 description: 'Renders a geofield widget using farmOS-map.'
-behaviors:
-  - asset_type_layers
+behaviors: {  }
 options:
   behaviors:
     popup:
       enabled: false
-  asset_type_layers:
-    all_locations:
-      label: All locations
-      filters:
-        is_location: 1
-      color: grey
-      zoom: true

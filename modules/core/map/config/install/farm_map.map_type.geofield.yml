@@ -7,13 +7,5 @@ dependencies:
 id: geofield
 label: Geofield
 description: 'Renders geofield using farmOS-map.'
-behaviors:
-  - asset_type_layers
-options:
-  asset_type_layers:
-    all_locations:
-      label: All locations
-      filters:
-        is_location: 1
-      color: grey
-      zoom: false
+behaviors: {  }
+options: {  }
