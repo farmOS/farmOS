@@ -1,5 +1,5 @@
 name: farmOS UI Map
-description: Provides default maps of farmOS entities.
+description: Provides default farmOS maps and behaviors.
 type: module
 package: farmOS UI
 core_version_requirement: ^9
