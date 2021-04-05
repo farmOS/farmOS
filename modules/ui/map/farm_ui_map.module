@@ -8,6 +8,17 @@
 use Drupal\views\ViewExecutable;
 
 /**
+ * Implements hook_farm_dashboard_panes().
+ */
+function farm_ui_map_farm_dashboard_panes() {
+  return [
+    'dashboard_map' => [
+      'block' => 'dashboard_map',
+    ],
+  ];
+}
+
+/**
  * Implements hook_views_pre_render().
  */
 function farm_ui_map_views_pre_render(ViewExecutable $view) {

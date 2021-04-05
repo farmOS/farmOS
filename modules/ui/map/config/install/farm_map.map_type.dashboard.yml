@@ -3,7 +3,7 @@ status: true
 dependencies:
   enforced:
     module:
-      - farm_map
+      - farm_dashboard
 id: dashboard
 label: Dashboard
 description: 'The farmOS dashboard map.'

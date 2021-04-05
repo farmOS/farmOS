@@ -17,14 +17,3 @@ function farm_map_theme($existing, $type, $theme, $path) {
     ],
   ];
 }
-
-/**
- * Implements hook_farm_dashboard_panes().
- */
-function farm_map_farm_dashboard_panes() {
-  return [
-    'dashboard_map' => [
-      'block' => 'dashboard_map',
-    ],
-  ];
-}
