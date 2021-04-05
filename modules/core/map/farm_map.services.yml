@@ -1,5 +1,5 @@
 services:
   farm_map.map_render_event_subscriber:
-    class: '\Drupal\farm_map\EventSubscriber\MapRenderEventSubscriber'
+    class: Drupal\farm_map\EventSubscriber\MapRenderEventSubscriber
     tags:
       - { name: 'event_subscriber' }

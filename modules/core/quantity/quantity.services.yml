@@ -1,6 +1,6 @@
 services:
   quantity_event_subscriber:
-    class: '\Drupal\quantity\EventSubscriber\MapRenderEventSubscriber'
+    class: Drupal\quantity\EventSubscriber\MapRenderEventSubscriber
     arguments:
       - '@config.factory'
     tags:
