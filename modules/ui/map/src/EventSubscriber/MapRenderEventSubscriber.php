@@ -53,8 +53,10 @@ class MapRenderEventSubscriber implements EventSubscriberInterface {
     // Get the map ID.
     $map_id = $event->getmapType()->id();
 
-    // Add "all locations" layers to default and geofield maps.
+    // Add behaviors/settings to default and geofield maps.
     if (in_array($map_id, ['default', 'geofield', 'geofield_widget'])) {
+
+      // Add "All locations" layers.
       $event->addBehavior('asset_type_layers');
       $settings[$event->getMapTargetId()]['asset_type_layers']['all_locations'] = [
         'label' => $this->t('All locations'),
@@ -65,6 +67,12 @@ class MapRenderEventSubscriber implements EventSubscriberInterface {
         'zoom' => TRUE,
       ];
       $event->addSettings($settings);
+
+      // Prevent zooming to the "All locations" layer if WKT is provided.
+      if (!empty($event->element['#map_settings']['wkt'])) {
+        $settings[$event->getMapTargetId()]['asset_type_layers']['all_locations']['zoom'] = FALSE;
+        $event->addSettings($settings);
+      }
     }
 
     // Add asset layers to dashboard map.
