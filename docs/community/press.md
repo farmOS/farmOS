@@ -3,6 +3,10 @@
 farmOS has been featured in the following articles, videos, and podcasts. If you
 would like to write about farmOS, [contact m.stenta](https://farmier.com/contact).
 
+## 2021
+
+**2021 March 30th** [The MicaSense Podcast: Episode 6 - Vital Agronomics](https://open.spotify.com/episode/7zb4qA98H6YtoPERBURcVc)
+
 ## 2020
 
 **2020 August 19th** [Opensensing: Open source AgTech IoT ecosystems](https://opensensing.com/open-source-agtech-iot-ecosystem)
