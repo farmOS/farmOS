@@ -93,9 +93,9 @@ display:
             timestamp: timestamp
             name: name
             type: type
-            quantity_target_id: quantity_target_id
             asset_target_id: asset_target_id
             location_target_id: location_target_id
+            quantity_target_id: quantity_target_id
             flag_value: flag_value
             category_target_id: category_target_id
             owner_target_id: owner_target_id
@@ -140,17 +140,17 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            quantity_target_id:
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
             asset_target_id:
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
             location_target_id:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            quantity_target_id:
               align: ''
               separator: ''
               empty_column: false
@@ -501,71 +501,6 @@ display:
           entity_type: log
           entity_field: type
           plugin_id: field
-        quantity_target_id:
-          id: quantity_target_id
-          table: log__quantity
-          field: quantity_target_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: Quantity
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_revisions_entity_view
-          settings:
-            view_mode: default
-          group_column: ''
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: ul
-          separator: ', '
-          field_api_classes: false
-          entity_type: log
-          entity_field: quantity
-          plugin_id: field
         asset_target_id:
           id: asset_target_id
           table: log__asset
@@ -695,6 +630,71 @@ display:
           field_api_classes: false
           entity_type: log
           entity_field: location
+          plugin_id: field
+        quantity_target_id:
+          id: quantity_target_id
+          table: log__quantity
+          field: quantity_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Quantity
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_revisions_entity_view
+          settings:
+            view_mode: default
+          group_column: ''
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: ul
+          separator: ', '
+          field_api_classes: false
+          entity_type: log
+          entity_field: quantity
           plugin_id: field
         flag_value:
           id: flag_value
