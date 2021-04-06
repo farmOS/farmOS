@@ -1,7 +1,7 @@
-name: farmOS Default Land Types
-description: 'Provides default land types: Property, Field, Bed, Paddock, Landmark, Other.'
+name: farmOS Default Structure Types
+description: 'Provides default structure types: Building, Greenhouse.'
 type: module
 package: farmOS
 core_version_requirement: ^9
 dependencies:
-  - farm:farm_land
+  - farm:farm_structure
