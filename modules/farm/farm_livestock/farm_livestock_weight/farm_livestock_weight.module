@@ -191,7 +191,7 @@ function farm_livestock_weight_dlwg($asset) {
  * @return \Log
  *   Returns the log that was created.
  */
-function farm_livestock_weight_set($assets, $weight, $units, $timestamp = REQUEST_TIME, $done = TRUE) {
+function farm_livestock_weight_set($assets, $weight, $units, $timestamp = REQUEST_TIME, $done = TRUE, $categories = array('Animals') {
 
   // The log will be an observation.
   $log_type = 'farm_observation';
@@ -216,7 +216,7 @@ function farm_livestock_weight_set($assets, $weight, $units, $timestamp = REQUES
   );
 
   // Create a new log entity.
-  $log = farm_quantity_log_create($log_type, $log_name, $timestamp, $done, $assets, $measurements);
+  $log = farm_quantity_log_create($log_type, $log_name, $timestamp, $done, $assets, $measurements,'',$categories);
 
   // Return the log.
   return $log;
