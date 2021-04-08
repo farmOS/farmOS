@@ -5,6 +5,7 @@
  * The farmOS UI Map module.
  */
 
+use Drupal\views\Entity\View;
 use Drupal\views\ViewExecutable;
 
 /**
@@ -16,6 +17,31 @@ function farm_ui_map_farm_dashboard_panes() {
       'block' => 'dashboard_map',
     ],
   ];
+}
+
+/**
+ * Implements hook_views_pre_view().
+ */
+function farm_ui_map_views_pre_view(ViewExecutable $view, $display_id, array &$args) {
+
+  // Alter the farm_asset_geojson View's full and centroid displays to add all
+  // exposed filters that are present in the farm_asset View.
+  if ($view->id() == 'farm_asset_geojson' && in_array($display_id, ['full', 'centroid'])) {
+
+    // Load the farm_asset View. Bail if unavailable.
+    $farm_asset_view = View::load('farm_asset');
+    if (empty($farm_asset_view)) {
+      return;
+    }
+
+    // Copy all exposed filters from the default display.
+    $display = $farm_asset_view->getDisplay('default');
+    if (!empty($display['display_options']['filters'])) {
+      foreach ($display['display_options']['filters'] as $field => $filter) {
+        $view->addHandler($display_id, 'filter', $filter['table'], $field, $filter, $filter['id']);
+      }
+    }
+  }
 }
 
 /**
