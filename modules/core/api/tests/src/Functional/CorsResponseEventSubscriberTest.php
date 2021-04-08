@@ -57,21 +57,38 @@ class CorsResponseEventSubscriberTest extends FarmBrowserTestBase {
     $this->assertSame(200, $response->getStatusCode());
     $this->assertValidCorsHeaders($response);
 
-    // Add an invalid origin.
-    $origin = 'https://farmOS.app';
-    $request_options[RequestOptions::HEADERS]['Origin'] = $origin;
+    // Try an invalid origin.
+    $farmos_app_origin = 'https://farmOS.app';
+    $request_options[RequestOptions::HEADERS]['Origin'] = $farmos_app_origin;
     $response = $this->request('OPTIONS', Url::fromUri($uri), $request_options);
     $this->assertSame(200, $response->getStatusCode());
     $this->assertValidCorsHeaders($response);
 
     // Configure an allowed origin on the consumer.
-    $this->consumer->set('allowed_origins', [$origin]);
+    $this->consumer->set('allowed_origins', [$farmos_app_origin]);
     $this->consumer->save();
 
     // Make a request with the allowed origin configured.
     $response = $this->request('OPTIONS', Url::fromUri($uri), $request_options);
     $this->assertSame(200, $response->getStatusCode());
-    $this->assertValidCorsHeaders($response, $origin);
+    $this->assertValidCorsHeaders($response, $farmos_app_origin);
+
+    // Add another allowed_origin and test that multiple allowed origins work.
+    $custom_app_origin = 'https://customApp.com';
+    $this->consumer->set('allowed_origins', [$farmos_app_origin, $custom_app_origin]);
+    $this->consumer->save();
+
+    // Make a request from the first allowed origin.
+    $request_options[RequestOptions::HEADERS]['Origin'] = $farmos_app_origin;
+    $response = $this->request('OPTIONS', Url::fromUri($uri), $request_options);
+    $this->assertSame(200, $response->getStatusCode());
+    $this->assertValidCorsHeaders($response, $farmos_app_origin);
+
+    // Make a request from the second allowed origin.
+    $request_options[RequestOptions::HEADERS]['Origin'] = $custom_app_origin;
+    $response = $this->request('OPTIONS', Url::fromUri($uri), $request_options);
+    $this->assertSame(200, $response->getStatusCode());
+    $this->assertValidCorsHeaders($response, $custom_app_origin);
   }
 
   /**
