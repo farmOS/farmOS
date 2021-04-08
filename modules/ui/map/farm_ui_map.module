@@ -61,15 +61,10 @@ function farm_ui_map_views_pre_render(ViewExecutable $view) {
     // Start array of asset layers to add.
     $asset_layers = [
       'full' => [],
-      'cluster' => [],
     ];
-
-    // Save the translated cluster string.
-    $cluster_string = ' (' . t('clusters') . ')';
 
     // Save the group labels.
     $layer_group = $view->getBaseEntityType()->getCollectionLabel();
-    $cluster_group = $layer_group . $cluster_string;
 
     // Add multiple asset layers to the page of all assets.
     if ($view->current_display == 'page') {
@@ -92,7 +87,7 @@ function farm_ui_map_views_pre_render(ViewExecutable $view) {
     }
     elseif (!empty($exposed_filters['type'])) {
       foreach ($exposed_filters['type'] as $bundle) {
-        $bundle_filter[] = $bundle;
+        $bundle_filters[] = $bundle;
       }
     }
 
@@ -104,26 +99,18 @@ function farm_ui_map_views_pre_render(ViewExecutable $view) {
       }
     }
 
-    // If we are filtering by bundle, don't use a separate group for cluster
-    // layers.
+    // Add a cluster layer for summarizing asset counts.
+    $asset_layers['cluster']['all'] = [
+      'label' => t('Asset counts'),
+      'cluster' => TRUE,
+      'filters' => $exposed_filters,
+    ];
     if (!empty($bundle_filters)) {
-      $cluster_group = $layer_group;
+      $asset_layers['cluster']['all']['asset_type'] = implode('+', $bundle_filters);
     }
 
-    // Add an asset type map layer for each filtered bundle.
+    // Add a full asset geometry layer for each asset type.
     foreach ($filtered_bundles as $bundle => $bundle_info) {
-
-      // Add a cluster layer for all asset types.
-      $asset_layers['cluster']['cluster_' . $bundle] = [
-        'group' => $cluster_group,
-        'label' => $bundle_info['label'] . $cluster_string,
-        'cluster' => TRUE,
-        'asset_type' => $bundle,
-        'filters' => $exposed_filters,
-        // @todo Color each asset type cluster differently.
-      ];
-
-      // Add full geometry layers for the other asset types.
       $asset_layers['full']['full_' . $bundle] = [
         'group' => $layer_group,
         'label' => $bundle_info['label'],
