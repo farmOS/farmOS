@@ -24,7 +24,14 @@
           // Include provided filters.
           const filters = layer.filters ?? {};
           Object.entries(filters).forEach( ([key, value]) => {
-            url.searchParams.append(key, value);
+            if (Array.isArray(value)) {
+              for (let i = 0; i < value.length; i++) {
+                url.searchParams.append(key + '[]', value[i]);
+              }
+            }
+            else {
+              url.searchParams.append(key, value);
+            }
           });
 
           // Build the layer.
