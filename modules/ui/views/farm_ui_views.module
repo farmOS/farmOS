@@ -106,7 +106,7 @@ function farm_ui_views_views_pre_view(ViewExecutable $view, $display_id, array &
     $entity_type_manager = \Drupal::entityTypeManager();
 
     // If the entity type has a bundle_plugin manager, add all of its
-    // bundle fields to the page_type view.
+    // bundle fields and filters to the page_type view.
     if ($entity_type_manager->hasHandler($base_entity->id(), 'bundle_plugin')) {
 
       /** @var \Drupal\Core\Entity\Sql\DefaultTableMapping $table_mapping */
@@ -129,6 +129,27 @@ function farm_ui_views_views_pre_view(ViewExecutable $view, $display_id, array &
         if (isset($field_options[$views_option_name])) {
           // Add bundle fields to the view.
           $view->addHandler('page_type', 'field', $table, $column_name);
+        }
+
+        // Add a filter handler if a views data filter definition exists.
+        $filter_options = Views::viewsDataHelper()->fetchFields($table, 'filter');
+        if (isset($filter_options[$views_option_name])) {
+          // Add bundle filters to the view.
+          $filter = [
+            'id' => $column_name,
+            'table' => $table,
+            'field' => $column_name,
+            'exposed' => TRUE,
+            'expose' => [
+              'operator_id' => $column_name . '_op',
+              'label' => $filter_options[$views_option_name]['title'],
+              'identifier' => $column_name,
+              'multiple' => TRUE,
+            ],
+            'entity_type' => $base_entity,
+            'entity_field' => $column_name,
+          ];
+          $view->addHandler('page_type', 'filter', $table, $column_name, $filter);
         }
       }
     }
