@@ -98,60 +98,11 @@ function farm_ui_views_views_pre_view(ViewExecutable $view, $display_id, array &
     $view->removeHandler($display_id, 'field', 'type');
     $view->removeHandler($display_id, 'filter', 'type');
 
-    // Get the entity and bundle.
-    $base_entity = $view->getBaseEntityType();
-    $bundle = $args[0];
-
-    /** @var \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager */
-    $entity_type_manager = \Drupal::entityTypeManager();
-
     // If the entity type has a bundle_plugin manager, add all of its
     // bundle fields and filters to the page_type view.
-    if ($entity_type_manager->hasHandler($base_entity->id(), 'bundle_plugin')) {
-
-      /** @var \Drupal\Core\Entity\Sql\DefaultTableMapping $table_mapping */
-      $table_mapping = \Drupal::entityTypeManager()->getStorage($base_entity->id())->getTableMapping();
-
-      // Load bundle fields.
-      $bundle_fields = $entity_type_manager->getHandler($base_entity->id(), 'bundle_plugin')->getFieldDefinitions($bundle);
-      foreach ($bundle_fields as $field_name => $field_definition) {
-
-        // Get the field's table column (main property name).
-        $table = $table_mapping->getFieldTableName($field_name);
-        $property_name = $field_definition->getFieldStorageDefinition()->getMainPropertyName();
-
-        // Build the column and table names.
-        $column_name = $field_name . '_' . $property_name;
-        $views_option_name = $table . '.' . $column_name;
-
-        // Add a field handler if a views data field definition exists.
-        $field_options = Views::viewsDataHelper()->fetchFields($table, 'field');
-        if (isset($field_options[$views_option_name])) {
-          // Add bundle fields to the view.
-          $view->addHandler('page_type', 'field', $table, $column_name);
-        }
-
-        // Add a filter handler if a views data filter definition exists.
-        $filter_options = Views::viewsDataHelper()->fetchFields($table, 'filter');
-        if (isset($filter_options[$views_option_name])) {
-          // Add bundle filters to the view.
-          $filter = [
-            'id' => $column_name,
-            'table' => $table,
-            'field' => $column_name,
-            'exposed' => TRUE,
-            'expose' => [
-              'operator_id' => $column_name . '_op',
-              'label' => $filter_options[$views_option_name]['title'],
-              'identifier' => $column_name,
-              'multiple' => TRUE,
-            ],
-            'entity_type' => $base_entity,
-            'entity_field' => $column_name,
-          ];
-          $view->addHandler('page_type', 'filter', $table, $column_name, $filter);
-        }
-      }
+    if (\Drupal::entityTypeManager()->hasHandler($view->getBaseEntityType()->id(), 'bundle_plugin')) {
+      farm_ui_views_add_bundle_handlers($view, 'page_type', $view->args[0], 'field');
+      farm_ui_views_add_bundle_handlers($view, 'page_type', $view->args[0], 'filter');
     }
   }
 
@@ -169,6 +120,70 @@ function farm_ui_views_views_pre_view(ViewExecutable $view, $display_id, array &
     elseif ($display_id == 'block_late') {
       $view->display_handler->setOption('use_more_text', t('View all late logs'));
       $view->display_handler->setOption('link_url', 'logs?status[]=pending&end=' . $today);
+    }
+  }
+}
+
+/**
+ * Helper function for adding bundle-specific field and filter handlers.
+ *
+ * @param \Drupal\views\ViewExecutable $view
+ *   The View to add handlers to.
+ * @param string $display_id
+ *   The ID of the View display to add handlers to.
+ * @param string $bundle
+ *   The bundle name.
+ * @param string $type
+ *   The handler type ('field' or 'filter').
+ */
+function farm_ui_views_add_bundle_handlers(ViewExecutable $view, string $display_id, string $bundle, string $type) {
+
+  // Get the entity and bundle.
+  $base_entity = $view->getBaseEntityType();
+
+  /** @var \Drupal\Core\Entity\Sql\DefaultTableMapping $table_mapping */
+  $table_mapping = \Drupal::entityTypeManager()->getStorage($base_entity->id())->getTableMapping();
+
+  // Load bundle fields.
+  $bundle_fields = \Drupal::entityTypeManager()->getHandler($base_entity->id(), 'bundle_plugin')->getFieldDefinitions($bundle);
+  foreach ($bundle_fields as $field_name => $field_definition) {
+
+    // Get the field's table column (main property name).
+    $table = $table_mapping->getFieldTableName($field_name);
+    $property_name = $field_definition->getFieldStorageDefinition()->getMainPropertyName();
+
+    // Build the column and table names.
+    $column_name = $field_name . '_' . $property_name;
+    $views_option_name = $table . '.' . $column_name;
+
+    // Add a field handler if a views data field definition exists.
+    if ($type == 'field') {
+      $field_options = Views::viewsDataHelper()->fetchFields($table, 'field');
+      if (isset($field_options[$views_option_name])) {
+        $view->addHandler($display_id, 'field', $table, $column_name, [], $field_name);
+      }
+    }
+
+    // Add a filter handler if a views data filter definition exists.
+    elseif ($type == 'filter') {
+      $filter_options = Views::viewsDataHelper()->fetchFields($table, 'filter');
+      if (isset($filter_options[$views_option_name])) {
+        $filter = [
+          'id' => $field_name,
+          'table' => $table,
+          'field' => $column_name,
+          'exposed' => TRUE,
+          'expose' => [
+            'operator_id' => $column_name . '_op',
+            'label' => $filter_options[$views_option_name]['title'],
+            'identifier' => $column_name,
+            'multiple' => TRUE,
+          ],
+          'entity_type' => $base_entity->id(),
+          'entity_field' => $field_name,
+        ];
+        $view->addHandler($display_id, 'filter', $table, $column_name, $filter, $filter['id']);
+      }
     }
   }
 }
