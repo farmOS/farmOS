@@ -4,8 +4,13 @@ dependencies:
   enforced:
     module:
       - farm_sensor
+  module:
+    - farm_map
 id: sensor
 label: Sensor
 description: ''
 workflow: asset_default
 new_revision: true
+third_party_settings:
+  farm_map:
+    color: grey

@@ -1,11 +1,12 @@
 langcode: en
 status: true
 dependencies:
-  module:
-    - farm_location
   enforced:
     module:
       - farm_land
+  module:
+    - farm_location
+    - farm_map
 id: land
 label: Land
 description: ''
@@ -15,3 +16,5 @@ third_party_settings:
   farm_location:
     is_location: true
     is_fixed: true
+  farm_map:
+    color: green
