@@ -98,9 +98,7 @@ class MapRenderEventSubscriber implements EventSubscriberInterface {
             'label' => $type->label(),
             'asset_type' => $type->id(),
             'filters' => $filters,
-            // @todo Color each asset type differently.
-            // This was previously provided with hook_farm_area_type_info.
-            'color' => 'orange',
+            'color' => $type->getThirdPartySetting('farm_map', 'color') ?? 'orange',
             'zoom' => TRUE,
           ];
         }

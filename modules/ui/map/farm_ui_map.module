@@ -123,9 +123,7 @@ function farm_ui_map_views_pre_render(ViewExecutable $view) {
         'label' => $bundle_info['label'],
         'asset_type' => $bundle,
         'filters' => $exposed_filters,
-        // @todo Color each asset type differently.
-        // This was previously provided with hook_farm_area_type_info.
-        'color' => 'orange',
+        'color' => $type->getThirdPartySetting('farm_map', 'color') ?? 'orange',
         'zoom' => TRUE,
       ];
     }
