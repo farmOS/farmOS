@@ -318,7 +318,7 @@ display:
             fail: 'not found'
           validate_options:
             operation: view
-            multiple: 0
+            multiple: 1
             access: false
             bundles: {  }
           glossary: false
@@ -326,7 +326,7 @@ display:
           case: none
           path_case: none
           transform_dash: false
-          break_phrase: false
+          break_phrase: true
           entity_type: asset
           entity_field: type
           plugin_id: string
