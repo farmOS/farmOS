@@ -1,4 +1,7 @@
-# Schema for the asset location views field handler.
+# Schema for the asset location/geometry views field handlers.
 views.field.asset_location:
   type: views.field.field
   label: 'Asset location field handler'
+views.field.asset_geometry:
+  type: views.field.field
+  label: 'Asset geometry field handler'

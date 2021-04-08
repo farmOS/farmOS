@@ -7,4 +7,5 @@ dependencies:
 id: default
 label: Default
 description: 'The default farmOS map.'
+behaviors: {  }
 options: {  }

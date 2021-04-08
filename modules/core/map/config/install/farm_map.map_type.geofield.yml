@@ -7,4 +7,5 @@ dependencies:
 id: geofield
 label: Geofield
 description: 'Renders geofield using farmOS-map.'
+behaviors: {  }
 options: {  }

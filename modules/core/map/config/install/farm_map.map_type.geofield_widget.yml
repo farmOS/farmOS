@@ -7,4 +7,5 @@ dependencies:
 id: geofield_widget
 label: Geofield widget
 description: 'Renders a geofield widget using farmOS-map.'
+behaviors: {  }
 options: {  }

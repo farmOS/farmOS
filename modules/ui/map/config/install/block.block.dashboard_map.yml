@@ -1,6 +1,9 @@
 langcode: en
 status: false
 dependencies:
+  enforced:
+    module:
+      - farm_dashboard
   module:
     - farm_map
   theme:
@@ -15,6 +18,6 @@ settings:
   id: dashboard_map
   map_type: dashboard
   label: 'Dashboard map'
-  provider: farm_map
+  provider: farm_dashboard
   label_display: '0'
 visibility: {  }

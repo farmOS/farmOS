@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_ui_map
+id: asset_type_layers
+label: Asset type layers
+description: 'Displays asset geometries in layers by asset type.'
+library: 'farm_ui_map/behavior_asset_type_layers'
+settings: { }

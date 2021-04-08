@@ -21,6 +21,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *     "id",
  *     "label",
  *     "description",
+ *     "behaviors",
  *     "options",
  *   },
  * )
@@ -51,6 +52,13 @@ class MapType extends ConfigEntityBase implements MapTypeInterface {
   protected $description;
 
   /**
+   * Behaviors to add to the map.
+   *
+   * @var string[]
+   */
+  protected $behaviors;
+
+  /**
    * The options to pass to farmOS-map.
    *
    * @var mixed|null
@@ -76,6 +84,13 @@ class MapType extends ConfigEntityBase implements MapTypeInterface {
    */
   public function setDescription($description) {
     return $this->set('description', $description);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getMapBehaviors() {
+    return $this->behaviors ?? [];
   }
 
   /**

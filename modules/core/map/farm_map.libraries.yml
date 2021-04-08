@@ -1,5 +1,4 @@
 farmOS-map:
-  version: 1.4.1
   remote: https://github.com/farmOS/farmOS-map
   license:
     name: MIT

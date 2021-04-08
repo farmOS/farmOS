@@ -1,0 +1,12 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_ui_map
+id: asset_list
+label: Asset list
+description: 'The map displayed on lists of assets.'
+behaviors:
+  - asset_type_layers
+options: { }

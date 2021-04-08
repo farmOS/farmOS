@@ -8,3 +8,4 @@ dependencies:
   - farm:farm_field
   - farm:farm_log
   - geofield:geofield
+  - views_geojson:views_geojson

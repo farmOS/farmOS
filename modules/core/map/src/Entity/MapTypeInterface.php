@@ -11,6 +11,14 @@ use Drupal\Core\Entity\EntityDescriptionInterface;
 interface MapTypeInterface extends ConfigEntityInterface, EntityDescriptionInterface {
 
   /**
+   * Returns behaviors to add to the map.
+   *
+   * @return string[]
+   *   The list of map behaviors.
+   */
+  public function getMapBehaviors();
+
+  /**
    * Returns the options to pass to farmOS-map.
    *
    * @return mixed|null

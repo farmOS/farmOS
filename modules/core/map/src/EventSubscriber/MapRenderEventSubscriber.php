@@ -8,7 +8,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * An event subscriber for the MapRenderEvent.
  *
- * Adds the wkt and geofield behaviors to necessary maps.
+ * Adds default behaviors to maps.
  */
 class MapRenderEventSubscriber implements EventSubscriberInterface {
 
@@ -28,6 +28,15 @@ class MapRenderEventSubscriber implements EventSubscriberInterface {
    *   The MapRenderEvent.
    */
   public function onMapRender(MapRenderEvent $event) {
+
+    // Add the map type cache tags.
+    $event->addCacheTags($event->getMapType()->getCacheTags());
+
+    // Include map behaviors defined by the map type.
+    $map_behaviors = $event->getMapType()->getMapBehaviors();
+    foreach ($map_behaviors as $behavior) {
+      $event->addBehavior($behavior);
+    }
 
     // Add the WKT behavior if the render element has WKT.
     if (!empty($event->element['#map_settings']['wkt'])) {
