@@ -140,3 +140,17 @@ function farm_ui_map_views_pre_render(ViewExecutable $view) {
     $view->attachment_before['asset_map'] = $map;
   }
 }
+
+/**
+ * Implements hook_module_implements_alter().
+ */
+function farm_ui_map_module_implements_alter(&$implementations, $hook) {
+
+  // Ensure that this module's hook_views_pre_render() runs first.
+  if ($hook == 'views_pre_render') {
+    $module = 'farm_ui_map';
+    $group = $implementations[$module];
+    unset($implementations[$module]);
+    $implementations = array_merge([$module => $group], $implementations);
+  }
+}
