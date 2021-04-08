@@ -3,5 +3,4 @@ behavior_asset_type_layers:
     js/farmOS.map.behaviors.asset_type_layers.js: { }
   dependencies:
     - farm_map/farm_map
-    # NOTICE: This included the popup behavior anytime the asset_type_layers behavior is loaded.
     - farm_map/behavior_popup
