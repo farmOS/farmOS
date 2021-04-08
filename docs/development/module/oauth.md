@@ -42,6 +42,9 @@ Standard Consumer configuration:
     - This is only the case during the `Client Credentials` authorization flow.
 - `consumer.redirect_uri` - The URI this client will redirect to when needed.
     - This is used with the Authorization Code authorization flow.
+- `consumer.allowed_origins` - Define any allowed origins the farmOS server
+  should allow CORS requests from. This is required for any API integrations
+  that will run in the browser.
 - `consumer.third_party` - Enable if the Consumer represents a third party.
     - Users will skip the "grant" step of the authorization flow for first
       party consumers only.
