@@ -6,3 +6,4 @@ dependencies:
       - farm_structure_types
 id: greenhouse
 label: Greenhouse
+color: green

@@ -60,9 +60,7 @@ function farm_structure_views_pre_render(ViewExecutable $view) {
         'label' => $structure_type->label(),
         'asset_type' => 'structure',
         'filters' => $exposed_filters + ['structure_type_value[]' => $structure_type->id()],
-        // @todo Color each differently.
-        // This was previously provided with hook_farm_area_type_info.
-        'color' => 'orange',
+        'color' => $structure_type->getColor() ?? 'orange',
         'zoom' => TRUE,
       ];
     }

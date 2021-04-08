@@ -6,3 +6,4 @@ dependencies:
       - farm_structure_types
 id: building
 label: Building
+color: red
