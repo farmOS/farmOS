@@ -31,62 +31,64 @@ function farm_api_consumers_list_alter(&$data, $context) {
  * Implements hook_entity_base_field_info().
  */
 function farm_api_entity_base_field_info(EntityTypeInterface $entity_type) {
-
   $fields = [];
 
-  $fields['client_id'] = BundleFieldDefinition::create('string')
-    ->setLabel(t('Client ID'))
-    ->setDescription(t('OAuth client_id associated with this consumer.'))
-    ->setSetting('max_length', 255)
-    ->setSetting('is_ascii', FALSE)
-    ->setSetting('case_sensitive', FALSE)
-    ->setDisplayOptions('form', [
-      'type' => 'string_textfield',
-      'settings' => [
-        'size' => 255,
-        'placeholder' => '',
-      ],
-      'weight' => '-4',
-    ]);
+  // Add bundle fields to the consumer entity.
+  if ($entity_type->id() == 'consumer') {
+    $fields['client_id'] = BundleFieldDefinition::create('string')
+      ->setLabel(t('Client ID'))
+      ->setDescription(t('OAuth client_id associated with this consumer.'))
+      ->setSetting('max_length', 255)
+      ->setSetting('is_ascii', FALSE)
+      ->setSetting('case_sensitive', FALSE)
+      ->setDisplayOptions('form', [
+        'type' => 'string_textfield',
+        'settings' => [
+          'size' => 255,
+          'placeholder' => '',
+        ],
+        'weight' => '-4',
+      ]);
 
-  $fields['grant_user_access'] = BundleFieldDefinition::create('boolean')
-    ->setLabel(t('Grant user access'))
-    ->setDescription(t("Always grant the authorizing user's access to this consumer."))
-    ->setSetting('on_label', t('Yes'))
-    ->setSetting('off_label', t('No'))
-    ->setDisplayOptions('form', [
-      'type' => 'boolean_checkbox',
-      'settings' => [
-        'display_label' => TRUE,
-      ],
-      'weight' => 4,
-    ]);
+    $fields['grant_user_access'] = BundleFieldDefinition::create('boolean')
+      ->setLabel(t('Grant user access'))
+      ->setDescription(t("Always grant the authorizing user's access to this consumer."))
+      ->setSetting('on_label', t('Yes'))
+      ->setSetting('off_label', t('No'))
+      ->setDisplayOptions('form', [
+        'type' => 'boolean_checkbox',
+        'settings' => [
+          'display_label' => TRUE,
+        ],
+        'weight' => 4,
+      ]);
 
-  $fields['limit_requested_access'] = BundleFieldDefinition::create('boolean')
-    ->setLabel(t('Limit to requested access'))
-    ->setDescription(t('Only grant this consumer the scopes requested during authorization.'))
-    ->setSetting('on_label', t('Yes'))
-    ->setSetting('off_label', t('No'))
-    ->setDisplayOptions('form', [
-      'type' => 'boolean_checkbox',
-      'settings' => [
-        'display_label' => TRUE,
-      ],
-      'weight' => 4,
-    ]);
+    $fields['limit_requested_access'] = BundleFieldDefinition::create('boolean')
+      ->setLabel(t('Limit to requested access'))
+      ->setDescription(t('Only grant this consumer the scopes requested during authorization.'))
+      ->setSetting('on_label', t('Yes'))
+      ->setSetting('off_label', t('No'))
+      ->setDisplayOptions('form', [
+        'type' => 'boolean_checkbox',
+        'settings' => [
+          'display_label' => TRUE,
+        ],
+        'weight' => 4,
+      ]);
 
-  $fields['limit_user_access'] = BundleFieldDefinition::create('boolean')
-    ->setLabel(t('Limit to user access'))
-    ->setDescription(t('Never grant this consumer more access than the authorizing user.'))
-    ->setSetting('on_label', t('Yes'))
-    ->setSetting('off_label', t('No'))
-    ->setDisplayOptions('form', [
-      'type' => 'boolean_checkbox',
-      'settings' => [
-        'display_label' => TRUE,
-      ],
-      'weight' => 4,
-    ]);
+    $fields['limit_user_access'] = BundleFieldDefinition::create('boolean')
+      ->setLabel(t('Limit to user access'))
+      ->setDescription(t('Never grant this consumer more access than the authorizing user.'))
+      ->setSetting('on_label', t('Yes'))
+      ->setSetting('off_label', t('No'))
+      ->setDisplayOptions('form', [
+        'type' => 'boolean_checkbox',
+        'settings' => [
+          'display_label' => TRUE,
+        ],
+        'weight' => 4,
+      ]);
+  }
 
   return $fields;
 }
