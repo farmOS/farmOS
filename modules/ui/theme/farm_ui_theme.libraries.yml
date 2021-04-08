@@ -1,12 +1,16 @@
-toolbar:
-  css:
-    theme:
-      css/toolbar.css: {}
-footer:
-  css:
-    theme:
-      css/footer.css: {}
 flag:
   css:
     theme:
-      css/flag.css: {}
+      css/flag.css: { }
+footer:
+  css:
+    theme:
+      css/footer.css: { }
+map:
+  css:
+    theme:
+      css/map.css: { }
+toolbar:
+  css:
+    theme:
+      css/toolbar.css: { }
