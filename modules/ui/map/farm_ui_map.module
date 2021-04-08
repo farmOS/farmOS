@@ -41,6 +41,11 @@ function farm_ui_map_views_pre_view(ViewExecutable $view, $display_id, array &$a
         $view->addHandler($display_id, 'filter', $filter['table'], $field, $filter, $filter['id']);
       }
     }
+
+    // If a type argument is present, add bundle-specific exposed filters.
+    if (!empty($args[0]) && $args[0] != 'all') {
+      farm_ui_views_add_bundle_handlers($view, $display_id, $args[0], 'filter');
+    }
   }
 }
 
