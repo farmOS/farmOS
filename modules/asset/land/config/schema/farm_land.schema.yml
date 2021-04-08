@@ -9,3 +9,6 @@ farm_land.land_type.*:
     label:
       type: label
       label: 'Label'
+    color:
+      type: string
+      label: 'Color'

@@ -20,6 +20,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *   config_export = {
  *     "id",
  *     "label",
+ *     "color",
  *   },
  * )
  *
@@ -42,10 +43,24 @@ class FarmLandType extends ConfigEntityBase implements FarmLandTypeInterface {
   protected $label;
 
   /**
+   * The land type color.
+   *
+   * @var string
+   */
+  protected $color;
+
+  /**
    * {@inheritdoc}
    */
   public function getLabel() {
     return $this->label;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getColor() {
+    return $this->color;
   }
 
 }

@@ -6,3 +6,4 @@ dependencies:
       - farm_land
 id: other
 label: Other
+color: grey

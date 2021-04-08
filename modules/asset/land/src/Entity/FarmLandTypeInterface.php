@@ -19,4 +19,12 @@ interface FarmLandTypeInterface extends ConfigEntityInterface {
    */
   public function getLabel();
 
+  /**
+   * Returns the land type color.
+   *
+   * @return string
+   *   The land type color.
+   */
+  public function getColor();
+
 }
