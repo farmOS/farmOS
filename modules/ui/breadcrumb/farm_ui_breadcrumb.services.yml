@@ -1,0 +1,7 @@
+services:
+  farm_ui_breadcrumb.breadcrumb:
+    class: Drupal\farm_ui_breadcrumb\Breadcrumb\FarmBreadcrumbBuilder
+    arguments:
+      [ '@router.request_context', '@access_manager', '@router.no_access_checks', '@path_processor_manager', '@config.factory', '@title_resolver', '@current_user', '@path.current' ]
+    tags:
+      - { name: breadcrumb_builder, priority: 100 }

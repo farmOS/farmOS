@@ -5,6 +5,7 @@ package: farmOS UI
 core_version_requirement: ^9
 dependencies:
   - farm:farm_ui_action
+  - farm:farm_ui_breadcrumb
   - farm:farm_ui_map
   - farm:farm_ui_menu
   - farm:farm_ui_theme
