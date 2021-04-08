@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\entity\BundleFieldDefinition;
 
 /**
@@ -87,6 +88,18 @@ function farm_api_entity_base_field_info(EntityTypeInterface $entity_type) {
           'display_label' => TRUE,
         ],
         'weight' => 4,
+      ]);
+
+    $fields['allowed_origins'] = BundleFieldDefinition::create('string')
+      ->setLabel(t('Allowed origins'))
+      ->setDescription(t('Configure CORS origins for this consumer.'))
+      ->setCardinality(BaseFieldDefinition::CARDINALITY_UNLIMITED)
+      ->setDisplayOptions('form', [
+        'type' => 'string_textfield',
+        'settings' => [
+          'size' => 255,
+          'placeholder' => 'https://example.com',
+        ],
       ]);
   }
 

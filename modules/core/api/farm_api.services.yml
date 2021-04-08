@@ -1,4 +1,10 @@
 services:
+  # Add CORS headers for allowed origins configured on consumers.
+  farm_api.cors_event_subscriber:
+    class: Drupal\farm_api\EventSubscriber\CorsResponseEventSubscriber
+    arguments: ['@entity_type.manager']
+    tags:
+      - { name: event_subscriber }
   # Alter the root /api endpoint to include a meta.farm object.
   farm_api.route_subscriber:
     class: Drupal\farm_api\Routing\RouteSubscriber
