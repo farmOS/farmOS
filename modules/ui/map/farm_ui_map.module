@@ -5,6 +5,7 @@
  * The farmOS UI Map module.
  */
 
+use Drupal\asset\Entity\AssetType;
 use Drupal\views\Entity\View;
 use Drupal\views\ViewExecutable;
 
@@ -116,8 +117,9 @@ function farm_ui_map_views_pre_render(ViewExecutable $view) {
 
     // Add a full asset geometry layer for each asset type.
     foreach ($filtered_bundles as $bundle => $bundle_info) {
+      $type = AssetType::load($bundle);
       $asset_layers['full']['full_' . $bundle] = [
-        'group' => $layer_group,
+        'group' => $type->getThirdPartySetting('farm_location', 'is_location', FALSE) ? t('Location assets') : $layer_group,
         'label' => $bundle_info['label'],
         'asset_type' => $bundle,
         'filters' => $exposed_filters,
