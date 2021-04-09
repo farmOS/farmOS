@@ -1,0 +1,8 @@
+name: farmOS UI Location
+description: Provides UI for managing location assets in farmOS.
+type: module
+package: farmOS UI
+core_version_requirement: ^9
+dependencies:
+  - farm:farm_entity
+  - farm:farm_location
