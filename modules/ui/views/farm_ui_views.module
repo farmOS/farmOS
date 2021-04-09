@@ -223,6 +223,11 @@ function farm_ui_views_add_bundle_handlers(ViewExecutable $view, string $display
               }
             }
             break;
+
+          case 'string':
+            // String fields use the contains operator.
+            $filter_options['operator'] = 'contains';
+            break;
         }
 
         // Add the filter handler.
