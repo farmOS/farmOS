@@ -1,0 +1,9 @@
+reorder:
+  version: 1.x
+  js:
+    js/asset_reorder.js: {}
+  dependencies:
+    - core/drupal.message
+    - core/jquery
+    - inspire_tree/inspire_tree
+    - inspire_tree/inspire_tree_dom

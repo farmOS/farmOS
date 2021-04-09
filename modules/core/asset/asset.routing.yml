@@ -1,0 +1,22 @@
+asset.locations:
+  path: '/asset-locations'
+  defaults:
+    _title: 'Locations'
+    _controller: '\Drupal\asset\Controller\AssetReorderController::build'
+  requirements:
+    _permission: 'administer assets'
+
+
+entity.asset.locations:
+  path: '/asset/{asset}/locations'
+  defaults:
+    _title: 'Locations'
+    _controller: '\Drupal\asset\Controller\AssetReorderController::build'
+  requirements:
+    _entity_access: 'asset.edit'
+    _module_dependencies: 'asset'
+    asset: \d+
+  options:
+    parameters:
+      asset:
+        type: entity:asset

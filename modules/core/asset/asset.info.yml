@@ -8,4 +8,5 @@ dependencies:
   - drupal:user
   - drupal:views
   - entity:entity
+  - inspire_tree:inspire_tree
   - state_machine:state_machine
