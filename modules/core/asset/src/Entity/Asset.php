@@ -74,7 +74,6 @@ use Drupal\user\EntityOwnerTrait;
  *     "delete-form" = "/asset/{asset}/delete",
  *     "delete-multiple-form" = "/asset/delete",
  *     "edit-form" = "/asset/{asset}/edit",
- *     "locations" = "/asset/{asset}/locations",
  *     "revision" = "/asset/{asset}/revisions/{asset_revision}/view",
  *     "revision-revert-form" = "/asset/{asset}/revisions/{asset_revision}/revert",
  *     "version-history" = "/asset/{asset}/revisions",

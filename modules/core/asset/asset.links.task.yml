@@ -2,8 +2,3 @@ entity.asset.collection:
   route_name: entity.asset.collection
   title: 'Assets'
   base_route: system.admin_content
-entity.asset.locations:
-  route_name: entity.asset.locations
-  title: 'Locations'
-  base_route: entity.asset.canonical
-  weight: 100
