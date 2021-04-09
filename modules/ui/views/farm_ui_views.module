@@ -189,7 +189,7 @@ function farm_ui_views_add_bundle_handlers(ViewExecutable $view, string $display
     elseif ($type == 'filter') {
       $filter_options = Views::viewsDataHelper()->fetchFields($table, 'filter');
       if (isset($filter_options[$views_option_name])) {
-        $filter = [
+        $filter_options = [
           'id' => $field_name,
           'table' => $table,
           'field' => $column_name,
@@ -203,7 +203,30 @@ function farm_ui_views_add_bundle_handlers(ViewExecutable $view, string $display
           'entity_type' => $base_entity->id(),
           'entity_field' => $field_name,
         ];
-        $view->addHandler($display_id, 'filter', $table, $column_name, $filter);
+
+        // Build filter options for the field type.
+        switch ($field_type) {
+
+          case 'entity_reference':
+            $target_type = $field_definition->getSetting('target_type');
+
+            // Use a select widget for taxonomy term references.
+            if ($target_type === 'taxonomy_term') {
+              $filter_options['type'] = 'select';
+
+              // Limit to specific vocabularies if configured.
+              $handler_settings = $field_definition->getSetting('handler_settings');
+              $filter_options['limit'] = FALSE;
+              if (!empty($handler_settings['target_bundles'])) {
+                $filter_options['limit'] = TRUE;
+                $filter_options['vid'] = reset($handler_settings['target_bundles']);
+              }
+            }
+            break;
+        }
+
+        // Add the filter handler.
+        $view->addHandler($display_id, 'filter', $table, $column_name, $filter_options);
       }
     }
   }
