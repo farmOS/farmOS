@@ -160,7 +160,7 @@ function farm_ui_views_add_bundle_handlers(ViewExecutable $view, string $display
     if ($type == 'field') {
       $field_options = Views::viewsDataHelper()->fetchFields($table, 'field');
       if (isset($field_options[$views_option_name])) {
-        $view->addHandler($display_id, 'field', $table, $column_name, [], $field_name);
+        $view->addHandler($display_id, 'field', $table, $column_name, []);
       }
     }
 
@@ -182,7 +182,7 @@ function farm_ui_views_add_bundle_handlers(ViewExecutable $view, string $display
           'entity_type' => $base_entity->id(),
           'entity_field' => $field_name,
         ];
-        $view->addHandler($display_id, 'filter', $table, $column_name, $filter, $filter['id']);
+        $view->addHandler($display_id, 'filter', $table, $column_name, $filter);
       }
     }
   }
