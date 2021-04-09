@@ -52,7 +52,7 @@
                 "Issue #2339235: Remove taxonomy hard dependency on node module": "https://www.drupal.org/files/issues/2020-10-12/2339235_60.patch"
             },
             "drupal/entity": {
-                "Issue #3190436: EntityViewsData Column information not available for computed entity reference fields": "https://www.drupal.org/files/issues/2020-12-30/3190436-2.patch"
+                "Issue #3206703: Provide reverse relationships for bundle plugin entity_reference fields.": "https://www.drupal.org/files/issues/2021-04-09/3206703-4.patch"
             },
             "drupal/entity_browser": {
                 "Issue #3160482: Error with UntrustedCallbackException": "https://www.drupal.org/files/issues/2021-03-02/error-with-untrustedcallbackexception-3160482-5.patch"
