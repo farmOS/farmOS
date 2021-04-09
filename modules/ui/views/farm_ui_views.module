@@ -145,8 +145,12 @@ function farm_ui_views_add_bundle_handlers(ViewExecutable $view, string $display
   $table_mapping = \Drupal::entityTypeManager()->getStorage($base_entity->id())->getTableMapping();
 
   // Load bundle fields.
+  /** @var \Drupal\entity\BundleFieldDefinition[] $bundle_fields */
   $bundle_fields = \Drupal::entityTypeManager()->getHandler($base_entity->id(), 'bundle_plugin')->getFieldDefinitions($bundle);
   foreach ($bundle_fields as $field_name => $field_definition) {
+
+    // Save the field type.
+    $field_type = $field_definition->getType();
 
     // Get the field's table column (main property name).
     $table = $table_mapping->getFieldTableName($field_name);
@@ -160,7 +164,24 @@ function farm_ui_views_add_bundle_handlers(ViewExecutable $view, string $display
     if ($type == 'field') {
       $field_options = Views::viewsDataHelper()->fetchFields($table, 'field');
       if (isset($field_options[$views_option_name])) {
-        $view->addHandler($display_id, 'field', $table, $column_name, []);
+
+        // Build field options for the field type.
+        $field_options = [];
+        switch ($field_type) {
+
+          case 'entity_reference':
+            $target_type = $field_definition->getSetting('target_type');
+
+            // Do not render a link to referenced taxonomy terms.
+            if ($target_type === 'taxonomy_term') {
+              $field_options['type'] = 'entity_reference_label';
+              $field_options['settings']['link'] = FALSE;
+            }
+            break;
+        }
+
+        // Add the field handler.
+        $view->addHandler($display_id, 'field', $table, $column_name, $field_options);
       }
     }
 
