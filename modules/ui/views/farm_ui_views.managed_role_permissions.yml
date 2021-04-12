@@ -1,0 +1,3 @@
+farm_ui_views:
+  default_permissions:
+    - access farm_asset entity browser pages
