@@ -30,6 +30,7 @@ class FarmBreadcrumbBuilder extends PathBasedBreadcrumbBuilder {
       case 'entity.asset.canonical':
         /** @var \Drupal\asset\Entity\AssetInterface $asset */
         $asset = $parameters->get('asset');
+        $breadcrumb->addCacheableDependency($asset);
         $breadcrumb->addLink(Link::createFromRoute($this->t('Records'), '<front>'));
         $breadcrumb->addLink(Link::createFromRoute($this->t('Assets'), 'view.farm_asset.page'));
         $breadcrumb->addLink(Link::createFromRoute($asset->getBundleLabel(), 'view.farm_asset.page_type', ['arg_0' => $asset->bundle()]));
@@ -39,6 +40,7 @@ class FarmBreadcrumbBuilder extends PathBasedBreadcrumbBuilder {
       case 'entity.log.canonical':
         /** @var \Drupal\log\Entity\LogInterface $log */
         $log = $parameters->get('log');
+        $breadcrumb->addCacheableDependency($log);
         $breadcrumb->addLink(Link::createFromRoute($this->t('Records'), '<front>'));
         $breadcrumb->addLink(Link::createFromRoute($this->t('Logs'), 'view.farm_log.page'));
         $breadcrumb->addLink(Link::createFromRoute($log->getBundleLabel(), 'view.farm_log.page_type', ['arg_0' => $log->bundle()]));
@@ -48,10 +50,15 @@ class FarmBreadcrumbBuilder extends PathBasedBreadcrumbBuilder {
       case 'entity.plan.canonical':
         /** @var \Drupal\plan\Entity\PlanInterface $plan */
         $plan = $parameters->get('plan');
+        $breadcrumb->addCacheableDependency($plan);
         $breadcrumb->addLink(Link::createFromRoute($this->t('Plans'), 'view.farm_plan.page'));
         $breadcrumb->addLink(Link::createFromRoute($plan->getBundleLabel(), 'view.farm_plan.page_type', ['arg_0' => $plan->bundle()]));
         break;
     }
+
+    // This breadcrumb builder is based on a route parameter, and hence it
+    // depends on the 'route' cache context.
+    $breadcrumb->addCacheContexts(['route']);
 
     return $breadcrumb;
   }
