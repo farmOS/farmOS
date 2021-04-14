@@ -20,7 +20,6 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *   config_export = {
  *     "id",
  *     "label",
- *     "color",
  *   },
  * )
  *
@@ -43,24 +42,10 @@ class FarmStructureType extends ConfigEntityBase implements FarmStructureTypeInt
   protected $label;
 
   /**
-   * The structure type color.
-   *
-   * @var string
-   */
-  protected $color;
-
-  /**
    * {@inheritdoc}
    */
   public function getLabel() {
     return $this->label;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getColor() {
-    return $this->color;
   }
 
 }

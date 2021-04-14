@@ -6,7 +6,6 @@ dependencies:
       - farm_structure
   module:
     - farm_location
-    - farm_map
 id: structure
 label: Structure
 description: ''
@@ -16,5 +15,3 @@ third_party_settings:
   farm_location:
     is_location: true
     is_fixed: true
-  farm_map:
-    color: red

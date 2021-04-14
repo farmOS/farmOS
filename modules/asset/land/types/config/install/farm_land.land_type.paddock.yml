@@ -6,4 +6,3 @@ dependencies:
       - farm_land_types
 id: paddock
 label: Paddock
-color: darkgreen

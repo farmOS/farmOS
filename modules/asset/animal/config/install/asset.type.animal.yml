@@ -4,13 +4,8 @@ dependencies:
   enforced:
     module:
       - farm_animal
-  module:
-    - farm_map
 id: animal
 label: Animal
 description: ''
 workflow: asset_default
 new_revision: true
-third_party_settings:
-  farm_map:
-    color: orange

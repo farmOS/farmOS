@@ -19,12 +19,4 @@ interface FarmStructureTypeInterface extends ConfigEntityInterface {
    */
   public function getLabel();
 
-  /**
-   * Returns the structure type color.
-   *
-   * @return string
-   *   The structure type color.
-   */
-  public function getColor();
-
 }

@@ -70,10 +70,3 @@ block.settings.map_block:
     map_type:
       type: string
       label: 'Map type'
-asset.type.*.third_party_settings.farm_map:
-  type: mapping
-  label: 'Map settings'
-  mapping:
-    color:
-      type: string
-      label: 'Color'

@@ -4,13 +4,8 @@ dependencies:
   enforced:
     module:
       - farm_equipment
-  module:
-    - farm_map
 id: equipment
 label: Equipment
 description: ''
 workflow: asset_default
 new_revision: true
-third_party_settings:
-  farm_map:
-    color: orange

@@ -6,4 +6,3 @@ dependencies:
       - farm_land_types
 id: field
 label: Field
-color: yellow
