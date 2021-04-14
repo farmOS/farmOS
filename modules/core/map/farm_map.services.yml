@@ -3,3 +3,5 @@ services:
     class: Drupal\farm_map\EventSubscriber\MapRenderEventSubscriber
     tags:
       - { name: 'event_subscriber' }
+  farm_map.layer_style_loader:
+    class: Drupal\farm_map\LayerStyleLoader
