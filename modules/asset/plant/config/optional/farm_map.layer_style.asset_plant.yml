@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_plant
+id: asset_plant
+color: green
+conditions:
+  asset_type:
+    - plant

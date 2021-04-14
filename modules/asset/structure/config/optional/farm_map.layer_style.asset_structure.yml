@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_structure
+id: asset_structure
+color: red
+conditions:
+  asset_type:
+    - structure

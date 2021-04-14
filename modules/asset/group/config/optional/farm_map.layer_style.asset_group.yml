@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_group
+id: asset_group
+color: purple
+conditions:
+  asset_type:
+    - group

@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_sensor
+id: asset_sensor
+color: grey
+conditions:
+  asset_type:
+    - sensor

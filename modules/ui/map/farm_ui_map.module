@@ -117,13 +117,24 @@ function farm_ui_map_views_pre_render(ViewExecutable $view) {
 
     // Add a full asset geometry layer for each asset type.
     foreach ($filtered_bundles as $bundle => $bundle_info) {
+
+      // Load the bundle entity.
       $type = AssetType::load($bundle);
+
+      // Load the map layer style.
+      /** @var \Drupal\farm_map\Entity\LayerStyleInterface $layer_style */
+      $layer_style = \Drupal::service('farm_map.layer_style_loader')->load(['asset_type' => $bundle]);
+      if (!empty($layer_style)) {
+        $color = $layer_style->get('color');
+      }
+
+      // Add layer for the asset type.
       $asset_layers['full']['full_' . $bundle] = [
         'group' => $type->getThirdPartySetting('farm_location', 'is_location', FALSE) ? t('Location assets') : $layer_group,
         'label' => $bundle_info['label'],
         'asset_type' => $bundle,
         'filters' => $exposed_filters,
-        'color' => $type->getThirdPartySetting('farm_map', 'color') ?? 'orange',
+        'color' => $color ?? 'orange',
         'zoom' => TRUE,
       ];
     }

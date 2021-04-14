@@ -5,6 +5,7 @@ namespace Drupal\farm_ui_map\EventSubscriber;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\farm_map\Event\MapRenderEvent;
+use Drupal\farm_map\layerStyleLoaderInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -24,13 +25,23 @@ class MapRenderEventSubscriber implements EventSubscriberInterface {
   protected $assetTypes;
 
   /**
+   * The layer style loader service.
+   *
+   * @var \Drupal\farm_map\layerStyleLoader
+   */
+  protected $layerStyleLoader;
+
+  /**
    * MapRenderEventSubscriber Constructor.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager service.
+   * @param \Drupal\farm_map\layerStyleLoaderInterface $layer_style_loader
+   *   The layer style loader service.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, layerStyleLoaderInterface $layer_style_loader) {
     $this->assetTypes = $entity_type_manager->getStorage('asset_type')->loadMultiple();
+    $this->layerStyleLoader = $layer_style_loader;
   }
 
   /**
@@ -92,13 +103,20 @@ class MapRenderEventSubscriber implements EventSubscriberInterface {
         // Only add a layer if the asset type is a location by default.
         if ($type->getThirdPartySetting('farm_location', 'is_location', FALSE)) {
 
+          // Load the map layer style.
+          /** @var \Drupal\farm_map\Entity\LayerStyleInterface $layer_style */
+          $layer_style = $this->layerStyleLoader->load(['asset_type' => $type->id()]);
+          if (!empty($layer_style)) {
+            $color = $layer_style->get('color');
+          }
+
           // Add layer for the asset type.
           $layers[$type->id()] = [
             'group' => $group,
             'label' => $type->label(),
             'asset_type' => $type->id(),
             'filters' => $filters,
-            'color' => $type->getThirdPartySetting('farm_map', 'color') ?? 'orange',
+            'color' => $color ?? 'orange',
             'zoom' => TRUE,
           ];
         }

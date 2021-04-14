@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_water
+id: asset_water
+color: blue
+conditions:
+  asset_type:
+    - water
