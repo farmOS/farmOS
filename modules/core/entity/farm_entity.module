@@ -108,6 +108,9 @@ function farm_entity_entity_base_field_info_alter(&$fields, EntityTypeInterface 
     'timestamp' => [
       'weight' => -90,
     ],
+    'type' => [
+      'weight' => -85,
+    ],
     'status' => [
       'weight' => -80,
     ],
@@ -150,9 +153,17 @@ function farm_entity_entity_base_field_info_alter(&$fields, EntityTypeInterface 
       $view_display_options['label'] = 'inline';
     }
 
-    // Change state field from transition form to default.
-    if ($name == 'status') {
-      $view_display_options['type'] = 'list_default';
+    switch ($name) {
+
+      // Change state field from transition form to default.
+      case 'status':
+        $view_display_options['type'] = 'list_default';
+        break;
+
+      // Don't display a link to the entity type reference.
+      case 'type':
+        $view_display_options['settings']['link'] = FALSE;
+        break;
     }
 
     // Save the options.
