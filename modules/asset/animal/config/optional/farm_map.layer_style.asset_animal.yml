@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_animal
+id: asset_animal
+color: orange
+conditions:
+  asset_type:
+    - animal

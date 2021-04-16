@@ -1,0 +1,13 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_structure_types
+id: structure_type_building
+color: red
+conditions:
+  asset_type:
+    - structure
+  structure_type:
+    - building

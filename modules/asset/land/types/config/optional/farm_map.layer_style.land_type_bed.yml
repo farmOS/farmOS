@@ -1,0 +1,13 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_land_types
+id: land_type_bed
+color: green
+conditions:
+  asset_type:
+    - land
+  land_type:
+    - bed

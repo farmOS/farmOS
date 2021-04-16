@@ -47,6 +47,22 @@ farm_map.map_behavior.*:
       sequence:
         type: ignore
         label: 'Behavior setting'
+farm_map.layer_style.*:
+  type: config_entity
+  label: 'Map layer style'
+  mapping:
+    id:
+      type: string
+      label: 'Machine-readable name'
+    color:
+      type: string
+      label: 'farmOS-map color'
+    conditions:
+      type: sequence
+      label: 'Style matching conditions'
+      sequence:
+        type: ignore
+        label: 'Layer style setting'
 block.settings.map_block:
   type: block_settings
   label: 'map block settings'

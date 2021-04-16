@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_compost
+id: asset_compost
+color: yellow
+conditions:
+  asset_type:
+    - compost

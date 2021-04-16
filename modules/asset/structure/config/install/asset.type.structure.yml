@@ -1,11 +1,11 @@
 langcode: en
 status: true
 dependencies:
-  module:
-    - farm_location
   enforced:
     module:
       - farm_structure
+  module:
+    - farm_location
 id: structure
 label: Structure
 description: ''

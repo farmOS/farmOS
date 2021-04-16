@@ -1,11 +1,11 @@
 langcode: en
 status: true
 dependencies:
-  module:
-    - farm_location
   enforced:
     module:
       - farm_water
+  module:
+    - farm_location
 id: water
 label: Water
 description: ''
