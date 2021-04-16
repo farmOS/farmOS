@@ -8,15 +8,13 @@ detailed documentation of Drupal development more generally, refer to the
 
 ## Modules directory
 
-Modules should be placed in the `modules` directory of the server's document
-root, at the same level as the `profiles` directory, which contains the `farm`
-profile (farmOS). If you are using the farmOS Docker image, this will be:
-`/var/opt/drupal/web/modules`
+Modules should be placed in the `sites/all/modules` directory of the server's
+document root. If you are using the farmOS Docker image, this will be:
+`/var/opt/drupal/web/sites/all/modules`
 
-farmOS automatically puts Drupal module dependencies in `modules/contrib`. A
-good practice is to download farmOS-specific modules into `modules/farm` to keep
-them separate. You may also consider creating a `modules/custom` directory for
-custom modules that are specific to your farmOS instance.
+A good practice is to download farmOS-specific modules into `modules/farm` to
+keep them separate. You may also consider creating a `modules/custom` directory
+for custom modules that are specific to your farmOS instance.
 
 ## Namespacing
 
