@@ -9,6 +9,12 @@
   margin: 40px auto;
 }
 
+/* Locations icon. */
+.toolbar .toolbar-bar .toolbar-menu-administration .toolbar-icon-farm-locations::before {
+  -webkit-mask-image: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle fill='none' stroke='currentColor' stroke-width='2.25' stroke-linecap='round' stroke-linejoin='round' cx='12' cy='12' r='10'%3e%3c/circle%3e%3cline fill='none' stroke='currentColor' stroke-width='2.25' stroke-linecap='round' stroke-linejoin='round' x1='2' y1='12' x2='22' y2='12'%3e%3c/line%3e%3cpath fill='none' stroke='currentColor' stroke-width='2.25' stroke-linecap='round' stroke-linejoin='round' d='M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z'%3e%3c/path%3e%3c/svg%3e");
+  mask-image: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle fill='none' stroke='currentColor' stroke-width='2.25' stroke-linecap='round' stroke-linejoin='round' cx='12' cy='12' r='10'%3e%3c/circle%3e%3cline fill='none' stroke='currentColor' stroke-width='2.25' stroke-linecap='round' stroke-linejoin='round' x1='2' y1='12' x2='22' y2='12'%3e%3c/line%3e%3cpath fill='none' stroke='currentColor' stroke-width='2.25' stroke-linecap='round' stroke-linejoin='round' d='M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z'%3e%3c/path%3e%3c/svg%3e");
+}
+
 /* Plans icon. */
 .toolbar .toolbar-bar .toolbar-menu-administration .toolbar-icon-views-viewviews-farm-plan-page::before {
   -webkit-mask-image: url("data:image/svg+xml,%3csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3e%3cpath fill='none' d='M4 19.5C4 18.837 4.26339 18.2011 4.73223 17.7322C5.20107 17.2634 5.83696 17 6.5 17H20' stroke='black' stroke-width='2.25' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath fill='none' d='M4 14.5C4 13.837 4.26339 13.2011 4.73223 12.7322C5.20107 12.2634 5.83696 12 6.5 12H20' stroke='black' stroke-width='2.25' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath fill='none' d='M6.5 2H20V22H6.5C5.83696 22 5.20107 21.7366 4.73223 21.2678C4.26339 20.7989 4 20.163 4 19.5V4.5C4 3.83696 4.26339 3.20107 4.73223 2.73223C5.20107 2.26339 5.83696 2 6.5 2V2Z' stroke='black' stroke-width='2.25' stroke-linecap='round' stroke-linejoin='round'/%3e%3c/svg%3e");
