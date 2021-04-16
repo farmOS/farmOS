@@ -1,5 +1,5 @@
 farm.locations:
-  path: '/asset-locations'
+  path: '/locations'
   defaults:
     _title: 'Locations'
     _controller: '\Drupal\farm_ui_location\Controller\AssetReorderController::build'
