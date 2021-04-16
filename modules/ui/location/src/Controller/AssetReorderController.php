@@ -86,9 +86,15 @@ class AssetReorderController extends ControllerBase {
   }
 
   /**
+   * Build the asset tree.
+   *
    * @param \Drupal\asset\Entity\AssetInterface|null $asset
+   *   Optionally specify the parent asset, to only build a sub-tree. If
+   *   omitted, all assets will be included.
    *
    * @return array
+   *   Returns the asset tree for use in Drupal JS settings.
+   *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
