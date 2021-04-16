@@ -101,6 +101,7 @@ class AssetReorderController extends ControllerBase {
   protected function buildTree(AssetInterface $asset = NULL) {
     $storage = $this->entityTypeManager->getStorage('asset');
     $query = $storage->getQuery();
+    $query->condition('is_location', TRUE);
     if ($asset) {
       $query->condition('parent', $asset->id());
     }
