@@ -32,6 +32,11 @@ services:
           --account-pass=admin \
           site:install farm \
           farm.modules="all"
+        
+        # Create test users with manager, worker and viewer roles.
+        vendor/bin/drush user-create manager --password manager && vendor/bin/drush user-add-role farm_manager manager
+        vendor/bin/drush user-create worker --password worker && vendor/bin/drush user-add-role farm_worker worker
+        vendor/bin/drush user-create viewer --password viewer && vendor/bin/drush user-add-role farm_viewer viewer
 
         # Set up the files directory permissions.
         mkdir -p /opt/drupal/web/sites/default/files
