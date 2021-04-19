@@ -34,3 +34,7 @@ action.configuration.asset_activate_action:
 action.configuration.asset_archive_action:
   type: action_configuration_default
   label: 'Configuration for the asset archive action'
+
+action.configuration.asset_clone_action:
+  type: action_configuration_default
+  label: 'Configuration for the asset clone action'
