@@ -31,7 +31,7 @@ class Plant extends FarmAssetType {
         'multiple' => TRUE,
         'weight' => [
           'form' => -90,
-          'view' => -90,
+          'view' => -50,
         ],
       ],
       'season' => [

@@ -30,7 +30,7 @@ class Animal extends FarmAssetType {
         'required' => TRUE,
         'weight' => [
           'form' => -90,
-          'view' => 5,
+          'view' => -50,
         ],
       ],
       'birthdate' => [
@@ -38,7 +38,7 @@ class Animal extends FarmAssetType {
         'label' => $this->t('Birthdate'),
         'weight' => [
           'form' => 15,
-          'view' => 15,
+          'view' => -35,
         ],
       ],
       'is_castrated' => [
@@ -57,7 +57,7 @@ class Animal extends FarmAssetType {
             'format_custom_true' => '',
             'hide_if_false' => TRUE,
           ],
-          'weight' => 25,
+          'weight' => -25,
         ],
       ],
       'nickname' => [
@@ -67,7 +67,7 @@ class Animal extends FarmAssetType {
         'multiple' => TRUE,
         'weight' => [
           'form' => 10,
-          'view' => 10,
+          'view' => -40,
         ],
       ],
       'sex' => [
@@ -79,7 +79,7 @@ class Animal extends FarmAssetType {
         ],
         'weight' => [
           'form' => 20,
-          'view' => 20,
+          'view' => -30,
         ],
       ],
     ];
