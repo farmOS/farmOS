@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - farm_flag
+    - log
+id: log_flag_action
+label: 'Flag log'
+type: log
+plugin: entity:flag_action:log
+configuration: {  }
