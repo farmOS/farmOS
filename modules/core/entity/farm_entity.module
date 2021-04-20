@@ -9,6 +9,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\entity\EntityViewsData;
 use Drupal\farm_entity\BundlePlugin\FarmEntityBundlePluginHandler;
+use Drupal\farm_entity\EntityTypeAccessControlHandler;
 use Drupal\farm_entity\FarmLogViewsData;
 use Drupal\farm_entity\Routing\DefaultHtmlRouteProvider;
 
@@ -33,6 +34,14 @@ function farm_entity_module_implements_alter(&$implementations, $hook) {
  */
 function farm_entity_entity_type_build(array &$entity_types) {
   /** @var \Drupal\Core\Entity\EntityTypeInterface[] $entity_types */
+
+  // Allow the "view label" operation on the bundle entity type.
+  foreach (['asset', 'log', 'plan', 'quantity', 'data_stream'] as $entity_type) {
+    if (!empty($entity_types[$entity_type])) {
+      $bundle_entity_type = $entity_types[$entity_type]->getBundleEntityType();
+      $entity_types[$bundle_entity_type]->setHandlerClass('access', EntityTypeAccessControlHandler::class);
+    }
+  }
 
   // Enable the use of bundle plugins on specific entity types.
   foreach (['asset', 'log', 'plan', 'quantity'] as $entity_type) {
