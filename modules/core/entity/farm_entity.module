@@ -110,6 +110,7 @@ function farm_entity_entity_base_field_info_alter(&$fields, EntityTypeInterface 
     ],
     'type' => [
       'weight' => -85,
+      'hidden' => 'form',
     ],
     'status' => [
       'weight' => -80,
@@ -139,12 +140,16 @@ function farm_entity_entity_base_field_info_alter(&$fields, EntityTypeInterface 
 
     // Hide the field, if desired.
     if (!empty($options['hidden'])) {
-      $form_display_options = ['region' => 'hidden'];
-      $view_display_options = ['region' => 'hidden'];
+      if ($options['hidden'] === TRUE || $options['hidden'] === 'form') {
+        $form_display_options['region'] = 'hidden';
+      }
+      if ($options['hidden'] === TRUE || $options['hidden'] === 'view') {
+        $view_display_options['region'] = 'hidden';
+      }
     }
 
-    // Or, hide the label, if desired.
-    elseif (!empty($options['label']) && $options['label'] == 'hidden') {
+    // Hide the label, if desired.
+    if (!empty($options['label']) && $options['label'] == 'hidden') {
       $view_display_options['label'] = 'hidden';
     }
 
