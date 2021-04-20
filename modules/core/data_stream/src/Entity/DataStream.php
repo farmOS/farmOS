@@ -31,10 +31,10 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
  *       "add" = "Drupal\data_stream\Form\DataStreamForm",
  *       "edit" = "Drupal\data_stream\Form\DataStreamForm",
  *       "delete" = "Drupal\Core\Entity\ContentEntityDeleteForm",
+ *       "delete-multiple-confirm" = "Drupal\Core\Entity\Form\DeleteMultipleForm",
  *     },
  *     "route_provider" = {
  *       "default" = "Drupal\entity\Routing\AdminHtmlRouteProvider",
- *       "delete-multiple" = "\Drupal\entity\Routing\DeleteMultipleRouteProvider",
  *     },
  *     "local_task_provider" = {
  *       "default" = "\Drupal\entity\Menu\DefaultEntityLocalTaskProvider",
