@@ -51,7 +51,7 @@ function farm_location_asset_base_fields() {
     'label' => t('Intrinsic geometry'),
     'description' => t('Add geometry data to this asset to describe its intrinsic location. This will only be used if the asset is fixed.'),
     'weight' => [
-      'form' => 95,
+      'form' => 96,
     ],
     'hidden' => 'view',
   ];
@@ -87,7 +87,7 @@ function farm_location_asset_base_fields() {
     'description' => t('If this asset is fixed, then it can have an intrinsic geometry. If the asset will move around, then it is not fixed and geometry will be determined by movement logs.'),
     'default_value_callback' => 'farm_location_is_fixed_default_value',
     'weight' => [
-      'form' => 96,
+      'form' => 95,
     ],
     'view_display_options' => [
       'label' => 'inline',

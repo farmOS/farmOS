@@ -30,10 +30,28 @@
             element.focus();
           };
         });
+
+        // If the map is rendered as part of a form field, update the map size
+        // when the field's visible state changes,
+        const formWrapper = element.closest('div.form-wrapper');
+        if (formWrapper != null) {
+          const formWrapperObserver = new MutationObserver((mutations) => {
+
+            // Only update the map size if the wrapper was previously hidden.
+            if (mutations.some((mutation) => { return mutation.oldValue.includes('display: none')})) {
+              instance.map.updateSize();
+            }
+          });
+
+          // Observe the style attribute.
+          formWrapperObserver.observe(formWrapper, {
+            attributeFilter: ["style"],
+            attributeOldValue: true
+          })
+        }
+
         // If the map is inside a details element, update the map size when
         // the details element is toggled.
-        // @todo This is specific to the patched Gin theme.
-        // See https://www.drupal.org/project/gin/issues/3197363
         const details = element.closest('details');
         if (details != null) {
           details.addEventListener('toggle', function() {
