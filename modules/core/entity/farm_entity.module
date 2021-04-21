@@ -11,6 +11,7 @@ use Drupal\farm_entity\BundlePlugin\FarmEntityBundlePluginHandler;
 use Drupal\farm_entity\EntityTypeAccessControlHandler;
 use Drupal\farm_entity\FarmEntityViewsData;
 use Drupal\farm_entity\FarmLogViewsData;
+use Drupal\farm_entity\FarmQuantityViewsData;
 use Drupal\farm_entity\Routing\DefaultHtmlRouteProvider;
 
 /**
@@ -60,16 +61,22 @@ function farm_entity_entity_type_build(array &$entity_types) {
   }
 
   // Set the views data handler class to FarmEntityViewsData.
-  foreach (['asset', 'plan', 'quantity'] as $entity_type) {
+  foreach (['asset', 'log', 'plan', 'quantity'] as $entity_type) {
     if (!empty($entity_types[$entity_type])) {
-      $entity_types[$entity_type]->setHandlerClass('views_data', FarmEntityViewsData::class);
-    }
-  }
+      // Use the correct class for each entity type.
+      // Logs and quantities provide their own that we must extend from.
+      $views_data_class = FarmEntityViewsData::class;
+      switch ($entity_type) {
+        case 'log':
+          $views_data_class = FarmLogViewsData::class;
+          break;
 
-  // With logs specifically, set the views data handler class to
-  // FarmLogViewsData (provided by us).
-  if (!empty($entity_types['log'])) {
-    $entity_types['log']->setHandlerClass('views_data', FarmLogViewsData::class);
+        case 'quantity':
+          $views_data_class = FarmQuantityViewsData::class;
+          break;
+      }
+      $entity_types[$entity_type]->setHandlerClass('views_data', $views_data_class);
+    }
   }
 }
 
