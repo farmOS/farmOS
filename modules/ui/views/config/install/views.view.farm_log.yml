@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - system.menu.admin
+    - taxonomy.vocabulary.log_category
   enforced:
     module:
       - farm_ui_views
@@ -14,6 +15,7 @@ dependencies:
     - rest
     - serialization
     - state_machine
+    - taxonomy
     - user
 id: farm_log
 label: 'Farm Logs'
@@ -981,6 +983,57 @@ display:
           entity_type: log
           entity_field: type
           plugin_id: bundle
+        category_target_id:
+          id: category_target_id
+          table: log__category
+          field: category_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: category_target_id_op
+            label: 'Log category'
+            description: ''
+            use_operator: false
+            operator: category_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: category_target_id
+            required: false
+            remember: false
+            multiple: true
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              farm_manager: '0'
+              farm_viewer: '0'
+              farm_worker: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          type: select
+          limit: true
+          vid: log_category
+          hierarchy: false
+          error_message: true
+          entity_type: log
+          entity_field: category
+          plugin_id: taxonomy_index_tid
         flag_value:
           id: flag_value
           table: log__flag
@@ -1261,6 +1314,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user
         - user.permissions
       tags: {  }
   block_late:
@@ -2219,6 +2273,7 @@ display:
         - 'languages:language_interface'
         - request_format
         - url
+        - user
         - user.permissions
       tags: {  }
   page:
@@ -2270,6 +2325,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user
         - user.permissions
       tags: {  }
   page_type:
@@ -2338,6 +2394,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user
         - user.permissions
       tags: {  }
   page_user:
@@ -2413,5 +2470,6 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user
         - user.permissions
       tags: {  }

@@ -7,10 +7,11 @@
 
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\entity\EntityViewsData;
 use Drupal\farm_entity\BundlePlugin\FarmEntityBundlePluginHandler;
 use Drupal\farm_entity\EntityTypeAccessControlHandler;
+use Drupal\farm_entity\FarmEntityViewsData;
 use Drupal\farm_entity\FarmLogViewsData;
+use Drupal\farm_entity\FarmQuantityViewsData;
 use Drupal\farm_entity\Routing\DefaultHtmlRouteProvider;
 
 /**
@@ -59,19 +60,23 @@ function farm_entity_entity_type_build(array &$entity_types) {
     }
   }
 
-  // Set the views data handler class to EntityViewsData for assets and plans.
-  // We don't need to do this for logs or quantities because their modules
-  // already do this.
-  foreach (['asset', 'plan'] as $entity_type) {
+  // Set the views data handler class to FarmEntityViewsData.
+  foreach (['asset', 'log', 'plan', 'quantity'] as $entity_type) {
     if (!empty($entity_types[$entity_type])) {
-      $entity_types[$entity_type]->setHandlerClass('views_data', EntityViewsData::class);
-    }
-  }
+      // Use the correct class for each entity type.
+      // Logs and quantities provide their own that we must extend from.
+      $views_data_class = FarmEntityViewsData::class;
+      switch ($entity_type) {
+        case 'log':
+          $views_data_class = FarmLogViewsData::class;
+          break;
 
-  // With logs specifically, set the views data handler class to
-  // FarmLogViewsData (provided by us).
-  if (!empty($entity_types['log'])) {
-    $entity_types['log']->setHandlerClass('views_data', FarmLogViewsData::class);
+        case 'quantity':
+          $views_data_class = FarmQuantityViewsData::class;
+          break;
+      }
+      $entity_types[$entity_type]->setHandlerClass('views_data', $views_data_class);
+    }
   }
 }
 
@@ -282,19 +287,6 @@ function farm_entity_views_data_alter(array &$data) {
   foreach ($tables as $table) {
     if (!empty($data[$table]['status'])) {
       $data[$table]['status']['filter'] = $status_filter;
-    }
-  }
-
-  // Add support for taxonomy term reference filters.
-  $vocabularies = [
-    'unit' => [
-      'quantity' => 'units',
-    ],
-  ];
-  foreach ($vocabularies as $vocabulary => $table_fields) {
-    foreach ($table_fields as $table => $field) {
-      $data[$table][$field]['filter']['id'] = 'taxonomy_index_tid';
-      $data[$table][$field]['filter']['vocabulary'] = $vocabulary;
     }
   }
 }
