@@ -1,0 +1,7 @@
+farm.asset.logs:
+  title: 'Logs'
+  route_name: view.farm_log.page_asset
+  route_parameters:
+    log_type: 'all'
+  base_route: entity.asset.canonical
+  weight: 50
