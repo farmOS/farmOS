@@ -28,6 +28,15 @@ function farm_entity_module_implements_alter(&$implementations, $hook) {
     unset($implementations[$module]);
     $implementations = array_merge($implementation, $implementations);
   }
+
+  // Make sure this module's hook_modules_installed runs after the entity
+  // module's implementation, so that we rebuild views data after bundle fields
+  // are installed.
+  if ($hook == 'modules_installed') {
+    $implementation = [$module => $implementations[$module]];
+    unset($implementations[$module]);
+    $implementations = array_merge($implementations, $implementation);
+  }
 }
 
 /**
@@ -259,6 +268,17 @@ function farm_entity_form_log_form_alter(&$form, FormStateInterface $form_state,
     if (array_key_exists($default_type, $bundle_select['#options'])) {
       $bundle_select['#default_value'] = $default_type;
     }
+  }
+}
+
+/**
+ * Implements hook_modules_installed().
+ */
+function farm_entity_modules_installed($modules, $is_syncing) {
+  // Reset the views data after installing modules.
+  // See https://www.drupal.org/project/entity/issues/3206703#comment-14073184
+  if (\Drupal::hasService('views.views_data')) {
+    \Drupal::service('views.views_data')->clear();
   }
 }
 
