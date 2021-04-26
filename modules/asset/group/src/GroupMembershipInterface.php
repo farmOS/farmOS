@@ -11,6 +11,18 @@ use Drupal\log\Entity\LogInterface;
 interface GroupMembershipInterface {
 
   /**
+   * Build a list of group options for use in form select fields.
+   *
+   * @param bool $archived
+   *   Whether or not to include archived groups. Defaults to FALSE. If TRUE,
+   *   both active and archived groups will be included in the list.
+   *
+   * @return array
+   *   Returns an array of group labels keyed by asset ID for use in a form.
+   */
+  public function groupOptions($archived = FALSE): array;
+
+  /**
    * Check if an asset is a member of a group.
    *
    * @param \Drupal\asset\Entity\AssetInterface $asset
