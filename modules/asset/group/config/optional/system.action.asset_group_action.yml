@@ -1,0 +1,12 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - asset
+    - farm_group
+    - farm_observation
+id: asset_group_action
+label: 'Group asset'
+type: asset
+plugin: 'asset_group_action'
+configuration: {  }

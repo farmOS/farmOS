@@ -1,0 +1,6 @@
+farm_group.asset_group_action_form:
+  path: '/asset/group'
+  defaults:
+    _form: 'Drupal\farm_group\Form\AssetGroupActionForm'
+  requirements:
+    _user_is_logged_in: 'TRUE'
