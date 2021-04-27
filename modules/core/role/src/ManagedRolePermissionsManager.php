@@ -5,6 +5,7 @@ namespace Drupal\farm_role;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Controller\ControllerResolverInterface;
 use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
 use Drupal\Core\Plugin\Discovery\ContainerDerivativeDiscoveryDecorator;
@@ -31,6 +32,13 @@ class ManagedRolePermissionsManager extends DefaultPluginManager implements Mana
    * @var \Drupal\Core\Entity\EntityTypeBundleInfoInterface
    */
   protected $entityTypeBundleInfo;
+
+  /**
+   * The entity type manager service.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
 
   /**
    * Default values for each FarmRolePermissions plugin.
@@ -65,8 +73,10 @@ class ManagedRolePermissionsManager extends DefaultPluginManager implements Mana
    *   The controller resolver service.
    * @param \Drupal\Core\Entity\EntityTypeBundleInfoInterface $entity_type_bundle_info
    *   The entity type bundle info service.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager service.
    */
-  public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, ModuleHandlerInterface $module_handler, ControllerResolverInterface $controller_resolver, EntityTypeBundleInfoInterface $entity_type_bundle_info) {
+  public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, ModuleHandlerInterface $module_handler, ControllerResolverInterface $controller_resolver, EntityTypeBundleInfoInterface $entity_type_bundle_info, EntityTypeManagerInterface $entity_type_manager) {
     parent::__construct(
       'Plugin/ManagedRolePermissions',
       $namespaces,
@@ -74,6 +84,7 @@ class ManagedRolePermissionsManager extends DefaultPluginManager implements Mana
     );
     $this->controllerResolver = $controller_resolver;
     $this->entityTypeBundleInfo = $entity_type_bundle_info;
+    $this->entityTypeManager = $entity_type_manager;
     $this->rolePermissions = [];
     $this->setCacheBackend($cache_backend, 'managed_role_permissions_plugins');
   }
@@ -87,6 +98,17 @@ class ManagedRolePermissionsManager extends DefaultPluginManager implements Mana
       $this->discovery = new ContainerDerivativeDiscoveryDecorator($discovery);
     }
     return $this->discovery;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getMangedRoles(): array {
+    /** @var \Drupal\user\RoleInterface[] $roles */
+    $roles = $this->entityTypeManager->getStorage('user_role')->loadMultiple();
+    return array_filter($roles, function ($role) {
+      return $this->isManagedRole($role);
+    });
   }
 
   /**

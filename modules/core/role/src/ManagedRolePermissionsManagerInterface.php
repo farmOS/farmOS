@@ -12,6 +12,14 @@ use Drupal\user\RoleInterface;
 interface ManagedRolePermissionsManagerInterface {
 
   /**
+   * Returns an array of managed roles.
+   *
+   * @return \Drupal\user\RoleInterface[]
+   *   An array of managed roles.
+   */
+  public function getMangedRoles(): array;
+
+  /**
    * Checks if the role is a managed role.
    *
    * @param \Drupal\user\RoleInterface $role
