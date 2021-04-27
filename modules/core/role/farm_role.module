@@ -6,7 +6,6 @@
  */
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\user\Entity\Role;
 
 /**
  * Implements hook_entity_type_alter().
@@ -31,29 +30,20 @@ function farm_role_form_user_admin_permissions_alter(&$form, FormStateInterface 
   // Save the role names.
   $role_names = array_keys($form['role_names']['#value']);
 
-  // Load roles.
-  /** @var \Drupal\user\RoleInterface[] $roles */
-  $roles = Role::loadMultiple($role_names);
-
   // Get the managed role permissions service.
   /** @var \Drupal\farm_role\ManagedRolePermissionsManagerInterface $managed_role_manager */
   $managed_role_manager = \Drupal::service('plugin.manager.managed_role_permissions');
 
-  // Save a list of managed roles and their permissions.
-  $managed_roles = [];
-  foreach ($roles as $role) {
-    if ($managed_role_manager->isManagedRole($role)) {
-
-      // Calculate the index of the role as displayed in the form.
-      $index = array_search($role->id(), $role_names);
-
-      // Save the role name.
-      $managed_roles[$index] = $role->id();
-    }
+  // Save a list of managed role IDs keyed by their index in the form.
+  $managed_roles = $managed_role_manager->getMangedRoles();
+  $managed_roles_indices = [];
+  foreach ($managed_roles as $role) {
+    $index = array_search($role->id(), $role_names);
+    $managed_roles_indices[$index] = $role->id();
   }
 
   // Append '(managed)' to managed role labels in the table header.
-  foreach ($managed_roles as $index => $role) {
+  foreach ($managed_roles_indices as $index => $role) {
 
     // Offset by 1 for the first table column.
     $offset = $index + 1;
@@ -79,14 +69,12 @@ function farm_role_form_user_admin_permissions_alter(&$form, FormStateInterface 
       // Iterate over each role under the permission.
       foreach (array_keys($permission) as $rid) {
 
-        // If this is a managed role...
-        if (in_array($rid, $managed_roles)) {
-
-          // Disable the checkbox.
+        // Disable the checkbox for all managed roles.
+        if (in_array($rid, $managed_roles_indices)) {
           $form['permissions'][$name][$rid]['#disabled'] = TRUE;
 
           // If the permission is enabled on the role, add CSS class.
-          if ($managed_role_manager->isPermissionInRole($name, $roles[$rid])) {
+          if ($managed_role_manager->isPermissionInRole($name, $managed_roles[$rid])) {
             $form['permissions'][$name][$rid]['#attributes']['class'][] = 'managed';
           }
         }
