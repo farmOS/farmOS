@@ -1,0 +1,6 @@
+farm_log.log_assign_action_form:
+  path: '/log/assign'
+  defaults:
+    _form: 'Drupal\farm_log\Form\LogAssignActionForm'
+  requirements:
+    _user_is_logged_in: 'TRUE'

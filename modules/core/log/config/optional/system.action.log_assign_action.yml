@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - farm_log
+    - log
+id: log_assign_action
+label: 'Assign log'
+type: log
+plugin: 'log_assign_action'
+configuration: {  }
