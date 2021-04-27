@@ -132,6 +132,11 @@ function farm_livestock_weight_dlwg($asset) {
       // Calculate time difference.
       $timediff = $latest_log->timestamp - $previous_log->timestamp;
       $timediff_days = round($timediff/86400,2);
+      
+      // When multiple inputs are entered on a single day, round $timediff_days up to 1.
+      if ($timediff_days == 0) {
+        $timediff_days = 1;
+      }
 
       // Calculate dlwg.
       $dlwg_value = round($weight_difference/$timediff_days,3);
