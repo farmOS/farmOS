@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - asset
+    - farm_log
+id: asset_add_log_action
+label: 'Add log'
+type: asset
+plugin: 'asset_add_log_action'
+configuration: {  }
