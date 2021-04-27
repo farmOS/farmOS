@@ -8,6 +8,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\TempStore\PrivateTempStoreFactory;
 use Drupal\Core\Url;
+use Drupal\farm_role\ManagedRolePermissionsManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
@@ -29,6 +30,13 @@ class LogAssignActionForm extends ConfirmFormBase {
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   protected $entityTypeManager;
+
+  /**
+   * The managed role permissions manager.
+   *
+   * @var \Drupal\farm_role\ManagedRolePermissionsManagerInterface
+   */
+  protected $managedRolePermissionsManager;
 
   /**
    * The current user.
@@ -58,12 +66,15 @@ class LogAssignActionForm extends ConfirmFormBase {
    *   The tempstore factory.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
+   * @param \Drupal\farm_role\ManagedRolePermissionsManagerInterface $managed_role_permissions_manager
+   *   The managed role permissions manager.
    * @param \Drupal\Core\Session\AccountInterface $user
    *   The current user.
    */
-  public function __construct(PrivateTempStoreFactory $temp_store_factory, EntityTypeManagerInterface $entity_type_manager, AccountInterface $user) {
+  public function __construct(PrivateTempStoreFactory $temp_store_factory, EntityTypeManagerInterface $entity_type_manager, ManagedRolePermissionsManagerInterface $managed_role_permissions_manager, AccountInterface $user) {
     $this->tempStore = $temp_store_factory->get('log_assign_confirm');
     $this->entityTypeManager = $entity_type_manager;
+    $this->managedRolePermissionsManager = $managed_role_permissions_manager;
     $this->user = $user;
   }
 
@@ -74,6 +85,7 @@ class LogAssignActionForm extends ConfirmFormBase {
     return new static(
       $container->get('tempstore.private'),
       $container->get('entity_type.manager'),
+      $container->get('plugin.manager.managed_role_permissions'),
       $container->get('current_user')
     );
   }
@@ -133,9 +145,14 @@ class LogAssignActionForm extends ConfirmFormBase {
         ->toString());
     }
 
+    // Load users that have a managed farm role.
+    $managed_roles = $this->managedRolePermissionsManager->getMangedRoles();
     $active_users = $this->entityTypeManager->getStorage('user')->loadByProperties([
       'status' => TRUE,
+      'roles' => array_keys($managed_roles),
     ]);
+
+    // Build options for form select.
     $user_options = array_map(function ($user) {
       return $user->label();
     }, $active_users);
