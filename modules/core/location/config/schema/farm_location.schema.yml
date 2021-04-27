@@ -18,3 +18,8 @@ log.type.*.third_party.farm_location:
     is_movement:
       type: boolean
       label: 'Is a movement'
+
+# Schema for actions.
+action.configuration.asset_move_action:
+  type: action_configuration_default
+  label: 'Configuration for the asset move action'

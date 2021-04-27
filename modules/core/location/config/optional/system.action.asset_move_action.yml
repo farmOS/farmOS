@@ -1,0 +1,12 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - asset
+    - farm_activity
+    - farm_location
+id: asset_move_action
+label: 'Move asset'
+type: asset
+plugin: 'asset_move_action'
+configuration: {  }
