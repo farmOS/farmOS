@@ -62,15 +62,26 @@ class LogEventSubscriber implements EventSubscriberInterface {
    */
   public static function getSubscribedEvents() {
     return [
+      LogEvent::DELETE => 'logDelete',
       LogEvent::PRESAVE => 'logPresave',
     ];
+  }
+
+  /**
+   * Perform actions on log delete.
+   *
+   * @param \Drupal\farm_log\Event\LogEvent $event
+   *   The log event.
+   */
+  public function logDelete(LogEvent $event) {
+    $this->invalidateAssetCacheOnMovement($event->log);
   }
 
   /**
    * Perform actions on log presave.
    *
    * @param \Drupal\farm_log\Event\LogEvent $event
-   *   Config crud event.
+   *   The log event.
    */
   public function logPresave(LogEvent $event) {
 
