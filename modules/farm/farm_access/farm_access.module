@@ -4,6 +4,9 @@
  * Farm Access module.
  */
 
+// Define the default allowed origins.
+define('FARM_ACCESS_DEFAULT_ALLOWED_ORIGINS', 'https://farmos.app');
+
 /**
  * Implements hook_init().
  */
@@ -18,8 +21,8 @@ function farm_access_init() {
  */
 function farm_access_add_cors_headers() {
 
-  // Load the list of allowed origins (default to https://farmos.app).
-  $allowed_origins = explode("\n", variable_get('farm_access_allow_origin', 'https://farmos.app'));
+  // Load the list of allowed origins.
+  $allowed_origins = explode("\n", variable_get('farm_access_allow_origin', FARM_ACCESS_DEFAULT_ALLOWED_ORIGINS));
 
   // Trim whitespace from each item.
   foreach ($allowed_origins as &$value) {
@@ -199,8 +202,8 @@ function farm_access_settings_form($form, &$form_state) {
   $form['farm_access_allow_origin'] = array(
     '#type' => 'textarea',
     '#title' => t('Access-Control-Allow-Origin'),
-    '#description' => t('This will be put in the Access-Control-Allow-Origin header, which is necessary for third-party client-side applications to access farmOS data via the API. Defaults to "https://farmos.app" to work with the farmOS Field Kit application. Multiple origins can be specified (one per line) and they will be matched automatically.'),
-    '#default_value' => variable_get('farm_access_allow_origin', 'https://farmos.app'),
+    '#description' => t('This will be put in the Access-Control-Allow-Origin header, which is necessary for third-party client-side applications to access farmOS data via the API. The default allows access from the farmOS Field Kit application. Multiple origins can be specified (one per line) and they will be matched automatically.'),
+    '#default_value' => variable_get('farm_access_allow_origin', FARM_ACCESS_DEFAULT_ALLOWED_ORIGINS),
   );
 
   // Return it as a system settings form.
