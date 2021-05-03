@@ -5,7 +5,7 @@
  */
 
 // Define the default allowed origins.
-define('FARM_ACCESS_DEFAULT_ALLOWED_ORIGINS', 'https://farmos.app');
+define('FARM_ACCESS_DEFAULT_ALLOWED_ORIGINS', "https://v1.farmos.app\nhttps://farmos.app");
 
 /**
  * Implements hook_init().
