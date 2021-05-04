@@ -7,7 +7,6 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Session\AccountInterface;
-use Drupal\geofield\GeoPHP\GeoPHPInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -37,13 +36,6 @@ class EntityKml extends EntityActionBase {
   protected $fileSystem;
 
   /**
-   * The GeoPHP service.
-   *
-   * @var \Drupal\geofield\GeoPHP\GeoPHPInterface
-   */
-  protected $geoPHP;
-
-  /**
    * The default file scheme.
    *
    * @var string
@@ -65,15 +57,12 @@ class EntityKml extends EntityActionBase {
    *   The serializer service.
    * @param \Drupal\Core\File\FileSystemInterface $file_system
    *   The file system service.
-   * @param \Drupal\geofield\GeoPHP\GeoPHPInterface $geo_PHP
-   *   The GeoPHP service.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The config factory service.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, SerializerInterface $serializer, FileSystemInterface $file_system, GeoPHPInterface $geo_PHP, ConfigFactoryInterface $config_factory) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, SerializerInterface $serializer, FileSystemInterface $file_system, ConfigFactoryInterface $config_factory) {
     $this->serializer = $serializer;
     $this->fileSystem = $file_system;
-    $this->geoPHP = $geo_PHP;
     $this->defaultFileScheme = $config_factory->get('system.file')->get('default_scheme') ?? 'public';
     parent::__construct($configuration, $plugin_id, $plugin_definition, $entity_type_manager);
   }
@@ -89,7 +78,6 @@ class EntityKml extends EntityActionBase {
       $container->get('entity_type.manager'),
       $container->get('serializer'),
       $container->get('file_system'),
-      $container->get('geofield.geophp'),
       $container->get('config.factory'),
     );
   }
@@ -104,72 +92,16 @@ class EntityKml extends EntityActionBase {
       return;
     }
 
-    // Collect geometries as placemark definitions.
-    $geofield = $this->configuration['geofield'];
-    $placemarks = [];
-    foreach ($entities as $entity) {
-
-      // If the entity doesn't have the configured geofield field, bail.
-      if (!$entity->hasField($geofield)) {
-        continue;
-      }
-
-      $field_value = $entity->get($geofield)->first();
-      $wkt = $field_value->get('value')->getValue();
-      if (!empty($wkt)) {
-
-        // Convert WKT to KML string.
-        $geometry = $this->geoPHP->load($wkt, 'wkt');
-        $kml_string = $geometry->out('kml');
-
-        // Parse the KML string into an XML object.
-        // This is necessary so that we can encode the KML into XML with the
-        // rest of the asset data.
-        $kml = simplexml_load_string($kml_string);
-        $kml_name = $kml->getName();
-        $kml_value = $kml->children();
-
-        // Build a placemark definition.
-        $placemark = [
-          '@id' => $entity->getEntityTypeId() . '-' . $entity->id(),
-          '#' => [
-            'name' => htmlspecialchars($entity->label()),
-            $kml_name => $kml_value,
-          ],
-        ];
-
-        // Add entity notes.
-        if ($entity->hasField('notes')) {
-          $notes = $entity->get('notes')->first()->getValue();
-          if (!empty($notes['value'])) {
-            $placemark['#']['description'] = $notes['value'];
-          }
-        }
-
-        $placemarks[] = $placemark;
-      }
-    }
+    // Serialize the entities using the specified geofield name.
+    $context = ['geofield' => $this->configuration['geofield']];
+    $output = $this->serializer->serialize($entities, 'kml', $context);
 
     // If there are no placemarks, bail with a warning.
-    if (empty($placemarks)) {
+    $kml = simplexml_load_string($output);
+    if (empty($kml->Document->Placemark) || empty($kml->Document->Placemark->count())) {
       $this->messenger()->addWarning($this->t('No placemarks were found.'));
       return;
     }
-
-    // Build XML document to encode.
-    $xml = [
-      '@xmlns' => 'http://earth.google.com/kml/2.1',
-      'Document' => [
-        'Placemark' => $placemarks,
-      ],
-    ];
-    $xml_context = [
-      'xml_version' => '1.0',
-      'xml_encoding' => 'UTF-8',
-      'xml_format_output' => TRUE,
-      'xml_root_node_name' => 'kml',
-    ];
-    $output = $this->serializer->encode($xml, 'xml', $xml_context);
 
     // Prepare the file directory.
     $directory = $this->defaultFileScheme . '://kml';
