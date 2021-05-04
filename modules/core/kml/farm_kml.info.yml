@@ -1,0 +1,7 @@
+name: farmOS KML
+description: Provides KML features for farmOS.
+type: module
+package: farmOS
+core_version_requirement: ^9
+dependencies:
+  - farm:farm_location
