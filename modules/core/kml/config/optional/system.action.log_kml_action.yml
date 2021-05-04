@@ -1,0 +1,12 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - farm_kml
+    - log
+id: log_kml_action
+label: 'Export KML'
+type: log
+plugin: entity:kml_action:log
+configuration:
+  geofield: geometry
