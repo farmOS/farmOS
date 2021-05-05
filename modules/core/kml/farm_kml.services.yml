@@ -8,3 +8,8 @@ services:
     arguments: ['@geofield.geophp']
     tags:
       - { name: normalizer, priority: 10 }
+  serializer.farm_kml.kml.wkt_geometry:
+    class: Drupal\farm_kml\Normalizer\WktGeometryNormalizer
+    arguments: ['@geofield.geophp']
+    tags:
+      - { name: normalizer, priority: 10 }
