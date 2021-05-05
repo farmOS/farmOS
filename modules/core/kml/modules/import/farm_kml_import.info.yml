@@ -1,0 +1,5 @@
+name: farmOS KML Import
+description: Provides a KML import feature for farmOS.
+type: module
+package: farmOS
+core_version_requirement: ^9
