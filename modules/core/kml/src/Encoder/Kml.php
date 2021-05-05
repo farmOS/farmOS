@@ -7,6 +7,11 @@ use Drupal\serialization\Encoder\XmlEncoder;
 /**
  * Provides a KML encoder that extends from the XML encoder.
  *
+ * An array of Placemark data prepared for XmlEncoder is expected when encoding.
+ *
+ * When decoding, the array of Placemark data is returned with an additional
+ * "xml" key containing the individual placemark XML in a string.
+ *
  * @see \Symfony\Component\Serializer\Encoder\XmlEncoder
  */
 class Kml extends XmlEncoder {
@@ -44,9 +49,55 @@ class Kml extends XmlEncoder {
   /**
    * {@inheritdoc}
    */
-  public function supportsDecoding($format) {
-    // @todo Implement decoding.
-    return FALSE;
+  public function decode($data, $format, array $context = []) {
+
+    // Start an array of decoded placemark data.
+    $decoded_placemarks = [];
+
+    // Build an XML object.
+    $xml = simplexml_load_string($data);
+
+    // If empty, or failed to parse, bail.
+    if (empty($xml)) {
+      return $decoded_placemarks;
+    }
+
+    // Determine the root. Sometimes it is "Document".
+    $root = $xml;
+    if (isset($xml->Document)) {
+      $root = $xml->Document;
+    }
+
+    // Start an array of placemarks to decode.
+    $placemarks = [];
+
+    // If the KML is organized into folders, iterate through them.
+    if (isset($root->Folder)) {
+      foreach ($root->Folder as $folder) {
+        if (isset($folder->Placemark)) {
+          foreach ($folder->Placemark as $placemark) {
+            $placemarks[] = $placemark;
+          }
+        }
+      }
+    }
+
+    // Also check the root for any placemarks.
+    if (isset($root->Placemark)) {
+      foreach ($root->Placemark as $placemark) {
+        $placemarks[] = $placemark;
+      }
+    }
+
+    // Decode each placemark into an array.
+    // Include the individual placemark as an XML string.
+    foreach ($placemarks as $placemark) {
+      $geometry = (array) $placemark;
+      $geometry['xml'] = $placemark->asXML();
+      $decoded_placemarks[] = $geometry;
+    }
+
+    return $decoded_placemarks;
   }
 
 }
