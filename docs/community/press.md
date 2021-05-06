@@ -5,6 +5,8 @@ would like to write about farmOS, [contact m.stenta](https://farmier.com/contact
 
 ## 2021
 
+**2021 May 5th** [VentureBeat: Linux Foundation launches open source agriculture infrastructure project](https://venturebeat.com/2021/05/05/linux-foundation-launches-open-source-agriculture-infrastructure-project/)
+
 **2021 May 5th** [Linux Foundation: Linux Foundation Launches Open Source Digital Infrastructure Project for Agriculture, Enables Global Collaboration Among Industry, Government and Academia](https://linuxfoundation.org/en/press-release/linux-foundation-launches-open-source-digital-infrastructure-project-for-agriculture-enables-global-collaboration-among-industry-government-and-academia)
 
 **2021 March 30th** [The MicaSense Podcast: Episode 6 - Vital Agronomics](https://open.spotify.com/episode/7zb4qA98H6YtoPERBURcVc)
