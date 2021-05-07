@@ -1,3 +1,7 @@
+---
+title: Group membership
+---
+
 # Group membership
 
 farmOS includes an optional "Group asset" module, which adds a new Asset type

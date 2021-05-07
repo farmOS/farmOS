@@ -1,3 +1,7 @@
+---
+title: PostgreSQL
+---
+
 # PostgreSQL
 
 The farmOS Docker image comes pre-installed with the PostgreSQL client `psql`

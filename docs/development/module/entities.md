@@ -1,3 +1,7 @@
+---
+title: Entities
+---
+
 # Entity types
 
 Assets, logs, plans, taxonomy terms, users, etc are all types of "entities" in

@@ -1,3 +1,7 @@
+---
+title: Getting started
+---
+
 # Getting started
 
 Follow these instructions to set up a local farmOS development environment.

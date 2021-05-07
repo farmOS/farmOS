@@ -1,3 +1,7 @@
+---
+title: Location
+---
+
 # Location
 
 farmOS can track the physical location of Assets over time. This includes map

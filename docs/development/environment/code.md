@@ -1,3 +1,7 @@
+---
+title: Coding standards
+---
+
 # Coding standards
 
 farmOS follows [Drupal coding standards](https://www.drupal.org/docs/develop/standards).

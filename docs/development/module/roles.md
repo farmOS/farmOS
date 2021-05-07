@@ -1,3 +1,7 @@
+---
+title: Roles
+---
+
 # Roles
 
 Roles are groups of permissions that can be assigned to users to grant them

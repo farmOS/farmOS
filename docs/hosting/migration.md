@@ -1,3 +1,7 @@
+---
+title: 1.x Migration
+---
+
 # Migrating from farmOS 1.x to 2.x
 
 The upgrade path from farmOS 1.x to 2.x is performed via a database migration.

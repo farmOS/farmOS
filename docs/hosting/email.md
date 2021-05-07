@@ -1,3 +1,7 @@
+---
+title: Email
+---
+
 # Email configuration
 
 farmOS needs to be able to send emails to users. This is used for password

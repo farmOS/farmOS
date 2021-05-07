@@ -1,3 +1,7 @@
+---
+title: Data Model
+---
+
 # farmOS Data Model
 
 ## Goals

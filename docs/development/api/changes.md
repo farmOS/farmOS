@@ -1,3 +1,7 @@
+---
+title: Changes
+---
+
 # API Changes
 
 ## 2.x vs 1.x

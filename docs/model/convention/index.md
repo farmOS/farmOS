@@ -1,3 +1,7 @@
+---
+title: Conventions
+---
+
 # Conventions
 
 ## In theory

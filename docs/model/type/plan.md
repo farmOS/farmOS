@@ -1,3 +1,7 @@
+---
+title: Plans
+---
+
 # Plans
 
 Plans are higher-level records that organize Assets and Logs around a

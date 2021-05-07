@@ -1,3 +1,7 @@
+---
+title: Quantities
+---
+
 # Quantities
 
 A Quantity in farmOS is a granular unit of quantitative data used to represent

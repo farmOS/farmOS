@@ -1,3 +1,7 @@
+---
+title: Updating
+---
+
 # Updating farmOS
 
 **ALWAYS BACKUP YOUR DATABASE, CODE, AND FILES BEFORE ATTEMPTING AN UPDATE!**

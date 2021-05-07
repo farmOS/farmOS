@@ -1,3 +1,7 @@
+---
+title: Data streams
+---
+
 # Data Streams
 
 Data Streams are records that represent sets of data streamed from sensors or

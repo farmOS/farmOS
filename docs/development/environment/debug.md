@@ -1,3 +1,7 @@
+---
+title: Debugging
+---
+
 # Debugging
 
 The farmOS development Docker image comes pre-installed with

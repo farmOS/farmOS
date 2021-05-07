@@ -1,3 +1,7 @@
+---
+title: Inventory
+---
+
 # Inventory
 
 farmOS can track the inventory of Assets over time.

@@ -1,3 +1,7 @@
+---
+title: Getting started
+---
+
 # farmOS module development
 
 farmOS modules can be written to extend the capabilities of farmOS.

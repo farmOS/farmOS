@@ -1,3 +1,7 @@
+---
+title: Services
+---
+
 # Services
 
 farmOS provides some [services](https://symfony.com/doc/current/service_container.html)

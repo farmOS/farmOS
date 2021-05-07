@@ -1,3 +1,7 @@
+---
+title: Data stream module
+---
+
 # Data Stream
 
 The data stream module provides a custom data stream entity for farmOS. Each

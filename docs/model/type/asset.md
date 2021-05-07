@@ -1,3 +1,7 @@
+---
+title: Assets
+---
+
 # Assets
 
 Assets represent the things that are being tracked or managed. Land, plants,

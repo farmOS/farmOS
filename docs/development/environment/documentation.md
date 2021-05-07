@@ -1,3 +1,7 @@
+---
+title: Documentation
+---
+
 # Documentation
 
 In addition to the code for farmOS, this repository includes the source files of the

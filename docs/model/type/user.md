@@ -1,3 +1,7 @@
+---
+title: Users
+---
+
 # Users
 
 Users can log into farmOS with their own user accounts, each with a unique

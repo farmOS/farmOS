@@ -1,3 +1,7 @@
+---
+title: HTTPS
+---
+
 # Local HTTPS
 
 Some development testing is easier with farmOS on an `https://` endpoint.

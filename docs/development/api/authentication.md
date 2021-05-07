@@ -1,3 +1,7 @@
+---
+title: Authentication
+---
+
 # Authentication
 
 farmOS includes an OAuth2 Authorization server for providing 1st and 3rd party

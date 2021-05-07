@@ -1,3 +1,7 @@
+---
+title: Introduction
+---
+
 # API
 
 farmOS provides an API that other applications/systems can use to read and

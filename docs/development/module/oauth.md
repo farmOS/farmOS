@@ -1,3 +1,7 @@
+---
+title: OAuth
+---
+
 # OAuth
 
 The [Simple OAuth](https://www.drupal.org/project/simple_oauth) module is used

@@ -1,3 +1,7 @@
+---
+title: Introduction
+---
+
 # Hosting farmOS
 
 farmOS is a web-based application that can be installed and hosted on a web

@@ -1,3 +1,7 @@
+---
+title: Composer
+---
+
 # Composer
 
 The farmOS development Docker image comes pre-installed with

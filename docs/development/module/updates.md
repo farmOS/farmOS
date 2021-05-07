@@ -1,3 +1,7 @@
+---
+title: Updates
+---
+
 # Automated updates
 
 farmOS modules may change and evolve over time. If these changes require

@@ -1,3 +1,7 @@
+---
+title: Updating
+---
+
 # Updating local environment
 
 The following commands will update your local farmOS development environment.

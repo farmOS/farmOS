@@ -1,3 +1,7 @@
+---
+title: Automated tests
+---
+
 # Automated tests
 
 The farmOS development Docker image comes pre-installed with all the

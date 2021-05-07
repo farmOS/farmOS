@@ -1,3 +1,7 @@
+---
+title: Installing
+---
+
 # Installing farmOS
 
 ## Server requirements

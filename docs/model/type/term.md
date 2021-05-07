@@ -1,3 +1,7 @@
+---
+title: Terms
+---
+
 # Terms
 
 Vocabularies (also referred to as taxonomies or ontologies) are used to

@@ -1,3 +1,7 @@
+---
+title: Logs
+---
+
 # Logs
 
 Logs represent events, both active and passive. Observations, harvests, and
