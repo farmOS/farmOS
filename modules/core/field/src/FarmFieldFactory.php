@@ -538,7 +538,7 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
     $settings = [
       'file_directory' => $file_directory,
       'max_filesize' => '',
-      'handler' => 'file',
+      'handler' => 'default:file',
       'handler_settings' => [],
     ];
     switch ($options['type']) {
