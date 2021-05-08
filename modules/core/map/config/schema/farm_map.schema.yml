@@ -63,6 +63,13 @@ farm_map.layer_style.*:
       sequence:
         type: ignore
         label: 'Layer style setting'
+field.widget.settings.farm_map_geofield:
+  type: mapping
+  label: 'Farm map geofield settings'
+  mapping:
+    geocode_file_field:
+      type: string
+      label: 'The name of the file field to geocode into the geofield.'
 block.settings.map_block:
   type: block_settings
   label: 'map block settings'
