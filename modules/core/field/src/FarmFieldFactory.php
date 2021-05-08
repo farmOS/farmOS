@@ -544,7 +544,7 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
     switch ($options['type']) {
 
       case 'file':
-        $settings['file_extensions'] = 'csv doc docx gz kml kmz logz mp3 odp ods odt ogg pdf ppt pptx tar tif tiff txt wav xls xlsx zip';
+        $settings['file_extensions'] = 'csv doc docx gz geojson gpx kml kmz logz mp3 odp ods odt ogg pdf ppt pptx tar tif tiff txt wav xls xlsx zip';
         $settings['description_field'] = TRUE;
         break;
 
