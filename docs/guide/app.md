@@ -16,14 +16,17 @@ all on the fly.
 
 ## Releases
 
-**Please note that all releases of farmOS Field Kit are currently in beta release
-and are not considered stable. If you use them, make sure to backup your data
-regularly to your farmOS server to avoid data loss.**
+An early version of Field Kit is available as a web app, which can be found at
+[v1.farmos.app] and can be installed as a [Progressive Web App] (PWA). As a PWA,
+the app will work offline and your logs will be stored in between uses. You can
+even add the app to your device's home screen, so it can be launched just like a
+native app.
 
-Field Kit is currently available as a web app, which can be found at [farmos.app]
-and can be installed as a [Progressive Web App] (PWA). As a PWA, the app will work
-offline and your logs will be stored in between uses. You can even add the app to
-your device's home screen, so it can be launched just like a native app.
+Version 1 is a proof-of-concept, which should be considered relatively stable,
+but which will no longer receive major feature updates beyond a few bug fixes.
+In conjunction with farmOS 2.0, we are in active development of Field Kit 2.0,
+which will bring with it new features and its own module system, akin to farmOS
+modules. Stay tuned for more!
 
 Previously, and perhaps again in the future, Field Kit was available as native
 apps for Android and iOS. The Android app can still be installed from the
@@ -52,7 +55,7 @@ The source code can be viewed on [GitHub]
 [Play Store]: https://play.google.com/store/apps/details?id=org.farmos.app
 [Test Flight]: https://developer.apple.com/testflight/
 [forum post]: https://farmos.discourse.group/t/field-kit-a-platform-dilemma/433
-[farmos.app]: https://farmos.app
+[v1.farmos.app]: https://v1.farmos.app
 [Progressive Web App]: https://developers.google.com/web/progressive-web-apps/
 [clean URL's]: https://www.drupal.org/docs/7/configuring-clean-urls/enable-clean-urls
 [Development Section]: /development/client
