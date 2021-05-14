@@ -57,6 +57,9 @@
             "drupal/entity_browser": {
                 "Issue #3160482: Error with UntrustedCallbackException": "https://www.drupal.org/files/issues/2021-03-02/error-with-untrustedcallbackexception-3160482-5.patch"
             },
+            "drupal/gin": {
+                "Issue #3213378: Settings cannot be saved when Gin is set as default theme and no specific admin theme is chosen": "https://git.drupalcode.org/project/gin/-/merge_requests/33.diff"
+            },
             "drupal/state_machine": {
                 "Issue #3144828: Declare dependency on core options module": "https://www.drupal.org/files/issues/2021-03-01/3144828-11-DO_NOT_TEST_OR_COMMIT.patch"
             },
