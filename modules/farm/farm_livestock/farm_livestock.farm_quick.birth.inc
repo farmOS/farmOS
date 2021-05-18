@@ -53,7 +53,7 @@ function farm_livestock_birth_form($form, &$form_state) {
     '#options' => drupal_map_assoc(range(1, 15)),
     '#default_value' => 1,
     '#ajax' => array(
-      'callback' => 'farm_livestock_birth_form_ajax',
+      'callback' => 'farm_livestock_birth_form_children_ajax',
       'wrapper' => 'farm-livestock-birth-children',
     ),
   );
@@ -123,6 +123,36 @@ function farm_livestock_birth_form($form, &$form_state) {
     );
   }
 
+  // Group assignment choice
+  $form['birth']['assign_group'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Assign group(s)'),
+    '#description' => t('By default, assign the mother\'s groups to the children. Check this to manually assign groups.'),
+    '#default_value' => FALSE,
+    '#required' => FALSE,
+    '#ajax' => array(
+      'callback' => 'farm_livestock_birth_form_group_ajax',
+      'wrapper' => 'farm-livestock-birth-group',
+    ),
+  );
+
+  // Create a wrapper around the group field, for AJAX replacement.
+  $form['birth']['group'] = array(
+    '#prefix' => '<div id="farm-livestock-birth-group">',
+    '#suffix' => '</div>',
+  );
+
+  // Group
+  if (!empty($form_state['values']['birth']['assign_group'])) {
+    $form['birth']['group']['group'] = array(
+      '#type' => 'select',
+      '#title' => t('Group'),
+      '#multiple' => TRUE,
+      '#options' => farm_group_options(),
+      '#required' => FALSE,
+    );
+  }
+
   // Birth notes.
   $form['birth']['notes'] = array(
     '#type' => 'text_format',
@@ -141,10 +171,17 @@ function farm_livestock_birth_form($form, &$form_state) {
 }
 
 /**
- * Form ajax function for birth quick form.
+ * Form ajax function for children / birth quick form
  */
-function farm_livestock_birth_form_ajax($form, &$form_state) {
+function farm_livestock_birth_form_children_ajax($form, &$form_state) {
   return $form['birth']['child'];
+}
+
+/**
+ * Form ajax function for groups / birth quick form
+ */
+function farm_livestock_birth_form_group_ajax($form, &$form_state) {
+  return $form['birth']['group'];
 }
 
 /**
@@ -335,14 +372,28 @@ function farm_livestock_birth_form_submit($form, &$form_state) {
     $movement_field_wrapper->save();
   }
 
-  // Set the group membership (from the mother, if available).
-  $membership_log = farm_group_asset_latest_membership($parents['mother']);
-  if (!empty($membership_log)) {
-    $membership_log_wrapper = entity_metadata_wrapper('log', $membership_log);
+  // Get group membership - by default from the mother (if available), or user selected (if any)
+  $groups = array();
+  if (empty($form_state['values']['birth']['assign_group'])) {
+    $membership_log = farm_group_asset_latest_membership($parents['mother']);
+    if (!empty($membership_log)) {
+      $membership_log_wrapper = entity_metadata_wrapper('log', $membership_log);
+      $groups = $membership_log_wrapper->field_farm_membership->field_farm_group->value();
+    }
+  }
+  else {
+    // Load the selected groups; only proceed if the group multiselect has a value
+    if (!empty($form_state['values']['birth']['group']['group'])) {
+      $groups = farm_asset_load_multiple($form_state['values']['birth']['group']['group']);
+    }
+  }
+
+  // Set group membership
+  if (!empty($groups)) {
     $membership_field = entity_create('field_collection_item', array('field_name' => 'field_farm_membership'));
     $membership_field->setHostEntity('log', $log);
     $membership_field_wrapper = entity_metadata_wrapper('field_collection_item', $membership_field);
-    $membership_field_wrapper->field_farm_group->set($membership_log_wrapper->field_farm_membership->field_farm_group->value());
+    $membership_field_wrapper->field_farm_group->set($groups);
     $membership_field_wrapper->save();
   }
 
