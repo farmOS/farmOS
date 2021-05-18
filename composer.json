@@ -29,7 +29,7 @@
         "drupal/entity_reference_validators": "^1.0@alpha",
         "drupal/fraction": "2.x-dev",
         "drupal/geofield": "^1.22",
-        "drupal/gin": "3.x-dev",
+        "drupal/gin": "3.0-alpha34",
         "drupal/inline_entity_form": "^1.0@RC",
         "drupal/jsonapi_extras": "^3.15",
         "drupal/jsonapi_schema": "^1.0@beta",
