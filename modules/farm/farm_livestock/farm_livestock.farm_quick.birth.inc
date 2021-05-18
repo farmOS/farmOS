@@ -181,7 +181,6 @@ function farm_livestock_birth_form_group_ajax($form, &$form_state) {
   return $form['birth']['group'];
 }
 
-
 /**
  * Validate callback for birth quick form.
  */
