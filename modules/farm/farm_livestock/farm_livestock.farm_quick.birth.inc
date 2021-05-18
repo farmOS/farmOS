@@ -150,7 +150,6 @@ function farm_livestock_birth_form($form, &$form_state) {
       '#multiple' => TRUE,
       '#options' => farm_group_options(),
       '#required' => FALSE,
-      '#multiple' => TRUE,
     );
   }
 
