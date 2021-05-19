@@ -1,19 +1,22 @@
 <?php
 
-namespace Drupal\farm_kml\Normalizer;
+namespace Drupal\farm_location\Normalizer;
 
 use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\farm_location\GeometryWrapper;
 use Drupal\geofield\GeoPHP\GeoPHPInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\SerializerAwareInterface;
+use Symfony\Component\Serializer\SerializerAwareTrait;
 
 /**
- * Normalizes content entities as KML placemarks to be encoded.
+ * Normalizes content entities as arrays for encoding into geometry files.
  *
  * The entity's geofield name must be provided with $context['geofield'].
  */
-class ContentEntityNormalizer implements NormalizerInterface {
+class ContentEntityNormalizer implements NormalizerInterface, SerializerAwareInterface {
 
-  const FORMAT = 'kml';
+  use SerializerAwareTrait;
 
   /**
    * The GeoPHP service.
@@ -37,12 +40,12 @@ class ContentEntityNormalizer implements NormalizerInterface {
    */
   public function normalize($object, $format = NULL, array $context = []) {
 
-    // Collect geometries as placemark definitions.
-    $placemarks = [];
+    // Build GeometryWrapper objects.
+    $geometries = [];
 
     // Bail if no geofield field is provided.
     if (empty($context['geofield'])) {
-      return $placemarks;
+      return $geometries;
     }
 
     $geofield = $context['geofield'];
@@ -57,39 +60,33 @@ class ContentEntityNormalizer implements NormalizerInterface {
       $wkt = $field_value->get('value')->getValue();
       if (!empty($wkt)) {
 
-        // Convert WKT to KML string.
+        // Load WKT as a GeoPHP Geometry object.
         $geometry = $this->geoPHP->load($wkt, 'wkt');
-        $kml_string = $geometry->out('kml');
 
-        // Parse the KML string into an XML object.
-        // This is necessary so that we can encode the KML into XML with the
-        // rest of the asset data.
-        $kml = simplexml_load_string($kml_string);
-        $kml_name = $kml->getName();
-        $kml_value = $kml->children();
-
-        // Build a placemark definition.
-        $placemark = [
-          '@id' => $entity->getEntityTypeId() . '-' . $entity->id(),
-          '#' => [
-            'name' => htmlspecialchars($entity->label()),
-            $kml_name => $kml_value,
-          ],
+        // Build geometry properties.
+        $properties = [
+          'id' => $entity->getEntityTypeId() . '-' . $entity->id(),
+          'name' => htmlspecialchars($entity->label()),
         ];
 
-        // Add entity notes as the KML description.
+        // Add entity notes as the description.
         if ($entity->hasField('notes')) {
           $notes = $entity->get('notes')->first()->getValue();
           if (!empty($notes['value'])) {
-            $placemark['#']['description'] = $notes['value'];
+            $properties['description'] = $notes['value'];
           }
         }
 
-        $placemarks[] = $placemark;
+        // Create the GeometryWrapper.
+        $geometry_wrapper = new GeometryWrapper($geometry, $properties);
+        $geometries[] = $geometry_wrapper;
       }
     }
 
-    return $placemarks;
+    // Normalize the GeometryWrapper objects to their target type.
+    return array_map(function (GeometryWrapper $geom) use ($format, $context) {
+      return $this->serializer->normalize($geom, $format, $context);
+    }, $geometries);
   }
 
   /**
@@ -98,7 +95,9 @@ class ContentEntityNormalizer implements NormalizerInterface {
   public function supportsNormalization($data, $format = NULL) {
 
     // First check if the format is supported.
-    if ($format !== static::FORMAT) {
+    // Only formats that are prefixed with "geometry_" are supported.
+    // This makes it easier for other modules to provide geometry encoders.
+    if (strpos($format, 'geometry_') !== 0) {
       return FALSE;
     }
 

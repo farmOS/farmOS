@@ -19,7 +19,7 @@ class Kml extends XmlEncoder {
   /**
    * {@inheritdoc}
    */
-  protected static $format = ['kml'];
+  protected static $format = ['geometry_kml'];
 
   /**
    * {@inheritdoc}

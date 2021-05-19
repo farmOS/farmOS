@@ -14,7 +14,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
  */
 class WktGeometryNormalizer implements DenormalizerInterface {
 
-  const FORMAT = 'kml';
+  const FORMAT = 'geometry_kml';
   const TYPE = 'wkt';
 
   /**

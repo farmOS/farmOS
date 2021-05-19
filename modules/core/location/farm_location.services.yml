@@ -11,3 +11,8 @@ services:
       [ '@log.location', '@asset.location', '@cache_tags.invalidator' ]
     tags:
       - { name: 'event_subscriber' }
+  serializer.farm_location.geometry.content_entity:
+    class: Drupal\farm_location\Normalizer\ContentEntityNormalizer
+    arguments: ['@geofield.geophp']
+    tags:
+      - { name: normalizer, priority: 10 }

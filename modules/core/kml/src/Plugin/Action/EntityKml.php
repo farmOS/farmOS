@@ -94,7 +94,7 @@ class EntityKml extends EntityActionBase {
 
     // Serialize the entities using the specified geofield name.
     $context = ['geofield' => $this->configuration['geofield']];
-    $output = $this->serializer->serialize($entities, 'kml', $context);
+    $output = $this->serializer->serialize($entities, 'geometry_kml', $context);
 
     // If there are no placemarks, bail with a warning.
     $kml = simplexml_load_string($output);

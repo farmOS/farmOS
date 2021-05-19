@@ -154,7 +154,7 @@ class KmlImporter extends FormBase {
     $data = file_get_contents($file->getFileUri());
 
     // Deserialize the KML placemarks into WKT geometry.
-    $geometries = $this->serializer->deserialize($data, 'wkt', 'kml');
+    $geometries = $this->serializer->deserialize($data, 'wkt', 'geometry_kml');
 
     // Bail if no geometries were found.
     if (empty($geometries)) {
