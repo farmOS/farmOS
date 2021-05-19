@@ -53,7 +53,7 @@ function farm_livestock_birth_form($form, &$form_state) {
     '#options' => drupal_map_assoc(range(1, 15)),
     '#default_value' => 1,
     '#ajax' => array(
-      'callback' => 'farm_livestock_birth_form_ajax',
+      'callback' => 'farm_livestock_birth_form_children_ajax',
       'wrapper' => 'farm-livestock-birth-children',
     ),
   );
@@ -171,12 +171,15 @@ function farm_livestock_birth_form($form, &$form_state) {
 }
 
 /**
- * Form ajax functions for birth quick form.
+ * Form ajax function for children / birth quick form
  */
-function farm_livestock_birth_form_ajax($form, &$form_state) {
+function farm_livestock_birth_form_children_ajax($form, &$form_state) {
   return $form['birth']['child'];
 }
 
+/**
+ * Form ajax function for groups / birth quick form
+ */
 function farm_livestock_birth_form_group_ajax($form, &$form_state) {
   return $form['birth']['group'];
 }
@@ -382,7 +385,6 @@ function farm_livestock_birth_form_submit($form, &$form_state) {
     // Load the selected groups; only proceed if the group multiselect has a value
     if (!empty($form_state['values']['birth']['group']['group'])) {
       $groups = farm_asset_load_multiple($form_state['values']['birth']['group']['group']);
-      // TODO: validation ?
     }
   }
 
