@@ -154,7 +154,8 @@ class KmlImporter extends FormBase {
     $data = file_get_contents($file->getFileUri());
 
     // Deserialize the KML placemarks into WKT geometry.
-    $geometries = $this->serializer->deserialize($data, 'wkt', 'geometry_kml');
+    /** @var \Drupal\farm_location\GeometryWrapper[] $geometries */
+    $geometries = $this->serializer->deserialize($data, 'geometry_wrapper', 'geometry_kml');
 
     // Bail if no geometries were found.
     if (empty($geometries)) {
@@ -181,7 +182,7 @@ class KmlImporter extends FormBase {
       $form['output']['assets'][$index]['name'] = [
         '#type' => 'textfield',
         '#title' => $this->t('Name'),
-        '#default_value' => $geometry['name'],
+        '#default_value' => $geometry->properties['name'] ?? '',
       ];
 
       $form['output']['assets'][$index]['land_type'] = [
@@ -195,13 +196,13 @@ class KmlImporter extends FormBase {
       $form['output']['assets'][$index]['notes'] = [
         '#type' => 'textarea',
         '#title' => $this->t('Notes'),
-        '#default_value' => $geometry['notes'],
+        '#default_value' => $geometry->properties['description'] ?? '',
       ];
 
       $form['output']['assets'][$index]['geometry'] = [
         '#type' => 'textarea',
         '#title' => $this->t('Geometry'),
-        '#default_value' => $geometry['wkt'],
+        '#default_value' => $geometry->geometry->out('wkt'),
       ];
 
       $form['output']['assets'][$index]['confirm'] = [
