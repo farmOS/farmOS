@@ -2,4 +2,5 @@ behavior_asset_type_layers:
   js:
     js/farmOS.map.behaviors.asset_type_layers.js: { }
   dependencies:
+    - farm_map/behavior_popup
     - farm_map/farm_map
