@@ -91,8 +91,15 @@ function farm_ui_views_views_pre_view(ViewExecutable $view, $display_id, array &
     return;
   }
 
-  // Only alter the "By type" display if a type is provided.
+  // If this is a "By type" display, alter the fields and filters.
+  $bundle = FALSE;
   if ($display_id == 'page_type' && !empty($args[0])) {
+    $bundle = $args[0];
+  }
+  elseif ($view->id() == 'farm_log' && $display_id == 'page_asset' && !empty($args[1]) && $args[1] != 'all') {
+    $bundle = $args[1];
+  }
+  if (!empty($bundle)) {
 
     // Remove the type field and filter handlers.
     $view->removeHandler($display_id, 'field', 'type');
@@ -101,8 +108,8 @@ function farm_ui_views_views_pre_view(ViewExecutable $view, $display_id, array &
     // If the entity type has a bundle_plugin manager, add all of its
     // bundle fields and filters to the page_type view.
     if (\Drupal::entityTypeManager()->hasHandler($view->getBaseEntityType()->id(), 'bundle_plugin')) {
-      farm_ui_views_add_bundle_handlers($view, 'page_type', $view->args[0], 'field');
-      farm_ui_views_add_bundle_handlers($view, 'page_type', $view->args[0], 'filter');
+      farm_ui_views_add_bundle_handlers($view, $display_id, $bundle, 'field');
+      farm_ui_views_add_bundle_handlers($view, $display_id, $bundle, 'filter');
     }
   }
 
@@ -298,11 +305,17 @@ function farm_ui_views_views_pre_render(ViewExecutable $view) {
     return;
   }
 
-  // If this is the "By type" display and a bundle argument is specified, load
+  // If this is a "By type" display and a bundle argument is specified, load
   // the bundle label and set the title.
+  $bundle = FALSE;
   if ($view->current_display == 'page_type' && !empty($view->args[0])) {
-    $bundles = \Drupal::service('entity_type.bundle.info')->getBundleInfo($view->getBaseEntityType()->id());
     $bundle = $view->args[0];
+  }
+  elseif ($view->id() == 'farm_log' && $view->current_display == 'page_asset' && !empty($view->args[1]) && $view->args[1] != 'all') {
+    $bundle = $view->args[1];
+  }
+  if (!empty($bundle)) {
+    $bundles = \Drupal::service('entity_type.bundle.info')->getBundleInfo($view->getBaseEntityType()->id());
     if (!empty($bundles[$bundle])) {
       $view->setTitle($bundles[$bundle]['label'] . ' ' . $view->getBaseEntityType()->getPluralLabel());
     }
