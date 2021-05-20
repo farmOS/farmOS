@@ -1,0 +1,19 @@
+# Schema for hideable_boolean field formatter.
+field.formatter.settings.hideable_boolean:
+  type: mapping
+  mapping:
+    format:
+      type: string
+      label: 'Output format'
+    format_custom_false:
+      type: label
+      label: 'Custom output for FALSE'
+    format_custom_true:
+      type: label
+      label: 'Custom output for TRUE'
+    hide_if_false:
+      type: boolean
+      label: 'Hide if false'
+    hide_if_true:
+      type: boolean
+      label: 'Hide if true'
