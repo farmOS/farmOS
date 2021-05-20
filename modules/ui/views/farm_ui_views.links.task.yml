@@ -5,3 +5,11 @@ farm.asset.logs:
     log_type: 'all'
   base_route: entity.asset.canonical
   weight: 50
+farm.asset.logs.all:
+  title: 'All'
+  route_name: view.farm_log.page_asset
+  route_parameters:
+    log_type: 'all'
+  parent_id: farm.asset.logs
+farm.asset.logs.type:
+  deriver: Drupal\farm_ui_views\Plugin\Derivative\FarmLogViewsTaskLink
