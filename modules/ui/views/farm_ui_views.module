@@ -147,7 +147,13 @@ function farm_ui_views_add_bundle_handlers(ViewExecutable $view, string $display
   // Load bundle fields.
   /** @var \Drupal\entity\BundleFieldDefinition[] $bundle_fields */
   $bundle_fields = \Drupal::entityTypeManager()->getHandler($base_entity->id(), 'bundle_plugin')->getFieldDefinitions($bundle);
-  foreach ($bundle_fields as $field_name => $field_definition) {
+  foreach (array_reverse($bundle_fields) as $field_name => $field_definition) {
+
+    // Skip the bundle field if the view display was set as "hidden".
+    $view_options = $field_definition->getDisplayOptions('view');
+    if (empty($view_options) || $view_options['region'] == 'hidden') {
+      continue;
+    }
 
     // Save the field type.
     $field_type = $field_definition->getType();
@@ -187,7 +193,46 @@ function farm_ui_views_add_bundle_handlers(ViewExecutable $view, string $display
         }
 
         // Add the field handler.
-        $view->addHandler($display_id, 'field', $table, $column_name, $field_options);
+        $new_field_id = $view->addHandler($display_id, 'field', $table, $column_name, $field_options);
+
+        // Determine what position to insert the field handler.
+        switch ($base_entity->id()) {
+          case 'asset':
+          case 'plan':
+            $sort_field = 'name';
+            break;
+
+          case 'log':
+            $sort_field = 'quantity_target_id';
+            break;
+
+          case 'quantity':
+          default:
+            $sort_field = FALSE;
+            break;
+        }
+
+        // Sort the field handlers if necessary.
+        // Based off the \Drupal\views_ui\Form\Ajax\Rearrange.php method of
+        // ordering handlers in views.
+        if (!empty($sort_field)) {
+
+          // Get the existing field handlers.
+          $type = 'field';
+          $types = ViewExecutable::getHandlerTypes();
+          $display = $view->displayHandlers->get($display_id);
+          $field_handlers = $display->getOption($types[$type]['plural']);
+
+          // Define the new field handler and insert at desired position.
+          $new_field_handler = [$new_field_id => $field_handlers[$new_field_id]];
+          $keys = array_keys($field_handlers);
+          $index = array_search($sort_field, $keys, TRUE);
+          $pos = empty($index) ? count($field_handlers) : $index + 1;
+          $new_field_handlers = array_merge(array_slice($field_handlers, 0, $pos, TRUE), $new_field_handler, array_slice($field_handlers, $pos));
+
+          // Set the display to use the sorted field handlers.
+          $display->setOption($types[$type]['plural'], $new_field_handlers);
+        }
       }
     }
 
