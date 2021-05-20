@@ -115,6 +115,11 @@ class GeofieldWidget extends GeofieldBaseWidget {
           'callback' => [$this, 'fileCallback'],
           'message' => $this->t('Working...'),
         ],
+        '#states' => [
+          'disabled' => [
+            ':input[name="' . $populate_file_field . '[0][fids]"]' => ['empty' => TRUE],
+          ],
+        ],
       ];
     }
 
