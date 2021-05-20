@@ -4,6 +4,9 @@ dependencies:
   config:
     - field.storage.taxonomy_term.maturity_days
     - taxonomy.vocabulary.plant_type
+  enforced:
+    module:
+      - farm_plant
 id: taxonomy_term.plant_type.maturity_days
 field_name: maturity_days
 entity_type: taxonomy_term

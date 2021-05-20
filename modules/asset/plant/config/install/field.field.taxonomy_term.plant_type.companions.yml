@@ -4,6 +4,9 @@ dependencies:
   config:
     - field.storage.taxonomy_term.companions
     - taxonomy.vocabulary.plant_type
+  enforced:
+    module:
+      - farm_plant
   module:
     - entity_reference_validators
 third_party_settings:

@@ -4,6 +4,9 @@ dependencies:
   config:
     - field.storage.taxonomy_term.image
     - taxonomy.vocabulary.plant_type
+  enforced:
+    module:
+      - farm_plant
   module:
     - image
 id: taxonomy_term.plant_type.image

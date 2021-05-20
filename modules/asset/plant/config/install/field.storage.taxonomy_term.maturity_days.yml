@@ -1,6 +1,9 @@
 langcode: en
 status: true
 dependencies:
+  enforced:
+    module:
+      - farm_plant
   module:
     - taxonomy
 id: taxonomy_term.maturity_days

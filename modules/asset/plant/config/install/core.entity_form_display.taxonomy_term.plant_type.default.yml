@@ -9,6 +9,9 @@ dependencies:
     - field.field.taxonomy_term.plant_type.transplant_days
     - image.style.thumbnail
     - taxonomy.vocabulary.plant_type
+  enforced:
+    module:
+      - farm_plant
   module:
     - image
     - text

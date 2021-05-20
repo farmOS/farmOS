@@ -5,6 +5,9 @@ dependencies:
     - field.storage.taxonomy_term.crop_family
     - taxonomy.vocabulary.crop_family
     - taxonomy.vocabulary.plant_type
+  enforced:
+    module:
+      - farm_plant
 id: taxonomy_term.plant_type.crop_family
 field_name: crop_family
 entity_type: taxonomy_term
