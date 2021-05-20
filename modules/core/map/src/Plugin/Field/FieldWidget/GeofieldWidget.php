@@ -162,13 +162,32 @@ class GeofieldWidget extends GeofieldBaseWidget {
       // @todo Support multiple files. Combine geometries?
       // @todo Support geometry field with > 1 cardinality.
       $wkt = '';
-      foreach ($files as $file) {
-        if ($geophp_type = $this->getGeoPhpType($file)) {
-          $data = file_get_contents($file->getFileUri());
-          if ($geom = $this->geoPhpWrapper->load($data, $geophp_type)) {
-            $wkt = $geom->out('wkt');
-          }
+      if (!empty($files)) {
+
+        // Check the first file.
+        $file = reset($files);
+        $geophp_type = $this->getGeoPhpType($file);
+
+        // Bail if the file is not a supported format.
+        if ($geophp_type === FALSE) {
+          $this->messenger()->addWarning(
+            $this->t('%filename is not a supported geometry file format. Supported formats: %formats',
+            ['%filename' => $file->getFilename(), '%formats' => implode(', ', array_keys(static::$geoPhpTypes))]
+          ));
+          return;
         }
+
+        // Try to parse geometry using the specified geoPHP type.
+        $data = file_get_contents($file->getFileUri());
+        if ($geom = $this->geoPhpWrapper->load($data, $geophp_type)) {
+          $wkt = $geom->out('wkt');
+        }
+      }
+
+      // Bail if no geometry was parsed.
+      if (empty($wkt)) {
+        $this->messenger()->addWarning($this->t('No geometry could be parsed from %filename.', ['%filename' => $file->getFilename()]));
+        return;
       }
 
       // Unset the current geometry value from the user input.
