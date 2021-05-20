@@ -158,7 +158,7 @@ function farm_ui_views_add_bundle_handlers(ViewExecutable $view, string $display
 
     // Skip the bundle field if the view display was set as "hidden".
     $view_options = $field_definition->getDisplayOptions('view');
-    if (empty($view_options) || $view_options['region'] == 'hidden') {
+    if (empty($view_options) || (!empty($view_options['region']) && $view_options['region'] == 'hidden')) {
       continue;
     }
 
