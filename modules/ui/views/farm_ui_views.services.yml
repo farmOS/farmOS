@@ -5,5 +5,6 @@ services:
       - { name: event_subscriber }
   farm_ui_views.asset_logs_access:
     class: Drupal\farm_ui_views\Access\FarmAssetLogViewsAccessCheck
+    arguments: ['@entity_type.manager']
     tags:
       - { name: access_check, applies_to: _asset_logs_access }
