@@ -5,6 +5,5 @@ services:
       - { name: event_subscriber }
   farm_ui_views.asset_logs_access:
     class: Drupal\farm_ui_views\Access\FarmAssetLogViewsAccessCheck
-    arguments: ['@current_route_match']
     tags:
       - { name: access_check, applies_to: _asset_logs_access }
