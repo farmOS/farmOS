@@ -56,7 +56,14 @@ class FarmAssetLogViewsAccessCheck implements AccessInterface {
       ->condition('asset.entity.id', $asset_id)
       ->aggregate('id', 'COUNT')
       ->execute();
-    return (!empty((int) $result[0]['id_count'] ?? 0)) ? AccessResult::allowed() : AccessResult::forbidden();
+
+    // Determine access based on the log count.
+    $log_count = (int) $result[0]['id_count'] ?? 0;
+    $access = empty($log_count) ? AccessResult::forbidden() : AccessResult::allowed();
+
+    // Invalidate the access result when logs of this bundle are changed.
+    $access->addCacheTags(["log_list:$log_type"]);
+    return $access;
   }
 
 }
