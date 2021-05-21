@@ -59,7 +59,7 @@ class FarmAssetLogViewsAccessCheck implements AccessInterface {
 
     // Determine access based on the log count.
     $log_count = (int) $result[0]['id_count'] ?? 0;
-    $access = empty($log_count) ? AccessResult::forbidden() : AccessResult::allowed();
+    $access = AccessResult::allowedIf($log_count > 0);
 
     // Invalidate the access result when logs of this bundle are changed.
     $access->addCacheTags(["log_list:$log_type"]);
