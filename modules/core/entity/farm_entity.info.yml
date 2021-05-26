@@ -13,6 +13,7 @@ dependencies:
   - entity:entity
   - entity_reference_integrity:entity_reference_integrity_enforce
   - entity_reference_validators:entity_reference_validators
+  - exif_orientation:exif_orientation
   - farm:asset
   - farm:farm_field
   - farm:farm_flag
