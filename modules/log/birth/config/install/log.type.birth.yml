@@ -1,0 +1,12 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_birth
+id: birth
+label: Birth
+description: ''
+name_pattern: 'Birth log [log:id]'
+workflow: log_default
+new_revision: true
