@@ -198,6 +198,14 @@ class DataStream extends ContentEntityBase implements DataStreamInterface {
       ->setLabel(t('Public'))
       ->setDescription(t('If the data stream has public access via API.'))
       ->setDefaultValue(FALSE)
+      ->setDisplayOptions('view', [
+        'label' => 'inline',
+        'type' => 'boolean',
+        'settings' => [
+          'format' => 'yes-no',
+        ],
+        'weight' => -3,
+      ])
       ->setDisplayOptions('form', [
         'type' => 'boolean_checkbox',
         'weight' => 5,
