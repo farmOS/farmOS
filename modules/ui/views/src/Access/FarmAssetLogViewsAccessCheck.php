@@ -2,7 +2,7 @@
 
 namespace Drupal\farm_ui_views\Access;
 
-use Drupal\Core\Database\Database;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Routing\Access\AccessInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Access\AccessResult;
@@ -13,17 +13,20 @@ use Drupal\Core\Access\AccessResult;
 class FarmAssetLogViewsAccessCheck implements AccessInterface {
 
   /**
-   * The database object.
+   * The log storage.
    *
-   * @var \Drupal\Core\Database\Connection
+   * @var \Drupal\Core\Entity\EntityStorageInterface
    */
-  protected $database;
+  protected $logStorage;
 
   /**
    * FarmAssetLogViewsAccessCheck constructor.
+   *
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager service.
    */
-  public function __construct() {
-    $this->database = Database::getConnection();
+  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
+    $this->logStorage = $entity_type_manager->getStorage('log');
   }
 
   /**
@@ -48,10 +51,19 @@ class FarmAssetLogViewsAccessCheck implements AccessInterface {
 
     // Run a count query to see if there are any logs of this type that
     // reference the asset.
-    $query = "SELECT COUNT(*) FROM {log} l LEFT JOIN {log__asset} la ON l.id = la.entity_id WHERE l.type = :log_type AND la.asset_target_id = :asset_id";
-    $args = [':log_type' => $log_type, ':asset_id' => $asset_id];
-    $log_count = $this->database->query($query, $args)->fetchField();
-    return (!empty((int) $log_count)) ? AccessResult::allowed() : AccessResult::forbidden();
+    $result = $this->logStorage->getAggregateQuery()
+      ->condition('type', $log_type)
+      ->condition('asset.entity.id', $asset_id)
+      ->aggregate('id', 'COUNT')
+      ->execute();
+
+    // Determine access based on the log count.
+    $log_count = (int) $result[0]['id_count'] ?? 0;
+    $access = AccessResult::allowedIf($log_count > 0);
+
+    // Invalidate the access result when logs of this bundle are changed.
+    $access->addCacheTags(["log_list:$log_type"]);
+    return $access;
   }
 
 }
