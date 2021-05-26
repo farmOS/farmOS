@@ -57,15 +57,20 @@ function farm_install_modules(array &$install_state) {
   $all = farm_modules();
 
   // Load the list of modules that should be installed.
-  // If provided, use the modules defined in farm_install_modules.module
-  // profile arguments. We assume this is an array of module machine names,
-  // unless it is simply the string "all", which is a shortcut for installing
-  // all modules.
+  // If provided, use the modules defined in farm.modules profile argument.
+  // We assume this is an array of module machine names, unless it is simply a
+  // string, which is interpreted as a shortcut for installing a set of modules.
+  // Available shortcuts are:
+  // - "all" (installs all modules)
+  // - "base" (installs base modules)
   if (!empty($install_state['forms']['farm']['modules'])) {
     $modules_arg = $install_state['forms']['farm']['modules'];
+    $all = farm_modules();
     if ($modules_arg === 'all') {
-      $all = farm_modules();
       $modules = array_merge(array_keys($all['base']), array_keys($all['default']), array_keys($all['optional']));
+    }
+    elseif ($modules_arg === 'base') {
+      $modules = array_keys($all['base']);
     }
     else {
       $modules = Json::decode($modules_arg);
