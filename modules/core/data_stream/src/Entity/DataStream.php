@@ -188,11 +188,6 @@ class DataStream extends ContentEntityBase implements DataStreamInterface {
       ->setDefaultValueCallback(static::class . '::createUniqueKey')
       ->setSetting('max_length', 255)
       ->setSetting('text_processing', 0)
-      ->setDisplayOptions('view', [
-        'label' => 'inline',
-        'type' => 'string',
-        'weight' => -5,
-      ])
       ->setDisplayOptions('form', [
         'type' => 'string_textfield',
         'weight' => 3,
