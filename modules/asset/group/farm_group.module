@@ -49,6 +49,20 @@ function farm_group_views_data_alter(array &$data) {
  */
 function farm_group_views_pre_view(ViewExecutable $view, $display_id, array &$args) {
 
+  // Alter the farm_asset View.
+  if ($view->id() == 'farm_asset') {
+
+    // Add the computed "Group" field.
+    $field_options = [
+      'type' => 'entity_reference_label',
+      'label' => t('Group'),
+      'settings' => [
+        'link' => TRUE,
+      ],
+    ];
+    $view->addHandler($display_id, 'field', 'asset', 'group', $field_options);
+  }
+
   // Alter the farm_log View.
   if ($view->id() == 'farm_log') {
 
