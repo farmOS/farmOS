@@ -30,6 +30,21 @@ function farm_group_entity_base_field_info(EntityTypeInterface $entity_type) {
 }
 
 /**
+ * Implements hook_views_data_alter().
+ */
+function farm_group_views_data_alter(array &$data) {
+
+  // Add the computed group membership field to assets.
+  $data['asset']['group'] = [
+    'title' => t('Current group'),
+    'field' => [
+      'id' => 'asset_group',
+      'field_name' => 'group',
+    ],
+  ];
+}
+
+/**
  * Implements hook_views_pre_view().
  */
 function farm_group_views_pre_view(ViewExecutable $view, $display_id, array &$args) {
