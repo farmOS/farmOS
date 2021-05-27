@@ -327,7 +327,7 @@ function farm_ui_views_sort_field(ViewExecutable $view, string $display_id, stri
   $keys = array_keys($field_handlers);
   $index = array_search($base_field_id, $keys, TRUE);
   $pos = empty($index) ? count($field_handlers) : $index + 1;
-  $new_field_handlers = array_merge(array_slice($field_handlers, 0, $pos, TRUE), $new_field_handler, array_slice($field_handlers, $pos));
+  $new_field_handlers = array_merge(array_slice($field_handlers, 0, $pos, TRUE), $new_field_handler, array_slice($field_handlers, $pos, NULL, TRUE));
 
   // Set the display to use the sorted field handlers.
   $display->setOption($types[$type]['plural'], $new_field_handlers);
