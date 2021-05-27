@@ -167,6 +167,19 @@ class DataStreamApiTest extends DataStreamTestBase {
     $data = $plugin->storageGet($this->dataStream, ['limit' => 1, 'end' => $timestamp]);
     $this->assertEquals(1, count($data));
     $this->assertTrue(in_array($test_point, $data));
+
+    // Try posting with non-numeric data.
+    $bad_data_point = $test_point;
+    $bad_data_point->value = "string";
+    $request = Request::create($uri, 'POST', ['private_key' => $this->dataStream->getPrivateKey()], [], [], [], Json::encode($bad_data_point));
+    $response = $this->processRequest($request);
+    // Assert successful response.
+    $this->assertEquals(201, $response->getStatusCode());
+
+    // Assert that new data WAS NOT saved in DB.
+    $plugin = $this->dataStream->getPlugin();
+    $data = $plugin->storageGet($this->dataStream, ['limit' => 5, 'end' => $timestamp]);
+    $this->assertTrue(!in_array($bad_data_point, $data));
   }
 
   /**
