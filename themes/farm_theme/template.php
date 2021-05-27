@@ -151,9 +151,9 @@ function farm_theme_form_views_exposed_form_alter(&$form, &$form_state, $form_id
   $form['#prefix'] = '
 <fieldset class="panel panel-default collapsible">
 <legend class="panel-heading" role="tab" id="' . $panel_head_id . '">
-  <a class="panel-title fieldset-legend collapsed" data-toggle="collapse" href="#' . $panel_body_id . '" aria-expanded="' . $aria_expanded . '" aria-controls="' . $panel_body_id . '">
-    Filters
-  </a>
+  <a class="panel-title fieldset-legend collapsed" data-toggle="collapse" href="#' . $panel_body_id . '" aria-expanded="' . $aria_expanded . '" aria-controls="' . $panel_body_id . '">'
+  .  t('Filters') .
+  '</a>
 </legend>
 <div id="' . $panel_body_id . '" class="panel-collapse collapse' . $collapse_class . '" role="tabpanel" aria-labelledby="' . $panel_head_id . '">
   <div class="panel-body">';

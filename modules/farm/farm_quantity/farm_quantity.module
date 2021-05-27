@@ -253,22 +253,22 @@ function farm_quantity_units($measure = '') {
   if ($system == 'metric') {
 
     // Length units.
-    $units['length'][] = 'kilometers';
-    $units['length'][] = 'meters';
-    $units['length'][] = 'centimeters';
+    $units['length'][] = t('kilometers');
+    $units['length'][] = t('meters');
+    $units['length'][] = t('centimeters');
 
     // Weight units.
-    $units['weight'][] = 'kilograms';
-    $units['weight'][] = 'grams';
+    $units['weight'][] = t('kilograms');
+    $units['weight'][] = t('grams');
 
     // Area units.
-    $units['area'][] = 'hectares';
-    $units['area'][] = 'square meters';
+    $units['area'][] = t('hectares');
+    $units['area'][] = t('square meters');
 
     // Volume units.
-    $units['volume'][] = 'kiloliters';
-    $units['volume'][] = 'liters';
-    $units['volume'][] = 'milliliters';
+    $units['volume'][] = t('kiloliters');
+    $units['volume'][] = t('liters');
+    $units['volume'][] = t('milliliters');
 
     // Temperature units.
     $units['temperature'][] = 'C';
@@ -276,38 +276,38 @@ function farm_quantity_units($measure = '') {
   elseif ($system == 'us') {
 
     // Length units.
-    $units['length'][] = 'miles';
-    $units['length'][] = 'feet';
-    $units['length'][] = 'inches';
+    $units['length'][] = t('miles');
+    $units['length'][] = t('feet');
+    $units['length'][] = t('inches');
 
     // Weight units.
-    $units['weight'][] = 'tons';
-    $units['weight'][] = 'lbs';
-    $units['weight'][] = 'ounces';
+    $units['weight'][] = t('tons');
+    $units['weight'][] = t('lbs');
+    $units['weight'][] = t('ounces');
 
     // Area units.
-    $units['area'][] = 'acres';
-    $units['area'][] = 'square feet';
+    $units['area'][] = t('acres');
+    $units['area'][] = t('square feet');
 
     // Volume units.
-    $units['volume'][] = 'cubic yards';
-    $units['volume'][] = 'cubic feet';
-    $units['volume'][] = 'gallons';
-    $units['volume'][] = 'quarts';
-    $units['volume'][] = 'cups';
+    $units['volume'][] = t('cubic yards');
+    $units['volume'][] = t('cubic feet');
+    $units['volume'][] = t('gallons');
+    $units['volume'][] = t('quarts');
+    $units['volume'][] = t('cups');
 
     // Temperature units.
-    $units['temperature'][] = 'F';
+    $units['temperature'][] = t('F');
   }
 
   // Time units are independent of system.
-  $units['time'][] = 'years';
-  $units['time'][] = 'months';
-  $units['time'][] = 'weeks';
-  $units['time'][] = 'days';
-  $units['time'][] = 'hours';
-  $units['time'][] = 'minutes';
-  $units['time'][] = 'seconds';
+  $units['time'][] = t('years');
+  $units['time'][] = t('months');
+  $units['time'][] = t('weeks');
+  $units['time'][] = t('days');
+  $units['time'][] = t('hours');
+  $units['time'][] = t('minutes');
+  $units['time'][] = t('seconds');
 
   // If a measure is specified, only return units for that measure.
   if (!empty($measure)) {
