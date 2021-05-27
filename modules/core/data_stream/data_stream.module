@@ -5,6 +5,7 @@
  * The data stream module.
  */
 
+use Drupal\Core\Url;
 use Drupal\data_stream\Entity\DataStreamInterface;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 
@@ -22,6 +23,50 @@ function data_stream_data_stream_view_alter(array &$build, DataStreamInterface $
   if ($data_stream->bundle() != 'basic') {
     return;
   }
+
+  // Add a Developer information details element with brief description.
+  // @todo Include link to updated user guide.
+  $build['api'] = [
+    '#type' => 'details',
+    '#title' => t('Developer information'),
+    '#description' => t('This data stream type will listen for data posted to it from other web-connected devices. Use the information below to configure your device to begin posting data to this data stream. For more information, refer to the farmOS sensor guide.'),
+    '#open' => FALSE,
+  ];
+
+  // Build URL to the data stream API endpoint.
+  $url = new Url('data_stream.data', ['uuid' => $data_stream->uuid()]);
+
+  // If the data stream is not public, include the private key.
+  if (!$data_stream->isPublic()) {
+    $url->setOption('query', ['private_key' => $data_stream->getPrivateKey()]);
+  }
+
+  // Render the API url.
+  $url_string = $url->setAbsolute()->toString();
+  $build['api']['url'] = [
+    '#type' => 'link',
+    '#title' => $url_string,
+    '#url' => $url,
+    '#prefix' => '<p><strong>URL:</strong> ',
+    '#suffix' => '</p>',
+  ];
+
+  // Render JSON examples.
+  $request_time = \Drupal::time()->getRequestTime();
+  $json_example = '{ "timestamp": ' . $request_time . ', "value": 76.5 }';
+  $build['api']['json_example'] = [
+    '#markup' => '<p><strong>JSON Example:</strong> ' . $json_example . '</p>',
+  ];
+  $json_example_multiple = '{ "timestamp": ' . $request_time . ', "sensor1": 76.5, "sensor2": 60 }';
+  $build['api']['json_example_multiple'] = [
+    '#markup' => '<p><strong>JSON Example (multiple values):</strong> ' . $json_example_multiple . '</p>',
+  ];
+
+  // Render example CURL command.
+  $curl_example = 'curl -H "Content-Type: application/json" -X POST -d \'' . $json_example . '\' ' . $url_string;
+  $build['api']['json_example_multiple'] = [
+    '#markup' => '<p><strong>Example CURL command:</strong> ' . $curl_example . '</p>',
+  ];
 
   // Add the basic data block view.
   $build['views']['data'] = views_embed_view('data_stream_basic_data', 'block', $data_stream->id());
