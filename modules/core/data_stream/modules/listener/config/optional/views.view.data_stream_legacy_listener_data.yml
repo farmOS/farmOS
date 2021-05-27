@@ -212,7 +212,7 @@ display:
           relationship: legacy_listener_data
           group_type: group
           admin_label: ''
-          label: 'Sensor value (decimal)'
+          label: 'Sensor value'
           exclude: false
           alter:
             alter_text: false
