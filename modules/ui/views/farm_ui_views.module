@@ -10,6 +10,26 @@ use Drupal\views\ViewExecutable;
 use Drupal\views\Views;
 
 /**
+ * Implements hook_entity_type_build().
+ */
+function farm_ui_views_entity_type_build(array &$entity_types) {
+  /** @var \Drupal\Core\Entity\EntityTypeInterface[] $entity_types */
+
+  // Override the "collection" link path for assets, logs, and plans to use
+  // the Views provided by this module.
+  $collection_paths = [
+    'asset' => '/assets',
+    'log' => '/logs',
+    'plan' => '/plans',
+  ];
+  foreach ($collection_paths as $entity_type => $path) {
+    if (!empty($entity_types[$entity_type])) {
+      $entity_types[$entity_type]->setLinkTemplate('collection', $path);
+    }
+  }
+}
+
+/**
  * Implements hook_farm_dashboard_panes().
  */
 function farm_ui_views_farm_dashboard_panes() {
