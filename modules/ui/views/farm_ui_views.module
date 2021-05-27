@@ -312,9 +312,12 @@ function farm_ui_views_add_bundle_handlers(ViewExecutable $view, string $display
  *   The ID of the field to sort.
  * @param string $base_field_id
  *   The ID of an existing field in the View. The field defined by $field_id
- *   will be added after this field in the View.
+ *   will be added before/after this field in the View.
+ * @param bool $before
+ *   If TRUE, the field will be added before the field defined by $base_field_id
+ *   instead of after.
  */
-function farm_ui_views_sort_field(ViewExecutable $view, string $display_id, string $field_id, string $base_field_id) {
+function farm_ui_views_sort_field(ViewExecutable $view, string $display_id, string $field_id, string $base_field_id, bool $before = FALSE) {
 
   // Get the existing field handlers.
   $type = 'field';
@@ -326,7 +329,10 @@ function farm_ui_views_sort_field(ViewExecutable $view, string $display_id, stri
   $new_field_handler = [$field_id => $field_handlers[$field_id]];
   $keys = array_keys($field_handlers);
   $index = array_search($base_field_id, $keys, TRUE);
-  $pos = empty($index) ? count($field_handlers) : $index + 1;
+  $pos = empty($index) ? count($field_handlers) : $index;
+  if (!$before) {
+    $pos++;
+  }
   $new_field_handlers = array_merge(array_slice($field_handlers, 0, $pos, TRUE), $new_field_handler, array_slice($field_handlers, $pos, NULL, TRUE));
 
   // Set the display to use the sorted field handlers.
