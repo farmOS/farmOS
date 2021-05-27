@@ -52,7 +52,7 @@ function farm_group_views_pre_view(ViewExecutable $view, $display_id, array &$ar
   // Alter the farm_asset View.
   if ($view->id() == 'farm_asset') {
 
-    // Add the computed "Group" field.
+    // Add the computed "Group" field before the "Location" field.
     $field_options = [
       'type' => 'entity_reference_label',
       'label' => t('Group'),
@@ -60,7 +60,8 @@ function farm_group_views_pre_view(ViewExecutable $view, $display_id, array &$ar
         'link' => TRUE,
       ],
     ];
-    $view->addHandler($display_id, 'field', 'asset', 'group', $field_options);
+    $field_id = $view->addHandler($display_id, 'field', 'asset', 'group', $field_options);
+    farm_ui_views_sort_field($view, $display_id, $field_id, 'location', TRUE);
   }
 
   // Alter the farm_log View.
