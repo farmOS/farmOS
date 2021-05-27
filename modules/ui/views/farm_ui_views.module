@@ -240,25 +240,8 @@ function farm_ui_views_add_bundle_handlers(ViewExecutable $view, string $display
         }
 
         // Sort the field handlers if necessary.
-        // Based off the \Drupal\views_ui\Form\Ajax\Rearrange.php method of
-        // ordering handlers in views.
         if (!empty($sort_field)) {
-
-          // Get the existing field handlers.
-          $type = 'field';
-          $types = ViewExecutable::getHandlerTypes();
-          $display = $view->displayHandlers->get($display_id);
-          $field_handlers = $display->getOption($types[$type]['plural']);
-
-          // Define the new field handler and insert at desired position.
-          $new_field_handler = [$new_field_id => $field_handlers[$new_field_id]];
-          $keys = array_keys($field_handlers);
-          $index = array_search($sort_field, $keys, TRUE);
-          $pos = empty($index) ? count($field_handlers) : $index + 1;
-          $new_field_handlers = array_merge(array_slice($field_handlers, 0, $pos, TRUE), $new_field_handler, array_slice($field_handlers, $pos));
-
-          // Set the display to use the sorted field handlers.
-          $display->setOption($types[$type]['plural'], $new_field_handlers);
+          farm_ui_views_sort_field($view, $display_id, $new_field_id, $sort_field);
         }
       }
     }
@@ -313,6 +296,41 @@ function farm_ui_views_add_bundle_handlers(ViewExecutable $view, string $display
       }
     }
   }
+}
+
+/**
+ * Helper function for sorting a field handler.
+ *
+ * Based off the \Drupal\views_ui\Form\Ajax\Rearrange.php method of ordering
+ * handlers in views.
+ *
+ * @param \Drupal\views\ViewExecutable $view
+ *   The View to add handlers to.
+ * @param string $display_id
+ *   The ID of the View display to add handlers to.
+ * @param string $field_id
+ *   The ID of the field to sort.
+ * @param string $base_field_id
+ *   The ID of an existing field in the View. The field defined by $field_id
+ *   will be added after this field in the View.
+ */
+function farm_ui_views_sort_field(ViewExecutable $view, string $display_id, string $field_id, string $base_field_id) {
+
+  // Get the existing field handlers.
+  $type = 'field';
+  $types = ViewExecutable::getHandlerTypes();
+  $display = $view->displayHandlers->get($display_id);
+  $field_handlers = $display->getOption($types[$type]['plural']);
+
+  // Define the new field handler and insert at desired position.
+  $new_field_handler = [$field_id => $field_handlers[$field_id]];
+  $keys = array_keys($field_handlers);
+  $index = array_search($base_field_id, $keys, TRUE);
+  $pos = empty($index) ? count($field_handlers) : $index + 1;
+  $new_field_handlers = array_merge(array_slice($field_handlers, 0, $pos, TRUE), $new_field_handler, array_slice($field_handlers, $pos));
+
+  // Set the display to use the sorted field handlers.
+  $display->setOption($types[$type]['plural'], $new_field_handlers);
 }
 
 /**
