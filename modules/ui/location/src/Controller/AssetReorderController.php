@@ -3,15 +3,18 @@
 namespace Drupal\farm_ui_location\Controller;
 
 use Drupal\asset\Entity\AssetInterface;
+use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Access\AccessResultAllowed;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Returns responses for asset drag and drop routes.
  */
-class AssetReorderController extends ControllerBase {
+class AssetReorderController extends ControllerBase implements AssetReorderControllerInterface {
 
   /**
    * The entity type manager.
@@ -37,6 +40,19 @@ class AssetReorderController extends ControllerBase {
     return new static(
       $container->get('entity_type.manager')
     );
+  }
+
+  /**
+   * Builds the response.
+   */
+  public function access(AccountInterface $account, AssetInterface $asset = NULL) {
+    $permission_access = AccessResult::allowedIfHasPermission($account, 'administer assets');
+    $permission_access = AccessResult::allowedIf($this->getAssetChildren($asset));
+    if (!$permission_access->isAllowed()) {
+      $permission_access = AccessResult::allowedIf($this->getAssetChildren($asset));
+    }
+
+    return $permission_access;
   }
 
   /**
@@ -99,6 +115,44 @@ class AssetReorderController extends ControllerBase {
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   protected function buildTree(AssetInterface $asset = NULL) {
+    $children = $this->getAssetChildren($asset);
+    $tree = [];
+    if ($children) {
+      foreach ($children as $child) {
+        $element = [
+          'uuid' => $child->uuid(),
+          'text' => $child->label(),
+          'children' => $this->buildTree($child),
+          'type' => $child->bundle(),
+        ];
+        $element['original_parent'] = $asset ? $asset->uuid() : '';
+        $element['original_type'] = $asset ? $asset->bundle() : '';
+        $tree[] = $element;
+      }
+    }
+
+    return $tree;
+  }
+
+  /**
+   * Gets the children assets from a given asset.
+   *
+   * TODO: Should this be part of the asset entity so $asset->getChildren() can
+   * be called?
+   *
+   * @param \Drupal\asset\Entity\AssetInterface $asset
+   *   The partent asset.
+   *
+   * @return \Drupal\asset\Entity\AssetInterface[]|false
+   *   An array of children, FALSE if none found.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   */
+  protected function getAssetChildren(AssetInterface $asset = NULL) {
+    if (empty($asset)) {
+      return FALSE;
+    }
     $storage = $this->entityTypeManager->getStorage('asset');
     $query = $storage->getQuery();
     $query->condition('is_location', TRUE);
@@ -111,22 +165,12 @@ class AssetReorderController extends ControllerBase {
     $query->sort('name');
 
     $asset_ids = $query->execute();
-    /** @var \Drupal\asset\Entity\AssetInterface $children */
-    $children = $storage->loadMultiple($asset_ids);
-    $tree = [];
-    foreach ($children as $child) {
-      $element = [
-        'uuid' => $child->uuid(),
-        'text' => $child->label(),
-        'children' => $this->buildTree($child),
-        'type' => $child->bundle(),
-      ];
-      $element['original_parent'] = $asset ? $asset->uuid() : '';
-      $element['original_type'] = $asset ? $asset->bundle() : '';
-      $tree[] = $element;
+    if (empty($asset_ids)) {
+      return FALSE;
     }
-
-    return $tree;
+    /** @var \Drupal\asset\Entity\AssetInterface[] $children */
+    $children = $storage->loadMultiple($asset_ids);
+    return $children;
   }
 
 }

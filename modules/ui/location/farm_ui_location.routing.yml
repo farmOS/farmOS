@@ -13,6 +13,7 @@ farm.asset.locations:
     _controller: '\Drupal\farm_ui_location\Controller\AssetReorderController::build'
   requirements:
     _entity_access: 'asset.edit'
+    _custom_access: '\Drupal\farm_ui_location\Controller\AssetReorderController::access'
     _module_dependencies: 'asset'
     asset: \d+
   options:
