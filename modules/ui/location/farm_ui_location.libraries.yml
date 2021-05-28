@@ -1,7 +1,7 @@
-reorder:
+locations-drag-and-drop:
   version: 1.x
   js:
-    js/asset_reorder.js: {}
+    js/locations_drag_and_drop.js: {}
   dependencies:
     - core/drupal.message
     - core/jquery

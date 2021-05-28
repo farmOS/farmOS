@@ -1,6 +1,6 @@
 /**
  * @file
- * Integration with inspire tree.
+ * Locations drag and drop.
  */
 
 (function ($, Drupal, settings) {
@@ -10,7 +10,7 @@
   // @TODO drag and drop validate if exist.
   // @TODO validate circular references.
 
-  Drupal.behaviors.asset_reorder = {
+  Drupal.behaviors.locationsDragAndDrop = {
     attach: function (context, settings) {
       var tree = new InspireTree({
         data: settings.asset_tree,

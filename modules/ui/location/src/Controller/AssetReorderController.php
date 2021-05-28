@@ -78,7 +78,7 @@ class AssetReorderController extends ControllerBase {
       ],
     ];
 
-    $build['#attached']['library'][] = 'farm_ui_location/reorder';
+    $build['#attached']['library'][] = 'farm_ui_location/locations-drag-and-drop';
     $build['#attached']['drupalSettings']['asset_tree'] = $this->buildTree($asset);
     $build['#attached']['drupalSettings']['asset_parent'] = !empty($asset) ? $asset->uuid() : '';
     $build['#attached']['drupalSettings']['asset_parent_type'] = !empty($asset) ? $asset->bundle() : '';
