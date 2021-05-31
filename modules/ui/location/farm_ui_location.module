@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * @file
+ * Location UI hooks and alters.
+ */
+
+use Drupal\asset\Entity\AssetType;
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Implements hook_ENTITY_TYPE_presave() for assets.
+ */
+function farm_ui_location_asset_presave(EntityInterface $entity) {
+  // Force create new revision as json api doesn't do that by default.
+  // @see https://www.drupal.org/project/drupal/issues/2993557
+  // @see https://www.drupal.org/project/drupal/issues/2795279
+  // @see https://github.com/json-api/json-api/pull/824
+  $bundle = AssetType::load($entity->bundle());
+  if ($bundle->shouldCreateNewRevision() && $entity->getEntityType()->isRevisionable()) {
+    /** @var  \Drupal\Core\Entity\RevisionLogInterface $entity */
+    $entity->setNewRevision(TRUE);
+    $entity->setRevisionCreationTime(\Drupal::time()->getRequestTime());
+  }
+}

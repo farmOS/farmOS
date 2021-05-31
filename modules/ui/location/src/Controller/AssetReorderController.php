@@ -4,7 +4,6 @@ namespace Drupal\farm_ui_location\Controller;
 
 use Drupal\asset\Entity\AssetInterface;
 use Drupal\Core\Access\AccessResult;
-use Drupal\Core\Access\AccessResultAllowed;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Session\AccountInterface;
