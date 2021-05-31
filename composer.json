@@ -42,7 +42,8 @@
         "drupal/token": "^1.7",
         "drupal/views_geojson": "^1.1",
         "drush/drush": "^10.3",
-        "npm-asset/farmos.org--farmos-map": "^1.4"
+        "npm-asset/farmos.org--farmos-map": "^1.4",
+        "phayes/geophp": "^1.2"
     },
     "extra": {
         "patchLevel": {
@@ -72,6 +73,9 @@
             },
             "drupal/views_geojson": {
                 "Issue #3177013: Missing configuration schema.": "https://www.drupal.org/files/issues/2020-10-15/views_geojson-missing-config-schema-3177013.patch"
+            },
+            "phayes/geophp": {
+                "Use BCMath (where available) for all float arithmetic #115": "https://patch-diff.githubusercontent.com/raw/phayes/geoPHP/pull/115.patch"
             }
         }
     }
