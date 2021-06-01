@@ -86,4 +86,15 @@ interface AssetLocationInterface {
    */
   public function setIntrinsicGeometry(AssetInterface $asset, string $wkt): void;
 
+  /**
+   * Get assets that are in a location.
+   *
+   * @param \Drupal\asset\Entity\AssetInterface $location
+   *   The location asset entity.
+   *
+   * @return array
+   *   Returns an array of assets.
+   */
+  public function getAssetsByLocation(AssetInterface $location): array;
+
 }
