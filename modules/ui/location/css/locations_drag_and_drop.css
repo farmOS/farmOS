@@ -1,0 +1,23 @@
+.locations-tree-save {
+  width: 4rem;
+}
+
+a.locations-tree-save.spinner {
+  background-color: var(--colorGinDisabled);
+  border: 2px solid var(--colorGinDisabled) !important;
+  box-shadow: 0 1px 2px var(--colorGinDisabled);
+}
+.locations-tree-save.spinner:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0.7rem;
+  left: 5rem;
+  width: 1rem;
+  height: 1rem;
+  -webkit-animation: gin-throbber 0.75s linear infinite;
+  animation: gin-throbber 0.75s linear infinite;
+  border: 2px solid var(--colorGinButtonText);
+  border-right: 2px dotted transparent;
+  border-radius: 50%;
+}

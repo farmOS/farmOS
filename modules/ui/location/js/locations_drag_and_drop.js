@@ -5,7 +5,7 @@
 
 (function ($, Drupal, settings) {
 
-  "use strict";
+  "use strict"
 
   // @TODO drag and drop validate if exist.
   // @TODO validate circular references.
@@ -14,16 +14,21 @@
     attach: function (context, settings) {
       var tree = new InspireTree({
         data: settings.asset_tree,
-      });
+      })
       new InspireTreeDOM(tree, {
-        target: '.asset-tree',
+        target: '.locations-tree',
         dragAndDrop: true
-      });
+      })
 
-      var changes = {};
+      var changes = {}
+
+      console.log(settings.asset_parent)
 
       tree.on('node.drop', function(event, source, target, index) {
-        var destination = (target === null) ? settings.asset_parent : target.uuid;
+        console.log(target)
+
+        var destination = (target === null) ? settings.asset_parent : target.uuid
+        console.log(destination)
         if (!changes.hasOwnProperty(source.id)) {
           if (source.original_parent !== destination) {
             changes[source.id] = {
@@ -32,44 +37,54 @@
               'original_type': source.original_type,
               'destination': destination,
               'type': (target === null) ? settings.asset_parent_type : target.type,
-            };
+            }
           }
         }
         else {
           if (changes[source.id].original_parent !== destination) {
-            changes[source.id].destination = destination;
+            changes[source.id].destination = destination
           }
           else {
-            delete changes[source.id];
+            delete changes[source.id]
           }
         }
-      });
 
-      $('.asset-tree-reset').on('click', function(event) {
-        event.preventDefault();
+      })
+
+      $('.locations-tree-reset').on('click', function(event) {
+        event.preventDefault()
         // Reset the changes so nothing is pushed accidentally.
-        changes = {};
+        changes = {}
         // Reset the tree to the original status.
-        tree.reload();
-      });
+        tree.reload()
+      })
 
-      $('.asset-tree-save').on('click', function(event) {
-        event.preventDefault();
-        var entries = Object.entries(changes);
-        if (entries.length > 0) {
-          var token = '';
-          $.ajax({
-            async: false,
-            url: Drupal.url('session/token'),
-            success(data) {
-              if (data) {
-                token = data;
-              }
-            },
-          });
+      $('.locations-tree-save').on('click', function(event) {
+        event.preventDefault()
+        var button = $(this)
+        var messages = new Drupal.Message()
+        messages.clear()
+
+        var entries = Object.entries(changes)
+        if (entries.length <= 0) {
+          messages.add(Drupal.t('No changes to save'), { type: 'status' })
+          return
         }
 
-        var messages = new Drupal.Message();
+        button.addClass('spinner')
+        button.attr('disabled',true);
+
+        var token = ''
+        $.ajax({
+          async: false,
+          url: Drupal.url('session/token'),
+          success(data) {
+            if (data) {
+              token = data
+            }
+          },
+        })
+
         for (var [treeUuid, item] of entries) {
           if (item.destination === '' && item.original_parent !== '') {
             var deleteItem = {
@@ -79,7 +94,7 @@
                   'id': item.original_parent,
                 }
               ]
-            };
+            }
             $.ajax({
               type: 'DELETE',
               cache: false,
@@ -90,16 +105,20 @@
               data: JSON.stringify(deleteItem),
               contentType: 'application/vnd.api+json',
               success: function success(data) {
-                messages.clear();
-                messages.add(Drupal.t('Assets have been saved'), { type: 'status' });
+                messages.clear()
+                messages.add(Drupal.t('Locations have been saved'), { type: 'status' })
+                button.toggleClass('spinner')
+                button.attr('disabled',false);
                 delete changes.treeUuid
               },
               error: function error(xmlhttp) {
-                var e = new Drupal.AjaxError(xmlhttp);
-                messages.clear();
-                messages.add(e.message, { type: 'error' });
+                var e = new Drupal.AjaxError(xmlhttp)
+                messages.clear()
+                messages.add(e.message, { type: 'error' })
+                button.removeClass('spinner')
+                button.attr('disabled',false);
               }
-            });
+            })
           }
           else {
             var patch = {
@@ -109,7 +128,7 @@
                   'id': item.destination,
                 }
               ]
-            };
+            }
             $.ajax({
               type: 'POST',
               cache: false,
@@ -128,7 +147,7 @@
                         'id': item.original_parent,
                       }
                     ]
-                  };
+                  }
 
                   $.ajax({
                     type: 'DELETE',
@@ -140,34 +159,41 @@
                     data: JSON.stringify(deleteItem),
                     contentType: 'application/vnd.api+json',
                     success: function success(data) {
-                      messages.clear();
-                      messages.add(Drupal.t('Assets have been saved'), { type: 'status' });
+                      messages.clear()
+                      messages.add(Drupal.t('Locations have been saved'), { type: 'status' })
+                      button.removeClass('spinner')
+                      button.attr('disabled',false);
                       delete changes.treeUuid
                     },
                     error: function error(xmlhttp) {
-                      var e = new Drupal.AjaxError(xmlhttp);
-                      messages.clear();
-                      messages.add(e.message, { type: 'error' });
+                      var e = new Drupal.AjaxError(xmlhttp)
+                      messages.clear()
+                      messages.add(e.message, { type: 'error' })
+                      button.removeClass('spinner')
+                      button.attr('disabled',false);
                     }
-                  });
+                  })
                 }
                 else {
-                  messages.clear();
-                  messages.add(Drupal.t('Assets have been saved'), { type: 'status' });
+                  messages.clear()
+                  messages.add(Drupal.t('Locations have been saved'), { type: 'status' })
+                  button.removeClass('spinner')
+                  button.attr('disabled',false);
                 }
               },
               error: function error(xmlhttp) {
-                var e = new Drupal.AjaxError(xmlhttp);
-                messages.clear();
-                messages.add(e.message, { type: 'error' });
+                var e = new Drupal.AjaxError(xmlhttp)
+                messages.clear()
+                messages.add(e.message, { type: 'error' })
+                button.removeClass('spinner')
+                button.attr('disabled',false);
               }
-            });
+            })
           }
         }
-      });
-
+      })
 
     }
   }
 
-})(jQuery, Drupal, drupalSettings);
+})(jQuery, Drupal, drupalSettings)

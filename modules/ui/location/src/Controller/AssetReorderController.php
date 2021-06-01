@@ -63,7 +63,7 @@ class AssetReorderController extends ControllerBase implements AssetReorderContr
       '#tag' => 'div',
       '#attributes' => [
         'class' => [
-          'asset-tree',
+          'locations-tree',
         ],
       ],
     ];
@@ -74,7 +74,7 @@ class AssetReorderController extends ControllerBase implements AssetReorderContr
       '#url' => Url::fromRoute('<none>'),
       '#attributes' => [
         'class' => [
-          'asset-tree-save',
+          'locations-tree-save',
           'button',
           'button--primary',
         ],
@@ -86,7 +86,7 @@ class AssetReorderController extends ControllerBase implements AssetReorderContr
       '#url' => Url::fromRoute('<none>'),
       '#attributes' => [
         'class' => [
-          'asset-tree-reset',
+          'locations-tree-reset',
           'button',
           'button--danger',
         ],

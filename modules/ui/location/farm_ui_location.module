@@ -18,7 +18,7 @@ function farm_ui_location_asset_presave(EntityInterface $entity) {
   // @see https://github.com/json-api/json-api/pull/824
   $bundle = AssetType::load($entity->bundle());
   if ($bundle->shouldCreateNewRevision() && $entity->getEntityType()->isRevisionable()) {
-    /** @var  \Drupal\Core\Entity\RevisionLogInterface $entity */
+    /** @var \Drupal\Core\Entity\RevisionLogInterface $entity */
     $entity->setNewRevision(TRUE);
     $entity->setRevisionCreationTime(\Drupal::time()->getRequestTime());
   }
