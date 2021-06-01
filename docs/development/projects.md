@@ -164,11 +164,6 @@ For more information and documentation about these modules, see
 The official farmOS theme ("Farm Theme") that is included with farmOS is a
 Drupal theme based off of [Bootstrap].
 
-## External Tools
-
-* **[Ansible farmOS]** - Ansible playbooks for provisioning a farmOS server on
-  Debian 9.
-
 [farmOS]: http://farmos.org
 [Drupal]: https://drupal.org
 [farm-focused Drupal distribution]: https://drupal.org/project/farm
@@ -182,5 +177,4 @@ Drupal theme based off of [Bootstrap].
 [Bootstrap]: https://drupal.org/project/bootstrap
 [WFS]: https://www.opengeospatial.org/standards/wfs
 [QGIS]: https://qgis.org/
-[Ansible farmOS]: https://github.com/komatek21/Ansible_FarmOS
 
