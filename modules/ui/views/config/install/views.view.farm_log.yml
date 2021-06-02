@@ -10,6 +10,7 @@ dependencies:
   module:
     - csv_serialization
     - entity_reference_revisions
+    - farm_ui_views
     - log
     - options
     - rest
@@ -2338,10 +2339,10 @@ display:
       display_description: ''
       path: asset/%asset/logs/%log_type
       arguments:
-        asset_target_id:
-          id: asset_target_id
-          table: log__asset
-          field: asset_target_id
+        asset_or_location:
+          id: asset_or_location
+          table: log_field_data
+          field: asset_or_location
           relationship: none
           group_type: group
           admin_label: ''
@@ -2374,11 +2375,8 @@ display:
             multiple: 0
             bundles: {  }
             access: false
-          break_phrase: false
-          not: false
           entity_type: log
-          entity_field: asset
-          plugin_id: numeric
+          plugin_id: asset_or_location
         type:
           id: type
           table: log_field_data
