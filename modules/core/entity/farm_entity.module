@@ -5,6 +5,8 @@
  * Contains farm_entity.module.
  */
 
+use Drupal\Core\Entity\ContentEntityFormInterface;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\farm_entity\BundlePlugin\FarmEntityBundlePluginHandler;
@@ -280,4 +282,66 @@ function farm_entity_modules_installed($modules, $is_syncing) {
   if (\Drupal::hasService('views.views_data')) {
     \Drupal::service('views.views_data')->clear();
   }
+}
+
+/**
+ * Implements hook_entity_presave().
+ *
+ * Forces revisions on all farm entities if the entity type supports them and
+ * the bundle has them enabled. This removes the option for users to disable a
+ * revision per-entity but as JSON:API doesn't support revisions yet, this is a
+ * trade-off that allows us to create revisions consistently on both the UI and
+ * the API.
+ */
+function farm_entity_entity_presave(EntityInterface $entity) {
+
+  // Only apply to farm controlled entities.
+  $entity_types = [
+    'asset',
+    'log',
+    'plan',
+    'quantity',
+  ];
+  if (!in_array($entity->getEntityTypeId(), $entity_types)) {
+    return;
+  }
+
+  // Force create new revision as json api doesn't do that by default.
+  // @see https://www.drupal.org/project/drupal/issues/2993557
+  // @see https://www.drupal.org/project/drupal/issues/2795279
+  // @see https://github.com/json-api/json-api/pull/824
+  if ($entity->type->entity->shouldCreateNewRevision() && $entity->getEntityType()->isRevisionable()) {
+    /** @var  \Drupal\Core\Entity\RevisionLogInterface $entity */
+    $entity->setNewRevision(TRUE);
+    $entity->setRevisionCreationTime(\Drupal::time()->getRequestTime());
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ *
+ * Hides the revision control from the user, @see farm_entity_entity_presave()
+ */
+function farm_entity_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+  // Only alter content entity forms.
+  $form_object = $form_state->getFormObject();
+  if (!($form_object instanceof ContentEntityFormInterface)) {
+    return;
+  }
+
+  // Only apply to farm controlled entities.
+  $entity = $form_object->getEntity();
+  $entity_types = [
+    'asset',
+    'log',
+    'plan',
+    'quantity',
+  ];
+  if (!in_array($entity->getEntityTypeId(), $entity_types)) {
+    return;
+  }
+
+  // Disable access to the revision checkbox.
+  $form['revision']['#access'] = FALSE;
 }
