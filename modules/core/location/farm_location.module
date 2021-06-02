@@ -68,6 +68,9 @@ function farm_location_views_data_alter(array &$data) {
         'id' => 'asset_location',
         'field_name' => 'location',
       ],
+      'argument' => [
+        'id' => 'asset_location',
+      ],
     ];
   }
 }
