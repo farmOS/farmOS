@@ -12,23 +12,30 @@
 
   Drupal.behaviors.locationsDragAndDrop = {
     attach: function (context, settings) {
+      var dragAndDropEnabled = false
+      $('a.locations-tree-save').attr('disabled', !dragAndDropEnabled)
+      $('a.locations-tree-reset').attr('disabled', !dragAndDropEnabled)
+
       var tree = new InspireTree({
         data: settings.asset_tree,
       })
-      new InspireTreeDOM(tree, {
+      var domTree = new InspireTreeDOM(tree, {
         target: '.locations-tree',
-        dragAndDrop: true
+      })
+      tree.nodes().expand()
+
+      $('.locations-tree-toggle').on('click', function(event) {
+        event.preventDefault()
+        dragAndDropEnabled = !dragAndDropEnabled
+        $('a.locations-tree-save').attr('disabled', !dragAndDropEnabled)
+        $('a.locations-tree-reset').attr('disabled', !dragAndDropEnabled)
+        domTree.config.dragAndDrop.enabled = dragAndDropEnabled
       })
 
+
       var changes = {}
-
-      console.log(settings.asset_parent)
-
       tree.on('node.drop', function(event, source, target, index) {
-        console.log(target)
-
         var destination = (target === null) ? settings.asset_parent : target.uuid
-        console.log(destination)
         if (!changes.hasOwnProperty(source.id)) {
           if (source.original_parent !== destination) {
             changes[source.id] = {
@@ -72,7 +79,7 @@
         }
 
         button.addClass('spinner')
-        button.attr('disabled',true);
+        button.attr('disabled',true)
 
         var token = ''
         $.ajax({
@@ -108,7 +115,7 @@
                 messages.clear()
                 messages.add(Drupal.t('Locations have been saved'), { type: 'status' })
                 button.toggleClass('spinner')
-                button.attr('disabled',false);
+                button.attr('disabled',false)
                 delete changes.treeUuid
               },
               error: function error(xmlhttp) {
@@ -116,7 +123,7 @@
                 messages.clear()
                 messages.add(e.message, { type: 'error' })
                 button.removeClass('spinner')
-                button.attr('disabled',false);
+                button.attr('disabled',false)
               }
             })
           }
@@ -162,7 +169,7 @@
                       messages.clear()
                       messages.add(Drupal.t('Locations have been saved'), { type: 'status' })
                       button.removeClass('spinner')
-                      button.attr('disabled',false);
+                      button.attr('disabled',false)
                       delete changes.treeUuid
                     },
                     error: function error(xmlhttp) {
@@ -170,7 +177,7 @@
                       messages.clear()
                       messages.add(e.message, { type: 'error' })
                       button.removeClass('spinner')
-                      button.attr('disabled',false);
+                      button.attr('disabled',false)
                     }
                   })
                 }
@@ -178,7 +185,7 @@
                   messages.clear()
                   messages.add(Drupal.t('Locations have been saved'), { type: 'status' })
                   button.removeClass('spinner')
-                  button.attr('disabled',false);
+                  button.attr('disabled',false)
                 }
               },
               error: function error(xmlhttp) {
@@ -186,12 +193,18 @@
                 messages.clear()
                 messages.add(e.message, { type: 'error' })
                 button.removeClass('spinner')
-                button.attr('disabled',false);
+                button.attr('disabled',false)
               }
             })
           }
         }
       })
+
+
+      tree.on('node.click', function(event, node) {
+        event.preventDefault()
+        window.location.href = node.url
+      });
 
     }
   }

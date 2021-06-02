@@ -21,3 +21,14 @@ a.locations-tree-save.spinner {
   border-right: 2px dotted transparent;
   border-radius: 50%;
 }
+
+a.locations-tree-save[disabled],
+a.locations-tree-save[disabled]:hover,
+a.locations-tree-reset[disabled],
+a.locations-tree-reset[disabled]:hover {
+  background-color: var(--colorGinDisabled);
+  border: 2px solid var(--colorGinDisabled) !important;
+  box-shadow: 0 1px 2px var(--colorGinDisabled);
+  pointer-events: none;
+  color: var(--colorGinButtonText);
+}

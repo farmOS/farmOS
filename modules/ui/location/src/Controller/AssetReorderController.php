@@ -58,6 +58,17 @@ class AssetReorderController extends ControllerBase implements AssetReorderContr
    * Builds the response.
    */
   public function build(AssetInterface $asset = NULL) {
+    $build['toggle_drag_and_drop'] = [
+      '#type' => 'link',
+      '#title' => $this->t('Toggle drag and drop'),
+      '#url' => Url::fromUserInput('#'),
+      '#attributes' => [
+        'class' => [
+          'locations-tree-toggle',
+        ],
+      ],
+    ];
+
     $build['content'] = [
       '#type' => 'html_tag',
       '#tag' => 'div',
@@ -94,7 +105,16 @@ class AssetReorderController extends ControllerBase implements AssetReorderContr
     ];
 
     $build['#attached']['library'][] = 'farm_ui_location/locations-drag-and-drop';
-    $build['#attached']['drupalSettings']['asset_tree'] = $this->buildTree($asset);
+    $tree = [
+      [
+        'uuid' => $asset->uuid(),
+        'text' => $asset->label(),
+        'children' => $this->buildTree($asset),
+        'type' => $asset->bundle(),
+        'url' => $asset->toUrl('canonical', ['absolute' => TRUE])->toString(),
+      ]
+    ];
+    $build['#attached']['drupalSettings']['asset_tree'] = $tree;
     $build['#attached']['drupalSettings']['asset_parent'] = !empty($asset) ? $asset->uuid() : '';
     $build['#attached']['drupalSettings']['asset_parent_type'] = !empty($asset) ? $asset->bundle() : '';
     return $build;
@@ -123,6 +143,7 @@ class AssetReorderController extends ControllerBase implements AssetReorderContr
           'text' => $child->label(),
           'children' => $this->buildTree($child),
           'type' => $child->bundle(),
+          'url' => $child->toUrl('canonical', ['absolute' => TRUE])->toString(),
         ];
         $element['original_parent'] = $asset ? $asset->uuid() : '';
         $element['original_type'] = $asset ? $asset->bundle() : '';
