@@ -11,8 +11,10 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *   id = "client_module",
  *   label = @Translation("Client module"),
  *   label_collection = @Translation("Client modules"),
- *   handlers = { },
- *   admin_permission = "administer site configuration",
+ *   handlers = {
+ *     "access" = "\Drupal\entity\EntityAccessControlHandler",
+ *     "permission_provider" = "\Drupal\entity\EntityPermissionProvider",
+ *   },
  *   entity_keys = {
  *     "id" = "id",
  *     "label" = "label",
