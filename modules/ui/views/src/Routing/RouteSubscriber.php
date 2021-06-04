@@ -6,7 +6,7 @@ use Drupal\Core\Routing\RouteSubscriberBase;
 use Symfony\Component\Routing\RouteCollection;
 
 /**
- * Alter routes for the farm_api module.
+ * Alter routes for the farm_ui_views module.
  *
  * @ingroup farm
  */
