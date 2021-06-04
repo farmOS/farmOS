@@ -1,0 +1,3 @@
+farm_flag:
+  default_permissions:
+    - view flag
