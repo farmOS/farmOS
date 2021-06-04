@@ -72,19 +72,20 @@ Asset module, and will only be available if that module is installed.
 
 **Methods**:
 
-`hasGroup()` - Check if an asset is a member of a group. Returns a boolean.
+`hasGroup($asset)` - Check if an asset is a member of a group. Returns a
+boolean.
 
-`getGroup()` - Get group assets that an asset is a member of. Returns an array
-of asset entities.
+`getGroup($asset)` - Get group assets that an asset is a member of. Returns an
+array of asset entities.
 
-`getGroupAssignmentLog()` - Find the latest group assignment log that
+`getGroupAssignmentLog($asset)` - Find the latest group assignment log that
 references an asset. Returns a log entity, or `NULL` if no logs were found.
 
 **Example usage:**
 
 ```php
 // Get the groups that an asset is a member of.
-$geometry = \Drupal::service('group.membership')->getGroup($asset);
+$groups = \Drupal::service('group.membership')->getGroup($asset);
 ```
 
 ## Log query service
