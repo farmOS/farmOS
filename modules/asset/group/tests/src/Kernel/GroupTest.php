@@ -81,11 +81,7 @@ class GroupTest extends KernelTestBase {
     ]);
     $animal->save();
 
-    // When an asset has no group assignment logs, it has no group membership.
-    $this->assertFalse($this->groupMembership->hasGroup($animal), 'New assets do not have group membership.');
-    $this->assertEmpty($this->groupMembership->getGroup($animal), 'New assets do not reference any groups.');
-
-    // Create a group asset.
+    // Create group assets.
     /** @var \Drupal\asset\Entity\AssetInterface $first_group */
     $first_group = Asset::create([
       'type' => 'group',
@@ -93,6 +89,19 @@ class GroupTest extends KernelTestBase {
       'status' => 'active',
     ]);
     $first_group->save();
+    /** @var \Drupal\asset\Entity\AssetInterface $second_group */
+    $second_group = Asset::create([
+      'type' => 'group',
+      'name' => $this->randomMachineName(),
+      'status' => 'active',
+    ]);
+    $second_group->save();
+
+    // When an asset has no group assignment logs, it has no group membership.
+    $this->assertFalse($this->groupMembership->hasGroup($animal), 'New assets do not have group membership.');
+    $this->assertEmpty($this->groupMembership->getGroup($animal), 'New assets do not reference any groups.');
+    $this->assertEmpty($this->groupMembership->getGroupMembers($first_group), 'New groups have no members.');
+    $this->assertEmpty($this->groupMembership->getGroupMembers($second_group), 'New groups have no members.');
 
     // Create a "done" log that assigns the animal to the group.
     /** @var \Drupal\log\Entity\LogInterface $first_log */
@@ -108,15 +117,8 @@ class GroupTest extends KernelTestBase {
     // When an asset has a done group assignment logs, it has group membership.
     $this->assertTrue($this->groupMembership->hasGroup($animal), 'Asset with group assignment has group membership.');
     $this->assertEquals($first_group->id(), $this->groupMembership->getGroup($animal)[0]->id(), 'Asset with group assignment is in the assigned group.');
-
-    // Create a second group asset.
-    /** @var \Drupal\asset\Entity\AssetInterface $second_group */
-    $second_group = Asset::create([
-      'type' => 'group',
-      'name' => $this->randomMachineName(),
-      'status' => 'active',
-    ]);
-    $second_group->save();
+    $this->assertEquals(1, count($this->groupMembership->getGroupMembers($first_group)), 'When an asset becomes a group member, the group has one member.');
+    $this->assertEmpty($this->groupMembership->getGroupMembers($second_group), 'When an asset becomes a group member, other groups are unaffected.');
 
     // Create a "pending" log that assigns the animal to the second group.
     /** @var \Drupal\log\Entity\LogInterface $second_log */
@@ -132,11 +134,13 @@ class GroupTest extends KernelTestBase {
     // When an asset has a pending group assignment logs, it still has the same
     // group membership as before.
     $this->assertEquals($first_group->id(), $this->groupMembership->getGroup($animal)[0]->id(), 'Pending group assignment logs do not affect membership.');
+    $this->assertEmpty($this->groupMembership->getGroupMembers($second_group), 'Groups with only pending membership have zero members.');
 
     // When the log is marked as "done", the asset's membership is updated.
     $second_log->status = 'done';
     $second_log->save();
     $this->assertEquals($second_group->id(), $this->groupMembership->getGroup($animal)[0]->id(), 'A second group assignment log updates group membership.');
+    $this->assertEquals(1, count($this->groupMembership->getGroupMembers($second_group)), 'Completed group assignment logs add group members.');
 
     // Create a third "done" log in the future.
     /** @var \Drupal\log\Entity\LogInterface $third_log */
@@ -153,6 +157,7 @@ class GroupTest extends KernelTestBase {
     // When an asset has a "done" group assignment log in the future, the asset
     // group membership remains the same as the previous "done" movement log.
     $this->assertEquals($second_group->id(), $this->groupMembership->getGroup($animal)[0]->id(), 'A third group assignment log in the future does not update group membership.');
+    $this->assertEquals(1, count($this->groupMembership->getGroupMembers($second_group)), 'Future group assignment logs do not affect members.');
 
     // Create a fourth log with no group reference.
     /** @var \Drupal\log\Entity\LogInterface $fourth_log */
@@ -169,6 +174,8 @@ class GroupTest extends KernelTestBase {
     // effectively "unsets" the asset's group membership.
     $this->assertFalse($this->groupMembership->hasGroup($animal), 'Asset group membership can be unset.');
     $this->assertEmpty($this->groupMembership->getGroup($animal), 'Unset group membership does not reference any groups.');
+    $this->assertEquals(0, count($this->groupMembership->getGroupMembers($first_group)), 'Unset group membership unsets group members.');
+    $this->assertEquals(0, count($this->groupMembership->getGroupMembers($second_group)), 'Unset group membership unsets group members.');
   }
 
   /**
