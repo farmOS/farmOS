@@ -1,0 +1,3 @@
+farm_structure:
+  default_permissions:
+    - view structure_type
