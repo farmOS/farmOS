@@ -25,9 +25,27 @@ class IdTagFormatter extends FormatterBase {
     $elements = [];
 
     foreach ($items as $delta => $item) {
-      $elements[$delta]['id'] = ['#markup' => $item->id];
-      $elements[$delta]['type'] = ['#markup' => $item->type];
-      $elements[$delta]['location'] = ['#markup' => $item->location];
+
+      // Render the ID if it exists.
+      if (!empty($item->id)) {
+        $elements[$delta]['id'] = [
+          '#markup' => $this->t('ID: @value', ['@value' => $item->id]),
+        ];
+      }
+
+      // Render the type if it exists.
+      if (!empty($item->type)) {
+        $elements[$delta]['type'] = [
+          '#markup' => $this->t('Type: @value', ['@value' => $item->type]),
+        ];
+      }
+
+      // Render the location if it exists.
+      if (!empty($item->location)) {
+        $elements[$delta]['location'] = [
+          '#markup' => $this->t('Location: @value', ['@value' => $item->location]),
+        ];
+      }
     }
 
     return $elements;

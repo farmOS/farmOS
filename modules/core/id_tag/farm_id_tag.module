@@ -26,3 +26,15 @@ function farm_id_tag_type_allowed_values($bundle) {
   }
   return $allowed_values;
 }
+
+/**
+ * Implements hook_theme().
+ */
+function farm_id_tag_theme() {
+  return [
+    'field__id_tag' => [
+      'template' => 'field--id-tag',
+      'base hook' => 'field',
+    ],
+  ];
+}
