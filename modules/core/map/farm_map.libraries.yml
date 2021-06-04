@@ -6,7 +6,13 @@ farmOS-map:
     gpl-compatible: true
   js:
     /libraries/farmOS-map/dist/farmOS-map.js:
+      # Skip aggregating farmOS-map.js with other JS since that
+      # breaks the lazy loading of behavior chunks.
+      preprocess: false
       minified: true
+  css:
+    theme:
+      /libraries/farmOS-map/dist/farmOS-map.css: { }
   dependencies:
     - core/drupalSettings
 
