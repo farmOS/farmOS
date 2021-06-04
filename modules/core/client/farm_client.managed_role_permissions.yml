@@ -1,3 +1,5 @@
 farm_client:
   config_permissions:
     - administer client_module
+  default_permissions:
+    - view client_module
