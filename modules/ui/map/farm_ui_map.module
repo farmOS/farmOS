@@ -5,6 +5,10 @@
  * The farmOS UI Map module.
  */
 
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Url;
+
 /**
  * Implements hook_theme().
  */
@@ -40,4 +44,27 @@ function farm_ui_map_module_implements_alter(&$implementations, $hook) {
     unset($implementations[$module]);
     $implementations = array_merge([$module => $group], $implementations);
   }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_view().
+ */
+function farm_ui_map_asset_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
+  /** @var \Drupal\farm_entity\Plugin\Asset\AssetType\AssetTypeInterface $entity */
+
+  // Bail if not the map_popup view mode.
+  if ($view_mode !== 'map_popup') {
+    return $build;
+  }
+
+  // Build link to view logs referencing the asset.
+  $url = Url::fromRoute('view.farm_log.page_asset', ['asset' => $entity->id(), 'log_type' => 'all']);
+  $build['logs_links'] = [
+    '#type' => 'link',
+    '#title' => t('View logs'),
+    '#url' => $url,
+    '#weight' => -100,
+  ];
+
+  return $build;
 }
