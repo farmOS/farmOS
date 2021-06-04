@@ -1,0 +1,4 @@
+test_client_module:
+  js:
+    js/test_module.js:
+      preprocess: false
