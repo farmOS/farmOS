@@ -1,0 +1,3 @@
+farm_land:
+  default_permissions:
+    - view land_type

@@ -11,8 +11,10 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *   id = "land_type",
  *   label = @Translation("Land type"),
  *   label_collection = @Translation("Land types"),
- *   handlers = { },
- *   admin_permission = "administer site configuration",
+ *   handlers = {
+ *     "access" = "\Drupal\entity\EntityAccessControlHandler",
+ *     "permission_provider" = "\Drupal\entity\EntityPermissionProvider",
+ *   },
  *   entity_keys = {
  *     "id" = "id",
  *     "label" = "label",
