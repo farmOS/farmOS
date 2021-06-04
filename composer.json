@@ -43,7 +43,7 @@
         "drupal/token": "^1.7",
         "drupal/views_geojson": "^1.1",
         "drush/drush": "^10.3",
-        "npm-asset/farmos.org--farmos-map": "^1.4",
+        "npm-asset/farmos.org--farmos-map": ">2.0.0-alpha.0",
         "phayes/geophp": "^1.2"
     },
     "extra": {
