@@ -41,6 +41,9 @@ function farm_group_views_data_alter(array &$data) {
       'id' => 'asset_group',
       'field_name' => 'group',
     ],
+    'argument' => [
+      'id' => 'asset_group',
+    ],
   ];
 }
 
