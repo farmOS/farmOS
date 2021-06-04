@@ -60,10 +60,9 @@ class AssetOrLocationArgument extends ArgumentPluginBase {
     // Limit the query to only include logs that reference the asset on the
     // asset OR location field. This must be added in a single where expression
     // so the condition is not combined with other filters from the view.
-    $placeholder = $this->placeholder();
-    $asset_condition = "$asset_alias.asset_target_id = $placeholder";
-    $location_condition = "$location_alias.location_target_id = $placeholder";
-    $this->query->addWhereExpression(0, "($asset_condition) OR ($location_condition)", [$placeholder => $this->argument]);
+    $asset_condition = "$asset_alias.asset_target_id IS NOT NULL";
+    $location_condition = "$location_alias.location_target_id IS NOT NULL";
+    $this->query->addWhereExpression(0, "$this->table.id IS NOT NULL AND ($asset_condition OR $location_condition)");
   }
 
 }
