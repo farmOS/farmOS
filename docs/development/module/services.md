@@ -98,7 +98,7 @@ The asset location and group membership services use this.
 
 **Methods**:
 
-`getQuery()` - Builds a log database query.
+`getQuery($options)` - Builds a log database query.
 
 The query will be sorted by log `timestamp` and `id`, descending.
 
