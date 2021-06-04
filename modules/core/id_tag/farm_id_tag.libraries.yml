@@ -1,0 +1,4 @@
+id_tag_field:
+  css:
+    theme:
+      css/id_tag_field.css: { }

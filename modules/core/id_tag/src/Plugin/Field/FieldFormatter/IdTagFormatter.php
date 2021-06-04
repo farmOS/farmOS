@@ -99,6 +99,7 @@ class IdTagFormatter extends FormatterBase {
       }
     }
 
+    $elements['#attached']['library'][] = 'farm_id_tag/id_tag_field';
     return $elements;
   }
 

@@ -1,0 +1,4 @@
+/* Add padding between id-tag field items. */
+.field--type-id-tag .field__item:not(:last-child) {
+  padding-bottom: 1em;
+}
