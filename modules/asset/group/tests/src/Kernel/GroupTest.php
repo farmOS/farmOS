@@ -228,6 +228,9 @@ class GroupTest extends KernelTestBase {
     ]);
     $second_pasture->save();
 
+    // Confirm that new locations are empty.
+    $this->assertEmpty($this->assetLocation->getAssetsByLocation($first_pasture), 'New locations are empty.');
+
     // Create a log that moves the animal to the first pasture.
     /** @var \Drupal\log\Entity\LogInterface $second_log */
     $second_log = Log::create([
@@ -242,6 +245,8 @@ class GroupTest extends KernelTestBase {
     // Confirm that the animal is located in the first pasture.
     $this->assertEquals($this->logLocation->getLocation($second_log), $this->assetLocation->getLocation($animal), 'Asset location is determined by asset membership log.');
     $this->assertEquals($this->logLocation->getGeometry($second_log), $this->assetLocation->getGeometry($animal), 'Asset geometry is determined by asset membership log.');
+    $this->assertEquals(1, count($this->assetLocation->getAssetsByLocation($first_pasture)), 'Locations have assets that are moved to them.');
+    $this->assertEmpty($this->assetLocation->getAssetsByLocation($second_pasture), 'Locations that do not have assets moved to them are unaffected.');
 
     // Create a log that moves the group to the second pasture.
     /** @var \Drupal\log\Entity\LogInterface $third_log */
@@ -257,6 +262,8 @@ class GroupTest extends KernelTestBase {
     // Confirm that the animal is located in the second pasture.
     $this->assertEquals($this->logLocation->getLocation($third_log), $this->assetLocation->getLocation($animal), 'Asset location is determined by group membership log.');
     $this->assertEquals($this->logLocation->getGeometry($third_log), $this->assetLocation->getGeometry($animal), 'Asset geometry is determined by group membership log.');
+    $this->assertEmpty($this->assetLocation->getAssetsByLocation($first_pasture), 'A group movement removes assets from their previous location.');
+    $this->assertEquals(2, count($this->assetLocation->getAssetsByLocation($second_pasture)), 'A group movement adds assets to their new location.');
 
     // Create a log that unsets the group location.
     /** @var \Drupal\log\Entity\LogInterface $fourth_log */
@@ -272,6 +279,8 @@ class GroupTest extends KernelTestBase {
     // Confirm that the animal location was unset.
     $this->assertEquals($this->logLocation->getLocation($fourth_log), $this->assetLocation->getLocation($animal), 'Asset location can be unset by group membership log.');
     $this->assertEquals($this->logLocation->getGeometry($fourth_log), $this->assetLocation->getGeometry($animal), 'Asset geometry can be unset by group membership log.');
+    $this->assertEmpty($this->assetLocation->getAssetsByLocation($first_pasture), 'Unsetting group location removes member assets from all locations.');
+    $this->assertEmpty($this->assetLocation->getAssetsByLocation($second_pasture), 'Unsetting group location removes member assets from all locations.');
 
     // Create a log that unsets the animal's group membership.
     /** @var \Drupal\log\Entity\LogInterface $fifth_log */
@@ -288,6 +297,8 @@ class GroupTest extends KernelTestBase {
     // logs now.
     $this->assertEquals($this->logLocation->getLocation($second_log), $this->assetLocation->getLocation($animal), 'Asset location is determined by asset membership log.');
     $this->assertEquals($this->logLocation->getGeometry($second_log), $this->assetLocation->getGeometry($animal), 'Asset geometry is determined by asset membership log.');
+    $this->assertEquals(1, count($this->assetLocation->getAssetsByLocation($first_pasture)), 'Unsetting group membership adds assets to their previous location.');
+    $this->assertEmpty($this->assetLocation->getAssetsByLocation($second_pasture), 'Unsetting group membership removes member assets from the group location.');
   }
 
 }
