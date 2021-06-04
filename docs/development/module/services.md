@@ -32,6 +32,8 @@ asset. Returns a log entity, or `NULL` if no logs were found.
 `setIntrinsicGeometry($asset, $wkt)` - Set an asset's intrinsic geometry, given
 a string in Well-Known Text format.
 
+`getAssetsByLocation($location)` - Get assets that are in a location.
+
 **Example usage**:
 
 ```php
