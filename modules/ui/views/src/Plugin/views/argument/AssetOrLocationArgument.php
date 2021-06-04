@@ -18,6 +18,7 @@ class AssetOrLocationArgument extends ArgumentPluginBase {
   public function query($group_by = FALSE) {
 
     // Join the log__asset table with a condition to match the asset ID.
+    $this->ensureMyTable();
     /** @var \Drupal\views\Plugin\views\join\JoinPluginBase $join */
     $join = Views::pluginManager('join')->createInstance('standard', [
       'table' => 'log__asset',
