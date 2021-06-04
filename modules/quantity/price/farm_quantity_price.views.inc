@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Farm_quantity_price module views integration.
+ * Provides Views data for farm_quantity_price.module.
  */
 
 /**

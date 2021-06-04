@@ -2,13 +2,11 @@
 
 /**
  * @file
- * Provide Views data for the basic data stream.
+ * Provide Views data for data_stream.module.
  */
 
 /**
  * Implements hook_views_data().
- *
- * Views integration for basic data stream data.
  */
 function data_stream_views_data() {
   $data = [];
