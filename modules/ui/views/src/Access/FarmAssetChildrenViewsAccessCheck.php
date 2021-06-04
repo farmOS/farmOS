@@ -6,6 +6,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Routing\Access\AccessInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Access\AccessResult;
+use Drupal\farm_location\AssetLocationInterface;
 
 /**
  * Checks access for displaying Views of asset children.
@@ -20,13 +21,23 @@ class FarmAssetChildrenViewsAccessCheck implements AccessInterface {
   protected $assetStorage;
 
   /**
+   * The asset location service.
+   *
+   * @var \Drupal\farm_location\AssetLocationInterface
+   */
+  protected $assetLocation;
+
+  /**
    * FarmAssetChildrenViewsAccessCheck constructor.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager service.
+   * @param \Drupal\farm_location\AssetLocationInterface $asset_location
+   *   The asset location service.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, AssetLocationInterface $asset_location) {
     $this->assetStorage = $entity_type_manager->getStorage('asset');
+    $this->assetLocation = $asset_location;
   }
 
   /**
@@ -41,6 +52,13 @@ class FarmAssetChildrenViewsAccessCheck implements AccessInterface {
     $asset_id = $route_match->getParameter('asset');
     if (empty($asset_id)) {
       return AccessResult::allowed();
+    }
+
+    // If the asset is a location, deny access.
+    /** @var \Drupal\asset\Entity\AssetInterface $asset */
+    $asset = $this->assetStorage->load($asset_id);
+    if ($this->assetLocation->isLocation($asset)) {
+      return AccessResult::forbidden();
     }
 
     // Run a count query to see if there are any assets that reference this
