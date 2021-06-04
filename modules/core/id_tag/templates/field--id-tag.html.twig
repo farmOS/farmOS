@@ -43,7 +43,7 @@
 {# Use a macro to render each id-tag item. Each property is wrapped in its own div. #}
 {% macro id_tag(item) %}
   {% for property in item.content %}
-    <div>{{ property }}</div>
+    <div class="id-tag__{{ _key }}">{{ property }}</div>
   {% endfor %}
 {% endmacro %}
 
