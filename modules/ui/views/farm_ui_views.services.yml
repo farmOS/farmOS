@@ -8,6 +8,11 @@ services:
     arguments: ['@entity_type.manager']
     tags:
       - { name: access_check, applies_to: _asset_logs_access }
+  farm_ui_views.asset_children_access:
+    class: Drupal\farm_ui_views\Access\FarmAssetChildrenViewsAccessCheck
+    arguments: [ '@entity_type.manager' ]
+    tags:
+      - { name: access_check, applies_to: _asset_children_access }
   farm_ui_views.location_assets_access:
     class: Drupal\farm_ui_views\Access\FarmLocationAssetViewsAccessCheck
     arguments: [ '@entity_type.manager', '@asset.location' ]
