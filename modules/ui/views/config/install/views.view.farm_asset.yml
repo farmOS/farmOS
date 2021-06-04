@@ -1063,7 +1063,7 @@ display:
     display_plugin: rest_export
     id: csv
     display_title: 'CSV export (rest)'
-    position: 4
+    position: 5
     display_options:
       display_extenders: {  }
       style:
@@ -1118,7 +1118,7 @@ display:
     display_plugin: entity_browser
     id: entity_browser
     display_title: 'Entity browser'
-    position: 4
+    position: 6
     display_options:
       display_extenders: {  }
       defaults:
@@ -1608,7 +1608,7 @@ display:
     display_plugin: page
     id: page_children
     display_title: 'Children (page)'
-    position: 3
+    position: 4
     display_options:
       display_extenders: {  }
       display_description: ''
@@ -1671,6 +1671,70 @@ display:
         weight: 50
         context: '0'
         menu_name: account
+    cache_metadata:
+      max-age: 0
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - user.permissions
+      tags: {  }
+  page_location:
+    display_plugin: page
+    id: page_location
+    display_title: 'By location (page)'
+    position: 3
+    display_options:
+      display_extenders: {  }
+      display_description: ''
+      path: asset/%asset/assets
+      arguments:
+        location:
+          id: location
+          table: asset
+          field: location
+          relationship: none
+          group_type: group
+          admin_label: ''
+          default_action: empty
+          exception:
+            value: all
+            title_enable: false
+            title: All
+          title_enable: false
+          title: ''
+          default_argument_type: fixed
+          default_argument_options:
+            argument: ''
+          default_argument_skip_url: false
+          summary_options:
+            base_path: ''
+            count: true
+            items_per_page: 25
+            override: false
+          summary:
+            sort_order: asc
+            number_of_records: 0
+            format: default_summary
+          specify_validation: false
+          validate:
+            type: none
+            fail: 'not found'
+          validate_options: {  }
+          entity_type: asset
+          plugin_id: asset_location
+      defaults:
+        arguments: false
+      menu:
+        type: tab
+        title: Assets
+        description: ''
+        expanded: false
+        parent: ''
+        weight: 50
+        context: '0'
+        menu_name: main
     cache_metadata:
       max-age: 0
       contexts:
