@@ -21,6 +21,12 @@ class RouteSubscriber extends RouteSubscriberBase {
     if ($route = $collection->get('view.farm_log.page_asset')) {
       $route->setRequirement('_asset_logs_access', 'Drupal\farm_ui_views\Access\FarmAssetLogViewsAccessCheck::access');
     }
+
+    // Add our _location_assets_access requirement to
+    // view.farm_asset.page_location.
+    if ($route = $collection->get('view.farm_asset.page_location')) {
+      $route->setRequirement('_location_assets_access', 'Drupal\farm_ui_views\Access\FarmLocationAssetViewsAccessCheck::access');
+    }
   }
 
 }
