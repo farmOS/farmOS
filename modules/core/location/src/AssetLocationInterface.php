@@ -14,7 +14,7 @@ interface AssetLocationInterface {
    * Check if an asset is fixed.
    *
    * @param \Drupal\asset\Entity\AssetInterface $asset
-   *   The Log entity.
+   *   The Asset entity.
    *
    * @return bool
    *   Returns TRUE if it is fixed, FALSE otherwise.
@@ -69,7 +69,7 @@ interface AssetLocationInterface {
    * Find the latest movement log that references an asset.
    *
    * @param \Drupal\asset\Entity\AssetInterface $asset
-   *   The asset entity.
+   *   The Asset entity.
    *
    * @return \Drupal\log\Entity\LogInterface|null
    *   A log entity, or NULL if no logs were found.
