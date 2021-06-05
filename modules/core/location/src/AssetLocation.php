@@ -23,6 +23,13 @@ class AssetLocation implements AssetLocationInterface {
   const ASSET_FIELD_GEOMETRY = 'intrinsic_geometry';
 
   /**
+   * The name of the asset boolean location field.
+   *
+   * @var string
+   */
+  const ASSET_FIELD_LOCATION = 'is_location';
+
+  /**
    * The name of the asset boolean fixed field.
    *
    * @var string
@@ -97,6 +104,13 @@ class AssetLocation implements AssetLocationInterface {
       $container->get('datetime.time'),
       $container->get('database')
     );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function isLocation(AssetInterface $asset): bool {
+    return !empty($asset->{static::ASSET_FIELD_LOCATION}->value);
   }
 
   /**

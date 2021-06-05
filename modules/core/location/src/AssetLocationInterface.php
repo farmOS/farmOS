@@ -11,6 +11,17 @@ use Drupal\log\Entity\LogInterface;
 interface AssetLocationInterface {
 
   /**
+   * Check if an asset is a location.
+   *
+   * @param \Drupal\asset\Entity\AssetInterface $asset
+   *   The Asset entity.
+   *
+   * @return bool
+   *   Returns TRUE if it is a location, FALSE otherwise.
+   */
+  public function isLocation(AssetInterface $asset): bool;
+
+  /**
    * Check if an asset is fixed.
    *
    * @param \Drupal\asset\Entity\AssetInterface $asset

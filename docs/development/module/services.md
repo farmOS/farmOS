@@ -13,6 +13,8 @@ determining an asset's location and geometry.
 
 **Methods**:
 
+`isLocation($asset)` - Check if an asset is a location. Returns a boolean.
+
 `isFixed($asset)` - Check if an asset is fixed. Returns a boolean.
 
 `hasLocation($asset)` - Check if an asset is located within other location
