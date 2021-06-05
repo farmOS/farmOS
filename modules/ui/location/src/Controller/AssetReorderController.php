@@ -55,6 +55,22 @@ class AssetReorderController extends ControllerBase implements AssetReorderContr
   }
 
   /**
+   * Generate the page title.
+   *
+   * @param \Drupal\asset\Entity\AssetInterface|null $asset
+   *   Optionally specify the parent asset that this page is being built for.
+   *
+   * @return string
+   *   Returns the translated page title.
+   */
+  public function getTitle(AssetInterface $asset = NULL) {
+    if (!empty($asset)) {
+      return $this->t('Locations in %location', ['%location' => $asset->label()]);
+    }
+    return $this->t('Locations');
+  }
+
+  /**
    * Builds the response.
    */
   public function build(AssetInterface $asset = NULL) {

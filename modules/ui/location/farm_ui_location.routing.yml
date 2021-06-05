@@ -9,8 +9,8 @@ farm.locations:
 farm.asset.locations:
   path: '/asset/{asset}/locations'
   defaults:
-    _title: 'Locations'
     _controller: '\Drupal\farm_ui_location\Controller\AssetReorderController::build'
+    _title_callback: '\Drupal\farm_ui_location\Controller\AssetReorderController::getTitle'
   requirements:
     _entity_access: 'asset.edit'
     _custom_access: '\Drupal\farm_ui_location\Controller\AssetReorderController::access'
