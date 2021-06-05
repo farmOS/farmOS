@@ -8,6 +8,7 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Url;
+use Drupal\farm_location\AssetLocationInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -23,13 +24,23 @@ class AssetReorderController extends ControllerBase implements AssetReorderContr
   protected $entityTypeManager;
 
   /**
+   * The asset location service.
+   *
+   * @var \Drupal\farm_location\AssetLocationInterface
+   */
+  protected $assetLocation;
+
+  /**
    * The controller constructor.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
+   * @param \Drupal\farm_location\AssetLocationInterface $asset_location
+   *   The asset location service.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, AssetLocationInterface $asset_location) {
     $this->entityTypeManager = $entity_type_manager;
+    $this->assetLocation = $asset_location;
   }
 
   /**
@@ -37,21 +48,23 @@ class AssetReorderController extends ControllerBase implements AssetReorderContr
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('entity_type.manager')
+      $container->get('entity_type.manager'),
+      $container->get('asset.location')
     );
   }
 
   /**
-   * Builds the response.
+   * Check access.
    */
   public function access(AccountInterface $account, AssetInterface $asset = NULL) {
-    $permission_access = AccessResult::allowedIfHasPermission($account, 'administer assets');
-    $permission_access = AccessResult::allowedIf($this->getAssetChildren($asset));
-    if (!$permission_access->isAllowed()) {
-      $permission_access = AccessResult::allowedIf($this->getAssetChildren($asset));
+
+    // If the asset is not a location, forbid access.
+    if (!$this->assetLocation->isLocation($asset)) {
+      return AccessResult::forbidden();
     }
 
-    return $permission_access;
+    // Allow access if the asset has child locations.
+    return AccessResult::allowedIf(!empty($this->getAssetChildren($asset)));
   }
 
   /**
