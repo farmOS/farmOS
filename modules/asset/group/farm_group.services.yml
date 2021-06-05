@@ -2,4 +2,4 @@ services:
   group.membership:
     class: Drupal\farm_group\GroupMembership
     arguments:
-      [ '@farm.log_query', '@entity_type.manager', '@datetime.time' ]
+      [ '@farm.log_query', '@entity_type.manager', '@datetime.time', '@database' ]
