@@ -98,16 +98,6 @@ class AssetReorderController extends ControllerBase implements AssetReorderContr
    * @throws \Drupal\Core\Entity\EntityMalformedException
    */
   public function build(AssetInterface $asset = NULL) {
-    $build['toggle_drag_and_drop'] = [
-      '#type' => 'link',
-      '#title' => $this->t('Toggle drag and drop'),
-      '#url' => Url::fromUserInput('#'),
-      '#attributes' => [
-        'class' => [
-          'locations-tree-toggle',
-        ],
-      ],
-    ];
 
     $build['content'] = [
       '#type' => 'html_tag',
@@ -119,6 +109,18 @@ class AssetReorderController extends ControllerBase implements AssetReorderContr
       ],
     ];
 
+    $build['toggle_drag_and_drop'] = [
+      '#type' => 'link',
+      '#title' => $this->t('Toggle drag and drop'),
+      '#url' => Url::fromUserInput('#'),
+      '#attributes' => [
+        'class' => [
+          'locations-tree-toggle',
+          'button',
+          'button--secondary',
+        ],
+      ],
+    ];
     $build['save'] = [
       '#type' => 'link',
       '#title' => $this->t('Save'),
