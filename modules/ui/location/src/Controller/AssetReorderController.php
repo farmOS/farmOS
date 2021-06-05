@@ -64,7 +64,7 @@ class AssetReorderController extends ControllerBase implements AssetReorderContr
     }
 
     // Allow access if the asset has child locations.
-    return AccessResult::allowedIf(!empty($this->getAssetChildren($asset)));
+    return AccessResult::allowedIf(!empty($this->getLocations($asset)));
   }
 
   /**
@@ -174,45 +174,38 @@ class AssetReorderController extends ControllerBase implements AssetReorderContr
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   protected function buildTree(AssetInterface $asset = NULL) {
-    $children = $this->getAssetChildren($asset);
+    $locations = $this->getLocations($asset);
     $tree = [];
-    if ($children) {
-      foreach ($children as $child) {
+    if ($locations) {
+      foreach ($locations as $location) {
         $element = [
-          'uuid' => $child->uuid(),
-          'text' => $child->label(),
-          'children' => $this->buildTree($child),
-          'type' => $child->bundle(),
-          'url' => $child->toUrl('canonical', ['absolute' => TRUE])->toString(),
+          'uuid' => $location->uuid(),
+          'text' => $location->label(),
+          'children' => $this->buildTree($location),
+          'type' => $location->bundle(),
+          'url' => $location->toUrl('canonical', ['absolute' => TRUE])->toString(),
         ];
         $element['original_parent'] = $asset ? $asset->uuid() : '';
         $element['original_type'] = $asset ? $asset->bundle() : '';
         $tree[] = $element;
       }
     }
-
     return $tree;
   }
 
   /**
-   * Gets the children assets from a given asset.
+   * Gets location assets.
    *
-   * TODO: Should this be part of the asset entity so $asset->getChildren() can
-   * be called?
+   * @param \Drupal\asset\Entity\AssetInterface|null $asset
+   *   Optionally provide a parent asset to only retrieve its direct children.
    *
-   * @param \Drupal\asset\Entity\AssetInterface $asset
-   *   The partent asset.
-   *
-   * @return \Drupal\asset\Entity\AssetInterface[]|false
-   *   An array of children, FALSE if none found.
+   * @return \Drupal\asset\Entity\AssetInterface[]
+   *   An array of location assets.
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  protected function getAssetChildren(AssetInterface $asset = NULL) {
-    if (empty($asset)) {
-      return FALSE;
-    }
+  protected function getLocations(AssetInterface $asset = NULL) {
     $storage = $this->entityTypeManager->getStorage('asset');
     $query = $storage->getQuery();
     $query->condition('is_location', TRUE);
@@ -223,14 +216,13 @@ class AssetReorderController extends ControllerBase implements AssetReorderContr
       $query->condition('parent', NULL, 'IS NULL');
     }
     $query->sort('name');
-
     $asset_ids = $query->execute();
     if (empty($asset_ids)) {
-      return FALSE;
+      return [];
     }
-    /** @var \Drupal\asset\Entity\AssetInterface[] $children */
-    $children = $storage->loadMultiple($asset_ids);
-    return $children;
+    /** @var \Drupal\asset\Entity\AssetInterface[] $assets */
+    $assets = $storage->loadMultiple($asset_ids);
+    return $assets;
   }
 
 }
