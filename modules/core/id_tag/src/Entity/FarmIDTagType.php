@@ -11,8 +11,10 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *   id = "tag_type",
  *   label = @Translation("ID tag type"),
  *   label_collection = @Translation("ID tag types"),
- *   handlers = { },
- *   admin_permission = "administer site configuration",
+ *   handlers = {
+ *     "access" = "\Drupal\entity\EntityAccessControlHandler",
+ *     "permission_provider" = "\Drupal\entity\EntityPermissionProvider",
+ *   },
  *   entity_keys = {
  *     "id" = "id",
  *     "label" = "label",
