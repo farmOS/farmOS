@@ -294,4 +294,113 @@ class LocationTest extends KernelTestBase {
     $this->assertEquals($this->logLocation->getGeometry($log), $this->assetLocation->getGeometry($asset), 'Movement logs of a not fixed asset do affect geometry.');
   }
 
+  /**
+   * Test assets in location.
+   */
+  public function testLocationAssets() {
+
+    // Locations have no assets.
+    $this->assertEmpty($this->assetLocation->getAssetsByLocation($this->locations[0]));
+    $this->assertEmpty($this->assetLocation->getAssetsByLocation($this->locations[1]));
+
+    // Create an asset and move it to the first location.
+    /** @var \Drupal\asset\Entity\AssetInterface $first_asset */
+    $first_asset = Asset::create([
+      'type' => 'object',
+      'name' => $this->randomMachineName(),
+      'status' => 'active',
+    ]);
+    $first_asset->save();
+    /** @var \Drupal\log\Entity\LogInterface $first_log */
+    $first_log = Log::create([
+      'type' => 'movement',
+      'status' => 'done',
+      'asset' => ['target_id' => $first_asset->id()],
+      'location' => ['target_id' => $this->locations[0]->id()],
+      'is_movement' => TRUE,
+    ]);
+    $first_log->save();
+
+    // First location has one asset, second has none.
+    $this->assertEquals(1, count($this->assetLocation->getAssetsByLocation($this->locations[0])));
+    $this->assertEmpty($this->assetLocation->getAssetsByLocation($this->locations[1]));
+
+    // Create a second asset and move it to the second location.
+    /** @var \Drupal\asset\Entity\AssetInterface $second_asset */
+    $second_asset = Asset::create([
+      'type' => 'object',
+      'name' => $this->randomMachineName(),
+      'status' => 'active',
+    ]);
+    $second_asset->save();
+    /** @var \Drupal\log\Entity\LogInterface $first_log */
+    $second_log = Log::create([
+      'type' => 'movement',
+      'status' => 'done',
+      'asset' => ['target_id' => $second_asset->id()],
+      'location' => ['target_id' => $this->locations[1]->id()],
+      'is_movement' => TRUE,
+    ]);
+    $second_log->save();
+
+    // Both locations have one asset.
+    $this->assertEquals(1, count($this->assetLocation->getAssetsByLocation($this->locations[0])));
+    $this->assertEquals(1, count($this->assetLocation->getAssetsByLocation($this->locations[1])));
+
+    // Create a third log that moves both assets to the first location.
+    /** @var \Drupal\log\Entity\LogInterface $third_log */
+    $third_log = Log::create([
+      'type' => 'movement',
+      'status' => 'done',
+      'asset' => [
+        ['target_id' => $first_asset->id()],
+        ['target_id' => $second_asset->id()],
+      ],
+      'location' => ['target_id' => $this->locations[0]->id()],
+      'is_movement' => TRUE,
+    ]);
+    $third_log->save();
+
+    // First location has two assets, second has none.
+    $this->assertEquals(2, count($this->assetLocation->getAssetsByLocation($this->locations[0])));
+    $this->assertEmpty($this->assetLocation->getAssetsByLocation($this->locations[1]));
+
+    // Create a fourth log that moves first asset to the second location.
+    /** @var \Drupal\log\Entity\LogInterface $fourth_log */
+    $fourth_log = Log::create([
+      'type' => 'movement',
+      'status' => 'done',
+      'asset' => [
+        ['target_id' => $first_asset->id()],
+      ],
+      'location' => ['target_id' => $this->locations[1]->id()],
+      'is_movement' => TRUE,
+    ]);
+    $fourth_log->save();
+
+    // Both locations have one asset.
+    $this->assertEquals(1, count($this->assetLocation->getAssetsByLocation($this->locations[0])));
+    $this->assertEquals(1, count($this->assetLocation->getAssetsByLocation($this->locations[1])));
+
+    // Create a fifth log that moves first asset to the both locations.
+    /** @var \Drupal\log\Entity\LogInterface $fourth_log */
+    $fourth_log = Log::create([
+      'type' => 'movement',
+      'status' => 'done',
+      'asset' => [
+        ['target_id' => $first_asset->id()],
+      ],
+      'location' => [
+        ['target_id' => $this->locations[0]->id()],
+        ['target_id' => $this->locations[1]->id()],
+      ],
+      'is_movement' => TRUE,
+    ]);
+    $fourth_log->save();
+
+    // First location has two asset, second location has one asset.
+    $this->assertEquals(2, count($this->assetLocation->getAssetsByLocation($this->locations[0])));
+    $this->assertEquals(1, count($this->assetLocation->getAssetsByLocation($this->locations[1])));
+  }
+
 }

@@ -4,6 +4,7 @@ namespace Drupal\farm_group;
 
 use Drupal\asset\Entity\AssetInterface;
 use Drupal\Component\Datetime\TimeInterface;
+use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\farm_location\AssetLocation;
 use Drupal\farm_location\AssetLocationInterface;
@@ -35,11 +36,13 @@ class GroupAssetLocation extends AssetLocation implements AssetLocationInterface
    *   Entity type manager.
    * @param \Drupal\Component\Datetime\TimeInterface $time
    *   The time service.
+   * @param \Drupal\Core\Database\Connection $database
+   *   The database service.
    * @param \Drupal\farm_group\GroupMembershipInterface $group_membership
    *   The group membership service.
    */
-  public function __construct(LogLocationInterface $log_location, LogQueryFactoryInterface $log_query_factory, EntityTypeManagerInterface $entity_type_manager, TimeInterface $time, GroupMembershipInterface $group_membership) {
-    parent::__construct($log_location, $log_query_factory, $entity_type_manager, $time);
+  public function __construct(LogLocationInterface $log_location, LogQueryFactoryInterface $log_query_factory, EntityTypeManagerInterface $entity_type_manager, TimeInterface $time, Connection $database, GroupMembershipInterface $group_membership) {
+    parent::__construct($log_location, $log_query_factory, $entity_type_manager, $time, $database);
     $this->groupMembership = $group_membership;
   }
 
@@ -52,6 +55,7 @@ class GroupAssetLocation extends AssetLocation implements AssetLocationInterface
       $container->get('farm.log_query'),
       $container->get('entity_type.manager'),
       $container->get('datetime.time'),
+      $container->get('database'),
       $container->get('group.membership')
     );
   }
@@ -101,6 +105,52 @@ class GroupAssetLocation extends AssetLocation implements AssetLocationInterface
 
     // Return the latest movement log.
     return $latest_movement;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getAssetsByLocation(AssetInterface $location): array {
+
+    // First delegate to the parent function to get assets in the location.
+    /** @var \Drupal\asset\Entity\AssetInterface[] $assets */
+    $assets = parent::getAssetsByLocation($location);
+
+    // Iterate through the assets to check if any of them are groups.
+    $groups = [];
+    foreach ($assets as $asset) {
+      if ($asset->bundle() == 'group') {
+        $groups[] = $asset;
+      }
+    }
+
+    // Recursively load all group members and add them to the list of assets.
+    /** @var \Drupal\asset\Entity\AssetInterface[] $members */
+    $members = [];
+    foreach ($groups as $group) {
+      $members = array_merge($members, $this->groupMembership->getGroupMembers($group, TRUE));
+    }
+    $assets = array_merge($assets, $members);
+
+    // It is possible for a group member asset to be in a different location
+    // than the group, if it has a movement log that is more recent than the
+    // group's. So iterate through all the assets and remove any that are not in
+    // the location. The asset may be in multiple locations (including this
+    // one), so we only want to remove it if none of its locations match.
+    foreach ($assets as $key => $asset) {
+      $match = FALSE;
+      foreach ($this->getLocation($asset) as $asset_location) {
+        if ($asset_location->id() == $location->id()) {
+          $match = TRUE;
+        }
+      }
+      if (!$match) {
+        unset($assets[$key]);
+      }
+    }
+
+    // Return the assets.
+    return $assets;
   }
 
 }
