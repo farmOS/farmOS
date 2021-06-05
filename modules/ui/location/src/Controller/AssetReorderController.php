@@ -209,6 +209,7 @@ class AssetReorderController extends ControllerBase implements AssetReorderContr
     $storage = $this->entityTypeManager->getStorage('asset');
     $query = $storage->getQuery();
     $query->condition('is_location', TRUE);
+    $query->condition('status', 'archived', '!=');
     if ($asset) {
       $query->condition('parent', $asset->id());
     }
