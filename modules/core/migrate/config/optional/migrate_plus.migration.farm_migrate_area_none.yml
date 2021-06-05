@@ -27,12 +27,6 @@ process:
   land_type:
     plugin: default_value
     default_value: other
-  # Make areas of unknown type archived by default, because removing the area
-  # type prevented the area from being visible on the map in farmOS 1.x, so we
-  # assume this is because it is no longer active.
-  status:
-    plugin: default_value
-    default_value: archived
   archived:
     plugin: request_time
 migration_dependencies:
