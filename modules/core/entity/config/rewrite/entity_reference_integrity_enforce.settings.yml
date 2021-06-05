@@ -1,6 +1,8 @@
 enabled_entity_type_ids:
   asset: asset
+  data_stream: data_stream
   file: file
   log: log
+  quantity: quantity
   taxonomy_term: taxonomy_term
   user: user
