@@ -71,6 +71,22 @@ function farm_ui_views_views_pre_render(ViewExecutable $view) {
   // We may set the View page title, but assume not.
   $title = '';
 
+  // If this is the farm_asset View and page_children display, include the
+  // asset's name.
+  if ($view->id() == 'farm_asset' && $view->current_display == 'page_children') {
+    $asset_id = $view->args[0];
+    $asset = \Drupal::entityTypeManager()->getStorage('asset')->load($asset_id);
+    $title = t('Children of %asset', ['%asset' => $asset->label()]);
+  }
+
+  // If this is the farm_asset View and page_location display, include the
+  // asset's name.
+  if ($view->id() == 'farm_asset' && $view->current_display == 'page_location') {
+    $asset_id = $view->args[0];
+    $asset = \Drupal::entityTypeManager()->getStorage('asset')->load($asset_id);
+    $title = t('Assets in %location', ['%location' => $asset->label()]);
+  }
+
   // If this is the farm_log View and page_asset display, include the asset's
   // name.
   if ($view->id() == 'farm_log' && $view->current_display == 'page_asset') {
