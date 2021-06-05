@@ -49,15 +49,19 @@ class FarmAssetLogViewsAccessCheck implements AccessInterface {
       return AccessResult::allowed();
     }
 
-    // Run a count query to see if there are any logs of this type that
-    // reference the asset.
-    $result = $this->logStorage->getAggregateQuery()
+    // Build a count query for logs of this type.
+    $query = $this->logStorage->getAggregateQuery()
       ->condition('type', $log_type)
+      ->aggregate('id', 'COUNT');
+
+    // Only include logs that reference the asset.
+    $reference_condition = $query->orConditionGroup()
       ->condition('asset.entity.id', $asset_id)
-      ->aggregate('id', 'COUNT')
-      ->execute();
+      ->condition('location.entity.id', $asset_id);
+    $query->condition($reference_condition);
 
     // Determine access based on the log count.
+    $result = $query->execute();
     $log_count = (int) $result[0]['id_count'] ?? 0;
     $access = AccessResult::allowedIf($log_count > 0);
 
