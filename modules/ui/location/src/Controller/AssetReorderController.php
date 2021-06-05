@@ -85,6 +85,17 @@ class AssetReorderController extends ControllerBase implements AssetReorderContr
 
   /**
    * Builds the response.
+   *
+   * @param \Drupal\asset\Entity\AssetInterface|null $asset
+   *   Optionally specify the parent asset, to only build a sub-tree. If
+   *   omitted, all assets will be included.
+   *
+   * @return array
+   *   Returns a build array.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws \Drupal\Core\Entity\EntityMalformedException
    */
   public function build(AssetInterface $asset = NULL) {
     $build['toggle_drag_and_drop'] = [
