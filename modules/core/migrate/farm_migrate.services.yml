@@ -1,0 +1,7 @@
+services:
+  post_migration_subscriber:
+    class: Drupal\farm_migrate\EventSubscriber\PostMigrationSubscriber
+    arguments:
+      [ '@database', '@datetime.time' ]
+    tags:
+      - { name: 'event_subscriber' }
