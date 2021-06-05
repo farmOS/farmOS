@@ -1,0 +1,7 @@
+name: farmOS UI Help
+description: Provides Help module integration for farmOS.
+type: module
+package: farmOS UI
+core_version_requirement: ^9
+dependencies:
+  - drupal:help
