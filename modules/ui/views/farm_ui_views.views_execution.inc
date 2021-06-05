@@ -68,6 +68,17 @@ function farm_ui_views_views_pre_render(ViewExecutable $view) {
     return;
   }
 
+  // We may set the View page title, but assume not.
+  $title = '';
+
+  // If this is the farm_log View and page_asset display, include the asset's
+  // name.
+  if ($view->id() == 'farm_log' && $view->current_display == 'page_asset') {
+    $asset_id = $view->args[0];
+    $asset = \Drupal::entityTypeManager()->getStorage('asset')->load($asset_id);
+    $title = $asset->label() . ' ' . $view->getBaseEntityType()->getPluralLabel();
+  }
+
   // If this is a "By type" display and a bundle argument is specified, load
   // the bundle label and set the title.
   $bundle = FALSE;
@@ -80,8 +91,13 @@ function farm_ui_views_views_pre_render(ViewExecutable $view) {
   if (!empty($bundle)) {
     $bundles = \Drupal::service('entity_type.bundle.info')->getBundleInfo($view->getBaseEntityType()->id());
     if (!empty($bundles[$bundle])) {
-      $view->setTitle($bundles[$bundle]['label'] . ' ' . $view->getBaseEntityType()->getPluralLabel());
+      $title = $bundles[$bundle]['label'] . ' ' . $view->getBaseEntityType()->getPluralLabel();
     }
+  }
+
+  // Set the title, if so desired.
+  if (!empty($title)) {
+    $view->setTitle($title);
   }
 }
 
