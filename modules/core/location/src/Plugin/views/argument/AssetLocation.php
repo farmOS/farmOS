@@ -36,6 +36,11 @@ class AssetLocation extends ArgumentPluginBase {
       $asset_ids[] = $asset->id();
     }
 
+    // If there are no asset IDs, add 0 to ensure the array is not empty.
+    if (empty($asset_ids)) {
+      $asset_ids[] = 0;
+    }
+
     // Filter to only include assets with those IDs.
     $this->ensureMyTable();
     $this->query->addWhere(0, "$this->tableAlias.id", $asset_ids, 'IN');
