@@ -3,10 +3,10 @@
     attach: function (instance) {
 
       // Check if there are asset type layers to add.
-      if (drupalSettings.farm_map[instance.target].asset_type_layers !== undefined) {
+      if (drupalSettings.farm_map[instance.drupalSettingsKey].asset_type_layers !== undefined) {
 
         // Add layers for each area type.
-        var layers = drupalSettings.farm_map[instance.target].asset_type_layers;
+        var layers = drupalSettings.farm_map[instance.drupalSettingsKey].asset_type_layers;
         Object.values(layers).reverse().forEach( layer => {
 
           // Determine if the layer should display full geometry or centroids.
