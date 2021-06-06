@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\farm_dashboard\Controller;
+namespace Drupal\farm_ui_dashboard\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\views\Views;

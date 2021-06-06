@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\farm_dashboard\Functional;
+namespace Drupal\Tests\farm_ui_dashboard\Functional;
 
 use Drupal\Tests\farm\Functional\FarmBrowserTestBase;
 
@@ -22,8 +22,8 @@ class DashboardTest extends FarmBrowserTestBase {
    * {@inheritdoc}
    */
   protected static $modules = [
-    'farm_dashboard',
-    'farm_dashboard_test',
+    'farm_ui_dashboard',
+    'farm_ui_dashboard_test',
   ];
 
   /**

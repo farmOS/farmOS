@@ -6,6 +6,7 @@ core_version_requirement: ^9
 dependencies:
   - farm:farm_ui_action
   - farm:farm_ui_breadcrumb
+  - farm:farm_ui_dashboard
   - farm:farm_ui_help
   - farm:farm_ui_map
   - farm:farm_ui_menu

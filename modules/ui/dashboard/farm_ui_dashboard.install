@@ -2,13 +2,13 @@
 
 /**
  * @file
- * Install, update and uninstall functions for the farm_dashboard module.
+ * Install, update and uninstall functions for the farm_ui_dashboard module.
  */
 
 /**
  * Implements hook_install().
  */
-function farm_dashboard_install() {
+function farm_ui_dashboard_install() {
 
   // Set the front page to /dashboard.
   // We cannot set this with config_rewrite because it breaks the config. See:

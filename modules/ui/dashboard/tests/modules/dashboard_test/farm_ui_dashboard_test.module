@@ -2,13 +2,13 @@
 
 /**
  * @file
- * The farm_dashboard_test module.
+ * The farm_ui_dashboard_test module.
  */
 
 /**
  * Implements hook_farm_dashboard_panes().
  */
-function farm_dashboard_test_farm_dashboard_panes() {
+function farm_ui_dashboard_test_farm_dashboard_panes() {
   return [
     'dashboard_block' => [
       'block' => 'dashboard_test',

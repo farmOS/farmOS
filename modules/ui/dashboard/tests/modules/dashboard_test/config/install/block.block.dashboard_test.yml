@@ -7,6 +7,6 @@ provider: null
 plugin: dashboard_test_block
 settings:
   label: 'Dashboard test block label'
-  provider: farm_dashboard_test
+  provider: farm_ui_dashboard_test
   label_display: '1'
 visibility: {  }

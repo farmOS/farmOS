@@ -3,7 +3,7 @@ status: false
 dependencies:
   enforced:
     module:
-      - farm_dashboard
+      - farm_ui_dashboard
   module:
     - farm_map
   theme:
@@ -18,6 +18,6 @@ settings:
   id: dashboard_map
   map_type: dashboard
   label: 'Dashboard map'
-  provider: farm_dashboard
+  provider: farm_ui_dashboard
   label_display: '0'
 visibility: {  }
