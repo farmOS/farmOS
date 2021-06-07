@@ -1,0 +1,12 @@
+locations-drag-and-drop:
+  version: 1.x
+  css:
+    theme:
+      css/locations_drag_and_drop.css: { }
+  js:
+    js/locations_drag_and_drop.js: {}
+  dependencies:
+    - core/drupal.message
+    - core/jquery
+    - inspire_tree/inspire_tree
+    - inspire_tree/inspire_tree_dom

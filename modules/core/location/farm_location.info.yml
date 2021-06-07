@@ -5,7 +5,9 @@ package: farmOS
 core_version_requirement: ^9
 dependencies:
   - drupal:views
+  - farm:asset
   - farm:farm_field
   - farm:farm_log
   - geofield:geofield
+  - log:log
   - views_geojson:views_geojson

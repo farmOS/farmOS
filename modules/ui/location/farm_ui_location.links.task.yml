@@ -1,0 +1,5 @@
+farm.asset.locations:
+  route_name: farm.asset.locations
+  title: 'Locations'
+  base_route: entity.asset.canonical
+  weight: 100

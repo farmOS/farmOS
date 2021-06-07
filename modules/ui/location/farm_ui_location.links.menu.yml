@@ -1,0 +1,5 @@
+farm.locations:
+  title: Locations
+  parent: farm.base
+  route_name: farm.locations
+  weight: 0
