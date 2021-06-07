@@ -1,0 +1,19 @@
+langcode: en
+status: false
+dependencies:
+  module:
+    - farm_ui_metrics
+  theme:
+    - gin
+id: farm_metrics
+theme: gin
+region: content
+weight: 0
+provider: null
+plugin: farm_metrics_block
+settings:
+  id: farm_metrics_block
+  label: 'Metrics'
+  provider: farm_ui_metrics
+  label_display: '0'
+visibility: {  }
