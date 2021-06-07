@@ -11,6 +11,7 @@ dependencies:
   - farm:farm_ui_location
   - farm:farm_ui_map
   - farm:farm_ui_menu
+  - farm:farm_ui_metrics
   - farm:farm_ui_theme
   - farm:farm_ui_user
   - farm:farm_ui_views
