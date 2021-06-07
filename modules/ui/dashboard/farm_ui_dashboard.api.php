@@ -46,9 +46,47 @@ function hook_farm_dashboard_panes() {
       // label will be used.
       'title' => t('My pane title'),
 
+      // Optionally specify a layout region. Defaults to 'first'.
+      // Options are: top, first, second or bottom.
+      'region' => 'top',
+
       // Optionally specify a group and weight for display sorting.
       'group' => 'custom_group',
       'weight' => 100,
+    ],
+  ];
+}
+
+/**
+ * Defines farm dashboard groups.
+ *
+ * @return array
+ *   Returns an array of farm dashboard groups keyed by layout region.
+ */
+function hook_farm_dashboard_groups() {
+  return [
+
+    // Returns an associate array keyed by the layout region.
+    // Options are top, first, second, or bottom.
+    'first' => [
+
+      // Groups are defined as a render array keyed with a unique group
+      // machine name.
+      'my_group' => [
+
+        // The type. Defaults to container.
+        '#type' => 'details',
+
+        // Optionally specify a title.
+        '#title' => t('My group title'),
+
+        // Optionally specify a weight for sorting.
+        '#weight' => 100,
+      ],
+
+    ],
+    'bottom' => [
+      // Define groups for the bottom layout region.
     ],
   ];
 }

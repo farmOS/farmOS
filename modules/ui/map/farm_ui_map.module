@@ -12,6 +12,7 @@ function farm_ui_map_farm_dashboard_panes() {
   return [
     'dashboard_map' => [
       'block' => 'dashboard_map',
+      'region'  => 'top',
     ],
   ];
 }

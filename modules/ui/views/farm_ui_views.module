@@ -43,6 +43,27 @@ function farm_ui_views_local_tasks_alter(&$local_tasks) {
 }
 
 /**
+ * Implements hook_farm_dashboard_groups().
+ */
+function farm_ui_views_farm_dashboard_groups() {
+  $groups = [];
+
+  // If the plan module is enabled, add a plans group.
+  if (\Drupal::service('module_handler')->moduleExists('plan')) {
+    $groups['second']['plans'] = [
+      '#weight' => 10,
+    ];
+  }
+
+  // Add a logs group.
+  $groups['first']['logs'] = [
+    '#weight' => 10,
+  ];
+
+  return $groups;
+}
+
+/**
  * Implements hook_farm_dashboard_panes().
  */
 function farm_ui_views_farm_dashboard_panes() {
@@ -54,6 +75,7 @@ function farm_ui_views_farm_dashboard_panes() {
       'view' => 'farm_plan',
       'view_display_id' => 'block_active',
       'group' => 'plans',
+      'region'  => 'second',
       'weight' => 0,
     ];
   }
@@ -63,12 +85,14 @@ function farm_ui_views_farm_dashboard_panes() {
     'view' => 'farm_log',
     'view_display_id' => 'block_upcoming',
     'group' => 'logs',
+    'region'  => 'first',
     'weight' => 10,
   ];
   $panes['late_tasks'] = [
     'view' => 'farm_log',
     'view_display_id' => 'block_late',
     'group' => 'logs',
+    'region'  => 'first',
     'weight' => 11,
   ];
 
