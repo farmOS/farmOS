@@ -1,5 +1,6 @@
 .layout--twocol .layout__region {
   box-sizing: border-box;
+  overflow-x: scroll;
 }
 
 .layout--twocol .layout__region--first {
