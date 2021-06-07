@@ -12,26 +12,30 @@
 
   Drupal.behaviors.locationsDragAndDrop = {
     attach: function (context, settings) {
-      var dragAndDropEnabled = false
-      $('a.locations-tree-save').attr('disabled', !dragAndDropEnabled)
-      $('a.locations-tree-reset').attr('disabled', !dragAndDropEnabled)
+      var toggleDragAndDrop = function() {
+        $('a.locations-tree-save').attr('disabled', !dragAndDropEnabled)
+        $('a.locations-tree-reset').attr('disabled', !dragAndDropEnabled)
+        domTree.config.dragAndDrop.enabled = dragAndDropEnabled
+      }
 
       var tree = new InspireTree({
         data: settings.asset_tree,
       })
       var domTree = new InspireTreeDOM(tree, {
         target: '.locations-tree',
+        dragAndDrop: true
       })
       tree.nodes().expand()
 
+      var dragAndDropEnabled = false
+      toggleDragAndDrop()
       $('.locations-tree-toggle').on('click', function(event) {
         event.preventDefault()
         dragAndDropEnabled = !dragAndDropEnabled
-        $('a.locations-tree-save').attr('disabled', !dragAndDropEnabled)
-        $('a.locations-tree-reset').attr('disabled', !dragAndDropEnabled)
-        domTree.config.dragAndDrop.enabled = dragAndDropEnabled
+        toggleDragAndDrop()
+        // Reattach the DOM tree to the locations tree jQuery object.
+        domTree.attach($('.locations-tree'));
       })
-
 
       var changes = {}
       tree.on('node.drop', function(event, source, target, index) {
@@ -64,6 +68,8 @@
         changes = {}
         // Reset the tree to the original status.
         tree.reload()
+        tree.nodes().expand()
+        domTree.clearSelection()
       })
 
       $('.locations-tree-save').on('click', function(event) {
@@ -203,7 +209,9 @@
 
       tree.on('node.click', function(event, node) {
         event.preventDefault()
-        window.location.href = node.url
+        if (node.url && !dragAndDropEnabled) {
+          window.location.href = node.url
+        }
       });
 
     }
