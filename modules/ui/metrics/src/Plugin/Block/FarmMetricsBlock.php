@@ -50,6 +50,7 @@ class FarmMetricsBlock extends BlockBase implements ContainerFactoryPluginInterf
   public function __construct(array $configuration, $plugin_id, $plugin_definition, Connection $database, EntityTypeBundleInfoInterface $bundle_info) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->database = $database;
+    $this->bundleInfo = $bundle_info;
   }
 
   /**
