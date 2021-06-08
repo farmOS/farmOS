@@ -43,6 +43,14 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  location:
+    type: entity_reference_label
+    weight: 7
+    region: content
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
   notes:
     label: inline
     type: text_default
@@ -75,7 +83,6 @@ hidden:
   is_castrated: true
   is_fixed: true
   is_location: true
-  location: true
   nickname: true
   sex: true
   uid: true

@@ -26,13 +26,21 @@ content:
     settings:
       link: true
     region: content
-    third_party_settings: { }
+    third_party_settings: {  }
   land_type:
     label: inline
     type: list_default
     weight: 2
     region: content
     settings: {  }
+    third_party_settings: {  }
+  location:
+    type: entity_reference_label
+    weight: 6
+    region: content
+    label: above
+    settings:
+      link: true
     third_party_settings: {  }
   notes:
     label: inline
@@ -65,5 +73,4 @@ hidden:
   intrinsic_geometry: true
   is_fixed: true
   is_location: true
-  location: true
   uid: true
