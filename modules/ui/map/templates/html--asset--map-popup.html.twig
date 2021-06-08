@@ -26,4 +26,4 @@
  * @see template_preprocess_html()
  */
 #}
-{{ page.content }}
+{{ page.content|without('farm_powered') }}
