@@ -66,7 +66,7 @@
           var assetLink = link.getAttribute('href')
           var description = event.target.element.querySelector('.ol-popup-description');
           description.innerHTML = 'Loading asset details...';
-          fetch(assetLink + '/map_popup')
+          fetch(assetLink + '/map-popup')
             .then((response) => {
               return response.text();
             })

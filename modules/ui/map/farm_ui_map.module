@@ -10,17 +10,6 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Link;
 
 /**
- * Implements hook_theme().
- */
-function farm_ui_map_theme($existing, $type, $theme, $path) {
-  return [
-    'html__asset__map_popup' => [
-      'base hook' => 'html',
-    ],
-  ];
-}
-
-/**
  * Implements hook_farm_dashboard_panes().
  */
 function farm_ui_map_farm_dashboard_panes() {

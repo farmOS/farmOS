@@ -1,6 +1,11 @@
 farm_ui_map.asset.map_popup:
-  path: '/asset/{asset}/map_popup'
+  path: '/asset/{asset}/map-popup'
   defaults:
-    _entity_view: 'asset.map_popup'
+    _controller: '\Drupal\farm_ui_map\Controller\MapPopup::display'
   requirements:
     _entity_access: asset.view
+    asset: \d+
+  options:
+    parameters:
+      asset:
+        type: entity:asset
