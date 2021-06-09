@@ -311,8 +311,21 @@ function farm_entity_entity_presave(EntityInterface $entity) {
   // @see https://www.drupal.org/project/drupal/issues/2795279
   // @see https://github.com/json-api/json-api/pull/824
   if ($entity->type->entity->shouldCreateNewRevision() && $entity->getEntityType()->isRevisionable()) {
-    /** @var  \Drupal\Core\Entity\RevisionLogInterface $entity */
+    /** @var \Drupal\Core\Entity\RevisionLogInterface $entity */
+
+    // Always create a new revision.
     $entity->setNewRevision(TRUE);
+
+    // If the new revision log message matches the original, then set a blank
+    // revision log message. We don't want the same message repeated across
+    // every revision created by the API.
+    if (!empty($entity->original)) {
+      if ($entity->original->get('revision_log_message')->value == $entity->get('revision_log_message')->value) {
+        $entity->setRevisionLogMessage('');
+      }
+    }
+
+    // Set the user ID and creation time.
     $entity->setRevisionUserId(\Drupal::currentUser()->getAccount()->id());
     $entity->setRevisionCreationTime(\Drupal::time()->getRequestTime());
   }
