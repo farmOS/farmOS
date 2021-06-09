@@ -313,6 +313,7 @@ function farm_entity_entity_presave(EntityInterface $entity) {
   if ($entity->type->entity->shouldCreateNewRevision() && $entity->getEntityType()->isRevisionable()) {
     /** @var  \Drupal\Core\Entity\RevisionLogInterface $entity */
     $entity->setNewRevision(TRUE);
+    $entity->setRevisionUserId(\Drupal::currentUser()->getAccount()->id());
     $entity->setRevisionCreationTime(\Drupal::time()->getRequestTime());
   }
 }
