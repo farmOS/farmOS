@@ -7,7 +7,7 @@
 
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Url;
+use Drupal\Core\Link;
 
 /**
  * Implements hook_theme().
@@ -66,12 +66,15 @@ function farm_ui_map_asset_view(array &$build, EntityInterface $entity, EntityVi
     }, ARRAY_FILTER_USE_KEY);
   }
 
+  // Build links.
+  $links = [];
+
   // Build link to view logs referencing the asset.
-  $url = Url::fromRoute('view.farm_log.page_asset', ['asset' => $entity->id(), 'log_type' => 'all']);
-  $build['logs_links'] = [
-    '#type' => 'link',
-    '#title' => t('View logs'),
-    '#url' => $url,
+  $links[] = Link::createFromRoute(t('View logs'), 'view.farm_log.page_asset', ['asset' => $entity->id(), 'log_type' => 'all'])->toString();
+
+  // Render links in a list.
+  $build['links'] = [
+    '#markup' => '<p>' . implode(' | ', $links) . '</p>',
     '#weight' => -100,
   ];
 
