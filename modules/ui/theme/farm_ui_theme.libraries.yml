@@ -6,6 +6,10 @@ footer:
   css:
     theme:
       css/footer.css: { }
+help:
+  css:
+    theme:
+      css/help.css: { }
 map:
   css:
     theme:
