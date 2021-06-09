@@ -59,7 +59,8 @@ function farm_ui_map_asset_view(array &$build, EntityInterface $entity, EntityVi
 
   // The default view mode is used if a map_popup view mode is not provided.
   // Alter the default view mode to only include common fields.
-  if ($display->getMode() === 'default') {
+  $view_mode_options = \Drupal::service('entity_display.repository')->getViewModeOptionsByBundle('asset', $entity->bundle());
+  if (!array_key_exists($view_mode, $view_mode_options)) {
     $common_fields = ['name', 'type', 'flag', 'notes', 'location'];
     $build = array_filter($build, function ($key) use ($common_fields) {
       return strpos($key, '#') === 0 || in_array($key, $common_fields);
