@@ -5,6 +5,10 @@
  * The farmOS UI Map module.
  */
 
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Link;
+
 /**
  * Implements hook_farm_dashboard_panes().
  */
@@ -29,4 +33,46 @@ function farm_ui_map_module_implements_alter(&$implementations, $hook) {
     unset($implementations[$module]);
     $implementations = array_merge([$module => $group], $implementations);
   }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_view().
+ */
+function farm_ui_map_asset_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
+  /** @var \Drupal\farm_entity\Plugin\Asset\AssetType\AssetTypeInterface $entity */
+
+  // Bail if not the map_popup view mode.
+  if ($view_mode !== 'map_popup') {
+    return $build;
+  }
+
+  // The default view mode is used if a map_popup view mode is not provided.
+  // Alter the default view mode to only include common fields.
+  $view_mode_options = \Drupal::service('entity_display.repository')->getViewModeOptionsByBundle('asset', $entity->bundle());
+  if (!array_key_exists($view_mode, $view_mode_options)) {
+    $common_fields = ['name', 'type', 'flag', 'notes', 'location'];
+    $build = array_filter($build, function ($key) use ($common_fields) {
+      return strpos($key, '#') === 0 || in_array($key, $common_fields);
+    }, ARRAY_FILTER_USE_KEY);
+  }
+
+  // Build links.
+  $links = [];
+
+  // Build link to view assets located here.
+  // Only show this link on location assets.
+  if (\Drupal::service('asset.location')->isLocation($entity)) {
+    $links[] = Link::createFromRoute(t('View assets in this location'), 'view.farm_asset.page_location', ['asset' => $entity->id()])->toString();
+  }
+
+  // Build link to view logs referencing the asset.
+  $links[] = Link::createFromRoute(t('View logs'), 'view.farm_log.page_asset', ['asset' => $entity->id(), 'log_type' => 'all'])->toString();
+
+  // Render links in a list.
+  $build['links'] = [
+    '#markup' => '<p>' . implode(' | ', $links) . '</p>',
+    '#weight' => -100,
+  ];
+
+  return $build;
 }

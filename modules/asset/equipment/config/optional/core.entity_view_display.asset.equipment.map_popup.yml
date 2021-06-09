@@ -1,0 +1,72 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - asset.type.equipment
+    - core.entity_view_mode.asset.map_popup
+  module:
+    - options
+    - text
+id: asset.equipment.map_popup
+targetEntityType: asset
+bundle: equipment
+mode: map_popup
+content:
+  flag:
+    label: inline
+    type: list_default
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  location:
+    type: entity_reference_label
+    weight: 5
+    region: content
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+  manufacturer:
+    label: inline
+    type: string
+    weight: 1
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  model:
+    label: inline
+    type: string
+    weight: 2
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  notes:
+    label: inline
+    type: text_default
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  serial_number:
+    label: inline
+    type: string
+    weight: 3
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+hidden:
+  data: true
+  file: true
+  geometry: true
+  id_tag: true
+  image: true
+  intrinsic_geometry: true
+  is_fixed: true
+  is_location: true
+  parent: true
+  status: true
+  uid: true

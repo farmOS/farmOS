@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - asset
+id: asset.map_popup
+label: 'Map popup'
+targetEntityType: asset
+cache: true
