@@ -5,7 +5,6 @@ namespace Drupal\farm_ui_location\Controller;
 use Drupal\asset\Entity\AssetInterface;
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Url;
 use Drupal\farm_location\AssetLocationInterface;
@@ -17,13 +16,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class AssetReorderController extends ControllerBase implements AssetReorderControllerInterface {
 
   /**
-   * The entity type manager.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
-   */
-  protected $entityTypeManager;
-
-  /**
    * The asset location service.
    *
    * @var \Drupal\farm_location\AssetLocationInterface
@@ -33,13 +25,10 @@ class AssetReorderController extends ControllerBase implements AssetReorderContr
   /**
    * The controller constructor.
    *
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-   *   The entity type manager.
    * @param \Drupal\farm_location\AssetLocationInterface $asset_location
    *   The asset location service.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, AssetLocationInterface $asset_location) {
-    $this->entityTypeManager = $entity_type_manager;
+  public function __construct(AssetLocationInterface $asset_location) {
     $this->assetLocation = $asset_location;
   }
 
@@ -48,7 +37,6 @@ class AssetReorderController extends ControllerBase implements AssetReorderContr
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('entity_type.manager'),
       $container->get('asset.location')
     );
   }
@@ -208,7 +196,7 @@ class AssetReorderController extends ControllerBase implements AssetReorderContr
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   protected function getLocations(AssetInterface $asset = NULL) {
-    $storage = $this->entityTypeManager->getStorage('asset');
+    $storage = $this->entityTypeManager()->getStorage('asset');
     $query = $storage->getQuery();
     $query->condition('is_location', TRUE);
     $query->condition('status', 'archived', '!=');
