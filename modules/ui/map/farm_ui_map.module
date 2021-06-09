@@ -69,6 +69,12 @@ function farm_ui_map_asset_view(array &$build, EntityInterface $entity, EntityVi
   // Build links.
   $links = [];
 
+  // Build link to view assets located here.
+  // Only show this link on location assets.
+  if (\Drupal::service('asset.location')->isLocation($entity)) {
+    $links[] = Link::createFromRoute(t('View assets in this location'), 'view.farm_asset.page_location', ['asset' => $entity->id()])->toString();
+  }
+
   // Build link to view logs referencing the asset.
   $links[] = Link::createFromRoute(t('View logs'), 'view.farm_log.page_asset', ['asset' => $entity->id(), 'log_type' => 'all'])->toString();
 
