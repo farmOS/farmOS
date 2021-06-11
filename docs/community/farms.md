@@ -41,6 +41,10 @@ included in this list, add a comment to [this issue on Github].
 
 * Landw. Betrieb Fischer (Arberg, Bavaria)
 
+## India
+
+* Abhis Farm (Ayyampalayam, Dindigul, Tamilnadu)
+
 ## Italy
 
 * Riso Corbetta (Rovasenda, Vercelli)
