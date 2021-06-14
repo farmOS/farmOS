@@ -20,7 +20,7 @@ class Structure extends FarmAssetType {
   public function buildFieldDefinitions() {
     $fields = [];
 
-    // Land type field.
+    // Structure type field.
     $options = [
       'type' => 'list_string',
       'label' => $this->t('Structure type'),
