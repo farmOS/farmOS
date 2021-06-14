@@ -62,12 +62,16 @@ function farm_install_modules(array &$install_state) {
   // string, which is interpreted as a shortcut for installing a set of modules.
   // Available shortcuts are:
   // - "all" (installs all modules)
-  // - "base" (installs base modules)
+  // - "default" (installs default and base modules)
+  // - "base" (installs base modules only)
   if (!empty($install_state['forms']['farm']['modules'])) {
     $modules_arg = $install_state['forms']['farm']['modules'];
     $all = farm_modules();
     if ($modules_arg === 'all') {
       $modules = array_merge(array_keys($all['base']), array_keys($all['default']), array_keys($all['optional']));
+    }
+    elseif ($modules_arg === 'default') {
+      $modules = array_merge(array_keys($all['base']), array_keys($all['default']));
     }
     elseif ($modules_arg === 'base') {
       $modules = array_keys($all['base']);
