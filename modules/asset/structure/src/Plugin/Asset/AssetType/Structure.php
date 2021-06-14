@@ -2,7 +2,6 @@
 
 namespace Drupal\farm_structure\Plugin\Asset\AssetType;
 
-use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\farm_entity\Plugin\Asset\AssetType\FarmAssetType;
 
 /**
@@ -14,8 +13,6 @@ use Drupal\farm_entity\Plugin\Asset\AssetType\FarmAssetType;
  * )
  */
 class Structure extends FarmAssetType {
-
-  use StringTranslationTrait;
 
   /**
    * {@inheritdoc}
