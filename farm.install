@@ -78,6 +78,9 @@ function farm_install_modules(array &$install_state) {
     }
     else {
       $modules = Json::decode($modules_arg);
+      if (!is_array($modules)) {
+        $modules = [];
+      }
     }
   }
 
