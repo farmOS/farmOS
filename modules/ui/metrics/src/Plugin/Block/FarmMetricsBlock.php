@@ -88,7 +88,7 @@ class FarmMetricsBlock extends BlockBase implements ContainerFactoryPluginInterf
         '#markup' => $metric,
       ];
     }
-    $output['#cache']['tags'] = ['asset_list'];
+    $output['#cache']['tags'][] = 'asset_list';
 
     // Create a section for log metrics.
     $output['log'] = [
@@ -106,7 +106,7 @@ class FarmMetricsBlock extends BlockBase implements ContainerFactoryPluginInterf
         '#markup' => $metric,
       ];
     }
-    $output['#cache']['tags'] = ['log_list'];
+    $output['#cache']['tags'][] = 'log_list';
 
     // Attach CSS.
     $output['#attached']['library'][] = 'farm_ui_metrics/metrics_block';
