@@ -88,6 +88,9 @@ class FarmMetricsBlock extends BlockBase implements ContainerFactoryPluginInterf
         '#markup' => $metric,
       ];
     }
+    if (empty($metrics)) {
+      $output['asset']['metrics']['empty']['#markup'] = '<p>' . $this->t('No assets found.') . '</p>';
+    }
     $output['#cache']['tags'][] = 'asset_list';
 
     // Create a section for log metrics.
@@ -105,6 +108,9 @@ class FarmMetricsBlock extends BlockBase implements ContainerFactoryPluginInterf
       $output['log']['metrics'][] = [
         '#markup' => $metric,
       ];
+    }
+    if (empty($metrics)) {
+      $output['log']['metrics']['empty']['#markup'] = '<p>' . $this->t('No logs found.') . '</p>';
     }
     $output['#cache']['tags'][] = 'log_list';
 
