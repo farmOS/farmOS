@@ -133,7 +133,8 @@ class FarmMetricsBlock extends BlockBase implements ContainerFactoryPluginInterf
     // Count records by type.
     foreach ($bundles as $bundle => $bundle_info) {
       $count = $this->database->query('SELECT COUNT(*) FROM {' . $entity_type . '_field_data} WHERE type=:type', [':type' => $bundle])->fetchField();
-      $metrics[] = Link::createFromRoute($bundle_info['label'] . ': ' . $count, 'view.farm_asset.page_type', ['arg_0' => $bundle], ['attributes' => ['class' => 'metric button']])->toString();
+      $route_name = "view.farm_$entity_type.page_type";
+      $metrics[] = Link::createFromRoute($bundle_info['label'] . ': ' . $count, $route_name, ['arg_0' => $bundle], ['attributes' => ['class' => ['metric button']]])->toString();
     }
 
     return $metrics;
