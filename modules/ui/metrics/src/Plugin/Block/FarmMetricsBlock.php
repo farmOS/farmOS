@@ -3,8 +3,8 @@
 namespace Drupal\farm_ui_metrics\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -20,11 +20,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class FarmMetricsBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**
-   * The database service.
+   * The entity type manager service.
    *
-   * @var \Drupal\Core\Database\Connection
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
-  protected $database;
+  protected $entityTypeManager;
 
   /**
    * The bundle info service.
@@ -42,14 +42,14 @@ class FarmMetricsBlock extends BlockBase implements ContainerFactoryPluginInterf
    *   The plugin_id for the plugin instance.
    * @param mixed $plugin_definition
    *   The plugin implementation definition.
-   * @param \Drupal\Core\Database\Connection $database
-   *   The database service.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager service.
    * @param \Drupal\Core\Entity\EntityTypeBundleInfoInterface $bundle_info
    *   The bundle info service.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, Connection $database, EntityTypeBundleInfoInterface $bundle_info) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, EntityTypeBundleInfoInterface $bundle_info) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $this->database = $database;
+    $this->entityTypeManager = $entity_type_manager;
     $this->bundleInfo = $bundle_info;
   }
 
@@ -61,7 +61,7 @@ class FarmMetricsBlock extends BlockBase implements ContainerFactoryPluginInterf
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('database'),
+      $container->get('entity_type.manager'),
       $container->get('entity_type.bundle.info')
     );
   }
@@ -132,8 +132,9 @@ class FarmMetricsBlock extends BlockBase implements ContainerFactoryPluginInterf
 
     // Count records by type.
     foreach ($bundles as $bundle => $bundle_info) {
-      $count = $this->database->query('SELECT COUNT(*) FROM {' . $entity_type . '_field_data} WHERE type=:type', [':type' => $bundle])->fetchField();
-      $metrics[] = Link::createFromRoute($bundle_info['label'] . ': ' . $count, 'view.farm_asset.page_type', ['arg_0' => $bundle], ['attributes' => ['class' => 'metric button']])->toString();
+      $count = $this->entityTypeManager->getStorage($entity_type)->getAggregateQuery()->count()->execute();
+      $route_name = "view.farm_$entity_type.page_type";
+      $metrics[] = Link::createFromRoute($bundle_info['label'] . ': ' . $count, $route_name, ['arg_0' => $bundle], ['attributes' => ['class' => ['metric', 'button']]])->toString();
     }
 
     return $metrics;
