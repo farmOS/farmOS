@@ -92,6 +92,7 @@ class FarmMetricsBlock extends BlockBase implements ContainerFactoryPluginInterf
       $output['asset']['metrics']['empty']['#markup'] = '<p>' . $this->t('No assets found.') . '</p>';
     }
     $output['#cache']['tags'][] = 'asset_list';
+    $output['#cache']['tags'][] = 'config:asset_type_list';
 
     // Create a section for log metrics.
     $output['log'] = [
@@ -113,6 +114,7 @@ class FarmMetricsBlock extends BlockBase implements ContainerFactoryPluginInterf
       $output['log']['metrics']['empty']['#markup'] = '<p>' . $this->t('No logs found.') . '</p>';
     }
     $output['#cache']['tags'][] = 'log_list';
+    $output['#cache']['tags'][] = 'config:log_type_list';
 
     // Attach CSS.
     $output['#attached']['library'][] = 'farm_ui_metrics/metrics_block';
@@ -138,7 +140,10 @@ class FarmMetricsBlock extends BlockBase implements ContainerFactoryPluginInterf
 
     // Count records by type.
     foreach ($bundles as $bundle => $bundle_info) {
-      $count = $this->entityTypeManager->getStorage($entity_type)->getAggregateQuery()->count()->execute();
+      $count = $this->entityTypeManager->getStorage($entity_type)->getAggregateQuery()
+        ->condition('type', $bundle)
+        ->count()
+        ->execute();
       $route_name = "view.farm_$entity_type.page_type";
       $metrics[] = Link::createFromRoute($bundle_info['label'] . ': ' . $count, $route_name, ['arg_0' => $bundle], ['attributes' => ['class' => ['metric', 'button']]])->toString();
     }
