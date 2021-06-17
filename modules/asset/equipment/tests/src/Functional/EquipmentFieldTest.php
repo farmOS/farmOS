@@ -3,7 +3,7 @@
 namespace Drupal\Tests\farm_equipment\Functional;
 
 use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\Tests\farm\Functional\FarmBrowserTestBase;
+use Drupal\Tests\farm_test\Functional\FarmBrowserTestBase;
 
 /**
  * Tests the equipment used field.

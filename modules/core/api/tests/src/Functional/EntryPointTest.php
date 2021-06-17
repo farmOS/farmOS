@@ -4,7 +4,7 @@ namespace Drupal\Tests\farm_api\Functional;
 
 use Drupal\Component\Serialization\Json;
 use Drupal\Core\Url;
-use Drupal\Tests\farm\Functional\FarmBrowserTestBase;
+use Drupal\Tests\farm_test\Functional\FarmBrowserTestBase;
 use Drupal\Tests\jsonapi\Functional\JsonApiRequestTestTrait;
 use GuzzleHttp\RequestOptions;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\farm\Functional;
+namespace Drupal\Tests\farm_test\Functional;
 
 use Drupal\Tests\BrowserTestBase;
 

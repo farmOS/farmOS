@@ -6,7 +6,7 @@ use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Url;
-use Drupal\Tests\farm\Functional\FarmBrowserTestBase;
+use Drupal\Tests\farm_test\Functional\FarmBrowserTestBase;
 use Drupal\user\Entity\User;
 
 /**

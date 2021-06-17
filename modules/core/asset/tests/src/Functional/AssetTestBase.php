@@ -2,7 +2,7 @@
 
 namespace Drupal\Tests\asset\Functional;
 
-use Drupal\Tests\farm\Functional\FarmBrowserTestBase;
+use Drupal\Tests\farm_test\Functional\FarmBrowserTestBase;
 
 /**
  * Tests the asset CRUD.

@@ -2,7 +2,7 @@
 
 namespace Drupal\Tests\farm_entity\Functional;
 
-use Drupal\Tests\farm\Functional\FarmBrowserTestBase;
+use Drupal\Tests\farm_test\Functional\FarmBrowserTestBase;
 
 /**
  * Tests that bundle fields are created during a postponed install.

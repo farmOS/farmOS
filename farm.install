@@ -93,7 +93,7 @@ function farm_install_modules(array &$install_state) {
 
   // If this is running in the context of a functional test, do not install any
   // additional modules. This is a temporary hack.
-  // @see Drupal\Tests\farm\Functional\FarmBrowserTestBase::setUp()
+  // @see Drupal\Tests\farm_test\Functional\FarmBrowserTestBase::setUp()
   // @todo https://www.drupal.org/project/farm/issues/3183739
   if (!empty($GLOBALS['farm_test'])) {
     $modules = [];

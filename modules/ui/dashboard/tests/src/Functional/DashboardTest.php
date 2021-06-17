@@ -2,7 +2,7 @@
 
 namespace Drupal\Tests\farm_ui_dashboard\Functional;
 
-use Drupal\Tests\farm\Functional\FarmBrowserTestBase;
+use Drupal\Tests\farm_test\Functional\FarmBrowserTestBase;
 
 /**
  * Tests the farmOS dashboard functionality.

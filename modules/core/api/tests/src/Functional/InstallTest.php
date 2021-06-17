@@ -2,7 +2,7 @@
 
 namespace Drupal\Tests\farm_api\Functional;
 
-use Drupal\Tests\farm\Functional\FarmBrowserTestBase;
+use Drupal\Tests\farm_test\Functional\FarmBrowserTestBase;
 
 /**
  * Tests hook_install functionality of farm_api module.
