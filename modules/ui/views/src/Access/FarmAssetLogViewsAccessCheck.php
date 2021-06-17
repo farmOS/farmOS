@@ -52,7 +52,7 @@ class FarmAssetLogViewsAccessCheck implements AccessInterface {
     // Build a count query for logs of this type.
     $query = $this->logStorage->getAggregateQuery()
       ->condition('type', $log_type)
-      ->aggregate('id', 'COUNT');
+      ->count();
 
     // Only include logs that reference the asset.
     $reference_condition = $query->orConditionGroup()
@@ -61,9 +61,8 @@ class FarmAssetLogViewsAccessCheck implements AccessInterface {
     $query->condition($reference_condition);
 
     // Determine access based on the log count.
-    $result = $query->execute();
-    $log_count = (int) $result[0]['id_count'] ?? 0;
-    $access = AccessResult::allowedIf($log_count > 0);
+    $count = $query->execute();
+    $access = AccessResult::allowedIf($count > 0);
 
     // Invalidate the access result when logs of this bundle are changed.
     $access->addCacheTags(["log_list:$log_type"]);
