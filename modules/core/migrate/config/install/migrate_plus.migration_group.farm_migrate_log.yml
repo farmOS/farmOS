@@ -157,6 +157,9 @@ shared_configuration:
         source: log_quantities
         no_stub: true
       -
+        plugin: skip_on_empty
+        method: process
+      -
         plugin: sub_process
         process:
           target_id: '0'
