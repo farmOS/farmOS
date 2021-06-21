@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Implements hook_entity_base_field_info().
@@ -24,5 +25,21 @@ function farm_inventory_entity_base_field_info(EntityTypeInterface $entity_type)
 
     default:
       return [];
+  }
+}
+
+/**
+ * Implements hook_inline_entity_form_entity_form_alter().
+ */
+function farm_inventory_inline_entity_form_entity_form_alter(array &$entity_form, FormStateInterface &$form_state) {
+
+  // Bail if not a quantity inline entity form.
+  if ($entity_form['#entity_type'] !== 'quantity') {
+    return;
+  }
+
+  // Set the inventory_adjustment default value to N/A unless already provided.
+  if (empty($entity_form['inventory_adjustment']['widget']['#default_value'])) {
+    $entity_form['inventory_adjustment']['widget']['#default_value'] = '_none';
   }
 }
