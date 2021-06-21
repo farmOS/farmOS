@@ -377,8 +377,8 @@ display:
           label: 'Last access'
           exclude: false
           alter:
-            alter_text: false
-            text: ''
+            alter_text: true
+            text: '{{ access__value == 0 ? access__value : access }}'
             make_link: false
             path: ''
             absolute: false
@@ -411,9 +411,9 @@ display:
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
-          empty: ''
+          empty: Never
           hide_empty: false
-          empty_zero: false
+          empty_zero: true
           hide_alter_empty: true
           click_sort_column: value
           type: timestamp
