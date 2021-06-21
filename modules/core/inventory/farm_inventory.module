@@ -42,4 +42,16 @@ function farm_inventory_inline_entity_form_entity_form_alter(array &$entity_form
   if (empty($entity_form['inventory_adjustment']['widget']['#default_value'])) {
     $entity_form['inventory_adjustment']['widget']['#default_value'] = '_none';
   }
+
+  // Build a selector for the inventory adjustment input.
+  // This is complicated because the input name depends on the delta value,
+  // and whether or not it is an existing entity in the inline entity form.
+  $parents = $entity_form['#parents'];
+  $adjustment_identifier = $parents[0] . '[' . implode('][', array_slice($parents, 1)) . '][inventory_adjustment]';
+  $inventory_adjustment_selector = ":input[name=\"$adjustment_identifier\"]";
+
+  // Hide the inventory asset selector until an adjustment is selected.
+  $entity_form['inventory_asset']['#states']['invisible'] = [
+    $inventory_adjustment_selector => ['value' => '_none'],
+  ];
 }
