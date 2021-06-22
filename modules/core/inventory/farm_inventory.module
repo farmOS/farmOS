@@ -92,3 +92,46 @@ function farm_inventory_quantity_entity_inline_form_validate(array &$form, FormS
     }
   }
 }
+
+/**
+ * Prepares quantity inventory information for display.
+ *
+ * Default template: quantity.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An associative array containing the quantity information and
+ *     any fields attached to the quantity. Properties used:
+ *     - #quantity: A \Drupal\quantity\Entity\Quantity object. Quantity entity.
+ *   - attributes: HTML attributes for the containing element.
+ */
+function farm_inventory_preprocess_quantity(array &$variables) {
+
+  /** @var \Drupal\quantity\Entity\QuantityInterface $quantity */
+  $quantity = $variables['elements']['#quantity'];
+  if (!empty($variables['content']['inventory_adjustment']) && !empty($variables['content']['inventory_asset'])) {
+
+    // Do not render the inventory fields themselves.
+    unset($variables['content']['inventory_adjustment']);
+    unset($variables['content']['inventory_asset']);
+
+    // Get the adjustment label.
+    /** @var \Drupal\Core\Field\FieldItemListInterface $adjustment_field */
+    $adjustment_field = $quantity->get('inventory_adjustment');
+    $adjustment_values = $adjustment_field->getFieldDefinition()->getSetting('allowed_values');
+    $adjustment = $adjustment_values[$adjustment_field->first()->value];
+
+    // Get the inventory asset.
+    $assets = $quantity->get('inventory_asset')->referencedEntities();
+    $asset = reset($assets);
+
+    // Render array of inventory info to display after the quantity.
+    $inventory = [
+      '#prefix' => '<span class="inventory">',
+      '#suffix' => '</span>',
+      '#markup' => '(' . t('@adjustment <a href=":url">@asset</a> inventory', ['@adjustment' => $adjustment, ':url' => $asset->toUrl()->toString(), '@asset' => $asset->label()]) . ')',
+      '#weight' => 5,
+    ];
+    $variables['content']['inventory'] = $inventory;
+  }
+}
