@@ -416,11 +416,11 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: timestamp
+          type: timestamp_ago
           settings:
-            date_format: html_date
-            custom_date_format: ''
-            timezone: ''
+            future_format: '@interval hence'
+            past_format: '@interval ago'
+            granularity: 2
           group_column: value
           group_columns: {  }
           group_rows: true
