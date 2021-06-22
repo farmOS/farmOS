@@ -18,6 +18,9 @@ quantity.type.*:
     description:
       type: text
       label: 'Description'
+    default_measure:
+      type: string
+      label: 'Default quantity measure'
     new_revision:
       type: boolean
       label: 'Create new revision'

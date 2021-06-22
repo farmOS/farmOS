@@ -9,4 +9,14 @@ use Drupal\Core\Entity\RevisionableEntityBundleInterface;
 /**
  * Provides an interface for defining quantity type entities.
  */
-interface QuantityTypeInterface extends ConfigEntityInterface, EntityDescriptionInterface, RevisionableEntityBundleInterface {}
+interface QuantityTypeInterface extends ConfigEntityInterface, EntityDescriptionInterface, RevisionableEntityBundleInterface {
+
+  /**
+   * Get the quantity type's default measure.
+   *
+   * @return string
+   *   The default measure, or null if none is specified.
+   */
+  public function getDefaultMeasure();
+
+}

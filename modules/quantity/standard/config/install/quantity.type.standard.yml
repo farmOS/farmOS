@@ -6,5 +6,6 @@ dependencies:
       - farm_quantity_standard
 id: standard
 label: Standard
+default_measure: ''
 description: 'Standard quantity type.'
 new_revision: true

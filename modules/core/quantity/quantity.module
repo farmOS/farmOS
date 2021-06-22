@@ -5,6 +5,8 @@
  * Quantity module.
  */
 
+use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Render\Element;
 use Drupal\quantity\Entity\QuantityInterface;
 use Drupal\quantity\Event\QuantityEvent;
@@ -80,6 +82,36 @@ function quantity_measure_options() {
 
   // Return the array of options.
   return $options;
+}
+
+/**
+ * Sets the default value for the quantity measure field.
+ *
+ * @param \Drupal\Core\Entity\ContentEntityInterface $entity
+ *   The entity being created.
+ * @param \Drupal\Core\Field\FieldDefinitionInterface $definition
+ *   The field definition.
+ *
+ * @return array
+ *   An array of default value keys with each entry keyed with the “value” key.
+ *
+ * @see \Drupal\Core\Field\FieldConfigBase::getDefaultValue()
+ */
+function quantity_measure_default_value(ContentEntityInterface $entity, FieldDefinitionInterface $definition): array {
+
+  // Defaults to an empty array.
+  $default = [];
+
+  // Get the quantity type default measure.
+  /** @var \Drupal\quantity\Entity\QuantityTypeInterface $quantity_type */
+  $quantity_type = $entity->get('type')->entity;
+  $measure = $quantity_type->getDefaultMeasure();
+
+  // Only use the measure if not empty.
+  if (!empty($measure)) {
+    $default[] = ['value' => $measure];
+  }
+  return $default;
 }
 
 /**
