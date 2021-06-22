@@ -60,6 +60,9 @@
             "drupal/entity_browser": {
                 "Issue #3160482: Error with UntrustedCallbackException": "https://www.drupal.org/files/issues/2021-03-02/error-with-untrustedcallbackexception-3160482-5.patch"
             },
+            "drupal/geofield": {
+                "Issue #3216608: GEOMETRYCOLLECTION EMPTY causes Error: Call to a member function getX() on null": "https://www.drupal.org/files/issues/2021-06-22/3216608-4.patch"
+            },
             "drupal/gin": {
                 "Issue #3213378: Settings cannot be saved when Gin is set as default theme and no specific admin theme is chosen": "https://git.drupalcode.org/project/gin/-/merge_requests/33.diff"
             },
