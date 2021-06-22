@@ -159,7 +159,7 @@ class Quantity extends RevisionableContentEntityBase implements QuantityInterfac
       ->setDisplayOptions('view', [
         'label' => 'hidden',
         'type' => 'fraction_decimal',
-        'weight' => 1,
+        'weight' => 5,
         'settings' => [
           'precision' => 0,
           'auto_precision' => TRUE,
@@ -169,7 +169,7 @@ class Quantity extends RevisionableContentEntityBase implements QuantityInterfac
       ])
       ->setDisplayOptions('form', [
         'type' => 'fraction_decimal',
-        'weight' => 1,
+        'weight' => 5,
         'settings' => [
           'precision' => 0,
           'auto_precision' => TRUE,
@@ -197,11 +197,11 @@ class Quantity extends RevisionableContentEntityBase implements QuantityInterfac
         'settings' => [
           'link' => FALSE,
         ],
-        'weight' => 2,
+        'weight' => 10,
       ])
       ->setDisplayOptions('form', [
         'type' => 'entity_reference_autocomplete',
-        'weight' => 2,
+        'weight' => 10,
       ])
       ->setDisplayConfigurable('form', FALSE)
       ->setDisplayConfigurable('view', FALSE);
@@ -216,11 +216,11 @@ class Quantity extends RevisionableContentEntityBase implements QuantityInterfac
       ->setDisplayOptions('view', [
         'label' => 'hidden',
         'type' => 'string',
-        'weight' => 10,
+        'weight' => 15,
       ])
       ->setDisplayOptions('form', [
         'type' => 'string_textfield',
-        'weight' => 10,
+        'weight' => 15,
       ])
       ->setDisplayConfigurable('form', FALSE)
       ->setDisplayConfigurable('view', FALSE);
