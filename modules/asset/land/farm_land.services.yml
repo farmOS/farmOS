@@ -1,0 +1,7 @@
+services:
+  farm_land.map_render_event_subscriber:
+    class: Drupal\farm_land\EventSubscriber\MapRenderEventSubscriber
+    arguments:
+      [ '@entity_type.manager', '@farm_map.layer_style_loader' ]
+    tags:
+      - { name: 'event_subscriber' }
