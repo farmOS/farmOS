@@ -23,14 +23,14 @@
         "drupal/config_update": "^1.7",
         "drupal/csv_serialization": "^2.0",
         "drupal/date_popup": "^1.1",
-        "drupal/entity_browser": "^2.5",
+        "drupal/entity_browser": "^2.6",
         "drupal/entity_reference_integrity": "^1.0",
         "drupal/entity_reference_revisions": "^1.8",
         "drupal/entity_reference_validators": "^1.0@alpha",
         "drupal/exif_orientation": "^1.1",
         "drupal/fraction": "2.x-dev",
-        "drupal/geofield": "^1.22",
-        "drupal/gin": "3.0-alpha34",
+        "drupal/geofield": "^1.32",
+        "drupal/gin": "3.0-alpha35",
         "drupal/inline_entity_form": "^1.0@RC",
         "drupal/inspire_tree": "^1.0",
         "drupal/jsonapi_extras": "^3.15",
@@ -57,20 +57,11 @@
             "drupal/entity": {
                 "Issue #3206703: Provide reverse relationships for bundle plugin entity_reference fields.": "https://www.drupal.org/files/issues/2021-05-18/3206703-7.patch"
             },
-            "drupal/entity_browser": {
-                "Issue #3160482: Error with UntrustedCallbackException": "https://www.drupal.org/files/issues/2021-03-02/error-with-untrustedcallbackexception-3160482-5.patch"
-            },
-            "drupal/gin": {
-                "Issue #3213378: Settings cannot be saved when Gin is set as default theme and no specific admin theme is chosen": "https://git.drupalcode.org/project/gin/-/merge_requests/33.diff"
-            },
             "drupal/simple_oauth": {
                 "Issue #3173947: Cannot authorize non-confidential clients": "https://www.drupal.org/files/issues/2020-09-29/3173947-2.patch",
                 "Issue #3167287: Always load clients through the Client Repository service": "https://www.drupal.org/files/issues/2020-09-29/3167287-9.patch",
                 "Issue #3174572: Passing a third argument to headers->get() is deprecated": "https://www.drupal.org/files/issues/2020-10-02/3174572-2.patch",
                 "Issue #3186301: Make $modules variable protected in tests": "https://www.drupal.org/files/issues/2020-12-03/3186301-2.patch"
-            },
-            "drupal/views_geojson": {
-                "Issue #3177013: Missing configuration schema.": "https://www.drupal.org/files/issues/2020-10-15/views_geojson-missing-config-schema-3177013.patch"
             },
             "phayes/geophp": {
                 "Use BCMath (where available) for all float arithmetic #115": "https://patch-diff.githubusercontent.com/raw/phayes/geoPHP/pull/115.patch"
