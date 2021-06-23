@@ -23,7 +23,7 @@
         "drupal/config_update": "^1.7",
         "drupal/csv_serialization": "^2.0",
         "drupal/date_popup": "^1.1",
-        "drupal/entity_browser": "^2.5",
+        "drupal/entity_browser": "^2.6",
         "drupal/entity_reference_integrity": "^1.0",
         "drupal/entity_reference_revisions": "^1.8",
         "drupal/entity_reference_validators": "^1.0@alpha",
@@ -56,9 +56,6 @@
             },
             "drupal/entity": {
                 "Issue #3206703: Provide reverse relationships for bundle plugin entity_reference fields.": "https://www.drupal.org/files/issues/2021-05-18/3206703-7.patch"
-            },
-            "drupal/entity_browser": {
-                "Issue #3160482: Error with UntrustedCallbackException": "https://www.drupal.org/files/issues/2021-03-02/error-with-untrustedcallbackexception-3160482-5.patch"
             },
             "drupal/gin": {
                 "Issue #3213378: Settings cannot be saved when Gin is set as default theme and no specific admin theme is chosen": "https://git.drupalcode.org/project/gin/-/merge_requests/33.diff"
