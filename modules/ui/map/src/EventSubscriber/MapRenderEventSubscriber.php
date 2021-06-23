@@ -94,7 +94,7 @@ class MapRenderEventSubscriber implements EventSubscriberInterface {
       $layers = [];
 
       // Define common layer properties.
-      $group = $this->t('Location assets');
+      $group = $this->t('Locations');
       $filters = [
         'is_location' => 1,
       ];
