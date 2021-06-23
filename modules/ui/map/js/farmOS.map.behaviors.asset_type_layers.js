@@ -7,7 +7,35 @@
 
         // Add layers for each area type.
         var layers = drupalSettings.farm_map[instance.target].asset_type_layers;
+
+        // Create any layer groups that were explicitly defined. We do this
+        // first to ensure that they are available to put asset type layers in.
+        // Skip any layers that are not a group.
         Object.values(layers).reverse().forEach( layer => {
+
+          // If the layer is not a group, skip it.
+          if (!layer.is_group) {
+            return;
+          }
+
+          // Add the layer group.
+          var opts = {
+            title: layer.label,
+          }
+          if (!!layer.group) {
+            opts.group = layer.group;
+          }
+          instance.addLayer('group', opts);
+        });
+
+
+        // Add each asset type layer.
+        Object.values(layers).reverse().forEach( layer => {
+
+          // If the layer is a group, skip it.
+          if (!!layer.is_group) {
+            return;
+          }
 
           // Determine if the layer should display full geometry or centroids.
           let geomType = 'full';
