@@ -4,8 +4,10 @@ namespace Drupal\farm_ui_map\EventSubscriber;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\farm_land\Entity\FarmLandType;
 use Drupal\farm_map\Event\MapRenderEvent;
 use Drupal\farm_map\layerStyleLoaderInterface;
+use Drupal\farm_structure\Entity\FarmStructureType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -102,6 +104,56 @@ class MapRenderEventSubscriber implements EventSubscriberInterface {
 
         // Only add a layer if the asset type is a location by default.
         if ($type->getThirdPartySetting('farm_location', 'is_location', FALSE)) {
+
+          // If the type is "land" or "structure", add layers for each
+          // land/structure type.
+          if (in_array($type->id(), ['land', 'structure'])) {
+
+            // Create a layer group for the asset type.
+            $layers[$type->id()] = [
+              'group' => $group,
+              'label' => $type->label(),
+              'is_group' => TRUE,
+            ];
+
+            // Load sub-types.
+            $sub_types = [];
+            switch ($type->id()) {
+              case 'land':
+                $sub_types = FarmLandType::loadMultiple();
+                break;
+              case 'structure':
+                $sub_types = FarmStructureType::loadMultiple();
+                break;
+            }
+
+            // Create a layer for each sub-type.
+            foreach ($sub_types as $sub_type) {
+              /** @var \Drupal\farm_map\Entity\LayerStyleInterface $layer_style */
+              $conditions = [
+                'asset_type' => $type->id(),
+                $type->id() . '_type' => $sub_type->id(),
+              ];
+              $layer_style = \Drupal::service('farm_map.layer_style_loader')->load($conditions);
+              if (!empty($layer_style)) {
+                $color = $layer_style->get('color');
+              }
+              $layers[$type->id() . '_' . $sub_type->id()] = [
+                'group' => $type->label(),
+                'label' => $sub_type->label(),
+                'asset_type' => $type->id(),
+                'filters' => [$type->id() . '_type_value[]' => $sub_type->id()],
+                'color' => $color ?? 'orange',
+                'zoom' => TRUE,
+              ];
+            }
+
+            // If there are sub-types, skip to the next asset type so that the
+            // overall asset type layer is not added in addition to these.
+            if (!empty($sub_types)) {
+              continue;
+            }
+          }
 
           // Load the map layer style.
           /** @var \Drupal\farm_map\Entity\LayerStyleInterface $layer_style */
