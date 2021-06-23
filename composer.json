@@ -30,7 +30,7 @@
         "drupal/exif_orientation": "^1.1",
         "drupal/fraction": "2.x-dev",
         "drupal/geofield": "^1.32",
-        "drupal/gin": "3.0-alpha34",
+        "drupal/gin": "3.0-alpha35",
         "drupal/inline_entity_form": "^1.0@RC",
         "drupal/inspire_tree": "^1.0",
         "drupal/jsonapi_extras": "^3.15",
@@ -56,9 +56,6 @@
             },
             "drupal/entity": {
                 "Issue #3206703: Provide reverse relationships for bundle plugin entity_reference fields.": "https://www.drupal.org/files/issues/2021-05-18/3206703-7.patch"
-            },
-            "drupal/gin": {
-                "Issue #3213378: Settings cannot be saved when Gin is set as default theme and no specific admin theme is chosen": "https://git.drupalcode.org/project/gin/-/merge_requests/33.diff"
             },
             "drupal/simple_oauth": {
                 "Issue #3173947: Cannot authorize non-confidential clients": "https://www.drupal.org/files/issues/2020-09-29/3173947-2.patch",
