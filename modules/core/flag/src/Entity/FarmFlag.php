@@ -11,8 +11,10 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *   id = "flag",
  *   label = @Translation("Flag"),
  *   label_collection = @Translation("Flags"),
- *   handlers = { },
- *   admin_permission = "administer site configuration",
+ *   handlers = {
+ *     "access" = "\Drupal\entity\EntityAccessControlHandler",
+ *     "permission_provider" = "\Drupal\entity\EntityPermissionProvider",
+ *   },
  *   entity_keys = {
  *     "id" = "id",
  *     "label" = "label",

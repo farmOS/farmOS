@@ -1,0 +1,7 @@
+farm_entity:
+  default_permissions:
+    - view asset_type
+    - view data_stream_type
+    - view log_type
+    - view plan_type
+    - view quantity_type
