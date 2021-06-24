@@ -234,6 +234,10 @@ function farm_ui_views_add_bundle_handlers(ViewExecutable $view, string $display
         // Build filter options for the field type.
         switch ($field_type) {
 
+          case 'boolean':
+            $filter_options['value'] = 'All';
+            break;
+
           case 'entity_reference':
             $target_type = $field_definition->getSetting('target_type');
 
