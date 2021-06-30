@@ -29,9 +29,9 @@ other ways.
 * Forum: [https://farmOS.discourse.group]
 * Chat:
     * Matrix:
-        * [#farmOS on Matrix.org] (bridged to #farmOS IRC room on Freenode)
+        * [#farmOS on Matrix.org] (bridged to #farmOS IRC room on Libera.chat)
         * [#FIot on Matrix.org] (Farm Internet of Things)
-    * IRC: [#farmOS on Freenode] (requires a registered name)
+    * IRC: [#farmOS on Libera.chat] (requires a registered name)
 * Code repositories:
     * Drupal.org: [https://drupal.org/project/farm]
     * GitHub: [https://github.com/farmOS]
@@ -143,7 +143,7 @@ The full workshop recording is available on YouTube:
 [https://farmOS.discourse.group]: https://farmOS.discourse.group
 [#farmOS on Matrix.org]: https://matrix.to/#/#farmOS:matrix.org
 [#FIot on Matrix.org]: https://matrix.to/#/#fiot:matrix.org
-[#farmOS on Freenode]: http://webchat.freenode.net/?channels=#farmOS
+[#farmOS on Libera.chat]: https://web.libera.chat/?channels=#farmOS
 [@farmOSorg]: https://twitter.com/farmOSorg
 [@getFarmier]: https://twitter.com/getFarmier
 
