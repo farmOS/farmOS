@@ -372,3 +372,29 @@ resource name of `quantity--quantity`. In order to add a quantity to a new or
 existing log, they must be created in a separate API request before they can be
 referenced by the log. Quantities still have `measure`, `value`, `unit` and
 `label` fields.
+
+### Files
+
+farmOS 1.x used the [RESTful Web Services File](https://www.drupal.org/project/restws_file)
+module to enable file uploads via the API. The API accepted an array of
+base64-encoded strings to be included in the JSON body payload of the host
+entity.
+
+In farmOS 2.x, file uploads are supported by the core JSON:API module. Instead
+of base64-encoded strings, the API requires a separate `POST` of binary data
+for each file to upload. This reflects "real" PHP upload semantics, allowing
+for faster and larger file uploads via the API. This also means that files
+cannot be uploaded in the same request that creates an entity. Instead, a file
+can be uploaded to an *existing entity* in a single request, or the file can be
+uploaded and assigned to an entity in two separate requests. Refer to the
+[Drupal.org JSON:API File Uploads documentation](https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/file-uploads)
+for more information.
+
+For example, to upload an image file to an existing observation log with `curl`:
+
+    curl https://example.com/api/log/observation/{UUID}/image \
+       -H 'Accept: application/vnd.api+json' \
+       -H 'Content-Type: application/octet-stream' \
+       -H 'Content-Disposition: attachment; filename="observation.jpg"' \
+       -H 'Authorization: Bearer …………' \
+       --data-binary @/path/to/observation.jpg
