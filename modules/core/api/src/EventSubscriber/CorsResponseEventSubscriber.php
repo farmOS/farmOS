@@ -74,7 +74,7 @@ class CorsResponseEventSubscriber implements EventSubscriberInterface {
       $response = $event->getResponse();
       $response->headers->set('Access-Control-Allow-Origin', $request_origin, TRUE);
       $response->headers->set('Access-Control-Allow-Credentials', 'true', TRUE);
-      $response->headers->set('Access-Control-Allow-Headers', 'Content-Type,Authorization,X-CSRF-Token', TRUE);
+      $response->headers->set('Access-Control-Allow-Headers', 'Content-Type,Content-Disposition,Authorization,X-CSRF-Token', TRUE);
       $response->headers->set('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,HEAD,OPTIONS', TRUE);
       $response->headers->set('Vary', 'Origin', TRUE);
     }

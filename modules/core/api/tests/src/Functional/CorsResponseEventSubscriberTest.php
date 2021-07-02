@@ -106,7 +106,7 @@ class CorsResponseEventSubscriberTest extends FarmBrowserTestBase {
     $cors_headers = [
       'Access-Control-Allow-Origin' => $origin,
       'Access-Control-Allow-Credentials' => 'true',
-      'Access-Control-Allow-Headers' => 'Content-Type,Authorization,X-CSRF-Token',
+      'Access-Control-Allow-Headers' => 'Content-Type,Content-Disposition,Authorization,X-CSRF-Token',
       'Access-Control-Allow-Methods' => 'GET,POST,PUT,DELETE,HEAD,OPTIONS',
       'Vary' => 'Origin',
     ];
