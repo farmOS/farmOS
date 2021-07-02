@@ -331,7 +331,7 @@ vocabularies of terms. The vocabulary machine names have changed, to drop the
 
 ### Areas
 
-farmOS 2.x had the concept of "Areas" for representing places/locations. These
+farmOS 1.x had the concept of "Areas" for representing places/locations. These
 were taxonomy terms in the `farm_areas` vocabulary. In farmOS 2.x, these areas
 are migrated to new asset types, and any asset can now be designated as a
 "location". New asset types are provided, including "Land", "Structure", and
