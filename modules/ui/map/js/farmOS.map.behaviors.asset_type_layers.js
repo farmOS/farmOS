@@ -3,10 +3,10 @@
     attach: function (instance) {
 
       // Check if there are asset type layers to add.
-      if (drupalSettings.farm_map[instance.target].asset_type_layers !== undefined) {
+      if (instance.farmMapSettings.asset_type_layers !== undefined) {
 
         // Add layers for each area type.
-        var layers = drupalSettings.farm_map[instance.target].asset_type_layers;
+        var layers = instance.farmMapSettings.asset_type_layers;
 
         // Create any layer groups that were explicitly defined. We do this
         // first to ensure that they are available to put asset type layers in.
@@ -104,6 +104,9 @@
             });
         }
       });
-    }
+    },
+
+    // Make sure this runs after farmOS.map.behaviors.popup.
+    weight: 101,
   };
 }());

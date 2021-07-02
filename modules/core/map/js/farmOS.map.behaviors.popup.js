@@ -46,6 +46,7 @@
         }
         return content;
       });
-    }
+    },
+    weight: 100,
   };
 }());
