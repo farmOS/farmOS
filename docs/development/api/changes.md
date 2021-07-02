@@ -6,9 +6,9 @@ farmOS 1.x used the [RESTful Web Services](https://drupal.org/project/restws)
 module, which provided API endpoints for each entity type (asset, log, taxonomy
 term, etc).
 
-farmOS 2.x uses the new JSON:API module included with Drupal core, which
-follows the [JSON:API](https://jsonapi.org/) specification for defining API
-resources.
+farmOS 2.x uses the new [JSON:API](https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module)
+module included with Drupal core, which follows the [JSON:API](https://jsonapi.org/)
+specification for defining API resources.
 
 The root API endpoint is `/api`.
 
