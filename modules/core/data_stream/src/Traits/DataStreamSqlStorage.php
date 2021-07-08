@@ -48,6 +48,7 @@ trait DataStreamSqlStorage {
     $result = $query->execute();
 
     // Build an array of data.
+    $name = $stream->label();
     $data = [];
     foreach ($result as $row) {
 
@@ -63,7 +64,7 @@ trait DataStreamSqlStorage {
       // Create a data object for the sensor value.
       $point = new \stdClass();
       $point->timestamp = $row->timestamp;
-      $point->value = $value;
+      $point->{$name} = $value;
       $data[] = $point;
     }
 
@@ -115,8 +116,8 @@ trait DataStreamSqlStorage {
     // Iterate over the JSON properties.
     foreach ($data as $key => $value) {
 
-      // If the key is "timestamp", skip to the next property in the JSON.
-      if ($key == 'timestamp') {
+      // If the key does not match the data stream name, skip it.
+      if ($key !== $stream->label()) {
         continue;
       }
 

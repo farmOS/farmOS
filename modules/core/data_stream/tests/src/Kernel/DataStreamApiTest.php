@@ -145,10 +145,11 @@ class DataStreamApiTest extends DataStreamTestBase {
 
     // Test data.
     $timestamp = $this->startTime - 86400;
-    $test_data = ['timestamp' => $timestamp, 'value' => 200];
+    $name = $this->dataStream->label();
+    $test_data = ['timestamp' => $timestamp, $name => 200];
     $test_point = new \stdClass();
     $test_point->timestamp = $test_data['timestamp'];
-    $test_point->value = $test_data['value'];
+    $test_point->{$name} = 200;
 
     // Make a request.
     $request = Request::create($uri, 'POST', [], [], [], [], Json::encode($test_data));
