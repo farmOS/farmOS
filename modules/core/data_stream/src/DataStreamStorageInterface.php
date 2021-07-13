@@ -16,10 +16,10 @@ interface DataStreamStorageInterface {
    *
    * @param \Drupal\data_stream\Entity\DataStreamInterface $stream
    *   The DataStream entity.
-   * @param array $args
-   *   Arguments.
+   * @param array $params
+   *   Parameters.
    */
-  public function storageGet(DataStreamInterface $stream, array $args);
+  public function storageGet(DataStreamInterface $stream, array $params);
 
   /**
    * Save data to the DataStream storage.
