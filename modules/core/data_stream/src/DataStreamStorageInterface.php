@@ -18,6 +18,9 @@ interface DataStreamStorageInterface {
    *   The DataStream entity.
    * @param array $params
    *   Parameters.
+   *
+   * @return array
+   *   Array of data.
    */
   public function storageGet(DataStreamInterface $stream, array $params);
 
