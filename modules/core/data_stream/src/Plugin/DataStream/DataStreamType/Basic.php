@@ -328,7 +328,8 @@ class Basic extends DataStreamTypeBase implements DataStreamStorageInterface, Da
     }
 
     if (isset($params['name'])) {
-      $query->condition('dsd.name', $params['name']);
+      $operator = is_array($params['name']) ? 'IN' : '=';
+      $query->condition('dsd.name', $params['name'], $operator);
     }
 
     $query->orderBy('d.timestamp', 'DESC');
