@@ -304,6 +304,11 @@ class Basic extends DataStreamTypeBase implements DataStreamStorageInterface, Da
    */
   public function storageGetMultiple(array $data_streams, array $params) {
 
+    // Bail if no data streams are specified.
+    if (empty($data_streams)) {
+      return [];
+    }
+
     // Collect data stream ids.
     $data_stream_ids = array_map(function ($data_stream) {
       return $data_stream->id();
