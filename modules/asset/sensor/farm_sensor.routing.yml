@@ -1,0 +1,8 @@
+farm_sensor.data_stream_data:
+  path: '/asset/{uuid}/data/basic'
+  defaults:
+    _controller: '\Drupal\farm_sensor\Controller\SensorDataController::uuid'
+  requirements:
+    # There is no access restriction to this endpoint.
+    _access: 'TRUE'
+  methods: [GET, POST]
