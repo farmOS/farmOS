@@ -288,10 +288,36 @@ class Basic extends DataStreamTypeBase implements DataStreamStorageInterface, Da
    * {@inheritdoc}
    */
   public function storageGet(DataStreamInterface $stream, array $params) {
+    return $this->storageGetMultiple([$stream], $params);
+  }
 
+  /**
+   * Get data from multiple data streams.
+   *
+   * @param \Drupal\data_stream\Entity\DataStreamInterface[] $data_streams
+   *   Array of data streams.
+   * @param array $params
+   *   Parameters.
+   *
+   * @return array
+   *   Array of data.
+   */
+  public function storageGetMultiple(array $data_streams, array $params) {
+
+    // Collect data stream ids.
+    $data_stream_ids = array_map(function ($data_stream) {
+      return $data_stream->id();
+    }, $data_streams);
+
+    // Query for data stream data.
+    /** @var \Drupal\Core\Database\Query\Select $query */
     $query = $this->connection->select($this->tableName, 'd');
     $query->fields('d', ['timestamp', 'value_numerator', 'value_denominator']);
-    $query->condition('d.id', $stream->id());
+    $query->leftJoin('data_stream_data', 'dsd', 'd.id = dsd.id');
+    $query->addField('dsd', 'name');
+
+    // Limit to the specified data streams.
+    $query->condition('d.id', $data_stream_ids, 'IN');
 
     if (isset($params['start']) && is_numeric($params['start'])) {
       $query->condition('d.timestamp', $params['start'], '>=');
@@ -299,6 +325,10 @@ class Basic extends DataStreamTypeBase implements DataStreamStorageInterface, Da
 
     if (isset($params['end']) && is_numeric($params['end'])) {
       $query->condition('d.timestamp', $params['end'], '<=');
+    }
+
+    if (isset($params['name'])) {
+      $query->condition('dsd.name', $params['name']);
     }
 
     $query->orderBy('d.timestamp', 'DESC');
@@ -315,7 +345,6 @@ class Basic extends DataStreamTypeBase implements DataStreamStorageInterface, Da
     $result = $query->execute();
 
     // Build an array of data.
-    $name = $stream->label();
     $data = [];
     foreach ($result as $row) {
 
@@ -331,7 +360,7 @@ class Basic extends DataStreamTypeBase implements DataStreamStorageInterface, Da
       // Create a data object for the sensor value.
       $point = new \stdClass();
       $point->timestamp = $row->timestamp;
-      $point->{$name} = $value;
+      $point->{$row->name} = $value;
       $data[] = $point;
     }
 
