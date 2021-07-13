@@ -1,9 +1,0 @@
-langcode: en
-status: true
-dependencies:
-  enforced:
-    module:
-      - farm_sensor_listener
-id: legacy_listener
-label: Listener (Legacy)
-description: 'Listener (Legacy) data stream'
