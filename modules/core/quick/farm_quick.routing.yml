@@ -1,3 +1,10 @@
+farm.quick:
+  path: '/quick'
+  defaults:
+    _controller: '\Drupal\farm_quick\Controller\QuickFormController::index'
+    _title: 'Quick forms'
+  requirements:
+    _permission: 'view quick forms index'
 farm.quick.form:
   path: '/quick/{id}'
   defaults:
