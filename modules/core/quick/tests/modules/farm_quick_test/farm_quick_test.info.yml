@@ -1,0 +1,8 @@
+name: farmOS quick form tests
+type: module
+description: Support module for farmOS quick form testing.
+package: Testing
+core_version_requirement: ^8.8 || ^9
+dependencies:
+  - farm:farm_quick
+  - log:log
