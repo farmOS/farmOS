@@ -1,0 +1,7 @@
+farm.quick:
+  title: Quick forms
+  route_name: farm.quick
+  weight: -100
+farm.quick.form:
+  class: Drupal\Core\Menu\MenuLinkDefault
+  deriver: Drupal\farm_quick\Plugin\Derivative\QuickFormMenuLink
