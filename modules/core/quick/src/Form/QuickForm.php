@@ -4,6 +4,7 @@ namespace Drupal\farm_quick\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Session\AccountInterface;
 use Drupal\farm_quick\QuickFormManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -65,6 +66,21 @@ class QuickForm extends FormBase {
    */
   public function getTitle(string $id) {
     return $this->quickFormManager->createInstance($id)->getLabel();
+  }
+
+  /**
+   * Checks access for a specific quick form.
+   *
+   * @param \Drupal\Core\Session\AccountInterface $account
+   *   Run access checks for this account.
+   * @param string $id
+   *   The quick form ID.
+   *
+   * @return \Drupal\Core\Access\AccessResultInterface
+   *   The access result.
+   */
+  public function access(AccountInterface $account, string $id) {
+    return $this->quickFormManager->createInstance($id)->access($account);
   }
 
   /**

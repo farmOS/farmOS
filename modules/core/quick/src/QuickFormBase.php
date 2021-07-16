@@ -2,9 +2,11 @@
 
 namespace Drupal\farm_quick;
 
+use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\PluginBase;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\Session\AccountInterface;
 use Psr\Container\ContainerInterface;
 
 /**
@@ -51,6 +53,21 @@ class QuickFormBase extends PluginBase implements QuickFormInterface {
    */
   public function getHelpText() {
     return $this->pluginDefinition['helpText'] ?? '';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getPermissions() {
+    return $this->pluginDefinition['permissions'] ?? [];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function access(AccountInterface $account) {
+    $permissions = $this->getPermissions();
+    return AccessResult::allowedIfHasPermissions($account, $permissions);
   }
 
   /**

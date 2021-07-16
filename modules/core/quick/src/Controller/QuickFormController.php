@@ -46,15 +46,18 @@ class QuickFormController extends ControllerBase {
    */
   public function index(): array {
     $quick_forms = $this->quickFormManager->getDefinitions();
-    if (!empty($quick_forms)) {
-      $items = [];
-      foreach ($quick_forms as $quick_form) {
+    $items = [];
+    foreach ($quick_forms as $quick_form) {
+      $url = Url::fromRoute('farm.quick.form', ['id' => $quick_form['id']]);
+      if ($url->access()) {
         $items[] = [
           'title' => $quick_form['label'],
           'description' => $quick_form['description'],
-          'url' => Url::fromRoute('farm.quick.form', ['id' => $quick_form['id']]),
+          'url' => $url,
         ];
       }
+    }
+    if (!empty($items)) {
       $output = [
         '#theme' => 'admin_block_content',
         '#content' => $items,

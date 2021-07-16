@@ -10,3 +10,5 @@ farm.quick.form:
   defaults:
     _form: 'Drupal\farm_quick\Form\QuickForm'
     _title_callback: 'Drupal\farm_quick\Form\QuickForm::getTitle'
+  requirements:
+    _custom_access: 'Drupal\farm_quick\Form\QuickForm::access'

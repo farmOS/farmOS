@@ -45,4 +45,11 @@ class QuickForm extends Plugin {
    */
   public $helpText;
 
+  /**
+   * An array of access permissions for the quick form.
+   *
+   * @var string[]
+   */
+  public $permissions;
+
 }
