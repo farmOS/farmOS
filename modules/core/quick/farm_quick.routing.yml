@@ -1,0 +1,5 @@
+farm.quick.form:
+  path: '/quick/{id}'
+  defaults:
+    _form: 'Drupal\farm_quick\Form\QuickForm'
+    _title_callback: 'Drupal\farm_quick\Form\QuickForm::getTitle'
