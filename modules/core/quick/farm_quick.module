@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * @file
+ * The farmOS Quick Form module.
+ */
+
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function farm_quick_help($route_name, RouteMatchInterface $route_match) {
+  $output = '';
+
+  // Quick forms index help text.
+  if ($route_name == 'farm.quick') {
+    $output .= '<p>' . t('Quick forms make it easy to record common activities.') . '</p>';
+  }
+
+  return $output;
+}
