@@ -3,3 +3,6 @@ description: Provides a framework for farmOS quick forms.
 type: module
 package: farmOS
 core_version_requirement: ^9
+dependencies:
+  - farm:asset
+  - log:log
