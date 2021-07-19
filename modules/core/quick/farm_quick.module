@@ -31,3 +31,27 @@ function farm_quick_help($route_name, RouteMatchInterface $route_match) {
 
   return $output;
 }
+
+/**
+ * Implements hook_farm_entity_bundle_field_info().
+ */
+function farm_quick_farm_entity_bundle_field_info(EntityTypeInterface $entity_type, string $bundle) {
+  $fields = [];
+
+  // We only act on asset and log entities.
+  if (!in_array($entity_type->id(), ['asset', 'log'])) {
+    return $fields;
+  }
+
+  // Add a hidden quick form field.
+  $options = [
+    'type' => 'string',
+    'label' => t('Quick form'),
+    'description' => t('References the quick form that was used to create this record.'),
+    'multiple' => TRUE,
+    'hidden' => TRUE,
+  ];
+  $fields['quick'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
+
+  return $fields;
+}
