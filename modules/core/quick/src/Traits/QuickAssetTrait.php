@@ -15,6 +15,16 @@ trait QuickAssetTrait {
   use StringTranslationTrait;
 
   /**
+   * Get the plugin ID.
+   *
+   * This must be implemented by the quick form class that uses this trait.
+   *
+   * @return string
+   *   The quick form ID.
+   */
+  abstract protected function getId();
+
+  /**
    * Create an asset.
    *
    * @param array $values
@@ -28,6 +38,9 @@ trait QuickAssetTrait {
     // Start a new asset entity with the provided values.
     /** @var \Drupal\asset\Entity\AssetInterface $asset */
     $asset = Asset::create($values);
+
+    // Track which quick form created the entity.
+    $asset->quick[] = $this->getId();
 
     // Save the asset.
     $asset->save();

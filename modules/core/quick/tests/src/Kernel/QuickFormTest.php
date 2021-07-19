@@ -93,8 +93,14 @@ class QuickFormTest extends KernelTestBase {
     // Confirm that an asset was created.
     $this->assertNotEmpty($storage['assets'][0]->id());
 
+    // Confirm that the asset is linked to the quick form.
+    $this->assertEquals('test', $storage['assets'][0]->quick[0]);
+
     // Confirm that a log was created.
     $this->assertNotEmpty($storage['logs'][0]->id());
+
+    // Confirm that the log is linked to the quick form.
+    $this->assertEquals('test', $storage['logs'][0]->quick[0]);
 
     // Confirm that a quantity was created.
     $this->assertNotEmpty($storage['quantities'][0]->id());

@@ -16,6 +16,16 @@ trait QuickLogTrait {
   use QuickQuantityTrait;
 
   /**
+   * Get the plugin ID.
+   *
+   * This must be implemented by the quick form class that uses this trait.
+   *
+   * @return string
+   *   The quick form ID.
+   */
+  abstract protected function getId();
+
+  /**
    * Create a log.
    *
    * @param array $values
@@ -42,6 +52,9 @@ trait QuickLogTrait {
     if (!isset($values['status'])) {
       $log->status = 'done';
     }
+
+    // Track which quick form created the entity.
+    $log->quick[] = $this->getId();
 
     // Save the log.
     $log->save();
