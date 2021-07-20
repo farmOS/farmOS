@@ -7,5 +7,6 @@ dependencies:
   - drupal:options
   - farm:asset
   - farm:farm_field
+  - farm:farm_log_quantity
   - farm:quantity
   - fraction:fraction

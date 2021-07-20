@@ -21,6 +21,6 @@ dependencies:
   - farm:farm_id_tag
   - farm:farm_location
   - farm:farm_log_category
-  - farm:quantity
+  - farm:farm_log_quantity
   - log:log
   - token:token
