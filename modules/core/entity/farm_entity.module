@@ -244,38 +244,6 @@ function farm_entity_entity_field_storage_info_alter(&$fields, EntityTypeInterfa
 }
 
 /**
- * Implements hook_form_BASE_FORM_ID_alter().
- */
-function farm_entity_form_log_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-
-  // Alter the Quantity inline entity form to set the default quantity type.
-  if (!empty($form['quantity']['widget']['actions']['bundle']['#options'])) {
-    $bundle_select = &$form['quantity']['widget']['actions']['bundle'];
-
-    // Load the log type storage.
-    /** @var \Drupal\log\Entity\Log $entity */
-    $entity = $form_state->getFormObject()->getEntity();
-    /** @var \Drupal\log\Entity\LogType $log_type_storage */
-    $log_type_storage = \Drupal::service('entity_type.manager')->getStorage('log_type')->load($entity->bundle());
-
-    // Load default quantity type from the bundle's third party settings.
-    // Default to standard, if it exists. Note that we do NOT add a dependency
-    // on farm_quantity_standard, because that would create a circular
-    // dependency. This only changes the default type to 'standard' if that
-    // option is available.
-    $default_type = $log_type_storage->getThirdPartySetting('farm_entity', 'default_quantity_type');
-    if (empty($default_type)) {
-      $default_type = 'standard';
-    }
-
-    // Set the default value.
-    if (array_key_exists($default_type, $bundle_select['#options'])) {
-      $bundle_select['#default_value'] = $default_type;
-    }
-  }
-}
-
-/**
  * Implements hook_modules_installed().
  */
 function farm_entity_modules_installed($modules, $is_syncing) {

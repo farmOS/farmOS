@@ -1,7 +1,7 @@
 # Schema for the farmOS entity third party settings.
-log.type.*.third_party.farm_entity:
+log.type.*.third_party.farm_log_quantity:
   type: mapping
-  label: 'farmOS entity settings'
+  label: 'farmOS log quantity settings'
   mapping:
     default_quantity_type:
       type: string
