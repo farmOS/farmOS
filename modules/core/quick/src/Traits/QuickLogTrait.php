@@ -13,6 +13,7 @@ trait QuickLogTrait {
 
   use MessengerTrait;
   use StringTranslationTrait;
+  use QuickQuantityTrait;
 
   /**
    * Create a log.
@@ -28,6 +29,14 @@ trait QuickLogTrait {
     // Start a new log entity with the provided values.
     /** @var \Drupal\log\Entity\LogInterface $log */
     $log = Log::create($values);
+
+    // If quantity measurements are provided, create quantity entities and
+    // reference them from the log.
+    if (!empty($values['quantity'])) {
+      foreach ($values['quantity'] as $qty) {
+        $log->quantity[] = $this->createQuantity($qty);
+      }
+    }
 
     // If not specified, set the log's status to "done".
     if (!isset($values['status'])) {
