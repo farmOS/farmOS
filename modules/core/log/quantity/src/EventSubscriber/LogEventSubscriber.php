@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\farm_entity\EventSubscriber;
+namespace Drupal\farm_log_quantity\EventSubscriber;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\farm_log\Event\LogEvent;
