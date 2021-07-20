@@ -2,6 +2,7 @@
 
 namespace Drupal\farm_quick\Traits;
 
+use Drupal\Core\Messenger\MessengerTrait;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\log\Entity\Log;
 
@@ -10,6 +11,7 @@ use Drupal\log\Entity\Log;
  */
 trait QuickLogTrait {
 
+  use MessengerTrait;
   use StringTranslationTrait;
 
   /**
@@ -29,6 +31,10 @@ trait QuickLogTrait {
 
     // Save the log.
     $log->save();
+
+    // Display a message with a link to the log.
+    $message = $this->t('Log created: <a href=":url">@name</a>', [':url' => $log->toUrl()->toString(), '@name' => $log->label()]);
+    $this->messenger->addStatus($message);
 
     // Return the log entity.
     return $log;

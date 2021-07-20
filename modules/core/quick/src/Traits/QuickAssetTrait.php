@@ -3,6 +3,7 @@
 namespace Drupal\farm_quick\Traits;
 
 use Drupal\asset\Entity\Asset;
+use Drupal\Core\Messenger\MessengerTrait;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
@@ -10,6 +11,7 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
  */
 trait QuickAssetTrait {
 
+  use MessengerTrait;
   use StringTranslationTrait;
 
   /**
@@ -29,6 +31,10 @@ trait QuickAssetTrait {
 
     // Save the asset.
     $asset->save();
+
+    // Display a message with a link to the asset.
+    $message = $this->t('Asset created: <a href=":url">@name</a>', [':url' => $asset->toUrl()->toString(), '@name' => $asset->label()]);
+    $this->messenger->addStatus($message);
 
     // Return the asset entity.
     return $asset;

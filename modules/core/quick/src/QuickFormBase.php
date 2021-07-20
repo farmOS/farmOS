@@ -4,6 +4,8 @@ namespace Drupal\farm_quick;
 
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\Messenger\MessengerTrait;
 use Drupal\Core\Plugin\PluginBase;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Session\AccountInterface;
@@ -14,7 +16,25 @@ use Psr\Container\ContainerInterface;
  */
 class QuickFormBase extends PluginBase implements QuickFormInterface {
 
+  use MessengerTrait;
   use StringTranslationTrait;
+
+  /**
+   * Constructs a QuickFormBase object.
+   *
+   * @param array $configuration
+   *   A configuration array containing information about the plugin instance.
+   * @param string $plugin_id
+   *   The plugin_id for the plugin instance.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
+   * @param \Drupal\Core\Messenger\MessengerInterface $messenger
+   *   The messenger service.
+   */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, MessengerInterface $messenger) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->messenger = $messenger;
+  }
 
   /**
    * {@inheritdoc}
@@ -23,7 +43,8 @@ class QuickFormBase extends PluginBase implements QuickFormInterface {
     return new static(
       $configuration,
       $plugin_id,
-      $plugin_definition
+      $plugin_definition,
+      $container->get('messenger')
     );
   }
 
