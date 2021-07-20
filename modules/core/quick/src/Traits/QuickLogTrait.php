@@ -29,6 +29,11 @@ trait QuickLogTrait {
     /** @var \Drupal\log\Entity\LogInterface $log */
     $log = Log::create($values);
 
+    // If not specified, set the log's status to "done".
+    if (!isset($values['status'])) {
+      $log->status = 'done';
+    }
+
     // Save the log.
     $log->save();
 
