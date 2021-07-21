@@ -60,9 +60,11 @@ function farm_api_install() {
   }
 
   // Create a "Farm default" consumer.
+  $base_url = \Drupal::service('router.request_context')->getCompleteBaseUrl();
   $farm_consumer = Consumer::create([
     'label' => 'Farm default',
     'client_id' => 'farm',
+    'redirect' => $base_url,
     'is_default' => TRUE,
     'owner_id' => '',
     'secret' => '',
