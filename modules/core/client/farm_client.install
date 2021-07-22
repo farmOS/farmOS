@@ -16,6 +16,7 @@ function farm_client_install() {
   $fk_consumer = Consumer::create([
     'label' => 'farmOS Client (Field Kit)',
     'client_id' => 'farm_client',
+    'redirect' => 'https://farmOS.app',
     'owner_id' => '',
     'secret' => '',
     'confidential' => FALSE,
