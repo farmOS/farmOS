@@ -218,6 +218,9 @@ farmOS 1.x an Activity log was `farm_activity`, and in farmOS 2.x it is simply
 Additionally, the "Soil test" and "Water test" log types have been merged into
 a single "Lab test" log type.
 
+Also note that "Sale" and "Purchase" logs have been moved out of farmOS core to
+a new [farmOS Ledger](https://drupal.org/project/farm_ledger) module.
+
 Below is the full list of log types in farmOS 1.x and their new names in 2.x:
 
 - `farm_activity` -> `activity`
@@ -226,8 +229,6 @@ Below is the full list of log types in farmOS 1.x and their new names in 2.x:
 - `farm_maintenance` -> `maintenance`
 - `farm_medical` -> `medical`
 - `farm_observation` -> `observation`
-- `farm_purchase` -> `purchase`
-- `farm_sale` -> `sale`
 - `farm_seeding` -> `seeding`
 - `farm_soil_test` -> `lab_test`
 - `farm_transplanting` -> `transplanting`

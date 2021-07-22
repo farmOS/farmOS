@@ -18,7 +18,6 @@ their module is enabled. The modules included with farmOS define the following
 Quantity types:
 
 - Standard
-- Price
 
 ## ID
 
@@ -127,11 +126,3 @@ above, some types add additional type-specific fields. These include:
 #### Standard Quantities
 
 Standard Quantities do not define any type-specific fields.
-
-#### Price Quantities
-
-Price Quantities have additional "Unit Price" and "Unit Quantity" attributes,
-alongside the standard "Value" attribute. When these are used, the "Value"
-attribute is considered to be the total value ("Unit Price" multiplied by
-"Unit Quantity"). The "Units" of a Price Quantity will generally be a
-currency code such as "USD" or "EUR".

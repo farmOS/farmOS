@@ -1,8 +1,0 @@
-name: Purchase log
-description: Adds a Purchase log type.
-type: module
-package: farmOS Logs
-core_version_requirement: ^9
-dependencies:
-  - farm:farm_entity
-  - farm:farm_quantity_price

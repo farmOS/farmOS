@@ -18,8 +18,6 @@ included with farmOS define the following Log types:
 - Lab test
 - Maintenance
 - Medical
-- Purchase
-- Sale
 - Seeding
 - Transplanting
 
@@ -285,22 +283,6 @@ Lab Test Logs have the following additional attributes:
 Medical Logs have the following additional attributes:
 
 - Veterinarian (string)
-
-#### Purchase Logs
-
-Purchase Logs have the following additional attributes:
-
-- Invoice number (string)
-- Seller (string)
-- Lot number (string)
-
-#### Sale Logs
-
-Sale Logs have the following additional attributes:
-
-- Customer (string)
-- Invoice number (string)
-- Lot number (string)
 
 #### Seeding Logs
 

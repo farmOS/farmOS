@@ -52,8 +52,6 @@ function farm_modules() {
       'farm_lab_test' => t('Lab test logs'),
       'farm_birth' => t('Birth logs'),
       'farm_medical' => t('Medical logs'),
-      'farm_purchase' => t('Purchase logs'),
-      'farm_sale' => t('Sale logs'),
       'farm_kml' => t('KML export features'),
       'farm_import_kml' => t('KML asset importer'),
     ],
