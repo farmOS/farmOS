@@ -1,0 +1,10 @@
+name: farmOS Log Quantity
+description: Adds a quantity reference field to logs.
+type: module
+package: farmOS
+core_version_requirement: ^9
+dependencies:
+  - entity_reference_revisions:entity_reference_revisions
+  - farm:farm_field
+  - farm:farm_log
+  - farm:quantity

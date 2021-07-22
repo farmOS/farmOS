@@ -1,0 +1,7 @@
+services:
+  farm_log_quantity.log_delete:
+    class: Drupal\farm_log_quantity\EventSubscriber\LogEventSubscriber
+    arguments:
+      [ '@entity_type.manager' ]
+    tags:
+      - { name: 'event_subscriber' }

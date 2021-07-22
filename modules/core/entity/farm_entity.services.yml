@@ -15,9 +15,3 @@ services:
   plugin.manager.quantity_type:
     class: Drupal\farm_entity\QuantityTypeManager
     parent: default_plugin_manager
-  farm_entity.log_delete:
-    class: Drupal\farm_entity\EventSubscriber\LogEventSubscriber
-    arguments:
-      [ '@entity_type.manager' ]
-    tags:
-      - { name: 'event_subscriber' }
