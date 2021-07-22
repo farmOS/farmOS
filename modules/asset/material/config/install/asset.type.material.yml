@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_material
+id: material
+label: Material
+description: ''
+workflow: asset_default
+new_revision: true

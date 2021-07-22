@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_material
+id: asset_material
+color: yellow
+conditions:
+  asset_type:
+    - material

@@ -24,6 +24,7 @@ included with farmOS define the following Asset types:
 - Structure
 - Sensor
 - Water
+- Material
 - Group&ast;
 
 &ast;Group Assets are unique in that they can "contain" other Assets as "group
