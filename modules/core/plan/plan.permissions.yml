@@ -7,3 +7,13 @@ administer plan types:
   title: 'Administer plan types'
   description: 'Maintain the types of content available and the fields that are associated with those types.'
   restrict access: true
+
+view all plan revisions:
+  title: 'View all plan revisions'
+  description: 'Allow viewing plan entity revisions.'
+  restrict access: true
+
+revert all plan revisions:
+  title: 'Revert all plan revisions'
+  description: 'Allow reverting to a previous plan entity revision.'
+  restrict access: true
