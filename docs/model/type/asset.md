@@ -254,6 +254,12 @@ Land Assets have the following additional attributes:
 
 - Land type (string)
 
+#### Material Assets
+
+Material Assets have the following additional relationships:
+
+- Material type (references a Term in the "Material type" vocabulary)
+
 #### Plant Assets
 
 Plant Assets have the following additional relationships:
