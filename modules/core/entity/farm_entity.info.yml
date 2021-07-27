@@ -8,6 +8,7 @@ dependencies:
   - drupal:file
   - drupal:geofield
   - drupal:image
+  - drupal:taxonomy
   - drupal:text
   - drupal:user
   - entity:entity
