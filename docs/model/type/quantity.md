@@ -18,6 +18,7 @@ their module is enabled. The modules included with farmOS define the following
 Quantity types:
 
 - Standard
+- Material
 
 ## ID
 
@@ -126,3 +127,9 @@ above, some types add additional type-specific fields. These include:
 #### Standard Quantities
 
 Standard Quantities do not define any type-specific fields.
+
+#### Material Quantities
+
+Materials Quantities have the following additional relationships:
+
+- Material type (References Terms in the "Material types" vocabulary)

@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_quantity_material
+id: material
+label: Material
+description: 'Material quantity type.'
+new_revision: true
