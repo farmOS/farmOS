@@ -32,13 +32,13 @@ process:
   lot_number:
     plugin: get
     source: field_farm_lot_number
-  material:
+  material_type:
     plugin: sub_process
     source: field_farm_material
     process:
       target_id:
         plugin: migration_lookup
-        migration: farm_migrate_taxonomy_material
+        migration: farm_migrate_taxonomy_material_type
         source: tid
   method:
     plugin: get
@@ -51,5 +51,5 @@ process:
     source: field_farm_input_source
 migration_dependencies:
   required:
-    - farm_migrate_taxonomy_material
+    - farm_migrate_taxonomy_material_type
   optional: {  }

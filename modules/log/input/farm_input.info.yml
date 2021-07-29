@@ -5,4 +5,4 @@ package: farmOS Logs
 core_version_requirement: ^9
 dependencies:
   - farm:farm_entity
-  - farm:farm_material
+  - farm:farm_material_type

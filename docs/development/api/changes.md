@@ -324,7 +324,7 @@ vocabularies of terms. The vocabulary machine names have changed, to drop the
 - `farm_animal_types` -> `animal_type`
 - `farm_areas` has been removed (see "Areas" below)
 - `farm_log_categories` -> `log_category`
-- `farm_materials` -> `material`
+- `farm_materials` -> `material_type`
 - `farm_season` -> `season`
 - `farm_crops` -> `plant_type`
 - `farm_crop_families` -> `crop_family`

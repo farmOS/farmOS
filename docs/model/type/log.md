@@ -269,7 +269,7 @@ Input Logs have the following additional attributes:
 
 And the following additional relationships:
 
-- Material (References Terms in the "Material" vocabulary)
+- Material type (References Terms in the "Material types" vocabulary)
 
 #### Lab Test Logs
 

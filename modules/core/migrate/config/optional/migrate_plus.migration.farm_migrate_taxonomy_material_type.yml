@@ -3,10 +3,10 @@ status: true
 dependencies:
   enforced:
     module:
-      - farm_material
+      - farm_material_type
       - farm_migrate
-id: farm_migrate_taxonomy_material
-label: 'Taxonomy terms (Materials)'
+id: farm_migrate_taxonomy_material_type
+label: 'Taxonomy terms (Material types)'
 migration_group: farm_migrate_taxonomy
 migration_tags:
   - 'Drupal 7'
@@ -23,7 +23,7 @@ process:
   # Hard-code the vocabulary.
   vid:
     plugin: default_value
-    default_value: material
+    default_value: material_type
   # Maintain the term ID.
   tid:
     plugin: get
@@ -36,7 +36,7 @@ process:
       source: parent
     -
       plugin: migration_lookup
-      migration: farm_migrate_taxonomy_material
+      migration: farm_migrate_taxonomy_material_type
   parent:
     plugin: default_value
     default_value: 0
