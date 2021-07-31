@@ -15,8 +15,8 @@ class: Drupal\migrate\Plugin\Migration
 field_plugin_method: null
 cck_plugin_method: null
 source:
-  plugin: d7_asset
-  bundle: sensor
+  plugin: d7_sensor_asset
+  sensor_type: ''
 destination:
   plugin: 'entity:asset'
 process:
