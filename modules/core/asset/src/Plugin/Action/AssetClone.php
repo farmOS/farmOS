@@ -35,8 +35,8 @@ class AssetClone extends EntityActionBase {
    */
   public function access($object, AccountInterface $account = NULL, $return_as_object = FALSE) {
     /** @var \Drupal\asset\Entity\AssetInterface $object */
-    $result = $object->get('status')->access('edit', $account, TRUE)
-      ->andIf($object->access('update', $account, TRUE));
+    $result = $object->access('view', $account, TRUE)
+      ->andIf($object->access('create', $account, TRUE));
 
     return $return_as_object ? $result : $result->isAllowed();
   }
