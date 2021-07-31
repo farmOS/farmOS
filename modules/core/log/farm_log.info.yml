@@ -4,4 +4,5 @@ type: module
 package: farmOS
 core_version_requirement: ^9
 dependencies:
+  - farm:asset
   - log:log

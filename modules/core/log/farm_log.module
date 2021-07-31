@@ -5,6 +5,8 @@
  * Contains farm_log.module.
  */
 
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\farm_log\Event\LogEvent;
 use Drupal\log\Entity\LogInterface;
 
@@ -30,4 +32,44 @@ function farm_log_log_delete(LogInterface $log) {
   $event = new LogEvent($log);
   $event_dispatcher = \Drupal::service('event_dispatcher');
   $event_dispatcher->dispatch(LogEvent::DELETE, $event);
+}
+
+/**
+ * Implements hook_entity_prepare_form().
+ */
+function farm_log_entity_prepare_form(EntityInterface $entity, $operation, FormStateInterface $form_state) {
+
+  // If not adding a new entity, bail.
+  if ($operation !== 'add' || !$entity->isNew()) {
+    return;
+  }
+
+  // If the entity is not a log, bail.
+  if ($entity->getEntityTypeId() !== 'log') {
+    return;
+  }
+
+  // Save the current user.
+  $user = \Drupal::currentUser();
+
+  // Save the request query params.
+  $query = \Drupal::request()->query;
+
+  // Prepopulate the log asset field.
+  $asset_ids = $query->get('asset');
+  if (!empty($asset_ids)) {
+    /** @var \Drupal\Core\Field\EntityReferenceFieldItemList $asset_field */
+    $asset_field = $entity->get('asset');
+
+    // Add each asset the user has view access to.
+    $assets = \Drupal::entityTypeManager()->getStorage('asset')->loadMultiple($asset_ids);
+    foreach ($assets as $asset) {
+      if ($asset->access('view', $user)) {
+        $asset_field->appendItem($asset);
+      }
+    }
+
+    $entity->set('asset', $asset_ids);
+  }
+
 }
