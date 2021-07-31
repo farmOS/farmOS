@@ -162,7 +162,7 @@ class AssetAddLogActionForm extends ConfirmFormBase {
     $inaccessible_entities = [];
     $accessible_entities = [];
     foreach ($this->entities as $entity) {
-      if (!$entity->access('update', $this->currentUser())) {
+      if (!$entity->access('view', $this->currentUser())) {
         $inaccessible_entities[] = $entity;
         continue;
       }
