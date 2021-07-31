@@ -21,17 +21,14 @@ source:
   plugin: d7_sensor_listener_data
 destination:
   plugin: table
-  table_name: data_stream_legacy
+  table_name: data_stream_basic
   id_fields:
     id:
       type: integer
-    name:
-      type: string
     timestamp:
       type: integer
   fields:
     id: id
-    name: name
     timestamp: timestamp
     value_numerator: value_numerator
     value_denominator: value_denominator
@@ -48,14 +45,12 @@ process:
       method: row
   # Get the data stream that was created for the new sensor.
   id:
-    -
-      plugin: data_stream_from_asset
-      asset_id: asset_id
-    -
-      plugin: skip_on_empty
-      method: row
+    plugin: migration_lookup
+    migration: farm_migrate_sensor_listener_data_streams
+    source:
+      - '@asset_id'
+      - name
   timestamp: timestamp
-  name: name
   value_numerator: value_numerator
   value_denominator: value_denominator
 migration_dependencies:
