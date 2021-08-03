@@ -424,7 +424,7 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
           'type' => 'entity_reference_entity_view',
           'weight' => $options['weight']['view'] ?? 0,
           'settings' => [
-            'view_mode' => 'default',
+            'view_mode' => 'summary',
             'link' => TRUE,
           ],
         ];
