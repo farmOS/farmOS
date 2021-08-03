@@ -17,7 +17,8 @@ class PlanForm extends ContentEntityForm {
    */
   public function save(array $form, FormStateInterface $form_state) {
     parent::save($form, $form_state);
-    $this->messenger()->addMessage($this->t('Saved the %label plan.', ['%label' => $this->entity->label()]));
+    $entity_url = $this->entity->toUrl()->setAbsolute()->toString();
+    $this->messenger()->addMessage($this->t('Saved plan: <a href=":url">%label</a>', [':url' => $entity_url, '%label' => $this->entity->label()]));
     $form_state->setRedirectUrl($this->entity->toUrl());
   }
 

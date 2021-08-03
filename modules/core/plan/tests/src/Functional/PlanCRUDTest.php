@@ -55,7 +55,7 @@ class PlanCRUDTest extends PlanTestBase {
     $plan = Plan::load($plan_id);
     $this->assertEquals($plan->get('name')->value, $name, 'plan has been saved.');
 
-    $assert_session->pageTextContains("Saved the $name plan.");
+    $assert_session->pageTextContains("Saved plan: $name");
     $assert_session->pageTextContains($name);
   }
 

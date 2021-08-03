@@ -55,7 +55,7 @@ class AssetCRUDTest extends AssetTestBase {
     $asset = Asset::load($asset_id);
     $this->assertEquals($asset->get('name')->value, $name, 'asset has been saved.');
 
-    $assert_session->pageTextContains("Saved the $name asset.");
+    $assert_session->pageTextContains("Saved asset: $name");
     $assert_session->pageTextContains($name);
   }
 
