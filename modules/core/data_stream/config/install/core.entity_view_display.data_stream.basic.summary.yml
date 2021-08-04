@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.data_stream.summary
+    - data_stream.type.basic
+id: data_stream.basic.summary
+targetEntityType: data_stream
+bundle: basic
+mode: summary
+content:
+  name:
+    label: hidden
+    type: string
+    weight: 0
+    region: content
+    settings:
+      link_to_entity: true
+    third_party_settings: {  }
+hidden:
+  asset: true
+  private_key: true
+  public: true
