@@ -123,8 +123,8 @@ class Basic extends DataStreamTypeBase implements DataStreamStorageInterface, Da
 
     // Value numerator.
     $data[$data_table]['value_numerator'] = [
-      'title' => $this->t('Sensor value numerator'),
-      'help' => $this->t('The stored numerator value of the sensor reading.'),
+      'title' => $this->t('Value numerator'),
+      'help' => $this->t('The stored numerator value of the data stream reading.'),
       'field' => [
         'id' => 'numeric',
         'click sortable' => TRUE,
@@ -139,8 +139,8 @@ class Basic extends DataStreamTypeBase implements DataStreamStorageInterface, Da
 
     // Value denominator.
     $data[$data_table]['value_denominator'] = [
-      'title' => $this->t('Sensor value denominator'),
-      'help' => $this->t('The stored denominator value of the sensor reading.'),
+      'title' => $this->t('Value denominator'),
+      'help' => $this->t('The stored denominator value of the data stream reading.'),
       'field' => [
         'id' => 'numeric',
         'click sortable' => TRUE,
@@ -158,9 +158,9 @@ class Basic extends DataStreamTypeBase implements DataStreamStorageInterface, Da
       'numerator' => 'value_numerator',
       'denominator' => 'value_denominator',
     ];
-    $data[$data_table]['value_decimal'] = [
-      'title' => $this->t('Sensor value (decimal)'),
-      'help' => $this->t('Decimal equivalent of sensor value.'),
+    $data[$data_table]['value'] = [
+      'title' => $this->t('Value'),
+      'help' => $this->t('Decimal equivalent of the data stream reading.'),
       'real field' => 'value_numerator',
       'field' => [
         'id' => 'fraction',
