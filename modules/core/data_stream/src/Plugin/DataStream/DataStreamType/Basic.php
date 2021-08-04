@@ -88,6 +88,10 @@ class Basic extends DataStreamTypeBase implements DataStreamStorageInterface, Da
 
     // Describe the {data_stream_basic} table.
     $data[$data_table]['table']['group'] = $this->t('Basic data stream data');
+    $data[$data_table]['table']['base'] = [
+      'title' => $this->t('Basic data stream data'),
+      'help' => $this->t('Data provided by basic data streams.'),
+    ];
 
     // Data stream ID.
     $data[$data_table]['id'] = [
