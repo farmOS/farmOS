@@ -18,7 +18,13 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
  *     plural = "@count data stream types",
  *   ),
  *   handlers = {
- *   "route_provider" = {
+ *     "list_builder" = "Drupal\data_stream\DataStreamTypeListBuilder",
+ *     "form" = {
+ *       "add" = "Drupal\data_stream\Form\DataStreamTypeForm",
+ *       "edit" = "Drupal\data_stream\Form\DataStreamTypeForm",
+ *       "delete" = "\Drupal\Core\Entity\EntityDeleteForm",
+ *     },
+ *     "route_provider" = {
  *       "default" = "Drupal\entity\Routing\DefaultHtmlRouteProvider",
  *     },
  *   },
@@ -31,7 +37,10 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
  *     "uuid" = "uuid",
  *   },
  *   links = {
- *     "add-form" = "/admin/structure/data_stream_type/add",
+ *     "add-form" = "/admin/structure/data-stream-type/add",
+ *     "edit-form" = "/admin/structure/data-stream-type/{data_stream_type}/edit",
+ *     "delete-form" = "/admin/structure/data-stream-type/{data_stream_type}/delete",
+ *     "collection" = "/admin/structure/data-stream-type",
  *   },
  *   config_export = {
  *     "id",

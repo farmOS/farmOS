@@ -53,6 +53,7 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
  *   },
  *   bundle_entity_type = "data_stream_type",
  *   bundle_plugin_type = "data_stream_type",
+ *   field_ui_base_route = "entity.data_stream_type.edit_form",
  *   common_reference_target = TRUE,
  *   permission_granularity = "bundle",
  *   links = {
@@ -179,7 +180,8 @@ class DataStream extends ContentEntityBase implements DataStreamInterface {
         'type' => 'string_textfield',
         'weight' => -5,
       ])
-      ->setDisplayConfigurable('form', TRUE);
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
 
     $fields['private_key'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Private Key'))
@@ -192,7 +194,8 @@ class DataStream extends ContentEntityBase implements DataStreamInterface {
         'type' => 'string_textfield',
         'weight' => 3,
       ])
-      ->setDisplayConfigurable('form', TRUE);
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
 
     $fields['public'] = BaseFieldDefinition::create('boolean')
       ->setLabel(t('Public'))
@@ -209,7 +212,9 @@ class DataStream extends ContentEntityBase implements DataStreamInterface {
       ->setDisplayOptions('form', [
         'type' => 'boolean_checkbox',
         'weight' => 5,
-      ]);
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
 
     $fields['asset'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Asset'))
@@ -220,7 +225,9 @@ class DataStream extends ContentEntityBase implements DataStreamInterface {
       ->setDisplayOptions('form', [
         'type' => 'entity_reference',
         'weight' => 12,
-      ]);
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
 
     $fields['created'] = BaseFieldDefinition::create('created')
       ->setLabel(t('Created on'))
