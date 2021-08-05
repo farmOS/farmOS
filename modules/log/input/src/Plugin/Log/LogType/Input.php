@@ -32,22 +32,6 @@ class Input extends FarmLogType {
     ];
     $fields['lot_number'] = $this->farmFieldFactory->bundleFieldDefinition($options);
 
-    // Material type.
-    $options = [
-      'type' => 'entity_reference',
-      'label' => $this->t('Material type'),
-      'description' => $this->t('What type of materials are being applied?'),
-      'target_type' => 'taxonomy_term',
-      'target_bundle' => 'material_type',
-      'auto_create' => TRUE,
-      'multiple' => TRUE,
-      'weight' => [
-        'form' => -50,
-        'view' => -50,
-      ],
-    ];
-    $fields['material_type'] = $this->farmFieldFactory->bundleFieldDefinition($options);
-
     // Method.
     $options = [
       'type' => 'string',

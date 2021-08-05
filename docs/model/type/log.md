@@ -267,10 +267,6 @@ Input Logs have the following additional attributes:
 - Purchase date (timestamp)
 - Source (string)
 
-And the following additional relationships:
-
-- Material type (References Terms in the "Material types" vocabulary)
-
 #### Lab Test Logs
 
 Lab Test Logs have the following additional attributes:
