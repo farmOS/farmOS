@@ -28,22 +28,10 @@ process:
   id:
     plugin: get
     source: id
-  # Migrate log quantities.
-  quantity:
-    plugin: get
-    source: '@_log_quantities'
   # Input specific fields.
   lot_number:
     plugin: get
     source: field_farm_lot_number
-  material_type:
-    plugin: sub_process
-    source: field_farm_material
-    process:
-      target_id:
-        plugin: migration_lookup
-        migration: farm_migrate_taxonomy_material_type
-        source: tid
   method:
     plugin: get
     source: field_farm_input_method
@@ -53,6 +41,39 @@ process:
   source:
     plugin: get
     source: field_farm_input_source
+  # Save the material_type in a pseudo field.
+  _material_type:
+    plugin: sub_process
+    source: field_farm_material
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: farm_migrate_taxonomy_material_type
+        source: tid
+  # Migrate the field_farm_material term reference into a material quantity.
+  _material_quantities:
+    # Build the quantity.
+    -
+      plugin: get
+      source: '@_material_type'
+    -
+      plugin: skip_on_empty
+      method: process
+    -
+      plugin: create_quantity
+      default_values:
+        type: 'material'
+      values:
+        uid: '@uid'
+        created: '@created'
+        changed: '@changed'
+        material_type: '@_material_type'
+  # Merge the material quantity with other log quantities.
+  quantity:
+    plugin: merge
+    source:
+      - '@_material_quantities'
+      - '@_log_quantities'
 migration_dependencies:
   required:
     - farm_migrate_taxonomy_material_type

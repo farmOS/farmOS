@@ -251,6 +251,7 @@ fields are not listed here):
 - `inventory` (merged into `quantity` entities)
 - `log_category` -> `category`
 - `log_owner` -> `owner`
+- `material` (migrated to "Material" `quantity` entities)
 - `seed_source` -> `source`
 - `soil_lab` -> `lab`
 - `water_lab` -> `lab`
