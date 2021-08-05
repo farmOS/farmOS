@@ -28,6 +28,10 @@ process:
   id:
     plugin: get
     source: id
+  # Migrate log quantities.
+  quantity:
+    plugin: get
+    source: '@_log_quantities'
 migration_dependencies:
   required: {  }
   optional: {  }
