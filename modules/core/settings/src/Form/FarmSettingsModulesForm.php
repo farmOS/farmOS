@@ -2,7 +2,7 @@
 
 namespace Drupal\farm_settings\Form;
 
-use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\Core\Extension\ModuleExtensionList;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -15,11 +15,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class FarmSettingsModulesForm extends FormBase {
 
   /**
-   * Module handler service.
+   * The module extension list.
    *
-   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   * @var \Drupal\Core\Extension\ModuleExtensionList
    */
-  protected $moduleHandler;
+  protected $moduleExtensionList;
 
   /**
    * {@inheritdoc}
@@ -31,11 +31,11 @@ class FarmSettingsModulesForm extends FormBase {
   /**
    * Constructs a new FarmSettingsModulesForm.
    *
-   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
-   *   Module handler service.
+   * @param \Drupal\Core\Extension\ModuleExtensionList $module_extension_list
+   *   The module extension list.
    */
-  public function __construct(ModuleHandlerInterface $module_handler) {
-    $this->moduleHandler = $module_handler;
+  public function __construct(ModuleExtensionList $module_extension_list) {
+    $this->moduleExtensionList = $module_extension_list;
   }
 
   /**
@@ -43,7 +43,7 @@ class FarmSettingsModulesForm extends FormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('module_handler'),
+      $container->get('extension.list.module'),
     );
   }
 
@@ -95,18 +95,14 @@ class FarmSettingsModulesForm extends FormBase {
     // Allow user to choose which high-level farm modules to install.
     $module_options = array_merge($modules['default'], $modules['optional']);
 
-    // Check for enabled modules.
-    $enabled_modules = [];
-    foreach (array_keys($module_options) as $name) {
-      if ($this->moduleHandler->moduleExists($name)) {
-        $enabled_modules[] = $name;
-      }
-    }
+    // Check and disable modules that are installed.
+    $all_installed_modules = $this->moduleExtensionList->getAllInstalledInfo();
+    $installed_modules = array_keys(array_intersect_key($module_options, $all_installed_modules));
 
     return [
       'options' => $module_options,
-      'default' => $enabled_modules,
-      'disabled' => $enabled_modules,
+      'default' => $installed_modules,
+      'disabled' => $installed_modules,
     ];
   }
 
@@ -128,7 +124,7 @@ class FarmSettingsModulesForm extends FormBase {
     foreach ($modules as $module => $weight) {
       $operations[] = [
         [__NAMESPACE__ . '\FarmSettingsModulesForm', 'farmInstallModuleBatch'],
-        [$module, $this->moduleHandler->getName($module)],
+        [$module, $this->moduleExtensionList->getName($module)],
       ];
     }
     $batch = [
