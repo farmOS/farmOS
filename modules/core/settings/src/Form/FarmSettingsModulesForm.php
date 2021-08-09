@@ -3,9 +3,8 @@
 namespace Drupal\farm_settings\Form;
 
 use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\State\StateInterface;
-use Drupal\farm\Form\FarmModulesForm;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -13,7 +12,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @ingroup farm
  */
-class FarmSettingsModulesForm extends FarmModulesForm {
+class FarmSettingsModulesForm extends FormBase {
 
   /**
    * Module handler service.
@@ -30,15 +29,12 @@ class FarmSettingsModulesForm extends FarmModulesForm {
   }
 
   /**
-   * Constructs a new FarmModulesForm.
+   * Constructs a new FarmSettingsModulesForm.
    *
-   * @param \Drupal\Core\State\StateInterface $state
-   *   The state keyvalue collection to use.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    *   Module handler service.
    */
-  public function __construct(StateInterface $state, ModuleHandlerInterface $module_handler) {
-    parent::__construct($state);
+  public function __construct(ModuleHandlerInterface $module_handler) {
     $this->moduleHandler = $module_handler;
   }
 
@@ -47,9 +43,45 @@ class FarmSettingsModulesForm extends FarmModulesForm {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('state'),
-      $container->get('module_handler')
+      $container->get('module_handler'),
     );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function buildForm(array $form, FormStateInterface $form_state) {
+
+    // Set the form title.
+    $form['#title'] = $this->t('Enable modules');
+
+    // Load module options.
+    $modules = $this->moduleOptions();
+
+    // Module checkboxes.
+    $form['modules'] = [
+      '#title' => $this->t('farmOS Modules'),
+      '#title_display' => 'invisible',
+      '#type' => 'checkboxes',
+      '#description' => $this->t('Select the farmOS modules that you would like to be installed.'),
+      '#options' => $modules['options'],
+      '#default_value' => $modules['default'],
+    ];
+
+    // Disable checkboxes for modules marked as disabled.
+    foreach ($modules['disabled'] as $name) {
+      $form['modules'][$name]['#disabled'] = TRUE;
+    }
+
+    // Submit button.
+    $form['actions'] = ['#type' => 'actions'];
+    $form['actions']['submit'] = [
+      '#type' => 'submit',
+      '#value' => $this->t('Save and continue'),
+      '#button_type' => 'primary',
+    ];
+
+    return $form;
   }
 
   /**
