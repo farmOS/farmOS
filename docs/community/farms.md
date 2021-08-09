@@ -102,6 +102,7 @@ included in this list, add a comment to [this issue on Github].
 * Pax Sam Place Urban Permaculture Community (Eugene, Oregon)
 * Red Shirt Farm (Lanesborough, Massachusetts)
 * Refugia Gardens (Flagstaff, Arizona)
+* Right Mind Ag, Inc. (Sterling, Illinois)
 * Satori Farms (Cave Junction, Oregon)
 * Silver Market Gardens (Silver City, New Mexico)
 * Stone Grown Farm (Mansfield, Connecticut)
