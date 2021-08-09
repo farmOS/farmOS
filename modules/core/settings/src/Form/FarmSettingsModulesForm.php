@@ -77,6 +77,13 @@ class FarmSettingsModulesForm extends FormBase {
       '#open' => TRUE,
     ];
 
+    // Submit button.
+    $form['actions'] = ['#type' => 'actions'];
+    $form['actions']['submit'] = [
+      '#type' => 'submit',
+      '#value' => $this->t('Install modules'),
+    ];
+
     // Load module options.
     $modules = $this->moduleOptions();
 
@@ -95,16 +102,14 @@ class FarmSettingsModulesForm extends FormBase {
       foreach ($options['disabled'] as $name) {
         $form[$type]['modules'][$name]['#disabled'] = TRUE;
       }
+
+      // Disable the submit button until an uninstalled module is checked.
+      $uninstalled = array_diff(array_keys($options['options']), $options['default']);
+      foreach ($uninstalled as $module_name) {
+        $name = $type . "[modules][$module_name]";
+        $form['actions']['submit']['#states']['disabled'][":input[name=\"$name\"]"] = ['checked' => FALSE];
+      }
     }
-
-    // Submit button.
-    $form['actions'] = ['#type' => 'actions'];
-    $form['actions']['submit'] = [
-      '#type' => 'submit',
-      '#value' => $this->t('Save and continue'),
-      '#button_type' => 'primary',
-    ];
-
     return $form;
   }
 
