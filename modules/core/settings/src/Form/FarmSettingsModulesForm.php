@@ -60,7 +60,7 @@ class FarmSettingsModulesForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
 
     // Set the form title.
-    $form['#title'] = $this->t('Enable modules');
+    $form['#title'] = $this->t('Install modules');
     $form['#tree'] = TRUE;
 
     // Core modules.
