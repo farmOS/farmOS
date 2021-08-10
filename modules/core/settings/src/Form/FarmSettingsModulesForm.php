@@ -89,6 +89,16 @@ class FarmSettingsModulesForm extends FormBase {
 
     // Build checkboxes for module options.
     foreach ($modules as $type => $options) {
+
+      // Add message if there are no contrib modules.
+      if (empty($options['options'])) {
+        $form[$type]['modules'] = [
+          '#markup' => $this->t('No @type farmOS modules found.', ['@type' => $type]),
+        ];
+        continue;
+      }
+
+      // Build checkboxes.
       $form[$type]['modules'] = [
         '#title' => $this->t('farmOS Modules'),
         '#title_display' => 'invisible',
