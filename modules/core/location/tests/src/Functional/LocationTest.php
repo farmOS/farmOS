@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\farm_entity\Functional;
+namespace Drupal\Tests\farm_location\Functional;
 
 use Drupal\Component\Serialization\Json;
 use Drupal\Core\Entity\EntityInterface;
