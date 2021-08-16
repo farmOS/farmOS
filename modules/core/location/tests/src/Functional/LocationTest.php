@@ -128,7 +128,6 @@ class LocationTest extends WebDriverTestBase {
 
     // Go to the asset edit form.
     $this->drupalGet('asset/' . $this->asset->id() . '/edit');
-    $this->assertSession()->statusCodeEquals(200);
 
     // Test that current geometry and current location fields are all hidden.
     $this->assertSession()->fieldNotExists('geometry[0][value]');
@@ -142,7 +141,6 @@ class LocationTest extends WebDriverTestBase {
 
     // Go to the asset view page.
     $this->drupalGet('asset/' . $this->asset->id());
-    $this->assertSession()->statusCodeEquals(200);
 
     // Test that current geometry and location fields are visible.
     $this->assertSession()->pageTextContains("Current geometry");
@@ -157,7 +155,6 @@ class LocationTest extends WebDriverTestBase {
 
     // Go back to the edit form.
     $this->drupalGet('asset/' . $this->asset->id() . '/edit');
-    $this->assertSession()->statusCodeEquals(200);
 
     // Test that the intrinsic geometry field is visible.
     $page = $this->getSession()->getPage();

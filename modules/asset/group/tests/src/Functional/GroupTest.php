@@ -50,7 +50,6 @@ class GroupTest extends WebDriverTestBase {
 
     // Go to the log edit form.
     $this->drupalGet('log/' . $log->id() . '/edit');
-    $this->assertSession()->statusCodeEquals(200);
 
     // Test that the group field is hidden.
     $page = $this->getSession()->getPage();
@@ -64,7 +63,6 @@ class GroupTest extends WebDriverTestBase {
 
     // Go back to the edit form.
     $this->drupalGet('log/' . $log->id() . '/edit');
-    $this->assertSession()->statusCodeEquals(200);
 
     // Test that the group field is visible.
     $page = $this->getSession()->getPage();
