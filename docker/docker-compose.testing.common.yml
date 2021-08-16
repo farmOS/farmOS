@@ -7,9 +7,13 @@ services:
     environment:
       FARMOS_FS_READY_SENTINEL_FILENAME: /opt/drupal/www-container-fs-ready
 
+  chrome:
+    image: selenium/standalone-chrome:latest
+
   test-runner:
     depends_on:
       - www
+      - chrome
     image: farmos/farmos:2.x
     entrypoint: /bin/bash
     command:
