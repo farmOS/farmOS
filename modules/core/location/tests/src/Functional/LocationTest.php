@@ -135,7 +135,7 @@ class LocationTest extends WebDriverTestBase {
 
     // Test that intrinsic_geometry field is hidden.
     $page = $this->getSession()->getPage();
-    $intrinsic_geometry_field = $page->findField('intrinsic_geometry');
+    $intrinsic_geometry_field = $page->findById('edit-intrinsic-geometry-wrapper');
     $this->assertNotEmpty($intrinsic_geometry_field);
     $this->assertFalse($intrinsic_geometry_field->isVisible());
 
@@ -158,7 +158,7 @@ class LocationTest extends WebDriverTestBase {
 
     // Test that the intrinsic geometry field is visible.
     $page = $this->getSession()->getPage();
-    $intrinsic_geometry_field = $page->findField('intrinsic_geometry');
+    $intrinsic_geometry_field = $page->findById('edit-intrinsic-geometry-wrapper');
     $this->assertNotEmpty($intrinsic_geometry_field);
     $this->assertTrue($intrinsic_geometry_field->isVisible());
   }

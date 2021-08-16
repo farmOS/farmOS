@@ -53,7 +53,7 @@ class GroupTest extends WebDriverTestBase {
 
     // Test that the group field is hidden.
     $page = $this->getSession()->getPage();
-    $group_field = $page->findField('group');
+    $group_field = $page->findById('edit-group-wrapper');
     $this->assertNotEmpty($group_field);
     $this->assertFalse($group_field->isVisible());
 
@@ -66,7 +66,7 @@ class GroupTest extends WebDriverTestBase {
 
     // Test that the group field is visible.
     $page = $this->getSession()->getPage();
-    $group_field = $page->findField('group');
+    $group_field = $page->findById('edit-group-wrapper');
     $this->assertNotEmpty($group_field);
     $this->assertTrue($group_field->isVisible());
   }
