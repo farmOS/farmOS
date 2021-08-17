@@ -43,7 +43,7 @@ class GroupTest extends WebDriverTestBase {
   public function testGroupFieldVisibility() {
 
     // Create a log for testing.
-    /** @var \Drupal\log\Entity\LogInterface $$log */
+    /** @var \Drupal\log\Entity\LogInterface $log */
     $log = Log::create([
       'type' => 'test',
     ]);
