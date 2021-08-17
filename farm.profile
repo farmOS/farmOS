@@ -44,6 +44,7 @@ function farm_modules() {
     ],
     'optional' => [
       'farm_inventory' => t('Inventory management'),
+      'farm_seed' => t('Seed assets'),
       'farm_sensor' => t('Sensor assets'),
       'farm_compost' => t('Compost assets'),
       'farm_group' => t('Group assets'),
