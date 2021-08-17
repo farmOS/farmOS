@@ -29,8 +29,8 @@ class GroupTest extends WebDriverTestBase {
    * {@inheritdoc}
    */
   protected function setUp(): void {
-    parent::setUp();
     $GLOBALS['farm_test'] = TRUE;
+    parent::setUp();
 
     // Create and login a user with permission to administer logs.
     $user = $this->createUser(['administer log']);
