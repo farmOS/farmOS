@@ -22,6 +22,7 @@ class GroupTest extends WebDriverTestBase {
    */
   protected static $modules = [
     'farm_group',
+    'farm_group_test',
   ];
 
   /**
