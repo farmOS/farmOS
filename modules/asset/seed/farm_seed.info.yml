@@ -1,0 +1,9 @@
+name: Seed asset
+description: Adds a Seed asset type.
+type: module
+package: farmOS Assets
+core_version_requirement: ^9
+dependencies:
+  - farm:farm_entity
+  - farm:farm_plant
+  - farm:farm_season
