@@ -5,12 +5,15 @@ namespace Drupal\data_stream\Plugin\DataStream\DataStreamType;
 use Drupal\Component\Serialization\Json;
 use Drupal\Core\Database\Connection;
 use Drupal\data_stream\DataStreamApiInterface;
+use Drupal\data_stream\DataStreamEventDispatcherInterface;
 use Drupal\data_stream\DataStreamStorageInterface;
 use Drupal\data_stream\Entity\DataStreamInterface;
+use Drupal\data_stream\Event\DataStreamEvent;
 use Drupal\data_stream\Traits\DataStreamPrivateKeyAccess;
 use Drupal\fraction\Fraction;
 use Drupal\jsonapi\Exception\UnprocessableHttpEntityException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,7 +29,7 @@ use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
  *   label = @Translation("Basic"),
  * )
  */
-class Basic extends DataStreamTypeBase implements DataStreamStorageInterface, DataStreamApiInterface {
+class Basic extends DataStreamTypeBase implements DataStreamStorageInterface, DataStreamApiInterface, DataStreamEventDispatcherInterface {
 
   use DataStreamPrivateKeyAccess;
 
@@ -38,6 +41,13 @@ class Basic extends DataStreamTypeBase implements DataStreamStorageInterface, Da
    * @see DataStreamSqlStorage
    */
   protected $connection;
+
+  /**
+   * The event dispatcher service.
+   *
+   * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
+   */
+  protected $eventDispatcher;
 
   /**
    * Database table.
@@ -59,10 +69,13 @@ class Basic extends DataStreamTypeBase implements DataStreamStorageInterface, Da
    *   The plugin implementation definition.
    * @param \Drupal\Core\Database\Connection $connection
    *   The database connection.
+   * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $event_dispatcher
+   *   The event dispatcher service.
    */
-  public function __construct(array $configuration, string $plugin_id, $plugin_definition, Connection $connection) {
+  public function __construct(array $configuration, string $plugin_id, $plugin_definition, Connection $connection, EventDispatcherInterface $event_dispatcher) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->connection = $connection;
+    $this->eventDispatcher = $event_dispatcher;
   }
 
   /**
@@ -74,7 +87,20 @@ class Basic extends DataStreamTypeBase implements DataStreamStorageInterface, Da
       $plugin_id,
       $plugin_definition,
       $container->get('database'),
+      $container->get('event_dispatcher'),
     );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getSupportedEvents(): array {
+    return [
+      DataStreamEvent::DATA_RECEIVE => [
+        'name' => $this->t('The name of the data stream value.'),
+        'value' => $this->t('The raw value.'),
+      ],
+    ];
   }
 
   /**
@@ -447,6 +473,14 @@ class Basic extends DataStreamTypeBase implements DataStreamStorageInterface, Da
       $this->connection->insert($this->tableName)
         ->fields($row)
         ->execute();
+
+      // Dispatch a data stream receive event.
+      $context = [
+        'value' => $value,
+        'name' => $stream->label(),
+      ];
+      $event = new DataStreamEvent($stream, $context);
+      $this->eventDispatcher->dispatch($event, DataStreamEvent::DATA_RECEIVE);
     }
 
     return TRUE;
