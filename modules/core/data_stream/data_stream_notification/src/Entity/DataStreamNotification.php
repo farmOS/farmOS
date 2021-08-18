@@ -20,7 +20,15 @@ use Drupal\data_stream_notification\DataStreamNotificationPluginCollection;
  *   ),
  *   handlers = {
  *     "access" = "\Drupal\entity\EntityAccessControlHandler",
+ *     "form" = {
+ *       "add" = "Drupal\data_stream_notification\Form\DataStreamNotificationForm",
+ *       "edit" = "Drupal\data_stream_notification\Form\DataStreamNotificationForm",
+ *       "delete" = "Drupal\Core\Entity\EntityDeleteForm",
+ *     },
  *     "permission_provider" = "\Drupal\entity\EntityPermissionProvider",
+ *     "route_provider" = {
+ *       "default" = "Drupal\entity\Routing\DefaultHtmlRouteProvider",
+ *     },
  *   },
  *   admin_permission = "administer data stream notification",
  *   entity_keys = {
@@ -35,6 +43,11 @@ use Drupal\data_stream_notification\DataStreamNotificationPluginCollection;
  *     "condition_operator",
  *     "condition",
  *     "delivery",
+ *   },
+ *   links = {
+ *     "add-form" = "/data-stream-notifications/add",
+ *     "edit-form" = "/data-stream-notifications/{data_stream_notification}/edit",
+ *     "delete-form" = "/data-stream-notifications/{data_stream_notification}/delete",
  *   }
  * )
  *
