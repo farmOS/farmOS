@@ -50,6 +50,11 @@ class FarmMap extends RenderElement {
     // Add the farm-map class.
     $element['#attributes']['class'][] = 'farm-map';
 
+    // By default, inform farm_map.js that it should instantiate the map.
+    if (empty($element['#attributes']['data-map-instantiator'])) {
+      $element['#attributes']['data-map-instantiator'] = 'farm_map';
+    }
+
     // Attach the farmOS-map and farm_map libraries.
     $element['#attached']['library'][] = 'farm_map/farmOS-map';
     $element['#attached']['library'][] = 'farm_map/farm_map';

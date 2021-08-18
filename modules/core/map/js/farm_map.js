@@ -15,7 +15,7 @@
           onFocusOnly: true
         },
       };
-      context.querySelectorAll('.farm-map').forEach(function (element) {
+      context.querySelectorAll('[data-map-instantiator="farm_map"]').forEach(function (element) {
 
         // Only create a map once per element.
         if (element.getAttribute('processed')) return;
