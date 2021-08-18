@@ -81,6 +81,7 @@ class FarmSettingsModulesForm extends FormBase {
     $form['actions'] = ['#type' => 'actions'];
     $form['actions']['submit'] = [
       '#type' => 'submit',
+      '#name' => 'install-modules',
       '#value' => $this->t('Install modules'),
     ];
 
