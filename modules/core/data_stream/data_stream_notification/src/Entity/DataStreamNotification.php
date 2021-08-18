@@ -50,6 +50,8 @@ use Drupal\data_stream_notification\DataStreamNotificationPluginCollection;
  *     "add-form" = "/data-stream-notifications/add",
  *     "edit-form" = "/data-stream-notifications/{data_stream_notification}/edit",
  *     "delete-form" = "/data-stream-notifications/{data_stream_notification}/delete",
+ *     "enable" = "/data-stream-notifications/{data_stream_notification}/enable",
+ *     "disable" = "/data-stream-notifications/{data_stream_notification}/disable",
  *   }
  * )
  *

@@ -1,0 +1,17 @@
+entity.data_stream_notification.enable:
+  path: '/data-stream-notifications/{data_stream_notification}/enable'
+  defaults:
+    _controller: '\Drupal\data_stream_notification\Controller\NotificationUIController::ajaxOperation'
+    op: enable
+  requirements:
+    _entity_access: data_stream_notification.edit
+    _csrf_token: 'TRUE'
+
+entity.data_stream_notification.disable:
+  path: '/data-stream-notifications/{data_stream_notification}/disable'
+  defaults:
+    _controller: '\Drupal\data_stream_notification\Controller\NotificationUIController::ajaxOperation'
+    op: disable
+  requirements:
+    _entity_access: data_stream_notification.edit
+    _csrf_token: 'TRUE'

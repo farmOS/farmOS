@@ -71,9 +71,37 @@ class DataStreamNotificationListBuilder extends ConfigEntityListBuilder {
   /**
    * {@inheritdoc}
    */
+  public function getDefaultOperations(EntityInterface $entity) {
+    $operations = parent::getDefaultOperations($entity);
+
+    // Add AJAX functionality to enable/disable operations.
+    foreach (['enable', 'disable'] as $op) {
+      if (isset($operations[$op])) {
+        $operations[$op]['url'] = $entity->toUrl($op);
+        // Enable and disable operations should use AJAX.
+        $operations[$op]['attributes']['class'][] = 'use-ajax';
+      }
+    }
+
+    // We assign data-drupal-selector to every link, so it focuses on the edit
+    // link after the ajax response. By default ajax.js would focus on the same
+    // button again, but the enable/disable buttons will be hidden.
+    // @see ViewsListBuilder::getDefaultOperations()
+    foreach ($operations as &$operation) {
+      $operation['attributes']['data-drupal-selector'] = 'data-stream-notification-listing-' . $entity->id();
+    }
+
+    return $operations;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function render() {
 
+    // Render a wrapper container that can be replaced.
     $list['#type'] = 'container';
+    $list['#attributes']['id'] = 'data-stream-notification-entity-list';
 
     // Add markup for the enabled table.
     $list['enabled']['heading']['#markup'] = '<h2>' . $this->t('Enabled', [], ['context' => 'Plural']) . '</h2>';
