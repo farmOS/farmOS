@@ -1,0 +1,7 @@
+services:
+  plugin.manager.data_stream_notification_condition:
+    class: Drupal\data_stream_notification\NotificationConditionManager
+    parent: default_plugin_manager
+  plugin.manager.data_stream_notification_delivery:
+    class: Drupal\data_stream_notification\NotificationDeliveryManager
+    parent: default_plugin_manager
