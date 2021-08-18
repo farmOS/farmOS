@@ -234,6 +234,56 @@ class DataStreamNotificationForm extends EntityForm {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+    parent::validateForm($form, $form_state);
+
+    // Allow each condition subform to validate the form.
+    foreach (['condition', 'delivery'] as $plugin_type) {
+      $plugins = $form_state->getValue($plugin_type);
+      foreach ($plugins as $delta => $plugin_config) {
+
+        // Get the plugin type manager service.
+        $manager_name = $plugin_type . 'Manager';
+        $manager = $this->$manager_name;
+
+        // Allow the plugin type to validate the subform.
+        $plugin_instance = $manager->createInstance($plugin_config['type'], $plugin_config);
+        $wrapper = $plugin_type . '_wrapper';
+        $subform_state = SubformState::createForSubform($form[$wrapper][$plugin_type][$delta], $form, $form_state);
+        $plugin_instance->validateConfigurationForm($form[$wrapper][$plugin_type][$delta], $subform_state);
+      }
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+
+    // Allow each plugin subform to submit the form.
+    foreach (['condition', 'delivery'] as $plugin_type) {
+      $plugins = $form_state->getValue($plugin_type);
+      foreach ($plugins as $delta => $plugin_config) {
+
+        // Get the plugin type manager service.
+        $manager_name = $plugin_type . 'Manager';
+        $manager = $this->$manager_name;
+
+        // Allow the plugin type to provide a subform.
+        $plugin_instance = $manager->createInstance($plugin_config['type'], $plugin_config);
+        $wrapper = $plugin_type . '_wrapper';
+        $subform_state = SubformState::createForSubform($form[$wrapper][$plugin_type][$delta], $form, $form_state);
+        $plugin_instance->submitConfigurationForm($form[$wrapper][$plugin_type][$delta], $subform_state);
+      }
+    }
+
+    // Call the parent method after subforms are submitted.
+    parent::submitForm($form, $form_state);
+  }
+
+  /**
    * Submit handler for the "Add {plugin_type}" button.
    *
    * Adds additional plugin definitions of the specified type.
