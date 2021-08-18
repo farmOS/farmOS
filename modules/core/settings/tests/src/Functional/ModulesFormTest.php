@@ -134,7 +134,7 @@ class ModulesFormTest extends WebDriverTestBase {
     $page->pressButton('install-modules');
 
     // Wait for the batch process to complete.
-    $this->assertSession()->waitForText('Install modules');
+    $this->assertSession()->waitForText('Install modules', 30000);
 
     // Rebuild the list of installed modules.
     $this->rebuildContainer();
