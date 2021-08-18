@@ -25,6 +25,7 @@ use Drupal\data_stream_notification\DataStreamNotificationPluginCollection;
  *       "edit" = "Drupal\data_stream_notification\Form\DataStreamNotificationForm",
  *       "delete" = "Drupal\Core\Entity\EntityDeleteForm",
  *     },
+ *     "list_builder" = "Drupal\data_stream_notification\DataStreamNotificationListBuilder",
  *     "permission_provider" = "\Drupal\entity\EntityPermissionProvider",
  *     "route_provider" = {
  *       "default" = "Drupal\entity\Routing\DefaultHtmlRouteProvider",
@@ -45,6 +46,7 @@ use Drupal\data_stream_notification\DataStreamNotificationPluginCollection;
  *     "delivery",
  *   },
  *   links = {
+ *     "collection" = "/data-stream-notifications",
  *     "add-form" = "/data-stream-notifications/add",
  *     "edit-form" = "/data-stream-notifications/{data_stream_notification}/edit",
  *     "delete-form" = "/data-stream-notifications/{data_stream_notification}/delete",
