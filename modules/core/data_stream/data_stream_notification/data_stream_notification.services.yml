@@ -5,3 +5,9 @@ services:
   plugin.manager.data_stream_notification_delivery:
     class: Drupal\data_stream_notification\NotificationDeliveryManager
     parent: default_plugin_manager
+  data_stream_notification.data_stream_event_subscriber:
+    class: Drupal\data_stream_notification\EventSubscriber\DataStreamEventSubscriber
+    arguments:
+      [ '@entity_type.manager' ]
+    tags:
+      - { name: 'event_subscriber' }
