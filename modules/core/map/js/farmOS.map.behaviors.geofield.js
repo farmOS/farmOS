@@ -3,7 +3,7 @@
     attach: function (instance) {
       instance.editAttached.then(() => {
         instance.edit.wktOn('featurechange', function(wkt) {
-          document.querySelector('#' + instance.target).parentElement.querySelector('textarea').value = wkt;
+          instance.map.getTargetElement().parentElement.querySelector('textarea').value = wkt;
         });
       });
     },
