@@ -2,9 +2,11 @@
   farmOS.map.behaviors.wkt = {
     attach: function (instance) {
 
+      const settings = instance.farmMapSettings;
+
       // If WKT was set, create a layer.
-      if (drupalSettings.farm_map[instance.target].wkt) {
-        var wkt = drupalSettings.farm_map[instance.target].wkt;
+      if (settings.wkt) {
+        var wkt = settings.wkt;
         var type = 'vector';
         var opts = {
           title: 'Geometry',
@@ -23,7 +25,7 @@
       var focusLayerPromise = Promise.resolve(layer);
 
       // If edit is true, enable drawing controls.
-      if (drupalSettings.farm_map[instance.target].behaviors.wkt.edit) {
+      if (settings.behaviors && settings.behaviors.wkt && settings.behaviors.wkt.edit) {
         if (layer !== undefined) {
           instance.editAttached = instance.addBehavior('edit', { layer: layer });
         } else {

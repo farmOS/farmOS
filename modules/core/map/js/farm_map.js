@@ -22,9 +22,13 @@
         element.setAttribute('processed', true);
 
         element.setAttribute('tabIndex', 0);
-        const mapId = element.getAttribute('id');
-        const mapOptions = { ...defaultOptions, ...drupalSettings.farm_map[mapId].instance};
-        const instance = farmOS.map.create(mapId, mapOptions);
+        const drupalSettingsKey = element.getAttribute('id');
+        const mapOptions = { ...defaultOptions, ...drupalSettings.farm_map[drupalSettingsKey].instance};
+        const instance = farmOS.map.create(element, mapOptions);
+
+        // Expose settings on the instance so other behaviors don't need to know how to look them up in drupalSettings
+        instance.farmMapSettings = drupalSettings.farm_map[drupalSettingsKey] || {};
+
         context.querySelectorAll('.ol-popup-closer').forEach(function (element) {
           element.onClick = function (element) {
             element.focus();

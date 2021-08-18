@@ -32,16 +32,23 @@ class FarmMap extends RenderElement {
    *
    * @param array $element
    *   A renderable array containing a #map_type property, which will be
-   *   appended to 'farm-map-' as the map element ID.
+   *   appended to 'farm-map-' as the map element ID if one has not already
+   *   been provided.
    *
    * @return array
    *   A renderable array representing the map.
    */
   public static function preRenderMap(array $element) {
 
-    // Set the id to the map name.
-    $map_id = Html::getUniqueId('farm-map-' . $element['#map_type']);
-    $element['#attributes']['id'] = $map_id;
+    if (empty($element['#attributes']['id'])) {
+      // Set the id to the map name.
+      $map_id = Html::getUniqueId('farm-map-' . $element['#map_type']);
+      $element['#attributes']['id'] = $map_id;
+    }
+
+    else {
+      $map_id = $element['#attributes']['id'];
+    }
 
     // Get the map type.
     /** @var \Drupal\farm_map\Entity\MapTypeInterface $map */
