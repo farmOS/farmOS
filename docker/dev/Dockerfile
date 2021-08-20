@@ -26,7 +26,10 @@ RUN yes | pecl install xdebug \
 	&& echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini
 
 # Create a fresh /var/farmOS directory owned by www-data.
-RUN rm -r /var/farmOS && mkdir /var/farmOS && chown www-data:www-data /var/farmOS
+# We do this in two steps because of a known issue with Moby.
+# @see https://github.com/farmOS/farmOS/pull/440
+RUN rm -r /var/farmOS
+RUN mkdir /var/farmOS && chown www-data:www-data /var/farmOS
 
 # Change to the www-data user.
 USER www-data
