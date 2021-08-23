@@ -73,7 +73,7 @@ class FarmSettingsModulesForm extends FormBase {
     // Contrib modules.
     $form['contrib'] = [
       '#type' => 'details',
-      '#title' => $this->t('Contrib modules'),
+      '#title' => $this->t('Community modules'),
       '#open' => TRUE,
     ];
 
