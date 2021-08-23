@@ -25,3 +25,7 @@ services:
       # Enable these for PHPStorm:
       #XDEBUG_SESSION: PHPSTORM
       #PHP_IDE_CONFIG: serverName=localhost
+
+  # Enable this service when executing javascript tests.
+#  chrome:
+#    image: selenium/standalone-chrome:latest

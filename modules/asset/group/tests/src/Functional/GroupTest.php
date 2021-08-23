@@ -22,14 +22,15 @@ class GroupTest extends WebDriverTestBase {
    */
   protected static $modules = [
     'farm_group',
+    'farm_group_test',
   ];
 
   /**
    * {@inheritdoc}
    */
   protected function setUp(): void {
-    parent::setUp();
     $GLOBALS['farm_test'] = TRUE;
+    parent::setUp();
 
     // Create and login a user with permission to administer logs.
     $user = $this->createUser(['administer log']);
@@ -42,7 +43,7 @@ class GroupTest extends WebDriverTestBase {
   public function testGroupFieldVisibility() {
 
     // Create a log for testing.
-    /** @var \Drupal\log\Entity\LogInterface $$log */
+    /** @var \Drupal\log\Entity\LogInterface $log */
     $log = Log::create([
       'type' => 'test',
     ]);
@@ -50,11 +51,10 @@ class GroupTest extends WebDriverTestBase {
 
     // Go to the log edit form.
     $this->drupalGet('log/' . $log->id() . '/edit');
-    $this->assertSession()->statusCodeEquals(200);
 
     // Test that the group field is hidden.
     $page = $this->getSession()->getPage();
-    $group_field = $page->findField('group');
+    $group_field = $page->findById('edit-group-wrapper');
     $this->assertNotEmpty($group_field);
     $this->assertFalse($group_field->isVisible());
 
@@ -64,11 +64,10 @@ class GroupTest extends WebDriverTestBase {
 
     // Go back to the edit form.
     $this->drupalGet('log/' . $log->id() . '/edit');
-    $this->assertSession()->statusCodeEquals(200);
 
     // Test that the group field is visible.
     $page = $this->getSession()->getPage();
-    $group_field = $page->findField('group');
+    $group_field = $page->findById('edit-group-wrapper');
     $this->assertNotEmpty($group_field);
     $this->assertTrue($group_field->isVisible());
   }

@@ -1,3 +1,4 @@
+# Inherits from docker-compose.testing.common.yml
 version: '3'
 services:
   db:
@@ -14,17 +15,8 @@ services:
   www:
     depends_on:
       - db
-    image: farmos/farmos:2.x-dev
-    volumes:
-      - './www:/opt/drupal'
-    environment:
-      FARMOS_FS_READY_SENTINEL_FILENAME: /opt/drupal/www-container-fs-ready
 
   test-runner:
-    depends_on:
-      - www
-    image: farmos/farmos:2.x
-    entrypoint: /bin/bash
     command:
       - -c
       - |
@@ -37,8 +29,3 @@ services:
         # file created, allowing the Github action to also wait for the above conditions on the basis
         # of that file's creation.
         exec docker-entrypoint.sh apache2-foreground
-    volumes:
-      - './www:/opt/drupal'
-    environment:
-      FARMOS_FS_READY_SENTINEL_FILENAME: /opt/drupal/test-runner-container-fs-ready
-      SIMPLETEST_DB: $DB_URL
