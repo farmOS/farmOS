@@ -125,7 +125,14 @@ class FarmSettingsModulesForm extends FormBase {
   }
 
   /**
-   * {@inheritdoc}
+   * Helper function for building a list of modules to install.
+   *
+   * @return array
+   *   Returns an array with two sub-arrays: `core` and `contrib`. Each of
+   *   these includes three sub-arrays: 'options', 'default' and 'disabled'.
+   *   All modules should be included in the 'options' array. Default modules
+   *   will be selected for installation by default, and disabled modules
+   *   cannot have their checkbox changed by users.
    */
   protected function moduleOptions() {
 
