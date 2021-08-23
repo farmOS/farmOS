@@ -72,8 +72,8 @@ process:
   quantity:
     plugin: merge
     source:
-      - '@_material_quantities'
       - '@_log_quantities'
+      - '@_material_quantities'
 migration_dependencies:
   required:
     - farm_migrate_taxonomy_material_type
