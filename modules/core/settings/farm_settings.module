@@ -5,7 +5,22 @@
  * Contains farm_settings.module.
  */
 
+use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
+
+/**
+ * Implements hook_help().
+ */
+function farm_settings_help($route_name, RouteMatchInterface $route_match) {
+  $output = '';
+
+  // Modules form.
+  if ($route_name == 'farm_settings.modules_form') {
+    $output .= '<p>' . t('Select the core and community farmOS modules that you would like to be installed.') . '</p>';
+  }
+
+  return $output;
+}
 
 /**
  * Implements hook_toolbar().

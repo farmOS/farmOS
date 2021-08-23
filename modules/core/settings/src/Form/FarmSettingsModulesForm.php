@@ -2,10 +2,9 @@
 
 namespace Drupal\farm_settings\Form;
 
-use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\Core\Extension\ModuleExtensionList;
+use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\State\StateInterface;
-use Drupal\farm\Form\FarmModulesForm;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -13,14 +12,21 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @ingroup farm
  */
-class FarmSettingsModulesForm extends FarmModulesForm {
+class FarmSettingsModulesForm extends FormBase {
 
   /**
-   * Module handler service.
+   * The package name for farmOS contrib modules.
    *
-   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   * @var string
    */
-  protected $moduleHandler;
+  const FARM_CONTRIB_PACKAGE = 'farmOS Contrib';
+
+  /**
+   * The module extension list.
+   *
+   * @var \Drupal\Core\Extension\ModuleExtensionList
+   */
+  protected $moduleExtensionList;
 
   /**
    * {@inheritdoc}
@@ -30,16 +36,13 @@ class FarmSettingsModulesForm extends FarmModulesForm {
   }
 
   /**
-   * Constructs a new FarmModulesForm.
+   * Constructs a new FarmSettingsModulesForm.
    *
-   * @param \Drupal\Core\State\StateInterface $state
-   *   The state keyvalue collection to use.
-   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
-   *   Module handler service.
+   * @param \Drupal\Core\Extension\ModuleExtensionList $module_extension_list
+   *   The module extension list.
    */
-  public function __construct(StateInterface $state, ModuleHandlerInterface $module_handler) {
-    parent::__construct($state);
-    $this->moduleHandler = $module_handler;
+  public function __construct(ModuleExtensionList $module_extension_list) {
+    $this->moduleExtensionList = $module_extension_list;
   }
 
   /**
@@ -47,35 +50,119 @@ class FarmSettingsModulesForm extends FarmModulesForm {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('state'),
-      $container->get('module_handler')
+      $container->get('extension.list.module'),
     );
   }
 
   /**
    * {@inheritdoc}
    */
-  protected function moduleOptions() {
+  public function buildForm(array $form, FormStateInterface $form_state) {
 
-    // Load the list of available modules.
-    $modules = farm_modules();
+    // Set the form title.
+    $form['#title'] = $this->t('Install modules');
+    $form['#tree'] = TRUE;
 
-    // Allow user to choose which high-level farm modules to install.
-    $module_options = array_merge($modules['default'], $modules['optional']);
+    // Core modules.
+    $form['core'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Core modules'),
+      '#open' => TRUE,
+    ];
 
-    // Check for enabled modules.
-    $enabled_modules = [];
-    foreach (array_keys($module_options) as $name) {
-      if ($this->moduleHandler->moduleExists($name)) {
-        $enabled_modules[] = $name;
+    // Contrib modules.
+    $form['contrib'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Community modules'),
+      '#open' => TRUE,
+    ];
+
+    // Submit button.
+    $form['actions'] = ['#type' => 'actions'];
+    $form['actions']['submit'] = [
+      '#type' => 'submit',
+      '#name' => 'install-modules',
+      '#value' => $this->t('Install modules'),
+    ];
+
+    // Load module options.
+    $modules = $this->moduleOptions();
+
+    // Build checkboxes for module options.
+    foreach ($modules as $type => $options) {
+
+      // Hide the fieldset if no modules are found.
+      if (empty($options['options'])) {
+        $form[$type]['#access'] = FALSE;
+        continue;
+      }
+
+      // Build checkboxes.
+      $form[$type]['modules'] = [
+        '#title' => $this->t('farmOS Modules'),
+        '#title_display' => 'invisible',
+        '#type' => 'checkboxes',
+        '#options' => $options['options'],
+        '#default_value' => $options['default'],
+      ];
+
+      // Disable checkboxes for modules marked as disabled.
+      foreach ($options['disabled'] as $name) {
+        $form[$type]['modules'][$name]['#disabled'] = TRUE;
+      }
+
+      // Disable the submit button until an uninstalled module is checked.
+      $uninstalled = array_diff(array_keys($options['options']), $options['default']);
+      foreach ($uninstalled as $module_name) {
+        $name = $type . "[modules][$module_name]";
+        $form['actions']['submit']['#states']['disabled'][":input[name=\"$name\"]"] = ['checked' => FALSE];
       }
     }
+    return $form;
+  }
 
-    return [
-      'options' => $module_options,
-      'default' => $enabled_modules,
-      'disabled' => $enabled_modules,
+  /**
+   * Helper function for building a list of modules to install.
+   *
+   * @return array
+   *   Returns an array with two sub-arrays: `core` and `contrib`. Each of
+   *   these includes three sub-arrays: 'options', 'default' and 'disabled'.
+   *   All modules should be included in the 'options' array. Default modules
+   *   will be selected for installation by default, and disabled modules
+   *   cannot have their checkbox changed by users.
+   */
+  protected function moduleOptions() {
+
+    // Reload the module list.
+    $this->moduleExtensionList->reset();
+
+    // Start an array of options for core and contrib modules.
+    $options = [
+      'core' => [],
+      'contrib' => [],
     ];
+
+    // Build core module options.
+    $modules = farm_modules();
+    $options['core']['options'] = array_merge($modules['default'], $modules['optional']);
+
+    // Build contrib module options.
+    $contrib_modules = array_filter($this->moduleExtensionList->getAllAvailableInfo(), function ($module_info) {
+      return isset($module_info['package']) && $module_info['package'] === static::FARM_CONTRIB_PACKAGE;
+    });
+    $options['contrib']['options'] = array_map(function ($module_info) {
+      return $module_info['name'];
+    }, $contrib_modules);
+
+    // Check and disable modules that are installed.
+    $all_installed_modules = $this->moduleExtensionList->getAllInstalledInfo();
+    foreach (['core', 'contrib'] as $option_key) {
+      $installed_modules = array_keys(array_intersect_key($options[$option_key]['options'], $all_installed_modules));
+      $options[$option_key]['default'] = $installed_modules;
+      $options[$option_key]['disabled'] = $installed_modules;
+    }
+
+    return $options;
   }
 
   /**
@@ -84,7 +171,9 @@ class FarmSettingsModulesForm extends FarmModulesForm {
   public function submitForm(array &$form, FormStateInterface $form_state) {
 
     // Load the list of modules that should be installed from form_state.
-    $modules = array_filter($form_state->getValue('modules'));
+    $core_modules = array_filter($form_state->getValue(['core', 'modules'], []));
+    $contrib_modules = array_filter($form_state->getValue(['contrib', 'modules'], []));
+    $modules = array_merge($core_modules, $contrib_modules);
 
     // Bail if no modules need to be installed.
     if (empty($modules)) {
@@ -96,7 +185,7 @@ class FarmSettingsModulesForm extends FarmModulesForm {
     foreach ($modules as $module => $weight) {
       $operations[] = [
         [__NAMESPACE__ . '\FarmSettingsModulesForm', 'farmInstallModuleBatch'],
-        [$module, $this->moduleHandler->getName($module)],
+        [$module, $this->moduleExtensionList->getName($module)],
       ];
     }
     $batch = [
