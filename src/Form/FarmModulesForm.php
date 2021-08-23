@@ -68,11 +68,6 @@ class FarmModulesForm extends FormBase {
       '#default_value' => $modules['default'],
     ];
 
-    // Disable checkboxes for modules marked as disabled.
-    foreach ($modules['disabled'] as $name) {
-      $form['modules'][$name]['#disabled'] = TRUE;
-    }
-
     // Submit button.
     $form['actions'] = ['#type' => 'actions'];
     $form['actions']['submit'] = [
@@ -88,10 +83,9 @@ class FarmModulesForm extends FormBase {
    * Helper function for building a list of modules to install.
    *
    * @return array
-   *   Returns an array with three sub-arrays: 'options', 'default' and
-   *   'disabled'. All modules should be included in the 'options' array.
-   *   Default modules will be selected for installation by default, and
-   *   disabled modules cannot have their checkbox changed by users.
+   *   Returns an array with two sub-arrays: 'options' and 'default'.
+   *   All modules should be included in the 'options' array. Default modules
+   *   will be selected for installation by default.
    */
   protected function moduleOptions() {
 
@@ -107,7 +101,6 @@ class FarmModulesForm extends FormBase {
     return [
       'options' => $module_options,
       'default' => $module_defaults,
-      'disabled' => [],
     ];
   }
 
