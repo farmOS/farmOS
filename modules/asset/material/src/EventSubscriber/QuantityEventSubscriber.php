@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\farm_quantity_material\EventSubscriber;
+namespace Drupal\farm_material\EventSubscriber;
 
 use Drupal\quantity\Event\QuantityEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

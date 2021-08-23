@@ -1,0 +1,5 @@
+services:
+  farm_material.quantity_subscriber:
+    class: Drupal\farm_material\EventSubscriber\QuantityEventSubscriber
+    tags:
+      - { name: 'event_subscriber' }
