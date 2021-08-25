@@ -7,6 +7,9 @@ ARG FARMOS_VERSION=2.x
 ARG PROJECT_REPO=https://github.com/farmOS/composer-project.git
 ARG PROJECT_VERSION=2.x
 
+# Set Apache ServerName directive globally to suppress AH00558 message.
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
 # Install the BCMath PHP extension.
 RUN docker-php-ext-install bcmath
 
