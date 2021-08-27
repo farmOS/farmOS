@@ -12,7 +12,10 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
  *   id = "error",
  *   label = @Translation("Error"),
  *   context_definitions = {
- *     "value" = @ContextDefinition("float", label = @Translation("value"))
+ *     "value" = @ContextDefinition("float", label = @Translation("value")),
+ *     "data_stream" = @ContextDefinition("entity:data_stream", label = @Translation("Data stream")),
+ *     "data_stream_notification" = @ContextDefinition("entity:data_stream_notification", label = @Translation("Data stream notification")),
+ *     "condition_summaries" = @ContextDefinition("list", label = @Translation("Condition summaries"))
  *   }
  * )
  */

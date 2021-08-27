@@ -62,11 +62,15 @@ class DataStreamEventSubscriber implements EventSubscriberInterface {
     // Execute all notifications.
     foreach ($notifications as $notification) {
 
+      // Include the notification in the event context.
+      $event->context['data_stream_notification'] = $notification;
+
       // Save the configured operator.
       $operator = $notification->get('condition_operator') ?? 'or';
 
       // Test each condition plugin and collect the result.
       $results = [];
+      $summaries = [];
       $collections = $notification->getPluginCollections();
       /** @var \Drupal\data_stream_notification\Plugin\DataStream\NotificationCondition\NotificationConditionInterface $condition */
       foreach ($collections['condition'] as $condition) {
@@ -81,6 +85,11 @@ class DataStreamEventSubscriber implements EventSubscriberInterface {
 
         // Evaluate the condition.
         $result = $condition->execute();
+
+        // Collect the summary of successful conditions.
+        if ($result) {
+          $summaries[] = $condition->summary();
+        }
 
         // If success, and the 'or' operator, stop checking conditions.
         if ($result && $operator === 'or') {
@@ -99,6 +108,9 @@ class DataStreamEventSubscriber implements EventSubscriberInterface {
       if (empty($trigger_delivery)) {
         return;
       }
+
+      // Include the condition summaries.
+      $event->context['condition_summaries'] = $summaries;
 
       // Else execute all configured delivery plugins.
       /** @var \Drupal\data_stream_notification\Plugin\DataStream\NotificationDelivery\NotificationDeliveryInterface $delivery */
