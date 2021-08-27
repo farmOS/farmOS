@@ -169,7 +169,7 @@ class DataStreamNotificationForm extends EntityForm {
       ];
 
       // Add each plugin definition to the form.
-      $plugins = $form_state->getValue($plugin_type);
+      $plugins = $form_state->getValue($plugin_type) ?? [];
       foreach ($plugins as $delta => $plugin_config) {
 
         // Wrap each plugin definition in a details element.
@@ -239,9 +239,23 @@ class DataStreamNotificationForm extends EntityForm {
   public function validateForm(array &$form, FormStateInterface $form_state) {
     parent::validateForm($form, $form_state);
 
+    // Check if we are submitting the form.
+    $validate_empty_plugins = FALSE;
+    $parents = $form_state->getTriggeringElement()['#array_parents'];
+    if (count($parents) === 2 && $parents[0] === 'actions' && $parents[1] === 'submit') {
+      $validate_empty_plugins = TRUE;
+    }
+
     // Allow each condition subform to validate the form.
     foreach (['condition', 'delivery'] as $plugin_type) {
-      $plugins = $form_state->getValue($plugin_type);
+      $plugins = $form_state->getValue($plugin_type) ?? [];
+
+      // Validate that at least one plugin is provided when submitting the form.
+      if ($validate_empty_plugins && empty($plugins)) {
+        $form_state->setError($form[$plugin_type . '_wrapper'][$plugin_type . '_actions'][$plugin_type . '_add'], $this->t('At least one @type is required.', ['@type' => $plugin_type]));
+      }
+
+      // Validate each plugin.
       foreach ($plugins as $delta => $plugin_config) {
 
         // Get the plugin type manager service.
@@ -264,7 +278,7 @@ class DataStreamNotificationForm extends EntityForm {
 
     // Allow each plugin subform to submit the form.
     foreach (['condition', 'delivery'] as $plugin_type) {
-      $plugins = $form_state->getValue($plugin_type);
+      $plugins = $form_state->getValue($plugin_type) ?? [];
       foreach ($plugins as $delta => $plugin_config) {
 
         // Get the plugin type manager service.
