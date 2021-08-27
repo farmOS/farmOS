@@ -1,0 +1,7 @@
+name: farmOS Data Stream Email Notification
+description: Provides an email delivery for data stream notifications.
+type: module
+package: farmOS
+core_version_requirement: ^9
+dependencies:
+  - farm:data_stream_notification
