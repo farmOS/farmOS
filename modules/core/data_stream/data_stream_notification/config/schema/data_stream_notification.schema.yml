@@ -14,6 +14,12 @@ data_stream_notification.data_stream_notification.*:
       type: integer
       nullable: true
       label: 'Data stream'
+    activation_threshold:
+      type: integer
+      label: 'Activation threshold'
+    deactivation_threshold:
+      type: integer
+      label: 'Deactivation threshold'
     condition_operator:
       type: string
       label: 'Condition operator'
@@ -22,6 +28,9 @@ data_stream_notification.data_stream_notification.*:
       label: 'Conditions'
       sequence:
         type: data_stream_notification.condition.[type]
+    delivery_interval:
+      type: integer
+      label: 'Delivery interval'
     delivery:
       type: sequence
       label: 'Delivery'

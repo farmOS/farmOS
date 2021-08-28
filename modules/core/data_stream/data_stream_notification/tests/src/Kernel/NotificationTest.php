@@ -61,6 +61,8 @@ class NotificationTest extends DataStreamTestBase {
       'id' => 'test',
       'label' => 'Test',
       'data_stream' => $this->dataStream->id(),
+      'activation_threshold' => 1,
+      'deactivation_threshold' => 1,
       'condition_operator' => 'or',
       'condition' => [
         [
@@ -69,6 +71,7 @@ class NotificationTest extends DataStreamTestBase {
           'threshold' => 0,
         ],
       ],
+      'delivery_interval' => 1,
       'delivery' => [
         ['type' => 'error'],
       ],
@@ -99,6 +102,117 @@ class NotificationTest extends DataStreamTestBase {
     // Post data above the condition threshold.
     $response = $this->postTestData(100);
     // Assert that no notification delivery was executed.
+    $this->assertEquals(201, $response->getStatusCode());
+  }
+
+  /**
+   * Test the notification activation and deactivation thresholds.
+   */
+  public function testNotificationThresholds() {
+
+    // Configure the thresholds to 2 for simpler testing.
+    $this->notification->set('activation_threshold', 2);
+    $this->notification->set('deactivation_threshold', 2);
+    $this->notification->save();
+
+    // 1. Meet conditions. Set activate_count to 1. No notification.
+    $response = $this->postTestData(100);
+    $this->assertEquals(201, $response->getStatusCode());
+
+    // 2. Do not meet conditions. Set activate_count to 0. No notification.
+    $response = $this->postTestData(0);
+    $this->assertEquals(201, $response->getStatusCode());
+
+    // 3. Meet conditions. Set activate_count to 1. No notification.
+    $response = $this->postTestData(100);
+    $this->assertEquals(201, $response->getStatusCode());
+
+    // 4. Meet conditions. Set activate_count to 2.
+    // Assert that the notification delivery was executed.
+    $response = $this->postTestData(100);
+    $this->assertEquals(299, $response->getStatusCode());
+
+    // 5. Do not meet conditions. Set deactivate_count to 1. No notification.
+    $response = $this->postTestData(0);
+    $this->assertEquals(201, $response->getStatusCode());
+
+    // 6. Meet conditions. Set deactivate_count to 0.
+    // Assert that the notification delivery was executed.
+    $response = $this->postTestData(100);
+    $this->assertEquals(299, $response->getStatusCode());
+
+    // 7. Do not meet conditions. Set deactivate_count to 1. No notification.
+    $response = $this->postTestData(0);
+    $this->assertEquals(201, $response->getStatusCode());
+
+    // 8. Do not meet conditions. Set deactivate_count to 2. No notification.
+    $response = $this->postTestData(0);
+    $this->assertEquals(201, $response->getStatusCode());
+
+    // 9. Meet conditions. Set activate_count to 1. No notification.
+    $response = $this->postTestData(100);
+    $this->assertEquals(201, $response->getStatusCode());
+  }
+
+  /**
+   * Test the notification delivery interval.
+   */
+  public function testNotificationDeliveryInterval() {
+
+    // Configure the delivery interval to 2 for testing.
+    // Notification should only happen for every other success.
+    $this->notification->set('delivery_interval', 2);
+    $this->notification->save();
+
+    // 1. Meet conditions. Set activate_count to 1.
+    // Assert that the notification delivery was executed.
+    $response = $this->postTestData(100);
+    $this->assertEquals(299, $response->getStatusCode());
+
+    // 2. Meet conditions. Set activate_count to 2. No notification.
+    $response = $this->postTestData(100);
+    $this->assertEquals(201, $response->getStatusCode());
+
+    // 3. Meet conditions. Set activate_count to 3.
+    // Assert that the notification delivery was executed.
+    $response = $this->postTestData(100);
+    $this->assertEquals(299, $response->getStatusCode());
+
+    // Change the delivery interval to 1.
+    // Notifications should happen on each success.
+    $this->notification->set('delivery_interval', 1);
+    $this->notification->save();
+
+    // 4. Meet conditions. Set activate_count to 4.
+    // Assert that the notification delivery was executed.
+    $response = $this->postTestData(100);
+    $this->assertEquals(299, $response->getStatusCode());
+
+    // 5. Meet conditions. Set activate_count to 5.
+    // Assert that the notification delivery was executed.
+    $response = $this->postTestData(100);
+    $this->assertEquals(299, $response->getStatusCode());
+
+    // Change the delivery interval to 0.
+    // Notifications should only happen on the first success.
+    $this->notification->set('delivery_interval', 0);
+    $this->notification->save();
+
+    // 6. Meet conditions. Set activate_count to 6.
+    // Assert that the notification delivery was executed.
+    $response = $this->postTestData(100);
+    $this->assertEquals(201, $response->getStatusCode());
+
+    // 7. Do not meet conditions. Set activate_count to 0. No notification.
+    $response = $this->postTestData(0);
+    $this->assertEquals(201, $response->getStatusCode());
+
+    // 8. Meet conditions. Set activate_count to 1.
+    $response = $this->postTestData(100);
+    $this->assertEquals(299, $response->getStatusCode());
+
+    // 9. Meet conditions. Set activate_count to 2. No notification.
+    $response = $this->postTestData(100);
     $this->assertEquals(201, $response->getStatusCode());
   }
 

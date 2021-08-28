@@ -106,6 +106,22 @@ class DataStreamNotificationForm extends EntityForm {
       '#default_value' => $default,
     ];
 
+    $form['activation_threshold'] = [
+      '#type' => 'number',
+      '#title' => $this->t('Activation threshold'),
+      '#description' => $this->t('How many consecutive times the conditions must be met before notifications are delivered. Defaults to 1, sending a notification the first time conditions are met.'),
+      '#default_value' => $notification->get('activation_threshold') ?? 1,
+      '#min' => 1,
+    ];
+
+    $form['deactivation_threshold'] = [
+      '#type' => 'number',
+      '#title' => $this->t('Deactivation threshold'),
+      '#description' => $this->t('How many consecutive times the conditions must fail before the notification becomes inactive and will require the activation threshold again. Defaults to 1, making the notification inactive the first time conditions are not met.'),
+      '#default_value' => $notification->get('deactivation_threshold') ?? 1,
+      '#min' => 1,
+    ];
+
     // Define some info about the plugin types.
     $plugin_types = [
       'condition' => [
@@ -228,6 +244,16 @@ class DataStreamNotificationForm extends EntityForm {
       '#default_value' => $notification->get('condition_operator') ?? 'or',
       '#tree' => FALSE,
       '#weight' => -100,
+    ];
+
+    $form['delivery_wrapper']['delivery_interval'] = [
+      '#type' => 'number',
+      '#title' => $this->t('Delivery interval'),
+      '#description' => $this->t('Once the notification is active, send notifications every N times conditions are met. Defaults to 1, sending a notification every time conditions are met. Set to 10 to send a notification for every 10th incident. Set to 0 to only send a notification when it first becomes active.'),
+      '#default_value' => $notification->get('delivery_interval') ?? 1,
+      '#tree' => FALSE,
+      '#weight' => -100,
+      '#min' => 0,
     ];
 
     return $form;

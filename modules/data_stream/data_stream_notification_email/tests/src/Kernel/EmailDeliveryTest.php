@@ -70,6 +70,8 @@ class EmailDeliveryTest extends DataStreamTestBase {
       'id' => 'test',
       'label' => 'Test',
       'data_stream' => $this->dataStream->id(),
+      'activation_threshold' => 1,
+      'deactivation_threshold' => 1,
       'condition_operator' => 'and',
       'condition' => [
         [
@@ -83,6 +85,7 @@ class EmailDeliveryTest extends DataStreamTestBase {
           'threshold' => 20,
         ],
       ],
+      'delivery_interval' => 1,
       'delivery' => [
         [
           'type' => 'email',

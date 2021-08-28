@@ -61,6 +61,7 @@ class DataStreamEventSubscriber implements EventSubscriberInterface {
 
     // Execute all notifications.
     foreach ($notifications as $notification) {
+      $conditions_met = FALSE;
 
       // Include the notification in the event context.
       $event->context['data_stream_notification'] = $notification;
@@ -93,7 +94,7 @@ class DataStreamEventSubscriber implements EventSubscriberInterface {
 
         // If success, and the 'or' operator, stop checking conditions.
         if ($result && $operator === 'or') {
-          $trigger_delivery = TRUE;
+          $conditions_met = TRUE;
           break;
         }
         $results[] = $result;
@@ -101,11 +102,34 @@ class DataStreamEventSubscriber implements EventSubscriberInterface {
 
       // Check if the 'and' operator passes.
       if ($operator === 'and') {
-        $trigger_delivery = array_product($results);
+        $conditions_met = array_product($results);
       }
 
-      // Bail if conditions are not met.
-      if (empty($trigger_delivery)) {
+      $state_key = $conditions_met ? 'activate_count' : 'deactivate_count';
+      $new_state = $notification->incrementState($state_key);
+
+      // Bail if the notification is not in an active state.
+      if (!$conditions_met || empty($new_state['active'])) {
+        return;
+      }
+
+      // Determine if the notification delivery needs to be executed.
+      // This is based on the notification's configured delivery interval.
+      $execute_delivery = FALSE;
+      $delivery_interval = $notification->get('delivery_interval');
+      $activate_count = $new_state['activate_count'];
+
+      // Always execute delivery when the notification first becomes active.
+      if ($activate_count === 1) {
+        $execute_delivery = TRUE;
+      }
+      // Use modulus arithmetic to determine if the delivery_interval applies.
+      elseif ($delivery_interval > 0 && ($activate_count - 1) % $delivery_interval === 0) {
+        $execute_delivery = TRUE;
+      }
+
+      // Bail if not executing delivery.
+      if (empty($execute_delivery)) {
         return;
       }
 
