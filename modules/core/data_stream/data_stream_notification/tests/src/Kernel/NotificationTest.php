@@ -7,6 +7,7 @@ use Drupal\data_stream_notification\Entity\DataStreamNotification;
 use Drupal\Tests\data_stream\Kernel\DataStreamTestBase;
 use Drupal\Tests\data_stream\Traits\DataStreamCreationTrait;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Test functionality of data stream notification execution.
@@ -80,6 +81,38 @@ class NotificationTest extends DataStreamTestBase {
    */
   public function testNotificationExecution() {
 
+    // Post data that should not trigger the notification.
+    $response = $this->postTestData(0);
+    // Assert that no notification delivery was executed.
+    $this->assertEquals(201, $response->getStatusCode());
+
+    // Post data above the condition threshold.
+    $response = $this->postTestData(100);
+    // Assert that the notification delivery was executed.
+    $this->assertEquals(299, $response->getStatusCode());
+    $this->assertStringContainsString("Data stream value triggered a notification exception: 100", $response->getContent());
+
+    // Don't configure the data stream with the notification.
+    $this->notification->set('data_stream', 0);
+    $this->notification->save();
+
+    // Post data above the condition threshold.
+    $response = $this->postTestData(100);
+    // Assert that no notification delivery was executed.
+    $this->assertEquals(201, $response->getStatusCode());
+  }
+
+  /**
+   * Helper function to post test data to a data stream.
+   *
+   * @param float $value
+   *   The value to post.
+   *
+   * @return \Symfony\Component\HttpFoundation\Response
+   *   The response returned.
+   */
+  protected function postTestData(float $value): Response {
+
     // Build the path.
     $uuid = $this->dataStream->uuid();
     $uri  = "/api/data_stream/$uuid/data";
@@ -90,31 +123,12 @@ class NotificationTest extends DataStreamTestBase {
     // Get the correct name for test data.
     $name = $this->dataStream->label();
 
-    // Post data that should not trigger the notification.
-    $test_data = [$name => 0];
+    // Build the request.
+    $test_data = [$name => $value];
     $request = Request::create($uri, 'POST', ['private_key' => $this->dataStream->getPrivateKey()], [], [], [], Json::encode($test_data));
-    $response = $this->processRequest($request);
-    // Assert that no notification delivery was executed.
-    $this->assertEquals(201, $response->getStatusCode());
 
-    // Post data above the condition threshold.
-    $test_data = [$name => 100];
-    $request = Request::create($uri, 'POST', ['private_key' => $this->dataStream->getPrivateKey()], [], [], [], Json::encode($test_data));
-    $response = $this->processRequest($request);
-    // Assert that the notification delivery was executed.
-    $this->assertEquals(299, $response->getStatusCode());
-    $this->assertStringContainsString("Data stream value triggered a notification exception: 100", $response->getContent());
-
-    // Don't configure the data stream with the notification.
-    $this->notification->set('data_stream', 0);
-    $this->notification->save();
-
-    // Post data above the condition threshold.
-    $test_data = [$name => 100];
-    $request = Request::create($uri, 'POST', ['private_key' => $this->dataStream->getPrivateKey()], [], [], [], Json::encode($test_data));
-    $response = $this->processRequest($request);
-    // Assert that no notification delivery was executed.
-    $this->assertEquals(201, $response->getStatusCode());
+    // Return the response.
+    return $this->processRequest($request);
   }
 
 }
