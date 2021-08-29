@@ -11,6 +11,22 @@ use Drupal\Core\Entity\EntityWithPluginCollectionInterface;
 interface DataStreamNotificationInterface extends ConfigEntityInterface, EntityWithPluginCollectionInterface {
 
   /**
+   * Helper function to get the notification state.
+   *
+   * @return array
+   *   The notification state.
+   */
+  public function getState(): array;
+
+  /**
+   * Helper function to get the notification active state.
+   *
+   * @return bool
+   *   A boolean indicating the notification active state.
+   */
+  public function isActive(): bool;
+
+  /**
    * Helper function to reset the notification state.
    *
    * @param bool $active

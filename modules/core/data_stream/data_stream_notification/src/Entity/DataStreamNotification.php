@@ -183,6 +183,20 @@ class DataStreamNotification extends ConfigEntityBase implements DataStreamNotif
   /**
    * {@inheritdoc}
    */
+  public function getState(): array {
+    return \Drupal::state()->get($this->getStateKey());
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function isActive(): bool {
+    return !empty($this->getState()['active']);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function resetState(bool $active = FALSE): array {
 
     // Initialize the notification state.

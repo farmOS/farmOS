@@ -46,6 +46,11 @@ class DataStreamNotificationListBuilder extends ConfigEntityListBuilder {
             '#plain_text' => $notification->id(),
           ],
         ],
+        'active' => [
+          'data' => [
+            '#plain_text' => $notification->isActive() ? $this->t('True') : $this->t('False'),
+          ],
+        ],
         'operations' => $row['operations'],
       ],
     ];
@@ -61,6 +66,9 @@ class DataStreamNotificationListBuilder extends ConfigEntityListBuilder {
       ],
       'machine_name' => [
         'data' => $this->t('Machine name'),
+      ],
+      'active' => [
+        'data' => $this->t('Active'),
       ],
       'operations' => [
         'data' => $this->t('Operations'),
