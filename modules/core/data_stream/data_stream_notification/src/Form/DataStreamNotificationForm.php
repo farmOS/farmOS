@@ -256,6 +256,18 @@ class DataStreamNotificationForm extends EntityForm {
       '#min' => 0,
     ];
 
+    // Allow the existing notification state to be reset on save.
+    if (!$notification->isNew()) {
+      $current_state = $notification->isActive() ? $this->t('Active') : $this->t('Not active');
+      $title = $this->t('Reset the notification state on save. <em>Current state: @state</em>', ['@state' => $current_state]);
+      $form['reset_state'] = [
+        '#type' => 'checkbox',
+        '#title' => $title,
+        '#default_value' => TRUE,
+        '#weight' => 100,
+      ];
+    }
+
     return $form;
   }
 
@@ -317,6 +329,11 @@ class DataStreamNotificationForm extends EntityForm {
         $subform_state = SubformState::createForSubform($form[$wrapper][$plugin_type][$delta], $form, $form_state);
         $plugin_instance->submitConfigurationForm($form[$wrapper][$plugin_type][$delta], $subform_state);
       }
+    }
+
+    // If specified, reset the notification state.
+    if ($form_state->getValue('reset_state', FALSE)) {
+      $this->entity->resetState();
     }
 
     // Call the parent method after subforms are submitted.
