@@ -33,6 +33,9 @@ class NotificationUIController extends ControllerBase {
     // Perform the operation.
     $data_stream_notification->$op()->save();
 
+    // Reset the notification state.
+    $data_stream_notification->resetState();
+
     // If the request is via AJAX, return the rendered list as JSON.
     if ($request->request->get('js')) {
       $list = $this->entityTypeManager()
