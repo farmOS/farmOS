@@ -140,6 +140,7 @@ class AssetMoveActionForm extends ConfirmFormBase {
       '#title' => $this->t('Date'),
       '#default_value' => new DrupalDateTime(),
       '#date_part_order' => ['month', 'day', 'year'],
+      '#date_year_range' => '-15:+15',
       '#required' => TRUE,
     ];
 
