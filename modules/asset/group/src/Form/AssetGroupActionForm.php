@@ -151,7 +151,7 @@ class AssetGroupActionForm extends ConfirmFormBase {
       '#type' => 'datelist',
       '#title' => $this->t('Date'),
       '#default_value' => new DrupalDateTime(),
-      '#date_part_order' => ['month', 'day', 'year'],
+      '#date_part_order' => ['year', 'month', 'day'],
       '#date_year_range' => '-15:+15',
       '#required' => TRUE,
     ];
