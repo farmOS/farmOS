@@ -145,11 +145,9 @@ class LogAssignActionForm extends ConfirmFormBase {
         ->toString());
     }
 
-    // Load users that have a managed farm role.
-    $managed_roles = $this->managedRolePermissionsManager->getMangedRoles();
+    // Load active users.
     $active_users = $this->entityTypeManager->getStorage('user')->loadByProperties([
       'status' => TRUE,
-      'roles' => array_keys($managed_roles),
     ]);
 
     // Build options for form select.
