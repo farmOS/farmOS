@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - asset
+id: asset_clone_action
+label: 'Clone asset'
+type: asset
+plugin: 'asset_clone_action'
+configuration: {  }

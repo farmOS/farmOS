@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_entity
+  module:
+    - asset
+    - farm_flag
+id: asset_flag_action
+label: 'Flag asset'
+type: asset
+plugin: entity:flag_action:asset
+configuration: {  }

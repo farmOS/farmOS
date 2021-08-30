@@ -36,11 +36,11 @@ use Drupal\user\EntityOwnerTrait;
  *       "add" = "Drupal\asset\Form\AssetForm",
  *       "edit" = "Drupal\asset\Form\AssetForm",
  *       "delete" = "Drupal\Core\Entity\ContentEntityDeleteForm",
+ *       "delete-multiple-confirm" = "Drupal\Core\Entity\Form\DeleteMultipleForm",
  *     },
  *     "route_provider" = {
  *       "default" = "Drupal\entity\Routing\AdminHtmlRouteProvider",
  *       "revision" = "\Drupal\entity\Routing\RevisionRouteProvider",
- *       "delete-multiple" = "\Drupal\entity\Routing\DeleteMultipleRouteProvider",
  *     },
  *     "local_task_provider" = {
  *       "default" = "\Drupal\entity\Menu\DefaultEntityLocalTaskProvider",

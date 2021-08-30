@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - asset
+id: asset_archive_action
+label: 'Archive asset'
+type: asset
+plugin: 'asset_archive_action'
+configuration: {  }

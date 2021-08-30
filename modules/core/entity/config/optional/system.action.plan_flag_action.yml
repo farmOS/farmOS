@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - farm_flag
+    - plan
+id: plan_flag_action
+label: 'Flag plan'
+type: plan
+plugin: entity:flag_action:plan
+configuration: {  }

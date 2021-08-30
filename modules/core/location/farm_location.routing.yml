@@ -1,0 +1,6 @@
+farm_location.asset_move_action_form:
+  path: '/asset/move'
+  defaults:
+    _form: 'Drupal\farm_location\Form\AssetMoveActionForm'
+  requirements:
+    _user_is_logged_in: 'TRUE'
