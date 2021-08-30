@@ -84,36 +84,6 @@ class GroupMembership implements GroupMembershipInterface {
   /**
    * {@inheritdoc}
    */
-  public function groupOptions($archived = FALSE): array {
-
-    // Start query for group assets.
-    $asset_storage = $this->entityTypeManager->getStorage('asset');
-    $query = $asset_storage->getQuery()
-      ->condition('type', 'group')
-      ->sort('name', 'ASC');
-
-    // Limit to active assets.
-    if ($archived === FALSE) {
-      $query->condition('status', 'active');
-    }
-
-    // Execute query.
-    $group_ids = $query->execute();
-    $groups = [];
-    if (empty($group_ids)) {
-      return $groups;
-    }
-
-    // Load assets and return an array of labels keyed by asset ID.
-    $group_assets = $asset_storage->loadMultiple($group_ids);
-    return array_map(function ($group) {
-      return $group->label();
-    }, $group_assets);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function hasGroup(AssetInterface $asset): bool {
     $log = $this->getGroupAssignmentLog($asset);
     if (empty($log)) {
