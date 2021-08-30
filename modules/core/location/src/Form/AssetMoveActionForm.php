@@ -200,9 +200,14 @@ class AssetMoveActionForm extends ConfirmFormBase {
       $date = $form_state->getValue('date');
       $done = (bool) $form_state->getValue('done', FALSE);
 
+      // Generate a name for the log.
+      $asset_names = farm_log_asset_names_summary($accessible_entities);
+      $location_names = farm_log_asset_names_summary($locations);
+      $log_name = $this->t('Move :assets to :locations', [':assets' => $asset_names, ':locations' => $location_names]);
+
       // Create the log.
-      // @todo Populate the log name with a summary helper function.
       $log = Log::create([
+        'name' => $log_name,
         'type' => 'activity',
         'timestamp' => $date->getTimestamp(),
         'asset' => $accessible_entities,
