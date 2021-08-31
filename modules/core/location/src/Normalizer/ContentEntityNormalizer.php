@@ -65,7 +65,7 @@ class ContentEntityNormalizer implements NormalizerInterface, SerializerAwareInt
 
         // Build geometry properties.
         $properties = [
-          'id' => $entity->getEntityTypeId() . '-' . $entity->id(),
+          'id' => $entity->uuid(),
           'name' => htmlspecialchars($entity->label()),
         ];
 
