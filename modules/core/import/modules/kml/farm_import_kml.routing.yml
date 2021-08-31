@@ -1,5 +1,5 @@
 farm_import_kml.kml_importer:
-  path: 'asset/import'
+  path: 'import/kml'
   defaults:
     _form: Drupal\farm_import_kml\Form\KmlImporter
     _title: 'KML Import'
