@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\farm_kml_import\Form;
+namespace Drupal\farm_import_kml\Form;
 
 use Drupal\asset\Entity\Asset;
 use Drupal\Core\Config\ConfigFactoryInterface;
