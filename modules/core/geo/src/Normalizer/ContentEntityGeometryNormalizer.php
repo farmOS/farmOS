@@ -14,7 +14,7 @@ use Symfony\Component\Serializer\SerializerAwareTrait;
  *
  * The entity's geofield name must be provided with $context['geofield'].
  */
-class ContentEntityNormalizer implements NormalizerInterface, SerializerAwareInterface {
+class ContentEntityGeometryNormalizer implements NormalizerInterface, SerializerAwareInterface {
 
   use SerializerAwareTrait;
 
@@ -26,7 +26,7 @@ class ContentEntityNormalizer implements NormalizerInterface, SerializerAwareInt
   protected $geoPHP;
 
   /**
-   * ContentEntityNormalizer constructor.
+   * ContentEntityGeometryNormalizer constructor.
    *
    * @param \Drupal\geofield\GeoPHP\GeoPHPInterface $geo_PHP
    *   The GeoPHP service.
