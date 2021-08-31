@@ -10,9 +10,13 @@ use Symfony\Component\Serializer\SerializerAwareInterface;
 use Symfony\Component\Serializer\SerializerAwareTrait;
 
 /**
- * Normalizes content entities as arrays for encoding into geometry files.
+ * Normalizes content entities into arrays of GeometryWrapper objects.
+ *
+ * This can be used for encoding entities into geospatial files.
  *
  * The entity's geofield name must be provided with $context['geofield'].
+ *
+ * @see \Drupal\farm_geo\GeometryWrapper
  */
 class ContentEntityGeometryNormalizer implements NormalizerInterface, SerializerAwareInterface {
 
