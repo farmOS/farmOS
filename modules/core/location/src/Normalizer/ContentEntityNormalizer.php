@@ -67,6 +67,9 @@ class ContentEntityNormalizer implements NormalizerInterface, SerializerAwareInt
         $properties = [
           'id' => $entity->uuid(),
           'name' => htmlspecialchars($entity->label()),
+          'entity_type' => $entity->getEntityTypeId(),
+          'bundle' => $entity->bundle(),
+          'internal_id' => $entity->id(),
         ];
 
         // Add entity notes as the description.

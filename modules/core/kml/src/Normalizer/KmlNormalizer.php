@@ -70,7 +70,7 @@ class KmlNormalizer implements NormalizerInterface, DenormalizerInterface {
     }
 
     // Add standard KML properties if provided.
-    $properties = ['name', 'description'];
+    $properties = $this->supportedProperties();
     foreach ($properties as $property_name) {
       if (isset($object->properties[$property_name])) {
         $placemark['#'][$property_name] = $object->properties[$property_name];
@@ -128,7 +128,7 @@ class KmlNormalizer implements NormalizerInterface, DenormalizerInterface {
       }
 
       // Add standard KML properties if included.
-      $keys = ['name', 'description'];
+      $keys = $this->supportedProperties();
       foreach ($keys as $property_name) {
         if (isset($placemark[$property_name])) {
           $properties[$property_name] = $placemark[$property_name];
@@ -146,6 +146,16 @@ class KmlNormalizer implements NormalizerInterface, DenormalizerInterface {
    */
   public function supportsDenormalization($data, $type, $format = NULL) {
     return $type === static::TYPE && $format === static::FORMAT;
+  }
+
+  /**
+   * Define supported properties.
+   *
+   * @return string[]
+   *   An array of property names (strings).
+   */
+  protected function supportedProperties() {
+    return ['name', 'entity_type', 'bundle', 'internal_id', 'description'];
   }
 
 }
