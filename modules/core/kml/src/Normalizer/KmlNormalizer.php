@@ -2,7 +2,7 @@
 
 namespace Drupal\farm_kml\Normalizer;
 
-use Drupal\farm_location\GeometryWrapper;
+use Drupal\farm_geo\GeometryWrapper;
 use Drupal\geofield\GeoPHP\GeoPHPInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -46,7 +46,7 @@ class KmlNormalizer implements NormalizerInterface, DenormalizerInterface {
    */
   public function normalize($object, $format = NULL, array $context = []) {
 
-    /** @var \Drupal\farm_location\GeometryWrapper $object */
+    /** @var \Drupal\farm_geo\GeometryWrapper $object */
     // Convert the geometry to KML.
     $kml_string = $object->geometry->out('kml');
 

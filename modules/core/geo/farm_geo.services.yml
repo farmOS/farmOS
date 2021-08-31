@@ -1,0 +1,6 @@
+services:
+  serializer.farm_geo.geometry.content_entity:
+    class: Drupal\farm_geo\Normalizer\ContentEntityNormalizer
+    arguments: ['@geofield.geophp']
+    tags:
+      - { name: normalizer, priority: 10 }

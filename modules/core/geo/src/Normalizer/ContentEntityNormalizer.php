@@ -1,9 +1,9 @@
 <?php
 
-namespace Drupal\farm_location\Normalizer;
+namespace Drupal\farm_geo\Normalizer;
 
 use Drupal\Core\Entity\ContentEntityInterface;
-use Drupal\farm_location\GeometryWrapper;
+use Drupal\farm_geo\GeometryWrapper;
 use Drupal\geofield\GeoPHP\GeoPHPInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerAwareInterface;

@@ -154,7 +154,7 @@ class KmlImporter extends FormBase {
     $data = file_get_contents($file->getFileUri());
 
     // Deserialize the KML placemarks into WKT geometry.
-    /** @var \Drupal\farm_location\GeometryWrapper[] $geometries */
+    /** @var \Drupal\farm_geo\GeometryWrapper[] $geometries */
     $geometries = $this->serializer->deserialize($data, 'geometry_wrapper', 'geometry_kml');
 
     // Bail if no geometries were found.

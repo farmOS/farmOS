@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\farm_location;
+namespace Drupal\farm_geo;
 
 /**
  * An object that wraps the GeoPHP Geometry with additional properties.
