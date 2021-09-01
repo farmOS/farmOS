@@ -133,9 +133,7 @@ class KmlImporter extends FormBase {
     ];
 
     $form['output'] = [
-      '#type' => 'details',
-      '#title' => $this->t('Output'),
-      '#open' => FALSE,
+      '#type' => 'container',
       '#prefix' => '<div id="output">',
       '#suffix' => '</div>',
     ];
@@ -164,6 +162,8 @@ class KmlImporter extends FormBase {
     }
 
     // Display the output details.
+    $form['output']['#type'] = 'details';
+    $form['output']['#title'] = $this->t('Output');
     $form['output']['#open'] = TRUE;
 
     // Build a tree for asset data.
