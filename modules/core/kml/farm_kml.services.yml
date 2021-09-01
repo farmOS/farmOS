@@ -1,0 +1,10 @@
+services:
+  serializer.farm_kml.kml.encoder:
+    class: Drupal\farm_kml\Encoder\Kml
+    tags:
+      - { name: encoder, priority: 10, format: geometry_kml }
+  serializer.farm_kml.kml.geometry_wrapper:
+    class: Drupal\farm_kml\Normalizer\KmlNormalizer
+    arguments: ['@geofield.geophp']
+    tags:
+      - { name: normalizer, priority: 10 }

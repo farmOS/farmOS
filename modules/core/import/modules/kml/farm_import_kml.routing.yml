@@ -1,0 +1,7 @@
+farm.import.kml:
+  path: '/import/kml'
+  defaults:
+    _form: Drupal\farm_import_kml\Form\KmlImporter
+    _title: 'KML Import'
+  requirements:
+    _permission: 'create land asset'

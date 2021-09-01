@@ -1,0 +1,7 @@
+farm.import:
+  path: '/import'
+  defaults:
+    _controller: '\Drupal\farm_import\Controller\ImportController::index'
+    _title: 'Import'
+  requirements:
+    _permission: 'access farm import index'
