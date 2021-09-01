@@ -103,7 +103,7 @@ class KmlImporter extends FormBase {
       '#description' => $this->t('Upload your KML file here and click "Parse".'),
       '#upload_location' => 'private://kml',
       '#upload_validators' => [
-        'file_validate_extensions' => ['kml', 'kmz'],
+        'file_validate_extensions' => 'kml kmz',
       ],
       '#required' => TRUE,
     ];
@@ -148,8 +148,13 @@ class KmlImporter extends FormBase {
     }
 
     // Get the uploaded file contents.
+    /** @var \Drupal\file\FileInterface $file */
     $file = $this->entityTypeManager->getStorage('file')->load(reset($file_ids));
-    $data = file_get_contents($file->getFileUri());
+    $path = $file->getFileUri();
+    if ($file->getMimeType() === 'application/vnd.google-earth.kmz' && extension_loaded('zip')) {
+      $path = 'zip://' . $this->fileSystem->realpath($path) . '#doc.kml';
+    }
+    $data = file_get_contents($path);
 
     // Deserialize the KML placemarks into WKT geometry.
     /** @var \Drupal\farm_geo\GeometryWrapper[] $geometries */
