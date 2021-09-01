@@ -109,7 +109,7 @@ class GeofieldWidget extends GeofieldBaseWidget {
     if (!empty($populate_file_field) && !empty($form[$populate_file_field])) {
       $element['trigger'] = [
         '#type' => 'submit',
-        '#value' => $this->t('Find using files field'),
+        '#value' => $this->t('Import geometry from uploaded files'),
         '#submit' => [[$this, 'fileParse']],
         '#ajax' => [
           'wrapper' => $field_wrapper_id,
