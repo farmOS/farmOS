@@ -2,6 +2,7 @@
 
 namespace Drupal\farm_map\Plugin\Field\FieldWidget;
 
+use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
@@ -67,7 +68,7 @@ class GeofieldWidget extends GeofieldBaseWidget {
 
     // Wrap the map in a collapsible details element.
     $field_name = $this->fieldDefinition->getName();
-    $field_wrapper_id = $field_name . '_wrapper';
+    $field_wrapper_id = Html::getUniqueId($field_name . '_wrapper');
     $element['#type'] = 'details';
     $element['#title'] = $this->t('Geometry');
     $element['#open'] = TRUE;
