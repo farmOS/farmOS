@@ -8,6 +8,7 @@ use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\File\FileSystem;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\farm_geo\Traits\WktTrait;
 use Drupal\file\FileInterface;
 use Drupal\geofield\GeoPHP\GeoPHPInterface;
 use Drupal\geofield\Plugin\Field\FieldWidget\GeofieldBaseWidget;
@@ -27,6 +28,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * )
  */
 class GeofieldWidget extends GeofieldBaseWidget {
+
+  use WktTrait;
 
   /**
    * The file system service.
@@ -217,32 +220,43 @@ class GeofieldWidget extends GeofieldBaseWidget {
       /** @var \Drupal\file\Entity\File[] $files */
       $files = \Drupal::entityTypeManager()->getStorage('file')->loadMultiple($file_ids);
 
-      // @todo Support multiple files. Combine geometries?
       // @todo Support geometry field with > 1 cardinality.
-      $wkt = '';
+      $wkt_strings = [];
       if (!empty($files)) {
+        foreach ($files as $file) {
 
-        // Check the first file.
-        $file = reset($files);
-        $geophp_type = $this->getGeoPhpType($file);
+          // Get the geometry type.
+          $geophp_type = $this->getGeoPhpType($file);
 
-        // Bail if the file is not a supported format.
-        if ($geophp_type === FALSE) {
-          $this->messenger()->addWarning(
-            $this->t('%filename is not a supported geometry file format. Supported formats: %formats',
-            ['%filename' => $file->getFilename(), '%formats' => implode(', ', array_keys(static::$geoPhpTypes))]
-          ));
-          return;
+          // Bail if the file is not a supported format.
+          if ($geophp_type === FALSE) {
+            $this->messenger()->addWarning(
+              $this->t('%filename is not a supported geometry file format. Supported formats: %formats',
+                ['%filename' => $file->getFilename(), '%formats' => implode(', ', array_keys(static::$geoPhpTypes))]
+              ));
+            return;
+          }
+
+          // Try to parse geometry using the specified geoPHP type.
+          $path = $file->getFileUri();
+          if ($geophp_type == 'kml' && $file->getMimeType() === 'application/vnd.google-earth.kmz' && extension_loaded('zip')) {
+            $path = 'zip://' . $this->fileSystem->realpath($path) . '#doc.kml';
+          }
+          $data = file_get_contents($path);
+          if ($geom = $this->geoPhpWrapper->load($data, $geophp_type)) {
+            $wkt_strings[] = $geom->out('wkt');
+          }
         }
+      }
 
-        // Try to parse geometry using the specified geoPHP type.
-        $path = $file->getFileUri();
-        if ($geophp_type == 'kml' && $file->getMimeType() === 'application/vnd.google-earth.kmz' && extension_loaded('zip')) {
-          $path = 'zip://' . $this->fileSystem->realpath($path) . '#doc.kml';
+      // Merge WKT geometries into a single geometry collection.
+      $wkt = '';
+      if (!empty($wkt_strings)) {
+        if (count($wkt_strings) > 1) {
+          $wkt = $this->combineWkt($wkt_strings);
         }
-        $data = file_get_contents($path);
-        if ($geom = $this->geoPhpWrapper->load($data, $geophp_type)) {
-          $wkt = $geom->out('wkt');
+        else {
+          $wkt = reset($wkt_strings);
         }
       }
 
