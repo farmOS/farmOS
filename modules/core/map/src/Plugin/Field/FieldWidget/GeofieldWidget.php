@@ -4,10 +4,16 @@ namespace Drupal\farm_map\Plugin\Field\FieldWidget;
 
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\NestedArray;
+use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\File\FileSystem;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\file\FileInterface;
+use Drupal\geofield\GeoPHP\GeoPHPInterface;
 use Drupal\geofield\Plugin\Field\FieldWidget\GeofieldBaseWidget;
+use Drupal\geofield\Plugin\GeofieldBackendManager;
+use Drupal\geofield\WktGeneratorInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the map 'geofield' widget.
@@ -23,6 +29,13 @@ use Drupal\geofield\Plugin\Field\FieldWidget\GeofieldBaseWidget;
 class GeofieldWidget extends GeofieldBaseWidget {
 
   /**
+   * The file system service.
+   *
+   * @var \Drupal\Core\File\FileSystemInterface
+   */
+  protected $fileSystem;
+
+  /**
    * Supported GeoPHP file types.
    *
    * @var string[]
@@ -36,6 +49,50 @@ class GeofieldWidget extends GeofieldBaseWidget {
     'wkb' => 'wkb',
     'wkt' => 'wkt',
   ];
+
+  /**
+   * GeofieldWidget constructor.
+   *
+   * @param string $plugin_id
+   *   The plugin_id for the formatter.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
+   * @param \Drupal\Core\Field\FieldDefinitionInterface $field_definition
+   *   The definition of the field to which the formatter is associated.
+   * @param array $settings
+   *   The formatter settings.
+   * @param array $third_party_settings
+   *   Any third party settings settings.
+   * @param \Drupal\geofield\GeoPHP\GeoPHPInterface $geophp_wrapper
+   *   The geoPhpWrapper.
+   * @param \Drupal\geofield\WktGeneratorInterface $wkt_generator
+   *   The WKT format Generator service.
+   * @param \Drupal\geofield\Plugin\GeofieldBackendManager $geofield_backend_manager
+   *   The geofieldBackendManager.
+   * @param \Drupal\Core\File\FileSystem $file_system
+   *   The file system service.
+   */
+  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, array $third_party_settings, GeoPHPInterface $geophp_wrapper, WktGeneratorInterface $wkt_generator, GeofieldBackendManager $geofield_backend_manager, FileSystem $file_system) {
+    parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $third_party_settings, $geophp_wrapper, $wkt_generator, $geofield_backend_manager);
+    $this->fileSystem = $file_system;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $plugin_id,
+      $plugin_definition,
+      $configuration['field_definition'],
+      $configuration['settings'],
+      $configuration['third_party_settings'],
+      $container->get('geofield.geophp'),
+      $container->get('geofield.wkt_generator'),
+      $container->get('plugin.manager.geofield_backend'),
+      $container->get('file_system')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -179,7 +236,11 @@ class GeofieldWidget extends GeofieldBaseWidget {
         }
 
         // Try to parse geometry using the specified geoPHP type.
-        $data = file_get_contents($file->getFileUri());
+        $path = $file->getFileUri();
+        if ($geophp_type == 'kml' && $file->getMimeType() === 'application/vnd.google-earth.kmz' && extension_loaded('zip')) {
+          $path = 'zip://' . $this->fileSystem->realpath($path) . '#doc.kml';
+        }
+        $data = file_get_contents($path);
         if ($geom = $this->geoPhpWrapper->load($data, $geophp_type)) {
           $wkt = $geom->out('wkt');
         }
