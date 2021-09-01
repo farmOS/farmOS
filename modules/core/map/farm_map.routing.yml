@@ -1,5 +1,5 @@
 farm_map.settings:
-  path: 'farm/settings/map'
+  path: '/farm/settings/map'
   defaults:
     _form: '\Drupal\farm_map\Form\MapSettingsForm'
     _title: 'Map settings'
