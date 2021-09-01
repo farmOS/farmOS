@@ -5,7 +5,7 @@ namespace Drupal\farm_location\EventSubscriber;
 use Drupal\Core\Cache\CacheTagsInvalidatorInterface;
 use Drupal\farm_location\AssetLocationInterface;
 use Drupal\farm_location\LogLocationInterface;
-use Drupal\farm_location\Traits\WktTrait;
+use Drupal\farm_geo\Traits\WktTrait;
 use Drupal\farm_log\Event\LogEvent;
 use Drupal\log\Entity\LogInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

@@ -3,7 +3,7 @@
 namespace Drupal\Tests\farm_location\Kernel;
 
 use Drupal\asset\Entity\Asset;
-use Drupal\farm_location\Traits\WktTrait;
+use Drupal\farm_geo\Traits\WktTrait;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\log\Entity\Log;
 

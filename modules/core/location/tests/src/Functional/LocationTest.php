@@ -3,7 +3,7 @@
 namespace Drupal\Tests\farm_location\Functional;
 
 use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\farm_location\Traits\WktTrait;
+use Drupal\farm_geo\Traits\WktTrait;
 use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
 use Drupal\Tests\jsonapi\Functional\JsonApiRequestTestTrait;
 

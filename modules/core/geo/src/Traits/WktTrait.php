@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\farm_location\Traits;
+namespace Drupal\farm_geo\Traits;
 
 /**
  * Provides methods to work with WKT.
