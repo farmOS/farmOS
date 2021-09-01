@@ -3,7 +3,6 @@
 namespace Drupal\farm_import_kml\Form;
 
 use Drupal\asset\Entity\Asset;
-use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Form\FormBase;
@@ -42,13 +41,6 @@ class KmlImporter extends FormBase {
   protected $fileSystem;
 
   /**
-   * The default file scheme.
-   *
-   * @var string
-   */
-  protected $defaultFileScheme;
-
-  /**
    * Constructs a new KmlImporter object.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
@@ -57,14 +49,11 @@ class KmlImporter extends FormBase {
    *   The serializer service.
    * @param \Drupal\Core\File\FileSystemInterface $file_system
    *   The file system service.
-   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
-   *   The config factory service.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, SerializerInterface $serializer, FileSystemInterface $file_system, ConfigFactoryInterface $config_factory) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, SerializerInterface $serializer, FileSystemInterface $file_system) {
     $this->entityTypeManager = $entity_type_manager;
     $this->serializer = $serializer;
     $this->fileSystem = $file_system;
-    $this->defaultFileScheme = $config_factory->get('system.file')->get('default_scheme') ?? 'public';
   }
 
   /**
@@ -74,8 +63,7 @@ class KmlImporter extends FormBase {
     return new static(
       $container->get('entity_type.manager'),
       $container->get('serializer'),
-      $container->get('file_system'),
-      $container->get('config.factory'),
+      $container->get('file_system')
     );
   }
 
