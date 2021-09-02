@@ -47,6 +47,11 @@
         "npm-asset/farmos.org--farmos-map": "^2.0.0-alpha.0",
         "phayes/geophp": "^1.2"
     },
+    "config": {
+        "preferred-install": {
+            "npm-asset/farmos.org--farmos-map": "dist"
+        }
+    },
     "extra": {
         "patchLevel": {
             "drupal/core": "-p2"
