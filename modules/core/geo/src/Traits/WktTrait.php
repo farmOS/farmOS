@@ -103,9 +103,6 @@ trait WktTrait {
       $wkt = 'GEOMETRYCOLLECTION (' . $wkt . ')';
     }
 
-    // Reduce the geometry.
-    $wkt = $this->reduceWkt($wkt);
-
     // Return the combined WKT.
     return $wkt;
   }
