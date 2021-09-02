@@ -16,6 +16,7 @@ use Symfony\Component\Serializer\SerializerInterface;
  * @todo Allow placemarks to be imported as any asset type.
  * This is challenging because some asset type bundles have required fields
  * like the "plant type" and "animal type".
+ * @see https://www.drupal.org/project/farm/issues/3230970
  */
 class KmlImporter extends FormBase {
 
