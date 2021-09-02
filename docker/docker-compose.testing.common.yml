@@ -6,10 +6,13 @@ services:
       - './www:/opt/drupal'
     environment:
       FARMOS_FS_READY_SENTINEL_FILENAME: /opt/drupal/www-container-fs-ready
+      XDEBUG_MODE: 'off'
 
   chrome:
     image: selenium/standalone-chrome:latest
 
+  # We use a separate test-runner container running the 2.x image so that tests
+  # run without dev dependencies like XDebug, which slow things down.
   test-runner:
     depends_on:
       - www
@@ -31,3 +34,4 @@ services:
     environment:
       FARMOS_FS_READY_SENTINEL_FILENAME: /opt/drupal/test-runner-container-fs-ready
       SIMPLETEST_DB: $DB_URL
+      XDEBUG_MODE: 'off'
