@@ -6,6 +6,7 @@ services:
       - './www:/opt/drupal'
     environment:
       FARMOS_FS_READY_SENTINEL_FILENAME: /opt/drupal/www-container-fs-ready
+      SIMPLETEST_DB: $DB_URL
       XDEBUG_MODE: 'off'
 
   chrome:
