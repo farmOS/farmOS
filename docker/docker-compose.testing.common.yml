@@ -6,28 +6,8 @@ services:
       - './www:/opt/drupal'
     environment:
       FARMOS_FS_READY_SENTINEL_FILENAME: /opt/drupal/www-container-fs-ready
+      SIMPLETEST_DB: $DB_URL
+      XDEBUG_MODE: 'off'
 
   chrome:
     image: selenium/standalone-chrome:latest
-
-  test-runner:
-    depends_on:
-      - www
-      - chrome
-    image: farmos/farmos:2.x
-    entrypoint: /bin/bash
-    command:
-      - -c
-      - |
-        set -e
-        # Wait until the dev farmOS container has finished copying its files
-        until [ -f /opt/drupal/www-container-fs-ready ]; do sleep 0.1; done
-        # Run normal entrypoint and apache - only at this point is the test-runner-container-fs-ready
-        # file created, allowing the Github action to also wait for the above conditions on the basis
-        # of that file's creation.
-        exec docker-entrypoint.sh apache2-foreground
-    volumes:
-      - './www:/opt/drupal'
-    environment:
-      FARMOS_FS_READY_SENTINEL_FILENAME: /opt/drupal/test-runner-container-fs-ready
-      SIMPLETEST_DB: $DB_URL

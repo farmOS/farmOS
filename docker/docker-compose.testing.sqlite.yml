@@ -1,14 +1,3 @@
 # Inherits from docker-compose.testing.common.yml
 version: '3'
-services:
-  test-runner:
-    command:
-      - -c
-      - |
-        set -e
-        # Wait until the dev farmOS container has finished copying its files
-        until [ -f /opt/drupal/www-container-fs-ready ]; do sleep 0.1; done
-        # Run normal entrypoint and apache - only at this point is the test-runner-container-fs-ready
-        # file created, allowing the Github action to also wait for the above conditions on the basis
-        # of that file's creation.
-        exec docker-entrypoint.sh apache2-foreground
+services: {  }

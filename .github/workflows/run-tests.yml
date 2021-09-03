@@ -59,15 +59,15 @@ jobs:
           docker-compose -f docker-compose.testing.common.yml -f docker-compose.testing.${{ matrix.dbms }}.yml config > docker-compose.yml
       - name: Start containers
         run: docker-compose up -d
-      - name: Wait until test-runner container is ready
-      # The test-runner-container-fs-ready file is only created once we expect the containers to be online
+      - name: Wait until www container is ready
+      # The www-container-fs-ready file is only created once we expect the containers to be online
       # so waiting for that lets us know it is safe to start the tests
-        run: until [ -f ./www/test-runner-container-fs-ready ]; do sleep 0.1; done
+        run: until [ -f ./www/www-container-fs-ready ]; do sleep 0.1; done
       - name: Run PHP CodeSniffer
         run: docker-compose exec -u www-data -T www phpcs /opt/drupal/web/profiles/farm
       - name: Run PHPUnit tests
       # The overridden result printer is needed until Drupal 9.2 when the updated version of HtmlOutputPrinter will be available
       # https://github.com/drupal/drupal/blob/74fbb0aabdee3e1a5da7b8e489a725afdc5824fd/core/tests/Drupal/Tests/Listeners/HtmlOutputPrinter.php
-        run: docker-compose exec -u www-data -T test-runner paratest --passthru='--printer=PHPUnit\\TextUI\\DefaultResultPrinter' --verbose=1 /opt/drupal/web/profiles/farm
+        run: docker-compose exec -u www-data -T www paratest --passthru='--printer=PHPUnit\\TextUI\\DefaultResultPrinter' --verbose=1 /opt/drupal/web/profiles/farm
       - name: Test Drush site install with all modules
         run: docker-compose exec -u www-data -T www drush site-install --db-url=${{ matrix.DB_URL }} farm farm.modules='all'
