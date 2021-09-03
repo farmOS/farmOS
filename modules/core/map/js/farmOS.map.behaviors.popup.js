@@ -18,7 +18,7 @@
       instance.popup = instance.addPopup(function (event) {
         var content = '';
         var feature = instance.map.forEachFeatureAtPixel(event.pixel, function(feature, layer) { return feature; });
-        if (feature) {
+        if (feature && feature.get('name')) {
 
           // If the feature is a cluster, then create a list of names and add it
           // to the overall feature's description.
