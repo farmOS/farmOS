@@ -104,9 +104,6 @@
             });
         }
       });
-    },
-
-    // Make sure this runs after farmOS.map.behaviors.popup.
-    weight: 101,
+    }
   };
 }());

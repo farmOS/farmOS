@@ -47,6 +47,9 @@
         return content;
       });
     },
-    weight: 100,
+
+    // Make sure this runs early so other behaviors can dispatch popup events
+    // with instance.popup.on().
+    weight: -100,
   };
 }());
