@@ -4,9 +4,9 @@ dependencies:
   module:
     - farm_ui_metrics
   theme:
-    - gin
+    - claro
 id: farm_metrics
-theme: gin
+theme: claro
 region: content
 weight: 0
 provider: null

@@ -7,9 +7,9 @@ dependencies:
   module:
     - user
   theme:
-    - gin
+    - claro
 id: userlogin
-theme: gin
+theme: claro
 region: content
 weight: 0
 provider: null
