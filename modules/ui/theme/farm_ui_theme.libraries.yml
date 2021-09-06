@@ -15,8 +15,7 @@ map:
     theme:
       css/map.css: { }
   js:
-    theme:
-      js/map.js: { }
+    js/map.js: { }
   dependencies:
     - farm_map/farm_map
 toolbar:
