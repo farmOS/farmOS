@@ -1,3 +1,0 @@
-allow_insecure_uploads: false
-default_scheme: private
-temporary_maximum_age: 21600

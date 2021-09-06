@@ -8,6 +8,15 @@
 use Drupal\Component\Serialization\Json;
 
 /**
+ * Implements hook_install().
+ */
+function farm_install() {
+
+  // Use private file system by default.
+  \Drupal::configFactory()->getEditable('system.file')->set('default_scheme', 'private')->save();
+}
+
+/**
  * Implements hook_install_tasks().
  */
 function farm_install_tasks(&$install_state) {

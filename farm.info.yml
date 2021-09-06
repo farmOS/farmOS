@@ -17,4 +17,4 @@ dependencies: {  }
 install:
   - dblog
 themes:
-  - gin
+  - claro

@@ -1,0 +1,63 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the farm_ui_theme module.
+ */
+
+use Drupal\block\Entity\Block;
+
+/**
+ * Implements hook_install().
+ */
+function farm_ui_theme_install() {
+
+  // Install the Gin theme and make it the default.
+  \Drupal::service('theme_installer')->install(['gin']);
+  \Drupal::configFactory()->getEditable('system.theme')->set('default', 'gin')->save();
+
+  // Load Gin settings.
+  $gin_settings = \Drupal::configFactory()->getEditable('gin.settings');
+
+  // Use vertical toolbar.
+  $gin_settings->set('classic_toolbar', 'vertical');
+
+  // Use green/orange color palette.
+  $gin_settings->set('preset_accent_color', 'green');
+  $gin_settings->set('preset_focus_color', 'orange');
+
+  // Use farmOS logo and favicon.
+  $gin_settings->set('icon_default', FALSE);
+  $gin_settings->set('icon_path', drupal_get_path('module', 'farm_ui_theme') . '/logo.png');
+  $gin_settings->set('favicon.use_default', FALSE);
+  $gin_settings->set('favicon.path', drupal_get_path('module', 'farm_ui_theme') . '/favicon.ico');
+
+  // Save Gin settings.
+  $gin_settings->save();
+
+  // Create the "Powered by farmOS" block.
+  // This must be done in hook_install() instead of config/install because Gin
+  // needs to be installed first.
+  $values = [
+    'id' => 'farm_powered',
+    'plugin' => 'farm_powered_by_block',
+    'theme' => 'gin',
+    'region' => 'content',
+    'weight' => 1000,
+    'settings' => [
+      'id' => 'farm_powered_by_block',
+      'label' => t('Powered by farmOS'),
+      'provider' => 'farm_ui_theme',
+      'label_display' => '0',
+    ],
+    'visibility' => [],
+    'dependencies' => [
+      'enforced' => [
+        'module' => [
+          'farm_ui_theme',
+        ],
+      ],
+    ],
+  ];
+  Block::create($values)->save();
+}
