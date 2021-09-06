@@ -15,11 +15,6 @@ class AssetCRUDTest extends AssetTestBase {
   use StringTranslationTrait;
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * Fields are displayed correctly.
    */
   public function testFieldsVisibility() {

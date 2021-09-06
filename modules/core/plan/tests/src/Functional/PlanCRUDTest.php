@@ -15,11 +15,6 @@ class PlanCRUDTest extends PlanTestBase {
   use StringTranslationTrait;
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * Fields are displayed correctly.
    */
   public function testFieldsVisibility() {

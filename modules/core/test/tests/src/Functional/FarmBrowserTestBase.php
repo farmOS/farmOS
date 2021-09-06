@@ -17,6 +17,11 @@ class FarmBrowserTestBase extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
+  protected $defaultTheme = 'stark';
+
+  /**
+   * {@inheritdoc}
+   */
   protected function setUp(): void {
 
     // Set a global farm_test variable and then delegate to the parent setUp().
