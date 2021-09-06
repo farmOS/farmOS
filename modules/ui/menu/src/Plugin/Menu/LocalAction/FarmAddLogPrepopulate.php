@@ -86,10 +86,6 @@ class FarmAddLogPrepopulate extends LocalActionDefault {
       return $options;
     }
 
-    // @todo Support prepopulating other fields on logs.
-    // This could likely be generalized by using the field type definition
-    // to build the prepopulate query parameters. The format for entity
-    // reference fields is different than simple text fields, etc.
     // Check if there is an asset field to prepopulate.
     if (!empty($this->pluginDefinition['prepopulate']['asset'])) {
 
@@ -121,7 +117,7 @@ class FarmAddLogPrepopulate extends LocalActionDefault {
       if (!empty($asset_id)) {
 
         // Build a query param to prepopulate the asset field in the log form.
-        $param = 'edit[asset][widget][0][target_id]';
+        $param = 'asset';
         $options['query'][$param] = $asset_id;
       }
     }
