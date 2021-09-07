@@ -1,0 +1,26 @@
+{
+    "name": "farmos/farmos",
+    "description": "A web-based farm record keeping application.",
+    "type": "drupal-profile",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "farmos/farmos-map": "*"
+    },
+    "repositories": {
+        "farmos-map": {
+            "type": "package",
+            "package": {
+                "name": "farmos/farmos-map",
+                "version": "2.0.0-alpha.0",
+                "type": "drupal-library",
+                "dist": {
+                  "url": "https://github.com/farmOS/farmOS-map/releases/download/v2.0.0-alpha.0/v2.0.0-alpha.0-dist.zip",
+                  "type": "zip"
+                },
+                "extra": {
+                  "installer-name": "farmOS-map"
+                }
+            }
+        }
+    }
+}
