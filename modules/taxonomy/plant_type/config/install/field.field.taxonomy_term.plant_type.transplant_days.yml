@@ -6,7 +6,7 @@ dependencies:
     - taxonomy.vocabulary.plant_type
   enforced:
     module:
-      - farm_plant
+      - farm_plant_type
 id: taxonomy_term.plant_type.transplant_days
 field_name: transplant_days
 entity_type: taxonomy_term

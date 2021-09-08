@@ -2,24 +2,18 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.taxonomy_term.companions
+    - field.storage.taxonomy_term.crop_family
+    - taxonomy.vocabulary.crop_family
     - taxonomy.vocabulary.plant_type
   enforced:
     module:
-      - farm_plant
-  module:
-    - entity_reference_validators
-third_party_settings:
-  entity_reference_validators:
-    circular_reference: false
-    circular_reference_deep: false
-    duplicate_reference: false
-id: taxonomy_term.plant_type.companions
-field_name: companions
+      - farm_plant_type
+id: taxonomy_term.plant_type.crop_family
+field_name: crop_family
 entity_type: taxonomy_term
 bundle: plant_type
-label: Companions
-description: ''
+label: 'Crop family'
+description: 'What crop family is this a member of?'
 required: false
 translatable: false
 default_value: {  }
@@ -28,7 +22,7 @@ settings:
   handler: 'default:taxonomy_term'
   handler_settings:
     target_bundles:
-      plant_type: plant_type
+      crop_family: crop_family
     sort:
       field: name
       direction: asc

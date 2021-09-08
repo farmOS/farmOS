@@ -6,7 +6,7 @@ dependencies:
     - taxonomy.vocabulary.plant_type
   enforced:
     module:
-      - farm_plant
+      - farm_plant_type
   module:
     - image
 id: taxonomy_term.plant_type.image

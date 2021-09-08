@@ -3,16 +3,15 @@ status: true
 dependencies:
   enforced:
     module:
-      - farm_plant
+      - farm_plant_type
   module:
     - taxonomy
-id: taxonomy_term.maturity_days
-field_name: maturity_days
+id: taxonomy_term.crop_family
+field_name: crop_family
 entity_type: taxonomy_term
-type: integer
+type: entity_reference
 settings:
-  unsigned: true
-  size: normal
+  target_type: taxonomy_term
 module: core
 locked: false
 cardinality: 1

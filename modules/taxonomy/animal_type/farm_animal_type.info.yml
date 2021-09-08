@@ -1,0 +1,7 @@
+name: Animal type vocabulary
+description: Provides an Animal type vocabulary.
+type: module
+package: farmOS Taxonomies
+core_version_requirement: ^9
+dependencies:
+  - drupal:taxonomy
