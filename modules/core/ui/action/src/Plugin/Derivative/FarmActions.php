@@ -66,6 +66,26 @@ class FarmActions extends DeriverBase {
         $this->derivatives[$name]['appears_on'][] = 'view.farm_' . $type . '.page_type';
         $this->derivatives[$name]['bundle_parameter'] = 'arg_0';
       }
+
+      // Generate links to [entity-type]/add/[bundle]?asset=[id] on asset pages.
+      if ($type == 'log') {
+        $bundles = \Drupal::service('entity_type.bundle.info')->getBundleInfo('log');
+        foreach ($bundles as $bundle => $bundle_info) {
+          $name = 'farm.asset.add.' . $type . '.' . $bundle;
+          $this->derivatives[$name] = $base_plugin_definition;
+          $this->derivatives[$name]['route_name'] = 'entity.' . $type . '.add_form';
+          $this->derivatives[$name]['class'] = 'Drupal\farm_ui_action\Plugin\Menu\LocalAction\AddEntity';
+          $this->derivatives[$name]['entity_type'] = $type;
+          $this->derivatives[$name]['bundle'] = $bundle;
+          $this->derivatives[$name]['appears_on'][] = 'entity.asset.canonical';
+          $this->derivatives[$name]['prepopulate'] = [
+            'asset' => [
+              'route_parameter' => 'asset',
+            ],
+          ];
+          $this->derivatives[$name]['cache_tags'] = ['entity_bundles'];
+        }
+      }
     }
 
     return parent::getDerivativeDefinitions($base_plugin_definition);
