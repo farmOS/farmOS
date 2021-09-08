@@ -61,6 +61,10 @@ class FarmActions extends DeriverBase {
       $this->derivatives[$name]['class'] = 'Drupal\farm_ui_action\Plugin\Menu\LocalAction\AddEntity';
       $this->derivatives[$name]['entity_type'] = $type;
 
+      // Add the entity_bundles cache tag so action links are recreated after
+      // new bundles are installed.
+      $this->derivatives[$name]['cache_tags'] = ['entity_bundles'];
+
       // Add it to entity bundle Views, if the farm_ui_views module is enabled.
       if (\Drupal::moduleHandler()->moduleExists('farm_ui_views')) {
         $this->derivatives[$name]['appears_on'][] = 'view.farm_' . $type . '.page_type';
