@@ -56,3 +56,71 @@ function farm_ui_theme_block_view_farm_powered_by_block_alter(array &$build, Blo
 function farm_ui_theme_preprocess_field__flag(array &$variables) {
   $variables['#attached']['library'][] = 'farm_ui_theme/flag';
 }
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function farm_ui_theme_preprocess_asset__full(&$variables) {
+  farm_ui_theme_build_stacked_twocol_layout($variables);
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function farm_ui_theme_preprocess_log__full(&$variables) {
+  farm_ui_theme_build_stacked_twocol_layout($variables);
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function farm_ui_theme_preprocess_plan__full(&$variables) {
+  farm_ui_theme_build_stacked_twocol_layout($variables);
+}
+
+/**
+ * Splits content into a stacked two-column layout.
+ *
+ * @param array $variables
+ *   A $variables array that contains a 'content' item, which will be replaced
+ *   by a stacked two-column layout.
+ */
+function farm_ui_theme_build_stacked_twocol_layout(array &$variables) {
+
+  // Define the region items.
+  $region_items = [
+    'top' => [
+      'geometry',
+    ],
+    'first' => [],
+    'second' => [
+      'image',
+      'is_location',
+      'is_fixed',
+      'location',
+      'status',
+      'type',
+    ],
+    'bottom' => [
+      'file',
+    ],
+  ];
+
+  // Split the content items into regions.
+  $regions = [];
+  foreach ($variables['content'] as $index => $item) {
+    foreach ($region_items as $region_name => $items) {
+      $region = 'first';
+      if (in_array($index, $items)) {
+        $region = $region_name;
+        break;
+      }
+    }
+    $regions[$region][$index] = $item;
+  }
+
+  // Build the layout.
+  /** @var \Drupal\Core\Layout\LayoutInterface $layoutInstance */
+  $layout = \Drupal::service('plugin.manager.core.layout')->createInstance('layout_twocol', []);
+  $variables['content'] = $layout->build($regions);
+}
