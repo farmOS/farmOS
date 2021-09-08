@@ -5,5 +5,5 @@ package: farmOS Assets
 core_version_requirement: ^9
 dependencies:
   - farm:farm_entity
-  - farm:farm_plant
+  - farm:farm_plant_type
   - farm:farm_season
