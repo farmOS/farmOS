@@ -64,6 +64,7 @@ class FarmActions extends DeriverBase {
       // Add it to entity bundle Views, if the farm_ui_views module is enabled.
       if (\Drupal::moduleHandler()->moduleExists('farm_ui_views')) {
         $this->derivatives[$name]['appears_on'][] = 'view.farm_' . $type . '.page_type';
+        $this->derivatives[$name]['bundle_parameter'] = 'arg_0';
       }
     }
 
