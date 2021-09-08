@@ -20,7 +20,7 @@
  * @param array &$data
  *   The data to be altered.
  */
-function hook_farm_api_panes(array &$data) {
+function hook_farm_api_meta_alter(array &$data) {
 
   // Add a custom key.
   $data['mykey'] = 'myvalue';
