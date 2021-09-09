@@ -5,14 +5,14 @@ farmOS-map:
     url: https://github.com/farmOS/farmOS-map/blob/master/LICENSE
     gpl-compatible: true
   js:
-    /libraries/farmOS-map/dist/farmOS-map.js:
+    /libraries/farmOS-map/farmOS-map.js:
       # Skip aggregating farmOS-map.js with other JS since that
       # breaks the lazy loading of behavior chunks.
       preprocess: false
       minified: true
   css:
     theme:
-      /libraries/farmOS-map/dist/farmOS-map.css: { }
+      /libraries/farmOS-map/farmOS-map.css: { }
   dependencies:
     - core/drupalSettings
 
