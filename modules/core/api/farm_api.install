@@ -34,13 +34,8 @@ function farm_api_install() {
   $pub_filename = sprintf('%s/public.key', $keys_path);
   $pri_filename = sprintf('%s/private.key', $keys_path);
 
-  if ($file_system_checker->fileExist($pub_filename) && $file_system_checker->fileExist($pri_filename)) {
-    // 1. If the file already exists, then just set the correct permissions.
-    $file_system->chmod($pub_filename, 0600);
-    $file_system->chmod($pri_filename, 0600);
-  }
-  else {
-    // 2. Generate the pair in the selected directory.
+  // Create keys if they don't exist.
+  if (!$file_system_checker->fileExist($pub_filename) || !$file_system_checker->fileExist($pri_filename)) {
     try {
       $key_gen->generateKeys($keys_path);
     }
@@ -48,7 +43,6 @@ function farm_api_install() {
       // Unable to generate files after all.
       return;
     }
-
   }
 
   // Delete the "Default Consumer" created by the consumers module.
