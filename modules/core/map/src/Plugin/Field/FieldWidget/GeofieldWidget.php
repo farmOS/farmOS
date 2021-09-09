@@ -102,6 +102,7 @@ class GeofieldWidget extends GeofieldBaseWidget {
    */
   public static function defaultSettings() {
     return [
+      'display_raw_geometry' => TRUE,
       'populate_file_field' => FALSE,
     ] + parent::defaultSettings();
   }
@@ -111,6 +112,12 @@ class GeofieldWidget extends GeofieldBaseWidget {
    */
   public function settingsForm(array $form, FormStateInterface $form_state) {
     $elements = parent::settingsForm($form, $form_state);
+
+    $elements['display_raw_geometry'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Display raw geometry'),
+      '#default_value' => $this->getSetting('display_raw_geometry'),
+    ];
 
     $elements['populate_file_field'] = [
       '#type' => 'textfield',
@@ -156,10 +163,14 @@ class GeofieldWidget extends GeofieldBaseWidget {
     ];
 
     // Add a textarea for the WKT value.
+    $display_raw_geometry = $this->getSetting('display_raw_geometry');
     $element['value'] = [
-      '#type' => 'textarea',
+      '#type' => $display_raw_geometry ? 'textarea' : 'hidden',
       '#title' => $this->t('Geometry'),
       '#default_value' => $current_value,
+      '#attributes' => [
+        'data-map-geometry-field' => TRUE,
+      ],
     ];
 
     // Add an option to populate geometry using files field.
