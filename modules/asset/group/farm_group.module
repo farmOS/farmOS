@@ -41,3 +41,21 @@ function farm_group_form_log_form_alter(&$form, FormStateInterface $form_state, 
     $form['group']['#states']['visible'] = [':input[name="is_group_assignment[value]"]' => ['checked' => TRUE]];
   }
 }
+
+/**
+ * Implements hook_farm_ui_theme_region_items().
+ */
+function farm_group_farm_ui_theme_region_items(string $entity_type) {
+  $region_items = [];
+  if ($entity_type == 'asset') {
+    $region_items = [
+      'top' => [],
+      'first' => [],
+      'second' => [
+        'group',
+      ],
+      'bottom' => [],
+    ];
+  }
+  return $region_items;
+}

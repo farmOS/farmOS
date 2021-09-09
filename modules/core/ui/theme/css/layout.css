@@ -1,0 +1,10 @@
+/* Add some vertical padding to layout regions. */
+.layout--twocol .layout__region {
+  margin-bottom: 1em;
+}
+
+/* Hide geometry field label in asset and log page top region. */
+body.path-asset .layout__region--top .field--name-geometry .field__label,
+body.path-log .layout__region--top .field--name-geometry .field__label {
+  display: none;
+}

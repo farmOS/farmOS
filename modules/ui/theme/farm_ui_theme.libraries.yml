@@ -10,6 +10,10 @@ help:
   css:
     theme:
       css/help.css: { }
+layout:
+  css:
+    theme:
+      css/layout.css: { }
 map:
   css:
     theme:
