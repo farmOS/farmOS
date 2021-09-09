@@ -1,0 +1,4 @@
+/* Add some vertical padding to layout regions. */
+.layout--twocol .layout__region {
+  margin-bottom: 1em;
+}

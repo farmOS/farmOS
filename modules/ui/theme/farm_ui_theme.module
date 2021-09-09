@@ -62,6 +62,7 @@ function farm_ui_theme_preprocess_field__flag(array &$variables) {
  */
 function farm_ui_theme_preprocess_asset__full(&$variables) {
   farm_ui_theme_build_stacked_twocol_layout($variables, 'asset');
+  $variables['#attached']['library'][] = 'farm_ui_theme/layout';
 }
 
 /**
@@ -69,6 +70,7 @@ function farm_ui_theme_preprocess_asset__full(&$variables) {
  */
 function farm_ui_theme_preprocess_log__full(&$variables) {
   farm_ui_theme_build_stacked_twocol_layout($variables, 'log');
+  $variables['#attached']['library'][] = 'farm_ui_theme/layout';
 }
 
 /**
@@ -76,6 +78,7 @@ function farm_ui_theme_preprocess_log__full(&$variables) {
  */
 function farm_ui_theme_preprocess_plan__full(&$variables) {
   farm_ui_theme_build_stacked_twocol_layout($variables, 'plan');
+  $variables['#attached']['library'][] = 'farm_ui_theme/layout';
 }
 
 /**
