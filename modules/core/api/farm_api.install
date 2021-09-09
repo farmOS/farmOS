@@ -40,7 +40,7 @@ function farm_api_install() {
       $key_gen->generateKeys($keys_path);
     }
     catch (\Exception $e) {
-      // Unable to generate files after all.
+      watchdog_exception('farm_api', $e);
       return;
     }
   }
