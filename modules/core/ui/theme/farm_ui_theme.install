@@ -60,4 +60,24 @@ function farm_ui_theme_install() {
     ],
   ];
   Block::create($values)->save();
+
+  // Modify the block.block.gin_local_actions config to use our class.
+  $local_actions_block = \Drupal::configFactory()->getEditable('block.block.gin_local_actions');
+  $local_actions_block->set('plugin', 'farm_local_actions_block');
+  $local_actions_block->set('settings.id', 'farm_local_actions_block');
+  $local_actions_block->set('settings.provider', 'farm_ui_theme');
+  $local_actions_block->save();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function farm_ui_theme_uninstall() {
+
+  // Revert changes to block.block.gin_local_actions config.
+  $local_actions_block = \Drupal::configFactory()->getEditable('block.block.gin_local_actions');
+  $local_actions_block->set('plugin', 'local_actions_block');
+  $local_actions_block->set('settings.id', 'local_actions_block');
+  $local_actions_block->set('settings.provider', 'core');
+  $local_actions_block->save();
 }
