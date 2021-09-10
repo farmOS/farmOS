@@ -83,12 +83,12 @@ function farm_inventory_quantity_entity_inline_form_validate(array &$form, FormS
     if (!empty($adjustment) && empty($asset)) {
       // Error is set on the inventory_adjustment field because form errors
       // are not highlighted when set on the entity browser widget.
-      $form_state->setError($form['inventory_adjustment']['widget'], 'Inventory asset is required if an inventory adjustment is selected.');
+      $form_state->setError($form['inventory_adjustment']['widget'], t('Inventory asset is required if an inventory adjustment is selected.'));
     }
 
     // Set error if an asset is provided without an adjustment.
     if (empty($adjustment) && !empty($asset)) {
-      $form_state->setError($form['inventory_adjustment']['widget'], 'Inventory adjustment is required if an inventory asset is selected.');
+      $form_state->setError($form['inventory_adjustment']['widget'], t('Inventory adjustment is required if an inventory asset is selected.'));
     }
   }
 }
