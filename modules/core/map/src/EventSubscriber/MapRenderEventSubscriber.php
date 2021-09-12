@@ -2,6 +2,7 @@
 
 namespace Drupal\farm_map\EventSubscriber;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\farm_map\Event\MapRenderEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -11,6 +12,23 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  * Adds default behaviors to maps.
  */
 class MapRenderEventSubscriber implements EventSubscriberInterface {
+
+  /**
+   * The config factory service.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  private $configFactory;
+
+  /**
+   * Constructor.
+   *
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The config factory service.
+   */
+  public function __construct(ConfigFactoryInterface $config_factory) {
+    $this->configFactory = $config_factory;
+  }
 
   /**
    * {@inheritdoc}
@@ -47,6 +65,16 @@ class MapRenderEventSubscriber implements EventSubscriberInterface {
     if (in_array($event->getMapType()->id(), ['geofield_widget'])) {
       $event->addBehavior('wkt');
       $event->addBehavior('geofield');
+    }
+
+    // Get whether the side panel should be enabled.
+    $enable_side_panel = $this->configFactory->get('farm_map.settings')->get('enable_side_panel');
+
+    // Set a cache tag on the map settings to invalidate the cache on changes.
+    $event->addCacheTags(['config:farm_map.settings']);
+
+    if ($enable_side_panel) {
+      $event->addBehavior('enable_side_panel');
     }
   }
 

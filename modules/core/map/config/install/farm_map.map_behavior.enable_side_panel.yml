@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_map
+id: enable_side_panel
+label: Enable Side Panel
+description: 'Enables the map side panel and moves the layer switcher into it.'
+library: 'farm_map/behavior_enable_side_panel'
+settings: {  }

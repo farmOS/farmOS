@@ -77,3 +77,11 @@ block.settings.map_block:
     map_type:
       type: string
       label: 'Map type'
+farm_map.settings:
+  type: config_object
+  label: 'Map Settings'
+  mapping:
+    enable_side_panel:
+      type: boolean
+      label: 'Enable Side Panel'
+      description: 'Enables the side panel in farmOS maps for displaying additional settings and information.'
