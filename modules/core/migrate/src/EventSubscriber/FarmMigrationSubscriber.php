@@ -6,8 +6,10 @@ use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\State\StateInterface;
+use Drupal\log\Entity\Log;
 use Drupal\migrate\Event\MigrateEvents;
 use Drupal\migrate\Event\MigrateImportEvent;
+use Drupal\migrate\Event\MigrateRowDeleteEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -78,6 +80,7 @@ class FarmMigrationSubscriber implements EventSubscriberInterface {
   public static function getSubscribedEvents() {
     $events[MigrateEvents::PRE_IMPORT][] = ['onMigratePreImport'];
     $events[MigrateEvents::POST_IMPORT][] = ['onMigratePostImport'];
+    $events[MigrateEvents::PRE_ROW_DELETE][] = ['onMigratePreRowDelete'];
     return $events;
   }
 
@@ -102,6 +105,16 @@ class FarmMigrationSubscriber implements EventSubscriberInterface {
     $this->revokeTextFormatPermission($event);
     $this->preventPrivateFileReferencing($event);
     $this->addRevisionLogMessage($event);
+  }
+
+  /**
+   * Run row pre-deletion logic.
+   *
+   * @param \Drupal\migrate\Event\MigrateRowDeleteEvent $event
+   *   The row delete event object.
+   */
+  public function onMigratePreRowDelete(MigrateRowDeleteEvent $event) {
+    $this->deleteLogQuantityReferences($event);
   }
 
   /**
@@ -238,6 +251,30 @@ class FarmMigrationSubscriber implements EventSubscriberInterface {
         ':revision_log_message' => 'Migrated from farmOS 1.x on ' . date('Y-m-d', $this->time->getRequestTime()),
       ];
       $this->database->query($query, $args);
+    }
+  }
+
+  /**
+   * Delete references to quantities from logs.
+   *
+   * @param \Drupal\migrate\Event\MigrateRowDeleteEvent $event
+   *   The row delete event object.
+   */
+  public function deleteLogQuantityReferences(MigrateRowDeleteEvent $event) {
+
+    // If the migration is in the farm_migrate_log migration group, delete all
+    // references to quantity entities from the log that is being deleted.
+    // This prevents the quantity entity itself from being deleted by
+    // LogEventSubscriber in the farm_log_quantity module.
+    // @see \Drupal\farm_log_quantity\EventSubscriber\LogEventSubscriber
+    $migration = $event->getMigration();
+    if (isset($migration->migration_group) && $migration->migration_group == 'farm_migrate_log') {
+      $id_values = $event->getDestinationIdValues();
+      if (!empty($id_values['id'])) {
+        $log = Log::load($id_values['id']);
+        $log->quantity = [];
+        $log->save();
+      }
     }
   }
 
