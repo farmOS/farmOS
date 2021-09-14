@@ -5,6 +5,7 @@ namespace Drupal\farm_migrate\EventSubscriber;
 use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\State\StateInterface;
 use Drupal\migrate\Event\MigrateEvents;
 use Drupal\migrate\Event\MigrateImportEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -43,6 +44,13 @@ class FarmMigrationSubscriber implements EventSubscriberInterface {
   protected $roleStorage;
 
   /**
+   * The state key/value store.
+   *
+   * @var \Drupal\Core\State\StateInterface
+   */
+  protected $state;
+
+  /**
    * FarmMigrationSubscriber Constructor.
    *
    * @param \Drupal\Core\Database\Connection $database
@@ -51,12 +59,15 @@ class FarmMigrationSubscriber implements EventSubscriberInterface {
    *   The time service.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager service.
+   * @param \Drupal\Core\State\StateInterface $state
+   *   The state key/value store.
    */
-  public function __construct(Connection $database, TimeInterface $time, EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(Connection $database, TimeInterface $time, EntityTypeManagerInterface $entity_type_manager, StateInterface $state) {
     $this->database = $database;
     $this->time = $time;
     $this->entityTypeManager = $entity_type_manager;
     $this->roleStorage = $entity_type_manager->getStorage('user_role');
+    $this->state = $state;
   }
 
   /**
@@ -78,6 +89,7 @@ class FarmMigrationSubscriber implements EventSubscriberInterface {
    */
   public function onMigratePreImport(MigrateImportEvent $event) {
     $this->grantTextFormatPermission($event);
+    $this->allowPrivateFileReferencing($event);
   }
 
   /**
@@ -88,6 +100,7 @@ class FarmMigrationSubscriber implements EventSubscriberInterface {
    */
   public function onMigratePostImport(MigrateImportEvent $event) {
     $this->revokeTextFormatPermission($event);
+    $this->preventPrivateFileReferencing($event);
     $this->addRevisionLogMessage($event);
   }
 
@@ -131,6 +144,56 @@ class FarmMigrationSubscriber implements EventSubscriberInterface {
       $anonymous->revokePermission('use text format default');
       $anonymous->save();
     }
+  }
+
+  /**
+   * Temporarily allow private files to be referenced by entities.
+   *
+   * @param \Drupal\migrate\Event\MigrateImportEvent $event
+   *   The import event object.
+   */
+  public function allowPrivateFileReferencing(MigrateImportEvent $event) {
+
+    // During farmOS 1.x -> 2.x migrations, Drupal's FileAccessControlHandler
+    // will not allow file entities to be referenced unless they were originally
+    // uploaded by the same user that created the entity that references them.
+    // In farmOS, it is common for an entity to be created by one user, and
+    // photos to be uploaded to it later by a different user. With entity
+    // validation enabled on the migration, this throws a validation error and
+    // doesn't allow the file to be referenced.
+    // We work around this by setting a Drupal state variable during our
+    // migrations, and check for it in hook_ENTITY_TYPE_access(), so we can
+    // explicitly grant access to the files.
+    // This state is removed post-migration.
+    // @see \Drupal\file\FileAccessControlHandler
+    // @see farm_migrate_file_access()
+    // @see preventPrivateFileReferencing()
+    $migration_groups = [
+      'farm_migrate_area',
+      'farm_migrate_asset',
+      'farm_migrate_log',
+      'farm_migrate_plan',
+      'farm_migrate_taxonomy',
+    ];
+    $migration = $event->getMigration();
+    if (isset($migration->migration_group) && in_array($migration->migration_group, $migration_groups)) {
+      $this->state->set('farm_migrate_allow_file_referencing', TRUE);
+    }
+  }
+
+  /**
+   * Prevent private files from being referenced by entities.
+   *
+   * @param \Drupal\migrate\Event\MigrateImportEvent $event
+   *   The import event object.
+   */
+  public function preventPrivateFileReferencing(MigrateImportEvent $event) {
+
+    // Unset the Drupal state variable that was set to temporarily allow private
+    // files to be referenced by entities.
+    // @see farm_migrate_file_access()
+    // @see allowPrivateFileReferencing()
+    $this->state->delete('farm_migrate_allow_file_referencing');
   }
 
   /**
