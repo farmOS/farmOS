@@ -36,6 +36,9 @@ RUN { \
     echo 'max_execution_time=240'; \
     echo 'max_input_time=240'; \
     echo 'max_input_vars=5000'; \
+    echo 'post_max_size=100M'; \
+    echo 'upload_max_filesize=100M'; \
+    echo 'expose_php=Off'; \
   } > /usr/local/etc/php/conf.d/farmOS-recommended.ini
 
 # Set recommended realpath_cache settings.
