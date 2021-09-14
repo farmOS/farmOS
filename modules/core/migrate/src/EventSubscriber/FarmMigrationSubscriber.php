@@ -114,6 +114,7 @@ class FarmMigrationSubscriber implements EventSubscriberInterface {
    *   The row delete event object.
    */
   public function onMigratePreRowDelete(MigrateRowDeleteEvent $event) {
+    $this->deleteAssetParentReferences($event);
     $this->deleteLogQuantityReferences($event);
   }
 
@@ -274,6 +275,32 @@ class FarmMigrationSubscriber implements EventSubscriberInterface {
         $log = Log::load($id_values['id']);
         $log->quantity = [];
         $log->save();
+      }
+    }
+  }
+
+  /**
+   * Delete parent references from assets.
+   *
+   * @param \Drupal\migrate\Event\MigrateRowDeleteEvent $event
+   *   The row delete event object.
+   */
+  public function deleteAssetParentReferences(MigrateRowDeleteEvent $event) {
+
+    // If the migration is in the farm_migrate_asset or farm_migrate_area
+    // migration groups, delete all parent references to the destination asset.
+    // This is necessary because the field is populated by migrations in the
+    // farm_migrate_asset_parent group, which ONLY set the parent field on
+    // existing assets, and rolling back those migrations does not remove the
+    // parent references. This causes entity reference integrity constraint
+    // errors if an attempt is made to roll back assets that are referenced as
+    // parents.
+    $migration = $event->getMigration();
+    if (isset($migration->migration_group) && in_array($migration->migration_group, ['farm_migrate_asset', 'farm_migrate_area'])) {
+      $id_values = $event->getDestinationIdValues();
+      if (!empty($id_values['id'])) {
+        $this->database->query('DELETE FROM {asset__parent} WHERE parent_target_id = :id', [':id' => $id_values['id']]);
+        $this->database->query('DELETE FROM {asset_revision__parent} WHERE parent_target_id = :id', [':id' => $id_values['id']]);
       }
     }
   }

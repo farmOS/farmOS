@@ -51,17 +51,11 @@ Follow the steps below to migrate your farmOS 1.x data to farmOS 2.x:
         drush migrate:import --group=farm_migrate_taxonomy
         drush migrate:import --group=farm_migrate_asset
         drush migrate:import --group=farm_migrate_area
+        drush migrate:import --group=farm_migrate_asset_parent
         drush migrate:import --group=farm_migrate_sensor_data
         drush migrate:import --group=farm_migrate_quantity
         drush migrate:import --group=farm_migrate_log
         drush migrate:import --group=farm_migrate_plan
-
-7. Confirm that all the above migrations were successful before running the
-   final migration, which focuses only on populating the "Parents" field of
-   assets. This migration cannot be rolled back (see
-   [Issue #3189740](https://www.drupal.org/project/farm/issues/3189740)):
-
-        drush migrate:import --group=farm_migrate_asset_parent
 
 To view the status of all farmOS 1.x migrations:
 
