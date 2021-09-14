@@ -16,6 +16,9 @@ shared_configuration:
     name:
       plugin: get
       source: name
+    uid:
+      plugin: default_value
+      default_value: 1
     status:
       plugin: default_value
       default_value: active
