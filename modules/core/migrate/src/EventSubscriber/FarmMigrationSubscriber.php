@@ -9,11 +9,9 @@ use Drupal\migrate\Event\MigrateImportEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Class PostMigrationSubscriber.
- *
- * Run our user flagging after the last node migration is run.
+ * Farm migration event subscriber.
  */
-class PostMigrationSubscriber implements EventSubscriberInterface {
+class FarmMigrationSubscriber implements EventSubscriberInterface {
 
   /**
    * The database service.
@@ -30,7 +28,7 @@ class PostMigrationSubscriber implements EventSubscriberInterface {
   protected $time;
 
   /**
-   * PostMigrationSubscriber Constructor.
+   * FarmMigrationSubscriber Constructor.
    *
    * @param \Drupal\Core\Database\Connection $database
    *   The database service.
@@ -53,12 +51,22 @@ class PostMigrationSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Run post migration logic.
+   * Run post-migration logic.
    *
    * @param \Drupal\migrate\Event\MigrateImportEvent $event
    *   The import event object.
    */
   public function onMigratePostImport(MigrateImportEvent $event) {
+    $this->addRevisionLogMessage($event);
+  }
+
+  /**
+   * Add a revision log message to imported entities.
+   *
+   * @param \Drupal\migrate\Event\MigrateImportEvent $event
+   *   The import event object.
+   */
+  public function addRevisionLogMessage(MigrateImportEvent $event) {
 
     // Define the migration groups that we will post-process and their
     // corresponding entity revision tables.
