@@ -4,6 +4,7 @@ namespace Drupal\farm_migrate\EventSubscriber;
 
 use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Database\Connection;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\migrate\Event\MigrateEvents;
 use Drupal\migrate\Event\MigrateImportEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -28,16 +29,34 @@ class FarmMigrationSubscriber implements EventSubscriberInterface {
   protected $time;
 
   /**
+   * The entity type manager service.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * The role storage.
+   *
+   * @var \Drupal\user\RoleStorageInterface
+   */
+  protected $roleStorage;
+
+  /**
    * FarmMigrationSubscriber Constructor.
    *
    * @param \Drupal\Core\Database\Connection $database
    *   The database service.
    * @param \Drupal\Component\Datetime\TimeInterface $time
    *   The time service.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager service.
    */
-  public function __construct(Connection $database, TimeInterface $time) {
+  public function __construct(Connection $database, TimeInterface $time, EntityTypeManagerInterface $entity_type_manager) {
     $this->database = $database;
     $this->time = $time;
+    $this->entityTypeManager = $entity_type_manager;
+    $this->roleStorage = $entity_type_manager->getStorage('user_role');
   }
 
   /**
@@ -46,8 +65,19 @@ class FarmMigrationSubscriber implements EventSubscriberInterface {
    * @inheritdoc
    */
   public static function getSubscribedEvents() {
+    $events[MigrateEvents::PRE_IMPORT][] = ['onMigratePreImport'];
     $events[MigrateEvents::POST_IMPORT][] = ['onMigratePostImport'];
     return $events;
+  }
+
+  /**
+   * Run pre-migration logic.
+   *
+   * @param \Drupal\migrate\Event\MigrateImportEvent $event
+   *   The import event object.
+   */
+  public function onMigratePreImport(MigrateImportEvent $event) {
+    $this->grantTextFormatPermission($event);
   }
 
   /**
@@ -57,7 +87,50 @@ class FarmMigrationSubscriber implements EventSubscriberInterface {
    *   The import event object.
    */
   public function onMigratePostImport(MigrateImportEvent $event) {
+    $this->revokeTextFormatPermission($event);
     $this->addRevisionLogMessage($event);
+  }
+
+  /**
+   * Grant default text format permission to anonymous role.
+   *
+   * @param \Drupal\migrate\Event\MigrateImportEvent $event
+   *   The import event object.
+   */
+  public function grantTextFormatPermission(MigrateImportEvent $event) {
+
+    // If the migration is in the farm_migrate_taxonomy migration group,
+    // grant the 'use text format default' permission to anonymous role.
+    // This allows entity validation to pass even when the migration is run
+    // via Drush (which runs as the anonymous user). The permission is revoked
+    // in post-migration.
+    // @see revokeTextFormatPermission()
+    $migration = $event->getMigration();
+    if (isset($migration->migration_group) && $migration->migration_group == 'farm_migrate_taxonomy') {
+      $anonymous = $this->roleStorage->load('anonymous');
+      $anonymous->grantPermission('use text format default');
+      $anonymous->save();
+    }
+  }
+
+  /**
+   * Revoke default text format permission from anonymous role.
+   *
+   * @param \Drupal\migrate\Event\MigrateImportEvent $event
+   *   The import event object.
+   */
+  public function revokeTextFormatPermission(MigrateImportEvent $event) {
+
+    // If the migration is in the farm_migrate_taxonomy migration group,
+    // revoke the 'use text format default' permission to anonymous role.
+    // This permission was added in pre-migration.
+    // @see grantTextFormatPermission()
+    $migration = $event->getMigration();
+    if (isset($migration->migration_group) && $migration->migration_group == 'farm_migrate_taxonomy') {
+      $anonymous = $this->roleStorage->load('anonymous');
+      $anonymous->revokePermission('use text format default');
+      $anonymous->save();
+    }
   }
 
   /**

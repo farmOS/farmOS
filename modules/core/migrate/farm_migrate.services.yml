@@ -2,6 +2,6 @@ services:
   farm_migrate_event_subscriber:
     class: Drupal\farm_migrate\EventSubscriber\FarmMigrationSubscriber
     arguments:
-      [ '@database', '@datetime.time' ]
+      [ '@database', '@datetime.time', '@entity_type.manager' ]
     tags:
       - { name: 'event_subscriber' }
