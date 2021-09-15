@@ -23,6 +23,17 @@ class FarmMigrateCommands extends MigrateToolsCommands {
   }
 
   /**
+   * Rollback a 1.x data migration.
+   *
+   * @command farm_migrate:rollback
+   *
+   * @usage farm_migrate:rollback
+   */
+  public function farmRollback() {
+    $this->executeFarmRollback();
+  }
+
+  /**
    * Define the farmOS migration groups in the order they should be executed.
    *
    * @return array
@@ -58,6 +69,23 @@ class FarmMigrateCommands extends MigrateToolsCommands {
         'group' => $group,
       ];
       $this->import('', $options);
+    }
+  }
+
+  /**
+   * Rollback all farmOS migrations.
+   *
+   * @throws \Exception
+   *   If some rollbacks failed during execution.
+   */
+  protected function executeFarmRollback() {
+    $groups = $this->farmMigrationGroups();
+    $groups = array_reverse($groups);
+    foreach ($groups as $group) {
+      $options = [
+        'group' => $group,
+      ];
+      $this->rollback('', $options);
     }
   }
 
