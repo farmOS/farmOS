@@ -6,10 +6,10 @@ use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\State\StateInterface;
-use Drupal\log\Entity\Log;
 use Drupal\migrate\Event\MigrateEvents;
 use Drupal\migrate\Event\MigrateImportEvent;
 use Drupal\migrate\Event\MigrateRowDeleteEvent;
+use Drupal\migrate\Plugin\MigrationPluginManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -53,6 +53,13 @@ class FarmMigrationSubscriber implements EventSubscriberInterface {
   protected $state;
 
   /**
+   * Migration plugin manager service.
+   *
+   * @var \Drupal\migrate\Plugin\MigrationPluginManagerInterface
+   */
+  protected $migrationPluginManager;
+
+  /**
    * FarmMigrationSubscriber Constructor.
    *
    * @param \Drupal\Core\Database\Connection $database
@@ -63,13 +70,16 @@ class FarmMigrationSubscriber implements EventSubscriberInterface {
    *   The entity type manager service.
    * @param \Drupal\Core\State\StateInterface $state
    *   The state key/value store.
+   * @param \Drupal\migrate\Plugin\MigrationPluginManagerInterface $migration_plugin_manager
+   *   Migration plugin manager service.
    */
-  public function __construct(Connection $database, TimeInterface $time, EntityTypeManagerInterface $entity_type_manager, StateInterface $state) {
+  public function __construct(Connection $database, TimeInterface $time, EntityTypeManagerInterface $entity_type_manager, StateInterface $state, MigrationPluginManagerInterface $migration_plugin_manager) {
     $this->database = $database;
     $this->time = $time;
     $this->entityTypeManager = $entity_type_manager;
     $this->roleStorage = $entity_type_manager->getStorage('user_role');
     $this->state = $state;
+    $this->migrationPluginManager = $migration_plugin_manager;
   }
 
   /**
@@ -267,14 +277,22 @@ class FarmMigrationSubscriber implements EventSubscriberInterface {
     // references to quantity entities from the log that is being deleted.
     // This prevents the quantity entity itself from being deleted by
     // LogEventSubscriber in the farm_log_quantity module.
+    // We limit this to quantities that were created via migrations in the
+    // farm_migrate_quantity migration group to ensure that quantities created
+    // via the create_quantity process plugin can be deleted normally with logs.
     // @see \Drupal\farm_log_quantity\EventSubscriber\LogEventSubscriber
     $migration = $event->getMigration();
     if (isset($migration->migration_group) && $migration->migration_group == 'farm_migrate_log') {
       $id_values = $event->getDestinationIdValues();
       if (!empty($id_values['id'])) {
-        $log = Log::load($id_values['id']);
-        $log->quantity = [];
-        $log->save();
+        $migration_plugins = $this->migrationPluginManager->createInstances([]);
+        foreach ($migration_plugins as $migration_id => $migration_plugin) {
+          if (isset($migration_plugin->migration_group) && $migration_plugin->migration_group == 'farm_migrate_quantity') {
+            $table = 'migrate_map_' . $migration_id;
+            $this->database->query('DELETE FROM {log__quantity} WHERE entity_id = :id AND quantity_target_id IN (SELECT destid1 FROM ' . $table . ')', [':id' => $id_values['id']]);
+            $this->database->query('DELETE FROM {log_revision__quantity} WHERE entity_id = :id AND quantity_target_id IN (SELECT destid1 FROM ' . $table . ')', [':id' => $id_values['id']]);
+          }
+        }
       }
     }
   }
