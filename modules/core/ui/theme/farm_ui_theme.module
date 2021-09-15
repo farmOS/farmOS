@@ -130,6 +130,7 @@ function farm_ui_theme_farm_ui_theme_region_items(string $entity_type) {
         'first' => [],
         'second' => [
           'image',
+          'inventory',
           'is_location',
           'is_fixed',
           'location',
