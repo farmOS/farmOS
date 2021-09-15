@@ -42,20 +42,25 @@ Follow the steps below to migrate your farmOS 1.x data to farmOS 2.x:
 4. Copy user-uploaded files to the new directory (see
    [Migrating files](#migrating-files) below).
 5. Install the farmOS Migrate (`farm_migrate`) module.
-6. Run the farmOS 1.x Migrations via Drush (in this order):
+6. Run the farmOS 1.x Migrations via Drush:
 
-        drush migrate:import --group=farm_migrate_config
-        drush migrate:import --group=farm_migrate_role
-        drush migrate:import --group=farm_migrate_user
-        drush migrate:import --group=farm_migrate_file
-        drush migrate:import --group=farm_migrate_taxonomy
-        drush migrate:import --group=farm_migrate_asset
-        drush migrate:import --group=farm_migrate_area
-        drush migrate:import --group=farm_migrate_asset_parent
-        drush migrate:import --group=farm_migrate_sensor_data
-        drush migrate:import --group=farm_migrate_quantity
-        drush migrate:import --group=farm_migrate_log
-        drush migrate:import --group=farm_migrate_plan
+        drush farm_migrate:migrate
+
+Alternatively, migration groups can be run individually, if you need
+more control over the process. They must be run in this order:
+
+    drush migrate:import --group=farm_migrate_config
+    drush migrate:import --group=farm_migrate_role
+    drush migrate:import --group=farm_migrate_user
+    drush migrate:import --group=farm_migrate_file
+    drush migrate:import --group=farm_migrate_taxonomy
+    drush migrate:import --group=farm_migrate_asset
+    drush migrate:import --group=farm_migrate_area
+    drush migrate:import --group=farm_migrate_asset_parent
+    drush migrate:import --group=farm_migrate_sensor_data
+    drush migrate:import --group=farm_migrate_quantity
+    drush migrate:import --group=farm_migrate_log
+    drush migrate:import --group=farm_migrate_plan
 
 To view the status of all farmOS 1.x migrations:
 

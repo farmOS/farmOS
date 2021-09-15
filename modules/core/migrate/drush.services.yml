@@ -1,0 +1,6 @@
+services:
+  farm_migrate.commands:
+    class: Drupal\farm_migrate\Commands\FarmMigrateCommands
+    arguments: ['@plugin.manager.migration', '@date.formatter', '@entity_type.manager', '@keyvalue']
+    tags:
+      - { name: drush.command }
