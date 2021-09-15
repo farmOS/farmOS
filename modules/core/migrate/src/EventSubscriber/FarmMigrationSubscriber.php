@@ -126,6 +126,7 @@ class FarmMigrationSubscriber implements EventSubscriberInterface {
   public function onMigratePreRowDelete(MigrateRowDeleteEvent $event) {
     $this->deleteAssetParentReferences($event);
     $this->deleteLogQuantityReferences($event);
+    $this->deletePlantTypeCompanionReferences($event);
   }
 
   /**
@@ -319,6 +320,29 @@ class FarmMigrationSubscriber implements EventSubscriberInterface {
       if (!empty($id_values['id'])) {
         $this->database->query('DELETE FROM {asset__parent} WHERE parent_target_id = :id', [':id' => $id_values['id']]);
         $this->database->query('DELETE FROM {asset_revision__parent} WHERE parent_target_id = :id', [':id' => $id_values['id']]);
+      }
+    }
+  }
+
+  /**
+   * Delete companion references to plant type terms.
+   *
+   * @param \Drupal\migrate\Event\MigrateRowDeleteEvent $event
+   *   The row delete event object.
+   */
+  public function deletePlantTypeCompanionReferences(MigrateRowDeleteEvent $event) {
+
+    // If this is the farm_migrate_taxonomy_plant_type migration, delete all
+    // companion references to the destination term.
+    // This is necessary to prevent entity reference integrity constraint errors
+    // if an attempt is made to roll back terms that are referenced as
+    // companions.
+    $migration = $event->getMigration();
+    if ($migration->id() == 'farm_migrate_taxonomy_plant_type') {
+      $id_values = $event->getDestinationIdValues();
+      if (!empty($id_values['tid'])) {
+        $this->database->query('DELETE FROM {taxonomy_term__companions} WHERE companions_target_id = :tid', [':tid' => $id_values['tid']]);
+        $this->database->query('DELETE FROM {taxonomy_term_revision__companions} WHERE companions_target_id = :tid', [':tid' => $id_values['tid']]);
       }
     }
   }
