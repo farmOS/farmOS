@@ -16,11 +16,18 @@
  * @ingroup themeable
  */
 #}
+
+{# Filter content items into arrays to be rendered before and after the standard quantity fields. #}
+{% set custom_fields = content|without('label', 'measure', 'value', 'units') %}
+{% set prefix_fields = custom_fields|filter((field) => field['#weight'] and field['#weight'] < 0) %}
+{% set suffix_fields = custom_fields|filter((field) => not field['#weight'] or field['#weight'] >= 0) %}
+
 <div{{ attributes.addClass('quantity') }}>
   {% if content %}
+    {{ prefix_fields }}
     {% if content.label %}<strong>{{ content.label }}</strong>{% endif %}
     {% if content.measure %}({{ content.measure }}){% endif %}
     {{ content.value }} {{ content.units }}
-    {{ content|without('label', 'measure', 'value', 'units') }}
+    {{ suffix_fields }}
   {% endif %}
 </div>
