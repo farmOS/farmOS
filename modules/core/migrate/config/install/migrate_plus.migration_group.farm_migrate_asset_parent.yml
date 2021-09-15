@@ -4,9 +4,9 @@ dependencies:
   enforced:
     module:
       - farm_migrate
-id: farm_migrate_reference
-label: 'farmOS 1.x References Migration'
-description: 'Migrates asset references from farmOS 1.x to farmOS 2.x'
+id: farm_migrate_asset_parent
+label: 'farmOS 1.x Asset Parents'
+description: 'Migrates asset parent references from farmOS 1.x to farmOS 2.x'
 source_type: 'farmOS 1.x'
 module: null
 shared_configuration: null

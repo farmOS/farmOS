@@ -7,7 +7,7 @@ dependencies:
       - farm_migrate
 id: farm_migrate_area_field_parent
 label: 'Area parent references'
-migration_group: farm_migrate_reference
+migration_group: farm_migrate_asset_parent
 migration_tags:
   - 'Drupal 7'
   - 'farmOS 1.x'

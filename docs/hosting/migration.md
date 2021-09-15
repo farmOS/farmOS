@@ -61,7 +61,7 @@ Follow the steps below to migrate your farmOS 1.x data to farmOS 2.x:
    assets. This migration cannot be rolled back (see
    [Issue #3189740](https://www.drupal.org/project/farm/issues/3189740)):
 
-        drush migrate:import --group=farm_migrate_reference
+        drush migrate:import --group=farm_migrate_asset_parent
 
 To view the status of all farmOS 1.x migrations:
 
