@@ -126,6 +126,7 @@ class FarmMigrationSubscriber implements EventSubscriberInterface {
   public function onMigratePreRowDelete(MigrateRowDeleteEvent $event) {
     $this->deleteAssetParentReferences($event);
     $this->deleteLogQuantityReferences($event);
+    $this->deleteTermParentReferences($event);
     $this->deletePlantTypeCompanionReferences($event);
   }
 
@@ -320,6 +321,28 @@ class FarmMigrationSubscriber implements EventSubscriberInterface {
       if (!empty($id_values['id'])) {
         $this->database->query('DELETE FROM {asset__parent} WHERE parent_target_id = :id', [':id' => $id_values['id']]);
         $this->database->query('DELETE FROM {asset_revision__parent} WHERE parent_target_id = :id', [':id' => $id_values['id']]);
+      }
+    }
+  }
+
+  /**
+   * Delete parent references to taxonomy pterms.
+   *
+   * @param \Drupal\migrate\Event\MigrateRowDeleteEvent $event
+   *   The row delete event object.
+   */
+  public function deleteTermParentReferences(MigrateRowDeleteEvent $event) {
+
+    // If the migration is in the farm_migrate_taxonomy migration group, delete
+    // all parent references to the destination term.
+    // This is necessary to prevent entity reference integrity constraint errors
+    // if an attempt is made to roll back terms that are referenced as parents.
+    $migration = $event->getMigration();
+    if (isset($migration->migration_group) && $migration->migration_group == 'farm_migrate_taxonomy') {
+      $id_values = $event->getDestinationIdValues();
+      if (!empty($id_values['tid'])) {
+        $this->database->query('DELETE FROM {taxonomy_term__parent} WHERE parent_target_id = :tid', [':tid' => $id_values['tid']]);
+        $this->database->query('DELETE FROM {taxonomy_term_revision__parent} WHERE parent_target_id = :tid', [':tid' => $id_values['tid']]);
       }
     }
   }
