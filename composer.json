@@ -52,6 +52,7 @@
         },
         "patches": {
             "drupal/core": {
+                "Issue #3134470: Switch to entity owner in EntityContentBase during validation": "https://www.drupal.org/files/issues/2021-07-12/3134470-78.patch",
                 "Issue #2339235: Remove taxonomy hard dependency on node module": "https://www.drupal.org/files/issues/2020-10-12/2339235_60.patch"
             },
             "drupal/entity": {

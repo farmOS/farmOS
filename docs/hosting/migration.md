@@ -123,6 +123,36 @@ responsibility to update the modules for 2.x and provide migration logic.
 
 ## Troubleshooting
 
+### Validation
+
+Validation is performed on all areas, assets, logs, plans, and taxonomy terms
+as they are migrated. This will check things like required fields, allowed
+values, etc. In some cases the data in a 1.x database will not pass validation,
+either because it was not properly validated originally, or due to legacy bugs
+in the farmOS 1.x code. If any entities fail validation, migration will stop
+and an error like the following will be displayed:
+
+    farm_migrate_asset_plant Migration - 1 failed.
+
+You can view validation messages for individual migrations by running
+`drush migrate:messages [migration-id]`, which will provide more details. For
+example:
+
+    $ drush migrate:messages farm_migrate_asset_plant
+     -------------- ------------------- ------- ---------------------------------------------------------
+      Source ID(s)   Destination ID(s)   Level   Message
+     -------------- ------------------- ------- ---------------------------------------------------------
+      432                                1       [asset: 432]: plant_type=This value should not be null.
+     -------------- ------------------- ------- ---------------------------------------------------------
+
+This gives you the opportunity to fix the data in your 1.x database. Then you
+can rollback and re-run the migration, like so:
+
+    drush migrate:rollback farm_migrate_asset_plant
+    drush migrate:import farm_migrate_asset_plant
+
+### Reset status
+
 If an error occurs during migration, the status of the broken migration may be
 stuck as "Importing". In order to rerun the migration, first reset the status
 and then roll back the migration. Replace `[migration_id]` with ID of the

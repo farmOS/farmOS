@@ -10,10 +10,15 @@ description: 'Migrates areas from farmOS 1.x to farmOS 2.x'
 source_type: 'farmOS 1.x'
 module: null
 shared_configuration:
+  destination:
+    validate: true
   process:
     name:
       plugin: get
       source: name
+    uid:
+      plugin: default_value
+      default_value: 1
     status:
       plugin: default_value
       default_value: active

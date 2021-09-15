@@ -51,13 +51,13 @@ process:
     source: timestamp
   uid:
     -
-      plugin: skip_on_empty
-      method: process
-      source: uid
-    -
       plugin: migration_lookup
       migration: farm_migrate_user
       source: uid
+      no_stub: true
+    -
+      plugin: default_value
+      default_value: 1
 migration_dependencies:
   required:
     - farm_migrate_user
