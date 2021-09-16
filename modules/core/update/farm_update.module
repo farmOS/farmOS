@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * @file
+ * Hooks and customizations for the farm_update module.
+ */
+
+/**
+ * Implements hook_rebuild().
+ */
+function farm_update_rebuild() {
+  \Drupal::service('farm.update')->rebuild();
+}
