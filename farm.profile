@@ -23,6 +23,7 @@ function farm_modules() {
       'farm_login' => t('Login with username or email.'),
       'farm_settings' => t('farmOS Settings forms'),
       'farm_ui' => t('farmOS UI'),
+      'farm_update' => t('farmOS Update'),
     ],
     'default' => [
       'farm_land' => t('Land assets'),
