@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the farm_ui_location module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function farm_ui_location_install() {
+
+  // Use light mode for inspire tree.
+  \Drupal::configFactory()->getEditable('inspire_tree.settings')->set('mode', 'light')->save();
+}
