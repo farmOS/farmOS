@@ -105,3 +105,16 @@ function farm_api_entity_base_field_info(EntityTypeInterface $entity_type) {
 
   return $fields;
 }
+
+/**
+ * Implements hook_farm_update_exclude_config().
+ */
+function farm_api_farm_update_exclude_config() {
+
+  // Exclude config that we have overridden in hook_install().
+  return [
+    'jsonapi.settings',
+    'jsonapi_extras.settings',
+    'simple_oauth.settings',
+  ];
+}

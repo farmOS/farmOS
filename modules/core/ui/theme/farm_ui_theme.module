@@ -177,3 +177,16 @@ function farm_ui_theme_farm_ui_theme_region_items(string $entity_type) {
       return [];
   }
 }
+
+/**
+ * Implements hook_farm_update_exclude_config().
+ */
+function farm_ui_theme_farm_update_exclude_config() {
+
+  // Exclude config that we have overridden in hook_install().
+  return [
+    'block.block.gin_local_actions',
+    'gin.settings',
+    'system.theme',
+  ];
+}

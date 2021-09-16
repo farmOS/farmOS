@@ -31,3 +31,14 @@ function farm_ui_location_help($route_name, RouteMatchInterface $route_match) {
 
   return $output;
 }
+
+/**
+ * Implements hook_farm_update_exclude_config().
+ */
+function farm_ui_location_farm_update_exclude_config() {
+
+  // Exclude config that we have overridden in hook_install().
+  return [
+    'inspire_tree.settings',
+  ];
+}
