@@ -118,6 +118,12 @@ class FarmUpdate implements FarmUpdateInterface {
     // Ask modules for config exclusions.
     $exclude_config = $this->moduleHandler->invokeAll('farm_update_exclude_config');
 
+    // Load farm_update.settings to get additional exclusions.
+    $settings_exclude_config = \Drupal::config('farm_update.settings')->get('exclude_config');
+    if (!empty($settings_exclude_config)) {
+      $exclude_config = array_merge($exclude_config, $settings_exclude_config);
+    }
+
     return $exclude_config;
   }
 
