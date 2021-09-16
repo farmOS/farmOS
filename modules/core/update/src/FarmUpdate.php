@@ -82,7 +82,12 @@ class FarmUpdate implements FarmUpdateInterface {
       $shortname = $this->getConfigShortname($type, $name);
 
       // Perform the operation.
-      $this->configUpdate->revert($type, $shortname);
+      $result = $this->configUpdate->revert($type, $shortname);
+
+      // Log failures.
+      if (!$result) {
+        \Drupal::logger('farm_update')->error('Failed to revert config: @config', ['@config' => $name]);
+      }
     }
   }
 
