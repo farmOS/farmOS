@@ -1,0 +1,6 @@
+services:
+  farm_update.commands:
+    class: Drupal\farm_update\Commands\FarmUpdateCommands
+    arguments: [ '@farm.update']
+    tags:
+      - { name: drush.command }
