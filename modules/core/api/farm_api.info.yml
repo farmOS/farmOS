@@ -4,7 +4,6 @@ type: module
 package: farmOS
 core_version_requirement: ^9
 dependencies:
-  - config_rewrite:config_rewrite
   - drupal:jsonapi
   - entity:entity
   - jsonapi_extras:jsonapi_extras

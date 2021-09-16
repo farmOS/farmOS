@@ -12,6 +12,25 @@ use Drupal\consumers\Entity\Consumer;
  */
 function farm_api_install() {
 
+  // Allow JSON:API write operations.
+  \Drupal::configFactory()->getEditable('jsonapi.settings')->set('read_only', FALSE)->save();
+
+  // Change the base JSON:API path to /api.
+  \Drupal::configFactory()->getEditable('jsonapi_extras.settings')->set('path_prefix', 'api')->save();
+
+  // Load the simple_oauth module settings.
+  $simple_oauth_settings = \Drupal::configFactory()->getEditable('simple_oauth.settings');
+
+  // Increase access token expiration time to 1 hour.
+  $simple_oauth_settings->set('access_token_expiration', 3600);
+
+  // Explicitly set the public/private key path.
+  $simple_oauth_settings->set('public_key', '../keys/public.key');
+  $simple_oauth_settings->set('private_key', '../keys/private.key');
+
+  // Save simple_oauth settings.
+  $simple_oauth_settings->save();
+
   // Generate key files for simple_oauth module.
   // Code adapted from the contenta_jsonapi profile install tasks:
   // https://github.com/contentacms/contenta_jsonapi/blob/8.x-3.x/contenta_jsonapi.profile

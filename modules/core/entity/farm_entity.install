@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the farm_entity module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function farm_entity_install() {
+
+  // Enforce entity reference integrity on the entity types we care about.
+  $enforced_entity_types = [
+    'asset',
+    'data_stream',
+    'file',
+    'log',
+    'quantity',
+    'taxonomy_term',
+    'user',
+  ];
+  \Drupal::configFactory()->getEditable('entity_reference_integrity_enforce.settings')->set('enabled_entity_type_ids', array_combine($enforced_entity_types, $enforced_entity_types))->save();
+}
