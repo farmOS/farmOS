@@ -1,3 +1,4 @@
 services:
   farm.update:
     class: Drupal\farm_update\FarmUpdate
+    arguments: [ '@entity_type.manager', '@config_update.config_diff', '@config_update.config_list', '@config_update.config_update' ]

@@ -3,3 +3,5 @@ description: Automatically update farmOS configuration. Turn this off if configu
 type: module
 package: farmOS
 core_version_requirement: ^9
+dependencies:
+  - config_update:config_update
