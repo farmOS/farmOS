@@ -11,3 +11,17 @@
 function farm_update_rebuild() {
   \Drupal::service('farm.update')->rebuild();
 }
+
+/**
+ * Implements hook_farm_update_exclude_config().
+ */
+function farm_update_farm_update_exclude_config() {
+
+  // Exclude Drupal core configurations from automatic updates.
+  return [
+    'core.extension',
+    'system.date',
+    'system.site',
+    'update.settings',
+  ];
+}
