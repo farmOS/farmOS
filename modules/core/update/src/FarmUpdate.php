@@ -6,11 +6,19 @@ use Drupal\config_update\ConfigDiffer;
 use Drupal\config_update\ConfigListerWithProviders;
 use Drupal\config_update\ConfigReverter;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 
 /**
  * Farm update service.
  */
 class FarmUpdate implements FarmUpdateInterface {
+
+  /**
+   * The module handler.
+   *
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   */
+  protected $moduleHandler;
 
   /**
    * The entity manager.
@@ -43,6 +51,8 @@ class FarmUpdate implements FarmUpdateInterface {
   /**
    * Constructs a FarmUpdate object.
    *
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
+   *   The module handler.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_manager
    *   The entity type manager.
    * @param \Drupal\config_update\ConfigDiffer $config_diff
@@ -52,7 +62,8 @@ class FarmUpdate implements FarmUpdateInterface {
    * @param \Drupal\config_update\ConfigReverter $config_update
    *   The config reverter.
    */
-  public function __construct(EntityTypeManagerInterface $entity_manager, ConfigDiffer $config_diff, ConfigListerWithProviders $config_list, ConfigReverter $config_update) {
+  public function __construct(ModuleHandlerInterface $module_handler, EntityTypeManagerInterface $entity_manager, ConfigDiffer $config_diff, ConfigListerWithProviders $config_list, ConfigReverter $config_update) {
+    $this->moduleHandler = $module_handler;
     $this->entityManager = $entity_manager;
     $this->configDiff = $config_diff;
     $this->configList = $config_list;
@@ -64,8 +75,11 @@ class FarmUpdate implements FarmUpdateInterface {
    */
   public function rebuild(): void {
 
-    // Build a list of config to revert.
-    $revert_config = $this->getDifferentItems('type', 'system.all');
+    // Get a list of excluded config.
+    $exclude_config = $this->getExcludedItems();
+
+    // Build a list of config to revert, without excluded config.
+    $revert_config = array_diff($this->getDifferentItems('type', 'system.all'), $exclude_config);
 
     // Iterate through config items and revert them.
     foreach ($revert_config as $name) {
@@ -89,6 +103,22 @@ class FarmUpdate implements FarmUpdateInterface {
         \Drupal::logger('farm_update')->error('Failed to revert config: @config', ['@config' => $name]);
       }
     }
+  }
+
+  /**
+   * Lists excluded config items.
+   *
+   * Lists config items that should be excluded from all automatic updates.
+   *
+   * @return array
+   *   An array of config item names.
+   */
+  protected function getExcludedItems() {
+
+    // Ask modules for config exclusions.
+    $exclude_config = $this->moduleHandler->invokeAll('farm_update_exclude_config');
+
+    return $exclude_config;
   }
 
   /**
