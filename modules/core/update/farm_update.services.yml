@@ -1,0 +1,3 @@
+services:
+  farm.update:
+    class: Drupal\farm_update\FarmUpdate
