@@ -21,6 +21,7 @@ function farm_update_farm_update_exclude_config() {
   return [
     'core.extension',
     'system.date',
+    'system.performance',
     'system.site',
     'update.settings',
     'user.role.anonymous',
