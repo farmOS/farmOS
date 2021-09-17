@@ -124,6 +124,13 @@ class FarmUpdate implements FarmUpdateInterface {
       $exclude_config = array_merge($exclude_config, $settings_exclude_config);
     }
 
+    // Always exclude this module's configuration.
+    // This isn't strictly necessary because we don't provide default config
+    // in config/install. But in the unlikely event that a custom module does
+    // provide this config, and then it is somehow overridden by another means,
+    // it would be reverted. So we exclude it here just to be extra safe.
+    $exclude_config[] = 'farm_update.settings';
+
     return $exclude_config;
   }
 
