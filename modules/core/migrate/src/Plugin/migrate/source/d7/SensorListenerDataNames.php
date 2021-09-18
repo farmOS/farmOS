@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\farm_sensor_listener\Plugin\migrate\source\d7;
+namespace Drupal\farm_migrate\Plugin\migrate\source\d7;
 
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
 
