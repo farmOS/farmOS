@@ -6,11 +6,11 @@ use Drupal\asset\Entity\AssetInterface;
 use Drupal\Tests\farm_sensor\Functional\SensorDataApiTest;
 
 /**
- * Test the Listener (Legacy) sensor API.
+ * Test the sensor listener (legacy) API.
  *
  * @group farm
  */
-class LegacyApiTest extends SensorDataApiTest {
+class SensorListenerApiTest extends SensorDataApiTest {
 
   /**
    * {@inheritdoc}

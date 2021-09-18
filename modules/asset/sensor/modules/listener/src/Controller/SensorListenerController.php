@@ -7,9 +7,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Route callbacks for the LegacyListener controller.
+ * Route callbacks for the legacy sensor listener controller.
  */
-class LegacyListenerController extends SensorDataController {
+class SensorListenerController extends SensorDataController {
 
   /**
    * Respond to GET or POST requests referencing sensor assets by public_key.
