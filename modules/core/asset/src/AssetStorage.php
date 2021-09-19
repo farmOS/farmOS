@@ -29,13 +29,30 @@ class AssetStorage extends SqlContentEntityStorage {
     $new_state = $entity->get('status')->first()->getString();
     $old_state = $entity->original->get('status')->first()->getString();
 
+    $state_unchanged = $new_state == $old_state;
+
+    // If the entity is not archived and this would otherwise not be a state
+    // transition but the archive timestamp is set, then transition to the
+    // archived state.
+    if ($state_unchanged && $old_state != 'archived' && $entity->getArchivedTime() != NULL) {
+      $entity->get('status')->first()->applyTransitionById('archive');
+    }
+
+    // If the entity is archived and this would otherwise not be a state
+    // transition but the archive timestemp is NULL, then transition to the
+    // active state.
+    if ($state_unchanged && $old_state == 'archived' && $entity->getArchivedTime() == NULL) {
+      $entity->get('status')->first()->applyTransitionById('to_active');
+    }
+
     // If the state has not changed, bail.
-    if ($new_state == $old_state) {
+    if ($state_unchanged) {
       return;
     }
 
-    // If the state has changed to archived, save the archived timestamp.
-    if ($new_state == 'archived') {
+    // If the state has changed to archived and no archived timestamp was
+    // specified, set it to the current time.
+    if ($new_state == 'archived' && $entity->getArchivedTime() == NULL) {
       $entity->setArchivedTime(\Drupal::time()->getRequestTime());
     }
 
