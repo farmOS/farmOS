@@ -68,6 +68,7 @@ class FarmMigrateCommands extends MigrateToolsCommands {
       $options = [
         'group' => $group,
       ];
+      $this->logger()->notice(dt('Importing migration group: @group', ['@group' => $group]));
       $this->import('', $options);
     }
   }
@@ -85,6 +86,7 @@ class FarmMigrateCommands extends MigrateToolsCommands {
       $options = [
         'group' => $group,
       ];
+      $this->logger()->notice(dt('Rolling back migration group: @group', ['@group' => $group]));
       $this->rollback('', $options);
     }
   }
