@@ -1,18 +1,18 @@
 <?php
 
-namespace Drupal\farm_sensor_listener\Plugin\migrate\source\d7;
+namespace Drupal\farm_migrate\Plugin\migrate\source\d7;
 
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
 
 /**
- * Migration source for sensor listener data.
+ * Migration source for sensor listener data names.
  *
  * @MigrateSource(
- *   id = "d7_sensor_listener_data",
+ *   id = "d7_sensor_listener_data_names",
  *   source_module = "farm_sensor_listener"
  * )
  */
-class SensorListenerData extends SqlBase {
+class SensorListenerDataNames extends SqlBase {
 
   /**
    * {@inheritdoc}
@@ -20,13 +20,11 @@ class SensorListenerData extends SqlBase {
   public function query() {
     $fields = [
       'id',
-      'timestamp',
       'name',
-      'value_numerator',
-      'value_denominator',
     ];
     return $this->select('farm_sensor_data', 'fsd')
       ->fields('fsd', $fields)
+      ->distinct()
       ->orderBy('fsd.id');
   }
 
@@ -36,10 +34,7 @@ class SensorListenerData extends SqlBase {
   public function fields() {
     $fields = [
       'id' => $this->t('Sensor asset ID.'),
-      'timestamp' => $this->t('Timestamp of the sensor reading.'),
       'name' => $this->t('Sensor reading name'),
-      'value_numerator' => $this->t('Value numerator'),
-      'value_denominator' => $this->t('Value denominator'),
     ];
     return $fields;
   }
@@ -50,7 +45,6 @@ class SensorListenerData extends SqlBase {
   public function getIds() {
     return [
       'id' => ['type' => 'integer'],
-      'timestamp' => ['type' => 'integer'],
       'name' => ['type' => 'string'],
     ];
   }

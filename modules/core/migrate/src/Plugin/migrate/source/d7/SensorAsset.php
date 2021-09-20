@@ -29,6 +29,20 @@ class SensorAsset extends Asset {
     // Join in the farm_sensor table.
     $query->join('farm_sensor', 'fs', 'fa.id = fs.id');
 
+    // Limit by the sensor type.
+    if (isset($this->configuration['sensor_type'])) {
+
+      // Specify the sensor type.
+      if (!empty($this->configuration['sensor_type'])) {
+        $query->condition('fs.type', (array) $this->configuration['sensor_type'], 'IN');
+      }
+
+      // Allow empty sensor type.
+      else {
+        $query->where("fs.type = '' OR fs.type IS NULL");
+      }
+    }
+
     // Add sensor fields aliased with correct name.
     $query->addField('fs', 'type', 'sensor_type');
     $query->addField('fs', 'settings', 'sensor_settings');

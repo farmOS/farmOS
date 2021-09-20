@@ -7,8 +7,8 @@ use Drupal\Core\Database\Connection;
 use Drupal\data_stream\DataStreamApiInterface;
 use Drupal\data_stream\DataStreamStorageInterface;
 use Drupal\data_stream\Entity\DataStreamInterface;
-use Drupal\data_stream\Traits\DataStreamSqlStorage;
 use Drupal\data_stream\Traits\DataStreamPrivateKeyAccess;
+use Drupal\fraction\Fraction;
 use Drupal\jsonapi\Exception\UnprocessableHttpEntityException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -28,7 +28,6 @@ use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
  */
 class Basic extends DataStreamTypeBase implements DataStreamStorageInterface, DataStreamApiInterface {
 
-  use DataStreamSqlStorage;
   use DataStreamPrivateKeyAccess;
 
   /**
@@ -89,6 +88,10 @@ class Basic extends DataStreamTypeBase implements DataStreamStorageInterface, Da
 
     // Describe the {data_stream_basic} table.
     $data[$data_table]['table']['group'] = $this->t('Basic data stream data');
+    $data[$data_table]['table']['base'] = [
+      'title' => $this->t('Basic data stream data'),
+      'help' => $this->t('Data provided by basic data streams.'),
+    ];
 
     // Data stream ID.
     $data[$data_table]['id'] = [
@@ -120,8 +123,8 @@ class Basic extends DataStreamTypeBase implements DataStreamStorageInterface, Da
 
     // Value numerator.
     $data[$data_table]['value_numerator'] = [
-      'title' => $this->t('Sensor value numerator'),
-      'help' => $this->t('The stored numerator value of the sensor reading.'),
+      'title' => $this->t('Value numerator'),
+      'help' => $this->t('The stored numerator value of the data stream reading.'),
       'field' => [
         'id' => 'numeric',
         'click sortable' => TRUE,
@@ -136,8 +139,8 @@ class Basic extends DataStreamTypeBase implements DataStreamStorageInterface, Da
 
     // Value denominator.
     $data[$data_table]['value_denominator'] = [
-      'title' => $this->t('Sensor value denominator'),
-      'help' => $this->t('The stored denominator value of the sensor reading.'),
+      'title' => $this->t('Value denominator'),
+      'help' => $this->t('The stored denominator value of the data stream reading.'),
       'field' => [
         'id' => 'numeric',
         'click sortable' => TRUE,
@@ -155,9 +158,9 @@ class Basic extends DataStreamTypeBase implements DataStreamStorageInterface, Da
       'numerator' => 'value_numerator',
       'denominator' => 'value_denominator',
     ];
-    $data[$data_table]['value_decimal'] = [
-      'title' => $this->t('Sensor value (decimal)'),
-      'help' => $this->t('Decimal equivalent of sensor value.'),
+    $data[$data_table]['value'] = [
+      'title' => $this->t('Value'),
+      'help' => $this->t('Decimal equivalent of the data stream reading.'),
       'real field' => 'value_numerator',
       'field' => [
         'id' => 'fraction',
@@ -283,6 +286,170 @@ class Basic extends DataStreamTypeBase implements DataStreamStorageInterface, Da
     }
 
     return Response::create('', Response::HTTP_CREATED);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function storageGet(DataStreamInterface $stream, array $params) {
+    return $this->storageGetMultiple([$stream], $params);
+  }
+
+  /**
+   * Get data from multiple data streams.
+   *
+   * @param \Drupal\data_stream\Entity\DataStreamInterface[] $data_streams
+   *   Array of data streams.
+   * @param array $params
+   *   Parameters.
+   *
+   * @return array
+   *   Array of data.
+   */
+  public function storageGetMultiple(array $data_streams, array $params) {
+
+    // Bail if no data streams are specified.
+    if (empty($data_streams)) {
+      return [];
+    }
+
+    // Collect data stream ids.
+    $data_stream_ids = array_map(function ($data_stream) {
+      return $data_stream->id();
+    }, $data_streams);
+
+    // Query for data stream data.
+    /** @var \Drupal\Core\Database\Query\Select $query */
+    $query = $this->connection->select($this->tableName, 'd');
+    $query->fields('d', ['timestamp', 'value_numerator', 'value_denominator']);
+    $query->leftJoin('data_stream_data', 'dsd', 'd.id = dsd.id');
+    $query->addField('dsd', 'name');
+
+    // Limit to the specified data streams.
+    $query->condition('d.id', $data_stream_ids, 'IN');
+
+    if (isset($params['start']) && is_numeric($params['start'])) {
+      $query->condition('d.timestamp', $params['start'], '>=');
+    }
+
+    if (isset($params['end']) && is_numeric($params['end'])) {
+      $query->condition('d.timestamp', $params['end'], '<=');
+    }
+
+    if (isset($params['name'])) {
+      $operator = is_array($params['name']) ? 'IN' : '=';
+      $query->condition('dsd.name', $params['name'], $operator);
+    }
+
+    $query->orderBy('d.timestamp', 'DESC');
+
+    $offset = 0;
+    if (isset($params['offset']) && is_numeric($params['offset'])) {
+      $offset = $params['offset'];
+    }
+
+    if (isset($params['limit']) && is_numeric($params['limit'])) {
+      $query->range($offset, $params['limit']);
+    }
+
+    $result = $query->execute();
+
+    // Build an array of data.
+    $data = [];
+    foreach ($result as $row) {
+
+      // If name or timestamp are empty, skip.
+      if (empty($row->timestamp)) {
+        continue;
+      }
+
+      // Convert the value numerator and denominator to a decimal.
+      $fraction = new Fraction($row->value_numerator, $row->value_denominator);
+      $value = $fraction->toDecimal(0, TRUE);
+
+      // Create a data object for the sensor value.
+      $point = new \stdClass();
+      $point->timestamp = $row->timestamp;
+      $point->{$row->name} = $value;
+      $data[] = $point;
+    }
+
+    // Return the data.
+    return $data;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function storageSave(DataStreamInterface $stream, array $data) {
+
+    // If the data is an array of multiple data points, iterate over each and
+    // recursively process.
+    if (is_array(reset($data))) {
+      foreach ($data as $point) {
+        $this->storageSave($stream, $point);
+      }
+      return TRUE;
+    }
+
+    // Save a timestamp.
+    $timestamp = NULL;
+
+    // If a timestamp is provided, ensure that it is in UNIX timestamp format.
+    if (!empty($data['timestamp'])) {
+
+      // If the timestamp is numeric, we're good!
+      if (is_numeric($data['timestamp'])) {
+        $timestamp = $data['timestamp'];
+      }
+
+      // Otherwise, try converting it from a string. If that doesn't work, we
+      // throw it out and fall back on REQUEST_TIME set above.
+      else {
+        $strtotime = strtotime($data['timestamp']);
+        if (!empty($strtotime)) {
+          $timestamp = $strtotime;
+        }
+      }
+    }
+
+    // Generate a timestamp from the request time. This will only be used if a
+    // timestamp is not provided in the JSON data.
+    if (empty($timestamp)) {
+      $timestamp = \Drupal::time()->getRequestTime();
+    }
+
+    // Iterate over the JSON properties.
+    foreach ($data as $key => $value) {
+
+      // If the key does not match the data stream name, skip it.
+      if ($key !== $stream->label()) {
+        continue;
+      }
+
+      // If the value is not numeric, skip it.
+      if (!is_numeric($value)) {
+        continue;
+      }
+
+      // Create a row to store in the database;.
+      $row = [
+        'id' => $stream->id(),
+        'timestamp' => $timestamp,
+      ];
+
+      // Convert the value to a fraction.
+      $fraction = Fraction::createFromDecimal($value);
+      $row['value_numerator'] = $fraction->getNumerator();
+      $row['value_denominator'] = $fraction->getDenominator();
+
+      // Enter the reading into the database.
+      $this->connection->insert($this->tableName)
+        ->fields($row)
+        ->execute();
+    }
+
+    return TRUE;
   }
 
 }

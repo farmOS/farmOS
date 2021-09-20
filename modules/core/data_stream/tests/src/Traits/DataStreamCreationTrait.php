@@ -58,11 +58,12 @@ trait DataStreamCreationTrait {
 
     $data = [];
 
+    $name = $stream->label();
     $value = 0;
     for ($x = 0; $x < $count; $x++) {
       $data[] = [
         'timestamp' => $start_time,
-        'value' => $value,
+        $name => $value,
       ];
       $start_time += 86400;
       $value += 1;

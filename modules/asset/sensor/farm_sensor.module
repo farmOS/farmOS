@@ -2,25 +2,21 @@
 
 /**
  * @file
- * The data stream module.
+ * The farm_sensor module.
  */
 
+use Drupal\asset\Entity\AssetInterface;
 use Drupal\Core\Url;
-use Drupal\data_stream\Entity\DataStreamInterface;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\data_stream\Entity\DataStreamInterface;
 
 /**
  * Implements hook_ENTITY_TYPE_view_alter().
  */
-function data_stream_data_stream_view_alter(array &$build, DataStreamInterface $data_stream, EntityViewDisplayInterface $display) {
+function farm_sensor_asset_view_alter(array &$build, AssetInterface $asset, EntityViewDisplayInterface $display) {
 
-  // Bail if there is no entity.
-  if (empty($data_stream)) {
-    return;
-  }
-
-  // Bail if not the basic type.
-  if ($data_stream->bundle() != 'basic') {
+  // Bail if there is no sensor asset.
+  if (empty($asset) || $asset->bundle() != 'sensor') {
     return;
   }
 
@@ -30,21 +26,28 @@ function data_stream_data_stream_view_alter(array &$build, DataStreamInterface $
   // saved in config. In either case, the original mode is always "full".
   if ($display->getOriginalMode() === 'full') {
 
+    // Bail if the sensor asset does not have any basic data streams.
+    $basic_data_streams = array_filter($asset->get('data_stream')->referencedEntities(), function (DataStreamInterface $data_stream) {
+      return $data_stream->bundle() === 'basic';
+    });
+    if (count($basic_data_streams) === 0) {
+      return;
+    }
+
     // Add a Developer information details element with brief description.
-    // @todo Include link to updated user guide.
     $build['api'] = [
       '#type' => 'details',
       '#title' => t('Developer information'),
-      '#description' => t('This data stream type will listen for data posted to it from other web-connected devices. Use the information below to configure your device to begin posting data to this data stream. For more information, refer to the farmOS sensor guide.'),
+      '#description' => t('This sensor asset listen for data posted to it from other web-connected devices. Use the information below to configure your device to begin posting data to this sensor. For more information, refer to the farmOS sensor guide.'),
       '#open' => FALSE,
     ];
 
-    // Build URL to the data stream API endpoint.
-    $url = new Url('data_stream.data', ['uuid' => $data_stream->uuid()]);
+    // Build URL to the sensor API endpoint.
+    $url = new Url('farm_sensor.data_stream_data', ['uuid' => $asset->uuid()]);
 
-    // If the data stream is not public, include the private key.
-    if (!$data_stream->isPublic()) {
-      $url->setOption('query', ['private_key' => $data_stream->getPrivateKey()]);
+    // If the sensor is not public, include the private key.
+    if (!$asset->get('public')->value) {
+      $url->setOption('query', ['private_key' => $asset->get('private_key')->value]);
     }
 
     // Render the API url.
@@ -56,17 +59,18 @@ function data_stream_data_stream_view_alter(array &$build, DataStreamInterface $
       '#url' => $url,
       '#prefix' => '<p><strong>' . $url_string_label . ':</strong> ',
       '#suffix' => '</p>',
+      '#weight' => -10,
     ];
 
     // Render JSON examples.
     $request_time = \Drupal::time()->getRequestTime();
     $json_example = '{ "timestamp": ' . $request_time . ', "value": 76.5 }';
-    $json_example_label = t('JSON Example');
+    $json_example_label = t('JSON example');
     $build['api']['json_example'] = [
       '#markup' => '<p><strong>' . $json_example_label . ':</strong> ' . $json_example . '</p>',
     ];
     $json_example_multiple = '{ "timestamp": ' . $request_time . ', "sensor1": 76.5, "sensor2": 60 }';
-    $json_example_multiple_label = t('JSON Example (multiple values)');
+    $json_example_multiple_label = t('JSON example (multiple values)');
     $build['api']['json_example_multiple'] = [
       '#markup' => '<p><strong>' . $json_example_multiple_label . ':</strong> ' . $json_example_multiple . '</p>',
     ];
@@ -78,19 +82,4 @@ function data_stream_data_stream_view_alter(array &$build, DataStreamInterface $
       '#markup' => '<p><strong>' . $curl_example_label . ':</strong> ' . $curl_example . '</p>',
     ];
   }
-
-  // Add the basic data block view.
-  $build['views']['data'] = views_embed_view('data_stream_basic_data', 'block', $data_stream->id());
-}
-
-/**
- * Implements hook_ENTITY_TYPE_delete().
- */
-function data_stream_data_stream_delete(DataStreamInterface $data_stream) {
-
-  // @todo Considerations for improved entity reference integrity?
-  // Remove any references to this data stream from the asset.data_stream field.
-  \Drupal::database()->delete('asset__data_stream')
-    ->condition('data_stream_target_id', $data_stream->id())
-    ->execute();
 }
