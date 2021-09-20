@@ -17,6 +17,8 @@ YML configuration files included with the farmOS Migrate module.
   See [Issue #3203228](https://www.drupal.org/project/farm/issues/3203228)
 * Uploaded photos/files must be copied to the destination filesystem before
   migrating. See [Migrating files](#migrating-files) below.
+* If you are using the "Farm sensor: Listener" module, see
+  [Sensor data streams](#sensor-data-streams) below
 * See [Limitations](#limitations) below.
 
 ## Running the migration
@@ -134,6 +136,41 @@ be moved, leaving behind various temporary files in the `migrate` directory
 that are no longer needed after the migration. This `migrate` directory can be
 deleted after the migration, once it has been confirmed that everything was
 migrated successfully.
+
+## Sensor data streams
+
+If you are using the "Farm sensor: Listener" module in farmOS 1.x to collect
+data from sensors, there are a few extra steps and considerations for migrating
+and maintaining these data streams in farmOS 2.x.
+
+farmOS 2.x introduces a new entity type called "Data streams", which represent
+named sets of time-series data. All data from the old "listener" module can be
+migrated into named data streams.
+
+In order to migrate data, you must enable the "Sensor listener (legacy)" module
+in farmOS 2.x. This can be found in Drupal core's `/admin/modules` page, or it
+can be enabled via Drush:
+
+    drush en farm_sensor_listener
+
+Enabling this module does two things:
+
+1. Adds a migration for 1.x sensor data into 2.x data streams.
+2. Creates URL endpoints that match the legacy listener paths, which ensures
+   that farmOS will continue receiving and storing data being pushed from your
+   sensors.
+
+If you have active sensors that are sending data to your farmOS, and you want
+to minimize downtime/interruption of these streams during migration, one
+approach is to set up your 2.x instance on a different domain, run migrations,
+and then point your domain to the new server. Be sure to set the TTL value of
+your domain's DNS record to 5 minutes or less to ensure that the change
+propagates quickly. It is highly recommended that you test the migrations at
+least once before this, to ensure that they all work smoothly.
+
+If you do not have any active sensors sending data, then you can optionally
+uninstall the `farm_sensor_listener` module after running migrations. This will
+remove the legacy API endpoints, but still keep your migrated data.
 
 ## Limitations
 
