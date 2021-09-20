@@ -18,7 +18,7 @@
       instance.popup = instance.addPopup(function (event) {
         var content = '';
         var feature = instance.map.forEachFeatureAtPixel(event.pixel, function(feature, layer) { return feature; });
-        if (feature && feature.get('name')) {
+        if (feature) {
 
           // If the feature is a cluster, then create a list of names and add it
           // to the overall feature's description.
@@ -40,7 +40,9 @@
           var name = featureName(feature) || '';
           var description = feature.get('description') || '';
           var measurement = instance.measureGeometry(feature.getGeometry(), instance.units);
-          if (name !== '' || measurement !== '' || description !== '') {
+
+          // A popup name is required, along with a measurement and/or description.
+          if (name !== '' && (measurement !== '' || description !== '')) {
             content = '<h4 class="ol-popup-name">' + name + '</h4><div class="ol-popup-measurement"><small>' + measurement + '</small></div><div class="ol-popup-description">' + description + '</div>';
           }
         }
