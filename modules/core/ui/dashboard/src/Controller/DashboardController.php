@@ -147,15 +147,15 @@ class DashboardController extends ControllerBase {
       }
 
       // Or if a plugin block id is provided, display the block.
-      elseif (!empty($pane['plugin_block'])) {
+      elseif (!empty($pane['block_plugin'])) {
         // Render plugin block if is set.
-        $plugin_block = $this->blockManager->createInstance($pane['plugin_block'], $args);
-        if ($plugin_block) {
+        $block_plugin = $this->blockManager->createInstance($pane['block_plugin'], $args);
+        if ($block_plugin) {
           // Check block access.
-          $access_result = $plugin_block->access($this->currentUser);
-          if (is_object($access_result) && $access_result->isAllowed() || is_bool($access_result) && $access_result) {
+          $access_result = $block_plugin->access($this->currentUser);
+          if ($access_result == TRUE) {
             // Builds renderable array of the block.
-            $output = $plugin_block->build();
+            $output = $block_plugin->build();
           }
         }
       }
