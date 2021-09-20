@@ -1,9 +1,0 @@
-langcode: en
-status: true
-dependencies:
-  module:
-    - data_stream
-id: data_stream.summary
-label: 'Summary'
-targetEntityType: data_stream
-cache: false

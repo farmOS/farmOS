@@ -420,11 +420,10 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
           'weight' => $options['weight']['form'] ?? 0,
         ];
         $view_display_options = [
-          'label' => 'above',
-          'type' => 'entity_reference_entity_view',
+          'label' => 'inline',
+          'type' => 'entity_reference_label',
           'weight' => $options['weight']['view'] ?? 0,
           'settings' => [
-            'view_mode' => 'summary',
             'link' => TRUE,
           ],
         ];
