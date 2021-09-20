@@ -35,8 +35,8 @@ function hook_farm_dashboard_panes() {
       // Specify a 'block' to automatically load a Block.
       'block' => 'my_block',
 
-      // Specify a plugin block id to load custom Blocks.
-      'plugin_block' => 'my_plugin_block_id',
+      // Specify a block plugin id to load custom Blocks.
+      'block_plugin' => 'my_block_plugin_id',
 
       // Optional arguments to pass to the view or block.
       // This is useful if the view or block can be used in different contexts.
