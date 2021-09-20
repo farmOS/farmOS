@@ -3,9 +3,9 @@
 ## Goals
 
 The goal of the farmOS data model is to represent and organize a wide variety
-of agricultural and ecological systems to allow for easy access and analysis.
-This ranges from small-scale garden records to industrial agriculture to
-national forestry management.
+of agricultural and ecological systems to allow for easy access, analysis, and
+interoperability. This ranges from small-scale garden records to industrial
+agriculture to national forestry management.
 
 farmOS can model data that was recorded via manual data entry, as well as data
 streams from sensors or other applications.
