@@ -24,8 +24,9 @@ YML configuration files included with the farmOS Migrate module.
 Follow the steps below to migrate your farmOS 1.x data to farmOS 2.x:
 
 1. Install farmOS 2.x.
-2. Install the farmOS modules you intend to use (this will determine what
-   data is migrated).
+2. Install the farmOS modules you intend to use at `/farm/settings/modules`
+   (this will determine what data is migrated). If you have any community
+   modules installed in 1.x be sure to download and install 2.x versions.
 3. Add farmOS 1.x database connection info to `settings.php`:
 
         $databases['migrate']['default'] = [
