@@ -59,6 +59,7 @@ function farm_sensor_asset_view_alter(array &$build, AssetInterface $asset, Enti
       '#url' => $url,
       '#prefix' => '<p><strong>URL:</strong> ',
       '#suffix' => '</p>',
+      '#weight' => -10,
     ];
 
     // Render JSON examples.

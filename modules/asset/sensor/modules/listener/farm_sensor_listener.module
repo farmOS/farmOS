@@ -5,8 +5,12 @@
  * The farm_sensor_listener module.
  */
 
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Url;
 use Drupal\data_stream\Entity\DataStream;
+use Drupal\data_stream\Entity\DataStreamInterface;
 
 /**
  * Implements hook_farm_entity_bundle_field_info().
@@ -29,4 +33,50 @@ function farm_sensor_listener_farm_entity_bundle_field_info(EntityTypeInterface 
   }
 
   return $fields;
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_view_alter().
+ */
+function farm_sensor_listener_asset_view_alter(array &$build, EntityInterface $asset, EntityViewDisplayInterface $display) {
+
+  // Bail if there is no sensor asset.
+  if (empty($asset) || $asset->bundle() != 'sensor') {
+    return;
+  }
+
+  // Only render developer information in the full view mode.
+  // Use getOriginalMode() because getMode() is not reliable. The default
+  // display mode will return "full" unless a "default" display is actually
+  // saved in config. In either case, the original mode is always "full".
+  if ($display->getOriginalMode() === 'full') {
+
+    // Bail if the sensor asset does not have any basic data streams.
+    $basic_data_streams = array_filter($asset->get('data_stream')->referencedEntities(), function (DataStreamInterface $data_stream) {
+      return $data_stream->bundle() === 'basic';
+    });
+    if (count($basic_data_streams) === 0) {
+      return;
+    }
+
+    // Build URL to the sensor Legacy API endpoint.
+    $url = new Url('farm_sensor_listener.data_stream', ['public_key' => $asset->get('public_key')->value]);
+
+    // If the sensor is not public, include the private key.
+    if (!$asset->get('public')->value) {
+      $url->setOption('query', ['private_key' => $asset->get('private_key')->value]);
+    }
+
+    // Render the legacy API URL.
+    $url_string = $url->setAbsolute()->toString();
+    $url_string_label = t('Legacy URL');
+    $build['api']['url_legacy'] = [
+      '#type' => 'link',
+      '#title' => $url_string,
+      '#url' => $url,
+      '#prefix' => '<p><strong>' . $url_string_label . ':</strong> ',
+      '#suffix' => '</p>',
+      '#weight' => -9,
+    ];
+  }
 }
