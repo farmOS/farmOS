@@ -53,11 +53,12 @@ function farm_sensor_asset_view_alter(array &$build, AssetInterface $asset, Enti
 
     // Render the API url.
     $url_string = $url->setAbsolute()->toString();
+    $url_string_label = t('URL');
     $build['api']['url'] = [
       '#type' => 'link',
       '#title' => $url_string,
       '#url' => $url,
-      '#prefix' => '<p><strong>URL:</strong> ',
+      '#prefix' => '<p><strong>' . $url_string_label . ':</strong> ',
       '#suffix' => '</p>',
       '#weight' => -10,
     ];
@@ -65,18 +66,21 @@ function farm_sensor_asset_view_alter(array &$build, AssetInterface $asset, Enti
     // Render JSON examples.
     $request_time = \Drupal::time()->getRequestTime();
     $json_example = '{ "timestamp": ' . $request_time . ', "value": 76.5 }';
+    $json_example_label = t('JSON example');
     $build['api']['json_example'] = [
-      '#markup' => '<p><strong>JSON Example:</strong> ' . $json_example . '</p>',
+      '#markup' => '<p><strong>' . $json_example_label . ':</strong> ' . $json_example . '</p>',
     ];
     $json_example_multiple = '{ "timestamp": ' . $request_time . ', "sensor1": 76.5, "sensor2": 60 }';
+    $json_example_multiple_label = t('JSON example (multiple values)');
     $build['api']['json_example_multiple'] = [
-      '#markup' => '<p><strong>JSON Example (multiple values):</strong> ' . $json_example_multiple . '</p>',
+      '#markup' => '<p><strong>' . $json_example_multiple_label . ':</strong> ' . $json_example_multiple . '</p>',
     ];
 
     // Render example CURL command.
     $curl_example = 'curl -H "Content-Type: application/json" -X POST -d \'' . $json_example . '\' ' . $url_string;
+    $curl_example_label = t('Example CURL command');
     $build['api']['json_example_multiple'] = [
-      '#markup' => '<p><strong>Example CURL command:</strong> ' . $curl_example . '</p>',
+      '#markup' => '<p><strong>' . $curl_example_label . ':</strong> ' . $curl_example . '</p>',
     ];
   }
 }
