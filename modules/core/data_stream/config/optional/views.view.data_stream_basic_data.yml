@@ -48,15 +48,17 @@ display:
           sort_asc_label: Asc
           sort_desc_label: Desc
       pager:
-        type: mini
+        type: full
         options:
-          items_per_page: 1000
+          items_per_page: 100
           offset: 0
           id: 0
           total_pages: null
           tags:
             previous: '‹ Previous'
             next: 'Next ›'
+            first: '« First'
+            last: 'Last »'
           expose:
             items_per_page: true
             items_per_page_label: Limit
@@ -65,6 +67,7 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
+          quantity: 9
       style:
         type: table
         options:
