@@ -448,23 +448,9 @@ display:
           formats:
             csv: csv
       pager:
-        type: mini
+        type: none
         options:
-          items_per_page: 1000
           offset: 0
-          id: 0
-          total_pages: null
-          tags:
-            previous: ‹‹
-            next: ››
-          expose:
-            items_per_page: true
-            items_per_page_label: Limit
-            items_per_page_options: '1000,500,100,10,1'
-            items_per_page_options_all: true
-            items_per_page_options_all_label: '- All -'
-            offset: false
-            offset_label: Offset
       auth:
         - cookie
     cache_metadata:
@@ -473,6 +459,5 @@ display:
         - 'languages:language_interface'
         - request_format
         - url
-        - url.query_args
         - user.permissions
       tags: {  }
