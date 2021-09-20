@@ -48,7 +48,7 @@ Add the following lines to `www/web/sites/default/settings.php`:
 
 ```
 $settings['reverse_proxy'] = TRUE;
-$settings['reverse_proxy_addresses'] = [!empty($_SERVER['REMOTE_ADDR']) ?? NULL];
+$settings['reverse_proxy_addresses'] = [$_SERVER['REMOTE_ADDR']];
 $settings['reverse_proxy_trusted_headers'] = \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_ALL;
 ```
 
