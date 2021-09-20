@@ -35,7 +35,6 @@ function farm_sensor_asset_view_alter(array &$build, AssetInterface $asset, Enti
     }
 
     // Add a Developer information details element with brief description.
-    // @todo Include link to updated user guide.
     $build['api'] = [
       '#type' => 'details',
       '#title' => t('Developer information'),
