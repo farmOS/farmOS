@@ -2,8 +2,10 @@
 
 namespace Drupal\farm_ui_dashboard\Controller;
 
+use Drupal\Core\Block\BlockManagerInterface;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Layout\LayoutPluginManagerInterface;
+use Drupal\Core\Session\AccountInterface;
 use Drupal\views\Views;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -22,17 +24,37 @@ class DashboardController extends ControllerBase {
   protected $layoutPluginManager;
 
   /**
+   * The block manager.
+   *
+   * @var \Drupal\Core\Block\BlockManagerInterface
+   */
+  protected $blockManager;
+
+  /**
+   * The current user.
+   *
+   * @var \Drupal\Core\Session\AccountInterface
+   */
+  protected $currentUser;
+
+  /**
    * Class constructor.
    */
-  public function __construct(LayoutPluginManagerInterface $layout_plugin_manager) {
+  public function __construct(LayoutPluginManagerInterface $layout_plugin_manager, BlockManagerInterface $block_manager, AccountInterface $current_user) {
     $this->layoutPluginManager = $layout_plugin_manager;
+    $this->blockManager = $block_manager;
+    $this->currentUser = $current_user;
   }
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    return new static($container->get('plugin.manager.core.layout'));
+    return new static(
+      $container->get('plugin.manager.core.layout'),
+      $container->get('plugin.manager.block'),
+      $container->get('current_user'),
+    );
   }
 
   /**
@@ -122,6 +144,20 @@ class DashboardController extends ControllerBase {
 
         // Build the blocks renderable output.
         $output = $this->entityTypeManager()->getViewBuilder('block')->view($block);
+      }
+
+      // Or if a plugin block id is provided, display the block.
+      elseif (!empty($pane['plugin_block'])) {
+        // Render plugin block if is set.
+        $plugin_block = $this->blockManager->createInstance($pane['plugin_block'], $args);
+        if ($plugin_block) {
+          // Check block access.
+          $access_result = $plugin_block->access($this->currentUser);
+          if (is_object($access_result) && $access_result->isAllowed() || is_bool($access_result) && $access_result) {
+            // Builds renderable array of the block.
+            $output = $plugin_block->build();
+          }
+        }
       }
 
       // If a specific title was provided, use it.
