@@ -40,6 +40,13 @@ Follow the steps below to migrate your farmOS 1.x data to farmOS 2.x:
           'driver' => 'mysql',
         ];
 
+   It is also recommended that you increase the PHP `memory_limit` for Drush by
+   adding the following to `settings.php`:
+
+        if (PHP_SAPI === 'cli') {
+          ini_set('memory_limit', '512M');
+        }
+
 4. Copy user-uploaded files to the new directory (see
    [Migrating files](#migrating-files) below).
 5. Install the farmOS Migrate (`farm_migrate`) module.
@@ -182,6 +189,20 @@ migration that is stuck.
 
     drush migrate:reset-status [migration_id]
     drush migrate:rollback [migration_id]
+
+### Memory limit
+
+If you have a large amount of data, there is a chance you may encounter run
+into the PHP memory limit. You will see an error like the following:
+
+    Fatal error: Allowed memory size of 268435456 bytes exhausted
+
+If this happens, you can increase the PHP `memory_limit` setting for Drush by
+tweaking the `ini_set('memory_limit', '512M');` line in your `settings.php`,
+assuming your host's memory can accommodate it.
+
+**Be sure to roll back any migrations that were being processed when the error
+occurred to ensure that no data is corrupted.**
 
 ### Movement logs
 
