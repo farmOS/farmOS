@@ -309,7 +309,18 @@ display:
       sorts: {  }
       title: Block
       header: {  }
-      footer: {  }
+      footer:
+        display_link:
+          id: display_link
+          table: views
+          field: display_link
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          display_id: csv
+          label: 'Export CSV'
+          plugin_id: display_link
       empty:
         area:
           id: area
@@ -393,20 +404,8 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      footer:
-        display_link:
-          id: display_link
-          table: views
-          field: display_link
-          relationship: none
-          group_type: group
-          admin_label: ''
-          empty: false
-          display_id: rest_export
-          label: 'Export CSV'
-          plugin_id: display_link
       defaults:
-        footer: false
+        footer: true
     cache_metadata:
       max-age: -1
       contexts:
@@ -415,14 +414,14 @@ display:
         - url.query_args
         - user.permissions
       tags: {  }
-  rest_export:
+  csv:
     display_plugin: rest_export
-    id: rest_export
+    id: csv
     display_title: 'REST export'
     position: 1
     display_options:
       display_extenders: {  }
-      path: data_stream/%/export.csv
+      path: data_stream/%/data.csv
       row:
         type: data_field
         options:
