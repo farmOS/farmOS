@@ -141,6 +141,7 @@ class FarmMigrationSubscriber implements EventSubscriberInterface {
     $this->deleteLogQuantityReferences($event);
     $this->deleteTermParentReferences($event);
     $this->deletePlantTypeCompanionReferences($event);
+    $this->deleteSensorDataStreamReferences($event);
   }
 
   /**
@@ -437,6 +438,32 @@ class FarmMigrationSubscriber implements EventSubscriberInterface {
       if (!empty($id_values['tid'])) {
         $this->database->query('DELETE FROM {taxonomy_term__companions} WHERE companions_target_id = :tid', [':tid' => $id_values['tid']]);
         $this->database->query('DELETE FROM {taxonomy_term_revision__companions} WHERE companions_target_id = :tid', [':tid' => $id_values['tid']]);
+      }
+    }
+  }
+
+  /**
+   * Delete data stream references from sensor assets.
+   *
+   * @param \Drupal\migrate\Event\MigrateRowDeleteEvent $event
+   *   The row delete event object.
+   */
+  public function deleteSensorDataStreamReferences(MigrateRowDeleteEvent $event) {
+
+    // If this is the farm_migrate_sensor_listener_data_streams migration,
+    // delete all references to the destination data_stream from sensor assets.
+    // This is necessary to prevent entity reference integrity constraint errors
+    // if an attempt is made to roll back data_streams that are referenced by
+    // sensor assets. During migration, these references are created by the
+    // DataStream migrate destination plugin, so they will be recreated if this
+    // migration is imported again after rollback.
+    // @see \Drupal\data_stream\Plugin\migrate\destination\DataStream
+    $migration = $event->getMigration();
+    if ($migration->id() == 'farm_migrate_sensor_listener_data_streams') {
+      $id_values = $event->getDestinationIdValues();
+      if (!empty($id_values['id'])) {
+        $this->database->query('DELETE FROM {asset__data_stream} WHERE data_stream_target_id = :id', [':id' => $id_values['id']]);
+        $this->database->query('DELETE FROM {asset_revision__data_stream} WHERE data_stream_target_id = :id', [':id' => $id_values['id']]);
       }
     }
   }
