@@ -52,7 +52,7 @@ class Sensor extends FarmAssetType {
     $options = [
       'type' => 'boolean',
       'label' => $this->t('Public'),
-      'description' => $this->t('If the sensor has public access via API.'),
+      'description' => $this->t('Whether or not data from this sensor can be read publicly without the private key.'),
       'default' => FALSE,
       'weight' => [
         'form' => 2,
