@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\farm_migrate\Plugin\migrate\process;
+namespace Drupal\quantity\Plugin\migrate\process;
 
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
