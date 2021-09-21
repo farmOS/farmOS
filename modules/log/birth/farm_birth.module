@@ -1,0 +1,40 @@
+<?php
+
+/**
+ * @file
+ * Contains farm_birth.module.
+ */
+
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function farm_birth_form_log_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+  // Only proceed if the mother and asset fields exist.
+  if (empty($form['mother']) || empty($form['asset'])) {
+    return;
+  }
+
+  // Rename the asset field to Children.
+  $form['asset']['widget']['#title'] = t('Children');
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_view_alter().
+ */
+function farm_birth_log_view_alter(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display) {
+
+  // Only alter birth logs.
+  if ($entity->bundle() != 'birth') {
+    return;
+  }
+
+  // Rename the asset field to Children.
+  if (!empty($build['asset'])) {
+    $build['asset']['#title'] = t('Children');
+  }
+}
