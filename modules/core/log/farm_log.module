@@ -23,6 +23,30 @@ function farm_log_log_presave(LogInterface $log) {
 }
 
 /**
+ * Implements hook_ENTITY_TYPE_insert().
+ */
+function farm_log_log_insert(LogInterface $log) {
+
+  // Dispatch an event on log insert.
+  // @todo Replace this with core event via https://www.drupal.org/node/2551893.
+  $event = new LogEvent($log);
+  $event_dispatcher = \Drupal::service('event_dispatcher');
+  $event_dispatcher->dispatch(LogEvent::INSERT, $event);
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_update().
+ */
+function farm_log_log_update(LogInterface $log) {
+
+  // Dispatch an event on log update.
+  // @todo Replace this with core event via https://www.drupal.org/node/2551893.
+  $event = new LogEvent($log);
+  $event_dispatcher = \Drupal::service('event_dispatcher');
+  $event_dispatcher->dispatch(LogEvent::UPDATE, $event);
+}
+
+/**
  * Implements hook_ENTITY_TYPE_delete().
  */
 function farm_log_log_delete(LogInterface $log) {
