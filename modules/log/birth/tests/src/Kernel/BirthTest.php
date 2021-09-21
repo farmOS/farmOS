@@ -3,6 +3,7 @@
 namespace Drupal\Tests\farm_birth\Kernel;
 
 use Drupal\asset\Entity\Asset;
+use Drupal\Component\Render\FormattableMarkup;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\log\Entity\Log;
 use Drupal\taxonomy\Entity\Term;
@@ -36,6 +37,7 @@ class BirthTest extends KernelTestBase {
     'user',
     'taxonomy',
     'text',
+    'views',
   ];
 
   /**
@@ -128,6 +130,56 @@ class BirthTest extends KernelTestBase {
     $this->assertEquals($mother->id(), $child2->get('parent')->referencedEntities()[0]->id());
     $this->assertEquals($timestamp, $child1->get('birthdate')->value);
     $this->assertEquals($timestamp, $child2->get('birthdate')->value);
+  }
+
+  /**
+   * Test that only one birth log can reference an asset.
+   */
+  public function testUniqueBirthLogConstraint() {
+
+    // Create a Cow animal type term.
+    /** @var \Drupal\taxonomy\TermInterface $cow */
+    $cow = Term::create([
+      'name' => 'Cow',
+      'vid' => 'animal_type',
+    ]);
+    $cow->save();
+
+    // Create an asset.
+    /** @var \Drupal\asset\Entity\AssetInterface $animal */
+    $asset = Asset::create([
+      'name' => $this->randomMachineName(),
+      'type' => 'animal',
+      'animal_type' => ['tid' => $cow->id()],
+      'status' => 'active',
+    ]);
+    $asset->save();
+
+    // Create a birth log that references the asset.
+    $log1 = Log::create([
+      'type' => 'birth',
+      'timestamp' => \Drupal::time()->getRequestTime(),
+      'asset' => [['target_id' => $asset->id()]],
+    ]);
+    $log1->save();
+
+    // Confirm that there were no validation errors.
+    $errors = $log1->validate();
+    $this->assertCount(0, $errors);
+
+    // Create a second birth log that references the asset.
+    $log2 = Log::create([
+      'type' => 'birth',
+      'timestamp' => \Drupal::time()->getRequestTime(),
+      'asset' => [['target_id' => $asset->id()]],
+    ]);
+    $log2->save();
+
+    // Confirm that validation fails.
+    $errors = $log2->validate();
+    $this->assertCount(1, $errors);
+    $this->assertEquals(new FormattableMarkup('%child already has a birth log. More than one birth log cannot reference the same child.', ['%child' => $asset->label()]), $errors[0]->getMessage());
+    $this->assertEquals('asset', $errors[0]->getPropertyPath());
   }
 
 }

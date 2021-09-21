@@ -7,6 +7,7 @@
 
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
@@ -36,5 +37,17 @@ function farm_birth_log_view_alter(array &$build, EntityInterface $entity, Entit
   // Rename the asset field to Children.
   if (!empty($build['asset'])) {
     $build['asset']['#title'] = t('Children');
+  }
+}
+
+/**
+ * Implements hook_entity_base_field_info_alter().
+ */
+function farm_birth_entity_base_field_info_alter(&$fields, EntityTypeInterface $entity_type) {
+  /** @var \Drupal\field\Entity\FieldConfig[] $fields */
+
+  // Validate that only one birth log references an asset.
+  if ($entity_type->id() == 'log' && !empty($fields['asset'])) {
+    $fields['asset']->addConstraint('UniqueBirthLog');
   }
 }
