@@ -27,8 +27,8 @@ class Birth extends FarmLogType {
       'target_type' => 'asset',
       'target_bundle' => 'animal',
       'weight' => [
-        'form' => 55,
-        'view' => -5,
+        'form' => 45,
+        'view' => -15,
       ],
     ];
     $fields['mother'] = $this->farmFieldFactory->bundleFieldDefinition($options);
