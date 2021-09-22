@@ -40,6 +40,13 @@ function farm_ui_views_views_pre_view(ViewExecutable $view, $display_id, array &
     }
   }
 
+  // Remove the asset and location filters from the log page_asset display.
+  // @todo Make the AssetOrLocationArgument compatible with these filters.
+  if ($view->id() == 'farm_log' && $display_id == 'page_asset') {
+    $view->removeHandler($display_id, 'filter', 'asset_target_id');
+    $view->removeHandler($display_id, 'filter', 'location_target_id');
+  }
+
   // If this is the "Upcoming" or "Late" Logs block display, add a "more" link
   // that points to the default page display with appropriate filters.
   if ($view->id() == 'farm_log' && in_array($display_id, ['block_upcoming', 'block_late'])) {
