@@ -16,19 +16,17 @@ use Drupal\views\ViewExecutable;
 function farm_ui_views_help($route_name, RouteMatchInterface $route_match) {
   $output = '';
 
-  // Define route names and URLs for primary entity types.
+  // Define common route names and URLs for primary entity types.
   $entity_routes = [
     'asset' => 'entity.asset.collection',
     'log' => 'entity.log.collection',
     'quantity' => 'view.farm_quantity.page',
-    'plan' => 'entity.plan.collection',
     'people' => 'view.farm_people.page',
   ];
   $entity_urls = [
     'asset' => Url::fromRoute($entity_routes['asset'])->toString(),
     'log' => Url::fromRoute($entity_routes['log'])->toString(),
     'quantity' => Url::fromRoute($entity_routes['quantity'])->toString(),
-    'plan' => Url::fromRoute($entity_routes['plan'])->toString(),
     'people' => Url::fromRoute($entity_routes['people'])->toString(),
   ];
 
@@ -51,7 +49,7 @@ function farm_ui_views_help($route_name, RouteMatchInterface $route_match) {
   }
 
   // Plans View.
-  if ($route_name == $entity_routes['plan']) {
+  if ($route_name == 'entity.plan.collection') {
     $output .= '<p>' . t('Plans provide features for planning, managing, and organizing <a href=":assets">assets</a>, <a href=":logs">logs</a>, and <a href=":people">people</a> around a particular goal.', [':assets' => $entity_urls['asset'], ':logs' => $entity_urls['log'], ':people' => $entity_urls['people']]) . '</p>';
   }
 
