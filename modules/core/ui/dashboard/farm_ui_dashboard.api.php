@@ -32,7 +32,7 @@ function hook_farm_dashboard_panes() {
       'view' => 'my_view',
       'view_display_id' => 'block_1',
 
-      // Specify a 'block' to automatically load a Block.
+      // Specify a block plugin ID to automatically load a Block.
       'block' => 'my_block',
 
       // Optional arguments to pass to the view or block.

@@ -11,7 +11,7 @@
 function farm_ui_metrics_farm_dashboard_panes() {
   return [
     'metrics' => [
-      'block' => 'farm_metrics',
+      'block' => 'farm_metrics_block',
       'title' => t('Metrics'),
       'region'  => 'second',
     ],

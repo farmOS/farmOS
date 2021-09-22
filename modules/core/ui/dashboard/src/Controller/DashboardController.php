@@ -2,8 +2,10 @@
 
 namespace Drupal\farm_ui_dashboard\Controller;
 
+use Drupal\Core\Block\BlockManagerInterface;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Layout\LayoutPluginManagerInterface;
+use Drupal\Core\Session\AccountInterface;
 use Drupal\views\Views;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -22,17 +24,37 @@ class DashboardController extends ControllerBase {
   protected $layoutPluginManager;
 
   /**
+   * The block manager.
+   *
+   * @var \Drupal\Core\Block\BlockManagerInterface
+   */
+  protected $blockManager;
+
+  /**
+   * The current user.
+   *
+   * @var \Drupal\Core\Session\AccountInterface
+   */
+  protected $currentUser;
+
+  /**
    * Class constructor.
    */
-  public function __construct(LayoutPluginManagerInterface $layout_plugin_manager) {
+  public function __construct(LayoutPluginManagerInterface $layout_plugin_manager, BlockManagerInterface $block_manager, AccountInterface $current_user) {
     $this->layoutPluginManager = $layout_plugin_manager;
+    $this->blockManager = $block_manager;
+    $this->currentUser = $current_user;
   }
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    return new static($container->get('plugin.manager.core.layout'));
+    return new static(
+      $container->get('plugin.manager.core.layout'),
+      $container->get('plugin.manager.block'),
+      $container->get('current_user'),
+    );
   }
 
   /**
@@ -103,25 +125,18 @@ class DashboardController extends ControllerBase {
       // Or if a block is provided, display the block.
       elseif (!empty($pane['block'])) {
 
-        /** @var \Drupal\block\Entity\Block $block */
-        $block = $this->entityTypeManager()->getStorage('block')->load($pane['block']);
+        // Render plugin block if is set.
+        $block = $this->blockManager->createInstance($pane['block'], $args);
+        if ($block) {
 
-        // Set the block plugin config if provided.
-        if (!empty($args)) {
-          $block->getPlugin()->setConfiguration($args);
+          // Check block access.
+          $access_result = $block->access($this->currentUser);
+          if ($access_result == TRUE) {
+
+            // Builds renderable array of the block.
+            $output = $block->build();
+          }
         }
-
-        // If the block plugin displays the label by default, set the title.
-        $block_config = $block->getPlugin()->getConfiguration();
-        if ($block_config['label_display']) {
-          $title = $block->label();
-        }
-
-        // Use the block's weight by default.
-        $weight = $block->getWeight();
-
-        // Build the blocks renderable output.
-        $output = $this->entityTypeManager()->getViewBuilder('block')->view($block);
       }
 
       // If a specific title was provided, use it.
