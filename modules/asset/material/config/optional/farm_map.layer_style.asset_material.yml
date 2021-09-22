@@ -4,7 +4,8 @@ dependencies:
   enforced:
     module:
       - farm_material
-name: Materials
-vid: material
-description: 'A list of materials.'
-weight: 0
+id: asset_material
+color: yellow
+conditions:
+  asset_type:
+    - material

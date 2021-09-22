@@ -1,0 +1,8 @@
+name: Material asset
+description: Adds a Material asset type.
+type: module
+package: farmOS Assets
+core_version_requirement: ^9
+dependencies:
+  - farm:farm_entity
+  - farm:farm_material_type

@@ -30,6 +30,10 @@ process:
   id:
     plugin: get
     source: id
+  # Migrate log quantities.
+  quantity:
+    plugin: get
+    source: '@_log_quantities'
   # Lab test specific fields.
   lab:
     plugin: get_lab

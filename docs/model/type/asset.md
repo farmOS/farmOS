@@ -24,6 +24,7 @@ included with farmOS define the following Asset types:
 - Structure
 - Sensor
 - Water
+- Material
 - Group&ast;
 
 &ast;Group Assets are unique in that they can "contain" other Assets as "group
@@ -252,6 +253,12 @@ Equipment Assets have the following additional attributes:
 Land Assets have the following additional attributes:
 
 - Land type (string)
+
+#### Material Assets
+
+Material Assets have the following additional relationships:
+
+- Material type (references a Term in the "Material type" vocabulary)
 
 #### Plant Assets
 

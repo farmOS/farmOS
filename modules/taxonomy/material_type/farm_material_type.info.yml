@@ -1,5 +1,5 @@
-name: Materials vocabulary
-description: Provides a Materials vocabulary.
+name: Material types vocabulary
+description: Provides a Material types vocabulary.
 type: module
 package: farmOS Taxonomies
 core_version_requirement: ^9

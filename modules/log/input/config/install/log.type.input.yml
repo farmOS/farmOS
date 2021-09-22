@@ -4,9 +4,14 @@ dependencies:
   enforced:
     module:
       - farm_input
+  module:
+    - farm_log_quantity
 id: input
 label: Input
 description: ''
 name_pattern: 'Input log [log:id]'
 workflow: log_default
 new_revision: true
+third_party_settings:
+  farm_log_quantity:
+    default_quantity_type: material

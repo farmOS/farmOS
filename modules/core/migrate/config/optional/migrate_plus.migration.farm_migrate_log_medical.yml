@@ -32,6 +32,10 @@ process:
   vet:
     plugin: get
     source: field_farm_vet
+  # Migrate log quantities.
+  quantity:
+    plugin: get
+    source: '@_log_quantities'
 migration_dependencies:
   required: {  }
   optional: {  }

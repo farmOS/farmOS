@@ -18,7 +18,7 @@ is enabled. The modules included with farmOS define the following vocabularies:
 
 - Animal type
 - Log category
-- Material
+- Material type
 - Plant type
 - Season
 - Unit
