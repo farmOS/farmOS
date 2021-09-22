@@ -125,37 +125,16 @@ class DashboardController extends ControllerBase {
       // Or if a block is provided, display the block.
       elseif (!empty($pane['block'])) {
 
-        /** @var \Drupal\block\Entity\Block $block */
-        $block = $this->entityTypeManager()->getStorage('block')->load($pane['block']);
-
-        // Set the block plugin config if provided.
-        if (!empty($args)) {
-          $block->getPlugin()->setConfiguration($args);
-        }
-
-        // If the block plugin displays the label by default, set the title.
-        $block_config = $block->getPlugin()->getConfiguration();
-        if ($block_config['label_display']) {
-          $title = $block->label();
-        }
-
-        // Use the block's weight by default.
-        $weight = $block->getWeight();
-
-        // Build the blocks renderable output.
-        $output = $this->entityTypeManager()->getViewBuilder('block')->view($block);
-      }
-
-      // Or if a plugin block id is provided, display the block.
-      elseif (!empty($pane['block_plugin'])) {
         // Render plugin block if is set.
-        $block_plugin = $this->blockManager->createInstance($pane['block_plugin'], $args);
-        if ($block_plugin) {
+        $block = $this->blockManager->createInstance($pane['block'], $args);
+        if ($block) {
+
           // Check block access.
-          $access_result = $block_plugin->access($this->currentUser);
+          $access_result = $block->access($this->currentUser);
           if ($access_result == TRUE) {
+
             // Builds renderable array of the block.
-            $output = $block_plugin->build();
+            $output = $block->build();
           }
         }
       }

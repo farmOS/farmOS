@@ -15,7 +15,10 @@ use Drupal\Core\Link;
 function farm_ui_map_farm_dashboard_panes() {
   return [
     'dashboard_map' => [
-      'block' => 'dashboard_map',
+      'block' => 'map_block',
+      'args' => [
+        'map_type' => 'dashboard',
+      ],
       'region'  => 'top',
     ],
   ];
