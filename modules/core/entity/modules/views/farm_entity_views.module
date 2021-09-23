@@ -1,0 +1,65 @@
+<?php
+
+/**
+ * @file
+ * Contains farm_entity_views.module.
+ */
+
+use Drupal\farm_entity_views\FarmEntityViewsData;
+use Drupal\farm_entity_views\FarmLogViewsData;
+use Drupal\farm_entity_views\FarmQuantityViewsData;
+
+/**
+ * Implements hook_module_implements_alter().
+ */
+function farm_entity_views_module_implements_alter(&$implementations, $hook) {
+
+  // Make sure this module's hook_modules_installed runs after the entity
+  // module's implementation, so that we rebuild views data after bundle fields
+  // are installed.
+  $module = 'farm_entity_views';
+  if ($hook == 'modules_installed') {
+    $implementation = [$module => $implementations[$module]];
+    unset($implementations[$module]);
+    $implementations = array_merge($implementations, $implementation);
+  }
+}
+
+/**
+ * Implements hook_modules_installed().
+ */
+function farm_entity_views_modules_installed($modules, $is_syncing) {
+
+  // Reset the views data after installing modules.
+  // See https://www.drupal.org/project/entity/issues/3206703#comment-14073184
+  if (\Drupal::hasService('views.views_data')) {
+    \Drupal::service('views.views_data')->clear();
+  }
+}
+
+/**
+ * Implements hook_entity_type_build().
+ */
+function farm_entity_views_entity_type_build(array &$entity_types) {
+  /** @var \Drupal\Core\Entity\EntityTypeInterface[] $entity_types */
+
+  // Set the views data handler class to FarmEntityViewsData.
+  foreach (['asset', 'log', 'plan', 'quantity'] as $entity_type) {
+    if (!empty($entity_types[$entity_type])) {
+
+      // Use the correct class for each entity type.
+      // Logs and quantities provide their own that we must extend from.
+      $views_data_class = FarmEntityViewsData::class;
+      switch ($entity_type) {
+        case 'log':
+          $views_data_class = FarmLogViewsData::class;
+          break;
+
+        case 'quantity':
+          $views_data_class = FarmQuantityViewsData::class;
+          break;
+      }
+      $entity_types[$entity_type]->setHandlerClass('views_data', $views_data_class);
+    }
+  }
+}

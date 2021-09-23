@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\farm_entity;
+namespace Drupal\farm_entity_views;
 
 /**
  * Configures the correct view filter for taxonomy_term reference fields.

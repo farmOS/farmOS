@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\farm_entity;
+namespace Drupal\farm_entity_views;
 
 use Drupal\entity\EntityViewsData;
 

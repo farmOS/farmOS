@@ -9,3 +9,4 @@ dependencies:
   - entity_reference_validators:entity_reference_validators
   - exif_orientation:exif_orientation
   - farm:farm_entity_fields
+  - farm:farm_entity_views

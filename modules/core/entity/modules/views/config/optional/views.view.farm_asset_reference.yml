@@ -3,7 +3,7 @@ status: true
 dependencies:
   enforced:
     module:
-      - farm_entity
+      - farm_entity_views
   module:
     - asset
 id: farm_asset_reference

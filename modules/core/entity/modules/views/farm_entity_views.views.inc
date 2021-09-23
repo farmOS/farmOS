@@ -2,13 +2,13 @@
 
 /**
  * @file
- * Provides Views data for farm_entity.module.
+ * Provides Views data for farm_entity_views.module.
  */
 
 /**
  * Implements hook_views_data_alter().
  */
-function farm_entity_views_data_alter(array &$data) {
+function farm_entity_views_views_data_alter(array &$data) {
 
   // Because Drupal core does not provide full Views integration for base fields
   // we must manually add support for certain fields.
