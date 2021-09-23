@@ -22,6 +22,11 @@ patches when they become available.
    your browser and follow the steps to run automated updates. It is important
    to do this before using the new version of farmOS to ensure that any
    necessary changes to the database or configuration are made.
+4. **Clear caches.** farmOS caches can be cleared by going to
+   `https://[hostname]/admin/config/development/performance` in your browser
+   and clicking "Clear all caches", or via the command line with Drush:
+   `drush cr`. Cache clearing is only necessary if no updates are performed
+   during `update.php`, otherwise they will be cleared automatically.
 
 ### Updating via Docker
 

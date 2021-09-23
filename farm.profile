@@ -23,6 +23,7 @@ function farm_modules() {
       'farm_login' => t('Login with username or email.'),
       'farm_settings' => t('farmOS Settings forms'),
       'farm_ui' => t('farmOS UI'),
+      'farm_update' => t('farmOS Update'),
     ],
     'default' => [
       'farm_land' => t('Land assets'),
@@ -69,4 +70,16 @@ function farm_form_update_manager_update_form_alter(&$form, &$form_state, $form_
   $message = t('Performing updates through this interface is disabled by farmOS. To update modules, use a packaged release of farmOS to ensure that any necessary patches are applied to dependencies.');
   \Drupal::messenger()->addError($message);
   $form['actions']['#access'] = FALSE;
+}
+
+/**
+ * Implements hook_farm_update_exclude_config().
+ */
+function farm_farm_update_exclude_config() {
+
+  // Exclude config that we have overridden in hook_install().
+  return [
+    'system.file',
+    'user.settings',
+  ];
 }
