@@ -13,8 +13,6 @@ use Drupal\entity\EntityAccessControlHandler;
 use Drupal\entity\EntityPermissionProvider;
 use Drupal\farm_entity\BundlePlugin\FarmEntityBundlePluginHandler;
 use Drupal\farm_entity\Routing\DefaultHtmlRouteProvider;
-use Drupal\farm_flag\Form\EntityFlagActionForm;
-use Drupal\farm_flag\Routing\EntityFlagActionRouteProvider;
 
 /**
  * Implements hook_module_implements_alter().
@@ -60,17 +58,6 @@ function farm_entity_entity_type_build(array &$entity_types) {
       $route_providers = $entity_types[$bundle_entity_type]->getRouteProviderClasses();
       $route_providers['default'] = DefaultHtmlRouteProvider::class;
       $entity_types[$bundle_entity_type]->setHandlerClass('route_provider', $route_providers);
-    }
-  }
-
-  // Enable the entity flag action on entity types with a flag field.
-  foreach (['asset', 'log', 'plan'] as $entity_type) {
-    if (!empty($entity_types[$entity_type])) {
-      $route_providers = $entity_types[$entity_type]->getRouteProviderClasses();
-      $route_providers['flag'] = EntityFlagActionRouteProvider::class;
-      $entity_types[$entity_type]->setHandlerClass('route_provider', $route_providers);
-      $entity_types[$entity_type]->setLinkTemplate('flag-action-form', '/' . $entity_type . '/flag');
-      $entity_types[$entity_type]->setFormClass('flag-action-form', EntityFlagActionForm::class);
     }
   }
 }

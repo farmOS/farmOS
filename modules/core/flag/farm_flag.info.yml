@@ -4,6 +4,5 @@ type: module
 package: farmOS
 core_version_requirement: ^9
 dependencies:
-  - drupal:field
   - drupal:text
-  - entity:entity
+  - farm:farm_field
