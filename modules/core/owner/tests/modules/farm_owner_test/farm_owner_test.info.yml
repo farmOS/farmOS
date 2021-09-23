@@ -1,0 +1,7 @@
+name: farmOS Owner Tests
+description: 'Support module for owner testing.'
+type: module
+package: Testing
+core_version_requirement: ^9
+dependencies:
+  - farm:farm_owner
