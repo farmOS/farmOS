@@ -1,0 +1,9 @@
+name: farmOS Owner
+description: Provides an Owner field for farmOS records.
+type: module
+package: farmOS
+core_version_requirement: ^9
+dependencies:
+  - drupal:user
+  - farm:farm_field
+  - log:log
