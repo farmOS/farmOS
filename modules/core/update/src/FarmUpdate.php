@@ -7,11 +7,22 @@ use Drupal\config_update\ConfigListerWithProviders;
 use Drupal\config_update\ConfigReverter;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Psr\Log\LoggerInterface;
 
 /**
  * Farm update service.
  */
 class FarmUpdate implements FarmUpdateInterface {
+
+  use StringTranslationTrait;
+
+  /**
+   * The logger.
+   *
+   * @var \Psr\Log\LoggerInterface
+   */
+  protected $logger;
 
   /**
    * The module handler.
@@ -51,6 +62,8 @@ class FarmUpdate implements FarmUpdateInterface {
   /**
    * Constructs a FarmUpdate object.
    *
+   * @param \Psr\Log\LoggerInterface $logger
+   *   The logger.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    *   The module handler.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_manager
@@ -62,7 +75,8 @@ class FarmUpdate implements FarmUpdateInterface {
    * @param \Drupal\config_update\ConfigReverter $config_update
    *   The config reverter.
    */
-  public function __construct(ModuleHandlerInterface $module_handler, EntityTypeManagerInterface $entity_manager, ConfigDiffer $config_diff, ConfigListerWithProviders $config_list, ConfigReverter $config_update) {
+  public function __construct(LoggerInterface $logger, ModuleHandlerInterface $module_handler, EntityTypeManagerInterface $entity_manager, ConfigDiffer $config_diff, ConfigListerWithProviders $config_list, ConfigReverter $config_update) {
+    $this->logger = $logger;
     $this->moduleHandler = $module_handler;
     $this->entityManager = $entity_manager;
     $this->configDiff = $config_diff;
@@ -98,9 +112,12 @@ class FarmUpdate implements FarmUpdateInterface {
       // Perform the operation.
       $result = $this->configUpdate->revert($type, $shortname);
 
-      // Log failures.
-      if (!$result) {
-        \Drupal::logger('farm_update')->error('Failed to revert config: @config', ['@config' => $name]);
+      // Log the result.
+      if ($result) {
+        $this->logger->notice($this->t('Reverted config: @config', ['@config' => $name]));
+      }
+      else {
+        $this->logger->error($this->t('Failed to revert config: @config', ['@config' => $name]));
       }
     }
   }
