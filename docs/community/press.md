@@ -5,6 +5,8 @@ would like to write about farmOS, [contact m.stenta](https://farmier.com/contact
 
 ## 2021
 
+**2021 September 20th** [OpenTEAM Community News: From the Field: Using farmOS at Organic Valley](https://drive.google.com/file/d/1V8z-GMTu-JOmGSLU_OTYteXCuGn05pct/view)
+
 **2021 September 9th** [NOFA/Mass: Correlating Produce Nutrient Levels with Soil Management](https://www.nofamass.org/articles/2021/09/correlating-produce-nutrient-levels-with-soil-management/)
 
 **2021 May 5th** [VentureBeat: Linux Foundation launches open source agriculture infrastructure project](https://venturebeat.com/2021/05/05/linux-foundation-launches-open-source-agriculture-infrastructure-project/)
