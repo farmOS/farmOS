@@ -8,7 +8,7 @@
 /**
  * Define common asset base fields.
  */
-function farm_entity_asset_base_fields() {
+function farm_entity_fields_asset_base_fields() {
   $field_info = [
     'data' => [
       'type' => 'string_long',
@@ -93,7 +93,7 @@ function farm_entity_asset_base_fields() {
 /**
  * Define common log base fields.
  */
-function farm_entity_log_base_fields() {
+function farm_entity_fields_log_base_fields() {
   $field_info = [
     'asset' => [
       'type' => 'entity_reference',
@@ -176,7 +176,7 @@ function farm_entity_log_base_fields() {
 /**
  * Define common plan base fields.
  */
-function farm_entity_plan_base_fields() {
+function farm_entity_fields_plan_base_fields() {
   $field_info = [
     'data' => [
       'type' => 'string_long',

@@ -4,24 +4,8 @@ type: module
 package: farmOS
 core_version_requirement: ^9
 dependencies:
-  - drupal:file
-  - drupal:geofield
-  - drupal:image
-  - drupal:taxonomy
-  - drupal:text
-  - drupal:user
   - entity:entity
   - entity_reference_integrity:entity_reference_integrity_enforce
   - entity_reference_validators:entity_reference_validators
   - exif_orientation:exif_orientation
-  - farm:asset
-  - farm:farm_field
-  - farm:farm_flag
-  - farm:farm_format
-  - farm:farm_id_tag
-  - farm:farm_location
-  - farm:farm_log_category
-  - farm:farm_log_quantity
-  - farm:farm_owner
-  - log:log
-  - token:token
+  - farm:farm_entity_fields

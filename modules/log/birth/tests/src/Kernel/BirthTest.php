@@ -26,6 +26,7 @@ class BirthTest extends KernelTestBase {
     'farm_animal_type',
     'farm_birth',
     'farm_entity',
+    'farm_entity_fields',
     'farm_field',
     'farm_id_tag',
     'farm_log',
