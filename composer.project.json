@@ -1,0 +1,31 @@
+{
+    "require": {
+        "cweagans/composer-patches": "^1.7",
+        "drupal/core-composer-scaffold": "~9.2.0"
+    },
+    "require-dev": {
+        "brianium/paratest": "^4",
+        "drupal/core-dev": "~9.2.0",
+        "phpspec/prophecy-phpunit": "^2"
+    },
+    "_comments": {
+        "phpspec/prophecy-phpunit": "Required to fix ProphecyTrait not found, until Drupal core drops support for PHPUnit 8. See https://www.drupal.org/node/3176567"
+    },
+    "conflict": {
+        "drupal/drupal": "*"
+    },
+    "extra": {
+        "composer-exit-on-patch-failure": true,
+        "drupal-scaffold": {
+            "locations": {
+               "web-root": "web/"
+            }
+        },
+        "enable-patching": true,
+        "patches": {
+            "drupal/core": {
+               "Issue #3192365: Race Condition in 'public://simpletest' mkdir Call": "https://www.drupal.org/files/issues/2021-01-12/3192365-3.patch"
+            }
+        }
+    }
+}
