@@ -5,6 +5,32 @@
  * ID tag module.
  */
 
+use Drupal\Core\Entity\EntityTypeInterface;
+
+/**
+ * Implements hook_entity_base_field_info().
+ */
+function farm_id_tag_entity_base_field_info(EntityTypeInterface $entity_type) {
+  $fields = [];
+
+  // Add ID tag field to assets.
+  if ($entity_type->id() == 'asset') {
+    $field_info = [
+      'type' => 'id_tag',
+      'label' => t('ID tags'),
+      'description' => t('List any identification tags that this asset has. Use the fields below to describe the type, location, and ID of each.'),
+      'multiple' => TRUE,
+      'weight' => [
+        'form' => 50,
+        'view' => 50,
+      ],
+    ];
+    $fields['id_tag'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($field_info);
+  }
+
+  return $fields;
+}
+
 /**
  * Allowed values callback function for the ID tag type field.
  *
