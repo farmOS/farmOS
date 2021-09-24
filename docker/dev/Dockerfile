@@ -5,7 +5,7 @@ FROM farmos/farmos:2.x
 ARG FARMOS_REPO=https://github.com/farmOS/farmOS.git
 ARG FARMOS_VERSION=2.x
 ARG PROJECT_REPO=https://github.com/farmOS/composer-project.git
-ARG PROJECT_VERSION=2.x
+ARG PROJECT_VERSION=2.x-drupal-9.2
 
 # Change the user/group IDs of www-data inside the image to match the ID of the
 # developer's user on the host machine. This allows Composer to create files
