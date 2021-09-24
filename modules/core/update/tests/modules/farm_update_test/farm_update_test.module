@@ -9,5 +9,5 @@
  * Implements hook_farm_update_exclude_config().
  */
 function farm_update_test_farm_update_exclude_config() {
-  return ['system.file'];
+  return ['farm_flag.flag.priority'];
 }

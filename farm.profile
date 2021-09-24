@@ -71,15 +71,3 @@ function farm_form_update_manager_update_form_alter(&$form, &$form_state, $form_
   \Drupal::messenger()->addError($message);
   $form['actions']['#access'] = FALSE;
 }
-
-/**
- * Implements hook_farm_update_exclude_config().
- */
-function farm_farm_update_exclude_config() {
-
-  // Exclude config that we have overridden in hook_install().
-  return [
-    'system.file',
-    'user.settings',
-  ];
-}

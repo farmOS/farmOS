@@ -98,12 +98,11 @@ class FarmUpdate implements FarmUpdateInterface {
     // Iterate through config items and revert them.
     foreach ($revert_config as $name) {
 
-      // Get the config type.
-      // The lister gives NULL if simple configuration, but the reverter
-      // expects 'system.simple' so we convert it.
+      // Get the config type and bail if simple configuration.
+      // The lister gives NULL if simple configuration.
       $type = $this->configList->getTypeNameByConfigName($name);
       if ($type === NULL) {
-        $type = 'system.simple';
+        continue;
       }
 
       // Get the config short name.

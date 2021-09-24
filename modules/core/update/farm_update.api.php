@@ -22,8 +22,8 @@
  */
 function hook_farm_update_exclude_config() {
   return [
-    'core.extension',
-    'system.date',
+    'views.view.farm_log.yml',
+    'asset.type.structure.yml',
   ];
 }
 

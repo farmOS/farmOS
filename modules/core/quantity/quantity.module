@@ -215,14 +215,3 @@ function template_preprocess_quantity(array &$variables) {
     }
   }
 }
-
-/**
- * Implements hook_farm_update_exclude_config().
- */
-function quantity_farm_update_exclude_config() {
-
-  // Exclude quantity.settings config from automatic updates.
-  return [
-    'quantity.settings',
-  ];
-}

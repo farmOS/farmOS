@@ -32,7 +32,7 @@ class FarmUpdateTest extends KernelTestBase {
     'config_update',
     'farm_update',
     'farm_update_test',
-    'system',
+    'farm_flag',
   ];
 
   /**
@@ -42,9 +42,10 @@ class FarmUpdateTest extends KernelTestBase {
     parent::setUp();
     $this->configFactory = \Drupal::service('config.factory');
     $this->farmUpdate = \Drupal::service('farm.update');
+    $this->installEntitySchema('flag');
     $this->installConfig([
       'farm_update_test',
-      'system',
+      'farm_flag',
     ]);
   }
 
@@ -54,15 +55,15 @@ class FarmUpdateTest extends KernelTestBase {
   public function testFarmUpdate() {
 
     // Confirm that overridden config gets reverted.
-    $this->farmUpdateTestRevertSetting('system.logging', 'error_level', 'all');
+    $this->farmUpdateTestRevertSetting('farm_flag.flag.monitor', 'label', 'Changed');
 
     // Confirm that config excluded via hook_farm_update_exclude_config() does
     // not get reverted.
-    $this->farmUpdateTestRevertSetting('system.file', 'default_scheme', 'public', TRUE);
+    $this->farmUpdateTestRevertSetting('farm_flag.flag.priority', 'label', 'Changed', TRUE);
 
     // Confirm that config excluded via farm_update.settings does not get
     // reverted.
-    $this->farmUpdateTestRevertSetting('system.theme', 'default', 'claro', TRUE);
+    $this->farmUpdateTestRevertSetting('farm_flag.flag.review', 'label', 'Changed', TRUE);
   }
 
   /**

@@ -176,14 +176,3 @@ function farm_entity_form_alter(&$form, FormStateInterface $form_state, $form_id
   // Disable access to the revision checkbox.
   $form['revision']['#access'] = FALSE;
 }
-
-/**
- * Implements hook_farm_update_exclude_config().
- */
-function farm_entity_farm_update_exclude_config() {
-
-  // Exclude config that we have overridden in hook_install().
-  return [
-    'entity_reference_integrity_enforce.settings',
-  ];
-}
