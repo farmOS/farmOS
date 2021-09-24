@@ -126,6 +126,36 @@ class PlanCRUDTest extends PlanTestBase {
 
     $this->assertEquals($plan->get('status')->first()->getString(), 'active', 'Plans can be made active');
     $this->assertNull($plan->getArchivedTime(), 'Plan made active has a null timestamp');
+
+    $plan->get('status')->first()->applyTransitionById('archive');
+    $plan->setArchivedTime('2021-07-17T19:45:49+00:00');
+    $plan->save();
+
+    $this->assertEquals($plan->get('status')->first()->getString(), 'archived', 'Plans can be archived with explicit timestamp');
+    $this->assertEquals($plan->getArchivedTime(), '2021-07-17T19:45:49+00:00', 'Explicit archived timestamp is saved');
+  }
+
+  /**
+   * Plan archiving/unarchiving via timestamp.
+   */
+  public function testArchivePlanViaTimestamp() {
+    $plan = $this->createPlanEntity();
+    $plan->save();
+
+    $this->assertEquals($plan->get('status')->first()->getString(), 'active', 'New plans are active by default');
+    $this->assertNull($plan->getArchivedTime(), 'Archived timestamp is null by default');
+
+    $plan->setArchivedTime('2021-07-17T19:45:49+00:00');
+    $plan->save();
+
+    $this->assertEquals($plan->get('status')->first()->getString(), 'archived', 'Plans can be archived');
+    $this->assertEquals($plan->getArchivedTime(), '2021-07-17T19:45:49+00:00', 'Archived timestamp is saved');
+
+    $plan->setArchivedTime(NULL);
+    $plan->save();
+
+    $this->assertEquals($plan->get('status')->first()->getString(), 'active', 'Plans can be made active');
+    $this->assertNull($plan->getArchivedTime(), 'Plan made active has a null timestamp');
   }
 
 }
