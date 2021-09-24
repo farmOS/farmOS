@@ -4,8 +4,8 @@ FROM drupal:9-php7.4-apache
 # Set the farmOS and composer project repository URLs and versions.
 ARG FARMOS_REPO=https://github.com/farmOS/farmOS.git
 ARG FARMOS_VERSION=2.x
-ARG PROJECT_REPO=https://github.com/farmOS/composer-project.git
-ARG PROJECT_VERSION=2.x
+ARG PROJECT_REPO=https://github.com/mstenta/farmOS-composer-project.git
+ARG PROJECT_VERSION=2.x-composer-project-merge
 
 # Set Apache ServerName directive globally to suppress AH00558 message.
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
