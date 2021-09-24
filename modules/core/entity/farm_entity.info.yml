@@ -22,5 +22,6 @@ dependencies:
   - farm:farm_location
   - farm:farm_log_category
   - farm:farm_log_quantity
+  - farm:farm_owner
   - log:log
   - token:token

@@ -1,0 +1,7 @@
+services:
+  farm_owner.log_event_subscriber:
+    class: Drupal\farm_owner\EventSubscriber\LogEventSubscriber
+    arguments:
+      [ '@current_user' ]
+    tags:
+      - { name: 'event_subscriber' }

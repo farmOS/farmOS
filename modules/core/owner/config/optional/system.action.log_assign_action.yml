@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   module:
-    - farm_log
+    - farm_owner
     - log
 id: log_assign_action
 label: 'Assign log'
