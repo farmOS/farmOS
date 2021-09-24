@@ -29,7 +29,7 @@
         "drupal/exif_orientation": "^1.1",
         "drupal/fraction": "2.x-dev",
         "drupal/geofield": "^1.33",
-        "drupal/gin": "3.0-alpha35",
+        "drupal/gin": "3.0-alpha36",
         "drupal/inline_entity_form": "^1.0@RC",
         "drupal/inspire_tree": "^1.0",
         "drupal/jsonapi_extras": "^3.15",
