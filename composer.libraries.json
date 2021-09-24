@@ -1,8 +1,4 @@
 {
-    "name": "farmos/farmos",
-    "description": "A web-based farm record keeping application.",
-    "type": "drupal-profile",
-    "license": "GPL-2.0-or-later",
     "require": {
         "farmos/farmos-map": "*"
     },
