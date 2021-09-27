@@ -14,13 +14,14 @@ For more information, see the documentation for Drupal's
 
 ## Configuration updates
 
-If the farmOS Update module is enabled, changes to configuration will be
-automatically reverted when caches are rebuilt. The purpose of this is to
+If the farmOS Update module is enabled, changes to configuration entities will
+be automatically reverted when caches are rebuilt. The purpose of this is to
 make it easier for farmOS module developers to make minor changes to the
 configuration included with their module without writing update hooks.
 
 Note that this only handles overridden configuration. It does not handle
-missing, inactive, or added configuration.
+missing, inactive, or added configuration. It also does not touch "simple"
+configuration (eg: module settings) - only configuration entities (eg: Views).
 
 In most cases this is desirable, but if you are intentionally overriding
 configuration in your farmOS instance then you have a few options for
