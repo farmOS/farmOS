@@ -47,16 +47,17 @@ class UniqueBirthLogConstraintValidator extends ConstraintValidator implements C
     /** @var \Drupal\farm_birth\Plugin\Validation\Constraint\UniqueBirthLogConstraint $constraint */
     foreach ($value->referencedEntities() as $delta => $asset) {
 
-      // Perform an entity query to find logs that reference the asset.
+      // Query the number of birth logs that reference the asset.
       // We do not check access to ensure that all matching logs are found.
-      $query = $this->entityTypeManager->getStorage('log')->getQuery();
-      $query->accessCheck(FALSE);
-      $ids = $query->condition('type', 'birth')
+      $count = $this->entityTypeManager->getStorage('log')->getAggregateQuery()
+        ->accessCheck(FALSE)
+        ->condition('type', 'birth')
         ->condition('asset', $asset->id())
+        ->count()
         ->execute();
 
       // If more than 0 birth logs reference the asset, add a violation.
-      if (count($ids) > 0) {
+      if ($count > 0) {
         $this->context->buildViolation($constraint->message, ['%child' => $asset->label()])
           ->atPath((string) $delta . '.target_id')
           ->setInvalidValue($asset->id())
