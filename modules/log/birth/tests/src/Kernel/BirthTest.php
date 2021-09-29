@@ -183,7 +183,7 @@ class BirthTest extends KernelTestBase {
     $errors = $log2->validate();
     $this->assertCount(1, $errors);
     $this->assertEquals(new FormattableMarkup('%child already has a birth log. More than one birth log cannot reference the same child.', ['%child' => $asset->label()]), $errors[0]->getMessage());
-    $this->assertEquals('asset', $errors[0]->getPropertyPath());
+    $this->assertEquals('asset.0.target_id', $errors[0]->getPropertyPath());
   }
 
 }

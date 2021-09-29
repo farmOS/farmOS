@@ -45,7 +45,7 @@ class UniqueBirthLogConstraintValidator extends ConstraintValidator implements C
   public function validate($value, Constraint $constraint) {
     /** @var \Drupal\Core\Field\FieldItemListInterface[] $value */
     /** @var \Drupal\farm_birth\Plugin\Validation\Constraint\UniqueBirthLogConstraint $constraint */
-    foreach ($value as $item) {
+    foreach ($value as $delta => $item) {
 
       // Get the referenced asset ID.
       $item_value = $item->getValue();
@@ -67,7 +67,10 @@ class UniqueBirthLogConstraintValidator extends ConstraintValidator implements C
       // If more than 0 birth logs reference the asset, add a violation.
       if (count($ids) > 0) {
         $asset = $this->entityTypeManager->getStorage('asset')->load($asset_id);
-        $this->context->addViolation($constraint->message, ['%child' => $asset->label()]);
+        $this->context->buildViolation($constraint->message, ['%child' => $asset->label()])
+          ->atPath((string) $delta . '.target_id')
+          ->setInvalidValue($asset_id)
+          ->addViolation();
       }
     }
   }
