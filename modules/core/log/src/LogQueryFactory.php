@@ -48,6 +48,10 @@ class LogQueryFactory implements LogQueryFactoryInterface {
     // Add a tag.
     $query->addTag('farm.log_query');
 
+    // Specify access check. By default, only limit to logs the user can view.
+    $access_check = $options['access_check'] ?? TRUE;
+    $query->accessCheck($access_check);
+
     // If a type is specified, only include logs of that type.
     if (isset($options['type'])) {
       $query->condition('type', $options['type']);

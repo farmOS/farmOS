@@ -51,6 +51,7 @@ class FarmAssetLogViewsAccessCheck implements AccessInterface {
 
     // Build a count query for logs of this type.
     $query = $this->logStorage->getAggregateQuery()
+      ->accessCheck(TRUE)
       ->condition('type', $log_type)
       ->count();
 

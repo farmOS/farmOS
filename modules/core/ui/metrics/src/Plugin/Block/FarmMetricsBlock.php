@@ -141,6 +141,7 @@ class FarmMetricsBlock extends BlockBase implements ContainerFactoryPluginInterf
     // Count records by type.
     foreach ($bundles as $bundle => $bundle_info) {
       $count = $this->entityTypeManager->getStorage($entity_type)->getAggregateQuery()
+        ->accessCheck(TRUE)
         ->condition('type', $bundle)
         ->count()
         ->execute();

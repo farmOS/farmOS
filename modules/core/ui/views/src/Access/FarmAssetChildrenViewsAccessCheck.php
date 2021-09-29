@@ -64,6 +64,7 @@ class FarmAssetChildrenViewsAccessCheck implements AccessInterface {
     // Run a count query to see if there are any assets that reference this
     // asset as a parent.
     $count = $this->assetStorage->getAggregateQuery()
+      ->accessCheck(TRUE)
       ->condition('parent.entity.id', $asset_id)
       ->count()
       ->execute();

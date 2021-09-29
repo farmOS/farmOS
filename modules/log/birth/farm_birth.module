@@ -52,11 +52,16 @@ function farm_birth_asset_view_alter(array &$build, EntityInterface $entity, Ent
 
   // Add a link to the asset's birth log.
   if (!empty($build['birthdate'])) {
+    /** @var \Drupal\Core\Entity\EntityStorageInterface $log_storage */
     $log_storage = \Drupal::service('entity_type.manager')->getStorage('log');
-    $query = $log_storage->getQuery();
-    $ids = $query->condition('type', 'birth')
-      ->condition('asset', $entity->id())
-      ->execute();
+
+    /** @var \Drupal\Core\Entity\Query\QueryInterface $query */
+    $query = $log_storage->getQuery()
+      ->accessCheck(TRUE)
+      ->condition('type', 'birth')
+      ->condition('asset', $entity->id());
+
+    $ids = $query->execute();
     if (!empty($ids)) {
       $log = $log_storage->load(reset($ids));
       $build['birthdate'][0]['#markup'] = '<a href="' . $log->toUrl()->toString() . '">' . $build['birthdate'][0]['#markup'] . '</a>';

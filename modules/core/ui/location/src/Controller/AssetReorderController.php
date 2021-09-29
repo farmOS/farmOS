@@ -196,17 +196,24 @@ class AssetReorderController extends ControllerBase implements AssetReorderContr
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   protected function getLocations(AssetInterface $asset = NULL) {
+
+    // Query unarchived location assets.
     $storage = $this->entityTypeManager()->getStorage('asset');
-    $query = $storage->getQuery();
-    $query->condition('is_location', TRUE);
-    $query->condition('status', 'archived', '!=');
+    $query = $storage->getQuery()
+      ->accessCheck(TRUE)
+      ->condition('is_location', TRUE)
+      ->condition('status', 'archived', '!=')
+      ->sort('name');
+
+    // Limit to a specific parent or no parent.
     if ($asset) {
       $query->condition('parent', $asset->id());
     }
     else {
       $query->condition('parent', NULL, 'IS NULL');
     }
-    $query->sort('name');
+
+    // Query and return assets.
     $asset_ids = $query->execute();
     if (empty($asset_ids)) {
       return [];
