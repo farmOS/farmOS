@@ -64,8 +64,8 @@ class UniqueBirthLogConstraintValidator extends ConstraintValidator implements C
         ->condition('asset', $asset_id);
       $ids = $query->execute();
 
-      // If more than 1 birth logs reference the asset, add a violation.
-      if (count($ids) > 1) {
+      // If more than 0 birth logs reference the asset, add a violation.
+      if (count($ids) > 0) {
         $asset = $this->entityTypeManager->getStorage('asset')->load($asset_id);
         $this->context->addViolation($constraint->message, ['%child' => $asset->label()]);
       }
