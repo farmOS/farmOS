@@ -43,33 +43,23 @@ class UniqueBirthLogConstraintValidator extends ConstraintValidator implements C
    * {@inheritdoc}
    */
   public function validate($value, Constraint $constraint) {
-    /** @var \Drupal\Core\Field\FieldItemListInterface[] $value */
+    /** @var \Drupal\Core\Field\EntityReferenceFieldItemList $value */
     /** @var \Drupal\farm_birth\Plugin\Validation\Constraint\UniqueBirthLogConstraint $constraint */
-    foreach ($value as $delta => $item) {
-
-      // Get the referenced asset ID.
-      $item_value = $item->getValue();
-      $asset_id = $item_value['target_id'] ?? FALSE;
-
-      // If there is no asset, skip.
-      if (empty($asset_id)) {
-        continue;
-      }
+    foreach ($value->referencedEntities() as $delta => $asset) {
 
       // Perform an entity query to find logs that reference the asset.
       // We do not check access to ensure that all matching logs are found.
-      $query = $this->entityTypeManager->getStorage('log')->getQuery()
-        ->accessCheck(FALSE)
-        ->condition('type', 'birth')
-        ->condition('asset', $asset_id);
-      $ids = $query->execute();
+      $query = $this->entityTypeManager->getStorage('log')->getQuery();
+      $query->accessCheck(FALSE);
+      $ids = $query->condition('type', 'birth')
+        ->condition('asset', $asset->id())
+        ->execute();
 
       // If more than 0 birth logs reference the asset, add a violation.
       if (count($ids) > 0) {
-        $asset = $this->entityTypeManager->getStorage('asset')->load($asset_id);
         $this->context->buildViolation($constraint->message, ['%child' => $asset->label()])
           ->atPath((string) $delta . '.target_id')
-          ->setInvalidValue($asset_id)
+          ->setInvalidValue($asset->id())
           ->addViolation();
       }
     }
