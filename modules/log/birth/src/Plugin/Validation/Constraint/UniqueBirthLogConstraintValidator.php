@@ -47,6 +47,14 @@ class UniqueBirthLogConstraintValidator extends ConstraintValidator implements C
     /** @var \Drupal\farm_birth\Plugin\Validation\Constraint\UniqueBirthLogConstraint $constraint */
     foreach ($value->referencedEntities() as $delta => $asset) {
 
+      // If the log is not new, skip validation.
+      // A birth log exits so there is no need to check if one can be created.
+      /** @var \Drupal\log\Entity\LogInterface $log */
+      $log = $value->getParent()->getValue();
+      if (!$log->isNew()) {
+        return;
+      }
+
       // Query the number of birth logs that reference the asset.
       // We do not check access to ensure that all matching logs are found.
       $count = $this->entityTypeManager->getStorage('log')->getAggregateQuery()
