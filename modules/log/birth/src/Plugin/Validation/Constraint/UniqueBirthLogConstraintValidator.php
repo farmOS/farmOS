@@ -57,8 +57,9 @@ class UniqueBirthLogConstraintValidator extends ConstraintValidator implements C
       }
 
       // Perform an entity query to find logs that reference the asset.
+      // We do not check access to ensure that all matching logs are found.
       $query = $this->entityTypeManager->getStorage('log')->getQuery()
-        ->accessCheck(TRUE)
+        ->accessCheck(FALSE)
         ->condition('type', 'birth')
         ->condition('asset', $asset_id);
       $ids = $query->execute();
