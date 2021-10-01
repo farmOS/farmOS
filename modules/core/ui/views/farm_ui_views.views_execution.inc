@@ -5,6 +5,7 @@
  * Provides Views runtime hooks for farm_ui_views.module.
  */
 
+use Drupal\Core\Entity\Sql\SqlContentEntityStorageException;
 use Drupal\views\ViewExecutable;
 use Drupal\views\Views;
 
@@ -141,8 +142,10 @@ function farm_ui_views_add_bundle_handlers(ViewExecutable $view, string $display
   // Get the entity and bundle.
   $base_entity = $view->getBaseEntityType();
 
-  /** @var \Drupal\Core\Entity\Sql\DefaultTableMapping $table_mapping */
-  $table_mapping = \Drupal::entityTypeManager()->getStorage($base_entity->id())->getTableMapping();
+  // Get the entity storage and table mapping.
+  /** @var \Drupal\Core\Entity\Sql\SqlContentEntityStorage $entity_storage */
+  $entity_storage = \Drupal::entityTypeManager()->getStorage($base_entity->id());
+  $table_mapping = $entity_storage->getTableMapping();
 
   // Load bundle fields.
   /** @var \Drupal\entity\BundleFieldDefinition[] $bundle_fields */
@@ -158,12 +161,23 @@ function farm_ui_views_add_bundle_handlers(ViewExecutable $view, string $display
     // Save the field type.
     $field_type = $field_definition->getType();
 
-    // Get the field's table column (main property name).
-    $table = $table_mapping->getFieldTableName($field_name);
-    $property_name = $field_definition->getFieldStorageDefinition()->getMainPropertyName();
+    // Build a views option name so we can load its views data definition.
+    // First try to get the table from the field's table mapping.
+    try {
+      $table = $table_mapping->getFieldTableName($field_name);
+    }
+    // Else default to the entity types's base table.
+    // This is the convention that computed fields should follow when defining
+    // views data since they do not have a table created in the database.
+    catch (SqlContentEntityStorageException $e) {
+      $table = $entity_storage->getBaseTable();
+    }
 
-    // Build the column and table names.
+    // Build the column name from the field name + main property.
+    $property_name = $field_definition->getFieldStorageDefinition()->getMainPropertyName();
     $column_name = $field_name . '_' . $property_name;
+
+    // Combine the table and column names.
     $views_option_name = $table . '.' . $column_name;
 
     // Add a field handler if a views data field definition exists.
