@@ -13,7 +13,7 @@ use Drupal\Core\TypedData\DataDefinition;
  *   id = "id_tag",
  *   label = @Translation("ID tag"),
  *   description = @Translation("This field stores a combination of id, tag type and location."),
- *   category = @Translation("farmOS"),
+ *   no_ui = TRUE,
  *   default_widget = "id_tag",
  *   default_formatter = "id_tag"
  * )
