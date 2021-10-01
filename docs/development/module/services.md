@@ -97,7 +97,7 @@ $groups = \Drupal::service('group.membership')->getGroup($asset);
 
 ## Log query service
 
-**Service name**: `log.query`
+**Service name**: `farm.log_query`
 
 The log query service is a helper service for building a standard log database
 query. This is primarily used to query for the "latest" log of an asset.
@@ -128,7 +128,7 @@ $options = [
   'status' => 'done',
   'limit' => 1,
 ];
-$query = \Drupal::service('log.query')->getQuery($options);
+$query = \Drupal::service('farm.log_query')->getQuery($options);
 $query->condition('is_movement', TRUE);
 $log_ids = $query->execute();
 
