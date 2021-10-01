@@ -44,6 +44,7 @@ class PlanCRUDTest extends PlanTestBase {
     $result = \Drupal::entityTypeManager()
       ->getStorage('plan')
       ->getQuery()
+      ->accessCheck(TRUE)
       ->range(0, 1)
       ->execute();
     $plan_id = reset($result);

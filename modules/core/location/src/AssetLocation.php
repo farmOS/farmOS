@@ -187,6 +187,7 @@ class AssetLocation implements AssetLocationInterface {
     }
 
     // Query for movement logs that reference the asset.
+    // We do not check access on the logs to ensure that none are filtered out.
     $options = [
       'asset' => $asset,
       'timestamp' => $this->time->getRequestTime(),
@@ -195,6 +196,7 @@ class AssetLocation implements AssetLocationInterface {
     ];
     $query = $this->logQueryFactory->getQuery($options);
     $query->condition('is_movement', TRUE);
+    $query->accessCheck(FALSE);
     $log_ids = $query->execute();
 
     // Bail if no logs are found.

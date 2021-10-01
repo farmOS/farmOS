@@ -11,6 +11,10 @@ location. Some of these services are documented here.
 The asset location service provides methods that encapsulate the logic for
 determining an asset's location and geometry.
 
+Note that these methods do not perform access checking on any of the assets or
+logs used to determine location. It is up to downstream code to ensure access
+controls are respected.
+
 **Methods**:
 
 `isLocation($asset)` - Check if an asset is a location. Returns a boolean.
@@ -50,6 +54,10 @@ $geometry = \Drupal::service('asset.location')->getGeometry($asset);
 The asset inventory service provides methods that encapsulate the logic for
 determining an asset's inventory.
 
+Note that these methods do not perform access checking on any of the assets or
+logs used to determine inventory. It is up to downstream code to ensure access
+controls are respected.
+
 **Methods**:
 
 `getInventory($asset, $measure = '', $units = '')` - Get inventory summaries
@@ -73,6 +81,10 @@ $gallons_of_fertilizer = \Drupal::service('asset.inventory')->getInventory($asse
 The group membership service provides methods that encapsulate the logic for
 determining an asset's group membership. This is provided by the optional Group
 Asset module, and will only be available if that module is installed.
+
+Note that these methods do not perform access checking on any of the assets or
+logs used to determine group membership. It is up to downstream code to ensure
+access controls are respected.
 
 **Methods**:
 
@@ -103,6 +115,16 @@ The log query service is a helper service for building a standard log database
 query. This is primarily used to query for the "latest" log of an asset.
 The asset location and group membership services use this.
 
+Note that you must set specify whether or not you want access checking to be
+performed on the queried logs by running the `accessCheck()` method on the
+query object that is returned. This will determine whether or not logs that
+the current user does not have access to will be filtered out. If you are
+trying to find the "latest" log of an asset for a particular purpose, filtering
+out logs can cause inconsistent results, so typically `accessCheck(FALSE)` is
+necessary. It is the responsibility of the code that uses this service to
+understand the security implications of the data this returns, and perform
+additional access checking if necessary.
+
 **Methods**:
 
 `getQuery($options)` - Builds a log database query.
@@ -130,6 +152,7 @@ $options = [
 ];
 $query = \Drupal::service('farm.log_query')->getQuery($options);
 $query->condition('is_movement', TRUE);
+$query->accessCheck(FALSE);
 $log_ids = $query->execute();
 
 // Load the first log.

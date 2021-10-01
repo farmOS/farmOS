@@ -44,6 +44,7 @@ class AssetCRUDTest extends AssetTestBase {
     $result = \Drupal::entityTypeManager()
       ->getStorage('asset')
       ->getQuery()
+      ->accessCheck(TRUE)
       ->range(0, 1)
       ->execute();
     $asset_id = reset($result);
