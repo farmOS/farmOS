@@ -11,6 +11,10 @@ location. Some of these services are documented here.
 The asset location service provides methods that encapsulate the logic for
 determining an asset's location and geometry.
 
+Note that these methods do not perform access checking on any of the assets or
+logs used to determine location. It is up to downstream code to ensure access
+controls are respected.
+
 **Methods**:
 
 `isLocation($asset)` - Check if an asset is a location. Returns a boolean.
@@ -50,6 +54,10 @@ $geometry = \Drupal::service('asset.location')->getGeometry($asset);
 The asset inventory service provides methods that encapsulate the logic for
 determining an asset's inventory.
 
+Note that these methods do not perform access checking on any of the assets or
+logs used to determine inventory. It is up to downstream code to ensure access
+controls are respected.
+
 **Methods**:
 
 `getInventory($asset, $measure = '', $units = '')` - Get inventory summaries
@@ -73,6 +81,10 @@ $gallons_of_fertilizer = \Drupal::service('asset.inventory')->getInventory($asse
 The group membership service provides methods that encapsulate the logic for
 determining an asset's group membership. This is provided by the optional Group
 Asset module, and will only be available if that module is installed.
+
+Note that these methods do not perform access checking on any of the assets or
+logs used to determine group membership. It is up to downstream code to ensure
+access controls are respected.
 
 **Methods**:
 
