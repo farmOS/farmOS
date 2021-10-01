@@ -115,6 +115,16 @@ The log query service is a helper service for building a standard log database
 query. This is primarily used to query for the "latest" log of an asset.
 The asset location and group membership services use this.
 
+Note that you must set specify whether or not you want access checking to be
+performed on the queried logs by running the `accessCheck()` method on the
+query object that is returned. This will determine whether or not logs that
+the current user does not have access to will be filtered out. If you are
+trying to find the "latest" log of an asset for a particular purpose, filtering
+out logs can cause inconsistent results, so typically `accessCheck(FALSE)` is
+necessary. It is the responsibility of the code that uses this service to
+understand the security implications of the data this returns, and perform
+additional access checking if necessary.
+
 **Methods**:
 
 `getQuery($options)` - Builds a log database query.
@@ -129,9 +139,6 @@ It accepts a keyed array of options:
 - `status` (string) - Filter by log status.
 - `asset` (asset entity) - Filter to logs that reference a particular asset.
 - `limit` (int) - Only include this many results.
-- `access_check` (bool) - Whether or not to check user access to logs returned
-  by the query (defaults to `TRUE`, do not set to `FALSE` unless you understand
-  the security implications for your use-case).
 
 **Example usage**:
 
@@ -145,6 +152,7 @@ $options = [
 ];
 $query = \Drupal::service('farm.log_query')->getQuery($options);
 $query->condition('is_movement', TRUE);
+$query->accessCheck(FALSE);
 $log_ids = $query->execute();
 
 // Load the first log.
