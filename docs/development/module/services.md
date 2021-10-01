@@ -117,6 +117,9 @@ It accepts a keyed array of options:
 - `status` (string) - Filter by log status.
 - `asset` (asset entity) - Filter to logs that reference a particular asset.
 - `limit` (int) - Only include this many results.
+- `access_check` (bool) - Whether or not to check user access to logs returned
+  by the query (defaults to `TRUE`, do not set to `FALSE` unless you understand
+  the security implications for your use-case).
 
 **Example usage**:
 
