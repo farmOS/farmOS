@@ -51,7 +51,7 @@ class IdTagWidget extends WidgetBase {
     // If the tag type is not in the list of allowed values, change to a
     // text field so that it is still editable.
     if (!empty($tag_type) && !array_key_exists($tag_type, $tag_types)) {
-      $element['type']['#type'] = 'select';
+      $element['type']['#type'] = 'textfield';
       unset($element['type']['#options']);
     }
 
