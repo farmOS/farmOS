@@ -24,24 +24,10 @@ jobs:
       - name: Create artifact
         run: cd /tmp && tar -czf farmOS-${FARMOS_VERSION}.tar.gz farmOS
       - name: Create GitHub release
-        id: create_release
-        uses: actions/create-release@latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@6034af24fba4e5a8e975aaa6056554efe4c794d0 #0.1.13
         with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
           body: |
             ...
+          files: /tmp/farmOS-${{ env.FARMOS_VERSION }}.tar.gz
           draft: true
           prerelease: false
-      - name: Upload release asset
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: /tmp/farmOS-${{ env.FARMOS_VERSION }}.tar.gz
-          asset_name: farmOS-${{ env.FARMOS_VERSION }}.tar.gz
-          asset_content_type: application/gzip
