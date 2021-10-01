@@ -27,6 +27,7 @@ class BirthTest extends KernelTestBase {
     'farm_birth',
     'farm_entity',
     'farm_entity_fields',
+    'farm_entity_views',
     'farm_field',
     'farm_id_tag',
     'farm_log',
@@ -35,6 +36,7 @@ class BirthTest extends KernelTestBase {
     'image',
     'options',
     'state_machine',
+    'system',
     'user',
     'taxonomy',
     'text',
@@ -51,6 +53,7 @@ class BirthTest extends KernelTestBase {
     $this->installEntitySchema('taxonomy_term');
     $this->installEntitySchema('user');
     $this->installConfig([
+      'farm_entity_views',
       'farm_animal',
       'farm_animal_type',
       'farm_birth',
@@ -162,11 +165,12 @@ class BirthTest extends KernelTestBase {
       'timestamp' => \Drupal::time()->getRequestTime(),
       'asset' => [['target_id' => $asset->id()]],
     ]);
-    $log1->save();
 
-    // Confirm that there were no validation errors.
+    // Confirm that there are no validation errors.
     $errors = $log1->validate();
     $this->assertCount(0, $errors);
+
+    $log1->save();
 
     // Create a second birth log that references the asset.
     $log2 = Log::create([
@@ -174,13 +178,20 @@ class BirthTest extends KernelTestBase {
       'timestamp' => \Drupal::time()->getRequestTime(),
       'asset' => [['target_id' => $asset->id()]],
     ]);
-    $log2->save();
 
     // Confirm that validation fails.
     $errors = $log2->validate();
     $this->assertCount(1, $errors);
     $this->assertEquals(new FormattableMarkup('%child already has a birth log. More than one birth log cannot reference the same child.', ['%child' => $asset->label()]), $errors[0]->getMessage());
-    $this->assertEquals('asset', $errors[0]->getPropertyPath());
+    $this->assertEquals('asset.0.target_id', $errors[0]->getPropertyPath());
+
+    // Try updating the original birth log.
+    $log1->set('name', $this->randomMachineName());
+
+    // Confirm there are no validation errors.
+    $errors = $log1->validate();
+    $this->assertCount(0, $errors);
+    $log1->save();
   }
 
 }

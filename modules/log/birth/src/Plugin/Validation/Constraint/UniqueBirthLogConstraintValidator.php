@@ -43,31 +43,33 @@ class UniqueBirthLogConstraintValidator extends ConstraintValidator implements C
    * {@inheritdoc}
    */
   public function validate($value, Constraint $constraint) {
-    /** @var \Drupal\Core\Field\FieldItemListInterface[] $value */
+    /** @var \Drupal\Core\Field\EntityReferenceFieldItemList $value */
     /** @var \Drupal\farm_birth\Plugin\Validation\Constraint\UniqueBirthLogConstraint $constraint */
-    foreach ($value as $item) {
+    foreach ($value->referencedEntities() as $delta => $asset) {
 
-      // Get the referenced asset ID.
-      $item_value = $item->getValue();
-      $asset_id = $item_value['target_id'] ?? FALSE;
-
-      // If there is no asset, skip.
-      if (empty($asset_id)) {
-        continue;
+      // If the log is not new, skip validation.
+      // A birth log exits so there is no need to check if one can be created.
+      /** @var \Drupal\log\Entity\LogInterface $log */
+      $log = $value->getParent()->getValue();
+      if (!$log->isNew()) {
+        return;
       }
 
-      // Perform an entity query to find logs that reference the asset.
+      // Query the number of birth logs that reference the asset.
       // We do not check access to ensure that all matching logs are found.
-      $query = $this->entityTypeManager->getStorage('log')->getQuery()
+      $count = $this->entityTypeManager->getStorage('log')->getAggregateQuery()
         ->accessCheck(FALSE)
         ->condition('type', 'birth')
-        ->condition('asset', $asset_id);
-      $ids = $query->execute();
+        ->condition('asset', $asset->id())
+        ->count()
+        ->execute();
 
-      // If more than 1 birth logs reference the asset, add a violation.
-      if (count($ids) > 1) {
-        $asset = $this->entityTypeManager->getStorage('asset')->load($asset_id);
-        $this->context->addViolation($constraint->message, ['%child' => $asset->label()]);
+      // If more than 0 birth logs reference the asset, add a violation.
+      if ($count > 0) {
+        $this->context->buildViolation($constraint->message, ['%child' => $asset->label()])
+          ->atPath((string) $delta . '.target_id')
+          ->setInvalidValue($asset->id())
+          ->addViolation();
       }
     }
   }
