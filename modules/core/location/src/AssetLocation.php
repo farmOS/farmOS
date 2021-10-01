@@ -192,6 +192,7 @@ class AssetLocation implements AssetLocationInterface {
       'timestamp' => $this->time->getRequestTime(),
       'status' => 'done',
       'limit' => 1,
+      'access_check' => FALSE,
     ];
     $query = $this->logQueryFactory->getQuery($options);
     $query->condition('is_movement', TRUE);

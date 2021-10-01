@@ -119,6 +119,7 @@ class GroupMembership implements GroupMembershipInterface {
       'timestamp' => $this->time->getRequestTime(),
       'status' => 'done',
       'limit' => 1,
+      'access_check' => FALSE,
     ];
     $query = $this->logQueryFactory->getQuery($options);
     $query->condition('is_group_assignment', TRUE);
