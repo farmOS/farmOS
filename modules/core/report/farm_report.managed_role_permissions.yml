@@ -1,0 +1,3 @@
+farm_report:
+  config_permissions:
+    - access farm report index
