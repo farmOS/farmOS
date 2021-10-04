@@ -40,6 +40,13 @@ function farm_ui_views_views_pre_view(ViewExecutable $view, $display_id, array &
     }
   }
 
+  // Remove the asset and location filters from the log page_asset display.
+  // @todo Make the AssetOrLocationArgument compatible with these filters.
+  if ($view->id() == 'farm_log' && $display_id == 'page_asset') {
+    $view->removeHandler($display_id, 'filter', 'asset_target_id');
+    $view->removeHandler($display_id, 'filter', 'location_target_id');
+  }
+
   // If this is the "Upcoming" or "Late" Logs block display, add a "more" link
   // that points to the default page display with appropriate filters.
   if ($view->id() == 'farm_log' && in_array($display_id, ['block_upcoming', 'block_late'])) {
@@ -253,6 +260,22 @@ function farm_ui_views_add_bundle_handlers(ViewExecutable $view, string $display
                 $filter_options['vid'] = reset($handler_settings['target_bundles']);
               }
             }
+
+            // We use autocomplete for other entity types.
+            else {
+              $filter_options['type'] = 'autocomplete';
+
+              // If Views is used for the handler, or if target bundles are
+              // specified, then pass the handler and handler settings through
+              // to the filter so they can be used to limit options.
+              $handler = $field_definition->getSetting('handler');
+              $handler_settings = $field_definition->getSetting('handler_settings');
+              if ($handler === 'views' || !empty($handler_settings['target_bundles'])) {
+                $filter_options['handler'] = $handler;
+                $filter_options['handler_settings'] = $handler_settings;
+              }
+            }
+
             break;
 
           case 'string':
