@@ -1,0 +1,4 @@
+farm.report:
+  title: Reports
+  parent: system.admin
+  route_name: farm.report
