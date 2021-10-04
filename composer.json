@@ -59,6 +59,7 @@
                 "Issue #3206703: Provide reverse relationships for bundle plugin entity_reference fields.": "https://www.drupal.org/files/issues/2021-05-18/3206703-7.patch"
             },
             "drupal/entity_reference_integrity": {
+                "Issue #2831365: Make action confirm_form_route_name forms that delete entities disabled when protected": "https://www.drupal.org/files/issues/2021-10-04/2831365-18.patch",
                 "Issue #3195039: 500 error when deleting referenced entities via JSONAPI": "https://www.drupal.org/files/issues/2021-10-04/3195039-6.patch"
             },
             "drupal/simple_oauth": {
