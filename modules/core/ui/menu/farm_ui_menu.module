@@ -17,6 +17,12 @@ function farm_ui_menu_menu_links_discovered_alter(&$links) {
     $links['system.admin']['parent'] = 'farm.base';
     $links['system.admin']['weight'] = 100;
   }
+
+  // Move the farm.report menu link to the farm.base parent.
+  if (!empty($links['farm.report'])) {
+    $links['farm.report']['parent'] = 'farm.base';
+    $links['farm.report']['weight'] = 90;
+  }
 }
 
 /**
