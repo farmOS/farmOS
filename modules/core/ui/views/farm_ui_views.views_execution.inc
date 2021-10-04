@@ -260,6 +260,22 @@ function farm_ui_views_add_bundle_handlers(ViewExecutable $view, string $display
                 $filter_options['vid'] = reset($handler_settings['target_bundles']);
               }
             }
+
+            // We use autocomplete for other entity types.
+            else {
+              $filter_options['type'] = 'autocomplete';
+
+              // If Views is used for the handler, or if target bundles are
+              // specified, then pass the handler and handler settings through
+              // to the filter so they can be used to limit options.
+              $handler = $field_definition->getSetting('handler');
+              $handler_settings = $field_definition->getSetting('handler_settings');
+              if ($handler === 'views' || !empty($handler_settings['target_bundles'])) {
+                $filter_options['handler'] = $handler;
+                $filter_options['handler_settings'] = $handler_settings;
+              }
+            }
+
             break;
 
           case 'string':
