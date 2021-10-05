@@ -69,6 +69,10 @@ RUN apt-get update \
 # Set the COMPOSER_MEMORY_LIMIT environment variable to unlimited.
 ENV COMPOSER_MEMORY_LIMIT=-1
 
+# Install Drush Launcher
+RUN curl -L --silent https://github.com/drush-ops/drush-launcher/releases/latest/download/drush.phar \
+  > /usr/local/bin/drush && chmod +x /usr/local/bin/drush
+
 # Add the build-farmOS.sh script.
 COPY build-farmOS.sh /usr/local/bin/
 RUN chmod a+x /usr/local/bin/build-farmOS.sh
