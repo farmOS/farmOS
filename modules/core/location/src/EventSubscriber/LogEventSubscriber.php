@@ -260,7 +260,7 @@ class LogEventSubscriber implements EventSubscriberInterface {
    *   Boolean indicating if the log is an active movement log.
    */
   public static function isActiveMovementLog(LogInterface $log): bool {
-    return $log->get('status')->value == 'done' && $log->get('is_movement')->value;
+    return $log->get('status')->value == 'done' && $log->get('is_movement')->value && $log->get('timestamp')->value <= \Drupal::time()->getCurrentTime();
   }
 
 }
