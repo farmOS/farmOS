@@ -206,6 +206,19 @@ class GroupTest extends KernelTestBase {
 
     // Assert that the animal's cache tags were invalidated.
     $this->assertEntityTestCache($animal, FALSE);
+
+    // Re-populate a cache value dependent on the animal's cache tags.
+    $this->populateEntityTestCache($animal);
+
+    // Delete the fourth log.
+    $fourth_log->delete();
+
+    // When a group membership is deleted the last group membership log is used.
+    $this->assertEquals($second_group->id(), $this->groupMembership->getGroup($animal)[0]->id(), 'Deleting a group membership log updates group membership.');
+    $this->assertEquals(1, count($this->groupMembership->getGroupMembers($second_group)), 'Deleting a group membership log updates group members.');
+
+    // Assert that the animal's cache tags were invalidated.
+    $this->assertEntityTestCache($animal, FALSE);
   }
 
   /**
