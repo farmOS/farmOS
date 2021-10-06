@@ -235,6 +235,9 @@ class GroupTest extends KernelTestBase {
     ]);
     $animal->save();
 
+    // Populate a cache value dependent on the animal's cache tags.
+    $this->populateEntityTestCache($animal);
+
     // Create a group asset.
     /** @var \Drupal\asset\Entity\AssetInterface $group */
     $group = Asset::create([
@@ -254,6 +257,12 @@ class GroupTest extends KernelTestBase {
       'asset' => ['target_id' => $animal->id()],
     ]);
     $first_log->save();
+
+    // Assert that the animal's cache tags were invalidated.
+    $this->assertEntityTestCache($animal, FALSE);
+
+    // Re-populate a cache value dependent on the animal's cache tags.
+    $this->populateEntityTestCache($animal);
 
     // Create two pasture assets.
     /** @var \Drupal\asset\Entity\AssetInterface $first_pasture */
@@ -291,6 +300,12 @@ class GroupTest extends KernelTestBase {
     $this->assertEquals(1, count($this->assetLocation->getAssetsByLocation($first_pasture)), 'Locations have assets that are moved to them.');
     $this->assertEmpty($this->assetLocation->getAssetsByLocation($second_pasture), 'Locations that do not have assets moved to them are unaffected.');
 
+    // Assert that the animal's cache tags were invalidated.
+    $this->assertEntityTestCache($animal, FALSE);
+
+    // Re-populate a cache value dependent on the animal's cache tags.
+    $this->populateEntityTestCache($animal);
+
     // Create a log that moves the group to the second pasture.
     /** @var \Drupal\log\Entity\LogInterface $third_log */
     $third_log = Log::create([
@@ -307,6 +322,12 @@ class GroupTest extends KernelTestBase {
     $this->assertEquals($this->logLocation->getGeometry($third_log), $this->assetLocation->getGeometry($animal), 'Asset geometry is determined by group membership log.');
     $this->assertEmpty($this->assetLocation->getAssetsByLocation($first_pasture), 'A group movement removes assets from their previous location.');
     $this->assertEquals(2, count($this->assetLocation->getAssetsByLocation($second_pasture)), 'A group movement adds assets to their new location.');
+
+    // Assert that the animal's cache tags were invalidated.
+    $this->assertEntityTestCache($animal, FALSE);
+
+    // Re-populate a cache value dependent on the animal's cache tags.
+    $this->populateEntityTestCache($animal);
 
     // Create a log that unsets the group location.
     /** @var \Drupal\log\Entity\LogInterface $fourth_log */
@@ -325,6 +346,12 @@ class GroupTest extends KernelTestBase {
     $this->assertEmpty($this->assetLocation->getAssetsByLocation($first_pasture), 'Unsetting group location removes member assets from all locations.');
     $this->assertEmpty($this->assetLocation->getAssetsByLocation($second_pasture), 'Unsetting group location removes member assets from all locations.');
 
+    // Assert that the animal's cache tags were invalidated.
+    $this->assertEntityTestCache($animal, FALSE);
+
+    // Re-populate a cache value dependent on the animal's cache tags.
+    $this->populateEntityTestCache($animal);
+
     // Create a log that unsets the animal's group membership.
     /** @var \Drupal\log\Entity\LogInterface $fifth_log */
     $fifth_log = Log::create([
@@ -342,6 +369,9 @@ class GroupTest extends KernelTestBase {
     $this->assertEquals($this->logLocation->getGeometry($second_log), $this->assetLocation->getGeometry($animal), 'Asset geometry is determined by asset membership log.');
     $this->assertEquals(1, count($this->assetLocation->getAssetsByLocation($first_pasture)), 'Unsetting group membership adds assets to their previous location.');
     $this->assertEmpty($this->assetLocation->getAssetsByLocation($second_pasture), 'Unsetting group membership removes member assets from the group location.');
+
+    // Assert that the animal's cache tags were invalidated.
+    $this->assertEntityTestCache($animal, FALSE);
   }
 
 }

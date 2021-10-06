@@ -2,15 +2,17 @@
 
 namespace Drupal\farm_group\EventSubscriber;
 
+use Drupal\asset\Entity\AssetInterface;
 use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Cache\CacheTagsInvalidatorInterface;
 use Drupal\farm_group\GroupMembershipInterface;
+use Drupal\farm_location\EventSubscriber\LogEventSubscriber as LocationLogEventSubscriber;
 use Drupal\farm_log\Event\LogEvent;
 use Drupal\log\Entity\LogInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Invalidate asset cache when group membership changes.
+ * Invalidate asset cache when group membership and group location changes.
  */
 class LogEventSubscriber implements EventSubscriberInterface {
 
@@ -72,6 +74,7 @@ class LogEventSubscriber implements EventSubscriberInterface {
    */
   public function logDelete(LogEvent $event) {
     $this->invalidateAssetCacheOnGroupAssignment($event->log);
+    $this->invalidateGroupMemberAssetCacheOnMovement($event->log);
   }
 
   /**
@@ -82,6 +85,7 @@ class LogEventSubscriber implements EventSubscriberInterface {
    */
   public function logPresave(LogEvent $event) {
     $this->invalidateAssetCacheOnGroupAssignment($event->log);
+    $this->invalidateGroupMemberAssetCacheOnMovement($event->log);
   }
 
   /**
@@ -126,6 +130,67 @@ class LogEventSubscriber implements EventSubscriberInterface {
     // Include assets currently referenced by the log.
     foreach ($log->get('asset')->referencedEntities() as $asset) {
       array_push($tags, ...$asset->getCacheTags());
+    }
+
+    // Invalidate the cache tags.
+    $this->cacheTagsInvalidator->invalidateTags($tags);
+  }
+
+  /**
+   * Invalidate group member cache when a group's location changes.
+   *
+   * @param \Drupal\log\Entity\LogInterface $log
+   *   The Log entity.
+   */
+  protected function invalidateGroupMemberAssetCacheOnMovement(LogInterface $log) {
+    // Keep track if we need to invalidate the cache of referenced assets so
+    // the computed 'location' and 'geometry' fields are updated.
+    $update_asset_cache = FALSE;
+
+    // If the log is a 'done' movement log, invalidate the cache.
+    if (LocationLogEventSubscriber::isActiveMovementLog($log)) {
+      $update_asset_cache = TRUE;
+    }
+
+    // If updating an existing 'done' movement log, invalidate the cache.
+    // This catches any movement logs changing from done to pending.
+    if (!empty($log->original) && LocationLogEventSubscriber::isActiveMovementLog($log->original)) {
+      $update_asset_cache = TRUE;
+    }
+
+    // If an update is not necessary, bail.
+    if (!$update_asset_cache) {
+      return;
+    }
+
+    // Build a list of cache tags.
+    // @todo Only invalidate cache if the movement log changes the group's current location. This might be different for each asset.
+    $tags = [];
+
+    // Include assets that were previously referenced.
+    if (!empty($log->original)) {
+      foreach ($log->original->get('asset')->referencedEntities() as $asset) {
+
+        // If the asset is a group asset, collect group member cache tags.
+        if ($asset->bundle() === 'group') {
+          $member_tags = array_map(function (AssetInterface $asset) {
+            return $asset->getCacheTags();
+          }, $this->groupMembership->getGroupMembers($asset));
+          array_push($tags, ...array_merge(...$member_tags));
+        }
+      }
+    }
+
+    // Include assets currently referenced by the log.
+    foreach ($log->get('asset')->referencedEntities() as $asset) {
+
+      // If the asset is a group asset, collect group member cache tags.
+      if ($asset->bundle() === 'group') {
+        $member_tags = array_map(function (AssetInterface $asset) {
+          return $asset->getCacheTags();
+        }, $this->groupMembership->getGroupMembers($asset));
+        array_push($tags, ...array_merge(...$member_tags));
+      }
     }
 
     // Invalidate the cache tags.
