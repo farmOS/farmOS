@@ -5,6 +5,7 @@ namespace Drupal\Tests\farm_group\Kernel;
 use Drupal\asset\Entity\Asset;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\log\Entity\Log;
+use Drupal\Tests\farm_test\Kernel\FarmEntityCacheTestTrait;
 
 /**
  * Tests for farmOS group membership logic.
@@ -12,6 +13,8 @@ use Drupal\log\Entity\Log;
  * @group farm
  */
 class GroupTest extends KernelTestBase {
+
+  use FarmEntityCacheTestTrait;
 
   /**
    * Group membership service.
@@ -81,6 +84,9 @@ class GroupTest extends KernelTestBase {
     ]);
     $animal->save();
 
+    // Populate a cache value dependent on the animal's cache tags.
+    $this->populateEntityTestCache($animal);
+
     // Create group assets.
     /** @var \Drupal\asset\Entity\AssetInterface $first_group */
     $first_group = Asset::create([
@@ -103,6 +109,9 @@ class GroupTest extends KernelTestBase {
     $this->assertEmpty($this->groupMembership->getGroupMembers($first_group), 'New groups have no members.');
     $this->assertEmpty($this->groupMembership->getGroupMembers($second_group), 'New groups have no members.');
 
+    // Assert that the animal's cache tags were not invalidated.
+    $this->assertEntityTestCache($animal, TRUE);
+
     // Create a "done" log that assigns the animal to the group.
     /** @var \Drupal\log\Entity\LogInterface $first_log */
     $first_log = Log::create([
@@ -120,6 +129,12 @@ class GroupTest extends KernelTestBase {
     $this->assertEquals(1, count($this->groupMembership->getGroupMembers($first_group)), 'When an asset becomes a group member, the group has one member.');
     $this->assertEmpty($this->groupMembership->getGroupMembers($second_group), 'When an asset becomes a group member, other groups are unaffected.');
 
+    // Assert that the animal's cache tags were invalidated.
+    $this->assertEntityTestCache($animal, FALSE);
+
+    // Re-populate a cache value dependent on the animal's cache tags.
+    $this->populateEntityTestCache($animal);
+
     // Create a "pending" log that assigns the animal to the second group.
     /** @var \Drupal\log\Entity\LogInterface $second_log */
     $second_log = Log::create([
@@ -136,11 +151,20 @@ class GroupTest extends KernelTestBase {
     $this->assertEquals($first_group->id(), $this->groupMembership->getGroup($animal)[0]->id(), 'Pending group assignment logs do not affect membership.');
     $this->assertEmpty($this->groupMembership->getGroupMembers($second_group), 'Groups with only pending membership have zero members.');
 
+    // Assert that the animal's cache tags were not invalidated.
+    $this->assertEntityTestCache($animal, TRUE);
+
     // When the log is marked as "done", the asset's membership is updated.
     $second_log->status = 'done';
     $second_log->save();
     $this->assertEquals($second_group->id(), $this->groupMembership->getGroup($animal)[0]->id(), 'A second group assignment log updates group membership.');
     $this->assertEquals(1, count($this->groupMembership->getGroupMembers($second_group)), 'Completed group assignment logs add group members.');
+
+    // Assert that the animal's cache tags were invalidated.
+    $this->assertEntityTestCache($animal, FALSE);
+
+    // Re-populate a cache value dependent on the animal's cache tags.
+    $this->populateEntityTestCache($animal);
 
     // Create a third "done" log in the future.
     /** @var \Drupal\log\Entity\LogInterface $third_log */
@@ -159,6 +183,9 @@ class GroupTest extends KernelTestBase {
     $this->assertEquals($second_group->id(), $this->groupMembership->getGroup($animal)[0]->id(), 'A third group assignment log in the future does not update group membership.');
     $this->assertEquals(1, count($this->groupMembership->getGroupMembers($second_group)), 'Future group assignment logs do not affect members.');
 
+    // Assert that the animal's cache tags were not invalidated.
+    $this->assertEntityTestCache($animal, TRUE);
+
     // Create a fourth log with no group reference.
     /** @var \Drupal\log\Entity\LogInterface $fourth_log */
     $fourth_log = Log::create([
@@ -176,6 +203,9 @@ class GroupTest extends KernelTestBase {
     $this->assertEmpty($this->groupMembership->getGroup($animal), 'Unset group membership does not reference any groups.');
     $this->assertEquals(0, count($this->groupMembership->getGroupMembers($first_group)), 'Unset group membership unsets group members.');
     $this->assertEquals(0, count($this->groupMembership->getGroupMembers($second_group)), 'Unset group membership unsets group members.');
+
+    // Assert that the animal's cache tags were invalidated.
+    $this->assertEntityTestCache($animal, FALSE);
   }
 
   /**
