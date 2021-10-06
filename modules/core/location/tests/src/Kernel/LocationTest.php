@@ -276,6 +276,19 @@ class LocationTest extends KernelTestBase {
 
     // Assert that the asset's cache tags were invalidated.
     $this->assertEntityTestCache($asset, FALSE);
+
+    // Re-populate a cache value dependent on the asset's cache tags.
+    $this->populateEntityTestCache($asset);
+
+    // Delete the fourth log.
+    $fourth_log->delete();
+
+    // When a movement log is deleted, the previous location is used.
+    $this->assertEquals($this->logLocation->getLocation($second_log), $this->assetLocation->getLocation($asset), 'When a movement log is deleted, the previous location is used.');
+    $this->assertEquals($this->logLocation->getGeometry($second_log), $this->assetLocation->getGeometry($asset), 'When a movement log is deleted, the previous locations geometry is used. .');
+
+    // Assert that the asset's cache tags were invalidated.
+    $this->assertEntityTestCache($asset, FALSE);
   }
 
   /**
