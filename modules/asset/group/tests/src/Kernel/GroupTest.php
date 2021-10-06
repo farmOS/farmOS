@@ -372,6 +372,25 @@ class GroupTest extends KernelTestBase {
 
     // Assert that the animal's cache tags were invalidated.
     $this->assertEntityTestCache($animal, FALSE);
+
+    // Delete the fifth log before re-populating asset cache.
+    $fifth_log->delete();
+
+    // Re-populate a cache value dependent on the animal's cache tags.
+    $this->populateEntityTestCache($animal);
+
+    // Delete the fourth log.
+    // When a group's location log is deleted the group's last location is used.
+    $fourth_log->delete();
+
+    // Confirm that the animal is located in the second pasture.
+    $this->assertEquals($this->logLocation->getLocation($third_log), $this->assetLocation->getLocation($animal), 'Asset location is determined by group membership log.');
+    $this->assertEquals($this->logLocation->getGeometry($third_log), $this->assetLocation->getGeometry($animal), 'Asset geometry is determined by group membership log.');
+    $this->assertEmpty($this->assetLocation->getAssetsByLocation($first_pasture), 'A group movement removes assets from their previous location.');
+    $this->assertEquals(2, count($this->assetLocation->getAssetsByLocation($second_pasture)), 'A group movement adds assets to their new location.');
+
+    // Assert that the animal's cache tags were invalidated.
+    $this->assertEntityTestCache($animal, FALSE);
   }
 
 }
