@@ -431,8 +431,8 @@ class LocationTest extends KernelTestBase {
     $this->assertEquals(1, count($this->assetLocation->getAssetsByLocation($this->locations[1])));
 
     // Create a fifth log that moves first asset to the both locations.
-    /** @var \Drupal\log\Entity\LogInterface $fourth_log */
-    $fourth_log = Log::create([
+    /** @var \Drupal\log\Entity\LogInterface $fifth_log */
+    $fifth_log = Log::create([
       'type' => 'movement',
       'status' => 'done',
       'asset' => [
@@ -444,7 +444,7 @@ class LocationTest extends KernelTestBase {
       ],
       'is_movement' => TRUE,
     ]);
-    $fourth_log->save();
+    $fifth_log->save();
 
     // First location has two asset, second location has one asset.
     $this->assertEquals(2, count($this->assetLocation->getAssetsByLocation($this->locations[0])));
