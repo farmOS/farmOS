@@ -11,7 +11,7 @@ use Drupal\log\Entity\LogInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Perform actions on log presave.
+ * Populate log geometry and invalidate asset cache on movement logs.
  */
 class LogEventSubscriber implements EventSubscriberInterface {
 

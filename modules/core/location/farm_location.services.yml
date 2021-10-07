@@ -5,7 +5,7 @@ services:
       [ '@log.location', '@farm.log_query', '@entity_type.manager', '@datetime.time' , '@database']
   log.location:
     class: Drupal\farm_location\LogLocation
-  farm_location.log_presave:
+  farm_location.log_event_subscriber:
     class: Drupal\farm_location\EventSubscriber\LogEventSubscriber
     arguments:
       [ '@log.location', '@asset.location', '@cache_tags.invalidator' ]
