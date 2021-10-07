@@ -9,6 +9,7 @@ use Drupal\KernelTests\KernelTestBase;
 use Drupal\log\Entity\Log;
 use Drupal\quantity\Entity\Quantity;
 use Drupal\taxonomy\Entity\Term;
+use Drupal\Tests\farm_test\Kernel\FarmEntityCacheTestTrait;
 
 /**
  * Tests for farmOS inventory logic.
@@ -16,6 +17,8 @@ use Drupal\taxonomy\Entity\Term;
  * @group farm
  */
 class InventoryTest extends KernelTestBase {
+
+  use FarmEntityCacheTestTrait;
 
   /**
    * Asset inventory service.
@@ -77,9 +80,15 @@ class InventoryTest extends KernelTestBase {
     ]);
     $asset->save();
 
+    // Populate a cache value dependent on the asset's cache tags.
+    $this->populateEntityTestCache($asset);
+
     // When an asset has no adjustment logs, it has no inventory.
     $inventory = $this->assetInventory->getInventory($asset);
     $this->assertEmpty($inventory, 'New assets do not have inventory.');
+
+    // Assert that the asset's cache tags were not invalidated.
+    $this->assertEntityTestCache($asset, TRUE);
 
     // Reset the asset's inventory to 1.
     $this->adjustInventory($asset, 'reset', '1');
@@ -89,52 +98,104 @@ class InventoryTest extends KernelTestBase {
     $this->assertNotEmpty($inventory, 'Asset with an inventory adjustment has inventory.');
     $this->assertEquals('1', $inventory[0]['value'], 'Asset inventory is 1.');
 
+    // Assert that the asset's cache tags were invalidated.
+    $this->assertEntityTestCache($asset, FALSE);
+
+    // Re-populate a cache value dependent on the asset's cache tags.
+    $this->populateEntityTestCache($asset);
+
     // Increment the inventory by 5.
     $this->adjustInventory($asset, 'increment', '5');
     $inventory = $this->assetInventory->getInventory($asset);
     $this->assertEquals('6', $inventory[0]['value'], 'Asset inventory is 6.');
+
+    // Assert that the asset's cache tags were invalidated.
+    $this->assertEntityTestCache($asset, FALSE);
+
+    // Re-populate a cache value dependent on the asset's cache tags.
+    $this->populateEntityTestCache($asset);
 
     // Decrement the inventory by 1.
     $this->adjustInventory($asset, 'decrement', '1');
     $inventory = $this->assetInventory->getInventory($asset);
     $this->assertEquals('5', $inventory[0]['value'], 'Asset inventory is 5.');
 
+    // Assert that the asset's cache tags were invalidated.
+    $this->assertEntityTestCache($asset, FALSE);
+
+    // Re-populate a cache value dependent on the asset's cache tags.
+    $this->populateEntityTestCache($asset);
+
     // Reset the inventory back to zero.
     $this->adjustInventory($asset, 'reset', '0');
     $inventory = $this->assetInventory->getInventory($asset);
     $this->assertEquals('0', $inventory[0]['value'], 'Asset inventory is 0.');
+
+    // Assert that the asset's cache tags were invalidated.
+    $this->assertEntityTestCache($asset, FALSE);
 
     // Add a pending adjustment, and confirm that it does not affect the current
     // inventory.
     $log = $this->adjustInventory($asset, 'increment', '1');
     $log->set('status', 'pending');
     $log->save();
+
+    // Re-populate a cache value dependent on the asset's cache tags.
+    $this->populateEntityTestCache($asset);
+    $log->save();
+
     $inventory = $this->assetInventory->getInventory($asset);
     $this->assertEquals('0', $inventory[0]['value'], 'Pending adjustments do not affect inventory.');
+
+    // Assert that the asset's cache tags were not invalidated.
+    $this->assertEntityTestCache($asset, TRUE);
 
     // Add an adjustment in the future, and confirm that it does not affect
     // the current inventory.
     $log = $this->adjustInventory($asset, 'increment', '1');
     $log->set('timestamp', \Drupal::time()->getRequestTime() + 86400);
     $log->save();
+
+    // Re-populate a cache value dependent on the asset's cache tags.
+    $this->populateEntityTestCache($asset);
+    $log->save();
+
     $inventory = $this->assetInventory->getInventory($asset);
     $this->assertEquals('0', $inventory[0]['value'], 'Future adjustments do not affect inventory.');
+
+    // Assert that the asset's cache tags were not invalidated.
+    $this->assertEntityTestCache($asset, TRUE);
 
     // Reset to a decimal inventory.
     $this->adjustInventory($asset, 'reset', '1.1');
     $inventory = $this->assetInventory->getInventory($asset);
     $this->assertEquals('1.1', $inventory[0]['value'], 'Asset inventory is 1.1.');
 
+    // Assert that the asset's cache tags were invalidated.
+    $this->assertEntityTestCache($asset, FALSE);
+
+    // Re-populate a cache value dependent on the asset's cache tags.
+    $this->populateEntityTestCache($asset);
+
     // Increment by a decimal value.
     $this->adjustInventory($asset, 'increment', '1.4');
     $inventory = $this->assetInventory->getInventory($asset);
     $this->assertEquals('2.5', $inventory[0]['value'], 'Asset inventory is 2.5.');
+
+    // Assert that the asset's cache tags were invalidated.
+    $this->assertEntityTestCache($asset, FALSE);
+
+    // Re-populate a cache value dependent on the asset's cache tags.
+    $this->populateEntityTestCache($asset);
 
     // Test floating point arithmetic precision.
     $this->adjustInventory($asset, 'reset', '0.1');
     $this->adjustInventory($asset, 'increment', '0.2');
     $inventory = $this->assetInventory->getInventory($asset);
     $this->assertEquals('0.3', $inventory[0]['value'], 'Inventory calculations handle floating point arithmetic properly.');
+
+    // Assert that the asset's cache tags were invalidated.
+    $this->assertEntityTestCache($asset, FALSE);
   }
 
   /**
