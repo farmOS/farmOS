@@ -36,6 +36,7 @@ class InventoryTest extends KernelTestBase {
     'farm_field',
     'farm_inventory',
     'farm_inventory_test',
+    'farm_log',
     'farm_log_quantity',
     'farm_quantity_standard',
     'farm_unit',
