@@ -191,9 +191,20 @@ class InventoryTest extends KernelTestBase {
 
     // Test floating point arithmetic precision.
     $this->adjustInventory($asset, 'reset', '0.1');
-    $this->adjustInventory($asset, 'increment', '0.2');
+    $log = $this->adjustInventory($asset, 'increment', '0.2');
     $inventory = $this->assetInventory->getInventory($asset);
     $this->assertEquals('0.3', $inventory[0]['value'], 'Inventory calculations handle floating point arithmetic properly.');
+
+    // Assert that the asset's cache tags were invalidated.
+    $this->assertEntityTestCache($asset, FALSE);
+
+    // Re-populate a cache value dependent on the asset's cache tags.
+    $this->populateEntityTestCache($asset);
+
+    // Delete the last increment adjustment to use the last reset adjustment.
+    $log->delete();
+    $inventory = $this->assetInventory->getInventory($asset);
+    $this->assertEquals('0.1', $inventory[0]['value'], 'Asset inventory is updated when a log is deleted.');
 
     // Assert that the asset's cache tags were invalidated.
     $this->assertEntityTestCache($asset, FALSE);
