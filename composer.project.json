@@ -23,11 +23,6 @@
                "web-root": "web/"
             }
         },
-        "enable-patching": true,
-        "patches": {
-            "drupal/core": {
-               "Issue #3192365: Race Condition in 'public://simpletest' mkdir Call": "https://www.drupal.org/files/issues/2021-01-12/3192365-3.patch"
-            }
-        }
+        "enable-patching": true
     }
 }
