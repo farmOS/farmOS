@@ -61,7 +61,16 @@ class FarmScopeRepository extends ScopeRepository {
     }
 
     // Load the user's roles.
-    $user_roles = $user->getRoles();
+    // Load all roles for user 1 so they can be granted all possible scopes.
+    if ((int) $user->id() === 1) {
+      $user_roles = array_map(function (RoleInterface $role) {
+        return $role->id();
+      }, $this->entityTypeManager->getStorage('user_role')->loadMultiple());
+    }
+    // Else load the normal user's roles.
+    else {
+      $user_roles = $user->getRoles();
+    }
 
     // Include the user's roles if enabled.
     if ($consumer_entity->get('grant_user_access')->value) {
