@@ -39,6 +39,7 @@
         "drupal/migrate_tools": "^5.0",
         "drupal/simple_oauth": "^5.0",
         "drupal/state_machine": "^1.0",
+        "drupal/subrequests": "^3.0.3",
         "drupal/token": "^1.7",
         "drupal/views_geojson": "^1.1",
         "drush/drush": "^10.3",
