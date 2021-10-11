@@ -27,8 +27,6 @@ process:
   land_type:
     plugin: default_value
     default_value: other
-  archived:
-    plugin: request_time
 migration_dependencies:
   required: {  }
   optional: {  }
