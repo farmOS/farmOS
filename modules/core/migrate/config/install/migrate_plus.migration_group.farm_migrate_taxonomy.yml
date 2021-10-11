@@ -32,9 +32,6 @@ shared_configuration:
     forum_container:
       plugin: get
       source: is_container
-    changed:
-      plugin: get
-      source: timestamp
     langcode:
       plugin: get
       source: language
