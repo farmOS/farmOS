@@ -22,6 +22,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *   config_export = {
  *     "id",
  *     "label",
+ *     "entity_types",
  *   },
  * )
  *
@@ -44,10 +45,24 @@ class FarmFlag extends ConfigEntityBase implements FarmFlagInterface {
   protected $label;
 
   /**
+   * The entity types and bundles that this flag applies to.
+   *
+   * @var array
+   */
+  protected $entity_types;
+
+  /**
    * {@inheritdoc}
    */
   public function getLabel() {
     return $this->label;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getEntitytypes() {
+    return $this->entity_types;
   }
 
 }

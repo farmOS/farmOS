@@ -2,6 +2,7 @@
 
 namespace Drupal\farm_flag\Form;
 
+use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\ConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -32,6 +33,13 @@ class EntityFlagActionForm extends ConfirmFormBase {
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   protected $entityTypeManager;
+
+  /**
+   * The entity field manager.
+   *
+   * @var \Drupal\Core\Entity\EntityFieldManagerInterface
+   */
+  protected $entityFieldManager;
 
   /**
    * The current user.
@@ -68,12 +76,15 @@ class EntityFlagActionForm extends ConfirmFormBase {
    *   The tempstore factory.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
+   * @param \Drupal\Core\Entity\EntityFieldManagerInterface $entity_field_manager
+   *   The entity field manager.
    * @param \Drupal\Core\Session\AccountInterface $user
    *   The current user.
    */
-  public function __construct(PrivateTempStoreFactory $temp_store_factory, EntityTypeManagerInterface $entity_type_manager, AccountInterface $user) {
+  public function __construct(PrivateTempStoreFactory $temp_store_factory, EntityTypeManagerInterface $entity_type_manager, EntityFieldManagerInterface $entity_field_manager, AccountInterface $user) {
     $this->tempStore = $temp_store_factory->get('entity_flag_confirm');
     $this->entityTypeManager = $entity_type_manager;
+    $this->entityFieldManager = $entity_field_manager;
     $this->user = $user;
   }
 
@@ -84,6 +95,7 @@ class EntityFlagActionForm extends ConfirmFormBase {
     return new static(
       $container->get('tempstore.private'),
       $container->get('entity_type.manager'),
+      $container->get('entity_field.manager'),
       $container->get('current_user')
     );
   }
@@ -146,11 +158,28 @@ class EntityFlagActionForm extends ConfirmFormBase {
         ->toString());
     }
 
+    // Get allowed values for the selected entities.
+    // We find the intersection of all the allowed values to ensure that
+    // disallowed flags cannot be assigned.
+    $allowed_values = [];
+    $base_field_definitions = $this->entityFieldManager->getBaseFieldDefinitions($entity_type_id);
+    if (!empty($base_field_definitions['flag'])) {
+      foreach ($this->entities as $entity) {
+        $entity_allowed_values = farm_flag_field_allowed_values($base_field_definitions['flag'], $entity);
+        if (empty($allowed_values)) {
+          $allowed_values = $entity_allowed_values;
+        }
+        else {
+          $allowed_values = array_intersect_assoc($allowed_values, $entity_allowed_values);
+        }
+      }
+    }
+
     $form['flags'] = [
       '#type' => 'select',
       '#title' => $this->t('Flag'),
       '#description' => $this->t('Select the flags that should be attached to the record(s).'),
-      '#options' => farm_flag_field_allowed_values(),
+      '#options' => $allowed_values,
       '#multiple' => TRUE,
     ];
 

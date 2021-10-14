@@ -9,3 +9,13 @@ farm_flag.flag.*:
     label:
       type: label
       label: 'Label'
+    entity_types:
+      type: sequence
+      label: 'Entity types'
+      nullable: true
+      sequence:
+        type: sequence
+        label: 'Entity type'
+        sequence:
+          type: string
+          label: 'Bundle'

@@ -94,7 +94,7 @@ function mymodule_farm_entity_bundle_field_info(EntityTypeInterface $entity_type
 Certain fields on assets and logs include a list of options to select from.
 These include:
 
-- **Flags** (on assets and logs)
+- **Flags** (on assets, logs, and plans)
     - Monitor (`monitor`)
     - Needs review (`needs_review`)
     - Priority (`priority`)
@@ -142,15 +142,40 @@ dependencies:
       - my_module
 id: monitor
 label: Monitor
+entity_types: null
 ```
 
 The most important parts are the `id`, which is a unique machine name for
-the flag, and `label`, which is the human readable/translatable label that
-will be shown in the select field and other parts of the UI.
+the flag, `label`, which is the human readable/translatable label that will be
+shown in the select field and other parts of the UI, and `entity_types`, which
+can optionally specify the entity types and bundles that this flag applies to.
 
 The `langcode` and `status` and `dependencies` are standard configuration
 entity properties. By putting the module's name in "enforced modules" it will
 ensure that the flag is removed when the module is uninstalled.
+
+Flags can be limited to certain entity types and bundles via an optional
+`entity_types` property. This accepts a set of entity types with arrays of
+bundles that the flag applies to (or `all` to apply to all bundles). For
+example, to create a flag that only applies to Animal assets:
+
+```yaml
+entity_types:
+  asset:
+    - animal
+```
+
+To create a flag that applies to all asset types and log types, but not plans,
+specify `all` for the `asset` and `log` bundles, but omit the `plan` entity
+type:
+
+```yaml
+entity_types:
+  asset:
+    - all
+  log:
+    - all
+```
 
 #### Land type
 
@@ -205,9 +230,9 @@ label: Soil test
 
 #### ID tag type
 
-ID tag types are similar to Flags, in that they have an `id` and `label`, but
-they also have an additional property: `bundle`. This allows the tag type to
-be limited to certain types of assets.
+ID tag types are similar to Flags, in that they have an `id` and `label`. They
+also have an additional `bundle` property, which allows them to be limited to
+certain types of assets.
 
 For example, an "Ear tag" type, provided by the "Animal asset" module, only
 applies to "Animal" assets:

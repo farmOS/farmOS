@@ -6,3 +6,4 @@ dependencies:
       - farm_flag
 id: priority
 label: Priority
+entity_types: null

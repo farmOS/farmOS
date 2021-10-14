@@ -19,4 +19,13 @@ interface FarmFlagInterface extends ConfigEntityInterface {
    */
   public function getLabel();
 
+  /**
+   * Returns the entity types and bundles that this flag applies to.
+   *
+   * @return array
+   *   An array of arrays, keyed by entity type machine name, listing bundles
+   *   (or `all`) that this flag applies to.
+   */
+  public function getEntityTypes();
+
 }

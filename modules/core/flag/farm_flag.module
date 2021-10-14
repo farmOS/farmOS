@@ -5,7 +5,10 @@
  * The farmOS Flags module.
  */
 
+use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\farm_flag\Entity\FarmFlagInterface;
 use Drupal\farm_flag\Form\EntityFlagActionForm;
 use Drupal\farm_flag\Routing\EntityFlagActionRouteProvider;
 
@@ -37,17 +40,70 @@ function farm_flag_entity_base_field_info(EntityTypeInterface $entity_type) {
 /**
  * Allowed values callback function for the flags field.
  *
+ * @param \Drupal\Core\Field\FieldDefinitionInterface $definition
+ *   The field definition.
+ * @param \Drupal\Core\Entity\ContentEntityInterface|null $entity
+ *   The entity being created if applicable.
+ *
  * @return array
  *   Returns an array of allowed values for use in form select options.
  */
-function farm_flag_field_allowed_values() {
+function farm_flag_field_allowed_values(FieldDefinitionInterface $definition, ContentEntityInterface $entity = NULL) {
   /** @var \Drupal\farm_flag\Entity\FarmFlagInterface[] $flags */
   $flags = \Drupal::entityTypeManager()->getStorage('flag')->loadMultiple();
   $allowed_values = [];
+  $entity_type = NULL;
+  $bundle = NULL;
+  if (!empty($entity)) {
+    $entity_type = $entity->getEntityTypeId();
+    $bundle = $entity->bundle();
+  }
   foreach ($flags as $id => $flag) {
-    $allowed_values[$id] = $flag->getLabel();
+    if (farm_flag_applies($flag, $entity_type, $bundle)) {
+      $allowed_values[$id] = $flag->getLabel();
+    }
   }
   return $allowed_values;
+}
+
+/**
+ * Check to see if a flag applies to an entity type + bundle.
+ *
+ * @param \Drupal\farm_flag\Entity\FarmFlagInterface $flag
+ *   The flag object.
+ * @param string|null $entity_type
+ *   The entity type machine name.
+ * @param string|null $bundle
+ *   The bundle name.
+ *
+ * @return bool
+ *   Returns TRUE if the flag applies, FALSE otherwise.
+ */
+function farm_flag_applies(FarmFlagInterface $flag, $entity_type = NULL, $bundle = NULL) {
+
+  // If no entity type is specified, we assume the flag applies. This ensures
+  // it shows in lists/filters where the entity type may not be known.
+  if (empty($entity_type)) {
+    return TRUE;
+  }
+
+  // Load applicable entity types.
+  $entity_types = $flag->getEntityTypes();
+
+  // The flag applies if there are no allowed entity types specified.
+  if (empty($entity_types)) {
+    return TRUE;
+  }
+
+  // The flag applies if the entity type is in the list of applicable entity
+  // types, and the bundle is in the list of applicable bundles (or the flag
+  // applies to "all" bundles).
+  if (array_key_exists($entity_type, $entity_types) && (in_array($bundle, $entity_types[$entity_type]) || in_array('all', $entity_types[$entity_type]))) {
+    return TRUE;
+  }
+
+  // Otherwise, assume the flag does not apply.
+  return FALSE;
 }
 
 /**

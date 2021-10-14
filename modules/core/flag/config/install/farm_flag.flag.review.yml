@@ -6,3 +6,4 @@ dependencies:
       - farm_flag
 id: review
 label: Needs review
+entity_types: null

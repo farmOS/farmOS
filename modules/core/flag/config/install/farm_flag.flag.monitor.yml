@@ -6,3 +6,4 @@ dependencies:
       - farm_flag
 id: monitor
 label: Monitor
+entity_types: null
