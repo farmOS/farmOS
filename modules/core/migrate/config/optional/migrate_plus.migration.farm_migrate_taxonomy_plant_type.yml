@@ -58,7 +58,6 @@ process:
         plugin: migration_lookup
         migration: farm_migrate_taxonomy_crop_family
         source: tid
-        no_stub: true
   transplant_days:
     plugin: get
     source: field_farm_transplant_days
