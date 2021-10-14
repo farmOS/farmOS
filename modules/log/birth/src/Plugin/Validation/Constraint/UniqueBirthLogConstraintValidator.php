@@ -45,6 +45,15 @@ class UniqueBirthLogConstraintValidator extends ConstraintValidator implements C
   public function validate($value, Constraint $constraint) {
     /** @var \Drupal\Core\Field\EntityReferenceFieldItemList $value */
     /** @var \Drupal\farm_birth\Plugin\Validation\Constraint\UniqueBirthLogConstraint $constraint */
+
+    // Only continue if this is a birth log.
+    /** @var \Drupal\log\Entity\LogInterface $log */
+    $log = $value->getParent()->getValue();
+    if (!empty($log) && $log->bundle() != 'birth') {
+      return;
+    }
+
+    // Iterate through referenced entities.
     foreach ($value->referencedEntities() as $delta => $asset) {
 
       // If the log is not new, skip validation.
