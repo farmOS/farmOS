@@ -208,7 +208,7 @@
         }
 
         // Refresh the page once all requests are completed.
-        $.when(...requests).done(function () {
+        $.when.apply($, requests).done(function () {
           location.reload();
         })
       })
