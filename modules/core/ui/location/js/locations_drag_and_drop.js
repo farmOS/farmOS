@@ -164,7 +164,7 @@
                     ]
                   }
 
-                  $.ajax({
+                  requests.push($.ajax({
                     type: 'DELETE',
                     cache: false,
                     headers: {
@@ -187,7 +187,7 @@
                       button.removeClass('spinner')
                       button.attr('disabled',false)
                     }
-                  })
+                  }))
                 }
                 else {
                   messages.clear()
