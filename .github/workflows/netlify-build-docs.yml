@@ -1,0 +1,28 @@
+name: Trigger Netlify to build docs
+on:
+  push:
+    branches:
+      - '2.x-netlify-build-docs'
+  pull_request:
+    branches:
+      - '2.x-netlify-build-docs'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      TOKEN: ${{ secrets.NETLIFY_BUILD_HOOK }}
+    steps:
+      - name: Set trigger_title environment variable
+        run: |
+          echo "TRIGGER_TITLE=Triggered+by+farmOS+source+repo" >> $GITHUB_ENV
+      - name: Set trigger_branch env.var for preview build
+        run: |
+          echo "TRIGGER_BRANCH=preview-farmos" >> $GITHUB_ENV
+        if: github.event_name == 'pull_request'
+      - name: Set trigger_branch env.var for main production build
+        run: |
+          echo "TRIGGER_BRANCH=main" >> $GITHUB_ENV
+        if: github.event_name == 'pull_request'
+      - name: Trigger Netlify Build Hook
+        run: curl -s -X POST -d {} "https://api.netlify.com/build_hooks/${TOKEN}?trigger_branch${TRIGGER_BRANCH}&trigger_title=${TRIGGER_TITLE}"
