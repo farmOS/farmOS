@@ -7,6 +7,14 @@ ARG FARMOS_VERSION=2.x
 ARG PROJECT_REPO=https://github.com/farmOS/composer-project.git
 ARG PROJECT_VERSION=2.x
 
+# Set OPcache's revalidation frequency to 0 seconds for development.
+# See https://www.php.net/manual/en/opcache.configuration.php#ini.opcache.revalidate-freq
+RUN sed -i 's|opcache.revalidate_freq=60|opcache.revalidate_freq=0|g' /usr/local/etc/php/conf.d/opcache-recommended.ini
+
+# Install and configure XDebug.
+RUN yes | pecl install xdebug \
+	&& echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini
+
 # Change the user/group IDs of www-data inside the image to match the ID of the
 # developer's user on the host machine. This allows Composer to create files
 # owned by www-data inside the container, while keeping those files editable by
@@ -16,14 +24,6 @@ ARG PROJECT_VERSION=2.x
 # --build-arg WWW_DATA_ID=$(id -u)
 ARG WWW_DATA_ID=1000
 RUN usermod -u ${WWW_DATA_ID} www-data && groupmod -g ${WWW_DATA_ID} www-data
-
-# Set OPcache's revalidation frequency to 0 seconds for development.
-# See https://www.php.net/manual/en/opcache.configuration.php#ini.opcache.revalidate-freq
-RUN sed -i 's|opcache.revalidate_freq=60|opcache.revalidate_freq=0|g' /usr/local/etc/php/conf.d/opcache-recommended.ini
-
-# Install and configure XDebug.
-RUN yes | pecl install xdebug \
-	&& echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini
 
 # Create a fresh /var/farmOS directory owned by www-data.
 # We do this in two steps because of a known issue with Moby.
