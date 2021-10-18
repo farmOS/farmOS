@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
 use Drupal\views\ViewExecutable;
@@ -88,6 +89,51 @@ function farm_ui_views_local_tasks_alter(&$local_tasks) {
       unset($local_tasks["entity.$type.collection"]);
     }
   }
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function farm_ui_views_form_views_exposed_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+  // Load form state storage and bail if the View is not stored.
+  $storage = $form_state->getStorage();
+  if (empty($storage['view'])) {
+    return;
+  }
+
+  // We only want to alter the Views we provide.
+  if (!in_array($storage['view']->id(), ['farm_asset', 'farm_log', 'farm_plan'])) {
+    return;
+  }
+
+  // If there is no exposed filter for flags, bail.
+  if (empty($form['flag_value'])) {
+    return;
+  }
+
+  // Get the entity type and (maybe) bundle.
+  $entity_type = $storage['view']->getBaseEntityType()->id();
+  $bundle = farm_ui_views_get_bundle_argument($storage['view'], $storage['display']['id'], $storage['view']->args);
+
+  // Load flag entities and filter out ones that don't apply.
+  /** @var \Drupal\farm_flag\Entity\FarmFlagInterface[] $flags */
+  $flags = \Drupal::entityTypeManager()->getStorage('flag')->loadMultiple();
+  $allowed_flag_ids = [];
+  foreach ($flags as $flag) {
+    if (farm_flag_applies($flag, $entity_type, $bundle)) {
+      $allowed_flag_ids[] = $flag->id();
+    }
+  }
+
+  // Alter exposed filters to remove flags that are not applicable.
+  $allowed_options = [];
+  foreach ($form['flag_value']['#options'] as $key => $value) {
+    if (in_array($key, $allowed_flag_ids)) {
+      $allowed_options[$key] = $value;
+    }
+  }
+  $form['flag_value']['#options'] = $allowed_options;
 }
 
 /**
