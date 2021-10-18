@@ -47,7 +47,7 @@ class AssetMoveActionForm extends ConfirmFormBase {
   protected $entityType;
 
   /**
-   * The assets to group.
+   * The assets to move.
    *
    * @var \Drupal\Core\Entity\EntityInterface[]
    */
