@@ -226,3 +226,27 @@ function farm_ui_views_sort_field(ViewExecutable $view, string $display_id, stri
   // Set the display to use the sorted field handlers.
   $display->setOption($types[$type]['plural'], $new_field_handlers);
 }
+
+/**
+ * Helper function for getting the bundle from a "By Type" display's arguments.
+ *
+ * @param \Drupal\views\ViewExecutable $view
+ *   The View object.
+ * @param string $display_id
+ *   The display ID.
+ * @param array $args
+ *   Arguments for the View.
+ *
+ * @return string
+ *   Returns the bundle, or empty string if no bundle argument is found.
+ */
+function farm_ui_views_get_bundle_argument(ViewExecutable $view, string $display_id, array $args) {
+  $bundle = '';
+  if ($display_id == 'page_type' && !empty($args[0])) {
+    $bundle = $args[0];
+  }
+  elseif ($view->id() == 'farm_log' && $display_id == 'page_asset' && !empty($args[1]) && $args[1] != 'all') {
+    $bundle = $args[1];
+  }
+  return $bundle;
+}

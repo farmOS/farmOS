@@ -20,13 +20,7 @@ function farm_ui_views_views_pre_view(ViewExecutable $view, $display_id, array &
   }
 
   // If this is a "By type" display, alter the fields and filters.
-  $bundle = FALSE;
-  if ($display_id == 'page_type' && !empty($args[0])) {
-    $bundle = $args[0];
-  }
-  elseif ($view->id() == 'farm_log' && $display_id == 'page_asset' && !empty($args[1]) && $args[1] != 'all') {
-    $bundle = $args[1];
-  }
+  $bundle = farm_ui_views_get_bundle_argument($view, $display_id, $args);
   if (!empty($bundle)) {
 
     // Remove the type field and filter handlers.
@@ -105,13 +99,7 @@ function farm_ui_views_views_pre_render(ViewExecutable $view) {
 
   // If this is a "By type" display and a bundle argument is specified, load
   // the bundle label and set the title.
-  $bundle = FALSE;
-  if ($view->current_display == 'page_type' && !empty($view->args[0])) {
-    $bundle = $view->args[0];
-  }
-  elseif ($view->id() == 'farm_log' && $view->current_display == 'page_asset' && !empty($view->args[1]) && $view->args[1] != 'all') {
-    $bundle = $view->args[1];
-  }
+  $bundle = farm_ui_views_get_bundle_argument($view, $view->current_display, $view->args);
   if (!empty($bundle)) {
     $bundles = \Drupal::service('entity_type.bundle.info')->getBundleInfo($view->getBaseEntityType()->id());
     if (!empty($bundles[$bundle])) {
