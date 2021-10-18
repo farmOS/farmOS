@@ -5,8 +5,8 @@ namespace Drupal\farm_inventory\EventSubscriber;
 use Drupal\asset\Entity\AssetInterface;
 use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Cache\CacheTagsInvalidatorInterface;
-use Drupal\farm_log\Event\LogEvent;
 use Drupal\log\Entity\LogInterface;
+use Drupal\log\Event\LogEvent;
 use Drupal\quantity\Entity\QuantityInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -58,7 +58,7 @@ class LogEventSubscriber implements EventSubscriberInterface {
   /**
    * Perform actions on log delete.
    *
-   * @param \Drupal\farm_log\Event\LogEvent $event
+   * @param \Drupal\log\Event\LogEvent $event
    *   The log event.
    */
   public function logDelete(LogEvent $event) {
@@ -68,7 +68,7 @@ class LogEventSubscriber implements EventSubscriberInterface {
   /**
    * Perform actions on log presave.
    *
-   * @param \Drupal\farm_log\Event\LogEvent $event
+   * @param \Drupal\log\Event\LogEvent $event
    *   The log event.
    */
   public function logPresave(LogEvent $event) {

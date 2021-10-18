@@ -3,7 +3,7 @@
 namespace Drupal\farm_log_quantity\EventSubscriber;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\farm_log\Event\LogEvent;
+use Drupal\log\Event\LogEvent;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -50,7 +50,7 @@ class LogEventSubscriber implements EventSubscriberInterface {
   /**
    * Perform actions on log delete.
    *
-   * @param \Drupal\farm_log\Event\LogEvent $event
+   * @param \Drupal\log\Event\LogEvent $event
    *   Config crud event.
    */
   public function logDelete(LogEvent $event) {

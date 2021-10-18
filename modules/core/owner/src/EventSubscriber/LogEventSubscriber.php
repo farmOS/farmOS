@@ -3,7 +3,7 @@
 namespace Drupal\farm_owner\EventSubscriber;
 
 use Drupal\Core\Session\AccountInterface;
-use Drupal\farm_log\Event\LogEvent;
+use Drupal\log\Event\LogEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -43,7 +43,7 @@ class LogEventSubscriber implements EventSubscriberInterface {
   /**
    * Set the log owner to the current user, if an owner isn't specified.
    *
-   * @param \Drupal\farm_log\Event\LogEvent $event
+   * @param \Drupal\log\Event\LogEvent $event
    *   The log event.
    */
   public function setLogOwner(LogEvent $event): void {

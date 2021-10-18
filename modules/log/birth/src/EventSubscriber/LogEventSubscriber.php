@@ -4,7 +4,7 @@ namespace Drupal\farm_birth\EventSubscriber;
 
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\farm_log\Event\LogEvent;
+use Drupal\log\Event\LogEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -47,7 +47,7 @@ class LogEventSubscriber implements EventSubscriberInterface {
   /**
    * Sync child asset fields to reflect those saved in a birth log.
    *
-   * @param \Drupal\farm_log\Event\LogEvent $event
+   * @param \Drupal\log\Event\LogEvent $event
    *   The log event.
    */
   public function syncBirthChildren(LogEvent $event): void {
