@@ -8,7 +8,7 @@ use Drupal\farm_log\Event\LogEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Perform actions on log presave.
+ * Sync child asset fields to reflect those saved in a birth log.
  */
 class LogEventSubscriber implements EventSubscriberInterface {
 

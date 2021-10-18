@@ -6,6 +6,7 @@ use Drupal\asset\Entity\Asset;
 use Drupal\farm_geo\Traits\WktTrait;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\log\Entity\Log;
+use Drupal\Tests\farm_test\Kernel\FarmEntityCacheTestTrait;
 
 /**
  * Tests for farmOS location logic.
@@ -14,6 +15,7 @@ use Drupal\log\Entity\Log;
  */
 class LocationTest extends KernelTestBase {
 
+  use FarmEntityCacheTestTrait;
   use WktTrait;
 
   /**
@@ -159,9 +161,15 @@ class LocationTest extends KernelTestBase {
     ]);
     $asset->save();
 
+    // Populate a cache value dependent on the asset's cache tags.
+    $this->populateEntityTestCache($asset);
+
     // When an asset has no movement logs, it has no location or geometry.
     $this->assertFalse($this->assetLocation->hasLocation($asset), 'New assets do not have location.');
     $this->assertFalse($this->assetLocation->hasGeometry($asset), 'New assets do not have geometry.');
+
+    // Assert that the asset's cache tags were not invalidated.
+    $this->assertEntityTestCache($asset, TRUE);
 
     // Create a "done" movement log that references the asset.
     /** @var \Drupal\log\Entity\LogInterface $first_log */
@@ -181,11 +189,23 @@ class LocationTest extends KernelTestBase {
     $this->assertEquals($this->logLocation->getLocation($first_log), $this->assetLocation->getLocation($asset), 'Asset with movement log has same location as log.');
     $this->assertEquals($this->logLocation->getGeometry($first_log), $this->assetLocation->getGeometry($asset), 'Asset with movement log has same geometry as log.');
 
+    // Assert that the asset's cache tags were invalidated.
+    $this->assertEntityTestCache($asset, FALSE);
+
+    // Re-populate a cache value dependent on the asset's cache tags.
+    $this->populateEntityTestCache($asset);
+
     // When a movement log's locations are changed, the asset location changes.
     $first_log->location = ['target_id' => $this->locations[1]->id()];
     $first_log->save();
     $this->assertEquals($this->logLocation->getLocation($first_log), $this->assetLocation->getLocation($asset), 'Asset with changed movement log has same location as log.');
     $this->assertEquals($this->logLocation->getGeometry($first_log), $this->assetLocation->getGeometry($asset), 'Asset with changed movement log has same geometry as log.');
+
+    // Assert that the asset's cache tags were invalidated.
+    $this->assertEntityTestCache($asset, FALSE);
+
+    // Re-populate a cache value dependent on the asset's cache tags.
+    $this->populateEntityTestCache($asset);
 
     // Create a "pending" movement log that references the asset.
     /** @var \Drupal\log\Entity\LogInterface $second_log */
@@ -203,11 +223,20 @@ class LocationTest extends KernelTestBase {
     $this->assertEquals($this->logLocation->getLocation($first_log), $this->assetLocation->getLocation($asset), 'Asset with pending movement log has original location');
     $this->assertEquals($this->logLocation->getGeometry($first_log), $this->assetLocation->getGeometry($asset), 'Asset with pending movement log has original geometry.');
 
+    // Assert that the asset's cache tags were not invalidated.
+    $this->assertEntityTestCache($asset, TRUE);
+
     // When the log is marked as "done", the asset location is updated.
     $second_log->status = 'done';
     $second_log->save();
     $this->assertEquals($this->logLocation->getLocation($second_log), $this->assetLocation->getLocation($asset), 'Asset with second movement log has new location');
     $this->assertEquals($this->logLocation->getGeometry($second_log), $this->assetLocation->getGeometry($asset), 'Asset with second movement log has new geometry.');
+
+    // Assert that the asset's cache tags were invalidated.
+    $this->assertEntityTestCache($asset, FALSE);
+
+    // Re-populate a cache value dependent on the asset's cache tags.
+    $this->populateEntityTestCache($asset);
 
     // Create a third "done" movement log in the future.
     /** @var \Drupal\log\Entity\LogInterface $third_log */
@@ -227,6 +256,9 @@ class LocationTest extends KernelTestBase {
     $this->assertEquals($this->logLocation->getLocation($second_log), $this->assetLocation->getLocation($asset), 'Asset with future movement log has current location');
     $this->assertEquals($this->logLocation->getGeometry($second_log), $this->assetLocation->getGeometry($asset), 'Asset with future movement log has current geometry.');
 
+    // Assert that the asset's cache tags were not invalidated.
+    $this->assertEntityTestCache($asset, TRUE);
+
     // Create a fourth "done" movement log without location.
     /** @var \Drupal\log\Entity\LogInterface $fourth_log */
     $fourth_log = Log::create([
@@ -241,6 +273,22 @@ class LocationTest extends KernelTestBase {
     // "unsets" the asset's location/geometry.
     $this->assertFalse($this->assetLocation->hasLocation($asset), 'Asset location can be unset.');
     $this->assertFalse($this->assetLocation->hasGeometry($asset), 'Asset geometry can be unset.');
+
+    // Assert that the asset's cache tags were invalidated.
+    $this->assertEntityTestCache($asset, FALSE);
+
+    // Re-populate a cache value dependent on the asset's cache tags.
+    $this->populateEntityTestCache($asset);
+
+    // Delete the fourth log.
+    $fourth_log->delete();
+
+    // When a movement log is deleted, the previous location is used.
+    $this->assertEquals($this->logLocation->getLocation($second_log), $this->assetLocation->getLocation($asset), 'When a movement log is deleted, the previous location is used.');
+    $this->assertEquals($this->logLocation->getGeometry($second_log), $this->assetLocation->getGeometry($asset), 'When a movement log is deleted, the previous locations geometry is used. .');
+
+    // Assert that the asset's cache tags were invalidated.
+    $this->assertEntityTestCache($asset, FALSE);
   }
 
   /**
@@ -383,8 +431,8 @@ class LocationTest extends KernelTestBase {
     $this->assertEquals(1, count($this->assetLocation->getAssetsByLocation($this->locations[1])));
 
     // Create a fifth log that moves first asset to the both locations.
-    /** @var \Drupal\log\Entity\LogInterface $fourth_log */
-    $fourth_log = Log::create([
+    /** @var \Drupal\log\Entity\LogInterface $fifth_log */
+    $fifth_log = Log::create([
       'type' => 'movement',
       'status' => 'done',
       'asset' => [
@@ -396,7 +444,7 @@ class LocationTest extends KernelTestBase {
       ],
       'is_movement' => TRUE,
     ]);
-    $fourth_log->save();
+    $fifth_log->save();
 
     // First location has two asset, second location has one asset.
     $this->assertEquals(2, count($this->assetLocation->getAssetsByLocation($this->locations[0])));

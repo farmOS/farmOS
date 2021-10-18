@@ -11,7 +11,7 @@ use Drupal\log\Entity\LogInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Perform actions on log presave.
+ * Populate log geometry and invalidate asset cache on movement logs.
  */
 class LogEventSubscriber implements EventSubscriberInterface {
 
@@ -215,13 +215,13 @@ class LogEventSubscriber implements EventSubscriberInterface {
     $update_asset_cache = FALSE;
 
     // If the log is a 'done' movement log, invalidate the cache.
-    if ($log->get('status')->value == 'done' && $log->get('is_movement')->value) {
+    if ($this->isActiveMovementLog($log)) {
       $update_asset_cache = TRUE;
     }
 
     // If updating an existing 'done' movement log, invalidate the cache.
     // This catches any movement logs changing from done to pending.
-    if (!empty($log->original) && $log->original->get('status')->value == 'done' && $log->original->get('is_movement')->value) {
+    if (!empty($log->original) && $this->isActiveMovementLog($log->original)) {
       $update_asset_cache = TRUE;
     }
 
@@ -248,6 +248,19 @@ class LogEventSubscriber implements EventSubscriberInterface {
 
     // Invalidate the cache tags.
     $this->cacheTagsInvalidator->invalidateTags($tags);
+  }
+
+  /**
+   * Helper method to check if a log is an active movement log.
+   *
+   * @param \Drupal\log\Entity\LogInterface $log
+   *   The Log entity.
+   *
+   * @return bool
+   *   Boolean indicating if the log is an active movement log.
+   */
+  public static function isActiveMovementLog(LogInterface $log): bool {
+    return $log->get('status')->value == 'done' && $log->get('is_movement')->value && $log->get('timestamp')->value <= \Drupal::time()->getCurrentTime();
   }
 
 }

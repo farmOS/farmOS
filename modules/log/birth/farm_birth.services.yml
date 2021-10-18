@@ -1,5 +1,5 @@
 services:
-  farm_birth.log_presave:
+  farm_birth.log_event_subscriber:
     class: Drupal\farm_birth\EventSubscriber\LogEventSubscriber
     arguments: [ '@messenger' ]
     tags:
