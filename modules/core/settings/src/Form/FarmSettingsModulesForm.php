@@ -189,16 +189,20 @@ class FarmSettingsModulesForm extends FormBase {
     // Load the list of modules that should be installed from form_state.
     $core_modules = array_filter($form_state->getValue(['core', 'modules'], []));
     $contrib_modules = array_filter($form_state->getValue(['contrib', 'modules'], []));
-    $modules = array_merge($core_modules, $contrib_modules);
+    $selected_modules = array_merge($core_modules, $contrib_modules);
+
+    // Filter out installed modules.
+    $all_installed_modules = $this->moduleExtensionList->getAllInstalledInfo();
+    $to_install = array_diff_key($selected_modules, $all_installed_modules);
 
     // Bail if no modules need to be installed.
-    if (empty($modules)) {
+    if (empty($to_install)) {
       return;
     }
 
     // Assemble the batch operation for installing modules.
     $operations = [];
-    foreach ($modules as $module => $weight) {
+    foreach ($to_install as $module => $weight) {
       $operations[] = [
         [__NAMESPACE__ . '\FarmSettingsModulesForm', 'farmInstallModuleBatch'],
         [$module, $this->moduleExtensionList->getName($module)],
