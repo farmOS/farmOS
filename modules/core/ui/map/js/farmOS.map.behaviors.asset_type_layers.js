@@ -93,15 +93,19 @@
         if (link) {
           var assetLink = link.getAttribute('href')
           var description = event.target.element.querySelector('.ol-popup-description');
-          description.innerHTML = 'Loading asset details...';
-          fetch(assetLink + '/map-popup')
-            .then((response) => {
-              return response.text();
-            })
-            .then((html) => {
-              description.innerHTML = html;
-              instance.popup.panIntoView();
-            });
+
+          // Add loading text.
+          var loading = document.createTextNode('Loading asset details...');
+          description.appendChild(loading);
+
+          // Create an iframe linking to the map_popup view mode.
+          var frame = document.createElement('iframe');
+          frame.setAttribute('src', assetLink + '/map-popup');
+          frame.onload = function () {
+            description.removeChild(loading);
+            instance.popup.panIntoView();
+          }
+          description.appendChild(frame);
         }
       });
     }
