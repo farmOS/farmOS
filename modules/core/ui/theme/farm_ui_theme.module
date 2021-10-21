@@ -8,6 +8,20 @@
 use Drupal\Core\Block\BlockPluginInterface;
 
 /**
+ * Implements hook_theme().
+ */
+function farm_ui_theme_theme($existing, $type, $theme, $path) {
+  return [
+    'html__asset__map_popup' => [
+      'base hook' => 'html',
+    ],
+    'page__asset__map_popup' => [
+      'base hook' => 'page',
+    ],
+  ];
+}
+
+/**
  * Implements hook_element_info_alter().
  */
 function farm_ui_theme_element_info_alter(array &$info) {
