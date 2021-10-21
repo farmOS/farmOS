@@ -51,6 +51,15 @@ function farm_ui_map_menu_local_actions_alter(&$local_actions) {
 }
 
 /**
+ * Implements hook_preprocess_HOOK().
+ */
+function farm_ui_map_preprocess_block__farm_local_actions_block(&$variables, $block) {
+  if (\Drupal::routeMatch()->getRouteName() === 'farm_ui_map.asset.map_popup') {
+    $variables['content']['#dropbutton_type'] = 'small';
+  }
+}
+
+/**
  * Implements hook_ENTITY_TYPE_view().
  */
 function farm_ui_map_asset_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
