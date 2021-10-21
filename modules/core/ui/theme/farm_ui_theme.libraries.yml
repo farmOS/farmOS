@@ -1,3 +1,7 @@
+asset_map_popup:
+  css:
+    theme:
+      css/asset_map_popup.css: { }
 flag:
   css:
     theme:

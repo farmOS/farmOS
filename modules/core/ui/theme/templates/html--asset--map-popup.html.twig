@@ -11,6 +11,8 @@
  * @see gin/templates/html.html.twig
  */
 #}
+{# Include styles for the asset_map_popup page. #}
+{{ attach_library('farm_ui_theme/asset_map_popup') }}
 {%
   set body_classes = [
   logged_in ? 'user-logged-in',

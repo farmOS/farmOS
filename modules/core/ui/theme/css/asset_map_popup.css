@@ -1,0 +1,21 @@
+/*
+  Styling for the asset map_popup view mode page.
+ */
+
+/* Remove the page background color. */
+body {
+  background: unset !important;
+}
+.region-sticky {
+  background: unset !important;
+}
+
+/* Remove extra space on the left. */
+.toolbar-tray-open:not(.toolbar-vertical) .layout-container {
+  margin: 0 !important;
+}
+
+/* Remove extra space from the bottom. */
+.layout-container .page-content {
+  margin-bottom: 0;
+}
