@@ -28,6 +28,9 @@
     <title>{{ head_title|safe_join(' | ') }}</title>
     <css-placeholder token="{{ placeholder_token }}">
     <js-placeholder token="{{ placeholder_token }}">
+
+    {# Open iframe links in the parent window. #}
+    <base target="_parent">
   </head>
   <body{{ attributes.addClass(body_classes) }}>
     {{ page }}

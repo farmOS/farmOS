@@ -4,5 +4,5 @@
 .farm-map .ol-popup iframe {
   display: block;
   border: none;
-  width: 100%;
+  width: 200px;
 }

@@ -8,11 +8,20 @@
  *   - page.breadcrumb
  *   - page.gin_secondary_toolbar
  *   - page_title_block
- *   - local_actions_block
  *
  * @see gin/templates/page/page.html.twig
  */
 #}
+{% set local_actions_block = active_admin_theme ~ '_local_actions' %}
+
+<header class="region region-sticky">
+  <div class="layout-container region-sticky__items">
+    <div class="region-sticky__items__inner">
+      {{ page.content[local_actions_block] }}
+    </div>
+  </div>
+</header>
+
 <div class="layout-container">
   {{ page.pre_content }}
   <main class="page-content clearfix" role="main">

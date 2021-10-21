@@ -39,6 +39,18 @@ function farm_ui_map_module_implements_alter(&$implementations, $hook) {
 }
 
 /**
+ * Implements hook_menu_local_actions_alter().
+ */
+function farm_ui_map_menu_local_actions_alter(&$local_actions) {
+  // Include asset.add.log.* location actions on the asset.map_popup route.
+  foreach ($local_actions as $id => $local_action) {
+    if (strpos($id, 'farm.actions:farm.asset.add.log.') === 0) {
+      $local_actions[$id]['appears_on'][] = 'farm_ui_map.asset.map_popup';
+    }
+  }
+}
+
+/**
  * Implements hook_ENTITY_TYPE_view().
  */
 function farm_ui_map_asset_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
