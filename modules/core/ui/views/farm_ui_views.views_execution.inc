@@ -129,6 +129,41 @@ function farm_ui_views_views_pre_render(ViewExecutable $view) {
     }
   }
 
+  // If this is the farm_asset/farm_log View and page_term display, include
+  // the term's name.
+  if (in_array($view->id(), ['farm_asset', 'farm_log']) && $view->current_display == 'page_term') {
+    $term_id = $view->args[0];
+    $entity_bundle = $view->args[1];
+    $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($term_id);
+
+    if (!empty($term)) {
+      $vocabulary = \Drupal::entityTypeManager()->getStorage('taxonomy_vocabulary')->load($term->bundle());
+
+      $entity_bundle_label = '';
+      if ($entity_bundle != 'all') {
+        $bundles = \Drupal::service('entity_type.bundle.info')->getBundleInfo($view->getBaseEntityType()->id());
+        if (!empty($bundles[$entity_bundle])) {
+          $entity_bundle_label = $bundles[$entity_bundle]['label'] . ' ' . $view->getBaseEntityType()->getPluralLabel();
+        }
+      }
+
+      if (!empty($entity_bundle_label)) {
+        $title = t('%bundle with %vocab term %term', [
+          '%bundle' => $entity_bundle_label,
+          '%vocab' => $vocabulary->label(),
+          '%term' => $term->label(),
+        ]);
+      }
+      else {
+        $title = t('%base_type with %vocab term %term', [
+          '%base_type' => $view->getBaseEntityType()->getCollectionLabel(),
+          '%vocab' => $vocabulary->label(),
+          '%term' => $term->label(),
+        ]);
+      }
+    }
+  }
+
   // Set the title, if so desired.
   if (!empty($title)) {
     $view->setTitle($title);

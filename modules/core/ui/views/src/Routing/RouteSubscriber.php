@@ -28,6 +28,18 @@ class RouteSubscriber extends RouteSubscriberBase {
       $route->setRequirement('_asset_children_access', 'Drupal\farm_ui_views\Access\FarmAssetChildrenViewsAccessCheck::access');
     }
 
+    // Add our _asset_term_access requirement to
+    // view.farm_asset.page_term.
+    if ($route = $collection->get('view.farm_asset.page_term')) {
+      $route->setRequirement('_asset_term_access', 'Drupal\farm_ui_views\Access\FarmTaxonomyTermEntityViewsAccessCheck::access');
+    }
+
+    // Add our _log_term_access requirement to
+    // view.farm_log.page_term.
+    if ($route = $collection->get('view.farm_log.page_term')) {
+      $route->setRequirement('_log_term_access', 'Drupal\farm_ui_views\Access\FarmTaxonomyTermEntityViewsAccessCheck::access');
+    }
+
     // Add our _location_assets_access requirement to
     // view.farm_asset.page_location.
     if ($route = $collection->get('view.farm_asset.page_location')) {

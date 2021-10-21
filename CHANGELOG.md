@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- [Link from entities to their referenced terms and show entity views on taxonomy terms #458](https://github.com/farmOS/farmOS/pull/458).
 - [Encourage GEOS PHP extension use #521](https://github.com/farmOS/farmOS/pull/521)
 
 ### Changed

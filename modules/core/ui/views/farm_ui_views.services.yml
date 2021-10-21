@@ -13,6 +13,24 @@ services:
     arguments: [ '@entity_type.manager', '@asset.location' ]
     tags:
       - { name: access_check, applies_to: _asset_children_access }
+  farm_ui_views.asset_term_access:
+    class: Drupal\farm_ui_views\Access\FarmTaxonomyTermEntityViewsAccessCheck
+    arguments:
+     - 'asset'
+     - '@entity_type.manager'
+     - '@entity_type.bundle.info'
+     - '@entity_field.manager'
+    tags:
+      - { name: access_check, applies_to: _asset_term_access }
+  farm_ui_views.log_term_access:
+    class: Drupal\farm_ui_views\Access\FarmTaxonomyTermEntityViewsAccessCheck
+    arguments:
+     - 'log'
+     - '@entity_type.manager'
+     - '@entity_type.bundle.info'
+     - '@entity_field.manager'
+    tags:
+      - { name: access_check, applies_to: _log_term_access }
   farm_ui_views.asset_inventory_access:
     class: Drupal\farm_ui_views\Access\FarmInventoryAssetViewsAccessCheck
     arguments: [ '@entity_type.manager' ]

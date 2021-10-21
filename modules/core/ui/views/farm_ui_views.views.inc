@@ -20,4 +20,26 @@ function farm_ui_views_views_data_alter(array &$data) {
       ],
     ];
   }
+
+  // Provide an asset_taxonomy_term_reference argument for views of assets.
+  if (isset($data['asset_field_data'])) {
+    $data['asset_field_data']['asset_taxonomy_term_reference'] = [
+      'title' => t('Asset Taxonomy Term Reference'),
+      'help' => t('Taxonomy Terms that are referenced by the asset.'),
+      'argument' => [
+        'id' => 'entity_taxonomy_term_reference',
+      ],
+    ];
+  }
+
+  // Provide a log_taxonomy_term_reference argument for views of logs.
+  if (isset($data['log_field_data'])) {
+    $data['log_field_data']['log_taxonomy_term_reference'] = [
+      'title' => t('Log Taxonomy Term Reference'),
+      'help' => t('Taxonomy Terms that are referenced by the log.'),
+      'argument' => [
+        'id' => 'entity_taxonomy_term_reference',
+      ],
+    ];
+  }
 }
