@@ -209,6 +209,7 @@ function quantity_theme_suggestions_quantity(array $variables) {
 function template_preprocess_quantity(array &$variables) {
   $variables['quantity'] = $variables['elements']['#quantity'];
   // Helpful $content variable for templates.
+  $variables['content'] = [];
   foreach (Element::children($variables['elements']) as $key) {
     if (!empty($variables['elements'][$key]['#items'])) {
       $variables['content'][$key] = $variables['elements'][$key];
