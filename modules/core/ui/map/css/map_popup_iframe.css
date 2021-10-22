@@ -4,5 +4,10 @@
 .farm-map .ol-popup iframe {
   display: block;
   border: none;
-  width: 200px;
+  width: 250px;
+  min-height: 125px;
+}
+
+.farm-map .ol-popup .ol-popup-content {
+  max-height: 300px;
 }
