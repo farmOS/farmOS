@@ -132,6 +132,11 @@ Available traits and the methods that they provide include:
     array of values. This also creates a link in the database between the
     entity and the quick form that created it, and displays a message to the
     user upon submission with a link to the entity.
+- `QuickPrepopulateTrait`
+  - `getPrepopulatedEntities($entity_type)` - Returns entities of the specified
+    entity type that have been prepopulated for the quick form. Entities may
+    be prepopulated by either a query param or a user specific tempstore that
+    is populated by the quick form action.
 - `QuickQuantityTrait`
   - `createQuantity($values)` - Creates and returns a new quantity entity from
     an array of values.
