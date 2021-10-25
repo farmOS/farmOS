@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\farm_quick_test\QuickForm;
+namespace Drupal\farm_quick_test\Plugin\QuickForm;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\farm_quick\QuickFormBase;

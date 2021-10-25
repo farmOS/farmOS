@@ -4,18 +4,18 @@ Quick forms provide a simplified user interface for common data entry tasks.
 
 ## Building quick forms
 
-To add a quick form, a module can provide a PHP class in `src/QuickForm` that
-extends the `QuickFormBase` class.
+To add a quick form, a module can provide a PHP class in `src/Plugin/QuickForm`
+that extends the `QuickFormBase` class.
 
 For example, a simplified "Egg harvest" quick form would be provided as
 follows:
 
-`src/QuickForm/Egg.php`:
+`src/Plugin/QuickForm/Egg.php`:
 
 ```php
 <?php
 
-namespace Drupal\farm_egg\QuickForm;
+namespace Drupal\farm_egg\Plugin\QuickForm;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\farm_quick\QuickFormBase;
