@@ -146,3 +146,65 @@ Available traits and the methods that they provide include:
 
 All dependencies for a quick form should be declared in the module's
 `*.info.yml` file.
+
+## Quick form actions
+
+Quick form actions provide a shortcut to completing a quick form that performs
+actions on or references existing entities.
+
+### Providing a quick form action
+
+To add a quick form action, a module can provide a PHP class in
+`src/Plugin/Action` that extends the `QuickFormActionBase` class.
+
+For example, an action to complete the "Egg harvest" quick for select
+assets would be provided as follows:
+
+`src/Plugin/Action/EggHarvest.php`:
+
+```php
+<?php
+
+namespace Drupal\farm_egg\Plugin\Action;
+
+use Drupal\farm_quick\Plugin\Action\QuickFormActionBase;
+
+/**
+ * Action for recording egg harvests.
+ *
+ * @Action(
+ *   id = "egg_harvest",
+ *   label = @Translation("Record egg harvest"),
+ *   type = "asset",
+ *   confirm_form_route_name = "farm.quick.egg"
+ * )
+ */
+class EggHarvest extends QuickFormActionBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getQuckFormId(): string {
+    return 'egg';
+  }
+
+}
+```
+
+Once the plugin is created, an action config entity needs to be created:
+
+`config/install/system.action.egg_harvest.yml`:
+
+```yml
+langcode: en
+status: true
+dependencies:
+  module:
+    - asset
+    - farm_egg
+id: egg_harvest
+label: 'Record egg harvest'
+type: asset
+plugin: egg_harvest
+configuration: {  }
+```
