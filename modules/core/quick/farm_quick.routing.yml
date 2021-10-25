@@ -5,10 +5,6 @@ farm.quick:
     _title: 'Quick forms'
   requirements:
     _permission: 'view quick forms index'
-farm.quick.form:
-  path: '/quick/{id}'
-  defaults:
-    _form: 'Drupal\farm_quick\Form\QuickForm'
-    _title_callback: 'Drupal\farm_quick\Form\QuickForm::getTitle'
-  requirements:
-    _custom_access: 'Drupal\farm_quick\Form\QuickForm::access'
+
+route_callbacks:
+  - 'plugin.manager.quick_form:getRoutes'

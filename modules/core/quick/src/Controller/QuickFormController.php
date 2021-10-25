@@ -48,7 +48,7 @@ class QuickFormController extends ControllerBase {
     $quick_forms = $this->quickFormManager->getDefinitions();
     $items = [];
     foreach ($quick_forms as $quick_form) {
-      $url = Url::fromRoute('farm.quick.form', ['id' => $quick_form['id']]);
+      $url = Url::fromRoute('farm.quick.' . $quick_form['id']);
       if ($url->access()) {
         $items[] = [
           'title' => $quick_form['label'],
