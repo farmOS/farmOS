@@ -6,6 +6,7 @@ use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Messenger\MessengerTrait;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Plugin\PluginBase;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Session\AccountInterface;
@@ -14,7 +15,7 @@ use Psr\Container\ContainerInterface;
 /**
  * Base class for quick forms.
  */
-class QuickFormBase extends PluginBase implements QuickFormInterface {
+class QuickFormBase extends PluginBase implements QuickFormInterface, ContainerFactoryPluginInterface {
 
   use MessengerTrait;
   use StringTranslationTrait;
