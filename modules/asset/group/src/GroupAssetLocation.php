@@ -116,20 +116,11 @@ class GroupAssetLocation extends AssetLocation implements AssetLocationInterface
     /** @var \Drupal\asset\Entity\AssetInterface[] $assets */
     $assets = parent::getAssetsByLocation($location);
 
-    // Iterate through the assets to check if any of them are groups.
-    $groups = [];
-    foreach ($assets as $asset) {
-      if ($asset->bundle() == 'group') {
-        $groups[] = $asset;
-      }
-    }
-
     // Recursively load all group members and add them to the list of assets.
-    /** @var \Drupal\asset\Entity\AssetInterface[] $members */
-    $members = [];
-    foreach ($groups as $group) {
-      $members = array_merge($members, $this->groupMembership->getGroupMembers($group, TRUE));
-    }
+    $groups = array_filter($assets, function (AssetInterface $asset) {
+      return $asset->bundle() === 'group';
+    });
+    $members = $this->groupMembership->getGroupMembers($groups, TRUE);
     $assets = array_merge($assets, $members);
 
     // It is possible for a group member asset to be in a different location

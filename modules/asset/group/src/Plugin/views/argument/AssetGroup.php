@@ -32,7 +32,7 @@ class AssetGroup extends ArgumentPluginBase {
     // simple. It only needs the condition: "WHERE asset.id IN (:asset_ids)".
     // See https://www.drupal.org/project/farm/issues/3217184 for more info.
     $group = \Drupal::entityTypeManager()->getStorage('asset')->load($this->argument);
-    $assets = \Drupal::service('group.membership')->getGroupMembers($group);
+    $assets = \Drupal::service('group.membership')->getGroupMembers([$group]);
     $asset_ids = [];
     foreach ($assets as $asset) {
       $asset_ids[] = $asset->id();

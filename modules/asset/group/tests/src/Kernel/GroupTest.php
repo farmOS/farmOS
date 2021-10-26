@@ -106,8 +106,8 @@ class GroupTest extends KernelTestBase {
     // When an asset has no group assignment logs, it has no group membership.
     $this->assertFalse($this->groupMembership->hasGroup($animal), 'New assets do not have group membership.');
     $this->assertEmpty($this->groupMembership->getGroup($animal), 'New assets do not reference any groups.');
-    $this->assertEmpty($this->groupMembership->getGroupMembers($first_group), 'New groups have no members.');
-    $this->assertEmpty($this->groupMembership->getGroupMembers($second_group), 'New groups have no members.');
+    $this->assertEmpty($this->groupMembership->getGroupMembers([$first_group]), 'New groups have no members.');
+    $this->assertEmpty($this->groupMembership->getGroupMembers([$second_group]), 'New groups have no members.');
 
     // Assert that the animal's cache tags were not invalidated.
     $this->assertEntityTestCache($animal, TRUE);
@@ -126,8 +126,8 @@ class GroupTest extends KernelTestBase {
     // When an asset has a done group assignment logs, it has group membership.
     $this->assertTrue($this->groupMembership->hasGroup($animal), 'Asset with group assignment has group membership.');
     $this->assertEquals($first_group->id(), $this->groupMembership->getGroup($animal)[0]->id(), 'Asset with group assignment is in the assigned group.');
-    $this->assertEquals(1, count($this->groupMembership->getGroupMembers($first_group)), 'When an asset becomes a group member, the group has one member.');
-    $this->assertEmpty($this->groupMembership->getGroupMembers($second_group), 'When an asset becomes a group member, other groups are unaffected.');
+    $this->assertEquals(1, count($this->groupMembership->getGroupMembers([$first_group])), 'When an asset becomes a group member, the group has one member.');
+    $this->assertEmpty($this->groupMembership->getGroupMembers([$second_group]), 'When an asset becomes a group member, other groups are unaffected.');
 
     // Assert that the animal's cache tags were invalidated.
     $this->assertEntityTestCache($animal, FALSE);
@@ -149,7 +149,7 @@ class GroupTest extends KernelTestBase {
     // When an asset has a pending group assignment logs, it still has the same
     // group membership as before.
     $this->assertEquals($first_group->id(), $this->groupMembership->getGroup($animal)[0]->id(), 'Pending group assignment logs do not affect membership.');
-    $this->assertEmpty($this->groupMembership->getGroupMembers($second_group), 'Groups with only pending membership have zero members.');
+    $this->assertEmpty($this->groupMembership->getGroupMembers([$second_group]), 'Groups with only pending membership have zero members.');
 
     // Assert that the animal's cache tags were not invalidated.
     $this->assertEntityTestCache($animal, TRUE);
@@ -158,7 +158,7 @@ class GroupTest extends KernelTestBase {
     $second_log->status = 'done';
     $second_log->save();
     $this->assertEquals($second_group->id(), $this->groupMembership->getGroup($animal)[0]->id(), 'A second group assignment log updates group membership.');
-    $this->assertEquals(1, count($this->groupMembership->getGroupMembers($second_group)), 'Completed group assignment logs add group members.');
+    $this->assertEquals(1, count($this->groupMembership->getGroupMembers([$second_group])), 'Completed group assignment logs add group members.');
 
     // Assert that the animal's cache tags were invalidated.
     $this->assertEntityTestCache($animal, FALSE);
@@ -181,7 +181,7 @@ class GroupTest extends KernelTestBase {
     // When an asset has a "done" group assignment log in the future, the asset
     // group membership remains the same as the previous "done" movement log.
     $this->assertEquals($second_group->id(), $this->groupMembership->getGroup($animal)[0]->id(), 'A third group assignment log in the future does not update group membership.');
-    $this->assertEquals(1, count($this->groupMembership->getGroupMembers($second_group)), 'Future group assignment logs do not affect members.');
+    $this->assertEquals(1, count($this->groupMembership->getGroupMembers([$second_group])), 'Future group assignment logs do not affect members.');
 
     // Assert that the animal's cache tags were not invalidated.
     $this->assertEntityTestCache($animal, TRUE);
@@ -201,8 +201,8 @@ class GroupTest extends KernelTestBase {
     // effectively "unsets" the asset's group membership.
     $this->assertFalse($this->groupMembership->hasGroup($animal), 'Asset group membership can be unset.');
     $this->assertEmpty($this->groupMembership->getGroup($animal), 'Unset group membership does not reference any groups.');
-    $this->assertEquals(0, count($this->groupMembership->getGroupMembers($first_group)), 'Unset group membership unsets group members.');
-    $this->assertEquals(0, count($this->groupMembership->getGroupMembers($second_group)), 'Unset group membership unsets group members.');
+    $this->assertEquals(0, count($this->groupMembership->getGroupMembers([$first_group])), 'Unset group membership unsets group members.');
+    $this->assertEquals(0, count($this->groupMembership->getGroupMembers([$second_group])), 'Unset group membership unsets group members.');
 
     // Assert that the animal's cache tags were invalidated.
     $this->assertEntityTestCache($animal, FALSE);
@@ -215,10 +215,36 @@ class GroupTest extends KernelTestBase {
 
     // When a group membership is deleted the last group membership log is used.
     $this->assertEquals($second_group->id(), $this->groupMembership->getGroup($animal)[0]->id(), 'Deleting a group membership log updates group membership.');
-    $this->assertEquals(1, count($this->groupMembership->getGroupMembers($second_group)), 'Deleting a group membership log updates group members.');
+    $this->assertEquals(1, count($this->groupMembership->getGroupMembers([$second_group])), 'Deleting a group membership log updates group members.');
 
     // Assert that the animal's cache tags were invalidated.
     $this->assertEntityTestCache($animal, FALSE);
+
+    // Create a second animal.
+    /** @var \Drupal\asset\Entity\AssetInterface $second_animal */
+    $second_animal = Asset::create([
+      'type' => 'animal',
+      'name' => $this->randomMachineName(),
+      'status' => 'active',
+    ]);
+    $second_animal->save();
+
+    // Create a "done" log that assigns the second animal to the first group.
+    /** @var \Drupal\log\Entity\LogInterface $fifth_log */
+    $fifth_log = Log::create([
+      'type' => 'test',
+      'status' => 'done',
+      'is_group_assignment' => TRUE,
+      'group' => ['target_id' => $first_group->id()],
+      'asset' => ['target_id' => $second_animal->id()],
+    ]);
+    $fifth_log->save();
+
+    // Assert that group members from multiple groups can be queried together.
+    $this->assertEquals($second_group->id(), $this->groupMembership->getGroup($animal)[0]->id(), 'The first animal is in the second group.');
+    $this->assertEquals($first_group->id(), $this->groupMembership->getGroup($second_animal)[0]->id(), 'The second animal is in the first group.');
+    $group_members = $this->groupMembership->getGroupMembers([$first_group, $second_group]);
+    $this->assertEquals(2, count($group_members), 'Group members from multiple groups can be queried together.');
   }
 
   /**

@@ -175,7 +175,7 @@ class LogEventSubscriber implements EventSubscriberInterface {
         if ($asset->bundle() === 'group') {
           $member_tags = array_map(function (AssetInterface $asset) {
             return $asset->getCacheTags();
-          }, $this->groupMembership->getGroupMembers($asset));
+          }, $this->groupMembership->getGroupMembers([$asset]));
           array_push($tags, ...array_merge(...$member_tags));
         }
       }
@@ -188,7 +188,7 @@ class LogEventSubscriber implements EventSubscriberInterface {
       if ($asset->bundle() === 'group') {
         $member_tags = array_map(function (AssetInterface $asset) {
           return $asset->getCacheTags();
-        }, $this->groupMembership->getGroupMembers($asset));
+        }, $this->groupMembership->getGroupMembers([$asset]));
         array_push($tags, ...array_merge(...$member_tags));
       }
     }
