@@ -2,7 +2,6 @@
 
 namespace Drupal\farm_migrate\Plugin\migrate\source\d7;
 
-use Drupal\asset\Plugin\migrate\source\d7\Asset;
 use Drupal\migrate\Row;
 
 /**
@@ -16,7 +15,7 @@ use Drupal\migrate\Row;
  *   source_module = "farm_sensor"
  * )
  */
-class SensorAsset extends Asset {
+class SensorAsset extends FarmAsset {
 
   /**
    * {@inheritdoc}
