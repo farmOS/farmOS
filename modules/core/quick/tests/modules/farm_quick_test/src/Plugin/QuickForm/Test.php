@@ -3,7 +3,7 @@
 namespace Drupal\farm_quick_test\Plugin\QuickForm;
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\farm_quick\QuickFormBase;
+use Drupal\farm_quick\Plugin\QuickForm\QuickFormBase;
 use Drupal\farm_quick\Traits\QuickAssetTrait;
 use Drupal\farm_quick\Traits\QuickLogTrait;
 use Drupal\farm_quick\Traits\QuickQuantityTrait;

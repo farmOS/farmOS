@@ -30,7 +30,7 @@ class QuickFormManager extends DefaultPluginManager {
       'Plugin/QuickForm',
       $namespaces,
       $module_handler,
-      'Drupal\farm_quick\QuickFormInterface',
+      'Drupal\farm_quick\Plugin\QuickForm\QuickFormInterface',
       'Drupal\farm_quick\Annotation\QuickForm'
     );
     $this->alterInfo('quick_form_info');

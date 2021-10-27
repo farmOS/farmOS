@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\farm_quick;
+namespace Drupal\farm_quick\Plugin\QuickForm;
 
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Form\FormStateInterface;

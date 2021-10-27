@@ -66,7 +66,7 @@ class QuickFormTest extends KernelTestBase {
     $this->assertEquals(1, count($quick_forms));
 
     // Initialize the test quick form.
-    /** @var \Drupal\farm_quick\QuickFormInterface $test_quick_form */
+    /** @var \Drupal\farm_quick\Plugin\QuickForm\QuickFormInterface $test_quick_form */
     $test_quick_form = $this->quickFormManager->createInstance('test');
 
     // Confirm the label, description, helpText, and permissions.
