@@ -56,6 +56,16 @@ trait FarmQuickEntity {
       }
     }
 
+    // Translate the 1.x quick form IDs to 2.x.
+    if (!empty($quick)) {
+      $new_quick_form_ids = [];
+      foreach ($quick as $delta => $form_id) {
+        if (array_key_exists($form_id, $new_quick_form_ids)) {
+          $quick[$delta] = $new_quick_form_ids[$form_id];
+        }
+      }
+    }
+
     // Set the "quick" source property.
     $row->setSourceProperty('quick', $quick);
   }
