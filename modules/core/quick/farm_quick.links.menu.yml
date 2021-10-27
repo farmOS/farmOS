@@ -1,0 +1,3 @@
+farm.quick:
+  class: Drupal\Core\Menu\MenuLinkDefault
+  deriver: Drupal\farm_quick\Plugin\Derivative\QuickFormMenuLink

@@ -95,6 +95,9 @@ shared_configuration:
         title: title
         width: width
         height: height
+    quick:
+      plugin: get
+      source: quick
   migration_dependencies:
     required:
       - farm_migrate_file

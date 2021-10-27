@@ -1,0 +1,10 @@
+farm.quick:
+  path: '/quick'
+  defaults:
+    _controller: '\Drupal\farm_quick\Controller\QuickFormController::index'
+    _title: 'Quick forms'
+  requirements:
+    _permission: 'view quick forms index'
+
+route_callbacks:
+  - 'plugin.manager.quick_form:getRoutes'

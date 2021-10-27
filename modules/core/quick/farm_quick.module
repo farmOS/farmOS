@@ -1,0 +1,57 @@
+<?php
+
+/**
+ * @file
+ * The farmOS Quick Form module.
+ */
+
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function farm_quick_help($route_name, RouteMatchInterface $route_match) {
+  $output = '';
+
+  // Quick forms index help text.
+  if ($route_name == 'farm.quick') {
+    $output .= '<p>' . t('Quick forms make it easy to record common activities.') . '</p>';
+  }
+
+  // Load help text for individual quick forms.
+  if ($route_name == 'farm.quick.form') {
+    $quick_form_id = $route_match->getParameter('id');
+    $quick_form = \Drupal::service('plugin.manager.quick_form')->createInstance($quick_form_id);
+    $help_text = $quick_form->getHelpText();
+    if (!empty($help_text)) {
+      $output .= '<p>' . $help_text . '</p>';
+    }
+  }
+
+  return $output;
+}
+
+/**
+ * Implements hook_farm_entity_bundle_field_info().
+ */
+function farm_quick_farm_entity_bundle_field_info(EntityTypeInterface $entity_type, string $bundle) {
+  $fields = [];
+
+  // We only act on asset and log entities.
+  if (!in_array($entity_type->id(), ['asset', 'log'])) {
+    return $fields;
+  }
+
+  // Add a hidden quick form field.
+  $options = [
+    'type' => 'string',
+    'label' => t('Quick form'),
+    'description' => t('References the quick form that was used to create this record.'),
+    'multiple' => TRUE,
+    'hidden' => TRUE,
+  ];
+  $fields['quick'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
+
+  return $fields;
+}

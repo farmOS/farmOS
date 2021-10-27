@@ -15,7 +15,7 @@ class: Drupal\migrate\Plugin\Migration
 field_plugin_method: null
 cck_plugin_method: null
 source:
-  plugin: d7_asset
+  plugin: d7_farm_asset
   bundle: group
 destination:
   plugin: 'entity:asset'
