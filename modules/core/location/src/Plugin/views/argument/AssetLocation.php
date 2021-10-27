@@ -2,7 +2,10 @@
 
 namespace Drupal\farm_location\Plugin\views\argument;
 
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\farm_location\AssetLocationInterface;
 use Drupal\views\Plugin\views\argument\ArgumentPluginBase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * An argument for filtering assets by their current location.
@@ -12,6 +15,53 @@ use Drupal\views\Plugin\views\argument\ArgumentPluginBase;
  * @ViewsArgument("asset_location")
  */
 class AssetLocation extends ArgumentPluginBase {
+
+  /**
+   * The entity type manager service.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * The asset location service.
+   *
+   * @var \Drupal\farm_location\AssetLocationInterface
+   */
+  protected $assetLocation;
+
+  /**
+   * Constructs an AssetLocation object.
+   *
+   * @param array $configuration
+   *   A configuration array containing information about the plugin instance.
+   * @param string $plugin_id
+   *   The plugin_id for the plugin instance.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager service.
+   * @param \Drupal\farm_location\AssetLocationInterface $asset_location
+   *   The asset location service.
+   */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, AssetLocationInterface $asset_location) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->entityTypeManager = $entity_type_manager;
+    $this->assetLocation = $asset_location;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('entity_type.manager'),
+      $container->get('asset.location'),
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -29,8 +79,9 @@ class AssetLocation extends ArgumentPluginBase {
     // 3. It keeps this Views argument handler's query modifications very
     // simple. It only needs the condition: "WHERE asset.id IN (:asset_ids)".
     // See https://www.drupal.org/project/farm/issues/3217168 for more info.
-    $location = \Drupal::entityTypeManager()->getStorage('asset')->load($this->argument);
-    $assets = \Drupal::service('asset.location')->getAssetsByLocation($location);
+    /** @var \Drupal\asset\Entity\AssetInterface $location */
+    $location = $this->entityTypeManager->getStorage('asset')->load($this->argument);
+    $assets = $this->assetLocation->getAssetsByLocation($location);
     $asset_ids = [];
     foreach ($assets as $asset) {
       $asset_ids[] = $asset->id();
