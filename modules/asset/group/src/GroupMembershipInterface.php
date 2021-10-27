@@ -44,17 +44,17 @@ interface GroupMembershipInterface {
   public function getGroupAssignmentLog(AssetInterface $asset): ?LogInterface;
 
   /**
-   * Get assets that are members of a group.
+   * Get assets that are members of groups.
    *
-   * @param \Drupal\asset\Entity\AssetInterface $group
-   *   The Asset entity.
+   * @param \Drupal\asset\Entity\AssetInterface[] $groups
+   *   An array of group assets to lookup.
    * @param bool $recurse
    *   Boolean: whether or not to recurse and load members of sub-groups.
    *   Defaults to TRUE.
    *
-   * @return array
+   * @return \Drupal\asset\Entity\AssetInterface[]
    *   Returns an array of assets.
    */
-  public function getGroupMembers(AssetInterface $group, bool $recurse = TRUE): array;
+  public function getGroupMembers(array $groups, bool $recurse = TRUE): array;
 
 }

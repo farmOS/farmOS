@@ -147,10 +147,19 @@ class GroupMembership implements GroupMembershipInterface {
   /**
    * {@inheritdoc}
    */
-  public function getGroupMembers(AssetInterface $group, bool $recurse = TRUE): array {
-    if (empty($group->id())) {
+  public function getGroupMembers(array $groups, bool $recurse = TRUE): array {
+
+    // Get group ids.
+    $group_ids = array_map(function (AssetInterface $group) {
+      return $group->id();
+    }, $groups);
+
+    // Bail if there are no group ids.
+    if (empty($group_ids)) {
       return [];
     }
+
+    // Build query for group members.
     $query = "
       -- Select asset IDs from the asset base table.
       SELECT a.id
@@ -181,13 +190,13 @@ class GroupMembership implements GroupMembershipInterface {
 
       -- Limit results to completed membership assignment logs to the desired
       -- group that took place before the given timestamp.
-      WHERE (lfd.is_group_assignment = 1) AND (lfd.status = 'done') AND (lfd.timestamp <= :timestamp) AND (lg.group_target_id = :group_id)
+      WHERE (lfd.is_group_assignment = 1) AND (lfd.status = 'done') AND (lfd.timestamp <= :timestamp) AND (lg.group_target_id IN (:group_ids[]))
 
       -- Exclude records with future log entries.
       AND lfd2.id IS NULL";
     $args = [
       ':timestamp' => $this->time->getRequestTime(),
-      ':group_id' => $group->id(),
+      ':group_ids[]' => $group_ids,
     ];
     $result = $this->database->query($query, $args)->fetchAll();
     $asset_ids = [];
@@ -203,11 +212,11 @@ class GroupMembership implements GroupMembershipInterface {
     /** @var \Drupal\asset\Entity\AssetInterface[] $assets */
     $assets = $this->entityTypeManager->getStorage('asset')->loadMultiple($asset_ids);
     if ($recurse) {
-      foreach ($assets as $asset) {
-        if ($asset->bundle() == 'group') {
-          $assets = array_merge($assets, $this->getGroupMembers($asset));
-        }
-      }
+      // Iterate through the assets to check if any of them are groups.
+      $groups = array_filter($assets, function (AssetInterface $asset) {
+        return $asset->bundle() === 'group';
+      });
+      $assets = array_merge($assets, $this->getGroupMembers($groups));
     }
     return $assets;
   }

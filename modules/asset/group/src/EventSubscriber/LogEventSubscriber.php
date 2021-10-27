@@ -167,31 +167,31 @@ class LogEventSubscriber implements EventSubscriberInterface {
     // @todo Only invalidate cache if the movement log changes the group's current location. This might be different for each asset.
     $tags = [];
 
-    // Include assets that were previously referenced.
+    // Include group assets that were previously referenced.
     if (!empty($log->original)) {
-      foreach ($log->original->get('asset')->referencedEntities() as $asset) {
 
-        // If the asset is a group asset, collect group member cache tags.
-        if ($asset->bundle() === 'group') {
-          $member_tags = array_map(function (AssetInterface $asset) {
-            return $asset->getCacheTags();
-          }, $this->groupMembership->getGroupMembers($asset));
-          array_push($tags, ...array_merge(...$member_tags));
-        }
-      }
+      // Get all group assets.
+      $group_assets = array_filter($log->original->get('asset')->referencedEntities(), function (AssetInterface $asset) {
+        return $asset->bundle() === 'group';
+      });
+
+      // Collect group member cache tags.
+      $member_tags = array_map(function (AssetInterface $asset) {
+        return $asset->getCacheTags();
+      }, $this->groupMembership->getGroupMembers($group_assets));
+      array_push($tags, ...array_merge(...$member_tags));
     }
 
-    // Include assets currently referenced by the log.
-    foreach ($log->get('asset')->referencedEntities() as $asset) {
+    // Include group assets currently referenced by the log.
+    $group_assets = array_filter($log->get('asset')->referencedEntities(), function (AssetInterface $asset) {
+      return $asset->bundle() === 'group';
+    });
 
-      // If the asset is a group asset, collect group member cache tags.
-      if ($asset->bundle() === 'group') {
-        $member_tags = array_map(function (AssetInterface $asset) {
-          return $asset->getCacheTags();
-        }, $this->groupMembership->getGroupMembers($asset));
-        array_push($tags, ...array_merge(...$member_tags));
-      }
-    }
+    // Collect group member cache tags.
+    $member_tags = array_map(function (AssetInterface $asset) {
+      return $asset->getCacheTags();
+    }, $this->groupMembership->getGroupMembers($group_assets));
+    array_push($tags, ...array_merge(...$member_tags));
 
     // Invalidate the cache tags.
     $this->cacheTagsInvalidator->invalidateTags($tags);

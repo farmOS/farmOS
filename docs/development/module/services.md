@@ -38,7 +38,7 @@ asset. Returns a log entity, or `NULL` if no logs were found.
 `setIntrinsicGeometry($asset, $wkt)` - Set an asset's intrinsic geometry, given
 a string in Well-Known Text format.
 
-`getAssetsByLocation($location)` - Get assets that are in a location.
+`getAssetsByLocation($locations)` - Get assets that are in locations.
 
 **Example usage**:
 
@@ -97,7 +97,7 @@ array of asset entities.
 `getGroupAssignmentLog($asset)` - Find the latest group assignment log that
 references an asset. Returns a log entity, or `NULL` if no logs were found.
 
-`getGroupMembers($group, $recurse)` - Get assets that are members of a group,
+`getGroupMembers($groups, $recurse)` - Get assets that are members of groups,
 optionally recursing into child groups.
 
 **Example usage:**
