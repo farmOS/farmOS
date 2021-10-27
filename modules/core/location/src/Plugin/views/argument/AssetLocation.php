@@ -81,7 +81,7 @@ class AssetLocation extends ArgumentPluginBase {
     // See https://www.drupal.org/project/farm/issues/3217168 for more info.
     /** @var \Drupal\asset\Entity\AssetInterface $location */
     $location = $this->entityTypeManager->getStorage('asset')->load($this->argument);
-    $assets = $this->assetLocation->getAssetsByLocation($location);
+    $assets = $this->assetLocation->getAssetsByLocation([$location]);
     $asset_ids = [];
     foreach ($assets as $asset) {
       $asset_ids[] = $asset->id();

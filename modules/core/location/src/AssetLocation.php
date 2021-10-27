@@ -227,10 +227,19 @@ class AssetLocation implements AssetLocationInterface {
   /**
    * {@inheritdoc}
    */
-  public function getAssetsByLocation(AssetInterface $location): array {
-    if (empty($location->id())) {
+  public function getAssetsByLocation(array $locations): array {
+
+    // Get location ids.
+    $location_ids = array_map(function (AssetInterface $location) {
+      return $location->id();
+    }, $locations);
+
+    // Bail if there are no location ids.
+    if (empty($location_ids)) {
       return [];
     }
+
+    // Build query for assets in locations.
     $query = "
       -- Select asset IDs from the asset base table.
       SELECT a.id
@@ -261,13 +270,13 @@ class AssetLocation implements AssetLocationInterface {
 
       -- Limit results to completed movement logs to the desired location that
       -- took place before the given timestamp.
-      WHERE (lfd.is_movement = 1) AND (lfd.status = 'done') AND (lfd.timestamp <= :timestamp) AND (ll.location_target_id = :location_id)
+      WHERE (lfd.is_movement = 1) AND (lfd.status = 'done') AND (lfd.timestamp <= :timestamp) AND (ll.location_target_id IN (:location_ids[]))
 
       -- Exclude records with future log entries.
       AND lfd2.id IS NULL";
     $args = [
       ':timestamp' => $this->time->getRequestTime(),
-      ':location_id' => $location->id(),
+      ':location_ids[]' => $location_ids,
     ];
     $result = $this->database->query($query, $args)->fetchAll();
     $asset_ids = [];

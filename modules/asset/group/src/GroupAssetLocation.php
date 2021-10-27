@@ -110,11 +110,11 @@ class GroupAssetLocation extends AssetLocation implements AssetLocationInterface
   /**
    * {@inheritdoc}
    */
-  public function getAssetsByLocation(AssetInterface $location): array {
+  public function getAssetsByLocation(array $locations): array {
 
     // First delegate to the parent function to get assets in the location.
     /** @var \Drupal\asset\Entity\AssetInterface[] $assets */
-    $assets = parent::getAssetsByLocation($location);
+    $assets = parent::getAssetsByLocation($locations);
 
     // Recursively load all group members and add them to the list of assets.
     $groups = array_filter($assets, function (AssetInterface $asset) {
@@ -123,22 +123,27 @@ class GroupAssetLocation extends AssetLocation implements AssetLocationInterface
     $members = $this->groupMembership->getGroupMembers($groups, TRUE);
     $assets = array_merge($assets, $members);
 
+    // Get location ids.
+    $location_ids = array_map(function (AssetInterface $location) {
+      return $location->id();
+    }, $locations);
+
     // It is possible for a group member asset to be in a different location
     // than the group, if it has a movement log that is more recent than the
     // group's. So iterate through all the assets and remove any that are not in
-    // the location. The asset may be in multiple locations (including this
-    // one), so we only want to remove it if none of its locations match.
-    foreach ($assets as $key => $asset) {
-      $match = FALSE;
-      foreach ($this->getLocation($asset) as $asset_location) {
-        if ($asset_location->id() == $location->id()) {
-          $match = TRUE;
-        }
-      }
-      if (!$match) {
-        unset($assets[$key]);
-      }
-    }
+    // one of the specified locations. The asset may be in multiple locations
+    // (including this one), so we only want to remove it if none of its
+    // locations match.
+    $assets = array_filter($assets, function (AssetInterface $asset) use ($location_ids) {
+
+      // Get asset location ids.
+      $asset_location_ids = array_map(function (AssetInterface $location) {
+        return $location->id();
+      }, $this->getLocation($asset));
+
+      // Only include the asset if it is in one of the specified locations.
+      return !empty(array_intersect($location_ids, $asset_location_ids));
+    });
 
     // Return the assets.
     return $assets;
