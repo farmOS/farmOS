@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_client_test
+id: test
+label: Test module
+description: Just a client module for testing.
+library: farm_client_test/test_client_module

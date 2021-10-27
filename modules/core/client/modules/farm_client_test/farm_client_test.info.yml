@@ -1,0 +1,7 @@
+name: farmOS Client Test
+description: Test client module.
+type: module
+package: Testing
+core_version_requirement: ^9
+dependencies:
+  - farm:farm_client
