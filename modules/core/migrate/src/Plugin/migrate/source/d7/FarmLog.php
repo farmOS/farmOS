@@ -3,6 +3,7 @@
 namespace Drupal\farm_migrate\Plugin\migrate\source\d7;
 
 use Drupal\Core\Site\Settings;
+use Drupal\farm_migrate\Traits\FarmQuickEntity;
 use Drupal\log\Plugin\migrate\source\d7\Log;
 use Drupal\migrate\MigrateException;
 use Drupal\migrate\Plugin\MigrationInterface;
@@ -20,6 +21,8 @@ use Drupal\migrate\Row;
  * )
  */
 class FarmLog extends Log {
+
+  use FarmQuickEntity;
 
   /**
    * {@inheritdoc}
@@ -41,6 +44,9 @@ class FarmLog extends Log {
 
     // Prepare soil test information (only applicable to soil test logs).
     $this->prepareSoilTest($row);
+
+    // Prepare reference to the quick form that created this entity.
+    $this->prepareQuickEntityRow($row, 'log');
 
     // Return success.
     return TRUE;

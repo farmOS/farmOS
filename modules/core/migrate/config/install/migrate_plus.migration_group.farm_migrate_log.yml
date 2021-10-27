@@ -167,6 +167,9 @@ shared_configuration:
         process:
           target_id: '0'
           target_revision_id: '1'
+    quick:
+      plugin: get
+      source: quick
   migration_dependencies:
     required:
       - farm_migrate_file
