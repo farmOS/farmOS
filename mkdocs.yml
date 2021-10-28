@@ -28,9 +28,9 @@ nav:
       - Fields: development/module/fields.md
       - OAuth: development/module/oauth.md
       - Roles: development/module/roles.md
-      - Updates: development/module/updates.md
       - Services: development/module/services.md
       - Data streams: development/module/data_stream.md
+      - Updates: development/module/updates.md
     - Environment:
       - Getting started: development/environment/index.md
       - HTTPS: development/environment/https.md
