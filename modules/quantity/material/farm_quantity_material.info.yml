@@ -1,5 +1,5 @@
-name: Standard quantity
-description: Provides a standard quantity type.
+name: Material quantity
+description: Provides a material quantity type.
 type: module
 package: farmOS Quantities
 core_version_requirement: ^9
