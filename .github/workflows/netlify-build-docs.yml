@@ -2,12 +2,12 @@ name: Trigger Netlify to build docs
 on:
   push:
     branches:
-      - '2.x-netlify-build-docs'
+      - '2.x'
     paths:
       - 'docs/**'
   pull_request:
     branches:
-      - '2.x-netlify-build-docs'
+      - '2.x'
     paths:
       - 'docs/**'
 
