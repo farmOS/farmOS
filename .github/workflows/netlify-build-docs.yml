@@ -3,9 +3,13 @@ on:
   push:
     branches:
       - '2.x-netlify-build-docs'
+    paths:
+      - 'docs/**'
   pull_request:
     branches:
       - '2.x-netlify-build-docs'
+    paths:
+      - 'docs/**'
 
 jobs:
   build:
