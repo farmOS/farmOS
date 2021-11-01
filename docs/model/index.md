@@ -19,6 +19,8 @@ keeping data types are **Assets** and **Logs**. Other types include
 - [Assets](/model/type/asset)
 - [Logs](/model/type/log)
 - [Quantities](/model/type/quantity)
+- [Data streams](/model/type/data_stream)
+- [Files](/model/type/file)
 - [Terms](/model/type/term)
 - [Plans](/model/type/plan)
 - [Users](/model/type/user)
