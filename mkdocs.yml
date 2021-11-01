@@ -23,7 +23,7 @@ nav:
       - Changes: development/api/changes.md
     - Module:
       - Getting started: development/module/index.md
-      - Quick forms: development/modules/quick.md
+      - Quick forms: development/module/quick.md
       - Entities: development/module/entities.md
       - Fields: development/module/fields.md
       - OAuth: development/module/oauth.md
