@@ -44,17 +44,20 @@ function farm_flag_entity_base_field_info(EntityTypeInterface $entity_type) {
  *   The field definition.
  * @param \Drupal\Core\Entity\ContentEntityInterface|null $entity
  *   The entity being created if applicable.
+ * @param bool $cacheable
+ *   Boolean indicating if the allowed values can be cached. Defaults to TRUE.
  *
  * @return array
  *   Returns an array of allowed values for use in form select options.
  */
-function farm_flag_field_allowed_values(FieldDefinitionInterface $definition, ContentEntityInterface $entity = NULL) {
+function farm_flag_field_allowed_values(FieldDefinitionInterface $definition, ContentEntityInterface $entity = NULL, bool &$cacheable = TRUE) {
   /** @var \Drupal\farm_flag\Entity\FarmFlagInterface[] $flags */
   $flags = \Drupal::entityTypeManager()->getStorage('flag')->loadMultiple();
   $allowed_values = [];
   $entity_type = NULL;
   $bundle = NULL;
   if (!empty($entity)) {
+    $cacheable = FALSE;
     $entity_type = $entity->getEntityTypeId();
     $bundle = $entity->bundle();
   }
