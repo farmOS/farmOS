@@ -18,10 +18,11 @@
     "require": {
         "cweagans/composer-patches": "^1.6",
         "drupal/admin_toolbar": "^2.4",
-        "drupal/core": "~9.2.8",
+        "drupal/core": "9.2.8",
         "drupal/config_update": "^1.7",
         "drupal/csv_serialization": "^2.0",
         "drupal/date_popup": "^1.1",
+        "drupal/entity": "1.2",
         "drupal/entity_browser": "^2.6",
         "drupal/entity_reference_integrity": "^1.1",
         "drupal/entity_reference_revisions": "^1.8",
@@ -33,18 +34,18 @@
         "drupal/inline_entity_form": "^1.0@RC",
         "drupal/inspire_tree": "^1.0",
         "drupal/jsonapi_extras": "^3.15",
-        "drupal/jsonapi_schema": "^1.0@beta",
+        "drupal/jsonapi_schema": "1.0-beta1",
         "drupal/log": "^2.0",
         "drupal/migrate_plus": "^5.1",
         "drupal/migrate_tools": "^5.0",
-        "drupal/simple_oauth": "^5.0",
+        "drupal/simple_oauth": "5.0.5",
         "drupal/state_machine": "^1.0",
         "drupal/subrequests": "^3.0.3",
         "drupal/token": "^1.7",
         "drupal/views_geojson": "^1.1",
         "drush/drush": "^10.3",
         "ext-simplexml": "^7.4",
-        "phayes/geophp": "^1.2"
+        "phayes/geophp": "1.2"
     },
     "extra": {
         "patchLevel": {
