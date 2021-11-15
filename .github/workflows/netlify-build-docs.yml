@@ -27,7 +27,7 @@ jobs:
       - name: Set trigger_branch env.var for main production build
         run: |
           echo "TRIGGER_BRANCH=main" >> $GITHUB_ENV
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'push'
       - name: Trigger Netlify Build Hook
-        run: curl -s -X POST -d {} "https://api.netlify.com/build_hooks/${TOKEN}?trigger_branch${TRIGGER_BRANCH}&trigger_title=${TRIGGER_TITLE}"
+        run: curl -s -X POST -d {} "https://api.netlify.com/build_hooks/${TOKEN}?trigger_branch=${TRIGGER_BRANCH}&trigger_title=${TRIGGER_TITLE}"
         if: ${{ env.TOKEN != '' }}
