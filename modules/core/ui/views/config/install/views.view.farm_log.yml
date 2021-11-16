@@ -1279,16 +1279,12 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           reduce_duplicates: false
-          handler: 'default:user'
+          handler: views
           handler_settings:
-            include_anonymous: false
-            filter:
-              type: _none
-            target_bundles: null
-            sort:
-              field: name
-              direction: ASC
-            auto_create: false
+            view:
+              view_name: farm_people
+              display_name: entity_reference
+              arguments: {  }
           widget: select
           entity_type: log
           entity_field: owner
