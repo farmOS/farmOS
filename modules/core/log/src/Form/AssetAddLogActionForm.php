@@ -135,8 +135,9 @@ class AssetAddLogActionForm extends ConfirmFormBase {
 
     // Build list of log type options.
     // Limit to log types the user has access to create.
-    $log_types = array_filter($this->entityTypeManager->getStorage('log_type')->loadMultiple(), function ($log_type) {
-      return $log_type->access('create', $this->currentUser());
+    $log_access_control_handler = $this->entityTypeManager->getAccessControlHandler('log');
+    $log_types = array_filter($this->entityTypeManager->getStorage('log_type')->loadMultiple(), function ($log_type) use ($log_access_control_handler) {
+      return $log_access_control_handler->createAccess($log_type->id(), $this->currentUser());
     });
     $log_type_options = array_map(function ($log_type) {
       return $log_type->label();
