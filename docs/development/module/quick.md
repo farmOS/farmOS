@@ -18,7 +18,7 @@ follows:
 namespace Drupal\farm_egg\Plugin\QuickForm;
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\farm_quick\QuickFormBase;
+use Drupal\farm_quick\Plugin\QuickForm\QuickFormBase;
 use Drupal\farm_quick\Traits\QuickLogTrait;
 
 /**
