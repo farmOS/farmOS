@@ -16,11 +16,11 @@ jobs:
       # This builds the Docker image using the specified FARMOS_VERSION,
       # but notably it does NOT override the default PROJECT_VERSION, so the
       # farmOS Composer project 2.x branch is always used.
-      - name: Build farmOS 2.x Docker image
-        run: docker build --build-arg FARMOS_REPO=https://github.com/${GITHUB_REPOSITORY} --build-arg FARMOS_VERSION=${FARMOS_VERSION} -t farmos/farmos:2.x docker
+      - name: Build farmOS Docker image
+        run: docker build --build-arg FARMOS_REPO=https://github.com/${GITHUB_REPOSITORY} --build-arg FARMOS_VERSION=${FARMOS_VERSION} -t farmos docker
       - name: Run farmOS Docker container
         run: >-
-          docker run --rm -v /tmp/farmOS:/opt/drupal farmos/farmos:2.x sed -i "s|version: 2.x|version: ${FARMOS_VERSION}|g" /opt/drupal/web/profiles/farm/farm.info.yml
+          docker run --rm -v /tmp/farmOS:/opt/drupal farmos sed -i "s|version: 2.x|version: ${FARMOS_VERSION}|g" /opt/drupal/web/profiles/farm/farm.info.yml
       - name: Create artifact
         run: cd /tmp && tar -czf farmOS-${FARMOS_VERSION}.tar.gz farmOS
       - name: Create GitHub release
