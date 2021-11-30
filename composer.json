@@ -54,7 +54,7 @@
         "patches": {
             "drupal/core": {
                 "Issue #3134470: Switch to entity owner in EntityContentBase during validation": "https://www.drupal.org/files/issues/2021-07-12/3134470-78.patch",
-                "Issue #2429699: Add Views EntityReference filter to be available for all entity reference fields.": "https://www.drupal.org/files/issues/2021-10-22/2429699-429_0.patch",
+                "Issue #2429699: Add Views EntityReference filter to be available for all entity reference fields.": "https://www.drupal.org/files/issues/2021-11-09/2429699-446.patch",
                 "Issue #2339235: Remove taxonomy hard dependency on node module": "https://www.drupal.org/files/issues/2021-09-24/2339235-9.2-72.patch",
                 "Issue #1874838: Allow exposed blocks to use 'Link display' settings": "https://www.drupal.org/files/issues/2021-11-11/1874838-26.patch"
             },
