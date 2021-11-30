@@ -19,8 +19,7 @@ jobs:
       - name: Build farmOS Docker image
         run: docker build --build-arg FARMOS_REPO=https://github.com/${GITHUB_REPOSITORY} --build-arg FARMOS_VERSION=${FARMOS_VERSION} -t farmos docker
       - name: Run farmOS Docker container
-        run: >-
-          docker run --rm -v /tmp/farmOS:/opt/drupal farmos sed -i "s|version: 2.x|version: ${FARMOS_VERSION}|g" /opt/drupal/web/profiles/farm/farm.info.yml
+        run: docker run --rm -v /tmp/farmOS:/opt/drupal farmos true
       - name: Create artifact
         run: cd /tmp && tar -czf farmOS-${FARMOS_VERSION}.tar.gz farmOS
       - name: Create GitHub release

@@ -32,11 +32,11 @@ composer config repositories.farmos git ${FARMOS_REPO}
 # Otherwise FARMOS_VERSION is a valid semantic versioning string. We assume
 # that it is a tagged version and require that version.
 if [ "${FARMOS_VERSION}" = "2.x" ]; then
-  FARMOS_VERSION="2.x-dev"
+  FARMOS_COMPOSER_VERSION="2.x-dev"
 elif [[ ! "${FARMOS_VERSION}" =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-((0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*))*))?(\+([0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*))?$ ]]; then
-  FARMOS_VERSION="dev-${FARMOS_VERSION}"
+  FARMOS_COMPOSER_VERSION="dev-${FARMOS_VERSION}"
 fi
-composer require farmos/farmos ${FARMOS_VERSION} --no-install
+composer require farmos/farmos ${FARMOS_COMPOSER_VERSION} --no-install
 
 # Run composer install with optional arguments passed into this script.
 if [ $# -eq 0 ]; then
@@ -44,6 +44,9 @@ if [ $# -eq 0 ]; then
 else
   composer install "$*"
 fi
+
+# Set the version in farm.info.yml.
+sed -i "s|version: 2.x|version: ${FARMOS_VERSION}|g" /var/farmOS/web/profiles/farm/farm.info.yml
 
 # Remove the Composer cache directory.
 rm -rf "$COMPOSER_HOME"

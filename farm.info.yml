@@ -1,8 +1,10 @@
 name: farmOS
 type: profile
 description: 'A web-based farm record keeping application.'
-version: 2.x
 core_version_requirement: ^9
+
+# This is automatically set during release packaging.
+version: 2.x
 
 # Declare this profile a distribution and mark it as 'exclusive' so that it is
 # automatically selected during installation.
