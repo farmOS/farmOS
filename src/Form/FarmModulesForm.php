@@ -58,18 +58,13 @@ class FarmModulesForm extends FormBase {
     // Load module options.
     $modules = $this->moduleOptions();
 
-    // Only display the module names as options.
-    $options = array_map(function ($module_info) {
-      return $module_info['name'];
-    }, $modules['options']);
-
     // Module checkboxes.
     $form['modules'] = [
       '#title' => $this->t('farmOS Modules'),
       '#title_display' => 'invisible',
       '#type' => 'checkboxes',
       '#description' => $this->t('Select the farmOS modules that you would like to be installed.'),
-      '#options' => $options,
+      '#options' => $modules['options'],
       '#default_value' => $modules['default'],
     ];
 

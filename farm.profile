@@ -17,9 +17,7 @@
  *   user to select them for installation.
  */
 function farm_modules() {
-
-  // Define a list of core module options with special names.
-  $core_module_options = [
+  return [
     'base' => [
       'farm_api' => t('farmOS API'),
       'farm_login' => t('Login with username or email.'),
@@ -61,19 +59,6 @@ function farm_modules() {
       'farm_client' => t('Field Kit integration'),
     ],
   ];
-
-  // Include the module descriptions in final module options.
-  $module_options = [];
-  $all_module_info = \Drupal::service('extension.list.module')->getAllAvailableInfo();
-  foreach ($core_module_options as $type => $modules) {
-    foreach ($modules as $module => $module_name) {
-      $module_options[$type][$module] = [
-        'name' => $module_name,
-        'description' => $all_module_info[$module]['description'],
-      ];
-    }
-  }
-  return $module_options;
 }
 
 /**

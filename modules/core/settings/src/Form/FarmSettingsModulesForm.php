@@ -157,10 +157,21 @@ class FarmSettingsModulesForm extends FormBase {
 
     // Build core module options.
     $modules = farm_modules();
-    $options['core']['options'] = array_merge($modules['default'], $modules['optional']);
+    $core_modules = array_merge($modules['default'], $modules['optional']);
+
+    // Load information about all modules.
+    $all_module_info = $this->moduleExtensionList->getAllAvailableInfo();
+
+    // Iterate through core modules and build options with name and description.
+    foreach ($core_modules as $module => $module_name) {
+      $options['core']['options'][$module] = [
+        'name' => $all_module_info[$module]['name'],
+        'description' => $all_module_info[$module]['description'] ?? NULL,
+      ];
+    }
 
     // Build contrib module options.
-    $contrib_modules = array_filter($this->moduleExtensionList->getAllAvailableInfo(), function ($module_info) {
+    $contrib_modules = array_filter($all_module_info, function ($module_info) {
       return isset($module_info['package']) && $module_info['package'] === static::FARM_CONTRIB_PACKAGE;
     });
     $options['contrib']['options'] = array_map(function ($module_info) {
