@@ -84,7 +84,6 @@
           return
         }
 
-        button.addClass('spinner')
         button.attr('disabled',true)
 
         var token = ''
@@ -122,7 +121,6 @@
               success: function success(data) {
                 messages.clear()
                 messages.add(Drupal.t('Locations have been saved'), { type: 'status' })
-                button.toggleClass('spinner')
                 button.attr('disabled',false)
                 delete changes.treeUuid
               },
@@ -130,7 +128,6 @@
                 var e = new Drupal.AjaxError(xmlhttp)
                 messages.clear()
                 messages.add(e.message, { type: 'error' })
-                button.removeClass('spinner')
                 button.attr('disabled',false)
               }
             }));
@@ -176,7 +173,6 @@
                     success: function success(data) {
                       messages.clear()
                       messages.add(Drupal.t('Locations have been saved'), { type: 'status' })
-                      button.removeClass('spinner')
                       button.attr('disabled',false)
                       delete changes.treeUuid
                     },
@@ -184,7 +180,6 @@
                       var e = new Drupal.AjaxError(xmlhttp)
                       messages.clear()
                       messages.add(e.message, { type: 'error' })
-                      button.removeClass('spinner')
                       button.attr('disabled',false)
                     }
                   }))
@@ -192,7 +187,6 @@
                 else {
                   messages.clear()
                   messages.add(Drupal.t('Locations have been saved'), { type: 'status' })
-                  button.removeClass('spinner')
                   button.attr('disabled',false)
                 }
               },
@@ -200,7 +194,6 @@
                 var e = new Drupal.AjaxError(xmlhttp)
                 messages.clear()
                 messages.add(e.message, { type: 'error' })
-                button.removeClass('spinner')
                 button.attr('disabled',false)
               }
             }))
