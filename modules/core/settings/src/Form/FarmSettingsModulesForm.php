@@ -101,10 +101,23 @@ class FarmSettingsModulesForm extends FormBase {
       $form[$type]['modules'] = [
         '#title' => $this->t('farmOS Modules'),
         '#title_display' => 'invisible',
-        '#type' => 'checkboxes',
-        '#options' => $options['options'],
-        '#default_value' => $options['default'],
+        '#type' => 'container',
+        // form-checkboxes class is required so gin does not render each
+        // checkbox as a toggle element.
+        '#attributes' => [
+          'class' => ['form-checkboxes'],
+        ],
       ];
+
+      // Add a checkbox for each module.
+      foreach ($options['options'] as $module => $module_info) {
+        $form[$type]['modules'][$module] = [
+          '#type' => 'checkbox',
+          '#title' => $module_info['name'],
+          '#description' => $module_info['description'],
+          '#default_value' => in_array($module, $options['default']),
+        ];
+      }
 
       // Disable checkboxes for modules marked as disabled.
       foreach ($options['disabled'] as $name) {
@@ -144,14 +157,28 @@ class FarmSettingsModulesForm extends FormBase {
 
     // Build core module options.
     $modules = farm_modules();
-    $options['core']['options'] = array_merge($modules['default'], $modules['optional']);
+    $core_modules = array_merge($modules['default'], $modules['optional']);
+
+    // Load information about all modules.
+    $all_module_info = $this->moduleExtensionList->getAllAvailableInfo();
+
+    // Iterate through core modules and build options with name and description.
+    foreach ($core_modules as $module => $module_name) {
+      $options['core']['options'][$module] = [
+        'name' => $all_module_info[$module]['name'],
+        'description' => $all_module_info[$module]['description'] ?? NULL,
+      ];
+    }
 
     // Build contrib module options.
-    $contrib_modules = array_filter($this->moduleExtensionList->getAllAvailableInfo(), function ($module_info) {
+    $contrib_modules = array_filter($all_module_info, function ($module_info) {
       return isset($module_info['package']) && $module_info['package'] === static::FARM_CONTRIB_PACKAGE;
     });
     $options['contrib']['options'] = array_map(function ($module_info) {
-      return $module_info['name'];
+      return [
+        'name' => $module_info['name'],
+        'description' => $module_info['description'] ?? NULL,
+      ];
     }, $contrib_modules);
 
     // Check and disable modules that are installed.
@@ -173,16 +200,20 @@ class FarmSettingsModulesForm extends FormBase {
     // Load the list of modules that should be installed from form_state.
     $core_modules = array_filter($form_state->getValue(['core', 'modules'], []));
     $contrib_modules = array_filter($form_state->getValue(['contrib', 'modules'], []));
-    $modules = array_merge($core_modules, $contrib_modules);
+    $selected_modules = array_merge($core_modules, $contrib_modules);
+
+    // Filter out installed modules.
+    $all_installed_modules = $this->moduleExtensionList->getAllInstalledInfo();
+    $to_install = array_diff_key($selected_modules, $all_installed_modules);
 
     // Bail if no modules need to be installed.
-    if (empty($modules)) {
+    if (empty($to_install)) {
       return;
     }
 
     // Assemble the batch operation for installing modules.
     $operations = [];
-    foreach ($modules as $module => $weight) {
+    foreach ($to_install as $module => $weight) {
       $operations[] = [
         [__NAMESPACE__ . '\FarmSettingsModulesForm', 'farmInstallModuleBatch'],
         [$module, $this->moduleExtensionList->getName($module)],
