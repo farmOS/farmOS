@@ -3,6 +3,7 @@
 namespace Drupal\farm_ui_location\Form;
 
 use Drupal\asset\Entity\AssetInterface;
+use Drupal\Component\Serialization\Json;
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
@@ -116,6 +117,11 @@ class LocationHierarchyForm extends FormBase {
       ],
     ];
 
+    // Create a hidden field to store hierarchy changes recorded client-side.
+    $form['changes'] = [
+      '#type' => 'hidden',
+    ];
+
     // Add buttons for toggling drag and drop, saving, and resetting.
     $form['actions'] = ['#type' => 'actions'];
     $form['actions']['toggle'] = [
@@ -150,16 +156,14 @@ class LocationHierarchyForm extends FormBase {
     $form['#attached']['library'][] = 'farm_ui_location/locations-drag-and-drop';
     $tree = [
       [
-        'uuid' => !empty($asset) ? $asset->uuid() : '',
+        'asset_id' => !empty($asset) ? $asset->id() : '',
         'text' => !empty($asset) ? $asset->label() : $this->t('All locations'),
         'children' => !empty($asset) ? $this->buildTree($asset) : $this->buildTree(),
-        'type' => !empty($asset) ? $asset->bundle() : '',
         'url' => !empty($asset) ? $asset->toUrl('canonical', ['absolute' => TRUE])->toString() : '/locations',
       ],
     ];
     $form['#attached']['drupalSettings']['asset_tree'] = $tree;
-    $form['#attached']['drupalSettings']['asset_parent'] = !empty($asset) ? $asset->uuid() : '';
-    $form['#attached']['drupalSettings']['asset_parent_type'] = !empty($asset) ? $asset->bundle() : '';
+    $form['#attached']['drupalSettings']['asset_parent'] = !empty($asset) ? $asset->id() : '';
 
     // Return the form.
     return $form;
@@ -184,14 +188,12 @@ class LocationHierarchyForm extends FormBase {
     if ($locations) {
       foreach ($locations as $location) {
         $element = [
-          'uuid' => $location->uuid(),
+          'asset_id' => $location->id(),
           'text' => $location->label(),
           'children' => $this->buildTree($location),
-          'type' => $location->bundle(),
           'url' => $location->toUrl('canonical', ['absolute' => TRUE])->toString(),
         ];
-        $element['original_parent'] = $asset ? $asset->uuid() : '';
-        $element['original_type'] = $asset ? $asset->bundle() : '';
+        $element['original_parent'] = $asset ? $asset->id() : '';
         $tree[] = $element;
       }
     }
@@ -236,6 +238,79 @@ class LocationHierarchyForm extends FormBase {
     /** @var \Drupal\asset\Entity\AssetInterface[] $assets */
     $assets = $storage->loadMultiple($asset_ids);
     return $assets;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+
+    // Only process the form if the "Save" button was clicked.
+    if ($form_state->getTriggeringElement()['#id'] != 'edit-save') {
+      return;
+    }
+
+    // Load hierarchy changes. If there are none, do nothing.
+    $changes = Json::decode($form_state->getValue('changes'));
+    if (empty($changes)) {
+      $this->messenger()->addStatus($this->t('No changes were made.'));
+      return;
+    }
+
+    // Get asset storage.
+    $storage = $this->entityTypeManager->getStorage('asset');
+
+    // Maintain a list of assets that need to be saved.
+    $save_assets = [];
+
+    // Iterate through the changes.
+    foreach ($changes as $change) {
+
+      // Load the asset.
+      $asset = $storage->load($change['asset_id']);
+
+      // Remove the original parent.
+      if (!empty($asset->get('parent'))) {
+        /** @var \Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem $parent */
+        foreach ($asset->get('parent') as $delta => $parent) {
+          $parent_id = $parent->getValue()['target_id'];
+          if ($change['original_parent'] == $parent_id) {
+            unset($asset->get('parent')[$delta]);
+            if (!array_key_exists($asset->id(), $save_assets)) {
+              $save_assets[$asset->id()] = $asset;
+            }
+          }
+        }
+      }
+
+      // Add the new parent, if applicable.
+      if (!empty($change['new_parent'])) {
+        $asset->get('parent')[] = ['target_id' => $change['new_parent']];
+        if (!array_key_exists($asset->id(), $save_assets)) {
+          $save_assets[$asset->id()] = $asset;
+        }
+      }
+    }
+
+    // Save assets with a revision message.
+    /** @var \Drupal\asset\Entity\AssetInterface[] $save_assets */
+    foreach ($save_assets as $asset) {
+      $message = $this->t('Parents removed via the Locations drag and drop editor.');
+      $parent_names = [];
+      foreach ($asset->get('parent') as $parent) {
+        $parent_names[] = $storage->load($parent->getValue()['target_id'])->label();
+      }
+      if (!empty($parent_names)) {
+        $message = $this->t('Parents changed to %parents via the Locations drag and drop editor.', ['%parents' => implode(', ', $parent_names)]);
+      }
+      $asset->setNewRevision(TRUE);
+      $asset->setRevisionLogMessage($message);
+      $asset->save();
+    }
+
+    // Show a summary of the results.
+    $message = $this->formatPlural(count($save_assets), 'Updated the parent hierarchy of %count asset.', 'Updated the parent hierarchy of %count assets.', ['%count' => count($save_assets)]);
+    $this->messenger()->addStatus($message);
   }
 
 }
