@@ -13,8 +13,8 @@
   Drupal.behaviors.locationsDragAndDrop = {
     attach: function (context, settings) {
       var toggleDragAndDrop = function() {
-        $('a.locations-tree-save').attr('disabled', !dragAndDropEnabled)
-        $('a.locations-tree-reset').attr('disabled', !dragAndDropEnabled)
+        $('input#edit-save').attr('disabled', !dragAndDropEnabled)
+        $('input#edit-reset').attr('disabled', !dragAndDropEnabled)
         domTree.config.dragAndDrop.enabled = dragAndDropEnabled
       }
 
@@ -29,7 +29,7 @@
 
       var dragAndDropEnabled = false
       toggleDragAndDrop()
-      $('.locations-tree-toggle').on('click', function(event) {
+      $('input#edit-toggle').on('click', function(event) {
         event.preventDefault()
         dragAndDropEnabled = !dragAndDropEnabled
         toggleDragAndDrop()
@@ -62,7 +62,7 @@
 
       })
 
-      $('.locations-tree-reset').on('click', function(event) {
+      $('input#edit-reset').on('click', function(event) {
         event.preventDefault()
         // Reset the changes so nothing is pushed accidentally.
         changes = {}
@@ -72,7 +72,7 @@
         domTree.clearSelection()
       })
 
-      $('.locations-tree-save').on('click', function(event) {
+      $('input#edit-save').on('click', function(event) {
         event.preventDefault()
         var button = $(this)
         var messages = new Drupal.Message()

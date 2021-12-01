@@ -1,19 +1,29 @@
 <?php
 
-namespace Drupal\farm_ui_location\Controller;
+namespace Drupal\farm_ui_location\Form;
 
 use Drupal\asset\Entity\AssetInterface;
 use Drupal\Core\Access\AccessResult;
-use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Form\FormBase;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
-use Drupal\Core\Url;
 use Drupal\farm_location\AssetLocationInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Returns responses for asset drag and drop routes.
+ * Form for changing the hierarchy of location assets.
+ *
+ * @ingroup farm
  */
-class AssetReorderController extends ControllerBase implements AssetReorderControllerInterface {
+class LocationHierarchyForm extends FormBase {
+
+  /**
+   * The entity type manager service.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
 
   /**
    * The asset location service.
@@ -23,12 +33,15 @@ class AssetReorderController extends ControllerBase implements AssetReorderContr
   protected $assetLocation;
 
   /**
-   * The controller constructor.
+   * Constructs a new LocationHierarchyForm.
    *
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
    * @param \Drupal\farm_location\AssetLocationInterface $asset_location
    *   The asset location service.
    */
-  public function __construct(AssetLocationInterface $asset_location) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, AssetLocationInterface $asset_location) {
+    $this->entityTypeManager = $entity_type_manager;
     $this->assetLocation = $asset_location;
   }
 
@@ -37,12 +50,28 @@ class AssetReorderController extends ControllerBase implements AssetReorderContr
    */
   public static function create(ContainerInterface $container) {
     return new static(
+      $container->get('entity_type.manager'),
       $container->get('asset.location')
     );
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public function getFormId() {
+    return 'farm_ui_location_form';
+  }
+
+  /**
    * Check access.
+   *
+   * @param \Drupal\Core\Session\AccountInterface $account
+   *   The account to check.
+   * @param \Drupal\asset\Entity\AssetInterface|null $asset
+   *   The asset to check (optional).
+   *
+   * @return \Drupal\Core\Access\AccessResultInterface
+   *   The access result.
    */
   public function access(AccountInterface $account, AssetInterface $asset = NULL) {
 
@@ -72,22 +101,12 @@ class AssetReorderController extends ControllerBase implements AssetReorderContr
   }
 
   /**
-   * Builds the response.
-   *
-   * @param \Drupal\asset\Entity\AssetInterface|null $asset
-   *   Optionally specify the parent asset, to only build a sub-tree. If
-   *   omitted, all assets will be included.
-   *
-   * @return array
-   *   Returns a build array.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
-   * @throws \Drupal\Core\Entity\EntityMalformedException
+   * {@inheritdoc}
    */
-  public function build(AssetInterface $asset = NULL) {
+  public function buildForm(array $form, FormStateInterface $form_state, AssetInterface $asset = NULL) {
 
-    $build['content'] = [
+    // Add a DIV for the JavaScript content.
+    $form['content'] = [
       '#type' => 'html_tag',
       '#tag' => 'div',
       '#attributes' => [
@@ -97,44 +116,38 @@ class AssetReorderController extends ControllerBase implements AssetReorderContr
       ],
     ];
 
-    $build['toggle_drag_and_drop'] = [
-      '#type' => 'link',
-      '#title' => $this->t('Toggle drag and drop'),
-      '#url' => Url::fromUserInput('#'),
+    // Add buttons for toggling drag and drop, saving, and resetting.
+    $form['actions'] = ['#type' => 'actions'];
+    $form['actions']['toggle'] = [
+      '#type' => 'button',
+      '#value' => $this->t('Toggle drag and drop'),
       '#attributes' => [
         'class' => [
-          'locations-tree-toggle',
-          'button',
           'button--secondary',
         ],
       ],
     ];
-    $build['save'] = [
-      '#type' => 'link',
-      '#title' => $this->t('Save'),
-      '#url' => Url::fromRoute('<none>'),
+    $form['actions']['save'] = [
+      '#type' => 'submit',
+      '#value' => $this->t('Save'),
       '#attributes' => [
         'class' => [
-          'locations-tree-save',
-          'button',
           'button--primary',
         ],
       ],
     ];
-    $build['reset'] = [
-      '#type' => 'link',
-      '#title' => $this->t('Reset'),
-      '#url' => Url::fromRoute('<none>'),
+    $form['actions']['reset'] = [
+      '#type' => 'submit',
+      '#value' => $this->t('Reset'),
       '#attributes' => [
         'class' => [
-          'locations-tree-reset',
-          'button',
           'button--danger',
         ],
       ],
     ];
 
-    $build['#attached']['library'][] = 'farm_ui_location/locations-drag-and-drop';
+    // Attach the location drag and drop JavaScript.
+    $form['#attached']['library'][] = 'farm_ui_location/locations-drag-and-drop';
     $tree = [
       [
         'uuid' => !empty($asset) ? $asset->uuid() : '',
@@ -144,10 +157,12 @@ class AssetReorderController extends ControllerBase implements AssetReorderContr
         'url' => !empty($asset) ? $asset->toUrl('canonical', ['absolute' => TRUE])->toString() : '/locations',
       ],
     ];
-    $build['#attached']['drupalSettings']['asset_tree'] = $tree;
-    $build['#attached']['drupalSettings']['asset_parent'] = !empty($asset) ? $asset->uuid() : '';
-    $build['#attached']['drupalSettings']['asset_parent_type'] = !empty($asset) ? $asset->bundle() : '';
-    return $build;
+    $form['#attached']['drupalSettings']['asset_tree'] = $tree;
+    $form['#attached']['drupalSettings']['asset_parent'] = !empty($asset) ? $asset->uuid() : '';
+    $form['#attached']['drupalSettings']['asset_parent_type'] = !empty($asset) ? $asset->bundle() : '';
+
+    // Return the form.
+    return $form;
   }
 
   /**
@@ -198,7 +213,7 @@ class AssetReorderController extends ControllerBase implements AssetReorderContr
   protected function getLocations(AssetInterface $asset = NULL) {
 
     // Query unarchived location assets.
-    $storage = $this->entityTypeManager()->getStorage('asset');
+    $storage = $this->entityTypeManager->getStorage('asset');
     $query = $storage->getQuery()
       ->accessCheck(TRUE)
       ->condition('is_location', TRUE)

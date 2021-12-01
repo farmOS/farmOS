@@ -1,11 +1,7 @@
-.locations-tree-save {
-  width: 4rem;
-}
-
-a.locations-tree-save[disabled],
-a.locations-tree-save[disabled]:hover,
-a.locations-tree-reset[disabled],
-a.locations-tree-reset[disabled]:hover {
+input#edit-save[disabled],
+input#edit-save[disabled]:hover,
+input#edit-reset[disabled],
+input#edit-reset[disabled]:hover {
   background-color: var(--colorGinDisabled);
   border: 2px solid var(--colorGinDisabled) !important;
   box-shadow: 0 1px 2px var(--colorGinDisabled);
