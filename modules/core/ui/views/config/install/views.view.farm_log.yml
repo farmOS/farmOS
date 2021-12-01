@@ -1240,6 +1240,55 @@ display:
           entity_type: log
           entity_field: status
           plugin_id: state_machine_state
+        owner_target_id:
+          id: owner_target_id
+          table: log__owner
+          field: owner_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: owner_target_id_op
+            label: 'Assigned to'
+            description: ''
+            use_operator: false
+            operator: owner_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: owner_target_id
+            required: false
+            remember: false
+            multiple: true
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          handler: views
+          handler_settings:
+            view:
+              view_name: farm_people
+              display_name: entity_reference
+              arguments: {  }
+          widget: select
+          entity_type: log
+          entity_field: owner
+          plugin_id: entity_reference
         asset_target_id:
           id: asset_target_id
           table: log__asset
