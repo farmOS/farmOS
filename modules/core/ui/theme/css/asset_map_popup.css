@@ -22,3 +22,9 @@ body {
   background: unset !important;
   padding: 0 !important;
 }
+
+/* Make dropbutton items align to the left. */
+.dropbutton .dropbutton__items {
+  left: 0 !important;
+  right: auto !important;
+}
