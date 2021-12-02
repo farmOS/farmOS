@@ -1768,7 +1768,7 @@ display:
             bundles: {  }
           glossary: false
           limit: 0
-          case: ucfirst
+          case: none
           path_case: none
           transform_dash: false
           break_phrase: false
