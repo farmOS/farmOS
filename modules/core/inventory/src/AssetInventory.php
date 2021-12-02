@@ -193,12 +193,12 @@ class AssetInventory implements AssetInventoryInterface {
 
         // Increment.
         case 'increment':
-          $total->add($value);
+          $total = $total->add($value);
           break;
 
         // Decrement.
         case 'decrement':
-          $total->subtract($value);
+          $total = $total->subtract($value);
           break;
       }
     }
