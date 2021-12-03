@@ -1,5 +1,9 @@
 # Installing farmOS
 
+These instructions are for installing farmOS on a live production server.
+For local development/testing, please refer to the
+[development environment](/development/environment) documentation.
+
 ## Server requirements
 
 farmOS is based on [Drupal](https://drupal.org), and therefore shares many of
