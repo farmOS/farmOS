@@ -135,7 +135,7 @@ class LogEventSubscriber implements EventSubscriberInterface {
     }
 
     // Load location assets referenced by the log.
-    $assets = $this->logLocation->getLocation($log);
+    $assets = $this->getLocationAssets($log);
 
     // Get the combined location asset geometry.
     $wkt = $this->getCombinedAssetGeometry($assets);
@@ -167,7 +167,7 @@ class LogEventSubscriber implements EventSubscriberInterface {
     }
 
     // Load location assets referenced by the log.
-    $assets = $this->logLocation->getLocation($log);
+    $assets = $this->getLocationAssets($log);
 
     // Get the combined location asset geometry.
     $location_geometry = $this->getCombinedAssetGeometry($assets);
@@ -177,6 +177,27 @@ class LogEventSubscriber implements EventSubscriberInterface {
 
     // Compare the log and location geometries.
     return $log_geometry != $location_geometry;
+  }
+
+  /**
+   * Get location assets referenced by the log.
+   *
+   * This will first check for assets in the location reference field. If none
+   * are found, it will also look for location assets in the asset reference
+   * field.
+   *
+   * @param \Drupal\log\Entity\LogInterface $log
+   *   The Log entity.
+   *
+   * @return \Drupal\asset\Entity\AssetInterface[]
+   *   An array of location assets.
+   */
+  protected function getLocationAssets(LogInterface $log) {
+
+    // Load location assets referenced by the log.
+    $assets = $this->logLocation->getLocation($log);
+
+    return $assets;
   }
 
   /**
