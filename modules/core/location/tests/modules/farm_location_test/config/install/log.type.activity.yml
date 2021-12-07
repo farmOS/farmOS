@@ -1,0 +1,8 @@
+langcode: en
+status: true
+id: activity
+label: Activity
+description: ''
+name_pattern: 'Activity log [log:id]'
+workflow: log_default
+new_revision: true

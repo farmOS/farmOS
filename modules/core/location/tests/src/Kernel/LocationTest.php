@@ -113,7 +113,7 @@ class LocationTest extends KernelTestBase {
     // is copied from the location.
     /** @var \Drupal\log\Entity\LogInterface $log */
     $log = Log::create([
-      'type' => 'movement',
+      'type' => 'activity',
       'status' => 'pending',
       'location' => ['target_id' => $this->locations[0]->id()],
     ]);
@@ -161,7 +161,7 @@ class LocationTest extends KernelTestBase {
     // the location or geometry fields, the geometry is copied from the asset.
     /** @var \Drupal\log\Entity\LogInterface $log */
     $log = Log::create([
-      'type' => 'movement',
+      'type' => 'activity',
       'status' => 'pending',
       'asset' => ['target_id' => $this->locations[0]->id()],
     ]);
