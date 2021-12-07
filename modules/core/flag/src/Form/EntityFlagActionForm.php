@@ -233,6 +233,20 @@ class EntityFlagActionForm extends ConfirmFormBase {
           $flag_field->appendItem($flag);
         }
 
+        // Validate the entity before saving.
+        $violations = $entity->validate();
+        if ($violations->count() > 0) {
+          $this->messenger()->addWarning(
+            $this->t('Could not flag <a href=":entity_link">%entity_label</a>: validation failed.',
+              [
+                ':entity_link' => $entity->toUrl()->setAbsolute()->toString(),
+                '%entity_label' => $entity->label(),
+              ],
+            ),
+          );
+          continue;
+        }
+
         $entity->save();
         $total_count++;
       }
