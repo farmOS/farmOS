@@ -35,6 +35,21 @@ abstract class AssetStateChangeBase extends EntityActionBase {
     if ($state_item->getOriginalId() !== $this->targetState && $transition = $state_item->getWorkflow()->findTransition($state_item->getOriginalId(), $this->targetState)) {
       $state_item->applyTransition($transition);
       $asset->setNewRevision(TRUE);
+
+      // Validate the entity before saving.
+      $violations = $asset->validate();
+      if ($violations->count() > 0) {
+        $this->messenger()->addWarning(
+          $this->t('Could not change the status of <a href=":entity_link">%entity_label</a>: validation failed.',
+            [
+              ':entity_link' => $asset->toUrl()->setAbsolute()->toString(),
+              '%entity_label' => $asset->label(),
+            ],
+          ),
+        );
+        return;
+      }
+
       $asset->save();
     }
   }
