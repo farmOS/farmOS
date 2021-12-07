@@ -51,7 +51,7 @@ function farm_entity_fields_asset_base_fields() {
       'multiple' => TRUE,
       'weight' => [
         'form' => 40,
-        'view' => 40,
+        'view' => 0,
       ],
       'third_party_settings' => [
         'entity_reference_validators' => [

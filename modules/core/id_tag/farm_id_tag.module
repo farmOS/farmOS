@@ -22,7 +22,7 @@ function farm_id_tag_entity_base_field_info(EntityTypeInterface $entity_type) {
       'multiple' => TRUE,
       'weight' => [
         'form' => 50,
-        'view' => 50,
+        'view' => 0,
       ],
     ];
     $fields['id_tag'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($field_info);
