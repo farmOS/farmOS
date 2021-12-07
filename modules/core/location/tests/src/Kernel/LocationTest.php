@@ -97,6 +97,7 @@ class LocationTest extends KernelTestBase {
         'status' => 'active',
         'intrinsic_geometry' => $this->polygons[$i],
         'is_fixed' => TRUE,
+        'is_location' => TRUE,
       ]);
       $location->save();
       $this->locations[] = $location;
