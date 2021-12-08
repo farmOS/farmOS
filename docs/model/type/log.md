@@ -165,12 +165,31 @@ historical record of everything that has happened to a particular Asset.
 Logs can reference Assets that are designated as "locations" to indicate where
 they took place.
 
-See the "Is location" attribute of [Assets](/model/type/asset#is_location).
+This differs from the Assets relationship described above. The distinction is:
+
+- The "Asset" relationship means "this happened *TO* this Asset".
+- The "Location" relationship means "this happened *IN* this Asset".
+
+This distinction is important, and it makes intuitive sense for many use-cases.
+For example, if you are creating a Maintenance Log, you can say that it was
+maintenance applied to a tractor Asset (referenced in the "Asset" field), and
+it was performed in a barn Asset (referenced in the "Location" field).
+
+However, some cases are less intuitive - specifically when you want to represent
+an action that is being performed directly to Assets that are designated as
+locations.
+
+For example: if you are applying an input to a pasture (represented as an Asset
+of type "Land"), then the action is happening both *TO* the pasture and *IN*
+the pasture. In this case, the pasture Asset can be referenced in either or both
+the "Asset" and "Location" fields. This decision is left up to the
+[convention](/model/convention) of the end-user or module that implements it.
 
 When combined with the "Is movement" attribute (above), this will move all Assets
-referenced on the Log to the locations specified.
+referenced on the Log to the locations specified. For more information, see
+[farmOS Location Logic](/model/logic/location).
 
-For more information, see [farmOS Location Logic](/model/logic/location).
+See also: the "Is location" attribute of [Assets](/model/type/asset#is_location).
 
 #### Quantities
 
