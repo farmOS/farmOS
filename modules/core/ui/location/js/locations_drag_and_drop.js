@@ -98,6 +98,8 @@
           },
         })
 
+        // Build an array of ajax requests.
+        var requests = [];
         for (var [treeUuid, item] of entries) {
           if (item.destination === '' && item.original_parent !== '') {
             var deleteItem = {
@@ -108,7 +110,7 @@
                 }
               ]
             }
-            $.ajax({
+            requests.push($.ajax({
               type: 'DELETE',
               cache: false,
               headers: {
@@ -131,7 +133,7 @@
                 button.removeClass('spinner')
                 button.attr('disabled',false)
               }
-            })
+            }));
           }
           else {
             var patch = {
@@ -142,7 +144,7 @@
                 }
               ]
             }
-            $.ajax({
+            requests.push($.ajax({
               type: 'POST',
               cache: false,
               headers: {
@@ -162,7 +164,7 @@
                     ]
                   }
 
-                  $.ajax({
+                  requests.push($.ajax({
                     type: 'DELETE',
                     cache: false,
                     headers: {
@@ -185,7 +187,7 @@
                       button.removeClass('spinner')
                       button.attr('disabled',false)
                     }
-                  })
+                  }))
                 }
                 else {
                   messages.clear()
@@ -201,11 +203,15 @@
                 button.removeClass('spinner')
                 button.attr('disabled',false)
               }
-            })
+            }))
           }
         }
-      })
 
+        // Refresh the page once all requests are completed.
+        $.when.apply($, requests).done(function () {
+          location.reload();
+        })
+      })
 
       tree.on('node.click', function(event, node) {
         event.preventDefault()
