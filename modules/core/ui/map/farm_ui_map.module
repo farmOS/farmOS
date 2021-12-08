@@ -7,7 +7,6 @@
 
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Link;
 
 /**
  * Implements hook_farm_dashboard_panes().
@@ -39,6 +38,27 @@ function farm_ui_map_module_implements_alter(&$implementations, $hook) {
 }
 
 /**
+ * Implements hook_menu_local_actions_alter().
+ */
+function farm_ui_map_menu_local_actions_alter(&$local_actions) {
+  // Include asset.add.log.* location actions on the asset.map_popup route.
+  foreach ($local_actions as $id => $local_action) {
+    if (strpos($id, 'farm.actions:farm.asset.add.log.') === 0) {
+      $local_actions[$id]['appears_on'][] = 'farm_ui_map.asset.map_popup';
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function farm_ui_map_preprocess_block__farm_local_actions_block(&$variables, $block) {
+  if (\Drupal::routeMatch()->getRouteName() === 'farm_ui_map.asset.map_popup') {
+    $variables['content']['#dropbutton_type'] = 'small';
+  }
+}
+
+/**
  * Implements hook_ENTITY_TYPE_view().
  */
 function farm_ui_map_asset_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
@@ -58,24 +78,6 @@ function farm_ui_map_asset_view(array &$build, EntityInterface $entity, EntityVi
       return strpos($key, '#') === 0 || in_array($key, $common_fields);
     }, ARRAY_FILTER_USE_KEY);
   }
-
-  // Build links.
-  $links = [];
-
-  // Build link to view assets located here.
-  // Only show this link on location assets.
-  if (\Drupal::service('asset.location')->isLocation($entity)) {
-    $links[] = Link::createFromRoute(t('View assets in this location'), 'view.farm_asset.page_location', ['asset' => $entity->id()])->toString();
-  }
-
-  // Build link to view logs referencing the asset.
-  $links[] = Link::createFromRoute(t('View logs'), 'view.farm_log.page_asset', ['asset' => $entity->id(), 'log_type' => 'all'])->toString();
-
-  // Render links in a list.
-  $build['links'] = [
-    '#markup' => '<p>' . implode(' | ', $links) . '</p>',
-    '#weight' => -100,
-  ];
 
   return $build;
 }

@@ -1,0 +1,13 @@
+/*
+  Styling for iframe used within the map popup.
+ */
+.farm-map .ol-popup iframe {
+  display: block;
+  border: none;
+  width: 250px;
+  min-height: 125px;
+}
+
+.farm-map .ol-popup .ol-popup-content {
+  max-height: 300px;
+}

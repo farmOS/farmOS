@@ -8,6 +8,20 @@
 use Drupal\Core\Block\BlockPluginInterface;
 
 /**
+ * Implements hook_theme().
+ */
+function farm_ui_theme_theme($existing, $type, $theme, $path) {
+  return [
+    'html__asset__map_popup' => [
+      'base hook' => 'html',
+    ],
+    'page__asset__map_popup' => [
+      'base hook' => 'page',
+    ],
+  ];
+}
+
+/**
  * Implements hook_element_info_alter().
  */
 function farm_ui_theme_element_info_alter(array &$info) {
@@ -23,17 +37,6 @@ function farm_ui_theme_preprocess_block(&$variables) {
   if ($variables['plugin_id'] == 'help_block') {
     $variables['#attached']['library'][] = 'farm_ui_theme/help';
   }
-}
-
-/**
- * Implements hook_preprocess_HOOK().
- */
-function farm_ui_theme_preprocess_farm_map(&$variables) {
-
-  // We need to add the flag CSS to pages with maps in them because a user MAY
-  // click a popup which MAY have flags in it. Otherwise the flags do not get
-  // styled.
-  $variables['#attached']['library'] = 'farm_ui_theme/flag';
 }
 
 /**

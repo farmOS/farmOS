@@ -43,5 +43,8 @@ behavior_enable_side_panel:
 behavior_popup:
   js:
     js/farmOS.map.behaviors.popup.js: { }
+  css:
+    theme:
+      css/map_popup.css: { }
   dependencies:
     - farm_map/farm_map

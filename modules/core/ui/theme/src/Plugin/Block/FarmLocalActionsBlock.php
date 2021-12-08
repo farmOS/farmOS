@@ -2,6 +2,7 @@
 
 namespace Drupal\farm_ui_theme\Plugin\Block;
 
+use Drupal\Component\Utility\SortArray;
 use Drupal\Core\Menu\Plugin\Block\LocalActionsBlock;
 
 /**
@@ -21,6 +22,7 @@ class FarmLocalActionsBlock extends LocalActionsBlock {
 
     // Render local actions as a dropbutton.
     $local_actions = parent::build();
+    uasort($local_actions, [SortArray::class, 'sortByWeightProperty']);
     $links = [];
     foreach ($local_actions as $local_action) {
       if (!empty($local_action['#link']) && $local_action['#access']->isAllowed()) {

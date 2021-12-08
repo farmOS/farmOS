@@ -1,0 +1,39 @@
+{#
+/**
+ * @file
+ * Theme override for the asset map_popup view mode with only page content.
+ *
+ * This template is copied from the gin html.html.twig but removes the following:
+ *   - Keyboard navigation link to main content section.
+ *   - page_top
+ *   - page_bottom
+ *
+ * @see gin/templates/html.html.twig
+ */
+#}
+{# Include styles for the asset_map_popup page. #}
+{{ attach_library('farm_ui_theme/asset_map_popup') }}
+{%
+  set body_classes = [
+  logged_in ? 'user-logged-in',
+  not root_path ? 'path-frontpage' : 'path-' ~ root_path|clean_class,
+  node_type ? 'page-node-type-' ~ node_type|clean_class,
+  db_offline ? 'db-offline',
+]
+%}
+<!DOCTYPE html>
+<html{{ html_attributes }}>
+  <head>
+    <head-placeholder token="{{ placeholder_token }}">
+    <title>{{ head_title|safe_join(' | ') }}</title>
+    <css-placeholder token="{{ placeholder_token }}">
+    <js-placeholder token="{{ placeholder_token }}">
+
+    {# Open iframe links in the parent window. #}
+    <base target="_parent">
+  </head>
+  <body{{ attributes.addClass(body_classes) }}>
+    {{ page }}
+    <js-bottom-placeholder token="{{ placeholder_token }}">
+  </body>
+</html>

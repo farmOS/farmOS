@@ -1,0 +1,37 @@
+{#
+/**
+ * @file
+ * Theme override for the asset map_popup view mode with only page content.
+ *
+ * This template is copied from gin page.html.twig but removes the following:
+ *   - page.header
+ *   - page.breadcrumb
+ *   - page.gin_secondary_toolbar
+ *   - page_title_block
+ *
+ * @see gin/templates/page/page.html.twig
+ */
+#}
+{% set local_actions_block = active_admin_theme ~ '_local_actions' %}
+
+<header class="region region-sticky">
+  <div class="layout-container region-sticky__items">
+    <div class="region-sticky__items__inner">
+      {{ page.content[local_actions_block] }}
+    </div>
+  </div>
+</header>
+
+<div class="layout-container">
+  {{ page.pre_content }}
+  <main class="page-content clearfix" role="main">
+    <div class="visually-hidden"><a id="main-content" tabindex="-1"></a></div>
+    {{ page.highlighted }}
+    {% if page.help %}
+      <div class="help">
+        {{ page.help }}
+      </div>
+    {% endif %}
+    {{ page.content.gin_content }}
+  </main>
+</div>
