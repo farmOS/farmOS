@@ -6,5 +6,5 @@ core_version_requirement: ^9
 dependencies:
   - entity_reference_revisions:entity_reference_revisions
   - farm:farm_field
-  - farm:farm_log
   - farm:quantity
+  - log:log

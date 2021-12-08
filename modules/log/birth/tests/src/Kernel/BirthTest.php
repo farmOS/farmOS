@@ -30,7 +30,6 @@ class BirthTest extends KernelTestBase {
     'farm_entity_views',
     'farm_field',
     'farm_id_tag',
-    'farm_log',
     'file',
     'geofield',
     'image',

@@ -21,7 +21,6 @@ class LogOwnerTest extends KernelTestBase {
   protected static $modules = [
     'log',
     'farm_field',
-    'farm_log',
     'farm_owner',
     'farm_owner_test',
     'state_machine',
