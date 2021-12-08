@@ -135,6 +135,11 @@ class LocationTest extends KernelTestBase {
     $log->save();
     $this->assertEquals($this->locations[1]->get('intrinsic_geometry')->value, $log->get('geometry')->value, 'Geometry is updated when locations are changed.');
 
+    // When a log's geometry is cleared, it is re-copied from locations.
+    $log->geometry->value = '';
+    $log->save();
+    $this->assertEquals($this->locations[1]->get('intrinsic_geometry')->value, $log->get('geometry')->value, 'Geometry is re-copied from locations when it is cleared.');
+
     // When a log's geometry is set, it is saved.
     $log->geometry->value = $this->polygons[2];
     $log->save();
@@ -145,6 +150,11 @@ class LocationTest extends KernelTestBase {
     $log->location = ['target_id' => $this->locations[0]->id()];
     $log->save();
     $this->assertEquals($this->polygons[2], $log->get('geometry')->value, 'Custom geometry is not overwritten when locations change.');
+
+    // When a log's custom geometry is cleared, it is re-copied from locations.
+    $log->geometry->value = '';
+    $log->save();
+    $this->assertEquals($this->locations[0]->get('intrinsic_geometry')->value, $log->get('geometry')->value, 'Geometry is re-copied from locations when custom geometry is cleared.');
   }
 
   /**

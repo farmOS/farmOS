@@ -114,20 +114,22 @@ class LogEventSubscriber implements EventSubscriberInterface {
       return;
     }
 
-    // If this is an update to an existing log...
-    if (!empty($log->original)) {
+    // If this is an update to an existing log, and the new geometry is not
+    // empty, perform some checks to see if we should proceed or not. We always
+    // want to proceed if the updated log's geometry is empty because this is
+    // an indication that it was cleared manually by the user in order to
+    // re-populate it.
+    if (!empty($log->original) && $this->logLocation->hasGeometry($log)) {
 
       // If the original log has a custom geometry, do nothing.
       if ($this->hasCustomGeometry($log->original)) {
         return;
       }
 
-      // If the geometry has changed (and it has not been emptied), do nothing.
+      // If the geometry has changed, do nothing.
       $old_geometry = $this->logLocation->getGeometry($log->original);
       $new_geometry = $this->logLocation->getGeometry($log);
-
-      // If the new geometry is not empty, do nothing.
-      if ($old_geometry != $new_geometry && !empty($new_geometry)) {
+      if ($old_geometry != $new_geometry) {
         return;
       }
     }
