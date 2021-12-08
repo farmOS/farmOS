@@ -205,8 +205,10 @@ class LogEventSubscriber implements EventSubscriberInterface {
     $assets = $this->logLocation->getLocation($log);
 
     // If there are no assets in the location reference field, look for location
-    // assets in the asset reference field.
-    if (empty($assets)) {
+    // assets in the asset reference field. Only do this if the log is not a
+    // movement, otherwise it would be impossible to clear the geometry of a
+    // non-fixed location asset via movement Logs.
+    if (empty($assets) && !$log->get('is_movement')->value) {
       foreach ($log->{static::LOG_FIELD_ASSET}->referencedEntities() as $asset) {
         if ($this->assetLocation->isLocation($asset)) {
           $assets[] = $asset;

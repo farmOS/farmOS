@@ -206,6 +206,19 @@ class LocationTest extends KernelTestBase {
     $log->geometry->value = '';
     $log->save();
     $this->assertEquals($this->locations[1]->get('intrinsic_geometry')->value, $log->get('geometry')->value, 'Only location asset geometry is copied when both assets and locations are referenced.');
+
+    // If the log is a movement, and only references a location asset in the
+    // asset reference field, the geometry is not copied.
+    /** @var \Drupal\log\Entity\LogInterface $movement_log */
+    $movement_log = Log::create([
+      'type' => 'movement',
+      'status' => 'pending',
+      'asset' => ['target_id' => $this->locations[0]->id()],
+      'location' => [],
+      'is_movement' => TRUE,
+    ]);
+    $movement_log->save();
+    $this->assertEmpty($movement_log->get('geometry')->value, 'Movement logs do not copy geometry from locations referenced in the asset field.');
   }
 
   /**
