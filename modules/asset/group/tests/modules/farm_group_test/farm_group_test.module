@@ -12,6 +12,9 @@ use Drupal\Core\Entity\EntityTypeInterface;
  */
 function farm_group_test_entity_base_field_info(EntityTypeInterface $entity_type) {
   $fields = [];
+
+  // We add an asset reference field to logs manually here so that tests don't
+  // need to depend on farm_entity_fields, which adds a lot more.
   if ($entity_type->id() == 'log') {
     $options = [
       'type' => 'entity_reference',
@@ -21,5 +24,6 @@ function farm_group_test_entity_base_field_info(EntityTypeInterface $entity_type
     ];
     $fields['asset'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
   }
+
   return $fields;
 }
