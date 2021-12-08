@@ -18,6 +18,13 @@ class LogEventSubscriber implements EventSubscriberInterface {
   use WktTrait;
 
   /**
+   * The name of the log asset field.
+   *
+   * @var string
+   */
+  const LOG_FIELD_ASSET = 'asset';
+
+  /**
    * Log location service.
    *
    * @var \Drupal\farm_location\LogLocationInterface
@@ -103,9 +110,12 @@ class LogEventSubscriber implements EventSubscriberInterface {
    */
   protected function populateGeometryFromLocation(LogInterface $log): void {
 
+    // Load location assets referenced by the log.
+    $assets = $this->getLocationAssets($log);
+
     // If the log does not reference any location assets, we will have nothing
     // to copy from, so do nothing.
-    if (!$this->logLocation->hasLocation($log)) {
+    if (empty($assets)) {
       return;
     }
 
@@ -133,9 +143,6 @@ class LogEventSubscriber implements EventSubscriberInterface {
         return;
       }
     }
-
-    // Load location assets referenced by the log.
-    $assets = $this->logLocation->getLocation($log);
 
     // Get the combined location asset geometry.
     $wkt = $this->getCombinedAssetGeometry($assets);
@@ -167,7 +174,7 @@ class LogEventSubscriber implements EventSubscriberInterface {
     }
 
     // Load location assets referenced by the log.
-    $assets = $this->logLocation->getLocation($log);
+    $assets = $this->getLocationAssets($log);
 
     // Get the combined location asset geometry.
     $location_geometry = $this->getCombinedAssetGeometry($assets);
@@ -177,6 +184,39 @@ class LogEventSubscriber implements EventSubscriberInterface {
 
     // Compare the log and location geometries.
     return $log_geometry != $location_geometry;
+  }
+
+  /**
+   * Get location assets referenced by the log.
+   *
+   * This will first check for assets in the location reference field. If none
+   * are found, it will also look for location assets in the asset reference
+   * field.
+   *
+   * @param \Drupal\log\Entity\LogInterface $log
+   *   The Log entity.
+   *
+   * @return \Drupal\asset\Entity\AssetInterface[]
+   *   An array of location assets.
+   */
+  protected function getLocationAssets(LogInterface $log) {
+
+    // Load location assets referenced by the log.
+    $assets = $this->logLocation->getLocation($log);
+
+    // If there are no assets in the location reference field, look for location
+    // assets in the asset reference field. Only do this if the log is not a
+    // movement, otherwise it would be impossible to clear the geometry of a
+    // non-fixed location asset via movement Logs.
+    if (empty($assets) && !$log->get('is_movement')->value) {
+      foreach ($log->{static::LOG_FIELD_ASSET}->referencedEntities() as $asset) {
+        if ($this->assetLocation->isLocation($asset)) {
+          $assets[] = $asset;
+        }
+      }
+    }
+
+    return $assets;
   }
 
   /**
