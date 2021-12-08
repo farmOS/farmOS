@@ -71,4 +71,10 @@ The logic for determining an Asset's geometry is as follows:
 ## Geometry
 
 When a Log is saved without a geometry, and it references locations that have
-geometries, the locations geometries will be copied to the Log.
+geometries, the combined geometries of the referenced locations will be copied
+to the Log. Assets referenced in the Location relationship are given first
+priority. If none are found, then Assets referenced in the Log's Asset
+relationship will be used. In the latter case, only Assets that are explicitly
+designated as locations will be included, and geometry will not be copied if
+the Log is a movement (otherwise it would be impossible to clear the geometry
+of a non-fixed location Asset via movement Logs).
