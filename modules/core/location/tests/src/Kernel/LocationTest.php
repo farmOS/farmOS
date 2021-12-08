@@ -199,8 +199,6 @@ class LocationTest extends KernelTestBase {
     // If location assets are referenced in both the asset and location field,
     // only the geometry of the asset referenced in the location field is
     // copied.
-    // If both location and non-location assets are referenced, only the
-    // location asset geometry is copied.
     $log->asset = ['target_id' => $this->locations[0]->id()];
     $log->location = ['target_id' => $this->locations[1]->id()];
     $log->geometry->value = '';
