@@ -35,6 +35,21 @@ abstract class PlanStateChangeBase extends EntityActionBase {
     if ($state_item->getOriginalId() !== $this->targetState && $transition = $state_item->getWorkflow()->findTransition($state_item->getOriginalId(), $this->targetState)) {
       $state_item->applyTransition($transition);
       $plan->setNewRevision(TRUE);
+
+      // Validate the entity before saving.
+      $violations = $plan->validate();
+      if ($violations->count() > 0) {
+        $this->messenger()->addWarning(
+          $this->t('Could not change the status of <a href=":entity_link">%entity_label</a>: validation failed.',
+            [
+              ':entity_link' => $plan->toUrl()->setAbsolute()->toString(),
+              '%entity_label' => $plan->label(),
+            ],
+          ),
+        );
+        return;
+      }
+
       $plan->save();
     }
   }

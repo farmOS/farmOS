@@ -221,6 +221,22 @@ class AssetGroupActionForm extends ConfirmFormBase {
         $log->get('status')->first()->applyTransitionById('done');
       }
 
+      // Validate the log before saving.
+      $violations = $log->validate();
+      if ($violations->count() > 0) {
+        $this->messenger()->addWarning(
+          $this->t('Could not group assets: @bundle @entity_type validation failed.',
+            [
+              '@bundle' => $log->getBundleLabel(),
+              '@entity_type' => $log->getEntityType()->getSingularLabel(),
+            ],
+          ),
+        );
+        $this->tempStore->delete($this->currentUser()->id());
+        $form_state->setRedirectUrl($this->getCancelUrl());
+        return;
+      }
+
       $log->save();
       $this->messenger()->addMessage($this->t('Log created: <a href=":uri">%log_label</a>', [':uri' => $log->toUrl()->toString(), '%log_label' => $log->label()]));
     }
