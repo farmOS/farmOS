@@ -156,6 +156,56 @@ class LocationTest extends KernelTestBase {
     $log->geometry->value = '';
     $log->save();
     $this->assertEquals($this->locations[0]->get('intrinsic_geometry')->value, $log->get('geometry')->value, 'Geometry is re-copied from locations when custom geometry is cleared.');
+
+    // When a log references a location asset in the asset field, but nothing in
+    // the location or geometry fields, the geometry is copied from the asset.
+    /** @var \Drupal\log\Entity\LogInterface $log */
+    $log = Log::create([
+      'type' => 'movement',
+      'status' => 'pending',
+      'asset' => ['target_id' => $this->locations[0]->id()],
+    ]);
+    $log->save();
+    $this->assertEquals($this->locations[0]->get('intrinsic_geometry')->value, $log->get('geometry')->value, 'Geometry is copied from asset reference field if no location assets or custom geometry provided.');
+
+    // If a non-location asset is referenced, its geometry is not copied.
+    $object_geom = $this->reduceWkt($this->wktGenerator->wktGeneratePolygon(NULL, 5));
+    $object = Asset::create([
+      'type' => 'object',
+      'name' => $this->randomMachineName(),
+      'status' => 'active',
+      'intrinsic_geometry' => $object_geom,
+      'is_fixed' => TRUE,
+      'is_location' => FALSE,
+    ]);
+    $object->save();
+    $log->asset = ['target_id' => $object->id()];
+    $log->location = [];
+    $log->geometry->value = '';
+    $log->save();
+    $this->assertEmpty($log->get('geometry')->value, 'Non-location asset geometry is not copied.');
+
+    // If both location and non-location assets are referenced, only the
+    // location asset geometry is copied.
+    $log->asset = [
+      ['target_id' => $this->locations[0]->id()],
+      ['target_id' => $object->id()],
+    ];
+    $log->location = [];
+    $log->geometry->value = '';
+    $log->save();
+    $this->assertEquals($this->locations[0]->get('intrinsic_geometry')->value, $log->get('geometry')->value, 'Only location asset geometry is copied.');
+
+    // If location assets are referenced in both the asset and location field,
+    // only the geometry of the asset referenced in the location field is
+    // copied.
+    // If both location and non-location assets are referenced, only the
+    // location asset geometry is copied.
+    $log->asset = ['target_id' => $this->locations[0]->id()];
+    $log->location = ['target_id' => $this->locations[1]->id()];
+    $log->geometry->value = '';
+    $log->save();
+    $this->assertEquals($this->locations[1]->get('intrinsic_geometry')->value, $log->get('geometry')->value, 'Only location asset geometry is copied when both assets and locations are referenced.');
   }
 
   /**
