@@ -3,6 +3,7 @@
 namespace Drupal\farm_migrate\EventSubscriber;
 
 use Drupal\Component\Datetime\TimeInterface;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Database\Database;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -41,6 +42,13 @@ class FarmMigrationSubscriber implements EventSubscriberInterface {
   protected $entityTypeManager;
 
   /**
+   * The configuration factory.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
    * The state key/value store.
    *
    * @var \Drupal\Core\State\StateInterface
@@ -63,15 +71,18 @@ class FarmMigrationSubscriber implements EventSubscriberInterface {
    *   The time service.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager service.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The configuration factory.
    * @param \Drupal\Core\State\StateInterface $state
    *   The state key/value store.
    * @param \Drupal\migrate\Plugin\MigrationPluginManagerInterface $migration_plugin_manager
    *   Migration plugin manager service.
    */
-  public function __construct(Connection $database, TimeInterface $time, EntityTypeManagerInterface $entity_type_manager, StateInterface $state, MigrationPluginManagerInterface $migration_plugin_manager) {
+  public function __construct(Connection $database, TimeInterface $time, EntityTypeManagerInterface $entity_type_manager, ConfigFactoryInterface $config_factory, StateInterface $state, MigrationPluginManagerInterface $migration_plugin_manager) {
     $this->database = $database;
     $this->time = $time;
     $this->entityTypeManager = $entity_type_manager;
+    $this->configFactory = $config_factory;
     $this->state = $state;
     $this->migrationPluginManager = $migration_plugin_manager;
   }
@@ -96,6 +107,7 @@ class FarmMigrationSubscriber implements EventSubscriberInterface {
    *   The import event object.
    */
   public function onMigratePreImport(MigrateImportEvent $event) {
+    $this->unblockUsers($event);
     $this->grantTextFormatPermission($event);
     $this->allowPrivateFileReferencing($event);
   }
@@ -107,6 +119,7 @@ class FarmMigrationSubscriber implements EventSubscriberInterface {
    *   The import event object.
    */
   public function onMigratePostImport(MigrateImportEvent $event) {
+    $this->blockUsers($event);
     $this->revokeTextFormatPermission($event);
     $this->preventPrivateFileReferencing($event);
     $this->addRevisionLogMessage($event);
@@ -134,6 +147,67 @@ class FarmMigrationSubscriber implements EventSubscriberInterface {
     $this->deleteTermParentReferences($event);
     $this->deletePlantTypeCompanionReferences($event);
     $this->deleteSensorDataStreamReferences($event);
+  }
+
+  /**
+   * Unblock users that were blocked in the 1.x instance.
+   *
+   * @param \Drupal\migrate\Event\MigrateImportEvent $event
+   *   The import event object.
+   */
+  public function unblockUsers(MigrateImportEvent $event) {
+
+    // When records are migrated, Drupal will switch to the user that created
+    // them in order to perform validation. If that user was blocked, then it
+    // the record will not validate, and will not be migrated. To work around
+    // this we will temporarily unblock all users, and then block them again
+    // after the migration finishes. We use Drupal's state system to remember
+    // which users need to be blocked.
+    // @see blockUsers()
+    $migration = $event->getMigration();
+    if ($migration->migration_group == 'farm_migrate_user') {
+      return;
+    }
+    $user_settings = $this->configFactory->getEditable('user.settings');
+    $status_activated = $user_settings->get('notify.status_activated');
+    $user_settings->set('notify.status_activated', FALSE)->save();
+    $storage = $this->entityTypeManager->getStorage('user');
+    $user_ids = $storage->getQuery()->condition('status', FALSE)->execute();
+    $this->state->set('farm_migrate_blocked_users', $user_ids);
+    foreach ($user_ids as $id) {
+      if (!empty($id)) {
+        $user = $storage->load($id);
+        $user->activate();
+        $user->save();
+      }
+    }
+    $user_settings->set('notify.status_activated', $status_activated)->save();
+  }
+
+  /**
+   * Block users that were unblocked via unblockUsers().
+   *
+   * @param \Drupal\migrate\Event\MigrateImportEvent $event
+   *   The import event object.
+   */
+  public function blockUsers(MigrateImportEvent $event) {
+
+    // Block users that were temporarily unblocked.
+    // @see unblockUsers()
+    $migration = $event->getMigration();
+    if ($migration->migration_group == 'farm_migrate_user') {
+      return;
+    }
+    $storage = $this->entityTypeManager->getStorage('user');
+    $user_ids = $this->state->get('farm_migrate_blocked_users', []);
+    foreach ($user_ids as $id) {
+      if (!empty($id)) {
+        $user = $storage->load($id);
+        $user->block();
+        $user->save();
+      }
+    }
+    $this->state->delete('farm_migrate_blocked_users');
   }
 
   /**
