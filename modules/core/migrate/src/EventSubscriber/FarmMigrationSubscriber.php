@@ -41,13 +41,6 @@ class FarmMigrationSubscriber implements EventSubscriberInterface {
   protected $entityTypeManager;
 
   /**
-   * The role storage.
-   *
-   * @var \Drupal\user\RoleStorageInterface
-   */
-  protected $roleStorage;
-
-  /**
    * The state key/value store.
    *
    * @var \Drupal\Core\State\StateInterface
@@ -79,7 +72,6 @@ class FarmMigrationSubscriber implements EventSubscriberInterface {
     $this->database = $database;
     $this->time = $time;
     $this->entityTypeManager = $entity_type_manager;
-    $this->roleStorage = $entity_type_manager->getStorage('user_role');
     $this->state = $state;
     $this->migrationPluginManager = $migration_plugin_manager;
   }
@@ -160,7 +152,8 @@ class FarmMigrationSubscriber implements EventSubscriberInterface {
     // @see revokeTextFormatPermission()
     $migration = $event->getMigration();
     if (isset($migration->migration_group) && $migration->migration_group == 'farm_migrate_taxonomy') {
-      $anonymous = $this->roleStorage->load('anonymous');
+      $storage = $this->entityTypeManager->getStorage('user_role');
+      $anonymous = $storage->load('anonymous');
       $anonymous->grantPermission('use text format default');
       $anonymous->save();
     }
@@ -180,7 +173,8 @@ class FarmMigrationSubscriber implements EventSubscriberInterface {
     // @see grantTextFormatPermission()
     $migration = $event->getMigration();
     if (isset($migration->migration_group) && $migration->migration_group == 'farm_migrate_taxonomy') {
-      $anonymous = $this->roleStorage->load('anonymous');
+      $storage = $this->entityTypeManager->getStorage('user_role');
+      $anonymous = $storage->load('anonymous');
       $anonymous->revokePermission('use text format default');
       $anonymous->save();
     }
