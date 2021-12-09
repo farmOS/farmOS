@@ -7,7 +7,7 @@
 
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\farm_flag\Entity\FarmFlagInterface;
 use Drupal\farm_flag\Form\EntityFlagActionForm;
 use Drupal\farm_flag\Routing\EntityFlagActionRouteProvider;
@@ -40,8 +40,8 @@ function farm_flag_entity_base_field_info(EntityTypeInterface $entity_type) {
 /**
  * Allowed values callback function for the flags field.
  *
- * @param \Drupal\Core\Field\FieldDefinitionInterface $definition
- *   The field definition.
+ * @param \Drupal\Core\Field\FieldStorageDefinitionInterface $definition
+ *   The field storage definition.
  * @param \Drupal\Core\Entity\ContentEntityInterface|null $entity
  *   The entity being created if applicable.
  * @param bool $cacheable
@@ -50,7 +50,7 @@ function farm_flag_entity_base_field_info(EntityTypeInterface $entity_type) {
  * @return array
  *   Returns an array of allowed values for use in form select options.
  */
-function farm_flag_field_allowed_values(FieldDefinitionInterface $definition, ContentEntityInterface $entity = NULL, bool &$cacheable = TRUE) {
+function farm_flag_field_allowed_values(FieldStorageDefinitionInterface $definition, ContentEntityInterface $entity = NULL, bool &$cacheable = TRUE) {
   /** @var \Drupal\farm_flag\Entity\FarmFlagInterface[] $flags */
   $flags = \Drupal::entityTypeManager()->getStorage('flag')->loadMultiple();
   $allowed_values = [];
