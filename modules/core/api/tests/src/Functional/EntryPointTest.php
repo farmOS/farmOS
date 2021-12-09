@@ -85,11 +85,14 @@ class EntryPointTest extends FarmBrowserTestBase {
     // Assert that the meta.farm key exists.
     $this->assertArrayHasKey('farm', $document['meta']);
 
+    // Get the farm profile info.
+    $farm_info = \Drupal::service('extension.list.profile')->getExtensionInfo('farm');
+
     // Array of expected values.
     $expected_values = [
       'name' => $this->config('system.site')->get('name'),
       'url' => $this->baseUrl,
-      'version' => '2.x',
+      'version' => $farm_info['version'],
     ];
     foreach ($expected_values as $key => $value) {
       $this->assertArrayHasKey($key, $document['meta']['farm']);
