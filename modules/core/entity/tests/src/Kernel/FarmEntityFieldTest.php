@@ -57,39 +57,54 @@ class FarmEntityFieldTest extends KernelTestBase {
 
     // Test asset field storage definitions.
     $fields = $this->entityFieldManager->getFieldStorageDefinitions('asset');
-    $this->assertArrayHasKey('data', $fields);
-    $this->assertArrayHasKey('flag', $fields);
-    $this->assertArrayHasKey('file', $fields);
-    $this->assertArrayHasKey('id_tag', $fields);
-    $this->assertArrayHasKey('image', $fields);
-    $this->assertArrayHasKey('intrinsic_geometry', $fields);
-    $this->assertArrayHasKey('is_fixed', $fields);
-    $this->assertArrayHasKey('is_location', $fields);
-    $this->assertArrayHasKey('notes', $fields);
-    $this->assertArrayHasKey('parent', $fields);
+    $field_names = [
+      'data',
+      'flag',
+      'file',
+      'id_tag',
+      'image',
+      'intrinsic_geometry',
+      'is_fixed',
+      'is_location',
+      'notes',
+      'parent',
+    ];
+    foreach ($field_names as $field_name) {
+      $this->assertArrayHasKey($field_name, $fields, "The asset $field_name field exists.");
+    }
 
     // Test log field storage definitions.
     $fields = $this->entityFieldManager->getFieldStorageDefinitions('log');
-    $this->assertArrayHasKey('asset', $fields);
-    $this->assertArrayHasKey('category', $fields);
-    $this->assertArrayHasKey('data', $fields);
-    $this->assertArrayHasKey('flag', $fields);
-    $this->assertArrayHasKey('file', $fields);
-    $this->assertArrayHasKey('geometry', $fields);
-    $this->assertArrayHasKey('image', $fields);
-    $this->assertArrayHasKey('is_movement', $fields);
-    $this->assertArrayHasKey('location', $fields);
-    $this->assertArrayHasKey('notes', $fields);
-    $this->assertArrayHasKey('owner', $fields);
-    $this->assertArrayHasKey('test_hook_base_field', $fields);
+    $field_names = [
+      'asset',
+      'category',
+      'data',
+      'flag',
+      'file',
+      'geometry',
+      'image',
+      'is_movement',
+      'location',
+      'notes',
+      'owner',
+      'test_hook_base_field',
+    ];
+    foreach ($field_names as $field_name) {
+      $this->assertArrayHasKey($field_name, $fields, "The log $field_name field exists.");
+    }
 
     // Test plan field storage definitions.
     $fields = $this->entityFieldManager->getFieldStorageDefinitions('plan');
-    $this->assertArrayHasKey('data', $fields);
-    $this->assertArrayHasKey('flag', $fields);
-    $this->assertArrayHasKey('file', $fields);
-    $this->assertArrayHasKey('image', $fields);
-    $this->assertArrayHasKey('notes', $fields);
+    $field_names = [
+      'data',
+      'flag',
+      'file',
+      'image',
+      'notes',
+    ];
+    foreach ($field_names as $field_name) {
+      $this->assertArrayHasKey($field_name, $fields, "The plan $field_name field exists.");
+    }
   }
 
   /**
