@@ -73,6 +73,11 @@ class FarmEntityFieldTest extends KernelTestBase {
       $this->assertArrayHasKey($field_name, $fields, "The asset $field_name field exists.");
     }
 
+    // Test parent field constraints.
+    $parent_field_constraints = $fields['parent']->getConstraints();
+    $this->assertArrayHasKey('CircularReference', $parent_field_constraints);
+    $this->assertArrayHasKey('DuplicateReference', $parent_field_constraints);
+
     // Test log field storage definitions.
     $fields = $this->entityFieldManager->getFieldStorageDefinitions('log');
     $field_names = [
