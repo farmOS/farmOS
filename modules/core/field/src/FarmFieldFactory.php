@@ -109,11 +109,6 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
       $field->setDefaultValueCallback($options['default_value_callback']);
     }
 
-    // Add third-party settings, if specified.
-    if (!empty($options['third_party_settings'])) {
-      $field->setSetting('third_party_settings', $options['third_party_settings']);
-    }
-
     // Delegate to per-type helper functions to fill in more details.
     switch ($options['type']) {
 
