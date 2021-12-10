@@ -48,7 +48,7 @@ jobs:
       # but notably it does NOT override the default PROJECT_VERSION, so the
       # farmOS Composer project 2.x branch is always used.
       - name: Build farmOS 2.x-dev Docker image
-        run: docker build --build-arg FARMOS_REPO=https://github.com/${FARMOS_REPO} --build-arg FARMOS_VERSION=${FARMOS_VERSION} --build-arg WWW_DATA_ID=33 -t farmos/farmos:2.x-dev docker/dev
+        run: docker build --build-arg FARMOS_REPO=https://github.com/${FARMOS_REPO} --build-arg FARMOS_VERSION=${FARMOS_VERSION} -t farmos/farmos:2.x-dev docker/dev
       # Build a new docker-compose.yml file from docker-compose.testing.common + docker-compose.testing.{dbms}.yml.
       # Copy to the current directory so that farmOS volume mounts don't change to the docker/www folder.
       - name: Create docker-compose.yml
