@@ -7,6 +7,7 @@
 
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Render\Element;
 use Drupal\quantity\Entity\QuantityInterface;
 use Drupal\quantity\Event\QuantityEvent;
@@ -67,7 +68,7 @@ function quantity_measures() {
 /**
  * Allowed values callback function for the quantity measure field.
  *
- * @param \Drupal\Core\Field\FieldDefinitionInterface $definition
+ * @param \Drupal\Core\Field\FieldStorageDefinitionInterface $definition
  *   The field definition.
  * @param \Drupal\Core\Entity\ContentEntityInterface|null $entity
  *   The entity being created if applicable.
@@ -77,7 +78,7 @@ function quantity_measures() {
  * @return array
  *   Returns an array of allowed values for use in form select options.
  */
-function quantity_measure_field_allowed_values(FieldDefinitionInterface $definition, ContentEntityInterface $entity = NULL, bool &$cacheable = TRUE) {
+function quantity_measure_field_allowed_values(FieldStorageDefinitionInterface $definition, ContentEntityInterface $entity = NULL, bool &$cacheable = TRUE) {
 
   // Start an empty options array.
   $options = [];

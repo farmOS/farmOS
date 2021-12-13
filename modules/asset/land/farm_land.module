@@ -6,12 +6,12 @@
  */
 
 use Drupal\Core\Entity\ContentEntityInterface;
-use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\Core\Field\FieldStorageDefinitionInterface;
 
 /**
  * Allowed values callback function for the land type field.
  *
- * @param \Drupal\Core\Field\FieldDefinitionInterface $definition
+ * @param \Drupal\Core\Field\FieldStorageDefinitionInterface $definition
  *   The field definition.
  * @param \Drupal\Core\Entity\ContentEntityInterface|null $entity
  *   The entity being created if applicable.
@@ -21,7 +21,7 @@ use Drupal\Core\Field\FieldDefinitionInterface;
  * @return array
  *   Returns an array of allowed values for use in form select options.
  */
-function farm_land_type_field_allowed_values(FieldDefinitionInterface $definition, ContentEntityInterface $entity = NULL, bool &$cacheable = TRUE) {
+function farm_land_type_field_allowed_values(FieldStorageDefinitionInterface $definition, ContentEntityInterface $entity = NULL, bool &$cacheable = TRUE) {
   /** @var \Drupal\farm_land\Entity\FarmLandTypeInterface[] $types */
   $types = \Drupal::entityTypeManager()->getStorage('land_type')->loadMultiple();
   $allowed_values = [];
