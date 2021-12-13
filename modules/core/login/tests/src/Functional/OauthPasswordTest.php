@@ -71,16 +71,16 @@ class OauthPasswordTest extends OauthTestBase {
     $invalid_payload['username'] = $this->getRandomGenerator()->string();
     $response = $this->post($this->url, $invalid_payload);
     $parsed_response = Json::decode((string) $response->getBody());
-    $this->assertSame('invalid_credentials', $parsed_response['error']);
-    $this->assertSame(401, $response->getStatusCode());
+    $this->assertSame('invalid_grant', $parsed_response['error']);
+    $this->assertSame(400, $response->getStatusCode());
 
     // 2. Test the password grant with an invalid password.
     $invalid_payload = $valid_payload;
     $invalid_payload['password'] = $this->getRandomGenerator()->string();
     $response = $this->post($this->url, $invalid_payload);
     $parsed_response = Json::decode((string) $response->getBody());
-    $this->assertSame('invalid_credentials', $parsed_response['error']);
-    $this->assertSame(401, $response->getStatusCode());
+    $this->assertSame('invalid_grant', $parsed_response['error']);
+    $this->assertSame(400, $response->getStatusCode());
   }
 
 }

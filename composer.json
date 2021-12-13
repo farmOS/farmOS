@@ -71,7 +71,8 @@
                 "Issue #3173947: Cannot authorize non-confidential clients": "https://www.drupal.org/files/issues/2020-09-29/3173947-2.patch",
                 "Issue #3167287: Always load clients through the Client Repository service": "https://www.drupal.org/files/issues/2020-09-29/3167287-9.patch",
                 "Issue #3174572: Passing a third argument to headers->get() is deprecated": "https://www.drupal.org/files/issues/2020-10-02/3174572-2.patch",
-                "Issue #3186301: Make $modules variable protected in tests": "https://www.drupal.org/files/issues/2020-12-03/3186301-2.patch"
+                "Issue #3186301: Make $modules variable protected in tests": "https://www.drupal.org/files/issues/2020-12-03/3186301-2.patch",
+                "Issue #3193609: invalid_credentials error does not conform to OAuth2 spec": "https://www.drupal.org/files/issues/2021-12-13/3193609-11.patch"
             },
             "phayes/geophp": {
                 "Use BCMath (where available) for all float arithmetic #115": "https://patch-diff.githubusercontent.com/raw/phayes/geoPHP/pull/115.patch"
