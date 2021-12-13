@@ -138,7 +138,7 @@ class Quantity extends RevisionableContentEntityBase implements QuantityInterfac
       ->setRevisionable(TRUE)
       ->setDefaultValueCallback('quantity_measure_default_value')
       ->setSettings([
-        'allowed_values_function' => 'quantity_measure_options',
+        'allowed_values_function' => 'quantity_measure_field_allowed_values',
       ])
       ->setDisplayOptions('view', [
         'label' => 'hidden',
