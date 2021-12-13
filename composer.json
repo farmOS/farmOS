@@ -53,6 +53,7 @@
         },
         "patches": {
             "drupal/core": {
+                "Issue #3253568: Error when checkbox 'Use field template' is checked.": "https://www.drupal.org/files/issues/2021-12-13/3253568-32.patch",
                 "Issue #2429699: Add Views EntityReference filter to be available for all entity reference fields.": "https://www.drupal.org/files/issues/2021-12-02/2429699-453-9.3.x.patch",
                 "Issue #2339235: Remove taxonomy hard dependency on node module": "https://www.drupal.org/files/issues/2021-12-09/2339235-9.3.x-76.patch",
                 "Issue #1874838: Allow exposed blocks to use 'Link display' settings": "https://www.drupal.org/files/issues/2021-11-11/1874838-26.patch"
