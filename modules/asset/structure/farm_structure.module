@@ -5,13 +5,23 @@
  * Structure asset module.
  */
 
+use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Field\FieldDefinitionInterface;
+
 /**
  * Allowed values callback function for the structure type field.
+ *
+ * @param \Drupal\Core\Field\FieldDefinitionInterface $definition
+ *   The field definition.
+ * @param \Drupal\Core\Entity\ContentEntityInterface|null $entity
+ *   The entity being created if applicable.
+ * @param bool $cacheable
+ *   Boolean indicating if the allowed values can be cached. Defaults to TRUE.
  *
  * @return array
  *   Returns an array of allowed values for use in form select options.
  */
-function farm_structure_type_field_allowed_values() {
+function farm_structure_type_field_allowed_values(FieldDefinitionInterface $definition, ContentEntityInterface $entity = NULL, bool &$cacheable = TRUE) {
   /** @var \Drupal\farm_structure\Entity\FarmStructureTypeInterface[] $types */
   $types = \Drupal::entityTypeManager()->getStorage('structure_type')->loadMultiple();
   $allowed_values = [];

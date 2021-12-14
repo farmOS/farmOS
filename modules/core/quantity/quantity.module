@@ -65,9 +65,19 @@ function quantity_measures() {
 }
 
 /**
- * Define available options for the Measure field.
+ * Allowed values callback function for the quantity measure field.
+ *
+ * @param \Drupal\Core\Field\FieldDefinitionInterface $definition
+ *   The field definition.
+ * @param \Drupal\Core\Entity\ContentEntityInterface|null $entity
+ *   The entity being created if applicable.
+ * @param bool $cacheable
+ *   Boolean indicating if the allowed values can be cached. Defaults to TRUE.
+ *
+ * @return array
+ *   Returns an array of allowed values for use in form select options.
  */
-function quantity_measure_options() {
+function quantity_measure_field_allowed_values(FieldDefinitionInterface $definition, ContentEntityInterface $entity = NULL, bool &$cacheable = TRUE) {
 
   // Start an empty options array.
   $options = [];
