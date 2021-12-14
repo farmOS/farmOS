@@ -158,3 +158,16 @@ Once you have the farmOS codebase deployed, and a database server provisioned,
 you can proceed with the web-based farmOS installation. Visit the farmOS
 server's hostname in your browser and follow the steps to install farmOS and
 optional modules.
+
+### File uploads
+
+In order to upload files, a private filesystem path must be configured in the
+`settings.php` file after installation is complete.
+
+If you are using the official Docker image, and bind-mounting the `sites`
+directory as a volume, add the following line to `sites/default/settings.php`:
+
+    $settings['file_private_path'] = '/opt/drupal/web/sites/default/private/files';
+
+If you are using a packaged release outside of Docker, replace `/opt/drupal/web`
+with the path to the webroot directory that contains your `sites` directory.
