@@ -3,6 +3,7 @@
 namespace Drupal\farm_import_kml\Form;
 
 use Drupal\asset\Entity\Asset;
+use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Form\FormBase;
@@ -28,6 +29,13 @@ class KmlImporter extends FormBase {
   protected $entityTypeManager;
 
   /**
+   * The entity field manager.
+   *
+   * @var \Drupal\Core\Entity\EntityFieldManagerInterface
+   */
+  protected $entityFieldManager;
+
+  /**
    * The serializer service.
    *
    * @var \Symfony\Component\Serializer\SerializerInterface
@@ -46,13 +54,16 @@ class KmlImporter extends FormBase {
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager service.
+   * @param \Drupal\Core\Entity\EntityFieldManagerInterface $entity_field_manager
+   *   The entity field manager service.
    * @param \Symfony\Component\Serializer\SerializerInterface $serializer
    *   The serializer service.
    * @param \Drupal\Core\File\FileSystemInterface $file_system
    *   The file system service.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, SerializerInterface $serializer, FileSystemInterface $file_system) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, EntityFieldManagerInterface $entity_field_manager, SerializerInterface $serializer, FileSystemInterface $file_system) {
     $this->entityTypeManager = $entity_type_manager;
+    $this->entityFieldManager = $entity_field_manager;
     $this->serializer = $serializer;
     $this->fileSystem = $file_system;
   }
@@ -63,6 +74,7 @@ class KmlImporter extends FormBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('entity_type.manager'),
+      $container->get('entity_field.manager'),
       $container->get('serializer'),
       $container->get('file_system')
     );
@@ -97,7 +109,12 @@ class KmlImporter extends FormBase {
       '#required' => TRUE,
     ];
 
-    $land_type_options = farm_land_type_field_allowed_values();
+    // Build land type options.
+    $land_type_options = [];
+    $field_storage_definitions = $this->entityFieldManager->getFieldStorageDefinitions('asset');
+    if (!empty($field_storage_definitions['land_type'])) {
+      $land_type_options = farm_land_type_field_allowed_values($field_storage_definitions['land_type']);
+    }
     $form['input']['land_type'] = [
       '#type' => 'select',
       '#title' => $this->t('Default land type'),
