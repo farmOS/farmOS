@@ -163,7 +163,7 @@ class EntityFlagActionForm extends ConfirmFormBase {
     // disallowed flags cannot be assigned.
     $allowed_values = [];
     $field_storage_definitions = $this->entityFieldManager->getFieldStorageDefinitions($entity_type_id);
-    if (!empty($base_field_definitions['flag'])) {
+    if (!empty($field_storage_definitions['flag'])) {
       foreach ($this->entities as $entity) {
         $entity_allowed_values = farm_flag_field_allowed_values($field_storage_definitions['flag'], $entity);
         if (empty($allowed_values)) {
