@@ -104,7 +104,7 @@ class KmlImporter extends FormBase {
       '#description' => $this->t('Upload your KML file here and click "Parse".'),
       '#upload_location' => 'private://kml',
       '#upload_validators' => [
-        'file_validate_extensions' => 'kml kmz',
+        'file_validate_extensions' => ['kml kmz'],
       ],
       '#required' => TRUE,
     ];
