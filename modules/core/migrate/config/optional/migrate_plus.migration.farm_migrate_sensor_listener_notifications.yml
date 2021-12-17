@@ -5,7 +5,7 @@ dependencies:
     module:
       - farm_migrate
       - data_stream
-      - data_stream_notification_email
+      - data_stream_notification
       - farm_sensor
       - farm_sensor_listener
 id: farm_migrate_sensor_listener_notifications

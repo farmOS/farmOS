@@ -1,12 +1,11 @@
 <?php
 
-namespace Drupal\data_stream_notification_email\Plugin\DataStream\NotificationDelivery;
+namespace Drupal\data_stream_notification\Plugin\DataStream\NotificationDelivery;
 
 use Drupal\Component\Utility\EmailValidatorInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Mail\MailManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\data_stream_notification\Plugin\DataStream\NotificationDelivery\NotificationDeliveryBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -153,7 +152,7 @@ class Email extends NotificationDeliveryBase implements ContainerFactoryPluginIn
     }
 
     $params = $this->getContextValues();
-    $result = $this->mailManager->mail('data_stream_notification_email', 'notification_email', implode(', ', $this->configuration['email']), 'en', $params);
+    $result = $this->mailManager->mail('data_stream_notification', 'notification_email', implode(', ', $this->configuration['email']), 'en', $params);
     return $result['result'] ?? FALSE;
   }
 

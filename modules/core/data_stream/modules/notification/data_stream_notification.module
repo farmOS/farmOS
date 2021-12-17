@@ -2,13 +2,13 @@
 
 /**
  * @file
- * Contains data_stream_notification_email.module.
+ * Contains data_stream_notification.module.
  */
 
 /**
  * Implements hook_mail().
  */
-function data_stream_notification_email_mail($key, &$message, $params) {
+function data_stream_notification_mail($key, &$message, $params) {
 
   // Bail if not a notification email.
   if ($key !== 'notification_email') {

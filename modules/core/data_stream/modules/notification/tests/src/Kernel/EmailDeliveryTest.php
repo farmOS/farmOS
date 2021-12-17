@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\data_stream_notification_email\Kernel;
+namespace Drupal\Tests\data_stream_notification\Kernel;
 
 use Drupal\Component\Serialization\Json;
 use Drupal\Core\Test\AssertMailTrait;
@@ -47,7 +47,6 @@ class EmailDeliveryTest extends DataStreamTestBase {
     'asset',
     'data_stream',
     'data_stream_notification',
-    'data_stream_notification_email',
   ];
 
   /**
