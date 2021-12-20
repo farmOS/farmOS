@@ -6,25 +6,25 @@ use Drupal\Core\Config\Entity\ConfigEntityInterface;
 use Drupal\Core\Entity\EntityDescriptionInterface;
 
 /**
- * Provides an interface for defining ClientModule config entities.
+ * Provides an interface for defining FieldModule config entities.
  *
  * @ingroup farm
  */
-interface ClientModuleInterface extends ConfigEntityInterface, EntityDescriptionInterface {
+interface FieldModuleInterface extends ConfigEntityInterface, EntityDescriptionInterface {
 
   /**
-   * Returns the client module label.
+   * Returns the field module label.
    *
    * @return string
-   *   The client module label.
+   *   The field module label.
    */
   public function getLabel();
 
   /**
-   * Returns the client module library.
+   * Returns the field module library.
    *
    * @return string
-   *   The client module library.
+   *   The field module library.
    */
   public function getLibrary();
 

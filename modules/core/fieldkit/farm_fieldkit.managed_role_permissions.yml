@@ -1,5 +1,5 @@
 farm_fieldkit:
   config_permissions:
-    - administer client_module
+    - administer field_module
   default_permissions:
-    - view client_module
+    - view field_module

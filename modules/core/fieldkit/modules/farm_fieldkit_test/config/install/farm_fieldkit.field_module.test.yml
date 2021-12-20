@@ -6,5 +6,5 @@ dependencies:
       - farm_fieldkit_test
 id: test
 label: Test module
-description: Just a client module for testing.
-library: farm_fieldkit_test/test_client_module
+description: Just a field module for testing.
+library: farm_fieldkit_test/test_field_module

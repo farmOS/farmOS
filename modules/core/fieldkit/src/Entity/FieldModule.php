@@ -5,12 +5,12 @@ namespace Drupal\farm_fieldkit\Entity;
 use Drupal\Core\Config\Entity\ConfigEntityBase;
 
 /**
- * Defines the ClientModule entity.
+ * Defines the FieldModule entity.
  *
  * @ConfigEntityType(
- *   id = "client_module",
- *   label = @Translation("Client module"),
- *   label_collection = @Translation("Client modules"),
+ *   id = "field_module",
+ *   label = @Translation("Field module"),
+ *   label_collection = @Translation("Field modules"),
  *   handlers = {
  *     "access" = "\Drupal\entity\EntityAccessControlHandler",
  *     "permission_provider" = "\Drupal\entity\EntityPermissionProvider",
@@ -29,31 +29,31 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *
  * @ingroup farm
  */
-class ClientModule extends ConfigEntityBase implements ClientModuleInterface {
+class FieldModule extends ConfigEntityBase implements FieldModuleInterface {
 
   /**
-   * The client module ID.
+   * The field module ID.
    *
    * @var string
    */
   protected $id;
 
   /**
-   * The client module label.
+   * The field module label.
    *
    * @var string
    */
   protected $label;
 
   /**
-   * A brief description of this client module.
+   * A brief description of this field module.
    *
    * @var string
    */
   protected $description;
 
   /**
-   * The client module library name.
+   * The field module library name.
    *
    * @var string
    */

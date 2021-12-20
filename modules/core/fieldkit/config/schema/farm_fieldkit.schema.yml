@@ -1,7 +1,7 @@
 # Schema for the configuration files of the farm_fieldkit module.
-farm_fieldkit.client_module.*:
+farm_fieldkit.field_module.*:
   type: config_entity
-  label: 'Client module'
+  label: 'Field module'
   mapping:
     id:
       type: string

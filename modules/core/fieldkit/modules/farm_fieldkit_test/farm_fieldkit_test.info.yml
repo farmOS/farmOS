@@ -1,5 +1,5 @@
 name: farmOS Field Kit Test
-description: Test client module.
+description: Test field module.
 type: module
 package: Testing
 core_version_requirement: ^9
