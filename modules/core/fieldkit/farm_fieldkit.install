@@ -14,8 +14,8 @@ function farm_fieldkit_install() {
 
   // Create a consumer for the farmOS Field Kit client.
   $fk_consumer = Consumer::create([
-    'label' => 'farmOS Client (Field Kit)',
-    'client_id' => 'farm_client',
+    'label' => 'Field Kit',
+    'client_id' => 'fieldkit',
     'redirect' => 'https://farmOS.app',
     'owner_id' => '',
     'secret' => '',
@@ -33,9 +33,9 @@ function farm_fieldkit_install() {
  */
 function farm_fieldkit_uninstall() {
 
-  // Load the default farm consumer.
+  // Load the fieldkit consumer.
   $consumers = \Drupal::entityTypeManager()->getStorage('consumer')
-    ->loadByProperties(['client_id' => 'farm_client']);
+    ->loadByProperties(['client_id' => 'fieldkit']);
 
   // If found, delete the consumer.
   if (!empty($consumers)) {
