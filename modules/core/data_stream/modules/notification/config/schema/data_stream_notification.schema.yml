@@ -1,0 +1,38 @@
+# Schema for the configuration files of the Data stream notifications module.
+
+data_stream_notification.data_stream_notification.*:
+  type: config_entity
+  label: 'Data stream notification'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    data_stream:
+      type: integer
+      nullable: true
+      label: 'Data stream'
+    activation_threshold:
+      type: integer
+      label: 'Activation threshold'
+    deactivation_threshold:
+      type: integer
+      label: 'Deactivation threshold'
+    condition_operator:
+      type: string
+      label: 'Condition operator'
+    condition:
+      type: sequence
+      label: 'Conditions'
+      sequence:
+        type: data_stream_notification.condition.[type]
+    delivery_interval:
+      type: integer
+      label: 'Delivery interval'
+    delivery:
+      type: sequence
+      label: 'Delivery'
+      sequence:
+        type: data_stream_notification.delivery.[type]

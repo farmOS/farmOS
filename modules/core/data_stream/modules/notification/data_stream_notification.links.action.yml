@@ -1,0 +1,5 @@
+data_stream_notification.add:
+  route_name: entity.data_stream_notification.add_form
+  title: 'Add notification'
+  appears_on:
+    - entity.data_stream_notification.collection

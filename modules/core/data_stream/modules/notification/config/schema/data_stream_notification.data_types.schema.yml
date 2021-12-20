@@ -1,0 +1,20 @@
+# Basic data types for data stream notification.
+
+data_stream_notification_condition:
+  type: mapping
+  label: 'Condition configuration'
+  mapping:
+    type:
+      type: string
+      label: 'Condition plugin'
+    negate:
+      type: boolean
+      label: 'Negate'
+
+data_stream_notification_delivery:
+  type: mapping
+  label: 'Delivery configuration'
+  mapping:
+    type:
+      type: string
+      label: 'Delivery plugin'

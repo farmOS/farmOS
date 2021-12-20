@@ -1,0 +1,11 @@
+# Schema for the data stream notification delivery plugins.
+
+data_stream_notification.delivery.email:
+  type: data_stream_notification_delivery
+  mapping:
+    email:
+      type: sequence
+      label: 'Emails'
+      sequence:
+        label: 'Email'
+        type: email

@@ -1,0 +1,12 @@
+# Schema for the data stream notification condition plugins.
+
+data_stream_notification.condition.numeric:
+  type: data_stream_notification_condition
+  label: 'Numeric condition'
+  mapping:
+    condition:
+      type: string
+      label: 'Condition'
+    threshold:
+      type: float
+      label: 'Threshold'
