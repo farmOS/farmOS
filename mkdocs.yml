@@ -65,6 +65,8 @@ nav:
 theme: sandstone
 extra_css:
   - extra.css
+extra_javascript:
+  - deprecated.js
 markdown_extensions:
   - toc:
       permalink: true
