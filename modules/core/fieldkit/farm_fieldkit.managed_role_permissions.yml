@@ -1,4 +1,4 @@
-farm_client:
+farm_fieldkit:
   config_permissions:
     - administer client_module
   default_permissions:

@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Install, update and uninstall function for the farm_client module.
+ * Install, update and uninstall function for the farm_fieldkit module.
  */
 
 use Drupal\consumers\Entity\Consumer;
@@ -10,7 +10,7 @@ use Drupal\consumers\Entity\Consumer;
 /**
  * Implements hook_install().
  */
-function farm_client_install() {
+function farm_fieldkit_install() {
 
   // Create a consumer for the farmOS Field Kit client.
   $fk_consumer = Consumer::create([
@@ -31,7 +31,7 @@ function farm_client_install() {
 /**
  * Implements hook_uninstall().
  */
-function farm_client_uninstall() {
+function farm_fieldkit_uninstall() {
 
   // Load the default farm consumer.
   $consumers = \Drupal::entityTypeManager()->getStorage('consumer')

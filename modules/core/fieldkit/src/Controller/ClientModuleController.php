@@ -1,10 +1,10 @@
 <?php
 
-namespace Drupal\farm_client\Controller;
+namespace Drupal\farm_fieldkit\Controller;
 
 use Drupal\Core\Asset\LibraryDiscoveryInterface;
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\farm_client\Entity\ClientModuleInterface;
+use Drupal\farm_fieldkit\Entity\ClientModuleInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
@@ -43,7 +43,7 @@ class ClientModuleController extends ControllerBase {
   /**
    * Returns the ClientModule JS.
    *
-   * @param \Drupal\farm_client\Entity\ClientModuleInterface $client_module
+   * @param \Drupal\farm_fieldkit\Entity\ClientModuleInterface $client_module
    *   The ClientModule config entity.
    *
    * @return \Symfony\Component\HttpFoundation\Response

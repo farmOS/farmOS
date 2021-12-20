@@ -1,7 +1,7 @@
-name: farmOS Client Test
+name: farmOS Field Kit Test
 description: Test client module.
 type: module
 package: Testing
 core_version_requirement: ^9
 dependencies:
-  - farm:farm_client
+  - farm:farm_fieldkit

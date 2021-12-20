@@ -1,5 +1,5 @@
-# Schema for the configuration files of the farm_client module.
-farm_client.client_module.*:
+# Schema for the configuration files of the farm_fieldkit module.
+farm_fieldkit.client_module.*:
   type: config_entity
   label: 'Client module'
   mapping:

@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\farm_client\Entity;
+namespace Drupal\farm_fieldkit\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityInterface;
 use Drupal\Core\Entity\EntityDescriptionInterface;
