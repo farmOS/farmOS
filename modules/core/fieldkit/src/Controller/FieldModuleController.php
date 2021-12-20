@@ -1,18 +1,18 @@
 <?php
 
-namespace Drupal\farm_client\Controller;
+namespace Drupal\farm_fieldkit\Controller;
 
 use Drupal\Core\Asset\LibraryDiscoveryInterface;
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\farm_client\Entity\ClientModuleInterface;
+use Drupal\farm_fieldkit\Entity\FieldModuleInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
 /**
- * Serves JavaScript files for client modules.
+ * Serves JavaScript files for field modules.
  */
-class ClientModuleController extends ControllerBase {
+class FieldModuleController extends ControllerBase {
 
   /**
    * The library discovery service.
@@ -22,7 +22,7 @@ class ClientModuleController extends ControllerBase {
   protected $libraryDiscovery;
 
   /**
-   * ClientModuleController constructor.
+   * FieldModuleController constructor.
    *
    * @param \Drupal\Core\Asset\LibraryDiscoveryInterface $library_discovery
    *   The library discovery service.
@@ -41,30 +41,30 @@ class ClientModuleController extends ControllerBase {
   }
 
   /**
-   * Returns the ClientModule JS.
+   * Returns the FieldModule JS.
    *
-   * @param \Drupal\farm_client\Entity\ClientModuleInterface $client_module
-   *   The ClientModule config entity.
+   * @param \Drupal\farm_fieldkit\Entity\FieldModuleInterface $field_module
+   *   The FieldtModule config entity.
    *
    * @return \Symfony\Component\HttpFoundation\Response
-   *   A response containing the ClientModule JS or a 422 error response.
+   *   A response containing the FieldModule JS or a 422 error response.
    */
-  public function index(ClientModuleInterface $client_module) {
+  public function index(FieldModuleInterface $field_module) {
 
-    // Get the client module library.
-    $library = $client_module->getLibrary();
+    // Get the field module library.
+    $library = $field_module->getLibrary();
     [$extension, $name] = explode('/', $library, 2);
     $definition = $this->libraryDiscovery->getLibraryByName($extension, $name);
 
     // Bail if no JS library is provided.
     if (empty($definition['js'])) {
-      throw new UnprocessableEntityHttpException('The client module does not have a valid JS library configured.');
+      throw new UnprocessableEntityHttpException('The field module does not have a valid JS library configured.');
     }
 
     // Try loading the raw JS data.
     $raw = file_get_contents($definition['js'][0]['data']);
     if (empty($raw)) {
-      throw new UnprocessableEntityHttpException('The client module JS library could not be loaded.');
+      throw new UnprocessableEntityHttpException('The field module JS library could not be loaded.');
     }
 
     // Return a response with the JS asset.

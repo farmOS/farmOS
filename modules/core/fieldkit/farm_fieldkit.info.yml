@@ -1,5 +1,5 @@
-name: farmOS Client
-description: Integrates the farmOS server and client.
+name: farmOS Field Kit
+description: Allows Field Kit to connect to this farmOS server.
 type: module
 package: farmOS
 core_version_requirement: ^9

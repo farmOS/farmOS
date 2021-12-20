@@ -56,7 +56,7 @@ function farm_modules() {
       'farm_medical' => t('Medical logs'),
       'farm_kml' => t('KML export features'),
       'farm_import_kml' => t('KML asset importer'),
-      'farm_client' => t('Field Kit integration'),
+      'farm_fieldkit' => t('Field Kit integration'),
     ],
   ];
 }

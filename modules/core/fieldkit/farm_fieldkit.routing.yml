@@ -1,0 +1,12 @@
+farm_fieldkit.field_module_js:
+  path: 'fieldkit/js/{field_module}/index.js'
+  defaults:
+    _controller: '\Drupal\farm_fieldkit\Controller\FieldModuleController::index'
+  requirements:
+    # This endpoint is public.
+    _access: 'TRUE'
+  methods: [GET]
+  options:
+    parameters:
+      field_module:
+        type: entity:field_module
