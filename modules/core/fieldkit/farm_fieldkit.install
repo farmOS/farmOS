@@ -17,6 +17,7 @@ function farm_fieldkit_install() {
     'label' => 'Field Kit',
     'client_id' => 'fieldkit',
     'redirect' => 'https://farmOS.app',
+    'allowed_origins' => 'https://farmos.app',
     'owner_id' => '',
     'secret' => '',
     'confidential' => FALSE,
