@@ -1,7 +1,10 @@
 # Farms using farmOS
 
-The following is a list of farms using farmOS. If you want your farm to be
-included in this list, add a comment to [this issue on Github].
+The following is a list of farms using farmOS. Please note that this list is
+no longer being maintained. Instead, there is discussion of building a farmOS
+"[Community Aggregator](https://farmos.discourse.group/t/community-aggregator/307)".
+The farms listed below are forever enshrined as the "early adopters" of farmOS.
+:-)
 
 ## Australia
 
