@@ -17,12 +17,12 @@ projects[ctools][version] = "1.19"
 projects[ctools][patch][] = "http://www.drupal.org/files/issues/2021-02-03/ctools-fix_modal_position_after_ajax-1803104-28.patch"
 
 projects[date][subdir] = "contrib"
-projects[date][version] = "2.11"
+projects[date][version] = "2.12"
 ; Patch to fix Issue #3067396: Date CSS not added for date_select Form API elements
 projects[date][patch][] = "http://www.drupal.org/files/issues/2019-07-16/date-select-css-3067396-3.patch"
 
 projects[entity][subdir] = "contrib"
-projects[entity][version] = "1.9"
+projects[entity][version] = "1.10"
 
 projects[entityreference][subdir] = "contrib"
 projects[entityreference][version] = "1.5"
@@ -80,7 +80,7 @@ projects[log][subdir] = "contrib"
 projects[log][version] = "1.14"
 
 projects[l10n_update][subdir] = "contrib"
-projects[l10n_update][version] = "2.4"
+projects[l10n_update][version] = "2.6"
 
 projects[multiupload_filefield_widget][subdir] = "contrib"
 projects[multiupload_filefield_widget][version] = "1.13"
@@ -141,7 +141,7 @@ projects[token][subdir] = "contrib"
 projects[token][version] = "1.8"
 
 projects[views][subdir] = "contrib"
-projects[views][version] = "3.24"
+projects[views][version] = "3.25"
 
 projects[views_bulk_operations][subdir] = "contrib"
 projects[views_bulk_operations][version] = "3.6"
