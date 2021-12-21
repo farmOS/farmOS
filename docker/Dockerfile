@@ -1,5 +1,5 @@
 # Inherit from the Drupal 9 image on Docker Hub.
-FROM drupal:9-php7.4-apache
+FROM drupal:9.3
 
 # Set the farmOS and composer project repository URLs and versions.
 ARG FARMOS_REPO=https://github.com/farmOS/farmOS.git
