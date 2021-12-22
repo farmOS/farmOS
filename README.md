@@ -18,7 +18,7 @@ Official website: [farmOS.org](https://farmOS.org)
 ## GETTING STARTED
 
 If you would like to install and host farmOS yourself, see the official
-documentation on farmOS.org: https://farmOS.org/hosting/installing
+documentation on farmOS.org: https://farmOS.org/hosting/install
 
 If you would like to pay for hosting, [Farmier](https://farmier.com) provides
 affordable options for individual farms and organizations.
