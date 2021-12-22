@@ -40,7 +40,7 @@ RUN apt-get update && apt-get install -y libgeos-dev \
   && docker-php-ext-enable geos
 
 # Set recommended PHP settings for farmOS.
-# See https://farmos.org/hosting/installing/#requirements
+# See https://v1.farmos.org/hosting/installing/#requirements
 RUN { \
     echo 'memory_limit=256M'; \
     echo 'max_execution_time=240'; \

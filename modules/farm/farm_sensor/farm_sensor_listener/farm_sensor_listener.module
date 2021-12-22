@@ -592,7 +592,7 @@ function farm_sensor_listener_settings_form($sensor, $settings = array()) {
   $form['public_api'] = array(
     '#type' => 'checkbox',
     '#title' => t('Allow public API read access'),
-    '#description' => t('Checking this box will allow data from this sensor to be queried publicly via the API endpoint without a private key. See the <a href="@sensor_url">farmOS sensor guide</a> for more information.', array('@sensor_url' => 'https://farmOS.org/guide/assets/sensors')),
+    '#description' => t('Checking this box will allow data from this sensor to be queried publicly via the API endpoint without a private key. See the <a href="@sensor_url">farmOS sensor guide</a> for more information.', array('@sensor_url' => 'https://v1.farmOS.org/guide/assets/sensors')),
     '#default_value' => isset($settings['public_api']) ? $settings['public_api'] : FALSE,
   );
 
@@ -613,7 +613,7 @@ function farm_sensor_listener_settings_form($sensor, $settings = array()) {
     from other web-connected devices. Use the information below to configure your
     device to begin posting data to this sensor. For more information, refer to
     the <a href="@sensor_url">farmOS sensor guide</a>.',
-      array('@sensor_url' => 'https://farmOS.org/guide/assets/sensors')),
+      array('@sensor_url' => 'https://v1.farmOS.org/guide/assets/sensors')),
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );

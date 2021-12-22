@@ -17,4 +17,4 @@ an example for building your own configuration. Note that this example does not
 include a database. It is assumed that in production environments the database
 will be managed outside of Docker.
 
-For more information, see farmOS.org/hosting/docker.
+For more information, see v1.farmOS.org/hosting/docker.
