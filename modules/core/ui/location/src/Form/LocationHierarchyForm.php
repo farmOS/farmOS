@@ -9,6 +9,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Url;
 use Drupal\farm_location\AssetLocationInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -159,7 +160,7 @@ class LocationHierarchyForm extends FormBase {
         'asset_id' => !empty($asset) ? $asset->id() : '',
         'text' => !empty($asset) ? $asset->label() : $this->t('All locations'),
         'children' => !empty($asset) ? $this->buildTree($asset) : $this->buildTree(),
-        'url' => !empty($asset) ? $asset->toUrl('canonical', ['absolute' => TRUE])->toString() : '/locations',
+        'url' => !empty($asset) ? $asset->toUrl('canonical', ['absolute' => TRUE])->toString() : Url::fromRoute('farm.locations', [], ['absolute' => TRUE])->toString(),
       ],
     ];
     $form['#attached']['drupalSettings']['asset_tree'] = $tree;
