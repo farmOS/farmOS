@@ -21,6 +21,13 @@ RUN apt-get update && apt-get install -y libgeos-dev \
   && rm php-geos.tar.gz \
   && ( \
     cd php-geos \
+      # Apply patches for PHP 8 compatibility.
+      # See https://git.osgeo.org/gitea/geos/php-geos/issues/26#issuecomment-8988
+      && curl -fsSL 'https://git.remirepo.net/cgit/rpms/php/php-geos.git/plain/0001-fix-test-for-7.3-int-vs-integer.patch?id=c92520ad57670448de1c44e58496b8b495827af2' -o 1.patch && patch -p1 < 1.patch \
+      && curl -fsSL 'https://git.remirepo.net/cgit/rpms/php/php-geos.git/plain/0002-fix-error-message-with-php-7-Wformat-warnings-raised.patch?id=c92520ad57670448de1c44e58496b8b495827af2' -o 2.patch && patch -p1 < 2.patch \
+      && curl -fsSL 'https://git.remirepo.net/cgit/rpms/php/php-geos.git/plain/0003-add-all-arginfo-and-fix-build-with-PHP-8.patch?id=c92520ad57670448de1c44e58496b8b495827af2' -o 3.patch && patch -p1 < 3.patch \
+      && curl -fsSL 'https://git.remirepo.net/cgit/rpms/php/php-geos.git/plain/0004-fix-all-zend_parse_parameters-call-to-use-zend_long.patch?id=c92520ad57670448de1c44e58496b8b495827af2' -o 4.patch && patch -p1 < 4.patch \
+      && curl -fsSL 'https://git.remirepo.net/cgit/rpms/php/php-geos.git/plain/0005-fix-for-8.0.0RC1.patch?id=c92520ad57670448de1c44e58496b8b495827af2' -o 5.patch && patch -p1 < 5.patch \
     && ./autogen.sh \
     && ./configure \
     && make \
