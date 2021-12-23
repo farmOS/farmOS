@@ -85,8 +85,8 @@ Official farmOS Docker images are available on Docker Hub:
 
 This allows farmOS to be run in a Docker container with:
 
-    docker pull farmos/farmos:2.x
-    docker run --rm -p 80:80 -v "${PWD}/sites:/opt/drupal/web/sites" farmos/farmos:2.x
+    docker pull farmos/farmos:2.x.y
+    docker run --rm -p 80:80 -v "${PWD}/sites:/opt/drupal/web/sites" farmos/farmos:2.x.y
 
 This will pull the farmOS Docker image, provision a farmOS web server container
 listening on port 80, and bind-mount a `sites` directory into the container for
@@ -99,7 +99,7 @@ persistence of settings and uploaded files.
 An example `docker-compose.production.yml` configuration file is provided in
 the farmOS repository's `docker` directory, with an accompanying `README.md`.
 Copy this to a file named `docker-compose.yml` in the directory you would like
-to install farmOS and run:
+to install farmOS, update the `farmos/farmos:x.y.z` version reference, and run:
 
     docker-compose up -d
 

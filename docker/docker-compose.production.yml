@@ -1,7 +1,8 @@
 version: '3'
 services:
   www:
-    image: farmos/farmos:2.x
+    # Update this to the latest stable version before deploying.
+    image: farmos/farmos:2.x.y
     volumes:
       - './sites:/opt/drupal/web/sites'
     ports:
