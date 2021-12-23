@@ -47,7 +47,7 @@
 
           // Build a url to the asset type geojson, default to all.
           const assetType = layer.asset_type ?? 'all';
-          const url = new URL('/assets/geojson/' + geomType + '/' + assetType, window.location.origin + drupalSettings.path.baseUrl);
+          const url = new URL('assets/geojson/' + geomType + '/' + assetType, window.location.origin + drupalSettings.path.baseUrl);
 
           // Include provided filters.
           const filters = layer.filters ?? {};
