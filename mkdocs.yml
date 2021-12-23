@@ -1,4 +1,4 @@
-site_name: farmOS 2.x Docs
+site_name: farmOS Docs
 nav:
   - Data model:
     - Introduction: model/index.md
@@ -54,10 +54,3 @@ theme:
   palette:
     primary: green
     accent: orange
-  icon:
-    logo: material/leaf
-  favicon: favicon.ico
-markdown_extensions:
-  - toc:
-      permalink: true
-copyright: This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>. farmOS is a <a href="/community/trademark">registered trademark</a> of <a href="http://mstenta.net">Michael Stenta</a>
