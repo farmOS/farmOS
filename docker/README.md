@@ -27,4 +27,4 @@ simply pulling a new image (and then manually running database updates via Drush
 or `/update.php`). Everything outside of the `sites` directory will not be
 preserved and will be replaced with the new official farmOS files.
 
-For more information, see https://docs.farmOS.org/hosting.
+For more information, see https://farmOS.org/hosting.

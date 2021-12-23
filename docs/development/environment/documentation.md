@@ -1,7 +1,7 @@
 # Documentation
 
 In addition to the code for farmOS, this repository includes the source files of the
-documentation which is hosted at [http://docs.farmos.org](http://docs.farmos.org).
+documentation which is hosted at [http://farmOS.org](http://farmos.org).
 
 It uses [mkdocs](http://www.mkdocs.org) to convert simple markdown files into
 static HTML files.
