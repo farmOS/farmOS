@@ -1,5 +1,16 @@
 site_name: farmOS Docs
 nav:
+  - User Guide:
+    - Introduction: guide/index.md
+    - Mapping locations: guide/mapping.md
+    - Managing assets: guide/assets.md
+    - Logging events: guide/logs.md
+    - Movements and location: guide/location.md
+    - Quantities: guide/quantities.md
+    - Inventory: guide/inventory.md
+    - People: guide/people.md
+    - Quick forms: guide/quick.md
+    - Exporting data: guide/export.md
   - Data model:
     - Introduction: model/index.md
     - Record types:
