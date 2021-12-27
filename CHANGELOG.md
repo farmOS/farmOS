@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
 ## [2.0.0-beta1] 2022-01-01
 
 farmOS 2.x is a complete rewrite of farmOS for [Drupal 9](https://www.drupal.org/about/9).
@@ -74,4 +76,5 @@ moving forward.
     Drupal 7, which required a complete refactor of the codebase. By comparison,
     updating from Drupal 9 to 10 will simply involve updating deprecated code.
 
+[Unreleased]: https://github.com/farmOS/farmOS/compare/2.0.0-beta1...HEAD
 [2.0.0-beta1]: https://github.com/farmOS/farmOS/releases/tag/2.0.0-beta1
