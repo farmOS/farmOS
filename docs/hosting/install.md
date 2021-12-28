@@ -22,10 +22,9 @@ dependencies. The [farmOS Docker images](#farmos-in-docker) include these.
     - `max_input_vars=5000`
     - `realpath_cache_size=4096K`
     - `realpath_cache_ttl=3600`
-- **[PHP BCMath extension](https://www.php.net/manual/en/book.bc.php)** is
-  required for accurate geometric polygon area calculations.
-- **[GEOS](https://trac.osgeo.org/geos)** is required by the Bed Generator
-  module.
+- **[PHP BCMath extension](https://www.php.net/manual/en/book.bc.php)** and
+  **[GEOS](https://trac.osgeo.org/geos)** are recommended for more accurate
+  geometric calculations.
 
 ### Database server
 
