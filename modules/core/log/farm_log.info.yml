@@ -5,4 +5,5 @@ package: farmOS
 core_version_requirement: ^9
 dependencies:
   - farm:asset
+  - farm:farm_log_asset
   - log:log
