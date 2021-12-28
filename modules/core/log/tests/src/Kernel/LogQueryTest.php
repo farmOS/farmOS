@@ -26,6 +26,7 @@ class LogQueryTest extends KernelTestBase {
     'log',
     'farm_field',
     'farm_log',
+    'farm_log_asset',
     'farm_log_query_test',
     'state_machine',
     'user',

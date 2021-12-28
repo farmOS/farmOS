@@ -5,5 +5,5 @@ package: Testing
 core_version_requirement: ^9
 dependencies:
   - farm:asset
-  - farm:farm_field
   - farm:farm_log
+  - farm:farm_log_asset
