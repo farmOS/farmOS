@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: farmOS Community Forum
+    url: https://farmOS.discourse.group/
+    about: Questions, support requests, and feature discussions take place in the forum.
+  - name: farmOS Chat Room
+    url: https://app.element.io/#/room/#farmOS:matrix.org
+    about: Join us in the farmOS chat room on IRC and Matrix.org.
