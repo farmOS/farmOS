@@ -14,7 +14,7 @@ the same [requirements](https://drupal.org/docs/system-requirements).
 In addition to Drupal's basic requirements, farmOS has the following server
 dependencies. The [farmOS Docker images](#farmos-in-docker) include these.
 
-- **PHP 7+**
+- **PHP 7.4**
 - **PHP configuration** - The following PHP settings are recommended:
     - `memory_limit=256M`
     - `max_execution_time=240`
