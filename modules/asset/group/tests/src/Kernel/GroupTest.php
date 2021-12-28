@@ -48,6 +48,7 @@ class GroupTest extends KernelTestBase {
     'farm_group_test',
     'farm_location',
     'farm_log',
+    'farm_log_asset',
     'geofield',
     'state_machine',
     'user',

@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * @file
+ * Contains farm_log_asset.module.
+ */
+
+use Drupal\Core\Entity\EntityTypeInterface;
+
+/**
+ * Implements hook_entity_base_field_info().
+ */
+function farm_log_asset_entity_base_field_info(EntityTypeInterface $entity_type) {
+
+  // We only care about log entities.
+  if ($entity_type->id() != 'log') {
+    return [];
+  }
+
+  // Add an asset reference field to logs.
+  $field_info = [
+    'type' => 'entity_reference',
+    'label' => t('Assets'),
+    'description' => t('What assets do this log pertain to?'),
+    'target_type' => 'asset',
+    'multiple' => TRUE,
+    'weight' => [
+      'form' => 50,
+      'view' => -10,
+    ],
+  ];
+  $fields['asset'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($field_info);
+  return $fields;
+}

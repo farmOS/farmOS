@@ -74,17 +74,6 @@ function farm_entity_fields_asset_base_fields() {
  */
 function farm_entity_fields_log_base_fields() {
   $field_info = [
-    'asset' => [
-      'type' => 'entity_reference',
-      'label' => t('Assets'),
-      'description' => t('What assets do this log pertain to?'),
-      'target_type' => 'asset',
-      'multiple' => TRUE,
-      'weight' => [
-        'form' => 50,
-        'view' => -10,
-      ],
-    ],
     'category' => [
       'type' => 'entity_reference',
       'label' => t('Log category'),

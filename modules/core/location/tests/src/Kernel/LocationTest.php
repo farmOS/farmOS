@@ -64,6 +64,7 @@ class LocationTest extends KernelTestBase {
     'farm_location',
     'farm_location_test',
     'farm_log',
+    'farm_log_asset',
     'state_machine',
     'user',
   ];
