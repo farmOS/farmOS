@@ -38,6 +38,18 @@ elif [[ ! "${FARMOS_VERSION}" =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9
 fi
 composer require farmos/farmos ${FARMOS_COMPOSER_VERSION} --no-install
 
+# Add allow-plugins config.
+allowedPlugins=(
+  "composer/installers"
+  "cweagans/composer-patches"
+  "drupal/core-composer-scaffold"
+  "oomphinc/composer-installers-extender"
+  "wikimedia/composer-merge-plugin"
+)
+for plugin in ${allowedPlugins[@]}; do
+  composer config --no-plugins allow-plugins.$plugin true
+done
+
 # Run composer install with optional arguments passed into this script.
 if [ $# -eq 0 ]; then
   composer install
