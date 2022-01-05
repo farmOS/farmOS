@@ -12,14 +12,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Open the Gin toolbar by default #470](https://github.com/farmOS/farmOS/pull/470)
 - [Enforce that the changelog is updated with every pull request #469](https://github.com/farmOS/farmOS/pull/469)
 
+### Changed
+
+- Do not include archived assets in metrics count.
+- [Add allow-plugins config #467](https://github.com/farmOS/farmOS/pull/467)
+
 ### Fixed
 
 - Patch `jsonapi_schema` module to fix
   [Issue #3256795: Float fields have a null schema](https://www.drupal.org/project/jsonapi_schema/issues/3256795)
-
-### Changed
-
-- [Add allow-plugins config #467](https://github.com/farmOS/farmOS/pull/467)
 
 ## [2.0.0-beta1] 2022-01-01
 
