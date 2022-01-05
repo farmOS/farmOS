@@ -74,7 +74,7 @@ class FarmMetricsBlock extends BlockBase implements ContainerFactoryPluginInterf
 
     // Create a container for asset metrics.
     $output['asset'] = [
-      '#markup' => '<strong>' . Link::createFromRoute('Assets', 'view.farm_asset.page')->toString() . '</strong>',
+      '#markup' => '<strong>' . Link::createFromRoute('Assets', 'view.farm_asset.page')->toString() . ' (active)</strong>',
       'metrics' => [
         '#type' => 'container',
         '#attributes' => [
@@ -140,11 +140,16 @@ class FarmMetricsBlock extends BlockBase implements ContainerFactoryPluginInterf
 
     // Count records by type.
     foreach ($bundles as $bundle => $bundle_info) {
-      $count = $this->entityTypeManager->getStorage($entity_type)->getAggregateQuery()
+      $query = $this->entityTypeManager->getStorage($entity_type)->getAggregateQuery()
         ->accessCheck(TRUE)
-        ->condition('type', $bundle)
-        ->count()
-        ->execute();
+        ->condition('type', $bundle);
+
+      // Only include active assets.
+      if ($entity_type == 'asset') {
+        $query->condition('status', 'active');
+      }
+
+      $count = $query->count()->execute();
       $route_name = "view.farm_$entity_type.page_type";
       $metrics[] = Link::createFromRoute($bundle_info['label'] . ': ' . $count, $route_name, ['arg_0' => $bundle], ['attributes' => ['class' => ['metric', 'button']]])->toString();
     }
