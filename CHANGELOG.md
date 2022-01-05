@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- [Enforce that the changelog is updated with every pull request #469](https://github.com/farmOS/farmOS/pull/469)
+
 ### Fixed
 
 - Patch `jsonapi_schema` module to fix
