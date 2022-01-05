@@ -11,8 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 farmOS 2.x is a complete rewrite of farmOS for [Drupal 9](https://www.drupal.org/about/9).
 This brings many improvements, modernizations, and new features. The following
-is a brief summary of notable changes from the 1.x branch of farmOS (aka 7.x-1.x
-for Drupal 7).
+is a brief summary of notable changes from the 1.x branch of farmOS (aka
+`7.x-1.x` for Drupal 7).
 
 Detailed release notes will be included in this file with each new release
 moving forward.
