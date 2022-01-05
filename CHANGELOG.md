@@ -22,6 +22,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Patch `jsonapi_schema` module to fix
   [Issue #3256795: Float fields have a null schema](https://www.drupal.org/project/jsonapi_schema/issues/3256795)
 
+### Security
+
+- Update Simple OAuth module to 5.0.6 for [SA-CONTRIB-2022-002](https://www.drupal.org/sa-contrib-2022-002)
+
 ## [2.0.0-beta1] 2022-01-01
 
 farmOS 2.x is a complete rewrite of farmOS for [Drupal 9](https://www.drupal.org/about/9).
