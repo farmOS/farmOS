@@ -74,7 +74,7 @@ class FarmMetricsBlock extends BlockBase implements ContainerFactoryPluginInterf
 
     // Create a container for asset metrics.
     $output['asset'] = [
-      '#markup' => '<strong>' . Link::createFromRoute('Assets', 'view.farm_asset.page')->toString() . ' (active)</strong>',
+      '#markup' => '<strong>' . Link::createFromRoute($this->t('Assets'), 'view.farm_asset.page')->toString() . ' (' . $this->t('active') . ')</strong>',
       'metrics' => [
         '#type' => 'container',
         '#attributes' => [
@@ -96,7 +96,7 @@ class FarmMetricsBlock extends BlockBase implements ContainerFactoryPluginInterf
 
     // Create a section for log metrics.
     $output['log'] = [
-      '#markup' => '<strong>' . Link::createFromRoute('Logs', 'view.farm_log.page')->toString() . '</strong>',
+      '#markup' => '<strong>' . Link::createFromRoute($this->t('Logs'), 'view.farm_log.page')->toString() . '</strong>',
       'metrics' => [
         '#type' => 'container',
         '#attributes' => [
