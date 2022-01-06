@@ -1,0 +1,5 @@
+name: farmOS Localization
+description: Enables default configuration for localizing/translating farmOS.
+type: module
+package: farmOS
+core_version_requirement: ^9
