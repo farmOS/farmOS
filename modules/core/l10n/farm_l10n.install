@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the farm_l10n module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function farm_l10n_install() {
+
+  // Configure the enabled language detection methods.
+  \Drupal::configFactory()->getEditable('language.types')->set('negotiation.language_interface.enabled', [
+    'language-session' => -50,
+    'language-user' => -0,
+    'language-selected' => 50,
+  ])->save();
+}
