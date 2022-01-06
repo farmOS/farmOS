@@ -27,6 +27,12 @@ jobs:
             DB_URL: mysql://farm:farm@db/farm
           - dbms: sqlite
             DB_URL: sqlite://localhost/sites/default/files/db.sqlite
+      # Allow all three database tests to run even when one fails.
+      # This is a temporary workaround for Issue #3241653: Occasional test
+      # failures with SQLite: SQLSTATE[HY000]: General error: 5 database is
+      # locked
+      # @todo https://www.drupal.org/project/farm/issues/3241653
+      fail-fast: false
     steps:
       - name: Print test matrix variables
         run: echo "matrix.dbms=${{ matrix.dbms }}, matrix.DB_URL=${{ matrix.DB_URL }}"

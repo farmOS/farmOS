@@ -20,6 +20,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Patch `jsonapi_schema` module to fix
   [Issue #3256795: Float fields have a null schema](https://www.drupal.org/project/jsonapi_schema/issues/3256795)
+- Allow all three database tests to run even when one fails (workaround
+  for [Issue #3241653](https://www.drupal.org/project/farm/issues/3241653)).
 
 ### Security
 
