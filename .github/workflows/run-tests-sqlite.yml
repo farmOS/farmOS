@@ -1,4 +1,7 @@
-name: Run 2.x PHPUnit tests
+# This has been separated from run-tests.yml because SQLite3 fails frequently
+# when tests are run in parallel via paratest. This is a temporary workaround.
+# @todo https://www.drupal.org/project/farm/issues/3241653
+name: Run 2.x PHPUnit tests (for SQlite3)
 on:
   schedule:
     - cron: '0 8 * * *' # Run at 8AM UTC.
@@ -17,13 +20,10 @@ jobs:
     strategy:
       matrix:
         dbms:
-         - pgsql
-         - mariadb
+         - sqlite
         include:
-          - dbms: pgsql
-            DB_URL: pgsql://farm:farm@db/farm
-          - dbms: mariadb
-            DB_URL: mysql://farm:farm@db/farm
+          - dbms: sqlite
+            DB_URL: sqlite://localhost/sites/default/files/db.sqlite
     steps:
       - name: Print test matrix variables
         run: echo "matrix.dbms=${{ matrix.dbms }}, matrix.DB_URL=${{ matrix.DB_URL }}"

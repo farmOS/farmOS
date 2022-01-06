@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - [Add allow-plugins config #467](https://github.com/farmOS/farmOS/pull/467)
+- Split SQLite3 automated tests out to a separate GitHub Actions workflow (temporary workaround for
+  [Issue #3241653: Occasional test failures with SQLite: SQLSTATE[HY000]: General error: 5 database is locked](https://www.drupal.org/project/farm/issues/3241653))
 
 ### Fixed
 
