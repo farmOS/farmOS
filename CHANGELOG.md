@@ -14,7 +14,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Do not include archived assets in metrics count.
 - [Add allow-plugins config #467](https://github.com/farmOS/farmOS/pull/467)
 
 ### Fixed
