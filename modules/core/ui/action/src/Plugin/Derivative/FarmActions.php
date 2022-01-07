@@ -4,11 +4,14 @@ namespace Drupal\farm_ui_action\Plugin\Derivative;
 
 use Drupal\Component\Plugin\Derivative\DeriverBase;
 use Drupal\Component\Utility\Unicode;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
  * Defines farmOS action links.
  */
 class FarmActions extends DeriverBase {
+
+  use StringTranslationTrait;
 
   /**
    * {@inheritdoc}
@@ -36,7 +39,7 @@ class FarmActions extends DeriverBase {
       // Generate a link to [entity-type]/add.
       $name = 'farm.add.' . $type;
       $this->derivatives[$name] = $base_plugin_definition;
-      $this->derivatives[$name]['title'] = 'Add ' . Unicode::ucfirst($type);
+      $this->derivatives[$name]['title'] = $this->t('Add :entity_type', [':entity_type' => Unicode::ucfirst($type)]);
       $this->derivatives[$name]['route_name'] = 'entity.' . $type . '.add_page';
 
       // Add it to entity Views, if the farm_ui_views module is enabled.
