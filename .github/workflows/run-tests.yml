@@ -34,12 +34,11 @@ jobs:
       # farmOS Composer project 2.x branch is always used.
       - name: Build farmOS 2.x-dev Docker image
         run: docker build --build-arg FARMOS_REPO=https://github.com/${FARMOS_REPO} --build-arg FARMOS_VERSION=${FARMOS_VERSION} -t farmos/farmos:2.x-dev docker/dev
-      - name: Save Docker images as tarballs
+      - name: Save farmOS 2.x-dev Docker image as tarball
         run: |
           mkdir /tmp/artifacts
-          docker save farmos/farmos:2.x > /tmp/artifacts/farmos-2x.tar
           docker save farmos/farmos:2.x-dev > /tmp/artifacts/farmos-2x-dev.tar
-      - name: Upload Docker images as artifacts
+      - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
           name: farmOS-artifacts
@@ -52,7 +51,7 @@ jobs:
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v2
-      - name: Retrieve saved Docker images from artifacts
+      - name: Retrieve saved artifacts
         uses: actions/download-artifact@v2
         with:
           name: farmOS-artifacts
@@ -92,7 +91,7 @@ jobs:
         run: echo "matrix.dbms=${{ matrix.dbms }}, matrix.DB_URL=${{ matrix.DB_URL }}"
       - name: Checkout the repository
         uses: actions/checkout@v2
-      - name: Retrieve saved Docker images from artifacts
+      - name: Retrieve saved artifacts
         uses: actions/download-artifact@v2
         with:
           name: farmOS-artifacts
