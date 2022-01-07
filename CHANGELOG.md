@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Fix permission for map settings form (/farm/settings/map).
 - Patch `jsonapi_schema` module to fix
   [Issue #3256795: Float fields have a null schema](https://www.drupal.org/project/jsonapi_schema/issues/3256795)
 - Allow all three database tests to run even when one fails (workaround

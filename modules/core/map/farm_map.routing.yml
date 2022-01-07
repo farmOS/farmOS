@@ -4,4 +4,4 @@ farm_map.settings:
     _form: '\Drupal\farm_map\Form\MapSettingsForm'
     _title: 'Map settings'
   requirements:
-    _permission: 'administer farm map module'
+    _permission: 'administer farm map'
