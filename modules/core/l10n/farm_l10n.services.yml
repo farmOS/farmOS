@@ -1,0 +1,5 @@
+services:
+  farm_l10n.overrider:
+    class: Drupal\farm_l10n\Config\FarmLocalizationOverrides
+    tags:
+      - { name: config.factory.override, priority: 5 }
