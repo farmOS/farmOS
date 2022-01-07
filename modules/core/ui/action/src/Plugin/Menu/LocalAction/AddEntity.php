@@ -3,7 +3,6 @@
 namespace Drupal\farm_ui_action\Plugin\Menu\LocalAction;
 
 use Drupal\asset\Entity\AssetInterface;
-use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Menu\LocalActionDefault;
 use Drupal\Core\Routing\RouteMatch;
@@ -70,8 +69,8 @@ class AddEntity extends LocalActionDefault {
     // Get the entity type.
     $entity_type = $this->entityTypeManager->getDefinition($this->pluginDefinition['entity_type']);
 
-    // Get the entity type label (lowercase).
-    $entity_type_label = Unicode::lcfirst($entity_type->getLabel());
+    // Get the entity type label.
+    $entity_type_label = $entity_type->getLabel();
 
     // Get the bundle machine name.
     $route_match = RouteMatch::createFromRequest($request);
