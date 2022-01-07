@@ -70,8 +70,8 @@ class AddEntity extends LocalActionDefault {
     // Get the entity type.
     $entity_type = $this->entityTypeManager->getDefinition($this->pluginDefinition['entity_type']);
 
-    // Get the entity type label (lowercase).
-    $entity_type_label = Unicode::lcfirst($entity_type->getLabel());
+    // Get the entity type label.
+    $entity_type_label = $entity_type->getLabel();
 
     // Get the bundle machine name.
     $route_match = RouteMatch::createFromRequest($request);
