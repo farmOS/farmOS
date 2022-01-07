@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Remove "administer farm map" from Manager role permissions.
 - [Add allow-plugins config #467](https://github.com/farmOS/farmOS/pull/467)
 
 ### Fixed
