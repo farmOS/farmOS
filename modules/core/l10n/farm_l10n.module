@@ -23,3 +23,22 @@ function farm_l10n_form_language_admin_overview_form_alter(&$form, FormStateInte
     $form['languages'][$langcode]['default']['#access'] = FALSE;
   }
 }
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function farm_l10n_form_user_register_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+  // Use the "Selected language" as the default for new users (unless it is
+  // still set to "site_default").
+  $selected_language = \Drupal::config('language.negotiation')->get('selected_langcode');
+  if ($selected_language == 'site_default') {
+    return;
+  }
+  if (!empty($form['language']['preferred_langcode'])) {
+    $form['language']['preferred_langcode']['#default_value'] = $selected_language;
+  }
+  if (!empty($form['language']['preferred_admin_langcode'])) {
+    $form['language']['preferred_admin_langcode']['#default_value'] = $selected_language;
+  }
+}
