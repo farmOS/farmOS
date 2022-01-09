@@ -7,7 +7,22 @@
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
+use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
+
+/**
+ * Implements hook_help().
+ */
+function farm_l10n_help($route_name, RouteMatchInterface $route_match) {
+  $output = '';
+
+  // Help text for the farm/settings/language form.
+  if ($route_name == 'farm_l10n.settings') {
+    $output .= '<p>' . t('Select the default language for the user interface. Individual users can override this by editing their profile.') . '</p>';
+  }
+
+  return $output;
+}
 
 /**
  * Implements hook_form_FORM_ID_alter().
