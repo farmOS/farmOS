@@ -15,4 +15,7 @@ function farm_l10n_install() {
     'language-user' => -0,
     'language-selected' => 50,
   ])->save();
+
+  // Configure automatic monthly language updates.
+  \Drupal::configFactory()->getEditable('locale.settings')->set('translation.update_interval_days', 30)->save();
 }
