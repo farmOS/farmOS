@@ -18,8 +18,8 @@ function farm_structure_post_update_add_other_structure_type(&$sandbox) {
       'enforced' => [
         'module' => [
           'farm_structure',
-        ]
-      ]
+        ],
+      ],
     ],
   ]);
   $type->save();
