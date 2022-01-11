@@ -23,10 +23,13 @@ jobs:
         include:
           - dbms: pgsql
             DB_URL: pgsql://farm:farm@db/farm
+            processes: auto
           - dbms: mariadb
             DB_URL: mysql://farm:farm@db/farm
+            processes: auto
           - dbms: sqlite
             DB_URL: sqlite://localhost/sites/default/files/db.sqlite
+            processes: 1
       # Allow all three database tests to run even when one fails.
       # This is a temporary workaround for Issue #3241653: Occasional test
       # failures with SQLite: SQLSTATE[HY000]: General error: 5 database is
@@ -72,6 +75,6 @@ jobs:
       - name: Run PHP CodeSniffer
         run: docker-compose exec -u www-data -T www phpcs /opt/drupal/web/profiles/farm
       - name: Run PHPUnit tests
-        run: docker-compose exec -u www-data -T www paratest --verbose=1 /opt/drupal/web/profiles/farm
+        run: docker-compose exec -u www-data -T www paratest --verbose=1 --processes=${{ matrix.processes }} /opt/drupal/web/profiles/farm
       - name: Test Drush site install with all modules
         run: docker-compose exec -u www-data -T www drush site-install --db-url=${{ matrix.DB_URL }} farm farm.modules='all'
