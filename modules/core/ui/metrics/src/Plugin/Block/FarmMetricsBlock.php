@@ -73,8 +73,9 @@ class FarmMetricsBlock extends BlockBase implements ContainerFactoryPluginInterf
     $output = [];
 
     // Create a container for asset metrics.
+    $assets_label = $this->entityTypeManager->getStorage('asset')->getEntityType()->getCollectionLabel();
     $output['asset'] = [
-      '#markup' => '<strong>' . Link::createFromRoute($this->t('Assets'), 'view.farm_asset.page')->toString() . ' (' . $this->t('active') . ')</strong>',
+      '#markup' => '<strong>' . Link::createFromRoute($assets_label, 'view.farm_asset.page')->toString() . ' (' . $this->t('active') . ')</strong>',
       'metrics' => [
         '#type' => 'container',
         '#attributes' => [
@@ -95,8 +96,9 @@ class FarmMetricsBlock extends BlockBase implements ContainerFactoryPluginInterf
     $output['#cache']['tags'][] = 'config:asset_type_list';
 
     // Create a section for log metrics.
+    $logs_label = $this->entityTypeManager->getStorage('log')->getEntityType()->getCollectionLabel();
     $output['log'] = [
-      '#markup' => '<strong>' . Link::createFromRoute($this->t('Logs'), 'view.farm_log.page')->toString() . '</strong>',
+      '#markup' => '<strong>' . Link::createFromRoute($logs_label, 'view.farm_log.page')->toString() . '</strong>',
       'metrics' => [
         '#type' => 'container',
         '#attributes' => [
