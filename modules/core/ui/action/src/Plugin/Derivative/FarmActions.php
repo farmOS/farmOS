@@ -3,7 +3,6 @@
 namespace Drupal\farm_ui_action\Plugin\Derivative;
 
 use Drupal\Component\Plugin\Derivative\DeriverBase;
-use Drupal\Component\Utility\Unicode;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
@@ -18,8 +17,11 @@ class FarmActions extends DeriverBase {
    */
   public function getDerivativeDefinitions($base_plugin_definition) {
 
+    // Load the entity type manager.
+    $entity_type_manager = \Drupal::entityTypeManager();
+
     // Load available entity types.
-    $entity_types = array_keys(\Drupal::entityTypeManager()->getDefinitions());
+    $entity_types = array_keys($entity_type_manager->getDefinitions());
 
     // Define the farmOS entity types we care about.
     $farm_types = [
@@ -38,8 +40,9 @@ class FarmActions extends DeriverBase {
 
       // Generate a link to [entity-type]/add.
       $name = 'farm.add.' . $type;
+      $entity_type_label = $entity_type_manager->getStorage($type)->getEntityType()->getLabel();
       $this->derivatives[$name] = $base_plugin_definition;
-      $this->derivatives[$name]['title'] = $this->t('Add :entity_type', [':entity_type' => Unicode::ucfirst($type)]);
+      $this->derivatives[$name]['title'] = $this->t('Add :entity_type', [':entity_type' => $entity_type_label]);
       $this->derivatives[$name]['route_name'] = 'entity.' . $type . '.add_page';
 
       // Add it to entity Views, if the farm_ui_views module is enabled.
