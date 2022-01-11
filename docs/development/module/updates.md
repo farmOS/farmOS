@@ -7,7 +7,8 @@ updates to a farmOS database or configuration, then update logic should be
 provided so that users of the module can perform the necessary changes
 automatically when they update to the new version.
 
-This logic can be supplied via implementations of `hook_update_N()`.
+This logic can be supplied via implementations of `hook_update_N()` and
+`hook_post_update_NAME()`.
 
 For more information, see the documentation for Drupal's
 [Update API](https://www.drupal.org/docs/drupal-apis/update-api/).
@@ -22,6 +23,9 @@ configuration included with their module without writing update hooks.
 Note that this only handles overridden configuration. It does not handle
 missing, inactive, or added configuration. It also does not touch "simple"
 configuration (eg: module settings) - only configuration entities (eg: Views).
+
+If your module is adding or deleting configuration, the recommended approach is
+to implement `hook_post_update_NAME()` to perform the necessary operations.
 
 In most cases this is desirable, but if you are intentionally overriding
 configuration in your farmOS instance then you have a few options for
