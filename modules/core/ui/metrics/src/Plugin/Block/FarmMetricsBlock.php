@@ -73,8 +73,9 @@ class FarmMetricsBlock extends BlockBase implements ContainerFactoryPluginInterf
     $output = [];
 
     // Create a container for asset metrics.
+    $assets_label = $this->entityTypeManager->getStorage('asset')->getEntityType()->getCollectionLabel();
     $output['asset'] = [
-      '#markup' => '<strong>' . Link::createFromRoute('Assets', 'view.farm_asset.page')->toString() . '</strong>',
+      '#markup' => '<strong>' . Link::createFromRoute($assets_label, 'view.farm_asset.page')->toString() . ' (' . $this->t('active') . ')</strong>',
       'metrics' => [
         '#type' => 'container',
         '#attributes' => [
@@ -95,8 +96,9 @@ class FarmMetricsBlock extends BlockBase implements ContainerFactoryPluginInterf
     $output['#cache']['tags'][] = 'config:asset_type_list';
 
     // Create a section for log metrics.
+    $logs_label = $this->entityTypeManager->getStorage('log')->getEntityType()->getCollectionLabel();
     $output['log'] = [
-      '#markup' => '<strong>' . Link::createFromRoute('Logs', 'view.farm_log.page')->toString() . '</strong>',
+      '#markup' => '<strong>' . Link::createFromRoute($logs_label, 'view.farm_log.page')->toString() . '</strong>',
       'metrics' => [
         '#type' => 'container',
         '#attributes' => [
@@ -140,11 +142,16 @@ class FarmMetricsBlock extends BlockBase implements ContainerFactoryPluginInterf
 
     // Count records by type.
     foreach ($bundles as $bundle => $bundle_info) {
-      $count = $this->entityTypeManager->getStorage($entity_type)->getAggregateQuery()
+      $query = $this->entityTypeManager->getStorage($entity_type)->getAggregateQuery()
         ->accessCheck(TRUE)
-        ->condition('type', $bundle)
-        ->count()
-        ->execute();
+        ->condition('type', $bundle);
+
+      // Only include active assets.
+      if ($entity_type == 'asset') {
+        $query->condition('status', 'active');
+      }
+
+      $count = $query->count()->execute();
       $route_name = "view.farm_$entity_type.page_type";
       $metrics[] = Link::createFromRoute($bundle_info['label'] . ': ' . $count, $route_name, ['arg_0' => $bundle], ['attributes' => ['class' => ['metric', 'button']]])->toString();
     }
