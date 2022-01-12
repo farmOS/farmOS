@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- [Log categories are not migrated to v2 #481](https://github.com/farmOS/farmOS/pull/481)
 - Make local action buttons translatable.
 - Fix permission for map settings form (/farm/settings/map).
 - Patch `jsonapi_schema` module to fix
