@@ -1,0 +1,7 @@
+farm_l10n.settings:
+  path: '/farm/settings/language'
+  defaults:
+    _form: '\Drupal\farm_l10n\Form\L10nSettingsForm'
+    _title: 'Language settings'
+  requirements:
+    _permission: 'administer farm language'

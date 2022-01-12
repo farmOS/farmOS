@@ -59,6 +59,7 @@ nav:
     - Installing: hosting/install.md
     - Updating: hosting/update.md
     - Email: hosting/email.md
+    - Translations: hosting/localization.md
     - 1.x Migration: hosting/migration.md
 theme:
   name: material

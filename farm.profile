@@ -57,6 +57,7 @@ function farm_modules() {
       'farm_kml' => t('KML export features'),
       'farm_import_kml' => t('KML asset importer'),
       'farm_fieldkit' => t('Field Kit integration'),
+      'farm_l10n' => t('Translation/localization features'),
     ],
   ];
 }
