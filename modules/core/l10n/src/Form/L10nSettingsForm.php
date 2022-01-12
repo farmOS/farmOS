@@ -75,10 +75,12 @@ class L10nSettingsForm extends NegotiationSelectedForm {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     parent::submitForm($form, $form_state);
 
-    // Initiate a batch operation to update the default language of users.
+    // Initiate a batch operation to update the default language of all users
+    // (except user 1).
     if ($form_state->getValue('update_existing_users')) {
       $operations = [];
-      $uids = $this->entityTypeManager->getStorage('user')->getQuery()->execute();
+      $query = $this->entityTypeManager->getStorage('user')->getQuery();
+      $uids = $query->condition('uid', '1', '!=')->execute();
       foreach ($uids as $uid) {
         $operations[] = [
           [__CLASS__, 'updateUserLanguage'],
