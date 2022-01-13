@@ -22,6 +22,13 @@ class FarmSettingsModulesForm extends FormBase {
   const FARM_CONTRIB_PACKAGE = 'farmOS Contrib';
 
   /**
+   * The package name for farmOS quick form modules.
+   *
+   * @var string
+   */
+  const FARM_QUICK_PACKAGE = 'farmOS Quick Forms';
+
+  /**
    * The module extension list.
    *
    * @var \Drupal\Core\Extension\ModuleExtensionList
@@ -74,6 +81,13 @@ class FarmSettingsModulesForm extends FormBase {
     $form['contrib'] = [
       '#type' => 'details',
       '#title' => $this->t('Community modules'),
+      '#open' => TRUE,
+    ];
+
+    // Quick form modules.
+    $form['quick'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Quick form modules'),
       '#open' => TRUE,
     ];
 
@@ -153,6 +167,7 @@ class FarmSettingsModulesForm extends FormBase {
     $options = [
       'core' => [],
       'contrib' => [],
+      'quick' => [],
     ];
 
     // Build core module options.
@@ -181,9 +196,20 @@ class FarmSettingsModulesForm extends FormBase {
       ];
     }, $contrib_modules);
 
+    // Build quick form module options.
+    $quick_modules = array_filter($all_module_info, function ($module_info) {
+      return isset($module_info['package']) && $module_info['package'] === static::FARM_QUICK_PACKAGE;
+    });
+    $options['quick']['options'] = array_map(function ($module_info) {
+      return [
+        'name' => $module_info['name'],
+        'description' => $module_info['description'] ?? NULL,
+      ];
+    }, $quick_modules);
+
     // Check and disable modules that are installed.
     $all_installed_modules = $this->moduleExtensionList->getAllInstalledInfo();
-    foreach (['core', 'contrib'] as $option_key) {
+    foreach (['core', 'contrib', 'quick'] as $option_key) {
       $installed_modules = array_keys(array_intersect_key($options[$option_key]['options'], $all_installed_modules));
       $options[$option_key]['default'] = $installed_modules;
       $options[$option_key]['disabled'] = $installed_modules;
@@ -200,7 +226,8 @@ class FarmSettingsModulesForm extends FormBase {
     // Load the list of modules that should be installed from form_state.
     $core_modules = array_filter($form_state->getValue(['core', 'modules'], []));
     $contrib_modules = array_filter($form_state->getValue(['contrib', 'modules'], []));
-    $selected_modules = array_merge($core_modules, $contrib_modules);
+    $quick_modules = array_filter($form_state->getValue(['quick', 'modules'], []));
+    $selected_modules = array_merge($core_modules, $contrib_modules, $quick_modules);
 
     // Filter out installed modules.
     $all_installed_modules = $this->moduleExtensionList->getAllInstalledInfo();
