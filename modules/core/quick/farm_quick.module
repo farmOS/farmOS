@@ -20,7 +20,7 @@ function farm_quick_help($route_name, RouteMatchInterface $route_match) {
   }
 
   // Load help text for individual quick forms.
-  if ($route_name == 'farm.quick.form') {
+  if (strpos($route_name, 'farm.quick.') === 0) {
     $quick_form_id = $route_match->getParameter('id');
     $quick_form = \Drupal::service('plugin.manager.quick_form')->createInstance($quick_form_id);
     $help_text = $quick_form->getHelpText();
