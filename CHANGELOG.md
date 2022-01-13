@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Add a Planting quick form module.
 - Create a dedicated section in farmOS modules form for "Quick form modules".
 - Provide a `quantity_measure_options()` helper function.
 - Localization module (`farm_l10n`) for enabling translations.
