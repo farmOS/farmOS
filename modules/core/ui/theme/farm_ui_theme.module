@@ -25,6 +25,9 @@ function farm_ui_theme_theme($existing, $type, $theme, $path) {
  * Implements hook_element_info_alter().
  */
 function farm_ui_theme_element_info_alter(array &$info) {
+  if (isset($info['entity_autocomplete'])) {
+    $info['entity_autocomplete']['#attached']['library'][] = 'farm_ui_theme/autocomplete';
+  }
   if (isset($info['farm_map'])) {
     $info['farm_map']['#attached']['library'][] = 'farm_ui_theme/map';
   }

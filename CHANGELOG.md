@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Remove entity ID from entity autocomplete form elements.
 - [Data stream and notification permissions are not granted to managed roles. #479](https://github.com/farmOS/farmOS/issues/479)
 - Sort locations by name, using natural sort algorithm.
 - [Quantity module breaks config_translation #480](https://github.com/farmOS/farmOS/issues/480)
