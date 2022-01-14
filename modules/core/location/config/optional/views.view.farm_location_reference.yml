@@ -222,6 +222,13 @@ display:
         options:
           search_fields:
             name: name
+      row:
+        type: entity_reference
+        options:
+          default_field_elements: false
+          inline: {  }
+          separator: '-'
+          hide_empty: false
       display_extenders: {  }
     cache_metadata:
       max-age: -1

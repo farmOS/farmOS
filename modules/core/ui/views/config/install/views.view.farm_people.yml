@@ -959,6 +959,13 @@ display:
           search_fields:
             name: name
             uid: '0'
+      row:
+        type: entity_reference
+        options:
+          default_field_elements: false
+          inline: {  }
+          separator: '-'
+          hide_empty: false
       defaults:
         fields: false
         sorts: false
