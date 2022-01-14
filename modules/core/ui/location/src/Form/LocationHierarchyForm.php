@@ -220,8 +220,7 @@ class LocationHierarchyForm extends FormBase {
     $query = $storage->getQuery()
       ->accessCheck(TRUE)
       ->condition('is_location', TRUE)
-      ->condition('status', 'archived', '!=')
-      ->sort('name');
+      ->condition('status', 'archived', '!=');
 
     // Limit to a specific parent or no parent.
     if ($asset) {
@@ -231,13 +230,19 @@ class LocationHierarchyForm extends FormBase {
       $query->condition('parent', NULL, 'IS NULL');
     }
 
-    // Query and return assets.
+    // Query and load the assets.
     $asset_ids = $query->execute();
     if (empty($asset_ids)) {
       return [];
     }
     /** @var \Drupal\asset\Entity\AssetInterface[] $assets */
     $assets = $storage->loadMultiple($asset_ids);
+
+    // Sort assets by name, using natural sort algorithm.
+    usort($assets, function ($a, $b) {
+      return strnatcmp($a->label(), $b->label());
+    });
+
     return $assets;
   }
 
