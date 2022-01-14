@@ -222,6 +222,10 @@ class ManagedRolePermissionsManager extends DefaultPluginManager implements Mana
       // 'delete_all' operations to their specific operations.
       switch ($entity_type) {
 
+        // Entity types with EntityOwnerTrait and RevisionLogEntityTrait have
+        // additional permissions for view, update and delete operations:
+        // Owner adds "operation any bundle" or "operation own bundle".
+        // Revision adds "operation all bundle revisions".
         case 'asset':
         case 'log':
         case 'plan':
@@ -280,6 +284,9 @@ class ManagedRolePermissionsManager extends DefaultPluginManager implements Mana
           }
           break;
 
+        // Taxonomy terms are a unique case for two reasons:
+        // View access is determined by the "access content" permission
+        // and "edit" is the name for the update operation permission.
         case 'taxonomy_term':
 
           // Create.
