@@ -4,9 +4,6 @@ dependencies:
   config:
     - system.menu.admin
     - taxonomy.vocabulary.log_category
-  enforced:
-    module:
-      - farm_ui_views
   module:
     - csv_serialization
     - entity_reference_revisions
@@ -18,6 +15,9 @@ dependencies:
     - state_machine
     - taxonomy
     - user
+  enforced:
+    module:
+      - farm_ui_views
 id: farm_log
 label: 'Farm Logs'
 module: views
