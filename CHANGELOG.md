@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- [Data stream and notification permissions are not granted to managed roles. #479](https://github.com/farmOS/farmOS/issues/479)
 - [Log categories are not migrated to v2 #481](https://github.com/farmOS/farmOS/pull/481)
 - Make local action buttons translatable.
 - Fix permission for map settings form (/farm/settings/map).
