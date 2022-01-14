@@ -194,7 +194,14 @@ class ManagedRolePermissionsManager extends DefaultPluginManager implements Mana
     $entity_settings = $access_settings['entity'] ? $access_settings['entity'] : [];
 
     // Managed entity types.
-    $managed_entity_types = ['asset', 'log', 'plan', 'taxonomy_term', 'quantity'];
+    $managed_entity_types = [
+      'asset',
+      'data_stream',
+      'log',
+      'plan',
+      'taxonomy_term',
+      'quantity',
+    ];
 
     // Start an array of permission rules. This will be a multi-dimensional
     // array that ultimately defines which permission strings will be given to
@@ -245,6 +252,31 @@ class ManagedRolePermissionsManager extends DefaultPluginManager implements Mana
           if (!empty($entity_settings['delete all'])) {
             $permission_rules[$entity_type]['delete any'] = ['all'];
             $permission_rules[$entity_type]['delete own'] = ['all'];
+          }
+          break;
+
+        // Entity types with basic CRUD permissions.
+        case 'data_stream':
+
+          // Create.
+          if (!empty($entity_settings['create all'])) {
+            $permission_rules[$entity_type]['create'] = ['all'];
+          }
+
+          // View.
+          if (!empty($entity_settings['view all'])) {
+            $perms[] = 'view ' . $entity_type;
+            $permission_rules[$entity_type]['view'] = ['all'];
+          }
+
+          // Update.
+          if (!empty($entity_settings['update all'])) {
+            $permission_rules[$entity_type]['update'] = ['all'];
+          }
+
+          // Delete.
+          if (!empty($entity_settings['delete all'])) {
+            $permission_rules[$entity_type]['delete'] = ['all'];
           }
           break;
 
@@ -303,6 +335,7 @@ class ManagedRolePermissionsManager extends DefaultPluginManager implements Mana
             case 'log':
             case 'plan':
             case 'quantity':
+            case 'data_stream':
               if (array_intersect(['all', $bundle], $allowed_bundles)) {
                 $perms[] = $operation . ' ' . $bundle . ' ' . $entity_type;
               }
