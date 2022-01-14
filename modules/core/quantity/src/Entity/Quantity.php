@@ -62,7 +62,6 @@ use Drupal\user\EntityOwnerTrait;
  *     "uuid" = "uuid",
  *   },
  *   bundle_entity_type = "quantity_type",
- *   field_ui_base_route = "entity.quantity_type.edit_form",
  *   common_reference_target = TRUE,
  *   revision_metadata_keys = {
  *     "revision_user" = "revision_user",

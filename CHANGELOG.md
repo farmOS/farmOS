@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- [Quantity module breaks config_translation #480](https://github.com/farmOS/farmOS/issues/480)
 - [Log categories are not migrated to v2 #481](https://github.com/farmOS/farmOS/pull/481)
 - Make local action buttons translatable.
 - Fix permission for map settings form (/farm/settings/map).
