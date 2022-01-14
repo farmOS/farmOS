@@ -1,0 +1,7 @@
+data_stream_notification:
+  config_permissions:
+    - access data_stream_notification overview
+    - create data_stream_notification
+    - delete data_stream_notification
+    - update data_stream_notification
+    - view data_stream_notification
