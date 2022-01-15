@@ -21,7 +21,7 @@ trait QuickQuantityTrait {
    * @return \Drupal\quantity\Entity\QuantityInterface
    *   The quantity entity that was created.
    */
-  public function createQuantity(array $values = []) {
+  protected function createQuantity(array $values = []) {
 
     // If a type isn't set, default to "standard".
     if (empty($values['type'])) {

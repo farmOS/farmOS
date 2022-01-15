@@ -34,7 +34,7 @@ trait QuickLogTrait {
    * @return \Drupal\log\Entity\LogInterface
    *   The log entity that was created.
    */
-  public function createLog(array $values = []) {
+  protected function createLog(array $values = []) {
 
     // Start a new log entity with the provided values.
     /** @var \Drupal\log\Entity\LogInterface $log */

@@ -33,7 +33,7 @@ trait QuickAssetTrait {
    * @return \Drupal\asset\Entity\AssetInterface
    *   The asset entity that was created.
    */
-  public function createAsset(array $values = []) {
+  protected function createAsset(array $values = []) {
 
     // Start a new asset entity with the provided values.
     /** @var \Drupal\asset\Entity\AssetInterface $asset */

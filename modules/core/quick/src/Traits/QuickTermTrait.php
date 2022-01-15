@@ -18,7 +18,7 @@ trait QuickTermTrait {
    * @return \Drupal\taxonomy\TermInterface
    *   The term entity that was created.
    */
-  public function createTerm(array $values = []) {
+  protected function createTerm(array $values = []) {
 
     // Alias 'vocabulary' to 'vid'.
     if (!empty($values['vocabulary'])) {
@@ -47,7 +47,7 @@ trait QuickTermTrait {
    * @return \Drupal\taxonomy\TermInterface
    *   The term entity that was created or loaded.
    */
-  public function createOrLoadTerm(string $name, string $vocabulary) {
+  protected function createOrLoadTerm(string $name, string $vocabulary) {
 
     // First try to load an existing term.
     $search = taxonomy_term_load_multiple_by_name($name, $vocabulary);
