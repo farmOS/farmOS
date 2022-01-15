@@ -14,6 +14,7 @@ trait QuickLogTrait {
   use MessengerTrait;
   use StringTranslationTrait;
   use QuickQuantityTrait;
+  use QuickStringTrait;
 
   /**
    * Get the plugin ID.
@@ -35,6 +36,11 @@ trait QuickLogTrait {
    *   The log entity that was created.
    */
   protected function createLog(array $values = []) {
+
+    // Trim the log name to 255 characters.
+    if (!empty($values['name'])) {
+      $values['name'] = $this->trimString($values['name'], 255);
+    }
 
     // Start a new log entity with the provided values.
     /** @var \Drupal\log\Entity\LogInterface $log */

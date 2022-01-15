@@ -9,6 +9,8 @@ use Drupal\taxonomy\Entity\Term;
  */
 trait QuickTermTrait {
 
+  use QuickStringTrait;
+
   /**
    * Create a term.
    *
@@ -19,6 +21,11 @@ trait QuickTermTrait {
    *   The term entity that was created.
    */
   protected function createTerm(array $values = []) {
+
+    // Trim the term name to 255 characters.
+    if (!empty($values['name'])) {
+      $values['name'] = $this->trimString($values['name'], 255);
+    }
 
     // Alias 'vocabulary' to 'vid'.
     if (!empty($values['vocabulary'])) {

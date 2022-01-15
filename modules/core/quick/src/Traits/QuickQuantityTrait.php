@@ -10,6 +10,7 @@ use Drupal\quantity\Entity\Quantity;
  */
 trait QuickQuantityTrait {
 
+  use QuickStringTrait;
   use QuickTermTrait;
 
   /**
@@ -22,6 +23,11 @@ trait QuickQuantityTrait {
    *   The quantity entity that was created.
    */
   protected function createQuantity(array $values = []) {
+
+    // Trim the quantity label to 255 characters.
+    if (!empty($values['label'])) {
+      $values['label'] = $this->trimString($values['label'], 255);
+    }
 
     // If a type isn't set, default to "standard".
     if (empty($values['type'])) {
