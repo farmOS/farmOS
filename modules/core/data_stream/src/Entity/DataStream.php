@@ -60,7 +60,6 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
  *     "canonical" = "/data_stream/{data_stream}",
  *     "add-page" = "/data_stream/add",
  *     "add-form" = "/data_stream/add/{data_stream_type}",
- *     "collection" = "/admin/content/data_stream",
  *     "delete-form" = "/data_stream/{data_stream}/delete",
  *     "delete-multiple-form" = "/data_stream/delete",
  *     "edit-form" = "/data_stream/{data_stream}/edit",

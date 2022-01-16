@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- [Route "entity.data_stream.collection" does not exist. #486](https://github.com/farmOS/farmOS/issues/486)
 - Fix Quick Form help text so that it works with new multi-route approach.
 - Remove entity ID from entity autocomplete form elements.
 - [Data stream and notification permissions are not granted to managed roles. #479](https://github.com/farmOS/farmOS/issues/479)
