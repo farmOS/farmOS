@@ -140,6 +140,9 @@ Available traits and the methods that they provide include:
 - `QuickQuantityTrait`
   - `createQuantity($values)` - Creates and returns a new quantity entity from
     an array of values.
+- `QuickStringTrait`
+  - `trimString($value, $max_length, $suffix)` - Trims a string down to the
+    specified length, respecting word boundaries.
 - `QuickTermTrait`
   - `createTerm($values)` - Creates and returns a new term entity from an array
     of values.
