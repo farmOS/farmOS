@@ -38,7 +38,7 @@ function farm_sensor_asset_view_alter(array &$build, AssetInterface $asset, Enti
     $build['api'] = [
       '#type' => 'details',
       '#title' => t('Developer information'),
-      '#description' => t('This sensor asset listen for data posted to it from other web-connected devices. Use the information below to configure your device to begin posting data to this sensor. For more information, refer to the farmOS sensor guide.'),
+      '#description' => t('This sensor asset will listen for data posted to it from other web-connected devices. Use the information below to configure your device to begin posting data to this sensor.'),
       '#open' => FALSE,
     ];
 
