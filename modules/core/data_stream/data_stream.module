@@ -67,11 +67,6 @@ function data_stream_data_stream_view_alter(array &$build, DataStreamInterface $
     $build['api']['json_example'] = [
       '#markup' => '<p><strong>' . $json_example_label . ':</strong> ' . $json_example . '</p>',
     ];
-    $json_example_multiple = '{ "timestamp": ' . $request_time . ', "sensor1": 76.5, "sensor2": 60 }';
-    $json_example_multiple_label = t('JSON Example (multiple values)');
-    $build['api']['json_example_multiple'] = [
-      '#markup' => '<p><strong>' . $json_example_multiple_label . ':</strong> ' . $json_example_multiple . '</p>',
-    ];
 
     // Render example CURL command.
     $curl_example = 'curl -H "Content-Type: application/json" -X POST -d \'' . $json_example . '\' ' . $url_string;
