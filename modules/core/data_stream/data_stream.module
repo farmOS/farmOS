@@ -74,7 +74,7 @@ function data_stream_data_stream_view_alter(array &$build, DataStreamInterface $
     // Render example CURL command.
     $curl_example = 'curl -H "Content-Type: application/json" -X POST -d \'' . $json_example . '\' ' . $url_string;
     $curl_example_label = t('Example CURL command');
-    $build['api']['json_example_multiple'] = [
+    $build['api']['curl_example'] = [
       '#markup' => '<p><strong>' . $curl_example_label . ':</strong> ' . $curl_example . '</p>',
     ];
   }
