@@ -38,7 +38,7 @@ function farm_sensor_asset_view_alter(array &$build, AssetInterface $asset, Enti
     $build['api'] = [
       '#type' => 'details',
       '#title' => t('Developer information'),
-      '#description' => t('This sensor asset will listen for data posted to it from other web-connected devices. Use the information below to configure your device to begin posting data to this sensor.'),
+      '#description' => t('This sensor asset will listen for data posted to it from other web-connected devices and save it to data streams based on the name of the value used in the request. If a data stream by that name does not exist, a new one will be created automatically. Data for multiple streams may be included in each request. Use the information below to configure your device to begin posting data to this sensor.'),
       '#open' => FALSE,
     ];
 
