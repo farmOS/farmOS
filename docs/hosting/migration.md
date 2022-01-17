@@ -94,18 +94,18 @@ Migrations can be rolled back with the following command:
 Alternatively, migration groups can be rolled back individually. This should be
 done in the following order (reverse of the order of import):
 
-    drush migrate:import --group=farm_migrate_plan
-    drush migrate:import --group=farm_migrate_log
-    drush migrate:import --group=farm_migrate_quantity
-    drush migrate:import --group=farm_migrate_sensor_data
-    drush migrate:import --group=farm_migrate_asset_parent
-    drush migrate:import --group=farm_migrate_area
-    drush migrate:import --group=farm_migrate_asset
-    drush migrate:import --group=farm_migrate_taxonomy
-    drush migrate:import --group=farm_migrate_file
-    drush migrate:import --group=farm_migrate_user
-    drush migrate:import --group=farm_migrate_role
-    drush migrate:import --group=farm_migrate_config
+    drush migrate:rollback --group=farm_migrate_plan
+    drush migrate:rollback --group=farm_migrate_log
+    drush migrate:rollback --group=farm_migrate_quantity
+    drush migrate:rollback --group=farm_migrate_sensor_data
+    drush migrate:rollback --group=farm_migrate_asset_parent
+    drush migrate:rollback --group=farm_migrate_area
+    drush migrate:rollback --group=farm_migrate_asset
+    drush migrate:rollback --group=farm_migrate_taxonomy
+    drush migrate:rollback --group=farm_migrate_file
+    drush migrate:rollback --group=farm_migrate_user
+    drush migrate:rollback --group=farm_migrate_role
+    drush migrate:rollback --group=farm_migrate_config
 
 ## Migrating files
 
