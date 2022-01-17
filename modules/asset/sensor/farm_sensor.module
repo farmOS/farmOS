@@ -6,6 +6,7 @@
  */
 
 use Drupal\asset\Entity\AssetInterface;
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Url;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\data_stream\Entity\DataStreamInterface;
@@ -54,14 +55,33 @@ function farm_sensor_asset_view_alter(array &$build, AssetInterface $asset, Enti
       '#weight' => -10,
     ];
 
+    // Load referenced basic data streams.
+    $basic_data_streams = array_filter($asset->get('data_stream')->referencedEntities(), function (DataStreamInterface $data_stream) {
+      return $data_stream->bundle() === 'basic';
+    });
+
+    // Generate example stream names. If there are basic data streams already
+    // referenced then replace them with actual names.
+    $example_stream_names = [
+      'value',
+      'value2',
+    ];
+    if (!empty($basic_data_streams)) {
+      foreach ($basic_data_streams as $key => $data_stream) {
+        if (!empty($data_stream->label())) {
+          $example_stream_names[$key] = Html::escape($data_stream->label());
+        }
+      }
+    }
+
     // Render JSON examples.
     $request_time = \Drupal::time()->getRequestTime();
-    $json_example = '{ "timestamp": ' . $request_time . ', "value": 76.5 }';
+    $json_example = '{ "timestamp": ' . $request_time . ', "' . $example_stream_names[0] . '": 76.5 }';
     $json_example_label = t('JSON example');
     $build['api']['json_example'] = [
       '#markup' => '<p><strong>' . $json_example_label . ':</strong> ' . $json_example . '</p>',
     ];
-    $json_example_multiple = '{ "timestamp": ' . $request_time . ', "sensor1": 76.5, "sensor2": 60 }';
+    $json_example_multiple = '{ "timestamp": ' . $request_time . ', "' . $example_stream_names[0] . '": 76.5, "' . $example_stream_names[1] . '": 60 }';
     $json_example_multiple_label = t('JSON example (multiple values)');
     $build['api']['json_example_multiple'] = [
       '#markup' => '<p><strong>' . $json_example_multiple_label . ':</strong> ' . $json_example_multiple . '</p>',
