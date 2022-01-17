@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- [Improvements to sensor and data stream developer info #491](https://github.com/farmOS/farmOS/pull/491)
 - [Data does not immediately appear when posting to data streams #484](https://github.com/farmOS/farmOS/issues/484)
 - [Route "entity.data_stream.collection" does not exist. #486](https://github.com/farmOS/farmOS/issues/486)
 - Fix Quick Form help text so that it works with new multi-route approach.
