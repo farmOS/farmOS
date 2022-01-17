@@ -26,14 +26,6 @@ function farm_sensor_asset_view_alter(array &$build, AssetInterface $asset, Enti
   // saved in config. In either case, the original mode is always "full".
   if ($display->getOriginalMode() === 'full') {
 
-    // Bail if the sensor asset does not have any basic data streams.
-    $basic_data_streams = array_filter($asset->get('data_stream')->referencedEntities(), function (DataStreamInterface $data_stream) {
-      return $data_stream->bundle() === 'basic';
-    });
-    if (count($basic_data_streams) === 0) {
-      return;
-    }
-
     // Add a Developer information details element with brief description.
     $build['api'] = [
       '#type' => 'details',
