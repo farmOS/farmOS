@@ -35,7 +35,7 @@ function data_stream_data_stream_view_alter(array &$build, DataStreamInterface $
     $build['api'] = [
       '#type' => 'details',
       '#title' => t('Developer information'),
-      '#description' => t('This data stream type will listen for data posted to it from other web-connected devices. Use the information below to configure your device to begin posting data to this data stream. For more information, refer to the farmOS sensor guide.'),
+      '#description' => t('This data stream type will listen for data posted to it from other web-connected devices. Use the information below to configure your device to begin posting data to this data stream.'),
       '#open' => FALSE,
     ];
 
