@@ -5,6 +5,7 @@
  * The data stream module.
  */
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Url;
 use Drupal\data_stream\Entity\DataStreamInterface;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
@@ -60,7 +61,8 @@ function data_stream_data_stream_view_alter(array &$build, DataStreamInterface $
 
     // Render JSON examples.
     $request_time = \Drupal::time()->getRequestTime();
-    $json_example = '{ "timestamp": ' . $request_time . ', "value": 76.5 }';
+    $stream_name = Html::escape($data_stream->label());
+    $json_example = '{ "timestamp": ' . $request_time . ', "' . $stream_name . '": 76.5 }';
     $json_example_label = t('JSON Example');
     $build['api']['json_example'] = [
       '#markup' => '<p><strong>' . $json_example_label . ':</strong> ' . $json_example . '</p>',
