@@ -46,11 +46,19 @@ trait QuickLogTrait {
     /** @var \Drupal\log\Entity\LogInterface $log */
     $log = Log::create($values);
 
-    // If quantity measurements are provided, create quantity entities and
-    // reference them from the log.
+    // If quantity measurements are provided, reference them from the log.
     if (!empty($values['quantity'])) {
       foreach ($values['quantity'] as $qty) {
-        $log->quantity[] = $this->createQuantity($qty);
+
+        // If the quantity is an array of values, pass it to createQuantity.
+        if (is_array($qty)) {
+          $log->quantity[] = $this->createQuantity($qty);
+        }
+
+        // Otherwise, add it directly to the log.
+        else {
+          $log->quantity[] = $qty;
+        }
       }
     }
 
