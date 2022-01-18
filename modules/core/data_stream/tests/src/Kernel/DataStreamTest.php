@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
  *
  * @group farm
  */
-class DataStreamApiTest extends DataStreamTestBase {
+class DataStreamTest extends DataStreamTestBase {
 
   use DataStreamCreationTrait;
 
@@ -47,6 +47,34 @@ class DataStreamApiTest extends DataStreamTestBase {
 
     // Create 100 data points over the next 100 days.
     $this->mockBasicData($this->dataStream, 100, $this->startTime);
+  }
+
+  /**
+   * Test that data is deleted when the data stream is deleted.
+   */
+  public function testDeleteDataStream() {
+
+    // Save the data stream ID.
+    $data_stream_id = $this->dataStream->id();
+
+    // First assert that data exists for the data stream.
+    $count = \Drupal::database()->select('data_stream_basic')
+      ->condition('id', $data_stream_id)
+      ->countQuery()
+      ->execute()
+      ->fetchfield();
+    $this->assertGreaterThan(0, $count);
+
+    // Delete the data stream.
+    $this->dataStream->delete();
+
+    // Assert that no data exists for the data stream.
+    $count = \Drupal::database()->select('data_stream_basic')
+      ->condition('id', $data_stream_id)
+      ->countQuery()
+      ->execute()
+      ->fetchField();
+    $this->assertEquals(0, $count);
   }
 
   /**
