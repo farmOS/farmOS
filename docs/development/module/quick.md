@@ -143,6 +143,12 @@ Available traits and the methods that they provide include:
 - `QuickStringTrait`
   - `trimString($value, $max_length, $suffix)` - Trims a string down to the
     specified length, respecting word boundaries.
+  - `prioritizedString($strings, $priority_keys, $max_length, $suffix)` -
+    Concatenates strings together with some intelligence for prioritizing
+    certain parts when the full string will not fit within a maximum length.
+    Expects a keyed array of strings to concatenate together, along with an
+    optional array of keys that should be prioritized in case the full string
+    won't fit.
 - `QuickTermTrait`
   - `createTerm($values)` - Creates and returns a new term entity from an array
     of values.

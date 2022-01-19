@@ -38,4 +38,38 @@ class QuickStringTest extends KernelTestBase {
     $this->assertEquals($trimmed_extra_long_string, $name);
   }
 
+  /**
+   * Test prioritizedString() method.
+   */
+  public function testPrioritizedString() {
+
+    // Define simple name parts.
+    $parts = [
+      'foo' => 'Foo',
+      'bar' => 'Bar',
+      'baz' => 'Baz',
+    ];
+
+    // Test simple name.
+    $name = $this->prioritizedString($parts);
+    $this->assertEquals('Foo Bar Baz', $name);
+
+    // Test simple maximum lengths.
+    $name = $this->prioritizedString($parts, [], 1);
+    $this->assertEquals('…', $name);
+    $name = $this->prioritizedString($parts, [], 5);
+    $this->assertEquals('Foo…', $name);
+    $name = $this->prioritizedString($parts, [], 10);
+    $this->assertEquals('Foo Bar…', $name);
+
+    // Test custom suffix.
+    $name = $this->prioritizedString($parts, [], 3, 'OO');
+    $this->assertEquals('FOO', $name);
+
+    // Test priority keys.
+    $priority_keys = ['foo', 'baz'];
+    $name = $this->prioritizedString($parts, $priority_keys, 10);
+    $this->assertEquals('Foo B… Baz', $name);
+  }
+
 }
