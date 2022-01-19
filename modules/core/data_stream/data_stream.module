@@ -5,6 +5,7 @@
  * The data stream module.
  */
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Url;
 use Drupal\data_stream\Entity\DataStreamInterface;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
@@ -24,18 +25,20 @@ function data_stream_data_stream_view_alter(array &$build, DataStreamInterface $
     return;
   }
 
+  // If the user has permission to edit this sensor asset, display developer
+  // information.
   // Only render developer information in the full view mode.
   // Use getOriginalMode() because getMode() is not reliable. The default
   // display mode will return "full" unless a "default" display is actually
   // saved in config. In either case, the original mode is always "full".
-  if ($display->getOriginalMode() === 'full') {
+  if ($data_stream->access('edit') === TRUE && $display->getOriginalMode() === 'full') {
 
     // Add a Developer information details element with brief description.
     // @todo Include link to updated user guide.
     $build['api'] = [
       '#type' => 'details',
       '#title' => t('Developer information'),
-      '#description' => t('This data stream type will listen for data posted to it from other web-connected devices. Use the information below to configure your device to begin posting data to this data stream. For more information, refer to the farmOS sensor guide.'),
+      '#description' => t('This data stream type will listen for data posted to it from other web-connected devices. Use the information below to configure your device to begin posting data to this data stream.'),
       '#open' => FALSE,
     ];
 
@@ -60,21 +63,17 @@ function data_stream_data_stream_view_alter(array &$build, DataStreamInterface $
 
     // Render JSON examples.
     $request_time = \Drupal::time()->getRequestTime();
-    $json_example = '{ "timestamp": ' . $request_time . ', "value": 76.5 }';
+    $stream_name = Html::escape($data_stream->label());
+    $json_example = '{ "timestamp": ' . $request_time . ', "' . $stream_name . '": 76.5 }';
     $json_example_label = t('JSON Example');
     $build['api']['json_example'] = [
       '#markup' => '<p><strong>' . $json_example_label . ':</strong> ' . $json_example . '</p>',
-    ];
-    $json_example_multiple = '{ "timestamp": ' . $request_time . ', "sensor1": 76.5, "sensor2": 60 }';
-    $json_example_multiple_label = t('JSON Example (multiple values)');
-    $build['api']['json_example_multiple'] = [
-      '#markup' => '<p><strong>' . $json_example_multiple_label . ':</strong> ' . $json_example_multiple . '</p>',
     ];
 
     // Render example CURL command.
     $curl_example = 'curl -H "Content-Type: application/json" -X POST -d \'' . $json_example . '\' ' . $url_string;
     $curl_example_label = t('Example CURL command');
-    $build['api']['json_example_multiple'] = [
+    $build['api']['curl_example'] = [
       '#markup' => '<p><strong>' . $curl_example_label . ':</strong> ' . $curl_example . '</p>',
     ];
   }
