@@ -2577,7 +2577,30 @@ display:
         arguments: false
         filters: true
         filter_groups: true
+        footer: false
       display_description: ''
+      footer:
+        result:
+          id: result
+          table: views
+          field: result
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: result
+          empty: false
+          content: 'Displaying @start - @end of @total'
+        display_link:
+          id: display_link
+          table: views
+          field: display_link
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: display_link
+          label: 'Export CSV'
+          empty: false
+          display_id: csv
       display_extenders: {  }
       path: logs/%
     cache_metadata:
