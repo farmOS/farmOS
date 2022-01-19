@@ -3,6 +3,9 @@ status: true
 dependencies:
   module:
     - user
+  enforced:
+    module:
+      - farm_ui_views
 id: farm_people
 label: 'Farm People'
 module: views
