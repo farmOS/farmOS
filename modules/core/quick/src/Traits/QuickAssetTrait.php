@@ -13,6 +13,7 @@ trait QuickAssetTrait {
 
   use MessengerTrait;
   use StringTranslationTrait;
+  use QuickStringTrait;
 
   /**
    * Get the plugin ID.
@@ -33,7 +34,12 @@ trait QuickAssetTrait {
    * @return \Drupal\asset\Entity\AssetInterface
    *   The asset entity that was created.
    */
-  public function createAsset(array $values = []) {
+  protected function createAsset(array $values = []) {
+
+    // Trim the asset name to 255 characters.
+    if (!empty($values['name'])) {
+      $values['name'] = $this->trimString($values['name'], 255);
+    }
 
     // Start a new asset entity with the provided values.
     /** @var \Drupal\asset\Entity\AssetInterface $asset */

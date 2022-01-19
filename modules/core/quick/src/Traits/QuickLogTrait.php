@@ -14,6 +14,7 @@ trait QuickLogTrait {
   use MessengerTrait;
   use StringTranslationTrait;
   use QuickQuantityTrait;
+  use QuickStringTrait;
 
   /**
    * Get the plugin ID.
@@ -34,17 +35,30 @@ trait QuickLogTrait {
    * @return \Drupal\log\Entity\LogInterface
    *   The log entity that was created.
    */
-  public function createLog(array $values = []) {
+  protected function createLog(array $values = []) {
+
+    // Trim the log name to 255 characters.
+    if (!empty($values['name'])) {
+      $values['name'] = $this->trimString($values['name'], 255);
+    }
 
     // Start a new log entity with the provided values.
     /** @var \Drupal\log\Entity\LogInterface $log */
     $log = Log::create($values);
 
-    // If quantity measurements are provided, create quantity entities and
-    // reference them from the log.
+    // If quantity measurements are provided, reference them from the log.
     if (!empty($values['quantity'])) {
       foreach ($values['quantity'] as $qty) {
-        $log->quantity[] = $this->createQuantity($qty);
+
+        // If the quantity is an array of values, pass it to createQuantity.
+        if (is_array($qty)) {
+          $log->quantity[] = $this->createQuantity($qty);
+        }
+
+        // Otherwise, add it directly to the log.
+        else {
+          $log->quantity[] = $qty;
+        }
       }
     }
 

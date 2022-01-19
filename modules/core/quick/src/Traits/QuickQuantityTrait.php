@@ -10,6 +10,7 @@ use Drupal\quantity\Entity\Quantity;
  */
 trait QuickQuantityTrait {
 
+  use QuickStringTrait;
   use QuickTermTrait;
 
   /**
@@ -21,7 +22,12 @@ trait QuickQuantityTrait {
    * @return \Drupal\quantity\Entity\QuantityInterface
    *   The quantity entity that was created.
    */
-  public function createQuantity(array $values = []) {
+  protected function createQuantity(array $values = []) {
+
+    // Trim the quantity label to 255 characters.
+    if (!empty($values['label'])) {
+      $values['label'] = $this->trimString($values['label'], 255);
+    }
 
     // If a type isn't set, default to "standard".
     if (empty($values['type'])) {
@@ -38,7 +44,7 @@ trait QuickQuantityTrait {
     }
 
     // If the units are a term name, create or load the unit taxonomy term.
-    if (!empty($values['units'])) {
+    if (!empty($values['units']) && is_string($values['units'])) {
       $term = $this->createOrLoadTerm($values['units'], 'unit');
       $values['units'] = $term->id();
     }
