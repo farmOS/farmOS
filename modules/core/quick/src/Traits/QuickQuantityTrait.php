@@ -44,7 +44,7 @@ trait QuickQuantityTrait {
     }
 
     // If the units are a term name, create or load the unit taxonomy term.
-    if (!empty($values['units'])) {
+    if (!empty($values['units']) && is_string($values['units'])) {
       $term = $this->createOrLoadTerm($values['units'], 'unit');
       $values['units'] = $term->id();
     }

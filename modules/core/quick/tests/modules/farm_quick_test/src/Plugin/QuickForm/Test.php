@@ -65,7 +65,7 @@ class Test extends QuickFormBase {
         [
           'measure' => 'count',
           'value' => $value,
-          'units' => $this->t('tests'),
+          'units' => 'tests',
         ],
       ],
     ]);
@@ -74,7 +74,7 @@ class Test extends QuickFormBase {
     $quantity = $this->createQuantity([
       'measure' => 'count',
       'value' => $value,
-      'units' => $this->t('tests'),
+      'units' => 'tests',
       'label' => $this->t('test label'),
     ]);
 
