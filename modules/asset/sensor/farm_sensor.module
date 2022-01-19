@@ -21,11 +21,13 @@ function farm_sensor_asset_view_alter(array &$build, AssetInterface $asset, Enti
     return;
   }
 
+  // If the user has permission to edit this sensor asset, display developer
+  // information.
   // Only render developer information in the full view mode.
   // Use getOriginalMode() because getMode() is not reliable. The default
   // display mode will return "full" unless a "default" display is actually
   // saved in config. In either case, the original mode is always "full".
-  if ($display->getOriginalMode() === 'full') {
+  if ($asset->access('edit') === TRUE && $display->getOriginalMode() === 'full') {
 
     // Add a Developer information details element with brief description.
     $build['api'] = [
