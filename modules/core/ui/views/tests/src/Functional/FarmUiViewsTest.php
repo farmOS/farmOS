@@ -50,14 +50,45 @@ class FarmUiViewsTest extends FarmBrowserTestBase {
     $this->assertSession()->pageTextContains($equipment->label());
     $this->assertSession()->pageTextContains($water->label());
 
+    // Check that an "Export CSV" link appears on /assets.
+    $this->assertSession()->pageTextContains('Export CSV');
+
+    // Check that the "Export CSV" link includes exposed filters.
+    $this->drupalGet('/assets', ['query' => ['status' => 'active']]);
+    $this->assertSession()->statusCodeEquals(200);
+    $this->assertSession()->linkByHrefExists('/assets.csv?status=active');
+
+    // Check that both assets are visible in /assets.csv.
+    $this->drupalGet('/assets.csv');
+    $this->assertSession()->statusCodeEquals(200);
+    $this->assertSession()->pageTextContains($equipment->label());
+    $this->assertSession()->pageTextContains($water->label());
+
     // Check that only water assets are visible in /assets/water.
     $this->drupalGet('/assets/water');
     $this->assertSession()->statusCodeEquals(200);
     $this->assertSession()->pageTextNotContains($equipment->label());
     $this->assertSession()->pageTextContains($water->label());
 
+    // Check that an "Export CSV" link appears on /assets/water.
+    $this->assertSession()->pageTextContains('Export CSV');
+
+    // Check that only water assets are visible in /assets.csv?type[]=water.
+    $this->drupalGet('/assets.csv', ['query' => ['type' => ['water']]]);
+    $this->assertSession()->statusCodeEquals(200);
+    $this->assertSession()->pageTextNotContains($equipment->label());
+    $this->assertSession()->pageTextContains($water->label());
+
     // Check that /assets/equipment includes equipment-specific columns.
     $this->drupalGet('/assets/equipment');
+    $this->assertSession()->statusCodeEquals(200);
+    $this->assertSession()->pageTextContains('Manufacturer');
+    $this->assertSession()->pageTextContains('Model');
+    $this->assertSession()->pageTextContains('Serial number');
+
+    // Check that /assets.csv?type[]=equipment includes equipment-specific
+    // columns.
+    $this->drupalGet('/assets.csv', ['query' => ['type' => ['equipment']]]);
     $this->assertSession()->statusCodeEquals(200);
     $this->assertSession()->pageTextContains('Manufacturer');
     $this->assertSession()->pageTextContains('Model');
