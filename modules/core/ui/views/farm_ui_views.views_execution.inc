@@ -27,6 +27,12 @@ function farm_ui_views_views_pre_view(ViewExecutable $view, $display_id, array &
     $view->removeHandler($display_id, 'field', 'type');
     $view->removeHandler($display_id, 'filter', 'type');
 
+    // Add the type to exposed filters.
+    // This ensures the "Export CSV" link includes a type filter.
+    $exposed_input = $view->getExposedInput();
+    $exposed_input['type'] = [$bundle];
+    $view->setExposedInput($exposed_input);
+
     // If the entity type has a bundle_plugin manager, add all of its
     // bundle fields and filters to the page_type view.
     if (\Drupal::entityTypeManager()->hasHandler($view->getBaseEntityType()->id(), 'bundle_plugin')) {

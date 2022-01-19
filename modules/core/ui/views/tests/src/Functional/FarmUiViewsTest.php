@@ -70,8 +70,10 @@ class FarmUiViewsTest extends FarmBrowserTestBase {
     $this->assertSession()->pageTextNotContains($equipment->label());
     $this->assertSession()->pageTextContains($water->label());
 
-    // Check that an "Export CSV" link appears on /assets/water.
+    // Check that an "Export CSV" link appears on /assets/water, and it
+    // automatically filters by asset type.
     $this->assertSession()->pageTextContains('Export CSV');
+    $this->assertSession()->linkByHrefExists('/assets.csv?type%5B0%5D=water');
 
     // Check that only water assets are visible in /assets.csv?type[]=water.
     $this->drupalGet('/assets.csv', ['query' => ['type' => ['water']]]);
