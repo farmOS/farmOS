@@ -47,6 +47,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+- Update Drupal core to 9.3.3 for [SA-CORE-2022-001](https://www.drupal.org/sa-core-2022-001)
 - Update Simple OAuth module to 5.0.6 for [SA-CONTRIB-2022-002](https://www.drupal.org/sa-contrib-2022-002)
 
 ## [2.0.0-beta1] 2022-01-01
