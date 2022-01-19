@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- [Issue #3224663: Type-specific CSV exports do not respect exposed filters](https://www.drupal.org/project/farm/issues/3224663)
 - [Improvements to sensor and data stream developer info #491](https://github.com/farmOS/farmOS/pull/491)
 - [Data is not deleted when a data stream entity is deleted #488](https://github.com/farmOS/farmOS/issues/488)
 - [Data does not immediately appear when posting to data streams #484](https://github.com/farmOS/farmOS/issues/484)
