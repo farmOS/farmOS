@@ -26,7 +26,7 @@ jobs:
         uses: softprops/action-gh-release@6034af24fba4e5a8e975aaa6056554efe4c794d0 #0.1.13
         with:
           body: |
-            See [CHANGELOG.md](https://github.com/farmOS/farmOS/blob/${{ env.FARMOS_VERSION }}/CHANGELOG.md) for release notes.
+            For full release notes, see [CHANGELOG.md](https://github.com/farmOS/farmOS/blob/${{ env.FARMOS_VERSION }}/CHANGELOG.md).
           files: /tmp/farmOS-${{ env.FARMOS_VERSION }}.tar.gz
-          draft: true
+          draft: false
           prerelease: false
