@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0-beta2] 2022-01-19
+
 ### Added
 
 - Add a Planting quick form module.
@@ -119,5 +121,6 @@ moving forward.
     Drupal 7, which required a complete refactor of the codebase. By comparison,
     updating from Drupal 9 to 10 will simply involve updating deprecated code.
 
-[Unreleased]: https://github.com/farmOS/farmOS/compare/2.0.0-beta1...HEAD
+[Unreleased]: https://github.com/farmOS/farmOS/compare/2.0.0-beta2...HEAD
+[2.0.0-beta2]: https://github.com/farmOS/farmOS/releases/tag/2.0.0-beta2
 [2.0.0-beta1]: https://github.com/farmOS/farmOS/releases/tag/2.0.0-beta1
