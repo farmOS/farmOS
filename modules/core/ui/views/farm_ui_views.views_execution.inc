@@ -35,6 +35,22 @@ function farm_ui_views_views_pre_view(ViewExecutable $view, $display_id, array &
     }
   }
 
+  // If this is an asset/log "CSV export" display with a single type filter
+  // applied, alter the fields and filters to match the "By type" display.
+  if (in_array($view->id(), ['farm_asset', 'farm_log']) && $display_id == 'csv') {
+    $exposed_input = $view->getExposedInput();
+    if (!empty($exposed_input['type']) && count($exposed_input['type']) == 1) {
+      $bundle = $exposed_input['type'][0];
+
+      // If the entity type has a bundle_plugin manager, add all of its
+      // bundle fields and filters to the page_type view.
+      if (\Drupal::entityTypeManager()->hasHandler($view->getBaseEntityType()->id(), 'bundle_plugin')) {
+        farm_ui_views_add_bundle_handlers($view, $display_id, $bundle, 'field');
+        farm_ui_views_add_bundle_handlers($view, $display_id, $bundle, 'filter');
+      }
+    }
+  }
+
   // Remove the asset and location filters from the log page_asset display.
   // @todo Make the AssetOrLocationArgument compatible with these filters.
   if ($view->id() == 'farm_log' && $display_id == 'page_asset') {
@@ -175,6 +191,11 @@ function farm_ui_views_add_bundle_handlers(ViewExecutable $view, string $display
 
         // Build field options for the field type.
         $field_options = [];
+
+        // Get the field label.
+        $field_options['label'] = $field_definition->getLabel();
+
+        // Add settings that are specific to field types.
         switch ($field_type) {
 
           case 'entity_reference':
