@@ -165,7 +165,7 @@ display:
         options:
           perm: 'view data_stream'
       cache:
-        type: tag
+        type: none
         options: {  }
       empty:
         area:
