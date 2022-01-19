@@ -27,46 +27,733 @@ base_table: log_field_data
 base_field: id
 display:
   default:
-    display_plugin: default
     id: default
     display_title: Master
+    display_plugin: default
     position: 0
     display_options:
-      access:
-        type: perm
-        options:
-          perm: 'view any log'
-      cache:
-        type: tag
-        options: {  }
-      query:
-        type: views_query
-        options:
-          disable_sql_rewrite: false
-          distinct: false
-          replica: false
-          query_comment: ''
-          query_tags: {  }
-      exposed_form:
-        type: basic
-        options:
-          submit_button: Apply
-          reset_button: true
-          reset_button_label: Reset
-          exposed_sorts_label: 'Sort by'
-          expose_sort_order: true
-          sort_asc_label: Asc
-          sort_desc_label: Desc
+      title: Logs
+      fields:
+        log_bulk_form:
+          id: log_bulk_form
+          table: log
+          field: log_bulk_form
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: log
+          plugin_id: bulk_form
+          label: 'Bulk update'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          action_title: Action
+          include_exclude: exclude
+          selected_actions: {  }
+        status:
+          id: status
+          table: log_field_data
+          field: status
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: log
+          entity_field: status
+          plugin_id: field
+          label: Status
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: list_default
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        id:
+          id: id
+          table: log_field_data
+          field: id
+          entity_type: log
+          entity_field: id
+          plugin_id: field
+        timestamp:
+          id: timestamp
+          table: log_field_data
+          field: timestamp
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: log
+          entity_field: timestamp
+          plugin_id: log_field
+          label: Timestamp
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: true
+            path: 'log/{{ id }}'
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: timestamp
+          settings:
+            date_format: html_date
+            custom_date_format: ''
+            timezone: ''
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        name:
+          id: name
+          table: log_field_data
+          field: name
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: null
+          entity_field: name
+          plugin_id: field
+          label: 'Log name'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        type:
+          id: type
+          table: log_field_data
+          field: type
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: log
+          entity_field: type
+          plugin_id: field
+          label: 'Log type'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: false
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        asset_target_id:
+          id: asset_target_id
+          table: log__asset
+          field: asset_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: log
+          entity_field: asset
+          plugin_id: field
+          label: Assets
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: true
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        location_target_id:
+          id: location_target_id
+          table: log__location
+          field: location_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: log
+          entity_field: location
+          plugin_id: field
+          label: Location
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: true
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        quantity_target_id:
+          id: quantity_target_id
+          table: log__quantity
+          field: quantity_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: log
+          entity_field: quantity
+          plugin_id: field
+          label: Quantity
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_revisions_entity_view
+          settings:
+            view_mode: default
+          group_column: ''
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: ul
+          separator: ', '
+          field_api_classes: false
+        flag_value:
+          id: flag_value
+          table: log__flag
+          field: flag_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: log
+          entity_field: flag
+          plugin_id: field
+          label: Flags
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: list_default
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: true
+        category_target_id:
+          id: category_target_id
+          table: log__category
+          field: category_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: log
+          entity_field: category
+          plugin_id: field
+          label: 'Log category'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: false
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        owner_target_id:
+          id: owner_target_id
+          table: log__owner
+          field: owner_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: log
+          entity_field: owner
+          plugin_id: field
+          label: 'Assigned to'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: true
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
       pager:
         type: full
         options:
-          items_per_page: 50
           offset: 0
-          id: 0
+          items_per_page: 50
           total_pages: null
+          id: 0
           tags:
-            previous: ‹‹
             next: ››
+            previous: ‹‹
             first: '« First'
             last: 'Last »'
           expose:
@@ -78,17 +765,541 @@ display:
             offset: false
             offset_label: Offset
           quantity: 9
+      exposed_form:
+        type: basic
+        options:
+          submit_button: Apply
+          reset_button: true
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+          expose_sort_order: true
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      access:
+        type: perm
+        options:
+          perm: 'view any log'
+      cache:
+        type: tag
+        options: {  }
+      empty:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text_custom
+          empty: true
+          content: 'No logs found.'
+          tokenize: false
+      sorts: {  }
+      arguments: {  }
+      filters:
+        name:
+          id: name
+          table: log_field_data
+          field: name
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: log
+          entity_field: name
+          plugin_id: string
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: name_op
+            label: 'Log name'
+            description: ''
+            use_operator: false
+            operator: name_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: name
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        type:
+          id: type
+          table: log_field_data
+          field: type
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: log
+          entity_field: type
+          plugin_id: bundle
+          operator: in
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: type_op
+            label: 'Log type'
+            description: ''
+            use_operator: false
+            operator: type_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: type
+            required: false
+            remember: false
+            multiple: true
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        category_target_id:
+          id: category_target_id
+          table: log__category
+          field: category_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: log
+          entity_field: category
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: category_target_id_op
+            label: 'Log category'
+            description: ''
+            use_operator: false
+            operator: category_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: category_target_id
+            required: false
+            remember: false
+            multiple: true
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: log_category
+          type: select
+          hierarchy: false
+          limit: true
+          error_message: true
+        flag_value:
+          id: flag_value
+          table: log__flag
+          field: flag_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: log
+          entity_field: flag
+          plugin_id: list_field
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: flag_value_op
+            label: Flags
+            description: ''
+            use_operator: false
+            operator: flag_value_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: flag_value
+            required: false
+            remember: false
+            multiple: true
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+        timestamp:
+          id: timestamp
+          table: log_field_data
+          field: timestamp
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: log
+          entity_field: timestamp
+          plugin_id: date
+          operator: '>='
+          value:
+            min: ''
+            max: ''
+            value: ''
+            type: date
+          group: 1
+          exposed: true
+          expose:
+            operator_id: timestamp_op
+            label: 'Start date'
+            description: ''
+            use_operator: false
+            operator: timestamp_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: start
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            min_placeholder: ''
+            max_placeholder: ''
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        timestamp_1:
+          id: timestamp_1
+          table: log_field_data
+          field: timestamp
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: log
+          entity_field: timestamp
+          plugin_id: date
+          operator: '<='
+          value:
+            min: ''
+            max: ''
+            value: ''
+            type: date
+          group: 1
+          exposed: true
+          expose:
+            operator_id: timestamp_1_op
+            label: 'End date'
+            description: ''
+            use_operator: false
+            operator: timestamp_1_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: end
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            min_placeholder: ''
+            max_placeholder: ''
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        is_movement:
+          id: is_movement
+          table: log_field_data
+          field: is_movement
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: log
+          entity_field: is_movement
+          plugin_id: boolean
+          operator: '='
+          value: All
+          group: 1
+          exposed: true
+          expose:
+            operator_id: ''
+            label: 'Is movement'
+            description: ''
+            use_operator: false
+            operator: is_movement_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: is_movement
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        status:
+          id: status
+          table: log_field_data
+          field: status
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: log
+          entity_field: status
+          plugin_id: state_machine_state
+          operator: in
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: status_op
+            label: Status
+            description: ''
+            use_operator: false
+            operator: status_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: status
+            required: false
+            remember: false
+            multiple: true
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        owner_target_id:
+          id: owner_target_id
+          table: log__owner
+          field: owner_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: log
+          entity_field: owner
+          plugin_id: entity_reference
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: owner_target_id_op
+            label: 'Assigned to'
+            description: ''
+            use_operator: false
+            operator: owner_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: owner_target_id
+            required: false
+            remember: false
+            multiple: true
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          handler: views
+          widget: select
+          handler_settings:
+            view:
+              view_name: farm_people
+              display_name: entity_reference
+              arguments: {  }
+        asset_target_id:
+          id: asset_target_id
+          table: log__asset
+          field: asset_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: log
+          entity_field: asset
+          plugin_id: entity_reference
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: asset_target_id_op
+            label: Assets
+            description: ''
+            use_operator: false
+            operator: asset_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: asset_target_id
+            required: false
+            remember: false
+            multiple: true
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          handler: views
+          widget: autocomplete
+          handler_settings:
+            view:
+              view_name: farm_asset_reference
+              display_name: entity_reference
+              arguments: {  }
+        location_target_id:
+          id: location_target_id
+          table: log__location
+          field: location_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: log
+          entity_field: location
+          plugin_id: entity_reference
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: location_target_id_op
+            label: Location
+            description: ''
+            use_operator: false
+            operator: location_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: location_target_id
+            required: false
+            remember: false
+            multiple: true
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          handler: views
+          widget: autocomplete
+          handler_settings:
+            view:
+              view_name: farm_location_reference
+              display_name: entity_reference
+              arguments: {  }
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
       style:
         type: table
         options:
           grouping: {  }
           row_class: ''
           default_row_class: true
-          override: true
-          sticky: false
-          caption: ''
-          summary: ''
-          description: ''
           columns:
             log_bulk_form: log_bulk_form
             status: status
@@ -102,6 +1313,7 @@ display:
             flag_value: flag_value
             category_target_id: category_target_id
             owner_target_id: owner_target_id
+          default: timestamp
           info:
             log_bulk_form:
               align: ''
@@ -173,15 +1385,61 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-          default: timestamp
+          override: true
+          sticky: false
+          summary: ''
           empty_table: true
+          caption: ''
+          description: ''
       row:
         type: fields
         options:
+          default_field_elements: true
           inline: {  }
           separator: ''
           hide_empty: false
-          default_field_elements: true
+      query:
+        type: views_query
+        options:
+          query_comment: ''
+          disable_sql_rewrite: false
+          distinct: false
+          replica: false
+          query_tags: {  }
+      relationships: {  }
+      use_more: false
+      use_more_always: false
+      use_more_text: more
+      header: {  }
+      footer:
+        result:
+          id: result
+          table: views
+          field: result
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: result
+          empty: false
+          content: 'Displaying @start - @end of @total'
+      display_extenders: {  }
+    cache_metadata:
+      max-age: 0
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - user
+        - user.permissions
+      tags: {  }
+  block_late:
+    id: block_late
+    display_title: 'Late (block)'
+    display_plugin: block
+    position: 6
+    display_options:
+      title: 'Late tasks'
       fields:
         log_bulk_form:
           id: log_bulk_form
@@ -190,6 +1448,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: log
+          plugin_id: bulk_form
           label: 'Bulk update'
           exclude: false
           alter:
@@ -234,17 +1494,18 @@ display:
           action_title: Action
           include_exclude: exclude
           selected_actions: {  }
-          entity_type: log
-          plugin_id: bulk_form
-        status:
-          id: status
+        id:
+          id: id
           table: log_field_data
-          field: status
+          field: id
           relationship: none
           group_type: group
           admin_label: ''
-          label: Status
-          exclude: false
+          entity_type: log
+          entity_field: id
+          plugin_id: field
+          label: ID
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -285,8 +1546,10 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: list_default
-          settings: {  }
+          type: number_integer
+          settings:
+            thousand_separator: ''
+            prefix_suffix: true
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -297,16 +1560,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: log
-          entity_field: status
-          plugin_id: field
-        id:
-          id: id
-          table: log_field_data
-          field: id
-          entity_type: log
-          entity_field: id
-          plugin_id: field
         timestamp:
           id: timestamp
           table: log_field_data
@@ -314,6 +1567,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: log
+          entity_field: timestamp
+          plugin_id: log_field
           label: Timestamp
           exclude: false
           alter:
@@ -371,9 +1627,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: log
-          entity_field: timestamp
-          plugin_id: log_field
         name:
           id: name
           table: log_field_data
@@ -381,6 +1634,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: null
+          entity_field: name
+          plugin_id: field
           label: 'Log name'
           exclude: false
           alter:
@@ -436,769 +1692,12 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: null
-          entity_field: name
-          plugin_id: field
-        type:
-          id: type
-          table: log_field_data
-          field: type
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: 'Log type'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_label
-          settings:
-            link: false
-          group_column: target_id
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          entity_type: log
-          entity_field: type
-          plugin_id: field
-        asset_target_id:
-          id: asset_target_id
-          table: log__asset
-          field: asset_target_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: Assets
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_label
-          settings:
-            link: true
-          group_column: target_id
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          entity_type: log
-          entity_field: asset
-          plugin_id: field
-        location_target_id:
-          id: location_target_id
-          table: log__location
-          field: location_target_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: Location
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_label
-          settings:
-            link: true
-          group_column: target_id
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          entity_type: log
-          entity_field: location
-          plugin_id: field
-        quantity_target_id:
-          id: quantity_target_id
-          table: log__quantity
-          field: quantity_target_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: Quantity
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_revisions_entity_view
-          settings:
-            view_mode: default
-          group_column: ''
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: ul
-          separator: ', '
-          field_api_classes: false
-          entity_type: log
-          entity_field: quantity
-          plugin_id: field
-        flag_value:
-          id: flag_value
-          table: log__flag
-          field: flag_value
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: Flags
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: list_default
-          settings: {  }
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: true
-          entity_type: log
-          entity_field: flag
-          plugin_id: field
-        category_target_id:
-          id: category_target_id
-          table: log__category
-          field: category_target_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: 'Log category'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_label
-          settings:
-            link: false
-          group_column: target_id
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          entity_type: log
-          entity_field: category
-          plugin_id: field
-        owner_target_id:
-          id: owner_target_id
-          table: log__owner
-          field: owner_target_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: 'Assigned to'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_label
-          settings:
-            link: true
-          group_column: target_id
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          entity_type: log
-          entity_field: owner
-          plugin_id: field
+      pager:
+        type: some
+        options:
+          offset: 0
+          items_per_page: 10
       filters:
-        name:
-          id: name
-          table: log_field_data
-          field: name
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: contains
-          value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: name_op
-            label: 'Log name'
-            description: ''
-            use_operator: false
-            operator: name_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: name
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-            placeholder: ''
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          entity_type: log
-          entity_field: name
-          plugin_id: string
-        type:
-          id: type
-          table: log_field_data
-          field: type
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: in
-          value: {  }
-          group: 1
-          exposed: true
-          expose:
-            operator_id: type_op
-            label: 'Log type'
-            description: ''
-            use_operator: false
-            operator: type_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: type
-            required: false
-            remember: false
-            multiple: true
-            remember_roles:
-              authenticated: authenticated
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          entity_type: log
-          entity_field: type
-          plugin_id: bundle
-        category_target_id:
-          id: category_target_id
-          table: log__category
-          field: category_target_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: or
-          value: {  }
-          group: 1
-          exposed: true
-          expose:
-            operator_id: category_target_id_op
-            label: 'Log category'
-            description: ''
-            use_operator: false
-            operator: category_target_id_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: category_target_id
-            required: false
-            remember: false
-            multiple: true
-            remember_roles:
-              authenticated: authenticated
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: false
-          type: select
-          limit: true
-          vid: log_category
-          hierarchy: false
-          error_message: true
-          entity_type: log
-          entity_field: category
-          plugin_id: taxonomy_index_tid
-        flag_value:
-          id: flag_value
-          table: log__flag
-          field: flag_value
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: or
-          value: {  }
-          group: 1
-          exposed: true
-          expose:
-            operator_id: flag_value_op
-            label: Flags
-            description: ''
-            use_operator: false
-            operator: flag_value_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: flag_value
-            required: false
-            remember: false
-            multiple: true
-            remember_roles:
-              authenticated: authenticated
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: false
-          entity_type: log
-          entity_field: flag
-          plugin_id: list_field
-        timestamp:
-          id: timestamp
-          table: log_field_data
-          field: timestamp
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: '>='
-          value:
-            min: ''
-            max: ''
-            value: ''
-            type: date
-          group: 1
-          exposed: true
-          expose:
-            operator_id: timestamp_op
-            label: 'Start date'
-            description: ''
-            use_operator: false
-            operator: timestamp_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: start
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-            placeholder: ''
-            min_placeholder: ''
-            max_placeholder: ''
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          entity_type: log
-          entity_field: timestamp
-          plugin_id: date
-        timestamp_1:
-          id: timestamp_1
-          table: log_field_data
-          field: timestamp
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: '<='
-          value:
-            min: ''
-            max: ''
-            value: ''
-            type: date
-          group: 1
-          exposed: true
-          expose:
-            operator_id: timestamp_1_op
-            label: 'End date'
-            description: ''
-            use_operator: false
-            operator: timestamp_1_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: end
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-            placeholder: ''
-            min_placeholder: ''
-            max_placeholder: ''
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          entity_type: log
-          entity_field: timestamp
-          plugin_id: date
-        is_movement:
-          id: is_movement
-          table: log_field_data
-          field: is_movement
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: '='
-          value: All
-          group: 1
-          exposed: true
-          expose:
-            operator_id: ''
-            label: 'Is movement'
-            description: ''
-            use_operator: false
-            operator: is_movement_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: is_movement
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          entity_type: log
-          entity_field: is_movement
-          plugin_id: boolean
         status:
           id: status
           table: log_field_data
@@ -1206,263 +1705,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          operator: in
-          value: {  }
-          group: 1
-          exposed: true
-          expose:
-            operator_id: status_op
-            label: Status
-            description: ''
-            use_operator: false
-            operator: status_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: status
-            required: false
-            remember: false
-            multiple: true
-            remember_roles:
-              authenticated: authenticated
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
           entity_type: log
           entity_field: status
           plugin_id: state_machine_state
-        owner_target_id:
-          id: owner_target_id
-          table: log__owner
-          field: owner_target_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: or
-          value: {  }
-          group: 1
-          exposed: true
-          expose:
-            operator_id: owner_target_id_op
-            label: 'Assigned to'
-            description: ''
-            use_operator: false
-            operator: owner_target_id_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: owner_target_id
-            required: false
-            remember: false
-            multiple: true
-            remember_roles:
-              authenticated: authenticated
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: false
-          handler: views
-          handler_settings:
-            view:
-              view_name: farm_people
-              display_name: entity_reference
-              arguments: {  }
-          widget: select
-          entity_type: log
-          entity_field: owner
-          plugin_id: entity_reference
-        asset_target_id:
-          id: asset_target_id
-          table: log__asset
-          field: asset_target_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: or
-          value: {  }
-          group: 1
-          exposed: true
-          expose:
-            operator_id: asset_target_id_op
-            label: Assets
-            description: ''
-            use_operator: false
-            operator: asset_target_id_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: asset_target_id
-            required: false
-            remember: false
-            multiple: true
-            remember_roles:
-              authenticated: authenticated
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: false
-          handler: views
-          handler_settings:
-            view:
-              view_name: farm_asset_reference
-              display_name: entity_reference
-              arguments: {  }
-          widget: autocomplete
-          entity_type: log
-          entity_field: asset
-          plugin_id: entity_reference
-        location_target_id:
-          id: location_target_id
-          table: log__location
-          field: location_target_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: or
-          value: {  }
-          group: 1
-          exposed: true
-          expose:
-            operator_id: location_target_id_op
-            label: Location
-            description: ''
-            use_operator: false
-            operator: location_target_id_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: location_target_id
-            required: false
-            remember: false
-            multiple: true
-            remember_roles:
-              authenticated: authenticated
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: false
-          handler: views
-          handler_settings:
-            view:
-              view_name: farm_location_reference
-              display_name: entity_reference
-              arguments: {  }
-          widget: autocomplete
-          entity_type: log
-          entity_field: location
-          plugin_id: entity_reference
-      sorts: {  }
-      header: {  }
-      footer:
-        result:
-          id: result
-          table: views
-          field: result
-          relationship: none
-          group_type: group
-          admin_label: ''
-          empty: false
-          content: 'Displaying @start - @end of @total'
-          plugin_id: result
-      empty:
-        area_text_custom:
-          id: area_text_custom
-          table: views
-          field: area_text_custom
-          relationship: none
-          group_type: group
-          admin_label: ''
-          empty: true
-          tokenize: false
-          content: 'No logs found.'
-          plugin_id: text_custom
-      relationships: {  }
-      arguments: {  }
-      display_extenders: {  }
-      title: Logs
-      use_more: false
-      use_more_always: false
-      use_more_text: more
-      filter_groups:
-        operator: AND
-        groups:
-          1: AND
-    cache_metadata:
-      max-age: 0
-      contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
-        - url
-        - url.query_args
-        - user
-        - user.permissions
-      tags: {  }
-  block_late:
-    display_plugin: block
-    id: block_late
-    display_title: 'Late (block)'
-    position: 6
-    display_options:
-      display_extenders: {  }
-      display_description: ''
-      title: 'Late tasks'
-      defaults:
-        title: false
-        filters: false
-        filter_groups: false
-        pager: false
-        use_more: false
-        use_more_always: false
-        use_more_text: false
-        link_display: false
-        link_url: false
-        style: false
-        row: false
-        fields: false
-      filters:
-        status:
-          id: status
-          table: log_field_data
-          field: status
-          relationship: none
-          group_type: group
-          admin_label: ''
           operator: in
           value:
             pending: pending
@@ -1495,9 +1740,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: log
-          entity_field: status
-          plugin_id: state_machine_state
         timestamp:
           id: timestamp
           table: log_field_data
@@ -1505,6 +1747,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: log
+          entity_field: timestamp
+          plugin_id: date
           operator: '<'
           value:
             min: ''
@@ -1527,9 +1772,9 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-            placeholder: ''
             min_placeholder: ''
             max_placeholder: ''
+            placeholder: ''
           is_grouped: false
           group_info:
             label: ''
@@ -1542,34 +1787,22 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: log
-          entity_field: timestamp
-          plugin_id: date
       filter_groups:
         operator: AND
         groups:
           1: AND
-      pager:
-        type: some
-        options:
-          items_per_page: 10
-          offset: 0
       style:
         type: table
         options:
           grouping: {  }
           row_class: ''
           default_row_class: true
-          override: true
-          sticky: false
-          caption: ''
-          summary: ''
-          description: ''
           columns:
             log_bulk_form: log_bulk_form
             id: id
             timestamp: timestamp
             name: name
+          default: timestamp
           info:
             log_bulk_form:
               align: ''
@@ -1597,15 +1830,49 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-          default: timestamp
+          override: true
+          sticky: false
+          summary: ''
           empty_table: true
+          caption: ''
+          description: ''
       row:
         type: fields
         options:
+          default_field_elements: true
           inline: {  }
           separator: ''
           hide_empty: false
-          default_field_elements: true
+      defaults:
+        title: false
+        pager: false
+        use_more: false
+        use_more_always: false
+        use_more_text: false
+        link_display: false
+        link_url: false
+        style: false
+        row: false
+        fields: false
+        filters: false
+        filter_groups: false
+      display_description: ''
+      display_extenders: {  }
+    cache_metadata:
+      max-age: 0
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url.query_args
+        - user.permissions
+      tags: {  }
+  block_upcoming:
+    id: block_upcoming
+    display_title: 'Upcoming (block)'
+    display_plugin: block
+    position: 5
+    display_options:
+      title: 'Upcoming tasks'
       fields:
         log_bulk_form:
           id: log_bulk_form
@@ -1614,6 +1881,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: log
+          plugin_id: bulk_form
           label: 'Bulk update'
           exclude: false
           alter:
@@ -1658,8 +1927,6 @@ display:
           action_title: Action
           include_exclude: exclude
           selected_actions: {  }
-          entity_type: log
-          plugin_id: bulk_form
         id:
           id: id
           table: log_field_data
@@ -1667,6 +1934,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: log
+          entity_field: id
+          plugin_id: field
           label: ID
           exclude: true
           alter:
@@ -1723,9 +1993,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: log
-          entity_field: id
-          plugin_id: field
         timestamp:
           id: timestamp
           table: log_field_data
@@ -1733,6 +2000,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: log
+          entity_field: timestamp
+          plugin_id: log_field
           label: Timestamp
           exclude: false
           alter:
@@ -1790,9 +2060,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: log
-          entity_field: timestamp
-          plugin_id: log_field
         name:
           id: name
           table: log_field_data
@@ -1800,6 +2067,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: null
+          entity_field: name
+          plugin_id: field
           label: 'Log name'
           exclude: false
           alter:
@@ -1855,39 +2125,11 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: null
-          entity_field: name
-          plugin_id: field
-    cache_metadata:
-      max-age: 0
-      contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
-        - url.query_args
-        - user.permissions
-      tags: {  }
-  block_upcoming:
-    display_plugin: block
-    id: block_upcoming
-    display_title: 'Upcoming (block)'
-    position: 5
-    display_options:
-      display_extenders: {  }
-      display_description: ''
-      title: 'Upcoming tasks'
-      defaults:
-        title: false
-        filters: false
-        filter_groups: false
-        pager: false
-        use_more: false
-        use_more_always: false
-        use_more_text: false
-        link_display: false
-        link_url: false
-        fields: false
-        style: false
-        row: false
+      pager:
+        type: some
+        options:
+          offset: 0
+          items_per_page: 10
       filters:
         status:
           id: status
@@ -1896,6 +2138,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: log
+          entity_field: status
+          plugin_id: state_machine_state
           operator: in
           value:
             pending: pending
@@ -1928,9 +2173,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: log
-          entity_field: status
-          plugin_id: state_machine_state
         timestamp:
           id: timestamp
           table: log_field_data
@@ -1938,6 +2180,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: log
+          entity_field: timestamp
+          plugin_id: date
           operator: '>='
           value:
             min: ''
@@ -1960,9 +2205,9 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-            placeholder: ''
             min_placeholder: ''
             max_placeholder: ''
+            placeholder: ''
           is_grouped: false
           group_info:
             label: ''
@@ -1975,286 +2220,22 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: log
-          entity_field: timestamp
-          plugin_id: date
       filter_groups:
         operator: AND
         groups:
           1: AND
-      pager:
-        type: some
-        options:
-          items_per_page: 10
-          offset: 0
-      fields:
-        log_bulk_form:
-          id: log_bulk_form
-          table: log
-          field: log_bulk_form
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: 'Bulk update'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          action_title: Action
-          include_exclude: exclude
-          selected_actions: {  }
-          entity_type: log
-          plugin_id: bulk_form
-        id:
-          id: id
-          table: log_field_data
-          field: id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: ID
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: number_integer
-          settings:
-            thousand_separator: ''
-            prefix_suffix: true
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          entity_type: log
-          entity_field: id
-          plugin_id: field
-        timestamp:
-          id: timestamp
-          table: log_field_data
-          field: timestamp
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: Timestamp
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: true
-            path: 'log/{{ id }}'
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: timestamp
-          settings:
-            date_format: html_date
-            custom_date_format: ''
-            timezone: ''
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          entity_type: log
-          entity_field: timestamp
-          plugin_id: log_field
-        name:
-          id: name
-          table: log_field_data
-          field: name
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: 'Log name'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: string
-          settings:
-            link_to_entity: true
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          entity_type: null
-          entity_field: name
-          plugin_id: field
       style:
         type: table
         options:
           grouping: {  }
           row_class: ''
           default_row_class: true
-          override: true
-          sticky: false
-          caption: ''
-          summary: ''
-          description: ''
           columns:
             log_bulk_form: log_bulk_form
             id: id
             timestamp: timestamp
             name: name
+          default: timestamp
           info:
             log_bulk_form:
               align: ''
@@ -2282,15 +2263,34 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-          default: timestamp
+          override: true
+          sticky: false
+          summary: ''
           empty_table: true
+          caption: ''
+          description: ''
       row:
         type: fields
         options:
+          default_field_elements: true
           inline: {  }
           separator: ''
           hide_empty: false
-          default_field_elements: true
+      defaults:
+        title: false
+        pager: false
+        use_more: false
+        use_more_always: false
+        use_more_text: false
+        link_display: false
+        link_url: false
+        style: false
+        row: false
+        fields: false
+        filters: false
+        filter_groups: false
+      display_description: ''
+      display_extenders: {  }
     cache_metadata:
       max-age: 0
       contexts:
@@ -2300,21 +2300,21 @@ display:
         - user.permissions
       tags: {  }
   csv:
-    display_plugin: rest_export
     id: csv
     display_title: 'CSV export (rest)'
+    display_plugin: rest_export
     position: 7
     display_options:
-      display_extenders: {  }
-      path: logs.csv
+      pager:
+        type: none
+        options:
+          offset: 0
       style:
         type: serializer
         options:
           uses_fields: false
           formats:
             csv: csv
-      auth:
-        - cookie
       row:
         type: data_field
         options:
@@ -2349,11 +2349,11 @@ display:
             owner_target_id:
               alias: ''
               raw_output: false
-      pager:
-        type: none
-        options:
-          offset: 0
       display_description: ''
+      display_extenders: {  }
+      path: logs.csv
+      auth:
+        - cookie
     cache_metadata:
       max-age: 0
       contexts:
@@ -2365,13 +2365,13 @@ display:
         - user.permissions
       tags: {  }
   page:
-    display_plugin: page
     id: page
     display_title: 'All logs (page)'
+    display_plugin: page
     position: 1
     display_options:
-      display_extenders: {  }
-      path: logs
+      defaults:
+        footer: false
       display_description: ''
       footer:
         result:
@@ -2381,9 +2381,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: result
           empty: false
           content: 'Displaying @start - @end of @total'
-          plugin_id: result
         display_link:
           id: display_link
           table: views
@@ -2391,21 +2391,21 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: display_link
+          label: 'Export CSV'
           empty: false
           display_id: csv
-          label: 'Export CSV'
-          plugin_id: display_link
-      defaults:
-        footer: false
+      display_extenders: {  }
+      path: logs
       menu:
         type: normal
         title: Logs
         description: ''
-        expanded: true
-        parent: farm.records
         weight: 0
-        context: '0'
+        expanded: true
         menu_name: admin
+        parent: farm.records
+        context: '0'
     cache_metadata:
       max-age: 0
       contexts:
@@ -2417,14 +2417,11 @@ display:
         - user.permissions
       tags: {  }
   page_asset:
-    display_plugin: page
     id: page_asset
     display_title: 'Asset reference (page)'
+    display_plugin: page
     position: 3
     display_options:
-      display_extenders: {  }
-      display_description: ''
-      path: asset/%asset/logs/%log_type
       arguments:
         asset_or_location:
           id: asset_or_location
@@ -2433,6 +2430,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: log
+          plugin_id: asset_or_location
           default_action: 'not found'
           exception:
             value: all
@@ -2447,8 +2446,8 @@ display:
           summary_options:
             base_path: ''
             count: true
-            items_per_page: 25
             override: false
+            items_per_page: 25
           summary:
             sort_order: asc
             number_of_records: 0
@@ -2458,12 +2457,10 @@ display:
             type: 'entity:asset'
             fail: 'not found'
           validate_options:
-            operation: view
-            multiple: 0
             bundles: {  }
             access: false
-          entity_type: log
-          plugin_id: asset_or_location
+            operation: view
+            multiple: 0
         type:
           id: type
           table: log_field_data
@@ -2471,6 +2468,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: log
+          entity_field: type
+          plugin_id: string
           default_action: ignore
           exception:
             value: all
@@ -2485,8 +2485,8 @@ display:
           summary_options:
             base_path: ''
             count: true
-            items_per_page: 25
             override: false
+            items_per_page: 25
           summary:
             sort_order: asc
             number_of_records: 0
@@ -2496,21 +2496,21 @@ display:
             type: 'entity:log_type'
             fail: 'not found'
           validate_options:
+            bundles: {  }
+            access: false
             operation: view
             multiple: 0
-            access: false
-            bundles: {  }
           glossary: false
           limit: 0
           case: none
           path_case: none
           transform_dash: false
           break_phrase: false
-          entity_type: log
-          entity_field: type
-          plugin_id: string
       defaults:
         arguments: false
+      display_description: ''
+      display_extenders: {  }
+      path: asset/%asset/logs/%log_type
     cache_metadata:
       max-age: 0
       contexts:
@@ -2522,14 +2522,11 @@ display:
         - user.permissions
       tags: {  }
   page_type:
-    display_plugin: page
     id: page_type
     display_title: 'By type (page)'
+    display_plugin: page
     position: 2
     display_options:
-      display_extenders: {  }
-      display_description: ''
-      path: logs/%
       arguments:
         type:
           id: type
@@ -2538,6 +2535,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: log
+          entity_field: type
+          plugin_id: string
           default_action: 'not found'
           exception:
             value: all
@@ -2552,8 +2552,8 @@ display:
           summary_options:
             base_path: ''
             count: true
-            items_per_page: 25
             override: false
+            items_per_page: 25
           summary:
             sort_order: asc
             number_of_records: 0
@@ -2563,23 +2563,23 @@ display:
             type: 'entity:log_type'
             fail: 'not found'
           validate_options:
+            bundles: {  }
+            access: false
             operation: view
             multiple: 0
-            access: false
-            bundles: {  }
           glossary: false
           limit: 0
           case: none
           path_case: none
           transform_dash: false
           break_phrase: false
-          entity_type: log
-          entity_field: type
-          plugin_id: string
       defaults:
         arguments: false
         filters: true
         filter_groups: true
+      display_description: ''
+      display_extenders: {  }
+      path: logs/%
     cache_metadata:
       max-age: 0
       contexts:
@@ -2591,14 +2591,12 @@ display:
         - user.permissions
       tags: {  }
   page_user:
-    display_plugin: page
     id: page_user
     display_title: 'Assigned (page)'
+    display_plugin: page
     position: 4
     display_options:
-      display_extenders: {  }
-      display_description: ''
-      path: user/%user/logs
+      title: 'Assigned logs'
       arguments:
         owner_target_id:
           id: owner_target_id
@@ -2607,6 +2605,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: log
+          entity_field: owner
+          plugin_id: numeric
           default_action: 'not found'
           exception:
             value: all
@@ -2621,8 +2622,8 @@ display:
           summary_options:
             base_path: ''
             count: true
-            items_per_page: 25
             override: false
+            items_per_page: 25
           summary:
             sort_order: asc
             number_of_records: 0
@@ -2632,30 +2633,29 @@ display:
             type: 'entity:user'
             fail: 'not found'
           validate_options:
+            access: false
             operation: view
             multiple: 0
-            access: false
             restrict_roles: false
             roles: {  }
           break_phrase: false
           not: false
-          entity_type: log
-          entity_field: owner
-          plugin_id: numeric
       defaults:
-        arguments: false
-        relationships: true
         title: false
+        relationships: true
+        arguments: false
+      display_description: ''
+      display_extenders: {  }
+      path: user/%user/logs
       menu:
         type: tab
         title: Logs
         description: ''
-        expanded: false
-        parent: ''
         weight: 0
-        context: '0'
+        expanded: false
         menu_name: main
-      title: 'Assigned logs'
+        parent: ''
+        context: '0'
     cache_metadata:
       max-age: 0
       contexts:
