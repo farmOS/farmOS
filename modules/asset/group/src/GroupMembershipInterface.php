@@ -53,7 +53,7 @@ interface GroupMembershipInterface {
    *   Defaults to TRUE.
    *
    * @return \Drupal\asset\Entity\AssetInterface[]
-   *   Returns an array of assets.
+   *   An array of asset objects indexed by their IDs.
    */
   public function getGroupMembers(array $groups, bool $recurse = TRUE): array;
 

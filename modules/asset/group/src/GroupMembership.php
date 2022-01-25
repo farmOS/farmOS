@@ -216,7 +216,8 @@ class GroupMembership implements GroupMembershipInterface {
       $groups = array_filter($assets, function (AssetInterface $asset) {
         return $asset->bundle() === 'group';
       });
-      $assets = array_merge($assets, $this->getGroupMembers($groups));
+      // Use array_replace so that numeric keys are preserved.
+      $assets = array_replace($assets, $this->getGroupMembers($groups));
     }
     return $assets;
   }

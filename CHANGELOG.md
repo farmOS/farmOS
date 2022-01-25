@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- [Issue #3259245: Change getGroupMembers to return an array of assets keyed by their ID](https://www.drupal.org/project/farm/issues/3259245)
+
 ### Fixed
 
 - [Issue #3260645: CSV Export in Quantities not functioning](https://www.drupal.org/project/farm/issues/3260645)

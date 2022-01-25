@@ -246,6 +246,10 @@ class GroupTest extends KernelTestBase {
     $this->assertEquals($first_group->id(), $this->groupMembership->getGroup($second_animal)[0]->id(), 'The second animal is in the first group.');
     $group_members = $this->groupMembership->getGroupMembers([$first_group, $second_group]);
     $this->assertEquals(2, count($group_members), 'Group members from multiple groups can be queried together.');
+
+    // Test that asset IDs are preserved as the array keys.
+    $this->assertTrue(in_array($animal->id(), array_keys($group_members)), 'The ID of the first animal is preserved.');
+    $this->assertTrue(in_array($second_animal->id(), array_keys($group_members)), 'The ID of the second animal is preserved.');
   }
 
   /**
