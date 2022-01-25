@@ -253,6 +253,86 @@ class GroupTest extends KernelTestBase {
   }
 
   /**
+   * Test recursive asset group membership.
+   */
+  public function testRecursiveGroupMembership() {
+
+    // Create an animal asset.
+    /** @var \Drupal\asset\Entity\AssetInterface $animal */
+    $animal = Asset::create([
+      'type' => 'animal',
+      'name' => $this->randomMachineName(),
+      'status' => 'active',
+    ]);
+    $animal->save();
+
+    // Create group assets.
+    /** @var \Drupal\asset\Entity\AssetInterface $first_group */
+    $first_group = Asset::create([
+      'type' => 'group',
+      'name' => $this->randomMachineName(),
+      'status' => 'active',
+    ]);
+    $first_group->save();
+    /** @var \Drupal\asset\Entity\AssetInterface $second_group */
+    $second_group = Asset::create([
+      'type' => 'group',
+      'name' => $this->randomMachineName(),
+      'status' => 'active',
+    ]);
+    $second_group->save();
+
+    // Create a "done" log to assign the animal to the second group.
+    /** @var \Drupal\log\Entity\LogInterface $first_log */
+    $first_log = Log::create([
+      'type' => 'test',
+      'status' => 'done',
+      'is_group_assignment' => TRUE,
+      'group' => ['target_id' => $second_group->id()],
+      'asset' => ['target_id' => $animal->id()],
+    ]);
+    $first_log->save();
+
+    // Create a "pending" log to assign the second group to the first group.
+    /** @var \Drupal\log\Entity\LogInterface $second_log */
+    $second_log = Log::create([
+      'type' => 'test',
+      'status' => 'pending',
+      'is_group_assignment' => TRUE,
+      'group' => ['target_id' => $first_group->id()],
+      'asset' => ['target_id' => $second_group->id()],
+    ]);
+    $second_log->save();
+
+    // Assert that the second group has no group and a single member.
+    $this->assertFalse($this->groupMembership->hasGroup($second_group), 'The second group does not have a group.');
+    $this->assertEquals(1, count($this->groupMembership->getGroupMembers([$second_group])), 'The second group has one member.');
+
+    // Assert that the first group has no members.
+    $this->assertEmpty($this->groupMembership->getGroupMembers([$first_group], FALSE), 'The first group has no members.');
+    $this->assertEmpty($this->groupMembership->getGroupMembers([$first_group], TRUE), 'The first group has no recursive members.');
+
+    // Save the second log to create the nested group membership.
+    $second_log->status = 'done';
+    $second_log->save();
+
+    // Assert that the second group has a group and a single member.
+    $this->assertTrue($this->groupMembership->hasGroup($second_group), 'The second group has a group.');
+    $this->assertEquals(1, count($this->groupMembership->getGroupMembers([$second_group])), 'The second group has one member.');
+
+    // Assert that the first group has a single direct member.
+    $first_group_members = $this->groupMembership->getGroupMembers([$first_group], FALSE);
+    $this->assertEquals(1, count($first_group_members, FALSE), 'The first group has one direct member.');
+    $this->assertTrue(in_array($second_group->id(), array_keys($first_group_members)), 'The ID of the second group is preserved.');
+
+    // Assert that the first group has two recursive members.
+    $first_group_recursive_members = $this->groupMembership->getGroupMembers([$first_group], TRUE);
+    $this->assertEquals(2, count($first_group_recursive_members), 'The first group has two recursive members.');
+    $this->assertTrue(in_array($second_group->id(), array_keys($first_group_recursive_members)), 'The ID of the second group is preserved.');
+    $this->assertTrue(in_array($animal->id(), array_keys($first_group_recursive_members)), 'The ID of the animal is preserved.');
+  }
+
+  /**
    * Test asset location with group membership.
    */
   public function testAssetLocation() {
