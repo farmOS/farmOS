@@ -1509,10 +1509,9 @@ display:
     position: 3
     display_options:
       pager:
-        type: some
+        type: none
         options:
           offset: 0
-          items_per_page: 10
       style:
         type: serializer
         options:
