@@ -51,22 +51,14 @@ function farm_flag_entity_base_field_info(EntityTypeInterface $entity_type) {
  *   Returns an array of allowed values for use in form select options.
  */
 function farm_flag_field_allowed_values(FieldStorageDefinitionInterface $definition, ContentEntityInterface $entity = NULL, bool &$cacheable = TRUE) {
-  /** @var \Drupal\farm_flag\Entity\FarmFlagInterface[] $flags */
-  $flags = \Drupal::entityTypeManager()->getStorage('flag')->loadMultiple();
-  $allowed_values = [];
   $entity_type = NULL;
-  $bundle = NULL;
+  $bundles = [];
   if (!empty($entity)) {
     $cacheable = FALSE;
     $entity_type = $entity->getEntityTypeId();
-    $bundle = $entity->bundle();
+    $bundles = [$entity->bundle()];
   }
-  foreach ($flags as $id => $flag) {
-    if (farm_flag_applies($flag, $entity_type, $bundle)) {
-      $allowed_values[$id] = $flag->getLabel();
-    }
-  }
-  return $allowed_values;
+  return farm_flag_allowed_values($entity_type, $bundles);
 }
 
 /**
