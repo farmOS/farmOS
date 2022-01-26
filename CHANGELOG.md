@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Document farmOS cron set-up: https://farmos.org/hosting/install#cron
+- [Issue #3253433: Provide a helper function for loading flag options and allowed values](https://www.drupal.org/project/farm/issues/3253433)
 
 ### Changed
 
