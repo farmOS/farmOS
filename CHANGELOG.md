@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- [Provide a helper function for loading flag options and allowed values.](https://www.drupal.org/project/farm/issues/3253433)
+
 ## [2.0.0-beta2] 2022-01-19
 
 ### Added
