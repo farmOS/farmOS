@@ -115,24 +115,8 @@ function farm_ui_views_form_views_exposed_form_alter(&$form, FormStateInterface 
   // Get the entity type and (maybe) bundle.
   $entity_type = $storage['view']->getBaseEntityType()->id();
   $bundle = farm_ui_views_get_bundle_argument($storage['view'], $storage['display']['id'], $storage['view']->args);
-
-  // Load flag entities and filter out ones that don't apply.
-  /** @var \Drupal\farm_flag\Entity\FarmFlagInterface[] $flags */
-  $flags = \Drupal::entityTypeManager()->getStorage('flag')->loadMultiple();
-  $allowed_flag_ids = [];
-  foreach ($flags as $flag) {
-    if (farm_flag_applies($flag, $entity_type, $bundle)) {
-      $allowed_flag_ids[] = $flag->id();
-    }
-  }
-
-  // Alter exposed filters to remove flags that are not applicable.
-  $allowed_options = [];
-  foreach ($form['flag_value']['#options'] as $key => $value) {
-    if (in_array($key, $allowed_flag_ids)) {
-      $allowed_options[$key] = $value;
-    }
-  }
+  $bundles = !empty($bundle) ? [$bundle] : [];
+  $allowed_options = farm_flag_allowed_values($entity_type, $bundles, TRUE);
   $form['flag_value']['#options'] = $allowed_options;
 }
 
