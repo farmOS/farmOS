@@ -41,9 +41,9 @@ function farm_ui_views_views_pre_view(ViewExecutable $view, $display_id, array &
     }
   }
 
-  // If this is an asset/log "CSV export" display with a single type filter
-  // applied, alter the fields and filters to match the "By type" display.
-  if (in_array($view->id(), ['farm_asset', 'farm_log']) && $display_id == 'csv') {
+  // If this is an asset/log/quantity "CSV export" display with a single type
+  // filter applied, alter fields and filters to match the "By type" display.
+  if (in_array($view->id(), ['farm_asset', 'farm_log', 'farm_quantity']) && $display_id == 'csv') {
     $exposed_input = $view->getExposedInput();
     if (!empty($exposed_input['type']) && count($exposed_input['type']) == 1) {
       $bundle = $exposed_input['type'][0];

@@ -1480,17 +1480,6 @@ display:
           plugin_id: result
           empty: false
           content: 'Displaying @start - @end of @total'
-        display_link:
-          id: display_link
-          table: views
-          field: display_link
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: display_link
-          label: 'Export CSV'
-          empty: false
-          display_id: csv
       display_extenders: {  }
     cache_metadata:
       max-age: -1
@@ -1509,10 +1498,9 @@ display:
     position: 3
     display_options:
       pager:
-        type: some
+        type: none
         options:
           offset: 0
-          items_per_page: 10
       style:
         type: serializer
         options:
@@ -1559,7 +1547,31 @@ display:
     display_plugin: page
     position: 1
     display_options:
+      defaults:
+        footer: false
       display_description: ''
+      footer:
+        result:
+          id: result
+          table: views
+          field: result
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: result
+          empty: false
+          content: 'Displaying @start - @end of @total'
+        display_link:
+          id: display_link
+          table: views
+          field: display_link
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: display_link
+          label: 'Export CSV'
+          empty: false
+          display_id: csv
       display_extenders: {  }
       path: quantities
       menu:
@@ -1635,7 +1647,30 @@ display:
           break_phrase: false
       defaults:
         arguments: false
+        footer: false
       display_description: ''
+      footer:
+        result:
+          id: result
+          table: views
+          field: result
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: result
+          empty: false
+          content: 'Displaying @start - @end of @total'
+        display_link:
+          id: display_link
+          table: views
+          field: display_link
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: display_link
+          label: 'Export CSV'
+          empty: false
+          display_id: csv
       display_extenders: {  }
       path: quantities/%
     cache_metadata:
