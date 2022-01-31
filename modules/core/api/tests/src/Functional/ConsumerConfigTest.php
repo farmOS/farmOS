@@ -275,9 +275,7 @@ class ConsumerConfigTest extends OauthTestBase {
     $response = $this->post($this->url, $valid_payload);
     $parsed_response = Json::decode((string) $response->getBody());
 
-    return isset($parsed_response['access_token'])
-      ? $parsed_response['access_token']
-      : NULL;
+    return $parsed_response['access_token'] ?? NULL;
   }
 
 }

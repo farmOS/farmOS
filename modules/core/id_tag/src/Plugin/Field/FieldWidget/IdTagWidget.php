@@ -29,11 +29,11 @@ class IdTagWidget extends WidgetBase {
     $element['id'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Tag ID'),
-      '#default_value' => isset($items[$delta]->id) ? $items[$delta]->id : NULL,
+      '#default_value' => $items[$delta]->id ?? NULL,
     ];
 
     // Load the saved tag type, if any.
-    $tag_type = isset($items[$delta]->type) ? $items[$delta]->type : NULL;
+    $tag_type = $items[$delta]->type ?? NULL;
 
     // Get the current asset bundle.
     $bundle = $form_state->getStorage()['form_display']->get('bundle');
@@ -58,7 +58,7 @@ class IdTagWidget extends WidgetBase {
     $element['location'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Tag location'),
-      '#default_value' => isset($items[$delta]->location) ? $items[$delta]->location : NULL,
+      '#default_value' => $items[$delta]->location ?? NULL,
     ];
 
     return $element;
