@@ -1,0 +1,5 @@
+name: farmOS UI Context
+description: Allows modules to display contextual information.
+type: module
+package: farmOS UI
+core_version_requirement: ^10

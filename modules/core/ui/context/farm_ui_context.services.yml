@@ -1,0 +1,4 @@
+services:
+  plugin.manager.farm_context:
+    class: Drupal\farm_ui_context\FarmContextManager
+    parent: default_plugin_manager
