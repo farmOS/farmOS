@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Document farmOS cron set-up: https://farmos.org/hosting/install#cron
+
 ### Changed
 
 - [Issue #3259245: Change getGroupMembers to return an array of assets keyed by their ID](https://www.drupal.org/project/farm/issues/3259245)
