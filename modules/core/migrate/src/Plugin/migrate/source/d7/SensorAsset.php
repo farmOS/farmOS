@@ -59,7 +59,7 @@ class SensorAsset extends FarmAsset {
     if (!empty($settings)) {
 
       // Unserialize the sensor_settings field.
-      $settings_array = unserialize($settings);
+      $settings_array = unserialize($settings, ['allowed_classes' => FALSE]);
 
       // Re-set the source property value.
       $row->setSourceProperty('sensor_settings', $settings_array);
