@@ -28,22 +28,22 @@ defines the structure of these settings.
       configuration. Only grant this to trusted roles.
     - `entity`: Access permissions relating to entities.
         - `view all`: Boolean that specifies the role should have access to view
-        all bundles of all entity types.
+          all bundles of all entity types.
         - `create all`: Boolean that specifies the role should have access to
-        create all bundles of all entity types.
+          create all bundles of all entity types.
         - `update all`: Boolean that specifies the role should have access to
-        update all bundles of all entity types.
+          update all bundles of all entity types.
         - `delete all`: Boolean that specifies the role should have access to
-        delete all bundles of all entity types.
+          delete all bundles of all entity types.
         - `type`: Access permissions for specific entity types.
             - `{entity_type}`: The id of the entity type. eg: `log`,`asset`,
-            `taxonomy_term`, etc.
-                - `{operation}`: The operation to grant bundles of this entity
+              `taxonomy_term`, etc.
+              - `{operation}`: The operation to grant bundles of this entity
                 type. Eg: `create`, `view any`, `view own`, `delete any`,
                 `delete own`, etc.
-                    - `{bundle}`: The id of the entity type bundle or `all` to
-                    grant the operation permission to all bundles of the entity
-                    type.
+                - `{bundle}`: The id of the entity type bundle or `all` to
+                  grant the operation permission to all bundles of the entity
+                  type.
 
 Settings used for the Manager role (full access to all entities + access to
 configuration):
