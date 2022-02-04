@@ -113,10 +113,10 @@ class FarmUpdate implements FarmUpdateInterface {
 
       // Log the result.
       if ($result) {
-        $this->logger->notice($this->t('Reverted config: @config', ['@config' => $name]));
+        $this->logger->notice('Reverted config: @config', ['@config' => $name]);
       }
       else {
-        $this->logger->error($this->t('Failed to revert config: @config', ['@config' => $name]));
+        $this->logger->error('Failed to revert config: @config', ['@config' => $name]);
       }
     }
   }
