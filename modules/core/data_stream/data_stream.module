@@ -31,7 +31,7 @@ function data_stream_data_stream_view_alter(array &$build, DataStreamInterface $
   // Use getOriginalMode() because getMode() is not reliable. The default
   // display mode will return "full" unless a "default" display is actually
   // saved in config. In either case, the original mode is always "full".
-  if ($data_stream->access('edit') === TRUE && $display->getOriginalMode() === 'full') {
+  if ($data_stream->access('update') === TRUE && $display->getOriginalMode() === 'full') {
 
     // Add a Developer information details element with brief description.
     // @todo Include link to updated user guide.
