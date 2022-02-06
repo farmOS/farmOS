@@ -19,10 +19,10 @@ class FarmLogViewsTaskLink extends DeriverBase {
     $links = [];
 
     // Add links for each bundle.
-    $bundles = \Drupal::service('entity_type.bundle.info')->getBundleInfo('log');
-    foreach ($bundles as $type => $info) {
+    $bundles = \Drupal::service('entity_type.manager')->getStorage('log_type')->loadMultiple();
+    foreach ($bundles as $type => $bundle) {
       $links['farm.asset.logs.' . $type] = [
-        'title' => $info['label'],
+        'title' => $bundle->label(),
         'parent_id' => 'farm.asset.logs',
         'route_name' => 'view.farm_log.page_asset',
         'route_parameters' => [

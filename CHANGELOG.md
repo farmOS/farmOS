@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - [Issue #3260645: CSV Export in Quantities not functioning](https://www.drupal.org/project/farm/issues/3260645)
+- [Issue #3262752: Record type menu items lose translations](https://www.drupal.org/project/farm/issues/3262752)
 
 ## [2.0.0-beta2] 2022-01-19
 
