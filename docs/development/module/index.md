@@ -65,10 +65,6 @@ Other common files and directories in a module include:
 If you want to share your module, consider publishing the repository so that it
 can be downloaded and installed by other farmOS users.
 
-[farmOS.org](https://farmOS.org) maintains a list of community modules, and
-accepts new additions via
-[pull requests](https://github.com/farmOS/farmOS.org/pulls).
-
 It is recommended that "contributed" farmOS modules be made available as a
 "project" on [Drupal.org](https://drupal.org). This has two benefits:
 
@@ -76,6 +72,9 @@ It is recommended that "contributed" farmOS modules be made available as a
 - Translations can be automatically managed and downloaded from Drupal's
   centralized localization server:
   [localize.drupal.org](https://localize.drupal.org)
+
+A list of community modules that have been made available as Drupal projects
+can be found in the [farmOS ecosystem](https://www.drupal.org/project/farm/ecosystem).
 
 ### License
 
