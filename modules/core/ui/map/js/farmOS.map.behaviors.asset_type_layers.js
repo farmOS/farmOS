@@ -46,11 +46,11 @@
           }
 
           // Build a url to the asset type geojson, default to all.
-          const assetType = layer.asset_type ?? 'all';
+          const assetType = layer.asset_type || 'all';
           const url = new URL('assets/geojson/' + geomType + '/' + assetType, window.location.origin + drupalSettings.path.baseUrl);
 
           // Include provided filters.
-          const filters = layer.filters ?? {};
+          const filters = layer.filters || {};
           Object.entries(filters).forEach( ([key, value]) => {
             if (Array.isArray(value)) {
               for (let i = 0; i < value.length; i++) {
