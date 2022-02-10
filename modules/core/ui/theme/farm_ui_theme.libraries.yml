@@ -32,8 +32,3 @@ toolbar:
       css/toolbar.css: { }
   js:
     js/toolbar.js: { weight: -50 }
-autocomplete:
-  js:
-    js/autocomplete.js: { }
-  dependencies:
-    - core/jquery
