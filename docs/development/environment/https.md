@@ -10,7 +10,7 @@ from the directory that your `docker-compose.yml` file is in:
 
 ```
 mkdir ssl
-openssl req -newkey rsa:4096 -x509 -sha256 -nodes -out ssl/openssl.crt -keyout ssl/openssl.key`
+openssl req -newkey rsa:4096 -x509 -sha256 -nodes -out ssl/openssl.crt -keyout ssl/openssl.key
 ```
 
 Create a file called `nginx.conf` alongside `docker-compose.yml`:
