@@ -23,6 +23,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Maps broken with Uncaught SyntaxError: Unexpected token '?' #501](https://github.com/farmOS/farmOS/issues/501)
 - [Asset autocomplete breaks when asset has parentheses at the end #502](https://github.com/farmOS/farmOS/issues/502)
 
+### Security
+
+- Update Drupal core to 9.3.6 for [SA-CORE-2022-003](https://www.drupal.org/sa-core-2022-004)
+  and [SA-CORE-2022-004](https://www.drupal.org/sa-core-2022-004).
+
 ## [2.0.0-beta2] 2022-01-19
 
 ### Added
