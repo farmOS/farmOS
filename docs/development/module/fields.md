@@ -15,7 +15,9 @@ If the field should be added to all bundles of a given entity type (eg: all log
 types), then they should be added as "base fields" via
 `hook_entity_base_field_info()`.
 
-A `farm_field.factory` helper service is provided to make this easier:
+A `farm_field.factory` helper service is provided to make this easier.
+
+To get started, place the following in the `[modulename].module` file:
 
 ```php
 <?php
@@ -24,12 +26,14 @@ use Drupal\Core\Entity\EntityTypeInterface;
 
 /**
  * Implements hook_entity_base_field_info().
+ * NOTE: Replace 'mymodule' with the module name.
  */
 function mymodule_entity_base_field_info(EntityTypeInterface $entity_type) {
   $fields = [];
 
-  // Add a new string field to Log entities.
+  // 'log' specifies the entity type to apply to.
   if ($entity_type->id() == 'log') {
+    // Options for the new field. See Field options below.
     $options = [
       'type' => 'string',
       'label' => t('My new field'),
@@ -39,6 +43,7 @@ function mymodule_entity_base_field_info(EntityTypeInterface $entity_type) {
         'view' => 10,
       ],
     ];
+    // NOTE: Replace 'myfield' with the internal name of the field.
     $fields['myfield'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
   }
 
@@ -60,6 +65,8 @@ The format for bundle field definitions is identical to base field definitions
 (above), but the `bundleFieldDefinition()` method must be used instead of
 `baseFieldDefinition()`.
 
+To get started, place the following in the `[modulename].module` file:
+
 ```php
 <?php
 
@@ -67,12 +74,15 @@ use Drupal\Core\Entity\EntityTypeInterface;
 
 /**
  * Implements hook_farm_entity_bundle_field_info().
+ * NOTE: Replace 'mymodule' with the module name.
  */
 function mymodule_farm_entity_bundle_field_info(EntityTypeInterface $entity_type, $bundle) {
   $fields = [];
 
-  // Add a new string field to Input Logs.
+  // Add a new string field to Input Logs. 'log' specifies the entity type and
+  // 'input' specifies the bundle.
   if ($entity_type->id() == 'log' && $bundle == 'input') {
+    // Options for the new field. See Field options below.
     $options = [
       'type' => 'string',
       'label' => t('My new field'),
@@ -82,6 +92,7 @@ function mymodule_farm_entity_bundle_field_info(EntityTypeInterface $entity_type
         'view' => 10,
       ],
     ];
+    // NOTE: Replace 'myfield' with the internal name of the field.
     $fields['myfield'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
   }
 
