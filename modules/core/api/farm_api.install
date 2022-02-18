@@ -53,14 +53,13 @@ function farm_api_install() {
   $pub_filename = sprintf('%s/public.key', $keys_path);
   $pri_filename = sprintf('%s/private.key', $keys_path);
 
-  // Create keys if they don't exist.
+  // Attempt to create keys if they don't exist.
   if (!$file_system_checker->fileExist($pub_filename) || !$file_system_checker->fileExist($pri_filename)) {
     try {
       $key_gen->generateKeys($keys_path);
     }
     catch (\Exception $e) {
       watchdog_exception('farm_api', $e);
-      return;
     }
   }
 
