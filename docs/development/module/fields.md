@@ -137,6 +137,10 @@ Existing options can be overridden or removed by editing/deleting the entities
 in the active configuration of the site. (**Warning** changing core types runs
 the risk of conflicting with future farmOS updates).
 
+Note that the file name is important and must follow a specific pattern. This
+is generally in the form `[select_module_name].[select_field].[id].yml`. See
+the examples for more info.
+
 ### Examples:
 
 #### Flag
@@ -155,6 +159,8 @@ id: organic
 label: Organic
 entity_types: null
 ```
+
+Note that the file name is in the form `farm_flag.flag.[id].yml`.
 
 The most important parts are the `id`, which is a unique machine name for
 the flag, `label`, which is the human readable/translatable label that will be
@@ -205,6 +211,8 @@ id: field
 label: Field
 ```
 
+Note that the file name is in the form `farm_land.land_type.[id].yml`.
+
 #### Structure type
 
 The "Structure" module in farmOS provides a "Building" type like this:
@@ -222,6 +230,8 @@ id: building
 label: Building
 ```
 
+Note that the file name is in the form `farm_structure.structure_type.[id].yml`.
+
 #### Lab test type
 
 The "Lab test" module in farmOS provides a "Soil test" type like this:
@@ -238,6 +248,8 @@ dependencies:
 id: soil
 label: Soil test
 ```
+
+Note that the file name is in the form `farm_lab_test.lab_test_type.[id].yml`.
 
 #### ID tag type
 
@@ -263,6 +275,8 @@ label: Ear tag
 bundles:
   - animal
 ```
+
+Note that the file name is in the form `farm_flag.flag.ear_tag.[id].yml`.
 
 If you want the tag type to apply to all assets, set `bundles: null`.
 (or can it just be omitted?)
