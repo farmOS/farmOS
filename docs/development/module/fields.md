@@ -192,11 +192,15 @@ These include:
     - Tattoo (`tattoo`, on Animal assets)
 
 These options are provided as configuration entities by farmOS modules in the
-form of YAML files.
+form of YAML files. 
 
 Existing options can be overridden or removed by editing/deleting the entities
 in the active configuration of the site. (**Warning** changing core types runs
 the risk of conflicting with future farmOS updates).
+
+Note that the file name is important and must follow a specific pattern. This
+is generally in the form `[select_module_name].[select_field].[id].yml`. See
+the examples for more info.
 
 ### Examples:
 
@@ -221,6 +225,7 @@ The most important parts are the `id`, which is a unique machine name for
 the flag, `label`, which is the human readable/translatable label that will be
 shown in the select field and other parts of the UI, and `entity_types`, which
 can optionally specify the entity types and bundles that this flag applies to.
+Note that the file name is in the form `farm_flag.flag.[id].yml`.
 
 The `langcode` and `status` and `dependencies` are standard configuration
 entity properties. By putting the module's name in "enforced modules" it will
@@ -266,6 +271,8 @@ id: field
 label: Field
 ```
 
+Note that the file name is in the form `farm_land.land_type.[id].yml`.
+
 #### Structure type
 
 The "Structure" module in farmOS provides a "Building" type like this:
@@ -282,6 +289,7 @@ dependencies:
 id: building
 label: Building
 ```
+Note that the file name is in the form `farm_structure.structure_type.[id].yml`.
 
 #### Lab test type
 
@@ -299,6 +307,8 @@ dependencies:
 id: soil
 label: Soil test
 ```
+Note that the file name is in the form `farm_lab_test.lab_test_type.[id].yml`
+
 
 #### ID tag type
 
@@ -324,6 +334,7 @@ label: Ear tag
 bundles:
   - animal
 ```
+Note that the file name is in the form `farm_flag.flag.ear_tag.[id].yml`
 
 If you want the tag type to apply to all assets, set `bundles: null`.
 (or can it just be omitted?)
