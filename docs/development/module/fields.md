@@ -212,8 +212,8 @@ dependencies:
   enforced:
     module:
       - my_module
-id: monitor
-label: Monitor
+id: organic
+label: Organic
 entity_types: null
 ```
 
