@@ -18,6 +18,7 @@ types), then they should be added as "base fields" via
 A `farm_field.factory` helper service is provided to make this easier.
 
 To get started, place the following in the `[modulename].module` file:
+
 ```php
 <?php
 
@@ -25,13 +26,15 @@ use Drupal\Core\Entity\EntityTypeInterface;
 
 /**
  * Implements hook_entity_base_field_info().
+ * NOTE: Replace 'mymodule' with the module name.
  */
-function mymodule_entity_base_field_info(EntityTypeInterface $entity_type) {                    // <-- Replace 'mymodule' with the module name.
+function mymodule_entity_base_field_info(EntityTypeInterface $entity_type) {
   $fields = [];
 
-  // Add a new string field to Log entities.
-  if ($entity_type->id() == 'log') {                                                            // <-- Specifies the entity type to apply to.
-    $options = [                                                                                // <-- Options for the new field. See Field options below.
+  // 'log' specifies the entity type to apply to.
+  if ($entity_type->id() == 'log') {
+    // Options for the new field. See Field options below.
+    $options = [
       'type' => 'string',
       'label' => t('My new field'),
       'description' => t('My field description.'),
@@ -40,7 +43,8 @@ function mymodule_entity_base_field_info(EntityTypeInterface $entity_type) {    
         'view' => 10,
       ],
     ];
-    $fields['myfield'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options); // <-- Replace 'myfield' with the internal name of the field.
+    // NOTE: Replace 'myfield' with the internal name of the field.
+    $fields['myfield'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
   }
 
   return $fields;
@@ -62,6 +66,7 @@ The format for bundle field definitions is identical to base field definitions
 `baseFieldDefinition()`.
 
 To get started, place the following in the `[modulename].module` file:
+
 ```php
 <?php
 
@@ -69,13 +74,16 @@ use Drupal\Core\Entity\EntityTypeInterface;
 
 /**
  * Implements hook_farm_entity_bundle_field_info().
+ * NOTE: Replace 'mymodule' with the module name.
  */
-function mymodule_farm_entity_bundle_field_info(EntityTypeInterface $entity_type, $bundle) {      // <-- Replace 'mymodule' with the module name.
+function mymodule_farm_entity_bundle_field_info(EntityTypeInterface $entity_type, $bundle) {
   $fields = [];
 
-  // Add a new string field to Input Logs.
-  if ($entity_type->id() == 'log' && $bundle == 'input') {                                        // <-- Specifies the entity type and bundle to apply to.
-    $options = [                                                                                  // <-- ptions for the new field. See Field options below.
+  // Add a new string field to Input Logs. 'log' specifies the entity type and
+  // 'input' specifies the bundle.
+  if ($entity_type->id() == 'log' && $bundle == 'input') {
+    // Options for the new field. See Field options below.
+    $options = [
       'type' => 'string',
       'label' => t('My new field'),
       'description' => t('My field description.'),
@@ -84,7 +92,8 @@ function mymodule_farm_entity_bundle_field_info(EntityTypeInterface $entity_type
         'view' => 10,
       ],
     ];
-    $fields['myfield'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options); // <-- Replace 'myfield' with the internal name of the field.
+    // NOTE: Replace 'myfield' with the internal name of the field.
+    $fields['myfield'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
   }
 
   return $fields;
@@ -192,7 +201,7 @@ These include:
     - Tattoo (`tattoo`, on Animal assets)
 
 These options are provided as configuration entities by farmOS modules in the
-form of YAML files. 
+form of YAML files.
 
 Existing options can be overridden or removed by editing/deleting the entities
 in the active configuration of the site. (**Warning** changing core types runs
@@ -319,7 +328,7 @@ certain types of assets.
 For example, an "Ear tag" type, provided by the "Animal asset" module, only
 applies to "Animal" assets:
 
-`animal/config/install/farm_flag.flag.ear_tag.yml`
+`animal/config/install/farm_id_tag.id_tag.ear_tag.yml`
 
 ```yaml
 langcode: en
