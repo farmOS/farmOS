@@ -102,46 +102,103 @@ function mymodule_farm_entity_bundle_field_info(EntityTypeInterface $entity_type
 
 ## Field options
 The following keys are available to use when specifying fields:
+### `'label'`
+What the field should be called when displayed to the user. 
 
-| Option | Description |
-|:-:|:--|
-| `'label'` | What the field should be called when displayed to the user. |
-| `'description'` | A description of the field and how to use it. |
-| `'computed'` | Whether the field is computed. |
-| `'required'` | Specify this to force the user to enter a value into this field. |
-| `'revisionable'` | Make the field revisionable, unless told otherwise. |
-| `'cardinality'` | Set cardinality, if specified. If neither `'cardinality'` or `'multiple'` is specified, this defaults to 1. |
-| `'multiple'` | If `'cardinality'` is not specified and `'multiple'` is, set the cardinality to unlimited. |
-| `'translatable'` | Only makes the field translatable if it is specified |
-| `'default_value_callback'` | Sets the default value callback, if specified |
-| `'type'` | The datatype of the field, represented as one of the following strings: <ul><li>[`'boolean'`](#boolean)</li><li>[`'entity_reference'`](#entity-reference)</li><li>[`'entity_reference_revisions'`](#entity-reference-revisions)</li><li>[`'file'`](#file-and-image)</li><li>[`'image'`](#file-and-image)</li><li>[`'fraction'`](#fraction)</li><li>[`'geofield'`](#geofield)</li><li>[`'id_tag'`](#id-tag)</li><li>[`'inventory'`](#inventory)</li><li>[`'list_string'`](#list-string)</li><li>[`'string'`](#string)</li><li>[`'string_long'`](#long-string)</li><li>[`'timestamp'`](#timestamp)</li></ul> Click one of the above or scroll down for options relating to each specific type.  |
-| `'hidden'` | Hide the field in form and view displays, if specified. The hidden option can either be set to `true`, which will hide it in both form and view displays, or it can be set to `'form'` or `'view'`, which will only hide it in the form or view display. |
-| `'form_display_options'` & `'view_display_options'` | Override form and view display options, if specified. |
-| `'weight'` | Contains an associative array with the keys `'form'` and `'view'`, giving hints on whereabouts the field should appear. |
+### `'description'`
+A description of the field and how to use it.
 
-### Datatype specific options
+### `'computed'`
+Whether the field is computed.
+
+### `'required'`
+Specify this to force the user to enter a value into this field.
+
+### `'revisionable'`
+Make the field revisionable, unless told otherwise.
+
+### `'cardinality'`
+Set cardinality, if specified. If neither `'cardinality'` or `'multiple'` is
+specified, this defaults to 1.
+
+### `'multiple'`
+If `'cardinality'` is not specified and `'multiple'` is, set the cardinality to
+unlimited.
+
+### `'translatable'`
+Only makes the field translatable if it is specified.
+
+### `'default_value_callback'`
+Sets the default value callback, if specified.
+
+### `'type'`
+The datatype of the field, represented as one of the following strings:
+- [`'boolean'`](#boolean)
+- [`'entity_reference'`](#entity-reference)
+- [`'entity_reference_revisions'`](#entity-reference-revisions)
+- [`'file'`](#file-and-image)
+- [`'image'`](#file-and-image)
+- [`'fraction'`](#fraction)
+- [`'geofield'`](#geofield)
+- [`'id_tag'`](#id-tag)
+- [`'inventory'`](#inventory)
+- [`'list_string'`](#list-string)
+- [`'string'`](#string)
+- [`'string_long'`](#long-string)
+- [`'timestamp'`](#timestamp)
+
+Click one of the above or scroll down for additional options relating to each
+specific type.
+
+### `'hidden'`
+Hide the field in form and view displays, if specified. The hidden option can
+either be set to `true`, which will hide it in both form and view displays, or
+it can be set to `'form'` or `'view'`, which will only hide it in the form or
+view display.
+
+### `'form_display_options'` & `'view_display_options'`
+Override form and view display options, if specified.
+
+### `'weight'`
+Contains an associative array with the keys `'form'` and `'view'`, giving hints
+on whereabouts the field should appear (See the examples).
+
+### Type specific options
 #### Boolean
 Currently there are no boolean-specific options.
 
 #### Entity reference
-| Option     | Description             |
-|:----------:|:------------------------|
-| `'target_type'` | Required. What sort of entity the reference should be targeting. This can be one of: <ul><li>`'asset'`</li><li>`'log'`</li><li>`'taxonomy_term'`</li><li>`'user'`</li><li>`'data_stream'`</li></ul> |
-| `'target_bundle'` | Used when `'target_type'` is set to `'asset'` or `'taxonomy_term'`. Used to specify the bundle to look for. |
-| `'auto_create'` | Used when `'target_type'` is set to `'taxonomy_term'`. If `'auto_create'` is set, term references will be created automatically if not already defined. |
+##### `'target_type'`
+Required. What sort of entity the reference should be targeting. This can be
+one of: - `'asset'`
+- `'log'`
+- `'taxonomy_term'`
+- `'user'`
+- `'data_stream'`
+
+##### `'target_bundle'`
+Used when `'target_type'` is set to `'asset'` or `'taxonomy_term'`. Used to
+specify the bundle to look for.
+
+##### `'auto_create'`
+Used when `'target_type'` is set to `'taxonomy_term'`. If `'auto_create'` is
+set, term references will be created automatically if not already defined.
 
 #### Entity reference revisions
-| Option     | Description             |
-|:----------:|:------------------------|
-| `'target_type'` | Required. This currently must be `'quantity'`. |
+##### `'target_type'`
+Required. This currently must be `'quantity'`.
 
 #### File and image
-| Option | Description |
-|:------:|:------------|
-| `'file_directory'` | The directory that the image will be uploaded to in relation to the private file system path. If not set, this will be `farm/[date:custom:Y]-[date:custom:m]`. |
+##### `'file_directory'`
+The directory that the image will be uploaded to in relation to the private
+file system path. If not set, this will be
+`farm/[date:custom:Y]-[date:custom:m]`. |
 
 For images, the allowed file extensions are `png`, `gif`, `jpg` and `jpeg`.  
-For other files, the allowed file extensions are `csv`, `doc`, `docx`, `gz`, `geojson`, `gpx`, `kml`, `kmz`, `logz`, `mp3`, `odp`, `ods`, `odt`, `ogg`, `pdf`, `ppt`, `pptx`, `tar`, `tif`, `tiff`, `txt`, `wav`, `xls`, `xlsx` and `zip`.
+For other files, the allowed file extensions are `csv`, `doc`, `docx`, `gz`,
+`geojson`, `gpx`, `kml`, `kmz`, `logz`, `mp3`, `odp`, `ods`, `odt`, `ogg`,
+`pdf`, `ppt`, `pptx`, `tar`, `tif`, `tiff`, `txt`, `wav`, `xls`, `xlsx` and
+`zip`.
 
 #### Fraction
 Currently there are no fraction-specific options.
@@ -156,16 +213,19 @@ Currently there are no ID tag-specific options.
 Currently there are no inventory-specific options.
 
 #### List string
-| Option | Description |
-|:------:|:------------|
-| `'allowed_values'` | Optionally specify allowed values |
-| `'allowed_values_function'` | Optionally specify a function that returns the allowed values |
+##### `'allowed_values'`
+Optionally specify allowed values.
+
+##### `'allowed_values_function'`
+Optionally specify a function that returns the allowed values.
 
 #### String
-Maximum length of 255 characters. Currently there are no string-specific coptions.
+Maximum length of 255 characters. Currently there are no string-specific
+coptions.
 
 #### Long string
-This is for longer messages than the string type. Currently there are no long string-specific options.
+This is for longer messages than the string type. Currently there are no long
+string-specific options.
 
 #### Timestamp
 Currently there are no long timestamp-specific options.
