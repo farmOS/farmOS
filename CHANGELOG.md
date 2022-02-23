@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Maps broken with Uncaught SyntaxError: Unexpected token '?' #501](https://github.com/farmOS/farmOS/issues/501)
 - [Asset autocomplete breaks when asset has parentheses at the end #502](https://github.com/farmOS/farmOS/issues/502)
 - [Issue #3265207: API keys directory failure prevents farm client creation](https://www.drupal.org/project/farm/issues/3265207)
+- [Issue #3264564: No space rendered in field suffix](https://www.drupal.org/project/farm/issues/3264564)
 
 ### Security
 
