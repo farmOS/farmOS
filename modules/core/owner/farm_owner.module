@@ -13,8 +13,8 @@ use Drupal\Core\Entity\EntityTypeInterface;
 function farm_owner_entity_base_field_info(EntityTypeInterface $entity_type) {
   $fields = [];
 
-  // Add owner field to logs.
-  if ($entity_type->id() == 'log') {
+  // Add owner field to logs and assets.
+  if ($entity_type->id() == 'log' || $entity_type->id() == 'asset') {
     $field_info = [
       'type' => 'entity_reference',
       'label' => t('Assigned to'),
