@@ -1,0 +1,11 @@
+name: Birth Quick Form
+description: Provides a quick form for recording births.
+type: module
+package: farmOS Quick Forms
+core_version_requirement: ^9
+dependencies:
+  - farm:farm_animal
+  - farm:farm_birth
+  - farm:farm_observation
+  - farm:farm_quantity_standard
+  - farm:farm_quick
