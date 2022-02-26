@@ -37,11 +37,11 @@ class Weight extends QuickFormBase {
   use QuickQuantityTrait;
   use QuickStringTrait;
 
-    /**
-   * The entity type manager service.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
-   */
+  /**
+  * The entity type manager service.
+  *
+  * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+  */
   protected $entityTypeManager;
   /**
    * The state service.
@@ -113,7 +113,7 @@ class Weight extends QuickFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
 
-    // Get the units from storage
+    // Get the units from storage.
     $unit_id = $this->state->get('farm_quick_weight.unit');
     $unit = $this->entityTypeManager->getStorage('taxonomy_term')->load($unit_id);
 
@@ -153,7 +153,7 @@ class Weight extends QuickFormBase {
       ],
       '#autocreate' => [
         'bundle' => 'unit',
-       ],
+      ],
       '#default_value' => $unit,
 
     ];
