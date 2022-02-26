@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Document farmOS cron set-up: https://farmos.org/hosting/install#cron
+- Added a Weigh quick form module.
 
 ### Changed
 
