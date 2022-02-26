@@ -30,13 +30,12 @@ use Psr\Container\ContainerInterface;
  *   }
  * )
  */
+class Weight extends QuickFormBase {
 
-class Weight extends QuickFormBase{
-
-    use QuickAssetTrait;
-    use QuickLogTrait;
-    use QuickQuantityTrait;
-    use QuickStringTrait;
+  use QuickAssetTrait;
+  use QuickLogTrait;
+  use QuickQuantityTrait;
+  use QuickStringTrait;
 
     /**
    * The entity type manager service.
@@ -44,9 +43,6 @@ class Weight extends QuickFormBase{
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   protected $entityTypeManager;
-
-  
-
   /**
    * The state service.
    *
@@ -87,7 +83,7 @@ class Weight extends QuickFormBase{
    * @param \Drupal\Core\State\StateInterface $state
    *   The state service.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, MessengerInterface $messenger, EntityTypeManagerInterface $entity_type_manager, ModuleHandlerInterface $module_handler,  StateInterface $state, TimeInterface $time) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, MessengerInterface $messenger, EntityTypeManagerInterface $entity_type_manager, ModuleHandlerInterface $module_handler, StateInterface $state, TimeInterface $time) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $messenger);
     $this->moduleHandler = $module_handler;
     $this->entityTypeManager = $entity_type_manager;
@@ -117,7 +113,7 @@ class Weight extends QuickFormBase{
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
 
-    //Get the units from storage
+    // Get the units from storage
     $unit_id = $this->state->get('farm_quick_weight.unit');
     $unit = $this->entityTypeManager->getStorage('taxonomy_term')->load($unit_id);
 
@@ -149,16 +145,16 @@ class Weight extends QuickFormBase{
 
     // Weight unit.
     $form['unit'] = [
-        '#type' => 'entity_autocomplete',
-        '#title' => $this->t('Units'),
-        '#target_type' => 'taxonomy_term',
-        '#selection_settings' => [
-            'target_bundles' => ['unit'],
-        ],
-        '#autocreate' => [
-          'bundle' => 'unit',
-        ],
-        '#default_value' => $unit,
+      '#type' => 'entity_autocomplete',
+      '#title' => $this->t('Units'),
+      '#target_type' => 'taxonomy_term',
+      '#selection_settings' => [
+        'target_bundles' => ['unit'],
+      ],
+      '#autocreate' => [
+        'bundle' => 'unit',
+       ],
+      '#default_value' => $unit,
 
     ];
 
@@ -170,12 +166,10 @@ class Weight extends QuickFormBase{
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
 
-
-    $log_type = "observation";  // Log type.
+    $log_type = "observation";
 
     // Get the form values.
     $date = $form_state->getValue('date');
-    
     $weight = $form_state->getValue('weight');
     $unit = $form_state->getValue('unit');
     $animal = $form_state->getValue('animal');
@@ -185,7 +179,7 @@ class Weight extends QuickFormBase{
     $this->state->set('farm_quick_weight.unit', $unit_entity->id());
     $asset = $this->entityTypeManager->getStorage('asset')->load($animal);
 
-    //Create the log name from the animal asset, weight and unit
+    // Create the log name from the animal asset, weight and unit.
     $log_name = $this->t("Weight of @asset is @weight @unit", [
       '@asset' => $asset->label(),
       '@weight' => $weight,
@@ -193,20 +187,20 @@ class Weight extends QuickFormBase{
     ]);
 
     // Create the log.
-    $this ->createLog([
+    $this->createLog([
       'type' => $log_type,
       'name' => $log_name,
       'timestamp' => strtotime($date),
       'asset' => $asset,
       'quantity' => [
           [
-              'measure' => 'weight',
-              'value' => $weight,
-              'unit' => $unit_entity,
+            'measure' => 'weight',
+            'value' => $weight,
+            'unit' => $unit_entity,
           ],
       ],
       'status' => 'done',
-  ]);
+    ]);
   }
 
 }
