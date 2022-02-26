@@ -38,10 +38,10 @@ class Weight extends QuickFormBase {
   use QuickStringTrait;
 
   /**
-  * The entity type manager service.
-  *
-  * @var \Drupal\Core\Entity\EntityTypeManagerInterface
-  */
+   * The entity type manager service.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
   protected $entityTypeManager;
   /**
    * The state service.
