@@ -81,7 +81,7 @@ class Weight extends QuickFormBase {
    * @param \Drupal\Core\State\StateInterface $state
    *   The state service.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, MessengerInterface $messenger, ModuleHandlerInterface $module_handler, TimeInterface $time, EntityTypeManagerInterface $entity_type_manager,  StateInterface $state, ) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, MessengerInterface $messenger, ModuleHandlerInterface $module_handler, TimeInterface $time, EntityTypeManagerInterface $entity_type_manager, StateInterface $state) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $messenger);
     $this->moduleHandler = $module_handler;
     $this->entityTypeManager = $entity_type_manager;
