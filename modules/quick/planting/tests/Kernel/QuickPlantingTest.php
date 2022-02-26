@@ -3,78 +3,37 @@
 namespace Drupal\Tests\farm_quick_planting\Kernel;
 
 use Drupal\asset\Entity\Asset;
-use Drupal\Core\Form\FormState;
-use Drupal\KernelTests\KernelTestBase;
 use Drupal\taxonomy\Entity\Term;
-use Drupal\Tests\user\Traits\UserCreationTrait;
+use Drupal\Tests\farm_quick\Kernel\QuickFormTestBase;
 
 /**
  * Tests for farmOS planting quick form.
  *
  * @group farm
  */
-class QuickPlantingTest extends KernelTestBase {
-
-  use UserCreationTrait;
+class QuickPlantingTest extends QuickFormTestBase {
 
   /**
-   * Asset entity storage.
+   * Quick form ID.
    *
-   * @var \Drupal\Core\Entity\EntityStorageInterface
+   * @var string
    */
-  protected $assetStorage;
-
-  /**
-   * Log entity storage.
-   *
-   * @var \Drupal\Core\Entity\EntityStorageInterface
-   */
-  protected $logStorage;
+  protected $quickFormId = 'planting';
 
   /**
    * {@inheritdoc}
    */
   protected static $modules = [
-    'asset',
-    'entity',
-    'entity_reference_revisions',
-    'farm_entity',
-    'farm_entity_fields',
-    'farm_field',
-    'farm_format',
     'farm_harvest',
     'farm_land',
-    'farm_location',
-    'farm_log',
-    'farm_log_asset',
-    'farm_log_quantity',
-    'farm_map',
     'farm_plant',
     'farm_plant_type',
     'farm_quantity_standard',
-    'farm_quick',
     'farm_quick_planting',
     'farm_season',
     'farm_seeding',
     'farm_transplanting',
     'farm_unit',
-    'file',
-    'filter',
-    'fraction',
-    'geofield',
-    'image',
-    'log',
-    'options',
-    'quantity',
-    'rest',
-    'serialization',
-    'state_machine',
-    'system',
-    'taxonomy',
-    'text',
-    'user',
-    'views',
-    'views_geojson',
   ];
 
   /**
@@ -82,20 +41,9 @@ class QuickPlantingTest extends KernelTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
-    $this->setUpCurrentUser([], [], TRUE);
-    $this->assetStorage = \Drupal::entityTypeManager()->getStorage('asset');
-    $this->logStorage = \Drupal::entityTypeManager()->getStorage('log');
-    $this->installEntitySchema('asset');
-    $this->installEntitySchema('log');
-    $this->installEntitySchema('taxonomy_term');
-    $this->installEntitySchema('quantity');
-    $this->installEntitySchema('user');
-    $this->installEntitySchema('user_role');
     $this->installConfig([
-      'farm_format',
       'farm_harvest',
       'farm_land',
-      'farm_location',
       'farm_plant',
       'farm_quantity_standard',
       'farm_seeding',
@@ -340,18 +288,6 @@ class QuickPlantingTest extends KernelTestBase {
     $this->assertEquals('pending', $log->get('status')->value);
     $log = $logs[4];
     $this->assertEquals('pending', $log->get('status')->value);
-  }
-
-  /**
-   * Helper function for performing a planting quick form submission.
-   *
-   * @param array $values
-   *   The values to submit.
-   */
-  protected function submitQuickForm(array $values = []) {
-    $form_arg = '\Drupal\farm_quick\Form\QuickForm';
-    $form_state = (new FormState())->setValues($values);
-    \Drupal::formBuilder()->submitForm($form_arg, $form_state, 'planting');
   }
 
 }
