@@ -1,0 +1,8 @@
+name: Weight Quick Form
+description: Quick form for recording animal weights
+type: module
+package: farmOS Quick Forms
+core_version_requirement: ^9
+dependencies:
+  - farm:farm_observation
+  - farm:farm_quick
