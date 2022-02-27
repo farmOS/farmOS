@@ -11,7 +11,7 @@ use Drupal\Tests\farm_quick\Kernel\QuickFormTestBase;
  *
  * @group farm
  */
-class QuickWeightTest extends QuickFormTestBase {
+class QuickWeightTests extends QuickFormTestBase {
 
   /**
    * Quick form ID.
@@ -58,16 +58,16 @@ class QuickWeightTest extends QuickFormTestBase {
     $animal->save();
 
     $unit = Term::create([
-        'name' => 'kg',
-        'vid' => 'kg',
+      'name' => 'kg',
+      'vid' => 'kg',
     ]);
     $unit->save();
 
     // Submit the birth quick form.
     $this->submitQuickForm([
-        'animal' => ['target_id' => $animal1->id()],
-        'weight' => '12.5',
-        'unit' =>  ['target_id' => $unit->id()],
+      'animal' => ['target_id' => $animal1->id()],
+      'weight' => '12.5',
+      'unit' => ['target_id' => $unit->id()],
     ]);
 
     // Check the log.
