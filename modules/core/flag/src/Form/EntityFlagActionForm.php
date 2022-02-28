@@ -164,7 +164,7 @@ class EntityFlagActionForm extends ConfirmFormBase {
     $entity_bundles = array_unique(array_map(function ($entity) {
       return $entity->bundle();
     }, $this->entities));
-    $allowed_values = farm_flag_allowed_values($entity_type_id, $entity_bundles, TRUE);
+    $allowed_values = farm_flag_options($entity_type_id, $entity_bundles, TRUE);
 
     $form['flags'] = [
       '#type' => 'select',

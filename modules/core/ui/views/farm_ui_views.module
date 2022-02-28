@@ -116,7 +116,7 @@ function farm_ui_views_form_views_exposed_form_alter(&$form, FormStateInterface 
   $entity_type = $storage['view']->getBaseEntityType()->id();
   $bundle = farm_ui_views_get_bundle_argument($storage['view'], $storage['display']['id'], $storage['view']->args);
   $bundles = !empty($bundle) ? [$bundle] : [];
-  $allowed_options = farm_flag_allowed_values($entity_type, $bundles, TRUE);
+  $allowed_options = farm_flag_options($entity_type, $bundles, TRUE);
   $form['flag_value']['#options'] = $allowed_options;
 }
 
