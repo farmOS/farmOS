@@ -237,7 +237,7 @@ certain types of assets.
 For example, an "Ear tag" type, provided by the "Animal asset" module, only
 applies to "Animal" assets:
 
-`animal/config/install/farm_flag.flag.ear_tag.yml`
+`animal/config/install/farm_id_tag.id_tag.ear_tag.yml`
 
 ```yaml
 langcode: en
