@@ -8,7 +8,6 @@
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
-use Drupal\farm_flag\Entity\FarmFlagInterface;
 use Drupal\farm_flag\Form\EntityFlagActionForm;
 use Drupal\farm_flag\Routing\EntityFlagActionRouteProvider;
 
@@ -123,46 +122,6 @@ function farm_flag_field_allowed_values(FieldStorageDefinitionInterface $definit
     $bundles = [$entity->bundle()];
   }
   return farm_flag_options($entity_type, $bundles);
-}
-
-/**
- * Check to see if a flag applies to an entity type + bundle.
- *
- * @param \Drupal\farm_flag\Entity\FarmFlagInterface $flag
- *   The flag object.
- * @param string|null $entity_type
- *   The entity type machine name.
- * @param string|null $bundle
- *   The bundle name.
- *
- * @return bool
- *   Returns TRUE if the flag applies, FALSE otherwise.
- */
-function farm_flag_applies(FarmFlagInterface $flag, $entity_type = NULL, $bundle = NULL) {
-
-  // If no entity type is specified, we assume the flag applies. This ensures
-  // it shows in lists/filters where the entity type may not be known.
-  if (empty($entity_type)) {
-    return TRUE;
-  }
-
-  // Load applicable entity types.
-  $entity_types = $flag->getEntityTypes();
-
-  // The flag applies if there are no allowed entity types specified.
-  if (empty($entity_types)) {
-    return TRUE;
-  }
-
-  // The flag applies if the entity type is in the list of applicable entity
-  // types, and the bundle is in the list of applicable bundles (or the flag
-  // applies to "all" bundles).
-  if (array_key_exists($entity_type, $entity_types) && (in_array($bundle, $entity_types[$entity_type]) || in_array('all', $entity_types[$entity_type]))) {
-    return TRUE;
-  }
-
-  // Otherwise, assume the flag does not apply.
-  return FALSE;
 }
 
 /**
