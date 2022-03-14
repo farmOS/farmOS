@@ -3,6 +3,7 @@
 namespace Drupal\farm_quick\Traits;
 
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Provides methods for loading prepopulated entity references.
@@ -24,18 +25,38 @@ trait QuickPrepopulateTrait {
    *
    * @param string $entity_type
    *   The entity type to prepopulate.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
    *
    * @return \Drupal\Core\Entity\EntityInterface[]
    *   An array of entities.
    */
-  protected function getPrepopulatedEntities(string $entity_type) {
+  protected function getPrepopulatedEntities(string $entity_type, FormStateInterface $form_state) {
+
+    // Initialize a temporary value in the form state.
+    if (!$form_state->hasTemporaryValue("quick_prepopulate_$entity_type")) {
+      $this->initPrepoluatedEntities($entity_type, $form_state);
+    }
+
+    // Return the prepopulated entities saved in the form state.
+    $entity_ids = $form_state->getTemporaryValue("quick_prepopulate_$entity_type") ?? [];
+    return \Drupal::entityTypeManager()->getStorage($entity_type)->loadMultiple($entity_ids);
+  }
+
+  /**
+   * Helper function to initialize prepopulated entities in the form state.
+   *
+   * @param string $entity_type
+   *   The entity type to prepopulate.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   */
+  protected function initPrepoluatedEntities(string $entity_type, FormStateInterface $form_state) {
 
     // Save the current user.
     $user = \Drupal::currentUser();
 
     // Load the temp store for the quick form.
-    // @todo Clear the temp store after form submission.
-    // Can we do this without another helper method on this trait?
     /** @var \Drupal\Core\TempStore\PrivateTempStoreFactory $temp_store_factory */
     $temp_store_factory = \Drupal::service('tempstore.private');
     $temp_store = $temp_store_factory->get('farm_quick.' . $this->getId());
@@ -58,17 +79,27 @@ trait QuickPrepopulateTrait {
       $query_entity_ids = [$query_entity_ids];
     }
 
-    // Bail if there are no prepopulated entities.
+    // Only include the unique ids.
     $entity_ids = array_unique(array_merge($temp_store_entity_ids, $query_entity_ids));
-    if (empty($entity_ids)) {
-      return [];
+
+    // Filter to entities the user has access to.
+    $accessible_entities = [];
+    if (!empty($entity_ids)) {
+      // Return entities the user has access to.
+      $entities = \Drupal::entityTypeManager()->getStorage($entity_type)->loadMultiple($entity_ids);
+      $accessible_entities = array_filter($entities, function (EntityInterface $asset) use ($user) {
+        return $asset->access('view', $user);
+      });
     }
 
-    // Return entities the user has access to.
-    $entities = \Drupal::entityTypeManager()->getStorage($entity_type)->loadMultiple($entity_ids);
-    return array_filter($entities, function (EntityInterface $asset) use ($user) {
-      return $asset->access('view', $user);
-    });
+    // Save the accessible entity ids as a temporary value in the form state.
+    $accessible_entity_ids = array_map(function (EntityInterface $entity) {
+      return $entity->id();
+    }, $accessible_entities);
+    $form_state->setTemporaryValue("quick_prepopulate_$entity_type", $accessible_entity_ids);
+
+    // Finally, remove the entities from the temp store.
+    $temp_store->delete($temp_store_key);
   }
 
 }

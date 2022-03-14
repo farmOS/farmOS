@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - [Only require a name to build map popups #515](https://github.com/farmOS/farmOS/pull/515)
+- [Issue #3269543 by paul121: Automatically remove prepopulated entities from quick forms](https://www.drupal.org/project/farm/issues/3269543)
 
 ### Security
 
