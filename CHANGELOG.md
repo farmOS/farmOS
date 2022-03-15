@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Only require a name to build map popups #515](https://github.com/farmOS/farmOS/pull/515)
 - [Issue #3269543 by paul121: Automatically remove prepopulated entities from quick forms](https://www.drupal.org/project/farm/issues/3269543)
 - [Do not add views handlers for unsupported field types #512](https://github.com/farmOS/farmOS/pull/512)
+- [Allow importing KML with empty geometries #510](https://github.com/farmOS/farmOS/issues/510)
 
 ### Security
 
