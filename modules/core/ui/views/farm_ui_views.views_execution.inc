@@ -219,6 +219,10 @@ function farm_ui_views_add_bundle_handlers(ViewExecutable $view, string $display
             $field_options['type'] = 'timestamp';
             $field_options['settings']['date_format'] = 'html_date';
             break;
+
+          case 'string':
+            // String fields do not need any modifications.
+            break;
         }
 
         // Add the field handler.
