@@ -223,6 +223,10 @@ function farm_ui_views_add_bundle_handlers(ViewExecutable $view, string $display
           case 'string':
             // String fields do not need any modifications.
             break;
+
+          default:
+            // Do not add field handlers for unsupported field types.
+            continue 2;
         }
 
         // Add the field handler.
@@ -315,6 +319,10 @@ function farm_ui_views_add_bundle_handlers(ViewExecutable $view, string $display
             // String fields use the contains operator.
             $filter_options['operator'] = 'contains';
             break;
+
+          default:
+            // Do not add filter handlers for unsupported field types.
+            continue 2;
         }
 
         // Add the filter handler.
