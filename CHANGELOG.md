@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Security
 
 - Update Drupal core to 9.3.8 for [SA-CORE-2022-005](https://www.drupal.org/sa-core-2022-005).
+- Update Drupal core to 9.3.9 for [SA-CORE-2022-006](https://www.drupal.org/sa-core-2022-006).
 
 ## [2.0.0-beta3] 2022-03-03
 
