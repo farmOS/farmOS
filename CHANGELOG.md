@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- [Only require a name to build map popups #515](https://github.com/farmOS/farmOS/pull/515)
+
 ### Security
 
 - Update Drupal core to 9.3.8 for [SA-CORE-2022-005](https://www.drupal.org/sa-core-2022-005).
