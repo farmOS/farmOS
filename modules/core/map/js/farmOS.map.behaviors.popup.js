@@ -37,12 +37,16 @@
             feature.set('name', names.length + ' item(s):');
           }
 
+          // A popup name is required.
           var name = featureName(feature) || '';
-          var description = feature.get('description') || '';
-          var measurement = instance.measureGeometry(feature.getGeometry(), instance.units);
+          if (name !== '') {
 
-          // A popup name is required, along with a measurement and/or description.
-          if (name !== '' && (measurement !== '' || description !== '')) {
+            // Get the description and measurement.
+            var description = feature.get('description') || '';
+            var measurement = instance.measureGeometry(feature.getGeometry(), instance.units);
+
+            // Build content with all three values, even if empty. The measurement and description divs may be used
+            // as placeholders for map behaviors to place additional information.
             content = '<h4 class="ol-popup-name">' + name + '</h4><div class="ol-popup-measurement"><small>' + measurement + '</small></div><div class="ol-popup-description">' + description + '</div>';
           }
         }

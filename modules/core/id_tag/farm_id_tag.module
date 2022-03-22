@@ -32,7 +32,7 @@ function farm_id_tag_entity_base_field_info(EntityTypeInterface $entity_type) {
 }
 
 /**
- * Allowed values callback function for the ID tag type field.
+ * ID tag type options helper.
  *
  * @param string $bundle
  *   The asset bundle to get allowed values for.
@@ -40,17 +40,17 @@ function farm_id_tag_entity_base_field_info(EntityTypeInterface $entity_type) {
  * @return array
  *   Returns an array of allowed values for use in form select options.
  */
-function farm_id_tag_type_allowed_values($bundle) {
+function farm_id_tag_type_options(string $bundle) {
   /** @var \Drupal\farm_id_tag\Entity\FarmIDTagTypeInterface[] $types */
   $types = \Drupal::entityTypeManager()->getStorage('tag_type')->loadMultiple();
-  $allowed_values = [];
+  $options = [];
   foreach ($types as $id => $type) {
     $bundles = $type->getBundles();
     if (empty($bundles) || in_array($bundle, $bundles)) {
-      $allowed_values[$id] = $type->getLabel();
+      $options[$id] = $type->getLabel();
     }
   }
-  return $allowed_values;
+  return $options;
 }
 
 /**

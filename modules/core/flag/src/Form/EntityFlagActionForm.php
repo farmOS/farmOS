@@ -161,19 +161,10 @@ class EntityFlagActionForm extends ConfirmFormBase {
     // Get allowed values for the selected entities.
     // We find the intersection of all the allowed values to ensure that
     // disallowed flags cannot be assigned.
-    $allowed_values = [];
-    $field_storage_definitions = $this->entityFieldManager->getFieldStorageDefinitions($entity_type_id);
-    if (!empty($field_storage_definitions['flag'])) {
-      foreach ($this->entities as $entity) {
-        $entity_allowed_values = farm_flag_field_allowed_values($field_storage_definitions['flag'], $entity);
-        if (empty($allowed_values)) {
-          $allowed_values = $entity_allowed_values;
-        }
-        else {
-          $allowed_values = array_intersect_assoc($allowed_values, $entity_allowed_values);
-        }
-      }
-    }
+    $entity_bundles = array_unique(array_map(function ($entity) {
+      return $entity->bundle();
+    }, $this->entities));
+    $allowed_values = farm_flag_options($entity_type_id, $entity_bundles, TRUE);
 
     $form['flags'] = [
       '#type' => 'select',
