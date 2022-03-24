@@ -4,7 +4,6 @@ namespace Drupal\farm_kml\Normalizer;
 
 use Drupal\farm_geo\GeometryWrapper;
 use Drupal\geofield\GeoPHP\GeoPHPInterface;
-use GeometryCollection;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
@@ -122,7 +121,7 @@ class KmlNormalizer implements NormalizerInterface, DenormalizerInterface {
 
       // Create an empty collection if no geometry was loaded.
       if (empty($geometry)) {
-        $geometry = new GeometryCollection();
+        $geometry = new \GeometryCollection();
       }
 
       // Build properties.
