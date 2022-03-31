@@ -26,7 +26,9 @@ by adding the following container:
 
 ```yml
   chrome:
-    image: selenium/standalone-chrome:latest
+    # Tests are failing on later versions of this image.
+    # See https://github.com/farmOS/farmOS/issues/514
+    image: selenium/standalone-chrome:4.1.2-20220217
 ```
 
 ## Faster testing without XDebug

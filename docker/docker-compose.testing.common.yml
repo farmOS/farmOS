@@ -10,4 +10,6 @@ services:
       XDEBUG_MODE: 'off'
 
   chrome:
-    image: selenium/standalone-chrome:latest
+    # Tests are failing on later versions of this image.
+    # See https://github.com/farmOS/farmOS/issues/514
+    image: selenium/standalone-chrome:4.1.2-20220217
