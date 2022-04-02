@@ -55,8 +55,14 @@ class ContentEntityGeometryNormalizer implements NormalizerInterface, Serializer
     $geofield = $context['geofield'];
     $entities = is_array($object) ? $object : [$object];
     foreach ($entities as $entity) {
+
       // If the entity doesn't have the configured geofield field, bail.
       if (!$entity->hasField($geofield)) {
+        continue;
+      }
+
+      // If the geofield is empty, bail.
+      if ($entity->get($geofield)->isEmpty()) {
         continue;
       }
 

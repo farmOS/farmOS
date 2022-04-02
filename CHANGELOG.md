@@ -7,9 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- [Only require a name to build map popups #515](https://github.com/farmOS/farmOS/pull/515)
+- [Issue #3269543 by paul121: Automatically remove prepopulated entities from quick forms](https://www.drupal.org/project/farm/issues/3269543)
+- [Do not add views handlers for unsupported field types #512](https://github.com/farmOS/farmOS/pull/512)
+- [Allow importing KML with empty geometries #510](https://github.com/farmOS/farmOS/issues/510)
+
+### Security
+
+- Update Drupal core to 9.3.8 for [SA-CORE-2022-005](https://www.drupal.org/sa-core-2022-005).
+- Update Drupal core to 9.3.9 for [SA-CORE-2022-006](https://www.drupal.org/sa-core-2022-006).
+
+## [2.0.0-beta3] 2022-03-03
+
 ### Added
 
 - Document farmOS cron set-up: https://farmos.org/hosting/install#cron
+- [Issue #3253433: Provide a helper function for loading flag options and allowed values](https://www.drupal.org/project/farm/issues/3253433)
 
 ### Changed
 
@@ -23,6 +38,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Maps broken with Uncaught SyntaxError: Unexpected token '?' #501](https://github.com/farmOS/farmOS/issues/501)
 - [Asset autocomplete breaks when asset has parentheses at the end #502](https://github.com/farmOS/farmOS/issues/502)
 - [Issue #3265207: API keys directory failure prevents farm client creation](https://www.drupal.org/project/farm/issues/3265207)
+- [Issue #3264564: No space rendered in field suffix](https://www.drupal.org/project/farm/issues/3264564)
+- [Error: Call to a member function get() on null in ContentEntityGeometryNormalizer.php on line 64 #493](https://github.com/farmOS/farmOS/issues/493)
 
 ### Security
 
@@ -143,6 +160,7 @@ moving forward.
     Drupal 7, which required a complete refactor of the codebase. By comparison,
     updating from Drupal 9 to 10 will simply involve updating deprecated code.
 
-[Unreleased]: https://github.com/farmOS/farmOS/compare/2.0.0-beta2...HEAD
+[Unreleased]: https://github.com/farmOS/farmOS/compare/2.0.0-beta3...HEAD
+[2.0.0-beta3]: https://github.com/farmOS/farmOS/releases/tag/2.0.0-beta3
 [2.0.0-beta2]: https://github.com/farmOS/farmOS/releases/tag/2.0.0-beta2
 [2.0.0-beta1]: https://github.com/farmOS/farmOS/releases/tag/2.0.0-beta1

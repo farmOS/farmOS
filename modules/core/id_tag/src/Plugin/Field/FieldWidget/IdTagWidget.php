@@ -39,7 +39,7 @@ class IdTagWidget extends WidgetBase {
     $bundle = $form_state->getStorage()['form_display']->get('bundle');
 
     // Load allowed tag types.
-    $tag_types = farm_id_tag_type_allowed_values($bundle);
+    $tag_types = farm_id_tag_type_options($bundle);
 
     $element['type'] = [
       '#type' => 'select',

@@ -69,7 +69,7 @@ function quantity_measures() {
  * Quantity measure options helper.
  *
  * @return array
- *   Returns an array of allowed values for use in form select options.
+ *   Returns an array of quantity measures for use in form select options.
  */
 function quantity_measure_options() {
 
