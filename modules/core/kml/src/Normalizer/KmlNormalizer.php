@@ -119,6 +119,11 @@ class KmlNormalizer implements NormalizerInterface, DenormalizerInterface {
       // Load KML into a Geometry object.
       $geometry = $this->geoPHP->load($placemark['xml'], 'kml');
 
+      // Create an empty collection if no geometry was loaded.
+      if (empty($geometry)) {
+        $geometry = new \GeometryCollection();
+      }
+
       // Build properties.
       $properties = [];
 

@@ -220,8 +220,10 @@ function farm_ui_views_add_bundle_handlers(ViewExecutable $view, string $display
             $field_options['settings']['date_format'] = 'html_date';
             break;
 
+          case 'boolean':
+          case 'list_string':
           case 'string':
-            // String fields do not need any modifications.
+            // Field types that do not need any modifications.
             break;
 
           default:
@@ -318,6 +320,11 @@ function farm_ui_views_add_bundle_handlers(ViewExecutable $view, string $display
           case 'string':
             // String fields use the contains operator.
             $filter_options['operator'] = 'contains';
+            break;
+
+          case 'list_string':
+          case 'timestamp':
+            // Field types that do not need any modifications.
             break;
 
           default:
