@@ -29,7 +29,7 @@ There are three ways to zoom in/out:
 - On touch screens, you can "pinch zoom" using two fingers.
 - With a computer mouse, you can use the scroll wheel to zoom in/out (click
    on the map first to enable scroll zoom).
-- The plus (+) and minus (+) buttons in the top left of the map control zoom.
+- The plus (+) and minus (-) buttons in the top left of the map control zoom.
 
 ### Geolocating
 
