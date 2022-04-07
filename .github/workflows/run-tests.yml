@@ -32,18 +32,15 @@ jobs:
       # This builds the dev Docker image using the specified FARMOS_VERSION,
       # but notably it does NOT override the default PROJECT_VERSION, so the
       # farmOS Composer project 2.x branch is always used.
-      - name: Build farmOS 2.x-dev Docker image
-        run: docker build --build-arg FARMOS_REPO=https://github.com/${FARMOS_REPO} --build-arg FARMOS_VERSION=${FARMOS_VERSION} -t farmos/farmos:2.x-dev docker/dev
-      - name: Save farmOS 2.x-dev Docker image as tarball
+      - name: Build and save farmOS 2.x-dev Docker image
         run: |
-          mkdir /tmp/artifacts
-          docker save farmos/farmos:2.x-dev > /tmp/artifacts/farmos-2x-dev.tar
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v2
+          docker build --build-arg FARMOS_REPO=https://github.com/${FARMOS_REPO} --build-arg FARMOS_VERSION=${FARMOS_VERSION} -t farmos/farmos:2.x-dev docker/dev
+          docker save farmos/farmos:2.x-dev > /tmp/farmos-2x-dev.tar
+      - name: Cache farmOS 2.x-dev Docker image
+        uses: actions/cache@v3
         with:
-          name: farmOS-artifacts
-          path: /tmp/artifacts
-          retention-days: 1
+          path: /tmp/farmos-2x-dev.tar
+          key: farmos-2x-dev-${{ github.run_id }}
   sniff:
     name: Run PHP Codesniffer
     runs-on: ubuntu-latest
@@ -51,13 +48,13 @@ jobs:
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v2
-      - name: Retrieve saved artifacts
-        uses: actions/download-artifact@v2
+      - name: Restore farmOS 2.x-dev Docker image from cache
+        uses: actions/cache@v3
         with:
-          name: farmOS-artifacts
-          path: /tmp/artifacts
+          path: /tmp/farmos-2x-dev.tar
+          key: farmos-2x-dev-${{ github.run_id }}
       - name: Load farmos/farmos:2.x-dev image
-        run: docker load < /tmp/artifacts/farmos-2x-dev.tar
+        run: docker load < /tmp/farmos-2x-dev.tar
       - name: Run PHP CodeSniffer
         run: docker run farmos/farmos:2.x-dev phpcs /opt/drupal/web/profiles/farm
   test:
@@ -91,13 +88,13 @@ jobs:
         run: echo "matrix.dbms=${{ matrix.dbms }}, matrix.DB_URL=${{ matrix.DB_URL }}"
       - name: Checkout the repository
         uses: actions/checkout@v2
-      - name: Retrieve saved artifacts
-        uses: actions/download-artifact@v2
+      - name: Restore farmOS 2.x-dev Docker image from cache
+        uses: actions/cache@v3
         with:
-          name: farmOS-artifacts
-          path: /tmp/artifacts
+          path: /tmp/farmos-2x-dev.tar
+          key: farmos-2x-dev-${{ github.run_id }}
       - name: Load farmos/farmos:2.x-dev image
-        run: docker load < /tmp/artifacts/farmos-2x-dev.tar
+        run: docker load < /tmp/farmos-2x-dev.tar
       # Build a new docker-compose.yml file from docker-compose.testing.common + docker-compose.testing.{dbms}.yml.
       # Copy to the current directory so that farmOS volume mounts don't change to the docker/www folder.
       - name: Create docker-compose.yml
