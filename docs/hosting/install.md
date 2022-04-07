@@ -23,8 +23,9 @@ dependencies. The [farmOS Docker images](#farmos-in-docker) include these.
     - `realpath_cache_size=4096K`
     - `realpath_cache_ttl=3600`
 - **[PHP BCMath extension](https://www.php.net/manual/en/book.bc.php)** and
-  **[GEOS](https://trac.osgeo.org/geos)** are recommended for more accurate
-  geometric calculations.
+  **[GEOS](https://trac.osgeo.org/geos)** are required for accurate geometric
+  calculations. farmOS can be installed without these, but production usage
+  without them is strongly discouraged.
 
 ### Database server
 
