@@ -27,10 +27,11 @@ function farm_ui_theme_install() {
   $gin_settings->set('preset_focus_color', 'orange');
 
   // Use farmOS logo and favicon.
+  $path = \Drupal::service('extension.list.module')->getPath('farm_ui_theme');
   $gin_settings->set('logo.use_default', FALSE);
-  $gin_settings->set('logo.path', drupal_get_path('module', 'farm_ui_theme') . '/logo.png');
+  $gin_settings->set('logo.path', $path . '/logo.png');
   $gin_settings->set('favicon.use_default', FALSE);
-  $gin_settings->set('favicon.path', drupal_get_path('module', 'farm_ui_theme') . '/favicon.ico');
+  $gin_settings->set('favicon.path', $path . '/favicon.ico');
 
   // Save Gin settings.
   $gin_settings->save();
