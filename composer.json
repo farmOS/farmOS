@@ -30,7 +30,7 @@
         "drupal/exif_orientation": "^1.1",
         "drupal/fraction": "^2.0",
         "drupal/geofield": "^1.33",
-        "drupal/gin": "3.0-alpha37",
+        "drupal/gin": "^3.0@beta",
         "drupal/inline_entity_form": "^1.0@RC",
         "drupal/inspire_tree": "^1.0",
         "drupal/jsonapi_extras": "^3.15",
@@ -59,9 +59,6 @@
             },
             "drupal/entity": {
                 "Issue #3206703: Provide reverse relationships for bundle plugin entity_reference fields.": "https://www.drupal.org/files/issues/2021-05-18/3206703-7.patch"
-            },
-            "drupal/gin": {
-                "Issue #3245203: Sticky region has inconsistent z-index.": "https://www.drupal.org/files/issues/2021-10-21/3245203-alpha37-3.patch"
             },
             "drupal/jsonapi_schema": {
                 "Issue #3256795: Float fields have a null schema": "https://www.drupal.org/files/issues/2022-01-03/3256795-4.patch",

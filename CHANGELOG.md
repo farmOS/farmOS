@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Update [farmOS-map](https://github.com/farmOS/farmOS-map) to [v2.0.4](https://github.com/farmOS/farmOS-map/releases/tag/v2.0.4).
+- [Issue #3270561: Upgrade to gin beta](https://www.drupal.org/project/farm/issues/3270561)
 
 ### Fixed
 
