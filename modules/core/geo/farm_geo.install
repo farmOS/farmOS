@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall function for the farm_geo module.
+ */
+
+/**
+ * Implements hook_requirements().
+ */
+function farm_geo_requirements($phase) {
+  $requirements = [];
+
+  // Check for php-geos extension.
+  if (geoPHP::geosInstalled()) {
+    $severity = REQUIREMENT_OK;
+    $message = t('GEOS PHP extension installed');
+  }
+  else {
+    $severity = REQUIREMENT_WARNING;
+    $message = t('The GEOS PHP extension is not installed. While not required, it is strongly recommended for accurate geometry arithmetic. See %link for more information.', ['%link' => 'https://geophp.net/geos.html']);
+  }
+  $requirements['geos'] = [
+    'title' => t('GEOS PHP extension'),
+    'severity' => $severity,
+    'value' => $message,
+  ];
+
+  return $requirements;
+}
