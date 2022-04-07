@@ -81,3 +81,15 @@ function farm_ui_theme_uninstall() {
   $local_actions_block->set('settings.provider', 'core');
   $local_actions_block->save();
 }
+
+/**
+ * Update Gin theme logo settings.
+ */
+function farm_ui_theme_update_9000(&$sandbox) {
+  $gin_settings = \Drupal::configFactory()->getEditable('gin.settings');
+  $gin_settings->set('logo.use_default', $gin_settings->get('icon_default'));
+  $gin_settings->clear('icon_default');
+  $gin_settings->set('logo.path', $gin_settings->get('icon_path'));
+  $gin_settings->clear('icon_path');
+  $gin_settings->save();
+}
