@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Encourage GEOS PHP extension use #521](https://github.com/farmOS/farmOS/pull/521)
 
+### Changed
+
+- Update [farmOS-map](https://github.com/farmOS/farmOS-map) to [v2.0.4](https://github.com/farmOS/farmOS-map/releases/tag/v2.0.4).
+
 ### Fixed
 
 - [Only require a name to build map popups #515](https://github.com/farmOS/farmOS/pull/515)
