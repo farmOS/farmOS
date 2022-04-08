@@ -1,4 +1,4 @@
-name: Run 2.x PHPUnit tests
+name: Run tests and delivery workflow
 on:
   schedule:
     - cron: '0 8 * * *' # Run at 8AM UTC.
@@ -6,6 +6,8 @@ on:
     branches:
       - '2.x'
       - '2.x-**'
+    tags:
+      - '2.*'
   pull_request:
     branches:
       - '2.x'
@@ -22,6 +24,9 @@ jobs:
       - name: Set FARMOS_VERSION for branch push event.
         if: github.event_name == 'push' && github.ref_type == 'branch'
         run: echo "FARMOS_VERSION=${GITHUB_REF:11}" >> $GITHUB_ENV
+      - name: Set FARMOS_VERSION for tag push event.
+        if: github.event_name == 'push' && github.ref_type == 'tag'
+        run: echo "FARMOS_VERSION=${GITHUB_REF:10}" >> $GITHUB_ENV
       - name: Set FARMOS_VERSION and FARMOS_REPO for pull request event.
         if: github.event_name == 'pull_request'
         run: |
@@ -48,6 +53,8 @@ jobs:
         with:
           path: /tmp/farmos-2x-dev.tar
           key: farmos-2x-dev-${{ github.run_id }}
+    outputs:
+      farmos_version: ${{ env.FARMOS_VERSION }}
   sniff:
     name: Run PHP Codesniffer
     runs-on: ubuntu-latest
@@ -114,3 +121,33 @@ jobs:
         run: docker-compose exec -u www-data -T www paratest --verbose=1 --processes=${{ matrix.processes }} /opt/drupal/web/profiles/farm
       - name: Test Drush site install with all modules
         run: docker-compose exec -u www-data -T www drush site-install --db-url=${{ matrix.DB_URL }} farm farm.modules='all'
+  release:
+    name: Create GitHub release
+    if: github.event_name == 'push' && github.ref_type == 'tag'
+    runs-on: ubuntu-latest
+    needs:
+      - build
+      - sniff
+      - test
+    steps:
+      - name: Set FARMOS_VERSION from previous output.
+        run: echo "FARMOS_VERSION=${{ needs.build.outputs.farmos_version }}" >> $GITHUB_ENV
+      - name: Restore farmOS 2.x Docker image from cache
+        uses: actions/cache@v3
+        with:
+          path: /tmp/farmos-2x.tar
+          key: farmos-2x-${{ github.run_id }}
+      - name: Load farmos/farmos:2.x image
+        run: docker load < /tmp/farmos-2x.tar
+      - name: Run farmOS Docker container
+        run: docker run --rm -v /tmp/farmOS:/opt/drupal farmos/farmos:2.x true
+      - name: Create artifact
+        run: cd /tmp && tar -czf farmOS-${FARMOS_VERSION}.tar.gz farmOS
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@6034af24fba4e5a8e975aaa6056554efe4c794d0 #0.1.13
+        with:
+          body: |
+            For full release notes, see [CHANGELOG.md](https://github.com/farmOS/farmOS/blob/${{ env.FARMOS_VERSION }}/CHANGELOG.md).
+          files: /tmp/farmOS-${{ env.FARMOS_VERSION }}.tar.gz
+          draft: false
+          prerelease: false
