@@ -12,8 +12,55 @@ on:
 
 jobs:
   build:
+    name: Build Docker images
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+      - name: Set FARMOS_VERSION for push event.
+        if: ${{ !github.event.pull_request }}
+        run: |
+          echo "FARMOS_VERSION=${GITHUB_REF:11}" >> $GITHUB_ENV
+          echo "FARMOS_REPO=${GITHUB_REPOSITORY}" >> $GITHUB_ENV
+      - name: Set FARMOS_VERSION for pull request event.
+        if: ${{ github.event.pull_request }}
+        run: |
+          echo "FARMOS_VERSION=${GITHUB_HEAD_REF}" >> $GITHUB_ENV
+          echo "FARMOS_REPO=${{ github.event.pull_request.head.repo.full_name }}" >> $GITHUB_ENV
+      - name: Build farmOS 2.x Docker image
+        run: docker build --build-arg FARMOS_REPO=https://github.com/${FARMOS_REPO} --build-arg FARMOS_VERSION=${FARMOS_VERSION} -t farmos/farmos:2.x docker
+      # This builds the dev Docker image using the specified FARMOS_VERSION,
+      # but notably it does NOT override the default PROJECT_VERSION, so the
+      # farmOS Composer project 2.x branch is always used.
+      - name: Build and save farmOS 2.x-dev Docker image
+        run: |
+          docker build --build-arg FARMOS_REPO=https://github.com/${FARMOS_REPO} --build-arg FARMOS_VERSION=${FARMOS_VERSION} -t farmos/farmos:2.x-dev docker/dev
+          docker save farmos/farmos:2.x-dev > /tmp/farmos-2x-dev.tar
+      - name: Cache farmOS 2.x-dev Docker image
+        uses: actions/cache@v3
+        with:
+          path: /tmp/farmos-2x-dev.tar
+          key: farmos-2x-dev-${{ github.run_id }}
+  sniff:
+    name: Run PHP Codesniffer
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+      - name: Restore farmOS 2.x-dev Docker image from cache
+        uses: actions/cache@v3
+        with:
+          path: /tmp/farmos-2x-dev.tar
+          key: farmos-2x-dev-${{ github.run_id }}
+      - name: Load farmos/farmos:2.x-dev image
+        run: docker load < /tmp/farmos-2x-dev.tar
+      - name: Run PHP CodeSniffer
+        run: docker run farmos/farmos:2.x-dev phpcs /opt/drupal/web/profiles/farm
+  test:
     name: Run PHPUnit tests
     runs-on: ubuntu-latest
+    needs: build
     strategy:
       matrix:
         dbms:
@@ -41,23 +88,13 @@ jobs:
         run: echo "matrix.dbms=${{ matrix.dbms }}, matrix.DB_URL=${{ matrix.DB_URL }}"
       - name: Checkout the repository
         uses: actions/checkout@v2
-      - name: Set FARMOS_VERSION for push event.
-        if: ${{ !github.event.pull_request }}
-        run: |
-          echo "FARMOS_VERSION=${GITHUB_REF:11}" >> $GITHUB_ENV
-          echo "FARMOS_REPO=${GITHUB_REPOSITORY}" >> $GITHUB_ENV
-      - name: Set FARMOS_VERSION for pull request event.
-        if: ${{ github.event.pull_request }}
-        run: |
-          echo "FARMOS_VERSION=${GITHUB_HEAD_REF}" >> $GITHUB_ENV
-          echo "FARMOS_REPO=${{ github.event.pull_request.head.repo.full_name }}" >> $GITHUB_ENV
-      - name: Build farmOS 2.x Docker image
-        run: docker build --build-arg FARMOS_REPO=https://github.com/${FARMOS_REPO} --build-arg FARMOS_VERSION=${FARMOS_VERSION} -t farmos/farmos:2.x docker
-      # This builds the dev Docker image using the specified FARMOS_VERSION,
-      # but notably it does NOT override the default PROJECT_VERSION, so the
-      # farmOS Composer project 2.x branch is always used.
-      - name: Build farmOS 2.x-dev Docker image
-        run: docker build --build-arg FARMOS_REPO=https://github.com/${FARMOS_REPO} --build-arg FARMOS_VERSION=${FARMOS_VERSION} -t farmos/farmos:2.x-dev docker/dev
+      - name: Restore farmOS 2.x-dev Docker image from cache
+        uses: actions/cache@v3
+        with:
+          path: /tmp/farmos-2x-dev.tar
+          key: farmos-2x-dev-${{ github.run_id }}
+      - name: Load farmos/farmos:2.x-dev image
+        run: docker load < /tmp/farmos-2x-dev.tar
       # Build a new docker-compose.yml file from docker-compose.testing.common + docker-compose.testing.{dbms}.yml.
       # Copy to the current directory so that farmOS volume mounts don't change to the docker/www folder.
       - name: Create docker-compose.yml
@@ -72,8 +109,6 @@ jobs:
       # The www-container-fs-ready file is only created once we expect the containers to be online
       # so waiting for that lets us know it is safe to start the tests
         run: until [ -f ./www/www-container-fs-ready ]; do sleep 0.1; done
-      - name: Run PHP CodeSniffer
-        run: docker-compose exec -u www-data -T www phpcs /opt/drupal/web/profiles/farm
       - name: Run PHPUnit tests
         run: docker-compose exec -u www-data -T www paratest --verbose=1 --processes=${{ matrix.processes }} /opt/drupal/web/profiles/farm
       - name: Test Drush site install with all modules
