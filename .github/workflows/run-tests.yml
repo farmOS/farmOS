@@ -17,13 +17,13 @@ jobs:
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v2
-      - name: Set FARMOS_VERSION for push event.
-        if: ${{ !github.event.pull_request }}
-        run: |
-          echo "FARMOS_VERSION=${GITHUB_REF:11}" >> $GITHUB_ENV
-          echo "FARMOS_REPO=${GITHUB_REPOSITORY}" >> $GITHUB_ENV
-      - name: Set FARMOS_VERSION for pull request event.
-        if: ${{ github.event.pull_request }}
+      - name: Set default FARMOS_REPO.
+        run: echo "FARMOS_REPO=${GITHUB_REPOSITORY}" >> $GITHUB_ENV
+      - name: Set FARMOS_VERSION for branch push event.
+        if: github.event_name == 'push' && github.ref_type == 'branch'
+        run: echo "FARMOS_VERSION=${GITHUB_REF:11}" >> $GITHUB_ENV
+      - name: Set FARMOS_VERSION and FARMOS_REPO for pull request event.
+        if: github.event_name == 'pull_request'
         run: |
           echo "FARMOS_VERSION=${GITHUB_HEAD_REF}" >> $GITHUB_ENV
           echo "FARMOS_REPO=${{ github.event.pull_request.head.repo.full_name }}" >> $GITHUB_ENV
