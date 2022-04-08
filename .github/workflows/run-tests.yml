@@ -27,8 +27,15 @@ jobs:
         run: |
           echo "FARMOS_VERSION=${GITHUB_HEAD_REF}" >> $GITHUB_ENV
           echo "FARMOS_REPO=${{ github.event.pull_request.head.repo.full_name }}" >> $GITHUB_ENV
-      - name: Build farmOS 2.x Docker image
-        run: docker build --build-arg FARMOS_REPO=https://github.com/${FARMOS_REPO} --build-arg FARMOS_VERSION=${FARMOS_VERSION} -t farmos/farmos:2.x docker
+      - name: Build and save farmOS 2.x Docker image
+        run: |
+          docker build --build-arg FARMOS_REPO=https://github.com/${FARMOS_REPO} --build-arg FARMOS_VERSION=${FARMOS_VERSION} -t farmos/farmos:2.x docker
+          docker save farmos/farmos:2.x > /tmp/farmos-2x.tar
+      - name: Cache farmOS 2.x Docker image
+        uses: actions/cache@v3
+        with:
+          path: /tmp/farmos-2x.tar
+          key: farmos-2x-${{ github.run_id }}
       # This builds the dev Docker image using the specified FARMOS_VERSION,
       # but notably it does NOT override the default PROJECT_VERSION, so the
       # farmOS Composer project 2.x branch is always used.
