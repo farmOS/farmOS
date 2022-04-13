@@ -96,7 +96,7 @@ using standard Drupal field definition methods. This service is provided only
 as a shortcut.
 
 For more information on Drupal core's field definition API, see
-[Drupal FieldTypes, FieldWidgets and FieldFormatters]([Drupal core field type](https://www.drupal.org/docs/drupal-apis/entity-api/fieldtypes-fieldwidgets-and-fieldformatters))
+[Drupal FieldTypes, FieldWidgets and FieldFormatters](https://www.drupal.org/docs/drupal-apis/entity-api/fieldtypes-fieldwidgets-and-fieldformatters)
 
 **Methods**:
 
