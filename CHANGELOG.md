@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Issue #3270561: Upgrade to gin beta](https://www.drupal.org/project/farm/issues/3270561)
 - [Separate Docker image build from testing jobs in run-test.yml workflow #522](https://github.com/farmOS/farmOS/pull/522)
 - [Merge test and release workflows into a unified delivery workflow #523](https://github.com/farmOS/farmOS/pull/523)
+- [Improve fields documentation #505](https://github.com/farmOS/farmOS/pull/505)
 
 ### Fixed
 
