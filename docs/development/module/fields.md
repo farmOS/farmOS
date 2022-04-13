@@ -15,7 +15,10 @@ If the field should be added to all bundles of a given entity type (eg: all log
 types), then they should be added as "base fields" via
 `hook_entity_base_field_info()`.
 
-A `farm_field.factory` helper service is provided to make this easier:
+A `farm_field.factory` helper service is provided to make this easier. For more
+information on how this works, see [Field factory service](/development/module/services/#field-factory-service).
+
+To get started, place the following in the `[modulename].module` file:
 
 ```php
 <?php
@@ -24,12 +27,14 @@ use Drupal\Core\Entity\EntityTypeInterface;
 
 /**
  * Implements hook_entity_base_field_info().
+ * NOTE: Replace 'mymodule' with the module name.
  */
 function mymodule_entity_base_field_info(EntityTypeInterface $entity_type) {
   $fields = [];
 
-  // Add a new string field to Log entities.
+  // 'log' specifies the entity type to apply to.
   if ($entity_type->id() == 'log') {
+    // Options for the new field. See Field options below.
     $options = [
       'type' => 'string',
       'label' => t('My new field'),
@@ -39,6 +44,7 @@ function mymodule_entity_base_field_info(EntityTypeInterface $entity_type) {
         'view' => 10,
       ],
     ];
+    // NOTE: Replace 'myfield' with the internal name of the field.
     $fields['myfield'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
   }
 
@@ -56,9 +62,14 @@ then they should be added as "bundle fields" via
 deprecated in favor of a core Drupal hook in the future. See core issue:
 [https://www.drupal.org/node/2346347](https://www.drupal.org/node/2346347)
 
+A `farm_field.factory` helper service is provided to make this easier. For more
+information on how this works, see [Field factory service](/development/module/services/#field-factory-service).
+
 The format for bundle field definitions is identical to base field definitions
 (above), but the `bundleFieldDefinition()` method must be used instead of
 `baseFieldDefinition()`.
+
+To get started, place the following in the `[modulename].module` file:
 
 ```php
 <?php
@@ -67,12 +78,15 @@ use Drupal\Core\Entity\EntityTypeInterface;
 
 /**
  * Implements hook_farm_entity_bundle_field_info().
+ * NOTE: Replace 'mymodule' with the module name.
  */
 function mymodule_farm_entity_bundle_field_info(EntityTypeInterface $entity_type, $bundle) {
   $fields = [];
 
-  // Add a new string field to Input Logs.
+  // Add a new string field to Input Logs. 'log' specifies the entity type and
+  // 'input' specifies the bundle.
   if ($entity_type->id() == 'log' && $bundle == 'input') {
+    // Options for the new field. See Field options below.
     $options = [
       'type' => 'string',
       'label' => t('My new field'),
@@ -82,6 +96,7 @@ function mymodule_farm_entity_bundle_field_info(EntityTypeInterface $entity_type
         'view' => 10,
       ],
     ];
+    // NOTE: Replace 'myfield' with the internal name of the field.
     $fields['myfield'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
   }
 
@@ -126,6 +141,10 @@ Existing options can be overridden or removed by editing/deleting the entities
 in the active configuration of the site. (**Warning** changing core types runs
 the risk of conflicting with future farmOS updates).
 
+Note that the file name is important and must follow a specific pattern. This
+is generally in the form `[select_module_name].[select_field].[id].yml`. See
+the examples for more info.
+
 ### Examples:
 
 #### Flag
@@ -140,10 +159,12 @@ dependencies:
   enforced:
     module:
       - my_module
-id: monitor
-label: Monitor
+id: organic
+label: Organic
 entity_types: null
 ```
+
+Note that the file name is in the form `farm_flag.flag.[id].yml`.
 
 The most important parts are the `id`, which is a unique machine name for
 the flag, `label`, which is the human readable/translatable label that will be
@@ -194,6 +215,8 @@ id: field
 label: Field
 ```
 
+Note that the file name is in the form `farm_land.land_type.[id].yml`.
+
 #### Structure type
 
 The "Structure" module in farmOS provides a "Building" type like this:
@@ -210,6 +233,8 @@ dependencies:
 id: building
 label: Building
 ```
+
+Note that the file name is in the form `farm_structure.structure_type.[id].yml`.
 
 #### Lab test type
 
@@ -228,6 +253,8 @@ id: soil
 label: Soil test
 ```
 
+Note that the file name is in the form `farm_lab_test.lab_test_type.[id].yml`.
+
 #### ID tag type
 
 ID tag types are similar to Flags, in that they have an `id` and `label`. They
@@ -237,7 +264,7 @@ certain types of assets.
 For example, an "Ear tag" type, provided by the "Animal asset" module, only
 applies to "Animal" assets:
 
-`animal/config/install/farm_flag.flag.ear_tag.yml`
+`animal/config/install/farm_id_tag.id_tag.ear_tag.yml`
 
 ```yaml
 langcode: en
@@ -252,6 +279,8 @@ label: Ear tag
 bundles:
   - animal
 ```
+
+Note that the file name is in the form `farm_flag.flag.ear_tag.[id].yml`.
 
 If you want the tag type to apply to all assets, set `bundles: null`.
 (or can it just be omitted?)
