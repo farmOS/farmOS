@@ -4,7 +4,6 @@ namespace Drupal\farm_log;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\Query\QueryInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Factory for generating a log query.
@@ -26,15 +25,6 @@ class LogQueryFactory implements LogQueryFactoryInterface {
    */
   public function __construct(EntityTypeManagerInterface $entity_type_manager) {
     $this->entityTypeManager = $entity_type_manager;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container) {
-    return new static(
-      $container->get('entity_type.manager')
-    );
   }
 
   /**

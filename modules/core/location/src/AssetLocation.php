@@ -8,7 +8,6 @@ use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\farm_log\LogQueryFactoryInterface;
 use Drupal\log\Entity\LogInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Asset location logic.
@@ -91,19 +90,6 @@ class AssetLocation implements AssetLocationInterface {
     $this->entityTypeManager = $entity_type_manager;
     $this->time = $time;
     $this->database = $database;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container) {
-    return new static(
-      $container->get('log.location'),
-      $container->get('farm.log_query'),
-      $container->get('entity_type.manager'),
-      $container->get('datetime.time'),
-      $container->get('database')
-    );
   }
 
   /**
