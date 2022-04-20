@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- [Issue #3275161: Allow IMG tags in default text format](https://www.drupal.org/project/farm/issues/3275161)
+
 ## [2.0.0-beta4] 2022-04-13
 
 ### Added
