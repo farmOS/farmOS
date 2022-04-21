@@ -11,6 +11,12 @@
 function farm_geo_requirements($phase) {
   $requirements = [];
 
+  // Do not check requirements in the update phase.
+  // The REQUIREMENT_WARNING severity prevents updates from being run.
+  if ($phase == 'update') {
+    return $requirements;
+  }
+
   // Check for php-geos extension.
   if (geoPHP::geosInstalled()) {
     $severity = REQUIREMENT_OK;

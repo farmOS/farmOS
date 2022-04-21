@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Issue #3275161: Allow IMG tags in default text format](https://www.drupal.org/project/farm/issues/3275161)
 
+### Fixed
+
+- [Do not check php-geos requirement in the update phase #526](https://github.com/farmOS/farmOS/pull/526)
+
 ### Security
 
 - Update Drupal core to 9.3.12 for [SA-CORE-2022-008](https://www.drupal.org/sa-core-2022-008) and
