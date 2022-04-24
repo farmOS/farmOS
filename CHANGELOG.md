@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Issue #3275161: Allow IMG tags in default text format](https://www.drupal.org/project/farm/issues/3275161)
 - [Update toolbar logo spacing for gin beta #527](https://github.com/farmOS/farmOS/pull/527)
+- [Only show active plans by default #529](https://github.com/farmOS/farmOS/pull/529)
 
 ### Fixed
 

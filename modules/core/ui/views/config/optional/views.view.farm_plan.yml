@@ -595,7 +595,8 @@ display:
           entity_field: status
           plugin_id: state_machine_state
           operator: in
-          value: {  }
+          value:
+            active: active
           group: 1
           exposed: true
           expose:
