@@ -74,6 +74,80 @@ $all_inventory = \Drupal::service('asset.inventory')->getInventory($asset);
 $gallons_of_fertilizer = \Drupal::service('asset.inventory')->getInventory($asset, 'volume', 'gallons');
 ```
 
+## Field factory service
+
+**Service name**: `farm_field.factory`
+
+The field factory service provides two methods to make the process of creating
+Drupal entity base and bundle field definitions easier and more consistent in
+farmOS. This is used by modules that add [fields](/development/module/fields)
+to [entity types](/development/module/entities).
+
+Base fields are added to *all* bundles of a given entity type (eg: all logs).
+Bundle fields are only added to *specific* bundles (eg: only "Input" logs).
+
+Using this service is optional. It simply generates instances of Drupal core's
+`BaseFieldDefinition` class or the Entity API module's `BundleFieldDefinition`
+class, with farmOS-specific opinions to help enforce some consistency among
+farmOS core and contrib modules. You can create instances of these field
+definition classes directly instead of using the farmOS field factory service.
+Or you can take the object produced by the service and customize it further
+using standard Drupal field definition methods. This service is provided only
+as a shortcut.
+
+For more information on Drupal core's field definition API, see
+[Drupal FieldTypes, FieldWidgets and FieldFormatters](https://www.drupal.org/docs/drupal-apis/entity-api/fieldtypes-fieldwidgets-and-fieldformatters)
+
+**Methods**:
+
+`baseFieldDefinition($options)` - Generates a base field definition, given an
+array of options (see below).
+
+`bundleFieldDefinition($options)` - Generates a bundle field definition, given
+an array of options (see below).
+
+**Options**:
+
+Both methods expect an array of field definition options. These include:
+
+- `type` (required) - The field data type. Each type may require additional
+  options. Supported types include:
+    - `boolean` - True/false checkbox.
+    - `entity_reference` - Reference other entities. Additional options:
+        - `target_type` (required) - The entity type to reference (eg: `asset`,
+          `log`, `plan`)
+        - `target_bundle` (optional) - The allowed target bundle. For example,
+          a `target_type` of `asset` and a `target_bundle` of `animal` would
+          limit references to animal assets.
+        - `auto_create` (optional) Only used when `target_type` is set to
+          `taxonomy_term`. If `auto_create` is set, term references will be
+          created automatically if the term does not exist.
+    - `file` - File upload.
+    - `fraction` - High-precision decimal number storage.
+    - `geofield` - Geometry on a map.
+    - `image` - Image upload.
+    - `list_string` - Select list with allowed values. Additional options:
+        - `allowed_values` - An associative array of allowed values.
+        - `allowed_values_function` - The name of a function that returns an
+          associative array of allowed values.
+    - `string_long` - Unformatted text field of unlimited length.
+    - `text_long` - Formatted text field of unlimited length.
+    - `timestamp` - Date and time.
+- `label` - The field label.
+- `description` - The field description.
+- `required` - Whether the field is required.
+- `multiple` - Whether the field should allow multiple values. Defaults to
+  `FALSE`.
+- `cardinality` - How many values are allowed (eg: `1` for single value
+  fields, `-1` for unlimited values). This is an alternative to `multiple`,
+  and will take precedence if it is set. Defaults to `1`.
+
+Other options are available for more advanced use-cases. Refer to the
+[FarmFieldFactory](https://github.com/farmOS/farmOS/blob/2.x/modules/core/field/src/FarmFieldFactory.php)
+class to understand how they work.
+
+For more information and example code, see [Adding fields](/development/module/fields).
+
 ## Group membership service
 
 **Service name**: `group.membership`

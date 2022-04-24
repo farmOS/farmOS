@@ -3,10 +3,15 @@
  * Styling for farmOS toolbar.
  */
 
+/* Add padding to the wrapper around the logo. */
+.toolbar .toolbar-bar #toolbar-item-administration-tray .toolbar-logo {
+  padding: .5em !important;
+}
+
 /* Logo size and spacing. */
 .toolbar .toolbar-bar #toolbar-item-administration-tray .toolbar-logo img.toolbar-icon-home {
   max-width: 100px;
-  margin: 40px auto;
+  margin: 20px auto;
 }
 
 /* Locations icon. */

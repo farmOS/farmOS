@@ -7,6 +7,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- [Issue #3275161: Allow IMG tags in default text format](https://www.drupal.org/project/farm/issues/3275161)
+- [Update toolbar logo spacing for gin beta #527](https://github.com/farmOS/farmOS/pull/527)
+
+### Fixed
+
+- [Do not check php-geos requirement in the update phase #526](https://github.com/farmOS/farmOS/pull/526)
+
+### Security
+
+- Update Drupal core to 9.3.12 for [SA-CORE-2022-008](https://www.drupal.org/sa-core-2022-008) and
+  [SA-CORE-2022-009](https://www.drupal.org/sa-core-2022-009).
+
+## [2.0.0-beta4] 2022-04-13
+
+### Added
+
+- [Link from entities to their referenced terms and show entity views on taxonomy terms #458](https://github.com/farmOS/farmOS/pull/458).
+- [Encourage GEOS PHP extension use #521](https://github.com/farmOS/farmOS/pull/521)
+
+### Changed
+
+- Update [farmOS-map](https://github.com/farmOS/farmOS-map) to [v2.0.4](https://github.com/farmOS/farmOS-map/releases/tag/v2.0.4).
+- [Issue #3270561: Upgrade to gin beta](https://www.drupal.org/project/farm/issues/3270561)
+- [Separate Docker image build from testing jobs in run-test.yml workflow #522](https://github.com/farmOS/farmOS/pull/522)
+- [Merge test and release workflows into a unified delivery workflow #523](https://github.com/farmOS/farmOS/pull/523)
+- [Improve fields documentation #505](https://github.com/farmOS/farmOS/pull/505)
+
 ### Fixed
 
 - [Only require a name to build map popups #515](https://github.com/farmOS/farmOS/pull/515)
@@ -160,7 +189,8 @@ moving forward.
     Drupal 7, which required a complete refactor of the codebase. By comparison,
     updating from Drupal 9 to 10 will simply involve updating deprecated code.
 
-[Unreleased]: https://github.com/farmOS/farmOS/compare/2.0.0-beta3...HEAD
+[Unreleased]: https://github.com/farmOS/farmOS/compare/2.0.0-beta4...HEAD
+[2.0.0-beta4]: https://github.com/farmOS/farmOS/releases/tag/2.0.0-beta4
 [2.0.0-beta3]: https://github.com/farmOS/farmOS/releases/tag/2.0.0-beta3
 [2.0.0-beta2]: https://github.com/farmOS/farmOS/releases/tag/2.0.0-beta2
 [2.0.0-beta1]: https://github.com/farmOS/farmOS/releases/tag/2.0.0-beta1

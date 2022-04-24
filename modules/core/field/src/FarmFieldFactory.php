@@ -351,7 +351,7 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
           'type' => 'entity_reference_label',
           'weight' => $options['weight']['view'] ?? 0,
           'settings' => [
-            'link' => FALSE,
+            'link' => TRUE,
           ],
         ];
         break;

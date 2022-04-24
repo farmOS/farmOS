@@ -2,8 +2,9 @@
   Styling for the asset map_popup view mode page.
  */
 
-/* Remove the page background color. */
-body {
+/* Remove the page background color and body top padding. */
+body.path-asset {
+  --ginHorizontalToolbarOffset: 0;
   background: unset !important;
 }
 

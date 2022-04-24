@@ -7,10 +7,10 @@
             "type": "package",
             "package": {
                 "name": "farmos/farmos-map",
-                "version": "2.0.3",
+                "version": "2.0.4",
                 "type": "drupal-library",
                 "dist": {
-                  "url": "https://github.com/farmOS/farmOS-map/releases/download/v2.0.2/v2.0.2-dist.zip",
+                  "url": "https://github.com/farmOS/farmOS-map/releases/download/v2.0.4/v2.0.4-dist.zip",
                   "type": "zip"
                 },
                 "extra": {
