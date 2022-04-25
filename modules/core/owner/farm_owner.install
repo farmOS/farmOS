@@ -1,0 +1,33 @@
+<?php
+
+/**
+ * @file
+ * Updates farm_owner module.
+ */
+
+/**
+ * Add 'owner' field to assets.
+ */
+function farm_owner_update_9001() {
+    $field_name = 'owner';
+    $field_info = [
+        'type' => 'entity_reference',
+        'label' => t('Assigned to'),
+        'description' => t('Optionally assign this task to one or more people.'),
+        'target_type' => 'user',
+        'multiple' => TRUE,
+        'weight' => [
+        'form' => -70,
+        'view' => -70,
+        ],
+    ];
+    $field_storage_definition = \Drupal::service('farm_field.factory')->baseFieldDefinition($field_info);
+    $entity_type = 'asset';
+    \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition($field_name, $entity_type, $entity_type, $field_storage_definition);
+}
+
+/*
+ * Add the assign owner to asset configuration for bulk assigns
+ */
+// TODO: function hook_post_update_()
