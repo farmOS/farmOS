@@ -14,7 +14,7 @@ function farm_owner_entity_base_field_info(EntityTypeInterface $entity_type) {
   $fields = [];
 
   // Add owner field to logs and assets.
-  if ($entity_type->id() == 'log' || $entity_type->id() == 'asset') {
+  if (in_array($entity_type->id(), ['asset', 'log'])) {
     $field_info = [
       'type' => 'entity_reference',
       'label' => t('Assigned to'),
