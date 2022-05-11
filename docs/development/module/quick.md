@@ -69,7 +69,7 @@ class Egg extends QuickFormBase {
         [
           'measure' => 'count',
           'value' => $quantity,
-          'unit' => $this->t('egg(s)'),
+          'units' => $this->t('egg(s)'),
         ],
       ],
     ];
