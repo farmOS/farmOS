@@ -58,7 +58,7 @@
                 "Issue #1874838: Allow exposed blocks to use 'Link display' settings": "https://www.drupal.org/files/issues/2021-11-11/1874838-26.patch"
             },
             "drupal/entity": {
-                "Issue #3206703: Provide reverse relationships for bundle plugin entity_reference fields.": "https://www.drupal.org/files/issues/2021-05-18/3206703-7.patch"
+                "Issue #3206703: Provide reverse relationships for bundle plugin entity_reference fields.": "https://www.drupal.org/files/issues/2022-05-11/3206703-10.patch"
             },
             "drupal/jsonapi_schema": {
                 "Issue #3256795: Float fields have a null schema": "https://www.drupal.org/files/issues/2022-01-03/3256795-4.patch",
