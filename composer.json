@@ -60,6 +60,9 @@
             "drupal/entity": {
                 "Issue #3206703: Provide reverse relationships for bundle plugin entity_reference fields.": "https://www.drupal.org/files/issues/2022-05-11/3206703-10.patch"
             },
+            "drupal/entity_reference_revisions": {
+                "Issue #3267304: Infer target_revision_id to be Latest Revision when Only a target_id is Provided": "https://www.drupal.org/files/issues/2022-05-13/3267304-9.patch"
+            },
             "drupal/jsonapi_schema": {
                 "Issue #3256795: Float fields have a null schema": "https://www.drupal.org/files/issues/2022-01-03/3256795-4.patch",
                 "Issue #3246251: Change format utc-millisec to date-time": "https://www.drupal.org/files/issues/2021-10-27/3246251-2.patch"
