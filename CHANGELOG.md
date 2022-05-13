@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - [Do not check php-geos requirement in the update phase #526](https://github.com/farmOS/farmOS/pull/526)
+- Patch entity_reference_revisions module to fix upstream issue [#3267304](https://www.drupal.org/project/entity_reference_revisions/issues/3267304).
 
 ### Security
 
