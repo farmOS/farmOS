@@ -1,0 +1,34 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.animal_type.image
+    - taxonomy.vocabulary.animal_type
+  enforced:
+    module:
+      - farm_animal_type
+  module:
+    - image
+    - text
+id: taxonomy_term.animal_type.default
+targetEntityType: taxonomy_term
+bundle: animal_type
+mode: default
+content:
+  description:
+    label: hidden
+    type: text_default
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  image:
+    type: image
+    weight: 5
+    region: content
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+hidden: {  }
