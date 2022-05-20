@@ -126,9 +126,9 @@ farmOS 2.x in `/var/www/farmOS_2.x`, and both are configured to use
 `sites/default/files` for public files, and `sites/default/private` for private
 files, then copy the files as follows:
 
-    cp -rp /var/www/farmOS_1.x/sites/default/files /var/www/farmOS_2.x/sites/default/files/migrate
+    cp -rp /var/www/farmOS_1.x/sites/default/files /var/www/farmOS_2.x/web/sites/default/files/migrate
 
-    cp -rp /var/www/farmOS_1.x/sites/default/private/files /var/www/farmOS_2.x/sites/default/private/files/migrate
+    cp -rp /var/www/farmOS_1.x/sites/default/private/files /var/www/farmOS_2.x/web/sites/default/private/files/migrate
 
 The farmOS migration code will automatically move files from `files/migrate/*`
 to `files/*`. Only the files that it finds in the `{file_managed}` table will
