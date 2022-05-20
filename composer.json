@@ -26,7 +26,7 @@
         "drupal/entity_browser": "^2.6",
         "drupal/entity_reference_integrity": "^1.1",
         "drupal/entity_reference_revisions": "1.9",
-        "drupal/entity_reference_validators": "^1.0@alpha",
+        "drupal/entity_reference_validators": "^1.0@beta",
         "drupal/exif_orientation": "^1.1",
         "drupal/fraction": "^2.0",
         "drupal/geofield": "^1.33",
