@@ -5,7 +5,7 @@
 [![Last commit](https://img.shields.io/github/last-commit/farmOS/farmOS.svg?style=flat)](https://github.com/farmOS/farmOS/commits)
 [![Docker](https://img.shields.io/docker/pulls/farmos/farmos.svg)](https://hub.docker.com/r/farmos/farmos/)
 [![Twitter](https://img.shields.io/twitter/follow/farmOSorg.svg?label=%40farmOSorg&style=flat)](https://twitter.com/farmOSorg)
-[![Chat](https://img.shields.io/matrix/farmOS:matrix.org.svg)](https://riot.im/app/#/room/#farmOS:matrix.org)
+[![Chat](https://img.shields.io/matrix/farmOS:matrix.org.svg)](https://app.element.io/#/room/#farmOS:matrix.org)
 [![Backers on Open Collective](https://opencollective.com/farmOS/backers/badge.svg)](#backers)
 [![Sponsors on Open Collective](https://opencollective.com/farmOS/sponsors/badge.svg)](#sponsors)
 
