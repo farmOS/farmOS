@@ -1,6 +1,14 @@
 farm_owner.log_assign_action_form:
   path: '/log/assign'
   defaults:
-    _form: 'Drupal\farm_owner\Form\LogAssignActionForm'
+    _form: 'Drupal\farm_owner\Form\AssignActionForm'
+    entity_type: 'log'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+farm_owner.asset_assign_action_form:
+  path: '/asset/assign'
+  defaults:
+    _form: 'Drupal\farm_owner\Form\AssignActionForm'
+    entity_type: 'asset'
   requirements:
     _user_is_logged_in: 'TRUE'
