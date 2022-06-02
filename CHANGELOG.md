@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0-beta5]
+
 ### Changed
 
 - [Issue #3275161: Allow IMG tags in default text format](https://www.drupal.org/project/farm/issues/3275161)
@@ -192,7 +194,8 @@ moving forward.
     Drupal 7, which required a complete refactor of the codebase. By comparison,
     updating from Drupal 9 to 10 will simply involve updating deprecated code.
 
-[Unreleased]: https://github.com/farmOS/farmOS/compare/2.0.0-beta4...HEAD
+[Unreleased]: https://github.com/farmOS/farmOS/compare/2.0.0-beta5...HEAD
+[2.0.0-beta5]: https://github.com/farmOS/farmOS/releases/tag/2.0.0-beta5
 [2.0.0-beta4]: https://github.com/farmOS/farmOS/releases/tag/2.0.0-beta4
 [2.0.0-beta3]: https://github.com/farmOS/farmOS/releases/tag/2.0.0-beta3
 [2.0.0-beta2]: https://github.com/farmOS/farmOS/releases/tag/2.0.0-beta2
