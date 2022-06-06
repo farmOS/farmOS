@@ -6,6 +6,7 @@ dependencies:
       - farm_input
   module:
     - farm_log_quantity
+    - farm_quantity_material
 id: input
 label: Input
 description: ''
