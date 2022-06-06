@@ -20,18 +20,6 @@ class LabTest extends FarmLogType {
   public function buildFieldDefinitions() {
     $fields = parent::buildFieldDefinitions();
 
-    // Lab.
-    $options = [
-      'type' => 'string',
-      'label' => $this->t('Laboratory'),
-      'description' => $this->t('What laboratory performed this test?'),
-      'weight' => [
-        'form' => -40,
-        'view' => -40,
-      ],
-    ];
-    $fields['lab'] = $this->farmFieldFactory->bundleFieldDefinition($options);
-
     // Lab test type.
     $options = [
       'type' => 'list_string',
@@ -43,6 +31,18 @@ class LabTest extends FarmLogType {
       ],
     ];
     $fields['lab_test_type'] = $this->farmFieldFactory->bundleFieldDefinition($options);
+
+    // Lab.
+    $options = [
+      'type' => 'string',
+      'label' => $this->t('Laboratory'),
+      'description' => $this->t('What laboratory performed this test?'),
+      'weight' => [
+        'form' => -40,
+        'view' => -40,
+      ],
+    ];
+    $fields['lab'] = $this->farmFieldFactory->bundleFieldDefinition($options);
 
     return $fields;
   }
