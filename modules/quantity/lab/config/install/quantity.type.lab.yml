@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_quantity_lab
+id: lab
+label: Lab
+default_measure: ''
+description: 'Lab measurement quantity type.'
+new_revision: true

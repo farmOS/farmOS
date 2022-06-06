@@ -1,0 +1,8 @@
+name: Lab quantity
+description: Provides a quantity type for lab measurements.
+type: module
+package: farmOS Quantities
+core_version_requirement: ^9
+dependencies:
+  - farm:farm_entity
+  - farm:quantity
