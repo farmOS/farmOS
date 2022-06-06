@@ -25,6 +25,7 @@ If you would like to skip the automatic fix, add the following line to your
 - [Add action to bulk categorize logs #590](https://github.com/farmOS/farmOS/pull/590)
 - [Add action for bulk assigning asset parent #588](https://github.com/farmOS/farmOS/pull/588)
 - [Show "Add log" action links on /asset/[id]/logs/[type] #596](https://github.com/farmOS/farmOS/pull/596)
+- [Add "Date received" and "Date processed" fields to lab test logs](https://github.com/farmOS/farmOS/pull/602)
 
 ### Changed
 
