@@ -4,9 +4,15 @@ dependencies:
   enforced:
     module:
       - farm_lab_test
+  module:
+    - farm_log_quantity
+    - farm_quantity_lab
 id: lab_test
 label: 'Lab test'
 description: ''
 name_pattern: 'Lab test log [log:id]'
 workflow: log_default
 new_revision: true
+third_party_settings:
+  farm_log_quantity:
+    default_quantity_type: lab
