@@ -48,6 +48,7 @@ package: farmOS Contrib
 core_version_requirement: ^9
 dependencies:
   - farm:farm_entity
+  - log:log
 ```
 
 Other common files and directories in a module include:
