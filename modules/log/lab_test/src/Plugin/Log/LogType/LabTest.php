@@ -34,9 +34,12 @@ class LabTest extends FarmLogType {
 
     // Lab.
     $options = [
-      'type' => 'string',
+      'type' => 'entity_reference',
       'label' => $this->t('Laboratory'),
       'description' => $this->t('What laboratory performed this test?'),
+      'target_type' => 'taxonomy_term',
+      'target_bundle' => 'lab',
+      'auto_create' => TRUE,
       'weight' => [
         'form' => -40,
         'view' => -40,
