@@ -38,6 +38,7 @@ If you would like to skip the automatic fix, add the following line to your
 - [Issue #3203129: Use GitHub Actions to build Docker Hub images](https://www.drupal.org/project/farm/issues/3203129)
 - [Announce new releases on Mastodon/Twitter via farmOS-microblog #599](https://github.com/farmOS/farmOS/pull/599)
 - [Improve dependency relationships of asset/log/quantity modules #601](https://github.com/farmOS/farmOS/pull/601)
+- [Convert lab field to term reference on lab test logs #603](https://github.com/farmOS/farmOS/pull/603)
 
 ### Fixed
 

@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_lab
+name: Labs
+vid: lab
+description: 'A list of labs.'
+weight: 0
