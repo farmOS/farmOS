@@ -3,6 +3,7 @@
 namespace Drupal\Tests\farm_group\Kernel;
 
 use Drupal\asset\Entity\Asset;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\log\Entity\Log;
 use Drupal\Tests\farm_test\Kernel\FarmEntityCacheTestTrait;
@@ -14,6 +15,7 @@ use Drupal\Tests\farm_test\Kernel\FarmEntityCacheTestTrait;
  */
 class GroupTest extends KernelTestBase {
 
+  use StringTranslationTrait;
   use FarmEntityCacheTestTrait;
 
   /**
@@ -43,6 +45,7 @@ class GroupTest extends KernelTestBase {
   protected static $modules = [
     'asset',
     'log',
+    'farm_entity_views',
     'farm_field',
     'farm_group',
     'farm_group_test',
@@ -51,7 +54,9 @@ class GroupTest extends KernelTestBase {
     'farm_log_asset',
     'geofield',
     'state_machine',
+    'system',
     'user',
+    'views',
   ];
 
   /**
@@ -66,6 +71,7 @@ class GroupTest extends KernelTestBase {
     $this->installEntitySchema('log');
     $this->installEntitySchema('user');
     $this->installConfig([
+      'farm_entity_views',
       'farm_group',
       'farm_group_test',
     ]);
@@ -330,6 +336,99 @@ class GroupTest extends KernelTestBase {
     $this->assertEquals(2, count($first_group_recursive_members), 'The first group has two recursive members.');
     $this->assertTrue(in_array($second_group->id(), array_keys($first_group_recursive_members)), 'The ID of the second group is preserved.');
     $this->assertTrue(in_array($animal->id(), array_keys($first_group_recursive_members)), 'The ID of the animal is preserved.');
+  }
+
+  /**
+   * Test that circular group membership is prevented.
+   */
+  public function testCircularGroupMembership() {
+
+    // Create two group assets.
+    /** @var \Drupal\asset\Entity\AssetInterface $first_group */
+    $first_group = Asset::create([
+      'type' => 'group',
+      'name' => $this->randomMachineName(),
+      'status' => 'active',
+    ]);
+    $first_group->save();
+    /** @var \Drupal\asset\Entity\AssetInterface $second_group */
+    $second_group = Asset::create([
+      'type' => 'group',
+      'name' => $this->randomMachineName(),
+      'status' => 'active',
+    ]);
+    $second_group->save();
+
+    // Start log to assign the first group to the second group.
+    /** @var \Drupal\log\Entity\LogInterface $first_log */
+    $first_log = Log::create([
+      'type' => 'test',
+      'status' => 'done',
+      'is_group_assignment' => TRUE,
+      'group' => ['target_id' => $second_group->id()],
+      'asset' => ['target_id' => $first_group->id()],
+    ]);
+
+    // Confirm that validation passes.
+    $violations = $first_log->validate();
+    $this->assertCount(0, $violations);
+
+    // Save the first log.
+    $first_log->save();
+
+    // Start a log that assigns the second group to the first group (which
+    // would cause a circular group membership).
+    /** @var \Drupal\log\Entity\LogInterface $second_log */
+    $second_log = Log::create([
+      'type' => 'test',
+      'status' => 'done',
+      'is_group_assignment' => TRUE,
+      'group' => ['target_id' => $first_group->id()],
+      'asset' => ['target_id' => $second_group->id()],
+    ]);
+
+    // Validate the second log and confirm that a circular group constraint
+    // violation was set.
+    $violations = $second_log->validate();
+    $this->assertCount(1, $violations);
+    $this->assertEquals($this->t('%asset cannot be a member of itself.', ['%asset' => $second_group->label()]), $violations[0]->getMessage());
+
+    // Create a third group asset, so we can test recursive circular group
+    // membership constraint.
+    /** @var \Drupal\asset\Entity\AssetInterface $third_group */
+    $third_group = Asset::create([
+      'type' => 'group',
+      'name' => $this->randomMachineName(),
+      'status' => 'active',
+    ]);
+    $third_group->save();
+
+    // Update the second log to reference the third group instead.
+    $second_log->set('group', ['target_id' => $third_group->id()]);
+
+    // Confirm that validation passes.
+    $violations = $second_log->validate();
+    $this->assertCount(0, $violations);
+
+    // Save the second log.
+    $second_log->save();
+
+    // Now, start a third log that assigns the third group to the first group
+    // (which would create a recursive circular group membership).
+    /** @var \Drupal\log\Entity\LogInterface $third_log */
+    $third_log = Log::create([
+      'type' => 'test',
+      'status' => 'done',
+      'is_group_assignment' => TRUE,
+      'group' => ['target_id' => $first_group->id()],
+      'asset' => ['target_id' => $third_group->id()],
+    ]);
+
+    // Validate the third log and confirm that a circular group constraint
+    // violation was set.
+    $violations = $third_log->validate();
+    $this->assertCount(1, $violations);
+    $this->assertEquals($this->t('%asset cannot be a member of itself.', ['%asset' => $third_group->label()]), $violations[0]->getMessage());
   }
 
   /**
