@@ -26,6 +26,13 @@ function farm_owner_entity_base_field_info(EntityTypeInterface $entity_type) {
         'view' => -70,
       ],
     ];
+
+    // Different description and label for assets.
+    if ($entity_type->id() == 'asset') {
+      $field_info['label'] = t('Owner');
+      $field_info['description'] = t('Optionally specify an owner for this asset.');
+    }
+
     $fields['owner'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($field_info);
   }
 

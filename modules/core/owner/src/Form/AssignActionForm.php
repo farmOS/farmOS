@@ -146,14 +146,14 @@ class AssignActionForm extends ConfirmFormBase {
         $this->entityType = $this->entityTypeManager->getDefinition('log');
         $title = $this->t("Assign log(s) to");
         $users_description = $this->t("Select people to assign these logs to.");
-        $operation_description = $this->t('Select "Append" if you want to add users to the logs, but keep the existing assignments. Select "Replace" if you want to replace existing assignments with the ones specified above.');
+        $operation_description = $this->t('Select "Append" if you want to add users to the logs, but keep the existing assignments. Select "Replace" if you want to replace existing assignments with the people specified above.');
         break;
 
       case 'asset':
         $this->entityType = $this->entityTypeManager->getDefinition('asset');
-        $title = $this->t("Assign asset(s) to");
-        $users_description = $this->t("Select people to assign these assets to.");
-        $operation_description = $this->t('Select "Append" if you want to add users to the assets, but keep the existing assignments. Select "Replace" if you want to replace existing assignments with the ones specified above.');
+        $title = $this->t("Set the asset owner(s) to");
+        $users_description = $this->t("Select people to specify as the owner or these assets.");
+        $operation_description = $this->t('Select "Append" if you want to add users to the assets, but keep the existing owners. Select "Replace" if you want to replace existing owners with the people specified above.');
         break;
 
       default:

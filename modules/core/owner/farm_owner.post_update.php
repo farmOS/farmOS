@@ -17,8 +17,8 @@ function farm_owner_post_update_add_asset_owner(&$sandbox = NULL) {
 
   $field_info = [
     'type' => 'entity_reference',
-    'label' => t('Assigned to'),
-    'description' => t('Optionally assign this task to one or more people.'),
+    'label' => t('Owner'),
+    'description' => t('Optionally specify an owner for this asset.'),
     'target_type' => 'user',
     'multiple' => TRUE,
     'weight' => [

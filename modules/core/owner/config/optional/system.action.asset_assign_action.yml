@@ -5,7 +5,7 @@ dependencies:
     - farm_owner
     - asset
 id: asset_assign_action
-label: 'Assign asset'
+label: 'Set owner'
 type: asset
 plugin: 'asset_assign_action'
 configuration: {  }
