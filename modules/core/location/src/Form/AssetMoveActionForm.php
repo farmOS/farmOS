@@ -191,7 +191,7 @@ class AssetMoveActionForm extends ConfirmFormBase {
 
       // Load location assets.
       $locations = [];
-      $location_ids = array_column($form_state->getValue('location', []), 'target_id');
+      $location_ids = array_column($form_state->getValue('location', []) ?? [], 'target_id');
       if (!empty($location_ids)) {
         $locations = $this->entityTypeManager->getStorage('asset')->loadMultiple($location_ids);
       }
