@@ -35,6 +35,7 @@ class FarmMapWkt extends FormElement {
       // Display descriptions above the map by default.
       '#description_display' => 'before',
       '#map_type' => 'geofield_widget',
+      '#default_value' => '',
       '#display_raw_geometry' => TRUE,
     ];
   }
@@ -97,7 +98,7 @@ class FarmMapWkt extends FormElement {
    */
   public static function valueCallback(&$element, $input, FormStateInterface $form_state) {
     if ($input === FALSE) {
-      return $element['#default_value'] ?: [];
+      return $element['#default_value'] ?: '';
     }
 
     if ($input['value']) {
