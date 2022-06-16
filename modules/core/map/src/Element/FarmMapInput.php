@@ -4,6 +4,7 @@ namespace Drupal\farm_map\Element;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element\FormElement;
+use Drupal\geofield\GeoPHP\GeoPHPWrapper;
 
 /**
  * Form element that returns WKT rendered in a map.
@@ -27,10 +28,9 @@ class FarmMapInput extends FormElement {
       '#pre_render' => [
         [$class, 'preRenderGroup'],
       ],
-      // @todo Add validation.
-//      '#element_validate' => [
-//        [$class, 'elementValidate'],
-//      ],
+      '#element_validate' => [
+        [$class, 'elementValidate'],
+      ],
       '#theme_wrappers' => ['fieldset'],
       // Display descriptions above the map by default.
       '#description_display' => 'before',
@@ -91,6 +91,34 @@ class FarmMapInput extends FormElement {
 
     // Return the element.
     return $element;
+  }
+
+  /**
+   * Validates the form element.
+   */
+  public static function elementValidate(&$element, FormStateInterface $form_state, &$complete_form) {
+
+    // Validate that the geometry data is valid by attempting to load it into
+    // GeoPHP. This uses the same logic and error message as the geofield
+    // module's validation constraint.
+    // @see Drupal\geofield\Plugin\Validation\Constraint\GeoConstraint
+    // @see Drupal\geofield\Plugin\Validation\Constraint\GeoConstraintValidator
+    $value = $element['value']['#value'];
+    if (!empty($value)) {
+      $geophp = new GeoPHPWrapper();
+      $valid_geometry = TRUE;
+      try {
+        if (!$geophp->load($value)) {
+          $valid_geometry = FALSE;
+        }
+      }
+      catch (\Exception $e) {
+        $valid_geometry = FALSE;
+      }
+      if (!$valid_geometry) {
+        $form_state->setError($element, t('"@value" is not a valid geospatial content.', ['@value' => $value]));
+      }
+    }
   }
 
   /**

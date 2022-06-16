@@ -57,6 +57,11 @@ class MapFormTest extends FarmBrowserTestBase {
     $log = $logs[2];
     $this->assertEquals('POINT(-45.967095060886315 32.77503850904169)', $log->get('geometry')->value);
 
+    // Test that submitting an invalid geometry throws a form validation error.
+    $this->drupalGet('quick/test');
+    $edit = ['geometry2[value]' => 'POLYGON()'];
+    $this->submitForm($edit, 'Submit');
+    $this->assertSession()->pageTextContains($this->t('"POLYGON()" is not a valid geospatial content.'));
   }
 
 }
