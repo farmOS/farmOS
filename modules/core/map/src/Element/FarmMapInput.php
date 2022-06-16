@@ -8,9 +8,9 @@ use Drupal\Core\Render\Element\FormElement;
 /**
  * Form element that returns WKT rendered in a map.
  *
- * @FormElement("farm_map_wkt")
+ * @FormElement("farm_map_input")
  */
-class FarmMapWkt extends FormElement {
+class FarmMapInput extends FormElement {
 
   /**
    * {@inheritdoc}
@@ -41,7 +41,7 @@ class FarmMapWkt extends FormElement {
   }
 
   /**
-   * Generates the FarmMapWktform element.
+   * Generates the form element.
    *
    * @param array $element
    *   An associative array containing the properties and children of the

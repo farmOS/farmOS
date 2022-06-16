@@ -133,8 +133,8 @@ class GeofieldWidget extends GeofieldBaseWidget {
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
 
-    // Use the farm_map_wkt form element.
-    $element['#type'] = 'farm_map_wkt';
+    // Use the farm_map_input form element.
+    $element['#type'] = 'farm_map_input';
 
     // Wrap the map with a unique id for populating from files.
     $field_name = $this->fieldDefinition->getName();

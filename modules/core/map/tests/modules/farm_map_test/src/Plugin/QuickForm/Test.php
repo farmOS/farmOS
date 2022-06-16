@@ -30,7 +30,7 @@ class Test extends QuickFormBase {
 
     // Geometry field with a default value and no raw data textfield.
     $form['geometry1'] = [
-      '#type' => 'farm_map_wkt',
+      '#type' => 'farm_map_input',
       '#title' => $this->t('Geometry 1'),
       '#display_raw_geometry' => FALSE,
       '#default_value' => 'POINT(-42.689862437640826 32.621823310499934)',
@@ -38,7 +38,7 @@ class Test extends QuickFormBase {
 
     // Geometry field without a default value and a raw data field.
     $form['geometry2'] = [
-      '#type' => 'farm_map_wkt',
+      '#type' => 'farm_map_input',
       '#title' => $this->t('Geometry 2'),
       '#display_raw_geometry' => TRUE,
     ];
