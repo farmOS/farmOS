@@ -85,6 +85,7 @@ class FarmMapInput extends FormElement {
     $element['value'] = [
       '#type' => $display_raw_geometry ? 'textarea' : 'hidden',
       '#title' => $element_title . ' ' . t('WKT'),
+      '#title_display' => 'invisible',
       '#attributes' => [
         'data-map-geometry-field' => TRUE,
       ],

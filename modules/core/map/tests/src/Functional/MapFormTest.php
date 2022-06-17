@@ -31,11 +31,13 @@ class MapFormTest extends FarmBrowserTestBase {
     $this->drupalLogin($user);
 
     // Go to the test quick form and confirm that both of the geometry fields
-    // are visible.
+    // are visible, and only the second field's WKT text field is visible.
     $this->drupalGet('quick/test');
     $this->assertSession()->statusCodeEquals(200);
     $this->assertSession()->pageTextContains($this->t('Geometry 1'));
     $this->assertSession()->pageTextContains($this->t('Geometry 2'));
+    $this->assertSession()->pageTextNotContains($this->t('Geometry 1 WKT'));
+    $this->assertSession()->pageTextContains($this->t('Geometry 2 WKT'));
 
     // Submit the form with a value for the second geometry.
     $edit = ['geometry2[value]' => 'POINT(-45.967095060886315 32.77503850904169)'];
