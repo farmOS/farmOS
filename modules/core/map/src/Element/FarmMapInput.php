@@ -35,6 +35,7 @@ class FarmMapInput extends FormElement {
       // Display descriptions above the map by default.
       '#description_display' => 'before',
       '#map_type' => 'geofield_widget',
+      '#map_settings' => [],
       '#default_value' => '',
       '#display_raw_geometry' => TRUE,
     ];
