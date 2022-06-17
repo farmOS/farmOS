@@ -136,6 +136,9 @@ class GeofieldWidget extends GeofieldBaseWidget {
     // Use the farm_map_input form element.
     $element['#type'] = 'farm_map_input';
 
+    // Use the geofield map type.
+    $element['#map_type'] = 'geofield';
+
     // Wrap in a fieldset.
     $element['#theme_wrappers'] = ['fieldset'];
 

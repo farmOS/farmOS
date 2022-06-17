@@ -6,11 +6,12 @@
  */
 
 use Drupal\farm_map\Entity\MapBehavior;
+use Drupal\farm_map\Entity\MapType;
 
 /**
- * Rename geofield map behavior to input.
+ * Generalize geofield map types and behavior.
  */
-function farm_map_post_update_map_input_behavior(&$sandbox) {
+function farm_map_post_update_generalize_geofield_map_types_behavior(&$sandbox) {
 
   // Create the new input behavior.
   $input_behavior = MapBehavior::create([
@@ -32,4 +33,8 @@ function farm_map_post_update_map_input_behavior(&$sandbox) {
   // Delete the geofield behavior.
   $geofield_behavior = MapBehavior::load('geofield');
   $geofield_behavior->delete();
+
+  // Delete the geofield_widget map type.
+  $geofield_widget_map_type = MapType::load('geofield_widget');
+  $geofield_widget_map_type->delete();
 }
