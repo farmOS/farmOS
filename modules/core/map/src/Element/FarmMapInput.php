@@ -38,7 +38,7 @@ class FarmMapInput extends FormElement {
       '#map_settings' => [],
       '#behaviors' => [],
       '#default_value' => '',
-      '#display_raw_geometry' => TRUE,
+      '#display_raw_geometry' => FALSE,
     ];
   }
 
