@@ -59,6 +59,12 @@ class FarmMapInput extends FormElement {
    */
   public static function processElement(array $element, FormStateInterface $form_state, array &$complete_form) {
 
+    // Merge provided map behaviors into defaults.
+    $behaviors = array_merge([
+      'wkt',
+      'input',
+    ], $element['#behaviors']);
+
     // Recursively merge provided map settings into defaults.
     $map_settings = array_merge_recursive([
       'behaviors' => [
@@ -76,7 +82,7 @@ class FarmMapInput extends FormElement {
       '#type' => 'farm_map',
       '#map_type' => $element['#map_type'],
       '#map_settings' => $map_settings,
-      '#behaviors' => $element['#behaviors'],
+      '#behaviors' => $behaviors,
     ];
 
     // Add a textarea for the WKT value.

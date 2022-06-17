@@ -61,12 +61,6 @@ class MapRenderEventSubscriber implements EventSubscriberInterface {
       $event->addBehavior('wkt');
     }
 
-    // Add the wkt and input behavior to the geofield_widget map.
-    if (in_array($event->getMapType()->id(), ['geofield_widget'])) {
-      $event->addBehavior('wkt');
-      $event->addBehavior('input');
-    }
-
     // Get whether the side panel should be enabled.
     $enable_side_panel = $this->configFactory->get('farm_map.settings')->get('enable_side_panel');
 
