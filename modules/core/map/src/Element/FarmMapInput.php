@@ -58,20 +58,23 @@ class FarmMapInput extends FormElement {
    */
   public static function processElement(array $element, FormStateInterface $form_state, array &$complete_form) {
 
+    // Recursively merge provided map settings into defaults.
+    $map_settings = array_merge_recursive([
+      'behaviors' => [
+        'wkt' => [
+          'edit' => TRUE,
+          'zoom' => TRUE,
+        ],
+      ],
+    ], $element['#map_settings']);
+
     // Define the map render array.
     // @todo Does this have to return a tree structure?
     $element['#tree'] = TRUE;
     $element['map'] = [
       '#type' => 'farm_map',
       '#map_type' => $element['#map_type'],
-      '#map_settings' => [
-        'behaviors' => [
-          'wkt' => [
-            'edit' => TRUE,
-            'zoom' => TRUE,
-          ],
-        ],
-      ],
+      '#map_settings' => $map_settings,
     ];
 
     // Add a textarea for the WKT value.
