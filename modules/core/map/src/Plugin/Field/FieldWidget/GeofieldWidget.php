@@ -136,6 +136,9 @@ class GeofieldWidget extends GeofieldBaseWidget {
     // Use the farm_map_input form element.
     $element['#type'] = 'farm_map_input';
 
+    // Wrap in a fieldset.
+    $element['#theme_wrappers'] = ['fieldset'];
+
     // Wrap the map with a unique id for populating from files.
     $field_name = $this->fieldDefinition->getName();
     $field_wrapper_id = Html::getUniqueId($field_name . '_wrapper');

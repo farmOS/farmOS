@@ -31,7 +31,7 @@ class FarmMapInput extends FormElement {
       '#element_validate' => [
         [$class, 'elementValidate'],
       ],
-      '#theme_wrappers' => ['fieldset'],
+      '#theme_wrappers' => ['form_element'],
       // Display descriptions above the map by default.
       '#description_display' => 'before',
       '#map_type' => 'geofield_widget',
