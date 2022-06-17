@@ -39,6 +39,7 @@ class FarmMapInput extends FormElement {
       '#behaviors' => [],
       '#default_value' => '',
       '#display_raw_geometry' => FALSE,
+      '#disabled' => FALSE,
     ];
   }
 
@@ -59,17 +60,16 @@ class FarmMapInput extends FormElement {
    */
   public static function processElement(array $element, FormStateInterface $form_state, array &$complete_form) {
 
-    // Merge provided map behaviors into defaults.
-    $behaviors = array_merge([
-      'wkt',
-      'input',
-    ], $element['#behaviors']);
+    // Merge provided map behaviors into defaults. Enable wkt and input
+    // behaviors if #disabled is not TRUE.
+    $default_behaviors = !$element['#disabled'] ? ['wkt', 'input'] : [];
+    $behaviors = array_merge($default_behaviors, $element['#behaviors']);
 
     // Recursively merge provided map settings into defaults.
     $map_settings = array_merge_recursive([
       'behaviors' => [
         'wkt' => [
-          'edit' => TRUE,
+          'edit' => !$element['#disabled'],
           'zoom' => TRUE,
         ],
       ],
@@ -95,6 +95,7 @@ class FarmMapInput extends FormElement {
       '#attributes' => [
         'data-map-geometry-field' => TRUE,
       ],
+      '#disabled' => $element['#disabled'],
     ];
 
     // Add default value if provided.
