@@ -2,6 +2,7 @@
 
 namespace Drupal\farm_location\Form;
 
+use Drupal\asset\Entity\AssetInterface;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\ConfirmFormBase;
@@ -127,8 +128,27 @@ class AssetMoveActionForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+
+    // Check if asset IDs were provided in the asset query param.
+    $request = \Drupal::request();
+    if ($asset_ids = $request->get('asset')) {
+
+      // Wrap in an array, if necessary.
+      if (!is_array($asset_ids)) {
+        $asset_ids = [$asset_ids];
+      }
+
+      // Add each asset the user has view access to.
+      $this->entities = array_filter($this->entityTypeManager->getStorage('asset')->loadMultiple($asset_ids), function (AssetInterface $asset) {
+        return $asset->access('view', $this->user);
+      });
+    }
+    // Else load entities from the tempStore state.
+    else {
+      $this->entities = $this->tempStore->get($this->user->id());
+    }
+
     $this->entityType = $this->entityTypeManager->getDefinition('asset');
-    $this->entities = $this->tempStore->get($this->user->id());
     if (empty($this->entityType) || empty($this->entities)) {
       return new RedirectResponse($this->getCancelUrl()
         ->setAbsolute()
