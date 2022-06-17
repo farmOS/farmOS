@@ -25,6 +25,7 @@ class FarmMap extends RenderElement {
       '#theme' => 'farm_map',
       '#map_type' => 'default',
       '#map_settings' => [],
+      '#behaviors' => [],
     ];
   }
 
@@ -38,6 +39,8 @@ class FarmMap extends RenderElement {
    *
    * @return array
    *   A renderable array representing the map.
+   *
+   * @see \Drupal\farm_map\Event\MapRenderEvent
    */
   public static function preRenderMap(array $element) {
 
@@ -66,6 +69,15 @@ class FarmMap extends RenderElement {
     // Attach the farmOS-map and farm_map libraries.
     $element['#attached']['library'][] = 'farm_map/farmOS-map';
     $element['#attached']['library'][] = 'farm_map/farm_map';
+
+    // If #behaviors are included, attach each one.
+    foreach ($element['#behaviors'] as $behavior_name) {
+      /** @var \Drupal\farm_map\Entity\MapBehaviorInterface $behavior */
+      $behavior = \Drupal::entityTypeManager()->getStorage('map_behavior')->load($behavior_name);
+      if (!empty($behavior)) {
+        $element['#attached']['library'][] = $behavior->getLibrary();
+      }
+    }
 
     // Include the map options.
     $map_options = $map->getMapOptions();

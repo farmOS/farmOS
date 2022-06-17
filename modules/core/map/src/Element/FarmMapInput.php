@@ -36,6 +36,7 @@ class FarmMapInput extends FormElement {
       '#description_display' => 'before',
       '#map_type' => 'geofield_widget',
       '#map_settings' => [],
+      '#behaviors' => [],
       '#default_value' => '',
       '#display_raw_geometry' => TRUE,
     ];
@@ -75,6 +76,7 @@ class FarmMapInput extends FormElement {
       '#type' => 'farm_map',
       '#map_type' => $element['#map_type'],
       '#map_settings' => $map_settings,
+      '#behaviors' => $element['#behaviors'],
     ];
 
     // Add a textarea for the WKT value.
