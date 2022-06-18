@@ -149,9 +149,9 @@ class GeofieldWidget extends GeofieldBaseWidget {
     $element['#suffix'] = '</div>';
 
     // Get the current form state value. Prioritize form state over field value.
-    $form_value = $form_state->getValue([$field_name, $delta, 'value']);
+    $form_value = $form_state->getValue([$field_name, $delta]);
     $field_value = $items[$delta]->value;
-    $current_value = $form_value ?? $field_value;
+    $current_value = $form_value['value'] ?? $field_value;
     $element['#default_value'] = $current_value;
 
     // Configure to display raw geometry.
@@ -180,6 +180,12 @@ class GeofieldWidget extends GeofieldBaseWidget {
         '#weight' => 10,
       ];
     }
+
+    // Override the element validation to prevent transformation of the value
+    // from array to string, and because Geofields already perform the same
+    // geometry validation.
+    // @see \Drupal\geofield\Plugin\Validation\GeoConstraintValidator.
+    $element['#element_validate'] = [];
 
     return $element;
   }
@@ -267,11 +273,11 @@ class GeofieldWidget extends GeofieldBaseWidget {
       $field_name = $this->fieldDefinition->getName();
       $delta = $element['#delta'];
       $user_input = $form_state->getUserInput();
-      unset($user_input[$field_name][$delta]['value']);
+      unset($user_input[$field_name][$delta]);
       $form_state->setUserInput($user_input);
 
       // Set the new form value.
-      $form_state->setValue([$field_name, $delta, 'value'], $wkt);
+      $form_state->setValue([$field_name, $delta], ['value' => $wkt]);
 
       // Rebuild the form so the map widget is rebuilt with the new value.
       $form_state->setRebuild(TRUE);

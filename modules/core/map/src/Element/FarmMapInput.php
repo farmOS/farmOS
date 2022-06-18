@@ -20,8 +20,6 @@ class FarmMapInput extends FormElement {
     $class = static::class;
     return [
       '#input' => TRUE,
-      // @todo Does this have to return a tree structure?
-      '#tree' => TRUE,
       '#process' => [
         [$class, 'processElement'],
       ],
@@ -59,6 +57,7 @@ class FarmMapInput extends FormElement {
    *   The processed element.
    */
   public static function processElement(array $element, FormStateInterface $form_state, array &$complete_form) {
+    $element['#tree'] = TRUE;
 
     // Merge provided map behaviors into defaults. Enable wkt and input
     // behaviors if #disabled is not TRUE.
@@ -76,8 +75,6 @@ class FarmMapInput extends FormElement {
     ], $element['#map_settings']);
 
     // Define the map render array.
-    // @todo Does this have to return a tree structure?
-    $element['#tree'] = TRUE;
     $element['map'] = [
       '#type' => 'farm_map',
       '#map_type' => $element['#map_type'],
@@ -134,6 +131,9 @@ class FarmMapInput extends FormElement {
         $form_state->setError($element, t('"@value" is not a valid geospatial content.', ['@value' => $value]));
       }
     }
+
+    // Save the WKT string value to the overall element.
+    $form_state->setValueForElement($element, $value);
   }
 
   /**
@@ -143,12 +143,7 @@ class FarmMapInput extends FormElement {
     if ($input === FALSE) {
       return $element['#default_value'] ?: '';
     }
-
-    if ($input['value']) {
-      return $input['value'];
-    }
-
-    return NULL;
+    return $input;
   }
 
 }
