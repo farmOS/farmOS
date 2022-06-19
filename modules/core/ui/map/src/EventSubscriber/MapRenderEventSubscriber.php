@@ -65,7 +65,7 @@ class MapRenderEventSubscriber implements EventSubscriberInterface {
     $map_id = $event->getmapType()->id();
 
     // Add behaviors/settings to default and geofield maps.
-    if (in_array($map_id, ['default', 'geofield', 'geofield_widget'])) {
+    if (in_array($map_id, ['default', 'geofield'])) {
 
       // Add "All locations" layers.
       $event->addBehavior('asset_type_layers');

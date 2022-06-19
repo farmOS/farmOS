@@ -24,6 +24,8 @@ class FarmMap extends RenderElement {
       ],
       '#theme' => 'farm_map',
       '#map_type' => 'default',
+      '#map_settings' => [],
+      '#behaviors' => [],
     ];
   }
 
@@ -37,6 +39,8 @@ class FarmMap extends RenderElement {
    *
    * @return array
    *   A renderable array representing the map.
+   *
+   * @see \Drupal\farm_map\Event\MapRenderEvent
    */
   public static function preRenderMap(array $element) {
 
@@ -66,14 +70,20 @@ class FarmMap extends RenderElement {
     $element['#attached']['library'][] = 'farm_map/farmOS-map';
     $element['#attached']['library'][] = 'farm_map/farm_map';
 
-    // Include map settings.
-    $map_settings = !empty($element['#map_settings']) ? $element['#map_settings'] : [];
+    // If #behaviors are included, attach each one.
+    foreach ($element['#behaviors'] as $behavior_name) {
+      /** @var \Drupal\farm_map\Entity\MapBehaviorInterface $behavior */
+      $behavior = \Drupal::entityTypeManager()->getStorage('map_behavior')->load($behavior_name);
+      if (!empty($behavior)) {
+        $element['#attached']['library'][] = $behavior->getLibrary();
+      }
+    }
 
     // Include the map options.
     $map_options = $map->getMapOptions();
 
     // Add the instance settings under the map id key.
-    $instance_settings = array_merge_recursive($map_settings, $map_options);
+    $instance_settings = array_merge_recursive($element['#map_settings'], $map_options);
     $element['#attached']['drupalSettings']['farm_map'][$map_id] = $instance_settings;
 
     // Create and dispatch a MapRenderEvent.

@@ -72,6 +72,8 @@ class MapRenderEvent extends Event {
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   *
+   * @see \Drupal\farm_map\Element\FarmMap
    */
   public function addBehavior(string $behavior_name, array $settings = []) {
 
