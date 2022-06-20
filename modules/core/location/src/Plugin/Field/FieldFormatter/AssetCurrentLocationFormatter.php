@@ -72,6 +72,11 @@ class AssetCurrentLocationFormatter extends EntityReferenceLabelFormatter {
     // Get the asset.
     $asset = $items->getEntity();
 
+    // If the asset is fixed don't render additional information.
+    if ($asset->get('is_fixed')->value) {
+      return $elements;
+    }
+
     // If there are no current locations only render if configured to.
     if (empty($elements) && !$this->getSetting('render_without_location')) {
       return $elements;
