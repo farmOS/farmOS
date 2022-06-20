@@ -28,8 +28,8 @@ function farm_location_asset_base_fields() {
       'type' => 'asset_current_location',
       'settings' => [
         'link' => TRUE,
-        'render_without_location' => FALSE,
-        'move_asset_button' => FALSE,
+        'render_without_location' => TRUE,
+        'move_asset_button' => TRUE,
       ],
       'weight' => 95,
     ],
