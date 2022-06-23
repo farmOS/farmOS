@@ -44,7 +44,7 @@
         "drupal/token": "^1.7",
         "drupal/views_geojson": "^1.1",
         "drush/drush": "^10.3",
-        "ext-simplexml": "^7.4",
+        "ext-simplexml": "*",
         "phayes/geophp": "1.2"
     },
     "extra": {
