@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Issue #3290929: Provide a farmOS map form element](https://www.drupal.org/project/farm/issues/3290929)
 - [Issue #3290993: Add "Move asset" button next to the current location field](https://www.drupal.org/project/farm/issues/3290993)
+- [Generate unique form IDs for quick forms #547](https://github.com/farmOS/farmOS/pull/547)
 
 ### Security
 
