@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Update Drupal core to 9.3.16 for [SA-CORE-2022-011](https://www.drupal.org/sa-core-2022-011).
 
-## [2.0.0-beta5]
+## [2.0.0-beta5] 2022-06-02
 
 ### Changed
 
