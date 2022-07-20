@@ -1,11 +1,11 @@
 {
     "require": {
         "cweagans/composer-patches": "^1.7",
-        "drupal/core-composer-scaffold": "9.4.2"
+        "drupal/core-composer-scaffold": "9.4.3"
     },
     "require-dev": {
         "brianium/paratest": "^4",
-        "drupal/core-dev": "9.4.2",
+        "drupal/core-dev": "9.4.3",
         "phpspec/prophecy-phpunit": "^2",
         "symfony/finder": "^4.0"
     },
