@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0-beta6] 2022-07-30
+
 ### Added
 
 - [Issue #3290929: Provide a farmOS map form element](https://www.drupal.org/project/farm/issues/3290929)
