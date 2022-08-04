@@ -23,8 +23,15 @@ function farm_location_asset_base_fields() {
     'multiple' => TRUE,
     'computed' => AssetLocationItemList::class,
     'hidden' => 'form',
-    'weight' => [
-      'view' => 95,
+    'view_display_options' => [
+      'label' => 'inline',
+      'type' => 'asset_current_location',
+      'settings' => [
+        'link' => TRUE,
+        'render_without_location' => TRUE,
+        'move_asset_button' => TRUE,
+      ],
+      'weight' => 95,
     ],
   ];
   $fields['location'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);

@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0-beta6] 2022-07-30
+
+### Added
+
+- [Issue #3290929: Provide a farmOS map form element](https://www.drupal.org/project/farm/issues/3290929)
+- [Issue #3290993: Add "Move asset" button next to the current location field](https://www.drupal.org/project/farm/issues/3290993)
+- [Generate unique form IDs for quick forms #547](https://github.com/farmOS/farmOS/pull/547)
+
+### Security
+
+- Update Drupal core to 9.3.16 for [SA-CORE-2022-011](https://www.drupal.org/sa-core-2022-011).
+- Update Drupal core to 9.3.19 for [SA-CORE-2022-012](https://www.drupal.org/sa-core-2022-012), [SA-CORE-2022-013](https://www.drupal.org/sa-core-2022-013), [SA-CORE-2022-014](https://www.drupal.org/sa-core-2022-014), and [SA-CORE-2022-015](https://www.drupal.org/sa-core-2022-015).
+
+## [2.0.0-beta5] 2022-06-02
+
 ### Changed
 
 - [Issue #3275161: Allow IMG tags in default text format](https://www.drupal.org/project/farm/issues/3275161)
@@ -16,11 +31,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - [Do not check php-geos requirement in the update phase #526](https://github.com/farmOS/farmOS/pull/526)
+- Patch entity_reference_revisions module to fix upstream issue [#3267304](https://www.drupal.org/project/entity_reference_revisions/issues/3267304).
 
 ### Security
 
 - Update Drupal core to 9.3.12 for [SA-CORE-2022-008](https://www.drupal.org/sa-core-2022-008) and
   [SA-CORE-2022-009](https://www.drupal.org/sa-core-2022-009).
+- Update Drupal core to 9.3.14 for [SA-CORE-2022-010](https://www.drupal.org/sa-core-2022-010).
 
 ## [2.0.0-beta4] 2022-04-13
 
@@ -190,7 +207,8 @@ moving forward.
     Drupal 7, which required a complete refactor of the codebase. By comparison,
     updating from Drupal 9 to 10 will simply involve updating deprecated code.
 
-[Unreleased]: https://github.com/farmOS/farmOS/compare/2.0.0-beta4...HEAD
+[Unreleased]: https://github.com/farmOS/farmOS/compare/2.0.0-beta5...HEAD
+[2.0.0-beta5]: https://github.com/farmOS/farmOS/releases/tag/2.0.0-beta5
 [2.0.0-beta4]: https://github.com/farmOS/farmOS/releases/tag/2.0.0-beta4
 [2.0.0-beta3]: https://github.com/farmOS/farmOS/releases/tag/2.0.0-beta3
 [2.0.0-beta2]: https://github.com/farmOS/farmOS/releases/tag/2.0.0-beta2

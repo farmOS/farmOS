@@ -133,45 +133,30 @@ class GeofieldWidget extends GeofieldBaseWidget {
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
 
-    // Wrap the map in a collapsible details element.
+    // Use the farm_map_input form element.
+    $element['#type'] = 'farm_map_input';
+
+    // Use the geofield map type.
+    $element['#map_type'] = 'geofield';
+
+    // Wrap in a fieldset.
+    $element['#theme_wrappers'] = ['fieldset'];
+
+    // Wrap the map with a unique id for populating from files.
     $field_name = $this->fieldDefinition->getName();
     $field_wrapper_id = Html::getUniqueId($field_name . '_wrapper');
-    $element['#type'] = 'details';
-    $element['#title'] = $this->t('Geometry');
-    $element['#open'] = TRUE;
     $element['#prefix'] = '<div id="' . $field_wrapper_id . '">';
     $element['#suffix'] = '</div>';
 
     // Get the current form state value. Prioritize form state over field value.
-    $form_value = $form_state->getValue([$field_name, $delta, 'value']);
+    $form_value = $form_state->getValue([$field_name, $delta]);
     $field_value = $items[$delta]->value;
-    $current_value = $form_value ?? $field_value;
+    $current_value = $form_value['value'] ?? $field_value;
+    $element['#default_value'] = $current_value;
 
-    // Define the map render array.
-    $element['map'] = [
-      '#type' => 'farm_map',
-      '#map_type' => 'geofield_widget',
-      '#map_settings' => [
-        'wkt' => $current_value,
-        'behaviors' => [
-          'wkt' => [
-            'edit' => TRUE,
-            'zoom' => TRUE,
-          ],
-        ],
-      ],
-    ];
-
-    // Add a textarea for the WKT value.
+    // Configure to display raw geometry.
     $display_raw_geometry = $this->getSetting('display_raw_geometry');
-    $element['value'] = [
-      '#type' => $display_raw_geometry ? 'textarea' : 'hidden',
-      '#title' => $this->t('Geometry'),
-      '#default_value' => $current_value,
-      '#attributes' => [
-        'data-map-geometry-field' => TRUE,
-      ],
-    ];
+    $element['#display_raw_geometry'] = $display_raw_geometry;
 
     // Add an option to populate geometry using files field.
     // The "populate_file_field" field setting must be configured and the
@@ -192,8 +177,15 @@ class GeofieldWidget extends GeofieldBaseWidget {
             ':input[name="' . $populate_file_field . '[0][fids]"]' => ['empty' => TRUE],
           ],
         ],
+        '#weight' => 10,
       ];
     }
+
+    // Override the element validation to prevent transformation of the value
+    // from array to string, and because Geofields already perform the same
+    // geometry validation.
+    // @see \Drupal\geofield\Plugin\Validation\GeoConstraintValidator.
+    $element['#element_validate'] = [];
 
     return $element;
   }
@@ -281,11 +273,11 @@ class GeofieldWidget extends GeofieldBaseWidget {
       $field_name = $this->fieldDefinition->getName();
       $delta = $element['#delta'];
       $user_input = $form_state->getUserInput();
-      unset($user_input[$field_name][$delta]['value']);
+      unset($user_input[$field_name][$delta]);
       $form_state->setUserInput($user_input);
 
       // Set the new form value.
-      $form_state->setValue([$field_name, $delta, 'value'], $wkt);
+      $form_state->setValue([$field_name, $delta], ['value' => $wkt]);
 
       // Rebuild the form so the map widget is rebuilt with the new value.
       $form_state->setRebuild(TRUE);

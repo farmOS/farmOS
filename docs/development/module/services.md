@@ -60,9 +60,10 @@ controls are respected.
 
 **Methods**:
 
-`getInventory($asset, $measure = '', $units = '')` - Get inventory summaries
+`getInventory($asset, $measure = '', $units = 0)` - Get inventory summaries
 for an asset. Returns an array of arrays with the following keys: `measure`,
-`value`, `units`. This can be optionally filtered by `$measure` and `$units`.
+`value`, `units`. This can be optionally filtered by `$measure` (string)
+and `$units` (term ID).
 
 **Example usage**:
 
@@ -70,8 +71,8 @@ for an asset. Returns an array of arrays with the following keys: `measure`,
 // Get summaries of all inventories for an asset.
 $all_inventory = \Drupal::service('asset.inventory')->getInventory($asset);
 
-// Get the current inventory for a given measure and units.
-$gallons_of_fertilizer = \Drupal::service('asset.inventory')->getInventory($asset, 'volume', 'gallons');
+// Get the current inventory for a given measure (string) and units (term id).
+$gallons_of_fertilizer = \Drupal::service('asset.inventory')->getInventory($asset, 'volume', 123);
 ```
 
 ## Field factory service

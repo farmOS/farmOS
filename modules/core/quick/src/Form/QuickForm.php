@@ -2,6 +2,7 @@
 
 namespace Drupal\farm_quick\Form;
 
+use Drupal\Core\Form\BaseFormIdInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
@@ -13,7 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @ingroup farm
  */
-class QuickForm extends FormBase {
+class QuickForm extends FormBase implements BaseFormIdInterface {
 
   /**
    * The quick form manager.
@@ -51,8 +52,16 @@ class QuickForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function getFormId() {
+  public function getBaseFormId() {
     return 'quick_form';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getFormId() {
+    $id = $this->getRouteMatch()->getParameter('id');
+    return $this->getBaseFormId() . "_$id";
   }
 
   /**

@@ -1,5 +1,5 @@
 (function () {
-  farmOS.map.behaviors.geofield = {
+  farmOS.map.behaviors.input = {
     attach: function (instance) {
       instance.editAttached.then(() => {
         instance.edit.wktOn('featurechange', function(wkt) {

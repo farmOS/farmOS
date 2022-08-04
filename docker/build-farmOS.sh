@@ -42,6 +42,7 @@ composer require farmos/farmos ${FARMOS_COMPOSER_VERSION} --no-install
 allowedPlugins=(
   "composer/installers"
   "cweagans/composer-patches"
+  "dealerdirect/phpcodesniffer-composer-installer"
   "drupal/core-composer-scaffold"
   "oomphinc/composer-installers-extender"
   "wikimedia/composer-merge-plugin"
