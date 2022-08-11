@@ -1,0 +1,12 @@
+farm_notification.settings:
+  base_route: farm_settings.settings_page
+  route_name: farm_notification.settings
+  title: 'Notifications'
+  weight: 5
+
+# Provide a default sub tab.
+farm_notification.settings_sub:
+  title: 'Notifications'
+  route_name: farm_notification.settings
+  parent_id: farm_notification.settings
+  weight: -5

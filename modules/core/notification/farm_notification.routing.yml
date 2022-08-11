@@ -1,0 +1,7 @@
+farm_notification.settings:
+  path: '/farm/settings/notification'
+  defaults:
+    _form: '\Drupal\farm_notification\Form\NotificationSettingsForm'
+    _title: 'Notification settings'
+  requirements:
+    _permission: 'administer farm notification'

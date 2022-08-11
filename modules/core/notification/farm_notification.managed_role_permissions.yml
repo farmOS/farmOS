@@ -1,0 +1,3 @@
+farm_notification:
+  config_permissions:
+    - administer farm notification
