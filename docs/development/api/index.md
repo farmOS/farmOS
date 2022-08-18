@@ -3,6 +3,13 @@
 farmOS provides an API that other applications and systems can use to read and
 write records via HTTP requests.
 
+## Client Libraries
+
+Client libraries are available for interacting with the farmOS API:
+
+- [farmOS.js](https://github.com/farmOS/farmOS.js) - [documentation](https://farmos.org/development/farmos-js/)
+- [farmOS.py](https://github.com/farmOS/farmOS.py) - [documentation](https://farmos.org/development/farmos-py/)
+
 ## JSON:API
 
 farmOS adheres to the [JSON:API](https://jsonapi.org/) specification for
