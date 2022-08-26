@@ -2522,14 +2522,11 @@ display:
         - user.permissions
       tags: {  }
   page_term:
-    display_plugin: page
     id: page_term
     display_title: 'By term (page)'
+    display_plugin: page
     position: 2
     display_options:
-      display_extenders: {  }
-      display_description: ''
-      path: taxonomy/term/%taxonomy_term/logs/%entity_bundle
       arguments:
         log_taxonomy_term_reference:
           id: log_taxonomy_term_reference
@@ -2538,7 +2535,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          break_phrase: false
+          entity_type: log
+          plugin_id: entity_taxonomy_term_reference
           default_action: 'not found'
           exception:
             value: all
@@ -2553,8 +2551,8 @@ display:
           summary_options:
             base_path: ''
             count: true
-            items_per_page: 25
             override: false
+            items_per_page: 25
           summary:
             sort_order: asc
             number_of_records: 0
@@ -2564,12 +2562,11 @@ display:
             type: 'entity:taxonomy_term'
             fail: 'not found'
           validate_options:
-            operation: view
+            bundles: {  }
             access: false
+            operation: view
             multiple: 0
-            bundles: {}
-          entity_type: log
-          plugin_id: entity_taxonomy_term_reference
+          break_phrase: false
         type:
           id: type
           table: log_field_data
@@ -2577,6 +2574,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: log
+          entity_field: type
+          plugin_id: string
           default_action: 'not found'
           exception:
             value: all
@@ -2591,8 +2591,8 @@ display:
           summary_options:
             base_path: ''
             count: true
-            items_per_page: 25
             override: false
+            items_per_page: 25
           summary:
             sort_order: asc
             number_of_records: 0
@@ -2602,21 +2602,21 @@ display:
             type: 'entity:log_type'
             fail: 'not found'
           validate_options:
+            bundles: {  }
+            access: false
             operation: view
             multiple: 0
-            access: false
-            bundles: {  }
           glossary: false
           limit: 0
           case: none
           path_case: none
           transform_dash: false
           break_phrase: false
-          entity_type: log
-          entity_field: type
-          plugin_id: string
       defaults:
         arguments: false
+      display_description: ''
+      display_extenders: {  }
+      path: taxonomy/term/%taxonomy_term/logs/%entity_bundle
     cache_metadata:
       max-age: 0
       contexts:
