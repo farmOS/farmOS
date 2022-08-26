@@ -60,6 +60,7 @@ class MapBlock extends BlockBase implements ContainerFactoryPluginInterface {
   public function defaultConfiguration() {
     return [
       'map_type' => 'default',
+      'map_behaviors' => [],
     ];
   }
 
@@ -82,6 +83,21 @@ class MapBlock extends BlockBase implements ContainerFactoryPluginInterface {
       '#default_value' => $this->configuration['map_type'],
     ];
 
+    // Map behaviors.
+    $map_behaviors = $this->entityTypeManager->getStorage('map_behavior')->loadMultiple();
+    $map_behavior_options = array_map(function ($map_behavior) {
+      /** @var \Drupal\farm_map\Entity\MapBehaviorInterface $map_behavior */
+      return $map_behavior->label();
+    }, $map_behaviors);
+    $form['map_behaviors'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Map behaviors'),
+      '#description' => $this->t('Add additional behaviors to the map. Note that behaviors may also be added to maps automatically by modules, even if they are not selected in this list. Using a custom map type is one way to avoid this.'),
+      '#options' => $map_behavior_options,
+      '#default_value' => $this->configuration['map_behaviors'],
+      '#multiple' => TRUE,
+    ];
+
     return $form;
   }
 
@@ -93,6 +109,7 @@ class MapBlock extends BlockBase implements ContainerFactoryPluginInterface {
     // Save map config values if no errors occurred.
     if (!$form_state->getErrors()) {
       $this->configuration['map_type'] = $form_state->getValue('map_type');
+      $this->configuration['map_behaviors'] = $form_state->getValue('map_behaviors');
     }
   }
 
@@ -103,6 +120,7 @@ class MapBlock extends BlockBase implements ContainerFactoryPluginInterface {
     return [
       '#type' => 'farm_map',
       '#map_type' => $this->configuration['map_type'] ?? 'default',
+      '#behaviors' => array_keys($this->configuration['map_behaviors']) ?? [],
     ];
   }
 
