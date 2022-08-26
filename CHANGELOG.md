@@ -7,8 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-- [Fix for Autocomplete dropdown not showing in Chrome on Android #552](https://github.com/farmOS/farmOS/issues/552)
+### Added
+
 - [Add button/menu item for data stream notifications collection page #555](https://github.com/farmOS/farmOS/pull/555)
+
+### Fixed
+
+- [Fix for Autocomplete dropdown not showing in Chrome on Android #552](https://github.com/farmOS/farmOS/issues/552)
 
 ## [2.0.0-beta6] 2022-07-30
 
