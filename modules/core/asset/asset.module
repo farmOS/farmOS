@@ -5,6 +5,8 @@
  * Hooks and customizations for the asset module.
  */
 
+use Drupal\asset\Entity\AssetInterface;
+use Drupal\asset\Event\AssetEvent;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Routing\RouteMatchInterface;
 
@@ -22,6 +24,54 @@ function asset_help($route_name, RouteMatchInterface $route_match) {
   }
 
   return $output;
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_presave().
+ */
+function asset_asset_presave(AssetInterface $asset) {
+
+  // Dispatch an event on asset presave.
+  // @todo Replace this with core event via https://www.drupal.org/node/2551893.
+  $event = new AssetEvent($asset);
+  $event_dispatcher = \Drupal::service('event_dispatcher');
+  $event_dispatcher->dispatch($event, AssetEvent::PRESAVE);
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_insert().
+ */
+function asset_asset_insert(AssetInterface $asset) {
+
+  // Dispatch an event on asset insert.
+  // @todo Replace this with core event via https://www.drupal.org/node/2551893.
+  $event = new AssetEvent($asset);
+  $event_dispatcher = \Drupal::service('event_dispatcher');
+  $event_dispatcher->dispatch($event, AssetEvent::INSERT);
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_update().
+ */
+function asset_asset_update(AssetInterface $asset) {
+
+  // Dispatch an event on asset update.
+  // @todo Replace this with core event via https://www.drupal.org/node/2551893.
+  $event = new AssetEvent($asset);
+  $event_dispatcher = \Drupal::service('event_dispatcher');
+  $event_dispatcher->dispatch($event, AssetEvent::UPDATE);
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_delete().
+ */
+function asset_asset_delete(AssetInterface $asset) {
+
+  // Dispatch an event on asset delete.
+  // @todo Replace this with core event via https://www.drupal.org/node/2551893.
+  $event = new AssetEvent($asset);
+  $event_dispatcher = \Drupal::service('event_dispatcher');
+  $event_dispatcher->dispatch($event, AssetEvent::DELETE);
 }
 
 /**
