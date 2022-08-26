@@ -1,0 +1,4 @@
+views_collapsible_filter:
+  css:
+    theme:
+      css/views_collapsible_filters.css: { }

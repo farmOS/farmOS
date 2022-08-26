@@ -107,6 +107,16 @@ function farm_ui_views_form_views_exposed_form_alter(&$form, FormStateInterface 
     return;
   }
 
+  // Render filters in collapsible details element.
+  $form['#theme_wrappers']['details'] = [
+    '#title' => t('Filter'),
+    '#attributes' => [
+      'open' => count($view->getExposedInput()) > count($view->args),
+    ],
+    '#summary_attributes' => [],
+  ];
+  $form['#attached']['library'][] = 'farm_ui_views/views_collapsible_filter';
+
   // If there is no exposed filter for flags, bail.
   if (empty($form['flag_value'])) {
     return;
