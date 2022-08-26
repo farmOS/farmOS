@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - [Add button/menu item for data stream notifications collection page #555](https://github.com/farmOS/farmOS/pull/555)
+- [Issue #3306227: Dispatch events for asset presave, insert, update, delete](https://www.drupal.org/project/farm/issues/3306227)
 
 ### Changed
 
