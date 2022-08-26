@@ -65,7 +65,7 @@ function plan_theme_suggestions_plan(array $variables) {
  *   - attributes: HTML attributes for the containing element.
  */
 function template_preprocess_plan(array &$variables) {
-  $variables['plan'] = $variables['elements']['#plan'];
+  $variables['plan'] = $variables['elements']['#plan'] ?? NULL;
   // Helpful $content variable for templates.
   foreach (Element::children($variables['elements']) as $key) {
     $variables['content'][$key] = $variables['elements'][$key];
