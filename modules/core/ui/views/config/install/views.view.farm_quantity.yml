@@ -1572,7 +1572,9 @@ display:
           label: 'Export CSV'
           empty: false
           display_id: csv
-      display_extenders: {  }
+      display_extenders:
+        collapsible_filter:
+          collapsible: true
       path: quantities
       menu:
         type: normal
@@ -1671,7 +1673,9 @@ display:
           label: 'Export CSV'
           empty: false
           display_id: csv
-      display_extenders: {  }
+      display_extenders:
+        collapsible_filter:
+          collapsible: true
       path: quantities/%
     cache_metadata:
       max-age: -1

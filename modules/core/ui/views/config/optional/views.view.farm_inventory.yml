@@ -1605,7 +1605,9 @@ display:
     position: 1
     display_options:
       display_description: ''
-      display_extenders: {  }
+      display_extenders:
+        collapsible_filter:
+          collapsible: true
       path: asset/%asset/inventory
       menu:
         type: tab
