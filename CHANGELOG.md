@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - [Improve API docs #557](https://github.com/farmOS/farmOS/pull/557)
+- [Issue #3305724 by pcambra, m.stenta: Allow map type and behaviors to be configurable in map blocks](https://www.drupal.org/project/farm/issues/3305724)
 
 ### Fixed
 
