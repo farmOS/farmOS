@@ -3,7 +3,10 @@
 namespace Drupal\farm_map\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a map block.
@@ -13,7 +16,43 @@ use Drupal\Core\Form\FormStateInterface;
  *   admin_label = @Translation("Map block"),
  * )
  */
-class MapBlock extends BlockBase {
+class MapBlock extends BlockBase implements ContainerFactoryPluginInterface {
+
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * Constructs a MapBlock object.
+   *
+   * @param array $configuration
+   *   A configuration array containing information about the plugin instance.
+   * @param string $plugin_id
+   *   The plugin_id for the plugin instance.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
+   */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->entityTypeManager = $entity_type_manager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('entity_type.manager'),
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -31,9 +70,15 @@ class MapBlock extends BlockBase {
     $form = parent::buildConfigurationForm($form, $form_state);
 
     // Map type.
+    $map_types = $this->entityTypeManager->getStorage('map_type')->loadMultiple();
+    $map_type_options = array_map(function ($map_type) {
+      /** @var \Drupal\farm_map\Entity\MapTypeInterface $map_type */
+      return $map_type->label();
+    }, $map_types);
     $form['map_type'] = [
-      '#type' => 'textfield',
+      '#type' => 'select',
       '#title' => $this->t('Map type'),
+      '#options' => $map_type_options,
       '#default_value' => $this->configuration['map_type'],
     ];
 
