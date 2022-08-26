@@ -138,29 +138,20 @@ class AssignActionForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, string $entity_type = NULL) {
-    $title = '';
-    $users_description = '';
-    $operation_description = '';
-    switch ($entity_type) {
-      case 'log':
-        $this->entityType = $this->entityTypeManager->getDefinition('log');
-        $title = $this->t("Assign log(s) to");
-        $users_description = $this->t("Select people to assign these logs to.");
-        $operation_description = $this->t('Select "Append" if you want to add users to the logs, but keep the existing assignments. Select "Replace" if you want to replace existing assignments with the people specified above.');
-        break;
 
-      case 'asset':
-        $this->entityType = $this->entityTypeManager->getDefinition('asset');
-        $title = $this->t("Set the asset owner(s) to");
-        $users_description = $this->t("Select people to specify as the owner or these assets.");
-        $operation_description = $this->t('Select "Append" if you want to add users to the assets, but keep the existing owners. Select "Replace" if you want to replace existing owners with the people specified above.');
-        break;
-
-      default:
-        throw new PluginException('Unsupported entity type given when building form to assign entity');
+    // Only allow asset and log entities.
+    if (!in_array($entity_type, ['asset', 'log'])) {
+      throw new PluginException('Unsupported entity type given when building form to assign entity');
     }
 
+    // Load the entity type definition.
+    $this->entityType = $this->entityTypeManager->getDefinition($entity_type);
+
+    // Load saved entities.
     $this->entities = $this->tempStore->get($this->user->id());
+
+    // If there are no entities, or if the entity type definition didn't load,
+    // redirect the user to the cancel URL.
     if (empty($this->entityType) || empty($this->entities)) {
       return new RedirectResponse($this->getCancelUrl()
         ->setAbsolute()
@@ -179,8 +170,8 @@ class AssignActionForm extends ConfirmFormBase {
 
     $form['users'] = [
       '#type' => 'select',
-      '#title' => $title,
-      '#description' => $users_description,
+      '#title' => $this->t('Assign owners'),
+      '#description' => $this->t('Select people to assign ownership of the record(s).'),
       '#options' => $user_options,
       '#multiple' => TRUE,
     ];
@@ -188,7 +179,7 @@ class AssignActionForm extends ConfirmFormBase {
     $form['operation'] = [
       '#type' => 'radios',
       '#title' => $this->t('Append or replace'),
-      '#description' => $operation_description,
+      '#description' => $this->t('Select "Append" if you want to add owners, but keep the existing assignments. Select "Replace" if you want to replace existing assignments with the people specified above.'),
       '#options' => [
         'append' => $this->t('Append'),
         'replace' => $this->t('Replace'),

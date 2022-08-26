@@ -491,7 +491,7 @@ display:
           entity_type: asset
           entity_field: owner
           plugin_id: field
-          label: 'Assigned to'
+          label: Owner
           exclude: false
           alter:
             alter_text: false
@@ -989,7 +989,7 @@ display:
           exposed: true
           expose:
             operator_id: owner_target_id_op
-            label: 'Assigned to'
+            label: Owner
             description: ''
             use_operator: false
             operator: owner_target_id_op

@@ -5,7 +5,7 @@ dependencies:
     - farm_owner
     - log
 id: log_assign_action
-label: 'Assign log'
+label: 'Assign owners'
 type: log
 plugin: 'log_assign_action'
 configuration: {  }

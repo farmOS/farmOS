@@ -17,8 +17,8 @@ function farm_owner_entity_base_field_info(EntityTypeInterface $entity_type) {
   if (in_array($entity_type->id(), ['asset', 'log'])) {
     $field_info = [
       'type' => 'entity_reference',
-      'label' => t('Assigned to'),
-      'description' => t('Optionally assign this task to one or more people.'),
+      'label' => t('Owner'),
+      'description' => t('Optionally specify who is in charge of this record.'),
       'target_type' => 'user',
       'multiple' => TRUE,
       'weight' => [
@@ -26,12 +26,6 @@ function farm_owner_entity_base_field_info(EntityTypeInterface $entity_type) {
         'view' => -70,
       ],
     ];
-
-    // Different description and label for assets.
-    if ($entity_type->id() == 'asset') {
-      $field_info['label'] = t('Owner');
-      $field_info['description'] = t('Optionally specify an owner for this asset.');
-    }
 
     $fields['owner'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($field_info);
   }

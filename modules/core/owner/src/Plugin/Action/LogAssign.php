@@ -7,7 +7,7 @@ namespace Drupal\farm_owner\Plugin\Action;
  *
  * @Action(
  *   id = "log_assign_action",
- *   label = @Translation("Assign users to logs."),
+ *   label = @Translation("Assign logs to users."),
  *   type = "log",
  *   confirm_form_route_name = "farm_owner.log_assign_action_form"
  * )
