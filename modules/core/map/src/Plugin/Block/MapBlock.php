@@ -43,6 +43,17 @@ class MapBlock extends BlockBase {
   /**
    * {@inheritdoc}
    */
+  public function blockSubmit($form, FormStateInterface $form_state) {
+
+    // Save map config values if no errors occurred.
+    if (!$form_state->getErrors()) {
+      $this->configuration['map_type'] = $form_state->getValue('map_type');
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function build() {
     return [
       '#type' => 'farm_map',
