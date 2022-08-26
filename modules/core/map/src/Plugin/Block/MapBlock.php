@@ -3,6 +3,7 @@
 namespace Drupal\farm_map\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Provides a map block.
@@ -17,28 +18,32 @@ class MapBlock extends BlockBase {
   /**
    * {@inheritdoc}
    */
-  public function build() {
+  public function defaultConfiguration() {
     return [
-      '#type' => 'farm_map',
-      '#map_type' => $this->mapType(),
+      'map_type' => 'default',
     ];
   }
 
   /**
-   * Function that returns the map type.
-   *
-   * @return string
-   *   The map type.
+   * {@inheritdoc}
    */
-  public function mapType() {
+  public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
+    $form['map_type'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Map type'),
+      '#default_value' => $this->configuration['map_type'],
+    ];
+    return $form;
+  }
 
-    // Use the map_type from the block configuration.
-    if (!empty($this->configuration['map_type'])) {
-      return $this->configuration['map_type'];
-    }
-
-    // Else default to 'default'.
-    return 'default';
+  /**
+   * {@inheritdoc}
+   */
+  public function build() {
+    return [
+      '#type' => 'farm_map',
+      '#map_type' => $this->configuration['map_type'] ?? 'default',
+    ];
   }
 
 }
