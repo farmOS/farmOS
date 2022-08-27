@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Action that assigns users to entities.
  */
-class AssignBase extends EntityActionBase {
+abstract class AssignBase extends EntityActionBase {
 
   /**
    * The tempstore object.
