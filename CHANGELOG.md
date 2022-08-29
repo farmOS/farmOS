@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Uncaught (in promise) TypeError: instance.editAttached is undefined #550](https://github.com/farmOS/farmOS/issues/550)
 - [Map form element #required is not enforced #560](https://github.com/farmOS/farmOS/issues/560)
 - [Incorrect translation placeholders for asset names #540](https://github.com/farmOS/farmOS/issues/540)
+- Update farmOS-map to [v2.0.5](https://github.com/farmOS/farmOS-map/releases/tag/v2.0.5) to fix [Uncaught (in promise) TypeError: o.getChangeEventType is not a function #551](https://github.com/farmOS/farmOS/issues/551)
 
 ## [2.0.0-beta6] 2022-07-30
 
