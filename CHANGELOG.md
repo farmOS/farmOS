@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Fix for Autocomplete dropdown not showing in Chrome on Android #552](https://github.com/farmOS/farmOS/issues/552)
 - [Uncaught (in promise) TypeError: instance.editAttached is undefined #550](https://github.com/farmOS/farmOS/issues/550)
 - [Map form element #required is not enforced #560](https://github.com/farmOS/farmOS/issues/560)
+- [Incorrect translation placeholders for asset names #540](https://github.com/farmOS/farmOS/issues/540)
 
 ## [2.0.0-beta6] 2022-07-30
 

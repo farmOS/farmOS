@@ -204,7 +204,7 @@ class AssetGroupActionForm extends ConfirmFormBase {
       // Generate a name for the log.
       $asset_names = farm_log_asset_names_summary($accessible_entities);
       $group_names = farm_log_asset_names_summary($groups);
-      $log_name = $this->t('Group :assets into :groups', [':assets' => $asset_names, ':groups' => $group_names]);
+      $log_name = $this->t('Group @assets into @groups', ['@assets' => $asset_names, '@groups' => $group_names]);
 
       // Create the log.
       $log = Log::create([
