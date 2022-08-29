@@ -1,7 +1,7 @@
 (function () {
   farmOS.map.behaviors.input = {
     attach: function (instance) {
-      instance.editAttached.then(() => {
+      instance.editAttached && instance.editAttached.then(() => {
         instance.edit.wktOn('featurechange', function(wkt) {
           instance.map.getTargetElement().parentElement.querySelector('[data-map-geometry-field]').value = wkt;
         });
