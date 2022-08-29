@@ -1574,7 +1574,9 @@ display:
           label: 'Export CSV'
           empty: false
           display_id: csv
-      display_extenders: {  }
+      display_extenders:
+        collapsible_filter:
+          collapsible: true
       path: assets
       menu:
         type: normal
@@ -1650,7 +1652,9 @@ display:
         arguments: false
       use_ajax: true
       display_description: ''
-      display_extenders: {  }
+      display_extenders:
+        collapsible_filter:
+          collapsible: true
       path: asset/%asset/children
       menu:
         type: tab
@@ -1714,7 +1718,9 @@ display:
       defaults:
         arguments: false
       display_description: ''
-      display_extenders: {  }
+      display_extenders:
+        collapsible_filter:
+          collapsible: true
       path: asset/%asset/assets
       menu:
         type: tab
@@ -1828,7 +1834,9 @@ display:
       defaults:
         arguments: false
       display_description: ''
-      display_extenders: {  }
+      display_extenders:
+        collapsible_filter:
+          collapsible: true
       path: taxonomy/term/%taxonomy_term/assets/%entity_bundle
     cache_metadata:
       max-age: 0
@@ -1917,7 +1925,9 @@ display:
           label: 'Export CSV'
           empty: false
           display_id: csv
-      display_extenders: {  }
+      display_extenders:
+        collapsible_filter:
+          collapsible: true
       path: assets/%
     cache_metadata:
       max-age: 0

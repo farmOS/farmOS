@@ -1,0 +1,6 @@
+views.display_extender.collapsible_filter:
+  type: views_display_extender
+  mapping:
+    collapsible:
+      type: boolean
+      label: 'Collapsible filter'

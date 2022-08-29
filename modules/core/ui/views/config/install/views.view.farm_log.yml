@@ -2395,7 +2395,9 @@ display:
           label: 'Export CSV'
           empty: false
           display_id: csv
-      display_extenders: {  }
+      display_extenders:
+        collapsible_filter:
+          collapsible: true
       path: logs
       menu:
         type: normal
@@ -2509,7 +2511,9 @@ display:
       defaults:
         arguments: false
       display_description: ''
-      display_extenders: {  }
+      display_extenders:
+        collapsible_filter:
+          collapsible: true
       path: asset/%asset/logs/%log_type
     cache_metadata:
       max-age: 0
@@ -2615,7 +2619,9 @@ display:
       defaults:
         arguments: false
       display_description: ''
-      display_extenders: {  }
+      display_extenders:
+        collapsible_filter:
+          collapsible: true
       path: taxonomy/term/%taxonomy_term/logs/%entity_bundle
     cache_metadata:
       max-age: 0
@@ -2707,7 +2713,9 @@ display:
           label: 'Export CSV'
           empty: false
           display_id: csv
-      display_extenders: {  }
+      display_extenders:
+        collapsible_filter:
+          collapsible: true
       path: logs/%
     cache_metadata:
       max-age: 0
@@ -2774,7 +2782,9 @@ display:
         relationships: true
         arguments: false
       display_description: ''
-      display_extenders: {  }
+      display_extenders:
+        collapsible_filter:
+          collapsible: true
       path: user/%user/logs
       menu:
         type: tab

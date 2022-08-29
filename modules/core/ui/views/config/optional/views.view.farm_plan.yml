@@ -1201,7 +1201,9 @@ display:
     position: 1
     display_options:
       display_description: ''
-      display_extenders: {  }
+      display_extenders:
+        collapsible_filter:
+          collapsible: true
       path: plans
       menu:
         type: normal
@@ -1276,7 +1278,9 @@ display:
       defaults:
         arguments: false
       display_description: ''
-      display_extenders: {  }
+      display_extenders:
+        collapsible_filter:
+          collapsible: true
       path: plans/%
     cache_metadata:
       max-age: 0

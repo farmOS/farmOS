@@ -102,6 +102,25 @@ function farm_ui_views_form_views_exposed_form_alter(&$form, FormStateInterface 
     return;
   }
 
+  /** @var \Drupal\views\ViewExecutable $view */
+  $view = $storage['view'];
+
+  // Check if the view display has the collapsible_filter extender enabled.
+  $extenders = $view->getDisplay()->getExtenders();
+  if (array_key_exists('collapsible_filter', $extenders) && $extenders['collapsible_filter']->options['collapsible']) {
+
+    // Render filters in collapsible details element.
+    $form['#theme_wrappers']['details'] = [
+      '#title' => t('Filter'),
+      '#attributes' => [
+        // Open if there is exposed input in addition to contextual filters.
+        'open' => count($view->getExposedInput()) > count($view->args),
+      ],
+      '#summary_attributes' => [],
+    ];
+    $form['#attached']['library'][] = 'farm_ui_views/views_collapsible_filter';
+  }
+
   // We only want to alter the Views we provide.
   if (!in_array($storage['view']->id(), ['farm_asset', 'farm_log', 'farm_plan'])) {
     return;

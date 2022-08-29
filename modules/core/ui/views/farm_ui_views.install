@@ -1,0 +1,33 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the farm_ui_views module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function farm_ui_views_install() {
+
+  // Enable the collapsible_filter views display extender.
+  $views_settings = \Drupal::configFactory()->getEditable('views.settings');
+  $display_extenders = $views_settings->get('display_extenders');
+  $display_extenders['collapsible_filter'] = 'collapsible_filter';
+  $views_settings->set('display_extenders', $display_extenders)->save();
+
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function farm_ui_views_uninstall() {
+
+  // Disable the collapsible_filter views display extender.
+  // See https://www.drupal.org/project/drupal/issues/2635728
+  $views_settings = \Drupal::configFactory()->getEditable('views.settings');
+  $display_extenders = $views_settings->get('display_extenders');
+  unset($display_extenders['collapsible_filter']);
+  $views_settings->set('display_extenders', $display_extenders)->save();
+
+}
