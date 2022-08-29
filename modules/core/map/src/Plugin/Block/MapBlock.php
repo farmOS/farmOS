@@ -112,7 +112,7 @@ class MapBlock extends BlockBase implements ContainerFactoryPluginInterface {
     // Save map config values if no errors occurred.
     if (!$form_state->getErrors()) {
       $this->configuration['map_type'] = $form_state->getValue('map_type');
-      $this->configuration['map_behaviors'] = $form_state->getValue('map_behaviors');
+      $this->configuration['map_behaviors'] = array_keys($form_state->getValue('map_behaviors'));
     }
   }
 
