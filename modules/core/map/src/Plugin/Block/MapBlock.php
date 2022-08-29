@@ -95,7 +95,7 @@ class MapBlock extends BlockBase implements ContainerFactoryPluginInterface {
     $form['map_behaviors'] = [
       '#type' => 'select',
       '#title' => $this->t('Map behaviors'),
-      '#description' => $this->t('Add additional behaviors to the map. Note that behaviors may also be added to maps automatically by modules, even if they are not selected in this list. Using a custom map type is one way to avoid this.'),
+      '#description' => $this->t('Add additional behaviors to the map. This form lists all available behaviors, but be aware that some behaviors may require additional settings that must be provided by modules and will not work properly on their own. Note that behaviors may also be added to maps automatically by modules, even if they are not selected in this list. Using a custom map type is one way to avoid this.'),
       '#options' => $map_behavior_options,
       '#default_value' => $this->configuration['map_behaviors'],
       '#multiple' => TRUE,
