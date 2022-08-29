@@ -6,6 +6,7 @@ use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Plugin\PluginDependencyTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -17,6 +18,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * )
  */
 class MapBlock extends BlockBase implements ContainerFactoryPluginInterface {
+
+  use PluginDependencyTrait;
 
   /**
    * The entity type manager.
@@ -122,6 +125,28 @@ class MapBlock extends BlockBase implements ContainerFactoryPluginInterface {
       '#map_type' => $this->configuration['map_type'] ?? 'default',
       '#behaviors' => array_keys($this->configuration['map_behaviors']) ?? [],
     ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function calculateDependencies() {
+
+    // Add map type dependencies.
+    /** @var \Drupal\farm_map\Entity\MapTypeInterface $map_type */
+    $map_type = $this->entityTypeManager->getStorage('map_type')->load($this->configuration['map_type'] ?? 'default');
+    $this->addDependencies($map_type->getDependencies());
+
+    // Add map behavior dependencies.
+    $map_behaviors = $this->configuration['map_behaviors'] ?? [];
+    if (!empty($map_behaviors)) {
+      /** @var \Drupal\farm_map\Entity\MapBehaviorInterface $behavior */
+      foreach ($this->entityTypeManager->getStorage('map_behavior')->loadMultiple($map_behaviors) as $behavior) {
+        $this->addDependencies($behavior->getDependencies());
+      }
+    }
+
+    return $this->dependencies;
   }
 
 }
