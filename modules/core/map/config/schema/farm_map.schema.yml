@@ -77,6 +77,13 @@ block.settings.map_block:
     map_type:
       type: string
       label: 'Map type'
+    map_behaviors:
+      type: sequence
+      label: 'Map behaviors'
+      nullable: true
+      sequence:
+        type: string
+        label: 'Map behavior id'
 farm_map.settings:
   type: config_object
   label: 'Map Settings'
