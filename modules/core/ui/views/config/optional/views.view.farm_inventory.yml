@@ -13,6 +13,7 @@ dependencies:
     - user
   enforced:
     module:
+      - farm_inventory
       - farm_ui_views
 id: farm_inventory
 label: 'Farm Inventory'
