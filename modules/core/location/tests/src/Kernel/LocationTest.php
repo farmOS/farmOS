@@ -3,6 +3,7 @@
 namespace Drupal\Tests\farm_location\Kernel;
 
 use Drupal\asset\Entity\Asset;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\farm_geo\Traits\WktTrait;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\log\Entity\Log;
@@ -16,6 +17,7 @@ use Drupal\Tests\farm_test\Kernel\FarmEntityCacheTestTrait;
  */
 class LocationTest extends KernelTestBase {
 
+  use StringTranslationTrait;
   use FarmEntityCacheTestTrait;
   use FarmAssetTestTrait;
   use WktTrait;
@@ -62,13 +64,19 @@ class LocationTest extends KernelTestBase {
     'asset',
     'geofield',
     'log',
+    'farm_entity_views',
     'farm_field',
     'farm_location',
     'farm_location_test',
     'farm_log',
     'farm_log_asset',
+    'rest',
+    'serialization',
     'state_machine',
+    'system',
     'user',
+    'views',
+    'views_geojson',
   ];
 
   /**
@@ -83,6 +91,8 @@ class LocationTest extends KernelTestBase {
     $this->installEntitySchema('log');
     $this->installEntitySchema('user');
     $this->installConfig([
+      'farm_entity_views',
+      'farm_location',
       'farm_location_test',
     ]);
 
@@ -608,6 +618,73 @@ class LocationTest extends KernelTestBase {
     $this->assertEquals('', $this->assetLocation->getGeometry($asset, $timestamps[3]));
     $this->assertEquals($logs[3]->id(), $this->assetLocation->getMovementLog($asset, $timestamps[3])->id());
     $this->assertEquals([], $this->assetLocation->getAssetsByLocation($this->locations, $timestamps[3]));
+  }
+
+  /**
+   * Test that circular asset location is prevented.
+   */
+  public function testCircularAssetLocation() {
+
+    // Start log to move the first location to the second location.
+    /** @var \Drupal\log\Entity\LogInterface $first_log */
+    $first_log = Log::create([
+      'type' => 'movement',
+      'asset' => ['target_id' => $this->locations[0]->id()],
+      'location' => ['target_id' => $this->locations[1]->id()],
+      'is_movement' => TRUE,
+      'status' => 'done',
+    ]);
+
+    // Confirm that validation passes.
+    $violations = $first_log->validate();
+    $this->assertCount(0, $violations);
+
+    // Save the first log.
+    $first_log->save();
+
+    // Start a log that moves the second location to the first location (which
+    // would cause a circular asset location).
+    /** @var \Drupal\log\Entity\LogInterface $second_log */
+    $second_log = Log::create([
+      'type' => 'movement',
+      'asset' => ['target_id' => $this->locations[1]->id()],
+      'location' => ['target_id' => $this->locations[0]->id()],
+      'is_movement' => TRUE,
+      'status' => 'done',
+    ]);
+
+    // Validate the second log and confirm that a circular location constraint
+    // violation was set.
+    $violations = $second_log->validate();
+    $this->assertCount(1, $violations);
+    $this->assertEquals($this->t('%asset cannot be located within itself.', ['%asset' => $this->locations[1]->label()]), $violations[0]->getMessage());
+
+    // Update the second log to reference the third location instead.
+    $second_log->set('location', ['target_id' => $this->locations[2]->id()]);
+
+    // Confirm that validation passes.
+    $violations = $second_log->validate();
+    $this->assertCount(0, $violations);
+
+    // Save the second log.
+    $second_log->save();
+
+    // Now, start a third log that moves the third location to the first
+    // location (which would create a recursive circular asset location).
+    /** @var \Drupal\log\Entity\LogInterface $first_log */
+    $third_log = Log::create([
+      'type' => 'movement',
+      'asset' => ['target_id' => $this->locations[2]->id()],
+      'location' => ['target_id' => $this->locations[0]->id()],
+      'is_movement' => TRUE,
+      'status' => 'done',
+    ]);
+
+    // Validate the third log and confirm that a circular location constraint
+    // violation was set.
+    $violations = $third_log->validate();
+    $this->assertCount(1, $violations);
+    $this->assertEquals($this->t('%asset cannot be located within itself.', ['%asset' => $this->locations[2]->label()]), $violations[0]->getMessage());
   }
 
 }

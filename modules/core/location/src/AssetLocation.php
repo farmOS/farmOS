@@ -244,6 +244,10 @@ class AssetLocation implements AssetLocationInterface {
    */
   public function getAssetsByLocation(array $locations, $timestamp = NULL): array {
 
+    // This should never limit itself to assets with `is_location` property
+    // set to TRUE, so that we can always prevent circular asset location.
+    // @see Drupal\farm_location\Plugin\Validation\Constraint\CircularAssetLocationConstraintValidator
+
     // Get location ids.
     $location_ids = array_map(function (AssetInterface $location) {
       return $location->id();

@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Update Drupal core to 9.5.x](https://github.com/farmOS/farmOS/pull/621)
 
+### Fixed
+
+- [Prevent circular asset location #568](https://github.com/farmOS/farmOS/pull/568)
+
 ## [2.0.0-rc1] 2022-12-15
 
 PHP 8+ is now the recommended minimum version requirement for farmOS. The

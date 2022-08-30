@@ -45,6 +45,18 @@ function farm_location_entity_base_field_info(EntityTypeInterface $entity_type) 
 }
 
 /**
+ * Implements hook_entity_base_field_info_alter().
+ */
+function farm_location_entity_base_field_info_alter(&$fields, EntityTypeInterface $entity_type) {
+  /** @var \Drupal\field\Entity\FieldConfig[] $fields */
+
+  // Prevent creating circular asset location.
+  if ($entity_type->id() == 'log' && !empty($fields['asset'])) {
+    $fields['asset']->addConstraint('CircularAssetLocation');
+  }
+}
+
+/**
  * Sets the default value for asset is_location boolean field.
  *
  * @param \Drupal\Core\Entity\ContentEntityInterface $entity
