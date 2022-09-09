@@ -5,10 +5,12 @@
  * Contains farm_entity.module.
  */
 
+use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Entity\ContentEntityFormInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteObjectInterface;
 use Drupal\entity\EntityAccessControlHandler;
 use Drupal\entity\EntityPermissionProvider;
 use Drupal\farm_entity\BundlePlugin\FarmEntityBundlePluginHandler;
@@ -175,4 +177,39 @@ function farm_entity_form_alter(&$form, FormStateInterface $form_state, $form_id
 
   // Disable access to the revision checkbox.
   $form['revision']['#access'] = FALSE;
+}
+
+/**
+ * Implements hook_entity_create_access().
+ *
+ * Grant JSON:API file upload permissions for entity fields based on bundle-level permissions.
+ * e.g. Allow image uploads for animal assets if the user has 'create animal asset' permissions.
+ */
+function farm_entity_create_access($account, $context, $entity_bundle) {
+  $route_match = \Drupal::routeMatch();
+
+  if (empty($route_match)) {
+    return AccessResult::neutral();
+  }
+
+  $resource_type = $route_match->getParameter("resource_type");
+
+  if (!($resource_type instanceof \Drupal\jsonapi\ResourceType\ResourceType)) {
+    return AccessResult::neutral();
+  }
+
+  $entity_type_id = $resource_type->getEntityTypeId();
+  $entity_bundle = $resource_type->getBundle();
+
+  if (empty($entity_type_id) || empty($entity_bundle)) {
+    return AccessResult::neutral();
+  }
+
+  $route = $route_match->getRouteObject();
+
+  if (empty($route) || $route->getDefault(RouteObjectInterface::CONTROLLER_NAME) != 'jsonapi.file_upload:handleFileUploadForNewResource') {
+    return AccessResult::neutral();
+  }
+
+  return AccessResult::allowedIfHasPermission($account, "create " . $entity_bundle . " " . $entity_type_id);
 }
