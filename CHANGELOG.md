@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Issue #3305724 by pcambra, m.stenta: Allow map type and behaviors to be configurable in map blocks](https://www.drupal.org/project/farm/issues/3305724)
 - [Update Drupal core to 9.4.x](https://github.com/farmOS/farmOS/pull/566)
 - [Update AssetLocationInterface::getAssetsByLocation to return asset objects keyed by ID #565](https://github.com/farmOS/farmOS/pull/565)
+- [Simplify location query processing of asset ids #564](https://github.com/farmOS/farmOS/pull/564)
 
 ### Fixed
 

@@ -228,7 +228,7 @@ class AssetLocation implements AssetLocationInterface {
     // Build query for assets in locations.
     $query = "
       -- Select asset IDs from the asset base table.
-      SELECT a.id
+      SELECT DISTINCT a.id
       FROM {asset} a
 
       -- Inner join logs that reference the assets.
@@ -264,14 +264,7 @@ class AssetLocation implements AssetLocationInterface {
       ':timestamp' => $this->time->getRequestTime(),
       ':location_ids[]' => $location_ids,
     ];
-    $result = $this->database->query($query, $args)->fetchAll();
-    $asset_ids = [];
-    foreach ($result as $row) {
-      if (!empty($row->id)) {
-        $asset_ids[] = $row->id;
-      }
-    }
-    $asset_ids = array_unique($asset_ids);
+    $asset_ids = $this->database->query($query, $args)->fetchCol();
     return $this->entityTypeManager->getStorage('asset')->loadMultiple($asset_ids);
   }
 
