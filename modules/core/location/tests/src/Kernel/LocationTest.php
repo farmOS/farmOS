@@ -6,6 +6,7 @@ use Drupal\asset\Entity\Asset;
 use Drupal\farm_geo\Traits\WktTrait;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\log\Entity\Log;
+use Drupal\Tests\farm_test\Kernel\FarmAssetTestTrait;
 use Drupal\Tests\farm_test\Kernel\FarmEntityCacheTestTrait;
 
 /**
@@ -16,6 +17,7 @@ use Drupal\Tests\farm_test\Kernel\FarmEntityCacheTestTrait;
 class LocationTest extends KernelTestBase {
 
   use FarmEntityCacheTestTrait;
+  use FarmAssetTestTrait;
   use WktTrait;
 
   /**
@@ -442,9 +444,9 @@ class LocationTest extends KernelTestBase {
     $first_log->save();
 
     // First location has one asset, second has none.
-    $this->assertEquals(1, count($this->assetLocation->getAssetsByLocation([$this->locations[0]])));
-    $this->assertEmpty($this->assetLocation->getAssetsByLocation([$this->locations[1]]));
-    $this->assertEquals(1, count($this->assetLocation->getAssetsByLocation([$this->locations[0], $this->locations[1]])));
+    $this->assertCorrectAssets([$first_asset], $this->assetLocation->getAssetsByLocation([$this->locations[0]]));
+    $this->assertCorrectAssets([], $this->assetLocation->getAssetsByLocation([$this->locations[1]]));
+    $this->assertCorrectAssets([$first_asset], $this->assetLocation->getAssetsByLocation([$this->locations[0], $this->locations[1]]));
 
     // Create a second asset and move it to the second location.
     /** @var \Drupal\asset\Entity\AssetInterface $second_asset */
@@ -465,9 +467,9 @@ class LocationTest extends KernelTestBase {
     $second_log->save();
 
     // Both locations have one asset.
-    $this->assertEquals(1, count($this->assetLocation->getAssetsByLocation([$this->locations[0]])));
-    $this->assertEquals(1, count($this->assetLocation->getAssetsByLocation([$this->locations[1]])));
-    $this->assertEquals(2, count($this->assetLocation->getAssetsByLocation([$this->locations[0], $this->locations[1]])));
+    $this->assertCorrectAssets([$first_asset], $this->assetLocation->getAssetsByLocation([$this->locations[0]]));
+    $this->assertCorrectAssets([$second_asset], $this->assetLocation->getAssetsByLocation([$this->locations[1]]));
+    $this->assertCorrectAssets([$first_asset, $second_asset], $this->assetLocation->getAssetsByLocation([$this->locations[0], $this->locations[1]]));
 
     // Create a third log that moves both assets to the first location.
     /** @var \Drupal\log\Entity\LogInterface $third_log */
@@ -484,9 +486,9 @@ class LocationTest extends KernelTestBase {
     $third_log->save();
 
     // First location has two assets, second has none.
-    $this->assertEquals(2, count($this->assetLocation->getAssetsByLocation([$this->locations[0]])));
-    $this->assertEmpty($this->assetLocation->getAssetsByLocation([$this->locations[1]]));
-    $this->assertEquals(2, count($this->assetLocation->getAssetsByLocation([$this->locations[0], $this->locations[1]])));
+    $this->assertCorrectAssets([$first_asset, $second_asset], $this->assetLocation->getAssetsByLocation([$this->locations[0]]));
+    $this->assertCorrectAssets([], $this->assetLocation->getAssetsByLocation([$this->locations[1]]));
+    $this->assertCorrectAssets([$first_asset, $second_asset], $this->assetLocation->getAssetsByLocation([$this->locations[0], $this->locations[1]]));
 
     // Create a fourth log that moves first asset to the second location.
     /** @var \Drupal\log\Entity\LogInterface $fourth_log */
@@ -502,9 +504,9 @@ class LocationTest extends KernelTestBase {
     $fourth_log->save();
 
     // Both locations have one asset.
-    $this->assertEquals(1, count($this->assetLocation->getAssetsByLocation([$this->locations[0]])));
-    $this->assertEquals(1, count($this->assetLocation->getAssetsByLocation([$this->locations[1]])));
-    $this->assertEquals(2, count($this->assetLocation->getAssetsByLocation([$this->locations[0], $this->locations[1]])));
+    $this->assertCorrectAssets([$second_asset], $this->assetLocation->getAssetsByLocation([$this->locations[0]]));
+    $this->assertCorrectAssets([$first_asset], $this->assetLocation->getAssetsByLocation([$this->locations[1]]));
+    $this->assertCorrectAssets([$first_asset, $second_asset], $this->assetLocation->getAssetsByLocation([$this->locations[0], $this->locations[1]]));
 
     // Create a fifth log that moves first asset to the both locations.
     /** @var \Drupal\log\Entity\LogInterface $fifth_log */
@@ -523,9 +525,9 @@ class LocationTest extends KernelTestBase {
     $fifth_log->save();
 
     // First location has two asset, second location has one asset.
-    $this->assertEquals(2, count($this->assetLocation->getAssetsByLocation([$this->locations[0]])));
-    $this->assertEquals(1, count($this->assetLocation->getAssetsByLocation([$this->locations[1]])));
-    $this->assertEquals(2, count($this->assetLocation->getAssetsByLocation([$this->locations[0], $this->locations[1]])));
+    $this->assertCorrectAssets([$first_asset, $second_asset], $this->assetLocation->getAssetsByLocation([$this->locations[0]]));
+    $this->assertCorrectAssets([$first_asset], $this->assetLocation->getAssetsByLocation([$this->locations[1]]));
+    $this->assertCorrectAssets([$first_asset, $second_asset], $this->assetLocation->getAssetsByLocation([$this->locations[0], $this->locations[1]]));
   }
 
 }
