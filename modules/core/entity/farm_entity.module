@@ -15,6 +15,7 @@ use Drupal\entity\EntityAccessControlHandler;
 use Drupal\entity\EntityPermissionProvider;
 use Drupal\farm_entity\BundlePlugin\FarmEntityBundlePluginHandler;
 use Drupal\farm_entity\Routing\DefaultHtmlRouteProvider;
+use Drupal\jsonapi\ResourceType\ResourceType;
 
 /**
  * Implements hook_module_implements_alter().
@@ -182,8 +183,9 @@ function farm_entity_form_alter(&$form, FormStateInterface $form_state, $form_id
 /**
  * Implements hook_entity_create_access().
  *
- * Grant JSON:API file upload permissions for entity fields based on bundle-level permissions.
- * e.g. Allow image uploads for animal assets if the user has 'create animal asset' permissions.
+ * Grant JSON:API file upload permissions for entity fields based on
+ * bundle-level permissions. e.g. Allow image uploads for animal assets if the
+ * user has 'create animal asset' permissions.
  */
 function farm_entity_create_access($account, $context, $entity_bundle) {
   $route_match = \Drupal::routeMatch();
@@ -194,7 +196,7 @@ function farm_entity_create_access($account, $context, $entity_bundle) {
 
   $resource_type = $route_match->getParameter("resource_type");
 
-  if (!($resource_type instanceof \Drupal\jsonapi\ResourceType\ResourceType)) {
+  if (!($resource_type instanceof ResourceType)) {
     return AccessResult::neutral();
   }
 
