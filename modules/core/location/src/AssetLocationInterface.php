@@ -104,7 +104,7 @@ interface AssetLocationInterface {
    *   An array of location assets to lookup.
    *
    * @return \Drupal\asset\Entity\AssetInterface[]
-   *   Returns an array of assets.
+   *   An array of asset objects indexed by their IDs.
    */
   public function getAssetsByLocation(array $locations): array;
 

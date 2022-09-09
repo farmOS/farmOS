@@ -486,8 +486,8 @@ class GroupTest extends KernelTestBase {
     $second_pasture->save();
 
     // Confirm that new locations are empty.
-    $this->assertCorrectAssets([], $this->assetLocation->getAssetsByLocation([$first_pasture]), FALSE, 'New locations are empty.');
-    $this->assertCorrectAssets([], $this->assetLocation->getAssetsByLocation([$first_pasture]));
+    $this->assertCorrectAssets([], $this->assetLocation->getAssetsByLocation([$first_pasture]), TRUE, 'New locations are empty.');
+    $this->assertCorrectAssets([], $this->assetLocation->getAssetsByLocation([$first_pasture]), TRUE);
 
     // Create a log that moves the animal to the first pasture.
     /** @var \Drupal\log\Entity\LogInterface $second_log */
@@ -503,8 +503,8 @@ class GroupTest extends KernelTestBase {
     // Confirm that the animal is located in the first pasture.
     $this->assertEquals($this->logLocation->getLocation($second_log), $this->assetLocation->getLocation($animal), 'Asset location is determined by asset membership log.');
     $this->assertEquals($this->logLocation->getGeometry($second_log), $this->assetLocation->getGeometry($animal), 'Asset geometry is determined by asset membership log.');
-    $this->assertCorrectAssets([$animal], $this->assetLocation->getAssetsByLocation([$first_pasture]), FALSE, 'Locations have assets that are moved to them.');
-    $this->assertCorrectAssets([], $this->assetLocation->getAssetsByLocation([$second_pasture]), FALSE, 'Locations that do not have assets moved to them are unaffected.');
+    $this->assertCorrectAssets([$animal], $this->assetLocation->getAssetsByLocation([$first_pasture]), TRUE, 'Locations have assets that are moved to them.');
+    $this->assertCorrectAssets([], $this->assetLocation->getAssetsByLocation([$second_pasture]), TRUE, 'Locations that do not have assets moved to them are unaffected.');
 
     // Assert that the animal's cache tags were invalidated.
     $this->assertEntityTestCache($animal, FALSE);
@@ -526,8 +526,8 @@ class GroupTest extends KernelTestBase {
     // Confirm that the animal is located in the second pasture.
     $this->assertEquals($this->logLocation->getLocation($third_log), $this->assetLocation->getLocation($animal), 'Asset location is determined by group membership log.');
     $this->assertEquals($this->logLocation->getGeometry($third_log), $this->assetLocation->getGeometry($animal), 'Asset geometry is determined by group membership log.');
-    $this->assertCorrectAssets([], $this->assetLocation->getAssetsByLocation([$first_pasture]), FALSE, 'A group movement removes assets from their previous location.');
-    $this->assertCorrectAssets([$animal, $group], $this->assetLocation->getAssetsByLocation([$second_pasture]), FALSE, 'A group movement adds assets to their new location.');
+    $this->assertCorrectAssets([], $this->assetLocation->getAssetsByLocation([$first_pasture]), TRUE, 'A group movement removes assets from their previous location.');
+    $this->assertCorrectAssets([$animal, $group], $this->assetLocation->getAssetsByLocation([$second_pasture]), TRUE, 'A group movement adds assets to their new location.');
 
     // Assert that the animal's cache tags were invalidated.
     $this->assertEntityTestCache($animal, FALSE);
@@ -549,8 +549,8 @@ class GroupTest extends KernelTestBase {
     // Confirm that the animal location was unset.
     $this->assertEquals($this->logLocation->getLocation($fourth_log), $this->assetLocation->getLocation($animal), 'Asset location can be unset by group membership log.');
     $this->assertEquals($this->logLocation->getGeometry($fourth_log), $this->assetLocation->getGeometry($animal), 'Asset geometry can be unset by group membership log.');
-    $this->assertCorrectAssets([], $this->assetLocation->getAssetsByLocation([$first_pasture]), FALSE, 'Unsetting group location removes member assets from all locations.');
-    $this->assertCorrectAssets([], $this->assetLocation->getAssetsByLocation([$second_pasture]), FALSE, 'Unsetting group location removes member assets from all locations.');
+    $this->assertCorrectAssets([], $this->assetLocation->getAssetsByLocation([$first_pasture]), TRUE, 'Unsetting group location removes member assets from all locations.');
+    $this->assertCorrectAssets([], $this->assetLocation->getAssetsByLocation([$second_pasture]), TRUE, 'Unsetting group location removes member assets from all locations.');
 
     // Assert that the animal's cache tags were invalidated.
     $this->assertEntityTestCache($animal, FALSE);
@@ -573,8 +573,8 @@ class GroupTest extends KernelTestBase {
     // logs now.
     $this->assertEquals($this->logLocation->getLocation($second_log), $this->assetLocation->getLocation($animal), 'Asset location is determined by asset membership log.');
     $this->assertEquals($this->logLocation->getGeometry($second_log), $this->assetLocation->getGeometry($animal), 'Asset geometry is determined by asset membership log.');
-    $this->assertCorrectAssets([$animal], $this->assetLocation->getAssetsByLocation([$first_pasture]), FALSE, 'Unsetting group membership adds assets to their previous location.');
-    $this->assertCorrectAssets([], $this->assetLocation->getAssetsByLocation([$second_pasture]), FALSE, 'Unsetting group membership removes member assets from the group location.');
+    $this->assertCorrectAssets([$animal], $this->assetLocation->getAssetsByLocation([$first_pasture]), TRUE, 'Unsetting group membership adds assets to their previous location.');
+    $this->assertCorrectAssets([], $this->assetLocation->getAssetsByLocation([$second_pasture]), TRUE, 'Unsetting group membership removes member assets from the group location.');
 
     // Assert that the animal's cache tags were invalidated.
     $this->assertEntityTestCache($animal, FALSE);
@@ -592,8 +592,8 @@ class GroupTest extends KernelTestBase {
     // Confirm that the animal is located in the second pasture.
     $this->assertEquals($this->logLocation->getLocation($third_log), $this->assetLocation->getLocation($animal), 'Asset location is determined by group membership log.');
     $this->assertEquals($this->logLocation->getGeometry($third_log), $this->assetLocation->getGeometry($animal), 'Asset geometry is determined by group membership log.');
-    $this->assertCorrectAssets([], $this->assetLocation->getAssetsByLocation([$first_pasture]), FALSE, 'A group movement removes assets from their previous location.');
-    $this->assertCorrectAssets([$animal, $group], $this->assetLocation->getAssetsByLocation([$second_pasture]), FALSE, 'A group movement adds assets to their new location.');
+    $this->assertCorrectAssets([], $this->assetLocation->getAssetsByLocation([$first_pasture]), TRUE, 'A group movement removes assets from their previous location.');
+    $this->assertCorrectAssets([$animal, $group], $this->assetLocation->getAssetsByLocation([$second_pasture]), TRUE, 'A group movement adds assets to their new location.');
 
     // Assert that the animal's cache tags were invalidated.
     $this->assertEntityTestCache($animal, FALSE);

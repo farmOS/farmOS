@@ -120,8 +120,7 @@ class GroupAssetLocation extends AssetLocation implements AssetLocationInterface
     $groups = array_filter($assets, function (AssetInterface $asset) {
       return $asset->bundle() === 'group';
     });
-    $members = $this->groupMembership->getGroupMembers($groups, TRUE);
-    $assets = array_merge($assets, $members);
+    $assets += $this->groupMembership->getGroupMembers($groups, TRUE);
 
     // Get location ids.
     $location_ids = array_map(function (AssetInterface $location) {
