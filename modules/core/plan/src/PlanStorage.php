@@ -79,11 +79,11 @@ class PlanStorage extends SqlContentEntityStorage {
    */
   protected function doPreSave(EntityInterface $entity) {
     /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
-    parent::doPreSave($entity);
+    $id = parent::doPreSave($entity);
 
     // If there is no original entity, bail.
     if (empty($entity->original)) {
-      return;
+      return $id;
     }
 
     // Load new and original states.
@@ -108,7 +108,7 @@ class PlanStorage extends SqlContentEntityStorage {
 
     // If the state has not changed, bail.
     if ($state_unchanged) {
-      return;
+      return $id;
     }
 
     // If the state has changed to archived and no archived timestamp was
@@ -121,6 +121,8 @@ class PlanStorage extends SqlContentEntityStorage {
     elseif ($old_state == 'archived') {
       $entity->setArchivedTime(NULL);
     }
+
+    return $id;
   }
 
 }

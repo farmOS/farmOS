@@ -108,6 +108,8 @@ class AssetTypeForm extends EntityForm {
         ]));
     }
     $form_state->setRedirectUrl($asset_type->toUrl('collection'));
+
+    return $status;
   }
 
 }
