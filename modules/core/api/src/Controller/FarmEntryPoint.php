@@ -18,6 +18,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Adds a "meta.farm" key to root /api endpoint.
  *
  * @ingroup farm
+ *
+ * @phpstan-ignore-next-line
  */
 class FarmEntryPoint extends EntryPoint {
 
