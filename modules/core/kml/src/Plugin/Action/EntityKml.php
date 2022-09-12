@@ -7,6 +7,7 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\file\FileRepositoryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -43,6 +44,13 @@ class EntityKml extends EntityActionBase {
   protected $defaultFileScheme;
 
   /**
+   * The file repository service.
+   *
+   * @var \Drupal\file\FileRepositoryInterface
+   */
+  protected $fileRepository;
+
+  /**
    * Constructs a new EntityKml object.
    *
    * @param array $configuration
@@ -59,12 +67,15 @@ class EntityKml extends EntityActionBase {
    *   The file system service.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The config factory service.
+   * @param \Drupal\file\FileRepositoryInterface $file_repository
+   *   The file repository service.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, SerializerInterface $serializer, FileSystemInterface $file_system, ConfigFactoryInterface $config_factory) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, SerializerInterface $serializer, FileSystemInterface $file_system, ConfigFactoryInterface $config_factory, FileRepositoryInterface $file_repository) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition, $entity_type_manager);
     $this->serializer = $serializer;
     $this->fileSystem = $file_system;
     $this->defaultFileScheme = $config_factory->get('system.file')->get('default_scheme') ?? 'public';
-    parent::__construct($configuration, $plugin_id, $plugin_definition, $entity_type_manager);
+    $this->fileRepository = $file_repository;
   }
 
   /**
@@ -79,6 +90,7 @@ class EntityKml extends EntityActionBase {
       $container->get('serializer'),
       $container->get('file_system'),
       $container->get('config.factory'),
+      $container->get('file.repository'),
     );
   }
 
@@ -110,10 +122,12 @@ class EntityKml extends EntityActionBase {
     // Create the file.
     $filename = 'kml_export-' . date('c') . '.kml';
     $destination = "$directory/$filename";
-    $file = file_save_data($output, $destination);
+    try {
+      $file = $this->fileRepository->writeData($output, $destination);
+    }
 
     // If file creation failed, bail with a warning.
-    if (empty($file)) {
+    catch (\Exception $e) {
       $this->messenger()->addWarning($this->t('Could not create file.'));
       return;
     }
