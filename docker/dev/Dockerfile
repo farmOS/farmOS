@@ -64,6 +64,9 @@ RUN { \
 RUN { \
     echo 'parameters:'; \
     echo '  level: 1'; \
+    echo '  ignoreErrors:'; \
+    echo '    # new static() is a best practice in Drupal, so we cannot fix that.'; \
+    echo "    - '#^Unsafe usage of new static#'"; \
   } > /var/farmOS/phpstan.neon
 
 # Configure PHPUnit.
