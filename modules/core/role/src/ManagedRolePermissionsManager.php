@@ -86,6 +86,7 @@ class ManagedRolePermissionsManager extends DefaultPluginManager implements Mana
     $this->entityTypeBundleInfo = $entity_type_bundle_info;
     $this->entityTypeManager = $entity_type_manager;
     $this->rolePermissions = [];
+    $this->alterInfo('managed_role_permissions_info');
     $this->setCacheBackend($cache_backend, 'managed_role_permissions_plugins');
   }
 

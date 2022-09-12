@@ -33,6 +33,7 @@ class NotificationConditionManager extends DefaultPluginManager implements Notif
       'Drupal\data_stream_notification\Plugin\DataStream\NotificationCondition\NotificationConditionInterface',
       'Drupal\data_stream_notification\Annotation\NotificationCondition',
     );
+    $this->alterInfo('data_stream_notification_condition_info');
     $this->setCacheBackend($cache_backend, 'data_stream_notification_condition');
   }
 

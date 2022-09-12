@@ -30,6 +30,7 @@ class NotificationDeliveryManager extends DefaultPluginManager implements Notifi
       'Drupal\data_stream_notification\Plugin\DataStream\NotificationDelivery\NotificationDeliveryInterface',
       'Drupal\data_stream_notification\Annotation\NotificationDelivery',
     );
+    $this->alterInfo('data_stream_notification_delivery_info');
     $this->setCacheBackend($cache_backend, 'data_stream_notification_delivery');
   }
 
