@@ -33,6 +33,9 @@ function farm_ui_theme_install() {
   $gin_settings->set('favicon.use_default', FALSE);
   $gin_settings->set('favicon.path', $path . '/favicon.ico');
 
+  // Users can override Gin settings.
+  $gin_settings->set('show_user_theme_settings', TRUE);
+
   // Save Gin settings.
   $gin_settings->save();
 
@@ -92,5 +95,14 @@ function farm_ui_theme_update_9000(&$sandbox) {
   $gin_settings->clear('icon_default');
   $gin_settings->set('logo.path', $gin_settings->get('icon_path'));
   $gin_settings->clear('icon_path');
+  $gin_settings->save();
+}
+
+/**
+ * Allow users to override Gin settings.
+ */
+function farm_ui_theme_update_9001(&$sandbox) {
+  $gin_settings = \Drupal::configFactory()->getEditable('gin.settings');
+  $gin_settings->set('show_user_theme_settings', TRUE);
   $gin_settings->save();
 }

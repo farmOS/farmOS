@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Issue #3306227: Dispatch events for asset presave, insert, update, delete](https://www.drupal.org/project/farm/issues/3306227)
 - [Issue #3306344: Allow views exposed filters to be collapsed](https://www.drupal.org/project/farm/issues/3306344)
 - [Issue #3309234: Add PHPStan to test and delivery workflow](https://www.drupal.org/project/farm/issues/3309234)
+- [Issue #3309198: Allow users to override Gin theme settings](https://www.drupal.org/project/farm/issues/3309198)
 
 ### Changed
 
