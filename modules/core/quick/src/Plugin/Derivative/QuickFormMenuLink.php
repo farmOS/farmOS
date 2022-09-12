@@ -22,12 +22,10 @@ class QuickFormMenuLink extends DeriverBase implements ContainerDeriverInterface
   /**
    * FarmQuickMenuLink constructor.
    *
-   * @param string $base_plugin_id
-   *   The base plugin ID.
    * @param \Drupal\farm_quick\QuickFormManager $quick_form_manager
    *   The quick form manager.
    */
-  public function __construct(string $base_plugin_id, QuickFormManager $quick_form_manager) {
+  public function __construct(QuickFormManager $quick_form_manager) {
     $this->quickFormManager = $quick_form_manager;
   }
 
@@ -36,7 +34,6 @@ class QuickFormMenuLink extends DeriverBase implements ContainerDeriverInterface
    */
   public static function create(ContainerInterface $container, $base_plugin_id) {
     return new static(
-      $base_plugin_id,
       $container->get('plugin.manager.quick_form')
     );
   }
