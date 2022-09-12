@@ -153,19 +153,19 @@ class UserLoginTest extends FarmBrowserTestBase {
         ->execute()
         ->fetchField();
       if ($flood_trigger == 'user') {
-        $this->assertRaw(\Drupal::translation()->formatPlural($this->config('user.flood')->get('user_limit'), 'There has been more than one failed login attempt for this account. It is temporarily blocked. Try again later or <a href=":url">request a new password</a>.', 'There have been more than @count failed login attempts for this account. It is temporarily blocked. Try again later or <a href=":url">request a new password</a>.', [':url' => Url::fromRoute('user.pass')->toString()]));
+        $this->assertSession()->responseContains(\Drupal::translation()->formatPlural($this->config('user.flood')->get('user_limit'), 'There has been more than one failed login attempt for this account. It is temporarily blocked. Try again later or <a href=":url">request a new password</a>.', 'There have been more than @count failed login attempts for this account. It is temporarily blocked. Try again later or <a href=":url">request a new password</a>.', [':url' => Url::fromRoute('user.pass')->toString()]));
         $this->assertEquals('Flood control blocked login attempt for uid %uid from %ip', $last_log, 'A watchdog message was logged for the login attempt blocked by flood control per user.');
       }
       else {
         // No uid, so the limit is IP-based.
-        $this->assertRaw($this->t('Too many failed login attempts from your IP address. This IP address is temporarily blocked. Try again later or <a href=":url">request a new password</a>.', [':url' => Url::fromRoute('user.pass')->toString()]));
+        $this->assertSession()->responseContains($this->t('Too many failed login attempts from your IP address. This IP address is temporarily blocked. Try again later or <a href=":url">request a new password</a>.', [':url' => Url::fromRoute('user.pass')->toString()]));
         $this->assertEquals('Flood control blocked login attempt from %ip', $last_log, 'A watchdog message was logged for the login attempt blocked by flood control per IP.');
       }
     }
     else {
       $this->assertSession()->statusCodeEquals(200);
       $this->assertSession()->fieldValueEquals('pass', '');
-      $this->assertText('Unrecognized username or password. Forgot your password?');
+      $this->assertSession()->pageTextContains('Unrecognized username or password. Forgot your password?');
     }
   }
 
