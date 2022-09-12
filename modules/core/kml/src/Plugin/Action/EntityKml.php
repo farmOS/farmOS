@@ -6,6 +6,7 @@ use Drupal\Core\Action\Plugin\Action\EntityActionBase;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\File\FileSystemInterface;
+use Drupal\Core\File\FileUrlGeneratorInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\file\FileRepositoryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -51,6 +52,13 @@ class EntityKml extends EntityActionBase {
   protected $fileRepository;
 
   /**
+   * The file URL generator.
+   *
+   * @var \Drupal\Core\File\FileUrlGeneratorInterface
+   */
+  protected $fileUrlGenerator;
+
+  /**
    * Constructs a new EntityKml object.
    *
    * @param array $configuration
@@ -69,13 +77,16 @@ class EntityKml extends EntityActionBase {
    *   The config factory service.
    * @param \Drupal\file\FileRepositoryInterface $file_repository
    *   The file repository service.
+   * @param \Drupal\Core\File\FileUrlGeneratorInterface $file_url_generator
+   *   The file URL generator.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, SerializerInterface $serializer, FileSystemInterface $file_system, ConfigFactoryInterface $config_factory, FileRepositoryInterface $file_repository) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, SerializerInterface $serializer, FileSystemInterface $file_system, ConfigFactoryInterface $config_factory, FileRepositoryInterface $file_repository, FileUrlGeneratorInterface $file_url_generator) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $entity_type_manager);
     $this->serializer = $serializer;
     $this->fileSystem = $file_system;
     $this->defaultFileScheme = $config_factory->get('system.file')->get('default_scheme') ?? 'public';
     $this->fileRepository = $file_repository;
+    $this->fileUrlGenerator = $file_url_generator;
   }
 
   /**
@@ -91,6 +102,7 @@ class EntityKml extends EntityActionBase {
       $container->get('file_system'),
       $container->get('config.factory'),
       $container->get('file.repository'),
+      $container->get('file_url_generator'),
     );
   }
 
@@ -137,7 +149,7 @@ class EntityKml extends EntityActionBase {
     $file->save();
 
     // Show a link to the file.
-    $url = file_create_url($file->getFileUri());
+    $url = $this->fileUrlGenerator->generateAbsoluteString($file->getFileUri());
     $this->messenger()->addMessage($this->t('KML file created: <a href=":url">%filename</a>', [
       ':url' => $url,
       '%filename' => $file->label(),
