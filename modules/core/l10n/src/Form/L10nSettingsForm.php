@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Configure the selected language negotiation method for this site.
  *
- * @internal
+ * @phpstan-ignore-next-line
  */
 class L10nSettingsForm extends NegotiationSelectedForm {
 
