@@ -151,6 +151,8 @@ class FarmMetricsBlock extends BlockBase implements ContainerFactoryPluginInterf
         $query->condition('status', 'active');
       }
 
+      // @todo https://github.com/mglaman/phpstan-drupal/issues/474
+      // @phpstan-ignore-next-line
       $count = $query->count()->execute();
       $route_name = "view.farm_$entity_type.page_type";
       $metrics[] = Link::createFromRoute($bundle_info['label'] . ': ' . $count, $route_name, ['arg_0' => $bundle], ['attributes' => ['class' => ['metric', 'button']]])->toString();

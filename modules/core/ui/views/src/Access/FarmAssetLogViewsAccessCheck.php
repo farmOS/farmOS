@@ -62,6 +62,8 @@ class FarmAssetLogViewsAccessCheck implements AccessInterface {
     $query->condition($reference_condition);
 
     // Determine access based on the log count.
+    // @todo https://github.com/mglaman/phpstan-drupal/issues/474
+    // @phpstan-ignore-next-line
     $count = $query->execute();
     $access = AccessResult::allowedIf($count > 0);
 
