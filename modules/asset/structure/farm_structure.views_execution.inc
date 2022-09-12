@@ -41,7 +41,7 @@ function farm_structure_views_pre_render(ViewExecutable $view) {
     foreach ($structure_types as $structure_type) {
       /** @var \Drupal\farm_map\Entity\LayerStyleInterface $layer_style */
       $layer_style = \Drupal::service('farm_map.layer_style_loader')->load(['asset_type' => 'structure', 'structure_type' => $structure_type->id()]);
-      if (!empty($layer_style)) {
+      if (!is_null($layer_style)) {
         $color = $layer_style->get('color');
       }
       $asset_layers['structure_' . $structure_type->id()] = [

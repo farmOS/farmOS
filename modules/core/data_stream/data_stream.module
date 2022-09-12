@@ -15,11 +15,6 @@ use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
  */
 function data_stream_data_stream_view_alter(array &$build, DataStreamInterface $data_stream, EntityViewDisplayInterface $display) {
 
-  // Bail if there is no entity.
-  if (empty($data_stream)) {
-    return;
-  }
-
   // Bail if not the basic type.
   if ($data_stream->bundle() != 'basic') {
     return;

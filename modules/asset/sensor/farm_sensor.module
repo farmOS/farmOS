@@ -16,8 +16,8 @@ use Drupal\data_stream\Entity\DataStreamInterface;
  */
 function farm_sensor_asset_view_alter(array &$build, AssetInterface $asset, EntityViewDisplayInterface $display) {
 
-  // Bail if there is no sensor asset.
-  if (empty($asset) || $asset->bundle() != 'sensor') {
+  // Bail if this is not a sensor asset.
+  if ($asset->bundle() != 'sensor') {
     return;
   }
 

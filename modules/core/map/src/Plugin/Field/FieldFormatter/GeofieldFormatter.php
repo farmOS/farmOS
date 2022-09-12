@@ -86,7 +86,7 @@ class GeofieldFormatter extends FormatterBase {
     }
 
     // If there are no items, stop here. We won't show anything.
-    if (empty($items)) {
+    if ($items->isEmpty()) {
       return $element;
     }
 

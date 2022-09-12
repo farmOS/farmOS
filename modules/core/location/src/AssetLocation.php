@@ -195,7 +195,7 @@ class AssetLocation implements AssetLocationInterface {
     $log = $this->entityTypeManager->getStorage('log')->load(reset($log_ids));
 
     // Return the log, if available.
-    if (!empty($log)) {
+    if (!is_null($log)) {
       return $log;
     }
 

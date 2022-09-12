@@ -35,11 +35,6 @@ class DataStream extends EntityContentBase {
     // The parent will create or update the entity.
     $entity = parent::getEntity($row, $old_destination_id_values);
 
-    // Bail if the no entity was returned.
-    if (empty($entity)) {
-      return $entity;
-    }
-
     // Save the entity now so that it has an ID.
     // This means that the EntityValidationRequired feature will not work
     // because we save it now, rather than waiting to see if it is validated.
@@ -54,7 +49,7 @@ class DataStream extends EntityContentBase {
 
       // Update the assets data_stream field if the asset was found
       // and the asset type has the field.
-      if (!empty($asset) && $asset->hasField('data_stream')) {
+      if (!is_null($asset) && $asset->hasField('data_stream')) {
         $asset->data_stream[] = $entity->id();
         $asset->save();
       }

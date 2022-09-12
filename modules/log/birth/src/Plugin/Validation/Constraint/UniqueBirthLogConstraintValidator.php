@@ -49,7 +49,7 @@ class UniqueBirthLogConstraintValidator extends ConstraintValidator implements C
     // Only continue if this is a birth log.
     /** @var \Drupal\log\Entity\LogInterface $log */
     $log = $value->getParent()->getValue();
-    if (!empty($log) && $log->bundle() != 'birth') {
+    if (!is_null($log) && $log->bundle() != 'birth') {
       return;
     }
 

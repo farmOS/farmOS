@@ -115,7 +115,7 @@ function farm_ui_map_views_pre_render(ViewExecutable $view) {
       // Load the map layer style.
       /** @var \Drupal\farm_map\Entity\LayerStyleInterface $layer_style */
       $layer_style = \Drupal::service('farm_map.layer_style_loader')->load(['asset_type' => $bundle]);
-      if (!empty($layer_style)) {
+      if (!is_null($layer_style)) {
         $color = $layer_style->get('color');
       }
 

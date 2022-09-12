@@ -106,7 +106,7 @@ class MapRenderEventSubscriber implements EventSubscriberInterface {
           // Load the map layer style.
           /** @var \Drupal\farm_map\Entity\LayerStyleInterface $layer_style */
           $layer_style = $this->layerStyleLoader->load(['asset_type' => $type->id()]);
-          if (!empty($layer_style)) {
+          if (!is_null($layer_style)) {
             $color = $layer_style->get('color');
           }
 
