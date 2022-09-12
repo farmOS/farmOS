@@ -60,6 +60,12 @@ RUN { \
   } > /var/farmOS/phpcs.xml \
   && /var/farmOS/vendor/bin/phpcs --config-set installed_paths /var/farmOS/vendor/drupal/coder/coder_sniffer,/var/farmOS/vendor/slevomat/coding-standard
 
+# Configure PHPStan.
+RUN { \
+    echo 'parameters:'; \
+    echo '  level: 1'; \
+  } > /var/farmOS/phpstan.neon
+
 # Configure PHPUnit.
 RUN cp -p /var/farmOS/web/core/phpunit.xml.dist /var/farmOS/phpunit.xml \
   && sed -i 's|bootstrap="tests/bootstrap.php"|bootstrap="web/core/tests/bootstrap.php"|g' /var/farmOS/phpunit.xml \
