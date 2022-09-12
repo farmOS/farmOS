@@ -277,7 +277,7 @@ class GeofieldWidget extends GeofieldBaseWidget {
 
       // Bail if no geometry was parsed.
       if (empty($wkt)) {
-        $this->messenger()->addWarning($this->t('No geometry could be parsed from %filename.', ['%filename' => $file->getFilename()]));
+        $this->messenger()->addWarning($this->t('No geometry could be parsed from files.'));
         return;
       }
 

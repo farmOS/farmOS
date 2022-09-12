@@ -101,8 +101,8 @@ function farm_ui_theme_build_stacked_twocol_layout(array &$variables, string $en
   // Split the content items into regions.
   $regions = [];
   foreach ($variables['content'] as $index => $item) {
+    $region = 'first';
     foreach ($region_items as $region_name => $items) {
-      $region = 'first';
       if (in_array($index, $items)) {
         $region = $region_name;
         break;
