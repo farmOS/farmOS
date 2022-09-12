@@ -65,7 +65,10 @@ class IdTagItem extends FieldItemBase {
    * {@inheritdoc}
    */
   public function isEmpty() {
-    return ($this->id === NULL || $this->id === '') && ($this->type === NULL || $this->type === '') && ($this->location === NULL || $this->location === '');
+    $id = $this->get('id');
+    $type = $this->get('type');
+    $location = $this->get('location');
+    return ($id === NULL || $id->getValue() === '') && ($type === NULL || $type->getValue() === '') && ($location === NULL || $location->getValue() === '');
   }
 
 }
