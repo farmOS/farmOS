@@ -39,7 +39,8 @@ class PlanCRUDTest extends PlanTestBase {
       'name[0][value]' => $name,
     ];
 
-    $this->drupalPostForm('plan/add/default', $edit, $this->t('Save'));
+    $this->drupalGet('plan/add/default');
+    $this->submitForm($edit, $this->t('Save'));
 
     $result = \Drupal::entityTypeManager()
       ->getStorage('plan')
@@ -83,7 +84,8 @@ class PlanCRUDTest extends PlanTestBase {
     $edit = [
       'name[0][value]' => $this->randomMachineName(),
     ];
-    $this->drupalPostForm($plan->toUrl('edit-form'), $edit, $this->t('Save'));
+    $this->drupalGet($plan->toUrl('edit-form'));
+    $this->submitForm($edit, $this->t('Save'));
 
     $this->assertText($edit['name[0][value]']);
   }
@@ -98,7 +100,8 @@ class PlanCRUDTest extends PlanTestBase {
     $label = $plan->getName();
     $plan_id = $plan->id();
 
-    $this->drupalPostForm($plan->toUrl('delete-form'), [], $this->t('Delete'));
+    $this->drupalGet($plan->toUrl('delete-form'));
+    $this->submitForm([], $this->t('Delete'));
     $this->assertRaw($this->t('The @entity-type %label has been deleted.', [
       '@entity-type' => $plan->getEntityType()->getSingularLabel(),
       '%label' => $label,
