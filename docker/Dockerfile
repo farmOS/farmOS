@@ -13,21 +13,18 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 # Install the BCMath PHP extension.
 RUN docker-php-ext-install bcmath
 
+# Install git and unzip (needed to build PHP GEOS and needed by Composer).
+RUN apt-get update \
+  && apt-get install -y git unzip
+
 # Build and install the GEOS PHP extension.
 # See https://git.osgeo.org/gitea/geos/php-geos
 RUN apt-get update && apt-get install -y libgeos-dev \
-  && curl -fsSL 'https://git.osgeo.org/gitea/geos/php-geos/archive/1.0.0.tar.gz' -o php-geos.tar.gz \
-  && tar -xzf php-geos.tar.gz \
-  && rm php-geos.tar.gz \
+  && git clone https://git.osgeo.org/gitea/geos/php-geos.git \
   && ( \
     cd php-geos \
-      # Apply patches for PHP 8 compatibility.
-      # See https://git.osgeo.org/gitea/geos/php-geos/issues/26#issuecomment-8988
-      && curl -fsSL 'https://git.remirepo.net/cgit/rpms/php/php-geos.git/plain/0001-fix-test-for-7.3-int-vs-integer.patch?id=c92520ad57670448de1c44e58496b8b495827af2' -o 1.patch && patch -p1 < 1.patch \
-      && curl -fsSL 'https://git.remirepo.net/cgit/rpms/php/php-geos.git/plain/0002-fix-error-message-with-php-7-Wformat-warnings-raised.patch?id=c92520ad57670448de1c44e58496b8b495827af2' -o 2.patch && patch -p1 < 2.patch \
-      && curl -fsSL 'https://git.remirepo.net/cgit/rpms/php/php-geos.git/plain/0003-add-all-arginfo-and-fix-build-with-PHP-8.patch?id=c92520ad57670448de1c44e58496b8b495827af2' -o 3.patch && patch -p1 < 3.patch \
-      && curl -fsSL 'https://git.remirepo.net/cgit/rpms/php/php-geos.git/plain/0004-fix-all-zend_parse_parameters-call-to-use-zend_long.patch?id=c92520ad57670448de1c44e58496b8b495827af2' -o 4.patch && patch -p1 < 4.patch \
-      && curl -fsSL 'https://git.remirepo.net/cgit/rpms/php/php-geos.git/plain/0005-fix-for-8.0.0RC1.patch?id=c92520ad57670448de1c44e58496b8b495827af2' -o 5.patch && patch -p1 < 5.patch \
+    # Checkout latest commit with PHP 8 support.
+    && git checkout e77d5a16abbf89a59d947d1fe49381a944762c9d \
     && ./autogen.sh \
     && ./configure \
     && make \
@@ -68,10 +65,6 @@ RUN apt-get update \
   && mkdir -p /usr/share/man/man1 \
   && mkdir -p /usr/share/man/man7 \
   && apt-get install -y postgresql-client
-
-# Install git and unzip (needed by Composer).
-RUN apt-get update \
-  && apt-get install -y git unzip
 
 # Set the COMPOSER_MEMORY_LIMIT environment variable to unlimited.
 ENV COMPOSER_MEMORY_LIMIT=-1
