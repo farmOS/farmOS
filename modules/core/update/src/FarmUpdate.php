@@ -5,6 +5,7 @@ namespace Drupal\farm_update;
 use Drupal\config_update\ConfigDiffer;
 use Drupal\config_update\ConfigListerWithProviders;
 use Drupal\config_update\ConfigReverter;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
@@ -39,6 +40,13 @@ class FarmUpdate implements FarmUpdateInterface {
   protected $entityManager;
 
   /**
+   * The config factory.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
    * The config differ.
    *
    * @var \Drupal\config_update\ConfigDiffer
@@ -68,6 +76,8 @@ class FarmUpdate implements FarmUpdateInterface {
    *   The module handler.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_manager
    *   The entity type manager.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The config factory.
    * @param \Drupal\config_update\ConfigDiffer $config_diff
    *   The config differ.
    * @param \Drupal\config_update\ConfigListerWithProviders $config_list
@@ -75,10 +85,11 @@ class FarmUpdate implements FarmUpdateInterface {
    * @param \Drupal\config_update\ConfigReverter $config_update
    *   The config reverter.
    */
-  public function __construct(LoggerInterface $logger, ModuleHandlerInterface $module_handler, EntityTypeManagerInterface $entity_manager, ConfigDiffer $config_diff, ConfigListerWithProviders $config_list, ConfigReverter $config_update) {
+  public function __construct(LoggerInterface $logger, ModuleHandlerInterface $module_handler, EntityTypeManagerInterface $entity_manager, ConfigFactoryInterface $config_factory, ConfigDiffer $config_diff, ConfigListerWithProviders $config_list, ConfigReverter $config_update) {
     $this->logger = $logger;
     $this->moduleHandler = $module_handler;
     $this->entityManager = $entity_manager;
+    $this->configFactory = $config_factory;
     $this->configDiff = $config_diff;
     $this->configList = $config_list;
     $this->configUpdate = $config_update;
@@ -135,7 +146,7 @@ class FarmUpdate implements FarmUpdateInterface {
     $exclude_config = $this->moduleHandler->invokeAll('farm_update_exclude_config');
 
     // Load farm_update.settings to get additional exclusions.
-    $settings_exclude_config = \Drupal::config('farm_update.settings')->get('exclude_config');
+    $settings_exclude_config = $this->configFactory->get('farm_update.settings')->get('exclude_config');
     if (!empty($settings_exclude_config)) {
       $exclude_config = array_merge($exclude_config, $settings_exclude_config);
     }

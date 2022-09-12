@@ -2,6 +2,7 @@
 
 namespace Drupal\data_stream\Plugin\DataStream\DataStreamType;
 
+use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Component\Serialization\Json;
 use Drupal\Core\Database\Connection;
 use Drupal\data_stream\DataStreamApiInterface;
@@ -50,6 +51,13 @@ class Basic extends DataStreamTypeBase implements DataStreamStorageInterface, Da
   protected $eventDispatcher;
 
   /**
+   * The time service.
+   *
+   * @var \Drupal\Component\Datetime\TimeInterface
+   */
+  protected $time;
+
+  /**
    * Database table.
    *
    * @var string
@@ -71,11 +79,14 @@ class Basic extends DataStreamTypeBase implements DataStreamStorageInterface, Da
    *   The database connection.
    * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $event_dispatcher
    *   The event dispatcher service.
+   * @param \Drupal\Component\Datetime\TimeInterface $time
+   *   The time service.
    */
-  public function __construct(array $configuration, string $plugin_id, $plugin_definition, Connection $connection, EventDispatcherInterface $event_dispatcher) {
+  public function __construct(array $configuration, string $plugin_id, $plugin_definition, Connection $connection, EventDispatcherInterface $event_dispatcher, TimeInterface $time) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->connection = $connection;
     $this->eventDispatcher = $event_dispatcher;
+    $this->time = $time;
   }
 
   /**
@@ -88,6 +99,7 @@ class Basic extends DataStreamTypeBase implements DataStreamStorageInterface, Da
       $plugin_definition,
       $container->get('database'),
       $container->get('event_dispatcher'),
+      $container->get('datetime.time'),
     );
   }
 
@@ -442,7 +454,7 @@ class Basic extends DataStreamTypeBase implements DataStreamStorageInterface, Da
     // Generate a timestamp from the request time. This will only be used if a
     // timestamp is not provided in the JSON data.
     if (empty($timestamp)) {
-      $timestamp = \Drupal::time()->getRequestTime();
+      $timestamp = $this->time->getRequestTime();
     }
 
     // Iterate over the JSON properties.

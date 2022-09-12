@@ -3,14 +3,43 @@
 namespace Drupal\farm_ui_views\Plugin\Derivative;
 
 use Drupal\Component\Plugin\Derivative\DeriverBase;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Plugin\Discovery\ContainerDeriverInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides task links for farmOS Logs Views.
  */
-class FarmLogViewsTaskLink extends DeriverBase {
+class FarmLogViewsTaskLink extends DeriverBase implements ContainerDeriverInterface {
 
   use StringTranslationTrait;
+
+  /**
+   * The entity type manager service.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * Constructs a FarmActions object.
+   *
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager service.
+   */
+  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
+    $this->entityTypeManager = $entity_type_manager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, $base_plugin_id) {
+    return new static(
+      $container->get('entity_type.manager'),
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -19,7 +48,7 @@ class FarmLogViewsTaskLink extends DeriverBase {
     $links = [];
 
     // Add links for each bundle.
-    $bundles = \Drupal::service('entity_type.manager')->getStorage('log_type')->loadMultiple();
+    $bundles = $this->entityTypeManager->getStorage('log_type')->loadMultiple();
     foreach ($bundles as $type => $bundle) {
       $links['farm.asset.logs.' . $type] = [
         'title' => $bundle->label(),

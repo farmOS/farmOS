@@ -45,7 +45,7 @@ class DataStream extends EntityContentBase {
       $providing_asset = $row->getDestinationProperty('providing_asset');
 
       /** @var \Drupal\asset\Entity\AssetInterface $asset */
-      $asset = \Drupal::entityTypeManager()->getStorage('asset')->load($providing_asset);
+      $asset = $this->storage->load($providing_asset);
 
       // Update the assets data_stream field if the asset was found
       // and the asset type has the field.

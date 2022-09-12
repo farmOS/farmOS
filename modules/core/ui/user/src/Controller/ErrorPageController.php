@@ -16,7 +16,7 @@ class ErrorPageController extends Http4xxController {
     $output = parent::on403();
 
     // If the user is already logged in, return.
-    if (!\Drupal::currentUser()->isAnonymous()) {
+    if (!$this->currentUser()->isAnonymous()) {
       return $output;
     }
 
