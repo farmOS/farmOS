@@ -67,6 +67,9 @@ RUN { \
     echo '  ignoreErrors:'; \
     echo '    # new static() is a best practice in Drupal, so we cannot fix that.'; \
     echo "    - '#^Unsafe usage of new static#'"; \
+    echo '  scanDirectories:'; \
+    echo '    # Tell PHPStan where to find GeoPHP classes.'; \
+    echo '    - vendor/itamair/geophp'; \
   } > /var/farmOS/phpstan.neon
 
 # Configure PHPUnit.
