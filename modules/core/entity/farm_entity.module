@@ -77,17 +77,13 @@ function farm_entity_entity_field_storage_info_alter(&$fields, EntityTypeInterfa
   // Get all bundles of the entity type.
   $bundles = \Drupal::service('entity_type.bundle.info')->getBundleInfo($entity_type->id());
 
-  // Get all modules that provide bundle fields.
-  $modules = \Drupal::moduleHandler()->getImplementations('farm_entity_bundle_field_info');
+  // Invoke hook_farm_entity_bundle_field_info() with each bundle.
+  $hook = 'farm_entity_bundle_field_info';
+  foreach (array_keys($bundles) as $bundle) {
+    \Drupal::moduleHandler()->invokeAllWith($hook, function (callable $hook, string $module) use ($fields, $entity_type, $bundle) {
 
-  // Invoke the hook for each module with each bundle.
-  foreach ($modules as $module) {
-    foreach (array_keys($bundles) as $bundle) {
-      $definitions = \Drupal::moduleHandler()
-        ->invoke($module, 'farm_entity_bundle_field_info', [
-          $entity_type,
-          $bundle,
-        ]);
+      // Get bundle field definitions provided by the module.
+      $definitions = $hook($entity_type, $bundle);
 
       // Set the provider for each field the module provided.
       // This is required so that field storage definitions are created in the
@@ -97,7 +93,7 @@ function farm_entity_entity_field_storage_info_alter(&$fields, EntityTypeInterfa
           $fields[$field]->setProvider($module);
         }
       }
-    }
+    });
   }
 }
 
