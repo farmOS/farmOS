@@ -54,9 +54,12 @@ class FarmMap extends RenderElement {
       $map_id = $element['#attributes']['id'];
     }
 
+    // Get the entity type manager.
+    $entity_type_manager = \Drupal::entityTypeManager();
+
     // Get the map type.
     /** @var \Drupal\farm_map\Entity\MapTypeInterface $map */
-    $map = \Drupal::entityTypeManager()->getStorage('map_type')->load($element['#map_type']);
+    $map = $entity_type_manager->getStorage('map_type')->load($element['#map_type']);
 
     // Add the farm-map class.
     $element['#attributes']['class'][] = 'farm-map';
@@ -73,7 +76,7 @@ class FarmMap extends RenderElement {
     // If #behaviors are included, attach each one.
     foreach ($element['#behaviors'] as $behavior_name) {
       /** @var \Drupal\farm_map\Entity\MapBehaviorInterface $behavior */
-      $behavior = \Drupal::entityTypeManager()->getStorage('map_behavior')->load($behavior_name);
+      $behavior = $entity_type_manager->getStorage('map_behavior')->load($behavior_name);
       if (!is_null($behavior)) {
         $element['#attached']['library'][] = $behavior->getLibrary();
       }
@@ -87,7 +90,7 @@ class FarmMap extends RenderElement {
     $element['#attached']['drupalSettings']['farm_map'][$map_id] = $instance_settings;
 
     // Create and dispatch a MapRenderEvent.
-    $event = new MapRenderEvent($map, $element);
+    $event = new MapRenderEvent($map, $element, $entity_type_manager);
     \Drupal::service('event_dispatcher')->dispatch(MapRenderEvent::EVENT_NAME, $event);
 
     // Return the element.
