@@ -13,7 +13,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
 function farm_entity_fields_entity_base_field_info(EntityTypeInterface $entity_type) {
 
   // Include helper functions.
-  module_load_include('inc', 'farm_entity_fields', 'farm_entity_fields.base_fields');
+  \Drupal::moduleHandler()->loadInclude('farm_entity_fields', 'inc', 'farm_entity_fields.base_fields');
 
   // Add common base fields to all asset types.
   if ($entity_type->id() == 'asset') {

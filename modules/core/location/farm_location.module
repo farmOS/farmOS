@@ -28,7 +28,7 @@ function farm_location_form_asset_form_alter(&$form, FormStateInterface $form_st
  * Implements hook_entity_base_field_info().
  */
 function farm_location_entity_base_field_info(EntityTypeInterface $entity_type) {
-  module_load_include('inc', 'farm_location', 'farm_location.base_fields');
+  \Drupal::moduleHandler()->loadInclude('farm_location', 'inc', 'farm_location.base_fields');
   switch ($entity_type->id()) {
 
     // Build asset base fields.
