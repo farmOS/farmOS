@@ -70,9 +70,9 @@ For example, in `mymodule.module`:
  */
 function mymodule_farm_update_exclude_config() {
 
-  // Exclude mymodule.settings from automatic configuration updates.
+  // Exclude mymodule_custom view from automatic configuration updates.
   return [
-    'mymodule.settings',
+    'views.view.mymodule_custom',
   ];
 }
 ```
@@ -89,6 +89,6 @@ For example, in `farm_update.settings.yml`:
 
 ```yaml
 exclude_config:
-  # Exclude mymodule.settings from automatic configuration updates.
-  - mymodule.settings
+  # Exclude mymodule_custom view from automatic configuration updates.
+  - views.view.mymodule_custom
 ```
