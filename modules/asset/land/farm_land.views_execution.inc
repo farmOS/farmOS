@@ -41,7 +41,7 @@ function farm_land_views_pre_render(ViewExecutable $view) {
     foreach ($land_types as $land_type) {
       /** @var \Drupal\farm_map\Entity\LayerStyleInterface $layer_style */
       $layer_style = \Drupal::service('farm_map.layer_style_loader')->load(['asset_type' => 'land', 'land_type' => $land_type->id()]);
-      if (!empty($layer_style)) {
+      if (!is_null($layer_style)) {
         $color = $layer_style->get('color');
       }
       $asset_layers['land_' . $land_type->id()] = [

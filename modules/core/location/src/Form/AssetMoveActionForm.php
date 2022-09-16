@@ -13,6 +13,7 @@ use Drupal\Core\Url;
 use Drupal\log\Entity\Log;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Provides an asset move confirmation form.
@@ -55,6 +56,13 @@ class AssetMoveActionForm extends ConfirmFormBase {
   protected $entities;
 
   /**
+   * The current Request object.
+   *
+   * @var \Symfony\Component\HttpFoundation\Request
+   */
+  protected $request;
+
+  /**
    * Constructs an AssetMoveActionForm form object.
    *
    * @param \Drupal\Core\TempStore\PrivateTempStoreFactory $temp_store_factory
@@ -63,11 +71,14 @@ class AssetMoveActionForm extends ConfirmFormBase {
    *   The entity type manager.
    * @param \Drupal\Core\Session\AccountInterface $user
    *   The current user.
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *   The current Request object.
    */
-  public function __construct(PrivateTempStoreFactory $temp_store_factory, EntityTypeManagerInterface $entity_type_manager, AccountInterface $user) {
+  public function __construct(PrivateTempStoreFactory $temp_store_factory, EntityTypeManagerInterface $entity_type_manager, AccountInterface $user, Request $request) {
     $this->tempStore = $temp_store_factory->get('asset_move_confirm');
     $this->entityTypeManager = $entity_type_manager;
     $this->user = $user;
+    $this->request = $request;
   }
 
   /**
@@ -77,7 +88,8 @@ class AssetMoveActionForm extends ConfirmFormBase {
     return new static(
       $container->get('tempstore.private'),
       $container->get('entity_type.manager'),
-      $container->get('current_user')
+      $container->get('current_user'),
+      $container->get('request_stack')->getCurrentRequest(),
     );
   }
 
@@ -130,8 +142,7 @@ class AssetMoveActionForm extends ConfirmFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
 
     // Check if asset IDs were provided in the asset query param.
-    $request = \Drupal::request();
-    if ($asset_ids = $request->get('asset')) {
+    if ($asset_ids = $this->request->get('asset')) {
 
       // Wrap in an array, if necessary.
       if (!is_array($asset_ids)) {

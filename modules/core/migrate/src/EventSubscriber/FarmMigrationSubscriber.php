@@ -172,7 +172,7 @@ class FarmMigrationSubscriber implements EventSubscriberInterface {
     $status_activated = $user_settings->get('notify.status_activated');
     $user_settings->set('notify.status_activated', FALSE)->save();
     $storage = $this->entityTypeManager->getStorage('user');
-    $user_ids = $storage->getQuery()->condition('status', FALSE)->execute();
+    $user_ids = $storage->getQuery()->condition('status', FALSE)->accessCheck(FALSE)->execute();
     $this->state->set('farm_migrate_blocked_users', $user_ids);
     foreach ($user_ids as $id) {
       if (!empty($id)) {

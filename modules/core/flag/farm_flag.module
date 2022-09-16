@@ -94,6 +94,7 @@ function farm_flag_options(string $entity_type = NULL, array $bundles = [], bool
   }
 
   // Assemble the options.
+  $options = [];
   foreach ($flags as $id => $flag) {
     $options[$id] = $flag->label();
   }

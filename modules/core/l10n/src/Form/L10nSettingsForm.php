@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Configure the selected language negotiation method for this site.
  *
- * @internal
+ * @phpstan-ignore-next-line
  */
 class L10nSettingsForm extends NegotiationSelectedForm {
 
@@ -79,7 +79,7 @@ class L10nSettingsForm extends NegotiationSelectedForm {
     // (except user 1).
     if ($form_state->getValue('update_existing_users')) {
       $operations = [];
-      $query = $this->entityTypeManager->getStorage('user')->getQuery();
+      $query = $this->entityTypeManager->getStorage('user')->getQuery()->accessCheck(FALSE);
       $uids = $query->condition('uid', '1', '!=')->execute();
       foreach ($uids as $uid) {
         $operations[] = [

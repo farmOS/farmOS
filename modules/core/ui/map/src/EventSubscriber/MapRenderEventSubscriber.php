@@ -5,7 +5,7 @@ namespace Drupal\farm_ui_map\EventSubscriber;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\farm_map\Event\MapRenderEvent;
-use Drupal\farm_map\layerStyleLoaderInterface;
+use Drupal\farm_map\LayerStyleLoaderInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -36,10 +36,10 @@ class MapRenderEventSubscriber implements EventSubscriberInterface {
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager service.
-   * @param \Drupal\farm_map\layerStyleLoaderInterface $layer_style_loader
+   * @param \Drupal\farm_map\LayerStyleLoaderInterface $layer_style_loader
    *   The layer style loader service.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, layerStyleLoaderInterface $layer_style_loader) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, LayerStyleLoaderInterface $layer_style_loader) {
     $this->assetTypes = $entity_type_manager->getStorage('asset_type')->loadMultiple();
     $this->layerStyleLoader = $layer_style_loader;
   }
@@ -106,7 +106,7 @@ class MapRenderEventSubscriber implements EventSubscriberInterface {
           // Load the map layer style.
           /** @var \Drupal\farm_map\Entity\LayerStyleInterface $layer_style */
           $layer_style = $this->layerStyleLoader->load(['asset_type' => $type->id()]);
-          if (!empty($layer_style)) {
+          if (!is_null($layer_style)) {
             $color = $layer_style->get('color');
           }
 

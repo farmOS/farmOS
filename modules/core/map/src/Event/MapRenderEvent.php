@@ -3,6 +3,7 @@
 namespace Drupal\farm_map\Event;
 
 use Drupal\Component\EventDispatcher\Event;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\farm_map\Entity\MapTypeInterface;
 
 /**
@@ -29,16 +30,26 @@ class MapRenderEvent extends Event {
   private $mapType;
 
   /**
+   * The entity type manager service.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
    * MapRenderEvent constructor.
    *
    * @param \Drupal\farm_map\Entity\MapTypeInterface $map_type
    *   The farm_map render element.
    * @param array $element
    *   The farm_map render array.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager service.
    */
-  public function __construct(MapTypeInterface $map_type, array $element) {
+  public function __construct(MapTypeInterface $map_type, array $element, EntityTypeManagerInterface $entity_type_manager) {
     $this->element = $element;
     $this->mapType = $map_type;
+    $this->entityTypeManager = $entity_type_manager;
   }
 
   /**
@@ -79,7 +90,7 @@ class MapRenderEvent extends Event {
 
     // Load the behavior.
     /** @var \Drupal\farm_map\Entity\MapBehaviorInterface $behavior */
-    $behavior = \Drupal::entityTypeManager()->getStorage('map_behavior')->load($behavior_name);
+    $behavior = $this->entityTypeManager->getStorage('map_behavior')->load($behavior_name);
 
     // Attach the library.
     $this->element['#attached']['library'][] = $behavior->getLibrary();

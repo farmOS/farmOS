@@ -4,6 +4,7 @@ namespace Drupal\farm_map\Plugin\Field\FieldWidget;
 
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\NestedArray;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\File\FileSystem;
@@ -37,6 +38,13 @@ class GeofieldWidget extends GeofieldBaseWidget {
    * @var \Drupal\Core\File\FileSystemInterface
    */
   protected $fileSystem;
+
+  /**
+   * The entity type manager service.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
 
   /**
    * Supported GeoPHP file types.
@@ -74,10 +82,13 @@ class GeofieldWidget extends GeofieldBaseWidget {
    *   The geofieldBackendManager.
    * @param \Drupal\Core\File\FileSystem $file_system
    *   The file system service.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager service.
    */
-  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, array $third_party_settings, GeoPHPInterface $geophp_wrapper, WktGeneratorInterface $wkt_generator, GeofieldBackendManager $geofield_backend_manager, FileSystem $file_system) {
+  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, array $third_party_settings, GeoPHPInterface $geophp_wrapper, WktGeneratorInterface $wkt_generator, GeofieldBackendManager $geofield_backend_manager, FileSystem $file_system, EntityTypeManagerInterface $entity_type_manager) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $third_party_settings, $geophp_wrapper, $wkt_generator, $geofield_backend_manager);
     $this->fileSystem = $file_system;
+    $this->entityTypeManager = $entity_type_manager;
   }
 
   /**
@@ -93,7 +104,8 @@ class GeofieldWidget extends GeofieldBaseWidget {
       $container->get('geofield.geophp'),
       $container->get('geofield.wkt_generator'),
       $container->get('plugin.manager.geofield_backend'),
-      $container->get('file_system')
+      $container->get('file_system'),
+      $container->get('entity_type.manager'),
     );
   }
 
@@ -221,7 +233,7 @@ class GeofieldWidget extends GeofieldBaseWidget {
 
       // Load and process each file.
       /** @var \Drupal\file\Entity\File[] $files */
-      $files = \Drupal::entityTypeManager()->getStorage('file')->loadMultiple($file_ids);
+      $files = $this->entityTypeManager->getStorage('file')->loadMultiple($file_ids);
 
       // @todo Support geometry field with > 1 cardinality.
       $wkt_strings = [];
@@ -265,7 +277,7 @@ class GeofieldWidget extends GeofieldBaseWidget {
 
       // Bail if no geometry was parsed.
       if (empty($wkt)) {
-        $this->messenger()->addWarning($this->t('No geometry could be parsed from %filename.', ['%filename' => $file->getFilename()]));
+        $this->messenger()->addWarning($this->t('No geometry could be parsed from files.'));
         return;
       }
 

@@ -45,6 +45,7 @@ allowedPlugins=(
   "dealerdirect/phpcodesniffer-composer-installer"
   "drupal/core-composer-scaffold"
   "oomphinc/composer-installers-extender"
+  "phpstan/extension-installer"
   "wikimedia/composer-merge-plugin"
 )
 for plugin in ${allowedPlugins[@]}; do

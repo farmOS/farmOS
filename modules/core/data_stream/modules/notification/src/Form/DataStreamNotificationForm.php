@@ -414,6 +414,8 @@ class DataStreamNotificationForm extends EntityForm {
         ]));
     }
     $form_state->setRedirectUrl($notification->toUrl('collection'));
+
+    return $status;
   }
 
   /**

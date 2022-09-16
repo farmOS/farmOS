@@ -19,6 +19,13 @@ class InventoryTest extends FarmBrowserTestBase {
   use JsonApiRequestTestTrait;
 
   /**
+   * Test user.
+   *
+   * @var \Drupal\user\Entity\User
+   */
+  protected $user;
+
+  /**
    * {@inheritdoc}
    */
   protected static $modules = [

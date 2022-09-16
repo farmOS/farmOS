@@ -16,10 +16,11 @@ class AssetForm extends ContentEntityForm {
    * {@inheritdoc}
    */
   public function save(array $form, FormStateInterface $form_state) {
-    parent::save($form, $form_state);
+    $status = parent::save($form, $form_state);
     $entity_url = $this->entity->toUrl()->setAbsolute()->toString();
     $this->messenger()->addMessage($this->t('Saved asset: <a href=":url">%label</a>', [':url' => $entity_url, '%label' => $this->entity->label()]));
     $form_state->setRedirectUrl($this->entity->toUrl());
+    return $status;
   }
 
 }

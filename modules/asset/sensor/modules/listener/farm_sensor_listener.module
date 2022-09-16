@@ -40,8 +40,8 @@ function farm_sensor_listener_farm_entity_bundle_field_info(EntityTypeInterface 
  */
 function farm_sensor_listener_asset_view_alter(array &$build, EntityInterface $asset, EntityViewDisplayInterface $display) {
 
-  // Bail if there is no sensor asset.
-  if (empty($asset) || $asset->bundle() != 'sensor') {
+  // Bail if this is not a sensor asset.
+  if ($asset->bundle() != 'sensor') {
     return;
   }
 

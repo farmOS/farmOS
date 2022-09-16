@@ -54,9 +54,9 @@ class EntryPointTest extends FarmBrowserTestBase {
     $optimized_expected_cache_contexts = \Drupal::service('cache_contexts_manager')->optimizeTokens($expected_cache_contexts);
     $this->assertSame($optimized_expected_cache_contexts, explode(' ', $response->getHeader('X-Drupal-Cache-Contexts')[0]));
     $links = $document['links'];
-    $this->assertRegExp('/.*\/api/', $links['self']['href']);
-    $this->assertRegExp('/.*\/api\/user\/user/', $links['user--user']['href']);
-    $this->assertRegExp('/.*\/api\/node_type\/node_type/', $links['node_type--node_type']['href']);
+    $this->assertMatchesRegularExpression('/.*\/api/', $links['self']['href']);
+    $this->assertMatchesRegularExpression('/.*\/api\/user\/user/', $links['user--user']['href']);
+    $this->assertMatchesRegularExpression('/.*\/api\/node_type\/node_type/', $links['node_type--node_type']['href']);
 
     // farm_api alters the root document to include a 'meta' key.
     $this->assertArrayHasKey('meta', $document);

@@ -17,6 +17,7 @@ abstract class NotificationDeliveryBase extends PluginBase implements Notificati
    * {@inheritdoc}
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
+    return $form;
   }
 
   /**

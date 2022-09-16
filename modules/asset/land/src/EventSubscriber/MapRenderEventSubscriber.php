@@ -6,7 +6,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\farm_land\Entity\FarmLandType;
 use Drupal\farm_map\Event\MapRenderEvent;
-use Drupal\farm_map\layerStyleLoaderInterface;
+use Drupal\farm_map\LayerStyleLoaderInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -35,10 +35,10 @@ class MapRenderEventSubscriber implements EventSubscriberInterface {
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager service.
-   * @param \Drupal\farm_map\layerStyleLoaderInterface $layer_style_loader
+   * @param \Drupal\farm_map\LayerStyleLoaderInterface $layer_style_loader
    *   The layer style loader service.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, layerStyleLoaderInterface $layer_style_loader) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, LayerStyleLoaderInterface $layer_style_loader) {
     $this->landAssetType = $entity_type_manager->getStorage('asset_type')->load('land');
     $this->layerStyleLoader = $layer_style_loader;
   }

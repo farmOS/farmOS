@@ -122,8 +122,8 @@ class ModulesFormTest extends WebDriverTestBase {
    */
   protected function installModules(array $modules) {
 
-    // Build a list of module names.
-    $module_names = [];
+    // Get the current page.
+    $page = $this->getSession()->getPage();
 
     // Loop through module types, core or contrib.
     $this->assertNotEmpty($modules, 'Modules array is not empty.');
@@ -132,8 +132,6 @@ class ModulesFormTest extends WebDriverTestBase {
       // Check each module in the list.
       $this->assertNotEmpty($module_list, 'Modules of the specified type are provided.');
       foreach ($module_list as $module_name) {
-        $module_names[] = $module_name;
-        $page = $this->getSession()->getPage();
         $page->checkField($type . "[modules][$module_name]");
         $this->assertModuleCheckboxState($type, $module_name, TRUE, FALSE);
       }

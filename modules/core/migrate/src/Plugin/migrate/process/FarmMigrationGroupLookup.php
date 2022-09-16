@@ -2,9 +2,14 @@
 
 namespace Drupal\farm_migrate\Plugin\migrate\process;
 
+use Drupal\migrate\MigrateLookupInterface;
+use Drupal\migrate\MigrateStubInterface;
 use Drupal\migrate\Plugin\migrate\process\MigrationLookup;
 use Drupal\migrate\MigrateExecutableInterface;
+use Drupal\migrate\Plugin\MigrationInterface;
+use Drupal\migrate\Plugin\MigrationPluginManagerInterface;
 use Drupal\migrate\Row;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Looks up the value of a property based on a previous migration group.
@@ -33,6 +38,51 @@ use Drupal\migrate\Row;
 class FarmMigrationGroupLookup extends MigrationLookup {
 
   /**
+   * Migration plugin manager service.
+   *
+   * @var \Drupal\migrate\Plugin\MigrationPluginManagerInterface
+   */
+  protected $migrationPluginManager;
+
+  /**
+   * Constructs a MigrationLookup object.
+   *
+   * @param array $configuration
+   *   A configuration array containing information about the plugin instance.
+   * @param string $plugin_id
+   *   The plugin_id for the plugin instance.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
+   * @param \Drupal\migrate\Plugin\MigrationInterface $migration
+   *   The Migration the plugin is being used in.
+   * @param \Drupal\migrate\MigrateLookupInterface $migrate_lookup
+   *   The migrate lookup service.
+   * @param \Drupal\migrate\MigrateStubInterface $migrate_stub
+   *   The migrate stub service.
+   * @param \Drupal\migrate\Plugin\MigrationPluginManagerInterface $migation_plugin_manager
+   *   Migration plugin manager service.
+   */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, MigrationInterface $migration, MigrateLookupInterface $migrate_lookup, MigrateStubInterface $migrate_stub, MigrationPluginManagerInterface $migation_plugin_manager) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition, $migration, $migrate_lookup, $migrate_stub);
+    $this->migrationPluginManager = $migation_plugin_manager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition, MigrationInterface $migration = NULL) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $migration,
+      $container->get('migrate.lookup'),
+      $container->get('migrate.stub'),
+      $container->get('plugin.manager.migration'),
+    );
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
@@ -41,8 +91,7 @@ class FarmMigrationGroupLookup extends MigrationLookup {
     $lookup_migration_group_id = $this->configuration['migration_group'];
 
     // Load all migrations.
-    $manager = \Drupal::service('plugin.manager.migration');
-    $migrations = $manager->createInstances([]);
+    $migrations = $this->migrationPluginManager->createInstances([]);
 
     // Filter by group.
     $group_migrations = [];

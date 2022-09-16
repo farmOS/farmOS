@@ -57,7 +57,7 @@ trait QuickTermTrait {
   protected function createOrLoadTerm(string $name, string $vocabulary) {
 
     // First try to load an existing term.
-    $search = taxonomy_term_load_multiple_by_name($name, $vocabulary);
+    $search = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadByProperties(['name' => $name, 'vid' => $vocabulary]);
     if (!empty($search)) {
       return reset($search);
     }

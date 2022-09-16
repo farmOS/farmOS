@@ -63,6 +63,9 @@ function farm_ui_map_views_pre_render(ViewExecutable $view) {
     // Save the group labels.
     $layer_group = $view->getBaseEntityType()->getCollectionLabel();
 
+    // Get exposed filters.
+    $exposed_filters = $view->getExposedInput();
+
     // Add multiple asset layers to the page of all assets.
     if ($view->current_display == 'page') {
 
@@ -71,9 +74,6 @@ function farm_ui_map_views_pre_render(ViewExecutable $view) {
         $filtered_bundles = array_intersect_key($asset_bundles, array_flip($exposed_filters['type']));
       }
     }
-
-    // Get exposed filters.
-    $exposed_filters = $view->getExposedInput();
 
     // Determine if we are filtering by bundle.
     // This may happen via contextual filter on the "page_type" display, or via
@@ -115,7 +115,7 @@ function farm_ui_map_views_pre_render(ViewExecutable $view) {
       // Load the map layer style.
       /** @var \Drupal\farm_map\Entity\LayerStyleInterface $layer_style */
       $layer_style = \Drupal::service('farm_map.layer_style_loader')->load(['asset_type' => $bundle]);
-      if (!empty($layer_style)) {
+      if (!is_null($layer_style)) {
         $color = $layer_style->get('color');
       }
 

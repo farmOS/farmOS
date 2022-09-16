@@ -604,8 +604,12 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
         ];
         break;
     }
-    $field->setDisplayOptions('form', $form_display_options);
-    $field->setDisplayOptions('view', $view_display_options);
+    if (!empty($form_display_options)) {
+      $field->setDisplayOptions('form', $form_display_options);
+    }
+    if (!empty($view_display_options)) {
+      $field->setDisplayOptions('view', $view_display_options);
+    }
   }
 
   /**

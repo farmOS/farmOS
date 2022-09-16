@@ -45,7 +45,7 @@
         "drupal/views_geojson": "^1.1",
         "drush/drush": "^10.3",
         "ext-simplexml": "*",
-        "phayes/geophp": "1.2"
+        "itamair/geophp": "1.3"
     },
     "extra": {
         "patchLevel": {
@@ -74,7 +74,7 @@
                 "Issue #3186301: Make $modules variable protected in tests": "https://www.drupal.org/files/issues/2020-12-03/3186301-2.patch",
                 "Issue #3193609: invalid_credentials error does not conform to OAuth2 spec": "https://www.drupal.org/files/issues/2021-12-13/3193609-11.patch"
             },
-            "phayes/geophp": {
+            "itamair/geophp": {
                 "Use BCMath (where available) for all float arithmetic #115": "https://patch-diff.githubusercontent.com/raw/phayes/geoPHP/pull/115.patch"
             }
         }

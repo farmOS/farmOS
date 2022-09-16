@@ -49,7 +49,7 @@ class UniqueBirthLogConstraintValidator extends ConstraintValidator implements C
     // Only continue if this is a birth log.
     /** @var \Drupal\log\Entity\LogInterface $log */
     $log = $value->getParent()->getValue();
-    if (!empty($log) && $log->bundle() != 'birth') {
+    if (!is_null($log) && $log->bundle() != 'birth') {
       return;
     }
 
@@ -66,6 +66,8 @@ class UniqueBirthLogConstraintValidator extends ConstraintValidator implements C
 
       // Query the number of birth logs that reference the asset.
       // We do not check access to ensure that all matching logs are found.
+      // @todo https://github.com/mglaman/phpstan-drupal/issues/474
+      // @phpstan-ignore-next-line
       $count = $this->entityTypeManager->getStorage('log')->getAggregateQuery()
         ->accessCheck(FALSE)
         ->condition('type', 'birth')

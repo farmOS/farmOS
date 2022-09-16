@@ -17,6 +17,13 @@ use Drupal\Tests\farm_test\Functional\FarmBrowserTestBase;
 class InputViewMaterialTypeTest extends FarmBrowserTestBase {
 
   /**
+   * Test user.
+   *
+   * @var \Drupal\user\Entity\User
+   */
+  protected $user;
+
+  /**
    * Material type terms.
    *
    * @var \Drupal\taxonomy\Entity\Term[]

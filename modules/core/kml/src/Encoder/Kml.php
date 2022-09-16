@@ -13,6 +13,8 @@ use Drupal\serialization\Encoder\XmlEncoder;
  * "xml" key containing the individual placemark XML in a string.
  *
  * @see \Symfony\Component\Serializer\Encoder\XmlEncoder
+ *
+ * @phpstan-ignore-next-line
  */
 class Kml extends XmlEncoder {
 

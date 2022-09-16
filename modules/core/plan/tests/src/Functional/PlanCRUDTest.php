@@ -39,7 +39,8 @@ class PlanCRUDTest extends PlanTestBase {
       'name[0][value]' => $name,
     ];
 
-    $this->drupalPostForm('plan/add/default', $edit, $this->t('Save'));
+    $this->drupalGet('plan/add/default');
+    $this->submitForm($edit, $this->t('Save'));
 
     $result = \Drupal::entityTypeManager()
       ->getStorage('plan')
@@ -69,8 +70,8 @@ class PlanCRUDTest extends PlanTestBase {
     $this->drupalGet($plan->toUrl('canonical'));
     $this->assertSession()->statusCodeEquals(200);
 
-    $this->assertText($edit['name']);
-    $this->assertRaw(\Drupal::service('date.formatter')->format(\Drupal::time()->getRequestTime()));
+    $this->assertSession()->pageTextContains($edit['name']);
+    $this->assertSession()->responseContains(\Drupal::service('date.formatter')->format(\Drupal::time()->getRequestTime()));
   }
 
   /**
@@ -83,9 +84,10 @@ class PlanCRUDTest extends PlanTestBase {
     $edit = [
       'name[0][value]' => $this->randomMachineName(),
     ];
-    $this->drupalPostForm($plan->toUrl('edit-form'), $edit, $this->t('Save'));
+    $this->drupalGet($plan->toUrl('edit-form'));
+    $this->submitForm($edit, $this->t('Save'));
 
-    $this->assertText($edit['name[0][value]']);
+    $this->assertSession()->pageTextContains($edit['name[0][value]']);
   }
 
   /**
@@ -98,8 +100,9 @@ class PlanCRUDTest extends PlanTestBase {
     $label = $plan->getName();
     $plan_id = $plan->id();
 
-    $this->drupalPostForm($plan->toUrl('delete-form'), [], $this->t('Delete'));
-    $this->assertRaw($this->t('The @entity-type %label has been deleted.', [
+    $this->drupalGet($plan->toUrl('delete-form'));
+    $this->submitForm([], $this->t('Delete'));
+    $this->assertSession()->responseContains($this->t('The @entity-type %label has been deleted.', [
       '@entity-type' => $plan->getEntityType()->getSingularLabel(),
       '%label' => $label,
     ]));

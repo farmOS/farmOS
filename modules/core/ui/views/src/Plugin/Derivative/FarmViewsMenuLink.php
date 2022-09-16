@@ -2,7 +2,10 @@
 
 namespace Drupal\farm_ui_views\Plugin\Derivative;
 
+use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\views\Plugin\Derivative\ViewsMenuLink;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides menu links for farmOS Views.
@@ -23,13 +26,43 @@ class FarmViewsMenuLink extends ViewsMenuLink {
   protected string $entityType;
 
   /**
+   * The entity type manager service.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * Constructs a FarmActions object.
+   *
+   * @param \Drupal\Core\Entity\EntityStorageInterface $view_storage
+   *   The view storage.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager service.
+   */
+  public function __construct(EntityStorageInterface $view_storage, EntityTypeManagerInterface $entity_type_manager) {
+    parent::__construct($view_storage);
+    $this->entityTypeManager = $entity_type_manager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, $base_plugin_id) {
+    return new static(
+      $container->get('entity_type.manager')->getStorage('view'),
+      $container->get('entity_type.manager'),
+    );
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function getDerivativeDefinitions($base_plugin_definition) {
     $links = [];
 
     // Get the entity type definition. Bail if invalid.
-    $entity_type_definition = \Drupal::service('entity_type.manager')->getDefinition($this->entityType, FALSE);
+    $entity_type_definition = $this->entityTypeManager->getDefinition($this->entityType, FALSE);
     if (empty($entity_type_definition)) {
       return $links;
     }
@@ -38,7 +71,7 @@ class FarmViewsMenuLink extends ViewsMenuLink {
     $bundle_entity_type = $entity_type_definition->getBundleEntityType();
 
     // Load all available bundles for the entity type.
-    $bundles = \Drupal::service('entity_type.manager')->getStorage($bundle_entity_type)->loadMultiple();
+    $bundles = $this->entityTypeManager->getStorage($bundle_entity_type)->loadMultiple();
 
     // Add links for each bundle.
     foreach ($bundles as $type => $bundle) {

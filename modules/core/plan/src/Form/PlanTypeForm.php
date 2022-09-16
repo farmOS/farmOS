@@ -108,6 +108,8 @@ class PlanTypeForm extends EntityForm {
         ]));
     }
     $form_state->setRedirectUrl($plan_type->toUrl('collection'));
+
+    return $status;
   }
 
 }

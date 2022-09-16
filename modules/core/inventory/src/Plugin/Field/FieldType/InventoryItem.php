@@ -61,7 +61,10 @@ class InventoryItem extends FieldItemBase {
    * {@inheritdoc}
    */
   public function isEmpty() {
-    return ($this->measure === NULL || $this->measure === '') && ($this->value === NULL || $this->value === '') && ($this->units === NULL || $this->units === '');
+    $measure = $this->get('measure');
+    $value = $this->get('value');
+    $units = $this->get('units');
+    return ($measure === NULL || $measure->getValue() === '') && ($value === NULL || $value->getValue() === '') && ($units === NULL || $units->getValue() === '');
   }
 
 }

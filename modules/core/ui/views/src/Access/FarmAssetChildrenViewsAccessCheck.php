@@ -63,6 +63,8 @@ class FarmAssetChildrenViewsAccessCheck implements AccessInterface {
 
     // Run a count query to see if there are any assets that reference this
     // asset as a parent.
+    // @todo https://github.com/mglaman/phpstan-drupal/issues/474
+    // @phpstan-ignore-next-line
     $count = $this->assetStorage->getAggregateQuery()
       ->accessCheck(TRUE)
       ->condition('parent.entity.id', $asset_id)
