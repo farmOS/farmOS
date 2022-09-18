@@ -530,4 +530,84 @@ class LocationTest extends KernelTestBase {
     $this->assertCorrectAssets([$first_asset, $second_asset], $this->assetLocation->getAssetsByLocation([$this->locations[0], $this->locations[1]]), TRUE);
   }
 
+  /**
+   * Test past/future asset location.
+   */
+  public function testAssetLocationTimestamp() {
+
+    // Create a new asset.
+    /** @var \Drupal\asset\Entity\AssetInterface $asset */
+    $asset = Asset::create([
+      'type' => 'object',
+      'name' => $this->randomMachineName(),
+      'status' => 'active',
+    ]);
+    $asset->save();
+
+    // Create a series of timestamps, each 24 hours apart.
+    $now = \Drupal::time()->getRequestTime();
+    $timestamps = [];
+    for ($i = 0; $i < 4; $i++) {
+      $timestamps[$i] = $now + (86400 * $i);
+    }
+
+    // Create a series of movement logs, moving the asset into each of the
+    // locations, and then one that removes location at the end.
+    /** @var \Drupal\log\Entity\LogInterface[] $logs */
+    $logs = [];
+    $locations = [];
+    for ($i = 0; $i < 3; $i++) {
+      $locations[] = ['target_id' => $this->locations[$i]->id()];
+    }
+    $locations[] = [];
+    for ($i = 0; $i < 4; $i++) {
+      $log = Log::create([
+        'type' => 'movement',
+        'timestamp' => $timestamps[$i],
+        'status' => 'done',
+        'asset' => ['target_id' => $asset->id()],
+        'location' => $locations[$i],
+        'is_movement' => TRUE,
+      ]);
+      $log->save();
+      $logs[] = $log;
+    }
+
+    // Confirm that the asset has no location before all logs.
+    $timestamp = $now - 86400;
+    $this->assertEquals(FALSE, $this->assetLocation->hasLocation($asset, $timestamp));
+    $this->assertEquals(FALSE, $this->assetLocation->hasGeometry($asset, $timestamp));
+    $this->assertEquals([], $this->assetLocation->getLocation($asset, $timestamp));
+    $this->assertEquals('', $this->assetLocation->getGeometry($asset, $timestamp));
+    $this->assertNull($this->assetLocation->getMovementLog($asset, $timestamp));
+    $this->assertEquals([], $this->assetLocation->getAssetsByLocation($this->locations, $timestamp));
+
+    // Confirm that the asset is where it should be after each log.
+    for ($i = 0; $i < 3; $i++) {
+      $this->assertEquals(TRUE, $this->assetLocation->hasLocation($asset, $timestamps[$i]));
+      $this->assertEquals(TRUE, $this->assetLocation->hasGeometry($asset, $timestamps[$i]));
+      $this->assertEquals($this->logLocation->getLocation($logs[$i]), $this->assetLocation->getLocation($asset, $timestamps[$i]));
+      $this->assertEquals($this->logLocation->getGeometry($logs[$i]), $this->assetLocation->getGeometry($asset, $timestamps[$i]));
+      $this->assertEquals($logs[$i]->id(), $this->assetLocation->getMovementLog($asset, $timestamps[$i])->id());
+      $this->assertCorrectAssets([$asset], $this->assetLocation->getAssetsByLocation([$this->locations[$i]], $timestamps[$i]), TRUE);
+    }
+
+    // Confirm that the asset is still in the same location 1 second later.
+    // This tests the <= operator.
+    $this->assertEquals(TRUE, $this->assetLocation->hasLocation($asset, $timestamps[2] + 1));
+    $this->assertEquals(TRUE, $this->assetLocation->hasGeometry($asset, $timestamps[2] + 1));
+    $this->assertEquals($this->logLocation->getLocation($logs[2]), $this->assetLocation->getLocation($asset, $timestamps[2] + 1));
+    $this->assertEquals($this->logLocation->getGeometry($logs[2]), $this->assetLocation->getGeometry($asset, $timestamps[2] + 1));
+    $this->assertEquals($logs[2]->id(), $this->assetLocation->getMovementLog($asset, $timestamps[2] + 1)->id());
+    $this->assertCorrectAssets([$asset], $this->assetLocation->getAssetsByLocation([$this->locations[2]], $timestamps[2] + 1), TRUE);
+
+    // Confirm that the asset has no location after the last log.
+    $this->assertEquals(FALSE, $this->assetLocation->hasLocation($asset, $timestamps[3]));
+    $this->assertEquals(FALSE, $this->assetLocation->hasGeometry($asset, $timestamps[3]));
+    $this->assertEquals([], $this->assetLocation->getLocation($asset, $timestamps[3]));
+    $this->assertEquals('', $this->assetLocation->getGeometry($asset, $timestamps[3]));
+    $this->assertEquals($logs[3]->id(), $this->assetLocation->getMovementLog($asset, $timestamps[3])->id());
+    $this->assertEquals([], $this->assetLocation->getAssetsByLocation($this->locations, $timestamps[3]));
+  }
+
 }

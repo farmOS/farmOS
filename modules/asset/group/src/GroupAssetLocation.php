@@ -63,11 +63,11 @@ class GroupAssetLocation extends AssetLocation implements AssetLocationInterface
   /**
    * {@inheritdoc}
    */
-  public function getMovementLog(AssetInterface $asset): ?LogInterface {
+  public function getMovementLog(AssetInterface $asset, $timestamp = NULL): ?LogInterface {
 
     // Delegate to the parent service to get the latest movement log that
     // references this asset.
-    $latest_movement = parent::getMovementLog($asset);
+    $latest_movement = parent::getMovementLog($asset, $timestamp);
 
     // Remember the latest movement id and timestamp.
     $latest_id = 0;
@@ -78,14 +78,14 @@ class GroupAssetLocation extends AssetLocation implements AssetLocationInterface
     }
 
     // Get the groups that this asset is assigned to.
-    $groups = $this->groupMembership->getGroup($asset);
+    $groups = $this->groupMembership->getGroup($asset, $timestamp);
 
     // If there are groups, iterate through them.
     if (!empty($groups)) {
       foreach ($groups as $group) {
 
         // Get the latest movement log that references the group.
-        $group_movement = parent::getMovementLog($group);
+        $group_movement = parent::getMovementLog($group, $timestamp);
 
         // If the group doesn't have a movement, skip it.
         if (empty($group_movement)) {
@@ -110,17 +110,17 @@ class GroupAssetLocation extends AssetLocation implements AssetLocationInterface
   /**
    * {@inheritdoc}
    */
-  public function getAssetsByLocation(array $locations): array {
+  public function getAssetsByLocation(array $locations, $timestamp = NULL): array {
 
     // First delegate to the parent function to get assets in the location.
     /** @var \Drupal\asset\Entity\AssetInterface[] $assets */
-    $assets = parent::getAssetsByLocation($locations);
+    $assets = parent::getAssetsByLocation($locations, $timestamp);
 
     // Recursively load all group members and add them to the list of assets.
     $groups = array_filter($assets, function (AssetInterface $asset) {
       return $asset->bundle() === 'group';
     });
-    $assets += $this->groupMembership->getGroupMembers($groups, TRUE);
+    $assets += $this->groupMembership->getGroupMembers($groups, TRUE, $timestamp);
 
     // Get location ids.
     $location_ids = array_map(function (AssetInterface $location) {
@@ -133,12 +133,12 @@ class GroupAssetLocation extends AssetLocation implements AssetLocationInterface
     // one of the specified locations. The asset may be in multiple locations
     // (including this one), so we only want to remove it if none of its
     // locations match.
-    $assets = array_filter($assets, function (AssetInterface $asset) use ($location_ids) {
+    $assets = array_filter($assets, function (AssetInterface $asset) use ($location_ids, $timestamp) {
 
       // Get asset location ids.
       $asset_location_ids = array_map(function (AssetInterface $location) {
         return $location->id();
-      }, $this->getLocation($asset));
+      }, $this->getLocation($asset, $timestamp));
 
       // Only include the asset if it is in one of the specified locations.
       return !empty(array_intersect($location_ids, $asset_location_ids));

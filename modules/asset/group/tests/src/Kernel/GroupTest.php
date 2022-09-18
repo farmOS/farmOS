@@ -3,6 +3,7 @@
 namespace Drupal\Tests\farm_group\Kernel;
 
 use Drupal\asset\Entity\Asset;
+use Drupal\farm_geo\Traits\WktTrait;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\log\Entity\Log;
 use Drupal\Tests\farm_test\Kernel\FarmAssetTestTrait;
@@ -17,6 +18,14 @@ class GroupTest extends KernelTestBase {
 
   use FarmAssetTestTrait;
   use FarmEntityCacheTestTrait;
+  use WktTrait;
+
+  /**
+   * WKT Generator service.
+   *
+   * @var \Drupal\geofield\WktGeneratorInterface
+   */
+  protected $wktGenerator;
 
   /**
    * Group membership service.
@@ -61,6 +70,7 @@ class GroupTest extends KernelTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
+    $this->wktGenerator = \Drupal::service('geofield.wkt_generator');
     $this->groupMembership = \Drupal::service('group.membership');
     $this->assetLocation = \Drupal::service('asset.location');
     $this->logLocation = \Drupal::service('log.location');
@@ -498,6 +508,182 @@ class GroupTest extends KernelTestBase {
 
     // Assert that the animal's cache tags were invalidated.
     $this->assertEntityTestCache($animal, FALSE);
+  }
+
+  /**
+   * Test past/future asset location.
+   */
+  public function testAssetLocationTimestamp() {
+
+    // Create an animal asset.
+    /** @var \Drupal\asset\Entity\AssetInterface $asset */
+    $asset = Asset::create([
+      'type' => 'animal',
+      'name' => $this->randomMachineName(),
+      'status' => 'active',
+    ]);
+    $asset->save();
+
+    // Create two pasture location assets.
+    /** @var \Drupal\asset\Entity\AssetInterface[] $locations */
+    $locations = [];
+    $location = Asset::create([
+      'type' => 'pasture',
+      'name' => $this->randomMachineName(),
+      'status' => 'active',
+      'intrinsic_geometry' => $this->reduceWkt($this->wktGenerator->wktGeneratePolygon(NULL, rand(3, 7))),
+      'is_fixed' => TRUE,
+      'is_location' => TRUE,
+    ]);
+    $location->save();
+    $locations[] = $location;
+    $location = Asset::create([
+      'type' => 'pasture',
+      'name' => $this->randomMachineName(),
+      'status' => 'active',
+      'intrinsic_geometry' => $this->reduceWkt($this->wktGenerator->wktGeneratePolygon(NULL, rand(3, 7))),
+      'is_fixed' => TRUE,
+      'is_location' => TRUE,
+    ]);
+    $location->save();
+    $locations[] = $location;
+
+    // Create a group asset.
+    /** @var \Drupal\asset\Entity\AssetInterface $group */
+    $group = Asset::create([
+      'type' => 'group',
+      'name' => $this->randomMachineName(),
+      'status' => 'active',
+    ]);
+    $group->save();
+
+    // Create a series of timestamps, each 24 hours apart.
+    $now = \Drupal::time()->getRequestTime();
+    $timestamps = [];
+    for ($i = 0; $i < 5; $i++) {
+      $timestamps[$i] = $now + (86400 * $i);
+    }
+
+    // Create a series of movement and group assignment logs.
+    $logs = [];
+
+    // Move asset to location 1.
+    $log = Log::create([
+      'type' => 'test',
+      'timestamp' => $timestamps[0],
+      'status' => 'done',
+      'is_movement' => TRUE,
+      'location' => ['target_id' => $locations[0]->id()],
+      'asset' => ['target_id' => $asset->id()],
+    ]);
+    $log->save();
+    $logs[] = $log;
+
+    // Assign asset to group.
+    $log = Log::create([
+      'type' => 'test',
+      'timestamp' => $timestamps[1],
+      'status' => 'done',
+      'is_group_assignment' => TRUE,
+      'group' => ['target_id' => $group->id()],
+      'asset' => ['target_id' => $asset->id()],
+    ]);
+    $log->save();
+    $logs[] = $log;
+
+    // Move group to location 2.
+    $log = Log::create([
+      'type' => 'test',
+      'timestamp' => $timestamps[2],
+      'status' => 'done',
+      'is_movement' => TRUE,
+      'location' => ['target_id' => $locations[1]->id()],
+      'asset' => ['target_id' => $group->id()],
+    ]);
+    $log->save();
+    $logs[] = $log;
+
+    // Move group to location 1.
+    $log = Log::create([
+      'type' => 'test',
+      'timestamp' => $timestamps[3],
+      'status' => 'done',
+      'is_movement' => TRUE,
+      'location' => ['target_id' => $locations[0]->id()],
+      'asset' => ['target_id' => $group->id()],
+    ]);
+    $log->save();
+    $logs[] = $log;
+
+    // Remove asset from group.
+    $log = Log::create([
+      'type' => 'test',
+      'timestamp' => $timestamps[4],
+      'status' => 'done',
+      'is_group_assignment' => TRUE,
+      'group' => [],
+      'asset' => ['target_id' => $asset->id()],
+    ]);
+    $log->save();
+    $logs[] = $log;
+
+    // Confirm that the asset has no location before all logs.
+    $timestamp = $now - 86400;
+    $this->assertEquals(FALSE, $this->assetLocation->hasLocation($asset, $timestamp));
+    $this->assertEquals(FALSE, $this->assetLocation->hasGeometry($asset, $timestamp));
+    $this->assertEquals([], $this->assetLocation->getLocation($asset, $timestamp));
+    $this->assertEquals('', $this->assetLocation->getGeometry($asset, $timestamp));
+    $this->assertNull($this->assetLocation->getMovementLog($asset, $timestamp));
+    $this->assertEquals([], $this->assetLocation->getAssetsByLocation($locations, $timestamp));
+
+    // Confirm that the asset is in location 1 by itself after the first log.
+    $this->assertEquals(TRUE, $this->assetLocation->hasLocation($asset, $timestamps[0]));
+    $this->assertEquals(TRUE, $this->assetLocation->hasGeometry($asset, $timestamps[0]));
+    $this->assertEquals($this->logLocation->getLocation($logs[0]), $this->assetLocation->getLocation($asset, $timestamps[0]));
+    $this->assertEquals($this->logLocation->getGeometry($logs[0]), $this->assetLocation->getGeometry($asset, $timestamps[0]));
+    $this->assertEquals($logs[0]->id(), $this->assetLocation->getMovementLog($asset, $timestamps[0])->id());
+    $this->assertCorrectAssets([$asset], $this->assetLocation->getAssetsByLocation([$locations[0]], $timestamps[0]), TRUE);
+
+    // Confirm that the asset is in location 1 by itself after the second log.
+    $this->assertEquals(TRUE, $this->assetLocation->hasLocation($asset, $timestamps[1]));
+    $this->assertEquals(TRUE, $this->assetLocation->hasGeometry($asset, $timestamps[1]));
+    $this->assertEquals($this->logLocation->getLocation($logs[0]), $this->assetLocation->getLocation($asset, $timestamps[1]));
+    $this->assertEquals($this->logLocation->getGeometry($logs[0]), $this->assetLocation->getGeometry($asset, $timestamps[1]));
+    $this->assertEquals($logs[0]->id(), $this->assetLocation->getMovementLog($asset, $timestamps[1])->id());
+    $this->assertCorrectAssets([$asset], $this->assetLocation->getAssetsByLocation([$locations[0]], $timestamps[1]), TRUE);
+
+    // Confirm that the asset and group are in location 2 after the third log.
+    $this->assertEquals(TRUE, $this->assetLocation->hasLocation($asset, $timestamps[2]));
+    $this->assertEquals(TRUE, $this->assetLocation->hasGeometry($asset, $timestamps[2]));
+    $this->assertEquals($this->logLocation->getLocation($logs[2]), $this->assetLocation->getLocation($asset, $timestamps[2]));
+    $this->assertEquals($this->logLocation->getGeometry($logs[2]), $this->assetLocation->getGeometry($asset, $timestamps[2]));
+    $this->assertEquals($logs[2]->id(), $this->assetLocation->getMovementLog($asset, $timestamps[2])->id());
+    $this->assertCorrectAssets([$asset, $group], $this->assetLocation->getAssetsByLocation([$locations[1]], $timestamps[2]), TRUE);
+
+    // Confirm that the asset and group are in location 1 after the fourth log.
+    $this->assertEquals(TRUE, $this->assetLocation->hasLocation($asset, $timestamps[3]));
+    $this->assertEquals(TRUE, $this->assetLocation->hasGeometry($asset, $timestamps[3]));
+    $this->assertEquals($this->logLocation->getLocation($logs[3]), $this->assetLocation->getLocation($asset, $timestamps[3]));
+    $this->assertEquals($this->logLocation->getGeometry($logs[3]), $this->assetLocation->getGeometry($asset, $timestamps[3]));
+    $this->assertEquals($logs[3]->id(), $this->assetLocation->getMovementLog($asset, $timestamps[3])->id());
+    $this->assertCorrectAssets([$asset, $group], $this->assetLocation->getAssetsByLocation([$locations[0]], $timestamps[3]), TRUE);
+
+    // Confirm that the asset has its first location after the last log.
+    $this->assertEquals(TRUE, $this->assetLocation->hasLocation($asset, $timestamps[4]));
+    $this->assertEquals(TRUE, $this->assetLocation->hasGeometry($asset, $timestamps[4]));
+    $this->assertEquals($this->logLocation->getLocation($logs[0]), $this->assetLocation->getLocation($asset, $timestamps[4]));
+    $this->assertEquals($this->logLocation->getGeometry($logs[0]), $this->assetLocation->getGeometry($asset, $timestamps[4]));
+    $this->assertEquals($logs[0]->id(), $this->assetLocation->getMovementLog($asset, $timestamps[4])->id());
+    $this->assertCorrectAssets([$asset, $group], $this->assetLocation->getAssetsByLocation([$locations[0]], $timestamps[4]), TRUE);
+
+    // Confirm that the asset is still in the same location 1 second later.
+    // This tests the <= operator.
+    $this->assertEquals(TRUE, $this->assetLocation->hasLocation($asset, $timestamps[4] + 1));
+    $this->assertEquals(TRUE, $this->assetLocation->hasGeometry($asset, $timestamps[4] + 1));
+    $this->assertEquals($this->logLocation->getLocation($logs[0]), $this->assetLocation->getLocation($asset, $timestamps[4] + 1));
+    $this->assertEquals($this->logLocation->getGeometry($logs[0]), $this->assetLocation->getGeometry($asset, $timestamps[4] + 1));
+    $this->assertEquals($logs[0]->id(), $this->assetLocation->getMovementLog($asset, $timestamps[4] + 1)->id());
+    $this->assertCorrectAssets([$asset, $group], $this->assetLocation->getAssetsByLocation([$locations[0]], $timestamps[4] + 1), TRUE);
   }
 
 }
