@@ -261,6 +261,95 @@ class GroupTest extends KernelTestBase {
   }
 
   /**
+   * Test past/future group membership.
+   */
+  public function testGroupMembershipTimestamp() {
+
+    // Create an asset.
+    /** @var \Drupal\asset\Entity\AssetInterface $asset */
+    $asset = Asset::create([
+      'type' => 'animal',
+      'name' => $this->randomMachineName(),
+      'status' => 'active',
+    ]);
+    $asset->save();
+
+    // Create two group assets.
+    /** @var \Drupal\asset\Entity\AssetInterface[] $groups */
+    $group = Asset::create([
+      'type' => 'group',
+      'name' => $this->randomMachineName(),
+      'status' => 'active',
+    ]);
+    $group->save();
+    $groups[] = $group;
+    $group = Asset::create([
+      'type' => 'group',
+      'name' => $this->randomMachineName(),
+      'status' => 'active',
+    ]);
+    $group->save();
+    $groups[] = $group;
+
+    // Create a series of timestamps, each 24 hours apart.
+    $now = \Drupal::time()->getRequestTime();
+    $timestamps = [];
+    for ($i = 0; $i < 3; $i++) {
+      $timestamps[$i] = $now + (86400 * $i);
+    }
+
+    // Create a series of logs that assign the asset to each of the groups, and
+    // a third that removes the asset from all groups.
+    /** @var \Drupal\log\Entity\LogInterface[] $logs */
+    $logs = [];
+    $group_assignments = [];
+    for ($i = 0; $i < 2; $i++) {
+      $group_assignments[] = ['target_id' => $groups[$i]->id()];
+    }
+    $group_assignments[] = [];
+    for ($i = 0; $i < 3; $i++) {
+      $log = Log::create([
+        'type' => 'test',
+        'timestamp' => $timestamps[$i],
+        'status' => 'done',
+        'asset' => ['target_id' => $asset->id()],
+        'is_group_assignment' => TRUE,
+        'group' => $group_assignments[$i],
+      ]);
+      $log->save();
+      $logs[] = $log;
+    }
+
+    // Confirm that the asset has no group membership before all logs.
+    $timestamp = $now - 86400;
+    $this->assertEquals(FALSE, $this->groupMembership->hasGroup($asset, $timestamp));
+    $this->assertEquals([], $this->groupMembership->getGroup($asset, $timestamp));
+    $this->assertNull($this->groupMembership->getGroupAssignmentLog($asset, $timestamp));
+    $this->assertEquals([], $this->groupMembership->getGroupMembers($groups, TRUE, $timestamp));
+
+    // Confirm that the asset is where it should be after each log.
+    for ($i = 0; $i < 2; $i++) {
+      $this->assertEquals(TRUE, $this->groupMembership->hasGroup($asset, $timestamps[$i]));
+      $this->assertEquals($groups[$i]->id(), $this->groupMembership->getGroup($asset, $timestamps[$i])[0]->id());
+      $this->assertEquals($logs[$i]->id(), $this->groupMembership->getGroupAssignmentLog($asset, $timestamps[$i])->id());
+      $this->assertCorrectAssets([$asset], $this->groupMembership->getGroupMembers([$groups[$i]], TRUE, $timestamps[$i]), TRUE);
+    }
+
+    // Confirm that the asset is still in the same group 1 second later.
+    // This tests the <= operator.
+    $this->assertEquals(TRUE, $this->groupMembership->hasGroup($asset, $timestamps[1] + 1));
+    $this->assertEquals($groups[1]->id(), $this->groupMembership->getGroup($asset, $timestamps[1] + 1)[0]->id());
+    $this->assertEquals($logs[1]->id(), $this->groupMembership->getGroupAssignmentLog($asset, $timestamps[1] + 1)->id());
+    $this->assertCorrectAssets([$asset], $this->groupMembership->getGroupMembers([$groups[1]], TRUE, $timestamps[1] + 1), TRUE);
+
+    // Confirm that the asset has no group membership after the last log.
+    $this->assertEquals(FALSE, $this->groupMembership->hasGroup($asset, $timestamps[2]));
+    $this->assertEquals([], $this->groupMembership->getGroup($asset, $timestamps[2]));
+    $this->assertEquals($logs[2]->id(), $this->groupMembership->getGroupAssignmentLog($asset, $timestamps[2])->id());
+    $this->assertEquals([], $this->groupMembership->getGroupMembers($groups, TRUE, $timestamps[2]));
+  }
+
+  /**
    * Test recursive asset group membership.
    */
   public function testRecursiveGroupMembership() {

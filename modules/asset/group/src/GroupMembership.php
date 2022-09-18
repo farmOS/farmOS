@@ -71,40 +71,53 @@ class GroupMembership implements GroupMembershipInterface {
   /**
    * {@inheritdoc}
    */
-  public function hasGroup(AssetInterface $asset): bool {
-    $log = $this->getGroupAssignmentLog($asset);
+  public function hasGroup(AssetInterface $asset, $timestamp = NULL): bool {
+
+    // Load the group assignment log. Bail if empty.
+    $log = $this->getGroupAssignmentLog($asset, $timestamp);
     if (empty($log)) {
       return FALSE;
     }
+
+    // Return emptiness of the group references.
     return !$log->get(static::LOG_FIELD_GROUP)->isEmpty();
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getGroup(AssetInterface $asset): array {
-    $log = $this->getGroupAssignmentLog($asset);
+  public function getGroup(AssetInterface $asset, $timestamp = NULL): array {
+
+    // Load the group assignment log. Bail if empty.
+    $log = $this->getGroupAssignmentLog($asset, $timestamp);
     if (empty($log)) {
       return [];
     }
+
+    // Return referenced entities.
     return $log->{static::LOG_FIELD_GROUP}->referencedEntities() ?? [];
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getGroupAssignmentLog(AssetInterface $asset): ?LogInterface {
+  public function getGroupAssignmentLog(AssetInterface $asset, $timestamp = NULL): ?LogInterface {
 
     // If the asset is new, no group assignment logs will reference it.
     if ($asset->isNew()) {
       return NULL;
     }
 
+    // If $timestamp is NULL, use the current time.
+    if (is_null($timestamp)) {
+      $timestamp = $this->time->getRequestTime();
+    }
+
     // Query for group assignment logs that reference the asset.
     // We do not check access on the logs to ensure that none are filtered out.
     $options = [
       'asset' => $asset,
-      'timestamp' => $this->time->getRequestTime(),
+      'timestamp' => $timestamp,
       'status' => 'done',
       'limit' => 1,
     ];
@@ -134,7 +147,7 @@ class GroupMembership implements GroupMembershipInterface {
   /**
    * {@inheritdoc}
    */
-  public function getGroupMembers(array $groups, bool $recurse = TRUE): array {
+  public function getGroupMembers(array $groups, bool $recurse = TRUE, $timestamp = NULL): array {
 
     // Get group ids.
     $group_ids = array_map(function (AssetInterface $group) {
@@ -144,6 +157,11 @@ class GroupMembership implements GroupMembershipInterface {
     // Bail if there are no group ids.
     if (empty($group_ids)) {
       return [];
+    }
+
+    // If $timestamp is NULL, use the current time.
+    if (is_null($timestamp)) {
+      $timestamp = $this->time->getRequestTime();
     }
 
     // Build query for group members.
@@ -182,7 +200,7 @@ class GroupMembership implements GroupMembershipInterface {
       -- Exclude records with future log entries.
       AND lfd2.id IS NULL";
     $args = [
-      ':timestamp' => $this->time->getRequestTime(),
+      ':timestamp' => $timestamp,
       ':group_ids[]' => $group_ids,
     ];
     $result = $this->database->query($query, $args)->fetchAll();
@@ -204,7 +222,7 @@ class GroupMembership implements GroupMembershipInterface {
         return $asset->bundle() === 'group';
       });
       // Use array_replace so that numeric keys are preserved.
-      $assets = array_replace($assets, $this->getGroupMembers($groups));
+      $assets = array_replace($assets, $this->getGroupMembers($groups, $recurse, $timestamp));
     }
     return $assets;
   }

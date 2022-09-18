@@ -168,17 +168,21 @@ access controls are respected.
 
 **Methods**:
 
-`hasGroup($asset)` - Check if an asset is a member of a group. Returns a
-boolean.
+`hasGroup($asset, $timestamp = NULL)` - Check if an asset is a member of a group,
+optionally at a given timestamp (defaults to current time). Returns a boolean.
 
-`getGroup($asset)` - Get group assets that an asset is a member of. Returns an
+`getGroup($asset, $timestamp = NULL)` - Get group assets that an asset is a member
+of, optionally at a given timestamp (defaults to current time). Returns an
 array of asset entities.
 
-`getGroupAssignmentLog($asset)` - Find the latest group assignment log that
-references an asset. Returns a log entity, or `NULL` if no logs were found.
+`getGroupAssignmentLog($asset, $timestamp = NULL)` - Find the latest group
+assignment log that references an asset, optionally at a given timestamp
+(defaults to current time). Returns a log entity, or `NULL` if no logs were
+found.
 
-`getGroupMembers($groups, $recurse)` - Get assets that are members of groups,
-optionally recursing into child groups.
+`getGroupMembers($groups, $recurse = TRUE, $timestamp = NULL)` - Get assets that
+are members of groups, optionally recursing into child groups, and optionally
+at a given timestamp (defaults to current time).
 
 **Example usage:**
 
