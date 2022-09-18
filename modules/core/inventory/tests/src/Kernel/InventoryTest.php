@@ -283,6 +283,51 @@ class InventoryTest extends KernelTestBase {
   }
 
   /**
+   * Test past/future asset inventory.
+   */
+  public function testAssetInventoryTimestamp() {
+
+    // Create a new asset.
+    /** @var \Drupal\asset\Entity\AssetInterface $asset */
+    $asset = Asset::create([
+      'type' => 'container',
+      'name' => $this->randomMachineName(),
+      'status' => 'active',
+    ]);
+    $asset->save();
+
+    // Create a series of timestamps, each 24 hours apart.
+    $now = \Drupal::time()->getRequestTime();
+    $timestamps = [];
+    for ($i = 0; $i < 3; $i++) {
+      $timestamps[$i] = $now + (86400 * $i);
+    }
+
+    // Create a series of inventory adjustment logs.
+    $this->adjustInventory($asset, 'reset', 1, '', 0, $timestamps[0]);
+    $this->adjustInventory($asset, 'increment', 99, '', 0, $timestamps[1]);
+    $this->adjustInventory($asset, 'decrement', 10, '', 0, $timestamps[2]);
+
+    // Confirm that the inventory is zero before all adjustments.
+    $timestamp = $now - 86400;
+    $inventory = $this->assetInventory->getInventory($asset, '', 0, $timestamp);
+    $this->assertEquals('0', $inventory[0]['value']);
+
+    // Confirm that the inventory is what we expect at each timestamp.
+    $inventory = $this->assetInventory->getInventory($asset, '', 0, $timestamps[0]);
+    $this->assertEquals('1', $inventory[0]['value']);
+    $inventory = $this->assetInventory->getInventory($asset, '', 0, $timestamps[1]);
+    $this->assertEquals('100', $inventory[0]['value']);
+    $inventory = $this->assetInventory->getInventory($asset, '', 0, $timestamps[2]);
+    $this->assertEquals('90', $inventory[0]['value']);
+
+    // Confirm that the inventory is the same one second later.
+    // This tests the <= operator.
+    $inventory = $this->assetInventory->getInventory($asset, '', 0, $timestamps[2] + 1);
+    $this->assertEquals('90', $inventory[0]['value']);
+  }
+
+  /**
    * Creates an inventory adjustment quantity + log for a given asset.
    *
    * @param \Drupal\asset\Entity\AssetInterface $asset
@@ -295,11 +340,14 @@ class InventoryTest extends KernelTestBase {
    *   The quantity measure of the inventory. See quantity_measures().
    * @param int $units
    *   The quantity units of the inventory (term ID).
+   * @param int|null $timestamp
+   *   Optionally specify the timestamp when the adjustment occured.
+   *   If this is NULL (default), the current time will be used.
    *
    * @return \Drupal\log\Entity\LogInterface
    *   The log entity.
    */
-  protected function adjustInventory(AssetInterface $asset, string $adjustment, string $value, string $measure = '', int $units = 0) {
+  protected function adjustInventory(AssetInterface $asset, string $adjustment, string $value, string $measure = '', int $units = 0, $timestamp = NULL) {
     $fraction = Fraction::createFromDecimal($value);
     /** @var \Drupal\quantity\Entity\Quantity $quantity */
     $quantity = Quantity::create([
@@ -318,9 +366,13 @@ class InventoryTest extends KernelTestBase {
       $quantity->set('units', ['target_id' => $units]);
     }
     $quantity->save();
+    if (is_null($timestamp)) {
+      $timestamp = \Drupal::time()->getRequestTime();
+    }
     /** @var \Drupal\log\Entity\LogInterface $log */
     $log = Log::create([
       'type' => 'adjustment',
+      'timestamp' => $timestamp,
       'status' => 'done',
       'quantity' => [
         'target_id' => $quantity->id(),

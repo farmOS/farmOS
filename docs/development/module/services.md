@@ -65,10 +65,11 @@ controls are respected.
 
 **Methods**:
 
-`getInventory($asset, $measure = '', $units = 0)` - Get inventory summaries
-for an asset. Returns an array of arrays with the following keys: `measure`,
-`value`, `units`. This can be optionally filtered by `$measure` (string)
-and `$units` (term ID).
+`getInventory($asset, $measure = '', $units = 0, $timestamp = NULL)` - Get
+inventory summaries for an asset, optionally at a given timestamp (defaults
+to current time). Returns an array of arrays with the following keys:
+`measure`, `value`, `units`. This can be optionally filtered by `$measure`
+(string) and `$units` (term ID).
 
 **Example usage**:
 
