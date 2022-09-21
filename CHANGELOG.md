@@ -34,6 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Incorrect translation placeholders for asset names #540](https://github.com/farmOS/farmOS/issues/540)
 - Update farmOS-map to [v2.0.5](https://github.com/farmOS/farmOS-map/releases/tag/v2.0.5) to fix [Uncaught (in promise) TypeError: o.getChangeEventType is not a function #551](https://github.com/farmOS/farmOS/issues/551)
 - [Fix [warning] Invalid argument supplied for foreach() EntityViewsDataTaxonomyFilterTrait.php:26 #575](https://github.com/farmOS/farmOS/pull/575)
+- [Set reduce_duplicates: true in Views exposed filters for multivalue fields #571](https://github.com/farmOS/farmOS/pull/571)
 
 ## [2.0.0-beta6] 2022-07-30
 

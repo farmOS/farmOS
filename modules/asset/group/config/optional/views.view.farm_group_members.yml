@@ -820,7 +820,7 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          reduce_duplicates: false
+          reduce_duplicates: true
         is_location:
           id: is_location
           table: asset_field_data
