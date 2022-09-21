@@ -1,5 +1,0 @@
-*.install linguist-language=PHP
-*.inc linguist-language=PHP
-*.module linguist-language=PHP
-*.profile linguist-language=PHP
-*.yml linguist-detectable
