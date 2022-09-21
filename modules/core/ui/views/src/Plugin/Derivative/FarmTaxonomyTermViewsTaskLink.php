@@ -52,7 +52,7 @@ class FarmTaxonomyTermViewsTaskLink extends DeriverBase implements ContainerDeri
 
       // Add default "All" secondary tab for each entity type.
       $links["farm.taxonomy_term.{$entity_type}s.all"] = [
-        'title' => 'All',
+        'title' => $this->t('All'),
         'parent_id' => "farm.taxonomy_term.{$entity_type}s",
         'route_name' => "view.farm_$entity_type.page_term",
         'route_parameters' => [
