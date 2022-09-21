@@ -50,7 +50,6 @@ class FarmTaxonomyTermViewsTaskLink extends DeriverBase implements ContainerDeri
     foreach (['asset', 'log'] as $entity_type) {
 
       $links["farm.taxonomy_term.{$entity_type}s.all"] = [
-        'id' => "farm.taxonomy_term.{$entity_type}s.all",
         'title' => 'All',
         'parent_id' => "farm.taxonomy_term.{$entity_type}s",
         'route_name' => "view.farm_$entity_type.page_term",
@@ -64,7 +63,6 @@ class FarmTaxonomyTermViewsTaskLink extends DeriverBase implements ContainerDeri
       foreach ($entity_bundles as $entity_bundle => $info) {
 
         $links["farm.taxonomy_term.{$entity_type}s.$entity_bundle"] = [
-          'id' => "farm.taxonomy_term.{$entity_type}s.$entity_bundle",
           'title' => $info['label'],
           'parent_id' => "farm.taxonomy_term.{$entity_type}s",
           'route_name' => "view.farm_$entity_type.page_term",
