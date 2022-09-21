@@ -47,8 +47,10 @@ class FarmTaxonomyTermViewsTaskLink extends DeriverBase implements ContainerDeri
   public function getDerivativeDefinitions($base_plugin_definition) {
     $links = [];
 
+    // Add asset and log task links to taxonomy term pages.
     foreach (['asset', 'log'] as $entity_type) {
 
+      // Add default "All" secondary tab for each entity type.
       $links["farm.taxonomy_term.{$entity_type}s.all"] = [
         'title' => 'All',
         'parent_id' => "farm.taxonomy_term.{$entity_type}s",
@@ -58,10 +60,9 @@ class FarmTaxonomyTermViewsTaskLink extends DeriverBase implements ContainerDeri
         ],
       ] + $base_plugin_definition;
 
-      // Add links for each entity bundle.
+      // Add secondary tab for each entity bundle.
       $entity_bundles = $this->entityTypeBundleInfo->getBundleInfo($entity_type);
       foreach ($entity_bundles as $entity_bundle => $info) {
-
         $links["farm.taxonomy_term.{$entity_type}s.$entity_bundle"] = [
           'title' => $info['label'],
           'parent_id' => "farm.taxonomy_term.{$entity_type}s",
@@ -70,7 +71,6 @@ class FarmTaxonomyTermViewsTaskLink extends DeriverBase implements ContainerDeri
             'entity_bundle' => $entity_bundle,
           ],
         ] + $base_plugin_definition;
-
       }
     }
 
