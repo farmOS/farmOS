@@ -66,7 +66,7 @@ class FarmTaxonomyTermViewsTaskLink extends DeriverBase implements ContainerDeri
       $entity_type = $this->entityTypeManager->getDefinition($entity_type_id);
 
       // Add tab for each entity type.
-      $links["farm.taxonomy_term.{$entity_type_id}s"] = [
+      $links[$entity_type_id] = [
         'title' => $entity_type->getCollectionLabel(),
         'route_name' => "view.farm_$entity_type_id.page_term",
         'route_parameters' => [
@@ -76,10 +76,14 @@ class FarmTaxonomyTermViewsTaskLink extends DeriverBase implements ContainerDeri
         'weight' => 50,
       ] + $base_plugin_definition;
 
+      // Build the parent id from the base ID.
+      $base_id = $base_plugin_definition['id'];
+      $parent_id = "$base_id:$entity_type_id";
+
       // Add default "All" secondary tab for each entity type.
-      $links["farm.taxonomy_term.{$entity_type_id}s.all"] = [
+      $links["$entity_type_id.all"] = [
         'title' => $this->t('All'),
-        'parent_id' => "farm.taxonomy_term.entities.type:farm.taxonomy_term.{$entity_type_id}s",
+        'parent_id' => $parent_id,
         'route_name' => "view.farm_$entity_type_id.page_term",
         'route_parameters' => [
           'entity_bundle' => 'all',
@@ -89,9 +93,9 @@ class FarmTaxonomyTermViewsTaskLink extends DeriverBase implements ContainerDeri
       // Add secondary tab for each entity bundle.
       $entity_bundles = $this->entityTypeBundleInfo->getBundleInfo($entity_type_id);
       foreach ($entity_bundles as $entity_bundle => $info) {
-        $links["farm.taxonomy_term.{$entity_type_id}s.$entity_bundle"] = [
+        $links["$entity_type_id.$entity_bundle"] = [
           'title' => $info['label'],
-          'parent_id' => "farm.taxonomy_term.entities.type:farm.taxonomy_term.{$entity_type_id}s",
+          'parent_id' => $parent_id,
           'route_name' => "view.farm_$entity_type_id.page_term",
           'route_parameters' => [
             'entity_bundle' => $entity_bundle,
