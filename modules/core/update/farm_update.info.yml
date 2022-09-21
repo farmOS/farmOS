@@ -1,7 +1,0 @@
-name: farmOS Update
-description: Automatically update farmOS configuration entities. Turn this off if configuration is managed by other means.
-type: module
-package: farmOS
-core_version_requirement: ^9
-dependencies:
-  - config_update:config_update

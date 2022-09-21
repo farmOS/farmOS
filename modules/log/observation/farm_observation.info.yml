@@ -1,7 +1,0 @@
-name: Observation log
-description: Adds an Observation log type.
-type: module
-package: farmOS Logs
-core_version_requirement: ^9
-dependencies:
-  - farm:farm_entity

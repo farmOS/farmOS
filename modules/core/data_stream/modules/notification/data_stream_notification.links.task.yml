@@ -1,5 +1,0 @@
-data_stream_notification.settings:
-  route_name: entity.data_stream_notification.collection
-  parent_id: farm_notification.settings
-  title: 'Data Streams'
-  weight: 10

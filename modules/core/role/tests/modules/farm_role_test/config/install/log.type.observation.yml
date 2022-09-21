@@ -1,8 +1,0 @@
-langcode: en
-status: true
-id: observation
-label: Observation
-description: ''
-name_pattern: 'Observation log [log:id]'
-workflow: log_default
-new_revision: true

@@ -1,7 +1,0 @@
-name: farmOS UI Metrics
-description: Adds a dashboard pane with high-level farm metrics.
-type: module
-package: farmOS UI
-core_version_requirement: ^9
-dependencies:
-  - farm:farm_ui_dashboard

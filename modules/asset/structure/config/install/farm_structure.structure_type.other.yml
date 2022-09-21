@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies:
-  enforced:
-    module:
-      - farm_structure
-id: other
-label: Other

@@ -1,4 +1,0 @@
-farm.import.kml:
-  title: KML Import
-  parent: farm.import
-  route_name: farm.import.kml

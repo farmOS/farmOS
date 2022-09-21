@@ -1,7 +1,0 @@
-name: Log categories vocabulary
-description: Provides a Log categories vocabulary.
-type: module
-package: farmOS Taxonomies
-core_version_requirement: ^9
-dependencies:
-  - drupal:taxonomy

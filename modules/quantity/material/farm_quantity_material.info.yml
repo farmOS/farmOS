@@ -1,8 +1,0 @@
-name: Material quantity
-description: Provides a material quantity type.
-type: module
-package: farmOS Quantities
-core_version_requirement: ^9
-dependencies:
-  - farm:quantity
-  - farm:farm_material_type

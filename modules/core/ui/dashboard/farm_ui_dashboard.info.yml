@@ -1,9 +1,0 @@
-name: farmOS Dashboard
-description: Provides a farmOS dashboard.
-type: module
-package: farmOS UI
-core_version_requirement: ^9
-dependencies:
-  - drupal:block
-  - drupal:layout_discovery
-  - drupal:views

@@ -1,4 +1,0 @@
-managed_role:
-  css:
-    theme:
-      css/managed-role.css: {}

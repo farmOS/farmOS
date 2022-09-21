@@ -1,5 +1,0 @@
-name: farmOS Entity Views
-description: Views integration support for farmOS entities and fields.
-type: module
-package: farmOS
-core_version_requirement: ^9

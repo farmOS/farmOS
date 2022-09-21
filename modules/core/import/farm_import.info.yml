@@ -1,5 +1,0 @@
-name: farmOS Import
-description: Features for importing records.
-type: module
-package: farmOS
-core_version_requirement: ^9

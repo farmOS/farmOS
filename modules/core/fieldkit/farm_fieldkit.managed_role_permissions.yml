@@ -1,5 +1,0 @@
-farm_fieldkit:
-  config_permissions:
-    - administer field_module
-  default_permissions:
-    - view field_module

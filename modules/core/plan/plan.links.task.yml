@@ -1,4 +1,0 @@
-entity.plan.collection:
-  route_name: entity.plan.collection
-  title: 'Plans'
-  base_route: system.admin_content

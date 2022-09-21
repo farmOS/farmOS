@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies:
-  enforced:
-    module:
-      - farm_land
-id: other
-label: Other

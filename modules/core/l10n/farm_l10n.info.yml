@@ -1,9 +1,0 @@
-name: farmOS Localization
-description: Enables default configuration for localizing/translating farmOS.
-type: module
-package: farmOS
-core_version_requirement: ^9
-dependencies:
-  - drupal:config_translation
-  - drupal:language
-  - drupal:locale

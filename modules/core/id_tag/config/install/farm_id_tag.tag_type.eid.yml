@@ -1,9 +1,0 @@
-langcode: en
-status: true
-dependencies:
-  enforced:
-    module:
-      - farm_id_tag
-id: eid
-label: Electronic ID
-bundles: null

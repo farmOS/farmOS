@@ -1,4 +1,0 @@
-farm.import:
-  title: Import
-  parent: system.admin
-  route_name: farm.import

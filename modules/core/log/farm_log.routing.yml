@@ -1,6 +1,0 @@
-farm_log.asset_add_log_action_form:
-  path: '/asset/add_log'
-  defaults:
-    _form: 'Drupal\farm_log\Form\AssetAddLogActionForm'
-  requirements:
-    _user_is_logged_in: 'TRUE'

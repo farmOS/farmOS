@@ -1,7 +1,0 @@
-services:
-  logger.channel.farm_update:
-    parent: logger.channel_base
-    arguments: [ 'farm_update' ]
-  farm.update:
-    class: Drupal\farm_update\FarmUpdate
-    arguments: [ '@logger.channel.farm_update', '@module_handler', '@entity_type.manager', '@config.factory', '@config_update.config_diff', '@config_update.config_list', '@config_update.config_update' ]

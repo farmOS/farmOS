@@ -1,5 +1,0 @@
-entity.plan_type.collection:
-  title: 'Plan types'
-  route_name: entity.plan_type.collection
-  description: 'List of plan types'
-  parent: system.admin_structure

@@ -1,3 +1,0 @@
-farm_import:
-  config_permissions:
-    - access farm import index

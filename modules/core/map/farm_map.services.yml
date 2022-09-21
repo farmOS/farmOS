@@ -1,9 +1,0 @@
-services:
-  farm_map.map_render_event_subscriber:
-    class: Drupal\farm_map\EventSubscriber\MapRenderEventSubscriber
-    arguments:
-      - '@config.factory'
-    tags:
-      - { name: 'event_subscriber' }
-  farm_map.layer_style_loader:
-    class: Drupal\farm_map\LayerStyleLoader

@@ -1,9 +1,0 @@
-name: 'Farm Role module tests'
-type: module
-description: 'Support module for farm_role testing.'
-package: Testing
-core_version_requirement: ^8.8 || ^9
-
-dependencies:
-  - log:log
-  - farm:farm_role

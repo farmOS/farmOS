@@ -1,4 +1,0 @@
-test_field_module:
-  js:
-    js/test_module.js:
-      preprocess: false

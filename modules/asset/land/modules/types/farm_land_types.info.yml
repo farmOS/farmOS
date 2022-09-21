@@ -1,7 +1,0 @@
-name: farmOS Default Land Types
-description: 'Provides default land types: Property, Field, Bed, Paddock, Landmark.'
-type: module
-package: farmOS Defaults
-core_version_requirement: ^9
-dependencies:
-  - farm:farm_land

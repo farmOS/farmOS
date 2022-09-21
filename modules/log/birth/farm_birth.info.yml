@@ -1,9 +1,0 @@
-name: Birth log
-description: Adds a Birth log type for Animal assets.
-type: module
-package: farmOS Logs
-core_version_requirement: ^9
-dependencies:
-  - farm:farm_animal
-  - farm:farm_entity
-  - log:log

@@ -1,7 +1,0 @@
-name: farmOS Mapbox
-description: Adds Mapbox layers to farmOS maps.
-type: module
-package: farmOS Maps
-core_version_requirement: ^9
-dependencies:
-  - farm:farm_map

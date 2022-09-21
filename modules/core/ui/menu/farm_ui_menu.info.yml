@@ -1,9 +1,0 @@
-name: farmOS UI Menu
-description: Provides farmOS toolbar menu overrides.
-type: module
-package: farmOS UI
-core_version_requirement: ^9
-dependencies:
-  - admin_toolbar:admin_toolbar
-  - admin_toolbar:admin_toolbar_links_access_filter
-  - drupal:toolbar

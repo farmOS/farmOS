@@ -1,5 +1,0 @@
-name: farmOS Test
-description: Provides common automated testing code for farmOS.
-type: module
-package: Testing
-core_version_requirement: ^9

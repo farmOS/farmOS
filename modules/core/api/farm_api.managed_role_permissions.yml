@@ -1,3 +1,0 @@
-farm_api:
-  default_permissions:
-    - issue subrequests

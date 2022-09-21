@@ -1,7 +1,0 @@
-farm.report:
-  path: '/report'
-  defaults:
-    _controller: '\Drupal\farm_report\Controller\ReportController::index'
-    _title: 'Reports'
-  requirements:
-    _permission: 'access farm report index'

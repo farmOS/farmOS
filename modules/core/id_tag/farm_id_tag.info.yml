@@ -1,8 +1,0 @@
-name: farmOS ID Tag
-description: Provides a field for ID Tags.
-type: module
-package: farmOS
-core_version_requirement: ^9
-dependencies:
-  - farm:asset
-  - farm:farm_field

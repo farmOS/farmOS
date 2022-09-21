@@ -1,7 +1,0 @@
-name: Plan module tests
-description: Support module for plan testing.
-type: module
-package: Testing
-core_version_requirement: ^9
-dependencies:
-  - farm:plan

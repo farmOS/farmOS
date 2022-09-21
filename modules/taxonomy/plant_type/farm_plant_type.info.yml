@@ -1,7 +1,0 @@
-name: Plant type vocabulary
-description: Provides an Plant type vocabulary.
-type: module
-package: farmOS Taxonomies
-core_version_requirement: ^9
-dependencies:
-  - drupal:taxonomy

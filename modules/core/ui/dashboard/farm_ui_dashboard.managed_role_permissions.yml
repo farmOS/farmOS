@@ -1,3 +1,0 @@
-farm_ui_dashboard:
-  default_permissions:
-    - access farm dashboard
