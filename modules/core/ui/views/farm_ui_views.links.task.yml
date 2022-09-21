@@ -15,20 +15,6 @@ farm.asset.logs.all:
 farm.asset.logs.type:
   deriver: Drupal\farm_ui_views\Plugin\Derivative\FarmLogViewsTaskLink
 
-# Add asset/log view tabs to taxonomy terms.
-farm.taxonomy_term.assets:
-  title: 'Assets'
-  route_name: view.farm_asset.page_term
-  route_parameters:
-    entity_bundle: 'all'
-  base_route: entity.taxonomy_term.canonical
-  weight: 50
-farm.taxonomy_term.logs:
-  title: 'Logs'
-  route_name: view.farm_log.page_term
-  route_parameters:
-    entity_bundle: 'all'
-  base_route: entity.taxonomy_term.canonical
-  weight: 50
+# Add asset and log view tabs to taxonomy terms.
 farm.taxonomy_term.entities.type:
   deriver: Drupal\farm_ui_views\Plugin\Derivative\FarmTaxonomyTermViewsTaskLink
