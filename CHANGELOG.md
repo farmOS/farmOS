@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Update Drupal core to 9.4.x](https://github.com/farmOS/farmOS/pull/566)
 - [Update AssetLocationInterface::getAssetsByLocation to return asset objects keyed by ID #565](https://github.com/farmOS/farmOS/pull/565)
 - [Simplify location query processing of asset ids #564](https://github.com/farmOS/farmOS/pull/564)
+- Update farmOS-map to [v2.0.7](https://github.com/farmOS/farmOS-map/releases/tag/v2.0.7) to [improve edit control icons](https://github.com/farmOS/farmOS-map/pull/179)
 
 ### Fixed
 
