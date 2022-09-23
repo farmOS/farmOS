@@ -52,9 +52,6 @@ class FarmLogViewsTaskLink extends DeriverBase implements ContainerDeriverInterf
     $links['logs'] = [
       'title' => $log_entity->getCollectionLabel(),
       'route_name' => 'view.farm_log.page_asset',
-      'route_parameters' => [
-        'log_type' => 'all',
-      ],
       'base_route' => 'entity.asset.canonical',
       'weight' => 50,
     ] + $base_plugin_definition;
