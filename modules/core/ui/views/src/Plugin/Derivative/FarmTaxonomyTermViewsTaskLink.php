@@ -69,9 +69,6 @@ class FarmTaxonomyTermViewsTaskLink extends DeriverBase implements ContainerDeri
       $links[$entity_type_id] = [
         'title' => $entity_type->getCollectionLabel(),
         'route_name' => "view.farm_$entity_type_id.page_term",
-        'route_parameters' => [
-          'entity_bundle' => 'all',
-        ],
         'base_route' => 'entity.taxonomy_term.canonical',
         'weight' => 50,
       ] + $base_plugin_definition;
