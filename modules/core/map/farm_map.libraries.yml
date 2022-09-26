@@ -1,3 +1,9 @@
+farm_map_public_path:
+  js:
+    js/farm_map_public_path.js: { }
+  dependencies:
+    - core/drupalSettings
+
 farmOS-map:
   remote: https://github.com/farmOS/farmOS-map
   license:
@@ -15,6 +21,7 @@ farmOS-map:
       /libraries/farmOS-map/farmOS-map.css: { }
   dependencies:
     - core/drupalSettings
+    - farm_map/farm_map_public_path
 
 farm_map:
   css:

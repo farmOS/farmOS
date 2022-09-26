@@ -4,6 +4,7 @@ namespace Drupal\farm_map\Element;
 
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Render\Element\RenderElement;
+use Drupal\Core\Url;
 use Drupal\farm_map\Event\MapRenderEvent;
 
 /**
@@ -72,6 +73,22 @@ class FarmMap extends RenderElement {
     // Attach the farmOS-map and farm_map libraries.
     $element['#attached']['library'][] = 'farm_map/farmOS-map';
     $element['#attached']['library'][] = 'farm_map/farm_map';
+
+    // Determine the public path for the farmOS-map library.
+    // Get the farm_map/farmOS-map library.
+    /** @var \Drupal\Core\Asset\LibraryDiscovery $library_discovery */
+    $library_discovery = \Drupal::service('library.discovery');
+    $library_info = $library_discovery->getLibraryByName('farm_map', 'farmOS-map');
+
+    // Build an absolute server path to the farmOS-map library that includes the Drupal base path.
+    $js_path = $library_info['js'][0]['data'];
+    $absolute_js_path = Url::fromUri("base:$js_path")->setAbsolute(FALSE)->toString();
+
+    // Remove 13 characters of farmOS-map.js from the path.
+    $public_path = substr($absolute_js_path, 0, -13);
+
+    // Add public base path as settings for farm_map_public_path.
+    $element['#attached']['drupalSettings']['farm_map_public_path'] = $public_path;
 
     // If #behaviors are included, attach each one.
     foreach ($element['#behaviors'] as $behavior_name) {
