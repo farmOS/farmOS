@@ -29,18 +29,6 @@ function farm_group_entity_base_field_info(EntityTypeInterface $entity_type) {
 }
 
 /**
- * Implements hook_entity_base_field_info_alter().
- */
-function farm_group_entity_base_field_info_alter(&$fields, EntityTypeInterface $entity_type) {
-  /** @var \Drupal\field\Entity\FieldConfig[] $fields */
-
-  // Prevent creating circular group memberships.
-  if ($entity_type->id() == 'log' && !empty($fields['asset'])) {
-    $fields['asset']->addConstraint('CircularGroupMembership');
-  }
-}
-
-/**
  * Implements hook_form_BASE_FORM_ID_alter().
  */
 function farm_group_form_log_form_alter(&$form, FormStateInterface $form_state, $form_id) {
