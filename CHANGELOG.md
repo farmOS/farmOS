@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - [Prevent circular asset location #568](https://github.com/farmOS/farmOS/pull/568)
+- [Prevent circular group membership #562](https://github.com/farmOS/farmOS/pull/562)
 
 ## [2.0.0-rc1] 2022-12-15
 
