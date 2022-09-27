@@ -105,3 +105,76 @@ function farm_api_uninstall() {
     $farm_consumer->delete();
   }
 }
+
+/**
+ * Implements hook_update_dependencies().
+ */
+function farm_api_update_dependencies() {
+
+  // The Consumers module added a client_id base field in version 1.14, which
+  // replaces our custom client_id field. We need to migrate the client IDs
+  // from our old field to the new field, which requires running our own
+  // update hooks before and after those of the Consumers module.
+  $dependencies['consumers'][8108] = [
+    'farm_api' => 9000,
+  ];
+  $dependencies['farm_api'][9001] = [
+    'consumers' => 8109,
+  ];
+
+  return $dependencies;
+}
+
+/**
+ * Save client_id values and uninstall farmOS client_id field.
+ */
+function farm_api_update_9000(&$sandbox) {
+
+  // This update hook must run before consumers_update_8108().
+  // @see farm_api_update_dependencies().
+
+  // Get all client_id values from the database.
+  $client_ids = [];
+  $result = \Drupal::database()->query('SELECT entity_id, client_id_value FROM consumer__client_id')->fetchAll();
+  foreach ($result as $record) {
+    $client_ids[$record->entity_id] = $record->client_id_value;
+  }
+
+  // Save the client_id values to Drupal state.
+  if (!empty($client_ids)) {
+    \Drupal::state()->set('farm_api_consumer_client_ids', $client_ids);
+  }
+
+  // Uninstall the client_id field.
+  /** @var \Drupal\entity\BundleFieldDefinition $definition */
+  $definition = \Drupal::service('farm_field.factory')->bundleFieldDefinition(['type' => 'string']);
+  $definition->setTargetEntityTypeId('consumer');
+  $definition->setName('client_id');
+  \Drupal::entityDefinitionUpdateManager()->uninstallFieldStorageDefinition($definition);
+}
+
+/**
+ * Restore client_id values saved from farmOS client_id field.
+ */
+function farm_api_update_9001(&$sandbox) {
+
+  // This update hook must run after consumers_update_8109().
+  // @see farm_api_update_dependencies().
+
+  // Load saved client_id values from old client_id field.
+  $client_ids = \Drupal::state()->get('farm_api_consumer_client_ids', []);
+  if (empty($client_ids)) {
+    return;
+  }
+
+  // Save client_id values to new client_id field.
+  /** @var \Drupal\Core\Entity\ContentEntityStorageInterface $consumer_storage */
+  $consumer_storage = \Drupal::service('entity_type.manager')->getStorage('consumer');
+  foreach ($client_ids as $id => $client_id) {
+    $consumer = $consumer_storage->load($id);
+    if (!is_null($consumer)) {
+      $consumer->set('client_id', $client_id);
+      $consumer->save();
+    }
+  }
+}
