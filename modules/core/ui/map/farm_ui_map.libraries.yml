@@ -9,5 +9,6 @@ behavior_asset_type_layers:
   js:
     js/farmOS.map.behaviors.asset_type_layers.js: { }
   dependencies:
+    - core/drupalSettings
     - farm_ui_map/map_popup_iframe
     - farm_map/farm_map

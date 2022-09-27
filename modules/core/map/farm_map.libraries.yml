@@ -23,6 +23,7 @@ farm_map:
   js:
     js/farm_map.js: { }
   dependencies:
+    - core/drupalSettings
     - farm_map/farmOS-map
 behavior_wkt:
   js:

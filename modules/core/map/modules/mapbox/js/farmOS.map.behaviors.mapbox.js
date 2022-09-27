@@ -1,4 +1,4 @@
-(function () {
+(function (drupalSettings) {
   farmOS.map.behaviors.mapbox = {
     attach: function (instance) {
       var key = drupalSettings.farm_map.behaviors.mapbox.api_key;
@@ -27,4 +27,4 @@
       instance.addLayer('xyz', opts);
     }
   };
-}());
+}(drupalSettings));

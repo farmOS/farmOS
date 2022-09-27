@@ -1,4 +1,4 @@
-(function (Drupal) {
+(function (Drupal, drupalSettings) {
   Drupal.behaviors.farm_map = {
     attach: function (context, settings) {
       context.querySelectorAll('[data-map-instantiator="farm_map"]').forEach(function (element) {
@@ -79,4 +79,4 @@
     }
 
   };
-}(Drupal));
+}(Drupal, drupalSettings));

@@ -35,6 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update farmOS-map to [v2.0.5](https://github.com/farmOS/farmOS-map/releases/tag/v2.0.5) to fix [Uncaught (in promise) TypeError: o.getChangeEventType is not a function #551](https://github.com/farmOS/farmOS/issues/551)
 - [Fix [warning] Invalid argument supplied for foreach() EntityViewsDataTaxonomyFilterTrait.php:26 #575](https://github.com/farmOS/farmOS/pull/575)
 - [Set reduce_duplicates: true in Views exposed filters for multivalue fields #571](https://github.com/farmOS/farmOS/pull/571)
+- [Update core map behaviors to properly depend on core/drupalSettings #578](https://github.com/farmOS/farmOS/pull/578)
 
 ## [2.0.0-beta6] 2022-07-30
 

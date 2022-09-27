@@ -1,4 +1,4 @@
-(function () {
+(function (drupalSettings) {
   farmOS.map.behaviors.asset_type_layers = {
     attach: function (instance) {
 
@@ -110,4 +110,4 @@
       });
     }
   };
-}());
+}(drupalSettings));
