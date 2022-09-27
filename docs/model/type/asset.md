@@ -170,6 +170,7 @@ Relationships that are common to all Asset types include:
 
 - Location
 - Parents
+- Owners
 - Images
 - Files
 
@@ -194,6 +195,10 @@ between Assets such as representing a "bed" inside a "field" (represented by
 two Land Assets related through the Parents field).
 
 Multiple parents are allowed, but circular relationships are not.
+
+#### Owners
+
+Assets can be assigned to one or more Users in farmOS.
 
 #### Images
 

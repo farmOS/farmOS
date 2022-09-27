@@ -23,6 +23,10 @@ Assets can also be cloned by selecting one or more in a list and clicking the
 "Clone asset" button that appears at the bottom. This will clone the Asset
 record(s), but will not clone the Logs that are associated with them.
 
+Assets can be assigned to one or more person(s) in farmOS using the Asset's
+*Owner* field. Users can view a list of all Assets assigned to them by
+navigating to their profile and then clicking the "Assets" tab.
+
 For more information on Asset records, refer the [Assets](/model/type/asset)
 section of the [farmOS data model](/model) docs.
 
