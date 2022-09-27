@@ -75,6 +75,24 @@
         });
       }
 
+      // Handle other cases where the map may not have a correct size when
+      // it is initially rendered. This happens for modal and off-canvas
+      // dialogs where there is no easy way to detect when the dialog is
+      // finished loading and the map can be updated.
+      // Iterate every 0.5 seconds for 3 seconds until the map
+      // can be rendered and gets a size. Once rendered end the loop.
+      const delay = ms => new Promise(res => setTimeout(res, ms));
+      async function updateSize(instance) {
+        for (let i = 0; i < 6; i++) {
+          if (!instance.map.getSize().includes(0)) {
+            return;
+          }
+          instance.map.updateSize();
+          await delay(500);
+        }
+      }
+      updateSize(instance);
+
       return instance;
     }
 
