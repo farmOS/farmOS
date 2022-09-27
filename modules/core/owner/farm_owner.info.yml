@@ -7,3 +7,4 @@ dependencies:
   - drupal:user
   - farm:farm_field
   - log:log
+  - asset:asset

@@ -150,7 +150,7 @@ Relationships that are common to all Log types include:
 - Assets
 - Locations
 - Quantities
-- Owners (whom the Log is assigned to)
+- Owners
 - Categories
 - Images
 - Files

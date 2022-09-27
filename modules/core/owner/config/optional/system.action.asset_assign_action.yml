@@ -3,9 +3,9 @@ status: true
 dependencies:
   module:
     - farm_owner
-    - log
-id: log_assign_action
+    - asset
+id: asset_assign_action
 label: 'Assign owners'
-type: log
-plugin: 'log_assign_action'
+type: asset
+plugin: 'asset_assign_action'
 configuration: {  }

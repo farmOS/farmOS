@@ -8,14 +8,15 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\TempStore\PrivateTempStoreFactory;
 use Drupal\Core\Url;
+use Drupal\Component\Plugin\Exception\PluginException;
 use Drupal\farm_role\ManagedRolePermissionsManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
- * Provides a log assign confirmation form.
+ * Provides an assign confirmation form.
  */
-class LogAssignActionForm extends ConfirmFormBase {
+class AssignActionForm extends ConfirmFormBase {
 
   /**
    * The tempstore factory.
@@ -53,14 +54,14 @@ class LogAssignActionForm extends ConfirmFormBase {
   protected $entityType;
 
   /**
-   * The logs to assign.
+   * The entities to assign.
    *
    * @var \Drupal\Core\Entity\EntityInterface[]
    */
   protected $entities;
 
   /**
-   * Constructs a LogAssignActionForm form object.
+   * Constructs an AssignActionForm form object.
    *
    * @param \Drupal\Core\TempStore\PrivateTempStoreFactory $temp_store_factory
    *   The tempstore factory.
@@ -72,7 +73,7 @@ class LogAssignActionForm extends ConfirmFormBase {
    *   The current user.
    */
   public function __construct(PrivateTempStoreFactory $temp_store_factory, EntityTypeManagerInterface $entity_type_manager, ManagedRolePermissionsManagerInterface $managed_role_permissions_manager, AccountInterface $user) {
-    $this->tempStore = $temp_store_factory->get('log_assign_confirm');
+    $this->tempStore = $temp_store_factory->get('entity_assign_confirm');
     $this->entityTypeManager = $entity_type_manager;
     $this->managedRolePermissionsManager = $managed_role_permissions_manager;
     $this->user = $user;
@@ -94,7 +95,7 @@ class LogAssignActionForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'log_assign_action_confirm_form';
+    return 'assign_action_confirm_form';
   }
 
   /**
@@ -136,9 +137,21 @@ class LogAssignActionForm extends ConfirmFormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state) {
-    $this->entityType = $this->entityTypeManager->getDefinition('log');
+  public function buildForm(array $form, FormStateInterface $form_state, string $entity_type = NULL) {
+
+    // Only allow asset and log entities.
+    if (!in_array($entity_type, ['asset', 'log'])) {
+      throw new PluginException('Unsupported entity type given when building form to assign entity');
+    }
+
+    // Load the entity type definition.
+    $this->entityType = $this->entityTypeManager->getDefinition($entity_type);
+
+    // Load saved entities.
     $this->entities = $this->tempStore->get($this->user->id());
+
+    // If there are no entities, or if the entity type definition didn't load,
+    // redirect the user to the cancel URL.
     if (empty($this->entityType) || empty($this->entities)) {
       return new RedirectResponse($this->getCancelUrl()
         ->setAbsolute()
@@ -157,8 +170,8 @@ class LogAssignActionForm extends ConfirmFormBase {
 
     $form['users'] = [
       '#type' => 'select',
-      '#title' => $this->t('Assign log(s) to'),
-      '#description' => $this->t('Select people to assign these logs to.'),
+      '#title' => $this->t('Assign owners'),
+      '#description' => $this->t('Select people to assign ownership of the record(s).'),
       '#options' => $user_options,
       '#multiple' => TRUE,
     ];
@@ -166,7 +179,7 @@ class LogAssignActionForm extends ConfirmFormBase {
     $form['operation'] = [
       '#type' => 'radios',
       '#title' => $this->t('Append or replace'),
-      '#description' => $this->t('Select "Append" if you want to add users to the logs, but keep the existing assignments. Select "Replace" if you want to replace existing assignments with the ones specified above.'),
+      '#description' => $this->t('Select "Append" if you want to add owners, but keep the existing assignments. Select "Replace" if you want to replace existing assignments with the people specified above.'),
       '#options' => [
         'append' => $this->t('Append'),
         'replace' => $this->t('Replace'),
@@ -215,11 +228,11 @@ class LogAssignActionForm extends ConfirmFormBase {
           $owner_field->appendItem($owner);
         }
 
-        // Validate the log before saving.
+        // Validate the entity before saving.
         $violations = $entity->validate();
         if ($violations->count() > 0) {
           $this->messenger()->addWarning(
-            $this->t('Could not assign log <a href=":entity_link">%entity_label</a>: validation failed.',
+            $this->t('Could not assign <a href=":entity_link">%entity_label</a>: validation failed.',
               [
                 ':entity_link' => $entity->toUrl()->setAbsolute()->toString(),
                 '%entity_label' => $entity->label(),
