@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0-beta7] 2022-09-29
+
 ### Added
 
 - [Add button/menu item for data stream notifications collection page #555](https://github.com/farmOS/farmOS/pull/555)
@@ -238,7 +240,8 @@ moving forward.
     Drupal 7, which required a complete refactor of the codebase. By comparison,
     updating from Drupal 9 to 10 will simply involve updating deprecated code.
 
-[Unreleased]: https://github.com/farmOS/farmOS/compare/2.0.0-beta6...HEAD
+[Unreleased]: https://github.com/farmOS/farmOS/compare/2.0.0-beta7...HEAD
+[2.0.0-beta7]: https://github.com/farmOS/farmOS/releases/tag/2.0.0-beta7
 [2.0.0-beta6]: https://github.com/farmOS/farmOS/releases/tag/2.0.0-beta6
 [2.0.0-beta5]: https://github.com/farmOS/farmOS/releases/tag/2.0.0-beta5
 [2.0.0-beta4]: https://github.com/farmOS/farmOS/releases/tag/2.0.0-beta4
