@@ -80,7 +80,8 @@ class FarmMap extends RenderElement {
     $library_discovery = \Drupal::service('library.discovery');
     $library_info = $library_discovery->getLibraryByName('farm_map', 'farmOS-map');
 
-    // Build an absolute server path to the farmOS-map library that includes the Drupal base path.
+    // Build an absolute server path to the farmOS-map library that includes the
+    // Drupal base path.
     $js_path = $library_info['js'][0]['data'];
     $absolute_js_path = Url::fromUri("base:$js_path")->setAbsolute(FALSE)->toString();
 
