@@ -21,6 +21,7 @@ class ConsumerClientIdTest extends OauthTestBase {
     $valid_payload = [
       'grant_type' => 'password',
       'client_id' => $this->client->uuid(),
+      'client_secret' => $this->clientSecret,
       'username' => $this->user->getAccountName(),
       'password' => $this->user->pass_raw,
       'scope' => $this->scope,
@@ -56,7 +57,7 @@ class ConsumerClientIdTest extends OauthTestBase {
       [
         'auth' => [
           $this->client->get('client_id')->value,
-          '',
+          $this->clientSecret,
         ],
       ]
     );
@@ -72,6 +73,7 @@ class ConsumerClientIdTest extends OauthTestBase {
     $valid_payload = [
       'grant_type' => 'password',
       'client_id' => $this->client->get('client_id')->value,
+      'client_secret' => $this->clientSecret,
       'username' => $this->user->getAccountName(),
       'password' => $this->user->pass_raw,
       'scope' => $this->scope,
