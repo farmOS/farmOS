@@ -108,7 +108,6 @@ class CorsResponseEventSubscriberTest extends FarmBrowserTestBase {
       'Access-Control-Allow-Credentials' => 'true',
       'Access-Control-Allow-Headers' => 'Content-Type,Content-Disposition,Authorization,X-CSRF-Token',
       'Access-Control-Allow-Methods' => 'GET,POST,PUT,DELETE,HEAD,OPTIONS',
-      'Vary' => 'Origin',
     ];
 
     // Check if the response should contain headers.
@@ -118,6 +117,11 @@ class CorsResponseEventSubscriberTest extends FarmBrowserTestBase {
       if ($needs_cors) {
         $this->assertEquals($value, $response->getHeader($header)[0], 'Response has correct header value.');
       }
+    }
+
+    // Confirm that the "Vary" header contains "Origin" when CORS is in use.
+    if ($needs_cors) {
+      $this->assertTrue(str_contains($response->getHeader('Vary')[0], 'Origin'), 'Response Vary header contains Origin.');
     }
   }
 
