@@ -24,6 +24,7 @@ class QuickFormTest extends KernelTestBase {
    */
   protected static $modules = [
     'asset',
+    'farm_field',
     'farm_quantity_standard',
     'farm_quick',
     'farm_quick_test',
@@ -94,13 +95,13 @@ class QuickFormTest extends KernelTestBase {
     $this->assertNotEmpty($storage['assets'][0]->id());
 
     // Confirm that the asset is linked to the quick form.
-    $this->assertEquals('test', $storage['assets'][0]->quick[0]);
+    $this->assertEquals('test', $storage['assets'][0]->get('quick')[0]->value);
 
     // Confirm that a log was created.
     $this->assertNotEmpty($storage['logs'][0]->id());
 
     // Confirm that the log is linked to the quick form.
-    $this->assertEquals('test', $storage['logs'][0]->quick[0]);
+    $this->assertEquals('test', $storage['logs'][0]->get('quick')[0]->value);
 
     // Confirm that a quantity was created.
     $this->assertNotEmpty($storage['quantities'][0]->id());
