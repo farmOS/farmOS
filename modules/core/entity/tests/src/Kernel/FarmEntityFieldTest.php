@@ -68,6 +68,7 @@ class FarmEntityFieldTest extends KernelTestBase {
       'is_fixed',
       'is_location',
       'notes',
+      'owner',
       'parent',
     ];
     foreach ($field_names as $field_name) {
