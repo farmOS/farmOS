@@ -80,8 +80,7 @@ abstract class PlanStateChangeBase extends EntityActionBase {
 
     // Deny access if the workflow does not support the target state.
     if (empty($target_state)) {
-      $result = $result->orif(AccessResult::forbiddenIf(
-        empty($target_state),
+      $result = $result->orIf(AccessResult::forbidden(
         $this->t('The %workflow workflow does not support the %target_state state.', ['%workflow' => $workflow->getLabel(), '%target_state' => $this->targetState]),
       ));
     }
