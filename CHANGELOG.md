@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- [Issue #3314741: EntityFieldManager::getFieldMap() doesn't show farmOS bundle fields](https://www.drupal.org/project/farm/issues/3314741)
+
 ## [2.0.0-beta7] 2022-09-29
 
 ### Added
