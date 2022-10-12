@@ -6,5 +6,6 @@ core_version_requirement: ^9
 dependencies:
   - drupal:taxonomy
   - farm:asset
+  - farm:farm_field
   - farm:farm_quantity_standard
   - log:log

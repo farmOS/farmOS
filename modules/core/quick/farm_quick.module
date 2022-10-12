@@ -33,9 +33,9 @@ function farm_quick_help($route_name, RouteMatchInterface $route_match) {
 }
 
 /**
- * Implements hook_farm_entity_bundle_field_info().
+ * Implements hook_entity_base_field_info().
  */
-function farm_quick_farm_entity_bundle_field_info(EntityTypeInterface $entity_type, string $bundle) {
+function farm_quick_entity_base_field_info(EntityTypeInterface $entity_type) {
   $fields = [];
 
   // We only act on asset and log entities.
@@ -51,7 +51,7 @@ function farm_quick_farm_entity_bundle_field_info(EntityTypeInterface $entity_ty
     'multiple' => TRUE,
     'hidden' => TRUE,
   ];
-  $fields['quick'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
+  $fields['quick'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
 
   return $fields;
 }

@@ -8,9 +8,9 @@
 use Drupal\Core\Entity\EntityTypeInterface;
 
 /**
- * Implements hook_farm_entity_bundle_field_info().
+ * Implements hook_entity_base_field_info().
  */
-function farm_equipment_farm_entity_bundle_field_info(EntityTypeInterface $entity_type, string $bundle) {
+function farm_equipment_entity_base_field_info(EntityTypeInterface $entity_type) {
   $fields = [];
 
   // Add an Equipment reference field to logs.
@@ -27,7 +27,7 @@ function farm_equipment_farm_entity_bundle_field_info(EntityTypeInterface $entit
         'view' => -5,
       ],
     ];
-    $fields['equipment'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
+    $fields['equipment'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($options);
   }
 
   return $fields;
