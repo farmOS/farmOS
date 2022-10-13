@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- [Adapt csv export logic to support a type filter allowing single or multiple values. #584](https://github.com/farmOS/farmOS/pull/584)
+
 ## [2.0.0-beta7] 2022-09-29
 
 ### Added
