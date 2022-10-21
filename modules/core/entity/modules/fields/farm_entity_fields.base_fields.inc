@@ -43,28 +43,12 @@ function farm_entity_fields_asset_base_fields() {
         'view' => 10,
       ],
     ],
-    'parent' => [
-      'type' => 'entity_reference',
-      'label' => t('Parents'),
-      'description' => t('If this asset descends from other assets, they can referenced here to create a lineage relationship.'),
-      'target_type' => 'asset',
-      'multiple' => TRUE,
-      'weight' => [
-        'form' => 40,
-        'view' => 0,
-      ],
-    ],
   ];
   /** @var \Drupal\Core\Field\BaseFieldDefinition[] $fields */
   $fields = [];
   foreach ($field_info as $name => $info) {
     $fields[$name] = \Drupal::service('farm_field.factory')->baseFieldDefinition($info);
   }
-
-  // Add entity_reference_validators constraints to parent field.
-  // See entity_reference_validators_entity_base_field_info_alter.
-  $fields['parent']->addConstraint('CircularReference', ['deep' => TRUE]);
-  $fields['parent']->addConstraint('DuplicateReference');
 
   return $fields;
 }

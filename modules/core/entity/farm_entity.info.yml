@@ -6,7 +6,6 @@ core_version_requirement: ^9
 dependencies:
   - entity:entity
   - entity_reference_integrity:entity_reference_integrity_enforce
-  - entity_reference_validators:entity_reference_validators
   - exif_orientation:exif_orientation
   - farm:farm_entity_fields
   - farm:farm_entity_views

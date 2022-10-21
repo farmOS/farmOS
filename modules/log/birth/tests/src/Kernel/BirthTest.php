@@ -31,6 +31,7 @@ class BirthTest extends KernelTestBase {
     'farm_field',
     'farm_id_tag',
     'farm_log_asset',
+    'farm_parent',
     'file',
     'geofield',
     'image',

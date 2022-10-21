@@ -1,0 +1,37 @@
+<?php
+
+/**
+ * @file
+ * Contains farm_parent.module.
+ */
+
+use Drupal\Core\Entity\EntityTypeInterface;
+
+/**
+ * Implements hook_entity_base_field_info().
+ */
+function farm_parent_entity_base_field_info(EntityTypeInterface $entity_type) {
+
+  // Add parent base field to all asset types.
+  $fields = [];
+  if ($entity_type->id() == 'asset') {
+    $parent_info = [
+      'type' => 'entity_reference',
+      'label' => t('Parents'),
+      'description' => t('If this asset descends from other assets, they can referenced here to create a lineage relationship.'),
+      'target_type' => 'asset',
+      'multiple' => TRUE,
+      'weight' => [
+        'form' => 40,
+        'view' => 0,
+      ],
+    ];
+    $fields['parent'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($parent_info);
+
+    // Add entity_reference_validators constraints to parent field.
+    // See entity_reference_validators_entity_base_field_info_alter.
+    $fields['parent']->addConstraint('CircularReference', ['deep' => TRUE]);
+    $fields['parent']->addConstraint('DuplicateReference');
+  }
+  return $fields;
+}

@@ -1,0 +1,9 @@
+name: farmOS Parent
+description: Provides a Parent field for farmOS assets.
+type: module
+package: farmOS
+core_version_requirement: ^9
+dependencies:
+  - asset:asset
+  - entity_reference_validators:entity_reference_validators
+  - farm:farm_field

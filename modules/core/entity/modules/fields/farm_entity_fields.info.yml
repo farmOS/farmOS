@@ -18,4 +18,5 @@ dependencies:
   - farm:farm_log_category
   - farm:farm_log_quantity
   - farm:farm_owner
+  - farm:farm_parent
   - token:token
