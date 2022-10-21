@@ -7,6 +7,8 @@ use Drupal\user\RoleInterface;
 /**
  * Interface for the ManagedRolePermissionsManager.
  *
+ * @internal
+ *
  * @ingroup farm
  */
 interface ManagedRolePermissionsManagerInterface {

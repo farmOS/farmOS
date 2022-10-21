@@ -5,6 +5,8 @@ namespace Drupal\farm_role;
 /**
  * Provides an interface for defining ManagedRolePermissions plugins.
  *
+ * @internal
+ *
  * @ingroup farm
  */
 interface ManagedRolePermissionsInterface {

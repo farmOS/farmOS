@@ -15,6 +15,8 @@ use Drupal\user\RoleInterface;
 /**
  * ManagedRolePermissions Plugin Manager.
  *
+ * @internal
+ *
  * @ingroup farm
  */
 class ManagedRolePermissionsManager extends DefaultPluginManager implements ManagedRolePermissionsManagerInterface {
