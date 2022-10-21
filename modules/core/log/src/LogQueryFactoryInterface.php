@@ -6,6 +6,8 @@ use Drupal\Core\Entity\Query\QueryInterface;
 
 /**
  * The interface for a log query factory.
+ *
+ * @internal
  */
 interface LogQueryFactoryInterface {
 
