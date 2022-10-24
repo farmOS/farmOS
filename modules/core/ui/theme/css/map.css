@@ -1,6 +1,6 @@
-/* Set text color of map control buttons to match SVG color. */
-.farm-map .ol-control button {
-  color: var(--colorGinPrimary);
+/* Set farmOS-map accent color to match Gin. */
+.farm-map {
+  --farmos-map-accent-color: var(--colorGinPrimary);
 }
 
 /* Move map buttons to the top when focused. Prevents surrounding control

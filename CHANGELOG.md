@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Update farmOS-map to [v2.1.0](https://github.com/farmOS/farmOS-map/releases/tag/v2.1.0)
+
 ### Fixed
 
 - [Adapt csv export logic to support a type filter allowing single or multiple values. #584](https://github.com/farmOS/farmOS/pull/584)
