@@ -8,24 +8,15 @@
 use Drupal\Component\Serialization\Json;
 
 /**
- * Implements hook_install().
- */
-function farm_install() {
-
-  // Use private file system by default.
-  \Drupal::configFactory()->getEditable('system.file')->set('default_scheme', 'private')->save();
-
-  // Only allow admins to register new users.
-  \Drupal::configFactory()->getEditable('user.settings')->set('register', 'admin_only')->save();
-}
-
-/**
  * Implements hook_install_tasks().
  */
 function farm_install_tasks(&$install_state) {
 
-  // Add tasks for enabling farmOS modules.
+  // Add tasks for configuring farmOS and enabling modules.
   $tasks = [
+    'farm_install_config' => [
+      'type' => 'normal',
+    ],
     '\Drupal\farm\Form\FarmModulesForm' => [
       'display_name' => t('Install modules'),
       'type' => 'form',
@@ -52,6 +43,18 @@ function farm_install_tasks_alter(&$tasks, $install_state) {
       $tasks[$task]['display_name'] = $display_name;
     }
   }
+}
+
+/**
+ * Install default farmOS configuration.
+ */
+function farm_install_config() {
+
+  // Use private file system by default.
+  \Drupal::configFactory()->getEditable('system.file')->set('default_scheme', 'private')->save();
+
+  // Only allow admins to register new users.
+  \Drupal::configFactory()->getEditable('user.settings')->set('register', 'admin_only')->save();
 }
 
 /**
