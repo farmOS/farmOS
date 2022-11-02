@@ -110,11 +110,37 @@ function farm_ui_views_form_views_exposed_form_alter(&$form, FormStateInterface 
   if (array_key_exists('collapsible_filter', $extenders) && $extenders['collapsible_filter']->options['collapsible']) {
 
     // Render filters in collapsible details element.
+    // Only open the filters if a non-default filter value is provided.
+    // This is needed to prevent the filter from opening when click sort is
+    // applied and all default filter values are passed as query parameters.
+    $open_input = FALSE;
+    foreach ($view->getExposedInput() as $filter_name => $filter_value) {
+
+      // Check if the exposed input is for a filter.
+      if (isset($view->filter[$filter_name])) {
+
+        // Get the default filter value.
+        $default_filter_value = $view->filter[$filter_name]->value;
+
+        // If the default is an array with one value and a single string value
+        // is provided in input, consider the default filter to be a string
+        // instead of an array. This fixes the status filter.
+        if (is_array($default_filter_value) && count($default_filter_value) == 1 && !is_array($filter_value)) {
+          $default_filter_value = reset($default_filter_value);
+        }
+
+        // Open the filters if the filter value does not equal the default.
+        if ($filter_value != $default_filter_value) {
+          $open_input = TRUE;
+          break;
+        }
+      }
+    }
     $form['#theme_wrappers']['details'] = [
       '#title' => t('Filter'),
       '#attributes' => [
-        // Open if there is exposed input in addition to contextual filters.
-        'open' => count($view->getExposedInput()) > count($view->args),
+        // Open if there is exposed input.
+        'open' => $open_input,
       ],
       '#summary_attributes' => [],
     ];
