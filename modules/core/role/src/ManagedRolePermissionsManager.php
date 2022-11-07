@@ -192,7 +192,7 @@ class ManagedRolePermissionsManager extends DefaultPluginManager implements Mana
     }
 
     // Load the access.entity settings. Use an empty array if not provided.
-    $entity_settings = $access_settings['entity'] ? $access_settings['entity'] : [];
+    $entity_settings = $access_settings['entity'] ?? [];
 
     // Managed entity types.
     $managed_entity_types = [
