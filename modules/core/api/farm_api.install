@@ -168,13 +168,12 @@ function farm_api_update_9001(&$sandbox) {
   }
 
   // Save client_id values to new client_id field.
-  /** @var \Drupal\Core\Entity\ContentEntityStorageInterface $consumer_storage */
-  $consumer_storage = \Drupal::service('entity_type.manager')->getStorage('consumer');
-  foreach ($client_ids as $id => $client_id) {
-    $consumer = $consumer_storage->load($id);
-    if (!is_null($consumer)) {
-      $consumer->set('client_id', $client_id);
-      $consumer->save();
-    }
+  // Use SQL update instead of entity save so tokens do not become invalidated.
+  $database = \Drupal::database();
+  foreach ($client_ids as $consumer_id => $client_id) {
+    $database->update('consumer_field_data')
+      ->fields(['client_id' => $client_id])
+      ->condition('id', $consumer_id)
+      ->execute();
   }
 }
