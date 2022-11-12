@@ -15,7 +15,7 @@ use Drupal\Core\Form\FormStateInterface;
  *   }
  * )
  */
-class Numeric extends NotificationConditionBase {
+class NumericCondition extends NotificationConditionBase {
 
   /**
    * {@inheritdoc}
