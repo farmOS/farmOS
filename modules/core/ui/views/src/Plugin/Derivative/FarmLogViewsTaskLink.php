@@ -47,12 +47,35 @@ class FarmLogViewsTaskLink extends DeriverBase implements ContainerDeriverInterf
   public function getDerivativeDefinitions($base_plugin_definition) {
     $links = [];
 
-    // Add links for each bundle.
+    // Add primary tab for logs.
+    $log_entity = $this->entityTypeManager->getDefinition('log');
+    $links['logs'] = [
+      'title' => $log_entity->getCollectionLabel(),
+      'route_name' => 'view.farm_log.page_asset',
+      'base_route' => 'entity.asset.canonical',
+      'weight' => 50,
+    ] + $base_plugin_definition;
+
+    // Build the parent id from the base ID.
+    $base_id = $base_plugin_definition['id'];
+    $parent_id = "$base_id:logs";
+
+    // Add default "All" secondary tab.
+    $links['all'] = [
+      'title' => $this->t('All'),
+      'parent_id' => $parent_id,
+      'route_name' => 'view.farm_log.page_asset',
+      'route_parameters' => [
+        'log_type' => 'all',
+      ],
+    ] + $base_plugin_definition;
+
+    // Add secondary tab for each bundle.
     $bundles = $this->entityTypeManager->getStorage('log_type')->loadMultiple();
     foreach ($bundles as $type => $bundle) {
-      $links['farm.asset.logs.' . $type] = [
+      $links[$type] = [
         'title' => $bundle->label(),
-        'parent_id' => 'farm.asset.logs',
+        'parent_id' => $parent_id,
         'route_name' => 'view.farm_log.page_asset',
         'route_parameters' => [
           'log_type' => $type,
