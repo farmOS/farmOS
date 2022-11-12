@@ -121,11 +121,11 @@ As an example, the `farm_role` module provides the following permissions:
 farm_role:
   default_permissions:
     - access content
-    - access administration pages
     - access user profiles
-    - access taxonomy overview
+    - change own username
   config_permissions:
-    - administer taxonomy
+    - access administration pages
+    - access taxonomy overview
 ```
 
 #### Permission callbacks
