@@ -55,6 +55,8 @@ RUN { \
     # @todo https://www.drupal.org/project/coder/issues/2159253
     echo '    <exclude name="DrupalPractice.Commenting.CommentEmptyLine.SpacingAfter"/>'; \
     echo '  </rule>'; \
+    echo '  <rule ref="PHPCompatibility"/>'; \
+    echo '  <config name="testVersion" value="7.4-"/>'; \
     echo '  <rule ref="Internal.Tokenizer.Exception"><severity>0</severity></rule>'; \
     echo '</ruleset>'; \
   } > /var/farmOS/phpcs.xml

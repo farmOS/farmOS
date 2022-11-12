@@ -8,6 +8,7 @@
         "drupal/core-dev": "9.4.7",
         "mglaman/phpstan-drupal": "^1.1",
         "phpstan/extension-installer": "^1.1",
+        "phpcompatibility/php-compatibility": "^9",
         "phpstan/phpstan": "^1.8",
         "phpstan/phpstan-deprecation-rules": "^1.0",
         "phpspec/prophecy-phpunit": "^2",
