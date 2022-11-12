@@ -57,8 +57,7 @@ RUN { \
     echo '  </rule>'; \
     echo '  <rule ref="Internal.Tokenizer.Exception"><severity>0</severity></rule>'; \
     echo '</ruleset>'; \
-  } > /var/farmOS/phpcs.xml \
-  && /var/farmOS/vendor/bin/phpcs --config-set installed_paths /var/farmOS/vendor/drupal/coder/coder_sniffer,/var/farmOS/vendor/slevomat/coding-standard
+  } > /var/farmOS/phpcs.xml
 
 # Configure PHPStan.
 RUN { \
