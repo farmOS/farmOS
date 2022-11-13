@@ -201,6 +201,7 @@ jobs:
       # If a tag was pushed, tag the Docker image and push to Docker Hub.
       # If the tag is a valid semantic versioning string, also tag "latest".
       # Semver regex from https://github.com/semver/semver/issues/199#issuecomment-43640395
+      # If "latest" is tagged, we will also announce the release in a followup job.
       - name: Tag and publish farmos/farmos:{tag} image to Docker Hub.
         if: github.ref_type == 'tag'
         run: |
@@ -209,4 +210,33 @@ jobs:
           if echo ${{ env.FARMOS_VERSION }} | grep -Pq '^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$'; then
             docker tag farmos/farmos:2.x farmos/farmos:latest
             docker push farmos/farmos:latest
+            echo "ANNOUNCE_RELEASE=1" >> $GITHUB_ENV
+          else
+            echo "ANNOUNCE_RELEASE=0" >> $GITHUB_ENV
           fi
+    outputs:
+      announce: ${{ env.ANNOUNCE_RELEASE }}
+  announce:
+    name: Announce new release
+    if: needs.publish.outputs.announce
+    runs-on: ubuntu-latest
+    needs:
+      - build
+      - release
+      - publish
+    steps:
+      - name: Set FARMOS_VERSION from previous output.
+        run: echo "FARMOS_VERSION=${{ needs.build.outputs.farmos_version }}" >> $GITHUB_ENV
+      - name: Checkout the farmOS-microblog repository
+        uses: actions/checkout@v3
+        with:
+          repository: farmOS/farmOS-microblog
+          ssh-key: ${{ secrets.MICROBLOG_DEPLOY_KEY }}
+      - name: Configure Git.
+        run: |
+          git config --global user.name 'farmOS'
+          git config --global user.email 'noreply@farmOS.org'
+      - name: Commit/push to farmOS-microblog.
+        run: |
+          git commit --allow-empty --cleanup=whitespace -m '#farmOS ${{ env.FARMOS_VERSION }} has been released! https://github.com/farmOS/farmOS/releases/${{ env.FARMOS_VERSION }}'
+          git push origin main

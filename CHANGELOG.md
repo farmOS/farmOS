@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Issue #3316925: Mark certain classes as @internal to indicate non-public APIs](https://www.drupal.org/project/farm/issues/3316925)
 - [Render link to taxonomy terms in farm entity views #595](https://github.com/farmOS/farmOS/pull/595)
 - [Issue #3203129: Use GitHub Actions to build Docker Hub images](https://www.drupal.org/project/farm/issues/3203129)
+- [Announce new releases on Mastodon/Twitter via farmOS-microblog #599](https://github.com/farmOS/farmOS/pull/599)
 
 ### Fixed
 
