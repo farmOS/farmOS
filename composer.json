@@ -20,6 +20,7 @@
         "drupal/admin_toolbar": "^2.4",
         "drupal/core": "9.4.7",
         "drupal/config_update": "^1.7",
+        "drupal/consumers": "^1.15",
         "drupal/csv_serialization": "^2.0",
         "drupal/date_popup": "^1.1",
         "drupal/entity": "1.4",
