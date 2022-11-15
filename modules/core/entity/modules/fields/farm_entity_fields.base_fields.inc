@@ -74,21 +74,6 @@ function farm_entity_fields_asset_base_fields() {
  */
 function farm_entity_fields_log_base_fields() {
   $field_info = [
-    'category' => [
-      'type' => 'entity_reference',
-      'label' => t('Log category'),
-      'description' => t('Use this to organize your logs into categories for easier searching and filtering later.'),
-      'target_type' => 'taxonomy_term',
-      'target_bundle' => 'log_category',
-      'multiple' => TRUE,
-      'weight' => [
-        'view' => 80,
-      ],
-      'form_display_options' => [
-        'type' => 'options_select',
-        'weight' => 10,
-      ],
-    ],
     'data' => [
       'type' => 'string_long',
       'label' => t('Data'),
