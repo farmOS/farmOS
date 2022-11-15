@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - farm_log_category
+    - log
+id: log_categorize_action
+label: 'Categorize'
+type: log
+plugin: 'log_categorize_action'
+configuration: {  }

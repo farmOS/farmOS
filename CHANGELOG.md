@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- [Add action to bulk categorize logs #590](https://github.com/farmOS/farmOS/pull/590)
+
 ### Changed
 
 - Update farmOS-map to [v2.1.0](https://github.com/farmOS/farmOS-map/releases/tag/v2.1.0)
