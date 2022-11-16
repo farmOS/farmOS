@@ -37,6 +37,7 @@ class OauthPasswordTest extends OauthTestBase {
     $valid_payload = [
       'grant_type' => 'password',
       'client_id' => $this->client->get('client_id')->value,
+      'client_secret' => $this->clientSecret,
       'username' => $this->user->getAccountName(),
       'password' => $this->user->pass_raw,
       'scope' => $this->scope,
