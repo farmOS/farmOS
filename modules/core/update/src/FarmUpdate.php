@@ -13,6 +13,8 @@ use Psr\Log\LoggerInterface;
 
 /**
  * Farm update service.
+ *
+ * @internal
  */
 class FarmUpdate implements FarmUpdateInterface {
 

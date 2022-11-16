@@ -7,6 +7,8 @@ use Drupal\Core\Plugin\PluginBase;
 /**
  * Default class for the ManagedRolePermissions plugin.
  *
+ * @internal
+ *
  * @ingroup farm
  */
 class ManagedRolePermissions extends PluginBase implements ManagedRolePermissionsInterface {
