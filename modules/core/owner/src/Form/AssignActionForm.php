@@ -170,8 +170,8 @@ class AssignActionForm extends ConfirmFormBase {
 
     $form['users'] = [
       '#type' => 'select',
-      '#title' => $this->t('Assign owners'),
-      '#description' => $this->t('Select people to assign ownership of the record(s).'),
+      '#title' => $this->t('Owners'),
+      '#description' => $this->t('Assign ownership to one or more users.'),
       '#options' => $user_options,
       '#multiple' => TRUE,
     ];

@@ -18,7 +18,7 @@ function farm_parent_entity_base_field_info(EntityTypeInterface $entity_type) {
     $parent_info = [
       'type' => 'entity_reference',
       'label' => t('Parents'),
-      'description' => t('If this asset descends from other assets, they can referenced here to create a lineage relationship.'),
+      'description' => t('Reference parent assets to create a lineal/hierarchical relationship.'),
       'target_type' => 'asset',
       'multiple' => TRUE,
       'weight' => [

@@ -167,7 +167,7 @@ class AssetParentActionForm extends ConfirmFormBase {
     $form['parent'] = [
       '#type' => 'entity_autocomplete',
       '#title' => $this->t('Parents'),
-      '#description' => $this->t('The parent to assign for the asset.'),
+      '#description' => $this->t('Reference parent assets to create a lineal/hierarchical relationship.'),
       '#target_type' => 'asset',
       '#selection_handler' => 'views',
       '#selection_settings' => [

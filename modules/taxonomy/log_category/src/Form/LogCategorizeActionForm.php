@@ -155,6 +155,7 @@ class LogCategorizeActionForm extends ConfirmFormBase {
     $form['category'] = [
       '#type' => 'select',
       '#title' => $this->t('Log category'),
+      '#description' => $this->t('Use this to organize your logs into categories for easier searching and filtering later.'),
       '#options' => $options,
       '#multiple' => TRUE,
     ];

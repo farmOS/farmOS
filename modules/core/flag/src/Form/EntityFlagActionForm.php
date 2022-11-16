@@ -168,8 +168,8 @@ class EntityFlagActionForm extends ConfirmFormBase {
 
     $form['flags'] = [
       '#type' => 'select',
-      '#title' => $this->t('Flag'),
-      '#description' => $this->t('Select the flags that should be attached to the record(s).'),
+      '#title' => $this->t('Flags'),
+      '#description' => $this->t('Add flags to enable better sorting and filtering of records.'),
       '#options' => $allowed_values,
       '#multiple' => TRUE,
     ];

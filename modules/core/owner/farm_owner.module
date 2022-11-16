@@ -17,8 +17,8 @@ function farm_owner_entity_base_field_info(EntityTypeInterface $entity_type) {
   if (in_array($entity_type->id(), ['asset', 'log'])) {
     $field_info = [
       'type' => 'entity_reference',
-      'label' => t('Owner'),
-      'description' => t('Optionally specify who is in charge of this record.'),
+      'label' => t('Owners'),
+      'description' => t('Assign ownership to one or more users.'),
       'target_type' => 'user',
       'multiple' => TRUE,
       'weight' => [
