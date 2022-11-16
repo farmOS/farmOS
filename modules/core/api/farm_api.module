@@ -36,21 +36,6 @@ function farm_api_entity_base_field_info(EntityTypeInterface $entity_type) {
 
   // Add bundle fields to the consumer entity.
   if ($entity_type->id() == 'consumer') {
-    $fields['client_id'] = BundleFieldDefinition::create('string')
-      ->setLabel(t('Client ID'))
-      ->setDescription(t('OAuth client_id associated with this consumer.'))
-      ->setSetting('max_length', 255)
-      ->setSetting('is_ascii', FALSE)
-      ->setSetting('case_sensitive', FALSE)
-      ->setDisplayOptions('form', [
-        'type' => 'string_textfield',
-        'settings' => [
-          'size' => 255,
-          'placeholder' => '',
-        ],
-        'weight' => '-4',
-      ]);
-
     $fields['grant_user_access'] = BundleFieldDefinition::create('boolean')
       ->setLabel(t('Grant user access'))
       ->setDescription(t("Always grant the authorizing user's access to this consumer."))
