@@ -249,16 +249,6 @@ function farm_ui_views_add_bundle_handlers(ViewExecutable $view, string $display
         // Add settings that are specific to field types.
         switch ($field_type) {
 
-          case 'entity_reference':
-            $target_type = $field_definition->getSetting('target_type');
-
-            // Do not render a link to referenced taxonomy terms.
-            if ($target_type === 'taxonomy_term') {
-              $field_options['type'] = 'entity_reference_label';
-              $field_options['settings']['link'] = FALSE;
-            }
-            break;
-
           case 'timestamp':
             // Render timestamp fields in the html_date format.
             $field_options['type'] = 'timestamp';
@@ -266,6 +256,7 @@ function farm_ui_views_add_bundle_handlers(ViewExecutable $view, string $display
             break;
 
           case 'boolean':
+          case 'entity_reference':
           case 'list_string':
           case 'string':
             // Field types that do not need any modifications.

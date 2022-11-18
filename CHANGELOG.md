@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Issue #3282186: Update simple_oauth to ^5.2.2](https://www.drupal.org/project/farm/issues/3282186)
 - [Make translatable strings consistent between fields and actions #594](https://github.com/farmOS/farmOS/pull/594)
 - [Issue #3316925: Mark certain classes as @internal to indicate non-public APIs](https://www.drupal.org/project/farm/issues/3316925)
+- [Render link to taxonomy terms in farm entity views #595](https://github.com/farmOS/farmOS/pull/595)
 
 ### Fixed
 
