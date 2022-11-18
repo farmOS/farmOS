@@ -20,6 +20,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   id = "create_quantity",
  *   handle_multiples = TRUE
  * )
+ *
+ * @internal
  */
 class CreateQuantity extends ProcessPluginBase implements ContainerFactoryPluginInterface {
 
