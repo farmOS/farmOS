@@ -79,7 +79,7 @@ function farm_api_install() {
     'redirect' => $base_url,
     'is_default' => TRUE,
     'owner_id' => '',
-    'secret' => '',
+    'secret' => NULL,
     'confidential' => FALSE,
     'third_party' => FALSE,
     'grant_user_access' => TRUE,

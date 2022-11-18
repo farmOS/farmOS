@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Click sort columns expand filters fieldset #586](https://github.com/farmOS/farmOS/pull/586)
 - [Issue #3189918: Broken relationship schema link in farmOS 2.x JSON:API](https://www.drupal.org/project/farm/issues/3189918)
 - [Issue #3322227: Document schema title wrong for multiple resource types](https://www.drupal.org/project/jsonapi_schema/issues/3322227)
+- [Change default client secret to be NULL to avoid issue #3322325 #597](https://github.com/farmOS/farmOS/pull/597)
 
 ## [2.0.0-beta7] 2022-09-29
 

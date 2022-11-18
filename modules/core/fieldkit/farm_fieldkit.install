@@ -19,7 +19,7 @@ function farm_fieldkit_install() {
     'redirect' => 'https://farmOS.app',
     'allowed_origins' => 'https://farmos.app',
     'owner_id' => '',
-    'secret' => '',
+    'secret' => NULL,
     'confidential' => FALSE,
     'third_party' => FALSE,
     'grant_user_access' => TRUE,
