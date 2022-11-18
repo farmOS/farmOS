@@ -144,6 +144,12 @@ class FarmActions extends DeriverBase implements ContainerDeriverInterface {
             ],
           ];
           $this->derivatives[$name]['cache_tags'] = ['entity_bundles'];
+
+          // Add it to the /asset/%asset/logs/%log_type View, if the
+          // farm_ui_views module is enabled.
+          if ($this->moduleHandler->moduleExists('farm_ui_views')) {
+            $this->derivatives[$name]['appears_on'][] = 'view.farm_log.page_asset';
+          }
         }
       }
     }

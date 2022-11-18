@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Add action to bulk categorize logs #590](https://github.com/farmOS/farmOS/pull/590)
 - [Add action for bulk assigning asset parent #588](https://github.com/farmOS/farmOS/pull/588)
+- [Show "Add log" action links on /asset/[id]/logs/[type] #596](https://github.com/farmOS/farmOS/pull/596)
 
 ### Changed
 
