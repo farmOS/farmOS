@@ -68,8 +68,8 @@
             "drupal/jsonapi_schema": {
                 "Issue #3256795: Float fields have a null schema": "https://www.drupal.org/files/issues/2022-01-03/3256795-4.patch",
                 "Issue #3246251: Change format utc-millisec to date-time": "https://www.drupal.org/files/issues/2021-10-27/3246251-2.patch",
-		"Issue #3189930: TypeError: Argument 1 passed to Drupal\\jsonapi_schema\\Controller\\JsonApiSchemaController::Drupal\\jsonapi_schema\\Controller\\{closure}() must be an instance of Drupal\\jsonapi\\ResourceType\\ResourceType": "https://www.drupal.org/files/issues/2020-12-26/3189930-2.patch",
-		"Issue #3322227: Document schema title wrong for multiple resource types": "https://www.drupal.org/files/issues/2022-11-17/3322227-0.patch"
+                "Issue #3189930: TypeError: Argument 1 passed to Drupal\\jsonapi_schema\\Controller\\JsonApiSchemaController::Drupal\\jsonapi_schema\\Controller\\{closure}() must be an instance of Drupal\\jsonapi\\ResourceType\\ResourceType": "https://www.drupal.org/files/issues/2020-12-26/3189930-2.patch",
+                "Issue #3322227: Document schema title wrong for multiple resource types": "https://www.drupal.org/files/issues/2022-11-17/3322227-0.patch"
             },
             "itamair/geophp": {
                 "Use BCMath (where available) for all float arithmetic #115": "https://patch-diff.githubusercontent.com/raw/phayes/geoPHP/pull/115.patch"
