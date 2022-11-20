@@ -45,6 +45,7 @@ If you would like to skip the automatic fix, add the following line to your
 - [Issue #3322227: Document schema title wrong for multiple resource types](https://www.drupal.org/project/jsonapi_schema/issues/3322227)
 - [Change default client secret to be NULL to avoid issue #3322325 #597](https://github.com/farmOS/farmOS/pull/597)
 - [Fix input log quantity material migration #598](https://github.com/farmOS/farmOS/pull/598)
+- Patch simple_oauth to fix [Issue #3322325: Cannot authorize clients with empty string set as secret](https://www.drupal.org/project/simple_oauth/issues/3322325)
 
 ## [2.0.0-beta7] 2022-09-29
 

@@ -71,6 +71,9 @@
                 "Issue #3189930: TypeError: Argument 1 passed to Drupal\\jsonapi_schema\\Controller\\JsonApiSchemaController::Drupal\\jsonapi_schema\\Controller\\{closure}() must be an instance of Drupal\\jsonapi\\ResourceType\\ResourceType": "https://www.drupal.org/files/issues/2020-12-26/3189930-2.patch",
                 "Issue #3322227: Document schema title wrong for multiple resource types": "https://www.drupal.org/files/issues/2022-11-17/3322227-0.patch"
             },
+            "drupal/simple_oauth": {
+                "Issue #3322325: Cannot authorize clients with empty string set as secret": "https://www.drupal.org/files/issues/2022-11-17/3322325-1.patch"
+            },
             "itamair/geophp": {
                 "Use BCMath (where available) for all float arithmetic #115": "https://patch-diff.githubusercontent.com/raw/phayes/geoPHP/pull/115.patch"
             }
