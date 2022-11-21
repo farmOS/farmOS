@@ -27,6 +27,7 @@ If you would like to skip the automatic fix, add the following line to your
 - [Show "Add log" action links on /asset/[id]/logs/[type] #596](https://github.com/farmOS/farmOS/pull/596)
 - [Add "Date received" and "Date processed" fields to lab test logs](https://github.com/farmOS/farmOS/pull/602)
 - [Add a test quantity type with test method taxonomy #604](https://github.com/farmOS/farmOS/pull/604)
+- [Add tissue lab test type #605](https://github.com/farmOS/farmOS/pull/605)
 
 ### Changed
 

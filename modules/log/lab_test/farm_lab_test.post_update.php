@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Utility\UpdateException;
+use Drupal\farm_lab_test\Entity\FarmLabTestType;
 use Drupal\taxonomy\Entity\Term;
 
 /**
@@ -156,4 +157,22 @@ function farm_lab_test_post_update_enable_farm_quantity_test(&$sandbox) {
   if (!\Drupal::service('module_handler')->moduleExists('farm_quantity_test')) {
     \Drupal::service('module_installer')->install(['farm_quantity_test']);
   }
+}
+
+/**
+ * Add tissue lab test type.
+ */
+function farm_lab_test_post_update_add_tissue_type(&$sandbox) {
+  $type = FarmLabTestType::create([
+    'id' => 'tissue',
+    'label' => 'Tissue test',
+    'dependencies' => [
+      'enforced' => [
+        'module' => [
+          'farm_lab_test',
+        ],
+      ],
+    ],
+  ]);
+  $type->save();
 }
