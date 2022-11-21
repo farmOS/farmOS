@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+This release fixes an issue with the input log migration from farmOS v1. If you
+have migrated input logs from farmOS v1, and they referenced multiple material
+types, they may have been affected. An update hook is included with this
+release that will attempt to re-connect to the v1 database used during
+migration to automatically fix the issue. If the v1 database is no longer
+available, then you will need to fix these logs manually. For more information,
+see: https://github.com/farmOS/farmOS/issues/579
+
+If you would like to skip the automatic fix, add the following line to your
+`settings.php` (this can be removed after running update.php):
+
+`$settings['farm_migrate_skip_input_log_migration_fix'] = TRUE;`
+
 ### Added
 
 - [Add action to bulk categorize logs #590](https://github.com/farmOS/farmOS/pull/590)
@@ -31,6 +44,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Issue #3189918: Broken relationship schema link in farmOS 2.x JSON:API](https://www.drupal.org/project/farm/issues/3189918)
 - [Issue #3322227: Document schema title wrong for multiple resource types](https://www.drupal.org/project/jsonapi_schema/issues/3322227)
 - [Change default client secret to be NULL to avoid issue #3322325 #597](https://github.com/farmOS/farmOS/pull/597)
+- [Fix input log quantity material migration #598](https://github.com/farmOS/farmOS/pull/598)
 
 ## [2.0.0-beta7] 2022-09-29
 

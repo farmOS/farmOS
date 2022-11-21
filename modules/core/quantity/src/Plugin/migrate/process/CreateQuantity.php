@@ -17,8 +17,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * value field is a Fraction field, it is easier to use our own process plugin.
  *
  * @MigrateProcessPlugin(
- *   id = "create_quantity"
+ *   id = "create_quantity",
+ *   handle_multiples = TRUE
  * )
+ *
+ * @internal
  */
 class CreateQuantity extends ProcessPluginBase implements ContainerFactoryPluginInterface {
 
@@ -46,33 +49,42 @@ class CreateQuantity extends ProcessPluginBase implements ContainerFactoryPlugin
    * {@inheritdoc}
    */
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
+    $return = [];
 
-    // Start array of entity values.
-    $entity_values = [];
+    if (is_array($value) || $value instanceof \Traversable) {
+      foreach ($value as $i => $new_value) {
 
-    // Gather any static default values for properties/fields.
-    if (isset($this->configuration['default_values']) && is_array($this->configuration['default_values'])) {
-      foreach ($this->configuration['default_values'] as $key => $value) {
-        $entity_values[$key] = $value;
+        // Start array of entity values.
+        $entity_values = [];
+
+        // Gather any static default values for properties/fields.
+        if (isset($this->configuration['default_values']) && is_array($this->configuration['default_values'])) {
+          foreach ($this->configuration['default_values'] as $key => $value) {
+            $entity_values[$key] = $value;
+          }
+        }
+
+        // Gather any additional properties/fields.
+        if (isset($this->configuration['values']) && is_array($this->configuration['values'])) {
+          foreach ($this->configuration['values'] as $key => $property) {
+            $new_row = new Row($new_value);
+            $source_value = $new_row->get($property) ?? $row->get($property);
+            NestedArray::setValue($entity_values, explode(Row::PROPERTY_SEPARATOR, $key), $source_value, TRUE);
+          }
+        }
+
+        // Create the entity.
+        $entity = $this->quantityStorage->create($entity_values);
+
+        // Save the entity so it has an ID.
+        $entity->save();
+
+        // Add entity to the return array.
+        $return[$i] = $entity;
       }
     }
 
-    // Gather any additional properties/fields.
-    if (isset($this->configuration['values']) && is_array($this->configuration['values'])) {
-      foreach ($this->configuration['values'] as $key => $property) {
-        $source_value = $row->get($property);
-        NestedArray::setValue($entity_values, explode(Row::PROPERTY_SEPARATOR, $key), $source_value, TRUE);
-      }
-    }
-
-    // Create the entity.
-    $entity = $this->quantityStorage->create($entity_values);
-
-    // Save the entity so it has an ID.
-    $entity->save();
-
-    // Return entity.
-    return $entity;
+    return $return;
   }
 
 }
