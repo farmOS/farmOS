@@ -1,0 +1,5 @@
+services:
+  farm_ui_theme.overrider:
+    class: Drupal\farm_ui_theme\Config\FarmUiThemeConfigOverride
+    tags:
+      - {name: config.factory.override, priority: 5}
