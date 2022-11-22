@@ -51,22 +51,53 @@ function farm_log_quantity_form_log_form_alter(&$form, FormStateInterface $form_
     // Load the log type storage.
     /** @var \Drupal\log\Entity\Log $entity */
     $entity = $form_state->getFormObject()->getEntity();
-    /** @var \Drupal\log\Entity\LogType $log_type_storage */
-    $log_type_storage = \Drupal::service('entity_type.manager')->getStorage('log_type')->load($entity->bundle());
 
-    // Load default quantity type from the bundle's third party settings.
-    // Default to standard, if it exists. Note that we do NOT add a dependency
-    // on farm_quantity_standard, because that would create a circular
-    // dependency. This only changes the default type to 'standard' if that
-    // option is available.
-    $default_type = $log_type_storage->getThirdPartySetting('farm_log_quantity', 'default_quantity_type');
-    if (empty($default_type)) {
-      $default_type = 'standard';
-    }
+    // Determine the default quantity type.
+    $default_type = farm_log_quantity_default_type($entity->bundle());
 
     // Set the default value.
     if (array_key_exists($default_type, $bundle_select['#options'])) {
       $bundle_select['#default_value'] = $default_type;
     }
   }
+}
+
+/**
+ * Returns the default quantity type.
+ *
+ * @param string|null $log_type
+ *   The log type (optional).
+ *
+ * @return string|null
+ *   The log's default quantity type, or NULL if a default is unavailable.
+ */
+function farm_log_quantity_default_type(?string $log_type = NULL) {
+
+  // If a log type is specified, attempt to look up the default quantity type
+  // from the log type's third party settings.
+  if (!empty($log_type)) {
+    /** @var \Drupal\log\Entity\LogType $log_type_storage */
+    $log_type_definition = \Drupal::service('entity_type.manager')->getStorage('log_type')->load($log_type);
+    $type = $log_type_definition->getThirdPartySetting('farm_log_quantity', 'default_quantity_type', NULL);
+    if (!empty($type)) {
+      return $type;
+    }
+  }
+
+  // If the farm_quantity_standard module is installed, default to "standard".
+  if (\Drupal::moduleHandler()->moduleExists('farm_quantity_standard')) {
+    return 'standard';
+  }
+
+  // Look up all quantity types and take the first one.
+  /** @var \Drupal\quantity\Entity\QuantityInterface[] $quantity_types */
+  $quantity_types = \Drupal::service('entity_type.manager')->getStorage('quantity_type')->loadMultiple();
+  foreach ($quantity_types as $quantity_type) {
+    if (!empty($quantity_type->id())) {
+      return $quantity_type->id();
+    }
+  }
+
+  // Otherwise return NULL.
+  return NULL;
 }
