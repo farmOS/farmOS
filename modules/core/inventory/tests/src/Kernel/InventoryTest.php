@@ -38,7 +38,6 @@ class InventoryTest extends KernelTestBase {
     'farm_inventory_test',
     'farm_log',
     'farm_log_quantity',
-    'farm_quantity_standard',
     'farm_unit',
     'fraction',
     'log',
@@ -63,7 +62,6 @@ class InventoryTest extends KernelTestBase {
     $this->installEntitySchema('taxonomy_term');
     $this->installConfig([
       'farm_inventory_test',
-      'farm_quantity_standard',
     ]);
   }
 
@@ -305,7 +303,7 @@ class InventoryTest extends KernelTestBase {
     $fraction = Fraction::createFromDecimal($value);
     /** @var \Drupal\quantity\Entity\Quantity $quantity */
     $quantity = Quantity::create([
-      'type' => 'standard',
+      'type' => 'test',
       'value' => [
         'numerator' => $fraction->getNumerator(),
         'denominator' => $fraction->getDenominator(),
