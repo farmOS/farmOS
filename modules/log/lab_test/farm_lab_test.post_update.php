@@ -148,3 +148,12 @@ function farm_lab_test_post_update_migrate_lab_terms(&$sandbox) {
   $sandbox['#finished'] = $sandbox['current_log'] / count($sandbox['log_map']);
   return NULL;
 }
+
+/**
+ * Install the test quantity module.
+ */
+function farm_lab_test_post_update_enable_farm_quantity_test(&$sandbox) {
+  if (!\Drupal::service('module_handler')->moduleExists('farm_quantity_test')) {
+    \Drupal::service('module_installer')->install(['farm_quantity_test']);
+  }
+}
