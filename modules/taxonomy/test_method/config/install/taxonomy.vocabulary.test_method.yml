@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_test_method
+name: Test methods
+vid: test_method
+description: 'A list of test methods.'
+weight: 0

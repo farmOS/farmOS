@@ -24,9 +24,12 @@ class Test extends FarmQuantityType {
 
     // Test method.
     $options = [
-      'type' => 'string',
+      'type' => 'entity_reference',
       'label' => $this->t('Test method'),
       'description' => $this->t('What testing method was used to obtain this measurement?'),
+      'target_type' => 'taxonomy_term',
+      'target_bundle' => 'test_method',
+      'auto_create' => TRUE,
       'weight' => [
         'form' => 25,
         'view' => 25,
