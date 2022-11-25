@@ -1,5 +1,5 @@
-name: Lab quantity
-description: Provides a quantity type for lab measurements.
+name: Test quantity
+description: Provides a quantity type for test measurements.
 type: module
 package: farmOS Quantities
 core_version_requirement: ^9

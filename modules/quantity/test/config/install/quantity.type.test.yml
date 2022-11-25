@@ -3,9 +3,9 @@ status: true
 dependencies:
   enforced:
     module:
-      - farm_quantity_lab
-id: lab
-label: Lab
+      - farm_quantity_test
+id: test
+label: Test
 default_measure: ''
-description: 'Lab measurement quantity type.'
+description: 'Test measurement quantity type.'
 new_revision: true

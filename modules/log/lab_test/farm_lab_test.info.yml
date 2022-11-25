@@ -6,5 +6,5 @@ core_version_requirement: ^9
 dependencies:
   - farm:farm_entity
   - farm:farm_lab
-  - farm:farm_quantity_lab
+  - farm:farm_quantity_test
   - log:log
