@@ -6,7 +6,7 @@ dependencies:
       - farm_lab_test
   module:
     - farm_log_quantity
-    - farm_quantity_lab
+    - farm_quantity_test
 id: lab_test
 label: 'Lab test'
 description: ''
@@ -15,4 +15,4 @@ workflow: log_default
 new_revision: true
 third_party_settings:
   farm_log_quantity:
-    default_quantity_type: lab
+    default_quantity_type: test

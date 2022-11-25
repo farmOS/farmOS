@@ -150,10 +150,10 @@ function farm_lab_test_post_update_migrate_lab_terms(&$sandbox) {
 }
 
 /**
- * Install the lab quantity module.
+ * Install the test quantity module.
  */
-function farm_lab_test_post_update_enable_farm_quantity_lab(&$sandbox) {
-  if (!\Drupal::service('module_handler')->moduleExists('farm_quantity_lab')) {
-    \Drupal::service('module_installer')->install(['farm_quantity_lab']);
+function farm_lab_test_post_update_enable_farm_quantity_test(&$sandbox) {
+  if (!\Drupal::service('module_handler')->moduleExists('farm_quantity_test')) {
+    \Drupal::service('module_installer')->install(['farm_quantity_test']);
   }
 }
