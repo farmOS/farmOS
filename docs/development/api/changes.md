@@ -253,8 +253,8 @@ fields are not listed here):
 - `log_owner` -> `owner`
 - `material` (migrated to "Material" `quantity` entities)
 - `seed_source` -> `source`
-- `soil_lab` -> `lab`
-- `water_lab` -> `lab`
+- `soil_lab` -> `lab` (see "Laboratory" below)
+- `water_lab` -> `lab` (see "Laboratory" below)
 - `quantity` (see "Quantities" below)
 
 See also "Text format" above for information about the changes to the `format`
@@ -267,6 +267,14 @@ In farmOS 1.x, logs had a boolean property called `done` which was either `1`
 
 In 2.x, the `done` property has changed to `status`, and can be set to either
 `done` or `pending`. Additional states may be added in the future.
+
+#### Laboratory
+
+In farmOS 1.x, Soil test and Water test logs had a "Laboratory" field for
+storing the name of the lab that performed the test as a string.
+
+In 2.x, a new "Labs" taxonomy has been added, and the "Laboratory" field on
+Lab test logs is a term reference field.
 
 ### Assets
 
