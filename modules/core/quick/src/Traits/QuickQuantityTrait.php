@@ -18,20 +18,24 @@ trait QuickQuantityTrait {
    *
    * @param array $values
    *   An array of values to initialize the quantity with.
+   * @param string|null $log_type
+   *   Optionally specify the log type this quantity will be added to. This is
+   *   used to automatically determine what the default quantity type of the
+   *   log should be.
    *
    * @return \Drupal\quantity\Entity\QuantityInterface
    *   The quantity entity that was created.
    */
-  protected function createQuantity(array $values = []) {
+  protected function createQuantity(array $values = [], ?string $log_type = NULL) {
 
     // Trim the quantity label to 255 characters.
     if (!empty($values['label'])) {
       $values['label'] = $this->trimString($values['label'], 255);
     }
 
-    // If a type isn't set, default to "standard".
+    // If a type isn't set, get the default type.
     if (empty($values['type'])) {
-      $values['type'] = 'standard';
+      $values['type'] = farm_log_quantity_default_type($log_type);
     }
 
     // Split value into numerator and denominator, if it isn't already.

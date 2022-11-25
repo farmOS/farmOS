@@ -31,7 +31,6 @@ class InventoryTest extends FarmBrowserTestBase {
   protected static $modules = [
     'farm_inventory',
     'farm_inventory_test',
-    'farm_quantity_standard',
     'farm_unit',
     'farm_api',
   ];
@@ -86,7 +85,7 @@ class InventoryTest extends FarmBrowserTestBase {
     // Create an inventory adjustment log+quantity that resets the volume
     // (liters) inventory of the asset.
     $quantity = $quantity_storage->create([
-      'type' => 'standard',
+      'type' => 'test',
       'measure' => 'volume',
       'value' => [
         'numerator' => '2',

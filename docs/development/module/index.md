@@ -48,7 +48,14 @@ package: farmOS Contrib
 core_version_requirement: ^9
 dependencies:
   - farm:farm_entity
+  - log:log
 ```
+
+In this example, we declare dependencies on the `farm_entity` module (provided
+by the Drupal `farm` project, aka farmOS) and the `log` module (a separate
+Drupal contrib project), because this module adds a log type. Dependencies will
+vary depending on the needs of your module. Refer to the modules included with
+farmOS for examples.
 
 Other common files and directories in a module include:
 

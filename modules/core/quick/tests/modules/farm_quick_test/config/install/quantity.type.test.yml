@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_quick_test
+id: test
+label: Test
+default_measure: ''
+description: 'Test quantity type.'
+new_revision: true

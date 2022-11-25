@@ -76,6 +76,7 @@ class Test extends QuickFormBase {
       'value' => $value,
       'units' => 'tests',
       'label' => $this->t('test label'),
+      'type' => 'test2',
     ]);
 
     // Create a term.

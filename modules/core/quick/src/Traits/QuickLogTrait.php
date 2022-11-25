@@ -52,7 +52,7 @@ trait QuickLogTrait {
 
         // If the quantity is an array of values, pass it to createQuantity.
         if (is_array($qty)) {
-          $log->quantity[] = $this->createQuantity($qty);
+          $log->quantity[] = $this->createQuantity($qty, $log->bundle());
         }
 
         // Otherwise, add it directly to the log.
