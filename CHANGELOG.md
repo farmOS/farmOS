@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0-beta8] 2022-11-25
+
 This release fixes an issue with the input log migration from farmOS v1. If you
 have migrated input logs from farmOS v1, and they referenced multiple material
 types, they may have been affected. An update hook is included with this
@@ -285,7 +287,8 @@ moving forward.
     Drupal 7, which required a complete refactor of the codebase. By comparison,
     updating from Drupal 9 to 10 will simply involve updating deprecated code.
 
-[Unreleased]: https://github.com/farmOS/farmOS/compare/2.0.0-beta7...HEAD
+[Unreleased]: https://github.com/farmOS/farmOS/compare/2.0.0-beta8...HEAD
+[2.0.0-beta8]: https://github.com/farmOS/farmOS/releases/tag/2.0.0-beta8
 [2.0.0-beta7]: https://github.com/farmOS/farmOS/releases/tag/2.0.0-beta7
 [2.0.0-beta6]: https://github.com/farmOS/farmOS/releases/tag/2.0.0-beta6
 [2.0.0-beta5]: https://github.com/farmOS/farmOS/releases/tag/2.0.0-beta5
