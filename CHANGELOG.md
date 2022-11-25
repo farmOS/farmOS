@@ -36,6 +36,7 @@ If you would like to skip the automatic fix, add the following line to your
 - [Render link to taxonomy terms in farm entity views #595](https://github.com/farmOS/farmOS/pull/595)
 - [Issue #3203129: Use GitHub Actions to build Docker Hub images](https://www.drupal.org/project/farm/issues/3203129)
 - [Announce new releases on Mastodon/Twitter via farmOS-microblog #599](https://github.com/farmOS/farmOS/pull/599)
+- [Improve dependency relationships of asset/log/quantity modules #601](https://github.com/farmOS/farmOS/pull/601)
 
 ### Fixed
 
