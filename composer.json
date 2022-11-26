@@ -17,7 +17,7 @@
     ],
     "require": {
         "cweagans/composer-patches": "^1.6",
-        "drupal/admin_toolbar": "^2.4",
+        "drupal/admin_toolbar": "^3.2",
         "drupal/core": "9.4.8",
         "drupal/config_update": "^1.7",
         "drupal/consumers": "^1.15",
