@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Fix update hook for converting lab to taxonomy #606](https://github.com/farmOS/farmOS/pull/606)
 
+### Changed
+
+- [Issue #3308740: Update Drush to ^11](https://www.drupal.org/project/farm/issues/3308740)
+
 ## [2.0.0-beta8] 2022-11-25
 
 This release fixes an issue with the input log migration from farmOS v1. If you

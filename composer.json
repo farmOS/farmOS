@@ -44,7 +44,7 @@
         "drupal/subrequests": "^3.0.3",
         "drupal/token": "^1.7",
         "drupal/views_geojson": "^1.2",
-        "drush/drush": "^10.3",
+        "drush/drush": "^11.3",
         "ext-simplexml": "*",
         "itamair/geophp": "1.3"
     },
