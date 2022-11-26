@@ -64,11 +64,6 @@ function farm_lab_test_post_update_migrate_lab_terms(&$sandbox) {
     // Save it to $sandbox for future reference.
     $sandbox['log_map'] = \Drupal::database()->query('SELECT entity_id, lab_value FROM log__lab WHERE deleted = 0')->fetchAllKeyed(0);
 
-    // If there are no lab test logs, bail.
-    if (empty($sandbox['log_map'])) {
-      return NULL;
-    }
-
     // Create taxonomy terms for each of the labs.
     // Add them to a term map in $sandbox for future reference.
     $unique_labs = array_unique($sandbox['log_map']);
@@ -101,6 +96,11 @@ function farm_lab_test_post_update_migrate_lab_terms(&$sandbox) {
     ];
     $field_definition = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
     $update_manager->installFieldStorageDefinition('lab', 'log', 'farm_lab_test', $field_definition);
+
+    // If there are no lab test logs with lab field values, bail.
+    if (empty($sandbox['log_map'])) {
+      return NULL;
+    }
 
     // Track progress.
     $sandbox['current_log'] = 0;
