@@ -4,18 +4,22 @@
         "drupal/core-composer-scaffold": "9.4.8"
     },
     "require-dev": {
+        "behat/mink": "^1.10",
+        "behat/mink-selenium2-driver": "^1.6",
         "brianium/paratest": "^4",
-        "drupal/core-dev": "9.4.8",
+        "drupal/coder": "^8.3",
+        "friends-of-behat/mink-browserkit-driver": "^1.6",
         "mglaman/phpstan-drupal": "^1.1",
+        "mikey179/vfsstream": "^1.6",
         "phpstan/extension-installer": "^1.1",
         "phpcompatibility/php-compatibility": "^9",
         "phpstan/phpstan": "^1.8",
         "phpstan/phpstan-deprecation-rules": "^1.0",
+        "phpunit/phpunit": "^9",
         "phpspec/prophecy-phpunit": "^2",
-        "symfony/finder": "^4.0"
+        "symfony/phpunit-bridge": "^5.4"
     },
     "_comments": {
-        "symfony/finder": "Required to pin v4, otherwise composer-merge-plugin causes problem: package is fixed to v5.3.7 (lock file version) by a partial update",
         "phpspec/prophecy-phpunit": "Required to fix ProphecyTrait not found, until Drupal core drops support for PHPUnit 8. See https://www.drupal.org/node/3176567"
     },
     "conflict": {
