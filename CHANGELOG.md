@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - [Issue #3308740: Update Drush to ^11](https://www.drupal.org/project/farm/issues/3308740)
+- Update [Migrate Plus](https://www.drupal.org/project/migrate_plus) and [Migrate Tools](https://www.drupal.org/project/migrate_tools) to ^6.
 
 ## [2.0.0-beta8] 2022-11-25
 
