@@ -1,5 +1,5 @@
 # Inherit from the Drupal 9 image on Docker Hub.
-FROM drupal:9-php7.4-apache
+FROM drupal:9.4
 
 # Set the farmOS and composer project repository URLs and versions.
 ARG FARMOS_REPO=https://github.com/farmOS/farmOS.git
@@ -13,14 +13,18 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 # Install the BCMath PHP extension.
 RUN docker-php-ext-install bcmath
 
+# Install git and unzip (needed to build PHP GEOS and needed by Composer).
+RUN apt-get update \
+  && apt-get install -y git unzip
+
 # Build and install the GEOS PHP extension.
 # See https://git.osgeo.org/gitea/geos/php-geos
 RUN apt-get update && apt-get install -y libgeos-dev \
-  && curl -fsSL 'https://git.osgeo.org/gitea/geos/php-geos/archive/1.0.0.tar.gz' -o php-geos.tar.gz \
-  && tar -xzf php-geos.tar.gz \
-  && rm php-geos.tar.gz \
+  && git clone https://git.osgeo.org/gitea/geos/php-geos.git \
   && ( \
     cd php-geos \
+    # Checkout latest commit with PHP 8 support.
+    && git checkout e77d5a16abbf89a59d947d1fe49381a944762c9d \
     && ./autogen.sh \
     && ./configure \
     && make \
@@ -61,10 +65,6 @@ RUN apt-get update \
   && mkdir -p /usr/share/man/man1 \
   && mkdir -p /usr/share/man/man7 \
   && apt-get install -y postgresql-client
-
-# Install git and unzip (needed by Composer).
-RUN apt-get update \
-  && apt-get install -y git unzip
 
 # Set the COMPOSER_MEMORY_LIMIT environment variable to unlimited.
 ENV COMPOSER_MEMORY_LIMIT=-1

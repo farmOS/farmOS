@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+PHP 8+ is now the recommended minimum version requirement for farmOS. The
+official farmOS Docker images run PHP 8+ as of this release. PHP 7.4's
+[end-of-life](https://www.php.net/supported-versions.php) was November 28th,
+2022. farmOS still works with PHP 7.4 as of this writing, but support is not
+officially guaranteed moving forward. If you maintain a farmOS module, please
+test that it works with PHP 8. If you host farmOS, please upgrade PHP to 8+ as
+soon as possible.
+
+### Added
+
+- [Issue #3186530: farmOS 2.x PHP 8 support](https://www.drupal.org/project/farm/issues/3186530)
+
 ## [2.0.0-beta8.1] 2022-11-26
 
 ### Fixed
