@@ -19,6 +19,10 @@ soon as possible.
 
 - [Issue #3186530: farmOS 2.x PHP 8 support](https://www.drupal.org/project/farm/issues/3186530)
 
+### Fixed
+
+- [Correct hook_farm_update_exclude_config API docs #608](https://github.com/farmOS/farmOS/pull/608)
+
 ## [2.0.0-beta8.1] 2022-11-26
 
 ### Fixed
