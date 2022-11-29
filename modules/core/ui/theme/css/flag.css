@@ -24,15 +24,15 @@
   -webkit-appearance: none;
   -webkit-font-smoothing: antialiased;
 }
-.flag--monitor {
+.flag.flag--monitor {
   background-color: var(--colorGinPrimary);
   border-color: var(--colorGinPrimary);
 }
-.flag--priority {
+.flag.flag--priority {
   background-color: var(--colorGinDanger);
   border-color: var(--colorGinDanger);
 }
-.flag--review {
+.flag.flag--review {
   background-color: var(--colorGinWarning);
   border-color: var(--colorGinWarning);
 }
