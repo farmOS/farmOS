@@ -28,7 +28,7 @@
   background-color: var(--colorGinPrimary);
   border-color: var(--colorGinPrimary);
 }
-.flag--monitor {
+.flag--priority {
   background-color: var(--colorGinDanger);
   border-color: var(--colorGinDanger);
 }

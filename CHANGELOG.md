@@ -22,6 +22,7 @@ soon as possible.
 ### Fixed
 
 - [Correct hook_farm_update_exclude_config API docs #608](https://github.com/farmOS/farmOS/pull/608)
+- [Correct CSS classname for priority flag #609](https://github.com/farmOS/farmOS/pull/609)
 
 ## [2.0.0-beta8.1] 2022-11-26
 
