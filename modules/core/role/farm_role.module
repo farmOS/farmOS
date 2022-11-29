@@ -27,20 +27,16 @@ function farm_role_form_user_admin_permissions_alter(&$form, FormStateInterface 
   // Attach managed role CSS.
   $form['#attached']['library'][] = 'farm_role/managed_role';
 
-  // Save the role names.
-  $role_names = array_keys($form['role_names']['#value']);
-
   // Get the managed role permissions service.
   /** @var \Drupal\farm_role\ManagedRolePermissionsManagerInterface $managed_role_manager */
   $managed_role_manager = \Drupal::service('plugin.manager.managed_role_permissions');
 
   // Save a list of managed role IDs keyed by their index in the form.
   $managed_roles = $managed_role_manager->getMangedRoles();
-  $managed_roles_indices = [];
-  foreach ($managed_roles as $role) {
-    $index = array_search($role->id(), $role_names);
-    $managed_roles_indices[$index] = $role->id();
-  }
+  $managed_roles_indices = array_intersect(
+    array_keys($form['role_names']['#value']),
+    array_keys($managed_roles)
+  );
 
   // Append '(managed)' to managed role labels in the table header.
   foreach ($managed_roles_indices as $index => $role) {
