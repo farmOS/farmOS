@@ -19,6 +19,10 @@ soon as possible.
 
 - [Issue #3186530: farmOS 2.x PHP 8 support](https://www.drupal.org/project/farm/issues/3186530)
 
+### Fixed
+
+- [Correct CSS classname for priority flag #609](https://github.com/farmOS/farmOS/pull/609)
+
 ## [2.0.0-beta8.1] 2022-11-26
 
 ### Fixed
