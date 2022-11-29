@@ -36,7 +36,17 @@ process:
     source: '@_log_quantities'
   # Lab test specific fields.
   lab:
-    plugin: get_lab
+    -
+      plugin: get_lab
+    -
+      plugin: skip_on_empty
+      method: process
+    -
+      plugin: entity_generate
+      value_key: name
+      entity_type: taxonomy_term
+      bundle_key: vid
+      bundle: lab
   lab_test_type:
     plugin: static_map
     source: type

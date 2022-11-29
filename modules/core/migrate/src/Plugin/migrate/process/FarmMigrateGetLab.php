@@ -29,11 +29,10 @@ class FarmMigrateGetLab extends ProcessPluginBase {
     }
 
     // If a lab was found, return it.
-    $return = [];
-    if (!empty($lab)) {
-      $return[] = $lab;
+    if (!empty($lab[0]['value'])) {
+      return $lab[0]['value'];
     }
-    return $return;
+    return '';
   }
 
 }
