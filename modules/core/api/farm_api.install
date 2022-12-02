@@ -135,7 +135,7 @@ function farm_api_update_9000(&$sandbox) {
 
   // Get all client_id values from the database.
   $client_ids = [];
-  $result = \Drupal::database()->query('SELECT entity_id, client_id_value FROM consumer__client_id')->fetchAll();
+  $result = \Drupal::database()->query('SELECT entity_id, client_id_value FROM {consumer__client_id}')->fetchAll();
   foreach ($result as $record) {
     $client_ids[$record->entity_id] = $record->client_id_value;
   }

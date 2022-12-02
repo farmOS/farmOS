@@ -62,7 +62,7 @@ function farm_lab_test_post_update_migrate_lab_terms(&$sandbox) {
 
     // Query the database for all lab field data on logs.
     // Save it to $sandbox for future reference.
-    $sandbox['log_map'] = \Drupal::database()->query('SELECT entity_id, lab_value FROM log__lab WHERE deleted = 0')->fetchAllKeyed(0);
+    $sandbox['log_map'] = \Drupal::database()->query('SELECT entity_id, lab_value FROM {log__lab} WHERE deleted = 0')->fetchCol();
 
     // Create taxonomy terms for each of the labs.
     // Add them to a term map in $sandbox for future reference.
