@@ -6,6 +6,5 @@ dependencies:
       - farm_quick_test
 id: test2
 label: Test2
-default_measure: ''
 description: 'Test2 quantity type.'
 new_revision: true

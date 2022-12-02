@@ -135,7 +135,6 @@ class Quantity extends RevisionableContentEntityBase implements QuantityInterfac
       ->setLabel(t('Measure'))
       ->setDescription(t('The measure of the quantity.'))
       ->setRevisionable(TRUE)
-      ->setDefaultValueCallback('quantity_measure_default_value')
       ->setSettings([
         'allowed_values_function' => 'quantity_measure_field_allowed_values',
       ])

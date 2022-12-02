@@ -6,6 +6,5 @@ dependencies:
       - farm_quantity_material
 id: material
 label: Material
-default_measure: ''
 description: 'Material quantity type.'
 new_revision: true

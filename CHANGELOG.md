@@ -19,6 +19,10 @@ soon as possible.
 
 - [Issue #3186530: farmOS 2.x PHP 8 support](https://www.drupal.org/project/farm/issues/3186530)
 
+### Changed
+
+- [Remove default_measure configuration from quantity type definitions #612](https://github.com/farmOS/farmOS/pull/612)
+
 ### Fixed
 
 - [Correct hook_farm_update_exclude_config API docs #608](https://github.com/farmOS/farmOS/pull/608)

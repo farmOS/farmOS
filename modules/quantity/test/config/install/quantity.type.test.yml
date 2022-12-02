@@ -6,6 +6,5 @@ dependencies:
       - farm_quantity_test
 id: test
 label: Test
-default_measure: ''
 description: 'Test measurement quantity type.'
 new_revision: true

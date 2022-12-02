@@ -31,7 +31,6 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
  *     "id",
  *     "label",
  *     "description",
- *     "default_measure",
  *     "new_revision",
  *   }
  * )
@@ -60,13 +59,6 @@ class QuantityType extends ConfigEntityBundleBase implements QuantityTypeInterfa
   protected $description;
 
   /**
-   * The default measure of this quantity type.
-   *
-   * @var string|null
-   */
-  protected $default_measure;
-
-  /**
    * Default value of the 'Create new revision' checkbox of the quantity type.
    *
    * @var bool
@@ -85,13 +77,6 @@ class QuantityType extends ConfigEntityBundleBase implements QuantityTypeInterfa
    */
   public function setDescription($description) {
     return $this->set('description', $description);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getDefaultMeasure() {
-    return $this->default_measure;
   }
 
   /**
