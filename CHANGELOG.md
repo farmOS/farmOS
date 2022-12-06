@@ -18,6 +18,7 @@ soon as possible.
 ### Added
 
 - [Issue #3186530: farmOS 2.x PHP 8 support](https://www.drupal.org/project/farm/issues/3186530)
+- [Include GEOS version in status report #614](https://github.com/farmOS/farmOS/pull/614)
 
 ### Changed
 

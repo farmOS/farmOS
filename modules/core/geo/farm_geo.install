@@ -20,7 +20,8 @@ function farm_geo_requirements($phase) {
   // Check for php-geos extension.
   if (geoPHP::geosInstalled()) {
     $severity = REQUIREMENT_OK;
-    $message = t('GEOS PHP extension installed');
+    // phpcs:ignore Squiz.PHP.LowercasePHPFunctions.CallUppercase -- GEOSVersion() function is defined in php-geos.
+    $message = t('GEOS PHP extension installed. GEOS version @version', ['@version' => GEOSVersion()]);
   }
   else {
     $severity = REQUIREMENT_WARNING;
