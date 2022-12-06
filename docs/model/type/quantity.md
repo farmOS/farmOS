@@ -19,6 +19,7 @@ Quantity types:
 
 - Standard
 - Material
+- Test
 
 ## ID
 
@@ -130,6 +131,14 @@ Standard Quantities do not define any type-specific fields.
 
 #### Material Quantities
 
-Materials Quantities have the following additional relationships:
+Material Quantities are the default type on Input logs. They have the
+following additional relationships:
 
 - Material type (References Terms in the "Material types" vocabulary)
+
+#### Test Quantities
+
+Test Quantities are the default type on Lab test logs. They have the following
+additional relationships:
+
+- Test method (References Terms in the "Test methods" vocabulary)
