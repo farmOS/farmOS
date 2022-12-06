@@ -4,7 +4,7 @@ entity.data_stream_notification.enable:
     _controller: '\Drupal\data_stream_notification\Controller\NotificationUIController::ajaxOperation'
     op: enable
   requirements:
-    _entity_access: data_stream_notification.edit
+    _entity_access: data_stream_notification.update
     _csrf_token: 'TRUE'
 
 entity.data_stream_notification.disable:
@@ -13,5 +13,5 @@ entity.data_stream_notification.disable:
     _controller: '\Drupal\data_stream_notification\Controller\NotificationUIController::ajaxOperation'
     op: disable
   requirements:
-    _entity_access: data_stream_notification.edit
+    _entity_access: data_stream_notification.update
     _csrf_token: 'TRUE'
