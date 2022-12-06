@@ -77,7 +77,7 @@ class Email extends NotificationDeliveryBase implements ContainerFactoryPluginIn
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
 
     // Convert array of emails into a single text area.
-    $emails = $this->configuration['email'];
+    $emails = $this->configuration['email'] ?? [];
     $default = implode(PHP_EOL, $emails);
     $form['email'] = [
       '#type' => 'textarea',
