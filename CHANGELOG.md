@@ -23,6 +23,7 @@ soon as possible.
 ### Changed
 
 - [Remove default_measure configuration from quantity type definitions #612](https://github.com/farmOS/farmOS/pull/612)
+- [Shorten name of tests and delivery workflow #617](https://github.com/farmOS/farmOS/pull/617)
 
 ### Fixed
 

@@ -1,4 +1,4 @@
-name: Run tests and delivery workflow
+name: Tests and delivery
 on:
   schedule:
     - cron: '0 8 * * *' # Run at 8AM UTC.
