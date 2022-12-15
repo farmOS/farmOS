@@ -109,74 +109,103 @@ class AssetLocation implements AssetLocationInterface {
   /**
    * {@inheritdoc}
    */
-  public function hasLocation(AssetInterface $asset): bool {
+  public function hasLocation(AssetInterface $asset, $timestamp = NULL): bool {
+
+    // If the asset is fixed, always return FALSE.
     if ($this->isFixed($asset)) {
       return FALSE;
     }
-    $log = $this->getMovementLog($asset);
+
+    // Load the movement log. Bail if empty.
+    $log = $this->getMovementLog($asset, $timestamp);
     if (empty($log)) {
       return FALSE;
     }
+
+    // Return whether the log has a location.
     return $this->logLocation->hasLocation($log);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function hasGeometry(AssetInterface $asset): bool {
+  public function hasGeometry(AssetInterface $asset, $timestamp = NULL): bool {
+
+    // If the asset is fixed, return emptiness of its intrinsic geometry.
     if ($this->isFixed($asset)) {
       return !$asset->get(static::ASSET_FIELD_GEOMETRY)->isEmpty();
     }
-    $log = $this->getMovementLog($asset);
+
+    // Load the movement log. Bail if empty.
+    $log = $this->getMovementLog($asset, $timestamp);
     if (empty($log)) {
       return FALSE;
     }
+
+    // Return emptiness of the log's location reference.
     return $this->logLocation->hasGeometry($log);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getLocation(AssetInterface $asset): array {
+  public function getLocation(AssetInterface $asset, $timestamp = NULL): array {
+
+    // If the asset is fixed, return empty array.
     if ($this->isFixed($asset)) {
       return [];
     }
-    $log = $this->getMovementLog($asset);
+
+    // Load the movement log. Bail if empty.
+    $log = $this->getMovementLog($asset, $timestamp);
     if (empty($log)) {
       return [];
     }
+
+    // Return locations referenced by the log.
     return $this->logLocation->getLocation($log);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getGeometry(AssetInterface $asset): string {
+  public function getGeometry(AssetInterface $asset, $timestamp = NULL): string {
+
+    // If the asset is fixed, return its intrinsic geometry.
     if ($this->isFixed($asset)) {
       return $asset->get(static::ASSET_FIELD_GEOMETRY)->value ?? '';
     }
-    $log = $this->getMovementLog($asset);
+
+    // Load the movement log. Bail if empty.
+    $log = $this->getMovementLog($asset, $timestamp);
     if (empty($log)) {
       return '';
     }
+
+    // Return the log's geometry.
     return $this->logLocation->getGeometry($log);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getMovementLog(AssetInterface $asset): ?LogInterface {
+  public function getMovementLog(AssetInterface $asset, $timestamp = NULL): ?LogInterface {
 
     // If the asset is new, no movement logs will reference it.
     if ($asset->isNew()) {
       return NULL;
     }
 
+    // If $timestamp is NULL, use the current time.
+    if (is_null($timestamp)) {
+      $timestamp = $this->time->getRequestTime();
+    }
+
     // Query for movement logs that reference the asset.
     // We do not check access on the logs to ensure that none are filtered out.
     $options = [
       'asset' => $asset,
-      'timestamp' => $this->time->getRequestTime(),
+      'timestamp' => $timestamp,
       'status' => 'done',
       'limit' => 1,
     ];
@@ -213,7 +242,7 @@ class AssetLocation implements AssetLocationInterface {
   /**
    * {@inheritdoc}
    */
-  public function getAssetsByLocation(array $locations): array {
+  public function getAssetsByLocation(array $locations, $timestamp = NULL): array {
 
     // Get location ids.
     $location_ids = array_map(function (AssetInterface $location) {
@@ -223,6 +252,11 @@ class AssetLocation implements AssetLocationInterface {
     // Bail if there are no location ids.
     if (empty($location_ids)) {
       return [];
+    }
+
+    // If $timestamp is NULL, use the current time.
+    if (is_null($timestamp)) {
+      $timestamp = $this->time->getRequestTime();
     }
 
     // Build query for assets in locations.
@@ -261,7 +295,7 @@ class AssetLocation implements AssetLocationInterface {
       -- Exclude records with future log entries.
       AND lfd2.id IS NULL";
     $args = [
-      ':timestamp' => $this->time->getRequestTime(),
+      ':timestamp' => $timestamp,
       ':location_ids[]' => $location_ids,
     ];
     $asset_ids = $this->database->query($query, $args)->fetchCol();

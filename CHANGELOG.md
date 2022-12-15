@@ -25,6 +25,7 @@ soon as possible.
 - [Remove default_measure configuration from quantity type definitions #612](https://github.com/farmOS/farmOS/pull/612)
 - [Shorten name of tests and delivery workflow #617](https://github.com/farmOS/farmOS/pull/617)
 - [Only show the first quantity in log Views #619](https://github.com/farmOS/farmOS/pull/619)
+- [Issue #3310286: Add $timestamp parameter to service methods](https://www.drupal.org/project/farm/issues/3310286)
 
 ### Fixed
 

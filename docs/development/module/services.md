@@ -21,24 +21,29 @@ controls are respected.
 
 `isFixed($asset)` - Check if an asset is fixed. Returns a boolean.
 
-`hasLocation($asset)` - Check if an asset is located within other location
-assets. Returns a boolean.
+`hasLocation($asset, $timestamp = NULL)` - Check if an asset is located within other
+location assets, optionally at a given timestamp (defaults to current time).
+Returns a boolean.
 
-`hasGeometry($asset)` - Check if an asset has geometry. Returns a boolean.
+`hasGeometry($asset, $timestamp = NULL)` - Check if an asset has geometry, optionally
+at a given timestamp (defaults to current time). Returns a boolean.
 
-`getLocation($asset)` - Get location assets that an asset is located within.
+`getLocation($asset, $timestamp = NULL)` - Get location assets that an asset is
+located within, optionally at a given timestamp (defaults to current time).
 Returns an array of asset entities.
 
-`getGeometry($asset)` - Get an asset's geometry. Returns a Well-Known Text
-string.
+`getGeometry($asset, $timestamp = NULL)` - Get an asset's geometry, optionally at a
+given timestamp (defaults to current time). Returns a Well-Known Text string.
 
-`getMovementLog($asset)` - Find the latest movement log that references an
-asset. Returns a log entity, or `NULL` if no logs were found.
+`getMovementLog($asset, $timestamp = NULL)` - Find the latest movement log that
+references an asset, optionally at a given timestamp (defaults to current
+time). Returns a log entity, or `NULL` if no logs were found.
 
 `setIntrinsicGeometry($asset, $wkt)` - Set an asset's intrinsic geometry, given
 a string in Well-Known Text format.
 
-`getAssetsByLocation($locations)` - Get assets that are in locations.
+`getAssetsByLocation($locations, $timestamp = NULL)` - Get assets that are in
+locations, optionally at a given timestamp (defaults to current time).
 
 **Example usage**:
 
@@ -60,10 +65,11 @@ controls are respected.
 
 **Methods**:
 
-`getInventory($asset, $measure = '', $units = 0)` - Get inventory summaries
-for an asset. Returns an array of arrays with the following keys: `measure`,
-`value`, `units`. This can be optionally filtered by `$measure` (string)
-and `$units` (term ID).
+`getInventory($asset, $measure = '', $units = 0, $timestamp = NULL)` - Get
+inventory summaries for an asset, optionally at a given timestamp (defaults
+to current time). Returns an array of arrays with the following keys:
+`measure`, `value`, `units`. This can be optionally filtered by `$measure`
+(string) and `$units` (term ID).
 
 **Example usage**:
 
@@ -163,17 +169,21 @@ access controls are respected.
 
 **Methods**:
 
-`hasGroup($asset)` - Check if an asset is a member of a group. Returns a
-boolean.
+`hasGroup($asset, $timestamp = NULL)` - Check if an asset is a member of a group,
+optionally at a given timestamp (defaults to current time). Returns a boolean.
 
-`getGroup($asset)` - Get group assets that an asset is a member of. Returns an
+`getGroup($asset, $timestamp = NULL)` - Get group assets that an asset is a member
+of, optionally at a given timestamp (defaults to current time). Returns an
 array of asset entities.
 
-`getGroupAssignmentLog($asset)` - Find the latest group assignment log that
-references an asset. Returns a log entity, or `NULL` if no logs were found.
+`getGroupAssignmentLog($asset, $timestamp = NULL)` - Find the latest group
+assignment log that references an asset, optionally at a given timestamp
+(defaults to current time). Returns a log entity, or `NULL` if no logs were
+found.
 
-`getGroupMembers($groups, $recurse)` - Get assets that are members of groups,
-optionally recursing into child groups.
+`getGroupMembers($groups, $recurse = TRUE, $timestamp = NULL)` - Get assets that
+are members of groups, optionally recursing into child groups, and optionally
+at a given timestamp (defaults to current time).
 
 **Example usage:**
 
