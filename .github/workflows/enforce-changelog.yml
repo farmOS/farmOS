@@ -14,4 +14,4 @@ jobs:
       # The checkout step is required since this action uses local git commands
       # to enforce the changelog
       - uses: actions/checkout@v3
-      - uses: dangoslen/changelog-enforcer@v2
+      - uses: dangoslen/changelog-enforcer@v3
