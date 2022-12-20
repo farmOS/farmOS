@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Prevent circular asset location #568](https://github.com/farmOS/farmOS/pull/568)
 - [Prevent circular group membership #562](https://github.com/farmOS/farmOS/pull/562)
+- [Issue #3328419: Uninstalling farm_ui_views module breaks site](https://www.drupal.org/project/farm/issues/3328419)
 
 ## [2.0.0-rc1] 2022-12-15
 

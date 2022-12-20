@@ -14,3 +14,8 @@ farm.quantity.type:
   class: Drupal\Core\Menu\MenuLinkDefault
   deriver: Drupal\farm_ui_views\Plugin\Derivative\FarmQuantityViewsMenuLink
   parent: views_view:views.farm_quantity.page
+farm.people:
+  title: People
+  parent: farm.base
+  route_name: view.farm_people.page
+  weight: 90
