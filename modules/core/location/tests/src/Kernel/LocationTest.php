@@ -625,15 +625,25 @@ class LocationTest extends KernelTestBase {
    */
   public function testCircularAssetLocation() {
 
-    // Start log to move the first location to the second location.
+    // First, make sure we can't create a movement log that references the same
+    // asset in both the asset and location fields.
     /** @var \Drupal\log\Entity\LogInterface $first_log */
     $first_log = Log::create([
       'type' => 'movement',
       'asset' => ['target_id' => $this->locations[0]->id()],
-      'location' => ['target_id' => $this->locations[1]->id()],
+      'location' => ['target_id' => $this->locations[0]->id()],
       'is_movement' => TRUE,
       'status' => 'done',
     ]);
+
+    // Validate the log and confirm that a circular location constraint
+    // violation was set.
+    $violations = $first_log->validate();
+    $this->assertCount(1, $violations);
+    $this->assertEquals($this->t('%asset cannot be located within itself.', ['%asset' => $this->locations[0]->label()]), $violations[0]->getMessage());
+
+    // Tweak the log so that it moves the first location to the second location.
+    $first_log->set('location', ['target_id' => $this->locations[1]->id()]);
 
     // Confirm that validation passes.
     $violations = $first_log->validate();

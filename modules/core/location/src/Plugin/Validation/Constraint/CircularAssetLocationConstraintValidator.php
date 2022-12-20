@@ -74,15 +74,31 @@ class CircularAssetLocationConstraintValidator extends ConstraintValidator imple
       $assets_in_location = $this->getAssetsByLocationRecursively($asset, $timestamp);
 
       // Make sure that none of the assets are located in this asset.
+
+      // Iterate through the locations and check for violations.
+      $violation = FALSE;
       foreach ($locations as $location) {
+
+        // Make sure that the asset and location are not the same.
+        if ($location->id() == $asset->id()) {
+          $violation = TRUE;
+        }
+
+        // Make sure that none of the assets are located in this asset.
         foreach ($assets_in_location as $asset_in_location) {
           if ($location->id() == $asset_in_location->id()) {
-            $this->context->buildViolation($constraint->message, ['%asset' => $asset->label()])
-              ->atPath((string) $delta . '.target_id')
-              ->setInvalidValue($asset->id())
-              ->addViolation();
+            $violation = TRUE;
+            break;
           }
         }
+      }
+
+      // If a violation was found, flag it.
+      if ($violation) {
+        $this->context->buildViolation($constraint->message, ['%asset' => $asset->label()])
+          ->atPath((string) $delta . '.target_id')
+          ->setInvalidValue($asset->id())
+          ->addViolation();
       }
     }
   }
