@@ -67,6 +67,12 @@ function farm_ui_views_views_pre_view(ViewExecutable $view, $display_id, array &
     }
   }
 
+  // If this is a log "CSV export" display, set the Quantity view mode to
+  // "Plain text" to strip out tags and whitespace.
+  if ($view->id() == 'farm_log' && $display_id == 'csv') {
+    $view->setHandlerOption('csv', 'field', 'quantity_target_id', 'settings', ['view_mode' => 'plain_text']);
+  }
+
   // Remove the asset and location filters from the log page_asset display.
   // @todo Make the AssetOrLocationArgument compatible with these filters.
   if ($view->id() == 'farm_log' && $display_id == 'page_asset') {
