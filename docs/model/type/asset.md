@@ -275,7 +275,7 @@ Plant Assets have the following additional relationships:
 #### Sensor Assets
 
 Sensor Assets have an additional "Data streams" relationship, which is used to
-reference [Data Streams](/model/type/data-stream) associated with the sensor.
+reference [Data Streams](/model/type/data_stream) associated with the sensor.
 
 #### Structure Assets
 
