@@ -19,9 +19,6 @@
         "phpspec/prophecy-phpunit": "^2",
         "symfony/phpunit-bridge": "^6.2"
     },
-    "_comments": {
-        "phpspec/prophecy-phpunit": "Required to fix ProphecyTrait not found, until Drupal core drops support for PHPUnit 8. See https://www.drupal.org/node/3176567"
-    },
     "conflict": {
         "drupal/drupal": "*"
     },
