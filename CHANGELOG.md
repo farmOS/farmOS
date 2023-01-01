@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] 2023-01-01
+
+This is the first official "stable" release of farmOS v2! Moving forward,
+releases will follow standard [semantic versioning](https://semver.org/).
+
 ### Changed
 
 - [Update Drupal core to 9.5.x](https://github.com/farmOS/farmOS/pull/621)
@@ -340,7 +345,8 @@ moving forward.
     Drupal 7, which required a complete refactor of the codebase. By comparison,
     updating from Drupal 9 to 10 will simply involve updating deprecated code.
 
-[Unreleased]: https://github.com/farmOS/farmOS/compare/2.0.0-rc1...HEAD
+[Unreleased]: https://github.com/farmOS/farmOS/compare/2.0.0...HEAD
+[2.0.0]: https://github.com/farmOS/farmOS/releases/tag/2.0.0
 [2.0.0-rc1]: https://github.com/farmOS/farmOS/releases/tag/2.0.0-rc1
 [2.0.0-beta8.1]: https://github.com/farmOS/farmOS/releases/tag/2.0.0-beta8.1
 [2.0.0-beta8]: https://github.com/farmOS/farmOS/releases/tag/2.0.0-beta8
