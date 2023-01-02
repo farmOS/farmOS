@@ -34,7 +34,7 @@
         "drupal/gin": "^3.0@rc",
         "drupal/inline_entity_form": "^1.0@RC",
         "drupal/inspire_tree": "^1.0",
-        "drupal/jsonapi_extras": "^3.15",
+        "drupal/jsonapi_extras": "^3.22",
         "drupal/jsonapi_schema": "1.0-rc1",
         "drupal/log": "^2.0.2",
         "drupal/migrate_plus": "^6.0",
