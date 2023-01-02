@@ -30,7 +30,7 @@
         "drupal/entity_reference_validators": "^1.0@beta",
         "drupal/exif_orientation": "^1.1",
         "drupal/fraction": "^2.3.1",
-        "drupal/geofield": "^1.33",
+        "drupal/geofield": "^1.40",
         "drupal/gin": "^3.0@beta",
         "drupal/inline_entity_form": "^1.0@RC",
         "drupal/inspire_tree": "^1.0",
