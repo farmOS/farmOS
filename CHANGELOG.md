@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - [Move land and structure type fields higher up for consistency #632](https://github.com/farmOS/farmOS/pull/632)
+- [Change asset action date pickers to use HTML5 calendar widgets #630](https://github.com/farmOS/farmOS/pull/630)
 
 ### Fixed
 

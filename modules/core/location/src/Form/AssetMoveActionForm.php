@@ -166,12 +166,11 @@ class AssetMoveActionForm extends ConfirmFormBase {
         ->toString());
     }
 
+    $date = new DrupalDateTime();
     $form['date'] = [
-      '#type' => 'datelist',
+      '#type' => 'date',
       '#title' => $this->t('Date'),
-      '#default_value' => new DrupalDateTime(),
-      '#date_part_order' => ['year', 'month', 'day'],
-      '#date_year_range' => '-15:+15',
+      '#default_value' => date('Y-m-d', $date->getTimestamp()),
       '#required' => TRUE,
     ];
 
@@ -227,8 +226,6 @@ class AssetMoveActionForm extends ConfirmFormBase {
         $locations = $this->entityTypeManager->getStorage('asset')->loadMultiple($location_ids);
       }
 
-      /** @var \Drupal\Core\Datetime\DrupalDateTime $date */
-      $date = $form_state->getValue('date');
       $done = (bool) $form_state->getValue('done', FALSE);
 
       // Generate a name for the log.
@@ -240,7 +237,7 @@ class AssetMoveActionForm extends ConfirmFormBase {
       $log = Log::create([
         'name' => $log_name,
         'type' => 'activity',
-        'timestamp' => $date->getTimestamp(),
+        'timestamp' => strtotime($form_state->getValue('date')),
         'asset' => $accessible_entities,
         'is_movement' => TRUE,
         'location' => $locations,
