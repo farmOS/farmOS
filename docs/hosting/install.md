@@ -169,8 +169,21 @@ directory as a volume, add the following line to `sites/default/settings.php`:
 
     $settings['file_private_path'] = '/opt/drupal/web/sites/default/private/files';
 
+Additionally, create the folder `/opt/drupal/web/sites/default/private/`.
+
+Set the correct user and permissions:
+
+Folder ownership and group should match the web server user. If you are using
+the farmOS Docker image (running Apache), this will be `www-data`.
+
+Folder permissions should be set to `770` or `drwxrwx---`.
+
 If you are using a packaged release outside of Docker, replace `/opt/drupal/web`
 with the path to the webroot directory that contains your `sites` directory.
+
+Finally, make sure to clear the caches by visiting Administration >
+Configuration > Development > Performance and clicking the `Clear all caches`
+button, or use Drush via the command line: `drush cr`.
 
 ### Cron
 

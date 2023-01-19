@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- [Add folder creation and clear caches to Configure private filesystem in the Hosting and Environment docs #628](https://github.com/farmOS/farmOS/pull/628)
+
 ## [2.0.0] 2023-01-01
 
 This is the first official "stable" release of farmOS v2! Moving forward,

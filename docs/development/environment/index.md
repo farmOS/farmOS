@@ -38,6 +38,19 @@ line must be added to `www/web/sites/default/settings.php`:
 
     $settings['file_private_path'] = '/opt/drupal/web/sites/default/private/files';
 
+Additionally, create the folder `/opt/drupal/web/sites/default/private/`.
+
+Set the correct user and permissions:
+
+Folder ownership and group should match the web server user. If you are using
+the farmOS Docker image (running Apache), this will be `www-data`.
+
+Folder permissions should be set to `770` or `drwxrwx---`.
+
+Finally, make sure to clear the caches by visiting Administration >
+Configuration > Development > Performance and clicking the `Clear all caches`
+button, or use Drush via the command line: `drush cr`.
+
 ### Configure debugger
 
 See [Debugging](/development/environment/debug).
