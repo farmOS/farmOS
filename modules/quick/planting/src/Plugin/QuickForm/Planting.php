@@ -341,7 +341,6 @@ class Planting extends QuickFormBase {
       'date' => [
         '#type' => 'date',
         '#title' => $this->t('Date'),
-        '#date_year_range' => '-10:+3',
         '#default_value' => date('Y-m-d', $this->time->getRequestTime()),
         '#required' => TRUE,
       ],
