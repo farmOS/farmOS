@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Add folder creation and clear caches to Configure private filesystem in the Hosting and Environment docs #628](https://github.com/farmOS/farmOS/pull/628)
 - [Issue #3336698: Add "project: farm" to farm.info.yml to fix drupal.org usage statistics](https://www.drupal.org/project/farm/issues/3336698)
 - [Fix type error when un-assigning asset from group #631](https://github.com/farmOS/farmOS/pull/631)
+- [Issue #3335267 by m.stenta, farmer-ed, penyaskito: 405 Method Not Allowed when trying to patch entities as a user with non-default language](https://www.drupal.org/project/farm/issues/3335267)
 
 ## [2.0.0] 2023-01-01
 

@@ -25,6 +25,28 @@ function farm_l10n_help($route_name, RouteMatchInterface $route_match) {
 }
 
 /**
+ * Implements hook_entity_bundle_info_alter().
+ */
+function farm_l10n_entity_bundle_info_alter(&$bundles) {
+
+  // If the content translation module is not enabled, alter all entity type
+  // bundles to mark them as not translatable. This fixes an issue with
+  // JSON:API PATCH requests when authenticated as a user with a non-default
+  // language.
+  // @see https://www.drupal.org/project/farm/issues/3335267
+  if (\Drupal::moduleHandler()->moduleExists('content_translation')) {
+    return;
+  }
+  foreach ($bundles as $entity_type => $entity_type_bundles) {
+    foreach ($entity_type_bundles as $bundle => $bundle_info) {
+      if (!empty($bundle_info['translatable']) && $bundle_info['translatable'] === TRUE) {
+        $bundles[$entity_type][$bundle]['translatable'] = FALSE;
+      }
+    }
+  }
+}
+
+/**
  * Implements hook_form_FORM_ID_alter().
  */
 function farm_l10n_form_language_admin_overview_form_alter(&$form, FormStateInterface $form_state, $form_id) {
