@@ -47,16 +47,16 @@ In a docker-compose.yml based off [docker-compose.development.yml], this might l
       XDEBUG_MODE: 'off'
 ```
 
-The tests could then be run via `docker-compose exec` as follows:
+The tests could then be run via `docker compose exec` as follows:
 
 ```sh
-docker-compose exec -u www-data -T www phpunit --verbose --debug /opt/drupal/web/profiles/farm
+docker compose exec -u www-data -T www phpunit --verbose --debug /opt/drupal/web/profiles/farm
 ```
 
 Alternatively, the `XDEBUG_MODE` environment variable can be specified directly:
 
 ```sh
-docker-compose exec -u www-data -T --env XDEBUG_MODE=off www phpunit --verbose --debug /opt/drupal/web/profiles/farm
+docker compose exec -u www-data -T --env XDEBUG_MODE=off www phpunit --verbose --debug /opt/drupal/web/profiles/farm
 ```
 
 [run-tests.yml]: https://raw.githubusercontent.com/farmOS/farmOS/2.x/.github/workflows/run-tests.yml

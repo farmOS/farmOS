@@ -118,17 +118,17 @@ jobs:
           DB_URL: ${{ matrix.DB_URL }}
         run: |
           cp docker/docker-compose.testing.* .
-          docker-compose -f docker-compose.testing.common.yml -f docker-compose.testing.${{ matrix.dbms }}.yml config > docker-compose.yml
+          docker compose -f docker-compose.testing.common.yml -f docker-compose.testing.${{ matrix.dbms }}.yml config > docker-compose.yml
       - name: Start containers
-        run: docker-compose up -d
+        run: docker compose up -d
       - name: Wait until www container is ready
       # The www-container-fs-ready file is only created once we expect the containers to be online
       # so waiting for that lets us know it is safe to start the tests
         run: until [ -f ./www/www-container-fs-ready ]; do sleep 0.1; done
       - name: Run PHPUnit tests
-        run: docker-compose exec -u www-data -T www paratest -vv --processes=${{ matrix.processes }} /opt/drupal/web/profiles/farm
+        run: docker compose exec -u www-data -T www paratest -vv --processes=${{ matrix.processes }} /opt/drupal/web/profiles/farm
       - name: Test Drush site install with all modules
-        run: docker-compose exec -u www-data -T www drush site-install --db-url=${{ matrix.DB_URL }} farm farm.modules='all'
+        run: docker compose exec -u www-data -T www drush site-install --db-url=${{ matrix.DB_URL }} farm farm.modules='all'
   release:
     name: Create GitHub release
     if: github.event_name == 'push' && github.ref_type == 'tag'

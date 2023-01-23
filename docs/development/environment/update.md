@@ -32,9 +32,9 @@ mv www/web/profiles ./profiles
 mv www/web/sites ./sites
 
 # Update codebase.
-docker-compose down
+docker compose down
 rm -r www
-docker-compose up -d
+docker compose up -d
 
 # Restore directories.
 sudo rm -rf www/web/profiles www/web/sites
@@ -46,5 +46,5 @@ cd www/web/profiles/farm
 git checkout 2.x && git pull origin 2.x
 
 # Run Drupal database updates.
-docker-compose exec -u www-data www drush updb
+docker compose exec -u www-data www drush updb
 ```
