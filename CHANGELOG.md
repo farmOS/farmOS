@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- [Replace all usages of docker-compose with native docker compose #627](https://github.com/farmOS/farmOS/pull/627)
+
 ## [2.0.0] 2023-01-01
 
 This is the first official "stable" release of farmOS v2! Moving forward,
