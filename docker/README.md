@@ -8,7 +8,7 @@ Docker containers.
 
 To run a farmOS development environment, copy `docker-compose.development.yml`
 into a new directory on your server, rename it to `docker-compose.yml` and run
-`docker-compose up`.
+`docker compose up`.
 
 This example mounts a local `www` directory on the host as a volume in the
 container at `/opt/drupal`, which allows for local development with an IDE.

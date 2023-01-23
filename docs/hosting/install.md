@@ -111,7 +111,7 @@ the farmOS repository's `docker` directory, with an accompanying `README.md`.
 Copy this to a file named `docker-compose.yml` in the directory you would like
 to install farmOS, update the `farmos/farmos:x.y.z` version reference, and run:
 
-    docker-compose up -d
+    docker compose up -d
 
 #### Persistence
 
