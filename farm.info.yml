@@ -3,6 +3,9 @@ type: profile
 description: 'A web-based farm record keeping application.'
 core_version_requirement: ^9
 
+# Drupal.org needs this for usage statistics.
+project: farm
+
 # This is automatically set during release packaging.
 version: 2.x
 

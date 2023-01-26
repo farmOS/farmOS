@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - [Add folder creation and clear caches to Configure private filesystem in the Hosting and Environment docs #628](https://github.com/farmOS/farmOS/pull/628)
+- [Issue #3336698: Add "project: farm" to farm.info.yml to fix drupal.org usage statistics](https://www.drupal.org/project/farm/issues/3336698)
 
 ## [2.0.0] 2023-01-01
 
