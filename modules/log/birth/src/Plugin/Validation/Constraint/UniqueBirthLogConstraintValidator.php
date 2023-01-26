@@ -66,8 +66,6 @@ class UniqueBirthLogConstraintValidator extends ConstraintValidator implements C
 
       // Query the number of birth logs that reference the asset.
       // We do not check access to ensure that all matching logs are found.
-      // @todo https://github.com/mglaman/phpstan-drupal/issues/474
-      // @phpstan-ignore-next-line
       $count = $this->entityTypeManager->getStorage('log')->getAggregateQuery()
         ->accessCheck(FALSE)
         ->condition('type', 'birth')
