@@ -30,6 +30,9 @@ class FarmApiTest extends KernelTestBase {
     'consumers',
     'farm_api',
     'farm_api_test',
+    'farm_entity_views',
+    'farm_field',
+    'farm_log_asset',
     'farm_role',
     'farm_role_roles',
     'file',
@@ -42,6 +45,7 @@ class FarmApiTest extends KernelTestBase {
     'state_machine',
     'system',
     'user',
+    'views',
   ];
 
   /**
@@ -53,6 +57,7 @@ class FarmApiTest extends KernelTestBase {
     $this->installEntitySchema('log');
     $this->installConfig([
       'farm_api_test',
+      'farm_entity_views',
       'farm_role_roles',
       'jsonapi',
       'jsonapi_extras',
@@ -110,10 +115,21 @@ class FarmApiTest extends KernelTestBase {
     $log_type = 'log--test';
     $payload = [
       'type' => $log_type,
+      'relationships' => [
+        'asset' => [
+          'data' => [
+            [
+              'id' => $asset_id,
+              'type' => $asset_type,
+            ],
+          ],
+        ],
+      ],
     ];
     $data = $this->apiRequest('/api/log/test', 'POST', $payload);
     $this->assertNotEmpty($data['data']['id']);
     $this->assertEquals($log_type, $data['data']['type']);
+    $this->assertEquals($asset_id, $data['data']['relationships']['asset']['data'][0]['id']);
   }
 
   /**
