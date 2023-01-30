@@ -4,6 +4,7 @@ namespace Drupal\Tests\farm_api\Kernel;
 
 use Drupal\Component\Serialization\Json;
 use Drupal\KernelTests\KernelTestBase;
+use Drupal\Tests\user\Traits\UserCreationTrait;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -14,6 +15,8 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class FarmApiTest extends KernelTestBase {
 
+  use UserCreationTrait;
+
   /**
    * {@inheritdoc}
    */
@@ -23,11 +26,20 @@ class FarmApiTest extends KernelTestBase {
    * {@inheritdoc}
    */
   protected static $modules = [
+    'asset',
+    'consumers',
     'farm_api',
+    'farm_api_test',
+    'farm_role',
+    'farm_role_roles',
+    'file',
+    'image',
     'jsonapi',
     'jsonapi_extras',
+    'log',
     'serialization',
     'simple_oauth',
+    'state_machine',
     'system',
     'user',
   ];
@@ -37,7 +49,11 @@ class FarmApiTest extends KernelTestBase {
    */
   public function setUp(): void {
     parent::setUp();
+    $this->installEntitySchema('asset');
+    $this->installEntitySchema('log');
     $this->installConfig([
+      'farm_api_test',
+      'farm_role_roles',
       'jsonapi',
       'jsonapi_extras',
       'system',
@@ -58,6 +74,10 @@ class FarmApiTest extends KernelTestBase {
     // in Kernel tests (it also does other things we don't need).
     \Drupal::configFactory()->getEditable('jsonapi.settings')->set('read_only', FALSE)->save();
     \Drupal::configFactory()->getEditable('jsonapi_extras.settings')->set('path_prefix', 'api')->save();
+
+    // Set up a user with the farm_manager role.
+    $user = $this->setUpCurrentUser([], [], FALSE);
+    $user->addRole('farm_manager');
   }
 
   /**
@@ -69,6 +89,31 @@ class FarmApiTest extends KernelTestBase {
     $data = $this->apiRequest('/api');
     $this->assertNotEmpty($data['meta']['farm']);
     $this->assertEquals('API Test', $data['meta']['farm']['name']);
+
+    // Test creating an asset.
+    $asset_type = 'asset--test';
+    $payload = [
+      'type' => $asset_type,
+      'attributes' => [
+        'name' => 'Test asset',
+      ],
+    ];
+    $data = $this->apiRequest('/api/asset/test', 'POST', $payload);
+    $this->assertNotEmpty($data['data']['id']);
+    $this->assertEquals($asset_type, $data['data']['type']);
+    $this->assertEquals($payload['attributes']['name'], $data['data']['attributes']['name']);
+
+    // Get the asset ID.
+    $asset_id = $data['data']['id'];
+
+    // Test creating a log that references the asset.
+    $log_type = 'log--test';
+    $payload = [
+      'type' => $log_type,
+    ];
+    $data = $this->apiRequest('/api/log/test', 'POST', $payload);
+    $this->assertNotEmpty($data['data']['id']);
+    $this->assertEquals($log_type, $data['data']['type']);
   }
 
   /**
@@ -78,16 +123,29 @@ class FarmApiTest extends KernelTestBase {
    *   The API endpoint.
    * @param string $method
    *   The request method (eg: GET, POST, PATCH, DELETE).
+   * @param array $payload
+   *   Array of data to send as a payload.
    *
    * @return array
    *   An array of JSON-decoded data returned by the request.
    */
-  protected function apiRequest(string $endpoint, string $method = 'GET') {
+  protected function apiRequest(string $endpoint, string $method = 'GET', array $payload = []) {
     $http_kernel = $this->container->get('http_kernel');
-    $request = Request::create($endpoint, $method);
+    $content = '';
+    if (!empty($payload)) {
+      $content = Json::encode([
+        'data' => $payload,
+      ]);
+    }
+    $request = Request::create($endpoint, $method, [], [], [], [], $content);
     $request->headers->set('Accept', 'application/vnd.api+json');
+    $request->headers->set('Content-Type', 'application/vnd.api+json');
     $response = $http_kernel->handle($request);
-    $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
+    $expected_response = [
+      'GET' => Response::HTTP_OK,
+      'POST' => Response::HTTP_CREATED,
+    ];
+    $this->assertEquals($expected_response[$method], $response->getStatusCode());
     return Json::decode($response->getContent());
   }
 
