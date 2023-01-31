@@ -192,7 +192,7 @@ class AssetGroupActionForm extends ConfirmFormBase {
 
       // Load group assets.
       $groups = [];
-      $group_ids = array_column($form_state->getValue('group', []), 'target_id');
+      $group_ids = array_column($form_state->getValue('group', []) ?? [], 'target_id');
       if (!empty($group_ids)) {
         $groups = $this->entityTypeManager->getStorage('asset')->loadMultiple($group_ids);
       }
