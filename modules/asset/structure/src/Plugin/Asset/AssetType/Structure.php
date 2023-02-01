@@ -27,7 +27,7 @@ class Structure extends FarmAssetType {
       'allowed_values_function' => 'farm_structure_type_field_allowed_values',
       'required' => TRUE,
       'weight' => [
-        'form' => -50,
+        'form' => -90,
         'view' => -50,
       ],
     ];
