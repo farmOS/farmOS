@@ -5,6 +5,7 @@
  * The farmOS UI Menu module.
  */
 
+use Drupal\farm_ui_menu\Menu\DefaultSecondaryLocalTaskProvider;
 use Drupal\farm_ui_menu\Render\Element\FarmAdminToolbar;
 
 /**
@@ -37,4 +38,21 @@ function farm_ui_menu_toolbar_alter(&$items) {
 
   // Override the toolbar tray prerender method to use farm.base root.
   $items['administration']['tray']['toolbar_administration']['#pre_render'] = [[FarmAdminToolbar::class, 'preRenderTray']];
+}
+
+/**
+ * Implements hook_entity_type_build().
+ */
+function farm_ui_menu_entity_type_build(array &$entity_types) {
+
+  // Override the default local task provider to use secondary tasks.
+  $target_entity_types = ['asset', 'data_stream', 'log', 'plan'];
+  foreach ($target_entity_types as $entity_type) {
+    if (isset($entity_types[$entity_type])) {
+
+      $handlers = $entity_types[$entity_type]->getHandlerClasses();
+      $handlers['local_task_provider']['default'] = DefaultSecondaryLocalTaskProvider::class;
+      $entity_types[$entity_type]->setHandlerClass('local_task_provider', $handlers['local_task_provider']);
+    }
+  }
 }

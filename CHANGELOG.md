@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Update farmOS-map to [v2.2.1](https://github.com/farmOS/farmOS-map/releases/tag/v2.2.1)
 - [Remove field links from asset entity browser view #673](https://github.com/farmOS/farmOS/pull/673)
+- [Move default entity tabs to secondary tabs #634](https://github.com/farmOS/farmOS/pull/634)
 
 ### Fixed
 
