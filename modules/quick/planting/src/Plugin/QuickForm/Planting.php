@@ -2,7 +2,6 @@
 
 namespace Drupal\farm_quick_planting\Plugin\QuickForm;
 
-use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
@@ -67,13 +66,6 @@ class Planting extends QuickFormBase {
   protected $state;
 
   /**
-   * The time service.
-   *
-   * @var \Drupal\Component\Datetime\TimeInterface
-   */
-  protected $time;
-
-  /**
    * Constructs a QuickFormBase object.
    *
    * @param array $configuration
@@ -92,17 +84,14 @@ class Planting extends QuickFormBase {
    *   The state service.
    * @param \Drupal\Core\Session\AccountInterface $current_user
    *   Current user object.
-   * @param \Drupal\Component\Datetime\TimeInterface $time
-   *   The time service.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, MessengerInterface $messenger, EntityTypeManagerInterface $entity_type_manager, ModuleHandlerInterface $module_handler, StateInterface $state, AccountInterface $current_user, TimeInterface $time) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, MessengerInterface $messenger, EntityTypeManagerInterface $entity_type_manager, ModuleHandlerInterface $module_handler, StateInterface $state, AccountInterface $current_user) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $messenger);
     $this->messenger = $messenger;
     $this->entityTypeManager = $entity_type_manager;
     $this->moduleHandler = $module_handler;
     $this->state = $state;
     $this->currentUser = $current_user;
-    $this->time = $time;
   }
 
   /**
@@ -118,7 +107,6 @@ class Planting extends QuickFormBase {
       $container->get('module_handler'),
       $container->get('state'),
       $container->get('current_user'),
-      $container->get('datetime.time'),
     );
   }
 
