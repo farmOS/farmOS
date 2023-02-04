@@ -2,6 +2,15 @@ asset_map_popup:
   css:
     theme:
       css/asset_map_popup.css: { }
+datetime:
+  css:
+    theme:
+      css/datetime.css: { }
+  js:
+    js/datetime.js: { }
+  dependencies:
+    - core/drupal
+    - core/once
 flag:
   css:
     theme:

@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Move land and structure type fields higher up for consistency #632](https://github.com/farmOS/farmOS/pull/632)
 - [Change asset action date pickers to use HTML5 calendar widgets #630](https://github.com/farmOS/farmOS/pull/630)
 - [Allow setting time in bulk actions and quick forms via datetime element #635](https://github.com/farmOS/farmOS/pull/635)
+- [Hide datetime time field element by default #637](https://github.com/farmOS/farmOS/pull/637)
 
 ### Fixed
 
