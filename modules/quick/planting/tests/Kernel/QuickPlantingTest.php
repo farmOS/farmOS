@@ -100,6 +100,7 @@ class QuickPlantingTest extends KernelTestBase {
       'farm_quantity_standard',
       'farm_seeding',
       'farm_transplanting',
+      'system',
     ]);
   }
 
@@ -240,7 +241,10 @@ class QuickPlantingTest extends KernelTestBase {
       ],
       'seeding' => [
         'type' => 'seeding',
-        'date' => '2022-05-15',
+        'date' => [
+          'date' => '2022-05-15',
+          'time' => '00:00:00',
+        ],
         'location' => $land1->label(),
         'quantity' => [
           'measure' => 'weight',
@@ -292,21 +296,30 @@ class QuickPlantingTest extends KernelTestBase {
       ],
       'seeding' => [
         'type' => 'seeding',
-        'date' => '2022-05-15',
+        'date' => [
+          'date' => '2022-05-15',
+          'time' => '00:00:00',
+        ],
         'location' => $land1->label(),
         'notes' => [],
         'done' => TRUE,
       ],
       'transplanting' => [
         'type' => 'transplanting',
-        'date' => '2022-06-15',
+        'date' => [
+          'date' => '2022-06-15',
+          'time' => '00:00:00',
+        ],
         'location' => $land2->label(),
         'notes' => [],
         'done' => FALSE,
       ],
       'harvest' => [
         'type' => 'harvest',
-        'date' => '2022-07-15',
+        'date' => [
+          'date' => '2022-07-15',
+          'time' => '00:00:00',
+        ],
         'notes' => [],
         'done' => FALSE,
       ],

@@ -3,6 +3,7 @@
 namespace Drupal\farm_quick_planting\Plugin\QuickForm;
 
 use Drupal\Component\Datetime\TimeInterface;
+use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\FormStateInterface;
@@ -339,9 +340,9 @@ class Planting extends QuickFormBase {
     // Create log fields.
     $field_info = [
       'date' => [
-        '#type' => 'date',
+        '#type' => 'datetime',
         '#title' => $this->t('Date'),
-        '#default_value' => date('Y-m-d', $this->time->getRequestTime()),
+        '#default_value' => new DrupalDateTime('midnight'),
         '#required' => TRUE,
       ],
       'done' => [
@@ -554,7 +555,7 @@ class Planting extends QuickFormBase {
       $this->createLog([
         'type' => $log_type,
         'name' => $log_name,
-        'timestamp' => strtotime($log_values['date']),
+        'timestamp' => $log_values['date']->getTimestamp(),
         'asset' => $plant_asset,
         'quantity' => [$this->prepareQuantity($log_values['quantity'])],
         'location' => $log_values['location'] ?? NULL,

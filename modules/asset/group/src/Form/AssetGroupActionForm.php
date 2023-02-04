@@ -135,11 +135,10 @@ class AssetGroupActionForm extends ConfirmFormBase {
         ->toString());
     }
 
-    $date = new DrupalDateTime();
     $form['date'] = [
-      '#type' => 'date',
+      '#type' => 'datetime',
       '#title' => $this->t('Date'),
-      '#default_value' => date('Y-m-d', $date->getTimestamp()),
+      '#default_value' => new DrupalDateTime('midnight'),
       '#required' => TRUE,
     ];
 
@@ -207,7 +206,7 @@ class AssetGroupActionForm extends ConfirmFormBase {
       $log = Log::create([
         'name' => $log_name,
         'type' => 'observation',
-        'timestamp' => strtotime($form_state->getValue('date')),
+        'timestamp' => $form_state->getValue('date')->getTimestamp(),
         'asset' => $accessible_entities,
         'is_group_assignment' => TRUE,
         'group' => $groups,
