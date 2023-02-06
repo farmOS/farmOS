@@ -130,6 +130,23 @@ class FarmApiTest extends KernelTestBase {
     $this->assertNotEmpty($data['data']['id']);
     $this->assertEquals($log_type, $data['data']['type']);
     $this->assertEquals($asset_id, $data['data']['relationships']['asset']['data'][0]['id']);
+
+    // Get the log ID.
+    $log_id = $data['data']['id'];
+
+    // Test that the asset and log appear in collection endpoints.
+    $data = $this->apiRequest('/api/asset/test');
+    $this->assertCount(1, $data['data']);
+    $this->assertEquals($asset_id, $data['data'][0]['id']);
+    $data = $this->apiRequest('/api/log/test');
+    $this->assertCount(1, $data['data']);
+    $this->assertEquals($log_id, $data['data'][0]['id']);
+
+    // Test retrieving both asset and log individually by UUID.
+    $data = $this->apiRequest('/api/asset/test/' . $asset_id);
+    $this->assertEquals($asset_id, $data['data']['id']);
+    $data = $this->apiRequest('/api/log/test/' . $log_id);
+    $this->assertEquals($log_id, $data['data']['id']);
   }
 
   /**
