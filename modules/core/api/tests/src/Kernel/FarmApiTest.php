@@ -147,6 +147,30 @@ class FarmApiTest extends KernelTestBase {
     $this->assertEquals($asset_id, $data['data']['id']);
     $data = $this->apiRequest('/api/log/test/' . $log_id);
     $this->assertEquals($log_id, $data['data']['id']);
+
+    // Test updating assets and logs.
+    $payload = [
+      'type' => $asset_type,
+      'id' => $asset_id,
+      'attributes' => [
+        'name' => 'Updated asset name',
+      ],
+    ];
+    $data = $this->apiRequest('/api/asset/test/' . $asset_id, 'PATCH', $payload);
+    $this->assertEquals($asset_id, $data['data']['id']);
+    $data = $this->apiRequest('/api/asset/test/' . $asset_id);
+    $this->assertEquals($payload['attributes']['name'], $data['data']['attributes']['name']);
+    $payload = [
+      'type' => $log_type,
+      'id' => $log_id,
+      'attributes' => [
+        'name' => 'Updated log name',
+      ],
+    ];
+    $data = $this->apiRequest('/api/log/test/' . $log_id, 'PATCH', $payload);
+    $this->assertEquals($log_id, $data['data']['id']);
+    $data = $this->apiRequest('/api/log/test/' . $log_id);
+    $this->assertEquals($payload['attributes']['name'], $data['data']['attributes']['name']);
   }
 
   /**
@@ -177,6 +201,7 @@ class FarmApiTest extends KernelTestBase {
     $expected_response = [
       'GET' => Response::HTTP_OK,
       'POST' => Response::HTTP_CREATED,
+      'PATCH' => Response::HTTP_OK,
     ];
     $this->assertEquals($expected_response[$method], $response->getStatusCode());
     return Json::decode($response->getContent());
