@@ -29,6 +29,8 @@ use Psr\Container\ContainerInterface;
  *     "create plant asset",
  *   }
  * )
+ *
+ * @internal
  */
 class Planting extends QuickFormBase {
 
