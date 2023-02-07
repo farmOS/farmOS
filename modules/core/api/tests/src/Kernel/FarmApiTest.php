@@ -171,6 +171,14 @@ class FarmApiTest extends KernelTestBase {
     $this->assertEquals($log_id, $data['data']['id']);
     $data = $this->apiRequest('/api/log/test/' . $log_id);
     $this->assertEquals($payload['attributes']['name'], $data['data']['attributes']['name']);
+
+    // Test deleting logs and assets.
+    $this->apiRequest('/api/log/test/' . $log_id, 'DELETE');
+    $data = $this->apiRequest('/api/log/test');
+    $this->assertCount(0, $data['data']);
+    $data = $this->apiRequest('/api/asset/test/' . $asset_id, 'DELETE');
+    $data = $this->apiRequest('/api/asset/test');
+    $this->assertCount(0, $data['data']);
   }
 
   /**
@@ -202,6 +210,7 @@ class FarmApiTest extends KernelTestBase {
       'GET' => Response::HTTP_OK,
       'POST' => Response::HTTP_CREATED,
       'PATCH' => Response::HTTP_OK,
+      'DELETE' => Response::HTTP_NO_CONTENT,
     ];
     $this->assertEquals($expected_response[$method], $response->getStatusCode());
     return Json::decode($response->getContent());
