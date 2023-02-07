@@ -28,8 +28,10 @@ class FarmApiTest extends KernelTestBase {
   protected static $modules = [
     'asset',
     'consumers',
+    'entity',
     'farm_api',
     'farm_api_test',
+    'farm_entity',
     'farm_entity_views',
     'farm_field',
     'farm_log_asset',
