@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- [Add farmOS API kernel tests #638](https://github.com/farmOS/farmOS/pull/638)
+
 ### Changed
 
 - [Move land and structure type fields higher up for consistency #632](https://github.com/farmOS/farmOS/pull/632)

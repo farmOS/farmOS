@@ -1,0 +1,8 @@
+name: farmOS API Tests
+description: 'Support module for farmOS API testing.'
+type: module
+package: Testing
+core_version_requirement: ^9
+dependencies:
+  - farm:asset
+  - log:log
