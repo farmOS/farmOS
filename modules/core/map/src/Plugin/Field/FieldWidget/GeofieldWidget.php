@@ -203,6 +203,16 @@ class GeofieldWidget extends GeofieldBaseWidget {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
+    foreach ($values as $delta => $value) {
+      $values[$delta]['value'] = $this->geofieldBackendValue($value['value']);
+    }
+    return $values;
+  }
+
+  /**
    * Submit function to parse geometries from uploaded files.
    *
    * @param array $form

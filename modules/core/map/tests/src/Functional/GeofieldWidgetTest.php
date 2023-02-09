@@ -105,6 +105,31 @@ class GeofieldWidgetTest extends FieldTestBase {
     ];
     $this->submitForm($edit, 'Save');
     $this->assertFieldValues($entity, 'geofield_field', ['POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))']);
+
+    // Test a valid GeoJSON value.
+    $edit = [
+      'name[0][value]' => 'Dinagat Islands',
+      'geofield_field[0][value]' => '{
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [125.6, 10.1]
+  },
+  "properties": {
+    "name": "Dinagat Islands"
+  }
+}',
+    ];
+    $this->submitForm($edit, 'Save');
+    $this->assertFieldValues($entity, 'geofield_field', ['POINT (125.6 10.1)']);
+
+    // Test a valid WKB value.
+    $edit = [
+      'name[0][value]' => 'Arnedo',
+      'geofield_field[0][value]' => '0101000020E6100000705F07CE19D100C0865AD3BCE31C4540',
+    ];
+    $this->submitForm($edit, 'Save');
+    $this->assertFieldValues($entity, 'geofield_field', ['POINT (-2.1021 42.2257)']);
   }
 
 }
