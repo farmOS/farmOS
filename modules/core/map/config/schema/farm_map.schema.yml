@@ -67,7 +67,10 @@ field.widget.settings.farm_map_geofield:
   type: mapping
   label: 'Farm map geofield settings'
   mapping:
-    geocode_file_field:
+    display_raw_geometry:
+      type: boolean
+      label: 'Whether or not to display the raw geometry field underneath map.'
+    populate_file_field:
       type: string
       label: 'The name of the file field to geocode into the geofield.'
 block.settings.map_block:
