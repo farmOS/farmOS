@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - [Convert geometry values to WKT in GeofieldWidget #640](https://github.com/farmOS/farmOS/pull/640)
+- [Fix map ui being unreadable on dark mode #642](https://github.com/farmOS/farmOS/pull/642)
 
 ## [2.0.1] 2023-02-08
 

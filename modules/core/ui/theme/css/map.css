@@ -17,3 +17,15 @@ buttons from covering up the :focus box-shadow. A position is required. */
   box-shadow: 0 0 0 2px var(--colorGinLayerBackground), 0 0 0 4px var(--colorGinFocus);
   -webkit-box-shadow: 0 0 0 2px var(--colorGinLayerBackground), 0 0 0 4px var(--colorGinFocus);
 }
+
+/* Adjust map ui elements background colors for the Gin theme dark mode. */
+.gin--dark-mode .farm-map .ol-control,
+.gin--dark-mode .farm-map .ol-scale-line {
+  background-color: rgba(var(--gin-bg-app-rgb), .25);
+}
+.gin--dark-mode .farm-map .ol-control:hover {
+  background-color: rgba(var(--gin-bg-app-rgb), .6);
+}
+.gin--dark-mode .farm-map .ol-control button {
+  background-color: rgba(var(--gin-bg-app-rgb), .8);
+}
