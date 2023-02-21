@@ -51,7 +51,7 @@ function farm_ui_theme_preprocess_toolbar(&$variables) {
  */
 function farm_ui_theme_preprocess_datetime_form(&$variables) {
   if (isset($variables['element']['#toggle_time']) && $variables['element']['#toggle_time'] === TRUE) {
-    $variables['#attached']['library'][] = 'farm_ui_theme/datetime';
+    $variables['#attached']['library'][] = 'farm_ui_theme/datetime_toggle';
     $variables['attributes']['data-farm-toggle-time'] = 'hide';
   }
 }
