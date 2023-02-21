@@ -7,7 +7,7 @@
     addShowTimeButton: function (wrapper) {
       var link = document.createElement('a');
       link.href = 'javascript: void(0)';
-      link.innerHTML = 'Show time';
+      link.innerHTML = Drupal.t('Show time');
       link.classList.add('toggle-time');
       link.addEventListener('click', Drupal.behaviors.farm_ui_datetime.showTime);
       wrapper.querySelector('.form-type--date').appendChild(link);
