@@ -140,6 +140,7 @@ class AssetGroupActionForm extends ConfirmFormBase {
       '#title' => $this->t('Date'),
       '#default_value' => new DrupalDateTime('midnight'),
       '#required' => TRUE,
+      '#toggle_time' => TRUE,
     ];
 
     $form['group'] = [
