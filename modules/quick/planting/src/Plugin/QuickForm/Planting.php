@@ -344,6 +344,7 @@ class Planting extends QuickFormBase {
         '#title' => $this->t('Date'),
         '#default_value' => new DrupalDateTime('midnight'),
         '#required' => TRUE,
+        '#toggle_time' => TRUE,
       ],
       'done' => [
         '#type' => 'checkbox',
