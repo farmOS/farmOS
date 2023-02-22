@@ -818,6 +818,9 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
     // Build form and view display settings.
     $field->setDisplayOptions('form', [
       'type' => 'datetime_timestamp_optional',
+      'settings' => [
+        'toggle_time' => TRUE,
+      ],
       'weight' => $options['weight']['form'] ?? 0,
     ]);
     $field->setDisplayOptions('view', [
