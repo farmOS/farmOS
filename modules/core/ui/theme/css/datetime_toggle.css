@@ -1,0 +1,9 @@
+/* Hide time input elements. */
+div[data-farm-toggle-time="hide"] input.form-time {
+  display: none;
+}
+
+/* Font size for toggle time text. */
+div[data-farm-toggle-time] a.toggle-time {
+  font-size: small;
+}

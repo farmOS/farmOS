@@ -47,6 +47,16 @@ function farm_ui_theme_preprocess_toolbar(&$variables) {
 }
 
 /**
+ * Implements hook_preprocess_HOOK().
+ */
+function farm_ui_theme_preprocess_datetime_form(&$variables) {
+  if (isset($variables['element']['#toggle_time']) && $variables['element']['#toggle_time'] === TRUE) {
+    $variables['#attached']['library'][] = 'farm_ui_theme/datetime_toggle';
+    $variables['attributes']['data-farm-toggle-time'] = 'hide';
+  }
+}
+
+/**
  * Implements hook_block_view_BASE_BLOCK_ID_alter().
  */
 function farm_ui_theme_block_view_farm_powered_by_block_alter(array &$build, BlockPluginInterface $block) {

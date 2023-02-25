@@ -17,3 +17,11 @@ field.formatter.settings.hideable_boolean:
     hide_if_true:
       type: boolean
       label: 'Hide if true'
+
+# Schema for datetime_timestamp_optional field widget.
+field.widget.settings.datetimte_timestamp_optional:
+  type: mapping
+  mapping:
+    toggle_time:
+      type: boolean
+      label: 'Toggle time'

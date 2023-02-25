@@ -2,6 +2,15 @@ asset_map_popup:
   css:
     theme:
       css/asset_map_popup.css: { }
+datetime_toggle:
+  css:
+    theme:
+      css/datetime_toggle.css: { }
+  js:
+    js/datetime_toggle.js: { }
+  dependencies:
+    - core/drupal
+    - core/once
 flag:
   css:
     theme:
