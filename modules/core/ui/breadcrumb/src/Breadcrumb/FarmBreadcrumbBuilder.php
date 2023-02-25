@@ -17,6 +17,18 @@ class FarmBreadcrumbBuilder extends PathBasedBreadcrumbBuilder {
   /**
    * {@inheritdoc}
    */
+  public function applies(RouteMatchInterface $route_match) {
+    $routes = [
+      'entity.asset.canonical',
+      'entity.log.canonical',
+      'entity.plan.canonical',
+    ];
+    return in_array($route_match->getRouteName(), $routes);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function build(RouteMatchInterface $route_match) {
     $breadcrumb = parent::build($route_match);
 
