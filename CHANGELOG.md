@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - [Add farmOS API kernel tests #638](https://github.com/farmOS/farmOS/pull/638)
+- [Add breadcrumb on canonical user page to people page](https://github.com/farmOS/farmOS/pull/644)
 
 ### Changed
 

@@ -22,6 +22,7 @@ class FarmBreadcrumbBuilder extends PathBasedBreadcrumbBuilder {
       'entity.asset.canonical',
       'entity.log.canonical',
       'entity.plan.canonical',
+      'entity.user.canonical',
     ];
     return in_array($route_match->getRouteName(), $routes);
   }
@@ -65,6 +66,11 @@ class FarmBreadcrumbBuilder extends PathBasedBreadcrumbBuilder {
         $breadcrumb->addCacheableDependency($plan);
         $breadcrumb->addLink(Link::createFromRoute($this->t('Plans'), 'view.farm_plan.page'));
         $breadcrumb->addLink(Link::createFromRoute($plan->getBundleLabel(), 'view.farm_plan.page_type', ['arg_0' => $plan->bundle()]));
+        break;
+
+      // User pages.
+      case 'entity.user.canonical':
+        $breadcrumb->addLink(Link::createFromRoute($this->t('People'), 'view.farm_people.page'));
         break;
     }
 
