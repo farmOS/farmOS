@@ -2,7 +2,9 @@
 
 These instructions are for installing farmOS on a live production server.
 For local development/testing, please refer to the
-[development environment](/development/environment) documentation.
+[development environment](/development/environment)
+documentation. Find the latest farmOS version on the
+[GitHub release page](https://github.com/farmOS/farmOS/releases).
 
 ## Server requirements
 
