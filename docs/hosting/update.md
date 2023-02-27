@@ -4,7 +4,8 @@
 
 New versions of farmOS are released on a regular basis, and it's important to
 stay up-to-date so that you can receive new features, bug fixes, and security
-patches when they become available.
+patches when they become available. Find the latest farmOS version on the
+[GitHub release page](https://github.com/farmOS/farmOS/releases).
 
 ## Update procedure
 
