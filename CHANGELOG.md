@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Convert geometry values to WKT in GeofieldWidget #640](https://github.com/farmOS/farmOS/pull/640)
 - [Fix map ui being unreadable on dark mode #642](https://github.com/farmOS/farmOS/pull/642)
+- Patch Drupal core to fix [Issue #3266341: Views pagers do math on disparate data types, resulting in type errors in PHP 8](https://www.drupal.org/project/drupal/issues/3266341)
 
 ## [2.0.1] 2023-02-08
 
