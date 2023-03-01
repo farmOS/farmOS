@@ -59,6 +59,7 @@ nav:
     - Introduction: hosting/index.md
     - Installing: hosting/install.md
     - Updating: hosting/update.md
+    - Composer: hosting/composer.md
     - Email: hosting/email.md
     - Translations: hosting/localization.md
     - 1.x Migration: hosting/migration.md

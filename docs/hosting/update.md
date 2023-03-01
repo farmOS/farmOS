@@ -18,7 +18,9 @@ patches when they become available. Find the latest farmOS version on the
 2. **Update the farmOS codebase.** This will depend on how you have deployed
    farmOS. See [Updating via Docker](#updating-via-docker) or
    [Updating via packaged releases](#updating-via-packaged-releases) below for
-   specific instructions.
+   specific instructions. If you are building a custom farmOS codebase with
+   Composer see
+   [Updating dependencies](/hosting/composer#updating-dependencies).
 3. **Run automated updates.** Navigate to `https://[hostname]/update.php` in
    your browser and follow the steps to run automated updates. It is important
    to do this before using the new version of farmOS to ensure that any

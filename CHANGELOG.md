@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- [Document building farmOS with Composer #648](https://github.com/farmOS/farmOS/pull/648)
+
 ### Fixed
 
 - [Convert geometry values to WKT in GeofieldWidget #640](https://github.com/farmOS/farmOS/pull/640)

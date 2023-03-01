@@ -79,6 +79,10 @@ There are two supported approaches to deploying the farmOS codebase:
 Docker is the recommended method of hosting farmOS because it encapsulates the
 server level dependencies that farmOS needs.
 
+If you need to build a more customized farmOS codebase, including modules
+provided by the community, or custom modules written by yourself, see
+[Building farmOS with Composer](/hosting/composer).
+
 ### farmOS in Docker
 
 Official farmOS Docker images are available on Docker Hub:
