@@ -93,4 +93,4 @@ of farmOS as soon as possible, and if the vulnerabilities affect farmOS
 directly a new version will be tagged and released. Many vulnerabilities are
 mitigated by the fact that farmOS is only accessible to users with a login.
 In those cases the maintainers may deem a release unnecessary. This message can
-disabled by uninstalling the "Update Manager" module.
+be disabled by uninstalling the "Update Manager" module.
