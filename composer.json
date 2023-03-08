@@ -28,7 +28,7 @@
         "drupal/entity_reference_integrity": "^1.1",
         "drupal/entity_reference_revisions": "1.10",
         "drupal/entity_reference_validators": "^1.0@beta",
-        "drupal/exif_orientation": "^1.1",
+        "drupal/exif_orientation": "^1.2",
         "drupal/fraction": "^2.3.1",
         "drupal/geofield": "^1.40",
         "drupal/gin": "^3.0@rc",
