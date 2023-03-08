@@ -2,7 +2,8 @@
 
 These instructions are for installing farmOS on a live production server.
 For local development/testing, please refer to the
-[development environment](/development/environment) documentation.
+[development environment](/development/environment)
+documentation.
 
 ## Server requirements
 
@@ -87,6 +88,11 @@ This allows farmOS to be run in a Docker container with:
 
     docker pull farmos/farmos:2.x.y
     docker run --rm -p 80:80 -v "${PWD}/sites:/opt/drupal/web/sites" farmos/farmos:2.x.y
+
+Replace `2.x.y` with the desired version. Find the latest farmOS version on the
+[GitHub release page](https://github.com/farmOS/farmOS/releases). Using the
+`latest` Docker tag is not recommended, because updates require manual steps.
+See [Updating farmOS](/hosting/update) for more info.
 
 This will pull the farmOS Docker image, provision a farmOS web server container
 listening on port 80, and bind-mount a `sites` directory into the container for
