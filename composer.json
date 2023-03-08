@@ -19,7 +19,7 @@
         "cweagans/composer-patches": "^1.6",
         "drupal/admin_toolbar": "^3.3",
         "drupal/core": "10.0.4",
-        "drupal/config_update": "^1.7",
+        "drupal/config_update": "^2.0@alpha",
         "drupal/consumers": "^1.15",
         "drupal/csv_serialization": "^2.0",
         "drupal/date_popup": "^1.3",
