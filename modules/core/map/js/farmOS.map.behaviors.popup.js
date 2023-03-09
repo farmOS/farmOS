@@ -17,7 +17,15 @@
       // Create a popup and add it to the instance for future reference.
       instance.popup = instance.addPopup(function (event) {
         var content = '';
-        var feature = instance.map.forEachFeatureAtPixel(event.pixel, function(feature, layer) { return feature; });
+
+        // Get all features at the point that was clicked and sort them by area from smallest to largest.
+        // @todo GeometryCollections have an area of 0, which can cause some undesirable behavior.
+        var clickedFeatures = instance.map.getFeaturesAtPixel(event.pixel);
+        const sortValue = feature => typeof feature.getGeometry().getArea === 'function' ? feature.getGeometry().getArea() : 0;
+        clickedFeatures.sort((a,b) => sortValue(a) - sortValue(b))
+
+        // Get the first clicked feature.
+        var feature = clickedFeatures[0];
         if (feature) {
 
           // If the feature is a cluster, then create a list of names and add it
