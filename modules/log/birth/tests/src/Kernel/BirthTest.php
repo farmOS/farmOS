@@ -75,7 +75,7 @@ class BirthTest extends KernelTestBase {
     $cow->save();
 
     // Create a mother animal asset.
-    /** @var \Drupal\asset\Entity\AssetInterface $animal */
+    /** @var \Drupal\asset\Entity\AssetInterface $mother */
     $mother = Asset::create([
       'name' => $this->randomMachineName(),
       'type' => 'animal',
@@ -85,7 +85,7 @@ class BirthTest extends KernelTestBase {
     $mother->save();
 
     // Create 2 children animal assets.
-    /** @var \Drupal\asset\Entity\AssetInterface $animal */
+    /** @var \Drupal\asset\Entity\AssetInterface $child1 */
     $child1 = Asset::create([
       'name' => $this->randomMachineName(),
       'type' => 'animal',
@@ -93,7 +93,7 @@ class BirthTest extends KernelTestBase {
       'status' => 'active',
     ]);
     $child1->save();
-    /** @var \Drupal\asset\Entity\AssetInterface $animal */
+    /** @var \Drupal\asset\Entity\AssetInterface $child2 */
     $child2 = Asset::create([
       'name' => $this->randomMachineName(),
       'type' => 'animal',
@@ -151,7 +151,7 @@ class BirthTest extends KernelTestBase {
     $cow->save();
 
     // Create an asset.
-    /** @var \Drupal\asset\Entity\AssetInterface $animal */
+    /** @var \Drupal\asset\Entity\AssetInterface $asset */
     $asset = Asset::create([
       'name' => $this->randomMachineName(),
       'type' => 'animal',
