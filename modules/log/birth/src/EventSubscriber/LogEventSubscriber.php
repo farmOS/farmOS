@@ -93,22 +93,11 @@ class LogEventSubscriber implements EventSubscriberInterface {
         $save = TRUE;
       }
 
-      // If a mother is specified, make sure that it is linked as one of the
-      // child's parents.
+      // If a mother is specified, and the child does not have any parents,
+      // add the mother to the child's parent reference field.
       if (!empty($mother)) {
-
-        // Iterate through the child's parents to see if the mother is linked.
-        $mother_linked = FALSE;
         $parents = $child->get('parent')->referencedEntities();
-        foreach ($parents as $parent) {
-          if ($parent->id() == $mother->id()) {
-            $mother_linked = TRUE;
-            break;
-          }
-        }
-
-        // Link to the mother, if not already.
-        if (!$mother_linked) {
+        if (empty($parents)) {
           $args = [
             ':mother_url' => $mother->toUrl()->toString(),
             '%mother_name' => $mother->label(),

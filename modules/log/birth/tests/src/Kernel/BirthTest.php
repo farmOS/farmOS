@@ -135,6 +135,36 @@ class BirthTest extends KernelTestBase {
     $this->assertEquals($mother->id(), $child2->get('parent')->referencedEntities()[0]->id());
     $this->assertEquals($timestamp, $child1->get('birthdate')->value);
     $this->assertEquals($timestamp, $child2->get('birthdate')->value);
+
+    // Create another mother animal asset.
+    /** @var \Drupal\asset\Entity\AssetInterface $mother2 */
+    $mother2 = Asset::create([
+      'name' => $this->randomMachineName(),
+      'type' => 'animal',
+      'animal_type' => ['tid' => $cow->id()],
+      'status' => 'active',
+    ]);
+    $mother2->save();
+
+    // Create a birth log that references the second mother and one of the
+    // original children.
+    $log = Log::create([
+      'type' => 'birth',
+      'timestamp' => $timestamp,
+      'mother' => ['target_id' => $mother2->id()],
+      'asset' => [
+        ['target_id' => $child1->id()],
+      ],
+    ]);
+    $log->save();
+
+    // Reload the first child asset.
+    $child1 = Asset::load($child1->id());
+
+    // Confirm that the child's parent has NOT changed to the new mother. If a
+    // child already has parents they should not be changed.
+    $this->assertNotEmpty($child1->get('parent')->referencedEntities());
+    $this->assertNotEquals($mother2->id(), $child1->get('parent')->referencedEntities()[0]->id());
   }
 
   /**

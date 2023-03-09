@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Add "Speed" to the list of quantity measures #658](https://github.com/farmOS/farmOS/pull/658)
 
+### Changed
+
+- [Do not add birth log mother to animal assets that already have parents #655](https://github.com/farmOS/farmOS/pull/655)
+
 ### Fixed
 
 - [Fix quick form toolbar menu links #657](https://github.com/farmOS/farmOS/pull/657)
