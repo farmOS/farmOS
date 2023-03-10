@@ -356,18 +356,14 @@ class Planting extends QuickFormBase {
         '#required' => TRUE,
       ],
       'quantity' => [
-        '#type' => 'details',
-        '#title' => $this->t('Quantity'),
-        '#open' => FALSE,
-        'measure' => [
-          '#type' => 'select',
-          '#title' => $this->t('Measure'),
-          '#options' => $filtered_quantity_measure_options,
-          '#default_value' => 'weight',
+        '#type' => 'container',
+        '#attributes' => [
+          'class' => ['inline'],
         ],
         'value' => [
           '#type' => 'textfield',
-          '#title' => $this->t('Value'),
+          '#title' => $this->t('Quantity'),
+          '#size' => 16,
         ],
         'units' => [
           '#type' => 'entity_autocomplete',
@@ -379,6 +375,13 @@ class Planting extends QuickFormBase {
           '#autocreate' => [
             'bundle' => 'unit',
           ],
+          '#size' => 16,
+        ],
+        'measure' => [
+          '#type' => 'select',
+          '#title' => $this->t('Measure'),
+          '#options' => $filtered_quantity_measure_options,
+          '#default_value' => 'weight',
         ],
       ],
       'notes' => [
