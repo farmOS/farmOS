@@ -7,12 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- [Create a QuickFormTestBase class that other quick form tests can extend from #650](https://github.com/farmOS/farmOS/pull/650)
+
 ## [2.0.2] 2023-03-10
 
 ### Added
 
 - [Document building farmOS with Composer #648](https://github.com/farmOS/farmOS/pull/648)
-- [Create a QuickFormTestBase class that other quick form tests can extend from #650](https://github.com/farmOS/farmOS/pull/650)
 
 ### Fixed
 
