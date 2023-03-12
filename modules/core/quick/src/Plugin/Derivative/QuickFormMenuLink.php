@@ -61,7 +61,7 @@ class QuickFormMenuLink extends DeriverBase implements ContainerDeriverInterface
       $route_id = 'farm.quick.' . $quick_form['id'];
       $links[$route_id] = [
         'title' => $quick_form['label'],
-        'parent' => 'farm.quick',
+        'parent' => 'farm.quick:farm.quick',
         'route_name' => $route_id,
       ] + $base_plugin_definition;
     }

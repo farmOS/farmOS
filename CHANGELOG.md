@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Add "Speed" to the list of quantity measures #658](https://github.com/farmOS/farmOS/pull/658)
 
+### Fixed
+
+- [Fix quick form toolbar menu links #657](https://github.com/farmOS/farmOS/pull/657)
+
 ## [2.0.3] 2023-03-15
 
 ### Added
