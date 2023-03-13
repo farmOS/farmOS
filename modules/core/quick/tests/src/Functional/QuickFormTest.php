@@ -44,6 +44,10 @@ class QuickFormTest extends FarmBrowserTestBase {
     $this->assertSession()->statusCodeEquals(200);
     $this->assertSession()->pageTextContains($this->t('You do not have any quick forms.'));
 
+    // Go to the test quick form and confirm that access is denied.
+    $this->drupalGet('quick/test');
+    $this->assertSession()->statusCodeEquals(403);
+
     // Create and login a test user with access to the quick form index, and
     // permission to create test logs.
     $user = $this->createUser(['view quick forms index', 'create test log']);
