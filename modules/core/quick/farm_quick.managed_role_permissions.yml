@@ -1,3 +1,5 @@
 farm_quick:
+  config_permissions:
+    - configure quick forms
   default_permissions:
     - view quick forms index

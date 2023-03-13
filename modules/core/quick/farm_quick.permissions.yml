@@ -1,2 +1,4 @@
 view quick forms index:
   title: 'View quick forms index'
+configure quick forms:
+  title: 'Configure quick forms'
