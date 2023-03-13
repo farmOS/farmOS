@@ -3,6 +3,7 @@
 namespace Drupal\Tests\farm_quick\Kernel;
 
 use Drupal\Core\Form\FormState;
+use Drupal\farm_quick\Form\ConfigureQuickForm;
 use Drupal\KernelTests\KernelTestBase;
 
 /**
@@ -65,14 +66,34 @@ class QuickFormTest extends KernelTestBase {
     /** @var \Drupal\farm_quick\Entity\QuickFormInstanceInterface[] $quick_forms */
     $quick_forms = $this->quickFormInstanceManager->getInstances();
 
-    // Confirm that one quick form was discovered.
-    $this->assertEquals(1, count($quick_forms));
+    // Confirm that three quick forms were discovered.
+    $this->assertEquals(3, count($quick_forms));
 
-    // Confirm the label, description, helpText, and permissions.
+    // Confirm the label, description, helpText, and permissions of the test
+    // quick form.
     $this->assertEquals('Test quick form', $quick_forms['test']->getLabel());
     $this->assertEquals('Test quick form description.', $quick_forms['test']->getDescription());
     $this->assertEquals('Test quick form help text.', $quick_forms['test']->getHelpText());
     $this->assertEquals(['create test log'], $quick_forms['test']->getPlugin()->getPermissions());
+
+    // Confirm the label, description, helpText, and permissions of the
+    // configurable_test quick form.
+    $this->assertEquals('Test configurable quick form', $quick_forms['configurable_test']->getLabel());
+    $this->assertEquals('Test configurable quick form description.', $quick_forms['configurable_test']->getDescription());
+    $this->assertEquals('Test configurable quick form help text.', $quick_forms['configurable_test']->getHelpText());
+    $this->assertEquals(['create test log'], $quick_forms['configurable_test']->getPlugin()->getPermissions());
+
+    // Confirm default configuration.
+    $this->assertEquals(['test_default' => 100], $quick_forms['configurable_test']->getPlugin()->defaultConfiguration());
+
+    // Confirm overridden label, description, and helpText of the
+    // configurable_test2 quick form.
+    $this->assertEquals('Test configurable quick form 2', $quick_forms['configurable_test2']->getLabel());
+    $this->assertEquals('Overridden description', $quick_forms['configurable_test2']->getDescription());
+    $this->assertEquals('Overridden help text', $quick_forms['configurable_test2']->getHelpText());
+
+    // Confirm configuration of configurable_test2 quick form.
+    $this->assertEquals(['test_default' => 500], $quick_forms['configurable_test2']->getPlugin()->getConfiguration());
   }
 
   /**
@@ -117,6 +138,43 @@ class QuickFormTest extends KernelTestBase {
     // Confirm that the second and third terms have the same ID.
     $match = $storage['terms'][1]->id() == $storage['terms'][2]->id();
     $this->assertTrue($match);
+  }
+
+  /**
+   * Test configurable quick forms.
+   */
+  public function testConfigurableQuickForm() {
+
+    // Load the configurable_test quick form.
+    /** @var \Drupal\farm_quick\Entity\QuickFormInstanceInterface $quick_form */
+    $quick_form = \Drupal::service('quick_form.instance_manager')->getInstance('configurable_test');
+
+    // Confirm that the config entity for this quick form has not been saved.
+    $this->assertTrue($quick_form->isNew());
+
+    // Programmatically submit the configurable_test config form.
+    $form = ConfigureQuickForm::create(\Drupal::getContainer());
+    $form->setModuleHandler(\Drupal::moduleHandler());
+    $form->setEntity($quick_form);
+    $form_state = (new FormState())->setValues([
+      'settings' => [
+        'test_default' => '101',
+      ],
+    ]);
+    $form_state->setTriggeringElement(\Drupal::formBuilder()->getForm($form)['actions']['submit']);
+    \Drupal::formBuilder()->submitForm($form, $form_state);
+
+    // Reload the configurable_test quick form.
+    /** @var \Drupal\farm_quick\Entity\QuickFormInstanceInterface $quick_form */
+    $quick_form = \Drupal::service('quick_form.instance_manager')->getInstance('configurable_test');
+
+    // Confirm that a config entity was saved with all the proper defaults and
+    // the submitted configuration value.
+    $this->assertNotTrue($quick_form->isNew());
+    $this->assertEquals($quick_form->getPlugin()->getLabel(), $quick_form->get('label'));
+    $this->assertEquals($quick_form->getPlugin()->getDescription(), $quick_form->get('description'));
+    $this->assertEquals($quick_form->getPlugin()->getHelpText(), $quick_form->get('helpText'));
+    $this->assertEquals('101', $quick_form->get('settings')['test_default']);
   }
 
 }
