@@ -60,8 +60,12 @@ class QuickForm extends FormBase implements BaseFormIdInterface {
    * {@inheritdoc}
    */
   public function getFormId() {
+    $form_id = $this->getBaseFormId();
     $id = $this->getRouteMatch()->getParameter('id');
-    return $this->getBaseFormId() . "_$id";
+    if (!is_null($id)) {
+      $form_id .= '_' . $this->quickFormManager->createInstance($id)->getFormId();
+    }
+    return $form_id;
   }
 
   /**
