@@ -3,6 +3,7 @@
 namespace Drupal\farm_quick\Routing;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+use Drupal\farm_quick\Form\ConfigureQuickForm;
 use Drupal\farm_quick\Form\QuickForm;
 use Drupal\farm_quick\QuickFormInstanceManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -51,6 +52,8 @@ class QuickFormRoutes implements ContainerInjectionInterface {
     /** @var \Drupal\farm_quick\Entity\QuickFormInstanceInterface[] $quick_forms */
     $quick_forms = $this->quickFormInstanceManager->getInstances();
     foreach ($quick_forms as $id => $quick_form) {
+
+      // Build a route for the quick form.
       $route = new Route(
         "/quick/$id",
         [
@@ -63,6 +66,23 @@ class QuickFormRoutes implements ContainerInjectionInterface {
         ],
       );
       $route_collection->add("farm.quick.$id", $route);
+
+      // If the quick form is configurable, build a route for the configuration
+      // form.
+      if ($quick_form->getPlugin()->isConfigurable()) {
+        $route = new Route(
+          "/quick/$id/configure",
+          [
+            '_form' => ConfigureQuickForm::class,
+            '_title_callback' => ConfigureQuickForm::class . '::getTitle',
+            'id' => $id,
+          ],
+          [
+            '_custom_access' => ConfigureQuickForm::class . '::access',
+          ],
+        );
+        $route_collection->add("farm.quick.$id.configure", $route);
+      }
     }
     return $route_collection;
   }
