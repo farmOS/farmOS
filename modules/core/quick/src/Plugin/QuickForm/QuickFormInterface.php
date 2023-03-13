@@ -2,14 +2,13 @@
 
 namespace Drupal\farm_quick\Plugin\QuickForm;
 
-use Drupal\Component\Plugin\PluginInspectionInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
 
 /**
  * Interface for quick forms.
  */
-interface QuickFormInterface extends PluginInspectionInterface {
+interface QuickFormInterface {
 
   /**
    * Returns the quick form ID.
