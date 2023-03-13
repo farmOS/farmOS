@@ -1,0 +1,2 @@
+farm.quick:
+  deriver: Drupal\farm_quick\Plugin\Derivative\QuickFormTaskLink
