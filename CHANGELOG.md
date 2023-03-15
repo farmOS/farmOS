@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Create a QuickFormTestBase class that other quick form tests can extend from #650](https://github.com/farmOS/farmOS/pull/650)
 
+### Security
+
+- Update Drupal core to 9.5.5 for [SA-CORE-2023-002](https://www.drupal.org/sa-core-2023-002),
+  [SA-CORE-2023-003](https://www.drupal.org/sa-core-2023-003), and [SA-CORE-2023-004](https://www.drupal.org/sa-core-2023-004).
+
 ## [2.0.2] 2023-03-10
 
 ### Added
