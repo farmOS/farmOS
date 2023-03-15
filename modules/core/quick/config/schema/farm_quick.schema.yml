@@ -1,0 +1,25 @@
+# Schema for quick form instance configuration entities.
+farm_quick.quick_form.*:
+  type: config_entity
+  label: 'Quick form instance'
+  mapping:
+    id:
+      type: string
+      label: 'Machine-readable name'
+    plugin:
+      type: string
+      label: 'Plugin'
+    label:
+      type: label
+      label: 'Label'
+    description:
+      type: text
+      label: 'Description'
+    helpText:
+      type: text
+      label: 'Help text'
+    settings:
+      type: farm_quick.settings.[%parent.plugin]
+
+farm_quick.settings.*:
+  type: quick_form_settings
