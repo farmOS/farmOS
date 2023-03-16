@@ -152,7 +152,7 @@ jobs:
       - name: Create artifact
         run: cd /tmp && tar -czf farmOS-${FARMOS_VERSION}.tar.gz farmOS
       - name: Create GitHub release
-        uses: softprops/action-gh-release@6034af24fba4e5a8e975aaa6056554efe4c794d0 #0.1.13
+        uses: softprops/action-gh-release@de2c0eb89ae2a093876385947365aca7b0e5f844 #0.1.15
         with:
           body: |
             For full release notes, see [CHANGELOG.md](https://github.com/farmOS/farmOS/blob/${{ env.FARMOS_VERSION }}/CHANGELOG.md).
