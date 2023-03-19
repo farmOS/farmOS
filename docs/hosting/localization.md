@@ -2,7 +2,7 @@
 
 This describes how to enable translations in farmOS.
 
-1. Enable the **farmOS Localization** (`farm_l10n1`) module.
+1. Enable the **farmOS Localization** (`farm_l10n`) module.
 2. Add your desired language and download translations.
     1. Go to Administration > Configuration > Regional and language > Languages.
     2. Click "Add language"
