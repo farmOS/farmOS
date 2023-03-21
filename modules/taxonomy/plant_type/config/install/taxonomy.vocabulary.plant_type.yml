@@ -4,7 +4,7 @@ dependencies:
   enforced:
     module:
       - farm_plant_type
-name: Plant types
+name: Plant type
 vid: plant_type
 description: 'A list of crops/varieties.'
 weight: 0

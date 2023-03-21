@@ -4,7 +4,7 @@ dependencies:
   enforced:
     module:
       - farm_lab
-name: Labs
+name: Lab
 vid: lab
 description: 'A list of labs.'
 weight: 0

@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Simplify all map resize logic to use ResizeObserver #662](https://github.com/farmOS/farmOS/pull/662)
 - [Replace all usages of docker-compose with native docker compose #627](https://github.com/farmOS/farmOS/pull/627)
 - [Allow max_length to be overridden on string fields #666](https://github.com/farmOS/farmOS/pull/666)
+- [Standardize all taxonomy bundle labels to be singular #661](https://github.com/farmOS/farmOS/pull/661)
 
 ### Fixed
 
