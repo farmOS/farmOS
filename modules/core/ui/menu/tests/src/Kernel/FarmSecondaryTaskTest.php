@@ -30,6 +30,7 @@ class FarmSecondaryTaskTest extends KernelTestBase {
     'plan',
     'state_machine',
     'system',
+    'taxonomy',
     'text',
     'user',
   ];
@@ -43,6 +44,7 @@ class FarmSecondaryTaskTest extends KernelTestBase {
     $this->installEntitySchema('data_stream');
     $this->installEntitySchema('log');
     $this->installEntitySchema('plan');
+    $this->installEntitySchema('taxonomy_term');
     $this->installEntitySchema('user');
     $this->installEntitySchema('user_role');
     $this->installConfig([
@@ -64,6 +66,7 @@ class FarmSecondaryTaskTest extends KernelTestBase {
       'data_stream' => FALSE,
       'log' => TRUE,
       'plan' => TRUE,
+      'taxonomy_term' => FALSE,
     ];
     foreach ($entity_types_revisions as $entity_type_id => $supports_revision) {
 

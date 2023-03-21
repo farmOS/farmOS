@@ -46,7 +46,7 @@ function farm_ui_menu_toolbar_alter(&$items) {
 function farm_ui_menu_entity_type_build(array &$entity_types) {
 
   // Override the default local task provider to use secondary tasks.
-  $target_entity_types = ['asset', 'data_stream', 'log', 'plan'];
+  $target_entity_types = ['asset', 'data_stream', 'log', 'plan', 'taxonomy_term'];
   foreach ($target_entity_types as $entity_type) {
     if (isset($entity_types[$entity_type])) {
 
@@ -54,5 +54,21 @@ function farm_ui_menu_entity_type_build(array &$entity_types) {
       $handlers['local_task_provider']['default'] = DefaultSecondaryLocalTaskProvider::class;
       $entity_types[$entity_type]->setHandlerClass('local_task_provider', $handlers['local_task_provider']);
     }
+  }
+}
+
+/**
+ * Implements hook_local_tasks_alter().
+ */
+function farm_ui_menu_local_tasks_alter(&$local_tasks) {
+
+  // Remove local tasks provided by core taxonomy module.
+  $taxonomy_term_tasks = [
+    'entity.taxonomy_term.canonical',
+    'entity.taxonomy_term.edit_form',
+    'entity.taxonomy_term.delete_form',
+  ];
+  foreach ($taxonomy_term_tasks as $task_id) {
+    unset($local_tasks[$task_id]);
   }
 }
