@@ -1,5 +1,7 @@
 .farm-map {
   height: 400px;
+  resize: vertical;
+  overflow: hidden;
 }
 
 /* Inline labels cause the map to cover other fields. */
