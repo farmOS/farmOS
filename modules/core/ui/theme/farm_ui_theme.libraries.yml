@@ -22,8 +22,6 @@ map:
   css:
     theme:
       css/map.css: { }
-  js:
-    js/map.js: { }
   dependencies:
     - farm_map/farm_map
 toolbar:
