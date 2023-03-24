@@ -116,6 +116,10 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
         $this->modifyBooleanField($field, $options);
         break;
 
+      case 'decimal':
+        $this->modifyDecimalField($field, $options);
+        break;
+
       case 'entity_reference':
         $this->modifyEntityReferenceField($field, $options);
         break;
@@ -232,6 +236,40 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
       ],
       'weight' => $options['weight']['view'] ?? 0,
     ]);
+  }
+
+  /**
+   * Decimal field modifier.
+   *
+   * @param \Drupal\Core\Field\BaseFieldDefinition &$field
+   *   A base field definition object.
+   * @param array $options
+   *   An array of options.
+   */
+  protected function modifyDecimalField(BaseFieldDefinition &$field, array $options = []) {
+
+    // Set the precision and scale, if specified.
+    if (!empty($options['precision'])) {
+      $field->setSetting('precision', $options['precision']);
+    }
+    if (!empty($options['scale'])) {
+      $field->setSetting('scale', $options['scale']);
+    }
+
+    // Build form and view display settings.
+    $field->setDisplayOptions('form', [
+      'type' => 'number',
+      'weight' => $options['weight']['form'] ?? 0,
+    ]);
+    $view_display_options = [
+      'label' => 'inline',
+      'type' => 'number_decimal',
+      'weight' => $options['weight']['view'] ?? 0,
+    ];
+    if (!empty($options['scale'])) {
+      $view_display_options['settings']['scale'] = $options['scale'];
+    }
+    $field->setDisplayOptions('view', $view_display_options);
   }
 
   /**

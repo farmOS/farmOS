@@ -120,6 +120,11 @@ Both methods expect an array of field definition options. These include:
 - `type` (required) - The field data type. Each type may require additional
   options. Supported types include:
     - `boolean` - True/false checkbox.
+    - `decimal` - Decimal number with fixed precision. Additional options:
+        - `precision` (optional) - Total number of digits (including after the
+          decimal point). Defaults to 10.
+        - `scale` (optional) - Number digits to the right of the decimal point.
+          Defaults to 2.
     - `entity_reference` - Reference other entities. Additional options:
         - `target_type` (required) - The entity type to reference (eg: `asset`,
           `log`, `plan`)
