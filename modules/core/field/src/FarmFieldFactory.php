@@ -758,11 +758,6 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
    */
   protected function modifyStringField(BaseFieldDefinition &$field, array $options = []) {
 
-    // Set default settings.
-    $field->setSetting('max_length', 255);
-    $field->setSetting('is_ascii', FALSE);
-    $field->setSetting('case_sensitive', FALSE);
-
     // Build form and view display settings.
     $field->setDisplayOptions('form', [
       'type' => 'string_textfield',
