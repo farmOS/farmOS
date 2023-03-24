@@ -141,6 +141,10 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
         $this->modifyIdTagField($field, $options);
         break;
 
+      case 'integer':
+        $this->modifyIntegerField($field, $options);
+        break;
+
       case 'inventory':
         $this->modifyInventoryField($field, $options);
         break;
@@ -694,6 +698,33 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
     $field->setDisplayOptions('view', [
       'label' => 'inline',
       'type' => 'id_tag',
+      'weight' => $options['weight']['view'] ?? 0,
+    ]);
+  }
+
+  /**
+   * Integer field modifier.
+   *
+   * @param \Drupal\Core\Field\BaseFieldDefinition &$field
+   *   A base field definition object.
+   * @param array $options
+   *   An array of options.
+   */
+  protected function modifyIntegerField(BaseFieldDefinition &$field, array $options = []) {
+
+    // Set the size, if specified.
+    if (!empty($options['size'])) {
+      $field->setSetting('size', $options['size']);
+    }
+
+    // Build form and view display settings.
+    $field->setDisplayOptions('form', [
+      'type' => 'number',
+      'weight' => $options['weight']['form'] ?? 0,
+    ]);
+    $field->setDisplayOptions('view', [
+      'label' => 'inline',
+      'type' => 'number_integer',
       'weight' => $options['weight']['view'] ?? 0,
     ]);
   }
