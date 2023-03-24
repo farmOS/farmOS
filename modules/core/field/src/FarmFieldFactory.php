@@ -758,6 +758,11 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
    */
   protected function modifyStringField(BaseFieldDefinition &$field, array $options = []) {
 
+    // Set the maximum length, if specified.
+    if (!empty($options['max_length'])) {
+      $field->setSetting('max_length', $options['max_length']);
+    }
+
     // Build form and view display settings.
     $field->setDisplayOptions('form', [
       'type' => 'string_textfield',

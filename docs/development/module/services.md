@@ -137,7 +137,8 @@ Both methods expect an array of field definition options. These include:
         - `allowed_values` - An associative array of allowed values.
         - `allowed_values_function` - The name of a function that returns an
           associative array of allowed values.
-    - `string` - Unformatted text field with a maximum length of 255.
+    - `string` - Unformatted text field of fixed length. Additional options:
+        - 'max_length' - Maximum length. Defaults to 255.
     - `string_long` - Unformatted text field of unlimited length.
     - `text_long` - Formatted text field of unlimited length.
     - `timestamp` - Date and time.
