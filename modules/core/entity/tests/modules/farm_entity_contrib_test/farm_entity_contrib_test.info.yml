@@ -1,4 +1,4 @@
-name: farmOS Fields Test
+name: farmOS Entity Contrib Test
 description: Module for testing farmOS contrib module behavior.
 type: module
 package: Testing

@@ -1,5 +1,5 @@
-name: farmOS Fields Test
-description: Module for testing farmOS fields.
+name: farmOS Entity Test
+description: Module for testing farmOS entities.
 type: module
 package: Testing
 core_version_requirement: ^9
