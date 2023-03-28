@@ -238,6 +238,11 @@ function farm_ui_views_add_bundle_handlers(ViewExecutable $view, string $display
     $property_name = $field_definition->getFieldStorageDefinition()->getMainPropertyName();
     $column_name = $field_name . '_' . $property_name;
 
+    // Fraction fields do not have a main property name, so build it manually.
+    if ($field_type == 'fraction') {
+      $column_name = $field_name . '_value';
+    }
+
     // Combine the table and column names.
     $views_option_name = $table . '.' . $column_name;
 
@@ -263,6 +268,7 @@ function farm_ui_views_add_bundle_handlers(ViewExecutable $view, string $display
 
           case 'boolean':
           case 'entity_reference':
+          case 'fraction':
           case 'list_string':
           case 'string':
             // Field types that do not need any modifications.

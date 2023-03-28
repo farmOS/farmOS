@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - [Add "Speed" to the list of quantity measures #658](https://github.com/farmOS/farmOS/pull/658)
+- [Include Fraction bundle fields in default Views #664](https://github.com/farmOS/farmOS/pull/664)
 
 ### Changed
 
