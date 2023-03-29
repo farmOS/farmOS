@@ -332,7 +332,7 @@ class Planting extends QuickFormBase {
       'date' => [
         '#type' => 'datetime',
         '#title' => $this->t('Date'),
-        '#default_value' => new DrupalDateTime('midnight'),
+        '#default_value' => new DrupalDateTime('midnight', $this->currentUser->getTimeZone()),
         '#required' => TRUE,
       ],
       'done' => [

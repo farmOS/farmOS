@@ -169,7 +169,7 @@ class AssetMoveActionForm extends ConfirmFormBase {
     $form['date'] = [
       '#type' => 'datetime',
       '#title' => $this->t('Date'),
-      '#default_value' => new DrupalDateTime('midnight'),
+      '#default_value' => new DrupalDateTime('midnight', $this->user->getTimeZone()),
       '#required' => TRUE,
     ];
 
