@@ -76,6 +76,6 @@ Also remove port 80 from the `www` service:
 
 Finally, start the Docker services:
 
-`docker-compose up`
+`docker compose up`
 
 farmOS is now accessible via `https://localhost`.

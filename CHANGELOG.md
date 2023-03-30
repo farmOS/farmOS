@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Do not add birth log mother to animal assets that already have parents #655](https://github.com/farmOS/farmOS/pull/655)
 - [Simplify all map resize logic to use ResizeObserver #662](https://github.com/farmOS/farmOS/pull/662)
+- [Replace all usages of docker-compose with native docker compose #627](https://github.com/farmOS/farmOS/pull/627)
 
 ### Fixed
 

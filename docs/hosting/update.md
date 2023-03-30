@@ -79,7 +79,7 @@ The Drush command for running updates is:
 If you are running farmOS in Docker with the standard Docker Compose
 configuration, you can run this command inside the container with:
 
-    docker-compose exec www drush updb
+    docker compose exec www drush updb
 
 ## Security releases
 
