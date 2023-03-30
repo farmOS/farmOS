@@ -120,6 +120,10 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
         $this->modifyDecimalField($field, $options);
         break;
 
+      case 'email':
+        $this->modifyEmailField($field, $options);
+        break;
+
       case 'entity_reference':
         $this->modifyEntityReferenceField($field, $options);
         break;
@@ -270,6 +274,28 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
       $view_display_options['settings']['scale'] = $options['scale'];
     }
     $field->setDisplayOptions('view', $view_display_options);
+  }
+
+  /**
+   * Email field modifier.
+   *
+   * @param \Drupal\Core\Field\BaseFieldDefinition &$field
+   *   A base field definition object.
+   * @param array $options
+   *   An array of options.
+   */
+  protected function modifyEmailField(BaseFieldDefinition &$field, array $options = []) {
+
+    // Build form and view display settings.
+    $field->setDisplayOptions('form', [
+      'type' => 'email_default',
+      'weight' => $options['weight']['form'] ?? 0,
+    ]);
+    $field->setDisplayOptions('view', [
+      'label' => 'inline',
+      'type' => 'email_mailto',
+      'weight' => $options['weight']['view'] ?? 0,
+    ]);
   }
 
   /**

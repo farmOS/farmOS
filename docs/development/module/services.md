@@ -125,6 +125,7 @@ Both methods expect an array of field definition options. These include:
           decimal point). Defaults to 10.
         - `scale` (optional) - Number digits to the right of the decimal point.
           Defaults to 2.
+    - `email` - Email field.
     - `entity_reference` - Reference other entities. Additional options:
         - `target_type` (required) - The entity type to reference (eg: `asset`,
           `log`, `plan`)
