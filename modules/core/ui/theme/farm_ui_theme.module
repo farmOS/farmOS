@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Block\BlockPluginInterface;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Implements hook_theme().
@@ -28,6 +29,13 @@ function farm_ui_theme_element_info_alter(array &$info) {
   if (isset($info['farm_map'])) {
     $info['farm_map']['#attached']['library'][] = 'farm_ui_theme/map';
   }
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function farm_ui_theme_form_quick_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#attached']['library'][] = 'farm_ui_theme/quick';
 }
 
 /**

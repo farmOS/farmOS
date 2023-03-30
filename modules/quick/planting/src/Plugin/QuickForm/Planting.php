@@ -358,7 +358,7 @@ class Planting extends QuickFormBase {
       'quantity' => [
         '#type' => 'container',
         '#attributes' => [
-          'class' => ['inline'],
+          'class' => ['inline-container'],
         ],
         'value' => [
           '#type' => 'textfield',

@@ -24,6 +24,10 @@ map:
       css/map.css: { }
   dependencies:
     - farm_map/farm_map
+quick:
+  css:
+    theme:
+      css/quick.css: { }
 toolbar:
   css:
     theme:

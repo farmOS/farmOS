@@ -116,9 +116,6 @@ class QuickForm extends FormBase implements BaseFormIdInterface {
       ];
     }
 
-    // Attach quick form CSS/JS.
-    $form['#attached']['library'][] = 'farm_quick/quick';
-
     return $form;
   }
 
