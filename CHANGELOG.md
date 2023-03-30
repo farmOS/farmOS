@@ -12,12 +12,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Add "Speed" to the list of quantity measures #658](https://github.com/farmOS/farmOS/pull/658)
 - [Include Fraction bundle fields in default Views #664](https://github.com/farmOS/farmOS/pull/664)
 - [Allow map to be resized vertically #663](https://github.com/farmOS/farmOS/pull/663)
+- [Add integer, decimal, and email field support to field factory service #666](https://github.com/farmOS/farmOS/pull/666)
 
 ### Changed
 
 - [Do not add birth log mother to animal assets that already have parents #655](https://github.com/farmOS/farmOS/pull/655)
 - [Simplify all map resize logic to use ResizeObserver #662](https://github.com/farmOS/farmOS/pull/662)
 - [Replace all usages of docker-compose with native docker compose #627](https://github.com/farmOS/farmOS/pull/627)
+- [Allow max_length to be overridden on string fields #666](https://github.com/farmOS/farmOS/pull/666)
 
 ### Fixed
 

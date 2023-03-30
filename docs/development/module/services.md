@@ -120,6 +120,12 @@ Both methods expect an array of field definition options. These include:
 - `type` (required) - The field data type. Each type may require additional
   options. Supported types include:
     - `boolean` - True/false checkbox.
+    - `decimal` - Decimal number with fixed precision. Additional options:
+        - `precision` (optional) - Total number of digits (including after the
+          decimal point). Defaults to 10.
+        - `scale` (optional) - Number digits to the right of the decimal point.
+          Defaults to 2.
+    - `email` - Email field.
     - `entity_reference` - Reference other entities. Additional options:
         - `target_type` (required) - The entity type to reference (eg: `asset`,
           `log`, `plan`)
@@ -133,10 +139,15 @@ Both methods expect an array of field definition options. These include:
     - `fraction` - High-precision decimal number storage.
     - `geofield` - Geometry on a map.
     - `image` - Image upload.
+    - `integer` - Integer number. Additional options:
+        - `size` (optional) - The integer database column size (`tiny`,
+          `small`, `medium`, `normal`, or `big`). Defaults to `normal`.
     - `list_string` - Select list with allowed values. Additional options:
         - `allowed_values` - An associative array of allowed values.
         - `allowed_values_function` - The name of a function that returns an
           associative array of allowed values.
+    - `string` - Unformatted text field of fixed length. Additional options:
+        - 'max_length' - Maximum length. Defaults to 255.
     - `string_long` - Unformatted text field of unlimited length.
     - `text_long` - Formatted text field of unlimited length.
     - `timestamp` - Date and time.

@@ -116,6 +116,14 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
         $this->modifyBooleanField($field, $options);
         break;
 
+      case 'decimal':
+        $this->modifyDecimalField($field, $options);
+        break;
+
+      case 'email':
+        $this->modifyEmailField($field, $options);
+        break;
+
       case 'entity_reference':
         $this->modifyEntityReferenceField($field, $options);
         break;
@@ -139,6 +147,10 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
 
       case 'id_tag':
         $this->modifyIdTagField($field, $options);
+        break;
+
+      case 'integer':
+        $this->modifyIntegerField($field, $options);
         break;
 
       case 'inventory':
@@ -226,6 +238,62 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
         'format_custom_false' => '',
         'format_custom_true' => '',
       ],
+      'weight' => $options['weight']['view'] ?? 0,
+    ]);
+  }
+
+  /**
+   * Decimal field modifier.
+   *
+   * @param \Drupal\Core\Field\BaseFieldDefinition &$field
+   *   A base field definition object.
+   * @param array $options
+   *   An array of options.
+   */
+  protected function modifyDecimalField(BaseFieldDefinition &$field, array $options = []) {
+
+    // Set the precision and scale, if specified.
+    if (!empty($options['precision'])) {
+      $field->setSetting('precision', $options['precision']);
+    }
+    if (!empty($options['scale'])) {
+      $field->setSetting('scale', $options['scale']);
+    }
+
+    // Build form and view display settings.
+    $field->setDisplayOptions('form', [
+      'type' => 'number',
+      'weight' => $options['weight']['form'] ?? 0,
+    ]);
+    $view_display_options = [
+      'label' => 'inline',
+      'type' => 'number_decimal',
+      'weight' => $options['weight']['view'] ?? 0,
+    ];
+    if (!empty($options['scale'])) {
+      $view_display_options['settings']['scale'] = $options['scale'];
+    }
+    $field->setDisplayOptions('view', $view_display_options);
+  }
+
+  /**
+   * Email field modifier.
+   *
+   * @param \Drupal\Core\Field\BaseFieldDefinition &$field
+   *   A base field definition object.
+   * @param array $options
+   *   An array of options.
+   */
+  protected function modifyEmailField(BaseFieldDefinition &$field, array $options = []) {
+
+    // Build form and view display settings.
+    $field->setDisplayOptions('form', [
+      'type' => 'email_default',
+      'weight' => $options['weight']['form'] ?? 0,
+    ]);
+    $field->setDisplayOptions('view', [
+      'label' => 'inline',
+      'type' => 'email_mailto',
       'weight' => $options['weight']['view'] ?? 0,
     ]);
   }
@@ -699,6 +767,33 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
   }
 
   /**
+   * Integer field modifier.
+   *
+   * @param \Drupal\Core\Field\BaseFieldDefinition &$field
+   *   A base field definition object.
+   * @param array $options
+   *   An array of options.
+   */
+  protected function modifyIntegerField(BaseFieldDefinition &$field, array $options = []) {
+
+    // Set the size, if specified.
+    if (!empty($options['size'])) {
+      $field->setSetting('size', $options['size']);
+    }
+
+    // Build form and view display settings.
+    $field->setDisplayOptions('form', [
+      'type' => 'number',
+      'weight' => $options['weight']['form'] ?? 0,
+    ]);
+    $field->setDisplayOptions('view', [
+      'label' => 'inline',
+      'type' => 'number_integer',
+      'weight' => $options['weight']['view'] ?? 0,
+    ]);
+  }
+
+  /**
    * Inventory field modifier.
    *
    * @param \Drupal\Core\Field\BaseFieldDefinition &$field
@@ -758,10 +853,10 @@ class FarmFieldFactory implements FarmFieldFactoryInterface {
    */
   protected function modifyStringField(BaseFieldDefinition &$field, array $options = []) {
 
-    // Set default settings.
-    $field->setSetting('max_length', 255);
-    $field->setSetting('is_ascii', FALSE);
-    $field->setSetting('case_sensitive', FALSE);
+    // Set the maximum length, if specified.
+    if (!empty($options['max_length'])) {
+      $field->setSetting('max_length', $options['max_length']);
+    }
 
     // Build form and view display settings.
     $field->setDisplayOptions('form', [
