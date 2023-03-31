@@ -11,6 +11,7 @@ use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\State\StateInterface;
 use Drupal\farm_quick\Plugin\QuickForm\QuickFormBase;
 use Drupal\farm_quick\Traits\QuickAssetTrait;
+use Drupal\farm_quick\Traits\QuickFormElementsTrait;
 use Drupal\farm_quick\Traits\QuickLogTrait;
 use Drupal\farm_quick\Traits\QuickQuantityTrait;
 use Drupal\farm_quick\Traits\QuickStringTrait;
@@ -38,6 +39,7 @@ class Planting extends QuickFormBase {
   use QuickLogTrait;
   use QuickQuantityTrait;
   use QuickStringTrait;
+  use QuickFormElementsTrait;
 
   /**
    * The entity type manager service.
@@ -355,12 +357,7 @@ class Planting extends QuickFormBase {
       ],
       '#required' => TRUE,
     ];
-    $field_info['quantity'] = [
-      '#type' => 'container',
-      '#attributes' => [
-        'class' => ['inline-container'],
-      ],
-    ];
+    $field_info['quantity'] = $this->buildInlineContainer();
     $field_info['quantity']['value'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Quantity'),
