@@ -328,67 +328,66 @@ class Planting extends QuickFormBase {
     }
 
     // Create log fields.
-    $field_info = [
-      'date' => [
-        '#type' => 'datetime',
-        '#title' => $this->t('Date'),
-        '#default_value' => new DrupalDateTime('midnight', $this->currentUser->getTimeZone()),
-        '#required' => TRUE,
-      ],
-      'done' => [
-        '#type' => 'checkbox',
-        '#title' => $this->t('Completed'),
-      ],
-      'location' => [
-        '#type' => 'entity_autocomplete',
-        '#title' => $this->t('Location'),
-        '#description' => $this->t('Where does this take place?'),
-        '#target_type' => 'asset',
-        '#selection_handler' => 'views',
-        '#selection_settings' => [
-          'view' => [
-            'view_name' => 'farm_location_reference',
-            'display_name' => 'entity_reference',
-            'arguments' => [],
-          ],
-          'match_operator' => 'CONTAINS',
+    $field_info = [];
+    $field_info['date'] = [
+      '#type' => 'datetime',
+      '#title' => $this->t('Date'),
+      '#default_value' => new DrupalDateTime('midnight', $this->currentUser->getTimeZone()),
+      '#required' => TRUE,
+    ];
+    $field_info['done'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Completed'),
+    ];
+    $field_info['location'] = [
+      '#type' => 'entity_autocomplete',
+      '#title' => $this->t('Location'),
+      '#description' => $this->t('Where does this take place?'),
+      '#target_type' => 'asset',
+      '#selection_handler' => 'views',
+      '#selection_settings' => [
+        'view' => [
+          'view_name' => 'farm_location_reference',
+          'display_name' => 'entity_reference',
+          'arguments' => [],
         ],
-        '#required' => TRUE,
+        'match_operator' => 'CONTAINS',
       ],
-      'quantity' => [
-        '#type' => 'container',
-        '#attributes' => [
-          'class' => ['inline-container'],
-        ],
-        'value' => [
-          '#type' => 'textfield',
-          '#title' => $this->t('Quantity'),
-          '#size' => 16,
-        ],
-        'units' => [
-          '#type' => 'entity_autocomplete',
-          '#title' => $this->t('Units'),
-          '#target_type' => 'taxonomy_term',
-          '#selection_settings' => [
-            'target_bundles' => ['unit'],
-          ],
-          '#autocreate' => [
-            'bundle' => 'unit',
-          ],
-          '#size' => 16,
-        ],
-        'measure' => [
-          '#type' => 'select',
-          '#title' => $this->t('Measure'),
-          '#options' => $filtered_quantity_measure_options,
-          '#default_value' => 'weight',
-        ],
+      '#required' => TRUE,
+    ];
+    $field_info['quantity'] = [
+      '#type' => 'container',
+      '#attributes' => [
+        'class' => ['inline-container'],
       ],
-      'notes' => [
-        '#type' => 'text_format',
-        '#title' => $this->t('Notes'),
-        '#format' => 'default',
+    ];
+    $field_info['quantity']['value'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Quantity'),
+      '#size' => 16,
+    ];
+    $field_info['quantity']['units'] = [
+      '#type' => 'entity_autocomplete',
+      '#title' => $this->t('Units'),
+      '#target_type' => 'taxonomy_term',
+      '#selection_settings' => [
+        'target_bundles' => ['unit'],
       ],
+      '#autocreate' => [
+        'bundle' => 'unit',
+      ],
+      '#size' => 16,
+    ];
+    $field_info['quantity']['measure'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Measure'),
+      '#options' => $filtered_quantity_measure_options,
+      '#default_value' => 'weight',
+    ];
+    $field_info['notes'] = [
+      '#type' => 'text_format',
+      '#title' => $this->t('Notes'),
+      '#format' => 'default',
     ];
     foreach ($include_fields as $field) {
       if (array_key_exists($field, $field_info)) {
