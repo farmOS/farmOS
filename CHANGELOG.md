@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Include Fraction bundle fields in default Views #664](https://github.com/farmOS/farmOS/pull/664)
 - [Allow map to be resized vertically #663](https://github.com/farmOS/farmOS/pull/663)
 - [Add integer, decimal, and email field support to field factory service #666](https://github.com/farmOS/farmOS/pull/666)
+- [Add a QuickFormElementsTrait with a buildInlineContainer() method #654](https://github.com/farmOS/farmOS/pull/654)
 
 ### Changed
 
