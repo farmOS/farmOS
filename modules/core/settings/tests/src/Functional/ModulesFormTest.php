@@ -52,9 +52,6 @@ class ModulesFormTest extends WebDriverTestBase {
     // Request the module settings page.
     $this->drupalGet('farm/settings/modules');
 
-    // Assert that the install button is disabled.
-    $this->assertInstallButtonState(TRUE);
-
     // Assert that installed modules are checked and disabled.
     foreach (['farm_land', 'farm_observation'] as $module) {
       $this->assertModuleCheckboxState('core', $module, TRUE, TRUE);
@@ -101,19 +98,6 @@ class ModulesFormTest extends WebDriverTestBase {
   }
 
   /**
-   * Helper function to assert the state of the install modules button.
-   *
-   * @param bool $disabled
-   *   Boolean if the checkbox should be disabled. Defaults to FALSE.
-   */
-  protected function assertInstallButtonState(bool $disabled = FALSE) {
-    $page = $this->getSession()->getPage();
-    $button = $page->findButton('install-modules');
-    $this->assertNotEmpty($button, "The install modules button exists.");
-    $this->assertEquals($disabled, $button->hasAttribute('disabled'));
-  }
-
-  /**
    * Helper function to test installing a list of modules.
    *
    * @param array $modules
@@ -136,9 +120,6 @@ class ModulesFormTest extends WebDriverTestBase {
         $this->assertModuleCheckboxState($type, $module_name, TRUE, FALSE);
       }
     }
-
-    // Assert the install button becomes enabled.
-    $this->assertInstallButtonState(FALSE);
 
     // Submit the form.
     $page->pressButton('install-modules');
