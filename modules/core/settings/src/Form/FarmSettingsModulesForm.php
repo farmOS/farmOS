@@ -137,13 +137,6 @@ class FarmSettingsModulesForm extends FormBase {
       foreach ($options['disabled'] as $name) {
         $form[$type]['modules'][$name]['#disabled'] = TRUE;
       }
-
-      // Disable the submit button until an uninstalled module is checked.
-      $uninstalled = array_diff(array_keys($options['options']), $options['default']);
-      foreach ($uninstalled as $module_name) {
-        $name = $type . "[modules][$module_name]";
-        $form['actions']['submit']['#states']['disabled'][":input[name=\"$name\"]"] = ['checked' => FALSE];
-      }
     }
     return $form;
   }
