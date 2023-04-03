@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Replace all usages of docker-compose with native docker compose #627](https://github.com/farmOS/farmOS/pull/627)
 - [Allow max_length to be overridden on string fields #666](https://github.com/farmOS/farmOS/pull/666)
 - [Standardize all taxonomy bundle labels to be singular #661](https://github.com/farmOS/farmOS/pull/661)
+- [Update Drupal core to 9.5.7 #667](https://github.com/farmOS/farmOS/pull/667)
 
 ### Fixed
 
