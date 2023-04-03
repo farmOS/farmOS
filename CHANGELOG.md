@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.4] 2023-04-03
+
 ### Added
 
 - [Add "Speed" to the list of quantity measures #658](https://github.com/farmOS/farmOS/pull/658)
@@ -413,7 +415,8 @@ moving forward.
     Drupal 7, which required a complete refactor of the codebase. By comparison,
     updating from Drupal 9 to 10 will simply involve updating deprecated code.
 
-[Unreleased]: https://github.com/farmOS/farmOS/compare/2.0.3...HEAD
+[Unreleased]: https://github.com/farmOS/farmOS/compare/2.0.4...HEAD
+[2.0.4]: https://github.com/farmOS/farmOS/releases/tag/2.0.4
 [2.0.3]: https://github.com/farmOS/farmOS/releases/tag/2.0.3
 [2.0.2]: https://github.com/farmOS/farmOS/releases/tag/2.0.2
 [2.0.1]: https://github.com/farmOS/farmOS/releases/tag/2.0.1
