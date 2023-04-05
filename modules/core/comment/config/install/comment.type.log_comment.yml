@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_comment
+id: log_comment
+label: 'Log comment'
+target_entity_type_id: log
+description: ''
