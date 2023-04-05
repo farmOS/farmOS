@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.log_comment
+    - field.field.comment.log_comment.comment_body
+  enforced:
+    module:
+      - farm_comment
+  module:
+    - text
+id: comment.log_comment.default
+targetEntityType: comment
+bundle: log_comment
+mode: default
+content:
+  comment_body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden: {  }

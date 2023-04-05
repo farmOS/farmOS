@@ -1,0 +1,82 @@
+<?php
+
+/**
+ * @file
+ * Contains farm_comment.module.
+ */
+
+use Drupal\comment\Plugin\Field\FieldType\CommentItemInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\entity\BundleFieldDefinition;
+
+/**
+ * Implements hook_entity_base_field_info().
+ */
+function farm_comment_entity_base_field_info(EntityTypeInterface $entity_type) {
+  $fields = [];
+
+  // Add comment base field to assets and logs.
+  if (in_array($entity_type->id(), ['asset', 'log'])) {
+    $fields['comment'] = farm_comment_base_field_definition($entity_type->id());
+  }
+
+  return $fields;
+}
+
+/**
+ * Helper function for generating a standard comment base field definition.
+ *
+ * @param string $entity_type
+ *   The entity type.
+ *
+ * @return \Drupal\Core\Field\BaseFieldDefinition
+ *   Returns a comment base field definition.
+ */
+function farm_comment_base_field_definition(string $entity_type) {
+
+  // Create a new comment field definition.
+  // We use BundleFieldDefinition instead of BaseFieldDefinition to force Drupal
+  // to create a separate database table for this field. Otherwise, if it is
+  // added to the base table then the comment field default value is always 0
+  // (CommentItemInterface::HIDDEN) instead of 2 (CommentItemInterface::OPEN),
+  // because the Drupal\comment\Plugin\Field\FieldType\CommentItem::schema()
+  // default is 0.
+  $field = BundleFieldDefinition::create('comment');
+
+  // Set the field label.
+  $field->setLabel(t('Comments'));
+
+  // We assume that the comment type is "[entity-type]_comment".
+  $field->setSetting('comment_type', $entity_type . '_comment');
+
+  // A default value must be set for comment fields.
+  // Enable comments on entities by default.
+  $default_value = [
+    [
+      'status' => CommentItemInterface::OPEN,
+      'cid' => 0,
+      'last_comment_timestamp' => 0,
+      'last_comment_name' => '',
+      'last_comment_uid' => 0,
+      'comment_count' => 0,
+    ],
+  ];
+  $field->setDefaultValue($default_value);
+
+  // Build form display settings.
+  $field->setDisplayOptions('form', [
+    'type' => 'comment_default',
+    'weight' => 1000,
+  ]);
+
+  // Build view display settings.
+  // Display comments on the bottom of entity view displays by default, with the
+  // field label above them.
+  $field->setDisplayOptions('view', [
+    'label' => 'above',
+    'type' => 'comment_default',
+    'weight' => 1000,
+  ]);
+
+  return $field;
+}
