@@ -80,3 +80,14 @@ function farm_comment_base_field_definition(string $entity_type) {
 
   return $field;
 }
+
+/**
+ * Implements hook_farm_ui_theme_region_items().
+ */
+function farm_comment_farm_ui_theme_region_items(string $entity_type) {
+  return [
+    'bottom' => [
+      'comment',
+    ],
+  ];
+}
