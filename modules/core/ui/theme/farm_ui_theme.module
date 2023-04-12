@@ -23,6 +23,13 @@ function farm_ui_theme_theme($existing, $type, $theme, $path) {
 }
 
 /**
+ * Implements hook_theme_registry_alter().
+ */
+function farm_ui_theme_theme_registry_alter(&$theme_registry) {
+  $theme_registry['comment']['path'] = \Drupal::service('extension.list.module')->getPath('farm_ui_theme') . '/templates';
+}
+
+/**
  * Implements hook_element_info_alter().
  */
 function farm_ui_theme_element_info_alter(array &$info) {
