@@ -38,6 +38,13 @@ function farm_ui_theme_theme($existing, $type, $theme, $path) {
 }
 
 /**
+ * Implements hook_theme_registry_alter().
+ */
+function farm_ui_theme_theme_registry_alter(&$theme_registry) {
+  $theme_registry['comment']['path'] = \Drupal::service('extension.list.module')->getPath('farm_ui_theme') . '/templates';
+}
+
+/**
  * Implements hook_theme_suggestions_HOOK().
  */
 function farm_ui_theme_theme_suggestions_menu_local_task(array $variables) {
@@ -143,7 +150,6 @@ function farm_ui_theme_gin_content_form_routes() {
  * Implements hook_entity_type_build().
  */
 function farm_ui_theme_entity_type_build(array &$entity_types) {
-
   // Override the default add and edit form class.
   $target_entity_types = [
     'asset' => AssetForm::class,
