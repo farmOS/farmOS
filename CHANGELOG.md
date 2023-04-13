@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- [Fix bulk move/group action log names when unsetting location/group #669](https://github.com/farmOS/farmOS/pull/669)
+
 ## [2.0.4] 2023-04-03
 
 ### Added
