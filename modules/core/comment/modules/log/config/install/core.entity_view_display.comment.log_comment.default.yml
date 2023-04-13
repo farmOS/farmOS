@@ -6,7 +6,7 @@ dependencies:
     - field.field.comment.log_comment.comment_body
   enforced:
     module:
-      - farm_comment
+      - farm_comment_log
   module:
     - text
 id: comment.log_comment.default

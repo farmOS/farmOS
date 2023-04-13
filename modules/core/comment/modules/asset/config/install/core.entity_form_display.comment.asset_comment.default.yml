@@ -6,7 +6,7 @@ dependencies:
     - field.field.comment.asset_comment.comment_body
   enforced:
     module:
-      - farm_comment
+      - farm_comment_asset
   module:
     - text
 id: comment.asset_comment.default
@@ -14,16 +14,18 @@ targetEntityType: comment
 bundle: asset_comment
 mode: default
 content:
-  comment_body:
-    type: text_default
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
+  author:
     weight: 0
     region: content
-  links:
     settings: {  }
     third_party_settings: {  }
+  comment_body:
+    type: text_textarea
     weight: 1
     region: content
-hidden: {  }
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  subject: true

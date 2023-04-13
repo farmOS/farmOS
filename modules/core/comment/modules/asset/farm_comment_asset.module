@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * @file
+ * Contains farm_comment_asset.module.
+ */
+
+use Drupal\Core\Entity\EntityTypeInterface;
+
+/**
+ * Implements hook_entity_base_field_info().
+ */
+function farm_comment_asset_entity_base_field_info(EntityTypeInterface $entity_type) {
+  $fields = [];
+
+  // Add comment base field to assets.
+  if ($entity_type->id() == 'asset') {
+    $fields['comment'] = farm_comment_base_field_definition('asset');
+  }
+
+  return $fields;
+}
