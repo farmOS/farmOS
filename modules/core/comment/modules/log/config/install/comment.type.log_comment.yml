@@ -3,7 +3,7 @@ status: true
 dependencies:
   enforced:
     module:
-      - farm_comment
+      - farm_comment_log
 id: log_comment
 label: 'Log comment'
 target_entity_type_id: log

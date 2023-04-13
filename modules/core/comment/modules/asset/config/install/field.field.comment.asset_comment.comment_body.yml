@@ -2,17 +2,17 @@ langcode: en
 status: true
 dependencies:
   config:
-    - comment.type.log_comment
+    - comment.type.asset_comment
     - field.storage.comment.comment_body
   enforced:
     module:
-      - farm_comment
+      - farm_comment_asset
   module:
     - text
-id: comment.log_comment.comment_body
+id: comment.asset_comment.comment_body
 field_name: comment_body
 entity_type: comment
-bundle: log_comment
+bundle: asset_comment
 label: Comment
 description: ''
 required: true

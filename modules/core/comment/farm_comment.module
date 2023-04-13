@@ -6,22 +6,7 @@
  */
 
 use Drupal\comment\Plugin\Field\FieldType\CommentItemInterface;
-use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\entity\BundleFieldDefinition;
-
-/**
- * Implements hook_entity_base_field_info().
- */
-function farm_comment_entity_base_field_info(EntityTypeInterface $entity_type) {
-  $fields = [];
-
-  // Add comment base field to assets and logs.
-  if (in_array($entity_type->id(), ['asset', 'log'])) {
-    $fields['comment'] = farm_comment_base_field_definition($entity_type->id());
-  }
-
-  return $fields;
-}
 
 /**
  * Helper function for generating a standard comment base field definition.
