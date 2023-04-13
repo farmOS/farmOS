@@ -5,5 +5,3 @@ package: farmOS
 core_version_requirement: ^9
 dependencies:
   - drupal:comment
-  - farm:asset
-  - log:log
