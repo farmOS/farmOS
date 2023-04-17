@@ -31,8 +31,8 @@ function farm_comment_base_field_definition(string $entity_type) {
   // Set the field label.
   $field->setLabel(t('Comments'));
 
-  // We assume that the comment type is "[entity-type]_comment".
-  $field->setSetting('comment_type', $entity_type . '_comment');
+  // We assume that the comment type matches the entity type.
+  $field->setSetting('comment_type', $entity_type);
 
   // A default value must be set for comment fields.
   // Enable comments on entities by default.

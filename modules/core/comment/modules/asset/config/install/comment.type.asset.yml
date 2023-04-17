@@ -4,7 +4,7 @@ dependencies:
   enforced:
     module:
       - farm_comment_asset
-id: asset_comment
+id: asset
 label: 'Asset comment'
 target_entity_type_id: asset
 description: ''
