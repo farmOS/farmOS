@@ -2,16 +2,16 @@ langcode: en
 status: true
 dependencies:
   config:
-    - comment.type.log_comment
-    - field.field.comment.log_comment.comment_body
+    - comment.type.asset
+    - field.field.comment.asset.comment_body
   enforced:
     module:
-      - farm_comment_log
+      - farm_comment_asset
   module:
     - text
-id: comment.log_comment.default
+id: comment.asset.default
 targetEntityType: comment
-bundle: log_comment
+bundle: asset
 mode: default
 content:
   author:

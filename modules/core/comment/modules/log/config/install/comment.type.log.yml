@@ -4,7 +4,7 @@ dependencies:
   enforced:
     module:
       - farm_comment_log
-id: log_comment
+id: log
 label: 'Log comment'
 target_entity_type_id: log
 description: ''
