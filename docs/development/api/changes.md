@@ -1,5 +1,9 @@
 # API Changes
 
+## 3.x vs 2.x
+
+- [Material quantities can reference multiple material types](https://www.drupal.org/node/3395697)
+
 ## 2.x vs 1.x
 
 farmOS 1.x used the [RESTful Web Services](https://drupal.org/project/restws)

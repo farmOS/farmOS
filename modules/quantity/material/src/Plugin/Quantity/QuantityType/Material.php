@@ -30,6 +30,7 @@ class Material extends FarmQuantityType {
       'target_type' => 'taxonomy_term',
       'target_bundle' => 'material_type',
       'auto_create' => TRUE,
+      'multiple' => TRUE,
       'weight' => [
         'form' => -50,
         'view' => -50,
