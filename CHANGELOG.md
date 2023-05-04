@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- [Refresh map edit layer when WKT is pasted into data input field #670](https://github.com/farmOS/farmOS/pull/670)
+
 ### Changed
 
 - Update farmOS-map to [v2.2.0](https://github.com/farmOS/farmOS-map/releases/tag/v2.2.0)
