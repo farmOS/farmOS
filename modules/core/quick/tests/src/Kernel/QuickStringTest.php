@@ -2,6 +2,8 @@
 
 namespace Drupal\Tests\farm_quick\Kernel;
 
+use Drupal\asset\Entity\Asset;
+use Drupal\asset\Entity\AssetType;
 use Drupal\farm_quick\Traits\QuickStringTrait;
 use Drupal\KernelTests\KernelTestBase;
 
@@ -18,8 +20,19 @@ class QuickStringTest extends KernelTestBase {
    * {@inheritdoc}
    */
   protected static $modules = [
+    'asset',
     'farm_quick',
+    'state_machine',
+    'user',
   ];
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp(): void {
+    parent::setUp();
+    $this->installEntitySchema('asset');
+  }
 
   /**
    * Test trimString() method.
@@ -70,6 +83,51 @@ class QuickStringTest extends KernelTestBase {
     $priority_keys = ['foo', 'baz'];
     $name = $this->prioritizedString($parts, $priority_keys, 10);
     $this->assertEquals('Foo B… Baz', $name);
+  }
+
+  /**
+   * Test entityLabelsSummary() method.
+   */
+  public function testEntityLabelsSummary() {
+
+    // Create a test asset type.
+    $asset_type = AssetType::create([
+      'id' => 'test',
+      'label' => 'Test',
+      'workflow' => 'asset_default',
+    ]);
+    $asset_type->save();
+
+    // Create 10 assets with randomly generated names.
+    $assets = [];
+    for ($i = 0; $i < 10; $i++) {
+      $asset = Asset::create([
+        'name' => $this->randomString(),
+        'type' => 'test',
+        'status' => 'active',
+      ]);
+      $asset->save();
+      $assets[] = $asset;
+    }
+
+    // Test default with a cutoff of 3.
+    $expected = $assets[0]->label() . ', ' . $assets[1]->label() . ', ' . $assets[2]->label() . ' (+7 more)';
+    $name_summary = $this->entityLabelsSummary($assets);
+    $this->assertEquals($expected, $name_summary);
+
+    // Test with a cutoff of 1.
+    $expected = $assets[0]->label() . ' (+9 more)';
+    $name_summary = $this->entityLabelsSummary($assets, 1);
+    $this->assertEquals($expected, $name_summary);
+
+    // Test with a cutoff of 0.
+    $labels = [];
+    foreach ($assets as $asset) {
+      $labels[] = $asset->label();
+    }
+    $expected = implode(', ', $labels);
+    $name_summary = $this->entityLabelsSummary($assets, 0);
+    $this->assertEquals($expected, $name_summary);
   }
 
 }

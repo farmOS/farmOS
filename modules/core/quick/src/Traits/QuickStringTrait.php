@@ -131,4 +131,38 @@ trait QuickStringTrait {
     return $this->trimString($priority_string, $max_length);
   }
 
+  /**
+   * Generate a summary of entity labels.
+   *
+   * Note that this does NOT sanitize the entity labels. It is the
+   * responsibility of downstream code to do so, if it is printing text to the
+   * page.
+   *
+   * @param array $entities
+   *   An array of entities.
+   * @param int $cutoff
+   *   The number of entity labels to include before summarizing the rest.
+   *   If the number of entities exceeds the cutoff, the rest will be summarized
+   *   as "(+X more)". If the number of entities is less than or equal to the
+   *   cutoff, or if the cutoff is 0, all entity labels will be included.
+   *
+   * @return string
+   *   Returns a string summarizing the entity labels.
+   */
+  protected function entityLabelsSummary(array $entities, $cutoff = 3) {
+    $names = [];
+    foreach ($entities as $entity) {
+      $names[] = $entity->label();
+    }
+    if ($cutoff != 0) {
+      array_splice($names, $cutoff);
+    }
+    $output = implode(', ', $names);
+    $diff = count($entities) - count($names);
+    if ($diff > 0) {
+      $output .= ' (+' . $diff . ' ' . t('more') . ')';
+    }
+    return $output;
+  }
+
 }

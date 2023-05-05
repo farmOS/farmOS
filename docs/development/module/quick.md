@@ -149,6 +149,10 @@ Available traits and the methods that they provide include:
     Expects a keyed array of strings to concatenate together, along with an
     optional array of keys that should be prioritized in case the full string
     won't fit.
+  - `entityLabelsSummary($entities, $cutoff)` - Generate a summary of entity
+    labels. Example: "Asset 1, Asset 2, Asset 3 (+ 15 more)". Note that this
+    does NOT sanitize the entity labels. It is the responsibility of downstream
+    code to do so, if it is printing text to the page.
 - `QuickTermTrait`
   - `createTerm($values)` - Creates and returns a new term entity from an array
     of values.
