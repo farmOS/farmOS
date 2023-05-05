@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- [Pass element.id to farmOS.map.create() instead of element #672](https://github.com/farmOS/farmOS/pull/672)
+
 ### Security
 
 - Update Drupal core to 9.5.8 for [SA-CORE-2023-005](https://www.drupal.org/sa-core-2023-005)

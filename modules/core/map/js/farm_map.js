@@ -36,7 +36,7 @@
         ...drupalSettings.farm_map[drupalSettingsKey].instance,
         ...mapInstanceOptions
       };
-      const instance = farmOS.map.create(element, mapOptions);
+      const instance = farmOS.map.create(element.id, mapOptions);
 
       // Expose settings on the instance so other behaviors don't need to know how to look them up in drupalSettings
       instance.farmMapSettings = drupalSettings.farm_map[drupalSettingsKey] || {};
