@@ -77,12 +77,13 @@ function farm_log_asset_names_summary(array $assets, $cutoff = 3) {
   foreach ($assets as $asset) {
     $names[] = $asset->label();
   }
-  $count = count($names);
-  if ($cutoff == 0 || count($names) <= $cutoff) {
-    $output = implode(', ', $names);
+  if ($cutoff != 0) {
+    array_splice($names, $cutoff);
   }
-  else {
-    $output = $names[0] . ' (+' . ($count - 1) . ' ' . t('more') . ')';
+  $output = implode(', ', $names);
+  $diff = count($assets) - count($names);
+  if ($diff > 0) {
+    $output .= ' (+ ' . $diff . ' ' . t('more') . ')';
   }
   return $output;
 }
