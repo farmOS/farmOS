@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_quick_movement
+id: quick_movement
+label: Quick movement
+description: 'Refreshes map from movement quick form inputs.'
+library: 'farm_quick_movement/behavior_quick_movement'
+settings: { }

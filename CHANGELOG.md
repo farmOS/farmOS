@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Add QuickStringTrait::entityLabelsSummary() method for summarizing entity labels #675](https://github.com/farmOS/farmOS/pull/675)
 - [Add asset inventory views field #679](https://github.com/farmOS/farmOS/pull/679)
 - [Birth quick form (ported from farmOS 1.x) #656](https://github.com/farmOS/farmOS/pull/656)
+- [Movement quick form (ported from farmOS 1.x) #677](https://github.com/farmOS/farmOS/pull/677)
 
 ### Changed
 

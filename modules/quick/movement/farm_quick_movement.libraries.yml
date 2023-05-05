@@ -1,0 +1,8 @@
+quick_movement:
+  js:
+    js/quick_movement.js: { }
+behavior_quick_movement:
+  js:
+    js/farmOS.map.behaviors.quick_movement.js: { }
+  dependencies:
+    - farm_map/farm_map
