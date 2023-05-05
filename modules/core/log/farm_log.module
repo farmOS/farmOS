@@ -70,6 +70,9 @@ function farm_log_entity_prepare_form(EntityInterface $entity, $operation, FormS
  *
  * @return string
  *   Returns a string summarizing the assets.
+ *
+ * @deprecated in farmOS:2.x and is removed from farmOS:3.x. Use
+ * \Drupal\farm_quick\Traits\QuickStringTrait::assetNamesSummary() instead.
  */
 function farm_log_asset_names_summary(array $assets, $cutoff = 3) {
   /** @var \Drupal\asset\Entity\AssetInterface[] $assets */

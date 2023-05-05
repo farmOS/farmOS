@@ -131,4 +131,27 @@ trait QuickStringTrait {
     return $this->trimString($priority_string, $max_length);
   }
 
+  /**
+   * Generate a summary of asset names for use in a log name.
+   *
+   * Note that this does NOT sanitize the asset names. It is the responsibility
+   * of downstream code to do so, if it is printing the text to the page.
+   *
+   * @param \Drupal\asset\Entity\AssetInterface[] $assets
+   *   An array of assets.
+   * @param int $cutoff
+   *   The number of asset names to include before summarizing the rest.
+   *   If the number of assets exceeds the cutoff, only the first asset's
+   *   name will be included, and the rest will be summarized as "(+ X more)".
+   *   If the number of assets is less than or equal to the cutoff, or if the
+   *   cutoff is 0, all asset names will be included.
+   *
+   * @return string
+   *   Returns a string summarizing the assets.
+   */
+  function assetNamesSummary(array $assets, $cutoff = 3) {
+    // @todo Move logic from farm_log_asset_names_summary() into here.
+    return farm_log_asset_names_summary($assets, $cutoff);
+  }
+
 }

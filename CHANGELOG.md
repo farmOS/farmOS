@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- [Add QuickStringTrait::assetNamesSummary() and deprecate farm_log_asset_names_summary() #671](https://github.com/farmOS/farmOS/pull/671)
+
 ### Fixed
 
 - [Fix bulk move/group action log names when unsetting location/group #669](https://github.com/farmOS/farmOS/pull/669)
