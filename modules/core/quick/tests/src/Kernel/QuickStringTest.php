@@ -122,7 +122,7 @@ class QuickStringTest extends KernelTestBase {
     $name_summary = $this->assetNamesSummary($assets, 1);
     $this->assertEquals($expected, $name_summary);
 
-    // Test default with a cutoff of 0.
+    // Test with a cutoff of 0.
     $labels = [];
     foreach ($assets as $asset) {
       $labels[] = $asset->label();
