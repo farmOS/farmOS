@@ -149,7 +149,7 @@ trait QuickStringTrait {
    * @return string
    *   Returns a string summarizing the assets.
    */
-  function assetNamesSummary(array $assets, $cutoff = 3) {
+  protected function assetNamesSummary(array $assets, $cutoff = 3) {
     // @todo Move logic from farm_log_asset_names_summary() into here.
     return farm_log_asset_names_summary($assets, $cutoff);
   }
