@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- [Add QuickStringTrait::assetNamesSummary() and deprecate farm_log_asset_names_summary() #671](https://github.com/farmOS/farmOS/pull/671)
+- [Add QuickStringTrait::entityLabelsSummary() and deprecate farm_log_asset_names_summary() #671](https://github.com/farmOS/farmOS/pull/671)
 
 ### Fixed
 

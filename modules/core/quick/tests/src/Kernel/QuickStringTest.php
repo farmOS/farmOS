@@ -88,9 +88,9 @@ class QuickStringTest extends KernelTestBase {
   }
 
   /**
-   * Test assetNamesSummary() method.
+   * Test entityLabelsSummary() method.
    */
-  public function testAssetNamesSummary() {
+  public function testEntityLabelsSummary() {
 
     // Create a test asset type.
     $asset_type = AssetType::create([
@@ -114,12 +114,12 @@ class QuickStringTest extends KernelTestBase {
 
     // Test default with a cutoff of 3.
     $expected = $assets[0]->label() . ', ' . $assets[1]->label() . ', ' . $assets[2]->label() . ' (+ 7 more)';
-    $name_summary = $this->assetNamesSummary($assets);
+    $name_summary = $this->entityLabelsSummary($assets);
     $this->assertEquals($expected, $name_summary);
 
     // Test with a cutoff of 1.
     $expected = $assets[0]->label() . ' (+ 9 more)';
-    $name_summary = $this->assetNamesSummary($assets, 1);
+    $name_summary = $this->entityLabelsSummary($assets, 1);
     $this->assertEquals($expected, $name_summary);
 
     // Test with a cutoff of 0.
@@ -128,7 +128,7 @@ class QuickStringTest extends KernelTestBase {
       $labels[] = $asset->label();
     }
     $expected = implode(', ', $labels);
-    $name_summary = $this->assetNamesSummary($assets, 0);
+    $name_summary = $this->entityLabelsSummary($assets, 0);
     $this->assertEquals($expected, $name_summary);
   }
 

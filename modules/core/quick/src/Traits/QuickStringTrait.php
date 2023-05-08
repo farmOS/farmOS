@@ -132,26 +132,38 @@ trait QuickStringTrait {
   }
 
   /**
-   * Generate a summary of asset names for use in a log name.
+   * Generate a summary of entity labels.
    *
-   * Note that this does NOT sanitize the asset names. It is the responsibility
-   * of downstream code to do so, if it is printing the text to the page.
+   * Note that this does NOT sanitize the entity labels. It is the
+   * responsibility of downstream code to do so, if it is printing text to the
+   * page.
    *
-   * @param \Drupal\asset\Entity\AssetInterface[] $assets
-   *   An array of assets.
+   * @param array $entities
+   *   An array of entities.
    * @param int $cutoff
-   *   The number of asset names to include before summarizing the rest.
-   *   If the number of assets exceeds the cutoff, only the first asset's
-   *   name will be included, and the rest will be summarized as "(+ X more)".
-   *   If the number of assets is less than or equal to the cutoff, or if the
-   *   cutoff is 0, all asset names will be included.
+   *   The number of entity labels to include before summarizing the rest.
+   *   If the number of entities exceeds the cutoff, only the first entity's
+   *   label will be included, and the rest will be summarized as "(+ X more)".
+   *   If the number of entities is less than or equal to the cutoff, or if the
+   *   cutoff is 0, all entity labels will be included.
    *
    * @return string
-   *   Returns a string summarizing the assets.
+   *   Returns a string summarizing the entity labels.
    */
-  protected function assetNamesSummary(array $assets, $cutoff = 3) {
-    // @todo Move logic from farm_log_asset_names_summary() into here.
-    return farm_log_asset_names_summary($assets, $cutoff);
+  protected function entityLabelsSummary(array $entities, $cutoff = 3) {
+    $names = [];
+    foreach ($entities as $entity) {
+      $names[] = $entity->label();
+    }
+    if ($cutoff != 0) {
+      array_splice($names, $cutoff);
+    }
+    $output = implode(', ', $names);
+    $diff = count($entities) - count($names);
+    if ($diff > 0) {
+      $output .= ' (+ ' . $diff . ' ' . t('more') . ')';
+    }
+    return $output;
   }
 
 }
