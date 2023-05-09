@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Update farmOS-map to [v2.2.1](https://github.com/farmOS/farmOS-map/releases/tag/v2.2.1)
+- [Remove field links from asset entity browser view #673](https://github.com/farmOS/farmOS/pull/673)
 
 ### Fixed
 
