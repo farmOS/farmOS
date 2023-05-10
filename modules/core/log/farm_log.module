@@ -69,6 +69,10 @@ function farm_log_entity_prepare_form(EntityInterface $entity, $operation, FormS
  *
  * @return string
  *   Returns a string summarizing the assets.
+ *
+ * @deprecated in farm:2.2.0 and is removed from farm:3.0.0. Use
+ *   QuickStringTrait::entityLabelsSummary() instead.
+ * @see https://www.drupal.org/node/3359456
  */
 function farm_log_asset_names_summary(array $assets, $cutoff = 3) {
   /** @var \Drupal\asset\Entity\AssetInterface[] $assets */

@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Deprecated
 
 - [QuickFormInterface::getId() is replaced by QuickFormInterface::getQuickId()](https://www.drupal.org/node/3379686)
+- [Issue #3359452: Deprecate farm_log_asset_names_summary()](https://www.drupal.org/project/farm/issues/3359452)
 
 ### Fixed
 

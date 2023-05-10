@@ -199,7 +199,9 @@ class AssetGroupActionForm extends ConfirmFormBase {
       $done = (bool) $form_state->getValue('done', FALSE);
 
       // Generate a name for the log.
+      // @phpstan-ignore-next-line
       $asset_names = farm_log_asset_names_summary($accessible_entities);
+      // @phpstan-ignore-next-line
       $group_names = farm_log_asset_names_summary($groups);
       $log_name = $this->t('Clear group membership of @assets', ['@assets' => Markup::create($asset_names)]);
       if (!empty($group_names)) {
