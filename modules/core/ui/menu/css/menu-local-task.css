@@ -1,0 +1,13 @@
+/* Collapse secondary tabs. */
+@media(max-width: 48em) {
+
+  /* Display inactive secondary tabs when expanded. */
+  .tabs--secondary.is-open .tabs__tab:not(.is-active) {
+    display: flex !important;
+  }
+
+  /* Hide inactive secondary tabs. */
+  .tabs--secondary .tabs__tab:not(.is-active) {
+    display: none !important;
+  }
+}

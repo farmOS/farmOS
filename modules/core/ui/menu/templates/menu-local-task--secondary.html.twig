@@ -1,0 +1,37 @@
+{#
+/**
+ * @file
+ * Theme override for a local task link.
+ *
+ * Overrides claro menu-local-task so each secondary task is considered as a primary.
+ * Changes: always add 'js-tab' class and button element.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the wrapper element.
+ * - is_active: Whether the task item is an active tab.
+ * - link: A rendered link element.
+ * - level: The menu level where the tab is rendered.
+ *
+ * Note: This template renders the content for each task item in
+ * menu-local-tasks.html.twig.
+ *
+ * @see template_preprocess_menu_local_task()
+ */
+#}
+{{ attach_library('farm_ui_menu/menu_local_task') }}
+{%
+  set classes = [
+    'tabs__tab',
+    'js-tab',
+    is_active ? 'is-active',
+    is_active ? 'js-active-tab',
+  ]
+%}
+<li{{ attributes.addClass(classes) }}>
+  {{ link }}
+  {% if is_active %}
+    <button class="reset-appearance tabs__trigger" aria-label="{{ 'Tabs display toggle'|t }}" data-drupal-nav-tabs-trigger>
+      {% include "@claro/../images/src/hamburger-menu.svg" %}
+    </button>
+  {% endif %}
+</li>
