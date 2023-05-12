@@ -10,7 +10,7 @@ detailed documentation of Drupal development more generally, refer to the
 
 Modules should be placed in the `sites/all/modules` directory of the server's
 document root. If you are using the farmOS Docker image, this will be:
-`/var/opt/drupal/web/sites/all/modules`
+`/opt/drupal/web/sites/all/modules`
 
 A good practice is to download farmOS-specific modules into `modules/farm` to
 keep them separate. You may also consider creating a `modules/custom` directory
