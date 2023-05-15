@@ -1,0 +1,4 @@
+# Schema for the asset inventory views field handler.
+views.field.asset_inventory:
+  type: views.field.field
+  label: 'Asset inventory field handler'

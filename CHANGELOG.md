@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Refresh map edit layer when WKT is pasted into data input field #670](https://github.com/farmOS/farmOS/pull/670)
 - [Add QuickStringTrait::entityLabelsSummary() method for summarizing entity labels #675](https://github.com/farmOS/farmOS/pull/675)
+- [Add asset inventory views field #679](https://github.com/farmOS/farmOS/pull/679)
 
 ### Changed
 
