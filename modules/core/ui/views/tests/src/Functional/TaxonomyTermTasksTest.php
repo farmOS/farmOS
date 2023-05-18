@@ -29,11 +29,6 @@ class TaxonomyTermTasksTest extends FarmBrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected $defaultTheme = 'classy';
-
-  /**
-   * {@inheritdoc}
-   */
   protected static $modules = [
     'block',
     'farm_plant',
@@ -109,9 +104,8 @@ class TaxonomyTermTasksTest extends FarmBrowserTestBase {
       return $result;
     };
 
-    $primary_tab_links = $get_array_of_link_text_by_url($this->xpath('//*[contains(@class, :class)]//a', [
-      ':class' => 'tabs primary',
-    ]));
+    // Select links from the first ul inside layout-container.
+    $primary_tab_links = $get_array_of_link_text_by_url($this->xpath('(//div[@class="layout-container"]//ul)[1]/li/a'));
 
     $assert_has_link = function ($elements, $url, $label) {
       $this->assertArrayHasKey($url, $elements, "No link exists with url '$url' among: " . print_r($elements, TRUE));
@@ -124,9 +118,8 @@ class TaxonomyTermTasksTest extends FarmBrowserTestBase {
     $this->drupalGet("$fava_term_url/assets/all");
     $this->assertSession()->statusCodeEquals(200);
 
-    $secondary_tab_links = $get_array_of_link_text_by_url($this->xpath('//*[contains(@class, :class)]//a', [
-      ':class' => 'tabs secondary',
-    ]));
+    // Select links from the second ul inside layout-container.
+    $secondary_tab_links = $get_array_of_link_text_by_url($this->xpath('(//div[@class="layout-container"]//ul)[2]/li/a'));
 
     $this->assertCount(3, $secondary_tab_links, 'Only 3 secondary tabs appear.');
 
