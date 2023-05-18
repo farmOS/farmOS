@@ -24,6 +24,10 @@ map:
       css/map.css: { }
   dependencies:
     - farm_map/farm_map
+menu_local_task:
+  css:
+    theme:
+      css/menu-local-task.css: { }
 quick:
   css:
     theme:

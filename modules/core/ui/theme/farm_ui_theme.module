@@ -16,10 +16,35 @@ function farm_ui_theme_theme($existing, $type, $theme, $path) {
     'html__asset__map_popup' => [
       'base hook' => 'html',
     ],
+    'menu_local_tasks__farm' => [
+      'base hook' => 'menu_local_tasks',
+    ],
+    'menu_local_task__secondary' => [
+      'base hook' => 'menu_local_task',
+    ],
     'page__asset__map_popup' => [
       'base hook' => 'page',
     ],
   ];
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function farm_ui_theme_theme_suggestions_menu_local_task(array $variables) {
+  // Add suggestions for primary and secondary task levels.
+  $suggestions = [];
+  if (isset($variables['element']['#level'])) {
+    $suggestions[] = 'menu_local_task__' . $variables['element']['#level'];
+  }
+  return $suggestions;
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function farm_ui_theme_theme_suggestions_menu_local_tasks(array $variables) {
+  return ['menu_local_tasks__farm'];
 }
 
 /**

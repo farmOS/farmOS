@@ -72,36 +72,3 @@ function farm_ui_menu_local_tasks_alter(&$local_tasks) {
     unset($local_tasks[$task_id]);
   }
 }
-
-/**
- * Implements hook_theme().
- */
-function farm_ui_menu_theme($existing, $type, $theme, $path) {
-  return [
-    'menu_local_tasks__farm' => [
-      'base hook' => 'menu_local_tasks',
-    ],
-    'menu_local_task__secondary' => [
-      'base hook' => 'menu_local_task',
-    ],
-  ];
-}
-
-/**
- * Implements hook_theme_suggestions_HOOK().
- */
-function farm_ui_menu_theme_suggestions_menu_local_task(array $variables) {
-  // Add suggestions for primary and secondary task levels.
-  $suggestions = [];
-  if (isset($variables['element']['#level'])) {
-    $suggestions[] = 'menu_local_task__' . $variables['element']['#level'];
-  }
-  return $suggestions;
-}
-
-/**
- * Implements hook_theme_suggestions_HOOK().
- */
-function farm_ui_menu_theme_suggestions_menu_local_tasks(array $variables) {
-  return ['menu_local_tasks__farm'];
-}

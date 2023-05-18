@@ -1,5 +1,5 @@
 name: farmOS UI Menu
-description: Provides farmOS toolbar menu overrides.
+description: Provides farmOS menu and toolbar overrides.
 type: module
 package: farmOS UI
 core_version_requirement: ^9
