@@ -20,7 +20,7 @@ RUN apt-get update \
 # Build and install the GEOS PHP extension.
 # See https://git.osgeo.org/gitea/geos/php-geos
 RUN apt-get update && apt-get install -y libgeos-dev \
-  && git clone https://git.osgeo.org/gitea/geos/php-geos.git \
+  && git clone https://github.com/libgeos/php-geos.git \
   && ( \
     cd php-geos \
     # Checkout latest commit with PHP 8 support.
