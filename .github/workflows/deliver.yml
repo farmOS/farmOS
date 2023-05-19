@@ -95,7 +95,7 @@ jobs:
             processes: auto
           - dbms: mariadb
             DB_URL: mysql://farm:farm@db/farm
-            processes: auto
+            processes: 1
           - dbms: sqlite
             DB_URL: sqlite://localhost/sites/default/files/db.sqlite
             processes: 1
