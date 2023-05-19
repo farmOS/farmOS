@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.0] 2023-05-19
+
+This is the first minor release of the farmOS 2.x branch, following
+[semantic versioning](https://semver.org/). This means new functionality is
+added in a backwards compatible manner.
+
+farmOS 2.1.0 adds two quick forms that were present in farmOS 1.x. The Birth
+quick form makes it easy to record animal births, by creating the birth log and
+children animal assets all in one step. The Movement quick form (formerly the
+Animal Movement quick form in 1.x) makes it easy to record the movement of
+assets to a new location, with the option of customizing their geometry at the
+same time.
+
+In editable maps, it is now possible to paste WKT into the textarea below the
+map and the map geometry will be automatically updated.
+
+This release also moves the "View", "Edit", and "Revisions" links on assets,
+logs, plans, and taxonomy terms from primary tabs to secondary tabs, to create
+a better separation from the other primary tabs.
+
 ### Added
 
 - [Refresh map edit layer when WKT is pasted into data input field #670](https://github.com/farmOS/farmOS/pull/670)
@@ -438,7 +458,8 @@ moving forward.
     Drupal 7, which required a complete refactor of the codebase. By comparison,
     updating from Drupal 9 to 10 will simply involve updating deprecated code.
 
-[Unreleased]: https://github.com/farmOS/farmOS/compare/2.0.4...HEAD
+[Unreleased]: https://github.com/farmOS/farmOS/compare/2.1.0...HEAD
+[2.1.0]: https://github.com/farmOS/farmOS/releases/tag/2.1.0
 [2.0.4]: https://github.com/farmOS/farmOS/releases/tag/2.0.4
 [2.0.3]: https://github.com/farmOS/farmOS/releases/tag/2.0.3
 [2.0.2]: https://github.com/farmOS/farmOS/releases/tag/2.0.2
