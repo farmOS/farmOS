@@ -18,7 +18,7 @@
     "require": {
         "cweagans/composer-patches": "^1.6",
         "drupal/admin_toolbar": "^3.2",
-        "drupal/core": "9.5.8",
+        "drupal/core": "9.5.9",
         "drupal/config_update": "^1.7",
         "drupal/consumers": "^1.15",
         "drupal/csv_serialization": "^2.0",
