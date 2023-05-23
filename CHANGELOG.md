@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.1] 2023-05-23
+
 ### Fixed
 
 - [Fix undeclared dependency on farm_group in birth quick form #682](https://github.com/farmOS/farmOS/pull/682)
@@ -462,7 +464,8 @@ moving forward.
     Drupal 7, which required a complete refactor of the codebase. By comparison,
     updating from Drupal 9 to 10 will simply involve updating deprecated code.
 
-[Unreleased]: https://github.com/farmOS/farmOS/compare/2.1.0...HEAD
+[Unreleased]: https://github.com/farmOS/farmOS/compare/2.1.1...HEAD
+[2.1.1]: https://github.com/farmOS/farmOS/releases/tag/2.1.1
 [2.1.0]: https://github.com/farmOS/farmOS/releases/tag/2.1.0
 [2.0.4]: https://github.com/farmOS/farmOS/releases/tag/2.0.4
 [2.0.3]: https://github.com/farmOS/farmOS/releases/tag/2.0.3
