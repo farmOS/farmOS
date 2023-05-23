@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- [Fix undeclared dependency on farm_group in birth quick form #682](https://github.com/farmOS/farmOS/pull/682)
+
 ## [2.1.0] 2023-05-19
 
 This is the first minor release of the farmOS 2.x branch, following
