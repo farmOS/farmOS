@@ -9,6 +9,7 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\farm_group\GroupMembershipInterface;
 use Drupal\farm_location\AssetLocationInterface;
 use Drupal\farm_quick\Plugin\QuickForm\QuickFormBase;
 use Drupal\farm_quick\Traits\QuickAssetTrait;
@@ -73,6 +74,13 @@ class Birth extends QuickFormBase {
   protected $currentUser;
 
   /**
+   * Group membership service.
+   *
+   * @var \Drupal\farm_group\GroupMembershipInterface|null
+   */
+  protected $groupMembership = NULL;
+
+  /**
    * Constructs a QuickFormBase object.
    *
    * @param array $configuration
@@ -93,14 +101,17 @@ class Birth extends QuickFormBase {
    *   Asset location service.
    * @param \Drupal\Core\Session\AccountInterface $current_user
    *   Current user object.
+   * @param \Drupal\farm_group\GroupMembershipInterface|null $group_membership
+   *   Group membership service.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, MessengerInterface $messenger, EntityTypeManagerInterface $entity_type_manager, ModuleHandlerInterface $module_handler, ConfigFactoryInterface $config_factory, AssetLocationInterface $asset_location, AccountInterface $current_user) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, MessengerInterface $messenger, EntityTypeManagerInterface $entity_type_manager, ModuleHandlerInterface $module_handler, ConfigFactoryInterface $config_factory, AssetLocationInterface $asset_location, AccountInterface $current_user, ?GroupMembershipInterface $group_membership = NULL) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $messenger);
     $this->entityTypeManager = $entity_type_manager;
     $this->moduleHandler = $module_handler;
     $this->configFactory = $config_factory;
     $this->assetLocation = $asset_location;
     $this->currentUser = $current_user;
+    $this->groupMembership = $group_membership;
   }
 
   /**
@@ -117,6 +128,7 @@ class Birth extends QuickFormBase {
       $container->get('config.factory'),
       $container->get('asset.location'),
       $container->get('current_user'),
+      $container->has('group.membership') ? $container->get('group.membership') : NULL,
     );
   }
 
@@ -479,9 +491,8 @@ class Birth extends QuickFormBase {
       if (!empty($group)) {
         $group = [$this->entityTypeManager->getStorage('asset')->load($group)];
       }
-      if (empty($group)) {
-        // @phpstan-ignore-next-line
-        $group = \Drupal::service('group.membership')->getGroup($birth_mother, $birthdate->getTimestamp());
+      if (empty($group) && $this->groupMembership !== NULL) {
+        $group = $this->groupMembership->getGroup($birth_mother, $birthdate->getTimestamp());
       }
       if (!empty($group)) {
         $birth_log_values['group'] = $group;
