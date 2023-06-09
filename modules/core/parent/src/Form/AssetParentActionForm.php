@@ -181,6 +181,7 @@ class AssetParentActionForm extends ConfirmFormBase {
       '#tags' => TRUE,
       '#validate_reference' => FALSE,
       '#maxlength' => 1024,
+      '#required' => TRUE,
     ];
 
     $form['operation'] = [

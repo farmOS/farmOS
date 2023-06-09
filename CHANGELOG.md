@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- [Leaving empty the Parent field in the Assign Parent For This Asset form leads to unexpected error #683](https://github.com/farmOS/farmOS/issues/683)
+
 ## [2.1.1] 2023-05-23
 
 ### Fixed
