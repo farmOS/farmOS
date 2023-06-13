@@ -2,10 +2,10 @@
 
 namespace Drupal\farm_group\Access;
 
+use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Routing\Access\AccessInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
-use Drupal\Core\Access\AccessResult;
 
 /**
  * Checks access for displaying Views of group members.

@@ -8,8 +8,8 @@ use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Messenger\MessengerTrait;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Plugin\PluginBase;
-use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Psr\Container\ContainerInterface;
 
 /**

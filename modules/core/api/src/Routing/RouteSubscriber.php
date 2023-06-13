@@ -2,9 +2,9 @@
 
 namespace Drupal\farm_api\Routing;
 
+use Drupal\Core\Routing\RouteObjectInterface;
 use Drupal\Core\Routing\RouteSubscriberBase;
 use Drupal\farm_api\Controller\FarmEntryPoint;
-use Drupal\Core\Routing\RouteObjectInterface;
 use Symfony\Component\Routing\RouteCollection;
 
 /**

@@ -2,8 +2,8 @@
 
 namespace Drupal\Tests\plan\Functional;
 
-use Drupal\plan\Entity\Plan;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\plan\Entity\Plan;
 
 /**
  * Tests the plan CRUD.

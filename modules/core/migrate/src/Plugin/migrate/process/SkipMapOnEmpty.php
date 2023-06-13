@@ -2,10 +2,10 @@
 
 namespace Drupal\farm_migrate\Plugin\migrate\process;
 
-use Drupal\migrate\Plugin\migrate\process\SkipOnEmpty;
 use Drupal\migrate\MigrateExecutableInterface;
-use Drupal\migrate\Row;
 use Drupal\migrate\MigrateSkipRowException;
+use Drupal\migrate\Plugin\migrate\process\SkipOnEmpty;
+use Drupal\migrate\Row;
 
 /**
  * Skips processing (and mapping) the current row when the input value is empty.

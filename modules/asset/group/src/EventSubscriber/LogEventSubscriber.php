@@ -7,8 +7,8 @@ use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Cache\CacheTagsInvalidatorInterface;
 use Drupal\farm_group\GroupMembershipInterface;
 use Drupal\farm_location\EventSubscriber\LogEventSubscriber as LocationLogEventSubscriber;
-use Drupal\log\Event\LogEvent;
 use Drupal\log\Entity\LogInterface;
+use Drupal\log\Event\LogEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**

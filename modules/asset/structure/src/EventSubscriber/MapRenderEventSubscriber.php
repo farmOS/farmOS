@@ -4,9 +4,9 @@ namespace Drupal\farm_structure\EventSubscriber;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\farm_structure\Entity\FarmStructureType;
 use Drupal\farm_map\Event\MapRenderEvent;
 use Drupal\farm_map\LayerStyleLoaderInterface;
+use Drupal\farm_structure\Entity\FarmStructureType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**

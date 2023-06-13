@@ -6,9 +6,9 @@
  */
 
 use Drupal\Component\Utility\Html;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Url;
 use Drupal\data_stream\Entity\DataStreamInterface;
-use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 
 /**
  * Implements hook_ENTITY_TYPE_view_alter().

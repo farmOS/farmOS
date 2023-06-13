@@ -2,9 +2,9 @@
 
 namespace Drupal\Tests\farm_role\Kernel;
 
-use Drupal\user\Entity\Role;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\Tests\user\Traits\UserCreationTrait;
+use Drupal\user\Entity\Role;
 
 /**
  * Tests for Managed Role permissions.

@@ -2,14 +2,14 @@
 
 namespace Drupal\farm_ui_views\Plugin\views\argument;
 
-use Drupal\Core\Entity\Sql\SqlContentEntityStorage;
 use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Entity\Sql\SqlContentEntityStorage;
 use Drupal\taxonomy\Plugin\views\argument\Taxonomy;
 use Drupal\views\Views;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Argument handler for taxonomy term references from an arbitrary entity field.
