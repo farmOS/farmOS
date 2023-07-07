@@ -2,7 +2,7 @@
 
 namespace Drupal\farm_migrate\Commands;
 
-use Drupal\migrate_tools\Commands\MigrateToolsCommands;
+use Drupal\migrate_tools\Drush\MigrateToolsCommands;
 
 /**
  * Farm Migrate Drush commands.
