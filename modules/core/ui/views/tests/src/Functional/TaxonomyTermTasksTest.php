@@ -45,7 +45,7 @@ class TaxonomyTermTasksTest extends FarmBrowserTestBase {
     $this->drupalPlaceBlock('local_tasks_block');
 
     // Create/login a user with permission to access taxonomy pages and assets.
-    $this->user = $this->createUser(['administer taxonomy', 'view any asset']);
+    $this->user = $this->createUser(['access content', 'view any asset']);
     $this->drupalLogin($this->user);
 
     $entity_type_manager = $this->container->get('entity_type.manager');
