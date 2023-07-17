@@ -4,7 +4,7 @@
 
 /* Remove the page background color and body top padding. */
 body.path-asset {
-  --ginHorizontalToolbarOffset: 0;
+  --gin-toolbar-y-offset: 0;
   background: unset !important;
 }
 

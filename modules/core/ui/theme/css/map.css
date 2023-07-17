@@ -1,6 +1,6 @@
 /* Set farmOS-map accent color to match Gin. */
 .farm-map {
-  --farmos-map-accent-color: var(--colorGinPrimary);
+  --farmos-map-accent-color: var(--gin-color-primary);
 }
 
 /* Move map buttons to the top when focused. Prevents surrounding control
@@ -14,8 +14,8 @@ buttons from covering up the :focus box-shadow. A position is required. */
 .farm-map input#gcd-input-query {
   height: 1.75em;
   top: 0.5em;
-  box-shadow: 0 0 0 2px var(--colorGinLayerBackground), 0 0 0 4px var(--colorGinFocus);
-  -webkit-box-shadow: 0 0 0 2px var(--colorGinLayerBackground), 0 0 0 4px var(--colorGinFocus);
+  box-shadow: 0 0 0 2px var(--gin-bg-layer), 0 0 0 4px var(--gin-color-focus);
+  -webkit-box-shadow: 0 0 0 2px var(--gin-bg-layer), 0 0 0 4px var(--gin-color-focus);
 }
 
 /* Adjust map ui elements background colors for the Gin theme dark mode. */

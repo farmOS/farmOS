@@ -14,10 +14,10 @@
   padding: .3rem .5rem;
   text-align: center;
   text-decoration: none;
-  color: var(--colorGinButtonText);
-  border: 2px solid var(--colorGinPrimary);
+  color: var(--gin-color-button-text);
+  border: 2px solid var(--gin-color-primary);
   border-radius: 12px;
-  background-color: var(--colorGinPrimary);
+  background-color: var(--gin-color-primary);
   font-size: .79rem;
   font-weight: 700;
   line-height: 1rem;
@@ -25,16 +25,16 @@
   -webkit-font-smoothing: antialiased;
 }
 .flag.flag--monitor {
-  background-color: var(--colorGinPrimary);
-  border-color: var(--colorGinPrimary);
+  background-color: var(--gin-color-primary);
+  border-color: var(--gin-color-primary);
 }
 .flag.flag--priority {
-  background-color: var(--colorGinDanger);
-  border-color: var(--colorGinDanger);
+  background-color: var(--gin-color-danger);
+  border-color: var(--gin-color-danger);
 }
 .flag.flag--review {
-  background-color: var(--colorGinWarning);
-  border-color: var(--colorGinWarning);
+  background-color: var(--gin-color-warning);
+  border-color: var(--gin-color-warning);
 }
 
 /* Hide the "Flags" label from views table rows. */
