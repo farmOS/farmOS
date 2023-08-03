@@ -125,7 +125,7 @@ function quantity_quantity_presave(QuantityInterface $quantity) {
   // @todo Replace this with core event via https://www.drupal.org/node/2551893.
   $event = new QuantityEvent($quantity);
   $event_dispatcher = \Drupal::service('event_dispatcher');
-  $event_dispatcher->dispatch(QuantityEvent::PRESAVE, $event);
+  $event_dispatcher->dispatch($event, QuantityEvent::PRESAVE);
 }
 
 /**
@@ -137,7 +137,7 @@ function quantity_quantity_delete(QuantityInterface $quantity) {
   // @todo Replace this with core event via https://www.drupal.org/node/2551893.
   $event = new QuantityEvent($quantity);
   $event_dispatcher = \Drupal::service('event_dispatcher');
-  $event_dispatcher->dispatch(QuantityEvent::DELETE, $event);
+  $event_dispatcher->dispatch($event, QuantityEvent::DELETE);
 }
 
 /**

@@ -109,7 +109,7 @@ class FarmMap extends RenderElement {
 
     // Create and dispatch a MapRenderEvent.
     $event = new MapRenderEvent($map, $element, $entity_type_manager);
-    \Drupal::service('event_dispatcher')->dispatch(MapRenderEvent::EVENT_NAME, $event);
+    \Drupal::service('event_dispatcher')->dispatch($event, MapRenderEvent::EVENT_NAME);
 
     // Return the element.
     return $event->element;
