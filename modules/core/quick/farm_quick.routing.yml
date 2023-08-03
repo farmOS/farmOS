@@ -7,4 +7,4 @@ farm.quick:
     _permission: 'view quick forms index'
 
 route_callbacks:
-  - 'plugin.manager.quick_form:getRoutes'
+  - '\Drupal\farm_quick\Routing\QuickFormRoutes::routes'
