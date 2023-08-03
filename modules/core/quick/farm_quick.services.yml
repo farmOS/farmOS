@@ -1,4 +1,4 @@
 services:
   plugin.manager.quick_form:
-    class: Drupal\farm_quick\QuickFormManager
+    class: Drupal\farm_quick\QuickFormPluginManager
     parent: default_plugin_manager

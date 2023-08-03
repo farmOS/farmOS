@@ -4,7 +4,7 @@ namespace Drupal\farm_quick\Routing;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\farm_quick\Form\QuickForm;
-use Drupal\farm_quick\QuickFormManager;
+use Drupal\farm_quick\QuickFormPluginManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
@@ -17,9 +17,9 @@ class QuickFormRoutes implements ContainerInjectionInterface {
   /**
    * The quick form manager.
    *
-   * @var \Drupal\farm_quick\QuickFormManager
+   * @var \Drupal\farm_quick\QuickFormPluginManager
    */
-  protected $quickFormManager;
+  protected $quickFormPluginManager;
 
   /**
    * Constructs a QuickFormRoutes object.
@@ -27,8 +27,8 @@ class QuickFormRoutes implements ContainerInjectionInterface {
    * @param \Drupal\farm_quick\QuickFormManager $quick_form_manager
    *   The quick form manager.
    */
-  public function __construct(QuickFormManager $quick_form_manager) {
-    $this->quickFormManager = $quick_form_manager;
+  public function __construct(QuickFormPluginManager $quick_form_plugin_manager) {
+    $this->quickFormPluginManager = $quick_form_plugin_manager;
   }
 
   /**
@@ -48,7 +48,7 @@ class QuickFormRoutes implements ContainerInjectionInterface {
    */
   public function routes(): RouteCollection {
     $route_collection = new RouteCollection();
-    foreach ($this->quickFormManager->getDefinitions() as $id => $definition) {
+    foreach ($this->quickFormPluginManager->getDefinitions() as $id => $definition) {
       $route = new Route(
         "/quick/$id",
         [

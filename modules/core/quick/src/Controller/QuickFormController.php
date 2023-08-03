@@ -5,7 +5,7 @@ namespace Drupal\farm_quick\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Url;
-use Drupal\farm_quick\QuickFormManager;
+use Drupal\farm_quick\QuickFormPluginManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -18,15 +18,15 @@ class QuickFormController extends ControllerBase {
   /**
    * The quick form manager.
    *
-   * @var \Drupal\farm_quick\QuickFormManager
+   * @var \Drupal\farm_quick\QuickFormPluginManager
    */
-  protected $quickFormManager;
+  protected $quickFormPluginManager;
 
   /**
    * Quick form controller constructor.
    */
-  public function __construct(QuickFormManager $quick_form_manager) {
-    $this->quickFormManager = $quick_form_manager;
+  public function __construct(QuickFormPluginManager $quick_form_plugin_manager) {
+    $this->quickFormPluginManager = $quick_form_plugin_manager;
   }
 
   /**
@@ -45,7 +45,7 @@ class QuickFormController extends ControllerBase {
    *   Returns a render array.
    */
   public function index(): array {
-    $quick_forms = $this->quickFormManager->getDefinitions();
+    $quick_forms = $this->quickFormPluginManager->getDefinitions();
     $items = [];
     foreach ($quick_forms as $quick_form) {
       $url = Url::fromRoute('farm.quick.' . $quick_form['id']);

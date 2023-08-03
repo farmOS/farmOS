@@ -9,10 +9,10 @@ use Drupal\Core\Plugin\DefaultPluginManager;
 /**
  * Quick form manager class.
  */
-class QuickFormManager extends DefaultPluginManager {
+class QuickFormPluginManager extends DefaultPluginManager {
 
   /**
-   * Constructs a QuickFormManager object.
+   * Constructs a QuickFormPluginManager object.
    *
    * @param \Traversable $namespaces
    *   An object that implements \Traversable which contains the root paths

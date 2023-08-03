@@ -13,11 +13,11 @@ use Drupal\KernelTests\KernelTestBase;
 class QuickFormTest extends KernelTestBase {
 
   /**
-   * The quick form manager.
+   * The quick form plugin manager.
    *
-   * @var \Drupal\farm_quick\QuickFormManager
+   * @var \Drupal\farm_quick\QuickFormPluginManager
    */
-  protected $quickFormManager;
+  protected $quickFormPluginManager;
 
   /**
    * {@inheritdoc}
@@ -45,7 +45,7 @@ class QuickFormTest extends KernelTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
-    $this->quickFormManager = \Drupal::service('plugin.manager.quick_form');
+    $this->quickFormPluginManager = \Drupal::service('plugin.manager.quick_form');
     $this->installEntitySchema('asset');
     $this->installEntitySchema('log');
     $this->installEntitySchema('taxonomy_term');
@@ -62,14 +62,14 @@ class QuickFormTest extends KernelTestBase {
   public function testQuickFormDiscovery() {
 
     // Load quick form definitions.
-    $quick_forms = $this->quickFormManager->getDefinitions();
+    $quick_forms = $this->quickFormPluginManager->getDefinitions();
 
     // Confirm that one quick form was discovered.
     $this->assertEquals(1, count($quick_forms));
 
     // Initialize the test quick form.
     /** @var \Drupal\farm_quick\Plugin\QuickForm\QuickFormInterface $test_quick_form */
-    $test_quick_form = $this->quickFormManager->createInstance('test');
+    $test_quick_form = $this->quickFormPluginManager->createInstance('test');
 
     // Confirm the label, description, helpText, and permissions.
     $this->assertEquals('Test quick form', $test_quick_form->getLabel());
