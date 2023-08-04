@@ -72,6 +72,14 @@ interface QuickFormInterface extends FormInterface {
   public function getPermissions();
 
   /**
+   * Whether the plugin requires a quick form instance configuration entity.
+   *
+   * @return bool
+   *   Boolean.
+   */
+  public function requiresEntity();
+
+  /**
    * Checks access for the quick form.
    *
    * @param \Drupal\Core\Session\AccountInterface $account
