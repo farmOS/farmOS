@@ -5,7 +5,7 @@ namespace Drupal\farm_quick\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Url;
-use Drupal\farm_quick\QuickFormPluginManager;
+use Drupal\farm_quick\QuickFormInstanceManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -16,17 +16,20 @@ class QuickFormController extends ControllerBase {
   use StringTranslationTrait;
 
   /**
-   * The quick form manager.
+   * The quick form instance manager.
    *
-   * @var \Drupal\farm_quick\QuickFormPluginManager
+   * @var \Drupal\farm_quick\QuickFormInstanceManagerInterface
    */
-  protected $quickFormPluginManager;
+  protected $quickFormInstanceManager;
 
   /**
    * Quick form controller constructor.
+   *
+   * @param \Drupal\farm_quick\QuickFormInstanceManagerInterface $quick_form_instance_manager
+   *   The quick form instance manager.
    */
-  public function __construct(QuickFormPluginManager $quick_form_plugin_manager) {
-    $this->quickFormPluginManager = $quick_form_plugin_manager;
+  public function __construct(QuickFormInstanceManagerInterface $quick_form_instance_manager) {
+    $this->quickFormInstanceManager = $quick_form_instance_manager;
   }
 
   /**
@@ -34,7 +37,7 @@ class QuickFormController extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('plugin.manager.quick_form'),
+      $container->get('quick_form.instance_manager'),
     );
   }
 
@@ -45,14 +48,15 @@ class QuickFormController extends ControllerBase {
    *   Returns a render array.
    */
   public function index(): array {
-    $quick_forms = $this->quickFormPluginManager->getDefinitions();
+    /** @var \Drupal\farm_quick\Plugin\QuickForm\QuickFormInterface[] $quick_forms */
+    $quick_forms = $this->quickFormInstanceManager->getInstances();
     $items = [];
-    foreach ($quick_forms as $quick_form) {
-      $url = Url::fromRoute('farm.quick.' . $quick_form['id']);
+    foreach ($quick_forms as $id => $quick_form) {
+      $url = Url::fromRoute('farm.quick.' . $id);
       if ($url->access()) {
         $items[] = [
-          'title' => $quick_form['label'],
-          'description' => $quick_form['description'],
+          'title' => $quick_form->getLabel(),
+          'description' => $quick_form->getDescription(),
           'url' => $url,
         ];
       }

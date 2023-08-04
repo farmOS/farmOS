@@ -4,7 +4,7 @@ namespace Drupal\farm_quick\Routing;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\farm_quick\Form\QuickForm;
-use Drupal\farm_quick\QuickFormPluginManager;
+use Drupal\farm_quick\QuickFormInstanceManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
@@ -15,20 +15,20 @@ use Symfony\Component\Routing\RouteCollection;
 class QuickFormRoutes implements ContainerInjectionInterface {
 
   /**
-   * The quick form manager.
+   * The quick form instance manager.
    *
-   * @var \Drupal\farm_quick\QuickFormPluginManager
+   * @var \Drupal\farm_quick\QuickFormInstanceManagerInterface
    */
-  protected $quickFormPluginManager;
+  protected $quickFormInstanceManager;
 
   /**
    * Constructs a QuickFormRoutes object.
    *
-   * @param \Drupal\farm_quick\QuickFormManager $quick_form_manager
-   *   The quick form manager.
+   * @param \Drupal\farm_quick\QuickFormInstanceManagerInterface $quick_form_instance_manager
+   *   The quick form instance manager.
    */
-  public function __construct(QuickFormPluginManager $quick_form_plugin_manager) {
-    $this->quickFormPluginManager = $quick_form_plugin_manager;
+  public function __construct(QuickFormInstanceManagerInterface $quick_form_instance_manager) {
+    $this->quickFormInstanceManager = $quick_form_instance_manager;
   }
 
   /**
@@ -36,7 +36,7 @@ class QuickFormRoutes implements ContainerInjectionInterface {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('plugin.manager.quick_form'),
+      $container->get('quick_form.instance_manager'),
     );
   }
 
@@ -48,7 +48,9 @@ class QuickFormRoutes implements ContainerInjectionInterface {
    */
   public function routes(): RouteCollection {
     $route_collection = new RouteCollection();
-    foreach ($this->quickFormPluginManager->getDefinitions() as $id => $definition) {
+    /** @var \Drupal\farm_quick\Plugin\QuickForm\QuickFormInterface[] $quick_forms */
+    $quick_forms = $this->quickFormInstanceManager->getInstances();
+    foreach ($quick_forms as $id => $quick_form) {
       $route = new Route(
         "/quick/$id",
         [

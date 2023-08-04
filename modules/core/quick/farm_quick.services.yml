@@ -2,3 +2,7 @@ services:
   plugin.manager.quick_form:
     class: Drupal\farm_quick\QuickFormPluginManager
     parent: default_plugin_manager
+  quick_form.instance_manager:
+    class: Drupal\farm_quick\QuickFormInstanceManager
+    arguments:
+      ['@entity_type.manager', '@plugin.manager.quick_form']

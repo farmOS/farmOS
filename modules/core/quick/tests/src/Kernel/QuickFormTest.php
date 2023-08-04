@@ -13,11 +13,11 @@ use Drupal\KernelTests\KernelTestBase;
 class QuickFormTest extends KernelTestBase {
 
   /**
-   * The quick form plugin manager.
+   * The quick form instance manager.
    *
-   * @var \Drupal\farm_quick\QuickFormPluginManager
+   * @var \Drupal\farm_quick\QuickFormInstanceManagerInterface
    */
-  protected $quickFormPluginManager;
+  protected $quickFormInstanceManager;
 
   /**
    * {@inheritdoc}
@@ -45,7 +45,7 @@ class QuickFormTest extends KernelTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
-    $this->quickFormPluginManager = \Drupal::service('plugin.manager.quick_form');
+    $this->quickFormInstanceManager = \Drupal::service('quick_form.instance_manager');
     $this->installEntitySchema('asset');
     $this->installEntitySchema('log');
     $this->installEntitySchema('taxonomy_term');
@@ -61,21 +61,18 @@ class QuickFormTest extends KernelTestBase {
    */
   public function testQuickFormDiscovery() {
 
-    // Load quick form definitions.
-    $quick_forms = $this->quickFormPluginManager->getDefinitions();
+    // Load quick forms.
+    /** @var \Drupal\farm_quick\Plugin\QuickForm\QuickFormInterface[] $quick_forms */
+    $quick_forms = $this->quickFormInstanceManager->getInstances();
 
     // Confirm that one quick form was discovered.
     $this->assertEquals(1, count($quick_forms));
 
-    // Initialize the test quick form.
-    /** @var \Drupal\farm_quick\Plugin\QuickForm\QuickFormInterface $test_quick_form */
-    $test_quick_form = $this->quickFormPluginManager->createInstance('test');
-
     // Confirm the label, description, helpText, and permissions.
-    $this->assertEquals('Test quick form', $test_quick_form->getLabel());
-    $this->assertEquals('Test quick form description.', $test_quick_form->getDescription());
-    $this->assertEquals('Test quick form help text.', $test_quick_form->getHelpText());
-    $this->assertEquals(['create test log'], $test_quick_form->getPermissions());
+    $this->assertEquals('Test quick form', $quick_forms['test']->getLabel());
+    $this->assertEquals('Test quick form description.', $quick_forms['test']->getDescription());
+    $this->assertEquals('Test quick form help text.', $quick_forms['test']->getHelpText());
+    $this->assertEquals(['create test log'], $quick_forms['test']->getPermissions());
   }
 
   /**
