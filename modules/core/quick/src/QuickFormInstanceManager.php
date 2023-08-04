@@ -3,6 +3,7 @@
 namespace Drupal\farm_quick;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\farm_quick\Entity\QuickFormInstance;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -56,8 +57,17 @@ class QuickFormInstanceManager implements QuickFormInstanceManagerInterface {
     // Iterate through quick form plugin definitions.
     foreach ($this->quickFormPluginManager->getDefinitions() as $plugin) {
 
-      // Instantiate a quick form for the plugin.
-      $instances[$plugin['id']] = $this->quickFormPluginManager->createInstance($plugin['id']);
+      // Load quick form instance configuration entities for this plugin.
+      $entities = $this->entityTypeManager->getStorage('quick_form')->loadByProperties(['plugin' => $plugin['id']]);
+      if (!empty($entities)) {
+        $instances += $entities;
+      }
+
+      // If there are no config entities, create a new (unsaved) config entity
+      // with default values from the plugin.
+      else {
+        $instances[$plugin['id']] = QuickFormInstance::create(['id' => $plugin['id'], 'plugin' => $plugin['id']]);
+      }
     }
 
     return $instances;
@@ -67,7 +77,16 @@ class QuickFormInstanceManager implements QuickFormInstanceManagerInterface {
    * {@inheritdoc}
    */
   public function createInstance($id) {
-    return $this->quickFormPluginManager->createInstance($id);
+
+    // First attempt to load a quick form instance config entity.
+    $entity = $this->entityTypeManager->getStorage('quick_form')->load($id);
+    if (!empty($entity)) {
+      return $entity;
+    }
+
+    // Otherwise, create a new (unsaved) config entity with default values from
+    // the plugin.
+    return QuickFormInstance::create(['id' => $id, 'plugin' => $id]);
   }
 
 }

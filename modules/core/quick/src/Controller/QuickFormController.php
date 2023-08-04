@@ -48,7 +48,7 @@ class QuickFormController extends ControllerBase {
    *   Returns a render array.
    */
   public function index(): array {
-    /** @var \Drupal\farm_quick\Plugin\QuickForm\QuickFormInterface[] $quick_forms */
+    /** @var \Drupal\farm_quick\Entity\QuickFormInstanceInterface[] $quick_forms */
     $quick_forms = $this->quickFormInstanceManager->getInstances();
     $items = [];
     foreach ($quick_forms as $id => $quick_form) {

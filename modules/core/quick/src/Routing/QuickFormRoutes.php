@@ -48,7 +48,7 @@ class QuickFormRoutes implements ContainerInjectionInterface {
    */
   public function routes(): RouteCollection {
     $route_collection = new RouteCollection();
-    /** @var \Drupal\farm_quick\Plugin\QuickForm\QuickFormInterface[] $quick_forms */
+    /** @var \Drupal\farm_quick\Entity\QuickFormInstanceInterface[] $quick_forms */
     $quick_forms = $this->quickFormInstanceManager->getInstances();
     foreach ($quick_forms as $id => $quick_form) {
       $route = new Route(

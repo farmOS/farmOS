@@ -45,7 +45,7 @@ class QuickFormMenuLink extends DeriverBase implements ContainerDeriverInterface
     $links = [];
 
     // Load quick forms.
-    /** @var \Drupal\farm_quick\Plugin\QuickForm\QuickFormInterface[] $quick_forms */
+    /** @var \Drupal\farm_quick\Entity\QuickFormInstanceInterface[] $quick_forms */
     $quick_forms = $this->quickFormInstanceManager->getInstances();
 
     // Add a top level menu parent.

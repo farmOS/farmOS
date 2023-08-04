@@ -62,7 +62,7 @@ class QuickFormTest extends KernelTestBase {
   public function testQuickFormDiscovery() {
 
     // Load quick forms.
-    /** @var \Drupal\farm_quick\Plugin\QuickForm\QuickFormInterface[] $quick_forms */
+    /** @var \Drupal\farm_quick\Entity\QuickFormInstanceInterface[] $quick_forms */
     $quick_forms = $this->quickFormInstanceManager->getInstances();
 
     // Confirm that one quick form was discovered.
@@ -72,7 +72,7 @@ class QuickFormTest extends KernelTestBase {
     $this->assertEquals('Test quick form', $quick_forms['test']->getLabel());
     $this->assertEquals('Test quick form description.', $quick_forms['test']->getDescription());
     $this->assertEquals('Test quick form help text.', $quick_forms['test']->getHelpText());
-    $this->assertEquals(['create test log'], $quick_forms['test']->getPermissions());
+    $this->assertEquals(['create test log'], $quick_forms['test']->getPlugin()->getPermissions());
   }
 
   /**

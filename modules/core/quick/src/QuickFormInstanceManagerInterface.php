@@ -10,10 +10,10 @@ interface QuickFormInstanceManagerInterface {
   /**
    * Get all quick form instances.
    *
-   * @return array
+   * @return \Drupal\farm_quick\Entity\QuickFormInstanceInterface[]
    *   An array of quick form instances.
    */
-  public function getInstances(): array;
+  public function getInstances();
 
   /**
    * Create an instance of a quick form.
@@ -21,7 +21,7 @@ interface QuickFormInstanceManagerInterface {
    * @param string $id
    *   The quick form ID.
    *
-   * @return \Drupal\farm_quick\Plugin\QuickForm\QuickFormInterface|null
+   * @return \Drupal\farm_quick\Entity\QuickFormInstanceInterface|null
    *   Returns an instantiated quick form object.
    */
   public function createInstance($id);
