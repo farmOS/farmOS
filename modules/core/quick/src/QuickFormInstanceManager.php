@@ -58,7 +58,8 @@ class QuickFormInstanceManager implements QuickFormInstanceManagerInterface {
     foreach ($this->quickFormPluginManager->getDefinitions() as $plugin) {
 
       // Load quick form instance configuration entities for this plugin.
-      $entities = $this->entityTypeManager->getStorage('quick_form')->loadByProperties(['plugin' => $plugin['id']]);
+      // Exclude disabled quick forms.
+      $entities = $this->entityTypeManager->getStorage('quick_form')->loadByProperties(['plugin' => $plugin['id'], 'status' => TRUE]);
       if (!empty($entities)) {
         $instances += $entities;
       }
