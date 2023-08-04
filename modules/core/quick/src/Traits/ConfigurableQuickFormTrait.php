@@ -27,7 +27,7 @@ trait ConfigurableQuickFormTrait {
    * @return string
    *   The quick form ID.
    */
-  abstract public function getId();
+  abstract public function getQuickId();
 
   /**
    * {@inheritdoc}

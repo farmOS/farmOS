@@ -81,6 +81,7 @@ class QuickFormInstanceManager implements QuickFormInstanceManagerInterface {
     // First attempt to load a quick form instance config entity.
     $entity = $this->entityTypeManager->getStorage('quick_form')->load($id);
     if (!empty($entity)) {
+      $entity->getPlugin()->setQuickId($id);
       return $entity;
     }
 

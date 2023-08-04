@@ -21,6 +21,13 @@ class QuickFormBase extends PluginBase implements QuickFormInterface, ContainerF
   use StringTranslationTrait;
 
   /**
+   * The quick form ID.
+   *
+   * @var string
+   */
+  protected string $quickId;
+
+  /**
    * Constructs a QuickFormBase object.
    *
    * @param array $configuration
@@ -52,15 +59,29 @@ class QuickFormBase extends PluginBase implements QuickFormInterface, ContainerF
   /**
    * {@inheritdoc}
    */
+  final public function setQuickId(string $id) {
+    return $this->quickId = $id;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  final public function getQuickId() {
+    return $this->quickId ?? $this->getPluginId();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getId() {
-    return $this->getPluginId();
+    return $this->getQuickId();
   }
 
   /**
    * {@inheritdoc}
    */
   public function getFormId() {
-    return $this->getId();
+    return $this->getQuickId();
   }
 
   /**
