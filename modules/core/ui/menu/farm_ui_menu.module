@@ -29,6 +29,12 @@ function farm_ui_menu_menu_links_discovered_alter(&$links) {
   if (!empty($links['farm.quick:farm.quick'])) {
     $links['farm.quick:farm.quick']['parent'] = 'farm.base';
   }
+
+  // Move the farm.setup menu link to the farm.base parent.
+  if (!empty($links['farm.setup'])) {
+    $links['farm.setup']['parent'] = 'farm.base';
+    $links['farm.setup']['weight'] = 95;
+  }
 }
 
 /**
