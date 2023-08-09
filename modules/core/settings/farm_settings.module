@@ -6,7 +6,6 @@
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;
-use Drupal\Core\Url;
 
 /**
  * Implements hook_help().
@@ -20,44 +19,4 @@ function farm_settings_help($route_name, RouteMatchInterface $route_match) {
   }
 
   return $output;
-}
-
-/**
- * Implements hook_toolbar().
- */
-function farm_settings_toolbar() {
-  $user = \Drupal::currentUser();
-
-  $items = [];
-  $items['farm_settings'] = [
-    '#cache' => [
-      'contexts' => [
-        'user.permissions',
-      ],
-    ],
-  ];
-
-  // Add settings to the toolbar if the user has permission.
-  if ($user->hasPermission('administer farm settings')) {
-    $items['farm_settings'] += [
-      '#type' => 'toolbar_item',
-      'tab' => [
-        '#type' => 'link',
-        '#title' => t('Settings'),
-        '#url' => Url::fromRoute('farm_settings.settings_page'),
-        '#attributes' => [
-          'title' => t('Settings'),
-          'class' => ['toolbar-icon', 'toolbar-icon-farm-settings'],
-        ],
-        '#attached' => [
-          'library' => [
-            'farm_settings/toolbar',
-          ],
-        ],
-      ],
-      '#weight' => -5,
-    ];
-  }
-
-  return $items;
 }
