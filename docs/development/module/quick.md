@@ -269,7 +269,7 @@ class Harvest extends QuickFormActionBase {
   /**
    * {@inheritdoc}
    */
-  public function getQuckFormId(): string {
+  public function getQuickFormId(): string {
     return 'harvest';
   }
 
