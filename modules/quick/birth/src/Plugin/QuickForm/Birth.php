@@ -470,11 +470,7 @@ class Birth extends QuickFormBase {
     ];
 
     // Generate the birth log name.
-    $child_names = [];
-    foreach ($children as $child) {
-      $child_names[] = $child->label();
-    }
-    $birth_log_values['name'] = $this->t('Birth: @children', ['@children' => Markup::create($this->trimString(implode(', ', $child_names), 180))]);
+    $birth_log_values['name'] = $this->t('Birth: @children', ['@children' => Markup::create($this->entityLabelsSummary($children))]);
 
     // If the birth mother has a location (at the time of birth), use the birth
     // log to set the location of the children.
