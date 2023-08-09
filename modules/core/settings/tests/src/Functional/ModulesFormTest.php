@@ -50,7 +50,7 @@ class ModulesFormTest extends WebDriverTestBase {
   public function testInstallFunctionality() {
 
     // Request the module settings page.
-    $this->drupalGet('farm/settings/modules');
+    $this->drupalGet('setup/modules');
 
     // Assert that installed modules are checked and disabled.
     foreach (['farm_land', 'farm_observation'] as $module) {
