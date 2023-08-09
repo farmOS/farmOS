@@ -1,0 +1,5 @@
+name: farmOS Setup
+description: Provides setup pages for farmOS.
+type: module
+package: farmOS
+core_version_requirement: ^9
