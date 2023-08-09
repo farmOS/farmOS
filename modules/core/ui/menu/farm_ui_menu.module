@@ -34,6 +34,17 @@ function farm_ui_menu_menu_links_discovered_alter(&$links) {
   if (!empty($links['farm.setup'])) {
     $links['farm.setup']['parent'] = 'farm.base';
     $links['farm.setup']['weight'] = 95;
+
+    // Add a setup menu item for taxonomy.
+    if (\Drupal::service('module_handler')->moduleExists('taxonomy')) {
+      $links['farm.setup.taxonomy'] = [
+        'title' => t('Taxonomy'),
+        'description' => t('Manage the taxonomy terms used for flagging, categorization and organization of farmOS records.'),
+        'parent' => 'farm.setup',
+        'route_name' => 'entity.taxonomy_vocabulary.collection',
+        'weight' => 50,
+      ];
+    }
   }
 }
 
