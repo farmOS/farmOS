@@ -7,7 +7,7 @@ farm_settings.settings_page:
     _permission: 'administer farm settings'
 
 farm_settings.modules_form:
-  path: '/farm/settings/modules'
+  path: '/setup/modules'
   defaults:
     _title: 'Modules'
     _form: 'Drupal\farm_settings\Form\FarmSettingsModulesForm'
