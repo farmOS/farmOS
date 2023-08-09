@@ -1,0 +1,3 @@
+farm_setup:
+  config_permissions:
+    - access farm setup
