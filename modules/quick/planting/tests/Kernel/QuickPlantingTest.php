@@ -64,7 +64,7 @@ class QuickPlantingTest extends QuickFormTestBase {
     ]);
     $season->save();
     $crop = Term::create([
-      'name' => 'Rice',
+      'name' => "Jacob's Cattle Bean",
       'vid' => 'plant_type',
     ]);
     $crop->save();
@@ -84,7 +84,7 @@ class QuickPlantingTest extends QuickFormTestBase {
     // Check that the asset's fields were populated correctly.
     $asset = $assets[1];
     $this->assertEquals('plant', $asset->bundle());
-    $this->assertEquals('2022 Rice', $asset->label());
+    $this->assertEquals("2022 Jacob's Cattle Bean", $asset->label());
     $this->assertEquals('active', $asset->get('status')->value);
     $this->assertEquals($season->id(), $asset->get('season')->referencedEntities()[0]->id());
     $this->assertEquals($crop->id(), $asset->get('plant_type')->referencedEntities()[0]->id());
@@ -123,7 +123,7 @@ class QuickPlantingTest extends QuickFormTestBase {
     $this->assertEquals($crop2->id(), $asset->get('plant_type')->referencedEntities()[1]->id());
 
     // Test overriding the plant name.
-    $custom_name = 'Rice of the 2022 season';
+    $custom_name = "Jacob's Cattle Bean of the 2022 season";
     $this->submitQuickForm([
       'seasons' => [['target_id' => $season->id()]],
       'crops' => [
