@@ -6,6 +6,18 @@ farm.quick:
   requirements:
     _permission: 'view quick forms index'
 
+farm_quick.quick_form:
+  path: /quick/{quick_form}
+  defaults:
+    _form: \Drupal\farm_quick\Form\QuickForm
+    _title_callback: \Drupal\farm_quick\Form\QuickForm::getTitle
+  requirements:
+    _custom_access: \Drupal\farm_quick\Form\QuickForm::access
+  options:
+    parameters:
+      quick_form:
+        type: string
+
 farm_quick.configure:
   path: /quick/{quick_form}/configure
   defaults:
@@ -17,6 +29,3 @@ farm_quick.configure:
     parameters:
       quick_form:
         type: string
-
-route_callbacks:
-  - '\Drupal\farm_quick\Routing\QuickFormRoutes::routes'
