@@ -66,23 +66,6 @@ class QuickFormRoutes implements ContainerInjectionInterface {
         ],
       );
       $route_collection->add("farm.quick.$id", $route);
-
-      // If the quick form is configurable, build a route for the configuration
-      // form.
-      if ($quick_form->getPlugin()->isConfigurable()) {
-        $route = new Route(
-          "/quick/$id/configure",
-          [
-            '_form' => ConfigureQuickForm::class,
-            '_title_callback' => ConfigureQuickForm::class . '::getTitle',
-            'id' => $id,
-          ],
-          [
-            '_custom_access' => ConfigureQuickForm::class . '::access',
-          ],
-        );
-        $route_collection->add("farm.quick.$id.configure", $route);
-      }
     }
     return $route_collection;
   }

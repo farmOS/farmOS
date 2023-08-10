@@ -62,9 +62,12 @@ class QuickFormTaskLink extends DeriverBase implements ContainerDeriverInterface
 
       // If the quick form is configurable, add a link to the config form.
       if ($quick_form->getPlugin()->isConfigurable()) {
-        $links[$route_name . '.configure'] = [
+        $links["farm.quick.$id.configure"] = [
           'title' => $this->t('Configure'),
-          'route_name' => $route_name . '.configure',
+          'route_name' => 'farm_quick.configure',
+          'route_parameters' => [
+            'quick_form' => $id,
+          ],
           'base_route' => $route_name,
           'weight' => 100,
         ] + $base_plugin_definition;

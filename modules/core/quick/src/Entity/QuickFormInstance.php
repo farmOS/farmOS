@@ -20,6 +20,9 @@ use Drupal\farm_quick\QuickFormPluginCollection;
  *     plural = "@count quick forms",
  *   ),
  *   handlers = {
+ *     "form" = {
+ *       "configure" = "Drupal\farm_quick\Form\ConfigureQuickForm",
+ *     },
  *   },
  *   entity_keys = {
  *     "id" = "id",
