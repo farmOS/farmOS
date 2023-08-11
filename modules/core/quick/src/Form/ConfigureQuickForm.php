@@ -98,8 +98,8 @@ class ConfigureQuickForm extends EntityForm {
       return AccessResult::forbidden();
     }
 
-    // Check the configure quick forms permission.
-    $configure_form_access = AccessResult::allowedIfHasPermissions($account, ['configure quick forms']);
+    // Check the update quick_form permission.
+    $configure_form_access = AccessResult::allowedIfHasPermissions($account, ['update quick_form']);
     return $quick_form->getPlugin()->access($account)->andIf($configure_form_access);
   }
 

@@ -20,6 +20,8 @@ use Drupal\farm_quick\QuickFormPluginCollection;
  *     plural = "@count quick forms",
  *   ),
  *   handlers = {
+ *     "access" = "\Drupal\entity\EntityAccessControlHandler",
+ *     "permission_provider" = "\Drupal\entity\EntityPermissionProvider",
  *     "form" = {
  *       "configure" = "Drupal\farm_quick\Form\ConfigureQuickForm",
  *     },

@@ -4,6 +4,7 @@ type: module
 package: farmOS
 core_version_requirement: ^9
 dependencies:
+  - entity:entity
   - drupal:taxonomy
   - farm:asset
   - farm:farm_log_quantity
