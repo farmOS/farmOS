@@ -90,7 +90,7 @@ class QuickFormInstanceManager implements QuickFormInstanceManagerInterface {
     // Or, if this plugin does not require a quick form instance configuration
     // entity, then add a new (unsaved) config entity with default values from
     // the plugin.
-    elseif (empty($plugin['requiresEntity'])) {
+    elseif (($plugin = $this->quickFormPluginManager->getDefinition($id, FALSE)) && empty($plugin['requiresEntity'])) {
       return QuickFormInstance::create(['id' => $id, 'plugin' => $id]);
     }
 
