@@ -3,6 +3,7 @@
 namespace Drupal\farm_quick\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBase;
+use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityWithPluginCollectionInterface;
 use Drupal\farm_quick\QuickFormPluginCollection;
 
@@ -131,21 +132,21 @@ class QuickFormInstance extends ConfigEntityBase implements QuickFormInstanceInt
    * {@inheritdoc}
    */
   public function getLabel() {
-    return $this->label ?? $this->getPlugin()->getLabel();
+    return $this->label;
   }
 
   /**
    * {@inheritdoc}
    */
   public function getDescription() {
-    return $this->description ?? $this->getPlugin()->getDescription();
+    return $this->description;
   }
 
   /**
    * {@inheritdoc}
    */
   public function getHelpText() {
-    return $this->helpText ?? $this->getPlugin()->getHelpText();
+    return $this->helpText;
   }
 
   /**
@@ -153,6 +154,25 @@ class QuickFormInstance extends ConfigEntityBase implements QuickFormInstanceInt
    */
   public function getSettings() {
     return $this->settings;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function preCreate(EntityStorageInterface $storage, array &$values) {
+    parent::preCreate($storage, $values);
+
+    /** @var \Drupal\farm_quick\QuickFormPluginManager $quick_form_plugin_manager */
+    $quick_form_plugin_manager = \Drupal::service('plugin.manager.quick_form');
+
+    // If the plugin is set use the default label, description and helpText.
+    if (isset($values['plugin']) && $plugin = $quick_form_plugin_manager->getDefinition($values['plugin'], FALSE)) {
+      foreach (['label', 'description', 'helpText'] as $field) {
+        if (!isset($values[$field])) {
+          $values[$field] = $plugin[$field];
+        }
+      }
+    }
   }
 
 }
