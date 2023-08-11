@@ -20,7 +20,18 @@ class QuickFormTest extends FarmBrowserTestBase {
    */
   protected static $modules = [
     'farm_quick_test',
+    'help',
   ];
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp(): void {
+    parent::setUp();
+
+    // Add the help block, so we can test help text.
+    $this->drupalPlaceBlock('help_block');
+  }
 
   /**
    * Test quick forms.
@@ -67,9 +78,11 @@ class QuickFormTest extends FarmBrowserTestBase {
     $this->assertSession()->pageTextContains($this->t('Test configurable quick form 2'));
     $this->assertSession()->pageTextNotContains($this->t('Test requiresEntity quick form'));
 
-    // Go to the test quick form and confirm that the test field is visible.
+    // Go to the test quick form and confirm that the help text and test field
+    // is visible.
     $this->drupalGet('quick/test');
     $this->assertSession()->statusCodeEquals(200);
+    $this->assertSession()->pageTextContains($this->t('Test quick form help text.'));
     $this->assertSession()->pageTextContains($this->t('Test field'));
 
     // Go to the default configurable_test quick form and confirm access is
