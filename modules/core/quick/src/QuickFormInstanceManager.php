@@ -59,15 +59,17 @@ class QuickFormInstanceManager implements QuickFormInstanceManagerInterface {
 
       // Load quick form instance configuration entities for this plugin.
       // Exclude disabled quick forms.
+      /** @var \Drupal\farm_quick\Entity\QuickFormInstanceInterface[] $entities */
       $entities = $this->entityTypeManager->getStorage('quick_form')->loadByProperties(['plugin' => $plugin['id'], 'status' => TRUE]);
-      if (!empty($entities)) {
-        $instances += $entities;
+      foreach ($entities as $entity) {
+        $entity->getPlugin()->setQuickId($entity->id());
+        $instances[$entity->id()] = $entity;
       }
 
       // Or, if this plugin does not require a quick form instance configuration
       // entity, then add a new (unsaved) config entity with default values from
       // the plugin.
-      elseif (empty($plugin['requiresEntity'])) {
+      if (!isset($instances[$plugin['id']]) && empty($plugin['requiresEntity'])) {
         $instances[$plugin['id']] = QuickFormInstance::create(['id' => $plugin['id'], 'plugin' => $plugin['id']]);
       }
     }
