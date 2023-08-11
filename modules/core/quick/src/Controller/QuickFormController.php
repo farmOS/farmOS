@@ -2,6 +2,7 @@
 
 namespace Drupal\farm_quick\Controller;
 
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Url;
@@ -48,12 +49,19 @@ class QuickFormController extends ControllerBase {
    *   Returns a render array.
    */
   public function index(): array {
+
+    // Start cacheability object with quick form config entity list tag.
+    $cacheability = new CacheableMetadata();
+    $cacheability->addCacheTags($this->entityTypeManager()->getStorage('quick_form')->getEntityType()->getListCacheTags());
+
+    // Build list item for each quick form.
     /** @var \Drupal\farm_quick\Entity\QuickFormInstanceInterface[] $quick_forms */
     $quick_forms = $this->quickFormInstanceManager->getInstances();
     $items = [];
     foreach ($quick_forms as $id => $quick_form) {
       $url = Url::fromRoute('farm_quick.quick_form', ['quick_form' => $id]);
       if ($url->access()) {
+        $cacheability->addCacheableDependency($quick_form);
         $items[] = [
           'title' => $quick_form->getLabel(),
           'description' => $quick_form->getDescription(),
@@ -72,6 +80,7 @@ class QuickFormController extends ControllerBase {
         '#markup' => $this->t('You do not have any quick forms.'),
       ];
     }
+    $cacheability->applyTo($output);
     return $output;
   }
 
