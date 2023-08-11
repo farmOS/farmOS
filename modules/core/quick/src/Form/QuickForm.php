@@ -8,6 +8,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\farm_quick\QuickFormInstanceManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 /**
  * Form that renders quick forms.
@@ -93,7 +94,12 @@ class QuickForm extends FormBase implements BaseFormIdInterface {
    *   The access result.
    */
   public function access(AccountInterface $account, string $quick_form) {
-    return $this->quickFormInstanceManager->createInstance($quick_form)->getPlugin()->access($account);
+    if ($quick_form = $this->quickFormInstanceManager->createInstance($quick_form)) {
+      return $quick_form->getPlugin()->access($account);
+    }
+
+    // Raise 404 if the quick form does not exist.
+    throw new ResourceNotFoundException();
   }
 
   /**

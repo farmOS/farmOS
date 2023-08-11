@@ -11,6 +11,7 @@ use Drupal\Core\Session\AccountInterface;
 use Drupal\farm_quick\Plugin\QuickForm\ConfigurableQuickFormInterface;
 use Drupal\farm_quick\QuickFormInstanceManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 /**
  * Form that renders quick form configuration forms.
@@ -87,10 +88,10 @@ class ConfigureQuickForm extends EntityForm {
       $quick_form = $this->getQuickFormInstance($quick_form);
     }
 
-    // Deny access if no quick form exists. This is the case with a quick form
+    // Raise 404 if no quick form exists. This is the case with a quick form
     // ID that is not a valid quick form plugin ID.
     if ($quick_form === NULL) {
-      return AccessResult::forbidden();
+      throw new ResourceNotFoundException();
     }
 
     // Deny access if the quick form plugin is not configurable.
