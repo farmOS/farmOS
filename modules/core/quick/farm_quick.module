@@ -21,7 +21,7 @@ function farm_quick_help($route_name, RouteMatchInterface $route_match) {
 
   // Load help text for individual quick forms.
   if ($route_name == 'farm_quick.quick_form') {
-    if (($quick_form_id = $route_match->getParameter('quick_form')) && $quick_form = \Drupal::service('quick_form.instance_manager')->createInstance($quick_form_id)) {
+    if (($quick_form_id = $route_match->getParameter('quick_form')) && $quick_form = \Drupal::service('quick_form.instance_manager')->getInstance($quick_form_id)) {
       if ($help_text = $quick_form->getHelpText()) {
         $output .= '<p>' . $help_text . '</p>';
       }

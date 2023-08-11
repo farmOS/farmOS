@@ -153,7 +153,7 @@ class ConfigureQuickForm extends EntityForm {
    *   The quick form instance or NULL if does not exist.
    */
   protected function getQuickFormInstance(string $quick_form_id) {
-    return $this->quickFormInstanceManager->createInstance($quick_form_id);
+    return $this->quickFormInstanceManager->getInstance($quick_form_id);
   }
 
 }

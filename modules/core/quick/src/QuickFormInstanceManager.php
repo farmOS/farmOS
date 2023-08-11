@@ -78,7 +78,7 @@ class QuickFormInstanceManager implements QuickFormInstanceManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public function createInstance($id) {
+  public function getInstance($id) {
 
     // First attempt to load a quick form instance config entity.
     $entity = $this->entityTypeManager->getStorage('quick_form')->load($id);

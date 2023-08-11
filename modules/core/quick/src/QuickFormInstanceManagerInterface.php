@@ -16,7 +16,7 @@ interface QuickFormInstanceManagerInterface {
   public function getInstances();
 
   /**
-   * Create an instance of a quick form.
+   * Get an instance of a quick form.
    *
    * @param string $id
    *   The quick form ID.
@@ -24,6 +24,6 @@ interface QuickFormInstanceManagerInterface {
    * @return \Drupal\farm_quick\Entity\QuickFormInstanceInterface|null
    *   Returns an instantiated quick form object.
    */
-  public function createInstance($id);
+  public function getInstance($id);
 
 }
