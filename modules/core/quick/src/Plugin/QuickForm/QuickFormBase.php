@@ -108,13 +108,6 @@ class QuickFormBase extends PluginBase implements QuickFormInterface, ContainerF
   /**
    * {@inheritdoc}
    */
-  public function requiresEntity() {
-    return $this->pluginDefinition['requiresEntity'] ?? FALSE;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function getPermissions() {
     return $this->pluginDefinition['permissions'] ?? [];
   }
