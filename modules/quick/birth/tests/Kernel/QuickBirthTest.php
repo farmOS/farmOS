@@ -156,7 +156,7 @@ class QuickBirthTest extends QuickFormTestBase {
       'child_count' => 2,
       'children' => [
         [
-          'name' => 'Child 1',
+          'name' => "Suzie's child",
           'tag' => [
             'id' => '123',
             'type' => 'ear_tag',
@@ -200,7 +200,7 @@ class QuickBirthTest extends QuickFormTestBase {
 
     // Confirm that the first child animal asset contains all the expected data.
     $child1 = $assets[6];
-    $this->assertEquals('Child 1', $child1->label());
+    $this->assertEquals("Suzie's child", $child1->label());
     $this->assertEquals($breed2->id(), $child1->get('animal_type')->target_id);
     $this->assertEquals($today->getTimestamp(), $child1->get('birthdate')->value);
     $this->assertEquals('F', $child1->get('sex')->value);
@@ -239,7 +239,7 @@ class QuickBirthTest extends QuickFormTestBase {
     $weight_log = $logs[2];
     $this->assertEquals('observation', $weight_log->bundle());
     $this->assertEquals($today->getTimestamp(), $weight_log->get('timestamp')->value);
-    $this->assertEquals('Weight of Child 1 is 10 kg', $weight_log->label());
+    $this->assertEquals("Weight of Suzie's child is 10 kg", $weight_log->label());
     $this->assertEquals($child1->id(), $weight_log->get('asset')->referencedEntities()[0]->id());
     $this->assertEquals('weight', $weight_log->get('quantity')->referencedEntities()[0]->get('measure')->value);
     $this->assertEquals('10', $weight_log->get('quantity')->referencedEntities()[0]->get('value')[0]->get('decimal')->getValue());
@@ -250,7 +250,7 @@ class QuickBirthTest extends QuickFormTestBase {
     $birth_log = $logs[3];
     $this->assertEquals('birth', $birth_log->bundle());
     $this->assertEquals($today->getTimestamp(), $birth_log->get('timestamp')->value);
-    $this->assertEquals('Birth: Child 1, Child 2', $birth_log->label());
+    $this->assertEquals("Birth: Suzie's child, Child 2", $birth_log->label());
     $this->assertEquals($child1->id(), $birth_log->get('asset')->referencedEntities()[0]->id());
     $this->assertEquals($child2->id(), $birth_log->get('asset')->referencedEntities()[1]->id());
     $this->assertEquals($birth_mother->id(), $birth_log->get('mother')->referencedEntities()[0]->id());

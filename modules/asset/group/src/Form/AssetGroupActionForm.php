@@ -6,6 +6,7 @@ use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\ConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Markup;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\TempStore\PrivateTempStoreFactory;
 use Drupal\Core\Url;
@@ -200,9 +201,9 @@ class AssetGroupActionForm extends ConfirmFormBase {
       // Generate a name for the log.
       $asset_names = farm_log_asset_names_summary($accessible_entities);
       $group_names = farm_log_asset_names_summary($groups);
-      $log_name = $this->t('Clear group membership of @assets', ['@assets' => $asset_names]);
+      $log_name = $this->t('Clear group membership of @assets', ['@assets' => Markup::create($asset_names)]);
       if (!empty($group_names)) {
-        $log_name = $this->t('Group @assets into @groups', ['@assets' => $asset_names, '@groups' => $group_names]);
+        $log_name = $this->t('Group @assets into @groups', ['@assets' => Markup::create($asset_names), '@groups' => Markup::create($group_names)]);
       }
 
       // Create the log.

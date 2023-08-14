@@ -7,6 +7,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\Render\Markup;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\State\StateInterface;
 use Drupal\farm_quick\Plugin\QuickForm\QuickFormBase;
@@ -516,15 +517,15 @@ class Planting extends QuickFormBase {
       // Name the log based on the type and asset.
       switch ($log_type) {
         case 'seeding':
-          $log_name = $this->t('Seed @asset', ['@asset' => $plant_asset->label()]);
+          $log_name = $this->t('Seed @asset', ['@asset' => Markup::create($plant_asset->label())]);
           break;
 
         case 'transplanting':
-          $log_name = $this->t('Transplant @asset', ['@asset' => $plant_asset->label()]);
+          $log_name = $this->t('Transplant @asset', ['@asset' => Markup::create($plant_asset->label())]);
           break;
 
         case 'harvest':
-          $log_name = $this->t('Harvest @asset', ['@asset' => $plant_asset->label()]);
+          $log_name = $this->t('Harvest @asset', ['@asset' => Markup::create($plant_asset->label())]);
           break;
       }
 

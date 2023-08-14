@@ -8,6 +8,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\Render\Markup;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\farm_group\GroupMembershipInterface;
 use Drupal\farm_location\AssetLocationInterface;
@@ -443,7 +444,7 @@ class Birth extends QuickFormBase {
         $this->createLog([
           'type' => 'observation',
           'timestamp' => $birthdate->getTimestamp(),
-          'name' => $this->t('Weight of @asset is @weight @units', ['@asset' => $asset->label(), '@weight' => $child['weight'], '@units' => $this->birthWeightUnits()]),
+          'name' => $this->t('Weight of @asset is @weight @units', ['@asset' => Markup::create($asset->label()), '@weight' => $child['weight'], '@units' => $this->birthWeightUnits()]),
           'asset' => [$asset],
           'quantity' => [
             [
@@ -469,11 +470,7 @@ class Birth extends QuickFormBase {
     ];
 
     // Generate the birth log name.
-    $child_names = [];
-    foreach ($children as $child) {
-      $child_names[] = $child->label();
-    }
-    $birth_log_values['name'] = $this->t('Birth: @children', ['@children' => $this->trimString(implode(', ', $child_names), 180)]);
+    $birth_log_values['name'] = $this->t('Birth: @children', ['@children' => Markup::create($this->entityLabelsSummary($children))]);
 
     // If the birth mother has a location (at the time of birth), use the birth
     // log to set the location of the children.

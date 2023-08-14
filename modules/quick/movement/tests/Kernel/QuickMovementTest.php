@@ -58,7 +58,7 @@ class QuickMovementTest extends QuickFormTestBase {
     ]);
     $equipment1->save();
     $equipment2 = Asset::create([
-      'name' => 'Combine',
+      'name' => "Mike's Combine",
       'type' => 'equipment',
       'status' => 'active',
     ]);
@@ -116,7 +116,7 @@ class QuickMovementTest extends QuickFormTestBase {
     $log = $logs[1];
     $this->assertEquals('activity', $log->bundle());
     $this->assertEquals($today->getTimestamp(), $log->get('timestamp')->value);
-    $this->assertEquals('Move Tractor, Combine to Field A, Field B', $log->label());
+    $this->assertEquals("Move Tractor, Mike's Combine to Field A, Field B", $log->label());
     $this->assertEquals($equipment1->id(), $log->get('asset')->referencedEntities()[0]->id());
     $this->assertEquals($equipment2->id(), $log->get('asset')->referencedEntities()[1]->id());
     $this->assertEquals($location1->id(), $log->get('location')->referencedEntities()[0]->id());

@@ -7,6 +7,7 @@ use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\ConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Markup;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\TempStore\PrivateTempStoreFactory;
 use Drupal\Core\Url;
@@ -230,9 +231,9 @@ class AssetMoveActionForm extends ConfirmFormBase {
       // Generate a name for the log.
       $asset_names = farm_log_asset_names_summary($accessible_entities);
       $location_names = farm_log_asset_names_summary($locations);
-      $log_name = $this->t('Clear location of @assets', ['@assets' => $asset_names]);
+      $log_name = $this->t('Clear location of @assets', ['@assets' => Markup::create($asset_names)]);
       if (!empty($location_names)) {
-        $log_name = $this->t('Move @assets to @locations', ['@assets' => $asset_names, '@locations' => $location_names]);
+        $log_name = $this->t('Move @assets to @locations', ['@assets' => Markup::create($asset_names), '@locations' => Markup::create($location_names)]);
       }
 
       // Create the log.

@@ -7,6 +7,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\Render\Markup;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\farm_geo\Traits\WktTrait;
 use Drupal\farm_location\AssetLocationInterface;
@@ -314,9 +315,9 @@ class Movement extends QuickFormBase implements QuickFormInterface {
     // Generate a name for the log.
     $asset_names = $this->entityLabelsSummary($assets);
     $location_names = $this->entityLabelsSummary($locations);
-    $log['name'] = $this->t('Clear location of @assets', ['@assets' => $asset_names]);
+    $log['name'] = $this->t('Clear location of @assets', ['@assets' => Markup::create($asset_names)]);
     if (!empty($location_names)) {
-      $log['name'] = $this->t('Move @assets to @locations', ['@assets' => $asset_names, '@locations' => $location_names]);
+      $log['name'] = $this->t('Move @assets to @locations', ['@assets' => Markup::create($asset_names), '@locations' => Markup::create($location_names)]);
     }
 
     // Create the log.
