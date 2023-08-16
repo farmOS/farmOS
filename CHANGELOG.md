@@ -12,10 +12,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [farmOS v2 CSV import module #722](https://github.com/farmOS/farmOS/pull/722)
 - [Add a Group membership assignment quick form #723](https://github.com/farmOS/farmOS/pull/723)
 - [farmOS Setup Menu #706](https://github.com/farmOS/farmOS/pull/706)
+- [Issue #3354935: Configurable quick forms](https://www.drupal.org/project/farm/issues/3354935)
 
 ### Changed
 
 - [Misc quick form code and documentation improvements #703](https://github.com/farmOS/farmOS/pull/703)
+
+### Deprecated
+
+- [QuickFormInterface::getId() is replaced by QuickFormInterface::getQuickId()](https://www.drupal.org/node/3379686)
 
 ### Fixed
 
