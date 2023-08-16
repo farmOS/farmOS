@@ -1,5 +1,20 @@
 # Importing data
 
+## CSV
+
+[CSV](https://en.wikipedia.org/wiki/Comma-separated_values) files are an easy
+way to import data into farmOS.
+
+The *CSV Import* module adds simple importers for each Asset type, Log type,
+and Taxonomy term type provided by farmOS modules. Template CSV files can be
+downloaded, filled in, and re-uploaded to create new records in the system.
+You can also see a list of all records that were created by each importer,
+and easily review/modify/delete them after import.
+
+farmOS also provides a framework for developing more specialized importers with
+custom CSV column headers. See [CSV importers](/development/csv) in the farmOS
+Development Guide for more information.
+
 ## Geometry
 
 Geometry data can be imported into Assets and Logs in a few different ways.
