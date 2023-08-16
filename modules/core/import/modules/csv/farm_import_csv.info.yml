@@ -1,0 +1,7 @@
+name: farmOS Import CSV
+description: Provides CSV import features for farmOS.
+type: module
+package: farmOS
+core_version_requirement: ^9
+dependencies:
+  - farm:farm_import
