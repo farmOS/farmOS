@@ -1,3 +1,10 @@
+farm.import.csv:
+  path: /import/csv
+  defaults:
+    _controller: \Drupal\farm_import_csv\Controller\CsvImportController::index
+    _title: CSV Import
+  requirements:
+    _permission: access farm import index
 farm.import.csv.form:
   path: /import/csv/{migration_id}
   defaults:
