@@ -5,4 +5,5 @@ package: Testing
 core_version_requirement: ^9
 dependencies:
   - farm:farm_animal_type
+  - farm:farm_equipment
   - farm:farm_import_csv

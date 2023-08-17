@@ -12,6 +12,7 @@ function farm_import_csv_test_migration_plugins_alter(&$definitions) {
 
   // Alter source file paths to test importing artifact CSVs.
   $csv_artifacts = [
+    'asset:equipment' => 'equipment.csv',
     'taxonomy_term:animal_type' => 'animal-types.csv',
   ];
   $module_path = \Drupal::service('extension.list.module')->getPath('farm_import_csv_test');

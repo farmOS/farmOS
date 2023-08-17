@@ -1,0 +1,22 @@
+id: asset
+label: farmOS Asset CSV Importers
+source:
+  plugin: csv
+destination:
+  plugin: entity:asset
+  validate: True
+process:
+
+  # Asset name.
+  name: name
+
+  # Asset notes with default format.
+  notes/0/value: notes
+  notes/0/format:
+    plugin: default_value
+    default_value: default
+
+  # Asset status.
+  status: status
+
+deriver: \Drupal\farm_import_csv\Plugin\Derivative\CsvImportMigrationAsset
