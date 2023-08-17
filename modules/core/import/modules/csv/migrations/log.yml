@@ -1,0 +1,28 @@
+id: log
+label: farmOS Log CSV Importers
+source:
+  plugin: csv
+destination:
+  plugin: entity:log
+  validate: True
+process:
+
+  # Log name.
+  name: name
+
+  # Parse log timestamp with strtotime().
+  timestamp:
+    plugin: callback
+    callable: strtotime
+    source: timestamp
+
+  # Log notes with default format.
+  notes/0/value: notes
+  notes/0/format:
+    plugin: default_value
+    default_value: default
+
+  # Log status.
+  status: status
+
+deriver: \Drupal\farm_import_csv\Plugin\Derivative\CsvImportMigrationLog

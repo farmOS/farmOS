@@ -7,4 +7,5 @@ dependencies:
   - drupal:taxonomy
   - farm:asset
   - farm:farm_import
+  - log:log
   - migrate_source_csv:migrate_source_csv

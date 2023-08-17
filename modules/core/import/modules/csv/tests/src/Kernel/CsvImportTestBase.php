@@ -55,6 +55,7 @@ class CsvImportTestBase extends MigrateTestBase {
     parent::setUp();
     $this->migrationManager = $this->container->get('plugin.manager.migration');
     $this->installEntitySchema('asset');
+    $this->installEntitySchema('log');
     $this->installEntitySchema('taxonomy_term');
     $this->installEntitySchema('user');
     $this->installConfig(['farm_format']);
