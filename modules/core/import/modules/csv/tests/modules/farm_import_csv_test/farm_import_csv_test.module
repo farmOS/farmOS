@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * @file
+ * Code for the farmOS Import CSV Test module.
+ */
+
+/**
+ * Implements hook_migration_plugins_alter().
+ */
+function farm_import_csv_test_migration_plugins_alter(&$definitions) {
+
+  // Alter source file paths to test importing artifact CSVs.
+  $csv_artifacts = [
+    'taxonomy_term:animal_type' => 'animal-types.csv',
+  ];
+  $module_path = \Drupal::service('extension.list.module')->getPath('farm_import_csv_test');
+  foreach ($csv_artifacts as $id => $filename) {
+    if (!empty($definitions[$id])) {
+      $definitions[$id]['source']['path'] = $module_path . '/artifacts/' . $filename;
+    }
+  }
+}

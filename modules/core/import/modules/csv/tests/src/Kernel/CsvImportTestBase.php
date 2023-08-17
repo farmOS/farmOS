@@ -34,6 +34,7 @@ class CsvImportTestBase extends MigrateTestBase {
     'migrate_source_ui',
     'migrate_tools',
     'taxonomy',
+    'text',
     'user',
   ];
 
@@ -43,6 +44,7 @@ class CsvImportTestBase extends MigrateTestBase {
   public function setUp(): void {
     parent::setUp();
     $this->migrationManager = $this->container->get('plugin.manager.migration');
+    $this->installEntitySchema('taxonomy_term');
   }
 
 }

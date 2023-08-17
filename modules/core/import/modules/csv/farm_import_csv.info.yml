@@ -4,5 +4,6 @@ type: module
 package: farmOS
 core_version_requirement: ^9
 dependencies:
+  - drupal:taxonomy
   - farm:farm_import
   - migrate_source_csv:migrate_source_csv

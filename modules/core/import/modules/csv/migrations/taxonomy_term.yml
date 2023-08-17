@@ -1,0 +1,19 @@
+id: taxonomy_term
+label: farmOS Term CSV Importers
+source:
+  plugin: csv
+destination:
+  plugin: entity:taxonomy_term
+  validate: True
+process:
+
+  # Term name.
+  name: name
+
+  # Term description with default format.
+  description/0/value: description
+  description/0/format:
+    plugin: default_value
+    default_value: default
+
+deriver: \Drupal\farm_import_csv\Plugin\Derivative\CsvImportMigrationTerm
