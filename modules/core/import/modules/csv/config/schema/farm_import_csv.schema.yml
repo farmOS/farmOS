@@ -1,0 +1,15 @@
+# Schema for the farmOS CSV import migration third party settings.
+migrate_plus.migration.*.third_party.farm_import_csv:
+  type: mapping
+  label: 'farmOS CSV import settings'
+  mapping:
+    access:
+      type: mapping
+      label: 'Access control'
+      mapping:
+        permissions:
+          type: sequence
+          label: 'Permissions'
+          sequence:
+            type: string
+            label: 'Permission'

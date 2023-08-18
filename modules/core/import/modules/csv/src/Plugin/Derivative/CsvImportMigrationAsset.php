@@ -15,6 +15,13 @@ class CsvImportMigrationAsset extends CsvImportMigrationBase {
   /**
    * {@inheritdoc}
    */
+  protected function getCreatePermission(string $bundle): string {
+    return 'create ' . $bundle . ' asset';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   protected function alterProcessMapping(array &$mapping, string $bundle): void {
     parent::alterProcessMapping($mapping, $bundle);
 

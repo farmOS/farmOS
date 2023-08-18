@@ -15,6 +15,13 @@ class CsvImportMigrationTerm extends CsvImportMigrationBase {
   /**
    * {@inheritdoc}
    */
+  protected function getCreatePermission(string $bundle): string {
+    return 'create terms in ' . $bundle;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   protected function alterProcessMapping(array &$mapping, string $bundle): void {
     parent::alterProcessMapping($mapping, $bundle);
 

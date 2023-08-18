@@ -46,6 +46,17 @@ abstract class CsvImportMigrationBase extends DeriverBase implements ContainerDe
   }
 
   /**
+   * Get the entity create permission string for a given bundle.
+   *
+   * @param string $bundle
+   *   The entity bundle.
+   *
+   * @return string
+   *   Returns a permission string for creating entities of this bundle.
+   */
+  abstract protected function getCreatePermission(string $bundle): string;
+
+  /**
    * Alter migration process mapping for a given bundle.
    *
    * @param array &$mapping
@@ -82,6 +93,9 @@ abstract class CsvImportMigrationBase extends DeriverBase implements ContainerDe
 
       // Alter migration process mapping for this bundle.
       $this->alterProcessMapping($definition['process'], $bundle->id());
+
+      // Add access control permissions to third party settings.
+      $definition['third_party_settings']['farm_import_csv']['access']['permissions'][] = $this->getCreatePermission($bundle->id());
 
       $definitions[$bundle->id()] = $definition;
     }

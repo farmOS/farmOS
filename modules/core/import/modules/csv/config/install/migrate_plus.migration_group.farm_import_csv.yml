@@ -17,3 +17,7 @@ shared_configuration:
   destination:
     validate: true
   migration_dependencies: {  }
+  third_party_settings:
+    farm_import_csv:
+      access:
+        permissions: []
