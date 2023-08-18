@@ -1,0 +1,7 @@
+name: farmOS Import CSV Test
+description: Support module for CSV import testing.
+type: module
+package: Testing
+core_version_requirement: ^9
+dependencies:
+  - farm:farm_import_csv
