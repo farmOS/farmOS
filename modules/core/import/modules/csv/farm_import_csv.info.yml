@@ -13,3 +13,4 @@ dependencies:
   - log:log
   - migrate_plus:migrate_plus
   - migrate_source_csv:migrate_source_csv
+  - migrate_source_ui:migrate_source_ui
