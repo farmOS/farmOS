@@ -18,6 +18,20 @@ class CsvImportForm extends MigrateSourceUiForm {
   }
 
   /**
+   * Get the title of the migration.
+   *
+   * @param string $migration_id
+   *   The migration ID.
+   *
+   * @return \Drupal\Core\StringTranslation\TranslatableMarkup
+   *   Returns the migration label.
+   */
+  public function getTitle(string $migration_id) {
+    $migration_label = $this->pluginManagerMigration->getDefinition($migration_id)['label'];
+    return $this->t('Import @label', ['@label' => $migration_label]);
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, $migration_id = NULL) {
