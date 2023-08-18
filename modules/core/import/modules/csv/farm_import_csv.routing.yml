@@ -1,0 +1,11 @@
+farm.import.csv.form:
+  path: /import/csv/{migration_id}
+  defaults:
+    _form: \Drupal\farm_import_csv\Form\CsvImportForm
+    _title_callback: \Drupal\farm_import_csv\Form\CsvImportForm::getTitle
+  requirements:
+    _custom_access: \Drupal\farm_import_csv\Form\CsvImportForm::access
+  options:
+    parameters:
+      migration_id:
+        type: string
