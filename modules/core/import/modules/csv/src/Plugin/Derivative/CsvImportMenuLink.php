@@ -47,9 +47,9 @@ class CsvImportMenuLink extends DeriverBase implements ContainerDeriverInterface
     // Load CSV importers.
     $importers = $this->migrationPluginManager->getDefinitions();
 
-    // Add a link for each CSV importer.
+    // Add a link for each CSV importer in the farm_import_csv group.
     foreach ($importers as $id => $importer) {
-      if ($importer['source']['plugin'] != 'csv') {
+      if (!($importer['source']['plugin'] == 'csv' && $importer['migration_group'] == 'farm_import_csv')) {
         continue;
       }
       $route_id = 'farm.import.csv.' . $id;
