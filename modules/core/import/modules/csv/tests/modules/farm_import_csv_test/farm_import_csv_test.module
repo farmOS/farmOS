@@ -15,6 +15,7 @@ function farm_import_csv_test_migration_plugins_alter(&$definitions) {
     'asset:equipment' => 'equipment.csv',
     'log:harvest' => 'harvests.csv',
     'taxonomy_term:animal_type' => 'animal-types.csv',
+    'migration_config_deriver:egg_harvest' => 'egg-harvests.csv',
   ];
   $module_path = \Drupal::service('extension.list.module')->getPath('farm_import_csv_test');
   foreach ($csv_artifacts as $id => $filename) {
