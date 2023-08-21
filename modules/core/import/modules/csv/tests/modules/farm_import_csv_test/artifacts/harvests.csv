@@ -1,4 +1,4 @@
-timestamp,name,notes,status
-2023-07-15,Harvest garlic,Great big bulbs,done
-2023-08-15,Harvest potatoes,Heavy harvest,done
-2023-09-15,Harvest onions,Small bulbs from weed pressure,pending
+timestamp,name,quantity,quantity units,quantity measure,quantity label,notes,status
+2023-07-15,Harvest garlic,200,bulbs,count,total,Great big bulbs,done
+2023-08-15,Harvest potatoes,80,lbs,weight,,Heavy harvest,done
+2023-09-15,Harvest onions,,lbs,weight,,Small bulbs from weed pressure,pending

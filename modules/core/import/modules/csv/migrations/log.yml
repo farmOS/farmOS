@@ -16,6 +16,40 @@ process:
     callable: strtotime
     source: timestamp
 
+  # Create a quantity, if necessary.
+  # This will also create a new unit term, if necessary.
+  _qty_units:
+    - plugin: skip_on_empty
+      method: process
+      source: quantity units
+    - plugin: entity_generate
+      entity_type: taxonomy_term
+      value_key: name
+      bundle_key: vid
+      bundle: unit
+      source: quantity units
+  quantity:
+    - plugin: concat
+      method: process
+      source:
+        - quantity
+        - quantity units
+        - quantity measure
+        - quantity label
+    - plugin: skip_on_empty
+      method: process
+    - plugin: static_map
+      map: {  }
+      default_value: [ [ ] ]
+    - plugin: create_quantity
+      default_values:
+        type: standard
+      values:
+        value: quantity
+        units: '@_qty_units'
+        measure: quantity measure
+        label: quantity label
+
   # Log notes with default format.
   notes/0/value: notes
   notes/0/format:
