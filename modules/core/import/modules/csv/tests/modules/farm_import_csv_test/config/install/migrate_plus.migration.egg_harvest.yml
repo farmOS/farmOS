@@ -3,19 +3,15 @@ status: true
 dependencies: {  }
 id: egg_harvest
 label: 'Egg harvest importer'
+migration_group: farm_import_csv
 migration_tags: []
 source:
+  plugin: csv
   constants:
     UNIT: egg(s)
     LOG_NAME_PREFIX: Collected
-  plugin: csv
-  path: tmp://
-  create_record_number: true
-  record_number_field: rownum
-  ids: [rownum]
 destination:
   plugin: 'entity:log'
-  validate: true
 process:
   # Hard-code the bundle.
   type:

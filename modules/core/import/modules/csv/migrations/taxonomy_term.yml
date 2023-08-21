@@ -1,10 +1,10 @@
 id: taxonomy_term
 label: farmOS Term CSV Importers
+migration_group: farm_import_csv
 source:
   plugin: csv
 destination:
   plugin: entity:taxonomy_term
-  validate: True
 process:
 
   # Term name.

@@ -1,10 +1,10 @@
 id: asset
 label: farmOS Asset CSV Importers
+migration_group: farm_import_csv
 source:
   plugin: csv
 destination:
   plugin: entity:asset
-  validate: True
 process:
 
   # Asset name.

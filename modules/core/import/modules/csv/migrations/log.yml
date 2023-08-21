@@ -1,10 +1,10 @@
 id: log
 label: farmOS Log CSV Importers
+migration_group: farm_import_csv
 source:
   plugin: csv
 destination:
   plugin: entity:log
-  validate: True
 process:
 
   # Log name.

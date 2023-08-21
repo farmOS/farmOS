@@ -80,12 +80,6 @@ abstract class CsvImportMigrationBase extends DeriverBase implements ContainerDe
       $definition['id'] .= ':' . $bundle->id();
       $definition['label'] = $entity_type->getLabel() . ': ' . $bundle->label();
 
-      // Configure the source.
-      $definition['source']['path'] = 'tmp://';
-      $definition['source']['create_record_number'] = TRUE;
-      $definition['source']['record_number_field'] = 'rownum';
-      $definition['source']['ids'] = ['rownum'];
-
       // Alter migration process mapping for this bundle.
       $this->alterProcessMapping($definition['process'], $bundle->id());
 

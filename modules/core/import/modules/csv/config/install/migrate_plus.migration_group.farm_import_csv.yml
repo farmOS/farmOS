@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - farm_import_csv
+id: farm_import_csv
+label: 'farmOS CSV Importers'
+description: 'Common configuration for farmOS CSV importers.'
+shared_configuration:
+  source:
+    plugin: csv
+    path: tmp://
+    create_record_number: true
+    record_number_field: rownum
+    ids: [rownum]
+  destination:
+    validate: true
+  migration_dependencies: {  }
