@@ -118,7 +118,7 @@ class AssetAddLogActionForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function getConfirmText() {
-    return $this->t('Assign');
+    return $this->t('Continue');
   }
 
   /**
