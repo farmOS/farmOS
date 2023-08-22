@@ -1,4 +1,4 @@
-name,description
-Cow,Cow description
-Pig,Pig description
-Sheep,Sheep description
+name,description,parent
+Cow,Cow description,
+Pig,Pig description,
+Galway,Large polled white-faced sheep,Sheep

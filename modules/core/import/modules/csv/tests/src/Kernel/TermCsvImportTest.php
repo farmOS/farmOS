@@ -24,6 +24,10 @@ class TermCsvImportTest extends CsvImportTestBase {
   public function setUp(): void {
     parent::setUp();
     $this->installConfig(['farm_animal_type']);
+
+    // Create parent term to test asset_lookup.
+    $term = Term::create(['name' => 'Sheep', 'vid' => 'animal_type']);
+    $term->save();
   }
 
   /**
@@ -37,28 +41,40 @@ class TermCsvImportTest extends CsvImportTestBase {
     // Execute the migration.
     $this->executeMigration($migration);
 
-    // Confirm that terms have been created with the expected values.
+    // Confirm that terms have been created with the expected values
+    // (in addition to the one we created in setUp() above).
     $terms = Term::loadMultiple();
-    $this->assertCount(3, $terms);
+    $this->assertCount(4, $terms);
     $expected_values = [
-      1 => [
+      2 => [
         'name' => 'Cow',
         'description' => 'Cow description',
       ],
-      2 => [
+      3 => [
         'name' => 'Pig',
         'description' => 'Pig description',
       ],
-      3 => [
-        'name' => 'Sheep',
-        'description' => 'Sheep description',
+      4 => [
+        'name' => 'Galway',
+        'description' => 'Large polled white-faced sheep',
+        'parent' => 'Sheep',
       ],
     ];
     foreach ($terms as $id => $term) {
+      // Skip terms created in setup().
+      if ($id <= 1) {
+        continue;
+      }
       $this->assertEquals('animal_type', $term->bundle());
       $this->assertEquals($expected_values[$id]['name'], $term->label());
       $this->assertEquals($expected_values[$id]['description'], $term->getDescription());
       $this->assertEquals('default', $term->get('description')->format);
+      if (!empty($expected_values[$id]['parent'])) {
+        $this->assertEquals($expected_values[$id]['parent'], $term->get('parent')->referencedEntities()[0]->label());
+      }
+      else {
+        $this->assertEmpty($term->get('parent')->referencedEntities());
+      }
     }
   }
 
