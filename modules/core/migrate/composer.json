@@ -1,9 +1,0 @@
-{
-    "extra": {
-        "drush": {
-            "services": {
-                "drush.services.yml": "^10"
-            }
-        }
-    }
-}

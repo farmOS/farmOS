@@ -64,7 +64,7 @@ nav:
     - Composer: hosting/composer.md
     - Email: hosting/email.md
     - Translations: hosting/localization.md
-    - 1.x Migration: hosting/migration.md
+    - v1 Migration: hosting/migration.md
 theme:
   name: material
   palette:

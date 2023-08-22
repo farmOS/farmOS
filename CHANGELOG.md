@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- [Issue #3382616: Remove v1 migrations from farmOS 3.x](https://www.drupal.org/project/farm/issues/3382616)
+
 ## [2.2.2] 2023-10-25
 
 ### Changed

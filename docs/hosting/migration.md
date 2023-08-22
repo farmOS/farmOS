@@ -1,6 +1,10 @@
-# Migrating from farmOS 1.x to 2.x
+# Migrating from farmOS v1
 
-The upgrade path from farmOS 1.x to 2.x is performed via a database migration.
+**Note: Migrating directly from farmOS v1 to v3+ is not supported. Migrate from
+v1 to v2 first, then *update* to future versions using the normal
+[update process](update).**
+
+The upgrade path from farmOS v1 to v2 is performed via a database migration.
 farmOS 2.x includes a **farmOS Migrate** module that leverage's Drupal core's
 [Migrate API](https://drupal.org/docs/drupal-apis/migrate-api) to provide
 migrations for each asset type, log type, etc. These migrations are defined in
