@@ -11,6 +11,10 @@ use Drupal\migrate_drupal\Plugin\migrate\source\d7\FieldableEntity;
  *   id = "d7_farm_quantity",
  *   source_module = "farm_quantity"
  * )
+ *
+ * @deprecated in farm:2.2.0 and is removed from farm:3.0.0. Migrate from farmOS
+ *   v1 to v2 before upgrading to farmOS v3.
+ * @see https://www.drupal.org/node/3382609
  */
 class Quantity extends FieldableEntity {
 

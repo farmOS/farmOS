@@ -14,6 +14,12 @@ use Drupal\migrate\Row;
  *   id = "d7_sensor_asset",
  *   source_module = "farm_sensor"
  * )
+ *
+ * @deprecated in farm:2.2.0 and is removed from farm:3.0.0. Migrate from farmOS
+ *   v1 to v2 before upgrading to farmOS v3.
+ * @see https://www.drupal.org/node/3382609
+ *
+ * @phpstan-ignore-next-line
  */
 class SensorAsset extends FarmAsset {
 

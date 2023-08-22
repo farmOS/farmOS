@@ -8,6 +8,10 @@ use Drupal\migrate_tools\Drush\MigrateToolsCommands;
  * Farm Migrate Drush commands.
  *
  * @ingroup farm
+ *
+ * @deprecated in farm:2.2.0 and is removed from farm:3.0.0. Migrate from farmOS
+ *   v1 to v2 before upgrading to farmOS v3.
+ * @see https://www.drupal.org/node/3382609
  */
 class FarmMigrateCommands extends MigrateToolsCommands {
 

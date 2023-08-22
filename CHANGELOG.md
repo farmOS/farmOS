@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [QuickFormInterface::getId() is replaced by QuickFormInterface::getQuickId()](https://www.drupal.org/node/3379686)
 - [Issue #3359452: Deprecate farm_log_asset_names_summary()](https://www.drupal.org/project/farm/issues/3359452)
+- [farmOS v1 migrations are deprecated and will be removed in farmOS 3.x](https://www.drupal.org/node/3382609)
 
 ### Fixed
 

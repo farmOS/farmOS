@@ -19,6 +19,10 @@ use Drupal\migrate\Row;
  * @MigrateProcessPlugin(
  *   id = "skip_map_on_empty"
  * )
+ *
+ * @deprecated in farm:2.2.0 and is removed from farm:3.0.0. Migrate from farmOS
+ *   v1 to v2 before upgrading to farmOS v3.
+ * @see https://www.drupal.org/node/3382609
  */
 class SkipMapOnEmpty extends SkipOnEmpty {
 
