@@ -1,0 +1,2 @@
+farm.locations.add_asset:
+  deriver: Drupal\farm_ui_location\Plugin\Derivative\AddLocationAssetAction
