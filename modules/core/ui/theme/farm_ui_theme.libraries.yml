@@ -42,3 +42,7 @@ toolbar:
       css/toolbar.css: { }
   js:
     js/toolbar.js: { weight: -50 }
+views:
+  css:
+    theme:
+      css/views.css: { }
