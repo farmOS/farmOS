@@ -1,6 +1,7 @@
 /* Set farmOS-map accent color to match Gin. */
 .farm-map {
   --farmos-map-accent-color: var(--gin-color-primary);
+  border-radius: var(--gin-border-s);
 }
 
 /* Move map buttons to the top when focused. Prevents surrounding control

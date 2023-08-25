@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- [Use Gin border radius for the map #710](https://github.com/farmOS/farmOS/pull/710)
+
 ### Fixed
 
 - [Fix composer.json version constraints for migrate_plus and migrate_tools #702](https://github.com/farmOS/farmOS/pull/702)
