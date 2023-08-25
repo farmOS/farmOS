@@ -82,7 +82,7 @@ class FarmMetricsBlock extends BlockBase implements ContainerFactoryPluginInterf
     $output['asset']['metrics'] = [
       '#type' => 'container',
       '#attributes' => [
-        'class' => 'assets metrics-container',
+        'class' => ['assets', 'metrics-container'],
       ],
     ];
     $metrics = $this->getEntityMetrics('asset');
@@ -107,7 +107,7 @@ class FarmMetricsBlock extends BlockBase implements ContainerFactoryPluginInterf
     $output['log']['metrics'] = [
       '#type' => 'container',
       '#attributes' => [
-        'class' => 'logs metrics-container',
+        'class' => ['logs', 'metrics-container'],
       ],
     ];
     $metrics = $this->getEntityMetrics('log');
