@@ -1,0 +1,16 @@
+/* Decrease the horizontal margin on medium to large screens. Gin uses xxl. */
+@media (min-width: 48em) {
+  .toolbar-tray-open:not(.toolbar-vertical) .layout-container,
+  body:not(.toolbar-tray-open) .layout-container {
+    margin-left: var(--gin-spacing-m) !important;
+    margin-right: var(--gin-spacing-m) !important;
+  }
+}
+
+/*
+  Override gin style that moves user toolbar icon to the right.
+  With our narrower margins this overflows and adds a horizontal scroll bar.
+ */
+.toolbar-id--toolbar-icon-user {
+  margin-right: 0 !important;
+}

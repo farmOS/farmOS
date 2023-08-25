@@ -36,6 +36,10 @@ quick:
   css:
     theme:
       css/quick.css: { }
+regions:
+  css:
+    theme:
+      css/regions.css: { }
 toolbar:
   css:
     theme:
