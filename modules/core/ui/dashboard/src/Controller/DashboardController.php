@@ -154,6 +154,9 @@ class DashboardController extends ControllerBase {
       $container = [
         '#type' => 'container',
         '#weight' => $weight,
+        '#attributes' => [
+          'class' => ['dashboard-pane'],
+        ],
       ];
 
       // If a title is set, make it a fieldset.
