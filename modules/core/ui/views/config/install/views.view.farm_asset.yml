@@ -1061,7 +1061,7 @@ display:
             image_target_id:
               align: ''
               separator: ''
-              empty_column: false
+              empty_column: true
               responsive: ''
             id:
               sortable: true
@@ -1087,22 +1087,22 @@ display:
             flag_value:
               align: ''
               separator: ''
-              empty_column: false
+              empty_column: true
               responsive: ''
             parent_target_id:
               align: ''
               separator: ''
-              empty_column: false
+              empty_column: true
               responsive: ''
             owner_target_id:
               align: ''
               separator: ''
-              empty_column: false
+              empty_column: true
               responsive: ''
             location:
               align: ''
               separator: ''
-              empty_column: false
+              empty_column: true
               responsive: ''
             status:
               sortable: true

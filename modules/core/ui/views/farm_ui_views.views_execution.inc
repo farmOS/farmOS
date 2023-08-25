@@ -303,6 +303,15 @@ function farm_ui_views_add_bundle_handlers(ViewExecutable $view, string $display
         if (!empty($sort_field)) {
           farm_ui_views_sort_field($view, $display_id, $new_field_id, $sort_field);
         }
+
+        // Add the field to the table style options.
+        $view->getStyle()->options['columns'][$new_field_id] = $new_field_id;
+        $view->getStyle()->options['info'][$new_field_id] = [
+          'align' => '',
+          'separator' => '',
+          'empty_column' => TRUE,
+          'responsive' => '',
+        ];
       }
     }
 
