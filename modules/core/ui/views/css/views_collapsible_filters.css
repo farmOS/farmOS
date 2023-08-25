@@ -1,8 +1,14 @@
 /* Improve style of exposed filters form within details element. */
-div.view-filters details div {
-  margin-top: 0;
+div.view-filters details {
+  margin: 0;
 }
-div.view-filters details div form.views-exposed-form {
+div.view-filters details > summary {
+  padding: 1rem;
+}
+div.view-filters details > div {
+  margin: 0 0 0 .75rem;
+}
+div.view-filters details > div form.views-exposed-form {
   border: none;
   padding: 0;
   -webkit-box-shadow: none;

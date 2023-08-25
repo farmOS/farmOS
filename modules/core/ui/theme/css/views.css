@@ -57,3 +57,12 @@
 .view form.views-form div[data-drupal-selector='edit-header'] > div.form-wrapper {
   padding: 0 0 0 var(--gin-spacing-xs);
 }
+
+/* Specify gin variables for collapsible filter styles. */
+div.view-filters details > summary {
+  padding: var(--gin-spacing-m);
+  font-weight: var(--gin-font-weight-semibold);
+}
+div.view-filters details > div {
+  margin: 0 0 0 var(--gin-spacing-s);
+}
