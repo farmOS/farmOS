@@ -4,6 +4,7 @@ namespace Drupal\farm_import_csv\Form;
 
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Markup;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\migrate_source_ui\Form\MigrateSourceUiForm;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
@@ -78,8 +79,38 @@ class CsvImportForm extends MigrateSourceUiForm {
     $form['update_existing_records']['#type'] = 'value';
     $form['update_existing_records']['#value'] = FALSE;
 
-    // Rename the submit button to "Import".
+    // Rename the submit button to "Import" and set the weight to 100.
     $form['import']['#value'] = $this->t('Import');
+    $form['import']['#weight'] = 100;
+
+    // Load the migration definition.
+    $migration = $this->pluginManagerMigration->getDefinition($migration_id);
+
+    // Show column descriptions, if available.
+    if (!empty($migration['third_party_settings']['farm_import_csv']['columns'])) {
+
+      // Create a collapsed fieldset.
+      $form['columns'] = [
+        '#type' => 'details',
+        '#title' => $this->t('CSV Columns'),
+      ];
+
+      // Show a description of the columns.
+      $items = [];
+      foreach ($migration['third_party_settings']['farm_import_csv']['columns'] as $info) {
+        if (!empty($info['name'])) {
+          $item = '<strong>' . $info['name'] . '</strong>';
+          if (!empty($info['description'])) {
+            $item .= ': ' . $this->t($info['description']);
+          }
+          $items[] = Markup::create($item);
+        }
+      }
+      $form['columns']['descriptions'] = [
+        '#theme' => 'item_list',
+        '#items' => $items,
+      ];
+    }
 
     return $form;
   }

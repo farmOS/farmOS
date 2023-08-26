@@ -59,4 +59,25 @@ process:
   # Log status.
   status: status
 
+# Describe the base columns.
+third_party_settings:
+  farm_import_csv:
+    columns:
+      - name: name
+        description: Name of the log.
+      - name: timestamp
+        description: Timestamp of the log. Accepts most date/time formats. Required.
+      - name: quantity
+        description: Numeric quantity value. Accepts integers or decimals.
+      - name: quantity measure
+        description: Measure of the quantity.
+      - name: quantity units
+        description: Units of measurement of the quantity. A new term in the units taxonomy will be created if necessary.
+      - name: quantity label
+        description: Label of the quantity.
+      - name: notes
+        description: Notes about the log.
+      - name: status
+        description: Status of the log.
+
 deriver: \Drupal\farm_import_csv\Plugin\Derivative\CsvImportMigrationLog

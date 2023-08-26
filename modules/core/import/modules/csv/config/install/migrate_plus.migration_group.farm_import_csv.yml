@@ -19,5 +19,6 @@ shared_configuration:
   migration_dependencies: {  }
   third_party_settings:
     farm_import_csv:
+      columns: []
       access:
         permissions: []

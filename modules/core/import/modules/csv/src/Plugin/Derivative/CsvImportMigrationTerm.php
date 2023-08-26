@@ -40,4 +40,17 @@ class CsvImportMigrationTerm extends CsvImportMigrationBase {
     ];
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  protected function alterColumnDescriptions(array &$columns, string $bundle): void {
+    parent::alterColumnDescriptions($columns, $bundle);
+
+    // Describe the parent column.
+    $columns[] = [
+      'name' => 'parent',
+      'description' => 'Parent term in the taxonomy hierarchy.',
+    ];
+  }
+
 }

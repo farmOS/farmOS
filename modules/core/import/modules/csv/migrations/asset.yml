@@ -19,4 +19,15 @@ process:
   # Asset status.
   status: status
 
+# Describe the base columns.
+third_party_settings:
+  farm_import_csv:
+    columns:
+      - name: name
+        description: Name of the asset. Required.
+      - name: notes
+        description: Notes about the asset.
+      - name: status
+        description: Status of the asset.
+
 deriver: \Drupal\farm_import_csv\Plugin\Derivative\CsvImportMigrationAsset

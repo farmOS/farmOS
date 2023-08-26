@@ -16,4 +16,13 @@ process:
     plugin: default_value
     default_value: default
 
+# Describe the base columns.
+third_party_settings:
+  farm_import_csv:
+    columns:
+      - name: name
+        description: Name of the term. Required.
+      - name: description
+        description: Description of the term.
+
 deriver: \Drupal\farm_import_csv\Plugin\Derivative\CsvImportMigrationTerm
