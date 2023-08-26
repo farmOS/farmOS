@@ -58,6 +58,7 @@ function farm_modules() {
       'farm_import_kml' => t('KML asset importer'),
       'farm_fieldkit' => t('Field Kit integration'),
       'farm_l10n' => t('Translation/localization features'),
+      'farm_role_account_admin' => t('Account Admin role'),
     ],
   ];
 }

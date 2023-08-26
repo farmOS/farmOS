@@ -39,6 +39,7 @@
         "drupal/log": "^2.0.2",
         "drupal/migrate_plus": "^6.0",
         "drupal/migrate_tools": "^6.0.2",
+        "drupal/role_delegation": "^1.2",
         "drupal/simple_oauth": "5.2.3",
         "drupal/state_machine": "^1.0",
         "drupal/subrequests": "^3.0.3",
