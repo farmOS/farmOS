@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * @file
+ * Hooks implemented by the farmOS Account Admin Role module.
+ */
+
+use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Session\AccountInterface;
+
+/**
+ * Implements hook_ENTITY_TYPE_access().
+ */
+function farm_role_account_admin_user_access(EntityInterface $entity, $operation, AccountInterface $account) {
+
+  // Only user 1 can access user 1.
+  if ($entity->id() == 1 && $account->id() != 1) {
+    return AccessResult::forbidden();
+  }
+  return AccessResult::neutral();
+}
