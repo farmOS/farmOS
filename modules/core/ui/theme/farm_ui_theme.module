@@ -221,8 +221,10 @@ function farm_ui_theme_farm_ui_theme_region_items(string $entity_type) {
  */
 function farm_ui_theme_farm_update_exclude_config() {
 
-  // Exclude config that we have overridden in hook_install().
+  // Exclude config that we have overridden in hook_install() or the
+  // farm_ui_theme.overrider service.
   return [
     'block.block.gin_local_actions',
+    'block.block.gin_content',
   ];
 }

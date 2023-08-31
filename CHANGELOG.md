@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Fix composer.json version constraints for migrate_plus and migrate_tools #702](https://github.com/farmOS/farmOS/pull/702)
 - [Fix birth log quick form apostrophe becomes &#039; #698](https://github.com/farmOS/farmOS/issues/698)
+- [Exclude block.block.gin_content from farm_update #715](https://github.com/farmOS/farmOS/pull/715)
 
 ## [2.1.2] 2023-07-18
 
