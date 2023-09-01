@@ -49,7 +49,6 @@ class AccountAdminPermissionsTest extends KernelTestBase {
     $account_admin_permissions = [
       'administer farm settings',
       'administer users',
-      'assign farm_account_admin role',
       'assign farm_manager role',
       'assign farm_worker role',
       'assign farm_viewer role',
@@ -67,6 +66,23 @@ class AccountAdminPermissionsTest extends KernelTestBase {
     foreach ($account_admin_permissions as $permission) {
       $this->assertTrue($user->hasPermission($permission));
     }
+
+    // Ensure the user does not have the "assign farm_account_admin role"
+    // permission.
+    $this->assertFalse($user->hasPermission('assign farm_account_admin role'));
+
+    // Enable the allow_peer_role_assignment setting.
+    $settings = \Drupal::configFactory()->getEditable('farm_role_account_admin.settings');
+    $settings->set('allow_peer_role_assignment', TRUE);
+    $settings->save();
+
+    // Rebuild the container so the configuration change takes effect.
+    $kernel = \Drupal::service('kernel');
+    $kernel->invalidateContainer();
+    $kernel->rebuildContainer();
+
+    // Ensure the user has the "assign farm_account_admin role" permission.
+    $this->assertTrue($user->hasPermission('assign farm_account_admin role'));
   }
 
 }

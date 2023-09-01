@@ -1,0 +1,7 @@
+farm_role_account_admin.settings:
+  type: config_object
+  label: 'farmOS Account Admin Role settings'
+  mapping:
+    allow_peer_role_assignment:
+      type: boolean
+      label: 'Allow users with the Account Admin role to assign/revoke the Account Admin role.'
