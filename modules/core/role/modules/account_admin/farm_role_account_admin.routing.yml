@@ -4,4 +4,4 @@ farm_role_account_admin.settings:
     _form: '\Drupal\farm_role_account_admin\Form\AccountAdminSettingsForm'
     _title: 'Account Admin Role settings'
   requirements:
-    _permission: 'administer farm settings'
+    _permission: 'configure account admin role'
