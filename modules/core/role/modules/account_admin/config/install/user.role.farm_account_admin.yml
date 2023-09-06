@@ -18,7 +18,7 @@ third_party_settings:
     access:
       config: true
       entity:
-        view all: true
-        create all: true
-        update all: true
-        delete all: true
+        view all: false
+        create all: false
+        update all: false
+        delete all: false
