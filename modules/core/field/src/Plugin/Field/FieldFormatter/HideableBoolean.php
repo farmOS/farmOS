@@ -44,13 +44,11 @@ class HideableBoolean extends BooleanFormatter {
       '#type' => 'checkbox',
       '#title' => $this->t('Hide if TRUE'),
       '#default_value' => $this->getSetting('hide_if_true'),
-      '#return_value' => TRUE,
     ];
     $form['hide_if_false'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Hide if FALSE'),
       '#default_value' => $this->getSetting('hide_if_false'),
-      '#return_value' => TRUE,
     ];
 
     return $form;
