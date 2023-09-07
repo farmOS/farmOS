@@ -31,3 +31,17 @@
   box-shadow: var(--gin-shadow-l1);
   border-radius: var(--gin-border-l);
 }
+
+/* Reduce spacing within dashboard fieldsets. */
+.layout__region > fieldset.dashboard-pane .fieldset__label {
+  padding: 0 var(--gin-spacing-m);
+}
+.layout__region > fieldset.dashboard-pane .fieldset__wrapper {
+  margin: 0 var(--gin-spacing-m) var(--gin-spacing-m) var(--gin-spacing-m);
+}
+
+/* Increase fieldset font. */
+.layout__region > fieldset.dashboard-pane .fieldset__label {
+  font-size: var(--gin-font-size-l);
+  font-weight: var(--gin-font-weight-bold);
+}
