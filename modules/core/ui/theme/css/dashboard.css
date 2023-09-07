@@ -21,3 +21,13 @@
     max-width: calc(50% - var(--dashboard-spacing)*.5);
   }
 }
+
+/* Style dashboard fieldsets similar to gin-layer-wrapper. */
+.layout__region > fieldset.dashboard-pane {
+  margin: 0;
+  padding-top: var(--gin-spacing-m);
+  background: var(--gin-bg-layer);
+  border: 1px solid var(--gin-border-color-layer);
+  box-shadow: var(--gin-shadow-l1);
+  border-radius: var(--gin-border-l);
+}
