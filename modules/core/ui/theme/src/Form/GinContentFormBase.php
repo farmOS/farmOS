@@ -113,6 +113,9 @@ class GinContentFormBase extends ContentEntityForm implements RenderCallbackInte
       return $form;
     }
 
+    // Attach content form styles.
+    $form['#attached']['library'][] = 'farm_ui_theme/content_form';
+
     // Add field groups.
     $field_groups = $this->getFieldGroups();
     if (!empty($field_groups)) {
