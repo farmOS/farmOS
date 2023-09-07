@@ -1,4 +1,0 @@
-dashboard_layout:
-  css:
-    theme:
-      css/dashboard_layout.css: { }
