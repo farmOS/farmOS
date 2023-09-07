@@ -128,6 +128,21 @@ class GinContentFormBase extends ContentEntityForm implements RenderCallbackInte
       }
     }
 
+    // Add authoring information for existing entities.
+    // @todo Dependency injection.
+    if (!$this->entity->isNew()) {
+      $changed = \Drupal::service('date.formatter')->format($this->entity->getChangedTime(), 'short', '', $this->currentUser()->getTimeZone(), '');
+      $created = \Drupal::service('date.formatter')->format($this->entity->getCreatedTime(), 'short', '', $this->currentUser()->getTimeZone(), '');
+      $form['revision_field_group']['revision_meta'] = [
+        '#theme' => 'item_list',
+        '#items' => [
+          $this->t('Author: @author', ['@author' => $this->entity->getOwner()->getAccountName()]),
+          $this->t('Last saved: @timestamp', ['@timestamp' => $changed]),
+          $this->t('Created: @timestamp', ['@timestamp' => $created]),
+        ],
+      ];
+    }
+
     return $form;
   }
 
