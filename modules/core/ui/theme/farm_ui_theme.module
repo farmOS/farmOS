@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Block\BlockPluginInterface;
+use Drupal\Core\Entity\Display\EntityFormDisplayInterface;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
@@ -48,6 +49,32 @@ function farm_ui_theme_theme_suggestions_menu_local_task(array $variables) {
  */
 function farm_ui_theme_theme_suggestions_menu_local_tasks(array $variables) {
   return ['menu_local_tasks__farm'];
+}
+
+/**
+ * Implements hook_entity_form_display_alter().
+ */
+function farm_ui_theme_entity_form_display_alter(EntityFormDisplayInterface $form_display, array $context) {
+
+  // Only alter farm entity types.
+  $entity_types = ['asset', 'log', 'plan'];
+  if (!in_array($context['entity_type'], $entity_types)) {
+    return;
+  }
+
+  // Ask modules for a list of region items.
+  $field_map = \Drupal::moduleHandler()->invokeAll(
+    'farm_ui_theme_field_group_items',
+    [$context['entity_type'], $context['bundle'],
+    ],
+  );
+
+  // Apply the field group mapping if not already specified on the form display.
+  foreach ($field_map as $field_id => $field_group) {
+    if (($renderer = $form_display->getRenderer($field_id)) && !$renderer->getThirdPartySetting('farm_ui_theme', 'field_group', FALSE)) {
+      $renderer->setThirdPartySetting('farm_ui_theme', 'field_group', $field_group);
+    }
+  }
 }
 
 /**

@@ -15,6 +15,27 @@
  */
 
 /**
+ * Specify the field groups to place entity fields in.
+ *
+ * @param string $entity_type
+ *   The entity type.
+ * @param string $bundle
+ *   The bundle.
+ *
+ * @return string[]
+ *   An array keyed by field ID mapping to field group.
+ */
+function hook_farm_ui_theme_field_group_items(string $entity_type, string $bundle) {
+  if ($entity_type == 'asset' && $bundle = 'animal') {
+    return [
+      'nickname' => 'bundle',
+      'sex' => 'bundle',
+    ];
+  }
+  return [];
+}
+
+/**
  * Specify the regions that asset, log, and plan content items should be in.
  *
  * @param string $entity_type
