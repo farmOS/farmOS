@@ -79,6 +79,46 @@ function farm_ui_theme_entity_form_display_alter(EntityFormDisplayInterface $for
 }
 
 /**
+ * Implements hook_farm_ui_theme_field_group_items().
+ */
+function farm_ui_theme_farm_ui_theme_field_group_items(string $entity_type, string $bundle) {
+
+  // Define base fields for asset, log, and plans on behalf of core modules.
+  $fields = [
+    'name' => 'entity',
+    'status' => 'entity',
+    'flag' => 'meta',
+    'file' => 'file',
+    'image' => 'file',
+    'revision' => 'revision',
+    'revision_log_message' => 'revision',
+  ];
+  switch ($entity_type) {
+    case 'asset':
+      $fields['owner'] = 'meta';
+      $fields['intrinsic_geometry'] = 'location';
+      $fields['is_location'] = 'location';
+      $fields['is_fixed'] = 'location';
+      break;
+
+    case 'log':
+      $fields['timestamp'] = 'entity';
+      $fields['category'] = 'meta';
+      $fields['owner'] = 'meta';
+      $fields['geometry'] = 'location';
+      $fields['location'] = 'location';
+      break;
+
+    case 'plan':
+      break;
+
+    default:
+      $fields = [];
+  }
+  return $fields;
+}
+
+/**
  * Implements hook_gin_content_form_routes().
  */
 function farm_ui_theme_gin_content_form_routes() {
