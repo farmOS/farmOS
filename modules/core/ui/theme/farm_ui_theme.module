@@ -25,6 +25,11 @@ function farm_ui_theme_theme($existing, $type, $theme, $path) {
     'page__asset__map_popup' => [
       'base hook' => 'page',
     ],
+    // Implement the node edit form theme hook.
+    // See https://www.drupal.org/project/gin/issues/3342164
+    'node_edit_form' => [
+      'render element' => 'form',
+    ],
   ];
 }
 
@@ -45,6 +50,19 @@ function farm_ui_theme_theme_suggestions_menu_local_task(array $variables) {
  */
 function farm_ui_theme_theme_suggestions_menu_local_tasks(array $variables) {
   return ['menu_local_tasks__farm'];
+}
+
+/**
+ * Implements hook_gin_content_form_routes().
+ */
+function farm_ui_theme_gin_content_form_routes() {
+  $routes = [];
+  $entity_types = ['asset', 'log', 'plan'];
+  foreach ($entity_types as $entity_type) {
+    $routes[] = "entity.$entity_type.add_form";
+    $routes[] = "entity.$entity_type.edit_form";
+  }
+  return $routes;
 }
 
 /**
