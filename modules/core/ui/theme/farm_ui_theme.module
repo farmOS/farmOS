@@ -8,7 +8,9 @@
 use Drupal\Core\Block\BlockPluginInterface;
 use Drupal\Core\Entity\Display\EntityFormDisplayInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\farm_ui_theme\Form\GinContentFormBase;
+use Drupal\farm_ui_theme\Form\AssetForm;
+use Drupal\farm_ui_theme\Form\LogForm;
+use Drupal\farm_ui_theme\Form\PlanForm;
 
 /**
  * Implements hook_theme().
@@ -97,18 +99,22 @@ function farm_ui_theme_farm_ui_theme_field_group_items(string $entity_type, stri
   switch ($entity_type) {
     case 'asset':
       $fields['owner'] = 'meta';
+      $fields['parent'] = 'parent';
       $fields['intrinsic_geometry'] = 'location';
       $fields['is_location'] = 'location';
       $fields['is_fixed'] = 'location';
+      $fields['id_tag'] = 'id_tag';
       break;
 
     case 'log':
       $fields['timestamp'] = 'default';
       $fields['category'] = 'meta';
       $fields['owner'] = 'meta';
+      $fields['asset'] = 'asset';
       $fields['geometry'] = 'location';
       $fields['location'] = 'location';
       $fields['is_movement'] = 'location';
+      $fields['quantity'] = 'quantity';
       break;
 
     case 'plan':
@@ -140,9 +146,9 @@ function farm_ui_theme_entity_type_build(array &$entity_types) {
 
   // Override the default add and edit form class.
   $target_entity_types = [
-    'asset' => GinContentFormBase::class,
-    'log' => GinContentFormBase::class,
-    'plan' => GinContentFormBase::class,
+    'asset' => AssetForm::class,
+    'log' => LogForm::class,
+    'plan' => PlanForm::class,
   ];
   foreach ($target_entity_types as $entity_type => $form_class) {
     if (isset($entity_types[$entity_type])) {
