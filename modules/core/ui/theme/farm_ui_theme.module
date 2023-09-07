@@ -8,6 +8,7 @@
 use Drupal\Core\Block\BlockPluginInterface;
 use Drupal\Core\Entity\Display\EntityFormDisplayInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\farm_ui_theme\Form\GinContentFormBase;
 
 /**
  * Implements hook_theme().
@@ -129,6 +130,25 @@ function farm_ui_theme_gin_content_form_routes() {
     $routes[] = "entity.$entity_type.edit_form";
   }
   return $routes;
+}
+
+/**
+ * Implements hook_entity_type_build().
+ */
+function farm_ui_theme_entity_type_build(array &$entity_types) {
+
+  // Override the default add and edit form class.
+  $target_entity_types = [
+    'asset' => GinContentFormBase::class,
+    'log' => GinContentFormBase::class,
+    'plan' => GinContentFormBase::class,
+  ];
+  foreach ($target_entity_types as $entity_type => $form_class) {
+    if (isset($entity_types[$entity_type])) {
+      $entity_types[$entity_type]->setFormClass('add', $form_class);
+      $entity_types[$entity_type]->setFormClass('edit', $form_class);
+    }
+  }
 }
 
 /**
