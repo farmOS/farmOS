@@ -1,5 +1,4 @@
-.metrics-container {
-  margin-top: .5em;
+.metrics-container ul {
   display: flex;
   flex-flow: row wrap;
   gap: .25em .5em;
@@ -7,6 +6,5 @@
 
 .metrics-container a.metric {
   flex-basis: 20%;
-  margin: 0;
   white-space: nowrap;
 }
