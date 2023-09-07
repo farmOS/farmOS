@@ -2,14 +2,55 @@
 
 namespace Drupal\farm_ui_theme\Form;
 
+use Drupal\Component\Datetime\TimeInterface;
+use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Entity\ContentEntityForm;
+use Drupal\Core\Entity\EntityRepositoryInterface;
+use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element\RenderCallbackInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Entity form for gin content form styling.
  */
 class GinContentFormBase extends ContentEntityForm implements RenderCallbackInterface {
+
+  /**
+   * The date formatter service.
+   *
+   * @var \Drupal\Core\Datetime\DateFormatterInterface
+   */
+  protected $dateFormatter;
+
+  /**
+   * Constructs a ContentEntityForm object.
+   *
+   * @param \Drupal\Core\Entity\EntityRepositoryInterface $entity_repository
+   *   The entity repository service.
+   * @param \Drupal\Core\Entity\EntityTypeBundleInfoInterface $entity_type_bundle_info
+   *   The entity type bundle service.
+   * @param \Drupal\Component\Datetime\TimeInterface $time
+   *   The time service.
+   * @param \Drupal\Core\Datetime\DateFormatterInterface $date_formatter
+   *   The date formatter service.
+   */
+  public function __construct(EntityRepositoryInterface $entity_repository, EntityTypeBundleInfoInterface $entity_type_bundle_info, TimeInterface $time, DateFormatterInterface $date_formatter) {
+    parent::__construct($entity_repository, $entity_type_bundle_info, $time);
+    $this->dateFormatter = $date_formatter;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('entity.repository'),
+      $container->get('entity_type.bundle.info'),
+      $container->get('datetime.time'),
+      $container->get('date.formatter'),
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -112,6 +153,20 @@ class GinContentFormBase extends ContentEntityForm implements RenderCallbackInte
           $form[$field_id]['#group'] = "{$tab_id}_field_group";
         }
       }
+    }
+
+    // Add authoring information for existing entities.
+    if (!$this->entity->isNew()) {
+      $changed = $this->dateFormatter->format($this->entity->getChangedTime(), 'short', '', $this->currentUser()->getTimeZone(), '');
+      $created = $this->dateFormatter->format($this->entity->getCreatedTime(), 'short', '', $this->currentUser()->getTimeZone(), '');
+      $form['revision_field_group']['revision_meta'] = [
+        '#theme' => 'item_list',
+        '#items' => [
+          $this->t('Author: @author', ['@author' => $this->entity->getOwner()->getAccountName()]),
+          $this->t('Last saved: @timestamp', ['@timestamp' => $changed]),
+          $this->t('Created: @timestamp', ['@timestamp' => $created]),
+        ],
+      ];
     }
 
     return $form;
