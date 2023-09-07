@@ -3,6 +3,24 @@
  * Styling for farmOS toolbar.
  */
 
+/* Decrease spacing in gin node edit form. */
+/* @todo Move to separate css library. */
+.block-system-main-block > form.gin-node-edit-form {
+  padding: var(--gin-spacing-m);
+}
+.block-system-main-block > form.gin-node-edit-form .form-type--vertical-tabs,
+.block-system-main-block > form.gin-node-edit-form .vertical-tabs {
+  margin-top: 0;
+}
+
+/* Decrease width of vertical tabs in node edit form. */
+form .layout-node-form .vertical-tabs .vertical-tabs__menu {
+  width: 10em;
+}
+form .layout-node-form .vertical-tabs .vertical-tabs__items.vertical-tabs__panes {
+  margin-left: 10em;
+}
+
 /* Add padding to the wrapper around the logo. */
 .toolbar .toolbar-bar #toolbar-item-administration-tray .toolbar-logo {
   padding: .5em !important;
