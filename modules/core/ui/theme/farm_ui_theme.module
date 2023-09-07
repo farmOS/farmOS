@@ -86,8 +86,8 @@ function farm_ui_theme_farm_ui_theme_field_group_items(string $entity_type, stri
 
   // Define base fields for asset, log, and plans on behalf of core modules.
   $fields = [
-    'name' => 'entity',
-    'status' => 'entity',
+    'name' => 'default',
+    'status' => 'meta',
     'flag' => 'meta',
     'file' => 'file',
     'image' => 'file',
@@ -103,11 +103,12 @@ function farm_ui_theme_farm_ui_theme_field_group_items(string $entity_type, stri
       break;
 
     case 'log':
-      $fields['timestamp'] = 'entity';
+      $fields['timestamp'] = 'default';
       $fields['category'] = 'meta';
       $fields['owner'] = 'meta';
       $fields['geometry'] = 'location';
       $fields['location'] = 'location';
+      $fields['is_movement'] = 'location';
       break;
 
     case 'plan':
