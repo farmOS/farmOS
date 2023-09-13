@@ -16,3 +16,13 @@ farm.import.csv.form:
     parameters:
       migration_id:
         type: string
+farm.import.csv.template:
+  path: /import/csv/{migration_id}/template
+  defaults:
+    _controller: \Drupal\farm_import_csv\Form\CsvImportForm::template
+  requirements:
+    _custom_access: \Drupal\farm_import_csv\Form\CsvImportForm::access
+  options:
+    parameters:
+      migration_id:
+        type: string

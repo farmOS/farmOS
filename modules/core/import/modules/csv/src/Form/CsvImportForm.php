@@ -5,8 +5,10 @@ namespace Drupal\farm_import_csv\Form;
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Markup;
+use Drupal\Core\Link;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\migrate_source_ui\Form\MigrateSourceUiForm;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 /**
@@ -95,7 +97,7 @@ class CsvImportForm extends MigrateSourceUiForm {
         '#title' => $this->t('CSV Columns'),
       ];
 
-      // Show a description of the columns.
+      // Show a description of the columns with a link to download a template.
       $items = [];
       foreach ($migration['third_party_settings']['farm_import_csv']['columns'] as $info) {
         if (!empty($info['name'])) {
@@ -106,13 +108,48 @@ class CsvImportForm extends MigrateSourceUiForm {
           $items[] = Markup::create($item);
         }
       }
+      $template_link = Link::createFromRoute($this->t('Download template'), 'farm.import.csv.template', ['migration_id' => $migration_id]);
       $form['columns']['descriptions'] = [
         '#theme' => 'item_list',
         '#items' => $items,
+        '#suffix' => '<p>' . $template_link->toString() . '</p>',
       ];
     }
 
     return $form;
+  }
+
+  /**
+   * Download a template for a CSV migration.
+   *
+   * @param string $migration_id
+   *   The migration ID.
+   *
+   * @return \Symfony\Component\HttpFoundation\Response
+   *   An application/csv file download response object.
+   */
+  public function template(string $migration_id) {
+    /** @var \Drupal\migrate\Plugin\MigrationInterface $migration */
+    $migration = $this->pluginManagerMigration->getDefinition($migration_id);
+    if (empty($migration) || $migration['migration_group'] != 'farm_import_csv') {
+      throw new ResourceNotFoundException();
+    }
+    else {
+      $filename = str_replace(':', '--', $migration_id) . '.csv';
+      $response = new Response();
+      $response->headers->set('Content-Type', 'application/csv');
+      $response->headers->set('Content-Disposition', 'attachment; filename="' . $filename . '"');
+      $column_names = [];
+      if (!empty($migration['third_party_settings']['farm_import_csv']['columns'])) {
+        foreach ($migration['third_party_settings']['farm_import_csv']['columns'] as $column) {
+          if (!empty($column['name'])) {
+            $column_names[] = $column['name'];
+          }
+        }
+      }
+      $response->setContent(implode(',', $column_names));
+      return $response;
+    }
   }
 
 }
