@@ -35,11 +35,8 @@ class TermCsvImportTest extends CsvImportTestBase {
    */
   public function testTermCsvImport() {
 
-    // Initialize the migration for animal_type terms.
-    $migration = $this->migrationManager->createInstance('taxonomy_term:animal_type');
-
-    // Execute the migration.
-    $this->executeMigration($migration);
+    // Run the CSV import.
+    $this->importCsv('animal-types.csv', 'taxonomy_term:animal_type');
 
     // Confirm that terms have been created with the expected values
     // (in addition to the one we created in setUp() above).

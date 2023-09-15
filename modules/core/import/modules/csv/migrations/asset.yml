@@ -2,7 +2,7 @@ id: asset
 label: farmOS Asset CSV Importers
 migration_group: farm_import_csv
 source:
-  plugin: csv
+  plugin: csv_file
 destination:
   plugin: entity:asset
 process:

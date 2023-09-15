@@ -2,7 +2,7 @@ id: taxonomy_term
 label: farmOS Term CSV Importers
 migration_group: farm_import_csv
 source:
-  plugin: csv
+  plugin: csv_file
 destination:
   plugin: entity:taxonomy_term
 process:

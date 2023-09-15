@@ -33,11 +33,8 @@ class ConfigCsvImportTest extends CsvImportTestBase {
    */
   public function testConfigCsvImport() {
 
-    // Initialize the migration for egg harvests.
-    $migration = $this->migrationManager->createInstance('egg_harvest');
-
-    // Execute the migration.
-    $this->executeMigration($migration);
+    // Run the CSV import.
+    $this->importCsv('egg-harvests.csv', 'egg_harvest');
 
     // Confirm that one taxonomy term was created with the expected values.
     $terms = Term::loadMultiple();

@@ -31,11 +31,8 @@ class AssetCsvImportTest extends CsvImportTestBase {
    */
   public function testAssetCsvImport() {
 
-    // Initialize the migration for equipment assets.
-    $migration = $this->migrationManager->createInstance('asset:equipment');
-
-    // Execute the migration.
-    $this->executeMigration($migration);
+    // Run the CSV import.
+    $this->importCsv('equipment.csv', 'asset:equipment');
 
     // Confirm that assets have been created with the expected values.
     $assets = Asset::loadMultiple();

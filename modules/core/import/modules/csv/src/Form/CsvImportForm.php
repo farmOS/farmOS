@@ -53,7 +53,7 @@ class CsvImportForm extends MigrateSourceUiForm {
     // Check access based on third party settings in the migration.
     if ($this->pluginManagerMigration->hasDefinition($migration_id)) {
       $importer = $this->pluginManagerMigration->getDefinition($migration_id);
-      if ($importer['source']['plugin'] == 'csv' && $importer['migration_group'] == 'farm_import_csv') {
+      if ($importer['source']['plugin'] == 'csv_file' && $importer['migration_group'] == 'farm_import_csv') {
         $permissions = [];
         if (!empty($importer['third_party_settings']['farm_import_csv']['access']['permissions'])) {
           $permissions = $importer['third_party_settings']['farm_import_csv']['access']['permissions'];

@@ -32,11 +32,8 @@ class LogCsvImportTest extends CsvImportTestBase {
    */
   public function testLogCsvImport() {
 
-    // Initialize the migration for harvest logs.
-    $migration = $this->migrationManager->createInstance('log:harvest');
-
-    // Execute the migration.
-    $this->executeMigration($migration);
+    // Run the CSV import.
+    $this->importCsv('harvests.csv', 'log:harvest');
 
     // Confirm that two taxonomy terms were created with the expected values.
     $terms = Term::loadMultiple();

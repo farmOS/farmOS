@@ -6,7 +6,7 @@ label: 'Egg harvest importer'
 migration_group: farm_import_csv
 migration_tags: []
 source:
-  plugin: csv
+  plugin: csv_file
   constants:
     UNIT: egg(s)
     LOG_NAME_PREFIX: Collected
