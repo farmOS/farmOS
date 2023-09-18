@@ -10,6 +10,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Markup;
 use Drupal\Core\Link;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\TempStore\PrivateTempStoreFactory;
 use Drupal\file\FileRepositoryInterface;
 use Drupal\file\FileUsage\FileUsageInterface;
 use Drupal\migrate\Plugin\MigrationPluginManager;
@@ -45,6 +46,13 @@ class CsvImportForm extends MigrateSourceUiForm {
   protected $entityTypeManager;
 
   /**
+   * The tempstore service.
+   *
+   * @var \Drupal\Core\TempStore\PrivateTempStoreFactory
+   */
+  protected $tempStore;
+
+  /**
    * CsvImportForm constructor.
    *
    * @param \Drupal\migrate\Plugin\MigrationPluginManager $plugin_manager_migration
@@ -59,12 +67,15 @@ class CsvImportForm extends MigrateSourceUiForm {
    *   The file usage service.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager service.
+   * @param \Drupal\Core\TempStore\PrivateTempStoreFactory $temp_store_factory
+   *   The tempstore service.
    */
-  public function __construct(MigrationPluginManager $plugin_manager_migration, ConfigFactoryInterface $config_factory, FileSystemInterface $file_system, FileRepositoryInterface $file_repository, FileUsageInterface $file_usage, EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(MigrationPluginManager $plugin_manager_migration, ConfigFactoryInterface $config_factory, FileSystemInterface $file_system, FileRepositoryInterface $file_repository, FileUsageInterface $file_usage, EntityTypeManagerInterface $entity_type_manager, PrivateTempStoreFactory $temp_store_factory) {
     parent::__construct($plugin_manager_migration, $config_factory, $file_system);
     $this->fileRepository = $file_repository;
     $this->fileUsage = $file_usage;
     $this->entityTypeManager = $entity_type_manager;
+    $this->tempStore = $temp_store_factory->get('farm_import_csv');
   }
 
   /**
@@ -78,6 +89,7 @@ class CsvImportForm extends MigrateSourceUiForm {
       $container->get('file.repository'),
       $container->get('file.usage'),
       $container->get('entity_type.manager'),
+      $container->get('tempstore.private'),
     );
   }
 
@@ -210,6 +222,9 @@ class CsvImportForm extends MigrateSourceUiForm {
       $form_state->setValue('file_path', $file->getFileUri());
       $this->fileUsage->add($file, 'farm_import_csv', 'migration', $form_state->getValue('migrations'));
     }
+
+    // Save the file ID to the private tempstore.
+    $this->tempStore->set($this->currentUser()->id() . ':' . $form_state->getValue('migrations'), $file->id());
   }
 
   /**
