@@ -1,0 +1,6 @@
+services:
+  farm_import_csv.migration_subscriber:
+    class: Drupal\farm_import_csv\EventSubscriber\CsvMigrationSubscriber
+    arguments: [ '@database', '@current_user', '@tempstore.private' ]
+    tags:
+      - { name: 'event_subscriber' }
