@@ -18,6 +18,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Exclude block.block.gin_content from farm_update #715](https://github.com/farmOS/farmOS/pull/715)
 - [Fix hideable boolean settings form #718](https://github.com/farmOS/farmOS/pull/718)
 
+### Security
+
+- Update Drupal core to 9.5.11 for [SA-CORE-2023-006](https://www.drupal.org/sa-core-2023-006)
+
 ## [2.1.2] 2023-07-18
 
 ### Changed
