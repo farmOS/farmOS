@@ -1,0 +1,64 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the farm_import_csv module.
+ */
+
+use Drupal\Core\Entity\EntityTypeInterface;
+
+/**
+ * Implements hook_schema().
+ */
+function farm_import_csv_schema() {
+  return [
+    'farm_import_csv_entity' => [
+      'description' => 'Tracks entities created via CSV importers.',
+      'fields' => [
+        'entity_type' => [
+          'description' => 'The entity type.',
+          'type' => 'varchar_ascii',
+          'length' => EntityTypeInterface::ID_MAX_LENGTH,
+          'not null' => TRUE,
+        ],
+        'entity_id' => [
+          'description' => 'The entity ID.',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ],
+        'migration' => [
+          'description' => 'The migration ID.',
+          'type' => 'varchar',
+          'length' => 128,
+          'not null' => TRUE,
+        ],
+        'file_id' => [
+          'description' => 'The CSV file ID.',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ],
+        'rownum' => [
+          'description' => 'The CSV row number.',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ],
+      ],
+      'primary key' => [
+        'entity_type',
+        'entity_id',
+      ],
+      'indexes' => [
+        'migration' => [
+          'migration',
+        ],
+        'file_row' => [
+          'file_id',
+          'rownum',
+        ],
+      ],
+    ],
+  ];
+}

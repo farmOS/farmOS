@@ -69,6 +69,7 @@ class CsvImportTestBase extends MigrateTestBase {
     $this->installEntitySchema('taxonomy_term');
     $this->installEntitySchema('user');
     $this->installConfig(['farm_format', 'farm_quantity_standard', 'farm_import_csv']);
+    $this->installSchema('farm_import_csv', ['farm_import_csv_entity']);
 
     // Run tests as the user 1 to avoid permissions issues.
     $this->setUpCurrentUser(['uid' => 1]);

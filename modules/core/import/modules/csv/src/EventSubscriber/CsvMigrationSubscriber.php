@@ -8,6 +8,7 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\TempStore\PrivateTempStoreFactory;
 use Drupal\migrate\Event\MigrateEvents;
 use Drupal\migrate\Event\MigrateImportEvent;
+use Drupal\migrate\Event\MigratePostRowSaveEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -59,8 +60,40 @@ class CsvMigrationSubscriber implements EventSubscriberInterface {
    * @inheritdoc
    */
   public static function getSubscribedEvents() {
+    $events[MigrateEvents::POST_ROW_SAVE][] = ['onMigratePostRowSave'];
     $events[MigrateEvents::POST_IMPORT][] = ['onMigratePostImport'];
     return $events;
+  }
+
+  /**
+   * Logic that runs when a row is saved.
+   *
+   * @param \Drupal\migrate\Event\MigratePostRowSaveEvent $event
+   *   The event object.
+   */
+  public function onMigratePostRowSave(MigratePostRowSaveEvent $event) {
+
+    // If this is not a csv_file source migration, bail.
+    if ($event->getMigration()->getSourcePlugin()->getPluginId() != 'csv_file') {
+      return;
+    }
+
+    // Determine the entity type from the destination plugin.
+    // Only asset, log, and taxonomy term entities are supported.
+    $entity_type = str_replace('entity:', '', $event->getMigration()->getDestinationPlugin()->getPluginId());
+    if (!in_array($entity_type, ['asset', 'log', 'taxonomy_term'])) {
+      return;
+    }
+
+    // Assemble and insert a record into the farm_import_csv_entity table.
+    $record = [
+      'entity_type' => $entity_type,
+      'entity_id' => $event->getDestinationIdValues()[0],
+      'migration' => $event->getMigration()->id(),
+      'file_id' => $event->getRow()->getSourceProperty('file_id'),
+      'rownum' => $event->getRow()->getSourceProperty('record_number'),
+    ];
+    $this->database->insert('farm_import_csv_entity')->fields($record)->execute();
   }
 
   /**

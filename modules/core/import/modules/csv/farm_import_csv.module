@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * @file
+ * Hooks provided by farm_import_csv.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Implements hook_entity_delete().
+ */
+function farm_import_csv_entity_delete(EntityInterface $entity) {
+
+  // If an asset, log, or taxonomy term is deleted, delete associated record
+  // from the farm_import_csv_entity table.
+  if (in_array($entity->getEntityType()->id(), ['asset', 'log', 'taxonomy_term'])) {
+    \Drupal::database()->delete('farm_import_csv_entity')
+      ->condition('entity_type', $entity->getEntityType()->id())
+      ->condition('entity_id', $entity->id())
+      ->execute();
+  }
+}
