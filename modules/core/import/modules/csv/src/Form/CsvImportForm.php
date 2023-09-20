@@ -2,7 +2,6 @@
 
 namespace Drupal\farm_import_csv\Form;
 
-use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\File\FileSystemInterface;
@@ -11,6 +10,7 @@ use Drupal\Core\Render\Markup;
 use Drupal\Core\Link;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\TempStore\PrivateTempStoreFactory;
+use Drupal\farm_import_csv\Access\CsvImportMigrationAccess;
 use Drupal\file\FileRepositoryInterface;
 use Drupal\file\FileUsage\FileUsageInterface;
 use Drupal\migrate\Plugin\MigrationPluginManager;
@@ -53,6 +53,13 @@ class CsvImportForm extends MigrateSourceUiForm {
   protected $tempStore;
 
   /**
+   * The CSV import migration access service.
+   *
+   * @var \Drupal\farm_import_csv\Access\CsvImportMigrationAccess
+   */
+  protected $migrationAccess;
+
+  /**
    * CsvImportForm constructor.
    *
    * @param \Drupal\migrate\Plugin\MigrationPluginManager $plugin_manager_migration
@@ -69,13 +76,16 @@ class CsvImportForm extends MigrateSourceUiForm {
    *   The entity type manager service.
    * @param \Drupal\Core\TempStore\PrivateTempStoreFactory $temp_store_factory
    *   The tempstore service.
+   * @param \Drupal\farm_import_csv\Access\CsvImportMigrationAccess $migration_access
+   *   The CSV import migration access service.
    */
-  public function __construct(MigrationPluginManager $plugin_manager_migration, ConfigFactoryInterface $config_factory, FileSystemInterface $file_system, FileRepositoryInterface $file_repository, FileUsageInterface $file_usage, EntityTypeManagerInterface $entity_type_manager, PrivateTempStoreFactory $temp_store_factory) {
+  public function __construct(MigrationPluginManager $plugin_manager_migration, ConfigFactoryInterface $config_factory, FileSystemInterface $file_system, FileRepositoryInterface $file_repository, FileUsageInterface $file_usage, EntityTypeManagerInterface $entity_type_manager, PrivateTempStoreFactory $temp_store_factory, CsvImportMigrationAccess $migration_access) {
     parent::__construct($plugin_manager_migration, $config_factory, $file_system);
     $this->fileRepository = $file_repository;
     $this->fileUsage = $file_usage;
     $this->entityTypeManager = $entity_type_manager;
     $this->tempStore = $temp_store_factory->get('farm_import_csv');
+    $this->migrationAccess = $migration_access;
   }
 
   /**
@@ -90,6 +100,7 @@ class CsvImportForm extends MigrateSourceUiForm {
       $container->get('file.usage'),
       $container->get('entity_type.manager'),
       $container->get('tempstore.private'),
+      $container->get('farm_import_csv.access'),
     );
   }
 
@@ -127,16 +138,9 @@ class CsvImportForm extends MigrateSourceUiForm {
    */
   public function access(AccountInterface $account, string $migration_id) {
 
-    // Check access based on third party settings in the migration.
+    // Delegate to the farm_import_csv.access service.
     if ($this->pluginManagerMigration->hasDefinition($migration_id)) {
-      $importer = $this->pluginManagerMigration->getDefinition($migration_id);
-      if ($importer['source']['plugin'] == 'csv_file' && $importer['migration_group'] == 'farm_import_csv') {
-        $permissions = [];
-        if (!empty($importer['third_party_settings']['farm_import_csv']['access']['permissions'])) {
-          $permissions = $importer['third_party_settings']['farm_import_csv']['access']['permissions'];
-        }
-        return AccessResult::allowedIfHasPermissions($account, $permissions);
-      }
+      return $this->migrationAccess->access($account, $migration_id);
     }
 
     // Raise 404 if the migration does not exist.

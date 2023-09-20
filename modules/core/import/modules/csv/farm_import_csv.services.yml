@@ -1,4 +1,9 @@
 services:
+  farm_import_csv.access:
+    class: Drupal\farm_import_csv\Access\CsvImportMigrationAccess
+    arguments: [ '@plugin.manager.migration' ]
+    tags:
+      - { name: 'access_check' }
   farm_import_csv.migration_subscriber:
     class: Drupal\farm_import_csv\EventSubscriber\CsvMigrationSubscriber
     arguments: [ '@database', '@current_user', '@tempstore.private' ]
