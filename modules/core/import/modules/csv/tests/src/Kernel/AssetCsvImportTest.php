@@ -15,6 +15,8 @@ class AssetCsvImportTest extends CsvImportTestBase {
    * {@inheritdoc}
    */
   protected static $modules = [
+    'entity',
+    'farm_entity',
     'farm_equipment',
     'farm_id_tag',
     'farm_parent',
@@ -47,18 +49,27 @@ class AssetCsvImportTest extends CsvImportTestBase {
     $expected_values = [
       2 => [
         'name' => 'Old tractor',
+        'manufacturer' => '',
+        'model' => '',
+        'serial_number' => '',
         'parents' => [],
         'notes' => 'Inherited from Grandpa',
         'status' => 'archived',
       ],
       3 => [
         'name' => 'New tractor',
+        'manufacturer' => '',
+        'model' => '',
+        'serial_number' => '',
         'parents' => [],
         'notes' => 'Purchased recently',
         'status' => 'active',
       ],
       4 => [
         'name' => 'Baler',
+        'manufacturer' => '',
+        'model' => '',
+        'serial_number' => '',
         'parents' => [
           'Test parent',
         ],
@@ -73,6 +84,9 @@ class AssetCsvImportTest extends CsvImportTestBase {
       }
       $this->assertEquals('equipment', $asset->bundle());
       $this->assertEquals($expected_values[$id]['name'], $asset->label());
+      $this->assertEquals($expected_values[$id]['manufacturer'], $asset->get('manufacturer')->value);
+      $this->assertEquals($expected_values[$id]['model'], $asset->get('model')->value);
+      $this->assertEquals($expected_values[$id]['serial_number'], $asset->get('serial_number')->value);
       $parents = $asset->get('parent')->referencedEntities();
       $this->assertEquals(count($expected_values[$id]['parents']), count($parents));
       foreach ($parents as $parent) {
