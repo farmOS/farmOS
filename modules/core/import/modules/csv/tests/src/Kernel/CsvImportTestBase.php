@@ -54,6 +54,7 @@ class CsvImportTestBase extends MigrateTestBase {
     'taxonomy',
     'text',
     'user',
+    'views',
   ];
 
   /**
