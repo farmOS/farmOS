@@ -56,7 +56,7 @@ class CsvImportMenuLink extends DeriverBase implements ContainerDeriverInterface
       $links[$route_id] = [
         'title' => $importer['label'],
         'parent' => 'farm.import.csv',
-        'route_name' => 'farm.import.csv.form',
+        'route_name' => 'farm.import.csv.importer',
         'route_parameters' => [
           'migration_id' => $id,
         ],

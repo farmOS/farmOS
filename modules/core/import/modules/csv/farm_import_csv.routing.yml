@@ -5,13 +5,13 @@ farm.import.csv:
     _title: CSV Import
   requirements:
     _permission: access farm import index
-farm.import.csv.form:
+farm.import.csv.importer:
   path: /import/csv/{migration_id}
   defaults:
-    _form: \Drupal\farm_import_csv\Form\CsvImportForm
-    _title_callback: \Drupal\farm_import_csv\Form\CsvImportForm::getTitle
+    _controller: \Drupal\farm_import_csv\Controller\CsvImportController::importer
+    _title_callback: \Drupal\farm_import_csv\Controller\CsvImportController::getTitle
   requirements:
-    _custom_access: \Drupal\farm_import_csv\Form\CsvImportForm::access
+    _custom_access: \Drupal\farm_import_csv\Controller\CsvImportController::access
   options:
     parameters:
       migration_id:
@@ -19,9 +19,9 @@ farm.import.csv.form:
 farm.import.csv.template:
   path: /import/csv/{migration_id}/template
   defaults:
-    _controller: \Drupal\farm_import_csv\Form\CsvImportForm::template
+    _controller: \Drupal\farm_import_csv\Controller\CsvImportController::template
   requirements:
-    _custom_access: \Drupal\farm_import_csv\Form\CsvImportForm::access
+    _custom_access: \Drupal\farm_import_csv\Controller\CsvImportController::access
   options:
     parameters:
       migration_id:
