@@ -42,11 +42,11 @@ class CsvImportTest extends FarmBrowserTestBase {
     $this->assertSession()->pageTextContains('You do not have any importers.');
 
     // Go to the individual log importers and confirm that access is denied.
-    $this->drupalGet('import/csv/asset:equipment');
+    $this->drupalGet('import/csv/csv_asset:equipment');
     $this->assertSession()->statusCodeEquals(403);
-    $this->drupalGet('import/csv/log:harvest');
+    $this->drupalGet('import/csv/csv_log:harvest');
     $this->assertSession()->statusCodeEquals(403);
-    $this->drupalGet('import/csv/taxonomy_term:animal_type');
+    $this->drupalGet('import/csv/csv_taxonomy_term:animal_type');
     $this->assertSession()->statusCodeEquals(403);
 
     // Create and login a test user with access to the CSV importer index, and
@@ -74,7 +74,7 @@ class CsvImportTest extends FarmBrowserTestBase {
     // 3. the migrate_source_ui "Migrations" dropdown is hidden.
     // 4. the migrate_source_ui "Update existing records" checkbox is hidden.
     // 5. the submit button is not titled "Migrate".
-    $this->drupalGet('import/csv/log:harvest');
+    $this->drupalGet('import/csv/csv_log:harvest');
     $this->assertSession()->statusCodeEquals(200);
     $this->assertSession()->pageTextContains('Import Log: Harvest');
     $this->assertSession()->pageTextNotContains('Migrations');
@@ -83,7 +83,7 @@ class CsvImportTest extends FarmBrowserTestBase {
 
     // Go to the asset, log, and term importers and confirm that column
     // descriptions are included, along with a link to download a template.
-    $this->drupalGet('import/csv/asset:equipment');
+    $this->drupalGet('import/csv/csv_asset:equipment');
     $this->assertSession()->statusCodeEquals(200);
     $this->assertSession()->pageTextContains('Download template');
     $log_columns = [
@@ -95,7 +95,7 @@ class CsvImportTest extends FarmBrowserTestBase {
     foreach ($log_columns as $description) {
       $this->assertSession()->pageTextContains($description);
     }
-    $this->drupalGet('import/csv/log:harvest');
+    $this->drupalGet('import/csv/csv_log:harvest');
     $this->assertSession()->statusCodeEquals(200);
     $this->assertSession()->pageTextContains('Download template');
     $log_columns = [
@@ -113,7 +113,7 @@ class CsvImportTest extends FarmBrowserTestBase {
     foreach ($log_columns as $description) {
       $this->assertSession()->pageTextContains($description);
     }
-    $this->drupalGet('import/csv/taxonomy_term:animal_type');
+    $this->drupalGet('import/csv/csv_taxonomy_term:animal_type');
     $this->assertSession()->statusCodeEquals(200);
     $this->assertSession()->pageTextContains('Download template');
     $log_columns = [

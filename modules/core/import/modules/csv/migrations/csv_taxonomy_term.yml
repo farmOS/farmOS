@@ -1,4 +1,4 @@
-id: taxonomy_term
+id: csv_taxonomy_term
 label: farmOS Term CSV Importers
 migration_group: farm_import_csv
 source:

@@ -36,7 +36,7 @@ class TermCsvImportTest extends CsvImportTestBase {
   public function testTermCsvImport() {
 
     // Run the CSV import.
-    $this->importCsv('animal-types.csv', 'taxonomy_term:animal_type');
+    $this->importCsv('animal-types.csv', 'csv_taxonomy_term:animal_type');
 
     // Confirm that terms have been created with the expected values
     // (in addition to the one we created in setUp() above).

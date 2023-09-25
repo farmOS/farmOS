@@ -1,4 +1,4 @@
-id: asset
+id: csv_asset
 label: farmOS Asset CSV Importers
 migration_group: farm_import_csv
 source:

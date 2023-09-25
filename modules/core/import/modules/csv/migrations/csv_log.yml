@@ -1,4 +1,4 @@
-id: log
+id: csv_log
 label: farmOS Log CSV Importers
 migration_group: farm_import_csv
 source:

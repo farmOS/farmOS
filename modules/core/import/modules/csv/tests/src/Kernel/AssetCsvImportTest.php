@@ -40,7 +40,7 @@ class AssetCsvImportTest extends CsvImportTestBase {
   public function testAssetCsvImport() {
 
     // Run the CSV import.
-    $this->importCsv('equipment.csv', 'asset:equipment');
+    $this->importCsv('equipment.csv', 'csv_asset:equipment');
 
     // Confirm that 3 assets have been created with the expected values
     // (in addition to the 1 we created in setUp() above).

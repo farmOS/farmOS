@@ -70,7 +70,7 @@ class LogCsvImportTest extends CsvImportTestBase {
   public function testLogCsvImport() {
 
     // Run the CSV import.
-    $this->importCsv('harvests.csv', 'log:harvest');
+    $this->importCsv('harvests.csv', 'csv_log:harvest');
 
     // Confirm that two taxonomy terms were created with the expected values
     // (in addition to the 4 we created in setUp() above).
