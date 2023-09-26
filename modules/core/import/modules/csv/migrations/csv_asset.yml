@@ -24,7 +24,11 @@ process:
     - plugin: asset_lookup
 
   # Asset status.
-  status: status
+  status:
+    - plugin: get
+      source: status
+    - plugin: default_value
+      default_value: active
 
 # Describe the base columns.
 third_party_settings:
@@ -37,6 +41,6 @@ third_party_settings:
       - name: notes
         description: Notes about the asset.
       - name: status
-        description: Status of the asset.
+        description: 'Status of the asset. Allowed values: active, archived. Defaults to active.'
 
 deriver: \Drupal\farm_import_csv\Plugin\Derivative\CsvImportMigrationAsset

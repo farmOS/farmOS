@@ -79,7 +79,11 @@ process:
       bundle: log_category
 
   # Log status.
-  status: status
+  status:
+    - plugin: get
+      source: status
+    - plugin: default_value
+      default_value: done
 
 # Describe the base columns.
 third_party_settings:
@@ -106,6 +110,6 @@ third_party_settings:
       - name: categories
         description: Log category taxonomy terms. Multiple terms can be separated by commas with the whole cell wrapped in quotes.
       - name: status
-        description: Status of the log.
+        description: 'Status of the log. Allowed values: pending, done. Defaults to done.'
 
 deriver: \Drupal\farm_import_csv\Plugin\Derivative\CsvImportMigrationLog
