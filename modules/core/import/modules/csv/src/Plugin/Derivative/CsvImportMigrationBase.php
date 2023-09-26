@@ -67,7 +67,14 @@ abstract class CsvImportMigrationBase extends DeriverBase implements ContainerDe
    *   The entity bundle.
    */
   protected function alterProcessMapping(array &$mapping, string $bundle): void {
-    // Do nothing.
+
+    // If this is a log or asset, add a revision log message.
+    if (in_array($this->entityType, ['asset', 'log'])) {
+      $mapping['revision_log_message'] = [
+        'plugin' => 'default_value',
+        'default_value' => 'Imported via CSV.',
+      ];
+    }
   }
 
   /**

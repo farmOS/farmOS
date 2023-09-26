@@ -170,6 +170,7 @@ class LogCsvImportTest extends CsvImportTestBase {
         }
       }
       $this->assertEquals($expected_values[$id]['status'], $log->get('status')->value);
+      $this->assertEquals('Imported via CSV.', $log->getRevisionLogMessage());
     }
   }
 

@@ -95,6 +95,7 @@ class AssetCsvImportTest extends CsvImportTestBase {
       $this->assertEquals($expected_values[$id]['notes'], $asset->get('notes')->value);
       $this->assertEquals('default', $asset->get('notes')->format);
       $this->assertEquals($expected_values[$id]['status'], $asset->get('status')->value);
+      $this->assertEquals('Imported via CSV.', $asset->getRevisionLogMessage());
     }
   }
 
