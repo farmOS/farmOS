@@ -17,6 +17,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Misc quick form code and documentation improvements #703](https://github.com/farmOS/farmOS/pull/703)
 
+### Fixed
+
+- [Validate quantity entities created by create_quantity #721](https://github.com/farmOS/farmOS/pull/721)
+
 ## [2.1.3] 2023-09-20
 
 ### Changed

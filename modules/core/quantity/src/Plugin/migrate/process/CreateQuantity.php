@@ -5,6 +5,7 @@ namespace Drupal\quantity\Plugin\migrate\process;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\migrate\MigrateExecutableInterface;
+use Drupal\migrate\MigrateSkipRowException;
 use Drupal\migrate\ProcessPluginBase;
 use Drupal\migrate\Row;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -74,7 +75,17 @@ class CreateQuantity extends ProcessPluginBase implements ContainerFactoryPlugin
         }
 
         // Create the entity.
+        /** @var \Drupal\quantity\Entity\QuantityInterface $entity */
         $entity = $this->quantityStorage->create($entity_values);
+
+        // Validate the entity.
+        /** @var \Symfony\Component\Validator\ConstraintViolationInterface[] $violations */
+        $violations = $entity->validate();
+        if (!empty($violations)) {
+          foreach ($violations as $violation) {
+            throw new MigrateSkipRowException($violation->getPropertyPath() . '=' . $violation->getMessage());
+          }
+        }
 
         // Save the entity so it has an ID.
         $entity->save();
