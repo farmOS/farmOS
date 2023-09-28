@@ -101,6 +101,8 @@ class CsvImportTest extends FarmBrowserTestBase {
     $log_columns = [
       'name: Name of the log.',
       'timestamp: Timestamp of the log. Accepts most date/time formats. Required.',
+      'assets: Assets referenced by the log. Accepts asset names, ID tags, UUIDs, and IDs. Multiple assets can be separated by commas with the whole cell wrapped in quotes.',
+      'locations: Location assets where the log took place. Accepts asset names, ID tags, UUIDs, and IDs. Multiple assets can be separated by commas with the whole cell wrapped in quotes.',
       'quantity: Numeric quantity value.',
       'quantity measure: Measure of the quantity.',
       'quantity units: Units of measurement of the quantity. A new term in the units taxonomy will be created if necessary.',

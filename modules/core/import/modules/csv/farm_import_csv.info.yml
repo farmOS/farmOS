@@ -9,6 +9,8 @@ dependencies:
   - drupal:views
   - farm:asset
   - farm:farm_import
+  - farm:farm_location
+  - farm:farm_log_asset
   - farm:farm_log_quantity
   - farm:farm_parent
   - farm:farm_quantity_standard

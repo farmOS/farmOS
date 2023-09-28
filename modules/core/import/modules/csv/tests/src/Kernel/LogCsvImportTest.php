@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\farm_import_csv\Kernel;
 
+use Drupal\asset\Entity\Asset;
 use Drupal\log\Entity\Log;
 use Drupal\taxonomy\Entity\Term;
 
@@ -17,6 +18,19 @@ class LogCsvImportTest extends CsvImportTestBase {
    */
   protected static $modules = [
     'farm_harvest',
+    'farm_id_tag',
+    'farm_land',
+    'farm_land_types',
+    'farm_location',
+    'farm_log',
+    'farm_log_asset',
+    'farm_map',
+    'farm_plant',
+    'farm_plant_type',
+    'geofield',
+    'rest',
+    'serialization',
+    'views_geojson',
   ];
 
   /**
@@ -24,7 +38,23 @@ class LogCsvImportTest extends CsvImportTestBase {
    */
   public function setUp(): void {
     parent::setUp();
-    $this->installConfig(['farm_harvest']);
+    $this->installConfig(['farm_harvest', 'farm_plant', 'farm_land', 'farm_land_types', 'farm_location']);
+
+    // Create assets to test asset_lookup.
+    $terms[] = Term::create(['name' => 'Garlic', 'vid' => 'plant_type']);
+    $terms[] = Term::create(['name' => 'Potato', 'vid' => 'plant_type']);
+    foreach ($terms as $term) {
+      $term->save();
+    }
+    $assets[] = Asset::create(['name' => 'Garlic', 'type' => 'plant', 'plant_type' => 1, 'status' => 'active']);
+    $assets[] = Asset::create(['name' => 'Potatoes 1', 'type' => 'plant', 'plant_type' => 2, 'status' => 'active']);
+    $assets[] = Asset::create(['name' => 'Potatoes 2', 'type' => 'plant', 'plant_type' => 2, 'id_tag' => ['id' => '1234'], 'status' => 'active']);
+    $assets[] = Asset::create(['name' => 'Field A', 'type' => 'land', 'land_type' => 'land', 'status' => 'active']);
+    $assets[] = Asset::create(['name' => 'Field B', 'type' => 'land', 'land_type' => 'land', 'status' => 'active']);
+    $assets[] = Asset::create(['name' => 'Field C', 'type' => 'land', 'land_type' => 'land', 'status' => 'active']);
+    foreach ($assets as $asset) {
+      $asset->save();
+    }
   }
 
   /**
@@ -35,11 +65,12 @@ class LogCsvImportTest extends CsvImportTestBase {
     // Run the CSV import.
     $this->importCsv('harvests.csv', 'log:harvest');
 
-    // Confirm that two taxonomy terms were created with the expected values.
+    // Confirm that two taxonomy terms were created with the expected values
+    // (in addition to the 2 we created in setUp() above).
     $terms = Term::loadMultiple();
-    $this->assertCount(2, $terms);
-    $this->assertEquals('bulbs', $terms[1]->label());
-    $this->assertEquals('lbs', $terms[2]->label());
+    $this->assertCount(4, $terms);
+    $this->assertEquals('bulbs', $terms[3]->label());
+    $this->assertEquals('lbs', $terms[4]->label());
 
     // Confirm that logs have been created with the expected values.
     $logs = Log::loadMultiple();
@@ -48,6 +79,12 @@ class LogCsvImportTest extends CsvImportTestBase {
       1 => [
         'name' => 'Harvest garlic',
         'timestamp' => 1689343200,
+        'assets' => [
+          'Garlic',
+        ],
+        'locations' => [
+          'Field A',
+        ],
         'quantity' => [
           'measure' => 'count',
           'value' => '200',
@@ -60,6 +97,14 @@ class LogCsvImportTest extends CsvImportTestBase {
       2 => [
         'name' => 'Harvest potatoes',
         'timestamp' => 1692021600,
+        'assets' => [
+          'Potatoes 1',
+          'Potatoes 2',
+        ],
+        'locations' => [
+          'Field B',
+          'Field C',
+        ],
         'quantity' => [
           'measure' => 'weight',
           'value' => '80',
@@ -72,6 +117,8 @@ class LogCsvImportTest extends CsvImportTestBase {
       3 => [
         'name' => 'Harvest onions',
         'timestamp' => 1694700000,
+        'assets' => [],
+        'locations' => [],
         'quantity' => [
           'measure' => 'weight',
           'value' => '',
@@ -85,6 +132,16 @@ class LogCsvImportTest extends CsvImportTestBase {
     foreach ($logs as $id => $log) {
       $this->assertEquals('harvest', $log->bundle());
       $this->assertEquals($expected_values[$id]['name'], $log->label());
+      $assets = $log->get('asset')->referencedEntities();
+      $this->assertEquals(count($expected_values[$id]['assets']), count($assets));
+      foreach ($assets as $asset) {
+        $this->assertContains($asset->label(), $expected_values[$id]['assets']);
+      }
+      $locations = $log->get('location')->referencedEntities();
+      $this->assertEquals(count($expected_values[$id]['locations']), count($locations));
+      foreach ($locations as $location) {
+        $this->assertContains($location->label(), $expected_values[$id]['locations']);
+      }
       $this->assertEquals($expected_values[$id]['quantity']['measure'], $log->get('quantity')->referencedEntities()[0]->get('measure')->value);
       $this->assertEquals($expected_values[$id]['quantity']['value'], $log->get('quantity')->referencedEntities()[0]->get('value')->decimal);
       $this->assertEquals($expected_values[$id]['quantity']['units'], $log->get('quantity')->referencedEntities()[0]->get('units')->referencedEntities()[0]->label());
