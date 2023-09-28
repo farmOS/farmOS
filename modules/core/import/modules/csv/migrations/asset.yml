@@ -16,6 +16,13 @@ process:
     plugin: default_value
     default_value: default
 
+  # Parent asset reference lookup.
+  parent:
+    - plugin: explode
+      delimiter: ,
+      source: parents
+    - plugin: asset_lookup
+
   # Asset status.
   status: status
 
@@ -25,6 +32,8 @@ third_party_settings:
     columns:
       - name: name
         description: Name of the asset. Required.
+      - name: parents
+        description: Parents of the asset. Accepts asset names, ID tags, UUIDs, and IDs. Multiple assets can be separated by commas with the whole cell wrapped in quotes.
       - name: notes
         description: Notes about the asset.
       - name: status

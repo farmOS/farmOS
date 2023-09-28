@@ -10,6 +10,7 @@ dependencies:
   - farm:asset
   - farm:farm_import
   - farm:farm_log_quantity
+  - farm:farm_parent
   - farm:farm_quantity_standard
   - farm:quantity
   - log:log

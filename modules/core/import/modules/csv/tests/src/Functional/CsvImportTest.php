@@ -88,6 +88,7 @@ class CsvImportTest extends FarmBrowserTestBase {
     $this->assertSession()->pageTextContains('Download template');
     $log_columns = [
       'name: Name of the asset. Required.',
+      'parents: Parents of the asset. Accepts asset names, ID tags, UUIDs, and IDs. Multiple assets can be separated by commas with the whole cell wrapped in quotes.',
       'notes: Notes about the asset.',
       'status: Status of the asset.',
     ];
