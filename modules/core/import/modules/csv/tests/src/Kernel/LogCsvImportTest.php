@@ -24,6 +24,7 @@ class LogCsvImportTest extends CsvImportTestBase {
     'farm_location',
     'farm_log',
     'farm_log_asset',
+    'farm_log_category',
     'farm_map',
     'farm_plant',
     'farm_plant_type',
@@ -55,6 +56,12 @@ class LogCsvImportTest extends CsvImportTestBase {
     foreach ($assets as $asset) {
       $asset->save();
     }
+
+    // Create log categories.
+    $term = Term::create(['name' => 'Category 1', 'vid' => 'log_category']);
+    $term->save();
+    $term = Term::create(['name' => 'Category 2', 'vid' => 'log_category']);
+    $term->save();
   }
 
   /**
@@ -66,11 +73,11 @@ class LogCsvImportTest extends CsvImportTestBase {
     $this->importCsv('harvests.csv', 'log:harvest');
 
     // Confirm that two taxonomy terms were created with the expected values
-    // (in addition to the 2 we created in setUp() above).
+    // (in addition to the 4 we created in setUp() above).
     $terms = Term::loadMultiple();
-    $this->assertCount(4, $terms);
-    $this->assertEquals('bulbs', $terms[3]->label());
-    $this->assertEquals('lbs', $terms[4]->label());
+    $this->assertCount(6, $terms);
+    $this->assertEquals('bulbs', $terms[5]->label());
+    $this->assertEquals('lbs', $terms[6]->label());
 
     // Confirm that logs have been created with the expected values.
     $logs = Log::loadMultiple();
@@ -92,6 +99,9 @@ class LogCsvImportTest extends CsvImportTestBase {
           'label' => 'total',
         ],
         'notes' => 'Great big bulbs',
+        'categories' => [
+          'Category 1',
+        ],
         'status' => 'done',
       ],
       2 => [
@@ -112,6 +122,10 @@ class LogCsvImportTest extends CsvImportTestBase {
           'label' => '',
         ],
         'notes' => 'Heavy harvest',
+        'categories' => [
+          'Category 1',
+          'Category 2',
+        ],
         'status' => 'done',
       ],
       3 => [
@@ -126,6 +140,7 @@ class LogCsvImportTest extends CsvImportTestBase {
           'label' => '',
         ],
         'notes' => 'Small bulbs from weed pressure',
+        'categories' => [],
         'status' => 'pending',
       ],
     ];
@@ -149,6 +164,11 @@ class LogCsvImportTest extends CsvImportTestBase {
       $this->assertEquals($expected_values[$id]['timestamp'], $log->get('timestamp')->value);
       $this->assertEquals($expected_values[$id]['notes'], $log->get('notes')->value);
       $this->assertEquals('default', $log->get('notes')->format);
+      if (!empty($expected_values[$id]['categories'])) {
+        foreach ($log->get('category')->referencedEntities() as $category) {
+          $this->assertTRUE(in_array($category->label(), $expected_values[$id]['categories']));
+        }
+      }
       $this->assertEquals($expected_values[$id]['status'], $log->get('status')->value);
     }
   }

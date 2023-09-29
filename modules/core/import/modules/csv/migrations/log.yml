@@ -70,6 +70,14 @@ process:
     plugin: default_value
     default_value: default
 
+  # Log category.
+  category:
+    - plugin: explode
+      delimiter: ,
+      source: categories
+    - plugin: term_lookup
+      bundle: log_category
+
   # Log status.
   status: status
 
@@ -95,6 +103,8 @@ third_party_settings:
         description: Label of the quantity.
       - name: notes
         description: Notes about the log.
+      - name: categories
+        description: Log category taxonomy terms. Multiple terms can be separated by commas with the whole cell wrapped in quotes.
       - name: status
         description: Status of the log.
 
