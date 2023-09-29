@@ -4,6 +4,8 @@ namespace Drupal\farm_import_csv\Plugin\Derivative;
 
 /**
  * Term CSV import migration derivatives.
+ *
+ * @internal
  */
 class CsvImportMigrationTerm extends CsvImportMigrationBase {
 

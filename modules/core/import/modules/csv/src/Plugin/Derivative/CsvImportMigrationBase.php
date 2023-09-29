@@ -10,6 +10,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Base class for CSV import migration derivatives.
+ *
+ * @internal
  */
 abstract class CsvImportMigrationBase extends DeriverBase implements ContainerDeriverInterface {
   use StringTranslationTrait;

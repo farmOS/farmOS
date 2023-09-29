@@ -4,6 +4,8 @@ namespace Drupal\farm_import_csv\Plugin\Derivative;
 
 /**
  * Asset CSV import migration derivatives.
+ *
+ * @internal
  */
 class CsvImportMigrationAsset extends CsvImportMigrationBase {
 
