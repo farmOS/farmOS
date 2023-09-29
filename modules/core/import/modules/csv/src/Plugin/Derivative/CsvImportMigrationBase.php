@@ -144,6 +144,7 @@ abstract class CsvImportMigrationBase extends DeriverBase implements ContainerDe
 
     // This only supports certain field types.
     $supported_field_types = [
+      'entity_reference',
       'list_string',
       'string',
       'timestamp',
@@ -170,6 +171,31 @@ abstract class CsvImportMigrationBase extends DeriverBase implements ContainerDe
 
     // Add configuration based on field type.
     switch ($field_definition->getType()) {
+
+      // Entity reference field.
+      case 'entity_reference':
+
+        // Asset reference.
+        if ($field_definition->getSetting('target_type') == 'asset') {
+          $plugin = [
+            'plugin' => 'asset_lookup',
+          ];
+          if (!empty($field_definition->getSetting('handler_settings')['target_bundles'])) {
+            $plugin['bundle'] = array_keys($field_definition->getSetting('handler_settings')['target_bundles']);
+          }
+          $process[] = $plugin;
+          $description[] = $this->t('Accepts asset names, ID tags, UUIDs, and IDs.');
+        }
+
+        // Term reference.
+        elseif ($field_definition->getSetting('target_type') == 'taxonomy_term') {
+          $process[] = [
+            'plugin' => 'term_lookup',
+            'bundle' => $field_definition->getSetting('handler_settings')['target_bundles'],
+          ];
+        }
+
+        break;
 
       // String fields.
       case 'string':
