@@ -30,6 +30,43 @@ class CsvImportMigrationAsset extends CsvImportMigrationBase {
       'plugin' => 'default_value',
       'default_value' => $bundle,
     ];
+
+    // ID tags.
+    $mapping['id_tag/0/id'] = [
+      'plugin' => 'get',
+      'source' => 'id tag',
+    ];
+    $mapping['id_tag/0/type'] = [
+      'plugin' => 'get',
+      'source' => 'id tag type',
+    ];
+    $mapping['id_tag/0/location'] = [
+      'plugin' => 'get',
+      'source' => 'id tag location',
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function alterColumnDescriptions(array &$columns, string $bundle): void {
+    parent::alterColumnDescriptions($columns, $bundle);
+
+    // Describe the ID tag columns.
+    $columns[] = [
+      'name' => 'id tag',
+      'description' => $this->t('ID tag.'),
+    ];
+    $tag_type_description = $this->t('The type of ID tag.');
+    $tag_type_allowed_values = $this->t('Allowed values: @values.', ['@values' => implode(', ', array_keys(farm_id_tag_type_options($bundle)))]);
+    $columns[] = [
+      'name' => 'id tag type',
+      'description' => $tag_type_description . ' ' . $tag_type_allowed_values,
+    ];
+    $columns[] = [
+      'name' => 'id tag location',
+      'description' => $this->t('Location of the ID tag.'),
+    ];
   }
 
 }

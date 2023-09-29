@@ -16,6 +16,7 @@ class CsvImportMigrationGroupTest extends CsvImportTestBase {
     'farm_animal_type',
     'farm_equipment',
     'farm_harvest',
+    'farm_id_tag',
   ];
 
   /**
