@@ -146,6 +146,7 @@ abstract class CsvImportMigrationBase extends DeriverBase implements ContainerDe
     $supported_field_types = [
       'list_string',
       'string',
+      'timestamp',
     ];
     if (!in_array($field_definition->getType(), $supported_field_types)) {
       return;
@@ -192,6 +193,27 @@ abstract class CsvImportMigrationBase extends DeriverBase implements ContainerDe
           $description[] = $allowed_values_description;
         }
 
+        break;
+
+      // Timestamp.
+      case 'timestamp':
+
+        // If this is not required, then skip the process if empty.
+        if (!$field_definition->isRequired()) {
+          $process[] = [
+            'plugin' => 'skip_on_empty',
+            'method' => 'process',
+          ];
+        }
+
+        // Parse with strtotime().
+        $process[] = [
+          'plugin' => 'callback',
+          'callable' => 'strtotime',
+        ];
+
+        // Describe allowed values.
+        $description[] = $this->t('Accepts most date/time formats.');
         break;
     }
 
