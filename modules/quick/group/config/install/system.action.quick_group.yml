@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - asset
+    - farm_quick_group
+id: quick_group
+label: 'Assign group membership'
+type: asset
+plugin: quick_group
+configuration: {  }
