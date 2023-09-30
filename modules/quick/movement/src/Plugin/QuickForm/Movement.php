@@ -15,6 +15,7 @@ use Drupal\farm_quick\Plugin\QuickForm\QuickFormBase;
 use Drupal\farm_quick\Plugin\QuickForm\QuickFormInterface;
 use Drupal\farm_quick\Traits\QuickFormElementsTrait;
 use Drupal\farm_quick\Traits\QuickLogTrait;
+use Drupal\farm_quick\Traits\QuickPrepopulateTrait;
 use Drupal\farm_quick\Traits\QuickStringTrait;
 use Psr\Container\ContainerInterface;
 
@@ -35,6 +36,7 @@ class Movement extends QuickFormBase implements QuickFormInterface {
 
   use QuickLogTrait;
   use QuickFormElementsTrait;
+  use QuickPrepopulateTrait;
   use QuickStringTrait;
   use WktTrait;
 
@@ -114,6 +116,7 @@ class Movement extends QuickFormBase implements QuickFormInterface {
     ];
 
     // Assets.
+    $prepopulated_assets = $this->getPrepopulatedEntities('asset', $form_state);
     $form['asset'] = [
       '#type' => 'entity_autocomplete',
       '#title' => $this->t('Assets'),
@@ -133,6 +136,7 @@ class Movement extends QuickFormBase implements QuickFormInterface {
         'wrapper' => 'asset-geometry',
         'event' => 'autocompleteclose change',
       ],
+      '#default_value' => $prepopulated_assets,
     ];
 
     // Locations.
@@ -166,6 +170,13 @@ class Movement extends QuickFormBase implements QuickFormInterface {
       '#description' => $this->t('The current geometry of the assets is blue. The new geometry is orange. It is copied from the locations selected above, and can be modified to give the assets a more specific geometry.'),
       '#behaviors' => [
         'quick_movement',
+      ],
+      '#map_settings' => [
+        'behaviors' => [
+          'quick_movement' => [
+            'asset_geometry' => $this->combinedAssetGeometries($prepopulated_assets),
+          ],
+        ],
       ],
       '#display_raw_geometry' => TRUE,
     ];

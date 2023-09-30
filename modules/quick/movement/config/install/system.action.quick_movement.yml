@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - asset
+    - farm_quick_movement
+id: quick_movement
+label: 'Record movement'
+type: asset
+plugin: quick_movement
+configuration: {  }
