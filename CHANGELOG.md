@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Added
 
 - [farmOS v2 CSV import module #722](https://github.com/farmOS/farmOS/pull/722)
+- [Add a Group membership assignment quick form #723](https://github.com/farmOS/farmOS/pull/723)
 
 ## [2.1.3] 2023-09-20
 
