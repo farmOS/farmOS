@@ -29,7 +29,6 @@ function farm_location_asset_base_fields() {
       'settings' => [
         'link' => TRUE,
         'render_without_location' => TRUE,
-        'move_asset_button' => TRUE,
       ],
       'weight' => 95,
     ],

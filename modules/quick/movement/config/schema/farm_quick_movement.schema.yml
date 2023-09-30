@@ -1,0 +1,4 @@
+# Schema for actions.
+action.configuration.quick_movement:
+  type: action_configuration_default
+  label: 'Configuration for the quick movement action'
