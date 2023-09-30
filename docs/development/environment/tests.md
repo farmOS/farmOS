@@ -59,5 +59,5 @@ Alternatively, the `XDEBUG_MODE` environment variable can be specified directly:
 docker compose exec -u www-data -T --env XDEBUG_MODE=off www phpunit --verbose --debug /opt/drupal/web/profiles/farm
 ```
 
-[run-tests.yml]: https://raw.githubusercontent.com/farmOS/farmOS/2.x/.github/workflows/run-tests.yml
-[docker-compose.development.yml]: https://raw.githubusercontent.com/farmOS/farmOS/2.x/docker/docker-compose.development.yml
+[run-tests.yml]: https://raw.githubusercontent.com/farmOS/farmOS/3.x/.github/workflows/run-tests.yml
+[docker-compose.development.yml]: https://raw.githubusercontent.com/farmOS/farmOS/3.x/docker/docker-compose.development.yml

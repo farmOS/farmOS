@@ -1,11 +1,11 @@
-# Inherit from the farmOS 2.x image.
-FROM farmos/farmos:2.x
+# Inherit from the farmOS 3.x image.
+FROM farmos/farmos:3.x
 
 # Set the farmOS and composer project repository URLs and versions.
 ARG FARMOS_REPO=https://github.com/farmOS/farmOS.git
-ARG FARMOS_VERSION=2.x
+ARG FARMOS_VERSION=3.x
 ARG PROJECT_REPO=https://github.com/farmOS/composer-project.git
-ARG PROJECT_VERSION=2.x
+ARG PROJECT_VERSION=3.x
 
 # Set OPcache's revalidation frequency to 0 seconds for development.
 # See https://www.php.net/manual/en/opcache.configuration.php#ini.opcache.revalidate-freq

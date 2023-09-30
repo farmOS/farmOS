@@ -45,7 +45,7 @@ authenticated user and the farmOS server:
     "farm": {
       "name": "Farm Name",
       "url": "https://farmos.site",
-      "version": "2.x",
+      "version": "3.x",
       "system_of_measurement": "metric"
     }
   }

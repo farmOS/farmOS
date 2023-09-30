@@ -1,6 +1,6 @@
 services:
   php:
-    image: farmos/farmos:2.x-dev
+    image: farmos/farmos:3.x-dev
     default: true
     depends: mysql
     commands:
@@ -32,7 +32,7 @@ services:
           --account-pass=admin \
           site:install farm \
           farm.modules="all"
-        
+
         # Create test users with manager, worker and viewer roles.
         vendor/bin/drush user-create manager --password manager && vendor/bin/drush user-add-role farm_manager manager
         vendor/bin/drush user-create worker --password worker && vendor/bin/drush user-add-role farm_worker worker
@@ -53,7 +53,7 @@ services:
         export COMPOSER_MEMORY_LIMIT=-1
         cd /opt/drupal
         composer update farmos/farmos --with-all-dependencies
-        
+
         vendor/bin/drush --yes updb
         vendor/bin/drush cache:rebuild
   mysql:

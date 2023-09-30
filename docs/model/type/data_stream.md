@@ -93,8 +93,8 @@ Basic Data Streams do not define any type-specific fields.
 
 Listener (Legacy) Data Streams have an additional "public key" attribute,
 which is used in the Data Stream's API endpoint for posting/getting data. This
-was used in farmOS 1.x to provide a unique ID for the sensor, separate from the
-Sensor Asset ID that housed the data. This is no longer needed in farmOS 2.x,
+was used in farmOS v1 to provide a unique ID for the sensor, separate from the
+Sensor Asset ID that housed the data. This is no longer needed in farmOS v2+,
 because each Data Stream has its own UUID, which is used in the API endpoints
 instead. The public key is retained for Legacy (Listener) Data Streams to
 ensure that existing sensors can continue to push data without needing to be

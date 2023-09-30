@@ -9,7 +9,7 @@ If you are looking for information about hosting farmOS, or contributing to
 the development, refer to the dedicated documentation on those topics:
 
 - [Hosting farmOS](/hosting)
-- [Contributing to farmOS](https://github.com/farmOS/farmOS/blob/2.x/CONTRIBUTING.md)
+- [Contributing to farmOS](https://github.com/farmOS/farmOS/blob/3.x/CONTRIBUTING.md)
 
 ## Logging in
 

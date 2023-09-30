@@ -161,7 +161,7 @@ Both methods expect an array of field definition options. These include:
   and will take precedence if it is set. Defaults to `1`.
 
 Other options are available for more advanced use-cases. Refer to the
-[FarmFieldFactory](https://github.com/farmOS/farmOS/blob/2.x/modules/core/field/src/FarmFieldFactory.php)
+[FarmFieldFactory](https://github.com/farmOS/farmOS/blob/3.x/modules/core/field/src/FarmFieldFactory.php)
 class to understand how they work.
 
 For more information and example code, see [Adding fields](/development/module/fields).

@@ -6,8 +6,8 @@ documentation which is hosted at [http://farmOS.org](http://farmos.org).
 It uses [mkdocs](http://www.mkdocs.org) to convert simple markdown files into
 static HTML files.
 
-To get started contributing to the farmOS 2.x documentation, fork
-[farmOS](https://github.com/farmOS/farmOS/tree/2.x) on Github. Then install mkdocs and
+To get started contributing to the farmOS documentation, fork
+[farmOS](https://github.com/farmOS/farmOS) on Github. Then install mkdocs and
 clone this repo:
 
     $ brew install python                # For OSX users
@@ -15,11 +15,10 @@ clone this repo:
     $ sudo pip install mkdocs mkdocs-material
     $ git clone https://github.com/farmOS/farmOS.git farmOS
     $ cd farmOS
-    $ git checkout 2.x
     $ git remote add sandbox git@github.com:<username>/farmOS.git
     $ mkdocs serve
 
-Your local farmOS 2.x documentation site should now be available for browsing:
+Your local farmOS documentation site should now be available for browsing:
 http://127.0.0.1:8000/. When you find a typo, an error, unclear or missing
 explanations or instructions, hit ctrl-c, to stop the server, and start editing.
 Find the page you’d like to edit; everything is in the docs/ directory. Make

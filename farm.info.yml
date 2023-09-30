@@ -7,7 +7,7 @@ core_version_requirement: ^9
 project: farm
 
 # This is automatically set during release packaging.
-version: 2.x
+version: 3.x
 
 # Declare this profile a distribution and mark it as 'exclusive' so that it is
 # automatically selected during installation.

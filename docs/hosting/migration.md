@@ -6,6 +6,8 @@ farmOS 2.x includes a **farmOS Migrate** module that leverage's Drupal core's
 migrations for each asset type, log type, etc. These migrations are defined in
 YML configuration files included with the farmOS Migrate module.
 
+... migrate to 2.x then upgrade to 3.x
+
 ## Important considerations
 
 * Do not migrate into a farmOS 2.x instance that already has records. This is

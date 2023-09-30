@@ -90,10 +90,10 @@ Official farmOS Docker images are available on Docker Hub:
 
 This allows farmOS to be run in a Docker container with:
 
-    docker pull farmos/farmos:2.x.y
-    docker run --rm -p 80:80 -v "${PWD}/sites:/opt/drupal/web/sites" farmos/farmos:2.x.y
+    docker pull farmos/farmos:3.x.y
+    docker run --rm -p 80:80 -v "${PWD}/sites:/opt/drupal/web/sites" farmos/farmos:3.x.y
 
-Replace `2.x.y` with the desired version. Find the latest farmOS version on the
+Replace `3.x.y` with the desired version. Find the latest farmOS version on the
 [GitHub release page](https://github.com/farmOS/farmOS/releases). Using the
 `latest` Docker tag is not recommended, because updates require manual steps.
 See [Updating farmOS](/hosting/update) for more info.

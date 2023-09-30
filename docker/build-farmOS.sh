@@ -26,13 +26,13 @@ export COMPOSER_HOME="$(mktemp -d)"
 # Add the farmOS repository to composer.json.
 composer config repositories.farmos git ${FARMOS_REPO}
 
-# Require the correct farmOS version in composer.json. Defaults to 2.x.
+# Require the correct farmOS version in composer.json. Defaults to 3.x.
 # If FARMOS_VERSION is not a valid semantic versioning string, we assume that
 # it is a branch, and prepend it with "dev-".
 # Otherwise FARMOS_VERSION is a valid semantic versioning string. We assume
 # that it is a tagged version and require that version.
-if [ "${FARMOS_VERSION}" = "2.x" ]; then
-  FARMOS_COMPOSER_VERSION="2.x-dev"
+if [ "${FARMOS_VERSION}" = "3.x" ]; then
+  FARMOS_COMPOSER_VERSION="3.x-dev"
 elif [[ ! "${FARMOS_VERSION}" =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-((0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*))*))?(\+([0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*))?$ ]]; then
   FARMOS_COMPOSER_VERSION="dev-${FARMOS_VERSION}"
 fi
@@ -60,7 +60,7 @@ else
 fi
 
 # Set the version in farm.info.yml.
-sed -i "s|version: 2.x|version: ${FARMOS_VERSION}|g" /var/farmOS/web/profiles/farm/farm.info.yml
+sed -i "s|version: 3.x|version: ${FARMOS_VERSION}|g" /var/farmOS/web/profiles/farm/farm.info.yml
 
 # Remove the Composer cache directory.
 rm -rf "$COMPOSER_HOME"

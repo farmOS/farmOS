@@ -18,8 +18,8 @@ otherwise it will be deleted.
 # Backup www volume, just in case.
 sudo tar -czf www.tar.gz www
 
-# Pull latest 2.x-dev Docker image.
-docker pull farmos/farmos:2.x-dev
+# Pull latest 3.x-dev Docker image.
+docker pull farmos/farmos:3.x-dev
 
 # Move directories.
 mv www/web/profiles ./profiles
@@ -37,7 +37,7 @@ mv ./sites www/web/sites
 
 # Update farmOS profile.
 cd www/web/profiles/farm
-git checkout 2.x && git pull origin 2.x
+git checkout 3.x && git pull origin 3.x
 
 # Run Drupal database updates.
 docker compose exec -u www-data www drush updb
