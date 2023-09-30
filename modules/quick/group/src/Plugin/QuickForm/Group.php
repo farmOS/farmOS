@@ -14,6 +14,7 @@ use Drupal\farm_quick\Plugin\QuickForm\QuickFormBase;
 use Drupal\farm_quick\Plugin\QuickForm\QuickFormInterface;
 use Drupal\farm_quick\Traits\QuickFormElementsTrait;
 use Drupal\farm_quick\Traits\QuickLogTrait;
+use Drupal\farm_quick\Traits\QuickPrepopulateTrait;
 use Drupal\farm_quick\Traits\QuickStringTrait;
 use Psr\Container\ContainerInterface;
 
@@ -34,6 +35,7 @@ class Group extends QuickFormBase implements QuickFormInterface {
 
   use QuickLogTrait;
   use QuickFormElementsTrait;
+  use QuickPrepopulateTrait;
   use QuickStringTrait;
 
   /**
@@ -112,6 +114,7 @@ class Group extends QuickFormBase implements QuickFormInterface {
     ];
 
     // Assets.
+    $prepopulated_assets = $this->getPrepopulatedEntities('asset', $form_state);
     $form['asset'] = [
       '#type' => 'entity_autocomplete',
       '#title' => $this->t('Assets'),
@@ -126,6 +129,7 @@ class Group extends QuickFormBase implements QuickFormInterface {
       '#maxlength' => 1024,
       '#tags' => TRUE,
       '#required' => TRUE,
+      '#default_value' => $prepopulated_assets,
     ];
 
     // Groups.

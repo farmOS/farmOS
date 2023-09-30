@@ -1,0 +1,4 @@
+# Schema for actions.
+action.configuration.quick_group:
+  type: action_configuration_default
+  label: 'Configuration for the quick group action'
