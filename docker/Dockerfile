@@ -1,5 +1,5 @@
 # Inherit from the Drupal 10 image on Docker Hub.
-FROM drupal:10.0
+FROM drupal:10.1
 
 # Set the farmOS and composer project repository URLs and versions.
 ARG FARMOS_REPO=https://github.com/farmOS/farmOS.git

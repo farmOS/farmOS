@@ -1,7 +1,7 @@
 {
     "require": {
         "cweagans/composer-patches": "^1.7",
-        "drupal/core-composer-scaffold": "10.0.4"
+        "drupal/core-composer-scaffold": "10.1.5"
     },
     "require-dev": {
         "behat/mink": "^1.10",
