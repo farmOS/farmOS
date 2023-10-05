@@ -2,7 +2,7 @@ name: farmOS API
 description: Provides configuration for the farmOS API.
 type: module
 package: farmOS
-core_version_requirement: ^9
+core_version_requirement: ^10
 dependencies:
   - drupal:jsonapi
   - entity:entity

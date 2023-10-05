@@ -2,7 +2,7 @@ name: farmOS Settings Test
 description: 'Support module for farm settings testing.'
 type: module
 package: farmOS Contrib
-core_version_requirement: ^9
+core_version_requirement: ^10
 dependencies:
   # This dependency is just to test installation of core module dependencies.
   - farm:farm_maintenance

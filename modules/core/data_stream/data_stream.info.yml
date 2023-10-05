@@ -2,7 +2,7 @@ name: farmOS Data Stream
 description: Provides a general purpose data stream entity.
 type: module
 package: farmOS
-core_version_requirement: ^9
+core_version_requirement: ^10
 dependencies:
   - entity:entity
   - fraction:fraction

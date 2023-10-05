@@ -2,7 +2,7 @@ name: farmOS Field
 description: Provides a service for generating farmOS field definitions.
 type: module
 package: farmOS
-core_version_requirement: ^9
+core_version_requirement: ^10
 dependencies:
   - drupal:field
   - entity:entity

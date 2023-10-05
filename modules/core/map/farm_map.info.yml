@@ -2,6 +2,6 @@ name: farmOS Map
 description: Provides farmOS map features.
 type: module
 package: farmOS
-core_version_requirement: ^9
+core_version_requirement: ^10
 dependencies:
   - drupal:block

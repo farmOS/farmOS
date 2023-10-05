@@ -2,6 +2,6 @@ name: farmOS Geo
 description: Provides geospatial features that other modules can use.
 type: module
 package: farmOS
-core_version_requirement: ^9
+core_version_requirement: ^10
 dependencies:
   - geofield:geofield

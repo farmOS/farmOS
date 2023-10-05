@@ -2,4 +2,4 @@ name: farmOS Data Stream Notification Test
 description: Module for testing farmOS data stream notifications.
 type: module
 package: Testing
-core_version_requirement: ^9
+core_version_requirement: ^10

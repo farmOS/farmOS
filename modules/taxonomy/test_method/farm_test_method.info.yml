@@ -2,6 +2,6 @@ name: Test method vocabulary
 description: Provides a Test method vocabulary.
 type: module
 package: farmOS Taxonomies
-core_version_requirement: ^9
+core_version_requirement: ^10
 dependencies:
   - drupal:taxonomy
