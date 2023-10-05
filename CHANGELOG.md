@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [farmOS v2 CSV import module #722](https://github.com/farmOS/farmOS/pull/722)
 - [Add a Group membership assignment quick form #723](https://github.com/farmOS/farmOS/pull/723)
+- [farmOS Setup Menu #706](https://github.com/farmOS/farmOS/pull/706)
 
 ## [2.1.3] 2023-09-20
 
