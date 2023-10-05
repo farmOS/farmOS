@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - [Validate quantity entities created by create_quantity #721](https://github.com/farmOS/farmOS/pull/721)
+- [Update farmOS-map to v2.2.2 #724](https://github.com/farmOS/farmOS/pull/724) to fix [Map Search Bar no longer generating results #197](https://github.com/farmOS/farmOS-map/issues/197)
 
 ## [2.1.3] 2023-09-20
 
