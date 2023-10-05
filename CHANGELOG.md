@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- [farmOS Setup Menu #706](https://github.com/farmOS/farmOS/pull/706)
+
 ## [2.1.3] 2023-09-20
 
 ### Changed
