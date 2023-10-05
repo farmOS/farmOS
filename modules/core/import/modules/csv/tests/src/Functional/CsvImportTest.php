@@ -19,9 +19,9 @@ class CsvImportTest extends FarmBrowserTestBase {
   ];
 
   /**
-   * Test CSV importers.
+   * Test CSV controllers and access.
    */
-  public function testCsvImporters() {
+  public function testCsvControllers() {
 
     // Create and login a test user with no permissions.
     $user = $this->createUser();
