@@ -85,7 +85,7 @@ RUN cp -p /var/farmOS/web/core/phpunit.xml.dist /var/farmOS/phpunit.xml \
   && sed -i 's|name="MINK_DRIVER_ARGS_WEBDRIVER" value='\'''\''|name="MINK_DRIVER_ARGS_WEBDRIVER" value='\''["chrome", { "chromeOptions": { "w3c": false, "args": ["--disable-gpu","--headless", "--no-sandbox"] } }, "http://chrome:4444/wd/hub"]'\''|g' /var/farmOS/phpunit.xml \
   && sed -i 's|\./|\./web/core/|g' /var/farmOS/phpunit.xml \
   && sed -i 's|\.\./web/core/|\./web/|g' /var/farmOS/phpunit.xml \
-  && sed -i 's|  </php>|    <env name="SYMFONY_DEPRECATIONS_HELPER" value="quiet[]=indirect"/>'"\n"'  </php>|g' /var/farmOS/phpunit.xml \
+  && sed -i 's|  </php>|    <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled"/>'"\n"'  </php>|g' /var/farmOS/phpunit.xml \
   && mkdir -p /var/farmOS/web/sites/simpletest/browser_output
 
 # Change back to the root user.
