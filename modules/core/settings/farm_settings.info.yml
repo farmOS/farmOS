@@ -3,3 +3,5 @@ description: Provides settings pages for core farmOS configuration options.
 type: module
 package: farmOS
 core_version_requirement: ^9
+dependencies:
+  - farm:farm_setup

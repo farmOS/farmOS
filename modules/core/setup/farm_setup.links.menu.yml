@@ -1,0 +1,4 @@
+farm.setup:
+  title: Setup
+  parent: system.admin
+  route_name: farm.setup

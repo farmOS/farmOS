@@ -1,0 +1,20 @@
+farm.setup.modules:
+  title: Modules
+  description: Select the core and community farmOS modules that you would like to be installed.
+  parent: farm.setup
+  route_name: farm_settings.modules_form
+  weight: 95
+
+farm.settings:
+  title: Settings
+  description: Configure settings for farmOS and installed modules.
+  parent: farm.setup
+  route_name: farm_settings.settings_page
+  weight: 100
+
+farm.settings.farm_info:
+  title: Farm Info
+  description: Test
+  parent: farm.settings
+  route_name: farm_settings.settings_page
+  weight: -10

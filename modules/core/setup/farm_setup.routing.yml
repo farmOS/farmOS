@@ -1,0 +1,7 @@
+farm.setup:
+  path: /setup
+  defaults:
+    _controller: \Drupal\farm_setup\Controller\SetupController::index
+    _title: Setup
+  requirements:
+    _permission: access farm setup

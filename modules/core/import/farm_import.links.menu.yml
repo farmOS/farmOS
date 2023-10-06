@@ -1,4 +1,6 @@
 farm.import:
   title: Import
-  parent: system.admin
+  description: Import existing data to farmOS.
+  parent: farm.setup
   route_name: farm.import
+  weight: 60
