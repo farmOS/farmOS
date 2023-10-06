@@ -1,0 +1,4 @@
+timestamp,name,assets,locations,quantity,quantity units,quantity measure,quantity label,notes,categories,status
+2023-07-15,Harvest garlic,Garlic,Field A,200,bulbs,count,total,Great big bulbs,Category 1,done
+2023-08-15,Harvest potatoes,"Potatoes 1,1234","Field B,Field C",80,lbs,weight,,Heavy harvest,"Category 1, Category 2",
+2023-09-15,Harvest onions,,,,lbs,weight,,Small bulbs from weed pressure,,pending

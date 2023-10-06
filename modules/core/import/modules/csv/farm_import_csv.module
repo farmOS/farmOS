@@ -1,0 +1,65 @@
+<?php
+
+/**
+ * @file
+ * Hooks provided by farm_import_csv.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Implements hook_file_download().
+ */
+function farm_import_csv_file_download($uri) {
+
+  // Look up the file entity.
+  /** @var \Drupal\file\FileInterface[] $files */
+  $files = \Drupal::entityTypeManager()
+    ->getStorage('file')
+    ->loadByProperties(['uri' => $uri]);
+  /** @var \Drupal\file\FileInterface|null $file */
+  $file = reset($files) ?: NULL;
+
+  // Get file usage.
+  /** @var \Drupal\file\FileUsage\FileUsageInterface $file_usage */
+  $usage_service = \Drupal::service('file.usage');
+  $usages = $usage_service->listUsage($file);
+
+  // If the file was not uploaded by farm_import_csv, return NULL.
+  if (!array_key_exists('farm_import_csv', $usages)) {
+    return NULL;
+  }
+
+  // Get the migration ID.
+  $migration_id = array_key_first($usages['farm_import_csv']['migration']);
+
+  // If the current user uploaded the file, or if the current user has access
+  // to the migration that imported it, allow access.
+  $current_user = \Drupal::currentUser();
+  /** @var \Drupal\Core\Access\AccessResult $access */
+  $access = \Drupal::service('farm_import_csv.access')->access($current_user, $migration_id);
+  if ($file->getOwnerId() === $current_user->id() || $access->isAllowed()) {
+    return [
+      'Content-Type' => 'application/csv',
+      'Content-disposition' => 'attachment; filename="' . $file->getFilename() . '"',
+    ];
+  }
+
+  // Otherwise, deny access.
+  return -1;
+}
+
+/**
+ * Implements hook_entity_delete().
+ */
+function farm_import_csv_entity_delete(EntityInterface $entity) {
+
+  // If an asset, log, or taxonomy term is deleted, delete associated record
+  // from the farm_import_csv_entity table.
+  if (in_array($entity->getEntityType()->id(), ['asset', 'log', 'taxonomy_term'])) {
+    \Drupal::database()->delete('farm_import_csv_entity')
+      ->condition('entity_type', $entity->getEntityType()->id())
+      ->condition('entity_id', $entity->id())
+      ->execute();
+  }
+}

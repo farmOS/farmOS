@@ -1,0 +1,21 @@
+name: farmOS Import CSV
+description: Provides CSV import features for farmOS.
+type: module
+package: farmOS
+core_version_requirement: ^9
+dependencies:
+  - drupal:file
+  - drupal:taxonomy
+  - drupal:views
+  - farm:asset
+  - farm:farm_import
+  - farm:farm_location
+  - farm:farm_log_asset
+  - farm:farm_log_quantity
+  - farm:farm_parent
+  - farm:farm_quantity_standard
+  - farm:quantity
+  - log:log
+  - migrate_plus:migrate_plus
+  - migrate_source_csv:migrate_source_csv
+  - migrate_source_ui:migrate_source_ui

@@ -78,45 +78,7 @@ There are three buttons for modifying shapes:
 
 ## Geometry import and export
 
-### Importing geometry from files
-
-farmOS can import geometries from KML, KMZ, GPX, and GeoJSON files. If you
-already have your farm mapped in another software (like Google Earth), you
-can export KML files for each area and then import them into farmOS records.
-Alternatively, you can use the *KML Importer* module to import a single KML
-file that contains the shapes for multiple land Assets.
-
-To import a KML file of an individual Asset or Log, follow these steps:
-
-1. Create a new Asset or Log (or edit an existing one).
-2. Scroll down to the Files field and upload your KML file.
-3. Scroll to the Geometry field, and just below the map you will see a button
-   labeled "Import geometry from uploaded files". If you uploaded a valid file,
-   you will see the shape(s) appear in the map.
-
-To import a KML/KMZ file containing multiple Assets, follow these steps:
-
-1. Enable the *KML Importer* module.
-2. Go to Administration > Import > KML Import in the toolbar.
-3. Upload your KML/KMZ file, select the default land type to assign to new
-   Assets, and click "Parse".
-4. If geometries are found in the file, a fieldset will be shown for each of
-   them, letting you customize the Asset name, land type, and whether or not it
-   should be imported.
-5. At the bottom of the form, there is an option to create a new Asset that will
-   contain all the imported Assets. It is a good idea to use this so that you
-   can easily review the Asset that were imported, without having them mixed in
-   with your existing Asset right away. If you find that the import didn't work
-   properly, you can select all the Asset under this parent Asset and delete them
-   in bulk.
-
-### Exporting a KML file
-
-The *farmOS KML* module provides an option for exporting the geometry of one or
-more Assets or Logs. Open any list of Assets or Logs, select the ones you want
-to include in your export, and select the "Export KML" option that appears at
-the bottom. A new KML file will be generated with all the geometries that were
-selected.
+See [Importing data](/guide/import) and [Exporting data](/guide/export).
 
 ## Location hierarchy
 

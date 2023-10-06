@@ -1,0 +1,28 @@
+farm.import.csv:
+  path: /import/csv
+  defaults:
+    _controller: \Drupal\farm_import_csv\Controller\CsvImportController::index
+    _title: CSV Import
+  requirements:
+    _permission: access farm import index
+farm.import.csv.importer:
+  path: /import/csv/{migration_id}
+  defaults:
+    _controller: \Drupal\farm_import_csv\Controller\CsvImportController::importer
+    _title_callback: \Drupal\farm_import_csv\Controller\CsvImportController::getTitle
+  requirements:
+    _custom_access: \Drupal\farm_import_csv\Controller\CsvImportController::access
+  options:
+    parameters:
+      migration_id:
+        type: string
+farm.import.csv.template:
+  path: /import/csv/{migration_id}/template
+  defaults:
+    _controller: \Drupal\farm_import_csv\Controller\CsvImportController::template
+  requirements:
+    _custom_access: \Drupal\farm_import_csv\Controller\CsvImportController::access
+  options:
+    parameters:
+      migration_id:
+        type: string

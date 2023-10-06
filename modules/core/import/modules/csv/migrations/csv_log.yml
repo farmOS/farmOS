@@ -1,0 +1,115 @@
+id: csv_log
+label: farmOS Log CSV Importers
+migration_group: farm_import_csv
+source:
+  plugin: csv_file
+destination:
+  plugin: entity:log
+process:
+
+  # Log name.
+  name: name
+
+  # Parse log timestamp with strtotime().
+  timestamp:
+    plugin: callback
+    callable: strtotime
+    source: timestamp
+
+  # Asset reference lookup.
+  asset:
+    - plugin: explode
+      delimiter: ,
+      source: assets
+    - plugin: asset_lookup
+
+  # Location asset reference lookup.
+  location:
+    - plugin: explode
+      delimiter: ,
+      source: locations
+    - plugin: asset_lookup
+
+  # Create a quantity, if necessary.
+  # This will also create a new unit term, if necessary.
+  _qty_units:
+    - plugin: skip_on_empty
+      method: process
+      source: quantity units
+    - plugin: entity_generate
+      entity_type: taxonomy_term
+      value_key: name
+      bundle_key: vid
+      bundle: unit
+      source: quantity units
+  quantity:
+    - plugin: concat
+      method: process
+      source:
+        - quantity
+        - quantity units
+        - quantity measure
+        - quantity label
+    - plugin: skip_on_empty
+      method: process
+    - plugin: static_map
+      map: {  }
+      default_value: [ [ ] ]
+    - plugin: create_quantity
+      default_values:
+        type: standard
+      values:
+        value: quantity
+        units: '@_qty_units'
+        measure: quantity measure
+        label: quantity label
+
+  # Log notes with default format.
+  notes/0/value: notes
+  notes/0/format:
+    plugin: default_value
+    default_value: default
+
+  # Log category.
+  category:
+    - plugin: explode
+      delimiter: ,
+      source: categories
+    - plugin: term_lookup
+      bundle: log_category
+
+  # Log status.
+  status:
+    - plugin: get
+      source: status
+    - plugin: default_value
+      default_value: done
+
+# Describe the base columns.
+third_party_settings:
+  farm_import_csv:
+    columns:
+      - name: name
+        description: Name of the log.
+      - name: timestamp
+        description: Timestamp of the log. Accepts most date/time formats. Required.
+      - name: assets
+        description: Assets referenced by the log. Accepts asset names, ID tags, UUIDs, and IDs. Multiple assets can be separated by commas with the whole cell wrapped in quotes.
+      - name: locations
+        description: Location assets where the log took place. Accepts asset names, ID tags, UUIDs, and IDs. Multiple assets can be separated by commas with the whole cell wrapped in quotes.
+      - name: quantity
+        description: Numeric quantity value. Accepts integers or decimals.
+      - name: quantity measure
+        description: Measure of the quantity.
+      - name: quantity units
+        description: Units of measurement of the quantity. A new term in the units taxonomy will be created if necessary.
+      - name: quantity label
+        description: Label of the quantity.
+      - name: notes
+        description: Notes about the log.
+      - name: categories
+        description: Log category taxonomy terms. Multiple terms can be separated by commas with the whole cell wrapped in quotes.
+      - name: status
+        description: 'Status of the log. Allowed values: pending, done. Defaults to done.'
+
+deriver: \Drupal\farm_import_csv\Plugin\Derivative\CsvImportMigrationLog

@@ -1,0 +1,4 @@
+name,parents,notes,status,manufacturer,model,serial number,id tag,id tag type,id tag location
+Old tractor,,Inherited from Grandpa,archived,,,,12345,,
+New tractor,,Purchased recently,active,,,,67890,eid,trunk
+Baler,Test parent,Makes big bales,,New Idea,483 Round Baler,1234567890,,,

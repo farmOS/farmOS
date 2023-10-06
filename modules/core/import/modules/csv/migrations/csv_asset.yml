@@ -1,0 +1,46 @@
+id: csv_asset
+label: farmOS Asset CSV Importers
+migration_group: farm_import_csv
+source:
+  plugin: csv_file
+destination:
+  plugin: entity:asset
+process:
+
+  # Asset name.
+  name: name
+
+  # Asset notes with default format.
+  notes/0/value: notes
+  notes/0/format:
+    plugin: default_value
+    default_value: default
+
+  # Parent asset reference lookup.
+  parent:
+    - plugin: explode
+      delimiter: ,
+      source: parents
+    - plugin: asset_lookup
+
+  # Asset status.
+  status:
+    - plugin: get
+      source: status
+    - plugin: default_value
+      default_value: active
+
+# Describe the base columns.
+third_party_settings:
+  farm_import_csv:
+    columns:
+      - name: name
+        description: Name of the asset. Required.
+      - name: parents
+        description: Parents of the asset. Accepts asset names, ID tags, UUIDs, and IDs. Multiple assets can be separated by commas with the whole cell wrapped in quotes.
+      - name: notes
+        description: Notes about the asset.
+      - name: status
+        description: 'Status of the asset. Allowed values: active, archived. Defaults to active.'
+
+deriver: \Drupal\farm_import_csv\Plugin\Derivative\CsvImportMigrationAsset

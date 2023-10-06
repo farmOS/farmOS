@@ -1,0 +1,70 @@
+langcode: en
+status: true
+dependencies: {  }
+id: egg_harvest
+label: 'Egg harvest importer'
+migration_group: farm_import_csv
+migration_tags: []
+source:
+  plugin: csv_file
+  constants:
+    UNIT: egg(s)
+    LOG_NAME_PREFIX: Collected
+destination:
+  plugin: 'entity:log'
+process:
+  # Hard-code the bundle.
+  type:
+    plugin: default_value
+    default_value: harvest
+  # Parse the log timestamp with strtotime() from Date column.
+  timestamp:
+    plugin: callback
+    callable: strtotime
+    source: Date
+  # Create or load "egg(s)" unit term.
+  _unit:
+    plugin: entity_generate
+    entity_type: taxonomy_term
+    value_key: name
+    bundle_key: vid
+    bundle: unit
+    source: constants/UNIT
+  # Create a quantity from the Eggs column.
+  quantity:
+    - plugin: skip_on_empty
+      source: Eggs
+      method: process
+    - plugin: static_map
+      map: { }
+      default_value: [ [ ] ]
+    - plugin: create_quantity
+      default_values:
+        type: standard
+        measure: count
+      values:
+        value: Eggs
+        units: '@_unit'
+  # Auto-generate the log name.
+  name:
+    plugin: concat
+    source:
+      - constants/LOG_NAME_PREFIX
+      - Eggs
+      - constants/UNIT
+    delimiter: ' '
+  # Mark the log as done.
+  status:
+    plugin: default_value
+    default_value: done
+migration_dependencies: {  }
+third_party_settings:
+  farm_import_csv:
+    access:
+      permissions:
+        - create harvest log
+    columns:
+      - name: Date
+        description: Date of egg harvest.
+      - name: Eggs
+        description: Number of eggs harvested.

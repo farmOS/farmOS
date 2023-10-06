@@ -1,0 +1,7 @@
+farm.import.csv:
+  title: CSV Import
+  parent: farm.import
+  route_name: farm.import.csv
+farm.import.csv.importer:
+  class: Drupal\Core\Menu\MenuLinkDefault
+  deriver: Drupal\farm_import_csv\Plugin\Derivative\CsvImportMenuLink
