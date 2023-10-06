@@ -2,10 +2,11 @@
 
 namespace Drupal\farm_quick\Controller;
 
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Url;
-use Drupal\farm_quick\QuickFormManager;
+use Drupal\farm_quick\QuickFormInstanceManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -16,17 +17,20 @@ class QuickFormController extends ControllerBase {
   use StringTranslationTrait;
 
   /**
-   * The quick form manager.
+   * The quick form instance manager.
    *
-   * @var \Drupal\farm_quick\QuickFormManager
+   * @var \Drupal\farm_quick\QuickFormInstanceManagerInterface
    */
-  protected $quickFormManager;
+  protected $quickFormInstanceManager;
 
   /**
    * Quick form controller constructor.
+   *
+   * @param \Drupal\farm_quick\QuickFormInstanceManagerInterface $quick_form_instance_manager
+   *   The quick form instance manager.
    */
-  public function __construct(QuickFormManager $quick_form_manager) {
-    $this->quickFormManager = $quick_form_manager;
+  public function __construct(QuickFormInstanceManagerInterface $quick_form_instance_manager) {
+    $this->quickFormInstanceManager = $quick_form_instance_manager;
   }
 
   /**
@@ -34,7 +38,7 @@ class QuickFormController extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('plugin.manager.quick_form'),
+      $container->get('quick_form.instance_manager'),
     );
   }
 
@@ -45,14 +49,22 @@ class QuickFormController extends ControllerBase {
    *   Returns a render array.
    */
   public function index(): array {
-    $quick_forms = $this->quickFormManager->getDefinitions();
+
+    // Start cacheability object with quick form config entity list tag.
+    $cacheability = new CacheableMetadata();
+    $cacheability->addCacheTags($this->entityTypeManager()->getStorage('quick_form')->getEntityType()->getListCacheTags());
+
+    // Build list item for each quick form.
+    /** @var \Drupal\farm_quick\Entity\QuickFormInstanceInterface[] $quick_forms */
+    $quick_forms = $this->quickFormInstanceManager->getInstances();
     $items = [];
-    foreach ($quick_forms as $quick_form) {
-      $url = Url::fromRoute('farm.quick.' . $quick_form['id']);
+    foreach ($quick_forms as $id => $quick_form) {
+      $url = Url::fromRoute('farm_quick.quick_form', ['quick_form' => $id]);
       if ($url->access()) {
+        $cacheability->addCacheableDependency($quick_form);
         $items[] = [
-          'title' => $quick_form['label'],
-          'description' => $quick_form['description'],
+          'title' => $quick_form->getLabel(),
+          'description' => $quick_form->getDescription(),
           'url' => $url,
         ];
       }
@@ -68,6 +80,7 @@ class QuickFormController extends ControllerBase {
         '#markup' => $this->t('You do not have any quick forms.'),
       ];
     }
+    $cacheability->applyTo($output);
     return $output;
   }
 

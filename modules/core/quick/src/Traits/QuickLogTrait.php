@@ -26,7 +26,7 @@ trait QuickLogTrait {
    * @return string
    *   The quick form ID.
    */
-  abstract public function getId();
+  abstract public function getQuickId();
 
   /**
    * Create a log.
@@ -70,7 +70,7 @@ trait QuickLogTrait {
     }
 
     // Track which quick form created the entity.
-    $log->quick[] = $this->getId();
+    $log->quick[] = $this->getQuickId();
 
     // Save the log.
     $log->save();

@@ -6,8 +6,9 @@ use Drupal\Core\Form\BaseFormIdInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
-use Drupal\farm_quick\QuickFormManager;
+use Drupal\farm_quick\QuickFormInstanceManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 /**
  * Form that renders quick forms.
@@ -17,11 +18,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class QuickForm extends FormBase implements BaseFormIdInterface {
 
   /**
-   * The quick form manager.
+   * The quick form instance manager.
    *
-   * @var \Drupal\farm_quick\QuickFormManager
+   * @var \Drupal\farm_quick\QuickFormInstanceManagerInterface
    */
-  protected $quickFormManager;
+  protected $quickFormInstanceManager;
 
   /**
    * The quick form ID.
@@ -33,11 +34,11 @@ class QuickForm extends FormBase implements BaseFormIdInterface {
   /**
    * Class constructor.
    *
-   * @param \Drupal\farm_quick\QuickFormManager $quick_form_manager
-   *   The quick form manager.
+   * @param \Drupal\farm_quick\QuickFormInstanceManagerInterface $quick_form_instance_manager
+   *   The quick form instance manager.
    */
-  public function __construct(QuickFormManager $quick_form_manager) {
-    $this->quickFormManager = $quick_form_manager;
+  public function __construct(QuickFormInstanceManagerInterface $quick_form_instance_manager) {
+    $this->quickFormInstanceManager = $quick_form_instance_manager;
   }
 
   /**
@@ -45,7 +46,7 @@ class QuickForm extends FormBase implements BaseFormIdInterface {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('plugin.manager.quick_form')
+      $container->get('quick_form.instance_manager'),
     );
   }
 
@@ -61,9 +62,9 @@ class QuickForm extends FormBase implements BaseFormIdInterface {
    */
   public function getFormId() {
     $form_id = $this->getBaseFormId();
-    $id = $this->getRouteMatch()->getParameter('id');
+    $id = $this->getRouteMatch()->getParameter('quick_form');
     if (!is_null($id)) {
-      $form_id .= '_' . $this->quickFormManager->createInstance($id)->getFormId();
+      $form_id .= '_' . $this->quickFormInstanceManager->getInstance($id)->getPlugin()->getFormId();
     }
     return $form_id;
   }
@@ -71,14 +72,14 @@ class QuickForm extends FormBase implements BaseFormIdInterface {
   /**
    * Get the title of the quick form.
    *
-   * @param string $id
+   * @param string $quick_form
    *   The quick form ID.
    *
    * @return string
    *   Quick form title.
    */
-  public function getTitle(string $id) {
-    return $this->quickFormManager->createInstance($id)->getLabel();
+  public function getTitle(string $quick_form) {
+    return $this->quickFormInstanceManager->getInstance($quick_form)->getLabel();
   }
 
   /**
@@ -86,27 +87,31 @@ class QuickForm extends FormBase implements BaseFormIdInterface {
    *
    * @param \Drupal\Core\Session\AccountInterface $account
    *   Run access checks for this account.
-   * @param string $id
+   * @param string $quick_form
    *   The quick form ID.
    *
    * @return \Drupal\Core\Access\AccessResultInterface
    *   The access result.
    */
-  public function access(AccountInterface $account, string $id) {
-    return $this->quickFormManager->createInstance($id)->access($account);
+  public function access(AccountInterface $account, string $quick_form) {
+    if ($quick_form = $this->quickFormInstanceManager->getInstance($quick_form)) {
+      return $quick_form->getPlugin()->access($account);
+    }
+
+    // Raise 404 if the quick form does not exist.
+    throw new ResourceNotFoundException();
   }
 
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, $id = NULL) {
+  public function buildForm(array $form, FormStateInterface $form_state, $quick_form = NULL) {
 
     // Save the quick form ID.
-    $this->quickFormId = $id;
+    $this->quickFormId = $quick_form;
 
     // Load the quick form.
-    $quick_form = $this->quickFormManager->createInstance($id);
-    $form = $quick_form->buildForm($form, $form_state);
+    $form = $this->quickFormInstanceManager->getInstance($quick_form)->getPlugin()->buildForm($form, $form_state);
 
     // Add a submit button, if one wasn't provided.
     if (empty($form['actions']['submit'])) {
@@ -127,14 +132,14 @@ class QuickForm extends FormBase implements BaseFormIdInterface {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    $this->quickFormManager->createInstance($this->quickFormId)->validateForm($form, $form_state);
+    $this->quickFormInstanceManager->getInstance($this->quickFormId)->getPlugin()->validateForm($form, $form_state);
   }
 
   /**
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->quickFormManager->createInstance($this->quickFormId)->submitForm($form, $form_state);
+    $this->quickFormInstanceManager->getInstance($this->quickFormId)->getPlugin()->submitForm($form, $form_state);
   }
 
 }

@@ -52,4 +52,11 @@ class QuickForm extends Plugin {
    */
   public $permissions;
 
+  /**
+   * Require a quick form instance entity to instantiate.
+   *
+   * @var bool
+   */
+  public $requiresEntity;
+
 }

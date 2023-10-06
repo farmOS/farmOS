@@ -4,7 +4,28 @@ farm.quick:
     _controller: '\Drupal\farm_quick\Controller\QuickFormController::index'
     _title: 'Quick forms'
   requirements:
-    _permission: 'view quick forms index'
+    _permission: 'view quick_form'
 
-route_callbacks:
-  - '\Drupal\farm_quick\Routing\QuickFormRoutes::routes'
+farm_quick.quick_form:
+  path: /quick/{quick_form}
+  defaults:
+    _form: \Drupal\farm_quick\Form\QuickForm
+    _title_callback: \Drupal\farm_quick\Form\QuickForm::getTitle
+  requirements:
+    _custom_access: \Drupal\farm_quick\Form\QuickForm::access
+  options:
+    parameters:
+      quick_form:
+        type: string
+
+farm_quick.configure:
+  path: /quick/{quick_form}/configure
+  defaults:
+    _entity_form: quick_form.configure
+    _title_callback: \Drupal\farm_quick\Form\ConfigureQuickForm::getTitle
+  requirements:
+    _custom_access: \Drupal\farm_quick\Form\ConfigureQuickForm::access
+  options:
+    parameters:
+      quick_form:
+        type: string

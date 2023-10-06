@@ -1,0 +1,7 @@
+farm_quick.settings.configurable_test:
+  type: quick_form_settings
+  label: 'Test configurable quick form settings'
+  mapping:
+    test_default:
+      type: integer
+      label: 'The default test value.'

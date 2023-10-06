@@ -4,7 +4,7 @@ namespace Drupal\farm_quick\Plugin\Derivative;
 
 use Drupal\Component\Plugin\Derivative\DeriverBase;
 use Drupal\Core\Plugin\Discovery\ContainerDeriverInterface;
-use Drupal\farm_quick\QuickFormManager;
+use Drupal\farm_quick\QuickFormInstanceManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -13,20 +13,20 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class QuickFormMenuLink extends DeriverBase implements ContainerDeriverInterface {
 
   /**
-   * The quick form manager.
+   * The quick form instance manager.
    *
-   * @var \Drupal\farm_quick\QuickFormManager
+   * @var \Drupal\farm_quick\QuickFormInstanceManagerInterface
    */
-  protected $quickFormManager;
+  protected $quickFormInstanceManager;
 
   /**
    * FarmQuickMenuLink constructor.
    *
-   * @param \Drupal\farm_quick\QuickFormManager $quick_form_manager
-   *   The quick form manager.
+   * @param \Drupal\farm_quick\QuickFormInstanceManagerInterface $quick_form_instance_manager
+   *   The quick form instance manager.
    */
-  public function __construct(QuickFormManager $quick_form_manager) {
-    $this->quickFormManager = $quick_form_manager;
+  public function __construct(QuickFormInstanceManagerInterface $quick_form_instance_manager) {
+    $this->quickFormInstanceManager = $quick_form_instance_manager;
   }
 
   /**
@@ -34,7 +34,7 @@ class QuickFormMenuLink extends DeriverBase implements ContainerDeriverInterface
    */
   public static function create(ContainerInterface $container, $base_plugin_id) {
     return new static(
-      $container->get('plugin.manager.quick_form')
+      $container->get('quick_form.instance_manager'),
     );
   }
 
@@ -45,7 +45,8 @@ class QuickFormMenuLink extends DeriverBase implements ContainerDeriverInterface
     $links = [];
 
     // Load quick forms.
-    $quick_forms = $this->quickFormManager->getDefinitions();
+    /** @var \Drupal\farm_quick\Entity\QuickFormInstanceInterface[] $quick_forms */
+    $quick_forms = $this->quickFormInstanceManager->getInstances();
 
     // Add a top level menu parent.
     if (!empty($quick_forms)) {
@@ -57,12 +58,15 @@ class QuickFormMenuLink extends DeriverBase implements ContainerDeriverInterface
     }
 
     // Add a link for each quick form.
-    foreach ($quick_forms as $quick_form) {
-      $route_id = 'farm.quick.' . $quick_form['id'];
+    foreach ($quick_forms as $id => $quick_form) {
+      $route_id = 'farm.quick.' . $id;
       $links[$route_id] = [
-        'title' => $quick_form['label'],
+        'title' => $quick_form->getLabel(),
         'parent' => 'farm.quick:farm.quick',
-        'route_name' => $route_id,
+        'route_name' => 'farm_quick.quick_form',
+        'route_parameters' => [
+          'quick_form' => $id,
+        ],
       ] + $base_plugin_definition;
     }
 

@@ -25,7 +25,7 @@ trait QuickAssetTrait {
    * @return string
    *   The quick form ID.
    */
-  abstract public function getId();
+  abstract public function getQuickId();
 
   /**
    * Create an asset.
@@ -48,7 +48,7 @@ trait QuickAssetTrait {
     $asset = Asset::create($values);
 
     // Track which quick form created the entity.
-    $asset->quick[] = $this->getId();
+    $asset->quick[] = $this->getQuickId();
 
     // Save the asset.
     $asset->save();

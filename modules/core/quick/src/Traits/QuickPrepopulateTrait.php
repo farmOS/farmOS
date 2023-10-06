@@ -20,7 +20,7 @@ trait QuickPrepopulateTrait {
    * @return string
    *   The quick form ID.
    */
-  abstract public function getId();
+  abstract public function getQuickId();
 
   /**
    * Get prepopulated entities.
@@ -61,7 +61,7 @@ trait QuickPrepopulateTrait {
     // Load the temp store for the quick form.
     /** @var \Drupal\Core\TempStore\PrivateTempStoreFactory $temp_store_factory */
     $temp_store_factory = \Drupal::service('tempstore.private');
-    $temp_store = $temp_store_factory->get('farm_quick.' . $this->getId());
+    $temp_store = $temp_store_factory->get('farm_quick.' . $this->getQuickId());
 
     // Load entities from the temp store.
     $temp_store_key = $user->id() . ':' . $entity_type;
