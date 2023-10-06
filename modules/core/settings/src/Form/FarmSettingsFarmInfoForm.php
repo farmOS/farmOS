@@ -3,6 +3,7 @@
 namespace Drupal\farm_settings\Form;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Datetime\TimeZoneFormHelper;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Locale\CountryManagerInterface;
@@ -99,7 +100,7 @@ class FarmSettingsFarmInfoForm extends ConfigFormBase {
     ];
 
     // Get list of timezones.
-    $timezones = system_time_zones();
+    $timezones = TimeZoneFormHelper::getOptionsList();
 
     // Dropdown to select default timezone.
     $form['default_timezone'] = [
