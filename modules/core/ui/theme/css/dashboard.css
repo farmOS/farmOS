@@ -1,0 +1,47 @@
+/* Add a gap between layout regions. */
+.layout--twocol {
+  --dashboard-spacing: var(--gin-spacing-s);
+  gap: var(--dashboard-spacing);
+}
+
+/* Use flexbox within each region. */
+.layout--twocol .layout__region,
+.layout--twocol .layout__region {
+  flex-basis: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--dashboard-spacing);
+}
+
+/* Split first and second regions to two columns on large screens. */
+@media (min-width: 48em) {
+  .layout--twocol .layout__region--first,
+  .layout--twocol .layout__region--second {
+    flex-basis: 50%;
+    max-width: calc(50% - var(--dashboard-spacing)*.5);
+  }
+}
+
+/* Style dashboard fieldsets similar to gin-layer-wrapper. */
+.layout__region > fieldset.dashboard-pane {
+  margin: 0;
+  padding-top: var(--gin-spacing-m);
+  background: var(--gin-bg-layer);
+  border: 1px solid var(--gin-border-color-layer);
+  box-shadow: var(--gin-shadow-l1);
+  border-radius: var(--gin-border-l);
+}
+
+/* Reduce spacing within dashboard fieldsets. */
+.layout__region > fieldset.dashboard-pane .fieldset__label {
+  padding: 0 var(--gin-spacing-m);
+}
+.layout__region > fieldset.dashboard-pane .fieldset__wrapper {
+  margin: 0 var(--gin-spacing-m) var(--gin-spacing-m) var(--gin-spacing-m);
+}
+
+/* Increase fieldset font. */
+.layout__region > fieldset.dashboard-pane .fieldset__label {
+  font-size: var(--gin-font-size-l);
+  font-weight: var(--gin-font-weight-bold);
+}

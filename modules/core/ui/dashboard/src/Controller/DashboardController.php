@@ -72,15 +72,6 @@ class DashboardController extends ControllerBase {
     // Ask modules for dashboard groups.
     $build = $this->moduleHandler()->invokeAll('farm_dashboard_groups');
 
-    // Default the group #type to container if none was provided.
-    foreach ($build as $region => $groups) {
-      foreach ($groups as $name => $group) {
-        if (!empty($group) && empty($group['#type'])) {
-          $build[$region][$name]['#type'] = 'container';
-        }
-      }
-    }
-
     // Ask modules for dashboard panes.
     $panes = $this->moduleHandler()->invokeAll('farm_dashboard_panes');
 
@@ -163,6 +154,9 @@ class DashboardController extends ControllerBase {
       $container = [
         '#type' => 'container',
         '#weight' => $weight,
+        '#attributes' => [
+          'class' => ['dashboard-pane'],
+        ],
       ];
 
       // If a title is set, make it a fieldset.
@@ -191,8 +185,6 @@ class DashboardController extends ControllerBase {
     // Build the layout.
     $render = $layoutInstance->build($regions);
 
-    // Add the dashboard_layout styles.
-    $render['#attached']['library'][] = 'farm_ui_dashboard/dashboard_layout';
     return $render;
   }
 
