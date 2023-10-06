@@ -1,0 +1,68 @@
+/* Add spacing below views attachments like the map. */
+.view .view-filters,
+.view .attachment.attachment-before {
+  margin-bottom: var(--gin-spacing-s);
+}
+
+/* Decrease space after exposed filter form. */
+.view .view-filters form.views-exposed-form {
+  margin-bottom: var(--gin-spacing-s);
+}
+
+/* Decrease padding within the view-content wrapper. */
+.view .view-content.gin-layer-wrapper {
+  padding: var(--gin-spacing-xs);
+}
+
+/* Do not wrap text within views table cells. */
+.view table.views-table th,
+.view table.views-table td {
+  max-width: 15em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/*
+  Decrease size of elements in views exposed form.
+  This is inspired by the claro/gin form-element--extrasmall but does not make
+  elements quite as small. Specifically a min-height of 2.5 instead of 1.5.
+*/
+.view form.views-exposed-form .form-element {
+  font-size: var(--gin-font-size-s);
+  line-height: 1.5;
+  border-radius: var(--gin-border-s);
+  min-height: 2.5rem;
+}
+
+/* Styling for text and date elements in exposed form. */
+.view form.views-exposed-form .form-element--type-text,
+.view form.views-exposed-form .form-element--type-date {
+  padding: var(--gin-spacing-xxs) var(--gin-spacing-xs);
+  max-width: 15rem;
+}
+
+/* Styling for select elements in exposed form. */
+.view form.views-exposed-form .form-element--type-select,
+.view form.views-exposed-form .form-element--type-select-multiple {
+  padding: var(--gin-spacing-xxs) var(--gin-spacing-xs);
+  min-width: 3.5rem;
+}
+.view form.views-exposed-form .form-element--type-select {
+  background-size: 1.75rem 0.4375rem;
+  padding-right: calc(1.5rem - 1px);
+}
+
+/* Decrease height of views bulk form action. */
+.view form.views-form div[data-drupal-selector='edit-header'] > div.form-wrapper {
+  padding: 0 0 0 var(--gin-spacing-xs);
+}
+
+/* Specify gin variables for collapsible filter styles. */
+div.view-filters details > summary {
+  padding: var(--gin-spacing-m);
+  font-weight: var(--gin-font-weight-semibold);
+}
+div.view-filters details > div {
+  margin: 0 0 0 var(--gin-spacing-s);
+}

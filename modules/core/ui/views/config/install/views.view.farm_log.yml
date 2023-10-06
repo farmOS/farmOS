@@ -1358,32 +1358,32 @@ display:
             asset_target_id:
               align: ''
               separator: ''
-              empty_column: false
+              empty_column: true
               responsive: ''
             location_target_id:
               align: ''
               separator: ''
-              empty_column: false
+              empty_column: true
               responsive: ''
             quantity_target_id:
               align: ''
               separator: ''
-              empty_column: false
+              empty_column: true
               responsive: ''
             flag_value:
               align: ''
               separator: ''
-              empty_column: false
+              empty_column: true
               responsive: ''
             category_target_id:
               align: ''
               separator: ''
-              empty_column: false
+              empty_column: true
               responsive: ''
             owner_target_id:
               align: ''
               separator: ''
-              empty_column: false
+              empty_column: true
               responsive: ''
           override: true
           sticky: false

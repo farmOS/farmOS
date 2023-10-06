@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Dashboard improvements #712](https://github.com/farmOS/farmOS/pull/712)
 - [Condense metrics UI #711](https://github.com/farmOS/farmOS/pull/711)
+- [Condense views table UI #713](https://github.com/farmOS/farmOS/pull/713)
 - [Misc quick form code and documentation improvements #703](https://github.com/farmOS/farmOS/pull/703)
 
 ### Deprecated

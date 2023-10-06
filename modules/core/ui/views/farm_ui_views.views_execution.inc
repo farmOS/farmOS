@@ -253,6 +253,7 @@ function farm_ui_views_add_bundle_handlers(ViewExecutable $view, string $display
 
         // Build field options for the field type.
         $field_options = [];
+        $sort_order = 'asc';
 
         // Get the field label.
         $field_options['label'] = $field_definition->getLabel();
@@ -264,6 +265,9 @@ function farm_ui_views_add_bundle_handlers(ViewExecutable $view, string $display
             // Render timestamp fields in the html_date format.
             $field_options['type'] = 'timestamp';
             $field_options['settings']['date_format'] = 'html_date';
+
+            // Sort timestamps descending so new dates are on top by default.
+            $sort_order = 'desc';
             break;
 
           case 'boolean':
@@ -303,6 +307,17 @@ function farm_ui_views_add_bundle_handlers(ViewExecutable $view, string $display
         if (!empty($sort_field)) {
           farm_ui_views_sort_field($view, $display_id, $new_field_id, $sort_field);
         }
+
+        // Add the field to the table style options.
+        $view->getStyle()->options['columns'][$new_field_id] = $new_field_id;
+        $view->getStyle()->options['info'][$new_field_id] = [
+          'sortable' => TRUE,
+          'default_sort_order' => $sort_order,
+          'align' => '',
+          'separator' => '',
+          'empty_column' => TRUE,
+          'responsive' => '',
+        ];
       }
     }
 
