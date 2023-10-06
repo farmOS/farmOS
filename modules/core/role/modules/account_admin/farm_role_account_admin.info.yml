@@ -1,0 +1,9 @@
+name: farmOS Account Admin Role
+description: Provides an Account Admin role for managing users.
+type: module
+package: farmOS
+core_version_requirement: ^9
+dependencies:
+  - farm:farm_role
+  - farm:farm_settings
+  - role_delegation:role_delegation

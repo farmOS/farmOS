@@ -41,6 +41,7 @@
         "drupal/migrate_source_csv": "^3.5",
         "drupal/migrate_source_ui": "^1.0",
         "drupal/migrate_tools": "^6.0.2",
+        "drupal/role_delegation": "^1.2",
         "drupal/simple_oauth": "5.2.3",
         "drupal/state_machine": "^1.0",
         "drupal/subrequests": "^3.0.3",

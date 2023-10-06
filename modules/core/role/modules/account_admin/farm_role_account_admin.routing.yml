@@ -1,0 +1,7 @@
+farm_role_account_admin.settings:
+  path: 'farm/settings/account-admin'
+  defaults:
+    _form: '\Drupal\farm_role_account_admin\Form\AccountAdminSettingsForm'
+    _title: 'Account Admin Role settings'
+  requirements:
+    _permission: 'configure account admin role'
