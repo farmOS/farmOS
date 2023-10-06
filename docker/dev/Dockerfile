@@ -57,7 +57,7 @@ RUN { \
     echo '    <exclude name="DrupalPractice.Commenting.CommentEmptyLine.SpacingAfter"/>'; \
     echo '  </rule>'; \
     echo '  <rule ref="PHPCompatibility"/>'; \
-    echo '  <config name="testVersion" value="7.4-"/>'; \
+    echo '  <config name="testVersion" value="8.2-"/>'; \
     echo '  <rule ref="Internal.Tokenizer.Exception"><severity>0</severity></rule>'; \
     echo '</ruleset>'; \
   } > /var/farmOS/phpcs.xml
