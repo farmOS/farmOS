@@ -1,4 +1,10 @@
-.metrics-container {
+.metrics-container ul {
   display: flex;
   flex-flow: row wrap;
+  gap: .25em .5em;
+}
+
+.metrics-container a.metric {
+  flex-basis: 20%;
+  white-space: nowrap;
 }

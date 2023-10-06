@@ -72,51 +72,41 @@ class FarmMetricsBlock extends BlockBase implements ContainerFactoryPluginInterf
   public function build() {
     $output = [];
 
-    // Create a container for asset metrics.
-    $assets_label = $this->entityTypeManager->getStorage('asset')->getEntityType()->getCollectionLabel();
+    // Create a list of asset metrics.
+    $assets_label = $this->entityTypeManager->getStorage('asset')->getEntityType()->getCollectionLabel() . ' (' . $this->t('active') . ')';
     $output['asset'] = [
-      '#markup' => '<strong>' . Link::createFromRoute($assets_label, 'view.farm_asset.page')->toString() . ' (' . $this->t('active') . ')</strong>',
-      'metrics' => [
-        '#type' => 'container',
-        '#attributes' => [
-          'class' => 'assets metrics-container',
+      '#theme' => 'item_list',
+      '#title' => Link::createFromRoute($assets_label, 'view.farm_asset.page')->toRenderable(),
+      '#items' => $this->getEntityMetrics('asset'),
+      '#empty' => $this->t('No assets found.'),
+      '#wrapper_attributes' => [
+        'class' => ['assets', 'metrics-container'],
+      ],
+      '#cache' => [
+        'tags' => [
+          'asset_list',
+          'config:asset_type_list',
         ],
       ],
     ];
-    $metrics = $this->getEntityMetrics('asset');
-    foreach ($metrics as $metric) {
-      $output['asset']['metrics'][] = [
-        '#markup' => $metric,
-      ];
-    }
-    if (empty($metrics)) {
-      $output['asset']['metrics']['empty']['#markup'] = '<p>' . $this->t('No assets found.') . '</p>';
-    }
-    $output['#cache']['tags'][] = 'asset_list';
-    $output['#cache']['tags'][] = 'config:asset_type_list';
 
-    // Create a section for log metrics.
+    // Create a list of log metrics.
     $logs_label = $this->entityTypeManager->getStorage('log')->getEntityType()->getCollectionLabel();
     $output['log'] = [
-      '#markup' => '<strong>' . Link::createFromRoute($logs_label, 'view.farm_log.page')->toString() . '</strong>',
-      'metrics' => [
-        '#type' => 'container',
-        '#attributes' => [
-          'class' => 'logs metrics-container',
+      '#theme' => 'item_list',
+      '#title' => Link::createFromRoute($logs_label, 'view.farm_log.page')->toRenderable(),
+      '#items' => $this->getEntityMetrics('log'),
+      '#empty' => $this->t('No logs found.'),
+      '#wrapper_attributes' => [
+        'class' => ['logs', 'metrics-container'],
+      ],
+      '#cache' => [
+        'tags' => [
+          'log_list',
+          'config:log_type_list',
         ],
       ],
     ];
-    $metrics = $this->getEntityMetrics('log');
-    foreach ($metrics as $metric) {
-      $output['log']['metrics'][] = [
-        '#markup' => $metric,
-      ];
-    }
-    if (empty($metrics)) {
-      $output['log']['metrics']['empty']['#markup'] = '<p>' . $this->t('No logs found.') . '</p>';
-    }
-    $output['#cache']['tags'][] = 'log_list';
-    $output['#cache']['tags'][] = 'config:log_type_list';
 
     // Attach CSS.
     $output['#attached']['library'][] = 'farm_ui_metrics/metrics_block';
@@ -153,7 +143,7 @@ class FarmMetricsBlock extends BlockBase implements ContainerFactoryPluginInterf
 
       $count = $query->count()->execute();
       $route_name = "view.farm_$entity_type.page_type";
-      $metrics[] = Link::createFromRoute($bundle_info['label'] . ': ' . $count, $route_name, ['arg_0' => $bundle], ['attributes' => ['class' => ['metric', 'button']]])->toString();
+      $metrics[] = Link::createFromRoute($bundle_info['label'] . ': ' . $count, $route_name, ['arg_0' => $bundle], ['attributes' => ['class' => ['metric']]])->toRenderable();
     }
 
     return $metrics;
