@@ -26,7 +26,7 @@ class Kml extends XmlEncoder {
   /**
    * {@inheritdoc}
    */
-  public function encode($data, $format, array $context = []) {
+  public function encode($data, $format, array $context = []): string {
 
     // Build XML document to encode.
     $xml = [
@@ -51,7 +51,7 @@ class Kml extends XmlEncoder {
   /**
    * {@inheritdoc}
    */
-  public function decode($data, $format, array $context = []) {
+  public function decode($data, $format, array $context = []): mixed {
 
     // Start an array of decoded placemark data.
     $decoded_placemarks = [];
