@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.0] 2023-10-06
+
+This is the second minor release of the farmOS 2.x branch, following
+[semantic versioning](https://semver.org/). This means new functionality is
+added in a backwards compatible manner.
+
+farmOS 2.2.0 adds a CSV import module with importers for all asset, log, and
+taxonomy term types, as well as a framework for module developers to build
+their own custom importers for bespoke CSV templates. See
+https://farmOS.org/development/module/csv for more information.
+
+A new Group membership assignment quick form is provided for easily assigning
+asset group membership. This works similar to the Movement quick form that was
+added in v2.1.0.
+
+This release also makes a number of UI/UX improvements, including a new Setup
+menu item which will serve as a place for common "farm data setup" tasks.
+
+See links below for more details.
+
 ## Added
 
 - [farmOS v2 CSV import module #722](https://github.com/farmOS/farmOS/pull/722)
@@ -521,7 +541,8 @@ moving forward.
     Drupal 7, which required a complete refactor of the codebase. By comparison,
     updating from Drupal 9 to 10 will simply involve updating deprecated code.
 
-[Unreleased]: https://github.com/farmOS/farmOS/compare/2.1.3...HEAD
+[Unreleased]: https://github.com/farmOS/farmOS/compare/2.2.0...HEAD
+[2.2.0]: https://github.com/farmOS/farmOS/releases/tag/2.2.0
 [2.1.3]: https://github.com/farmOS/farmOS/releases/tag/2.1.3
 [2.1.2]: https://github.com/farmOS/farmOS/releases/tag/2.1.2
 [2.1.1]: https://github.com/farmOS/farmOS/releases/tag/2.1.1
