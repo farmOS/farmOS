@@ -112,6 +112,13 @@ function farm_ui_theme_preprocess_log__full(&$variables) {
 /**
  * Implements hook_preprocess_HOOK().
  */
+function farm_ui_theme_preprocess_page(&$variables) {
+  $variables['#attached']['library'][] = 'farm_ui_theme/regions';
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
 function farm_ui_theme_preprocess_page__dashboard(&$variables) {
   $variables['#attached']['library'][] = 'farm_ui_theme/dashboard';
 }
