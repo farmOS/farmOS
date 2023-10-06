@@ -44,7 +44,7 @@ RUN { \
     echo '  <description>PHP CodeSniffer configuration for farmOS development.</description>'; \
     echo '  <file>.</file>'; \
     echo '  <arg name="extensions" value="php,module,inc,install,test,profile,theme,css,info,txt,yml"/>'; \
-    echo '  <config name="drupal_core_version" value="9"/>'; \
+    echo '  <config name="drupal_core_version" value="10"/>'; \
     echo '  <rule ref="Drupal">'; \
     echo '    <exclude name="Drupal.InfoFiles.AutoAddedKeys.Project"/>'; \
     echo '    <exclude name="Drupal.InfoFiles.AutoAddedKeys.Version"/>'; \
