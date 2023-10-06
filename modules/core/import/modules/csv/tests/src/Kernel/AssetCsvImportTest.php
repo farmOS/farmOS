@@ -77,9 +77,9 @@ class AssetCsvImportTest extends CsvImportTestBase {
       ],
       4 => [
         'name' => 'Baler',
-        'manufacturer' => '',
-        'model' => '',
-        'serial_number' => '',
+        'manufacturer' => 'New Idea',
+        'model' => '483 Round Baler',
+        'serial_number' => '1234567890',
         'id_tag' => [
           'id' => '',
           'type' => '',
