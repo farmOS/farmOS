@@ -85,7 +85,7 @@ class QuickFormTest extends KernelTestBase {
 
     // Programmatically submit the test quick form.
     $form_state = (new FormState())->setValues([
-      'count' => '12',
+      'test' => '12',
     ]);
     \Drupal::formBuilder()->submitForm('\Drupal\farm_quick\Form\QuickForm', $form_state, 'test');
 

@@ -2,14 +2,13 @@
 
 namespace Drupal\farm_quick\Plugin\QuickForm;
 
-use Drupal\Component\Plugin\PluginInspectionInterface;
-use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Form\FormInterface;
 use Drupal\Core\Session\AccountInterface;
 
 /**
  * Interface for quick forms.
  */
-interface QuickFormInterface extends PluginInspectionInterface {
+interface QuickFormInterface extends FormInterface {
 
   /**
    * Returns the quick form ID.
@@ -61,38 +60,5 @@ interface QuickFormInterface extends PluginInspectionInterface {
    *   The access result.
    */
   public function access(AccountInterface $account);
-
-  /**
-   * Form constructor.
-   *
-   * @param array $form
-   *   An associative array containing the structure of the form.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The current state of the form.
-   *
-   * @return array
-   *   The form structure.
-   */
-  public function buildForm(array $form, FormStateInterface $form_state);
-
-  /**
-   * Form validation handler.
-   *
-   * @param array $form
-   *   An associative array containing the structure of the form.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The current state of the form.
-   */
-  public function validateForm(array &$form, FormStateInterface $form_state);
-
-  /**
-   * Form submission handler.
-   *
-   * @param array $form
-   *   An associative array containing the structure of the form.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The current state of the form.
-   */
-  public function submitForm(array &$form, FormStateInterface $form_state);
 
 }

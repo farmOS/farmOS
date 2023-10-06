@@ -4,37 +4,66 @@ Quick forms provide a simplified user interface for common data entry tasks.
 
 ## Building quick forms
 
-To add a quick form, a module can provide a PHP class in `src/Plugin/QuickForm`
-that extends the `QuickFormBase` class.
+To add a quick form to a module, create a quick form plugin class in
+`src/Plugin/QuickForm` that extends the `QuickFormBase` class, and add a
+dependency on `farm:farm_quick` to the module's `*.info.yml` file.
 
-For example, a simplified "Egg harvest" quick form would be provided as
-follows:
+Quick forms are essentially just specialized forms created using Drupal's
+[Form API](https://www.drupal.org/docs/drupal-apis/form-api/introduction-to-form-api),
+with some special wrappers and helper methods to simplify and standardize
+common requirements in the context of farmOS. They are defined as plugins via
+a single PHP class. farmOS handles all the rest, including adding them to the
+main navigation menu.
 
-`src/Plugin/QuickForm/Egg.php`:
+For example, a simple "Harvest" quick form can be provided in a module
+comprised of two files (the `*.info.yml` file and the quick form plugin class),
+as follows:
+
+`/farm_quick_harvest.info.yml`
+
+```yaml
+name: Harvest Quick Form
+description: Provides a quick form for recording a harvest.
+type: module
+package: farmOS Quick Forms
+core_version_requirement: ^9
+dependencies:
+  - farm:farm_harvest
+  - farm:farm_quantity_standard
+  - farm:farm_quick
+```
+
+This file defines the module itself, along with the dependencies required by
+this quick form. In this example, the "Harvest" (`farm:farm_harvest`) and
+"Standard quantity" (`farm:farm_quick_standard`) modules are dependencies, in
+addition to the "Quick form" module (`farm:farm_quick`).
+
+`/src/Plugin/QuickForm/Harvest.php`:
 
 ```php
 <?php
 
-namespace Drupal\farm_egg\Plugin\QuickForm;
+namespace Drupal\farm_quick_harvest\Plugin\QuickForm;
 
+use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\farm_quick\Plugin\QuickForm\QuickFormBase;
 use Drupal\farm_quick\Traits\QuickLogTrait;
 
 /**
- * Egg harvest quick form.
+ * Harvest quick form.
  *
  * @QuickForm(
- *   id = "egg",
- *   label = @Translation("Egg harvest"),
- *   description = @Translation("Record when eggs are harvested."),
- *   helpText = @Translation("Use this form to record when eggs are havested."),
+ *   id = "harvest",
+ *   label = @Translation("Harvest"),
+ *   description = @Translation("Record when a harvest takes place."),
+ *   helpText = @Translation("Use this form to record a harvest."),
  *   permissions = {
  *     "create harvest log",
  *   }
  * )
  */
-class Egg extends QuickFormBase {
+class Harvest extends QuickFormBase {
 
   use QuickLogTrait;
 
@@ -43,12 +72,26 @@ class Egg extends QuickFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state, string $id = NULL) {
 
-    // Egg quantity.
+    // Date+time selection field (defaults to now).
+    $form['timestamp'] = [
+      '#type' => 'datetime',
+      '#title' => $this->t('Date'),
+      '#default_value' => new DrupalDateTime('now', \Drupal::currentUser()->getTimeZone()),
+      '#required' => TRUE,
+    ];
+
+    // Asset reference field (allow multiple).
+    $form['asset'] = [
+      '#type' => 'entity_autocomplete',
+      '#title' => $this->t('Assets'),
+      '#target_type' => 'asset',
+      '#tags' => TRUE,
+    ];
+
+    // Harvest quantity field.
     $form['quantity'] = [
       '#type' => 'number',
       '#title' => $this->t('Quantity'),
-      '#min' => 0,
-      '#step' => 1,
       '#required' => TRUE,
     ];
 
@@ -60,18 +103,21 @@ class Egg extends QuickFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
 
-    // Draft an egg harvest log from the user-submitted data.
+    // Draft a harvest log from the user-submitted data.
+    $timestamp = $form_state->getValue('timestamp')->getTimestamp();
+    $asset = $form_state->getValue('asset');
     $quantity = $form_state->getValue('quantity');
     $log = [
-      'name' => $this->t('Collected @count egg(s)', ['@count' => $quantity]),
       'type' => 'harvest',
+      'timestamp' => $timestamp,
+      'asset' => $asset,
       'quantity' => [
         [
-          'measure' => 'count',
+          'type' => 'standard',
           'value' => $quantity,
-          'units' => $this->t('egg(s)'),
         ],
       ],
+      'status' => 'done',
     ];
 
     // Create the log.
@@ -80,6 +126,22 @@ class Egg extends QuickFormBase {
 
 }
 ```
+
+This file declares a new `Harvest` class, that extends from the `QuickFormBase`
+class.
+
+The `buildForm()` method builds the quick form, by adding "Date", "Asset", and
+"Quantity" fields. A "Submit" button will be automatically added by the base
+class, but can be overridden if customization is required.
+
+The `submitForm()` is responsible for gathering the input and saving it to a
+harvest log. It uses the `createLog()` helper method that is provided by the
+`QuickLogTrait` trait, and the `entityLabelsSummary()` method provided by the
+`QuickStringTrait` trait to build a log name.
+
+See [Methods](#methods) and [Traits](#traits) below for more information about
+the available methods, or examine the `QuickFormBase` class to understand the
+internal workings.
 
 ### Annotation
 
@@ -116,7 +178,7 @@ Available methods include:
 - `submitForm()` - Perform logic when the form is submitted. This will not run
   if validation fails.
 
-### Traits and helper methods
+### Traits
 
 farmOS provides some helpers for common quick form operations. These are
 available in the form of traits that can be added to the quick form class.
@@ -160,58 +222,61 @@ Available traits and the methods that they provide include:
     given a name and vocabulary. If the term does not exist, a new term will be
     created.
 
-### Dependencies
-
-All dependencies for a quick form should be declared in the module's
-`*.info.yml` file.
-
 ## Quick form actions
+
+farmOS provides lists of logs and assets throughout its interface. Many of
+these lists allow the user to select one or more entities and perform a
+"bulk action" (eg: "Archive asset", "Assign owners", etc).
 
 Quick form actions provide a shortcut to completing a quick form that performs
 actions on or references existing entities.
 
+This allows a user to select one or more entities from a list in farmOS, and be
+redirected to the quick form with the selected entities passed in. These
+selected entities can then be used in the quick form code in various ways.
+
 ### Providing a quick form action
 
-To add a quick form action, a module can provide a PHP class in
-`src/Plugin/Action` that extends the `QuickFormActionBase` class.
+To add a quick form action, two additional files are added to the module:
 
-For example, an action to complete the "Egg harvest" quick for select
-assets would be provided as follows:
+1. a PHP class in `src/Plugin/Action` that extends from `QuickFormActionBase`
+2. an action config entity in `config/install/system.action.*.yml`
 
-`src/Plugin/Action/EggHarvest.php`:
+For example, an action that redirects to the "Harvest" quick form defined above
+for prepopulating the "Asset" field would be provided as follows:
+
+`/src/Plugin/Action/Harvest.php`:
 
 ```php
 <?php
 
-namespace Drupal\farm_egg\Plugin\Action;
+namespace Drupal\farm_quick_harvest\Plugin\Action;
 
 use Drupal\farm_quick\Plugin\Action\QuickFormActionBase;
 
 /**
- * Action for recording egg harvests.
+ * Action for recording harvests.
  *
  * @Action(
- *   id = "egg_harvest",
- *   label = @Translation("Record egg harvest"),
+ *   id = "harvest",
+ *   label = @Translation("Record harvest"),
  *   type = "asset",
- *   confirm_form_route_name = "farm.quick.egg"
+ *   confirm_form_route_name = "farm.quick.harvest"
  * )
  */
-class EggHarvest extends QuickFormActionBase {
+class Harvest extends QuickFormActionBase {
 
   /**
    * {@inheritdoc}
    */
-  public function getQuckFormId(): string {
-    return 'egg';
+  public function getQuickFormId(): string {
+    return 'harvest';
   }
 
 }
 ```
 
-Once the plugin is created, an action config entity needs to be created:
-
-`config/install/system.action.egg_harvest.yml`:
+`/config/install/system.action.harvest.yml`:
 
 ```yml
 langcode: en
@@ -219,10 +284,124 @@ status: true
 dependencies:
   module:
     - asset
-    - farm_egg
-id: egg_harvest
-label: 'Record egg harvest'
+    - farm_quick_harvest
+id: harvest
+label: 'Record harvest'
 type: asset
-plugin: egg_harvest
+plugin: harvest
 configuration: {  }
+```
+
+Note that config entities are only created when the module is installed. In
+order to add a config entity to a module that is already installed, an update
+hook must be used to manually create the config entity.
+
+### Using the selected entities
+
+To get a list of the selected entities within the quick form class, add the
+`QuickPrepopulateTrait` trait and use the `getPrepopulatedEntities()` helper
+method that it provides. Specify the entity type and pass in the `$form_state`
+object, as follows:
+
+`$entities = $this->getPrepopulatedEntities('asset', $form_state);`
+
+This will return a list of fully-loaded entity objects that can be used in the
+quick form code.
+
+The following is the same "Harvest" example as above, with two additions:
+
+1. The `use QuickPrepopulateTrait;` line is added at the top of the class (as
+   well as a corresponding `use` statement at the top of the file defining
+   the full trait namespace).
+2. The `getPrepopulatedEntities()` method is used to populate the `asset`
+   field's default value.
+
+```php
+<?php
+
+namespace Drupal\farm_quick_harvest\Plugin\QuickForm;
+
+use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\farm_quick\Plugin\QuickForm\QuickFormBase;
+use Drupal\farm_quick\Traits\QuickLogTrait;
+use Drupal\farm_quick\Traits\QuickPrepopulateTrait;
+
+/**
+ * Harvest quick form.
+ *
+ * @QuickForm(
+ *   id = "harvest",
+ *   label = @Translation("Harvest"),
+ *   description = @Translation("Record when a harvest takes place."),
+ *   helpText = @Translation("Use this form to record a harvest."),
+ *   permissions = {
+ *     "create harvest log",
+ *   }
+ * )
+ */
+class Harvest extends QuickFormBase {
+
+  use QuickLogTrait;
+  use QuickPrepopulateTrait;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function buildForm(array $form, FormStateInterface $form_state, string $id = NULL) {
+
+    // Date+time selection field (defaults to now).
+    $form['timestamp'] = [
+      '#type' => 'datetime',
+      '#title' => $this->t('Date'),
+      '#default_value' => new DrupalDateTime('now', \Drupal::currentUser()->getTimeZone()),
+      '#required' => TRUE,
+    ];
+
+    // Asset reference field (allow multiple).
+    $form['asset'] = [
+      '#type' => 'entity_autocomplete',
+      '#title' => $this->t('Assets'),
+      '#target_type' => 'asset',
+      '#tags' => TRUE,
+      '#default_value' => $this->getPrepopulatedEntities('asset', $form_state),
+    ];
+
+    // Harvest quantity field.
+    $form['quantity'] = [
+      '#type' => 'number',
+      '#title' => $this->t('Quantity'),
+      '#required' => TRUE,
+    ];
+
+    return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+
+    // Draft a harvest log from the user-submitted data.
+    $timestamp = $form_state->getValue('timestamp')->getTimestamp();
+    $asset = $form_state->getValue('asset');
+    $quantity = $form_state->getValue('quantity');
+    $log = [
+      'type' => 'harvest',
+      'timestamp' => $timestamp,
+      'asset' => $asset,
+      'quantity' => [
+        [
+          'type' => 'standard',
+          'value' => $quantity,
+        ],
+      ],
+      'status' => 'done',
+    ];
+
+    // Create the log.
+    $this->createLog($log);
+  }
+
+}
 ```

@@ -16,14 +16,16 @@ trait QuickAssetTrait {
   use QuickStringTrait;
 
   /**
-   * Get the plugin ID.
+   * Returns the quick form ID.
    *
    * This must be implemented by the quick form class that uses this trait.
+   *
+   * @see \Drupal\farm_quick\Plugin\QuickForm\QuickFormInterface
    *
    * @return string
    *   The quick form ID.
    */
-  abstract protected function getId();
+  abstract public function getId();
 
   /**
    * Create an asset.

@@ -45,7 +45,7 @@ abstract class QuickFormActionBase extends EntityActionBase {
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, PrivateTempStoreFactory $temp_store_factory, AccountInterface $current_user) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $entity_type_manager);
-    $quick_form_id = $this->getQuckFormId();
+    $quick_form_id = $this->getQuickFormId();
     $this->tempStore = $temp_store_factory->get("farm_quick.$quick_form_id");
     $this->currentUser = $current_user;
   }
@@ -70,7 +70,7 @@ abstract class QuickFormActionBase extends EntityActionBase {
    * @return string
    *   The quick form ID.
    */
-  abstract public function getQuckFormId(): string;
+  abstract public function getQuickFormId(): string;
 
   /**
    * {@inheritdoc}
