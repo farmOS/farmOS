@@ -27,7 +27,19 @@ database credentials:
 
 ## 3. Develop
 
-Open the `www` directory in your favorite IDE.
+After starting the Docker containers, the root `farmOS` directory will contain
+two new subdirectories: `www` and `db`.
+
+The `www` directory contains the fully built farmOS codebase, which is
+bind-mounted into the `www` container's `/opt/drupal` directory. The `www/web`
+directory is used as the Apache webroot. Loading the `www` directory in your
+favorite PHP IDE will provide easy code access to the full Symfony + Drupal +
+farmOS stack.
+
+The `db` directory contains the PostgreSQL database files, which is
+bind-mounted into the `db` container's `/var/lib/postgresql/data` directory.
+With the containers stopped, this directory can be backed up (eg: via tarball)
+to create snapshots for easy rollback during development.
 
 ## Optional
 
