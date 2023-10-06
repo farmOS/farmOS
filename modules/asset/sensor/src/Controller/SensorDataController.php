@@ -122,7 +122,7 @@ class SensorDataController extends ControllerBase {
         $params['limit'] = $limit;
 
         $data = $this->basicDataStream->storageGetMultiple($basic_data_streams, $params);
-        return JsonResponse::create($data);
+        return new JsonResponse($data);
 
       case Request::METHOD_POST:
 
@@ -151,7 +151,7 @@ class SensorDataController extends ControllerBase {
         foreach ($basic_data_streams as $data_stream) {
           $this->basicDataStream->storageSave($data_stream, $data);
         }
-        return Response::create('', Response::HTTP_CREATED);
+        return new Response('', Response::HTTP_CREATED);
     }
 
     // Else raise error.
