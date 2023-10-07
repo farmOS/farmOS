@@ -74,7 +74,7 @@ jobs:
       - name: Run PHP CodeSniffer
         run: docker run farmos/farmos:2.x-dev phpcs /opt/drupal/web/profiles/farm
       - name: Run PHPStan
-        run: docker run farmos/farmos:2.x-dev phpstan analyze /opt/drupal/web/profiles/farm
+        run: docker run farmos/farmos:2.x-dev phpstan analyze --memory-limit 1G /opt/drupal/web/profiles/farm
       - name: Check PHP compatibility of contrib modules and themes (ignore warnings).
         run: |
           docker run farmos/farmos:2.x-dev phpcs --standard=PHPCompatibility --runtime-set testVersion 7.4- --warning-severity=0 /opt/drupal/web/modules
