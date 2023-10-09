@@ -10,6 +10,7 @@ nav:
     - Inventory: guide/inventory.md
     - People: guide/people.md
     - Quick forms: guide/quick.md
+    - Importing data: guide/import.md
     - Exporting data: guide/export.md
   - Data model:
     - Introduction: model/index.md
@@ -42,6 +43,7 @@ nav:
       - Roles: development/module/roles.md
       - Services: development/module/services.md
       - Data streams: development/module/data_stream.md
+      - CSV importers: development/module/csv.md
       - Updates: development/module/updates.md
     - Environment:
       - Getting started: development/environment/index.md
