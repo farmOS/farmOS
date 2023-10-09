@@ -113,10 +113,14 @@ class CsvImportController extends ControllerBase {
       ['callable' => 'menu.default_tree_manipulators:generateIndexAndSort'],
     ];
     $tree = $this->menuLinkTree->transform($tree, $manipulators);
+
+    // Start cacheability with migrate_plus migration config entity list tag.
     $tree_access_cacheability = new CacheableMetadata();
+    $tree_access_cacheability->addCacheTags($this->entityTypeManager()->getStorage('migration')->getEntityType()->getListCacheTags());
+
     $links = [];
     foreach ($tree as $element) {
-      $tree_access_cacheability = $tree_access_cacheability->merge(CacheableMetadata::createFromObject($element->access));
+      $tree_access_cacheability->addCacheableDependency($element->access);
 
       // Only render accessible links.
       if (!$element->access->isAllowed()) {
@@ -145,6 +149,7 @@ class CsvImportController extends ControllerBase {
         '#markup' => $this->t('You do not have any importers.'),
       ];
     }
+    $tree_access_cacheability->applyTo($output);
     return $output;
   }
 

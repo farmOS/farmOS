@@ -59,10 +59,13 @@ class ImportController extends ControllerBase {
       ['callable' => 'menu.default_tree_manipulators:generateIndexAndSort'],
     ];
     $tree = $this->menuLinkTree->transform($tree, $manipulators);
+
+    // Start cacheability for indexer list.
     $tree_access_cacheability = new CacheableMetadata();
+
     $links = [];
     foreach ($tree as $element) {
-      $tree_access_cacheability = $tree_access_cacheability->merge(CacheableMetadata::createFromObject($element->access));
+      $tree_access_cacheability->addCacheableDependency($element->access);
 
       // Only render accessible links.
       if (!$element->access->isAllowed()) {
@@ -91,6 +94,7 @@ class ImportController extends ControllerBase {
         '#markup' => $this->t('You do not have any importers.'),
       ];
     }
+    $tree_access_cacheability->applyTo($output);
     return $output;
   }
 
