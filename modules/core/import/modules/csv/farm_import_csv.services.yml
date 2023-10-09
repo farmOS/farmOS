@@ -9,3 +9,8 @@ services:
     arguments: [ '@database', '@current_user', '@tempstore.private' ]
     tags:
       - { name: 'event_subscriber' }
+  farm_import_csv.config_subscriber:
+    class: Drupal\farm_import_csv\EventSubscriber\CsvMigrationConfigSubscriber
+    arguments: [ '@router.builder' ]
+    tags:
+      - { name: 'event_subscriber' }
