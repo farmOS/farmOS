@@ -1,9 +1,2 @@
-farm_quick.quick_form:
-  title: Quick Form
-  route_name: farm_quick.quick_form
-  base_route: farm_quick.quick_form
-
-farm_quick.configure:
-  title: Configure
-  route_name: farm_quick.configure
-  base_route: farm_quick.quick_form
+farm.quick:
+  deriver: Drupal\farm_quick\Plugin\Derivative\QuickFormTaskLink

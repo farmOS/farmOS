@@ -59,7 +59,7 @@ class QuickFormController extends ControllerBase {
     $quick_forms = $this->quickFormInstanceManager->getInstances();
     $items = [];
     foreach ($quick_forms as $id => $quick_form) {
-      $url = Url::fromRoute('farm_quick.quick_form', ['quick_form' => $id]);
+      $url = Url::fromRoute('farm.quick.' . $id);
       if ($url->access()) {
         $cacheability->addCacheableDependency($quick_form);
         $items[] = [
