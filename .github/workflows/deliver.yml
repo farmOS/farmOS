@@ -219,7 +219,6 @@ jobs:
   announce:
     name: Announce new release
     if: needs.publish.outputs.announce
-    runs-on: ubuntu-latest
     needs:
       - build
       - release
