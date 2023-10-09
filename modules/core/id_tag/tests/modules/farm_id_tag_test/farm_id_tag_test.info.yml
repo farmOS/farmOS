@@ -1,0 +1,8 @@
+name: farmOS ID Tag Test
+description: Module for testing farmOS ID Tag field.
+type: module
+package: Testing
+core_version_requirement: ^9
+dependencies:
+  - farm:asset
+  - farm:farm_id_tag
