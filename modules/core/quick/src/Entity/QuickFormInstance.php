@@ -175,4 +175,20 @@ class QuickFormInstance extends ConfigEntityBase implements QuickFormInstanceInt
     }
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function postSave(EntityStorageInterface $storage, $update = TRUE) {
+    parent::postSave($storage, $update);
+    \Drupal::service('router.builder')->setRebuildNeeded();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function postDelete(EntityStorageInterface $storage, array $entities) {
+    parent::postDelete($storage, $entities);
+    \Drupal::service('router.builder')->setRebuildNeeded();
+  }
+
 }

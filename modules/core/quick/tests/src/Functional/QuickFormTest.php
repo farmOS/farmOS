@@ -146,6 +146,9 @@ class QuickFormTest extends FarmBrowserTestBase {
     ]);
     $config_entity->save();
 
+    // Rebuild routes.
+    \Drupal::service('router.builder')->rebuildIfNeeded();
+
     // Go to the quick form index and confirm that the requires_entity_test
     // quick form item is visible.
     $this->drupalGet('quick');
@@ -157,6 +160,15 @@ class QuickFormTest extends FarmBrowserTestBase {
     $this->drupalGet('quick/requires_entity_test');
     $this->assertSession()->statusCodeEquals(200);
     $this->assertSession()->pageTextContains($this->t('Test field'));
+
+    // Delete the config entity and confirm that it is removed.
+    $config_entity->delete();
+    \Drupal::service('router.builder')->rebuildIfNeeded();
+    $this->drupalGet('quick');
+    $this->assertSession()->statusCodeEquals(200);
+    $this->assertSession()->pageTextNotContains($this->t('Test requiresEntity quick form'));
+    $this->drupalGet('quick/requires_entity_test');
+    $this->assertSession()->statusCodeEquals(404);
   }
 
 }
