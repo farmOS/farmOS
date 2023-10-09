@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.1] 2023-10-09
+
 ### Fixed
 
 - [Fix asset_lookup and term_lookup exception messages #731](https://github.com/farmOS/farmOS/pull/731)
@@ -547,7 +549,8 @@ moving forward.
     Drupal 7, which required a complete refactor of the codebase. By comparison,
     updating from Drupal 9 to 10 will simply involve updating deprecated code.
 
-[Unreleased]: https://github.com/farmOS/farmOS/compare/2.2.0...HEAD
+[Unreleased]: https://github.com/farmOS/farmOS/compare/2.2.1...HEAD
+[2.2.1]: https://github.com/farmOS/farmOS/releases/tag/2.2.1
 [2.2.0]: https://github.com/farmOS/farmOS/releases/tag/2.2.0
 [2.1.3]: https://github.com/farmOS/farmOS/releases/tag/2.1.3
 [2.1.2]: https://github.com/farmOS/farmOS/releases/tag/2.1.2
