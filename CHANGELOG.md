@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixes
+
+- [Fix asset_lookup and term_lookup exception messages #731](https://github.com/farmOS/farmOS/pull/731)
+
 ## [2.2.0] 2023-10-06
 
 This is the second minor release of the farmOS 2.x branch, following

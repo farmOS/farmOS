@@ -64,7 +64,7 @@ class TermLookup extends EntityLookup {
 
     // If there are no results, throw an exception and skip the row.
     if (empty($results)) {
-      throw new MigrateSkipRowException('Term not found: @term', ['@term' => $value]);
+      throw new MigrateSkipRowException('Term not found: ' . $value);
     }
 
     return $results;
