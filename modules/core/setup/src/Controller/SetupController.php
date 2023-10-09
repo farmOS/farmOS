@@ -59,38 +59,37 @@ class SetupController extends ControllerBase {
       ['callable' => 'menu.default_tree_manipulators:generateIndexAndSort'],
     ];
     $tree = $this->menuLinkTree->transform($tree, $manipulators);
+
+    // Start cacheability for setup list.
     $tree_access_cacheability = new CacheableMetadata();
+
+    // Build list item for each setup item.
     $items = [];
     foreach ($tree as $element) {
-      $tree_access_cacheability = $tree_access_cacheability->merge(CacheableMetadata::createFromObject($element->access));
-
-      // Only render accessible links.
-      if (!$element->access->isAllowed()) {
-        continue;
+      $tree_access_cacheability->addCacheableDependency($element->access);
+      if ($element->access->isAllowed()) {
+        $items[] = [
+          'title' => $element->link->getTitle(),
+          'description' => $element->link->getDescription(),
+          'url' => $element->link->getUrlObject(),
+        ];
       }
+    }
 
-      // Include the link.
-      $items[] = [
-        'title' => $element->link->getTitle(),
-        'description' => $element->link->getDescription(),
-        'url' => $element->link->getUrlObject(),
+    // Render items.
+    if (!empty($items)) {
+      $output = [
+        '#theme' => 'admin_block_content',
+        '#content' => $items,
       ];
     }
-
-    // Create render array with cacheability.
-    $render = [];
-    $tree_access_cacheability->applyTo($render);
-
-    // Add message if there are no setup items.
-    if (empty($items)) {
-      $render['#markup'] = $this->t('You do not have any setup items.');
-    }
     else {
-      $render['#theme'] = 'admin_block_content';
-      $render['#content'] = $items;
+      $output = [
+        '#markup' => $this->t('You do not have any setup items.'),
+      ];
     }
-
-    return $render;
+    $tree_access_cacheability->applyTo($output);
+    return $output;
   }
 
 }

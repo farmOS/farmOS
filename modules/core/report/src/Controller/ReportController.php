@@ -59,28 +59,25 @@ class ReportController extends ControllerBase {
       ['callable' => 'menu.default_tree_manipulators:generateIndexAndSort'],
     ];
     $tree = $this->menuLinkTree->transform($tree, $manipulators);
+
+    // Start cacheability for report list.
     $tree_access_cacheability = new CacheableMetadata();
-    $links = [];
+
+    // Build list item for each report.
+    $items = [];
     foreach ($tree as $element) {
-      $tree_access_cacheability = $tree_access_cacheability->merge(CacheableMetadata::createFromObject($element->access));
-
-      // Only render accessible links.
-      if (!$element->access->isAllowed()) {
-        continue;
-      }
-
-      // Include the link.
-      $links[] = $element->link;
-    }
-    if (!empty($links)) {
-      $items = [];
-      foreach ($links as $link) {
+      $tree_access_cacheability->addCacheableDependency($element->access);
+      if ($element->access->isAllowed()) {
         $items[] = [
-          'title' => $link->getTitle(),
-          'description' => $link->getDescription(),
-          'url' => $link->getUrlObject(),
+          'title' => $element->link->getTitle(),
+          'description' => $element->link->getDescription(),
+          'url' => $element->link->getUrlObject(),
         ];
       }
+    }
+
+    // Render items.
+    if (!empty($items)) {
       $output = [
         '#theme' => 'admin_block_content',
         '#content' => $items,
@@ -91,6 +88,7 @@ class ReportController extends ControllerBase {
         '#markup' => $this->t('You do not have any reports.'),
       ];
     }
+    $tree_access_cacheability->applyTo($output);
     return $output;
   }
 

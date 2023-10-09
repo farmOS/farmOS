@@ -118,27 +118,21 @@ class CsvImportController extends ControllerBase {
     $tree_access_cacheability = new CacheableMetadata();
     $tree_access_cacheability->addCacheTags($this->entityTypeManager()->getStorage('migration')->getEntityType()->getListCacheTags());
 
-    $links = [];
+    // Build items for each csv importer.
+    $items = [];
     foreach ($tree as $element) {
       $tree_access_cacheability->addCacheableDependency($element->access);
-
-      // Only render accessible links.
-      if (!$element->access->isAllowed()) {
-        continue;
-      }
-
-      // Include the link.
-      $links[] = $element->link;
-    }
-    if (!empty($links)) {
-      $items = [];
-      foreach ($links as $link) {
+      if ($element->access->isAllowed()) {
         $items[] = [
-          'title' => $link->getTitle(),
-          'description' => $link->getDescription(),
-          'url' => $link->getUrlObject(),
+          'title' => $element->link->getTitle(),
+          'description' => $element->link->getDescription(),
+          'url' => $element->link->getUrlObject(),
         ];
       }
+    }
+
+    // Render items.
+    if (!empty($items)) {
       $output = [
         '#theme' => 'admin_block_content',
         '#content' => $items,

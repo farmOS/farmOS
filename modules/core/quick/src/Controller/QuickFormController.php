@@ -59,9 +59,9 @@ class QuickFormController extends ControllerBase {
     $quick_forms = $this->quickFormInstanceManager->getInstances();
     $items = [];
     foreach ($quick_forms as $id => $quick_form) {
+      $cacheability->addCacheableDependency($quick_form);
       $url = Url::fromRoute('farm.quick.' . $id);
       if ($url->access()) {
-        $cacheability->addCacheableDependency($quick_form);
         $items[] = [
           'title' => $quick_form->getLabel(),
           'description' => $quick_form->getDescription(),
@@ -69,6 +69,8 @@ class QuickFormController extends ControllerBase {
         ];
       }
     }
+
+    // Render items.
     if (!empty($items)) {
       $output = [
         '#theme' => 'admin_block_content',
