@@ -224,19 +224,8 @@ jobs:
       - build
       - release
       - publish
-    steps:
-      - name: Set FARMOS_VERSION from previous output.
-        run: echo "FARMOS_VERSION=${{ needs.build.outputs.farmos_version }}" >> $GITHUB_ENV
-      - name: Checkout the farmOS-microblog repository
-        uses: actions/checkout@v3
-        with:
-          repository: farmOS/farmOS-microblog
-          ssh-key: ${{ secrets.MICROBLOG_DEPLOY_KEY }}
-      - name: Configure Git.
-        run: |
-          git config --global user.name 'farmOS'
-          git config --global user.email 'noreply@farmOS.org'
-      - name: Commit/push to farmOS-microblog.
-        run: |
-          git commit --allow-empty --cleanup=whitespace -m '#farmOS ${{ env.FARMOS_VERSION }} has been released! https://github.com/farmOS/farmOS/releases/${{ env.FARMOS_VERSION }}'
-          git push origin main
+    uses: farmOS/farmOS-microblog/.github/workflows/create-message.yml@main
+    with:
+      message: '#farmOS ${{ needs.build.outputs.farmos_version }} has been released! https://github.com/farmOS/farmOS/releases/${{ needs.build.outputs.farmos_version }}'
+    secrets:
+      MICROBLOG_DEPLOY_KEY: ${{ secrets.MICROBLOG_DEPLOY_KEY }}
