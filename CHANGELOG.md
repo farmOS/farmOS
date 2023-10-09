@@ -7,9 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Fixes
+### Fixed
 
 - [Fix asset_lookup and term_lookup exception messages #731](https://github.com/farmOS/farmOS/pull/731)
+- [Prevent saving invalid ID tag types #725](https://github.com/farmOS/farmOS/issues/725)
 
 ## [2.2.0] 2023-10-06
 

@@ -26,6 +26,9 @@ function farm_id_tag_entity_base_field_info(EntityTypeInterface $entity_type) {
       ],
     ];
     $fields['id_tag'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($field_info);
+
+    // Add an ID tag type constraint to ID tag fields to ensure valid type.
+    $fields['id_tag']->addConstraint('IdTagType');
   }
 
   return $fields;

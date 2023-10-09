@@ -78,6 +78,18 @@ class IdTagTest extends KernelTestBase {
     ]);
     $violations = $asset->validate();
     $this->assertEmpty($violations);
+
+    // Confirm that an invalid tag type does not pass validation.
+    $asset = Asset::create([
+      'name' => $this->randomString(),
+      'type' => 'test',
+      'id_tag' => [
+        'type' => 'invalid',
+      ],
+    ]);
+    $violations = $asset->validate();
+    $this->assertNotEmpty($violations);
+    $this->assertEquals('Invalid ID tag type: invalid', $violations[0]->getMessage());
   }
 
 }

@@ -27,7 +27,7 @@ class AssetCsvImportTest extends CsvImportTestBase {
    */
   public function setUp(): void {
     parent::setUp();
-    $this->installConfig(['farm_equipment']);
+    $this->installConfig(['farm_id_tag', 'farm_equipment']);
 
     // Add an asset to test parent relationship.
     $asset = Asset::create(['name' => 'Test parent', 'type' => 'equipment', 'status' => 'active']);
