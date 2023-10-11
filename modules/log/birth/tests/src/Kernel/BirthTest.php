@@ -113,6 +113,7 @@ class BirthTest extends KernelTestBase {
 
     // Create a birth log that references the mother and children.
     $log = Log::create([
+      'name' => $this->randomMachineName(),
       'type' => 'birth',
       'timestamp' => $timestamp,
       'mother' => ['target_id' => $mother->id()],
@@ -149,6 +150,7 @@ class BirthTest extends KernelTestBase {
     // Create a birth log that references the second mother and one of the
     // original children.
     $log = Log::create([
+      'name' => $this->randomMachineName(),
       'type' => 'birth',
       'timestamp' => $timestamp,
       'mother' => ['target_id' => $mother2->id()],
@@ -192,6 +194,7 @@ class BirthTest extends KernelTestBase {
 
     // Create a birth log that references the asset.
     $log1 = Log::create([
+      'name' => $this->randomMachineName(),
       'type' => 'birth',
       'timestamp' => \Drupal::time()->getRequestTime(),
       'asset' => [['target_id' => $asset->id()]],
@@ -205,6 +208,7 @@ class BirthTest extends KernelTestBase {
 
     // Create a second birth log that references the asset.
     $log2 = Log::create([
+      'name' => $this->randomMachineName(),
       'type' => 'birth',
       'timestamp' => \Drupal::time()->getRequestTime(),
       'asset' => [['target_id' => $asset->id()]],
