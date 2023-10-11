@@ -1,5 +1,5 @@
 name: farmOS Migrate
-description: farmOS 1.x to 2.x migration tool.
+description: farmOS Migrate API plugins.
 type: module
 package: farmOS
 core_version_requirement: ^9

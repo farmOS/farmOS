@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\farm_import_csv\Plugin\migrate\process;
+namespace Drupal\farm_migrate\Plugin\migrate\process;
 
 use Drupal\Component\Uuid\Uuid;
 use Drupal\migrate\MigrateExecutableInterface;

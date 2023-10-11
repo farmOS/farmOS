@@ -12,6 +12,7 @@ dependencies:
   - farm:farm_location
   - farm:farm_log_asset
   - farm:farm_log_quantity
+  - farm:farm_migrate
   - farm:farm_parent
   - farm:farm_quantity_standard
   - farm:quantity
