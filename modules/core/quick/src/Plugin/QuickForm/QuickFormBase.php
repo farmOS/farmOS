@@ -73,13 +73,6 @@ class QuickFormBase extends PluginBase implements QuickFormInterface, ContainerF
   /**
    * {@inheritdoc}
    */
-  public function getId() {
-    return $this->getQuickId();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function getFormId() {
     return $this->getQuickId();
   }

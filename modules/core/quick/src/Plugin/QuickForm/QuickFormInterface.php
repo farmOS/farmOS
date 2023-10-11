@@ -27,19 +27,6 @@ interface QuickFormInterface extends FormInterface {
   public function setQuickId(string $id);
 
   /**
-   * Returns the quick form ID.
-   *
-   * @return string
-   *   The quick form ID.
-   *
-   * @deprecated in farm:2.2.0 and is removed from farm:3.0.0.
-   * Use QuickFormInterface::getQuickId() instead.
-   *
-   * @see https://www.drupal.org/node/3379686
-   */
-  public function getId();
-
-  /**
    * Returns the quick form label.
    *
    * @return string
