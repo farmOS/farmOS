@@ -128,4 +128,13 @@ class ContentEntityGeometryNormalizer implements NormalizerInterface, Serializer
     return $invalid_count === 0;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getSupportedTypes(?string $format): array {
+    return [
+      GeometryWrapper::class => TRUE,
+    ];
+  }
+
 }
