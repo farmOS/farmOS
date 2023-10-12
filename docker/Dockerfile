@@ -1,4 +1,20 @@
-# Inherit from the Drupal 10 image on Docker Hub.
+# Use PHP 8 image to build GEOS PHP extension.
+FROM php:8.2-cli as geos
+
+# Build and install the GEOS PHP extension.
+# See https://git.osgeo.org/gitea/geos/php-geos
+ARG PHP_GEOS_VERSION=e77d5a16abbf89a59d947d1fe49381a944762c9d
+ADD https://github.com/libgeos/php-geos/archive/${PHP_GEOS_VERSION}.tar.gz /opt/php-geos.tar.gz
+RUN apt-get update && apt-get install -y libgeos-dev \
+  && ( tar xzf /opt/php-geos.tar.gz -C /opt/ \
+    && cd /opt/php-geos-${PHP_GEOS_VERSION} \
+    && ./autogen.sh \
+    && ./configure \
+    && make \
+    && make install \
+  )
+
+# Inherit from the official Drupal 10 image.
 FROM drupal:10.1
 
 # Set the farmOS and composer project repository URLs and versions.
@@ -10,34 +26,26 @@ ARG PROJECT_VERSION=3.x
 # Set Apache ServerName directive globally to suppress AH00558 message.
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
+# Install and enable geos.
+COPY --from=geos /usr/local/lib/php/extensions/ /usr/local/lib/php/extensions/
+RUN docker-php-ext-enable geos
+
 # Install the BCMath PHP extension.
 RUN docker-php-ext-install bcmath
-
-# Install git and unzip (needed to build PHP GEOS and needed by Composer).
-RUN apt-get update \
-  && apt-get install -y git unzip
-
-# Build and install the GEOS PHP extension.
-# See https://git.osgeo.org/gitea/geos/php-geos
-RUN apt-get update && apt-get install -y libgeos-dev \
-  && git clone https://github.com/libgeos/php-geos.git \
-  && ( \
-    cd php-geos \
-    # Checkout latest commit with PHP 8 support.
-    && git checkout e77d5a16abbf89a59d947d1fe49381a944762c9d \
-    && ./autogen.sh \
-    && ./configure \
-    && make \
-    && make install \
-  ) \
-  && rm -r php-geos \
-  && docker-php-ext-enable geos
 
 # Add custom PHP configurations.
 COPY conf.d/ /usr/local/etc/php/conf.d
 
-# Install postgresql-client so Drush can connect to the database.
-RUN apt-get update && apt-get install -y postgresql-client
+# Install apt dependencies.
+RUN apt-get update && apt-get install -y \
+    # Install git and unzip (needed by Composer).
+    git unzip \
+    # Install postgresql-client so Drush can connect to the database.
+    postgresql-client \
+    # Install libgeos-c1v5 so geos php extension can use libgeos_c.so.1.
+    libgeos-c1v5 \
+  && rm -rf /var/lib/apt/lists/* \
+  && apt-get clean
 
 # Set the COMPOSER_MEMORY_LIMIT environment variable to unlimited.
 ENV COMPOSER_MEMORY_LIMIT=-1
