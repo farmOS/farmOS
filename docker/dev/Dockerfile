@@ -7,13 +7,12 @@ ARG FARMOS_VERSION=3.x
 ARG PROJECT_REPO=https://github.com/farmOS/composer-project.git
 ARG PROJECT_VERSION=3.x
 
-# Set OPcache's revalidation frequency to 0 seconds for development.
-# See https://www.php.net/manual/en/opcache.configuration.php#ini.opcache.revalidate-freq
-RUN sed -i 's|opcache.revalidate_freq=60|opcache.revalidate_freq=0|g' /usr/local/etc/php/conf.d/opcache-recommended.ini
-
 # Install and enable XDebug extension.
 RUN yes | pecl install xdebug \
   && docker-php-ext-enable xdebug
+
+# Add opcache revalidation frequency configuration.
+COPY conf.d/ /usr/local/etc/php/conf.d
 
 # Change the user/group IDs of www-data inside the image to match the ID of the
 # developer's user on the host machine. This allows Composer to create files
@@ -37,42 +36,8 @@ USER www-data
 # Build the farmOS codebase in /var/farmOS.
 RUN /usr/local/bin/build-farmOS.sh
 
-# Configure PHP CodeSniffer.
-RUN { \
-    echo '<?xml version="1.0" encoding="UTF-8"?>'; \
-    echo '<ruleset name="farmOS">'; \
-    echo '  <description>PHP CodeSniffer configuration for farmOS development.</description>'; \
-    echo '  <file>.</file>'; \
-    echo '  <arg name="extensions" value="php,module,inc,install,test,profile,theme,css,info,txt,yml"/>'; \
-    echo '  <config name="drupal_core_version" value="10"/>'; \
-    echo '  <rule ref="Drupal">'; \
-    echo '    <exclude name="Drupal.InfoFiles.AutoAddedKeys.Project"/>'; \
-    echo '    <exclude name="Drupal.InfoFiles.AutoAddedKeys.Version"/>'; \
-    echo '    <exclude name="Drupal.Arrays.Array.LongLineDeclaration"/>'; \
-    # @todo https://www.drupal.org/project/coder/issues/2159253
-    echo '    <exclude name="Drupal.Commenting.InlineComment.SpacingAfter"/>'; \
-    echo '  </rule>'; \
-    echo '  <rule ref="DrupalPractice">'; \
-    # @todo https://www.drupal.org/project/coder/issues/2159253
-    echo '    <exclude name="DrupalPractice.Commenting.CommentEmptyLine.SpacingAfter"/>'; \
-    echo '  </rule>'; \
-    echo '  <rule ref="PHPCompatibility"/>'; \
-    echo '  <config name="testVersion" value="8.2-"/>'; \
-    echo '  <rule ref="Internal.Tokenizer.Exception"><severity>0</severity></rule>'; \
-    echo '</ruleset>'; \
-  } > /var/farmOS/phpcs.xml
-
-# Configure PHPStan.
-RUN { \
-    echo 'parameters:'; \
-    echo '  level: 1'; \
-    echo '  ignoreErrors:'; \
-    echo '    # new static() is a best practice in Drupal, so we cannot fix that.'; \
-    echo "    - '#^Unsafe usage of new static#'"; \
-    echo '  scanDirectories:'; \
-    echo '    # Tell PHPStan where to find GeoPHP classes.'; \
-    echo '    - vendor/itamair/geophp'; \
-  } > /var/farmOS/phpstan.neon
+# Add Configurartions for PHP CodeSniffer, PHPStan.
+COPY --chown=www-data ./files/ /var/farmOS/
 
 # Configure PHPUnit.
 RUN cp -p /var/farmOS/web/core/phpunit.xml.dist /var/farmOS/phpunit.xml \

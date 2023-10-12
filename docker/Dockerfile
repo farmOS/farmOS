@@ -33,31 +33,8 @@ RUN apt-get update && apt-get install -y libgeos-dev \
   && rm -r php-geos \
   && docker-php-ext-enable geos
 
-# Set recommended PHP settings for farmOS.
-# See https://farmos.org/hosting/installing/#requirements
-RUN { \
-    echo 'memory_limit=256M'; \
-    echo 'max_execution_time=240'; \
-    echo 'max_input_time=240'; \
-    echo 'max_input_vars=5000'; \
-    echo 'post_max_size=100M'; \
-    echo 'upload_max_filesize=100M'; \
-    echo 'expose_php=Off'; \
-  } > /usr/local/etc/php/conf.d/farmOS-recommended.ini
-
-# Set recommended realpath_cache settings.
-# See https://www.drupal.org/docs/7/managing-site-performance/tuning-phpini-for-drupal
-RUN { \
-    echo 'realpath_cache_size=4096K'; \
-    echo 'realpath_cache_ttl=3600'; \
-  } > /usr/local/etc/php/conf.d/realpath_cache-recommended.ini
-
-# Set recommended OPcache for maximum performance in Symfony applications.
-# See https://symfony.com/doc/current/performance.html#configure-opcache-for-maximum-performance
-# @todo
-# Remove this when https://github.com/docker-library/drupal/pull/156 is merged.
-RUN sed -i 's|opcache.memory_consumption=128|opcache.memory_consumption=256|g' /usr/local/etc/php/conf.d/opcache-recommended.ini \
-  && sed -i 's|opcache.max_accelerated_files=4000|opcache.max_accelerated_files=20000|g' /usr/local/etc/php/conf.d/opcache-recommended.ini
+# Add custom PHP configurations.
+COPY conf.d/ /usr/local/etc/php/conf.d
 
 # Install postgresql-client so Drush can connect to the database.
 RUN apt-get update && apt-get install -y postgresql-client
