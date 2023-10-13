@@ -60,11 +60,7 @@ RUN sed -i 's|opcache.memory_consumption=128|opcache.memory_consumption=256|g' /
   && sed -i 's|opcache.max_accelerated_files=4000|opcache.max_accelerated_files=20000|g' /usr/local/etc/php/conf.d/opcache-recommended.ini
 
 # Install postgresql-client so Drush can connect to the database.
-RUN apt-get update \
-  # See https://stackoverflow.com/questions/51033689/how-to-fix-error-on-postgres-install-ubuntu
-  && mkdir -p /usr/share/man/man1 \
-  && mkdir -p /usr/share/man/man7 \
-  && apt-get install -y postgresql-client
+RUN apt-get update && apt-get install -y postgresql-client
 
 # Set the COMPOSER_MEMORY_LIMIT environment variable to unlimited.
 ENV COMPOSER_MEMORY_LIMIT=-1
