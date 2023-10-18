@@ -11,9 +11,9 @@ ARG PROJECT_VERSION=3.x
 # See https://www.php.net/manual/en/opcache.configuration.php#ini.opcache.revalidate-freq
 RUN sed -i 's|opcache.revalidate_freq=60|opcache.revalidate_freq=0|g' /usr/local/etc/php/conf.d/opcache-recommended.ini
 
-# Install and configure XDebug.
+# Install and enable XDebug extension.
 RUN yes | pecl install xdebug \
-	&& echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini
+  && docker-php-ext-enable xdebug
 
 # Change the user/group IDs of www-data inside the image to match the ID of the
 # developer's user on the host machine. This allows Composer to create files
