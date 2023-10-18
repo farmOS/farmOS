@@ -78,6 +78,5 @@ RUN mkdir /var/farmOS \
 
 # Set the entrypoint.
 COPY docker-entrypoint.sh /usr/local/bin/
-RUN chmod u+x /usr/local/bin/docker-entrypoint.sh
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["apache2-foreground"]
