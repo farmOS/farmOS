@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- [Refactor Move and Group actions into quick forms #736](https://github.com/farmOS/farmOS/pull/736)
+
 ### Fixed
 
 - [Fix planting quick form creating empty quantities #737](https://github.com/farmOS/farmOS/pull/737)
