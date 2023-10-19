@@ -53,6 +53,7 @@ use Drupal\user\EntityOwnerTrait;
  *   revisionable = TRUE,
  *   show_revision_ui = FALSE,
  *   admin_permission = "administer quantity",
+ *   permission_granularity = "bundle",
  *   entity_keys = {
  *     "id" = "id",
  *     "revision" = "revision_id",
