@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- [Fix planting quick form creating empty quantities #737](https://github.com/farmOS/farmOS/pull/737)
+
 ## [2.2.1] 2023-10-09
 
 ### Fixed

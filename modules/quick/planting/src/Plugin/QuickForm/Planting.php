@@ -562,14 +562,14 @@ class Planting extends QuickFormBase {
    * @param array $values
    *   Quantity field values from the form.
    *
-   * @return array
-   *   Returns an array to pass into createLog() or createQuantity().
+   * @return array|null
+   *   Returns an array for createQuantity() or NULL if no quantity value.
    */
   protected function prepareQuantity(array $values) {
 
     // If there is no value, return an empty array.
     if (empty($values['value'])) {
-      return [];
+      return NULL;
     }
 
     // If units is specified, then we need to convert it to units_id, which
