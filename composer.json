@@ -43,7 +43,7 @@
         "drupal/migrate_tools": "^6.0.2",
         "drupal/role_delegation": "^1.2",
         "drupal/simple_oauth": "5.2.3",
-        "drupal/state_machine": "^1.0",
+        "drupal/state_machine": "1.8",
         "drupal/subrequests": "^3.0.3",
         "drupal/token": "^1.7",
         "drupal/views_geojson": "^1.2",
@@ -76,6 +76,9 @@
             },
             "drupal/simple_oauth": {
                 "Issue #3322325: Cannot authorize clients with empty string set as secret": "https://www.drupal.org/files/issues/2022-11-17/3322325-1.patch"
+            },
+            "drupal/state_machine": {
+                "Issue #3396186: State constraint is not validated on new entities": "https://www.drupal.org/files/issues/2023-10-23/3396186-2.patch"
             },
             "itamair/geophp": {
                 "Use BCMath (where available) for all float arithmetic #115": "https://patch-diff.githubusercontent.com/raw/phayes/geoPHP/pull/115.patch"
