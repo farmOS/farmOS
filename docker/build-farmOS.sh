@@ -45,7 +45,7 @@ if [ "${FARMOS_VERSION}" = "2.x" ]; then
 elif [[ ! ${IS_TAGGED_RELEASE} ]]; then
   FARMOS_COMPOSER_VERSION="dev-${FARMOS_VERSION}"
 fi
-composer require farmos/farmos ${FARMOS_COMPOSER_VERSION} --no-install
+composer require farmos/farmos:${FARMOS_COMPOSER_VERSION} --no-install
 
 # Add allow-plugins config.
 allowedPlugins=(
