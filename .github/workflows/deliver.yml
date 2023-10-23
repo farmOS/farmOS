@@ -161,6 +161,21 @@ jobs:
           files: /tmp/farmOS-${{ env.FARMOS_VERSION }}.tar.gz
           draft: false
           prerelease: false
+      - name: Checkout the farmOS/composer-project repository
+        uses: actions/checkout@v3
+        with:
+          repository: farmOS/composer-project
+          ref: 2.x
+          path: composer-project
+      - name: Tag a new release of farmOS/composer-project
+        run: |
+          cd composer-project
+          cp /tmp/farmOS/composer.json ./
+          cp /tmp/farmOS/composer.lock ./
+          git add .
+          git commit -m 'farmOS ${{ env.FARMOS_VERSION }}'
+          git tag ${{ env.FARMOS_VERSION }}
+          git push origin ${{ env.FARMOS_VERSION }}
   publish:
     name: Publish to Docker Hub
     # We only publish to Docker Hub if this is a tag or 2.x branch push event
