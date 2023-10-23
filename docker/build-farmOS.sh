@@ -23,16 +23,24 @@ git reset --hard
 # Create a temporary Composer cache directory.
 export COMPOSER_HOME="$(mktemp -d)"
 
-# Add the farmOS repository to composer.json.
-composer config repositories.farmos git ${FARMOS_REPO}
+# If FARMOS_VERSION is a valid semantic versioning string, we assume that it is
+# a tagged version.
+IS_TAGGED_RELEASE=false
+if [[ "${FARMOS_VERSION}" =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-((0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*))*))?(\+([0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*))?$ ]]; then
+  IS_TAGGED_RELEASE=true
+fi
+
+# Add the farmOS repository to composer.json (if this is not a tagged release).
+if [ "${IS_TAGGED_RELEASE}" = false ]; then
+  composer config repositories.farmos git ${FARMOS_REPO}
+fi
 
 # Require the correct farmOS version in composer.json.
 # If FARMOS_VERSION is 3.x, we will require 3.x-dev.
 if [ "${FARMOS_VERSION}" = "3.x" ]; then
   FARMOS_COMPOSER_VERSION="3.x-dev"
-# Or, if FARMOS_VERSION is a valid semantic versioning string, we assume that it
-# is a tagged version and require that version.
-elif [[ "${FARMOS_VERSION}" =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-((0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*))*))?(\+([0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*))?$ ]]; then
+# Or, if this is a tagged release, require the tag version.
+elif [ "${IS_TAGGED_RELEASE}" = true ]; then
   FARMOS_COMPOSER_VERSION="${FARMOS_VERSION}"
 # Otherwise, we assume that FARMOS_VERSION is a branch, and prepend "dev-".
 else
