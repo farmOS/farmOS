@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - [Fix planting quick form creating empty quantities #737](https://github.com/farmOS/farmOS/pull/737)
+- [Add post update hook to install the new quick_form entity type on existing farmOS installations #738](https://github.com/farmOS/farmOS/pull/738)
 
 ## [2.2.1] 2023-10-09
 
