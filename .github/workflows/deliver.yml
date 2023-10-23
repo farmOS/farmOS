@@ -130,8 +130,10 @@ jobs:
       - name: Test Drush site install with all modules
         run: docker compose exec -u www-data -T www drush site-install --db-url=${{ matrix.DB_URL }} farm farm.modules='all'
   release:
-    name: Create GitHub release
-    if: github.event_name == 'push' && github.ref_type == 'tag'
+    name: Create release
+    # We only create a release if this is a tag push event to the official
+    # repository.
+    if: github.repository == 'farmOS/farmOS' && github.event_name == 'push' && github.ref_type == 'tag'
     runs-on: ubuntu-latest
     needs:
       - build
