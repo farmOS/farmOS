@@ -1,5 +1,5 @@
-# Use PHP 8 image to build GEOS PHP extension.
-FROM php:8.2-cli as geos
+# Use the official Drupal 10 image to build GEOS PHP extension.
+FROM drupal:10.1 as php-dependencies
 
 # Build and install the GEOS PHP extension.
 # See https://git.osgeo.org/gitea/geos/php-geos
@@ -12,7 +12,10 @@ RUN apt-get update && apt-get install -y libgeos-dev \
     && ./configure \
     && make \
     && make install \
-  )
+    )
+
+# Install the BCMath PHP extension.
+RUN docker-php-ext-install bcmath
 
 # Inherit from the official Drupal 10 image.
 FROM drupal:10.1
@@ -27,11 +30,8 @@ ARG PROJECT_VERSION=3.x
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 # Install and enable geos.
-COPY --from=geos /usr/local/lib/php/extensions/ /usr/local/lib/php/extensions/
-RUN docker-php-ext-enable geos
-
-# Install the BCMath PHP extension.
-RUN docker-php-ext-install bcmath
+COPY --from=php-dependencies /usr/local/lib/php/extensions/ /usr/local/lib/php/extensions/
+RUN docker-php-ext-enable geos bcmath
 
 # Add custom PHP configurations.
 COPY conf.d/ /usr/local/etc/php/conf.d
