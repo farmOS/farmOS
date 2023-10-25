@@ -8,6 +8,11 @@
         color: 'blue',
       };
       instance.currentLocationLayer = instance.addLayer('vector', opts);
+
+      // If an asset geometry was pre-populated, add it to the layer.
+      if (instance.farmMapSettings.behaviors.quick_movement.asset_geometry) {
+        this.updateAssetGeometry(instance, instance.farmMapSettings.behaviors.quick_movement.asset_geometry)
+      }
     },
 
     // When updating asset geometry, update the current location layer.

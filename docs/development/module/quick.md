@@ -456,10 +456,12 @@ selected entities can then be used in the quick form code in various ways.
 
 ### Providing a quick form action
 
-To add a quick form action, two additional files are added to the module:
+To add a quick form action, three additional files are added to the module:
 
 1. a PHP class in `src/Plugin/Action` that extends from `QuickFormActionBase`
 2. an action config entity in `config/install/system.action.*.yml`
+3. a `config/schema/[mymodule].schema.yml` file that describes action schema
+   (see example below).
 
 For example, an action that redirects to the "Harvest" quick form defined above
 for prepopulating the "Asset" field would be provided as follows:
@@ -509,6 +511,15 @@ label: 'Record harvest'
 type: asset
 plugin: harvest
 configuration: {  }
+```
+
+`/config/schema/farm_quick_harvest.schema.yml`:
+
+```yml
+# Schema for actions.
+action.configuration.harvest:
+  type: action_configuration_default
+  label: 'Configuration for the harvest action'
 ```
 
 Note that config entities are only created when the module is installed. In
