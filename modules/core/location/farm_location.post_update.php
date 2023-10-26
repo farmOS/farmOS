@@ -12,5 +12,7 @@ use Drupal\system\Entity\Action;
  */
 function farm_location_post_update_uninstall_asset_move_action(&$sandbox) {
   $config = Action::load('asset_move_action');
-  $config->delete();
+  if (!empty($config)) {
+    $config->delete();
+  }
 }
