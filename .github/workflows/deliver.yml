@@ -130,8 +130,10 @@ jobs:
       - name: Test Drush site install with all modules
         run: docker compose exec -u www-data -T www drush site-install --db-url=${{ matrix.DB_URL }} farm farm.modules='all'
   release:
-    name: Create GitHub release
-    if: github.event_name == 'push' && github.ref_type == 'tag'
+    name: Create release
+    # We only create a release if this is a tag push event to the official
+    # repository.
+    if: github.repository == 'farmOS/farmOS' && github.event_name == 'push' && github.ref_type == 'tag'
     runs-on: ubuntu-latest
     needs:
       - build
@@ -159,6 +161,21 @@ jobs:
           files: /tmp/farmOS-${{ env.FARMOS_VERSION }}.tar.gz
           draft: false
           prerelease: false
+      - name: Checkout the farmOS/composer-project repository
+        uses: actions/checkout@v3
+        with:
+          repository: farmOS/composer-project
+          ref: 2.x
+          path: composer-project
+      - name: Tag a new release of farmOS/composer-project
+        run: |
+          cd composer-project
+          cp /tmp/farmOS/composer.json ./
+          cp /tmp/farmOS/composer.lock ./
+          git add .
+          git commit -m 'farmOS ${{ env.FARMOS_VERSION }}'
+          git tag ${{ env.FARMOS_VERSION }}
+          git push origin ${{ env.FARMOS_VERSION }}
   publish:
     name: Publish to Docker Hub
     # We only publish to Docker Hub if this is a tag or 2.x branch push event
