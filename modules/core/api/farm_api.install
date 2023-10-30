@@ -84,9 +84,6 @@ function farm_api_install() {
     'secret' => NULL,
     'confidential' => FALSE,
     'third_party' => FALSE,
-    'grant_user_access' => TRUE,
-    'limit_user_access' => TRUE,
-    'limit_requested_access' => FALSE,
   ]);
   $farm_consumer->save();
 
