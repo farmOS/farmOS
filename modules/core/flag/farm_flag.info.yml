@@ -2,7 +2,7 @@ name: farmOS Flags
 description: Provides a general purpose record flagging system.
 type: module
 package: farmOS
-core_version_requirement: ^9
+core_version_requirement: ^10
 dependencies:
   - drupal:text
   - farm:farm_field

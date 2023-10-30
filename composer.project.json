@@ -1,14 +1,13 @@
 {
     "require": {
         "cweagans/composer-patches": "^1.7",
-        "drupal/core-composer-scaffold": "9.5.11"
+        "drupal/core-composer-scaffold": "10.1.5"
     },
     "require-dev": {
         "behat/mink": "^1.10",
+        "behat/mink-browserkit-driver": "^2.1",
         "behat/mink-selenium2-driver": "^1.6",
-        "brianium/paratest": "^6",
         "drupal/coder": "^8.3",
-        "friends-of-behat/mink-browserkit-driver": "^1.6",
         "mglaman/phpstan-drupal": "^1.1",
         "mikey179/vfsstream": "^1.6",
         "phpstan/extension-installer": "^1.1",
@@ -17,10 +16,7 @@
         "phpstan/phpstan-deprecation-rules": "^1.0",
         "phpunit/phpunit": "^9",
         "phpspec/prophecy-phpunit": "^2",
-        "symfony/phpunit-bridge": "^5.4"
-    },
-    "_comments": {
-        "phpspec/prophecy-phpunit": "Required to fix ProphecyTrait not found, until Drupal core drops support for PHPUnit 8. See https://www.drupal.org/node/3176567"
+        "symfony/phpunit-bridge": "^6.2"
     },
     "conflict": {
         "drupal/drupal": "*"

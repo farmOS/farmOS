@@ -26,7 +26,7 @@ name: Harvest Quick Form
 description: Provides a quick form for recording a harvest.
 type: module
 package: farmOS Quick Forms
-core_version_requirement: ^9
+core_version_requirement: ^10
 dependencies:
   - farm:farm_harvest
   - farm:farm_quantity_standard

@@ -2,7 +2,7 @@ name: Input log
 description: Adds an Input log type.
 type: module
 package: farmOS Logs
-core_version_requirement: ^9
+core_version_requirement: ^10
 dependencies:
   - farm:farm_entity
   - farm:farm_quantity_material

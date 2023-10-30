@@ -44,7 +44,7 @@ RUN { \
     echo '  <description>PHP CodeSniffer configuration for farmOS development.</description>'; \
     echo '  <file>.</file>'; \
     echo '  <arg name="extensions" value="php,module,inc,install,test,profile,theme,css,info,txt,yml"/>'; \
-    echo '  <config name="drupal_core_version" value="9"/>'; \
+    echo '  <config name="drupal_core_version" value="10"/>'; \
     echo '  <rule ref="Drupal">'; \
     echo '    <exclude name="Drupal.InfoFiles.AutoAddedKeys.Project"/>'; \
     echo '    <exclude name="Drupal.InfoFiles.AutoAddedKeys.Version"/>'; \
@@ -57,7 +57,7 @@ RUN { \
     echo '    <exclude name="DrupalPractice.Commenting.CommentEmptyLine.SpacingAfter"/>'; \
     echo '  </rule>'; \
     echo '  <rule ref="PHPCompatibility"/>'; \
-    echo '  <config name="testVersion" value="7.4-"/>'; \
+    echo '  <config name="testVersion" value="8.2-"/>'; \
     echo '  <rule ref="Internal.Tokenizer.Exception"><severity>0</severity></rule>'; \
     echo '</ruleset>'; \
   } > /var/farmOS/phpcs.xml
@@ -85,7 +85,7 @@ RUN cp -p /var/farmOS/web/core/phpunit.xml.dist /var/farmOS/phpunit.xml \
   && sed -i 's|name="MINK_DRIVER_ARGS_WEBDRIVER" value='\'''\''|name="MINK_DRIVER_ARGS_WEBDRIVER" value='\''["chrome", { "chromeOptions": { "w3c": false, "args": ["--disable-gpu","--headless", "--no-sandbox"] } }, "http://chrome:4444/wd/hub"]'\''|g' /var/farmOS/phpunit.xml \
   && sed -i 's|\./|\./web/core/|g' /var/farmOS/phpunit.xml \
   && sed -i 's|\.\./web/core/|\./web/|g' /var/farmOS/phpunit.xml \
-  && sed -i 's|  </php>|    <env name="SYMFONY_DEPRECATIONS_HELPER" value="quiet[]=indirect"/>'"\n"'  </php>|g' /var/farmOS/phpunit.xml \
+  && sed -i 's|  </php>|    <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled"/>'"\n"'  </php>|g' /var/farmOS/phpunit.xml \
   && mkdir -p /var/farmOS/web/sites/simpletest/browser_output
 
 # Change back to the root user.

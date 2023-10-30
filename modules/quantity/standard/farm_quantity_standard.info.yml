@@ -2,7 +2,7 @@ name: Standard quantity
 description: Provides a standard quantity type.
 type: module
 package: farmOS Quantities
-core_version_requirement: ^9
+core_version_requirement: ^10
 dependencies:
   - farm:farm_entity
   - farm:quantity

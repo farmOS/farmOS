@@ -2,7 +2,7 @@ name: farmOS Entity Fields
 description: Adds common base fields to farmOS entity types.
 type: module
 package: farmOS
-core_version_requirement: ^9
+core_version_requirement: ^10
 dependencies:
   - drupal:file
   - drupal:image

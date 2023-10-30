@@ -2,7 +2,7 @@ name: farmOS Import KML
 description: Provides a KML import feature for farmOS.
 type: module
 package: farmOS
-core_version_requirement: ^9
+core_version_requirement: ^10
 dependencies:
   - farm:farm_import
   - farm:farm_kml

@@ -2,4 +2,4 @@ name: farmOS Notification
 description: Provides farmOS notification features.
 type: module
 package: farmOS
-core_version_requirement: ^9
+core_version_requirement: ^10

@@ -2,7 +2,7 @@ name: farmOS Migrate
 description: farmOS Migrate API plugins.
 type: module
 package: farmOS
-core_version_requirement: ^9
+core_version_requirement: ^10
 dependencies:
   - drupal:migrate
   - migrate_plus:migrate_plus

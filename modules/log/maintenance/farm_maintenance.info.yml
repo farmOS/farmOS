@@ -2,7 +2,7 @@ name: Maintenance log
 description: Adds a Maintenance log type for Equipment assets.
 type: module
 package: farmOS Logs
-core_version_requirement: ^9
+core_version_requirement: ^10
 dependencies:
   - farm:farm_entity
   - log:log

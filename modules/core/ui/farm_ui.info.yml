@@ -2,7 +2,7 @@ name: farmOS UI
 description: Provides default farmOS UI elements (organized into sub-modules by type).
 type: module
 package: farmOS UI
-core_version_requirement: ^9
+core_version_requirement: ^10
 dependencies:
   - farm:farm_ui_action
   - farm:farm_ui_breadcrumb

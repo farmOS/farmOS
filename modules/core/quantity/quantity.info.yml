@@ -2,7 +2,7 @@ name: Quantity
 description: Provides an entity to store quantity measurements.
 type: module
 package: farmOS
-core_version_requirement: ^9
+core_version_requirement: ^10
 dependencies:
   - entity:entity
   - drupal:text

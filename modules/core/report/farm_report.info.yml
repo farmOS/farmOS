@@ -2,4 +2,4 @@ name: farmOS Report
 description: Features for generating and displaying reports.
 type: module
 package: farmOS
-core_version_requirement: ^9
+core_version_requirement: ^10

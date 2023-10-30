@@ -301,7 +301,7 @@ class Basic extends DataStreamTypeBase implements DataStreamStorageInterface, Da
     $params['limit'] = $limit;
 
     $data = $this->storageGet($stream, $params);
-    return JsonResponse::create($data);
+    return new JsonResponse($data);
   }
 
   /**
@@ -323,7 +323,7 @@ class Basic extends DataStreamTypeBase implements DataStreamStorageInterface, Da
       throw new BadRequestHttpException();
     }
 
-    return Response::create('', Response::HTTP_CREATED);
+    return new Response('', Response::HTTP_CREATED);
   }
 
   /**

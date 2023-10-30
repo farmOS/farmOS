@@ -1,7 +1,7 @@
 name: farmOS
 type: profile
 description: 'A web-based farm record keeping application.'
-core_version_requirement: ^9
+core_version_requirement: ^10
 
 # Drupal.org needs this for usage statistics.
 project: farm

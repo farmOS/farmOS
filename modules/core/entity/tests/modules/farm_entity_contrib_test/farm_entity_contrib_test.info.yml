@@ -2,7 +2,7 @@ name: farmOS Entity Contrib Test
 description: Module for testing farmOS contrib module behavior.
 type: module
 package: Testing
-core_version_requirement: ^9
+core_version_requirement: ^10
 dependencies:
   - farm:farm_entity
   - farm:farm_entity_test

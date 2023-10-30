@@ -2,6 +2,6 @@ name: Plan module tests
 description: Support module for plan testing.
 type: module
 package: Testing
-core_version_requirement: ^9
+core_version_requirement: ^10
 dependencies:
   - farm:plan

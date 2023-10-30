@@ -163,4 +163,13 @@ class KmlNormalizer implements NormalizerInterface, DenormalizerInterface {
     return ['name', 'entity_type', 'bundle', 'internal_id', 'description'];
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getSupportedTypes(?string $format): array {
+    return [
+      GeometryWrapper::class => TRUE,
+    ];
+  }
+
 }

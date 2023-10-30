@@ -6,6 +6,7 @@
  */
 
 use Drupal\consumers\Entity\Consumer;
+use Drupal\Core\Utility\Error;
 
 /**
  * Implements hook_install().
@@ -59,7 +60,8 @@ function farm_api_install() {
       $key_gen->generateKeys($keys_path);
     }
     catch (\Exception $e) {
-      watchdog_exception('farm_api', $e);
+      $logger = \Drupal::logger('farm_api');
+      Error::logException($logger, $e);
     }
   }
 

@@ -21,7 +21,7 @@ class NumericConditionTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'data_stream_notification',
   ];
 

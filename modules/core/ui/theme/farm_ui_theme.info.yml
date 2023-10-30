@@ -2,7 +2,7 @@ name: farmOS UI Theme
 description: Install Gin theme and provide overrides for farmOS.
 type: module
 package: farmOS UI
-core_version_requirement: ^9
+core_version_requirement: ^10
 dependencies:
   - drupal:block
   - drupal:layout_discovery

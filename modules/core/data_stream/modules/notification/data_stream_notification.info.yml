@@ -2,7 +2,7 @@ name: farmOS Data Stream Notification
 description: Provides notifications for data streams.
 type: module
 package: farmOS
-core_version_requirement: ^9
+core_version_requirement: ^10
 dependencies:
   - farm:data_stream
   - farm:farm_notification

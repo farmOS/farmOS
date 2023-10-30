@@ -2,7 +2,7 @@ name: farmOS UI Views
 description: Provides default Views of farmOS entities.
 type: module
 package: farmOS UI
-core_version_requirement: ^9
+core_version_requirement: ^10
 dependencies:
   - csv_serialization:csv_serialization
   - date_popup:date_popup

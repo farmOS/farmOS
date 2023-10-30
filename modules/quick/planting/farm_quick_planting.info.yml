@@ -2,7 +2,7 @@ name: Planting Quick Form
 description: Provides a quick form for recording a planting.
 type: module
 package: farmOS Quick Forms
-core_version_requirement: ^9
+core_version_requirement: ^10
 dependencies:
   - farm:farm_plant
   - farm:farm_quick

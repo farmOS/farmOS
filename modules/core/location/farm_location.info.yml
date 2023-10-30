@@ -2,7 +2,7 @@ name: farmOS Location
 description: Provides movement/location tracking for assets via logs.
 type: module
 package: farmOS
-core_version_requirement: ^9
+core_version_requirement: ^10
 dependencies:
   - drupal:views
   - farm:asset

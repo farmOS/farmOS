@@ -2,7 +2,7 @@ name: farmOS Import CSV
 description: Provides CSV import features for farmOS.
 type: module
 package: farmOS
-core_version_requirement: ^9
+core_version_requirement: ^10
 dependencies:
   - drupal:file
   - drupal:taxonomy
