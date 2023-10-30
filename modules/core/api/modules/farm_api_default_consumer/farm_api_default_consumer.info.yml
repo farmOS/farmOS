@@ -1,0 +1,8 @@
+name: farmOS Default API Consumer
+description: Provides a default consumer for using the farmOS API.
+type: module
+package: farmOS
+core_version_requirement: ^10
+dependencies:
+  - farm:farm_api
+  - simple_oauth_password_grant:simple_oauth_password_grant

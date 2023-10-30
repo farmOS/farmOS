@@ -5,7 +5,6 @@
  * Install, update and uninstall functions for the farm_api module.
  */
 
-use Drupal\consumers\Entity\Consumer;
 use Drupal\Core\Utility\Error;
 
 /**
@@ -73,37 +72,6 @@ function farm_api_install() {
     $default_consumer->delete();
   }
 
-  // Create a "Farm default" consumer.
-  $base_url = \Drupal::service('router.request_context')->getCompleteBaseUrl();
-  $farm_consumer = Consumer::create([
-    'label' => 'Farm default',
-    'client_id' => 'farm',
-    'access_token_expiration' => 3600,
-    'redirect' => $base_url,
-    'is_default' => TRUE,
-    'owner_id' => '',
-    'secret' => NULL,
-    'confidential' => FALSE,
-    'third_party' => FALSE,
-  ]);
-  $farm_consumer->save();
-
-}
-
-/**
- * Implements hook_uninstall().
- */
-function farm_api_uninstall() {
-
-  // Load the default farm consumer.
-  $consumers = \Drupal::entityTypeManager()->getStorage('consumer')
-    ->loadByProperties(['client_id' => 'farm']);
-
-  // If found, delete the consumer.
-  if (!empty($consumers)) {
-    $farm_consumer = reset($consumers);
-    $farm_consumer->delete();
-  }
 }
 
 /**

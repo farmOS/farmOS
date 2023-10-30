@@ -38,3 +38,28 @@ function farm_api_post_update_enable_static_oauth2_scopes(&$sandbox = NULL) {
   $simple_oauth_settings->set('scope_provider', 'static');
   $simple_oauth_settings->save();
 }
+
+/**
+ * Enable default consumer module.
+ */
+function farm_api_post_update_enable_default_consumer_module(&$sandbox = NULL) {
+
+  // Check for an existing farm default consumer.
+  $consumers = \Drupal::entityTypeManager()->getStorage('consumer')
+    ->loadByProperties(['client_id' => 'farm']);
+  if (!empty($consumers)) {
+
+    // Enable default consumer module.
+    if (!\Drupal::service('module_handler')->moduleExists('farm_api_default_consumer')) {
+      \Drupal::service('module_installer')->install(['farm_api_default_consumer']);
+    }
+
+    // Update values on the consumer.
+    /** @var \Drupal\consumers\Entity\ConsumerInterface $farm_default */
+    $farm_default = reset($consumers);
+    $farm_default->set('user_id', NULL);
+    $farm_default->set('grant_types', ['password']);
+    $farm_default->save();
+  }
+
+}
