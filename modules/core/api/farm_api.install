@@ -26,6 +26,9 @@ function farm_api_install() {
   $simple_oauth_settings->set('public_key', '../keys/public.key');
   $simple_oauth_settings->set('private_key', '../keys/private.key');
 
+  // Use static scopes by default.
+  $simple_oauth_settings->set('scope_provider', 'static');
+
   // Save simple_oauth settings.
   $simple_oauth_settings->save();
 
