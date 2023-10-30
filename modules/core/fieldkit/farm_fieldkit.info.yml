@@ -6,3 +6,4 @@ core_version_requirement: ^10
 dependencies:
   - entity:entity
   - farm:farm_api
+  - simple_oauth_password_grant:simple_oauth_password_grant
