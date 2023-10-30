@@ -16,6 +16,7 @@ function farm_fieldkit_install() {
   $fk_consumer = Consumer::create([
     'label' => 'Field Kit',
     'client_id' => 'fieldkit',
+    'access_token_expiration' => 3600,
     'redirect' => 'https://farmOS.app',
     'allowed_origins' => 'https://farmos.app',
     'owner_id' => '',

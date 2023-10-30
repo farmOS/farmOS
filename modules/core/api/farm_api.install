@@ -22,9 +22,6 @@ function farm_api_install() {
   // Load the simple_oauth module settings.
   $simple_oauth_settings = \Drupal::configFactory()->getEditable('simple_oauth.settings');
 
-  // Increase access token expiration time to 1 hour.
-  $simple_oauth_settings->set('access_token_expiration', 3600);
-
   // Explicitly set the public/private key path.
   $simple_oauth_settings->set('public_key', '../keys/public.key');
   $simple_oauth_settings->set('private_key', '../keys/private.key');
@@ -78,6 +75,7 @@ function farm_api_install() {
   $farm_consumer = Consumer::create([
     'label' => 'Farm default',
     'client_id' => 'farm',
+    'access_token_expiration' => 3600,
     'redirect' => $base_url,
     'is_default' => TRUE,
     'owner_id' => '',
