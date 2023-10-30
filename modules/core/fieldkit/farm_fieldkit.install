@@ -6,11 +6,20 @@
  */
 
 use Drupal\consumers\Entity\Consumer;
+use Drupal\simple_oauth\Oauth2ScopeInterface;
 
 /**
  * Implements hook_install().
  */
 function farm_fieldkit_install() {
+
+  // Check for default role scopes.
+  /** @var \Drupal\simple_oauth\Oauth2ScopeProviderInterface $scope_provider */
+  $scope_provider = \Drupal::service('simple_oauth.oauth2_scope.provider');
+  $scopes = $scope_provider->loadMultiple(['farm_manager', 'farm_worker']);
+  $scope_ids = array_map(function (Oauth2ScopeInterface $scope) {
+    return $scope->id();
+  }, $scopes);
 
   // Create a consumer for the farmOS Field Kit client.
   $fk_consumer = Consumer::create([
@@ -21,6 +30,7 @@ function farm_fieldkit_install() {
       'refresh_token',
       'password',
     ],
+    'scopes' => array_values($scope_ids),
     'redirect' => 'https://farmOS.app',
     'allowed_origins' => 'https://farmos.app',
     'owner_id' => NULL,
