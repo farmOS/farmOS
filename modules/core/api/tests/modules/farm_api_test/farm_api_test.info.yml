@@ -6,3 +6,4 @@ core_version_requirement: ^10
 dependencies:
   - farm:asset
   - log:log
+  - simple_oauth_password_grant:simple_oauth_password_grant
