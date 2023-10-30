@@ -1,0 +1,36 @@
+farm_manager:
+  description: 'Grants access to the Farm Manager role.'
+  umbrella: false
+  grant_types:
+    authorization_code:
+      status: true
+    client_credentials:
+      status: true
+    refresh_token:
+      status: true
+  granularity: 'role'
+  role: 'farm_manager'
+farm_worker:
+  description: 'Grants access to the Farm Worker role.'
+  umbrella: false
+  grant_types:
+    authorization_code:
+      status: true
+    client_credentials:
+      status: true
+    refresh_token:
+      status: true
+  granularity: 'role'
+  role: 'farm_worker'
+farm_viewer:
+  description: 'Grants access to the Farm Viewer role.'
+  umbrella: false
+  grant_types:
+    authorization_code:
+      status: true
+    client_credentials:
+      status: true
+    refresh_token:
+      status: true
+  granularity: 'role'
+  role: 'farm_viewer'
