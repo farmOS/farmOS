@@ -26,7 +26,7 @@ class OauthPasswordTest extends OauthTestBase {
     'simple_oauth',
     'text',
     'user',
-    'farm_api',
+    'farm_api_default_consumer',
     'farm_login',
   ];
 
