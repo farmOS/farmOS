@@ -42,6 +42,7 @@ class FarmApiTest extends KernelTestBase {
     'jsonapi',
     'jsonapi_extras',
     'log',
+    'options',
     'serialization',
     'simple_oauth',
     'state_machine',
