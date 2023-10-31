@@ -29,6 +29,8 @@ Other notable changes:
 
 - [Material quantities can reference multiple material types](https://www.drupal.org/node/3395697)
 - Log `timestamp` is marked as `required` in JSON Schema
+- Allowed values are declared in JSON Schema `oneOf` / `anyOf` enumerations for
+  more entity attributes.
 
 ## 2.x vs 1.x
 

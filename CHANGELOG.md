@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Issue #3256745: Move default farm OAuth2 client to a separate module](https://www.drupal.org/project/farm/issues/3256745)
 - [Update Simple OAuth module to v6 #743](https://github.com/farmOS/farmOS/pull/743)
 - [Issue #3396419: Make log timestamp required](https://www.drupal.org/project/log/issues/3396419)
+- Patch JSON:API Schema module for [Issue #3397275: Use OptionsProviderInterface::getPossibleOptions() for allowed field values (anyOf / oneOf)](https://www.drupal.org/project/jsonapi_schema/issues/3397275)
 
 ### Fixed
 
