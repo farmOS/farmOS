@@ -53,21 +53,28 @@ for steps to create an OAuth Client.
 
 ### Authorization Flows
 
-The [OAuth 2.0 standards](https://oauth.net/2/) outline 5
-[Oauth2 Grant Types](https://oauth.net/2/grant-types/) to be used in an OAuth2
-Authorization Flow - They are the *Authorization Code, Implicit, Password
-Credentials, Client Credentials* and *Refresh Token* Grants. The
+The [OAuth 2.0 standards](https://oauth.net/2/) outline 3
+[Oauth2 Grant Types](https://oauth.net/2/grant-types/) to be used in an OAuth2 Authorization Flow - They are
+the *Authorization Code, Client Credentials* and *Refresh Token* Grants. The
 [Authorization Code](#authorization-code-grant) and
-[Refresh Token](#refreshing-tokens) grants are the only Authorization Flows
-recommended by farmOS for use with 3rd party clients.
+[Refresh Token](#refreshing-tokens) grants are the only Authorization Flows recommended by
+farmOS for use with 3rd party clients.
 
-**NOTE:** Only use the **Password Grant** if the client can be trusted with a
-farmOS username and password (this is considered *1st party*). The
-**Client Credentials Grant** is often used for machine authentication not
+The **Client Credentials Grant** is often used for machine authentication not
 associated with a user account. The client credentials grant should only be
 used if a `client_secret` can be kept secret. If connecting to multiple
 farmOS servers, each server should use a different secret. This is
 challenging due to the nature of farmOS being a self-hosted application.
+
+The [Password Credentials Grant](#password-credentials-grant) is a legacy
+grant type that is
+[no longer recommended](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-security-topics#section-2.4).
+Only use the Password Credentials Grant if the client can be trusted with a
+farmOS username and password (this is considered *1st party*). Even if the
+client is trusted, this grant type exposes the username and password and
+results in an increased attack surface. In most cases the **Client Credentials
+Grant** can be used with an OAuth client that is configured for each separate
+integration.
 
 #### Authorization Code Grant
 
@@ -106,8 +113,13 @@ resources. The header is an Authorization header with a Bearer token:
 
 #### Password Credentials Grant
 
-**NOTE:** Only use the **Password Grant** if the client can be trusted with a
-farmOS username and password (this is considered *1st party*).
+**NOTE:** The **Password Credentials Grant** is a legacy grant type that is
+[no longer recommended](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-security-topics#section-2.4).
+Only use the **Password Grant** if the client can be trusted with a farmOS
+username and password (this is considered *1st party*).
+
+**NOTE:** The [Simple OAuth Password Grant](https://www.drupal.org/project/simple_oauth_password_grant)
+module must be enabled to use the password grant.
 
 The Password Credentials Grant uses a farmOS `username` and `password` to
 retrieve an `access_token` and `refresh_token` in one step. For the user, this
