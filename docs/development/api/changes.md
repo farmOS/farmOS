@@ -25,6 +25,8 @@ moved to a separate module that is not enabled by default. After the update to
 farmOS 3.x, all access tokens will be invalidated, but refresh tokens will still
 work to get a new access token.
 
+Other notable changes:
+
 - [Material quantities can reference multiple material types](https://www.drupal.org/node/3395697)
 
 ## 2.x vs 1.x
