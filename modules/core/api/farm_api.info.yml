@@ -9,4 +9,5 @@ dependencies:
   - jsonapi_extras:jsonapi_extras
   - jsonapi_schema:jsonapi_schema
   - simple_oauth:simple_oauth
+  - simple_oauth:simple_oauth_static_scope
   - subrequests:subrequests

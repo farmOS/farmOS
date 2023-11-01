@@ -31,43 +31,59 @@ server.
 
 ### Scopes
 
-OAuth Scopes define different levels of permission. The farmOS server
-implements scopes as roles associated with OAuth clients. This means that users
-will authorize clients with roles that determine how much access they have
-to data on the server.
+OAuth Scopes define different levels of access. The farmOS server
+implements scopes that represent individual roles or permissions. Users will
+authorize clients with one or more scopes that determine how much access they
+have to data on the server.
+
+The farmOS Default Roles module provides an OAuth scope for each of the default
+roles: `farm_manager`, `farm_worker`, and `farm_viewer`.
+
+If you are creating an integration with farmOS, see the
+[OAuth](/development/module/oauth) page of the farmOS module development docs
+for steps to create additional OAuth Scopes.
 
 ### Clients
 
 An OAuth Client represents a 1st or 3rd party integration with the farmOS
-server. Clients are uniquely identified by a `client_id` and are
-configured to use different `scopes`.
+server. Clients are uniquely identified by a `client_id` and can have an
+optional `client_secret` for private integrations. Clients are configured to
+allow only specific OAuth grants and can specify default `scopes` that are
+granted when none are requested.
 
-The core `farm_api` module provides a default client with
-`client_id = farm`. If you are writing a script that communicates with *your*
-farmOS server via the API, you should use this client to authorize access and
-generate an `access_token` for authentication.
+The core `farm_api_default_consumer` module provides a default client with
+`client_id = farm` that can use the `password` and `refresh_token` grant. You
+can use this client for general usage of the API, like writing a script that
+communicates with *your* farmOS server, but it comes with limitations.
 
-If you are creating a third party integration with farmOS, see the
+If you are creating an integration with farmOS, see the
 [OAuth](/development/module/oauth) page of the farmOS module development docs
 for steps to create an OAuth Client.
 
 ### Authorization Flows
 
-The [OAuth 2.0 standards](https://oauth.net/2/) outline 5
-[Oauth2 Grant Types](https://oauth.net/2/grant-types/) to be used in an OAuth2
-Authorization Flow - They are the *Authorization Code, Implicit, Password
-Credentials, Client Credentials* and *Refresh Token* Grants. The
+The [OAuth 2.0 standards](https://oauth.net/2/) outline 3
+[Oauth2 Grant Types](https://oauth.net/2/grant-types/) to be used in an OAuth2 Authorization Flow - They are
+the *Authorization Code, Client Credentials* and *Refresh Token* Grants. The
 [Authorization Code](#authorization-code-grant) and
-[Refresh Token](#refreshing-tokens) grants are the only Authorization Flows
-recommended by farmOS for use with 3rd party clients.
+[Refresh Token](#refreshing-tokens) grants are the only Authorization Flows recommended by
+farmOS for use with 3rd party clients.
 
-**NOTE:** Only use the **Password Grant** if the client can be trusted with a
-farmOS username and password (this is considered *1st party*). The
-**Client Credentials Grant** is often used for machine authentication not
+The **Client Credentials Grant** is often used for machine authentication not
 associated with a user account. The client credentials grant should only be
 used if a `client_secret` can be kept secret. If connecting to multiple
 farmOS servers, each server should use a different secret. This is
 challenging due to the nature of farmOS being a self-hosted application.
+
+The [Password Credentials Grant](#password-credentials-grant) is a legacy
+grant type that is
+[no longer recommended](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-security-topics#section-2.4).
+Only use the Password Credentials Grant if the client can be trusted with a
+farmOS username and password (this is considered *1st party*). Even if the
+client is trusted, this grant type exposes the username and password and
+results in an increased attack surface. In most cases the **Client Credentials
+Grant** can be used with an OAuth client that is configured for each separate
+integration.
 
 #### Authorization Code Grant
 
@@ -106,8 +122,13 @@ resources. The header is an Authorization header with a Bearer token:
 
 #### Password Credentials Grant
 
-**NOTE:** Only use the **Password Grant** if the client can be trusted with a
-farmOS username and password (this is considered *1st party*).
+**NOTE:** The **Password Credentials Grant** is a legacy grant type that is
+[no longer recommended](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-security-topics#section-2.4).
+Only use the **Password Grant** if the client can be trusted with a farmOS
+username and password (this is considered *1st party*).
+
+**NOTE:** The [Simple OAuth Password Grant](https://www.drupal.org/project/simple_oauth_password_grant)
+module must be enabled to use the password grant.
 
 The Password Credentials Grant uses a farmOS `username` and `password` to
 retrieve an `access_token` and `refresh_token` in one step. For the user, this

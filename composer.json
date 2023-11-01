@@ -42,7 +42,8 @@
         "drupal/migrate_source_ui": "^1.0",
         "drupal/migrate_tools": "^6.0.2",
         "drupal/role_delegation": "^1.2",
-        "drupal/simple_oauth": "5.2.4",
+        "drupal/simple_oauth": "6.0.0-beta5",
+        "drupal/simple_oauth_password_grant": "^1.0@RC",
         "drupal/state_machine": "1.8",
         "drupal/subrequests": "^3.0.6",
         "drupal/token": "^1.11",
@@ -79,7 +80,8 @@
                 "Issue #3322227: Document schema title wrong for multiple resource types": "https://www.drupal.org/files/issues/2022-11-17/3322227-0.patch"
             },
             "drupal/simple_oauth": {
-                "Issue #3322325: Cannot authorize clients with empty string set as secret": "https://www.drupal.org/files/issues/2022-11-17/3322325-1.patch"
+                "Issue #3322325: Cannot authorize clients with empty string set as secret": "https://www.drupal.org/files/issues/2023-10-31/3322325-8.patch",
+                "Issue #3397590: Add method to check if scope has permission": "https://www.drupal.org/files/issues/2023-10-30/3397590-5_0.patch"
             },
             "drupal/state_machine": {
                 "Issue #3396186: State constraint is not validated on new entities": "https://www.drupal.org/files/issues/2023-10-23/3396186-2.patch"

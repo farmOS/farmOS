@@ -1,9 +1,8 @@
-name: farmOS Field Kit
-description: Allows Field Kit to connect to this farmOS server.
+name: farmOS Default API Consumer
+description: Provides a default consumer for using the farmOS API.
 type: module
 package: farmOS
 core_version_requirement: ^10
 dependencies:
-  - entity:entity
   - farm:farm_api
   - simple_oauth_password_grant:simple_oauth_password_grant

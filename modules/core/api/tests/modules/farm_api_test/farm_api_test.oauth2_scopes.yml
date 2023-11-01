@@ -1,0 +1,12 @@
+test:password:
+  description: 'Static scope for password grant.'
+  umbrella: false
+  grant_types:
+    authorization_code:
+      status: true
+      description: 'Authorization code grant.'
+    password:
+      status: true
+      description: 'Password grant'
+  granularity: 'permission'
+  permission: 'access content'

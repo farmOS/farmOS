@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * @file
+ * Hooks implemented by the Farm Role Roles module.
+ */
+
+/**
+ * Implements hook_oauth2_scope_info_alter().
+ */
+function farm_role_roles_oauth2_scope_info_alter(array &$scopes) {
+
+  // Enable the password grant for static role scopes.
+  if (\Drupal::moduleHandler()->moduleExists('simple_oauth_password_grant')) {
+    $target_scopes = [
+      'farm_manager',
+      'farm_worker',
+      'farm_viewer',
+    ];
+    foreach ($target_scopes as $scope_id) {
+      if (isset($target_scopes[$scope_id])) {
+        $scopes[$scope_id]['grant_types']['password'] = [
+          'status' => TRUE,
+        ];
+      }
+    }
+  }
+}

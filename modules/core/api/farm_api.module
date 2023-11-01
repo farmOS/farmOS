@@ -34,47 +34,8 @@ function farm_api_consumers_list_alter(&$data, $context) {
 function farm_api_entity_base_field_info(EntityTypeInterface $entity_type) {
   $fields = [];
 
-  // Add bundle fields to the consumer entity.
+  // Add allowed_origins field to the consumer entity.
   if ($entity_type->id() == 'consumer') {
-    $fields['grant_user_access'] = BundleFieldDefinition::create('boolean')
-      ->setLabel(t('Grant user access'))
-      ->setDescription(t("Always grant the authorizing user's access to this consumer."))
-      ->setSetting('on_label', t('Yes'))
-      ->setSetting('off_label', t('No'))
-      ->setDisplayOptions('form', [
-        'type' => 'boolean_checkbox',
-        'settings' => [
-          'display_label' => TRUE,
-        ],
-        'weight' => 4,
-      ]);
-
-    $fields['limit_requested_access'] = BundleFieldDefinition::create('boolean')
-      ->setLabel(t('Limit to requested access'))
-      ->setDescription(t('Only grant this consumer the scopes requested during authorization.'))
-      ->setSetting('on_label', t('Yes'))
-      ->setSetting('off_label', t('No'))
-      ->setDisplayOptions('form', [
-        'type' => 'boolean_checkbox',
-        'settings' => [
-          'display_label' => TRUE,
-        ],
-        'weight' => 4,
-      ]);
-
-    $fields['limit_user_access'] = BundleFieldDefinition::create('boolean')
-      ->setLabel(t('Limit to user access'))
-      ->setDescription(t('Never grant this consumer more access than the authorizing user.'))
-      ->setSetting('on_label', t('Yes'))
-      ->setSetting('off_label', t('No'))
-      ->setDisplayOptions('form', [
-        'type' => 'boolean_checkbox',
-        'settings' => [
-          'display_label' => TRUE,
-        ],
-        'weight' => 4,
-      ]);
-
     $fields['allowed_origins'] = BundleFieldDefinition::create('string')
       ->setLabel(t('Allowed origins'))
       ->setDescription(t('Configure CORS origins for this consumer.'))
