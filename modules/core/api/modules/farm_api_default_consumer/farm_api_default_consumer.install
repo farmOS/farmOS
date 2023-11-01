@@ -24,6 +24,8 @@ function farm_api_default_consumer_install() {
       'client_id' => 'farm',
       'access_token_expiration' => 3600,
       'grant_types' => [
+        'authorization_code',
+        'refresh_token',
         'password',
       ],
       'redirect' => $base_url,

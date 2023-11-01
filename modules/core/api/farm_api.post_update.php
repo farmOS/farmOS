@@ -58,7 +58,7 @@ function farm_api_post_update_enable_default_consumer_module(&$sandbox = NULL) {
     /** @var \Drupal\consumers\Entity\ConsumerInterface $farm_default */
     $farm_default = reset($consumers);
     $farm_default->set('user_id', NULL);
-    $farm_default->set('grant_types', ['password']);
+    $farm_default->set('grant_types', ['authorization_code', 'refresh_token', 'password']);
     $farm_default->save();
   }
 
