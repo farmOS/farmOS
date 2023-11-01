@@ -575,7 +575,7 @@ moving forward.
     updating from Drupal 9 to 10 will simply involve updating deprecated code.
 
 [Unreleased]: https://github.com/farmOS/farmOS/compare/2.2.2...HEAD
-[2.2.1]: https://github.com/farmOS/farmOS/releases/tag/2.2.2
+[2.2.2]: https://github.com/farmOS/farmOS/releases/tag/2.2.2
 [2.2.1]: https://github.com/farmOS/farmOS/releases/tag/2.2.1
 [2.2.0]: https://github.com/farmOS/farmOS/releases/tag/2.2.0
 [2.1.3]: https://github.com/farmOS/farmOS/releases/tag/2.1.3
