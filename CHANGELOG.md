@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Issue #3394069: Update quantities to use bundle permission granularity](https://www.drupal.org/node/3394069)
 - [Issue #3357679: Allow material quantities to reference multiple material types](https://www.drupal.org/project/farm/issues/3357679)
 - [Issue #3330490: Update Drupal core to 10.x in farmOS](https://www.drupal.org/project/farm/issues/3330490)
+- [Issue #3256745: Move default farm OAuth2 client to a separate module](https://www.drupal.org/project/farm/issues/3256745)
+- [Update Simple OAuth module to v6 #743](https://github.com/farmOS/farmOS/pull/743)
 
 ### Fixed
 
