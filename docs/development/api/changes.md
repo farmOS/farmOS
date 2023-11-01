@@ -28,6 +28,7 @@ work to get a new access token.
 Other notable changes:
 
 - [Material quantities can reference multiple material types](https://www.drupal.org/node/3395697)
+- Log `timestamp` is marked as `required` in JSON Schema
 
 ## 2.x vs 1.x
 

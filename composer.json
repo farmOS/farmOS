@@ -36,7 +36,7 @@
         "drupal/inspire_tree": "^1.0",
         "drupal/jsonapi_extras": "^3.22",
         "drupal/jsonapi_schema": "1.0-rc1",
-        "drupal/log": "^2.1",
+        "drupal/log": "^2.2",
         "drupal/migrate_plus": "^6.0",
         "drupal/migrate_source_csv": "^3.5",
         "drupal/migrate_source_ui": "^1.0",
