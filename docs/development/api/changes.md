@@ -2,6 +2,29 @@
 
 ## 3.x vs 2.x
 
+The [Simple OAuth](https://www.drupal.org/project/simple_oauth) module has been
+updated to version 6. This includes a few breaking changes which may affect API
+integrations. farmOS includes code to handle the transition of its own OAuth
+clients and scopes, but if you have made any additional clients that used
+special roles they will also need to be updated.
+
+The biggest changes are that the "Implicit" grant type has been
+removed, and the "Password Credentials" grant type has been moved to an optional
+"Simple OAuth Password Grant" module, which must be enabled in order to use that
+grant type.
+
+There have also been changes to how scopes are provided. User roles no longer
+act as scopes by default. Instead, scopes must be created separately to
+reference each role they represent. Scopes can also be associated with
+individual permissions and can reference parent scopes to create
+hierarchical scope trees. farmOS provides `static` scopes for each of the
+default roles: `farm_manager`, `farm_worker` and `farm_viewer`.
+
+The default farmOS client that is included with farmOS has also been
+moved to a separate module that is not enabled by default. After the update to
+farmOS 3.x, all access tokens will be invalidated, but refresh tokens will still
+work to get a new access token.
+
 - [Material quantities can reference multiple material types](https://www.drupal.org/node/3395697)
 
 ## 2.x vs 1.x
