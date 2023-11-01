@@ -7,6 +7,56 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.0-beta1] 2023-11-01
+
+This is the first release of the farmOS 3.x branch, following
+[semantic versioning](https://semver.org/). This means changes have been made which may be
+incompatible with existing integrations. These "breaking" changes are described
+below, with links to specific issues/pull requests for more details.
+
+farmOS v3 updates Drupal to version 10. Drupal 9 is end-of-life as of
+[November 1st, 2023](https://www.drupal.org/docs/understanding-drupal/drupal-9-release-date-and-what-it-means/how-long-will-drupal-9-be-supported).
+If you have built any add-on modules for farmOS, you will need to check that
+they are compatible with Drupal 10, and declare support in your `*.info.yml`
+file by changing `core_version_requirement` from `^9` to `^9 || ^10` (to
+indicate that it works on both versions), or just `^10` (to indicate that it
+only works on Drupal 10). The PHPStan tool that is included with the farmOS
+`3.x-dev` Docker image can be used to perform static analysis of your module
+code to see if there are deprecations that need to be fixed. See
+[farmOS coding standards](https://farmos.org/development/environment/code/) for
+more information.
+
+If you are using PostgreSQL, Drupal 10 requires PostgreSQL version 12 or
+greater, with the `pg_trgm` extension enabled. If you have PostgreSQL 13 or
+greater, the `pg_trgm` extension will be enabled automatically during farmOS
+installation. PostgreSQL 12 users, or users who are updating from farmOS 2.x to
+3.x, will need to enable it manually by running the following query after the
+farmOS database has been created, but before farmOS is installed/updated:
+`CREATE EXTENSION pg_trgm;`
+
+The [Simple OAuth](https://www.drupal.org/project/simple_oauth) module has been
+updated to version 6. This includes a few breaking changes which may affect API
+integrations. farmOS includes code to handle the transition of its own OAuth
+clients and scopes, but if you have made any additional clients that used
+special roles they will also need to be updated. The biggest changes are that
+the "Implicit" grant type has been removed, and the "Password Credentials" grant
+type has been moved to an optional "Simple OAuth Password Grant" module, which
+must be enabled in order to use that grant type. The default farmOS client that
+is included with farmOS has also been moved to a separate module that is not
+enabled by default. After the update to farmOS 3.x, all access tokens will be
+invalidated, but refresh tokens will still work to get a new access token.
+
+farmOS 2.x included code to help migrate data from a farmOS 1.x database. This
+code has been removed from farmOS 3.x If you are still on farmOS 1.x, you will
+need to *migrate* to farmOS 2.x, and then *update* to farmOS 3.x. For more
+information, see
+[Migrating from farmOS v1](https://farmOS.org/hosting/migration/).
+
+Lastly, the following deprecated functions/methods have been removed:
+
+- `farm_log_asset_names_summary()`
+- `QuickFormInterface::getId()`
+
 ### Changed
 
 - [Issue #3382616: Remove v1 migrations from farmOS 3.x](https://www.drupal.org/project/farm/issues/3382616)
@@ -578,7 +628,8 @@ moving forward.
     Drupal 7, which required a complete refactor of the codebase. By comparison,
     updating from Drupal 9 to 10 will simply involve updating deprecated code.
 
-[Unreleased]: https://github.com/farmOS/farmOS/compare/2.2.2...HEAD
+[Unreleased]: https://github.com/farmOS/farmOS/compare/3.0.0-beta1...HEAD
+[3.0.0-beta1]: https://github.com/farmOS/farmOS/releases/tag/3.0.0-beta1
 [2.2.2]: https://github.com/farmOS/farmOS/releases/tag/2.2.2
 [2.2.1]: https://github.com/farmOS/farmOS/releases/tag/2.2.1
 [2.2.0]: https://github.com/farmOS/farmOS/releases/tag/2.2.0
