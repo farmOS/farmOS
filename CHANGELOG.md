@@ -16,6 +16,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Issue #3357679: Allow material quantities to reference multiple material types](https://www.drupal.org/project/farm/issues/3357679)
 - [Issue #3330490: Update Drupal core to 10.x in farmOS](https://www.drupal.org/project/farm/issues/3330490)
 
+### Fixed
+
+- [Issue #3197581: Cache needs to be cleared after setting MapBox API key for the first time](https://www.drupal.org/project/farm/issues/3197581)
+
 ## [2.2.2] 2023-10-25
 
 ### Changed

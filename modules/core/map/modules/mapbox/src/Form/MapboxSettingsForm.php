@@ -57,6 +57,7 @@ class MapboxSettingsForm extends ConfigFormbase {
     $this->configFactory->getEditable(static::SETTINGS)
       ->set('api_key', $form_state->getValue('api_key'))
       ->save();
+    drupal_flush_all_caches();
 
     parent::submitForm($form, $form_state);
   }
