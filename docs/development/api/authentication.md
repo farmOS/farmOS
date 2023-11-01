@@ -31,23 +31,32 @@ server.
 
 ### Scopes
 
-OAuth Scopes define different levels of permission. The farmOS server
-implements scopes as roles associated with OAuth clients. This means that users
-will authorize clients with roles that determine how much access they have
-to data on the server.
+OAuth Scopes define different levels of access. The farmOS server
+implements scopes that represent individual roles or permissions. Users will
+authorize clients with one or more scopes that determine how much access they
+have to data on the server.
+
+The farmOS Default Roles module provides an OAuth scope for each of the default
+roles: `farm_manager`, `farm_worker`, and `farm_viewer`.
+
+If you are creating an integration with farmOS, see the
+[OAuth](/development/module/oauth) page of the farmOS module development docs
+for steps to create additional OAuth Scopes.
 
 ### Clients
 
 An OAuth Client represents a 1st or 3rd party integration with the farmOS
-server. Clients are uniquely identified by a `client_id` and are
-configured to use different `scopes`.
+server. Clients are uniquely identified by a `client_id` and can have an
+optional `client_secret` for private integrations. Clients are configured to
+allow only specific OAuth grants and can specify default `scopes` that are
+granted when none are requested.
 
-The core `farm_api` module provides a default client with
-`client_id = farm`. If you are writing a script that communicates with *your*
-farmOS server via the API, you should use this client to authorize access and
-generate an `access_token` for authentication.
+The core `farm_api_default_consumer` module provides a default client with
+`client_id = farm` that can use the `password` and `refresh_token` grant. You
+can use this client for general usage of the API, like writing a script that
+communicates with *your* farmOS server, but it comes with limitations.
 
-If you are creating a third party integration with farmOS, see the
+If you are creating an integration with farmOS, see the
 [OAuth](/development/module/oauth) page of the farmOS module development docs
 for steps to create an OAuth Client.
 
