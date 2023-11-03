@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - [Update csv_serialization dependency to ^4.0 #745](https://github.com/farmOS/farmOS/pull/745)
+- [Fix warning message when rendering link to birth log #746](https://github.com/farmOS/farmOS/pull/746)
 
 ## [3.0.0-beta1] 2023-11-01
 
