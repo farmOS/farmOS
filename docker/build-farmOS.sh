@@ -26,17 +26,17 @@ export COMPOSER_HOME="$(mktemp -d)"
 # Add the farmOS repository to composer.json.
 composer config repositories.farmos git ${FARMOS_REPO}
 
-# Require the correct farmOS version in composer.json. Defaults to 3.x.
-# If FARMOS_VERSION is not a valid semantic versioning string, we assume that
-# it is a branch, and prepend it with "dev-".
-# Otherwise FARMOS_VERSION is a valid semantic versioning string. We assume
-# that it is a tagged version and require that version.
+# Require the correct farmOS version in composer.json.
+# If FARMOS_VERSION is 3.x, we will require 3.x-dev.
 if [ "${FARMOS_VERSION}" = "3.x" ]; then
   FARMOS_COMPOSER_VERSION="3.x-dev"
-elif [[ ! "${FARMOS_VERSION}" =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-((0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*))*))?(\+([0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*))?$ ]]; then
-  FARMOS_COMPOSER_VERSION="dev-${FARMOS_VERSION}"
-else
+# Or, if FARMOS_VERSION is a valid semantic versioning string, we assume that it
+# is a tagged version and require that version.
+elif [[ "${FARMOS_VERSION}" =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-((0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*))*))?(\+([0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*))?$ ]]; then
   FARMOS_COMPOSER_VERSION="${FARMOS_VERSION}"
+# Otherwise, we assume that FARMOS_VERSION is a branch, and prepend "dev-".
+else
+  FARMOS_COMPOSER_VERSION="dev-${FARMOS_VERSION}"
 fi
 composer require farmos/farmos ${FARMOS_COMPOSER_VERSION} --no-install
 
