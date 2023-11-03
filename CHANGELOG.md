@@ -7,8 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.0-beta2] 2023-11-03
+
 ### Fixed
 
+- Fixed 3.0.0-betaX tagged release packaging of tarballs and Docker images.
 - [Update csv_serialization dependency to ^4.0 #745](https://github.com/farmOS/farmOS/pull/745)
 - [Fix warning message when rendering link to birth log #746](https://github.com/farmOS/farmOS/pull/746)
 
@@ -633,7 +636,8 @@ moving forward.
     Drupal 7, which required a complete refactor of the codebase. By comparison,
     updating from Drupal 9 to 10 will simply involve updating deprecated code.
 
-[Unreleased]: https://github.com/farmOS/farmOS/compare/3.0.0-beta1...HEAD
+[Unreleased]: https://github.com/farmOS/farmOS/compare/3.0.0-beta2...HEAD
+[3.0.0-beta2]: https://github.com/farmOS/farmOS/releases/tag/3.0.0-beta2
 [3.0.0-beta1]: https://github.com/farmOS/farmOS/releases/tag/3.0.0-beta1
 [2.2.2]: https://github.com/farmOS/farmOS/releases/tag/2.2.2
 [2.2.1]: https://github.com/farmOS/farmOS/releases/tag/2.2.1
