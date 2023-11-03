@@ -35,6 +35,8 @@ if [ "${FARMOS_VERSION}" = "3.x" ]; then
   FARMOS_COMPOSER_VERSION="3.x-dev"
 elif [[ ! "${FARMOS_VERSION}" =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-((0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*))*))?(\+([0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*))?$ ]]; then
   FARMOS_COMPOSER_VERSION="dev-${FARMOS_VERSION}"
+else
+  FARMOS_COMPOSER_VERSION="${FARMOS_VERSION}"
 fi
 composer require farmos/farmos ${FARMOS_COMPOSER_VERSION} --no-install
 
