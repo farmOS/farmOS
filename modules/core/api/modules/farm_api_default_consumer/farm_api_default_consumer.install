@@ -30,7 +30,6 @@ function farm_api_default_consumer_install() {
       ],
       'redirect' => $base_url,
       'is_default' => TRUE,
-      'owner_id' => NULL,
       'secret' => NULL,
       'confidential' => FALSE,
       'third_party' => FALSE,

@@ -31,7 +31,6 @@ function farm_fieldkit_post_update_enable_password_grant(&$sandbox = NULL) {
   if (!empty($consumers)) {
     /** @var \Drupal\consumers\Entity\ConsumerInterface $fieldkit */
     $fieldkit = reset($consumers);
-    $fieldkit->set('user_id', NULL);
     $fieldkit->set('grant_types', ['refresh_token', 'password']);
     $fieldkit->set('scopes', array_values($scope_ids));
     $fieldkit->save();

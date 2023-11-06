@@ -33,7 +33,6 @@ function farm_fieldkit_install() {
     'scopes' => array_values($scope_ids),
     'redirect' => 'https://farmOS.app',
     'allowed_origins' => 'https://farmos.app',
-    'owner_id' => NULL,
     'secret' => NULL,
     'confidential' => FALSE,
     'third_party' => FALSE,
