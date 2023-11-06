@@ -92,7 +92,7 @@ change the metadata (eg: `name`, `description`, `homepage`, etc).
 
 ### Building the codebase
 
-To build you farmOS project's codebase, run the following command:
+To build your farmOS project's codebase, run the following command:
 
     composer install --no-dev
 
