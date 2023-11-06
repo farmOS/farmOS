@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="farmOS">
+  <description>PHP CodeSniffer configuration for farmOS development.</description>
+  <file>.</file>
+  <arg name="extensions" value="php,module,inc,install,test,profile,theme,css,info,txt,yml"/>
+  <config name="drupal_core_version" value="10"/>
+  <rule ref="Drupal">
+    <exclude name="Drupal.InfoFiles.AutoAddedKeys.Project"/>
+    <exclude name="Drupal.InfoFiles.AutoAddedKeys.Version"/>
+    <exclude name="Drupal.Arrays.Array.LongLineDeclaration"/>
+    # @todo https://www.drupal.org/project/coder/issues/2159253
+    <exclude name="Drupal.Commenting.InlineComment.SpacingAfter"/>
+  </rule>
+  <rule ref="DrupalPractice">
+    # @todo https://www.drupal.org/project/coder/issues/2159253
+    <exclude name="DrupalPractice.Commenting.CommentEmptyLine.SpacingAfter"/>
+  </rule>
+  <rule ref="PHPCompatibility"/>
+  <config name="testVersion" value="8.2-"/>
+  <rule ref="Internal.Tokenizer.Exception"><severity>0</severity></rule>
+</ruleset>

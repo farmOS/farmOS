@@ -1,4 +1,23 @@
-# Inherit from the Drupal 10 image on Docker Hub.
+# Use the official Drupal 10 image to build GEOS PHP extension.
+FROM drupal:10.1 as php-dependencies
+
+# Build and install the GEOS PHP extension.
+# See https://git.osgeo.org/gitea/geos/php-geos
+ARG PHP_GEOS_VERSION=e77d5a16abbf89a59d947d1fe49381a944762c9d
+ADD https://github.com/libgeos/php-geos/archive/${PHP_GEOS_VERSION}.tar.gz /opt/php-geos.tar.gz
+RUN apt-get update && apt-get install -y libgeos-dev \
+  && ( tar xzf /opt/php-geos.tar.gz -C /opt/ \
+    && cd /opt/php-geos-${PHP_GEOS_VERSION} \
+    && ./autogen.sh \
+    && ./configure \
+    && make \
+    && make install \
+    )
+
+# Install the BCMath PHP extension.
+RUN docker-php-ext-install bcmath
+
+# Inherit from the official Drupal 10 image.
 FROM drupal:10.1
 
 # Set the farmOS and composer project repository URLs and versions.
@@ -10,61 +29,23 @@ ARG PROJECT_VERSION=3.x
 # Set Apache ServerName directive globally to suppress AH00558 message.
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
-# Install the BCMath PHP extension.
-RUN docker-php-ext-install bcmath
+# Install and enable geos.
+COPY --from=php-dependencies /usr/local/lib/php/extensions/ /usr/local/lib/php/extensions/
+RUN docker-php-ext-enable geos bcmath
 
-# Install git and unzip (needed to build PHP GEOS and needed by Composer).
-RUN apt-get update \
-  && apt-get install -y git unzip
+# Add custom PHP configurations.
+COPY conf.d/ /usr/local/etc/php/conf.d
 
-# Build and install the GEOS PHP extension.
-# See https://git.osgeo.org/gitea/geos/php-geos
-RUN apt-get update && apt-get install -y libgeos-dev \
-  && git clone https://github.com/libgeos/php-geos.git \
-  && ( \
-    cd php-geos \
-    # Checkout latest commit with PHP 8 support.
-    && git checkout e77d5a16abbf89a59d947d1fe49381a944762c9d \
-    && ./autogen.sh \
-    && ./configure \
-    && make \
-    && make install \
-  ) \
-  && rm -r php-geos \
-  && docker-php-ext-enable geos
-
-# Set recommended PHP settings for farmOS.
-# See https://farmos.org/hosting/installing/#requirements
-RUN { \
-    echo 'memory_limit=256M'; \
-    echo 'max_execution_time=240'; \
-    echo 'max_input_time=240'; \
-    echo 'max_input_vars=5000'; \
-    echo 'post_max_size=100M'; \
-    echo 'upload_max_filesize=100M'; \
-    echo 'expose_php=Off'; \
-  } > /usr/local/etc/php/conf.d/farmOS-recommended.ini
-
-# Set recommended realpath_cache settings.
-# See https://www.drupal.org/docs/7/managing-site-performance/tuning-phpini-for-drupal
-RUN { \
-    echo 'realpath_cache_size=4096K'; \
-    echo 'realpath_cache_ttl=3600'; \
-  } > /usr/local/etc/php/conf.d/realpath_cache-recommended.ini
-
-# Set recommended OPcache for maximum performance in Symfony applications.
-# See https://symfony.com/doc/current/performance.html#configure-opcache-for-maximum-performance
-# @todo
-# Remove this when https://github.com/docker-library/drupal/pull/156 is merged.
-RUN sed -i 's|opcache.memory_consumption=128|opcache.memory_consumption=256|g' /usr/local/etc/php/conf.d/opcache-recommended.ini \
-  && sed -i 's|opcache.max_accelerated_files=4000|opcache.max_accelerated_files=20000|g' /usr/local/etc/php/conf.d/opcache-recommended.ini
-
-# Install postgresql-client so Drush can connect to the database.
-RUN apt-get update \
-  # See https://stackoverflow.com/questions/51033689/how-to-fix-error-on-postgres-install-ubuntu
-  && mkdir -p /usr/share/man/man1 \
-  && mkdir -p /usr/share/man/man7 \
-  && apt-get install -y postgresql-client
+# Install apt dependencies.
+RUN apt-get update && apt-get install -y \
+    # Install git and unzip (needed by Composer).
+    git unzip \
+    # Install postgresql-client so Drush can connect to the database.
+    postgresql-client \
+    # Install libgeos-c1v5 so geos php extension can use libgeos_c.so.1.
+    libgeos-c1v5 \
+  && rm -rf /var/lib/apt/lists/* \
+  && apt-get clean
 
 # Set the COMPOSER_MEMORY_LIMIT environment variable to unlimited.
 ENV COMPOSER_MEMORY_LIMIT=-1
@@ -82,6 +63,5 @@ RUN mkdir /var/farmOS \
 
 # Set the entrypoint.
 COPY docker-entrypoint.sh /usr/local/bin/
-RUN chmod u+x /usr/local/bin/docker-entrypoint.sh
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["apache2-foreground"]
